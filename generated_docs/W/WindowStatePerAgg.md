@@ -51,7 +51,7 @@ The underlying WindowStatePerAggData structure contains:
   - [advance_windowaggregate](../a/advance_windowaggregate.md)
   - [finalize_windowaggregate](../f/finalize_windowaggregate.md)
   - [eval_windowaggregates](../e/eval_windowaggregates.md)
-  - initialize_peragg
+  - [initialize_peragg](../i/initialize_peragg.md)
   - [ExecInitWindowAgg](../E/ExecInitWindowAgg.md)
 
 ## Notes and Other Information

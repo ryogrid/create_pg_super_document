@@ -27,7 +27,7 @@ The function is designed to be used with PostgreSQL's list_sort function to arra
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_length: Gets the number of elements in a list
+  - [list_length](../l/list_length.md): Gets the number of elements in a list
   - lfirst: Extracts the datum from a ListCell
   - [pg_cmp_s32](../p/pg_cmp_s32.md): PostgreSQL's 32-bit integer comparison function
 - Called from:

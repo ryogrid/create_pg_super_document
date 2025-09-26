@@ -48,7 +48,7 @@ The function performs several key operations:
   - [dlist_delete](../d/dlist_delete.md)
   - [ReorderBufferChangeSize](ReorderBufferChangeSize.md)
   - [ReorderBufferReturnChange](ReorderBufferReturnChange.md)
-  - ReorderBufferChangeMemoryUpdate
+  - [ReorderBufferChangeMemoryUpdate](ReorderBufferChangeMemoryUpdate.md)
   - rbtxn_is_toptxn
   - [hash_destroy](../h/hash_destroy.md)
   - rbtxn_is_serialized

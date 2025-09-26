@@ -30,16 +30,16 @@ Join serves as the abstract base structure for all join plan node types in Postg
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Plan (base structure)
+  - [Plan](../P/Plan.md) (base structure)
   - JoinType (join type enumeration)
-  - List (container type)
+  - [List](../L/List.md) (container type)
 - Called from (representative examples):
-  - NestLoop (inherits from Join)
-  - MergeJoin (inherits from Join)
-  - HashJoin (inherits from Join)
-  - ExplainNode (EXPLAIN output)
-  - set_join_references (plan reference fixing)
-  - finalize_plan (plan finalization)
+  - [NestLoop](../N/NestLoop.md) (inherits from Join)
+  - [MergeJoin](../M/MergeJoin.md) (inherits from Join)
+  - [HashJoin](../H/HashJoin.md) (inherits from Join)
+  - [ExplainNode](../E/ExplainNode.md) (EXPLAIN output)
+  - [set_join_references](../s/set_join_references.md) (plan reference fixing)
+  - [finalize_plan](../f/finalize_plan.md) (plan finalization)
 
 ## Notes and Other Information
 - Abstract base class - never instantiated directly, only through concrete subclasses
@@ -51,4 +51,4 @@ Join serves as the abstract base structure for all join plan node types in Postg
 - Only joinquals can be used as merge or hash conditions in specialized join algorithms
 - The pg_node_attr(abstract) annotation prevents direct instantiation
 - All concrete join implementations (NestLoop, MergeJoin, HashJoin) inherit this structure
-- Join qualification expressions are typically equality conditions but can be more complex
+- [Join](Join.md) qualification expressions are typically equality conditions but can be more complex

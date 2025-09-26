@@ -34,7 +34,7 @@ The function implements multiple safety mechanisms including detection of alread
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReadNextTransactionId
+  - [ReadNextTransactionId](../R/ReadNextTransactionId.md)
   - [table_beginscan_catalog](../t/table_beginscan_catalog.md)
   - [heap_getnext](../h/heap_getnext.md)
   - TransactionIdIsNormal

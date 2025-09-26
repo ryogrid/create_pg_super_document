@@ -30,7 +30,7 @@ After recording the abort, it marks the transaction tree as aborted in clog and,
   - [TransactionIdDidCommit](../T/TransactionIdDidCommit.md) (verify transaction not already committed)
   - [smgrGetPendingDeletes](../s/smgrGetPendingDeletes.md) (fetch pending file deletions)
   - [xactGetCommittedChildren](../x/xactGetCommittedChildren.md) (retrieve committed child transactions)
-  - pgstat_get_transactional_drops (get dropped statistics)
+  - [pgstat_get_transactional_drops](../p/pgstat_get_transactional_drops.md) (get dropped statistics)
   - [XactLogAbortRecord](../X/XactLogAbortRecord.md) (write abort record to WAL)
   - [TransactionIdAbortTree](../T/TransactionIdAbortTree.md) (mark transaction tree as aborted in clog)
   - [TransactionIdLatest](../T/TransactionIdLatest.md) (compute latest XID in transaction tree)

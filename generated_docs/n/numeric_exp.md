@@ -36,7 +36,7 @@ The implementation converts the input to a double for scale estimation while usi
   - PG_RETURN_NUMERIC: Return numeric result
 - Called from (representative examples):
   - SQL exp() function calls
-  - Numeric exponential expressions
+  - [Numeric](../N/Numeric.md) exponential expressions
 
 ## Notes and Other Information
 - Returns zero for negative infinity inputs per POSIX specification

@@ -25,20 +25,20 @@ pltcl_set_tuple_values extracts all column values from a PostgreSQL tuple and cr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - heap_getattr
-  - getTypeOutputInfo
-  - OidOutputFunctionCall
+  - [heap_getattr](../h/heap_getattr.md)
+  - [getTypeOutputInfo](../g/getTypeOutputInfo.md)
+  - [OidOutputFunctionCall](../O/OidOutputFunctionCall.md)
   - TupleDescAttr
   - UTF_E2U (encoding conversion)
-  - pstrdup
-  - pfree
+  - [pstrdup](pstrdup.md)
+  - [pfree](pfree.md)
   - unconstify
   - Tcl_SetVar2Ex
   - Tcl_UnsetVar2
   - Tcl_NewStringObj
   - Tcl_NewWideIntObj
 - Called from (representative examples):
-  - pltcl_process_SPI_result (multiple times)
+  - [pltcl_process_SPI_result](pltcl_process_SPI_result.md) (multiple times)
 
 ## Notes and Other Information
 - Assumes arrayname parameter is in UTF-8 encoding (typically from Tcl)

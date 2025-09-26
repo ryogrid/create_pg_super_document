@@ -33,7 +33,7 @@ The function guarantees that on successful return, at least one new character is
   - [CopyConvertBuf](CopyConvertBuf.md)
   - [CopyConversionError](CopyConversionError.md)  
   - [CopyLoadRawBuf](CopyLoadRawBuf.md)
-  - CopyFromState
+  - [CopyFromState](CopyFromState.md)
 - Called from (representative examples):
   - NO_END_OF_COPY_GOTO
   - [CopyReadLineText](CopyReadLineText.md)

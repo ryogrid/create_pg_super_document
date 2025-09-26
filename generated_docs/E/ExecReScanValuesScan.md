@@ -21,7 +21,7 @@ This function ensures that subsequent calls to the scan will start from the begi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecClearTuple
+  - [ExecClearTuple](ExecClearTuple.md)
   - [ExecScanReScan](ExecScanReScan.md)
 - Called from:
   - [ExecReScan](ExecReScan.md)

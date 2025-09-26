@@ -25,7 +25,7 @@ This function constructs the essential column mapping infrastructure needed for 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeVar (creates Var nodes for column references)
+  - [makeVar](makeVar.md) (creates Var nodes for column references)
   - [SearchSysCacheAttName](../S/SearchSysCacheAttName.md) (looks up attributes by name)
   - RelationGetDescr (gets relation tuple descriptor)
   - TupleDescAttr (accesses tuple descriptor attributes)

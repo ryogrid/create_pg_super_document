@@ -27,7 +27,7 @@ The check is described as "imperfect" because memory allocations can occur witho
 ## Dependencies
 - Functions called/Symbols referenced:
   - [AggState](../A/AggState.md)
-  - MemoryContextMemAllocated
+  - [MemoryContextMemAllocated](../M/MemoryContextMemAllocated.md)
   - [hash_agg_enter_spill_mode](hash_agg_enter_spill_mode.md)
 - Called from (representative examples):
   - [initialize_hash_entry](../i/initialize_hash_entry.md)

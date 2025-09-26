@@ -28,7 +28,7 @@ The function ensures that all necessary sorting operators are available and prop
   - [multi_sort_init](../m/multi_sort_init.md)
   - [lookup_type_cache](../l/lookup_type_cache.md)
   - [multi_sort_add_dimension](../m/multi_sort_add_dimension.md)
-  - VacAttrStats, StatsBuildData, MultiSortSupport
+  - [VacAttrStats](../V/VacAttrStats.md), StatsBuildData, MultiSortSupport
   - TYPECACHE_LT_OPR
 - Called from (representative examples):
   - [statext_mcv_build](../s/statext_mcv_build.md)

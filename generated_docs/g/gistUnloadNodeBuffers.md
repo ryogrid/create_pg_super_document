@@ -22,7 +22,7 @@ This function orchestrates the unloading of all node buffers that currently have
 - Functions called/Symbols referenced:
   - [gistUnloadNodeBuffer](gistUnloadNodeBuffer.md)
 - Called from (representative examples):
-  - gistProcessEmptyingQueue
+  - [gistProcessEmptyingQueue](gistProcessEmptyingQueue.md)
 
 ## Notes and Other Information
 - This is a public function (not static) used by the GiST build process

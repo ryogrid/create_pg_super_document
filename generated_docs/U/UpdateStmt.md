@@ -34,17 +34,17 @@ UpdateStmt is a parse tree node that represents an UPDATE statement after SQL pa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RangeVar
-  - WithClause
+  - [RangeVar](../R/RangeVar.md)
+  - [WithClause](../W/WithClause.md)
 - Called from (representative examples):
-  - transformStmt
-  - transformUpdateStmt
-  - raw_expression_tree_walker_impl
-  - transformWithClause
-  - makeDependencyGraphWalker
+  - [transformStmt](../t/transformStmt.md)
+  - [transformUpdateStmt](../t/transformUpdateStmt.md)
+  - [raw_expression_tree_walker_impl](../r/raw_expression_tree_walker_impl.md)
+  - [transformWithClause](../t/transformWithClause.md)
+  - [makeDependencyGraphWalker](../m/makeDependencyGraphWalker.md)
 
 ## Notes and Other Information
-- UpdateStmt is part of the parse tree node hierarchy and inherits from the base Node structure
+- [UpdateStmt](UpdateStmt.md) is part of the parse tree node hierarchy and inherits from the base Node structure
 - The targetList contains ResTarget nodes that specify column assignments (column = new_value)
 - FROM clause enables complex updates involving joins with other tables
 - RETURNING clause allows retrieving values from updated rows, useful for triggers and application logic

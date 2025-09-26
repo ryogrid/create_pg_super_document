@@ -22,11 +22,11 @@ During replay, the function reads the buffer specified in the WAL record, checks
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogReadBufferForRedo
+  - [XLogReadBufferForRedo](../X/XLogReadBufferForRedo.md)
   - [BufferGetPage](../B/BufferGetPage.md)
   - HashPageGetOpaque
   - [PageSetLSN](../P/PageSetLSN.md)
-  - MarkBufferDirty
+  - [MarkBufferDirty](../M/MarkBufferDirty.md)
   - [BufferIsValid](../B/BufferIsValid.md)
   - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
 - Types referenced:

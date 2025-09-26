@@ -26,9 +26,9 @@ OperatorElement serves as a fundamental building block in PostgreSQL's tsquery p
 - Functions called/Symbols referenced:
   - int8 (PostgreSQL integer type)
 - Called from (representative examples):
-  - pushOpStack
-  - cleanOpStack  
-  - makepol
+  - [pushOpStack](../p/pushOpStack.md)
+  - [cleanOpStack](../c/cleanOpStack.md)  
+  - [makepol](../m/makepol.md)
 
 ## Notes and Other Information
 The compact design of OperatorElement (only 3 bytes total) makes it efficient for stack operations during parsing. The structure is primarily used in conjunction with operator stack management functions to handle operator precedence and associativity rules during tsquery parsing. The distance field supports PostgreSQL's proximity search capabilities, allowing users to specify how close terms should be to each other in the document. This structure is typically instantiated temporarily during parsing and does not persist beyond the parsing phase.

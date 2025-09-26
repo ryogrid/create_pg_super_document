@@ -26,9 +26,9 @@ This function provides a consistent way to create integer values throughout the 
 - Functions called/Symbols referenced:
   - PGBT_INT (enum constant for integer value type)
 - Called from (representative examples):
-  - makeVariableValue (when creating integer variable values)
-  - putVariableInt (when setting variable to integer value)
-  - evalStandardFunc (for arithmetic operations and mathematical functions)
+  - [makeVariableValue](../m/makeVariableValue.md) (when creating integer variable values)
+  - [putVariableInt](../p/putVariableInt.md) (when setting variable to integer value)
+  - [evalStandardFunc](../e/evalStandardFunc.md) (for arithmetic operations and mathematical functions)
 
 ## Notes and Other Information
 - This is a static function within pgbench.c, used internally for expression evaluation

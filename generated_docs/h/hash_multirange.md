@@ -33,7 +33,7 @@ The function first validates that hash functions are available for the element t
   - [lookup_type_cache](../l/lookup_type_cache.md) - Look up type cache information
   - [multirange_get_bounds](../m/multirange_get_bounds.md) - Extract bounds from a specific range
   - [FunctionCall1Coll](../F/FunctionCall1Coll.md) - Call element hash function with collation
-  - [hash_uint32](hash_uint32.md) - Hash the range flags
+  - [hash_uint32](hash_uint32.md) - [Hash](../H/Hash.md) the range flags
   - [pg_rotate_left32](../p/pg_rotate_left32.md) - Rotate hash bits for better distribution
   - RANGE_HAS_LBOUND/RANGE_HAS_UBOUND - Check bound existence
   - [DatumGetUInt32](../D/DatumGetUInt32.md) - Convert Datum to uint32

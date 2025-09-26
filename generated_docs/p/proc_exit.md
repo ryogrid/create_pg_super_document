@@ -28,7 +28,7 @@ proc_exit serves as the central exit point for PostgreSQL processes, implementin
   - [PostgresMain](../P/PostgresMain.md) (main backend process)
   - [AutoVacWorkerMain](../A/AutoVacWorkerMain.md) (autovacuum worker)
   - [WalReceiverMain](../W/WalReceiverMain.md) (WAL receiver process)
-  - ProcessInterrupts (interrupt handling)
+  - [ProcessInterrupts](../P/ProcessInterrupts.md) (interrupt handling)
   - [errfinish](../e/errfinish.md) (error handling)
 
 ## Notes and Other Information

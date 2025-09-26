@@ -25,17 +25,17 @@ The execution uses default parsing mode (RAW_PARSE_DEFAULT) and enables parallel
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _SPI_plan (struct type for execution plans)
+  - [_SPI_plan](_SPI_plan.md) (struct type for execution plans)
   - [SPIExecuteOptions](SPIExecuteOptions.md) (struct type for execution options)
   - SPI_ERROR_ARGUMENT (error code constant)
-  - _SPI_begin_call (function to start SPI call context)
+  - [_SPI_begin_call](_SPI_begin_call.md) (function to start SPI call context)
   - _SPI_PLAN_MAGIC (magic number for plan validation)
   - RAW_PARSE_DEFAULT (parsing mode constant)
   - CURSOR_OPT_PARALLEL_OK (cursor option constant)
   - [_SPI_prepare_oneshot_plan](_SPI_prepare_oneshot_plan.md) (function to prepare temporary plan)
   - [_SPI_execute_plan](_SPI_execute_plan.md) (function to execute prepared plan)
   - InvalidSnapshot (snapshot constant)
-  - _SPI_end_call (function to end SPI call context)
+  - [_SPI_end_call](_SPI_end_call.md) (function to end SPI call context)
 
 - Called from (representative examples):
   - [refresh_by_match_merge](../r/refresh_by_match_merge.md) (src/backend/commands/matview.c:653)

@@ -30,9 +30,9 @@ The function initializes the ACL as a one-dimensional array with no null values,
   - ACLITEMOID (OID constant for AclItem type)
   - elog (error logging function)
 - Called from (representative examples):
-  - make_empty_acl (creates empty ACLs)
-  - aclcopy (duplicates existing ACLs)
-  - aclconcat (combines multiple ACLs)
+  - [make_empty_acl](../m/make_empty_acl.md) (creates empty ACLs)
+  - [aclcopy](aclcopy.md) (duplicates existing ACLs)
+  - [aclconcat](aclconcat.md) (combines multiple ACLs)
   - [acldefault](acldefault.md) (creates default ACLs)
   - [aclupdate](aclupdate.md) (modifies existing ACLs)
   - [aclnewowner](aclnewowner.md) (updates ACL ownership)

@@ -33,7 +33,7 @@ This function serves as a debugging helper that produces comprehensive diagnosti
 - Called from (representative examples):
   - [CheckForBufferLeaks](../C/CheckForBufferLeaks.md)
   - [ResOwnerPrintBufferPin](../R/ResOwnerPrintBufferPin.md)
-  - CheckForLocalBufferLeaks
+  - [CheckForLocalBufferLeaks](../C/CheckForLocalBufferLeaks.md)
 
 ## Notes and Other Information
 - Returns a dynamically allocated string that must be freed by the caller using pfree()

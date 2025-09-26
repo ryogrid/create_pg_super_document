@@ -35,7 +35,7 @@ If no suitable name can be determined, the function returns the default PostgreS
 - Called from (representative examples):
   - [transformTargetEntry](../t/transformTargetEntry.md)
   - [transformRangeFunction](../t/transformRangeFunction.md)
-  - transformXmlExpr
+  - [transformXmlExpr](../t/transformXmlExpr.md)
 
 ## Notes and Other Information
 - This function works on untransformed parse trees, which is more convenient than working with transformed expressions

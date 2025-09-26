@@ -23,16 +23,16 @@ The function implements the key difference between SHA-224 and SHA-256: while bo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SHA256_Last
+  - [SHA256_Last](../S/SHA256_Last.md)
   - REVERSE32 (on little-endian systems)
   - memcpy
   - memset
 - Constants referenced:
   - PG_SHA224_DIGEST_LENGTH (28 bytes)
 - Types referenced:
-  - pg_sha224_ctx
+  - [pg_sha224_ctx](pg_sha224_ctx.md)
 - Called from (representative examples):
-  - pg_cryptohash_final (in cryptohash.c)
+  - [pg_cryptohash_final](pg_cryptohash_final.md) (in cryptohash.c)
 
 ## Notes and Other Information
 - If  parameter is NULL, the function skips hash extraction but still performs cleanup

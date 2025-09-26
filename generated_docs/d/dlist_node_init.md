@@ -25,7 +25,7 @@ The  function initializes a doubly-linked list node by setting both its  and  po
   - [MarkAsPreparingGuts](../M/MarkAsPreparingGuts.md) (src/backend/access/transam/twophase.c:446)
   - [InitPredicateLocks](../I/InitPredicateLocks.md) (src/backend/storage/lmgr/predicate.c:1264)
   - [GetSerializableTransactionSnapshotInt](../G/GetSerializableTransactionSnapshotInt.md) (src/backend/storage/lmgr/predicate.c:1855)
-  - InitProcess (src/backend/storage/lmgr/proc.c:384)
+  - [InitProcess](../I/InitProcess.md) (src/backend/storage/lmgr/proc.c:384)
   - [InitAuxiliaryProcess](../I/InitAuxiliaryProcess.md) (src/backend/storage/lmgr/proc.c:582)
 
 ## Notes and Other Information

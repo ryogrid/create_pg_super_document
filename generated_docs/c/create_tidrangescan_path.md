@@ -28,7 +28,7 @@ The function follows the same initialization pattern as other scan path creators
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (creates new TidRangePath node)
-  - get_baserel_parampathinfo (gets parameterization info for the path)
+  - [get_baserel_parampathinfo](../g/get_baserel_parampathinfo.md) (gets parameterization info for the path)
   - [cost_tidrangescan](cost_tidrangescan.md) (calculates startup and total execution costs for range scanning)
 - Called from (representative examples):
   - [create_tidscan_paths](create_tidscan_paths.md) (when generating TID-based scan alternatives including range scans)

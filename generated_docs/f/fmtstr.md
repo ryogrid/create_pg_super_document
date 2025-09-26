@@ -29,16 +29,16 @@ The function first determines the actual length of the string to be printed, res
 ## Dependencies
 - Functions called/Symbols referenced:
   - PrintfTarget (struct type for output destination)
-  - strnlen (standard C library function for length-limited string measurement)
+  - [strnlen](../s/strnlen.md) (standard C library function for length-limited string measurement)
   - strlen (standard C library function for string length)
-  - compute_padlen (helper function to calculate padding requirements)
-  - dopr_outchmulti (function to output multiple identical characters)
-  - dostr (function to output string content to target)
-  - trailing_pad (function to output trailing padding)
+  - [compute_padlen](../c/compute_padlen.md) (helper function to calculate padding requirements)
+  - [dopr_outchmulti](../d/dopr_outchmulti.md) (function to output multiple identical characters)
+  - [dostr](../d/dostr.md) (function to output string content to target)
+  - [trailing_pad](../t/trailing_pad.md) (function to output trailing padding)
 
 - Called from (representative examples):
-  - dopr (main printf formatting function)
-  - flushbuffer (output buffer management function)
+  - [dopr](../d/dopr.md) (main printf formatting function)
+  - [flushbuffer](flushbuffer.md) (output buffer management function)
 
 ## Notes and Other Information
 - Part of PostgreSQL's platform-independent printf implementation

@@ -27,7 +27,7 @@ The function handles NULL input gracefully by returning 0, making it safe to use
   - [StoreQueryTuple](../S/StoreQueryTuple.md) (psql result storage)
   - [PrintResultInCrosstab](PrintResultInCrosstab.md) (psql crosstab display)
   - [ECPGget_desc_header](../E/ECPGget_desc_header.md) (ECPG descriptor handling)
-  - ecpg_process_output (ECPG result processing)
+  - [ecpg_process_output](../e/ecpg_process_output.md) (ECPG result processing)
   - PQprint (libpq result printing)
 
 ## Notes and Other Information

@@ -26,13 +26,13 @@ The function handles various edge cases including timeline switches, checkpoint 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreateEmptyBlockRefTable: Creates empty block reference table for tracking modifications
+  - [CreateEmptyBlockRefTable](../C/CreateEmptyBlockRefTable.md): Creates empty block reference table for tracking modifications
   - [XLogReaderAllocate](../X/XLogReaderAllocate.md): Allocates WAL reader state structure
   - [XLogBeginRead](../X/XLogBeginRead.md)/XLogFindNextRecord: Initialize WAL reading from specified position
   - [XLogReadRecord](../X/XLogReadRecord.md): Read individual WAL records
   - [SummarizeXlogRecord](SummarizeXlogRecord.md): Handle special XLOG record types (checkpoints, etc.)
   - [SummarizeDbaseRecord](SummarizeDbaseRecord.md)/SummarizeSmgrRecord/SummarizeXactRecord: Handle specific record types
-  - BlockRefTableMarkBlockModified: Mark blocks as modified in the reference table
+  - [BlockRefTableMarkBlockModified](../B/BlockRefTableMarkBlockModified.md): Mark blocks as modified in the reference table
   - [WriteBlockRefTable](../W/WriteBlockRefTable.md): Write the block reference table to summary file
 - Called from (representative examples):
   - [WalSummarizerMain](../W/WalSummarizerMain.md): Main entry point for WAL summarizer process

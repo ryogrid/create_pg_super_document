@@ -33,8 +33,8 @@ The operation ensures atomicity and consistency during recovery by carefully ord
   - [XLogRecGetBlockTag](../X/XLogRecGetBlockTag.md)
   - XLogRecHasBlockRef
   - [fillFakeState](../f/fillFakeState.md)
-  - XLogInitBufferForRedo
-  - XLogReadBufferForRedo
+  - [XLogInitBufferForRedo](../X/XLogInitBufferForRedo.md)
+  - [XLogReadBufferForRedo](../X/XLogReadBufferForRedo.md)
   - [SpGistInitBuffer](../S/SpGistInitBuffer.md)
   - [spgPageIndexMultiDelete](spgPageIndexMultiDelete.md)
   - [addOrReplaceTuple](../a/addOrReplaceTuple.md)
@@ -42,7 +42,7 @@ The operation ensures atomicity and consistency during recovery by carefully ord
   - [PageGetItem](../P/PageGetItem.md)
   - [PageGetItemId](../P/PageGetItemId.md)
   - [PageSetLSN](../P/PageSetLSN.md)
-  - MarkBufferDirty
+  - [MarkBufferDirty](../M/MarkBufferDirty.md)
   - [BufferGetPage](../B/BufferGetPage.md)
   - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
 - Called from:

@@ -23,11 +23,11 @@ This function performs the actual work of constructing a JSON array from Postgre
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeStringInfo: Creates a new StringInfo buffer for building the result
-  - add_json: Converts individual PostgreSQL values to their JSON representation
-  - cstring_to_text_with_len: Converts the final C string to PostgreSQL text type
-  - appendStringInfoChar: Appends a single character to the StringInfo buffer
-  - appendStringInfoString: Appends a string to the StringInfo buffer
+  - [makeStringInfo](../m/makeStringInfo.md): Creates a new StringInfo buffer for building the result
+  - [add_json](../a/add_json.md): Converts individual PostgreSQL values to their JSON representation
+  - [cstring_to_text_with_len](../c/cstring_to_text_with_len.md): Converts the final C string to PostgreSQL text type
+  - [appendStringInfoChar](../a/appendStringInfoChar.md): Appends a single character to the StringInfo buffer
+  - [appendStringInfoString](../a/appendStringInfoString.md): Appends a string to the StringInfo buffer
   - [PointerGetDatum](../P/PointerGetDatum.md): Converts a pointer to a Datum value
 
 - Called from (representative examples):

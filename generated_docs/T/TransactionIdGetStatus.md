@@ -25,18 +25,18 @@ The function uses SimpleLruReadPage_ReadOnly to access the CLOG page, which hand
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TransactionIdToPage, TransactionIdToByte, TransactionIdToBIndex
-  - SimpleLruReadPage_ReadOnly, SimpleLruGetBankLock
+  - [TransactionIdToPage](TransactionIdToPage.md), TransactionIdToByte, TransactionIdToBIndex
+  - [SimpleLruReadPage_ReadOnly](../S/SimpleLruReadPage_ReadOnly.md), SimpleLruGetBankLock
   - GetLSNIndex
   - CLOG_BITS_PER_XACT, CLOG_XACT_BITMASK
 - Called from:
-  - TransactionLogFetch
-  - TransactionIdGetCommitLSN
+  - [TransactionLogFetch](TransactionLogFetch.md)
+  - [TransactionIdGetCommitLSN](TransactionIdGetCommitLSN.md)
 
 ## Notes and Other Information
-- This is a low-level routine - TransactionLogFetch() in transam.c is the preferred high-level interface
+- This is a low-level routine - [TransactionLogFetch](TransactionLogFetch.md)() in transam.c is the preferred high-level interface
 - The returned LSN may be from a later transaction in the same group for storage efficiency
 - For very old transactions, InvalidXLogRecPtr may be returned as the LSN
 - Lock acquisition and release is handled automatically by SimpleLruReadPage_ReadOnly
 - The function extracts exactly 2 bits per transaction from the packed CLOG page format
-- Group LSN tracking enables efficient batch flushing of related transactions
+- [Group](../G/Group.md) LSN tracking enables efficient batch flushing of related transactions

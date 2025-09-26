@@ -44,11 +44,11 @@ The node is commonly used in situations where the physical representation of dat
   - CoercionForm
   - ParseLoc
 - Called from (representative examples):
-  - coerce_type
-  - makeRelabelType
-  - hide_coercion_node
-  - strip_implicit_coercions
-  - match_index_to_operand
+  - [coerce_type](../c/coerce_type.md)
+  - [makeRelabelType](../m/makeRelabelType.md)
+  - [hide_coercion_node](../h/hide_coercion_node.md)
+  - [strip_implicit_coercions](../s/strip_implicit_coercions.md)
+  - [match_index_to_operand](../m/match_index_to_operand.md)
 
 ## Notes and Other Information
 - This is a runtime no-op - no actual data conversion occurs

@@ -26,7 +26,7 @@ The function uses similar logic to `date2isoweek` but returns the year component
 ## Dependencies
 - Functions called/Symbols referenced:
   - [date2j](date2j.md) (converts date to Julian day number)
-  - j2day (converts Julian day to day of week)
+  - [j2day](../j/j2day.md) (converts Julian day to day of week)
 - Called from (representative examples):
   - [extract_date](../e/extract_date.md)
   - [date2isoyearday](date2isoyearday.md)

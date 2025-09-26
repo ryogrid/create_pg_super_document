@@ -39,9 +39,9 @@ The function operates in a short-lived memory context and doesn't bother releasi
 ## Dependencies
 - Functions called/Symbols referenced:
   - [gistcheckpage](gistcheckpage.md)
-  - gistchoose  
+  - [gistchoose](gistchoose.md)  
   - [gistfixsplit](gistfixsplit.md)
-  - gistgetadjusted
+  - [gistgetadjusted](gistgetadjusted.md)
   - [gistinserttuple](gistinserttuple.md)
   - GistFollowRight
   - GistPageGetNSN
@@ -52,7 +52,7 @@ The function operates in a short-lived memory context and doesn't bother releasi
   - [PageGetLSN](../P/PageGetLSN.md)
   - [ReadBuffer](../R/ReadBuffer.md)
   - [LockBuffer](../L/LockBuffer.md)
-  - ReleaseBuffer
+  - [ReleaseBuffer](../R/ReleaseBuffer.md)
 - Called from (representative examples):
   - [gistinsert](gistinsert.md)
   - [gistBuildCallback](gistBuildCallback.md)

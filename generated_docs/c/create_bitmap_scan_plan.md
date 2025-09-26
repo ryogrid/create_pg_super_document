@@ -51,7 +51,7 @@ The function includes sophisticated logic to minimize redundant condition checki
   - [replace_nestloop_params](../r/replace_nestloop_params.md)
   - [make_bitmap_heapscan](../m/make_bitmap_heapscan.md)
   - [copy_generic_path_info](copy_generic_path_info.md)
-  - BitmapHeapPath, BitmapHeapScan (struct types)
+  - [BitmapHeapPath](../B/BitmapHeapPath.md), BitmapHeapScan (struct types)
   - RTE_RELATION (enum value)
 - Called from (representative examples):
   - [create_scan_plan](create_scan_plan.md)

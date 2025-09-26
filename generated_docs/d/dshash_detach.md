@@ -23,11 +23,11 @@ The shared hash table continues to exist after detachment and can be accessed by
 ## Dependencies
 - Functions called/Symbols referenced:
   - ASSERT_NO_PARTITION_LOCKS_HELD_BY_ME (debug assertion macro)
-  - pfree
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - StatsShmemInit
-  - pgstat_detach_shmem
-  - shared_record_typmod_registry_detach
+  - [StatsShmemInit](../S/StatsShmemInit.md)
+  - [pgstat_detach_shmem](../p/pgstat_detach_shmem.md)
+  - [shared_record_typmod_registry_detach](../s/shared_record_typmod_registry_detach.md)
 
 ## Notes and Other Information
 - Only frees backend-local memory, shared hash table data remains intact

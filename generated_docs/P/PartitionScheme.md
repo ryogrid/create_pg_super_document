@@ -24,17 +24,17 @@ The typedef abstraction provides a clean interface for passing partition scheme 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PartitionSchemeData (the underlying structure at line 598)
+  - [PartitionSchemeData](PartitionSchemeData.md) (the underlying structure at line 598)
 - Called from (representative examples):
-  - compute_partition_bounds (src/backend/optimizer/path/joinrels.c:1801)
-  - partkey_is_bool_constant_for_query (src/backend/optimizer/path/pathkeys.c:844)
-  - build_partition_pathkeys (src/backend/optimizer/path/pathkeys.c:921)
-  - set_relation_partition_info (src/backend/optimizer/util/plancat.c:2448)
-  - find_partition_scheme (src/backend/optimizer/util/plancat.c:2455)
-  - build_joinrel_partition_info (src/backend/optimizer/util/relnode.c:2022)
-  - have_partkey_equi_join (src/backend/optimizer/util/relnode.c:2094)
-  - gen_partprune_steps_internal (src/backend/partitioning/partprune.c:964)
-  - RelOptInfo (src/include/nodes/pathnodes.h:1009)
+  - [compute_partition_bounds](../c/compute_partition_bounds.md) (src/backend/optimizer/path/joinrels.c:1801)
+  - [partkey_is_bool_constant_for_query](../p/partkey_is_bool_constant_for_query.md) (src/backend/optimizer/path/pathkeys.c:844)
+  - [build_partition_pathkeys](../b/build_partition_pathkeys.md) (src/backend/optimizer/path/pathkeys.c:921)
+  - [set_relation_partition_info](../s/set_relation_partition_info.md) (src/backend/optimizer/util/plancat.c:2448)
+  - [find_partition_scheme](../f/find_partition_scheme.md) (src/backend/optimizer/util/plancat.c:2455)
+  - [build_joinrel_partition_info](../b/build_joinrel_partition_info.md) (src/backend/optimizer/util/relnode.c:2022)
+  - [have_partkey_equi_join](../h/have_partkey_equi_join.md) (src/backend/optimizer/util/relnode.c:2094)
+  - [gen_partprune_steps_internal](../g/gen_partprune_steps_internal.md) (src/backend/partitioning/partprune.c:964)
+  - [RelOptInfo](../R/RelOptInfo.md) (src/include/nodes/pathnodes.h:1009)
 
 ## Notes and Other Information
 - Used extensively throughout the PostgreSQL optimizer for partition-related operations

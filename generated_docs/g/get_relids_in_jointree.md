@@ -34,18 +34,18 @@ This selective inclusion is particularly important during subquery flattening wh
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_make_singleton
-  - bms_join
-  - bms_add_member
+  - [bms_make_singleton](../b/bms_make_singleton.md)
+  - [bms_join](../b/bms_join.md)
+  - [bms_add_member](../b/bms_add_member.md)
   - nodeTag
-  - get_relids_in_jointree (recursive)
+  - [get_relids_in_jointree](get_relids_in_jointree.md) (recursive)
 - Called from (representative examples):
-  - preprocess_rowmarks
-  - pull_up_simple_subquery
-  - is_simple_subquery
-  - remove_result_refs
-  - find_dependent_phvs_in_jointree
-  - get_relids_for_join
+  - [preprocess_rowmarks](../p/preprocess_rowmarks.md)
+  - [pull_up_simple_subquery](../p/pull_up_simple_subquery.md)
+  - [is_simple_subquery](../i/is_simple_subquery.md)
+  - [remove_result_refs](../r/remove_result_refs.md)
+  - [find_dependent_phvs_in_jointree](../f/find_dependent_phvs_in_jointree.md)
+  - [get_relids_for_join](get_relids_for_join.md)
 
 ## Notes and Other Information
 - Base-relation relids are always included regardless of the boolean parameters

@@ -33,7 +33,7 @@ This function is particularly useful for commands like EXPLAIN that need to outp
   - strchr
   - strlen
   - [PointerGetDatum](../P/PointerGetDatum.md)
-  - cstring_to_text_with_len
+  - [cstring_to_text_with_len](../c/cstring_to_text_with_len.md)
   - [do_tup_output](do_tup_output.md)
   - [pfree](../p/pfree.md)
   - [DatumGetPointer](../D/DatumGetPointer.md)

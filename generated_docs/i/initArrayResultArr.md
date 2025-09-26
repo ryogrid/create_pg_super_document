@@ -26,16 +26,16 @@ The function performs element type lookup if not provided and optionally creates
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_element_type
+  - [get_element_type](../g/get_element_type.md)
   - AllocSetContextCreate
-  - MemoryContextAllocZero
-  - format_type_be (in error reporting)
+  - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md)
+  - [format_type_be](../f/format_type_be.md) (in error reporting)
   - OidIsValid
 - Called from (representative examples):
-  - array_agg_array_transfn
-  - array_agg_array_combine
-  - array_agg_array_deserialize
-  - accumArrayResultArr
+  - [array_agg_array_transfn](../a/array_agg_array_transfn.md)
+  - [array_agg_array_combine](../a/array_agg_array_combine.md)
+  - [array_agg_array_deserialize](../a/array_agg_array_deserialize.md)
+  - [accumArrayResultArr](../a/accumArrayResultArr.md)
 
 ## Notes and Other Information
 - This function is part of a three-function API: initArrayResultArr/accumArrayResultArr/makeArrayResultArr

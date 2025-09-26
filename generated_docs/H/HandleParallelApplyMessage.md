@@ -20,7 +20,7 @@ HandleParallelApplyMessage is responsible for parsing and handling messages rece
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pq_getmsgbyte](../p/pq_getmsgbyte.md)
-  - ErrorData
+  - [ErrorData](../E/ErrorData.md)
   - [pq_parse_errornotice](../p/pq_parse_errornotice.md)
   - errcontext
   - [psprintf](../p/psprintf.md)

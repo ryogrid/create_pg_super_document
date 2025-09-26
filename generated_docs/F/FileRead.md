@@ -28,7 +28,7 @@ The function constructs an iovec structure from the provided buffer and amount p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FileReadV (the underlying vectored read function)
+  - [FileReadV](FileReadV.md) (the underlying vectored read function)
   - [iovec](../i/iovec.md) (POSIX structure for vectored I/O operations)
   - File (PostgreSQL virtual file descriptor type)
   - ssize_t (POSIX signed size type)
@@ -36,7 +36,7 @@ The function constructs an iovec structure from the provided buffer and amount p
 - Called from (representative examples):
   - [ReadWalSummary](../R/ReadWalSummary.md) (in src/backend/backup/walsummary.c:278)
   - [ReorderBufferRestoreChanges](../R/ReorderBufferRestoreChanges.md) (in src/backend/replication/logical/reorderbuffer.c:4460, 4491)
-  - BufFileLoadBuffer (in src/backend/storage/file/buffile.c:460)
+  - [BufFileLoadBuffer](../B/BufFileLoadBuffer.md) (in src/backend/storage/file/buffile.c:460)
 
 ## Notes and Other Information
 - This is an inline function defined in src/include/storage/fd.h, making it efficient for frequent use

@@ -26,7 +26,7 @@ The function calculates whether the value fits in octal by checking if it's less
 - Functions called/Symbols referenced: None (uses only basic bit operations and character manipulation)
 - Called from (representative examples):
   - tarCreateHeader (multiple times for various tar header fields like size, mtime, mode, uid, gid, checksum)
-  - tar_close (in walmethods.c for finalizing tar archives)
+  - [tar_close](../t/tar_close.md) (in walmethods.c for finalizing tar archives)
 
 ## Notes and Other Information
 - The function supports only non-negative numbers and doesn't handle negative values according to GNU rules

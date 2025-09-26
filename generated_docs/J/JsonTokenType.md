@@ -49,10 +49,10 @@ JsonTokenType serves as the fundamental token classification system for PostgreS
   - (None - this is a base enumeration type)
 - Called from (representative examples):
   - [JsonLexContext](JsonLexContext.md) (as member variable token_type)
-  - json_lex
+  - [json_lex](../j/json_lex.md)
   - [parse_scalar](../p/parse_scalar.md)
   - [lex_expect](../l/lex_expect.md)
-  - json_manifest_scalar
+  - [json_manifest_scalar](../j/json_manifest_scalar.md)
   - various scalar processing functions (get_scalar, each_scalar, etc.)
 
 ## Notes and Other Information

@@ -29,7 +29,7 @@ The function first validates the input parameters, extracts offset data from the
   - [TidStoreSetBlockOffsets](../T/TidStoreSetBlockOffsets.md) - Core function to set block offsets in TidStore
   - [TidStoreUnlock](../T/TidStoreUnlock.md) - Releases the TidStore lock
   - [purge_from_verification_array](../p/purge_from_verification_array.md) - Removes existing entries from verification data
-  - ArrayGetNItems, ARR_NDIM, ARR_DIMS, ARR_DATA_PTR - PostgreSQL array manipulation functions
+  - [ArrayGetNItems](../A/ArrayGetNItems.md), ARR_NDIM, ARR_DIMS, ARR_DATA_PTR - PostgreSQL array manipulation functions
   - [ItemPointerSet](../I/ItemPointerSet.md) - Sets tuple identifier values
   - [repalloc](../r/repalloc.md) - PostgreSQL memory reallocation function
 - Called from (representative examples):

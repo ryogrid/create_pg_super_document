@@ -35,7 +35,7 @@ The function uses a goto-based reread loop to handle the transition from nowait 
 ## Dependencies
 - Functions called/Symbols referenced:
   - castNode
-  - ExecClearTuple
+  - [ExecClearTuple](../E/ExecClearTuple.md)
   - [binaryheap_reset](../b/binaryheap_reset.md)
   - TupIsNull
   - [gather_merge_readnext](gather_merge_readnext.md)

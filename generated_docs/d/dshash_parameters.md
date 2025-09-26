@@ -35,8 +35,8 @@ The dshash_parameters structure encapsulates all the configuration information r
   - dshash_hash_function (function type)
   - dshash_copy_function (function type)
 - Called from (representative examples):
-  - dshash_create
-  - dshash_attach
+  - [dshash_create](dshash_create.md)
+  - [dshash_attach](dshash_attach.md)
   - [shared_record_table_hash](../s/shared_record_table_hash.md)
 
 ## Notes and Other Information

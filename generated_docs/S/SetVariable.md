@@ -31,27 +31,27 @@ The function validates variable names and handles edge cases like NULL parameter
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - valid_variable_name (validates variable name format)
-  - pg_strdup (PostgreSQL string duplication function)
-  - pg_malloc (PostgreSQL memory allocation function) 
-  - pg_free (PostgreSQL memory deallocation function)
+  - [valid_variable_name](../v/valid_variable_name.md) (validates variable name format)
+  - [pg_strdup](../p/pg_strdup.md) (PostgreSQL string duplication function)
+  - [pg_malloc](../p/pg_malloc.md) (PostgreSQL memory allocation function) 
+  - [pg_free](../p/pg_free.md) (PostgreSQL memory deallocation function)
   - pg_log_error (PostgreSQL error logging function)
   - strcmp (standard C string comparison)
 - Data types referenced:
-  - VariableSpace
+  - [VariableSpace](../V/VariableSpace.md)
   - struct _variable
 - Called from (representative examples):
-  - exec_command_set (psql \set command)
-  - exec_command_unset (psql \unset command)
-  - SetVariableBool (boolean variable setter)
-  - SyncVariables/UnsyncVariables (variable synchronization)
-  - SetResultVariables (query result variables)
+  - [exec_command_set](../e/exec_command_set.md) (psql \set command)
+  - [exec_command_unset](../e/exec_command_unset.md) (psql \unset command)
+  - [SetVariableBool](SetVariableBool.md) (boolean variable setter)
+  - [SyncVariables](SyncVariables.md)/UnsyncVariables (variable synchronization)
+  - [SetResultVariables](SetResultVariables.md) (query result variables)
 
 ## Notes and Other Information
 - Returns true on success, false on failure (with error message printed)
 - Supports substitute hooks for value transformation before assignment
-- Supports assign hooks for value validation - assignment fails if hook returns false
-- Variables without values or hooks are automatically cleaned up to save memory
-- Variables are maintained in alphabetical order for efficient searching
+- Supports assign hooks for value validation - [assignment](../a/assignment.md) fails if hook returns false
+- [Variables](../V/Variables.md) without values or hooks are automatically cleaned up to save memory
+- [Variables](../V/Variables.md) are maintained in alphabetical order for efficient searching
 - Part of psql's variable system, widely used throughout the codebase
 - Handles memory management automatically, including proper cleanup on failures

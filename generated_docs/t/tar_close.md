@@ -36,23 +36,23 @@ The function ensures TAR format compliance while supporting both compressed and 
 - Functions called/Symbols referenced:
   - clear_error
   - ftruncate
-  - pg_free
-  - tar_write_padding_data
-  - tarPaddingBytesRequired
-  - tar_write
-  - tar_write_compressed_data
-  - print_tar_number
-  - strlcpy
-  - tarChecksum
+  - [pg_free](../p/pg_free.md)
+  - [tar_write_padding_data](tar_write_padding_data.md)
+  - [tarPaddingBytesRequired](tarPaddingBytesRequired.md)
+  - [tar_write](tar_write.md)
+  - [tar_write_compressed_data](tar_write_compressed_data.md)
+  - [print_tar_number](../p/print_tar_number.md)
+  - [strlcpy](../s/strlcpy.md)
+  - [tarChecksum](tarChecksum.md)
   - lseek
   - write
   - deflateParams (zlib)
-  - tar_sync
-  - GetLastWalMethodError
-  - pg_fatal
+  - [tar_sync](tar_sync.md)
+  - [GetLastWalMethodError](../G/GetLastWalMethodError.md)
+  - [pg_fatal](../p/pg_fatal.md)
 - Called from (representative examples):
-  - CreateWalDirectoryMethod (function pointer assignment)
-  - tar_finish
+  - [CreateWalDirectoryMethod](../C/CreateWalDirectoryMethod.md) (function pointer assignment)
+  - [tar_finish](tar_finish.md)
 
 ## Notes and Other Information
 - This function is marked as static, meaning it's only accessible within the walmethods.c file

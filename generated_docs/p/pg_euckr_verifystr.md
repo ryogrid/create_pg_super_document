@@ -24,10 +24,10 @@ The function employs a fast-path optimization for ASCII characters and delegates
 ## Dependencies
 - Functions called/Symbols referenced:
   - IS_HIGHBIT_SET (macro to check if the high bit is set)
-  - pg_euckr_verifychar (validates individual EUC-KR characters)
+  - [pg_euckr_verifychar](pg_euckr_verifychar.md) (validates individual EUC-KR characters)
 - Called from (representative examples):
   - pg_euccn_verifystr
-  - pg_encoding_set_invalid
+  - [pg_encoding_set_invalid](pg_encoding_set_invalid.md)
 
 ## Notes and Other Information
 - Returns the number of valid bytes processed, which may be less than  if an invalid character or null terminator is encountered

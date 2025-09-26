@@ -22,10 +22,10 @@ The function is critical for transaction isolation and MVCC (Multi-Version Concu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TupleTableSlot (struct type)
+  - [TupleTableSlot](../T/TupleTableSlot.md) (struct type)
   - tts_ops->is_current_xact_tuple (function pointer)
 - Called from (representative examples):
-  - RI_FKey_fk_upd_check_required
+  - [RI_FKey_fk_upd_check_required](../R/RI_FKey_fk_upd_check_required.md)
 
 ## Notes and Other Information
 - This function requires that the slot contains a storage tuple; calling it on an empty slot or a slot type that doesn't support storage tuples will result in an error

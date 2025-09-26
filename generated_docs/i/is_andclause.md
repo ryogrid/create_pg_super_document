@@ -20,7 +20,7 @@ This function provides a type-safe way to determine if a clause represents an AN
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BoolExpr (node type)
+  - [BoolExpr](../B/BoolExpr.md) (node type)
   - AND_EXPR (boolean operation constant)
   - IsA (macro for type checking)
 - Called from (representative examples):
@@ -33,7 +33,7 @@ This function provides a type-safe way to determine if a clause represents an AN
   - [extract_or_clause](../e/extract_or_clause.md)
   - [make_restrictinfo](../m/make_restrictinfo.md)
   - [gen_partprune_steps_internal](../g/gen_partprune_steps_internal.md)
-  - mcv_get_match_bitmap
+  - [mcv_get_match_bitmap](../m/mcv_get_match_bitmap.md)
 
 ## Notes and Other Information
 - This is a static inline function defined in nodeFuncs.h, making it available to any file that includes this header

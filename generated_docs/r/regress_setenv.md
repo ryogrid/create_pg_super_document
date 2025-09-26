@@ -22,8 +22,8 @@ The  function is a PostgreSQL C function designed for use in regression testing 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - text_to_cstring: Converts PostgreSQL text type to C string
-  - superuser: Checks if current user has superuser privileges
+  - [text_to_cstring](../t/text_to_cstring.md): Converts PostgreSQL text type to C string
+  - [superuser](../s/superuser.md): Checks if current user has superuser privileges
   - setenv: System call to set environment variable
   - PG_RETURN_VOID: Returns void from PostgreSQL function
   - PG_FUNCTION_INFO_V1: Function version information macro

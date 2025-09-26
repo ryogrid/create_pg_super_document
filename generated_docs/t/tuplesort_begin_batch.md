@@ -26,7 +26,7 @@ The function ensures that sufficient memory is available for the minimal tuple a
   - `TupleSortUseBumpTupleCxt` - Determines whether to use bump context for tuple storage
   - [BumpContextCreate](../B/BumpContextCreate.md) - Creates bump memory context for efficient allocation
   - `AllocSetContextCreate` - Creates standard allocset memory context
-  - `GetMemoryChunkSpace` - Gets memory chunk size for accounting
+  - `[GetMemoryChunkSpace](../G/GetMemoryChunkSpace.md)` - Gets memory chunk size for accounting
   - `USEMEM` - Macro for tracking memory usage
   - `LACKMEM` - Macro for checking insufficient memory
   - `TSS_INITIAL` - Initial sort status constant
@@ -34,7 +34,7 @@ The function ensures that sufficient memory is available for the minimal tuple a
   - `SortTuple` - Structure for individual sorted tuples
 - Called from (representative examples):
   - [tuplesort_begin_common](tuplesort_begin_common.md) - During initial tuplesort setup
-  - `tuplesort_reset` - When resetting for subsequent batches
+  - `[tuplesort_reset](tuplesort_reset.md)` - When resetting for subsequent batches
 
 ## Notes and Other Information
 - Static function, only accessible within the tuplesort.c module

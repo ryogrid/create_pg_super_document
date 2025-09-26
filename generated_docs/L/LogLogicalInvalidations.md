@@ -30,9 +30,9 @@ This function takes no parameters as it operates on global transaction state.
   - NumMessagesInGroup
   - ProcessMessageSubGroupMulti
 - Data structures used:
-  - xl_xact_invals
+  - [xl_xact_invals](../x/xl_xact_invals.md)
   - [InvalidationMsgsGroup](../I/InvalidationMsgsGroup.md)
-  - SharedInvalidationMessage
+  - [SharedInvalidationMessage](../S/SharedInvalidationMessage.md)
   - transInvalInfo (global variable)
 - Constants used:
   - MinSizeOfXactInvals

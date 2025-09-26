@@ -26,10 +26,10 @@ The function allocates the TableAmRoutine struct in the caller's memory context 
   - [DatumGetPointer](../D/DatumGetPointer.md)
   - IsA
   - elog
-  - TableAmRoutine (struct type)
+  - [TableAmRoutine](../T/TableAmRoutine.md) (struct type)
 - Called from (representative examples):
   - [InitTableAmRoutine](../I/InitTableAmRoutine.md)
-  - table_scan_sample_next_tuple
+  - [table_scan_sample_next_tuple](../t/table_scan_sample_next_tuple.md)
 
 ## Notes and Other Information
 - The function performs extensive assertion checks to validate that all required callbacks are present in the TableAmRoutine struct

@@ -19,7 +19,7 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RmgrIdExists
+  - [RmgrIdExists](RmgrIdExists.md)
   - RM_MAX_ID
   - RmgrTable[rmid].rm_cleanup
 - Called from (representative examples):

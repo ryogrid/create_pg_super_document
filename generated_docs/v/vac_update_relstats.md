@@ -51,7 +51,7 @@ Special handling is provided for "future" transaction IDs that appear corrupt, w
   - [systable_inplace_update_cancel](../s/systable_inplace_update_cancel.md)
   - TransactionIdIsNormal
   - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
-  - ReadNextTransactionId
+  - [ReadNextTransactionId](../R/ReadNextTransactionId.md)
   - MultiXactIdIsValid
   - [MultiXactIdPrecedes](../M/MultiXactIdPrecedes.md)
   - [ReadNextMultiXactId](../R/ReadNextMultiXactId.md)

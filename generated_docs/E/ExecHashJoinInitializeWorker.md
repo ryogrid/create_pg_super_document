@@ -28,7 +28,7 @@ This initialization is essential for coordinating multiple worker processes that
 ## Dependencies
 - Functions called/Symbols referenced:
   - [shm_toc_lookup](../s/shm_toc_lookup.md)
-  - SharedFileSetAttach
+  - [SharedFileSetAttach](../S/SharedFileSetAttach.md)
   - innerPlanState
   - [ExecSetExecProcNode](ExecSetExecProcNode.md)
   - ExecParallelHashJoin
@@ -36,7 +36,7 @@ This initialization is essential for coordinating multiple worker processes that
   - [HashJoinState](../H/HashJoinState.md)
   - [ParallelWorkerContext](../P/ParallelWorkerContext.md)
   - [HashState](../H/HashState.md)
-  - ParallelHashJoinState
+  - [ParallelHashJoinState](../P/ParallelHashJoinState.md)
 - Called from (representative examples):
   - [ExecParallelInitializeWorker](ExecParallelInitializeWorker.md) (in src/backend/executor/execParallel.c:1351)
 

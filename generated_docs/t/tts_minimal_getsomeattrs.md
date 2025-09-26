@@ -23,7 +23,7 @@ The function is specifically designed for minimal tuple table slots, which store
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MinimalTupleTableSlot (type cast)
+  - [MinimalTupleTableSlot](../M/MinimalTupleTableSlot.md) (type cast)
   - TTS_EMPTY (macro for checking if slot is empty)
   - [slot_deform_heap_tuple](../s/slot_deform_heap_tuple.md) (function that performs the actual tuple deformation)
 - Called from (representative examples):

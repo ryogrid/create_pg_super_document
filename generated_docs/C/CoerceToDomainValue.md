@@ -39,15 +39,15 @@ A critical design aspect is that the typeId/typeMod/collation fields are set fro
 ## Dependencies
 - Functions called/Symbols referenced:
   - ParseLoc (for location tracking)
-  - Expr (base expression structure)
+  - [Expr](../E/Expr.md) (base expression structure)
   - Oid (object identifier type)
   
 - Called from (representative examples):
-  - domainAddCheckConstraint (when adding check constraints to domains)
-  - replace_domain_constraint_value (constraint value replacement)
-  - exprType (expression type determination)
-  - exprTypmod (expression type modifier determination)
-  - exprCollation (expression collation determination)
+  - [domainAddCheckConstraint](../d/domainAddCheckConstraint.md) (when adding check constraints to domains)
+  - [replace_domain_constraint_value](../r/replace_domain_constraint_value.md) (constraint value replacement)
+  - [exprType](../e/exprType.md) (expression type determination)
+  - [exprTypmod](../e/exprTypmod.md) (expression type modifier determination)
+  - [exprCollation](../e/exprCollation.md) (expression collation determination)
 
 ## Notes and Other Information
 - Essential component of PostgreSQL's domain constraint system

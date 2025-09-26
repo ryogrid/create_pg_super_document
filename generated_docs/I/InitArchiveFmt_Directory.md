@@ -36,7 +36,7 @@ The function supports both dump creation (write mode) and dump restoration (read
   - [_StartLOs](../S/_StartLOs.md), _StartLO, _EndLO, _EndLOs
   - [_PrepParallelRestore](../P/_PrepParallelRestore.md), _Clone, _DeClone
   - [_WorkerJobRestoreDirectory](../W/_WorkerJobRestoreDirectory.md), _WorkerJobDumpDirectory
-  - pg_malloc0, setFilePath, InitDiscoverCompressFileHandle
+  - [pg_malloc0](../p/pg_malloc0.md), setFilePath, InitDiscoverCompressFileHandle
   - [ReadHead](../R/ReadHead.md), ReadToc, EndCompressFileHandle
 - Called from:
   - [_allocAH](../a/_allocAH.md) (in pg_backup_archiver.c:2457)

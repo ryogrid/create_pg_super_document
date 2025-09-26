@@ -24,17 +24,17 @@ The function validates that the connection is in pipeline mode, checks the async
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqPipelineSyncInternal
+  - [pqPipelineSyncInternal](../p/pqPipelineSyncInternal.md)
 
 - Called from (representative examples):
-  - discardUntilSync (pgbench.c)
-  - executeMetaCommand (pgbench.c)
-  - test_multi_pipelines (libpq_pipeline.c)
-  - test_pipeline_abort (libpq_pipeline.c)
-  - test_pipelined_insert (libpq_pipeline.c)
-  - test_prepared (libpq_pipeline.c)
-  - test_simple_pipeline (libpq_pipeline.c)
-  - test_transaction (libpq_pipeline.c)
+  - [discardUntilSync](../d/discardUntilSync.md) (pgbench.c)
+  - [executeMetaCommand](../e/executeMetaCommand.md) (pgbench.c)
+  - [test_multi_pipelines](../t/test_multi_pipelines.md) (libpq_pipeline.c)
+  - [test_pipeline_abort](../t/test_pipeline_abort.md) (libpq_pipeline.c)
+  - [test_pipelined_insert](../t/test_pipelined_insert.md) (libpq_pipeline.c)
+  - [test_prepared](../t/test_prepared.md) (libpq_pipeline.c)
+  - [test_simple_pipeline](../t/test_simple_pipeline.md) (libpq_pipeline.c)
+  - [test_transaction](../t/test_transaction.md) (libpq_pipeline.c)
 
 ## Notes and Other Information
 - Returns 1 on success, 0 on failure

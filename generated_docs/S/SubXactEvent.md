@@ -33,10 +33,10 @@ The enum is used in conjunction with SubXactCallback function pointers to create
   - SubTransactionId (used in callback signatures)
   - SubXactCallback (callback function type)
 - Called from (representative examples):
-  - CallSubXactCallbacks
-  - StartSubTransaction (uses SUBXACT_EVENT_START_SUB)
-  - CommitSubTransaction (uses SUBXACT_EVENT_PRE_COMMIT_SUB and SUBXACT_EVENT_COMMIT_SUB)
-  - AbortSubTransaction (uses SUBXACT_EVENT_ABORT_SUB)
+  - [CallSubXactCallbacks](../C/CallSubXactCallbacks.md)
+  - [StartSubTransaction](StartSubTransaction.md) (uses SUBXACT_EVENT_START_SUB)
+  - [CommitSubTransaction](../C/CommitSubTransaction.md) (uses SUBXACT_EVENT_PRE_COMMIT_SUB and SUBXACT_EVENT_COMMIT_SUB)
+  - [AbortSubTransaction](../A/AbortSubTransaction.md) (uses SUBXACT_EVENT_ABORT_SUB)
 
 ## Notes and Other Information
 - This enum is defined in src/include/access/xact.h:142-145

@@ -32,11 +32,11 @@ The function returns a standard 3-way comparison result: negative for less-than,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SortSupport (struct type)
+  - [SortSupport](../S/SortSupport.md) (struct type)
   - INVERT_COMPARE_RESULT (macro)
   - ssup->comparator (function pointer)
 - Called from (representative examples):
-  - _bt_load (src/backend/access/nbtree/nbtsort.c:1214)
+  - [_bt_load](../b/_bt_load.md) (src/backend/access/nbtree/nbtsort.c:1214)
   - [compare_scalars](../c/compare_scalars.md) (src/backend/commands/analyze.c:2894)
   - [heap_compare_slots](../h/heap_compare_slots.md) (src/backend/executor/nodeGatherMerge.c:771)
   - [MJCompare](../M/MJCompare.md) (src/backend/executor/nodeMergejoin.c:420)

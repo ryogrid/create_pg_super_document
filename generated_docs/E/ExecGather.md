@@ -31,7 +31,7 @@ The execution strategy adapts based on runtime conditions: if no workers are lau
   - ResetExprContext (cleans up per-tuple memory)
   - [gather_getnext](../g/gather_getnext.md) (retrieves next tuple from workers/local)
   - TupIsNull (checks for end-of-data condition)
-  - ExecProject (applies projection if needed)
+  - [ExecProject](ExecProject.md) (applies projection if needed)
 - Called from (representative examples):
   - Set as ExecProcNode function pointer in ExecInitGather
 

@@ -55,7 +55,7 @@ This function creates a HashJoin execution plan node from a HashPath. Hash joins
   - [replace_nestloop_params](../r/replace_nestloop_params.md)
   - [get_switched_clauses](../g/get_switched_clauses.md)
   - [is_opclause](../i/is_opclause.md)
-  - lappend_oid
+  - [lappend_oid](../l/lappend_oid.md)
   - lsecond
   - [make_hash](../m/make_hash.md)
   - [copy_plan_costsize](copy_plan_costsize.md)
@@ -65,7 +65,7 @@ This function creates a HashJoin execution plan node from a HashPath. Hash joins
   - [create_join_plan](create_join_plan.md)
 
 ## Notes and Other Information
-- Hash joins are typically the most efficient join method when one relation is much smaller than the other
+- [Hash](../H/Hash.md) joins are typically the most efficient join method when one relation is much smaller than the other
 - Creates separate Hash and HashJoin nodes - the Hash node builds the hash table from the inner relation
 - Implements skew optimization for single-column joins when column statistics indicate data skew
 - Handles batching for large datasets that exceed work_mem by spilling to disk

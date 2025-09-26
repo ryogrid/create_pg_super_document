@@ -30,7 +30,7 @@ The function is designed to be thread-safe for shared memory scenarios since dsa
 - Functions called/Symbols referenced:
   - RT_MAKE_NAME (macro for generating function names)
   - [dsa_get_total_size](../d/dsa_get_total_size.md) (for shared memory trees - gets total DSA size)
-  - MemoryContextMemAllocated (for regular trees - gets memory context allocation)
+  - [MemoryContextMemAllocated](../M/MemoryContextMemAllocated.md) (for regular trees - gets memory context allocation)
   - Assert (debugging assertion macro)
 
 - Called from (representative examples):

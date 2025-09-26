@@ -26,7 +26,7 @@ For strings without special escape sequences, the function delegates to libpq's 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQserverVersion](../P/PQserverVersion.md) (check server version for escape syntax support)
-  - `appendPQExpBufferChar` (buffer character append operations)
+  - `[appendPQExpBufferChar](appendPQExpBufferChar.md)` (buffer character append operations)
   - `ESCAPE_STRING_SYNTAX` (escape string marker constant)
   - [appendStringLiteral](appendStringLiteral.md) (fallback for escape string cases)
   - [PQclientEncoding](../P/PQclientEncoding.md) (get connection encoding)

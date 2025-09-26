@@ -34,7 +34,7 @@ The function manages complex state transitions, file cleanup, and synchronizatio
   - [CommitTransactionCommand](../C/CommitTransactionCommand.md)
   - [store_flush_position](../s/store_flush_position.md)
   - [stream_cleanup_files](../s/stream_cleanup_files.md)
-  - pa_send_data
+  - [pa_send_data](../p/pa_send_data.md)
   - [pa_xact_finish](../p/pa_xact_finish.md)
   - [pa_switch_to_partial_serialize](../p/pa_switch_to_partial_serialize.md)
   - [stream_open_and_write_change](../s/stream_open_and_write_change.md)

@@ -27,7 +27,7 @@ This approach optimizes rescans by avoiding unnecessary recomputation when funct
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecClearTuple
+  - [ExecClearTuple](ExecClearTuple.md)
   - [ExecScanReScan](ExecScanReScan.md)
   - [bms_overlap](../b/bms_overlap.md)
   - [tuplestore_end](../t/tuplestore_end.md)

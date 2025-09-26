@@ -30,15 +30,15 @@ The GetConnection function creates a PostgreSQL database connection with special
 - Functions called/Symbols referenced:
   - [PQconninfoParse](../P/PQconninfoParse.md)
   - [PQconnectdbParams](../P/PQconnectdbParams.md)  
-  - PQstatus
+  - [PQstatus](../P/PQstatus.md)
   - [PQconnectionNeedsPassword](../P/PQconnectionNeedsPassword.md)
   - [PQfinish](../P/PQfinish.md)
   - [PQexec](../P/PQexec.md)
-  - PQparameterStatus
+  - [PQparameterStatus](../P/PQparameterStatus.md)
   - [PQserverVersion](../P/PQserverVersion.md)
   - [RetrieveDataDirCreatePerm](../R/RetrieveDataDirCreatePerm.md)
-  - simple_prompt
-  - pg_malloc0
+  - [simple_prompt](../s/simple_prompt.md)
+  - [pg_malloc0](../p/pg_malloc0.md)
 - Called from (representative examples):
   - [main](../m/main.md) (in pg_basebackup.c, pg_receivewal.c, pg_recvlogical.c)
   - [StartLogStreamer](../S/StartLogStreamer.md)

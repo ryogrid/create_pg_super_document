@@ -34,7 +34,7 @@ The function handles the case-insensitive nature of timezone abbreviations by no
   - pg_time_t (type)
   - [pg_tz](../p/pg_tz.md) (struct)
   - TZ_STRLEN_MAX (constant)
-  - strlcpy
+  - [strlcpy](../s/strlcpy.md)
   - [pg_toupper](../p/pg_toupper.md)
   - [pg_interpret_timezone_abbrev](../p/pg_interpret_timezone_abbrev.md)
 - Called from (representative examples):

@@ -33,9 +33,9 @@ If all checks pass, the function atomically installs the imported xmin into both
   - TransactionIdIsNormal (validates transaction ID format)
   - [TransactionIdPrecedesOrEquals](../T/TransactionIdPrecedesOrEquals.md) (checks xmin coverage)
   - UINT32_ACCESS_ONCE (atomic read of transaction ID)
-  - LWLockAcquire/LWLockRelease (ProcArrayLock protection)
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease (ProcArrayLock protection)
 - Called from (representative examples):
-  - SetTransactionSnapshot (snapshot import operations)
+  - [SetTransactionSnapshot](../S/SetTransactionSnapshot.md) (snapshot import operations)
   - [GetSerializableTransactionSnapshotInt](../G/GetSerializableTransactionSnapshotInt.md) (serializable isolation support)
 
 ## Notes and Other Information

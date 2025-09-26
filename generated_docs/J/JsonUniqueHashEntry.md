@@ -30,10 +30,10 @@ The structure stores both the key string and its length for efficient comparison
 - Functions called/Symbols referenced:
   - (None - this is a simple data structure)
 - Called from (representative examples):
-  - json_unique_hash (hash function)
-  - json_unique_hash_match (comparison function)
-  - json_unique_check_init (hash table initialization)
-  - json_unique_check_key (key validation)
+  - [json_unique_hash](../j/json_unique_hash.md) (hash function)
+  - [json_unique_hash_match](../j/json_unique_hash_match.md) (comparison function)
+  - [json_unique_check_init](../j/json_unique_check_init.md) (hash table initialization)
+  - [json_unique_check_key](../j/json_unique_check_key.md) (key validation)
 
 ## Notes and Other Information
 - Used exclusively within PostgreSQL's JSON key uniqueness checking system

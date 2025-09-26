@@ -42,7 +42,7 @@ This function is responsible for generating the appropriate C code representatio
 ## Notes and Other Information
 - The function uses different addressing strategies: arrays and pointers use direct addressing , while scalars use reference addressing 
 - Special handling for varchar and bytea types includes automatic struct generation with unique counter-based naming
-- String types (char, unsigned_char, char_variable, string) have complex logic to determine when to use pointer vs. reference addressing
+- [String](../S/String.md) types (char, unsigned_char, char_variable, string) have complex logic to determine when to use pointer vs. reference addressing
 - The size parameter enables offset calculation for struct members, supporting nested data structures
 - Output format follows the pattern: 
 - Memory allocated for variable and offset strings is freed at the end of the function

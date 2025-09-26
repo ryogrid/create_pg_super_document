@@ -25,7 +25,7 @@ The function provides flexible error handling through the missing_ok parameter. 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - [ScanKeyInit](../S/ScanKeyInit.md)
   - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - [CStringGetDatum](../C/CStringGetDatum.md)
@@ -37,7 +37,7 @@ The function provides flexible error handling through the missing_ok parameter. 
   - OidIsValid
   - ereport
   - [get_rel_name](get_rel_name.md)
-  - table_close
+  - [table_close](../t/table_close.md)
 - Called from (representative examples):
   - [get_object_address_relobject](get_object_address_relobject.md) (objectaddress.c:1460)
   - [rename_constraint_internal](../r/rename_constraint_internal.md) (tablecmds.c:3945)

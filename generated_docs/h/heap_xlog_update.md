@@ -29,7 +29,7 @@ The function supports space optimization techniques like prefix/suffix compressi
 ## Dependencies
 - Functions called/Symbols referenced:
   - [XLogRecGetBlockTag](../X/XLogRecGetBlockTag.md), XLogRecGetBlockTagExtended (block information extraction)
-  - XLogReadBufferForRedo, XLogInitBufferForRedo (buffer management during redo)
+  - [XLogReadBufferForRedo](../X/XLogReadBufferForRedo.md), XLogInitBufferForRedo (buffer management during redo)
   - [visibilitymap_pin](../v/visibilitymap_pin.md), visibilitymap_clear (visibility map maintenance)
   - PageAddItem, PageSetLSN, PageSetPrunable (page-level operations)
   - HeapTupleHeaderSetXmin, HeapTupleHeaderSetXmax, HeapTupleHeaderSetCmin (tuple header management)

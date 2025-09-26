@@ -21,8 +21,8 @@ Like its uppercase counterpart, for ASCII characters (0-127), the function force
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_ascii_tolower
-  - unicode_lowercase_simple
+  - [pg_ascii_tolower](pg_ascii_tolower.md)
+  - [unicode_lowercase_simple](../u/unicode_lowercase_simple.md)
   - towlower
   - tolower
   - towlower_l
@@ -37,7 +37,7 @@ Like its uppercase counterpart, for ASCII characters (0-127), the function force
   - PG_REGEX_LOCALE_1BYTE_L
   - PG_REGEX_LOCALE_ICU
 - Called from (representative examples):
-  - range
+  - [range](../r/range.md)
   - allcases
   - casecmp
   - REPLACEARC

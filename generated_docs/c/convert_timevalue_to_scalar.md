@@ -24,18 +24,18 @@ The function supports major PostgreSQL time types including timestamps (with and
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetTimestamp
-  - DatumGetTimestampTz
-  - date2timestamp_no_overflow
-  - DatumGetDateADT
-  - DatumGetIntervalP
-  - DatumGetTimeADT
-  - DatumGetTimeTzADTP
+  - [DatumGetTimestamp](../D/DatumGetTimestamp.md)
+  - [DatumGetTimestampTz](../D/DatumGetTimestampTz.md)
+  - [date2timestamp_no_overflow](../d/date2timestamp_no_overflow.md)
+  - [DatumGetDateADT](../D/DatumGetDateADT.md)
+  - [DatumGetIntervalP](../D/DatumGetIntervalP.md)
+  - [DatumGetTimeADT](../D/DatumGetTimeADT.md)
+  - [DatumGetTimeTzADTP](../D/DatumGetTimeTzADTP.md)
   - USECS_PER_DAY
   - DAYS_PER_YEAR
   - MONTHS_PER_YEAR
 - Called from (representative examples):
-  - convert_to_scalar
+  - [convert_to_scalar](convert_to_scalar.md)
 
 ## Notes and Other Information
 - For INTERVAL types, the function uses an approximation where months are converted to days using 365.25/12.0 days per month

@@ -30,7 +30,7 @@ Key behavioral characteristics:
   - [list_copy](list_copy.md) (copy entire list when list2 is NIL)
   - [list_member](list_member.md) (check membership using equal())
   - lfirst (extract pointer values)
-  - lappend (append pointer values)
+  - [lappend](lappend.md) (append pointer values)
   - [check_list_invariants](../c/check_list_invariants.md) (validation)
 - Called from (representative examples):
   - [get_useful_group_keys_orderings](../g/get_useful_group_keys_orderings.md) (pathkeys.c:534)

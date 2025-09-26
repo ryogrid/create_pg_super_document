@@ -24,13 +24,13 @@ When promotion is determined necessary, the function acquires the coarsest eligi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetParentPredicateLockTag
+  - [GetParentPredicateLockTag](../G/GetParentPredicateLockTag.md)
   - [hash_search](../h/hash_search.md)
   - [MaxPredicateChildLocks](../M/MaxPredicateChildLocks.md)
   - [PredicateLockAcquire](../P/PredicateLockAcquire.md)
   - HASH_ENTER
   - [PREDICATELOCKTARGETTAG](../P/PREDICATELOCKTARGETTAG.md) (data structure)
-  - LOCALPREDICATELOCK (data structure)
+  - [LOCALPREDICATELOCK](../L/LOCALPREDICATELOCK.md) (data structure)
 - Called from (representative examples):
   - [SerialControl](../S/SerialControl.md)
   - [PredicateLockAcquire](../P/PredicateLockAcquire.md)

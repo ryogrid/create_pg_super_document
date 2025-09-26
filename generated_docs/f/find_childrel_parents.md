@@ -26,13 +26,13 @@ This is essential for correctly handling inheritance hierarchies and partitioned
 ## Dependencies
 - Functions called/Symbols referenced:
   - RELOPT_OTHER_MEMBER_REL
-  - AppendRelInfo
-  - bms_add_member
-  - find_base_rel
+  - [AppendRelInfo](../A/AppendRelInfo.md)
+  - [bms_add_member](../b/bms_add_member.md)
+  - [find_base_rel](find_base_rel.md)
   - RELOPT_BASEREL
 - Called from (representative examples):
-  - generate_implied_equalities_for_column
-  - check_index_predicates
+  - [generate_implied_equalities_for_column](../g/generate_implied_equalities_for_column.md)
+  - [check_index_predicates](../c/check_index_predicates.md)
 
 ## Notes and Other Information
 - The function asserts that the input relation is of type RELOPT_OTHER_MEMBER_REL (appendrel child)

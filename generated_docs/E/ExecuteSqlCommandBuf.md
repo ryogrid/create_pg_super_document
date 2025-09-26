@@ -24,7 +24,7 @@ ExecuteSqlCommandBuf serves as a dispatcher function that routes incoming data b
   - [pg_fatal](../p/pg_fatal.md)
   - [ExecuteSimpleCommands](ExecuteSimpleCommands.md)
   - [ExecuteSqlCommand](ExecuteSqlCommand.md)
-  - pg_malloc
+  - [pg_malloc](../p/pg_malloc.md)
   - memcpy
   - free
 - Constants referenced:

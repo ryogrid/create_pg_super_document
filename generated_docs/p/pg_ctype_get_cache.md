@@ -25,13 +25,13 @@ Memory management is carefully handled with dynamic allocation and cleanup on fa
 ## Dependencies
 - Functions called/Symbols referenced:
   - malloc
-  - store_match
+  - [store_match](../s/store_match.md)
   - realloc
   - free
 - Types referenced:
-  - pg_ctype_cache
-  - cvec
-  - chr
+  - [pg_ctype_cache](pg_ctype_cache.md)
+  - [cvec](../c/cvec.md)
+  - [chr](../c/chr.md)
   - pg_wc_probefunc
 - Constants referenced:
   - MAX_SIMPLE_CHR
@@ -43,7 +43,7 @@ Memory management is carefully handled with dynamic allocation and cleanup on fa
   - PG_REGEX_LOCALE_1BYTE_L
   - PG_REGEX_LOCALE_ICU
 - Called from (representative examples):
-  - cclasscvec (multiple times for different character classes)
+  - [cclasscvec](../c/cclasscvec.md) (multiple times for different character classes)
 
 ## Notes and Other Information
 - Returns a pointer to the cached cvec structure, or NULL if out of memory

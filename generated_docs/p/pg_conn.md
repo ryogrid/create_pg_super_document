@@ -351,15 +351,15 @@ The structure is designed to handle the complete lifecycle of a database connect
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_conn_host (for multi-host connection support)
-  - PGNoticeHooks (notice message processing)
+  - [pg_conn_host](pg_conn_host.md) (for multi-host connection support)
+  - [PGNoticeHooks](../P/PGNoticeHooks.md) (notice message processing)
   - ConnStatusType, PGAsyncStatusType (status enumerations)
-  - PQExpBufferData (expandable string buffers)
+  - [PQExpBufferData](../P/PQExpBufferData.md) (expandable string buffers)
   - Various SSL, GSS, and SSPI types for security features
 
 - Called from (representative examples):
-  - PQconnectdb, PQconnectdbParams (connection establishment functions)
-  - PQexec, PQexecParams (query execution functions)
+  - [PQconnectdb](../P/PQconnectdb.md), PQconnectdbParams (connection establishment functions)
+  - [PQexec](../P/PQexec.md), PQexecParams (query execution functions)
   - All libpq public API functions that operate on connections
 
 ## Notes and Other Information

@@ -22,21 +22,21 @@ The function first casts the Datum to a varattrib_1b_e pointer, then uses memcpy
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetPointer (macro)
+  - [DatumGetPointer](DatumGetPointer.md) (macro)
   - VARATT_IS_EXTERNAL_EXPANDED (macro)
   - VARDATA_EXTERNAL (macro)  
   - VARATT_IS_EXPANDED_HEADER (macro)
   - memcpy (standard library function)
 - Types referenced:
   - varattrib_1b_e
-  - varatt_expanded
-  - ExpandedObjectHeader
+  - [varatt_expanded](../v/varatt_expanded.md)
+  - [ExpandedObjectHeader](../E/ExpandedObjectHeader.md)
 - Called from (representative examples):
-  - detoast_external_attr
-  - MakeExpandedObjectReadOnlyInternal
-  - DatumGetExpandedArray
-  - DatumGetExpandedRecord
-  - datumCopy
+  - [detoast_external_attr](../d/detoast_external_attr.md)
+  - [MakeExpandedObjectReadOnlyInternal](../M/MakeExpandedObjectReadOnlyInternal.md)
+  - [DatumGetExpandedArray](DatumGetExpandedArray.md)
+  - [DatumGetExpandedRecord](DatumGetExpandedRecord.md)
+  - [datumCopy](../d/datumCopy.md)
 
 ## Notes and Other Information
 - This function includes safety assertions to verify the input Datum is actually an expanded-object reference

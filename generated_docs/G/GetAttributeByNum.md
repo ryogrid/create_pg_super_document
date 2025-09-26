@@ -30,7 +30,7 @@ The function uses AttributeNumberIsValid to validate the attribute number, ensur
   - [heap_getattr](../h/heap_getattr.md) (extract attribute value)
   - ReleaseTupleDesc (release tuple descriptor)
 - Called from (representative examples):
-  - exec_rt_fetch (runtime tuple access)
+  - [exec_rt_fetch](../e/exec_rt_fetch.md) (runtime tuple access)
 
 ## Notes and Other Information
 This function is more efficient than GetAttributeByName since it avoids the linear search for attribute names, but still requires a type cache lookup on each call. For performance-critical code, consider caching the tuple descriptor and using heap_getattr directly. The attribute numbering follows PostgreSQL's convention where user attributes start at 1, and system attributes have negative numbers.

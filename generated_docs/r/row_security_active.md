@@ -24,7 +24,7 @@ The function calls  with  for the checkAsUser parameter (meaning it checks the c
 ## Dependencies
 - Functions called/Symbols referenced:
   - [check_enable_rls](../c/check_enable_rls.md)
-  - RLS_ENABLED
+  - [RLS_ENABLED](../R/RLS_ENABLED.md)
 - Called from (representative examples):
   - No direct references found (likely called from SQL queries)
 

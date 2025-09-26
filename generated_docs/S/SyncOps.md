@@ -28,7 +28,7 @@ The structure is used in conjunction with the syncsw array, which maps SyncReque
 - `*candidate)`: Function pointer for determining if two FileTag structures match/refer to the same logical file, returns boolean result
 ## Dependencies
 - Symbols referenced:
-  - FileTag (used as parameter type in all function pointers)
+  - [FileTag](../F/FileTag.md) (used as parameter type in all function pointers)
 - Used by:
   - syncsw array (static array of SyncOps structures indexed by SyncRequestHandler values)
   - Various storage handler functions (mdsyncfiletag, mdunlinkfiletag, mdfiletagmatches, clogsyncfiletag, etc.)

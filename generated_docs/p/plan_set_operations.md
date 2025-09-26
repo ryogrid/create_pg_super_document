@@ -60,8 +60,8 @@ For recursive operations (Common Table Expressions with UNION), it calls . For n
   - [setup_simple_rel_arrays](../s/setup_simple_rel_arrays.md)
   - [generate_recursion_path](../g/generate_recursion_path.md)
   - [recurse_set_operations](../r/recurse_set_operations.md)
-  - SetOperationStmt
-  - RangeTblRef
+  - [SetOperationStmt](../S/SetOperationStmt.md)
+  - [RangeTblRef](../R/RangeTblRef.md)
 - Called from (representative examples):
   - [grouping_planner](../g/grouping_planner.md) (src/backend/optimizer/plan/planner.c:1377)
 

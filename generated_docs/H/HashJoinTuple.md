@@ -21,20 +21,20 @@ HashJoinTuple represents individual tuples stored in PostgreSQL's hash join hash
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HashJoinTupleData (actual structure being pointed to)
+  - [HashJoinTupleData](HashJoinTupleData.md) (actual structure being pointed to)
   - dsa_pointer (for parallel hash join shared memory support)
   - MinimalTuple (for efficient tuple storage format)
 - Called from (representative examples):
-  - ExecHashTableInsert (inserts tuples into hash table)
+  - [ExecHashTableInsert](../E/ExecHashTableInsert.md) (inserts tuples into hash table)
   - [ExecScanHashBucket](../E/ExecScanHashBucket.md) (scans hash bucket for matching tuples)
-  - ExecHashIncreaseNumBatches (redistributes tuples during batch expansion)
-  - ExecParallelHashTableInsert (parallel hash table insertion)
-  - ExecHashSkewTableInsert (inserts into skew buckets for optimization)
+  - [ExecHashIncreaseNumBatches](../E/ExecHashIncreaseNumBatches.md) (redistributes tuples during batch expansion)
+  - [ExecParallelHashTableInsert](../E/ExecParallelHashTableInsert.md) (parallel hash table insertion)
+  - [ExecHashSkewTableInsert](../E/ExecHashSkewTableInsert.md) (inserts into skew buckets for optimization)
 
 ## Notes and Other Information
 - This structure is the fundamental building block of hash join hash tables, designed for memory efficiency
 - The union supports both single-process and parallel hash joins - unshared for regular execution, shared for parallel workers
-- Hash values are pre-computed and stored to avoid recalculation during hash table probing
+- [Hash](Hash.md) values are pre-computed and stored to avoid recalculation during hash table probing
 - Tuple data uses MinimalTuple format which omits system columns for space efficiency
 - The linked list design handles hash collisions efficiently through separate chaining
 - Memory alignment (MAXALIGN) ensures optimal performance for tuple data access

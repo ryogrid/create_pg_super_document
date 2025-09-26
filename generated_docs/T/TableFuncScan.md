@@ -26,16 +26,16 @@ This node type is essential for modern SQL features that allow querying semi-str
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Scan (base structure)
-  - TableFunc (table function specification)
+  - [Scan](../S/Scan.md) (base structure)
+  - [TableFunc](TableFunc.md) (table function specification)
   
 - Called from (representative examples):
-  - ExecInitTableFuncScan (executor initialization)
-  - tfuncInitialize (table function initialization)
-  - tfuncLoadRows (table function row loading)
-  - create_tablefuncscan_plan (plan creation)
-  - make_tablefuncscan (plan node construction)
-  - JsonTableInitOpaque (JSON table function support)
+  - [ExecInitTableFuncScan](../E/ExecInitTableFuncScan.md) (executor initialization)
+  - [tfuncInitialize](../t/tfuncInitialize.md) (table function initialization)
+  - [tfuncLoadRows](../t/tfuncLoadRows.md) (table function row loading)
+  - [create_tablefuncscan_plan](../c/create_tablefuncscan_plan.md) (plan creation)
+  - [make_tablefuncscan](../m/make_tablefuncscan.md) (plan node construction)
+  - [JsonTableInitOpaque](../J/JsonTableInitOpaque.md) (JSON table function support)
 
 ## Notes and Other Information
 - Critical for implementing SQL/JSON and XML table function standards

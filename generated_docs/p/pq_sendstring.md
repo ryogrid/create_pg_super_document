@@ -24,7 +24,7 @@ The function first determines the length of the input string, then calls pg_serv
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_server_to_client](pg_server_to_client.md) (performs character set conversion)
-  - appendBinaryStringInfoNT (appends binary data including null terminator)
+  - [appendBinaryStringInfoNT](../a/appendBinaryStringInfoNT.md) (appends binary data including null terminator)
   - strlen (calculates string length)
   - [pfree](pfree.md) (frees converted string if conversion occurred)
 

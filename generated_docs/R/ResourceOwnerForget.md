@@ -23,16 +23,16 @@ When a resource is found in the array, it's removed by replacing it with the las
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_resource_elem (for computing hash table position)
-  - ResourceOwnerDesc (resource type descriptor structure)
-  - DatumGetPointer (for error message formatting)
+  - [hash_resource_elem](../h/hash_resource_elem.md) (for computing hash table position)
+  - [ResourceOwnerDesc](ResourceOwnerDesc.md) (resource type descriptor structure)
+  - [DatumGetPointer](../D/DatumGetPointer.md) (for error message formatting)
 - Called from (representative examples):
-  - ResourceOwnerForgetTupleDesc (tuple descriptor tracking)
-  - ResourceOwnerForgetBuffer (buffer tracking)  
-  - ResourceOwnerForgetFile (file descriptor tracking)
-  - ResourceOwnerForgetCatCacheRef (catalog cache reference tracking)
-  - ResourceOwnerForgetSnapshot (snapshot tracking)
-  - ResourceOwnerForgetDSM (dynamic shared memory tracking)
+  - [ResourceOwnerForgetTupleDesc](ResourceOwnerForgetTupleDesc.md) (tuple descriptor tracking)
+  - [ResourceOwnerForgetBuffer](ResourceOwnerForgetBuffer.md) (buffer tracking)  
+  - [ResourceOwnerForgetFile](ResourceOwnerForgetFile.md) (file descriptor tracking)
+  - [ResourceOwnerForgetCatCacheRef](ResourceOwnerForgetCatCacheRef.md) (catalog cache reference tracking)
+  - [ResourceOwnerForgetSnapshot](ResourceOwnerForgetSnapshot.md) (snapshot tracking)
+  - [ResourceOwnerForgetDSM](ResourceOwnerForgetDSM.md) (dynamic shared memory tracking)
 
 ## Notes and Other Information
 - Cannot be called after ResourceOwner cleanup has started (owner->releasing is true)

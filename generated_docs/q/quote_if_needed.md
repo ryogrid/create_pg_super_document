@@ -29,7 +29,7 @@ The function implements proper escaping by doubling quote and escape characters 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_malloc
+  - [pg_malloc](../p/pg_malloc.md)
   - [PQmblenBounded](../P/PQmblenBounded.md)
 - Called from (representative examples):
   - [complete_from_files](../c/complete_from_files.md)

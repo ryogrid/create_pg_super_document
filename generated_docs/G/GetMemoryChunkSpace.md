@@ -29,9 +29,9 @@ This function is particularly useful for:
   - MCXT_METHOD (macro for accessing memory context methods)
 - Called from (representative examples):
   - ginCombineData (GIN index bulk operations)
-  - tuplesort_begin_batch (tuple sorting operations)
-  - tuplestore_begin_common (tuple store management)
-  - AlignedAllocGetChunkSpace (aligned memory allocator)
+  - [tuplesort_begin_batch](../t/tuplesort_begin_batch.md) (tuple sorting operations)
+  - [tuplestore_begin_common](../t/tuplestore_begin_common.md) (tuple store management)
+  - [AlignedAllocGetChunkSpace](../A/AlignedAllocGetChunkSpace.md) (aligned memory allocator)
 
 ## Notes and Other Information
 - Returns the total space as a Size type (typically size_t)

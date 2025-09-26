@@ -20,7 +20,7 @@ ParallelBackupStart is the main entry point for setting up parallel processing i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_malloc, pg_malloc0 (memory allocation)
+  - [pg_malloc](../p/pg_malloc.md), pg_malloc0 (memory allocation)
   - [pgpipe](../p/pgpipe.md) (pipe creation for IPC)
   - fork (Unix process creation)
   - _beginthreadex (Windows thread creation)

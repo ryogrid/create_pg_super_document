@@ -41,7 +41,7 @@ The function generates FieldSelect expressions for each non-dropped attribute, p
   - TupleDescAttr
   - InvalidAttrNumber
   - [ParseNamespaceItem](../P/ParseNamespaceItem.md)
-  - FieldSelect
+  - [FieldSelect](../F/FieldSelect.md)
 - Called from (representative examples):
   - [ExpandIndirectionStar](ExpandIndirectionStar.md)
 

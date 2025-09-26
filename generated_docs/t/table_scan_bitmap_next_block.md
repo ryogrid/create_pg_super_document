@@ -33,7 +33,7 @@ The function includes a safety check to prevent unexpected calls during logical 
   - `scan->rs_rd->rd_tableam->scan_bitmap_next_block`: Actual table access method implementation
 
 - Called from (representative examples):
-  - `BitmapHeapNext`: Main function in bitmap heap scan executor node
+  - `[BitmapHeapNext](../B/BitmapHeapNext.md)`: Main function in bitmap heap scan executor node
 
 ## Notes and Other Information
 - This is an inline function defined in the table access method header file

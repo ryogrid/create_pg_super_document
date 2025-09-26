@@ -31,11 +31,11 @@ It constructs a complex SQL query that unions together queries for each object t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initPQExpBuffer: Initialize query buffer
+  - [initPQExpBuffer](../i/initPQExpBuffer.md): Initialize query buffer
   - [validateSQLNamePattern](../v/validateSQLNamePattern.md): Validate and process name patterns for SQL queries
   - [PSQLexec](../P/PSQLexec.md): Execute the constructed SQL query
   - [printQuery](../p/printQuery.md): Format and display query results
-  - termPQExpBuffer: Clean up query buffer
+  - [termPQExpBuffer](../t/termPQExpBuffer.md): Clean up query buffer
   - lengthof: Get array length
 - Called from (representative examples):
   - [exec_command_d](../e/exec_command_d.md): Main command dispatcher for \dd command in psql

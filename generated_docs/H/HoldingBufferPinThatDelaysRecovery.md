@@ -24,11 +24,11 @@ None - this function takes no parameters and checks the current backend's state.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetStartupBufferPinWaitBufId
-  - GetPrivateRefCount
+  - [GetStartupBufferPinWaitBufId](../G/GetStartupBufferPinWaitBufId.md)
+  - [GetPrivateRefCount](../G/GetPrivateRefCount.md)
 - Called from (representative examples):
-  - CheckRecoveryConflictDeadlock
-  - ProcessRecoveryConflictInterrupt
+  - [CheckRecoveryConflictDeadlock](../C/CheckRecoveryConflictDeadlock.md)
+  - [ProcessRecoveryConflictInterrupt](../P/ProcessRecoveryConflictInterrupt.md)
 
 ## Notes and Other Information
 - Returns true if the current backend holds pins on the buffer the startup process is waiting for

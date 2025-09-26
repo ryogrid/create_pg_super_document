@@ -29,7 +29,7 @@ The function is part of PostgreSQL's logical replication protocol implementation
   - [pq_sendbyte](../p/pq_sendbyte.md): Writes the message type identifier
   - [pq_sendint32](../p/pq_sendint32.md): Writes 32-bit integers (transaction ID and type OID)
   - [pq_sendstring](../p/pq_sendstring.md): Writes null-terminated strings (type name)
-  - logicalrep_write_namespace: Writes namespace information
+  - [logicalrep_write_namespace](logicalrep_write_namespace.md): Writes namespace information
   - Form_pg_type: Structure representing pg_type catalog entries
   - LOGICAL_REP_MSG_TYPE: Message type constant for type information
 

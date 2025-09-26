@@ -28,19 +28,19 @@ This partitioning strategy allows parallel hash join workers to process their as
 ## Dependencies
 - Functions called/Symbols referenced:
   - outerPlanState
-  - ExecProcNode
+  - [ExecProcNode](ExecProcNode.md)
   - TupIsNull
-  - ExecHashGetHashValue
+  - [ExecHashGetHashValue](ExecHashGetHashValue.md)
   - HJ_FILL_OUTER
-  - ExecFetchSlotMinimalTuple
-  - ExecHashGetBucketAndBatch
-  - sts_puttuple
-  - heap_free_minimal_tuple
-  - sts_end_write
+  - [ExecFetchSlotMinimalTuple](ExecFetchSlotMinimalTuple.md)
+  - [ExecHashGetBucketAndBatch](ExecHashGetBucketAndBatch.md)
+  - [sts_puttuple](../s/sts_puttuple.md)
+  - [heap_free_minimal_tuple](../h/heap_free_minimal_tuple.md)
+  - [sts_end_write](../s/sts_end_write.md)
   - MinimalTuple (type)
-  - HashJoinTable (type)
+  - [HashJoinTable](../H/HashJoinTable.md) (type)
 - Called from (representative examples):
-  - ExecHashJoinImpl
+  - [ExecHashJoinImpl](ExecHashJoinImpl.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the hash join implementation

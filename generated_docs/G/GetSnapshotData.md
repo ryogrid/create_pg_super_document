@@ -70,10 +70,10 @@ The function also updates global visibility bounds (GlobalVis*Rels) and backend-
   - [GetCurrentCommandId](GetCurrentCommandId.md) (command counter management)
   - Various transaction ID manipulation functions
 - Called from (representative examples):
-  - GetTransactionSnapshot (primary entry point)
-  - GetLatestSnapshot
+  - [GetTransactionSnapshot](GetTransactionSnapshot.md) (primary entry point)
+  - [GetLatestSnapshot](GetLatestSnapshot.md)
   - [GetNonHistoricCatalogSnapshot](GetNonHistoricCatalogSnapshot.md)
-  - SetTransactionSnapshot
+  - [SetTransactionSnapshot](../S/SetTransactionSnapshot.md)
 
 ## Notes and Other Information
 - Requires ProcArrayLock in shared mode during execution

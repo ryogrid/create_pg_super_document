@@ -31,7 +31,7 @@ The function ensures that the parallel worker operates in an environment that is
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dsm_attach](../d/dsm_attach.md), dsm_segment_address
-  - shm_toc_attach, shm_toc_lookup
+  - [shm_toc_attach](../s/shm_toc_attach.md), shm_toc_lookup
   - [LookupParallelWorkerFunction](../L/LookupParallelWorkerFunction.md)
   - [SetParallelStartTimestamps](../S/SetParallelStartTimestamps.md)
   - [StartParallelWorkerTransaction](../S/StartParallelWorkerTransaction.md), EndParallelWorkerTransaction
@@ -39,7 +39,7 @@ The function ensures that the parallel worker operates in an environment that is
   - [RestorePendingSyncs](../R/RestorePendingSyncs.md), RestoreUncommittedEnums
   - [BecomeLockGroupMember](../B/BecomeLockGroupMember.md)
   - [BackgroundWorkerInitializeConnectionByOid](../B/BackgroundWorkerInitializeConnectionByOid.md)
-  - EnterParallelMode, ExitParallelMode
+  - [EnterParallelMode](../E/EnterParallelMode.md), ExitParallelMode
   - [StartTransactionCommand](../S/StartTransactionCommand.md), CommitTransactionCommand
 - Called from (representative examples):
   - [BackgroundWorkerHandle](../B/BackgroundWorkerHandle.md) (via bgworker registration)

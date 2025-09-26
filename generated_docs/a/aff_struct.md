@@ -48,13 +48,13 @@ The bitfield design optimizes memory usage while providing flags for compound wo
 ## Dependencies
 - Functions called/Symbols referenced:
   - regex_t (POSIX regular expression structure)
-  - Regis (custom pattern matching structure)
+  - [Regis](../R/Regis.md) (custom pattern matching structure)
 - Called from (representative examples):
-  - NIAddAffix (creates and initializes new AFFIX entries)
-  - cmpaffix (comparison function for sorting AFFIX entries)
-  - mkANode (uses AFFIX data to build affix tree nodes)
-  - CheckAffix (validates and applies affix rules)
-  - NISortAffixes (sorts affix arrays for efficient processing)
+  - [NIAddAffix](../N/NIAddAffix.md) (creates and initializes new AFFIX entries)
+  - [cmpaffix](../c/cmpaffix.md) (comparison function for sorting AFFIX entries)
+  - [mkANode](../m/mkANode.md) (uses AFFIX data to build affix tree nodes)
+  - [CheckAffix](../C/CheckAffix.md) (validates and applies affix rules)
+  - [NISortAffixes](../N/NISortAffixes.md) (sorts affix arrays for efficient processing)
 
 ## Notes and Other Information
 - Part of PostgreSQL's Ispell dictionary implementation located in src/include/tsearch/dicts/spell.h:87-107

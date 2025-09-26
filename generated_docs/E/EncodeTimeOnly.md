@@ -25,15 +25,15 @@ EncodeTimeOnly converts time-related components from a pg_tm structure and fract
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_ultostr_zeropad (for zero-padded hour and minute formatting)
-  - AppendSeconds (for seconds and fractional seconds formatting)
-  - EncodeTimezone (for timezone offset formatting when print_tz is true)
+  - [pg_ultostr_zeropad](../p/pg_ultostr_zeropad.md) (for zero-padded hour and minute formatting)
+  - [AppendSeconds](../A/AppendSeconds.md) (for seconds and fractional seconds formatting)
+  - [EncodeTimezone](EncodeTimezone.md) (for timezone offset formatting when print_tz is true)
   - MAX_TIME_PRECISION (constant for maximum time precision)
   - fsec_t (type for fractional seconds)
 - Called from (representative examples):
-  - time_out
-  - timetz_out
-  - JsonEncodeDateTime
+  - [time_out](../t/time_out.md)
+  - [timetz_out](../t/timetz_out.md)
+  - [JsonEncodeDateTime](../J/JsonEncodeDateTime.md)
 
 ## Notes and Other Information
 - Always formats time in HH:MM:SS format with colon separators

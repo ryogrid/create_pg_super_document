@@ -24,9 +24,9 @@ This automatic cleanup mechanism is essential for embedded SQL applications that
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ECPGfree_auto_mem (frees all automatic memory allocations for the current thread)
+  - [ECPGfree_auto_mem](../E/ECPGfree_auto_mem.md) (frees all automatic memory allocations for the current thread)
 - Called from (representative examples):
-  - auto_mem_key_init (registered as pthread key destructor)
+  - [auto_mem_key_init](auto_mem_key_init.md) (registered as pthread key destructor)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the memory.c file

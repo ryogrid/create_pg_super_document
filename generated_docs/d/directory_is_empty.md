@@ -19,10 +19,10 @@ This utility function verifies whether a specified directory contains any files 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AllocateDir: Opens a directory for reading
-  - ReadDir: Reads the next directory entry
-  - FreeDir: Closes and frees directory resources
-  - DIR: Directory handle structure
+  - [AllocateDir](../A/AllocateDir.md): Opens a directory for reading
+  - [ReadDir](../R/ReadDir.md): Reads the next directory entry
+  - [FreeDir](../F/FreeDir.md): Closes and frees directory resources
+  - [DIR](../D/DIR.md): Directory handle structure
   - [dirent](dirent.md): Directory entry structure
 
 - Called from (representative examples):

@@ -22,7 +22,7 @@ This function examines a RestrictInfo to check if it represents a clause of the 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [is_opclause](../i/is_opclause.md) (checks if clause is an OpExpr)
-  - list_length (gets list length)
+  - [list_length](../l/list_length.md) (gets list length)
   - linitial (gets first list element)
   - lsecond (gets second list element)
   - IsA (type checking macro)

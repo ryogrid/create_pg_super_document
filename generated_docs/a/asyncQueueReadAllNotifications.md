@@ -31,8 +31,8 @@ This function takes no parameters and operates on global state variables and the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetLatestSnapshot
-  - RegisterSnapshot/UnregisterSnapshot
+  - [GetLatestSnapshot](../G/GetLatestSnapshot.md)
+  - [RegisterSnapshot](../R/RegisterSnapshot.md)/UnregisterSnapshot
   - [SimpleLruReadPage_ReadOnly](../S/SimpleLruReadPage_ReadOnly.md)
   - [SimpleLruGetBankLock](../S/SimpleLruGetBankLock.md)
   - [asyncQueueProcessPageEntries](asyncQueueProcessPageEntries.md)

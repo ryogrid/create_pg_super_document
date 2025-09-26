@@ -37,13 +37,13 @@ The function includes robust error handling with detailed error messages for var
   - VARSIZE_ANY_EXHDR: Gets size of variable-length data excluding header
   - VARDATA_ANY: Gets pointer to data portion of variable-length type
   - VARSIZE_ANY: Gets total size of variable-length data
-  - palloc0: Zero-initialized PostgreSQL memory allocation
-  - palloc: PostgreSQL memory allocation
+  - [palloc0](../p/palloc0.md): Zero-initialized PostgreSQL memory allocation
+  - [palloc](../p/palloc.md): PostgreSQL memory allocation
   - memcpy: Memory copy for binary data
   - MAXALIGN: Aligns memory to platform requirements
 - Called from (representative examples):
-  - statext_ndistinct_load: Loads statistics from system catalog
-  - pg_ndistinct_out: Output function for pg_ndistinct type
+  - [statext_ndistinct_load](statext_ndistinct_load.md): Loads statistics from system catalog
+  - [pg_ndistinct_out](../p/pg_ndistinct_out.md): Output function for pg_ndistinct type
 
 ## Notes and Other Information
 - Returns NULL if input data is NULL (graceful handling)

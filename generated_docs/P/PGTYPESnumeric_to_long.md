@@ -22,15 +22,15 @@ When an ERANGE error occurs during strtol conversion, the function maps it to Po
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PGTYPESnumeric_to_asc
+  - [PGTYPESnumeric_to_asc](PGTYPESnumeric_to_asc.md)
   - PGTYPES_NUM_UNDERFLOW (error constant)
   - PGTYPES_NUM_OVERFLOW (error constant)
-  - numeric (type)
+  - [numeric](../n/numeric.md) (type)
   - strtol (standard C library function)
 - Called from (representative examples):
-  - PGTYPESnumeric_to_int
-  - dectolong (in compatlib/informix.c)
-  - main (in test files for numeric operations)
+  - [PGTYPESnumeric_to_int](PGTYPESnumeric_to_int.md)
+  - [dectolong](../d/dectolong.md) (in compatlib/informix.c)
+  - [main](../m/main.md) (in test files for numeric operations)
 
 ## Notes and Other Information
 - Returns 0 on successful conversion, -1 on error

@@ -29,7 +29,7 @@ The  function is the core iteration component of PostgreSQL's substring search s
 - Called from (representative examples):
   -  - Single occurrence search
   -  - Text replacement operations (multiple occurrences)
-  -  - String splitting functions
+  -  - [String](../S/String.md) splitting functions
   -  - Text splitting operations
 
 ## Notes and Other Information

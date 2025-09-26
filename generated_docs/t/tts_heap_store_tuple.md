@@ -21,7 +21,7 @@ This function is responsible for storing a HeapTuple into a HeapTupleTableSlot. 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HeapTupleTableSlot (type cast)
+  - [HeapTupleTableSlot](../H/HeapTupleTableSlot.md) (type cast)
   - [tts_heap_clear](tts_heap_clear.md)
   - TTS_FLAG_EMPTY
   - TTS_FLAG_SHOULDFREE

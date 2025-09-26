@@ -22,16 +22,16 @@ The function first acquires the appropriate locks (SerializablePredicateListLock
 ## Dependencies
 - Functions called/Symbols referenced:
   - PredicateLockHashPartitionLock
-  - LWLockAcquire, LWLockRelease
-  - IsInParallelMode
+  - [LWLockAcquire](../L/LWLockAcquire.md), LWLockRelease
+  - [IsInParallelMode](../I/IsInParallelMode.md)
   - [hash_search_with_hash_value](../h/hash_search_with_hash_value.md)
   - [dlist_init](../d/dlist_init.md), dlist_push_tail
   - PredicateLockHashCodeFromTargetHashCode
-  - PREDICATELOCKTARGET, PREDICATELOCK, PREDICATELOCKTAG (structs)
+  - [PREDICATELOCKTARGET](../P/PREDICATELOCKTARGET.md), PREDICATELOCK, PREDICATELOCKTAG (structs)
   - InvalidSerCommitSeqNo (constant)
 - Called from (representative examples):
   - [PredicateLockAcquire](../P/PredicateLockAcquire.md)
-  - predicatelock_twophase_recover
+  - [predicatelock_twophase_recover](../p/predicatelock_twophase_recover.md)
   - [SerialControl](../S/SerialControl.md)
 
 ## Notes and Other Information

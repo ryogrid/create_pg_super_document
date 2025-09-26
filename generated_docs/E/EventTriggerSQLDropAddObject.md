@@ -39,7 +39,7 @@ The function supports reentrancy, allowing event trigger functions to drop objec
   - [heap_getattr](../h/heap_getattr.md) (extracts attributes from heap tuples)
   - [get_namespace_name](../g/get_namespace_name.md) (retrieves namespace name)
   - [getObjectIdentityParts](../g/getObjectIdentityParts.md) (gets object identity components)
-  - getObjectTypeDescription (gets object type description)
+  - [getObjectTypeDescription](../g/getObjectTypeDescription.md) (gets object type description)
   - [slist_push_head](../s/slist_push_head.md) (adds object to drop list)
 - Called from (representative examples):
   - [deleteObjectsInList](../d/deleteObjectsInList.md) (src/backend/catalog/dependency.c:211)

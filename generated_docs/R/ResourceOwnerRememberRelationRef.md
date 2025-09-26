@@ -23,7 +23,7 @@ The function is part of PostgreSQL's resource management system that ensures pro
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwnerRemember
+  - [ResourceOwnerRemember](ResourceOwnerRemember.md)
   - [PointerGetDatum](../P/PointerGetDatum.md) (implicit conversion)
   - relref_resowner_desc (resource descriptor)
 - Called from (representative examples):

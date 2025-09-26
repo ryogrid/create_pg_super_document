@@ -23,12 +23,12 @@ The function operates on PostgreSQL's internal List data structure, returning a 
   - Assert (macro for bounds checking)
   - NIL (constant representing NULL list)
 - Called from (representative examples):
-  - find_all_inheritors (src/backend/catalog/pg_inherits.c:313)
-  - ProcedureCreate (src/backend/catalog/pg_proc.c:527)
-  - build_subplan (src/backend/optimizer/plan/subselect.c:470)
-  - split_pathtarget_at_srfs (src/backend/optimizer/util/tlist.c:997, 999)
+  - [find_all_inheritors](../f/find_all_inheritors.md) (src/backend/catalog/pg_inherits.c:313)
+  - [ProcedureCreate](../P/ProcedureCreate.md) (src/backend/catalog/pg_proc.c:527)
+  - [build_subplan](../b/build_subplan.md) (src/backend/optimizer/plan/subselect.c:470)
+  - [split_pathtarget_at_srfs](../s/split_pathtarget_at_srfs.md) (src/backend/optimizer/util/tlist.c:997, 999)
   - linitial, lsecond, lthird, lfourth (list access macros in src/include/nodes/pg_list.h)
-  - list_nth, list_nth_int, list_nth_oid (value extraction functions)
+  - [list_nth](list_nth.md), list_nth_int, list_nth_oid (value extraction functions)
 
 ## Notes and Other Information
 - This function is marked as static inline for performance optimization

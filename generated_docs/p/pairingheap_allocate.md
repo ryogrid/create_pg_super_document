@@ -23,14 +23,14 @@ The newly allocated heap starts empty with its root pointer set to NULL. The com
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (memory allocation function)
-  - pairingheap (structure type)
+  - [palloc](palloc.md) (memory allocation function)
+  - [pairingheap](pairingheap.md) (structure type)
   - pairingheap_comparator (function pointer type)
 - Called from (representative examples):
-  - gistrescan (GiST index scanning)
-  - resetSpGistScanOpaque (SP-GiST scanning)
-  - ExecInitIndexScan (index scan execution initialization)
-  - ReorderBufferAllocate (logical replication reorder buffer allocation)
+  - [gistrescan](../g/gistrescan.md) (GiST index scanning)
+  - [resetSpGistScanOpaque](../r/resetSpGistScanOpaque.md) (SP-GiST scanning)
+  - [ExecInitIndexScan](../E/ExecInitIndexScan.md) (index scan execution initialization)
+  - [ReorderBufferAllocate](../R/ReorderBufferAllocate.md) (logical replication reorder buffer allocation)
 
 ## Notes and Other Information
 - The heap is allocated using PostgreSQL's memory management system via 

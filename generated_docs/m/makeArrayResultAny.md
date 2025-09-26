@@ -23,8 +23,8 @@ This function finalizes the array construction process by converting the accumul
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeMdArrayResult (for creating multi-dimensional arrays from scalar state)
-  - makeArrayResultArr (for finalizing array-input based construction)
+  - [makeMdArrayResult](makeMdArrayResult.md) (for creating multi-dimensional arrays from scalar state)
+  - [makeArrayResultArr](makeArrayResultArr.md) (for finalizing array-input based construction)
   - [ArrayBuildStateAny](../A/ArrayBuildStateAny.md) (state structure type)
 - Called from (representative examples):
   - [ExecScanSubPlan](../E/ExecScanSubPlan.md) (in nodeSubplan.c:466)

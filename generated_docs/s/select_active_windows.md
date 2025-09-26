@@ -29,7 +29,7 @@ The sorting approach ensures that windows with identical partitioning and orderi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WindowFuncLists, WindowClause (struct types)
+  - [WindowFuncLists](../W/WindowFuncLists.md), WindowClause (struct types)
   - WindowClauseSortData (struct type for sorting)
   - [list_concat_unique](../l/list_concat_unique.md) (removes duplicates while concatenating)
   - [list_copy](../l/list_copy.md) (creates list copy)

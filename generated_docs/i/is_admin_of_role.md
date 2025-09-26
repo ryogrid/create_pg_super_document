@@ -29,16 +29,16 @@ The function uses `roles_is_member_of` to traverse the role hierarchy and check 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `superuser_arg`: Checks if the member has superuser privileges
-  - `roles_is_member_of`: Recursively searches role membership with admin role tracking
+  - `[superuser_arg](../s/superuser_arg.md)`: Checks if the member has superuser privileges
+  - `[roles_is_member_of](../r/roles_is_member_of.md)`: Recursively searches role membership with admin role tracking
   - `ROLERECURSE_MEMBERS`: Constant controlling recursion behavior
   - `OidIsValid`: Macro to validate OID values
 - Called from (representative examples):
-  - `check_object_ownership`: Object ownership validation
-  - `AlterRole`: Role alteration commands  
-  - `DropRole`: Role deletion operations
-  - `RenameRole`: Role renaming functionality
-  - `pg_role_aclcheck`: Access control checking
+  - `[check_object_ownership](../c/check_object_ownership.md)`: Object ownership validation
+  - `[AlterRole](../A/AlterRole.md)`: Role alteration commands  
+  - `[DropRole](../D/DropRole.md)`: Role deletion operations
+  - `[RenameRole](../R/RenameRole.md)`: Role renaming functionality
+  - `[pg_role_aclcheck](../p/pg_role_aclcheck.md)`: Access control checking
 
 ## Notes and Other Information
 - Returns `false` immediately if member equals role (self-admin prevention policy)

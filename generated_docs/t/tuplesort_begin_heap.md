@@ -40,12 +40,12 @@ This function creates and configures a new tuplesort state specifically for heap
   - [comparetup_heap_tiebreak](../c/comparetup_heap_tiebreak.md)
   - [writetup_heap](../w/writetup_heap.md)
   - [readtup_heap](../r/readtup_heap.md)
-  - PrepareSortSupportFromOrderingOp
+  - [PrepareSortSupportFromOrderingOp](../P/PrepareSortSupportFromOrderingOp.md)
 - Called from (representative examples):
   - [initialize_phase](../i/initialize_phase.md) (nodeAgg.c:524)
   - [initialize_aggregate](../i/initialize_aggregate.md) (nodeAgg.c:612)
   - [ExecSort](../E/ExecSort.md) (nodeSort.c:114)
-  - ExecIncrementalSort (nodeIncrementalSort.c:610)
+  - [ExecIncrementalSort](../E/ExecIncrementalSort.md) (nodeIncrementalSort.c:610)
 
 ## Notes and Other Information
 - The function supports the "onlyKey" optimization when there's a single sort key without abbreviation

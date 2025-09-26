@@ -24,8 +24,8 @@ This function handles string appending with formatting capabilities including fi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendStringInfoString
-  - appendStringInfoSpaces
+  - [appendStringInfoString](../a/appendStringInfoString.md)
+  - [appendStringInfoSpaces](../a/appendStringInfoSpaces.md)
   - [pg_mbstrlen](../p/pg_mbstrlen.md)
   - TEXT_FORMAT_FLAG_MINUS (constant)
 - Called from:

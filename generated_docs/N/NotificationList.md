@@ -44,7 +44,7 @@ The linked structure through the  field creates a stack-like organization where 
 ## Notes and Other Information
 - Each subtransaction maintains its own NotificationList in its CurTransactionContext
 - The  field creates a stack of notification lists corresponding to the transaction nesting levels
-- Hash table optimization is applied only when notifications exceed MIN_HASHABLE_NOTIFIES to balance memory usage and lookup performance
+- [Hash](../H/Hash.md) table optimization is applied only when notifications exceed MIN_HASHABLE_NOTIFIES to balance memory usage and lookup performance
 - On subtransaction commit, the current level's events are merged with the parent level's list
 - On subtransaction abort, the current level's NotificationList is simply discarded
 - The structure ensures that notification delivery order matches the original NOTIFY command order

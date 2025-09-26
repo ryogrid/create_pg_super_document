@@ -30,7 +30,7 @@ This functionality is essential for PostgreSQL's flexible type system, particula
   - Array aggregate functions (array_agg_transfn, array_agg_array_transfn)
   - JSON processing functions (to_json, json_agg_transfn_worker, jsonb functions)
   - Enum functions (enum_first, enum_last, enum_range functions)
-  - Range and multirange functions (range_agg_transfn, multirange_agg_transfn)
+  - [Range](../R/Range.md) and multirange functions (range_agg_transfn, multirange_agg_transfn)
   - Text processing functions (concat_internal, text_format)
   - Utility functions (pg_typeof, pg_collation_for, count_nulls)
 

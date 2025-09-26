@@ -32,7 +32,7 @@ The `parse_bool_with_len` function is the core implementation for boolean string
 - Supported boolean representations: "true", "false", "yes", "no", "on", "off", "1", "0" (case-insensitive)
 - Accepts unique prefixes of the above keywords (e.g., "t" for "true", "f" for "false")
 - Special handling for 'o' prefix requires at least 2 characters to distinguish between "on" and "off"
-- Numeric values "1" and "0" must be exactly one character long
+- [Numeric](../N/Numeric.md) values "1" and "0" must be exactly one character long
 - The function is designed to work with both null-terminated and non-null-terminated strings
 - Performance optimized by checking most common cases ('t', 'f', 'y', 'n') first
 - Used as the foundation for all boolean parsing operations in PostgreSQL

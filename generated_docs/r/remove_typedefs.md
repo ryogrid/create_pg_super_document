@@ -30,7 +30,7 @@ This cleanup mechanism ensures that typedefs defined in inner scopes (higher bra
 - Functions called/Symbols referenced:
   - free (C library function for memory deallocation)
   - types (global typedef list)
-  - typedefs (typedef structure type)
+  - [typedefs](../t/typedefs.md) (typedef structure type)
   - ECPGt_struct, ECPGt_union (ECPG type enumeration constants)
 
 - Called from (representative examples):

@@ -24,9 +24,9 @@ The function is typically used in scenarios where multiple database sessions nee
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetActiveSnapshot
+  - [GetActiveSnapshot](../G/GetActiveSnapshot.md)
   - [ExportSnapshot](../E/ExportSnapshot.md)
-  - cstring_to_text
+  - [cstring_to_text](../c/cstring_to_text.md)
   - PG_RETURN_TEXT_P
 - Called from (representative examples):
   - SQL commands (no direct C callers found)

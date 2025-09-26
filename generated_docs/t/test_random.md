@@ -27,7 +27,7 @@ The function uses deterministic randomness by reseeding the PRNG for deletion, e
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md) (seed generation)
-  - pg_prng_seed, pg_prng_uint64 (random number generation)
+  - [pg_prng_seed](../p/pg_prng_seed.md), pg_prng_uint64 (random number generation)
   - AllocSetContextCreate (memory context management)
   - rt_create (radix tree creation)
   - rt_set (key insertion)
@@ -40,9 +40,9 @@ The function uses deterministic randomness by reseeding the PRNG for deletion, e
   - qsort (key sorting for validation)
   - [key_cmp](../k/key_cmp.md) (comparison function for sorting)
   - [palloc](../p/palloc.md), pfree (memory allocation/deallocation)
-  - LWLockNewTrancheId, LWLockRegisterTranche, dsa_create, dsa_detach (shared memory operations)
+  - [LWLockNewTrancheId](../L/LWLockNewTrancheId.md), LWLockRegisterTranche, dsa_create, dsa_detach (shared memory operations)
 - Called from (representative examples):
-  - test_radixtree (main test function)
+  - [test_radixtree](test_radixtree.md) (main test function)
 
 ## Notes and Other Information
 - This is a static function used internally within the test_radixtree module

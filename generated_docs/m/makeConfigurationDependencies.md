@@ -28,7 +28,7 @@ makeConfigurationDependencies establishes the complete dependency graph for a te
   - [add_exact_object_address](../a/add_exact_object_address.md) (adds dependency to collection)
   - [recordDependencyOnOwner](../r/recordDependencyOnOwner.md) (records ownership dependency)
   - [recordDependencyOnCurrentExtension](../r/recordDependencyOnCurrentExtension.md) (records extension membership)
-  - CommandCounterIncrement (ensures visibility of changes)
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md) (ensures visibility of changes)
   - [systable_beginscan](../s/systable_beginscan.md)/systable_getnext (scans configuration map)
   - [record_object_address_dependencies](../r/record_object_address_dependencies.md) (records all dependencies)
   - [free_object_addresses](../f/free_object_addresses.md) (cleans up dependency collection)

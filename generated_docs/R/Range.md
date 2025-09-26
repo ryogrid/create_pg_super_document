@@ -28,17 +28,17 @@ This structure is specifically designed for geometric operations and spatial ind
 - Functions called/Symbols referenced:
   - (Used as a basic data structure, doesn't directly call other functions)
 - Called from (representative examples):
-  - RangeBox (as member variables left and right)
-  - overlap2D
-  - contain2D
-  - contained2D
-  - lower2D
-  - overLower2D
-  - higher2D
-  - overHigher2D
+  - [RangeBox](RangeBox.md) (as member variables left and right)
+  - [overlap2D](../o/overlap2D.md)
+  - [contain2D](../c/contain2D.md)
+  - [contained2D](../c/contained2D.md)
+  - [lower2D](../l/lower2D.md)
+  - [overLower2D](../o/overLower2D.md)
+  - [higher2D](../h/higher2D.md)
+  - [overHigher2D](../o/overHigher2D.md)
 
 ## Notes and Other Information
-- Range is used exclusively within the geometric SP-GiST index implementation
+- [Range](Range.md) is used exclusively within the geometric SP-GiST index implementation
 - The structure assumes low <= high for proper range semantics
 - Part of PostgreSQL's spatial indexing infrastructure for efficient 2D geometric queries
 - Typically used in pairs within RangeBox structures to represent rectangular regions in 2D space

@@ -71,16 +71,16 @@ The function allocates a single memory block that contains the main SQLDA struct
 ## Dependencies
 - Functions called/Symbols referenced:
   - [sqlda_compat_total_size](../s/sqlda_compat_total_size.md)
-  - ecpg_alloc
+  - [ecpg_alloc](ecpg_alloc.md)
   - [PQnfields](../P/PQnfields.md)
   - [ecpg_log](ecpg_log.md)
   - [sqlda_dynamic_type](../s/sqlda_dynamic_type.md)
-  - PQftype
+  - [PQftype](../P/PQftype.md)
   - [PQfname](../P/PQfname.md)
-  - PQfsize
+  - [PQfsize](../P/PQfsize.md)
 - Called from (representative examples):
   - [ECPGdescribe](../E/ECPGdescribe.md)
-  - ecpg_process_output
+  - [ecpg_process_output](ecpg_process_output.md)
 
 ## Notes and Other Information
 - The function allocates memory using  which includes line number tracking for debugging

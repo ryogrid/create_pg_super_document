@@ -25,14 +25,14 @@ The function manages global context carefully to support utility commands like V
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MarkPortalActive
+  - [MarkPortalActive](../M/MarkPortalActive.md)
   - [FillPortalStore](../F/FillPortalStore.md)
   - [PortalRunSelect](PortalRunSelect.md)
   - [PortalRunMulti](PortalRunMulti.md)
-  - MarkPortalDone
-  - MarkPortalFailed
+  - [MarkPortalDone](../M/MarkPortalDone.md)
+  - [MarkPortalFailed](../M/MarkPortalFailed.md)
   - [InitializeQueryCompletion](../I/InitializeQueryCompletion.md)
-  - CopyQueryCompletion
+  - [CopyQueryCompletion](../C/CopyQueryCompletion.md)
 - Called from (representative examples):
   - [ExecuteQuery](../E/ExecuteQuery.md)
   - [exec_simple_query](../e/exec_simple_query.md)

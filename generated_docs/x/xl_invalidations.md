@@ -34,18 +34,18 @@ During WAL replay on standby servers, this record is processed by  which calls  
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SharedInvalidationMessage
+  - [SharedInvalidationMessage](../S/SharedInvalidationMessage.md)
   - FLEXIBLE_ARRAY_MEMBER
   - Oid
 - Called from (representative examples):
-  - LogStandbyInvalidations
-  - standby_redo
-  - standby_desc
+  - [LogStandbyInvalidations](../L/LogStandbyInvalidations.md)
+  - [standby_redo](../s/standby_redo.md)
+  - [standby_desc](../s/standby_desc.md)
 
 ## Notes and Other Information
 - This record type is specifically designed for transactions without assigned XIDs that still need to propagate invalidation messages
 - The  macro calculates the structure size without the flexible array member
-- SharedInvalidationMessage is a union type that can represent different kinds of invalidation messages (catalog cache, relation cache, etc.)
+- [SharedInvalidationMessage](../S/SharedInvalidationMessage.md) is a union type that can represent different kinds of invalidation messages (catalog cache, relation cache, etc.)
 - The relcacheInitFileInval flag triggers invalidation of the relation cache initialization files, forcing a complete reload
 - Database and tablespace IDs provide context for applying invalidations in the correct scope on standby servers
 - Unlike other standby WAL records, invalidation records are not typically marked as unimportant since cache consistency is crucial

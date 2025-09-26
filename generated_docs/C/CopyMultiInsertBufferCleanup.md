@@ -33,7 +33,7 @@ The function handles both regular tables (with BulkInsertState) and foreign tabl
   - [FreeBulkInsertState](../F/FreeBulkInsertState.md) (cleanup of bulk insert state)
   - MAX_BUFFERED_TUPLES (constant defining maximum buffered tuples)
   - [ExecDropSingleTupleTableSlot](../E/ExecDropSingleTupleTableSlot.md) (slot cleanup)
-  - table_finish_bulk_insert (bulk insert finalization)
+  - [table_finish_bulk_insert](../t/table_finish_bulk_insert.md) (bulk insert finalization)
 - Called from (representative examples):
   - [CopyMultiInsertInfoFlush](CopyMultiInsertInfoFlush.md) (at src/backend/commands/copyfrom.c:558)
   - [CopyMultiInsertInfoCleanup](CopyMultiInsertInfoCleanup.md) (at src/backend/commands/copyfrom.c:572)

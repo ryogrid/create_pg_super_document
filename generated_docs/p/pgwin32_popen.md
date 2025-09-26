@@ -26,7 +26,7 @@ The function creates a pipe to the specified command, allowing the caller to rea
   - malloc
   - _popen (Windows-specific function)
 - Called from (representative examples):
-  - pclose (referenced in src/include/port.h)
+  - [pclose](pclose.md) (referenced in src/include/port.h)
 
 ## Notes and Other Information
 - This function is Windows-specific and part of PostgreSQL's portability layer

@@ -27,12 +27,12 @@ The test validates that pipeline mode correctly handles the full lifecycle of pr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQenterPipelineMode/PQexitPipelineMode (pipeline mode control)
+  - [PQenterPipelineMode](../P/PQenterPipelineMode.md)/PQexitPipelineMode (pipeline mode control)
   - [PQsendPrepare](../P/PQsendPrepare.md)/PQsendClosePrepared (prepared statement operations)
   - [PQsendDescribePrepared](../P/PQsendDescribePrepared.md)/PQdescribePrepared (statement description)
   - [PQsendDescribePortal](../P/PQsendDescribePortal.md)/PQdescribePortal (portal description)
   - [PQsendClosePortal](../P/PQsendClosePortal.md)/PQclosePortal (portal cleanup)
-  - PQpipelineSync (pipeline synchronization)
+  - [PQpipelineSync](../P/PQpipelineSync.md) (pipeline synchronization)
   - [PQgetResult](../P/PQgetResult.md) (result retrieval)
   - [PQexec](../P/PQexec.md) (direct SQL execution for setup)
   - [PQnfields](../P/PQnfields.md)/PQftype (result metadata access)

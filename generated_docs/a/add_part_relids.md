@@ -26,7 +26,7 @@ This organization is essential for efficient partition pruning as it groups rela
 - Functions called/Symbols referenced:
   - [bms_next_member](../b/bms_next_member.md)
   - [bms_add_members](../b/bms_add_members.md)
-  - lappend
+  - [lappend](../l/lappend.md)
 - Called from (representative examples):
   - [make_partition_pruneinfo](../m/make_partition_pruneinfo.md)
 

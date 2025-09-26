@@ -30,14 +30,14 @@ This approach ensures that database resources are properly released and that no 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQtransactionStatus (check transaction state)
+  - [PQtransactionStatus](../P/PQtransactionStatus.md) (check transaction state)
   - [PQcancelCreate](../P/PQcancelCreate.md) (create cancellation handle)
   - [PQcancelBlocking](../P/PQcancelBlocking.md) (execute cancellation)
   - [PQcancelFinish](../P/PQcancelFinish.md) (cleanup cancellation handle)
   - [PQfinish](../P/PQfinish.md) (close connection)
   - Assert (debug assertion)
   - PQTRANS_ACTIVE (transaction status constant)
-  - PGcancelConn (cancellation connection type)
+  - [PGcancelConn](../P/PGcancelConn.md) (cancellation connection type)
 - Called from (representative examples):
   - [main](../m/main.md) (in pg_amcheck - multiple locations)
   - [compile_database_list](../c/compile_database_list.md)

@@ -17,7 +17,7 @@ This function serves as a helper routine in PostgreSQL's statistics system to ob
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PgStat_EntryRef (statistics entry reference structure)
+  - [PgStat_EntryRef](../P/PgStat_EntryRef.md) (statistics entry reference structure)
   - [pgstat_prep_pending_entry](pgstat_prep_pending_entry.md) (general function for preparing pending statistics entries)
   - PGSTAT_KIND_DATABASE (constant indicating database-level statistics)
 - Called from (representative examples):

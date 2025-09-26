@@ -23,7 +23,7 @@ This function serves as an implementation of the `manifest_contents` callback in
 ## Dependencies
 - Functions called/Symbols referenced:
   - memcpy (standard C library function)
-  - bbsink_manifest_contents (forwards the call to the next sink)
+  - [bbsink_manifest_contents](bbsink_manifest_contents.md) (forwards the call to the next sink)
 - Called from (representative examples):
   - Used as callback in bbsink_gzip_ops structure
   - Invoked through the backup sink infrastructure

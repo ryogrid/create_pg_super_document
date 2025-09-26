@@ -25,7 +25,7 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - siglongjmp
-  - ErrorData (type)
+  - [ErrorData](../E/ErrorData.md) (type)
   - [should_output_to_server](../s/should_output_to_server.md)
   - [should_output_to_client](../s/should_output_to_client.md)
   - [errfinish](../e/errfinish.md)

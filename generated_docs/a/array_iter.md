@@ -43,17 +43,17 @@ The structure is designed so that the presence or absence of `datumptr` determin
 - Functions called/Symbols referenced:
   - bits8 (data type for bitmap bytes)
 - Called from (representative examples):
-  - array_out
-  - array_send
-  - array_map
-  - array_eq
-  - array_cmp
-  - hash_array
-  - hash_array_extended
-  - array_contain_compare
-  - array_unnest
-  - array_iter_setup
-  - array_iter_next
+  - [array_out](array_out.md)
+  - [array_send](array_send.md)
+  - [array_map](array_map.md)
+  - [array_eq](array_eq.md)
+  - [array_cmp](array_cmp.md)
+  - [hash_array](../h/hash_array.md)
+  - [hash_array_extended](../h/hash_array_extended.md)
+  - [array_contain_compare](array_contain_compare.md)
+  - [array_unnest](array_unnest.md)
+  - [array_iter_setup](array_iter_setup.md)
+  - [array_iter_next](array_iter_next.md)
 
 ## Notes and Other Information
 - The structure must be initialized using `array_iter_setup()` before use

@@ -42,7 +42,7 @@ The function is designed to handle both direct table updates and partition-speci
   - [EvalPlanQualInit](../E/EvalPlanQualInit.md)
   - [ExecOpenIndices](../E/ExecOpenIndices.md)
   - [FindReplTupleInLocalRel](../F/FindReplTupleInLocalRel.md)
-  - ExecClearTuple
+  - [ExecClearTuple](../E/ExecClearTuple.md)
   - GetPerTupleMemoryContext
   - [slot_modify_data](../s/slot_modify_data.md)
   - EvalPlanQualSetSlot

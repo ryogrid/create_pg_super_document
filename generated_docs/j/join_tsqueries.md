@@ -24,10 +24,10 @@ The `join_tsqueries` function is an internal utility that creates a new query tr
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc0](../p/palloc0.md) - Allocates zero-initialized memory
-  - `QT2QTN` - Converts query tree to query tree node format
+  - `[QT2QTN](../Q/QT2QTN.md)` - Converts query tree to query tree node format
   - `GETQUERY` - Extracts query portion from TSQuery
   - `GETOPERAND` - Extracts operand portion from TSQuery
-  - `QTNode` - [Query](../Q/Query.md) tree node structure
+  - `[QTNode](../Q/QTNode.md)` - [Query](../Q/Query.md) tree node structure
   - `QueryItem` - [Query](../Q/Query.md) item structure for operators
   - `QTN_NEEDFREE` - Flag indicating memory needs to be freed
   - `QI_OPR` - [Query](../Q/Query.md) item type for operators

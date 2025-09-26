@@ -22,9 +22,9 @@ This function registers a callback that will be invoked during log message proce
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - log_locus_callback (global variable assignment)
+  - [log_locus_callback](../l/log_locus_callback.md) (global variable assignment)
 - Called from (representative examples):
-  - main (src/bin/psql/startup.c:135)
+  - [main](../m/main.md) (src/bin/psql/startup.c:135)
 
 ## Notes and Other Information
 - This is part of PostgreSQL's common logging infrastructure used across multiple components

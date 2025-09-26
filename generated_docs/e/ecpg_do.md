@@ -26,14 +26,14 @@ The `ecpg_do` function serves as the core execution engine for SQL statements in
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - statement (struct type)
-  - ecpg_do_prologue
+  - [statement](../s/statement.md) (struct type)
+  - [ecpg_do_prologue](ecpg_do_prologue.md)
   - ECPG_statement_type
-  - ecpg_build_params
-  - ecpg_autostart_transaction
-  - ecpg_execute
-  - ecpg_process_output
-  - ecpg_do_epilogue
+  - [ecpg_build_params](ecpg_build_params.md)
+  - [ecpg_autostart_transaction](ecpg_autostart_transaction.md)
+  - [ecpg_execute](ecpg_execute.md)
+  - [ecpg_process_output](ecpg_process_output.md)
+  - [ecpg_do_epilogue](ecpg_do_epilogue.md)
 - Called from (representative examples):
   - [ECPGdo](../E/ECPGdo.md)
 

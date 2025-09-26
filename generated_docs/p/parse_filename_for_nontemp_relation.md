@@ -38,12 +38,12 @@ The function is designed to distinguish actual relation files from stray files t
 ## Dependencies
 - Functions called/Symbols referenced:
   - `strtoul`: String-to-unsigned-long conversion with error checking
-  - `forkname_chars`: Fork name identification and length calculation
+  - `[forkname_chars](../f/forkname_chars.md)`: Fork name identification and length calculation
   - **Constants**: `InvalidRelFileNumber`, `InvalidForkNumber`, `MAIN_FORKNUM`, `PG_UINT32_MAX`
 
 - Called from:
-  - `ResetUnloggedRelationsInDbspaceDir`: During unlogged relation processing (lines 202, 241, 293, 336)
-  - `sendDir`: During base backup operations (basebackup.c:1311)
+  - `[ResetUnloggedRelationsInDbspaceDir](../R/ResetUnloggedRelationsInDbspaceDir.md)`: During unlogged relation processing (lines 202, 241, 293, 336)
+  - `[sendDir](../s/sendDir.md)`: During base backup operations (basebackup.c:1311)
 
 ## Notes and Other Information
 - Implements strict validation to prevent false positives when scanning database directories

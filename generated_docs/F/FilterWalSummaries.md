@@ -25,7 +25,7 @@ This function is useful when you already have a list of WAL summaries and need t
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecPtrIsInvalid
-  - lappend
+  - [lappend](../l/lappend.md)
   - lfirst
   - foreach
 - Called from (representative examples):

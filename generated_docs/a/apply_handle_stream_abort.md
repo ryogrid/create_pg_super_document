@@ -33,7 +33,7 @@ The function includes sophisticated handling of XID wraparound concerns and main
   - [stream_abort_internal](../s/stream_abort_internal.md)
   - [pa_unlock_stream](../p/pa_unlock_stream.md)
   - [pa_lock_stream](../p/pa_lock_stream.md)
-  - pa_send_data
+  - [pa_send_data](../p/pa_send_data.md)
   - [pa_xact_finish](../p/pa_xact_finish.md)
   - [pa_switch_to_partial_serialize](../p/pa_switch_to_partial_serialize.md)
   - [stream_open_and_write_change](../s/stream_open_and_write_change.md)

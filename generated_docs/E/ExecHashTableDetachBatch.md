@@ -25,17 +25,17 @@ The function also tracks peak memory usage statistics that can be reported by EX
 ## Dependencies
 - Functions called/Symbols referenced:
   - [sts_end_parallel_scan](../s/sts_end_parallel_scan.md)
-  - BarrierPhase
-  - BarrierArriveAndDetachExceptLast
-  - BarrierArriveAndDetach
+  - [BarrierPhase](../B/BarrierPhase.md)
+  - [BarrierArriveAndDetachExceptLast](../B/BarrierArriveAndDetachExceptLast.md)
+  - [BarrierArriveAndDetach](../B/BarrierArriveAndDetach.md)
   - DsaPointerIsValid
   - [dsa_get_address](../d/dsa_get_address.md)
   - [dsa_free](../d/dsa_free.md)
   - Max
 - Data types used:
   - [HashJoinTable](../H/HashJoinTable.md)
-  - ParallelHashJoinBatch
-  - HashMemoryChunk
+  - [ParallelHashJoinBatch](../P/ParallelHashJoinBatch.md)
+  - [HashMemoryChunk](../H/HashMemoryChunk.md)
   - dsa_pointer
   - dsa_pointer_atomic
 - Phase constants:
@@ -45,8 +45,8 @@ The function also tracks peak memory usage statistics that can be reported by EX
 - Called from (representative examples):
   - [ExecParallelPrepHashTableForUnmatched](ExecParallelPrepHashTableForUnmatched.md)
   - [ExecParallelHashJoinNewBatch](ExecParallelHashJoinNewBatch.md)
-  - ExecShutdownHashJoin
-  - ExecHashJoinReInitializeDSM
+  - [ExecShutdownHashJoin](ExecShutdownHashJoin.md)
+  - [ExecHashJoinReInitializeDSM](ExecHashJoinReInitializeDSM.md)
 
 ## Notes and Other Information
 - Only operates when attached to a parallel hash join batch (curbatch >= 0)

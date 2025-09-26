@@ -35,8 +35,8 @@ The percentile calculation uses the formula: `position = percentile * (n-1)` whe
 - Functions called/Symbols referenced:
   - [AggCheckCallContext](../A/AggCheckCallContext.md) (validates aggregate context)
   - PG_GETARG_FLOAT8 (extracts percentile parameter)
-  - tuplesort_performsort (performs the sorting operation)
-  - tuplesort_rescan (resets sort state for re-reading)
+  - [tuplesort_performsort](../t/tuplesort_performsort.md) (performs the sorting operation)
+  - [tuplesort_rescan](../t/tuplesort_rescan.md) (resets sort state for re-reading)
   - [tuplesort_skiptuples](../t/tuplesort_skiptuples.md) (skips to the target row position)
   - [tuplesort_getdatum](../t/tuplesort_getdatum.md) (retrieves sorted values)
   - isnan (checks for NaN percentile values)

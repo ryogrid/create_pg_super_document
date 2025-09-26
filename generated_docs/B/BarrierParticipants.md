@@ -21,7 +21,7 @@ The function takes a snapshot of the participant count at the moment the mutex i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Barrier (struct type)
+  - [Barrier](Barrier.md) (struct type)
   - SpinLockAcquire (implicitly through barrier->mutex)
   - SpinLockRelease (implicitly through barrier->mutex)
 - Called from (representative examples):

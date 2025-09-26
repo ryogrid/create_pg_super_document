@@ -37,13 +37,13 @@ Upon successful insertion, the slot's `tts_tid` (tuple identifier) and `tts_tabl
 - Functions called/Symbols referenced:
   - `rel->rd_tableam->tuple_insert` (access method-specific implementation)
   - `CommandId` (type)
-  - `BulkInsertStateData` (structure type)
+  - `[BulkInsertStateData](../B/BulkInsertStateData.md)` (structure type)
 - Called from (representative examples):
-  - `simple_table_tuple_insert` (src/backend/access/table/tableam.c:279)
-  - `CopyFrom` (src/backend/commands/copyfrom.c:1267)
-  - `intorel_receive` (src/backend/commands/createas.c:591)
-  - `ExecInsert` (src/backend/executor/nodeModifyTable.c:1160)
-  - `ATRewriteTable` (src/backend/commands/tablecmds.c:6330)
+  - `[simple_table_tuple_insert](../s/simple_table_tuple_insert.md)` (src/backend/access/table/tableam.c:279)
+  - `[CopyFrom](../C/CopyFrom.md)` (src/backend/commands/copyfrom.c:1267)
+  - `[intorel_receive](../i/intorel_receive.md)` (src/backend/commands/createas.c:591)
+  - `[ExecInsert](../E/ExecInsert.md)` (src/backend/executor/nodeModifyTable.c:1160)
+  - `[ATRewriteTable](../A/ATRewriteTable.md)` (src/backend/commands/tablecmds.c:6330)
 
 ## Notes and Other Information
 - Part of the table access method abstraction layer supporting pluggable storage engines

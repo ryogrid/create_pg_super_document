@@ -22,14 +22,14 @@ The  function is the core implementation for printf-style formatting in StringIn
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pvsnprintf (platform-specific vsnprintf implementation)
+  - [pvsnprintf](../p/pvsnprintf.md) (platform-specific vsnprintf implementation)
   - Assert (debugging assertion)
 - Called from (representative examples):
-  - appendStringInfo
-  - manifest_report_error
-  - ReportWalSummaryError
+  - [appendStringInfo](appendStringInfo.md)
+  - [manifest_report_error](../m/manifest_report_error.md)
+  - [ReportWalSummaryError](../R/ReportWalSummaryError.md)
   - EVALUATE_MESSAGE
-  - PLy_elog_impl
+  - [PLy_elog_impl](../P/PLy_elog_impl.md)
 
 ## Notes and Other Information
 - This function is located at src/common/stringinfo.c:139-181

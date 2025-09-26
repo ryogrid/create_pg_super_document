@@ -27,13 +27,13 @@ The function is defined as a static inline function in the header file, which me
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `smgrwritev`
+  - `[smgrwritev](smgrwritev.md)`
   - `SMgrRelation`
 - Called from (representative examples):
-  - `FlushBuffer`
-  - `FlushRelationBuffers`
-  - `GetLocalVictimBuffer`
-  - `smgr_bulk_flush`
+  - `[FlushBuffer](../F/FlushBuffer.md)`
+  - `[FlushRelationBuffers](../F/FlushRelationBuffers.md)`
+  - `[GetLocalVictimBuffer](../G/GetLocalVictimBuffer.md)`
+  - `[smgr_bulk_flush](smgr_bulk_flush.md)`
 
 ## Notes and Other Information
 - This function is implemented as a static inline wrapper around `smgrwritev`

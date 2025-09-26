@@ -36,7 +36,7 @@ The function optimizes the shared memory usage by compacting the active range wh
   - [pg_atomic_read_u64](../p/pg_atomic_read_u64.md)
   - [pg_atomic_write_u64](../p/pg_atomic_write_u64.md)
   - [pg_atomic_write_u32](../p/pg_atomic_write_u32.md)
-  - LWLockAcquire/LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease
 - Types referenced:
   - [InjectionPointEntry](InjectionPointEntry.md)
   - [InjectionPointCacheEntry](InjectionPointCacheEntry.md)

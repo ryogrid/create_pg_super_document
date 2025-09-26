@@ -23,7 +23,7 @@ This function processes JSON document arguments used in JSON parsing operations.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [transformExprRecurse](transformExprRecurse.md)
-  - exprType
+  - [exprType](../e/exprType.md)
   - [makeJsonByteaToTextConversion](../m/makeJsonByteaToTextConversion.md)
   - [makeJsonValueExpr](../m/makeJsonValueExpr.md)
   - [get_type_category_preferred](../g/get_type_category_preferred.md)

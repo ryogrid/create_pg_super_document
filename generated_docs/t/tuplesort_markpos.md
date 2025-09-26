@@ -19,13 +19,13 @@ The tuplesort_markpos function creates a position marker at the current location
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Tuplesortstate (sorting state structure)
+  - [Tuplesortstate](../T/Tuplesortstate.md) (sorting state structure)
   - TUPLESORT_RANDOMACCESS (random access capability flag)
   - TSS_SORTEDINMEM (in-memory sorted status)
   - TSS_SORTEDONTAPE (tape-based sorted status)
-  - LogicalTapeTell (retrieves current tape position)
+  - [LogicalTapeTell](../L/LogicalTapeTell.md) (retrieves current tape position)
 - Called from (representative examples):
-  - ExecSortMarkPos (executor mark position operation)
+  - [ExecSortMarkPos](../E/ExecSortMarkPos.md) (executor mark position operation)
 
 ## Notes and Other Information
 - Requires TUPLESORT_RANDOMACCESS option to be enabled during sort initialization

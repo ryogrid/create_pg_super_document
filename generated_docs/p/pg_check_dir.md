@@ -31,20 +31,20 @@ The function carefully preserves errno values from `readdir` operations and hand
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `opendir` - Opens directory for reading
-  - `readdir` - Reads directory entries
-  - `closedir` - Closes directory handle
-  - `DIR` - Directory handle type
-  - `dirent` - Directory entry structure
+  - `[opendir](../o/opendir.md)` - Opens directory for reading
+  - `[readdir](../r/readdir.md)` - Reads directory entries
+  - `[closedir](../c/closedir.md)` - Closes directory handle
+  - `[DIR](../D/DIR.md)` - Directory handle type
+  - `[dirent](../d/dirent.md)` - Directory entry structure
 
 - Called from (representative examples):
-  - `create_data_directory` (initdb.c:2879)
-  - `main` (initdb.c:3421)  
-  - `verify_dir_is_empty_or_create` (pg_basebackup.c:749)
-  - `bbsink_server_new` (basebackup_server.c:91)
-  - `create_output_directory` (pg_combinebackup.c:720)
-  - `cleanup_output_dirs` (pg_upgrade/util.c:79)
-  - `create_fullpage_directory` (pg_waldump.c:132)
+  - `[create_data_directory](../c/create_data_directory.md)` (initdb.c:2879)
+  - `[main](../m/main.md)` (initdb.c:3421)  
+  - `[verify_dir_is_empty_or_create](../v/verify_dir_is_empty_or_create.md)` (pg_basebackup.c:749)
+  - `[bbsink_server_new](../b/bbsink_server_new.md)` (basebackup_server.c:91)
+  - `[create_output_directory](../c/create_output_directory.md)` (pg_combinebackup.c:720)
+  - `[cleanup_output_dirs](../c/cleanup_output_dirs.md)` (pg_upgrade/util.c:79)
+  - `[create_fullpage_directory](../c/create_fullpage_directory.md)` (pg_waldump.c:132)
 
 ## Notes and Other Information
 - The function is implemented in `src/port/pgcheckdir.c` and is part of PostgreSQL's portability layer

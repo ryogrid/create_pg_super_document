@@ -23,20 +23,20 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_seq_init: Initialize hash table iteration
-  - hash_seq_search: Iterate through hash table entries
-  - HoldPortal: Convert portal to held cursor
+  - [hash_seq_init](../h/hash_seq_init.md): Initialize hash table iteration
+  - [hash_seq_search](../h/hash_seq_search.md): Iterate through hash table entries
+  - [HoldPortal](HoldPortal.md): Convert portal to held cursor
   - ereport/elog: Error reporting functions
 - Data structures referenced:
-  - HASH_SEQ_STATUS: Hash table iteration status
-  - PortalHashEnt: Hash table entry for portals
+  - [HASH_SEQ_STATUS](HASH_SEQ_STATUS.md): Hash table iteration status
+  - [PortalHashEnt](../P/PortalHashEnt.md): Hash table entry for portals
   - PortalHashTable: Global hash table of all portals
-  - Portal: Portal data structure
+  - [Portal](../P/Portal.md): Portal data structure
   - PORTAL_ONE_SELECT: Portal strategy constant
   - PORTAL_READY: Portal status constant
 - Called from:
-  - _SPI_commit: SPI commit operation
-  - _SPI_rollback: SPI rollback operation
+  - [_SPI_commit](../S/_SPI_commit.md): SPI commit operation
+  - [_SPI_rollback](../S/_SPI_rollback.md): SPI rollback operation
 
 ## Notes and Other Information
 - This function is automatically called by SPI, but procedural languages that initiate transaction control through other means must call it explicitly

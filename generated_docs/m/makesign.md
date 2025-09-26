@@ -33,7 +33,7 @@ The makesign function generates a bit signature from an array of integers stored
 ## Notes and Other Information
 - This is a static function, accessible only within the tsgistidx.c file
 - The function creates lossy compression - multiple different arrays may produce the same signature
-- Hash collisions are expected and acceptable since signatures are used for filtering, not exact matching
+- [Hash](../H/Hash.md) collisions are expected and acceptable since signatures are used for filtering, not exact matching
 - Part of the GiST indexing infrastructure for tsvector full-text search functionality
 - The signature length is configurable and affects both storage size and collision probability
 - Critical for performance as it enables efficient pruning of index searches

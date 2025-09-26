@@ -33,9 +33,9 @@ A key rule enforced is that outer joins (LEFT, RIGHT, FULL) disallow any upper l
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RangeTblRef
-  - FromExpr  
-  - JoinExpr
+  - [RangeTblRef](../R/RangeTblRef.md)
+  - [FromExpr](../F/FromExpr.md)  
+  - [JoinExpr](../J/JoinExpr.md)
   - [bms_is_subset](../b/bms_is_subset.md)
   - [pull_varnos_of_level](../p/pull_varnos_of_level.md)
   - JOIN_INNER

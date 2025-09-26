@@ -29,13 +29,13 @@ The function assumes that all input parameters have been validated by the caller
 - Functions called/Symbols referenced:
   - (No external functions called)
 - Called from (representative examples):
-  - array_get_element
-  - array_get_element_expanded
-  - array_set_element
-  - array_set_element_expanded
-  - array_slice_size
-  - array_extract_slice
-  - array_insert_slice
+  - [array_get_element](../a/array_get_element.md)
+  - [array_get_element_expanded](../a/array_get_element_expanded.md)
+  - [array_set_element](../a/array_set_element.md)
+  - [array_set_element_expanded](../a/array_set_element_expanded.md)
+  - [array_slice_size](../a/array_slice_size.md)
+  - [array_extract_slice](../a/array_extract_slice.md)
+  - [array_insert_slice](../a/array_insert_slice.md)
 
 ## Notes and Other Information
 - Assumes caller has performed range checking on dimensions and subscripts to prevent overflow

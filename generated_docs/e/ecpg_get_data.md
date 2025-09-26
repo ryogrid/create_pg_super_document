@@ -44,16 +44,16 @@ The conversion process varies based on whether data is in binary or text format,
 ## Dependencies
 - Functions called/Symbols referenced:
   - ECPGget_sqlca (SQLCA context retrieval)
-  - PQgetvalue, PQfformat, PQgetlength, PQgetisnull (libpq result access)
-  - ecpg_hex_encode, hex_decode (binary data conversion)
+  - [PQgetvalue](../P/PQgetvalue.md), PQfformat, PQgetlength, PQgetisnull (libpq result access)
+  - [ecpg_hex_encode](ecpg_hex_encode.md), hex_decode (binary data conversion)
   - PGTYPESnumeric_*, PGTYPESinterval_*, PGTYPESdate_*, PGTYPEStimestamp_* (PostgreSQL type conversions)
-  - ecpg_raise, ecpg_log (error handling and logging)
-  - ECPGset_noind_null (NULL value handling for no-indicator mode)
-  - garbage_left, check_special_value (parsing utilities)
+  - [ecpg_raise](ecpg_raise.md), ecpg_log (error handling and logging)
+  - [ECPGset_noind_null](../E/ECPGset_noind_null.md) (NULL value handling for no-indicator mode)
+  - [garbage_left](../g/garbage_left.md), check_special_value (parsing utilities)
 - Called from (representative examples):
-  - ecpg_store_result (in src/interfaces/ecpg/ecpglib/execute.c:427, 446)
-  - ecpg_set_compat_sqlda (in src/interfaces/ecpg/ecpglib/sqlda.c:399)
-  - ecpg_set_native_sqlda (in src/interfaces/ecpg/ecpglib/sqlda.c:584)
+  - [ecpg_store_result](ecpg_store_result.md) (in src/interfaces/ecpg/ecpglib/execute.c:427, 446)
+  - [ecpg_set_compat_sqlda](ecpg_set_compat_sqlda.md) (in src/interfaces/ecpg/ecpglib/sqlda.c:399)
+  - [ecpg_set_native_sqlda](ecpg_set_native_sqlda.md) (in src/interfaces/ecpg/ecpglib/sqlda.c:584)
 
 ## Notes and Other Information
 - Returns true on successful conversion, false on error

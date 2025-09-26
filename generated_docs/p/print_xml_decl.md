@@ -36,13 +36,13 @@ When a declaration is generated, it follows XML 1.0 specification format with pr
   - strcmp (string comparison for version check)
   - PG_XML_DEFAULT_VERSION (default XML version constant "1.0")
   - PG_UTF8 (UTF-8 encoding identifier constant)
-  - appendStringInfoString (append string to StringInfo buffer)
-  - appendStringInfo (formatted append to StringInfo buffer)  
-  - pg_encoding_to_char (convert PostgreSQL encoding to string name)
+  - [appendStringInfoString](../a/appendStringInfoString.md) (append string to StringInfo buffer)
+  - [appendStringInfo](../a/appendStringInfo.md) (formatted append to StringInfo buffer)  
+  - [pg_encoding_to_char](pg_encoding_to_char.md) (convert PostgreSQL encoding to string name)
 - Called from (representative examples):
-  - xml_out_internal (XML output processing)
-  - xmlconcat (XML concatenation operations)
-  - xmlroot (XML root element processing)
+  - [xml_out_internal](../x/xml_out_internal.md) (XML output processing)
+  - [xmlconcat](../x/xmlconcat.md) (XML concatenation operations)
+  - [xmlroot](../x/xmlroot.md) (XML root element processing)
 
 ## Notes and Other Information
 - Returns true if declaration was written, false if omitted

@@ -24,8 +24,8 @@ The returned target list is local storage within the cached plan and may disappe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CachedPlanSource (structure type)
-  - QueryEnvironment (structure type)
+  - [CachedPlanSource](CachedPlanSource.md) (structure type)
+  - [QueryEnvironment](../Q/QueryEnvironment.md) (structure type)
   - CACHEDPLANSOURCE_MAGIC (magic number validation)
   - [RevalidateCachedQuery](../R/RevalidateCachedQuery.md) (ensures plan is current)
   - [QueryListGetPrimaryStmt](../Q/QueryListGetPrimaryStmt.md) (extracts primary statement)

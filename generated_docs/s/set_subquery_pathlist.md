@@ -31,7 +31,7 @@ This function is responsible for creating access paths for subqueries in the Pos
   - [check_and_push_window_quals](../c/check_and_push_window_quals.md) (attempt window run conditions)
   - [remove_unused_subquery_outputs](../r/remove_unused_subquery_outputs.md) (optimize subquery output)
   - [subquery_planner](subquery_planner.md) (plan the subquery)
-  - fetch_upper_rel (get final relation from subquery)
+  - [fetch_upper_rel](../f/fetch_upper_rel.md) (get final relation from subquery)
   - [set_dummy_rel_pathlist](set_dummy_rel_pathlist.md) (handle empty subqueries)
   - [set_subquery_size_estimates](set_subquery_size_estimates.md) (set size estimates)
   - [convert_subquery_pathkeys](../c/convert_subquery_pathkeys.md) (convert pathkeys to outer context)

@@ -26,17 +26,17 @@ For future batches (batchno > 0), the function uses a preallocation strategy whe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecFetchSlotMinimalTuple
-  - ExecHashGetBucketAndBatch
-  - BarrierPhase
-  - ExecParallelHashTupleAlloc
+  - [ExecFetchSlotMinimalTuple](ExecFetchSlotMinimalTuple.md)
+  - [ExecHashGetBucketAndBatch](ExecHashGetBucketAndBatch.md)
+  - [BarrierPhase](../B/BarrierPhase.md)
+  - [ExecParallelHashTupleAlloc](ExecParallelHashTupleAlloc.md)
   - HeapTupleHeaderClearMatch
-  - ExecParallelHashPushTuple
-  - ExecParallelHashTuplePrealloc
-  - sts_puttuple
-  - heap_free_minimal_tuple
+  - [ExecParallelHashPushTuple](ExecParallelHashPushTuple.md)
+  - [ExecParallelHashTuplePrealloc](ExecParallelHashTuplePrealloc.md)
+  - [sts_puttuple](../s/sts_puttuple.md)
+  - [heap_free_minimal_tuple](../h/heap_free_minimal_tuple.md)
 - Called from (representative examples):
-  - MultiExecParallelHash
+  - [MultiExecParallelHash](../M/MultiExecParallelHash.md)
 
 ## Notes and Other Information
 - Uses a retry loop to handle concurrent bucket expansions and memory allocation failures

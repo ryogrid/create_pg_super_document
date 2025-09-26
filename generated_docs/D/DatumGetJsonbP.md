@@ -24,7 +24,7 @@ This inline function provides a convenient way to extract a Jsonb pointer from a
   - Jsonb (type)
 - Called from (representative examples):
   - [ExecEvalJsonIsPredicate](../E/ExecEvalJsonIsPredicate.md)
-  - datum_to_jsonb_internal
+  - [datum_to_jsonb_internal](../d/datum_to_jsonb_internal.md)
   - [jsonb_subscript_fetch](../j/jsonb_subscript_fetch.md)
   - [jsonb_subscript_assign](../j/jsonb_subscript_assign.md)
   - [JsonItemFromDatum](../J/JsonItemFromDatum.md)

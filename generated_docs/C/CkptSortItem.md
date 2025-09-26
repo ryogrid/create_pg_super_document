@@ -38,10 +38,10 @@ Since this structure is allocated per buffer in shared memory, it is kept as sma
   - [ForkNumber](../F/ForkNumber.md) (type for fork identification)
   - BlockNumber (type for block identification)
 - Called from (representative examples):
-  - BufferSync (for checkpoint buffer sorting)
+  - [BufferSync](../B/BufferSync.md) (for checkpoint buffer sorting)
   - [ckpt_buforder_comparator](../c/ckpt_buforder_comparator.md) (for comparing and sorting items)
-  - InitBufferPool (for initialization of sort structures)
-  - BufferShmemSize (for shared memory size calculations)
+  - [InitBufferPool](../I/InitBufferPool.md) (for initialization of sort structures)
+  - [BufferShmemSize](../B/BufferShmemSize.md) (for shared memory size calculations)
 
 ## Notes and Other Information
 - Allocated per buffer in shared memory during system initialization

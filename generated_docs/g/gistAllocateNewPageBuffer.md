@@ -24,14 +24,14 @@ The page buffer is designed to hold multiple index tuples until it becomes full,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextAllocZero
+  - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md)
   - PAGE_FREE_SPACE (macro)
   - BUFFER_PAGE_DATA_OFFSET
   - BLCKSZ
   - InvalidBlockNumber
 - Called from (representative examples):
-  - gistLoadNodeBuffer
-  - gistPushItupToNodeBuffer
+  - [gistLoadNodeBuffer](gistLoadNodeBuffer.md)
+  - [gistPushItupToNodeBuffer](gistPushItupToNodeBuffer.md)
 
 ## Notes and Other Information
 - Function is declared static, making it internal to the gistbuildbuffers.c module

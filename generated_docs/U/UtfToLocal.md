@@ -36,7 +36,7 @@ Special handling is provided for combined characters, where the function looks a
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_VALID_ENCODING (encoding validation macro)
-  - pg_utf_mblen (UTF-8 character length determination)
+  - [pg_utf_mblen](../p/pg_utf_mblen.md) (UTF-8 character length determination)
   - [pg_utf8_islegal](../p/pg_utf8_islegal.md) (UTF-8 sequence validation)
   - [compare3](../c/compare3.md) (comparison function for combined character bsearch)
   - [pg_mb_radix_conv](../p/pg_mb_radix_conv.md) (radix tree character conversion)

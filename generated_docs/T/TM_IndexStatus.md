@@ -34,12 +34,12 @@ The separation of this status information from the basic TID information in TM_I
 - Functions called/Symbols referenced:
   - OffsetNumber (type definition)
 - Called from (representative examples):
-  - heap_index_delete_tuples
-  - index_delete_check_htid
-  - bottomup_sort_and_shrink
-  - _bt_bottomupdel_pass
-  - _bt_simpledel_pass
-  - index_compute_xid_horizon_for_tuples
+  - [heap_index_delete_tuples](../h/heap_index_delete_tuples.md)
+  - [index_delete_check_htid](../i/index_delete_check_htid.md)
+  - [bottomup_sort_and_shrink](../b/bottomup_sort_and_shrink.md)
+  - [_bt_bottomupdel_pass](../b/_bt_bottomupdel_pass.md)
+  - [_bt_simpledel_pass](../b/_bt_simpledel_pass.md)
+  - [index_compute_xid_horizon_for_tuples](../i/index_compute_xid_horizon_for_tuples.md)
 
 ## Notes and Other Information
 - The promising and freespace fields are specifically designed for bottom-up index deletion optimization, which performs speculative work to identify the most beneficial tuples to delete

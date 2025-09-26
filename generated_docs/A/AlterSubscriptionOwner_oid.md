@@ -21,13 +21,13 @@ This function serves as a public interface for changing subscription ownership w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - SearchSysCacheCopy1
   - HeapTupleIsValid
   - ereport
   - [AlterSubscriptionOwner_internal](AlterSubscriptionOwner_internal.md)
   - [heap_freetuple](../h/heap_freetuple.md)
-  - table_close
+  - [table_close](../t/table_close.md)
 - Called from (representative examples):
   - [shdepReassignOwned_Owner](../s/shdepReassignOwned_Owner.md)
 

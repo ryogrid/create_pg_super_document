@@ -20,7 +20,7 @@ This function reinitializes the Dynamic Shared Memory (DSM) structures used for 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_parallelscan_reinitialize
+  - [table_parallelscan_reinitialize](../t/table_parallelscan_reinitialize.md)
 - Types referenced:
   - [SeqScanState](../S/SeqScanState.md)
   - [ParallelContext](../P/ParallelContext.md)

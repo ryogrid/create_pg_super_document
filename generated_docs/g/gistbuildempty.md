@@ -25,7 +25,7 @@ The function performs the operation within a critical section to ensure atomicit
   - [ExtendBufferedRel](../E/ExtendBufferedRel.md) (extends the relation with a new buffer)
   - BMR_REL (buffer manager relation macro)
   - [GISTInitBuffer](../G/GISTInitBuffer.md) (initializes the buffer as a GiST page)
-  - MarkBufferDirty (marks buffer as needing to be written)
+  - [MarkBufferDirty](../M/MarkBufferDirty.md) (marks buffer as needing to be written)
   - [log_newpage_buffer](../l/log_newpage_buffer.md) (logs the new page for WAL)
   - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md) (unlocks and releases the buffer)
   - START_CRIT_SECTION/END_CRIT_SECTION (critical section macros)

@@ -29,11 +29,11 @@ The function uses open addressing with linear probing, which provides good cache
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwner (struct type)
-  - ResourceOwnerDesc (struct type)  
-  - hash_resource_elem (for computing initial hash index)
+  - [ResourceOwner](ResourceOwner.md) (struct type)
+  - [ResourceOwnerDesc](ResourceOwnerDesc.md) (struct type)  
+  - [hash_resource_elem](../h/hash_resource_elem.md) (for computing initial hash index)
 - Called from (representative examples):
-  - ResourceOwnerEnlarge (during hash table expansion operations)
+  - [ResourceOwnerEnlarge](ResourceOwnerEnlarge.md) (during hash table expansion operations)
 
 ## Notes and Other Information
 - This is a static function, only visible within the resowner.c compilation unit

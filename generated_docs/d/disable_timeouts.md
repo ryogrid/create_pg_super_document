@@ -24,17 +24,17 @@ The function follows the same safety principles as disable_timeout() but applies
 ## Dependencies
 - Functions called/Symbols referenced:
   - disable_alarm
-  - find_active_timeout
-  - remove_timeout_index
-  - GetCurrentTimestamp
-  - schedule_alarm
+  - [find_active_timeout](../f/find_active_timeout.md)
+  - [remove_timeout_index](../r/remove_timeout_index.md)
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
+  - [schedule_alarm](../s/schedule_alarm.md)
 - Types referenced:
-  - DisableTimeoutParams
-  - TimeoutId
+  - [DisableTimeoutParams](../D/DisableTimeoutParams.md)
+  - [TimeoutId](../T/TimeoutId.md)
 - Called from (representative examples):
-  - LockErrorCleanup
-  - ProcSleep
-  - DisableTimeoutParams
+  - [LockErrorCleanup](../L/LockErrorCleanup.md)
+  - [ProcSleep](../P/ProcSleep.md)
+  - [DisableTimeoutParams](../D/DisableTimeoutParams.md)
 
 ## Notes and Other Information
 - Optimizes performance by calling GetCurrentTimestamp() and setitimer() only once regardless of the number of timeouts being disabled

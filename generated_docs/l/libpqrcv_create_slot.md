@@ -28,12 +28,12 @@ This function constructs and executes a CREATE_REPLICATION_SLOT command on the p
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQserverVersion](../P/PQserverVersion.md): libpq function to get the server version for syntax compatibility
-  - initStringInfo/appendStringInfo: PostgreSQL string manipulation functions
+  - [initStringInfo](../i/initStringInfo.md)/appendStringInfo: PostgreSQL string manipulation functions
   - [libpqrcv_PQexec](libpqrcv_PQexec.md): Internal wrapper for PQexec with error handling
   - [PQresultStatus](../P/PQresultStatus.md): libpq function to check result status
   - [PQgetvalue](../P/PQgetvalue.md): libpq function to extract field values from query results
   - [PQgetisnull](../P/PQgetisnull.md): libpq function to check for NULL values in results
-  - DatumGetLSN/DirectFunctionCall1Coll: PostgreSQL type conversion functions
+  - [DatumGetLSN](../D/DatumGetLSN.md)/DirectFunctionCall1Coll: PostgreSQL type conversion functions
   - [pg_lsn_in](../p/pg_lsn_in.md): PostgreSQL function to parse LSN from string format
   - [pstrdup](../p/pstrdup.md): PostgreSQL memory-managed string duplication
   - [pchomp](../p/pchomp.md): PostgreSQL utility to clean error messages

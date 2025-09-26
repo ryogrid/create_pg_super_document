@@ -23,7 +23,7 @@ The function iterates through all actions stored in the WAL record, extracting s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendStringInfo
+  - [appendStringInfo](../a/appendStringInfo.md)
   - SizeOfGinPostingList
   - SHORTALIGN
 - Types referenced:

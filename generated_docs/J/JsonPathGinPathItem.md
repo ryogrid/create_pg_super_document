@@ -35,14 +35,14 @@ This structure is specifically designed for the jsonb_ops indexing approach, whe
   - JsonPathItemType (enumeration from jsonpath system)
   - Datum (PostgreSQL generic data type)
 - Called from (representative examples):
-  - jsonb_ops__add_path_item (creates and links path items)
+  - [jsonb_ops__add_path_item](../j/jsonb_ops__add_path_item.md) (creates and links path items)
   - JsonPathGinPath (union that contains path item lists)
-  - jsonb_ops__extract_nodes (processes path item lists)
+  - [jsonb_ops__extract_nodes](../j/jsonb_ops__extract_nodes.md) (processes path item lists)
 
 ## Notes and Other Information
 - Used exclusively with jsonb_ops indexing strategy (not jsonb_path_ops)
 - Forms a reverse-linked list where newest items point to older parents
 - Supports key-specific lookups ('.key') and generic operations ('.*', '[*]', etc.)
-- Path items like methods and complex expressions may not be supported and return false from add_path_item
+- [Path](../P/Path.md) items like methods and complex expressions may not be supported and return false from add_path_item
 - Memory allocation uses palloc for individual path item nodes
 - The keyName datum is created using make_text_key() for actual key strings and PointerGetDatum(NULL) for wildcard operations

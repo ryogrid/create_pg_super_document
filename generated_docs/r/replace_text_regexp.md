@@ -37,19 +37,19 @@ The function operates by converting the source text to wide characters for prope
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_replace_text_has_escape (analyze replacement text for optimization)
-  - appendStringInfoRegexpSubstr (process replacement text with back-references)
-  - RE_compile_and_cache (compile and cache regex pattern)
-  - pg_regexec (execute regex search)
-  - pg_mb2wchar_with_len (convert multibyte text to wide characters)
-  - charlen_to_bytelen (convert character positions to byte positions)
-  - appendBinaryStringInfo (append binary data to result buffer)
-  - appendStringInfoText (append text without processing)
-  - cstring_to_text_with_len (convert C string result to PostgreSQL text)
+  - [check_replace_text_has_escape](../c/check_replace_text_has_escape.md) (analyze replacement text for optimization)
+  - [appendStringInfoRegexpSubstr](../a/appendStringInfoRegexpSubstr.md) (process replacement text with back-references)
+  - [RE_compile_and_cache](../R/RE_compile_and_cache.md) (compile and cache regex pattern)
+  - [pg_regexec](../p/pg_regexec.md) (execute regex search)
+  - [pg_mb2wchar_with_len](../p/pg_mb2wchar_with_len.md) (convert multibyte text to wide characters)
+  - [charlen_to_bytelen](../c/charlen_to_bytelen.md) (convert character positions to byte positions)
+  - [appendBinaryStringInfo](../a/appendBinaryStringInfo.md) (append binary data to result buffer)
+  - [appendStringInfoText](../a/appendStringInfoText.md) (append text without processing)
+  - [cstring_to_text_with_len](../c/cstring_to_text_with_len.md) (convert C string result to PostgreSQL text)
 - Called from (representative examples):
-  - textregexreplace_noopt
-  - textregexreplace  
-  - textregexreplace_extended
+  - [textregexreplace_noopt](../t/textregexreplace_noopt.md)
+  - [textregexreplace](../t/textregexreplace.md)  
+  - [textregexreplace_extended](../t/textregexreplace_extended.md)
 
 ## Notes and Other Information
 - This is a public function exported via varlena.h for use by regexp functions

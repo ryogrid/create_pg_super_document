@@ -25,7 +25,7 @@ The function allocates a 32-byte buffer for the output string, which is sufficie
   - PG_GETARG_FLOAT4 (argument extraction)
   - [palloc](../p/palloc.md) (memory allocation)
   - [float_to_shortest_decimal_buf](float_to_shortest_decimal_buf.md) (shortest decimal conversion)
-  - pg_strfromd (formatted string conversion)
+  - [pg_strfromd](../p/pg_strfromd.md) (formatted string conversion)
   - PG_RETURN_CSTRING (return value macro)
 - Called from (representative examples):
   - No direct references found (likely called via PostgreSQL's function call mechanism)

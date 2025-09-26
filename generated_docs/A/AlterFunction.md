@@ -30,7 +30,7 @@ The function handles both regular functions and procedures, with appropriate val
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - [LookupFuncWithArgs](../L/LookupFuncWithArgs.md)
   - ObjectAddressSet
   - SearchSysCacheCopy1

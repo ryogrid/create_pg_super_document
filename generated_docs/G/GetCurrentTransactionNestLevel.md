@@ -32,10 +32,10 @@ This function takes no parameters.
   - [smgrDoPendingDeletes](../s/smgrDoPendingDeletes.md), smgrDoPendingSyncs
   - [Async_Notify](../A/Async_Notify.md), queue_listen
   - [AfterTriggerBeginSubXact](../A/AfterTriggerBeginSubXact.md), AfterTriggerEndSubXact
-  - pgstat_drop_relation, ensure_tabstat_xact_level
+  - [pgstat_drop_relation](../p/pgstat_drop_relation.md), ensure_tabstat_xact_level
   - [PrepareInvalidationState](../P/PrepareInvalidationState.md), AtEOSubXact_Inval
   - [RelationMapUpdateMap](../R/RelationMapUpdateMap.md)
-  - CreatePortal, PushActiveSnapshot
+  - [CreatePortal](../C/CreatePortal.md), PushActiveSnapshot
 
 ## Notes and Other Information
 - Essential for managing transaction-aware resources and state across nested transactions

@@ -41,7 +41,7 @@ The key difference is that instead of requiring a simple Var, this function sear
   - [get_notclausearg](../g/get_notclausearg.md)
   - [equal](../e/equal.md) (for expression comparison)
 - Types used:
-  - StatisticExtInfo
+  - [StatisticExtInfo](../S/StatisticExtInfo.md)
   - STATS_EXT_DEPENDENCIES
 - Called from (representative examples):
   - DependencyGenerator

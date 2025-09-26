@@ -27,7 +27,7 @@ For index relations, the function reconstructs complex index-specific data struc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AllocateFile
+  - [AllocateFile](../A/AllocateFile.md)
   - [CreateTemplateTupleDesc](../C/CreateTemplateTupleDesc.md)  
   - [InitIndexAmRoutine](../I/InitIndexAmRoutine.md)
   - [RelationInitTableAccessMethod](../R/RelationInitTableAccessMethod.md)
@@ -37,14 +37,14 @@ For index relations, the function reconstructs complex index-specific data struc
   - [MemoryContextAlloc](../M/MemoryContextAlloc.md)/MemoryContextAllocZero
   - AllocSetContextCreate
 - Called from (representative examples):
-  - RelationCacheInitializePhase2
-  - RelationCacheInitializePhase3
+  - [RelationCacheInitializePhase2](../R/RelationCacheInitializePhase2.md)
+  - [RelationCacheInitializePhase3](../R/RelationCacheInitializePhase3.md)
 
 ## Notes and Other Information
 - The function operates in CacheMemoryContext and assumes this context is already active
 - Sets global flags  or  on success
 - Uses magic number RELCACHE_INIT_FILEMAGIC for file format validation
 - Validates the count of nailed relations/indexes against expected constants (NUM_CRITICAL_SHARED_RELS, etc.)
-- Complex data like rules, triggers, RLS policies, and partition info are not saved in the init file and must be rebuilt separately
+- [Complex](../C/Complex.md) data like rules, triggers, RLS policies, and partition info are not saved in the init file and must be rebuilt separately
 - The init file mechanism significantly improves startup performance for databases with many system catalog entries
 - File location: src/backend/utils/cache/relcache.c:6075-6490

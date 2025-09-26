@@ -26,11 +26,11 @@ The function is restricted to CommandIds greater than 1, as indicated by the com
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReorderBufferGetChange
-  - ReorderBufferQueueChange
+  - [ReorderBufferGetChange](ReorderBufferGetChange.md)
+  - [ReorderBufferQueueChange](ReorderBufferQueueChange.md)
   - REORDER_BUFFER_CHANGE_INTERNAL_COMMAND_ID
 - Called from (representative examples):
-  - SnapBuildProcessNewCid
+  - [SnapBuildProcessNewCid](../S/SnapBuildProcessNewCid.md)
 
 ## Notes and Other Information
 - May only be called for CommandIds greater than 1, as noted in the function comment

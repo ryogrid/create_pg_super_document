@@ -33,8 +33,8 @@ The function is optimized for performance and assumes the input is valid UTF-8 -
   - [unicode_normalize_func](unicode_normalize_func.md)
   - [unicode_is_normalized](unicode_is_normalized.md)
   - [pg_saslprep](../p/pg_saslprep.md)
-  - convert_case
-  - pg_utf_dsplen
+  - [convert_case](../c/convert_case.md)
+  - [pg_utf_dsplen](../p/pg_utf_dsplen.md)
   - [pg_wcsformat](../p/pg_wcsformat.md)
 
 ## Notes and Other Information

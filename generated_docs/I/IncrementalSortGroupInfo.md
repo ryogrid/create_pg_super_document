@@ -35,7 +35,7 @@ IncrementalSortGroupInfo serves as a comprehensive instrumentation structure for
 - Called from (representative examples):
   - [show_incremental_sort_group_info](../s/show_incremental_sort_group_info.md)
   - [show_incremental_sort_info](../s/show_incremental_sort_info.md)
-  - instrumentSortedGroup
+  - [instrumentSortedGroup](../i/instrumentSortedGroup.md)
   - [ExecInitIncrementalSort](../E/ExecInitIncrementalSort.md)
   - [IncrementalSortInfo](IncrementalSortInfo.md)
 

@@ -22,7 +22,7 @@ The function fills the provided pg_tm structure with the current transaction tim
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentTimeUsec
+  - [GetCurrentTimeUsec](GetCurrentTimeUsec.md)
   - struct pg_tm
   - fsec_t
 - Called from (representative examples):

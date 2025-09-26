@@ -38,13 +38,13 @@ The strength field determines the lock level (ranging from FOR KEY SHARE to FOR 
   - LockWaitPolicy (enumeration for wait policies)
   - Index (for range table references)
 - Called from (representative examples):
-  - applyLockingClause (parser/analyze.c)
-  - preprocess_rowmarks (optimizer/plan/planner.c)
-  - transformDeclareCursorStmt (parser/analyze.c)
-  - get_parse_rowmark (parser/parse_relation.c)
+  - [applyLockingClause](../a/applyLockingClause.md) (parser/analyze.c)
+  - [preprocess_rowmarks](../p/preprocess_rowmarks.md) (optimizer/plan/planner.c)
+  - [transformDeclareCursorStmt](../t/transformDeclareCursorStmt.md) (parser/analyze.c)
+  - [get_parse_rowmark](../g/get_parse_rowmark.md) (parser/parse_relation.c)
 
 ## Notes and Other Information
-- Query.rowMarks contains separate RowMarkClause nodes for each relation requiring locking
+- [Query](../Q/Query.md).rowMarks contains separate RowMarkClause nodes for each relation requiring locking
 - Higher numerical values in LockClauseStrength and LockWaitPolicy take precedence when a relation is specified multiple ways
 - The pushedDown mechanism enables proper lock inheritance in subqueries while maintaining distinction from explicit clauses
 - Lock strength ordering allows the system to automatically choose the strongest required lock when multiple specifications exist

@@ -68,23 +68,23 @@ The node is essential for parallel execution of queries requiring ordered result
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Plan (base structure)
+  - [Plan](../P/Plan.md) (base structure)
   - AttrNumber
   - Oid
-  - Bitmapset
-  - SortSupport
-  - binaryheap
+  - [Bitmapset](../B/Bitmapset.md)
+  - [SortSupport](../S/SortSupport.md)
+  - [binaryheap](../b/binaryheap.md)
 - Called from (representative examples):
-  - ExecInitGatherMerge
-  - ExecGatherMerge
-  - ExecReScanGatherMerge
-  - create_gather_merge_plan
-  - gather_merge_setup
+  - [ExecInitGatherMerge](../E/ExecInitGatherMerge.md)
+  - [ExecGatherMerge](../E/ExecGatherMerge.md)
+  - [ExecReScanGatherMerge](../E/ExecReScanGatherMerge.md)
+  - [create_gather_merge_plan](../c/create_gather_merge_plan.md)
+  - [gather_merge_setup](../g/gather_merge_setup.md)
 
 ## Notes and Other Information
 - The GatherMerge node combines the benefits of parallel execution with ordered result requirements
 - Uses a binary heap data structure for efficiently merging multiple sorted streams
-- Sort key information is identical to that used by the Sort node, enabling consistent sorting behavior
+- [Sort](../S/Sort.md) key information is identical to that used by the Sort node, enabling consistent sorting behavior
 - Each worker must produce output sorted according to the same criteria
 - The merge algorithm ensures that the overall result maintains the specified sort order
 - More complex than regular Gather due to the additional sorting and merging logic

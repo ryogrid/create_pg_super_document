@@ -54,13 +54,13 @@ JsonLexContext is the core lexical context structure used throughout PostgreSQL'
 - Functions called/Symbols referenced:
   - [JsonTokenType](JsonTokenType.md)
   - bits32
-  - JsonParserStack
-  - JsonIncrementalState
+  - [JsonParserStack](JsonParserStack.md)
+  - [JsonIncrementalState](JsonIncrementalState.md)
 - Called from (representative examples):
   - [makeJsonLexContextCstringLen](../m/makeJsonLexContextCstringLen.md)
   - makeJsonLexContextIncremental
   - [pg_parse_json](../p/pg_parse_json.md)
-  - json_lex
+  - [json_lex](../j/json_lex.md)
   - [parse_scalar](../p/parse_scalar.md)
   - [json_in](../j/json_in.md)
   - [jsonb_from_cstring](../j/jsonb_from_cstring.md)

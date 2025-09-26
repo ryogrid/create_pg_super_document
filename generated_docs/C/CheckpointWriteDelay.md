@@ -40,7 +40,7 @@ The function only operates when executed by the checkpointer process itself, all
   - [WaitLatch](../W/WaitLatch.md)/ResetLatch
   - [ProcessProcSignalBarrier](../P/ProcessProcSignalBarrier.md)
 - Called from (representative examples):
-  - BufferSync (bufmgr.c:3143)
+  - [BufferSync](../B/BufferSync.md) (bufmgr.c:3143)
 
 ## Notes and Other Information
 - Uses WRITES_PER_ABSORB counter to limit fsync request absorption frequency

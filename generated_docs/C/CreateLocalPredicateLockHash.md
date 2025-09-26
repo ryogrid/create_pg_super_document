@@ -24,9 +24,9 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [hash_create](../h/hash_create.md) (PostgreSQL's hash table creation function)
-  - HASHCTL (hash table control structure)
+  - [HASHCTL](../H/HASHCTL.md) (hash table control structure)
   - [PREDICATELOCKTARGETTAG](../P/PREDICATELOCKTARGETTAG.md) (key type for predicate lock targets)
-  - LOCALPREDICATELOCK (entry type for local lock information)
+  - [LOCALPREDICATELOCK](../L/LOCALPREDICATELOCK.md) (entry type for local lock information)
   - HASH_ELEM, HASH_BLOBS (hash table configuration flags)
 - Called from (representative examples):
   - [GetSerializableTransactionSnapshotInt](../G/GetSerializableTransactionSnapshotInt.md) (during serializable transaction setup)

@@ -29,17 +29,17 @@ The validation workflow mirrors other check hook callers: check for hook existen
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - config_enum (struct type)
+  - [config_enum](config_enum.md) (struct type)
   - GucSource (enum type)
-  - config_enum_lookup_by_value (for error message display)
-  - errdetail_internal
-  - FlushErrorState
+  - [config_enum_lookup_by_value](config_enum_lookup_by_value.md) (for error message display)
+  - [errdetail_internal](../e/errdetail_internal.md)
+  - [FlushErrorState](../F/FlushErrorState.md)
   - ereport (via error reporting macros)
-  - errcode, errmsg_internal, errmsg, errhint (error reporting functions)
+  - [errcode](../e/errcode.md), errmsg_internal, errmsg, errhint (error reporting functions)
 
 - Called from (representative examples):
-  - InitializeOneGUCOption
-  - parse_and_validate_value
+  - [InitializeOneGUCOption](../I/InitializeOneGUCOption.md)
+  - [parse_and_validate_value](../p/parse_and_validate_value.md)
 
 ## Notes and Other Information
 - Provides user-friendly error messages by converting integer values to enum names

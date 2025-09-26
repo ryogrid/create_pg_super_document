@@ -29,9 +29,9 @@ The function returns one tuple per call, maintaining state between calls to cont
 - Functions called/Symbols referenced:
   - CHECK_FOR_INTERRUPTS (interrupt handling macro)
   - ScanTupleHashTable (iterates through hash table entries)
-  - set_output_count (determines output count for a group)
+  - [set_output_count](set_output_count.md) (determines output count for a group)
   - [ExecStoreMinimalTuple](../E/ExecStoreMinimalTuple.md) (stores minimal tuple in result slot)
-  - ExecClearTuple (clears tuple slot when done)
+  - [ExecClearTuple](../E/ExecClearTuple.md) (clears tuple slot when done)
 - Called from (representative examples):
   - [ExecSetOp](../E/ExecSetOp.md) (when using hashed strategy after table is filled)
 

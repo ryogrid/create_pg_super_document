@@ -43,24 +43,24 @@ The design allows PostgreSQL to optimize and execute JSON constructor expression
 ## Dependencies
 - Functions called/Symbols referenced:
   - JsonConstructorType
-  - JsonReturning
+  - [JsonReturning](JsonReturning.md)
   - ParseLoc
-  - Expr
-  - List
+  - [Expr](../E/Expr.md)
+  - [List](../L/List.md)
 
 - Called from (representative examples):
-  - ExecInitExprRec
-  - ExecEvalJsonConstructor
-  - makeJsonConstructorExpr
-  - get_json_constructor
-  - get_json_constructor_options
-  - get_json_agg_constructor
-  - contain_mutable_functions_walker
-  - exprType
-  - exprTypmod
-  - exprCollation
-  - exprSetCollation
-  - exprLocation
+  - [ExecInitExprRec](../E/ExecInitExprRec.md)
+  - [ExecEvalJsonConstructor](../E/ExecEvalJsonConstructor.md)
+  - [makeJsonConstructorExpr](../m/makeJsonConstructorExpr.md)
+  - [get_json_constructor](../g/get_json_constructor.md)
+  - [get_json_constructor_options](../g/get_json_constructor_options.md)
+  - [get_json_agg_constructor](../g/get_json_agg_constructor.md)
+  - [contain_mutable_functions_walker](../c/contain_mutable_functions_walker.md)
+  - [exprType](../e/exprType.md)
+  - [exprTypmod](../e/exprTypmod.md)
+  - [exprCollation](../e/exprCollation.md)
+  - [exprSetCollation](../e/exprSetCollation.md)
+  - [exprLocation](../e/exprLocation.md)
 
 ## Notes and Other Information
 - This structure unifies handling of different JSON constructor types under a single interface

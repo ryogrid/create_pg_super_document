@@ -24,7 +24,7 @@ The function detoasts and copies the source record into the expanded object's pr
 - Functions called/Symbols referenced:
   - AllocSetContextCreate
   - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md)
-  - EOH_init_header
+  - [EOH_init_header](../E/EOH_init_header.md)
   - DatumGetHeapTupleHeader
   - HeapTupleHeaderGetDatumLength
   - [ItemPointerSetInvalid](../I/ItemPointerSetInvalid.md)
@@ -32,7 +32,7 @@ The function detoasts and copies the source record into the expanded object's pr
   - HeapTupleHeaderGetTypeId
   - HeapTupleHeaderGetTypMod
   - HeapTupleHeaderHasExternal
-  - EOHPGetRWDatum
+  - [EOHPGetRWDatum](../E/EOHPGetRWDatum.md)
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
 - Called from:
   - [DatumGetExpandedRecord](../D/DatumGetExpandedRecord.md)

@@ -36,17 +36,17 @@ The function handles the mathematical combination of MCV and histogram selectivi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - mcv_selectivity
-  - ineq_histogram_selectivity
-  - get_opcode
-  - fmgr_info
-  - ItemPointerGetBlockNumberNoCheck
-  - ItemPointerGetOffsetNumberNoCheck
+  - [mcv_selectivity](../m/mcv_selectivity.md)
+  - [ineq_histogram_selectivity](../i/ineq_histogram_selectivity.md)
+  - [get_opcode](../g/get_opcode.md)
+  - [fmgr_info](../f/fmgr_info.md)
+  - [ItemPointerGetBlockNumberNoCheck](../I/ItemPointerGetBlockNumberNoCheck.md)
+  - [ItemPointerGetOffsetNumberNoCheck](../I/ItemPointerGetOffsetNumberNoCheck.md)
   - CLAMP_PROBABILITY
   - DEFAULT_INEQ_SEL
 - Called from (representative examples):
-  - scalarineqsel_wrapper
-  - mergejoinscansel
+  - [scalarineqsel_wrapper](scalarineqsel_wrapper.md)
+  - [mergejoinscansel](../m/mergejoinscansel.md)
 
 ## Notes and Other Information
 - Works with any datatype supported by convert_to_scalar()

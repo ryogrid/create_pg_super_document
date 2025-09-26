@@ -29,7 +29,7 @@ The "noexec" option is particularly useful for developers and advanced users who
 - Functions called/Symbols referenced:
   - [pg_strcasecmp](../p/pg_strcasecmp.md)
   - [ParseVariableBool](../P/ParseVariableBool.md)
-  - PsqlVarEnumError
+  - [PsqlVarEnumError](../P/PsqlVarEnumError.md)
   - PSQL_ECHO_HIDDEN_NOEXEC
   - PSQL_ECHO_HIDDEN_ON
   - PSQL_ECHO_HIDDEN_OFF

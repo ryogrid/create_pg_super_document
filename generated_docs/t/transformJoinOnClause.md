@@ -31,7 +31,7 @@ This careful namespace management ensures that JOIN ON clauses can only referenc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JoinExpr
+  - [JoinExpr](../J/JoinExpr.md)
   - [setNamespaceLateralState](../s/setNamespaceLateralState.md)
   - [transformWhereClause](transformWhereClause.md)
   - EXPR_KIND_JOIN_ON

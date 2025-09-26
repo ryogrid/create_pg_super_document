@@ -31,9 +31,9 @@ The underlying WindowStatePerFuncData structure contains:
 - Functions called/Symbols referenced:
   - [WindowStatePerFuncData](WindowStatePerFuncData.md)
   - [WindowFuncExprState](WindowFuncExprState.md)
-  - WindowFunc
+  - [WindowFunc](WindowFunc.md)
   - [FmgrInfo](../F/FmgrInfo.md)
-  - WindowObject
+  - [WindowObject](WindowObject.md)
 - Called from (representative examples):
   - [initialize_windowaggregate](../i/initialize_windowaggregate.md)
   - [advance_windowaggregate](../a/advance_windowaggregate.md)

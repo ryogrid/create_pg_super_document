@@ -24,8 +24,8 @@ PGEventResultCreate is used as the event information structure when the libpq ev
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PGconn (PostgreSQL connection structure)
-  - PGresult (PostgreSQL result structure)
+  - [PGconn](PGconn.md) (PostgreSQL connection structure)
+  - [PGresult](PGresult.md) (PostgreSQL result structure)
 - Called from (representative examples):
   - [PQfireResultCreateEvents](PQfireResultCreateEvents.md) (creates and passes this structure to event callbacks at libpq-events.c:198)
   - [fe](../f/fe.md)-exec.c:2214 (calls PQfireResultCreateEvents to trigger the event)

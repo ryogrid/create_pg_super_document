@@ -22,14 +22,14 @@ Important behavioral notes: If the input is just a filename with no directory co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - trim_directory
+  - [trim_directory](../t/trim_directory.md)
 - Called from (representative examples):
-  - dbase_redo
-  - destroy_tablespace_directories  
-  - fsync_parent_path
-  - AbsoluteConfigLocation
-  - main (initdb)
-  - process_file
+  - [dbase_redo](../d/dbase_redo.md)
+  - [destroy_tablespace_directories](../d/destroy_tablespace_directories.md)  
+  - [fsync_parent_path](../f/fsync_parent_path.md)
+  - [AbsoluteConfigLocation](../A/AbsoluteConfigLocation.md)
+  - [main](../m/main.md) (initdb)
+  - [process_file](../p/process_file.md)
 
 ## Notes and Other Information
 - This is a void function that modifies the input string in-place

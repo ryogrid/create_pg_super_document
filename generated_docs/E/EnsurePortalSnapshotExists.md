@@ -28,10 +28,10 @@ The function is critical for maintaining PostgreSQL's MVCC semantics in complex 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ActiveSnapshotSet
-  - GetTransactionSnapshot
-  - PushActiveSnapshotWithLevel
-  - GetActiveSnapshot
+  - [ActiveSnapshotSet](../A/ActiveSnapshotSet.md)
+  - [GetTransactionSnapshot](../G/GetTransactionSnapshot.md)
+  - [PushActiveSnapshotWithLevel](../P/PushActiveSnapshotWithLevel.md)
+  - [GetActiveSnapshot](../G/GetActiveSnapshot.md)
   - [Portal](../P/Portal.md) structure and ActivePortal global
   - [Portal](../P/Portal.md) fields (portalSnapshot, createLevel)
 - Called from (representative examples):

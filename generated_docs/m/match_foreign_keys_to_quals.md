@@ -31,11 +31,11 @@ Currently, the function only retains multicolumn FKs that are fully matched to t
   - [match_eclasses_to_foreign_key_col](match_eclasses_to_foreign_key_col.md) (matches FK columns to equivalence classes)
   - [get_leftop](../g/get_leftop.md)/get_rightop (extract operands from expressions)
   - [get_commutator](../g/get_commutator.md) (finds commutator operators)
-  - lappend (list manipulation)
-  - ForeignKeyOptInfo (structure containing FK optimization information)
-  - EquivalenceClass (structure for equivalence class management)
-  - OpExpr (operator expression node)
-  - RelabelType (type relabeling expression node)
+  - [lappend](../l/lappend.md) (list manipulation)
+  - [ForeignKeyOptInfo](../F/ForeignKeyOptInfo.md) (structure containing FK optimization information)
+  - [EquivalenceClass](../E/EquivalenceClass.md) (structure for equivalence class management)
+  - [OpExpr](../O/OpExpr.md) (operator expression node)
+  - [RelabelType](../R/RelabelType.md) (type relabeling expression node)
   - RELOPT_BASEREL (enumeration for base relation types)
 - Called from:
   - [query_planner](../q/query_planner.md) (main query planning entry point)
@@ -43,7 +43,7 @@ Currently, the function only retains multicolumn FKs that are fully matched to t
 ## Notes and Other Information
 - The function performs extensive validation to ensure both the constraining and referenced relations are base relations present in the query
 - It handles both direct and reverse column matches, using commutator operators when necessary
-- RelabelType nodes are stripped away to reach the underlying Var nodes for proper matching
+- [RelabelType](../R/RelabelType.md) nodes are stripped away to reach the underlying Var nodes for proper matching
 - The function prioritizes equivalence class matches over loose qualification matches
 - Foreign keys linking to inheritance child relations (otherrels) are ignored
 - The current implementation requires full column matching for multicolumn FKs to be retained

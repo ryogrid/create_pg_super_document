@@ -36,21 +36,21 @@ Important: This function does NOT recurse into sub-expressions; it only examines
 ## Dependencies
 - Functions called/Symbols referenced:
   - nodeTag
-  - set_opfuncid
-  - set_sa_opfuncid
-  - getTypeInputInfo
-  - getTypeOutputInfo
-  - get_opcode
-  - exprType
+  - [set_opfuncid](../s/set_opfuncid.md)
+  - [set_sa_opfuncid](../s/set_sa_opfuncid.md)
+  - [getTypeInputInfo](../g/getTypeInputInfo.md)
+  - [getTypeOutputInfo](../g/getTypeOutputInfo.md)
+  - [get_opcode](../g/get_opcode.md)
+  - [exprType](../e/exprType.md)
   - lfirst_oid
 - Called from (representative examples):
-  - check_simple_rowfilter_expr_walker
-  - contain_mutable_functions_walker
-  - contain_volatile_functions_walker
-  - contain_volatile_functions_not_nextval_walker
-  - max_parallel_hazard_walker
-  - contain_nonstrict_functions_walker
-  - contain_leaked_vars_walker
+  - [check_simple_rowfilter_expr_walker](check_simple_rowfilter_expr_walker.md)
+  - [contain_mutable_functions_walker](contain_mutable_functions_walker.md)
+  - [contain_volatile_functions_walker](contain_volatile_functions_walker.md)
+  - [contain_volatile_functions_not_nextval_walker](contain_volatile_functions_not_nextval_walker.md)
+  - [max_parallel_hazard_walker](../m/max_parallel_hazard_walker.md)
+  - [contain_nonstrict_functions_walker](contain_nonstrict_functions_walker.md)
+  - [contain_leaked_vars_walker](contain_leaked_vars_walker.md)
 
 ## Notes and Other Information
 - Does not recurse into sub-expressions - caller controls recursion

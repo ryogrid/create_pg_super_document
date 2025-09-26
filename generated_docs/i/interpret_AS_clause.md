@@ -38,8 +38,8 @@ The function performs extensive validation including checking for duplicate or m
 - Functions called/Symbols referenced:
   - strVal (extracts string values from nodes)
   - linitial, lsecond (list access functions)
-  - list_length, list_nth, list_nth_oid (list utility functions)
-  - SQLFunctionParseInfo (structure type for SQL function parsing)
+  - [list_length](../l/list_length.md), list_nth, list_nth_oid (list utility functions)
+  - [SQLFunctionParseInfo](../S/SQLFunctionParseInfo.md) (structure type for SQL function parsing)
   - IsPolymorphicType (checks if type is polymorphic)
   - [make_parsestate](../m/make_parsestate.md), free_parsestate (parser state management)
   - [sql_fn_parser_setup](../s/sql_fn_parser_setup.md) (sets up SQL function parsing context)

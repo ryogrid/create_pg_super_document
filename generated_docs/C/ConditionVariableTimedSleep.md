@@ -41,7 +41,7 @@ The implementation uses a loop to handle spurious wakeups, only returning when e
   - [recoveryPausesHere](../r/recoveryPausesHere.md)
   - [RecoveryRequiresIntParameter](../R/RecoveryRequiresIntParameter.md)
   - [WaitForWalSummarization](../W/WaitForWalSummarization.md)
-  - WaitForStandbyConfirmation
+  - [WaitForStandbyConfirmation](../W/WaitForStandbyConfirmation.md)
   - [WaitForProcSignalBarrier](../W/WaitForProcSignalBarrier.md)
   - [ConditionVariableSleep](ConditionVariableSleep.md) (as the underlying implementation)
 

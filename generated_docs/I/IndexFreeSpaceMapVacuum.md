@@ -23,13 +23,13 @@ The function ensures that the FSM remains an accurate and reliable guide for fut
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FreeSpaceMapVacuum (performs the actual FSM vacuum operation)
+  - [FreeSpaceMapVacuum](../F/FreeSpaceMapVacuum.md) (performs the actual FSM vacuum operation)
 - Called from (representative examples):
-  - ginInsertCleanup (GIN index cleanup after fast updates)
-  - ginvacuumcleanup (GIN index vacuum cleanup)
-  - gistvacuumscan (GiST index vacuum scan)
-  - btvacuumscan (B-tree index vacuum scan)
-  - spgvacuumscan (SP-GiST index vacuum scan)
+  - [ginInsertCleanup](../g/ginInsertCleanup.md) (GIN index cleanup after fast updates)
+  - [ginvacuumcleanup](../g/ginvacuumcleanup.md) (GIN index vacuum cleanup)
+  - [gistvacuumscan](../g/gistvacuumscan.md) (GiST index vacuum scan)
+  - [btvacuumscan](../b/btvacuumscan.md) (B-tree index vacuum scan)
+  - [spgvacuumscan](../s/spgvacuumscan.md) (SP-GiST index vacuum scan)
 
 ## Notes and Other Information
 - Essential for maintaining FSM accuracy and consistency

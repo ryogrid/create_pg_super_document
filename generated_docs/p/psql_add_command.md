@@ -23,11 +23,11 @@ The function first uses a variadic argument mechanism to format the query string
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendStringInfoString
-  - initStringInfo
-  - appendStringInfoVA
-  - enlargeStringInfo
-  - appendStringInfoChar
+  - [appendStringInfoString](../a/appendStringInfoString.md)
+  - [initStringInfo](../i/initStringInfo.md)
+  - [appendStringInfoVA](../a/appendStringInfoVA.md)
+  - [enlargeStringInfo](../e/enlargeStringInfo.md)
+  - [appendStringInfoChar](../a/appendStringInfoChar.md)
   - [pfree](pfree.md)
   - strchr (standard C library)
 - Called from (representative examples):

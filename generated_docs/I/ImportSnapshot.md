@@ -28,19 +28,19 @@ The function reads snapshot data from files stored in SNAPSHOT_EXPORT_DIR, parsi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetTopTransactionIdIfAny
-  - IsSubTransaction
+  - [GetTopTransactionIdIfAny](../G/GetTopTransactionIdIfAny.md)
+  - [IsSubTransaction](IsSubTransaction.md)
   - IsolationUsesXactSnapshot
-  - AllocateFile
-  - parseVxidFromText
-  - parseIntFromText
-  - parseXidFromText
-  - SetTransactionSnapshot
+  - [AllocateFile](../A/AllocateFile.md)
+  - [parseVxidFromText](../p/parseVxidFromText.md)
+  - [parseIntFromText](../p/parseIntFromText.md)
+  - [parseXidFromText](../p/parseXidFromText.md)
+  - [SetTransactionSnapshot](../S/SetTransactionSnapshot.md)
   - VirtualTransactionIdIsValid
   - TransactionIdIsNormal
   - IsolationIsSerializable
 - Called from (representative examples):
-  - ExecSetVariableStmt (for SET TRANSACTION SNAPSHOT command)
+  - [ExecSetVariableStmt](../E/ExecSetVariableStmt.md) (for SET TRANSACTION SNAPSHOT command)
 
 ## Notes and Other Information
 - Must be called before any query execution in a transaction

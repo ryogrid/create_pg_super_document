@@ -25,10 +25,10 @@ The function uses bit manipulation to efficiently calculate the appropriate bin 
   - pg_leftmost_one_pos_size_t
   - DSA_NUM_SEGMENT_BINS
 - Called from (representative examples):
-  - create_internal
-  - get_best_segment
-  - make_new_segment
-  - rebin_segment
+  - [create_internal](create_internal.md)
+  - [get_best_segment](../g/get_best_segment.md)
+  - [make_new_segment](../m/make_new_segment.md)
+  - [rebin_segment](../r/rebin_segment.md)
 
 ## Notes and Other Information
 - This is a static inline function for performance optimization in hot allocation paths

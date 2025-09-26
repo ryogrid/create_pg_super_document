@@ -23,13 +23,13 @@ The function uses a conservative threshold of BLCKSZ/2 to ensure that the return
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetPageWithFreeSpace (requests a page with at least BLCKSZ/2 free space)
-  - RecordUsedIndexPage (marks the returned page as used in FSM)
+  - [GetPageWithFreeSpace](GetPageWithFreeSpace.md) (requests a page with at least BLCKSZ/2 free space)
+  - [RecordUsedIndexPage](../R/RecordUsedIndexPage.md) (marks the returned page as used in FSM)
 - Called from (representative examples):
-  - GinNewBuffer (GIN index buffer allocation)
-  - gistNewBuffer (GiST index buffer allocation)
-  - _bt_allocbuf (B-tree page allocation)
-  - SpGistNewBuffer (SP-GiST buffer allocation)
+  - [GinNewBuffer](GinNewBuffer.md) (GIN index buffer allocation)
+  - [gistNewBuffer](../g/gistNewBuffer.md) (GiST index buffer allocation)
+  - [_bt_allocbuf](../b/_bt_allocbuf.md) (B-tree page allocation)
+  - [SpGistNewBuffer](../S/SpGistNewBuffer.md) (SP-GiST buffer allocation)
 
 ## Notes and Other Information
 - Returns InvalidBlockNumber if no suitable free page is available

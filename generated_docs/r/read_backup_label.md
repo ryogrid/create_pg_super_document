@@ -31,8 +31,8 @@ The function parses various fields from the backup_label file:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AllocateFile (opens backup_label file for reading)
-  - FreeFile (closes the backup_label file)
+  - [AllocateFile](../A/AllocateFile.md) (opens backup_label file for reading)
+  - [FreeFile](../F/FreeFile.md) (closes the backup_label file)
   - BACKUP_LABEL_FILE (backup_label filename constant)
   - MAXFNAMELEN (maximum filename length constant)
 - Called from:

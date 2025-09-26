@@ -23,9 +23,9 @@ The function only advances the `oldestClogXid` forward - it will never move it b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `LWLockAcquire` (XactTruncationLock, LW_EXCLUSIVE)
+  - `[LWLockAcquire](../L/LWLockAcquire.md)` (XactTruncationLock, LW_EXCLUSIVE)
   - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
-  - `LWLockRelease` (XactTruncationLock)
+  - `[LWLockRelease](../L/LWLockRelease.md)` (XactTruncationLock)
 - Called from (representative examples):
   - [TruncateCLOG](../T/TruncateCLOG.md) (src/backend/access/transam/clog.c:1021)
   - [clog_redo](../c/clog_redo.md) (src/backend/access/transam/clog.c:1137)

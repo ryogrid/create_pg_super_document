@@ -27,7 +27,7 @@ This function takes no parameters.
   - fopen (file opening)
   - fgets (reading file content)
   - ferror (checking file errors)
-  - pg_strip_crlf (whitespace removal)
+  - [pg_strip_crlf](../p/pg_strip_crlf.md) (whitespace removal)
   - strcmp (string comparison)
   - pg_log_error (error logging)
   - pg_log_error_detail (detailed error logging)

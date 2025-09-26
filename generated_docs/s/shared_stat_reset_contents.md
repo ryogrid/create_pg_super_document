@@ -21,17 +21,17 @@ The `shared_stat_reset_contents` function performs a standardized reset operatio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_get_kind_info
-  - pgstat_get_entry_data
-  - pgstat_get_entry_len
+  - [pgstat_get_kind_info](../p/pgstat_get_kind_info.md)
+  - [pgstat_get_entry_data](../p/pgstat_get_entry_data.md)
+  - [pgstat_get_entry_len](../p/pgstat_get_entry_len.md)
 - Types used:
-  - PgStat_Kind
-  - PgStatShared_Common
-  - PgStat_KindInfo
+  - [PgStat_Kind](../P/PgStat_Kind.md)
+  - [PgStatShared_Common](../P/PgStatShared_Common.md)
+  - [PgStat_KindInfo](../P/PgStat_KindInfo.md)
   - TimestampTz
 - Called from:
-  - pgstat_reset_entry
-  - pgstat_reset_matching_entries
+  - [pgstat_reset_entry](../p/pgstat_reset_entry.md)
+  - [pgstat_reset_matching_entries](../p/pgstat_reset_matching_entries.md)
 
 ## Notes and Other Information
 - This is a static helper function internal to pgstat_shmem.c

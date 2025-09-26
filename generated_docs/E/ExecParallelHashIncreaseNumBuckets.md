@@ -26,21 +26,21 @@ The function handles dynamic shared memory allocation, maintains data consistenc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BarrierPhase
-  - BarrierArriveAndWait
-  - dsa_free
+  - [BarrierPhase](../B/BarrierPhase.md)
+  - [BarrierArriveAndWait](../B/BarrierArriveAndWait.md)
+  - [dsa_free](../d/dsa_free.md)
   - dsa_allocate
-  - dsa_get_address
+  - [dsa_get_address](../d/dsa_get_address.md)
   - dsa_pointer_atomic_init
-  - ExecParallelHashEnsureBatchAccessors
-  - ExecParallelHashTableSetCurrentBatch
-  - ExecParallelHashPopChunkQueue
-  - ExecHashGetBucketAndBatch
-  - ExecParallelHashPushTuple
+  - [ExecParallelHashEnsureBatchAccessors](ExecParallelHashEnsureBatchAccessors.md)
+  - [ExecParallelHashTableSetCurrentBatch](ExecParallelHashTableSetCurrentBatch.md)
+  - [ExecParallelHashPopChunkQueue](ExecParallelHashPopChunkQueue.md)
+  - [ExecHashGetBucketAndBatch](ExecHashGetBucketAndBatch.md)
+  - [ExecParallelHashPushTuple](ExecParallelHashPushTuple.md)
 - Called from (representative examples):
-  - MultiExecParallelHash
-  - ExecParallelHashTupleAlloc
-  - ExecParallelHashTuplePrealloc
+  - [MultiExecParallelHash](../M/MultiExecParallelHash.md)
+  - [ExecParallelHashTupleAlloc](ExecParallelHashTupleAlloc.md)
+  - [ExecParallelHashTuplePrealloc](ExecParallelHashTuplePrealloc.md)
 
 ## Notes and Other Information
 - The function uses a three-phase barrier protocol to ensure consistent state across all parallel workers

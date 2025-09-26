@@ -20,8 +20,8 @@ tfuncFetchRows is responsible for fetching all rows from a table function (such 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - tuplestore_begin_heap
-  - ExecEvalExpr
+  - [tuplestore_begin_heap](tuplestore_begin_heap.md)
+  - [ExecEvalExpr](../E/ExecEvalExpr.md)
   - [tfuncInitialize](tfuncInitialize.md)
   - [tfuncLoadRows](tfuncLoadRows.md)
   - PG_TRY/PG_CATCH/PG_RE_THROW/PG_END_TRY

@@ -39,7 +39,7 @@ The function balances correctness, performance, and parallelism while maintainin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth
+  - [check_stack_depth](../c/check_stack_depth.md)
   - [generate_useful_gather_paths](../g/generate_useful_gather_paths.md)  
   - [create_projection_path](../c/create_projection_path.md)
   - [adjust_paths_for_srfs](adjust_paths_for_srfs.md)

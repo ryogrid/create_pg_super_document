@@ -23,15 +23,15 @@ The function uses the PortalHashTableLookup macro to perform an efficient hash-b
 - Functions called/Symbols referenced:
   - PointerIsValid: Validates the input name pointer
   - PortalHashTableLookup: Macro for hash table lookup by portal name
-  - Portal: Return type representing a portal structure
+  - [Portal](../P/Portal.md): Return type representing a portal structure
 
 - Called from (representative examples):
-  - exec_simple_query: Query execution in simple query protocol
-  - exec_execute_message: Extended query protocol execution
-  - PerformPortalFetch: Portal fetch operations
-  - PerformPortalClose: Portal cleanup operations
-  - CreatePortal: Portal creation when checking for name conflicts
-  - SPI_cursor_find: Server Programming Interface cursor lookup
+  - [exec_simple_query](../e/exec_simple_query.md): Query execution in simple query protocol
+  - [exec_execute_message](../e/exec_execute_message.md): Extended query protocol execution
+  - [PerformPortalFetch](../P/PerformPortalFetch.md): Portal fetch operations
+  - [PerformPortalClose](../P/PerformPortalClose.md): Portal cleanup operations
+  - [CreatePortal](../C/CreatePortal.md): Portal creation when checking for name conflicts
+  - [SPI_cursor_find](../S/SPI_cursor_find.md): Server Programming Interface cursor lookup
 
 ## Notes and Other Information
 - Returns NULL for both non-existent portals and invalid name parameters

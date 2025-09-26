@@ -35,7 +35,7 @@ This trigger function is typically used in scenarios where a fixed, predetermine
 - The configuration name must be schema-qualified (e.g., 'pg_catalog.english') for security and clarity
 - Part of PostgreSQL's automatic tsvector maintenance system for full-text search
 - The  parameter passed to the main function indicates that configuration lookup should be by name
-- Trigger arguments follow a specific pattern: tsvector_column, config_name, text_column1, [text_column2, ...]
+- [Trigger](../T/Trigger.md) arguments follow a specific pattern: tsvector_column, config_name, text_column1, [text_column2, ...]
 - Provides consistent text search processing across all rows using the same configuration
 - Automatically called when INSERT or UPDATE operations occur on the table where this trigger is installed
 - More efficient than the byid variant when all rows use the same configuration since no per-row lookups are needed

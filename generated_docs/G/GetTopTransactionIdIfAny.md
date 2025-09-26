@@ -33,7 +33,7 @@ This function takes no parameters.
   - [TransactionIdIsCurrentTransactionId](../T/TransactionIdIsCurrentTransactionId.md)
   - [RecordTransactionCommit](../R/RecordTransactionCommit.md)
   - [XLogRecordAssemble](../X/XLogRecordAssemble.md)
-  - CreateInitDecodingContext
+  - [CreateInitDecodingContext](../C/CreateInitDecodingContext.md)
   - [XactLockTableWait](../X/XactLockTableWait.md)
   - [write_csvlog](../w/write_csvlog.md)
   - [write_jsonlog](../w/write_jsonlog.md)

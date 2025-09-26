@@ -31,17 +31,17 @@ The function returns true if there are UNTIL fields (indicating more zone data f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - namecheck (validates zone names)
-  - ecpyalloc (allocates and copies strings)
-  - gethms (parses time offset strings)
+  - [namecheck](../n/namecheck.md) (validates zone names)
+  - [ecpyalloc](../e/ecpyalloc.md) (allocates and copies strings)
+  - [gethms](../g/gethms.md) (parses time offset strings)
   - strchr (string character search)
-  - rulesub (processes UNTIL rule data)
-  - rpytime (calculates time from rule)
-  - growalloc (grows the zones array)
-  - error/warning (reporting functions)
+  - [rulesub](../r/rulesub.md) (processes UNTIL rule data)
+  - [rpytime](../r/rpytime.md) (calculates time from rule)
+  - [growalloc](../g/growalloc.md) (grows the zones array)
+  - [error](../e/error.md)/warning (reporting functions)
 - Called from (representative examples):
-  - inzone (for initial zone lines)
-  - inzcont (for zone continuation lines)
+  - [inzone](inzone.md) (for initial zone lines)
+  - [inzcont](inzcont.md) (for zone continuation lines)
 
 ## Notes and Other Information
 - Uses different field index constants for continuation lines (ZFC_*) vs regular zones (ZF_*)

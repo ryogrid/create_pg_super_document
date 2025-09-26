@@ -178,7 +178,7 @@ Key responsibilities include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SnapBuildState (enum for tracking build phases)
+  - [SnapBuildState](SnapBuildState.md) (enum for tracking build phases)
   - [ReorderBuffer](../R/ReorderBuffer.md) (coordination with transaction reordering)
   - [MemoryContext](../M/MemoryContext.md) (memory management)
   - [Snapshot](Snapshot.md) (PostgreSQL snapshot structure)
@@ -186,8 +186,8 @@ Key responsibilities include:
 
 - Called from (representative examples):
   - [AllocateSnapshotBuilder](../A/AllocateSnapshotBuilder.md) (creates and initializes SnapBuild)
-  - SnapBuildProcessRunningXacts (processes running transaction records)
-  - SnapBuildCommitTxn (handles transaction commit processing)
+  - [SnapBuildProcessRunningXacts](SnapBuildProcessRunningXacts.md) (processes running transaction records)
+  - [SnapBuildCommitTxn](SnapBuildCommitTxn.md) (handles transaction commit processing)
   - [SnapBuildSerialize](SnapBuildSerialize.md)/SnapBuildRestore (snapshot persistence)
   - [LogicalDecodingContext](../L/LogicalDecodingContext.md) (main logical decoding coordination)
 

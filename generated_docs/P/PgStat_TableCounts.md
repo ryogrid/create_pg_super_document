@@ -58,8 +58,8 @@ The modification counters (tuples_inserted/updated/deleted/hot_updated/newpage_u
 - Functions called/Symbols referenced:
   - PgStat_Counter (used for all counter fields)
 - Called from (representative examples):
-  - pgstat_relation_flush_cb (statistics flushing callback)
-  - PgStat_TableStatus (embedded within table status structure)
+  - [pgstat_relation_flush_cb](../p/pgstat_relation_flush_cb.md) (statistics flushing callback)
+  - [PgStat_TableStatus](PgStat_TableStatus.md) (embedded within table status structure)
 
 ## Notes and Other Information
 - Optimized for performance with memcmp-based zero detection for pending updates

@@ -29,7 +29,7 @@ The new root page has no siblings (prev/next pointers set to P_NONE) and is mark
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData
-  - XLogInitBufferForRedo
+  - [XLogInitBufferForRedo](../X/XLogInitBufferForRedo.md)
   - [XLogRecGetBlockData](../X/XLogRecGetBlockData.md)
   - BTPageGetOpaque
   - [_bt_pageinit](_bt_pageinit.md)
@@ -38,7 +38,7 @@ The new root page has no siblings (prev/next pointers set to P_NONE) and is mark
   - [_bt_restore_meta](_bt_restore_meta.md)
   - [BufferGetPageSize](../B/BufferGetPageSize.md)
   - [PageSetLSN](../P/PageSetLSN.md)
-  - MarkBufferDirty
+  - [MarkBufferDirty](../M/MarkBufferDirty.md)
   - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
 - Called from (representative examples):
   - [btree_redo](btree_redo.md)

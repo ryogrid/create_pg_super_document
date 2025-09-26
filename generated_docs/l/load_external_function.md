@@ -28,7 +28,7 @@ The function provides flexibility in error handling - it can either raise an err
 - Functions called/Symbols referenced:
   - [expand_dynamic_library_name](../e/expand_dynamic_library_name.md)
   - [internal_load_library](../i/internal_load_library.md)
-  - dlsym
+  - [dlsym](../d/dlsym.md)
 - Called from (representative examples):
   - [LookupParallelWorkerFunction](../L/LookupParallelWorkerFunction.md)
   - [fmgr_c_validator](../f/fmgr_c_validator.md)

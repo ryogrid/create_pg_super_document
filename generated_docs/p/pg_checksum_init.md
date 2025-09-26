@@ -23,17 +23,17 @@ The function provides proper error handling for cryptographic hash initializatio
 ## Dependencies
 - Functions called/Symbols referenced:
   - INIT_CRC32C (macro for CRC32C initialization)
-  - pg_cryptohash_create (creates cryptographic hash contexts)
-  - pg_cryptohash_init (initializes cryptographic hash computation)
-  - pg_cryptohash_free (frees cryptographic hash contexts on error)
+  - [pg_cryptohash_create](pg_cryptohash_create.md) (creates cryptographic hash contexts)
+  - [pg_cryptohash_init](pg_cryptohash_init.md) (initializes cryptographic hash computation)
+  - [pg_cryptohash_free](pg_cryptohash_free.md) (frees cryptographic hash contexts on error)
   - PG_SHA224, PG_SHA256, PG_SHA384, PG_SHA512 (hash algorithm constants)
   - CHECKSUM_TYPE_* enumeration constants
 - Called from (representative examples):
-  - sendFileWithContent (in src/backend/backup/basebackup.c)
-  - sendFile (in src/backend/backup/basebackup.c)
-  - process_directory_recursively (in src/bin/pg_combinebackup/pg_combinebackup.c)
-  - reconstruct_from_incremental_file (in src/bin/pg_combinebackup/reconstruct.c)
-  - verify_file_checksum (in src/bin/pg_verifybackup/pg_verifybackup.c)
+  - [sendFileWithContent](../s/sendFileWithContent.md) (in src/backend/backup/basebackup.c)
+  - [sendFile](../s/sendFile.md) (in src/backend/backup/basebackup.c)
+  - [process_directory_recursively](process_directory_recursively.md) (in src/bin/pg_combinebackup/pg_combinebackup.c)
+  - [reconstruct_from_incremental_file](../r/reconstruct_from_incremental_file.md) (in src/bin/pg_combinebackup/reconstruct.c)
+  - [verify_file_checksum](../v/verify_file_checksum.md) (in src/bin/pg_verifybackup/pg_verifybackup.c)
 
 ## Notes and Other Information
 - Returns 0 on success, -1 on failure

@@ -22,11 +22,11 @@ The  function modifies the sort direction and null handling behavior for all sor
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Tuplesortstate (structure type)
-  - SortSupport (structure type)
+  - [Tuplesortstate](../T/Tuplesortstate.md) (structure type)
+  - [SortSupport](../S/SortSupport.md) (structure type)
 - Called from (representative examples):
-  - make_bounded_heap (src/backend/utils/sort/tuplesort.c:2636)
-  - sort_bounded_heap (src/backend/utils/sort/tuplesort.c:2702)
+  - [make_bounded_heap](../m/make_bounded_heap.md) (src/backend/utils/sort/tuplesort.c:2636)
+  - [sort_bounded_heap](../s/sort_bounded_heap.md) (src/backend/utils/sort/tuplesort.c:2702)
   - LEADER macro usage (src/backend/utils/sort/tuplesort.c:474)
 
 ## Notes and Other Information

@@ -20,13 +20,13 @@ This function serves as an OID-based alternative to AlterForeignDataWrapperOwner
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open (opens catalog table with specified lock mode)
+  - [table_open](../t/table_open.md) (opens catalog table with specified lock mode)
   - SearchSysCacheCopy1 (searches system cache and returns copy of tuple)
   - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) (converts OID to Datum for cache search)
   - HeapTupleIsValid (checks if tuple is valid)
   - [AlterForeignDataWrapperOwner_internal](AlterForeignDataWrapperOwner_internal.md) (performs the actual ownership change)
   - [heap_freetuple](../h/heap_freetuple.md) (frees memory allocated for tuple)
-  - table_close (closes catalog table and releases lock)
+  - [table_close](../t/table_close.md) (closes catalog table and releases lock)
 - Called from (representative examples):
   - [shdepReassignOwned_Owner](../s/shdepReassignOwned_Owner.md) (src/backend/catalog/pg_shdepend.c:1687)
 

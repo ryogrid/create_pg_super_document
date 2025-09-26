@@ -30,7 +30,7 @@ The function uses the reject_indirect optimization when calling find_update_path
   - [find_update_path](find_update_path.md)
   - [ExtensionVersionInfo](../E/ExtensionVersionInfo.md) (struct type)  
   - lfirst (list iteration)
-  - list_length (path comparison)
+  - [list_length](../l/list_length.md) (path comparison)
   - strcmp (tie-breaking)
 - Called from (representative examples):
   - [CreateExtensionInternal](../C/CreateExtensionInternal.md)

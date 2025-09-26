@@ -21,8 +21,8 @@ The function maintains uniform distribution across the entire signed integer ran
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_prng_state (struct type)
-  - xoroshiro128ss (internal PRNG algorithm implementation)
+  - [pg_prng_state](pg_prng_state.md) (struct type)
+  - [xoroshiro128ss](../x/xoroshiro128ss.md) (internal PRNG algorithm implementation)
 - Called from (representative examples):
   - pg_prng_strong_seed (macro)
 

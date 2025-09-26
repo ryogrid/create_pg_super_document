@@ -24,7 +24,7 @@ SharedSortInfo serves as a shared memory structure for coordinating and collecti
 ## Dependencies
 - Functions called/Symbols referenced:
   - FLEXIBLE_ARRAY_MEMBER
-  - TuplesortInstrumentation
+  - [TuplesortInstrumentation](../T/TuplesortInstrumentation.md)
 - Called from (representative examples):
   - [ExecSortEstimate](../E/ExecSortEstimate.md)
   - [ExecSortInitializeDSM](../E/ExecSortInitializeDSM.md)

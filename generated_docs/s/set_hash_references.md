@@ -40,9 +40,9 @@ Hash nodes are unique in that they don't evaluate or project data - they simply 
 
 ## Notes and Other Information
 - This is a static function within setrefs.c for internal plan reference adjustment
-- Hash nodes are typically the inner side of HashJoin operations
+- [Hash](../H/Hash.md) nodes are typically the inner side of HashJoin operations
 - The hashkeys expressions must reference the outer plan's target list, not scan relations
-- Hash nodes don't have their own target list projection - they use dummy references
-- Hash nodes don't evaluate qualifiers - they purely organize data for join operations
+- [Hash](../H/Hash.md) nodes don't have their own target list projection - they use dummy references
+- [Hash](../H/Hash.md) nodes don't evaluate qualifiers - they purely organize data for join operations
 - The OUTER_VAR context ensures hashkeys reference the correct input tuples during hash table construction
 - This function is simpler than other set_*_references functions because Hash nodes have a more limited role in query execution

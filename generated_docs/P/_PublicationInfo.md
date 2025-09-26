@@ -45,5 +45,5 @@ This structure is part of pg_dump's internal representation for PostgreSQL's log
 - The typedef creates an alias `PublicationInfo` for easier reference throughout the codebase
 - Publications are central to PostgreSQL's logical replication feature, which allows selective replication of data changes
 - The boolean flags correspond to the WITH clause options when creating publications (e.g., WITH (publish = 'insert,update'))
-- The `pubviaroot` setting affects how partitioned tables are handled in replication - when true, changes are published as if they occurred on the partition root table
+- The `pubviaroot` setting affects how partitioned tables are handled in replication - [when](../w/when.md) true, changes are published as if they occurred on the partition root table
 - The structure enables pg_dump to preserve complete publication configurations across database migrations and logical replication setup recreation

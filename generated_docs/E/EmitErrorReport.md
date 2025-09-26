@@ -23,7 +23,7 @@ The function manages memory context switching and recursion depth tracking to en
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ErrorData (struct type)
+  - [ErrorData](ErrorData.md) (struct type)
   - CHECK_STACK_DEPTH (macro)
   - [send_message_to_server_log](../s/send_message_to_server_log.md) (function)
   - [send_message_to_frontend](../s/send_message_to_frontend.md) (function)

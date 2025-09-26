@@ -19,14 +19,14 @@ This function is responsible for the one-time initialization of PostgreSQL's dyn
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dsm_cleanup_for_mmap
-  - dsm_control_bytes_needed
-  - pg_prng_uint32
-  - dsm_impl_op
-  - on_shmem_exit
-  - dsm_postmaster_shutdown
+  - [dsm_cleanup_for_mmap](dsm_cleanup_for_mmap.md)
+  - [dsm_control_bytes_needed](dsm_control_bytes_needed.md)
+  - [pg_prng_uint32](../p/pg_prng_uint32.md)
+  - [dsm_impl_op](dsm_impl_op.md)
+  - [on_shmem_exit](../o/on_shmem_exit.md)
+  - [dsm_postmaster_shutdown](dsm_postmaster_shutdown.md)
 - Called from (representative examples):
-  - CreateSharedMemoryAndSemaphores
+  - [CreateSharedMemoryAndSemaphores](../C/CreateSharedMemoryAndSemaphores.md)
 
 ## Notes and Other Information
 - This function is called exactly once per cluster lifetime, only during postmaster startup

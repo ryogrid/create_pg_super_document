@@ -24,13 +24,13 @@ The function communicates with the PostgreSQL server using the internal large ob
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lo_initialize](lo_initialize.md)
-  - PQfn
+  - [PQfn](../P/PQfn.md)
   - [PQclear](../P/PQclear.md)
   - [PQresultStatus](../P/PQresultStatus.md)
 - Types referenced:
   - Oid
   - PQArgBlock
-  - PGresult
+  - [PGresult](../P/PGresult.md)
   - PGRES_COMMAND_OK
 - Called from (representative examples):
   - [do_lo_unlink](../d/do_lo_unlink.md) (in psql's large_obj.c)

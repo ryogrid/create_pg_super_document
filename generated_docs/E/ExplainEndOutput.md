@@ -17,12 +17,12 @@ ExplainEndOutput provides the complementary closing functionality to ExplainBegi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExplainState (structure type)
+  - [ExplainState](ExplainState.md) (structure type)
   - EXPLAIN_FORMAT_TEXT (enum constant)
   - EXPLAIN_FORMAT_XML (enum constant)
   - EXPLAIN_FORMAT_JSON (enum constant)
   - EXPLAIN_FORMAT_YAML (enum constant)
-  - list_delete_first (list manipulation function)
+  - [list_delete_first](../l/list_delete_first.md) (list manipulation function)
 - Called from (representative examples):
   - [ExplainQuery](ExplainQuery.md)
 

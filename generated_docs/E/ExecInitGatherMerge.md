@@ -31,19 +31,19 @@ The initialization ensures that the node can handle tuples both from the leader 
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode
-  - ExecAssignExprContext
+  - [ExecAssignExprContext](ExecAssignExprContext.md)
   - [ExecInitNode](ExecInitNode.md)
   - [ExecGetResultType](ExecGetResultType.md)
   - [ExecInitResultTypeTL](ExecInitResultTypeTL.md)
   - [ExecConditionalAssignProjectionInfo](ExecConditionalAssignProjectionInfo.md)
-  - PrepareSortSupportFromOrderingOp
+  - [PrepareSortSupportFromOrderingOp](../P/PrepareSortSupportFromOrderingOp.md)
   - [gather_merge_setup](../g/gather_merge_setup.md)
 - Called from:
   - [ExecInitNode](ExecInitNode.md) (main executor initialization dispatcher)
 
 ## Notes and Other Information
-- GatherMerge nodes do not support qual conditions as it is more efficient to apply them in child nodes
+- [GatherMerge](../G/GatherMerge.md) nodes do not support qual conditions as it is more efficient to apply them in child nodes
 - The node does not have an inner plan, only an outer plan that gets executed by workers
-- Sort key initialization includes setting up SortSupport structures but explicitly disables abbreviated key conversion for consistency with MergeAppend behavior
+- [Sort](../S/Sort.md) key initialization includes setting up SortSupport structures but explicitly disables abbreviated key conversion for consistency with MergeAppend behavior
 - The function sets outeropsset=true and outeropsfixed=false to handle the mixed tuple sources (leader vs workers)
 - Memory allocation for sort keys and workspace is performed in the current memory context

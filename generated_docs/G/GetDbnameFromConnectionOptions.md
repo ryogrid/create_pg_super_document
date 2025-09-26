@@ -21,7 +21,7 @@ GetDbnameFromConnectionOptions is a special-purpose function that extracts the d
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQconninfoParse](../P/PQconninfoParse.md)
-  - PQconndefaults
+  - [PQconndefaults](../P/PQconndefaults.md)
   - [PQconninfoFree](../P/PQconninfoFree.md)
   - [FindDbnameInConnParams](../F/FindDbnameInConnParams.md)
   - [pg_fatal](../p/pg_fatal.md)

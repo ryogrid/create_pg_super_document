@@ -35,7 +35,7 @@ Each execution_state node represents one parsed and planned SQL statement from t
 - Functions called/Symbols referenced:
   - [ExecStatus](../E/ExecStatus.md)
   - [PlannedStmt](../P/PlannedStmt.md)
-  - QueryDesc
+  - [QueryDesc](../Q/QueryDesc.md)
 
 - Called from (representative examples):
   - [init_execution_state](../i/init_execution_state.md)

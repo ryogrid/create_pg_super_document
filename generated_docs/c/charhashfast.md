@@ -19,10 +19,10 @@ This function serves as a specialized hash function for PostgreSQL's `char` data
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `murmurhash32`: Core hashing algorithm implementation
-  - `DatumGetChar`: Extracts char value from Datum
+  - `[murmurhash32](../m/murmurhash32.md)`: Core hashing algorithm implementation
+  - `[DatumGetChar](../D/DatumGetChar.md)`: Extracts char value from Datum
 - Called from (representative examples):
-  - `GetCCHashEqFuncs`: Function that retrieves hash and equality functions for catalog cache
+  - `[GetCCHashEqFuncs](../G/GetCCHashEqFuncs.md)`: Function that retrieves hash and equality functions for catalog cache
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's catalog cache optimization system

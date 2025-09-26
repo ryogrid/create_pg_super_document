@@ -76,15 +76,15 @@ SubPlanState manages the execution state for subquery expressions such as EXISTS
 - `*cur_eq_comp`: Expression state for equality comparisons between LHS and table
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SubPlan
+  - [SubPlan](SubPlan.md)
   - [ProjectionInfo](../P/ProjectionInfo.md)
   - [TupleHashTable](../T/TupleHashTable.md)
   - [PlanState](../P/PlanState.md)
-  - ExprState
+  - [ExprState](../E/ExprState.md)
   - HeapTuple
   - [TupleDesc](../T/TupleDesc.md)
   - [MemoryContext](../M/MemoryContext.md)
-  - ExprContext
+  - [ExprContext](../E/ExprContext.md)
   - [FmgrInfo](../F/FmgrInfo.md)
 - Called from (representative examples):
   - [ExecSubPlan](../E/ExecSubPlan.md)

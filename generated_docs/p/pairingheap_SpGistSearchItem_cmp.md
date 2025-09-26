@@ -30,7 +30,7 @@ The function is designed specifically for KNN (K-Nearest Neighbors) searches whe
 ## Dependencies
 - Functions called/Symbols referenced:
   - isnan (standard library function for NaN detection)
-  - SpGistSearchItem (struct type for search queue items)
+  - [SpGistSearchItem](../S/SpGistSearchItem.md) (struct type for search queue items)
   - SpGistScanOpaque (scan operation context structure)
   - [pairingheap_node](pairingheap_node.md) (base pairing heap node structure)
 - Called from (representative examples):

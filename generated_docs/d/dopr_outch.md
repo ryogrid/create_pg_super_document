@@ -28,16 +28,16 @@ This function serves as the foundation for all character output in the printf sy
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - flushbuffer
+  - [flushbuffer](../f/flushbuffer.md)
   - PrintfTarget (structure)
 - Called from:
-  - dopr
-  - fmtchar
-  - pg_strfromd
-  - dostr
-  - dopr_outchmulti
-  - leading_pad
-  - flushbuffer
+  - [dopr](dopr.md)
+  - [fmtchar](../f/fmtchar.md)
+  - [pg_strfromd](../p/pg_strfromd.md)
+  - [dostr](dostr.md)
+  - [dopr_outchmulti](dopr_outchmulti.md)
+  - [leading_pad](../l/leading_pad.md)
+  - [flushbuffer](../f/flushbuffer.md)
 
 ## Notes and Other Information
 - Core primitive function used throughout the printf implementation for single character output

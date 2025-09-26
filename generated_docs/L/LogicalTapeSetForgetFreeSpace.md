@@ -23,9 +23,9 @@ The decision to forget free space is typically made during the transition from t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LogicalTapeSet (structure type)
+  - [LogicalTapeSet](LogicalTapeSet.md) (structure type)
 - Called from (representative examples):
-  - mergeruns (during tuple sorting merge operations)
+  - [mergeruns](../m/mergeruns.md) (during tuple sorting merge operations)
 
 ## Notes and Other Information
 - This is a performance optimization, not a functional requirement

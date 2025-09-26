@@ -31,18 +31,18 @@ When a page split occurs, the function recursively inserts downlink tuples to th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - gistplacetopage
-  - BufferGetBlockNumber
-  - gistMemorizeAllDownlinks
-  - gistMemorizeParent
-  - gistBufferingFindCorrectParent
-  - gistRelocateBuildBuffersOnSplit
-  - PageGetMaxOffsetNumber
-  - ReadBuffer
-  - UnlockReleaseBuffer
+  - [gistplacetopage](gistplacetopage.md)
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)
+  - [gistMemorizeAllDownlinks](gistMemorizeAllDownlinks.md)
+  - [gistMemorizeParent](gistMemorizeParent.md)
+  - [gistBufferingFindCorrectParent](gistBufferingFindCorrectParent.md)
+  - [gistRelocateBuildBuffersOnSplit](gistRelocateBuildBuffersOnSplit.md)
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md)
+  - [ReadBuffer](../R/ReadBuffer.md)
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
 - Called from (representative examples):
-  - gistProcessItup
-  - gistbufferinginserttuples (recursive calls)
+  - [gistProcessItup](gistProcessItup.md)
+  - [gistbufferinginserttuples](gistbufferinginserttuples.md) (recursive calls)
 
 ## Notes and Other Information
 - This function is static and only used within the GiST buffering build algorithm

@@ -21,9 +21,9 @@ This function serves as a callback hook that is invoked when a dynamic shared me
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dshash_detach (detaches from dynamic shared hash tables)
+  - [dshash_detach](../d/dshash_detach.md) (detaches from dynamic shared hash tables)
 - Data structures used:
-  - dsm_segment
+  - [dsm_segment](../d/dsm_segment.md)
   - CurrentSession (global session state)
 - Called from (representative examples):
   - [SharedRecordTypmodRegistryInit](../S/SharedRecordTypmodRegistryInit.md) (registers as detach callback)

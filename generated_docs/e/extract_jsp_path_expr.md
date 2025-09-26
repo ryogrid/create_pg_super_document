@@ -25,13 +25,13 @@ This function serves as a wrapper around extract_jsp_path_expr_nodes to create a
 ## Dependencies
 - Functions called/Symbols referenced:
   - [extract_jsp_path_expr_nodes](extract_jsp_path_expr_nodes.md)
-  - list_length
+  - [list_length](../l/list_length.md)
   - linitial
   - [make_jsp_expr_node_args](../m/make_jsp_expr_node_args.md)
-  - JsonPathGinContext
+  - [JsonPathGinContext](../J/JsonPathGinContext.md)
   - JsonPathGinPath
   - JsonPathItem
-  - JsonPathGinNode
+  - [JsonPathGinNode](../J/JsonPathGinNode.md)
   - JSP_GIN_AND
 - Called from (representative examples):
   - [extract_jsp_bool_expr](extract_jsp_bool_expr.md)

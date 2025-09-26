@@ -22,15 +22,15 @@ The function first attempts to retrieve the statistics entry for the source rela
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_fetch_stat_tabentry_ext
-  - pgstat_get_entry_ref_locked
-  - pgstat_unlock_entry
-  - PgStat_StatTabEntry (struct)
-  - PgStatShared_Relation (struct)
-  - PgStat_EntryRef (struct)
+  - [pgstat_fetch_stat_tabentry_ext](pgstat_fetch_stat_tabentry_ext.md)
+  - [pgstat_get_entry_ref_locked](pgstat_get_entry_ref_locked.md)
+  - [pgstat_unlock_entry](pgstat_unlock_entry.md)
+  - [PgStat_StatTabEntry](../P/PgStat_StatTabEntry.md) (struct)
+  - [PgStatShared_Relation](../P/PgStatShared_Relation.md) (struct)
+  - [PgStat_EntryRef](../P/PgStat_EntryRef.md) (struct)
   - PGSTAT_KIND_RELATION (constant)
 - Called from (representative examples):
-  - index_concurrently_swap (in REINDEX CONCURRENTLY operations)
+  - [index_concurrently_swap](../i/index_concurrently_swap.md) (in REINDEX CONCURRENTLY operations)
 
 ## Notes and Other Information
 - This function is specifically designed for REINDEX CONCURRENTLY operations where a new index replaces an existing one

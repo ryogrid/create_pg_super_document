@@ -21,7 +21,7 @@ Beyond simply releasing the buffer pin, this function also resets the bulk relat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReleaseBuffer
+  - [ReleaseBuffer](ReleaseBuffer.md)
   - InvalidBuffer (for comparison and assignment)
   - InvalidBlockNumber (for state reset)
 - Called from (representative examples):

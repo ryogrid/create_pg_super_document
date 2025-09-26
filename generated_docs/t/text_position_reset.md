@@ -20,9 +20,9 @@ This function reinitializes the TextPositionState structure to its initial state
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TextPositionState (structure accessed and modified)
+  - [TextPositionState](../T/TextPositionState.md) (structure accessed and modified)
 - Called from (representative examples):
-  - split_part (for restarting searches when processing multiple parts)
+  - [split_part](../s/split_part.md) (for restarting searches when processing multiple parts)
 
 ## Notes and Other Information
 - This is a static function, accessible only within varlena.c

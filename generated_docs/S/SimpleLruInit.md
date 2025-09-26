@@ -56,15 +56,15 @@ The function uses ShmemInitStruct() to either create new shared memory (postmast
   - [pg_atomic_init_u64](../p/pg_atomic_init_u64.md) (atomic operations)
   - [pgstat_get_slru_index](../p/pgstat_get_slru_index.md) (statistics system)
   - SLRU_PAGE_EMPTY (page status constant)
-  - strlcpy (string operations)
+  - [strlcpy](../s/strlcpy.md) (string operations)
 
 - Called from (representative examples):
   - [CLOGShmemInit](../C/CLOGShmemInit.md)
-  - CommitTsShmemInit
+  - [CommitTsShmemInit](../C/CommitTsShmemInit.md)
   - [MultiXactShmemInit](../M/MultiXactShmemInit.md)
-  - SUBTRANSShmemInit
+  - [SUBTRANSShmemInit](SUBTRANSShmemInit.md)
   - [AsyncShmemInit](../A/AsyncShmemInit.md)
-  - SerialInit
+  - [SerialInit](SerialInit.md)
 
 ## Notes and Other Information
 - This function must be called during shared memory initialization for each SLRU subsystem

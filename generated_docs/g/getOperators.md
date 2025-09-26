@@ -26,7 +26,7 @@ The getOperators function is part of pg_dump's catalog scanning infrastructure t
   - [getRoleName](getRoleName.md)
   - [AssignDumpId](../A/AssignDumpId.md)
   - [selectDumpableObject](../s/selectDumpableObject.md)
-  - pg_malloc
+  - [pg_malloc](../p/pg_malloc.md)
   - atooid
 - Called from (representative examples):
   - [getSchemaData](getSchemaData.md)

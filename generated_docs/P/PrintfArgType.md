@@ -35,7 +35,7 @@ The enum serves a critical role in the  function, which pre-processes format str
 - Functions called/Symbols referenced:
   - None (enum definition)
 - Called from (representative examples):
-  - find_arguments (at src/port/snprintf.c:757, 858)
+  - [find_arguments](../f/find_arguments.md) (at src/port/snprintf.c:757, 858)
 
 ## Notes and Other Information
 - This enum is part of PostgreSQL's portable snprintf implementation located in src/port/snprintf.c

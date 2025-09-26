@@ -32,10 +32,10 @@ The function also addresses the challenge of posting list tuples in cleanup-only
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _bt_vacuum_needs_cleanup
+  - [_bt_vacuum_needs_cleanup](_bt_vacuum_needs_cleanup.md)
   - [palloc0](../p/palloc0.md)
   - [btvacuumscan](btvacuumscan.md)
-  - _bt_set_cleanup_info
+  - [_bt_set_cleanup_info](_bt_set_cleanup_info.md)
 - Types used:
   - [IndexVacuumInfo](../I/IndexVacuumInfo.md)
   - [IndexBulkDeleteResult](../I/IndexBulkDeleteResult.md)

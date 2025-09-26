@@ -27,8 +27,8 @@ This function implements the equality comparison operator (`=`) for the UUID dat
   - [pg_uuid_t](../p/pg_uuid_t.md) (UUID data type structure)
 - Called from (representative examples):
   - SQL queries using `=` operator
-  - Hash table operations
-  - Unique constraint checking
+  - [Hash](../H/Hash.md) table operations
+  - [Unique](../U/Unique.md) constraint checking
   - Primary key lookups
 
 ## Notes and Other Information

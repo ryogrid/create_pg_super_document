@@ -33,7 +33,7 @@ This function takes no parameters.
   - XidFromFullTransactionId
   - [TransactionIdToCTsPage](../T/TransactionIdToCTsPage.md)
   - [pg_atomic_write_u64](../p/pg_atomic_write_u64.md)
-  - ReadNextTransactionId
+  - [ReadNextTransactionId](../R/ReadNextTransactionId.md)
   - [SimpleLruDoesPhysicalPageExist](../S/SimpleLruDoesPhysicalPageExist.md)
   - [SimpleLruGetBankLock](../S/SimpleLruGetBankLock.md)
   - [ZeroCommitTsPage](../Z/ZeroCommitTsPage.md)

@@ -50,7 +50,7 @@ The memory management strategy is sophisticated, using separate memory contexts 
   - [RT_RADIX_TREE_CONTROL](RT_RADIX_TREE_CONTROL.md)
   - [MemoryContext](../M/MemoryContext.md)
   - [MemoryContextData](../M/MemoryContextData.md)
-  - dsa_area (in shared memory mode)
+  - [dsa_area](../d/dsa_area.md) (in shared memory mode)
   - RT_NUM_SIZE_CLASSES
 - Called from (representative examples):
   - RT_CREATE

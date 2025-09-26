@@ -28,7 +28,7 @@ This function takes no parameters.
   - WL_LATCH_SET (wait event type constant)
 
 - Called from (representative examples):
-  - InitProcess
+  - [InitProcess](../I/InitProcess.md)
   - [InitAuxiliaryProcess](../I/InitAuxiliaryProcess.md)
 
 ## Notes and Other Information

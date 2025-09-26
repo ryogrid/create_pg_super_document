@@ -30,14 +30,14 @@ This function is crucial for the buffer management system's ability to swap page
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - gistAllocateNewPageBuffer
-  - ReadTempFileBlock  
-  - gistBuffersReleaseBlock
-  - gistAddLoadedBuffer
+  - [gistAllocateNewPageBuffer](gistAllocateNewPageBuffer.md)
+  - [ReadTempFileBlock](../R/ReadTempFileBlock.md)  
+  - [gistBuffersReleaseBlock](gistBuffersReleaseBlock.md)
+  - [gistAddLoadedBuffer](gistAddLoadedBuffer.md)
   - InvalidBlockNumber
 - Called from (representative examples):
-  - gistPushItupToNodeBuffer
-  - gistPopItupFromNodeBuffer
+  - [gistPushItupToNodeBuffer](gistPushItupToNodeBuffer.md)
+  - [gistPopItupFromNodeBuffer](gistPopItupFromNodeBuffer.md)
 
 ## Notes and Other Information
 - Function is declared static, making it internal to the gistbuildbuffers.c module

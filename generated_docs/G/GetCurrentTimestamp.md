@@ -30,7 +30,7 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `gettimeofday`: System call to get current time
+  - `[gettimeofday](../g/gettimeofday.md)`: System call to get current time
   - `POSTGRES_EPOCH_JDATE`: Constant for PostgreSQL epoch start date
   - `UNIX_EPOCH_JDATE`: Constant for Unix epoch start date  
   - `SECS_PER_DAY`: Constant for seconds per day conversion

@@ -44,7 +44,7 @@ The function follows PostgreSQL's standard function interface pattern, extractin
   - `PG_RETURN_INTERVAL_P` - Return the result interval
 - Called from (representative examples):
   - [interval_lerp](interval_lerp.md) - Interval linear interpolation (src/backend/utils/adt/orderedsetaggs.c:519)
-  - [in_range_interval_interval](in_range_interval_interval.md) - Range checking function (src/backend/utils/adt/timestamp.c:3906)
+  - [in_range_interval_interval](in_range_interval_interval.md) - [Range](../R/Range.md) checking function (src/backend/utils/adt/timestamp.c:3906)
 
 ## Notes and Other Information
 - Implements PostgreSQL's + operator for intervals in SQL expressions

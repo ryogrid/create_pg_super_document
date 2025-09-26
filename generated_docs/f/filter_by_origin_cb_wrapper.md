@@ -24,8 +24,8 @@ This filtering mechanism is essential in multi-master replication scenarios wher
 - Functions called/Symbols referenced:
   - RepOriginId
   - [LogicalDecodingContext](../L/LogicalDecodingContext.md)
-  - LogicalErrorCallbackState
-  - output_plugin_error_callback
+  - [LogicalErrorCallbackState](../L/LogicalErrorCallbackState.md)
+  - [output_plugin_error_callback](../o/output_plugin_error_callback.md)
 - Called from (representative examples):
   - [FilterByOrigin](../F/FilterByOrigin.md)
 

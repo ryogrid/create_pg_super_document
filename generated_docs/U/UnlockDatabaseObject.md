@@ -28,7 +28,7 @@ Like its locking counterpart, this function is designed for database-scoped obje
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LOCKTAG (data structure for lock identification)
+  - [LOCKTAG](../L/LOCKTAG.md) (data structure for lock identification)
   - SET_LOCKTAG_OBJECT (macro to initialize object lock tag)
   - [LockRelease](../L/LockRelease.md) (core lock release function)
 - Called from (representative examples):

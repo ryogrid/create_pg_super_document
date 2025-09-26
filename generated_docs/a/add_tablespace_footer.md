@@ -28,12 +28,12 @@ The function includes proper error handling and resource cleanup, ensuring that 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initPQExpBuffer: Initialize buffer for SQL query construction
+  - [initPQExpBuffer](../i/initPQExpBuffer.md): Initialize buffer for SQL query construction
   - [printfPQExpBuffer](../p/printfPQExpBuffer.md): Format SQL query to retrieve tablespace name
   - [PSQLexec](../P/PSQLexec.md): Execute the tablespace lookup query
   - [printTableAddFooter](../p/printTableAddFooter.md): Add new footer line to table display
   - [printTableSetFooter](../p/printTableSetFooter.md): Replace existing footer content
-  - termPQExpBuffer: Clean up query buffer resources
+  - [termPQExpBuffer](../t/termPQExpBuffer.md): Clean up query buffer resources
   - [PQclear](../P/PQclear.md): Free PostgreSQL result set
 - Called from (representative examples):
   - [describeOneTableDetails](../d/describeOneTableDetails.md): Multiple locations for different relation types (tables, indexes, toast tables)

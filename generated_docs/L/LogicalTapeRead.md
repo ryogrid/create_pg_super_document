@@ -46,12 +46,12 @@ The function works by:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LogicalTape (structure type)
-  - ltsInitReadBuffer (initializes read buffer)
-  - ltsReadFillBuffer (refills buffer from storage)
+  - [LogicalTape](LogicalTape.md) (structure type)
+  - [ltsInitReadBuffer](../l/ltsInitReadBuffer.md) (initializes read buffer)
+  - [ltsReadFillBuffer](../l/ltsReadFillBuffer.md) (refills buffer from storage)
 - Called from (representative examples):
-  - hashagg_batch_read (in nodeAgg.c for hash aggregation)
-  - getlen (in tuplesort.c for tuple sorting)
+  - [hashagg_batch_read](../h/hashagg_batch_read.md) (in nodeAgg.c for hash aggregation)
+  - [getlen](../g/getlen.md) (in tuplesort.c for tuple sorting)
   - LogicalTapeReadExact (wrapper function for exact reads)
 
 ## Notes and Other Information

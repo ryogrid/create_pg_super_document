@@ -45,13 +45,13 @@ On successful update, the function updates the slot's metadata including the new
   - rel->rd_tableam->tuple_update (table access method function pointer)
 - Types referenced:
   - CommandId
-  - TM_FailureData
-  - LockTupleMode
+  - [TM_FailureData](../T/TM_FailureData.md)
+  - [LockTupleMode](../L/LockTupleMode.md)
   - TU_UpdateIndexes
   - TM_Result
 - Called from (representative examples):
-  - simple_table_tuple_update (in src/backend/access/table/tableam.c:345)
-  - ExecUpdateAct (in src/backend/executor/nodeModifyTable.c:2135)
+  - [simple_table_tuple_update](../s/simple_table_tuple_update.md) (in src/backend/access/table/tableam.c:345)
+  - [ExecUpdateAct](../E/ExecUpdateAct.md) (in src/backend/executor/nodeModifyTable.c:2135)
 
 ## Notes and Other Information
 - Do not call this function directly unless prepared to handle concurrent-update conditions; use simple_table_tuple_update instead

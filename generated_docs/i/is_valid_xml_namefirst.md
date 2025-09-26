@@ -25,7 +25,7 @@ This validation is crucial for ensuring that SQL identifiers can be properly map
   - xmlIsBaseCharQ (libxml2 function to check if character is a base character)
   - xmlIsIdeographicQ (libxml2 function to check if character is ideographic)
 - Called from (representative examples):
-  - map_sql_identifier_to_xml_name
+  - [map_sql_identifier_to_xml_name](../m/map_sql_identifier_to_xml_name.md)
 
 ## Notes and Other Information
 - This is a static function, accessible only within the xml.c compilation unit

@@ -19,7 +19,7 @@ The function also handles multibyte characters correctly by detecting high-bit-s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_malloc
+  - [pg_malloc](../p/pg_malloc.md)
   - strlen
   - IS_HIGHBIT_SET
   - [PQmblenBounded](../P/PQmblenBounded.md)

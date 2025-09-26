@@ -43,7 +43,7 @@ The LATERAL reference checking is particularly sophisticated, ensuring that late
 - Functions called/Symbols referenced:
   - IsA (type checking macro)
   - elog (error logging)
-  - get_relids_in_jointree
+  - [get_relids_in_jointree](../g/get_relids_in_jointree.md)
   - [jointree_contains_lateral_outer_refs](../j/jointree_contains_lateral_outer_refs.md)
   - [pull_varnos_of_level](../p/pull_varnos_of_level.md)
   - [bms_is_subset](../b/bms_is_subset.md)

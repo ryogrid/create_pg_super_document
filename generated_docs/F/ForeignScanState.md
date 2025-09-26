@@ -34,7 +34,7 @@ ForeignScanState serves as the execution state for foreign table scans, enabling
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ScanState](../S/ScanState.md)
-  - ExprState
+  - [ExprState](../E/ExprState.md)
   - [ResultRelInfo](../R/ResultRelInfo.md)
   - [FdwRoutine](FdwRoutine.md)
 - Called from (representative examples):

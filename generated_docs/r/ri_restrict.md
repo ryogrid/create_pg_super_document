@@ -25,7 +25,7 @@ The query built is of the form: `SELECT 1 FROM [ONLY] <fktable> x WHERE  = fkatt
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ri_FetchConstraintInfo](ri_FetchConstraintInfo.md): Retrieves constraint metadata
-  - `table_open`: Opens the foreign key relation
+  - `[table_open](../t/table_open.md)`: Opens the foreign key relation
   - [ri_Check_Pk_Match](ri_Check_Pk_Match.md): Checks for matching primary key (NO ACTION only)
   - [ri_BuildQueryKey](ri_BuildQueryKey.md): Builds query cache key
   - [ri_FetchPreparedPlan](ri_FetchPreparedPlan.md): Retrieves cached query plan

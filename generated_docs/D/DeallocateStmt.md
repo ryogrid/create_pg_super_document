@@ -40,9 +40,9 @@ The structure includes special attributes for query jumbling - the name field is
 - Functions called/Symbols referenced:
   - ParseLoc (for source location tracking)
 - Called from (representative examples):
-  - DeallocateQuery (command execution function)
-  - standard_ProcessUtility (utility command dispatcher)  
-  - CreateCommandTag (for logging and command tagging)
+  - [DeallocateQuery](DeallocateQuery.md) (command execution function)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (utility command dispatcher)  
+  - [CreateCommandTag](../C/CreateCommandTag.md) (for logging and command tagging)
 
 ## Notes and Other Information
 - Part of the SQL prepared statement functionality in PostgreSQL

@@ -41,7 +41,7 @@ The function also updates checkpoint statistics and triggers WAL archive cleanup
   - [InstallXLogFileSegment](../I/InstallXLogFileSegment.md)
   - ereport
   - rename (Windows only)
-  - durable_unlink
+  - [durable_unlink](../d/durable_unlink.md)
   - [XLogArchiveCleanup](../X/XLogArchiveCleanup.md)
 - Constants used:
   - XLOGDIR

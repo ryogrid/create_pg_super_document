@@ -25,13 +25,13 @@ This is typically used when the same scan needs to be reused with different TID 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TableScanDesc (parameter type)
+  - [TableScanDesc](../T/TableScanDesc.md) (parameter type)
   - SO_TYPE_TIDRANGESCAN (validation flag)
   - Assert (validation macro)
   - sscan->rs_rd->rd_tableam->scan_rescan (table access method function)
   - sscan->rs_rd->rd_tableam->scan_set_tidrange (table access method function)
 - Called from (representative examples):
-  - TidRangeNext
+  - [TidRangeNext](../T/TidRangeNext.md)
 
 ## Notes and Other Information
 - This is an inline function defined in the table access method header

@@ -40,8 +40,8 @@ The initialization process encompasses several critical areas:
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode
-  - ExecAssignExprContext
-  - ExecOpenScanRelation
+  - [ExecAssignExprContext](ExecAssignExprContext.md)
+  - [ExecOpenScanRelation](ExecOpenScanRelation.md)
   - [GetFdwRoutineForRelation](../G/GetFdwRoutineForRelation.md)
   - [GetFdwRoutineByServerId](../G/GetFdwRoutineByServerId.md)
   - [ExecTypeFromTL](ExecTypeFromTL.md)

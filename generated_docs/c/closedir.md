@@ -21,19 +21,19 @@ The function is designed to be called after completing directory traversal opera
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DIR (Windows directory structure type)
+  - [DIR](../D/DIR.md) (Windows directory structure type)
   - FindClose (Windows API function to close directory handle)
   - free (memory deallocation)
 
 - Called from (representative examples):
-  - FreeDesc (src/backend/storage/file/fd.c:2753)
-  - FreeDir (src/backend/storage/file/fd.c:2980)
-  - CleanupPriorWALFiles (src/bin/pg_archivecleanup/pg_archivecleanup.c:171)
-  - scan_directory (src/bin/pg_checksums/pg_checksums.c:428)
-  - process_directory_recursively (src/bin/pg_combinebackup/pg_combinebackup.c:1145)
-  - sync_pgdata (src/common/file_utils.c:172)
-  - walkdir (src/common/file_utils.c:317)
-  - pgfnames (src/common/pgfnames.c:73)
+  - [FreeDesc](../F/FreeDesc.md) (src/backend/storage/file/fd.c:2753)
+  - [FreeDir](../F/FreeDir.md) (src/backend/storage/file/fd.c:2980)
+  - [CleanupPriorWALFiles](../C/CleanupPriorWALFiles.md) (src/bin/pg_archivecleanup/pg_archivecleanup.c:171)
+  - [scan_directory](../s/scan_directory.md) (src/bin/pg_checksums/pg_checksums.c:428)
+  - [process_directory_recursively](../p/process_directory_recursively.md) (src/bin/pg_combinebackup/pg_combinebackup.c:1145)
+  - [sync_pgdata](../s/sync_pgdata.md) (src/common/file_utils.c:172)
+  - [walkdir](../w/walkdir.md) (src/common/file_utils.c:317)
+  - [pgfnames](../p/pgfnames.md) (src/common/pgfnames.c:73)
 
 ## Notes and Other Information
 - This is a Windows-specific implementation that provides POSIX compatibility

@@ -39,7 +39,7 @@ The algorithm extracts digits by repeated division, building the result from the
 
 - Called from (representative examples):
   - `NUMERIC_CAN_BE_SHORT`: Short numeric creation path
-  - `width_bucket_numeric`: Width bucket calculation
+  - `[width_bucket_numeric](../w/width_bucket_numeric.md)`: Width bucket calculation
   - [numeric_fac](../n/numeric_fac.md): Factorial computation
   - [int64_to_numeric](int64_to_numeric.md): Public int64 conversion interface
   - [int64_div_fast_to_numeric](int64_div_fast_to_numeric.md): Fast division with numeric result

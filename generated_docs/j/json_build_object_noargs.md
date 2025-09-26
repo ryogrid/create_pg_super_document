@@ -19,7 +19,7 @@ This function serves as a specialized version of json_build_object for the case 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - cstring_to_text_with_len: Converts a C string to PostgreSQL text type with specified length
+  - [cstring_to_text_with_len](../c/cstring_to_text_with_len.md): Converts a C string to PostgreSQL text type with specified length
   - PG_RETURN_TEXT_P: PostgreSQL macro for returning a text pointer value
 
 - Called from (representative examples):

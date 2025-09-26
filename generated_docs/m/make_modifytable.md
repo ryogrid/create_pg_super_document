@@ -45,15 +45,15 @@ The `make_modifytable` function constructs a ModifyTable plan node, which is the
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (creates the ModifyTable node)
-  - extract_update_targetlist_colnos (processes ON CONFLICT SET clauses)
-  - infer_arbiter_indexes (determines unique indexes for ON CONFLICT)
-  - GetFdwRoutineByRelId (gets FDW routines for foreign tables)
-  - has_row_triggers (checks for row-level triggers)
-  - has_stored_generated_columns (checks for generated columns)
-  - has_transition_tables (checks for transition table usage)
-  - errdetail_relkind_not_supported (generates error messages)
+  - [extract_update_targetlist_colnos](../e/extract_update_targetlist_colnos.md) (processes ON CONFLICT SET clauses)
+  - [infer_arbiter_indexes](../i/infer_arbiter_indexes.md) (determines unique indexes for ON CONFLICT)
+  - [GetFdwRoutineByRelId](../G/GetFdwRoutineByRelId.md) (gets FDW routines for foreign tables)
+  - [has_row_triggers](../h/has_row_triggers.md) (checks for row-level triggers)
+  - [has_stored_generated_columns](../h/has_stored_generated_columns.md) (checks for generated columns)
+  - [has_transition_tables](../h/has_transition_tables.md) (checks for transition table usage)
+  - [errdetail_relkind_not_supported](../e/errdetail_relkind_not_supported.md) (generates error messages)
 - Called from (representative examples):
-  - create_modifytable_plan (primary caller in the planner)
+  - [create_modifytable_plan](../c/create_modifytable_plan.md) (primary caller in the planner)
 
 ## Notes and Other Information
 - Handles complex FDW integration including direct modification optimization for foreign tables

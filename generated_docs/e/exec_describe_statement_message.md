@@ -27,7 +27,7 @@ The function sends parameter type information for all statement parameters and e
   - [IsAbortedTransactionBlockState](../I/IsAbortedTransactionBlockState.md)
   - [CachedPlanGetTargetList](../C/CachedPlanGetTargetList.md)
   - [SendRowDescriptionMessage](../S/SendRowDescriptionMessage.md)
-  - pq_beginmessage_reuse
+  - [pq_beginmessage_reuse](../p/pq_beginmessage_reuse.md)
   - [pq_sendint16](../p/pq_sendint16.md)
   - [pq_sendint32](../p/pq_sendint32.md)
   - [pq_endmessage_reuse](../p/pq_endmessage_reuse.md)

@@ -24,12 +24,12 @@ This function processes the tidrangequals list from a TidRangeScan plan node, co
   - IsA
   - elog
   - [MakeTidOpExpr](../M/MakeTidOpExpr.md)
-  - lappend
+  - [lappend](../l/lappend.md)
 - Data structures used:
-  - TidRangeScan
+  - [TidRangeScan](TidRangeScan.md)
   - [List](../L/List.md)
   - ListCell
-  - OpExpr
+  - [OpExpr](../O/OpExpr.md)
   - [TidOpExpr](TidOpExpr.md)
 - Called from:
   - [ExecInitTidRangeScan](../E/ExecInitTidRangeScan.md)

@@ -50,14 +50,14 @@ The structure supports multiple string data types (text, bpchar, bytea, name) an
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hyperLogLogState (for cardinality tracking)
-  - pg_locale_t (for locale handling)
+  - [hyperLogLogState](../h/hyperLogLogState.md) (for cardinality tracking)
+  - [pg_locale_t](../p/pg_locale_t.md) (for locale handling)
   - Oid (for type identification)
 - Called from (representative examples):
-  - varstr_sortsupport
-  - varstrfastcmp_locale
-  - varstr_abbrev_convert
-  - varstr_abbrev_abort
+  - [varstr_sortsupport](../v/varstr_sortsupport.md)
+  - [varstrfastcmp_locale](../v/varstrfastcmp_locale.md)
+  - [varstr_abbrev_convert](../v/varstr_abbrev_convert.md)
+  - [varstr_abbrev_abort](../v/varstr_abbrev_abort.md)
 
 ## Notes and Other Information
 - This structure is central to PostgreSQL's string sorting optimization strategy

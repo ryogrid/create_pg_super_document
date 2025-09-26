@@ -26,7 +26,7 @@ The implementation includes robust error handling for missing or unexpected reco
 - Functions called/Symbols referenced:
   - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md)
   - [ScanKeyInit](../S/ScanKeyInit.md)
-  - table_open
+  - [table_open](../t/table_open.md)
   - [systable_beginscan](../s/systable_beginscan.md)
   - [systable_getnext](../s/systable_getnext.md)
   - [fastgetattr](../f/fastgetattr.md)

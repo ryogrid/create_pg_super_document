@@ -27,7 +27,7 @@ The function supports comprehensive error handling through the escontext mechani
 ## Dependencies
 - Functions called/Symbols referenced:
   - [getid](../g/getid.md) (extracts identifiers from input string)
-  - get_role_oid (resolves role names to OIDs)
+  - [get_role_oid](../g/get_role_oid.md) (resolves role names to OIDs)
   - ereturn (error handling macro)
   - ACLITEM_SET_PRIVS_GOPTIONS (macro to set privileges and grant options)
   - Various ACL constants (ACL_INSERT, ACL_SELECT, etc.)

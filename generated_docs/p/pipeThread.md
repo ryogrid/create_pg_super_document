@@ -24,7 +24,7 @@ The thread terminates when it detects EOF on the pipe (ERROR_HANDLE_EOF or ERROR
 ## Dependencies
 - Functions called/Symbols referenced:
   - READ_BUF_SIZE
-  - _dosmaperr
+  - [_dosmaperr](../d/_dosmaperr.md)
   - [process_pipe_input](process_pipe_input.md)
   - [SetLatch](../S/SetLatch.md)
   - [flush_pipe_input](../f/flush_pipe_input.md)

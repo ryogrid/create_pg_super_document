@@ -21,13 +21,13 @@ FileSize efficiently determines the size of a file by using the lseek() system c
 - Functions called/Symbols referenced:
   - FileIsValid: Validates the virtual file descriptor
   - FileIsNotOpen: Checks if the file is currently open in the VFD cache
-  - FileAccess: Opens/accesses the file if it's not currently open
+  - [FileAccess](FileAccess.md): Opens/accesses the file if it's not currently open
   - lseek: POSIX system call to seek to end of file and get position
   - DO_DB: Debug logging macro
 - Called from (representative examples):
-  - BufFileSeek: Used in buffered file operations for seeking validation
-  - BufFileSize: To determine the size of buffered files
-  - _mdnblocks: In MD storage manager to calculate the number of blocks in a file
+  - [BufFileSeek](../B/BufFileSeek.md): Used in buffered file operations for seeking validation
+  - [BufFileSize](../B/BufFileSize.md): To determine the size of buffered files
+  - [_mdnblocks](../m/_mdnblocks.md): In MD storage manager to calculate the number of blocks in a file
 
 ## Notes and Other Information
 - Returns the file size in bytes as an off_t value, or -1 on error

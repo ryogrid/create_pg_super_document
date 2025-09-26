@@ -367,7 +367,7 @@ The decision-making process considers multiple factors including transaction com
   - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
   - [TransactionIdDidCommit](../T/TransactionIdDidCommit.md)
   - [TransactionIdIsCurrentTransactionId](../T/TransactionIdIsCurrentTransactionId.md)
-  - TransactionIdIsInProgress
+  - [TransactionIdIsInProgress](../T/TransactionIdIsInProgress.md)
   - HEAP_XMAX_IS_MULTI
   - HEAP_LOCKED_UPGRADED
   - HEAP_XMAX_IS_LOCKED_ONLY

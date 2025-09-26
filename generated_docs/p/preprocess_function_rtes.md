@@ -31,8 +31,8 @@ The constant simplification step ensures that  will detect constants when presen
 - Functions called/Symbols referenced:
   -  - Performs constant folding on function expressions
   -  - Attempts to inline set-returning functions as subqueries
-  -  - Range table entry type constant for function calls
-  -  - Range table entry type constant for subqueries
+  -  - [Range](../R/Range.md) table entry type constant for function calls
+  -  - [Range](../R/Range.md) table entry type constant for subqueries
 
 - Called from (representative examples):
   -  - Main subquery planning entry point

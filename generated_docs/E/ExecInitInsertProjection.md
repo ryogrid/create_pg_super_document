@@ -33,7 +33,7 @@ The function optimizes for the common case where no projection is needed (when t
   - outerPlan
   - [ExecCheckPlanOutput](ExecCheckPlanOutput.md)
   - [table_slot_create](../t/table_slot_create.md)
-  - ExecAssignExprContext
+  - [ExecAssignExprContext](ExecAssignExprContext.md)
   - [ExecBuildProjectionInfo](ExecBuildProjectionInfo.md)
 - Called from (representative examples):
   - [ExecModifyTable](ExecModifyTable.md)

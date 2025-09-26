@@ -30,7 +30,7 @@ This function is essential for UTF-8 string processing operations where advance 
   - FRONTEND (conditional compilation symbol)
 - Called from (representative examples):
   - [initcap_wbnext](../i/initcap_wbnext.md) (in src/backend/utils/adt/formatting.c)
-  - convert_case (in src/common/unicode_case.c)
+  - [convert_case](../c/convert_case.md) (in src/common/unicode_case.c)
 
 ## Notes and Other Information
 - This is a static inline function defined in a header file, making it available for inlining at compile time for performance

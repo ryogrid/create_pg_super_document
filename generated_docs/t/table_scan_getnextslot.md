@@ -26,7 +26,7 @@ The function sets the table OID in the slot to match the relation being scanned 
 - Functions called/Symbols referenced:
   - [TableScanDesc](../T/TableScanDesc.md) (scan descriptor type)
   - ScanDirection (direction enumeration)
-  - TupleTableSlot (tuple storage slot)
+  - [TupleTableSlot](../T/TupleTableSlot.md) (tuple storage slot)
   - ForwardScanDirection (forward scan constant)
   - BackwardScanDirection (backward scan constant)
   - RelationGetRelid (get relation OID)

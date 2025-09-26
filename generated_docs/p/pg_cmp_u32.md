@@ -28,7 +28,7 @@ This function is particularly important for comparing unsigned values like OIDs 
   - [list_oid_cmp](../l/list_oid_cmp.md) (src/backend/nodes/list.c:1708)
   - [oid_cmp](../o/oid_cmp.md) (src/backend/utils/adt/oid.c:263)
   - [xidComparator](../x/xidComparator.md) (src/backend/utils/adt/xid.c:144)
-  - _bt_blk_cmp (src/backend/access/nbtree/nbtinsert.c:3016)
+  - [_bt_blk_cmp](../b/_bt_blk_cmp.md) (src/backend/access/nbtree/nbtinsert.c:3016)
 
 ## Notes and Other Information
 - The branchless implementation `(a > b) - (a < b)` is more efficient than traditional if-else comparison logic

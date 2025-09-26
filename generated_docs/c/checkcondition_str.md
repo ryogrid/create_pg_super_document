@@ -47,9 +47,9 @@ When position data is requested (for phrase queries), the function aggregates po
   - [qunique](../q/qunique.md): PostgreSQL utility to remove duplicates from sorted array
   - [compareWordEntryPos](compareWordEntryPos.md): Comparison function for WordEntryPos sorting
   - TSTernaryValue constants (TS_YES, TS_NO, TS_MAYBE)
-  - WordEntry: Lexeme entry structure in tsvector
+  - [WordEntry](../W/WordEntry.md): Lexeme entry structure in tsvector
   - WordEntryPos: Position and weight information structure
-  - ExecPhraseData: Structure for collecting phrase matching positions
+  - [ExecPhraseData](../E/ExecPhraseData.md): Structure for collecting phrase matching positions
 
 - Called from (representative examples):
   - [ts_match_vq](../t/ts_match_vq.md): Main tsvector-tsquery matching function

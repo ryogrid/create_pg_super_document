@@ -26,11 +26,11 @@ This function serves as a variadic wrapper around , providing a more convenient 
 - Functions called/Symbols referenced:
   - pg_log_level (enum type)
   - pg_log_part (enum type) 
-  - pg_log_generic_v (core logging function)
+  - [pg_log_generic_v](pg_log_generic_v.md) (core logging function)
   - va_start, va_end (standard variadic macros)
 - Called from (representative examples):
-  - pg_fatal (src/bin/pg_dump/pg_backup_utils.h:37)
-  - get_dirent_type (src/common/file_utils.c:566)
+  - [pg_fatal](pg_fatal.md) (src/bin/pg_dump/pg_backup_utils.h:37)
+  - [get_dirent_type](../g/get_dirent_type.md) (src/common/file_utils.c:566)
   - pg_log_error, pg_log_warning, pg_log_info, pg_log_debug (macros in src/include/common/logging.h)
 
 ## Notes and Other Information

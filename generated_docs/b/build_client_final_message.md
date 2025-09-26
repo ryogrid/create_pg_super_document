@@ -19,8 +19,8 @@ This function builds the client-final-message in the SCRAM authentication exchan
 - Functions called/Symbols referenced:
   - [calculate_client_proof](../c/calculate_client_proof.md) (computes cryptographic proof)
   - [pgtls_get_peer_certificate_hash](../p/pgtls_get_peer_certificate_hash.md) (gets SSL cert hash for channel binding)
-  - pg_b64_encode (base64 encoding for binary data)
-  - initPQExpBuffer/appendPQExpBuffer* (message construction)
+  - [pg_b64_encode](../p/pg_b64_encode.md) (base64 encoding for binary data)
+  - [initPQExpBuffer](../i/initPQExpBuffer.md)/appendPQExpBuffer* (message construction)
   - [enlargePQExpBuffer](../e/enlargePQExpBuffer.md) (buffer management)
   - [libpq_append_conn_error](../l/libpq_append_conn_error.md) (error reporting)
 - Called from:

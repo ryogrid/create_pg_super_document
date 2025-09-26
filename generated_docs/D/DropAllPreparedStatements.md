@@ -27,8 +27,8 @@ This function takes no parameters.
   - [hash_search](../h/hash_search.md)
   - HASH_REMOVE
 - Data structures used:
-  - HASH_SEQ_STATUS
-  - PreparedStatement
+  - [HASH_SEQ_STATUS](../H/HASH_SEQ_STATUS.md)
+  - [PreparedStatement](../P/PreparedStatement.md)
   - prepared_queries (global hash table)
 - Called from (representative examples):
   - [DiscardAll](DiscardAll.md)

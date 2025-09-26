@@ -31,12 +31,12 @@ The result is always a single, contiguous, sorted array containing all resources
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwner (struct type)
-  - ResourceElem (struct type)
-  - resource_priority_cmp (comparison function for sorting)
+  - [ResourceOwner](ResourceOwner.md) (struct type)
+  - [ResourceElem](ResourceElem.md) (struct type)
+  - [resource_priority_cmp](../r/resource_priority_cmp.md) (comparison function for sorting)
   - qsort (standard C library sorting function)
 - Called from (representative examples):
-  - ResourceOwnerReleaseInternal (during resource cleanup operations)
+  - [ResourceOwnerReleaseInternal](ResourceOwnerReleaseInternal.md) (during resource cleanup operations)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the resowner.c compilation unit

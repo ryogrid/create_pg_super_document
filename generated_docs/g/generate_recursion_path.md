@@ -35,7 +35,7 @@ The key insight is that recursive queries work by first executing the non-recurs
   - [recurse_set_operations](../r/recurse_set_operations.md)
   - [build_setop_child_paths](../b/build_setop_child_paths.md)  
   - [generate_append_tlist](generate_append_tlist.md)
-  - fetch_upper_rel
+  - [fetch_upper_rel](../f/fetch_upper_rel.md)
   - create_pathtarget
   - [generate_setop_grouplist](generate_setop_grouplist.md)
   - [grouping_is_hashable](grouping_is_hashable.md)

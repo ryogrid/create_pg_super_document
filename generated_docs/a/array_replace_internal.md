@@ -31,12 +31,12 @@ For remove operations on multi-dimensional arrays, the function raises an error 
 ## Dependencies
 - Functions called/Symbols referenced:
   - ARR_ELEMTYPE, ARR_NDIM, ARR_DIMS, ARR_DATA_PTR, ARR_NULLBITMAP
-  - ArrayGetNItems
+  - [ArrayGetNItems](../A/ArrayGetNItems.md)
   - [lookup_type_cache](../l/lookup_type_cache.md)
   - PG_DETOAST_DATUM
   - InitFunctionCallInfoData
   - FunctionCallInvoke
-  - fetch_att, att_addlength_datum, att_align_nominal
+  - [fetch_att](../f/fetch_att.md), att_addlength_datum, att_align_nominal
   - [construct_empty_array](../c/construct_empty_array.md)
   - [CopyArrayEls](../C/CopyArrayEls.md)
   - AllocSizeIsValid

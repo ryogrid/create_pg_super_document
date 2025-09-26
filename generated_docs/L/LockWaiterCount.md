@@ -21,13 +21,13 @@ This function searches the PostgreSQL lock manager's hash table to find a lock m
 ## Dependencies
 - Functions called/Symbols referenced:
   - lengthof (macro for array length)
-  - LockTagHashCode (computes hash value for the lock tag)
+  - [LockTagHashCode](LockTagHashCode.md) (computes hash value for the lock tag)
   - LockHashPartitionLock (gets the appropriate partition lock)
-  - LWLockAcquire (acquires lightweight lock for thread safety)
+  - [LWLockAcquire](LWLockAcquire.md) (acquires lightweight lock for thread safety)
   - [hash_search_with_hash_value](../h/hash_search_with_hash_value.md) (searches the lock hash table)
-  - LWLockRelease (releases lightweight lock)
+  - [LWLockRelease](LWLockRelease.md) (releases lightweight lock)
 - Called from (representative examples):
-  - RelationExtensionLockWaiterCount (wrapper for relation extension locks)
+  - [RelationExtensionLockWaiterCount](../R/RelationExtensionLockWaiterCount.md) (wrapper for relation extension locks)
   - LockHashPartitionLockByProc (referenced in header for related functionality)
 
 ## Notes and Other Information

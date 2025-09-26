@@ -21,12 +21,12 @@ This function performs a validation check to ensure that all expressions in a li
 ## Dependencies
 - Functions called/Symbols referenced:
   - lfirst (list iteration macro)
-  - exprType (to extract expression type)
+  - [exprType](../e/exprType.md) (to extract expression type)
   - [can_coerce_type](../c/can_coerce_type.md) (to check coercion feasibility)
   - COERCION_IMPLICIT (coercion method constant)
 
 - Called from (representative examples):
-  - transformAExprIn (IN expression processing)
+  - [transformAExprIn](../t/transformAExprIn.md) (IN expression processing)
 
 ## Notes and Other Information
 - Most callers of select_common_type() don't need this explicit verification since coercion checks happen automatically during expression conversion

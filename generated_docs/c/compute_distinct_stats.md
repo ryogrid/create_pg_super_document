@@ -30,7 +30,7 @@ For columns with small, fixed sets of possible values (like boolean or enum type
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - VacAttrStatsP (parameter type)
+  - [VacAttrStatsP](../V/VacAttrStatsP.md) (parameter type)
   - AnalyzeAttrFetchFunc (function pointer type)
   - [TrackItem](../T/TrackItem.md) (internal struct for value tracking)
   - Various PostgreSQL memory management functions (palloc, datumCopy)

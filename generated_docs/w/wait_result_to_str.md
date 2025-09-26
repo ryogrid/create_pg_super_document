@@ -31,15 +31,15 @@ The returned string is allocated using pstrdup() and must be freed by the caller
   - WEXITSTATUS (macro to extract exit status)
   - WIFSIGNALED (macro to test if process was terminated by signal)
   - WTERMSIG (macro to extract terminating signal)
-  - pg_strsignal (PostgreSQL function to get signal name)
-  - pstrdup (PostgreSQL memory allocation wrapper)
+  - [pg_strsignal](../p/pg_strsignal.md) (PostgreSQL function to get signal name)
+  - [pstrdup](../p/pstrdup.md) (PostgreSQL memory allocation wrapper)
 
 - Called from (representative examples):
-  - RestoreArchivedFile
-  - ExecuteRecoveryCommand
-  - ClosePipeFromProgram
-  - BaseBackup
-  - pclose_check
+  - [RestoreArchivedFile](../R/RestoreArchivedFile.md)
+  - [ExecuteRecoveryCommand](../E/ExecuteRecoveryCommand.md)
+  - [ClosePipeFromProgram](../C/ClosePipeFromProgram.md)
+  - [BaseBackup](../B/BaseBackup.md)
+  - [pclose_check](../p/pclose_check.md)
 
 ## Notes and Other Information
 - The function is part of PostgreSQL's common utility library (src/common/)

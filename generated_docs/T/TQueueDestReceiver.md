@@ -26,7 +26,7 @@ The structure encapsulates both the standard DestReceiver interface (`pub` field
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DestReceiver
+  - [DestReceiver](../D/DestReceiver.md)
   - [shm_mq_handle](../s/shm_mq_handle.md)
 - Called from (representative examples):
   - [tqueueReceiveSlot](../t/tqueueReceiveSlot.md)

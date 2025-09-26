@@ -32,7 +32,7 @@ The function reads the entire remaining content of the input buffer, sets the ap
   - strlen (standard C library function)
   - PT_END (token type constant)
   - PT_VAL (token type constant)
-  - TSQueryParserState (parser state structure)
+  - [TSQueryParserState](../T/TSQueryParserState.md) (parser state structure)
   - int8 (PostgreSQL type alias)
 - Called from (representative examples):
   - [parse_tsquery](../p/parse_tsquery.md)

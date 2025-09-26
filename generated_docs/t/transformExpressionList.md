@@ -28,7 +28,7 @@ This function performs expression transformation similar to transformTargetList,
   - [ExpandColumnRefStar](../E/ExpandColumnRefStar.md)
   - [ExpandIndirectionStar](../E/ExpandIndirectionStar.md)
   - [list_concat](../l/list_concat.md)
-  - lappend
+  - [lappend](../l/lappend.md)
   - llast
   - IsA (macro)
   - lfirst (macro)
@@ -39,7 +39,7 @@ This function performs expression transformation similar to transformTargetList,
 - Called from (representative examples):
   - [transformInsertStmt](transformInsertStmt.md)
   - [transformValuesClause](transformValuesClause.md)
-  - transformRowExpr
+  - [transformRowExpr](transformRowExpr.md)
   - [transformMergeStmt](transformMergeStmt.md)
 
 ## Notes and Other Information

@@ -22,9 +22,9 @@ The function ensures proper ACID compliance by using the transactional statistic
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_create_transactional
-  - pgstat_get_entry_ref
-  - pgstat_reset_entry
+  - [pgstat_create_transactional](pgstat_create_transactional.md)
+  - [pgstat_get_entry_ref](pgstat_get_entry_ref.md)
+  - [pgstat_reset_entry](pgstat_reset_entry.md)
   - PGSTAT_KIND_SUBSCRIPTION
 - Called from (representative examples):
   - [CreateSubscription](../C/CreateSubscription.md)

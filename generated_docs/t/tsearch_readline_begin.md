@@ -24,16 +24,16 @@ The function is designed to be used as part of a three-function sequence: tsearc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AllocateFile
-  - initStringInfo
+  - [AllocateFile](../A/AllocateFile.md)
+  - [initStringInfo](../i/initStringInfo.md)
   - [tsearch_readline_callback](tsearch_readline_callback.md)
   - [tsearch_readline_state](tsearch_readline_state.md) (struct type)
 - Called from (representative examples):
   - [dsynonym_init](../d/dsynonym_init.md)
   - [thesaurusRead](thesaurusRead.md)
   - [NIImportDictionary](../N/NIImportDictionary.md)
-  - NIImportOOAffixes
-  - NIImportAffixes
+  - [NIImportOOAffixes](../N/NIImportOOAffixes.md)
+  - [NIImportAffixes](../N/NIImportAffixes.md)
   - [readstoplist](../r/readstoplist.md)
 
 ## Notes and Other Information

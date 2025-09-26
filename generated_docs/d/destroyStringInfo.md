@@ -25,13 +25,13 @@ This function should be called when a StringInfo is no longer needed to prevent 
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert (validation macro)
-  - pfree (memory deallocation function)
+  - [pfree](../p/pfree.md) (memory deallocation function)
 - Called from (representative examples):
-  - perform_base_backup
-  - check_publications
-  - jsonb_send
-  - xml_errorHandler
-  - freeJsonLexContext
+  - [perform_base_backup](../p/perform_base_backup.md)
+  - [check_publications](../c/check_publications.md)
+  - [jsonb_send](../j/jsonb_send.md)
+  - [xml_errorHandler](../x/xml_errorHandler.md)
+  - [freeJsonLexContext](../f/freeJsonLexContext.md)
 
 ## Notes and Other Information
 - Must only be used with palloc'd StringInfo objects (created via makeStringInfo())

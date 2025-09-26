@@ -26,16 +26,16 @@ This function is the core evaluation engine for MCV-based selectivity estimation
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MCVList, STATS_MCVLIST_MAX_ITEMS, is_opclause, OpExpr
-  - get_opcode, fmgr_info, examine_opclause_args, mcv_match_expression
-  - MCVItem, RESULT_MERGE, RESULT_IS_FINAL, FunctionCall2Coll
-  - ScalarArrayOpExpr, DatumGetArrayTypeP, get_typlenbyvalalign
+  - [MCVList](../M/MCVList.md), STATS_MCVLIST_MAX_ITEMS, is_opclause, OpExpr
+  - [get_opcode](../g/get_opcode.md), fmgr_info, examine_opclause_args, mcv_match_expression
+  - [MCVItem](../M/MCVItem.md), RESULT_MERGE, RESULT_IS_FINAL, FunctionCall2Coll
+  - [ScalarArrayOpExpr](../S/ScalarArrayOpExpr.md), DatumGetArrayTypeP, get_typlenbyvalalign
   - ARR_ELEMTYPE, deconstruct_array, NullTest, is_andclause
-  - is_orclause, BoolExpr, is_notclause, bms_member_index
+  - [is_orclause](../i/is_orclause.md), BoolExpr, is_notclause, bms_member_index
 - Called from (representative examples):
-  - mcv_get_match_bitmap (recursive calls for AND/OR/NOT expressions)
-  - mcv_clauselist_selectivity
-  - mcv_clause_selectivity_or
+  - [mcv_get_match_bitmap](mcv_get_match_bitmap.md) (recursive calls for AND/OR/NOT expressions)
+  - [mcv_clauselist_selectivity](mcv_clauselist_selectivity.md)
+  - [mcv_clause_selectivity_or](mcv_clause_selectivity_or.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the mcv.c file

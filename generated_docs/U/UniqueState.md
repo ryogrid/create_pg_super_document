@@ -25,7 +25,7 @@ UniqueState maintains the execution state for Unique nodes, which are positioned
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PlanState](../P/PlanState.md) (inherited structure)
-  - ExprState (for equality function)
+  - [ExprState](../E/ExprState.md) (for equality function)
 - Called from (representative examples):
   - [ExecUnique](../E/ExecUnique.md) (main execution function)
   - [ExecInitUnique](../E/ExecInitUnique.md) (initialization function)
@@ -33,7 +33,7 @@ UniqueState maintains the execution state for Unique nodes, which are positioned
   - [ExecReScanUnique](../E/ExecReScanUnique.md) (rescan function)
 
 ## Notes and Other Information
-- Unique nodes are typically used in conjunction with sort nodes to implement SQL DISTINCT operations
+- [Unique](Unique.md) nodes are typically used in conjunction with sort nodes to implement SQL DISTINCT operations
 - The equality function is crucial for determining which fields are considered "interesting" for uniqueness comparison
 - The node maintains state across multiple tuple fetches to enable efficient duplicate detection
 - Located in src/include/nodes/execnodes.h:2656-2660

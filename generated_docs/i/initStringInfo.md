@@ -20,10 +20,10 @@ The  function initializes a StringInfoData structure that has previously undefin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (memory allocation)
-  - resetStringInfo (string state reset)
+  - [palloc](../p/palloc.md) (memory allocation)
+  - [resetStringInfo](../r/resetStringInfo.md) (string state reset)
 - Called from (representative examples):
-  - makeStringInfo (internally used)
+  - [makeStringInfo](../m/makeStringInfo.md) (internally used)
 
 ## Notes and Other Information
 - This function is located at src/common/stringinfo.c:59-77

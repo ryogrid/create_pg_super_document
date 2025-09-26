@@ -20,12 +20,12 @@ PageGetTempPageCopy creates a temporary page buffer in local memory that is an e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PageGetPageSize (retrieves the size of the source page)
-  - palloc (PostgreSQL memory allocation function)
+  - [PageGetPageSize](PageGetPageSize.md) (retrieves the size of the source page)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation function)
   - memcpy (standard memory copy function)
 - Called from (representative examples):
-  - entrySplitPage (GIN entry page splitting operations)
-  - ginVacuumEntryPage (GIN entry page vacuum operations)
+  - [entrySplitPage](../e/entrySplitPage.md) (GIN entry page splitting operations)
+  - [ginVacuumEntryPage](../g/ginVacuumEntryPage.md) (GIN entry page vacuum operations)
 
 ## Notes and Other Information
 - Returns a complete copy of the source page in newly allocated memory

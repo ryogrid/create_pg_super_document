@@ -29,12 +29,12 @@ The `rpytime` function calculates the exact timestamp when a timezone rule takes
 ## Dependencies
 - Functions called/Symbols referenced:
   - `isleap`: Check if year is a leap year
-  - `oadd`: Overflow-safe addition for day calculations
-  - `tadd`: Overflow-safe addition for time calculations
+  - `[oadd](../o/oadd.md)`: Overflow-safe addition for day calculations
+  - `[tadd](../t/tadd.md)`: Overflow-safe addition for time calculations
   - [error](../e/error.md): Error reporting function
   - [warning](../w/warning.md): Warning message function
 - Called from (representative examples):
-  - `inzsub`: Timezone initialization subprocess
+  - `[inzsub](../i/inzsub.md)`: Timezone initialization subprocess
   - [years_of_observations](../y/years_of_observations.md): Year range calculation function
 
 ## Notes and Other Information

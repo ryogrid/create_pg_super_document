@@ -32,7 +32,7 @@ Unlike REGRESS_object_access_hook_str which handles specific parameter operation
   - [audit_attempt](../a/audit_attempt.md)
   - [accesstype_to_string](../a/accesstype_to_string.md)
   - [accesstype_arg_to_string](../a/accesstype_arg_to_string.md)
-  - superuser_arg
+  - [superuser_arg](../s/superuser_arg.md)
   - [GetUserId](../G/GetUserId.md)
   - ereport
   - [errcode](../e/errcode.md)

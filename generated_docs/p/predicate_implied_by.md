@@ -27,7 +27,7 @@ The function assumes that both input lists represent AND-ed conditions at the to
 ## Dependencies
 - Functions called/Symbols referenced:
   - [predicate_implied_by_recurse](predicate_implied_by_recurse.md)
-  - list_length
+  - [list_length](../l/list_length.md)
   - linitial
 - Called from (representative examples):
   - [ConstraintImpliedByRelConstraint](../C/ConstraintImpliedByRelConstraint.md) (table constraint validation)

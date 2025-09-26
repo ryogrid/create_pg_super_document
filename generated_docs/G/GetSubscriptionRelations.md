@@ -29,7 +29,7 @@ The returned list is allocated in the current memory context and must be managed
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - [ScanKeyInit](../S/ScanKeyInit.md)
   - [systable_beginscan](../s/systable_beginscan.md)
   - [systable_getnext](../s/systable_getnext.md)
@@ -37,10 +37,10 @@ The returned list is allocated in the current memory context and must be managed
   - GETSTRUCT
   - [palloc](../p/palloc.md)
   - [SysCacheGetAttr](../S/SysCacheGetAttr.md)
-  - DatumGetLSN
-  - lappend
+  - [DatumGetLSN](../D/DatumGetLSN.md)
+  - [lappend](../l/lappend.md)
   - [systable_endscan](../s/systable_endscan.md)
-  - table_close
+  - [table_close](../t/table_close.md)
   - [SysScanDesc](../S/SysScanDesc.md)
   - Form_pg_subscription_rel
   - SubscriptionRelState

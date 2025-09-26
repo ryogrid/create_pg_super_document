@@ -31,8 +31,8 @@ Note that this function does not support SET FROM CURRENT functionality - it onl
 ## Dependencies
 - Functions called/Symbols referenced:
   - [flatten_set_variable_args](../f/flatten_set_variable_args.md)
-  - set_config_option
-  - superuser
+  - [set_config_option](../s/set_config_option.md)
+  - [superuser](../s/superuser.md)
 - Called from (representative examples):
   - [ExecSetVariableStmt](../E/ExecSetVariableStmt.md) (in src/backend/utils/misc/guc_funcs.c:88,91,94,110,113,116)
   - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (in src/backend/tcop/utility.c:615,619,623)

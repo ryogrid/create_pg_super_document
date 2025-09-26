@@ -38,10 +38,10 @@ The `infile` function is a comprehensive file parser that processes timezone def
 - Functions called/Symbols referenced:
   - fopen, fgets, strchr (standard C file I/O functions)
   - strerror (standard C error function)
-  - getfields (field parsing function)
-  - eat (error context setting function)
-  - inzcont, inrule, inzone, inlink, inleap, inexires (specific line type handlers)
-  - byword (keyword lookup function)
+  - [getfields](../g/getfields.md) (field parsing function)
+  - [eat](../e/eat.md) (error context setting function)
+  - [inzcont](inzcont.md), inrule, inzone, inlink, inleap, inexires (specific line type handlers)
+  - [byword](../b/byword.md) (keyword lookup function)
   - [close_file](../c/close_file.md) (file closing utility)
   - EXIT_FAILURE (standard exit code)
 - Called from (representative examples):

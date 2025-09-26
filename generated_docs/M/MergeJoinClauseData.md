@@ -52,8 +52,8 @@ The structure is created and initialized by MJExamineQuals() during merge join n
 - `ssup`: Sort support data containing comparison functions, collation info, sort direction, and null handling rules for efficiently comparing ldatum and rdatum
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SortSupportData
-  - ExprState
+  - [SortSupportData](../S/SortSupportData.md)
+  - [ExprState](../E/ExprState.md)
   - Datum
 - Called from (representative examples):
   - [MJExamineQuals](MJExamineQuals.md) (creates and initializes arrays of MergeJoinClauseData)

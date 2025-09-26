@@ -21,7 +21,7 @@ PageGetSpecialSize computes the size of the special space area at the end of a p
   - PageHeader (type cast to access pd_special field)
 - Called from (representative examples):
   - [gistcheckpage](../g/gistcheckpage.md) (GiST index page validation)
-  - _hash_checkpage (Hash index page validation)
+  - [_hash_checkpage](../h/_hash_checkpage.md) (Hash index page validation)
   - [_bt_checkpage](../b/_bt_checkpage.md) (B-tree index page validation)
   - [PageGetTempPageCopySpecial](PageGetTempPageCopySpecial.md) (temporary page operations)
 

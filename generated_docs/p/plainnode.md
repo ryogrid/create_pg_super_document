@@ -27,7 +27,7 @@ The function dynamically resizes the output array when needed using `repalloc`, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth (stack overflow protection)
+  - [check_stack_depth](../c/check_stack_depth.md) (stack overflow protection)
   - [repalloc](../r/repalloc.md) (memory reallocation)
   - memcpy (memory copying)
   - [plainnode](plainnode.md) (recursive self-call)

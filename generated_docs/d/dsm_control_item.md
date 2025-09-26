@@ -34,8 +34,8 @@ The  structure represents shared-memory state for a dynamic shared memory segmen
 - Functions called/Symbols referenced:
   - dsm_handle (segment identifier type)
 - Called from (representative examples):
-  - dsm_control_header (contains arrays of dsm_control_item structures)
-  - dsm_control_bytes_needed (calculates space needed for control items)
+  - [dsm_control_header](dsm_control_header.md) (contains arrays of dsm_control_item structures)
+  - [dsm_control_bytes_needed](dsm_control_bytes_needed.md) (calculates space needed for control items)
 
 ## Notes and Other Information
 - This structure resides in the DSM control segment, which is itself a special shared memory segment used to coordinate other DSM segments

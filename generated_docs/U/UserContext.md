@@ -38,8 +38,8 @@ When switching to an untrusted user (one who cannot SET ROLE back to the origina
   - GUC system (Grand Unified Configuration)
   
 - Called from (representative examples):
-  - SwitchToUntrustedUser() - initializes the structure with current context
-  - RestoreUserContext() - uses the structure to restore original context
+  - [SwitchToUntrustedUser](../S/SwitchToUntrustedUser.md)() - initializes the structure with current context
+  - [RestoreUserContext](../R/RestoreUserContext.md)() - uses the structure to restore original context
   - Table DDL operations (tablecmds.c)
   - Logical replication workers (worker.c)
   - Index operations (indexcmds.c)

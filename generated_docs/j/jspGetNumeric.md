@@ -22,7 +22,7 @@ The jspGetNumeric function is a type-specific accessor function that extracts nu
 - Functions called/Symbols referenced:
   - JsonPathItem (struct type)
   - jpiNumeric (enumeration constant)
-  - Numeric (PostgreSQL numeric data type)
+  - [Numeric](../N/Numeric.md) (PostgreSQL numeric data type)
 - Called from (representative examples):
   - [printJsonPathItem](../p/printJsonPathItem.md)
   - [executeItemOptUnwrapTarget](../e/executeItemOptUnwrapTarget.md)

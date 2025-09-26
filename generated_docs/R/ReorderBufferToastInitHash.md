@@ -23,15 +23,15 @@ This function creates a hash table specifically designed to handle TOAST data re
 - Functions called/Symbols referenced:
   - [hash_create](../h/hash_create.md) (creates the hash table with specified parameters)
   - Assert (ensures toast_hash is NULL before initialization)
-  - HASHCTL (hash table control structure)
-  - ReorderBufferToastEnt (hash table entry structure for TOAST data)
+  - [HASHCTL](../H/HASHCTL.md) (hash table control structure)
+  - [ReorderBufferToastEnt](ReorderBufferToastEnt.md) (hash table entry structure for TOAST data)
   - HASH_ELEM, HASH_BLOBS, HASH_CONTEXT (hash table configuration flags)
 - Called from (representative examples):
   - [ReorderBufferToastAppendChunk](ReorderBufferToastAppendChunk.md) (when first TOAST chunk is encountered)
 
 ## Notes and Other Information
 - The function is static, indicating it's only used within reorderbuffer.c
-- Hash table is configured with OID keys (sizeof(Oid)) to identify different TOAST entities
+- [Hash](../H/Hash.md) table is configured with OID keys (sizeof(Oid)) to identify different TOAST entities
 - Uses a small initial size (5 buckets) as TOAST usage is typically sparse
 - The HASH_BLOBS flag enables efficient handling of binary key data
 - HASH_CONTEXT ensures the hash table is allocated in the reorder buffer's memory context

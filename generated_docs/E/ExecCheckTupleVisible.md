@@ -31,8 +31,8 @@ This mechanism is essential for maintaining ACID properties, particularly in sce
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsolationUsesXactSnapshot
-  - table_tuple_satisfies_snapshot
-  - slot_getsysattr
+  - [table_tuple_satisfies_snapshot](../t/table_tuple_satisfies_snapshot.md)
+  - [slot_getsysattr](../s/slot_getsysattr.md)
   - MinTransactionIdAttributeNumber
   - [DatumGetTransactionId](../D/DatumGetTransactionId.md)
   - [TransactionIdIsCurrentTransactionId](../T/TransactionIdIsCurrentTransactionId.md)

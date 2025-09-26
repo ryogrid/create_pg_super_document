@@ -34,16 +34,16 @@ TID scans are extremely fast for small numbers of known tuple locations since th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Path (base path structure)
-  - List (PostgreSQL list structure)
-  - CurrentOfExpr (for cursor operations)
+  - [Path](../P/Path.md) (base path structure)
+  - [List](../L/List.md) (PostgreSQL list structure)
+  - [CurrentOfExpr](../C/CurrentOfExpr.md) (for cursor operations)
   - CTID (tuple identifier type)
 
 - Called from (representative examples):
-  - create_tidscan_path (path creation)
-  - create_tidscan_plan (plan creation)  
-  - create_scan_plan (during scan plan selection)
-  - create_bitmap_or_path (as alternative access method)
+  - [create_tidscan_path](../c/create_tidscan_path.md) (path creation)
+  - [create_tidscan_plan](../c/create_tidscan_plan.md) (plan creation)  
+  - [create_scan_plan](../c/create_scan_plan.md) (during scan plan selection)
+  - [create_bitmap_or_path](../c/create_bitmap_or_path.md) (as alternative access method)
 
 ## Notes and Other Information
 - TID scans are among the fastest access methods when exact tuple locations are known

@@ -37,6 +37,6 @@ This adaptive sizing ensures that complex queries with many relations get larger
 - Minimum legal pool size is 2 (required for genetic algorithm selection)
 - Default formula 2^(n+1) provides exponential growth with relation count
 - Effort-based bounds prevent excessive computation time or inadequate optimization
-- Pool size directly impacts memory usage and algorithm convergence time
+- [Pool](../P/Pool.md) size directly impacts memory usage and algorithm convergence time
 - Larger pools generally find better solutions but take longer to execute
 - The function is static, only accessible within the geqo_main.c module

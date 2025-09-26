@@ -33,11 +33,11 @@ The implementation is optimized for performance by:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - div1e8: Fast division by 10^8 for handling large numbers
-  - floating_decimal_64: Input structure type
+  - [div1e8](../d/div1e8.md): Fast division by 10^8 for handling large numbers
+  - [floating_decimal_64](../f/floating_decimal_64.md): Input structure type
   - DIGIT_TABLE: Precomputed table for efficient digit pair conversion
 - Called from (representative examples):
-  - to_chars
+  - [to_chars](to_chars.md)
 
 ## Notes and Other Information
 - The function is marked as `static inline` for performance optimization

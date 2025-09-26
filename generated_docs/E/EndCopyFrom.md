@@ -23,7 +23,7 @@ This function is essential for preventing resource leaks and ensures that extern
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ClosePipeFromProgram](../C/ClosePipeFromProgram.md)
-  - FreeFile  
+  - [FreeFile](../F/FreeFile.md)  
   - [pgstat_progress_end_command](../p/pgstat_progress_end_command.md)
   - [MemoryContextDelete](../M/MemoryContextDelete.md)
   - [pfree](../p/pfree.md)

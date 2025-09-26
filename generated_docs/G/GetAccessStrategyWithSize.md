@@ -23,8 +23,8 @@ The allocated structure includes the strategy metadata and a flexible array of B
 ## Dependencies
 - Functions called/Symbols referenced:
   - BufferAccessStrategyType (enum type for strategy types)
-  - BufferAccessStrategy (strategy object type)
-  - BufferAccessStrategyData (internal structure definition)
+  - [BufferAccessStrategy](../B/BufferAccessStrategy.md) (strategy object type)
+  - [BufferAccessStrategyData](../B/BufferAccessStrategyData.md) (internal structure definition)
   - BLCKSZ (PostgreSQL block size constant)
   - NBuffers (global shared buffer count)
   - Min (minimum value macro)
@@ -32,10 +32,10 @@ The allocated structure includes the strategy metadata and a flexible array of B
   - offsetof (structure offset calculation)
   - Buffer (buffer type)
 - Called from (representative examples):
-  - ExecVacuum (src/backend/commands/vacuum.c:444)
-  - parallel_vacuum_main (src/backend/commands/vacuumparallel.c:1067)
-  - do_autovacuum (src/backend/postmaster/autovacuum.c:2264)
-  - GetAccessStrategy (src/backend/storage/buffer/freelist.c:573)
+  - [ExecVacuum](../E/ExecVacuum.md) (src/backend/commands/vacuum.c:444)
+  - [parallel_vacuum_main](../p/parallel_vacuum_main.md) (src/backend/commands/vacuumparallel.c:1067)
+  - [do_autovacuum](../d/do_autovacuum.md) (src/backend/postmaster/autovacuum.c:2264)
+  - [GetAccessStrategy](GetAccessStrategy.md) (src/backend/storage/buffer/freelist.c:573)
 
 ## Notes and Other Information
 - Ring size is automatically capped to 1/8th of shared_buffers to prevent cache monopolization

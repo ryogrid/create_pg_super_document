@@ -20,11 +20,11 @@ This function releases all locks held by the current resource owner. It provides
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_seq_init: Initializes sequential hash table scanning
-  - hash_seq_search: Gets next entry during hash table traversal
-  - ReleaseLockIfHeld: Releases a specific lock if it is held by the current resource owner
+  - [hash_seq_init](../h/hash_seq_init.md): Initializes sequential hash table scanning
+  - [hash_seq_search](../h/hash_seq_search.md): Gets next entry during hash table traversal
+  - [ReleaseLockIfHeld](../R/ReleaseLockIfHeld.md): Releases a specific lock if it is held by the current resource owner
 - Called from (representative examples):
-  - ResourceOwnerReleaseInternal: Called during resource owner cleanup
+  - [ResourceOwnerReleaseInternal](../R/ResourceOwnerReleaseInternal.md): Called during resource owner cleanup
   - LockHashPartitionLockByProc: Referenced in lock management header
 
 ## Notes and Other Information

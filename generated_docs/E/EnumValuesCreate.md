@@ -39,7 +39,7 @@ The function assumes it will be called even for empty enum types, making it the 
   - [CatalogOpenIndexes](../C/CatalogOpenIndexes.md)
   - [CatalogTuplesMultiInsertWithInfo](../C/CatalogTuplesMultiInsertWithInfo.md)
   - [MakeSingleTupleTableSlot](../M/MakeSingleTupleTableSlot.md)
-  - ExecClearTuple
+  - [ExecClearTuple](ExecClearTuple.md)
   - [ExecStoreVirtualTuple](ExecStoreVirtualTuple.md)
   - [ExecDropSingleTupleTableSlot](ExecDropSingleTupleTableSlot.md)
 - Called from:

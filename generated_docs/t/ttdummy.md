@@ -31,8 +31,8 @@ ttdummy is a sophisticated PostgreSQL trigger function that implements temporal 
 - Functions called/Symbols referenced:
   - CALLED_AS_TRIGGER (validates trigger context)
   - TRIGGER_FIRED_FOR_ROW, TRIGGER_FIRED_BEFORE, TRIGGER_FIRED_BY_INSERT, TRIGGER_FIRED_BY_UPDATE (trigger event validation)
-  - SPI_getrelname, SPI_fnumber, SPI_gettypeid, SPI_getbinval (SPI data access functions)
-  - SPI_connect, SPI_prepare, SPI_keepplan, SPI_execp, SPI_modifytuple, SPI_finish (SPI execution functions)
+  - [SPI_getrelname](../S/SPI_getrelname.md), SPI_fnumber, SPI_gettypeid, SPI_getbinval (SPI data access functions)
+  - [SPI_connect](../S/SPI_connect.md), SPI_prepare, SPI_keepplan, SPI_execp, SPI_modifytuple, SPI_finish (SPI execution functions)
   - DirectFunctionCall1, nextval (sequence value generation)
   - TTDUMMY_INFINITY (constant for infinite date values)
   - [palloc](../p/palloc.md), pfree (PostgreSQL memory management)

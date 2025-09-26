@@ -26,22 +26,22 @@ The timing and locking strategy is carefully designed to handle race conditions 
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogStandbyInfoActive (verify standby info logging is enabled)
-  - GetRunningTransactionLocks (capture current AccessExclusiveLocks)
-  - LogAccessExclusiveLocks (log lock information to WAL)
-  - pfree (free allocated lock data)
-  - GetRunningTransactionData (capture running transaction snapshot)
-  - LWLockRelease (release ProcArrayLock and XidGenLock)
-  - LogCurrentRunningXacts (log transaction information to WAL)
+  - [GetRunningTransactionLocks](../G/GetRunningTransactionLocks.md) (capture current AccessExclusiveLocks)
+  - [LogAccessExclusiveLocks](LogAccessExclusiveLocks.md) (log lock information to WAL)
+  - [pfree](../p/pfree.md) (free allocated lock data)
+  - [GetRunningTransactionData](../G/GetRunningTransactionData.md) (capture running transaction snapshot)
+  - [LWLockRelease](LWLockRelease.md) (release ProcArrayLock and XidGenLock)
+  - [LogCurrentRunningXacts](LogCurrentRunningXacts.md) (log transaction information to WAL)
 - Data structures used:
   - RunningTransactions (transaction snapshot data)
-  - xl_standby_lock (lock record format)
+  - [xl_standby_lock](../x/xl_standby_lock.md) (lock record format)
   - XLogRecPtr (WAL record pointer)
 - Called from (representative examples):
-  - CreateCheckPoint (src/backend/access/transam/xlog.c:7189)
-  - pg_log_standby_snapshot (src/backend/access/transam/xlogfuncs.c:217)
-  - BackgroundWriterMain (src/backend/postmaster/bgwriter.c:290)
-  - SnapBuildWaitSnapshot (src/backend/replication/logical/snapbuild.c:1603)
-  - ReplicationSlotReserveWal (src/backend/replication/slot.c:1466)
+  - [CreateCheckPoint](../C/CreateCheckPoint.md) (src/backend/access/transam/xlog.c:7189)
+  - [pg_log_standby_snapshot](../p/pg_log_standby_snapshot.md) (src/backend/access/transam/xlogfuncs.c:217)
+  - [BackgroundWriterMain](../B/BackgroundWriterMain.md) (src/backend/postmaster/bgwriter.c:290)
+  - [SnapBuildWaitSnapshot](../S/SnapBuildWaitSnapshot.md) (src/backend/replication/logical/snapbuild.c:1603)
+  - [ReplicationSlotReserveWal](../R/ReplicationSlotReserveWal.md) (src/backend/replication/slot.c:1466)
 
 ## Notes and Other Information
 - Essential for hot standby functionality and logical decoding

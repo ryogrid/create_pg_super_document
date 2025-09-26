@@ -28,10 +28,10 @@ The structure is used in shared memory hash tables to ensure that custom wait ev
 - Functions called/Symbols referenced:
   - NAMEDATALEN (constant defining maximum length for names)
 - Called from (representative examples):
-  - WaitEventCustomShmemSize
-  - WaitEventCustomShmemInit
-  - WaitEventCustomNew
-  - GetWaitEventCustomNames
+  - [WaitEventCustomShmemSize](WaitEventCustomShmemSize.md)
+  - [WaitEventCustomShmemInit](WaitEventCustomShmemInit.md)
+  - [WaitEventCustomNew](WaitEventCustomNew.md)
+  - [GetWaitEventCustomNames](../G/GetWaitEventCustomNames.md)
 
 ## Notes and Other Information
 - This structure forms part of a dual hash table system alongside WaitEventCustomEntryByInfo for bidirectional lookups

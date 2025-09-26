@@ -31,7 +31,7 @@ This optimization is particularly effective for the common case where targetlist
 ## Dependencies
 - Functions called/Symbols referenced:
   - palboc (with offsetof calculation)
-  - list_length
+  - [list_length](../l/list_length.md)
   - lfirst (list iteration macro)
   - IsA (type checking macro)
   - offsetof (for structure size calculation)

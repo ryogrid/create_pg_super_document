@@ -21,11 +21,11 @@ The function takes the reserved entry (stored in ReservedRefCountEntry), clears 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PrivateRefCountEntry (struct type)
+  - [PrivateRefCountEntry](../P/PrivateRefCountEntry.md) (struct type)
   - ReservedRefCountEntry (global variable)
 - Called from (representative examples):
-  - PinBuffer
-  - PinBuffer_Locked
+  - [PinBuffer](../P/PinBuffer.md)
+  - [PinBuffer_Locked](../P/PinBuffer_Locked.md)
 
 ## Notes and Other Information
 - Must only be called when a reservation has been made via ReservePrivateRefCountEntry()

@@ -24,7 +24,7 @@ If validation fails on an unsupported platform, the function provides an error m
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WaitEventSetCanReportClosed
+  - [WaitEventSetCanReportClosed](../W/WaitEventSetCanReportClosed.md)
   - GUC_check_errdetail
   - GucSource
 - Called from (representative examples):

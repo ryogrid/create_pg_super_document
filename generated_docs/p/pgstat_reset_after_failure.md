@@ -26,20 +26,20 @@ This function takes no parameters and operates on global statistics state.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentTimestamp: Gets the current timestamp for reset operations
-  - pgstat_get_kind_info: Retrieves metadata for each statistics kind
-  - pgstat_drop_all_entries: Removes all variable-numbered statistics entries
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md): Gets the current timestamp for reset operations
+  - [pgstat_get_kind_info](pgstat_get_kind_info.md): Retrieves metadata for each statistics kind
+  - [pgstat_drop_all_entries](pgstat_drop_all_entries.md): Removes all variable-numbered statistics entries
   - reset_all_cb: Callback function pointer for resetting fixed statistics (via kind_info)
 
 - Called from (representative examples):
-  - pgstat_read_statsfile: Called when statistics file reading fails or file is corrupted
-  - pgstat_discard_stats: Called when discarding statistics is required
+  - [pgstat_read_statsfile](pgstat_read_statsfile.md): Called when statistics file reading fails or file is corrupted
+  - [pgstat_discard_stats](pgstat_discard_stats.md): Called when discarding statistics is required
 
 ## Notes and Other Information
 - This function is designed to be safe to call even when the statistics system is in a partially initialized state
 - The timestamp parameter passed to reset callbacks ensures consistent timing for all reset operations
 - Only processes statistics kinds that have a fixed amount (fixed_amount flag set)
-- Variable-numbered statistics (like per-table or per-function stats) are completely dropped rather than reset
+- [Variable](../V/Variable.md)-numbered statistics (like per-table or per-function stats) are completely dropped rather than reset
 - Critical for maintaining system stability when statistics corruption is detected
 - Part of the defensive programming approach in PostgreSQL's statistics subsystem
 - Located in src/backend/utils/activity/pgstat.c:1694-1716

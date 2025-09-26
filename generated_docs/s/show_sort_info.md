@@ -23,14 +23,14 @@ The function only operates during EXPLAIN ANALYZE (when es->analyze is true) and
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - tuplesort_get_stats (retrieves statistics from the tuplesort subsystem)
-  - tuplesort_method_name (converts sort method enum to human-readable name)
-  - tuplesort_space_type_name (converts space type enum to human-readable name)
+  - [tuplesort_get_stats](../t/tuplesort_get_stats.md) (retrieves statistics from the tuplesort subsystem)
+  - [tuplesort_method_name](../t/tuplesort_method_name.md) (converts sort method enum to human-readable name)
+  - [tuplesort_space_type_name](../t/tuplesort_space_type_name.md) (converts space type enum to human-readable name)
   - [ExplainIndentText](../E/ExplainIndentText.md) (adds proper indentation in text format)
   - [ExplainPropertyText](../E/ExplainPropertyText.md) (outputs named text properties in structured formats)
   - [ExplainPropertyInteger](../E/ExplainPropertyInteger.md) (outputs named integer properties in structured formats)
   - [ExplainOpenWorker](../E/ExplainOpenWorker.md)/ExplainCloseWorker (handles parallel worker output formatting)
-  - appendStringInfo (builds output string)
+  - [appendStringInfo](../a/appendStringInfo.md) (builds output string)
 - Types referenced:
   - [SortState](../S/SortState.md), ExplainState, Tuplesortstate, TuplesortInstrumentation
 - Constants referenced:

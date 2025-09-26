@@ -56,10 +56,10 @@ The context supports different allocation strategies through its methods pointer
   - pg_node_attr (node annotation)
 - Called from (representative examples):
   - [AllocSetContext](../A/AllocSetContext.md) (aset.c:154)
-  - BumpContext (bump.c:68)
+  - [BumpContext](../B/BumpContext.md) (bump.c:68)
   - [GenerationContext](../G/GenerationContext.md) (generation.c:61)
   - [SlabContext](../S/SlabContext.md) (slab.c:105)
-  - ErrorData (elog.h:472)
+  - [ErrorData](../E/ErrorData.md) (elog.h:472)
 
 ## Notes and Other Information
 - Marked with pg_node_attr(abstract) indicating it's an abstract base type with no direct instances

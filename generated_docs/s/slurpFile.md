@@ -25,7 +25,7 @@ This utility function reads a complete file from the filesystem into memory in a
   - fstat (system call for file statistics)
   - read (system call)
   - close (system call)
-  - pg_malloc (PostgreSQL memory allocation)
+  - [pg_malloc](../p/pg_malloc.md) (PostgreSQL memory allocation)
   - snprintf (standard library)
   - [pg_fatal](../p/pg_fatal.md) (PostgreSQL error reporting)
 - Called from (representative examples):

@@ -47,8 +47,8 @@ RelationBuildPartitionDesc is the core function responsible for constructing par
   - [partition_bounds_copy](../p/partition_bounds_copy.md)
   - AllocSetContextCreate
   - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md)
-  - MemoryContextSetParent
-  - ActiveSnapshotSet
+  - [MemoryContextSetParent](../M/MemoryContextSetParent.md)
+  - [ActiveSnapshotSet](../A/ActiveSnapshotSet.md)
 
 - Called from:
   - [RelationGetPartitionDesc](RelationGetPartitionDesc.md)

@@ -33,16 +33,16 @@ The function includes safety checks to prevent processes from queuing while alre
 ## Dependencies
 - Functions called/Symbols referenced:
   - elog (with PANIC level)
-  - LWLockWaitListLock
-  - pg_atomic_fetch_or_u32
+  - [LWLockWaitListLock](LWLockWaitListLock.md)
+  - [pg_atomic_fetch_or_u32](../p/pg_atomic_fetch_or_u32.md)
   - proclist_push_head
   - proclist_push_tail
-  - LWLockWaitListUnlock
-  - pg_atomic_fetch_add_u32 (debug builds only)
+  - [LWLockWaitListUnlock](LWLockWaitListUnlock.md)
+  - [pg_atomic_fetch_add_u32](../p/pg_atomic_fetch_add_u32.md) (debug builds only)
 - Called from (representative examples):
-  - LWLockAcquire
-  - LWLockAcquireOrWait
-  - LWLockWaitForVar
+  - [LWLockAcquire](LWLockAcquire.md)
+  - [LWLockAcquireOrWait](LWLockAcquireOrWait.md)
+  - [LWLockWaitForVar](LWLockWaitForVar.md)
 
 ## Notes and Other Information
 - The function panics if MyProc is NULL or if the process is already waiting for another lock

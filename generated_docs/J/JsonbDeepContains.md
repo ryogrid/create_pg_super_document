@@ -45,7 +45,7 @@ The function includes stack depth checking to prevent overflow from deeply neste
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth
+  - [check_stack_depth](../c/check_stack_depth.md)
   - [JsonbIteratorNext](JsonbIteratorNext.md)
   - [getKeyJsonValueFromContainer](../g/getKeyJsonValueFromContainer.md)
   - IsAJsonbScalar

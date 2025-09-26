@@ -36,13 +36,13 @@ The function supports graceful handling of missing relations through the  parame
 - Functions called/Symbols referenced:
   - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
-  - superuser_arg
+  - [superuser_arg](../s/superuser_arg.md)
   - [IsSystemClass](../I/IsSystemClass.md)
   - [SysCacheGetAttr](../S/SysCacheGetAttr.md)
   - [acldefault](../a/acldefault.md)
   - DatumGetAclP
   - [aclmask](../a/aclmask.md)
-  - has_privs_of_role
+  - [has_privs_of_role](../h/has_privs_of_role.md)
   - [ReleaseSysCache](../R/ReleaseSysCache.md)
 - Called from (representative examples):
   - [pg_class_aclmask](pg_class_aclmask.md)

@@ -22,11 +22,11 @@ durable_rename(const char *oldfile, const char *newfile)
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fsync_fname_ext
-  - OpenTransientFile
+  - [fsync_fname_ext](../f/fsync_fname_ext.md)
+  - [OpenTransientFile](../O/OpenTransientFile.md)
   - PG_BINARY
-  - pg_fsync
-  - CloseTransientFile
+  - [pg_fsync](../p/pg_fsync.md)
+  - [CloseTransientFile](../C/CloseTransientFile.md)
   - rename
   - [fsync_parent_path](../f/fsync_parent_path.md)
 - Called from (representative examples):

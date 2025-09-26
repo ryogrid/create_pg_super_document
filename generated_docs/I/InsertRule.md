@@ -33,7 +33,7 @@ InsertRule performs the low-level catalog insertion of a rewrite rule into the p
 ## Dependencies
 - Functions called/Symbols referenced:
   - [nodeToString](../n/nodeToString.md)
-  - namestrcpy
+  - [namestrcpy](../n/namestrcpy.md)
   - [NameGetDatum](../N/NameGetDatum.md)
   - [CharGetDatum](../C/CharGetDatum.md)
   - [SearchSysCache2](../S/SearchSysCache2.md)

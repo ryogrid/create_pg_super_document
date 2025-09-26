@@ -36,7 +36,7 @@ The function is essential for query planning and execution to avoid referencing 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache2](../S/SearchSysCache2.md) (for catalog lookups)
-  - Int16GetDatum (for datum conversion)
+  - [Int16GetDatum](../I/Int16GetDatum.md) (for datum conversion)
   - [list_nth_oid](../l/list_nth_oid.md) (for list operations)
   - [list_nth](../l/list_nth.md) (for list operations)
   - [get_expr_result_tupdesc](get_expr_result_tupdesc.md) (for function result type analysis)

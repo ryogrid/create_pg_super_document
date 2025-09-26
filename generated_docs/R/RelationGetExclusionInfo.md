@@ -40,7 +40,7 @@ Once found, it extracts the operator OIDs from the  array field, then looks up t
   - IndexRelationGetNumberOfKeyAttributes
   - [palloc](../p/palloc.md)/memcpy
   - [ScanKeyInit](../S/ScanKeyInit.md)
-  - table_open/table_close
+  - [table_open](../t/table_open.md)/table_close
   - [systable_beginscan](../s/systable_beginscan.md)/systable_endscan/systable_getnext
   - [fastgetattr](../f/fastgetattr.md)
   - DatumGetArrayTypeP

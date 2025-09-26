@@ -30,11 +30,11 @@ The function optimizes performance by returning tuples directly from subplans wi
 ## Dependencies
 - Functions called/Symbols referenced:
   - castNode (for type casting to AppendState)
-  - ExecClearTuple (for returning empty results)
+  - [ExecClearTuple](ExecClearTuple.md) (for returning empty results)
   - [ExecAppendAsyncBegin](ExecAppendAsyncBegin.md) (for async subplan initialization)
   - [ExecAppendAsyncGetNext](ExecAppendAsyncGetNext.md) (for async tuple retrieval)
   - [ExecAppendAsyncEventWait](ExecAppendAsyncEventWait.md) (for async event processing)
-  - ExecProcNode (for synchronous subplan execution)
+  - [ExecProcNode](ExecProcNode.md) (for synchronous subplan execution)
   - TupIsNull (for null tuple checking)
   - bms_is_empty (for bitmap set operations)
   - CHECK_FOR_INTERRUPTS (for query cancellation support)

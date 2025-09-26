@@ -35,8 +35,8 @@ The function is designed to be memory-efficient by only converting and replacing
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecClearTuple
-  - slot_getallattrs
+  - [ExecClearTuple](../E/ExecClearTuple.md)
+  - [slot_getallattrs](slot_getallattrs.md)
   - TupleDescAttr
   - [getTypeInputInfo](../g/getTypeInputInfo.md)
   - [OidInputFunctionCall](../O/OidInputFunctionCall.md)

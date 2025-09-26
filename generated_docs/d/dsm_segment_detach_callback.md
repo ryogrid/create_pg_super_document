@@ -26,14 +26,14 @@ This structure represents a single callback registration in PostgreSQL's Dynamic
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slist_node (for linked list functionality)
+  - [slist_node](../s/slist_node.md) (for linked list functionality)
   - on_dsm_detach_callback (callback function type)
   - Datum (PostgreSQL's generic data type)
 - Called from (representative examples):
-  - dsm_detach (uses this structure when processing callbacks)
-  - on_dsm_detach (creates instances of this structure)
-  - cancel_on_dsm_detach (searches for and removes instances)
-  - reset_on_dsm_detach (manages instances during cleanup)
+  - [dsm_detach](dsm_detach.md) (uses this structure when processing callbacks)
+  - [on_dsm_detach](../o/on_dsm_detach.md) (creates instances of this structure)
+  - [cancel_on_dsm_detach](../c/cancel_on_dsm_detach.md) (searches for and removes instances)
+  - [reset_on_dsm_detach](../r/reset_on_dsm_detach.md) (manages instances during cleanup)
 
 ## Notes and Other Information
 - The callback function type is defined as: 

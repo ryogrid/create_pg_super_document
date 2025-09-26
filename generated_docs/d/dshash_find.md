@@ -25,15 +25,15 @@ The  function performs a hash table lookup operation in PostgreSQL's dynamic sha
   - [hash_key](../h/hash_key.md): Computes hash value for the given key
   - PARTITION_FOR_HASH: Macro to determine partition from hash value
   - PARTITION_LOCK: Macro to get partition lock
-  - ensure_valid_bucket_pointers: Ensures bucket pointers are valid
+  - [ensure_valid_bucket_pointers](../e/ensure_valid_bucket_pointers.md): Ensures bucket pointers are valid
   - BUCKET_FOR_HASH: Macro to determine bucket from hash value
-  - find_in_bucket: Searches for item within a specific bucket
+  - [find_in_bucket](../f/find_in_bucket.md): Searches for item within a specific bucket
   - ENTRY_FROM_ITEM: Macro to convert item to entry pointer
-  - LWLockAcquire: Acquires lightweight lock
-  - LWLockRelease: Releases lightweight lock
+  - [LWLockAcquire](../L/LWLockAcquire.md): Acquires lightweight lock
+  - [LWLockRelease](../L/LWLockRelease.md): Releases lightweight lock
 - Called from (representative examples):
-  - ApplyLauncherGetWorkerStartTime: Worker startup time retrieval
-  - pgstat_get_entry_ref: Statistics entry reference retrieval
+  - [ApplyLauncherGetWorkerStartTime](../A/ApplyLauncherGetWorkerStartTime.md): Worker startup time retrieval
+  - [pgstat_get_entry_ref](../p/pgstat_get_entry_ref.md): Statistics entry reference retrieval
   - [lookup_rowtype_tupdesc_internal](../l/lookup_rowtype_tupdesc_internal.md): Type cache lookup operations
 
 ## Notes and Other Information

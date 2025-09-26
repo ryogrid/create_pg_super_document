@@ -26,12 +26,12 @@ The structure supports the recursive nature of JSON by providing a parent pointe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonUniqueStackEntry (self-reference for parent pointer)
+  - [JsonUniqueStackEntry](JsonUniqueStackEntry.md) (self-reference for parent pointer)
 - Called from (representative examples):
-  - json_unique_object_start (when entering a new JSON object)
-  - json_unique_object_end (when exiting a JSON object)  
-  - json_unique_object_field_start (when processing object fields)
-  - JsonUniqueParsingState (as member variable)
+  - [json_unique_object_start](../j/json_unique_object_start.md) (when entering a new JSON object)
+  - [json_unique_object_end](../j/json_unique_object_end.md) (when exiting a JSON object)  
+  - [json_unique_object_field_start](../j/json_unique_object_field_start.md) (when processing object fields)
+  - [JsonUniqueParsingState](JsonUniqueParsingState.md) (as member variable)
 
 ## Notes and Other Information
 - Forms a runtime stack that mirrors the nested structure of JSON objects being parsed

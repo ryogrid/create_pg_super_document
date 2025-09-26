@@ -29,14 +29,14 @@ The function ensures consistency during recovery by processing pages in the corr
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData
-  - XLogInitBufferForRedo
-  - XLogReadBufferForRedo
+  - [XLogInitBufferForRedo](../X/XLogInitBufferForRedo.md)
+  - [XLogReadBufferForRedo](../X/XLogReadBufferForRedo.md)
   - [SpGistInitBuffer](../S/SpGistInitBuffer.md)
   - [addOrReplaceTuple](../a/addOrReplaceTuple.md)
   - [PageIndexTupleDelete](../P/PageIndexTupleDelete.md)
   - PageAddItem
   - [PageSetLSN](../P/PageSetLSN.md)
-  - MarkBufferDirty
+  - [MarkBufferDirty](../M/MarkBufferDirty.md)
   - [BufferGetPage](../B/BufferGetPage.md)
   - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
 - Called from:

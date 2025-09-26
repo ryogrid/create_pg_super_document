@@ -31,7 +31,7 @@ The function distinguishes between statically allocated tuple descriptors (tdref
   - ReleaseTupleDesc
   - [assign_record_type_identifier](../a/assign_record_type_identifier.md)
 - Called from (representative examples):
-  - expanded_record_get_tupdesc (inline function in expandedrecord.h)
+  - [expanded_record_get_tupdesc](expanded_record_get_tupdesc.md) (inline function in expandedrecord.h)
 
 ## Notes and Other Information
 - This is the slow path for tuple descriptor retrieval - the fast path checks erh->er_tupdesc directly

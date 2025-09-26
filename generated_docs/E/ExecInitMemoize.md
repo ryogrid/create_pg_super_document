@@ -23,11 +23,11 @@ ExecInitMemoize performs comprehensive initialization of a Memoize node's runtim
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode
-  - ExecAssignExprContext
+  - [ExecAssignExprContext](ExecAssignExprContext.md)
   - outerPlan
   - [ExecInitNode](ExecInitNode.md)
   - [ExecInitResultTupleSlotTL](ExecInitResultTupleSlotTL.md)
-  - ExecCreateScanSlotFromOuterPlan
+  - [ExecCreateScanSlotFromOuterPlan](ExecCreateScanSlotFromOuterPlan.md)
   - [ExecTypeFromExprList](ExecTypeFromExprList.md)
   - [MakeSingleTupleTableSlot](../M/MakeSingleTupleTableSlot.md)
   - [get_op_hash_functions](../g/get_op_hash_functions.md)

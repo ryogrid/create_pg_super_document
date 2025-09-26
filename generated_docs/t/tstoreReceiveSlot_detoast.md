@@ -29,14 +29,14 @@ The detoasting process involves:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slot_getallattrs
+  - [slot_getallattrs](../s/slot_getallattrs.md)
   - TupleDescAttr
   - VARATT_IS_EXTERNAL
   - [DatumGetPointer](../D/DatumGetPointer.md)
   - [detoast_external_attr](../d/detoast_external_attr.md)
   - [PointerGetDatum](../P/PointerGetDatum.md)
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
-  - tuplestore_putvalues
+  - [tuplestore_putvalues](tuplestore_putvalues.md)
   - [pfree](../p/pfree.md)
 - Called from (representative examples):
   - Set as callback by tstoreStartupReceiver when detoasting is required

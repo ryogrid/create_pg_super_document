@@ -31,7 +31,7 @@ The function uses the same boundary calculation approach as other JSON capture f
 - Functions called/Symbols referenced:
   - [GetState](../G/GetState.md) (struct type for casting state parameter)
   - JsonParseErrorType (return type)
-  - cstring_to_text_with_len (converts C string to PostgreSQL text type)
+  - [cstring_to_text_with_len](../c/cstring_to_text_with_len.md) (converts C string to PostgreSQL text type)
   - JSON_SUCCESS (success return constant)
 - Called from (representative examples):
   - [get_worker](get_worker.md) (JSON extraction worker function)

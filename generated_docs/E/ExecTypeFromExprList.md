@@ -21,18 +21,18 @@ The function uses the PostgreSQL expression analysis functions (exprType, exprTy
 - Functions called/Symbols referenced:
   - [CreateTemplateTupleDesc](../C/CreateTemplateTupleDesc.md)
   - [TupleDescInitEntry](../T/TupleDescInitEntry.md)
-  - exprType
-  - exprTypmod
+  - [exprType](../e/exprType.md)
+  - [exprTypmod](../e/exprTypmod.md)
   - [TupleDescInitEntryCollation](../T/TupleDescInitEntryCollation.md)
   - [exprCollation](../e/exprCollation.md)
-  - list_length
+  - [list_length](../l/list_length.md)
   - lfirst
 
 - Called from (representative examples):
   - [ExecInitExprRec](ExecInitExprRec.md)
   - [ExecInitMemoize](ExecInitMemoize.md)
   - [ExecInitValuesScan](ExecInitValuesScan.md)
-  - ExecQualAndReset
+  - [ExecQualAndReset](ExecQualAndReset.md)
 
 ## Notes and Other Information
 - The function creates tuple descriptors without column names (NULL is passed for the attribute name)

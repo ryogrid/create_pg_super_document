@@ -21,12 +21,12 @@ This function analyzes index qualification expressions to determine the computat
 ## Dependencies
 - Functions called/Symbols referenced:
   - Cost
-  - QualCost
-  - OpExpr
+  - [QualCost](../Q/QualCost.md)
+  - [OpExpr](../O/OpExpr.md)
   - lsecond
   - RowCompareExpr
-  - ScalarArrayOpExpr
-  - NullTest
+  - [ScalarArrayOpExpr](../S/ScalarArrayOpExpr.md)
+  - [NullTest](../N/NullTest.md)
   - nodeTag
   - [cost_qual_eval_node](../c/cost_qual_eval_node.md)
 - Called from (representative examples):

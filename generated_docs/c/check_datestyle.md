@@ -36,7 +36,7 @@ The function also handles the special "DEFAULT" keyword by recursively parsing t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SplitIdentifierString: Parses comma-separated configuration values
+  - [SplitIdentifierString](../S/SplitIdentifierString.md): Parses comma-separated configuration values
   - GUC_check_errdetail: Reports detailed error messages for GUC validation failures
   - [pg_strcasecmp](../p/pg_strcasecmp.md), pg_strncasecmp: Case-insensitive string comparison functions
   - [guc_malloc](../g/guc_malloc.md), guc_free, guc_strdup: GUC memory management functions

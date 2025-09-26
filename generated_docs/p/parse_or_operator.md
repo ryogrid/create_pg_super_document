@@ -22,13 +22,13 @@ The function implements a lookahead mechanism to verify that there is indeed an 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TSQueryParserState
+  - [TSQueryParserState](../T/TSQueryParserState.md)
   - [pg_strncasecmp](pg_strncasecmp.md)
   - t_iseq
   - [t_isalnum](../t/t_isalnum.md)
   - [pg_mblen](pg_mblen.md)
   - [t_isspace](../t/t_isspace.md)
-  - ts_tokentype
+  - [ts_tokentype](../t/ts_tokentype.md)
 - Called from (representative examples):
   - [gettoken_query_websearch](../g/gettoken_query_websearch.md)
 

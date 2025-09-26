@@ -41,7 +41,7 @@ The final array is sorted and deduplicated to enable efficient binary search ope
   - [repalloc](../r/repalloc.md): Resizes array when more space is needed
   - `qsort`: Sorts the block array for binary search efficiency
   - [qunique](../q/qunique.md): Removes duplicates from sorted array
-  - `_bt_blk_cmp`: Comparison function for block number sorting
+  - `[_bt_blk_cmp](_bt_blk_cmp.md)`: Comparison function for block number sorting
 - Called from (representative examples):
   - [_bt_simpledel_pass](_bt_simpledel_pass.md): To get blocks for deletion candidate identification
 

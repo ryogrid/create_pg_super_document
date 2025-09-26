@@ -42,21 +42,21 @@ The function builds a linked sequence of FormatNode structures, each representin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - suff_search (for prefix/postfix lookup)
-  - index_seq_search (for keyword identification)
-  - NUMDesc_prepare (for numeric format processing)
-  - is_separator_char (for separator character detection)
-  - pg_mblen (for multi-byte character length)
-  - pnstrdup (for string duplication in error messages)
+  - [suff_search](../s/suff_search.md) (for prefix/postfix lookup)
+  - [index_seq_search](../i/index_seq_search.md) (for keyword identification)
+  - [NUMDesc_prepare](../N/NUMDesc_prepare.md) (for numeric format processing)
+  - [is_separator_char](../i/is_separator_char.md) (for separator character detection)
+  - [pg_mblen](pg_mblen.md) (for multi-byte character length)
+  - [pnstrdup](pnstrdup.md) (for string duplication in error messages)
   - Various NODE_TYPE_* constants and flag macros
 - Called from (representative examples):
   - DCH_ZONED
-  - DCH_cache_fetch  
-  - datetime_to_char_body
-  - datetime_format_has_tz
-  - do_to_timestamp
-  - NUM_cache_fetch
-  - NUM_cache
+  - [DCH_cache_fetch](../D/DCH_cache_fetch.md)  
+  - [datetime_to_char_body](../d/datetime_to_char_body.md)
+  - [datetime_format_has_tz](../d/datetime_format_has_tz.md)
+  - [do_to_timestamp](../d/do_to_timestamp.md)
+  - [NUM_cache_fetch](../N/NUM_cache_fetch.md)
+  - [NUM_cache](../N/NUM_cache.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within formatting.c

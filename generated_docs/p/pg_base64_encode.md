@@ -30,7 +30,7 @@ The encoding process works by:
 - Functions called/Symbols referenced:
   - _base64 (Base64 character lookup table - referenced implicitly)
 - Called from (representative examples):
-  - esc_dec_len (escape decoder length calculation function)
+  - [esc_dec_len](../e/esc_dec_len.md) (escape decoder length calculation function)
 
 ## Notes and Other Information
 - Returns the number of characters written to the destination buffer (uint64)

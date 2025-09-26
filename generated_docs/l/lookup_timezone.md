@@ -19,7 +19,7 @@ The `lookup_timezone` function is a utility function that converts a PostgreSQL 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - text_to_cstring_buffer
+  - [text_to_cstring_buffer](../t/text_to_cstring_buffer.md)
   - [DecodeTimezoneNameToTz](../D/DecodeTimezoneNameToTz.md)
 - Constants referenced:
   - TZ_STRLEN_MAX

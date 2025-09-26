@@ -28,7 +28,7 @@ dotrim is a static helper function that implements the common trimming logic use
 - Functions called/Symbols referenced:
   - [pg_database_encoding_max_length](../p/pg_database_encoding_max_length.md) (check for multibyte encoding)
   - [pg_mblen](../p/pg_mblen.md) (get multibyte character length)
-  - cstring_to_text_with_len (convert result to text type)
+  - [cstring_to_text_with_len](../c/cstring_to_text_with_len.md) (convert result to text type)
 - Called from (representative examples):
   - [btrim](../b/btrim.md) (bidirectional trimming)
   - [btrim1](../b/btrim1.md) (bidirectional whitespace trimming)

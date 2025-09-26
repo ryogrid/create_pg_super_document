@@ -25,7 +25,7 @@ This function implements the POSIX pthread_mutex_lock functionality for Windows 
   - InitializeCriticalSection (Windows function)
   - EnterCriticalSection (Windows function)
 - Called from (representative examples):
-  - ecpg_get_connection (in src/interfaces/ecpg/ecpglib/connect.c)
+  - [ecpg_get_connection](../e/ecpg_get_connection.md) (in src/interfaces/ecpg/ecpglib/connect.c)
   - [ECPGconnect](../E/ECPGconnect.md) (in src/interfaces/ecpg/ecpglib/connect.c)
   - [ECPGdisconnect](../E/ECPGdisconnect.md) (in src/interfaces/ecpg/ecpglib/connect.c)
   - [ECPGdebug](../E/ECPGdebug.md) (in src/interfaces/ecpg/ecpglib/misc.c)

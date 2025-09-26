@@ -20,8 +20,8 @@ This function selects a random int32 uniformly from the full signed 32-bit integ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - xoroshiro128ss (the core PRNG algorithm)
-  - pg_prng_state (state structure type)
+  - [xoroshiro128ss](../x/xoroshiro128ss.md) (the core PRNG algorithm)
+  - [pg_prng_state](pg_prng_state.md) (state structure type)
 - Called from (representative examples):
   - [prepare_buf](prepare_buf.md) (in pg_test_fsync utility)
 

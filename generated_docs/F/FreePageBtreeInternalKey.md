@@ -31,11 +31,11 @@ The structure uses relative pointers for child references, allowing the btree to
 
 - Called from (representative examples):
   - FPM_ITEMS_PER_INTERNAL_PAGE (capacity calculation macro)
-  - FreePageBtree (union member in btree page structure)
-  - FreePageBtreeConsolidate (btree maintenance operation)
-  - FreePageBtreeInsertInternal (insertion into internal pages)
-  - FreePageBtreeRemovePage (page removal operations)
-  - FreePageBtreeSplitPage (page splitting during insertion)
+  - [FreePageBtree](FreePageBtree.md) (union member in btree page structure)
+  - [FreePageBtreeConsolidate](FreePageBtreeConsolidate.md) (btree maintenance operation)
+  - [FreePageBtreeInsertInternal](FreePageBtreeInsertInternal.md) (insertion into internal pages)
+  - [FreePageBtreeRemovePage](FreePageBtreeRemovePage.md) (page removal operations)
+  - [FreePageBtreeSplitPage](FreePageBtreeSplitPage.md) (page splitting during insertion)
 
 ## Notes and Other Information
 - Forms the navigation structure for internal btree pages in the free page management system

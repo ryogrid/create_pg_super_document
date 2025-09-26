@@ -25,7 +25,7 @@ The function implements careful memory management for Python objects, using prop
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ErrorData (PostgreSQL error data structure)
+  - [ErrorData](../E/ErrorData.md) (PostgreSQL error data structure)
   - Py_BuildValue (Python C API function for creating Python objects)
   - PyObject_CallObject (Python C API function for calling Python objects)
   - PyObject_SetAttrString (Python C API function for setting object attributes)

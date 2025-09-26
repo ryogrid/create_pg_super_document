@@ -25,7 +25,7 @@ The conversion process involves three main steps: 1) decomposing the input tuple
 - Functions called/Symbols referenced:
   - [heap_deform_tuple](../h/heap_deform_tuple.md)
   - [heap_form_tuple](../h/heap_form_tuple.md)
-  - TupleConversionMap (struct)
+  - [TupleConversionMap](../T/TupleConversionMap.md) (struct)
   - [AttrMap](../A/AttrMap.md) (struct)
   - Assert
 - Called from (representative examples):

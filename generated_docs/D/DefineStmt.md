@@ -38,8 +38,8 @@ DefineStmt is a parse tree node structure that represents CREATE statements for 
 - Functions called/Symbols referenced:
   - ObjectType (enumeration for object types)
 - Called from (representative examples):
-  - ProcessUtilitySlow
-  - CreateCommandTag
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md)
+  - [CreateCommandTag](../C/CreateCommandTag.md)
 
 ## Notes and Other Information
 - Part of PostgreSQL parse tree node hierarchy, inheriting from Node via NodeTag

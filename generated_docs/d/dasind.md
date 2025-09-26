@@ -27,7 +27,7 @@ This function implements the PostgreSQL SQL function  with degree output. It tak
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT8: Extracts float8 argument from function call
   - isnan: Checks if input is Not-a-Number
-  - get_float8_nan: Returns NaN value for float8
+  - [get_float8_nan](../g/get_float8_nan.md): Returns NaN value for float8
   - INIT_DEGREE_CONSTANTS: Initializes degree conversion constants
   - [asind_q1](../a/asind_q1.md): Computes inverse sine in degrees for first quadrant values [0, 1]
   - isinf: Checks if result is infinite

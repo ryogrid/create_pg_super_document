@@ -31,7 +31,7 @@ The structure maintains references to both the catalog relation being scanned an
   - [TableScanDescData](../T/TableScanDescData.md) (for heap scan operations)
   - [IndexScanDescData](../I/IndexScanDescData.md) (for index scan operations)
   - [SnapshotData](SnapshotData.md) (for snapshot management)
-  - TupleTableSlot (for tuple storage)
+  - [TupleTableSlot](../T/TupleTableSlot.md) (for tuple storage)
 - Called from (representative examples):
   - [systable_beginscan](../s/systable_beginscan.md)/systable_endscan (generic system table scan functions)
   - [systable_beginscan_ordered](../s/systable_beginscan_ordered.md)/systable_endscan_ordered (ordered system table scans)

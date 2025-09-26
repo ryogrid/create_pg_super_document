@@ -297,7 +297,7 @@ Text creation and manipulation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TwoPhaseGetDummyProc](../T/TwoPhaseGetDummyProc.md) (get dummy process for prepared transaction)
-  - LockTagHashCode (compute hash code for lock tag)
+  - [LockTagHashCode](../L/LockTagHashCode.md) (compute hash code for lock tag)
   - LockHashPartition (determine lock partition)
   - LockHashPartitionLock (get partition lock)
   - [hash_search_with_hash_value](../h/hash_search_with_hash_value.md) (hash table search operations)
@@ -310,10 +310,10 @@ Text creation and manipulation
 - Data structures used:
   - [TwoPhaseLockRecord](../T/TwoPhaseLockRecord.md) (2PC lock record structure)
   - [PGPROC](../P/PGPROC.md) (process structure)
-  - LOCK (lock object structure)
+  - [LOCK](../L/LOCK.md) (lock object structure)
   - [PROCLOCK](../P/PROCLOCK.md) (process lock structure)
-  - LOCKTAG (lock identification tag)
-  - PROCLOCKTAG (process lock tag)
+  - [LOCKTAG](../L/LOCKTAG.md) (lock identification tag)
+  - [PROCLOCKTAG](../P/PROCLOCKTAG.md) (process lock tag)
 - Global variables accessed:
   - LockMethods (array of lock method tables)
   - LockMethodLockHash (lock hash table)

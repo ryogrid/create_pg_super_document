@@ -25,7 +25,7 @@ The function implements a key optimization in PostgreSQL's execution engine: avo
   - [ExecConditionalAssignProjectionInfo](ExecConditionalAssignProjectionInfo.md) (performs the actual projection analysis and setup)
 - Data structures used:
   - [ScanState](../S/ScanState.md)
-  - Scan (plan node)
+  - [Scan](../S/Scan.md) (plan node)
   - [TupleDesc](../T/TupleDesc.md) (from scan tuple slot)
 - Called from (representative examples):
   - [ExecInitSeqScan](ExecInitSeqScan.md) (sequential scan initialization)

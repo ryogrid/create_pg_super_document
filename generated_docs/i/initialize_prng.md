@@ -33,7 +33,7 @@ The function uses the  global flag to ensure initialization occurs only once per
   -  - Normal distribution random generation  
   -  - 32-bit integer random generation
   -  - 64-bit integer random generation
-  -  - Numeric type random generation
+  -  - [Numeric](../N/Numeric.md) type random generation
 
 ## Notes and Other Information
 - This is a static function, internal to the pseudorandomfuncs.c module

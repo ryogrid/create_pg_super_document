@@ -37,7 +37,7 @@ The catchange array purging is optimized because the array is maintained in sort
   - memcpy, memmove, pfree (memory operations)
   - DEBUG3 (logging level)
 - Called from (representative examples):
-  - SnapBuildProcessRunningXacts (snapbuild.c:1308)
+  - [SnapBuildProcessRunningXacts](SnapBuildProcessRunningXacts.md) (snapbuild.c:1308)
 
 ## Notes and Other Information
 - Function is declared static, indicating internal use within snapbuild.c

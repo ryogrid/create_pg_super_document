@@ -40,7 +40,7 @@ The function includes extensive logic for hash table setup when subplan.useHashT
   - [get_compatible_hash_operators](../g/get_compatible_hash_operators.md), get_op_hash_functions (for hash function setup)
   - [fmgr_info](../f/fmgr_info.md), fmgr_info_set_expr (for function manager setup)
 - Types used:
-  - SubPlan, SubPlanState, PlanState, EState
+  - [SubPlan](../S/SubPlan.md), SubPlanState, PlanState, EState
   - [ParamExecData](../P/ParamExecData.md), OpExpr, BoolExpr, TargetEntry
   - [TupleDesc](../T/TupleDesc.md), TupleTableSlot
 - Called from (representative examples):
@@ -52,7 +52,7 @@ The function includes extensive logic for hash table setup when subplan.useHashT
 - This function does not link the SubPlan into the parent's subPlan list - that's handled by ExecInitExpr()
 - The function includes error checking for parallel-unsafe subplans in parallelized subqueries
 - For InitPlans, sets up parameter execution data to mark output parameters as needing evaluation
-- Hash table creation is deferred until actually needed, but all supporting infrastructure is initialized
+- [Hash](../H/Hash.md) table creation is deferred until actually needed, but all supporting infrastructure is initialized
 - The function uses a 'hack alert' approach where lefthand expressions use NULL exprcontext initially, filled in later
 - Memory contexts are carefully structured: hashtablecxt for main storage, hashtempcxt for temporary operations
 - Column indexing uses 1-based numbering (keyColIdx) consistent with PostgreSQL conventions

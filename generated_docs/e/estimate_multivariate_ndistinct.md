@@ -242,14 +242,14 @@ The function handles both simple Var nodes and complex expressions, applying app
 ## Dependencies
 - Functions called:
   - planner_rt_fetch
-  - bms_is_member
-  - bms_add_member
-  - bms_num_members
-  - equal
-  - statext_ndistinct_load
+  - [bms_is_member](../b/bms_is_member.md)
+  - [bms_add_member](../b/bms_add_member.md)
+  - [bms_num_members](../b/bms_num_members.md)
+  - [equal](equal.md)
+  - [statext_ndistinct_load](../s/statext_ndistinct_load.md)
   - AttrNumberIsForUserDefinedAttr
 - Called from:
-  - estimate_num_groups (in selfuncs.c:3635)
+  - [estimate_num_groups](estimate_num_groups.md) (in selfuncs.c:3635)
 
 ## Notes and Other Information
 - Returns true if a matching statistics object is found, false otherwise

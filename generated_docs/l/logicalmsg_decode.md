@@ -32,7 +32,7 @@ For transactional messages, the function uses the standard snapshot management t
   - XLogRecGetInfo
   - XLogRecGetOrigin
   - XLogRecGetData
-  - ReorderBufferProcessXid
+  - [ReorderBufferProcessXid](../R/ReorderBufferProcessXid.md)
   - [SnapBuildCurrentState](../S/SnapBuildCurrentState.md)
   - [FilterByOrigin](../F/FilterByOrigin.md)
   - [SnapBuildProcessChange](../S/SnapBuildProcessChange.md)

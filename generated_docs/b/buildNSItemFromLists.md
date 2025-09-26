@@ -25,7 +25,7 @@ This function creates a ParseNamespaceItem for relations that don't have physica
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_length (list operations)
+  - [list_length](../l/list_length.md) (list operations)
   - [palloc0](../p/palloc0.md) (zero-initialized memory allocation)
   - [palloc](../p/palloc.md) (memory allocation)
   - forthree (parallel iteration macro)

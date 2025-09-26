@@ -21,10 +21,10 @@ This static function serves as the core implementation for collecting and organi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WindowFunc
-  - WindowFuncLists
+  - [WindowFunc](../W/WindowFunc.md)
+  - [WindowFuncLists](../W/WindowFuncLists.md)
   - [list_member](../l/list_member.md)
-  - SubLink
+  - [SubLink](../S/SubLink.md)
   - expression_tree_walker
   - [find_window_functions_walker](find_window_functions_walker.md) (recursive call)
 - Called from (representative examples):

@@ -33,11 +33,11 @@ Key features:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - generate_function_name
-  - get_rule_expr
-  - appendStringInfo, appendStringInfoString, appendStringInfoChar
+  - [generate_function_name](generate_function_name.md)
+  - [get_rule_expr](get_rule_expr.md)
+  - [appendStringInfo](../a/appendStringInfo.md), appendStringInfoString, appendStringInfoChar
 - Called from (representative examples):
-  - get_from_clause_item (for relations with TABLESAMPLE clauses)
+  - [get_from_clause_item](get_from_clause_item.md) (for relations with TABLESAMPLE clauses)
 
 ## Notes and Other Information
 - Part of PostgreSQL's statistical sampling functionality introduced in version 9.5+

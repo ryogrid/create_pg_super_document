@@ -25,17 +25,17 @@ This serialization mechanism is primarily used in parallel query processing to e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - serialize_variable
+  - [serialize_variable](../s/serialize_variable.md)
   - dlist_foreach
   - dlist_container
   - memcpy
 - Data structures:
-  - config_generic
-  - dlist_iter
+  - [config_generic](../c/config_generic.md)
+  - [dlist_iter](../d/dlist_iter.md)
 - Global variables:
   - guc_nondef_list
 - Called from:
-  - InitializeParallelDSM
+  - [InitializeParallelDSM](../I/InitializeParallelDSM.md)
   - EmitWarningsOnPlaceholders
 
 ## Notes and Other Information

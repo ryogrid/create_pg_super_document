@@ -29,11 +29,11 @@ This mechanism allows ECPG to automatically free tracked memory when threads ter
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ecpg_alloc (for tracking structure allocation)
-  - get_auto_allocs (to get current list head)
-  - set_auto_allocs (to update list head)
+  - [ecpg_alloc](ecpg_alloc.md) (for tracking structure allocation)
+  - [get_auto_allocs](../g/get_auto_allocs.md) (to get current list head)
+  - [set_auto_allocs](../s/set_auto_allocs.md) (to update list head)
 - Called from (representative examples):
-  - ecpg_auto_alloc (line 108)
+  - [ecpg_auto_alloc](ecpg_auto_alloc.md) (line 108)
   - User code that needs to add existing pointers to automatic cleanup
 
 ## Notes and Other Information

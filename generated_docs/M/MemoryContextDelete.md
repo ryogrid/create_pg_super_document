@@ -29,9 +29,9 @@ The implementation avoids using MemoryContextTraverseNext() because it modifies 
 - Called from (representative examples):
   - [brininsert](../b/brininsert.md)
   - [FreeExecutorState](../F/FreeExecutorState.md)
-  - SPI_finish
+  - [SPI_finish](../S/SPI_finish.md)
   - [AtCommit_Memory](../A/AtCommit_Memory.md)
-  - PortalDrop
+  - [PortalDrop](../P/PortalDrop.md)
 
 ## Notes and Other Information
 - The function includes an assertion to validate that the input context is valid before proceeding

@@ -38,4 +38,4 @@ Special handling is implemented for child relations in inheritance hierarchies, 
 - The CP_SMALL_TLIST flag optimization is crucial for Sort performance as it eliminates unnecessary columns early
 - Special relid handling for child relations ensures correct equivalence class member resolution in inheritance scenarios
 - The function preserves all generic path information (costs, parallel safety, etc.) in the resulting plan node
-- Sort nodes are non-projecting, meaning they pass through their input unchanged except for ordering
+- [Sort](../S/Sort.md) nodes are non-projecting, meaning they pass through their input unchanged except for ordering

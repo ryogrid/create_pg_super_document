@@ -23,12 +23,12 @@ This function serves as a wrapper around computeIterativeZipfian to generate Zip
 ## Dependencies
 - Functions called/Symbols referenced:
   - [computeIterativeZipfian](../c/computeIterativeZipfian.md)
-  - pg_prng_state (type)
+  - [pg_prng_state](../p/pg_prng_state.md) (type)
   - MIN_ZIPFIAN_PARAM (constant)
   - MAX_ZIPFIAN_PARAM (constant)
   - Assert (macro)
 - Called from (representative examples):
-  - evalStandardFunc
+  - [evalStandardFunc](../e/evalStandardFunc.md)
 
 ## Notes and Other Information
 - Validates shape parameter bounds using Assert macro

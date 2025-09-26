@@ -35,8 +35,8 @@ While ARMv8 doesn't strictly require aligned memory access, the implementation p
   - __crc32cd (ARMv8 CRC instruction for 64-bit data)
 - Called from (representative examples):
   - COMP_CRC32C macro (when USE_ARMV8_CRC32C is defined)
-  - pg_comp_crc32c_choose (runtime function selection)
-  - pg_crc32c_armv8_available (availability checking)
+  - [pg_comp_crc32c_choose](pg_comp_crc32c_choose.md) (runtime function selection)
+  - [pg_crc32c_armv8_available](pg_crc32c_armv8_available.md) (availability checking)
 
 ## Notes and Other Information
 - This function is only available when PostgreSQL is compiled with ARMv8 CRC Extension support (USE_ARMV8_CRC32C defined)

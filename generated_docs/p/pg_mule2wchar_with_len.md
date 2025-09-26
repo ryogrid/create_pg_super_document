@@ -33,7 +33,7 @@ Each character type is packed differently into the pg_wchar format using bit shi
   - IS_LC2 (macro to test for LC2 character type)
   - IS_LCPRV2 (macro to test for LCPRV2 character type)
 - Called from:
-  - pg_encoding_set_invalid (as part of encoding function table setup)
+  - [pg_encoding_set_invalid](pg_encoding_set_invalid.md) (as part of encoding function table setup)
 
 ## Notes and Other Information
 - Returns the number of wide characters produced in the conversion

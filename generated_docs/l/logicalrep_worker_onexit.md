@@ -31,13 +31,13 @@ The function includes special handling for parallel apply workers, where session
 ## Dependencies
 - Functions called/Symbols referenced:
   - walrcv_disconnect
-  - logicalrep_worker_detach
-  - FileSetDeleteAll
-  - LockReleaseAll
-  - ApplyLauncherWakeup
+  - [logicalrep_worker_detach](logicalrep_worker_detach.md)
+  - [FileSetDeleteAll](../F/FileSetDeleteAll.md)
+  - [LockReleaseAll](../L/LockReleaseAll.md)
+  - [ApplyLauncherWakeup](../A/ApplyLauncherWakeup.md)
   - DEFAULT_LOCKMETHOD
 - Called from (representative examples):
-  - logicalrep_worker_attach (src/backend/replication/logical/launcher.c:747)
+  - [logicalrep_worker_attach](logicalrep_worker_attach.md) (src/backend/replication/logical/launcher.c:747)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the launcher.c file

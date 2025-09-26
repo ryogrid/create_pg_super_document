@@ -34,7 +34,7 @@ The function is designed to be called within critical sections, so it uses preal
   -  - constant for invalid transaction ID
 - Called from (representative examples):
   -  - during multi-tuple deletion operations
-  -  - when adding nodes requires replacing existing tuples
+  -  - [when](../w/when.md) adding nodes requires replacing existing tuples
   -  - during WAL replay of add node operations
 
 ## Notes and Other Information

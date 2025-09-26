@@ -23,7 +23,7 @@ The function uses a restart mechanism to handle the case where slots are dropped
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReplicationSlotDropPtr](ReplicationSlotDropPtr.md)
-  - ConditionVariableBroadcast
+  - [ConditionVariableBroadcast](../C/ConditionVariableBroadcast.md)
   - LW_SHARED (lock mode)
   - RS_TEMPORARY (slot persistency type)
 - Called from (representative examples):
@@ -31,7 +31,7 @@ The function uses a restart mechanism to handle the case where slots are dropped
   - [ReplicationSlotShmemExit](ReplicationSlotShmemExit.md)
   - [WalSndErrorCleanup](../W/WalSndErrorCleanup.md)
   - [PostgresMain](../P/PostgresMain.md)
-  - SyncReplicationSlots
+  - [SyncReplicationSlots](../S/SyncReplicationSlots.md)
 
 ## Notes and Other Information
 - Only operates on temporary slots (RS_TEMPORARY persistency)

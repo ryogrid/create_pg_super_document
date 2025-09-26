@@ -41,7 +41,7 @@ Unlike other pull-up operations, this function doesn't modify the jointree struc
   -  - Merges range tables and permission info
   -  - Recursively processes UNION leaf queries
   -  - [Node](../N/Node.md) type for range table references
-  -  - Range table entry type for subqueries
+  -  - [Range](../R/Range.md) table entry type for subqueries
 
 - Called from (representative examples):
   -  - During recursive subquery processing

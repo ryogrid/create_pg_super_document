@@ -25,11 +25,11 @@ This function provides access to JIT-compiled functions by looking up their symb
   - [llvm_compile_module](llvm_compile_module.md) (triggers compilation if needed)
   - LLVMOrcLLJITLookup (LLVM 12+ symbol lookup)
   - LLVMOrcGetSymbolAddressIn (LLVM ≤11 symbol lookup)
-  - llvm_error_message (error handling utility)
+  - [llvm_error_message](llvm_error_message.md) (error handling utility)
   - INSTR_TIME_SET_CURRENT/INSTR_TIME_ACCUM_DIFF (timing instrumentation)
   - elog (PostgreSQL error reporting)
 - Called from:
-  - ExecRunCompiledExpr (expression execution)
+  - [ExecRunCompiledExpr](../E/ExecRunCompiledExpr.md) (expression execution)
 
 ## Notes and Other Information
 - Requires being called within a fatal section for safety

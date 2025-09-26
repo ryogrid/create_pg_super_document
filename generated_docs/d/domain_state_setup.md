@@ -39,7 +39,7 @@ An important note is that the cache struct cannot be reused for different domain
 - Called from (representative examples):
   - [domain_in](domain_in.md) (src/backend/utils/adt/domains.c:256)
   - [domain_recv](domain_recv.md) (src/backend/utils/adt/domains.c:315)
-  - domain_check_internal (src/backend/utils/adt/domains.c:389)
+  - [domain_check_internal](domain_check_internal.md) (src/backend/utils/adt/domains.c:389)
 
 ## Notes and Other Information
 - The function validates that the provided OID represents a valid domain type using 

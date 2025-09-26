@@ -33,13 +33,13 @@ Like other value nodes (Integer, Float, Boolean, String), the BitString node can
   - NodeTag (for node type identification)
 
 - Called from (representative examples):
-  - makeBitString (creates BitString nodes)
-  - _outBitString (serializes BitString nodes)
-  - _readA_Const (reads BitString nodes during deserialization)
+  - [makeBitString](../m/makeBitString.md) (creates BitString nodes)
+  - [_outBitString](../o/_outBitString.md) (serializes BitString nodes)
+  - [_readA_Const](../r/_readA_Const.md) (reads BitString nodes during deserialization)
 
 ## Notes and Other Information
 - The BitString node includes the `pg_node_attr(special_read_write)` attribute for special serialization handling
-- BitString nodes can be stored in List structures, unlike plain char* values
+- [BitString](BitString.md) nodes can be stored in List structures, unlike plain char* values
 - The `strVal()` macro (defined in value.h:88) provides convenient access to the bsval field
 - Memory for the bsval string is managed through PostgreSQL's memory context system
 - Used primarily during parsing phase to represent bit string literals in SQL statements

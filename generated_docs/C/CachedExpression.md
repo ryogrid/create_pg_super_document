@@ -41,17 +41,17 @@ The structure participates in PostgreSQL's global invalidation system through re
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_node
+  - [dlist_node](../d/dlist_node.md)
 
 - Called from (representative examples):
-  - GetCachedExpression (src/backend/utils/cache/plancache.c:1679)
-  - FreeCachedExpression (src/backend/utils/cache/plancache.c:1734)
-  - PlanCacheRelCallback (src/backend/utils/cache/plancache.c:2044)
-  - PlanCacheObjectCallback (src/backend/utils/cache/plancache.c:2145)
-  - ResetPlanCache (src/backend/utils/cache/plancache.c:2221)
+  - [GetCachedExpression](../G/GetCachedExpression.md) (src/backend/utils/cache/plancache.c:1679)
+  - [FreeCachedExpression](../F/FreeCachedExpression.md) (src/backend/utils/cache/plancache.c:1734)
+  - [PlanCacheRelCallback](../P/PlanCacheRelCallback.md) (src/backend/utils/cache/plancache.c:2044)
+  - [PlanCacheObjectCallback](../P/PlanCacheObjectCallback.md) (src/backend/utils/cache/plancache.c:2145)
+  - [ResetPlanCache](../R/ResetPlanCache.md) (src/backend/utils/cache/plancache.c:2221)
 
 ## Notes and Other Information
-- CachedExpression is designed for low-overhead caching of scalar expressions
+- [CachedExpression](CachedExpression.md) is designed for low-overhead caching of scalar expressions
 - Unlike CachedPlan, it stores only the planned form to minimize memory usage
 - Invalidation is handled through PostgreSQL's standard cache invalidation system
 - Callers must check is_valid before reusing cached expressions

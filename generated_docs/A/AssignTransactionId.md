@@ -29,8 +29,8 @@ The function uses an iterative approach rather than deep recursion to assign XID
 ## Dependencies
 - Functions called/Symbols referenced:
   - FullTransactionIdIsValid
-  - IsInParallelMode, IsParallelWorker
-  - GetNewTransactionId
+  - [IsInParallelMode](../I/IsInParallelMode.md), IsParallelWorker
+  - [GetNewTransactionId](../G/GetNewTransactionId.md)
   - [SubTransSetParent](../S/SubTransSetParent.md)
   - XidFromFullTransactionId
   - [RegisterPredicateLockingXid](../R/RegisterPredicateLockingXid.md)

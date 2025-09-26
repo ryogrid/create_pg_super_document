@@ -30,10 +30,10 @@ For NULL database values, the function returns 0. The length information is stor
   - [createViewAsClause](../c/createViewAsClause.md)
   - [process_queued_fetch_requests](../p/process_queued_fetch_requests.md)
   - [libpq_fetch_file](../l/libpq_fetch_file.md)
-  - ecpg_get_data
+  - [ecpg_get_data](../e/ecpg_get_data.md)
   - [ECPGget_desc](../E/ECPGget_desc.md)
-  - ecpg_store_result
-  - do_field
+  - [ecpg_store_result](../e/ecpg_store_result.md)
+  - [do_field](../d/do_field.md)
 
 ## Notes and Other Information
 - Returns 0 if the tuple or field number is out of range, or if the field value is NULL

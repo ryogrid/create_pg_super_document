@@ -23,9 +23,9 @@ The function assumes that the caller has already determined that the element is 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fetch_att (performs the actual attribute fetching and conversion)
+  - [fetch_att](../f/fetch_att.md) (performs the actual attribute fetching and conversion)
 - Called from (representative examples):
-  - array_get_element
+  - [array_get_element](../a/array_get_element.md)
 
 ## Notes and Other Information
 - The caller is responsible for null checking before calling this function

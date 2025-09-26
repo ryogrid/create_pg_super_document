@@ -20,18 +20,18 @@ static void log_disconnections(int code, Datum arg)
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Port (structure containing client connection information)
+  - [Port](../P/Port.md) (structure containing client connection information)
   - MyProcPort (global variable pointing to current connection's Port structure)
   - MyStartTimestamp (global variable storing session start time)
-  - TimestampDifference (function to calculate time difference)
-  - GetCurrentTimestamp (function to get current timestamp)
+  - [TimestampDifference](../T/TimestampDifference.md) (function to calculate time difference)
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md) (function to get current timestamp)
   - ereport (PostgreSQL logging function)
-  - errmsg (error message formatting function)
+  - [errmsg](../e/errmsg.md) (error message formatting function)
   - SECS_PER_HOUR (constant for seconds per hour)
   - SECS_PER_MINUTE (constant for seconds per minute)
 
 - Called from (representative examples):
-  - PostgresMain (registered as exit handler)
+  - [PostgresMain](../P/PostgresMain.md) (registered as exit handler)
 
 ## Notes and Other Information
 - Registered as a process exit handler in `PostgresMain`

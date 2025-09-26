@@ -26,10 +26,10 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SimpleLruGetBankLock](../S/SimpleLruGetBankLock.md)
-  - LWLockAcquire
+  - [LWLockAcquire](../L/LWLockAcquire.md)
   - [ZeroMultiXactOffsetPage](../Z/ZeroMultiXactOffsetPage.md)
   - [SimpleLruWritePage](../S/SimpleLruWritePage.md)
-  - LWLockRelease
+  - [LWLockRelease](../L/LWLockRelease.md)
   - [ZeroMultiXactMemberPage](../Z/ZeroMultiXactMemberPage.md)
 - Global variables accessed:
   - MultiXactOffsetCtl

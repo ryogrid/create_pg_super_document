@@ -28,11 +28,11 @@ This design supports the caching strategy where compiled procedure information i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pltcl_proc_key (at line 204) - the hash key structure
-  - pltcl_proc_desc (at line 205) - the procedure descriptor structure
+  - [pltcl_proc_key](pltcl_proc_key.md) (at line 204) - the hash key structure
+  - [pltcl_proc_desc](pltcl_proc_desc.md) (at line 205) - the procedure descriptor structure
 - Called from (representative examples):
-  - _PG_init (referenced at line 456)
-  - compile_pltcl_function (referenced at line 1406)
+  - [_PG_init](../P/_PG_init.md) (referenced at line 456)
+  - [compile_pltcl_function](../c/compile_pltcl_function.md) (referenced at line 1406)
 
 ## Notes and Other Information
 - The `proc_key` field must be first to serve as the hash key in PostgreSQL's hash table implementation

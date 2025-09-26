@@ -28,7 +28,7 @@ This function implements the less-than-or-equal-to comparison operator (`<=`) fo
 - Called from (representative examples):
   - SQL queries using `<=` operator
   - B-tree index range scans
-  - Sort and merge operations
+  - [Sort](../S/Sort.md) and merge operations
 
 ## Notes and Other Information
 Like other UUID comparison functions, this follows PostgreSQL's standard function call convention and delegates to `uuid_internal_cmp` for the actual comparison logic. The `<=` operation returns true when `uuid_internal_cmp` returns a value less than or equal to zero, indicating the first UUID is not greater than the second.

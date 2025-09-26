@@ -28,13 +28,13 @@ This caching mechanism avoids repeated database queries to determine type charac
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ECPGtype_information_cache (self-reference for linked list structure)
+  - [ECPGtype_information_cache](ECPGtype_information_cache.md) (self-reference for linked list structure)
   - ARRAY_TYPE (enumeration for array type classification)
   - locale_t (locale information, though context unclear from this structure alone)
 - Called from (representative examples):
-  - ecpg_finish (src/interfaces/ecpg/ecpglib/connect.c:112)
-  - connection (src/interfaces/ecpg/ecpglib/ecpglib_extern.h:109)
-  - ecpg_type_infocache_push (src/interfaces/ecpg/ecpglib/execute.c:148-151)
+  - [ecpg_finish](../e/ecpg_finish.md) (src/interfaces/ecpg/ecpglib/connect.c:112)
+  - [connection](../c/connection.md) (src/interfaces/ecpg/ecpglib/ecpglib_extern.h:109)
+  - [ecpg_type_infocache_push](../e/ecpg_type_infocache_push.md) (src/interfaces/ecpg/ecpglib/execute.c:148-151)
   - ecpg_is_type_an_array (src/interfaces/ecpg/ecpglib/execute.c:169)
 
 ## Notes and Other Information

@@ -25,7 +25,7 @@ The parser correctly handles escape sequences within quoted identifiers (double 
 - Functions called/Symbols referenced:
   - strlen
   - [pg_encoding_max_length](pg_encoding_max_length.md)
-  - pg_malloc
+  - [pg_malloc](pg_malloc.md)
   - IS_HIGHBIT_SET
   - [PQmblenBounded](../P/PQmblenBounded.md)
   - free

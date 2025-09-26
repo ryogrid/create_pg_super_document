@@ -20,9 +20,9 @@ This function performs the core cryptographic computation of the SCRAM protocol 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - scram_SaltedPassword (derives password using PBKDF2)
-  - scram_ClientKey (derives client key from salted password)
-  - scram_H (computes hash function for stored key)
+  - [scram_SaltedPassword](../s/scram_SaltedPassword.md) (derives password using PBKDF2)
+  - [scram_ClientKey](../s/scram_ClientKey.md) (derives client key from salted password)
+  - [scram_H](../s/scram_H.md) (computes hash function for stored key)
   - [pg_hmac_create](../p/pg_hmac_create.md)/init/update/final/free (HMAC operations)
   - [pg_hmac_error](../p/pg_hmac_error.md) (error reporting for HMAC operations)
 - Called from:

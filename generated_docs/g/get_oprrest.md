@@ -37,7 +37,7 @@ Restriction selectivity is used for conditions like "column op constant" where t
   - [restriction_selectivity](../r/restriction_selectivity.md) (core selectivity estimation)
   - [dependency_is_compatible_clause](../d/dependency_is_compatible_clause.md) (statistics dependency analysis)
   - [statext_is_compatible_clause_internal](../s/statext_is_compatible_clause_internal.md) (extended statistics compatibility)
-  - scalararraysel (scalar array selectivity estimation)
+  - [scalararraysel](../s/scalararraysel.md) (scalar array selectivity estimation)
 
 ## Notes and Other Information
 - This function is part of the lsyscache.c module which provides cached access to system catalog information

@@ -28,15 +28,15 @@ This function is commonly used for generating user-friendly error messages and h
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - config_enum (struct type)
-  - config_enum_entry (struct type)
-  - initStringInfo (StringInfo initialization)
-  - appendStringInfoString (string appending)
-  - appendBinaryStringInfo (binary data appending)
+  - [config_enum](config_enum.md) (struct type)
+  - [config_enum_entry](config_enum_entry.md) (struct type)
+  - [initStringInfo](../i/initStringInfo.md) (StringInfo initialization)
+  - [appendStringInfoString](../a/appendStringInfoString.md) (string appending)
+  - [appendBinaryStringInfo](../a/appendBinaryStringInfo.md) (binary data appending)
   - strlen (string length calculation)
 - Called from (representative examples):
-  - parse_and_validate_value
-  - GetConfigOptionValues
+  - [parse_and_validate_value](../p/parse_and_validate_value.md)
+  - [GetConfigOptionValues](../G/GetConfigOptionValues.md)
 
 ## Notes and Other Information
 - Returns a palloc'd string that must be freed by the caller

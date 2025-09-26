@@ -18,7 +18,7 @@ PQftablecol retrieves the column number within the source table that corresponds
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_field_number: Validates that field_num is within valid range
+  - [check_field_number](../c/check_field_number.md): Validates that field_num is within valid range
 - Called from (representative examples):
   - Client applications querying metadata about result columns
   - Tools that need to map result columns to their source table columns

@@ -54,7 +54,7 @@ This structure is used by the ECPG preprocessor to maintain information about SQ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - arguments (struct used for argsinsert, argsinsert_oos, argsresult, argsresult_oos)
+  - [arguments](../a/arguments.md) (struct used for argsinsert, argsinsert_oos, argsresult, argsresult_oos)
 - Called from (representative examples):
   - No direct callers found in the symbol analysis
 

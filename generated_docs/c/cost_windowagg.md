@@ -42,9 +42,9 @@ The function does not account for spooling costs when data overflows work_mem, w
   - [add_function_cost](../a/add_function_cost.md)
   - [cost_qual_eval_node](cost_qual_eval_node.md)
   - [get_windowclause_startup_tuples](../g/get_windowclause_startup_tuples.md)
-  - WindowClause
-  - WindowFunc
-  - QualCost
+  - [WindowClause](../W/WindowClause.md)
+  - [WindowFunc](../W/WindowFunc.md)
+  - [QualCost](../Q/QualCost.md)
   - Cost
 - Called from (representative examples):
   - [create_windowagg_path](create_windowagg_path.md)

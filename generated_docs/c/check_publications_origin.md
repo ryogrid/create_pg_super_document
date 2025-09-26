@@ -29,24 +29,24 @@ This function performs a critical validation check for logical replication subsc
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_strcasecmp](../p/pg_strcasecmp.md)
-  - initStringInfo
-  - appendStringInfoString
+  - [initStringInfo](../i/initStringInfo.md)
+  - [appendStringInfoString](../a/appendStringInfoString.md)
   - [get_publications_str](../g/get_publications_str.md)
   - [get_namespace_name](../g/get_namespace_name.md)
   - [get_rel_namespace](../g/get_rel_namespace.md)
   - [get_rel_name](../g/get_rel_name.md)
-  - appendStringInfo
+  - [appendStringInfo](../a/appendStringInfo.md)
   - walrcv_exec
   - [pfree](../p/pfree.md)
   - ereport
   - [MakeSingleTupleTableSlot](../M/MakeSingleTupleTableSlot.md)
   - [tuplestore_gettupleslot](../t/tuplestore_gettupleslot.md)
-  - slot_getattr
+  - [slot_getattr](../s/slot_getattr.md)
   - TextDatumGetCString
-  - ExecClearTuple
+  - [ExecClearTuple](../E/ExecClearTuple.md)
   - [list_append_unique](../l/list_append_unique.md)
   - [makeString](../m/makeString.md)
-  - makeStringInfo
+  - [makeStringInfo](../m/makeStringInfo.md)
   - [errdetail_plural](../e/errdetail_plural.md)
   - [ExecDropSingleTupleTableSlot](../E/ExecDropSingleTupleTableSlot.md)
   - [walrcv_clear_result](../w/walrcv_clear_result.md)

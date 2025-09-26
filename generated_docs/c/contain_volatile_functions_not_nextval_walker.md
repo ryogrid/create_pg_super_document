@@ -30,7 +30,7 @@ The function follows the standard PostgreSQL tree walker pattern, returning true
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `check_functions_in_node`: Checks functions in the current node
+  - `[check_functions_in_node](check_functions_in_node.md)`: Checks functions in the current node
   - [contain_volatile_functions_not_nextval_checker](contain_volatile_functions_not_nextval_checker.md): Specialized volatility checker function
   - `query_tree_walker`: Handles recursive traversal of Query nodes
   - `expression_tree_walker`: Handles recursive traversal of expression nodes

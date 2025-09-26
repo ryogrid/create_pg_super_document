@@ -29,7 +29,7 @@ The function supports both explicit closes (with relname parameter) and implicit
 - Functions called/Symbols referenced:
   - RelationGetRelationName
   - elog (for error reporting and debug output)  
-  - table_close
+  - [table_close](../t/table_close.md)
   - NoLock (locking constant)
 - Called from (representative examples):
   - [boot_openrel](../b/boot_openrel.md) (to close previously opened relations)

@@ -25,7 +25,7 @@ The structure follows the standard pattern for shared statistics objects in Post
 - `stats`: Subscription-specific statistics (PgStat_StatSubEntry) containing apply error count, sync error count, and statistical reset timestamp
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PgStatShared_Common
+  - [PgStatShared_Common](PgStatShared_Common.md)
   - [PgStat_StatSubEntry](PgStat_StatSubEntry.md)
 - Called from (representative examples):
   - [pgstat_subscription_flush_cb](../p/pgstat_subscription_flush_cb.md)

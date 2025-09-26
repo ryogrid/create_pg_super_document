@@ -21,9 +21,9 @@ This function performs the actual conversion of a PostgreSQL Datum to JSON text 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeStringInfo (to create output buffer)
+  - [makeStringInfo](../m/makeStringInfo.md) (to create output buffer)
   - [datum_to_json_internal](datum_to_json_internal.md) (to perform the actual conversion logic)
-  - cstring_to_text_with_len (to convert result to PostgreSQL text datum)
+  - [cstring_to_text_with_len](../c/cstring_to_text_with_len.md) (to convert result to PostgreSQL text datum)
 - Called from:
   - [to_json](../t/to_json.md) (main SQL function entry point)
   - [ExecEvalJsonConstructor](../E/ExecEvalJsonConstructor.md) (from executor for JSON constructors)

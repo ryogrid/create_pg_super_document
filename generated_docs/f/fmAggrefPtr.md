@@ -19,7 +19,7 @@ fmAggrefPtr is a forward declaration typedef defined in fmgr.h that creates a po
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Aggref (struct - forward declaration only)
+  - [Aggref](../A/Aggref.md) (struct - forward declaration only)
 - Called from (representative examples):
   - AGG_CONTEXT_WINDOW (aggregate context structure)
 

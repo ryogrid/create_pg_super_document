@@ -22,26 +22,26 @@ This function searches the pg_replication_origin system catalog for a replicatio
 ## Dependencies
 - Functions called/Symbols referenced:
   - CStringGetTextDatum
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - GETSTRUCT
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - ereport
-  - errcode
-  - errmsg
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
   - Form_pg_replication_origin
   - RepOriginId
 - Called from (representative examples):
-  - AlterSubscription
-  - ParallelApplyWorkerMain
-  - replorigin_drop_by_name
-  - pg_replication_origin_oid
-  - pg_replication_origin_session_setup
-  - pg_replication_origin_advance
-  - pg_replication_origin_progress
-  - LogicalRepSyncTableStart
-  - run_apply_worker
-  - binary_upgrade_replorigin_advance
+  - [AlterSubscription](../A/AlterSubscription.md)
+  - [ParallelApplyWorkerMain](../P/ParallelApplyWorkerMain.md)
+  - [replorigin_drop_by_name](replorigin_drop_by_name.md)
+  - [pg_replication_origin_oid](../p/pg_replication_origin_oid.md)
+  - [pg_replication_origin_session_setup](../p/pg_replication_origin_session_setup.md)
+  - [pg_replication_origin_advance](../p/pg_replication_origin_advance.md)
+  - [pg_replication_origin_progress](../p/pg_replication_origin_progress.md)
+  - [LogicalRepSyncTableStart](../L/LogicalRepSyncTableStart.md)
+  - [run_apply_worker](run_apply_worker.md)
+  - [binary_upgrade_replorigin_advance](../b/binary_upgrade_replorigin_advance.md)
 
 ## Notes and Other Information
 - Returns RepOriginId (which is an Oid type) representing the unique identifier of the replication origin

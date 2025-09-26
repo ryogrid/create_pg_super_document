@@ -24,7 +24,7 @@ The function initializes the entry with the provided relation file locator and f
 - Functions called/Symbols referenced:
   - [palloc0](../p/palloc0.md) (zero-initialized memory allocation)
   - memcpy (copies the RelFileLocator structure)
-  - BlockRefTableEntry (return type structure)
+  - [BlockRefTableEntry](../B/BlockRefTableEntry.md) (return type structure)
   - [RelFileLocator](../R/RelFileLocator.md) (file location parameter type)
   - [ForkNumber](../F/ForkNumber.md) (fork number parameter type)
   - InvalidBlockNumber (constant for default limit block)

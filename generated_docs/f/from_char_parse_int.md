@@ -22,11 +22,11 @@ This function provides a simplified interface to from_char_parse_int_len() for c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - from_char_parse_int_len (core parsing function)
-  - FormatNode (struct type)
+  - [from_char_parse_int_len](from_char_parse_int_len.md) (core parsing function)
+  - [FormatNode](../F/FormatNode.md) (struct type)
 - Called from (representative examples):
   - DCH_ZONED (formatting.c:1062)
-  - DCH_from_char (multiple locations: 3572, 3577, 3618, 3759, 3788, 3798, 3803, 3817, 3833, 3838, 3864, 3871, 3881, 3891, 3910, 3915)
+  - [DCH_from_char](../D/DCH_from_char.md) (multiple locations: 3572, 3577, 3618, 3759, 3788, 3798, 3803, 3817, 3833, 3838, 3864, 3871, 3881, 3891, 3910, 3915)
 
 ## Notes and Other Information
 - Returns the number of characters consumed on success, -1 on error

@@ -20,7 +20,7 @@ This function takes no parameters and returns an integer representing the UTF-8 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_char_to_encoding
+  - [pg_char_to_encoding](pg_char_to_encoding.md)
 - Called from (representative examples):
   - PG_UTF8 (macro)
 

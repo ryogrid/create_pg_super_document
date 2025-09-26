@@ -23,7 +23,7 @@ This function parses valid PostgreSQL object identifiers from input text, which 
 - Functions called/Symbols referenced:
   - [pg_log_filter_error](../p/pg_log_filter_error.md)
   - [exit_nicely](../e/exit_nicely.md) (via fstate function pointer)
-  - appendPQExpBufferChar
+  - [appendPQExpBufferChar](../a/appendPQExpBufferChar.md)
   - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
   - [read_quoted_string](read_quoted_string.md)
   - isspace (standard C library)

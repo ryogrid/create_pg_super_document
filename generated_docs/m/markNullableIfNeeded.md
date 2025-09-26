@@ -26,7 +26,7 @@ The function first navigates to the appropriate parse state level based on the V
   - [bms_union](../b/bms_union.md)
 - Called from (representative examples):
   - [buildVarFromNSColumn](../b/buildVarFromNSColumn.md)
-  - transformWholeRowRef
+  - [transformWholeRowRef](../t/transformWholeRowRef.md)
   - [scanNSItemForColumn](../s/scanNSItemForColumn.md)
   - [expandNSItemVars](../e/expandNSItemVars.md)
 

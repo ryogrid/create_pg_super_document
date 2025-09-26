@@ -31,7 +31,7 @@ AggStatePerGroup represents the per-aggregate-per-group working state that track
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AggStatePerGroupData
+  - [AggStatePerGroupData](AggStatePerGroupData.md)
   - Datum (PostgreSQL's generic data value type)
 - Called from (representative examples):
   - [ExecInterpExpr](../E/ExecInterpExpr.md) (various aggregate evaluation functions)

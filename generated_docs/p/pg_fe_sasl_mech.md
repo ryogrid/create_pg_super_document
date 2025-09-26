@@ -32,9 +32,9 @@ Each mechanism implementation must provide implementations for all four callback
 ## Dependencies
 - Functions called/Symbols referenced:
   - SASLStatus (enum defining possible exchange states)
-  - PGconn (PostgreSQL connection structure)
+  - [PGconn](../P/PGconn.md) (PostgreSQL connection structure)
 - Called from (representative examples):
-  - pg_conn (referenced in libpq connection structure)
+  - [pg_conn](pg_conn.md) (referenced in libpq connection structure)
   - Various SASL mechanism implementations
 
 ## Notes and Other Information

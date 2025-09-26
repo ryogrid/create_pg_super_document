@@ -30,10 +30,10 @@ The function includes stack overflow protection, as the maximum recursion depth 
   - NERR
   - REG_ETOOBIG
   - EMPTY (arc type constant)
-  - emptyreachable (recursive call)
+  - [emptyreachable](emptyreachable.md) (recursive call)
 - Called from:
-  - fixempties
-  - emptyreachable (recursive)
+  - [fixempties](../f/fixempties.md)
+  - [emptyreachable](emptyreachable.md) (recursive)
   - REPLACEARC
 
 ## Notes and Other Information

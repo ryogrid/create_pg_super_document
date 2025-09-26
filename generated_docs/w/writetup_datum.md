@@ -22,11 +22,11 @@ This function serializes a datum-based SortTuple to persistent storage via a Log
 ## Dependencies
 - Functions called/Symbols referenced:
   - TuplesortstateGetPublic
-  - datumGetSize
-  - PointerGetDatum
-  - LogicalTapeWrite
+  - [datumGetSize](../d/datumGetSize.md)
+  - [PointerGetDatum](../P/PointerGetDatum.md)
+  - [LogicalTapeWrite](../L/LogicalTapeWrite.md)
 - Called from (representative examples):
-  - tuplesort_begin_datum
+  - [tuplesort_begin_datum](../t/tuplesort_begin_datum.md)
   - CLUSTER_SORT
 
 ## Notes and Other Information

@@ -31,7 +31,7 @@ This implementation is particularly useful for character classification tasks, s
 - Functions called/Symbols referenced:
   - struct mbinterval (structure definition)
 - Called from (representative examples):
-  - ucs_wcwidth
+  - [ucs_wcwidth](../u/ucs_wcwidth.md)
 
 ## Notes and Other Information
 - This is a static function with internal linkage, only accessible within wchar.c

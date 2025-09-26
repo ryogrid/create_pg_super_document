@@ -41,7 +41,7 @@ The function coordinates multiple subsystems including buffer management, transa
   - [SyncPreCheckpoint](../S/SyncPreCheckpoint.md)/SyncPostCheckpoint (storage manager coordination)
   - [WALInsertLockAcquireExclusive](../W/WALInsertLockAcquireExclusive.md)/WALInsertLockRelease (WAL coordination)
   - [XLogInsert](../X/XLogInsert.md)/XLogFlush (WAL record management)
-  - UpdateControlFile (control file updates)
+  - [UpdateControlFile](../U/UpdateControlFile.md) (control file updates)
   - [LogCheckpointStart](../L/LogCheckpointStart.md)/LogCheckpointEnd (checkpoint logging)
   - [RemoveOldXlogFiles](../R/RemoveOldXlogFiles.md)/PreallocXlogFiles (WAL file management)
   - [GetVirtualXIDsDelayingChkpt](../G/GetVirtualXIDsDelayingChkpt.md) (transaction coordination)

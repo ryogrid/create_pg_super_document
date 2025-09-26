@@ -28,22 +28,22 @@ The function includes null pointer checking and stack depth verification to prev
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth (stack overflow protection)
-  - pfree (PostgreSQL memory deallocation)
-  - QTNFree (recursive self-call)
+  - [check_stack_depth](../c/check_stack_depth.md) (stack overflow protection)
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation)
+  - [QTNFree](QTNFree.md) (recursive self-call)
 - Data types and constants used:
-  - QTNode
+  - [QTNode](QTNode.md)
   - QI_VAL (query item type for values)
   - QI_OPR (query item type for operators)  
   - QTN_WORDFREE (flag indicating word should be freed)
   - QTN_NEEDFREE (flag indicating valnode should be freed)
 - Called from (representative examples):
-  - tsquery_and
-  - tsquery_or
-  - tsquery_not
-  - CompareTSQ
-  - findeq
-  - tsquery_rewrite_query
+  - [tsquery_and](../t/tsquery_and.md)
+  - [tsquery_or](../t/tsquery_or.md)
+  - [tsquery_not](../t/tsquery_not.md)
+  - [CompareTSQ](../C/CompareTSQ.md)
+  - [findeq](../f/findeq.md)
+  - [tsquery_rewrite_query](../t/tsquery_rewrite_query.md)
 
 ## Notes and Other Information
 - The function is null-safe and returns immediately if passed a NULL pointer

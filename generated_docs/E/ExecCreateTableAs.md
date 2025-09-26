@@ -40,9 +40,9 @@ The function manages snapshot handling, query descriptor creation, executor life
   - [create_ctas_nodata](../c/create_ctas_nodata.md)
   - [QueryRewrite](../Q/QueryRewrite.md)
   - [pg_plan_query](../p/pg_plan_query.md)
-  - PushCopiedSnapshot
-  - GetActiveSnapshot
-  - UpdateActiveSnapshotCommandId
+  - [PushCopiedSnapshot](../P/PushCopiedSnapshot.md)
+  - [GetActiveSnapshot](../G/GetActiveSnapshot.md)
+  - [UpdateActiveSnapshotCommandId](../U/UpdateActiveSnapshotCommandId.md)
   - [CreateQueryDesc](../C/CreateQueryDesc.md)
   - [GetIntoRelEFlags](../G/GetIntoRelEFlags.md)
   - [ExecutorStart](ExecutorStart.md)

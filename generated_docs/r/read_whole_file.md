@@ -30,10 +30,10 @@ The implementation follows these steps:
 ## Dependencies
 - Functions called/Symbols referenced:
   - [stat](../s/stat.md) (system call)
-  - AllocateFile
+  - [AllocateFile](../A/AllocateFile.md)
   - [palloc](../p/palloc.md)
   - fread
-  - FreeFile
+  - [FreeFile](../F/FreeFile.md)
   - [errcode_for_file_access](../e/errcode_for_file_access.md)
   - ereport
 - Constants referenced:

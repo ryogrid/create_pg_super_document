@@ -35,7 +35,7 @@ Key behaviors include:
 - Functions called/Symbols referenced:
   - [NamespaceCreate](../N/NamespaceCreate.md) (creates the actual namespace)
   - [GetUserIdAndSecContext](../G/GetUserIdAndSecContext.md)/SetUserIdAndSecContext (security context management)
-  - get_rolespec_oid (resolves owner role specification)
+  - [get_rolespec_oid](../g/get_rolespec_oid.md) (resolves owner role specification)
   - [object_aclcheck](../o/object_aclcheck.md) (checks CREATE privilege on database)
   - [checkMembershipInCurrentExtension](../c/checkMembershipInCurrentExtension.md) (validates extension membership for IF NOT EXISTS)
   - [transformCreateSchemaStmtElements](../t/transformCreateSchemaStmtElements.md) (reorganizes embedded statements)

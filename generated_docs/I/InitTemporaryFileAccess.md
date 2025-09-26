@@ -25,10 +25,10 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - before_shmem_exit
-  - BeforeShmemExit_Files
+  - [before_shmem_exit](../b/before_shmem_exit.md)
+  - [BeforeShmemExit_Files](../B/BeforeShmemExit_Files.md)
 - Called from (representative examples):
-  - BaseInit
+  - [BaseInit](../B/BaseInit.md)
 
 ## Notes and Other Information
 - Must be called after InitFileAccess() - enforced by Assert(SizeVfdCache != 0)

@@ -29,7 +29,7 @@ The function sets the scan status to `SUBQUERY_SCAN_UNKNOWN` initially, indicati
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to allocate SubqueryScan node)
-  - SubqueryScan (node type)
+  - [SubqueryScan](../S/SubqueryScan.md) (node type)
   - SUBQUERY_SCAN_UNKNOWN (initial scan status constant)
 - Called from (representative examples):
   - [create_subqueryscan_plan](../c/create_subqueryscan_plan.md)

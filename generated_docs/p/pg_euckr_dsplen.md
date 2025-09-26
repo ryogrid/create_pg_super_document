@@ -19,9 +19,9 @@ The pg_euckr_dsplen function calculates how many display columns a character seq
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_euc_dsplen
+  - [pg_euc_dsplen](pg_euc_dsplen.md)
 - Called from (representative examples):
-  - pg_encoding_set_invalid (via function pointer assignment)
+  - [pg_encoding_set_invalid](pg_encoding_set_invalid.md) (via function pointer assignment)
 
 ## Notes and Other Information
 - This is a static function with internal linkage, only visible within the wchar.c compilation unit

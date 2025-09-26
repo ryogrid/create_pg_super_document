@@ -22,11 +22,11 @@ The function reads the buffer for the specified block, checks if redo is needed,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogReadBufferForRedo
+  - [XLogReadBufferForRedo](../X/XLogReadBufferForRedo.md)
   - [BufferGetPage](../B/BufferGetPage.md)
   - GinPageGetOpaque
   - [PageSetLSN](../P/PageSetLSN.md)
-  - MarkBufferDirty
+  - [MarkBufferDirty](../M/MarkBufferDirty.md)
   - [BufferIsValid](../B/BufferIsValid.md)
   - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
 - Constants used:

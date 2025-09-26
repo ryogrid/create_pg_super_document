@@ -28,12 +28,12 @@ The function includes important safeguards for recovery scenarios, where some tr
 ## Dependencies
 - Functions called/Symbols referenced:
   - TransactionIdToByte, TransactionIdToBIndex, TransactionIdToPage
-  - LWLockHeldByMeInMode, SimpleLruGetBankLock
+  - [LWLockHeldByMeInMode](../L/LWLockHeldByMeInMode.md), SimpleLruGetBankLock
   - XLogRecPtrIsInvalid, GetLSNIndex
   - CLOG_BITS_PER_XACT, CLOG_XACT_BITMASK
   - TRANSACTION_STATUS_* constants
 - Called from:
-  - TransactionIdSetPageStatusInternal (multiple times)
+  - [TransactionIdSetPageStatusInternal](TransactionIdSetPageStatusInternal.md) (multiple times)
 
 ## Notes and Other Information
 - Requires caller to hold the corresponding SLRU bank lock in exclusive mode

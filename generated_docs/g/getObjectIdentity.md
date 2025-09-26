@@ -25,7 +25,7 @@ The function is designed for machine consumption rather than user display, so th
   - [getObjectIdentityParts](getObjectIdentityParts.md) (core implementation function)
 
 - Called from (representative examples):
-  - pg_identify_object (SQL function for object identification)
+  - [pg_identify_object](../p/pg_identify_object.md) (SQL function for object identification)
   - [pg_event_trigger_ddl_commands](../p/pg_event_trigger_ddl_commands.md) (event trigger system)
   - ObjectAddressSet (object address utility macro/function)
 

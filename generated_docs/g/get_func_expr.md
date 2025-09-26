@@ -31,16 +31,16 @@ The function extracts argument types, handles named arguments, manages variadic 
 ## Dependencies
 - Functions called/Symbols referenced:
   - COERCE_IMPLICIT_CAST, COERCE_EXPLICIT_CAST, COERCE_SQL_SYNTAX (function format constants)
-  - get_rule_expr_paren (for deparsing arguments with parentheses handling)
-  - exprIsLengthCoercion (to detect length coercion functions)
-  - get_coercion_expr (to format cast expressions)
-  - get_func_sql_syntax (to handle special SQL syntax functions)
-  - generate_function_name (to resolve function names with overloading)
-  - get_rule_expr (for deparsing individual arguments)
+  - [get_rule_expr_paren](get_rule_expr_paren.md) (for deparsing arguments with parentheses handling)
+  - [exprIsLengthCoercion](../e/exprIsLengthCoercion.md) (to detect length coercion functions)
+  - [get_coercion_expr](get_coercion_expr.md) (to format cast expressions)
+  - [get_func_sql_syntax](get_func_sql_syntax.md) (to handle special SQL syntax functions)
+  - [generate_function_name](generate_function_name.md) (to resolve function names with overloading)
+  - [get_rule_expr](get_rule_expr.md) (for deparsing individual arguments)
   - IsA, NamedArgExpr (for handling named arguments)
   - FUNC_MAX_ARGS (argument limit constant)
 - Called from:
-  - get_rule_expr (main expression deparsing dispatcher)
+  - [get_rule_expr](get_rule_expr.md) (main expression deparsing dispatcher)
 
 ## Notes and Other Information
 - Part of the rule deparsing system used for displaying views, rules, and constraints

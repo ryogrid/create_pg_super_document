@@ -40,7 +40,7 @@ The function is exported because it's called from prepare.c in EXPLAIN EXECUTE s
   - [ExplainOneQuery](ExplainOneQuery.md)
   - [ExplainExecuteQuery](ExplainExecuteQuery.md)
   - linitial_node
-  - appendStringInfoString
+  - [appendStringInfoString](../a/appendStringInfoString.md)
 - Called from (representative examples):
   - [ExplainOneQuery](ExplainOneQuery.md)
   - [ExplainExecuteQuery](ExplainExecuteQuery.md)

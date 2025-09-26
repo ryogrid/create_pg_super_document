@@ -39,12 +39,12 @@ This sophisticated approach enables PostgreSQL to make informed decisions about 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `get_restriction_variable`: Extracts variable and constant from operation arguments
+  - `[get_restriction_variable](../g/get_restriction_variable.md)`: Extracts variable and constant from operation arguments
   - [pattern_fixed_prefix](pattern_fixed_prefix.md): Extracts fixed prefix and estimates remainder selectivity
   - [var_eq_const](../v/var_eq_const.md): Estimates selectivity for exact equality comparisons
-  - `histogram_selectivity`: Applies pattern to histogram entries for selectivity estimation
+  - `[histogram_selectivity](../h/histogram_selectivity.md)`: Applies pattern to histogram entries for selectivity estimation
   - [prefix_selectivity](prefix_selectivity.md): Estimates selectivity for prefix-based range operations
-  - `mcv_selectivity`: Analyzes most-common-values against the pattern
+  - `[mcv_selectivity](../m/mcv_selectivity.md)`: Analyzes most-common-values against the pattern
   - `ReleaseVariableStats`: Frees variable statistics resources
   - `CLAMP_PROBABILITY`: Ensures result stays within valid probability range
 - Called from (representative examples):

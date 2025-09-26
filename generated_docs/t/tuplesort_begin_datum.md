@@ -28,9 +28,9 @@ This function creates a specialized tuplesort state for sorting raw datum values
   - [tuplesort_begin_common](tuplesort_begin_common.md)
   - TuplesortstateGetPublic
   - [get_typlenbyval](../g/get_typlenbyval.md)
-  - PrepareSortSupportFromOrderingOp
+  - [PrepareSortSupportFromOrderingOp](../P/PrepareSortSupportFromOrderingOp.md)
   - [removeabbrev_datum](../r/removeabbrev_datum.md), comparetup_datum, comparetup_datum_tiebreak
-  - writetup_datum, readtup_datum
+  - [writetup_datum](../w/writetup_datum.md), readtup_datum
 - Called from (representative examples):
   - [validate_index](../v/validate_index.md)
   - [initialize_aggregate](../i/initialize_aggregate.md)

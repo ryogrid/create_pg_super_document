@@ -24,7 +24,7 @@ This function serves as a sanity check routine for the connection parameters  an
   - [pg_strcasecmp](../p/pg_strcasecmp.md) (PostgreSQL case-insensitive string comparison)
 - Called from (representative examples):
   - internalPQconninfoOption
-  - pqConnectOptions2
+  - [pqConnectOptions2](../p/pqConnectOptions2.md)
   - [sslVerifyProtocolRange](sslVerifyProtocolRange.md)
 
 ## Notes and Other Information

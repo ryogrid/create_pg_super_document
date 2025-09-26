@@ -30,10 +30,10 @@ The function is designed to work with EUC character encoding schemes where multi
   - SS2 (Single Shift 2 constant)
   - SS3 (Single Shift 3 constant)
   - IS_HIGHBIT_SET (macro to check if high bit is set)
-  - pg_ascii_dsplen (function for ASCII display length calculation)
+  - [pg_ascii_dsplen](pg_ascii_dsplen.md) (function for ASCII display length calculation)
 - Called from (representative examples):
-  - pg_euckr_dsplen (EUC-KR display length calculation)
-  - pg_johab_dsplen (Johab encoding display length calculation)
+  - [pg_euckr_dsplen](pg_euckr_dsplen.md) (EUC-KR display length calculation)
+  - [pg_johab_dsplen](pg_johab_dsplen.md) (Johab encoding display length calculation)
 
 ## Notes and Other Information
 - This is a static inline function for performance optimization

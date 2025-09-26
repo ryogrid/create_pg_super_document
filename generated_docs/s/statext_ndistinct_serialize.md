@@ -34,10 +34,10 @@ Key aspects of the serialization:
   - SizeOfItem: Macro calculating size of MVNDistinctItem with given number of attributes  
   - SET_VARSIZE: Sets the total size of a variable-length PostgreSQL type
   - VARDATA: Gets pointer to data portion of variable-length type
-  - palloc: PostgreSQL memory allocation
+  - [palloc](../p/palloc.md): PostgreSQL memory allocation
   - memcpy: Memory copy for binary data transfer
 - Called from (representative examples):
-  - statext_store: Stores serialized statistics in system catalog
+  - [statext_store](statext_store.md): Stores serialized statistics in system catalog
 
 ## Notes and Other Information
 - Validates magic number (STATS_NDISTINCT_MAGIC) and type (STATS_NDISTINCT_TYPE_BASIC) before serialization

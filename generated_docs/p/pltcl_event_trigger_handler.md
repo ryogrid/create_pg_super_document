@@ -25,14 +25,14 @@ The handler follows PostgreSQL's event trigger protocol by connecting to the SPI
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SPI_connect
-  - compile_pltcl_function
-  - utf_e2u
-  - GetCommandTagName
-  - throw_tcl_error
-  - SPI_finish
+  - [SPI_connect](../S/SPI_connect.md)
+  - [compile_pltcl_function](../c/compile_pltcl_function.md)
+  - [utf_e2u](../u/utf_e2u.md)
+  - [GetCommandTagName](../G/GetCommandTagName.md)
+  - [throw_tcl_error](../t/throw_tcl_error.md)
+  - [SPI_finish](../S/SPI_finish.md)
 - Called from (representative examples):
-  - pltcl_handler
+  - [pltcl_handler](pltcl_handler.md)
 
 ## Notes and Other Information
 - Increments the function reference count to prevent premature cleanup during execution

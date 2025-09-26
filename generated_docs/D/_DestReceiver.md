@@ -43,17 +43,17 @@ The structure is designed to be extended - destination-specific implementations 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TupleTableSlot (for tuple data handling)
-  - TupleDesc (for tuple structure description)
+  - [TupleTableSlot](../T/TupleTableSlot.md) (for tuple data handling)
+  - [TupleDesc](../T/TupleDesc.md) (for tuple structure description)
   - CommandDest (enum for destination identification)
   - Various destination-specific types and functions
 
 - Called from (representative examples):
-  - printtup_startup, printtup, printtup_shutdown (client output)
-  - copy_dest_startup, copy_dest_receive, copy_dest_shutdown (COPY command)
-  - intorel_startup, intorel_receive, intorel_shutdown (SELECT INTO)
-  - spi_dest_startup, spi_printtup (SPI interface)
-  - tqueueReceiveSlot, tqueueStartupReceiver (tuple queues)
+  - [printtup_startup](../p/printtup_startup.md), printtup, printtup_shutdown (client output)
+  - [copy_dest_startup](../c/copy_dest_startup.md), copy_dest_receive, copy_dest_shutdown (COPY command)
+  - [intorel_startup](../i/intorel_startup.md), intorel_receive, intorel_shutdown (SELECT INTO)
+  - [spi_dest_startup](../s/spi_dest_startup.md), spi_printtup (SPI interface)
+  - [tqueueReceiveSlot](../t/tqueueReceiveSlot.md), tqueueStartupReceiver (tuple queues)
   - Many other destination-specific implementations
 
 ## Notes and Other Information

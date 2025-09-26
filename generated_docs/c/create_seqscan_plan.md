@@ -38,7 +38,7 @@ The sequential scan is the most basic access method in PostgreSQL, reading every
   - [make_seqscan](../m/make_seqscan.md)
   - [copy_generic_path_info](copy_generic_path_info.md)
   - RTE_RELATION (enum value)
-  - SeqScan (struct type)
+  - [SeqScan](../S/SeqScan.md) (struct type)
 - Called from (representative examples):
   - [create_scan_plan](create_scan_plan.md)
 

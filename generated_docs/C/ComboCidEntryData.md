@@ -24,11 +24,11 @@ The hash table allows for efficient lookup and reuse of existing combo CIDs when
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ComboCidKeyData (embedded structure)
+  - [ComboCidKeyData](ComboCidKeyData.md) (embedded structure)
   - CommandId (type)
 - Called from (representative examples):
   - ComboCidEntry (typedef pointer to this structure)
-  - GetComboCommandId (creates and manipulates entries of this type)
+  - [GetComboCommandId](../G/GetComboCommandId.md) (creates and manipulates entries of this type)
 
 ## Notes and Other Information
 - This structure is used exclusively within the combocid.c module as part of the combo command ID hash table implementation

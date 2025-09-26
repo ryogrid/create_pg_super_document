@@ -20,10 +20,10 @@ This function provides a secure password input mechanism for psql with proper si
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - simple_prompt_extended
+  - [simple_prompt_extended](../s/simple_prompt_extended.md)
   - [psprintf](psprintf.md)
   - free
-  - PromptInterruptContext (struct)
+  - [PromptInterruptContext](../P/PromptInterruptContext.md) (struct)
 - Called from (representative examples):
   - [do_connect](../d/do_connect.md)
 

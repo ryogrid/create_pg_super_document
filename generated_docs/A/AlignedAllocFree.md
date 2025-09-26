@@ -33,7 +33,7 @@ The function is designed to work with PostgreSQL's memory context system, ensuri
   - [MemoryChunkGetBlock](../M/MemoryChunkGetBlock.md)
   - VALGRIND_MAKE_MEM_DEFINED
   - [sentinel_ok](../s/sentinel_ok.md) (conditional, for memory checking)
-  - GetMemoryChunkContext (conditional, for memory checking)
+  - [GetMemoryChunkContext](../G/GetMemoryChunkContext.md) (conditional, for memory checking)
   - [pfree](../p/pfree.md)
 - Called from (representative examples):
   - BOGUS_MCTX (memory context operations)

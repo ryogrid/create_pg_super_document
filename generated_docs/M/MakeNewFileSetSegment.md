@@ -23,13 +23,13 @@ The function first constructs the name for the next segment (segment + 1) and de
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FileSetSegmentName: Constructs standardized segment file names
-  - FileSetDelete: Removes potentially conflicting segment files
-  - FileSetCreate: Creates the new segment file in the fileset
+  - [FileSetSegmentName](../F/FileSetSegmentName.md): Constructs standardized segment file names
+  - [FileSetDelete](../F/FileSetDelete.md): Removes potentially conflicting segment files
+  - [FileSetCreate](../F/FileSetCreate.md): Creates the new segment file in the fileset
   - Assert: Validates successful file creation
 - Called from (representative examples):
-  - extendBufFile: When extending a BufFile with additional segments
-  - BufFileCreateFileSet: During initial BufFile creation with filesets
+  - [extendBufFile](../e/extendBufFile.md): When extending a BufFile with additional segments
+  - [BufFileCreateFileSet](../B/BufFileCreateFileSet.md): During initial BufFile creation with filesets
 
 ## Notes and Other Information
 - This is a static function, only accessible within buffile.c

@@ -41,7 +41,7 @@ Unlike ExecMarkPos, this function throws a hard error for unsupported node types
   - [ExecSortRestrPos](ExecSortRestrPos.md) (sort node position restoration)
   - [ExecResultRestrPos](ExecResultRestrPos.md) (result node position restoration)
 - Called from (representative examples):
-  - ExecMergeJoin (merge join operations)
+  - [ExecMergeJoin](ExecMergeJoin.md) (merge join operations)
   - [ExecResultRestrPos](ExecResultRestrPos.md) (result node delegation)
 
 ## Notes and Other Information

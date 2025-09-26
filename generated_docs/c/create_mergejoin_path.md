@@ -45,7 +45,7 @@ This function constructs a MergePath node that represents a merge join execution
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode
-  - get_joinrel_parampathinfo
+  - [get_joinrel_parampathinfo](../g/get_joinrel_parampathinfo.md)
   - [final_cost_mergejoin](../f/final_cost_mergejoin.md)
 - Called from (representative examples):
   - [try_mergejoin_path](../t/try_mergejoin_path.md)

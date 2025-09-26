@@ -20,7 +20,7 @@ This is a simple utility function that counts the number of variables available 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_length (PostgreSQL list utility function to get list length)
+  - [list_length](../l/list_length.md) (PostgreSQL list utility function to get list length)
 - Data types used:
   - [List](../L/List.md) (PostgreSQL list structure)
 - Called from (representative examples):

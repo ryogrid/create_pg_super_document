@@ -22,7 +22,7 @@ This SQL-callable function takes a function OID as input and returns a formatted
   - Form_pg_proc
   - PROKIND_PROCEDURE
   - [print_function_rettype](print_function_rettype.md)
-  - string_to_text
+  - [string_to_text](../s/string_to_text.md)
   - PG_RETURN_TEXT_P
 - Called from (representative examples):
   - No direct callers found in the analyzed codebase

@@ -43,7 +43,7 @@ The function works by:
   - [getdatafield](../g/getdatafield.md) (extracts data from large object tuple)
   - [heap_modify_tuple](../h/heap_modify_tuple.md), `heap_form_tuple`, `heap_freetuple` (tuple management)
   - [CatalogTupleUpdateWithInfo](../C/CatalogTupleUpdateWithInfo.md), `CatalogTupleInsertWithInfo` (catalog updates)
-  - `CommandCounterIncrement` (transaction visibility)
+  - `[CommandCounterIncrement](../C/CommandCounterIncrement.md)` (transaction visibility)
   - `MemSet` (memory zeroing for holes)
   - `MAX_LARGE_OBJECT_SIZE`, `LOBLKSIZE` (size constants)
 - Called from (representative examples):

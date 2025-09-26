@@ -32,8 +32,8 @@ This structure is the core data type for managing database connections in ECPG a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ECPGtype_information_cache
-  - prepared_statement
+  - [ECPGtype_information_cache](../E/ECPGtype_information_cache.md)
+  - [prepared_statement](../p/prepared_statement.md)
 - Called from (representative examples):
   - No direct references found in the current analysis
 

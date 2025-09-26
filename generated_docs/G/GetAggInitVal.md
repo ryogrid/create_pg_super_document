@@ -27,7 +27,7 @@ This static function is responsible for parsing and converting text-based initia
   - [pfree](../p/pfree.md)
 - Called from (representative examples):
   - [ExecInitAgg](../E/ExecInitAgg.md) (src/backend/executor/nodeAgg.c:3872)
-  - initialize_peragg (src/backend/executor/nodeWindowAgg.c:2959)
+  - [initialize_peragg](../i/initialize_peragg.md) (src/backend/executor/nodeWindowAgg.c:2959)
   - [preprocess_aggref](../p/preprocess_aggref.md) (src/backend/optimizer/prep/prepagg.c:214)
 
 ## Notes and Other Information

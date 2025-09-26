@@ -30,9 +30,9 @@ The function handles special cases like invalid tuples from pre-9.1 installation
 - Functions called/Symbols referenced:
   - GistTupleIsInvalid
   - GistPageIsLeaf
-  - get_float8_infinity
+  - [get_float8_infinity](get_float8_infinity.md)
   - [index_getattr](../i/index_getattr.md)
-  - gistdentryinit
+  - [gistdentryinit](gistdentryinit.md)
   - [FunctionCall5Coll](../F/FunctionCall5Coll.md)
   - [DatumGetFloat8](../D/DatumGetFloat8.md)
 - Called from:

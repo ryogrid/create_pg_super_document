@@ -25,7 +25,7 @@ This function is commonly used when working directly with foreign tables and nee
   - [GetFdwRoutineByServerId](GetFdwRoutineByServerId.md)
 - Called from (representative examples):
   - [GetFdwRoutineForRelation](GetFdwRoutineForRelation.md)
-  - make_modifytable
+  - [make_modifytable](../m/make_modifytable.md)
   - [select_rowmark_type](../s/select_rowmark_type.md)
 
 ## Notes and Other Information

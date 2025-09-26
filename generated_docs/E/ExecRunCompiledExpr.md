@@ -35,11 +35,11 @@ The function implements a lazy evaluation pattern where the expensive operations
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CompiledExprState
-  - CheckExprStillValid
-  - llvm_get_function
+  - [CompiledExprState](../C/CompiledExprState.md)
+  - [CheckExprStillValid](../C/CheckExprStillValid.md)
+  - [llvm_get_function](../l/llvm_get_function.md)
 - Called from (representative examples):
-  - llvm_compile_expr
+  - [llvm_compile_expr](../l/llvm_compile_expr.md)
 
 ## Notes and Other Information
 - This function is static and only used internally within the LLVM JIT expression compilation system

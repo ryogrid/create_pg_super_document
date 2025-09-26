@@ -20,7 +20,7 @@ This function performs archive format detection by examining file signatures, di
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_log_debug
-  - pg_malloc0
+  - [pg_malloc0](../p/pg_malloc0.md)
   - [_fileExistsInDirectory](../f/_fileExistsInDirectory.md)
   - [isValidTarHeader](../i/isValidTarHeader.md)
   - S_ISDIR

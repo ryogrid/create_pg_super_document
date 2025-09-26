@@ -35,7 +35,7 @@ The function handles whitespace trimming, validates input format, and provides d
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_TEXT_PP: Extracts text argument from function call
-  - text_to_cstring: Converts PostgreSQL text to C string
+  - [text_to_cstring](../t/text_to_cstring.md): Converts PostgreSQL text to C string
   - isspace, isdigit: Character classification functions
   - DirectFunctionCall3: PostgreSQL function call interface for 3 parameters
   - [numeric_in](../n/numeric_in.md): Converts string to Numeric

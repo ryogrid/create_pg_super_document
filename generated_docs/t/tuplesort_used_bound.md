@@ -21,10 +21,10 @@ The function simply returns the value of the boundUsed flag from the sort state,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Tuplesortstate (sort state structure)
+  - [Tuplesortstate](../T/Tuplesortstate.md) (sort state structure)
 
 - Called from (representative examples):
-  - ExecIncrementalSort (incremental sort node execution to check optimization usage)
+  - [ExecIncrementalSort](../E/ExecIncrementalSort.md) (incremental sort node execution to check optimization usage)
 
 ## Notes and Other Information
 - This is a query function that does not modify the sort state

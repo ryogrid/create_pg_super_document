@@ -52,7 +52,7 @@ The catclist struct describes the result of a partial search in PostgreSQL's cat
 - Functions called/Symbols referenced:
   - [dlist_node](../d/dlist_node.md) (doubly-linked list node structure)
   - CATCACHE_MAXKEYS (maximum number of cache keys)
-  - CatCache (catalog cache structure)
+  - [CatCache](../C/CatCache.md) (catalog cache structure)
   - FLEXIBLE_ARRAY_MEMBER (flexible array member marker)
   - CatCTup (catalog cache tuple structure)
 - Called from (representative examples):

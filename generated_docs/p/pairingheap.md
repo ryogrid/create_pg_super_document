@@ -33,12 +33,12 @@ PostgreSQL uses pairing heaps extensively for priority queues in various subsyst
   - [pairingheap_node](pairingheap_node.md) (for the tree structure)
   - `pairingheap_comparator` (function pointer type)
 - Called from (representative examples):
-  - `pairingheap_allocate` (for creating new heaps)
-  - `pairingheap_add` (for inserting elements)
-  - `pairingheap_remove_first` (for extracting min/max)
-  - `pairingheap_first` (for peeking at min/max)
+  - `[pairingheap_allocate](pairingheap_allocate.md)` (for creating new heaps)
+  - `[pairingheap_add](pairingheap_add.md)` (for inserting elements)
+  - `[pairingheap_remove_first](pairingheap_remove_first.md)` (for extracting min/max)
+  - `[pairingheap_first](pairingheap_first.md)` (for peeking at min/max)
   - [GISTScanOpaqueData](../G/GISTScanOpaqueData.md) (in GIST index scans)
-  - `SpGistScanOpaqueData` (in SP-GIST index scans)
+  - `[SpGistScanOpaqueData](../S/SpGistScanOpaqueData.md)` (in SP-GIST index scans)
   - [IndexScanState](../I/IndexScanState.md) (in query execution)
 
 ## Notes and Other Information

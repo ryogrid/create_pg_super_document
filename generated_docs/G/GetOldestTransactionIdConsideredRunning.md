@@ -27,7 +27,7 @@ The function simply computes all visibility horizons and returns the most conser
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ComputeXidHorizons
+  - [ComputeXidHorizons](../C/ComputeXidHorizons.md)
   - [ComputeXidHorizonsResult](../C/ComputeXidHorizonsResult.md) (struct type)
 - Called from:
   - [CreateCheckPoint](../C/CreateCheckPoint.md)

@@ -27,16 +27,16 @@ The function processes rule metadata including the rule name, event type, target
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SPI_fnumber](../S/SPI_fnumber.md) (gets attribute number by name)
-  - SPI_getbinval (extracts binary attribute value)
+  - [SPI_getbinval](../S/SPI_getbinval.md) (extracts binary attribute value)
   - [SPI_getvalue](../S/SPI_getvalue.md) (extracts string attribute value)
   - [DatumGetName](../D/DatumGetName.md), DatumGetChar, DatumGetObjectId, DatumGetBool (datum conversion functions)
   - [stringToNode](../s/stringToNode.md) (parses stored node trees)
   - [quote_identifier](../q/quote_identifier.md) (quotes SQL identifiers)
-  - generate_relation_name, generate_qualified_relation_name (formats relation names)
+  - [generate_relation_name](../g/generate_relation_name.md), generate_qualified_relation_name (formats relation names)
   - [getInsertSelectQuery](../g/getInsertSelectQuery.md) (handles INSERT...SELECT rules)
   - [AcquireRewriteLocks](../A/AcquireRewriteLocks.md) (acquires necessary locks)
   - [set_deparse_for_query](../s/set_deparse_for_query.md) (sets up deparse context)
-  - get_rule_expr (deparses qualification expressions)
+  - [get_rule_expr](../g/get_rule_expr.md) (deparses qualification expressions)
   - [get_query_def](../g/get_query_def.md) (deparses action queries)
 - Called from (representative examples):
   - [pg_get_ruledef_worker](../p/pg_get_ruledef_worker.md)

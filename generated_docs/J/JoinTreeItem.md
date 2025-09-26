@@ -51,7 +51,7 @@ The structure is populated in two main phases: first during deconstruct_recurse 
 - `*lateral_clauses`: List of qualifications postponed due to lateral references
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JoinDomain
+  - [JoinDomain](JoinDomain.md)
   - [SpecialJoinInfo](../S/SpecialJoinInfo.md)
   - [Node](../N/Node.md)
   - Relids

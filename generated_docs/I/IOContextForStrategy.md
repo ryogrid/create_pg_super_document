@@ -35,10 +35,10 @@ The function handles NULL strategy inputs by returning IOCONTEXT_NORMAL, and inc
   - IOCONTEXT_BULKWRITE
   - IOCONTEXT_VACUUM
 - Called from:
-  - PinBufferForBlock
-  - WaitReadBuffers
-  - ExtendBufferedRelShared
-  - ResourceOwnerForgetBufferIO
+  - [PinBufferForBlock](../P/PinBufferForBlock.md)
+  - [WaitReadBuffers](../W/WaitReadBuffers.md)
+  - [ExtendBufferedRelShared](../E/ExtendBufferedRelShared.md)
+  - [ResourceOwnerForgetBufferIO](../R/ResourceOwnerForgetBufferIO.md)
 
 ## Notes and Other Information
 - The function contains defensive programming with pg_unreachable() calls and error handling for invalid strategy types

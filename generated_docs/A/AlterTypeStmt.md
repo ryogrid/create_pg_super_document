@@ -27,11 +27,11 @@ AlterTypeStmt is a parse node that represents the ALTER TYPE SET statement in Po
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (for type identification)
-  - List (for typeName and options storage)
-  - DefElem (for individual option specifications)
+  - [List](../L/List.md) (for typeName and options storage)
+  - [DefElem](../D/DefElem.md) (for individual option specifications)
 - Called from (representative examples):
-  - AlterType (processes the statement in src/backend/commands/typecmds.c:4312)
-  - ProcessUtilitySlow (dispatches the statement in src/backend/tcop/utility.c:1801)
+  - [AlterType](AlterType.md) (processes the statement in src/backend/commands/typecmds.c:4312)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (dispatches the statement in src/backend/tcop/utility.c:1801)
 
 ## Notes and Other Information
 - This statement is parsed in gram.y with the rule: 

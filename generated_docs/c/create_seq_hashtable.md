@@ -21,7 +21,7 @@ The function sets up a hash table with specific parameters optimized for sequenc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HASHCTL (hash table control structure)
+  - [HASHCTL](../H/HASHCTL.md) (hash table control structure)
   - [SeqTableData](../S/SeqTableData.md) (sequence table data structure)
   - [hash_create](../h/hash_create.md) (creates a new hash table)
   - HASH_ELEM (hash table flag for fixed-size elements)

@@ -38,7 +38,7 @@ Key validation includes checking for concurrent backups in the same session and 
   - [bbsink_throttle_new](../b/bbsink_throttle_new.md)
   - [bbsink_gzip_new](../b/bbsink_gzip_new.md)/bbsink_lz4_new/bbsink_zstd_new
   - [bbsink_progress_new](../b/bbsink_progress_new.md)
-  - bbsink_cleanup
+  - [bbsink_cleanup](../b/bbsink_cleanup.md)
 - Called from (representative examples):
   - [exec_replication_command](../e/exec_replication_command.md) (in walsender.c)
 

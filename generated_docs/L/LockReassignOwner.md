@@ -20,10 +20,10 @@ This internal static function performs the core logic of lock ownership reassign
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwnerRememberLock: Registers the lock with the new resource owner
-  - ResourceOwnerForgetLock: Removes the lock from the current resource owner's tracking
+  - [ResourceOwnerRememberLock](../R/ResourceOwnerRememberLock.md): Registers the lock with the new resource owner
+  - [ResourceOwnerForgetLock](../R/ResourceOwnerForgetLock.md): Removes the lock from the current resource owner's tracking
 - Called from (representative examples):
-  - LockReassignCurrentOwner: Primary caller for bulk lock reassignment operations
+  - [LockReassignCurrentOwner](LockReassignCurrentOwner.md): Primary caller for bulk lock reassignment operations
   - PROCLOCK_PRINT: Used in debug/logging contexts
 
 ## Notes and Other Information
@@ -32,5 +32,5 @@ This internal static function performs the core logic of lock ownership reassign
 - Handles the case where the current resource owner has no locks on the given locallock by returning early
 - When merging lock counts (parent already has locks), performs array compaction to avoid fragmentation
 - The function maintains the critical invariant that resource owners must be properly tracked for all lock ownership
-- Variables ic and ip track indices of current owner and parent owner respectively (-1 indicates not found)
+- [Variables](../V/Variables.md) ic and ip track indices of current owner and parent owner respectively (-1 indicates not found)
 - Array compaction involves moving the last element to fill the gap left by the removed current owner entry

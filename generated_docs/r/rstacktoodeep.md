@@ -25,7 +25,7 @@ The function is designed to be called at strategic points during regex compilati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - stack_is_too_deep - PostgreSQL's core stack depth checking function
+  - [stack_is_too_deep](../s/stack_is_too_deep.md) - PostgreSQL's core stack depth checking function
 - Called from (representative examples):
   - COLORED - Color processing operations that may recurse deeply
 

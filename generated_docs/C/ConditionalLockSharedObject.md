@@ -27,7 +27,7 @@ This function provides a non-blocking variant of LockSharedObject that attempts 
   - [AcceptInvalidationMessages](../A/AcceptInvalidationMessages.md)
   - [MarkLockClear](../M/MarkLockClear.md)
 - Types used:
-  - LOCKTAG
+  - [LOCKTAG](../L/LOCKTAG.md)
   - [LOCALLOCK](../L/LOCALLOCK.md)
   - LockAcquireResult
   - LOCKACQUIRE_NOT_AVAIL

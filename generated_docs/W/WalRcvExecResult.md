@@ -32,7 +32,7 @@ The structure is primarily used in PostgreSQL's logical replication and subscrip
 ## Dependencies
 - Functions called/Symbols referenced:
   - WalRcvExecStatus
-  - Tuplestorestate
+  - [Tuplestorestate](../T/Tuplestorestate.md)
   - [TupleDesc](../T/TupleDesc.md)
 
 - Called from (representative examples):

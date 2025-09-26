@@ -24,17 +24,17 @@ Unlike FreeExprContext, this function preserves the ExprContext structure itself
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ShutdownExprContext (executes shutdown callbacks with isCommit=true)
-  - MemoryContextReset (clears per-tuple memory context without deleting it)
+  - [ShutdownExprContext](../S/ShutdownExprContext.md) (executes shutdown callbacks with isCommit=true)
+  - [MemoryContextReset](../M/MemoryContextReset.md) (clears per-tuple memory context without deleting it)
 
 - Called from (representative examples):
-  - ExecReScan (in src/backend/executor/execAmi.c:127)
-  - agg_retrieve_direct (in src/backend/executor/nodeAgg.c:2248, 2268)
-  - agg_refill_hash_table (in src/backend/executor/nodeAgg.c:2624)
-  - ExecEndAgg (in src/backend/executor/nodeAgg.c:4355, 4357)
-  - ExecReScanAgg (in src/backend/executor/nodeAgg.c:4428, 4456)
-  - ValuesNext (in src/backend/executor/nodeValuesscan.c:101)
-  - domain_check_input (in src/backend/utils/adt/domains.c:219)
+  - [ExecReScan](../E/ExecReScan.md) (in src/backend/executor/execAmi.c:127)
+  - [agg_retrieve_direct](../a/agg_retrieve_direct.md) (in src/backend/executor/nodeAgg.c:2248, 2268)
+  - [agg_refill_hash_table](../a/agg_refill_hash_table.md) (in src/backend/executor/nodeAgg.c:2624)
+  - [ExecEndAgg](../E/ExecEndAgg.md) (in src/backend/executor/nodeAgg.c:4355, 4357)
+  - [ExecReScanAgg](../E/ExecReScanAgg.md) (in src/backend/executor/nodeAgg.c:4428, 4456)
+  - [ValuesNext](../V/ValuesNext.md) (in src/backend/executor/nodeValuesscan.c:101)
+  - [domain_check_input](../d/domain_check_input.md) (in src/backend/utils/adt/domains.c:219)
 
 ## Notes and Other Information
 - This function is crucial for proper rescan behavior in PostgreSQL's executor

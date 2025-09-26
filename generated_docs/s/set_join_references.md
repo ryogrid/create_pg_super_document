@@ -49,8 +49,8 @@ The function ensures that all variable references use the correct varno values (
 
 ## Notes and Other Information
 - The function handles the complexity of outer joins where variables may have nulling relations that are supersets of the original relations due to the NULL-producing nature of outer joins
-- NestLoopParam processing includes special handling for cases where parameterized paths may not exactly match the outer-join level where they are used
-- Hash join processing distinguishes between hash clauses (join conditions) and hash keys (values used for hashtable lookups from the outer plan)
+- [NestLoopParam](../N/NestLoopParam.md) processing includes special handling for cases where parameterized paths may not exactly match the outer-join level where they are used
+- [Hash](../H/Hash.md) join processing distinguishes between hash clauses (join conditions) and hash keys (values used for hashtable lookups from the outer plan)
 - The function includes detailed comments explaining the logical ordering of operations and why certain expressions are processed before others
 - Memory management includes proper cleanup of temporary indexed target lists
 - Located in src/backend/optimizer/plan/setrefs.c:2282-2430

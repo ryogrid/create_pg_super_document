@@ -33,12 +33,12 @@ The function supports incremental parsing for streaming scenarios and provides f
 ## Dependencies
 - Functions called/Symbols referenced:
   - JSON_ALPHANUMERIC_CHAR (character classification macro for trailing garbage detection)
-  - appendBinaryStringInfo (partial token buffer management for incremental parsing)
+  - [appendBinaryStringInfo](../a/appendBinaryStringInfo.md) (partial token buffer management for incremental parsing)
   - JSON error and success constants (JSON_INCOMPLETE, JSON_INVALID_TOKEN, JSON_SUCCESS)
 
 - Called from (representative examples):
-  - json_lex (main lexer for number tokens)
-  - IsValidJsonNumber (number validation utility)
+  - [json_lex](json_lex.md) (main lexer for number tokens)
+  - [IsValidJsonNumber](../I/IsValidJsonNumber.md) (number validation utility)
 
 ## Notes and Other Information
 - Implements strict JSON number format validation per JSON specification

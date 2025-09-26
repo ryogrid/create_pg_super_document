@@ -17,27 +17,27 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BasicOpenFile
+  - [BasicOpenFile](../B/BasicOpenFile.md)
   - write
-  - pg_fsync
+  - [pg_fsync](../p/pg_fsync.md)
   - close
   - memset
   - memcpy
   - ereport
-  - pgstat_report_wait_start
-  - pgstat_report_wait_end
+  - [pgstat_report_wait_start](../p/pgstat_report_wait_start.md)
+  - [pgstat_report_wait_end](../p/pgstat_report_wait_end.md)
   - INIT_CRC32C
   - COMP_CRC32C
   - FIN_CRC32C
-  - errcode_for_file_access
-  - errmsg
+  - [errcode_for_file_access](../e/errcode_for_file_access.md)
+  - [errmsg](../e/errmsg.md)
   - PG_CONTROL_VERSION
   - CATALOG_VERSION_NO
   - XLOG_CONTROL_FILE
   - PG_CONTROL_FILE_SIZE
 - Called from (representative examples):
   - RefreshXLogWriteResult
-  - BootStrapXLOG
+  - [BootStrapXLOG](../B/BootStrapXLOG.md)
 
 ## Notes and Other Information
 - The function creates the file with O_CREAT | O_EXCL flags, meaning it will fail if the file already exists

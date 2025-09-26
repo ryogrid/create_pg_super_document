@@ -29,7 +29,7 @@ This PostgreSQL SQL function creates a physical replication slot used for stream
   - [CheckSlotRequirements](../C/CheckSlotRequirements.md)
   - [create_physical_replication_slot](../c/create_physical_replication_slot.md)
   - [NameGetDatum](../N/NameGetDatum.md)
-  - LSNGetDatum
+  - [LSNGetDatum](../L/LSNGetDatum.md)
   - [heap_form_tuple](../h/heap_form_tuple.md)
   - [HeapTupleGetDatum](../H/HeapTupleGetDatum.md)
   - [ReplicationSlotRelease](../R/ReplicationSlotRelease.md)

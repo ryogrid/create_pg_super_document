@@ -24,13 +24,13 @@ The partition map is distinct from the regular relation map because it is keyed 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_seq_init: Initializes hash table sequential scanning
-  - hash_seq_search: Gets the next entry during sequential hash table scanning
-  - hash_seq_term: Terminates hash table sequential scanning early
-  - LogicalRepPartMapEntry: Structure type for partition map entries
-  - HASH_SEQ_STATUS: Structure type for tracking hash table sequential scan state
+  - [hash_seq_init](../h/hash_seq_init.md): Initializes hash table sequential scanning
+  - [hash_seq_search](../h/hash_seq_search.md): Gets the next entry during sequential hash table scanning
+  - [hash_seq_term](../h/hash_seq_term.md): Terminates hash table sequential scanning early
+  - [LogicalRepPartMapEntry](../L/LogicalRepPartMapEntry.md): Structure type for partition map entries
+  - [HASH_SEQ_STATUS](../H/HASH_SEQ_STATUS.md): Structure type for tracking hash table sequential scan state
 - Called from (representative examples):
-  - logicalrep_partmap_init: Registers this callback with the relation cache invalidation system
+  - [logicalrep_partmap_init](logicalrep_partmap_init.md): Registers this callback with the relation cache invalidation system
 
 ## Notes and Other Information
 - This is a static function, only accessible within the relation.c file

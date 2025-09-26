@@ -50,7 +50,7 @@ This enumeration is used primarily in the TransactionStmt parse node structure t
 - Functions called/Symbols referenced:
   - (None - this is an enumeration type)
 - Called from (representative examples):
-  - TransactionStmt (src/include/nodes/parsenodes.h:3670)
+  - [TransactionStmt](TransactionStmt.md) (src/include/nodes/parsenodes.h:3670)
 
 ## Notes and Other Information
 - TRANS_STMT_START and TRANS_STMT_BEGIN are functionally identical, both representing the SQL BEGIN statement

@@ -25,16 +25,16 @@ This test complements testleftright by validating the reverse traversal directio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - create_int_rbtree (creates test red-black tree)
-  - rbt_begin_iterate (initializes tree iterator for RightLeftWalk)
-  - rbt_iterate (advances iterator and returns next node)
-  - rbt_populate (populates tree with test data)
+  - [create_int_rbtree](../c/create_int_rbtree.md) (creates test red-black tree)
+  - [rbt_begin_iterate](../r/rbt_begin_iterate.md) (initializes tree iterator for RightLeftWalk)
+  - [rbt_iterate](../r/rbt_iterate.md) (advances iterator and returns next node)
+  - [rbt_populate](../r/rbt_populate.md) (populates tree with test data)
   - elog (PostgreSQL error logging)
   - RightLeftWalk (reverse traversal direction constant)
-  - IntRBTreeNode (test-specific node structure)
-  - RBTreeIterator (tree iteration state structure)
+  - [IntRBTreeNode](../I/IntRBTreeNode.md) (test-specific node structure)
+  - [RBTreeIterator](../R/RBTreeIterator.md) (tree iteration state structure)
 - Called from (representative examples):
-  - test_rb_tree (test_rbtree.c:510)
+  - [test_rb_tree](test_rb_tree.md) (test_rbtree.c:510)
 
 ## Notes and Other Information
 - Tests the complementary traversal direction to testleftright, ensuring bidirectional iteration works correctly

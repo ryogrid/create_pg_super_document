@@ -93,21 +93,21 @@ The system supports both saved plans (living for the backend lifetime) and unsav
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RawStmt
+  - [RawStmt](../R/RawStmt.md)
   - CommandTag
-  - SearchPathMatcher
-  - CachedPlan
-  - dlist_node
+  - [SearchPathMatcher](../S/SearchPathMatcher.md)
+  - [CachedPlan](CachedPlan.md)
+  - [dlist_node](../d/dlist_node.md)
 
 - Called from (representative examples):
-  - PrepareQuery (src/backend/commands/prepare.c:60)
-  - SPI_keepplan (src/backend/executor/spi.c:994)
-  - exec_parse_message (src/backend/tcop/postgres.c:1405)
-  - CreateCachedPlan (src/backend/utils/cache/plancache.c:196)
-  - GetCachedPlan (src/backend/utils/cache/plancache.c:1168)
+  - [PrepareQuery](../P/PrepareQuery.md) (src/backend/commands/prepare.c:60)
+  - [SPI_keepplan](../S/SPI_keepplan.md) (src/backend/executor/spi.c:994)
+  - [exec_parse_message](../e/exec_parse_message.md) (src/backend/tcop/postgres.c:1405)
+  - [CreateCachedPlan](CreateCachedPlan.md) (src/backend/utils/cache/plancache.c:196)
+  - [GetCachedPlan](../G/GetCachedPlan.md) (src/backend/utils/cache/plancache.c:1168)
 
 ## Notes and Other Information
-- CachedPlanSource serves as the foundation for PostgreSQL's prepared statement and plan caching infrastructure
+- [CachedPlanSource](CachedPlanSource.md) serves as the foundation for PostgreSQL's prepared statement and plan caching infrastructure
 - The structure maintains statistics to help decide between custom and generic plan usage
 - Invalidation events automatically trigger recompilation of dependent plans
 - Memory management is carefully designed with separate contexts for different lifecycle components

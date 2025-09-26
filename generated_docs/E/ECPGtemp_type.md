@@ -26,8 +26,8 @@ The structure serves as a convenient container for passing around type-name pair
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ECPGtype (type information structure)
-  - ecpg_type_name (function for type name conversion)
+  - [ECPGtype](ECPGtype.md) (type information structure)
+  - [ecpg_type_name](../e/ecpg_type_name.md) (function for type name conversion)
   - ECPGttype (enumeration used by type system)
 - Called from (representative examples):
   - Limited direct usage found in the codebase - appears to be a utility structure

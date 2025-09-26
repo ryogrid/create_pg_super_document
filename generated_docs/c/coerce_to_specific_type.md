@@ -33,7 +33,7 @@ The function is commonly used throughout the PostgreSQL parser when processing S
   - [transformRangeTableFunc](../t/transformRangeTableFunc.md) (src/backend/parser/parse_clause.c:720, 728, 790, 848)
   - [transformRangeTableSample](../t/transformRangeTableSample.md) (src/backend/parser/parse_clause.c:977, 996)
   - [transformLimitClause](../t/transformLimitClause.md) (src/backend/parser/parse_clause.c:1892)
-  - transformXmlExpr (src/backend/parser/parse_expr.c:2435, 2442, 2447, 2453, 2458, 2461, 2464, 2472)
+  - [transformXmlExpr](../t/transformXmlExpr.md) (src/backend/parser/parse_expr.c:2435, 2442, 2447, 2453, 2458, 2461, 2464, 2472)
   - [transformJsonValueExpr](../t/transformJsonValueExpr.md) (src/backend/parser/parse_expr.c:3301)
 
 ## Notes and Other Information

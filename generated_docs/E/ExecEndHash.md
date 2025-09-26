@@ -20,9 +20,9 @@ The function is called as part of the executor's cleanup phase when a query cont
 ## Dependencies
 - Functions called/Symbols referenced:
   - outerPlanState (macro to access outer plan)
-  - ExecEndNode (recursively shuts down child plan nodes)
+  - [ExecEndNode](ExecEndNode.md) (recursively shuts down child plan nodes)
 - Called from (representative examples):
-  - ExecEndNode (general node termination dispatcher)
+  - [ExecEndNode](ExecEndNode.md) (general node termination dispatcher)
 
 ## Notes and Other Information
 - This function follows PostgreSQL's standard executor cleanup pattern where each node type has a corresponding ExecEnd* function

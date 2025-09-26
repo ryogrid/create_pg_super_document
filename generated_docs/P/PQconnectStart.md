@@ -21,7 +21,7 @@ PQconnectStart is a convenience wrapper around PQconnectStartParams that accepts
 - Functions called/Symbols referenced:
   - [pqMakeEmptyPGconn](../p/pqMakeEmptyPGconn.md)
   - [connectOptions1](../c/connectOptions1.md)
-  - pqConnectOptions2
+  - [pqConnectOptions2](../p/pqConnectOptions2.md)
   - [pqConnectDBStart](../p/pqConnectDBStart.md)
   - CONNECTION_BAD (status constant)
 - Called from (representative examples):

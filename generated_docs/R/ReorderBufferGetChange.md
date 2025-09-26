@@ -30,10 +30,10 @@ ReorderBufferGetChange creates a fresh ReorderBufferChange instance by allocatin
   - [DecodeMultiInsert](../D/DecodeMultiInsert.md)
   - [DecodeSpecConfirm](../D/DecodeSpecConfirm.md)
   - [ReorderBufferQueueMessage](ReorderBufferQueueMessage.md)
-  - ReorderBufferAddSnapshot
-  - ReorderBufferAddNewCommandId
-  - ReorderBufferAddNewTupleCids
-  - ReorderBufferQueueInvalidations
+  - [ReorderBufferAddSnapshot](ReorderBufferAddSnapshot.md)
+  - [ReorderBufferAddNewCommandId](ReorderBufferAddNewCommandId.md)
+  - [ReorderBufferAddNewTupleCids](ReorderBufferAddNewTupleCids.md)
+  - [ReorderBufferQueueInvalidations](ReorderBufferQueueInvalidations.md)
   - [ReorderBufferRestoreChange](ReorderBufferRestoreChange.md)
 
 ## Notes and Other Information

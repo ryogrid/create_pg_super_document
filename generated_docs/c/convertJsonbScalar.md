@@ -31,7 +31,7 @@ The function serves as the foundation for JSONB's binary format by properly enco
 - Functions called/Symbols referenced:
   - [appendToBuffer](../a/appendToBuffer.md) (appends string and numeric data to buffer)
   - [padBufferToInt](../p/padBufferToInt.md) (aligns buffer for numeric values)
-  - JsonEncodeDateTime (converts datetime values to string representation)
+  - [JsonEncodeDateTime](../J/JsonEncodeDateTime.md) (converts datetime values to string representation)
   - VARSIZE_ANY (gets size of PostgreSQL varlena types)
 - Constants used:
   - JENTRY_ISNULL (null value flag)
@@ -43,16 +43,16 @@ The function serves as the foundation for JSONB's binary format by properly enco
   - jbvString (JSON string)
   - jbvNumeric (JSON number)
   - jbvBool (JSON boolean)
-  - jbvDatetime (PostgreSQL datetime extension)
+  - [jbvDatetime](../j/jbvDatetime.md) (PostgreSQL datetime extension)
 - Called from:
   - [convertJsonbValue](convertJsonbValue.md) (main conversion dispatcher for scalars)
   - [convertJsonbObject](convertJsonbObject.md) (for object keys, which must be strings)
 
 ## Notes and Other Information
 - Handles all JSON primitive data types plus PostgreSQL's datetime extension
-- String values are stored directly with their length in the JEntry header
-- Numeric values require 4-byte alignment via  and include padding in their length calculation
-- Boolean values don't store data in the buffer, only flags in the JEntry header
+- [String](../S/String.md) values are stored directly with their length in the JEntry header
+- [Numeric](../N/Numeric.md) values require 4-byte alignment via  and include padding in their length calculation
+- [Boolean](../B/Boolean.md) values don't store data in the buffer, only flags in the JEntry header
 - Datetime values are converted to string representation using 
 - Null values only set a flag in the JEntry header without storing data
 - The function includes error handling for invalid scalar types

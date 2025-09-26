@@ -34,7 +34,7 @@ If any array is null or empty, the function returns false, indicating that no ma
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecEvalExpr
+  - [ExecEvalExpr](ExecEvalExpr.md)
   - DatumGetArrayTypeP
   - [get_typlenbyvalalign](../g/get_typlenbyvalalign.md)
   - [deconstruct_array](../d/deconstruct_array.md)
@@ -42,7 +42,7 @@ If any array is null or empty, the function returns false, indicating that no ma
 - Data types used:
   - [IndexArrayKeyInfo](../I/IndexArrayKeyInfo.md)
   - ScanKey
-  - ExprContext
+  - [ExprContext](ExprContext.md)
   - [ArrayType](../A/ArrayType.md)
 - Constants/Macros used:
   - ARR_ELEMTYPE

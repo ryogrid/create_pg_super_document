@@ -26,9 +26,9 @@ The function uses memory management functions specific to the ECPG preprocessor 
 - Functions called/Symbols referenced:
   - [mm_alloc](../m/mm_alloc.md): Memory allocation function for the preprocessor
   - [mm_strdup](../m/mm_strdup.md): String duplication function for the preprocessor
-  - ECPGtype: Type structure for ECPG variables
+  - [ECPGtype](../E/ECPGtype.md): Type structure for ECPG variables
 - Called from (representative examples):
-  - find_struct_member: When processing struct member variables
+  - [find_struct_member](../f/find_struct_member.md): When processing struct member variables
   - [find_variable](../f/find_variable.md): When creating new variable entries during parsing
 
 ## Notes and Other Information

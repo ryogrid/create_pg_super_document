@@ -34,8 +34,8 @@ The function extracts structured data from the WAL record and formats it into a 
   - XLogRecHasBlockData
   - [XLogRecGetBlockData](../X/XLogRecGetBlockData.md)
   - [heap_xlog_deserialize_prune_and_freeze](heap_xlog_deserialize_prune_and_freeze.md)
-  - appendStringInfo
-  - appendStringInfoString
+  - [appendStringInfo](../a/appendStringInfo.md)
+  - [appendStringInfoString](../a/appendStringInfoString.md)
   - [array_desc](../a/array_desc.md)
   - [infobits_desc](../i/infobits_desc.md)
   - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)

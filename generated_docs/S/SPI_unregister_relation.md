@@ -20,10 +20,10 @@ This function is part of the SPI (Server Programming Interface) API that allows 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _SPI_begin_call (to start SPI call context)
+  - [_SPI_begin_call](_SPI_begin_call.md) (to start SPI call context)
   - [_SPI_find_ENR_by_name](_SPI_find_ENR_by_name.md) (to locate the relation by name)
   - [unregister_ENR](../u/unregister_ENR.md) (to actually remove the relation)
-  - _SPI_end_call (to end SPI call context)
+  - [_SPI_end_call](_SPI_end_call.md) (to end SPI call context)
 - Called from (representative examples):
   - Part of the public SPI API (referenced in spi.h)
 

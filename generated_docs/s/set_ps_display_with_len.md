@@ -32,13 +32,13 @@ This is a lower-level function used by higher-level process status functions and
 ## Dependencies
 - Functions called/Symbols referenced:
   - [update_ps_display_precheck](../u/update_ps_display_precheck.md) (prerequisite validation)
-  - flush_ps_display (applies the title change to the system)
+  - [flush_ps_display](../f/flush_ps_display.md) (applies the title change to the system)
   - strlen, memcpy (string manipulation functions)
   - Assert (debugging assertion macro)
 - Called from (representative examples):
   - [exec_simple_query](../e/exec_simple_query.md) (src/backend/tcop/postgres.c:1126)
   - [exec_execute_message](../e/exec_execute_message.md) (src/backend/tcop/postgres.c:2180)  
-  - set_ps_display (src/include/utils/ps_status.h:42 - macro wrapper)
+  - [set_ps_display](set_ps_display.md) (src/include/utils/ps_status.h:42 - macro wrapper)
 
 ## Notes and Other Information
 - The len parameter is provided as an optimization for callers that already know the string length

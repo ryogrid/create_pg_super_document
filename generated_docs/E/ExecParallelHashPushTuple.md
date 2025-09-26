@@ -37,9 +37,9 @@ The implementation follows a typical lock-free stack push pattern:
   - dsa_pointer (type)
 - Called from:
   - [ExecParallelHashRepartitionFirst](ExecParallelHashRepartitionFirst.md)
-  - ExecParallelHashIncreaseNumBuckets
-  - ExecParallelHashTableInsert
-  - ExecParallelHashTableInsertCurrentBatch
+  - [ExecParallelHashIncreaseNumBuckets](ExecParallelHashIncreaseNumBuckets.md)
+  - [ExecParallelHashTableInsert](ExecParallelHashTableInsert.md)
+  - [ExecParallelHashTableInsertCurrentBatch](ExecParallelHashTableInsertCurrentBatch.md)
 
 ## Notes and Other Information
 - This function is critical for maintaining data consistency in parallel hash join operations

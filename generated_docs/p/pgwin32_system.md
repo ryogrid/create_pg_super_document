@@ -25,7 +25,7 @@ The function creates a dynamically allocated buffer that is 2 characters larger 
   - malloc
   - system
 - Called from (representative examples):
-  - pclose (referenced in src/include/port.h)
+  - [pclose](pclose.md) (referenced in src/include/port.h)
 
 ## Notes and Other Information
 - This function is Windows-specific and part of PostgreSQL's portability layer

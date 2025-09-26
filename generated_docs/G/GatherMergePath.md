@@ -28,18 +28,18 @@ This path type is particularly valuable for queries that need sorted results and
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Path (base structure)
+  - [Path](../P/Path.md) (base structure)
 
 - Called from (representative examples):
-  - generate_gather_paths (creates parallel path alternatives)
-  - generate_useful_gather_paths (creates ordered parallel paths)
-  - cost_gather_merge (calculates merge costs)
-  - create_gather_merge_plan (converts to execution plan)
-  - create_gather_merge_path (path creation function)
-  - create_unique_path (for unique ordered results)
+  - [generate_gather_paths](../g/generate_gather_paths.md) (creates parallel path alternatives)
+  - [generate_useful_gather_paths](../g/generate_useful_gather_paths.md) (creates ordered parallel paths)
+  - [cost_gather_merge](../c/cost_gather_merge.md) (calculates merge costs)
+  - [create_gather_merge_plan](../c/create_gather_merge_plan.md) (converts to execution plan)
+  - [create_gather_merge_path](../c/create_gather_merge_path.md) (path creation function)
+  - [create_unique_path](../c/create_unique_path.md) (for unique ordered results)
 
 ## Notes and Other Information
-- GatherMergePath requires that the subpath produces sorted output compatible with the desired final ordering
+- [GatherMergePath](GatherMergePath.md) requires that the subpath produces sorted output compatible with the desired final ordering
 - The merge operation adds overhead compared to simple gathering, but preserves sort order without requiring a separate sort step
 - Cost estimation includes both parallel execution benefits and merge coordination overhead
 - Unlike GatherPath, there is no single_copy flag since the leader always participates in the merge coordination

@@ -33,13 +33,13 @@ The function is designed for efficient bulk transformations and integrates with 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetAnyArrayP
-  - ArrayGetNItems
+  - [DatumGetAnyArrayP](../D/DatumGetAnyArrayP.md)
+  - [ArrayGetNItems](../A/ArrayGetNItems.md)
   - [construct_empty_array](../c/construct_empty_array.md)
   - [get_typlenbyvalalign](../g/get_typlenbyvalalign.md)
-  - array_iter_setup
-  - array_iter_next
-  - ExecEvalExpr
+  - [array_iter_setup](array_iter_setup.md)
+  - [array_iter_next](array_iter_next.md)
+  - [ExecEvalExpr](../E/ExecEvalExpr.md)
   - PG_DETOAST_DATUM
   - att_addlength_datum
   - att_align_nominal

@@ -30,8 +30,8 @@ The function is implemented as an inline wrapper around the platform-specific im
   - [pg_atomic_uint64](pg_atomic_uint64.md) (type)
   - `PG_HAVE_ATOMIC_U64_SIMULATION` (macro)
 - Called from (representative examples):
-  - `LWLockUpdateVar` (src/backend/storage/lmgr/lwlock.c:1733)
-  - `LWLockReleaseClearVar` (src/backend/storage/lmgr/lwlock.c:1862)
+  - `[LWLockUpdateVar](../L/LWLockUpdateVar.md)` (src/backend/storage/lmgr/lwlock.c:1733)
+  - `[LWLockReleaseClearVar](../L/LWLockReleaseClearVar.md)` (src/backend/storage/lmgr/lwlock.c:1862)
   - [test_atomic_uint64](../t/test_atomic_uint64.md) (src/test/regress/regress.c:815)
 
 ## Notes and Other Information

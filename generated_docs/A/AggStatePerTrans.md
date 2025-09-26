@@ -57,13 +57,13 @@ AggStatePerTrans manages the transition state for aggregate functions during exe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AggStatePerTransData
-  - Aggref
+  - [AggStatePerTransData](AggStatePerTransData.md)
+  - [Aggref](Aggref.md)
   - [FmgrInfo](../F/FmgrInfo.md)
-  - ExprState
-  - TupleTableSlot
+  - [ExprState](../E/ExprState.md)
+  - [TupleTableSlot](../T/TupleTableSlot.md)
   - [TupleDesc](../T/TupleDesc.md)
-  - Tuplesortstate
+  - [Tuplesortstate](../T/Tuplesortstate.md)
   - [FunctionCallInfo](../F/FunctionCallInfo.md)
 - Called from (representative examples):
   - [ExecBuildAggTrans](../E/ExecBuildAggTrans.md)

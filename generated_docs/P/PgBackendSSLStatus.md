@@ -48,7 +48,7 @@ All character arrays in this structure must be null-terminated, ensuring safe st
   - [BackendStatusShmemSize](../B/BackendStatusShmemSize.md) (for shared memory sizing)
   - [CreateSharedBackendStatus](../C/CreateSharedBackendStatus.md) (for initialization)
   - [pgstat_bestart](../p/pgstat_bestart.md) (for populating SSL status)
-  - pgstat_read_current_status (for reading SSL information)
+  - [pgstat_read_current_status](../p/pgstat_read_current_status.md) (for reading SSL information)
   - [PgBackendStatus](PgBackendStatus.md) (as a member structure)
 
 ## Notes and Other Information

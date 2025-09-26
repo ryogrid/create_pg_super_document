@@ -42,11 +42,11 @@ During WAL replay, standby servers use this information via  to update their loc
   - FLEXIBLE_ARRAY_MEMBER
   - TransactionId
 - Called from (representative examples):
-  - LogCurrentRunningXacts
-  - standby_redo
-  - SnapBuildProcessRunningXacts
-  - standby_decode
-  - standby_desc
+  - [LogCurrentRunningXacts](../L/LogCurrentRunningXacts.md)
+  - [standby_redo](../s/standby_redo.md)
+  - [SnapBuildProcessRunningXacts](../S/SnapBuildProcessRunningXacts.md)
+  - [standby_decode](../s/standby_decode.md)
+  - [standby_desc](../s/standby_desc.md)
 
 ## Notes and Other Information
 - Records are marked with  as they are not critical for durability

@@ -28,7 +28,7 @@ The function ensures proper initialization of all header fields including datum 
   - HeapTupleHeaderSetDatumLength
   - HeapTupleHeaderSetTypeId
   - HeapTupleHeaderSetTypMod
-  - expanded_record_get_tupdesc
+  - [expanded_record_get_tupdesc](../e/expanded_record_get_tupdesc.md)
   - [ItemPointerSetInvalid](../I/ItemPointerSetInvalid.md)
   - HeapTupleHeaderSetNatts
   - [heap_fill_tuple](../h/heap_fill_tuple.md)

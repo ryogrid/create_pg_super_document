@@ -25,7 +25,7 @@ This function provides an optimized variant of privilege checking where the lang
   - PG_GETARG_NAME: Extract Name argument from function call
   - PG_GETARG_OID: Extract OID argument from function call
   - PG_GETARG_TEXT_PP: Extract text argument from function call
-  - get_role_oid_or_public: Convert username to role OID
+  - [get_role_oid_or_public](../g/get_role_oid_or_public.md): Convert username to role OID
   - [convert_language_priv_string](../c/convert_language_priv_string.md): Convert privilege string to AclMode bitmask
   - [object_aclcheck_ext](../o/object_aclcheck_ext.md): Perform privilege check with missing object detection
 - Called from (representative examples):

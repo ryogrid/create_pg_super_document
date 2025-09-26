@@ -30,7 +30,7 @@ The created Sort node inherits the target list from its child plan and has no ad
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to create the Sort node)
-  - Sort (plan node type)
+  - [Sort](../S/Sort.md) (plan node type)
 - Called from (representative examples):
   - [create_append_plan](../c/create_append_plan.md) (src/backend/optimizer/plan/createplan.c:1360)
   - [create_merge_append_plan](../c/create_merge_append_plan.md) (src/backend/optimizer/plan/createplan.c:1532)

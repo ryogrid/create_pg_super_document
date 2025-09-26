@@ -31,7 +31,7 @@ The function performs several key operations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `lappend`: List manipulation function to add elements to global lists
+  - `[lappend](../l/lappend.md)`: List manipulation function to add elements to global lists
   - `makeNode`: Creates a new SubPlan node
   - [psprintf](../p/psprintf.md): Formatted string printing function
   - [get_first_col_type](../g/get_first_col_type.md): Extracts type information from the plan's first column

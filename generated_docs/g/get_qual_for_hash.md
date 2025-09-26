@@ -26,11 +26,11 @@ The generated constraint ensures that rows are properly distributed among hash p
   - [RelationGetPartitionKey](../R/RelationGetPartitionKey.md)
   - [makeConst](../m/makeConst.md)
   - list_make3
-  - list_head
-  - makeVar
+  - [list_head](../l/list_head.md)
+  - [makeVar](../m/makeVar.md)
   - copyObject
   - [lnext](../l/lnext.md)
-  - makeFuncExpr
+  - [makeFuncExpr](../m/makeFuncExpr.md)
 - Called from (representative examples):
   - [get_qual_from_partbound](get_qual_from_partbound.md)
 

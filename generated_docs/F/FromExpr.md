@@ -33,18 +33,18 @@ The qualification expressions in FromExpr nodes work in conjunction with those i
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (for node identification)
-  - List (for storing join subtrees)
-  - Node (for qualification expressions)
+  - [List](../L/List.md) (for storing join subtrees)
+  - [Node](../N/Node.md) (for qualification expressions)
 - Called from (representative examples):
-  - makeFromExpr (makefuncs.c:336)
-  - add_base_rels_to_query (initsplan.c:167)
-  - deconstruct_jointree (initsplan.c:760)
-  - pull_up_sublinks (prepjointree.c:467)
-  - pull_up_subqueries (prepjointree.c:937)
-  - reduce_outer_joins_pass1 (prepjointree.c:3024)
+  - [makeFromExpr](../m/makeFromExpr.md) (makefuncs.c:336)
+  - [add_base_rels_to_query](../a/add_base_rels_to_query.md) (initsplan.c:167)
+  - [deconstruct_jointree](../d/deconstruct_jointree.md) (initsplan.c:760)
+  - [pull_up_sublinks](../p/pull_up_sublinks.md) (prepjointree.c:467)
+  - [pull_up_subqueries](../p/pull_up_subqueries.md) (prepjointree.c:937)
+  - [reduce_outer_joins_pass1](../r/reduce_outer_joins_pass1.md) (prepjointree.c:3024)
 
 ## Notes and Other Information
-- FromExpr always serves as the top-level node in a Query's jointree structure
+- [FromExpr](FromExpr.md) always serves as the top-level node in a Query's jointree structure
 - More flexible than JoinExpr in terms of number of children, but simpler in terms of alias handling
 - The output column set is implicitly the union of all child node outputs
 - Essential for representing cross-product joins with multiple tables

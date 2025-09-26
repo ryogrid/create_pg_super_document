@@ -75,7 +75,7 @@ The structure handles NULL values appropriately through the elem_nulls array, en
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ScanKeyData](../S/ScanKeyData.md) (structure for index scan keys)
-  - ExprState (expression evaluation state)
+  - [ExprState](../E/ExprState.md) (expression evaluation state)
   - Datum (PostgreSQL's generic data value type)
 - Called from (representative examples):
   - [ExecIndexEvalArrayKeys](../E/ExecIndexEvalArrayKeys.md)

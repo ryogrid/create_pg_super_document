@@ -20,15 +20,15 @@ This function initializes a spinlock in the semaphore-based emulation system by 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slock_t (spinlock type definition)
+  - [slock_t](slock_t.md) (spinlock type definition)
   - NUM_SPINLOCK_SEMAPHORES (number of semaphores for regular spinlocks)
   - NUM_ATOMICS_SEMAPHORES (number of semaphores for atomic operations)
-  - s_check_valid() (validates the assigned semaphore index)
+  - [s_check_valid](s_check_valid.md)() (validates the assigned semaphore index)
 - Called from:
-  - pg_atomic_init_flag_impl (in src/backend/port/atomics.c:67)
-  - pg_atomic_init_u32_impl (in src/backend/port/atomics.c:116)
-  - pg_atomic_init_u64_impl (in src/backend/port/atomics.c:192)
-  - slock_t (in src/include/storage/s_lock.h:739)
+  - [pg_atomic_init_flag_impl](../p/pg_atomic_init_flag_impl.md) (in src/backend/port/atomics.c:67)
+  - [pg_atomic_init_u32_impl](../p/pg_atomic_init_u32_impl.md) (in src/backend/port/atomics.c:116)
+  - [pg_atomic_init_u64_impl](../p/pg_atomic_init_u64_impl.md) (in src/backend/port/atomics.c:192)
+  - [slock_t](slock_t.md) (in src/include/storage/s_lock.h:739)
   - S_INIT_LOCK (in src/include/storage/s_lock.h:744)
 
 ## Notes and Other Information

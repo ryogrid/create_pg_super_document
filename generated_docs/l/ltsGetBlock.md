@@ -24,12 +24,12 @@ This design allows the tape system to switch between different allocation strate
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ltsGetPreallocBlock
-  - ltsGetFreeBlock
-  - LogicalTapeSet (struct)
-  - LogicalTape (struct)
+  - [ltsGetPreallocBlock](ltsGetPreallocBlock.md)
+  - [ltsGetFreeBlock](ltsGetFreeBlock.md)
+  - [LogicalTapeSet](../L/LogicalTapeSet.md) (struct)
+  - [LogicalTape](../L/LogicalTape.md) (struct)
 - Called from (representative examples):
-  - LogicalTapeWrite
+  - [LogicalTapeWrite](../L/LogicalTapeWrite.md)
 
 ## Notes and Other Information
 - Returns an int64 block number that can be used for writing data

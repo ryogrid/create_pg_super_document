@@ -30,9 +30,9 @@ The function handles pages at different levels of the FSM tree correctly by adju
   - FSM_TREE_DEPTH
 - Called from (representative examples):
   - FSMAddress
-  - XLogRecordPageWithFreeSpace
-  - FreeSpaceMapPrepareTruncateRel
-  - fsm_readbuf
+  - [XLogRecordPageWithFreeSpace](../X/XLogRecordPageWithFreeSpace.md)
+  - [FreeSpaceMapPrepareTruncateRel](../F/FreeSpaceMapPrepareTruncateRel.md)
+  - [fsm_readbuf](fsm_readbuf.md)
 
 ## Notes and Other Information
 - This is a static function internal to the freespace.c module

@@ -35,14 +35,14 @@ When statistics are unavailable, it defaults to 0.1 to discourage hash joins on 
 
 ## Dependencies
 - Functions called:
-  - examine_variable
-  - get_attstatsslot
-  - free_attstatsslot
-  - get_variable_numdistinct
-  - clamp_row_est
+  - [examine_variable](examine_variable.md)
+  - [get_attstatsslot](../g/get_attstatsslot.md)
+  - [free_attstatsslot](../f/free_attstatsslot.md)
+  - [get_variable_numdistinct](../g/get_variable_numdistinct.md)
+  - [clamp_row_est](../c/clamp_row_est.md)
   - ReleaseVariableStats
 - Called from:
-  - final_cost_hashjoin (in costsize.c:4277, 4295)
+  - [final_cost_hashjoin](../f/final_cost_hashjoin.md) (in costsize.c:4277, 4295)
 
 ## Notes and Other Information
 - The function includes extensive comments acknowledging its limitations in predicting how restriction clauses affect hash key distributions

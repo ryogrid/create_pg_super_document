@@ -30,25 +30,25 @@ This function is typically used when role DDL operations need access to complete
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RoleSpec (parser node type for role specifications)
+  - [RoleSpec](../R/RoleSpec.md) (parser node type for role specifications)
   - ROLESPEC_CSTRING (enum value for string role names)
   - ROLESPEC_CURRENT_ROLE (enum value for CURRENT_ROLE keyword)
   - ROLESPEC_CURRENT_USER (enum value for CURRENT_USER keyword)
   - ROLESPEC_SESSION_USER (enum value for SESSION_USER keyword)
   - ROLESPEC_PUBLIC (enum value for PUBLIC keyword)
-  - SearchSysCache1 (system cache lookup function)
-  - CStringGetDatum (converts C string to PostgreSQL Datum)
-  - ObjectIdGetDatum (converts OID to PostgreSQL Datum)
-  - GetUserId (returns current user OID)
-  - GetSessionUserId (returns session user OID)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup function)
+  - [CStringGetDatum](../C/CStringGetDatum.md) (converts C string to PostgreSQL Datum)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) (converts OID to PostgreSQL Datum)
+  - [GetUserId](../G/GetUserId.md) (returns current user OID)
+  - [GetSessionUserId](../G/GetSessionUserId.md) (returns session user OID)
   - HeapTupleIsValid (checks if tuple is valid)
   - Assert (assertion macro)
   - ereport/elog (error reporting functions)
 - Called from (representative examples):
-  - CreateRole (role creation command)
-  - AlterRole (role alteration command)
-  - AlterRoleSet (SET configuration for roles)
-  - get_rolespec_name (extracts role name from RoleSpec)
+  - [CreateRole](../C/CreateRole.md) (role creation command)
+  - [AlterRole](../A/AlterRole.md) (role alteration command)
+  - [AlterRoleSet](../A/AlterRoleSet.md) (SET configuration for roles)
+  - [get_rolespec_name](get_rolespec_name.md) (extracts role name from RoleSpec)
 
 ## Notes and Other Information
 - The caller MUST call ReleaseSysCache() on the returned tuple to avoid memory leaks

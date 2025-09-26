@@ -56,7 +56,7 @@ The  function is responsible for processing explicit type cast operations in SQL
   - [typenameTypeIdAndMod](typenameTypeIdAndMod.md)
   - [getBaseTypeAndTypmod](../g/getBaseTypeAndTypmod.md)  
   - [get_element_type](../g/get_element_type.md)
-  - transformArrayExpr
+  - [transformArrayExpr](transformArrayExpr.md)
   - [transformExprRecurse](transformExprRecurse.md)
   - [coerce_to_target_type](../c/coerce_to_target_type.md)
   - [parser_coercion_errposition](../p/parser_coercion_errposition.md)

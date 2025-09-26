@@ -25,7 +25,7 @@ The array supports dynamic growth when additional capacity is needed. When the a
 - `maxmsgs`: Integer indicating the current allocated size of the msgs array
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SharedInvalidationMessage
+  - [SharedInvalidationMessage](../S/SharedInvalidationMessage.md)
 - Called from (representative examples):
   - [AddInvalidationMessage](../A/AddInvalidationMessage.md)
 

@@ -27,10 +27,10 @@ The logging helps database administrators monitor temporary file usage patterns 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_report_tempfile (function to report temporary file statistics)
+  - [pgstat_report_tempfile](../p/pgstat_report_tempfile.md) (function to report temporary file statistics)
 - Called from (representative examples):
-  - PathNameDeleteTemporaryFile
-  - FileClose
+  - [PathNameDeleteTemporaryFile](../P/PathNameDeleteTemporaryFile.md)
+  - [FileClose](../F/FileClose.md)
 
 ## Notes and Other Information
 - This is a static function internal to fd.c, not exposed in the public API

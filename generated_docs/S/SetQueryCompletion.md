@@ -23,16 +23,16 @@ The function is defined as a static inline function in the header file, making i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - QueryCompletion (structure type)
+  - [QueryCompletion](../Q/QueryCompletion.md) (structure type)
   - CommandTag (enum type)
 - Called from (representative examples):
-  - ExecCreateTableAs
-  - RefreshMatViewByOid
-  - PerformPortalFetch
-  - ProcessQuery
-  - standard_ProcessUtility
-  - WalSndDone
-  - StartLogicalReplication
+  - [ExecCreateTableAs](../E/ExecCreateTableAs.md)
+  - [RefreshMatViewByOid](../R/RefreshMatViewByOid.md)
+  - [PerformPortalFetch](../P/PerformPortalFetch.md)
+  - [ProcessQuery](../P/ProcessQuery.md)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md)
+  - [WalSndDone](../W/WalSndDone.md)
+  - [StartLogicalReplication](StartLogicalReplication.md)
 
 ## Notes and Other Information
 - This is a static inline function defined in src/include/tcop/cmdtag.h

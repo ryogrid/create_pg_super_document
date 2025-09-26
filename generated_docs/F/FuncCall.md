@@ -49,8 +49,8 @@ FuncCall is a comprehensive parse tree node that represents function and aggrega
   - [List](../L/List.md) (PostgreSQL list structure)
   - [Node](../N/Node.md) (generic parse tree node)
 - Called from (representative examples):
-  - makeFuncCall
-  - transformFuncCall
+  - [makeFuncCall](../m/makeFuncCall.md)
+  - [transformFuncCall](../t/transformFuncCall.md)
   - [transformExprRecurse](../t/transformExprRecurse.md)
   - [ParseFuncOrColumn](../P/ParseFuncOrColumn.md)
   - [transformRangeFunction](../t/transformRangeFunction.md)
@@ -61,7 +61,7 @@ FuncCall is a comprehensive parse tree node that represents function and aggrega
 - Supports complex aggregate syntax including ORDER BY, FILTER, and WITHIN GROUP clauses
 - Window function calls include OVER clause information for partitioning and ordering
 - The funcformat field controls display format (explicit vs implicit function calls)
-- Boolean flags help distinguish between different types of function calls during analysis
+- [Boolean](../B/Boolean.md) flags help distinguish between different types of function calls during analysis
 - Location information enables accurate error reporting for function call syntax errors
 - Transformed during analysis phase into appropriate function call representations
 - Essential for SQL standard compliance with advanced aggregate and window function features

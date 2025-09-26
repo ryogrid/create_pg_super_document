@@ -29,7 +29,7 @@ The function performs its check by:
 - Functions called/Symbols referenced:
   - PG_GETARG_NAME - to extract Name argument
   - PG_GETARG_TEXT_PP - to extract text arguments  
-  - get_role_oid_or_public - converts role name to OID
+  - [get_role_oid_or_public](../g/get_role_oid_or_public.md) - converts role name to OID
   - [convert_table_name](../c/convert_table_name.md) - converts table name to OID
   - [convert_table_priv_string](../c/convert_table_priv_string.md) - converts privilege string to AclMode
   - [pg_class_aclcheck](../p/pg_class_aclcheck.md) - performs the actual ACL check

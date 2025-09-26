@@ -24,7 +24,7 @@ This function is essential for supporting operations that require multiple passe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecClearTuple: Clears any cached tuple from the result tuple slot
+  - [ExecClearTuple](ExecClearTuple.md): Clears any cached tuple from the result tuple slot
   - [ExecScanReScan](ExecScanReScan.md): Performs generic scan state reset operations
   - [tuplestore_select_read_pointer](../t/tuplestore_select_read_pointer.md): Selects the node's read pointer for operations
   - [tuplestore_rescan](../t/tuplestore_rescan.md): Rewinds the tuple store to the beginning position

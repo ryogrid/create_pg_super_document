@@ -23,8 +23,8 @@ The function maintains the same safety semantics as its underlying implementatio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
-  - table_close
+  - [table_open](table_open.md)
+  - [table_close](table_close.md)
   - [toastrel_valueid_exists](toastrel_valueid_exists.md)
 - Called from (representative examples):
   - [toast_save_datum](toast_save_datum.md)

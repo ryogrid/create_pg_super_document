@@ -63,7 +63,7 @@ Applied recursively for multi-attribute dependencies.
   - [SpecialJoinInfo](../S/SpecialJoinInfo.md)
   - [MVDependencies](../M/MVDependencies.md)
   - MVDependency
-  - StatisticExtInfo
+  - [StatisticExtInfo](../S/StatisticExtInfo.md)
   - STATS_EXT_DEPENDENCIES
 - Called from (representative examples):
   - [statext_clauselist_selectivity](../s/statext_clauselist_selectivity.md)

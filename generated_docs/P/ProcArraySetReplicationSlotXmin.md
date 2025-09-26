@@ -27,8 +27,8 @@ These values act as a floor for vacuum operations, preventing removal of tuple v
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockHeldByMe (for lock state verification)
-  - LWLockAcquire/LWLockRelease (for process array synchronization)
+  - [LWLockHeldByMe](../L/LWLockHeldByMe.md) (for lock state verification)
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease (for process array synchronization)
   - elog (for debug logging)
 - Called from (representative examples):
   - [ReplicationSlotsComputeRequiredXmin](../R/ReplicationSlotsComputeRequiredXmin.md) (in slot.c)

@@ -36,9 +36,9 @@ This mechanism is essential for maintaining plan cache coherency in a system whe
   - Syscache system (utils/syscache.h)
 
 - Called from (representative examples):
-  - record_plan_function_dependency (src/backend/optimizer/plan/setrefs.c:3484)
-  - record_plan_type_dependency (src/backend/optimizer/plan/setrefs.c:3520)
-  - PlanCacheObjectCallback (src/backend/utils/cache/plancache.c:2094)
+  - [record_plan_function_dependency](../r/record_plan_function_dependency.md) (src/backend/optimizer/plan/setrefs.c:3484)
+  - [record_plan_type_dependency](../r/record_plan_type_dependency.md) (src/backend/optimizer/plan/setrefs.c:3520)
+  - [PlanCacheObjectCallback](PlanCacheObjectCallback.md) (src/backend/utils/cache/plancache.c:2094)
 
 ## Notes and Other Information
 - Part of PostgreSQL plan invalidation and caching system

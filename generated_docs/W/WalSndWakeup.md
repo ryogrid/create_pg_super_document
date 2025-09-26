@@ -25,7 +25,7 @@ The function uses condition variable broadcasting to wake up waiting processes e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ConditionVariableBroadcast (broadcasts signal to all waiters on condition variables)
+  - [ConditionVariableBroadcast](../C/ConditionVariableBroadcast.md) (broadcasts signal to all waiters on condition variables)
 - Called from (representative examples):
   - [StartupXLOG](../S/StartupXLOG.md) (during WAL replay in recovery)
   - [KeepFileRestoredFromArchive](../K/KeepFileRestoredFromArchive.md) (after restoring archived WAL)

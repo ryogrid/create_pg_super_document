@@ -28,10 +28,10 @@ The function uses the tuple descriptor provided by the access method rather than
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecClearTuple: Clears the tuple slot before storing new data
+  - [ExecClearTuple](../E/ExecClearTuple.md): Clears the tuple slot before storing new data
   - [index_deform_tuple](../i/index_deform_tuple.md): Converts IndexTuple into separate Datum arrays
   - [MemoryContextAlloc](../M/MemoryContextAlloc.md): Allocates memory for name column conversions
-  - namestrcpy: Copies C string to fixed-length name with zero-padding
+  - [namestrcpy](../n/namestrcpy.md): Copies C string to fixed-length name with zero-padding
   - [DatumGetCString](../D/DatumGetCString.md): Extracts C string from Datum value
   - [NameGetDatum](../N/NameGetDatum.md): Converts Name to Datum for storage
   - [ExecStoreVirtualTuple](../E/ExecStoreVirtualTuple.md): Finalizes the virtual tuple in the slot

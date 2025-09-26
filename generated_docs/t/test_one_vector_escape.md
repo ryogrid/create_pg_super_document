@@ -22,17 +22,17 @@ This function performs extensive validation of an escape function using a specif
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - createPQExpBuffer
-  - destroyPQExpBuffer
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)
+  - [destroyPQExpBuffer](../d/destroyPQExpBuffer.md)
   - [encoding_conflicts_ascii](../e/encoding_conflicts_ascii.md)
   - [PQclientEncoding](../P/PQclientEncoding.md)
   - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
   - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
-  - appendPQExpBufferChar
-  - appendBinaryPQExpBuffer
+  - [appendPQExpBufferChar](../a/appendPQExpBufferChar.md)
+  - [appendBinaryPQExpBuffer](../a/appendBinaryPQExpBuffer.md)
   - [escapify](../e/escapify.md)
   - [pg_encoding_verifymbstr](../p/pg_encoding_verifymbstr.md)
-  - strnlen
+  - [strnlen](../s/strnlen.md)
   - strstr
   - VALGRIND_MAKE_MEM_NOACCESS
   - [report_result](../r/report_result.md)

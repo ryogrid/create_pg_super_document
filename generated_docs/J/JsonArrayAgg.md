@@ -28,14 +28,14 @@ JsonArrayAgg represents the parsed form of JSON_ARRAYAGG() function calls before
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonAggConstructor
-  - JsonValueExpr
+  - [JsonAggConstructor](JsonAggConstructor.md)
+  - [JsonValueExpr](JsonValueExpr.md)
 - Called from (representative examples):
-  - exprLocation
-  - transformExprRecurse
-  - transformJsonArrayAgg
-  - transformJsonArrayQueryConstructor
-  - raw_expression_tree_walker_impl
+  - [exprLocation](../e/exprLocation.md)
+  - [transformExprRecurse](../t/transformExprRecurse.md)
+  - [transformJsonArrayAgg](../t/transformJsonArrayAgg.md)
+  - [transformJsonArrayQueryConstructor](../t/transformJsonArrayQueryConstructor.md)
+  - [raw_expression_tree_walker_impl](../r/raw_expression_tree_walker_impl.md)
 
 ## Notes and Other Information
 - This structure is used during the parsing phase before transformation into execution-ready aggregate expressions

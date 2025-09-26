@@ -26,7 +26,7 @@ This function is a convenience wrapper around  that returns the first node in a 
 - Called from (representative examples):
   - [dataPlaceToPageLeafSplit](dataPlaceToPageLeafSplit.md) (src/backend/access/gin/gindatapage.c:1059)
   - [leafRepackItems](../l/leafRepackItems.md) (src/backend/access/gin/gindatapage.c:1589)
-  - pgstat_flush_pending_entries (src/backend/utils/activity/pgstat.c:1197)
+  - [pgstat_flush_pending_entries](../p/pgstat_flush_pending_entries.md) (src/backend/utils/activity/pgstat.c:1197)
   - [BumpReset](../B/BumpReset.md) (src/backend/utils/mmgr/bump.c:270)
   - [BumpAlloc](../B/BumpAlloc.md) (src/backend/utils/mmgr/bump.c:520)
   - [GenerationReset](../G/GenerationReset.md) (src/backend/utils/mmgr/generation.c:320)

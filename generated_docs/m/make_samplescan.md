@@ -22,7 +22,7 @@ This function is part of PostgreSQL's plan node building infrastructure and crea
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SampleScan (the plan node type being created)
+  - [SampleScan](../S/SampleScan.md) (the plan node type being created)
   - [TableSampleClause](../T/TableSampleClause.md) (structure defining sampling parameters)
   - makeNode (PostgreSQL's node allocation macro)
 - Called from (representative examples):

@@ -21,7 +21,7 @@ This function performs cleanup operations for an HSpool structure that was previ
 ## Dependencies
 - Functions called/Symbols referenced:
   - [HSpool](../H/HSpool.md) (structure type)
-  - tuplesort_end (terminates tuple sorting state)
+  - [tuplesort_end](../t/tuplesort_end.md) (terminates tuple sorting state)
   - [pfree](../p/pfree.md) (deallocates memory)
 - Called from (representative examples):
   - [hashbuild](hashbuild.md)

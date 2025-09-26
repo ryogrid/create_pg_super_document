@@ -23,8 +23,8 @@ The function is simpler than its compression counterpart since decompression doe
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc0](../p/palloc0.md)
-  - initStringInfo
-  - enlargeStringInfo
+  - [initStringInfo](../i/initStringInfo.md)
+  - [enlargeStringInfo](../e/enlargeStringInfo.md)
   - ZSTD_createDCtx
   - ZSTD_DStreamOutSize
   - [pg_fatal](../p/pg_fatal.md)

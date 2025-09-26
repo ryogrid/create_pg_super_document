@@ -20,7 +20,7 @@ This function serves as a specialized tree walker designed to traverse expressio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SubLink
+  - [SubLink](SubLink.md)
   - [ScanQueryForLocks](ScanQueryForLocks.md)
   - expression_tree_walker
 - Called from (representative examples):

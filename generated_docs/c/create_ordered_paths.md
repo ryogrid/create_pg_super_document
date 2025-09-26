@@ -36,7 +36,7 @@ The optimization strategy prioritizes reusing existing sort order and applies in
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fetch_upper_rel
+  - [fetch_upper_rel](../f/fetch_upper_rel.md)
   - [pathkeys_count_contained_in](../p/pathkeys_count_contained_in.md)
   - [create_sort_path](create_sort_path.md)
   - [create_incremental_sort_path](create_incremental_sort_path.md)

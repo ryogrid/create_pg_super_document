@@ -30,11 +30,11 @@ SHA-224 uses the same internal structure and block processing algorithm as SHA-2
   - `memset` - Clears the input buffer to all zeros
   - `sha224_initial_hash_value` - Constant array containing the SHA-224 specific initial hash values
 - Referenced types/constants:
-  - `pg_sha224_ctx` - SHA-224 context structure type
+  - `[pg_sha224_ctx](pg_sha224_ctx.md)` - SHA-224 context structure type
   - `PG_SHA256_DIGEST_LENGTH` - Length constant for copying initial state (32 bytes, shared with SHA-256)
   - `PG_SHA256_BLOCK_LENGTH` - Block size constant for buffer initialization (64 bytes, shared with SHA-256)
 - Called from (representative examples):
-  - `pg_cryptohash_init` - Generic cryptographic hash initialization wrapper
+  - `[pg_cryptohash_init](pg_cryptohash_init.md)` - Generic cryptographic hash initialization wrapper
 
 ## Notes and Other Information
 - SHA-224 shares the same context structure type (`pg_sha224_ctx`) with SHA-256 since both algorithms use identical internal processing logic

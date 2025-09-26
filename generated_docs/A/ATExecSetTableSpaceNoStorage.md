@@ -26,7 +26,7 @@ The function validates that the relation indeed has no storage using the RELKIND
   - [CheckRelationTableSpaceMove](../C/CheckRelationTableSpaceMove.md): Validates whether the tablespace move is allowed
   - [SetRelationTableSpace](../S/SetRelationTableSpace.md): Updates the pg_class catalog with new tablespace information
   - InvokeObjectPostAlterHook: Triggers post-alter hooks for dependency tracking
-  - CommandCounterIncrement: Makes catalog changes visible to subsequent operations
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md): Makes catalog changes visible to subsequent operations
 
 - Called from (representative examples):
   - [ATExecCmd](ATExecCmd.md): Main ALTER TABLE command execution dispatcher

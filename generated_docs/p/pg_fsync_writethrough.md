@@ -24,7 +24,7 @@ The pg_fsync_writethrough function provides write-through filesystem synchroniza
   - enableFsync (global variable controlling fsync behavior)
 - Called from (representative examples):
   - [issue_xlog_fsync](../i/issue_xlog_fsync.md) (WAL synchronization)
-  - pg_fsync (general fsync wrapper)
+  - [pg_fsync](pg_fsync.md) (general fsync wrapper)
   - [test_sync](../t/test_sync.md) (pg_test_fsync utility)
   - STOP_TIMER macro (performance testing)
 

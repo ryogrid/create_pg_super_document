@@ -23,10 +23,10 @@ The function delegates the actual reinitialization work to the table access meth
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParallelTableScanDesc (parameter type)
+  - [ParallelTableScanDesc](../P/ParallelTableScanDesc.md) (parameter type)
   - rel->rd_tableam->parallelscan_reinitialize (table access method function)
 - Called from (representative examples):
-  - ExecSeqScanReInitializeDSM
+  - [ExecSeqScanReInitializeDSM](../E/ExecSeqScanReInitializeDSM.md)
 
 ## Notes and Other Information
 - This is an inline function defined in the table access method header

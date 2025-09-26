@@ -24,13 +24,13 @@ This function provides a simpler interface for the common case of setting error 
 ## Dependencies
 - Functions called/Symbols referenced:
   - lineno_t (type)
-  - eats
+  - [eats](eats.md)
 
 - Called from (representative examples):
-  - main (multiple calls)
-  - associate (multiple calls)
-  - infile
-  - years_of_observations (multiple calls)
+  - [main](../m/main.md) (multiple calls)
+  - [associate](../a/associate.md) (multiple calls)
+  - [infile](../i/infile.md)
+  - [years_of_observations](../y/years_of_observations.md) (multiple calls)
 
 ## Notes and Other Information
 - This function is static, meaning it's only accessible within src/timezone/zic.c

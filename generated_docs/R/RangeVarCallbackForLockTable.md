@@ -25,7 +25,7 @@ RangeVarCallbackForLockTable serves as a security and validation callback invoke
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RangeVar](RangeVar.md) (structure type)
-  - AclResult (enum type)
+  - [AclResult](../A/AclResult.md) (enum type)
   - [get_rel_relkind](../g/get_rel_relkind.md)
   - RELKIND_RELATION
   - RELKIND_PARTITIONED_TABLE

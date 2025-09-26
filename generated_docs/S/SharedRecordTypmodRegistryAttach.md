@@ -25,8 +25,8 @@ A cleanup hook is registered to ensure proper detachment when the worker process
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsParallelWorker
-  - dshash_attach
-  - on_dsm_detach
+  - [dshash_attach](../d/dshash_attach.md)
+  - [on_dsm_detach](../o/on_dsm_detach.md)
   - [shared_record_typmod_registry_detach](../s/shared_record_typmod_registry_detach.md)
 - Called from (representative examples):
   - [AttachSession](../A/AttachSession.md)

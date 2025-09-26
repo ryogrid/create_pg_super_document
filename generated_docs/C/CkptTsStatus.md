@@ -53,8 +53,8 @@ The structure is designed to enable smooth checkpoint progress by managing how p
   - int (type)
 
 - Called from (representative examples):
-  - BufferSync (primary usage across multiple locations)
-  - ts_ckpt_progress_comparator
+  - [BufferSync](../B/BufferSync.md) (primary usage across multiple locations)
+  - [ts_ckpt_progress_comparator](../t/ts_ckpt_progress_comparator.md)
 
 ## Notes and Other Information
 - This structure is used internally by the BufferSync function to coordinate checkpoint operations across multiple tablespaces

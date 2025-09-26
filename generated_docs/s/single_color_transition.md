@@ -23,7 +23,7 @@ This function analyzes whether getting from state s1 to state s2 crosses exactly
   - EMPTY (arc type constant)
   - PLAIN (arc type constant)
 - Called from (representative examples):
-  - processlacon
+  - [processlacon](../p/processlacon.md)
 
 ## Notes and Other Information
 The function is specifically designed to handle bracket constructs like [abc] which might yield either one or several parallel PLAIN arcs depending on earlier atoms in the expression. This ensures that implementation details don't create user-visible performance differences. The function performs several validations: it skips over EMPTY arcs, rejects single-state loops, ensures s1 has outbound arcs, and verifies that all outbound arcs from s1 are PLAIN arcs leading to s2. This is used in the context of regex optimization to identify simple color transitions that can be optimized.

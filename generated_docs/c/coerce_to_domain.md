@@ -42,7 +42,7 @@ The function automatically determines the base type and typmod if not provided, 
   - [hide_coercion_node](../h/hide_coercion_node.md)
   - [coerce_type_typmod](coerce_type_typmod.md)
   - makeNode
-  - CoerceToDomain (node type)
+  - [CoerceToDomain](../C/CoerceToDomain.md) (node type)
   - CoercionContext (enum)
   - CoercionForm (enum)
   - COERCE_IMPLICIT_CAST

@@ -36,7 +36,7 @@ The function ensures proper processing flow by either calling the next hook in t
   - [GetCommandTagName](../G/GetCommandTagName.md)
   - [CreateCommandTag](../C/CreateCommandTag.md)
   - [audit_attempt](../a/audit_attempt.md)
-  - superuser_arg
+  - [superuser_arg](../s/superuser_arg.md)
   - [GetUserId](../G/GetUserId.md)
   - ereport
   - [errcode](../e/errcode.md)

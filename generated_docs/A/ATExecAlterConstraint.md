@@ -34,7 +34,7 @@ The function follows these main steps:
 ## Dependencies
 - Functions called/Symbols referenced:
   - castNode
-  - table_open
+  - [table_open](../t/table_open.md)
   - [ScanKeyInit](../S/ScanKeyInit.md)
   - [systable_beginscan](../s/systable_beginscan.md)
   - [systable_getnext](../s/systable_getnext.md)

@@ -24,8 +24,8 @@ The `numeric_float8` function converts a PostgreSQL `Numeric` value to a `float8
   - `NUMERIC_IS_SPECIAL`: Checks if the numeric value is special (NaN or infinity)
   - `NUMERIC_IS_PINF`: Checks for positive infinity
   - `NUMERIC_IS_NINF`: Checks for negative infinity
-  - `get_float8_infinity`: Returns the IEEE 754 positive infinity value
-  - `get_float8_nan`: Returns the IEEE 754 NaN value
+  - `[get_float8_infinity](../g/get_float8_infinity.md)`: Returns the IEEE 754 positive infinity value
+  - `[get_float8_nan](../g/get_float8_nan.md)`: Returns the IEEE 754 NaN value
   - [numeric_out](numeric_out.md): Converts numeric to string representation
   - [float8in](../f/float8in.md): Parses string into float8 value
   - `DirectFunctionCall1`: Directly calls PostgreSQL functions

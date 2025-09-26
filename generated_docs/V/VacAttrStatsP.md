@@ -25,14 +25,14 @@ N/A - This is a simple pointer typedef to VacAttrStats struct.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - VacAttrStats (the underlying struct being pointed to)
+  - [VacAttrStats](VacAttrStats.md) (the underlying struct being pointed to)
 - Called from (representative examples):
-  - std_fetch_func (src/backend/commands/analyze.c:1752)
-  - ind_fetch_func (src/backend/commands/analyze.c:1768)
-  - compute_trivial_stats (src/backend/commands/analyze.c:1923)
-  - compute_distinct_stats (src/backend/commands/analyze.c:2013)
-  - compute_scalar_stats (src/backend/commands/analyze.c:2356)
-  - expr_fetch_func (src/backend/statistics/extended_stats.c:2234)
+  - [std_fetch_func](../s/std_fetch_func.md) (src/backend/commands/analyze.c:1752)
+  - [ind_fetch_func](../i/ind_fetch_func.md) (src/backend/commands/analyze.c:1768)
+  - [compute_trivial_stats](../c/compute_trivial_stats.md) (src/backend/commands/analyze.c:1923)
+  - [compute_distinct_stats](../c/compute_distinct_stats.md) (src/backend/commands/analyze.c:2013)
+  - [compute_scalar_stats](../c/compute_scalar_stats.md) (src/backend/commands/analyze.c:2356)
+  - [expr_fetch_func](../e/expr_fetch_func.md) (src/backend/statistics/extended_stats.c:2234)
 
 ## Notes and Other Information
 - This typedef is defined alongside function pointer types AnalyzeAttrFetchFunc and AnalyzeAttrComputeStatsFunc that also use VacAttrStatsP

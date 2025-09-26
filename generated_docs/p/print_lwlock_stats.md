@@ -25,13 +25,13 @@ The function acquires an exclusive lock on the first element of MainLWLockArray 
 - Functions called/Symbols referenced:
   - [hash_seq_init](../h/hash_seq_init.md)
   - [hash_seq_search](../h/hash_seq_search.md)
-  - LWLockAcquire
-  - LWLockRelease
-  - GetLWTrancheName
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
+  - [GetLWTrancheName](../G/GetLWTrancheName.md)
   - fprintf
 - Types referenced:
-  - HASH_SEQ_STATUS
-  - lwlock_stats
+  - [HASH_SEQ_STATUS](../H/HASH_SEQ_STATUS.md)
+  - [lwlock_stats](../l/lwlock_stats.md)
 - Global variables accessed:
   - lwlock_stats_htab
   - MainLWLockArray

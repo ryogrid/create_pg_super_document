@@ -28,7 +28,7 @@ The function supports different compression algorithms:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_malloc0 (memory allocation)
+  - [pg_malloc0](../p/pg_malloc0.md) (memory allocation)
   - snprintf (string formatting)
   - PG_COMPRESSION_GZIP (compression constant)
   - PG_COMPRESSION_LZ4 (compression constant)

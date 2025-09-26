@@ -33,7 +33,7 @@ The function maintains a one-to-one correspondence between input expressions and
   - [ExecInitExpr](ExecInitExpr.md) (compiles each individual expression)
   - foreach (macro for list iteration)
   - lfirst (extracts list cell content)
-  - lappend (builds result list)
+  - [lappend](../l/lappend.md) (builds result list)
 - Called from (representative examples):
   - [ExecInitAgg](ExecInitAgg.md) (for aggregate target lists)
   - [ExecInitHash](ExecInitHash.md) (for hash key expressions)

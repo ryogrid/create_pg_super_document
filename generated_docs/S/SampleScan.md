@@ -27,16 +27,16 @@ Sample scans are particularly useful for statistical analysis, query testing on 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Scan (inherited base structure)
-  - TableSampleClause (sampling specification structure)
+  - [Scan](Scan.md) (inherited base structure)
+  - [TableSampleClause](../T/TableSampleClause.md) (sampling specification structure)
 
 - Called from (representative examples):
-  - ExecInitSampleScan (executor initialization for sample scans)
-  - create_samplescan_plan (planner function to create sample scan plans)
-  - make_samplescan (utility function to construct SampleScan nodes)
-  - set_plan_refs (plan reference setting)
-  - ExecInitNode (general node initialization)
-  - ExplainNode (query explain functionality)
+  - [ExecInitSampleScan](../E/ExecInitSampleScan.md) (executor initialization for sample scans)
+  - [create_samplescan_plan](../c/create_samplescan_plan.md) (planner function to create sample scan plans)
+  - [make_samplescan](../m/make_samplescan.md) (utility function to construct SampleScan nodes)
+  - [set_plan_refs](../s/set_plan_refs.md) (plan reference setting)
+  - [ExecInitNode](../E/ExecInitNode.md) (general node initialization)
+  - [ExplainNode](../E/ExplainNode.md) (query explain functionality)
 
 ## Notes and Other Information
 - Implements the SQL TABLESAMPLE clause functionality

@@ -39,7 +39,7 @@ This design ensures compatibility with schema evolution while maintaining perfor
   - [fastgetattr](../f/fastgetattr.md) - optimized function for existing user attribute retrieval
   - [heap_getsysattr](heap_getsysattr.md) - specialized function for system attribute access
 - Called from (representative examples):
-  - `SPI_getbinval` - SPI interface for binary value retrieval
+  - `[SPI_getbinval](../S/SPI_getbinval.md)` - SPI interface for binary value retrieval
   - [GetAttributeByName](../G/GetAttributeByName.md) - utility function for named attribute access
   - [ExecEvalFieldSelect](../E/ExecEvalFieldSelect.md) - executor support for field selection
   - [CatalogCacheCreateEntry](../C/CatalogCacheCreateEntry.md) - catalog cache entry creation

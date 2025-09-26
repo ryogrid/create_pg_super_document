@@ -29,7 +29,7 @@ The structure is part of the predicate locking mechanism that implements Seriali
 - Functions called/Symbols referenced: None (this is a data structure)
 - Called from (representative examples):
   - [SerialControl](SerialControl.md) (as a typedef base)
-  - SerialInit
+  - [SerialInit](SerialInit.md)
   - [PredicateLockShmemSize](../P/PredicateLockShmemSize.md)
 
 ## Notes and Other Information

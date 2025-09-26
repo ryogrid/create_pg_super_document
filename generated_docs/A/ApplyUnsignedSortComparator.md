@@ -28,7 +28,7 @@ The function treats Datum values as unsigned integers and compares them directly
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SortSupport (struct type)
+  - [SortSupport](../S/SortSupport.md) (struct type)
   - INVERT_COMPARE_RESULT (macro)
   - SIZEOF_DATUM (macro)
 - Called from (representative examples):

@@ -24,7 +24,7 @@ CleanupProcSignalState is a cleanup function registered via on_shmem_exit() that
   - Assert
   - elog
   - [pg_atomic_write_u64](../p/pg_atomic_write_u64.md)
-  - ConditionVariableBroadcast
+  - [ConditionVariableBroadcast](ConditionVariableBroadcast.md)
   - [ProcSignalSlot](../P/ProcSignalSlot.md) (type)
   - PG_UINT64_MAX (constant)
 - Called from (representative examples):

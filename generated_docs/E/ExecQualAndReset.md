@@ -24,14 +24,14 @@ The inline implementation inlines ResetExprContext functionality directly to avo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecQual (for expression evaluation)
-  - MemoryContextReset (for memory context cleanup)
+  - [ExecQual](ExecQual.md) (for expression evaluation)
+  - [MemoryContextReset](../M/MemoryContextReset.md) (for memory context cleanup)
 - Called from (representative examples):
-  - BitmapHeapNext (heap scan filtering)
-  - IndexNext (index scan filtering)
-  - ExecGroup (grouping qualification)
-  - ExecLimit (limit condition checking)
-  - TupleHashTableMatch (hash table matching)
+  - [BitmapHeapNext](../B/BitmapHeapNext.md) (heap scan filtering)
+  - [IndexNext](../I/IndexNext.md) (index scan filtering)
+  - [ExecGroup](ExecGroup.md) (grouping qualification)
+  - [ExecLimit](ExecLimit.md) (limit condition checking)
+  - [TupleHashTableMatch](../T/TupleHashTableMatch.md) (hash table matching)
 
 ## Notes and Other Information
 - This inline function optimizes the common pattern of evaluate-and-reset that occurs frequently in executor nodes

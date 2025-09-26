@@ -39,7 +39,7 @@ This design provides O(1) allocation and deallocation performance while maintain
   - [SerialControl](../S/SerialControl.md)
   - [InitPredicateLocks](../I/InitPredicateLocks.md)
   - [GetSerializableTransactionSnapshotInt](../G/GetSerializableTransactionSnapshotInt.md)
-  - predicatelock_twophase_recover
+  - [predicatelock_twophase_recover](../p/predicatelock_twophase_recover.md)
 
 ## Notes and Other Information
 - Returns NULL when the pool of available SERIALIZABLEXACT structures is exhausted

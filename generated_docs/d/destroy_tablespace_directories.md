@@ -24,13 +24,13 @@ Special handling addresses potential race conditions during directory removal an
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DIR, dirent: Directory handling structures and types
+  - [DIR](../D/DIR.md), dirent: Directory handling structures and types
   - TABLESPACE_VERSION_DIRECTORY: Constant for version directory name
-  - AllocateDir: Opens directory for reading
-  - ReadDir: Reads directory entries
+  - [AllocateDir](../A/AllocateDir.md): Opens directory for reading
+  - [ReadDir](../R/ReadDir.md): Reads directory entries
   - [directory_is_empty](directory_is_empty.md): Checks if subdirectory contains files
-  - FreeDir: Closes directory handle
-  - get_parent_directory: Extracts parent directory path
+  - [FreeDir](../F/FreeDir.md): Closes directory handle
+  - [get_parent_directory](../g/get_parent_directory.md): Extracts parent directory path
   - lstat: Gets file/symlink status without following links
   - S_ISDIR, S_ISLNK: File type checking macros
   - unlink: Removes files and symlinks

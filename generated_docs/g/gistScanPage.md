@@ -45,7 +45,7 @@ This function is responsible for scanning all tuples on a GiST index page and ro
   - [gistindex_keytest](gistindex_keytest.md)
   - [tbm_add_tuples](../t/tbm_add_tuples.md)
   - [gistFetchTuple](gistFetchTuple.md)
-  - pairingheap_add
+  - [pairingheap_add](../p/pairingheap_add.md)
 - Called from:
   - [getNextNearest](getNextNearest.md)
   - [gistgettuple](gistgettuple.md)

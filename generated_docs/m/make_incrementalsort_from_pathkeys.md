@@ -36,7 +36,7 @@ This function is used when the planner determines that the input data is already
 - Provides a simplified interface for creating incremental sorts from pathkeys
 - Uses default parameters for prepare_sort_from_pathkeys: reqColIdx=NULL, adjust_tlist_in_place=false
 - The nPresortedCols parameter must be less than the total number of sort columns
-- IncrementalSort is a PostgreSQL 13+ optimization for partially sorted input data
+- [IncrementalSort](../I/IncrementalSort.md) is a PostgreSQL 13+ optimization for partially sorted input data
 - The function may modify the input plan tree by adding Result nodes if projection is needed
 - Part of the planner's optimization strategy to leverage existing sort order in the data
 - Located at src/backend/optimizer/plan/createplan.c:6382-6415

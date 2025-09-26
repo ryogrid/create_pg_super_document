@@ -23,10 +23,10 @@ The function uses a simple conditional logic where a non-zero flag indicates a r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SetOpStatePerGroup (typedef structure)
+  - [SetOpStatePerGroup](../S/SetOpStatePerGroup.md) (typedef structure)
 - Called from (representative examples):
-  - setop_retrieve_direct (multiple locations)
-  - setop_fill_hash_table (multiple locations)
+  - [setop_retrieve_direct](../s/setop_retrieve_direct.md) (multiple locations)
+  - [setop_fill_hash_table](../s/setop_fill_hash_table.md) (multiple locations)
 
 ## Notes and Other Information
 - Implemented as a static inline function for optimal performance during frequent calls

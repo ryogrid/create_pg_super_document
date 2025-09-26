@@ -35,8 +35,8 @@ The function workflow includes:
   - [convert_table_name](../c/convert_table_name.md): Resolves sequence name to OID (shared with table functions)
   - [get_rel_relkind](../g/get_rel_relkind.md): Retrieves relation kind to validate it's a sequence
   - [pg_class_aclcheck](../p/pg_class_aclcheck.md): Performs the actual privilege check on the sequence
-  - text_to_cstring: Converts PostgreSQL text to C string for error messages
-  - AclResult: Type definition for ACL check results
+  - [text_to_cstring](../t/text_to_cstring.md): Converts PostgreSQL text to C string for error messages
+  - [AclResult](../A/AclResult.md): Type definition for ACL check results
 - Called from (representative examples):
   - This is a system function callable from SQL queries via has_sequence_privilege() function
 

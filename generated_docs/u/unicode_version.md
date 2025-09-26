@@ -23,7 +23,7 @@ The function uses the `PG_UNICODE_VERSION` compile-time constant to provide the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `cstring_to_text()` (converts C string to PostgreSQL text type)
+  - `[cstring_to_text](../c/cstring_to_text.md)()` (converts C string to PostgreSQL text type)
   - `PG_UNICODE_VERSION` (compile-time constant with Unicode version)
   - `PG_RETURN_TEXT_P` (macro to return text value from PostgreSQL function)
 - Called from (representative examples):

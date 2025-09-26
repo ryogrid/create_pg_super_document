@@ -31,12 +31,12 @@ The  function implements a lock-free detection mechanism for segment cleanup in 
 ## Dependencies  
 - Functions called/Symbols referenced:
   - pg_read_barrier
-  - LWLockAcquire / LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md) / LWLockRelease
   - DSA_AREA_LOCK
-  - check_for_freed_segments_locked
+  - [check_for_freed_segments_locked](check_for_freed_segments_locked.md)
 - Called from (representative examples):
-  - dsa_free
-  - dsa_get_address
+  - [dsa_free](../d/dsa_free.md)
+  - [dsa_get_address](../d/dsa_get_address.md)
 
 ## Notes and Other Information
 - This is a static (internal) function used for memory safety in DSA operations

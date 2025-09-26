@@ -27,8 +27,8 @@ This optimization is crucial for efficient partition operations, as it can elimi
   - RelationGetDescr - Gets relation's tuple descriptor
   - TupleDescAttr - Accesses attribute information from tuple descriptor
   - makeNode - Creates NullTest node for NOT NULL constraints  
-  - makeVar - Creates Var node representing column reference
-  - lappend - Appends constraints to existing constraint list
+  - [makeVar](../m/makeVar.md) - Creates Var node representing column reference
+  - [lappend](../l/lappend.md) - Appends constraints to existing constraint list
   - [ConstraintImpliedByRelConstraint](../C/ConstraintImpliedByRelConstraint.md) - Performs actual implication analysis
 - Called from (representative examples):
   - [QueuePartitionConstraintValidation](../Q/QueuePartitionConstraintValidation.md) (src/backend/commands/tablecmds.c:18422)

@@ -33,15 +33,15 @@ This function is essential for PostgreSQL's ability to manage more logical file 
   - nfile (global counter of currently open files)
   - Assert (debugging assertion)
   - VfdCache (global virtual file descriptor cache array)
-  - LruDelete (function to delete a file from LRU list and close it)
+  - [LruDelete](../L/LruDelete.md) (function to delete a file from LRU list and close it)
 
 - Called from (representative examples):
   - AllocateDesc (when allocating descriptors and need to free space)
-  - BasicOpenFilePerm (when opening files and hitting descriptor limits)
-  - ReleaseLruFiles (when releasing multiple files)
-  - AllocateFile (when allocating FILE* structures)
-  - OpenPipeStream (when opening pipe streams)
-  - AllocateDir (when allocating directory handles)
+  - [BasicOpenFilePerm](../B/BasicOpenFilePerm.md) (when opening files and hitting descriptor limits)
+  - [ReleaseLruFiles](ReleaseLruFiles.md) (when releasing multiple files)
+  - [AllocateFile](../A/AllocateFile.md) (when allocating FILE* structures)
+  - [OpenPipeStream](../O/OpenPipeStream.md) (when opening pipe streams)
+  - [AllocateDir](../A/AllocateDir.md) (when allocating directory handles)
 
 ## Notes and Other Information
 - Returns true if a file was successfully released, false if no files were available to free

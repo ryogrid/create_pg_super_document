@@ -25,14 +25,14 @@ This function is similar to execTuplesMatchPrepare but additionally handles hash
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_opcode (converts equality operator OID to function OID)
-  - get_op_hash_functions (retrieves hash functions for an operator)
-  - fmgr_info (initializes FmgrInfo structure)
-  - palloc (memory allocation)
+  - [get_opcode](../g/get_opcode.md) (converts equality operator OID to function OID)
+  - [get_op_hash_functions](../g/get_op_hash_functions.md) (retrieves hash functions for an operator)
+  - [fmgr_info](../f/fmgr_info.md) (initializes FmgrInfo structure)
+  - [palloc](../p/palloc.md) (memory allocation)
 - Called from (representative examples):
-  - find_hash_columns (in aggregate node initialization)
-  - ExecInitRecursiveUnion (recursive union node setup)
-  - ExecInitSetOp (set operation node setup)
+  - [find_hash_columns](../f/find_hash_columns.md) (in aggregate node initialization)
+  - [ExecInitRecursiveUnion](../E/ExecInitRecursiveUnion.md) (recursive union node setup)
+  - [ExecInitSetOp](../E/ExecInitSetOp.md) (set operation node setup)
 
 ## Notes and Other Information
 - Allocates memory for both eqFuncOids and hashFunctions arrays using palloc

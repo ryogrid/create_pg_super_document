@@ -23,23 +23,23 @@ The function maintains efficient allocation patterns by preferring to allocate f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockHeldByMe
-  - LWLockAcquire
-  - LWLockRelease
+  - [LWLockHeldByMe](../L/LWLockHeldByMe.md)
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - DSA_SCLASS_LOCK
   - DsaPointerIsValid
-  - ensure_active_superblock
-  - dsa_get_address
+  - [ensure_active_superblock](../e/ensure_active_superblock.md)
+  - [dsa_get_address](../d/dsa_get_address.md)
   - NextFreeObjectIndex
-  - transfer_first_span
+  - [transfer_first_span](../t/transfer_first_span.md)
   - dsa_size_classes array
   - DSA_SPAN_NOTHING_FREE
   - DSA_FULLNESS_CLASSES
   - DSA_NUM_SIZE_CLASSES
   - InvalidDsaPointer
 - Called from (representative examples):
-  - dsa_allocate_extended
-  - ensure_active_superblock
+  - [dsa_allocate_extended](../d/dsa_allocate_extended.md)
+  - [ensure_active_superblock](../e/ensure_active_superblock.md)
 
 ## Notes and Other Information
 - This is a static inline function optimized for frequent allocation operations

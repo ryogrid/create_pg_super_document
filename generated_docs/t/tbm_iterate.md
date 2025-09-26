@@ -26,7 +26,7 @@ The function maintains iteration state through the TBMIterator, ensuring pages a
   - [tbm_extract_page_tuple](tbm_extract_page_tuple.md)
   - [TBMIterator](../T/TBMIterator.md)
   - [TIDBitmap](../T/TIDBitmap.md)
-  - TBMIterateResult
+  - [TBMIterateResult](../T/TBMIterateResult.md)
   - [PagetableEntry](../P/PagetableEntry.md)
   - TBM_ITERATING_PRIVATE
   - TBM_ONE_PAGE

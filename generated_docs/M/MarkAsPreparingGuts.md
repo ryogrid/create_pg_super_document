@@ -26,9 +26,9 @@ MarkAsPreparingGuts is an internal helper function that performs the low-level i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GlobalTransaction
+  - [GlobalTransaction](../G/GlobalTransaction.md)
   - [PGPROC](../P/PGPROC.md)
-  - LWLockHeldByMeInMode
+  - [LWLockHeldByMeInMode](../L/LWLockHeldByMeInMode.md)
   - GetPGProcByNumber
   - MemSet
   - [dlist_node_init](../d/dlist_node_init.md)

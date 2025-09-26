@@ -34,13 +34,13 @@ This function is a critical component of PostgreSQL's tuple scanning mechanism, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - heap_getattr: Extracts attribute values from heap tuples
-  - FunctionCall2Coll: Executes comparison functions with collation support
-  - DatumGetBool: Converts Datum result to boolean value
+  - [heap_getattr](../h/heap_getattr.md): Extracts attribute values from heap tuples
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md): Executes comparison functions with collation support
+  - [DatumGetBool](../D/DatumGetBool.md): Converts Datum result to boolean value
   - SK_ISNULL: Flag constant indicating NULL scan key condition
 - Called from (representative examples):
-  - heapgettup: Sequential heap tuple scanning in heapam.c:951
-  - heapgettup_pagemode: Page-mode heap tuple scanning in heapam.c:1055
+  - [heapgettup](../h/heapgettup.md): Sequential heap tuple scanning in heapam.c:951
+  - [heapgettup_pagemode](../h/heapgettup_pagemode.md): Page-mode heap tuple scanning in heapam.c:1055
 
 ## Notes and Other Information
 - This function is defined as static inline in src/include/access/valid.h for optimal performance

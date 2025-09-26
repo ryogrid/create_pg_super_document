@@ -18,8 +18,8 @@ nodeToStringInternal is the core implementation function for converting PostgreS
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - outNode
-  - initStringInfo
+  - [outNode](../o/outNode.md)
+  - [initStringInfo](../i/initStringInfo.md)
   - [StringInfoData](../S/StringInfoData.md) (struct)
 - Called from (representative examples):
   - [nodeToString](nodeToString.md)

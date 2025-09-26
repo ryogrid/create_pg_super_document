@@ -29,7 +29,7 @@ The function operates in bulk mode, accumulating tuples in memory-buffered pages
   - [PageGetHeapFreeSpace](../P/PageGetHeapFreeSpace.md)
   - [smgr_bulk_write](../s/smgr_bulk_write.md)
   - [smgr_bulk_get_buf](../s/smgr_bulk_get_buf.md)
-  - PageInit
+  - [PageInit](../P/PageInit.md)
   - PageAddItem
   - [ItemPointerSet](../I/ItemPointerSet.md)
   - [ItemPointerIsValid](../I/ItemPointerIsValid.md)

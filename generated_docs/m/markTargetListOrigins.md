@@ -24,7 +24,7 @@ This function iterates through a target list and marks target entries that corre
   - [markTargetListOrigin](markTargetListOrigin.md)
   - lfirst (macro)
   - [TargetEntry](../T/TargetEntry.md)
-  - Var
+  - [Var](../V/Var.md)
 - Called from (representative examples):
   - [transformSelectStmt](../t/transformSelectStmt.md)
   - [transformReturningList](../t/transformReturningList.md)

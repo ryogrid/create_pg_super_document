@@ -31,13 +31,13 @@ The `varstr_sortsupport` function is the central implementation for character ty
   - [namefastcmp_locale](../n/namefastcmp_locale.md)
   - [varlenafastcmp_locale](varlenafastcmp_locale.md)
   - [pg_strxfrm_enabled](../p/pg_strxfrm_enabled.md)
-  - initHyperLogLog
-  - ssup_datum_unsigned_cmp
+  - [initHyperLogLog](../i/initHyperLogLog.md)
+  - [ssup_datum_unsigned_cmp](../s/ssup_datum_unsigned_cmp.md)
   - [varstr_abbrev_convert](varstr_abbrev_convert.md)
   - [varstr_abbrev_abort](varstr_abbrev_abort.md)
 - Called from (representative examples):
   - [bttextsortsupport](../b/bttextsortsupport.md)
-  - btnamesortsupport
+  - [btnamesortsupport](../b/btnamesortsupport.md)
   - [bpchar_sortsupport](../b/bpchar_sortsupport.md)
   - [btbpchar_pattern_sortsupport](../b/btbpchar_pattern_sortsupport.md)
   - [bttext_pattern_sortsupport](../b/bttext_pattern_sortsupport.md)

@@ -92,4 +92,4 @@ The structure uses several stacks (p_stack, il, cstk, paren_indents) to handle n
 - The large number of boolean flags reflects the complexity of C syntax and formatting rules
 - Array sizes (256 for p_stack, 64 for il, 32 for cstk, 20 for paren_indents) represent practical limits for nested constructs
 - The procname field suggests procedure-aware formatting capabilities
-- Float types for case_indent and cstk allow fractional indentation values for fine-grained positioning
+- [Float](../F/Float.md) types for case_indent and cstk allow fractional indentation values for fine-grained positioning

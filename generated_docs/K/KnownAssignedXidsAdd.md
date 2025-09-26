@@ -22,16 +22,16 @@ This static function adds a range of transaction IDs from from_xid to to_xid (in
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TransactionIdPrecedesOrEquals (validates from_xid <= to_xid)
-  - TransactionIdPrecedes (handles XID wraparound in range calculation)
+  - [TransactionIdPrecedesOrEquals](../T/TransactionIdPrecedesOrEquals.md) (validates from_xid <= to_xid)
+  - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md) (handles XID wraparound in range calculation)
   - TransactionIdAdvance (increments XIDs in the range)
-  - TransactionIdFollowsOrEquals (verifies sequential insertion)
-  - KnownAssignedXidsDisplay (for error logging)
-  - KnownAssignedXidsCompress (compresses array when space is needed)
+  - [TransactionIdFollowsOrEquals](../T/TransactionIdFollowsOrEquals.md) (verifies sequential insertion)
+  - [KnownAssignedXidsDisplay](KnownAssignedXidsDisplay.md) (for error logging)
+  - [KnownAssignedXidsCompress](KnownAssignedXidsCompress.md) (compresses array when space is needed)
   - pg_write_barrier (ensures memory ordering without exclusive lock)
 - Called from (representative examples):
-  - ProcArrayApplyRecoveryInfo (during recovery info application)
-  - RecordKnownAssignedTransactionIds (when recording new transactions)
+  - [ProcArrayApplyRecoveryInfo](../P/ProcArrayApplyRecoveryInfo.md) (during recovery info application)
+  - [RecordKnownAssignedTransactionIds](../R/RecordKnownAssignedTransactionIds.md) (when recording new transactions)
 
 ## Notes and Other Information
 - This is a static function only called by the startup process during recovery

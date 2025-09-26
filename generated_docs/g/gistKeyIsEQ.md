@@ -27,7 +27,7 @@ The function is essential for various GiST operations that need to determine if 
   - [PointerGetDatum](../P/PointerGetDatum.md) (converts pointer to Datum for passing result location)
 - Called from (representative examples):
   - [gistUserPicksplit](gistUserPicksplit.md) (in gistsplit.c:497)
-  - gistgetadjusted (in gistutil.c:351)
+  - [gistgetadjusted](gistgetadjusted.md) (in gistutil.c:351)
 
 ## Notes and Other Information
 - The function follows the GiST support function protocol where the result is returned via a pointer parameter passed to the equality function

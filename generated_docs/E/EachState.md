@@ -36,7 +36,7 @@ EachState serves as a context structure for PostgreSQL's JSON each functionality
 ## Dependencies
 - Functions called/Symbols referenced:
   - [JsonLexContext](../J/JsonLexContext.md)
-  - Tuplestorestate
+  - [Tuplestorestate](../T/Tuplestorestate.md)
 - Called from (representative examples):
   - [each_worker](../e/each_worker.md)
   - [each_object_field_start](../e/each_object_field_start.md)

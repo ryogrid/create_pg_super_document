@@ -31,9 +31,9 @@ The function is implemented as a wrapper around `pg_atomic_fetch_add_u32_impl`, 
 - Called from (representative examples):
   - [parallel_vacuum_process_safe_indexes](parallel_vacuum_process_safe_indexes.md) (src/backend/commands/vacuumparallel.c:787)
   - [ExecParallelHashJoinNewBatch](../E/ExecParallelHashJoinNewBatch.md) (src/backend/executor/nodeHashjoin.c:1195)
-  - ClockSweepTick (src/backend/storage/buffer/freelist.c:118)
-  - StrategyGetBuffer (src/backend/storage/buffer/freelist.c:250)
-  - LWLockQueueSelf (src/backend/storage/lmgr/lwlock.c:1069)
+  - [ClockSweepTick](../C/ClockSweepTick.md) (src/backend/storage/buffer/freelist.c:118)
+  - [StrategyGetBuffer](../S/StrategyGetBuffer.md) (src/backend/storage/buffer/freelist.c:250)
+  - [LWLockQueueSelf](../L/LWLockQueueSelf.md) (src/backend/storage/lmgr/lwlock.c:1069)
 
 ## Notes and Other Information
 - Returns the value that was stored before the addition operation

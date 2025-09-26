@@ -34,18 +34,18 @@ The function sets up the deparse context with the query's target list and window
   - [get_setop_query](get_setop_query.md)
   - [get_basic_select_query](get_basic_select_query.md)
   - [get_rule_orderby](get_rule_orderby.md)
-  - get_rule_expr
+  - [get_rule_expr](get_rule_expr.md)
   - [get_rtable_name](get_rtable_name.md)
-  - appendContextKeyword
+  - [appendContextKeyword](../a/appendContextKeyword.md)
   - [quote_identifier](../q/quote_identifier.md)
-  - appendStringInfo
-  - appendStringInfoString
-  - appendStringInfoChar
+  - [appendStringInfo](../a/appendStringInfo.md)
+  - [appendStringInfoString](../a/appendStringInfoString.md)
+  - [appendStringInfoChar](../a/appendStringInfoChar.md)
   - PRETTYINDENT_STD
   - LIMIT_OPTION_WITH_TIES
   - LCS_FORKEYSHARE, LCS_FORSHARE, LCS_FORNOKEYUPDATE, LCS_FORUPDATE, LCS_NONE
   - LockWaitError, LockWaitSkip
-  - RowMarkClause
+  - [RowMarkClause](../R/RowMarkClause.md)
 - Called from (representative examples):
   - [get_query_def](get_query_def.md)
 

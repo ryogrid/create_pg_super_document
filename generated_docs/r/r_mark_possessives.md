@@ -21,12 +21,12 @@ This function is part of the Turkish language stemming implementation in Postgre
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_among_b (Snowball library function for backwards pattern matching)
-  - r_mark_suffix_with_optional_U_vowel (handles Turkish vowel harmony rules)
+  - [find_among_b](../f/find_among_b.md) (Snowball library function for backwards pattern matching)
+  - [r_mark_suffix_with_optional_U_vowel](r_mark_suffix_with_optional_U_vowel.md) (handles Turkish vowel harmony rules)
   - a_0 (array of 10 possessive suffix patterns)
 - Called from (representative examples):
-  - r_stem_suffix_chain_before_ki
-  - r_stem_noun_suffixes
+  - [r_stem_suffix_chain_before_ki](r_stem_suffix_chain_before_ki.md)
+  - [r_stem_noun_suffixes](r_stem_noun_suffixes.md)
 
 ## Notes and Other Information
 - Returns 1 on successful possessive suffix identification and marking, 0 on failure

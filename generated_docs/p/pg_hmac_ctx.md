@@ -57,7 +57,7 @@ The HMAC algorithm requires two derived keys from the original key: an inner pad
   - [pg_hmac_error](pg_hmac_error.md)
   - [verify_client_proof](../v/verify_client_proof.md) (SCRAM authentication)
   - [build_server_final_message](../b/build_server_final_message.md) (SCRAM authentication)
-  - scram_SaltedPassword
+  - [scram_SaltedPassword](../s/scram_SaltedPassword.md)
   - [calculate_client_proof](../c/calculate_client_proof.md)
 
 ## Notes and Other Information

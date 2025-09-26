@@ -22,10 +22,10 @@ The function employs a lazy allocation strategy - creating the dummy header only
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - expanded_record_get_tupdesc
+  - [expanded_record_get_tupdesc](../e/expanded_record_get_tupdesc.md)
   - [get_short_term_cxt](../g/get_short_term_cxt.md)
   - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
-  - EOH_init_header
+  - [EOH_init_header](../E/EOH_init_header.md)
   - ER_MAGIC
 - Called from (representative examples):
   - [check_domain_for_new_field](../c/check_domain_for_new_field.md)

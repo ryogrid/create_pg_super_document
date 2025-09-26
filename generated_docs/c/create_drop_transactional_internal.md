@@ -35,18 +35,18 @@ This design enables proper transactional semantics for statistics operations, en
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PgStat_Kind (enum type)
-  - PgStat_SubXactStatus (structure type) 
-  - PgStat_PendingDroppedStatsItem (structure type)
-  - GetCurrentTransactionNestLevel
-  - pgstat_get_xact_stack_level
-  - MemoryContextAlloc
-  - dclist_push_tail
+  - [PgStat_Kind](../P/PgStat_Kind.md) (enum type)
+  - [PgStat_SubXactStatus](../P/PgStat_SubXactStatus.md) (structure type) 
+  - [PgStat_PendingDroppedStatsItem](../P/PgStat_PendingDroppedStatsItem.md) (structure type)
+  - [GetCurrentTransactionNestLevel](../G/GetCurrentTransactionNestLevel.md)
+  - [pgstat_get_xact_stack_level](../p/pgstat_get_xact_stack_level.md)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
+  - [dclist_push_tail](../d/dclist_push_tail.md)
   - TopTransactionContext (global memory context)
 
 - Called from (representative examples):
-  - pgstat_create_transactional (src/backend/utils/activity/pgstat_xact.c:368)
-  - pgstat_drop_transactional (src/backend/utils/activity/pgstat_xact.c:381)
+  - [pgstat_create_transactional](../p/pgstat_create_transactional.md) (src/backend/utils/activity/pgstat_xact.c:368)
+  - [pgstat_drop_transactional](../p/pgstat_drop_transactional.md) (src/backend/utils/activity/pgstat_xact.c:381)
 
 ## Notes and Other Information
 - Static function, only accessible within pgstat_xact.c

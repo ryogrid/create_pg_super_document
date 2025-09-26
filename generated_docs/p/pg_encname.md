@@ -28,9 +28,9 @@ The design follows PostgreSQL's approach of maintaining a static, read-only look
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_enc (enumerated type)
+  - [pg_enc](pg_enc.md) (enumerated type)
 - Called from (representative examples):
-  - pg_char_to_encoding (uses pg_encname_tbl array of this structure)
+  - [pg_char_to_encoding](pg_char_to_encoding.md) (uses pg_encname_tbl array of this structure)
 
 ## Notes and Other Information
 - All encoding names must be preprocessed to remove irrelevant characters (hyphens, underscores) and converted to lowercase before storage in the table

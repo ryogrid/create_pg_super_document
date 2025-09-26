@@ -20,11 +20,11 @@ The function works by first computing the hash code of the associated LOCK objec
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LockTagHashCode: Computes hash code for the associated LOCK's tag
+  - [LockTagHashCode](../L/LockTagHashCode.md): Computes hash code for the associated LOCK's tag
   - [PointerGetDatum](../P/PointerGetDatum.md): Converts pointer to Datum for hash computation
   - LOG2_NUM_LOCK_PARTITIONS: Used to left-shift the process pointer to preserve partition bits
 - Called from (representative examples):
-  - InitLocks: Used during lock manager initialization
+  - [InitLocks](../I/InitLocks.md): Used during lock manager initialization
   - PROCLOCK_PRINT: Used for debugging/printing PROCLOCK information
 
 ## Notes and Other Information

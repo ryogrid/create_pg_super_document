@@ -24,7 +24,7 @@ This function is a factory constructor that creates and initializes a DirectoryM
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_malloc0 (PostgreSQL memory allocation)
+  - [pg_malloc0](../p/pg_malloc0.md) (PostgreSQL memory allocation)
   - [pg_strdup](../p/pg_strdup.md) (PostgreSQL string duplication)
   - clear_error (internal error clearing function)
 - Data structures used:

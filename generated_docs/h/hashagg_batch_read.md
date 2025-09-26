@@ -29,7 +29,7 @@ Reading process:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LogicalTapeRead
+  - [LogicalTapeRead](../L/LogicalTapeRead.md)
   - [palloc](../p/palloc.md)
   - ereport
   - [errcode_for_file_access](../e/errcode_for_file_access.md)

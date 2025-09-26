@@ -38,7 +38,7 @@ The  function is a key component of PostgreSQL's regex compilation system. It pr
   - [charclasscomplement](../c/charclasscomplement.md) (at line 1536)
   - [brackpart](../b/brackpart.md) (at lines 1810, 1876)
   - [onechr](../o/onechr.md) (at line 1925)
-  - wordchrs (at line 2011)
+  - [wordchrs](../w/wordchrs.md) (at line 2011)
 
 ## Notes and Other Information
 - Does not return a value (void function)

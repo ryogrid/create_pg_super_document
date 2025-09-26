@@ -27,11 +27,11 @@ The struct uses a flexible array member to accommodate varying numbers of worker
 ## Dependencies
 - Functions called/Symbols referenced:
   - FLEXIBLE_ARRAY_MEMBER (PostgreSQL's flexible array macro)
-  - Instrumentation (individual worker instrumentation data)
+  - [Instrumentation](../I/Instrumentation.md) (individual worker instrumentation data)
 - Called from (representative examples):
-  - ExplainNode (for EXPLAIN output of parallel plans)
-  - ExecParallelRetrieveInstrumentation (collecting worker stats)
-  - PlanState (execution node state management)
+  - [ExplainNode](../E/ExplainNode.md) (for EXPLAIN output of parallel plans)
+  - [ExecParallelRetrieveInstrumentation](../E/ExecParallelRetrieveInstrumentation.md) (collecting worker stats)
+  - [PlanState](../P/PlanState.md) (execution node state management)
 
 ## Notes and Other Information
 - The struct is defined in src/include/executor/instrument.h:95-99

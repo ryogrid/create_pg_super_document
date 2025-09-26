@@ -23,7 +23,7 @@ This function searches the PostgreSQL dependency system to find the constraint t
   - Form_pg_depend
   - DEPENDENCY_INTERNAL
 - Called from (representative examples):
-  - index_concurrently_swap
+  - [index_concurrently_swap](../i/index_concurrently_swap.md)
   - [RenameRelationInternal](../R/RenameRelationInternal.md)
   - [RememberIndexForRebuilding](../R/RememberIndexForRebuilding.md)
   - [generateClonedIndexStmt](generateClonedIndexStmt.md)

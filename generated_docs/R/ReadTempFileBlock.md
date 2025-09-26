@@ -19,11 +19,11 @@ ReadTempFileBlock is a wrapper around BufFile operations specifically designed f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufFileSeekBlock
-  - BufFileReadExact
+  - [BufFileSeekBlock](../B/BufFileSeekBlock.md)
+  - [BufFileReadExact](../B/BufFileReadExact.md)
   - elog (for error reporting)
 - Called from (representative examples):
-  - gistLoadNodeBuffer
+  - [gistLoadNodeBuffer](../g/gistLoadNodeBuffer.md)
   - [gistPopItupFromNodeBuffer](../g/gistPopItupFromNodeBuffer.md)
 
 ## Notes and Other Information

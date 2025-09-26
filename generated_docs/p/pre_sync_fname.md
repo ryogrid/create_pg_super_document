@@ -36,7 +36,7 @@ Error handling is minimal since this is only an optimization hint - failures are
 - Called from (representative examples):
   - [sync_pgdata](../s/sync_pgdata.md) (via walkdir)
   - [sync_dir_recurse](../s/sync_dir_recurse.md) (via walkdir)
-  - SyncDataDirectory (backend version)
+  - [SyncDataDirectory](../S/SyncDataDirectory.md) (backend version)
 
 ## Notes and Other Information
 - This function is only compiled when PG_FLUSH_DATA_WORKS is defined at build time

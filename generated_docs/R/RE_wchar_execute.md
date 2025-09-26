@@ -26,7 +26,7 @@ The function is designed to work with PostgreSQL's internal wide character repre
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_regexec (core regex execution from Spencer's library)
+  - [pg_regexec](../p/pg_regexec.md) (core regex execution from Spencer's library)
   - [pg_regerror](../p/pg_regerror.md) (error message generation)
   - regex_t, regmatch_t (data structures)
   - REG_OKAY, REG_NOMATCH (result constants)

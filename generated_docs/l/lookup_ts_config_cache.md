@@ -27,7 +27,7 @@ For each token type, the function maintains an array of dictionary OIDs that wil
   - [init_ts_config_cache](../i/init_ts_config_cache.md) (initializes cache infrastructure if needed)
   - [hash_search](../h/hash_search.md) (searches and inserts entries in the hash table)
   - [SearchSysCache1](../S/SearchSysCache1.md) (system catalog lookup for configuration)
-  - table_open, index_open (opens system catalog relations)
+  - [table_open](../t/table_open.md), index_open (opens system catalog relations)
   - [systable_beginscan_ordered](../s/systable_beginscan_ordered.md), systable_getnext_ordered, systable_endscan_ordered (ordered system catalog scanning)
   - [index_close](../i/index_close.md), table_close (closes relations)
   - [ScanKeyInit](../S/ScanKeyInit.md) (initializes scan key)
@@ -35,7 +35,7 @@ For each token type, the function maintains an array of dictionary OIDs that wil
   - MemSet, memcpy (memory operations)
   - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) (datum conversion)
   - MAXTOKENTYPE, MAXDICTSPERTT (token type and dictionary limits)
-  - ListDictionary (mapping structure)
+  - [ListDictionary](../L/ListDictionary.md) (mapping structure)
   - TSConfigMapRelationId, TSConfigMapIndexId (system catalog identifiers)
 - Called from (representative examples):
   - [parsetext](../p/parsetext.md), hlparsetext (in ts_parse.c)

@@ -31,7 +31,7 @@ The function creates shared memory segments for coordinating work distribution, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - EnterParallelMode (enter parallel execution mode)
+  - [EnterParallelMode](../E/EnterParallelMode.md) (enter parallel execution mode)
   - [CreateParallelContext](../C/CreateParallelContext.md) (create parallel worker context)
   - [_brin_parallel_estimate_shared](_brin_parallel_estimate_shared.md) (estimate shared memory needs)
   - [tuplesort_estimate_shared](../t/tuplesort_estimate_shared.md) (estimate tuplesort memory needs)

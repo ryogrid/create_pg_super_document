@@ -25,7 +25,7 @@ As a PostgreSQL function following the PG_FUNCTION_ARGS convention, it can be ca
 - Functions called/Symbols referenced:
   - PG_GETARG_OID (macro to extract OID argument from function call)
   - [pg_get_statisticsobj_worker](pg_get_statisticsobj_worker.md) (worker function that generates the statistics definition)
-  - string_to_text (converts C string to PostgreSQL text type)
+  - [string_to_text](../s/string_to_text.md) (converts C string to PostgreSQL text type)
   - PG_RETURN_TEXT_P (macro to return text value to SQL caller)
   - PG_RETURN_NULL (macro to return NULL to SQL caller)
 - Called from (representative examples):

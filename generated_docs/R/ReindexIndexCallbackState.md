@@ -26,7 +26,7 @@ The structure is designed to support both concurrent and non-concurrent reindexi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReindexParams
+  - [ReindexParams](ReindexParams.md)
 - Called from (representative examples):
   - [RangeVarCallbackForReindexIndex](RangeVarCallbackForReindexIndex.md)
   - [ReindexIndex](ReindexIndex.md)

@@ -17,10 +17,10 @@ This function implements the verbose listing functionality for PostgreSQL text s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initPQExpBuffer
+  - [initPQExpBuffer](../i/initPQExpBuffer.md)
   - [printfPQExpBuffer](../p/printfPQExpBuffer.md)
   - [validateSQLNamePattern](../v/validateSQLNamePattern.md)
-  - termPQExpBuffer
+  - [termPQExpBuffer](../t/termPQExpBuffer.md)
   - [PSQLexec](../P/PSQLexec.md)
   - [PQntuples](../P/PQntuples.md)
   - [PQgetisnull](../P/PQgetisnull.md)

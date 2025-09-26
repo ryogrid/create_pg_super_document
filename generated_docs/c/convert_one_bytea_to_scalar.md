@@ -37,7 +37,7 @@ The function handles edge cases by clamping out-of-range values and returns 0.0 
 - Functions called/Symbols referenced:
   - (No external function calls - operates directly on byte data)
 - Called from (representative examples):
-  - convert_bytea_to_scalar (called 3 times for value, lobound, and hibound conversion)
+  - [convert_bytea_to_scalar](convert_bytea_to_scalar.md) (called 3 times for value, lobound, and hibound conversion)
 
 ## Notes and Other Information
 - Returns 0.0 for empty binary data (valuelen <= 0), providing a consistent baseline

@@ -29,16 +29,16 @@ The tape set is initially empty and requires `LogicalTapeCreate()` calls to add 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (memory allocation)
-  - pg_itoa (integer to string conversion)
-  - BufFileCreateFileSet (creates shared fileset BufFile)
-  - BufFileCreateTemp (creates temporary BufFile)
-  - LogicalTapeSet (structure type)
+  - [palloc](../p/palloc.md) (memory allocation)
+  - [pg_itoa](../p/pg_itoa.md) (integer to string conversion)
+  - [BufFileCreateFileSet](../B/BufFileCreateFileSet.md) (creates shared fileset BufFile)
+  - [BufFileCreateTemp](../B/BufFileCreateTemp.md) (creates temporary BufFile)
+  - [LogicalTapeSet](LogicalTapeSet.md) (structure type)
   - SharedFileSet (shared file structure type)
 - Called from (representative examples):
-  - hash_agg_enter_spill_mode (hash aggregation spilling)
-  - inittapes (tuplesort initialization)
-  - leader_takeover_tapes (parallel sort leader)
+  - [hash_agg_enter_spill_mode](../h/hash_agg_enter_spill_mode.md) (hash aggregation spilling)
+  - [inittapes](../i/inittapes.md) (tuplesort initialization)
+  - [leader_takeover_tapes](../l/leader_takeover_tapes.md) (parallel sort leader)
 
 ## Notes and Other Information
 - The tape set starts with reasonable initial values: 32 free block slots, no allocated/written blocks

@@ -24,19 +24,19 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - dsa_create
-  - dsa_pin
-  - dsa_pin_mapping
-  - dshash_create
-  - dsa_get_handle
-  - dshash_get_hash_table_handle
-  - dsa_attach
-  - dshash_attach
+  - [dsa_pin](../d/dsa_pin.md)
+  - [dsa_pin_mapping](../d/dsa_pin_mapping.md)
+  - [dshash_create](../d/dshash_create.md)
+  - [dsa_get_handle](../d/dsa_get_handle.md)
+  - [dshash_get_hash_table_handle](../d/dshash_get_hash_table_handle.md)
+  - [dsa_attach](../d/dsa_attach.md)
+  - [dshash_attach](../d/dshash_attach.md)
   - DSHASH_HANDLE_INVALID
   - LWTRANCHE_LAUNCHER_DSA
 - Called from:
-  - ApplyLauncherSetWorkerStartTime
-  - ApplyLauncherGetWorkerStartTime
-  - ApplyLauncherForgetWorkerStartTime
+  - [ApplyLauncherSetWorkerStartTime](../A/ApplyLauncherSetWorkerStartTime.md)
+  - [ApplyLauncherGetWorkerStartTime](../A/ApplyLauncherGetWorkerStartTime.md)
+  - [ApplyLauncherForgetWorkerStartTime](../A/ApplyLauncherForgetWorkerStartTime.md)
 
 ## Notes and Other Information
 - This is a static function within the launcher.c file, indicating it's only used internally by the logical replication launcher module

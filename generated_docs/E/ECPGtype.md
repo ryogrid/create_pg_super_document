@@ -46,19 +46,19 @@ This type system enables the ECPG preprocessor to perform type checking, generat
 ## Dependencies
 - Functions called/Symbols referenced:
   - ECPGttype (enumeration for type classification)
-  - ECPGstruct_member (for struct/union member representation)
+  - [ECPGstruct_member](ECPGstruct_member.md) (for struct/union member representation)
 - Called from (representative examples):
-  - ECPGmake_simple_type
-  - ECPGmake_array_type  
-  - ECPGmake_struct_type
-  - ECPGdump_a_type
-  - ECPGfree_type
-  - get_type
-  - new_variable
+  - [ECPGmake_simple_type](ECPGmake_simple_type.md)
+  - [ECPGmake_array_type](ECPGmake_array_type.md)  
+  - [ECPGmake_struct_type](ECPGmake_struct_type.md)
+  - [ECPGdump_a_type](ECPGdump_a_type.md)
+  - [ECPGfree_type](ECPGfree_type.md)
+  - [get_type](../g/get_type.md)
+  - [new_variable](../n/new_variable.md)
 
 ## Notes and Other Information
 - The structure supports recursive type definitions through the union field, allowing for arrays of structs or structs containing arrays
 - Memory management is handled by ECPGfree_type which recursively frees nested type structures
 - The type system covers all PostgreSQL data types including numeric, temporal, binary, and user-defined types
-- String fields (type_name, size, struct_sizeof) are dynamically allocated and must be properly freed
+- [String](../S/String.md) fields (type_name, size, struct_sizeof) are dynamically allocated and must be properly freed
 - This is a core component of the ECPG type checking and code generation system

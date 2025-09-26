@@ -26,10 +26,10 @@ This function combines the flexibility of name-based relation specification with
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - relation_openrv_extended
-  - validate_relation_kind
+  - [relation_openrv_extended](../r/relation_openrv_extended.md)
+  - [validate_relation_kind](../v/validate_relation_kind.md)
 - Types referenced:
-  - RangeVar
+  - [RangeVar](../R/RangeVar.md)
 - Called from (representative examples):
   - SQL commands that need to handle potentially missing tables gracefully
   - Administrative operations that should continue if a table does not exist

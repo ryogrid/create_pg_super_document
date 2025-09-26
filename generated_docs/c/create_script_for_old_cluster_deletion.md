@@ -33,7 +33,7 @@ If safety conditions are not met, the function issues warnings and returns witho
 ## Dependencies
 - Functions called/Symbols referenced:
   - [psprintf](../p/psprintf.md) (string formatting with memory allocation)
-  - strlcpy (safe string copying)
+  - [strlcpy](../s/strlcpy.md) (safe string copying)
   - [canonicalize_path](canonicalize_path.md) (path normalization)
   - [path_is_prefix_of_path](../p/path_is_prefix_of_path.md) (path relationship checking)
   - [pg_log](../p/pg_log.md) (logging with severity levels)

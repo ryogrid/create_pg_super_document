@@ -20,7 +20,7 @@ ConnectionUp provides a simple way to verify the status of the current PostgreSQ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQstatus (libpq function to get connection status)
+  - [PQstatus](../P/PQstatus.md) (libpq function to get connection status)
   - CONNECTION_BAD (libpq constant representing a bad connection state)
   - pset.db (global variable containing the database connection)
 - Called from (representative examples):

@@ -29,7 +29,7 @@ The function performs several key operations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - SearchSysCacheCopy1
   - [GetForeignServer](../G/GetForeignServer.md)
   - [GetForeignDataWrapper](../G/GetForeignDataWrapper.md)
@@ -39,7 +39,7 @@ The function performs several key operations:
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - [CacheInvalidateRelcache](../C/CacheInvalidateRelcache.md)
   - InvokeObjectPostAlterHook
-  - table_close
+  - [table_close](../t/table_close.md)
   - [heap_freetuple](../h/heap_freetuple.md)
 
 - Called from (representative examples):

@@ -32,7 +32,7 @@ The function performs character-by-character validation with the following rules
 - Called from:
   - [assignable_custom_variable_name](../a/assignable_custom_variable_name.md) (src/backend/utils/misc/guc.c:1134)
   - [AlterSystemSetConfigFile](../A/AlterSystemSetConfigFile.md) (src/backend/utils/misc/guc.c:4733)
-  - validate_option_array_item (src/backend/utils/misc/guc.c:6746)
+  - [validate_option_array_item](validate_option_array_item.md) (src/backend/utils/misc/guc.c:6746)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the guc.c file

@@ -22,17 +22,17 @@ The function simply checks if the global HistoricSnapshot variable is non-NULL, 
 ## Dependencies
 - Functions called/Symbols referenced:
   - HistoricSnapshot (global variable check)
-  - HTAB (referenced in context)
+  - [HTAB](HTAB.md) (referenced in context)
 - Called from (representative examples):
-  - SnapBuildInitialSnapshot (in logical snapbuild)
-  - RelationInitPhysicalAddr (in relation cache)
-  - RelationClearRelation (in relation cache)
-  - RelationGetIdentityKeyBitmap (in relation cache)
-  - GetTransactionSnapshot (in snapshot manager)
-  - GetLatestSnapshot (in snapshot manager)
-  - GetCatalogSnapshot (in snapshot manager)
-  - SetTransactionSnapshot (in snapshot manager)
-  - HistoricSnapshotGetTupleCids (in same file)
+  - [SnapBuildInitialSnapshot](../S/SnapBuildInitialSnapshot.md) (in logical snapbuild)
+  - [RelationInitPhysicalAddr](../R/RelationInitPhysicalAddr.md) (in relation cache)
+  - [RelationClearRelation](../R/RelationClearRelation.md) (in relation cache)
+  - [RelationGetIdentityKeyBitmap](../R/RelationGetIdentityKeyBitmap.md) (in relation cache)
+  - [GetTransactionSnapshot](../G/GetTransactionSnapshot.md) (in snapshot manager)
+  - [GetLatestSnapshot](../G/GetLatestSnapshot.md) (in snapshot manager)
+  - [GetCatalogSnapshot](../G/GetCatalogSnapshot.md) (in snapshot manager)
+  - [SetTransactionSnapshot](../S/SetTransactionSnapshot.md) (in snapshot manager)
+  - [HistoricSnapshotGetTupleCids](HistoricSnapshotGetTupleCids.md) (in same file)
 
 ## Notes and Other Information
 - This is a simple predicate function that returns true if historical snapshot mode is active

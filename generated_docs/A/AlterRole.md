@@ -21,15 +21,15 @@ AlterRole implements the ALTER ROLE, ALTER USER, and ALTER GROUP SQL statements 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetUserId](../G/GetUserId.md)
-  - check_rolespec_name
+  - [check_rolespec_name](../c/check_rolespec_name.md)
   - [have_createrole_privilege](../h/have_createrole_privilege.md)
-  - is_admin_of_role
-  - superuser
+  - [is_admin_of_role](../i/is_admin_of_role.md)
+  - [superuser](../s/superuser.md)
   - [have_createdb_privilege](../h/have_createdb_privilege.md)
   - [has_rolreplication](../h/has_rolreplication.md)
   - [has_bypassrls_privilege](../h/has_bypassrls_privilege.md)
-  - get_rolespec_tuple
-  - table_open
+  - [get_rolespec_tuple](../g/get_rolespec_tuple.md)
+  - [table_open](../t/table_open.md)
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - [heap_modify_tuple](../h/heap_modify_tuple.md)
   - [AddRoleMems](AddRoleMems.md)

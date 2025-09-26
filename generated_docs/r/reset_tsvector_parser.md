@@ -21,7 +21,7 @@ This function allows reusing an existing TSVectorParseState object to parse a di
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TSVectorParseState
+  - [TSVectorParseState](../T/TSVectorParseState.md)
 - Called from (representative examples):
   - [gettoken_query_standard](../g/gettoken_query_standard.md) (src/backend/utils/adt/tsquery.c:324)
   - [gettoken_query_websearch](../g/gettoken_query_websearch.md) (src/backend/utils/adt/tsquery.c:453)

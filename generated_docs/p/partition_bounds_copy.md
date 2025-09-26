@@ -35,7 +35,7 @@ Key copying behaviors:
   - memcpy
 - Data types used:
   - [PartitionBoundInfo](../P/PartitionBoundInfo.md)
-  - PartitionBoundInfoData
+  - [PartitionBoundInfoData](../P/PartitionBoundInfoData.md)
   - [PartitionKey](../P/PartitionKey.md)
   - [PartitionRangeDatumKind](../P/PartitionRangeDatumKind.md)
 - Constants used:
@@ -51,6 +51,6 @@ Key copying behaviors:
 - Designed for long-lived memory contexts - avoids catalog access and memory leaks
 - Optimizes memory allocation by using single large arrays instead of many small ones
 - [List](../L/List.md) partitions are constrained to single partition key (partnatts == 1)
-- Hash partitions always use int32 for modulus/remainder values
+- [Hash](../H/Hash.md) partitions always use int32 for modulus/remainder values
 - Only copies actual datum values for PARTITION_RANGE_DATUM_VALUE kinds
 - Critical for relation descriptor building and caching infrastructure

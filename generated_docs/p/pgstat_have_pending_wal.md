@@ -25,8 +25,8 @@ The function compares the current WAL record count with the previous count and a
   - prevWalUsage (global variable)
   - PendingWalStats (global variable)
 - Called from (representative examples):
-  - pgstat_report_stat
-  - pgstat_flush_wal
+  - [pgstat_report_stat](pgstat_report_stat.md)
+  - [pgstat_flush_wal](pgstat_flush_wal.md)
 
 ## Notes and Other Information
 - Returns true if any WAL activity has occurred, false otherwise

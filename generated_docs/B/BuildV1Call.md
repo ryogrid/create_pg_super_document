@@ -42,18 +42,18 @@ The function is designed to seamlessly integrate PostgreSQL's C function calling
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - llvm_function_reference
-  - l_ptr_const
-  - l_struct_gep
-  - l_sbool_const
-  - AttributeTemplate
-  - l_call
-  - l_load
-  - create_LifetimeEnd
-  - NullableDatum
-  - l_int64_const
+  - [llvm_function_reference](../l/llvm_function_reference.md)
+  - [l_ptr_const](../l/l_ptr_const.md)
+  - [l_struct_gep](../l/l_struct_gep.md)
+  - [l_sbool_const](../l/l_sbool_const.md)
+  - [AttributeTemplate](../A/AttributeTemplate.md)
+  - [l_call](../l/l_call.md)
+  - [l_load](../l/l_load.md)
+  - [create_LifetimeEnd](../c/create_LifetimeEnd.md)
+  - [NullableDatum](../N/NullableDatum.md)
+  - [l_int64_const](../l/l_int64_const.md)
 - Called from (representative examples):
-  - llvm_compile_expr (multiple call sites for different expression types)
+  - [llvm_compile_expr](../l/llvm_compile_expr.md) (multiple call sites for different expression types)
 
 ## Notes and Other Information
 - Returns an LLVMValueRef representing the function's return value

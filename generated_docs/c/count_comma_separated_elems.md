@@ -21,7 +21,7 @@ This utility function provides a simple way to determine how many elements are p
 - Functions called/Symbols referenced:
   - (none - uses only basic C string operations)
 - Called from (representative examples):
-  - pqConnectOptions2 (multiple calls for counting hostaddr, host, port, and other connection parameters)
+  - [pqConnectOptions2](../p/pqConnectOptions2.md) (multiple calls for counting hostaddr, host, port, and other connection parameters)
 
 ## Notes and Other Information
 - Returns the count of elements as an integer

@@ -24,9 +24,9 @@ The function is primarily used by the lock manager and other subsystems that nee
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwner (structure type only)
+  - [ResourceOwner](ResourceOwner.md) (structure type only)
 - Called from (representative examples):
-  - LockReassignCurrentOwner (lock management during subtransaction commit)
+  - [LockReassignCurrentOwner](../L/LockReassignCurrentOwner.md) (lock management during subtransaction commit)
 
 ## Notes and Other Information
 - Returns NULL for top-level resource owners that have no parent

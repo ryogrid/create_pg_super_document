@@ -33,7 +33,7 @@ The function handles EOF gracefully by returning the actual number of bytes read
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CopyLoadRawBuf](CopyLoadRawBuf.md)
-  - CopyFromState
+  - [CopyFromState](CopyFromState.md)
 - Called from (representative examples):
   - NO_END_OF_COPY_GOTO
   - [ReceiveCopyBinaryHeader](../R/ReceiveCopyBinaryHeader.md)

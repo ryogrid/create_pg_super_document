@@ -23,15 +23,15 @@ This cleanup is essential before performing segment index lookups to avoid acces
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockHeldByMe (assertion to verify lock is held)
+  - [LWLockHeldByMe](../L/LWLockHeldByMe.md) (assertion to verify lock is held)
   - DSA_AREA_LOCK (macro to get area-specific lock)
-  - dsm_detach (detaches dynamic shared memory segment)
+  - [dsm_detach](../d/dsm_detach.md) (detaches dynamic shared memory segment)
 - Called from (representative examples):
   - get_segment_index
-  - dsa_dump
-  - destroy_superblock
-  - get_best_segment
-  - check_for_freed_segments
+  - [dsa_dump](../d/dsa_dump.md)
+  - [destroy_superblock](../d/destroy_superblock.md)
+  - [get_best_segment](../g/get_best_segment.md)
+  - [check_for_freed_segments](check_for_freed_segments.md)
 
 ## Notes and Other Information
 - This is a static internal function not exposed in the public API

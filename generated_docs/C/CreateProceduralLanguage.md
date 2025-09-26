@@ -31,11 +31,11 @@ The function supports both creating new languages and replacing existing ones wh
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - superuser
+  - [superuser](../s/superuser.md)
   - [LookupFuncName](../L/LookupFuncName.md)
   - [get_func_rettype](../g/get_func_rettype.md)
   - [NameListToString](../N/NameListToString.md)
-  - table_open
+  - [table_open](../t/table_open.md)
   - [SearchSysCache1](../S/SearchSysCache1.md)
   - [heap_modify_tuple](../h/heap_modify_tuple.md)
   - [CatalogTupleUpdate](CatalogTupleUpdate.md)

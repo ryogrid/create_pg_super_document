@@ -24,7 +24,7 @@ The recursion terminates when either no parent is found (topmost level reached) 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_partition_parent_worker](get_partition_parent_worker.md) (to find the immediate parent)
-  - lappend_oid (to append parent OID to the ancestors list)
+  - [lappend_oid](../l/lappend_oid.md) (to append parent OID to the ancestors list)
   - [get_partition_ancestors_worker](get_partition_ancestors_worker.md) (recursive self-call)
 
 - Called from (representative examples):

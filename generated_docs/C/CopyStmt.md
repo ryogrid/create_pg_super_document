@@ -46,18 +46,18 @@ The statement supports flexible data sources including regular files, programs (
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (parse tree node identification)
-  - RangeVar (table reference structure)
-  - Node (generic parse tree node)
-  - List (PostgreSQL list data structure)
-  - DefElem (definition element for options)
+  - [RangeVar](../R/RangeVar.md) (table reference structure)
+  - [Node](../N/Node.md) (generic parse tree node)
+  - [List](../L/List.md) (PostgreSQL list data structure)
+  - [DefElem](../D/DefElem.md) (definition element for options)
 
 - Called from (representative examples):
-  - DoCopy
-  - init_execution_state
-  - _SPI_execute_plan
-  - ClassifyUtilityCommandAsReadOnly
-  - standard_ProcessUtility
-  - GetCommandLogLevel
+  - [DoCopy](../D/DoCopy.md)
+  - [init_execution_state](../i/init_execution_state.md)
+  - [_SPI_execute_plan](../S/_SPI_execute_plan.md)
+  - [ClassifyUtilityCommandAsReadOnly](ClassifyUtilityCommandAsReadOnly.md)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md)
+  - [GetCommandLogLevel](../G/GetCommandLogLevel.md)
 
 ## Notes and Other Information
 - Exactly one of relation and query must be non-NULL in any given CopyStmt

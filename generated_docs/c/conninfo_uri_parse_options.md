@@ -43,7 +43,7 @@ The parsing process involves:
   - [conninfo_storeval](conninfo_storeval.md)
   - [conninfo_uri_parse_params](conninfo_uri_parse_params.md)
   - [libpq_append_error](../l/libpq_append_error.md)
-  - initPQExpBuffer/termPQExpBuffer
+  - [initPQExpBuffer](../i/initPQExpBuffer.md)/termPQExpBuffer
   - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)/appendPQExpBufferChar
   - PQExpBufferDataBroken
 - Called from (representative examples):

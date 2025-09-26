@@ -35,7 +35,7 @@ None - this function takes no parameters.
 - Called from (representative examples):
   - [DiscardCommand](../D/DiscardCommand.md) (SQL DISCARD PLANS command)
   - [DiscardAll](../D/DiscardAll.md) (SQL DISCARD ALL command)
-  - assign_session_replication_role (when session replication role changes)
+  - [assign_session_replication_role](../a/assign_session_replication_role.md) (when session replication role changes)
   - [PlanCacheSysCallback](../P/PlanCacheSysCallback.md) (syscache invalidation callback)
 
 ## Notes and Other Information

@@ -44,10 +44,10 @@ The context is initialized by gen_partprune_steps() and passed through the pruni
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelOptInfo (relation optimization info structure)
+  - [RelOptInfo](../R/RelOptInfo.md) (relation optimization info structure)
   - PartClauseTarget (enumeration for pruning target context)
   - [List](../L/List.md) (PostgreSQL list structure)
-  - PartitionPruneStep (pruning step structure)
+  - [PartitionPruneStep](../P/PartitionPruneStep.md) (pruning step structure)
 
 - Called from (representative examples):
   - [make_partitionedrel_pruneinfo](../m/make_partitionedrel_pruneinfo.md)

@@ -41,21 +41,21 @@ The function handles edge cases such as duplicate XIDs from prepared transaction
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExpireOldKnownAssignedTransactionIds
+  - [ExpireOldKnownAssignedTransactionIds](../E/ExpireOldKnownAssignedTransactionIds.md)
   - TransactionIdRetreat
-  - AdvanceNextFullTransactionIdPastXid
-  - StandbyReleaseOldLocks
-  - KnownAssignedXidsReset
-  - TransactionIdPrecedes
-  - TransactionIdDidCommit
-  - TransactionIdDidAbort
-  - KnownAssignedXidsAdd
-  - ExtendSUBTRANS
-  - MaintainLatestCompletedXidRecovery
+  - [AdvanceNextFullTransactionIdPastXid](../A/AdvanceNextFullTransactionIdPastXid.md)
+  - [StandbyReleaseOldLocks](../S/StandbyReleaseOldLocks.md)
+  - [KnownAssignedXidsReset](../K/KnownAssignedXidsReset.md)
+  - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
+  - [TransactionIdDidCommit](../T/TransactionIdDidCommit.md)
+  - [TransactionIdDidAbort](../T/TransactionIdDidAbort.md)
+  - [KnownAssignedXidsAdd](../K/KnownAssignedXidsAdd.md)
+  - [ExtendSUBTRANS](../E/ExtendSUBTRANS.md)
+  - [MaintainLatestCompletedXidRecovery](../M/MaintainLatestCompletedXidRecovery.md)
 - Called from:
-  - StartupXLOG (during recovery processing)
-  - xlog_redo (during WAL record replay)
-  - standby_redo (during standby-specific record processing)
+  - [StartupXLOG](../S/StartupXLOG.md) (during recovery processing)
+  - [xlog_redo](../x/xlog_redo.md) (during WAL record replay)
+  - [standby_redo](../s/standby_redo.md) (during standby-specific record processing)
 
 ## Notes and Other Information
 - Must be called with standbyState >= STANDBY_INITIALIZED

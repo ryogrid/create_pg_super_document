@@ -38,7 +38,7 @@ The function includes a comment noting that IndexInfo arrays are not explicitly 
 ## Notes and Other Information
 - Must be called for every ResultRelInfo that had ExecOpenIndices called on it to prevent resource leaks
 - The function gracefully handles null index descriptors, though such cases should not normally occur
-- IndexInfo arrays are not explicitly freed - they rely on executor memory context cleanup
+- [IndexInfo](../I/IndexInfo.md) arrays are not explicitly freed - they rely on executor memory context cleanup
 - The function releases RowExclusiveLock that was acquired during ExecOpenIndices
 - Part of the executor resource cleanup protocol and should be called during executor shutdown
 - Does not return any error status - [cleanup](../c/cleanup.md) operations are expected to succeed

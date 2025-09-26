@@ -23,9 +23,9 @@ For the general case where both lists are non-empty, the function iterates throu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_length (gets list length for optimization)
+  - [list_length](../l/list_length.md) (gets list length for optimization)
   - forboth (iterates two lists simultaneously)
-  - PathKey (pathkey structure type)
+  - [PathKey](../P/PathKey.md) (pathkey structure type)
 - Called from (representative examples):
   - [generate_useful_gather_paths](../g/generate_useful_gather_paths.md)
   - [pathkeys_useful_for_ordering](pathkeys_useful_for_ordering.md)

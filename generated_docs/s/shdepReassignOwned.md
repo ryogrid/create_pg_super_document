@@ -26,7 +26,7 @@ The function includes memory management optimization by creating short-lived mem
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open/table_close - Opens pg_shdepend catalog with RowExclusiveLock
+  - [table_open](../t/table_open.md)/table_close - Opens pg_shdepend catalog with RowExclusiveLock
   - [IsPinnedObject](../I/IsPinnedObject.md) - Checks if role is system-critical and cannot be processed
   - [getObjectDescription](../g/getObjectDescription.md) - Generates error message descriptions
   - [systable_beginscan](systable_beginscan.md)/systable_getnext/systable_endscan - Scans pg_shdepend entries
@@ -34,7 +34,7 @@ The function includes memory management optimization by creating short-lived mem
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) - Switches between memory contexts
   - [shdepReassignOwned_Owner](shdepReassignOwned_Owner.md) - Handles ownership reassignment for OWNER dependencies
   - [shdepReassignOwned_InitAcl](shdepReassignOwned_InitAcl.md) - Handles initial ACL reassignment for INITACL dependencies
-  - CommandCounterIncrement - Ensures changes are visible to subsequent operations
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md) - Ensures changes are visible to subsequent operations
 
 - Called from (representative examples):
   - [ReassignOwnedObjects](../R/ReassignOwnedObjects.md) (src/backend/commands/user.c:1641)

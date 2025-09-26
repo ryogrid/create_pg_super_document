@@ -30,8 +30,8 @@ It also initializes the nullable_partexprs array as empty lists since base relat
 - Functions called/Symbols referenced:
   - [RelationGetPartitionKey](../R/RelationGetPartitionKey.md)
   - IS_SIMPLE_REL
-  - list_head
-  - makeVar
+  - [list_head](../l/list_head.md)
+  - [makeVar](../m/makeVar.md)
   - copyObject
   - [ChangeVarNodes](../C/ChangeVarNodes.md)
   - [lnext](../l/lnext.md)

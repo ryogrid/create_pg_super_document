@@ -41,17 +41,17 @@ This function creates a comprehensive hash table infrastructure for grouping tup
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_hash_memory_limit (determines memory limits for hash operations)
-  - murmurhash32 (generates hash initialization vector for parallel workers)
-  - CreateTupleDescCopy (creates copy of tuple descriptor)
-  - MakeSingleTupleTableSlot (creates tuple slot with minimal tuple operations)
-  - ExecBuildGroupingEqual (builds equality comparison expression)
-  - CreateStandaloneExprContext (creates expression evaluation context)
+  - [get_hash_memory_limit](../g/get_hash_memory_limit.md) (determines memory limits for hash operations)
+  - [murmurhash32](../m/murmurhash32.md) (generates hash initialization vector for parallel workers)
+  - [CreateTupleDescCopy](../C/CreateTupleDescCopy.md) (creates copy of tuple descriptor)
+  - [MakeSingleTupleTableSlot](../M/MakeSingleTupleTableSlot.md) (creates tuple slot with minimal tuple operations)
+  - [ExecBuildGroupingEqual](../E/ExecBuildGroupingEqual.md) (builds equality comparison expression)
+  - [CreateStandaloneExprContext](../C/CreateStandaloneExprContext.md) (creates expression evaluation context)
   - tuplehash_create (creates underlying hash table structure)
 - Called from (representative examples):
-  - BuildTupleHashTable (simplified version that calls this extended version)
-  - build_hash_table (in aggregate, recursive union, and set operation nodes)
-  - buildSubPlanHash (for subplan hash operations)
+  - [BuildTupleHashTable](BuildTupleHashTable.md) (simplified version that calls this extended version)
+  - [build_hash_table](../b/build_hash_table.md) (in aggregate, recursive union, and set operation nodes)
+  - [buildSubPlanHash](../b/buildSubPlanHash.md) (for subplan hash operations)
 
 ## Notes and Other Information
 - Automatically limits initial table size based on hash_mem setting to prevent excessive memory usage

@@ -25,15 +25,15 @@ This function performs the actual work of converting a PostgreSQL array to a con
 ## Dependencies
 - Functions called/Symbols referenced:
   - ARR_NDIM, ARR_DIMS, ARR_ELEMTYPE (array metadata access macros)
-  - ArrayGetNItems (calculates total number of elements)
-  - cstring_to_text_with_len (converts C string to PostgreSQL text type)
+  - [ArrayGetNItems](../A/ArrayGetNItems.md) (calculates total number of elements)
+  - [cstring_to_text_with_len](../c/cstring_to_text_with_len.md) (converts C string to PostgreSQL text type)
   - [get_type_io_data](../g/get_type_io_data.md) (retrieves type metadata and output function)
   - [fmgr_info_cxt](../f/fmgr_info_cxt.md) (caches function call information)
   - ARR_DATA_PTR, ARR_NULLBITMAP (array data access macros)
-  - fetch_att (extracts individual array elements with proper alignment)
+  - [fetch_att](../f/fetch_att.md) (extracts individual array elements with proper alignment)
   - [OutputFunctionCall](../O/OutputFunctionCall.md) (converts elements to string representation)
   - att_addlength_pointer, att_align_nominal (memory alignment utilities)
-  - initStringInfo, appendStringInfo, appendStringInfoString (string buffer operations)
+  - [initStringInfo](../i/initStringInfo.md), appendStringInfo, appendStringInfoString (string buffer operations)
 - Called from:
   - [array_to_text](array_to_text.md) (two-parameter version)
   - [array_to_text_null](array_to_text_null.md) (three-parameter version)

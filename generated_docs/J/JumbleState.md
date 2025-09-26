@@ -45,14 +45,14 @@ The structure supports both the creation of query fingerprints and the generatio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LocationLen (component structure)
-  - palloc/repalloc (memory allocation)
-  - hash_any_extended (for computing final query ID)
+  - [LocationLen](../L/LocationLen.md) (component structure)
+  - [palloc](../p/palloc.md)/repalloc (memory allocation)
+  - [hash_any_extended](../h/hash_any_extended.md) (for computing final query ID)
 - Called from (representative examples):
-  - JumbleQuery function in queryjumblefuncs.c:104-139 (main entry point)
-  - AppendJumble function in queryjumblefuncs.c:161
-  - RecordConstLocation function in queryjumblefuncs.c:198
-  - _jumbleNode and related jumbling functions
+  - [JumbleQuery](JumbleQuery.md) function in queryjumblefuncs.c:104-139 (main entry point)
+  - [AppendJumble](../A/AppendJumble.md) function in queryjumblefuncs.c:161
+  - [RecordConstLocation](../R/RecordConstLocation.md) function in queryjumblefuncs.c:198
+  - [_jumbleNode](../j/_jumbleNode.md) and related jumbling functions
 
 ## Notes and Other Information
 - The jumble buffer is fixed at JUMBLE_SIZE (1024 bytes) and uses hash chaining when content exceeds this size

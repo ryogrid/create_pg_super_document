@@ -20,18 +20,18 @@ AtEOXact_PgStat_DroppedStats manages the cleanup of statistics entries for datab
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dclist_count
+  - [dclist_count](../d/dclist_count.md)
   - dclist_foreach_modify
   - dclist_container
-  - dclist_delete_from
-  - pgstat_drop_entry
-  - pgstat_request_entry_refs_gc
-  - pfree
-  - PgStat_PendingDroppedStatsItem (struct type)
-  - xl_xact_stats_item (struct type)
-  - dlist_mutable_iter (struct type)
+  - [dclist_delete_from](../d/dclist_delete_from.md)
+  - [pgstat_drop_entry](../p/pgstat_drop_entry.md)
+  - [pgstat_request_entry_refs_gc](../p/pgstat_request_entry_refs_gc.md)
+  - [pfree](../p/pfree.md)
+  - [PgStat_PendingDroppedStatsItem](../P/PgStat_PendingDroppedStatsItem.md) (struct type)
+  - [xl_xact_stats_item](../x/xl_xact_stats_item.md) (struct type)
+  - [dlist_mutable_iter](../d/dlist_mutable_iter.md) (struct type)
 - Called from (representative examples):
-  - AtEOXact_PgStat (src/backend/utils/activity/pgstat_xact.c:54)
+  - [AtEOXact_PgStat](AtEOXact_PgStat.md) (src/backend/utils/activity/pgstat_xact.c:54)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the pgstat_xact.c file

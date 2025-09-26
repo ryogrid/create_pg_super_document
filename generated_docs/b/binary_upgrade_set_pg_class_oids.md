@@ -29,7 +29,7 @@ A key complexity addressed is that older databases might have TOAST tables that 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - createPQExpBuffer/destroyPQExpBuffer (buffer management)
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)/destroyPQExpBuffer (buffer management)
   - [appendPQExpBuffer](../a/appendPQExpBuffer.md)/appendPQExpBufferStr/appendPQExpBufferChar (SQL construction)
   - [ExecuteSqlQueryForSingleRow](../E/ExecuteSqlQueryForSingleRow.md) (database query execution)
   - atooid (string to OID conversion)

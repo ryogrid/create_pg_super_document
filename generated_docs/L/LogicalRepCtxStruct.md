@@ -38,11 +38,11 @@ The structure uses dynamic shared memory areas (DSA) to maintain a hash table th
   - pid_t
   - dsa_handle
   - dshash_table_handle
-  - LogicalRepWorker
+  - [LogicalRepWorker](LogicalRepWorker.md)
   - FLEXIBLE_ARRAY_MEMBER
 - Called from (representative examples):
-  - ApplyLauncherShmemSize
-  - ApplyLauncherShmemInit
+  - [ApplyLauncherShmemSize](../A/ApplyLauncherShmemSize.md)
+  - [ApplyLauncherShmemInit](../A/ApplyLauncherShmemInit.md)
 
 ## Notes and Other Information
 - Located in src/backend/replication/logical/launcher.c:56-67

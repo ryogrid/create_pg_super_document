@@ -26,7 +26,7 @@ The function is designed to be used in situations where non-blocking behavior is
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LOCKTAG
+  - [LOCKTAG](../L/LOCKTAG.md)
   - [LOCALLOCK](../L/LOCALLOCK.md)
   - LockAcquireResult
   - [SetLocktagRelationOid](../S/SetLocktagRelationOid.md)
@@ -38,7 +38,7 @@ The function is designed to be used in situations where non-blocking behavior is
 - Called from (representative examples):
   - [RangeVarGetRelidExtended](../R/RangeVarGetRelidExtended.md) (src/backend/catalog/namespace.c:593)
   - [LockTableRecurse](../L/LockTableRecurse.md) (src/backend/commands/lockcmds.c:134)
-  - vacuum_open_relation (src/backend/commands/vacuum.c:789)
+  - [vacuum_open_relation](../v/vacuum_open_relation.md) (src/backend/commands/vacuum.c:789)
   - [do_autovacuum](../d/do_autovacuum.md) (src/backend/postmaster/autovacuum.c:2162)
   - [AlterTableMoveAll](../A/AlterTableMoveAll.md) (src/backend/commands/tablecmds.c:15503)
 

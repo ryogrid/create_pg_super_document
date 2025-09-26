@@ -27,7 +27,7 @@ This function implements a comprehensive memory deallocation system for ECPGtype
   - free (standard C library deallocation)
   - ECPGt_array, ECPGt_struct, ECPGt_union (type enumeration values)
 - Called from (representative examples):
-  - remove_variables (cleanup when removing variable definitions)
+  - [remove_variables](../r/remove_variables.md) (cleanup when removing variable definitions)
 
 ## Notes and Other Information
 - Simple types (basic data types) require no special cleanup beyond freeing the ECPGtype structure itself

@@ -37,7 +37,7 @@ The function considers transaction boundaries, subtransaction state, and protoco
 ## Dependencies
 - Functions called/Symbols referenced:
   - [IsWaitingForLock](../I/IsWaitingForLock.md) (checks if process is waiting for a lock)
-  - HoldingBufferPinThatDelaysRecovery (checks for problematic buffer pins)
+  - [HoldingBufferPinThatDelaysRecovery](../H/HoldingBufferPinThatDelaysRecovery.md) (checks for problematic buffer pins)
   - [GetStartupBufferPinWaitBufId](../G/GetStartupBufferPinWaitBufId.md) (gets startup process buffer wait info)
   - [CheckDeadLockAlert](../C/CheckDeadLockAlert.md) (sets deadlock detection flag)
   - [IsTransactionOrTransactionBlock](../I/IsTransactionOrTransactionBlock.md) (checks transaction state)

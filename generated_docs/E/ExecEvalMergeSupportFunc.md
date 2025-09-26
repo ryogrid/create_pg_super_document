@@ -27,7 +27,7 @@ This enables SQL queries like:
   - castNode
   - elog
   - [PointerGetDatum](../P/PointerGetDatum.md)
-  - cstring_to_text_with_len
+  - [cstring_to_text_with_len](../c/cstring_to_text_with_len.md)
   - CMD_INSERT, CMD_UPDATE, CMD_DELETE, CMD_NOTHING (command type constants)
 - Called from (representative examples):
   - [ExecInterpExpr](ExecInterpExpr.md) (main expression interpreter loop)

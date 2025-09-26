@@ -23,13 +23,13 @@ This function requires that the caller hold a lock on the given relation to prev
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open (with InheritsRelationId and AccessShareLock)
+  - [table_open](../t/table_open.md) (with InheritsRelationId and AccessShareLock)
   - [ScanKeyInit](../S/ScanKeyInit.md) (with Anum_pg_inherits_inhrelid, BTEqualStrategyNumber, F_OIDEQ)
   - [systable_beginscan](../s/systable_beginscan.md) (with InheritsRelidSeqnoIndexId)
   - [systable_getnext](../s/systable_getnext.md)
   - HeapTupleIsValid
   - [systable_endscan](../s/systable_endscan.md)
-  - table_close
+  - [table_close](../t/table_close.md)
 - Called from (representative examples):
   - [DefineIndex](../D/DefineIndex.md) (src/backend/commands/indexcmds.c:1379)
   - [DetachPartitionFinalize](../D/DetachPartitionFinalize.md) (src/backend/commands/tablecmds.c:19536)
@@ -37,13 +37,13 @@ This function requires that the caller hold a lock on the given relation to prev
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - [ScanKeyInit](../S/ScanKeyInit.md)
   - [systable_beginscan](../s/systable_beginscan.md)
   - [systable_getnext](../s/systable_getnext.md)
   - HeapTupleIsValid
   - [systable_endscan](../s/systable_endscan.md)
-  - table_close
+  - [table_close](../t/table_close.md)
   - [SysScanDesc](../S/SysScanDesc.md) (scan descriptor type)
 - Called from (representative examples):
   - [DefineIndex](../D/DefineIndex.md) (src/backend/commands/indexcmds.c:1379)

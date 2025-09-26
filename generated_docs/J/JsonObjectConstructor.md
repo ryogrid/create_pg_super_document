@@ -30,14 +30,14 @@ JsonObjectConstructor is a parse tree node that represents a JSON_OBJECT() const
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonOutput
+  - [JsonOutput](JsonOutput.md)
   - ParseLoc
 - Called from (representative examples):
-  - exprLocation
+  - [exprLocation](../e/exprLocation.md)
   - LIST_WALK
-  - raw_expression_tree_walker_impl
-  - transformExprRecurse
-  - transformJsonObjectConstructor
+  - [raw_expression_tree_walker_impl](../r/raw_expression_tree_walker_impl.md)
+  - [transformExprRecurse](../t/transformExprRecurse.md)
+  - [transformJsonObjectConstructor](../t/transformJsonObjectConstructor.md)
 
 ## Notes and Other Information
 - This is part of PostgreSQL's implementation of the SQL/JSON standard

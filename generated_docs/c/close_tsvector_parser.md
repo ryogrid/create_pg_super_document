@@ -21,7 +21,7 @@ This function performs cleanup operations for a TSVectorParseState object by dea
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pfree](../p/pfree.md)
-  - TSVectorParseState
+  - [TSVectorParseState](../T/TSVectorParseState.md)
 - Called from (representative examples):
   - [tsvectorin](../t/tsvectorin.md) (src/backend/utils/adt/tsvector.c:260)
   - [parse_tsquery](../p/parse_tsquery.md) (src/backend/utils/adt/tsquery.c:870)

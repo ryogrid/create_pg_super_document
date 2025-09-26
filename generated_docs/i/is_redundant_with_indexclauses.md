@@ -25,8 +25,8 @@ The function skips lossy index clauses since they don't enforce conditions exact
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - EquivalenceClass (structure type for equivalence class representation)
-  - IndexClause (structure type accessed via lfirst_node macro)
+  - [EquivalenceClass](../E/EquivalenceClass.md) (structure type for equivalence class representation)
+  - [IndexClause](../I/IndexClause.md) (structure type accessed via lfirst_node macro)
   - lfirst_node (macro for safe list cell extraction)
 - Called from (representative examples):
   - [extract_nonindex_conditions](../e/extract_nonindex_conditions.md) (src/backend/optimizer/path/costsize.c:851)

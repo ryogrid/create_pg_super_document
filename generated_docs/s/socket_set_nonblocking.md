@@ -31,8 +31,8 @@ The function requires an active client connection (MyProcPort must not be NULL) 
 - Called from (representative examples):
   - [pq_recvbuf](../p/pq_recvbuf.md) (when managing receive buffer operations)
   - [pq_getbyte_if_available](../p/pq_getbyte_if_available.md) (for non-blocking byte reading)
-  - internal_putbytes (during data transmission)
-  - socket_flush (when flushing output buffers)
+  - [internal_putbytes](../i/internal_putbytes.md) (during data transmission)
+  - [socket_flush](socket_flush.md) (when flushing output buffers)
   - [socket_flush_if_writable](socket_flush_if_writable.md) (for conditional buffer flushing)
 
 ## Notes and Other Information

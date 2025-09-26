@@ -23,9 +23,9 @@ The function handles different GUC variable types appropriately: for simple type
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - config_var_value, config_generic (structure types)
+  - [config_var_value](../c/config_var_value.md), config_generic (structure types)
   - PGC_BOOL, PGC_INT, PGC_REAL, PGC_STRING, PGC_ENUM (GUC variable type constants)
-  - config_string (string-specific structure)
+  - [config_string](../c/config_string.md) (string-specific structure)
   - [set_string_field](../s/set_string_field.md) (for string value cleanup with memory management)
   - [set_extra_field](../s/set_extra_field.md) (for extra data cleanup with memory management)
 - Called from (representative examples):

@@ -34,10 +34,10 @@ JsonTablePathSpec is a parse node structure that holds information about JSON pa
   - ParseLoc (for location tracking)
   - NodeTag (inherited node type system)
 - Called from (representative examples):
-  - makeJsonTablePathSpec (constructor function)
-  - transformJsonTable (transformation processing)
-  - transformJsonTableColumns (column processing)
-  - makeJsonTablePathScan (scan node creation)
+  - [makeJsonTablePathSpec](../m/makeJsonTablePathSpec.md) (constructor function)
+  - [transformJsonTable](../t/transformJsonTable.md) (transformation processing)
+  - [transformJsonTableColumns](../t/transformJsonTableColumns.md) (column processing)
+  - [makeJsonTablePathScan](../m/makeJsonTablePathScan.md) (scan node creation)
 
 ## Notes and Other Information
 - This structure is part of the JSON table functionality introduced for SQL/JSON support

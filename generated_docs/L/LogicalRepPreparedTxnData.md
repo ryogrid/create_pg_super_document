@@ -36,7 +36,7 @@ This structure encapsulates essential information about prepared transactions in
 - Used by functions:
   - [logicalrep_read_begin_prepare](../l/logicalrep_read_begin_prepare.md)
   - [logicalrep_read_prepare_common](../l/logicalrep_read_prepare_common.md)
-  - logicalrep_read_prepare
+  - [logicalrep_read_prepare](../l/logicalrep_read_prepare.md)
   - [logicalrep_read_stream_prepare](../l/logicalrep_read_stream_prepare.md)
   - [apply_handle_begin_prepare](../a/apply_handle_begin_prepare.md)
   - [apply_handle_prepare_internal](../a/apply_handle_prepare_internal.md)

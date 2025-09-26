@@ -33,8 +33,8 @@ The function defines two character sets:
   - componentcheck (validates individual path components)
   - HAVE_SYMLINK (conditional compilation symbol)
 - Called from (representative examples):
-  - inzsub (in src/timezone/zic.c:1592)
-  - inlink (in src/timezone/zic.c:1812)
+  - [inzsub](../i/inzsub.md) (in src/timezone/zic.c:1592)
+  - [inlink](../i/inlink.md) (in src/timezone/zic.c:1812)
 
 ## Notes and Other Information
 - Returns true if the name passes validation, false if any component check fails

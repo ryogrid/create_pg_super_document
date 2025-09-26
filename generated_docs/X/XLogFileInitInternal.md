@@ -41,13 +41,13 @@ The function includes comprehensive error handling, wait event reporting for mon
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogFilePath
-  - BasicOpenFile
+  - [XLogFilePath](XLogFilePath.md)
+  - [BasicOpenFile](../B/BasicOpenFile.md)
   - [get_sync_bit](../g/get_sync_bit.md)
-  - pg_pwrite_zeros
-  - pg_pwrite
-  - pg_fsync
-  - pgstat_report_wait_start/end
+  - [pg_pwrite_zeros](../p/pg_pwrite_zeros.md)
+  - [pg_pwrite](../p/pg_pwrite.md)
+  - [pg_fsync](../p/pg_fsync.md)
+  - [pgstat_report_wait_start](../p/pgstat_report_wait_start.md)/end
   - [InstallXLogFileSegment](../I/InstallXLogFileSegment.md)
 - Called from (representative examples):
   - [XLogFileInit](XLogFileInit.md)

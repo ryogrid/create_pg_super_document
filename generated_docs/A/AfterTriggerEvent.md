@@ -31,8 +31,8 @@ Since this is a typedef for a pointer to AfterTriggerEventData, it doesn't have 
   - [afterTriggerMarkEvents](../a/afterTriggerMarkEvents.md)
   - [afterTriggerInvokeEvents](../a/afterTriggerInvokeEvents.md)
   - [AfterTriggerEndSubXact](AfterTriggerEndSubXact.md)
-  - AfterTriggerPendingOnRel
-  - cancel_prior_stmt_triggers
+  - [AfterTriggerPendingOnRel](AfterTriggerPendingOnRel.md)
+  - [cancel_prior_stmt_triggers](../c/cancel_prior_stmt_triggers.md)
 
 ## Notes and Other Information
 - Used extensively throughout the trigger execution system as a convenient handle for trigger events

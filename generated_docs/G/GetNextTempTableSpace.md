@@ -32,8 +32,8 @@ This function takes no parameters.
   - `InvalidOid` - Constant representing an invalid/default OID
 
 - Called from (representative examples):
-  - `GetDefaultTablespace` (src/backend/commands/tablespace.c:1151)
-  - `OpenTemporaryFile` (src/backend/storage/file/fd.c:1745)
+  - `[GetDefaultTablespace](GetDefaultTablespace.md)` (src/backend/commands/tablespace.c:1151)
+  - `[OpenTemporaryFile](../O/OpenTemporaryFile.md)` (src/backend/storage/file/fd.c:1745)
 
 ## Notes and Other Information
 - Implements round-robin distribution to ensure even spread of temporary files across tablespaces

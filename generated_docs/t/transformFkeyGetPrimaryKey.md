@@ -50,7 +50,7 @@ The function ensures the primary key is valid and immediate, as deferrable prima
   - [attnumAttName](../a/attnumAttName.md)
   - [makeString](../m/makeString.md)
   - [pstrdup](../p/pstrdup.md)
-  - lappend
+  - [lappend](../l/lappend.md)
 - Called from (representative examples):
   - [ATAddForeignKeyConstraint](../A/ATAddForeignKeyConstraint.md) (when creating foreign keys without explicit column lists)
 

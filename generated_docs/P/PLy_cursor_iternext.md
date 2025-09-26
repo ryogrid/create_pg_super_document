@@ -24,7 +24,7 @@ The function performs comprehensive error checking, including validation that th
 - Functions called/Symbols referenced:
   - [PLy_current_execution_context](PLy_current_execution_context.md)
   - [PLy_exception_set](PLy_exception_set.md)
-  - GetPortalByName
+  - [GetPortalByName](../G/GetPortalByName.md)
   - PortalIsValid
   - [PLy_spi_subtransaction_begin](PLy_spi_subtransaction_begin.md)
   - [SPI_cursor_fetch](../S/SPI_cursor_fetch.md)

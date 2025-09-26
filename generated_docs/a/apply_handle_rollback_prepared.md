@@ -21,7 +21,7 @@ Like apply_handle_commit_prepared, this function operates outside of transaction
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - logicalrep_read_rollback_prepared
+  - [logicalrep_read_rollback_prepared](../l/logicalrep_read_rollback_prepared.md)
   - [set_apply_error_context_xact](../s/set_apply_error_context_xact.md)
   - [TwoPhaseTransactionGid](../T/TwoPhaseTransactionGid.md)
   - [LookupGXact](../L/LookupGXact.md)

@@ -30,7 +30,7 @@ The function gracefully handles attempts to unlisten from channels that weren't 
 - Functions called/Symbols referenced:
   -  - Logging function for debug output
   -  - [List](../L/List.md) iteration macro
-  -  - String comparison function
+  -  - [String](../S/String.md) comparison function
   -  - [List](../L/List.md) manipulation function for safe deletion during iteration
   -  - Memory deallocation function
   -  - [List](../L/List.md) access macro

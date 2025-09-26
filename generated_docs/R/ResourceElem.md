@@ -26,16 +26,16 @@ The structure is designed to be stored in hash tables within ResourceOwnerData, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwnerDesc (struct type for resource kind metadata)
+  - [ResourceOwnerDesc](ResourceOwnerDesc.md) (struct type for resource kind metadata)
 - Called from (representative examples):
-  - ResourceOwnerData (as array member for resource storage)
-  - resource_priority_cmp (for sorting during resource release)
-  - ResourceOwnerSort (for organizing resources by priority)
-  - ResourceOwnerReleaseAll (during resource cleanup)
-  - ResourceOwnerEnlarge (when expanding resource arrays)
+  - [ResourceOwnerData](ResourceOwnerData.md) (as array member for resource storage)
+  - [resource_priority_cmp](../r/resource_priority_cmp.md) (for sorting during resource release)
+  - [ResourceOwnerSort](ResourceOwnerSort.md) (for organizing resources by priority)
+  - [ResourceOwnerReleaseAll](ResourceOwnerReleaseAll.md) (during resource cleanup)
+  - [ResourceOwnerEnlarge](ResourceOwnerEnlarge.md) (when expanding resource arrays)
 
 ## Notes and Other Information
 - The Datum type allows ResourceElem to handle various resource types uniformly, as most PostgreSQL resources can be represented as pointers or integers
 - The `kind` field being NULL serves a dual purpose: indicating free slots and providing type safety
-- ResourceElem instances are typically stored in arrays within ResourceOwnerData structures for efficient bulk operations
+- [ResourceElem](ResourceElem.md) instances are typically stored in arrays within ResourceOwnerData structures for efficient bulk operations
 - The design supports priority-based resource release ordering through the associated ResourceOwnerDesc metadata

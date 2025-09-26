@@ -36,16 +36,16 @@ InsertStmt represents the complete parsed structure of SQL INSERT statements bef
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RangeVar
+  - [RangeVar](../R/RangeVar.md)
   - OnConflictClause
-  - WithClause
+  - [WithClause](../W/WithClause.md)
   - OverridingKind
 - Called from (representative examples):
-  - transformStmt
-  - transformInsertStmt
-  - transformWithClause
-  - makeDependencyGraphWalker
-  - raw_expression_tree_walker_impl
+  - [transformStmt](../t/transformStmt.md)
+  - [transformInsertStmt](../t/transformInsertStmt.md)
+  - [transformWithClause](../t/transformWithClause.md)
+  - [makeDependencyGraphWalker](../m/makeDependencyGraphWalker.md)
+  - [raw_expression_tree_walker_impl](../r/raw_expression_tree_walker_impl.md)
 
 ## Notes and Other Information
 - Part of the optimizable statement category, meaning it undergoes complex parse analysis

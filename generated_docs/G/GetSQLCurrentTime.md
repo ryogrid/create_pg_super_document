@@ -20,7 +20,7 @@ This function retrieves the current time with timezone information and returns i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentTimeUsec
+  - [GetCurrentTimeUsec](GetCurrentTimeUsec.md)
   - [palloc](../p/palloc.md)
   - [tm2timetz](../t/tm2timetz.md)
   - [AdjustTimeForTypmod](../A/AdjustTimeForTypmod.md)

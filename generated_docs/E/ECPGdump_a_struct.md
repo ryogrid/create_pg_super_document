@@ -30,7 +30,7 @@ This function penetrates a struct definition and recursively dumps the contents 
   - [mm_alloc](../m/mm_alloc.md) (memory allocation for prefix buffers)
   - [ECPGdump_a_type](ECPGdump_a_type.md) (recursive call to dump individual struct members)
   - mmerror (error reporting for struct member mismatch)
-  - ECPGstruct_member (struct member linked list traversal)
+  - [ECPGstruct_member](ECPGstruct_member.md) (struct member linked list traversal)
   - ecpg_no_indicator (special indicator for no indicator struct)
 - Called from (representative examples):
   - [ECPGdump_a_type](ECPGdump_a_type.md) (when processing struct types)

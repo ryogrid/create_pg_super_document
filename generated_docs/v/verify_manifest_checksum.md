@@ -33,23 +33,23 @@ The function supports both incremental and non-incremental parsing modes, making
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `json_manifest_parse_failure` - error reporting for parsing failures
-  - `pg_cryptohash_create` - creates new SHA256 cryptographic hash context
-  - `pg_cryptohash_init` - initializes cryptographic hash context
-  - `pg_cryptohash_update` - adds data to hash computation
-  - `pg_cryptohash_final` - finalizes hash computation and retrieves result
-  - `pg_cryptohash_free` - frees cryptographic hash context
-  - `hexdecode_string` - converts hex string to binary data
+  - `[json_manifest_parse_failure](../j/json_manifest_parse_failure.md)` - [error](../e/error.md) reporting for parsing failures
+  - `[pg_cryptohash_create](../p/pg_cryptohash_create.md)` - creates new SHA256 cryptographic hash context
+  - `[pg_cryptohash_init](../p/pg_cryptohash_init.md)` - initializes cryptographic hash context
+  - `[pg_cryptohash_update](../p/pg_cryptohash_update.md)` - adds data to hash computation
+  - `[pg_cryptohash_final](../p/pg_cryptohash_final.md)` - finalizes hash computation and retrieves result
+  - `[pg_cryptohash_free](../p/pg_cryptohash_free.md)` - frees cryptographic hash context
+  - `[hexdecode_string](../h/hexdecode_string.md)` - converts hex string to binary data
   - `strlen` - string length calculation
   - `memcmp` - memory comparison
   - `PG_SHA256` - SHA256 algorithm identifier constant
   - `PG_SHA256_DIGEST_LENGTH` - SHA256 digest length constant
   - `JsonManifestParseState` - parsing state structure
-  - `JsonManifestParseContext` - parsing context structure
-  - `pg_cryptohash_ctx` - cryptographic hash context type
+  - `[JsonManifestParseContext](../J/JsonManifestParseContext.md)` - parsing context structure
+  - `[pg_cryptohash_ctx](../p/pg_cryptohash_ctx.md)` - cryptographic hash context type
 - Called from (representative examples):
-  - `json_parse_manifest` - complete manifest parsing function
-  - `json_parse_manifest_incremental_chunk` - incremental chunk processing
+  - `[json_parse_manifest](../j/json_parse_manifest.md)` - complete manifest parsing function
+  - `[json_parse_manifest_incremental_chunk](../j/json_parse_manifest_incremental_chunk.md)` - incremental chunk processing
   - Used in `JsonManifestParseIncrementalState` structure
 
 ## Notes and Other Information

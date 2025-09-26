@@ -37,7 +37,7 @@ The function performs several key operations:
   - [make_parsestate](../m/make_parsestate.md): Creates parse state structure
   - [setup_parse_fixed_parameters](../s/setup_parse_fixed_parameters.md): Sets up parameter type information
   - [transformTopLevelStmt](../t/transformTopLevelStmt.md): Performs the main statement transformation
-  - IsQueryIdEnabled: Checks if query ID generation is enabled
+  - [IsQueryIdEnabled](../I/IsQueryIdEnabled.md): Checks if query ID generation is enabled
   - [JumbleQuery](../J/JumbleQuery.md): Generates query ID for statistics
   - [free_parsestate](../f/free_parsestate.md): Cleanup parse state structure
   - [pgstat_report_query_id](pgstat_report_query_id.md): Reports query ID for statistics collection

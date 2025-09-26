@@ -44,7 +44,7 @@ The leafkey flag is particularly important for GiST algorithms, as leaf and inte
   - [gist_box_penalty](../g/gist_box_penalty.md)
   - [gist_poly_compress](../g/gist_poly_compress.md)
   - [gistMakeUnionKey](../g/gistMakeUnionKey.md)
-  - gistdentryinit
+  - [gistdentryinit](../g/gistdentryinit.md)
   - [gistCompressValues](../g/gistCompressValues.md)
   - [inet_gist_consistent](../i/inet_gist_consistent.md)
   - [range_gist_consistent](../r/range_gist_consistent.md)

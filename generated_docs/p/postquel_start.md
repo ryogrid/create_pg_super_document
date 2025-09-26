@@ -21,10 +21,10 @@ This function initiates execution of one query within a SQL function by setting 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ActiveSnapshotSet
+  - [ActiveSnapshotSet](../A/ActiveSnapshotSet.md)
   - [CreateDestReceiver](../C/CreateDestReceiver.md)
   - [CreateQueryDesc](../C/CreateQueryDesc.md)
-  - GetActiveSnapshot
+  - [GetActiveSnapshot](../G/GetActiveSnapshot.md)
   - [ExecutorStart](../E/ExecutorStart.md)
   - None_Receiver (destination receiver)
   - DR_sqlfunction (destination receiver type)

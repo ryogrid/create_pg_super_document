@@ -31,13 +31,13 @@ The Material node essentially converts a non-rescannable or expensive-to-rescan 
 - Functions called/Symbols referenced:
   - (No direct symbol references)
 - Called from (representative examples):
-  - create_plan_recurse
-  - create_material_plan
-  - create_material_path
-  - reparameterize_path
+  - [create_plan_recurse](../c/create_plan_recurse.md)
+  - [create_material_plan](../c/create_material_plan.md)
+  - [create_material_path](../c/create_material_path.md)
+  - [reparameterize_path](../r/reparameterize_path.md)
 
 ## Notes and Other Information
-- Material nodes trade memory usage for execution time by caching results
+- [Material](Material.md) nodes trade memory usage for execution time by caching results
 - Pathkeys are inherited from the subpath since materialization preserves ordering
 - Cost calculation includes the overhead of storing and retrieving cached data
 - Cannot be parallel-aware itself but inherits parallel safety from its subpath

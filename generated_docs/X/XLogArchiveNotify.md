@@ -23,10 +23,10 @@ The function includes special handling for timeline history files, which receive
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - StatusFilePath: Constructs the path for archive status files
-  - AllocateFile: Opens a file for writing 
-  - FreeFile: Closes and flushes the file
-  - IsTLHistoryFileName: Checks if the file is a timeline history file
+  - [StatusFilePath](../S/StatusFilePath.md): Constructs the path for archive status files
+  - [AllocateFile](../A/AllocateFile.md): Opens a file for writing 
+  - [FreeFile](../F/FreeFile.md): Closes and flushes the file
+  - [IsTLHistoryFileName](../I/IsTLHistoryFileName.md): Checks if the file is a timeline history file
   - [PgArchForceDirScan](../P/PgArchForceDirScan.md): Forces immediate archiver directory scan for timeline history files
   - [PgArchWakeup](../P/PgArchWakeup.md): Wakes up the archiver process when running under postmaster
 - Called from (representative examples):

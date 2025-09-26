@@ -22,8 +22,8 @@ This function provides a thread-safe mechanism for assigning unique worker ident
   - SpinLockAcquire
   - SpinLockRelease
   - WORKER (macro)
-  - Tuplesortstate
-  - Sharedsort
+  - [Tuplesortstate](../T/Tuplesortstate.md)
+  - [Sharedsort](../S/Sharedsort.md)
 - Called from (representative examples):
   - [tuplesort_begin_common](../t/tuplesort_begin_common.md)
 

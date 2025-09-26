@@ -22,7 +22,7 @@ This function is a PostgreSQL built-in function that verifies whether a specific
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_role_oid_or_public: Resolves username to role OID
+  - [get_role_oid_or_public](../g/get_role_oid_or_public.md): Resolves username to role OID
   - [convert_sequence_priv_string](../c/convert_sequence_priv_string.md): Converts privilege text to AclMode bitmask
   - [get_rel_relkind](../g/get_rel_relkind.md): Gets relation kind to verify it's a sequence
   - [get_rel_name](../g/get_rel_name.md): Gets relation name for error messages

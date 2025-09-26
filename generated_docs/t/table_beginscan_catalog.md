@@ -29,7 +29,7 @@ The function is part of the table access method abstraction layer but provides c
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetCatalogSnapshot](../G/GetCatalogSnapshot.md) (to obtain appropriate snapshot for catalog access)
-  - RegisterSnapshot (to register snapshot for resource management)
+  - [RegisterSnapshot](../R/RegisterSnapshot.md) (to register snapshot for resource management)
   - RelationGetRelid (macro to get relation OID)
   - SO_TYPE_SEQSCAN, SO_ALLOW_STRAT, SO_ALLOW_SYNC, SO_ALLOW_PAGEMODE, SO_TEMP_SNAPSHOT (scan option flags)
 
@@ -41,7 +41,7 @@ The function is part of the table access method abstraction layer but provides c
   - [get_all_vacuum_rels](../g/get_all_vacuum_rels.md)
   - [do_autovacuum](../d/do_autovacuum.md)
   - [get_database_list](../g/get_database_list.md)
-  - get_subscription_list
+  - [get_subscription_list](../g/get_subscription_list.md)
 
 ## Notes and Other Information
 - This function is specifically for system catalog tables and should not be used for regular user tables

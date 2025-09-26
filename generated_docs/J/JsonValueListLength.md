@@ -22,7 +22,7 @@ This function is used throughout the JSON path execution engine to determine the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_length (PostgreSQL list utility function)
+  - [list_length](../l/list_length.md) (PostgreSQL list utility function)
   - [JsonValueList](JsonValueList.md) (structure type)
 - Called from (representative examples):
   - [jsonb_path_match_internal](../j/jsonb_path_match_internal.md)

@@ -24,12 +24,12 @@ The algorithm maintains the invariant that K = N - t (remaining blocks equals to
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BlockSampler_HasMore (verifies sampling should continue)
-  - sampler_random_fract (generates random fraction in (0,1))
+  - [BlockSampler_HasMore](BlockSampler_HasMore.md) (verifies sampling should continue)
+  - [sampler_random_fract](../s/sampler_random_fract.md) (generates random fraction in (0,1))
   - Assert (validates preconditions)
-  - BlockSamplerData structure members (N, t, n, m, randstate)
+  - [BlockSamplerData](BlockSamplerData.md) structure members (N, t, n, m, randstate)
 - Called from (representative examples):
-  - block_sampling_read_stream_next (in src/backend/commands/analyze.c:1121)
+  - [block_sampling_read_stream_next](../b/block_sampling_read_stream_next.md) (in src/backend/commands/analyze.c:1121)
 
 ## Notes and Other Information
 - Implements an optimized version of Knuth's Algorithm S that reduces random number generation overhead

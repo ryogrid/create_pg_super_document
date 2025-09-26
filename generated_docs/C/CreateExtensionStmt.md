@@ -31,11 +31,11 @@ Extensions are installed from control files and SQL scripts located in the Postg
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (from node system)
-  - List (from PostgreSQL's list implementation)
-  - DefElem (for option specification)
+  - [List](../L/List.md) (from PostgreSQL's list implementation)
+  - [DefElem](../D/DefElem.md) (for option specification)
 - Called from (representative examples):
-  - CreateExtension (main execution function)
-  - ProcessUtilitySlow (utility command processor)
+  - [CreateExtension](CreateExtension.md) (main execution function)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (utility command processor)
 
 ## Notes and Other Information
 - Common options include:

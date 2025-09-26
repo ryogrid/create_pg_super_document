@@ -17,12 +17,12 @@ ExplainIndentText handles indentation for TEXT format EXPLAIN output by adding t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExplainState (structure type)
+  - [ExplainState](ExplainState.md) (structure type)
   - EXPLAIN_FORMAT_TEXT (enum constant)
-  - appendStringInfoSpaces (string formatting function)
+  - [appendStringInfoSpaces](../a/appendStringInfoSpaces.md) (string formatting function)
 - Called from (representative examples):
   - [ExplainOnePlan](ExplainOnePlan.md)
-  - ExplainPrintJIT
+  - [ExplainPrintJIT](ExplainPrintJIT.md)
   - [ExplainNode](ExplainNode.md)
   - [show_sort_info](../s/show_sort_info.md)
   - [show_hash_info](../s/show_hash_info.md)

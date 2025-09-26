@@ -28,8 +28,8 @@ The function handles different slot types appropriately, distinguishing between 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecClearTuple
-  - TupleTableSlotOps->release
+  - [ExecClearTuple](ExecClearTuple.md)
+  - [TupleTableSlotOps](../T/TupleTableSlotOps.md)->release
   - ReleaseTupleDesc
   - TTS_FIXED (macro)
   - [pfree](../p/pfree.md)

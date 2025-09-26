@@ -30,8 +30,8 @@ The function strips any sign from the input values and handles fractional second
   - [pg_ultostr_zeropad](../p/pg_ultostr_zeropad.md) (for zero-padded integer-to-string conversion)
   - [pg_ultostr](../p/pg_ultostr.md) (for standard integer-to-string conversion)
 - Called from (representative examples):
-  - AppendTimestampSeconds
-  - EncodeTimeOnly
+  - [AppendTimestampSeconds](AppendTimestampSeconds.md)
+  - [EncodeTimeOnly](../E/EncodeTimeOnly.md)
   - [EncodeInterval](../E/EncodeInterval.md) (multiple locations in both backend and ecpg interface)
 
 ## Notes and Other Information

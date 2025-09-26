@@ -31,10 +31,10 @@ The structure is processed during query execution to modify the pg_tablespace sy
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (from node system)
-  - List (from PostgreSQL's list implementation)
+  - [List](../L/List.md) (from PostgreSQL's list implementation)
 - Called from (representative examples):
-  - AlterTableSpaceOptions (main execution function)
-  - standard_ProcessUtility (utility command processor)
+  - [AlterTableSpaceOptions](AlterTableSpaceOptions.md) (main execution function)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (utility command processor)
 
 ## Notes and Other Information
 - This statement type is created during SQL parsing when ALTER TABLESPACE ... SET/RESET is encountered

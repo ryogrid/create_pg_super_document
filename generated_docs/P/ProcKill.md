@@ -36,23 +36,23 @@ The function handles sophisticated scenarios like lock group leadership transfer
 - Functions called/Symbols referenced:
   - [SyncRepCleanupAtProcExit](../S/SyncRepCleanupAtProcExit.md)
   - [dlist_is_empty](../d/dlist_is_empty.md)
-  - LWLockReleaseAll
+  - [LWLockReleaseAll](../L/LWLockReleaseAll.md)
   - [ConditionVariableCancelSleep](../C/ConditionVariableCancelSleep.md)
   - LockHashPartitionLockByProc
-  - LWLockAcquire
+  - [LWLockAcquire](../L/LWLockAcquire.md)
   - [dlist_delete](../d/dlist_delete.md)
   - [dlist_push_head](../d/dlist_push_head.md)
   - [SwitchBackToLocalLatch](../S/SwitchBackToLocalLatch.md)
   - [pgstat_reset_wait_event_storage](../p/pgstat_reset_wait_event_storage.md)
   - [DisownLatch](../D/DisownLatch.md)
   - [dlist_push_tail](../d/dlist_push_tail.md)
-  - update_spins_per_delay
-  - MarkPostmasterChildInactive
+  - [update_spins_per_delay](../u/update_spins_per_delay.md)
+  - [MarkPostmasterChildInactive](../M/MarkPostmasterChildInactive.md)
   - AmAutoVacuumLauncherProcess
   - AmLogicalSlotSyncWorkerProcess
   - kill
 - Called from (representative examples):
-  - InitProcess (registered as exit callback)
+  - [InitProcess](../I/InitProcess.md) (registered as exit callback)
 
 ## Notes and Other Information
 - This is a static function, only accessible within proc.c

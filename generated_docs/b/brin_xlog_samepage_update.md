@@ -20,7 +20,7 @@ This function performs optimized BRIN index update replay operations when the up
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData: Extracts the data portion from the WAL record
-  - XLogReadBufferForRedo: Reads buffer for redo operations
+  - [XLogReadBufferForRedo](../X/XLogReadBufferForRedo.md): Reads buffer for redo operations
   - [XLogRecGetBlockData](../X/XLogRecGetBlockData.md): Extracts block data from WAL record
   - [PageIndexTupleOverwrite](../P/PageIndexTupleOverwrite.md): Overwrites existing tuple in-place
   - [xl_brin_samepage_update](../x/xl_brin_samepage_update.md): Structure containing same-page update parameters

@@ -23,7 +23,7 @@ This wrapper ensures consistent behavior and proper error reporting when queryin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgwin32_get_file_type (Windows file type detection function)
+  - [pgwin32_get_file_type](pgwin32_get_file_type.md) (Windows file type detection function)
   - _ftelli64 (Microsoft's 64-bit ftell implementation)
   - _get_osfhandle (convert C runtime file descriptor to Windows handle)
   - _fileno (get file descriptor from FILE pointer)

@@ -28,17 +28,17 @@ The function can target all databases by passing InvalidOid, or specific databas
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ProcArrayStruct (procArray global variable)
-  - LWLockAcquire/LWLockRelease (for ProcArrayLock in LW_EXCLUSIVE mode)
-  - PGPROC (process structure)
-  - VirtualTransactionId (transaction identifier)
+  - [ProcArrayStruct](../P/ProcArrayStruct.md) (procArray global variable)
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease (for ProcArrayLock in LW_EXCLUSIVE mode)
+  - [PGPROC](../P/PGPROC.md) (process structure)
+  - [VirtualTransactionId](../V/VirtualTransactionId.md) (transaction identifier)
   - GET_VXID_FROM_PGPROC (macro to extract virtual transaction ID)
-  - SendProcSignal (function to send signals to processes)
+  - [SendProcSignal](../S/SendProcSignal.md) (function to send signals to processes)
   - ProcSignalReason (enum for signal types)
 
 - Called from (representative examples):
-  - ResolveRecoveryConflictWithDatabase (in src/backend/storage/ipc/standby.c:583)
-  - SendRecoveryConflictWithBufferPin (in src/backend/storage/ipc/standby.c:887)
+  - [ResolveRecoveryConflictWithDatabase](../R/ResolveRecoveryConflictWithDatabase.md) (in src/backend/storage/ipc/standby.c:583)
+  - [SendRecoveryConflictWithBufferPin](../S/SendRecoveryConflictWithBufferPin.md) (in src/backend/storage/ipc/standby.c:887)
 
 ## Notes and Other Information
 - Uses exclusive lock to ensure no new processes can be added while canceling

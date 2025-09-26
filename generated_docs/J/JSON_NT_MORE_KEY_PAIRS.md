@@ -32,7 +32,7 @@ The value is used by the JSON parser's state machine to track parsing progress a
 - Called from (representative examples):
   - IS_NT (macro usage in parsing logic)
   - TD_ENTRY (macro usage in transition table)
-  - pg_parse_json_incremental (main parsing function)
+  - [pg_parse_json_incremental](../p/pg_parse_json_incremental.md) (main parsing function)
 
 ## Notes and Other Information
 - Part of the JsonNonTerminal enum starting at value 32

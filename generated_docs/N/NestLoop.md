@@ -24,17 +24,17 @@ NestLoop implements the nested loop join algorithm, one of the fundamental join 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Join (base structure)
-  - List (container type)
-  - NestLoopParam (parameter specification structure)
+  - [Join](../J/Join.md) (base structure)
+  - [List](../L/List.md) (container type)
+  - [NestLoopParam](NestLoopParam.md) (parameter specification structure)
 - Called from (representative examples):
-  - ExecInitNode (plan node initialization dispatcher)
-  - ExecNestLoop (main execution function)
-  - ExecInitNestLoop (initialization function)
-  - create_nestloop_plan (plan creation)
-  - make_nestloop (plan node construction)
-  - set_join_references (plan reference fixing)
-  - ExplainNode (EXPLAIN output)
+  - [ExecInitNode](../E/ExecInitNode.md) (plan node initialization dispatcher)
+  - [ExecNestLoop](../E/ExecNestLoop.md) (main execution function)
+  - [ExecInitNestLoop](../E/ExecInitNestLoop.md) (initialization function)
+  - [create_nestloop_plan](../c/create_nestloop_plan.md) (plan creation)
+  - [make_nestloop](../m/make_nestloop.md) (plan node construction)
+  - [set_join_references](../s/set_join_references.md) (plan reference fixing)
+  - [ExplainNode](../E/ExplainNode.md) (EXPLAIN output)
 
 ## Notes and Other Information
 - Implements the nested loop join algorithm with parameterization support

@@ -82,10 +82,10 @@ LWLockMode defines the three possible modes for lightweight lock operations in P
 - Functions called/Symbols referenced:
   - (None - enum definition)
 - Called from (representative examples):
-  - LWLockAcquire (acquiring locks in specified mode)
-  - LWLockConditionalAcquire (attempting non-blocking lock acquisition)
-  - LWLockHeldByMeInMode (checking lock ownership in specific mode)
-  - LWLockAttemptLock (internal lock acquisition attempts)
+  - [LWLockAcquire](LWLockAcquire.md) (acquiring locks in specified mode)
+  - [LWLockConditionalAcquire](LWLockConditionalAcquire.md) (attempting non-blocking lock acquisition)
+  - [LWLockHeldByMeInMode](LWLockHeldByMeInMode.md) (checking lock ownership in specific mode)
+  - [LWLockAttemptLock](LWLockAttemptLock.md) (internal lock acquisition attempts)
 
 ## Notes and Other Information
 - LW_EXCLUSIVE and LW_SHARED implement standard reader-writer lock semantics

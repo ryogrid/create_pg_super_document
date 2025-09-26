@@ -17,7 +17,7 @@ This function implements a two-phase pointer management strategy used during Jso
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendBinaryStringInfo
+  - [appendBinaryStringInfo](../a/appendBinaryStringInfo.md)
 - Called from (representative examples):
   - [flattenJsonPathParseItem](../f/flattenJsonPathParseItem.md) (multiple call sites for different JsonPath item types)
 

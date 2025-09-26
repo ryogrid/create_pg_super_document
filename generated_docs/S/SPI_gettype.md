@@ -23,14 +23,14 @@ For regular attributes, it uses TupleDescAttr to access the attribute type OID. 
 ## Dependencies
 - Functions called/Symbols referenced:
   - TupleDescAttr
-  - SystemAttributeDefinition
-  - SearchSysCache1
-  - ObjectIdGetDatum
+  - [SystemAttributeDefinition](SystemAttributeDefinition.md)
+  - [SearchSysCache1](SearchSysCache1.md)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - HeapTupleIsValid
   - GETSTRUCT
-  - pstrdup
+  - [pstrdup](../p/pstrdup.md)
   - NameStr
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - FirstLowInvalidHeapAttributeNumber
   - SPI_ERROR_NOATTRIBUTE
   - SPI_ERROR_TYPUNKNOWN

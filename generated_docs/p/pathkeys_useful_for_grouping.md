@@ -25,7 +25,7 @@ For example, with pathkeys (a,b,c) and group keys (a,b,e), the function determin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PathKey (structure type)
+  - [PathKey](../P/PathKey.md) (structure type)
   - [list_member_ptr](../l/list_member_ptr.md) (function to check list membership)
 - Called from (representative examples):
   - [truncate_useless_pathkeys](../t/truncate_useless_pathkeys.md)

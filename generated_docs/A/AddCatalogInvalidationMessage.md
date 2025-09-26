@@ -30,7 +30,7 @@ This type of invalidation is more aggressive than individual cache entry invalid
   - CatCacheMsgs (subgroup identifier for catalog cache messages)
 - Data structures used:
   - [InvalidationMsgsGroup](../I/InvalidationMsgsGroup.md)
-  - SharedInvalidationMessage
+  - [SharedInvalidationMessage](../S/SharedInvalidationMessage.md)
   - Oid type
 - Called from:
   - [RegisterCatalogInvalidation](../R/RegisterCatalogInvalidation.md)

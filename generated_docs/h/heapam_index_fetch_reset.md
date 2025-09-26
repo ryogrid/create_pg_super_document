@@ -21,7 +21,7 @@ This function provides cleanup and reset functionality for heap index fetch oper
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BufferIsValid](../B/BufferIsValid.md) (macro to check buffer validity)
-  - ReleaseBuffer (function to release a pinned buffer)
+  - [ReleaseBuffer](../R/ReleaseBuffer.md) (function to release a pinned buffer)
   - InvalidBuffer (constant representing invalid buffer state)
   - [IndexFetchHeapData](../I/IndexFetchHeapData.md) (heap-specific index fetch data structure)
 - Called from (representative examples):

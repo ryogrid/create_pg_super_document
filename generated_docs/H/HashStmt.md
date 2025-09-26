@@ -22,13 +22,13 @@ This function implements a hash algorithm specifically designed for ECPG prepare
   - stmtCacheNBuckets (global variable)
   - stmtCacheEntPerBucket (global variable)
 - Called from (representative examples):
-  - SearchStmtCache
-  - AddStmtToCache
+  - [SearchStmtCache](../S/SearchStmtCache.md)
+  - [AddStmtToCache](../A/AddStmtToCache.md)
 
 ## Notes and Other Information
 - Uses only the first 50 characters of the SQL statement for hashing to balance performance and uniqueness
 - Implements a 64-bit hash with 13-bit left rotation for better distribution
 - The hash algorithm is designed to minimize collisions in the prepared statement cache
 - Returns a bucket entry number (1-based indexing) to avoid using array position 0
-- Hash collision handling is managed by the cache search and insertion functions that call this
+- [Hash](Hash.md) collision handling is managed by the cache search and insertion functions that call this
 - Static function - only accessible within the prepare.c compilation unit

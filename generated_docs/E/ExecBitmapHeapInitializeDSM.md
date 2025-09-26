@@ -29,14 +29,14 @@ The function includes a safety check - if no DSA (Dynamic Shared Area) is availa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - shm_toc_allocate
+  - [shm_toc_allocate](../s/shm_toc_allocate.md)
   - SpinLockInit
   - [ConditionVariableInit](../C/ConditionVariableInit.md)
-  - shm_toc_insert
+  - [shm_toc_insert](../s/shm_toc_insert.md)
   - [BitmapHeapScanState](../B/BitmapHeapScanState.md) (structure)
   - [ParallelContext](../P/ParallelContext.md) (structure)
   - [ParallelBitmapHeapState](../P/ParallelBitmapHeapState.md) (structure)
-  - dsa_area (structure)
+  - [dsa_area](../d/dsa_area.md) (structure)
   - BM_INITIAL (enum value)
 - Called from (representative examples):
   - [ExecParallelInitializeDSM](ExecParallelInitializeDSM.md)

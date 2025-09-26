@@ -37,7 +37,7 @@ The prepXacts array is dynamically sized based on the max_prepared_xacts configu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GlobalTransaction (typedef pointer to GlobalTransactionData)
+  - [GlobalTransaction](../G/GlobalTransaction.md) (typedef pointer to GlobalTransactionData)
   - FLEXIBLE_ARRAY_MEMBER (macro for variable-length array declaration)
 - Called from (representative examples):
   - [TwoPhaseShmemSize](TwoPhaseShmemSize.md) (for calculating required shared memory size)

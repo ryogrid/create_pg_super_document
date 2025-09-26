@@ -43,7 +43,7 @@ The em_datatype field handles binary-compatible operator families where the expr
 - `pg_node_attr(read_write_ignore)`: Link to the corresponding parent EquivalenceMember when em_is_child is true
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JoinDomain (for join domain tracking)
+  - [JoinDomain](../J/JoinDomain.md) (for join domain tracking)
   - [Expr](Expr.md) (base expression type)
   - Relids (relation ID set)
   - NodeTag (PostgreSQL node system)

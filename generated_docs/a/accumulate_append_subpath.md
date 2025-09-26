@@ -29,12 +29,12 @@ This flattening optimization reduces plan complexity and improves execution effi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AppendPath (struct type for Append path nodes)
-  - MergeAppendPath (struct type for MergeAppend path nodes)
+  - [AppendPath](../A/AppendPath.md) (struct type for Append path nodes)
+  - [MergeAppendPath](../M/MergeAppendPath.md) (struct type for MergeAppend path nodes)
   - [list_concat](../l/list_concat.md) (concatenates two lists)
   - [list_copy_tail](../l/list_copy_tail.md) (copies list elements starting from specified position)
   - [list_copy_head](../l/list_copy_head.md) (copies first N elements of a list)
-  - lappend (appends single element to list)
+  - [lappend](../l/lappend.md) (appends single element to list)
 - Called from (representative examples):
   - [add_paths_to_append_rel](add_paths_to_append_rel.md) (when accumulating subpaths for various append path types)
   - [generate_orderedappend_paths](../g/generate_orderedappend_paths.md) (when building ordered append paths)

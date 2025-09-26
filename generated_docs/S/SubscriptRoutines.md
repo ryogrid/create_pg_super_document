@@ -36,14 +36,14 @@ The subscript handler function that returns this structure is declared as  but t
 - Functions called/Symbols referenced:
   - SubscriptTransform (function pointer type)
   - SubscriptExecSetup (function pointer type)
-  - SubscriptingRef (node type used in subscripting)
+  - [SubscriptingRef](SubscriptingRef.md) (node type used in subscripting)
 
 - Called from (representative examples):
-  - getSubscriptingRoutines (retrieves subscripting routines for a type)
-  - array_subscript_handler (returns routines for array types)
-  - jsonb_subscript_handler (returns routines for jsonb types)
-  - transformContainerSubscripts (uses transform routine during parsing)
-  - ExecInitSubscriptingRef (uses exec_setup routine during execution)
+  - [getSubscriptingRoutines](../g/getSubscriptingRoutines.md) (retrieves subscripting routines for a type)
+  - [array_subscript_handler](../a/array_subscript_handler.md) (returns routines for array types)
+  - [jsonb_subscript_handler](../j/jsonb_subscript_handler.md) (returns routines for jsonb types)
+  - [transformContainerSubscripts](../t/transformContainerSubscripts.md) (uses transform routine during parsing)
+  - [ExecInitSubscriptingRef](../E/ExecInitSubscriptingRef.md) (uses exec_setup routine during execution)
 
 ## Notes and Other Information
 - All SubscriptRefs are expected to be immutable (same inputs always produce same results) and parallel-safe

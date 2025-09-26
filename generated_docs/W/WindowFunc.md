@@ -58,15 +58,15 @@ The struct includes several fields marked with  which indicates these fields are
 ## Dependencies
 - Functions called/Symbols referenced:
   - ParseLoc (for location tracking)
-  - Expr (base expression structure)
-  - List (for args and runCondition)
+  - [Expr](../E/Expr.md) (base expression structure)
+  - [List](../L/List.md) (for args and runCondition)
   
 - Called from (representative examples):
-  - ExecInitWindowAgg (window aggregation execution initialization)
-  - transformWindowFuncCall (parser transformation)
-  - cost_windowagg (query planning cost estimation)
-  - find_window_run_conditions (optimizer path planning)
-  - get_windowfunc_expr (rule output formatting)
+  - [ExecInitWindowAgg](../E/ExecInitWindowAgg.md) (window aggregation execution initialization)
+  - [transformWindowFuncCall](../t/transformWindowFuncCall.md) (parser transformation)
+  - [cost_windowagg](../c/cost_windowagg.md) (query planning cost estimation)
+  - [find_window_run_conditions](../f/find_window_run_conditions.md) (optimizer path planning)
+  - [get_windowfunc_expr](../g/get_windowfunc_expr.md) (rule output formatting)
 
 ## Notes and Other Information
 - Window functions are executed after the FROM, WHERE, GROUP BY, and HAVING clauses but before ORDER BY, LIMIT, and SELECT DISTINCT

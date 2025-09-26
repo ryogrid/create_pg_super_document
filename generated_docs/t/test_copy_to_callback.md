@@ -31,13 +31,13 @@ This function is primarily used for testing and validation of PostgreSQL's COPY 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open (to open the relation with AccessShareLock)
-  - BeginCopyTo (to initialize COPY TO state with callback)
-  - to_cb (the callback function passed to BeginCopyTo)
-  - DoCopyTo (to execute the COPY TO operation)
-  - EndCopyTo (to finalize and clean up COPY TO state)
+  - [table_open](table_open.md) (to open the relation with AccessShareLock)
+  - [BeginCopyTo](../B/BeginCopyTo.md) (to initialize COPY TO state with callback)
+  - [to_cb](to_cb.md) (the callback function passed to BeginCopyTo)
+  - [DoCopyTo](../D/DoCopyTo.md) (to execute the COPY TO operation)
+  - [EndCopyTo](../E/EndCopyTo.md) (to finalize and clean up COPY TO state)
   - ereport (for logging the number of processed rows)
-  - table_close (to close the relation)
+  - [table_close](table_close.md) (to close the relation)
   - PG_RETURN_VOID (to return from the function)
 - Called from (representative examples):
   - SQL functions or test scripts that invoke this extension function

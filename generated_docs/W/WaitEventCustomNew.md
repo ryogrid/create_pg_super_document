@@ -33,13 +33,13 @@ The function implements a double-checked locking pattern to handle concurrent ac
 - Functions called/Symbols referenced:
   - strlen, strlcpy (string manipulation functions)
   - elog, ereport, errcode, errmsg (error reporting functions)
-  - LWLockAcquire, LWLockRelease (lightweight lock functions)
+  - [LWLockAcquire](../L/LWLockAcquire.md), LWLockRelease (lightweight lock functions)
   - SpinLockAcquire, SpinLockRelease (spinlock functions)
   - [hash_search](../h/hash_search.md) (hash table search/insert function)
   - [pgstat_get_wait_event_type](../p/pgstat_get_wait_event_type.md) (wait event type name retrieval)
-  - WaitEventCustomEntryByName, WaitEventCustomEntryByInfo (hash entry types)
+  - [WaitEventCustomEntryByName](WaitEventCustomEntryByName.md), WaitEventCustomEntryByInfo (hash entry types)
   - Various constants: NAMEDATALEN, WAIT_EVENT_CLASS_MASK, WAIT_EVENT_CUSTOM_HASH_MAX_SIZE
-  - Hash operation flags: HASH_FIND, HASH_ENTER
+  - [Hash](../H/Hash.md) operation flags: HASH_FIND, HASH_ENTER
   - Lock modes: LW_SHARED, LW_EXCLUSIVE
   - Error codes: ERRCODE_DUPLICATE_OBJECT, ERRCODE_PROGRAM_LIMIT_EXCEEDED
 

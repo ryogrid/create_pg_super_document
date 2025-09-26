@@ -30,7 +30,7 @@ The function handles platform differences between Unix/Linux and Windows, using 
 ## Dependencies
 - Functions called/Symbols referenced:
   - pipe/CreatePipe (creates the logging pipe)
-  - MakePGDirectory (ensures log directory exists)
+  - [MakePGDirectory](../M/MakePGDirectory.md) (ensures log directory exists)
   - [logfile_getname](../l/logfile_getname.md) (generates log file names)
   - [logfile_open](../l/logfile_open.md) (opens log files)
   - [syslogger_fdget](../s/syslogger_fdget.md) (gets file descriptors for EXEC_BACKEND)

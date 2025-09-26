@@ -34,8 +34,8 @@ The function is specifically exported for use by snapmgr.c, demonstrating the mo
 - Called from:
   - [SnapBuildInitialSnapshot](../S/SnapBuildInitialSnapshot.md) (logical replication snapshots)
   - [GetSnapshotData](GetSnapshotData.md)
-  - SetTransactionSnapshot
-  - ImportSnapshot
+  - [SetTransactionSnapshot](../S/SetTransactionSnapshot.md)
+  - [ImportSnapshot](../I/ImportSnapshot.md)
 
 ## Notes and Other Information
 - The function is deliberately simple and fast since it may be called frequently during snapshot operations

@@ -30,7 +30,7 @@ The function assumes that at least one tuple has been read before marking is att
   - [IndexScanState](../I/IndexScanState.md)
   - [EState](EState.md)
   - [EPQState](EPQState.md)
-  - Scan
+  - [Scan](../S/Scan.md)
   - Index
 
 ## Called From

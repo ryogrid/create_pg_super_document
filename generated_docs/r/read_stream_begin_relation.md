@@ -34,18 +34,18 @@ The function calculates optimal buffer queue sizes, I/O concurrency limits, and 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationGetSmgr
-  - IsCatalogRelation
-  - IsCatalogRelationOid
-  - get_tablespace_maintenance_io_concurrency
-  - get_tablespace_io_concurrency
-  - GetAccessStrategyPinLimit
+  - [RelationGetSmgr](../R/RelationGetSmgr.md)
+  - [IsCatalogRelation](../I/IsCatalogRelation.md)
+  - [IsCatalogRelationOid](../I/IsCatalogRelationOid.md)
+  - [get_tablespace_maintenance_io_concurrency](../g/get_tablespace_maintenance_io_concurrency.md)
+  - [get_tablespace_io_concurrency](../g/get_tablespace_io_concurrency.md)
+  - [GetAccessStrategyPinLimit](../G/GetAccessStrategyPinLimit.md)
   - SmgrIsTemp
-  - LimitAdditionalLocalPins
-  - LimitAdditionalPins
+  - [LimitAdditionalLocalPins](../L/LimitAdditionalLocalPins.md)
+  - [LimitAdditionalPins](../L/LimitAdditionalPins.md)
 - Called from (representative examples):
-  - heap_beginscan
-  - acquire_sample_rows
+  - [heap_beginscan](../h/heap_beginscan.md)
+  - [acquire_sample_rows](../a/acquire_sample_rows.md)
 
 ## Notes and Other Information
 - Automatically detects and handles catalog relations with conservative I/O settings to avoid circular dependencies

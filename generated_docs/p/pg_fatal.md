@@ -20,7 +20,7 @@ pg_fatal is a macro defined in PostgreSQL's common logging framework that combin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_log_generic (logs the error message)
+  - [pg_log_generic](pg_log_generic.md) (logs the error message)
   - PG_LOG_ERROR (error log level enum value)
   - PG_LOG_PRIMARY (primary message part enum value)
   - exit (standard library function for program termination)

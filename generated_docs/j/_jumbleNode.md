@@ -28,7 +28,7 @@ The function operates recursively, ensuring that all child nodes are properly pr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `check_stack_depth` - Stack overflow protection
+  - `[check_stack_depth](../c/check_stack_depth.md)` - Stack overflow protection
   - `JUMBLE_FIELD` - Macro to jumble node fields
   - `nodeTag` - Get the NodeTag type of a node
   - [_jumbleList](_jumbleList.md) - Process list-type nodes

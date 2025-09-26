@@ -33,7 +33,7 @@ Before serialization, the function deduplicates values and performs various sani
   - VARSIZE_ANY
   - [DatumGetCString](../D/DatumGetCString.md)
   - SET_VARSIZE
-  - store_att_byval
+  - [store_att_byval](../s/store_att_byval.md)
   - [DatumGetPointer](../D/DatumGetPointer.md)
 - Called from (representative examples):
   - [brin_minmax_multi_serialize](brin_minmax_multi_serialize.md)

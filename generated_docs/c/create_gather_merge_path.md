@@ -34,11 +34,11 @@ The function asserts that the subpath is parallel-safe and that pathkeys are pro
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to create the GatherMergePath node)
-  - get_baserel_parampathinfo (to handle parameterized path information)
+  - [get_baserel_parampathinfo](../g/get_baserel_parampathinfo.md) (to handle parameterized path information)
   - [pathkeys_contained_in](../p/pathkeys_contained_in.md) (to check if subpath is adequately sorted)
   - [cost_sort](cost_sort.md) (to estimate sorting cost when needed)
   - [cost_gather_merge](cost_gather_merge.md) (to calculate the final cost of the gather merge operation)
-  - GatherMergePath (the path node type being created)
+  - [GatherMergePath](../G/GatherMergePath.md) (the path node type being created)
 - Called from (representative examples):
   - [generate_gather_paths](../g/generate_gather_paths.md) (when generating parallel access paths)
   - [generate_useful_gather_paths](../g/generate_useful_gather_paths.md) (for useful parallel path generation)

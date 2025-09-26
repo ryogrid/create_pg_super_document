@@ -30,13 +30,13 @@ When a buffer is already valid, the function simply acquires the appropriate loc
   - [GetBufferDescriptor](../G/GetBufferDescriptor.md)
   - [pg_atomic_read_u32](../p/pg_atomic_read_u32.md)
   - [pg_atomic_unlocked_write_u32](../p/pg_atomic_unlocked_write_u32.md)
-  - StartBufferIO
-  - TerminateBufferIO
+  - [StartBufferIO](../S/StartBufferIO.md)
+  - [TerminateBufferIO](../T/TerminateBufferIO.md)
   - [BufferGetPage](../B/BufferGetPage.md)
   - [BufferDescriptorGetContentLock](../B/BufferDescriptorGetContentLock.md)
-  - LWLockAcquire
+  - [LWLockAcquire](../L/LWLockAcquire.md)
   - [LockBuffer](../L/LockBuffer.md)
-  - LockBufferForCleanup
+  - [LockBufferForCleanup](../L/LockBufferForCleanup.md)
   - memset
   - BM_VALID
   - BM_IO_IN_PROGRESS

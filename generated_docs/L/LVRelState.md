@@ -161,12 +161,12 @@ LVRelState serves as the central coordination structure for PostgreSQL's lazy va
 - Functions called/Symbols referenced:
   - [BufferAccessStrategy](../B/BufferAccessStrategy.md)
   - [ParallelVacuumState](../P/ParallelVacuumState.md)
-  - VacuumCutoffs
+  - [VacuumCutoffs](../V/VacuumCutoffs.md)
   - [GlobalVisState](../G/GlobalVisState.md)
   - MultiXactId
   - [VacErrPhase](../V/VacErrPhase.md)
   - [TidStore](../T/TidStore.md)
-  - VacDeadItemsInfo
+  - [VacDeadItemsInfo](../V/VacDeadItemsInfo.md)
   - [IndexBulkDeleteResult](../I/IndexBulkDeleteResult.md)
 
 - Called from (representative examples):

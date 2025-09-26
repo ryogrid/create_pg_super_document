@@ -35,7 +35,7 @@ This function takes no parameters but operates on several global variables:
 - Functions called/Symbols referenced:
   - pg_log_warning
   - pg_log_warning_hint
-  - connect_database
+  - [connect_database](connect_database.md)
   - [drop_publication](../d/drop_publication.md)
   - [drop_replication_slot](../d/drop_replication_slot.md)
   - [disconnect_database](../d/disconnect_database.md)

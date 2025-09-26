@@ -34,15 +34,15 @@ This structure is the central execution state object for PostgreSQL's run-time p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PartitionPruningData (referenced partition pruning data)
+  - [PartitionPruningData](PartitionPruningData.md) (referenced partition pruning data)
   - FLEXIBLE_ARRAY_MEMBER (for variable-length array)
 - Called from (representative examples):
-  - ExecInitPartitionPruning
-  - CreatePartitionPruneState
-  - ExecFindMatchingSubPlans
-  - PartitionPruneFixSubPlanMap
-  - ExecInitAppend
-  - ExecInitMergeAppend
+  - [ExecInitPartitionPruning](../E/ExecInitPartitionPruning.md)
+  - [CreatePartitionPruneState](../C/CreatePartitionPruneState.md)
+  - [ExecFindMatchingSubPlans](../E/ExecFindMatchingSubPlans.md)
+  - [PartitionPruneFixSubPlanMap](PartitionPruneFixSubPlanMap.md)
+  - [ExecInitAppend](../E/ExecInitAppend.md)
+  - [ExecInitMergeAppend](../E/ExecInitMergeAppend.md)
 
 ## Notes and Other Information
 - Primarily used by Append and MergeAppend plan nodes but can be attached to any plan type supporting subplan lists

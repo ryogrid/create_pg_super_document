@@ -24,7 +24,7 @@ The restoration process includes reading various types of statistics such as arc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_read_statsfile
+  - [pgstat_read_statsfile](pgstat_read_statsfile.md)
 - Called from (representative examples):
   - [StartupXLOG](../S/StartupXLOG.md) (src/backend/access/transam/xlog.c:5640)
 

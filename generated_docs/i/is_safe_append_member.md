@@ -31,8 +31,8 @@ The validation process walks down the jointree hierarchy, ensuring that each Fro
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FromExpr
-  - RangeTblRef
+  - [FromExpr](../F/FromExpr.md)
+  - [RangeTblRef](../R/RangeTblRef.md)
 - Called from:
   - [pull_up_subqueries_recurse](../p/pull_up_subqueries_recurse.md)
   - [pull_up_simple_subquery](../p/pull_up_simple_subquery.md)

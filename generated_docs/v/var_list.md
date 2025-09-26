@@ -26,13 +26,13 @@ This structure provides a lightweight linked list implementation for managing co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - var_list (self-reference for linked list structure)
+  - [var_list](var_list.md) (self-reference for linked list structure)
   - Multiple ECPG library functions and types are referenced in the broader context
 - Called from (representative examples):
-  - ecpg_finish (cleanup operations)
-  - ECPGset_var (variable setting operations)
-  - ECPGget_var (variable retrieval operations)
-  - ecpg_gettext (localization support)
+  - [ecpg_finish](../e/ecpg_finish.md) (cleanup operations)
+  - [ECPGset_var](../E/ECPGset_var.md) (variable setting operations)
+  - [ECPGget_var](../E/ECPGget_var.md) (variable retrieval operations)
+  - [ecpg_gettext](../e/ecpg_gettext.md) (localization support)
 
 ## Notes and Other Information
 This structure appears in the context of a larger header file that contains extensive function declarations and type definitions for the ECPG library. The var_list serves as a fundamental building block for various internal data management tasks within ECPG, providing a flexible way to maintain ordered collections of diverse objects. Its generic nature allows it to be repurposed for different use cases throughout the library without requiring specialized data structures.

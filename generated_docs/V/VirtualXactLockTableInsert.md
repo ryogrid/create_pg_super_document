@@ -24,11 +24,11 @@ Since virtual transaction locks are only released at transaction end, this funct
 ## Dependencies
 - Functions called/Symbols referenced:
   - VirtualTransactionIdIsValid
-  - VirtualTransactionId (type)
+  - [VirtualTransactionId](VirtualTransactionId.md) (type)
   - InvalidLocalTransactionId
 - Called from (representative examples):
-  - StartTransaction
-  - InitRecoveryTransactionEnvironment
+  - [StartTransaction](../S/StartTransaction.md)
+  - [InitRecoveryTransactionEnvironment](../I/InitRecoveryTransactionEnvironment.md)
   - LockHashPartitionLockByProc
 
 ## Notes and Other Information

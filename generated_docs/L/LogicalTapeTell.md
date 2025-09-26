@@ -29,10 +29,10 @@ This capability is essential for sorting operations that need to mark positions 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LogicalTape (structure type)
-  - ltsInitReadBuffer (initializes read buffer if needed)
+  - [LogicalTape](LogicalTape.md) (structure type)
+  - [ltsInitReadBuffer](../l/ltsInitReadBuffer.md) (initializes read buffer if needed)
 - Called from (representative examples):
-  - tuplesort_markpos (in tuplesort.c for marking tape positions during sorting)
+  - [tuplesort_markpos](../t/tuplesort_markpos.md) (in tuplesort.c for marking tape positions during sorting)
 
 ## Notes and Other Information
 - Can be called during write phase with intention of using the position after freezing, though this usage is uncommon

@@ -29,12 +29,12 @@ The function rejects NaN values but allows infinities (which will be caught by s
   - strtod (standard library function for floating-point parsing)
   - isnan (mathematical function to check for NaN)
   - isspace (character classification function)
-  - convert_to_base_unit (unit conversion function)
+  - [convert_to_base_unit](../c/convert_to_base_unit.md) (unit conversion function)
   - GUC_UNIT, GUC_UNIT_MEMORY (unit flag constants)
   - memory_units_hint, time_units_hint (hint message constants)
 - Called from (representative examples):
-  - parse_one_reloption
-  - parse_and_validate_value
+  - [parse_one_reloption](parse_one_reloption.md)
+  - [parse_and_validate_value](parse_and_validate_value.md)
   - EmitWarningsOnPlaceholders
 
 ## Notes and Other Information

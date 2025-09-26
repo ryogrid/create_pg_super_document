@@ -34,7 +34,7 @@ When relation metadata changes (such as during ALTER TABLE operations, index cre
   - int8 (PostgreSQL integer type)
   - SHAREDINVALRELCACHE_ID (constant defined as -2)
 - Called from (representative examples):
-  - SharedInvalidationMessage (union containing this structure)
+  - [SharedInvalidationMessage](SharedInvalidationMessage.md) (union containing this structure)
   - Relcache invalidation functions in the sinval subsystem
 
 ## Notes and Other Information

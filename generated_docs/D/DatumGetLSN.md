@@ -19,12 +19,12 @@ The function is implemented as a static inline function in the header file, maki
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetInt64
+  - [DatumGetInt64](DatumGetInt64.md)
 - Called from (representative examples):
-  - GetSubscriptionRelState
-  - GetSubscriptionRelations
-  - parse_subscription_options
-  - libpqrcv_create_slot
+  - [GetSubscriptionRelState](../G/GetSubscriptionRelState.md)
+  - [GetSubscriptionRelations](../G/GetSubscriptionRelations.md)
+  - [parse_subscription_options](../p/parse_subscription_options.md)
+  - [libpqrcv_create_slot](../l/libpqrcv_create_slot.md)
   - PG_GETARG_LSN (macro)
 
 ## Notes and Other Information

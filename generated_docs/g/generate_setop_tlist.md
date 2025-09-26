@@ -35,12 +35,12 @@ The function sets all non-resjunk columns to have ressortgroupref equal to their
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeVar
-  - exprType
-  - exprTypmod  
+  - [makeVar](../m/makeVar.md)
+  - [exprType](../e/exprType.md)
+  - [exprTypmod](../e/exprTypmod.md)  
   - [exprCollation](../e/exprCollation.md)
   - [coerce_to_common_type](../c/coerce_to_common_type.md)
-  - applyRelabelType
+  - [applyRelabelType](../a/applyRelabelType.md)
   - [makeTargetEntry](../m/makeTargetEntry.md)
   - [makeConst](../m/makeConst.md)
   - forfour (macro for iterating over four lists)

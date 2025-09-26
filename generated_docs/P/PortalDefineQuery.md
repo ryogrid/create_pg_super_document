@@ -40,7 +40,7 @@ Key design considerations:
   - PortalIsValid
   - [Portal](Portal.md) (type)
   - CommandTag (type)
-  - CachedPlan (type)
+  - [CachedPlan](../C/CachedPlan.md) (type)
   - PORTAL_NEW (constant)
   - PORTAL_DEFINED (constant)
 - Called from (representative examples):

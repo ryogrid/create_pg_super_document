@@ -27,7 +27,7 @@ This function provides timezone abbreviation parsing functionality specifically 
   - datetkn
   - TOKMAXLEN
   - DYNTZ
-  - DateTimeErrorExtra
+  - [DateTimeErrorExtra](DateTimeErrorExtra.md)
   - [pg_tz](../p/pg_tz.md)
 - Called from (representative examples):
   - [DCH_from_char](DCH_from_char.md)

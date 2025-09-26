@@ -23,10 +23,10 @@ The function includes the same safety check as its wrapper to never match dummy 
 - Functions called/Symbols referenced:
   - procArray (global variable access)
   - allProcs (global array access)
-  - ProcArrayStruct
+  - [ProcArrayStruct](../P/ProcArrayStruct.md)
 - Called from (representative examples):
-  - BackendPidGetProc
-  - GetBlockerStatusData
+  - [BackendPidGetProc](BackendPidGetProc.md)
+  - [GetBlockerStatusData](../G/GetBlockerStatusData.md)
 
 ## Notes and Other Information
 - Caller must hold ProcArrayLock before calling this function

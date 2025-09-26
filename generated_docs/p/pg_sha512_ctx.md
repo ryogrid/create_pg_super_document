@@ -31,14 +31,14 @@ The structure supports the standard init/update/final pattern and is also used a
   - PG_SHA512_BLOCK_LENGTH (constant defining 128-byte block size)
 
 - Called from (representative examples):
-  - pg_cryptohash_ctx (general cryptographic hash context structure)
-  - pg_sha512_init (initializes the context)
-  - pg_sha512_update (processes data chunks)
-  - pg_sha512_final (finalizes hash computation)
-  - SHA512_Transform (core transformation function)
-  - SHA512_Last (final block processing)
-  - pg_sha384_update (SHA-384 operations using SHA-512 context)
-  - pg_sha384_final (SHA-384 finalization)
+  - [pg_cryptohash_ctx](pg_cryptohash_ctx.md) (general cryptographic hash context structure)
+  - [pg_sha512_init](pg_sha512_init.md) (initializes the context)
+  - [pg_sha512_update](pg_sha512_update.md) (processes data chunks)
+  - [pg_sha512_final](pg_sha512_final.md) (finalizes hash computation)
+  - [SHA512_Transform](../S/SHA512_Transform.md) (core transformation function)
+  - [SHA512_Last](../S/SHA512_Last.md) (final block processing)
+  - [pg_sha384_update](pg_sha384_update.md) (SHA-384 operations using SHA-512 context)
+  - [pg_sha384_final](pg_sha384_final.md) (SHA-384 finalization)
 
 ## Notes and Other Information
 - The structure uses 64-bit arithmetic throughout, distinguishing it from the 32-bit SHA-256 family

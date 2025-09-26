@@ -24,7 +24,7 @@ Like other error reporting functions, `errdetail` operates within PostgreSQL's e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ErrorData (error data structure)
+  - [ErrorData](../E/ErrorData.md) (error data structure)
   - CHECK_STACK_DEPTH (recursion safety check)
   - EVALUATE_MESSAGE (message processing macro with translation enabled)
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (memory management)

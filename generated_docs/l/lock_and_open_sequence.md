@@ -23,7 +23,7 @@ The function checks if a lock has already been acquired for the sequence in the 
 - Functions called/Symbols referenced:
   - SeqTable (sequence table entry structure)
   - LocalTransactionId (transaction identifier type)
-  - ResourceOwner (resource ownership management)
+  - [ResourceOwner](../R/ResourceOwner.md) (resource ownership management)
   - [LockRelationOid](../L/LockRelationOid.md) (acquires lock on relation by OID)
   - [sequence_open](../s/sequence_open.md) (opens sequence relation)
 - Called from (representative examples):

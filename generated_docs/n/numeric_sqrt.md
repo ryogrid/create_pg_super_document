@@ -34,7 +34,7 @@ The function carefully determines the appropriate result scale to ensure at leas
   - PG_RETURN_NUMERIC: Return numeric result
 - Called from (representative examples):
   - SQL sqrt() function calls
-  - Numeric operator expressions
+  - [Numeric](../N/Numeric.md) operator expressions
 
 ## Notes and Other Information
 - Raises  error for negative infinity inputs

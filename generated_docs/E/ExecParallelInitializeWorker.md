@@ -32,7 +32,7 @@ The function uses a switch statement based on the nodeTag to identify the specif
   - [ExecCustomScanInitializeWorker](ExecCustomScanInitializeWorker.md)
   - [ExecBitmapHeapInitializeWorker](ExecBitmapHeapInitializeWorker.md)
   - [ExecHashJoinInitializeWorker](ExecHashJoinInitializeWorker.md)
-  - ExecHashInitializeWorker
+  - [ExecHashInitializeWorker](ExecHashInitializeWorker.md)
   - [ExecSortInitializeWorker](ExecSortInitializeWorker.md)
   - [ExecIncrementalSortInitializeWorker](ExecIncrementalSortInitializeWorker.md)
   - [ExecAggInitializeWorker](ExecAggInitializeWorker.md)

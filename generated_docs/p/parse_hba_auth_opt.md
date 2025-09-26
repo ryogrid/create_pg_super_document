@@ -36,7 +36,7 @@ The function is designed to provide detailed error reporting with file context i
   - INVALID_AUTH_OPTION/REQUIRE_AUTH_OPTION (validation macros)
   - ldap_url_parse/ldap_free_urldesc (LDAP URL handling)
   - [SplitGUCList](../S/SplitGUCList.md) (comma-separated list parsing)
-  - pg_getaddrinfo_all/pg_freeaddrinfo_all (network address resolution)
+  - [pg_getaddrinfo_all](pg_getaddrinfo_all.md)/pg_freeaddrinfo_all (network address resolution)
   - Authentication method constants (uaPAM, uaLDAP, uaRADIUS, etc.)
   - Client certificate constants (clientCertFull, clientCertCA, etc.)
 - Called from:

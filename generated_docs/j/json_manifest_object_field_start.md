@@ -21,8 +21,8 @@ This callback function is invoked when the JSON parser encounters the start of a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - json_manifest_parse_failure
-  - pfree
+  - [json_manifest_parse_failure](json_manifest_parse_failure.md)
+  - [pfree](../p/pfree.md)
   - strcmp
   - JsonManifestParseState (struct)
   - JM_EXPECT_TOPLEVEL_FIELD (enum value)
@@ -39,8 +39,8 @@ This callback function is invoked when the JSON parser encounters the start of a
   - JMWRF_TIMELINE, JMWRF_START_LSN, JMWRF_END_LSN (WAL range field enum values)
   - JSON_SUCCESS (return value)
 - Called from (representative examples):
-  - json_parse_manifest_incremental_init
-  - json_parse_manifest
+  - [json_parse_manifest_incremental_init](json_parse_manifest_incremental_init.md)
+  - [json_parse_manifest](json_parse_manifest.md)
 
 ## Notes and Other Information
 - This is a static callback function used specifically within the manifest parsing infrastructure

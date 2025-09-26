@@ -23,9 +23,9 @@ The function maintains progress reporting by logging a NOTICE message every 10 m
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReadNextFullTransactionId
+  - [ReadNextFullTransactionId](../R/ReadNextFullTransactionId.md)
   - [GetTopTransactionId](../G/GetTopTransactionId.md)  
-  - GetNewTransactionId
+  - [GetNewTransactionId](../G/GetNewTransactionId.md)
   - [consume_xids_shortcut](consume_xids_shortcut.md)
   - FullTransactionIdFollowsOrEquals
   - U64FromFullTransactionId

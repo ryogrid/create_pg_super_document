@@ -22,11 +22,11 @@ The function also resets the posDict counter to 0, indicating that dictionary pr
 ## Dependencies
 - Functions called/Symbols referenced:
   - LexizeData (structure type)
-  - LPLAddTail (list manipulation function)
-  - LPLRemoveHead (list manipulation function)
+  - [LPLAddTail](../L/LPLAddTail.md) (list manipulation function)
+  - [LPLRemoveHead](../L/LPLRemoveHead.md) (list manipulation function)
 - Called from (representative examples):
-  - moveToWaste
-  - LexizeExec (multiple locations)
+  - [moveToWaste](../m/moveToWaste.md)
+  - [LexizeExec](../L/LexizeExec.md) (multiple locations)
 
 ## Notes and Other Information
 - Static function with local scope to ts_parse.c

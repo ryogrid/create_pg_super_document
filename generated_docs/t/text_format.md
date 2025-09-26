@@ -38,7 +38,7 @@ The function parses the format string character by character, handling literal t
   - , , , ,  - Argument handling
   - ,  - Function expression introspection
   - , , ,  - Array handling
-  - ,  - String buffer management
+  - ,  - [String](../S/String.md) buffer management
   -  - Parse format specifier components
   - , ,  - Type system integration
   - , ,  - Type conversions

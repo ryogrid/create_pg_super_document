@@ -52,9 +52,9 @@ The structure supports the full range of domain alterations including setting or
 - Functions called/Symbols referenced:
   - DropBehavior
 - Called from (representative examples):
-  - ATExecCmd
-  - ATPostAlterTypeParse
-  - ProcessUtilitySlow
+  - [ATExecCmd](ATExecCmd.md)
+  - [ATPostAlterTypeParse](ATPostAlterTypeParse.md)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md)
 
 ## Notes and Other Information
 - Part of PostgreSQL's parse tree node system, inheriting from the standard Node structure

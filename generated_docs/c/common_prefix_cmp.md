@@ -30,8 +30,8 @@ The strategic ordering by highest tleSortGroupRef first is designed to align wit
 - Functions called/Symbols referenced:
   - WindowClauseSortData (struct type containing window clause and uniqueOrder)
   - forboth (macro for parallel iteration over two lists)
-  - SortGroupClause (struct type representing sort/group specifications)
-  - list_length (function to get list length)
+  - [SortGroupClause](../S/SortGroupClause.md) (struct type representing sort/group specifications)
+  - [list_length](../l/list_length.md) (function to get list length)
   - lfirst_node (macro to access list node content)
 - Called from (representative examples):
   - [select_active_windows](../s/select_active_windows.md) (src/backend/optimizer/plan/planner.c:5984)

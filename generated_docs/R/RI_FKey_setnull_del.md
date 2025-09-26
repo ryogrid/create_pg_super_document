@@ -23,7 +23,7 @@ RI_FKey_setnull_del is a trigger function that enforces referential integrity by
   - [ri_CheckTrigger](../r/ri_CheckTrigger.md) (validates trigger call context)
   - [ri_set](../r/ri_set.md) (performs the actual SET NULL operation)
   - RI_TRIGTYPE_DELETE (trigger type constant)
-  - TriggerData (structure containing trigger context information)
+  - [TriggerData](../T/TriggerData.md) (structure containing trigger context information)
 - Called from (representative examples):
   - No direct callers found (invoked by PostgreSQL trigger system)
 

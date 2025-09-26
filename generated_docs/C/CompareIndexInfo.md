@@ -29,7 +29,7 @@ CompareIndexInfo performs a comprehensive comparison of two IndexInfo structures
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IndexInfo (structure type)
+  - [IndexInfo](../I/IndexInfo.md) (structure type)
   - [AttrMap](../A/AttrMap.md) (structure type)
   - InvalidAttrNumber (constant)
   - [map_variable_attnos](../m/map_variable_attnos.md) (function)

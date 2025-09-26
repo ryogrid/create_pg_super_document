@@ -29,8 +29,8 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire (CommitTsLock, LW_EXCLUSIVE)
-  - LWLockRelease (CommitTsLock)
+  - [LWLockAcquire](../L/LWLockAcquire.md) (CommitTsLock, LW_EXCLUSIVE)
+  - [LWLockRelease](../L/LWLockRelease.md) (CommitTsLock)
   - [SlruScanDirectory](../S/SlruScanDirectory.md) (CommitTsCtl, SlruScanDirCbDeleteAll, NULL)
   - TIMESTAMP_NOBEGIN (macro)
   - InvalidTransactionId (constant)

@@ -25,7 +25,7 @@ The function always returns a valid database name since a PostgreSQL session mus
 - Functions called/Symbols referenced:
   - [palloc](../p/palloc.md) (for memory allocation)
   - [get_database_name](../g/get_database_name.md)
-  - namestrcpy
+  - [namestrcpy](../n/namestrcpy.md)
   - PG_RETURN_NAME
   - MyDatabaseId (global variable)
   - NAMEDATALEN (constant for name length)

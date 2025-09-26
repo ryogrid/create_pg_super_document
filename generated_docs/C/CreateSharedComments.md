@@ -24,7 +24,7 @@ Like CreateComments, it treats empty strings as NULL comments for deletion, and 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open: Opens the pg_shdescription relation for modification
+  - [table_open](../t/table_open.md): Opens the pg_shdescription relation for modification
   - [systable_beginscan](../s/systable_beginscan.md): Initiates indexed scan using SharedDescriptionObjIndexId
   - [systable_getnext](../s/systable_getnext.md): Retrieves matching tuples from the scan
   - [CatalogTupleDelete](CatalogTupleDelete.md): Removes existing comment tuple

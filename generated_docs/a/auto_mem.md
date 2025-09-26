@@ -30,12 +30,12 @@ The structure is used in conjunction with pthread thread-local storage (TLS) to 
   - pthread_once_t (for one-time initialization)
   - PTHREAD_ONCE_INIT (initialization constant)
 - Called from (representative examples):
-  - auto_mem_key_init (initializes pthread key)
-  - get_auto_allocs (retrieves thread-local memory list)
-  - set_auto_allocs (sets thread-local memory list)
-  - ecpg_add_mem (adds new allocation to tracking list)
-  - ECPGfree_auto_mem (frees all tracked memory and list nodes)
-  - ecpg_clear_auto_mem (frees only the list structure, not tracked memory)
+  - [auto_mem_key_init](auto_mem_key_init.md) (initializes pthread key)
+  - [get_auto_allocs](../g/get_auto_allocs.md) (retrieves thread-local memory list)
+  - [set_auto_allocs](../s/set_auto_allocs.md) (sets thread-local memory list)
+  - [ecpg_add_mem](../e/ecpg_add_mem.md) (adds new allocation to tracking list)
+  - [ECPGfree_auto_mem](../E/ECPGfree_auto_mem.md) (frees all tracked memory and list nodes)
+  - [ecpg_clear_auto_mem](../e/ecpg_clear_auto_mem.md) (frees only the list structure, not tracked memory)
 
 ## Notes and Other Information
 - This structure is part of ECPG's automatic memory management feature, which helps prevent memory leaks in embedded SQL applications

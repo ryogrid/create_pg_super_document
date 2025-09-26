@@ -31,15 +31,15 @@ The function is designed for use in database creation operations where complete 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - smgropen
-  - RelationCreateStorage
-  - RelationCopyStorageUsingBuffer
-  - smgrexists, smgrcreate
-  - log_smgrcreate
+  - [smgropen](../s/smgropen.md)
+  - [RelationCreateStorage](../R/RelationCreateStorage.md)
+  - [RelationCopyStorageUsingBuffer](../R/RelationCopyStorageUsingBuffer.md)
+  - [smgrexists](../s/smgrexists.md), smgrcreate
+  - [log_smgrcreate](../l/log_smgrcreate.md)
   - RELPERSISTENCE_PERMANENT, RELPERSISTENCE_UNLOGGED
   - MAIN_FORKNUM, MAX_FORKNUM, INIT_FORKNUM
 - Called from (representative examples):
-  - CreateDatabaseUsingWalLog
+  - [CreateDatabaseUsingWalLog](CreateDatabaseUsingWalLog.md)
 
 ## Notes and Other Information
 - This is a public function (not static) providing a high-level API for relation copying

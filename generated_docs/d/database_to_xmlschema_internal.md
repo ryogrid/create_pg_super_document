@@ -23,16 +23,16 @@ This internal function creates a complete XML Schema (XSD) representation of the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeStringInfo
+  - [makeStringInfo](../m/makeStringInfo.md)
   - [xsd_schema_element_start](../x/xsd_schema_element_start.md)
-  - SPI_connect
+  - [SPI_connect](../S/SPI_connect.md)
   - [database_get_xml_visible_tables](database_get_xml_visible_tables.md)
   - [database_get_xml_visible_schemas](database_get_xml_visible_schemas.md)
   - [CreateTupleDescCopy](../C/CreateTupleDescCopy.md)
-  - map_sql_typecoll_to_xmlschema_types
-  - map_sql_catalog_to_xmlschema_types
+  - [map_sql_typecoll_to_xmlschema_types](../m/map_sql_typecoll_to_xmlschema_types.md)
+  - [map_sql_catalog_to_xmlschema_types](../m/map_sql_catalog_to_xmlschema_types.md)
   - [xsd_schema_element_end](../x/xsd_schema_element_end.md)
-  - SPI_finish
+  - [SPI_finish](../S/SPI_finish.md)
 - Called from:
   - [database_to_xmlschema](database_to_xmlschema.md)
   - [database_to_xml_and_xmlschema](database_to_xml_and_xmlschema.md)

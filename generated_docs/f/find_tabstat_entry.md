@@ -22,11 +22,11 @@ The function ensures that live subtransaction counts are properly reconciled int
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_fetch_pending_entry (to locate statistics entries)
+  - [pgstat_fetch_pending_entry](../p/pgstat_fetch_pending_entry.md) (to locate statistics entries)
   - [palloc](../p/palloc.md) (for memory allocation)
-  - PgStat_EntryRef (statistics entry reference structure)
-  - PgStat_TableXactStatus (transaction-level table statistics)
-  - PgStat_TableStatus (table statistics structure)
+  - [PgStat_EntryRef](../P/PgStat_EntryRef.md) (statistics entry reference structure)
+  - [PgStat_TableXactStatus](../P/PgStat_TableXactStatus.md) (transaction-level table statistics)
+  - [PgStat_TableStatus](../P/PgStat_TableStatus.md) (table statistics structure)
   - PGSTAT_KIND_RELATION (statistics kind constant)
 - Called from (representative examples):
   - PG_STAT_GET_XACT_RELENTRY_INT64 (in pgstatfuncs.c)

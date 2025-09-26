@@ -33,8 +33,8 @@ The PX operator ensures that each gene appears exactly once in the offspring, ma
 ## Dependencies
 - Functions called/Symbols referenced:
   - [geqo_randint](../g/geqo_randint.md) (random integer generation within specified range)
-  - Gene (typedef for int, represents a relation in the query)
-  - City (struct with used field to track gene utilization)
+  - [Gene](../G/Gene.md) (typedef for int, represents a relation in the query)
+  - [City](../C/City.md) (struct with used field to track gene utilization)
 - Called from (representative examples):
   - [geqo](../g/geqo.md) (main GEQO function in src/backend/optimizer/geqo/geqo_main.c:210)
 

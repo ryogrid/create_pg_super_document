@@ -34,9 +34,9 @@ The function is optimized for use cases like archive_command where string templa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  -  - Initialize StringInfo buffer for result
-  -  - Append single character to result buffer
-  -  - Append string to result buffer
+  -  - [Initialize](../I/Initialize.md) StringInfo buffer for result
+  -  - [Append](../A/Append.md) single character to result buffer
+  -  - [Append](../A/Append.md) string to result buffer
   -  (FRONTEND) /  (backend) - Error reporting
   -  (FRONTEND) - Detailed error reporting
   - , ,  - Variadic argument handling

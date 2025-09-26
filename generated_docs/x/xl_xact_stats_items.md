@@ -24,14 +24,14 @@ The xl_xact_stats_items structure serves as a container for multiple xl_xact_sta
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - xl_xact_stats_item
+  - [xl_xact_stats_item](xl_xact_stats_item.md)
   - FLEXIBLE_ARRAY_MEMBER
 
 - Called from (representative examples):
-  - ParseCommitRecord (in xactdesc.c:89)
-  - ParseAbortRecord (in xactdesc.c:195)
-  - XactLogCommitRecord (in xact.c:5766)
-  - XactLogAbortRecord (in xact.c:5935)
+  - [ParseCommitRecord](../P/ParseCommitRecord.md) (in xactdesc.c:89)
+  - [ParseAbortRecord](../P/ParseAbortRecord.md) (in xactdesc.c:195)
+  - [XactLogCommitRecord](../X/XactLogCommitRecord.md) (in xact.c:5766)
+  - [XactLogAbortRecord](../X/XactLogAbortRecord.md) (in xact.c:5935)
   - MinSizeOfXactStatsItems (in xact.h:294)
 
 ## Notes and Other Information

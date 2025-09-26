@@ -18,7 +18,7 @@ heapam_scan_analyze_next_block is a specialized function used during ANALYZE ope
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - read_stream_next_buffer
+  - [read_stream_next_buffer](../r/read_stream_next_buffer.md)
   - [BufferIsValid](../B/BufferIsValid.md)
   - [LockBuffer](../L/LockBuffer.md)
   - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)

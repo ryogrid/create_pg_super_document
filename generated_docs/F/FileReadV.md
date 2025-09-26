@@ -36,15 +36,15 @@ The vectored I/O approach is particularly beneficial when reading scattered data
 ## Dependencies
 - Functions called/Symbols referenced:
   - FileIsValid: Validates the file descriptor
-  - FileAccess: Ensures file is accessible and opens if needed
-  - pgstat_report_wait_start: Reports start of wait event for monitoring
-  - pgstat_report_wait_end: Reports end of wait event
-  - pg_preadv: Platform-specific vectored read function
-  - pg_usleep: Windows-specific sleep function for retry handling
-  - _dosmaperr: Windows error mapping function
+  - [FileAccess](FileAccess.md): Ensures file is accessible and opens if needed
+  - [pgstat_report_wait_start](../p/pgstat_report_wait_start.md): Reports start of wait event for monitoring
+  - [pgstat_report_wait_end](../p/pgstat_report_wait_end.md): Reports end of wait event
+  - [pg_preadv](../p/pg_preadv.md): Platform-specific vectored read function
+  - [pg_usleep](../p/pg_usleep.md): Windows-specific sleep function for retry handling
+  - [_dosmaperr](../d/_dosmaperr.md): Windows error mapping function
 - Called from (representative examples):
-  - mdreadv: Magnetic disk storage manager vectored read operations
-  - FileRead: Single buffer read operation (wrapper function)
+  - [mdreadv](../m/mdreadv.md): Magnetic disk storage manager vectored read operations
+  - [FileRead](FileRead.md): Single buffer read operation (wrapper function)
 
 ## Notes and Other Information
 - The function supports both Unix and Windows platforms with appropriate error handling for each

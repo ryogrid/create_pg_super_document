@@ -30,9 +30,9 @@ For compactness, the equivalence class and restriction info arrays are summarize
   - WRITE_INT_FIELD
   - WRITE_ATTRNUMBER_ARRAY
   - WRITE_OID_ARRAY
-  - appendStringInfoString
-  - appendStringInfo
-  - list_length
+  - [appendStringInfoString](../a/appendStringInfoString.md)
+  - [appendStringInfo](../a/appendStringInfo.md)
+  - [list_length](../l/list_length.md)
 - Called from (representative examples):
   - (Part of node output dispatch system - called indirectly through nodeToString mechanisms)
 

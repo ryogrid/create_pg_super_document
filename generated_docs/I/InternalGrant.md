@@ -43,14 +43,14 @@ A key feature is that if `privileges` is set to ACL_NO_RIGHTS (0) and `all_privs
 ## Dependencies
 - Types used:
   - ObjectType (from nodes/parsenodes.h)
-  - List (from nodes/pg_list.h)
+  - [List](../L/List.md) (from nodes/pg_list.h)
   - AclMode (access control mode bitmask)
   - DropBehavior (dependency handling behavior)
 - Used extensively by:
-  - ExecuteGrantStmt (main entry point for processing grant statements)
-  - ExecGrantStmt_oids (dispatcher for different object types)
-  - ExecGrant_Relation (handles table/sequence grants)
-  - ExecGrant_common (common grant processing logic)
+  - [ExecuteGrantStmt](../E/ExecuteGrantStmt.md) (main entry point for processing grant statements)
+  - [ExecGrantStmt_oids](../E/ExecGrantStmt_oids.md) (dispatcher for different object types)
+  - [ExecGrant_Relation](../E/ExecGrant_Relation.md) (handles table/sequence grants)
+  - [ExecGrant_common](../E/ExecGrant_common.md) (common grant processing logic)
   - Event trigger functions for collecting grant information
 
 ## Notes and Other Information

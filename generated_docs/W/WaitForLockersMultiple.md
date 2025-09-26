@@ -29,8 +29,8 @@ The function includes optional progress reporting functionality that can update 
 - Functions called/Symbols referenced:
   - [GetLockConflicts](../G/GetLockConflicts.md)
   - VirtualTransactionIdIsValid  
-  - VirtualXactLock
-  - ProcNumberGetProc
+  - [VirtualXactLock](../V/VirtualXactLock.md)
+  - [ProcNumberGetProc](../P/ProcNumberGetProc.md)
   - [pgstat_progress_update_param](../p/pgstat_progress_update_param.md)
   - [pgstat_progress_update_multi_param](../p/pgstat_progress_update_multi_param.md)
   - [list_free_deep](../l/list_free_deep.md)

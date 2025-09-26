@@ -24,7 +24,7 @@ XLogWrite is the central mechanism for persisting WAL data from shared memory bu
   - RefreshXLogWriteResult (updates local LogwrtResult)
   - XLogRecPtrToBufIdx (converts LSN to buffer index)
   - [XLogFileClose](XLogFileClose.md)/XLogFileOpen/XLogFileInit (file operations)
-  - pg_pwrite (physical write operation)
+  - [pg_pwrite](../p/pg_pwrite.md) (physical write operation)
   - [issue_xlog_fsync](../i/issue_xlog_fsync.md) (fsync operations)
   - [XLogCheckpointNeeded](XLogCheckpointNeeded.md) (checkpoint threshold checking)
   - WalSndWakeupRequest (walsender notification)

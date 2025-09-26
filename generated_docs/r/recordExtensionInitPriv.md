@@ -26,7 +26,7 @@ The function acts as a gatekeeper, checking the appropriate conditions before de
 ## Dependencies
 - Functions called/Symbols referenced:
   - [recordExtensionInitPrivWorker](recordExtensionInitPrivWorker.md)
-  - Acl (data type)
+  - [Acl](../A/Acl.md) (data type)
 - Called from (representative examples):
   - InternalDefaultACL
   - [ExecGrant_Attribute](../E/ExecGrant_Attribute.md)

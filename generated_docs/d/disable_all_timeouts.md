@@ -25,11 +25,11 @@ The function is designed with performance considerations in mind - it deliberate
   - disable_alarm (disables the SIGALRM signal handler)
   - MAX_TIMEOUTS (constant defining maximum number of timeout slots)
 - Called from (representative examples):
-  - pgarch_archiveXlog (archiver process cleanup)
-  - ResolveRecoveryConflictWithLock (standby conflict resolution)
-  - ResolveRecoveryConflictWithBufferPin (standby conflict resolution)
-  - PostgresMain (main backend process cleanup)
-  - DisableTimeoutParams (macro wrapper)
+  - [pgarch_archiveXlog](../p/pgarch_archiveXlog.md) (archiver process cleanup)
+  - [ResolveRecoveryConflictWithLock](../R/ResolveRecoveryConflictWithLock.md) (standby conflict resolution)
+  - [ResolveRecoveryConflictWithBufferPin](../R/ResolveRecoveryConflictWithBufferPin.md) (standby conflict resolution)
+  - [PostgresMain](../P/PostgresMain.md) (main backend process cleanup)
+  - [DisableTimeoutParams](../D/DisableTimeoutParams.md) (macro wrapper)
 
 ## Notes and Other Information
 - The function sets  to 0 to indicate no timeouts are currently active

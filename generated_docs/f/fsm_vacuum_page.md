@@ -32,22 +32,22 @@ The traversal follows the physical storage order of the FSM tree, making it I/O 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fsm_readbuf
-  - fsm_get_location
-  - fsm_get_parent
-  - fsm_get_child
-  - fsm_get_avail
-  - fsm_set_avail
-  - fsm_get_max_avail
-  - BufferGetPage
-  - LockBuffer
-  - MarkBufferDirtyHint
-  - ReleaseBuffer
-  - PageGetContents
+  - [fsm_readbuf](fsm_readbuf.md)
+  - [fsm_get_location](fsm_get_location.md)
+  - [fsm_get_parent](fsm_get_parent.md)
+  - [fsm_get_child](fsm_get_child.md)
+  - [fsm_get_avail](fsm_get_avail.md)
+  - [fsm_set_avail](fsm_set_avail.md)
+  - [fsm_get_max_avail](fsm_get_max_avail.md)
+  - [BufferGetPage](../B/BufferGetPage.md)
+  - [LockBuffer](../L/LockBuffer.md)
+  - [MarkBufferDirtyHint](../M/MarkBufferDirtyHint.md)
+  - [ReleaseBuffer](../R/ReleaseBuffer.md)
+  - [PageGetContents](../P/PageGetContents.md)
 - Called from (representative examples):
-  - FreeSpaceMapVacuum
-  - FreeSpaceMapVacuumRange
-  - fsm_vacuum_page (recursive self-call)
+  - [FreeSpaceMapVacuum](../F/FreeSpaceMapVacuum.md)
+  - [FreeSpaceMapVacuumRange](../F/FreeSpaceMapVacuumRange.md)
+  - [fsm_vacuum_page](fsm_vacuum_page.md) (recursive self-call)
 
 ## Notes and Other Information
 - The function is static and only used internally within the freespace.c module

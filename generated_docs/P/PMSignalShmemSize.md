@@ -22,14 +22,14 @@ The function uses PostgreSQL's safe arithmetic functions (add_size, mul_size) to
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PMSignalData (structure type)
-  - MaxLivePostmasterChildren (function to get max child count)
-  - add_size (safe addition function)
-  - mul_size (safe multiplication function)
+  - [PMSignalData](PMSignalData.md) (structure type)
+  - [MaxLivePostmasterChildren](../M/MaxLivePostmasterChildren.md) (function to get max child count)
+  - [add_size](../a/add_size.md) (safe addition function)
+  - [mul_size](../m/mul_size.md) (safe multiplication function)
   - offsetof (standard C macro)
 - Called from (representative examples):
-  - CalculateShmemSize (for total shared memory calculation)
-  - PMSignalShmemInit (for memory allocation verification)
+  - [CalculateShmemSize](../C/CalculateShmemSize.md) (for total shared memory calculation)
+  - [PMSignalShmemInit](PMSignalShmemInit.md) (for memory allocation verification)
 
 ## Notes and Other Information
 - This is a public function (no static qualifier) used during PostgreSQL startup

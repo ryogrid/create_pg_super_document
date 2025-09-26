@@ -18,7 +18,7 @@ This function performs character validation for UHC encoding, which is a Korean 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_uhc_mblen
+  - [pg_uhc_mblen](pg_uhc_mblen.md)
   - NONUTF8_INVALID_BYTE0
   - NONUTF8_INVALID_BYTE1
 - Called from (representative examples):

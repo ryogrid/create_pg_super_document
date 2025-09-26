@@ -26,16 +26,16 @@ The  function performs the complete deallocation of a prepared statement in the 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ecpg_log](../e/ecpg_log.md) (logging functionality)
-  - ecpg_alloc (memory allocation)
+  - [ecpg_alloc](../e/ecpg_alloc.md) (memory allocation)
   - [PQexec](../P/PQexec.md) (PostgreSQL command execution)
-  - ecpg_free (memory deallocation)
+  - [ecpg_free](../e/ecpg_free.md) (memory deallocation)
   - [ecpg_check_PQresult](../e/ecpg_check_PQresult.md) (result validation)
   - INFORMIX_MODE (compatibility mode check)
   - [ecpg_raise](../e/ecpg_raise.md) (error reporting)
 - Called from (representative examples):
   - [ECPGdeallocate](../E/ECPGdeallocate.md)
   - [ecpg_deallocate_all_conn](../e/ecpg_deallocate_all_conn.md)
-  - ecpg_freeStmtCacheEntry
+  - [ecpg_freeStmtCacheEntry](../e/ecpg_freeStmtCacheEntry.md)
 
 ## Notes and Other Information
 - The function ignores backend deallocation errors in INFORMIX compatibility mode to maintain compatibility with legacy behavior

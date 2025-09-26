@@ -35,14 +35,14 @@ This function is particularly important for handling complex query scenarios inv
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeVar (creates basic Var nodes)
+  - [makeVar](../m/makeVar.md) (creates basic Var nodes)
   - [markNullableIfNeeded](../m/markNullableIfNeeded.md) (updates nullability information based on join context)
-  - lappend (list append operations)
+  - [lappend](../l/lappend.md) (list append operations)
   - strVal (extracts string values)
 - Data structures used:
   - [ParseNamespaceItem](../P/ParseNamespaceItem.md), ParseNamespaceColumn (namespace metadata structures)
-  - String (PostgreSQL string node type)
-  - Var (variable reference nodes)
+  - [String](../S/String.md) (PostgreSQL string node type)
+  - [Var](../V/Var.md) (variable reference nodes)
 - Called from (representative examples):
   - [transformInsertStmt](../t/transformInsertStmt.md) (processing INSERT statements)
   - [ExpandSingleTable](../E/ExpandSingleTable.md) (target list expansion)

@@ -38,7 +38,7 @@ The function allocates a temporary buffer to hold the concatenated password and 
   - [md5_crypt_verify](../m/md5_crypt_verify.md)
   - [plain_crypt_verify](plain_crypt_verify.md)
   - [pg_password_sendauth](pg_password_sendauth.md)
-  - PQencryptPassword
+  - [PQencryptPassword](../P/PQencryptPassword.md)
 
 ## Notes and Other Information
 - Returns true on success, false on failure

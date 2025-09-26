@@ -34,7 +34,7 @@ The canonicalization process involves chasing up the equivalence class hierarchy
   - lfirst (list iteration)
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (memory management)
   - makeNode (node creation)
-  - lappend (list append)
+  - [lappend](../l/lappend.md) (list append)
 - Called from (representative examples):
   - [make_pathkey_from_sortinfo](make_pathkey_from_sortinfo.md)
   - [convert_subquery_pathkeys](../c/convert_subquery_pathkeys.md)

@@ -23,8 +23,8 @@ This function is responsible for restoring the complete state of a backend proce
   - memcpy
   - [read_inheritable_socket](read_inheritable_socket.md)
   - [SetDataDir](../S/SetDataDir.md)
-  - strlcpy
-  - ReserveExternalFD (Unix/Linux only)
+  - [strlcpy](../s/strlcpy.md)
+  - [ReserveExternalFD](../R/ReserveExternalFD.md) (Unix/Linux only)
   - [BackendParameters](../B/BackendParameters.md) (structure type)
   - [ClientSocket](../C/ClientSocket.md) (structure type)
   - PGINVALID_SOCKET (constant)

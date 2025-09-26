@@ -36,7 +36,7 @@ The function handles both Result nodes with outer plans (filter/projection nodes
 - Functions called/Symbols referenced:
   - makeNode (to create ResultState structure)
   - outerPlan/innerPlan (macros to access plan tree structure) 
-  - ExecAssignExprContext (to create expression evaluation context)
+  - [ExecAssignExprContext](ExecAssignExprContext.md) (to create expression evaluation context)
   - [ExecInitNode](ExecInitNode.md) (to recursively initialize child nodes)
   - [ExecInitResultTupleSlotTL](ExecInitResultTupleSlotTL.md) (to initialize result tuple slot - see related processed symbols)
   - [ExecAssignProjectionInfo](ExecAssignProjectionInfo.md) (to set up projection infrastructure - see related processed symbols)

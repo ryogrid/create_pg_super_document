@@ -19,16 +19,16 @@ The `aclcopy` function performs a complete deep copy of an ACL structure, creati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `allocacl` - Allocates memory for the new ACL with specified entry count
+  - `[allocacl](allocacl.md)` - Allocates memory for the new ACL with specified entry count
   - `ACL_NUM` - Macro to get the number of entries in an ACL
   - `ACL_DAT` - Macro to access the data portion of an ACL
   - `memcpy` - Standard library function for memory copying
   - `AclItem` - Structure type representing individual ACL entries
-  - `Acl` - ACL structure type definition
+  - `[Acl](../A/Acl.md)` - ACL structure type definition
 - Called from (representative examples):
-  - `SetDefaultACL` - When setting default ACL permissions
-  - `ExecGrant_Relation` - During relation permission grants
-  - `aclmerge` - As part of ACL merging operations
+  - `[SetDefaultACL](../S/SetDefaultACL.md)` - When setting default ACL permissions
+  - `[ExecGrant_Relation](../E/ExecGrant_Relation.md)` - During relation permission grants
+  - `[aclmerge](aclmerge.md)` - As part of ACL merging operations
 
 ## Notes and Other Information
 - The function creates a completely independent copy; changes to the copy do not affect the original

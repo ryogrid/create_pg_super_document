@@ -32,7 +32,7 @@ This function performs the critical task of transferring entries from the GIN pe
   - [ginBeginBAScan](ginBeginBAScan.md), ginGetBAEntry (build accumulator scanning)
   - [ginEntryInsert](ginEntryInsert.md) (insert entries into main index)
   - [shiftList](../s/shiftList.md) (remove processed pages from pending list)
-  - IndexFreeSpaceMapVacuum (FSM maintenance)
+  - [IndexFreeSpaceMapVacuum](../I/IndexFreeSpaceMapVacuum.md) (FSM maintenance)
 - Called from (representative examples):
   - [ginHeapTupleFastInsert](ginHeapTupleFastInsert.md) (at src/backend/access/gin/ginfast.c:471)
   - [gin_clean_pending_list](gin_clean_pending_list.md) (at src/backend/access/gin/ginfast.c:1080)

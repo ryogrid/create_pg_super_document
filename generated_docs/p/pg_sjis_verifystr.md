@@ -29,9 +29,9 @@ This function is part of PostgreSQL's character encoding verification system, en
 ## Dependencies
 - Functions called/Symbols referenced:
   - IS_HIGHBIT_SET (macro to check if high bit is set in a byte)
-  - pg_sjis_verifychar (function to verify individual Shift JIS characters)
+  - [pg_sjis_verifychar](pg_sjis_verifychar.md) (function to verify individual Shift JIS characters)
 - Called from (representative examples):
-  - pg_encoding_set_invalid (in encoding validation routines)
+  - [pg_encoding_set_invalid](pg_encoding_set_invalid.md) (in encoding validation routines)
 
 ## Notes and Other Information
 - Returns the number of valid bytes processed before encountering an invalid character or null terminator

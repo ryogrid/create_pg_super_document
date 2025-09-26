@@ -24,11 +24,11 @@ This inline function provides efficient access to local buffer descriptors, whic
 - Called from (representative examples):
   - [ReadRecentBuffer](../R/ReadRecentBuffer.md)
   - [ZeroAndLockBuffer](../Z/ZeroAndLockBuffer.md)
-  - LocalBufferAlloc
-  - GetLocalVictimBuffer
-  - MarkLocalBufferDirty
-  - DropRelationLocalBuffers
-  - ExtendBufferedRelLocal
+  - [LocalBufferAlloc](../L/LocalBufferAlloc.md)
+  - [GetLocalVictimBuffer](GetLocalVictimBuffer.md)
+  - [MarkLocalBufferDirty](../M/MarkLocalBufferDirty.md)
+  - [DropRelationLocalBuffers](../D/DropRelationLocalBuffers.md)
+  - [ExtendBufferedRelLocal](../E/ExtendBufferedRelLocal.md)
 
 ## Notes and Other Information
 - This is an inline function for performance optimization, avoiding function call overhead

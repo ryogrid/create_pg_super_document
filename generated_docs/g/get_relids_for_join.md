@@ -24,11 +24,11 @@ If the specified join relation ID cannot be found in the join tree, the function
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_jointree_node_for_rel
-  - get_relids_in_jointree
+  - [find_jointree_node_for_rel](../f/find_jointree_node_for_rel.md)
+  - [get_relids_in_jointree](get_relids_in_jointree.md)
 - Called from (representative examples):
-  - add_nullingrels_if_needed
-  - alias_relid_set
+  - [add_nullingrels_if_needed](../a/add_nullingrels_if_needed.md)
+  - [alias_relid_set](../a/alias_relid_set.md)
 
 ## Notes and Other Information
 - This function specifically excludes inner joins (include_inner_joins = false) from the result, following standard planner conventions

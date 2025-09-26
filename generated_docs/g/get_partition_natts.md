@@ -23,11 +23,11 @@ This function serves as an accessor method to encapsulate access to the Partitio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PartitionKey (struct type)
+  - [PartitionKey](../P/PartitionKey.md) (struct type)
 - Called from (representative examples):
-  - has_partition_attrs
-  - ExecBuildSlotPartitionKeyDescription
-  - transformPartitionBound
+  - [has_partition_attrs](../h/has_partition_attrs.md)
+  - [ExecBuildSlotPartitionKeyDescription](../E/ExecBuildSlotPartitionKeyDescription.md)
+  - [transformPartitionBound](../t/transformPartitionBound.md)
 
 ## Notes and Other Information
 - This is a static inline function defined in partcache.h for efficient access

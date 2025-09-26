@@ -28,7 +28,7 @@ This operation is part of PostgreSQL's mechanism to ensure tuple consistency dur
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData (extracts xl_heap_confirm structure from WAL record)
-  - XLogReadBufferForRedo (reads and locks the target buffer for redo operations)
+  - [XLogReadBufferForRedo](../X/XLogReadBufferForRedo.md) (reads and locks the target buffer for redo operations)
   - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md), PageGetItemId (page-level tuple access functions)
   - ItemIdIsNormal (validates tuple item identifier)
   - [PageGetItem](../P/PageGetItem.md) (retrieves tuple data from page)

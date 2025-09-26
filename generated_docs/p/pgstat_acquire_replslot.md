@@ -19,10 +19,10 @@ This function is called when a replication slot is acquired (activated for use).
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_get_entry_ref (with PGSTAT_KIND_REPLSLOT, create=true)
-  - ReplicationSlotIndex
+  - [pgstat_get_entry_ref](pgstat_get_entry_ref.md) (with PGSTAT_KIND_REPLSLOT, create=true)
+  - [ReplicationSlotIndex](../R/ReplicationSlotIndex.md)
 - Called from (representative examples):
-  - ReplicationSlotAcquire
+  - [ReplicationSlotAcquire](../R/ReplicationSlotAcquire.md)
 
 ## Notes and Other Information
 - Ensures statistics entry exists before slot usage begins

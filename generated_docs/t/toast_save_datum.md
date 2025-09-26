@@ -28,7 +28,7 @@ Data is stored in chunks up to TOAST_MAX_CHUNK_SIZE bytes each, with each chunk 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](table_open.md)
   - [toast_open_indexes](toast_open_indexes.md)
   - [toast_close_indexes](toast_close_indexes.md)
   - [GetCurrentCommandId](../G/GetCurrentCommandId.md)

@@ -25,8 +25,8 @@ The function processes three main categories of options:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendStringInfoString (for buffer operations)
-  - get_json_returning (for handling RETURNING clauses)
+  - [appendStringInfoString](../a/appendStringInfoString.md) (for buffer operations)
+  - [get_json_returning](get_json_returning.md) (for handling RETURNING clauses)
 - Constants referenced:
   - JSCTOR_JSON_OBJECT
   - JSCTOR_JSON_OBJECTAGG  
@@ -35,8 +35,8 @@ The function processes three main categories of options:
   - JSCTOR_JSON_PARSE
   - JSCTOR_JSON_SCALAR
 - Called from:
-  - get_json_constructor
-  - get_json_agg_constructor
+  - [get_json_constructor](get_json_constructor.md)
+  - [get_json_agg_constructor](get_json_agg_constructor.md)
 
 ## Notes and Other Information
 - This is a static function within ruleutils.c, used specifically for rule deparsing operations

@@ -47,7 +47,7 @@ Key responsibilities include:
   - [InitializeShmemGUCs](../I/InitializeShmemGUCs.md) (initialize shared memory dependent GUCs)
   - [InitializeWalConsistencyChecking](../I/InitializeWalConsistencyChecking.md) (initialize WAL consistency checking)
   - [CreateSharedMemoryAndSemaphores](../C/CreateSharedMemoryAndSemaphores.md) (set up IPC)
-  - InitProcess (create backend process structure)
+  - [InitProcess](../I/InitProcess.md) (create backend process structure)
   - [PostgresMain](PostgresMain.md) (main query processing function)
 - Called from (representative examples):
   - [main](../m/main.md) (in src/backend/main/main.c:196)

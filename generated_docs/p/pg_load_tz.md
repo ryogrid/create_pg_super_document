@@ -32,8 +32,8 @@ The function performs basic validation on the timezone name length but does not 
 - Functions called/Symbols referenced:
   - [pg_tz](pg_tz.md) (timezone structure type)
   - TZ_STRLEN_MAX (constant for maximum timezone name length)
-  - tzparse (parses POSIX timezone strings)
-  - tzload (loads timezone data from files)
+  - [tzparse](../t/tzparse.md) (parses POSIX timezone strings)
+  - [tzload](../t/tzload.md) (loads timezone data from files)
 - Called from (representative examples):
   - [score_timezone](../s/score_timezone.md) (in src/bin/initdb/findtimezone.c)
   - [validate_zone](../v/validate_zone.md) (in src/bin/initdb/findtimezone.c)

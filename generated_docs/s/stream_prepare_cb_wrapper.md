@@ -25,14 +25,14 @@ This function requires both streaming and two-phase commit support to be enabled
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReorderBuffer
-  - ReorderBufferTXN
-  - LogicalDecodingContext
-  - LogicalErrorCallbackState
-  - output_plugin_error_callback
+  - [ReorderBuffer](../R/ReorderBuffer.md)
+  - [ReorderBufferTXN](../R/ReorderBufferTXN.md)
+  - [LogicalDecodingContext](../L/LogicalDecodingContext.md)
+  - [LogicalErrorCallbackState](../L/LogicalErrorCallbackState.md)
+  - [output_plugin_error_callback](../o/output_plugin_error_callback.md)
   - ereport (error reporting)
 - Called from (representative examples):
-  - StartupDecodingContext
+  - [StartupDecodingContext](../S/StartupDecodingContext.md)
 
 ## Notes and Other Information
 - Only called when both streaming and two-phase commits are supported (ctx->streaming and ctx->twophase must be true)

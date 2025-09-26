@@ -22,10 +22,10 @@ The function is a lightweight wrapper around the internal parse_connection_strin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initPQExpBuffer
+  - [initPQExpBuffer](../i/initPQExpBuffer.md)
   - PQExpBufferDataBroken
   - [parse_connection_string](../p/parse_connection_string.md)
-  - termPQExpBuffer
+  - [termPQExpBuffer](../t/termPQExpBuffer.md)
   - [PQExpBufferData](PQExpBufferData.md) (data structure)
   - [PQconninfoOption](PQconninfoOption.md) (data structure)
 - Called from (representative examples):

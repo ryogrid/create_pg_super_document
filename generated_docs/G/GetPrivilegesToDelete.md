@@ -22,7 +22,7 @@ This function creates a list of privileges that should be removed from a Windows
 - Functions called/Symbols referenced:
   - LookupPrivilegeValue (Windows API)
   - GetTokenInformation (Windows API)
-  - pg_malloc_extended
+  - [pg_malloc_extended](../p/pg_malloc_extended.md)
   - [write_stderr](../w/write_stderr.md)
   - GetLastError (Windows API)
   - memcmp

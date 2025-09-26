@@ -22,11 +22,11 @@ This function serves as a secondary comparator for breaking ties in datum-based 
 ## Dependencies
 - Functions called/Symbols referenced:
   - TuplesortstateGetPublic
-  - ApplySortAbbrevFullComparator
-  - PointerGetDatum
+  - [ApplySortAbbrevFullComparator](../A/ApplySortAbbrevFullComparator.md)
+  - [PointerGetDatum](../P/PointerGetDatum.md)
 - Called from (representative examples):
-  - comparetup_datum
-  - tuplesort_begin_datum
+  - [comparetup_datum](comparetup_datum.md)
+  - [tuplesort_begin_datum](../t/tuplesort_begin_datum.md)
   - CLUSTER_SORT
 
 ## Notes and Other Information

@@ -21,7 +21,7 @@ This function serves as a validation hook for the subtransaction_buffers configu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_slru_buffers
+  - [check_slru_buffers](check_slru_buffers.md)
 - Types referenced:
   - GucSource
 - Called from (representative examples):

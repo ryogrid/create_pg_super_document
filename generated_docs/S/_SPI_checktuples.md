@@ -24,11 +24,11 @@ This function takes no parameters and operates on global SPI state.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SPITupleTable: Structure type used to store SPI result tuples
-  - SPIPlanPtr: Referenced in the same source region (context reference)
+  - [SPITupleTable](SPITupleTable.md): Structure type used to store SPI result tuples
+  - [SPIPlanPtr](SPIPlanPtr.md): Referenced in the same source region (context reference)
 - Called from (representative examples):
-  - _SPI_pquery: Main SPI query processing function
-  - _SPI_cursor_operation: Cursor operation handler
+  - [_SPI_pquery](_SPI_pquery.md): Main SPI query processing function
+  - [_SPI_cursor_operation](_SPI_cursor_operation.md): Cursor operation handler
 
 ## Notes and Other Information
 - This is a static function internal to the SPI implementation, not part of the public SPI API

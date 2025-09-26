@@ -31,7 +31,7 @@ This function serves as a building block for other policy-related operations tha
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open, table_close (catalog access)
+  - [table_open](../t/table_open.md), table_close (catalog access)
   - [ScanKeyInit](../S/ScanKeyInit.md), systable_beginscan, systable_getnext, systable_endscan (catalog scanning)
   - HeapTupleIsValid (tuple validation)
   - [get_rel_name](get_rel_name.md) (relation name lookup for error messages)

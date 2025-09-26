@@ -29,11 +29,11 @@ The memoization system requires both hash and equality operators because it uses
 ## Dependencies
 - Functions called/Symbols referenced:
   - [is_opclause](../i/is_opclause.md) (verifies expression is an operator clause)
-  - exprType (determines expression data type)
+  - [exprType](../e/exprType.md) (determines expression data type)
   - [lookup_type_cache](../l/lookup_type_cache.md) (retrieves type cache information)
   - linitial/lsecond (list element access functions)
   - TYPECACHE_HASH_PROC/TYPECACHE_EQ_OPR (type cache flags)
-  - OpExpr (operator expression node type)
+  - [OpExpr](../O/OpExpr.md) (operator expression node type)
   - [TypeCacheEntry](../T/TypeCacheEntry.md) (structure containing type-related operators)
 - Called from:
   - [distribute_restrictinfo_to_rels](../d/distribute_restrictinfo_to_rels.md) (during restriction info distribution)
@@ -42,7 +42,7 @@ The memoization system requires both hash and equality operators because it uses
 ## Notes and Other Information
 - This is a static function within initsplan.c, serving as an internal optimization utility
 - The function handles cases where both operands have the same type by reusing the type cache entry
-- Memoize nodes are particularly effective for star-schema queries and correlated subqueries
+- [Memoize](../M/Memoize.md) nodes are particularly effective for star-schema queries and correlated subqueries
 - The hash equality operators identified here are used to build and probe the memoization cache
 - Both hash_proc and eq_opr must be valid for the clause to be considered memoizable
 - This optimization was introduced in PostgreSQL 14 as part of improving nested loop join performance

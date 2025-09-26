@@ -32,7 +32,7 @@ This function provides a safe conversion from PostgreSQL's numeric data type to 
 ## Notes and Other Information
 - Provides two error handling modes: exception-based (when have_error is NULL) or flag-based (when have_error is provided)
 - Special values (NaN, infinity) always result in errors as they cannot be represented as integers
-- Range overflow occurs when the numeric value exceeds the bounds of int64 (-2^63 to 2^63-1)
+- [Range](../R/Range.md) overflow occurs when the numeric value exceeds the bounds of int64 (-2^63 to 2^63-1)
 - Returns 0 on error when using flag-based error handling
 - Part of PostgreSQL's type conversion system and used extensively in JSON path operations
 - Error codes used: ERRCODE_FEATURE_NOT_SUPPORTED (for special values), ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE (for overflow)

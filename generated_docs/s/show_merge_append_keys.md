@@ -23,9 +23,9 @@ This function displays the sort keys used by a MergeAppend plan node during EXPL
 ## Dependencies
 - Functions called/Symbols referenced:
   - [show_sort_group_keys](show_sort_group_keys.md): Core function that formats and displays sort key information
-  - `MergeAppend`: Plan node structure containing sort configuration for merging
+  - `[MergeAppend](../M/MergeAppend.md)`: Plan node structure containing sort configuration for merging
   - [MergeAppendState](../M/MergeAppendState.md): Runtime state structure for merge append operations
-  - `ExplainState`: State structure for EXPLAIN command formatting
+  - `[ExplainState](../E/ExplainState.md)`: State structure for EXPLAIN command formatting
 - Called from (representative examples):
   - [ExplainNode](../E/ExplainNode.md): Main function that handles explanation of different plan node types (at line 2234)
 

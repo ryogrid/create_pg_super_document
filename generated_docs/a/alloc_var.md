@@ -40,7 +40,7 @@ The function sets up the NumericVar structure's buffer pointers correctly, with 
   - [PGTYPESnumeric_new](../P/PGTYPESnumeric_new.md)
   - [PGTYPESnumeric_from_long](../P/PGTYPESnumeric_from_long.md)
   - [PGTYPESnumeric_copy](../P/PGTYPESnumeric_copy.md)
-  - PGTYPESnumeric_from_decimal
+  - [PGTYPESnumeric_from_decimal](../P/PGTYPESnumeric_from_decimal.md)
 
 ## Notes and Other Information
 - Static function - only accessible within numeric.c

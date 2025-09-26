@@ -28,8 +28,8 @@ This function processes prepared transaction records as part of PostgreSQL's two
   - xl_xact_parsed_prepare
   - TransactionId
   - [RelFileLocator](../R/RelFileLocator.md)
-  - xl_xact_stats_item
-  - SharedInvalidationMessage
+  - [xl_xact_stats_item](../x/xl_xact_stats_item.md)
+  - [SharedInvalidationMessage](../S/SharedInvalidationMessage.md)
 - Called from (representative examples):
   - [xact_desc_prepare](../x/xact_desc_prepare.md)
   - [xact_decode](../x/xact_decode.md)

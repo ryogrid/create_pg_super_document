@@ -21,7 +21,7 @@ This function produces a commuted version of a RestrictInfo containing a binary 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - OpExpr (type casting and structure creation)
+  - [OpExpr](../O/OpExpr.md) (type casting and structure creation)
   - lsecond
   - list_make2
 - Called from (representative examples):
@@ -33,7 +33,7 @@ This function produces a commuted version of a RestrictInfo containing a binary 
 - Shared sub-structure warning: The result shares sub-structure with the original RestrictInfo, which is acceptable for derived index quals but could be problematic if the source is subject to change
 - Preserved optimization data: Maintains cached selectivity estimates, cost information, and parent equivalence class information since these should be identical for the commuted clause
 - Operator class assumption: Assumes without verification that the commutator operator belongs to the same btree and hash operator classes as the original operator
-- Hash join handling: Updates the hashjoinoperator field only if it matched the original operator, otherwise sets it to InvalidOid
+- [Hash](../H/Hash.md) join handling: Updates the hashjoinoperator field only if it matched the original operator, otherwise sets it to InvalidOid
 - Statistical data swapping: Properly swaps left/right bucket sizes and most common value frequencies to maintain accurate optimization statistics
 - Cache invalidation: Clears the scansel_cache as it's not worth updating, and resets hash equality operators to InvalidOid for recalculation
 - Serial number preservation: Maintains the same rinfo_serial number to preserve debugging and tracking consistency

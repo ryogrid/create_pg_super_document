@@ -30,11 +30,11 @@ The structure follows PostgreSQL's standard parse node pattern, inheriting from 
 - Functions called/Symbols referenced:
   - DropBehavior (enum type for specifying drop behavior)
   - NodeTag (for parse node identification)
-  - List (PostgreSQL's generic list structure)
+  - [List](../L/List.md) (PostgreSQL's generic list structure)
 
 - Called from (representative examples):
-  - DropOwnedObjects (executes the DROP OWNED command)
-  - ProcessUtilitySlow (utility command processing dispatcher)
+  - [DropOwnedObjects](DropOwnedObjects.md) (executes the DROP OWNED command)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (utility command processing dispatcher)
 
 ## Notes and Other Information
 - This statement is typically used as a preparatory step before dropping roles, since PostgreSQL requires that roles own no objects before they can be dropped

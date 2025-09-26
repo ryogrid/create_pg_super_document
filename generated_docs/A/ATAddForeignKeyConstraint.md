@@ -34,7 +34,7 @@ The implementation follows a three-phase approach: first creating the catalog en
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open, table_openrv
+  - [table_open](../t/table_open.md), table_openrv
   - [transformColumnNameList](../t/transformColumnNameList.md)
   - [transformFkeyGetPrimaryKey](../t/transformFkeyGetPrimaryKey.md)
   - [transformFkeyCheckAttrs](../t/transformFkeyCheckAttrs.md)

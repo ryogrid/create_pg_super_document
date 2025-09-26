@@ -27,7 +27,7 @@ Function statistics are particularly important in applications that rely heavily
 - `stats`: PgStat_StatFuncEntry structure containing function execution metrics including call count and timing information (total and self execution time)
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PgStatShared_Common
+  - [PgStatShared_Common](PgStatShared_Common.md)
   - [PgStat_StatFuncEntry](PgStat_StatFuncEntry.md)
 - Called from (representative examples):
   - [pgstat_function_flush_cb](../p/pgstat_function_flush_cb.md)

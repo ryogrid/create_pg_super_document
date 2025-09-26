@@ -38,14 +38,14 @@ For non-inlined CTEs, the function creates SubPlan nodes, manages parameter assi
   - [inline_cte](../i/inline_cte.md)
   - copyObject
   - [subquery_planner](../s/subquery_planner.md)
-  - fetch_upper_rel
+  - [fetch_upper_rel](../f/fetch_upper_rel.md)
   - [create_plan](../c/create_plan.md)
   - [get_first_col_type](../g/get_first_col_type.md)
   - [assign_special_exec_param](../a/assign_special_exec_param.md)
   - [cost_subplan](../c/cost_subplan.md)
   - makeNode
-  - lappend
-  - lappend_int
+  - [lappend](../l/lappend.md)
+  - [lappend_int](../l/lappend_int.md)
   - list_make1_int
   - [psprintf](../p/psprintf.md)
 - Called from (representative examples):

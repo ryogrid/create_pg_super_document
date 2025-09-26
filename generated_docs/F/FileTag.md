@@ -32,17 +32,17 @@ The structure is specifically optimized for use in hash tables and as a key for 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelFileLocator (for physical file location)
+  - [RelFileLocator](../R/RelFileLocator.md) (for physical file location)
   - SyncRequestHandler (for routing to appropriate handler)
-  - ForkNumber (for identifying relation forks)
+  - [ForkNumber](ForkNumber.md) (for identifying relation forks)
 - Called from (representative examples):
-  - RememberSyncRequest (registers sync requests using FileTag)
-  - RegisterSyncRequest (submits sync requests with FileTag identification)
+  - [RememberSyncRequest](../R/RememberSyncRequest.md) (registers sync requests using FileTag)
+  - [RegisterSyncRequest](../R/RegisterSyncRequest.md) (submits sync requests with FileTag identification)
   - Various md.c functions for managing relation files
   - SLRU modules for transaction log file management
 
 ## Notes and Other Information
-- FileTag is designed to be used as a hashtable key, requiring no padding bytes between members
+- [FileTag](FileTag.md) is designed to be used as a hashtable key, requiring no padding bytes between members
 - The structure is liable to change as required by future sync handlers, maintaining flexibility
 - Space optimization using int16 for handler and forknum allows the structure to remain compact
 - Currently tailored for md.c usage but abstracted enough for sync.c to remain handler-agnostic

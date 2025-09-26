@@ -22,7 +22,7 @@ The function allocates a new BoolExpr node, sets its operation type to NOT_EXPR,
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to create BoolExpr)
-  - BoolExpr (expression node type)
+  - [BoolExpr](../B/BoolExpr.md) (expression node type)
   - NOT_EXPR (boolean operation constant)
   - list_make1 (to create single-element list)
 - Called from (representative examples):

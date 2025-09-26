@@ -29,7 +29,7 @@ The function effectively performs a "REVOKE ALL" operation on the specified obje
 - Functions called/Symbols referenced:
   - [SetDefaultACL](../S/SetDefaultACL.md)
   - [ExecGrantStmt_oids](../E/ExecGrantStmt_oids.md)
-  - table_open
+  - [table_open](../t/table_open.md)
   - [systable_beginscan](../s/systable_beginscan.md)
   - [systable_getnext](../s/systable_getnext.md)
   - [systable_endscan](../s/systable_endscan.md)

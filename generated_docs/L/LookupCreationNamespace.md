@@ -30,7 +30,7 @@ Unlike LookupExplicitNamespace (which checks for USAGE rights), this function sp
 - Called from (representative examples):
   - [ExecAlterObjectSchemaStmt](../E/ExecAlterObjectSchemaStmt.md)
   - [make_new_heap](../m/make_new_heap.md)
-  - AlterExtensionNamespace
+  - [AlterExtensionNamespace](../A/AlterExtensionNamespace.md)
   - [ImportForeignSchema](../I/ImportForeignSchema.md)
   - [AlterTypeNamespace](../A/AlterTypeNamespace.md)
   - RangeVarGetRelid

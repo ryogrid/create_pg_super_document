@@ -24,7 +24,7 @@ This is particularly useful in scenarios where the decision to update a tuple de
   - [heap_inplace_unlock](../h/heap_inplace_unlock.md)
   - [systable_endscan](systable_endscan.md)
   - [SysScanDesc](../S/SysScanDesc.md) (type)
-  - BufferHeapTupleTableSlot (type)
+  - [BufferHeapTupleTableSlot](../B/BufferHeapTupleTableSlot.md) (type)
 - Called from (representative examples):
   - [index_update_stats](../i/index_update_stats.md)
   - [EventTriggerOnLogin](../E/EventTriggerOnLogin.md)

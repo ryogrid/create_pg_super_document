@@ -23,12 +23,12 @@ The function acts as a dispatcher, calling the appropriate algorithm-specific fi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_md5_final
-  - pg_sha1_final
-  - pg_sha224_final
-  - pg_sha256_final
-  - pg_sha384_final
-  - pg_sha512_final
+  - [pg_md5_final](pg_md5_final.md)
+  - [pg_sha1_final](pg_sha1_final.md)
+  - [pg_sha224_final](pg_sha224_final.md)
+  - [pg_sha256_final](pg_sha256_final.md)
+  - [pg_sha384_final](pg_sha384_final.md)
+  - [pg_sha512_final](pg_sha512_final.md)
   - MD5_DIGEST_LENGTH, SHA1_DIGEST_LENGTH, PG_SHA224_DIGEST_LENGTH, PG_SHA256_DIGEST_LENGTH, PG_SHA384_DIGEST_LENGTH, PG_SHA512_DIGEST_LENGTH (digest length constants)
   - PG_CRYPTOHASH_ERROR_DEST_LEN (error code constant)
   - PG_MD5, PG_SHA1, PG_SHA224, PG_SHA256, PG_SHA384, PG_SHA512 (enum constants)
@@ -37,7 +37,7 @@ The function acts as a dispatcher, calling the appropriate algorithm-specific fi
   - [SendBackupManifest](../S/SendBackupManifest.md)
   - [scram_mock_salt](../s/scram_mock_salt.md)
   - [cryptohash_internal](../c/cryptohash_internal.md)
-  - pg_checksum_final
+  - [pg_checksum_final](pg_checksum_final.md)
   - [pg_hmac_final](pg_hmac_final.md)
   - [pg_md5_hash](pg_md5_hash.md)
 

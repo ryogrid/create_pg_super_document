@@ -30,14 +30,14 @@ The function handles empty queries as non-matching and properly manages memory c
   - STRPTR
   - GETOPERAND
   - GETQUERY
-  - TS_execute
+  - [TS_execute](../T/TS_execute.md)
   - [checkcondition_str](../c/checkcondition_str.md)
   - PG_FREE_IF_COPY
   - PG_RETURN_BOOL
 - Called from (representative examples):
   - [ts_match_qv](ts_match_qv.md)
   - [ts_match_tt](ts_match_tt.md)
-  - ts_match_tq
+  - [ts_match_tq](ts_match_tq.md)
 
 ## Notes and Other Information
 - Returns false immediately for empty queries (optimization)

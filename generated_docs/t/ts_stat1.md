@@ -24,12 +24,12 @@ The function follows PostgreSQL's SRF pattern with initialization on the first c
 - Functions called/Symbols referenced:
   - SRF_IS_FIRSTCALL
   - SRF_FIRSTCALL_INIT
-  - SPI_connect
+  - [SPI_connect](../S/SPI_connect.md)
   - [ts_stat_sql](ts_stat_sql.md)
   - PG_GETARG_TEXT_PP
   - PG_FREE_IF_COPY
   - [ts_setup_firstcall](ts_setup_firstcall.md)
-  - SPI_finish
+  - [SPI_finish](../S/SPI_finish.md)
   - SRF_PERCALL_SETUP
   - [ts_process_call](ts_process_call.md)
   - SRF_RETURN_NEXT

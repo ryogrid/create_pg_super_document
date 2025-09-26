@@ -24,7 +24,7 @@ This is a helper function that could logically belong in other parts of the code
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PlanRowMark (structure type)
+  - [PlanRowMark](../P/PlanRowMark.md) (structure type)
   - foreach macro (for list iteration)
   - lfirst (list cell access)
 - Called from (representative examples):

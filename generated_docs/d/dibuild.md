@@ -23,7 +23,7 @@ This function is a minimal implementation of an index build routine for PostgreS
 - Functions called/Symbols referenced:
   - [palloc](../p/palloc.md) (PostgreSQL memory allocation function)
   - [IndexBuildResult](../I/IndexBuildResult.md) (result structure type)
-  - IndexInfo (index information structure type)
+  - [IndexInfo](../I/IndexInfo.md) (index information structure type)
 - Called from (representative examples):
   - [dihandler](dihandler.md) (dummy index access method handler at src/test/modules/dummy_index_am/dummy_index_am.c:304)
 

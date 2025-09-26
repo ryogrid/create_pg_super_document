@@ -25,7 +25,7 @@ The function is declared as `static inline` for optimal performance since it's c
 - Functions called/Symbols referenced:
   - `hexlookup` - Static lookup table for character to hex digit conversion
 - Called from (representative examples):
-  - `hex_decode_safe` - Safe hex decoding function
+  - `[hex_decode_safe](../h/hex_decode_safe.md)` - Safe hex decoding function
   - [hex_decode](../h/hex_decode.md) (in ecpglib) - ECPG hex decoding functionality
   - [PQunescapeBytea](../P/PQunescapeBytea.md) - libpq bytea unescaping function
 

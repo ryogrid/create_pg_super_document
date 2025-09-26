@@ -25,7 +25,7 @@ The changes made by this function are not subject to transaction rollback becaus
 ## Dependencies
 - Functions called/Symbols referenced:
   - `pgstat_should_count_relation` - Determines if statistics should be collected for this relation
-  - `PgStat_TableStatus` - Structure type for maintaining table-level statistics
+  - `[PgStat_TableStatus](../P/PgStat_TableStatus.md)` - Structure type for maintaining table-level statistics
   - [PgStat_StatTabEntry](../P/PgStat_StatTabEntry.md) - Structure type referenced in the broader statistics context
 
 - Called from (representative examples):

@@ -29,10 +29,10 @@ This is a core utility function that provides efficient hex encoding without mem
   - [AddFileToBackupManifest](../A/AddFileToBackupManifest.md) - Backup manifest file handling
   - [SendBackupManifest](../S/SendBackupManifest.md) - Backup manifest transmission
   - [byteaout](../b/byteaout.md) - Binary data output formatting
-  - `esc_dec_len` - Escape encoding/decoding operations
+  - `[esc_dec_len](../e/esc_dec_len.md)` - Escape encoding/decoding operations
   - [manifest_writer](../m/manifest_writer.md) - Backup manifest writing utilities
-  - `add_file_to_manifest` - Adding files to backup manifests
-  - `finalize_manifest` - Finalizing backup manifests
+  - `[add_file_to_manifest](../a/add_file_to_manifest.md)` - Adding files to backup manifests
+  - `[finalize_manifest](../f/finalize_manifest.md)` - Finalizing backup manifests
 
 ## Notes and Other Information
 - Returns the exact number of output characters (always 2 * input length)

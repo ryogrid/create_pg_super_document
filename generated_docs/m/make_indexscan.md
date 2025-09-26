@@ -28,7 +28,7 @@ This function is part of PostgreSQL's plan node building infrastructure and crea
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IndexScan (the plan node type being created)
+  - [IndexScan](../I/IndexScan.md) (the plan node type being created)
   - ScanDirection (enumeration for scan direction)
   - makeNode (PostgreSQL's node allocation macro)
 - Called from (representative examples):

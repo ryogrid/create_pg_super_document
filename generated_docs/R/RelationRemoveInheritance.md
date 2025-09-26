@@ -26,13 +26,13 @@ The function uses PostgreSQL's system catalog scanning infrastructure to efficie
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open (opens pg_inherits catalog for modification)
+  - [table_open](../t/table_open.md) (opens pg_inherits catalog for modification)
   - [ScanKeyInit](../S/ScanKeyInit.md) (initializes scan key for relid lookup)
   - [systable_beginscan](../s/systable_beginscan.md) (begins indexed scan on pg_inherits)
   - [systable_getnext](../s/systable_getnext.md) (retrieves next matching tuple)
   - [CatalogTupleDelete](../C/CatalogTupleDelete.md) (deletes inheritance tuple from catalog)
   - [systable_endscan](../s/systable_endscan.md) (ends the system catalog scan)
-  - table_close (closes pg_inherits catalog relation)
+  - [table_close](../t/table_close.md) (closes pg_inherits catalog relation)
 - Called from (representative examples):
   - [heap_drop_with_catalog](../h/heap_drop_with_catalog.md) (during relation deletion process)
 

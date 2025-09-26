@@ -25,7 +25,7 @@ SlruReportIOError is a static internal function that handles error reporting aft
   - [SlruFileName](SlruFileName.md)
   - ereport/elog (error reporting functions)
   - [errcode_for_file_access](../e/errcode_for_file_access.md)
-  - data_sync_elevel
+  - [data_sync_elevel](../d/data_sync_elevel.md)
 - Constants used:
   - SLRU_PAGES_PER_SEGMENT
   - SLRU_OPEN_FAILED, SLRU_SEEK_FAILED, SLRU_READ_FAILED, SLRU_WRITE_FAILED, SLRU_FSYNC_FAILED, SLRU_CLOSE_FAILED

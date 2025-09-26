@@ -25,13 +25,13 @@ The query excludes indexes and toast tables as they have no meaningful access ri
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initPQExpBuffer (initialize query buffer)
+  - [initPQExpBuffer](../i/initPQExpBuffer.md) (initialize query buffer)
   - [printfPQExpBuffer](printfPQExpBuffer.md) (format base SQL query)
   - [printACLColumn](printACLColumn.md) (format access control list for table-level privileges)
   - [validateSQLNamePattern](../v/validateSQLNamePattern.md) (validate and apply name pattern filtering)
   - [PSQLexec](../P/PSQLexec.md) (execute the constructed SQL query)
   - [printQuery](printQuery.md) (display formatted results with translation support)
-  - termPQExpBuffer (cleanup query buffer)
+  - [termPQExpBuffer](../t/termPQExpBuffer.md) (cleanup query buffer)
   - RELKIND constants (RELKIND_RELATION, RELKIND_VIEW, RELKIND_MATVIEW, etc.)
 - Called from (representative examples):
   - [exec_command_d](../e/exec_command_d.md) (src/bin/psql/command.c:903) - handles \dp command variant

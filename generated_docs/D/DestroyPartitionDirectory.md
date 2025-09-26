@@ -24,7 +24,7 @@ Note that this function only handles the reference count cleanup; the actual mem
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HASH_SEQ_STATUS (hash sequential scan status structure)
+  - [HASH_SEQ_STATUS](../H/HASH_SEQ_STATUS.md) (hash sequential scan status structure)
   - [hash_seq_init](../h/hash_seq_init.md)
   - [hash_seq_search](../h/hash_seq_search.md)  
   - [RelationDecrementReferenceCount](../R/RelationDecrementReferenceCount.md)

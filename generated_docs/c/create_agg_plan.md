@@ -34,7 +34,7 @@ The  function is responsible for creating an Agg plan node from an AggPath struc
 
 ## Notes and Other Information
 - The function is static, indicating it's only used within the createplan.c file
-- Agg plans can project, so the function doesn't need to be strict about the child target list, but grouping columns must be available
+- [Agg](../A/Agg.md) plans can project, so the function doesn't need to be strict about the child target list, but grouping columns must be available
 - The function extracts grouping information including columns, operators, and collations from the AggPath
 - Uses CP_LABEL_TLIST flag when creating the subplan to ensure proper target list labeling
 - The created plan includes information about aggregation strategy, split mode, number of groups, and transition space requirements

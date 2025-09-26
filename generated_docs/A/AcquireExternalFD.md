@@ -30,11 +30,11 @@ This function should be used when the total number of external FDs needed is unp
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReserveExternalFD
+  - [ReserveExternalFD](../R/ReserveExternalFD.md)
   - Global variables: numExternalFDs, max_safe_fds
 - Called from (representative examples):
-  - CreateWaitEventSet
-  - libpqsrv_connect_prepare
+  - [CreateWaitEventSet](../C/CreateWaitEventSet.md)
+  - [libpqsrv_connect_prepare](../l/libpqsrv_connect_prepare.md)
 
 ## Notes and Other Information
 - Implements a "one-third rule" - limits external FDs to max_safe_fds / 3

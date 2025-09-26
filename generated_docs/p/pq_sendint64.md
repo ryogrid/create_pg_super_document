@@ -20,7 +20,7 @@ static inline void pq_sendint64(StringInfo buf, uint64 i)
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - enlargeStringInfo
+  - [enlargeStringInfo](../e/enlargeStringInfo.md)
   - [pq_writeint64](pq_writeint64.md)
 - Called from (representative examples):
   - [logicalrep_write_begin](../l/logicalrep_write_begin.md)

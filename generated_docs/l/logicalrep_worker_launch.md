@@ -33,19 +33,19 @@ Key features include automatic cleanup of stale worker slots, enforcement of sub
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentTimestamp
-  - LWLockAcquire/LWLockRelease
-  - logicalrep_sync_worker_count
-  - logicalrep_pa_worker_count
-  - logicalrep_worker_cleanup
-  - TimestampDifferenceExceeds
-  - RegisterDynamicBackgroundWorker
-  - WaitForReplicationWorkerAttach
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease
+  - [logicalrep_sync_worker_count](logicalrep_sync_worker_count.md)
+  - [logicalrep_pa_worker_count](logicalrep_pa_worker_count.md)
+  - [logicalrep_worker_cleanup](logicalrep_worker_cleanup.md)
+  - [TimestampDifferenceExceeds](../T/TimestampDifferenceExceeds.md)
+  - [RegisterDynamicBackgroundWorker](../R/RegisterDynamicBackgroundWorker.md)
+  - [WaitForReplicationWorkerAttach](../W/WaitForReplicationWorkerAttach.md)
   - ereport/elog
 - Called from:
-  - pa_launch_parallel_worker
-  - ApplyLauncherMain
-  - tablesync_start_time_mapping
+  - [pa_launch_parallel_worker](../p/pa_launch_parallel_worker.md)
+  - [ApplyLauncherMain](../A/ApplyLauncherMain.md)
+  - [tablesync_start_time_mapping](../t/tablesync_start_time_mapping.md)
 
 ## Notes and Other Information
 - Enforces max_replication_slots > 0 requirement for logical replication

@@ -38,17 +38,17 @@ The design philosophy emphasizes efficiency for the common case where locks are 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_lwlock_stats_entry (stats builds only)
+  - [get_lwlock_stats_entry](../g/get_lwlock_stats_entry.md) (stats builds only)
   - HOLD_INTERRUPTS
-  - LWLockAttemptLock
-  - LWLockQueueSelf
-  - LWLockDequeueSelf
-  - LWLockReportWaitStart
-  - PGSemaphoreLock
-  - pg_atomic_fetch_or_u32
-  - pg_atomic_fetch_sub_u32 (debug builds only)
-  - LWLockReportWaitEnd
-  - PGSemaphoreUnlock
+  - [LWLockAttemptLock](LWLockAttemptLock.md)
+  - [LWLockQueueSelf](LWLockQueueSelf.md)
+  - [LWLockDequeueSelf](LWLockDequeueSelf.md)
+  - [LWLockReportWaitStart](LWLockReportWaitStart.md)
+  - [PGSemaphoreLock](../P/PGSemaphoreLock.md)
+  - [pg_atomic_fetch_or_u32](../p/pg_atomic_fetch_or_u32.md)
+  - [pg_atomic_fetch_sub_u32](../p/pg_atomic_fetch_sub_u32.md) (debug builds only)
+  - [LWLockReportWaitEnd](LWLockReportWaitEnd.md)
+  - [PGSemaphoreUnlock](../P/PGSemaphoreUnlock.md)
   - PRINT_LWDEBUG, LOG_LWDEBUG (debug builds)
   - TRACE_POSTGRESQL_LWLOCK_* (tracing enabled)
 - Called from (representative examples):

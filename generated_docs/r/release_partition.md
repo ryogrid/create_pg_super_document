@@ -27,8 +27,8 @@ After cleanup, the function resets the buffer pointer to NULL and marks the part
   - [tuplestore_end](../t/tuplestore_end.md)
 - Called from (representative examples):
   - [ExecWindowAgg](../E/ExecWindowAgg.md)
-  - ExecEndWindowAgg
-  - ExecReScanWindowAgg
+  - [ExecEndWindowAgg](../E/ExecEndWindowAgg.md)
+  - [ExecReScanWindowAgg](../E/ExecReScanWindowAgg.md)
 
 ## Notes and Other Information
 - Clears the localmem pointer for all window function objects to invalidate any partition-local state

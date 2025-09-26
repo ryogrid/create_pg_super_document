@@ -43,8 +43,8 @@ The function performs extensive validation to ensure arrays are compatible for c
   - ARR_DATA_OFFSET
   - ARR_OVERHEAD_WITHNULLS
   - ARR_OVERHEAD_NONULLS
-  - ArrayGetNItems
-  - ArrayCheckBounds
+  - [ArrayGetNItems](../A/ArrayGetNItems.md)
+  - [ArrayCheckBounds](../A/ArrayCheckBounds.md)
   - [array_bitmap_copy](array_bitmap_copy.md)
   - SET_VARSIZE
   - [format_type_be](../f/format_type_be.md)

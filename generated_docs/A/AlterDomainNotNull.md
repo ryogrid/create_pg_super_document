@@ -21,7 +21,7 @@ This function handles both setting and dropping NOT NULL constraints on domain t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeTypeNameFromNameList
+  - [makeTypeNameFromNameList](../m/makeTypeNameFromNameList.md)
   - [typenameTypeId](../t/typenameTypeId.md)
   - SearchSysCacheCopy1
   - [checkDomainOwner](../c/checkDomainOwner.md)

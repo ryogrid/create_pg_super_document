@@ -25,15 +25,15 @@ The function uses the subtransaction pattern (pltcl_subtrans_begin/commit/abort)
 ## Dependencies
 - Functions called/Symbols referenced:
   - AllocSetContextCreate
-  - parseTypeString
-  - getTypeInputInfo
-  - fmgr_info_cxt
-  - SPI_prepare
-  - SPI_keepplan
-  - pltcl_subtrans_begin
-  - pltcl_subtrans_commit
-  - pltcl_subtrans_abort
-  - MemoryContextDelete
+  - [parseTypeString](parseTypeString.md)
+  - [getTypeInputInfo](../g/getTypeInputInfo.md)
+  - [fmgr_info_cxt](../f/fmgr_info_cxt.md)
+  - [SPI_prepare](../S/SPI_prepare.md)
+  - [SPI_keepplan](../S/SPI_keepplan.md)
+  - [pltcl_subtrans_begin](pltcl_subtrans_begin.md)
+  - [pltcl_subtrans_commit](pltcl_subtrans_commit.md)
+  - [pltcl_subtrans_abort](pltcl_subtrans_abort.md)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
   - Tcl_WrongNumArgs
   - Tcl_ListObjGetElements
   - Tcl_CreateHashEntry
@@ -41,7 +41,7 @@ The function uses the subtransaction pattern (pltcl_subtrans_begin/commit/abort)
   - Tcl_SetObjResult
   - Tcl_NewStringObj
 - Called from (representative examples):
-  - pltcl_init_interp (command registration)
+  - [pltcl_init_interp](pltcl_init_interp.md) (command registration)
   - Tcl scripts using SPI_prepare command
 
 ## Notes and Other Information
@@ -51,6 +51,6 @@ The function uses the subtransaction pattern (pltcl_subtrans_begin/commit/abort)
 - Always uses SPI_keepplan to ensure plans survive beyond the current execution
 - Uses subtransaction protection to handle preparation errors safely
 - Stores type conversion information (input functions, I/O parameters) for later parameter binding
-- Plan identifiers are stored in the interpreter's query hash table
+- [Plan](../P/Plan.md) identifiers are stored in the interpreter's query hash table
 - Located in src/pl/tcl/pltcl.c:2547-2674
 - Memory leaks can occur if functions are recompiled (noted as FIXME in source)

@@ -26,10 +26,10 @@ This function displays the grouping keys used by an Agg plan node during EXPLAIN
   - [show_sort_group_keys](show_sort_group_keys.md): Displays standard grouping key information with "Group Key" label
   - `outerPlanState`: Accesses the child plan state for key column references
   - [lcons](../l/lcons.md): Adds current plan to ancestors list for context
-  - `list_delete_first`: Removes the added plan from ancestors list after processing
-  - `Agg`: Plan node structure containing aggregation configuration
+  - `[list_delete_first](../l/list_delete_first.md)`: Removes the added plan from ancestors list after processing
+  - `[Agg](../A/Agg.md)`: Plan node structure containing aggregation configuration
   - [AggState](../A/AggState.md): Runtime state structure for aggregation operations
-  - `ExplainState`: State structure for EXPLAIN command formatting
+  - `[ExplainState](../E/ExplainState.md)`: State structure for EXPLAIN command formatting
 - Called from (representative examples):
   - [ExplainNode](../E/ExplainNode.md): Main function that handles explanation of different plan node types (at line 2201)
 

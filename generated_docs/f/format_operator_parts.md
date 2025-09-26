@@ -34,7 +34,7 @@ The function queries the pg_operator system catalog and populates two output lis
   - list_make2
   - [pstrdup](../p/pstrdup.md)
   - NameStr
-  - lappend
+  - [lappend](../l/lappend.md)
   - [format_type_be_qualified](format_type_be_qualified.md)
   - [ReleaseSysCache](../R/ReleaseSysCache.md)
 - Called from (representative examples):

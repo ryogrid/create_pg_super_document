@@ -19,11 +19,11 @@ This function is part of PostgreSQL's dynamic shared memory (DSM) registry subsy
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DSMRegistryCtxStruct (structure whose size is calculated)
+  - [DSMRegistryCtxStruct](DSMRegistryCtxStruct.md) (structure whose size is calculated)
   - MAXALIGN (macro for memory alignment)
 - Called from (representative examples):
-  - DSMRegistryShmemInit (for allocating the registry)
-  - CalculateShmemSize (for total shared memory calculation)
+  - [DSMRegistryShmemInit](DSMRegistryShmemInit.md) (for allocating the registry)
+  - [CalculateShmemSize](../C/CalculateShmemSize.md) (for total shared memory calculation)
 
 ## Notes and Other Information
 - This function is typically called during PostgreSQL startup to determine shared memory requirements

@@ -46,5 +46,5 @@ The function is crucial for partition constraint validation and constraint optim
 - Only considers CHECK constraints that have been fully validated (ccvalid = true)
 - Both test and proven constraints must be in implicit-AND form with only immutable clauses
 - Uses weak implication logic, assuming existing constraints are not-false
-- Constraint expressions are canonicalized before comparison to ensure valid matches are detected
+- [Constraint](Constraint.md) expressions are canonicalized before comparison to ensure valid matches are detected
 - Critical for PostgreSQL's constraint optimization and partition management features

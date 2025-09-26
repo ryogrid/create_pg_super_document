@@ -38,7 +38,7 @@ The function performs extensive validation to ensure constraint semantics are pr
   - [GetDefaultOpClass](../G/GetDefaultOpClass.md) (validates operator class requirements)
   - [get_relname_relid](../g/get_relname_relid.md) (looks up existing index by name)
   - [SystemAttributeByName](../S/SystemAttributeByName.md) (validates system column references)
-  - table_openrv (opens inherited tables for column lookup)
+  - [table_openrv](table_openrv.md) (opens inherited tables for column lookup)
   - [relation_close](../r/relation_close.md) (closes opened relations)
   - makeNode, makeString, copyObject (node construction utilities)
 - Called from (representative examples):

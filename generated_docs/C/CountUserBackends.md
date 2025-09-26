@@ -23,12 +23,12 @@ The function iterates through all processes under ProcArrayLock protection, matc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ProcArrayStruct (procArray global variable)
-  - LWLockAcquire/LWLockRelease (for ProcArrayLock in LW_SHARED mode)
-  - PGPROC (process structure)
+  - [ProcArrayStruct](../P/ProcArrayStruct.md) (procArray global variable)
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease (for ProcArrayLock in LW_SHARED mode)
+  - [PGPROC](../P/PGPROC.md) (process structure)
 
 - Called from (representative examples):
-  - InitializeSessionUserId (in src/backend/utils/init/miscinit.c:871)
+  - [InitializeSessionUserId](../I/InitializeSessionUserId.md) (in src/backend/utils/init/miscinit.c:871)
 
 ## Notes and Other Information
 - Excludes both prepared transactions and background workers, ensuring only real user connections are counted

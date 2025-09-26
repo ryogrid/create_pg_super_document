@@ -32,7 +32,7 @@ The function can optionally enable backup semantics to allow opening directories
   - [initialize_ntdll](../i/initialize_ntdll.md)
   - [openFlagsToCreateFileFlags](../o/openFlagsToCreateFileFlags.md)
   - [pg_usleep](pg_usleep.md)
-  - _dosmaperr
+  - [_dosmaperr](../d/_dosmaperr.md)
   - pg_RtlGetLastNtStatus
 - Called from (representative examples):
   - [pgwin32_open](pgwin32_open.md)

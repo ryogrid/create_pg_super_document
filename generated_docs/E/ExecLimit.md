@@ -33,9 +33,9 @@ The function supports both forward and backward scanning directions and handles 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [recompute_limits](../r/recompute_limits.md) (computes offset/count on first call)
-  - ExecProcNode (fetches tuples from subplan)
-  - ExecCopySlot (saves tuple for WITH TIES comparison)  
-  - ExecQualAndReset (compares tuples for WITH TIES logic)
+  - [ExecProcNode](ExecProcNode.md) (fetches tuples from subplan)
+  - [ExecCopySlot](ExecCopySlot.md) (saves tuple for WITH TIES comparison)  
+  - [ExecQualAndReset](ExecQualAndReset.md) (compares tuples for WITH TIES logic)
   - ScanDirectionIsForward (checks scan direction)
   - TupIsNull (checks for null tuples)
   - outerPlanState (accesses subplan state)

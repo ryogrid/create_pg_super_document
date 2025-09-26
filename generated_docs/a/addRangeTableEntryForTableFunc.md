@@ -48,7 +48,7 @@ Unlike other range table entry functions, this one works with a fully-specified 
   - copyObject (for alias copying)
   - [pstrdup](../p/pstrdup.md) (string duplication)
   - [list_concat](../l/list_concat.md), list_copy_tail (list manipulation for column names)
-  - lappend (list manipulation)
+  - [lappend](../l/lappend.md) (list manipulation)
   - [buildNSItemFromLists](../b/buildNSItemFromLists.md) (namespace item creation)
   - ereport (error reporting)
   - [exprLocation](../e/exprLocation.md) (error position reporting)

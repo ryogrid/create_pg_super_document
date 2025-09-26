@@ -24,7 +24,7 @@ When reuse is possible, the function updates time-sensitive fields (curcid, acti
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockHeldByMe (assertion check for ProcArrayLock)
+  - [LWLockHeldByMe](../L/LWLockHeldByMe.md) (assertion check for ProcArrayLock)
   - [TransactionIdPrecedesOrEquals](../T/TransactionIdPrecedesOrEquals.md) (validation check)
   - [GetCurrentCommandId](GetCurrentCommandId.md) (updating current command ID)
 - Called from (representative examples):

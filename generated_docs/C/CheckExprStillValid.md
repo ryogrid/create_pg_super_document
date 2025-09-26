@@ -42,7 +42,7 @@ The function only checks variable operations because these are the primary point
   - [CheckVarSlotCompatibility](CheckVarSlotCompatibility.md) (validates individual variable-slot compatibility)
 - Called from:
   - [ExecInterpExprStillValid](../E/ExecInterpExprStillValid.md) (one-time validation wrapper)
-  - ExecRunCompiledExpr (JIT-compiled expression validation)
+  - [ExecRunCompiledExpr](../E/ExecRunCompiledExpr.md) (JIT-compiled expression validation)
 
 ## Notes and Other Information
 - Only validates variable operations (EEOP_*_VAR), ignoring other operation types that are schema-independent

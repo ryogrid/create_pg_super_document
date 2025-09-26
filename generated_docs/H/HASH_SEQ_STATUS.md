@@ -28,17 +28,17 @@ The structure is used with the hash table sequential search API: hash_seq_init()
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HTAB
-  - HASHELEMENT
+  - [HTAB](HTAB.md)
+  - [HASHELEMENT](HASHELEMENT.md)
 - Called from (representative examples):
-  - hash_seq_init
-  - hash_seq_search
-  - hash_seq_term
-  - end_heap_rewrite
-  - DropAllPreparedStatements
-  - rebuild_database_list
-  - LockReleaseAll
-  - RelationCacheInvalidate
+  - [hash_seq_init](../h/hash_seq_init.md)
+  - [hash_seq_search](../h/hash_seq_search.md)
+  - [hash_seq_term](../h/hash_seq_term.md)
+  - [end_heap_rewrite](../e/end_heap_rewrite.md)
+  - [DropAllPreparedStatements](../D/DropAllPreparedStatements.md)
+  - [rebuild_database_list](../r/rebuild_database_list.md)
+  - [LockReleaseAll](../L/LockReleaseAll.md)
+  - [RelationCacheInvalidate](../R/RelationCacheInvalidate.md)
 
 ## Notes and Other Information
 - Must be initialized with hash_seq_init() before use

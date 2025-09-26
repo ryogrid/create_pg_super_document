@@ -28,10 +28,10 @@ Unlike standard string functions like strcpy or strcat, _add incorporates explic
 - Functions called/Symbols referenced:
   - No external function calls (uses only basic C operations)
 - Called from (representative examples):
-  - _fmt (for adding literal strings, weekday names, month names)
-  - _fmt (for adding AM/PM indicators, timezone names)
-  - _fmt (for adding newlines, tabs, and other special characters)
-  - _conv (for adding formatted numeric strings)
+  - [_fmt](../f/_fmt.md) (for adding literal strings, weekday names, month names)
+  - [_fmt](../f/_fmt.md) (for adding AM/PM indicators, timezone names)
+  - [_fmt](../f/_fmt.md) (for adding newlines, tabs, and other special characters)
+  - [_conv](../c/_conv.md) (for adding formatted numeric strings)
 
 ## Notes and Other Information
 - Provides bounds-safe string copying with explicit buffer limit checking

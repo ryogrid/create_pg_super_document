@@ -30,15 +30,15 @@ Before calling the hook, it resets all error reporting variables to ensure clean
   - config_bool
   - GucSource
   - ereport
-  - errcode
-  - errmsg_internal
-  - errmsg
-  - errdetail_internal
-  - errhint
-  - FlushErrorState
+  - [errcode](../e/errcode.md)
+  - [errmsg_internal](../e/errmsg_internal.md)
+  - [errmsg](../e/errmsg.md)
+  - [errdetail_internal](../e/errdetail_internal.md)
+  - [errhint](../e/errhint.md)
+  - [FlushErrorState](../F/FlushErrorState.md)
 - Called from (representative examples):
-  - InitializeOneGUCOption
-  - parse_and_validate_value
+  - [InitializeOneGUCOption](../I/InitializeOneGUCOption.md)
+  - [parse_and_validate_value](../p/parse_and_validate_value.md)
   - newval
 
 ## Notes and Other Information

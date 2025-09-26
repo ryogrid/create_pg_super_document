@@ -36,7 +36,7 @@ The function manages the iterative nature of SASL authentication, where multiple
   - SASL_FAILED
   - PqMsg_SASLResponse
 - Called from:
-  - pg_fe_sendauth
+  - [pg_fe_sendauth](pg_fe_sendauth.md)
 
 ## Notes and Other Information
 - The function allocates a buffer to read the challenge from the server and ensures it's NULL-terminated for safety

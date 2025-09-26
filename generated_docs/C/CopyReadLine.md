@@ -22,7 +22,7 @@ The function ensures that the final line buffer contains only the actual data wi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - resetStringInfo: Clears and resets the line buffer string
+  - [resetStringInfo](../r/resetStringInfo.md): Clears and resets the line buffer string
   - [CopyReadLineText](CopyReadLineText.md): Performs the actual line reading from input source
   - [CopyGetData](CopyGetData.md): Reads additional data from frontend protocol connections
   - EOL_NL, EOL_CR, EOL_CRNL, EOL_UNKNOWN: End-of-line type constants

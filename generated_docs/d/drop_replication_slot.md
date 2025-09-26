@@ -28,7 +28,7 @@ The function is designed to be resilient - if dropping fails, it marks the slot 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - createPQExpBuffer, destroyPQExpBuffer, appendPQExpBuffer (PQExpBuffer utilities)
+  - [createPQExpBuffer](../c/createPQExpBuffer.md), destroyPQExpBuffer, appendPQExpBuffer (PQExpBuffer utilities)
   - [PQescapeLiteral](../P/PQescapeLiteral.md), PQfreemem (libpq string escaping)
   - [PQexec](../P/PQexec.md), PQresultStatus, PQresultErrorMessage, PQclear (libpq query execution)
   - pg_log_info, pg_log_debug, pg_log_error (logging functions)

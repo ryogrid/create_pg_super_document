@@ -31,10 +31,10 @@ The structure maintains the same basic format as CreateFdwStmt but is used speci
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (for type identification)
-  - List (PostgreSQL's list data structure)
+  - [List](../L/List.md) (PostgreSQL's list data structure)
 - Called from (representative examples):
-  - AlterForeignDataWrapper (src/backend/commands/foreigncmds.c:685)
-  - ProcessUtilitySlow (src/backend/tcop/utility.c:1591)
+  - [AlterForeignDataWrapper](AlterForeignDataWrapper.md) (src/backend/commands/foreigncmds.c:685)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (src/backend/tcop/utility.c:1591)
 
 ## Notes and Other Information
 - This structure is defined in src/include/nodes/parsenodes.h immediately after CreateFdwStmt

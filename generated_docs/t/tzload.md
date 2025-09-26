@@ -67,13 +67,13 @@ The  function serves as a memory-managed wrapper for loading timezone data. It a
 - Functions called/Symbols referenced:
   - malloc
   - local_storage (union type)
-  - tzloadbody
+  - [tzloadbody](tzloadbody.md)
   - free
 - Called from (representative examples):
-  - pg_load_tz
-  - gmtload
-  - pg_tzset
-  - pg_tzenumerate_next
+  - [pg_load_tz](../p/pg_load_tz.md)
+  - [gmtload](../g/gmtload.md)
+  - [pg_tzset](../p/pg_tzset.md)
+  - [pg_tzenumerate_next](../p/pg_tzenumerate_next.md)
 
 ## Notes and Other Information
 - Returns 0 on success, an errno value on failure

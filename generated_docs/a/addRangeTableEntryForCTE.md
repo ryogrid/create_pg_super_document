@@ -32,7 +32,7 @@ This function creates a RangeTblEntry of type RTE_CTE for handling Common Table 
   - [makeAlias](../m/makeAlias.md) (for default alias creation)
   - [list_copy](../l/list_copy.md) (for copying CTE column information)
   - [makeString](../m/makeString.md) (for column name creation)
-  - lappend_oid, lappend_int (for column type management)
+  - [lappend_oid](../l/lappend_oid.md), lappend_int (for column type management)
   - [buildNSItemFromLists](../b/buildNSItemFromLists.md) (for ParseNamespaceItem construction)
 - Called from (representative examples):
   - [getNSItemForSpecialRelationTypes](../g/getNSItemForSpecialRelationTypes.md) (in parse_clause.c:1027)

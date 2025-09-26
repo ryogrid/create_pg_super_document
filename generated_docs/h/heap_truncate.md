@@ -20,13 +20,13 @@ The function differs from the transaction-safe implementation in commands/tablec
 ## Dependencies
 - Functions called/Symbols referenced:
   - lfirst_oid
-  - table_open
+  - [table_open](../t/table_open.md)
   - AccessExclusiveLock
-  - lappend
+  - [lappend](../l/lappend.md)
   - [heap_truncate_check_FKs](heap_truncate_check_FKs.md)
   - lfirst
   - [heap_truncate_one_rel](heap_truncate_one_rel.md)
-  - table_close
+  - [table_close](../t/table_close.md)
   - NoLock
 - Called from (representative examples):
   - [PreCommit_on_commit_actions](../P/PreCommit_on_commit_actions.md)

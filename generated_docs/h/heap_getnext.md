@@ -32,7 +32,7 @@ The function includes important safety mechanisms: it validates that the relatio
   - [TableScanDesc](../T/TableScanDesc.md)
   - ScanDirection
   - HeapTuple
-- Scan flags:
+- [Scan](../S/Scan.md) flags:
   - SO_ALLOW_PAGEMODE
 - Called from (representative examples):
   - [heapam_index_build_range_scan](heapam_index_build_range_scan.md)

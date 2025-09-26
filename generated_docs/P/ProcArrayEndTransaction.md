@@ -30,10 +30,10 @@ The function ensures that transaction visibility changes are atomic with respect
 ## Dependencies
 - Functions called/Symbols referenced:
   - TransactionIdIsValid
-  - LWLockConditionalAcquire
-  - LWLockRelease
-  - LWLockAcquire
-  - LWLockHeldByMe
+  - [LWLockConditionalAcquire](../L/LWLockConditionalAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockHeldByMe](../L/LWLockHeldByMe.md)
   - [ProcArrayEndTransactionInternal](ProcArrayEndTransactionInternal.md)
   - [ProcArrayGroupClearXid](ProcArrayGroupClearXid.md)
   - InvalidLocalTransactionId
@@ -47,7 +47,7 @@ The function ensures that transaction visibility changes are atomic with respect
 
 ## Notes and Other Information
 - Uses conditional lock acquisition to optimize for the common case of low contention
-- Group XID clearing mechanism reduces lock contention when multiple transactions end simultaneously
+- [Group](../G/Group.md) XID clearing mechanism reduces lock contention when multiple transactions end simultaneously
 - Read-only transactions (no XID) require minimal synchronization
 - Vacuum status flags require special handling even for read-only transactions
 - The function assumes transaction commit/abort has already been written to WAL and pg_xact

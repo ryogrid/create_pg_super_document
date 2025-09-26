@@ -23,18 +23,18 @@ The function includes safety optimizations: it performs an early return if the t
 - Functions called/Symbols referenced:
   - AmStartupProcess
   - XidFromFullTransactionId
-  - TransactionIdFollowsOrEquals
+  - [TransactionIdFollowsOrEquals](../T/TransactionIdFollowsOrEquals.md)
   - TransactionIdAdvance
   - EpochFromFullTransactionId
-  - FullTransactionIdFromEpochAndXid
+  - [FullTransactionIdFromEpochAndXid](../F/FullTransactionIdFromEpochAndXid.md)
 - Called from (representative examples):
-  - multixact_redo
-  - ProcessTwoPhaseBuffer
-  - xact_redo_commit
-  - xact_redo_abort
-  - ApplyWalRecord
-  - ProcArrayApplyRecoveryInfo
-  - RecordKnownAssignedTransactionIds
+  - [multixact_redo](../m/multixact_redo.md)
+  - [ProcessTwoPhaseBuffer](../P/ProcessTwoPhaseBuffer.md)
+  - [xact_redo_commit](../x/xact_redo_commit.md)
+  - [xact_redo_abort](../x/xact_redo_abort.md)
+  - [ApplyWalRecord](ApplyWalRecord.md)
+  - [ProcArrayApplyRecoveryInfo](../P/ProcArrayApplyRecoveryInfo.md)
+  - [RecordKnownAssignedTransactionIds](../R/RecordKnownAssignedTransactionIds.md)
 
 ## Notes and Other Information
 - Located in src/backend/access/transam/varsup.c:304-354

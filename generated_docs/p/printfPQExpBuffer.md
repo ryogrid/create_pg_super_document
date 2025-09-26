@@ -36,7 +36,7 @@ The retry loop is necessary because `appendPQExpBufferVA` may need to enlarge th
   - [dumpTableData](../d/dumpTableData.md) (pg_dump)
   - [buildACLCommands](../b/buildACLCommands.md) (pg_dump utilities)
   - [describeOneTableDetails](../d/describeOneTableDetails.md) (psql describe functions)
-  - PQchangePassword (libpq authentication)
+  - [PQchangePassword](../P/PQchangePassword.md) (libpq authentication)
   - various PostgreSQL client tools for SQL generation
 
 ## Notes and Other Information

@@ -28,7 +28,7 @@ The function also includes sophisticated error context handling, allowing it to 
 - Functions called/Symbols referenced:
   - SET_LOCKTAG_TRANSACTION (constructs transaction-specific lock tag)
   - [LockAcquire](../L/LockAcquire.md)/LockRelease (acquires and releases ShareLock on transaction)
-  - TransactionIdIsInProgress (checks if transaction is still running)
+  - [TransactionIdIsInProgress](../T/TransactionIdIsInProgress.md) (checks if transaction is still running)
   - [SubTransGetTopmostTransaction](../S/SubTransGetTopmostTransaction.md) (finds the topmost parent transaction)
   - [GetTopTransactionIdIfAny](../G/GetTopTransactionIdIfAny.md) (gets current transaction's XID for comparison)
   - [XactLockTableWaitErrorCb](XactLockTableWaitErrorCb.md) (error context callback function)
@@ -37,7 +37,7 @@ The function also includes sophisticated error context handling, allowing it to 
   - [heap_delete](../h/heap_delete.md), heap_update, heap_lock_tuple (heap access methods)
   - [_bt_doinsert](../b/_bt_doinsert.md) (B-tree index operations)
   - [check_exclusion_or_unique_constraint](../c/check_exclusion_or_unique_constraint.md) (constraint checking)
-  - SnapBuildWaitSnapshot (logical replication)
+  - [SnapBuildWaitSnapshot](../S/SnapBuildWaitSnapshot.md) (logical replication)
 
 ## Notes and Other Information
 - The function uses a ShareLock to wait, which is compatible with other ShareLocks but conflicts with the ExclusiveLock held by the running transaction

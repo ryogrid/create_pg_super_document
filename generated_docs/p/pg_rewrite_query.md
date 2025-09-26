@@ -32,9 +32,9 @@ Performance statistics can be collected when  is enabled.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [QueryRewrite](../Q/QueryRewrite.md)
-  - elog_node_display
-  - ResetUsage
-  - ShowUsage
+  - [elog_node_display](../e/elog_node_display.md)
+  - [ResetUsage](../R/ResetUsage.md)
+  - [ShowUsage](../S/ShowUsage.md)
   - copyObject
   - [equal](../e/equal.md)
   - [nodeToStringWithLocations](../n/nodeToStringWithLocations.md)

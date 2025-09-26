@@ -27,19 +27,19 @@ For blocks other than span-of-spans blocks, the function recursively calls dsa_f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - unlink_span
-  - get_segment_by_index
-  - FreePageManagerPut
+  - [unlink_span](../u/unlink_span.md)
+  - [get_segment_by_index](../g/get_segment_by_index.md)
+  - [FreePageManagerPut](../F/FreePageManagerPut.md)
   - fpm_largest
   - get_segment_index
-  - unlink_segment
-  - dsm_unpin_segment
-  - dsm_detach
-  - rebin_segment
-  - dsa_free
+  - [unlink_segment](../u/unlink_segment.md)
+  - [dsm_unpin_segment](dsm_unpin_segment.md)
+  - [dsm_detach](dsm_detach.md)
+  - [rebin_segment](../r/rebin_segment.md)
+  - [dsa_free](dsa_free.md)
 - Called from (representative examples):
-  - dsa_free
-  - dsa_trim
+  - [dsa_free](dsa_free.md)
+  - [dsa_trim](dsa_trim.md)
 
 ## Notes and Other Information
 The function must be called with the appropriate pool lock held. It implements a specific lock ordering discipline to avoid deadlocks and uses the freed_segment_counter to help other backends detect when segments have been freed. Special handling is required for DSA_SCLASS_BLOCK_OF_SPANS where the span descriptor is stored inline.

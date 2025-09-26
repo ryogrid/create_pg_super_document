@@ -32,7 +32,7 @@ This function serves as the core mechanism for registering extensible nodes in P
 - Data types used:
   - [HTAB](../H/HTAB.md)
   - ExtensibleNodeEntry
-  - HASHCTL
+  - [HASHCTL](../H/HASHCTL.md)
   - EXTNODENAME_MAX_LEN
 - Called from (representative examples):
   - [RegisterExtensibleNodeMethods](RegisterExtensibleNodeMethods.md)
@@ -43,5 +43,5 @@ This function serves as the core mechanism for registering extensible nodes in P
 - Performs validation to ensure extensible node names don't exceed EXTNODENAME_MAX_LEN
 - Uses PostgreSQL's hash table infrastructure with HASH_ELEM and HASH_STRINGS options
 - Throws ERROR if duplicate node type registration is attempted
-- Hash table is created lazily on first registration attempt
+- [Hash](../H/Hash.md) table is created lazily on first registration attempt
 - Initial hash table capacity is set to 100 entries

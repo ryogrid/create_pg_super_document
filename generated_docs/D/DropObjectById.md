@@ -24,7 +24,7 @@ DropObjectById provides a generic mechanism for deleting catalog entries by thei
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_object_catcache_oid](../g/get_object_catcache_oid.md): Retrieves cache ID for the object's catalog
-  - table_open: Opens the catalog relation with specified lock
+  - [table_open](../t/table_open.md): Opens the catalog relation with specified lock
   - [SearchSysCache1](../S/SearchSysCache1.md): Performs cached lookup of the target tuple
   - [CatalogTupleDelete](../C/CatalogTupleDelete.md): Deletes the catalog tuple
   - [ReleaseSysCache](../R/ReleaseSysCache.md): Releases the cached tuple
@@ -34,7 +34,7 @@ DropObjectById provides a generic mechanism for deleting catalog entries by thei
   - [get_object_oid_index](../g/get_object_oid_index.md): Gets OID index for the catalog
   - [systable_getnext](../s/systable_getnext.md): Retrieves next tuple from scan
   - [systable_endscan](../s/systable_endscan.md): Ends system table scan
-  - table_close: Closes the catalog relation
+  - [table_close](../t/table_close.md): Closes the catalog relation
   - [get_object_class_descr](../g/get_object_class_descr.md): Gets human-readable class description for errors
 - Called from:
   - [doDeletion](../d/doDeletion.md): Main deletion orchestration function

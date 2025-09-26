@@ -25,15 +25,15 @@ The wrapper handling logic accounts for different JsonWrapperType values, treati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendStringInfoString (appends strings to the output buffer)
-  - get_json_behavior (formats JSON behavior clauses for ON EMPTY/ON ERROR)
+  - [appendStringInfoString](../a/appendStringInfoString.md) (appends strings to the output buffer)
+  - [get_json_behavior](get_json_behavior.md) (formats JSON behavior clauses for ON EMPTY/ON ERROR)
   - JSON_QUERY_OP (enum value for JSON query operations)
   - JSW_CONDITIONAL, JSW_UNCONDITIONAL, JSW_NONE, JSW_UNSPEC (JSON wrapper type enums)
-  - JsonExpr (structure type for JSON expressions)
+  - [JsonExpr](../J/JsonExpr.md) (structure type for JSON expressions)
   - JsonBehaviorType (enum type for JSON behaviors)
 - Called from (representative examples):
-  - get_rule_expr (for general JSON expression formatting)
-  - get_json_table_columns (for JSON table column formatting)
+  - [get_rule_expr](get_rule_expr.md) (for general JSON expression formatting)
+  - [get_json_table_columns](get_json_table_columns.md) (for JSON table column formatting)
 
 ## Notes and Other Information
 - This is a static function within ruleutils.c, specifically for SQL/JSON functionality  

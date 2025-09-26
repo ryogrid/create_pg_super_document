@@ -92,7 +92,7 @@ JsonExprState contains the execution state for JSON path expressions, which are 
 - `escontext`: Error context for safe evaluation of coercions when ON ERROR behavior is not ERROR
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonExpr
+  - [JsonExpr](JsonExpr.md)
   - [NullableDatum](../N/NullableDatum.md)
   - [List](../L/List.md)
   - [FunctionCallInfo](../F/FunctionCallInfo.md)
@@ -101,7 +101,7 @@ JsonExprState contains the execution state for JSON path expressions, which are 
   - [ExecInitJsonExpr](../E/ExecInitJsonExpr.md)
   - [ExecEvalJsonExprPath](../E/ExecEvalJsonExprPath.md)
   - [ExecEvalJsonCoercionFinish](../E/ExecEvalJsonCoercionFinish.md)
-  - llvm_compile_expr
+  - [llvm_compile_expr](../l/llvm_compile_expr.md)
 
 ## Notes and Other Information
 JsonExprState implements sophisticated control flow management through jump addresses, enabling efficient execution of complex JSON path expressions with multiple conditional branches. The structure is designed to handle SQL/JSON standard compliance, particularly the ON ERROR and ON EMPTY clauses that define behavior for exceptional conditions. The error and empty flags are reset for each evaluation, allowing reuse of the state structure across multiple evaluations. The integration with LLVM JIT compilation demonstrates its importance in performance-critical JSON processing operations.

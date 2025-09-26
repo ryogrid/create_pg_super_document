@@ -25,14 +25,14 @@ For text format, it produces a compact, human-readable output. For structured fo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExplainOpenGroup/ExplainCloseGroup (structured output grouping)
-  - ExplainPropertyInteger/ExplainPropertyBool/ExplainPropertyFloat (property formatting)
-  - ExplainIndentText (text formatting)
+  - [ExplainOpenGroup](ExplainOpenGroup.md)/ExplainCloseGroup (structured output grouping)
+  - [ExplainPropertyInteger](ExplainPropertyInteger.md)/ExplainPropertyBool/ExplainPropertyFloat (property formatting)
+  - [ExplainIndentText](ExplainIndentText.md) (text formatting)
   - INSTR_TIME_* macros (timing manipulation)
   - PGJIT_* flags (JIT option constants)
 - Called from (representative examples):
-  - ExplainPrintJITSummary (for aggregated JIT statistics)
-  - ExplainNode (for individual node JIT statistics)
+  - [ExplainPrintJITSummary](ExplainPrintJITSummary.md) (for aggregated JIT statistics)
+  - [ExplainNode](ExplainNode.md) (for individual node JIT statistics)
 
 ## Notes and Other Information
 - Static function, only accessible within explain.c

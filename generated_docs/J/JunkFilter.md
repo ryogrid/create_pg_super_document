@@ -35,11 +35,11 @@ The junk filter removes junk attributes to form the real output tuple. It also p
   - [List](../L/List.md)
   - [TupleDesc](../T/TupleDesc.md)
   - AttrNumber
-  - TupleTableSlot
+  - [TupleTableSlot](../T/TupleTableSlot.md)
 - Called from (representative examples):
-  - ExecInitJunkFilter
-  - ExecFilterJunk
-  - ExecFindJunkAttribute
+  - [ExecInitJunkFilter](../E/ExecInitJunkFilter.md)
+  - [ExecFilterJunk](../E/ExecFilterJunk.md)
+  - [ExecFindJunkAttribute](../E/ExecFindJunkAttribute.md)
   - [InitPlan](../I/InitPlan.md)
 
 ## Notes and Other Information

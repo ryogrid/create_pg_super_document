@@ -31,18 +31,18 @@ The function handles race conditions where another backend might have already cl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SERIALIZABLEXACT
-  - dlist_is_empty
+  - [SERIALIZABLEXACT](SERIALIZABLEXACT.md)
+  - [dlist_is_empty](../d/dlist_is_empty.md)
   - dlist_head_element
-  - dlist_delete_thoroughly
+  - [dlist_delete_thoroughly](../d/dlist_delete_thoroughly.md)
   - SxactIsReadOnly
   - SxactHasConflictOut
-  - SerialAdd
+  - [SerialAdd](SerialAdd.md)
   - InvalidSerCommitSeqNo
-  - ReleaseOneSerializableXact
+  - [ReleaseOneSerializableXact](../R/ReleaseOneSerializableXact.md)
 - Called from (representative examples):
-  - SerialControl (during initialization)
-  - GetSerializableTransactionSnapshotInt (when slots are exhausted)
+  - [SerialControl](SerialControl.md) (during initialization)
+  - [GetSerializableTransactionSnapshotInt](../G/GetSerializableTransactionSnapshotInt.md) (when slots are exhausted)
 
 ## Notes and Other Information
 - This is a static function local to predicate.c

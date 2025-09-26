@@ -29,6 +29,6 @@ The function immediately throws an error if called, indicating that BitmapAnd no
 ## Notes and Other Information
 - This function exists only to satisfy the executor node interface requirements
 - The actual execution logic for BitmapAnd nodes is implemented in MultiExecBitmapAnd
-- BitmapAnd nodes are part of PostgreSQL's bitmap index scan optimization
+- [BitmapAnd](../B/BitmapAnd.md) nodes are part of PostgreSQL's bitmap index scan optimization
 - The error message clearly indicates the correct execution path should use MultiExecProcNode instead
 - Located in src/backend/executor/nodeBitmapAnd.c:42-54

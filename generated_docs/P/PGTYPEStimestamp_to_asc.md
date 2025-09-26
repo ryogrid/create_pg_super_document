@@ -32,7 +32,7 @@ The function uses a fixed DateStyle of 1 (USE_ISO_DATES) and allocates a new str
   - MAXDATELEN (constant defining maximum date string length)
 - Called from (representative examples):
   - [dttoasc](../d/dttoasc.md) (Informix compatibility function)
-  - ecpg_store_input (ECPG input storage function)
+  - [ecpg_store_input](../e/ecpg_store_input.md) (ECPG input storage function)
   - Extensive usage in test programs (dt_test, dt_test2, array tests)
 
 ## Notes and Other Information

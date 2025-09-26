@@ -21,22 +21,22 @@ None - this is a void function with no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_create - Create new hash table with specified parameters
-  - CreateCacheMemoryContext - Ensure cache memory context exists
-  - CacheRegisterSyscacheCallback - Register invalidation callback for ATTNUM syscache
-  - InvalidateAttoptCacheCallback - The callback function to register
+  - [hash_create](../h/hash_create.md) - Create new hash table with specified parameters
+  - [CreateCacheMemoryContext](../C/CreateCacheMemoryContext.md) - Ensure cache memory context exists
+  - [CacheRegisterSyscacheCallback](../C/CacheRegisterSyscacheCallback.md) - Register invalidation callback for ATTNUM syscache
+  - [InvalidateAttoptCacheCallback](InvalidateAttoptCacheCallback.md) - The callback function to register
 - Data structures used:
-  - HASHCTL - Hash table control structure for configuration
+  - [HASHCTL](../H/HASHCTL.md) - [Hash](../H/Hash.md) table control structure for configuration
   - AttoptCacheKey - Key structure for cache entries
   - AttoptCacheEntry - Cache entry structure
   - AttoptCacheHash - Global hash table variable
   - CacheMemoryContext - Memory context for cache allocations
 - Constants used:
-  - HASH_ELEM - Hash table flag for element-based operations
-  - HASH_BLOBS - Hash table flag for binary key comparison
+  - HASH_ELEM - [Hash](../H/Hash.md) table flag for element-based operations
+  - HASH_BLOBS - [Hash](../H/Hash.md) table flag for binary key comparison
   - ATTNUM - System catalog cache identifier for pg_attribute
 - Called from:
-  - get_attribute_options - Called on first access if cache not initialized
+  - [get_attribute_options](../g/get_attribute_options.md) - Called on first access if cache not initialized
 
 ## Notes and Other Information
 - Performs lazy initialization - only called when first attribute options are requested

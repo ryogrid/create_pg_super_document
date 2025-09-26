@@ -42,7 +42,7 @@ The function uses the syscache_callback_links array to find the head of the call
 ## Notes and Other Information
 - This function is the execution counterpart to CacheRegisterSyscacheCallback (registration)
 - The export design allows modular separation between cache invalidation logic and catalog knowledge
-- Hash value zero has special meaning indicating a complete cache reset
+- [Hash](../H/Hash.md) value zero has special meaning indicating a complete cache reset
 - Each callback receives its original registration argument, allowing for stateful callback implementations
 - Essential for coordinating cache invalidation across all PostgreSQL subsystems that depend on system catalog data
 - Callbacks are executed synchronously in the context of the invalidation event

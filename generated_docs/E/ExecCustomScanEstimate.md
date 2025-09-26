@@ -26,7 +26,7 @@ ExecCustomScanEstimate is responsible for calculating the shared memory space ne
   - shm_toc_estimate_chunk (shared memory TOC estimation function)
   - shm_toc_estimate_keys (shared memory TOC key estimation function)
 - Called from (representative examples):
-  - ExecParallelEstimate (general parallel execution estimator)
+  - [ExecParallelEstimate](ExecParallelEstimate.md) (general parallel execution estimator)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's parallel query execution framework

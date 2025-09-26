@@ -36,7 +36,7 @@ The function processes various numeric format patterns:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FormatNode, NUMDesc (struct types)
+  - [FormatNode](../F/FormatNode.md), NUMDesc (struct types)
   - Various IS_* macros (IS_DECIMAL, IS_BRACKET, IS_MULTI, etc.)
   - NUM_* constants for pattern identification
   - NUM_F_* flag constants
@@ -44,7 +44,7 @@ The function processes various numeric format patterns:
   - ereport for error reporting
 - Called from (representative examples):
   - DCH_ZONED
-  - parse_format
+  - [parse_format](../p/parse_format.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within formatting.c

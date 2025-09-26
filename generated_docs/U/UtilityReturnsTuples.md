@@ -29,14 +29,14 @@ The function examines specific utility statement types:
 ## Dependencies
 - Functions called/Symbols referenced:
   - nodeTag (to identify the statement type)
-  - GetPortalByName (for FETCH statements)
+  - [GetPortalByName](../G/GetPortalByName.md) (for FETCH statements)
   - PortalIsValid (to validate portal existence)
-  - FetchPreparedStatement (for EXECUTE statements)
+  - [FetchPreparedStatement](../F/FetchPreparedStatement.md) (for EXECUTE statements)
   - Statement types: CallStmt, FetchStmt, ExecuteStmt, Portal, PreparedStatement
 
 - Called from:
-  - ChoosePortalStrategy (to determine portal execution strategy)
-  - QueryReturnsTuples (as part of broader query analysis)
+  - [ChoosePortalStrategy](../C/ChoosePortalStrategy.md) (to determine portal execution strategy)
+  - [QueryReturnsTuples](../Q/QueryReturnsTuples.md) (as part of broader query analysis)
   - COMMAND_IS_NOT_READ_ONLY macro
 
 ## Notes and Other Information

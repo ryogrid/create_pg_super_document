@@ -29,7 +29,7 @@ LockRowsPath is a specialized path node in PostgreSQL's query planner that repre
 - Functions called/Symbols referenced:
   - [Path](../P/Path.md) (base structure)
   - [List](List.md) (for rowMarks)
-  - PlanRowMark (referenced in rowMarks list)
+  - [PlanRowMark](../P/PlanRowMark.md) (referenced in rowMarks list)
 - Called from (representative examples):
   - [create_lockrows_path](../c/create_lockrows_path.md) (pathnode.c:3665)
   - [create_lockrows_plan](../c/create_lockrows_plan.md) (createplan.c:2792)

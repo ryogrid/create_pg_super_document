@@ -33,9 +33,9 @@ The function handles two distinct types of background workers: those that requir
   - [pg_usleep](../p/pg_usleep.md) (authentication delay)
   - [pqsignal](../p/pqsignal.md) (signal handler setup)
   - [StatementCancelHandler](../S/StatementCancelHandler.md), procsignal_sigusr1_handler, FloatExceptionHandler, bgworker_die
-  - InitializeTimeouts, BackgroundWorkerUnblockSignals
+  - [InitializeTimeouts](../I/InitializeTimeouts.md), BackgroundWorkerUnblockSignals
   - sigsetjmp, HOLD_INTERRUPTS, EmitErrorReport, proc_exit (error handling)
-  - InitProcess, BaseInit (PostgreSQL initialization)
+  - [InitProcess](../I/InitProcess.md), BaseInit (PostgreSQL initialization)
   - [LookupBackgroundWorkerFunction](../L/LookupBackgroundWorkerFunction.md) (worker function lookup)
 - Constants referenced:
   - B_BG_WORKER, InitProcessing

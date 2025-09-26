@@ -32,8 +32,8 @@ The function uses a switch statement to handle different cases based on the firs
   - IS_EUC_RANGE_VALID (macro to validate EUC byte range 0xA1-0xFE)
   - IS_HIGHBIT_SET (macro to check if high bit is set)
 - Called from (representative examples):
-  - pg_euctw_verifystr
-  - pg_encoding_set_invalid
+  - [pg_euctw_verifystr](pg_euctw_verifystr.md)
+  - [pg_encoding_set_invalid](pg_encoding_set_invalid.md)
 
 ## Notes and Other Information
 - Returns the number of bytes consumed (1, 2, or 4) for valid characters, -1 for invalid sequences

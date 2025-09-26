@@ -23,7 +23,7 @@ This function takes no explicit parameters (uses `PG_FUNCTION_ARGS` macro for Po
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `SendPostmasterSignal` - Sends inter-process signals to the postmaster
+  - `[SendPostmasterSignal](../S/SendPostmasterSignal.md)` - Sends inter-process signals to the postmaster
   - `PMSIGNAL_ROTATE_LOGFILE` - Signal constant for log rotation request
   - `Logging_collector` - Global variable indicating if log collection is active
   - `ereport` - PostgreSQL error reporting function

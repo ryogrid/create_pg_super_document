@@ -25,7 +25,7 @@ The function assumes that RelationBuildRowSecurity builds policies in a consiste
 - Functions called/Symbols referenced:
   - [RowSecurityDesc](../R/RowSecurityDesc.md) (structure type)
   - [RowSecurityPolicy](../R/RowSecurityPolicy.md) (structure type)
-  - list_length (function to get list length)
+  - [list_length](../l/list_length.md) (function to get list length)
   - forboth (macro for parallel list iteration)
   - lfirst (macro to get list cell value)
   - [equalPolicy](equalPolicy.md) (function to compare policies)

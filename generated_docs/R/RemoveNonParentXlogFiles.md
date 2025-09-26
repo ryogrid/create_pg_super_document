@@ -33,9 +33,9 @@ This cleanup is essential because leftover pre-allocated or recycled WAL segment
   - XLByteToPrevSeg
   - XLByteToSeg  
   - [XLogFileName](../X/XLogFileName.md)
-  - AllocateDir
-  - ReadDir
-  - FreeDir
+  - [AllocateDir](../A/AllocateDir.md)
+  - [ReadDir](ReadDir.md)
+  - [FreeDir](../F/FreeDir.md)
   - [IsXLogFileName](../I/IsXLogFileName.md)
   - [XLogArchiveIsReady](../X/XLogArchiveIsReady.md)
   - [RemoveXlogFile](RemoveXlogFile.md)

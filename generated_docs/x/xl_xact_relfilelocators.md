@@ -25,13 +25,13 @@ The xl_xact_relfilelocators structure is a WAL record format used to log relatio
 ## Dependencies
 - Functions called/Symbols referenced:
   - FLEXIBLE_ARRAY_MEMBER
-  - RelFileLocator (implicitly referenced)
+  - [RelFileLocator](../R/RelFileLocator.md) (implicitly referenced)
 
 - Called from (representative examples):
-  - ParseCommitRecord (in xactdesc.c:78)
-  - ParseAbortRecord (in xactdesc.c:184)  
-  - XactLogCommitRecord (in xact.c:5765)
-  - XactLogAbortRecord (in xact.c:5934)
+  - [ParseCommitRecord](../P/ParseCommitRecord.md) (in xactdesc.c:78)
+  - [ParseAbortRecord](../P/ParseAbortRecord.md) (in xactdesc.c:184)  
+  - [XactLogCommitRecord](../X/XactLogCommitRecord.md) (in xact.c:5765)
+  - [XactLogAbortRecord](../X/XactLogAbortRecord.md) (in xact.c:5934)
   - MinSizeOfXactRelfileLocators (in xact.h:273)
 
 ## Notes and Other Information

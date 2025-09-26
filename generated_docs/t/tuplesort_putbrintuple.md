@@ -27,8 +27,8 @@ This function is a specialized variant of tuple insertion for BRIN (Block Range 
   - [palloc](../p/palloc.md)
   - memcpy
   - TupleSortUseBumpTupleCxt
-  - GetMemoryChunkSpace
-  - tuplesort_puttuple_common
+  - [GetMemoryChunkSpace](../G/GetMemoryChunkSpace.md)
+  - [tuplesort_puttuple_common](tuplesort_puttuple_common.md)
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
 - Called from (representative examples):
   - [form_and_spill_tuple](../f/form_and_spill_tuple.md)

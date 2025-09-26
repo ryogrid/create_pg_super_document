@@ -40,4 +40,4 @@ Unlike `defGetString` which handles multiple node types, `defGetNumeric` is more
 - Throws a syntax error for non-numeric node types or missing arguments
 - The function is located in src/backend/commands/define.c:81-106  
 - Primarily used in function definition processing where numeric attributes are specified
-- Integer values are automatically cast to double precision
+- [Integer](../I/Integer.md) values are automatically cast to double precision

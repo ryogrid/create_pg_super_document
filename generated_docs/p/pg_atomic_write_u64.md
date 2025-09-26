@@ -32,7 +32,7 @@ The function is implemented as an inline wrapper around the platform-specific im
   - [StartupCLOG](../S/StartupCLOG.md) (src/backend/access/transam/clog.c:885)
   - [AdvanceXLInsertBuffer](../A/AdvanceXLInsertBuffer.md) (src/backend/access/transam/xlog.c:2087)
   - [XLogWrite](../X/XLogWrite.md) (src/backend/access/transam/xlog.c:2583)
-  - `InitProcess` (src/backend/storage/lmgr/proc.c:407)
+  - `[InitProcess](../I/InitProcess.md)` (src/backend/storage/lmgr/proc.c:407)
 
 ## Notes and Other Information
 - This function provides basic atomic write semantics without additional memory barrier guarantees

@@ -25,7 +25,7 @@ The tie-breaking mechanism using walsnd_index is noted as "utterly bogus" in the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SyncRepStandbyData (structure being compared)
+  - [SyncRepStandbyData](../S/SyncRepStandbyData.md) (structure being compared)
 - Called from (representative examples):
   - SyncStandbysDefined (src/backend/replication/syncrep.c:120)
   - [SyncRepGetCandidateStandbys](../S/SyncRepGetCandidateStandbys.md) (src/backend/replication/syncrep.c:821)

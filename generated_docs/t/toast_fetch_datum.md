@@ -28,9 +28,9 @@ The function handles both compressed and uncompressed external data, properly se
   - VARATT_EXTERNAL_IS_COMPRESSED
   - SET_VARSIZE_COMPRESSED
   - SET_VARSIZE
-  - table_open
+  - [table_open](table_open.md)
   - [table_relation_fetch_toast_slice](table_relation_fetch_toast_slice.md)
-  - table_close
+  - [table_close](table_close.md)
   - [palloc](../p/palloc.md)
   - elog
 - Called from:

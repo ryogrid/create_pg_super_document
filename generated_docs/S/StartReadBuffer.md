@@ -29,7 +29,7 @@ StartReadBuffer is a convenience function that provides a streamlined interface 
   - [StartReadBuffersImpl](StartReadBuffersImpl.md)
   - [ReadBuffersOperation](../R/ReadBuffersOperation.md) (structure)
 - Called from (representative examples):
-  - read_stream_next_buffer
+  - [read_stream_next_buffer](../r/read_stream_next_buffer.md)
   - [ReadBuffer_common](../R/ReadBuffer_common.md)
   - BUFFER_LOCK_EXCLUSIVE (from buffer management header)
 

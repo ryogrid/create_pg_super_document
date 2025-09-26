@@ -27,12 +27,12 @@ The calculation includes:
 ## Dependencies  
 - Functions called/Symbols referenced:
   - dlist_foreach, dlist_container, dlist_iter (doubly-linked list operations)
-  - config_generic (struct type)
-  - estimate_variable_size
-  - add_size
+  - [config_generic](../c/config_generic.md) (struct type)
+  - [estimate_variable_size](../e/estimate_variable_size.md)
+  - [add_size](../a/add_size.md)
   - guc_nondef_list (global variable)
 - Called from (representative examples):
-  - InitializeParallelDSM
+  - [InitializeParallelDSM](../I/InitializeParallelDSM.md)
   - EmitWarningsOnPlaceholders
 
 ## Notes and Other Information

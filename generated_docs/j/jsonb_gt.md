@@ -30,7 +30,7 @@ The function establishes a consistent ordering mechanism that allows JSONB value
 - Called from (representative examples):
   - SQL queries using the > operator with JSONB types
   - B-Tree index operations for sorting JSONB values
-  - Range query processing involving JSONB columns
+  - [Range](../R/Range.md) query processing involving JSONB columns
 
 ## Notes and Other Information
 - Essential component of the B-Tree operator class for JSONB, enabling indexing capabilities

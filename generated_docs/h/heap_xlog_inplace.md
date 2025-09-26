@@ -33,7 +33,7 @@ This operation is primarily used for system catalog maintenance and other specia
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData (extracts xl_heap_inplace structure from WAL record)
-  - XLogReadBufferForRedo (reads and locks target buffer for redo operations)
+  - [XLogReadBufferForRedo](../X/XLogReadBufferForRedo.md) (reads and locks target buffer for redo operations)
   - [XLogRecGetBlockData](../X/XLogRecGetBlockData.md) (retrieves the new tuple data from the WAL record)
   - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md), PageGetItemId, PageGetItem (page-level tuple access functions)
   - ItemIdGetLength (retrieves the current tuple length for validation)

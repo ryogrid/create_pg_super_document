@@ -28,18 +28,18 @@ The function uses DSMRegistryLock to ensure thread-safe initialization, preventi
 ## Dependencies
 - Functions called/Symbols referenced:
   - DSHASH_HANDLE_INVALID (constant for checking uninitialized handles)
-  - LWLockAcquire/LWLockRelease (for concurrency control)
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease (for concurrency control)
   - dsa_create (creates new dynamic shared area)
-  - dsa_pin (pins DSA in memory)
-  - dsa_pin_mapping (pins DSA mapping)
-  - dshash_create (creates new dynamic shared hash table)
-  - dsa_get_handle (gets handle for sharing)
-  - dshash_get_hash_table_handle (gets hash table handle)
-  - dsa_attach (attaches to existing DSA)
-  - dshash_attach (attaches to existing hash table)
+  - [dsa_pin](../d/dsa_pin.md) (pins DSA in memory)
+  - [dsa_pin_mapping](../d/dsa_pin_mapping.md) (pins DSA mapping)
+  - [dshash_create](../d/dshash_create.md) (creates new dynamic shared hash table)
+  - [dsa_get_handle](../d/dsa_get_handle.md) (gets handle for sharing)
+  - [dshash_get_hash_table_handle](../d/dshash_get_hash_table_handle.md) (gets hash table handle)
+  - [dsa_attach](../d/dsa_attach.md) (attaches to existing DSA)
+  - [dshash_attach](../d/dshash_attach.md) (attaches to existing hash table)
   - LWTRANCHE_DSM_REGISTRY_DSA (lock tranche for DSA operations)
 - Called from (representative examples):
-  - GetNamedDSMSegment (before accessing registry entries)
+  - [GetNamedDSMSegment](../G/GetNamedDSMSegment.md) (before accessing registry entries)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the dsm_registry.c file

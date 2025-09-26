@@ -37,7 +37,7 @@ The function provides comprehensive error logging and continues processing even 
   - // - PostgreSQL memory management functions
   -  - PostgreSQL string duplication
   -  - PostgreSQL logging function
-  -  - String formatting
+  -  - [String](../S/String.md) formatting
   -  - Recursive self-call
 
 - Called from (representative examples):

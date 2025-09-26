@@ -33,7 +33,7 @@ This structure is typically stored in the relation cache (RelationData) and is b
   - [RelationBuildRowSecurity](RelationBuildRowSecurity.md) (policy.c:197, 215)
   - [equalRSDesc](../e/equalRSDesc.md) (relcache.c:999)
   - SWAPFIELD (relcache.c:2794)
-  - RelationData.rd_rsdesc (rel.h:119)
+  - [RelationData](RelationData.md).rd_rsdesc (rel.h:119)
 
 ## Notes and Other Information
 - Each relation can have at most one RowSecurityDesc, but that descriptor can contain multiple RowSecurityPolicy objects

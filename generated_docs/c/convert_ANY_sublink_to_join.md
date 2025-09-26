@@ -44,8 +44,8 @@ The function performs extensive safety checks to ensure the transformation prese
   - makeNode
   - [generate_subquery_vars](../g/generate_subquery_vars.md)
   - [convert_testexpr](convert_testexpr.md)
-  - lappend
-  - list_length
+  - [lappend](../l/lappend.md)
+  - [list_length](../l/list_length.md)
   - ANY_SUBLINK, JOIN_SEMI (enum constants)
   - NIL (null list constant)
 - Called from (representative examples):

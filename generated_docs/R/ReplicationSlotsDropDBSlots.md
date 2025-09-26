@@ -23,8 +23,8 @@ The function intentionally includes invalidated slots in the drop operation sinc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire (with LW_SHARED mode)
-  - LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md) (with LW_SHARED mode)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - SpinLockAcquire
   - SpinLockRelease
   - SlotIsLogical

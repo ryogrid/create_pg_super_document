@@ -20,7 +20,7 @@ This function automatically sets the SQLSTATE error code for the current error b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ErrorData (struct type for error information)
+  - [ErrorData](../E/ErrorData.md) (struct type for error information)
   - CHECK_STACK_DEPTH (macro for stack depth validation)
 - Called from (representative examples):
   - No direct references found in codebase

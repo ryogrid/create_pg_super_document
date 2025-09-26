@@ -22,8 +22,8 @@ This function serves as a critical conversion step in many role management opera
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_rolespec_oid: Convert individual RoleSpec to OID with existence validation
-  - lappend_oid: Append OID to the result list
+  - [get_rolespec_oid](../g/get_rolespec_oid.md): Convert individual RoleSpec to OID with existence validation
+  - [lappend_oid](../l/lappend_oid.md): Append OID to the result list
   - lfirst_node: Extract RoleSpec from list cell
 - Called from (representative examples):
   - [CreateRole](../C/CreateRole.md): Role creation with membership specifications

@@ -32,7 +32,7 @@ The function implements a streaming parser approach where:
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - [json_parse_manifest_incremental_chunk](../j/json_parse_manifest_incremental_chunk.md)
   - memmove
-  - appendBinaryStringInfo
+  - [appendBinaryStringInfo](../a/appendBinaryStringInfo.md)
 - Types referenced:
   - [IncrementalBackupInfo](../I/IncrementalBackupInfo.md)
   - MIN_CHUNK, MAX_CHUNK (constants)

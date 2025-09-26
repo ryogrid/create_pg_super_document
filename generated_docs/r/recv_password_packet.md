@@ -28,8 +28,8 @@ One important security feature is that the actual password content is never logg
 - Functions called/Symbols referenced:
   - [pq_startmsgread](../p/pq_startmsgread.md) (start reading a protocol message)
   - [pq_getbyte](../p/pq_getbyte.md) (read a single byte from client)
-  - pq_getmessage (read the complete message content)
-  - initStringInfo (initialize string buffer)
+  - [pq_getmessage](../p/pq_getmessage.md) (read the complete message content)
+  - [initStringInfo](../i/initStringInfo.md) (initialize string buffer)
   - [pfree](../p/pfree.md) (free allocated memory)
   - ereport (send error messages)
   - elog (debug logging)

@@ -27,8 +27,8 @@ The function returns the LSN from the last created replication slot, which will 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_prng_seed
-  - connect_database
+  - [pg_prng_seed](../p/pg_prng_seed.md)
+  - [connect_database](../c/connect_database.md)
   - [generate_object_name](../g/generate_object_name.md)
   - [create_publication](../c/create_publication.md)
   - [pg_free](../p/pg_free.md)

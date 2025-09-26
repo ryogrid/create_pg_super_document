@@ -40,7 +40,7 @@ The function also performs comprehensive error checking for regex compilation er
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_role_oid (converts role name to OID)
+  - [get_role_oid](../g/get_role_oid.md) (converts role name to OID)
   - token_has_regexp (checks if token contains regex pattern)
   - [regexec_auth_token](../r/regexec_auth_token.md) (executes regex against input string)
   - [pg_regerror](../p/pg_regerror.md) (converts regex error codes to strings)

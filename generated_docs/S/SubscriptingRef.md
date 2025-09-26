@@ -57,16 +57,16 @@ The implementation allows for in-place modifications when dealing with read-writ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Expr (base expression structure and container expressions)
-  - List (for index expressions)
+  - [Expr](../E/Expr.md) (base expression structure and container expressions)
+  - [List](../L/List.md) (for index expressions)
   - Oid (for type references)
   
 - Called from (representative examples):
-  - ExecInitSubscriptingRef (executor initialization for subscripting operations)
-  - transformContainerSubscripts (parser transformation of subscript expressions)
-  - array_subscript_transform, jsonb_subscript_transform (type-specific subscripting transformations)
-  - processIndirection (rule output processing for subscript operations)
-  - transformAssignmentSubscripts (parser handling of assignment to subscripted containers)
+  - [ExecInitSubscriptingRef](../E/ExecInitSubscriptingRef.md) (executor initialization for subscripting operations)
+  - [transformContainerSubscripts](../t/transformContainerSubscripts.md) (parser transformation of subscript expressions)
+  - [array_subscript_transform](../a/array_subscript_transform.md), jsonb_subscript_transform (type-specific subscripting transformations)
+  - [processIndirection](../p/processIndirection.md) (rule output processing for subscript operations)
+  - [transformAssignmentSubscripts](../t/transformAssignmentSubscripts.md) (parser handling of assignment to subscripted containers)
 
 ## Notes and Other Information
 - Supports both fetch and store operations - the presence of  determines the operation type

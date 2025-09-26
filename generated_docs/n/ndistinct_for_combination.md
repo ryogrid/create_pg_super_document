@@ -43,10 +43,10 @@ The function works by:
   - [StatsBuildData](../S/StatsBuildData.md) (statistics building data structure)
   - [SortItem](../S/SortItem.md) (structure for sortable items with multiple dimensions)
   - MultiSortSupport (multi-dimensional sort support)
-  - VacAttrStats (column statistics structure)
+  - [VacAttrStats](../V/VacAttrStats.md) (column statistics structure)
   - [TypeCacheEntry](../T/TypeCacheEntry.md) (type cache information)
 - Called from:
-  - statext_ndistinct_build (builds n-distinct statistics for column combinations)
+  - [statext_ndistinct_build](../s/statext_ndistinct_build.md) (builds n-distinct statistics for column combinations)
 
 ## Notes and Other Information
 - This is a static function only used within mvdistinct.c

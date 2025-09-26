@@ -30,25 +30,25 @@ The clear_dirty parameter enables proper handling of write operations by clearin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferDesc
-  - LockBufHdr
-  - UnlockBufHdr
+  - [BufferDesc](../B/BufferDesc.md)
+  - [LockBufHdr](../L/LockBufHdr.md)
+  - [UnlockBufHdr](../U/UnlockBufHdr.md)
   - BM_IO_IN_PROGRESS
   - BM_IO_ERROR
   - BM_JUST_DIRTIED
   - BM_DIRTY
   - BM_CHECKPOINT_NEEDED
-  - ResourceOwnerForgetBufferIO
-  - BufferDescriptorGetBuffer
-  - ConditionVariableBroadcast
-  - BufferDescriptorGetIOCV
+  - [ResourceOwnerForgetBufferIO](../R/ResourceOwnerForgetBufferIO.md)
+  - [BufferDescriptorGetBuffer](../B/BufferDescriptorGetBuffer.md)
+  - [ConditionVariableBroadcast](../C/ConditionVariableBroadcast.md)
+  - [BufferDescriptorGetIOCV](../B/BufferDescriptorGetIOCV.md)
 - Called from (representative examples):
   - BufferIsPinned
-  - ZeroAndLockBuffer
-  - WaitReadBuffers
-  - ExtendBufferedRelShared
-  - FlushBuffer
-  - AbortBufferIO
+  - [ZeroAndLockBuffer](../Z/ZeroAndLockBuffer.md)
+  - [WaitReadBuffers](../W/WaitReadBuffers.md)
+  - [ExtendBufferedRelShared](../E/ExtendBufferedRelShared.md)
+  - [FlushBuffer](../F/FlushBuffer.md)
+  - [AbortBufferIO](../A/AbortBufferIO.md)
 
 ## Notes and Other Information
 - Assumes the calling process is currently executing I/O for the buffer and BM_IO_IN_PROGRESS is set

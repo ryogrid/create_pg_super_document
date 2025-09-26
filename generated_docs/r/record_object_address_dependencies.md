@@ -36,7 +36,7 @@ This approach ensures optimal performance by avoiding redundant dependency recor
   - DependencyType (enum type)
 - Called from (representative examples):
   - [heap_create_with_catalog](../h/heap_create_with_catalog.md) (src/backend/catalog/heap.c:1484)
-  - index_create (src/backend/catalog/index.c:1148, 1189)
+  - [index_create](../i/index_create.md) (src/backend/catalog/index.c:1148, 1189)
   - [AggregateCreate](../A/AggregateCreate.md) (src/backend/catalog/pg_aggregate.c:808)
   - [CreateConstraintEntry](../C/CreateConstraintEntry.md) (src/backend/catalog/pg_constraint.c:281, 356)
   - [ProcedureCreate](../P/ProcedureCreate.md) (src/backend/catalog/pg_proc.c:640)

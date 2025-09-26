@@ -26,11 +26,11 @@ The function validates that the node is indeed an Aggref (aggregate reference), 
 - Functions called/Symbols referenced:
   - IsA (macro to check node type)
   - elog (error logging function)
-  - get_agg_expr (main aggregate expression deparsing function)
-  - Aggref (aggregate reference node structure)
+  - [get_agg_expr](get_agg_expr.md) (main aggregate expression deparsing function)
+  - [Aggref](../A/Aggref.md) (aggregate reference node structure)
   - ERROR (error level constant)
 - Called from:
-  - get_agg_expr_helper (via resolve_special_varno callback mechanism)
+  - [get_agg_expr_helper](get_agg_expr_helper.md) (via resolve_special_varno callback mechanism)
 
 ## Notes and Other Information
 - This function is specifically designed for PostgreSQL's parallel query execution infrastructure

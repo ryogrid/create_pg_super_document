@@ -21,11 +21,11 @@ Like the start time, the finish time is preserved across timeout events and is n
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TimeoutId (timeout identifier type)  
+  - [TimeoutId](../T/TimeoutId.md) (timeout identifier type)  
   - TimestampTz (timestamp with timezone type)
 - Called from (representative examples):
-  - ProcessInterrupts (interrupt processing for timeout handling)
-  - DisableTimeoutParams (macro wrapper)
+  - [ProcessInterrupts](../P/ProcessInterrupts.md) (interrupt processing for timeout handling)
+  - [DisableTimeoutParams](../D/DisableTimeoutParams.md) (macro wrapper)
 
 ## Notes and Other Information
 - Returns 0 if the timeout has never been activated in the current process

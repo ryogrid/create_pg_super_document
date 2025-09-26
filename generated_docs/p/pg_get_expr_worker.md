@@ -23,7 +23,7 @@ The function performs several important validation steps: it ensures the input i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - text_to_cstring (converts TEXT to C string)
+  - [text_to_cstring](../t/text_to_cstring.md) (converts TEXT to C string)
   - [stringToNode](../s/stringToNode.md) (deserializes string to Node tree)
   - [pull_varnos](pull_varnos.md) (extracts variable range table indices)
   - [bms_make_singleton](../b/bms_make_singleton.md) (creates single-element bitmap set)
@@ -33,7 +33,7 @@ The function performs several important validation steps: it ensures the input i
   - [deparse_context_for](../d/deparse_context_for.md) (creates deparse context for relation)
   - [deparse_expression_pretty](../d/deparse_expression_pretty.md) (converts node tree to formatted SQL)
   - [relation_close](../r/relation_close.md) (closes relation and releases lock)
-  - string_to_text (converts C string to TEXT)
+  - [string_to_text](../s/string_to_text.md) (converts C string to TEXT)
 - Called from:
   - [pg_get_expr](pg_get_expr.md) (standard version without pretty-printing)
   - [pg_get_expr_ext](pg_get_expr_ext.md) (extended version with pretty-printing)

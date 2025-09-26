@@ -19,8 +19,8 @@ This function establishes a proper snapshot for accessing TOAST data by using th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetOldestSnapshot
-  - HaveRegisteredOrActiveSnapshot
+  - [GetOldestSnapshot](../G/GetOldestSnapshot.md)
+  - [HaveRegisteredOrActiveSnapshot](../H/HaveRegisteredOrActiveSnapshot.md)
   - InitToastSnapshot
   - elog
 - Called from (representative examples):

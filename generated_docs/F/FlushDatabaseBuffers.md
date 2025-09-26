@@ -27,18 +27,18 @@ The function is designed for situations where a complete database flush is requi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetBufferDescriptor
-  - ReservePrivateRefCountEntry
-  - ResourceOwnerEnlarge
-  - LockBufHdr, UnlockBufHdr
-  - PinBuffer_Locked, UnpinBuffer
-  - LWLockAcquire, LWLockRelease
-  - BufferDescriptorGetContentLock
-  - FlushBuffer
+  - [GetBufferDescriptor](../G/GetBufferDescriptor.md)
+  - [ReservePrivateRefCountEntry](../R/ReservePrivateRefCountEntry.md)
+  - [ResourceOwnerEnlarge](../R/ResourceOwnerEnlarge.md)
+  - [LockBufHdr](../L/LockBufHdr.md), UnlockBufHdr
+  - [PinBuffer_Locked](../P/PinBuffer_Locked.md), UnpinBuffer
+  - [LWLockAcquire](../L/LWLockAcquire.md), LWLockRelease
+  - [BufferDescriptorGetContentLock](../B/BufferDescriptorGetContentLock.md)
+  - [FlushBuffer](FlushBuffer.md)
   - BM_VALID, BM_DIRTY flags
   - IOOBJECT_RELATION, IOCONTEXT_NORMAL constants
 - Called from (representative examples):
-  - dbase_redo
+  - [dbase_redo](../d/dbase_redo.md)
 
 ## Notes and Other Information
 - The function assumes the caller holds appropriate locks to prevent other backends from dirtying pages in the target database

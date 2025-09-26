@@ -32,7 +32,7 @@ The search process:
   - ARRPTR (macro to get WordEntry array pointer)
   - STRPTR (macro to get string data pointer)
   - [tsCompareString](tsCompareString.md) (string comparison function for TSVector lexemes)
-  - WordEntry (structure type for TSVector entries)
+  - [WordEntry](../W/WordEntry.md) (structure type for TSVector entries)
 - Called from:
   - TSVectorStat (for statistical operations)
   - [tsvector_setweight_by_filter](tsvector_setweight_by_filter.md) (for weight modification operations)

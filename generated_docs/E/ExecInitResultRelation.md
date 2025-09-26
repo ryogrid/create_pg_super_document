@@ -24,7 +24,7 @@ This function initializes a ResultRelInfo structure for a relation that will be 
   - [ExecGetRangeTableRelation](ExecGetRangeTableRelation.md)
   - [InitResultRelInfo](../I/InitResultRelInfo.md)
   - [palloc0](../p/palloc0.md)
-  - lappend
+  - [lappend](../l/lappend.md)
 - Called from (representative examples):
   - [CopyFrom](../C/CopyFrom.md)
   - [ExecInitModifyTable](ExecInitModifyTable.md)

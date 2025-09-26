@@ -28,11 +28,11 @@ This function updates a provided TID to point to the latest version of a tuple, 
   - [ItemPointerGetOffsetNumberNoCheck](../I/ItemPointerGetOffsetNumberNoCheck.md)
   - RelationGetRelationName
   - ereport
-  - TableAmRoutine
+  - [TableAmRoutine](../T/TableAmRoutine.md)
 - Called from (representative examples):
-  - TidNext (TID scan execution)
+  - [TidNext](../T/TidNext.md) (TID scan execution)
   - [currtid_internal](../c/currtid_internal.md) (current TID SQL function)
-  - table_tuple_tid_valid (inline helper in tableam.h)
+  - [table_tuple_tid_valid](table_tuple_tid_valid.md) (inline helper in tableam.h)
 
 ## Dependencies
 - Functions called/Symbols referenced:

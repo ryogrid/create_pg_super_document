@@ -27,18 +27,18 @@ The penalty calculation respects the hierarchical nature of multi-column GiST in
 ## Dependencies
 - Functions called/Symbols referenced:
   - GistPageIsLeaf
-  - gistDeCompressAtt
-  - PageGetMaxOffsetNumber
-  - PageGetItem
-  - PageGetItemId
+  - [gistDeCompressAtt](gistDeCompressAtt.md)
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md)
+  - [PageGetItem](../P/PageGetItem.md)
+  - [PageGetItemId](../P/PageGetItemId.md)
   - IndexRelationGetNumberOfKeyAttributes
-  - index_getattr
-  - gistdentryinit
-  - gistpenalty
-  - pg_prng_bool
+  - [index_getattr](../i/index_getattr.md)
+  - [gistdentryinit](gistdentryinit.md)
+  - [gistpenalty](gistpenalty.md)
+  - [pg_prng_bool](../p/pg_prng_bool.md)
 - Called from (representative examples):
-  - gistdoinsert
-  - gistProcessItup
+  - [gistdoinsert](gistdoinsert.md)
+  - [gistProcessItup](gistProcessItup.md)
 
 ## Notes and Other Information
 - Only operates on non-leaf pages (asserted at function entry)

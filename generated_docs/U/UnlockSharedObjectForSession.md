@@ -25,7 +25,7 @@ This function releases a session-level lock on a shared database object. It is t
   - SET_LOCKTAG_OBJECT
   - [LockRelease](../L/LockRelease.md)
 - Types used:
-  - LOCKTAG
+  - [LOCKTAG](../L/LOCKTAG.md)
 - Called from (representative examples):
   - [movedb](../m/movedb.md)
   - [dbase_redo](../d/dbase_redo.md)

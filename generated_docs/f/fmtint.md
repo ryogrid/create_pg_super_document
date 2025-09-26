@@ -33,17 +33,17 @@ The function uses a character buffer to build the string representation from rig
 ## Dependencies
 - Functions called/Symbols referenced:
   - PrintfTarget (struct type for output destination)
-  - adjust_sign (helper function for sign processing and determination)
+  - [adjust_sign](../a/adjust_sign.md) (helper function for sign processing and determination)
   - Max (PostgreSQL macro for maximum value)
-  - compute_padlen (helper function to calculate padding requirements)
-  - leading_pad (function to output leading padding and sign)
-  - dopr_outchmulti (function to output multiple identical characters)
-  - dostr (function to output string content to target)
-  - trailing_pad (function to output trailing padding)
+  - [compute_padlen](../c/compute_padlen.md) (helper function to calculate padding requirements)
+  - [leading_pad](../l/leading_pad.md) (function to output leading padding and sign)
+  - [dopr_outchmulti](../d/dopr_outchmulti.md) (function to output multiple identical characters)
+  - [dostr](../d/dostr.md) (function to output string content to target)
+  - [trailing_pad](../t/trailing_pad.md) (function to output trailing padding)
 
 - Called from (representative examples):
-  - dopr (main printf formatting function)
-  - flushbuffer (output buffer management function)
+  - [dopr](../d/dopr.md) (main printf formatting function)
+  - [flushbuffer](flushbuffer.md) (output buffer management function)
 
 ## Notes and Other Information
 - Part of PostgreSQL's platform-independent printf implementation

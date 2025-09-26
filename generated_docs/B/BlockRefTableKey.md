@@ -25,14 +25,14 @@ BlockRefTableKey is a composite key structure used by the block reference table 
 ## Dependencies
 - Functions called/Symbols referenced: None (structure definition only)
 - Used by:
-  - BlockRefTableEntry (as part of hash table entry structure)
+  - [BlockRefTableEntry](BlockRefTableEntry.md) (as part of hash table entry structure)
   - SH_KEY_TYPE (hash table key type definition)
   - SH_HASH_KEY (hash function key parameter)
   - SH_EQUAL (equality comparison function)
-  - BlockRefTableSetLimitBlock
-  - BlockRefTableMarkBlockModified
-  - BlockRefTableGetEntry
-  - WriteBlockRefTable
+  - [BlockRefTableSetLimitBlock](BlockRefTableSetLimitBlock.md)
+  - [BlockRefTableMarkBlockModified](BlockRefTableMarkBlockModified.md)
+  - [BlockRefTableGetEntry](BlockRefTableGetEntry.md)
+  - [WriteBlockRefTable](../W/WriteBlockRefTable.md)
 
 ## Notes and Other Information
 - This structure is defined in src/common/blkreftable.c:47-51

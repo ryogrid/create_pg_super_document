@@ -23,7 +23,7 @@ This function is the core command-line argument parser for pg_upgrade, handling 
   - [get_progname](../g/get_progname.md)
   - [get_user_info](../g/get_user_info.md)
   - [usage](../u/usage.md)
-  - getopt_long
+  - [getopt_long](../g/getopt_long.md)
   - [pg_strdup](pg_strdup.md)
   - [pg_free](pg_free.md)
   - [pg_log](pg_log.md)

@@ -42,7 +42,7 @@ The function handles various error conditions gracefully, ensuring proper cleanu
   - [pg_SSPI_make_upn](pg_SSPI_make_upn.md)
   - [pq_startmsgread](pq_startmsgread.md)
   - [pq_getbyte](pq_getbyte.md)
-  - pq_getmessage
+  - [pq_getmessage](pq_getmessage.md)
   - [sendAuthRequest](../s/sendAuthRequest.md)
   - [set_authn_id](../s/set_authn_id.md)
   - [check_usermap](../c/check_usermap.md)

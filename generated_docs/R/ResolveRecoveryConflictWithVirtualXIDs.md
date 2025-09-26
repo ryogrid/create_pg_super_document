@@ -31,9 +31,9 @@ The function includes sophisticated timing and reporting logic, tracking wait ti
 - Functions called/Symbols referenced:
   - VirtualTransactionIdIsValid
   - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
-  - VirtualXactLock
+  - [VirtualXactLock](../V/VirtualXactLock.md)
   - [WaitExceedsMaxStandbyDelay](../W/WaitExceedsMaxStandbyDelay.md)
-  - CancelVirtualTransaction
+  - [CancelVirtualTransaction](../C/CancelVirtualTransaction.md)
   - [pg_usleep](../p/pg_usleep.md)
   - [TimestampDifferenceExceeds](../T/TimestampDifferenceExceeds.md)
   - [set_ps_display_suffix](../s/set_ps_display_suffix.md)
@@ -42,7 +42,7 @@ The function includes sophisticated timing and reporting logic, tracking wait ti
 - Called from (representative examples):
   - [ResolveRecoveryConflictWithSnapshot](ResolveRecoveryConflictWithSnapshot.md)
   - [ResolveRecoveryConflictWithTablespace](ResolveRecoveryConflictWithTablespace.md)
-  - ResolveRecoveryConflictWithLock
+  - [ResolveRecoveryConflictWithLock](ResolveRecoveryConflictWithLock.md)
 
 ## Notes and Other Information
 - This is a static function within the standby.c module, indicating it's an internal implementation detail

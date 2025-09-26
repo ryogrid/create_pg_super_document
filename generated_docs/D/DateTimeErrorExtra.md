@@ -22,18 +22,18 @@ DateTimeErrorExtra serves as a supplementary error information structure that en
   - (No direct symbol references - uses basic C string pointers)
 
 - Called from (representative examples):
-  - DecodeDateTime (src/backend/utils/adt/datetime.c:980)
-  - DecodeTimeOnly (src/backend/utils/adt/datetime.c:1866)
-  - DecodeTimezoneAbbrev (src/backend/utils/adt/datetime.c:3093)
-  - DecodeTimezoneName (src/backend/utils/adt/datetime.c:3195)
-  - DecodeTimezoneAbbrevPrefix (src/backend/utils/adt/datetime.c:3309)
-  - DateTimeParseError (src/backend/utils/adt/datetime.c:4092)
-  - FetchDynamicTimeZone (src/backend/utils/adt/datetime.c:4971)
-  - timestamp_in (src/backend/utils/adt/timestamp.c:183)
-  - timestamptz_in (src/backend/utils/adt/timestamp.c:435)
-  - date_in (src/backend/utils/adt/date.c:128)
-  - time_in (src/backend/utils/adt/date.c:1393)
-  - timetz_in (src/backend/utils/adt/date.c:2292)
+  - [DecodeDateTime](DecodeDateTime.md) (src/backend/utils/adt/datetime.c:980)
+  - [DecodeTimeOnly](DecodeTimeOnly.md) (src/backend/utils/adt/datetime.c:1866)
+  - [DecodeTimezoneAbbrev](DecodeTimezoneAbbrev.md) (src/backend/utils/adt/datetime.c:3093)
+  - [DecodeTimezoneName](DecodeTimezoneName.md) (src/backend/utils/adt/datetime.c:3195)
+  - [DecodeTimezoneAbbrevPrefix](DecodeTimezoneAbbrevPrefix.md) (src/backend/utils/adt/datetime.c:3309)
+  - [DateTimeParseError](DateTimeParseError.md) (src/backend/utils/adt/datetime.c:4092)
+  - [FetchDynamicTimeZone](../F/FetchDynamicTimeZone.md) (src/backend/utils/adt/datetime.c:4971)
+  - [timestamp_in](../t/timestamp_in.md) (src/backend/utils/adt/timestamp.c:183)
+  - [timestamptz_in](../t/timestamptz_in.md) (src/backend/utils/adt/timestamp.c:435)
+  - [date_in](../d/date_in.md) (src/backend/utils/adt/date.c:128)
+  - [time_in](../t/time_in.md) (src/backend/utils/adt/date.c:1393)
+  - [timetz_in](../t/timetz_in.md) (src/backend/utils/adt/date.c:2292)
 
 ## Notes and Other Information
 - This structure is specifically designed to work with DTERR_BAD_TIMEZONE and DTERR_BAD_ZONE_ABBREV error conditions

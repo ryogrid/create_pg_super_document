@@ -27,7 +27,7 @@ The function is designed to be called when the caller has appropriate locks on t
 - Called from (representative examples):
   - [XLogHaveInvalidPages](../X/XLogHaveInvalidPages.md) (in transaction log utilities)
   - [GetLockStatusData](../G/GetLockStatusData.md) (in lock manager for status reporting)
-  - GetPredicateLockStatusData (in predicate locking system)
+  - [GetPredicateLockStatusData](../G/GetPredicateLockStatusData.md) (in predicate locking system)
   - [hash_stats](hash_stats.md) (for hash table statistics reporting)
   - [compute_array_stats](../c/compute_array_stats.md) (in array type analysis)
   - [compute_tsvector_stats](../c/compute_tsvector_stats.md) (in text search statistics)

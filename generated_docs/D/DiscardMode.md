@@ -40,7 +40,7 @@ This functionality is particularly useful for connection pooling scenarios where
 - Functions called/Symbols referenced:
   - (None - this is an enumeration type)
 - Called from (representative examples):
-  - DiscardStmt (src/include/nodes/parsenodes.h:3935)
+  - [DiscardStmt](DiscardStmt.md) (src/include/nodes/parsenodes.h:3935)
 
 ## Notes and Other Information
 - Primarily used in connection pooling scenarios to reset session state between different users

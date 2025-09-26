@@ -27,7 +27,7 @@ If no valid WAL files are found in the directory, it returns InvalidXLogRecPtr t
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_destination_dir](../g/get_destination_dir.md)
-  - readdir
+  - [readdir](../r/readdir.md)
   - [is_xlogfilename](../i/is_xlogfilename.md)
   - [XLogFromFileName](../X/XLogFromFileName.md)
   - [stat](../s/stat.md), open, lseek, read, close (system calls)

@@ -38,7 +38,7 @@ The function uses memcpy for efficient copying of the entire bitmap structure, e
   - [remove_rel_from_query](../r/remove_rel_from_query.md)
   - [make_outerjoininfo](../m/make_outerjoininfo.md)
   - [finalize_plan](../f/finalize_plan.md)
-  - build_join_rel
+  - [build_join_rel](build_join_rel.md)
   - [RelationGetIndexAttrBitmap](../R/RelationGetIndexAttrBitmap.md)
 
 ## Notes and Other Information

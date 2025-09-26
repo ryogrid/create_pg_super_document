@@ -34,8 +34,8 @@ This design allows the writeback system to efficiently batch I/O operations whil
   - Assert (macro)
 - Called from (representative examples):
   - [BackgroundWriterMain](../B/BackgroundWriterMain.md) (background writer process initialization)
-  - InitBufferPool (buffer pool initialization)
-  - BufferSync (checkpoint operations)
+  - [InitBufferPool](../I/InitBufferPool.md) (buffer pool initialization)
+  - [BufferSync](../B/BufferSync.md) (checkpoint operations)
   - [ResourceOwnerForgetBufferIO](../R/ResourceOwnerForgetBufferIO.md) (resource cleanup)
 
 ## Notes and Other Information

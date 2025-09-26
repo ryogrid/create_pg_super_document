@@ -18,7 +18,7 @@ This function searches through a list of SortGroupClause structures to find the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SortGroupClause (structure type)
+  - [SortGroupClause](../S/SortGroupClause.md) (structure type)
   - elog (error logging function)
   - Index (type alias)
 - Called from (representative examples):

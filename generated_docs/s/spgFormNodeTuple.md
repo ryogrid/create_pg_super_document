@@ -36,7 +36,7 @@ Key aspects of node tuple formation:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SpGistState (index state structure)
+  - [SpGistState](../S/SpGistState.md) (index state structure)
   - SpGistNodeTuple (return type structure)
   - SGNTHDRSZ (node tuple header size constant)
   - [SpGistGetInnerTypeSize](../S/SpGistGetInnerTypeSize.md) (calculates label storage size)

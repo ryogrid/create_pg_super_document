@@ -20,11 +20,11 @@ This function is designed to perform any necessary cleanup operations on a TextP
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TextPositionState (structure parameter, but not modified)
+  - [TextPositionState](../T/TextPositionState.md) (structure parameter, but not modified)
 - Called from (representative examples):
-  - text_position
+  - [text_position](text_position.md)
   - [replace_text](../r/replace_text.md)  
-  - split_part
+  - [split_part](../s/split_part.md)
   - [split_text](../s/split_text.md)
 
 ## Notes and Other Information

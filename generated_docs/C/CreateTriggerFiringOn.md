@@ -34,7 +34,7 @@ CreateTriggerFiringOn is the comprehensive implementation of trigger creation in
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open/table_openrv
+  - [table_open](../t/table_open.md)/table_openrv
   - [errdetail_relkind_not_supported](../e/errdetail_relkind_not_supported.md)
   - [has_superclass](../h/has_superclass.md)
   - [find_all_inheritors](../f/find_all_inheritors.md)

@@ -22,11 +22,11 @@ The `find` function implements the core pattern matching algorithm for regular e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - newdfa
-  - shortest
-  - longest
-  - freedfa
-  - cdissect
+  - [newdfa](../n/newdfa.md)
+  - [shortest](../s/shortest.md)
+  - [longest](../l/longest.md)
+  - [freedfa](freedfa.md)
+  - [cdissect](../c/cdissect.md)
   - LOFF
   - MDEBUG
   - NOERR

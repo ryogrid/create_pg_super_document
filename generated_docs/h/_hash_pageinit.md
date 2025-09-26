@@ -20,7 +20,7 @@ This function is a simple wrapper around the standard PageInit function that ini
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PageInit
+  - [PageInit](../P/PageInit.md)
   - [HashPageOpaqueData](../H/HashPageOpaqueData.md)
 - Called from (representative examples):
   - [_hash_getinitbuf](_hash_getinitbuf.md)

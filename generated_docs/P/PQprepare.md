@@ -36,7 +36,7 @@ The function follows the same synchronous execution pattern as other libpq exec 
   - [init_libpq_conn](../i/init_libpq_conn.md)
   - [prepareCommand](../p/prepareCommand.md)
   - [DescribeQuery](../D/DescribeQuery.md)
-  - prepare_common
+  - [prepare_common](../p/prepare_common.md)
 
 ## Notes and Other Information
 - Returns NULL if the preparation request cannot be sent or connection setup fails

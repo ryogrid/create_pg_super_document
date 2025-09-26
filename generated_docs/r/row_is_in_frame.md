@@ -28,7 +28,7 @@ The function handles different frame boundary types: CURRENT ROW boundaries (wit
   - [update_frameheadpos](../u/update_frameheadpos.md)
   - [update_frametailpos](../u/update_frametailpos.md)
   - [update_grouptailpos](../u/update_grouptailpos.md)
-  - are_peers
+  - [are_peers](../a/are_peers.md)
   - [DatumGetInt64](../D/DatumGetInt64.md)
 - Called from (representative examples):
   - [eval_windowaggregates](../e/eval_windowaggregates.md)

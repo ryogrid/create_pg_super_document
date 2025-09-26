@@ -37,7 +37,7 @@ This batching approach reduces the overhead of individual I/O operations by grou
   - [IssuePendingWritebacks](../I/IssuePendingWritebacks.md) (function)
 - Called from (representative examples):
   - [GetVictimBuffer](../G/GetVictimBuffer.md) (buffer replacement operations)
-  - SyncOneBuffer (single buffer synchronization)
+  - [SyncOneBuffer](SyncOneBuffer.md) (single buffer synchronization)
   - [ResourceOwnerForgetBufferIO](../R/ResourceOwnerForgetBufferIO.md) (resource cleanup operations)
 
 ## Notes and Other Information

@@ -19,7 +19,7 @@ The `pg_gmtime` function is PostgreSQL's equivalent of the standard C library's 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - gmtsub
+  - [gmtsub](../g/gmtsub.md)
   - pg_time_t
 - Called from (representative examples):
   - [AddFileToBackupManifest](../A/AddFileToBackupManifest.md)

@@ -37,7 +37,7 @@ The function creates a local FunctionCallInfoData structure with space for 4 arg
   - [add_values_to_range](../a/add_values_to_range.md)
   - [collectMatchBitmap](../c/collectMatchBitmap.md)
   - [matchPartialInPendingList](../m/matchPartialInPendingList.md)
-  - scalararraysel
+  - [scalararraysel](../s/scalararraysel.md)
   - [OidFunctionCall4Coll](../O/OidFunctionCall4Coll.md)
 
 ## Notes and Other Information

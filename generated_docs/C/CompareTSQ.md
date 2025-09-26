@@ -26,11 +26,11 @@ The function is static, indicating it's used internally within the tsquery_op.c 
 ## Dependencies
 - Functions called/Symbols referenced:
   - VARSIZE (macro for getting variable-length object size)
-  - QT2QTN (converts TSQuery to QTNode tree)
+  - [QT2QTN](../Q/QT2QTN.md) (converts TSQuery to QTNode tree)
   - GETQUERY (gets query part from TSQuery)
   - GETOPERAND (gets operand part from TSQuery)
-  - QTNodeCompare (compares QTNode tree structures)
-  - QTNFree (frees QTNode tree memory)
+  - [QTNodeCompare](../Q/QTNodeCompare.md) (compares QTNode tree structures)
+  - [QTNFree](../Q/QTNFree.md) (frees QTNode tree memory)
 - Called from:
   - [tsquery_cmp](../t/tsquery_cmp.md)
   - CMPFUNC (comparison macro usage)

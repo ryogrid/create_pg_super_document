@@ -30,15 +30,15 @@ The simplicity of the NestPath structure belies the sophistication of the nested
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JoinPath (base structure)
+  - [JoinPath](../J/JoinPath.md) (base structure)
 
 - Called from (representative examples):
-  - GetExistingLocalJoinPath (foreign data wrapper integration)
-  - final_cost_nestloop (cost calculation specific to nested loops)
-  - create_nestloop_plan (converts path to execution plan)
-  - create_nestloop_path (creates new NestPath instances)
-  - calc_non_nestloop_required_outer (parameterization analysis)
-  - has_indexed_join_quals (optimization analysis)
+  - [GetExistingLocalJoinPath](../G/GetExistingLocalJoinPath.md) (foreign data wrapper integration)
+  - [final_cost_nestloop](../f/final_cost_nestloop.md) (cost calculation specific to nested loops)
+  - [create_nestloop_plan](../c/create_nestloop_plan.md) (converts path to execution plan)
+  - [create_nestloop_path](../c/create_nestloop_path.md) (creates new NestPath instances)
+  - [calc_non_nestloop_required_outer](../c/calc_non_nestloop_required_outer.md) (parameterization analysis)
+  - [has_indexed_join_quals](../h/has_indexed_join_quals.md) (optimization analysis)
 
 ## Notes and Other Information
 - Nested loop joins are often optimal when the outer relation is small or the inner relation can be efficiently accessed via an index

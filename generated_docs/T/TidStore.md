@@ -40,7 +40,7 @@ TidStore is PostgreSQL's primary mechanism for storing collections of tuple iden
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dsa_area (data type for shared memory management)
+  - [dsa_area](../d/dsa_area.md) (data type for shared memory management)
 - Called from (representative examples):
   - [TidStoreCreateLocal](TidStoreCreateLocal.md)
   - [TidStoreCreateShared](TidStoreCreateShared.md)

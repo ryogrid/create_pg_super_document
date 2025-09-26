@@ -20,12 +20,12 @@ UnregisterSnapshotNoOwner is the core implementation of snapshot unregistration 
 ## Dependencies
 - Functions called/Symbols referenced:
   - pairingheap_is_empty
-  - pairingheap_remove
-  - FreeSnapshot
-  - SnapshotResetXmin
+  - [pairingheap_remove](../p/pairingheap_remove.md)
+  - [FreeSnapshot](../F/FreeSnapshot.md)
+  - [SnapshotResetXmin](../S/SnapshotResetXmin.md)
 - Called from (representative examples):
-  - UnregisterSnapshotFromOwner
-  - ResOwnerReleaseSnapshot
+  - [UnregisterSnapshotFromOwner](UnregisterSnapshotFromOwner.md)
+  - [ResOwnerReleaseSnapshot](../R/ResOwnerReleaseSnapshot.md)
 
 ## Notes and Other Information
 - Static function, only called internally within snapmgr.c

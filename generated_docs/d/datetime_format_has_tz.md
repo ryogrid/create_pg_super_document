@@ -25,9 +25,9 @@ The core logic involves parsing the format string into FormatNode structures usi
 - Functions called/Symbols referenced:
   - `strlen` - Calculate format string length
   - [palloc](../p/palloc.md) - Allocate memory for large format strings
-  - `parse_format` - Parse format string into FormatNode structures
-  - `DCH_cache_fetch` - Retrieve cached format entry for reusable formats
-  - `DCH_datetime_type` - Analyze parsed format to determine datetime component types
+  - `[parse_format](../p/parse_format.md)` - Parse format string into FormatNode structures
+  - `[DCH_cache_fetch](../D/DCH_cache_fetch.md)` - Retrieve cached format entry for reusable formats
+  - `[DCH_datetime_type](../D/DCH_datetime_type.md)` - Analyze parsed format to determine datetime component types
   - [pfree](../p/pfree.md) - Free allocated memory for uncached formats
   - `DCH_CACHE_SIZE` - Maximum size for cached format strings
   - `DCH_ZONED` - Flag indicating timezone components

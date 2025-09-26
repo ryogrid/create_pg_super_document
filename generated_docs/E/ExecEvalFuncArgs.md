@@ -23,7 +23,7 @@ The function iterates through the argument list in order, evaluating each expres
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecEvalExpr (to evaluate individual argument expressions)
+  - [ExecEvalExpr](ExecEvalExpr.md) (to evaluate individual argument expressions)
   - lfirst (to access list elements)
   - Assert (for debugging assertions)
 - Called from (representative examples):

@@ -24,12 +24,12 @@ The function returns a List of expressions corresponding to each partition key p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PartitionKey (struct type)
-  - List (PostgreSQL list type)
+  - [PartitionKey](../P/PartitionKey.md) (struct type)
+  - [List](../L/List.md) (PostgreSQL list type)
 - Called from (representative examples):
-  - has_partition_attrs
-  - transformPartitionBound
-  - transformPartitionRangeBounds
+  - [has_partition_attrs](../h/has_partition_attrs.md)
+  - [transformPartitionBound](../t/transformPartitionBound.md)
+  - [transformPartitionRangeBounds](../t/transformPartitionRangeBounds.md)
 
 ## Notes and Other Information
 - This is a static inline function defined in partcache.h for efficient access

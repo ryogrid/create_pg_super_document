@@ -19,11 +19,11 @@ HandleFunctionRequest is the main entry point for PostgreSQL's fast-path functio
 - Functions called/Symbols referenced:
   - LOCAL_FCINFO
   - FUNC_MAX_ARGS
-  - AclResult
+  - [AclResult](../A/AclResult.md)
   - [fp_info](../f/fp_info.md)
   - [IsAbortedTransactionBlockState](../I/IsAbortedTransactionBlockState.md)
-  - GetTransactionSnapshot
-  - PushActiveSnapshot
+  - [GetTransactionSnapshot](../G/GetTransactionSnapshot.md)
+  - [PushActiveSnapshot](../P/PushActiveSnapshot.md)
   - [pq_getmsgint](../p/pq_getmsgint.md)
   - [fetch_fp_info](../f/fetch_fp_info.md)
   - LOGSTMT_ALL
@@ -42,7 +42,7 @@ HandleFunctionRequest is the main entry point for PostgreSQL's fast-path functio
   - [pq_getmsgend](../p/pq_getmsgend.md)
   - FunctionCallInvoke
   - [SendFunctionResult](../S/SendFunctionResult.md)
-  - PopActiveSnapshot
+  - [PopActiveSnapshot](../P/PopActiveSnapshot.md)
   - [check_log_duration](../c/check_log_duration.md)
 - Called from (representative examples):
   - [PostgresMain](../P/PostgresMain.md)

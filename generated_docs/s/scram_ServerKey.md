@@ -25,16 +25,16 @@ This function calculates the ServerKey as defined in the SCRAM specification by 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_hmac_create
-  - pg_hmac_init
-  - pg_hmac_update
-  - pg_hmac_final
-  - pg_hmac_error
-  - pg_hmac_free
+  - [pg_hmac_create](../p/pg_hmac_create.md)
+  - [pg_hmac_init](../p/pg_hmac_init.md)
+  - [pg_hmac_update](../p/pg_hmac_update.md)
+  - [pg_hmac_final](../p/pg_hmac_final.md)
+  - [pg_hmac_error](../p/pg_hmac_error.md)
+  - [pg_hmac_free](../p/pg_hmac_free.md)
 - Called from (representative examples):
-  - scram_verify_plain_password
-  - scram_build_secret
-  - verify_server_signature
+  - [scram_verify_plain_password](scram_verify_plain_password.md)
+  - [scram_build_secret](scram_build_secret.md)
+  - [verify_server_signature](../v/verify_server_signature.md)
 
 ## Notes and Other Information
 - Returns 0 on success, -1 on failure

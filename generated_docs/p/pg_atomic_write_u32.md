@@ -23,7 +23,7 @@ The function includes pointer alignment verification to ensure the atomic variab
   - AssertPointerAlignment (for 4-byte alignment verification)
   - [pg_atomic_write_u32_impl](pg_atomic_write_u32_impl.md) (platform-specific implementation)
 - Called from (representative examples):
-  - TransactionGroupUpdateXidStatus (transaction processing)
+  - [TransactionGroupUpdateXidStatus](../T/TransactionGroupUpdateXidStatus.md) (transaction processing)
   - [parallel_vacuum_process_all_indexes](parallel_vacuum_process_all_indexes.md) (parallel vacuum operations)
   - [ProcArrayGroupClearXid](../P/ProcArrayGroupClearXid.md) (process array management)
   - [UnlockBufHdr](../U/UnlockBufHdr.md) (buffer header unlocking)

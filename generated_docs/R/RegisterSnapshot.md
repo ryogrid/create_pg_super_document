@@ -19,14 +19,14 @@ RegisterSnapshot provides a simple interface for registering a snapshot with the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RegisterSnapshotOnOwner
+  - [RegisterSnapshotOnOwner](RegisterSnapshotOnOwner.md)
   - InvalidSnapshot
 - Called from (representative examples):
-  - _brin_begin_parallel
-  - heapam_index_build_range_scan
-  - systable_beginscan
-  - table_beginscan_catalog
-  - standard_ExecutorStart
+  - [_brin_begin_parallel](../b/_brin_begin_parallel.md)
+  - [heapam_index_build_range_scan](../h/heapam_index_build_range_scan.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [table_beginscan_catalog](../t/table_beginscan_catalog.md)
+  - [standard_ExecutorStart](../s/standard_ExecutorStart.md)
 
 ## Notes and Other Information
 - Returns InvalidSnapshot unchanged if passed InvalidSnapshot

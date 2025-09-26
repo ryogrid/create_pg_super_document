@@ -30,12 +30,12 @@ The missing_ok parameter controls behavior when the tablespace doesn't exist - w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - [ScanKeyInit](../S/ScanKeyInit.md)
   - [table_beginscan_catalog](../t/table_beginscan_catalog.md)
   - [heap_getnext](../h/heap_getnext.md)
   - [table_endscan](../t/table_endscan.md)
-  - table_close
+  - [table_close](../t/table_close.md)
   - [CStringGetDatum](../C/CStringGetDatum.md)
   - ForwardScanDirection
   - Form_pg_tablespace

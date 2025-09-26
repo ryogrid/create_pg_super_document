@@ -26,7 +26,7 @@ The function also maintains tracking information in the PlannerInfo structure, m
 ## Dependencies
 - Functions called/Symbols referenced:
   - lfirst (extracts list cell contents)
-  - SubPlan, AlternativeSubPlan, Cost (data type definitions)
+  - [SubPlan](../S/SubPlan.md), AlternativeSubPlan, Cost (data type definitions)
   - NIL (empty list constant)
 - Called from (representative examples):
   - [fix_scan_expr_mutator](fix_scan_expr_mutator.md)

@@ -30,7 +30,7 @@ This function creates a NamedTuplestoreScan plan node for executing scans on eph
   - [replace_nestloop_params](../r/replace_nestloop_params.md)
   - [make_namedtuplestorescan](../m/make_namedtuplestorescan.md)
   - [copy_generic_path_info](copy_generic_path_info.md)
-  - NamedTuplestoreScan (return type)
+  - [NamedTuplestoreScan](../N/NamedTuplestoreScan.md) (return type)
   - RTE_NAMEDTUPLESTORE (constant)
 - Called from (representative examples):
   - [create_scan_plan](create_scan_plan.md)

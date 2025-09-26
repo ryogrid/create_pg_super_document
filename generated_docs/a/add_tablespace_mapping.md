@@ -31,7 +31,7 @@ The function is designed to handle backslash-escaped equals signs, allowing dire
 - Functions called/Symbols referenced:
   - [cb_options](../c/cb_options.md) (options structure type)
   - [cb_tablespace_mapping](../c/cb_tablespace_mapping.md) (tablespace mapping structure type)
-  - pg_malloc0 (zero-initialized memory allocation)
+  - [pg_malloc0](../p/pg_malloc0.md) (zero-initialized memory allocation)
   - is_absolute_path (path validation utility)
   - [canonicalize_path](../c/canonicalize_path.md) (path normalization utility)
 - Called from (representative examples):

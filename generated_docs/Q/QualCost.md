@@ -26,12 +26,12 @@ QualCost is a fundamental cost estimation structure used throughout PostgreSQL's
 - Functions called/Symbols referenced:
   - Cost (typedef for cost values)
 - Called from (representative examples):
-  - cost_qual_eval (primary function for computing qualifier costs)
-  - cost_seqscan (sequential scan costing)
-  - cost_index (index scan costing)
-  - final_cost_nestloop (nested loop join costing)
-  - final_cost_mergejoin (merge join costing)
-  - final_cost_hashjoin (hash join costing)
+  - [cost_qual_eval](../c/cost_qual_eval.md) (primary function for computing qualifier costs)
+  - [cost_seqscan](../c/cost_seqscan.md) (sequential scan costing)
+  - [cost_index](../c/cost_index.md) (index scan costing)
+  - [final_cost_nestloop](../f/final_cost_nestloop.md) (nested loop join costing)
+  - [final_cost_mergejoin](../f/final_cost_mergejoin.md) (merge join costing)
+  - [final_cost_hashjoin](../f/final_cost_hashjoin.md) (hash join costing)
 
 ## Notes and Other Information
 - Used extensively in PostgreSQL's cost-based optimizer for estimating the expense of evaluating WHERE clauses, join conditions, and other boolean expressions

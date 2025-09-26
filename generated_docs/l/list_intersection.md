@@ -30,7 +30,7 @@ Important behavioral notes:
   - IsPointerList (validation)
   - [list_member](list_member.md) (check membership using equal())
   - lfirst (extract pointer values)
-  - lappend (append pointer values)
+  - [lappend](lappend.md) (append pointer values)
   - [check_list_invariants](../c/check_list_invariants.md) (validation)
 - Called from (representative examples):
   - forfive (pg_list.h:650)

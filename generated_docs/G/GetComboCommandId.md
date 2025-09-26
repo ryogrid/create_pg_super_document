@@ -27,18 +27,18 @@ The function ensures the array has sufficient space before creating new entries 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextAlloc: Allocates memory in TopTransactionContext
-  - hash_create: Creates the combo CID hash table
-  - hash_search: Looks up or creates hash table entries
-  - repalloc: Expands the combo CID array when needed
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md): Allocates memory in TopTransactionContext
+  - [hash_create](../h/hash_create.md): Creates the combo CID hash table
+  - [hash_search](../h/hash_search.md): Looks up or creates hash table entries
+  - [repalloc](../r/repalloc.md): Expands the combo CID array when needed
 - Called from (representative examples):
-  - HeapTupleHeaderAdjustCmax: When determining combo CID for tuple deletion
-  - RestoreComboCIDState: During transaction state restoration
+  - [HeapTupleHeaderAdjustCmax](../H/HeapTupleHeaderAdjustCmax.md): When determining combo CID for tuple deletion
+  - [RestoreComboCIDState](../R/RestoreComboCIDState.md): During transaction state restoration
 
 ## Notes and Other Information
 - Static function - internal to combocid.c module
 - Implements efficient reuse of combo CIDs to save space
-- Hash table uses HASH_ELEM | HASH_BLOBS | HASH_CONTEXT for configuration
+- [Hash](../H/Hash.md) table uses HASH_ELEM | HASH_BLOBS | HASH_CONTEXT for configuration
 - Array grows by doubling size when full (starts at CCID_ARRAY_SIZE)
 - Critical for MVCC when tuples are inserted and modified in same transaction
 - Part of mechanism allowing transactions to exceed 62-command limit

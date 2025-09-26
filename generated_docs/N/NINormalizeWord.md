@@ -20,14 +20,14 @@ NINormalizeWord is the primary function for word normalization in PostgreSQL's I
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - NormalizeSubWord (direct word normalization)
-  - SplitToVariants (compound word splitting)
-  - addNorm (adding normalized forms to result array)
+  - [NormalizeSubWord](NormalizeSubWord.md) (direct word normalization)
+  - [SplitToVariants](../S/SplitToVariants.md) (compound word splitting)
+  - [addNorm](../a/addNorm.md) (adding normalized forms to result array)
   - strlen (string length calculation)
-  - pstrdup (string duplication)
-  - palloc/pfree (memory management)
+  - [pstrdup](../p/pstrdup.md) (string duplication)
+  - [palloc](../p/palloc.md)/pfree (memory management)
 - Called from (representative examples):
-  - dispell_lexize (at src/backend/tsearch/dict_ispell.c:125)
+  - [dispell_lexize](../d/dispell_lexize.md) (at src/backend/tsearch/dict_ispell.c:125)
 
 ## Notes and Other Information
 - Returns NULL if no normalization is possible

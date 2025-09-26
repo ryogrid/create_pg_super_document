@@ -61,8 +61,8 @@ The function implements a sophisticated adaptive strategy that can dynamically s
   - [BuildCachedPlan](../B/BuildCachedPlan.md) (constructs new plans)
   - [cached_plan_cost](../c/cached_plan_cost.md) (calculates plan execution costs)
   - [ReleaseGenericPlan](../R/ReleaseGenericPlan.md) (cleanup invalid generic plans)
-  - MemoryContextSetParent (manages plan memory lifecycle)
-  - ResourceOwnerEnlarge, ResourceOwnerRememberPlanCacheRef (resource tracking)
+  - [MemoryContextSetParent](../M/MemoryContextSetParent.md) (manages plan memory lifecycle)
+  - [ResourceOwnerEnlarge](../R/ResourceOwnerEnlarge.md), ResourceOwnerRememberPlanCacheRef (resource tracking)
   - CACHEDPLANSOURCE_MAGIC, CACHEDPLAN_MAGIC (validation constants)
 - Called from (representative examples):
   - [ExecuteQuery](../E/ExecuteQuery.md) (prepared statement execution)

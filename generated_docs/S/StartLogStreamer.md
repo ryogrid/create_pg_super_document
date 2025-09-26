@@ -25,7 +25,7 @@ static void StartLogStreamer(char *startpos, uint32 timeline, char *sysidentifie
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_malloc0 (allocates zero-initialized memory)
+  - [pg_malloc0](../p/pg_malloc0.md) (allocates zero-initialized memory)
   - sscanf (parses WAL position string)
   - XLogSegmentOffset (calculates WAL segment offset)
   - pipe (creates background communication pipe on Unix)

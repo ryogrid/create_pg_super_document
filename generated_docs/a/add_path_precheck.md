@@ -51,7 +51,7 @@ The function leverages the fact that pathlist is sorted by total_cost to exit ea
   - STD_FUZZ_FACTOR (constant)
   - PATHKEYS_EQUAL, PATHKEYS_BETTER2 (enum values)
   - Cost (type)
-  - PathKeysComparison (type)
+  - [PathKeysComparison](../P/PathKeysComparison.md) (type)
 - Called from (representative examples):
   - [try_nestloop_path](../t/try_nestloop_path.md)
   - [try_mergejoin_path](../t/try_mergejoin_path.md)  

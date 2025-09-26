@@ -31,7 +31,7 @@ For subpaths that are not properly sorted, the function includes the cost of ins
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (MergeAppendPath creation)
-  - get_appendrel_parampathinfo
+  - [get_appendrel_parampathinfo](../g/get_appendrel_parampathinfo.md)
   - [bms_equal](../b/bms_equal.md)
   - [pathkeys_contained_in](../p/pathkeys_contained_in.md)
   - [cost_sort](cost_sort.md)
@@ -42,7 +42,7 @@ For subpaths that are not properly sorted, the function includes the cost of ins
   - [generate_union_paths](../g/generate_union_paths.md)
 
 ## Notes and Other Information
-- MergeAppend is never parallel-aware (parallel_aware = false, parallel_workers = 0)
+- [MergeAppend](../M/MergeAppend.md) is never parallel-aware (parallel_aware = false, parallel_workers = 0)
 - All child paths must have the same parameterization (required_outer)
 - For each subpath, checks if it's adequately ordered using pathkeys_contained_in()
 - If a subpath needs sorting, includes the cost of a Sort node in the total calculation

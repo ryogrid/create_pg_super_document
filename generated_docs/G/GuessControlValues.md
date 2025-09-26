@@ -29,10 +29,10 @@ This function takes no parameters and returns void.
 ## Dependencies
 - Functions called/Symbols referenced:
   - memset (memory initialization)
-  - gettimeofday (system time retrieval)
+  - [gettimeofday](../g/gettimeofday.md) (system time retrieval)
   - getpid (process ID retrieval)
   - time (current time)
-  - FullTransactionIdFromEpochAndXid (transaction ID construction)
+  - [FullTransactionIdFromEpochAndXid](../F/FullTransactionIdFromEpochAndXid.md) (transaction ID construction)
   - Various PostgreSQL constants:
     - PG_CONTROL_VERSION, CATALOG_VERSION_NO
     - SizeOfXLogLongPHD, FirstNormalTransactionId

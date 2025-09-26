@@ -31,7 +31,7 @@ The invalidation removes the file from the LRU ring, which means it won't be con
   - File (type definition for virtual file descriptor)
   - FileIsValid (macro to validate file descriptor)
   - FileIsNotOpen (macro to check if file is not open)
-  - LruDelete (function to remove file from LRU ring)
+  - [LruDelete](../L/LruDelete.md) (function to remove file from LRU ring)
 - Called from:
   - Currently no references found in the analyzed codebase
 

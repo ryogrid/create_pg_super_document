@@ -24,12 +24,12 @@ This function performs a catalog scan on the pg_class system table to find all r
   - [ScanKeyInit](../S/ScanKeyInit.md)
   - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - [CharGetDatum](../C/CharGetDatum.md)
-  - table_open
+  - [table_open](../t/table_open.md)
   - [table_beginscan_catalog](../t/table_beginscan_catalog.md)
   - [heap_getnext](../h/heap_getnext.md)
-  - lappend_oid
+  - [lappend_oid](../l/lappend_oid.md)
   - [table_endscan](../t/table_endscan.md)
-  - table_close
+  - [table_close](../t/table_close.md)
 - Called from (representative examples):
   - [objectsInSchemaToOids](../o/objectsInSchemaToOids.md)
   - InternalDefaultACL

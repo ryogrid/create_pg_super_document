@@ -47,7 +47,7 @@ The function uses checkWellFormedRecursionWalker to perform the actual tree trav
   - Assert (assertion macro)
   - elog (internal error logging)
   - CommonTableExpr (CTE structure)
-  - SelectStmt (SELECT statement structure)
+  - [SelectStmt](../S/SelectStmt.md) (SELECT statement structure)
   - SETOP_UNION (union operation constant)
   - RECURSION_* constants (recursion context enums)
 

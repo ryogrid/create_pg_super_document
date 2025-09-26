@@ -29,11 +29,11 @@ This structure is used during the parsing phase to represent ALTER FUNCTION and 
 ## Dependencies
 - Functions called/Symbols referenced:
   - ObjectType
-  - ObjectWithArgs
+  - [ObjectWithArgs](../O/ObjectWithArgs.md)
 - Called from (representative examples):
-  - AlterFunction (src/backend/commands/functioncmds.c:1343)
-  - ProcessUtilitySlow (src/backend/tcop/utility.c:1659)
-  - CreateCommandTag (src/backend/tcop/utility.c:2707)
+  - [AlterFunction](AlterFunction.md) (src/backend/commands/functioncmds.c:1343)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (src/backend/tcop/utility.c:1659)
+  - [CreateCommandTag](../C/CreateCommandTag.md) (src/backend/tcop/utility.c:2707)
 
 ## Notes and Other Information
 This structure is created during SQL parsing and consumed during command execution. The actual function modification logic is handled by the AlterFunction function in functioncmds.c, which processes the actions list to apply the requested changes to the function's catalog entries.

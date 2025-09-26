@@ -27,12 +27,12 @@ The function includes safety checks to avoid incorrect optimizations with clone 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - NullTest (struct type for null testing operations)
+  - [NullTest](../N/NullTest.md) (struct type for null testing operations)
   - IS_NOT_NULL (enum value for null test type)
   - [expr_is_nonnullable](../e/expr_is_nonnullable.md) (determines if expression is guaranteed non-null)
   - [restriction_is_or_clause](restriction_is_or_clause.md) (checks if restriction is an OR clause)
   - [is_orclause](../i/is_orclause.md) (verifies if node is an OR Boolean expression)
-  - BoolExpr (struct type for Boolean expressions)
+  - [BoolExpr](../B/BoolExpr.md) (struct type for Boolean expressions)
   - [restriction_is_always_true](restriction_is_always_true.md) (recursive call for OR branch analysis)
 
 - Called from (representative examples):

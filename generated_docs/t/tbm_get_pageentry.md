@@ -27,18 +27,18 @@ When creating a new entry, the function initializes it as an exact (non-chunk) e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - tbm_create_pagetable (to transition from single-page to hash table mode)
+  - [tbm_create_pagetable](tbm_create_pagetable.md) (to transition from single-page to hash table mode)
   - pagetable_insert (to insert entries in hash table mode)
   - MemSet (to initialize new page entries)
 - Types used:
-  - TIDBitmap
-  - PagetableEntry
+  - [TIDBitmap](../T/TIDBitmap.md)
+  - [PagetableEntry](../P/PagetableEntry.md)
   - BlockNumber
 - Constants used:
   - TBM_EMPTY, TBM_ONE_PAGE (bitmap status flags)
 - Called from:
-  - tbm_add_tuples
-  - tbm_union_page
+  - [tbm_add_tuples](tbm_add_tuples.md)
+  - [tbm_union_page](tbm_union_page.md)
   - Referenced in TBMSharedIterator
 
 ## Notes and Other Information

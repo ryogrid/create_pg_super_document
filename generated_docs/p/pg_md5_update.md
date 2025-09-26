@@ -23,12 +23,12 @@ The function maintains a running count of processed bits (md5_n) and uses an int
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_md5_ctx (MD5 context structure type)
+  - [pg_md5_ctx](pg_md5_ctx.md) (MD5 context structure type)
   - MD5_BUFLEN (constant defining MD5 buffer length - 64 bytes)
-  - md5_calc (core MD5 block processing function)
+  - [md5_calc](../m/md5_calc.md) (core MD5 block processing function)
   - memmove (standard library function for memory copying)
 - Called from (representative examples):
-  - pg_cryptohash_update
+  - [pg_cryptohash_update](pg_cryptohash_update.md)
 
 ## Notes and Other Information
 - This is a public function (non-static) and part of PostgreSQL's external MD5 API

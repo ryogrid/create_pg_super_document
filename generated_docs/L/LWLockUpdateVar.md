@@ -26,15 +26,15 @@ The caller must hold the lock in exclusive mode when calling this function. The 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_atomic_exchange_u64 (atomic variable update with full barrier)
-  - LWLockWaitListLock/LWLockWaitListUnlock (wait queue protection)
+  - [pg_atomic_exchange_u64](../p/pg_atomic_exchange_u64.md) (atomic variable update with full barrier)
+  - [LWLockWaitListLock](LWLockWaitListLock.md)/LWLockWaitListUnlock (wait queue protection)
   - proclist_foreach_modify/proclist_delete/proclist_push_tail (wait queue management)
   - GetPGProcByNumber (process lookup)
   - pg_write_barrier (memory ordering)
-  - PGSemaphoreUnlock (process wakeup)
+  - [PGSemaphoreUnlock](../P/PGSemaphoreUnlock.md) (process wakeup)
 - Called from (representative examples):
-  - WALInsertLockAcquireExclusive (WAL insertion coordination)
-  - WALInsertLockUpdateInsertingAt (WAL insertion progress updates)
+  - [WALInsertLockAcquireExclusive](../W/WALInsertLockAcquireExclusive.md) (WAL insertion coordination)
+  - [WALInsertLockUpdateInsertingAt](../W/WALInsertLockUpdateInsertingAt.md) (WAL insertion progress updates)
 
 ## Notes and Other Information
 - Caller must hold the lock in exclusive mode before calling

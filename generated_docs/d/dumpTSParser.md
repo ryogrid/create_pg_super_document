@@ -23,7 +23,7 @@ The function skips execution during data-only dumps and constructs both creation
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - createPQExpBuffer
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)
   - [pg_strdup](../p/pg_strdup.md)
   - [fmtId](../f/fmtId.md)
   - fmtQualifiedDumpable
@@ -32,7 +32,7 @@ The function skips execution during data-only dumps and constructs both creation
   - [binary_upgrade_extension_member](../b/binary_upgrade_extension_member.md)
   - [ArchiveEntry](../A/ArchiveEntry.md)
   - [dumpComment](dumpComment.md)
-  - destroyPQExpBuffer
+  - [destroyPQExpBuffer](destroyPQExpBuffer.md)
   - free
 - Called from (representative examples):
   - [dumpDumpableObject](dumpDumpableObject.md) (via switch statement for DO_TSPARSER objects)

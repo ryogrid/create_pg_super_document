@@ -24,13 +24,13 @@ This function is the counterpart to  and handles the removal of tuples from movi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecEvalExpr
+  - [ExecEvalExpr](../E/ExecEvalExpr.md)
   - [initialize_windowaggregate](../i/initialize_windowaggregate.md)
   - InitFunctionCallInfoData
   - FunctionCallInvoke
   - DatumIsReadWriteExpandedObject
-  - DatumGetEOHP
-  - MemoryContextGetParent
+  - [DatumGetEOHP](../D/DatumGetEOHP.md)
+  - [MemoryContextGetParent](../M/MemoryContextGetParent.md)
   - [datumCopy](../d/datumCopy.md)
   - [DeleteExpandedObject](../D/DeleteExpandedObject.md)
 - Called from (representative examples):

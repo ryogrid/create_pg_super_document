@@ -19,16 +19,16 @@ The function is implemented as a static inline function, providing optimal perfo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Int64GetDatum
+  - [Int64GetDatum](../I/Int64GetDatum.md)
 - Called from (representative examples):
-  - AddSubscriptionRelState
-  - UpdateSubscriptionRelStateEx
-  - CreateSubscription
-  - pg_create_physical_replication_slot
-  - pg_create_logical_replication_slot
-  - pg_replication_slot_advance
-  - pg_stat_get_wal_receiver
-  - pg_control_checkpoint
+  - [AddSubscriptionRelState](../A/AddSubscriptionRelState.md)
+  - [UpdateSubscriptionRelStateEx](../U/UpdateSubscriptionRelStateEx.md)
+  - [CreateSubscription](../C/CreateSubscription.md)
+  - [pg_create_physical_replication_slot](../p/pg_create_physical_replication_slot.md)
+  - [pg_create_logical_replication_slot](../p/pg_create_logical_replication_slot.md)
+  - [pg_replication_slot_advance](../p/pg_replication_slot_advance.md)
+  - [pg_stat_get_wal_receiver](../p/pg_stat_get_wal_receiver.md)
+  - [pg_control_checkpoint](../p/pg_control_checkpoint.md)
   - PG_RETURN_LSN (macro)
 
 ## Notes and Other Information

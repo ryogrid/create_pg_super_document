@@ -23,11 +23,11 @@ This function is part of PostgreSQL's geometric data type output infrastructure,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `float8out_internal`: Core function for converting float8 values to strings
-  - `appendStringInfoString`: Function to append a string to StringInfo buffer
-  - `pfree`: Memory management function to free the temporary string
+  - `[float8out_internal](../f/float8out_internal.md)`: Core function for converting float8 values to strings
+  - `[appendStringInfoString](../a/appendStringInfoString.md)`: Function to append a string to StringInfo buffer
+  - `[pfree](../p/pfree.md)`: Memory management function to free the temporary string
 - Called from (representative examples):
-  - `circle_out`: For formatting circle center coordinates and radius in output
+  - `[circle_out](../c/circle_out.md)`: For formatting circle center coordinates and radius in output
   - Used in PATH_CLOSED context for formatting path coordinates
 
 ## Notes and Other Information

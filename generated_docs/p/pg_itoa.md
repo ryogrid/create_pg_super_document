@@ -27,8 +27,8 @@ The function writes the string representation directly to the provided buffer an
 - Called from (representative examples):
   - [int2out](../i/int2out.md) (converts int16 to string for output)
   - [int2vectorout](../i/int2vectorout.md) (converts int16 vector to string representation)
-  - LogicalTapeSetCreate (for tape numbering in sort operations)
-  - LogicalTapeImport (for tape identification in sort operations)
+  - [LogicalTapeSetCreate](../L/LogicalTapeSetCreate.md) (for tape numbering in sort operations)
+  - [LogicalTapeImport](../L/LogicalTapeImport.md) (for tape identification in sort operations)
 
 ## Notes and Other Information
 - The caller must ensure adequate buffer space (minimum 7 bytes) to prevent buffer overflow

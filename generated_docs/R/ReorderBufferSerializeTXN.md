@@ -33,9 +33,9 @@ Key behaviors include:
   - [ReorderBufferSerializeChange](ReorderBufferSerializeChange.md) (serializes individual changes)
   - [ReorderBufferSerializedPath](ReorderBufferSerializedPath.md) (generates file paths)
   - [ReorderBufferReturnChange](ReorderBufferReturnChange.md) (returns change to free pool)
-  - ReorderBufferChangeMemoryUpdate (updates memory accounting)
-  - UpdateDecodingStats (updates decoding statistics)
-  - OpenTransientFile/CloseTransientFile (file I/O operations)
+  - [ReorderBufferChangeMemoryUpdate](ReorderBufferChangeMemoryUpdate.md) (updates memory accounting)
+  - [UpdateDecodingStats](../U/UpdateDecodingStats.md) (updates decoding statistics)
+  - [OpenTransientFile](../O/OpenTransientFile.md)/CloseTransientFile (file I/O operations)
   - XLByteToSeg/XLByteInSeg (WAL segment utilities)
 - Called from (representative examples):
   - [ReorderBufferCheckMemoryLimit](ReorderBufferCheckMemoryLimit.md) (when memory limits exceeded)

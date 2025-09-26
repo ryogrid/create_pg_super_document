@@ -26,12 +26,12 @@ This function provides the most control over memory allocation behavior, allowin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_malloc_internal (passes flags directly)
+  - [pg_malloc_internal](pg_malloc_internal.md) (passes flags directly)
 - Called from (representative examples):
-  - GetPrivilegesToDelete (pg_ctl)
-  - Zstd_open (compress_zstd)
-  - do_lo_import (psql)
-  - pg_log_generic_v (logging)
+  - [GetPrivilegesToDelete](../G/GetPrivilegesToDelete.md) (pg_ctl)
+  - [Zstd_open](../Z/Zstd_open.md) (compress_zstd)
+  - [do_lo_import](../d/do_lo_import.md) (psql)
+  - [pg_log_generic_v](pg_log_generic_v.md) (logging)
 
 ## Notes and Other Information
 - This is the most flexible memory allocation function in PostgreSQL's frontend utilities

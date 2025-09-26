@@ -28,8 +28,8 @@ The structure is primarily used during the database startup process when various
 - Functions called/Symbols referenced:
   - NAMEDATALEN (constant defining maximum name length)
 - Called from (representative examples):
-  - InitializeLWLocks
-  - RequestNamedLWLockTranche
+  - [InitializeLWLocks](../I/InitializeLWLocks.md)
+  - [RequestNamedLWLockTranche](../R/RequestNamedLWLockTranche.md)
 
 ## Notes and Other Information
 - This structure is used during PostgreSQL initialization to set up named lock tranches

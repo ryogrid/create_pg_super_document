@@ -29,17 +29,17 @@ The exponential backoff with randomization helps reduce contention while the del
 ## Dependencies
 - Functions called/Symbols referenced:
   - SPIN_DELAY (CPU-specific delay primitive)
-  - s_lock_stuck (stuck lock detection and reporting)
-  - pgstat_report_wait_start/pgstat_report_wait_end (wait event monitoring)
-  - pg_usleep (microsecond sleep function)
-  - pg_prng_double (random number generation)
+  - [s_lock_stuck](../s/s_lock_stuck.md) (stuck lock detection and reporting)
+  - [pgstat_report_wait_start](pgstat_report_wait_start.md)/pgstat_report_wait_end (wait event monitoring)
+  - [pg_usleep](pg_usleep.md) (microsecond sleep function)
+  - [pg_prng_double](pg_prng_double.md) (random number generation)
   - NUM_DELAYS, MIN_DELAY_USEC, MAX_DELAY_USEC (configuration constants)
   - SpinDelayStatus (delay tracking structure)
 - Called from (representative examples):
-  - s_lock (main spinlock acquisition function)
-  - LockBufHdr (buffer header locking)
-  - WaitBufHdrUnlocked (buffer management)
-  - LWLockWaitListLock (lightweight lock management)
+  - [s_lock](../s/s_lock.md) (main spinlock acquisition function)
+  - [LockBufHdr](../L/LockBufHdr.md) (buffer header locking)
+  - [WaitBufHdrUnlocked](../W/WaitBufHdrUnlocked.md) (buffer management)
+  - [LWLockWaitListLock](../L/LWLockWaitListLock.md) (lightweight lock management)
 
 ## Notes and Other Information
 - Uses exponential backoff with randomization to prevent thundering herd scenarios

@@ -30,10 +30,10 @@ The function converts from 1-based field numbering (PostgreSQL convention) to 0-
 ## Dependencies
 - Functions called/Symbols referenced:
   - likely (branch prediction macro)
-  - expanded_record_fetch_field
+  - [expanded_record_fetch_field](expanded_record_fetch_field.md)
   - ExpandedRecordHeader
 - Called from (representative examples):
-  - ExecEvalFieldSelect
+  - [ExecEvalFieldSelect](../E/ExecEvalFieldSelect.md)
 
 ## Notes and Other Information
 - This is an inline function for maximum performance in field access operations

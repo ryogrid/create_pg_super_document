@@ -27,7 +27,7 @@ The function provides a quick way to determine transaction state regarding snaps
   - exportedSnapshots (static List variable)
   - NIL (empty list constant)
 - Called from (representative examples):
-  - PrepareTransaction (to check if transaction has exported snapshots during prepare)
+  - [PrepareTransaction](../P/PrepareTransaction.md) (to check if transaction has exported snapshots during prepare)
 
 ## Notes and Other Information
 - Returns true if the transaction has exported one or more snapshots, false otherwise

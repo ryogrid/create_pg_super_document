@@ -25,8 +25,8 @@ The function skips resjunk entries since these are internal columns that shouldn
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeVarFromTargetEntry
-  - lappend
+  - [makeVarFromTargetEntry](../m/makeVarFromTargetEntry.md)
+  - [lappend](../l/lappend.md)
 - Called from (representative examples):
   - [convert_ANY_sublink_to_join](../c/convert_ANY_sublink_to_join.md)
 

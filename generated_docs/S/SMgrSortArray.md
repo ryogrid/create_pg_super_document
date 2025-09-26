@@ -26,11 +26,11 @@ This design allows both functions to share the same comparator function, as the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelFileLocator (type)
+  - [RelFileLocator](../R/RelFileLocator.md) (type)
   - SMgrRelation (type)
 
 - Called from (representative examples):
-  - FlushRelationsAllBuffers (primary usage across multiple locations)
+  - [FlushRelationsAllBuffers](../F/FlushRelationsAllBuffers.md) (primary usage across multiple locations)
 
 ## Notes and Other Information
 - The structure is specifically designed for compatibility between FlushRelationsAllBuffers and DropRelationsAllBuffers comparator functions

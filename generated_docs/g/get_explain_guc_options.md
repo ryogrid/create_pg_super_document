@@ -26,27 +26,27 @@ The function handles all GUC data types and performs type-specific value compari
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `palloc` - Allocates memory for the result array
-  - `hash_get_num_entries` - Gets total GUC count for array sizing
+  - `[palloc](../p/palloc.md)` - Allocates memory for the result array
+  - `[hash_get_num_entries](../h/hash_get_num_entries.md)` - Gets total GUC count for array sizing
   - `dlist_foreach` - Iterates through the non-default GUC list
   - `dlist_container` - Extracts config_generic from list node
-  - `ConfigOptionIsVisible` - Checks parameter visibility permissions
+  - `[ConfigOptionIsVisible](../C/ConfigOptionIsVisible.md)` - Checks parameter visibility permissions
   - `strcmp` - Compares string values for modification detection
   - `elog` - Reports unexpected GUC types as errors
 - Data structures used:
-  - `config_generic` - Base GUC configuration structure
+  - `[config_generic](../c/config_generic.md)` - Base GUC configuration structure
   - `config_bool`, `config_int`, `config_real`, `config_string`, `config_enum` - Type-specific GUC structures
-  - `dlist_iter` - Iterator for doubly-linked list traversal
-  - `guc_nondef_list` - List of non-default GUC parameters
+  - `[dlist_iter](../d/dlist_iter.md)` - Iterator for doubly-linked list traversal
+  - `guc_nondef_list` - [List](../L/List.md) of non-default GUC parameters
 - GUC type constants:
   - `PGC_BOOL`, `PGC_INT`, `PGC_REAL`, `PGC_STRING`, `PGC_ENUM` - GUC variable types
 - Called from (representative examples):
-  - `ExplainPrintSettings` - Displays relevant GUC settings in EXPLAIN output
+  - `[ExplainPrintSettings](../E/ExplainPrintSettings.md)` - Displays relevant GUC settings in EXPLAIN output
 
 ## Notes and Other Information
 - The function pre-allocates an array sized for all GUC variables, though typically only a small fraction will be included (those marked `GUC_EXPLAIN`)
 - Only parameters marked with `GUC_EXPLAIN` are considered - this flag is set on planning-related parameters like `enable_seqscan`, `work_mem`, etc.
-- String comparison handles NULL values carefully - both NULL is considered unmodified, one NULL is considered modified
+- [String](../S/String.md) comparison handles NULL values carefully - both NULL is considered unmodified, one NULL is considered modified
 - The function supports PostgreSQL's role-based parameter visibility system - some parameters may be hidden from non-superusers
 - This is specifically designed for EXPLAIN output to show which non-default settings influenced the query plan
 - The boot_val comparison ensures only truly modified parameters are shown, not just those set explicitly to their default values

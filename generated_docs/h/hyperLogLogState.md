@@ -36,11 +36,11 @@ The structure is designed to work with hash values that are processed through th
   - Size (PostgreSQL type)
   - uint8 (PostgreSQL type)
 - Called from (representative examples):
-  - initHyperLogLog
-  - initHyperLogLogError
-  - addHyperLogLog
-  - estimateHyperLogLog
-  - freeHyperLogLog
+  - [initHyperLogLog](../i/initHyperLogLog.md)
+  - [initHyperLogLogError](../i/initHyperLogLogError.md)
+  - [addHyperLogLog](../a/addHyperLogLog.md)
+  - [estimateHyperLogLog](../e/estimateHyperLogLog.md)
+  - [freeHyperLogLog](../f/freeHyperLogLog.md)
   - [hashagg_spill_init](hashagg_spill_init.md)
   - [HashAggSpill](../H/HashAggSpill.md)
 

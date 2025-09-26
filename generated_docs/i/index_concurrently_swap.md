@@ -24,20 +24,20 @@ The operation is comprehensive, ensuring that the new index takes over the compl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - relation_open (to lock both indexes)
+  - [relation_open](../r/relation_open.md) (to lock both indexes)
   - SearchSysCacheCopy1 (for catalog tuple retrieval)
-  - namestrcpy (for name swapping)
-  - CatalogTupleUpdate (for catalog updates)
-  - heap_freetuple (for memory cleanup)
-  - get_index_ref_constraints/get_index_constraint (for constraint lookup)
-  - systable_beginscan/systable_getnext (for trigger scanning)
-  - heap_copytuple/heap_modify_tuple (for tuple manipulation)
-  - get_rel_relispartition/get_partition_ancestors (for partition handling)
-  - DeleteInheritsTuple/StoreSingleInheritance (for inheritance updates)
-  - changeDependenciesOf/changeDependenciesOn (for dependency swapping)
-  - pgstat_copy_relation_stats (for statistics transfer)
-  - CopyStatistics (for pg_statistic data transfer)
-  - relation_close (for cleanup)
+  - [namestrcpy](../n/namestrcpy.md) (for name swapping)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md) (for catalog updates)
+  - [heap_freetuple](../h/heap_freetuple.md) (for memory cleanup)
+  - [get_index_ref_constraints](../g/get_index_ref_constraints.md)/get_index_constraint (for constraint lookup)
+  - [systable_beginscan](../s/systable_beginscan.md)/systable_getnext (for trigger scanning)
+  - [heap_copytuple](../h/heap_copytuple.md)/heap_modify_tuple (for tuple manipulation)
+  - [get_rel_relispartition](../g/get_rel_relispartition.md)/get_partition_ancestors (for partition handling)
+  - [DeleteInheritsTuple](../D/DeleteInheritsTuple.md)/StoreSingleInheritance (for inheritance updates)
+  - [changeDependenciesOf](../c/changeDependenciesOf.md)/changeDependenciesOn (for dependency swapping)
+  - [pgstat_copy_relation_stats](../p/pgstat_copy_relation_stats.md) (for statistics transfer)
+  - [CopyStatistics](../C/CopyStatistics.md) (for pg_statistic data transfer)
+  - [relation_close](../r/relation_close.md) (for cleanup)
 - Called from (representative examples):
   - Concurrent reindex completion operations
 

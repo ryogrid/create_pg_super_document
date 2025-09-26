@@ -29,7 +29,7 @@ This function is primarily used for diagnostic purposes during development and d
 - Data structures used:
   - [PGPROC](../P/PGPROC.md) (process structure)
   - [PROCLOCK](../P/PROCLOCK.md) (process lock structure)
-  - LOCK (lock structure)
+  - [LOCK](../L/LOCK.md) (lock structure)
   - [dlist_head](../d/dlist_head.md) (doubly-linked list head)
   - [dlist_iter](../d/dlist_iter.md) (doubly-linked list iterator)
 - Constants used:

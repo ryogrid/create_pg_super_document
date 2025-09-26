@@ -32,11 +32,11 @@ This function ensures that no portal data structures remain after a subtransacti
   - [hash_seq_search](../h/hash_seq_search.md)
   - PointerIsValid
   - elog
-  - PortalDrop
+  - [PortalDrop](../P/PortalDrop.md)
 - Data types used:
   - SubTransactionId
-  - HASH_SEQ_STATUS
-  - PortalHashEnt
+  - [HASH_SEQ_STATUS](../H/HASH_SEQ_STATUS.md)
+  - [PortalHashEnt](../P/PortalHashEnt.md)
   - [Portal](../P/Portal.md)
 - Called from:
   - [CleanupSubTransaction](../C/CleanupSubTransaction.md) (src/backend/access/transam/xact.c:5331)

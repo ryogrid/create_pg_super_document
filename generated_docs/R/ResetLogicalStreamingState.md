@@ -26,8 +26,8 @@ None - this is a void function with no parameters
   - InvalidTransactionId (constant)
   - Global variables: CheckXidAlive, bsysscan
 - Called from (representative examples):
-  - AbortTransaction
-  - AbortSubTransaction
+  - [AbortTransaction](../A/AbortTransaction.md)
+  - [AbortSubTransaction](../A/AbortSubTransaction.md)
 
 ## Notes and Other Information
 - Simple cleanup function with minimal overhead

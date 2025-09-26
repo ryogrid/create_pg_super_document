@@ -21,14 +21,14 @@ The function safely handles NULL input by checking the strategy pointer before a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferAccessStrategy (type)
-  - pfree (memory deallocation function)
+  - [BufferAccessStrategy](../B/BufferAccessStrategy.md) (type)
+  - [pfree](../p/pfree.md) (memory deallocation function)
 - Called from (representative examples):
-  - initscan
-  - heap_endscan
-  - FreeBulkInsertState
-  - parallel_vacuum_main
-  - RelationCopyStorageUsingBuffer
+  - [initscan](../i/initscan.md)
+  - [heap_endscan](../h/heap_endscan.md)
+  - [FreeBulkInsertState](FreeBulkInsertState.md)
+  - [parallel_vacuum_main](../p/parallel_vacuum_main.md)
+  - [RelationCopyStorageUsingBuffer](../R/RelationCopyStorageUsingBuffer.md)
   - RelationGetNumberOfBlocks
 
 ## Notes and Other Information

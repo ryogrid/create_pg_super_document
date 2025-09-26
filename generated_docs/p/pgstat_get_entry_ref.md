@@ -21,19 +21,19 @@ This function manages access to PostgreSQL's shared statistics entries through a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dshash_find
-  - dshash_find_or_insert
-  - pgstat_init_entry
-  - pgstat_acquire_entry_ref
-  - pgstat_release_entry_ref
-  - pgstat_reinit_entry
-  - dshash_release_lock
-  - dsa_get_address
+  - [dshash_find](../d/dshash_find.md)
+  - [dshash_find_or_insert](../d/dshash_find_or_insert.md)
+  - [pgstat_init_entry](pgstat_init_entry.md)
+  - [pgstat_acquire_entry_ref](pgstat_acquire_entry_ref.md)
+  - [pgstat_release_entry_ref](pgstat_release_entry_ref.md)
+  - [pgstat_reinit_entry](pgstat_reinit_entry.md)
+  - [dshash_release_lock](../d/dshash_release_lock.md)
+  - [dsa_get_address](../d/dsa_get_address.md)
 - Called from (representative examples):
-  - pgstat_fetch_entry
-  - pgstat_have_entry
-  - pgstat_prep_pending_entry
-  - pgstat_fetch_pending_entry
+  - [pgstat_fetch_entry](pgstat_fetch_entry.md)
+  - [pgstat_have_entry](pgstat_have_entry.md)
+  - [pgstat_prep_pending_entry](pgstat_prep_pending_entry.md)
+  - [pgstat_fetch_pending_entry](pgstat_fetch_pending_entry.md)
 
 ## Notes and Other Information
 The function implements a garbage collection check for dropped entries that couldn't be deleted due to outstanding references. The local cache optimization significantly reduces contention on the shared hash table. Entry reinitialization handles legitimate cases where old stats entries are reused before being fully dropped.

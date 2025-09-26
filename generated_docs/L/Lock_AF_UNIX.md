@@ -30,7 +30,7 @@ The function uses a two-stage approach: first acquiring an exclusive lock file, 
 - Functions called/Symbols referenced:
   - [CreateSocketLockFile](../C/CreateSocketLockFile.md)
   - unlink
-  - lappend
+  - [lappend](../l/lappend.md)
   - [pstrdup](../p/pstrdup.md)
   - STATUS_OK
 - Called from (representative examples):

@@ -22,10 +22,10 @@ Unlike direct string comparison, this function properly handles PostgreSQL's tex
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - texteq (PostgreSQL's standard text equality function)
-  - DirectFunctionCall2Coll (direct function call with collation)
+  - [texteq](texteq.md) (PostgreSQL's standard text equality function)
+  - [DirectFunctionCall2Coll](../D/DirectFunctionCall2Coll.md) (direct function call with collation)
 - Called from (representative examples):
-  - GetCCHashEqFuncs (assigned as fast equality function for TEXTOID)
+  - [GetCCHashEqFuncs](../G/GetCCHashEqFuncs.md) (assigned as fast equality function for TEXTOID)
 
 ## Notes and Other Information
 - This function is static and only used within catcache.c

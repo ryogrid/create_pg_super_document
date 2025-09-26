@@ -33,16 +33,16 @@ Key operations performed:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - extendBufFile (creates new component files when needed)
-  - FileWrite (performs actual file write operations)
-  - FilePathName (gets file path for error reporting)
+  - [extendBufFile](../e/extendBufFile.md) (creates new component files when needed)
+  - [FileWrite](../F/FileWrite.md) (performs actual file write operations)
+  - [FilePathName](../F/FilePathName.md) (gets file path for error reporting)
   - INSTR_TIME_SET_CURRENT (timing measurement)
   - INSTR_TIME_SET_ZERO (timing initialization)
   - INSTR_TIME_ACCUM_DIFF (timing accumulation)
   - ereport (error reporting)
 - Called from (representative examples):
-  - BufFileWrite (when buffer needs flushing during write operations)
-  - BufFileFlush (explicit buffer flush requests)
+  - [BufFileWrite](BufFileWrite.md) (when buffer needs flushing during write operations)
+  - [BufFileFlush](BufFileFlush.md) (explicit buffer flush requests)
 
 ## Notes and Other Information
 - This is a static (internal) function, not part of the public BufFile API

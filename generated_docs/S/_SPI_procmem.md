@@ -26,7 +26,7 @@ The procedure memory context typically has a longer lifetime than the execution 
   - _SPI_current->procCxt: Procedure memory context from current SPI connection
 - Called from (representative examples):
   - [spi_dest_startup](../s/spi_dest_startup.md): SPI destination startup operations
-  - _SPI_end_call: When cleaning up SPI call context
+  - [_SPI_end_call](_SPI_end_call.md): When cleaning up SPI call context
 
 ## Notes and Other Information
 - Returns the previous MemoryContext, enabling context restoration

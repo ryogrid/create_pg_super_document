@@ -32,7 +32,7 @@ The function maintains the singly-linked list structure used for child managemen
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwner (structure type for ownership hierarchy)
+  - [ResourceOwner](ResourceOwner.md) (structure type for ownership hierarchy)
 - Called from (representative examples):
   - [AtSubCommit_Portals](../A/AtSubCommit_Portals.md) (portal management during subtransaction commit)
   - [AtSubAbort_Portals](../A/AtSubAbort_Portals.md) (portal management during subtransaction abort) 

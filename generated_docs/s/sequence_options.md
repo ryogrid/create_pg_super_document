@@ -33,8 +33,8 @@ All numeric values are converted to string format using INT64_FORMAT and wrapped
   - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - GETSTRUCT
-  - lappend
-  - makeDefElem
+  - [lappend](../l/lappend.md)
+  - [makeDefElem](../m/makeDefElem.md)
   - [makeFloat](../m/makeFloat.md)
   - [psprintf](../p/psprintf.md)
   - [makeBoolean](../m/makeBoolean.md)

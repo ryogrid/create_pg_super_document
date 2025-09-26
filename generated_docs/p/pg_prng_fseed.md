@@ -28,11 +28,11 @@ The scaling factor `(2^52 - 1)` is chosen to maximize the use of the floating-po
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_prng_seed (called to perform the actual state initialization with the converted integer seed)
-  - pg_prng_state (state structure type)
+  - [pg_prng_seed](pg_prng_seed.md) (called to perform the actual state initialization with the converted integer seed)
+  - [pg_prng_state](pg_prng_state.md) (state structure type)
 - Called from (representative examples):
-  - geqo_set_seed (genetic algorithm optimizer seed setting)
-  - setseed (SQL function for setting random seed)
+  - [geqo_set_seed](../g/geqo_set_seed.md) (genetic algorithm optimizer seed setting)
+  - [setseed](../s/setseed.md) (SQL function for setting random seed)
 
 ## Notes and Other Information
 - This is a public function (no static modifier), making it available to other parts of PostgreSQL

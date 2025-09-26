@@ -57,13 +57,13 @@ MergeJoinState extends JoinState to provide comprehensive state management for m
 - Functions called/Symbols referenced:
   - [JoinState](../J/JoinState.md) (inherited base structure)
   - [MergeJoinClause](MergeJoinClause.md) (for join clause specifications)
-  - TupleTableSlot (for tuple storage)
-  - ExprContext (for expression evaluation contexts)
+  - [TupleTableSlot](../T/TupleTableSlot.md) (for tuple storage)
+  - [ExprContext](../E/ExprContext.md) (for expression evaluation contexts)
 - Called from (representative examples):
-  - ExecMergeJoin (main execution function)
-  - ExecInitMergeJoin (initialization function)
-  - ExecEndMergeJoin (cleanup function)
-  - ExecReScanMergeJoin (rescan function)
+  - [ExecMergeJoin](../E/ExecMergeJoin.md) (main execution function)
+  - [ExecInitMergeJoin](../E/ExecInitMergeJoin.md) (initialization function)
+  - [ExecEndMergeJoin](../E/ExecEndMergeJoin.md) (cleanup function)
+  - [ExecReScanMergeJoin](../E/ExecReScanMergeJoin.md) (rescan function)
   - [MJCompare](MJCompare.md) (comparison function)
   - [MJFillOuter](MJFillOuter.md)/MJFillInner (outer join handling)
 

@@ -23,7 +23,7 @@ The function simply forwards all its parameters to ECPGset_var, which handles th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ECPGset_var (the core ECPG function that performs the actual variable setting)
+  - [ECPGset_var](ECPGset_var.md) (the core ECPG function that performs the actual variable setting)
 - Called from (representative examples):
   - Referenced in ECPG_INFORMIX_EXTRA_CHARS macro at src/interfaces/ecpg/include/ecpg_informix.h:57
 

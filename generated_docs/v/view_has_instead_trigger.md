@@ -22,10 +22,10 @@ The function is crucial in the query rewrite system to determine the correct han
 ## Dependencies
 - Functions called/Symbols referenced:
   - CmdType (enum for command types)
-  - TriggerDesc (structure containing trigger information)
+  - [TriggerDesc](../T/TriggerDesc.md) (structure containing trigger information)
   - CMD_INSERT, CMD_UPDATE, CMD_DELETE, CMD_MERGE, CMD_NOTHING (command type constants)
   - foreach_node (macro for iterating over list nodes)
-  - MergeAction (structure representing merge actions)
+  - [MergeAction](../M/MergeAction.md) (structure representing merge actions)
 - Called from (representative examples):
   - [CheckValidResultRel](../C/CheckValidResultRel.md) (in src/backend/executor/execMain.c:1055)
   - [rewriteValuesRTE](../r/rewriteValuesRTE.md) (in src/backend/rewrite/rewriteHandler.c:1461)

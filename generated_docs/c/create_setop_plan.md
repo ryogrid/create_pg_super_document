@@ -34,7 +34,7 @@ The function ensures that grouping columns are properly labeled by passing the C
 
 ## Notes and Other Information
 - The function is static, indicating it's only used within the createplan.c module
-- SetOp operations don't project new columns, so target list requirements pass through from parent operations
+- [SetOp](../S/SetOp.md) operations don't project new columns, so target list requirements pass through from parent operations
 - Uses clamp_cardinality_to_long to safely convert cardinality estimates from double to long to prevent overflow
 - The CP_LABEL_TLIST flag ensures grouping columns are properly labeled, which is crucial for set operation execution
 - Part of PostgreSQL's query planner infrastructure for handling set operations like UNION, INTERSECT, and EXCEPT

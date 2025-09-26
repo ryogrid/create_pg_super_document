@@ -30,12 +30,12 @@ The function throws an ERROR if it cannot attach to the DSM segment, ensuring th
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - [dsm_attach](../d/dsm_attach.md)
   - elog
-  - shm_toc_attach
-  - dsm_segment_address
+  - [shm_toc_attach](../s/shm_toc_attach.md)
+  - [dsm_segment_address](../d/dsm_segment_address.md)
   - [shm_toc_lookup](../s/shm_toc_lookup.md)
   - [dsa_attach_in_place](../d/dsa_attach_in_place.md)
   - [SharedRecordTypmodRegistryAttach](../S/SharedRecordTypmodRegistryAttach.md)
-  - dsm_pin_mapping
+  - [dsm_pin_mapping](../d/dsm_pin_mapping.md)
   - [dsa_pin_mapping](../d/dsa_pin_mapping.md)
 - Called from (representative examples):
   - [ParallelWorkerMain](../P/ParallelWorkerMain.md) (in src/backend/access/transam/parallel.c:1464)

@@ -37,7 +37,7 @@ Key features and safeguards:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecEvalExpr
+  - [ExecEvalExpr](../E/ExecEvalExpr.md)
   - InitFunctionCallInfoData
   - MakeExpandedObjectReadOnly
   - FunctionCallInvoke

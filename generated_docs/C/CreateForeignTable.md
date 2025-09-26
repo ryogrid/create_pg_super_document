@@ -20,8 +20,8 @@ This function is called after DefineRelation() to complete the creation of a for
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CommandCounterIncrement
-  - table_open
+  - [CommandCounterIncrement](CommandCounterIncrement.md)
+  - [table_open](../t/table_open.md)
   - [GetUserId](../G/GetUserId.md)
   - [GetForeignServerByName](../G/GetForeignServerByName.md)
   - [object_aclcheck](../o/object_aclcheck.md)
@@ -32,7 +32,7 @@ This function is called after DefineRelation() to complete the creation of a for
   - [CatalogTupleInsert](CatalogTupleInsert.md)
   - [heap_freetuple](../h/heap_freetuple.md)
   - [recordDependencyOn](../r/recordDependencyOn.md)
-  - table_close
+  - [table_close](../t/table_close.md)
 - Called from (representative examples):
   - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md)
 

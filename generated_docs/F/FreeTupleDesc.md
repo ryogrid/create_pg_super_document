@@ -21,7 +21,7 @@ This function performs a complete cleanup of a tuple descriptor by deallocating 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [AttrDefault](../A/AttrDefault.md)
-  - AttrMissing
+  - [AttrMissing](../A/AttrMissing.md)
   - [ConstrCheck](../C/ConstrCheck.md)
 - Called from (representative examples):
   - [DecrTupleDescRefCount](../D/DecrTupleDescRefCount.md)

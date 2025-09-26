@@ -30,7 +30,7 @@ The function handles complex scenarios involving child relations from appendrel 
   - [create_join_clause](create_join_clause.md) (recursive call for parent-child relationships)
   - [bms_union](../b/bms_union.md) (to combine relation bitmaps)
   - [bms_add_members](../b/bms_add_members.md) (to add relations to clause_relids)
-  - EquivalenceClass, EquivalenceMember (struct types)
+  - [EquivalenceClass](../E/EquivalenceClass.md), EquivalenceMember (struct types)
 - Called from (representative examples):
   - [generate_join_implied_equalities_normal](../g/generate_join_implied_equalities_normal.md)
   - [generate_implied_equalities_for_column](../g/generate_implied_equalities_for_column.md)

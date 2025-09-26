@@ -23,7 +23,7 @@ PQcmdStatus returns a pointer to the command status string stored in a PGresult 
 - Called from (representative examples):
   - [PrintQueryStatus](PrintQueryStatus.md) (src/bin/psql/common.c:960)
   - [ExecQueryAndProcessResults](../E/ExecQueryAndProcessResults.md) (src/bin/psql/common.c:1589)
-  - ecpg_process_output (src/interfaces/ecpg/ecpglib/execute.c:1866)
+  - [ecpg_process_output](../e/ecpg_process_output.md) (src/interfaces/ecpg/ecpglib/execute.c:1866)
   - [test_pipelined_insert](../t/test_pipelined_insert.md) (src/test/modules/libpq_pipeline/libpq_pipeline.c:1172, 1174)
 
 ## Notes and Other Information

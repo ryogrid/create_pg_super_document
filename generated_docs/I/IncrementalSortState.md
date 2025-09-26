@@ -313,13 +313,13 @@ v_str ESTAB   0      0                                               *:633275472
 - Functions called/Symbols referenced:
   - [ScanState](../S/ScanState.md) (base executor state structure)
   - [IncrementalSortExecutionStatus](IncrementalSortExecutionStatus.md) (execution phase enumeration)
-  - Tuplesortstate (sorting state from tuplesort.c)
+  - [Tuplesortstate](../T/Tuplesortstate.md) (sorting state from tuplesort.c)
   - [PresortedKeyData](../P/PresortedKeyData.md) (presorted key information structure)
   - [IncrementalSortInfo](IncrementalSortInfo.md) (instrumentation data structure)
-  - TupleTableSlot (tuple storage slots)
+  - [TupleTableSlot](../T/TupleTableSlot.md) (tuple storage slots)
   - [SharedIncrementalSortInfo](../S/SharedIncrementalSortInfo.md) (parallel execution shared data)
 - Called from (representative examples):
-  - ExecIncrementalSort (src/backend/executor/nodeIncrementalSort.c:497, 975)
+  - [ExecIncrementalSort](../E/ExecIncrementalSort.md) (src/backend/executor/nodeIncrementalSort.c:497, 975)
   - [ExecInitIncrementalSort](../E/ExecInitIncrementalSort.md) (src/backend/executor/nodeIncrementalSort.c:978, 990)
   - [ExecEndIncrementalSort](../E/ExecEndIncrementalSort.md) (src/backend/executor/nodeIncrementalSort.c:1077)
   - [ExecReScanIncrementalSort](../E/ExecReScanIncrementalSort.md) (src/backend/executor/nodeIncrementalSort.c:1107)

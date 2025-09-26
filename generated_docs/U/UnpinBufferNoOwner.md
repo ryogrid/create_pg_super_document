@@ -19,24 +19,24 @@ UnpinBufferNoOwner is the core buffer unpinning function that performs the actua
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferDescriptorGetBuffer
+  - [BufferDescriptorGetBuffer](../B/BufferDescriptorGetBuffer.md)
   - BufferIsLocal
-  - GetPrivateRefCountEntry
+  - [GetPrivateRefCountEntry](../G/GetPrivateRefCountEntry.md)
   - BufHdrGetBlock
   - VALGRIND_MAKE_MEM_NOACCESS
-  - LWLockHeldByMe
-  - BufferDescriptorGetContentLock
-  - pg_atomic_read_u32
-  - WaitBufHdrUnlocked
-  - pg_atomic_compare_exchange_u32
-  - LockBufHdr
-  - UnlockBufHdr
-  - ProcSendSignal
-  - ForgetPrivateRefCountEntry
+  - [LWLockHeldByMe](../L/LWLockHeldByMe.md)
+  - [BufferDescriptorGetContentLock](../B/BufferDescriptorGetContentLock.md)
+  - [pg_atomic_read_u32](../p/pg_atomic_read_u32.md)
+  - [WaitBufHdrUnlocked](../W/WaitBufHdrUnlocked.md)
+  - [pg_atomic_compare_exchange_u32](../p/pg_atomic_compare_exchange_u32.md)
+  - [LockBufHdr](../L/LockBufHdr.md)
+  - [UnlockBufHdr](UnlockBufHdr.md)
+  - [ProcSendSignal](../P/ProcSendSignal.md)
+  - [ForgetPrivateRefCountEntry](../F/ForgetPrivateRefCountEntry.md)
 - Called from (representative examples):
-  - UnpinBuffer
+  - [UnpinBuffer](UnpinBuffer.md)
   - BufferIsPinned
-  - ResOwnerReleaseBufferPin
+  - [ResOwnerReleaseBufferPin](../R/ResOwnerReleaseBufferPin.md)
 
 ## Notes and Other Information
 - Only works with shared buffers (asserts against local buffers)
@@ -44,4 +44,4 @@ UnpinBufferNoOwner is the core buffer unpinning function that performs the actua
 - Handles BM_PIN_COUNT_WAITER flag to support LockBufferForCleanup() functionality
 - Integrates with Valgrind for memory debugging by marking unpinned buffers non-accessible
 - Ensures no content locks are held when unpinning buffers
-- Complex synchronization logic to handle concurrent buffer access safely
+- [Complex](../C/Complex.md) synchronization logic to handle concurrent buffer access safely

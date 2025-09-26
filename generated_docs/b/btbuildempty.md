@@ -24,7 +24,7 @@ The function uses PostgreSQL's bulk write infrastructure to efficiently create t
 - Functions called/Symbols referenced:
   - [_bt_allequalimage](_bt_allequalimage.md) (determines equal image support)
   - [smgr_bulk_start_rel](../s/smgr_bulk_start_rel.md), smgr_bulk_get_buf, smgr_bulk_write, smgr_bulk_finish (bulk write operations)
-  - _bt_initmetapage (initializes the metapage structure)
+  - [_bt_initmetapage](_bt_initmetapage.md) (initializes the metapage structure)
   - [BulkWriteState](../B/BulkWriteState.md), BulkWriteBuffer (bulk write types)
   - INIT_FORKNUM, P_NONE, BTREE_METAPAGE (constants)
 - Called from (representative examples):

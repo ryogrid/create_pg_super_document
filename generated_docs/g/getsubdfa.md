@@ -21,17 +21,17 @@ The `getsubdfa` function manages DFA creation and caching for subre (subexpressi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - newdfa
-  - subre
-  - dfa
-  - cnfa
+  - [newdfa](../n/newdfa.md)
+  - [subre](../s/subre.md)
+  - [dfa](../d/dfa.md)
+  - [cnfa](../c/cnfa.md)
   - DOMALLOC
 - Called from (representative examples):
-  - ccondissect
-  - crevcondissect
-  - caltdissect
-  - citerdissect
-  - creviterdissect
+  - [ccondissect](../c/ccondissect.md)
+  - [crevcondissect](../c/crevcondissect.md)
+  - [caltdissect](../c/caltdissect.md)
+  - [citerdissect](../c/citerdissect.md)
+  - [creviterdissect](../c/creviterdissect.md)
 
 ## Notes and Other Information
 - DFAs are cached in `v->subdfas[t->id]` to avoid recreation during the same regex execution

@@ -22,11 +22,11 @@ The function is designed to normalize path strings by removing superfluous trail
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - skip_drive
+  - [skip_drive](../s/skip_drive.md)
   - IS_DIR_SEP (macro)
 - Called from (representative examples):
-  - canonicalize_path_enc
-  - make_relative_path
+  - [canonicalize_path_enc](../c/canonicalize_path_enc.md)
+  - [make_relative_path](../m/make_relative_path.md)
 
 ## Notes and Other Information
 - This is a static function, only available within src/port/path.c

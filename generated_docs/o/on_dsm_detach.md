@@ -25,19 +25,19 @@ This mechanism is widely used throughout PostgreSQL's shared memory facilities t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dsm_segment (structure type)
-  - dsm_segment_detach_callback (structure type)
-  - MemoryContextAlloc (memory allocation function)
-  - slist_push_head (linked list manipulation)
+  - [dsm_segment](../d/dsm_segment.md) (structure type)
+  - [dsm_segment_detach_callback](../d/dsm_segment_detach_callback.md) (structure type)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md) (memory allocation function)
+  - [slist_push_head](../s/slist_push_head.md) (linked list manipulation)
   - TopMemoryContext (global memory context)
 - Called from (representative examples):
-  - pq_redirect_to_shm_mq
-  - SharedFileSetInit
-  - SharedFileSetAttach
-  - shm_mq_attach
-  - SharedRecordTypmodRegistryInit
-  - dsa_create_ext
-  - dsa_attach
+  - [pq_redirect_to_shm_mq](../p/pq_redirect_to_shm_mq.md)
+  - [SharedFileSetInit](../S/SharedFileSetInit.md)
+  - [SharedFileSetAttach](../S/SharedFileSetAttach.md)
+  - [shm_mq_attach](../s/shm_mq_attach.md)
+  - [SharedRecordTypmodRegistryInit](../S/SharedRecordTypmodRegistryInit.md)
+  - [dsa_create_ext](../d/dsa_create_ext.md)
+  - [dsa_attach](../d/dsa_attach.md)
 
 ## Notes and Other Information
 - Callbacks are executed in LIFO order (last registered, first executed) due to the use of slist_push_head

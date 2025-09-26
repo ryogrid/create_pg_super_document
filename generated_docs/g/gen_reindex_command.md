@@ -51,7 +51,7 @@ The function builds commands in the format:
 - Functions called/Symbols referenced:
   - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
   - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
-  - appendPQExpBufferChar
+  - [appendPQExpBufferChar](../a/appendPQExpBufferChar.md)
   - [fmtIdEnc](../f/fmtIdEnc.md)
   - [PQclientEncoding](../P/PQclientEncoding.md)
   - [appendQualifiedRelation](../a/appendQualifiedRelation.md)

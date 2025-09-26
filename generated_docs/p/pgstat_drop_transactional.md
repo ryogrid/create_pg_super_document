@@ -25,13 +25,13 @@ The function registers the drop operation in a transaction-local pending operati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - create_drop_transactional_internal
-  - PgStat_Kind (type)
+  - [create_drop_transactional_internal](../c/create_drop_transactional_internal.md)
+  - [PgStat_Kind](../P/PgStat_Kind.md) (type)
 - Called from (representative examples):
-  - pgstat_drop_database
-  - pgstat_drop_function
-  - pgstat_drop_relation
-  - pgstat_drop_subscription
+  - [pgstat_drop_database](pgstat_drop_database.md)
+  - [pgstat_drop_function](pgstat_drop_function.md)
+  - [pgstat_drop_relation](pgstat_drop_relation.md)
+  - [pgstat_drop_subscription](pgstat_drop_subscription.md)
 
 ## Notes and Other Information
 - Located in src/backend/utils/activity/pgstat_xact.c:379-382

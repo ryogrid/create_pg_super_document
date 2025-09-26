@@ -22,11 +22,11 @@ EndCopyTo is responsible for the orderly shutdown of a COPY TO operation by clea
   - [ExecutorFinish](ExecutorFinish.md)
   - [ExecutorEnd](ExecutorEnd.md)
   - [FreeQueryDesc](../F/FreeQueryDesc.md)
-  - PopActiveSnapshot
+  - [PopActiveSnapshot](../P/PopActiveSnapshot.md)
   - [EndCopy](EndCopy.md)
 - Called from (representative examples):
   - [DoCopy](../D/DoCopy.md)
-  - test_copy_to_callback
+  - [test_copy_to_callback](../t/test_copy_to_callback.md)
 
 ## Notes and Other Information
 The function follows a two-phase cleanup approach: first handling query-specific resources (if applicable) through the executor cleanup functions, then performing general copy operation cleanup through EndCopy. The conditional check for queryDesc ensures that the function works correctly for both relation-based and query-based copy operations. PopActiveSnapshot is called to restore the snapshot stack to its previous state when dealing with query-based copies.

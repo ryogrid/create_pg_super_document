@@ -22,7 +22,7 @@ This function prints the contents of an edge table, which is a key data structur
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Edge (structure type)
+  - [Edge](../E/Edge.md) (structure type)
   - fprintf (for formatted output)
   - fflush (to ensure output is written)
 - Called from (representative examples):

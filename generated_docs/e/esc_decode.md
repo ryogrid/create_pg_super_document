@@ -30,10 +30,10 @@ The function validates escape sequences during decoding and reports errors for m
 - Functions called/Symbols referenced:
   - VAL (macro to convert octal character to numeric value)
   - ereport (error reporting function)
-  - errcode (error code function)
-  - errmsg (error message function)
+  - [errcode](errcode.md) (error code function)
+  - [errmsg](errmsg.md) (error message function)
 - Called from (representative examples):
-  - esc_dec_len (indirectly referenced)
+  - [esc_dec_len](esc_dec_len.md) (indirectly referenced)
 
 ## Notes and Other Information
 - This is a static utility function used internally within PostgreSQL's encoding system

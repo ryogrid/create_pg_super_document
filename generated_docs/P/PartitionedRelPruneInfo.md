@@ -69,15 +69,15 @@ The pruning is performed at two distinct phases: initial pruning during executor
 - Functions called/Symbols referenced:
   - NodeTag (node type identification)
   - Index (range table and mapping indexes)
-  - Bitmapset (efficient bit array operations)
+  - [Bitmapset](../B/Bitmapset.md) (efficient bit array operations)
   - Oid (object identifier storage)
-  - List (PostgreSQL list structure)
-  - PartitionPruneStep (individual pruning step definitions)
+  - [List](../L/List.md) (PostgreSQL list structure)
+  - [PartitionPruneStep](PartitionPruneStep.md) (individual pruning step definitions)
 - Called from (representative examples):
-  - CreatePartitionPruneState (executor pruning state creation)
-  - make_partitionedrel_pruneinfo (pruning info construction)
-  - set_append_references (Append plan reference resolution)
-  - set_mergeappend_references (MergeAppend plan reference resolution)
+  - [CreatePartitionPruneState](../C/CreatePartitionPruneState.md) (executor pruning state creation)
+  - [make_partitionedrel_pruneinfo](../m/make_partitionedrel_pruneinfo.md) (pruning info construction)
+  - [set_append_references](../s/set_append_references.md) (Append plan reference resolution)
+  - [set_mergeappend_references](../s/set_mergeappend_references.md) (MergeAppend plan reference resolution)
 
 ## Notes and Other Information
 - Subplan indexes stored in subplan_map are global across the entire parent plan node, while partition indexes are local to each hierarchy level

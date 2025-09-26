@@ -34,7 +34,7 @@ Key aspects:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - namein (converts C string to name type)
+  - [namein](../n/namein.md) (converts C string to name type)
   - DirectFunctionCall1/DirectFunctionCall3 (function call utilities)
   - [CStringGetDatum](../C/CStringGetDatum.md) (datum conversion)
   - [pg_convert](pg_convert.md) (core conversion function)

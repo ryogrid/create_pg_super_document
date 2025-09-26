@@ -39,7 +39,7 @@ The  structure defines the metadata for a single PostgreSQL connection parameter
 - Functions called/Symbols referenced:
   - (Uses standard C types only)
 - Called from (representative examples):
-  - PQconndefaults() (returns array of these structures)
+  - [PQconndefaults](PQconndefaults.md)() (returns array of these structures)
   - [PQconninfoParse](PQconninfoParse.md)() (parses connection strings into these structures)
 
 ## Notes and Other Information

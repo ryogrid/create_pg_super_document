@@ -29,14 +29,14 @@ BTSpool serves as a wrapper structure that encapsulates all the necessary inform
 - `nulls_not_distinct`: Boolean flag controlling whether NULL values are considered distinct for uniqueness checking
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Tuplesortstate
+  - [Tuplesortstate](../T/Tuplesortstate.md)
 - Called from (representative examples):
   - [BTBuildState](BTBuildState.md)
   - [_bt_spools_heapscan](../b/_bt_spools_heapscan.md)
   - [_bt_spooldestroy](../b/_bt_spooldestroy.md)
   - [_bt_spool](../b/_bt_spool.md)
   - [_bt_leafbuild](../b/_bt_leafbuild.md)
-  - _bt_load
+  - [_bt_load](../b/_bt_load.md)
   - [_bt_begin_parallel](../b/_bt_begin_parallel.md)
   - [_bt_leader_participate_as_worker](../b/_bt_leader_participate_as_worker.md)
   - [_bt_parallel_build_main](../b/_bt_parallel_build_main.md)

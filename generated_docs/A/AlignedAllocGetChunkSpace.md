@@ -28,7 +28,7 @@ The returned value represents the total space used by the underlying unaligned a
 - Functions called/Symbols referenced:
   - PointerGetMemoryChunk
   - [MemoryChunkGetBlock](../M/MemoryChunkGetBlock.md)
-  - GetMemoryChunkSpace
+  - [GetMemoryChunkSpace](../G/GetMemoryChunkSpace.md)
   - VALGRIND_MAKE_MEM_DEFINED
   - VALGRIND_MAKE_MEM_NOACCESS
 - Called from (representative examples):

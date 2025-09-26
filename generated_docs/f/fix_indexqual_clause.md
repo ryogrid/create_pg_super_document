@@ -43,10 +43,10 @@ For each clause type, it identifies the index key operand(s) and calls fix_index
   - lfirst_int
   - nodeTag
   - [IndexOptInfo](../I/IndexOptInfo.md) (struct type)
-  - OpExpr (struct type)
+  - [OpExpr](../O/OpExpr.md) (struct type)
   - RowCompareExpr (struct type)
-  - ScalarArrayOpExpr (struct type)  
-  - NullTest (struct type)
+  - [ScalarArrayOpExpr](../S/ScalarArrayOpExpr.md) (struct type)  
+  - [NullTest](../N/NullTest.md) (struct type)
 - Called from (representative examples):
   - [fix_indexqual_references](fix_indexqual_references.md)
   - [fix_indexorderby_references](fix_indexorderby_references.md)

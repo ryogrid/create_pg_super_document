@@ -37,8 +37,8 @@ The snapshot parameter is crucial for maintaining consistency when large objects
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - superuser_arg
-  - table_open
+  - [superuser_arg](../s/superuser_arg.md)
+  - [table_open](../t/table_open.md)
   - [ScanKeyInit](../S/ScanKeyInit.md)
   - [systable_beginscan](../s/systable_beginscan.md)
   - [systable_getnext](../s/systable_getnext.md)
@@ -47,7 +47,7 @@ The snapshot parameter is crucial for maintaining consistency when large objects
   - DatumGetAclP
   - [aclmask](../a/aclmask.md)
   - [systable_endscan](../s/systable_endscan.md)
-  - table_close
+  - [table_close](../t/table_close.md)
   - [pfree](pfree.md)
 - Called from (representative examples):
   - InternalDefaultACL

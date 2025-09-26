@@ -35,7 +35,7 @@ For function-based coercion, it validates the coercion function and constructs a
 - Functions called/Symbols referenced:
   - [SearchSysCache1](../S/SearchSysCache1.md), ReleaseSysCache (system catalog access)
   - [makeConst](../m/makeConst.md), makeFuncExpr, makeNode (node construction)
-  - exprType, exprTypmod (expression type utilities)
+  - [exprType](../e/exprType.md), exprTypmod (expression type utilities)
   - [getBaseTypeAndTypmod](../g/getBaseTypeAndTypmod.md), get_element_type (type utilities)
   - [coerce_to_target_type](../c/coerce_to_target_type.md) (recursive coercion)
   - list_make1, lappend (list operations)

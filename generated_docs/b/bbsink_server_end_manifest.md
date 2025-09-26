@@ -21,7 +21,7 @@ The atomic rename operation (via durable_rename) also ensures the file is proper
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FileClose: Closes the temporary manifest file
+  - [FileClose](../F/FileClose.md): Closes the temporary manifest file
   - [psprintf](../p/psprintf.md): Constructs the temporary and final filenames 
   - [durable_rename](../d/durable_rename.md): Atomically renames the file and ensures it's synced to disk
   - [pfree](../p/pfree.md): Frees the allocated filename strings

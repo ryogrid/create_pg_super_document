@@ -30,10 +30,10 @@ The function performs several critical operations:
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_valid_client_encoding](../p/pg_valid_client_encoding.md)
-  - pg_encoding_to_char
+  - [pg_encoding_to_char](../p/pg_encoding_to_char.md)
   - [PrepareClientEncoding](../P/PrepareClientEncoding.md)
   - [IsTransactionState](../I/IsTransactionState.md)
-  - GUC_check_errcode
+  - [GUC_check_errcode](../G/GUC_check_errcode.md)
   - GUC_check_errdetail
   - [GetDatabaseEncodingName](../G/GetDatabaseEncodingName.md)
   - [guc_free](../g/guc_free.md)

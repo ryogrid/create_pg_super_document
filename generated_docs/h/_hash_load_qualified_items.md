@@ -148,7 +148,7 @@ write_data_to_archive_lz4_doc.md: Scan direction (forward or backward) determini
   - [PageGetItemId](../P/PageGetItemId.md)
   - ItemIdIsDead
   - OffsetNumberNext/OffsetNumberPrev
-  - _hash_get_indextuple_hashkey
+  - [_hash_get_indextuple_hashkey](_hash_get_indextuple_hashkey.md)
   - [_hash_checkqual](_hash_checkqual.md)
   - [_hash_saveitem](_hash_saveitem.md)
 - Called from (representative examples):

@@ -32,7 +32,7 @@ This static function is the core snapshot creation mechanism in PostgreSQL's log
   - [SnapBuildInitialSnapshot](SnapBuildInitialSnapshot.md)
   - [SnapBuildGetOrBuildSnapshot](SnapBuildGetOrBuildSnapshot.md)
   - [SnapBuildProcessChange](SnapBuildProcessChange.md)
-  - SnapBuildCommitTxn
+  - [SnapBuildCommitTxn](SnapBuildCommitTxn.md)
   - [SnapBuildRestore](SnapBuildRestore.md)
 
 ## Notes and Other Information

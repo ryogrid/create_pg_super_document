@@ -36,8 +36,8 @@ The compiled pattern is stored in the Regis structure, which tracks whether it's
   - strlen (string length)
   - elog (error logging)
 - Types and constants:
-  - Regis (main regex structure)
-  - RegisNode (pattern node structure)
+  - [Regis](Regis.md) (main regex structure)
+  - [RegisNode](RegisNode.md) (pattern node structure)
   - RSF_ONEOF, RSF_NONEOF (pattern type flags)
   - State constants: RS_IN_WAIT, RS_IN_ONEOF, RS_IN_ONEOF_IN, RS_IN_NONEOF
 - Called from:

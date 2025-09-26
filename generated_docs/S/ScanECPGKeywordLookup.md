@@ -26,7 +26,7 @@ The lookup process follows this hierarchy:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ScanKeywordLookup (called twice - once for SQL keywords, once for ECPG keywords)
+  - [ScanKeywordLookup](ScanKeywordLookup.md) (called twice - once for SQL keywords, once for ECPG keywords)
   - ScanKeywords (keyword table for standard SQL keywords)
   - ScanECPGKeywords (keyword table for ECPG-specific keywords)
   - SQLScanKeywordTokens (token array for SQL keywords)

@@ -26,16 +26,16 @@ The function includes an early exit optimization - if no meaningful activity has
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReorderBuffer (from ctx->reorder)
-  - PgStat_StatReplSlotEntry (statistics structure)
-  - pgstat_report_replslot (reports to statistics collector)
+  - [ReorderBuffer](../R/ReorderBuffer.md) (from ctx->reorder)
+  - [PgStat_StatReplSlotEntry](../P/PgStat_StatReplSlotEntry.md) (statistics structure)
+  - [pgstat_report_replslot](../p/pgstat_report_replslot.md) (reports to statistics collector)
   - elog (DEBUG2 logging)
 - Called from (representative examples):
-  - DecodeCommit
-  - DecodePrepare  
-  - DecodeAbort
-  - ReorderBufferSerializeTXN
-  - ReorderBufferStreamTXN
+  - [DecodeCommit](../D/DecodeCommit.md)
+  - [DecodePrepare](../D/DecodePrepare.md)  
+  - [DecodeAbort](../D/DecodeAbort.md)
+  - [ReorderBufferSerializeTXN](../R/ReorderBufferSerializeTXN.md)
+  - [ReorderBufferStreamTXN](../R/ReorderBufferStreamTXN.md)
 
 ## Notes and Other Information
 - Implements delta reporting by resetting counters after each report

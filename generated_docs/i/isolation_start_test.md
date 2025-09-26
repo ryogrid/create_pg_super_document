@@ -26,7 +26,7 @@ This function is responsible for launching an isolation test by executing the  b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_other_exec
+  - [find_other_exec](../f/find_other_exec.md)
   - [file_exists](../f/file_exists.md)
   - [add_stringlist_item](../a/add_stringlist_item.md)
   - [spawn_process](../s/spawn_process.md)

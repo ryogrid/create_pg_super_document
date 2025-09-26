@@ -28,8 +28,8 @@ This mechanism is crucial for maintaining consistency in MultiXactId operations 
 ## Dependencies
 - Functions called/Symbols referenced:
   - MultiXactIdIsValid
-  - LWLockAcquire (with LW_SHARED)
-  - LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md) (with LW_SHARED)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - debug_elog4
 - Global variables accessed:
   - OldestMemberMXactId[MyProcNumber]

@@ -39,7 +39,7 @@ This approach ensures that if an error occurs during deletion, the system mainta
   - [PrepareTransaction](../P/PrepareTransaction.md) (prepared transaction cleanup)
   - [CleanupTransaction](../C/CleanupTransaction.md) (transaction error recovery)
   - [CommitSubTransaction](../C/CommitSubTransaction.md) (subtransaction cleanup)
-  - PortalDrop (portal cleanup)
+  - [PortalDrop](../P/PortalDrop.md) (portal cleanup)
   - [WalSndResourceCleanup](../W/WalSndResourceCleanup.md) (WAL sender cleanup)
 
 ## Notes and Other Information

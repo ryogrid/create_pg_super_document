@@ -38,7 +38,7 @@ The function also performs hint bit optimization by calling SetHintBits to cache
   - HeapTupleHeaderGetRawXmax
   - [HeapTupleGetUpdateXid](HeapTupleGetUpdateXid.md)
   - [TransactionIdIsCurrentTransactionId](../T/TransactionIdIsCurrentTransactionId.md)
-  - TransactionIdIsInProgress
+  - [TransactionIdIsInProgress](../T/TransactionIdIsInProgress.md)
   - [TransactionIdDidCommit](../T/TransactionIdDidCommit.md)
   - [SetHintBits](../S/SetHintBits.md)
   - [ItemPointerIsValid](../I/ItemPointerIsValid.md)

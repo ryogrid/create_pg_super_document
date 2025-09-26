@@ -25,16 +25,16 @@ The makeVar function is a fundamental constructor utility that creates Var nodes
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (for Var node allocation)
-  - Var (struct type from primnodes.h)
+  - [Var](../V/Var.md) (struct type from primnodes.h)
   - AttrNumber, Oid, Index (basic type definitions)
 - Called from (representative examples):
-  - makeVarFromTargetEntry
-  - makeWholeRowVar
-  - buildVarFromNSColumn
-  - expandRTE
-  - transformAssignedExpr
-  - get_qual_for_hash
-  - rewriteSearchAndCycle
+  - [makeVarFromTargetEntry](makeVarFromTargetEntry.md)
+  - [makeWholeRowVar](makeWholeRowVar.md)
+  - [buildVarFromNSColumn](../b/buildVarFromNSColumn.md)
+  - [expandRTE](../e/expandRTE.md)
+  - [transformAssignedExpr](../t/transformAssignedExpr.md)
+  - [get_qual_for_hash](../g/get_qual_for_hash.md)
+  - [rewriteSearchAndCycle](../r/rewriteSearchAndCycle.md)
 
 ## Notes and Other Information
 - Sets varnullingrels to NULL by default - callers must set this if outer join nullification is relevant

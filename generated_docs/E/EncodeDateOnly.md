@@ -37,7 +37,7 @@ The function handles BC dates (years <= 0) by appending " BC" to the formatted s
 
 - Called from (representative examples):
   - [date_out](../d/date_out.md) (src/backend/utils/adt/date.c:198)
-  - JsonEncodeDateTime (src/backend/utils/adt/json.c:322)
+  - [JsonEncodeDateTime](../J/JsonEncodeDateTime.md) (src/backend/utils/adt/json.c:322)
   - [map_sql_value_to_xml_value](../m/map_sql_value_to_xml_value.md) (src/backend/utils/adt/xml.c:2558)
   - [PGTYPESdate_to_asc](../P/PGTYPESdate_to_asc.md) (src/interfaces/ecpg/pgtypeslib/datetime.c:110)
 

@@ -28,7 +28,7 @@ The function accesses global arrays that store the tranche registration informat
   - NamedLWLockTrancheRequestArray (array of tranche requests)
 - Called from:
   - [LWLockShmemSize](../L/LWLockShmemSize.md) (src/backend/storage/lmgr/lwlock.c:430)
-  - InitializeLWLocks (src/backend/storage/lmgr/lwlock.c:495)
+  - [InitializeLWLocks](../I/InitializeLWLocks.md) (src/backend/storage/lmgr/lwlock.c:495)
 
 ## Notes and Other Information
 - Returns the total count of locks needed across all named tranches

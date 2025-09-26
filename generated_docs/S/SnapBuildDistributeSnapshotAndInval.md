@@ -36,12 +36,12 @@ The invalidation message distribution ensures that cached catalog information is
   - [ReorderBufferXidHasBaseSnapshot](../R/ReorderBufferXidHasBaseSnapshot.md)
   - rbtxn_prepared, rbtxn_skip_prepared (transaction state checks)
   - [SnapBuildSnapIncRefcount](SnapBuildSnapIncRefcount.md)
-  - ReorderBufferAddSnapshot
+  - [ReorderBufferAddSnapshot](../R/ReorderBufferAddSnapshot.md)
   - [ReorderBufferGetInvalidations](../R/ReorderBufferGetInvalidations.md)
-  - ReorderBufferAddDistributedInvalidations
-  - SharedInvalidationMessage (invalidation message structure)
+  - [ReorderBufferAddDistributedInvalidations](../R/ReorderBufferAddDistributedInvalidations.md)
+  - [SharedInvalidationMessage](SharedInvalidationMessage.md) (invalidation message structure)
 - Called from (representative examples):
-  - SnapBuildCommitTxn (snapbuild.c:1235)
+  - [SnapBuildCommitTxn](SnapBuildCommitTxn.md) (snapbuild.c:1235)
 
 ## Notes and Other Information
 - Function is declared static, indicating internal use within snapbuild.c

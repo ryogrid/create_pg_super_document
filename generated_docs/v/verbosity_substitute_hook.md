@@ -22,7 +22,7 @@ This substitute hook function is called before the main verbosity_hook when the 
 - Functions called/Symbols referenced:
   - [pg_strdup](../p/pg_strdup.md) (PostgreSQL string duplication function)
 - Called from (representative examples):
-  - SetVariableHooks registration in EstablishVariableSpace (as substitute hook for VERBOSITY)
+  - [SetVariableHooks](../S/SetVariableHooks.md) registration in EstablishVariableSpace (as substitute hook for VERBOSITY)
 
 ## Notes and Other Information
 - This is a substitute hook, which runs before the main hook (verbosity_hook) and can modify the value before it's processed

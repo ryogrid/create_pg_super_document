@@ -39,7 +39,7 @@ The function uses a temporary memory context to avoid memory leaks in the execut
   - [choose_next_subplan_for_leader](../c/choose_next_subplan_for_leader.md)
   - [choose_next_subplan_for_worker](../c/choose_next_subplan_for_worker.md)
   - [ExecAppendAsyncBegin](ExecAppendAsyncBegin.md)
-  - ExecMergeAppend
+  - [ExecMergeAppend](ExecMergeAppend.md)
 
 ## Notes and Other Information
 - The function is defined in src/backend/executor/execPartition.c:2303-2365

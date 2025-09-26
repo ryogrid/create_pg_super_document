@@ -47,5 +47,5 @@ The hashing ensures that structurally and semantically identical JSONB values pr
 - Returns 0 for empty JSONB values as an optimization
 - Uses XOR operations to combine hash contributions from different structural elements
 - The iteration-based approach ensures all nested elements contribute to the final hash
-- Hash consistency is maintained across identical JSONB structures regardless of key ordering in objects
+- [Hash](../H/Hash.md) consistency is maintained across identical JSONB structures regardless of key ordering in objects
 - Error handling includes detection of invalid JsonbIteratorNext return codes

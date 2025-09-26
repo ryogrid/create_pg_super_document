@@ -34,8 +34,8 @@ This optimization is particularly valuable because it can turn potentially expen
   - [create_group_result_path](create_group_result_path.md)
   - [create_append_path](create_append_path.md)
   - [add_path](../a/add_path.md)
-  - list_length
-  - lappend
+  - [list_length](../l/list_length.md)
+  - [lappend](../l/lappend.md)
 - Called from:
   - standard_qp_extra
   - [create_grouping_paths](create_grouping_paths.md)

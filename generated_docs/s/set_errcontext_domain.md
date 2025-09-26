@@ -20,7 +20,7 @@ This function sets the message domain to be used by subsequent errcontext() call
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ErrorData (struct type)
+  - [ErrorData](../E/ErrorData.md) (struct type)
   - CHECK_STACK_DEPTH (macro)
   - PG_TEXTDOMAIN (macro)
 - Called from (representative examples):

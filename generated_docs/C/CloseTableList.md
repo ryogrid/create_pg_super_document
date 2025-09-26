@@ -25,7 +25,7 @@ This function serves as the complementary cleanup operation to OpenTableList, en
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_close (closes the database relation)
+  - [table_close](../t/table_close.md) (closes the database relation)
   - [list_free_deep](../l/list_free_deep.md) (frees list and contained structures)
   - [PublicationRelInfo](../P/PublicationRelInfo.md) (structure type for relation information)
 - Called from (representative examples):

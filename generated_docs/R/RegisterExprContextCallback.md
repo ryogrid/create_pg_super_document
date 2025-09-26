@@ -22,7 +22,7 @@ This function provides a mechanism for registering cleanup callbacks that will b
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
-  - ExprContext_CB (structure type)
+  - [ExprContext_CB](../E/ExprContext_CB.md) (structure type)
 - Called from (representative examples):
   - [ExecMakeFunctionResultSet](../E/ExecMakeFunctionResultSet.md)
   - [ExecPrepareTuplestoreResult](../E/ExecPrepareTuplestoreResult.md)

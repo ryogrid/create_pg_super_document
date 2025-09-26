@@ -24,7 +24,7 @@ The implementation uses the standard C library  function with PostgreSQL's  comp
 ## Dependencies
 - Functions called/Symbols referenced:
   - bsearch (standard C library binary search function)
-  - pg_qsort_strcmp (PostgreSQL string comparison function)
+  - [pg_qsort_strcmp](../p/pg_qsort_strcmp.md) (PostgreSQL string comparison function)
   - StopList (structure definition)
 - Called from (representative examples):
   - [dsnowball_lexize](../d/dsnowball_lexize.md) (Snowball dictionary lexization)

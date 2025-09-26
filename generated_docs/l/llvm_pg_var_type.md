@@ -28,7 +28,7 @@ The function works by finding a named global variable in the types module and ex
   - llvm_types_module (global module containing type definitions)
 - Called from:
   - [llvm_create_types](llvm_create_types.md) (multiple calls for different PostgreSQL types)
-  - llvm_compile_expr (for expression compilation type needs)
+  - [llvm_compile_expr](llvm_compile_expr.md) (for expression compilation type needs)
 
 ## Notes and Other Information
 - Central to PostgreSQL's type safety strategy for JIT compilation

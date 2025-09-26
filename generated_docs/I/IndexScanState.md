@@ -330,7 +330,7 @@ v_str ESTAB      0      0                                               *:633275
   - [IndexRuntimeKeyInfo](IndexRuntimeKeyInfo.md)
   - [IndexScanDescData](IndexScanDescData.md)
   - [pairingheap](../p/pairingheap.md)
-  - SortSupport
+  - [SortSupport](../S/SortSupport.md)
 - Called from (representative examples):
   - [ExecIndexScan](../E/ExecIndexScan.md)
   - [ExecInitIndexScan](../E/ExecInitIndexScan.md)

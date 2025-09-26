@@ -68,21 +68,21 @@ The flag column mechanism allows the node to distinguish which input relation ea
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Plan (base structure)
-  - SetOpCmd
+  - [Plan](../P/Plan.md) (base structure)
+  - [SetOpCmd](SetOpCmd.md)
   - SetOpStrategy
   - AttrNumber
   - Oid
 - Called from (representative examples):
-  - ExecInitSetOp
-  - ExecSetOp
-  - ExecReScanSetOp
-  - create_setop_plan
-  - make_setop
+  - [ExecInitSetOp](../E/ExecInitSetOp.md)
+  - [ExecSetOp](../E/ExecSetOp.md)
+  - [ExecReScanSetOp](../E/ExecReScanSetOp.md)
+  - [create_setop_plan](../c/create_setop_plan.md)
+  - [make_setop](../m/make_setop.md)
 
 ## Notes and Other Information
 - The SetOp node expects its input to already be tagged with flag values distinguishing different source relations
-- Hash-based strategy is more memory-intensive but doesn't require pre-sorted input
+- [Hash](../H/Hash.md)-based strategy is more memory-intensive but doesn't require pre-sorted input
 - Sorted strategy requires less memory but needs the input to be sorted on the comparison columns
 - The node handles NULL values according to SQL standard set operation semantics
 - For ALL variants, the node maintains occurrence counts to implement proper multiset semantics

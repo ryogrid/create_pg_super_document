@@ -25,13 +25,13 @@ The function operates within the reorder buffer framework, which is responsible 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - output_plugin_error_callback
-  - ReorderBufferTXN (transaction structure)
-  - ReorderBuffer (reorder buffer structure)
-  - LogicalDecodingContext (decoding context)
-  - LogicalErrorCallbackState (error callback state)
+  - [output_plugin_error_callback](../o/output_plugin_error_callback.md)
+  - [ReorderBufferTXN](../R/ReorderBufferTXN.md) (transaction structure)
+  - [ReorderBuffer](../R/ReorderBuffer.md) (reorder buffer structure)
+  - [LogicalDecodingContext](../L/LogicalDecodingContext.md) (decoding context)
+  - [LogicalErrorCallbackState](../L/LogicalErrorCallbackState.md) (error callback state)
 - Called from (representative examples):
-  - StartupDecodingContext
+  - [StartupDecodingContext](../S/StartupDecodingContext.md)
 
 ## Notes and Other Information
 - This is a static function internal to logical.c, used specifically for commit transaction processing

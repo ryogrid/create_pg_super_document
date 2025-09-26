@@ -48,7 +48,7 @@ After successful SubLink conversion, the function:
   - [pull_up_sublinks_jointree_recurse](pull_up_sublinks_jointree_recurse.md)
   - [is_notclause](../i/is_notclause.md), get_notclausearg
   - [is_andclause](../i/is_andclause.md), make_andclause
-  - lappend, lfirst, linitial, list_length
+  - [lappend](../l/lappend.md), lfirst, linitial, list_length
   - IsA macro
   - ANY_SUBLINK, EXISTS_SUBLINK constants
 - Called from (representative examples):

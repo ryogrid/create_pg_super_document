@@ -21,7 +21,7 @@ The `right_offset` function implements the standard binary heap indexing formula
 - Functions called/Symbols referenced:
   - None (simple arithmetic operation)
 - Called from (representative examples):
-  - ltsGetFreeBlock (in logtape.c for heap operations)
+  - [ltsGetFreeBlock](../l/ltsGetFreeBlock.md) (in logtape.c for heap operations)
   - [sift_down](../s/sift_down.md) (in binaryheap.c for heap property maintenance)
 
 ## Notes and Other Information

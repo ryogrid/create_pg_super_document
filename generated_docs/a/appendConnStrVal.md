@@ -24,7 +24,7 @@ The function is essential for building dynamic connection strings safely, ensuri
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendPQExpBufferChar (appends individual characters including quotes and escapes)
+  - [appendPQExpBufferChar](appendPQExpBufferChar.md) (appends individual characters including quotes and escapes)
   - [appendPQExpBufferStr](appendPQExpBufferStr.md) (appends the raw string when no quoting is needed)
 - Called from (representative examples):
   - [constructConnStr](../c/constructConnStr.md) (in pg_dumpall.c for building connection strings)

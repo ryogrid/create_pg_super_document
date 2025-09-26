@@ -27,15 +27,15 @@ The function iterates through all triggers defined on the relation, filtering fo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - before_stmt_triggers_fired (duplicate execution prevention)
+  - [before_stmt_triggers_fired](../b/before_stmt_triggers_fired.md) (duplicate execution prevention)
   - TRIGGER_TYPE_MATCHES (trigger type filtering macro)
   - [TriggerEnabled](../T/TriggerEnabled.md) (trigger enable state checking)
   - [ExecCallTriggerFunc](ExecCallTriggerFunc.md) (actual trigger execution)
   - GetPerTupleMemoryContext (memory context management)
 - Data structures used:
-  - TriggerDesc (trigger descriptor from relinfo)
-  - TriggerData (trigger execution context)
-  - Trigger (individual trigger structure)
+  - [TriggerDesc](../T/TriggerDesc.md) (trigger descriptor from relinfo)
+  - [TriggerData](../T/TriggerData.md) (trigger execution context)
+  - [Trigger](../T/Trigger.md) (individual trigger structure)
 - Called from (representative examples):
   - [CopyFrom](../C/CopyFrom.md) (during COPY FROM operations)
   - [fireBSTriggers](../f/fireBSTriggers.md) (from nodeModifyTable executor)
@@ -44,7 +44,7 @@ The function iterates through all triggers defined on the relation, filtering fo
 - BEFORE STATEMENT triggers fire exactly once per SQL statement, regardless of how many rows are affected
 - These triggers cannot access individual row data since they execute before any rows are processed
 - The function enforces the trigger protocol by rejecting any non-NULL return values
-- Trigger execution uses per-tuple memory context for proper cleanup
+- [Trigger](../T/Trigger.md) execution uses per-tuple memory context for proper cleanup
 - The function short-circuits if no triggers exist or if no INSERT BEFORE STATEMENT triggers are defined
 - Used in both regular INSERT operations and bulk operations like COPY FROM
 - Part of PostgreSQL's comprehensive trigger system that supports multiple timing and granularity combinations

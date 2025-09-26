@@ -28,7 +28,7 @@ This systematic cleanup prevents memory leaks and ensures all associated resourc
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecDropSingleTupleTableSlot](ExecDropSingleTupleTableSlot.md) (releases standalone tuple slots)
-  - tuplesort_end (ends tuplesort operations and frees memory)
+  - [tuplesort_end](../t/tuplesort_end.md) (ends tuplesort operations and frees memory)
   - [ExecEndNode](ExecEndNode.md) (recursively shuts down outer child node)
   - outerPlanState (accesses outer child plan state)
   - SO_printf (debug output)

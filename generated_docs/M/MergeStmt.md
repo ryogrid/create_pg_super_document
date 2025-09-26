@@ -34,17 +34,17 @@ MergeStmt is a parse tree node that represents a MERGE statement after SQL parsi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RangeVar
-  - WithClause
+  - [RangeVar](../R/RangeVar.md)
+  - [WithClause](../W/WithClause.md)
 - Called from (representative examples):
-  - transformStmt
-  - transformMergeStmt
-  - raw_expression_tree_walker_impl
-  - transformWithClause
-  - makeDependencyGraphWalker
+  - [transformStmt](../t/transformStmt.md)
+  - [transformMergeStmt](../t/transformMergeStmt.md)
+  - [raw_expression_tree_walker_impl](../r/raw_expression_tree_walker_impl.md)
+  - [transformWithClause](../t/transformWithClause.md)
+  - [makeDependencyGraphWalker](../m/makeDependencyGraphWalker.md)
 
 ## Notes and Other Information
-- MergeStmt is part of the parse tree node hierarchy and inherits from the base Node structure
+- [MergeStmt](MergeStmt.md) is part of the parse tree node hierarchy and inherits from the base Node structure
 - MERGE statements provide SQL standard functionality for conditional INSERT/UPDATE/DELETE operations
 - The mergeWhenClauses list contains conditions and actions for different match scenarios
 - JOIN condition determines how source rows are matched against target table rows

@@ -29,10 +29,10 @@ For each publication found, it creates a PublicationInfo structure containing al
 ## Dependencies
 - Functions called/Symbols referenced:
   - `DumpOptions`, `PublicationInfo` (data structures)
-  - `createPQExpBuffer`, `appendPQExpBufferStr` (query building)
+  - `[createPQExpBuffer](../c/createPQExpBuffer.md)`, `appendPQExpBufferStr` (query building)
   - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md) (SQL execution)
   - [PQfnumber](../P/PQfnumber.md), `PQgetvalue`, `PQntuples` (result processing)
-  - `pg_malloc`, `pg_strdup` (memory management)
+  - `[pg_malloc](../p/pg_malloc.md)`, `pg_strdup` (memory management)
   - [AssignDumpId](../A/AssignDumpId.md) (dump object ID assignment)
   - [getRoleName](getRoleName.md) (owner name resolution)
   - [selectDumpableObject](../s/selectDumpableObject.md) (dumpability determination)

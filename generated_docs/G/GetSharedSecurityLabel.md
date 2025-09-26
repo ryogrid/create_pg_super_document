@@ -25,13 +25,13 @@ The function handles the case where no label exists by returning NULL, and prope
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ScanKeyInit](../S/ScanKeyInit.md)
-  - table_open
+  - [table_open](../t/table_open.md)
   - [systable_beginscan](../s/systable_beginscan.md)
   - [systable_getnext](../s/systable_getnext.md)
   - [heap_getattr](../h/heap_getattr.md)
   - TextDatumGetCString
   - [systable_endscan](../s/systable_endscan.md)
-  - table_close
+  - [table_close](../t/table_close.md)
   - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - CStringGetTextDatum
   - RelationGetDescr

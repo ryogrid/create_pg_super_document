@@ -29,16 +29,16 @@ None - operates on global state and MyProc
 ## Dependencies
 - Functions called/Symbols referenced:
   - LockHashPartitionLockByIndex (get lock partition by index)
-  - LWLockAcquire/LWLockRelease (acquire/release lightweight locks)
-  - DeadLockCheck (main deadlock detection algorithm)
-  - DumpAllLocks (debugging - dump all locks if LOCK_DEBUG enabled)
-  - RemoveFromWaitQueue (remove process from lock wait queue)
-  - LockTagHashCode (compute hash code for lock tag)
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease (acquire/release lightweight locks)
+  - [DeadLockCheck](../D/DeadLockCheck.md) (main deadlock detection algorithm)
+  - [DumpAllLocks](../D/DumpAllLocks.md) (debugging - [dump](../d/dump.md) all locks if LOCK_DEBUG enabled)
+  - [RemoveFromWaitQueue](../R/RemoveFromWaitQueue.md) (remove process from lock wait queue)
+  - [LockTagHashCode](../L/LockTagHashCode.md) (compute hash code for lock tag)
   - NUM_LOCK_PARTITIONS (total number of lock partitions)
   - DS_HARD_DEADLOCK (deadlock state indicating unresolvable deadlock)
 
 - Called from (representative examples):
-  - ProcSleep (when deadlock timeout fires during lock wait)
+  - [ProcSleep](../P/ProcSleep.md) (when deadlock timeout fires during lock wait)
 
 ## Notes and Other Information
 - This is a static function, only called internally within the process management module

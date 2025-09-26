@@ -26,14 +26,14 @@ The structure serves as a bridge between index access methods and table access m
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ItemPointerData (embedded structure type)
+  - [ItemPointerData](../I/ItemPointerData.md) (embedded structure type)
 - Called from (representative examples):
-  - heap_index_delete_tuples
-  - index_delete_sort
-  - bottomup_sort_and_shrink
-  - _bt_bottomupdel_pass
-  - _bt_simpledel_pass
-  - index_compute_xid_horizon_for_tuples
+  - [heap_index_delete_tuples](../h/heap_index_delete_tuples.md)
+  - [index_delete_sort](../i/index_delete_sort.md)
+  - [bottomup_sort_and_shrink](../b/bottomup_sort_and_shrink.md)
+  - [_bt_bottomupdel_pass](../b/_bt_bottomupdel_pass.md)
+  - [_bt_simpledel_pass](../b/_bt_simpledel_pass.md)
+  - [index_compute_xid_horizon_for_tuples](../i/index_compute_xid_horizon_for_tuples.md)
 
 ## Notes and Other Information
 - This structure is typically used in arrays that are sorted by TID for efficient processing by block-oriented table access methods

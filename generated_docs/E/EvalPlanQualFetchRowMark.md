@@ -23,10 +23,10 @@ This function is a core component of PostgreSQL's EPQ (Eval Plan Qual) mechanism
 ## Dependencies
 - Functions called/Symbols referenced:
   - RowMarkRequiresRowShareLock
-  - ExecGetJunkAttribute
+  - [ExecGetJunkAttribute](ExecGetJunkAttribute.md)
   - [DatumGetObjectId](../D/DatumGetObjectId.md)
   - [GetFdwRoutineForRelation](../G/GetFdwRoutineForRelation.md)
-  - table_tuple_fetch_row_version
+  - [table_tuple_fetch_row_version](../t/table_tuple_fetch_row_version.md)
   - [ExecStoreHeapTupleDatum](ExecStoreHeapTupleDatum.md)
   - TupIsNull
 - Called from (representative examples):

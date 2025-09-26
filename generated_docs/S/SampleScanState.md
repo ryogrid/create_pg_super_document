@@ -307,7 +307,7 @@ v_str ESTAB   0      0                                               *:633275472
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ScanState](ScanState.md)
-  - TsmRoutine
+  - [TsmRoutine](../T/TsmRoutine.md)
 - Called from (representative examples):
   - [ExecSampleScan](../E/ExecSampleScan.md)
   - [ExecInitSampleScan](../E/ExecInitSampleScan.md)

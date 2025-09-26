@@ -94,15 +94,15 @@ The structure includes specialized fields for different constraint types: expres
 ## Dependencies
 - Functions called/Symbols referenced:
   - ConstrType (constraint type enumeration)
-  - RangeVar (for foreign key table references)
+  - [RangeVar](../R/RangeVar.md) (for foreign key table references)
   - ParseLoc (for source location tracking)
 
 - Called from (representative examples):
-  - AddRelationNewConstraints (src/backend/catalog/heap.c:2409)
-  - ATExecAddConstraint (src/backend/commands/tablecmds.c:9356)
-  - DefineDomain (src/backend/commands/typecmds.c:867)
-  - transformCreateStmt (src/backend/parser/parse_utilcmd.c:281)
-  - transformTableConstraint (src/backend/parser/parse_utilcmd.c:903)
+  - [AddRelationNewConstraints](../A/AddRelationNewConstraints.md) (src/backend/catalog/heap.c:2409)
+  - [ATExecAddConstraint](../A/ATExecAddConstraint.md) (src/backend/commands/tablecmds.c:9356)
+  - [DefineDomain](../D/DefineDomain.md) (src/backend/commands/typecmds.c:867)
+  - [transformCreateStmt](../t/transformCreateStmt.md) (src/backend/parser/parse_utilcmd.c:281)
+  - [transformTableConstraint](../t/transformTableConstraint.md) (src/backend/parser/parse_utilcmd.c:903)
 
 ## Notes and Other Information
 - Column defaults are treated as constraints semantically, even though this is conceptually unusual
@@ -110,5 +110,5 @@ The structure includes specialized fields for different constraint types: expres
 - Foreign key action and match type codes are stored directly in pg_constraint catalog entries
 - Skip_validation and initially_valid flags provide fine-grained control over constraint validation during DDL operations
 - The structure supports both table-level and column-level constraints through the same interface
-- Constraint attributes (DEFERRABLE, etc.) are initially parsed as separate constraint nodes and later merged during parse_utilcmd.c processing
+- [Constraint](Constraint.md) attributes (DEFERRABLE, etc.) are initially parsed as separate constraint nodes and later merged during parse_utilcmd.c processing
 - Expression constraints can exist in either raw or cooked form, but never both simultaneously in the same node

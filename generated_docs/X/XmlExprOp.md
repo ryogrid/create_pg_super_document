@@ -38,7 +38,7 @@ XmlExprOp serves as an identifier for various SQL/XML functions that require spe
 - Functions called/Symbols referenced:
   - None (this is an enumeration)
 - Called from (representative examples):
-  - XmlExpr struct (used as op field type)
+  - [XmlExpr](XmlExpr.md) struct (used as op field type)
 
 ## Notes and Other Information
 - Each operation corresponds to specific SQL/XML standard functionality

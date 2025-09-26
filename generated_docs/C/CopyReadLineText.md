@@ -23,7 +23,7 @@ The function uses an optimized approach by processing input in chunks when possi
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CopyLoadInputBuf](CopyLoadInputBuf.md): Loads more data into the input buffer when needed
-  - appendBinaryStringInfo: Efficiently appends binary data to the line buffer
+  - [appendBinaryStringInfo](../a/appendBinaryStringInfo.md): Efficiently appends binary data to the line buffer
   - REFILL_LINEBUF: Macro that transfers pending data from input buffer to line buffer
   - IF_NEED_REFILL_AND_NOT_EOF_CONTINUE: Macro for conditional data loading and loop continuation
   - IF_NEED_REFILL_AND_EOF_BREAK: Macro for conditional data loading with EOF handling

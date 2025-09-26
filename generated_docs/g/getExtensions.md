@@ -32,7 +32,7 @@ The function performs these key operations:
   - atooid
   - [AssignDumpId](../A/AssignDumpId.md)
   - [selectDumpableExtension](../s/selectDumpableExtension.md)
-  - pg_malloc
+  - [pg_malloc](../p/pg_malloc.md)
   - [pg_strdup](../p/pg_strdup.md)
 - Called from (representative examples):
   - [getSchemaData](getSchemaData.md)

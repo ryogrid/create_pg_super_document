@@ -41,11 +41,11 @@ PgStat_CheckpointerStats maintains detailed statistics for PostgreSQL's checkpoi
   - PgStat_Counter
   - TimestampTz
 - Called from (representative examples):
-  - pgstat_report_checkpointer
-  - pgstat_checkpointer_snapshot_cb
+  - [pgstat_report_checkpointer](../p/pgstat_report_checkpointer.md)
+  - [pgstat_checkpointer_snapshot_cb](../p/pgstat_checkpointer_snapshot_cb.md)
   - pgstat_count_buffer_hit
-  - PgStatShared_Checkpointer
-  - PgStat_Snapshot
+  - [PgStatShared_Checkpointer](PgStatShared_Checkpointer.md)
+  - [PgStat_Snapshot](PgStat_Snapshot.md)
 
 ## Notes and Other Information
 Checkpointer statistics are crucial for database performance tuning and understanding I/O patterns. High write_time and sync_time values may indicate storage performance issues or the need for checkpoint tuning. The ratio of timed vs requested checkpoints can reveal whether the system is checkpoint-bound or has appropriate checkpoint intervals configured. For standby servers, restartpoint statistics help monitor replication lag and recovery performance. These statistics are accessible through PostgreSQL's pg_stat_bgwriter view despite the naming, as the checkpointer functionality was split from the background writer in later PostgreSQL versions.

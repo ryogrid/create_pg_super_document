@@ -31,7 +31,7 @@ The function is intentionally minimal, focusing solely on the physical deletion 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_tuple_delete (storage layer deletion function)
+  - [table_tuple_delete](../t/table_tuple_delete.md) (storage layer deletion function)
 - Called from (representative examples):
   - [ExecDelete](ExecDelete.md) (standard DELETE operation processing)
   - [ExecMergeMatched](ExecMergeMatched.md) (MERGE statement DELETE actions)

@@ -27,18 +27,18 @@ The function handles several OS-specific behaviors:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - OpenTransientFile: Opens the file/directory with transient file management
-  - pg_fsync: PostgreSQL's fsync wrapper function
-  - CloseTransientFile: Closes the transient file descriptor
+  - [OpenTransientFile](../O/OpenTransientFile.md): Opens the file/directory with transient file management
+  - [pg_fsync](../p/pg_fsync.md): PostgreSQL's fsync wrapper function
+  - [CloseTransientFile](../C/CloseTransientFile.md): Closes the transient file descriptor
   - PG_BINARY: Binary file flag for cross-platform compatibility
   - ereport: Error reporting function
-  - errcode_for_file_access: Error code generation for file access errors
+  - [errcode_for_file_access](../e/errcode_for_file_access.md): Error code generation for file access errors
 
 - Called from (representative examples):
-  - fsync_fname: Simpler fsync wrapper function
-  - durable_rename: File rename with durability guarantees
-  - datadir_fsync_fname: Data directory specific fsync
-  - fsync_parent_path: Parent directory synchronization
+  - [fsync_fname](fsync_fname.md): Simpler fsync wrapper function
+  - [durable_rename](../d/durable_rename.md): File rename with durability guarantees
+  - [datadir_fsync_fname](../d/datadir_fsync_fname.md): Data directory specific fsync
+  - [fsync_parent_path](fsync_parent_path.md): Parent directory synchronization
 
 ## Notes and Other Information
 - Returns 0 on success, -1 on failure

@@ -40,7 +40,7 @@ This static function provides type-aware conversion of JsonbValue structures to 
 - Returns NULL and sets *resnull=true for jbvNull values
 - For jbvString, performs manual memory allocation and copying to ensure null termination
 - Handles all datetime types (DATE, TIME, TIMETZ, TIMESTAMP, TIMESTAMPTZ) with appropriate output functions
-- Complex types (arrays, objects, binary) are converted back to JSONB string representation
+- [Complex](../C/Complex.md) types (arrays, objects, binary) are converted back to JSONB string representation
 - Used primarily in JSON_VALUE operations where scalar extraction requires string conversion
 - Static function scope limits its use to the execExprInterp.c compilation unit
 - Memory allocated by this function should be managed by PostgreSQL's memory context system

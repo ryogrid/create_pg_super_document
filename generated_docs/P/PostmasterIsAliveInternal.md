@@ -41,8 +41,8 @@ This function takes no parameters but accesses:
   - USE_POSTMASTER_DEATH_SIGNAL
   - WIN32
 - Called from:
-  - WaitEventSetWaitBlock (src/backend/storage/ipc/latch.c:1645)
-  - PostmasterIsAlive (src/include/storage/pmsignal.h:99, 102)
+  - [WaitEventSetWaitBlock](../W/WaitEventSetWaitBlock.md) (src/backend/storage/ipc/latch.c:1645)
+  - [PostmasterIsAlive](PostmasterIsAlive.md) (src/include/storage/pmsignal.h:99, 102)
 
 ## Notes and Other Information
 - This is the "slow path" for postmaster liveness detection - the fast path checks a signal flag first

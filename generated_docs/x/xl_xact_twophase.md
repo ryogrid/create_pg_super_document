@@ -25,10 +25,10 @@ The xl_xact_twophase structure is a minimal WAL record format used specifically 
   - TransactionId (data type)
 
 - Called from (representative examples):
-  - ParseCommitRecord (in xactdesc.c:111, 115)
-  - ParseAbortRecord (in xactdesc.c:206, 210)
-  - XactLogCommitRecord (in xact.c:5768, 5903)
-  - XactLogAbortRecord (in xact.c:5936, 6049)
+  - [ParseCommitRecord](../P/ParseCommitRecord.md) (in xactdesc.c:111, 115)
+  - [ParseAbortRecord](../P/ParseAbortRecord.md) (in xactdesc.c:206, 210)
+  - [XactLogCommitRecord](../X/XactLogCommitRecord.md) (in xact.c:5768, 5903)
+  - [XactLogAbortRecord](../X/XactLogAbortRecord.md) (in xact.c:5936, 6049)
 
 ## Notes and Other Information
 - Essential component of PostgreSQL's two-phase commit protocol implementation

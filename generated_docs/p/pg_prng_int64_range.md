@@ -27,7 +27,7 @@ The function performs safe type conversions by:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_prng_uint64_range
+  - [pg_prng_uint64_range](pg_prng_uint64_range.md)
   - likely (optimization hint macro)
   - PG_INT64_MAX
   - PG_INT64_MIN

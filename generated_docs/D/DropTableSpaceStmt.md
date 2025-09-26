@@ -33,8 +33,8 @@ Before a tablespace can be dropped, it must be empty (containing no database obj
   - (No direct symbol references)
 
 - Called from (representative examples):
-  - DropTableSpace (src/backend/commands/tablespace.c:395)
-  - standard_ProcessUtility (src/backend/tcop/utility.c:719)
+  - [DropTableSpace](DropTableSpace.md) (src/backend/commands/tablespace.c:395)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (src/backend/tcop/utility.c:719)
 
 ## Notes and Other Information
 - Tablespace removal requires superuser privileges due to filesystem access requirements

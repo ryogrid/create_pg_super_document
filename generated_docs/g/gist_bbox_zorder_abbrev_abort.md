@@ -22,7 +22,7 @@ The decision to never abort is based on the effectiveness of Z-order abbreviatio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SortSupport (parameter type reference)
+  - [SortSupport](../S/SortSupport.md) (parameter type reference)
 - Called from (representative examples):
   - [gist_point_sortsupport](gist_point_sortsupport.md) (configures this as abbreviation abort callback)
 

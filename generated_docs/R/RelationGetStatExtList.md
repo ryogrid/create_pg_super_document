@@ -25,12 +25,12 @@ Like other similar relcache functions, RelationGetStatExtList carefully manages 
 - Functions called/Symbols referenced:
   - [list_copy](../l/list_copy.md)
   - [ScanKeyInit](../S/ScanKeyInit.md)
-  - table_open
+  - [table_open](../t/table_open.md)
   - [systable_beginscan](../s/systable_beginscan.md)
   - [systable_getnext](../s/systable_getnext.md)
   - [systable_endscan](../s/systable_endscan.md)
-  - table_close
-  - lappend_oid
+  - [table_close](../t/table_close.md)
+  - [lappend_oid](../l/lappend_oid.md)
   - [list_sort](../l/list_sort.md)
   - [list_oid_cmp](../l/list_oid_cmp.md)
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)

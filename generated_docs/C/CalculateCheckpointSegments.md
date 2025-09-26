@@ -30,7 +30,7 @@ This function takes no parameters and operates on global variables:
 - Called from:
   - [assign_max_wal_size](../a/assign_max_wal_size.md)
   - [assign_checkpoint_completion_target](../a/assign_checkpoint_completion_target.md)
-  - ReadControlFile
+  - [ReadControlFile](../R/ReadControlFile.md)
 
 ## Notes and Other Information
 - The result is rounded down to ensure conservative behavior

@@ -40,12 +40,12 @@ Key operations performed:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqMakeEmptyPGconn
-  - recognized_connection_string
-  - connectOptions1
-  - pqConnectOptions2
-  - pqConnectDBStart
-  - pqConnectDBComplete
+  - [pqMakeEmptyPGconn](../p/pqMakeEmptyPGconn.md)
+  - [recognized_connection_string](../r/recognized_connection_string.md)
+  - [connectOptions1](../c/connectOptions1.md)
+  - [pqConnectOptions2](../p/pqConnectOptions2.md)
+  - [pqConnectDBStart](../p/pqConnectDBStart.md)
+  - [pqConnectDBComplete](../p/pqConnectDBComplete.md)
 - Called from (representative examples):
   - PQsetdb (convenience macro)
 

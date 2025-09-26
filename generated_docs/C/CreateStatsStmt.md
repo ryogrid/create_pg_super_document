@@ -40,14 +40,14 @@ The node supports creating multi-column statistics (like multi-variate correlati
 - Functions called/Symbols referenced:
   - makeNode (for node creation)
   - NodeTag (parse tree infrastructure)
-  - List (PostgreSQL list structure)
-  - RangeVar (table reference structure)
+  - [List](../L/List.md) (PostgreSQL list structure)
+  - [RangeVar](../R/RangeVar.md) (table reference structure)
 
 - Called from (representative examples):
-  - transformStatsStmt (parse transformation)
-  - generateClonedExtStatsStmt (table cloning)
-  - CreateStatistics (statistics creation command)
-  - ATExecAddStatistics (ALTER TABLE ADD STATISTICS)
+  - [transformStatsStmt](../t/transformStatsStmt.md) (parse transformation)
+  - [generateClonedExtStatsStmt](../g/generateClonedExtStatsStmt.md) (table cloning)
+  - [CreateStatistics](CreateStatistics.md) (statistics creation command)
+  - [ATExecAddStatistics](../A/ATExecAddStatistics.md) (ALTER TABLE ADD STATISTICS)
 
 ## Notes and Other Information
 - Part of PostgreSQL's extended statistics framework introduced for multi-column statistics

@@ -27,7 +27,7 @@ This implementation reflects the nature of Latin-1 encoding where:
 - Functions called/Symbols referenced:
   - None (trivial implementation)
 - Called from (representative examples):
-  - pg_encoding_set_invalid (used for multiple Latin-based encodings)
+  - [pg_encoding_set_invalid](pg_encoding_set_invalid.md) (used for multiple Latin-based encodings)
 
 ## Notes and Other Information
 - Always returns 1, indicating that one byte was successfully validated

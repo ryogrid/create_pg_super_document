@@ -34,7 +34,7 @@ The function is critical for logical replication performance, as having an appro
   - [AttrMap](../A/AttrMap.md) (struct type)
   - REPLICA_IDENTITY_FULL (constant)
 - Called from (representative examples):
-  - logicalrep_rel_open
+  - [logicalrep_rel_open](../l/logicalrep_rel_open.md)
   - [logicalrep_partition_open](../l/logicalrep_partition_open.md)
 
 ## Notes and Other Information

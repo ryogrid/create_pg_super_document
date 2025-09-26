@@ -27,7 +27,7 @@ The function computes the ServerSignature by first deriving the ServerKey from t
 - Functions called/Symbols referenced:
   - [pg_hmac_create](../p/pg_hmac_create.md)
   - [pg_hmac_error](../p/pg_hmac_error.md)
-  - scram_ServerKey
+  - [scram_ServerKey](../s/scram_ServerKey.md)
   - [pg_hmac_free](../p/pg_hmac_free.md)
   - [pg_hmac_init](../p/pg_hmac_init.md)
   - [pg_hmac_update](../p/pg_hmac_update.md)

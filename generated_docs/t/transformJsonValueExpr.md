@@ -37,11 +37,11 @@ The function includes extensive error checking for invalid combinations of forma
 ## Dependencies
 - Functions called/Symbols referenced:
   - [transformExprRecurse](transformExprRecurse.md) (to transform raw expression)
-  - exprType, exprLocation (expression utilities)
+  - [exprType](../e/exprType.md), exprLocation (expression utilities)
   - [coerce_to_specific_type](../c/coerce_to_specific_type.md), coerce_to_target_type (type coercion)
   - [get_type_category_preferred](../g/get_type_category_preferred.md) (type category analysis)
   - [makeJsonByteaToTextConversion](../m/makeJsonByteaToTextConversion.md) (bytea-to-text conversion)
-  - makeFuncExpr (function expression creation)
+  - [makeFuncExpr](../m/makeFuncExpr.md) (function expression creation)
   - copyObject (object copying)
   - Various type OIDs and constants (JSONOID, JSONBOID, BYTEAOID, etc.)
   - JSON format constants (JS_FORMAT_DEFAULT, JS_FORMAT_JSON, JS_FORMAT_JSONB)

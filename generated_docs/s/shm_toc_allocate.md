@@ -34,15 +34,15 @@ The function performs comprehensive checking for memory exhaustion and integer o
 - Functions called/Symbols referenced:
   - BUFFERALIGN (for memory alignment)
   - SpinLockAcquire/SpinLockRelease (for thread synchronization)
-  - shm_toc_entry (for TOC entry size calculations)
+  - [shm_toc_entry](shm_toc_entry.md) (for TOC entry size calculations)
   - ereport/ERROR (for error handling)
 
 - Called from (representative examples):
-  - _brin_begin_parallel (src/backend/access/brin/brin.c:2446-2497)
-  - _bt_begin_parallel (src/backend/access/nbtree/nbtsort.c:1500-1565)
-  - InitializeParallelDSM (src/backend/access/transam/parallel.c:338-485)
-  - ExecParallelSetupTupleQueues (src/backend/executor/execParallel.c:555)
-  - parallel_vacuum_init (src/backend/commands/vacuumparallel.c:332-413)
+  - [_brin_begin_parallel](../b/_brin_begin_parallel.md) (src/backend/access/brin/brin.c:2446-2497)
+  - [_bt_begin_parallel](../b/_bt_begin_parallel.md) (src/backend/access/nbtree/nbtsort.c:1500-1565)
+  - [InitializeParallelDSM](../I/InitializeParallelDSM.md) (src/backend/access/transam/parallel.c:338-485)
+  - [ExecParallelSetupTupleQueues](../E/ExecParallelSetupTupleQueues.md) (src/backend/executor/execParallel.c:555)
+  - [parallel_vacuum_init](../p/parallel_vacuum_init.md) (src/backend/commands/vacuumparallel.c:332-413)
 
 ## Notes and Other Information
 - This allocator is specifically designed for parallel processing scenarios where multiple processes need to share data structures

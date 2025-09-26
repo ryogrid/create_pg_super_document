@@ -29,9 +29,9 @@ When any of these node types is encountered, the function immediately returns tr
 ## Dependencies
 - Functions called/Symbols referenced:
   - expression_tree_walker
-  - SubPlan (node type check)
-  - AlternativeSubPlan (node type check) 
-  - SubLink (node type check)
+  - [SubPlan](../S/SubPlan.md) (node type check)
+  - [AlternativeSubPlan](../A/AlternativeSubPlan.md) (node type check) 
+  - [SubLink](../S/SubLink.md) (node type check)
   - [contain_subplans_walker](contain_subplans_walker.md) (recursive call)
 - Called from (representative examples):
   - [contain_subplans](contain_subplans.md)

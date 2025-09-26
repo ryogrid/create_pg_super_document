@@ -33,7 +33,7 @@ The function ensures that non-constant expressions are only evaluated when a val
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA
-  - ExecEvalExprSwitchContext
+  - [ExecEvalExprSwitchContext](../E/ExecEvalExprSwitchContext.md)
   - Assert
 - Called from (representative examples):
   - [perform_pruning_base_step](perform_pruning_base_step.md)
@@ -42,5 +42,5 @@ The function ensures that non-constant expressions are only evaluated when a val
 - Memory allocated during expression evaluation may be in the per-tuple memory context and requires cleanup via ExprContext reset
 - The function asserts that either planstate or exprcontext is non-NULL when evaluating non-constant expressions
 - When planstate is valid, exprcontext must be the same as planstate->ps_ExprContext
-- Const expressions are handled efficiently without expression evaluation overhead
+- [Const](../C/Const.md) expressions are handled efficiently without expression evaluation overhead
 - Located in src/backend/partitioning/partprune.c:3760-3792

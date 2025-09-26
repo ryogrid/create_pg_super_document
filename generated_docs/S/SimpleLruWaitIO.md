@@ -30,9 +30,9 @@ The recovery mechanism detects failed I/O by attempting to conditionally acquire
 ## Dependencies
 - Functions called/Symbols referenced:
   - SlotGetBankNumber (get bank number for slot)
-  - LWLockRelease (release lightweight locks)
-  - LWLockAcquire (acquire lightweight locks) 
-  - LWLockConditionalAcquire (conditionally acquire locks for error detection)
+  - [LWLockRelease](../L/LWLockRelease.md) (release lightweight locks)
+  - [LWLockAcquire](../L/LWLockAcquire.md) (acquire lightweight locks) 
+  - [LWLockConditionalAcquire](../L/LWLockConditionalAcquire.md) (conditionally acquire locks for error detection)
 - Called from (representative examples):
   - [SimpleLruReadPage](SimpleLruReadPage.md)
   - [SlruInternalWritePage](SlruInternalWritePage.md)

@@ -23,7 +23,7 @@ This function is responsible for managing locks on relations that are referenced
 - Functions called/Symbols referenced:
   - [PlannedStmt](../P/PlannedStmt.md)
   - CMD_UTILITY
-  - UtilityContainsQuery
+  - [UtilityContainsQuery](../U/UtilityContainsQuery.md)
   - [ScanQueryForLocks](../S/ScanQueryForLocks.md)
   - RTE_RELATION
   - RTE_SUBQUERY

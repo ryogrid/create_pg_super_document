@@ -24,7 +24,7 @@ CC_WORD is a member of the char_classes enumeration defined in the PostgreSQL re
   - [lexescape](../l/lexescape.md) (in regc_lex.c:699, 703) - handles \w and \W escape sequences
   - [cclasscvec](../c/cclasscvec.md) (in regc_locale.c:605) - creates character vectors for character classes
   - [cclass_column_index](../c/cclass_column_index.md) (in regc_locale.c:688, 689) - maps character classes to column indices
-  - wordchrs (in regcomp.c:2007) - builds word character representations
+  - [wordchrs](../w/wordchrs.md) (in regcomp.c:2007) - builds word character representations
 
 ## Notes and Other Information
 - [CC_WORD](CC_WORD.md) is used in conjunction with the REG_ULOCALE flag to support locale-specific word character definitions

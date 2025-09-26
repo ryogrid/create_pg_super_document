@@ -23,11 +23,11 @@ The function is implemented as a static inline function for optimal performance,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ScanKeywordList (struct type)
+  - [ScanKeywordList](../S/ScanKeywordList.md) (struct type)
 - Called from (representative examples):
-  - pg_get_keywords (src/backend/utils/adt/misc.c:447)
-  - ScanKeywordLookup (src/common/kwlookup.c:70)
-  - ScanCKeywordLookup (src/interfaces/ecpg/preproc/c_keywords.c:60)
+  - [pg_get_keywords](../p/pg_get_keywords.md) (src/backend/utils/adt/misc.c:447)
+  - [ScanKeywordLookup](../S/ScanKeywordLookup.md) (src/common/kwlookup.c:70)
+  - [ScanCKeywordLookup](../S/ScanCKeywordLookup.md) (src/interfaces/ecpg/preproc/c_keywords.c:60)
 
 ## Notes and Other Information
 - The function assumes that the index  is valid (0 <= n < keywords->num_keywords)

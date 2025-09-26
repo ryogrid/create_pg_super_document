@@ -45,12 +45,12 @@ As this is a typedef alias, config_handle inherits all members from config_gener
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - config_generic (aliased structure type)
-  - ConfigVariable (used in related function prototypes)
+  - [config_generic](config_generic.md) (aliased structure type)
+  - [ConfigVariable](../C/ConfigVariable.md) (used in related function prototypes)
 - Called from (representative examples):
-  - set_config_with_handle
+  - [set_config_with_handle](../s/set_config_with_handle.md)
   - EmitWarningsOnPlaceholders
-  - fmgr_security_definer
+  - [fmgr_security_definer](../f/fmgr_security_definer.md)
 
 ## Notes and Other Information
 - This typedef provides encapsulation and API stability for configuration variable handling

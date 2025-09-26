@@ -26,15 +26,15 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockShmemSize: Calculates required shared memory size
-  - ShmemAlloc: Allocates shared memory
-  - InitializeLWLocks: Initializes all LWLock structures
-  - LWLockRegisterTranche: Registers tranche names for debugging
+  - [LWLockShmemSize](../L/LWLockShmemSize.md): Calculates required shared memory size
+  - [ShmemAlloc](../S/ShmemAlloc.md): Allocates shared memory
+  - [InitializeLWLocks](../I/InitializeLWLocks.md): Initializes all LWLock structures
+  - [LWLockRegisterTranche](../L/LWLockRegisterTranche.md): Registers tranche names for debugging
 - Constants used:
   - LWLOCK_PADDED_SIZE: Alignment size for LWLock structures
   - LWTRANCHE_FIRST_USER_DEFINED: Starting ID for user-defined tranches
 - Called from:
-  - CreateOrAttachShmemStructs: Main shared memory setup function
+  - [CreateOrAttachShmemStructs](CreateOrAttachShmemStructs.md): Main shared memory setup function
 
 ## Notes and Other Information
 - The function ensures proper memory alignment by adjusting the pointer to align with LWLOCK_PADDED_SIZE boundaries

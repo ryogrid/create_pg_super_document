@@ -22,7 +22,7 @@ WorkTableScanNext implements the tuple retrieval mechanism for worktable scans, 
 - Types used:
   - [WorkTableScanState](WorkTableScanState.md) (scan state structure)
   - TuplestoreState (tuplestore for temporary data)
-  - TupleTableSlot (tuple storage slot)
+  - [TupleTableSlot](../T/TupleTableSlot.md) (tuple storage slot)
 - Called from:
   - [ExecWorkTableScan](../E/ExecWorkTableScan.md) (main execution function)
 

@@ -24,19 +24,19 @@ The function performs input validation by checking for null context and then use
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_md5_update
-  - pg_sha1_update  
-  - pg_sha224_update
-  - pg_sha256_update
-  - pg_sha384_update
-  - pg_sha512_update
+  - [pg_md5_update](pg_md5_update.md)
+  - [pg_sha1_update](pg_sha1_update.md)  
+  - [pg_sha224_update](pg_sha224_update.md)
+  - [pg_sha256_update](pg_sha256_update.md)
+  - [pg_sha384_update](pg_sha384_update.md)
+  - [pg_sha512_update](pg_sha512_update.md)
   - PG_MD5, PG_SHA1, PG_SHA224, PG_SHA256, PG_SHA384, PG_SHA512 (enum constants)
   - [pg_cryptohash_ctx](pg_cryptohash_ctx.md) (context structure)
 - Called from (representative examples):
   - [AppendStringToManifest](../A/AppendStringToManifest.md)
   - [scram_mock_salt](../s/scram_mock_salt.md)
   - [cryptohash_internal](../c/cryptohash_internal.md)
-  - pg_checksum_update
+  - [pg_checksum_update](pg_checksum_update.md)
   - [pg_hmac_update](pg_hmac_update.md)
   - [pg_md5_hash](pg_md5_hash.md)
 

@@ -30,13 +30,13 @@ The function returns a double value to prevent potential integer overflow when m
 
 ## Dependencies
 - Functions called:
-  - hash_agg_entry_size
+  - [hash_agg_entry_size](../h/hash_agg_entry_size.md)
 - Called from:
-  - consider_groupingsets_paths (in planner.c:4277, 4411, 4463)
+  - [consider_groupingsets_paths](../c/consider_groupingsets_paths.md) (in planner.c:4277, 4411, 4463)
 
 ## Notes and Other Information
 - The function may over-estimate table size since hash aggregation now omits unneeded columns from the hashtable
 - For mixed-mode grouping sets, grouping columns not in the hashed set are counted even though they won't be stored
-- Hash table growth policies and fill-factors are not considered in the estimation
+- [Hash](../H/Hash.md) table growth policies and fill-factors are not considered in the estimation
 - Returns double precision to handle potentially large memory size calculations
 - Used primarily for deciding between hash-based and sort-based aggregation strategies

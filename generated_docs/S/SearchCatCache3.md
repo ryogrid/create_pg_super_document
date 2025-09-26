@@ -25,10 +25,10 @@ Like other functions in this family, SearchCatCache3 searches a system catalog c
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchCatCacheInternal](SearchCatCacheInternal.md)
-  - CatCache (structure type)
+  - [CatCache](../C/CatCache.md) (structure type)
 - Called from (representative examples):
   - [SearchSysCache3](SearchSysCache3.md)
-  - CatCacheHeader
+  - [CatCacheHeader](../C/CatCacheHeader.md)
 
 ## Notes and Other Information
 - This is an optimized version that hard-codes the number of keys to 3

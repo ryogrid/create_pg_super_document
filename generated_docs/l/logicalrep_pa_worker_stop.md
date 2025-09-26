@@ -27,13 +27,13 @@ The function first extracts worker identification information (slot number and g
 ## Dependencies
 - Functions called/Symbols referenced:
   - SpinLockAcquire/SpinLockRelease: Protects access to shared parallel worker information
-  - shm_mq_detach: Detaches from the error message queue handle
-  - LWLockAcquire/LWLockRelease: Manages LogicalRepWorkerLock for worker access
+  - [shm_mq_detach](../s/shm_mq_detach.md): Detaches from the error message queue handle
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease: Manages LogicalRepWorkerLock for worker access
   - isParallelApplyWorker: Validates that this is indeed a parallel apply worker
-  - logicalrep_worker_stop_internal: Performs the actual worker termination with SIGINT
+  - [logicalrep_worker_stop_internal](logicalrep_worker_stop_internal.md): Performs the actual worker termination with SIGINT
 
 - Called from:
-  - pa_free_worker: Used during parallel worker cleanup and resource deallocation
+  - [pa_free_worker](../p/pa_free_worker.md): Used during parallel worker cleanup and resource deallocation
 
 ## Notes and Other Information
 - Specifically designed for parallel apply workers, not regular subscription workers

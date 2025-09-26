@@ -19,10 +19,10 @@ This function serves as a custom memory deallocation callback for the libxml lib
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree (PostgreSQL memory free function)
+  - [pfree](../p/pfree.md) (PostgreSQL memory free function)
 - Called from:
-  - PgXmlErrorContext
-  - xml_memory_init (as callback registration)  
+  - [PgXmlErrorContext](../P/PgXmlErrorContext.md)
+  - [xml_memory_init](xml_memory_init.md) (as callback registration)  
   - Indirectly called by libxml through callback mechanism
 
 ## Notes and Other Information

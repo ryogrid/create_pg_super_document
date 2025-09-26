@@ -58,9 +58,9 @@ The structure includes pointers to both primary and secondary shared tuplesort s
 - Functions called/Symbols referenced:
   - [ParallelContext](../P/ParallelContext.md)
   - [BTShared](BTShared.md)
-  - Sharedsort
-  - WalUsage
-  - BufferUsage
+  - [Sharedsort](../S/Sharedsort.md)
+  - [WalUsage](../W/WalUsage.md)
+  - [BufferUsage](BufferUsage.md)
 - Called from (representative examples):
   - [BTBuildState](BTBuildState.md)
   - [_bt_begin_parallel](../b/_bt_begin_parallel.md)

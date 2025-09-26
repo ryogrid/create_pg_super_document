@@ -20,7 +20,7 @@ The numeric_to_cstring function is a utility function that converts a PostgreSQL
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Numeric (PostgreSQL numeric data type)
+  - [Numeric](../N/Numeric.md) (PostgreSQL numeric data type)
   - [NumericGetDatum](../N/NumericGetDatum.md) (converts Numeric to Datum)
   - DirectFunctionCall1 (calls a PostgreSQL function with one argument)
   - [numeric_out](numeric_out.md) (the standard numeric-to-string conversion function)

@@ -31,10 +31,10 @@ The function is part of PostgreSQL's careful OID management during bootstrap, wh
 - Functions called/Symbols referenced:
   - `IsPostmasterEnvironment` (macro/variable check)
   - `elog` (ERROR level)
-  - `LWLockAcquire` (OidGenLock, LW_EXCLUSIVE)
-  - `LWLockRelease` (OidGenLock)
+  - `[LWLockAcquire](../L/LWLockAcquire.md)` (OidGenLock, LW_EXCLUSIVE)
+  - `[LWLockRelease](../L/LWLockRelease.md)` (OidGenLock)
 - Called from (representative examples):
-  - `StopGeneratingPinnedObjectIds` (src/backend/access/transam/varsup.c:654)
+  - `[StopGeneratingPinnedObjectIds](StopGeneratingPinnedObjectIds.md)` (src/backend/access/transam/varsup.c:654)
 
 ## Notes and Other Information
 - **Static function**: Not exposed outside varsup.c, indicating its specialized internal use

@@ -27,14 +27,14 @@ Key characteristics:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PGconn (underlying connection type)
-  - pg_cancel_conn (the backing struct)
+  - [PGconn](PGconn.md) (underlying connection type)
+  - [pg_cancel_conn](../p/pg_cancel_conn.md) (the backing struct)
 - Called from (representative examples):
-  - PQcancelCreate - Creates new cancel connection objects
-  - PQcancelBlocking - Performs blocking cancellation
-  - PQcancelStart - Initiates asynchronous cancellation
-  - PQcancelPoll - Polls asynchronous cancellation status
-  - PQcancelFinish - Cleans up cancel connection
+  - [PQcancelCreate](PQcancelCreate.md) - Creates new cancel connection objects
+  - [PQcancelBlocking](PQcancelBlocking.md) - Performs blocking cancellation
+  - [PQcancelStart](PQcancelStart.md) - Initiates asynchronous cancellation
+  - [PQcancelPoll](PQcancelPoll.md) - Polls asynchronous cancellation status
+  - [PQcancelFinish](PQcancelFinish.md) - Cleans up cancel connection
 
 ## Notes and Other Information
 - The structure contents are intentionally opaque to applications

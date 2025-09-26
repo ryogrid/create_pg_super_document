@@ -19,10 +19,10 @@ The `have_prediction` function is a simple predicate that determines whether the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonParserStack (struct type)
+  - [JsonParserStack](../J/JsonParserStack.md) (struct type)
 - Called from (representative examples):
-  - pg_parse_json_incremental (at src/common/jsonapi.c:678)
-  - pg_parse_json_incremental (at src/common/jsonapi.c:685)
+  - [pg_parse_json_incremental](../p/pg_parse_json_incremental.md) (at src/common/jsonapi.c:678)
+  - [pg_parse_json_incremental](../p/pg_parse_json_incremental.md) (at src/common/jsonapi.c:685)
 
 ## Notes and Other Information
 - This is a static inline function for performance optimization

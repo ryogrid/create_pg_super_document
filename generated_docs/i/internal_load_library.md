@@ -27,10 +27,10 @@ This is a static function that serves as the underlying implementation for both 
   - SAME_INODE (macro)
   - malloc
   - MemSet
-  - dlopen
-  - dlerror
-  - dlsym
-  - dlclose
+  - [dlopen](../d/dlopen.md)
+  - [dlerror](../d/dlerror.md)
+  - [dlsym](../d/dlsym.md)
+  - [dlclose](../d/dlclose.md)
   - [incompatible_module_error](incompatible_module_error.md)
   - PG_MAGIC_FUNCTION_NAME_STRING
   - Pg_magic_struct

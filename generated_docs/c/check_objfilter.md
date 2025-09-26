@@ -33,7 +33,7 @@ The validation rules enforced are:
   - [pg_fatal](../p/pg_fatal.md) (error reporting function)
 - Called from (representative examples):
   - [main](../m/main.md) (vacuumdb main function)
-  - VacObjFilter (object filter processing)
+  - [VacObjFilter](../V/VacObjFilter.md) (object filter processing)
 
 ## Notes and Other Information
 - Uses bitwise AND operations to check for simultaneous presence of conflicting flags

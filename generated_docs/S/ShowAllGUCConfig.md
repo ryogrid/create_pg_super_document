@@ -35,18 +35,18 @@ The function handles NULL values appropriately by setting isnull flags when sett
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_guc_variables (to retrieve sorted array of all GUC variables)
-  - CreateTemplateTupleDesc (to create the three-column result schema)
-  - TupleDescInitBuiltinEntry (to initialize column definitions efficiently)
-  - begin_tup_output_tupdesc (to set up tuple output infrastructure)
-  - ConfigOptionIsVisible (to check parameter visibility permissions)
-  - ShowGUCOption (to format parameter values with proper units)
-  - cstring_to_text (to convert C strings to PostgreSQL text datums)
-  - do_tup_output (to send individual result tuples)
-  - end_tup_output (to clean up output state)
+  - [get_guc_variables](../g/get_guc_variables.md) (to retrieve sorted array of all GUC variables)
+  - [CreateTemplateTupleDesc](../C/CreateTemplateTupleDesc.md) (to create the three-column result schema)
+  - [TupleDescInitBuiltinEntry](../T/TupleDescInitBuiltinEntry.md) (to initialize column definitions efficiently)
+  - [begin_tup_output_tupdesc](../b/begin_tup_output_tupdesc.md) (to set up tuple output infrastructure)
+  - [ConfigOptionIsVisible](../C/ConfigOptionIsVisible.md) (to check parameter visibility permissions)
+  - [ShowGUCOption](ShowGUCOption.md) (to format parameter values with proper units)
+  - [cstring_to_text](../c/cstring_to_text.md) (to convert C strings to PostgreSQL text datums)
+  - [do_tup_output](../d/do_tup_output.md) (to send individual result tuples)
+  - [end_tup_output](../e/end_tup_output.md) (to clean up output state)
   - GUC_NO_SHOW_ALL (flag constant to identify hidden parameters)
 - Called from (representative examples):
-  - GetPGVariable (when name equals "all")
+  - [GetPGVariable](../G/GetPGVariable.md) (when name equals "all")
 
 ## Notes and Other Information
 - This is a static function, only accessible within guc_funcs.c

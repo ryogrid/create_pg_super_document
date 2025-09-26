@@ -36,7 +36,7 @@ The function may trigger segment mapping operations if the target segment is not
   - 
 - Called from:
   - Parallel execution functions (, , etc.)
-  - Hash table operations (, etc.)
+  - [Hash](../H/Hash.md) table operations (, etc.)
   - Dynamic shared hash functions (, , etc.)
   - Tid bitmap operations (, , etc.)
   - Statistics system (, , etc.)

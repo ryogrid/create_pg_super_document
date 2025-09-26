@@ -37,9 +37,9 @@ The system prevents mixing these modes to avoid ambiguous or contradictory date 
 - Functions called/Symbols referenced:
   - Used in KeyWord struct as date_mode field
 - Called from (representative examples):
-  - from_char_set_mode
+  - [from_char_set_mode](../f/from_char_set_mode.md)
   - DCH format parsing operations
-  - TmFromChar structure usage
+  - [TmFromChar](../T/TmFromChar.md) structure usage
 
 ## Notes and Other Information
 - This enum is critical for data integrity during date parsing operations

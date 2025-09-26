@@ -23,8 +23,8 @@ The implementation uses a global mutex  to synchronize access and employs double
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pthread_mutex_lock
-  - pthread_mutex_unlock
+  - [pthread_mutex_lock](../p/pthread_mutex_lock.md)
+  - [pthread_mutex_unlock](../p/pthread_mutex_unlock.md)
   - pthread_once_t (type)
 - Called from (representative examples):
   - pthread_once (macro/wrapper function)

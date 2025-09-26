@@ -28,21 +28,21 @@ RangeBox is commonly used in conjunction with the getRangeBox() function, which 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Range (as component type for left and right members)
+  - [Range](Range.md) (as component type for left and right members)
 - Called from (representative examples):
-  - getRangeBox
-  - getQuadrant
-  - nextRectBox
-  - overlap2D, overlap4D
-  - contain2D, contain4D
-  - contained2D, contained4D
-  - lower2D, overLower2D
-  - higher2D, overHigher2D
-  - left4D, overLeft4D
-  - right4D, overRight4D
-  - below4D, overBelow4D
-  - above4D, overAbove4D
-  - spg_box_quad_inner_consistent
+  - [getRangeBox](../g/getRangeBox.md)
+  - [getQuadrant](../g/getQuadrant.md)
+  - [nextRectBox](../n/nextRectBox.md)
+  - [overlap2D](../o/overlap2D.md), overlap4D
+  - [contain2D](../c/contain2D.md), contain4D
+  - [contained2D](../c/contained2D.md), contained4D
+  - [lower2D](../l/lower2D.md), overLower2D
+  - [higher2D](../h/higher2D.md), overHigher2D
+  - [left4D](../l/left4D.md), overLeft4D
+  - [right4D](../r/right4D.md), overRight4D
+  - [below4D](../b/below4D.md), overBelow4D
+  - [above4D](../a/above4D.md), overAbove4D
+  - [spg_box_quad_inner_consistent](../s/spg_box_quad_inner_consistent.md)
 
 ## Notes and Other Information
 - Part of PostgreSQL's SP-GiST implementation for geometric data types

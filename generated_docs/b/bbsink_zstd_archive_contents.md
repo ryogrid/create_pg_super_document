@@ -25,7 +25,7 @@ This function performs the core zstd compression work by processing input data t
   - ZSTD_compressStream2 (performs streaming compression)
   - ZSTD_isError (checks for compression errors) 
   - ZSTD_getErrorName (gets error description)
-  - bbsink_archive_contents (sends compressed data to next sink)
+  - [bbsink_archive_contents](bbsink_archive_contents.md) (sends compressed data to next sink)
   - elog (error logging)
 - Called from (representative examples):
   - Through bbsink_zstd_ops function pointer table

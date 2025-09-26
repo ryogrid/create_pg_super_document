@@ -19,10 +19,10 @@ The compareNumeric function provides a simple wrapper around PostgreSQL's built-
 ## Dependencies
 - Functions called/Symbols referenced:
   - DirectFunctionCall2
-  - numeric_cmp
+  - [numeric_cmp](../n/numeric_cmp.md)
   - [NumericGetDatum](../N/NumericGetDatum.md)
   - [DatumGetInt32](../D/DatumGetInt32.md)
-  - Numeric (type)
+  - [Numeric](../N/Numeric.md) (type)
 - Called from (representative examples):
   - [compareItems](compareItems.md)
   - RETURN_ERROR

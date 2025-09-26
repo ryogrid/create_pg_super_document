@@ -22,11 +22,11 @@ The function uses PointerGetDatum to perform the conversion, treating the TSVect
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PointerGetDatum](../P/PointerGetDatum.md) (macro for converting pointers to Datum values)
-  - TSVectorData (type parameter)
+  - [TSVectorData](TSVectorData.md) (type parameter)
 - Called from (representative examples):
   - [compute_tsvector_stats](../c/compute_tsvector_stats.md)
   - [ts_match_tt](../t/ts_match_tt.md)
-  - ts_match_tq
+  - [ts_match_tq](../t/ts_match_tq.md)
   - [tsvector_update_trigger](../t/tsvector_update_trigger.md)
   - PG_RETURN_TSVECTOR
 

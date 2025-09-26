@@ -36,10 +36,10 @@ The function maintains frame tail tracking through  and , ensures proper tuple s
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (memory management)
   - [tuplestore_select_read_pointer](../t/tuplestore_select_read_pointer.md) (tuple store navigation)
   - [tuplestore_gettupleslot](../t/tuplestore_gettupleslot.md) (tuple retrieval from buffer)
-  - are_peers (peer comparison for RANGE/GROUPS modes)
-  - slot_getattr (tuple attribute extraction for RANGE mode)
+  - [are_peers](../a/are_peers.md) (peer comparison for RANGE/GROUPS modes)
+  - [slot_getattr](../s/slot_getattr.md) (tuple attribute extraction for RANGE mode)
   - [FunctionCall5Coll](../F/FunctionCall5Coll.md) (in_range function calls for RANGE mode)
-  - ExecCopySlot/ExecClearTuple (tuple slot management in GROUPS mode)
+  - [ExecCopySlot](../E/ExecCopySlot.md)/ExecClearTuple (tuple slot management in GROUPS mode)
   - [DatumGetInt64](../D/DatumGetInt64.md) (offset value extraction)
 - Called from (representative examples):
   - [row_is_in_frame](../r/row_is_in_frame.md) (for frame membership testing)

@@ -24,7 +24,7 @@ This function constructs a Path node specifically for named tuplestore scan oper
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode
-  - get_baserel_parampathinfo
+  - [get_baserel_parampathinfo](../g/get_baserel_parampathinfo.md)
   - [cost_namedtuplestorescan](cost_namedtuplestorescan.md)
 - Called from (representative examples):
   - [set_namedtuplestore_pathlist](../s/set_namedtuplestore_pathlist.md)

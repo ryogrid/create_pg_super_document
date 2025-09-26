@@ -49,7 +49,7 @@ The function supports both new index creation and rebuilding scenarios, with spe
   - [RelationPreserveStorage](../R/RelationPreserveStorage.md)
   - [index_close](../i/index_close.md)
   - [AlteredTableInfo](AlteredTableInfo.md) (struct)
-  - IndexStmt (struct)
+  - [IndexStmt](../I/IndexStmt.md) (struct)
 - Called from (representative examples):
   - [ATExecCmd](ATExecCmd.md) (multiple call sites)
   - child_dependency_type

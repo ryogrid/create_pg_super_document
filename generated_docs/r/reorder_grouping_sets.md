@@ -31,11 +31,11 @@ The prefix relationship ensures that each grouping set contains all elements of 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [list_difference_int](../l/list_difference_int.md)
-  - GroupingSetData
-  - SortGroupClause
+  - [GroupingSetData](../G/GroupingSetData.md)
+  - [SortGroupClause](../S/SortGroupClause.md)
   - [list_nth](../l/list_nth.md)
   - [list_member_int](../l/list_member_int.md)
-  - lappend_int
+  - [lappend_int](../l/lappend_int.md)
   - [list_delete_int](../l/list_delete_int.md)
   - [list_concat](../l/list_concat.md)
   - [list_copy](../l/list_copy.md)

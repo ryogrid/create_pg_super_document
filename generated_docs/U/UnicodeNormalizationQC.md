@@ -33,11 +33,11 @@ The implementation is specifically optimized for NFC and NFKC forms, while NFD a
 
 ## Dependencies
 - Functions using this type:
-  - unicode_is_normalized_quickcheck (returns this type)
-  - qc_is_allowed (returns this type)
-  - qc_hash_lookup (accesses quickcheck field of this type)
+  - [unicode_is_normalized_quickcheck](../u/unicode_is_normalized_quickcheck.md) (returns this type)
+  - [qc_is_allowed](../q/qc_is_allowed.md) (returns this type)
+  - [qc_hash_lookup](../q/qc_hash_lookup.md) (accesses quickcheck field of this type)
 - Called from:
-  - unicode_is_normalized (in varlena.c)
+  - [unicode_is_normalized](../u/unicode_is_normalized.md) (in varlena.c)
   - Various internal normalization functions in unicode_norm.c
 
 ## Notes and Other Information

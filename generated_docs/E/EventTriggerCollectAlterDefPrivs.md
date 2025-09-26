@@ -24,7 +24,7 @@ The function operates within the event trigger collection framework and respects
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - [palloc0](../p/palloc0.md)
   - copyObject
-  - lappend
+  - [lappend](../l/lappend.md)
 - Called from (representative examples):
   - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (src/backend/tcop/utility.c:1822)
 

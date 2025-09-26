@@ -21,10 +21,10 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SlotSyncCtxStruct (structure type)
+  - [SlotSyncCtxStruct](SlotSyncCtxStruct.md) (structure type)
 - Called from (representative examples):
-  - SlotSyncShmemInit
-  - CalculateShmemSize
+  - [SlotSyncShmemInit](SlotSyncShmemInit.md)
+  - [CalculateShmemSize](../C/CalculateShmemSize.md)
 
 ## Notes and Other Information
 - Returns a value of type `Size` (typically size_t)

@@ -24,8 +24,8 @@ This function implements the main event loop for the logical replication launche
   - [pqsignal](../p/pqsignal.md), SignalHandlerForConfigReload, die, BackgroundWorkerUnblockSignals
   - [BackgroundWorkerInitializeConnection](../B/BackgroundWorkerInitializeConnection.md)
   - AllocSetContextCreate, MemoryContextSwitchTo, MemoryContextDelete
-  - get_subscription_list, logicalrep_worker_find, logicalrep_worker_launch
-  - ApplyLauncherGetWorkerStartTime, ApplyLauncherSetWorkerStartTime
+  - [get_subscription_list](../g/get_subscription_list.md), logicalrep_worker_find, logicalrep_worker_launch
+  - [ApplyLauncherGetWorkerStartTime](ApplyLauncherGetWorkerStartTime.md), ApplyLauncherSetWorkerStartTime
   - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md), TimestampDifferenceMilliseconds
   - [WaitLatch](../W/WaitLatch.md), ResetLatch, ProcessConfigFile
 - Called from (representative examples):

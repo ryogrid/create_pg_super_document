@@ -35,15 +35,15 @@ The decompression function may either return a new GISTENTRY or simply return th
 - Functions called/Symbols referenced:
   - gistentryinit
   - OidIsValid
-  - DatumGetPointer
-  - FunctionCall1Coll
-  - PointerGetDatum
+  - [DatumGetPointer](../D/DatumGetPointer.md)
+  - [FunctionCall1Coll](../F/FunctionCall1Coll.md)
+  - [PointerGetDatum](../P/PointerGetDatum.md)
 - Called from (representative examples):
-  - gistindex_keytest
-  - gistSplitByKey
-  - gistMakeUnionItVec
-  - gistDeCompressAtt
-  - gistchoose
+  - [gistindex_keytest](gistindex_keytest.md)
+  - [gistSplitByKey](gistSplitByKey.md)
+  - [gistMakeUnionItVec](gistMakeUnionItVec.md)
+  - [gistDeCompressAtt](gistDeCompressAtt.md)
+  - [gistchoose](gistchoose.md)
 
 ## Notes and Other Information
 - Handles NULL keys by initializing the entry with a zero Datum

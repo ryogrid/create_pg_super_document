@@ -24,7 +24,7 @@ This function completes the zstd compression for an archive by flushing any rema
   - ZSTD_compressStream2 (performs final compression with ZSTD_e_end mode)
   - ZSTD_isError (checks for compression errors)
   - ZSTD_getErrorName (gets error description)  
-  - bbsink_archive_contents (sends compressed data to next sink)
+  - [bbsink_archive_contents](bbsink_archive_contents.md) (sends compressed data to next sink)
   - [bbsink_forward_end_archive](bbsink_forward_end_archive.md) (notifies next sink that archive ended)
   - elog (error logging)
 - Called from (representative examples):

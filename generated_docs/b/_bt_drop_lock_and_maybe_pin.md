@@ -26,7 +26,7 @@ The function implements the concurrent TID recycling safety mechanism described 
   - [_bt_unlockbuf](_bt_unlockbuf.md)
   - IsMVCCSnapshot
   - RelationNeedsWAL
-  - ReleaseBuffer
+  - [ReleaseBuffer](../R/ReleaseBuffer.md)
 - Called from (representative examples):
   - [_bt_first](_bt_first.md)
   - [_bt_steppage](_bt_steppage.md)

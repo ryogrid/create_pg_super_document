@@ -39,7 +39,7 @@ This function generates the full file system path for backup history files by co
   - MAXPGPATH (maximum path length)
   - XLOGDIR (WAL directory path)
 - Called from (representative examples):
-  - do_pg_backup_stop (in src/backend/access/transam/xlog.c)
+  - [do_pg_backup_stop](../d/do_pg_backup_stop.md) (in src/backend/access/transam/xlog.c)
 
 ## Notes and Other Information
 The generated path follows the format: `{XLOGDIR}/{tli:08X}{high:08X}{low:08X}.{offset:08X}.backup` where XLOGDIR is the WAL directory path (typically 'pg_wal'). This function is essential for creating backup history files at the correct location within the PostgreSQL data directory structure, ensuring they can be found by recovery and cleanup processes.

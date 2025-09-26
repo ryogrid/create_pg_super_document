@@ -19,13 +19,13 @@ CountDBSubscriptions performs a system table scan on the pg_subscription catalog
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open (open system table)
+  - [table_open](../t/table_open.md) (open system table)
   - [ScanKeyInit](../S/ScanKeyInit.md) (initialize scan key)
   - [systable_beginscan](../s/systable_beginscan.md) (begin system table scan)
   - [systable_getnext](../s/systable_getnext.md) (get next tuple from scan)
   - HeapTupleIsValid (validate heap tuple)
   - [systable_endscan](../s/systable_endscan.md) (end system table scan)
-  - table_close (close system table)
+  - [table_close](../t/table_close.md) (close system table)
 - Called from (representative examples):
   - [dropdb](../d/dropdb.md) (database drop command validation)
 

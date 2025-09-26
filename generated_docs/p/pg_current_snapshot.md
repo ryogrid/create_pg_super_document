@@ -27,9 +27,9 @@ This function takes no parameters (uses PG_FUNCTION_ARGS macro for PostgreSQL fu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReadNextFullTransactionId
-  - GetActiveSnapshot
-  - FullTransactionIdFromAllowableAt
+  - [ReadNextFullTransactionId](../R/ReadNextFullTransactionId.md)
+  - [GetActiveSnapshot](../G/GetActiveSnapshot.md)
+  - [FullTransactionIdFromAllowableAt](../F/FullTransactionIdFromAllowableAt.md)
   - [sort_snapshot](../s/sort_snapshot.md)
   - [palloc](palloc.md)
   - elog

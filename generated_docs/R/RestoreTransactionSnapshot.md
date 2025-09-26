@@ -23,7 +23,7 @@ The function uses a void pointer for the source_pgproc parameter to avoid includ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SetTransactionSnapshot (core function for installing transaction snapshots)
+  - [SetTransactionSnapshot](../S/SetTransactionSnapshot.md) (core function for installing transaction snapshots)
   - InvalidPid (constant indicating no specific process ID)
 - Called from (representative examples):
   - [ParallelWorkerMain](../P/ParallelWorkerMain.md) (parallel worker process initialization)

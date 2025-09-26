@@ -27,8 +27,8 @@ The function uses simple character arithmetic to perform the conversion efficien
 - Functions called/Symbols referenced: (none)
 
 - Called from (representative examples):
-  - hexdecode_string (primary caller for string conversion)
-  - JsonManifestParseIncrementalState (structure reference)
+  - [hexdecode_string](hexdecode_string.md) (primary caller for string conversion)
+  - [JsonManifestParseIncrementalState](../J/JsonManifestParseIncrementalState.md) (structure reference)
 
 ## Notes and Other Information
 - This is a static function, limiting its scope to the parse_manifest.c compilation unit

@@ -28,7 +28,7 @@ This function performs comprehensive operator candidate lookup in the PostgreSQL
   - SearchSysCacheList1
   - [CStringGetDatum](../C/CStringGetDatum.md)
   - FuncCandidateList
-  - CatCList
+  - [CatCList](../C/CatCList.md)
 - Called from (representative examples):
   - [oper](../o/oper.md)
   - [left_oper](../l/left_oper.md)

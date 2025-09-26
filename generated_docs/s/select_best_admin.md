@@ -31,11 +31,11 @@ The preference algorithm works as follows:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `roles_is_member_of`: Recursively searches role membership with privilege-based recursion
+  - `[roles_is_member_of](../r/roles_is_member_of.md)`: Recursively searches role membership with privilege-based recursion
   - `ROLERECURSE_PRIVS`: Constant controlling privilege-based recursion (differs from ROLERECURSE_MEMBERS)
   - `InvalidOid`: Constant representing an invalid OID value
 - Called from (representative examples):
-  - `check_role_grantor`: Validates role granting permissions in user management
+  - `[check_role_grantor](../c/check_role_grantor.md)`: Validates role granting permissions in user management
   - Various ACL-related functions for role validation
 
 ## Notes and Other Information

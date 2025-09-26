@@ -29,13 +29,13 @@ The scan ensures all leaf pages are visited, which is critical for correctness s
 ## Dependencies
 - Functions called/Symbols referenced:
   - [initSpGistState](../i/initSpGistState.md)
-  - GetActiveSnapshot
-  - LockRelationForExtension/UnlockRelationForExtension
+  - [GetActiveSnapshot](../G/GetActiveSnapshot.md)
+  - [LockRelationForExtension](../L/LockRelationForExtension.md)/UnlockRelationForExtension
   - RelationGetNumberOfBlocks
   - [spgvacuumpage](spgvacuumpage.md)
   - [spgprocesspending](spgprocesspending.md)
   - [SpGistUpdateMetaPage](../S/SpGistUpdateMetaPage.md)
-  - IndexFreeSpaceMapVacuum
+  - [IndexFreeSpaceMapVacuum](../I/IndexFreeSpaceMapVacuum.md)
   - RELATION_IS_LOCAL
 - Called from (representative examples):
   - [spgbulkdelete](spgbulkdelete.md)

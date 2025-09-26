@@ -36,13 +36,13 @@ The test demonstrates the distinction between pipeline-aborted state (recoverabl
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQexec](../P/PQexec.md) - Execute immediate SQL commands
-  - PQenterPipelineMode - Enter pipeline mode
+  - [PQenterPipelineMode](../P/PQenterPipelineMode.md) - Enter pipeline mode
   - [PQsendPrepare](../P/PQsendPrepare.md) - Prepare a statement in pipeline
   - [PQsendQueryParams](../P/PQsendQueryParams.md) - Send parameterized queries
   - [PQsendQueryPrepared](../P/PQsendQueryPrepared.md) - Execute prepared statements
-  - PQpipelineSync - Send pipeline synchronization
+  - [PQpipelineSync](../P/PQpipelineSync.md) - Send pipeline synchronization
   - [PQgetResult](../P/PQgetResult.md) - Retrieve query results
-  - PQexitPipelineMode - Exit pipeline mode
+  - [PQexitPipelineMode](../P/PQexitPipelineMode.md) - Exit pipeline mode
   - [PQresultStatus](../P/PQresultStatus.md) - Get result status
   - [PQresStatus](../P/PQresStatus.md) - Get status string representation
   - [PQntuples](../P/PQntuples.md) - Get number of tuples in result

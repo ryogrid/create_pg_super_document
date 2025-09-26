@@ -25,11 +25,11 @@ The function includes stack depth checking to prevent stack overflow during deep
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth (stack overflow protection)
-  - cntsize (recursive self-call)
-  - QTNode, QI_OPR, QueryItem (data types and constants)
+  - [check_stack_depth](check_stack_depth.md) (stack overflow protection)
+  - [cntsize](cntsize.md) (recursive self-call)
+  - [QTNode](../Q/QTNode.md), QI_OPR, QueryItem (data types and constants)
 - Called from (representative examples):
-  - QTN2QT (in tsquery_util.c)
+  - [QTN2QT](../Q/QTN2QT.md) (in tsquery_util.c)
 
 ## Notes and Other Information
 - Static function (internal to tsquery_util.c)

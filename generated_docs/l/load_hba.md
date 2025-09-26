@@ -33,7 +33,7 @@ The function employs comprehensive error handling, continuing to parse the entir
   - [tokenize_auth_file](../t/tokenize_auth_file.md) (breaks file into tokens)
   - AllocSetContextCreate (creates memory context for HBA data)
   - [parse_hba_line](../p/parse_hba_line.md) (parses individual HBA configuration lines)
-  - lappend (appends items to list)
+  - [lappend](lappend.md) (appends items to list)
   - ereport/errcode/errmsg (error reporting)
   - [free_auth_file](../f/free_auth_file.md) (cleanup tokenized file data)
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)/MemoryContextDelete (memory context management)

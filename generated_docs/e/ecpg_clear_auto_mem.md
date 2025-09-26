@@ -27,14 +27,14 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_auto_allocs
-  - auto_mem (struct)
-  - ecpg_free
-  - set_auto_allocs
+  - [get_auto_allocs](../g/get_auto_allocs.md)
+  - [auto_mem](../a/auto_mem.md) (struct)
+  - [ecpg_free](ecpg_free.md)
+  - [set_auto_allocs](../s/set_auto_allocs.md)
 - Called from (representative examples):
-  - ECPGconnect
-  - var_list
-  - ecpg_do_prologue
+  - [ECPGconnect](../E/ECPGconnect.md)
+  - [var_list](../v/var_list.md)
+  - [ecpg_do_prologue](ecpg_do_prologue.md)
 
 ## Notes and Other Information
 - This function differs from `ECPGfree_auto_mem` in that it does NOT free the user data pointers (`act->pointer`)

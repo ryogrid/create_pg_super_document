@@ -21,7 +21,7 @@ This function implements a standard linked list deallocation pattern for ECPGstr
 ## Dependencies
 - Functions called/Symbols referenced:
   - free (standard C library function for memory deallocation)
-  - ECPGstruct_member (struct definition for member list nodes)
+  - [ECPGstruct_member](ECPGstruct_member.md) (struct definition for member list nodes)
 - Called from (representative examples):
   - [ECPGfree_type](ECPGfree_type.md) (when freeing struct/union types)
   - [main](../m/main.md) (cleanup at program termination)

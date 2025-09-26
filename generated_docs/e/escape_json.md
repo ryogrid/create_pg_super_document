@@ -22,11 +22,11 @@ The `escape_json` function transforms a C string into a properly escaped JSON st
 ## Dependencies
 - Functions called/Symbols referenced:
   - appendStringInfoCharMacro
-  - appendStringInfoString
-  - appendStringInfo
+  - [appendStringInfoString](../a/appendStringInfoString.md)
+  - [appendStringInfo](../a/appendStringInfo.md)
 - Called from (representative examples):
   - [datum_to_json_internal](../d/datum_to_json_internal.md)
-  - composite_to_json
+  - [composite_to_json](../c/composite_to_json.md)
   - [json_object](../j/json_object.md)
   - [json_object_two_arg](../j/json_object_two_arg.md)
   - [jsonb_put_escaped_value](../j/jsonb_put_escaped_value.md)

@@ -33,7 +33,7 @@ The formula essentially treats the string as: char[0]/base + char[1]/base² + ch
 - Functions called/Symbols referenced:
   - strlen (standard C library function)
 - Called from (representative examples):
-  - convert_string_to_scalar (called 3 times for value, lobound, and hibound)
+  - [convert_string_to_scalar](convert_string_to_scalar.md) (called 3 times for value, lobound, and hibound)
 
 ## Notes and Other Information
 - Returns 0.0 for empty strings, providing a consistent baseline

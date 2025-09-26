@@ -40,7 +40,7 @@ The tmp_cxt memory context provides a scratch space that can be reset between fu
 - Functions called/Symbols referenced:
   - [plperl_proc_desc](plperl_proc_desc.md) (procedure descriptor reference)
   - [FunctionCallInfo](../F/FunctionCallInfo.md) (PostgreSQL function call info)
-  - Tuplestorestate (set-returning function support)
+  - [Tuplestorestate](../T/Tuplestorestate.md) (set-returning function support)
 - Called from (representative examples):
   - [plperl_call_handler](plperl_call_handler.md) (main function call entry point)
   - [plperl_inline_handler](plperl_inline_handler.md) (inline code execution)

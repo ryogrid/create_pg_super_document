@@ -31,7 +31,7 @@ When not in an active transaction, all changes are permitted since  will be rese
 - Functions called/Symbols referenced:
   - [IsTransactionState](../I/IsTransactionState.md)
   - [IsSubTransaction](../I/IsSubTransaction.md)
-  - GUC_check_errcode
+  - [GUC_check_errcode](../G/GUC_check_errcode.md)
   - GUC_check_errmsg
   - [RecoveryInProgress](../R/RecoveryInProgress.md)
   - GucSource (enum type)

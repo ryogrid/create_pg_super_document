@@ -27,7 +27,7 @@ Key functionality:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogReadBufferForRedo
+  - [XLogReadBufferForRedo](../X/XLogReadBufferForRedo.md)
   - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
   - elog
 

@@ -31,9 +31,9 @@ This structure is used throughout the text search lexization process to store in
 - Functions called/Symbols referenced:
   - (This structure is primarily referenced by other symbols rather than calling functions)
 - Called from (representative examples):
-  - LPLAddTail (adds ParsedLex to ListParsedLex)
-  - LPLRemoveHead (removes ParsedLex from ListParsedLex)
-  - LexizeAddLemm (creates and populates ParsedLex structures)
+  - [LPLAddTail](../L/LPLAddTail.md) (adds ParsedLex to ListParsedLex)
+  - [LPLRemoveHead](../L/LPLRemoveHead.md) (removes ParsedLex from ListParsedLex)
+  - [LexizeAddLemm](../L/LexizeAddLemm.md) (creates and populates ParsedLex structures)
   - [LexizeExec](../L/LexizeExec.md) (processes ParsedLex during lexization)
   - [addHLParsedLex](../a/addHLParsedLex.md) (handles ParsedLex in highlighting functionality)
 

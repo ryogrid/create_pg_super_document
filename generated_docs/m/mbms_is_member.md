@@ -25,7 +25,7 @@ The function first validates that both indices are non-negative, then checks if 
 ## Dependencies
 - Functions called/Symbols referenced:
   - list_nth_node
-  - bms_is_member
+  - [bms_is_member](../b/bms_is_member.md)
 - Called from (representative examples):
   - (No specific usage examples found in the indexed code)
 

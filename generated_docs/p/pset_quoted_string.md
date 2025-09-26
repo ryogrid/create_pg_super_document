@@ -22,7 +22,7 @@ This function is essential for displaying string values in psql settings output,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_malloc (for memory allocation)
+  - [pg_malloc](pg_malloc.md) (for memory allocation)
   - strlen (implicitly used for memory calculation)
 - Called from (representative examples):
   - [pset_value_string](pset_value_string.md) (multiple calls)

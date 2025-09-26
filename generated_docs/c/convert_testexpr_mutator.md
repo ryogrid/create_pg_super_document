@@ -32,8 +32,8 @@ The function includes careful error checking and uses `copyObject` to avoid crea
   - `expression_tree_mutator`
   - [convert_testexpr_mutator](convert_testexpr_mutator.md) (recursive call)
 - Types referenced:
-  - `Param`
-  - `SubLink`
+  - `[Param](../P/Param.md)`
+  - `[SubLink](../S/SubLink.md)`
   - `PARAM_SUBLINK`
   - [convert_testexpr_context](convert_testexpr_context.md)
 - Called from (representative examples):

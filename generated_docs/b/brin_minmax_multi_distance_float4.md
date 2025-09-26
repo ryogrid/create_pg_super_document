@@ -34,7 +34,7 @@ The distance calculation is used by the range compaction algorithm to identify a
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT4 (for extracting function arguments)
   - isnan (for NaN detection)
-  - get_float8_infinity (for infinite distance values)
+  - [get_float8_infinity](../g/get_float8_infinity.md) (for infinite distance values)
   - PG_RETURN_FLOAT8 (for returning the result)
 - Called from:
   - (No direct references found - likely called through PostgreSQL's operator class system during compaction)

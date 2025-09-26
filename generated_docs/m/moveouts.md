@@ -37,8 +37,8 @@ The function includes optimization paths for different scenarios and performs in
   - [changearcsource](../c/changearcsource.md)
   - NOTREACHED
 - Called from (representative examples):
-  - push
-  - fixempties
+  - [push](../p/push.md)
+  - [fixempties](../f/fixempties.md)
   - ARCV
   - REDUCE
 

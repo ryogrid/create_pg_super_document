@@ -25,7 +25,7 @@ The function is designed to be called by AM-specific beginscan routines, which t
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc](../p/palloc.md) (memory allocation)
-  - TransactionStartedDuringRecovery (recovery state checking)
+  - [TransactionStartedDuringRecovery](../T/TransactionStartedDuringRecovery.md) (recovery state checking)
   - InvalidSnapshot (snapshot initialization)
 - Called from (representative examples):
   - [brinbeginscan](../b/brinbeginscan.md) (BRIN index access method)

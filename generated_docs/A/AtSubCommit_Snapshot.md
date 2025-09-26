@@ -24,7 +24,7 @@ The iteration stops when it encounters a snapshot with a level lower than the cu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ActiveSnapshotElt
+  - [ActiveSnapshotElt](ActiveSnapshotElt.md)
 - Called from (representative examples):
   - [CommitSubTransaction](../C/CommitSubTransaction.md)
   - IsMVCCSnapshot (via header inclusion)

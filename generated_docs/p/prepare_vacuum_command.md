@@ -50,8 +50,8 @@ The function uses version checks to ensure compatibility, as different options w
   - [resetPQExpBuffer](../r/resetPQExpBuffer.md)
   - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
   - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
-  - appendPQExpBufferChar
-  - vacuumingOptions (structure)
+  - [appendPQExpBufferChar](../a/appendPQExpBufferChar.md)
+  - [vacuumingOptions](../v/vacuumingOptions.md) (structure)
 - Called from:
   - [vacuum_one_database](../v/vacuum_one_database.md)
 

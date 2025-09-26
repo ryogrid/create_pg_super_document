@@ -22,9 +22,9 @@ The function assumes that the relation whose OID is passed as an argument will h
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open (to access InheritsRelationId catalog)
+  - [table_open](../t/table_open.md) (to access InheritsRelationId catalog)
   - [get_partition_parent_worker](get_partition_parent_worker.md) (performs the actual parent lookup)
-  - table_close (to release catalog lock)
+  - [table_close](../t/table_close.md) (to release catalog lock)
   - OidIsValid (to validate the result)
   - elog (for error reporting)
 

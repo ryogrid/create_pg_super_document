@@ -28,14 +28,14 @@ Unlike automatic file deletion in FileClose, this function tolerates non-existen
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - stat (system call to get file statistics)
+  - [stat](../s/stat.md) (system call to get file statistics)
   - unlink (system call to delete file)
-  - ReportTemporaryFileUsage (reports usage statistics)
+  - [ReportTemporaryFileUsage](../R/ReportTemporaryFileUsage.md) (reports usage statistics)
   - ereport/ERROR/LOG (error reporting macros)
 
 - Called from (representative examples):
-  - FileSetDelete (deletes files in file sets)
-  - unlink_if_exists_fname (general file deletion utility)
+  - [FileSetDelete](../F/FileSetDelete.md) (deletes files in file sets)
+  - [unlink_if_exists_fname](../u/unlink_if_exists_fname.md) (general file deletion utility)
 
 ## Notes and Other Information
 - Returns true if the file existed and was successfully deleted, false if it didn't exist

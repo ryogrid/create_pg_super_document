@@ -28,10 +28,10 @@ This ensures that even partial final groups (1 or 2 bytes) are properly accounte
 - Functions called/Symbols referenced: None (pure calculation)
 
 - Called from (representative examples):
-  - `mock_scram_secret` (src/backend/libpq/auth-scram.c:707)
-  - `build_server_first_message` (src/backend/libpq/auth-scram.c:1229)
-  - `scram_build_secret` (src/common/scram-common.c:254, 255, 256)
-  - `build_client_first_message` (src/interfaces/libpq/fe-auth-scram.c:364)
+  - `[mock_scram_secret](../m/mock_scram_secret.md)` (src/backend/libpq/auth-scram.c:707)
+  - `[build_server_first_message](../b/build_server_first_message.md)` (src/backend/libpq/auth-scram.c:1229)
+  - `[scram_build_secret](../s/scram_build_secret.md)` (src/common/scram-common.c:254, 255, 256)
+  - `[build_client_first_message](../b/build_client_first_message.md)` (src/interfaces/libpq/fe-auth-scram.c:364)
 
 ## Notes and Other Information
 - Returns the exact number of characters needed for base64 encoding

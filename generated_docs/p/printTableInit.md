@@ -26,7 +26,7 @@ This function initializes a printTableContent structure that will be used to sto
 - Functions called/Symbols referenced:
   - [printTableOpt](printTableOpt.md) (options structure type)
   - [printTableContent](printTableContent.md) (content structure type)
-  - pg_malloc0 (PostgreSQL's zero-initialized malloc)
+  - [pg_malloc0](pg_malloc0.md) (PostgreSQL's zero-initialized malloc)
   - EXIT_FAILURE (standard exit code for failure)
 - Called from (representative examples):
   - [printCrosstab](printCrosstab.md) (src/bin/psql/crosstabview.c:299)

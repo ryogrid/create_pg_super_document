@@ -33,9 +33,9 @@ This is specifically designed for rule-action queries where OLD and NEW placehol
   - CMD_INSERT, CMD_SELECT (command type constants)
   - PRS2_OLD_VARNO, PRS2_NEW_VARNO (rule placeholder variable numbers)
   - rt_fetch (range table entry retrieval)
-  - RangeTblRef, FromExpr (node types)
+  - [RangeTblRef](../R/RangeTblRef.md), FromExpr (node types)
   - RTE_SUBQUERY (range table entry type)
-  - list_length, linitial (list manipulation functions)
+  - [list_length](../l/list_length.md), linitial (list manipulation functions)
 - Called from (representative examples):
   - [transformRuleStmt](../t/transformRuleStmt.md) (during rule statement parsing)
   - [InsertRule](../I/InsertRule.md), DefineQueryRewrite (during rule definition)

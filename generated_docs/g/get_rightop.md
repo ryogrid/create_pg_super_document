@@ -20,9 +20,9 @@ This function provides access to the right (or second) argument of an OpExpr nod
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - OpExpr (node type)
+  - [OpExpr](../O/OpExpr.md) (node type)
   - lsecond (macro to get second list element)
-  - list_length (function to get list length)
+  - [list_length](../l/list_length.md) (function to get list length)
 - Called from (representative examples):
   - [ExecIndexBuildScanKeys](../E/ExecIndexBuildScanKeys.md)
   - [MakeTidOpExpr](../M/MakeTidOpExpr.md)

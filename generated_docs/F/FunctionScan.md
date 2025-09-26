@@ -28,15 +28,15 @@ This node type is essential for queries that involve set-returning functions, ta
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Scan (base structure)
-  - List (for functions list)
+  - [Scan](../S/Scan.md) (base structure)
+  - [List](../L/List.md) (for functions list)
   
 - Called from (representative examples):
-  - ExecInitFunctionScan (executor initialization)
-  - ExecReScanFunctionScan (executor rescanning)
-  - create_functionscan_plan (plan creation)
-  - make_functionscan (plan node construction)
-  - set_plan_refs (plan reference setting)
+  - [ExecInitFunctionScan](../E/ExecInitFunctionScan.md) (executor initialization)
+  - [ExecReScanFunctionScan](../E/ExecReScanFunctionScan.md) (executor rescanning)
+  - [create_functionscan_plan](../c/create_functionscan_plan.md) (plan creation)
+  - [make_functionscan](../m/make_functionscan.md) (plan node construction)
+  - [set_plan_refs](../s/set_plan_refs.md) (plan reference setting)
 
 ## Notes and Other Information
 - Part of PostgreSQL's plan node hierarchy for representing different types of scan operations

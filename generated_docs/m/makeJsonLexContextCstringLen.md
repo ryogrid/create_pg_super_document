@@ -24,7 +24,7 @@ This function provides flexible initialization of JsonLexContext objects with su
   - [JsonLexContext](../J/JsonLexContext.md) (structure type)
   - [palloc0](../p/palloc0.md) (memory allocation)
   - JSONLEX_FREE_STRUCT (flag constant)
-  - makeStringInfo (string buffer creation)
+  - [makeStringInfo](makeStringInfo.md) (string buffer creation)
   - JSONLEX_FREE_STRVAL (flag constant)
 - Called from (representative examples):
   - [json_recv](../j/json_recv.md)

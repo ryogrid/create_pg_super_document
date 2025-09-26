@@ -21,9 +21,9 @@ This function is responsible for adding a transaction ID to a snapshot buffer du
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendBinaryStringInfo
+  - [appendBinaryStringInfo](../a/appendBinaryStringInfo.md)
 - Types referenced:
-  - FullTransactionId
+  - [FullTransactionId](../F/FullTransactionId.md)
   - [pg_snapshot](../p/pg_snapshot.md)
 - Called from (representative examples):
   - [parse_snapshot](../p/parse_snapshot.md)

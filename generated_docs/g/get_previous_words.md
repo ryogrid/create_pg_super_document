@@ -31,7 +31,7 @@ The parsing uses WORD_BREAKS characters to identify word boundaries but includes
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_malloc (multiple calls for memory allocation)
+  - [pg_malloc](../p/pg_malloc.md) (multiple calls for memory allocation)
   - WORD_BREAKS (constant defining word-breaking characters)
   - tab_completion_query_buf (global buffer for multi-line queries)
   - rl_line_buffer (readline's current line buffer)

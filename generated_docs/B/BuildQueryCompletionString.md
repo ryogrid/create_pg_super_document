@@ -33,7 +33,7 @@ The function performs several optimizations: it uses  for efficient string copyi
   -  (efficient memory copying)
   - COMPLETION_TAG_BUFSIZE (buffer size constant)
   - MAXINT8LEN (maximum length for 64-bit integer string)
-  - QueryCompletion (struct type)
+  - [QueryCompletion](../Q/QueryCompletion.md) (struct type)
   - CommandTag (enum type)
 - Called from (representative examples):
   -  (src/backend/tcop/dest.c:180)

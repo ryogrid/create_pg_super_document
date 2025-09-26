@@ -23,7 +23,7 @@ This function serves as a key comparison helper for dshash and simplehash hashta
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PgStat_HashKey (type referenced for size validation)
+  - [PgStat_HashKey](../P/PgStat_HashKey.md) (type referenced for size validation)
   - memcmp (standard C library function for memory comparison)
   - Assert (macro for debug assertions)
 - Called from (representative examples):

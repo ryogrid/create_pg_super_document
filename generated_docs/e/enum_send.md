@@ -24,7 +24,7 @@ The function looks up the enum label corresponding to the given OID and packages
 - Functions called/Symbols referenced:
   - Form_pg_enum (referenced twice for struct access)
   - [pq_begintypsend](../p/pq_begintypsend.md)
-  - pq_sendtext
+  - [pq_sendtext](../p/pq_sendtext.md)
   - [pq_endtypsend](../p/pq_endtypsend.md)
   - PG_RETURN_BYTEA_P
 - Called from (representative examples):

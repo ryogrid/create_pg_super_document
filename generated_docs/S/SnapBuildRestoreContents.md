@@ -29,9 +29,9 @@ The function is specifically designed for reading serialized snapshot components
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_report_wait_start/pgstat_report_wait_end
+  - [pgstat_report_wait_start](../p/pgstat_report_wait_start.md)/pgstat_report_wait_end
   - read (system call)
-  - CloseTransientFile
+  - [CloseTransientFile](../C/CloseTransientFile.md)
   - ereport/errcode_for_file_access
   - ERRCODE_DATA_CORRUPTED (error code constant)
 - Called from (representative examples):

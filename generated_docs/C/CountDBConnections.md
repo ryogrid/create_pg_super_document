@@ -25,13 +25,13 @@ This provides a count that reflects only regular user backend processes connecte
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ProcArrayStruct (procArray global variable)
-  - LWLockAcquire/LWLockRelease (for ProcArrayLock in LW_SHARED mode)
-  - PGPROC (process structure)
+  - [ProcArrayStruct](../P/ProcArrayStruct.md) (procArray global variable)
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease (for ProcArrayLock in LW_SHARED mode)
+  - [PGPROC](../P/PGPROC.md) (process structure)
   - OidIsValid (macro to check if OID is valid)
 
 - Called from (representative examples):
-  - CheckMyDatabase (in src/backend/utils/init/postinit.c:386)
+  - [CheckMyDatabase](CheckMyDatabase.md) (in src/backend/utils/init/postinit.c:386)
 
 ## Notes and Other Information
 - The key difference from CountDBBackends is the exclusion of background workers, making this more suitable for connection limit checks

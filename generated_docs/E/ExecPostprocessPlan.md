@@ -22,7 +22,7 @@ ExecPostprocessPlan performs final cleanup and completion tasks during executor 
 - Functions called/Symbols referenced:
   - ForwardScanDirection (constant)
   - ResetPerTupleExprContext
-  - ExecProcNode  
+  - [ExecProcNode](ExecProcNode.md)  
   - TupIsNull
 - Called from (representative examples):
   - [standard_ExecutorFinish](../s/standard_ExecutorFinish.md) (execMain.c:433)

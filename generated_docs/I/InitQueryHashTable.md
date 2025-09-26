@@ -22,7 +22,7 @@ InitQueryHashTable creates and configures the global hash table that stores prep
 - Functions called/Symbols referenced:
   - [hash_create](../h/hash_create.md) (creates new hash table)
   - NAMEDATALEN (defines maximum name length for keys)
-  - PreparedStatement (defines entry size for hash table)
+  - [PreparedStatement](../P/PreparedStatement.md) (defines entry size for hash table)
   - HASH_ELEM (hash table creation flag for element management)
   - HASH_STRINGS (hash table creation flag for string key handling)
 - Called from (representative examples):

@@ -33,8 +33,8 @@ SERIALIZABLEXID serves as a bridge structure in PostgreSQL's serializable snapsh
   - [PredicateLockShmemSize](../P/PredicateLockShmemSize.md) (shared memory size calculation)
   - [RegisterPredicateLockingXid](../R/RegisterPredicateLockingXid.md) (transaction registration for predicate locking)
   - [CheckForSerializableConflictOut](../C/CheckForSerializableConflictOut.md) (serialization conflict detection)
-  - PredicateLockTwoPhaseFinish (two-phase commit handling)
-  - predicatelock_twophase_recover (two-phase commit recovery)
+  - [PredicateLockTwoPhaseFinish](../P/PredicateLockTwoPhaseFinish.md) (two-phase commit handling)
+  - [predicatelock_twophase_recover](../p/predicatelock_twophase_recover.md) (two-phase commit recovery)
 
 ## Notes and Other Information
 - Created only for transactions that participate in predicate locking (typically write transactions)

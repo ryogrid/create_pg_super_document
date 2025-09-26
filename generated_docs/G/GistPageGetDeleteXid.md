@@ -24,7 +24,7 @@ The function uses the pd_lower field to determine the page format version - newe
 - Functions called/Symbols referenced:
   - GistPageIsDeleted
   - [PageGetContents](../P/PageGetContents.md)
-  - FullTransactionIdFromEpochAndXid
+  - [FullTransactionIdFromEpochAndXid](../F/FullTransactionIdFromEpochAndXid.md)
   - MAXALIGN
   - SizeOfPageHeaderData
   - [GISTDeletedPageContents](GISTDeletedPageContents.md)

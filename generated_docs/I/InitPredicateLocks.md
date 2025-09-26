@@ -38,9 +38,9 @@ This function takes no parameters.
   - [ShmemAlloc](../S/ShmemAlloc.md)
   - [hash_search](../h/hash_search.md)
   - [CreatePredXact](../C/CreatePredXact.md)
-  - LWLockInitialize
+  - [LWLockInitialize](../L/LWLockInitialize.md)
   - SetInvalidVirtualTransactionId
-  - SerialInit
+  - [SerialInit](../S/SerialInit.md)
   - Various dlist_* functions for doubly-linked list management
 - Called from (representative examples):
   - [CreateOrAttachShmemStructs](../C/CreateOrAttachShmemStructs.md)

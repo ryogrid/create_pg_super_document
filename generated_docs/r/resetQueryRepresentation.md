@@ -18,7 +18,7 @@ This function initializes or resets a QueryRepresentation structure by iterating
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - QueryRepresentation (struct type)
+  - [QueryRepresentation](../Q/QueryRepresentation.md) (struct type)
 - Called from (representative examples):
   - [Cover](../C/Cover.md) (called at lines 658 and 687)
 

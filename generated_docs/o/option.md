@@ -32,7 +32,7 @@ This struct is conditionally defined only when the system doesn't already provid
 - Functions called/Symbols referenced:
   - [flag](../f/flag.md) (member variable reference)
 - Called from (representative examples):
-  - getopt_long (primary function that uses this struct)
+  - [getopt_long](../g/getopt_long.md) (primary function that uses this struct)
   - Multiple PostgreSQL utilities including:
     - initdb
     - pg_dump

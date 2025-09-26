@@ -27,9 +27,9 @@ The function handles line continuation with backslashes in plain mode and proper
 - Functions called/Symbols referenced:
   - printf() (standard C library)
   - fflush() (standard C library)
-  - resetStringInfo() (PostgreSQL string utility)
+  - [resetStringInfo](../r/resetStringInfo.md)() (PostgreSQL string utility)
   - [interactive_getc](../i/interactive_getc.md)() (custom input function)
-  - appendStringInfoChar() (PostgreSQL string utility)
+  - [appendStringInfoChar](../a/appendStringInfoChar.md)() (PostgreSQL string utility)
   - UseSemiNewlineNewline (global variable)
   - EchoQuery (global variable)
   - PqMsg_Query (message type constant)

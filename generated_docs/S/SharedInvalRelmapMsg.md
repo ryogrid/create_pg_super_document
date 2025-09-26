@@ -31,8 +31,8 @@ This structure is used when the mapping between relation OIDs and physical files
   - int8 (PostgreSQL integer type)
   - SHAREDINVALRELMAP_ID (constant defined as -4)
 - Called from (representative examples):
-  - SharedInvalidationMessage (union containing this structure)
-  - Relation mapping invalidation functions in the sinval subsystem
+  - [SharedInvalidationMessage](SharedInvalidationMessage.md) (union containing this structure)
+  - [Relation](../R/Relation.md) mapping invalidation functions in the sinval subsystem
 
 ## Notes and Other Information
 - The uid=1000(ryo) gid=1000(ryo) groups=1000(ryo),4(adm),20(dialout),24(cdrom),25(floppy),27(sudo),29(audio),30(dip),44(video),46(plugdev),117(netdev),998(ollama),999(docker) field is set to SHAREDINVALRELMAP_ID (-4) to distinguish relation mapping invalidation messages from other message types

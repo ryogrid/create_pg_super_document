@@ -33,7 +33,7 @@ This function specifically handles only ADD and DROP operations - other ALTER OP
   - [GetIndexAmRoutineByAmId](../G/GetIndexAmRoutineByAmId.md)
   - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - [get_opfamily_oid](../g/get_opfamily_oid.md)
-  - superuser
+  - [superuser](../s/superuser.md)
   - [AlterOpFamilyDrop](AlterOpFamilyDrop.md)
   - [AlterOpFamilyAdd](AlterOpFamilyAdd.md)
 - Called from (representative examples):

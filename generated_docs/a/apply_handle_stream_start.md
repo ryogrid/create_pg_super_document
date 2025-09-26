@@ -31,19 +31,19 @@ The function coordinates between the leader apply worker and parallel apply work
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - logicalrep_read_stream_start
+  - [logicalrep_read_stream_start](../l/logicalrep_read_stream_start.md)
   - [set_apply_error_context_xact](../s/set_apply_error_context_xact.md)
   - [pa_allocate_worker](../p/pa_allocate_worker.md)
   - [get_transaction_apply_action](../g/get_transaction_apply_action.md)
   - [stream_start_internal](../s/stream_start_internal.md)
-  - pa_send_data
+  - [pa_send_data](../p/pa_send_data.md)
   - [pa_unlock_stream](../p/pa_unlock_stream.md)
   - [pa_switch_to_partial_serialize](../p/pa_switch_to_partial_serialize.md)
   - [stream_write_change](../s/stream_write_change.md)
   - [pa_set_stream_apply_worker](../p/pa_set_stream_apply_worker.md)
   - [pa_lock_transaction](../p/pa_lock_transaction.md)
   - [pa_set_xact_state](../p/pa_set_xact_state.md)
-  - logicalrep_worker_wakeup
+  - [logicalrep_worker_wakeup](../l/logicalrep_worker_wakeup.md)
   - [pgstat_report_activity](../p/pgstat_report_activity.md)
 - Called from:
   - [apply_dispatch](apply_dispatch.md)

@@ -18,14 +18,14 @@ PQftype retrieves the PostgreSQL type OID (Object Identifier) for the specified 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_field_number: Validates that field_num is within valid range
+  - [check_field_number](../c/check_field_number.md): Validates that field_num is within valid range
   - InvalidOid: Constant representing an invalid OID value
 - Called from (representative examples):
-  - dumpTableData_insert (pg_dump): Type checking for data export
-  - process_queued_fetch_requests (pg_rewind): Type validation for file transfers
-  - DescribeQuery (psql): Type information display
-  - printCrosstab (psql): Type-aware formatting for crosstab output
-  - printQuery (psql): General type-aware result formatting
+  - [dumpTableData_insert](../d/dumpTableData_insert.md) (pg_dump): Type checking for data export
+  - [process_queued_fetch_requests](../p/process_queued_fetch_requests.md) (pg_rewind): Type validation for file transfers
+  - [DescribeQuery](../D/DescribeQuery.md) (psql): Type information display
+  - [printCrosstab](../p/printCrosstab.md) (psql): Type-aware formatting for crosstab output
+  - [printQuery](../p/printQuery.md) (psql): General type-aware result formatting
   - ECPG functions: Type handling in embedded SQL
   - libpq_pipeline tests: Type verification in testing
 

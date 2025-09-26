@@ -28,7 +28,7 @@ The created bitmap starts in an empty state and can grow up to the specified mem
   - [TIDBitmap](../T/TIDBitmap.md) (struct type)
   - TBM_EMPTY (enum value)
   - InvalidDsaPointer (constant)
-  - dsa_area (struct type)
+  - [dsa_area](../d/dsa_area.md) (struct type)
 - Called from (representative examples):
   - [collectMatchBitmap](../c/collectMatchBitmap.md)
   - [MultiExecBitmapIndexScan](../M/MultiExecBitmapIndexScan.md)

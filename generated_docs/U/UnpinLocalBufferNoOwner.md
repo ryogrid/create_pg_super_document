@@ -28,9 +28,9 @@ The function includes several assertions to validate the buffer state, ensuring 
   - LocalRefCount (array tracking reference counts)
   - NLocalPinnedBuffers (global counter)
 - Called from (representative examples):
-  - ResOwnerReleaseBufferPin
-  - UnpinLocalBuffer
-  - ResourceOwnerForgetBufferIO
+  - [ResOwnerReleaseBufferPin](../R/ResOwnerReleaseBufferPin.md)
+  - [UnpinLocalBuffer](UnpinLocalBuffer.md)
+  - [ResourceOwnerForgetBufferIO](../R/ResourceOwnerForgetBufferIO.md)
 
 ## Notes and Other Information
 - This function does not interact with the resource owner system, making it suitable for cleanup operations where resource tracking is handled separately

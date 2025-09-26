@@ -65,13 +65,13 @@ For assignment operations, the structure stores both the new value to assign and
 - Functions called/Symbols referenced:
   - (None - this is a data structure)
 - Called from (representative examples):
-  - ExecInitSubscriptingRef (expression initialization)
-  - array_subscript_check_subscripts (array subscript validation)
-  - array_subscript_fetch (array value retrieval)
-  - array_subscript_assign (array value assignment)
-  - jsonb_subscript_fetch (JSONB value retrieval)
-  - jsonb_subscript_assign (JSONB value assignment)
-  - ExprEvalStep (used in subscripting evaluation steps)
+  - [ExecInitSubscriptingRef](../E/ExecInitSubscriptingRef.md) (expression initialization)
+  - [array_subscript_check_subscripts](../a/array_subscript_check_subscripts.md) (array subscript validation)
+  - [array_subscript_fetch](../a/array_subscript_fetch.md) (array value retrieval)
+  - [array_subscript_assign](../a/array_subscript_assign.md) (array value assignment)
+  - [jsonb_subscript_fetch](../j/jsonb_subscript_fetch.md) (JSONB value retrieval)
+  - [jsonb_subscript_assign](../j/jsonb_subscript_assign.md) (JSONB value assignment)
+  - [ExprEvalStep](../E/ExprEvalStep.md) (used in subscripting evaluation steps)
 
 ## Notes and Other Information
 - Designed as non-inline data for container operations that require substantial workspace

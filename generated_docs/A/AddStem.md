@@ -20,10 +20,10 @@ AddStem appends a new word stem to the dynamic array maintained within a SplitVa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - repalloc (memory reallocation for capacity expansion)
-  - SplitVar (structure type)
+  - [repalloc](../r/repalloc.md) (memory reallocation for capacity expansion)
+  - [SplitVar](../S/SplitVar.md) (structure type)
 - Called from (representative examples):
-  - SplitToVariants (at src/backend/tsearch/spell.c:2439, 2490, 2504, 2518)
+  - [SplitToVariants](../S/SplitToVariants.md) (at src/backend/tsearch/spell.c:2439, 2490, 2504, 2518)
 
 ## Notes and Other Information
 - Uses a doubling strategy for capacity expansion (lenstem *= 2) to achieve amortized O(1) insertion time

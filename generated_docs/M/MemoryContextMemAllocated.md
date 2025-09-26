@@ -33,11 +33,11 @@ The function is particularly important in PostgreSQL's hash aggregation implemen
 ## Dependencies
 - Functions called/Symbols referenced:
   - MemoryContextIsValid (validates the context)
-  - MemoryContextTraverseNext (traverses child contexts when recursing)
+  - [MemoryContextTraverseNext](MemoryContextTraverseNext.md) (traverses child contexts when recursing)
 - Called from (representative examples):
-  - hash_agg_check_limits (hash aggregation memory management)
-  - hash_agg_update_metrics (hash aggregation metrics tracking)
-  - RT_MEMORY_USAGE (radix tree memory usage calculation)
+  - [hash_agg_check_limits](../h/hash_agg_check_limits.md) (hash aggregation memory management)
+  - [hash_agg_update_metrics](../h/hash_agg_update_metrics.md) (hash aggregation metrics tracking)
+  - [RT_MEMORY_USAGE](../R/RT_MEMORY_USAGE.md) (radix tree memory usage calculation)
 
 ## Notes and Other Information
 - Returns the total allocated memory as a Size type (typically size_t)

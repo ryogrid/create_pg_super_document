@@ -20,13 +20,13 @@ If a join relation hash table exists, the function also inserts the join relatio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lappend (appends to list)
+  - [lappend](../l/lappend.md) (appends to list)
   - [JoinHashEntry](../J/JoinHashEntry.md) (hash table entry structure)
   - [hash_search](../h/hash_search.md) (performs hash table insertion)
   - HASH_ENTER (hash operation flag for insertion)
   - Assert (debugging assertion)
 - Called from (representative examples):
-  - build_join_rel
+  - [build_join_rel](../b/build_join_rel.md)
   - build_child_join_rel
 
 ## Notes and Other Information
@@ -34,5 +34,5 @@ If a join relation hash table exists, the function also inserts the join relatio
 - GEQO specifically requires appending to the end of the list rather than prepending
 - Uses assertion to ensure no duplicate entries are added to the hash table
 - Maintains both list and hash table data structures for different access patterns
-- Hash table insertion is conditional based on whether the hash table exists
+- [Hash](../H/Hash.md) table insertion is conditional based on whether the hash table exists
 - Located in src/backend/optimizer/util/relnode.c:627-664

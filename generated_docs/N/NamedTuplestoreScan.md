@@ -26,13 +26,13 @@ This node type is particularly important for advanced PostgreSQL features that r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Scan (base structure)
+  - [Scan](../S/Scan.md) (base structure)
   
 - Called from (representative examples):
-  - ExecInitNamedTuplestoreScan (executor initialization)
-  - create_namedtuplestorescan_plan (plan creation)
-  - make_namedtuplestorescan (plan node construction)
-  - set_plan_refs (plan reference setting)
+  - [ExecInitNamedTuplestoreScan](../E/ExecInitNamedTuplestoreScan.md) (executor initialization)
+  - [create_namedtuplestorescan_plan](../c/create_namedtuplestorescan_plan.md) (plan creation)
+  - [make_namedtuplestorescan](../m/make_namedtuplestorescan.md) (plan node construction)
+  - [set_plan_refs](../s/set_plan_refs.md) (plan reference setting)
 
 ## Notes and Other Information
 - Critical for implementing advanced SQL features requiring temporary named data access

@@ -21,7 +21,7 @@ The xid8_larger function implements a maximum operation for PostgreSQL's full tr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FullTransactionId (type)
+  - [FullTransactionId](../F/FullTransactionId.md) (type)
   - PG_GETARG_FULLTRANSACTIONID (macro for argument extraction)
   - FullTransactionIdFollows (ordering comparison function)
   - PG_RETURN_FULLTRANSACTIONID (macro for returning transaction ID)

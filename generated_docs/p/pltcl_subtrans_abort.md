@@ -23,17 +23,17 @@ The function is designed to be called from within PG_CATCH() blocks to handle ex
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CopyErrorData
-  - FlushErrorState
-  - RollbackAndReleaseCurrentSubTransaction
-  - pltcl_construct_errorCode
-  - FreeErrorData
+  - [CopyErrorData](../C/CopyErrorData.md)
+  - [FlushErrorState](../F/FlushErrorState.md)
+  - [RollbackAndReleaseCurrentSubTransaction](../R/RollbackAndReleaseCurrentSubTransaction.md)
+  - [pltcl_construct_errorCode](pltcl_construct_errorCode.md)
+  - [FreeErrorData](../F/FreeErrorData.md)
   - Tcl_SetObjResult
   - Tcl_NewStringObj
   - UTF_E2U (UTF conversion macro)
 - Called from (representative examples):
-  - pltcl_returnnext
-  - pltcl_SPI_prepare
+  - [pltcl_returnnext](pltcl_returnnext.md)
+  - [pltcl_SPI_prepare](pltcl_SPI_prepare.md)
 
 ## Notes and Other Information
 - Must be preceded by a call to `pltcl_subtrans_begin`

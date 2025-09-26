@@ -25,14 +25,14 @@ Similar to stream_abort_cb_wrapper, this function sets ctx->end_xact to true, in
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReorderBuffer
-  - ReorderBufferTXN
-  - LogicalDecodingContext
-  - LogicalErrorCallbackState
-  - output_plugin_error_callback
+  - [ReorderBuffer](../R/ReorderBuffer.md)
+  - [ReorderBufferTXN](../R/ReorderBufferTXN.md)
+  - [LogicalDecodingContext](../L/LogicalDecodingContext.md)
+  - [LogicalErrorCallbackState](../L/LogicalErrorCallbackState.md)
+  - [output_plugin_error_callback](../o/output_plugin_error_callback.md)
   - ereport (error reporting)
 - Called from (representative examples):
-  - StartupDecodingContext
+  - [StartupDecodingContext](../S/StartupDecodingContext.md)
 
 ## Notes and Other Information
 - Only called when streaming is supported (ctx->streaming must be true)

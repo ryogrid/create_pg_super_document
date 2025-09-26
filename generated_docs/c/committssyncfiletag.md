@@ -26,7 +26,7 @@ The synchronization process involves opening the specified file and performing a
 - Functions called/Symbols referenced:
   - [SlruSyncFileTag](../S/SlruSyncFileTag.md)
   - CommitTsCtl
-  - FileTag (struct type)
+  - [FileTag](../F/FileTag.md) (struct type)
 - Called from (representative examples):
   - sync.c subsystem (indirectly through function pointer registration)
 

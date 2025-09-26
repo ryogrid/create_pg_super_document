@@ -28,7 +28,7 @@ This is a wrapper function that provides column-level access control checking in
   - [ExecCheckPermissionsModified](../E/ExecCheckPermissionsModified.md)
   - [ExecBuildSlotValueDescription](../E/ExecBuildSlotValueDescription.md)
   - [ri_ReportViolation](../r/ri_ReportViolation.md)
-  - all_rows_selectable
+  - [all_rows_selectable](../a/all_rows_selectable.md)
 
 ## Notes and Other Information  
 - Only considers privileges granted directly to the specific column, not table-level privileges

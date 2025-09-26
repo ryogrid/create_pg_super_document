@@ -26,7 +26,7 @@ The most critical case handled is XLOG_DBASE_CREATE_FILE_COPY, which can create 
 - Functions called/Symbols referenced:
   - XLogRecGetInfo: Extract record type information from WAL record
   - XLogRecGetData: Get the payload data from the WAL record
-  - BlockRefTableSetLimitBlock: Set limit block to 0 for database/tablespace combinations
+  - [BlockRefTableSetLimitBlock](../B/BlockRefTableSetLimitBlock.md): Set limit block to 0 for database/tablespace combinations
   - MAIN_FORKNUM: Main fork identifier for relation files
 - Called from (representative examples):
   - [SummarizeWAL](SummarizeWAL.md): Main WAL summarization loop when processing RM_DBASE_ID records

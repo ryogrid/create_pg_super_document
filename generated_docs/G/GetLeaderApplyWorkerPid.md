@@ -20,7 +20,7 @@ This function searches through the logical replication worker array to find a pa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire, LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md), LWLockRelease
   - isParallelApplyWorker
   - InvalidPid, LW_SHARED
   - [LogicalRepWorker](../L/LogicalRepWorker.md) (struct type)

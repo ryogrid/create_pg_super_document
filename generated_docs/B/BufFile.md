@@ -74,31 +74,31 @@ The structure also supports transaction-spanning files (isInterXact flag) and re
 ## Dependencies
 - Functions called/Symbols referenced:
   - File (virtual file descriptor type from fd.c)
-  - FileSet (for shared temporary file management)
-  - ResourceOwner (for resource cleanup)
+  - [FileSet](../F/FileSet.md) (for shared temporary file management)
+  - [ResourceOwner](../R/ResourceOwner.md) (for resource cleanup)
   - PGAlignedBlock (for aligned memory allocation)
-  - makeBufFileCommon (internal constructor helper)
-  - makeBufFile (creates BufFile from existing File)
-  - extendBufFile (adds new physical segment)
-  - BufFileLoadBuffer (loads data from disk to buffer)
-  - BufFileDumpBuffer (writes buffer contents to disk)
-  - BufFileFlush (ensures all data is written to disk)
-  - MakeNewFileSetSegment (creates new segment in FileSet)
+  - [makeBufFileCommon](../m/makeBufFileCommon.md) (internal constructor helper)
+  - [makeBufFile](../m/makeBufFile.md) (creates BufFile from existing File)
+  - [extendBufFile](../e/extendBufFile.md) (adds new physical segment)
+  - [BufFileLoadBuffer](BufFileLoadBuffer.md) (loads data from disk to buffer)
+  - [BufFileDumpBuffer](BufFileDumpBuffer.md) (writes buffer contents to disk)
+  - [BufFileFlush](BufFileFlush.md) (ensures all data is written to disk)
+  - [MakeNewFileSetSegment](../M/MakeNewFileSetSegment.md) (creates new segment in FileSet)
 
 - Called from (representative examples):
-  - ExecHashTableCreate (hash join temporary files)
-  - ExecHashIncreaseNumBatches (hash join batch management)
-  - LogicalTapeSet (sorting operations)
+  - [ExecHashTableCreate](../E/ExecHashTableCreate.md) (hash join temporary files)
+  - [ExecHashIncreaseNumBatches](../E/ExecHashIncreaseNumBatches.md) (hash join batch management)
+  - [LogicalTapeSet](../L/LogicalTapeSet.md) (sorting operations)
   - TuplestoreState (tuple storage)
-  - GISTBuildBuffers (GiST index construction)
-  - SharedTuplestoreAccessor (shared tuple storage)
+  - [GISTBuildBuffers](../G/GISTBuildBuffers.md) (GiST index construction)
+  - [SharedTuplestoreAccessor](../S/SharedTuplestoreAccessor.md) (shared tuple storage)
   - Various replication worker functions
 
 ## Notes and Other Information
-- BufFile is primarily used for temporary file operations in PostgreSQL, especially for large datasets that don't fit in memory
+- [BufFile](BufFile.md) is primarily used for temporary file operations in PostgreSQL, especially for large datasets that don't fit in memory
 - The multi-file design allows the system to handle files larger than what the underlying filesystem might support for individual files
 - The buffering mechanism significantly improves performance by reducing system call overhead
-- FileSet-based BufFiles enable sharing of temporary data between parallel processes
+- [FileSet](../F/FileSet.md)-based BufFiles enable sharing of temporary data between parallel processes
 - The structure is designed to work efficiently with PostgreSQL's resource management system
 - Buffer alignment (PGAlignedBlock) helps optimize I/O performance on systems that benefit from aligned memory access
 - The readOnly flag allows for optimizations when the file will only be read sequentially

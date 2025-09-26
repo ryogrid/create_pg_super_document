@@ -23,7 +23,7 @@ RemoveInheritance implements the core logic for breaking inheritance relationshi
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DeleteInheritsTuple](../D/DeleteInheritsTuple.md)
-  - table_open
+  - [table_open](../t/table_open.md)
   - [systable_beginscan](../s/systable_beginscan.md)
   - [systable_getnext](../s/systable_getnext.md)
   - [SearchSysCacheExistsAttName](../S/SearchSysCacheExistsAttName.md)

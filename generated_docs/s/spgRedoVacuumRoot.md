@@ -27,11 +27,11 @@ The root vacuum is typically simpler than leaf vacuum because root pages don't r
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData
-  - XLogReadBufferForRedo
+  - [XLogReadBufferForRedo](../X/XLogReadBufferForRedo.md)
   - [PageIndexMultiDelete](../P/PageIndexMultiDelete.md)
   - [BufferGetPage](../B/BufferGetPage.md)
   - [PageSetLSN](../P/PageSetLSN.md)
-  - MarkBufferDirty
+  - [MarkBufferDirty](../M/MarkBufferDirty.md)
   - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
 - Called from:
   - [spg_redo](spg_redo.md) (main SP-GiST redo dispatcher)

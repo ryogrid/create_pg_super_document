@@ -31,10 +31,10 @@ This flexibility allows different sampling methods (like SYSTEM and BERNOULLI) t
   - `bsysscan`: Boolean indicating system catalog scan
   - `elog`: Error logging function
   - `scan->rs_rd->rd_tableam->scan_sample_next_block`: Table access method implementation
-  - `TsmRoutine->NextSampleBlock`: Optional sampling method callback (mentioned in comments)
+  - `[TsmRoutine](../T/TsmRoutine.md)->NextSampleBlock`: Optional sampling method callback (mentioned in comments)
 
 - Called from (representative examples):
-  - `tablesample_getnext`: Main function in the sample scan executor node
+  - `[tablesample_getnext](tablesample_getnext.md)`: Main function in the sample scan executor node
 
 ## Notes and Other Information
 - Must be preceded by `table_beginscan_sampling()` to initialize the sample scan

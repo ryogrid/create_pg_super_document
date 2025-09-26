@@ -31,7 +31,7 @@ The function requires the input to be sorted on the grouping columns (and possib
 - Functions called/Symbols referenced:
   - makeNode (creates UpperUniquePath node)
   - cpu_operator_cost (cost parameter for comparison operations)
-  - UpperUniquePath (return type structure)
+  - [UpperUniquePath](../U/UpperUniquePath.md) (return type structure)
 - Called from (representative examples):
   - [create_partial_distinct_paths](create_partial_distinct_paths.md)
   - [create_final_distinct_paths](create_final_distinct_paths.md)

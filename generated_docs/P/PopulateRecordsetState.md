@@ -43,7 +43,7 @@ This state structure is essential for handling complex JSON-to-recordset transfo
   - [JsonLexContext](../J/JsonLexContext.md) (JSON parsing context)
   - [HTAB](../H/HTAB.md) (hash table for JSON data storage)
   - [JsonTokenType](../J/JsonTokenType.md) (enumeration for JSON token types)
-  - Tuplestorestate (tuple storage management)
+  - [Tuplestorestate](../T/Tuplestorestate.md) (tuple storage management)
   - HeapTupleHeader (tuple header structure)
   - [PopulateRecordCache](PopulateRecordCache.md) (metadata caching structure)
 - Called from (representative examples):

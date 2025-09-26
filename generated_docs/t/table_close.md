@@ -24,7 +24,7 @@ The function provides symmetry with the table_open family of functions and maint
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - relation_close
+  - [relation_close](../r/relation_close.md)
 - Called from (representative examples):
   - All functions that previously called table_open variants
   - Table manipulation and query processing functions

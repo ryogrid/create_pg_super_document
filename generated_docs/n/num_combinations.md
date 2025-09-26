@@ -21,7 +21,7 @@ This function computes the total number of possible combinations for n elements,
 - Functions called/Symbols referenced:
   - [CombinationGenerator](../C/CombinationGenerator.md) (referenced at line 588)
 - Called from (representative examples):
-  - statext_ndistinct_build
+  - [statext_ndistinct_build](../s/statext_ndistinct_build.md)
 
 ## Notes and Other Information
 - The function is declared as static, limiting its scope to mvdistinct.c

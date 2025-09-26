@@ -41,7 +41,7 @@ The operation phases include:
   - [LockSharedObject](../L/LockSharedObject.md)
   - SearchSysCacheList1
   - [initialize_revoke_actions](../i/initialize_revoke_actions.md)
-  - plan_single_revoke
+  - [plan_single_revoke](../p/plan_single_revoke.md)
   - [deleteSharedDependencyRecordsFor](../d/deleteSharedDependencyRecordsFor.md)
   - [CatalogTupleDelete](../C/CatalogTupleDelete.md)
   - [heap_modify_tuple](../h/heap_modify_tuple.md)

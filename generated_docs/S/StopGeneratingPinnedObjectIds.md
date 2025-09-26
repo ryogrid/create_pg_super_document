@@ -19,10 +19,10 @@ The function serves as a clear demarcation point in the initialization process, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SetNextObjectId
+  - [SetNextObjectId](SetNextObjectId.md)
   - FirstUnpinnedObjectId
 - Called from (representative examples):
-  - pg_stop_making_pinned_objects
+  - [pg_stop_making_pinned_objects](../p/pg_stop_making_pinned_objects.md)
 
 ## Notes and Other Information
 - This function is specifically designed for use during database initialization and should not be called during normal database operation

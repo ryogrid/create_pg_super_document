@@ -24,7 +24,7 @@ The function includes an important safety caveat: when returning an existing wri
 - Functions called/Symbols referenced:
   - VARATT_IS_EXTERNAL_EXPANDED_RW
   - [DatumGetPointer](DatumGetPointer.md)
-  - DatumGetEOHP
+  - [DatumGetEOHP](DatumGetEOHP.md)
   - [make_expanded_record_from_datum](../m/make_expanded_record_from_datum.md)
   - CurrentMemoryContext
 - Types referenced:

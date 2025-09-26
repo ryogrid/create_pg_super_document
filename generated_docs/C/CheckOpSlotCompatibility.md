@@ -26,7 +26,7 @@ The function handles several compatibility scenarios:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExprEvalStep (structure access)
+  - [ExprEvalStep](../E/ExprEvalStep.md) (structure access)
   - TTSOpsBufferHeapTuple (slot operations)
   - TTSOpsHeapTuple (slot operations)  
   - TTSOpsVirtual (slot operations)

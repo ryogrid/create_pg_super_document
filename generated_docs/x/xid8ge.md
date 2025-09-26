@@ -22,7 +22,7 @@ The xid8ge function provides the '>=' comparison operator for PostgreSQL's full 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FullTransactionId (type)
+  - [FullTransactionId](../F/FullTransactionId.md) (type)
   - PG_GETARG_FULLTRANSACTIONID (macro for argument extraction)
   - FullTransactionIdFollowsOrEquals (comparison utility function)
 - Called from (representative examples):

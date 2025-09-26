@@ -35,7 +35,7 @@ This function constructs a ForeignScan plan node, which is used to scan foreign 
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to allocate ForeignScan node)
-  - ForeignScan (struct type)
+  - [ForeignScan](../F/ForeignScan.md) (struct type)
   - CMD_SELECT (operation type constant)
   - InvalidOid (invalid object identifier constant)
 - Called from (representative examples):

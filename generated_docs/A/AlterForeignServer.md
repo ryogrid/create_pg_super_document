@@ -19,7 +19,7 @@ This function implements the ALTER SERVER SQL command by modifying an existing f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AlterForeignServerStmt
+  - [AlterForeignServerStmt](AlterForeignServerStmt.md)
   - Form_pg_foreign_server
   - SearchSysCacheCopy1
   - [CStringGetDatum](../C/CStringGetDatum.md)

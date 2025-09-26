@@ -42,10 +42,10 @@ The parser state tracks the current position in the input string, manages a dyna
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - word (member variable)
-  - TSVectorParseState (typedef pointer to this struct)
+  - [word](../w/word.md) (member variable)
+  - [TSVectorParseState](TSVectorParseState.md) (typedef pointer to this struct)
 - Called from (representative examples):
-  - init_tsvector_parser (initializes and allocates this structure)
+  - [init_tsvector_parser](../i/init_tsvector_parser.md) (initializes and allocates this structure)
   - Various tsvector/tsquery parsing functions via TSVectorParseState pointer
 
 ## Notes and Other Information

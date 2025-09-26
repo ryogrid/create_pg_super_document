@@ -27,8 +27,8 @@ The function is designed as a utility for cases where data cannot be read direct
 ## Dependencies
 - Functions called/Symbols referenced:
   - memcpy (standard library)
-  - bbsink_archive_contents
-  - pg_checksum_update
+  - [bbsink_archive_contents](../b/bbsink_archive_contents.md)
+  - [pg_checksum_update](pg_checksum_update.md)
 - Called from (representative examples):
   - [sendFile](../s/sendFile.md) (multiple calls for incremental backup headers)
 

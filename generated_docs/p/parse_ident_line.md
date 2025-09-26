@@ -29,7 +29,7 @@ The function supports both literal username matching and regular expression patt
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_head/lnext (list manipulation)
+  - [list_head](../l/list_head.md)/lnext (list manipulation)
   - lfirst/linitial (list element access)
   - [palloc0](palloc0.md) (memory allocation)
   - [pstrdup](pstrdup.md) (string duplication)

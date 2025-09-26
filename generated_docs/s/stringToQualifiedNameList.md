@@ -22,7 +22,7 @@ The function includes comprehensive error handling through the escontext paramet
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SplitIdentifierString
+  - [SplitIdentifierString](../S/SplitIdentifierString.md)
   - ereturn
   - [makeString](../m/makeString.md)
   - [list_free](../l/list_free.md)

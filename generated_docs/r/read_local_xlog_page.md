@@ -31,7 +31,7 @@ The function passes the 'wait' parameter as true to read_local_xlog_page_guts, m
   - [read_local_xlog_page_guts](read_local_xlog_page_guts.md) (with wait=true parameter)
 - Called from (representative examples):
   - [XlogReadTwoPhaseData](../X/XlogReadTwoPhaseData.md)
-  - LogicalReplicationSlotHasPendingWal
+  - [LogicalReplicationSlotHasPendingWal](../L/LogicalReplicationSlotHasPendingWal.md)
   - [LogicalSlotAdvanceAndCheckSnapState](../L/LogicalSlotAdvanceAndCheckSnapState.md)
   - [pg_logical_slot_get_changes_guts](../p/pg_logical_slot_get_changes_guts.md)
   - [create_logical_replication_slot](../c/create_logical_replication_slot.md)

@@ -24,16 +24,16 @@ The function returns the result of the underlying fsync operation, which is 0 on
   - fstat (for validation in debug builds)
   - fcntl (for validation in debug builds)
   - S_ISDIR (macro for directory detection)
-  - pg_fsync_writethrough (when writethrough mode is configured)
-  - pg_fsync_no_writethrough (default synchronization method)
+  - [pg_fsync_writethrough](pg_fsync_writethrough.md) (when writethrough mode is configured)
+  - [pg_fsync_no_writethrough](pg_fsync_no_writethrough.md) (default synchronization method)
   - wal_sync_method (global configuration variable)
 - Called from (representative examples):
-  - WriteControlFile
-  - XLogFileInitInternal
-  - FileSync
-  - fsync_fname_ext
-  - durable_rename
-  - SlruPhysicalWritePage
+  - [WriteControlFile](../W/WriteControlFile.md)
+  - [XLogFileInitInternal](../X/XLogFileInitInternal.md)
+  - [FileSync](../F/FileSync.md)
+  - [fsync_fname_ext](../f/fsync_fname_ext.md)
+  - [durable_rename](../d/durable_rename.md)
+  - [SlruPhysicalWritePage](../S/SlruPhysicalWritePage.md)
 
 ## Notes and Other Information
 - The function includes conditional compilation for systems that support writethrough fsync (HAVE_FSYNC_WRITETHROUGH)

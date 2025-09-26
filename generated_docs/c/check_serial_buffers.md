@@ -23,7 +23,7 @@ The function is called automatically by PostgreSQL's GUC system whenever the ser
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `check_slru_buffers`
+  - `[check_slru_buffers](check_slru_buffers.md)`
   - `GucSource` (type)
 - Called from (representative examples):
   - PostgreSQL GUC system (referenced in guc_hooks.h)

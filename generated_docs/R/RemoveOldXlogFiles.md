@@ -35,9 +35,9 @@ The algorithm preserves segments from parent timelines to avoid premature remova
   - XLByteToSeg
   - [XLOGfileslop](../X/XLOGfileslop.md)
   - [XLogFileName](../X/XLogFileName.md)
-  - AllocateDir
-  - ReadDir
-  - FreeDir
+  - [AllocateDir](../A/AllocateDir.md)
+  - [ReadDir](ReadDir.md)
+  - [FreeDir](../F/FreeDir.md)
   - [IsXLogFileName](../I/IsXLogFileName.md)
   - [IsPartialXLogFileName](../I/IsPartialXLogFileName.md)
   - [XLogArchiveCheckDone](../X/XLogArchiveCheckDone.md)

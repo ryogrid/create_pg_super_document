@@ -29,14 +29,14 @@ The function ensures snapshot lifetime management and proper isolation by mainta
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ActiveSnapshotElt
+  - [ActiveSnapshotElt](../A/ActiveSnapshotElt.md)
   - InvalidSnapshot  
-  - MemoryContextAlloc
-  - CopySnapshot
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
+  - [CopySnapshot](../C/CopySnapshot.md)
 - Called from (representative examples):
-  - PortalRunUtility
-  - EnsurePortalSnapshotExists
-  - PushActiveSnapshot
+  - [PortalRunUtility](PortalRunUtility.md)
+  - [EnsurePortalSnapshotExists](../E/EnsurePortalSnapshotExists.md)
+  - [PushActiveSnapshot](PushActiveSnapshot.md)
   - IsMVCCSnapshot
 
 ## Notes and Other Information

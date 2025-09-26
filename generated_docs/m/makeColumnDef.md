@@ -25,18 +25,18 @@ The function sets up a basic column definition that can be further customized by
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (for ColumnDef allocation)
-  - pstrdup (for string duplication)
-  - makeTypeNameFromOid (for type specification)
-  - ColumnDef (struct type)
+  - [pstrdup](../p/pstrdup.md) (for string duplication)
+  - [makeTypeNameFromOid](makeTypeNameFromOid.md) (for type specification)
+  - [ColumnDef](../C/ColumnDef.md) (struct type)
   - NIL (empty list constant)
 - Called from (representative examples):
-  - create_ctas_nodata
-  - intorel_startup
-  - DefineSequence
-  - MergeAttributes
-  - DefineVirtualRelation
-  - transformTableLikeClause
-  - transformOfType
+  - [create_ctas_nodata](../c/create_ctas_nodata.md)
+  - [intorel_startup](../i/intorel_startup.md)
+  - [DefineSequence](../D/DefineSequence.md)
+  - [MergeAttributes](../M/MergeAttributes.md)
+  - [DefineVirtualRelation](../D/DefineVirtualRelation.md)
+  - [transformTableLikeClause](../t/transformTableLikeClause.md)
+  - [transformOfType](../t/transformOfType.md)
 
 ## Notes and Other Information
 - Sets inhcount to 0 (no inheritance count)

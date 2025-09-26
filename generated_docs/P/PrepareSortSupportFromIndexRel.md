@@ -31,15 +31,15 @@ This function is primarily used in contexts where sorting needs to match the ord
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SortSupport (type)
+  - [SortSupport](../S/SortSupport.md) (type)
   - BTGreaterStrategyNumber
   - BTLessStrategyNumber
-  - FinishSortSupportFunction
+  - [FinishSortSupportFunction](../F/FinishSortSupportFunction.md)
 - Called from:
-  - _bt_load (at src/backend/access/nbtree/nbtsort.c:1187)
-  - tuplesort_begin_cluster (at src/backend/utils/sort/tuplesortvariants.c:341)
-  - tuplesort_begin_index_btree (at src/backend/utils/sort/tuplesortvariants.c:426)
-  - ApplySortAbbrevFullComparator (at src/include/utils/sortsupport.h:387)
+  - [_bt_load](../b/_bt_load.md) (at src/backend/access/nbtree/nbtsort.c:1187)
+  - [tuplesort_begin_cluster](../t/tuplesort_begin_cluster.md) (at src/backend/utils/sort/tuplesortvariants.c:341)
+  - [tuplesort_begin_index_btree](../t/tuplesort_begin_index_btree.md) (at src/backend/utils/sort/tuplesortvariants.c:426)
+  - [ApplySortAbbrevFullComparator](../A/ApplySortAbbrevFullComparator.md) (at src/include/utils/sortsupport.h:387)
 
 ## Notes and Other Information
 - This is a public function, part of PostgreSQL's sort support API

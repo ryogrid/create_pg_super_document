@@ -19,15 +19,15 @@ DatumGetTimestampTz is an inline function that extracts a TimestampTz value from
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetInt64
+  - [DatumGetInt64](DatumGetInt64.md)
   - TimestampTz (type cast)
 - Called from (representative examples):
-  - validateRecoveryParameters
-  - get_role_password
-  - JsonEncodeDateTime
-  - executeDateTimeMethod
-  - compareDatetime
-  - convert_timevalue_to_scalar
+  - [validateRecoveryParameters](../v/validateRecoveryParameters.md)
+  - [get_role_password](../g/get_role_password.md)
+  - [JsonEncodeDateTime](../J/JsonEncodeDateTime.md)
+  - [executeDateTimeMethod](../e/executeDateTimeMethod.md)
+  - [compareDatetime](../c/compareDatetime.md)
+  - [convert_timevalue_to_scalar](../c/convert_timevalue_to_scalar.md)
   - PG_GETARG_TIMESTAMPTZ (macro)
 
 ## Notes and Other Information

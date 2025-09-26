@@ -35,7 +35,7 @@ Like its companion function, it includes safety checks to prevent calls during l
   - `scan->rs_rd->rd_tableam->scan_bitmap_next_tuple`: Table access method implementation
 
 - Called from (representative examples):
-  - `BitmapHeapNext`: Main bitmap heap scan executor function
+  - `[BitmapHeapNext](../B/BitmapHeapNext.md)`: Main bitmap heap scan executor function
 
 ## Notes and Other Information
 - Must be called after `table_scan_bitmap_next_block()` has successfully selected a block

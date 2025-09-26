@@ -36,7 +36,7 @@ The implementation handles the complexity of query structure by delegating range
   - MUTATE (macro for calling mutator on subnodes)  
   - copyObject (for preserving CTE lists)
   - range_table_mutator
-  - WindowClause, OnConflictExpr, FromExpr (node types)
+  - [WindowClause](../W/WindowClause.md), OnConflictExpr, FromExpr (node types)
   - [QTW_DONT_COPY_QUERY](../Q/QTW_DONT_COPY_QUERY.md), QTW_EXAMINE_SORTGROUP, QTW_IGNORE_CTE_SUBQUERIES (flag constants)
 - Called from (representative examples):
   - query_tree_mutator (inline wrapper)
@@ -47,9 +47,9 @@ The implementation handles the complexity of query structure by delegating range
 - By default creates a copy of the query; use QTW_DONT_COPY_QUERY for in-place modification
 - All modified substructure is safely copied regardless of the copy mode
 - groupingSets and rowMarks are intentionally not mutated as they contain only integers and indexes
-- WindowClause expressions are always processed even when SortGroupClause nodes are ignored
+- [WindowClause](../W/WindowClause.md) expressions are always processed even when SortGroupClause nodes are ignored
 - Provides specialized handling for CTE lists - either mutates them or preserves them as-is based on flags
-- Range table mutation is delegated to the specialized range_table_mutator function
+- [Range](../R/Range.md) table mutation is delegated to the specialized range_table_mutator function
 - The function assumes the input Query node is valid and uses Assert to verify this
 - Reduces code duplication by centralizing knowledge of where all query expression subtrees are located
 - Supports both top-level query transformation and recursive descent into subqueries

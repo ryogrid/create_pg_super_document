@@ -29,13 +29,13 @@ The function ensures proper escaping for each format to prevent injection attack
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExplainState (struct type)
+  - [ExplainState](ExplainState.md) (struct type)
   - EXPLAIN_FORMAT_TEXT, EXPLAIN_FORMAT_XML, EXPLAIN_FORMAT_JSON, EXPLAIN_FORMAT_YAML (enum values)
   - [ExplainIndentText](ExplainIndentText.md)
   - [ExplainXMLTag](ExplainXMLTag.md)
   - [ExplainJSONLineEnding](ExplainJSONLineEnding.md)
   - [ExplainYAMLLineStarting](ExplainYAMLLineStarting.md)
-  - appendStringInfo, appendStringInfoString, appendStringInfoChar, appendStringInfoSpaces
+  - [appendStringInfo](../a/appendStringInfo.md), appendStringInfoString, appendStringInfoChar, appendStringInfoSpaces
   - [escape_xml](../e/escape_xml.md), escape_json, escape_yaml
   - lfirst (PostgreSQL list macro)
   - [pfree](../p/pfree.md)

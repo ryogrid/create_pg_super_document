@@ -20,7 +20,7 @@ This function is a higher-level convenience function built on top of the core Co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendBinaryStringInfo (to append the string data to the message buffer)
+  - [appendBinaryStringInfo](../a/appendBinaryStringInfo.md) (to append the string data to the message buffer)
   - strlen (to calculate the length of the null-terminated string)
 - Called from (representative examples):
   - DR_copy (in copyto.c:121)

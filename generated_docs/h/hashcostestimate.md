@@ -48,7 +48,7 @@ The function currently uses the generic cost model without hash-specific adjustm
 - Currently uses the generic cost model without hash-specific modifications
 - Does not charge for tree descent costs since hash indexes provide direct bucket access
 - Comments identify potential improvements for bucket-specific costing and collision modeling
-- Hash value comparisons are considered much cheaper than general datatype comparisons
+- [Hash](../H/Hash.md) value comparisons are considered much cheaper than general datatype comparisons
 - The one-page-per-bucket guarantee simplifies some cost calculations
 - Lossy operator effects from hash collisions are acknowledged but not currently modeled
 - Future enhancements might include collision probability estimation and bucket distribution analysis

@@ -24,17 +24,17 @@ The function performs safety checks to ensure the DSA hasn't been destroyed, inc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc
-  - LWLockAcquire
-  - LWLockRelease
+  - [palloc](../p/palloc.md)
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - DSA_AREA_LOCK
   - ereport/ERROR
-  - errcode
-  - errmsg
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
   - memset
 - Called from (representative examples):
-  - dsa_attach
-  - dsa_attach_in_place
+  - [dsa_attach](../d/dsa_attach.md)
+  - [dsa_attach_in_place](../d/dsa_attach_in_place.md)
 
 ## Notes and Other Information
 - This is a static internal function not exposed in the public DSA API

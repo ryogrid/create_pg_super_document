@@ -19,7 +19,7 @@ This function retrieves the current local time and returns it as a TimeADT value
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentTimeUsec
+  - [GetCurrentTimeUsec](GetCurrentTimeUsec.md)
   - [tm2time](../t/tm2time.md)
   - [AdjustTimeForTypmod](../A/AdjustTimeForTypmod.md)
 - Types used:

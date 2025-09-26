@@ -25,8 +25,8 @@ The function is designed to handle the common need to format publication lists f
 ## Dependencies
 - Functions called/Symbols referenced:
   - strVal: Extracts string value from List node
-  - appendStringInfoString: Appends string to StringInfo buffer
-  - appendStringInfoChar: Appends single character to StringInfo buffer
+  - [appendStringInfoString](../a/appendStringInfoString.md): Appends string to StringInfo buffer
+  - [appendStringInfoChar](../a/appendStringInfoChar.md): Appends single character to StringInfo buffer
   - [quote_literal_cstr](../q/quote_literal_cstr.md): Applies SQL literal quoting to string
 - Called from (representative examples):
   - [check_publications](../c/check_publications.md): For formatting publication lists in error messages and validation

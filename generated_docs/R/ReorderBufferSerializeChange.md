@@ -34,8 +34,8 @@ The function handles complex data structures like HeapTuples by serializing both
 - Functions called/Symbols referenced:
   - [ReorderBufferSerializeReserve](ReorderBufferSerializeReserve.md) (ensures buffer space availability)
   - write (system call for disk I/O)
-  - CloseTransientFile (closes file on error)
-  - pgstat_report_wait_start/end (wait event reporting)
+  - [CloseTransientFile](../C/CloseTransientFile.md) (closes file on error)
+  - [pgstat_report_wait_start](../p/pgstat_report_wait_start.md)/end (wait event reporting)
   - memcpy (memory copying operations)
 - Called from (representative examples):
   - [ReorderBufferSerializeTXN](ReorderBufferSerializeTXN.md) (during transaction spilling process)

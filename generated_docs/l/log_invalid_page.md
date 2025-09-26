@@ -29,9 +29,9 @@ The `log_invalid_page` function is a critical component of PostgreSQL's WAL reco
   - [hash_search](../h/hash_search.md)
   - [xl_invalid_page_key](../x/xl_invalid_page_key.md)
   - [xl_invalid_page](../x/xl_invalid_page.md)
-  - HASHCTL
+  - [HASHCTL](../H/HASHCTL.md)
 - Called from (representative examples):
-  - XLogReadBufferExtended
+  - [XLogReadBufferExtended](../X/XLogReadBufferExtended.md)
 
 ## Notes and Other Information
 - This is a static function, accessible only within xlogutils.c

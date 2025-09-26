@@ -27,18 +27,18 @@ This function takes no parameters and operates on global stack depth state.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - stack_is_too_deep
+  - [stack_is_too_deep](../s/stack_is_too_deep.md)
   - ereport (for error reporting)
   - max_stack_depth (configuration parameter)
 - Called from (representative examples):
-  - gistSplit
-  - findDependentObjects
-  - ExecInitExprRec
-  - transformExprRecurse
-  - eval_const_expressions_mutator
-  - copyObjectImpl
-  - equal
-  - outNode
+  - [gistSplit](../g/gistSplit.md)
+  - [findDependentObjects](../f/findDependentObjects.md)
+  - [ExecInitExprRec](../E/ExecInitExprRec.md)
+  - [transformExprRecurse](../t/transformExprRecurse.md)
+  - [eval_const_expressions_mutator](../e/eval_const_expressions_mutator.md)
+  - [copyObjectImpl](copyObjectImpl.md)
+  - [equal](../e/equal.md)
+  - [outNode](../o/outNode.md)
   - Many other recursive functions throughout PostgreSQL
 
 ## Notes and Other Information

@@ -43,15 +43,15 @@ The structure provides a flexible framework for representing various types of ta
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AlterTableType
-  - RoleSpec
+  - [AlterTableType](AlterTableType.md)
+  - [RoleSpec](../R/RoleSpec.md)
   - DropBehavior
 - Called from (representative examples):
-  - ATController
-  - ATPrepCmd
-  - ATExecCmd
-  - transformAlterTableStmt
-  - ProcessUtilitySlow
+  - [ATController](ATController.md)
+  - [ATPrepCmd](ATPrepCmd.md)
+  - [ATExecCmd](ATExecCmd.md)
+  - [transformAlterTableStmt](../t/transformAlterTableStmt.md)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md)
 
 ## Notes and Other Information
 - Part of PostgreSQL's parse tree node system, inheriting from the standard Node structure

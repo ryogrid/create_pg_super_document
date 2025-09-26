@@ -26,9 +26,9 @@ The function modifies the input string in place by allocating a new string with 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_home_path (for getting current user's home directory)
+  - [get_home_path](../g/get_home_path.md) (for getting current user's home directory)
   - getpwnam (POSIX function to get user information)
-  - strlcpy (safe string copy function)
+  - [strlcpy](../s/strlcpy.md) (safe string copy function)
   - [psprintf](../p/psprintf.md) (PostgreSQL string formatting function)
   - free (memory deallocation)
 - Called from (representative examples):

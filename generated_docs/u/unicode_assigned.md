@@ -23,7 +23,7 @@ The `unicode_assigned` function validates that all Unicode code points in a give
   - [pg_mbstrlen_with_len](../p/pg_mbstrlen_with_len.md)
   - [utf8_to_unicode](utf8_to_unicode.md)
   - [unicode_category](unicode_category.md)
-  - pg_utf_mblen
+  - [pg_utf_mblen](../p/pg_utf_mblen.md)
 - Constants referenced:
   - PG_UTF8
   - PG_U_UNASSIGNED

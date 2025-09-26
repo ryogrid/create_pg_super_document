@@ -39,12 +39,12 @@ The function returns an 8-column result set for each available version:
   - [get_ext_ver_list](get_ext_ver_list.md)
   - [read_extension_aux_control_file](../r/read_extension_aux_control_file.md)
   - DirectFunctionCall1
-  - namein
+  - [namein](../n/namein.md)
   - [CStringGetDatum](../C/CStringGetDatum.md)
   - CStringGetTextDatum
   - [BoolGetDatum](../B/BoolGetDatum.md)
   - [convert_requires_to_datum](../c/convert_requires_to_datum.md)
-  - tuplestore_putvalues
+  - [tuplestore_putvalues](../t/tuplestore_putvalues.md)
   - [find_install_path](../f/find_install_path.md)
 - Called from (representative examples):
   - [pg_available_extension_versions](../p/pg_available_extension_versions.md)

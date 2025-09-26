@@ -30,16 +30,16 @@ The function is designed to work with async-capable executor nodes that can hand
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecReScan: Rescans the node if parameters have changed
-  - InstrStartNode: Starts performance instrumentation
+  - [ExecReScan](ExecReScan.md): Rescans the node if parameters have changed
+  - [InstrStartNode](../I/InstrStartNode.md): Starts performance instrumentation
   - nodeTag: Gets the node type for dispatching
-  - ExecAsyncForeignScanRequest: Handles async requests for foreign scan nodes
-  - ExecAsyncResponse: Processes the asynchronous response
-  - InstrStopNode: Stops performance instrumentation and records stats
+  - [ExecAsyncForeignScanRequest](ExecAsyncForeignScanRequest.md): Handles async requests for foreign scan nodes
+  - [ExecAsyncResponse](ExecAsyncResponse.md): Processes the asynchronous response
+  - [InstrStopNode](../I/InstrStopNode.md): Stops performance instrumentation and records stats
   - TupIsNull: Checks if the result tuple is null
 - Called from (representative examples):
-  - ExecAppendAsyncBegin: When beginning async operations in Append nodes
-  - ExecAppendAsyncRequest: When requesting tuples in Append node async execution
+  - [ExecAppendAsyncBegin](ExecAppendAsyncBegin.md): When beginning async operations in Append nodes
+  - [ExecAppendAsyncRequest](ExecAppendAsyncRequest.md): When requesting tuples in Append node async execution
 
 ## Notes and Other Information
 - Currently only supports T_ForeignScanState nodes; other node types will trigger an error

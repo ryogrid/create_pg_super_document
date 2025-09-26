@@ -37,7 +37,7 @@ The structure inherits from Expr, making it compatible with PostgreSQL's express
 - Functions called/Symbols referenced:
   - ParseLoc (for location tracking)
 - Called from (representative examples):
-  - exprType (src/backend/nodes/nodeFuncs.c:266)
+  - [exprType](../e/exprType.md) (src/backend/nodes/nodeFuncs.c:266)
   - [transformTargetEntry](../t/transformTargetEntry.md) (src/backend/parser/parse_target.c:90)
   - [rewriteTargetListIU](../r/rewriteTargetListIU.md) (src/backend/rewrite/rewriteHandler.c:856)
   - [searchForDefault](../s/searchForDefault.md) (src/backend/rewrite/rewriteHandler.c:1302)

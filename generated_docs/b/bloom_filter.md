@@ -43,8 +43,8 @@ The implementation uses enhanced double hashing for generating the k hash functi
   - [bloom_add_element](bloom_add_element.md)
   - [bloom_lacks_element](bloom_lacks_element.md)
   - [bloom_prop_bits_set](bloom_prop_bits_set.md)
-  - roles_list_append (in ACL system)
-  - roles_is_member_of (in ACL system)
+  - [roles_list_append](../r/roles_list_append.md) (in ACL system)
+  - [roles_is_member_of](../r/roles_is_member_of.md) (in ACL system)
 
 ## Notes and Other Information
 - The structure is designed with a flexible array member to minimize memory overhead and allow variable-sized bitsets

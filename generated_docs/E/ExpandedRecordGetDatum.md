@@ -25,7 +25,7 @@ This inline function provides a convenient wrapper to convert an ExpandedRecordH
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - EOHPGetRWDatum
+  - [EOHPGetRWDatum](EOHPGetRWDatum.md)
   - ExpandedRecordHeader
 - Called from (representative examples):
   - PG_RETURN_EXPANDED_RECORD

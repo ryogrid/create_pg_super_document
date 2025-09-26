@@ -31,17 +31,17 @@ The function appends the alias to the context buffer with either a space or " AS
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_rtable_name
+  - [get_rtable_name](get_rtable_name.md)
   - deparse_columns_fetch
-  - get_relation_name
-  - quote_identifier
-  - appendStringInfo
+  - [get_relation_name](get_relation_name.md)
+  - [quote_identifier](../q/quote_identifier.md)
+  - [appendStringInfo](../a/appendStringInfo.md)
 - Called from (representative examples):
-  - get_from_clause_item
-  - get_insert_query_def
-  - get_update_query_def
-  - get_delete_query_def
-  - get_merge_query_def
+  - [get_from_clause_item](get_from_clause_item.md)
+  - [get_insert_query_def](get_insert_query_def.md)
+  - [get_update_query_def](get_update_query_def.md)
+  - [get_delete_query_def](get_delete_query_def.md)
+  - [get_merge_query_def](get_merge_query_def.md)
 
 ## Notes and Other Information
 - Essential for maintaining SQL correctness and readability in query deparsing

@@ -24,11 +24,11 @@ The function handles both unary and binary operators by checking the validity of
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initStringInfo
+  - [initStringInfo](../i/initStringInfo.md)
   - [format_type_be](../f/format_type_be.md)
-  - appendStringInfo
+  - [appendStringInfo](../a/appendStringInfo.md)
   - [NameListToString](../N/NameListToString.md)
-  - appendStringInfoString
+  - [appendStringInfoString](../a/appendStringInfoString.md)
 - Called from (representative examples):
   - [ValidateOperatorReference](../V/ValidateOperatorReference.md)
   - [LookupOperName](../L/LookupOperName.md)

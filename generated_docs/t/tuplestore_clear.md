@@ -24,18 +24,18 @@ After clearing, the tuplestore is ready to accept new tuples as if it were newly
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufFileClose (closes temporary files)
-  - GetMemoryChunkSpace (memory size calculation)
+  - [BufFileClose](../B/BufFileClose.md) (closes temporary files)
+  - [GetMemoryChunkSpace](../G/GetMemoryChunkSpace.md) (memory size calculation)
   - FREEMEM (memory accounting macro)
-  - pfree (memory deallocation)
+  - [pfree](../p/pfree.md) (memory deallocation)
   - TSS_INMEM (tuplestore status constant)
 - Data structures used:
-  - Tuplestorestate (main tuplestore state structure)
+  - [Tuplestorestate](../T/Tuplestorestate.md) (main tuplestore state structure)
   - TSReadPointer (read pointer structure)
 - Called from:
-  - fmgr_sql (SQL function manager - multiple calls for function execution)
-  - ExecReScanCteScan (CTE scan node rescanning)
-  - ExecReScanRecursiveUnion (recursive union rescan operations)
+  - [fmgr_sql](../f/fmgr_sql.md) (SQL function manager - multiple calls for function execution)
+  - [ExecReScanCteScan](../E/ExecReScanCteScan.md) (CTE scan node rescanning)
+  - [ExecReScanRecursiveUnion](../E/ExecReScanRecursiveUnion.md) (recursive union rescan operations)
 
 ## Notes and Other Information
 - Preserves the tuplestore structure and configuration for reuse

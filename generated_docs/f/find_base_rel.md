@@ -24,7 +24,7 @@ The function uses an unsigned comparison trick `(uint32) relid < (uint32) root->
 - Functions called/Symbols referenced:
   - elog (for error reporting when relation not found)
 - Data structures used:
-  - RelOptInfo (return type)
+  - [RelOptInfo](../R/RelOptInfo.md) (return type)
   - [PlannerInfo](../P/PlannerInfo.md) (contains simple_rel_array)
 - Called from (representative examples):
   - [set_base_rel_consider_startup](../s/set_base_rel_consider_startup.md) (src/backend/optimizer/path/allpaths.c:272)

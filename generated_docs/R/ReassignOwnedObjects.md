@@ -23,8 +23,8 @@ This function serves as a security-aware wrapper that ensures only authorized us
 ## Dependencies
 - Functions called/Symbols referenced:
   - [roleSpecsToIds](../r/roleSpecsToIds.md): Convert source role specifications to OID list
-  - get_rolespec_oid: Convert target role specification to OID
-  - has_privs_of_role: Check if current user has privileges of specified role (used for both source and target validation)
+  - [get_rolespec_oid](../g/get_rolespec_oid.md): Convert target role specification to OID
+  - [has_privs_of_role](../h/has_privs_of_role.md): Check if current user has privileges of specified role (used for both source and target validation)
   - [GetUserNameFromId](../G/GetUserNameFromId.md): Get role name for error messages
   - [shdepReassignOwned](../s/shdepReassignOwned.md): Perform the actual ownership transfer operation
 - Called from (representative examples):

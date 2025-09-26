@@ -22,7 +22,7 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_malloc: Allocates memory for the DumpOptions structure
+  - [pg_malloc](../p/pg_malloc.md): Allocates memory for the DumpOptions structure
   - [InitDumpOptions](../I/InitDumpOptions.md): Initializes the newly allocated structure with default values
   - DumpOptions: The structure type being allocated
 - Called from (representative examples):

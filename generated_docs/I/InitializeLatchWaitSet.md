@@ -20,8 +20,8 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreateWaitEventSet
-  - AddWaitEventToSet
+  - [CreateWaitEventSet](../C/CreateWaitEventSet.md)
+  - [AddWaitEventToSet](../A/AddWaitEventToSet.md)
   - MyLatch (global variable)
   - LatchWaitSet (global variable)
   - LatchWaitSetLatchPos (constant)
@@ -30,8 +30,8 @@ This function takes no parameters.
   - PGINVALID_SOCKET (constant)
   - IsUnderPostmaster (global variable)
 - Called from (representative examples):
-  - InitPostmasterChild
-  - InitStandaloneProcess
+  - [InitPostmasterChild](InitPostmasterChild.md)
+  - [InitStandaloneProcess](InitStandaloneProcess.md)
 
 ## Notes and Other Information
 - Located in src/backend/storage/ipc/latch.c:346-363

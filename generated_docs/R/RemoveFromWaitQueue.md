@@ -41,8 +41,8 @@ The function includes numerous assertions to verify the process is actually wait
   - PROC_WAIT_STATUS_WAITING/PROC_WAIT_STATUS_ERROR (status constants)
 - Called from (representative examples):
   - [LockErrorCleanup](../L/LockErrorCleanup.md)
-  - ProcSleep
-  - CheckDeadLock
+  - [ProcSleep](../P/ProcSleep.md)
+  - [CheckDeadLock](../C/CheckDeadLock.md)
   - LockHashPartitionLockByProc
 
 ## Notes and Other Information

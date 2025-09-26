@@ -29,18 +29,18 @@ The function follows the same basic validation pattern as other type-specific ch
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - config_string (struct type)
+  - [config_string](config_string.md) (struct type)
   - GucSource (enum type)
   - PG_TRY, PG_CATCH, PG_RE_THROW, PG_END_TRY (exception handling macros)
-  - errdetail_internal
-  - FlushErrorState
-  - guc_free (for memory cleanup)
+  - [errdetail_internal](../e/errdetail_internal.md)
+  - [FlushErrorState](../F/FlushErrorState.md)
+  - [guc_free](../g/guc_free.md) (for memory cleanup)
   - ereport (via error reporting macros)
-  - errcode, errmsg_internal, errmsg, errhint (error reporting functions)
+  - [errcode](../e/errcode.md), errmsg_internal, errmsg, errhint (error reporting functions)
 
 - Called from (representative examples):
-  - InitializeOneGUCOption
-  - parse_and_validate_value
+  - [InitializeOneGUCOption](../I/InitializeOneGUCOption.md)
+  - [parse_and_validate_value](../p/parse_and_validate_value.md)
 
 ## Notes and Other Information
 - Uses volatile bool result to ensure the variable survives exception handling

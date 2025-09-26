@@ -26,8 +26,8 @@ The function processes each tuple by first extracting data from the old tuple, a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
-  - table_close
+  - [table_open](../t/table_open.md)
+  - [table_close](../t/table_close.md)
   - RelationGetDescr
   - [GetCurrentCommandId](../G/GetCurrentCommandId.md)
   - [GetBulkInsertState](../G/GetBulkInsertState.md)
@@ -41,25 +41,25 @@ The function processes each tuple by first extracting data from the old tuple, a
   - [ExecDropSingleTupleTableSlot](../E/ExecDropSingleTupleTableSlot.md)
   - [table_slot_callbacks](../t/table_slot_callbacks.md)
   - [ExecStoreAllNullTuple](../E/ExecStoreAllNullTuple.md)
-  - ExecClearTuple
+  - [ExecClearTuple](../E/ExecClearTuple.md)
   - [ExecStoreVirtualTuple](../E/ExecStoreVirtualTuple.md)
-  - lappend_int
+  - [lappend_int](../l/lappend_int.md)
   - TupleDescAttr
-  - RegisterSnapshot
-  - UnregisterSnapshot
-  - GetLatestSnapshot
+  - [RegisterSnapshot](../R/RegisterSnapshot.md)
+  - [UnregisterSnapshot](../U/UnregisterSnapshot.md)
+  - [GetLatestSnapshot](../G/GetLatestSnapshot.md)
   - [table_beginscan](../t/table_beginscan.md)
   - [table_endscan](../t/table_endscan.md)
   - [table_scan_getnextslot](../t/table_scan_getnextslot.md)
   - GetPerTupleMemoryContext
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
-  - slot_getallattrs
-  - slot_attisnull
-  - ExecEvalExpr
+  - [slot_getallattrs](../s/slot_getallattrs.md)
+  - [slot_attisnull](../s/slot_attisnull.md)
+  - [ExecEvalExpr](../E/ExecEvalExpr.md)
   - [ExecCheck](../E/ExecCheck.md)
   - ResetExprContext
-  - table_tuple_insert
-  - table_finish_bulk_insert
+  - [table_tuple_insert](../t/table_tuple_insert.md)
+  - [table_finish_bulk_insert](../t/table_finish_bulk_insert.md)
   - [TransferPredicateLocksToHeapRelation](../T/TransferPredicateLocksToHeapRelation.md)
   - RelationGetRelationName
   - RelationGetRelid

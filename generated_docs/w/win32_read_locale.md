@@ -29,7 +29,7 @@ This function serves as a callback for the Windows API function EnumSystemLocale
   - [CollationCreate](../C/CollationCreate.md)
   - [GetUserId](../G/GetUserId.md)
   - [get_collation_actual_version](../g/get_collation_actual_version.md)
-  - CommandCounterIncrement
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md)
   - CollParam (struct type)
   - NAMEDATALEN (constant)
 - Called from (representative examples):

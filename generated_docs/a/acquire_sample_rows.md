@@ -33,14 +33,14 @@ The returned tuples are sorted by physical position (ItemPointer) to enable corr
 - Functions called/Symbols referenced:
   - RelationGetNumberOfBlocks
   - [GetOldestNonRemovableTransactionId](../G/GetOldestNonRemovableTransactionId.md)
-  - BlockSampler_Init
+  - [BlockSampler_Init](../B/BlockSampler_Init.md)
   - [table_beginscan_analyze](../t/table_beginscan_analyze.md)
   - [table_scan_analyze_next_block](../t/table_scan_analyze_next_block.md)
   - [table_scan_analyze_next_tuple](../t/table_scan_analyze_next_tuple.md)
-  - reservoir_init_selection_state
-  - reservoir_get_next_S
+  - [reservoir_init_selection_state](../r/reservoir_init_selection_state.md)
+  - [reservoir_get_next_S](../r/reservoir_get_next_S.md)
   - [compare_rows](../c/compare_rows.md) (for sorting)
-  - ExecCopySlotHeapTuple
+  - [ExecCopySlotHeapTuple](../E/ExecCopySlotHeapTuple.md)
   - [heap_freetuple](../h/heap_freetuple.md)
 - Called from (representative examples):
   - [analyze_rel](analyze_rel.md)

@@ -23,15 +23,15 @@ The function maintains a trailing null terminator even for binary data, though t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - enlargePQExpBuffer
+  - [enlargePQExpBuffer](../e/enlargePQExpBuffer.md)
   - memcpy (system function)
 - Called from (representative examples):
-  - createViewAsClause (src/bin/pg_dump/pg_dump.c)
-  - dumpTableSchema (src/bin/pg_dump/pg_dump.c)
-  - pg_GSS_error_int (src/interfaces/libpq/fe-gssapi-common.c)
-  - pqGets_internal (src/interfaces/libpq/fe-misc.c)
-  - appendPQExpBufferStr (src/interfaces/libpq/pqexpbuffer.c)
-  - test_gb18030_json (src/test/modules/test_escape/test_escape.c)
+  - [createViewAsClause](../c/createViewAsClause.md) (src/bin/pg_dump/pg_dump.c)
+  - [dumpTableSchema](../d/dumpTableSchema.md) (src/bin/pg_dump/pg_dump.c)
+  - [pg_GSS_error_int](../p/pg_GSS_error_int.md) (src/interfaces/libpq/fe-gssapi-common.c)
+  - [pqGets_internal](../p/pqGets_internal.md) (src/interfaces/libpq/fe-misc.c)
+  - [appendPQExpBufferStr](appendPQExpBufferStr.md) (src/interfaces/libpq/pqexpbuffer.c)
+  - [test_gb18030_json](../t/test_gb18030_json.md) (src/test/modules/test_escape/test_escape.c)
 
 ## Notes and Other Information
 - Designed specifically for binary data that may contain null bytes

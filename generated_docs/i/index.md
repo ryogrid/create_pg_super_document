@@ -30,11 +30,11 @@ This struct is part of the parser's union type system and is used during the sem
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - mm_strdup (for string duplication during parsing)
+  - [mm_strdup](../m/mm_strdup.md) (for string duplication during parsing)
   - Used in parser grammar rules for array bounds processing
 - Called from (representative examples):
   - opt_array_bounds grammar rules in ecpg.addons
-  - Variable declaration processing in ecpg.trailer
+  - [Variable](../V/Variable.md) declaration processing in ecpg.trailer
   - add_typedef function calls for type definition creation
 
 ## Notes and Other Information

@@ -28,10 +28,10 @@ NotifyStmt is a parse node that represents the NOTIFY statement in PostgreSQL's 
 - Functions called/Symbols referenced:
   - NodeTag (for type identification)
 - Called from (representative examples):
-  - standard_ProcessUtility (processes the statement via Async_Notify in src/backend/tcop/utility.c:796)
-  - ExplainOneUtility (for EXPLAIN support in src/backend/commands/explain.c:587)
-  - get_utility_query_def (for query string reconstruction in src/backend/utils/adt/ruleutils.c:7289)
-  - PortalRunMulti (as part of query execution in src/backend/tcop/pquery.c:1318)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (processes the statement via Async_Notify in src/backend/tcop/utility.c:796)
+  - [ExplainOneUtility](../E/ExplainOneUtility.md) (for EXPLAIN support in src/backend/commands/explain.c:587)
+  - [get_utility_query_def](../g/get_utility_query_def.md) (for query string reconstruction in src/backend/utils/adt/ruleutils.c:7289)
+  - [PortalRunMulti](../P/PortalRunMulti.md) (as part of query execution in src/backend/tcop/pquery.c:1318)
 
 ## Notes and Other Information
 - The statement is parsed in gram.y with the rule: `NOTIFY ColId notify_payload`

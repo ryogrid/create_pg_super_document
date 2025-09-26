@@ -24,7 +24,7 @@ This enhanced interface is particularly useful for applications that need to bal
 - Functions called/Symbols referenced:
   - [pg_get_viewdef_worker](pg_get_viewdef_worker.md) - Core worker function for view definition generation
   - `GET_PRETTY_FLAGS` - Macro to convert boolean to appropriate formatting flags
-  - `string_to_text` - Converts C string to PostgreSQL text type
+  - `[string_to_text](../s/string_to_text.md)` - Converts C string to PostgreSQL text type
   - `WRAP_COLUMN_DEFAULT` - Default column width for line wrapping
   - `PG_RETURN_TEXT_P` - Macro for returning text result
 - Called from (representative examples):

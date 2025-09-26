@@ -19,11 +19,11 @@ This function iterates through the logical replication worker pool to count how 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockHeldByMe
+  - [LWLockHeldByMe](../L/LWLockHeldByMe.md)
   - [LogicalRepWorker](../L/LogicalRepWorker.md)
   - isTablesyncWorker
 - Called from (representative examples):
-  - logicalrep_worker_launch
+  - [logicalrep_worker_launch](logicalrep_worker_launch.md)
   - [tablesync_start_time_mapping](../t/tablesync_start_time_mapping.md)
 
 ## Notes and Other Information

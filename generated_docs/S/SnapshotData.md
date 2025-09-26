@@ -66,9 +66,9 @@ SnapshotData represents all kinds of possible snapshots including normal MVCC sn
   - TimestampTz
   - XLogRecPtr
 - Called from (representative examples):
-  - CopySnapshot
-  - GetOldestSnapshot
-  - ImportSnapshot
+  - [CopySnapshot](../C/CopySnapshot.md)
+  - [GetOldestSnapshot](../G/GetOldestSnapshot.md)
+  - [ImportSnapshot](../I/ImportSnapshot.md)
   - Various heap access methods
 
 ## Notes and Other Information

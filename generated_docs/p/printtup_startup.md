@@ -21,7 +21,7 @@ This function performs the initial setup required before sending query results t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initStringInfo (I/O buffer initialization)
+  - [initStringInfo](../i/initStringInfo.md) (I/O buffer initialization)
   - AllocSetContextCreate (memory context creation)
   - [SendRowDescriptionMessage](../S/SendRowDescriptionMessage.md) (row description transmission)
   - [FetchPortalTargetList](../F/FetchPortalTargetList.md) (portal target list retrieval)

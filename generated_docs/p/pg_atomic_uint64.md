@@ -35,9 +35,9 @@ Unlike the 32-bit variant, 64-bit atomic operations may be simulated using locks
   - [pg_atomic_write_u64](pg_atomic_write_u64.md)
   - [pg_atomic_compare_exchange_u64](pg_atomic_compare_exchange_u64.md)
   - [pg_atomic_fetch_add_u64](pg_atomic_fetch_add_u64.md)
-  - pg_atomic_monotonic_advance_u64
+  - [pg_atomic_monotonic_advance_u64](pg_atomic_monotonic_advance_u64.md)
   - [XLogCtlData](../X/XLogCtlData.md) (WAL control structure for LSN tracking)
-  - LWLockWaitForVar (lightweight lock condition variables)
+  - [LWLockWaitForVar](../L/LWLockWaitForVar.md) (lightweight lock condition variables)
   - [shm_mq](../s/shm_mq.md) (shared memory message queues)
   - [ProcSignalSlot](../P/ProcSignalSlot.md) (process signaling)
 

@@ -33,8 +33,8 @@ The function initializes all the standard Path fields, sets up the pathnode stru
 - Functions called/Symbols referenced:
   - makeNode (creates IncrementalSortPath node)
   - [cost_incremental_sort](cost_incremental_sort.md) (calculates sorting costs)
-  - IncrementalSortPath (return type structure)
-  - SortPath (embedded structure)
+  - [IncrementalSortPath](../I/IncrementalSortPath.md) (return type structure)
+  - [SortPath](../S/SortPath.md) (embedded structure)
 - Called from (representative examples):
   - [generate_useful_gather_paths](../g/generate_useful_gather_paths.md)
   - [create_one_window_path](create_one_window_path.md)  

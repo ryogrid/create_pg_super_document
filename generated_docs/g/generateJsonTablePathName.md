@@ -31,7 +31,7 @@ This ensures that all path specifications have valid, unique names for internal 
 - Functions called/Symbols referenced:
   - snprintf (standard C formatted string function)
   - [pstrdup](../p/pstrdup.md) (PostgreSQL string duplication function)
-  - lappend (PostgreSQL list append function)
+  - [lappend](../l/lappend.md) (PostgreSQL list append function)
 - Called from (representative examples):
   - [transformJsonTable](../t/transformJsonTable.md) (for root path specifications)
   - [transformJsonTableNestedColumns](../t/transformJsonTableNestedColumns.md) (for nested path specifications)

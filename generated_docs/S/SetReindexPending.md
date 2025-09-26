@@ -20,7 +20,7 @@ SetReindexPending is a static function that establishes a list of indexes that a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsInParallelMode
+  - [IsInParallelMode](../I/IsInParallelMode.md)
   - [list_copy](../l/list_copy.md)
   - [GetCurrentTransactionNestLevel](../G/GetCurrentTransactionNestLevel.md)
 - Called from (representative examples):

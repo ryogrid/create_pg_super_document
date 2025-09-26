@@ -43,7 +43,7 @@ The structure stores an 8-byte MAC address as eight individual unsigned char fie
   -  - Output function for 8-byte MAC address formatting
   -  - Comparison function for 8-byte MAC addresses
   -  - Equality comparison function
-  -  - Hash function for 8-byte MAC addresses
+  -  - [Hash](../H/Hash.md) function for 8-byte MAC addresses
   -  - Bitwise AND operation on 8-byte MAC addresses
   -  - Bitwise OR operation on 8-byte MAC addresses
   -  - Bitwise NOT operation on 8-byte MAC addresses

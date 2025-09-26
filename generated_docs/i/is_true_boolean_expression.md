@@ -24,7 +24,7 @@ The function is designed to work within psqls conditional execution stack, where
 - Functions called/Symbols referenced:
   - [gather_boolean_expression](../g/gather_boolean_expression.md) (to collect command arguments into expression string)
   - [ParseVariableBool](../P/ParseVariableBool.md) (to parse and evaluate the gathered boolean expression)
-  - destroyPQExpBuffer (to clean up the expression buffer)
+  - [destroyPQExpBuffer](../d/destroyPQExpBuffer.md) (to clean up the expression buffer)
 - Called from (representative examples):
   - [exec_command_if](../e/exec_command_if.md) (to evaluate conditions in `\if` commands)
   - [exec_command_elif](../e/exec_command_elif.md) (to evaluate conditions in `\elif` commands)

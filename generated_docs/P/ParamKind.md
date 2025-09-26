@@ -44,7 +44,7 @@ ParamKind defines four distinct parameter types used throughout PostgreSQL's que
 - Functions called/Symbols referenced:
   - (No direct references from this enum)
 - Called from (representative examples):
-  - Param struct (uses ParamKind as paramkind field)
+  - [Param](Param.md) struct (uses ParamKind as paramkind field)
 
 ## Notes and Other Information
 - PARAM_EXTERN and PARAM_EXEC use independent numbering schemes

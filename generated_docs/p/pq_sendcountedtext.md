@@ -24,17 +24,17 @@ The function intelligently handles character set conversion by checking if actua
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_server_to_client (character set conversion)
-  - pq_sendint32 (send 4-byte length prefix)
-  - appendBinaryStringInfoNT (append binary data without trailing null)
+  - [pg_server_to_client](pg_server_to_client.md) (character set conversion)
+  - [pq_sendint32](pq_sendint32.md) (send 4-byte length prefix)
+  - [appendBinaryStringInfoNT](../a/appendBinaryStringInfoNT.md) (append binary data without trailing null)
   - strlen (get length of converted string)
-  - pfree (free converted string memory)
+  - [pfree](pfree.md) (free converted string memory)
 - Called from (representative examples):
-  - printsimple
-  - printtup
-  - serializeAnalyzeReceive
-  - logicalrep_write_tuple
-  - SendFunctionResult
+  - [printsimple](printsimple.md)
+  - [printtup](printtup.md)
+  - [serializeAnalyzeReceive](../s/serializeAnalyzeReceive.md)
+  - [logicalrep_write_tuple](../l/logicalrep_write_tuple.md)
+  - [SendFunctionResult](../S/SendFunctionResult.md)
 
 ## Notes and Other Information
 - Implements PostgreSQL protocol version 3.0 counted string format (4-byte length + data)

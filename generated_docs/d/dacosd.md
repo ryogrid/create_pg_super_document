@@ -22,7 +22,7 @@ The  function computes the inverse cosine of a floating-point argument and retur
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT8 (to extract the float8 argument)
   - isnan (to check for NaN input)
-  - get_float8_nan (to return NaN when input is NaN)
+  - [get_float8_nan](../g/get_float8_nan.md) (to return NaN when input is NaN)
   - INIT_DEGREE_CONSTANTS (macro to initialize degree constants)
   - [acosd_q1](../a/acosd_q1.md) (PostgreSQL arccosine function for first quadrant)
   - [asind_q1](../a/asind_q1.md) (PostgreSQL arcsine function for first quadrant)

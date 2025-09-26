@@ -26,18 +26,18 @@ Unlike the shared buffer equivalent, LocalBufferAlloc doesn't require complex lo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - InitBufferTag: Creates buffer tag for the requested block
-  - InitLocalBuffers: Initializes local buffer system if not already done
-  - ResourceOwnerEnlarge: Ensures resource owner can track additional buffer
-  - hash_search: Searches/inserts entries in local buffer hash table
-  - GetLocalVictimBuffer: Selects a buffer for replacement when needed
-  - GetLocalBufferDescriptor: Converts buffer ID to BufferDesc pointer
-  - PinLocalBuffer: Pins an existing buffer and updates its state
-  - BufferTagsEqual: Verifies buffer tag matches expected block identity
-  - pg_atomic_read_u32/pg_atomic_unlocked_write_u32: Atomic state manipulation
+  - [InitBufferTag](../I/InitBufferTag.md): Creates buffer tag for the requested block
+  - [InitLocalBuffers](../I/InitLocalBuffers.md): Initializes local buffer system if not already done
+  - [ResourceOwnerEnlarge](../R/ResourceOwnerEnlarge.md): Ensures resource owner can track additional buffer
+  - [hash_search](../h/hash_search.md): Searches/inserts entries in local buffer hash table
+  - [GetLocalVictimBuffer](../G/GetLocalVictimBuffer.md): Selects a buffer for replacement when needed
+  - [GetLocalBufferDescriptor](../G/GetLocalBufferDescriptor.md): Converts buffer ID to BufferDesc pointer
+  - [PinLocalBuffer](../P/PinLocalBuffer.md): Pins an existing buffer and updates its state
+  - [BufferTagsEqual](../B/BufferTagsEqual.md): Verifies buffer tag matches expected block identity
+  - [pg_atomic_read_u32](../p/pg_atomic_read_u32.md)/pg_atomic_unlocked_write_u32: Atomic state manipulation
 - Called from (representative examples):
-  - PinBufferForBlock: Main buffer acquisition function delegates to this for temporary relations
-  - ResourceOwnerForgetBufferIO: Buffer resource management
+  - [PinBufferForBlock](../P/PinBufferForBlock.md): Main buffer acquisition function delegates to this for temporary relations
+  - [ResourceOwnerForgetBufferIO](../R/ResourceOwnerForgetBufferIO.md): Buffer resource management
 
 ## Notes and Other Information
 - No locking required since local buffers are backend-private
@@ -45,5 +45,5 @@ Unlike the shared buffer equivalent, LocalBufferAlloc doesn't require complex lo
 - Buffer state flags are atomically updated to maintain consistency
 - Uses BM_TAG_VALID and BUF_USAGECOUNT_ONE flags when initializing new buffers
 - The negative buffer ID encoding (-victim_buffer - 1) follows PostgreSQL's convention for local buffer identification
-- Hash table corruption detection includes assertion that shouldn't normally trigger
+- [Hash](../H/Hash.md) table corruption detection includes assertion that shouldn't normally trigger
 - Part of PostgreSQL's local buffer management system optimized for temporary relations

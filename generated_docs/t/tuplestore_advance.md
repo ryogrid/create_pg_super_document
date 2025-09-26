@@ -22,7 +22,7 @@ The implementation leverages the existing `tuplestore_gettuple` infrastructure b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - tuplestore_gettuple
+  - [tuplestore_gettuple](tuplestore_gettuple.md)
   - [pfree](../p/pfree.md) (when should_free is true)
 - Called from (representative examples):
   - [CteScanNext](../C/CteScanNext.md)

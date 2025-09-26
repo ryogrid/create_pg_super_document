@@ -33,7 +33,7 @@ Unlike ginbuild, this function doesn't scan any heap data and creates only the m
   - [GinInitMetabuffer](../G/GinInitMetabuffer.md)
   - [GinInitBuffer](../G/GinInitBuffer.md)
   - [log_newpage_buffer](../l/log_newpage_buffer.md)
-  - MarkBufferDirty
+  - [MarkBufferDirty](../M/MarkBufferDirty.md)
   - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
 - Called from (representative examples):
   - [ginhandler](ginhandler.md) (via access method handler)

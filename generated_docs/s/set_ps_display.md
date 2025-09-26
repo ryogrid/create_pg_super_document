@@ -24,24 +24,24 @@ The inline nature ensures there's no function call overhead while maintaining a 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - set_ps_display_with_len
+  - [set_ps_display_with_len](set_ps_display_with_len.md)
   - strlen (standard C library function)
 
 - Called from (representative examples):
-  - StartupXLOG (src/backend/access/transam/xlog.c:5822)
-  - update_checkpoint_display (src/backend/access/transam/xlog.c:6814, 6823)
-  - XLogFileRead (src/backend/access/transam/xlogrecovery.c:4208, 4250)
-  - SendBaseBackup (src/backend/backup/basebackup.c:1009)
-  - ProcessIncomingNotify (src/backend/commands/async.c:2197, 2223)
-  - AutoVacWorkerMain (src/backend/postmaster/autovacuum.c:1563)
-  - pgarch_archiveXlog (src/backend/postmaster/pgarch.c:528, 615)
-  - WalRcvWaitForStartPosition (src/backend/replication/walreceiver.c:685, 736)
-  - XLogWalRcvFlush (src/backend/replication/walreceiver.c:1027)
-  - exec_replication_command (multiple locations in src/backend/replication/walsender.c)
-  - XLogSendPhysical (src/backend/replication/walsender.c:3402)
-  - BackendInitialize (src/backend/tcop/backend_startup.c:352)
-  - PostgresMain (multiple locations in src/backend/tcop/postgres.c)
-  - PerformAuthentication (src/backend/utils/init/postinit.c:245, 303)
+  - [StartupXLOG](../S/StartupXLOG.md) (src/backend/access/transam/xlog.c:5822)
+  - [update_checkpoint_display](../u/update_checkpoint_display.md) (src/backend/access/transam/xlog.c:6814, 6823)
+  - [XLogFileRead](../X/XLogFileRead.md) (src/backend/access/transam/xlogrecovery.c:4208, 4250)
+  - [SendBaseBackup](../S/SendBaseBackup.md) (src/backend/backup/basebackup.c:1009)
+  - [ProcessIncomingNotify](../P/ProcessIncomingNotify.md) (src/backend/commands/async.c:2197, 2223)
+  - [AutoVacWorkerMain](../A/AutoVacWorkerMain.md) (src/backend/postmaster/autovacuum.c:1563)
+  - [pgarch_archiveXlog](../p/pgarch_archiveXlog.md) (src/backend/postmaster/pgarch.c:528, 615)
+  - [WalRcvWaitForStartPosition](../W/WalRcvWaitForStartPosition.md) (src/backend/replication/walreceiver.c:685, 736)
+  - [XLogWalRcvFlush](../X/XLogWalRcvFlush.md) (src/backend/replication/walreceiver.c:1027)
+  - [exec_replication_command](../e/exec_replication_command.md) (multiple locations in src/backend/replication/walsender.c)
+  - [XLogSendPhysical](../X/XLogSendPhysical.md) (src/backend/replication/walsender.c:3402)
+  - [BackendInitialize](../B/BackendInitialize.md) (src/backend/tcop/backend_startup.c:352)
+  - [PostgresMain](../P/PostgresMain.md) (multiple locations in src/backend/tcop/postgres.c)
+  - [PerformAuthentication](../P/PerformAuthentication.md) (src/backend/utils/init/postinit.c:245, 303)
 
 ## Notes and Other Information
 - The function is implemented as a static inline to optimize performance, particularly when string literals are passed as arguments

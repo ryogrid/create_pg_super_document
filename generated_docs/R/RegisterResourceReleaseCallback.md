@@ -24,7 +24,7 @@ This is part of PostgreSQL's legacy callback system for resource management. Whi
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
-  - ResourceReleaseCallbackItem (struct type)
+  - [ResourceReleaseCallbackItem](ResourceReleaseCallbackItem.md) (struct type)
   - TopMemoryContext (global variable)
   - ResourceRelease_callbacks (global variable)
 

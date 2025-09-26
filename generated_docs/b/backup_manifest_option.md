@@ -32,7 +32,7 @@ The backup_manifest_option enumeration provides three distinct modes for control
 - Functions called/Symbols referenced:
   - (No direct references - this is an enumeration type)
 - Called from (representative examples):
-  - InitializeBackupManifest
+  - [InitializeBackupManifest](../I/InitializeBackupManifest.md)
   - SINK_BUFFER_LENGTH (basebackup.c context)
 
 ## Notes and Other Information

@@ -37,7 +37,7 @@ The function maintains proper memory management by tracking object allocation st
   -  (recursive call for span objects)
 - Called from:
   - Various executor functions (, , etc.)
-  - Hash table operations (, etc.)
+  - [Hash](../H/Hash.md) table operations (, etc.)
   - , 
   - , 
   - 

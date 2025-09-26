@@ -25,11 +25,11 @@ Timeline history files contain critical metadata about timeline relationships an
 - Functions called/Symbols referenced:
   - XLOGDIR (macro defining the WAL directory path, typically "pg_wal")
 - Called from (representative examples):
-  - readTimeLineHistory (reads timeline history from the specified path)
-  - writeTimeLineHistory (writes timeline history to the specified path)
-  - existsTimeLineHistory (checks if timeline history file exists at the path)
-  - writeTimeLineHistoryFile (writes timeline history during recovery)
-  - SendTimeLineHistory (accesses timeline history for replication)
+  - [readTimeLineHistory](../r/readTimeLineHistory.md) (reads timeline history from the specified path)
+  - [writeTimeLineHistory](../w/writeTimeLineHistory.md) (writes timeline history to the specified path)
+  - [existsTimeLineHistory](../e/existsTimeLineHistory.md) (checks if timeline history file exists at the path)
+  - [writeTimeLineHistoryFile](../w/writeTimeLineHistoryFile.md) (writes timeline history during recovery)
+  - [SendTimeLineHistory](../S/SendTimeLineHistory.md) (accesses timeline history for replication)
 
 ## Notes and Other Information
 - This is an inline function defined in the header for performance optimization

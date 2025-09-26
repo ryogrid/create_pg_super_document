@@ -21,12 +21,12 @@ The function carefully manages resource ownership by temporarily switching to th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - OpenTemporaryFile (creates new temporary files for standalone BufFiles)
-  - MakeNewFileSetSegment (creates new segments for FileSet-managed BufFiles)
-  - repalloc (reallocates memory for the expanded files array)
+  - [OpenTemporaryFile](../O/OpenTemporaryFile.md) (creates new temporary files for standalone BufFiles)
+  - [MakeNewFileSetSegment](../M/MakeNewFileSetSegment.md) (creates new segments for FileSet-managed BufFiles)
+  - [repalloc](../r/repalloc.md) (reallocates memory for the expanded files array)
   - CurrentResourceOwner (global variable for resource management)
 - Called from (representative examples):
-  - BufFileDumpBuffer
+  - [BufFileDumpBuffer](../B/BufFileDumpBuffer.md)
 
 ## Notes and Other Information
 - This is a static function internal to buffile.c, not exposed to external modules

@@ -45,8 +45,8 @@ Key features:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - resetStringInfo
-  - appendStringInfoChar
+  - [resetStringInfo](../r/resetStringInfo.md)
+  - [appendStringInfoChar](../a/appendStringInfoChar.md)
   - [scanner_isspace](../s/scanner_isspace.md)
   - [pg_strcasecmp](../p/pg_strcasecmp.md)
   - ereturn

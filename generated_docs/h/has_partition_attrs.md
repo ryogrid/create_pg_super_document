@@ -27,13 +27,13 @@ The function iterates through all partition key columns and expressions, checkin
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RelationGetPartitionKey](../R/RelationGetPartitionKey.md)
-  - get_partition_natts
-  - get_partition_exprs
-  - get_partition_col_attnum
+  - [get_partition_natts](../g/get_partition_natts.md)
+  - [get_partition_exprs](../g/get_partition_exprs.md)
+  - [get_partition_col_attnum](../g/get_partition_col_attnum.md)
   - [bms_is_member](../b/bms_is_member.md)
   - [pull_varattnos](../p/pull_varattnos.md)
   - [bms_overlap](../b/bms_overlap.md)
-  - list_head, lnext
+  - [list_head](../l/list_head.md), lnext
 - Called from (representative examples):
   - [ATExecDropColumn](../A/ATExecDropColumn.md)
   - [ATPrepAlterColumnType](../A/ATPrepAlterColumnType.md)

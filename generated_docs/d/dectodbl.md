@@ -21,7 +21,7 @@ The `dectodbl` function converts a decimal number to a double-precision floating
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PGTYPESnumeric_new](../P/PGTYPESnumeric_new.md)
-  - PGTYPESnumeric_from_decimal
+  - [PGTYPESnumeric_from_decimal](../P/PGTYPESnumeric_from_decimal.md)
   - [PGTYPESnumeric_to_double](../P/PGTYPESnumeric_to_double.md)
   - [PGTYPESnumeric_free](../P/PGTYPESnumeric_free.md)
 - Called from (representative examples):

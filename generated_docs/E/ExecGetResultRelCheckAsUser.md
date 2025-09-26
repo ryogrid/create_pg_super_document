@@ -29,7 +29,7 @@ The function handles inheritance hierarchies correctly by delegating to GetResul
   - [GetResultRTEPermissionInfo](../G/GetResultRTEPermissionInfo.md) (to get permission info for the relation)
   - [RTEPermissionInfo](../R/RTEPermissionInfo.md) (structure type for permission information)
 - Called from (representative examples):
-  - exec_rt_fetch (referenced in src/include/executor/executor.h:620)
+  - [exec_rt_fetch](../e/exec_rt_fetch.md) (referenced in src/include/executor/executor.h:620)
 
 ## Notes and Other Information
 - Returns an Oid representing the user ID for permission checks

@@ -24,7 +24,7 @@ ExecInitScanTupleSlot is specifically designed for scan nodes in PostgreSQL's ex
 - Functions called/Symbols referenced:
   - [ExecAllocTableSlot](ExecAllocTableSlot.md): Creates and adds the tuple slot to the tuple table
   - [ScanState](../S/ScanState.md): Structure containing scan-specific state information
-  - TupleTableSlotOps: Structure defining slot operations
+  - [TupleTableSlotOps](../T/TupleTableSlotOps.md): Structure defining slot operations
 - Called from (representative examples):
   - [ExecInitSeqScan](ExecInitSeqScan.md): Sequential scan initialization
   - [ExecInitIndexScan](ExecInitIndexScan.md): Index scan initialization

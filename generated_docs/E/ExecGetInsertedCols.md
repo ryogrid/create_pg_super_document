@@ -27,7 +27,7 @@ The function handles the complexity of partitioned tables where child tables may
   - [ExecGetRootToChildMap](ExecGetRootToChildMap.md): Gets the tuple conversion map for partitioned table child relations
   - [execute_attr_map_cols](../e/execute_attr_map_cols.md): Applies attribute mapping to convert column bitmaps
   - [RTEPermissionInfo](../R/RTEPermissionInfo.md): Structure containing permission and column information
-  - TupleConversionMap: Structure for converting between different tuple schemas
+  - [TupleConversionMap](../T/TupleConversionMap.md): Structure for converting between different tuple schemas
 - Called from (representative examples):
   - [ExecPartitionCheckEmitError](ExecPartitionCheckEmitError.md): When validating partition constraints during INSERT operations
   - [ExecConstraints](ExecConstraints.md): For enforcing table constraints on inserted columns

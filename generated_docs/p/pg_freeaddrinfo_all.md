@@ -25,11 +25,11 @@ For Unix domain sockets (AF_UNIX), it manually frees each node in the linked lis
   - free (standard C library function)
   - freeaddrinfo (standard system function)
 - Called from (representative examples):
-  - ident_inet (authentication cleanup)
-  - PerformRadiusTransaction (RADIUS transaction cleanup)
-  - parse_hba_line (HBA configuration parsing cleanup)
-  - ListenServerPort (server setup cleanup)
-  - PQconnectPoll (client connection cleanup)
+  - [ident_inet](../i/ident_inet.md) (authentication cleanup)
+  - [PerformRadiusTransaction](../P/PerformRadiusTransaction.md) (RADIUS transaction cleanup)
+  - [parse_hba_line](parse_hba_line.md) (HBA configuration parsing cleanup)
+  - [ListenServerPort](../L/ListenServerPort.md) (server setup cleanup)
+  - [PQconnectPoll](../P/PQconnectPoll.md) (client connection cleanup)
 
 ## Notes and Other Information
 - Critical that the hint_ai_family parameter matches the original hint used with pg_getaddrinfo_all()

@@ -26,13 +26,13 @@ The function implements several optimization strategies:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufFileClose
+  - [BufFileClose](../B/BufFileClose.md)
   - HJ_FILL_OUTER
   - HJ_FILL_INNER
   - [ExecHashTableReset](ExecHashTableReset.md)
-  - BufFileSeek
+  - [BufFileSeek](../B/BufFileSeek.md)
   - [ExecHashJoinGetSavedTuple](ExecHashJoinGetSavedTuple.md)
-  - ExecHashTableInsert
+  - [ExecHashTableInsert](ExecHashTableInsert.md)
 - Called from (representative examples):
   - [ExecHashJoinImpl](ExecHashJoinImpl.md)
 

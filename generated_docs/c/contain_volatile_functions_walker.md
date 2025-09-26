@@ -33,7 +33,7 @@ The function deliberately excludes certain node types (MinMaxExpr, XmlExpr, Coer
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_functions_in_node
+  - [check_functions_in_node](check_functions_in_node.md)
   - [contain_volatile_functions_checker](contain_volatile_functions_checker.md)
   - query_tree_walker
   - expression_tree_walker

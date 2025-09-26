@@ -36,15 +36,15 @@ The function uses a switch statement to map common built-in type OIDs to their c
   - [update_attstats](../u/update_attstats.md)
   - [filter_list_to_array](../f/filter_list_to_array.md)
   - [convert_requires_to_datum](convert_requires_to_datum.md)
-  - pg_extension_config_dump
+  - [pg_extension_config_dump](../p/pg_extension_config_dump.md)
   - [interpret_function_parameter_list](../i/interpret_function_parameter_list.md)
   - [CreateFunction](../C/CreateFunction.md)
   - [CreatePolicy](../C/CreatePolicy.md)
   - [build_regtype_array](../b/build_regtype_array.md)
   - [publicationListToArray](../p/publicationListToArray.md)
   - [current_schemas](current_schemas.md)
-  - GUCArrayAdd
-  - GUCArrayDelete
+  - [GUCArrayAdd](../G/GUCArrayAdd.md)
+  - [GUCArrayDelete](../G/GUCArrayDelete.md)
 
 ## Notes and Other Information
 - Supported built-in types include: CHAR, CSTRING, FLOAT4, INT2, INT4, INT8, NAME, OID, REGTYPE, TEXT, and TID

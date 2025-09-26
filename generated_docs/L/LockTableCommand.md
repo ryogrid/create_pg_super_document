@@ -20,7 +20,7 @@ LockTableCommand is the main entry point for executing LOCK TABLE statements in 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LockStmt (structure type)
+  - [LockStmt](LockStmt.md) (structure type)
   - [RangeVar](../R/RangeVar.md) (structure type)
   - [RangeVarGetRelidExtended](../R/RangeVarGetRelidExtended.md)
   - RVR_NOWAIT

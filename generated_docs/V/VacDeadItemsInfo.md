@@ -36,15 +36,15 @@ This information is crucial for VACUUM's memory management strategy, allowing it
 - Functions called/Symbols referenced:
   - size_t (standard size type)
   - int64 (64-bit integer type)
-  - TidStore (implied usage for dead tuple storage)
+  - [TidStore](../T/TidStore.md) (implied usage for dead tuple storage)
 
 - Called from (representative examples):
-  - dead_items_alloc (src/backend/access/heap/vacuumlazy.c:2825)
-  - vac_bulkdel_one_index (src/backend/commands/vacuum.c:2538)
-  - parallel_vacuum_get_dead_items (src/backend/commands/vacuumparallel.c:465)
-  - parallel_vacuum_reset_dead_items (src/backend/commands/vacuumparallel.c:475)
-  - LVRelState (src/backend/access/heap/vacuumlazy.c:188)
-  - PVShared (src/backend/commands/vacuumparallel.c:120)
+  - [dead_items_alloc](../d/dead_items_alloc.md) (src/backend/access/heap/vacuumlazy.c:2825)
+  - [vac_bulkdel_one_index](../v/vac_bulkdel_one_index.md) (src/backend/commands/vacuum.c:2538)
+  - [parallel_vacuum_get_dead_items](../p/parallel_vacuum_get_dead_items.md) (src/backend/commands/vacuumparallel.c:465)
+  - [parallel_vacuum_reset_dead_items](../p/parallel_vacuum_reset_dead_items.md) (src/backend/commands/vacuumparallel.c:475)
+  - [LVRelState](../L/LVRelState.md) (src/backend/access/heap/vacuumlazy.c:188)
+  - [PVShared](../P/PVShared.md) (src/backend/commands/vacuumparallel.c:120)
 
 ## Notes and Other Information
 - Designed to work with TidStore for efficient dead tuple identifier management

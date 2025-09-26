@@ -21,8 +21,8 @@ The function ensures that the bbsink chain is properly initialized and that buff
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbsink_begin_backup
-  - bbsink (type reference)
+  - [bbsink_begin_backup](bbsink_begin_backup.md)
+  - [bbsink](bbsink.md) (type reference)
 - Called from (representative examples):
   - [bbsink_progress_begin_backup](bbsink_progress_begin_backup.md) (src/backend/backup/basebackup_progress.c:107)
   - [bbsink_throttle_begin_backup](bbsink_throttle_begin_backup.md) (src/backend/backup/basebackup_throttle.c:100)

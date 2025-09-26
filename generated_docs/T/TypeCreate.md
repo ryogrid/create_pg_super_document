@@ -86,10 +86,10 @@ The function can operate in two modes: creating a completely new type or updatin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - namestrcpy, NameGetDatum, Int16GetDatum, CharGetDatum, BoolGetDatum, ObjectIdGetDatum, Int32GetDatum
+  - [namestrcpy](../n/namestrcpy.md), NameGetDatum, Int16GetDatum, CharGetDatum, BoolGetDatum, ObjectIdGetDatum, Int32GetDatum
   - CStringGetTextDatum, PointerGetDatum
   - [get_user_default_acl](../g/get_user_default_acl.md)
-  - table_open, table_close
+  - [table_open](../t/table_open.md), table_close
   - SearchSysCacheCopy2
   - [heap_modify_tuple](../h/heap_modify_tuple.md), heap_form_tuple
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md), CatalogTupleInsert

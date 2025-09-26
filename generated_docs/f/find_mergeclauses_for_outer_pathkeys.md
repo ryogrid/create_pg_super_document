@@ -53,8 +53,8 @@ The function is designed to handle complex scenarios including outer joins where
 ## Dependencies
 - Functions called/Symbols referenced:
   - [update_mergeclause_eclasses](../u/update_mergeclause_eclasses.md)
-  - PathKey
-  - EquivalenceClass
+  - [PathKey](../P/PathKey.md)
+  - [EquivalenceClass](../E/EquivalenceClass.md)
   - [list_concat](../l/list_concat.md)
 - Called from (representative examples):
   - [sort_inner_and_outer](../s/sort_inner_and_outer.md) (src/backend/optimizer/path/joinpath.c:1401)

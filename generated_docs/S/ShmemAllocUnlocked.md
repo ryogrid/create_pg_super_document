@@ -36,7 +36,7 @@ If insufficient shared memory is available, the function raises an ERROR with an
 - Called from (representative examples):
   - [PGReserveSemaphores](../P/PGReserveSemaphores.md) (in posix_sema.c and sysv_sema.c)
   - [InitShmemAllocation](../I/InitShmemAllocation.md)
-  - SpinlockSemaInit
+  - [SpinlockSemaInit](SpinlockSemaInit.md)
 
 ## Notes and Other Information
 - This function should ONLY be used for allocations that must happen before ShmemLock is ready

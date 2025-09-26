@@ -29,7 +29,7 @@ ArrayBuildStateAny serves as a discriminated union that allows array building fu
   - [ArrayBuildStateArr](ArrayBuildStateArr.md) structure for array concatenation
 - Called from (representative examples):
   - [accumArrayResultAny](../a/accumArrayResultAny.md)() - adds elements/arrays using appropriate method
-  - initArrayResultAny() - initializes based on input type
+  - [initArrayResultAny](../i/initArrayResultAny.md)() - initializes based on input type
   - [makeArrayResultAny](../m/makeArrayResultAny.md)() - creates final array from accumulated state
   - [ExecScanSubPlan](../E/ExecScanSubPlan.md)() - executor functions that handle subplan results
   - [ExecSetParamPlan](../E/ExecSetParamPlan.md)() - executor functions for parameter handling

@@ -41,7 +41,7 @@ The function implements complex logic to handle different recovery scenarios: st
   - [xl_xact_commit](../x/xl_xact_commit.md): Structure for commit records
   - [xl_xact_abort](../x/xl_xact_abort.md): Structure for abort records
   - [xl_xact_parsed_commit](../x/xl_xact_parsed_commit.md): Parsed commit record structure
-  - xl_xact_parsed_abort: Parsed abort record structure
+  - [xl_xact_parsed_abort](../x/xl_xact_parsed_abort.md): Parsed abort record structure
 - Global variables accessed:
   - ArchiveRecoveryRequested: Indicates if archive recovery is active
   - recoveryTarget: Current recovery target type

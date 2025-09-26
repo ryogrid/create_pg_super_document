@@ -24,7 +24,7 @@ This function takes no parameters and returns a boolean value indicating worker 
 
 - Called from:
   - [IsLogicalParallelApplyWorker](IsLogicalParallelApplyWorker.md) (in worker.c:4823)
-  - ProcessInterrupts (in postgres.c:3294)
+  - [ProcessInterrupts](../P/ProcessInterrupts.md) (in postgres.c:3294)
   - Referenced in header file logicalworker.h:23
 
 ## Notes and Other Information

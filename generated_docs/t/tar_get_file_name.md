@@ -21,7 +21,7 @@ This function creates a dynamically allocated filename string by combining a bas
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_malloc0 (PostgreSQL memory allocation function)
+  - [pg_malloc0](../p/pg_malloc0.md) (PostgreSQL memory allocation function)
   - snprintf (formatted string printing)
   - MAXPGPATH (maximum path length constant)
   - [WalWriteMethod](../W/WalWriteMethod.md) (method structure type)

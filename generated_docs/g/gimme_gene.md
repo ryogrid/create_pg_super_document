@@ -28,8 +28,8 @@ The selection strategy helps maintain good connectivity in the resulting tour wh
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Edge (type)
-  - Gene (type)
+  - [Edge](../E/Edge.md) (type)
+  - [Gene](../G/Gene.md) (type)
   - [geqo_randint](geqo_randint.md) (random number generation function)
 - Called from (representative examples):
   - [gimme_tour](gimme_tour.md)

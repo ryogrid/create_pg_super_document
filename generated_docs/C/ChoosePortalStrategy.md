@@ -22,7 +22,7 @@ ChoosePortalStrategy examines a list of Query or PlannedStmt nodes to determine 
   - PortalStrategy (return type)
   - [List](../L/List.md) operations (list_length, linitial, foreach, lfirst)
   - [Query](../Q/Query.md) and PlannedStmt structures
-  - UtilityReturnsTuples
+  - [UtilityReturnsTuples](../U/UtilityReturnsTuples.md)
   - nodeTag
   - [Portal](../P/Portal.md) strategy constants (PORTAL_ONE_SELECT, PORTAL_ONE_MOD_WITH, PORTAL_UTIL_SELECT, PORTAL_ONE_RETURNING, PORTAL_MULTI_QUERY)
   - [Command](Command.md) type constants (CMD_SELECT, CMD_UTILITY)

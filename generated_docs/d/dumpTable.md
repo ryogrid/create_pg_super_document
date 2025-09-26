@@ -30,14 +30,14 @@ For column ACLs, the function uses prepared statements that adapt to different P
   - [pg_strdup](../p/pg_strdup.md): Duplicates strings for memory management
   - [fmtId](../f/fmtId.md): Formats identifiers with proper SQL quoting
   - [dumpACL](dumpACL.md): Dumps access control lists for objects
-  - createPQExpBuffer: Creates buffer for SQL query construction
+  - [createPQExpBuffer](../c/createPQExpBuffer.md): Creates buffer for SQL query construction
   - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md): Adds SQL text to query buffer
   - [ExecuteSqlStatement](../E/ExecuteSqlStatement.md): Executes prepared statement creation
   - [printfPQExpBuffer](../p/printfPQExpBuffer.md): Formats parameterized queries
   - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md): Executes column ACL retrieval query
   - [PQgetvalue](../P/PQgetvalue.md): Extracts values from query results
   - [PQclear](../P/PQclear.md): Frees query result memory
-  - destroyPQExpBuffer: Cleans up query buffers
+  - [destroyPQExpBuffer](destroyPQExpBuffer.md): Cleans up query buffers
 - Called from:
   - [dumpDumpableObject](dumpDumpableObject.md): Called as part of general object dumping dispatcher
   - fmtQualifiedDumpable: Referenced for qualified name formatting

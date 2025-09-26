@@ -44,7 +44,7 @@ This abstraction allows PostgreSQL's object manipulation functions to work unifo
 
 ## Notes and Other Information
 - Essential for efficient JSON object field access in PostgreSQL
-- Hash table implementation for JSON text provides O(1) average case field lookup
+- [Hash](../H/Hash.md) table implementation for JSON text provides O(1) average case field lookup
 - [JsonbContainer](JsonbContainer.md) for JSONB provides direct binary access without parsing overhead
 - Memory management differs between variants - [hash](../h/hash.md) tables require explicit cleanup while JSONB containers are managed differently
 - Used extensively in record population, composite type handling, and JSON object manipulation

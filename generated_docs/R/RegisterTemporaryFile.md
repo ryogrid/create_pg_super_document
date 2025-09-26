@@ -29,12 +29,12 @@ The function also sets a global flag (have_xact_temporary_files) to indicate tha
 ## Dependencies
 - Functions called/Symbols referenced:
   - File (type definition for virtual file descriptor)
-  - ResourceOwnerRememberFile (function to register file with resource owner)
+  - [ResourceOwnerRememberFile](ResourceOwnerRememberFile.md) (function to register file with resource owner)
   - FD_CLOSE_AT_EOXACT (flag constant for transaction-end cleanup)
 - Called from (representative examples):
-  - OpenTemporaryFile
-  - PathNameCreateTemporaryFile
-  - PathNameOpenTemporaryFile
+  - [OpenTemporaryFile](../O/OpenTemporaryFile.md)
+  - [PathNameCreateTemporaryFile](../P/PathNameCreateTemporaryFile.md)
+  - [PathNameOpenTemporaryFile](../P/PathNameOpenTemporaryFile.md)
 
 ## Notes and Other Information
 - This is a static function internal to fd.c, not exposed in the public API

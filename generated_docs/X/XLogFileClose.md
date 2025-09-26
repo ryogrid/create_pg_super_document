@@ -26,7 +26,7 @@ The function includes comprehensive error handling with PANIC-level reporting fo
   - ereport
   - [errcode_for_file_access](../e/errcode_for_file_access.md)
   - [errmsg](../e/errmsg.md)
-  - ReleaseExternalFD
+  - [ReleaseExternalFD](../R/ReleaseExternalFD.md)
 - Called from (representative examples):
   - RefreshXLogWriteResult (src/backend/access/transam/xlog.c:680)
   - [XLogWrite](XLogWrite.md) (src/backend/access/transam/xlog.c:2362, 2545)

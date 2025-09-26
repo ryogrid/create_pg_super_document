@@ -33,9 +33,9 @@ The structure contains the top-level transaction ID and an array of subtransacti
   - FLEXIBLE_ARRAY_MEMBER
   - TransactionId (type)
 - Called from (representative examples):
-  - AssignTransactionId (creates and logs these records)
-  - xact_desc_assignment (describes the record for debugging)
-  - xact_redo (processes the record during recovery)
+  - [AssignTransactionId](../A/AssignTransactionId.md) (creates and logs these records)
+  - [xact_desc_assignment](xact_desc_assignment.md) (describes the record for debugging)
+  - [xact_redo](xact_redo.md) (processes the record during recovery)
   - MinSizeOfXactAssignment (macro for calculating minimum size)
 
 ## Notes and Other Information

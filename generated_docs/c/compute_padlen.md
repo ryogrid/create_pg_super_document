@@ -25,11 +25,11 @@ This function is essential for implementing format specifiers that control field
 - Functions called/Symbols referenced:
   - (None - this is a leaf function)
 - Called from (representative examples):
-  - flushbuffer (at src/port/snprintf.c:335)
-  - fmtstr (at src/port/snprintf.c:979)
-  - fmtint (at src/port/snprintf.c:1105)
-  - fmtchar (at src/port/snprintf.c:1122)
-  - fmtfloat (at src/port/snprintf.c:1234)
+  - [flushbuffer](../f/flushbuffer.md) (at src/port/snprintf.c:335)
+  - [fmtstr](../f/fmtstr.md) (at src/port/snprintf.c:979)
+  - [fmtint](../f/fmtint.md) (at src/port/snprintf.c:1105)
+  - [fmtchar](../f/fmtchar.md) (at src/port/snprintf.c:1122)
+  - [fmtfloat](../f/fmtfloat.md) (at src/port/snprintf.c:1234)
 
 ## Notes and Other Information
 - This is a static function within the snprintf.c module, indicating it's an internal utility

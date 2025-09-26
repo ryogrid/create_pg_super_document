@@ -25,10 +25,10 @@ The function takes both a statistics object OID and an inheritance flag to handl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open (opens StatisticExtDataRelationId with RowExclusiveLock)
+  - [table_open](../t/table_open.md) (opens StatisticExtDataRelationId with RowExclusiveLock)
   - [SearchSysCache2](../S/SearchSysCache2.md) (looks up row by STATEXTDATASTXOID cache)
   - [CatalogTupleDelete](../C/CatalogTupleDelete.md) (removes the tuple if found)
-  - table_close (closes the catalog relation)
+  - [table_close](../t/table_close.md) (closes the catalog relation)
 - Called from (representative examples):
   - [RemoveStatisticsById](RemoveStatisticsById.md) (src/backend/commands/statscmds.c:777-778)
   - [statext_store](../s/statext_store.md) (src/backend/statistics/extended_stats.c:819)

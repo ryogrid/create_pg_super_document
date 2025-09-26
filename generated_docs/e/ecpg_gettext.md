@@ -21,18 +21,18 @@ The function first checks if text domain binding has already been performed. If 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pthread_mutex_lock
-  - pthread_mutex_unlock
+  - [pthread_mutex_lock](../p/pthread_mutex_lock.md)
+  - [pthread_mutex_unlock](../p/pthread_mutex_unlock.md)
   - bindtextdomain
   - dgettext
   - PG_TEXTDOMAIN (macro)
   - getenv
   - GetLastError/SetLastError (Windows)
 - Called from (representative examples):
-  - ecpg_raise (error reporting)
-  - ECPGconnect (connection handling)
-  - ECPGdescribe (descriptor operations)
-  - ecpg_init (library initialization)
+  - [ecpg_raise](ecpg_raise.md) (error reporting)
+  - [ECPGconnect](../E/ECPGconnect.md) (connection handling)
+  - [ECPGdescribe](../E/ECPGdescribe.md) (descriptor operations)
+  - [ecpg_init](ecpg_init.md) (library initialization)
 
 ## Notes and Other Information
 The function preserves errno/GetLastError() values around the bindtextdomain() call since that function may modify error codes. The implementation uses double-checked locking for performance optimization. The locale directory resolution prioritizes the PGLOCALEDIR environment variable over the compile-time LOCALEDIR constant. This function is essential for ECPG's internationalization support and is called extensively throughout the ECPG library for error messages and user-facing text.

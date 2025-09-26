@@ -34,7 +34,7 @@ DomainIOData serves as a comprehensive cache structure for domain type processin
   - [domain_check_input](../d/domain_check_input.md)
   - [domain_in](../d/domain_in.md)
   - [domain_recv](../d/domain_recv.md)
-  - domain_check_internal
+  - [domain_check_internal](../d/domain_check_internal.md)
   - [ColumnIOData](../C/ColumnIOData.md)
   - JsObjectFree
   - [populate_domain](../p/populate_domain.md)

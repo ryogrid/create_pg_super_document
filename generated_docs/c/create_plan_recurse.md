@@ -23,7 +23,7 @@ The function includes stack depth checking to prevent overflow from overly compl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth
+  - [check_stack_depth](check_stack_depth.md)
   - [create_scan_plan](create_scan_plan.md)
   - [create_join_plan](create_join_plan.md)
   - [create_append_plan](create_append_plan.md)

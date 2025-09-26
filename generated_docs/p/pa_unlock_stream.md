@@ -21,7 +21,7 @@ This function is part of PostgreSQL's logical replication parallel apply worker 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - UnlockApplyTransactionForSession
+  - [UnlockApplyTransactionForSession](../U/UnlockApplyTransactionForSession.md)
   - PARALLEL_APPLY_LOCK_STREAM
 - Called from (representative examples):
   - [pa_process_spooled_messages_if_required](pa_process_spooled_messages_if_required.md)

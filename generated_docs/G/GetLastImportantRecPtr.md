@@ -21,8 +21,8 @@ The function operates by iterating through all NUM_XLOGINSERT_LOCKS WAL insertio
 - Functions called/Symbols referenced:
   - NUM_XLOGINSERT_LOCKS
   - InvalidXLogRecPtr (initial value)
-  - LWLockAcquire
-  - LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - WALInsertLocks (array of insertion lock structures)
 - Called from (representative examples):
   - [CreateCheckPoint](../C/CreateCheckPoint.md)

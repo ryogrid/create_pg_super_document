@@ -23,16 +23,16 @@ The control file contains critical cluster metadata including system identifier,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_controlfile_by_exact_path
+  - [get_controlfile_by_exact_path](get_controlfile_by_exact_path.md)
   - snprintf
 - Called from (representative examples):
-  - pg_control_system
-  - pg_control_checkpoint 
-  - pg_control_recovery
-  - pg_control_init
-  - get_standby_sysid
-  - main (in pg_checksums, pg_controldata)
-  - get_control_dbstate
+  - [pg_control_system](../p/pg_control_system.md)
+  - [pg_control_checkpoint](../p/pg_control_checkpoint.md) 
+  - [pg_control_recovery](../p/pg_control_recovery.md)
+  - [pg_control_init](../p/pg_control_init.md)
+  - [get_standby_sysid](get_standby_sysid.md)
+  - [main](../m/main.md) (in pg_checksums, pg_controldata)
+  - [get_control_dbstate](get_control_dbstate.md)
 
 ## Notes and Other Information
 - Returns a palloc'd copy of control file data that must be freed by the caller

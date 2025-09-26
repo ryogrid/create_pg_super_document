@@ -28,12 +28,12 @@ Importantly, this function explicitly excludes superuser privileges from automat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_role_oid
-  - is_member_of_role_nosuper
+  - [get_role_oid](../g/get_role_oid.md)
+  - [is_member_of_role_nosuper](is_member_of_role_nosuper.md)
   - OidIsValid (macro)
 - Called from (representative examples):
   - [check_role](../c/check_role.md)
-  - check_db
+  - [check_db](../c/check_db.md)
 
 ## Notes and Other Information
 - This is a static function, accessible only within the hba.c file

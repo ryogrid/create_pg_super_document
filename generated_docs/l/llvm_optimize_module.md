@@ -36,7 +36,7 @@ This function performs code optimization on an LLVM module using either the lega
   - [LLVMJitContext](../L/LLVMJitContext.md) (context structure)
   - PGJIT_OPT3 (optimization flag)
   - PGJIT_INLINE (inlining flag)
-  - llvm_error_message (error handling function)
+  - [llvm_error_message](llvm_error_message.md) (error handling function)
 - Called from (representative examples):
   - [llvm_compile_module](llvm_compile_module.md)
 

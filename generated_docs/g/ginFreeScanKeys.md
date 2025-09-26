@@ -22,7 +22,7 @@ This function is essential for proper resource management in GIN scans, ensuring
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReleaseBuffer
+  - [ReleaseBuffer](../R/ReleaseBuffer.md)
   - [pfree](../p/pfree.md)
   - [tbm_end_iterate](../t/tbm_end_iterate.md)
   - [tbm_free](../t/tbm_free.md)

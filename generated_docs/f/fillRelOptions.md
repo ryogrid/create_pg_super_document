@@ -43,4 +43,4 @@ This function takes the output from parseRelOptions and fills a relation options
 - Supports custom fill callbacks for string options that need special processing
 - Uses SET_VARSIZE to set the final size of the variable-length structure
 - Error handling includes validation of option names when validate=true
-- String handling includes support for NULL values and default values
+- [String](../S/String.md) handling includes support for NULL values and default values

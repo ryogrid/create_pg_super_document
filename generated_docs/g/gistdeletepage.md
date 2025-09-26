@@ -310,12 +310,12 @@ Text creation and manipulation
   - [PageGetItem](../P/PageGetItem.md)
   - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)
   - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)
-  - ReadNextFullTransactionId
+  - [ReadNextFullTransactionId](../R/ReadNextFullTransactionId.md)
   - [GistPageSetDeleted](../G/GistPageSetDeleted.md)
   - [PageIndexTupleDelete](../P/PageIndexTupleDelete.md)
   - RelationNeedsWAL
   - [gistXLogPageDelete](gistXLogPageDelete.md)
-  - gistGetFakeLSN
+  - [gistGetFakeLSN](gistGetFakeLSN.md)
   - [PageSetLSN](../P/PageSetLSN.md)
 - Called from:
   - [gistvacuum_delete_empty_pages](gistvacuum_delete_empty_pages.md)

@@ -30,10 +30,10 @@ The function excludes detached partitions automatically since it relies on find_
   - list_make1_int
   - [find_inheritance_children](find_inheritance_children.md)
   - [hash_search](../h/hash_search.md) (with HASH_ENTER)
-  - list_nth_cell
+  - [list_nth_cell](../l/list_nth_cell.md)
   - lfirst_int
-  - lappend_oid
-  - lappend_int
+  - [lappend_oid](../l/lappend_oid.md)
+  - [lappend_int](../l/lappend_int.md)
   - [list_free](../l/list_free.md)
   - [hash_destroy](../h/hash_destroy.md)
   - [SeenRelsEntry](../S/SeenRelsEntry.md) (hash table entry structure)

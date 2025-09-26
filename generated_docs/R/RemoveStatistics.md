@@ -20,15 +20,15 @@ The function opens the pg_statistic table with RowExclusiveLock, sets up scan ke
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - [ScanKeyInit](../S/ScanKeyInit.md)
   - [systable_beginscan](../s/systable_beginscan.md)
   - [systable_getnext](../s/systable_getnext.md)
   - [CatalogTupleDelete](../C/CatalogTupleDelete.md)
   - [systable_endscan](../s/systable_endscan.md)
-  - table_close
+  - [table_close](../t/table_close.md)
   - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
-  - Int16GetDatum
+  - [Int16GetDatum](../I/Int16GetDatum.md)
   - HeapTupleIsValid
 - Called from (representative examples):
   - [RemoveAttributeById](RemoveAttributeById.md)

@@ -26,9 +26,9 @@ This function is part of the formatting logic that handles the display of positi
 - Functions called/Symbols referenced:
   - (None - this is a leaf function)
 - Called from (representative examples):
-  - flushbuffer (at src/port/snprintf.c:334)
-  - fmtint (at src/port/snprintf.c:1055)  
-  - fmtfloat (at src/port/snprintf.c:1185)
+  - [flushbuffer](../f/flushbuffer.md) (at src/port/snprintf.c:334)
+  - [fmtint](../f/fmtint.md) (at src/port/snprintf.c:1055)  
+  - [fmtfloat](../f/fmtfloat.md) (at src/port/snprintf.c:1185)
 
 ## Notes and Other Information
 - This is a static function within the snprintf.c module, indicating it's an internal utility

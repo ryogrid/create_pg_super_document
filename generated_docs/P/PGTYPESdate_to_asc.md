@@ -26,7 +26,7 @@ PGTYPESdate_to_asc converts a PostgreSQL internal date representation (days sinc
   - MAXDATELEN (buffer size constant)
 - Called from (representative examples):
   - [rdatestr](../r/rdatestr.md) (Informix compatibility function)
-  - ecpg_store_input (ECPG data storage function)
+  - [ecpg_store_input](../e/ecpg_store_input.md) (ECPG data storage function)
   - [main](../m/main.md) (extensive use in test cases)
 
 ## Notes and Other Information

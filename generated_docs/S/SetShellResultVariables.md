@@ -20,8 +20,8 @@ SetShellResultVariables is a public function that manages psql's special variabl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SetVariable (psql variable management function)
-  - wait_result_to_exit_code (helper function to extract exit code from wait status)
+  - [SetVariable](SetVariable.md) (psql variable management function)
+  - [wait_result_to_exit_code](../w/wait_result_to_exit_code.md) (helper function to extract exit code from wait status)
   - snprintf (standard C library function)
 - Global variables accessed:
   - pset.vars (psql variable storage)

@@ -31,13 +31,13 @@ The function handles different set operation commands (INTERSECT, INTERSECT ALL,
 ## Dependencies
 - Functions called/Symbols referenced:
   - outerPlanState (gets outer plan state)
-  - ExecProcNode (executes outer plan to get next tuple)
+  - [ExecProcNode](../E/ExecProcNode.md) (executes outer plan to get next tuple)
   - TupIsNull (checks if tuple slot is empty)
-  - fetch_tuple_flag (determines tuple's relation flag)
-  - LookupTupleHashEntry (finds or creates hash table entry)
+  - [fetch_tuple_flag](../f/fetch_tuple_flag.md) (determines tuple's relation flag)
+  - [LookupTupleHashEntry](../L/LookupTupleHashEntry.md) (finds or creates hash table entry)
   - [MemoryContextAlloc](../M/MemoryContextAlloc.md) (allocates memory for per-group data)
-  - initialize_counts (initializes per-group counters)
-  - advance_counts (updates counters for a tuple)
+  - [initialize_counts](../i/initialize_counts.md) (initializes per-group counters)
+  - [advance_counts](../a/advance_counts.md) (updates counters for a tuple)
   - ResetExprContext (clears expression evaluation context)
   - ResetTupleHashIterator (initializes hash table iterator)
 - Called from (representative examples):

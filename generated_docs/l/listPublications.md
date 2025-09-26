@@ -27,10 +27,10 @@ The function performs several key operations:
 ## Dependencies
 - Functions called/Symbols referenced:
   - [formatPGVersionNumber](../f/formatPGVersionNumber.md)
-  - initPQExpBuffer
+  - [initPQExpBuffer](../i/initPQExpBuffer.md)
   - [printfPQExpBuffer](../p/printfPQExpBuffer.md)
   - [validateSQLNamePattern](../v/validateSQLNamePattern.md)
-  - termPQExpBuffer
+  - [termPQExpBuffer](../t/termPQExpBuffer.md)
   - [PSQLexec](../P/PSQLexec.md)
   - [printQuery](../p/printQuery.md)
   - lengthof

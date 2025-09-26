@@ -28,9 +28,9 @@ The function includes signal handling to prevent interruption during the potenti
   - posix_fallocate (on Linux with HAVE_POSIX_FALLOCATE)
   - ftruncate (fallback on other platforms)
   - sigprocmask (signal masking for uninterrupted operation)  
-  - pgstat_report_wait_start/pgstat_report_wait_end (wait event reporting)
+  - [pgstat_report_wait_start](../p/pgstat_report_wait_start.md)/pgstat_report_wait_end (wait event reporting)
 - Called from:
-  - dsm_impl_posix (during DSM_OP_CREATE operations)
+  - [dsm_impl_posix](dsm_impl_posix.md) (during DSM_OP_CREATE operations)
 
 ## Notes and Other Information
 - Returns 0 on success, non-zero on failure with errno set

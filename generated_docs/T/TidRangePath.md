@@ -26,12 +26,12 @@ The TID range scan is particularly useful for queries that need to access specif
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Path (base structure)
-  - List (for tidrangequals storage)
+  - [Path](../P/Path.md) (base structure)
+  - [List](../L/List.md) (for tidrangequals storage)
 - Called from (representative examples):
-  - create_tidrangescan_path (creates TidRangePath instances)
-  - create_tidrangescan_plan (converts TidRangePath to execution plan)
-  - create_scan_plan (general scan plan creation)
+  - [create_tidrangescan_path](../c/create_tidrangescan_path.md) (creates TidRangePath instances)
+  - [create_tidrangescan_plan](../c/create_tidrangescan_plan.md) (converts TidRangePath to execution plan)
+  - [create_scan_plan](../c/create_scan_plan.md) (general scan plan creation)
 
 ## Notes and Other Information
 - Always produces unordered results (pathkeys = NIL)

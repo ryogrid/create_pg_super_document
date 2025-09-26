@@ -23,7 +23,7 @@ Importantly, the function inverts the return value of PGSemaphoreTryLock because
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - s_check_valid: Validates that the semaphore index is within valid bounds to prevent array access violations
+  - [s_check_valid](../s/s_check_valid.md): Validates that the semaphore index is within valid bounds to prevent array access violations
   - [PGSemaphoreTryLock](../P/PGSemaphoreTryLock.md): Attempts to acquire a semaphore without blocking, returning true if successful
   - [slock_t](../s/slock_t.md): The spinlock data type used to store semaphore array indices
 - Called from (representative examples):

@@ -25,17 +25,17 @@ This is a convenience wrapper around ArrayCheckBoundsSafe that throws exceptions
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ArrayCheckBoundsSafe
+  - [ArrayCheckBoundsSafe](ArrayCheckBoundsSafe.md)
 - Called from (representative examples):
-  - ExecEvalArrayExpr
-  - array_cat
-  - array_recv
-  - array_set_element
-  - array_set_element_expanded
-  - array_set_slice
-  - construct_md_array
-  - makeArrayResultArr
-  - array_fill_internal
+  - [ExecEvalArrayExpr](../E/ExecEvalArrayExpr.md)
+  - [array_cat](../a/array_cat.md)
+  - [array_recv](../a/array_recv.md)
+  - [array_set_element](../a/array_set_element.md)
+  - [array_set_element_expanded](../a/array_set_element_expanded.md)
+  - [array_set_slice](../a/array_set_slice.md)
+  - [construct_md_array](../c/construct_md_array.md)
+  - [makeArrayResultArr](../m/makeArrayResultArr.md)
+  - [array_fill_internal](../a/array_fill_internal.md)
 
 ## Notes and Other Information
 - Wrapper around ArrayCheckBoundsSafe that throws exceptions instead of returning errors

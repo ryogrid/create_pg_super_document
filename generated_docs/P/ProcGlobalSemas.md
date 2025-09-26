@@ -24,7 +24,7 @@ This function takes no parameters.
   - MaxBackends (GUC parameter defining maximum number of backend processes)
   - NUM_AUXILIARY_PROCS (constant defining number of auxiliary processes)
 - Called from:
-  - CalculateShmemSize (during shared memory and semaphore initialization)
+  - [CalculateShmemSize](../C/CalculateShmemSize.md) (during shared memory and semaphore initialization)
 
 ## Notes and Other Information
 - Essential for proper semaphore resource allocation during PostgreSQL startup

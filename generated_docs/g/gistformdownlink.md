@@ -47,7 +47,7 @@ The union computation is essential for maintaining the GiST tree property that p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - gistgetadjusted
+  - [gistgetadjusted](gistgetadjusted.md)
   - [gistFindCorrectParent](gistFindCorrectParent.md)
   - [BufferGetPage](../B/BufferGetPage.md)
   - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)

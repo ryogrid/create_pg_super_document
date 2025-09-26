@@ -27,8 +27,8 @@ This function takes no parameters.
   - [PosixSemaphoreCreate](PosixSemaphoreCreate.md) (platform-specific semaphore creation)
   - PG_SEM_REF (macro for getting semaphore reference)
 - Called from (representative examples):
-  - InitProcGlobal (process management initialization)
-  - SpinlockSemaInit (spinlock semaphore initialization)
+  - [InitProcGlobal](../I/InitProcGlobal.md) (process management initialization)
+  - [SpinlockSemaInit](../S/SpinlockSemaInit.md) (spinlock semaphore initialization)
 
 ## Notes and Other Information
 - Must be called only from the postmaster process, not from backend processes

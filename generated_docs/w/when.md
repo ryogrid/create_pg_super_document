@@ -32,9 +32,9 @@ The structure supports various predefined actions (CONTINUE, BREAK, STOP, etc.) 
 - Functions called/Symbols referenced:
   - WHEN_TYPE (enumeration defining action types)
 - Called from (representative examples):
-  - print_action (in output.c for code generation)
-  - main (in ecpg.c for initialization)
-  - output_simple_statement (in output.c)
+  - [print_action](../p/print_action.md) (in output.c for code generation)
+  - [main](../m/main.md) (in ecpg.c for initialization)
+  - [output_simple_statement](../o/output_simple_statement.md) (in output.c)
   - Global instances: when_error, when_nf, when_warn
 
 ## Notes and Other Information

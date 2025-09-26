@@ -28,7 +28,7 @@ This ensures that the aggregation state is properly allocated in long-lived memo
 - Functions called/Symbols referenced:
   - [AggCheckCallContext](../A/AggCheckCallContext.md): Verify that function is called in aggregate context and get aggregate memory context
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md): Switch to specified memory context
-  - `makeStringInfo`: Create and initialize a new StringInfo structure
+  - `[makeStringInfo](makeStringInfo.md)`: Create and initialize a new StringInfo structure
   - `elog`: Log error message
 - Types referenced:
   - [FunctionCallInfo](../F/FunctionCallInfo.md): Function call information structure

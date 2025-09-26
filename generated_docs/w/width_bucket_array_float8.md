@@ -27,7 +27,7 @@ The binary search algorithm efficiently narrows down the search space by compari
 - Functions called/Symbols referenced:
   - [DatumGetFloat8](../D/DatumGetFloat8.md)
   - ARR_DATA_PTR
-  - ArrayGetNItems
+  - [ArrayGetNItems](../A/ArrayGetNItems.md)
   - ARR_NDIM
   - ARR_DIMS
   - isnan

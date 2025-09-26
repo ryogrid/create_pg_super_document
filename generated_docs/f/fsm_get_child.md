@@ -31,8 +31,8 @@ This addressing scheme ensures that child pages are laid out contiguously in log
   - FSM_BOTTOM_LEVEL (constant)
   - SlotsPerFSMPage (constant)
 - Called from (representative examples):
-  - fsm_search
-  - fsm_vacuum_page
+  - [fsm_search](fsm_search.md)
+  - [fsm_vacuum_page](fsm_vacuum_page.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the freespace.c file

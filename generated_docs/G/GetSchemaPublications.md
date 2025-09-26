@@ -20,7 +20,7 @@ The function performs a systematic search through the PUBLICATIONNAMESPACEMAP sy
 ## Dependencies
 - Functions called/Symbols referenced:
   - SearchSysCacheList1: Searches system cache for publication-namespace mappings
-  - lappend_oid: Appends an OID to the result list
+  - [lappend_oid](../l/lappend_oid.md): Appends an OID to the result list
   - ReleaseSysCacheList: Releases the system cache list to free memory
   - GETSTRUCT: Macro to extract structure from heap tuple
 - Called from (representative examples):

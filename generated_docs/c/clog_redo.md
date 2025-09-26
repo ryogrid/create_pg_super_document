@@ -23,7 +23,7 @@ This function serves as the central redo operation handler for CLOG-related WAL 
   - XLogRecHasAnyBlockRefs
   - XLogRecGetData
   - [SimpleLruGetBankLock](../S/SimpleLruGetBankLock.md)
-  - LWLockAcquire/LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease
   - [ZeroCLOGPage](../Z/ZeroCLOGPage.md)
   - [SimpleLruWritePage](../S/SimpleLruWritePage.md)
   - [AdvanceOldestClogXid](../A/AdvanceOldestClogXid.md)

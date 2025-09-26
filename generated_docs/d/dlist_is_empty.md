@@ -24,13 +24,13 @@ The  function determines if a doubly-linked list contains any elements by checki
   - [dlist_check](dlist_check.md) (integrity validation function)
 - Called from (representative examples):
   - [dataBeginPlaceToPageLeaf](dataBeginPlaceToPageLeaf.md) (src/backend/access/gin/gindatapage.c:499)
-  - ParallelContextActive (src/backend/access/transam/parallel.c:1022)
+  - [ParallelContextActive](../P/ParallelContextActive.md) (src/backend/access/transam/parallel.c:1022)
   - [AtEOSubXact_Parallel](../A/AtEOSubXact_Parallel.md) (src/backend/access/transam/parallel.c:1252)
   - [launcher_determine_sleep](../l/launcher_determine_sleep.md) (src/backend/postmaster/autovacuum.c:805)
-  - ReorderBufferGetOldestTXN (src/backend/replication/logical/reorderbuffer.c:1046)
+  - [ReorderBufferGetOldestTXN](../R/ReorderBufferGetOldestTXN.md) (src/backend/replication/logical/reorderbuffer.c:1046)
   - [SetupLockInTable](../S/SetupLockInTable.md) (src/backend/storage/lmgr/lock.c:1253)
   - [CleanUpLock](../C/CleanUpLock.md) (src/backend/storage/lmgr/lock.c:1669)
-  - InitProcess (src/backend/storage/lmgr/proc.c:336)
+  - [InitProcess](../I/InitProcess.md) (src/backend/storage/lmgr/proc.c:336)
 
 ## Notes and Other Information
 - The function is implemented as a static inline function for performance efficiency

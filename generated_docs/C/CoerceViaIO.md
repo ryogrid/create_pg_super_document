@@ -47,14 +47,14 @@ During execution, the process involves:
   - makeNode (for creating CoerceViaIO nodes)
   - Various executor evaluation functions
 - Called from (representative examples):
-  - coerce_to_target_type (in parse_coerce.c)
-  - ExecInitExprRec (in execExpr.c)
-  - eval_const_expressions_mutator (in clauses.c)
+  - [coerce_to_target_type](../c/coerce_to_target_type.md) (in parse_coerce.c)
+  - [ExecInitExprRec](../E/ExecInitExprRec.md) (in execExpr.c)
+  - [eval_const_expressions_mutator](../e/eval_const_expressions_mutator.md) (in clauses.c)
   - plpgsql type coercion fallback (in pl_exec.c)
 
 ## Notes and Other Information
 - The output typmod is always presumed to be -1 (no specific type modifier)
-- CoerceViaIO can be a performance bottleneck since it involves string conversion
+- [CoerceViaIO](CoerceViaIO.md) can be a performance bottleneck since it involves string conversion
 - The executor has both regular (EEOP_IOCOERCE) and safe (EEOP_IOCOERCE_SAFE) evaluation paths
 - Used as a fallback mechanism when no direct cast function exists between types
 - Commonly seen in assignment casts to string types and explicit casts from string types

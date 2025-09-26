@@ -22,8 +22,8 @@ The function returns a pointer to static memory that contains the background wor
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire (with BackgroundWorkerLock, LW_SHARED)
-  - LWLockRelease (with BackgroundWorkerLock)
+  - [LWLockAcquire](../L/LWLockAcquire.md) (with BackgroundWorkerLock, LW_SHARED)
+  - [LWLockRelease](../L/LWLockRelease.md) (with BackgroundWorkerLock)
   - strcpy
   - BackgroundWorkerData global structure
   - [BackgroundWorkerSlot](../B/BackgroundWorkerSlot.md) structure

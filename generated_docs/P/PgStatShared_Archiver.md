@@ -28,14 +28,14 @@ PgStatShared_Archiver implements the shared memory storage for PostgreSQL's WAL 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLock
-  - PgStat_ArchiverStats
+  - [LWLock](../L/LWLock.md)
+  - [PgStat_ArchiverStats](PgStat_ArchiverStats.md)
   - TimestampTz
   - PgStat_Counter
 - Called from (representative examples):
-  - pgstat_report_archiver
-  - pgstat_archiver_reset_all_cb
-  - pgstat_archiver_snapshot_cb
+  - [pgstat_report_archiver](../p/pgstat_report_archiver.md)
+  - [pgstat_archiver_reset_all_cb](../p/pgstat_archiver_reset_all_cb.md)
+  - [pgstat_archiver_snapshot_cb](../p/pgstat_archiver_snapshot_cb.md)
 
 ## Notes and Other Information
 - Uses the changecount mechanism from PgBackendStatus for lock-free reads and high-performance writes

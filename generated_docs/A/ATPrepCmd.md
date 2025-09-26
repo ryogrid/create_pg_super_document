@@ -55,5 +55,5 @@ The function categorizes operations into execution passes (AT_PASS_*) that deter
 - Some operations require table rewrites and are marked accordingly
 - Persistence changes (LOGGED/UNLOGGED) have restrictions on multiple modifications
 - The function determines execution passes that control the order of operations in subsequent phases
-- Complex operations like ALTER COLUMN TYPE undergo parse transformation
+- [Complex](../C/Complex.md) operations like ALTER COLUMN TYPE undergo parse transformation
 - Recursion behavior varies by command type - some recurse during preparation, others during execution

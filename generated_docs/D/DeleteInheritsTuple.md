@@ -36,7 +36,7 @@ The function scans pg_inherits by inhrelid (child relation) and optionally filte
   - Form_pg_inherits: Accesses structured data from pg_inherits tuple
   - [CatalogTupleDelete](../C/CatalogTupleDelete.md): Deletes the tuple from the system catalog
 - Called from (representative examples):
-  - index_concurrently_swap: During concurrent index operations
+  - [index_concurrently_swap](../i/index_concurrently_swap.md): During concurrent index operations
   - [index_drop](../i/index_drop.md): When dropping indexes with inheritance
   - [RemoveInheritance](../R/RemoveInheritance.md): Higher-level inheritance removal function
 

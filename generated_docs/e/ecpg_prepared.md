@@ -22,10 +22,10 @@ ecpg_prepared(const char *name, struct connection *con)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ecpg_find_prepared_statement](ecpg_find_prepared_statement.md) (locate the named prepared statement in the connection's list)
-  - prepared_statement (structure type for prepared statement data)
+  - [prepared_statement](../p/prepared_statement.md) (structure type for prepared statement data)
 - Called from (representative examples):
-  - ecpg_do_prologue (during statement execution setup)
-  - ECPGprepared_statement (public API for retrieving prepared statement information)
+  - [ecpg_do_prologue](ecpg_do_prologue.md) (during statement execution setup)
+  - [ECPGprepared_statement](../E/ECPGprepared_statement.md) (public API for retrieving prepared statement information)
 
 ## Notes and Other Information
 - Returns a pointer to the SQL command string if the prepared statement is found, NULL if not found

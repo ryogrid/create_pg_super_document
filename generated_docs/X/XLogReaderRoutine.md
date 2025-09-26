@@ -68,9 +68,9 @@ XLogReaderRoutine serves as an abstraction layer that allows the WAL reading inf
   - WALSegmentCloseCB (function type for segment closing)
 - Called from (representative examples):
   - [XLogReaderAllocate](XLogReaderAllocate.md) (reader allocation with custom routines)
-  - StartupDecodingContext (logical replication startup)
-  - CreateInitDecodingContext (initial decoding context creation)
-  - CreateDecodingContext (general decoding context creation)
+  - [StartupDecodingContext](../S/StartupDecodingContext.md) (logical replication startup)
+  - [CreateInitDecodingContext](../C/CreateInitDecodingContext.md) (initial decoding context creation)
+  - [CreateDecodingContext](../C/CreateDecodingContext.md) (general decoding context creation)
   - XL_ROUTINE (routine access macro)
   - [XLogReaderState](XLogReaderState.md) (embedded within reader state)
 

@@ -39,7 +39,7 @@ The function supports a comprehensive set of subscription options including conn
   - [defGetStreamingMode](../d/defGetStreamingMode.md): Parses streaming mode values
   - [errorConflictingDefElem](../e/errorConflictingDefElem.md): Reports conflicts when same option specified multiple times
   - [ReplicationSlotValidateName](../R/ReplicationSlotValidateName.md): Validates replication slot names
-  - set_config_option: Tests validity of synchronous_commit values
+  - [set_config_option](../s/set_config_option.md): Tests validity of synchronous_commit values
   - IsSet: Macro to test if option bit is set in bitmask
 - Called from (representative examples):
   - [CreateSubscription](../C/CreateSubscription.md): During subscription creation

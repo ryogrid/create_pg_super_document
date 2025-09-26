@@ -23,15 +23,15 @@ The function creates or reopens a mapping file in the pg_logical/mappings direct
 - Functions called/Symbols referenced:
   - XLogRecGetData: Extract data from WAL record
   - XLogRecGetXid: Get transaction ID from WAL record
-  - OpenTransientFile: Open file with automatic cleanup
-  - CloseTransientFile: Close transient file
+  - [OpenTransientFile](../O/OpenTransientFile.md): Open file with automatic cleanup
+  - [CloseTransientFile](../C/CloseTransientFile.md): Close transient file
   - ftruncate: Truncate file to specified size
-  - pg_pwrite: Positioned write to file
-  - pg_fsync: Sync file to disk
-  - pgstat_report_wait_start/pgstat_report_wait_end: Report wait events for monitoring
-  - data_sync_elevel: Get error level for data sync operations
+  - [pg_pwrite](../p/pg_pwrite.md): Positioned write to file
+  - [pg_fsync](../p/pg_fsync.md): Sync file to disk
+  - [pgstat_report_wait_start](../p/pgstat_report_wait_start.md)/pgstat_report_wait_end: Report wait events for monitoring
+  - [data_sync_elevel](../d/data_sync_elevel.md): Get error level for data sync operations
 - Called from (representative examples):
-  - heap2_redo: Main heap WAL record replay function
+  - [heap2_redo](heap2_redo.md): Main heap WAL record replay function
 
 ## Notes and Other Information
 - Creates mapping files under pg_logical/mappings/ with format including database, relation, LSN, and transaction IDs

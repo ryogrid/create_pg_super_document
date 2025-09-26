@@ -36,7 +36,7 @@ The function handles distance calculations for nearest-neighbor searches and can
   - pPalloc (implicit through palloc)
 - Types used:
   - SpGistScanOpaque
-  - SpGistLeafTuple
+  - [SpGistLeafTuple](../S/SpGistLeafTuple.md)
   - [IndexOrderByDistance](../I/IndexOrderByDistance.md)
   - ItemPointer
 - Constants:

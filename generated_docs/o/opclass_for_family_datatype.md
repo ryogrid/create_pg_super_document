@@ -21,7 +21,7 @@ This function searches through all operator classes belonging to a specific acce
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CatCList (catalog cache list structure)
+  - [CatCList](../C/CatCList.md) (catalog cache list structure)
   - SearchSysCacheList1 (system cache list lookup)
   - Form_pg_opclass (operator class catalog tuple form)
   - [ReleaseCatCacheList](../R/ReleaseCatCacheList.md) (cache list release)

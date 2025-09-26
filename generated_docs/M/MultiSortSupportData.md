@@ -24,7 +24,7 @@ MultiSortSupportData is designed to handle sorting operations across multiple di
 - `ssup[FLEXIBLE_ARRAY_MEMBER]`: A flexible array of SortSupportData structures, one for each dimension, containing the sort support functions and metadata for that dimension's data type
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SortSupportData (embedded structure for each dimension)
+  - [SortSupportData](../S/SortSupportData.md) (embedded structure for each dimension)
   - FLEXIBLE_ARRAY_MEMBER (macro for variable-length array)
 - Called from (representative examples):
   - [multi_sort_init](../m/multi_sort_init.md) (src/backend/statistics/extended_stats.c:838)

@@ -25,7 +25,7 @@ The function determines if a junk filter is needed by examining the parent plan 
 ## Dependencies
 - Functions called/Symbols referenced:
   - nodeTag (to identify parent plan type)
-  - ExecInitJunkFilter (to create junk column filter when needed)
+  - [ExecInitJunkFilter](ExecInitJunkFilter.md) (to create junk column filter when needed)
   - [ExecInitExtraTupleSlot](ExecInitExtraTupleSlot.md) (to create tuple slot for filtered results)
 - Called from (representative examples):
   - [ExecInitExprRec](ExecInitExprRec.md) (during expression initialization)

@@ -37,12 +37,12 @@ The cursor is not actually executed until PerformPortalFetch is called, allowing
   - [InSecurityRestrictedOperation](../I/InSecurityRestrictedOperation.md)
   - [QueryRewrite](../Q/QueryRewrite.md)
   - [pg_plan_query](../p/pg_plan_query.md)
-  - CreatePortal
+  - [CreatePortal](../C/CreatePortal.md)
   - [PortalDefineQuery](PortalDefineQuery.md)
   - [copyParamList](../c/copyParamList.md)
   - [ExecSupportsBackwardScan](../E/ExecSupportsBackwardScan.md)
   - [PortalStart](PortalStart.md)
-  - GetActiveSnapshot
+  - [GetActiveSnapshot](../G/GetActiveSnapshot.md)
 - Called from (representative examples):
   - [standard_ProcessUtility](../s/standard_ProcessUtility.md)
 

@@ -27,14 +27,14 @@ The function serves as a high-level wrapper around the platform-specific impleme
   - [pg_atomic_fetch_or_u32_impl](pg_atomic_fetch_or_u32_impl.md)
   - [pg_atomic_uint32](pg_atomic_uint32.md) (type)
 - Called from (representative examples):
-  - LockBufHdr
+  - [LockBufHdr](../L/LockBufHdr.md)
   - [EmitProcSignalBarrier](../E/EmitProcSignalBarrier.md)
   - [ResetProcSignalBarrierBits](../R/ResetProcSignalBarrierBits.md)
-  - LWLockWaitListLock
-  - LWLockQueueSelf
-  - LWLockDequeueSelf
-  - LWLockAcquire
-  - LWLockWaitForVar
+  - [LWLockWaitListLock](../L/LWLockWaitListLock.md)
+  - [LWLockQueueSelf](../L/LWLockQueueSelf.md)
+  - [LWLockDequeueSelf](../L/LWLockDequeueSelf.md)
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockWaitForVar](../L/LWLockWaitForVar.md)
 
 ## Notes and Other Information
 - The function enforces 4-byte alignment for the pointer parameter through AssertPointerAlignment

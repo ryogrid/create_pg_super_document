@@ -21,10 +21,10 @@ The  function queries the pg_largeobject_metadata table to retrieve information 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md) (executes the LO metadata query)
-  - createPQExpBuffer/destroyPQExpBuffer (query string management)
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)/destroyPQExpBuffer (query string management)
   - pg_log_info (logs the operation)
   - atooid (converts string OID to Oid type)
-  - pg_malloc/pg_strdup (memory allocation and string duplication)
+  - [pg_malloc](../p/pg_malloc.md)/pg_strdup (memory allocation and string duplication)
   - [AssignDumpId](../A/AssignDumpId.md) (assigns unique dump IDs to objects)
   - [getRoleName](getRoleName.md) (resolves owner name from OID)
   - [recordAdditionalCatalogID](../r/recordAdditionalCatalogID.md) (enables lookup by secondary OIDs)

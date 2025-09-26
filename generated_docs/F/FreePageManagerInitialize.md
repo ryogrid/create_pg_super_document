@@ -31,14 +31,14 @@ The initialization process:
 - Functions called/Symbols referenced:
   - relptr_store (for setting up relative pointers)
 - Types referenced:
-  - FreePageManager
-  - FreePageBtree
-  - FreePageSpanLeader
+  - [FreePageManager](FreePageManager.md)
+  - [FreePageBtree](FreePageBtree.md)
+  - [FreePageSpanLeader](FreePageSpanLeader.md)
   - FPM_NUM_FREELISTS
 - Called from (representative examples):
-  - dsm_shmem_init
-  - create_internal (DSA)
-  - make_new_segment (DSA)
+  - [dsm_shmem_init](../d/dsm_shmem_init.md)
+  - [create_internal](../c/create_internal.md) (DSA)
+  - [make_new_segment](../m/make_new_segment.md) (DSA)
   - fpm_largest
 
 ## Notes and Other Information

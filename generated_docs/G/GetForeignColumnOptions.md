@@ -21,7 +21,7 @@ GetForeignColumnOptions is a specialized function that extracts column-level for
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache2](../S/SearchSysCache2.md)
-  - Int16GetDatum
+  - [Int16GetDatum](../I/Int16GetDatum.md)
   - [SysCacheGetAttr](../S/SysCacheGetAttr.md)
   - [untransformRelOptions](../u/untransformRelOptions.md)
   - elog

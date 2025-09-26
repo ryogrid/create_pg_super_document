@@ -26,8 +26,8 @@ The function handles edge cases properly: for percentile 0, it returns the first
 ## Dependencies
 - Functions called/Symbols referenced:
   - [AggCheckCallContext](../A/AggCheckCallContext.md)
-  - tuplesort_performsort
-  - tuplesort_rescan
+  - [tuplesort_performsort](../t/tuplesort_performsort.md)
+  - [tuplesort_rescan](../t/tuplesort_rescan.md)
   - [tuplesort_skiptuples](../t/tuplesort_skiptuples.md)
   - [tuplesort_getdatum](../t/tuplesort_getdatum.md)
   - PG_ARGISNULL

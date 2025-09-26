@@ -35,11 +35,11 @@ CreateQueryDesc allocates and populates a QueryDesc structure with all the essen
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PlannedStmt](../P/PlannedStmt.md)
-  - DestReceiver  
+  - [DestReceiver](../D/DestReceiver.md)  
   - [ParamListInfo](../P/ParamListInfo.md)
-  - QueryEnvironment
-  - QueryDesc
-  - RegisterSnapshot (called twice)
+  - [QueryEnvironment](../Q/QueryEnvironment.md)
+  - [QueryDesc](../Q/QueryDesc.md)
+  - [RegisterSnapshot](../R/RegisterSnapshot.md) (called twice)
 - Called from (representative examples):
   - [ProcessQuery](../P/ProcessQuery.md)
   - [PortalStart](../P/PortalStart.md)

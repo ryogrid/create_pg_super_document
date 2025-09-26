@@ -31,14 +31,14 @@ This enables PostgreSQL to handle complex WHERE clauses with multiple conditions
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PartitionPruneStep (base structure)
-  - PartitionPruneCombineOp (enum for combine operations)
-  - List (PostgreSQL list structure)
+  - [PartitionPruneStep](PartitionPruneStep.md) (base structure)
+  - [PartitionPruneCombineOp](PartitionPruneCombineOp.md) (enum for combine operations)
+  - [List](../L/List.md) (PostgreSQL list structure)
 
 - Called from (representative examples):
-  - get_matching_partitions (src/backend/partitioning/partprune.c:858)
-  - gen_prune_step_combine (src/backend/partitioning/partprune.c:1350)
-  - perform_pruning_combine_step (src/backend/partitioning/partprune.c:3565)
+  - [get_matching_partitions](../g/get_matching_partitions.md) (src/backend/partitioning/partprune.c:858)
+  - [gen_prune_step_combine](../g/gen_prune_step_combine.md) (src/backend/partitioning/partprune.c:1350)
+  - [perform_pruning_combine_step](../p/perform_pruning_combine_step.md) (src/backend/partitioning/partprune.c:3565)
 
 ## Notes and Other Information
 - Essential for handling complex Boolean expressions in partition pruning

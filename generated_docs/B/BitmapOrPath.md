@@ -32,18 +32,18 @@ Like BitmapAndPath, the Path structure provides consistency with other path type
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Path (base path structure)
-  - List (PostgreSQL list structure)  
+  - [Path](../P/Path.md) (base path structure)
+  - [List](../L/List.md) (PostgreSQL list structure)  
   - Selectivity (selectivity estimation type)
-  - IndexPath (for individual index conditions)
-  - BitmapAndPath (for AND-combined conditions)
+  - [IndexPath](../I/IndexPath.md) (for individual index conditions)
+  - [BitmapAndPath](BitmapAndPath.md) (for AND-combined conditions)
 
 - Called from (representative examples):
-  - create_bitmap_or_path (path creation)
-  - cost_bitmap_or_node (cost estimation)
-  - create_bitmap_subplan (plan generation)
-  - find_indexpath_quals (path finding)
-  - create_bitmap_and_path (as child of AND operations)
+  - [create_bitmap_or_path](../c/create_bitmap_or_path.md) (path creation)
+  - [cost_bitmap_or_node](../c/cost_bitmap_or_node.md) (cost estimation)
+  - [create_bitmap_subplan](../c/create_bitmap_subplan.md) (plan generation)
+  - [find_indexpath_quals](../f/find_indexpath_quals.md) (path finding)
+  - [create_bitmap_and_path](../c/create_bitmap_and_path.md) (as child of AND operations)
 
 ## Notes and Other Information
 - Can only appear as part of a BitmapHeapPath substructure, not as a standalone path

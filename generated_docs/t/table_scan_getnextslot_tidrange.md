@@ -25,16 +25,16 @@ The function includes assertions to ensure proper usage: the scan must be a TID 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TableScanDesc (parameter type)
+  - [TableScanDesc](../T/TableScanDesc.md) (parameter type)
   - ScanDirection (parameter type)  
-  - TupleTableSlot (parameter type)
+  - [TupleTableSlot](../T/TupleTableSlot.md) (parameter type)
   - SO_TYPE_TIDRANGESCAN (validation flag)
   - ForwardScanDirection (direction constant)
   - BackwardScanDirection (direction constant)
   - Assert (validation macro)
   - sscan->rs_rd->rd_tableam->scan_getnextslot_tidrange (table access method function)
 - Called from (representative examples):
-  - TidRangeNext
+  - [TidRangeNext](../T/TidRangeNext.md)
 
 ## Notes and Other Information
 - This is an inline function defined in the table access method header

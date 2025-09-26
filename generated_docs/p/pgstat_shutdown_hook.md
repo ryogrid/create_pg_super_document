@@ -41,7 +41,7 @@ The function includes safety assertions to verify it's called in the correct con
   - [pgstat_report_stat](pgstat_report_stat.md)
   - [dlist_is_empty](../d/dlist_is_empty.md)
   - [dlist_init](../d/dlist_init.md)
-  - pgstat_detach_shmem
+  - [pgstat_detach_shmem](pgstat_detach_shmem.md)
 - Called from (representative examples):
   - [pgstat_initialize](pgstat_initialize.md) (src/backend/utils/activity/pgstat.c:546) - registered as exit hook
 

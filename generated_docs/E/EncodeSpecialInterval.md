@@ -40,6 +40,6 @@ This is the interval-specific version of the timestamp encoding function, design
 - Only handles special infinite interval values, not regular intervals
 - Assumes output buffer has sufficient space (no bounds checking)
 - Part of PostgreSQL's interval output formatting system
-- String constants EARLY and LATE are typically "-infinity" and "infinity" respectively
+- [String](../S/String.md) constants EARLY and LATE are typically "-infinity" and "infinity" respectively
 - Function will error if called with finite interval values
 - Static function scope limits usage to within the timestamp.c compilation unit

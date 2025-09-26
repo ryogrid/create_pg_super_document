@@ -34,8 +34,8 @@ The structure supports two operational modes:
 - Called from (representative examples):
   - [initReadOnlyStringInfo](../i/initReadOnlyStringInfo.md) (initializes read-only instances)
   - [initStringInfoFromString](../i/initStringInfoFromString.md) (initializes from existing string)
-  - makeStringInfo (creates new instances)
-  - appendStringInfo family of functions
+  - [makeStringInfo](../m/makeStringInfo.md) (creates new instances)
+  - [appendStringInfo](../a/appendStringInfo.md) family of functions
 
 ## Notes and Other Information
 - In normal mode, a terminating null character is guaranteed at 

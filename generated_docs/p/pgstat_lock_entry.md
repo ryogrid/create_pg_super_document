@@ -18,14 +18,14 @@ This function provides exclusive locking for PostgreSQL statistics entries to en
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockConditionalAcquire
-  - LWLockAcquire
+  - [LWLockConditionalAcquire](../L/LWLockConditionalAcquire.md)
+  - [LWLockAcquire](../L/LWLockAcquire.md)
 - Called from (representative examples):
-  - pgstat_database_flush_cb
-  - pgstat_function_flush_cb
-  - pgstat_relation_flush_cb
-  - pgstat_get_entry_ref_locked
-  - pgstat_reset_entry
+  - [pgstat_database_flush_cb](pgstat_database_flush_cb.md)
+  - [pgstat_function_flush_cb](pgstat_function_flush_cb.md)
+  - [pgstat_relation_flush_cb](pgstat_relation_flush_cb.md)
+  - [pgstat_get_entry_ref_locked](pgstat_get_entry_ref_locked.md)
+  - [pgstat_reset_entry](pgstat_reset_entry.md)
 
 ## Notes and Other Information
 Most statistics operations require exclusive access, making this the primary locking function. The function always returns true when nowait is false, as LWLockAcquire() will block until successful.

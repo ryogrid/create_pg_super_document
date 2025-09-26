@@ -22,8 +22,8 @@ The function also performs important validation checks, ensuring that unsupporte
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode
-  - ExecAssignExprContext
-  - ExecOpenScanRelation
+  - [ExecAssignExprContext](ExecAssignExprContext.md)
+  - [ExecOpenScanRelation](ExecOpenScanRelation.md)
   - [ExecInitNode](ExecInitNode.md)
   - outerPlanState (macro)
   - outerPlan (macro)
@@ -39,7 +39,7 @@ The function also performs important validation checks, ensuring that unsupporte
   - IsMVCCSnapshot
 - Data types referenced:
   - [BitmapHeapScanState](../B/BitmapHeapScanState.md)
-  - BitmapHeapScan
+  - [BitmapHeapScan](../B/BitmapHeapScan.md)
   - [EState](EState.md)
   - [Relation](../R/Relation.md)
 - Called from:

@@ -24,13 +24,13 @@ The function checks the current transaction status of the connection and only st
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQtransactionStatus: Checks the current transaction status
-  - PQexec: Executes the "begin transaction" command
-  - ecpg_check_PQresult: Validates the result of the transaction start
-  - ecpg_free_params: Cleans up parameters on error
+  - [PQtransactionStatus](../P/PQtransactionStatus.md): Checks the current transaction status
+  - [PQexec](../P/PQexec.md): Executes the "begin transaction" command
+  - [ecpg_check_PQresult](ecpg_check_PQresult.md): Validates the result of the transaction start
+  - [ecpg_free_params](ecpg_free_params.md): Cleans up parameters on error
   - PQTRANS_IDLE: Transaction status constant
 - Called from (representative examples):
-  - ecpg_do: Main ECPG statement execution function
+  - [ecpg_do](ecpg_do.md): Main ECPG statement execution function
 
 ## Notes and Other Information
 - Returns true on success (transaction started or not needed), false on failure

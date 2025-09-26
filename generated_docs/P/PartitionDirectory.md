@@ -44,6 +44,6 @@ This caching mechanism is particularly important for multi-table operations wher
 - Memory management is handled through a dedicated memory context for clean resource cleanup
 - The omit_detached flag ensures consistency with snapshot visibility requirements
 - Essential for efficient partition-wise join operations where multiple partitioned relations are involved
-- Hash table provides O(1) lookup performance for cached partition descriptors
+- [Hash](../H/Hash.md) table provides O(1) lookup performance for cached partition descriptors
 - Lifetime typically spans a single query execution or planning phase
 - Referenced in EState and PlannerGlobal structures for query-wide availability

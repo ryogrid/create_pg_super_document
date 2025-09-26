@@ -30,19 +30,19 @@ The function handles both absolute counts (positive stadistinct) and relative es
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - clamp_row_est (ensures result is within reasonable bounds)
+  - [clamp_row_est](../c/clamp_row_est.md) (ensures result is within reasonable bounds)
   - DEFAULT_NUM_DISTINCT (fallback constant for unknown distributions)
   - BOOLOID (boolean data type identifier)
   - RTE_VALUES (VALUES clause range table entry type)
   - SelfItemPointerAttributeNumber (ctid system column)
   - TableOidAttributeNumber (tableoid system column)
 - Called from (representative examples):
-  - var_eq_const (variable equality selectivity estimation)
-  - var_eq_non_const (variable equality with non-constant)
-  - ineq_histogram_selectivity (inequality selectivity estimation)
-  - eqjoinsel (equality join selectivity)
-  - add_unique_group_var (group estimation)
-  - estimate_hash_bucket_stats (hash join statistics)
+  - [var_eq_const](../v/var_eq_const.md) (variable equality selectivity estimation)
+  - [var_eq_non_const](../v/var_eq_non_const.md) (variable equality with non-constant)
+  - [ineq_histogram_selectivity](../i/ineq_histogram_selectivity.md) (inequality selectivity estimation)
+  - [eqjoinsel](../e/eqjoinsel.md) (equality join selectivity)
+  - [add_unique_group_var](../a/add_unique_group_var.md) (group estimation)
+  - [estimate_hash_bucket_stats](../e/estimate_hash_bucket_stats.md) (hash join statistics)
 
 ## Notes and Other Information
 - Always returns a positive value as callers may divide by the result or compare to exact counts

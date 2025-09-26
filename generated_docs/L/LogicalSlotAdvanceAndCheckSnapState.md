@@ -28,13 +28,13 @@ The operation is performed within a PG_TRY/PG_CATCH block to ensure proper clean
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreateDecodingContext - Creates logical decoding context in fast_forward mode
-  - WaitForStandbyConfirmation - Waits for standby servers to confirm WAL receipt
+  - [CreateDecodingContext](../C/CreateDecodingContext.md) - Creates logical decoding context in fast_forward mode
+  - [WaitForStandbyConfirmation](../W/WaitForStandbyConfirmation.md) - Waits for standby servers to confirm WAL receipt
   - [XLogBeginRead](../X/XLogBeginRead.md) - Begins reading from slot's restart_lsn
   - [XLogReadRecord](../X/XLogReadRecord.md) - Reads individual WAL records
   - [LogicalDecodingProcessRecord](LogicalDecodingProcessRecord.md) - Processes records for snapshot building
-  - DecodingContextReady - Checks if decoding context has consistent snapshot
-  - LogicalConfirmReceivedLocation - Updates slot's confirmed_flush position
+  - [DecodingContextReady](../D/DecodingContextReady.md) - Checks if decoding context has consistent snapshot
+  - [LogicalConfirmReceivedLocation](LogicalConfirmReceivedLocation.md) - Updates slot's confirmed_flush position
   - [ReplicationSlotMarkDirty](../R/ReplicationSlotMarkDirty.md) - Marks slot for checkpoint writing
   - [FreeDecodingContext](../F/FreeDecodingContext.md) - Cleans up decoding context
   - [InvalidateSystemCaches](../I/InvalidateSystemCaches.md) - Invalidates cached catalog information

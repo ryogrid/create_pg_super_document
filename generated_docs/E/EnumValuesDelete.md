@@ -24,13 +24,13 @@ The deletion process maintains catalog consistency by properly removing both the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - [ScanKeyInit](../S/ScanKeyInit.md)
   - [systable_beginscan](../s/systable_beginscan.md)
   - [systable_getnext](../s/systable_getnext.md)
   - [CatalogTupleDelete](../C/CatalogTupleDelete.md)
   - [systable_endscan](../s/systable_endscan.md)
-  - table_close
+  - [table_close](../t/table_close.md)
 - Called from:
   - [RemoveTypeById](../R/RemoveTypeById.md) (src/backend/commands/typecmds.c:676)
 

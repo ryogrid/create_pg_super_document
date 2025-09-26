@@ -33,8 +33,8 @@ The function sets inhdetachpending to false, indicating this is not a pending de
   - [CatalogTupleInsert](../C/CatalogTupleInsert.md): Inserts the tuple into the system catalog
   - [heap_freetuple](../h/heap_freetuple.md): Frees memory allocated for the heap tuple
 - Called from (representative examples):
-  - index_create: When creating inheritance relationships for indexes
-  - index_concurrently_swap: During concurrent index operations
+  - [index_create](../i/index_create.md): When creating inheritance relationships for indexes
+  - [index_concurrently_swap](../i/index_concurrently_swap.md): During concurrent index operations
   - [IndexSetParentIndex](../I/IndexSetParentIndex.md): When setting up index inheritance
   - [StoreCatalogInheritance1](StoreCatalogInheritance1.md): Higher-level inheritance storage function
 

@@ -25,7 +25,7 @@ The function uses PostgreSQL's internationalization support through gettext() to
 ## Dependencies
 - Functions called/Symbols referenced:
   - va_start, va_end (stdarg.h macros)
-  - pg_log_generic_v
+  - [pg_log_generic_v](../p/pg_log_generic_v.md)
   - gettext
   - exit (standard library)
   - PG_LOG_ERROR, PG_LOG_PRIMARY (logging level constants)

@@ -32,8 +32,8 @@ The `param_ids` parameter is used to distinguish between the left-hand side (LHS
   - [test_opexpr_is_hashable](test_opexpr_is_hashable.md) (validates individual operator expressions)
   - [is_andclause](../i/is_andclause.md) (checks if expression is a Boolean AND)
 - Types referenced:
-  - `OpExpr` (operator expression node type)
-  - `BoolExpr` (Boolean expression node type)
+  - `[OpExpr](../O/OpExpr.md)` (operator expression node type)
+  - `[BoolExpr](../B/BoolExpr.md)` (Boolean expression node type)
 - Called from (representative examples):
   - [build_subplan](../b/build_subplan.md) (src/backend/optimizer/plan/subselect.c:519)
 

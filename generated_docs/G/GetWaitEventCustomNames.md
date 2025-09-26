@@ -20,18 +20,18 @@ This function retrieves all currently defined custom wait event names that belon
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire
-  - LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - [hash_get_num_entries](../h/hash_get_num_entries.md)
   - [palloc](../p/palloc.md)
   - [hash_seq_init](../h/hash_seq_init.md)
   - [hash_seq_search](../h/hash_seq_search.md)
   - [pstrdup](../p/pstrdup.md)
 - Data structures used:
-  - WaitEventCustomEntryByName
+  - [WaitEventCustomEntryByName](../W/WaitEventCustomEntryByName.md)
   - WaitEventCustomHashByName
   - WaitEventCustomLock
-  - HASH_SEQ_STATUS
+  - [HASH_SEQ_STATUS](../H/HASH_SEQ_STATUS.md)
 - Constants used:
   - LW_SHARED
   - WAIT_EVENT_CLASS_MASK

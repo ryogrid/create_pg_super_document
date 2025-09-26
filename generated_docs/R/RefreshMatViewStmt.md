@@ -28,10 +28,10 @@ RefreshMatViewStmt encapsulates the REFRESH MATERIALIZED VIEW command, which reb
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RangeVar (for materialized view identification)
+  - [RangeVar](RangeVar.md) (for materialized view identification)
 - Called from (representative examples):
-  - ExecRefreshMatView
-  - ProcessUtilitySlow
+  - [ExecRefreshMatView](../E/ExecRefreshMatView.md)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md)
 
 ## Notes and Other Information
 - Part of PostgreSQL's materialized view system introduced to provide cached query results

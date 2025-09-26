@@ -22,7 +22,7 @@ This function is responsible for parsing variable references in pgbench SQL scri
 - Functions called/Symbols referenced:
   - IS_HIGHBIT_SET (macro)
   - strchr
-  - pg_malloc
+  - [pg_malloc](pg_malloc.md)
   - memcpy
 - Called from:
   - [assignVariables](../a/assignVariables.md) (src/bin/pgbench/pgbench.c:1947)

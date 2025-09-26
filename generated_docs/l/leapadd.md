@@ -26,7 +26,7 @@ The leapadd function manages leap second data within PostgreSQL's timezone compi
   - EXIT_FAILURE (error exit status)
   - zic_t (timestamp type definition)
 - Called from (representative examples):
-  - inleap (at line 1780)
+  - [inleap](../i/inleap.md) (at line 1780)
 
 ## Notes and Other Information
 - Maintains chronological order by finding the correct insertion point and shifting subsequent entries

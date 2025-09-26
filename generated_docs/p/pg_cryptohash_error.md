@@ -36,7 +36,7 @@ The function returns statically allocated, localized strings that describe the s
   - [pg_hmac_final](pg_hmac_final.md)
   - [pg_md5_hash](pg_md5_hash.md)
   - [pg_md5_binary](pg_md5_binary.md)
-  - scram_H
+  - [scram_H](../s/scram_H.md)
 
 ## Notes and Other Information
 - Returns localized error messages suitable for display to users

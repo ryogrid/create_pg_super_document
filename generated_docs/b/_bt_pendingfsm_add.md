@@ -35,7 +35,7 @@ The function prioritizes memory efficiency by growing the buffer exponentially (
 - Structures referenced:
   - [BTVacState](../B/BTVacState.md) (buffer management and page array)
   - [BTPendingFSM](../B/BTPendingFSM.md) (individual page metadata)
-  - FullTransactionId (transaction ID handling)
+  - [FullTransactionId](../F/FullTransactionId.md) (transaction ID handling)
 - Called from (representative examples):
   - [_bt_unlink_halfdead_page](_bt_unlink_halfdead_page.md) (during page deletion operations)
 

@@ -23,7 +23,7 @@ This function implements the choose logic for SP-GiST quadtree indexing of range
 ## Dependencies
 - Functions called/Symbols referenced:
   - [spgChooseIn](spgChooseIn.md), spgChooseOut (structure types)
-  - DatumGetRangeTypeP, RangeTypePGetDatum (range conversion functions)
+  - [DatumGetRangeTypeP](../D/DatumGetRangeTypeP.md), RangeTypePGetDatum (range conversion functions)
   - [range_get_typcache](../r/range_get_typcache.md) (type cache retrieval)
   - RangeTypeGetOid (range type OID extraction)
   - RangeIsEmpty (empty range test)

@@ -24,8 +24,8 @@ This sorting is essential for genetic algorithm operations such as selection, wh
 - Functions called/Symbols referenced:
   - qsort (standard C library sorting function)
   - [compare](../c/compare.md) (custom comparison function for Chromosome structures)
-  - Pool (struct type for genetic algorithm pool)
-  - Chromosome (struct type for individual solutions)
+  - [Pool](../P/Pool.md) (struct type for genetic algorithm pool)
+  - [Chromosome](../C/Chromosome.md) (struct type for individual solutions)
 - Called from (representative examples):
   - [geqo](../g/geqo.md) (main GEQO optimization function for population management)
 

@@ -27,12 +27,12 @@ The return value indicates whether truncation occurred: if the return value is g
 - Functions called/Symbols referenced:
   - `strlen` (standard C library function)
 - Called from (representative examples):
-  - `CreateLockFile` (src/backend/utils/init/miscinit.c:1442)
-  - `CreateBackupStreamer` (src/bin/pg_basebackup/pg_basebackup.c:1195, 1201, 1208)
-  - `_PrepParallelRestore` (src/bin/pg_dump/pg_backup_directory.c:774, 776, 778)
+  - `[CreateLockFile](../C/CreateLockFile.md)` (src/backend/utils/init/miscinit.c:1442)
+  - `[CreateBackupStreamer](../C/CreateBackupStreamer.md)` (src/bin/pg_basebackup/pg_basebackup.c:1195, 1201, 1208)
+  - `[_PrepParallelRestore](../P/_PrepParallelRestore.md)` (src/bin/pg_dump/pg_backup_directory.c:774, 776, 778)
   - `MAX_PROMPT_SIZE` (src/bin/psql/prompt.c:334)
-  - `get_configdata` (src/common/config_info.c:121)
-  - `pqsecure_raw_write` (src/interfaces/libpq/fe-secure.c:408, 423)
+  - `[get_configdata](../g/get_configdata.md)` (src/common/config_info.c:121)
+  - `[pqsecure_raw_write](../p/pqsecure_raw_write.md)` (src/interfaces/libpq/fe-secure.c:408, 423)
 
 ## Notes and Other Information
 - This is a portability function located in `src/port/strlcat.c`, providing the `strlcat` function for systems that do not have it natively

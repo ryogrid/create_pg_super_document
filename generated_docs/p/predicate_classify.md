@@ -43,7 +43,7 @@ For compound expressions (AND/OR types), the function populates the PredIterInfo
 - Static function - internal implementation detail of predtest.c
 - Returns PredClass enumeration value (CLASS_AND, CLASS_OR, or CLASS_ATOM)
 - Lists are interpreted as implicit AND expressions (standard semantics for RestrictInfo lists)
-- ScalarArrayOpExpr classification depends on the useOr flag and array size constraints
+- [ScalarArrayOpExpr](../S/ScalarArrayOpExpr.md) classification depends on the useOr flag and array size constraints
 - Large ScalarArrayOpExpr arrays (> MAX_SAOP_ARRAY_SIZE) are treated as atoms to avoid performance issues
 - Only handles non-null constant arrays and simple (non-multidimensional) ArrayExpr for decomposition
 - Critical foundation function for all predicate implication and refutation logic

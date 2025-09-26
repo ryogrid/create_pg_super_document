@@ -34,15 +34,15 @@ At transaction commit or abort, the system propagates tuple modification counts 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PgStat_TableXactStatus (for transaction-level tracking)
-  - PgStat_TableCounts (embedded counter structure)
+  - [PgStat_TableXactStatus](PgStat_TableXactStatus.md) (for transaction-level tracking)
+  - [PgStat_TableCounts](PgStat_TableCounts.md) (embedded counter structure)
   - Oid (PostgreSQL object identifier type)
-  - Relation (table relation structure)
+  - [Relation](../R/Relation.md) (table relation structure)
 - Called from (representative examples):
-  - pgstat_count_heap_insert/update/delete (table modification tracking)
-  - find_tabstat_entry (statistics entry lookup)
-  - AtEOXact_PgStat_Relations (end-of-transaction processing)
-  - pgstat_relation_flush_cb (statistics flushing)
+  - [pgstat_count_heap_insert](../p/pgstat_count_heap_insert.md)/update/delete (table modification tracking)
+  - [find_tabstat_entry](../f/find_tabstat_entry.md) (statistics entry lookup)
+  - [AtEOXact_PgStat_Relations](../A/AtEOXact_PgStat_Relations.md) (end-of-transaction processing)
+  - [pgstat_relation_flush_cb](../p/pgstat_relation_flush_cb.md) (statistics flushing)
 
 ## Notes and Other Information
 - Manages complex transactional vs. non-transactional statistics semantics

@@ -22,20 +22,20 @@ The function allocates memory using `palloc` to create a new text value with the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `palloc` - PostgreSQL's memory allocation function
+  - `[palloc](../p/palloc.md)` - PostgreSQL's memory allocation function
   - `SET_VARSIZE` - macro to set the size field in the variable-length header
   - `VARDATA` - macro to get the data portion of a variable-length type
   - `memcpy` - standard C library function for memory copying
   - `VARHDRSZ` - constant defining the size of the variable-length header
 
 - Called from (representative examples):
-  - `cstring_to_text` - convenience wrapper for null-terminated strings
-  - `textrecv` - text receive function for binary I/O
-  - `json_recv` - JSON binary input processing
-  - `replace_text` - text replacement operations
-  - `split_text` - text splitting operations
-  - `array_to_text_internal` - array to text conversion
-  - `text_format` - text formatting function
+  - `[cstring_to_text](cstring_to_text.md)` - convenience wrapper for null-terminated strings
+  - `[textrecv](../t/textrecv.md)` - [text](../t/text.md) receive function for binary I/O
+  - `[json_recv](../j/json_recv.md)` - JSON binary input processing
+  - `[replace_text](../r/replace_text.md)` - [text](../t/text.md) replacement operations
+  - `[split_text](../s/split_text.md)` - [text](../t/text.md) splitting operations
+  - `[array_to_text_internal](../a/array_to_text_internal.md)` - array to text conversion
+  - `[text_format](../t/text_format.md)` - [text](../t/text.md) formatting function
 
 ## Notes and Other Information
 - This is the fundamental implementation for creating text values from C strings in PostgreSQL

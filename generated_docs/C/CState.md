@@ -68,17 +68,17 @@ The state machine approach allows pgbench to handle asynchronous operations effi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PGconn (PostgreSQL connection type)
+  - [PGconn](../P/PGconn.md) (PostgreSQL connection type)
   - ConnectionStateEnum (state machine states)
   - [ConditionalStack](ConditionalStack.md) (conditional execution stack)
-  - pg_prng_state (random number generator state)
+  - [pg_prng_state](../p/pg_prng_state.md) (random number generator state)
   - [Variables](../V/Variables.md) (variable storage structure)
   - pg_time_usec_t (microsecond timestamp type)
   - EStatus (error status enumeration)
   - [StatsData](../S/StatsData.md) (statistics collection structure)
 - Called from (representative examples):
-  - evalLazyFunc (for lazy function evaluation)
-  - evalStandardFunc (for standard function evaluation)
+  - [evalLazyFunc](../e/evalLazyFunc.md) (for lazy function evaluation)
+  - [evalStandardFunc](../e/evalStandardFunc.md) (for standard function evaluation)
   - [commandFailed](../c/commandFailed.md) (for error handling)
   - [advanceConnectionState](../a/advanceConnectionState.md) (for state machine progression)
   - [executeMetaCommand](../e/executeMetaCommand.md) (for meta-command execution)

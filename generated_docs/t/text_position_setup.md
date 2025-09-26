@@ -34,7 +34,7 @@ The  function prepares the TextPositionState structure for efficient substring s
 - Called from (representative examples):
   -  - Core position search function
   -  - Text replacement operations
-  -  - String splitting functions
+  -  - [String](../S/String.md) splitting functions
   -  - Text splitting operations
 
 ## Notes and Other Information

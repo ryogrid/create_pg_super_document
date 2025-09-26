@@ -21,14 +21,14 @@ This function reads previously stored subtransaction information from a file bac
 ## Dependencies
 - Functions called/Symbols referenced:
   - [subxact_filename](subxact_filename.md)
-  - BufFileOpenFileSet
-  - BufFileReadExact
-  - BufFileClose
+  - [BufFileOpenFileSet](../B/BufFileOpenFileSet.md)
+  - [BufFileReadExact](../B/BufFileReadExact.md)
+  - [BufFileClose](../B/BufFileClose.md)
   - [my_log2](../m/my_log2.md)
   - [palloc](../p/palloc.md)
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
-  - SubXactInfo
-  - BufFile
+  - [SubXactInfo](../S/SubXactInfo.md)
+  - [BufFile](../B/BufFile.md)
   - LogicalStreamingContext
 - Called from (representative examples):
   - [stream_start_internal](stream_start_internal.md)

@@ -31,7 +31,7 @@ Unlike the general ScanKeywordLookup function, this variant uses case-sensitive 
   - `strlen`: Standard C library function to get string length
   - `strcmp`: Standard C library function for case-sensitive string comparison
   - `ScanCKeywords_hash_func`: Perfect hash function for C keywords (generated)
-  - `GetScanKeyword`: Inline function to retrieve keyword string by index
+  - `[GetScanKeyword](../G/GetScanKeyword.md)`: Inline function to retrieve keyword string by index
   - `ScanCKeywords`: Global ScanKeywordList structure containing C keyword data
   - `ScanCKeywordTokens`: Array mapping keyword indices to token values
 - Called from (representative examples):

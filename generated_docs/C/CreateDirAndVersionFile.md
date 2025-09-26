@@ -39,13 +39,13 @@ When not in WAL replay mode, the function generates a WAL record containing the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MakePGDirectory: Creates PostgreSQL directory with proper permissions
-  - OpenTransientFile/CloseTransientFile: File handle management for temporary operations
-  - pgstat_report_wait_start/pgstat_report_wait_end: Wait event reporting for monitoring
+  - [MakePGDirectory](../M/MakePGDirectory.md): Creates PostgreSQL directory with proper permissions
+  - [OpenTransientFile](../O/OpenTransientFile.md)/CloseTransientFile: File handle management for temporary operations
+  - [pgstat_report_wait_start](../p/pgstat_report_wait_start.md)/pgstat_report_wait_end: Wait event reporting for monitoring
   - write: System call for writing version data to file
-  - pg_fsync: PostgreSQL wrapper for fsync system call
+  - [pg_fsync](../p/pg_fsync.md): PostgreSQL wrapper for fsync system call
   - [fsync_fname](../f/fsync_fname.md): Synchronizes directory metadata changes
-  - data_sync_elevel: Determines appropriate error level for sync failures
+  - [data_sync_elevel](../d/data_sync_elevel.md): Determines appropriate error level for sync failures
   - [XLogBeginInsert](../X/XLogBeginInsert.md)/XLogRegisterData/XLogInsert: WAL record construction and insertion
 - Called from (representative examples):
   - [CreateDatabaseUsingWalLog](CreateDatabaseUsingWalLog.md): Uses this during WAL_LOG database creation strategy

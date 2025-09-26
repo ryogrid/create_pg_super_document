@@ -38,12 +38,12 @@ The function uses a parameter execution slot to coordinate between multiple CTE 
   - makeNode: Create new CteScanState node
   - [list_nth](../l/list_nth.md): Retrieve CTE plan state from estate's subplan list
   - castNode: Safely cast parameter value to CteScanState
-  - tuplestore_begin_heap: Create new tuplestore for leader
-  - tuplestore_set_eflags: Configure tuplestore execution flags
-  - tuplestore_alloc_read_pointer: Allocate read pointer for follower
+  - [tuplestore_begin_heap](../t/tuplestore_begin_heap.md): Create new tuplestore for leader
+  - [tuplestore_set_eflags](../t/tuplestore_set_eflags.md): Configure tuplestore execution flags
+  - [tuplestore_alloc_read_pointer](../t/tuplestore_alloc_read_pointer.md): Allocate read pointer for follower
   - [tuplestore_select_read_pointer](../t/tuplestore_select_read_pointer.md): Select active read pointer
   - [tuplestore_rescan](../t/tuplestore_rescan.md): Reset read pointer to beginning
-  - ExecAssignExprContext: Set up expression evaluation context
+  - [ExecAssignExprContext](ExecAssignExprContext.md): Set up expression evaluation context
   - [ExecInitScanTupleSlot](ExecInitScanTupleSlot.md): Initialize scan tuple slot
   - [ExecGetResultType](ExecGetResultType.md): Get result tuple descriptor from CTE plan
   - [ExecInitResultTypeTL](ExecInitResultTypeTL.md): Initialize result type from target list

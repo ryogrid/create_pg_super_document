@@ -20,8 +20,8 @@ This function is responsible for reading the PostgreSQL control file during the 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc](../p/palloc.md)
-  - ReadControlFile
-  - ControlFileData (struct type)
+  - [ReadControlFile](../R/ReadControlFile.md)
+  - [ControlFileData](../C/ControlFileData.md) (struct type)
 - Called from (representative examples):
   - [SubPostmasterMain](../S/SubPostmasterMain.md)
   - [PostmasterMain](../P/PostmasterMain.md)

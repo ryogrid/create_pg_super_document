@@ -36,8 +36,8 @@ When such a dependency is found, the function returns the `refobjid`, which repr
 - Called from (representative examples):
   - [recordDependencyOnCurrentExtension](../r/recordDependencyOnCurrentExtension.md)
   - [checkMembershipInCurrentExtension](../c/checkMembershipInCurrentExtension.md)
-  - pg_extension_config_dump
-  - AlterExtensionNamespace
+  - [pg_extension_config_dump](../p/pg_extension_config_dump.md)
+  - [AlterExtensionNamespace](../A/AlterExtensionNamespace.md)
   - [ExecAlterExtensionContentsRecurse](../E/ExecAlterExtensionContentsRecurse.md)
 
 ## Notes and Other Information

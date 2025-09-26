@@ -35,12 +35,12 @@ Since this is a typedef for a pointer, the actual members are in GlobalTransacti
 
 ## Dependencies
 - Functions that operate on GlobalTransaction:
-  - MarkAsPreparing: Creates and initializes a global transaction entry
-  - StartPrepare: Begins the prepare phase
-  - EndPrepare: Completes the prepare phase
-  - FinishPreparedTransaction: Commits or rolls back prepared transaction
-  - LockGXact: Locks a global transaction for exclusive access
-  - RemoveGXact: Removes global transaction from memory
+  - [MarkAsPreparing](../M/MarkAsPreparing.md): Creates and initializes a global transaction entry
+  - [StartPrepare](../S/StartPrepare.md): Begins the prepare phase
+  - [EndPrepare](../E/EndPrepare.md): Completes the prepare phase
+  - [FinishPreparedTransaction](../F/FinishPreparedTransaction.md): Commits or rolls back prepared transaction
+  - [LockGXact](../L/LockGXact.md): Locks a global transaction for exclusive access
+  - [RemoveGXact](../R/RemoveGXact.md): Removes global transaction from memory
 - Used extensively throughout:
   - Two-phase commit protocol implementation
   - WAL recovery procedures

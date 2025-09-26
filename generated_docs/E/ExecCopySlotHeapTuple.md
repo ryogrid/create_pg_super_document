@@ -23,19 +23,19 @@ The function includes an assertion to ensure the slot is not empty before attemp
 ## Dependencies
 - Functions called/Symbols referenced:
   - TTS_EMPTY (macro for checking if slot is empty)
-  - TupleTableSlot (struct type)
+  - [TupleTableSlot](../T/TupleTableSlot.md) (struct type)
   - tts_ops->copy_heap_tuple (function pointer)
   - MinimalTuple (type referenced in related code)
 - Called from (representative examples):
-  - acquire_sample_rows
-  - tts_heap_copyslot
-  - tts_buffer_heap_copyslot
-  - agg_retrieve_direct
-  - reorderqueue_push
-  - setop_retrieve_direct
-  - ExecScanSubPlan
-  - ExecSetParamPlan
-  - spi_printtup
+  - [acquire_sample_rows](../a/acquire_sample_rows.md)
+  - [tts_heap_copyslot](../t/tts_heap_copyslot.md)
+  - [tts_buffer_heap_copyslot](../t/tts_buffer_heap_copyslot.md)
+  - [agg_retrieve_direct](../a/agg_retrieve_direct.md)
+  - [reorderqueue_push](../r/reorderqueue_push.md)
+  - [setop_retrieve_direct](../s/setop_retrieve_direct.md)
+  - [ExecScanSubPlan](ExecScanSubPlan.md)
+  - [ExecSetParamPlan](ExecSetParamPlan.md)
+  - [spi_printtup](../s/spi_printtup.md)
 
 ## Notes and Other Information
 - The returned HeapTuple is allocated in the caller's current memory context

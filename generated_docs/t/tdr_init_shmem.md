@@ -22,11 +22,11 @@ This function is designed to be called during the DSM segment initialization pha
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `LWLockInitialize` - Initializes the lightweight lock
-  - `LWLockNewTrancheId` - Allocates a new lock tranche ID
-  - `TestDSMRegistryStruct` - The structure type being initialized
+  - `[LWLockInitialize](../L/LWLockInitialize.md)` - Initializes the lightweight lock
+  - `[LWLockNewTrancheId](../L/LWLockNewTrancheId.md)` - Allocates a new lock tranche ID
+  - `[TestDSMRegistryStruct](../T/TestDSMRegistryStruct.md)` - The structure type being initialized
 - Called from (representative examples):
-  - `tdr_attach_shmem` - During DSM segment attachment process
+  - `[tdr_attach_shmem](tdr_attach_shmem.md)` - During DSM segment attachment process
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the same compilation unit

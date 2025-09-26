@@ -34,7 +34,7 @@ The function intentionally does not pass created paths to add_path() since these
   - [bms_is_subset](../b/bms_is_subset.md) (checks if parameterization can be increased)
   - PATH_REQ_OUTER (extracts required outer relations from path)
   - [create_seqscan_path](../c/create_seqscan_path.md), create_samplescan_path, create_bitmap_heap_path (path creation functions)
-  - get_baserel_parampathinfo (retrieves parameterization info for base relations)
+  - [get_baserel_parampathinfo](../g/get_baserel_parampathinfo.md) (retrieves parameterization info for base relations)
   - [cost_index](../c/cost_index.md) (recalculates index scan costs)
   - [create_subqueryscan_path](../c/create_subqueryscan_path.md), create_resultscan_path, create_append_path (specialized path creators)
   - [create_material_path](../c/create_material_path.md), create_memoize_path (utility path creators)

@@ -31,13 +31,13 @@ The function uses a hash table lookup for O(1) average-case buffer retrieval, ma
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_search
-  - MemoryContextSwitchTo
-  - repalloc
-  - lcons
+  - [hash_search](../h/hash_search.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [repalloc](../r/repalloc.md)
+  - [lcons](../l/lcons.md)
 - Called from (representative examples):
-  - gistProcessItup
-  - gistRelocateBuildBuffersOnSplit
+  - [gistProcessItup](gistProcessItup.md)
+  - [gistRelocateBuildBuffersOnSplit](gistRelocateBuildBuffersOnSplit.md)
 
 ## Notes and Other Information
 - Uses HASH_ENTER mode in hash_search to create entries if they don't exist

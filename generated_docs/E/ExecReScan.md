@@ -32,14 +32,14 @@ The function supports a comprehensive set of PostgreSQL plan node types, from ba
   - [InstrEndLoop](../I/InstrEndLoop.md) (timing instrumentation)
   - [UpdateChangedParamSet](../U/UpdateChangedParamSet.md) (parameter propagation)
   - [ExecReScanSetParamPlan](ExecReScanSetParamPlan.md) (InitPlan parameter handling)
-  - ReScanExprContext (expression context reset)
+  - [ReScanExprContext](../R/ReScanExprContext.md) (expression context reset)
   - nodeTag (node type identification)
   - [bms_free](../b/bms_free.md) (memory cleanup)
   - [Node](../N/Node.md)-specific rescan functions (ExecReScanResult, ExecReScanSeqScan, etc.)
 - Called from (representative examples):
   - [ExecutorRewind](ExecutorRewind.md) (main executor rewind)
   - [ExecReScanNestLoop](ExecReScanNestLoop.md) (nested loop joins)
-  - ExecReScanMergeJoin (merge joins)
+  - [ExecReScanMergeJoin](ExecReScanMergeJoin.md) (merge joins)
   - [ExecReScanHashJoin](ExecReScanHashJoin.md) (hash joins)
 
 ## Notes and Other Information

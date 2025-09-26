@@ -25,7 +25,7 @@ Unlike MemoryChunkSetHdrMask, this function doesn't encode block offset or value
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryChunk (structure type)
+  - [MemoryChunk](MemoryChunk.md) (structure type)
   - MemoryContextMethodID (enum type)
   - MEMORY_CONTEXT_METHODID_MASK
   - MEMORYCHUNK_EXTERNAL_BASEBIT

@@ -28,7 +28,7 @@ The 71-character limit is designed to accommodate the longest possible Common Na
 ## Dependencies
 - Functions called/Symbols referenced:
   - `strlen`: Standard C library function to get string length
-  - `pg_clean_ascii`: PostgreSQL utility function that escapes unprintable ASCII characters
+  - `[pg_clean_ascii](pg_clean_ascii.md)`: PostgreSQL utility function that escapes unprintable ASCII characters
 - Called from (representative examples):
   - [verify_cb](../v/verify_cb.md): SSL certificate verification callback function (lines 1234, 1238 in be-secure-openssl.c)
 

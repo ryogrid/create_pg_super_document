@@ -22,7 +22,7 @@ The function uses the planref_resowner_desc descriptor which defines how plan ca
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwnerRemember
+  - [ResourceOwnerRemember](ResourceOwnerRemember.md)
   - [PointerGetDatum](../P/PointerGetDatum.md)
   - planref_resowner_desc (static descriptor)
 - Called from (representative examples):

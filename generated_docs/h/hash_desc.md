@@ -22,7 +22,7 @@ The function handles multiple hash index operations including metadata initializ
 - Functions called/Symbols referenced:
   - XLogRecGetData
   - XLogRecGetInfo
-  - appendStringInfo
+  - [appendStringInfo](../a/appendStringInfo.md)
 - WAL record types handled:
   - XLOG_HASH_INIT_META_PAGE
   - XLOG_HASH_INIT_BITMAP_PAGE
@@ -42,5 +42,5 @@ The function handles multiple hash index operations including metadata initializ
 - This function is primarily used for debugging and administrative purposes
 - Each case in the switch statement corresponds to a specific hash index operation type
 - The function extracts operation-specific details from the WAL record and formats them into descriptive text
-- Boolean values are displayed as 'T' (true) or 'F' (false) for readability
+- [Boolean](../B/Boolean.md) values are displayed as 'T' (true) or 'F' (false) for readability
 - Part of PostgreSQL's resource manager description framework for hash indexes

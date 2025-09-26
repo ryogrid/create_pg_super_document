@@ -39,5 +39,5 @@ The conversion transforms Big5 multibyte characters into MIC format, which uses 
 - This is a PostgreSQL V1 calling convention function (uses PG_FUNCTION_ARGS)
 - The function returns the number of bytes processed from the source string
 - MIC encoding is PostgreSQL's internal format that allows multiple character sets to coexist in the same string
-- Error handling is controlled by the noError parameter - when true, conversion stops on invalid characters without throwing errors
+- Error handling is controlled by the noError parameter - [when](../w/when.md) true, conversion stops on invalid characters without throwing errors
 - Part of PostgreSQL's multibyte character encoding conversion system located in src/backend/utils/mb/conversion_procs/euc_tw_and_big5/euc_tw_and_big5.c:113-128

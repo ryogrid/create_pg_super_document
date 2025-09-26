@@ -24,9 +24,9 @@ The function implements PostgreSQL's pipeline protocol requirements where PGRES_
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQpipelineSync
+  - [PQpipelineSync](../P/PQpipelineSync.md)
   - [PQgetResult](../P/PQgetResult.md)
-  - PQexitPipelineMode
+  - [PQexitPipelineMode](../P/PQexitPipelineMode.md)
   - [PQclear](../P/PQclear.md)
   - pg_log_error
 - Called from (representative examples):

@@ -24,7 +24,7 @@ The function supports five object types for default ACLs: relations (tables), se
 - Functions called/Symbols referenced:
   - ObjectAddressSet
   - strVal/linitial/lsecond/lthird (list manipulation and string value extraction)
-  - list_length
+  - [list_length](../l/list_length.md)
   - [SearchSysCache1](../S/SearchSysCache1.md)/SearchSysCache3 (AUTHNAME and DEFACLROLENSPOBJ cache lookups)
   - [get_namespace_oid](get_namespace_oid.md) (schema name to OID resolution)
   - [CStringGetDatum](../C/CStringGetDatum.md)/ObjectIdGetDatum/CharGetDatum (datum conversion)

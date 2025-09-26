@@ -22,18 +22,18 @@ The function includes an optimization where if the new ACL matches the default p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open, table_close (with ParameterAclRelationId)
+  - [table_open](../t/table_open.md), table_close (with ParameterAclRelationId)
   - [SearchSysCache1](../S/SearchSysCache1.md), ReleaseSysCache (with PARAMETERACLOID)
   - [SysCacheGetAttr](../S/SysCacheGetAttr.md), SysCacheGetAttrNotNull
   - TextDatumGetCString (for parameter name extraction)
   - [acldefault](../a/acldefault.md), aclmembers, aclequal
-  - select_best_grantor
+  - [select_best_grantor](../s/select_best_grantor.md)
   - [restrict_and_check_grant](../r/restrict_and_check_grant.md) (with OBJECT_PARAMETER_ACL)
   - [merge_acl_with_grant](../m/merge_acl_with_grant.md)
   - [heap_modify_tuple](../h/heap_modify_tuple.md), CatalogTupleUpdate, CatalogTupleDelete
   - [updateAclDependencies](../u/updateAclDependencies.md)
   - [recordExtensionInitPriv](../r/recordExtensionInitPriv.md)
-  - CommandCounterIncrement
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md)
 - Called from:
   - [ExecGrantStmt_oids](ExecGrantStmt_oids.md) (when processing parameter privileges)
 

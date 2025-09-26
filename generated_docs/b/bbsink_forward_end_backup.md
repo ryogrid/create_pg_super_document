@@ -23,8 +23,8 @@ The forwarding of endptr and endtli is crucial as these parameters contain the e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbsink_end_backup
-  - bbsink (structure type)
+  - [bbsink_end_backup](bbsink_end_backup.md)
+  - [bbsink](bbsink.md) (structure type)
   - XLogRecPtr (type)
   - TimeLineID (type)
 - Called from (representative examples):

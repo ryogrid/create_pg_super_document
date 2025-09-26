@@ -34,23 +34,23 @@ The function handles several edge cases:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fsm_readbuf
-  - fsm_search_avail
-  - fsm_get_max_avail
-  - fsm_get_heap_blk
-  - fsm_does_block_exist
-  - fsm_set_avail
-  - fsm_get_child
-  - fsm_get_parent
-  - fsm_set_and_search
-  - BufferGetPage
-  - LockBuffer
-  - UnlockReleaseBuffer
-  - ReleaseBuffer
-  - MarkBufferDirtyHint
+  - [fsm_readbuf](fsm_readbuf.md)
+  - [fsm_search_avail](fsm_search_avail.md)
+  - [fsm_get_max_avail](fsm_get_max_avail.md)
+  - [fsm_get_heap_blk](fsm_get_heap_blk.md)
+  - [fsm_does_block_exist](fsm_does_block_exist.md)
+  - [fsm_set_avail](fsm_set_avail.md)
+  - [fsm_get_child](fsm_get_child.md)
+  - [fsm_get_parent](fsm_get_parent.md)
+  - [fsm_set_and_search](fsm_set_and_search.md)
+  - [BufferGetPage](../B/BufferGetPage.md)
+  - [LockBuffer](../L/LockBuffer.md)
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
+  - [ReleaseBuffer](../R/ReleaseBuffer.md)
+  - [MarkBufferDirtyHint](../M/MarkBufferDirtyHint.md)
 - Called from (representative examples):
-  - GetPageWithFreeSpace
-  - RecordAndGetPageWithFreeSpace
+  - [GetPageWithFreeSpace](../G/GetPageWithFreeSpace.md)
+  - [RecordAndGetPageWithFreeSpace](../R/RecordAndGetPageWithFreeSpace.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the freespace.c file

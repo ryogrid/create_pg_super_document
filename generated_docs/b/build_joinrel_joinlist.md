@@ -26,9 +26,9 @@ The function works by calling  twice - once for each input relation's joininfo l
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - subbuild_joinrel_joinlist
+  - [subbuild_joinrel_joinlist](../s/subbuild_joinrel_joinlist.md)
 - Called from (representative examples):
-  - build_join_rel
+  - [build_join_rel](build_join_rel.md)
 
 ## Notes and Other Information
 - This is a static function within relnode.c, used internally for join relation construction

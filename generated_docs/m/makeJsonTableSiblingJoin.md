@@ -26,7 +26,7 @@ This construct is essential for handling JSON_TABLE expressions that contain mul
 - Functions called/Symbols referenced:
   - makeNode: Creates new PostgreSQL parse tree nodes
   - T_JsonTableSiblingJoin: Node type identifier for sibling join plans
-  - JsonTableSiblingJoin: Structure type for sibling join plan nodes
+  - [JsonTableSiblingJoin](../J/JsonTableSiblingJoin.md): Structure type for sibling join plan nodes
 
 - Called from (representative examples):
   - [transformJsonTableNestedColumns](../t/transformJsonTableNestedColumns.md): Used when combining multiple nested column specifications

@@ -39,7 +39,7 @@ The function provides consistent tracing infrastructure using TRACE_POSTGRESQL_B
   - TRACE_POSTGRESQL_BUFFER_EXTEND_START
   - TRACE_POSTGRESQL_BUFFER_EXTEND_DONE
   - RELPERSISTENCE_TEMP
-  - ExtendBufferedRelLocal
+  - [ExtendBufferedRelLocal](ExtendBufferedRelLocal.md)
   - [ExtendBufferedRelShared](ExtendBufferedRelShared.md)
 - Called from (representative examples):
   - [ExtendBufferedRelBy](ExtendBufferedRelBy.md)

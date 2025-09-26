@@ -30,9 +30,9 @@ This function takes no parameters and returns a fully initialized ExprContext po
   - CurrentMemoryContext (uses caller's memory context as per-query context)
 
 - Called from (representative examples):
-  - BuildTupleHashTableExt (in src/backend/executor/execGrouping.c:239)
-  - domain_check_input (in src/backend/utils/adt/domains.c:172)
-  - hypothetical_dense_rank_final (in src/backend/utils/adt/orderedsetaggs.c:1325)
+  - [BuildTupleHashTableExt](../B/BuildTupleHashTableExt.md) (in src/backend/executor/execGrouping.c:239)
+  - [domain_check_input](../d/domain_check_input.md) (in src/backend/utils/adt/domains.c:172)
+  - [hypothetical_dense_rank_final](../h/hypothetical_dense_rank_final.md) (in src/backend/utils/adt/orderedsetaggs.c:1325)
   - do_text_output_oneline (via inline in src/include/executor/executor.h:541)
 
 ## Notes and Other Information

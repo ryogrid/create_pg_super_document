@@ -30,7 +30,7 @@ Currently, constraint attributes are only supported for FOREIGN KEY, UNIQUE, EXC
 ## Dependencies
 - Functions called/Symbols referenced:
   - CreateStmtContext (structure)
-  - Constraint (structure)
+  - [Constraint](../C/Constraint.md) (structure)
   - [List](../L/List.md) (PostgreSQL list structure)
   - lfirst (list iteration macro)
   - IsA (node type checking macro)

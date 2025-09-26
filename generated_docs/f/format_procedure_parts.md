@@ -35,7 +35,7 @@ The function handles missing procedures gracefully when the missing_ok parameter
   - list_make2
   - [pstrdup](../p/pstrdup.md)
   - NameStr
-  - lappend
+  - [lappend](../l/lappend.md)
   - [format_type_be_qualified](format_type_be_qualified.md)
   - [ReleaseSysCache](../R/ReleaseSysCache.md)
 - Called from (representative examples):

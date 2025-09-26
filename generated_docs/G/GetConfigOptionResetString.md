@@ -23,18 +23,18 @@ Note: This function is not re-entrant due to its use of a static result buffer f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_option
-  - ConfigOptionIsVisible
-  - config_enum_lookup_by_value
+  - [find_option](../f/find_option.md)
+  - [ConfigOptionIsVisible](../C/ConfigOptionIsVisible.md)
+  - [config_enum_lookup_by_value](../c/config_enum_lookup_by_value.md)
   - snprintf
   - ereport
 - Data structures used:
-  - config_generic
+  - [config_generic](../c/config_generic.md)
   - config_bool
-  - config_int
-  - config_real
-  - config_string
-  - config_enum
+  - [config_int](../c/config_int.md)
+  - [config_real](../c/config_real.md)
+  - [config_string](../c/config_string.md)
+  - [config_enum](../c/config_enum.md)
 - Constants referenced:
   - PGC_BOOL, PGC_INT, PGC_REAL, PGC_STRING, PGC_ENUM
 - Called from (representative examples):

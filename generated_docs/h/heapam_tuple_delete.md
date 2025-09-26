@@ -30,7 +30,7 @@ The function includes commentary noting that index tuple deletion is typically h
 - Functions called/Symbols referenced:
   - [heap_delete](heap_delete.md)
   - CommandId (type)
-  - TM_FailureData (type)
+  - [TM_FailureData](../T/TM_FailureData.md) (type)
   - TM_Result (type)
 - Called from (representative examples):
   - Used through table access method interface (no direct callers found in indexed code)

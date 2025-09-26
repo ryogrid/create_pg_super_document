@@ -23,15 +23,15 @@ The returned value is used to determine transaction visibility boundaries and is
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AssertTXNLsnOrder (validates LSN ordering in the buffer)
-  - dlist_is_empty (checks if the base snapshot transaction list is empty)
+  - [AssertTXNLsnOrder](../A/AssertTXNLsnOrder.md) (validates LSN ordering in the buffer)
+  - [dlist_is_empty](../d/dlist_is_empty.md) (checks if the base snapshot transaction list is empty)
   - dlist_head_element (retrieves the transaction with the earliest base snapshot LSN)
 - Data structures used:
-  - ReorderBuffer
-  - ReorderBufferTXN
+  - [ReorderBuffer](ReorderBuffer.md)
+  - [ReorderBufferTXN](ReorderBufferTXN.md)
   - TransactionId
 - Called from (representative examples):
-  - SnapBuildProcessRunningXacts (at src/backend/replication/logical/snapbuild.c:1319)
+  - [SnapBuildProcessRunningXacts](../S/SnapBuildProcessRunningXacts.md) (at src/backend/replication/logical/snapbuild.c:1319)
 
 ## Notes and Other Information
 - Returns InvalidTransactionId if no transactions with base snapshots are present

@@ -20,11 +20,11 @@ This function is responsible for tracking checksum validation failures that occu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_get_entry_ref_locked
+  - [pgstat_get_entry_ref_locked](pgstat_get_entry_ref_locked.md)
   - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
-  - pgstat_unlock_entry
+  - [pgstat_unlock_entry](pgstat_unlock_entry.md)
   - PGSTAT_KIND_DATABASE
-  - PgStat_EntryRef
+  - [PgStat_EntryRef](../P/PgStat_EntryRef.md)
   - [PgStatShared_Database](../P/PgStatShared_Database.md)
 - Called from (representative examples):
   - [sendFile](../s/sendFile.md) (in src/backend/backup/basebackup.c:1818)

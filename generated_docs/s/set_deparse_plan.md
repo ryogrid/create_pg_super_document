@@ -32,10 +32,10 @@ This setup is essential for proper variable resolution during expression decompi
 - Functions called/Symbols referenced:
   - deparse_namespace (namespace structure)
   - [Plan](../P/Plan.md) (base plan node structure)
-  - Append, MergeAppend (append-type plan nodes)
-  - SubqueryScan, CteScan, WorkTableScan (scan plan nodes)
+  - [Append](../A/Append.md), MergeAppend (append-type plan nodes)
+  - [SubqueryScan](../S/SubqueryScan.md), CteScan, WorkTableScan (scan plan nodes)
   - [ModifyTable](../M/ModifyTable.md) (modification plan node)
-  - IndexOnlyScan, ForeignScan, CustomScan (specialized scan nodes)
+  - [IndexOnlyScan](../I/IndexOnlyScan.md), ForeignScan, CustomScan (specialized scan nodes)
   - outerPlan, innerPlan (macros to access child plans)
   - linitial (macro to get first list element)
   - [list_nth](../l/list_nth.md) (function to get nth list element)

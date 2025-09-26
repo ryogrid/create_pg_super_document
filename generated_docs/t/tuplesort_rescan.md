@@ -19,16 +19,16 @@ The tuplesort_rescan function enables rescanning of a completed tuple sort by re
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Tuplesortstate (sorting state structure)
+  - [Tuplesortstate](../T/Tuplesortstate.md) (sorting state structure)
   - TUPLESORT_RANDOMACCESS (random access option flag)
   - TSS_SORTEDINMEM (sorted in memory status)
   - TSS_SORTEDONTAPE (sorted on tape status)
-  - LogicalTapeRewindForRead (rewinds tape for reading)
+  - [LogicalTapeRewindForRead](../L/LogicalTapeRewindForRead.md) (rewinds tape for reading)
 - Called from (representative examples):
-  - ExecReScanSort (executor rescan operation)
-  - percentile_disc_final (percentile aggregate function)
-  - percentile_cont_final_common (continuous percentile function)
-  - mode_final (mode aggregate function)
+  - [ExecReScanSort](../E/ExecReScanSort.md) (executor rescan operation)
+  - [percentile_disc_final](../p/percentile_disc_final.md) (percentile aggregate function)
+  - [percentile_cont_final_common](../p/percentile_cont_final_common.md) (continuous percentile function)
+  - [mode_final](../m/mode_final.md) (mode aggregate function)
 
 ## Notes and Other Information
 - Requires TUPLESORT_RANDOMACCESS option to be set during sort initialization

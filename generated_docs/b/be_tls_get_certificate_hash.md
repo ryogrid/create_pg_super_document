@@ -41,5 +41,5 @@ The function retrieves the server certificate from the SSL connection, determine
 - Enforces SHA-256 for certificates signed with weak algorithms (MD5, SHA-1) for security
 - Returns NULL if no server certificate is available
 - Memory for the hash is allocated using palloc() and should be freed by the caller
-- Hash size can vary depending on the algorithm used (e.g., SHA-256 = 32 bytes, SHA-512 = 64 bytes)
+- [Hash](../H/Hash.md) size can vary depending on the algorithm used (e.g., SHA-256 = 32 bytes, SHA-512 = 64 bytes)
 - Critical for SCRAM-SHA-256-PLUS authentication which requires certificate channel binding

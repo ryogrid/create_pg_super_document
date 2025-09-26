@@ -22,15 +22,15 @@ The function is defined as a static inline function in the header file, meaning 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetInt32 (underlying conversion mechanism)
+  - [DatumGetInt32](DatumGetInt32.md) (underlying conversion mechanism)
   - DateADT (target type for conversion)
 - Called from (representative examples):
-  - JsonEncodeDateTime (JSON encoding operations)
-  - executeDateTimeMethod (JSON path execution)
-  - compareDatetime (date comparison operations)
-  - daterange_canonical (range type operations)
-  - convert_timevalue_to_scalar (statistics estimation)
-  - map_sql_value_to_xml_value (XML conversion)
+  - [JsonEncodeDateTime](../J/JsonEncodeDateTime.md) (JSON encoding operations)
+  - [executeDateTimeMethod](../e/executeDateTimeMethod.md) (JSON path execution)
+  - [compareDatetime](../c/compareDatetime.md) (date comparison operations)
+  - [daterange_canonical](../d/daterange_canonical.md) (range type operations)
+  - [convert_timevalue_to_scalar](../c/convert_timevalue_to_scalar.md) (statistics estimation)
+  - [map_sql_value_to_xml_value](../m/map_sql_value_to_xml_value.md) (XML conversion)
   - PG_GETARG_DATEADT (function argument extraction macro)
 
 ## Notes and Other Information

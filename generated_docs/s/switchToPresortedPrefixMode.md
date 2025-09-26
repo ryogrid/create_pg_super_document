@@ -32,20 +32,20 @@ The optimization is based on the assumption that if we've seen many tuples with 
 - Functions called/Symbols referenced:
   - castNode (safely cast plan state to IncrementalSortState)
   - outerPlanState (get outer plan state)
-  - ExecGetResultType (get tuple descriptor from outer node)
-  - tuplesort_begin_heap (create new tuplesort state for prefix sorting)
-  - tuplesort_reset (reset existing tuplesort state)
-  - tuplesort_set_bound (set bound for bounded sorts)
-  - tuplesort_gettupleslot (get tuple from full sort state)
-  - tuplesort_puttupleslot (put tuple into prefix sort state)
-  - tuplesort_performsort (perform the prefix sort)
-  - isCurrentGroup (check if tuple belongs to current group)
-  - ExecCopySlot (copy tuple between slots)
-  - ExecClearTuple (clear tuple slot)
+  - [ExecGetResultType](../E/ExecGetResultType.md) (get tuple descriptor from outer node)
+  - [tuplesort_begin_heap](../t/tuplesort_begin_heap.md) (create new tuplesort state for prefix sorting)
+  - [tuplesort_reset](../t/tuplesort_reset.md) (reset existing tuplesort state)
+  - [tuplesort_set_bound](../t/tuplesort_set_bound.md) (set bound for bounded sorts)
+  - [tuplesort_gettupleslot](../t/tuplesort_gettupleslot.md) (get tuple from full sort state)
+  - [tuplesort_puttupleslot](../t/tuplesort_puttupleslot.md) (put tuple into prefix sort state)
+  - [tuplesort_performsort](../t/tuplesort_performsort.md) (perform the prefix sort)
+  - [isCurrentGroup](../i/isCurrentGroup.md) (check if tuple belongs to current group)
+  - [ExecCopySlot](../E/ExecCopySlot.md) (copy tuple between slots)
+  - [ExecClearTuple](../E/ExecClearTuple.md) (clear tuple slot)
   - INSTRUMENT_SORT_GROUP (macro for instrumentation)
   - Various constants: INCSORT_LOADPREFIXSORT, INCSORT_READPREFIXSORT, TUPLESORT_ALLOWBOUNDED, TUPLESORT_NONE
 - Called from (representative examples):
-  - ExecIncrementalSort (main execution function, multiple decision points)
+  - [ExecIncrementalSort](../E/ExecIncrementalSort.md) (main execution function, multiple decision points)
 
 ## Notes and Other Information
 - This function is called when the algorithm detects a potentially large prefix group

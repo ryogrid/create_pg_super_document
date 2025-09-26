@@ -38,7 +38,7 @@ This walker is particularly important during CTE analysis and other early-stage 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth (stack overflow protection)
+  - [check_stack_depth](../c/check_stack_depth.md) (stack overflow protection)
   - nodeTag (node type identification macro)
   - WALK (recursive traversal macro)
   - elog (error logging for unrecognized nodes)

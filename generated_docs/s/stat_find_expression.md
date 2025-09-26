@@ -22,7 +22,7 @@ This static function performs a linear search through a statistics object's expr
 ## Dependencies
 - Functions called/Symbols referenced:
   - [equal](../e/equal.md) (PostgreSQL node comparison function)
-  - StatisticExtInfo (type)
+  - [StatisticExtInfo](../S/StatisticExtInfo.md) (type)
   - [Node](../N/Node.md) (PostgreSQL expression tree node type)
   - [List](../L/List.md) operations (foreach, lfirst)
 - Called from (representative examples):

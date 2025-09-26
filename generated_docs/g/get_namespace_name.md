@@ -36,7 +36,7 @@ The get_namespace_name function retrieves the name of a namespace (schema) from 
   - [DefineCollation](../D/DefineCollation.md)
   - [CreateFunction](../C/CreateFunction.md)
   - [DefineIndex](../D/DefineIndex.md)
-  - SPI_getnspname
+  - [SPI_getnspname](../S/SPI_getnspname.md)
   - [current_schema](../c/current_schema.md)
   - [regprocout](../r/regprocout.md)
   - [get_namespace_name_or_temp](get_namespace_name_or_temp.md)

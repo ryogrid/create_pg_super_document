@@ -22,14 +22,14 @@ This function parses one filter item from a filter file in the format: `<command
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_get_line_buf
+  - [pg_get_line_buf](../p/pg_get_line_buf.md)
   - [filter_get_keyword](filter_get_keyword.md)
   - is_keyword_str
   - [get_object_type](../g/get_object_type.md)
   - [read_pattern](../r/read_pattern.md)
   - [pg_log_filter_error](../p/pg_log_filter_error.md)
   - [exit_nicely](../e/exit_nicely.md) (via fstate function pointer)
-  - initPQExpBuffer
+  - [initPQExpBuffer](../i/initPQExpBuffer.md)
   - isspace (standard C library)
   - ferror (standard C library)
   - FilterStateData, FilterCommandType, FilterObjectType, PQExpBufferData (struct/enum types)

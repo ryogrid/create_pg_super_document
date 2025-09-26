@@ -29,7 +29,7 @@ The function leverages PostgreSQL's projection infrastructure to efficiently com
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ProjectionInfo](../P/ProjectionInfo.md) (struct type)
-  - ExecProject
+  - [ExecProject](ExecProject.md)
   - RelationGetRelid
 - Called from (representative examples):
   - [ExecInsert](ExecInsert.md)

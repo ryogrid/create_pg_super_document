@@ -31,7 +31,7 @@ The function extracts two NUMERIC arguments from the function call arguments, de
 - Called from:
   - SQL greater-than operator expressions
   - PostgreSQL operator dispatch system
-  - Numeric comparison operations
+  - [Numeric](../N/Numeric.md) comparison operations
 
 ## Notes and Other Information
 - The function follows PostgreSQL's standard function calling convention using 

@@ -23,8 +23,8 @@ This function handles the complex memory management requirements for aggregate t
 ## Dependencies
 - Functions called/Symbols referenced:
   - DatumIsReadWriteExpandedObject
-  - DatumGetEOHP
-  - MemoryContextGetParent
+  - [DatumGetEOHP](../D/DatumGetEOHP.md)
+  - [MemoryContextGetParent](../M/MemoryContextGetParent.md)
   - [datumCopy](../d/datumCopy.md)
   - [DeleteExpandedObject](../D/DeleteExpandedObject.md)
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)

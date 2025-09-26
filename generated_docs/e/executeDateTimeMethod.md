@@ -23,7 +23,7 @@ The `executeDateTimeMethod` function provides comprehensive datetime conversion 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [getScalar](../g/getScalar.md): Converts input to string scalar
-  - cstring_to_text_with_len: Converts C strings to PostgreSQL text
+  - [cstring_to_text_with_len](../c/cstring_to_text_with_len.md): Converts C strings to PostgreSQL text
   - [parse_datetime](../p/parse_datetime.md): Core datetime parsing function with template support
   - [jspGetArg](../j/jspGetArg.md)/jspGetString/jspGetNumeric: Extract arguments from JSON path items
   - DirectFunctionCall1: Execute PostgreSQL type conversion functions
@@ -31,7 +31,7 @@ The `executeDateTimeMethod` function provides comprehensive datetime conversion 
   - Various datetime conversion functions (timestamp_date, timetz_time, etc.)
   - [anytime_typmod_check](../a/anytime_typmod_check.md)/anytimestamp_typmod_check: Validate time precision
   - [AdjustTimeForTypmod](../A/AdjustTimeForTypmod.md)/AdjustTimestampForTypmod: Apply precision to datetime values
-  - DetermineTimeZoneOffset: Calculate timezone offsets
+  - [DetermineTimeZoneOffset](../D/DetermineTimeZoneOffset.md): Calculate timezone offsets
   - [executeNextItem](executeNextItem.md): Continue JSON path evaluation
 - Called from (representative examples):
   - [executeItemOptUnwrapTarget](executeItemOptUnwrapTarget.md): Main item execution dispatcher

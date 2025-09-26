@@ -30,7 +30,7 @@ The function behaves differently based on the GUC source - for test scenarios (P
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SplitIdentifierString
+  - [SplitIdentifierString](../S/SplitIdentifierString.md)
   - GUC_check_errdetail
   - [IsTransactionState](../I/IsTransactionState.md)
   - [get_tablespace_oid](../g/get_tablespace_oid.md)

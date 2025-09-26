@@ -22,7 +22,7 @@ This function handles the execution of the \watch command in psql, which provide
 - Functions called/Symbols referenced:
   - psql_scan_slash_option: Parses command arguments with flexible name=value syntax
   - strtod: Converts string interval values to double precision
-  - strtoint: Converts string count/min_rows values to integers
+  - [strtoint](../s/strtoint.md): Converts string count/min_rows values to integers
   - [copy_previous_query](../c/copy_previous_query.md): Recalls previous query when current buffer is empty
   - [do_watch](../d/do_watch.md): Core execution function that performs the repeated query execution
   - [resetPQExpBuffer](../r/resetPQExpBuffer.md): Clears the query buffer after execution

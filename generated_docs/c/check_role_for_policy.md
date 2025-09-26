@@ -26,7 +26,7 @@ The function performs a quick optimization for policies that apply to all roles 
   - ARR_DATA_PTR (macro to access array data)
   - ACL_ID_PUBLIC (constant representing the public role)
   - ARR_DIMS (macro to access array dimensions)
-  - has_privs_of_role (function to check role privilege inheritance)
+  - [has_privs_of_role](../h/has_privs_of_role.md) (function to check role privilege inheritance)
 - Called from (representative examples):
   - [get_policies_for_relation](../g/get_policies_for_relation.md) (multiple call sites at lines 599, 636, 650)
 

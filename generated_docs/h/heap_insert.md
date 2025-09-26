@@ -33,7 +33,7 @@ The insertion process involves several critical steps: preparing the tuple (incl
   - [visibilitymap_clear](../v/visibilitymap_clear.md)
   - [XLogInsert](../X/XLogInsert.md) (and related WAL functions)
   - [CacheInvalidateHeapTuple](../C/CacheInvalidateHeapTuple.md)
-  - pgstat_count_heap_insert
+  - [pgstat_count_heap_insert](../p/pgstat_count_heap_insert.md)
   - [heap_freetuple](heap_freetuple.md)
 - Called from (representative examples):
   - [simple_heap_insert](../s/simple_heap_insert.md)

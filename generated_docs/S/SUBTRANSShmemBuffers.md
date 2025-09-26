@@ -26,8 +26,8 @@ This function takes no parameters and returns an integer representing the number
   - SLRU_MAX_ALLOWED_BUFFERS (maximum buffer limit for SLRU systems)
   - subtransaction_buffers (global configuration variable)
 - Called from (representative examples):
-  - SUBTRANSShmemSize (to calculate total shared memory requirements)
-  - SUBTRANSShmemInit (during SUBTRANS initialization)
+  - [SUBTRANSShmemSize](SUBTRANSShmemSize.md) (to calculate total shared memory requirements)
+  - [SUBTRANSShmemInit](SUBTRANSShmemInit.md) (during SUBTRANS initialization)
 
 ## Notes and Other Information
 - The auto-tuning algorithm uses SimpleLruAutotuneBuffers(512, 1024) which implements a 2MB per 1GB ratio with an 8MB cap

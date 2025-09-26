@@ -23,11 +23,11 @@ The function allocates memory for an array of OpfamilyInfo structures and initia
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - createPQExpBuffer
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)
   - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
   - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
   - [PQntuples](../P/PQntuples.md)
-  - pg_malloc
+  - [pg_malloc](../p/pg_malloc.md)
   - [PQfnumber](../P/PQfnumber.md)
   - [PQgetvalue](../P/PQgetvalue.md)
   - atooid
@@ -37,7 +37,7 @@ The function allocates memory for an array of OpfamilyInfo structures and initia
   - [getRoleName](getRoleName.md)
   - [selectDumpableObject](../s/selectDumpableObject.md)
   - [PQclear](../P/PQclear.md)
-  - destroyPQExpBuffer
+  - [destroyPQExpBuffer](../d/destroyPQExpBuffer.md)
 - Called from (representative examples):
   - [getSchemaData](getSchemaData.md)
 

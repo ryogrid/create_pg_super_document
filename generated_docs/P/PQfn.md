@@ -29,16 +29,16 @@ The function is incompatible with pipeline mode and requires the connection to b
 - Functions called/Symbols referenced:
   - pqClearConnErrorState
   - pgHavePendingResult
-  - pqFunctionCall3
-  - libpq_append_conn_error
+  - [pqFunctionCall3](../p/pqFunctionCall3.md)
+  - [libpq_append_conn_error](../l/libpq_append_conn_error.md)
 - Types used:
   - PQArgBlock
   - PQ_PIPELINE_OFF
   - PGINVALID_SOCKET
   - PGASYNC_IDLE
 - Called from (representative examples):
-  - lo_open, lo_close, lo_read, lo_write (large object functions)
-  - lo_create, lo_unlink, lo_lseek (large object operations)
+  - [lo_open](../l/lo_open.md), lo_close, lo_read, lo_write (large object functions)
+  - [lo_create](../l/lo_create.md), lo_unlink, lo_lseek (large object operations)
 
 ## Notes and Other Information
 - Not allowed in pipeline mode - will return NULL with an error message

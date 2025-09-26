@@ -35,7 +35,7 @@ The DST status is returned through the `isdst` output parameter rather than bein
   - fsec_t (type)
   - [DetermineTimeZoneAbbrevOffsetInternal](DetermineTimeZoneAbbrevOffsetInternal.md)
   - [timestamp2tm](../t/timestamp2tm.md)
-  - DetermineTimeZoneOffset
+  - [DetermineTimeZoneOffset](DetermineTimeZoneOffset.md)
 - Called from (representative examples):
   - [timetz_zone](../t/timetz_zone.md)
   - [pg_timezone_abbrevs](../p/pg_timezone_abbrevs.md)

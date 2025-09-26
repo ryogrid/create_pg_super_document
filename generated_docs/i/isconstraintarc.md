@@ -27,16 +27,16 @@ The function checks the arc's type against known constraint types and returns 1 
   - '^' (start-of-line anchor character)
   - '$' (end-of-line anchor character)
 - Called from:
-  - hasconstraintout
-  - fixconstraintloops
-  - findconstraintloop
-  - breakconstraintloop
-  - clonesuccessorstates
+  - [hasconstraintout](../h/hasconstraintout.md)
+  - [fixconstraintloops](../f/fixconstraintloops.md)
+  - [findconstraintloop](../f/findconstraintloop.md)
+  - [breakconstraintloop](../b/breakconstraintloop.md)
+  - [clonesuccessorstates](../c/clonesuccessorstates.md)
   - REPLACEARC
 
 ## Notes and Other Information
 - The function is declared as `inline` for performance, as it's frequently called during NFA optimization
-- Constraint types recognized include:
+- [Constraint](../C/Constraint.md) types recognized include:
   - '^': Start-of-line anchor
   - '$': End-of-line anchor
   - BEHIND: Lookbehind assertion

@@ -35,7 +35,7 @@ The function handles both big-endian and little-endian architectures through con
 - Called from (representative examples):
   - `FIN_CRC32C` (macro in pg_crc32c.h)
   - `COMP_CRC32C` (macro in pg_crc32c.h)  
-  - `pg_comp_crc32c_choose` (runtime selection functions)
+  - `[pg_comp_crc32c_choose](pg_comp_crc32c_choose.md)` (runtime selection functions)
 
 ## Notes and Other Information
 - This implementation is used as the fallback CRC-32C algorithm when hardware-accelerated instructions (SSE 4.2, ARMv8 CRC, LoongArch CRCC) are not available

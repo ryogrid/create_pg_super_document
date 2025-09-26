@@ -21,7 +21,7 @@ pq_getbytes is designed for reading larger chunks of data from the client connec
   - [pq_recvbuf](pq_recvbuf.md)
 - Called from (representative examples):
   - [secure_open_server](../s/secure_open_server.md)
-  - pq_getmessage
+  - [pq_getmessage](pq_getmessage.md)
   - [ProcessStartupPacket](../P/ProcessStartupPacket.md)
 
 ## Notes and Other Information

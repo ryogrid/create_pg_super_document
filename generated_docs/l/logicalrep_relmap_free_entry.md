@@ -26,14 +26,14 @@ This function is crucial for maintaining proper memory management in the logical
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree (PostgreSQL memory deallocation)
-  - bms_free (bitmap set deallocation)
-  - free_attrmap (attribute map cleanup utility)
-  - LogicalRepRelMapEntry (entry structure type)
-  - LogicalRepRelation (relation metadata structure)
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation)
+  - [bms_free](../b/bms_free.md) (bitmap set deallocation)
+  - [free_attrmap](../f/free_attrmap.md) (attribute map cleanup utility)
+  - [LogicalRepRelMapEntry](../L/LogicalRepRelMapEntry.md) (entry structure type)
+  - [LogicalRepRelation](../L/LogicalRepRelation.md) (relation metadata structure)
 - Called from (representative examples):
-  - logicalrep_relmap_update
-  - logicalrep_partmap_reset_relmap
+  - [logicalrep_relmap_update](logicalrep_relmap_update.md)
+  - [logicalrep_partmap_reset_relmap](logicalrep_partmap_reset_relmap.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the relation.c file

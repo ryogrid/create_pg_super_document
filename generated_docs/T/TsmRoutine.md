@@ -45,15 +45,15 @@ The design allows for extensible sampling methods while maintaining a consistent
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (from nodes system)
-  - List (from nodes/pg_list.h)
+  - [List](../L/List.md) (from nodes/pg_list.h)
 - Called from (representative examples):
-  - tsm_bernoulli_handler
-  - tsm_system_handler
-  - GetTsmRoutine
-  - ExecInitSampleScan
-  - tablesample_init
-  - set_tablesample_rel_size
-  - cost_samplescan
+  - [tsm_bernoulli_handler](../t/tsm_bernoulli_handler.md)
+  - [tsm_system_handler](../t/tsm_system_handler.md)
+  - [GetTsmRoutine](../G/GetTsmRoutine.md)
+  - [ExecInitSampleScan](../E/ExecInitSampleScan.md)
+  - [tablesample_init](../t/tablesample_init.md)
+  - [set_tablesample_rel_size](../s/set_tablesample_rel_size.md)
+  - [cost_samplescan](../c/cost_samplescan.md)
 
 ## Notes and Other Information
 - The structure should be initialized using makeNode(TsmRoutine) to ensure all fields are properly set to NULL, which is important for forward compatibility as new function pointers may be added in future PostgreSQL versions

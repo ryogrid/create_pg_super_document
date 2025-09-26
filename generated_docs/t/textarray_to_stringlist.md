@@ -22,7 +22,7 @@ textarray_to_stringlist is a static utility function that transforms a PostgreSQ
   - [deconstruct_array_builtin](../d/deconstruct_array_builtin.md) (extract array elements into datums)
   - TextDatumGetCString (convert text datum to C string)
   - [makeString](../m/makeString.md) (create String node from C string)
-  - lappend (append element to list)
+  - [lappend](../l/lappend.md) (append element to list)
 - Called from (representative examples):
   - [GetSubscription](../G/GetSubscription.md) (convert subscription publications array to string list)
 

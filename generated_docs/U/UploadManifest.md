@@ -28,10 +28,10 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwnerCreate
+  - [ResourceOwnerCreate](../R/ResourceOwnerCreate.md)
   - AllocSetContextCreate
   - CreateIncrementalBackupInfo
-  - pq_beginmessage
+  - [pq_beginmessage](../p/pq_beginmessage.md)
   - [pq_sendbyte](../p/pq_sendbyte.md)
   - [pq_sendint16](../p/pq_sendint16.md)
   - [pq_endmessage_reuse](../p/pq_endmessage_reuse.md)
@@ -39,7 +39,7 @@ This function takes no parameters.
   - [HandleUploadManifestPacket](../H/HandleUploadManifestPacket.md)
   - [FinalizeIncrementalManifest](../F/FinalizeIncrementalManifest.md)
   - [MemoryContextDelete](../M/MemoryContextDelete.md)
-  - MemoryContextSetParent
+  - [MemoryContextSetParent](../M/MemoryContextSetParent.md)
   - [WalSndResourceCleanup](../W/WalSndResourceCleanup.md)
 - Called from:
   - [exec_replication_command](../e/exec_replication_command.md)

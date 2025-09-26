@@ -24,8 +24,8 @@ This function checks whether a doubly-linked count list (dclist) contains any el
   - [dclist_head](dclist_head.md) (parameter type)
 - Called from (representative examples):
   - [RemoveFromWaitQueue](../R/RemoveFromWaitQueue.md) (src/backend/storage/lmgr/lock.c:1919)
-  - ProcSleep (src/backend/storage/lmgr/proc.c:1130)
-  - ProcLockWakeup (src/backend/storage/lmgr/proc.c:1717)
+  - [ProcSleep](../P/ProcSleep.md) (src/backend/storage/lmgr/proc.c:1130)
+  - [ProcLockWakeup](../P/ProcLockWakeup.md) (src/backend/storage/lmgr/proc.c:1717)
   - [dclist_head_element_off](dclist_head_element_off.md) (src/include/lib/ilist.h:890)
   - [dclist_tail_element_off](dclist_tail_element_off.md) (src/include/lib/ilist.h:911)
 

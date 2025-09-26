@@ -23,10 +23,10 @@ The writer is designed to work with sorted BlockRefTableEntry objects, and the c
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc0](../p/palloc0.md) (memory allocation)
-  - BlockRefTableWrite (writes data through the buffer)
+  - [BlockRefTableWrite](../B/BlockRefTableWrite.md) (writes data through the buffer)
   - INIT_CRC32C (initializes CRC checksum)
   - BLOCKREFTABLE_MAGIC (magic number constant)
-  - BlockRefTableWriter (return type structure)
+  - [BlockRefTableWriter](../B/BlockRefTableWriter.md) (return type structure)
 
 - Called from (representative examples):
   - Functions that need to create incremental block reference table writers

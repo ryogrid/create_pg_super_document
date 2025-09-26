@@ -26,20 +26,20 @@ For each valid script file found, it creates ExtensionVersionInfo structures and
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_extension_script_directory](get_extension_script_directory.md)
-  - AllocateDir
-  - ReadDir 
-  - FreeDir
+  - [AllocateDir](../A/AllocateDir.md)
+  - [ReadDir](../R/ReadDir.md) 
+  - [FreeDir](../F/FreeDir.md)
   - [is_extension_script_filename](../i/is_extension_script_filename.md)
   - [get_ext_ver_info](get_ext_ver_info.md)
   - [pstrdup](../p/pstrdup.md)
   - strrchr
   - strstr
-  - lappend
+  - [lappend](../l/lappend.md)
 - Called from (representative examples):
   - [identify_update_path](../i/identify_update_path.md)
   - [CreateExtensionInternal](../C/CreateExtensionInternal.md)
   - [get_available_versions_for_extension](get_available_versions_for_extension.md)
-  - pg_extension_update_paths
+  - [pg_extension_update_paths](../p/pg_extension_update_paths.md)
 
 ## Notes and Other Information
 - Static function only used within extension.c module

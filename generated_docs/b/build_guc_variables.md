@@ -39,8 +39,8 @@ This function takes no parameters.
   - ConfigureNamesReal
   - ConfigureNamesString
   - ConfigureNamesEnum
-  - HASHCTL
-  - GUCHashEntry
+  - [HASHCTL](../H/HASHCTL.md)
+  - [GUCHashEntry](../G/GUCHashEntry.md)
 - Called from:
   - [InitializeGUCOptions](../I/InitializeGUCOptions.md) (src/backend/utils/misc/guc.c:1546)
   - [GucInfoMain](../G/GucInfoMain.md) (src/backend/utils/misc/help_config.c:53)

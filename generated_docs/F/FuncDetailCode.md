@@ -36,21 +36,21 @@ The enum covers all possible outcomes of function lookup, from complete failure 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParseFuncOrColumn
-  - func_get_detail
-  - FuncCall
+  - [ParseFuncOrColumn](../P/ParseFuncOrColumn.md)
+  - [func_get_detail](../f/func_get_detail.md)
+  - [FuncCall](FuncCall.md)
   - FuncCandidateList
   - ObjectType
-  - ObjectWithArgs
+  - [ObjectWithArgs](../O/ObjectWithArgs.md)
 
 - Called from (representative examples):
-  - lookup_agg_function (src/backend/catalog/pg_aggregate.c:837)
-  - ParseFuncOrColumn (src/backend/parser/parse_func.c:117)
-  - func_select_candidate (src/backend/parser/parse_func.c:1394)
-  - func_get_detail (src/backend/parser/parse_func.c:1580)
-  - binary_oper_exact (src/backend/parser/parse_oper.c:311)
-  - oper (src/backend/parser/parse_oper.c:376)
-  - left_oper (src/backend/parser/parse_oper.c:523)
+  - [lookup_agg_function](../l/lookup_agg_function.md) (src/backend/catalog/pg_aggregate.c:837)
+  - [ParseFuncOrColumn](../P/ParseFuncOrColumn.md) (src/backend/parser/parse_func.c:117)
+  - [func_select_candidate](../f/func_select_candidate.md) (src/backend/parser/parse_func.c:1394)
+  - [func_get_detail](../f/func_get_detail.md) (src/backend/parser/parse_func.c:1580)
+  - [binary_oper_exact](../b/binary_oper_exact.md) (src/backend/parser/parse_oper.c:311)
+  - [oper](../o/oper.md) (src/backend/parser/parse_oper.c:376)
+  - [left_oper](../l/left_oper.md) (src/backend/parser/parse_oper.c:523)
 
 ## Notes and Other Information
 - This enum is central to PostgreSQL's function resolution system and is used extensively throughout the parser

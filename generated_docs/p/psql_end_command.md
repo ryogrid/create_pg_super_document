@@ -22,11 +22,11 @@ Before executing the command, the function flushes all output streams to ensure 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendStringInfo
+  - [appendStringInfo](../a/appendStringInfo.md)
   - fflush
   - system (standard C library)
   - bail
-  - destroyStringInfo
+  - [destroyStringInfo](../d/destroyStringInfo.md)
 - Called from (representative examples):
   - psql_command
   - [drop_database_if_exists](../d/drop_database_if_exists.md)

@@ -20,7 +20,7 @@ ReadStr reads a string from a PostgreSQL archive by first reading an integer rep
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReadInt](ReadInt.md)
-  - pg_malloc
+  - [pg_malloc](../p/pg_malloc.md)
 - Called from (representative examples):
   - [ReadToc](ReadToc.md)
   - [ReadHead](ReadHead.md)

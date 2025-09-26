@@ -30,19 +30,19 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationMapInitializePhase3
-  - MemoryContextSwitchTo
+  - [RelationMapInitializePhase3](RelationMapInitializePhase3.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - IsBootstrapProcessingMode
-  - load_relcache_init_file
-  - formrdesc
-  - load_critical_index
-  - hash_seq_init
-  - hash_seq_search
-  - HASH_SEQ_STATUS
-  - RelIdCacheEnt
+  - [load_relcache_init_file](../l/load_relcache_init_file.md)
+  - [formrdesc](../f/formrdesc.md)
+  - [load_critical_index](../l/load_critical_index.md)
+  - [hash_seq_init](../h/hash_seq_init.md)
+  - [hash_seq_search](../h/hash_seq_search.md)
+  - [HASH_SEQ_STATUS](../H/HASH_SEQ_STATUS.md)
+  - [RelIdCacheEnt](RelIdCacheEnt.md)
   - CacheMemoryContext
 - Called from (representative examples):
-  - InitPostgres (main caller during backend initialization)
+  - [InitPostgres](../I/InitPostgres.md) (main caller during backend initialization)
 
 ## Notes and Other Information
 - This is the final phase of the three-phase relation cache initialization sequence

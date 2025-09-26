@@ -65,13 +65,13 @@ For performance optimization, the structure includes caching fields specifically
 
 ## Dependencies
 - Types referenced:
-  - PartitionBoundInfo (partition boundary information structure)
+  - [PartitionBoundInfo](PartitionBoundInfo.md) (partition boundary information structure)
   - Oid (PostgreSQL object identifier type)
-  - bool (boolean type)
+  - [bool](../b/bool.md) (boolean type)
   - int (integer type)
 - Used by:
-  - PartitionDesc (typedef pointer to PartitionDescData)
-  - RelationBuildPartitionDesc (function that builds partition descriptors)
+  - [PartitionDesc](PartitionDesc.md) (typedef pointer to PartitionDescData)
+  - [RelationBuildPartitionDesc](../R/RelationBuildPartitionDesc.md) (function that builds partition descriptors)
 
 ## Notes and Other Information
 - For partitioned tables with detached partitions, PostgreSQL only caches descriptors that include all partitions. When a descriptor without detached partitions is requested, it's created fresh each time to handle snapshot-dependent visibility

@@ -31,12 +31,12 @@ The reverse iteration approach is efficient because resources are pre-sorted by 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceReleasePhase (enum type)
-  - ResourceOwner (struct type)
-  - ResourceElem (struct type)
-  - ResourceOwnerDesc (struct type)
+  - [ResourceReleasePhase](ResourceReleasePhase.md) (enum type)
+  - [ResourceOwner](ResourceOwner.md) (struct type)
+  - [ResourceElem](ResourceElem.md) (struct type)
+  - [ResourceOwnerDesc](ResourceOwnerDesc.md) (struct type)
 - Called from (representative examples):
-  - ResourceOwnerReleaseInternal (as part of the multi-phase resource cleanup process)
+  - [ResourceOwnerReleaseInternal](ResourceOwnerReleaseInternal.md) (as part of the multi-phase resource cleanup process)
 
 ## Notes and Other Information
 - This is a static function accessible only within the resowner.c compilation unit

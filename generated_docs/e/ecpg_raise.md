@@ -24,16 +24,16 @@ The  function is the central error reporting mechanism for the ECPG library. It 
 - Functions called/Symbols referenced:
   - ECPGget_sqlca
   - [ecpg_log](ecpg_log.md)
-  - ECPGfree_auto_mem
-  - ecpg_gettext (for internationalization)
+  - [ECPGfree_auto_mem](../E/ECPGfree_auto_mem.md)
+  - [ecpg_gettext](ecpg_gettext.md) (for internationalization)
   - snprintf (for string formatting)
   - strlen
 - Called from (representative examples):
   - [ECPGconnect](../E/ECPGconnect.md)
-  - ecpg_get_data
+  - [ecpg_get_data](ecpg_get_data.md)
   - [ecpg_check_PQresult](ecpg_check_PQresult.md)
-  - ecpg_store_result
-  - ecpg_process_output
+  - [ecpg_store_result](ecpg_store_result.md)
+  - [ecpg_process_output](ecpg_process_output.md)
 
 ## Notes and Other Information
 - Sets sqlca->sqlcode to the provided error code

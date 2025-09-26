@@ -26,7 +26,7 @@ This function handles the removal of support procedure (support function) entrie
 - Functions called/Symbols referenced:
   - GetSysCacheOid4
   - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
-  - Int16GetDatum
+  - [Int16GetDatum](../I/Int16GetDatum.md)
   - OidIsValid
   - ereport
   - [format_type_be](../f/format_type_be.md)

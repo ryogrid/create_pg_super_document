@@ -31,29 +31,29 @@ The function includes several important optimizations and safety measures:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_beginscan_tid
-  - ExecEvalExprSwitchContext
-  - table_tuple_tid_valid
+  - [table_beginscan_tid](../t/table_beginscan_tid.md)
+  - [ExecEvalExprSwitchContext](../E/ExecEvalExprSwitchContext.md)
+  - [table_tuple_tid_valid](../t/table_tuple_tid_valid.md)
   - DatumGetArrayTypeP
-  - deconstruct_array_builtin
-  - execCurrentOf
-  - repalloc
+  - [deconstruct_array_builtin](../d/deconstruct_array_builtin.md)
+  - [execCurrentOf](../e/execCurrentOf.md)
+  - [repalloc](../r/repalloc.md)
   - pjfree
   - qsort
-  - qunique
-  - itemptr_comparator
-  - DatumGetPointer
+  - [qunique](../q/qunique.md)
+  - [itemptr_comparator](../i/itemptr_comparator.md)
+  - [DatumGetPointer](../D/DatumGetPointer.md)
   - RelationGetRelid
 - Types used:
-  - TidScanState
-  - ExprContext
-  - TableScanDesc
-  - ItemPointerData
-  - TidExpr
-  - ArrayType
+  - [TidScanState](TidScanState.md)
+  - [ExprContext](../E/ExprContext.md)
+  - [TableScanDesc](TableScanDesc.md)
+  - [ItemPointerData](../I/ItemPointerData.md)
+  - [TidExpr](TidExpr.md)
+  - [ArrayType](../A/ArrayType.md)
   - ItemPointer
 - Called from:
-  - TidNext
+  - [TidNext](TidNext.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within nodeTidscan.c

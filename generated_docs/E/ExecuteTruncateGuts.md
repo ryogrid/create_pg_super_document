@@ -67,4 +67,4 @@ The function handles both regular tables and foreign tables, supports inheritanc
 - WAL logging is conditional and only occurs when logical decoding is active and relations require it
 - The function maintains transactional safety by using subtransaction IDs to determine the appropriate truncation strategy
 - Sequence restarting permissions are checked early to avoid partial execution failures
-- Trigger execution can optionally run with table owner privileges for security purposes
+- [Trigger](../T/Trigger.md) execution can optionally run with table owner privileges for security purposes

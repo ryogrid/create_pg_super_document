@@ -26,11 +26,11 @@ Replication slots are a critical component of PostgreSQL's logical replication s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PgStatShared_Common
+  - [PgStatShared_Common](PgStatShared_Common.md)
   - [PgStat_StatReplSlotEntry](PgStat_StatReplSlotEntry.md)
 - Called from (representative examples):
-  - pgstat_report_replslot
-  - pgstat_create_replslot
+  - [pgstat_report_replslot](../p/pgstat_report_replslot.md)
+  - [pgstat_create_replslot](../p/pgstat_create_replslot.md)
   - [pgstat_replslot_reset_timestamp_cb](../p/pgstat_replslot_reset_timestamp_cb.md)
   - SH_DECLARE (hash table declarations in pgstat.c)
 

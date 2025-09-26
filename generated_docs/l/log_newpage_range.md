@@ -34,7 +34,7 @@ The function implements a sophisticated batching mechanism that reads and locks 
   - [XLogBeginInsert](../X/XLogBeginInsert.md) (begins WAL record construction)
   - [XLogRegisterBuffer](../X/XLogRegisterBuffer.md) (registers buffers with REGBUF_FORCE_IMAGE flags)
   - [XLogInsert](../X/XLogInsert.md) (finalizes WAL record with RM_XLOG_ID, XLOG_FPI)
-  - MarkBufferDirty (marks buffers as dirty)
+  - [MarkBufferDirty](../M/MarkBufferDirty.md) (marks buffers as dirty)
   - [PageSetLSN](../P/PageSetLSN.md) (sets page LSN)
   - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md) (releases buffer locks)
 - Called from (representative examples):

@@ -26,14 +26,14 @@ ECPGconnect is the primary connection establishment function in ECPG that handle
 ## Dependencies
 - Functions called/Symbols referenced:
   - ECPGget_sqlca
-  - ecpg_strdup
-  - ecpg_get_connection
-  - ecpg_alloc
+  - [ecpg_strdup](../e/ecpg_strdup.md)
+  - [ecpg_get_connection](../e/ecpg_get_connection.md)
+  - [ecpg_alloc](../e/ecpg_alloc.md)
   - [PQconnectdbParams](../P/PQconnectdbParams.md)
   - [PQsetNoticeReceiver](../P/PQsetNoticeReceiver.md)
   - [ECPGnoticeReceiver](ECPGnoticeReceiver.md)
   - [pthread_mutex_lock](../p/pthread_mutex_lock.md)/unlock
-  - pthread_setspecific
+  - [pthread_setspecific](../p/pthread_setspecific.md)
 - Called from (representative examples):
   - ECPG-generated code for database connections
   - Test programs and applications using ECPG

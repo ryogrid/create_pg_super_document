@@ -36,13 +36,13 @@ The function ensures that tuples are returned in the correct ORDER BY sequence e
   - [index_beginscan](../i/index_beginscan.md)
   - [index_rescan](../i/index_rescan.md)
   - pairingheap_is_empty
-  - pairingheap_first
+  - [pairingheap_first](../p/pairingheap_first.md)
   - [cmp_orderbyvals](../c/cmp_orderbyvals.md)
   - [reorderqueue_pop](../r/reorderqueue_pop.md)
   - [ExecForceStoreHeapTuple](../E/ExecForceStoreHeapTuple.md)
-  - ExecClearTuple
+  - [ExecClearTuple](../E/ExecClearTuple.md)
   - [index_getnext_slot](../i/index_getnext_slot.md)
-  - ExecQualAndReset
+  - [ExecQualAndReset](../E/ExecQualAndReset.md)
   - InstrCountFiltered2
   - ResetExprContext
   - [EvalOrderByExpressions](../E/EvalOrderByExpressions.md)

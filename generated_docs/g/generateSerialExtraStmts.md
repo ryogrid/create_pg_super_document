@@ -48,8 +48,8 @@ For identity columns, special handling ensures the sequence is properly associat
   - [ChooseRelationName](../C/ChooseRelationName.md)
   - makeNode (CreateSeqStmt, AlterSeqStmt)
   - [makeRangeVar](../m/makeRangeVar.md)
-  - makeDefElem
-  - makeTypeNameFromOid
+  - [makeDefElem](../m/makeDefElem.md)
+  - [makeTypeNameFromOid](../m/makeTypeNameFromOid.md)
   - list_make3
   - [makeString](../m/makeString.md)
 - Called from (representative examples):

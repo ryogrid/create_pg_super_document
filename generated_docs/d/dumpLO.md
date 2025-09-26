@@ -21,7 +21,7 @@ The  function creates dump archive entries for large object metadata. It generat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - createPQExpBuffer/appendPQExpBuffer/destroyPQExpBuffer (string buffer management)
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)/appendPQExpBuffer/destroyPQExpBuffer (string buffer management)
   - [ArchiveEntry](../A/ArchiveEntry.md) (creates archive entry for BLOB metadata)
   - [dumpComment](dumpComment.md) (dumps individual BLOB comments)
   - [dumpSecLabel](dumpSecLabel.md) (dumps individual BLOB security labels)

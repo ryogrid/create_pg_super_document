@@ -24,11 +24,11 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CommitTsShmemBuffers
-  - SimpleLruShmemSize
-  - CommitTimestampShared
+  - [CommitTsShmemBuffers](CommitTsShmemBuffers.md)
+  - [SimpleLruShmemSize](../S/SimpleLruShmemSize.md)
+  - [CommitTimestampShared](CommitTimestampShared.md)
 - Called from (representative examples):
-  - CalculateShmemSize
+  - [CalculateShmemSize](CalculateShmemSize.md)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's shared memory initialization process

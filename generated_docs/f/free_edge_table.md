@@ -29,7 +29,7 @@ This function deallocates the memory previously allocated for an edge table in t
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pfree](../p/pfree.md) (memory deallocation function)
-  - Edge (data structure type)
+  - [Edge](../E/Edge.md) (data structure type)
 - Called from (representative examples):
   - [geqo](../g/geqo.md) (main genetic algorithm function for cleanup)
 

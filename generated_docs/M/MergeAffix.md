@@ -22,12 +22,12 @@ This function combines two existing affix flag sets identified by their indices 
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert (parameter validation)
-  - repalloc (memory reallocation for AffixData expansion)
+  - [repalloc](../r/repalloc.md) (memory reallocation for AffixData expansion)
   - cpalloc (memory allocation for new flag string)
   - sprintf (string formatting for flag concatenation)
   - FM_NUM (flag mode constant for numeric flags)
 - Called from (representative examples):
-  - mkSPNode (spell-checking node creation)
+  - [mkSPNode](../m/mkSPNode.md) (spell-checking node creation)
 
 ## Notes and Other Information
 - Returns index of the merged affix flag set in Conf->AffixData

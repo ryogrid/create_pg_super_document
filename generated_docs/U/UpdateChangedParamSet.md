@@ -27,7 +27,7 @@ This function is used during query execution to track parameter changes that aff
   - [ExecReScanAppend](../E/ExecReScanAppend.md)
   - [ExecReScanBitmapAnd](../E/ExecReScanBitmapAnd.md)
   - [ExecReScanBitmapOr](../E/ExecReScanBitmapOr.md)
-  - ExecReScanMergeAppend
+  - [ExecReScanMergeAppend](../E/ExecReScanMergeAppend.md)
   - [ExecReScanSubqueryScan](../E/ExecReScanSubqueryScan.md)
 
 ## Notes and Other Information

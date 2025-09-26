@@ -27,7 +27,7 @@ This function is used as a building block for higher-level string reading functi
 ## Dependencies
 - Functions called/Symbols referenced:
   - [resetPQExpBuffer](../r/resetPQExpBuffer.md) (clears the buffer if resetbuffer is true)
-  - appendBinaryPQExpBuffer (appends the string data to the buffer)
+  - [appendBinaryPQExpBuffer](../a/appendBinaryPQExpBuffer.md) (appends the string data to the buffer)
   - conn->inBuffer (connection input buffer)
   - conn->inCursor (current read position)
   - conn->inEnd (end of available data)

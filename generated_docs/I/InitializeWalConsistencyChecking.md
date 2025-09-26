@@ -21,9 +21,9 @@ The function uses the GUC system to re-set the wal_consistency_checking paramete
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_option
-  - set_config_option_ext
-  - config_generic (struct)
+  - [find_option](../f/find_option.md)
+  - [set_config_option_ext](../s/set_config_option_ext.md)
+  - [config_generic](../c/config_generic.md) (struct)
   - GUC_ACTION_SET
 - Called from (representative examples):
   - [PostmasterMain](../P/PostmasterMain.md)

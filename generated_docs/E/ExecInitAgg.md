@@ -33,8 +33,8 @@ The function handles complex scenarios like partial aggregation, aggregate split
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecAssignExprContext, ExecInitNode, ExecGetResultSlotOps
-  - ExecCreateScanSlotFromOuterPlan, ExecInitExtraTupleSlot
+  - [ExecAssignExprContext](ExecAssignExprContext.md), ExecInitNode, ExecGetResultSlotOps
+  - [ExecCreateScanSlotFromOuterPlan](ExecCreateScanSlotFromOuterPlan.md), ExecInitExtraTupleSlot
   - [ExecInitResultTupleSlotTL](ExecInitResultTupleSlotTL.md), ExecAssignProjectionInfo
   - [ExecInitQual](ExecInitQual.md), ExecInitExprList
   - [CreateWorkExprContext](../C/CreateWorkExprContext.md), AllocSetContextCreate

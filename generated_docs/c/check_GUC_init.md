@@ -23,7 +23,7 @@ For flag combinations, it enforces specific rules about parameter visibility fla
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - config_generic: Base structure for all GUC parameters
+  - [config_generic](config_generic.md): Base structure for all GUC parameters
   - PGC_BOOL, PGC_INT, PGC_REAL, PGC_STRING, PGC_ENUM: Parameter type constants
   - config_bool, config_int, config_real, config_string, config_enum: Type-specific GUC structures
   - GUC_NO_SHOW_ALL, GUC_NOT_IN_SAMPLE: Flag constants for parameter visibility control

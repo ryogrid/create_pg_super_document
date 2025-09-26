@@ -27,9 +27,9 @@ The function handles the formatting details such as proper comma separation and 
   - [deconstruct_array_builtin](deconstruct_array_builtin.md) (PostgreSQL array deconstruction utility)
   - DatumGetArrayTypeP (macro for extracting array from Datum)
   - [get_attname](../g/get_attname.md) (system function to retrieve column name by relation OID and attribute number)
-  - DatumGetInt16 (macro for extracting int16 from Datum)
+  - [DatumGetInt16](../D/DatumGetInt16.md) (macro for extracting int16 from Datum)
   - [quote_identifier](../q/quote_identifier.md) (utility function for properly quoting SQL identifiers)
-  - appendStringInfoString/appendStringInfo (string buffer manipulation functions)
+  - [appendStringInfoString](../a/appendStringInfoString.md)/appendStringInfo (string buffer manipulation functions)
 - Called from (representative examples):
   - [pg_get_constraintdef_worker](../p/pg_get_constraintdef_worker.md) (multiple times for different constraint types)
   - Used in foreign key constraint generation for both referencing and referenced column lists

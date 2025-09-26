@@ -24,18 +24,18 @@ The function calculates an appropriate initial size for the memory tuple array b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0 (memory allocation)
-  - palloc (memory allocation)
-  - GetMemoryChunkSpace (memory tracking)
+  - [palloc0](../p/palloc0.md) (memory allocation)
+  - [palloc](../p/palloc.md) (memory allocation)
+  - [GetMemoryChunkSpace](../G/GetMemoryChunkSpace.md) (memory tracking)
   - USEMEM (memory accounting macro)
   - Max (macro for maximum value)
 - Data structures used:
-  - Tuplestorestate (main tuplestore state structure)
+  - [Tuplestorestate](../T/Tuplestorestate.md) (main tuplestore state structure)
   - TSReadPointer (read pointer structure)
   - TSS_INMEM (tuplestore status enum value)
   - ALLOCSET_SEPARATE_THRESHOLD (memory allocation constant)
 - Called from:
-  - tuplestore_begin_heap (heap tuple variant initialization)
+  - [tuplestore_begin_heap](tuplestore_begin_heap.md) (heap tuple variant initialization)
 
 ## Notes and Other Information
 - This is a static function, only accessible within tuplestore.c

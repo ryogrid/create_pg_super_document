@@ -34,21 +34,21 @@ BlockRefTableEntry maintains comprehensive state information for tracking block 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BlockRefTableKey (as the key member)
+  - [BlockRefTableKey](BlockRefTableKey.md) (as the key member)
   - BlockRefTableChunk (for chunk_data array)
 - Used by:
-  - GetFileBackupMethod (incremental backup functionality)
+  - [GetFileBackupMethod](../G/GetFileBackupMethod.md) (incremental backup functionality)
   - SH_ELEMENT_TYPE (hash table element type)
-  - BlockRefTableSetLimitBlock
-  - BlockRefTableMarkBlockModified
-  - BlockRefTableGetEntry
-  - BlockRefTableEntryGetBlocks
-  - WriteBlockRefTable
-  - BlockRefTableWriteEntry
-  - CreateBlockRefTableEntry
-  - BlockRefTableEntrySetLimitBlock
-  - BlockRefTableEntryMarkBlockModified
-  - BlockRefTableFreeEntry
+  - [BlockRefTableSetLimitBlock](BlockRefTableSetLimitBlock.md)
+  - [BlockRefTableMarkBlockModified](BlockRefTableMarkBlockModified.md)
+  - [BlockRefTableGetEntry](BlockRefTableGetEntry.md)
+  - [BlockRefTableEntryGetBlocks](BlockRefTableEntryGetBlocks.md)
+  - [WriteBlockRefTable](../W/WriteBlockRefTable.md)
+  - [BlockRefTableWriteEntry](BlockRefTableWriteEntry.md)
+  - [CreateBlockRefTableEntry](../C/CreateBlockRefTableEntry.md)
+  - [BlockRefTableEntrySetLimitBlock](BlockRefTableEntrySetLimitBlock.md)
+  - [BlockRefTableEntryMarkBlockModified](BlockRefTableEntryMarkBlockModified.md)
+  - [BlockRefTableFreeEntry](BlockRefTableFreeEntry.md)
   - Various header function declarations
 
 ## Notes and Other Information

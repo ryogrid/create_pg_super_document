@@ -33,16 +33,16 @@ The function accepts a query identifier (prepared plan key), optional parameter 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `SPI_execute_plan`: Core SPI function for executing prepared plans
-  - `pltcl_process_SPI_result`: Processes and formats SPI execution results
-  - `pltcl_subtrans_begin`: Begins a subtransaction for error safety
-  - `pltcl_subtrans_commit`: Commits the subtransaction on success
-  - `pltcl_subtrans_abort`: Aborts subtransaction on error
-  - `InputFunctionCall`: Converts Tcl strings to PostgreSQL datums
+  - `[SPI_execute_plan](../S/SPI_execute_plan.md)`: Core SPI function for executing prepared plans
+  - `[pltcl_process_SPI_result](pltcl_process_SPI_result.md)`: Processes and formats SPI execution results
+  - `[pltcl_subtrans_begin](pltcl_subtrans_begin.md)`: Begins a subtransaction for error safety
+  - `[pltcl_subtrans_commit](pltcl_subtrans_commit.md)`: Commits the subtransaction on success
+  - `[pltcl_subtrans_abort](pltcl_subtrans_abort.md)`: Aborts subtransaction on error
+  - `[InputFunctionCall](../I/InputFunctionCall.md)`: Converts Tcl strings to PostgreSQL datums
   - `Tcl_FindHashEntry`: Looks up prepared plan by identifier
   - `Tcl_ListObjGetElements`: Parses parameter value list
 - Called from (representative examples):
-  - `pltcl_init_interp`: Registers this function as `spi_execp` command
+  - `[pltcl_init_interp](pltcl_init_interp.md)`: Registers this function as `spi_execp` command
 
 ## Notes and Other Information
 - The function is registered as the `spi_execp` command in PL/Tcl interpreters

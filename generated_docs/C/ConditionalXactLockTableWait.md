@@ -26,7 +26,7 @@ This makes it particularly useful in scenarios where the calling code needs to m
   - SET_LOCKTAG_TRANSACTION (constructs transaction-specific lock tag)
   - [LockAcquire](../L/LockAcquire.md) (attempts to acquire ShareLock with dontWait=true)
   - [LockRelease](../L/LockRelease.md) (releases the ShareLock if acquired)
-  - TransactionIdIsInProgress (checks if transaction is still running)
+  - [TransactionIdIsInProgress](../T/TransactionIdIsInProgress.md) (checks if transaction is still running)
   - [SubTransGetTopmostTransaction](../S/SubTransGetTopmostTransaction.md) (finds topmost parent transaction)
   - [GetTopTransactionIdIfAny](../G/GetTopTransactionIdIfAny.md) (gets current transaction's XID for comparison)
   - [pg_usleep](../p/pg_usleep.md) (sleep function for retry logic)

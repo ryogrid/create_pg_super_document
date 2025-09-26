@@ -27,8 +27,8 @@ This function takes no parameters.
   - LONG_MAX (maximum long value)
 
 - Called from (representative examples):
-  - check_max_stack_depth
-  - InitializeGUCOptionsFromEnvironment
+  - [check_max_stack_depth](../c/check_max_stack_depth.md)
+  - [InitializeGUCOptionsFromEnvironment](../I/InitializeGUCOptionsFromEnvironment.md)
 
 ## Notes and Other Information
 - Returns -1 if the stack limit cannot be determined

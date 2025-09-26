@@ -24,10 +24,10 @@ The detection is pessimistic because it cannot determine whether the lock being 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HoldingBufferPinThatDelaysRecovery (checks if current process holds problematic pins)
+  - [HoldingBufferPinThatDelaysRecovery](../H/HoldingBufferPinThatDelaysRecovery.md) (checks if current process holds problematic pins)
   - ereport (reports the error and cancels the transaction)
 - Called from (representative examples):
-  - ProcSleep (src/backend/storage/lmgr/proc.c:1238)
+  - [ProcSleep](../P/ProcSleep.md) (src/backend/storage/lmgr/proc.c:1238)
 
 ## Notes and Other Information
 - Only called from non-startup processes (asserts !InRecovery)

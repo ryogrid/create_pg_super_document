@@ -26,7 +26,7 @@ This conservative approach ensures that uniqueness determinations are only made 
 - Functions called/Symbols referenced:
   - lfirst (to iterate through the list)
   - IsA (to check if node is a Var)
-  - lappend_int (to append integer values to the result list)
+  - [lappend_int](../l/lappend_int.md) (to append integer values to the result list)
   - NIL (constant representing empty list)
 - Called from (representative examples):
   - [create_unique_path](../c/create_unique_path.md) (when analyzing subquery uniqueness for unique path optimization)

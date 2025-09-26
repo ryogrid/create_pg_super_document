@@ -28,8 +28,8 @@ This function implements the greater-than-or-equal-to comparison operator (`>=`)
 - Called from (representative examples):
   - SQL queries using `>=` operator
   - B-tree index range scans
-  - Sort and ordering operations
-  - Range constraint checking
+  - [Sort](../S/Sort.md) and ordering operations
+  - [Range](../R/Range.md) constraint checking
 
 ## Notes and Other Information
 This function complements the other UUID comparison operators to provide a complete set of relational operators. It returns true when `uuid_internal_cmp` returns a value greater than or equal to zero, indicating that the first UUID is not less than the second in lexicographic order. Together with the other comparison functions, it enables full range query support and proper sorting behavior for UUID columns.

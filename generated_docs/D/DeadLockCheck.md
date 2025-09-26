@@ -31,14 +31,14 @@ The caller must already hold locks on all partitions of the lock tables before c
   - [dclist_count](../d/dclist_count.md)
   - [dclist_init](../d/dclist_init.md)
   - [dclist_push_tail](../d/dclist_push_tail.md)
-  - GetLocksMethodTable
-  - ProcLockWakeup
+  - [GetLocksMethodTable](../G/GetLocksMethodTable.md)
+  - [ProcLockWakeup](../P/ProcLockWakeup.md)
   - [PrintLockQueue](../P/PrintLockQueue.md) (debug only)
-  - LOCK (struct type)
+  - [LOCK](../L/LOCK.md) (struct type)
   - [PGPROC](../P/PGPROC.md) (struct type)
   - [dclist_head](../d/dclist_head.md) (struct type)
 - Called from (representative examples):
-  - CheckDeadLock
+  - [CheckDeadLock](../C/CheckDeadLock.md)
   - LockHashPartitionLockByProc
 
 ## Notes and Other Information

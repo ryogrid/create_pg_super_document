@@ -29,11 +29,11 @@ This shared memory will later be used by worker processes to report their tuples
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - shm_toc_allocate (allocates shared memory from TOC)
-  - shm_toc_insert (registers shared memory segment in TOC)
+  - [shm_toc_allocate](../s/shm_toc_allocate.md) (allocates shared memory from TOC)
+  - [shm_toc_insert](../s/shm_toc_insert.md) (registers shared memory segment in TOC)
   - memset (initializes memory to zero)
   - [SharedSortInfo](../S/SharedSortInfo.md) (shared sort information structure)
-  - TuplesortInstrumentation (instrumentation data structure)
+  - [TuplesortInstrumentation](../T/TuplesortInstrumentation.md) (instrumentation data structure)
 - Called from (representative examples):
   - [ExecParallelInitializeDSM](ExecParallelInitializeDSM.md) (parallel execution DSM initializer)
 

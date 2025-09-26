@@ -36,7 +36,7 @@ The function ensures stable sorting by examining all specified sort columns in o
   - HeapTupleHeader (type)
   - MINIMAL_TUPLE_OFFSET (constant)
   - [TupleDesc](../T/TupleDesc.md) (type)
-  - SortSupport (type)
+  - [SortSupport](../S/SortSupport.md) (type)
 - Called from (representative examples):
   - [comparetup_heap](comparetup_heap.md)
   - [tuplesort_begin_heap](../t/tuplesort_begin_heap.md) (via CLUSTER_SORT macro)

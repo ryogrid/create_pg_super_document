@@ -24,8 +24,8 @@ This static function implements the actual mechanism for waking up the logical r
   - SIGUSR1 (signal constant)
   - LogicalRepCtx->launcher_pid (shared memory field)
 - Called from (representative examples):
-  - logicalrep_worker_onexit
-  - AtEOXact_ApplyLauncher
+  - [logicalrep_worker_onexit](../l/logicalrep_worker_onexit.md)
+  - [AtEOXact_ApplyLauncher](AtEOXact_ApplyLauncher.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the launcher.c file

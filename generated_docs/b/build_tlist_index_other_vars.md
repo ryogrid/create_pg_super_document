@@ -32,7 +32,7 @@ The primary use case is in contexts like RETURNING clauses where you need to ref
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc](../p/palloc.md) (with offsetof calculation)
-  - list_length  
+  - [list_length](../l/list_length.md)  
   - lfirst (list iteration macro)
   - IsA (type checking macro)
   - offsetof (for structure size calculation)

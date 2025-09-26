@@ -44,8 +44,8 @@ Key behavior:
   - copyObject (for alias copying)
   - [makeAlias](../m/makeAlias.md) (for auto-generated aliases)
   - [makeString](../m/makeString.md) (for column name creation)
-  - exprType, exprTypmod, exprCollation (type information extraction)
-  - lappend, lappend_oid, lappend_int (list manipulation)
+  - [exprType](../e/exprType.md), exprTypmod, exprCollation (type information extraction)
+  - [lappend](../l/lappend.md), lappend_oid, lappend_int (list manipulation)
   - [buildNSItemFromLists](../b/buildNSItemFromLists.md) (namespace item creation)
   - ereport (error reporting)
 - Called from (representative examples):

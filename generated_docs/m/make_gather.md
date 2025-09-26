@@ -33,7 +33,7 @@ The function initializes all necessary fields of the Gather node, including the 
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (creates a new Gather node)
-  - Gather (the plan node type being created)
+  - [Gather](../G/Gather.md) (the plan node type being created)
 - Called from (representative examples):
   - [create_gather_plan](../c/create_gather_plan.md)
   - CP_IGNORE_TLIST

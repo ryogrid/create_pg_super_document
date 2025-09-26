@@ -39,7 +39,7 @@ Key behaviors:
   - INTERVAL_NOT_FINITE (interval validation macro)
   - [timestamp_cmp_internal](../t/timestamp_cmp_internal.md) (timestamp comparison)
   - [timestamptz_pl_interval_internal](../t/timestamptz_pl_interval_internal.md) (timezone-aware interval addition)
-  - TimestampTzGetDatum (datum conversion)
+  - [TimestampTzGetDatum](../T/TimestampTzGetDatum.md) (datum conversion)
 - Called from:
   - [generate_series_timestamptz](generate_series_timestamptz.md) (src/backend/utils/adt/timestamp.c:6674)
   - [generate_series_timestamptz_at_zone](generate_series_timestamptz_at_zone.md) (src/backend/utils/adt/timestamp.c:6680)

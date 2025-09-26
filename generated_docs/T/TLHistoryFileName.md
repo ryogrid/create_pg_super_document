@@ -23,11 +23,11 @@ This function constructs a filename for a timeline history file by formatting th
 - Functions called/Symbols referenced:
   - MAXFNAMELEN (maximum filename length constant)
 - Called from (representative examples):
-  - readTimeLineHistory (reads timeline history from file)
-  - writeTimeLineHistory (writes timeline history to file) 
-  - existsTimeLineHistory (checks if timeline history file exists)
-  - restoreTimeLineHistoryFiles (restores timeline history during recovery)
-  - SendTimeLineHistory (sends timeline history during replication)
+  - [readTimeLineHistory](../r/readTimeLineHistory.md) (reads timeline history from file)
+  - [writeTimeLineHistory](../w/writeTimeLineHistory.md) (writes timeline history to file) 
+  - [existsTimeLineHistory](../e/existsTimeLineHistory.md) (checks if timeline history file exists)
+  - [restoreTimeLineHistoryFiles](../r/restoreTimeLineHistoryFiles.md) (restores timeline history during recovery)
+  - [SendTimeLineHistory](../S/SendTimeLineHistory.md) (sends timeline history during replication)
 
 ## Notes and Other Information
 - This is an inline function defined in the header for performance optimization

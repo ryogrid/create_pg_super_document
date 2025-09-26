@@ -30,13 +30,13 @@ Key behaviors include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open/table_close (catalog table access with locking)
+  - [table_open](../t/table_open.md)/table_close (catalog table access with locking)
   - SearchSysCacheCopy1 (lookup existing schema by name)
   - [get_namespace_oid](../g/get_namespace_oid.md) (check for name conflicts)
   - [object_ownercheck](../o/object_ownercheck.md) (verify schema ownership)
   - [object_aclcheck](../o/object_aclcheck.md) (check CREATE privilege on database)
   - [IsReservedName](../I/IsReservedName.md) (validate against system reserved names)
-  - namestrcpy (update schema name in catalog tuple)
+  - [namestrcpy](../n/namestrcpy.md) (update schema name in catalog tuple)
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md) (persist changes to catalog)
   - InvokeObjectPostAlterHook (trigger post-alter hooks)
   - [heap_freetuple](../h/heap_freetuple.md) (cleanup allocated tuple memory)

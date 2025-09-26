@@ -41,17 +41,17 @@ SetOperationStmt is a specialized node used in post-analysis query trees to repr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SetOperation
+  - [SetOperation](SetOperation.md)
 - Called from (representative examples):
-  - plan_set_operations
-  - transformSetOperationStmt
-  - recurse_set_operations
-  - generate_union_paths
-  - generate_nonunion_paths
-  - subquery_planner
+  - [plan_set_operations](../p/plan_set_operations.md)
+  - [transformSetOperationStmt](../t/transformSetOperationStmt.md)
+  - [recurse_set_operations](../r/recurse_set_operations.md)
+  - [generate_union_paths](../g/generate_union_paths.md)
+  - [generate_nonunion_paths](../g/generate_nonunion_paths.md)
+  - [subquery_planner](../s/subquery_planner.md)
 
 ## Notes and Other Information
-- SetOperationStmt is used in the post-analysis phase, replacing the raw SelectStmt tree structure
+- [SetOperationStmt](SetOperationStmt.md) is used in the post-analysis phase, replacing the raw SelectStmt tree structure
 - Contains resolved type information that enables proper type coercion and validation
 - groupClauses is NULL for UNION ALL operations since they don't require duplicate elimination
 - The binary tree structure allows for complex nested set operations

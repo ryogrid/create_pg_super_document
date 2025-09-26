@@ -25,7 +25,7 @@ The function performs a magic number check to ensure the plan structure integrit
   - [CachedPlanIsValid](../C/CachedPlanIsValid.md)
   - _SPI_PLAN_MAGIC (for integrity check)
   - [SPIPlanPtr](SPIPlanPtr.md) (plan structure type)
-  - CachedPlanSource (individual plan source type)
+  - [CachedPlanSource](../C/CachedPlanSource.md) (individual plan source type)
 - Called from (representative examples):
   - [ri_FetchPreparedPlan](../r/ri_FetchPreparedPlan.md)
 

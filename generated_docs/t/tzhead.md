@@ -43,8 +43,8 @@ The structure supports multiple format versions, with version '2' and '3' files 
   - TZ_MAGIC (constant defining "TZif" magic bytes)
 - Called from (representative examples):
   - input_buffer (src/timezone/localtime.c:181, 184)
-  - tzloadbody (src/timezone/localtime.c:219, 249-256, 410)
-  - writezone (src/timezone/zic.c:2089, 2090)
+  - [tzloadbody](tzloadbody.md) (src/timezone/localtime.c:219, 249-256, 410)
+  - [writezone](../w/writezone.md) (src/timezone/zic.c:2089, 2090)
 
 ## Notes and Other Information
 - This structure is part of the public domain timezone code originally developed by Arthur David Olson

@@ -58,24 +58,24 @@ The QueryDesc lifecycle follows a typical pattern: it's created by CreateQueryDe
 ## Dependencies
 - Functions called/Symbols referenced:
   - CmdType
-  - PlannedStmt
-  - DestReceiver
-  - ParamListInfo
-  - QueryEnvironment
-  - Instrumentation
+  - [PlannedStmt](../P/PlannedStmt.md)
+  - [DestReceiver](../D/DestReceiver.md)
+  - [ParamListInfo](../P/ParamListInfo.md)
+  - [QueryEnvironment](QueryEnvironment.md)
+  - [Instrumentation](../I/Instrumentation.md)
 - Called from (representative examples):
-  - CreateQueryDesc (src/backend/tcop/pquery.c:76)
-  - ExecutorStart (src/backend/executor/execMain.c:121)
-  - ExecutorRun (src/backend/executor/execMain.c:299)
-  - ExecutorFinish (src/backend/executor/execMain.c:400)
-  - ExecutorEnd (src/backend/executor/execMain.c:460)
-  - ProcessQuery (src/backend/tcop/pquery.c:143)
-  - PortalStart (src/backend/tcop/pquery.c:440)
+  - [CreateQueryDesc](../C/CreateQueryDesc.md) (src/backend/tcop/pquery.c:76)
+  - [ExecutorStart](../E/ExecutorStart.md) (src/backend/executor/execMain.c:121)
+  - [ExecutorRun](../E/ExecutorRun.md) (src/backend/executor/execMain.c:299)
+  - [ExecutorFinish](../E/ExecutorFinish.md) (src/backend/executor/execMain.c:400)
+  - [ExecutorEnd](../E/ExecutorEnd.md) (src/backend/executor/execMain.c:460)
+  - [ProcessQuery](../P/ProcessQuery.md) (src/backend/tcop/pquery.c:143)
+  - [PortalStart](../P/PortalStart.md) (src/backend/tcop/pquery.c:440)
 
 ## Notes and Other Information
-- QueryDesc supports both regular SQL queries and utility statements, but utility statements must not be passed to the executor
+- [QueryDesc](QueryDesc.md) supports both regular SQL queries and utility statements, but utility statements must not be passed to the executor
 - The structure is designed to be extensible, particularly through the totaltime field which plugins can modify
 - Fields are populated in phases: initial fields by CreateQueryDesc, execution fields by ExecutorStart, and execution flags by ExecutePlan
 - The already_executed flag enables portal rewind functionality for scrollable cursors
-- QueryDesc is fundamental to PostgreSQL's executor architecture and is used throughout the query execution pipeline
+- [QueryDesc](QueryDesc.md) is fundamental to PostgreSQL's executor architecture and is used throughout the query execution pipeline
 - The structure integrates with PostgreSQL's instrumentation framework for performance monitoring and query analysis

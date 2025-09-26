@@ -20,7 +20,7 @@ This function implements the clear callback for heap tuple table slots within th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HeapTupleTableSlot (cast target type)
+  - [HeapTupleTableSlot](../H/HeapTupleTableSlot.md) (cast target type)
   - TTS_SHOULDFREE (macro to check if tuple should be freed)
   - [heap_freetuple](../h/heap_freetuple.md) (function to free heap tuple memory)
   - TTS_FLAG_SHOULDFREE (flag indicating tuple memory ownership)

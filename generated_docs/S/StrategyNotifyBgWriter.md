@@ -26,8 +26,8 @@ The function uses a spinlock (buffer_strategy_lock) to ensure atomic updates to 
   - SpinLockRelease (on StrategyControl->buffer_strategy_lock)
   - StrategyControl (global buffer strategy control structure)
 - Called from (representative examples):
-  - BackgroundWriterMain (src/backend/postmaster/bgwriter.c:330)
-  - BackgroundWriterMain (src/backend/postmaster/bgwriter.c:337)
+  - [BackgroundWriterMain](../B/BackgroundWriterMain.md) (src/backend/postmaster/bgwriter.c:330)
+  - [BackgroundWriterMain](../B/BackgroundWriterMain.md) (src/backend/postmaster/bgwriter.c:337)
 
 ## Notes and Other Information
 - This function is specifically designed for use by the background writer process and is not intended for general use by other processes

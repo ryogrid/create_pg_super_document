@@ -25,11 +25,11 @@ This function performs range validation for field (column) numbers in PostgreSQL
 - Called from (representative examples):
   - [PQsetvalue](../P/PQsetvalue.md)
   - [PQfname](../P/PQfname.md)
-  - PQftable
-  - PQftablecol
-  - PQfformat
-  - PQftype
-  - PQfsize
+  - [PQftable](../P/PQftable.md)
+  - [PQftablecol](../P/PQftablecol.md)
+  - [PQfformat](../P/PQfformat.md)
+  - [PQftype](../P/PQftype.md)
+  - [PQfsize](../P/PQfsize.md)
   - [PQfmod](../P/PQfmod.md)
 
 ## Notes and Other Information

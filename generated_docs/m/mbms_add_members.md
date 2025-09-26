@@ -24,15 +24,15 @@ The function first extends List a with NULL elements if it's shorter than List b
 ## Dependencies
 - Functions called/Symbols referenced:
   - forboth
-  - bms_add_members
+  - [bms_add_members](../b/bms_add_members.md)
 - Called from (representative examples):
-  - reduce_outer_joins_pass2
-  - find_nonnullable_vars_walker
-  - find_forced_null_vars
+  - [reduce_outer_joins_pass2](../r/reduce_outer_joins_pass2.md)
+  - [find_nonnullable_vars_walker](../f/find_nonnullable_vars_walker.md)
+  - [find_forced_null_vars](../f/find_forced_null_vars.md)
 
 ## Notes and Other Information
 - The operation modifies List a in-place and returns the modified List
-- List a is automatically extended with NULL elements if it's shorter than List b
+- [List](../L/List.md) a is automatically extended with NULL elements if it's shorter than List b
 - The forboth macro stops at the end of the shorter list, but since a is extended to match b's length, all elements in b are processed
 - This is a fundamental operation for combining multibitmapsets in PostgreSQL's query optimizer
 - Used extensively in outer join reduction and null variable analysis

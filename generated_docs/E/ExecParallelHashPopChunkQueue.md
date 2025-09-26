@@ -30,17 +30,17 @@ This design allows parallel workers to efficiently coordinate chunk processing w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire
-  - LWLockRelease  
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)  
   - DsaPointerIsValid
   - [dsa_get_address](../d/dsa_get_address.md)
   - [HashJoinTable](../H/HashJoinTable.md) (type)
   - dsa_pointer (type)
-  - ParallelHashJoinState (type)
-  - HashMemoryChunk (type)
+  - [ParallelHashJoinState](../P/ParallelHashJoinState.md) (type)
+  - [HashMemoryChunk](../H/HashMemoryChunk.md) (type)
 - Called from:
   - [ExecParallelHashRepartitionFirst](ExecParallelHashRepartitionFirst.md)
-  - ExecParallelHashIncreaseNumBuckets
+  - [ExecParallelHashIncreaseNumBuckets](ExecParallelHashIncreaseNumBuckets.md)
 
 ## Notes and Other Information
 - Uses exclusive locking to ensure thread safety when accessing the shared work queue

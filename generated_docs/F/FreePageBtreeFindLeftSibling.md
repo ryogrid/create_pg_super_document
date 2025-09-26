@@ -24,12 +24,12 @@ The function handles the edge case where the passed page is the leftmost page in
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FreePageBtreeFirstKey
+  - [FreePageBtreeFirstKey](FreePageBtreeFirstKey.md)
   - relptr_access  
-  - FreePageBtreeSearchInternal
+  - [FreePageBtreeSearchInternal](FreePageBtreeSearchInternal.md)
   - FREE_PAGE_INTERNAL_MAGIC (constant)
 - Called from (representative examples):
-  - FreePageBtreeConsolidate
+  - [FreePageBtreeConsolidate](FreePageBtreeConsolidate.md)
 
 ## Notes and Other Information
 - Returns NULL if the passed page is the leftmost page at its level

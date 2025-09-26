@@ -22,15 +22,15 @@ The function delegates to the slot's type-specific copy_minimal_tuple operation 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TupleTableSlot (struct type)
+  - [TupleTableSlot](../T/TupleTableSlot.md) (struct type)
   - tts_ops->copy_minimal_tuple (function pointer)
 - Called from (representative examples):
-  - LookupTupleHashEntry_internal
-  - tts_minimal_copyslot
-  - cache_lookup
-  - cache_store_tuple
-  - tuplesort_puttupleslot
-  - tuplestore_puttupleslot
+  - [LookupTupleHashEntry_internal](../L/LookupTupleHashEntry_internal.md)
+  - [tts_minimal_copyslot](../t/tts_minimal_copyslot.md)
+  - [cache_lookup](../c/cache_lookup.md)
+  - [cache_store_tuple](../c/cache_store_tuple.md)
+  - [tuplesort_puttupleslot](../t/tuplesort_puttupleslot.md)
+  - [tuplestore_puttupleslot](../t/tuplestore_puttupleslot.md)
 
 ## Notes and Other Information
 - The returned MinimalTuple is allocated in the caller's current memory context

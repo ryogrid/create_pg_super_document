@@ -22,9 +22,9 @@ The function iterates through the provided parse tree list, identifies EXECUTE s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RawStmt (parse tree node structure)
-  - ExecuteStmt (EXECUTE statement node)
-  - PreparedStatement (prepared statement structure)
+  - [RawStmt](../R/RawStmt.md) (parse tree node structure)
+  - [ExecuteStmt](../E/ExecuteStmt.md) (EXECUTE statement node)
+  - [PreparedStatement](../P/PreparedStatement.md) (prepared statement structure)
   - [FetchPreparedStatement](../F/FetchPreparedStatement.md) (retrieves prepared statement by name)
   - [errdetail](errdetail.md) (adds detail to error messages)
 - Called from (representative examples):

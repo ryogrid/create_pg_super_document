@@ -22,7 +22,7 @@ This function is particularly useful for optimizing performance when working wit
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlsym
+  - [dlsym](../d/dlsym.md)
 - Called from (representative examples):
   - [fetch_finfo_record](../f/fetch_finfo_record.md)
 

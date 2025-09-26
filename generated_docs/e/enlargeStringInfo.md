@@ -33,14 +33,14 @@ External callers typically don't need to call this function directly since all s
   - Assert (validation macro)
   - elog/ereport (error reporting - backend)
   - fprintf/exit (error handling - frontend)
-  - repalloc (memory reallocation)
+  - [repalloc](../r/repalloc.md) (memory reallocation)
   - MaxAllocSize (maximum allocation size constant)
 - Called from (representative examples):
-  - appendStringInfo
-  - appendStringInfoChar  
-  - appendBinaryStringInfo
-  - pq_getmessage
-  - JsonbToCStringWorker
+  - [appendStringInfo](../a/appendStringInfo.md)
+  - [appendStringInfoChar](../a/appendStringInfoChar.md)  
+  - [appendBinaryStringInfo](../a/appendBinaryStringInfo.md)
+  - [pq_getmessage](../p/pq_getmessage.md)
+  - [JsonbToCStringWorker](../J/JsonbToCStringWorker.md)
 
 ## Notes and Other Information
 - Uses exponential growth strategy (doubling) for efficiency

@@ -32,15 +32,15 @@ JsonAggConstructor serves as a base structure containing common elements shared 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonOutput
-  - WindowDef
+  - [JsonOutput](JsonOutput.md)
+  - [WindowDef](../W/WindowDef.md)
   - ParseLoc
 - Called from (representative examples):
-  - exprLocation
-  - transformJsonAggConstructor
-  - transformJsonArrayQueryConstructor
-  - JsonObjectAgg
-  - JsonArrayAgg
+  - [exprLocation](../e/exprLocation.md)
+  - [transformJsonAggConstructor](../t/transformJsonAggConstructor.md)
+  - [transformJsonArrayQueryConstructor](../t/transformJsonArrayQueryConstructor.md)
+  - [JsonObjectAgg](JsonObjectAgg.md)
+  - [JsonArrayAgg](JsonArrayAgg.md)
 
 ## Notes and Other Information
 - This structure is used as a common base for both JSON_ARRAYAGG and JSON_OBJECTAGG parsing

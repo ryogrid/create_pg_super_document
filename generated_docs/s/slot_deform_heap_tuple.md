@@ -35,7 +35,7 @@ The function carefully handles NULL values, variable-length attributes (varlena)
   - HeapTupleHasNulls
   - HeapTupleHeaderGetNatts
   - TupleDescAttr
-  - att_isnull
+  - [att_isnull](../a/att_isnull.md)
   - att_align_nominal
   - att_align_pointer
   - fetchatt

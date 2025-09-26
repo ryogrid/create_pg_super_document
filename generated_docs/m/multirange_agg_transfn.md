@@ -30,7 +30,7 @@ The function validates that it's being called in a proper aggregate context and 
   - [multirange_deserialize](multirange_deserialize.md)
   - [accumArrayResult](../a/accumArrayResult.md)
   - [make_empty_range](make_empty_range.md)
-  - RangeTypePGetDatum
+  - [RangeTypePGetDatum](../R/RangeTypePGetDatum.md)
   - PG_ARGISNULL
   - PG_GETARG_POINTER
   - PG_RETURN_POINTER

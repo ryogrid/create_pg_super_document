@@ -22,10 +22,10 @@ This function manages buffer transitions during heap scanning by coordinating wi
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BufferIsValid](../B/BufferIsValid.md)
-  - ReleaseBuffer
+  - [ReleaseBuffer](../R/ReleaseBuffer.md)
   - CHECK_FOR_INTERRUPTS
-  - read_stream_reset
-  - read_stream_next_buffer
+  - [read_stream_reset](../r/read_stream_reset.md)
+  - [read_stream_next_buffer](../r/read_stream_next_buffer.md)
   - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)
 - Called from (representative examples):
   - [heapgettup](heapgettup.md)

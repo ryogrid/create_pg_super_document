@@ -37,7 +37,7 @@ The function automatically extracts the LLVM context from the function's type, e
   - `LLVMAppendBasicBlockInContext`: To actually create and append the new basic block
 - Called from (representative examples):
   - [slot_compile_deform](../s/slot_compile_deform.md): Used multiple times for creating control flow blocks in tuple deforming
-  - `llvm_compile_expr`: Used in expression compilation for creating function-level basic blocks
+  - `[llvm_compile_expr](llvm_compile_expr.md)`: Used in expression compilation for creating function-level basic blocks
 
 ## Notes and Other Information
 - The function includes the `pg_attribute_printf(2, 3)` attribute for compile-time format string checking

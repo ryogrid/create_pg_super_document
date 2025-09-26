@@ -23,7 +23,7 @@ This function provides a SQL interface for querying index-level properties of a 
 - Functions called/Symbols referenced:
   - PG_GETARG_OID (extract OID argument from SQL call)
   - PG_GETARG_TEXT_PP (extract text argument from SQL call)  
-  - text_to_cstring (convert PostgreSQL text type to C string)
+  - [text_to_cstring](../t/text_to_cstring.md) (convert PostgreSQL text type to C string)
   - [indexam_property](../i/indexam_property.md) (core property testing logic)
 - Called from (representative examples):
   - SQL queries testing index capabilities

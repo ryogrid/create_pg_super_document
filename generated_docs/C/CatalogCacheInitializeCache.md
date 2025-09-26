@@ -32,13 +32,13 @@ The function validates that cache key columns are NOT NULL, as required for reli
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open (to open the target relation)
+  - [table_open](../t/table_open.md) (to open the target relation)
   - [CreateTupleDescCopyConstr](CreateTupleDescCopyConstr.md) (to copy tuple descriptor)
   - RelationGetDescr (to get relation descriptor)
   - RelationGetRelationName (to get relation name)
   - RelationGetForm (to get relation form)
   - [pstrdup](../p/pstrdup.md) (to duplicate relation name string)
-  - table_close (to close the relation)
+  - [table_close](../t/table_close.md) (to close the relation)
   - TupleDescAttr (to access tuple descriptor attributes)
   - [GetCCHashEqFuncs](../G/GetCCHashEqFuncs.md) (to get hash and equality functions)
   - [fmgr_info_cxt](../f/fmgr_info_cxt.md) (to initialize function manager info)

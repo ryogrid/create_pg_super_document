@@ -23,7 +23,7 @@ Clearing this flag helps maintain accurate page state information for PostgreSQL
   - PD_HAS_FREE_LINES (flag constant)
 - Called from (representative examples):
   - [mask_page_hint_bits](../m/mask_page_hint_bits.md) (src/backend/access/common/bufmask.c:55)
-  - PageAddItemExtended (src/backend/storage/page/bufpage.c:280)
+  - [PageAddItemExtended](PageAddItemExtended.md) (src/backend/storage/page/bufpage.c:280)
   - [PageRepairFragmentation](PageRepairFragmentation.md) (src/backend/storage/page/bufpage.c:812)
   - [PageTruncateLinePointerArray](PageTruncateLinePointerArray.md) (src/backend/storage/page/bufpage.c:895)
 

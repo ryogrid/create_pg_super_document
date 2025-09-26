@@ -24,7 +24,7 @@ The `bpcharfastcmp_c` function provides optimized comparison functionality speci
 - Functions called/Symbols referenced:
   - DatumGetBpCharPP
   - [BpChar](../B/BpChar.md)
-  - SortSupport
+  - [SortSupport](../S/SortSupport.md)
   - VARDATA_ANY (macro)
   - VARSIZE_ANY_EXHDR (macro)
   - [bpchartruelen](bpchartruelen.md)

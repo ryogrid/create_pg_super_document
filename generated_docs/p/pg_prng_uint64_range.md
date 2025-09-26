@@ -25,18 +25,18 @@ When the range is empty (rmax <= rmin), the function returns rmin, providing pre
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_prng_state (struct type)
-  - xoroshiro128ss (underlying PRNG algorithm)
-  - pg_leftmost_one_pos64 (bit position utility)
+  - [pg_prng_state](pg_prng_state.md) (struct type)
+  - [xoroshiro128ss](../x/xoroshiro128ss.md) (underlying PRNG algorithm)
+  - [pg_leftmost_one_pos64](pg_leftmost_one_pos64.md) (bit position utility)
   - likely (branch prediction macro)
 - Called from (representative examples):
-  - spgdoinsert (SP-GiST index operations)
-  - geqo_randint (genetic algorithm optimizer)
-  - SetTempTablespaces (tablespace selection)
-  - array_shuffle_n (array shuffling)
-  - random_var (numeric random variables)
-  - getrand (pgbench)
-  - pg_prng_int64_range (signed integer ranges)
+  - [spgdoinsert](../s/spgdoinsert.md) (SP-GiST index operations)
+  - [geqo_randint](../g/geqo_randint.md) (genetic algorithm optimizer)
+  - [SetTempTablespaces](../S/SetTempTablespaces.md) (tablespace selection)
+  - [array_shuffle_n](../a/array_shuffle_n.md) (array shuffling)
+  - [random_var](../r/random_var.md) (numeric random variables)
+  - [getrand](../g/getrand.md) (pgbench)
+  - [pg_prng_int64_range](pg_prng_int64_range.md) (signed integer ranges)
 
 ## Notes and Other Information
 - Uses bitmask rejection method to ensure uniform distribution without modulo bias

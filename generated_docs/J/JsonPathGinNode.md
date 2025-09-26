@@ -31,16 +31,16 @@ This structure is central to the GIN indexing strategy for JSONB operations, con
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonPathGinNodeType enum
+  - [JsonPathGinNodeType](JsonPathGinNodeType.md) enum
   - Datum (PostgreSQL data type)
   - FLEXIBLE_ARRAY_MEMBER (PostgreSQL macro)
 - Called from (representative examples):
-  - make_jsp_entry_node (creates entry nodes)
-  - make_jsp_expr_node (creates OR/AND nodes)
-  - extract_jsp_bool_expr (expression extraction)
-  - execute_jsp_gin_node (node execution)
-  - gin_consistent_jsonb (consistency checking)
-  - gin_triconsistent_jsonb (tri-state consistency)
+  - [make_jsp_entry_node](../m/make_jsp_entry_node.md) (creates entry nodes)
+  - [make_jsp_expr_node](../m/make_jsp_expr_node.md) (creates OR/AND nodes)
+  - [extract_jsp_bool_expr](../e/extract_jsp_bool_expr.md) (expression extraction)
+  - [execute_jsp_gin_node](../e/execute_jsp_gin_node.md) (node execution)
+  - [gin_consistent_jsonb](../g/gin_consistent_jsonb.md) (consistency checking)
+  - [gin_triconsistent_jsonb](../g/gin_triconsistent_jsonb.md) (tri-state consistency)
 
 ## Notes and Other Information
 - Memory allocation uses offsetof calculation to accommodate the flexible array member

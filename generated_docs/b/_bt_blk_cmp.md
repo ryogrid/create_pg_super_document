@@ -25,10 +25,10 @@ The sorted block number arrays enable efficient binary search during the simple 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_cmp_u32
+  - [pg_cmp_u32](../p/pg_cmp_u32.md)
 - Called from (representative examples):
-  - _bt_simpledel_pass (used with bsearch for binary search operations)
-  - _bt_deadblocks (used with qsort for sorting block arrays)
+  - [_bt_simpledel_pass](_bt_simpledel_pass.md) (used with bsearch for binary search operations)
+  - [_bt_deadblocks](_bt_deadblocks.md) (used with qsort for sorting block arrays)
 
 ## Notes and Other Information
 - This function is marked as  for performance optimization since it's called frequently during sorting operations

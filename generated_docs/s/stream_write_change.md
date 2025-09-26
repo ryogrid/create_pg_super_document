@@ -20,7 +20,7 @@ This function writes logical replication change data to the currently open strea
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufFileWrite (called three times for length, action, and data)
+  - [BufFileWrite](../B/BufFileWrite.md) (called three times for length, action, and data)
 - Called from (representative examples):
   - [handle_streamed_transaction](../h/handle_streamed_transaction.md)
   - [apply_handle_stream_start](../a/apply_handle_stream_start.md)  

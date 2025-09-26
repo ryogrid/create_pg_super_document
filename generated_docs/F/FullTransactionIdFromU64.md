@@ -20,15 +20,15 @@ This inline function provides a simple wrapper to create a FullTransactionId fro
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FullTransactionId (struct type)
+  - [FullTransactionId](FullTransactionId.md) (struct type)
 - Called from (representative examples):
-  - restoreTwoPhaseData
-  - FullXidRelativeTo
-  - xid8in
-  - xid8recv
-  - parse_snapshot
-  - pg_snapshot_recv
-  - DatumGetFullTransactionId
+  - [restoreTwoPhaseData](../r/restoreTwoPhaseData.md)
+  - [FullXidRelativeTo](FullXidRelativeTo.md)
+  - [xid8in](../x/xid8in.md)
+  - [xid8recv](../x/xid8recv.md)
+  - [parse_snapshot](../p/parse_snapshot.md)
+  - [pg_snapshot_recv](../p/pg_snapshot_recv.md)
+  - [DatumGetFullTransactionId](../D/DatumGetFullTransactionId.md)
 
 ## Notes and Other Information
 - This is a static inline function for performance

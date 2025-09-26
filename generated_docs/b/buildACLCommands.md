@@ -43,10 +43,10 @@ The function handles special cases including:
 - Functions called/Symbols referenced:
   - [parsePGArray](../p/parsePGArray.md) (for parsing ACL arrays)
   - [parseAclItem](../p/parseAclItem.md) (for parsing individual ACL entries)
-  - pg_malloc (for memory allocation)
+  - [pg_malloc](../p/pg_malloc.md) (for memory allocation)
   - [fmtId](../f/fmtId.md) (for identifier quoting)
   - [printfPQExpBuffer](../p/printfPQExpBuffer.md) (for string formatting)
-  - createPQExpBuffer/destroyPQExpBuffer (for buffer management)
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)/destroyPQExpBuffer (for buffer management)
 
 - Called from (representative examples):
   - [buildDefaultACLCommands](buildDefaultACLCommands.md) (in dumputils.c)

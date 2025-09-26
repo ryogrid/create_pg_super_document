@@ -21,14 +21,14 @@ When dsa_pin_mapping is called, it sets the area's resource owner to NULL and ca
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dsm_pin_mapping
-  - dsa_area (struct type)
+  - [dsm_pin_mapping](dsm_pin_mapping.md)
+  - [dsa_area](dsa_area.md) (struct type)
 - Called from (representative examples):
   - [GetSessionDsmHandle](../G/GetSessionDsmHandle.md) (src/backend/access/common/session.c:140)
   - [AttachSession](../A/AttachSession.md) (src/backend/access/common/session.c:188)
-  - logicalrep_launcher_attach_dshmem (src/backend/replication/logical/launcher.c:1022, 1033)
-  - init_dsm_registry (src/backend/storage/ipc/dsm_registry.c:105, 116)
-  - pgstat_attach_shmem (src/backend/utils/activity/pgstat_shmem.c:229)
+  - [logicalrep_launcher_attach_dshmem](../l/logicalrep_launcher_attach_dshmem.md) (src/backend/replication/logical/launcher.c:1022, 1033)
+  - [init_dsm_registry](../i/init_dsm_registry.md) (src/backend/storage/ipc/dsm_registry.c:105, 116)
+  - [pgstat_attach_shmem](../p/pgstat_attach_shmem.md) (src/backend/utils/activity/pgstat_shmem.c:229)
 
 ## Notes and Other Information
 - Only operates if the area currently has a resource owner (area->resowner != NULL)

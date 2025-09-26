@@ -26,12 +26,12 @@ Unlike the schema-level mapping function, this function always uses `<xsd:all>` 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_database_name
-  - map_sql_identifier_to_xml_name
-  - map_multipart_sql_identifier_to_xml_name
-  - get_namespace_name
+  - [get_database_name](../g/get_database_name.md)
+  - [map_sql_identifier_to_xml_name](map_sql_identifier_to_xml_name.md)
+  - [map_multipart_sql_identifier_to_xml_name](map_multipart_sql_identifier_to_xml_name.md)
+  - [get_namespace_name](../g/get_namespace_name.md)
 - Called from (representative examples):
-  - database_to_xmlschema_internal
+  - [database_to_xmlschema_internal](../d/database_to_xmlschema_internal.md)
 
 ## Notes and Other Information
 - The function is static and only used internally within the xml.c module

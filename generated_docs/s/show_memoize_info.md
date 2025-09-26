@@ -43,9 +43,9 @@ The function handles the complexity of memory reporting where peak memory is onl
   - BYTES_TO_KILOBYTES: Converts memory usage from bytes to kilobytes
   - [ExplainPropertyText](../E/ExplainPropertyText.md)/ExplainPropertyInteger: Adds properties to structured output
   - [ExplainIndentText](../E/ExplainIndentText.md): Handles text output indentation
-  - appendStringInfo: Formats and appends text to output buffer
+  - [appendStringInfo](../a/appendStringInfo.md): Formats and appends text to output buffer
   - [ExplainOpenWorker](../E/ExplainOpenWorker.md)/ExplainCloseWorker: Manages worker-specific output sections
-  - initStringInfo/pfree: String buffer management
+  - [initStringInfo](../i/initStringInfo.md)/pfree: String buffer management
 - Called from (representative examples):
   - [ExplainNode](../E/ExplainNode.md): Main EXPLAIN node processing function for memoize nodes
 

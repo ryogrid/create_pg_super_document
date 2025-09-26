@@ -32,19 +32,19 @@ Unlike merge joins, hash joins don't require sorted input data but do require th
   - [is_opclause](../i/is_opclause.md) (verifies expression is an operator clause)
   - [op_hashjoinable](../o/op_hashjoinable.md) (determines if operator supports hash joins)
   - [contain_volatile_functions](contain_volatile_functions.md) (checks for volatile function calls)
-  - exprType (determines expression data type)
+  - [exprType](../e/exprType.md) (determines expression data type)
   - linitial (retrieves first list element)
-  - OpExpr (operator expression node type)
+  - [OpExpr](../O/OpExpr.md) (operator expression node type)
 - Called from:
   - [distribute_restrictinfo_to_rels](../d/distribute_restrictinfo_to_rels.md) (during restriction info distribution)
   - [build_implied_join_equality](../b/build_implied_join_equality.md) (when constructing implied equality conditions)
 
 ## Notes and Other Information
 - This is a static function within initsplan.c, serving as an internal query planning utility
-- Hash joins are memory-intensive operations that build hash tables, so the planner must consider available work memory
+- [Hash](../H/Hash.md) joins are memory-intensive operations that build hash tables, so the planner must consider available work memory
 - Unlike merge joins, hash joins don't benefit from pre-sorted data but can handle unsorted inputs efficiently
 - The exclusion of volatile functions is crucial because hash joins may not evaluate the join condition for all row combinations
-- Hash joins are often preferred over nested loop joins for large datasets without useful indexes
+- [Hash](../H/Hash.md) joins are often preferred over nested loop joins for large datasets without useful indexes
 - The hashjoinoperator field set by this function is used later in cost estimation and join algorithm selection
-- Hash joins require hashable data types - not all data types support hash operations
+- [Hash](../H/Hash.md) joins require hashable data types - not all data types support hash operations
 - This function complements check_mergejoinable, giving the planner multiple join algorithm options for the same clause

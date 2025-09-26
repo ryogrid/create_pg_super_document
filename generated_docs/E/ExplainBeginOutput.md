@@ -17,7 +17,7 @@ ExplainBeginOutput is responsible for generating the appropriate opening markup 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExplainState (structure type)
+  - [ExplainState](ExplainState.md) (structure type)
   - EXPLAIN_FORMAT_TEXT (enum constant)
   - EXPLAIN_FORMAT_XML (enum constant) 
   - EXPLAIN_FORMAT_JSON (enum constant)

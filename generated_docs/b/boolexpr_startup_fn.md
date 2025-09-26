@@ -297,9 +297,9 @@ Text creation and manipulation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PredIterInfo](../P/PredIterInfo.md) (structure type)
-  - BoolExpr (structure type representing boolean expressions)
-  - list_head (function to get the first ListCell of the arguments list)
-  - OpExpr (referenced in the broader context)
+  - [BoolExpr](../B/BoolExpr.md) (structure type representing boolean expressions)
+  - [list_head](../l/list_head.md) (function to get the first ListCell of the arguments list)
+  - [OpExpr](../O/OpExpr.md) (referenced in the broader context)
 - Called from (representative examples):
   - iterate_end (in predicate classification logic)
   - [predicate_classify](../p/predicate_classify.md) (during predicate analysis for boolean expressions)
@@ -308,6 +308,6 @@ Text creation and manipulation
 - This function is specifically designed for BoolExpr nodes, which contain their iterable elements in the 'args' field
 - After initialization, the iteration uses the same list_next_fn and list_cleanup_fn as regular Lists
 - The function performs an unsafe cast from Node to BoolExpr, assuming the caller has verified the node type
-- BoolExpr represents boolean expressions (AND, OR, NOT) in the PostgreSQL expression tree
+- [BoolExpr](../B/BoolExpr.md) represents boolean expressions (AND, OR, NOT) in the PostgreSQL expression tree
 - This is a static function used internally within the predicate testing module
 - Part of the function pointer-based iteration pattern that allows different node types to have specialized startup behavior while sharing common iteration and cleanup logic

@@ -32,7 +32,7 @@ The function supports various advanced features including:
 - Functions called/Symbols referenced:
   - [CreateExecutorState](CreateExecutorState.md)
   - [GetCurrentCommandId](../G/GetCurrentCommandId.md)  
-  - ExecInitRangeTable
+  - [ExecInitRangeTable](../E/ExecInitRangeTable.md)
   - [ExecInitResultRelation](../E/ExecInitResultRelation.md)
   - [CheckValidResultRel](CheckValidResultRel.md)
   - [ExecOpenIndices](../E/ExecOpenIndices.md)
@@ -53,7 +53,7 @@ The function supports various advanced features including:
   - [CopyMultiInsertInfoNextFreeSlot](CopyMultiInsertInfoNextFreeSlot.md)
   - [CopyMultiInsertInfoStore](CopyMultiInsertInfoStore.md)
   - [CopyMultiInsertInfoFlush](CopyMultiInsertInfoFlush.md)
-  - table_tuple_insert
+  - [table_tuple_insert](../t/table_tuple_insert.md)
   - [ExecInsertIndexTuples](../E/ExecInsertIndexTuples.md)
   - [ExecARInsertTriggers](../E/ExecARInsertTriggers.md)
   - [FreeExecutorState](../F/FreeExecutorState.md)

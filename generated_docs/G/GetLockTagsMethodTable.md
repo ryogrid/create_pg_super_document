@@ -23,13 +23,13 @@ This function is useful when you have a LOCKTAG but not necessarily a full LOCK 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LOCKTAG (structure type)
+  - [LOCKTAG](../L/LOCKTAG.md) (structure type)
   - LOCKMETHODID (type definition for casting)
   - LockMethods (global array of lock method structures)
   - lengthof (macro to get array length)  
   - Assert (assertion macro)
 - Called from (representative examples):
-  - pg_blocking_pids (src/backend/utils/adt/lockfuncs.c:509)
+  - [pg_blocking_pids](../p/pg_blocking_pids.md) (src/backend/utils/adt/lockfuncs.c:509)
 
 ## Notes and Other Information
 - The function includes an assertion to validate that the lock method ID is within the valid range (0 < lockmethodid < lengthof(LockMethods))

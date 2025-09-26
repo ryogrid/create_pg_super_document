@@ -35,7 +35,7 @@ The function ensures atomicity and proper locking throughout the creation proces
   - [RangeVarGetAndCheckCreationNamespace](../R/RangeVarGetAndCheckCreationNamespace.md)
   - [checkMembershipInCurrentExtension](../c/checkMembershipInCurrentExtension.md)  
   - [init_params](../i/init_params.md)
-  - makeColumnDef
+  - [makeColumnDef](../m/makeColumnDef.md)
   - [DefineRelation](DefineRelation.md)
   - [sequence_open](../s/sequence_open.md)/sequence_close
   - [heap_form_tuple](../h/heap_form_tuple.md)

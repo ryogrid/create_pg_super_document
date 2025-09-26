@@ -36,10 +36,10 @@ Key processing logic includes:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AllocateDir, ReadDir, FreeDir
+  - [AllocateDir](../A/AllocateDir.md), ReadDir, FreeDir
   - lstat, readlink
-  - parse_filename_for_nontemp_relation
-  - looks_like_temp_rel_name
+  - [parse_filename_for_nontemp_relation](../p/parse_filename_for_nontemp_relation.md)
+  - [looks_like_temp_rel_name](../l/looks_like_temp_rel_name.md)
   - [sendFile](sendFile.md)
   - [_tarWriteHeader](../t/_tarWriteHeader.md)
   - [GetFileBackupMethod](../G/GetFileBackupMethod.md)

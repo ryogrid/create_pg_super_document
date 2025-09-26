@@ -23,16 +23,16 @@ The function includes interrupt checking via  to allow for graceful cancellation
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bloom_add_element (adds each generated string to the Bloom filter)
+  - [bloom_add_element](../b/bloom_add_element.md) (adds each generated string to the Bloom filter)
   - snprintf (formats the dummy string elements)
   - strlen (calculates string length for bloom_add_element)
   - CHECK_FOR_INTERRUPTS (macro for interrupt handling)
 - Called from (representative examples):
-  - create_and_test_bloom
+  - [create_and_test_bloom](../c/create_and_test_bloom.md)
 
 ## Notes and Other Information
 - The function uses  to define the buffer size for generated strings
-- String format uses  for cross-platform 64-bit integer formatting
+- [String](../S/String.md) format uses  for cross-platform 64-bit integer formatting
 - This is a static function, meaning it's only accessible within the test_bloomfilter.c file
 - The function is specifically designed for testing scenarios and generates predictable, sequential dummy data
 - Interrupt checking ensures the function can be cancelled during long-running tests with large element counts

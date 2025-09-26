@@ -32,7 +32,7 @@ This logic handles dump/reload scenarios and prevents creation of incomplete ope
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CommandCounterIncrement
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md)
   - [get_opclass_input_type](../g/get_opclass_input_type.md)
   - [list_concat_copy](../l/list_concat_copy.md)
   - [opclass_for_family_datatype](../o/opclass_for_family_datatype.md)

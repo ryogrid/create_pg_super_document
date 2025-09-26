@@ -20,7 +20,7 @@ The function first creates a hash table with specific configuration: it uses bit
 ## Dependencies
 - Functions called/Symbols referenced:
   - [HTAB](../H/HTAB.md) (hash table type)
-  - HASHCTL (hash table control structure)
+  - [HASHCTL](../H/HASHCTL.md) (hash table control structure)
   - [JoinHashEntry](../J/JoinHashEntry.md) (hash table entry structure)
   - [bitmap_hash](bitmap_hash.md) (hash function for Relids)
   - [bitmap_match](bitmap_match.md) (match function for Relids)
@@ -36,5 +36,5 @@ The function first creates a hash table with specific configuration: it uses bit
 - Creates hash table with initial size of 256 entries
 - Uses assertion to verify that no duplicate entries exist when populating the hash table
 - The hash table enables O(1) lookup time for finding join relations by their Relids
-- Hash table is stored in CurrentMemoryContext
+- [Hash](../H/Hash.md) table is stored in CurrentMemoryContext
 - Located in src/backend/optimizer/util/relnode.c:486-526

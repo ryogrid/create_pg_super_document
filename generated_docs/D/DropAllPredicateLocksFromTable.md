@@ -32,9 +32,9 @@ The function is designed specifically for DDL operations like DROP TABLE, ALTER 
 - Functions called/Symbols referenced:
   - TransactionIdIsValid (via PredXact->SxactGlobalXmin check)
   - [PredicateLockingNeededForRelation](../P/PredicateLockingNeededForRelation.md)
-  - LWLockAcquire
+  - [LWLockAcquire](../L/LWLockAcquire.md)
   - PredicateLockHashPartitionLockByIndex
-  - RemoveScratchTarget
+  - [RemoveScratchTarget](../R/RemoveScratchTarget.md)
   - [hash_seq_init](../h/hash_seq_init.md)
   - [hash_seq_search](../h/hash_seq_search.md)
   - GET_PREDICATELOCKTARGETTAG_RELATION
@@ -51,7 +51,7 @@ The function is designed specifically for DDL operations like DROP TABLE, ALTER 
   - [dlist_push_tail](../d/dlist_push_tail.md)
   - PredicateLockHashCodeFromTargetHashCode
   - [RestoreScratchTarget](../R/RestoreScratchTarget.md)
-  - LWLockRelease
+  - [LWLockRelease](../L/LWLockRelease.md)
 - Called from (representative examples):
   - [TransferPredicateLocksToHeapRelation](../T/TransferPredicateLocksToHeapRelation.md)
   - [SerialControl](../S/SerialControl.md)

@@ -22,10 +22,10 @@ The function is designed to be used in a specific pattern where potentially fail
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BeginInternalSubTransaction
-  - MemoryContextSwitchTo (implicitly via context switch)
+  - [BeginInternalSubTransaction](../B/BeginInternalSubTransaction.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (implicitly via context switch)
 - Called from (representative examples):
-  - pltcl_SPI_prepare
+  - [pltcl_SPI_prepare](pltcl_SPI_prepare.md)
 
 ## Notes and Other Information
 - Part of a transaction management pattern documented in the source comments

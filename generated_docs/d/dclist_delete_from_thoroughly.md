@@ -28,7 +28,7 @@ The function decrements the list's count after performing the deletion, maintain
   - [dlist_node](dlist_node.md) (structure type)
 - Called from (representative examples):
   - [RemoveFromWaitQueue](../R/RemoveFromWaitQueue.md) (src/backend/storage/lmgr/lock.c:1923)
-  - ProcWakeup (src/backend/storage/lmgr/proc.c:1691)
+  - [ProcWakeup](../P/ProcWakeup.md) (src/backend/storage/lmgr/proc.c:1691)
 
 ## Notes and Other Information
 - This is an inline function defined in the header file for performance

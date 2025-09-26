@@ -20,10 +20,10 @@ This public function serves as the primary interface for PostgreSQL's GRANT and 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_rolespec_oid
+  - [get_rolespec_oid](../g/get_rolespec_oid.md)
   - [objectNamesToOids](../o/objectNamesToOids.md)
   - [objectsInSchemaToOids](../o/objectsInSchemaToOids.md)  
-  - lappend_oid
+  - [lappend_oid](../l/lappend_oid.md)
   - [string_to_privilege](../s/string_to_privilege.md)
   - [privilege_to_string](../p/privilege_to_string.md)
   - [ExecGrantStmt_oids](ExecGrantStmt_oids.md)
@@ -31,10 +31,10 @@ This public function serves as the primary interface for PostgreSQL's GRANT and 
   - elog
   - gettext_noop
 - Types and structures:
-  - GrantStmt
-  - InternalGrant
+  - [GrantStmt](../G/GrantStmt.md)
+  - [InternalGrant](../I/InternalGrant.md)
   - [RoleSpec](../R/RoleSpec.md)
-  - AccessPriv
+  - [AccessPriv](../A/AccessPriv.md)
   - AclMode
 - Constants used:
   - All OBJECT_* type constants

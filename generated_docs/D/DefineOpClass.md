@@ -40,7 +40,7 @@ Key responsibilities:
   - [object_aclcheck](../o/object_aclcheck.md)
   - [SearchSysCache1](../S/SearchSysCache1.md), SearchSysCache3
   - [GetIndexAmRoutineByAmId](../G/GetIndexAmRoutineByAmId.md)
-  - superuser
+  - [superuser](../s/superuser.md)
   - [typenameTypeId](../t/typenameTypeId.md)
   - [get_opfamily_oid](../g/get_opfamily_oid.md)
   - [CreateOpFamily](../C/CreateOpFamily.md)

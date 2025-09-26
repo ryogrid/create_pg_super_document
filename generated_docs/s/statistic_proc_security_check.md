@@ -26,16 +26,16 @@ This mechanism prevents potential information leakage where statistical data cou
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_func_leakproof (check if function is marked as leak-proof)
-  - get_func_name (retrieve function name for debug messages)
+  - [get_func_leakproof](../g/get_func_leakproof.md) (check if function is marked as leak-proof)
+  - [get_func_name](../g/get_func_name.md) (retrieve function name for debug messages)
   - ereport (logging and error reporting)
 - Called from (representative examples):
-  - var_eq_const (variable equality selectivity estimation)
-  - mcv_selectivity (most common values selectivity)
-  - histogram_selectivity (histogram-based selectivity)
-  - ineq_histogram_selectivity (inequality histogram selectivity)
-  - eqjoinsel (equality join selectivity)
-  - get_variable_range (variable range estimation)
+  - [var_eq_const](../v/var_eq_const.md) (variable equality selectivity estimation)
+  - [mcv_selectivity](../m/mcv_selectivity.md) (most common values selectivity)
+  - [histogram_selectivity](../h/histogram_selectivity.md) (histogram-based selectivity)
+  - [ineq_histogram_selectivity](../i/ineq_histogram_selectivity.md) (inequality histogram selectivity)
+  - [eqjoinsel](../e/eqjoinsel.md) (equality join selectivity)
+  - [get_variable_range](../g/get_variable_range.md) (variable range estimation)
 
 ## Notes and Other Information
 - Returns true immediately if vardata->acl_ok is set, indicating the user has proper permissions and no security restrictions apply

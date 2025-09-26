@@ -39,7 +39,7 @@ For example, a query like "WHERE network_col <<= '192.168.1.0/24'" becomes:
   - [get_opfamily_member](../g/get_opfamily_member.md) (lookup operators by strategy number)
   - [network_scan_first](../n/network_scan_first.md) (get first address in network range)
   - [network_scan_last](../n/network_scan_last.md) (get last address in network range)
-  - make_opclause (create operator expression nodes)
+  - [make_opclause](make_opclause.md) (create operator expression nodes)
   - [makeConst](makeConst.md) (create constant expression nodes)
   - list_make1, lappend (list construction functions)
   - elog (error logging)
@@ -48,7 +48,7 @@ For example, a query like "WHERE network_col <<= '192.168.1.0/24'" becomes:
 
 ## Notes and Other Information
 - This is a static helper function, not directly callable from outside the module
-- Only works with constant right operands - variable comparisons cannot be optimized this way
+- Only works with constant right operands - [variable](../v/variable.md) comparisons cannot be optimized this way
 - Requires the specific network B-tree operator family (NETWORK_BTREE_FAM_OID)
 - The `is_eq` parameter determines whether to use >= or > for the lower bound
 - Both clauses use the same left operand but different constant right operands

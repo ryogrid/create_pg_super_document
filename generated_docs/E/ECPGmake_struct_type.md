@@ -28,13 +28,13 @@ The function ensures that the member list is properly duplicated using ECPGstruc
   - [ECPGmake_simple_type](ECPGmake_simple_type.md)
   - [ECPGstruct_member_dup](ECPGstruct_member_dup.md)
   - [mm_strdup](../m/mm_strdup.md) (string duplication function)
-  - ECPGtype (struct type)
+  - [ECPGtype](ECPGtype.md) (struct type)
   - ECPGttype (enum type)
-  - ECPGstruct_member (struct type)
+  - [ECPGstruct_member](ECPGstruct_member.md) (struct type)
 
 - Called from (representative examples):
   - [ECPGstruct_member_dup](ECPGstruct_member_dup.md)
-  - find_struct_member
+  - [find_struct_member](../f/find_struct_member.md)
   - [find_variable](../f/find_variable.md)
 
 ## Notes and Other Information

@@ -30,9 +30,9 @@ The function switches to a temporary memory context for tuple creation, ensuring
   - [EachState](../E/EachState.md) (state structure)
   - JSON_SUCCESS (return value constant)
   - CStringGetTextDatum (converts C string to PostgreSQL text datum)
-  - cstring_to_text_with_len (converts C string with specified length to text)
+  - [cstring_to_text_with_len](../c/cstring_to_text_with_len.md) (converts C string with specified length to text)
   - [heap_form_tuple](../h/heap_form_tuple.md) (creates a PostgreSQL heap tuple)
-  - tuplestore_puttuple (stores tuple in tuple store)
+  - [tuplestore_puttuple](../t/tuplestore_puttuple.md) (stores tuple in tuple store)
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (switches memory contexts)
   - [MemoryContextReset](../M/MemoryContextReset.md) (resets temporary memory context)
 - Called from:

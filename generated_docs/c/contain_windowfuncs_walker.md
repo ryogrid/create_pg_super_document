@@ -20,7 +20,7 @@ This function is a tree walker that implements the core logic for detecting wind
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WindowFunc (node type check)
+  - [WindowFunc](../W/WindowFunc.md) (node type check)
   - expression_tree_walker (recursive traversal)
   - [contain_windowfuncs_walker](contain_windowfuncs_walker.md) (recursive self-call)
 - Called from (representative examples):

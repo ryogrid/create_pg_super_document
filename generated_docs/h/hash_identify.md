@@ -40,6 +40,6 @@ The function handles all major hash index WAL record types including metadata op
 ## Notes and Other Information
 - Returns NULL for unrecognized record types
 - The function masks out info bits using XLR_INFO_MASK to isolate the record type
-- String identifiers are concise and descriptive, suitable for logging and debugging output
+- [String](../S/String.md) identifiers are concise and descriptive, suitable for logging and debugging output
 - Part of PostgreSQL's resource manager identification framework for hash indexes
 - Commonly used by WAL analysis tools and debugging utilities

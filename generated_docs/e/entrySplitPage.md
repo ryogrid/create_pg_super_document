@@ -42,7 +42,7 @@ The function ensures balanced page utilization while preserving the original buf
 ## Dependencies
 - Functions called/Symbols referenced:
   - [entryPreparePage](entryPreparePage.md)
-  - PageGetTempPageCopy
+  - [PageGetTempPageCopy](../P/PageGetTempPageCopy.md)
   - [PageGetPageSize](../P/PageGetPageSize.md)  
   - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md)
   - [PageGetItem](../P/PageGetItem.md)

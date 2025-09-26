@@ -24,11 +24,11 @@ This simplified approach is used in contexts where the full catalog system may n
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slot_getallattrs
-  - pq_beginmessage
+  - [slot_getallattrs](../s/slot_getallattrs.md)
+  - [pq_beginmessage](pq_beginmessage.md)
   - [pq_sendint16](pq_sendint16.md)
   - [pq_sendint32](pq_sendint32.md)
-  - pq_sendcountedtext
+  - [pq_sendcountedtext](pq_sendcountedtext.md)
   - [pq_endmessage](pq_endmessage.md)
   - DatumGetTextPP
   - [DatumGetInt32](../D/DatumGetInt32.md)

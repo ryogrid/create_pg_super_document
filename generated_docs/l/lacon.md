@@ -36,7 +36,7 @@ The function includes important optimizations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getladfa (retrieves the DFA for the lookaround constraint)
+  - [getladfa](../g/getladfa.md) (retrieves the DFA for the lookaround constraint)
   - [shortest](../s/shortest.md) (tests lookahead constraints by finding shortest match)
   - [matchuntil](../m/matchuntil.md) (tests lookbehind constraints with caching)
   - STACK_TOO_DEEP (stack overflow protection macro)
@@ -49,7 +49,7 @@ The function includes important optimizations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getladfa
+  - [getladfa](../g/getladfa.md)
   - [shortest](../s/shortest.md)
   - [matchuntil](../m/matchuntil.md)
   - STACK_TOO_DEEP

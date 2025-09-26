@@ -27,8 +27,8 @@ None - the function takes no parameters
   - [hash_seq_init](../h/hash_seq_init.md)
   - [hash_seq_search](../h/hash_seq_search.md)
 - Data types used:
-  - HASH_SEQ_STATUS
-  - PortalHashEnt
+  - [HASH_SEQ_STATUS](../H/HASH_SEQ_STATUS.md)
+  - [PortalHashEnt](../P/PortalHashEnt.md)
   - [Portal](../P/Portal.md)
 - Constants used:
   - PORTAL_READY

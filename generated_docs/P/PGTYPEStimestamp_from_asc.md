@@ -34,7 +34,7 @@ The function includes robust error handling, setting errno to PGTYPES_TS_BAD_TIM
   - strlen (standard C library function)
 - Called from (representative examples):
   - [dtcvasc](../d/dtcvasc.md) (Informix compatibility function)
-  - ecpg_get_data (ECPG data retrieval function)
+  - [ecpg_get_data](../e/ecpg_get_data.md) (ECPG data retrieval function)
   - Various test programs (dt_test, dt_test2, array tests)
 
 ## Notes and Other Information

@@ -26,9 +26,9 @@ This function serves as the common implementation core for PostgreSQL's XPath fu
 - Functions called/Symbols referenced:
   - [xml_xpathobjtoxmlarray](xml_xpathobjtoxmlarray.md)
   - [pg_xml_init](../p/pg_xml_init.md), pg_xml_done
-  - xml_ereport
-  - parse_xml_decl
-  - pg_xmlCharStrndup
+  - [xml_ereport](xml_ereport.md)
+  - [parse_xml_decl](../p/parse_xml_decl.md)
+  - [pg_xmlCharStrndup](../p/pg_xmlCharStrndup.md)
   - [deconstruct_array_builtin](../d/deconstruct_array_builtin.md)
   - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md)
   - xmlNewParserCtxt, xmlCtxtReadMemory, xmlXPathNewContext, xmlXPathCtxtCompile, xmlXPathCompiledEval (libxml2)

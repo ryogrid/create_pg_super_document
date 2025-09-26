@@ -31,7 +31,7 @@ This validation prevents crashes that could occur when trying to detoast (decomp
   - IsNormalProcessingMode
   - OidIsValid
   - RelationGetRelid
-  - HaveRegisteredOrActiveSnapshot
+  - [HaveRegisteredOrActiveSnapshot](../H/HaveRegisteredOrActiveSnapshot.md)
 - Called from (representative examples):
   - [heap_insert](../h/heap_insert.md) (src/backend/access/heap/heapam.c:2051)
   - [heap_multi_insert](../h/heap_multi_insert.md) (src/backend/access/heap/heapam.c:2330)

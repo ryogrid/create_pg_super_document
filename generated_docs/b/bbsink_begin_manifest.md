@@ -20,11 +20,11 @@ This inline function serves as a wrapper to begin the backup manifest generation
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbsink (structure type)
+  - [bbsink](bbsink.md) (structure type)
   - Assert (assertion macro)
 - Called from (representative examples):
-  - SendBackupManifest
-  - bbsink_forward_begin_manifest
+  - [SendBackupManifest](../S/SendBackupManifest.md)
+  - [bbsink_forward_begin_manifest](bbsink_forward_begin_manifest.md)
 
 ## Notes and Other Information
 - This is an inline function defined in the header file for performance optimization

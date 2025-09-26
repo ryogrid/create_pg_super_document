@@ -32,13 +32,13 @@ The function is designed for use cases where only the match/no-match result is n
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TS_execute_recurse
+  - [TS_execute_recurse](TS_execute_recurse.md)
   - TS_NO (comparison)
 - Called from (representative examples):
-  - hlCover (in wparser_def.c)
-  - gtsvector_consistent (in tsgistidx.c)
-  - Cover (in tsrank.c)
-  - ts_match_vq
+  - [hlCover](../h/hlCover.md) (in wparser_def.c)
+  - [gtsvector_consistent](../g/gtsvector_consistent.md) (in tsgistidx.c)
+  - [Cover](../C/Cover.md) (in tsrank.c)
+  - [ts_match_vq](../t/ts_match_vq.md)
 
 ## Notes and Other Information
 - This is the standard interface for most text search operations that don't require position data

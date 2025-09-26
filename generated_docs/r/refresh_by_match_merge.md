@@ -32,12 +32,12 @@ The function leverages the behavior of NULLs in equality tests and UNIQUE indexe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open, table_close
-  - SPI_connect, SPI_exec, SPI_execute, SPI_finish
+  - [table_open](../t/table_open.md), table_close
+  - [SPI_connect](../S/SPI_connect.md), SPI_exec, SPI_execute, SPI_finish
   - [RelationGetIndexList](../R/RelationGetIndexList.md), index_open, index_close
   - [is_usable_unique_index](../i/is_usable_unique_index.md)
   - [OpenMatViewIncrementalMaintenance](../O/OpenMatViewIncrementalMaintenance.md), CloseMatViewIncrementalMaintenance
-  - quote_qualified_identifier, generate_operator_clause
+  - [quote_qualified_identifier](../q/quote_qualified_identifier.md), generate_operator_clause
   - [SetUserIdAndSecContext](../S/SetUserIdAndSecContext.md)
 - Called from (representative examples):
   - [RefreshMatViewByOid](../R/RefreshMatViewByOid.md)

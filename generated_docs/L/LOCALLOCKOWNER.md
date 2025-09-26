@@ -31,13 +31,13 @@ The structure supports PostgreSQL's nested transaction model by allowing locks t
 - `nLocks`: Reference count indicating how many times this lock has been acquired by the specified owner
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwnerData
+  - [ResourceOwnerData](../R/ResourceOwnerData.md)
 - Called from (representative examples):
   - [LockAcquireExtended](LockAcquireExtended.md)
   - [LockRelease](LockRelease.md)
   - [GrantLockLocal](../G/GrantLockLocal.md)
   - [LockReleaseAll](LockReleaseAll.md)
-  - LockReassignOwner
+  - [LockReassignOwner](LockReassignOwner.md)
   - [AtPrepare_Locks](../A/AtPrepare_Locks.md)
 
 ## Notes and Other Information

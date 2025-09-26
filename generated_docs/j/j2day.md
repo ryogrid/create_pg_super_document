@@ -25,13 +25,13 @@ The function includes a notable implementation detail: various places in the cod
 - Functions called/Symbols referenced:
   - No external function calls (uses only basic arithmetic operations)
 - Called from (representative examples):
-  - extract_date (date extraction operations for DOW field)
-  - EncodeDateTime (datetime formatting that includes day names)
-  - isoweek2j (ISO week calculations)
-  - date2isoweek (ISO week number calculations)
-  - date2isoyear (ISO year calculations)
-  - timestamp_part_common (timestamp part extraction)
-  - timestamptz_part_common (timestamptz part extraction)
+  - [extract_date](../e/extract_date.md) (date extraction operations for DOW field)
+  - [EncodeDateTime](../E/EncodeDateTime.md) (datetime formatting that includes day names)
+  - [isoweek2j](../i/isoweek2j.md) (ISO week calculations)
+  - [date2isoweek](../d/date2isoweek.md) (ISO week number calculations)
+  - [date2isoyear](../d/date2isoyear.md) (ISO year calculations)
+  - [timestamp_part_common](../t/timestamp_part_common.md) (timestamp part extraction)
+  - [timestamptz_part_common](../t/timestamptz_part_common.md) (timestamptz part extraction)
 
 ## Notes and Other Information
 - The function uses the standard astronomical/programming convention where Sunday = 0, Monday = 1, ..., Saturday = 6

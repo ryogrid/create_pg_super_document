@@ -26,9 +26,9 @@ The function is located in src/port/qsort.c and is part of PostgreSQL's portabil
 - Functions called/Symbols referenced:
   - strcmp (standard C library function)
 - Called from (representative examples):
-  - readstoplist (in src/backend/tsearch/ts_utils.c:136)
-  - searchstoplist (in src/backend/tsearch/ts_utils.c:144) 
-  - GetConfFilesInDir (in src/backend/utils/misc/conffiles.c:157)
+  - [readstoplist](../r/readstoplist.md) (in src/backend/tsearch/ts_utils.c:136)
+  - [searchstoplist](../s/searchstoplist.md) (in src/backend/tsearch/ts_utils.c:144) 
+  - [GetConfFilesInDir](../G/GetConfFilesInDir.md) (in src/backend/utils/misc/conffiles.c:157)
 
 ## Notes and Other Information
 - This function is typically used in conjunction with qsort() to sort arrays of string pointers in lexicographical order

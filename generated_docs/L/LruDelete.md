@@ -31,17 +31,17 @@ The error logging behavior differs based on the file type: temporary files (FD_T
   - VfdCache (global VFD cache array)
   - close (system call to close file descriptor)
   - FD_TEMP_FILE_LIMIT (flag for temporary files)
-  - data_sync_elevel (function for determining error log level)
+  - [data_sync_elevel](../d/data_sync_elevel.md) (function for determining error log level)
   - VFD_CLOSED (constant indicating closed state)
-  - Delete (function to remove from LRU chain)
+  - [Delete](../D/Delete.md) (function to remove from LRU chain)
   - DO_DB (debug macro)
   - elog (logging function)
   - Assert (assertion macro)
 - Called from (representative examples):
   - AllocateDesc
-  - ReleaseLruFile
-  - FileInvalidate
-  - closeAllVfds
+  - [ReleaseLruFile](../R/ReleaseLruFile.md)
+  - [FileInvalidate](../F/FileInvalidate.md)
+  - [closeAllVfds](../c/closeAllVfds.md)
 
 ## Notes and Other Information
 - Static function, only accessible within the fd.c source file

@@ -21,7 +21,7 @@ This function serves as a relation-oriented wrapper around the more general smgr
 ## Dependencies
 - Functions called/Symbols referenced:
   - [smgr_bulk_start_smgr](smgr_bulk_start_smgr.md)
-  - RelationGetSmgr
+  - [RelationGetSmgr](../R/RelationGetSmgr.md)
   - RelationNeedsWAL
   - INIT_FORKNUM
   - [BulkWriteState](../B/BulkWriteState.md)
@@ -29,7 +29,7 @@ This function serves as a relation-oriented wrapper around the more general smgr
   - [gist_indexsortbuild](../g/gist_indexsortbuild.md)
   - [begin_heap_rewrite](../b/begin_heap_rewrite.md)
   - [btbuildempty](../b/btbuildempty.md)
-  - _bt_load
+  - [_bt_load](../b/_bt_load.md)
   - [spgbuildempty](spgbuildempty.md)
 
 ## Notes and Other Information

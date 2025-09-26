@@ -44,10 +44,10 @@ The function handles complex scenarios like indexed join qualifications where un
   - [clamp_row_est](../c/clamp_row_est.md)
   - [has_indexed_join_quals](../h/has_indexed_join_quals.md)
   - [cost_qual_eval](../c/cost_qual_eval.md)
-  - NestPath
+  - [NestPath](../N/NestPath.md)
   - [JoinCostWorkspace](../J/JoinCostWorkspace.md)
   - [JoinPathExtraData](../J/JoinPathExtraData.md)
-  - QualCost
+  - [QualCost](../Q/QualCost.md)
   - Cost
   - JOIN_SEMI
   - JOIN_ANTI

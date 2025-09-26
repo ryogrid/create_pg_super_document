@@ -22,8 +22,8 @@ static bool isQueryUsingTempRelation_walker(Node *node, void *context)
 - Functions called/Symbols referenced:
   - query_tree_walker
   - expression_tree_walker
-  - table_open
-  - table_close
+  - [table_open](../t/table_open.md)
+  - [table_close](../t/table_close.md)
   - lfirst
 - Constants/Enums referenced:
   - RTE_RELATION

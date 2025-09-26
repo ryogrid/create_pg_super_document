@@ -24,13 +24,13 @@ The function uses an auxiliary array of SingleBoundSortItem structures to mainta
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetRangeTypeP
+  - [DatumGetRangeTypeP](../D/DatumGetRangeTypeP.md)
   - [range_deserialize](range_deserialize.md)
   - qsort_arg
   - [single_bound_cmp](../s/single_bound_cmp.md)
   - PLACE_LEFT (macro)
   - PLACE_RIGHT (macro)
-  - RangeTypePGetDatum
+  - [RangeTypePGetDatum](../R/RangeTypePGetDatum.md)
   - FirstOffsetNumber (constant)
   - OffsetNumberNext
   - SingleBoundSortItem (struct)

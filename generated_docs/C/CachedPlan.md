@@ -51,11 +51,11 @@ Memory management is handled through a dedicated context, making cleanup straigh
   - (No direct symbol references in the struct definition)
 
 - Called from (representative examples):
-  - ExecuteQuery (src/backend/commands/prepare.c:153)
-  - SPI_cursor_open_internal (src/backend/executor/spi.c:1581)
-  - exec_bind_message (src/backend/tcop/postgres.c:1640)
-  - GetCachedPlan (src/backend/utils/cache/plancache.c:1171)
-  - ReleaseCachedPlan (src/backend/utils/cache/plancache.c:1291)
+  - [ExecuteQuery](../E/ExecuteQuery.md) (src/backend/commands/prepare.c:153)
+  - [SPI_cursor_open_internal](../S/SPI_cursor_open_internal.md) (src/backend/executor/spi.c:1581)
+  - [exec_bind_message](../e/exec_bind_message.md) (src/backend/tcop/postgres.c:1640)
+  - [GetCachedPlan](../G/GetCachedPlan.md) (src/backend/utils/cache/plancache.c:1171)
+  - [ReleaseCachedPlan](../R/ReleaseCachedPlan.md) (src/backend/utils/cache/plancache.c:1291)
 
 ## Notes and Other Information
 - CachedPlans are automatically discarded when their reference count reaches zero

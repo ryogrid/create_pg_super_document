@@ -21,9 +21,9 @@ The `erealloc` function is a safe wrapper around the standard library `realloc()
 ## Dependencies
 - Functions called/Symbols referenced:
   - realloc (standard library memory reallocation function)
-  - memcheck (validation function for allocation results)
+  - [memcheck](../m/memcheck.md) (validation function for allocation results)
 - Called from (representative examples):
-  - growalloc
+  - [growalloc](../g/growalloc.md)
 
 ## Notes and Other Information
 - This is a static function, accessible only within the src/timezone/zic.c file

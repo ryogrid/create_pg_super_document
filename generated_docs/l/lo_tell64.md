@@ -24,7 +24,7 @@ The function includes additional error checking to ensure that the  server funct
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lo_initialize](lo_initialize.md)
-  - PQfn
+  - [PQfn](../P/PQfn.md)
   - [PQclear](../P/PQclear.md)
   - [PQresultStatus](../P/PQresultStatus.md)
   - [lo_ntoh64](lo_ntoh64.md)
@@ -32,7 +32,7 @@ The function includes additional error checking to ensure that the  server funct
 - Types referenced:
   - pg_int64
   - PQArgBlock
-  - PGresult
+  - [PGresult](../P/PGresult.md)
   - PGRES_COMMAND_OK
 - Called from (representative examples):
   - [pickout](../p/pickout.md) (in testlo64.c test program)

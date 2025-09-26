@@ -46,13 +46,13 @@ The estimate should only include the cost of executing the target function itsel
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag
-  - PlannerInfo
-  - Node
+  - [PlannerInfo](../P/PlannerInfo.md)
+  - [Node](../N/Node.md)
   - Cost
 
 - Called from (representative examples):
-  - add_function_cost (src/backend/optimizer/util/plancat.c:2102)
-  - test_support_func (src/test/regress/regress.c:1060)
+  - [add_function_cost](../a/add_function_cost.md) (src/backend/optimizer/util/plancat.c:2102)
+  - [test_support_func](../t/test_support_func.md) (src/test/regress/regress.c:1060)
 
 ## Notes and Other Information
 - The node parameter can be NULL when the function cannot assume its arguments are equivalent to what the calling node presents (e.g., for aggregate support functions or per-column comparison operators used by RowExprs)

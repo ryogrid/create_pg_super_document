@@ -23,8 +23,8 @@ The pg_ftruncate function provides a reliable interface to truncate an open file
   - ftruncate (system call)
   - EINTR (errno constant)
 - Called from (representative examples):
-  - pg_truncate
-  - FileTruncate
+  - [pg_truncate](pg_truncate.md)
+  - [FileTruncate](../F/FileTruncate.md)
 
 ## Notes and Other Information
 - Returns 0 on success, -1 on error with errno set appropriately

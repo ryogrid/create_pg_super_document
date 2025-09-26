@@ -29,15 +29,15 @@ The function includes robust error handling, particularly for the case where a t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `AllocateDir`/`ReadDir`/`FreeDir`: Directory traversal operations
+  - `[AllocateDir](../A/AllocateDir.md)`/`ReadDir`/`FreeDir`: Directory traversal operations
   - `ereport`: Error reporting for missing directories
   - `report_startup_progress`: Progress reporting during startup
-  - `ResetUnloggedRelationsInDbspaceDir`: Processes individual database directories
+  - `[ResetUnloggedRelationsInDbspaceDir](ResetUnloggedRelationsInDbspaceDir.md)`: Processes individual database directories
   - `strspn`/`strlen`: String validation for numeric directory names
   - `snprintf`: Path construction
 
 - Called from:
-  - `ResetUnloggedRelations`: For each tablespace directory (lines 75, 90)
+  - `[ResetUnloggedRelations](ResetUnloggedRelations.md)`: For each tablespace directory (lines 75, 90)
 
 ## Notes and Other Information
 - This is a static function, internal to the reinit.c module

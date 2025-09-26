@@ -24,10 +24,10 @@ For infinite bounds, the function creates PartitionRangeDatum nodes with appropr
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RelationGetPartitionKey](../R/RelationGetPartitionKey.md)
-  - get_partition_exprs
+  - [get_partition_exprs](../g/get_partition_exprs.md)
   - makeNode
   - IsA
-  - list_length
+  - [list_length](../l/list_length.md)
   - linitial
   - strVal
   - strcmp
@@ -37,15 +37,15 @@ For infinite bounds, the function creates PartitionRangeDatum nodes with appropr
   - [list_nth](../l/list_nth.md)
   - [deparse_context_for](../d/deparse_context_for.md)
   - RelationGetRelationName
-  - get_partition_col_typid
-  - get_partition_col_typmod
-  - get_partition_col_collation
+  - [get_partition_col_typid](../g/get_partition_col_typid.md)
+  - [get_partition_col_typmod](../g/get_partition_col_typmod.md)
+  - [get_partition_col_collation](../g/get_partition_col_collation.md)
   - [transformPartitionBoundValue](transformPartitionBoundValue.md)
   - ereport
   - [errcode](../e/errcode.md)
   - [errmsg](../e/errmsg.md)
   - [exprLocation](../e/exprLocation.md)
-  - lappend
+  - [lappend](../l/lappend.md)
   - [validateInfiniteBounds](../v/validateInfiniteBounds.md)
 - Called from (representative examples):
   - [transformPartitionBound](transformPartitionBound.md) (in src/backend/parser/parse_utilcmd.c:4121, 4124)

@@ -24,7 +24,7 @@ This function performs the reverse transformation of , taking the internal text-
   - [deconstruct_array_builtin](../d/deconstruct_array_builtin.md)
   - TextDatumGetCString
   - [makeString](../m/makeString.md)
-  - makeDefElem
+  - [makeDefElem](../m/makeDefElem.md)
 - Called from (representative examples):
   - [transformGenericOptions](../t/transformGenericOptions.md) (foreign data wrapper handling)
   - [ATExecSetRelOptions](../A/ATExecSetRelOptions.md) (ALTER TABLE operations)

@@ -28,14 +28,14 @@ The key design allows for hierarchical organization where statistics can be scop
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PgStat_Kind (enum type)
+  - [PgStat_Kind](PgStat_Kind.md) (enum type)
 - Called from (representative examples):
-  - pgstat_fetch_entry (statistics retrieval)
-  - pgstat_get_entry_ref (reference management) 
-  - pgstat_drop_entry (statistics cleanup)
-  - PgStatShared_HashEntry (as key field)
-  - pgstat_cmp_hash_key (key comparison function)
-  - pgstat_hash_hash_key (key hashing function)
+  - [pgstat_fetch_entry](../p/pgstat_fetch_entry.md) (statistics retrieval)
+  - [pgstat_get_entry_ref](../p/pgstat_get_entry_ref.md) (reference management) 
+  - [pgstat_drop_entry](../p/pgstat_drop_entry.md) (statistics cleanup)
+  - [PgStatShared_HashEntry](PgStatShared_HashEntry.md) (as key field)
+  - [pgstat_cmp_hash_key](../p/pgstat_cmp_hash_key.md) (key comparison function)
+  - [pgstat_hash_hash_key](../p/pgstat_hash_hash_key.md) (key hashing function)
 
 ## Notes and Other Information
 - This key structure is fundamental to PostgreSQL's shared statistics architecture, enabling efficient lookup and management of per-object statistics

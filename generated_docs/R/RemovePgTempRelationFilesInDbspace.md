@@ -23,13 +23,13 @@ This function operates at the most granular level of PostgreSQLs temporary file 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AllocateDir
-  - ReadDirExtended
-  - looks_like_temp_rel_name
+  - [AllocateDir](../A/AllocateDir.md)
+  - [ReadDirExtended](ReadDirExtended.md)
+  - [looks_like_temp_rel_name](../l/looks_like_temp_rel_name.md)
   - unlink
-  - FreeDir
+  - [FreeDir](../F/FreeDir.md)
 - Called from (representative examples):
-  - RemovePgTempRelationFiles
+  - [RemovePgTempRelationFiles](RemovePgTempRelationFiles.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the fd.c source file

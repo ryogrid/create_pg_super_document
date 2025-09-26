@@ -22,7 +22,7 @@ The  function generates SQL CREATE EVENT TRIGGER statements to restore PostgreSQ
 ## Dependencies
 - Functions called/Symbols referenced:
   - [fmtId](../f/fmtId.md)
-  - createPQExpBuffer/destroyPQExpBuffer
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)/destroyPQExpBuffer
   - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)/appendPQExpBufferChar
   - [binary_upgrade_extension_member](../b/binary_upgrade_extension_member.md)
   - [ArchiveEntry](../A/ArchiveEntry.md)

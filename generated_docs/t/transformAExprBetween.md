@@ -50,14 +50,14 @@ The transformation process:
   - castNode
   - linitial
   - lsecond
-  - makeSimpleA_Expr
+  - [makeSimpleA_Expr](../m/makeSimpleA_Expr.md)
   - copyObject
-  - makeBoolExpr
+  - [makeBoolExpr](../m/makeBoolExpr.md)
   - list_make2
-  - transformExprRecurse
+  - [transformExprRecurse](transformExprRecurse.md)
   - elog (for error handling)
 - Called from (representative examples):
-  - transformExprRecurse
+  - [transformExprRecurse](transformExprRecurse.md)
 
 ## Notes and Other Information
 - The function is static, meaning it's only accessible within parse_expr.c

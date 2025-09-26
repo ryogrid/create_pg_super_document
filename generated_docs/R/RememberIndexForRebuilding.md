@@ -24,7 +24,7 @@ This function is a critical subroutine for ATExecAlterColumnType that manages in
   - [get_index_constraint](../g/get_index_constraint.md)
   - [RememberConstraintForRebuilding](RememberConstraintForRebuilding.md)
   - [pg_get_indexdef_string](../p/pg_get_indexdef_string.md)
-  - lappend_oid
+  - [lappend_oid](../l/lappend_oid.md)
   - [RememberReplicaIdentityForRebuilding](RememberReplicaIdentityForRebuilding.md)
   - [RememberClusterOnForRebuilding](RememberClusterOnForRebuilding.md)
   - [AlteredTableInfo](../A/AlteredTableInfo.md) (struct)

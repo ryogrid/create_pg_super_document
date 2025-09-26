@@ -61,13 +61,13 @@ The structure includes synchronization primitives (condition variable and lightw
 - Functions called/Symbols referenced:
   - RepOriginId (replication origin identifier type)
   - ConditionVariable (synchronization primitive)
-  - LWLock (lightweight lock type)
+  - [LWLock](../L/LWLock.md) (lightweight lock type)
 - Called from (representative examples):
-  - ReplicationStateCtl
-  - replorigin_advance
-  - replorigin_get_progress
-  - replorigin_session_setup
-  - CheckPointReplicationOrigin
+  - [ReplicationStateCtl](ReplicationStateCtl.md)
+  - [replorigin_advance](../r/replorigin_advance.md)
+  - [replorigin_get_progress](../r/replorigin_get_progress.md)
+  - [replorigin_session_setup](../r/replorigin_session_setup.md)
+  - [CheckPointReplicationOrigin](../C/CheckPointReplicationOrigin.md)
 
 ## Notes and Other Information
 - The structure is allocated in shared memory as part of the replication origin control structure

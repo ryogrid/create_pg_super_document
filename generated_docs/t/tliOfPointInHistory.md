@@ -24,7 +24,7 @@ If no matching timeline is found, the function raises an ERROR, as this indicate
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TimeLineHistoryEntry (structure access)
+  - [TimeLineHistoryEntry](../T/TimeLineHistoryEntry.md) (structure access)
   - XLogRecPtrIsInvalid (macro for checking invalid WAL positions)
 - Called from (representative examples):
   - [InitWalRecovery](../I/InitWalRecovery.md) (src/backend/access/transam/xlogrecovery.c:838, 862)

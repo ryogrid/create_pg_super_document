@@ -23,14 +23,14 @@ The function ensures that relation statistics are preserved across the prepare/c
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RegisterTwoPhaseRecord](../R/RegisterTwoPhaseRecord.md) (registers 2PC record with the system)
-  - TwoPhasePgStatRecord (structure for 2PC statistics record)
+  - [TwoPhasePgStatRecord](../T/TwoPhasePgStatRecord.md) (structure for 2PC statistics record)
   - TWOPHASE_RM_PGSTAT_ID (resource manager ID for statistics)
-  - PgStat_SubXactStatus (subtransaction status structure)
-  - PgStat_TableXactStatus (transaction-level table statistics)
-  - PgStat_TableStatus (base table statistics structure)
+  - [PgStat_SubXactStatus](../P/PgStat_SubXactStatus.md) (subtransaction status structure)
+  - [PgStat_TableXactStatus](../P/PgStat_TableXactStatus.md) (transaction-level table statistics)
+  - [PgStat_TableStatus](../P/PgStat_TableStatus.md) (base table statistics structure)
   - PG_USED_FOR_ASSERTS_ONLY (annotation for debug-only variables)
 - Called from (representative examples):
-  - AtPrepare_PgStat (main prepare phase statistics handler)
+  - [AtPrepare_PgStat](AtPrepare_PgStat.md) (main prepare phase statistics handler)
 
 ## Notes and Other Information
 - Only processes top-level transactions (nest_level == 1) during prepare phase

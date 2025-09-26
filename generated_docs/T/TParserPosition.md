@@ -41,9 +41,9 @@ The structure tracks both byte and character positions separately to handle mult
   - TParserStateActionItem
 - Called from (representative examples):
   - [TParser](TParser.md) (as state field)
-  - newTParserPosition
-  - TParserClose
-  - TParserCopyClose
+  - [newTParserPosition](../n/newTParserPosition.md)
+  - [TParserClose](TParserClose.md)
+  - [TParserCopyClose](TParserCopyClose.md)
   - [TParserGet](TParserGet.md)
 
 ## Notes and Other Information

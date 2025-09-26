@@ -36,8 +36,8 @@ The function includes conditional pointer alignment enforcement based on whether
   - [WalRcvShmemInit](../W/WalRcvShmemInit.md)
   - [ProcSignalShmemInit](../P/ProcSignalShmemInit.md)
   - [shm_mq_create](../s/shm_mq_create.md)
-  - InitProcGlobal
-  - StatsShmemInit
+  - [InitProcGlobal](../I/InitProcGlobal.md)
+  - [StatsShmemInit](../S/StatsShmemInit.md)
 
 ## Notes and Other Information
 - Conditionally enforces 8-byte alignment only when hardware atomic operations are available (not using spinlock simulation)

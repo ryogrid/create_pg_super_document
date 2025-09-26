@@ -28,7 +28,7 @@ The function is essential for translating between the logical bitmap representat
 ## Dependencies
 - Functions called/Symbols referenced:
   - HashMetaPage (metadata structure)
-  - _hash_get_totalbuckets (calculates total bucket count for a split level)
+  - [_hash_get_totalbuckets](../h/_hash_get_totalbuckets.md) (calculates total bucket count for a split level)
 - Called from (representative examples):
   - [_hash_addovflpage](../h/_hash_addovflpage.md) (when adding new overflow pages)
 

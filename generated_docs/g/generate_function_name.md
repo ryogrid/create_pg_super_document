@@ -28,24 +28,24 @@ This function generates an appropriate display name for a function call, impleme
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - GETSTRUCT
   - NameStr
-  - func_get_detail
-  - makeString
+  - [func_get_detail](../f/func_get_detail.md)
+  - [makeString](../m/makeString.md)
   - list_make1
-  - get_namespace_name_or_temp
-  - quote_qualified_identifier
-  - ReleaseSysCache
+  - [get_namespace_name_or_temp](get_namespace_name_or_temp.md)
+  - [quote_qualified_identifier](../q/quote_qualified_identifier.md)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - elog
 - Called from (representative examples):
-  - pg_get_triggerdef_worker
-  - pg_get_functiondef
-  - get_func_expr
-  - get_agg_expr_helper
-  - get_windowfunc_expr_helper
-  - get_tablesample_def
+  - [pg_get_triggerdef_worker](../p/pg_get_triggerdef_worker.md)
+  - [pg_get_functiondef](../p/pg_get_functiondef.md)
+  - [get_func_expr](get_func_expr.md)
+  - [get_agg_expr_helper](get_agg_expr_helper.md)
+  - [get_windowfunc_expr_helper](get_windowfunc_expr_helper.md)
+  - [get_tablesample_def](get_tablesample_def.md)
 
 ## Notes and Other Information
 - This is a static function local to ruleutils.c

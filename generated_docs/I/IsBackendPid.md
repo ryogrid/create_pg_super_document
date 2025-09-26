@@ -22,7 +22,7 @@ The function works by attempting to retrieve the PGPROC structure associated wit
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BackendPidGetProc
+  - [BackendPidGetProc](../B/BackendPidGetProc.md)
 - Called from (representative examples):
   - PG_STAT_GET_SUBSCRIPTION_COLS (in replication/logical/launcher.c)
   - Declared in procarray.h for external module usage

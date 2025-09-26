@@ -54,13 +54,13 @@ ParallelApplyWorkerInfo serves as the primary management interface for parallel 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [shm_mq_handle](../s/shm_mq_handle.md)
-  - dsm_segment
+  - [dsm_segment](../d/dsm_segment.md)
   - [ParallelApplyWorkerShared](ParallelApplyWorkerShared.md)
 - Called from (representative examples):
   - [pa_launch_parallel_worker](../p/pa_launch_parallel_worker.md)
   - [pa_allocate_worker](../p/pa_allocate_worker.md)
   - [pa_free_worker](../p/pa_free_worker.md)
-  - pa_send_data
+  - [pa_send_data](../p/pa_send_data.md)
   - [HandleParallelApplyMessages](../H/HandleParallelApplyMessages.md)
   - [handle_streamed_transaction](../h/handle_streamed_transaction.md)
 

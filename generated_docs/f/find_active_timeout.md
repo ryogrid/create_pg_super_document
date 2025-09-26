@@ -22,11 +22,11 @@ The function is designed to be called from within the timeout management subsyst
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TimeoutId (data type)
+  - [TimeoutId](../T/TimeoutId.md) (data type)
 - Called from (representative examples):
-  - enable_timeout
-  - disable_timeout
-  - disable_timeouts
+  - [enable_timeout](../e/enable_timeout.md)
+  - [disable_timeout](../d/disable_timeout.md)
+  - [disable_timeouts](../d/disable_timeouts.md)
 
 ## Notes and Other Information
 - This is a static function internal to the timeout.c module

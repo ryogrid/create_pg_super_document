@@ -22,14 +22,14 @@ For the range (0.0, 1.0], the standard approach is to compute "1.0 - pg_prng_dou
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - xoroshiro128ss (the core PRNG algorithm)
+  - [xoroshiro128ss](../x/xoroshiro128ss.md) (the core PRNG algorithm)
   - ldexp (scales a floating-point value by a power of 2)
-  - pg_prng_state (state structure type)
+  - [pg_prng_state](pg_prng_state.md) (state structure type)
 - Called from (representative examples):
   - gin_rand (GIN index random operations)
   - [StartTransaction](../S/StartTransaction.md) (transaction processing)
   - [geqo_rand](../g/geqo_rand.md) (genetic algorithm optimizer)
-  - perform_spin_delay (lock contention handling)
+  - [perform_spin_delay](perform_spin_delay.md) (lock contention handling)
   - [drandom](../d/drandom.md) (SQL random() function)
   - [sampler_random_fract](../s/sampler_random_fract.md) (sampling operations)
   - [getExponentialRand](../g/getExponentialRand.md), getPoissonRand (pgbench statistical distributions)
@@ -41,4 +41,4 @@ For the range (0.0, 1.0], the standard approach is to compute "1.0 - pg_prng_dou
 - Extensively used throughout PostgreSQL for statistical operations, sampling, and randomized algorithms
 - Core building block for more complex probability distributions
 - Part of PostgreSQL's unified PRNG interface for consistent random number generation
-- Range is [0.0, 1.0) - includes 0.0 but excludes 1.0
+- [Range](../R/Range.md) is [0.0, 1.0) - includes 0.0 but excludes 1.0

@@ -39,12 +39,12 @@ Special handling is provided for index drops through the concurrent flag, which 
   - ObjectType
   - DropBehavior
 - Called from (representative examples):
-  - RemoveObjects
-  - RemoveRelations
-  - standard_ProcessUtility
-  - ProcessUtilitySlow
-  - ExecDropStmt
-  - CreateCommandTag
+  - [RemoveObjects](../R/RemoveObjects.md)
+  - [RemoveRelations](../R/RemoveRelations.md)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md)
+  - [ExecDropStmt](../E/ExecDropStmt.md)
+  - [CreateCommandTag](../C/CreateCommandTag.md)
 
 ## Notes and Other Information
 - This single structure handles multiple DROP statement variants, making the parser more uniform

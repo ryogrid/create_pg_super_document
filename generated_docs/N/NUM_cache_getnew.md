@@ -18,7 +18,7 @@ This function manages the allocation of cache entries in the numeric formatting 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [NUM_prevent_counter_overflow](NUM_prevent_counter_overflow.md)
-  - strlcpy
+  - [strlcpy](../s/strlcpy.md)
   - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md)
   - TopMemoryContext
   - NUMCounter (global variable)

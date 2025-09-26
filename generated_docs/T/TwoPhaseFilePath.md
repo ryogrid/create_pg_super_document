@@ -21,7 +21,7 @@ The function uses snprintf to safely format the path string and returns the numb
 ## Dependencies
 - Functions called/Symbols referenced:
   - [AdjustToFullTransactionId](../A/AdjustToFullTransactionId.md)
-  - FullTransactionId
+  - [FullTransactionId](../F/FullTransactionId.md)
   - TWOPHASE_DIR
   - EpochFromFullTransactionId
   - XidFromFullTransactionId

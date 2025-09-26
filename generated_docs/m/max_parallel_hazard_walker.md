@@ -61,7 +61,7 @@ The function uses PostgreSQL's standard tree walking infrastructure ( and ) to e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_functions_in_node
+  - [check_functions_in_node](../c/check_functions_in_node.md)
   - [max_parallel_hazard_checker](max_parallel_hazard_checker.md)
   - [max_parallel_hazard_test](max_parallel_hazard_test.md)
   - expression_tree_walker

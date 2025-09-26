@@ -34,6 +34,6 @@ The function validates that both ranges are of the same type and returns false i
 ## Notes and Other Information
 - This function serves as the SQL-callable wrapper for the ">>" range operator
 - Empty ranges are never considered to be after any other range
-- Range types must match or an error is raised
+- [Range](../R/Range.md) types must match or an error is raised
 - The actual comparison logic compares the lower bound of the first range with the upper bound of the second range
 - Located in src/backend/utils/adt/rangetypes.c:727-756

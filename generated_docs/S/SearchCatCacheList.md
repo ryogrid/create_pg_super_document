@@ -36,10 +36,10 @@ The implementation includes sophisticated concurrency handling through an "in-pr
   - [CatalogCacheCreateEntry](../C/CatalogCacheCreateEntry.md)
   - [CatCacheCopyKeys](../C/CatCacheCopyKeys.md)
   - [RehashCatCacheLists](../R/RehashCatCacheLists.md)
-  - ResourceOwnerEnlarge
-  - ResourceOwnerRememberCatCacheListRef
+  - [ResourceOwnerEnlarge](../R/ResourceOwnerEnlarge.md)
+  - [ResourceOwnerRememberCatCacheListRef](../R/ResourceOwnerRememberCatCacheListRef.md)
   - [systable_beginscan](../s/systable_beginscan.md)/systable_getnext
-  - table_open/table_close
+  - [table_open](../t/table_open.md)/table_close
 - Called from (representative examples):
   - [SearchSysCacheList](SearchSysCacheList.md)
   - Various high-level catalog access functions

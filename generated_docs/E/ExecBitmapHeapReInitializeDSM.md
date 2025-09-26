@@ -33,7 +33,7 @@ This function ensures that each fresh scan starts with clean state while reusing
   - [BitmapHeapScanState](../B/BitmapHeapScanState.md) (structure)
   - [ParallelContext](../P/ParallelContext.md) (structure)
   - [ParallelBitmapHeapState](../P/ParallelBitmapHeapState.md) (structure)
-  - dsa_area (structure)
+  - [dsa_area](../d/dsa_area.md) (structure)
   - BM_INITIAL (enum value)
   - InvalidDsaPointer (constant)
 - Called from (representative examples):

@@ -34,7 +34,7 @@ The async execution model allows the database to initiate I/O operations or remo
   - bms_is_empty (bitmap emptiness check)
   - [bms_num_members](../b/bms_num_members.md) (async subplan counting)
   - [bms_next_member](../b/bms_next_member.md) (bitmap iteration)
-  - ExecAsyncRequest (async request submission)
+  - [ExecAsyncRequest](ExecAsyncRequest.md) (async request submission)
 - Called from (representative examples):
   - [ExecAppend](ExecAppend.md) (main append execution function)
 

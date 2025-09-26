@@ -20,19 +20,19 @@ This function performs comprehensive initialization of the XLOG shared memory st
 ## Dependencies
 - Functions called/Symbols referenced:
   - AllocSetContextCreate
-  - MemoryContextAllowInCriticalSection
+  - [MemoryContextAllowInCriticalSection](../M/MemoryContextAllowInCriticalSection.md)
   - [ShmemInitStruct](../S/ShmemInitStruct.md)
   - [XLOGShmemSize](XLOGShmemSize.md)
   - memcpy
   - memset
   - [pfree](../p/pfree.md)
   - [pg_atomic_init_u64](../p/pg_atomic_init_u64.md)
-  - LWLockInitialize
+  - [LWLockInitialize](../L/LWLockInitialize.md)
   - SpinLockInit
   - TYPEALIGN
 - Types and constants referenced:
   - [XLogCtlData](XLogCtlData.md)
-  - ControlFileData
+  - [ControlFileData](../C/ControlFileData.md)
   - WALInsertLockPadded
   - [pg_atomic_uint64](../p/pg_atomic_uint64.md)
   - NUM_XLOGINSERT_LOCKS

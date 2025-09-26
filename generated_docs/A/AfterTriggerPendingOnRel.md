@@ -32,7 +32,7 @@ Events marked with AFTER_TRIGGER_DONE are safely ignored, as even if such flags 
   - GetTriggerSharedData (retrieves shared trigger data from event)
   - AFTER_TRIGGER_DONE (flag indicating completed trigger events)
 - Called from (representative examples):
-  - CheckTableNotInUse (in tablecmds.c for DDL safety checks)
+  - [CheckTableNotInUse](../C/CheckTableNotInUse.md) (in tablecmds.c for DDL safety checks)
 
 ## Notes and Other Information
 - The function only examines local pending events, relying on exclusive locking to ensure no cross-backend conflicts

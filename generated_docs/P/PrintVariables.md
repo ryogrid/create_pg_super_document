@@ -24,10 +24,10 @@ The function traverses a linked list of _variable structures starting from space
   - printf (standard C library function)
   - cancel_pressed (global variable for interrupt handling)
 - Data types referenced:
-  - VariableSpace
+  - [VariableSpace](../V/VariableSpace.md)
   - struct _variable
 - Called from (representative examples):
-  - exec_command_set (in src/bin/psql/command.c:2433)
+  - [exec_command_set](../e/exec_command_set.md) (in src/bin/psql/command.c:2433)
 
 ## Notes and Other Information
 - The function is part of psql's variable management system

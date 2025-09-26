@@ -32,7 +32,7 @@ ResultState maintains the execution state for Result nodes, which are used in Po
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PlanState](../P/PlanState.md) (inherited base structure)
-  - ExprState (for qualification expression state)
+  - [ExprState](../E/ExprState.md) (for qualification expression state)
 - Called from (representative examples):
   - [ExecResult](../E/ExecResult.md)
   - [ExecInitResult](../E/ExecInitResult.md)

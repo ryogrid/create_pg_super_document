@@ -45,6 +45,6 @@ This function takes no parameters.
 ## Notes and Other Information
 - The function is called after compatibility checks pass but before the actual upgrade process begins
 - WAL level handling is critical for standby server upgrades using rsync methodology
-- Hash index invalidation is a one-time migration task for very old PostgreSQL versions (< 10.0)  
+- [Hash](../H/Hash.md) index invalidation is a one-time migration task for very old PostgreSQL versions (< 10.0)  
 - This function bridges the gap between compatibility verification and actual data migration
 - The temporary start/stop of the new cluster is intentional and necessary for proper WAL record generation

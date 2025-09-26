@@ -27,7 +27,7 @@ fetch_fp_info is responsible for safely retrieving and validating function metad
   - PROKIND_FUNCTION
   - FUNC_MAX_ARGS
   - NAMEDATALEN
-  - strlcpy
+  - [strlcpy](../s/strlcpy.md)
   - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - [fmgr_info](fmgr_info.md)
 - Called from (representative examples):

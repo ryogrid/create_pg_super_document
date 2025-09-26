@@ -39,7 +39,7 @@ The design uses separate byte fields rather than an array, which allows for dire
   -  - Output function for MAC address formatting
   -  - Comparison function for MAC addresses
   -  - Equality comparison function
-  -  - Hash function for MAC addresses
+  -  - [Hash](../H/Hash.md) function for MAC addresses
   -  - Bitwise AND operation on MAC addresses
   -  - Bitwise OR operation on MAC addresses
   -  - Bitwise NOT operation on MAC addresses

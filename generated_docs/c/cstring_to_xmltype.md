@@ -22,7 +22,7 @@ The function works by delegating to cstring_to_text, which handles the conversio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - cstring_to_text (converts C string to PostgreSQL text)
+  - [cstring_to_text](cstring_to_text.md) (converts C string to PostgreSQL text)
   - [xmltype](../x/xmltype.md) (PostgreSQL XML data type)
 - Called from:
   - [table_to_xmlschema](../t/table_to_xmlschema.md) (table to XML schema conversion)

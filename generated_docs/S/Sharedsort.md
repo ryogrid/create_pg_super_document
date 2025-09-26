@@ -55,27 +55,27 @@ The SharedFileSet provides a unified temporary file space that all workers can a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slock_t (spinlock primitive)
+  - [slock_t](../s/slock_t.md) (spinlock primitive)
   - SharedFileSet (shared temporary file management)
-  - TapeShare (tape metadata sharing structure)
+  - [TapeShare](../T/TapeShare.md) (tape metadata sharing structure)
   - FLEXIBLE_ARRAY_MEMBER (C99 flexible array member)
 
 - Called from (representative examples):
-  - tuplesort_estimate_shared (memory size estimation)
-  - tuplesort_initialize_shared (initialization)
-  - tuplesort_attach_shared (worker attachment)
-  - worker_get_identifier (worker ID assignment)
-  - worker_freeze_result_tape (worker completion)
-  - leader_takeover_tapes (leader merge preparation)
-  - _bt_begin_parallel (B-tree index parallel building)
-  - _brin_begin_parallel (BRIN index parallel building)
+  - [tuplesort_estimate_shared](../t/tuplesort_estimate_shared.md) (memory size estimation)
+  - [tuplesort_initialize_shared](../t/tuplesort_initialize_shared.md) (initialization)
+  - [tuplesort_attach_shared](../t/tuplesort_attach_shared.md) (worker attachment)
+  - [worker_get_identifier](../w/worker_get_identifier.md) (worker ID assignment)
+  - [worker_freeze_result_tape](../w/worker_freeze_result_tape.md) (worker completion)
+  - [leader_takeover_tapes](../l/leader_takeover_tapes.md) (leader merge preparation)
+  - [_bt_begin_parallel](../b/_bt_begin_parallel.md) (B-tree index parallel building)
+  - [_brin_begin_parallel](../b/_brin_begin_parallel.md) (BRIN index parallel building)
 
 ## Notes and Other Information
 - The structure is allocated in dynamic shared memory to enable cross-process access
 - The mutex provides fine-grained synchronization, protecting shared counters and state
 - Worker identification follows a gapless sequence starting from 0 for predictable indexing
 - The completion signaling mechanism (workersFinished vs nParticipants) enables deterministic merge triggering
-- TapeShare structures in the flexible array contain essential metadata for tape concatenation and merging
+- [TapeShare](../T/TapeShare.md) structures in the flexible array contain essential metadata for tape concatenation and merging
 - Used extensively in parallel index building operations for B-tree and BRIN indexes
 - The design supports variable numbers of workers through the flexible array member pattern
 - SharedFileSet integration ensures all workers can access the same temporary file space regardless of process boundaries

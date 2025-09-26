@@ -23,9 +23,9 @@ The function performs two critical operations: first, it flushes any buffered da
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert: Validates that the file belongs to a FileSet and is not already read-only
-  - BufFileFlush: Ensures all buffered data is written to disk before marking as read-only
+  - [BufFileFlush](BufFileFlush.md): Ensures all buffered data is written to disk before marking as read-only
 - Called from (representative examples):
-  - LogicalTapeFreeze: When freezing logical tapes for sharing in sort operations
+  - [LogicalTapeFreeze](../L/LogicalTapeFreeze.md): When freezing logical tapes for sharing in sort operations
 
 ## Notes and Other Information
 - The BufFile must belong to a FileSet (file->fileset != NULL) - enforced by assertion

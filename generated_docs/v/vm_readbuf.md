@@ -22,14 +22,14 @@ This static function is responsible for reading visibility map pages from storag
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationGetSmgr
+  - [RelationGetSmgr](../R/RelationGetSmgr.md)
   - [smgrexists](../s/smgrexists.md)
-  - smgrnblocks
+  - [smgrnblocks](../s/smgrnblocks.md)
   - [vm_extend](vm_extend.md)
   - [ReadBufferExtended](../R/ReadBufferExtended.md)
   - [PageIsNew](../P/PageIsNew.md)
   - [LockBuffer](../L/LockBuffer.md)
-  - PageInit
+  - [PageInit](../P/PageInit.md)
   - [BufferGetPage](../B/BufferGetPage.md)
   - SMgrRelation
   - VISIBILITYMAP_FORKNUM

@@ -27,8 +27,8 @@ This function is essential for the query processing infrastructure to determine 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - UtilityReturnsTuples (for utility command analysis)
-  - Command type constants: CMD_SELECT, CMD_INSERT, CMD_UPDATE, CMD_DELETE, CMD_MERGE, CMD_UTILITY, CMD_UNKNOWN, CMD_NOTHING
+  - [UtilityReturnsTuples](../U/UtilityReturnsTuples.md) (for utility command analysis)
+  - [Command](../C/Command.md) type constants: CMD_SELECT, CMD_INSERT, CMD_UPDATE, CMD_DELETE, CMD_MERGE, CMD_UTILITY, CMD_UNKNOWN, CMD_NOTHING
 
 - Called from:
   - Currently no direct callers found in the analyzed codebase, but likely used by query planning and execution infrastructure
@@ -37,5 +37,5 @@ This function is essential for the query processing infrastructure to determine 
 - This function provides a unified interface for determining tuple output across all command types
 - The RETURNING clause detection for DML statements enables these commands to behave like SELECT in terms of output
 - For utility commands, the function delegates to the specialized UtilityReturnsTuples() function
-- Edge cases like CMD_UNKNOWN and CMD_NOTHING are handled gracefully by returning false
+- [Edge](../E/Edge.md) cases like CMD_UNKNOWN and CMD_NOTHING are handled gracefully by returning false
 - Part of the query processing pipeline that helps optimize execution strategies based on expected output

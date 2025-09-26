@@ -26,7 +26,7 @@ In verbose mode, the function includes role descriptions from the system comment
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initPQExpBuffer: Initialize query buffer for SQL construction
+  - [initPQExpBuffer](../i/initPQExpBuffer.md): Initialize query buffer for SQL construction
   - [printfPQExpBuffer](../p/printfPQExpBuffer.md): Format SQL query with role attributes
   - [validateSQLNamePattern](../v/validateSQLNamePattern.md): Process and validate the role name pattern
   - [PSQLexec](../P/PSQLexec.md): Execute the role information query
@@ -37,7 +37,7 @@ In verbose mode, the function includes role descriptions from the system comment
   - [resetPQExpBuffer](../r/resetPQExpBuffer.md): Clear buffer for reuse in attribute formatting
   - [printTable](../p/printTable.md): Display the formatted role table
   - [printTableCleanup](../p/printTableCleanup.md): Clean up table formatting resources
-  - pg_malloc0: Allocate memory for attribute strings
+  - [pg_malloc0](../p/pg_malloc0.md): Allocate memory for attribute strings
 - Called from (representative examples):
   - [exec_command_d](../e/exec_command_d.md): Command dispatcher for both \du and \dg commands in psql
 

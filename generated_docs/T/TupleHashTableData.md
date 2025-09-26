@@ -58,17 +58,17 @@ The structure supports both table-resident data (stored permanently in the hash 
   - tuplehash_hash (underlying hash implementation)
   - AttrNumber (column attribute numbers)
   - [FmgrInfo](../F/FmgrInfo.md) (function manager info)
-  - ExprState (expression evaluation state)
+  - [ExprState](../E/ExprState.md) (expression evaluation state)
   - [MemoryContext](../M/MemoryContext.md) (memory management)
-  - TupleTableSlot (tuple access interface)
-  - ExprContext (expression evaluation context)
+  - [TupleTableSlot](TupleTableSlot.md) (tuple access interface)
+  - [ExprContext](../E/ExprContext.md) (expression evaluation context)
 - Called from (representative examples):
-  - BuildTupleHashTableExt (src/backend/executor/execGrouping.c:180)
+  - [BuildTupleHashTableExt](../B/BuildTupleHashTableExt.md) (src/backend/executor/execGrouping.c:180)
   - [TupleHashTable](TupleHashTable.md) typedef (src/include/nodes/execnodes.h:800)
 
 ## Notes and Other Information
 - The separation of persistent and transient fields enables efficient reuse of hash tables across multiple operations
-- Hash function and comparison function configurability allows optimization for specific data types and operations
+- [Hash](../H/Hash.md) function and comparison function configurability allows optimization for specific data types and operations
 - Memory context separation ensures proper cleanup and prevents memory leaks in long-running operations
 - The entrysize field accounts for variable-length tuple data and alignment requirements
 - Expression evaluation integration enables complex multi-column keys with type conversion and function calls

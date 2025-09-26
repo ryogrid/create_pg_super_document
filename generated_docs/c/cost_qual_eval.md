@@ -28,7 +28,7 @@ This function is fundamental to PostgreSQL's cost-based optimization, as qualifi
 - Functions called/Symbols referenced:
   - [cost_qual_eval_walker](cost_qual_eval_walker.md)
   - cost_qual_eval_context (struct)
-  - QualCost (struct)
+  - [QualCost](../Q/QualCost.md) (struct)
 - Called from (representative examples):
   - [cost_index](cost_index.md)
   - [cost_tidscan](cost_tidscan.md)

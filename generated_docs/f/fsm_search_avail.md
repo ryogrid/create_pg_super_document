@@ -31,22 +31,22 @@ The function includes corruption detection and recovery - if tree invariants are
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `BufferGetPage`: Extracts page from buffer
-  - `PageGetContents`: Gets FSMPage structure from page
+  - `[BufferGetPage](../B/BufferGetPage.md)`: Extracts page from buffer
+  - `[PageGetContents](../P/PageGetContents.md)`: Gets FSMPage structure from page
   - `FSMPage`: Type representing Free Space Map page data
   - `LeafNodesPerPage`: Number of leaf nodes per page
   - `NonLeafNodesPerPage`: Number of non-leaf nodes per page  
   - `parentof`: Macro to calculate parent node index
-  - `rightneighbor`: Function to find right neighbor with level wrapping
+  - `[rightneighbor](../r/rightneighbor.md)`: Function to find right neighbor with level wrapping
   - `leftchild`: Macro to calculate left child node index
   - `NodesPerPage`: Total number of nodes per page
-  - `BufferGetTag`: Gets buffer tag information for error reporting
-  - `LockBuffer`: Buffer locking functions
-  - `fsm_rebuild_page`: Rebuilds corrupted FSM page
-  - `MarkBufferDirtyHint`: Marks buffer as dirty after corruption fix
+  - `[BufferGetTag](../B/BufferGetTag.md)`: Gets buffer tag information for error reporting
+  - `[LockBuffer](../L/LockBuffer.md)`: Buffer locking functions
+  - `[fsm_rebuild_page](fsm_rebuild_page.md)`: Rebuilds corrupted FSM page
+  - `[MarkBufferDirtyHint](../M/MarkBufferDirtyHint.md)`: Marks buffer as dirty after corruption fix
 - Called from (representative examples):
-  - `fsm_set_and_search`: Combined set and search operation
-  - `fsm_search`: Higher-level search across multiple FSM pages
+  - `[fsm_set_and_search](fsm_set_and_search.md)`: Combined set and search operation
+  - `[fsm_search](fsm_search.md)`: Higher-level search across multiple FSM pages
 
 ## Notes and Other Information
 - Returns slot number on success, or -1 if no suitable slot found

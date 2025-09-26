@@ -30,12 +30,12 @@ ExecBuildSlotValueDescription generates formatted tuple representations for erro
   - [check_enable_rls](../c/check_enable_rls.md)
   - [pg_class_aclcheck](../p/pg_class_aclcheck.md)
   - [pg_attribute_aclcheck](../p/pg_attribute_aclcheck.md)
-  - slot_getallattrs
+  - [slot_getallattrs](../s/slot_getallattrs.md)
   - [bms_is_member](../b/bms_is_member.md)
   - [getTypeOutputInfo](../g/getTypeOutputInfo.md)
   - [OidOutputFunctionCall](../O/OidOutputFunctionCall.md)
   - [pg_mbcliplen](../p/pg_mbcliplen.md)
-  - appendBinaryStringInfo
+  - [appendBinaryStringInfo](../a/appendBinaryStringInfo.md)
 - Called from (representative examples):
   - [ExecPartitionCheckEmitError](ExecPartitionCheckEmitError.md)
   - [ExecConstraints](ExecConstraints.md)

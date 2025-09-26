@@ -34,7 +34,7 @@ Each validation failure triggers an ERROR with ERRCODE_INVALID_PARAMETER_VALUE, 
 
 - Called from (representative examples):
   - [CreateExtensionInternal](../C/CreateExtensionInternal.md) (during extension creation with specific version)
-  - ExecAlterExtensionStmt (during extension version updates/alterations)
+  - [ExecAlterExtensionStmt](../E/ExecAlterExtensionStmt.md) (during extension version updates/alterations)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the extension.c compilation unit

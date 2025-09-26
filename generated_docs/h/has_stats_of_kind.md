@@ -21,7 +21,7 @@ This utility function iterates through a list of StatisticExtInfo structures to 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - StatisticExtInfo (type)
+  - [StatisticExtInfo](../S/StatisticExtInfo.md) (type)
   - [List](../L/List.md) (PostgreSQL list operations)
   - lfirst (list traversal macro)
 - Called from (representative examples):

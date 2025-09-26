@@ -55,7 +55,7 @@ The function is designed to be idempotent - if the attachment already exists in 
 - This function implements the core logic for ALTER INDEX ATTACH PARTITION DDL command
 - Lock ordering is critical: table locks are acquired before index locks to prevent deadlocks
 - The function performs extensive validation to ensure index compatibility, including column mapping through attribute maps
-- Constraint inheritance is handled automatically when both parent and partition have associated constraints
+- [Constraint](../C/Constraint.md) inheritance is handled automatically when both parent and partition have associated constraints
 - AccessExclusiveLock is used on the partition index to prevent concurrent modifications during attachment
 - Error messages are detailed and provide specific information about validation failures
 - The function maintains transactional semantics - all changes are committed together or rolled back on error

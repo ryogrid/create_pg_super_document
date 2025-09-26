@@ -20,7 +20,7 @@ This function is a specialized accessor for MinimalTupleTableSlot that ensures t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MinimalTupleTableSlot (struct type cast)
+  - [MinimalTupleTableSlot](../M/MinimalTupleTableSlot.md) (struct type cast)
   - [tts_minimal_materialize](tts_minimal_materialize.md)
 - Called from (representative examples):
   - [slot_deform_heap_tuple](../s/slot_deform_heap_tuple.md)

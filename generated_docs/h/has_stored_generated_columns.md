@@ -24,11 +24,11 @@ The check is performed by examining the `has_generated_stored` flag in the relat
 ## Dependencies
 - Functions called/Symbols referenced:
   - planner_rt_fetch
-  - table_open
-  - table_close
+  - [table_open](../t/table_open.md)
+  - [table_close](../t/table_close.md)
   - RelationGetDescr
 - Called from (representative examples):
-  - make_modifytable
+  - [make_modifytable](../m/make_modifytable.md)
 
 ## Notes and Other Information
 - The function assumes adequate locking has already been acquired for the relation

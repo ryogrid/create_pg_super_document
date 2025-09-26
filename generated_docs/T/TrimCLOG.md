@@ -24,13 +24,13 @@ This function takes no parameters.
   - XidFromFullTransactionId
   - [TransactionIdToPage](TransactionIdToPage.md)
   - [SimpleLruGetBankLock](../S/SimpleLruGetBankLock.md)
-  - LWLockAcquire
+  - [LWLockAcquire](../L/LWLockAcquire.md)
   - TransactionIdToPgIndex
   - TransactionIdToByte
   - TransactionIdToBIndex
   - [SimpleLruReadPage](../S/SimpleLruReadPage.md)
   - MemSet
-  - LWLockRelease
+  - [LWLockRelease](../L/LWLockRelease.md)
 - Global variables accessed:
   - TransamVariables->nextXid
   - XactCtl

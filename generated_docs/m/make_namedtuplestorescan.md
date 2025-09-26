@@ -27,7 +27,7 @@ This function constructs a NamedTuplestoreScan plan node, which is used to scan 
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to allocate NamedTuplestoreScan node)
-  - NamedTuplestoreScan (struct type)
+  - [NamedTuplestoreScan](../N/NamedTuplestoreScan.md) (struct type)
 - Called from (representative examples):
   - [create_namedtuplestorescan_plan](../c/create_namedtuplestorescan_plan.md)
 

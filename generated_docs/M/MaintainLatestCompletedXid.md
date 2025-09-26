@@ -24,7 +24,7 @@ The function includes several assertions to ensure it's called in the correct co
 - Functions called/Symbols referenced:
   - FullTransactionIdIsValid
   - [RecoveryInProgress](../R/RecoveryInProgress.md)
-  - LWLockHeldByMe
+  - [LWLockHeldByMe](../L/LWLockHeldByMe.md)
   - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
   - XidFromFullTransactionId
   - [FullXidRelativeTo](../F/FullXidRelativeTo.md)

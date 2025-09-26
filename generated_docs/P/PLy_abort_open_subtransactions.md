@@ -20,8 +20,8 @@ This function serves as a cleanup mechanism for PL/Python subtransaction managem
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_length
-  - list_delete_first
+  - [list_length](../l/list_length.md)
+  - [list_delete_first](../l/list_delete_first.md)
   - linitial
   - [RollbackAndReleaseCurrentSubTransaction](../R/RollbackAndReleaseCurrentSubTransaction.md)
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)

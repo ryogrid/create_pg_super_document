@@ -27,7 +27,7 @@ This function is responsible for converting a list of ResTarget parse tree nodes
   - [ExpandColumnRefStar](../E/ExpandColumnRefStar.md)
   - [ExpandIndirectionStar](../E/ExpandIndirectionStar.md)
   - [list_concat](../l/list_concat.md)
-  - lappend
+  - [lappend](../l/lappend.md)
   - llast
   - IsA (macro)
   - lfirst (macro)

@@ -26,7 +26,7 @@ This function is especially valuable for database administration tasks, forensic
 - Functions called/Symbols referenced:
   - [RelFileNumber](../R/RelFileNumber.md) (type)
   - RelFileNumberIsValid
-  - RelidByRelfilenumber
+  - [RelidByRelfilenumber](../R/RelidByRelfilenumber.md)
   - PG_RETURN_OID
 - Called from (representative examples):
   - No direct references found (likely called via SQL function interface)

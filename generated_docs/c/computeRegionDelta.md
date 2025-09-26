@@ -34,11 +34,11 @@ The function handles edge cases where bytes outside the valid region are conside
 ## Dependencies
 - Functions called/Symbols referenced:
   - PageData (struct type)
-  - writeFragment (called to write fragments at lines 196 and 217)
+  - [writeFragment](../w/writeFragment.md) (called to write fragments at lines 196 and 217)
   - MATCH_THRESHOLD (constant defining minimum matching sequence length)
   - Min (macro for minimum value)
 - Called from (representative examples):
-  - computeDelta (twice - lines 238 and 242)
+  - [computeDelta](computeDelta.md) (twice - lines 238 and 242)
 
 ## Notes and Other Information
 - This is a static function, only accessible within generic_xlog.c

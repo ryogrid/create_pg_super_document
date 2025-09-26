@@ -39,13 +39,13 @@ This function creates a SetOpPath node that represents the execution of set oper
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode
-  - list_length
+  - [list_length](../l/list_length.md)
   - cpu_operator_cost
 - Called from (representative examples):
   - [generate_nonunion_paths](../g/generate_nonunion_paths.md) (src/backend/optimizer/prep/prepunion.c:1179)
 
 ## Notes and Other Information
-- SetOp operations don't project new columns, so they reuse the source path's pathtarget
+- [SetOp](../S/SetOp.md) operations don't project new columns, so they reuse the source path's pathtarget
 - Assumes no parameterization (above any joins) for simplification
 - Parallel safety depends on the relation's consider_parallel flag and subpath's parallel safety
 - Preserves input sort order only when using SETOP_SORTED strategy

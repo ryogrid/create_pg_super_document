@@ -25,8 +25,8 @@ The encoding process iterates through the source data, extracting the upper nibb
 ## Dependencies
 - Functions called/Symbols referenced: (none - uses only basic C operations and static lookup table)
 - Called from (representative examples):
-  - convert_bytea_to_string (in src/interfaces/ecpg/ecpglib/execute.c:499)
-  - print_param_value (in src/interfaces/ecpg/ecpglib/execute.c:1090)
+  - [convert_bytea_to_string](../c/convert_bytea_to_string.md) (in src/interfaces/ecpg/ecpglib/execute.c:499)
+  - [print_param_value](../p/print_param_value.md) (in src/interfaces/ecpg/ecpglib/execute.c:1090)
 
 ## Notes and Other Information
 - Returns the length of the hexadecimal string produced (always len * 2)

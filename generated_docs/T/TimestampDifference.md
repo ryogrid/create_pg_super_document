@@ -26,10 +26,10 @@ The function handles edge cases gracefully: if the start_time is greater than or
 - Called from (representative examples):
   - [heap_vacuum_rel](../h/heap_vacuum_rel.md)
   - [launcher_determine_sleep](../l/launcher_determine_sleep.md)  
-  - ProcSleep
+  - [ProcSleep](../P/ProcSleep.md)
   - [check_log_duration](../c/check_log_duration.md)
   - [pgstat_report_activity](../p/pgstat_report_activity.md)
-  - schedule_alarm
+  - [schedule_alarm](../s/schedule_alarm.md)
 
 ## Notes and Other Information
 - The function is located in src/backend/utils/adt/timestamp.c:1730-1765

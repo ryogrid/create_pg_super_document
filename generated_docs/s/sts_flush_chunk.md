@@ -22,9 +22,9 @@ This function is called internally when the current write chunk becomes full and
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SharedTuplestoreAccessor (struct type)
+  - [SharedTuplestoreAccessor](../S/SharedTuplestoreAccessor.md) (struct type)
   - STS_CHUNK_PAGES (constant)
-  - BufFileWrite
+  - [BufFileWrite](../B/BufFileWrite.md)
   - [write_chunk](../w/write_chunk.md) (accessor field)
 - Called from (representative examples):
   - [sts_end_write](sts_end_write.md)

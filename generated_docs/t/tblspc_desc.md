@@ -27,14 +27,14 @@ The function handles two types of tablespace WAL records:
 - Functions called/Symbols referenced:
   - XLogRecGetData
   - XLogRecGetInfo
-  - appendStringInfo
+  - [appendStringInfo](../a/appendStringInfo.md)
 - Constants referenced:
   - XLR_INFO_MASK
   - XLOG_TBLSPC_CREATE
   - XLOG_TBLSPC_DROP
 - Structures used:
-  - xl_tblspc_create_rec
-  - xl_tblspc_drop_rec
+  - [xl_tblspc_create_rec](../x/xl_tblspc_create_rec.md)
+  - [xl_tblspc_drop_rec](../x/xl_tblspc_drop_rec.md)
 - Called from (representative examples):
   - WAL description infrastructure (no direct callers found in codebase)
 

@@ -28,14 +28,14 @@ PgStatShared_Checkpointer implements the shared memory storage for PostgreSQL's 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLock
-  - PgStat_CheckpointerStats
+  - [LWLock](../L/LWLock.md)
+  - [PgStat_CheckpointerStats](PgStat_CheckpointerStats.md)
   - PgStat_Counter
   - TimestampTz
 - Called from (representative examples):
-  - pgstat_report_checkpointer
-  - pgstat_checkpointer_reset_all_cb
-  - pgstat_checkpointer_snapshot_cb
+  - [pgstat_report_checkpointer](../p/pgstat_report_checkpointer.md)
+  - [pgstat_checkpointer_reset_all_cb](../p/pgstat_checkpointer_reset_all_cb.md)
+  - [pgstat_checkpointer_snapshot_cb](../p/pgstat_checkpointer_snapshot_cb.md)
 
 ## Notes and Other Information
 - Uses the same changecount mechanism as other fixed-amount stat structures for lock-free reads and high-performance writes

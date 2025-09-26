@@ -35,19 +35,19 @@ The function performs several critical tasks:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_join_rel
+  - [find_join_rel](../f/find_join_rel.md)
   - build_joinrel_restrictlist
   - min_join_parameterization
   - build_joinrel_tlist
-  - add_placeholders_to_joinrel
-  - build_joinrel_joinlist
-  - has_relevant_eclass_joinclause
-  - build_joinrel_partition_info
-  - set_joinrel_size_estimates
-  - set_foreign_rel_properties
-  - add_join_rel
+  - [add_placeholders_to_joinrel](../a/add_placeholders_to_joinrel.md)
+  - [build_joinrel_joinlist](build_joinrel_joinlist.md)
+  - [has_relevant_eclass_joinclause](../h/has_relevant_eclass_joinclause.md)
+  - [build_joinrel_partition_info](build_joinrel_partition_info.md)
+  - [set_joinrel_size_estimates](../s/set_joinrel_size_estimates.md)
+  - [set_foreign_rel_properties](../s/set_foreign_rel_properties.md)
+  - [add_join_rel](../a/add_join_rel.md)
 - Called from (representative examples):
-  - make_join_rel
+  - [make_join_rel](../m/make_join_rel.md)
 
 ## Notes and Other Information
 - This function should only be used for joins between parent relations (not other rel types)

@@ -20,7 +20,7 @@ BumpBlockFreeBytes is a static inline utility function within PostgreSQL's bump 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BumpBlock (structure type)
+  - [BumpBlock](BumpBlock.md) (structure type)
 - Called from (representative examples):
   - ExternalChunkGetBlock
   - [BumpAlloc](BumpAlloc.md)

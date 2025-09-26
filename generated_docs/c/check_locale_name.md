@@ -37,7 +37,7 @@ LC_ALL=: The locale name string to validate (NULL or empty string uses environme
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_is_ascii (validates ASCII-only locale names on Windows)
+  - [pg_is_ascii](../p/pg_is_ascii.md) (validates ASCII-only locale names on Windows)
   - [save_global_locale](../s/save_global_locale.md) (saves current locale state)
   - setlocale (attempts to set the locale for validation)
   - [restore_global_locale](../r/restore_global_locale.md) (restores original locale state)

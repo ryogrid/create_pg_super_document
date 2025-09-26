@@ -30,12 +30,12 @@ The structure is minimal, containing only the standard NodeTag for parse tree id
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DiscardMode (enum defining discard targets)
+  - [DiscardMode](DiscardMode.md) (enum defining discard targets)
   
 - Called from (representative examples):
-  - DiscardCommand (main execution function in discard.c:31)
-  - standard_ProcessUtility (utility command processor in utility.c:886)
-  - CreateCommandTag (command tag creation in utility.c:2922)
+  - [DiscardCommand](DiscardCommand.md) (main execution function in discard.c:31)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (utility command processor in utility.c:886)
+  - [CreateCommandTag](../C/CreateCommandTag.md) (command tag creation in utility.c:2922)
 
 ## Notes and Other Information
 - The DISCARD command is primarily used for memory management and session cleanup

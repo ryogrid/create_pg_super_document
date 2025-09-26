@@ -31,11 +31,11 @@ struct and reconstruct column
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth (stack overflow protection)
+  - [check_stack_depth](../c/check_stack_depth.md) (stack overflow protection)
   - nodeTag (node type identification)
   - transformColumnRef, transformParamRef, transformIndirection (basic expression types)
   - [transformAExprOp](transformAExprOp.md), transformAExprOpAny, transformAExprOpAll (operator expressions)  
-  - transformFuncCall, transformSubLink, transformCaseExpr (complex expressions)
+  - [transformFuncCall](transformFuncCall.md), transformSubLink, transformCaseExpr (complex expressions)
   - [transformJsonObjectConstructor](transformJsonObjectConstructor.md), transformJsonArrayConstructor (JSON expressions)
   - [make_const](../m/make_const.md), type_is_rowtype (utility functions)
   - Various AEXPR_* and T_* constants for node type matching
@@ -44,7 +44,7 @@ struct and reconstruct column
   - [transformExpr](transformExpr.md) (main entry point)
   - [transformExprRecurse](transformExprRecurse.md) (recursive self-calls for nested expressions)
   - [transformIndirection](transformIndirection.md), transformAExprOp, transformCaseExpr (specialized transformers)
-  - transformFuncCall, transformBoolExpr (for argument processing)
+  - [transformFuncCall](transformFuncCall.md), transformBoolExpr (for argument processing)
 
 ## Notes and Other Information
 - Implements comprehensive stack overflow protection via check_stack_depth() to handle deeply nested expressions

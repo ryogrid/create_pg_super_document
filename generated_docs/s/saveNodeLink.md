@@ -27,7 +27,7 @@ This function performs the critical final step in many SP-GiST tree modification
   - [PageGetItem](../P/PageGetItem.md) (retrieves tuple from page)
   - [PageGetItemId](../P/PageGetItemId.md) (gets item identifier for tuple)
   - [spgUpdateNodeLink](spgUpdateNodeLink.md) (updates the specific node's downlink)
-  - MarkBufferDirty (marks buffer for write-ahead logging)
+  - [MarkBufferDirty](../M/MarkBufferDirty.md) (marks buffer for write-ahead logging)
 - Called from (representative examples):
   - [addLeafTuple](../a/addLeafTuple.md)
   - [moveLeafs](../m/moveLeafs.md)

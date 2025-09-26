@@ -33,7 +33,7 @@ The function validates that the requested column number is within the valid rang
   - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) (OID to Datum conversion)
   - InvalidOid (constant for invalid OID)
 - Called from (representative examples):
-  - gistproperty
+  - [gistproperty](gistproperty.md)
   - [spgproperty](../s/spgproperty.md)
 
 ## Notes and Other Information

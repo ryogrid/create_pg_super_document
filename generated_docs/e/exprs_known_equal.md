@@ -27,7 +27,7 @@ Note that the function does not check for structural equality (equal(item1, item
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - EquivalenceClass (struct type)
+  - [EquivalenceClass](../E/EquivalenceClass.md) (struct type)
   - [EquivalenceMember](../E/EquivalenceMember.md) (struct type)
   - [equal](equal.md) (expression comparison function)
   - lfirst (list iteration macro)

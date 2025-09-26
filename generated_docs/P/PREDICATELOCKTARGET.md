@@ -28,19 +28,19 @@ PREDICATELOCKTARGET is a core data structure in PostgreSQL's predicate locking s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PREDICATELOCKTARGETTAG
-  - dlist_head
+  - [PREDICATELOCKTARGETTAG](PREDICATELOCKTARGETTAG.md)
+  - [dlist_head](../d/dlist_head.md)
 - Called from (representative examples):
-  - InitPredicateLocks
-  - CreatePredicateLock
-  - RemoveTargetIfNoLongerUsed
-  - DeleteChildTargetLocks
-  - CheckTargetForConflictsIn
-  - TransferPredicateLocksToNewTarget
+  - [InitPredicateLocks](../I/InitPredicateLocks.md)
+  - [CreatePredicateLock](../C/CreatePredicateLock.md)
+  - [RemoveTargetIfNoLongerUsed](../R/RemoveTargetIfNoLongerUsed.md)
+  - [DeleteChildTargetLocks](../D/DeleteChildTargetLocks.md)
+  - [CheckTargetForConflictsIn](../C/CheckTargetForConflictsIn.md)
+  - [TransferPredicateLocksToNewTarget](../T/TransferPredicateLocksToNewTarget.md)
 
 ## Notes and Other Information
 - Maintained in shared memory hash table for concurrent access across transactions
 - Lifecycle managed automatically - created on first predicate lock request, destroyed when last lock is removed
 - Critical for serializable snapshot isolation implementation
 - Used extensively in predicate.c for conflict detection and lock management
-- Hash key (tag) determines uniqueness and lookup efficiency in the shared hash table
+- [Hash](../H/Hash.md) key (tag) determines uniqueness and lookup efficiency in the shared hash table

@@ -25,7 +25,7 @@ The function retrieves the range table entry for the VALUES relation, counts the
 - Functions called/Symbols referenced:
   - planner_rt_fetch
   - RTE_VALUES
-  - list_length (implicitly via rte->values_lists)
+  - [list_length](../l/list_length.md) (implicitly via rte->values_lists)
   - [set_baserel_size_estimates](set_baserel_size_estimates.md)
 - Called from (representative examples):
   - [set_rel_size](set_rel_size.md)

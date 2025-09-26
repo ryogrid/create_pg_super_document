@@ -30,12 +30,12 @@ The function is designed to be used internally by other PostgreSQL memory alloca
   - exit (with EXIT_FAILURE on OOM)
   - MemSet (PostgreSQL macro for memory initialization)
 - Called from (representative examples):
-  - pg_malloc
-  - pg_malloc0
-  - pg_malloc_extended
-  - palloc
-  - palloc0
-  - palloc_extended
+  - [pg_malloc](pg_malloc.md)
+  - [pg_malloc0](pg_malloc0.md)
+  - [pg_malloc_extended](pg_malloc_extended.md)
+  - [palloc](palloc.md)
+  - [palloc0](palloc0.md)
+  - [palloc_extended](palloc_extended.md)
 
 ## Notes and Other Information
 - This is a static inline function, meaning it's internal to the fe_memutils.c compilation unit and will be inlined at call sites

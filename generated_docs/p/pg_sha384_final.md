@@ -27,16 +27,16 @@ The key difference from `pg_sha512_final` is that SHA-384 only processes the fir
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `SHA512_Last` - Processes final data block and applies padding (shared with SHA-512)
+  - `[SHA512_Last](../S/SHA512_Last.md)` - Processes final data block and applies padding (shared with SHA-512)
   - `REVERSE64` - Macro for 64-bit byte order reversal on little-endian systems
   - `memcpy` - Copies first 6 words of hash state to output digest buffer
   - `memset` - Securely clears the context structure
 - Referenced types/constants:
-  - `pg_sha384_ctx` - SHA-384 context structure type
-  - `pg_sha512_ctx` - SHA-512 context type (used for casting to share finalization logic)
+  - `[pg_sha384_ctx](pg_sha384_ctx.md)` - SHA-384 context structure type
+  - `[pg_sha512_ctx](pg_sha512_ctx.md)` - SHA-512 context type (used for casting to share finalization logic)
   - `PG_SHA384_DIGEST_LENGTH` - Constant defining 48-byte digest length
 - Called from (representative examples):
-  - `pg_cryptohash_final` - Generic cryptographic hash finalization wrapper
+  - `[pg_cryptohash_final](pg_cryptohash_final.md)` - Generic cryptographic hash finalization wrapper
 
 ## Notes and Other Information
 - Only processes the first 6 words (384 bits) of the 8-word state array, unlike SHA-512 which uses all 8 words

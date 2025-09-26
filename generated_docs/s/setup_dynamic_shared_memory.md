@@ -33,10 +33,10 @@ The function performs comprehensive validation of the queue size parameter, esti
   - shm_toc_estimate_keys
   - [shm_toc_estimate](shm_toc_estimate.md)
   - [dsm_create](../d/dsm_create.md)
-  - dsm_segment_address
-  - shm_toc_create
-  - shm_toc_allocate
-  - shm_toc_insert
+  - [dsm_segment_address](../d/dsm_segment_address.md)
+  - [shm_toc_create](shm_toc_create.md)
+  - [shm_toc_allocate](shm_toc_allocate.md)
+  - [shm_toc_insert](shm_toc_insert.md)
   - [shm_mq_create](shm_mq_create.md)
   - [shm_mq_set_sender](shm_mq_set_sender.md)
   - [shm_mq_set_receiver](shm_mq_set_receiver.md)

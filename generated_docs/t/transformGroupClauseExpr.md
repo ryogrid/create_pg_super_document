@@ -45,8 +45,8 @@ The function ensures that both the targetlist (for expression evaluation) and th
   - copyObject
   - [addTargetToGroupList](../a/addTargetToGroupList.md)
   - [exprLocation](../e/exprLocation.md)
-  - lappend
-  - SortGroupClause
+  - [lappend](../l/lappend.md)
+  - [SortGroupClause](../S/SortGroupClause.md)
   - [ParseExprKind](../P/ParseExprKind.md)
 - Called from (representative examples):
   - [transformGroupClauseList](transformGroupClauseList.md)

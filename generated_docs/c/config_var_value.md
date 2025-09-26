@@ -26,10 +26,10 @@ The config_var_value struct is a container for GUC variable values that combines
 - Types referenced:
   - config_var_val (union containing the actual variable value)
 - Used by:
-  - set_stack_value (function that sets values in GUC stack)
-  - discard_stack_value (function that discards stack values)
-  - AtEOXact_GUC (end-of-transaction GUC cleanup)
-  - guc_stack (struct that maintains GUC value stack)
+  - [set_stack_value](../s/set_stack_value.md) (function that sets values in GUC stack)
+  - [discard_stack_value](../d/discard_stack_value.md) (function that discards stack values)
+  - [AtEOXact_GUC](../A/AtEOXact_GUC.md) (end-of-transaction GUC cleanup)
+  - [guc_stack](../g/guc_stack.md) (struct that maintains GUC value stack)
 
 ## Notes and Other Information
 This structure is fundamental to PostgreSQL's GUC system, allowing configuration variables to have both their primary value and associated metadata or processed state. The extra field enables sophisticated variable validation and assignment logic through the hook mechanism.

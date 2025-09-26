@@ -20,8 +20,8 @@ The `json_unique_object_end` function is a semantic action callback used during 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonUniqueParsingState (type cast)
-  - JsonUniqueStackEntry (type)
+  - [JsonUniqueParsingState](../J/JsonUniqueParsingState.md) (type cast)
+  - [JsonUniqueStackEntry](../J/JsonUniqueStackEntry.md) (type)
   - [pfree](../p/pfree.md)
   - JSON_SUCCESS (return value)
 - Called from (representative examples):

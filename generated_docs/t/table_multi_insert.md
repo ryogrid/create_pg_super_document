@@ -35,11 +35,11 @@ The function operates as an inline wrapper that calls the appropriate table acce
 - Functions called/Symbols referenced:
   - rel->rd_tableam->multi_insert (table access method function pointer)
 - Types referenced:
-  - BulkInsertStateData
+  - [BulkInsertStateData](../B/BulkInsertStateData.md)
   - CommandId
   - TM_Result
 - Called from (representative examples):
-  - CopyMultiInsertBufferFlush (in src/backend/commands/copyfrom.c:412)
+  - [CopyMultiInsertBufferFlush](../C/CopyMultiInsertBufferFlush.md) (in src/backend/commands/copyfrom.c:412)
 
 ## Notes and Other Information
 - This function leaks memory into the current memory context. Callers should consider creating a temporary memory context if memory usage is a concern

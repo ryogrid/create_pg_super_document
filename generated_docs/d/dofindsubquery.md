@@ -31,10 +31,10 @@ The function includes safeguards against stack overflow and supports query cance
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth (stack overflow protection)
+  - [check_stack_depth](../c/check_stack_depth.md) (stack overflow protection)
   - CHECK_FOR_INTERRUPTS (query cancellation support)
   - [findeq](../f/findeq.md) (pattern matching at current node)
-  - QTNFree (memory cleanup for removed nodes)
+  - [QTNFree](../Q/QTNFree.md) (memory cleanup for removed nodes)
   - [dofindsubquery](dofindsubquery.md) (recursive self-call)
 - Called from (representative examples):
   - [findsubquery](../f/findsubquery.md)

@@ -32,7 +32,7 @@ The function manages several key aspects:
   - [bbstreamer_finalize](../b/bbstreamer_finalize.md)
   - [bbstreamer_free](../b/bbstreamer_free.md)
   - fclose
-  - destroyPQExpBuffer
+  - [destroyPQExpBuffer](../d/destroyPQExpBuffer.md)
 - Called from (representative examples):
   - [BaseBackup](../B/BaseBackup.md)
 

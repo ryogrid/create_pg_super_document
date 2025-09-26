@@ -21,7 +21,7 @@ This is a convenience type definition that creates a pointer type for SetConstra
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SetConstraintTriggerData
+  - [SetConstraintTriggerData](SetConstraintTriggerData.md)
 - Called from (representative examples):
   - (No direct references found in current analysis)
 

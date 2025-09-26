@@ -21,7 +21,7 @@ This function creates and initializes a bbstreamer_tar_parser instance that serv
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc0](../p/palloc0.md)
-  - initStringInfo
+  - [initStringInfo](../i/initStringInfo.md)
   - bbstreamer_tar_parser_ops
   - BBSTREAMER_MEMBER_HEADER
 - Called from (representative examples):

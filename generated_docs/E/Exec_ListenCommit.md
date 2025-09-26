@@ -29,7 +29,7 @@ The function includes a note about potential out-of-memory conditions occurring 
   -  - Checks if already listening on the specified channel
   -  - Memory context management
   -  - [List](../L/List.md) manipulation function
-  -  - String duplication function
+  -  - [String](../S/String.md) duplication function
 
 - Called from:
   -  (src/backend/commands/async.c:992) - Main commit-time notification handler

@@ -22,7 +22,7 @@ The function performs several optimization checks: it ignores requests to set a 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BlockRefTableEntry (entry structure type)
+  - [BlockRefTableEntry](BlockRefTableEntry.md) (entry structure type)
   - BlockRefTableChunk (chunk data type)
   - BLOCKS_PER_CHUNK (blocks stored per chunk constant)
   - MAX_ENTRIES_PER_CHUNK (maximum entries indicating bitmap mode)
@@ -30,7 +30,7 @@ The function performs several optimization checks: it ignores requests to set a 
   - Assert (assertion macro for debugging)
 
 - Called from (representative examples):
-  - BlockRefTableSetLimitBlock (higher-level limit block setting)
+  - [BlockRefTableSetLimitBlock](BlockRefTableSetLimitBlock.md) (higher-level limit block setting)
   - WAL processing code when relations are truncated
   - Backup utilities that need to handle relation size changes
 

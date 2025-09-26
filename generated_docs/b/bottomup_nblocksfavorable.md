@@ -31,7 +31,7 @@ Key design goals:
 - Functions called/Symbols referenced:
   - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)
   - [IndexDeleteCounts](../I/IndexDeleteCounts.md) (structure type)
-  - TM_IndexDelete (structure type)  
+  - [TM_IndexDelete](../T/TM_IndexDelete.md) (structure type)  
   - BOTTOMUP_MAX_NBLOCKS (constant)
   - BOTTOMUP_TOLERANCE_NBLOCKS (constant)
 - Called from (representative examples):

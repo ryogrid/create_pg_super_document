@@ -21,7 +21,7 @@ The  function creates an archive entry that contains a SQL command to set the st
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_log_info (logs the setting being saved)
-  - createPQExpBuffer/appendPQExpBuffer/destroyPQExpBuffer (string buffer management)
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)/appendPQExpBuffer/destroyPQExpBuffer (string buffer management)
   - [createDumpId](../c/createDumpId.md) (generates unique dump ID)
   - [ArchiveEntry](../A/ArchiveEntry.md) (creates archive entry with SQL command)
   - ARCHIVE_OPTS/SECTION_PRE_DATA (archive configuration macros)

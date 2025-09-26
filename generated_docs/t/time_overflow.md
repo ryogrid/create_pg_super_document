@@ -21,12 +21,12 @@ The function is designed to be called from arithmetic helper functions when they
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - error (error reporting function for localized messages)
+  - [error](../e/error.md) (error reporting function for localized messages)
   - EXIT_FAILURE (standard exit status constant indicating failure)
   - zic_t (timezone-related type definition)
 - Called from (representative examples):
-  - oadd (overflow-checking addition function)
-  - tadd (time addition function with overflow detection)
+  - [oadd](../o/oadd.md) (overflow-checking addition function)
+  - [tadd](tadd.md) (time addition function with overflow detection)
 
 ## Notes and Other Information
 - Part of the timezone compiler (zic) error handling infrastructure

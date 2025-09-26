@@ -28,7 +28,7 @@ fmgr_sql serves as the central entry point for executing SQL functions in Postgr
   - [postquel_end](../p/postquel_end.md)
   - [postquel_get_single_result](../p/postquel_get_single_result.md)
   - [SubTransactionIsActive](../S/SubTransactionIsActive.md)
-  - tuplestore_begin_heap
+  - [tuplestore_begin_heap](../t/tuplestore_begin_heap.md)
   - [RegisterExprContextCallback](../R/RegisterExprContextCallback.md)
   - [UnregisterExprContextCallback](../U/UnregisterExprContextCallback.md)
   - [CreateTupleDescCopy](../C/CreateTupleDescCopy.md)

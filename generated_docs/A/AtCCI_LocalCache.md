@@ -22,7 +22,7 @@ This function takes no parameters.
   - [AtCCI_RelationMap](AtCCI_RelationMap.md)
   - [CommandEndInvalidationMessages](../C/CommandEndInvalidationMessages.md)
 - Called from (representative examples):
-  - CommandCounterIncrement
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md)
 
 ## Notes and Other Information
 - This is a static function within xact.c, part of the command counter increment mechanism

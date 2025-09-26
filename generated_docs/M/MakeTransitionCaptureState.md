@@ -31,7 +31,7 @@ The function ensures proper resource management by creating tuplestores in the c
 - Functions called/Symbols referenced:
   - [GetAfterTriggersTableData](../G/GetAfterTriggersTableData.md)
   - [AfterTriggerEnlargeQueryState](../A/AfterTriggerEnlargeQueryState.md)
-  - tuplestore_begin_heap
+  - [tuplestore_begin_heap](../t/tuplestore_begin_heap.md)
   - [palloc0](../p/palloc0.md)
   - [MemoryContextSwitchTo](MemoryContextSwitchTo.md)
   - elog

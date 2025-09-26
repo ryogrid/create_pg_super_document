@@ -22,7 +22,7 @@ This function implements the safety logic for page recycling in GiST indexes. It
   - [PageIsNew](../P/PageIsNew.md) (to check if page is uninitialized)
   - GistPageIsDeleted (to check if page is marked as deleted)
   - [GistPageGetDeleteXid](../G/GistPageGetDeleteXid.md) (to get the transaction ID that deleted the page)
-  - FullTransactionId (transaction ID type)
+  - [FullTransactionId](../F/FullTransactionId.md) (transaction ID type)
   - [GlobalVisCheckRemovableFullXid](../G/GlobalVisCheckRemovableFullXid.md) (to check if deletion XID is still visible to any transaction)
 - Called from (representative examples):
   - [gistNewBuffer](gistNewBuffer.md) (during page allocation to check if FSM pages can be reused)

@@ -30,8 +30,8 @@ This function takes no parameters and returns an integer representing the maximu
   - [processCancelRequest](../p/processCancelRequest.md) (src/backend/postmaster/postmaster.c:1857)
   - [canAcceptConnections](../c/canAcceptConnections.md) (src/backend/postmaster/postmaster.c:1940)
   - [ShmemBackendArraySize](../S/ShmemBackendArraySize.md) (src/backend/postmaster/postmaster.c:4552)
-  - PMSignalShmemSize (src/backend/storage/ipc/pmsignal.c:134)
-  - PMSignalShmemInit (src/backend/storage/ipc/pmsignal.c:155)
+  - [PMSignalShmemSize](../P/PMSignalShmemSize.md) (src/backend/storage/ipc/pmsignal.c:134)
+  - [PMSignalShmemInit](../P/PMSignalShmemInit.md) (src/backend/storage/ipc/pmsignal.c:155)
 
 ## Notes and Other Information
 - The calculation uses a factor of 2 as a safety margin to handle temporary spikes in child process count

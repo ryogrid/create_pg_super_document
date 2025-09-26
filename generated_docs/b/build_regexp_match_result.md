@@ -29,7 +29,7 @@ The function supports both single-byte and multi-byte character encodings, choos
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_wchar2mb_with_len](../p/pg_wchar2mb_with_len.md)
-  - cstring_to_text_with_len  
+  - [cstring_to_text_with_len](../c/cstring_to_text_with_len.md)  
   - [text_substr](../t/text_substr.md) (via DirectFunctionCall3)
   - [construct_md_array](../c/construct_md_array.md)
 - Called from (representative examples):

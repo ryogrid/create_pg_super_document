@@ -33,9 +33,9 @@ The function implements a filter-and-recheck pattern that is essential for handl
   - [index_beginscan](../i/index_beginscan.md)
   - [index_rescan](../i/index_rescan.md)
   - [index_getnext_slot](../i/index_getnext_slot.md)
-  - ExecQualAndReset
+  - [ExecQualAndReset](../E/ExecQualAndReset.md)
   - InstrCountFiltered2
-  - ExecClearTuple
+  - [ExecClearTuple](../E/ExecClearTuple.md)
   - CHECK_FOR_INTERRUPTS
 - Called from (representative examples):
   - ReorderTuple (nodeIndexscan.c:58)

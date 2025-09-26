@@ -62,19 +62,19 @@ The optimization is particularly effective for queries like "SELECT MIN(column) 
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (node type system)
-  - Expr (expression node)  
-  - PlannerInfo (planner state)
-  - Path (access path)
+  - [Expr](../E/Expr.md) (expression node)  
+  - [PlannerInfo](../P/PlannerInfo.md) (planner state)
+  - [Path](../P/Path.md) (access path)
   - Cost (cost estimation type)
-  - Param (parameter node)
+  - [Param](../P/Param.md) (parameter node)
 
 - Called from (representative examples):
-  - preprocess_minmax_aggregates (in planagg.c:154, 195)
-  - build_minmax_path (in planagg.c:316)
-  - create_minmaxagg_path (in pathnode.c:3427)
-  - create_minmaxagg_plan (in createplan.c:2560)
-  - can_minmax_aggs (in planagg.c:250, 293)
-  - find_minmax_agg_replacement_param (in setrefs.c:3449)
+  - [preprocess_minmax_aggregates](../p/preprocess_minmax_aggregates.md) (in planagg.c:154, 195)
+  - [build_minmax_path](../b/build_minmax_path.md) (in planagg.c:316)
+  - [create_minmaxagg_path](../c/create_minmaxagg_path.md) (in pathnode.c:3427)
+  - [create_minmaxagg_plan](../c/create_minmaxagg_plan.md) (in createplan.c:2560)
+  - [can_minmax_aggs](../c/can_minmax_aggs.md) (in planagg.c:250, 293)
+  - [find_minmax_agg_replacement_param](../f/find_minmax_agg_replacement_param.md) (in setrefs.c:3449)
 
 ## Notes and Other Information
 - Uses pg_node_attr with no_copy_equal, no_read, no_query_jumble attributes to control node processing behavior

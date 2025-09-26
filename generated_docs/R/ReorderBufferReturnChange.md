@@ -21,7 +21,7 @@ ReorderBufferReturnChange is responsible for properly deallocating a ReorderBuff
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReorderBufferChangeMemoryUpdate
+  - [ReorderBufferChangeMemoryUpdate](ReorderBufferChangeMemoryUpdate.md)
   - [ReorderBufferChangeSize](ReorderBufferChangeSize.md)
   - [ReorderBufferReturnTupleBuf](ReorderBufferReturnTupleBuf.md)
   - [ReorderBufferFreeSnap](ReorderBufferFreeSnap.md)

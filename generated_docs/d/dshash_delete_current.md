@@ -19,17 +19,17 @@ dshash_delete_current provides the ability to safely delete the current item dur
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dshash_seq_status (scan status structure type)
-  - dshash_table (hash table structure type)
-  - dshash_table_item (hash table item structure type)
+  - [dshash_seq_status](dshash_seq_status.md) (scan status structure type)
+  - [dshash_table](dshash_table.md) (hash table structure type)
+  - [dshash_table_item](dshash_table_item.md) (hash table item structure type)
   - PG_USED_FOR_ASSERTS_ONLY (assertion-only variable macro)
   - PARTITION_FOR_HASH (hash-to-partition mapping macro)
   - DSHASH_MAGIC (hash table magic number constant)
   - PARTITION_LOCK (partition lock macro)
-  - LWLockHeldByMeInMode (lock verification function)
-  - delete_item (actual deletion implementation function)
+  - [LWLockHeldByMeInMode](../L/LWLockHeldByMeInMode.md) (lock verification function)
+  - [delete_item](delete_item.md) (actual deletion implementation function)
 - Called from (representative examples):
-  - pgstat_free_entry (src/backend/utils/activity/pgstat_shmem.c:814)
+  - [pgstat_free_entry](../p/pgstat_free_entry.md) (src/backend/utils/activity/pgstat_shmem.c:814)
 
 ## Notes and Other Information
 - Can only be used during exclusive scans (scan must be initialized with exclusive=true)

@@ -20,7 +20,7 @@ This function converts a textual snapshot representation (in the format "xmin:xm
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FullTransactionIdFromU64
+  - [FullTransactionIdFromU64](../F/FullTransactionIdFromU64.md)
   - strtou64
   - FullTransactionIdIsValid
   - FullTransactionIdPrecedes
@@ -31,7 +31,7 @@ This function converts a textual snapshot representation (in the format "xmin:xm
   - [buf_finalize](../b/buf_finalize.md)
   - ereturn
 - Types referenced:
-  - FullTransactionId
+  - [FullTransactionId](../F/FullTransactionId.md)
   - InvalidFullTransactionId
   - [pg_snapshot](pg_snapshot.md)
   - [Node](../N/Node.md)

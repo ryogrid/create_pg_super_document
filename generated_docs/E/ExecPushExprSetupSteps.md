@@ -300,7 +300,7 @@ Text creation and manipulation
   - [ExecComputeSlotInfo](ExecComputeSlotInfo.md) (slot information computation and optimization)
   - [ExprEvalPushStep](ExprEvalPushStep.md) (step addition to expression state)
   - [ExecInitSubPlan](ExecInitSubPlan.md) (subplan state initialization)
-  - lappend (list manipulation for subplan management)
+  - [lappend](../l/lappend.md) (list manipulation for subplan management)
 - Called from (representative examples):
   - [ExecCreateExprSetupSteps](ExecCreateExprSetupSteps.md) (primary setup step generation)
   - [ExecBuildUpdateProjection](ExecBuildUpdateProjection.md) (update projection setup)

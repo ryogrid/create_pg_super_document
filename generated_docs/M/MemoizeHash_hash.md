@@ -32,7 +32,7 @@ The function combines hash values from multiple key attributes by rotating the a
   - [datum_image_hash](../d/datum_image_hash.md)
   - [FunctionCall1Coll](../F/FunctionCall1Coll.md)
   - [DatumGetUInt32](../D/DatumGetUInt32.md)
-  - murmurhash32
+  - [murmurhash32](../m/murmurhash32.md)
 - Called from (representative examples):
   - SH_DECLARE (hash table declaration)
   - SH_HASH_KEY (hash table key hashing macro)

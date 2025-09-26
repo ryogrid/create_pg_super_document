@@ -26,7 +26,7 @@ The function performs a catalog table scan using the specified criteria and dele
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open/table_close
+  - [table_open](../t/table_open.md)/table_close
   - OidIsValid
   - [ScanKeyInit](../S/ScanKeyInit.md)
   - [table_beginscan_catalog](../t/table_beginscan_catalog.md)/table_endscan
@@ -43,4 +43,4 @@ The function performs a catalog table scan using the specified criteria and dele
 - Performs bulk deletion by scanning and deleting all matching tuples in a single transaction
 - Essential for maintaining referential integrity when databases or roles are dropped
 - The function is called during DROP DATABASE and DROP ROLE operations to prevent orphaned configuration entries
-- Scan keys are built dynamically based on which OID parameters are valid, allowing flexible deletion patterns
+- [Scan](../S/Scan.md) keys are built dynamically based on which OID parameters are valid, allowing flexible deletion patterns

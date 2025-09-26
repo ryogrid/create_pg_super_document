@@ -25,10 +25,10 @@ Note that this function returns the maximum possible decoded length, not the exa
 - Functions called/Symbols referenced: None (pure calculation)
 
 - Called from (representative examples):
-  - `scram_verify_plain_password` (src/backend/libpq/auth-scram.c:540)
-  - `parse_scram_secret` (src/backend/libpq/auth-scram.c:637, 648, 656)
-  - `read_client_final_message` (src/backend/libpq/auth-scram.c:1373)
-  - `read_server_first_message` (src/interfaces/libpq/fe-auth-scram.c:648)
+  - `[scram_verify_plain_password](../s/scram_verify_plain_password.md)` (src/backend/libpq/auth-scram.c:540)
+  - `[parse_scram_secret](parse_scram_secret.md)` (src/backend/libpq/auth-scram.c:637, 648, 656)
+  - `[read_client_final_message](../r/read_client_final_message.md)` (src/backend/libpq/auth-scram.c:1373)
+  - `[read_server_first_message](../r/read_server_first_message.md)` (src/interfaces/libpq/fe-auth-scram.c:648)
 
 ## Notes and Other Information
 - Returns the maximum number of bytes that could result from decoding

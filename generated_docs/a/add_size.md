@@ -30,7 +30,7 @@ When overflow is detected, the function raises an ERROR with ERRCODE_PROGRAM_LIM
   - ERRCODE_PROGRAM_LIMIT_EXCEEDED (error code constant)
 - Called from (representative examples):
   - [CalculateShmemSize](../C/CalculateShmemSize.md) (extensively used for summing memory requirements)
-  - BufferShmemSize (buffer pool size calculations)
+  - [BufferShmemSize](../B/BufferShmemSize.md) (buffer pool size calculations)
   - [LockShmemSize](../L/LockShmemSize.md) (lock table size calculations)
   - [hash_estimate_size](../h/hash_estimate_size.md) (hash table size estimations)
 

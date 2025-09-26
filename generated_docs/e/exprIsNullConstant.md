@@ -25,7 +25,7 @@ This function is commonly used during expression transformation to identify NULL
   - IsA (macro for type checking nodes)
 - Called from (representative examples):
   - [transformAExprOp](../t/transformAExprOp.md)
-  - transformAExprDistinct
+  - [transformAExprDistinct](../t/transformAExprDistinct.md)
 
 ## Notes and Other Information
 - This function is static and only used within the parse_expr.c module

@@ -24,7 +24,7 @@ Memory management is carefully handled by distributing the available hash memory
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResetTupleHashTable
+  - [ResetTupleHashTable](../R/ResetTupleHashTable.md)
   - [hash_choose_num_buckets](../h/hash_choose_num_buckets.md)
   - [build_hash_table](build_hash_table.md)
 - Types referenced:

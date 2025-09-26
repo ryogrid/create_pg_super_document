@@ -28,14 +28,14 @@ BlockRefTable serves as the primary interface structure for PostgreSQL's block r
 - Functions called/Symbols referenced:
   - FRONTEND (preprocessor conditional compilation check)
 - Used by:
-  - IncrementalBackupInfo (incremental backup system)
+  - [IncrementalBackupInfo](../I/IncrementalBackupInfo.md) (incremental backup system)
   - Various WAL summarizer functions (SummarizeWAL, SummarizeDbaseRecord, SummarizeSmgrRecord, SummarizeXactRecord)
-  - BlockRefTableWriter structure
-  - CreateEmptyBlockRefTable
-  - BlockRefTableSetLimitBlock
-  - BlockRefTableMarkBlockModified
-  - BlockRefTableGetEntry
-  - WriteBlockRefTable
+  - [BlockRefTableWriter](BlockRefTableWriter.md) structure
+  - [CreateEmptyBlockRefTable](../C/CreateEmptyBlockRefTable.md)
+  - [BlockRefTableSetLimitBlock](BlockRefTableSetLimitBlock.md)
+  - [BlockRefTableMarkBlockModified](BlockRefTableMarkBlockModified.md)
+  - [BlockRefTableGetEntry](BlockRefTableGetEntry.md)
+  - [WriteBlockRefTable](../W/WriteBlockRefTable.md)
   - Various header function declarations
 
 ## Notes and Other Information

@@ -47,7 +47,7 @@ A key characteristic of hash joins is that they never produce any output pathkey
   - [hash_inner_and_outer](../h/hash_inner_and_outer.md)
 
 ## Notes and Other Information
-- Hash joins never produce sorted output, so pathkeys are always NIL for add_path_precheck
+- [Hash](../H/Hash.md) joins never produce sorted output, so pathkeys are always NIL for add_path_precheck
 - Uses calc_non_nestloop_required_outer for parameterization validation, same as merge joins
 - Creates non-parallel hash join paths only; parallel hash joins are handled separately
 - The parallel_hash parameter is explicitly set to false in create_hashjoin_path call

@@ -29,7 +29,7 @@ This function is typically called when a slot needs to be reused for a different
 ## Dependencies
 - Functions called/Symbols referenced:
   - TTS_SHOULDFREE (macro to check if slot should free memory)
-  - VirtualTupleTableSlot (cast to specific slot type)
+  - [VirtualTupleTableSlot](../V/VirtualTupleTableSlot.md) (cast to specific slot type)
   - [pfree](../p/pfree.md) (memory deallocation function)
   - TTS_FLAG_SHOULDFREE (flag indicating slot owns memory)
   - TTS_FLAG_EMPTY (flag indicating slot is empty)

@@ -22,12 +22,12 @@ The function follows the ECPG (Embedded SQL in C) pattern of returning 0 on succ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PGTYPESnumeric_to_long
+  - [PGTYPESnumeric_to_long](PGTYPESnumeric_to_long.md)
   - PGTYPES_NUM_OVERFLOW (error constant)
-  - numeric (type)
+  - [numeric](../n/numeric.md) (type)
 - Called from (representative examples):
-  - dectoint (in compatlib/informix.c)
-  - main (in test files for numeric operations)
+  - [dectoint](../d/dectoint.md) (in compatlib/informix.c)
+  - [main](../m/main.md) (in test files for numeric operations)
 
 ## Notes and Other Information
 - Returns 0 on successful conversion, non-zero on error

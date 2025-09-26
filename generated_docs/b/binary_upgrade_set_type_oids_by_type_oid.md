@@ -33,7 +33,7 @@ The function queries the system catalogs to determine existing OIDs and generate
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - createPQExpBuffer/destroyPQExpBuffer (buffer management)
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)/destroyPQExpBuffer (buffer management)
   - [appendPQExpBuffer](../a/appendPQExpBuffer.md)/appendPQExpBufferStr (SQL statement construction)
   - [ExecuteSqlQueryForSingleRow](../E/ExecuteSqlQueryForSingleRow.md) (database queries)
   - atooid (string to OID conversion)

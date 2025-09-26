@@ -32,9 +32,9 @@ The function creates a local FunctionCallInfoData structure with space for 1 arg
   - [brin_bloom_add_value](../b/brin_bloom_add_value.md)
   - [brin_bloom_consistent](../b/brin_bloom_consistent.md)  
   - [brin_inclusion_add_value](../b/brin_inclusion_add_value.md)
-  - gistdentryinit
+  - [gistdentryinit](../g/gistdentryinit.md)
   - [_hash_datum2hashkey](../h/_hash_datum2hashkey.md)
-  - ExecHashGetHashValue
+  - [ExecHashGetHashValue](../E/ExecHashGetHashValue.md)
   - [hash_multirange](../h/hash_multirange.md)
   - [hash_range](../h/hash_range.md)
   - [OidFunctionCall1Coll](../O/OidFunctionCall1Coll.md)

@@ -22,8 +22,8 @@ The function calculates the required memory size based on the number of parallel
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - shm_toc_allocate (allocates space in shared memory table of contents)
-  - shm_toc_insert (inserts entry into shared memory table of contents)
+  - [shm_toc_allocate](../s/shm_toc_allocate.md) (allocates space in shared memory table of contents)
+  - [shm_toc_insert](../s/shm_toc_insert.md) (inserts entry into shared memory table of contents)
   - memset (zeros the allocated memory)
   - [SharedAggInfo](../S/SharedAggInfo.md) (shared aggregate information structure)
   - [AggregateInstrumentation](../A/AggregateInstrumentation.md) (per-worker instrumentation structure)

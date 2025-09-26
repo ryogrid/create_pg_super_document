@@ -28,13 +28,13 @@ This function provides a clean, type-safe interface for the most common use case
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExplainState (struct type)
+  - [ExplainState](ExplainState.md) (struct type)
   - [ExplainProperty](ExplainProperty.md)
 - Called from (representative examples):
   - [ExplainPrintSettings](ExplainPrintSettings.md) (at src/backend/commands/explain.c:830, 861)
-  - ExplainPrintSerialize (at src/backend/commands/explain.c:1152)
-  - ExplainQueryText (at src/backend/commands/explain.c:1172)
-  - ExplainQueryParameters (at src/backend/commands/explain.c:1194)
+  - [ExplainPrintSerialize](ExplainPrintSerialize.md) (at src/backend/commands/explain.c:1152)
+  - [ExplainQueryText](ExplainQueryText.md) (at src/backend/commands/explain.c:1172)
+  - [ExplainQueryParameters](ExplainQueryParameters.md) (at src/backend/commands/explain.c:1194)
   - [report_triggers](../r/report_triggers.md) (at src/backend/commands/explain.c:1254, 1256, 1257)
   - [ExplainNode](ExplainNode.md) (at src/backend/commands/explain.c:1654, 1656, 1658, 1660, 1662, 1664, 1666, 1721, 1772, 1800)
   - [show_expression](../s/show_expression.md) (at src/backend/commands/explain.c:2503)

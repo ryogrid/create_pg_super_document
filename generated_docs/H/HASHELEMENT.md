@@ -32,8 +32,8 @@ This design enables efficient hash table operations by maintaining bucket chains
   - HASHSEGMENT
   - ELEMENTKEY
   - ELEMENT_FROM_KEY
-  - hash_seq_search
-  - element_alloc
+  - [hash_seq_search](../h/hash_seq_search.md)
+  - [element_alloc](../e/element_alloc.md)
 
 ## Notes and Other Information
 - The HASHELEMENT structure is always followed by the caller's data on a MAXALIGN'd boundary

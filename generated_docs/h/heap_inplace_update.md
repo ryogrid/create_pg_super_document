@@ -31,7 +31,7 @@ The operation requires that the new tuple data has exactly the same length as th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsInParallelMode
+  - [IsInParallelMode](../I/IsInParallelMode.md)
   - [ReadBuffer](../R/ReadBuffer.md)
   - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)
   - [ItemPointerGetOffsetNumber](../I/ItemPointerGetOffsetNumber.md)

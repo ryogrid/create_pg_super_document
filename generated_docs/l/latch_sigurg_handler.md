@@ -24,12 +24,12 @@ The self-pipe technique is a classic Unix pattern for making signal handlers int
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - sendSelfPipeByte (writes wake-up byte to self-pipe)
+  - [sendSelfPipeByte](../s/sendSelfPipeByte.md) (writes wake-up byte to self-pipe)
   - SIGNAL_ARGS (macro for signal handler signature)
   - waiting (global flag indicating if process is in wait state)
 - Called from (representative examples):
   - LatchWaitSetLatchPos (signal handler registration)
-  - InitializeLatchSupport (signal handler setup)
+  - [InitializeLatchSupport](../I/InitializeLatchSupport.md) (signal handler setup)
 
 ## Notes and Other Information
 - Used specifically for SIGURG signal handling in the latch notification system

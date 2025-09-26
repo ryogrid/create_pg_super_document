@@ -28,14 +28,14 @@ The LockRows node works by processing tuples from its child plan and applying th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Plan (base structure)
-  - List (PostgreSQL list structure)
-  - PlanRowMark (locking specification structure)
+  - [Plan](../P/Plan.md) (base structure)
+  - [List](List.md) (PostgreSQL list structure)
+  - [PlanRowMark](../P/PlanRowMark.md) (locking specification structure)
 - Called from (representative examples):
-  - ExecInitLockRows (executor initialization)
-  - create_lockrows_plan (planner)
-  - ExecInitNode (generic executor initialization)
-  - make_lockrows (plan creation utility)
+  - [ExecInitLockRows](../E/ExecInitLockRows.md) (executor initialization)
+  - [create_lockrows_plan](../c/create_lockrows_plan.md) (planner)
+  - [ExecInitNode](../E/ExecInitNode.md) (generic executor initialization)
+  - [make_lockrows](../m/make_lockrows.md) (plan creation utility)
 
 ## Notes and Other Information
 - The rowMarks list should be a subset of the rowMarks listed in the top-level PlannedStmt to maintain consistency

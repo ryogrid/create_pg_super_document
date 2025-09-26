@@ -28,20 +28,20 @@ This function is designed for one-time timeouts (not recurring) and is commonly 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TimeoutId: Timeout identifier type
+  - [TimeoutId](../T/TimeoutId.md): Timeout identifier type
   - disable_alarm: Disables alarm system temporarily for safety
-  - GetCurrentTimestamp: Gets current system timestamp
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md): Gets current system timestamp
   - TimestampTzPlusMilliseconds: Calculates future timestamp by adding milliseconds
-  - enable_timeout: Internal function to activate timeout with absolute timing
-  - schedule_alarm: Schedules the next SIGALRM interrupt
+  - [enable_timeout](enable_timeout.md): Internal function to activate timeout with absolute timing
+  - [schedule_alarm](../s/schedule_alarm.md): Schedules the next SIGALRM interrupt
 - Called from (representative examples):
-  - StartTransaction: Sets up transaction timeouts
-  - ProcSleep: Sets deadlock detection timeout during lock waits
-  - start_xact_command: Statement timeout activation
-  - ProcessInterrupts: Query cancellation timeout handling
-  - assign_transaction_timeout: Transaction timeout configuration
-  - enable_statement_timeout: Statement execution timeout
-  - PerformAuthentication: Authentication timeout during connection
+  - [StartTransaction](../S/StartTransaction.md): Sets up transaction timeouts
+  - [ProcSleep](../P/ProcSleep.md): Sets deadlock detection timeout during lock waits
+  - [start_xact_command](../s/start_xact_command.md): Statement timeout activation
+  - [ProcessInterrupts](../P/ProcessInterrupts.md): Query cancellation timeout handling
+  - [assign_transaction_timeout](../a/assign_transaction_timeout.md): Transaction timeout configuration
+  - [enable_statement_timeout](enable_statement_timeout.md): Statement execution timeout
+  - [PerformAuthentication](../P/PerformAuthentication.md): Authentication timeout during connection
 
 ## Notes and Other Information
 - Convenience function for relative timeout scheduling (as opposed to absolute time scheduling)

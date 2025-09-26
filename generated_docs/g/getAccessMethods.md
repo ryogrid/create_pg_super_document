@@ -23,7 +23,7 @@ The getAccessMethods function is part of pg_dump's catalog scanning infrastructu
   - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
   - [AssignDumpId](../A/AssignDumpId.md)
   - [selectDumpableAccessMethod](../s/selectDumpableAccessMethod.md)
-  - pg_malloc
+  - [pg_malloc](../p/pg_malloc.md)
   - atooid
   - [pg_strdup](../p/pg_strdup.md)
 - Called from (representative examples):

@@ -30,17 +30,17 @@ The function routes Unix domain socket requests to a specialized handler while d
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getnameinfo_unix (for Unix domain socket handling)
+  - [getnameinfo_unix](../g/getnameinfo_unix.md) (for Unix domain socket handling)
   - getnameinfo (standard system function)
-  - strlcpy (safe string copying)
-  - sockaddr_un (Unix socket address structure)
+  - [strlcpy](../s/strlcpy.md) (safe string copying)
+  - [sockaddr_un](../s/sockaddr_un.md) (Unix socket address structure)
 - Called from (representative examples):
-  - ClientAuthentication (authentication logging)
-  - ident_inet (ident authentication)
-  - check_hostname (HBA hostname verification)
-  - BackendInitialize (connection logging)
-  - inet_client_addr (network function implementations)
-  - pg_stat_get_backend_client_addr (statistics functions)
+  - [ClientAuthentication](../C/ClientAuthentication.md) (authentication logging)
+  - [ident_inet](../i/ident_inet.md) (ident authentication)
+  - [check_hostname](../c/check_hostname.md) (HBA hostname verification)
+  - [BackendInitialize](../B/BackendInitialize.md) (connection logging)
+  - [inet_client_addr](../i/inet_client_addr.md) (network function implementations)
+  - [pg_stat_get_backend_client_addr](pg_stat_get_backend_client_addr.md) (statistics functions)
 
 ## Notes and Other Information
 - Enhanced API using sockaddr_storage instead of sockaddr for better type safety

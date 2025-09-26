@@ -24,7 +24,7 @@ This hook function is called during query parsing to coerce variable parameters 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [VarParamState](../V/VarParamState.md) (structure type)
-  - Param (node type)
+  - [Param](../P/Param.md) (node type)
   - PARAM_EXTERN (parameter kind constant)
   - [get_typcollation](../g/get_typcollation.md) (function to get type collation)
   - [format_type_be](../f/format_type_be.md) (function to format type names for error messages)

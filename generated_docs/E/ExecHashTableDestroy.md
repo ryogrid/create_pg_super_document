@@ -21,12 +21,12 @@ Memory cleanup is performed hierarchically through memory context deletion. Sinc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufFileClose (closes temporary batch files)
-  - MemoryContextDelete (deallocates memory contexts)
-  - pfree (frees the control structure)
+  - [BufFileClose](../B/BufFileClose.md) (closes temporary batch files)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md) (deallocates memory contexts)
+  - [pfree](../p/pfree.md) (frees the control structure)
 - Called from (representative examples):
-  - ExecEndHashJoin (hash join cleanup during query termination)
-  - ExecReScanHashJoin (hash join reset for parameter changes)
+  - [ExecEndHashJoin](ExecEndHashJoin.md) (hash join cleanup during query termination)
+  - [ExecReScanHashJoin](ExecReScanHashJoin.md) (hash join reset for parameter changes)
 
 ## Notes and Other Information
 - Temporary files are only closed for batches 1 and higher since batch 0 never uses temporary storage

@@ -35,16 +35,16 @@ For hash partitioning, the nullkeys bitmapset tracks which partition keys were m
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PartitionPruneStep (base structure)
+  - [PartitionPruneStep](PartitionPruneStep.md) (base structure)
   - StrategyNumber (operator strategy system)
-  - List (PostgreSQL list structure)
-  - Bitmapset (PostgreSQL bitmap structure)
+  - [List](../L/List.md) (PostgreSQL list structure)
+  - [Bitmapset](../B/Bitmapset.md) (PostgreSQL bitmap structure)
 
 - Called from (representative examples):
-  - InitPartitionPruneContext (src/backend/executor/execPartition.c:2130)
-  - get_matching_partitions (src/backend/partitioning/partprune.c:852)
-  - gen_prune_step_op (src/backend/partitioning/partprune.c:1318)
-  - perform_pruning_base_step (src/backend/partitioning/partprune.c:3417)
+  - [InitPartitionPruneContext](../I/InitPartitionPruneContext.md) (src/backend/executor/execPartition.c:2130)
+  - [get_matching_partitions](../g/get_matching_partitions.md) (src/backend/partitioning/partprune.c:852)
+  - [gen_prune_step_op](../g/gen_prune_step_op.md) (src/backend/partitioning/partprune.c:1318)
+  - [perform_pruning_base_step](../p/perform_pruning_base_step.md) (src/backend/partitioning/partprune.c:3417)
 
 ## Notes and Other Information
 - Cannot have both an expression in exprs and corresponding bit set in nullkeys for the same partition key

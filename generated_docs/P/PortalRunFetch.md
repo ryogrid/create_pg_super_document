@@ -27,10 +27,10 @@ PortalRunFetch provides cursor-style access to portal results, supporting SQL FE
 ## Dependencies
 - Functions called/Symbols referenced:
   - PortalIsValid
-  - MarkPortalActive
+  - [MarkPortalActive](../M/MarkPortalActive.md)
   - [DoPortalRunFetch](../D/DoPortalRunFetch.md)
   - [FillPortalStore](../F/FillPortalStore.md)
-  - MarkPortalFailed
+  - [MarkPortalFailed](../M/MarkPortalFailed.md)
   - PG_TRY/PG_CATCH/PG_END_TRY macros
 - Called from (representative examples):
   - [PerformPortalFetch](PerformPortalFetch.md)

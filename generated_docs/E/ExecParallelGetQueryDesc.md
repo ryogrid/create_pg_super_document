@@ -27,7 +27,7 @@ The function handles the deserialization of complex query structures using strin
   - [stringToNode](../s/stringToNode.md)
   - [RestoreParamList](../R/RestoreParamList.md)
   - [CreateQueryDesc](../C/CreateQueryDesc.md)
-  - GetActiveSnapshot
+  - [GetActiveSnapshot](../G/GetActiveSnapshot.md)
 - Constants used:
   - PARALLEL_KEY_QUERY_TEXT
   - PARALLEL_KEY_PLANNEDSTMT
@@ -36,8 +36,8 @@ The function handles the deserialization of complex query structures using strin
 - Types used:
   - [PlannedStmt](../P/PlannedStmt.md)
   - [ParamListInfo](../P/ParamListInfo.md)
-  - QueryDesc
-  - DestReceiver
+  - [QueryDesc](../Q/QueryDesc.md)
+  - [DestReceiver](../D/DestReceiver.md)
 - Called from:
   - [ParallelQueryMain](../P/ParallelQueryMain.md)
 

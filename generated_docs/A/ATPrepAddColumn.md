@@ -37,8 +37,8 @@ The function assumes that constraints like CHECK, NOT NULL, and FOREIGN KEY have
 - Functions called/Symbols referenced:
   - ereport
   - [ATTypedTableRecursion](ATTypedTableRecursion.md)
-  - AlterTableCmd
-  - AlterTableUtilityContext
+  - [AlterTableCmd](AlterTableCmd.md)
+  - [AlterTableUtilityContext](AlterTableUtilityContext.md)
   - RELKIND_COMPOSITE_TYPE
 - Called from (representative examples):
   - child_dependency_type

@@ -42,8 +42,8 @@ For parallel-aware append operations, the function sorts non-partial paths by de
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (AppendPath creation)
-  - get_baserel_parampathinfo
-  - get_appendrel_parampathinfo
+  - [get_baserel_parampathinfo](../g/get_baserel_parampathinfo.md)
+  - [get_appendrel_parampathinfo](../g/get_appendrel_parampathinfo.md)
   - [list_sort](../l/list_sort.md)
   - [append_total_cost_compare](../a/append_total_cost_compare.md)
   - [append_startup_cost_compare](../a/append_startup_cost_compare.md)

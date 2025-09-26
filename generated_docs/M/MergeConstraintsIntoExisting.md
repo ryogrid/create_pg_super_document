@@ -33,7 +33,7 @@ The function uses an O(N^2) algorithm but is considered acceptable for typical c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - RelationGetRelid
   - [ScanKeyInit](../S/ScanKeyInit.md)
   - [systable_beginscan](../s/systable_beginscan.md)
@@ -46,7 +46,7 @@ The function uses an O(N^2) algorithm but is considered acceptable for typical c
   - [heap_copytuple](../h/heap_copytuple.md)
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - [heap_freetuple](../h/heap_freetuple.md)
-  - table_close
+  - [table_close](../t/table_close.md)
   - ereport
   - RelationGetRelationName
   - RelationGetDescr

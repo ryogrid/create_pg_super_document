@@ -24,15 +24,15 @@ The function delegates to the appropriate type-specific implementation through t
 - Functions called/Symbols referenced:
   - get_flat_size (method from ExpandedObjectMethods table)
 - Types referenced:
-  - ExpandedObjectHeader
+  - [ExpandedObjectHeader](ExpandedObjectHeader.md)
   - Size
 - Called from (representative examples):
-  - detoast_external_attr
-  - toast_raw_datum_size
-  - toast_datum_size
-  - heap_compute_data_size
-  - datumCopy
-  - datumEstimateSpace
+  - [detoast_external_attr](../d/detoast_external_attr.md)
+  - [toast_raw_datum_size](../t/toast_raw_datum_size.md)
+  - [toast_datum_size](../t/toast_datum_size.md)
+  - [heap_compute_data_size](../h/heap_compute_data_size.md)
+  - [datumCopy](../d/datumCopy.md)
+  - [datumEstimateSpace](../d/datumEstimateSpace.md)
 
 ## Notes and Other Information
 - This is a polymorphic function that relies on the object's method table for the actual implementation

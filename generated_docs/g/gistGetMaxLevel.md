@@ -25,19 +25,19 @@ The algorithm starts at the root page (GIST_ROOT_BLKNO) and repeatedly follows t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReadBuffer
-  - LockBuffer
-  - BufferGetPage
+  - [ReadBuffer](../R/ReadBuffer.md)
+  - [LockBuffer](../L/LockBuffer.md)
+  - [BufferGetPage](../B/BufferGetPage.md)
   - GistPageIsLeaf
-  - UnlockReleaseBuffer
-  - PageGetItem
-  - PageGetItemId
-  - ItemPointerGetBlockNumber
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
+  - [PageGetItem](../P/PageGetItem.md)
+  - [PageGetItemId](../P/PageGetItemId.md)
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)
   - GIST_ROOT_BLKNO
   - GIST_SHARE
   - FirstOffsetNumber
 - Called from (representative examples):
-  - gistInitBuffering
+  - [gistInitBuffering](gistInitBuffering.md)
 
 ## Notes and Other Information
 - Returns 0 for a tree with only a root leaf page, 1 for a tree with root and one level of leaves, etc.

@@ -28,7 +28,7 @@ The function supports various XML formatting options including null value handli
   - PG_GETARG_OID
   - PG_GETARG_BOOL  
   - PG_GETARG_TEXT_PP
-  - text_to_cstring
+  - [text_to_cstring](text_to_cstring.md)
   - [table_to_xml_internal](table_to_xml_internal.md)
   - [stringinfo_to_xmltype](../s/stringinfo_to_xmltype.md)
   - PG_RETURN_XML_P

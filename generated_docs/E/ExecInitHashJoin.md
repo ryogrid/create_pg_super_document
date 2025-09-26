@@ -33,7 +33,7 @@ The function handles special cases for different join types, particularly around
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode: Creates new HashJoinState structure  
-  - ExecAssignExprContext: Sets up expression evaluation context
+  - [ExecAssignExprContext](ExecAssignExprContext.md): Sets up expression evaluation context
   - [ExecInitNode](ExecInitNode.md): Recursively initializes child plan nodes
   - [ExecGetResultType](ExecGetResultType.md): Retrieves tuple descriptor from child nodes
   - [ExecInitResultTupleSlotTL](ExecInitResultTupleSlotTL.md): Initializes result tuple slot

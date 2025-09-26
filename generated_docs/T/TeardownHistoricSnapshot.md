@@ -23,8 +23,8 @@ The function is designed to be called when logical decoding operations are compl
 - Functions called/Symbols referenced:
   - None (only sets global variables to NULL)
 - Called from (representative examples):
-  - ReorderBufferQueueMessage (in logical reorderbuffer, multiple locations)
-  - ReorderBufferProcessTXN (in logical reorderbuffer, multiple locations)
+  - [ReorderBufferQueueMessage](../R/ReorderBufferQueueMessage.md) (in logical reorderbuffer, multiple locations)
+  - [ReorderBufferProcessTXN](../R/ReorderBufferProcessTXN.md) (in logical reorderbuffer, multiple locations)
   - CHANGES_THRESHOLD (in logical reorderbuffer context)
 
 ## Notes and Other Information

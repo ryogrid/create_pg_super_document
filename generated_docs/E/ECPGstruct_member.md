@@ -28,15 +28,15 @@ The structure is part of the ECPG type system that allows the preprocessor to un
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ECPGtype (referenced as member type)
-  - ECPGstruct_member (self-reference for linked list)
+  - [ECPGtype](ECPGtype.md) (referenced as member type)
+  - [ECPGstruct_member](ECPGstruct_member.md) (self-reference for linked list)
 - Called from (representative examples):
-  - ECPGstruct_member_dup
-  - ECPGmake_struct_member
-  - ECPGmake_struct_type
-  - ECPGdump_a_struct
-  - ECPGfree_struct_member
-  - find_struct_member
+  - [ECPGstruct_member_dup](ECPGstruct_member_dup.md)
+  - [ECPGmake_struct_member](ECPGmake_struct_member.md)
+  - [ECPGmake_struct_type](ECPGmake_struct_type.md)
+  - [ECPGdump_a_struct](ECPGdump_a_struct.md)
+  - [ECPGfree_struct_member](ECPGfree_struct_member.md)
+  - [find_struct_member](../f/find_struct_member.md)
 
 ## Notes and Other Information
 - This structure is specifically used in the ECPG preprocessor (src/interfaces/ecpg/preproc/) for handling embedded SQL in C programs

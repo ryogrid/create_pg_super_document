@@ -23,7 +23,7 @@ The function is static, meaning it's only accessible within the parser.c compila
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - is_valid_unicode_codepoint (for validation logic)
+  - [is_valid_unicode_codepoint](../i/is_valid_unicode_codepoint.md) (for validation logic)
   - ereport (for error reporting)
   - [errcode](../e/errcode.md) (for error code specification)
   - [errmsg](../e/errmsg.md) (for error message formatting)

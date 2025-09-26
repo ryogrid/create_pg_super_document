@@ -35,7 +35,7 @@ For OFFSET FOLLOWING frames, the function attempts to extract exact values from 
   - [estimate_num_groups](../e/estimate_num_groups.md) (estimates distinct groups in expressions)
   - [list_free](../l/list_free.md) (memory management for expression lists)
   - [clamp_row_est](../c/clamp_row_est.md) (ensures row estimates are within reasonable bounds)
-  - DatumGetInt16, DatumGetInt32, DatumGetInt64 (extract values from Datum)
+  - [DatumGetInt16](../D/DatumGetInt16.md), DatumGetInt32, DatumGetInt64 (extract values from Datum)
   - Various FRAMEOPTION constants (END_UNBOUNDED_FOLLOWING, END_CURRENT_ROW, etc.)
   - DEFAULT_INEQ_SEL (default selectivity for inequality conditions)
 - Called from (representative examples):

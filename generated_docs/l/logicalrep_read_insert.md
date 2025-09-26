@@ -26,14 +26,14 @@ The function follows the logical replication wire protocol format where INSERT m
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_getmsgint (reads 4-byte integer from message)
-  - pq_getmsgbyte (reads single byte from message)
-  - logicalrep_read_tuple (reads tuple data from stream)
+  - [pq_getmsgint](../p/pq_getmsgint.md) (reads 4-byte integer from message)
+  - [pq_getmsgbyte](../p/pq_getmsgbyte.md) (reads single byte from message)
+  - [logicalrep_read_tuple](logicalrep_read_tuple.md) (reads tuple data from stream)
 - Data types used:
   - LogicalRepRelId (relation identifier type)
-  - LogicalRepTupleData (tuple data structure)
+  - [LogicalRepTupleData](../L/LogicalRepTupleData.md) (tuple data structure)
 - Called from (representative examples):
-  - apply_handle_insert (in logical replication worker)
+  - [apply_handle_insert](../a/apply_handle_insert.md) (in logical replication worker)
 
 ## Notes and Other Information
 - The function validates the action byte must be 'N' (new tuple) and throws an ERROR if any other value is encountered

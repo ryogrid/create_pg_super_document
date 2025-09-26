@@ -27,7 +27,7 @@ The function uses the RINFO_IS_PUSHED_DOWN macro to determine whether each claus
   - RINFO_IS_PUSHED_DOWN macro (Line 536) - determines if clause was pushed down from higher level
   - [rinfo_is_constant_true](../r/rinfo_is_constant_true.md) (Lines 539, 546) - filters out constant TRUE clauses
   - lfirst_node macro - for safe list iteration
-  - lappend - to build result lists
+  - [lappend](../l/lappend.md) - to build result lists
   - NIL - PostgreSQL's empty list constant
 - Called from (representative examples):
   - [create_nestloop_plan](../c/create_nestloop_plan.md) (src/backend/optimizer/plan/createplan.c:4398)

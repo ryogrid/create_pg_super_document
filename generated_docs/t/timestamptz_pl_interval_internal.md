@@ -31,7 +31,7 @@ The function is critical for ensuring that calendar arithmetic respects timezone
 ## Dependencies
 - Functions called/Symbols referenced:
   - [timestamp2tm](timestamp2tm.md), tm2timestamp (timezone-aware timestamp/tm conversion)
-  - DetermineTimeZoneOffset (calculates timezone offset for given local time)
+  - [DetermineTimeZoneOffset](../D/DetermineTimeZoneOffset.md) (calculates timezone offset for given local time)
   - [date2j](../d/date2j.md), j2date (Julian date conversion for day arithmetic)
   - [pg_add_s32_overflow](../p/pg_add_s32_overflow.md), pg_add_s64_overflow (overflow-safe arithmetic)
   - isleap (leap year detection)

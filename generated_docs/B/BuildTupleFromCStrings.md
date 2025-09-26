@@ -36,7 +36,7 @@ After converting all string values to Datums and determining their null status, 
   - [pg_get_keywords](../p/pg_get_keywords.md)
   - [ts_process_call](../t/ts_process_call.md)
   - [show_all_settings](../s/show_all_settings.md)
-  - pltcl_build_tuple_result
+  - [pltcl_build_tuple_result](../p/pltcl_build_tuple_result.md)
 
 ## Notes and Other Information
 - NULL string pointers in the values array create NULL fields in the resulting tuple

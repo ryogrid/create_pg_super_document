@@ -25,15 +25,15 @@ This function is typically called indirectly through the MakeExpandedObjectReadO
 ## Dependencies
 - Functions called/Symbols referenced:
   - VARATT_IS_EXTERNAL_EXPANDED_RW (macro)
-  - DatumGetPointer (macro)
-  - DatumGetEOHP
-  - EOHPGetRODatum (macro)
+  - [DatumGetPointer](../D/DatumGetPointer.md) (macro)
+  - [DatumGetEOHP](../D/DatumGetEOHP.md)
+  - [EOHPGetRODatum](../E/EOHPGetRODatum.md) (macro)
 - Types referenced:
   - Datum
-  - ExpandedObjectHeader
+  - [ExpandedObjectHeader](../E/ExpandedObjectHeader.md)
 - Called from (representative examples):
-  - ExecInterpExpr (multiple locations)
-  - FunctionReturningBool
+  - [ExecInterpExpr](../E/ExecInterpExpr.md) (multiple locations)
+  - [FunctionReturningBool](../F/FunctionReturningBool.md)
   - MakeExpandedObjectReadOnly (macro)
 
 ## Notes and Other Information

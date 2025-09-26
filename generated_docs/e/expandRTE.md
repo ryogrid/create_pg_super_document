@@ -39,16 +39,16 @@ The function provides flexibility in output by allowing callers to request only 
 - Functions called/Symbols referenced:
   - [expandRelation](expandRelation.md) (for RTE_RELATION)
   - [expandTupleDesc](expandTupleDesc.md) (for composite function types)
-  - makeVar (creating Var nodes)
+  - [makeVar](../m/makeVar.md) (creating Var nodes)
   - [makeString](../m/makeString.md) (creating string nodes)
   - [makeNullConst](../m/makeNullConst.md) (creating null constants for dropped columns)
   - [get_expr_result_type](../g/get_expr_result_type.md) (determining function return types)
-  - exprType, exprTypmod, exprCollation (extracting expression type information)
+  - [exprType](exprType.md), exprTypmod, exprCollation (extracting expression type information)
 - Data structures used:
   - [RangeTblEntry](../R/RangeTblEntry.md), RangeTblFunction, TargetEntry
   - Various PostgreSQL list manipulation functions
 - Called from (representative examples):
-  - transformWholeRowRef (expanding whole-row references)
+  - [transformWholeRowRef](../t/transformWholeRowRef.md) (expanding whole-row references)
   - [expandRecordVariable](expandRecordVariable.md) (expanding record variables)
   - [build_physical_tlist](../b/build_physical_tlist.md) (optimizer planning)
   - [set_relation_column_names](../s/set_relation_column_names.md) (rule utilities)

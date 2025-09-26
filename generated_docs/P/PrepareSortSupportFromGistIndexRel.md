@@ -24,13 +24,13 @@ Once the sort support function is found, it's called to initialize the SortSuppo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_opfamily_proc
+  - [get_opfamily_proc](../g/get_opfamily_proc.md)
   - OidFunctionCall1
   - GIST_SORTSUPPORT_PROC
-  - SortSupport
+  - [SortSupport](../S/SortSupport.md)
 - Called from (representative examples):
-  - tuplesort_begin_index_gist
-  - ApplySortAbbrevFullComparator
+  - [tuplesort_begin_index_gist](../t/tuplesort_begin_index_gist.md)
+  - [ApplySortAbbrevFullComparator](../A/ApplySortAbbrevFullComparator.md)
 
 ## Notes and Other Information
 - The caller must zero the SortSupportData structure and pre-populate ssup_cxt, ssup_attno, ssup_collation, and ssup_nulls_first before calling this function

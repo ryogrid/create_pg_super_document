@@ -38,7 +38,7 @@ The function uses a switch statement to dispatch to command-specific handlers li
 ## Dependencies
 - Functions called/Symbols referenced:
   - CHECK_FOR_INTERRUPTS
-  - check_stack_depth
+  - [check_stack_depth](../c/check_stack_depth.md)
   - [AcquireRewriteLocks](../A/AcquireRewriteLocks.md)
   - [lcons](../l/lcons.md)
   - [list_copy](../l/list_copy.md)
@@ -57,8 +57,8 @@ The function uses a switch statement to dispatch to command-specific handlers li
   - [get_with_clause](get_with_clause.md)
   - [get_setop_query](get_setop_query.md)
   - [get_insert_query_def](get_insert_query_def.md)
-  - get_sublink_expr
-  - get_from_clause_item
+  - [get_sublink_expr](get_sublink_expr.md)
+  - [get_from_clause_item](get_from_clause_item.md)
 
 ## Notes and Other Information
 This function is a core component of PostgreSQL's rule system and query deparsing infrastructure. It's used extensively throughout the system for generating readable SQL from internal parse trees, particularly in view definitions, rule definitions, and query introspection. The function is designed to handle nested queries and maintains proper namespace resolution through the parentnamespace parameter. The locking mechanism ensures consistency when deparsing queries that reference database objects that might be modified concurrently.

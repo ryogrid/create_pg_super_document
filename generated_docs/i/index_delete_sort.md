@@ -30,8 +30,8 @@ The sorting prepares the deletion array for efficient processing by ensuring ite
   - [index_delete_sort_cmp](index_delete_sort_cmp.md)
   - StaticAssertDecl
   - lengthof
-  - TM_IndexDeleteOp (structure type)
-  - TM_IndexDelete (structure type)
+  - [TM_IndexDeleteOp](../T/TM_IndexDeleteOp.md) (structure type)
+  - [TM_IndexDelete](../T/TM_IndexDelete.md) (structure type)
 - Called from (representative examples):
   - [heap_index_delete_tuples](../h/heap_index_delete_tuples.md)
 

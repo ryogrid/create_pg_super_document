@@ -35,15 +35,15 @@ If any validation fails, the function leaves the output buffer empty and returns
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SPI_fnumber](../S/SPI_fnumber.md)
-  - SPI_getbinval
+  - [SPI_getbinval](../S/SPI_getbinval.md)
   - [SPI_getvalue](../S/SPI_getvalue.md)
   - [DatumGetChar](../D/DatumGetChar.md)
   - [DatumGetObjectId](../D/DatumGetObjectId.md)
   - [DatumGetBool](../D/DatumGetBool.md)
   - [stringToNode](../s/stringToNode.md)
   - [get_query_def](../g/get_query_def.md)
-  - table_open
-  - table_close
+  - [table_open](../t/table_open.md)
+  - [table_close](../t/table_close.md)
   - RelationGetDescr
   - CMD_SELECT
 - Called from (representative examples):

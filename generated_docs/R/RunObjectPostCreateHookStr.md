@@ -35,6 +35,6 @@ The function differs from its OID-based counterpart by using object names (strin
 ## Notes and Other Information
 - This is part of the string-based variant of PostgreSQL's object access hook system, complementing the OID-based hooks
 - The function initializes an ObjectAccessPostCreate structure with zeroed memory and sets the is_internal flag based on the parameter
-- String-based hooks are particularly useful when object OIDs are not readily available or when extensions prefer to work with object names
+- [String](../S/String.md)-based hooks are particularly useful when object OIDs are not readily available or when extensions prefer to work with object names
 - The is_internal flag helps extensions distinguish between user-initiated object creations and internal PostgreSQL operations
 - This hook is commonly used by logical replication systems, auditing extensions, and other tools that need to track database schema changes

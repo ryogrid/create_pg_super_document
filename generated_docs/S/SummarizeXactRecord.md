@@ -28,7 +28,7 @@ The function processes both commit scenarios (XLOG_XACT_COMMIT and XLOG_XACT_COM
   - XLogRecGetData: Get the payload data from the WAL record
   - [ParseCommitRecord](../P/ParseCommitRecord.md): Parse commit record to extract removed relations list
   - [ParseAbortRecord](../P/ParseAbortRecord.md): Parse abort record to extract removed relations list
-  - BlockRefTableSetLimitBlock: Set limit blocks to 0 for removed relations
+  - [BlockRefTableSetLimitBlock](../B/BlockRefTableSetLimitBlock.md): Set limit blocks to 0 for removed relations
   - MAX_FORKNUM: Maximum fork number for iteration over all fork types
   - FSM_FORKNUM: Free Space Map fork identifier (excluded from processing)
 - Called from (representative examples):

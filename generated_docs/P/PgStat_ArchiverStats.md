@@ -40,11 +40,11 @@ PgStat_ArchiverStats is a statistical tracking structure for PostgreSQL's WAL ar
   - MAX_XFN_CHARS
   - TimestampTz
 - Called from (representative examples):
-  - pgstat_report_archiver
-  - pgstat_archiver_snapshot_cb
-  - pg_stat_get_archiver
-  - PgStatShared_Archiver
-  - PgStat_Snapshot
+  - [pgstat_report_archiver](../p/pgstat_report_archiver.md)
+  - [pgstat_archiver_snapshot_cb](../p/pgstat_archiver_snapshot_cb.md)
+  - [pg_stat_get_archiver](../p/pg_stat_get_archiver.md)
+  - [PgStatShared_Archiver](PgStatShared_Archiver.md)
+  - [PgStat_Snapshot](PgStat_Snapshot.md)
 
 ## Notes and Other Information
 This structure is essential for monitoring PostgreSQL's backup and recovery infrastructure. The archiver statistics are accessible through the pg_stat_archiver system view, allowing database administrators to monitor the health and performance of their archival process. Failed archival operations can indicate issues with backup infrastructure, storage availability, or network connectivity that could impact recovery capabilities. The MAX_XFN_CHARS constant determines the maximum length for WAL filenames that can be stored in the statistics.

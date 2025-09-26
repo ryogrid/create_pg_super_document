@@ -27,10 +27,10 @@ This function traverses a JSON path expression and extracts indexable nodes for 
   - [jspGetArg](../j/jspGetArg.md)
   - [extract_jsp_bool_expr](extract_jsp_bool_expr.md)
   - [jspGetNext](../j/jspGetNext.md)
-  - lappend
+  - [lappend](../l/lappend.md)
   - JsonPathItem
-  - JsonPathGinNode
-  - JsonPathGinContext
+  - [JsonPathGinNode](../J/JsonPathGinNode.md)
+  - [JsonPathGinContext](../J/JsonPathGinContext.md)
   - JsonPathGinPath
   - Various enum values (jpiCurrent, jpiFilter)
 - Called from (representative examples):

@@ -33,18 +33,18 @@ The atomic/non-atomic behavior is controlled by the SPI_OPT_NONATOMIC flag:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextAlloc (for initial stack allocation)
-  - repalloc (for stack expansion)
-  - GetCurrentSubTransactionId (for subtransaction tracking)
-  - slist_init (for tuple table list initialization)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md) (for initial stack allocation)
+  - [repalloc](../r/repalloc.md) (for stack expansion)
+  - [GetCurrentSubTransactionId](../G/GetCurrentSubTransactionId.md) (for subtransaction tracking)
+  - [slist_init](../s/slist_init.md) (for tuple table list initialization)
   - AllocSetContextCreate (for memory context creation)
-  - MemoryContextSwitchTo (to switch to procedure context)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (to switch to procedure context)
 
 - Called from (representative examples):
-  - SPI_connect (wrapper with default options)
-  - plperl_inline_handler, plperl_func_handler (Perl procedural language)
-  - plpython3_call_handler, plpython3_inline_handler (Python procedural language)
-  - pltcl_func_handler (Tcl procedural language)
+  - [SPI_connect](SPI_connect.md) (wrapper with default options)
+  - [plperl_inline_handler](../p/plperl_inline_handler.md), plperl_func_handler (Perl procedural language)
+  - [plpython3_call_handler](../p/plpython3_call_handler.md), plpython3_inline_handler (Python procedural language)
+  - [pltcl_func_handler](../p/pltcl_func_handler.md) (Tcl procedural language)
 
 ## Notes and Other Information
 - Must be paired with SPI_finish() to properly clean up the connection and restore previous state

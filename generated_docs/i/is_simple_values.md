@@ -33,7 +33,7 @@ The restrictions mirror those applied to subquery pullup optimization, ensuring 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_length
+  - [list_length](../l/list_length.md)
   - [expression_returns_set](../e/expression_returns_set.md)  
   - [contain_volatile_functions](../c/contain_volatile_functions.md)
   - linitial

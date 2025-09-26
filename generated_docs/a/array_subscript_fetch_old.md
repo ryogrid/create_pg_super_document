@@ -23,8 +23,8 @@ This function retrieves the existing value of an array element before assignment
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExprEvalStep (struct)
-  - SubscriptingRefState (struct)
+  - [ExprEvalStep](../E/ExprEvalStep.md) (struct)
+  - [SubscriptingRefState](../S/SubscriptingRefState.md) (struct)
   - [ArraySubWorkspace](../A/ArraySubWorkspace.md) (struct)
   - [array_get_element](array_get_element.md)
 - Called from (representative examples):

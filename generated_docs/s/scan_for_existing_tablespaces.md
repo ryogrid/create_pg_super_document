@@ -20,17 +20,17 @@ This function examines the pg_tblspc directory within a backup directory to iden
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DIR, dirent (directory handling types)
+  - [DIR](../D/DIR.md), dirent (directory handling types)
   - [cb_tablespace](../c/cb_tablespace.md), cb_options, cb_tablespace_mapping (structure types)
   - pg_log_debug (logging function)
-  - opendir, readdir, closedir (directory operations)
-  - parse_oid (OID parsing utility)
+  - [opendir](../o/opendir.md), readdir, closedir (directory operations)
+  - [parse_oid](../p/parse_oid.md) (OID parsing utility)
   - [get_dirent_type](../g/get_dirent_type.md) (file type detection)
-  - pg_malloc0 (zero-initialized memory allocation)
+  - [pg_malloc0](../p/pg_malloc0.md) (zero-initialized memory allocation)
   - readlink (symbolic link reading)
   - is_absolute_path (path validation)
   - [canonicalize_path](../c/canonicalize_path.md) (path canonicalization)
-  - strlcpy (safe string copying)
+  - [strlcpy](strlcpy.md) (safe string copying)
 - Called from (representative examples):
   - [main](../m/main.md) (in src/bin/pg_combinebackup/pg_combinebackup.c:311)
 

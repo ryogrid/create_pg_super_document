@@ -29,7 +29,7 @@ The lock replay ensures that the tuple's visibility and locking state are correc
 - Functions called/Symbols referenced:
   - XLogRecGetData (extracts xl_heap_lock structure from WAL record)
   - [XLogRecGetBlockTag](../X/XLogRecGetBlockTag.md) (retrieves block information from WAL record)
-  - XLogReadBufferForRedo (reads and locks target buffer for redo)
+  - [XLogReadBufferForRedo](../X/XLogReadBufferForRedo.md) (reads and locks target buffer for redo)
   - [visibilitymap_pin](../v/visibilitymap_pin.md), visibilitymap_clear (visibility map maintenance for frozen tuples)
   - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md), PageGetItemId, PageGetItem (page-level tuple access)
   - [fix_infomask_from_infobits](../f/fix_infomask_from_infobits.md) (reconstructs tuple visibility state from logged bits)

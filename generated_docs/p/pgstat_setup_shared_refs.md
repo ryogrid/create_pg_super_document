@@ -30,9 +30,9 @@ This function takes no parameters.
 - Functions called/Symbols referenced:
   - likely (compiler optimization hint)
   - pgstat_entry_ref_hash_create
-  - pg_atomic_read_u64
+  - [pg_atomic_read_u64](pg_atomic_read_u64.md)
 - Called from (representative examples):
-  - pgstat_get_entry_ref
+  - [pgstat_get_entry_ref](pgstat_get_entry_ref.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the pgstat_shmem.c module

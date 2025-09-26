@@ -23,9 +23,9 @@ This function serves as the setup phase for array subscript operations within Po
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SubscriptingRef (struct)
-  - SubscriptingRefState (struct)
-  - SubscriptExecSteps (struct)
+  - [SubscriptingRef](../S/SubscriptingRef.md) (struct)
+  - [SubscriptingRefState](../S/SubscriptingRefState.md) (struct)
+  - [SubscriptExecSteps](../S/SubscriptExecSteps.md) (struct)
   - [ArraySubWorkspace](../A/ArraySubWorkspace.md) (struct)
   - MAXDIM (constant)
   - [get_typlen](../g/get_typlen.md)

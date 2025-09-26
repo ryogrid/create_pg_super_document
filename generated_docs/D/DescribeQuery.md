@@ -34,7 +34,7 @@ The function constructs a formatted output showing column names and their Postgr
   - [ClearOrSaveResult](../C/ClearOrSaveResult.md)
   - [PQnfields](../P/PQnfields.md), PQfname, PQftype, PQfmod
   - [PQescapeLiteral](../P/PQescapeLiteral.md), PQfreemem
-  - initPQExpBuffer, printfPQExpBuffer, termPQExpBuffer
+  - [initPQExpBuffer](../i/initPQExpBuffer.md), printfPQExpBuffer, termPQExpBuffer
 - Called from (representative examples):
   - [SendQuery](../S/SendQuery.md) (when pset.gdesc_flag is true)
 

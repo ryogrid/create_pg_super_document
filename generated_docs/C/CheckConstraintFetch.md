@@ -26,11 +26,11 @@ After loading all constraints, the function sorts them by name to ensure determi
 - Functions called/Symbols referenced:
   - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md)
   - [ScanKeyInit](../S/ScanKeyInit.md)  
-  - table_open
+  - [table_open](../t/table_open.md)
   - [systable_beginscan](../s/systable_beginscan.md)
   - [systable_getnext](../s/systable_getnext.md)
   - [systable_endscan](../s/systable_endscan.md)
-  - table_close
+  - [table_close](../t/table_close.md)
   - [fastgetattr](../f/fastgetattr.md)
   - TextDatumGetCString
   - [MemoryContextStrdup](../M/MemoryContextStrdup.md)

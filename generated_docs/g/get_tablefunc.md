@@ -32,11 +32,11 @@ Currently, PostgreSQL supports two main types of table functions:
 - Functions called/Symbols referenced:
   - TFT_XMLTABLE (table function type constant)
   - TFT_JSON_TABLE (table function type constant)
-  - get_xmltable (XMLTABLE handler)
-  - get_json_table (JSON_TABLE handler)
+  - [get_xmltable](get_xmltable.md) (XMLTABLE handler)
+  - [get_json_table](get_json_table.md) (JSON_TABLE handler)
 - Called from (representative examples):
-  - get_rule_expr
-  - get_from_clause_item
+  - [get_rule_expr](get_rule_expr.md)
+  - [get_from_clause_item](get_from_clause_item.md)
 
 ## Notes and Other Information
 - This is a static function used internally by the rule deparsing system

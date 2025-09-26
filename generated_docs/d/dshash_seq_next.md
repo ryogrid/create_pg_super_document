@@ -23,19 +23,19 @@ dshash_seq_next implements the core iteration logic for sequential scanning thro
   - ASSERT_NO_PARTITION_LOCKS_HELD_BY_ME (assertion macro)
   - PARTITION_LOCK (partition lock macro)
   - LW_SHARED/LW_EXCLUSIVE (lock mode constants)
-  - ensure_valid_bucket_pointers (bucket validation function)
+  - [ensure_valid_bucket_pointers](../e/ensure_valid_bucket_pointers.md) (bucket validation function)
   - NUM_BUCKETS (bucket count macro)
-  - LWLockHeldByMeInMode (lock check function)
+  - [LWLockHeldByMeInMode](../L/LWLockHeldByMeInMode.md) (lock check function)
   - DsaPointerIsValid (DSA pointer validation)
   - PARTITION_FOR_BUCKET_INDEX (partition mapping macro)
-  - dsa_get_address (DSA address resolution)
+  - [dsa_get_address](dsa_get_address.md) (DSA address resolution)
   - ENTRY_FROM_ITEM (item-to-entry conversion macro)
 - Called from (representative examples):
-  - pgstat_build_snapshot (src/backend/utils/activity/pgstat.c:1000)
-  - pgstat_write_statsfile (src/backend/utils/activity/pgstat.c:1391)
-  - pgstat_drop_database_and_contents (src/backend/utils/activity/pgstat_shmem.c:888)
-  - pgstat_drop_all_entries (src/backend/utils/activity/pgstat_shmem.c:978)
-  - pgstat_reset_matching_entries (src/backend/utils/activity/pgstat_shmem.c:1037)
+  - [pgstat_build_snapshot](../p/pgstat_build_snapshot.md) (src/backend/utils/activity/pgstat.c:1000)
+  - [pgstat_write_statsfile](../p/pgstat_write_statsfile.md) (src/backend/utils/activity/pgstat.c:1391)
+  - [pgstat_drop_database_and_contents](../p/pgstat_drop_database_and_contents.md) (src/backend/utils/activity/pgstat_shmem.c:888)
+  - [pgstat_drop_all_entries](../p/pgstat_drop_all_entries.md) (src/backend/utils/activity/pgstat_shmem.c:978)
+  - [pgstat_reset_matching_entries](../p/pgstat_reset_matching_entries.md) (src/backend/utils/activity/pgstat_shmem.c:1037)
 
 ## Notes and Other Information
 - The function maintains partition locks throughout the scan to prevent resize operations

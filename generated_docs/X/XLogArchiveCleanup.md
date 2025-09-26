@@ -28,11 +28,11 @@ The cleanup is performed without error checking - failure to remove the files is
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - StatusFilePath (constructs full path to status files in archive_status directory)
+  - [StatusFilePath](../S/StatusFilePath.md) (constructs full path to status files in archive_status directory)
   - unlink (system call to remove files)
 - Called from (representative examples):
   - [RemoveXlogFile](../R/RemoveXlogFile.md) (src/backend/access/transam/xlog.c:4059)
-  - CleanupBackupHistory (src/backend/access/transam/xlog.c:4156)
+  - [CleanupBackupHistory](../C/CleanupBackupHistory.md) (src/backend/access/transam/xlog.c:4156)
   - [XLogInitNewTimeline](XLogInitNewTimeline.md) (src/backend/access/transam/xlog.c:5237)
   - [CleanupAfterArchiveRecovery](../C/CleanupAfterArchiveRecovery.md) (src/backend/access/transam/xlog.c:5323)
 

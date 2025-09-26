@@ -28,8 +28,8 @@ This structure excludes the synchronization primitives (locks and condition vari
 - Functions called/Symbols referenced:
   - RepOriginId (replication origin identifier type)
 - Called from (representative examples):
-  - CheckPointReplicationOrigin
-  - StartupReplicationOrigin
+  - [CheckPointReplicationOrigin](../C/CheckPointReplicationOrigin.md)
+  - [StartupReplicationOrigin](../S/StartupReplicationOrigin.md)
 
 ## Notes and Other Information
 - This structure is used during checkpoint operations to persist replication progress to disk

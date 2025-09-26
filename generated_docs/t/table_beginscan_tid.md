@@ -26,7 +26,7 @@ TID scans are typically used when the exact physical location of desired tuples 
   - SO_TYPE_TIDSCAN (TID scan type flag)
   - rd_tableam->scan_begin (table access method function)
 - Called from (representative examples):
-  - TidListEval
+  - [TidListEval](../T/TidListEval.md)
   - [currtid_internal](../c/currtid_internal.md)
 
 ## Notes and Other Information

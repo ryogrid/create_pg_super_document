@@ -19,8 +19,8 @@ This function processes a list of SortGroupClause structures and extracts the co
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_sortgroupclause_expr](get_sortgroupclause_expr.md)
-  - SortGroupClause (structure type)
-  - lappend (list manipulation function)
+  - [SortGroupClause](../S/SortGroupClause.md) (structure type)
+  - [lappend](../l/lappend.md) (list manipulation function)
 - Called from (representative examples):
   - [get_windowclause_startup_tuples](get_windowclause_startup_tuples.md)
   - [get_number_of_groups](get_number_of_groups.md)

@@ -24,16 +24,16 @@ The function is designed to be type-aware, supporting the four different kinds o
 - Functions called/Symbols referenced:
   - AllocateDesc (the descriptor structure type)
   - fclose (for closing regular files - AllocateDescFile)
-  - pclose (for closing pipe streams - AllocateDescPipe)  
-  - closedir (for closing directories - AllocateDescDir)
+  - [pclose](../p/pclose.md) (for closing pipe streams - AllocateDescPipe)  
+  - [closedir](../c/closedir.md) (for closing directories - AllocateDescDir)
   - close (for closing raw file descriptors - AllocateDescRawFD)
   - elog (for error reporting when descriptor kind is unrecognized)
 - Called from (representative examples):
-  - FreeFile (fd.c:2790)
-  - CloseTransientFile (fd.c:2818)
-  - ClosePipeStream (fd.c:3000)
-  - AtEOSubXact_Files (fd.c:3143)
-  - CleanupTempFiles (fd.c:3246)
+  - [FreeFile](FreeFile.md) (fd.c:2790)
+  - [CloseTransientFile](../C/CloseTransientFile.md) (fd.c:2818)
+  - [ClosePipeStream](../C/ClosePipeStream.md) (fd.c:3000)
+  - [AtEOSubXact_Files](../A/AtEOSubXact_Files.md) (fd.c:3143)
+  - [CleanupTempFiles](../C/CleanupTempFiles.md) (fd.c:3246)
 
 ## Notes and Other Information
 - This is a static function, only accessible within fd.c

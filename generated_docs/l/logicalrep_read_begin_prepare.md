@@ -23,7 +23,7 @@ This function deserializes a BEGIN PREPARE message from the logical replication 
   - [pq_getmsgint64](../p/pq_getmsgint64.md)
   - [pq_getmsgint](../p/pq_getmsgint.md)
   - [pq_getmsgstring](../p/pq_getmsgstring.md)
-  - strlcpy
+  - [strlcpy](../s/strlcpy.md)
   - elog
   - InvalidXLogRecPtr
   - [LogicalRepPreparedTxnData](../L/LogicalRepPreparedTxnData.md)

@@ -54,7 +54,7 @@ This design enables efficient batch reading of consecutive database blocks, redu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SMgrRelationData (structure)
+  - [SMgrRelationData](../S/SMgrRelationData.md) (structure)
   - [BufferAccessStrategy](../B/BufferAccessStrategy.md) (type)
   - [Relation](Relation.md) (type)
   - Buffer (type)

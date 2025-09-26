@@ -21,7 +21,7 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SetVariable() (multiple calls to clear variables)
+  - [SetVariable](../S/SetVariable.md)() (multiple calls to clear variables)
 - Called from:
   - [do_connect](../d/do_connect.md) (at src/bin/psql/command.c:3773)
   - [CheckConnection](../C/CheckConnection.md) (at src/bin/psql/common.c:373)

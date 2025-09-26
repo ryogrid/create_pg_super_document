@@ -22,7 +22,7 @@ The function plays a crucial role in memory management for cached plans, particu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CachedPlan
+  - [CachedPlan](../C/CachedPlan.md)
   - CACHEDPLAN_MAGIC
   - [ReleaseCachedPlan](ReleaseCachedPlan.md)
 

@@ -71,7 +71,7 @@ The running state during construction is kept in a BrinMemTuple (bs_dtuple), whi
   - [BrinMemTuple](BrinMemTuple.md)
   - [BrinTuple](BrinTuple.md)
   - [BrinLeader](BrinLeader.md)
-  - Tuplesortstate
+  - [Tuplesortstate](../T/Tuplesortstate.md)
 - Called from (representative examples):
   - [brinbuildCallback](../b/brinbuildCallback.md)
   - [brinbuild](../b/brinbuild.md)

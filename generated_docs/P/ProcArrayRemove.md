@@ -29,8 +29,8 @@ The function performs several cleanup operations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire
-  - LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - TransactionIdIsValid
   - [MaintainLatestCompletedXid](../M/MaintainLatestCompletedXid.md)
   - [DisplayXidCache](../D/DisplayXidCache.md) (debug builds only)

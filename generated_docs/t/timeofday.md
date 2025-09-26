@@ -19,10 +19,10 @@ The function uses gettimeofday() to obtain the current system time with microsec
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - gettimeofday
-  - pg_strftime
+  - [gettimeofday](../g/gettimeofday.md)
+  - [pg_strftime](../p/pg_strftime.md)
   - [pg_localtime](../p/pg_localtime.md)
-  - cstring_to_text
+  - [cstring_to_text](../c/cstring_to_text.md)
   - PG_RETURN_TEXT_P
 - Called from (representative examples):
   - No references found (likely called directly via SQL)

@@ -19,9 +19,9 @@ This is a specialized comparison function designed for high-performance sorting 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetTimestamp (macro to extract timestamp from Datum)
+  - [DatumGetTimestamp](../D/DatumGetTimestamp.md) (macro to extract timestamp from Datum)
   - [timestamp_cmp_internal](timestamp_cmp_internal.md) (internal comparison function)
-  - SortSupport (type for sort support structure)
+  - [SortSupport](../S/SortSupport.md) (type for sort support structure)
 - Called from (representative examples):
   - [timestamp_sortsupport](timestamp_sortsupport.md) (in src/backend/utils/adt/timestamp.c:2303)
 

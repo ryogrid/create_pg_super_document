@@ -23,8 +23,8 @@ The function includes a warning about Time-of-Check-Time-of-Use (TOCTOU) issues,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire/LWLockRelease with LW_SHARED
-  - namestrcpy for copying the slot name
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease with LW_SHARED
+  - [namestrcpy](../n/namestrcpy.md) for copying the slot name
   - NameStr macro for accessing slot names
 - Called from (representative examples):
   - [pgstat_replslot_to_serialized_name_cb](../p/pgstat_replslot_to_serialized_name_cb.md)

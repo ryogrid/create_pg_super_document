@@ -28,7 +28,7 @@ The ordering is critical for consistency - two-phase commit checkpointing is del
   - [CheckPointRelationMap](CheckPointRelationMap.md) (relation mapping tables)
   - [CheckPointReplicationSlots](CheckPointReplicationSlots.md) (replication slot state)
   - [CheckPointSnapBuild](CheckPointSnapBuild.md) (snapshot building state)
-  - CheckPointLogicalRewriteHeap (logical replication heap)
+  - [CheckPointLogicalRewriteHeap](CheckPointLogicalRewriteHeap.md) (logical replication heap)
   - [CheckPointReplicationOrigin](CheckPointReplicationOrigin.md) (replication origin state)
   - [CheckPointCLOG](CheckPointCLOG.md) (commit log SLRU)
   - [CheckPointCommitTs](CheckPointCommitTs.md) (commit timestamp SLRU)

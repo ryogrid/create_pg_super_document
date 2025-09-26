@@ -33,7 +33,7 @@ This function processes attribute data for GiST index entries by applying compre
   - [GISTSTATE](../G/GISTSTATE.md) (struct)
 - Called from (representative examples):
   - [gistSortedBuildCallback](gistSortedBuildCallback.md)
-  - gistFormTuple
+  - [gistFormTuple](gistFormTuple.md)
 
 ## Notes and Other Information
 - The function handles both key attributes (which get compressed) and included attributes (copied directly for leaf entries)

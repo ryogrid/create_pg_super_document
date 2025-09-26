@@ -26,11 +26,11 @@ The function also supports transition table capture, enabling triggers to access
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AfterTriggerSaveEvent
+  - [AfterTriggerSaveEvent](../A/AfterTriggerSaveEvent.md)
   - TRIGGER_EVENT_DELETE
 - Data structures used:
-  - TransitionCaptureState
-  - TriggerDesc
+  - [TransitionCaptureState](../T/TransitionCaptureState.md)
+  - [TriggerDesc](../T/TriggerDesc.md)
 - Called from (representative examples):
   - [fireASTriggers](../f/fireASTriggers.md)
 

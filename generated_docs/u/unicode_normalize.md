@@ -33,16 +33,16 @@ Memory allocation differs between frontend (malloc) and backend (palloc) environ
 - Functions called/Symbols referenced:
   - UnicodeNormalizationForm (normalization form enumeration)
   - UNICODE_NFC, UNICODE_NFD, UNICODE_NFKC, UNICODE_NFKD (normalization form constants)
-  - get_decomposed_size (calculates decomposition size)
-  - decompose_code (performs character decomposition)
-  - get_canonical_class (retrieves canonical combining class)
-  - recompose_code (attempts character recomposition)
+  - [get_decomposed_size](../g/get_decomposed_size.md) (calculates decomposition size)
+  - [decompose_code](../d/decompose_code.md) (performs character decomposition)
+  - [get_canonical_class](../g/get_canonical_class.md) (retrieves canonical combining class)
+  - [recompose_code](../r/recompose_code.md) (attempts character recomposition)
   - ALLOC, FREE (memory management macros)
 - Called from (representative examples):
-  - unicode_normalize_func (backend SQL function)
-  - unicode_is_normalized (normalization checking)
-  - pg_saslprep (SASL string preparation)
-  - main (test program)
+  - [unicode_normalize_func](unicode_normalize_func.md) (backend SQL function)
+  - [unicode_is_normalized](unicode_is_normalized.md) (normalization checking)
+  - [pg_saslprep](../p/pg_saslprep.md) (SASL string preparation)
+  - [main](../m/main.md) (test program)
 
 ## Notes and Other Information
 - Returns null-terminated array allocated with malloc (frontend) or palloc (backend)

@@ -27,10 +27,10 @@ The function extracts the block number and offset from the ItemPointer, then com
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ItemPointerGetBlockNumber
-  - ItemPointerGetOffsetNumber
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)
+  - [ItemPointerGetOffsetNumber](../I/ItemPointerGetOffsetNumber.md)
 - Called from (representative examples):
-  - validate_index_callback
+  - [validate_index_callback](../v/validate_index_callback.md)
 
 ## Notes and Other Information
 - This encoding produces int64 values that sort in the same order as their corresponding TID values using the default int8 opclass

@@ -28,11 +28,11 @@ The function includes error checking to ensure that the MergeSupportFunc is inde
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - exprType: Determines the data type of the MergeSupportFunc expression
+  - [exprType](../e/exprType.md): Determines the data type of the MergeSupportFunc expression
   - copyObject: Creates a deep copy of the MergeSupportFunc
   - makeNode: Creates new PlannerParamItem and Param nodes
-  - lappend_oid: Appends parameter type to the global parameter types list
-  - lappend: Adds the parameter item to the plan parameters list
+  - [lappend_oid](../l/lappend_oid.md): Appends parameter type to the global parameter types list
+  - [lappend](../l/lappend.md): Adds the parameter item to the plan parameters list
   - elog: Reports error if no MERGE command is found in the query hierarchy
 
 - Called from (representative examples):
@@ -45,4 +45,4 @@ The function includes error checking to ensure that the MergeSupportFunc is inde
 - The resulting Param node uses PARAM_EXEC parameter kind for execution-time evaluation
 - Parameter type modifier is set to -1 and collation ID is InvalidOid
 - Location information from the original MergeSupportFunc is preserved in the Param node
-- MergeSupportFunc expressions are typically used to access MERGE action metadata in RETURNING clauses
+- [MergeSupportFunc](../M/MergeSupportFunc.md) expressions are typically used to access MERGE action metadata in RETURNING clauses

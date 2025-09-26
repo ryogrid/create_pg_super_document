@@ -50,16 +50,16 @@ The pending_drops list contains statistics entries that should be deleted if the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dclist_head (double-ended circular list header)
-  - PgStat_TableXactStatus (table transaction statistics structure)
+  - [dclist_head](../d/dclist_head.md) (double-ended circular list header)
+  - [PgStat_TableXactStatus](PgStat_TableXactStatus.md) (table transaction statistics structure)
 - Called from (representative examples):
-  - AtEOXact_PgStat (end-of-transaction statistics processing)
-  - AtEOSubXact_PgStat (end-of-subtransaction processing)
-  - AtPrepare_PgStat (prepared transaction processing)
-  - PostPrepare_PgStat (post-prepare transaction handling)
-  - pgstat_get_xact_stack_level (transaction level retrieval)
-  - create_drop_transactional_internal (transactional drop creation)
-  - add_tabstat_xact_level (table statistics transaction level addition)
+  - [AtEOXact_PgStat](../A/AtEOXact_PgStat.md) (end-of-transaction statistics processing)
+  - [AtEOSubXact_PgStat](../A/AtEOSubXact_PgStat.md) (end-of-subtransaction processing)
+  - [AtPrepare_PgStat](../A/AtPrepare_PgStat.md) (prepared transaction processing)
+  - [PostPrepare_PgStat](PostPrepare_PgStat.md) (post-prepare transaction handling)
+  - [pgstat_get_xact_stack_level](../p/pgstat_get_xact_stack_level.md) (transaction level retrieval)
+  - [create_drop_transactional_internal](../c/create_drop_transactional_internal.md) (transactional drop creation)
+  - [add_tabstat_xact_level](../a/add_tabstat_xact_level.md) (table statistics transaction level addition)
 
 ## Notes and Other Information
 - Forms a stack data structure that mirrors PostgreSQL's subtransaction stack for proper nested transaction handling

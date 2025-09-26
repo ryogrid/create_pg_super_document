@@ -21,19 +21,19 @@ The function creates a tree configured with specialized functions for comparing,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - rbt_create (core Red-Black Tree creation function)
-  - IntRBTreeNode (integer-specific node structure type)
-  - irbt_cmp (node comparator function)
-  - irbt_combine (node combiner function)
-  - irbt_alloc (node allocator function)
-  - irbt_free (node deallocator function)
+  - [rbt_create](../r/rbt_create.md) (core Red-Black Tree creation function)
+  - [IntRBTreeNode](../I/IntRBTreeNode.md) (integer-specific node structure type)
+  - [irbt_cmp](../i/irbt_cmp.md) (node comparator function)
+  - [irbt_combine](../i/irbt_combine.md) (node combiner function)
+  - [irbt_alloc](../i/irbt_alloc.md) (node allocator function)
+  - [irbt_free](../i/irbt_free.md) (node deallocator function)
 - Called from (representative examples):
-  - testleftright (test function for left-right rotation scenarios)
-  - testrightleft (test function for right-left rotation scenarios)
-  - testfind (test function for node finding operations)
-  - testfindltgt (test function for less-than/greater-than finding)
-  - testleftmost (test function for leftmost node operations)
-  - testdelete (test function for node deletion operations)
+  - [testleftright](../t/testleftright.md) (test function for left-right rotation scenarios)
+  - [testrightleft](../t/testrightleft.md) (test function for right-left rotation scenarios)
+  - [testfind](../t/testfind.md) (test function for node finding operations)
+  - [testfindltgt](../t/testfindltgt.md) (test function for less-than/greater-than finding)
+  - [testleftmost](../t/testleftmost.md) (test function for leftmost node operations)
+  - [testdelete](../t/testdelete.md) (test function for node deletion operations)
 
 ## Notes and Other Information
 - This is a static function used only within the test_rbtree module

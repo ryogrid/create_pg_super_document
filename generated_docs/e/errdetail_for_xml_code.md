@@ -23,10 +23,10 @@ This function is designed to be called within ereport() or errsave() invocations
 ## Dependencies
 - Functions called/Symbols referenced:
   - gettext_noop (internationalization macro)
-  - errdetail (PostgreSQL error detail function)
+  - [errdetail](errdetail.md) (PostgreSQL error detail function)
 - Called from (representative examples):
-  - xml_out_internal
-  - xml_parse
+  - [xml_out_internal](../x/xml_out_internal.md)
+  - [xml_parse](../x/xml_parse.md)
   - Referenced in PgXmlErrorContext structure
 
 ## Notes and Other Information

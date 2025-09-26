@@ -44,7 +44,7 @@ The function manages target list generation carefully, ensuring that column name
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth
+  - [check_stack_depth](../c/check_stack_depth.md)
   - [build_simple_rel](../b/build_simple_rel.md)
   - [subquery_planner](../s/subquery_planner.md)
   - [generate_setop_tlist](../g/generate_setop_tlist.md)

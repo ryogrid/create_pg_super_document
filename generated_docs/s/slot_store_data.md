@@ -34,7 +34,7 @@ The function includes comprehensive error handling and supports schema differenc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecClearTuple
+  - [ExecClearTuple](../E/ExecClearTuple.md)
   - TupleDescAttr
   - [getTypeInputInfo](../g/getTypeInputInfo.md)
   - [OidInputFunctionCall](../O/OidInputFunctionCall.md)

@@ -30,8 +30,8 @@ The function includes an assertion to validate that only the expected enumeratio
 - Functions called:
   - Assert (for input validation)
 - Called from (representative examples):
-  - show_sort_info (in explain.c for EXPLAIN output)
-  - show_incremental_sort_group_info (in explain.c for incremental sort reporting)
+  - [show_sort_info](../s/show_sort_info.md) (in explain.c for EXPLAIN output)
+  - [show_incremental_sort_group_info](../s/show_incremental_sort_group_info.md) (in explain.c for incremental sort reporting)
 
 ## Notes and Other Information
 - Returns a const char pointer to static string literals, requiring no memory management

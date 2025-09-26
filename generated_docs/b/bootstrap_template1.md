@@ -30,7 +30,7 @@ This function takes no parameters but operates on numerous global variables incl
 - Functions called/Symbols referenced:
   - [readfile](../r/readfile.md), replace_token
   - [escape_quotes_bki](../e/escape_quotes_bki.md), encodingid_to_string
-  - initPQExpBuffer, printfPQExpBuffer, termPQExpBuffer
+  - [initPQExpBuffer](../i/initPQExpBuffer.md), printfPQExpBuffer, termPQExpBuffer
   - PG_CMD_OPEN, PG_CMD_PUTS, PG_CMD_CLOSE
   - [check_ok](../c/check_ok.md), pg_log_error, pg_log_error_hint
 - Called from (representative examples):

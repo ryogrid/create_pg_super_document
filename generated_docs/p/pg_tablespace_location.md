@@ -31,7 +31,7 @@ Error handling includes file access failures, link resolution failures, and path
 - Functions called/Symbols referenced:
   - lstat
   - readlink  
-  - cstring_to_text
+  - [cstring_to_text](../c/cstring_to_text.md)
   - PG_RETURN_TEXT_P
   - S_ISLNK
   - snprintf

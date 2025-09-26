@@ -44,7 +44,7 @@ Key operations include:
   - [InitializeMaxBackends](../I/InitializeMaxBackends.md)
   - [CreateSharedMemoryAndSemaphores](../C/CreateSharedMemoryAndSemaphores.md)
   - [CheckerModeMain](../C/CheckerModeMain.md) (when check_only is true)
-  - InitProcess
+  - [InitProcess](../I/InitProcess.md)
   - [BaseInit](BaseInit.md)
   - [bootstrap_signals](../b/bootstrap_signals.md)
   - [BootStrapXLOG](BootStrapXLOG.md)

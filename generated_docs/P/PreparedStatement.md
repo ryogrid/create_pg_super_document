@@ -33,22 +33,22 @@ All subsidiary storage for the actual statement parsing and planning is managed 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CachedPlanSource (from utils/plancache.h)
+  - [CachedPlanSource](../C/CachedPlanSource.md) (from utils/plancache.h)
   - TimestampTz (from datatype/timestamp.h) 
   - NAMEDATALEN (from pg_config_manual.h)
-  - ParamListInfo (used in related execution functions)
+  - [ParamListInfo](ParamListInfo.md) (used in related execution functions)
 - Called from (representative examples):
-  - StorePreparedStatement (for creating new prepared statements)
-  - FetchPreparedStatement (for retrieving existing prepared statements)
-  - ExecuteQuery (during prepared statement execution)
-  - DropPreparedStatement (for cleanup operations)
-  - exec_bind_message (in frontend/backend protocol handling)
-  - pg_prepared_statement (for system catalog access)
+  - [StorePreparedStatement](../S/StorePreparedStatement.md) (for creating new prepared statements)
+  - [FetchPreparedStatement](../F/FetchPreparedStatement.md) (for retrieving existing prepared statements)
+  - [ExecuteQuery](../E/ExecuteQuery.md) (during prepared statement execution)
+  - [DropPreparedStatement](../D/DropPreparedStatement.md) (for cleanup operations)
+  - [exec_bind_message](../e/exec_bind_message.md) (in frontend/backend protocol handling)
+  - [pg_prepared_statement](../p/pg_prepared_statement.md) (for system catalog access)
 
 ## Notes and Other Information
 - The structure is optimized for use with PostgreSQL's dynahash hash table implementation, requiring the key field (stmt_name) to be first
 - All actual statement storage and management is delegated to the plancache system through the plansource pointer
 - The from_sql flag is important for distinguishing between statements prepared through different mechanisms, which may have different lifecycle management requirements
-- PreparedStatement objects are typically managed through a global hash table accessible via various utility functions in commands/prepare.c
+- [PreparedStatement](PreparedStatement.md) objects are typically managed through a global hash table accessible via various utility functions in commands/prepare.c
 - The prepare_time field enables tracking of statement age, which could be useful for cache management or debugging performance issues
 - Maximum statement name length is constrained by NAMEDATALEN (64 characters including null terminator)

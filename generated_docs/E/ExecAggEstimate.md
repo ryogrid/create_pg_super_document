@@ -31,7 +31,7 @@ The function includes an early exit optimization: if instrumentation is not enab
   - [AggregateInstrumentation](../A/AggregateInstrumentation.md) (structure for aggregate execution statistics)
   - [SharedAggInfo](../S/SharedAggInfo.md) (shared aggregate information structure)
 - Called from (representative examples):
-  - ExecParallelEstimate (in execParallel.c)
+  - [ExecParallelEstimate](ExecParallelEstimate.md) (in execParallel.c)
 
 ## Notes and Other Information
 - Only performs estimation when both instrumentation is enabled and parallel workers exist

@@ -38,7 +38,7 @@ The parser handles multibyte characters properly and validates syntax, reporting
   - [pg_mblen](pg_mblen.md): Get multibyte character length
   - ereport/elog: Error reporting functions
 - Called from (representative examples):
-  - NIImportAffixes: Imports affixes from configuration files
+  - [NIImportAffixes](../N/NIImportAffixes.md): Imports affixes from configuration files
 
 ## Notes and Other Information
 - Returns true if parsing was successful and at least mask and (find or repl) are non-empty

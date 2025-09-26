@@ -38,7 +38,7 @@ The function operates in a stateful manner, respecting the connection's async st
   - [pqTraceOutputMessage](pqTraceOutputMessage.md) (debug tracing)
   - [PQmakeEmptyPGresult](../P/PQmakeEmptyPGresult.md) (creates empty result objects)
   - [pqSaveErrorResult](pqSaveErrorResult.md) (saves error results)
-  - pqCommandQueueAdvance (advances command queue)
+  - [pqCommandQueueAdvance](pqCommandQueueAdvance.md) (advances command queue)
 - Called from (representative examples):
   - [parseInput](parseInput.md) (from src/interfaces/libpq/fe-exec.c:2022)
   - pgunlock_thread (from src/interfaces/libpq/libpq-int.h:720)

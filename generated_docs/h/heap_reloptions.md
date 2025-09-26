@@ -23,7 +23,7 @@ The `heap_reloptions` function is a central option parser that handles relation 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [default_reloptions](../d/default_reloptions.md)
-  - StdRdOptions (structure)
+  - [StdRdOptions](../S/StdRdOptions.md) (structure)
   - RELKIND_TOASTVALUE (constant)
   - RELKIND_RELATION (constant)
   - RELKIND_MATVIEW (constant)

@@ -28,11 +28,11 @@ The hash table using these entries (ParallelApplyTxnHash) is created when the fi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParallelApplyWorkerInfo
+  - [ParallelApplyWorkerInfo](ParallelApplyWorkerInfo.md)
   - TransactionId
 - Called from (representative examples):
-  - pa_allocate_worker (creates new entries when allocating workers to transactions)
-  - pa_find_worker (searches for existing entries to locate workers for specific transactions)
+  - [pa_allocate_worker](../p/pa_allocate_worker.md) (creates new entries when allocating workers to transactions)
+  - [pa_find_worker](../p/pa_find_worker.md) (searches for existing entries to locate workers for specific transactions)
 
 ## Notes and Other Information
 - The structure is specifically designed for hash table usage, with the hash key (xid) positioned as the first member as required by PostgreSQL's hash table implementation.

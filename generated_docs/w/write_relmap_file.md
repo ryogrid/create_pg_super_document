@@ -31,10 +31,10 @@ The function follows a careful sequence: validates the mapping data, calculates 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockHeldByMeInMode (lock verification)
+  - [LWLockHeldByMeInMode](../L/LWLockHeldByMeInMode.md) (lock verification)
   - INIT_CRC32C/COMP_CRC32C/FIN_CRC32C (CRC calculation)
-  - OpenTransientFile/CloseTransientFile (file operations)
-  - pgstat_report_wait_start/pgstat_report_wait_end (wait event reporting)
+  - [OpenTransientFile](../O/OpenTransientFile.md)/CloseTransientFile (file operations)
+  - [pgstat_report_wait_start](../p/pgstat_report_wait_start.md)/pgstat_report_wait_end (wait event reporting)
   - [XLogBeginInsert](../X/XLogBeginInsert.md)/XLogRegisterData/XLogInsert/XLogFlush (WAL operations)
   - [durable_rename](../d/durable_rename.md) (atomic file replacement)
   - [CacheInvalidateRelmap](../C/CacheInvalidateRelmap.md) (cache invalidation)

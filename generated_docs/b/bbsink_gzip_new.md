@@ -28,7 +28,7 @@ The function validates that gzip compression is supported at build time (require
   - bbsink_gzip_ops (operation callbacks structure)
 - Called from (representative examples):
   - [SendBaseBackup](../S/SendBaseBackup.md) (src/backend/backup/basebackup.c:1042)
-  - bbsink_cleanup (src/include/backup/basebackup_sink.h:287)
+  - [bbsink_cleanup](bbsink_cleanup.md) (src/include/backup/basebackup_sink.h:287)
 
 ## Notes and Other Information
 - Function is only available when PostgreSQL is built with libz support (HAVE_LIBZ)

@@ -34,9 +34,9 @@ RecursiveUnionPath represents the execution path for recursive UNION operations 
 - Functions called/Symbols referenced:
   - Cardinality
 - Called from (representative examples):
-  - create_recursiveunion_plan
-  - create_recursiveunion_path
-  - create_plan_recurse
+  - [create_recursiveunion_plan](../c/create_recursiveunion_plan.md)
+  - [create_recursiveunion_path](../c/create_recursiveunion_path.md)
+  - [create_plan_recurse](../c/create_plan_recurse.md)
 
 ## Notes and Other Information
 - Recursive CTEs require careful cycle detection and termination conditions to prevent infinite loops

@@ -22,7 +22,7 @@ The function ensures consistent initialization of restore options across differe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_malloc0 (allocates zero-initialized memory)
+  - [pg_malloc0](../p/pg_malloc0.md) (allocates zero-initialized memory)
   - [RestoreOptions](../R/RestoreOptions.md) (structure type)
   - archUnknown (format default)
   - TRI_DEFAULT (tri-state password prompt default)

@@ -19,14 +19,14 @@ This function removes old entries from the KnownAssignedXids data structure by e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire (for ProcArrayLock exclusive access)
+  - [LWLockAcquire](../L/LWLockAcquire.md) (for ProcArrayLock exclusive access)
   - TransactionIdRetreat (decrements xid to get latestXid)
-  - MaintainLatestCompletedXidRecovery (advances latestCompletedXid)
-  - TransactionIdPrecedes (compares lastOverflowedXid with xid)
-  - KnownAssignedXidsRemovePreceding (removes entries preceding xid)
-  - LWLockRelease (releases ProcArrayLock)
+  - [MaintainLatestCompletedXidRecovery](../M/MaintainLatestCompletedXidRecovery.md) (advances latestCompletedXid)
+  - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md) (compares lastOverflowedXid with xid)
+  - [KnownAssignedXidsRemovePreceding](../K/KnownAssignedXidsRemovePreceding.md) (removes entries preceding xid)
+  - [LWLockRelease](../L/LWLockRelease.md) (releases ProcArrayLock)
 - Called from (representative examples):
-  - ProcArrayApplyRecoveryInfo (during recovery info processing)
+  - [ProcArrayApplyRecoveryInfo](../P/ProcArrayApplyRecoveryInfo.md) (during recovery info processing)
 
 ## Notes and Other Information
 - Similar to ProcArrayEndTransaction but designed for recovery scenarios

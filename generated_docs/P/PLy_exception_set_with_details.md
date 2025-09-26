@@ -27,7 +27,7 @@ This function creates a richly detailed Python exception by extracting informati
   - PyErr_SetObject (Python C API function)
   - Py_DECREF/Py_XDECREF (Python reference counting functions)
   - elog (PostgreSQL logging function)
-  - ErrorData (PostgreSQL error data structure)
+  - [ErrorData](../E/ErrorData.md) (PostgreSQL error data structure)
 - Called from (representative examples):
   - [PLy_output](PLy_output.md)
 

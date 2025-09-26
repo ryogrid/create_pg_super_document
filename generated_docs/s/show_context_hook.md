@@ -22,7 +22,7 @@ This function validates and applies the show_context configuration parameter in 
   - PQSHOW_CONTEXT_NEVER (enumeration constant)
   - PQSHOW_CONTEXT_ERRORS (enumeration constant) 
   - PQSHOW_CONTEXT_ALWAYS (enumeration constant)
-  - PsqlVarEnumError (for error reporting)
+  - [PsqlVarEnumError](../P/PsqlVarEnumError.md) (for error reporting)
   - [PQsetErrorContextVisibility](../P/PQsetErrorContextVisibility.md) (to apply setting to database connection)
 - Called from (representative examples):
   - [EstablishVariableSpace](../E/EstablishVariableSpace.md) (at src/bin/psql/startup.c:1261)

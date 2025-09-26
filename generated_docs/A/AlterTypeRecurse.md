@@ -26,7 +26,7 @@ AlterTypeRecurse performs the actual catalog updates for type property modificat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth
+  - [check_stack_depth](../c/check_stack_depth.md)
   - [heap_modify_tuple](../h/heap_modify_tuple.md)
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - [GenerateTypeDependencies](../G/GenerateTypeDependencies.md)

@@ -35,7 +35,7 @@ The function processes each scan key strategy (BEFORE, OVERLEFT, OVERLAPS, OVERR
 ## Dependencies
 - Functions called/Symbols referenced:
   - RangeIsEmpty
-  - DatumGetRangeTypeP  
+  - [DatumGetRangeTypeP](../D/DatumGetRangeTypeP.md)  
   - [range_get_typcache](../r/range_get_typcache.md)
   - RangeTypeGetOid
   - [range_deserialize](../r/range_deserialize.md)

@@ -45,7 +45,7 @@ This node type is fundamental to SQL expression parsing and is transformed durin
 - The fields list represents the qualification hierarchy: ["table", "column"] for table.column
 - [A_Star](../A/A_Star.md) nodes are used for SELECT * and table.* expressions
 - [ColumnRef](ColumnRef.md) nodes are created by the parser and resolved during semantic analysis
-- Complex column references like array subscripts use additional A_Indirection nodes above ColumnRef
+- [Complex](Complex.md) column references like array subscripts use additional A_Indirection nodes above ColumnRef
 - Essential for implementing SQL's column reference semantics and name resolution
 - Used extensively in target lists, WHERE clauses, and other expression contexts
 - The parser ensures proper grammar constraints on wildcard placement

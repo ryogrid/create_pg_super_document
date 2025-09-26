@@ -31,8 +31,8 @@ The function is specifically designed for extended statistics where expressions 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - VacAttrStats (structure allocation and usage)
-  - exprType, exprTypmod, exprCollation (expression type analysis)
+  - [VacAttrStats](../V/VacAttrStats.md) (structure allocation and usage)
+  - [exprType](exprType.md), exprTypmod, exprCollation (expression type analysis)
   - SearchSysCacheCopy1 (system catalog lookup for type information)
   - Form_pg_type (type structure access)
   - InvalidAttrNumber (constant for expression marking)

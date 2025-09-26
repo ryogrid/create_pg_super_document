@@ -27,7 +27,7 @@ This comprehensive function processes query results returned from PostgreSQL, ha
   - [getSQLErrorStatus](../g/getSQLErrorStatus.md) (categorize SQL errors)
   - [canRetryError](../c/canRetryError.md) (determine retry eligibility)
   - [putVariable](../p/putVariable.md) (store values in pgbench variables)
-  - PQexitPipelineMode (exit pipeline mode)
+  - [PQexitPipelineMode](../P/PQexitPipelineMode.md) (exit pipeline mode)
   - [commandError](../c/commandError.md) (error reporting)
   - Various PGRES_* constants and error status enums
 - Called from (representative examples):

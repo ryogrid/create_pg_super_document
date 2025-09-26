@@ -27,7 +27,7 @@ The function requires the caller to hold the ProcArrayLock in at least shared mo
   - InvalidTransactionId (constant)
 - Called from (representative examples):
   - xc_slow_answer_inc
-  - TransactionIdIsInProgress
+  - [TransactionIdIsInProgress](../T/TransactionIdIsInProgress.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the procarray.c file

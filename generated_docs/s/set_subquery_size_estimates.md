@@ -37,7 +37,7 @@ The function includes several important safety checks and limitations:
 ## Dependencies  
 - Functions called/Symbols referenced:
   - planner_rt_fetch
-  - fetch_upper_rel
+  - [fetch_upper_rel](../f/fetch_upper_rel.md)
   - [find_base_rel](../f/find_base_rel.md)
   - [set_baserel_size_estimates](set_baserel_size_estimates.md)
   - Constants: RTE_SUBQUERY, UPPERREL_FINAL

@@ -32,8 +32,8 @@ The tidstore is created in TopMemoryContext to persist across multiple test func
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_BOOL
-  - LWLockNewTrancheId
-  - LWLockRegisterTranche
+  - [LWLockNewTrancheId](../L/LWLockNewTrancheId.md)
+  - [LWLockRegisterTranche](../L/LWLockRegisterTranche.md)
   - [TidStoreCreateShared](../T/TidStoreCreateShared.md)
   - [TidStoreGetDSA](../T/TidStoreGetDSA.md)
   - [dsa_pin_mapping](../d/dsa_pin_mapping.md)

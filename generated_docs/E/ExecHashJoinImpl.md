@@ -38,13 +38,13 @@ The state machine progresses through several key states:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecHashTableCreate: Creates the hash table structure
+  - [ExecHashTableCreate](ExecHashTableCreate.md): Creates the hash table structure
   - [ExecHashJoinOuterGetTuple](ExecHashJoinOuterGetTuple.md)/ExecParallelHashJoinOuterGetTuple: Retrieves outer tuples
   - [ExecScanHashBucket](ExecScanHashBucket.md)/ExecParallelScanHashBucket: Scans hash buckets for matches
   - [ExecHashJoinNewBatch](ExecHashJoinNewBatch.md)/ExecParallelHashJoinNewBatch: Advances to next batch
-  - ExecQual: Evaluates join and filter conditions
-  - ExecProject: Projects result tuples
-  - BarrierArriveAndWait: Synchronizes parallel workers
+  - [ExecQual](ExecQual.md): Evaluates join and filter conditions
+  - [ExecProject](ExecProject.md): Projects result tuples
+  - [BarrierArriveAndWait](../B/BarrierArriveAndWait.md): Synchronizes parallel workers
 
 - Called from:
   - ExecHashJoin: Non-parallel hash join entry point

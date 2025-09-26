@@ -33,7 +33,7 @@ The function ensures proper page structure and tuple placement for GIN list page
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData
-  - XLogInitBufferForRedo
+  - [XLogInitBufferForRedo](../X/XLogInitBufferForRedo.md)
   - [BufferGetPage](../B/BufferGetPage.md)
   - [GinInitBuffer](../G/GinInitBuffer.md)
   - GinPageGetOpaque
@@ -42,7 +42,7 @@ The function ensures proper page structure and tuple placement for GIN list page
   - IndexTupleSize
   - PageAddItem
   - [PageSetLSN](../P/PageSetLSN.md)
-  - MarkBufferDirty
+  - [MarkBufferDirty](../M/MarkBufferDirty.md)
   - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
 
 - Called from:

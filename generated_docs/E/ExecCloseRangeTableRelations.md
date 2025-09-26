@@ -23,7 +23,7 @@ The function works in coordination with ExecCloseResultRelations to ensure compl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_close (closes individual relation descriptors with NoLock parameter)
+  - [table_close](../t/table_close.md) (closes individual relation descriptors with NoLock parameter)
 - Called from:
   - [ExecEndPlan](ExecEndPlan.md) (main execution cleanup sequence)
   - [CopyFrom](../C/CopyFrom.md) (COPY command cleanup)

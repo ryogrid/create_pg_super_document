@@ -26,7 +26,7 @@ The function handles both named and unnamed portals, providing appropriate conte
 - Functions called/Symbols referenced:
   - [BindParamCbData](../B/BindParamCbData.md) (callback data structure)
   - [StringInfoData](../S/StringInfoData.md) (string buffer structure)
-  - initStringInfo (initializes string buffer)
+  - [initStringInfo](../i/initStringInfo.md) (initializes string buffer)
   - [appendStringInfoStringQuoted](../a/appendStringInfoStringQuoted.md) (adds quoted string with length limit)
   - errcontext (adds context to error messages)
   - [pfree](../p/pfree.md) (frees memory)

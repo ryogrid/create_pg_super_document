@@ -51,13 +51,13 @@ This is the core function responsible for executing extension scripts during Pos
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - superuser (checks if current user is superuser)
+  - [superuser](../s/superuser.md) (checks if current user is superuser)
   - [extension_is_trusted](extension_is_trusted.md) (determines if extension can be installed by non-superuser)
   - [get_extension_script_filename](../g/get_extension_script_filename.md) (constructs script file path)
   - [read_extension_script_file](../r/read_extension_script_file.md) (reads and converts script file)
   - [execute_sql_string](execute_sql_string.md) (executes the processed SQL)
   - [SetUserIdAndSecContext](../S/SetUserIdAndSecContext.md)/GetUserIdAndSecContext (security context management)
-  - set_config_option (configures GUC variables)
+  - [set_config_option](../s/set_config_option.md) (configures GUC variables)
   - [DirectFunctionCall3Coll](../D/DirectFunctionCall3Coll.md)/DirectFunctionCall4Coll (text processing functions)
   - [quote_identifier](../q/quote_identifier.md) (SQL identifier quoting)
 - Called from:

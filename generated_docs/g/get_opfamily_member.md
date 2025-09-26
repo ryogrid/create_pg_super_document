@@ -29,7 +29,7 @@ This function performs a reverse lookup in the pg_amop catalog to find the speci
   - GETSTRUCT (extracts structure from heap tuple)
   - [ReleaseSysCache](../R/ReleaseSysCache.md) (releases cache reference)
   - Form_pg_amop (structure type for pg_amop catalog)
-  - Int16GetDatum (datum conversion function for int16)
+  - [Int16GetDatum](../I/Int16GetDatum.md) (datum conversion function for int16)
   - InvalidOid (constant representing invalid OID)
 - Called from (representative examples):
   - [_bt_find_extreme_element](../b/_bt_find_extreme_element.md) (src/backend/access/nbtree/nbtutils.c:810)

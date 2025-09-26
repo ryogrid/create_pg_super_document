@@ -24,19 +24,19 @@ The function ensures proper memory management by using the dynamic shared area a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc
+  - [palloc](../p/palloc.md)
   - dsa_allocate
-  - dsa_get_address  
-  - dsa_allocate_extended
-  - dsa_free
-  - LWLockInitialize
+  - [dsa_get_address](dsa_get_address.md)  
+  - [dsa_allocate_extended](dsa_allocate_extended.md)
+  - [dsa_free](dsa_free.md)
+  - [LWLockInitialize](../L/LWLockInitialize.md)
   - DsaPointerIsValid
   - ereport
 - Called from (representative examples):
-  - logicalrep_launcher_attach_dshmem
-  - init_dsm_registry
-  - StatsShmemInit
-  - SharedRecordTypmodRegistryInit
+  - [logicalrep_launcher_attach_dshmem](../l/logicalrep_launcher_attach_dshmem.md)
+  - [init_dsm_registry](../i/init_dsm_registry.md)
+  - [StatsShmemInit](../S/StatsShmemInit.md)
+  - [SharedRecordTypmodRegistryInit](../S/SharedRecordTypmodRegistryInit.md)
 
 ## Notes and Other Information
 - The initial hash table size is set to DSHASH_NUM_PARTITIONS (16 buckets by default)

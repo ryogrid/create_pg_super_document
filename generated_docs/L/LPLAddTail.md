@@ -22,11 +22,11 @@ This function is essential for building ordered sequences of parsed lexemes duri
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ListParsedLex (structure type)
-  - ParsedLex (structure type)
+  - [ListParsedLex](ListParsedLex.md) (structure type)
+  - [ParsedLex](../P/ParsedLex.md) (structure type)
 - Called from (representative examples):
-  - LexizeAddLemm
-  - RemoveHead
+  - [LexizeAddLemm](LexizeAddLemm.md)
+  - [RemoveHead](../R/RemoveHead.md)
 
 ## Notes and Other Information
 - Static function with local scope to ts_parse.c

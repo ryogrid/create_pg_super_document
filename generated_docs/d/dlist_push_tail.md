@@ -33,7 +33,7 @@ The  function adds a new node to the back of a doubly-linked list by updating th
   - [ReorderBufferQueueChange](../R/ReorderBufferQueueChange.md) (src/backend/replication/logical/reorderbuffer.c:849)
   - [SetupLockInTable](../S/SetupLockInTable.md) (src/backend/storage/lmgr/lock.c:1286)
   - [CreatePredXact](../C/CreatePredXact.md) (src/backend/storage/lmgr/predicate.c:591)
-  - InitProcGlobal (src/backend/storage/lmgr/proc.c:244)
+  - [InitProcGlobal](../I/InitProcGlobal.md) (src/backend/storage/lmgr/proc.c:244)
 
 ## Notes and Other Information
 - The function is implemented as a static inline function for performance efficiency

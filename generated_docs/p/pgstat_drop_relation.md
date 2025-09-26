@@ -19,15 +19,15 @@ The function ensures that pg_stat_xact_all_tables views show zero counters for t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentTransactionNestLevel
-  - pgstat_drop_transactional
+  - [GetCurrentTransactionNestLevel](../G/GetCurrentTransactionNestLevel.md)
+  - [pgstat_drop_transactional](pgstat_drop_transactional.md)
   - pgstat_should_count_relation
-  - save_truncdrop_counters
+  - [save_truncdrop_counters](../s/save_truncdrop_counters.md)
   - PGSTAT_KIND_RELATION
-  - PgStat_TableStatus
+  - [PgStat_TableStatus](../P/PgStat_TableStatus.md)
 - Called from (representative examples):
-  - heap_drop_with_catalog
-  - index_drop
+  - [heap_drop_with_catalog](../h/heap_drop_with_catalog.md)
+  - [index_drop](../i/index_drop.md)
   - pgstat_count_conn_txn_idle_time
 
 ## Notes and Other Information

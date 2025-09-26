@@ -21,7 +21,7 @@ The xid8_smaller function implements a minimum operation for PostgreSQL's full t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FullTransactionId (type)
+  - [FullTransactionId](../F/FullTransactionId.md) (type)
   - PG_GETARG_FULLTRANSACTIONID (macro for argument extraction)
   - FullTransactionIdPrecedes (ordering comparison function)
   - PG_RETURN_FULLTRANSACTIONID (macro for returning transaction ID)

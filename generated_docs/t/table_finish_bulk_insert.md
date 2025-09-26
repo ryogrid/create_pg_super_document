@@ -34,10 +34,10 @@ The function acts as a wrapper around the table access method's finish_bulk_inse
 - Types referenced:
   - None directly referenced
 - Called from (representative examples):
-  - CopyMultiInsertBufferCleanup (in src/backend/commands/copyfrom.c:503)
-  - intorel_shutdown (in src/backend/commands/createas.c:615)
-  - transientrel_shutdown (in src/backend/commands/matview.c:526)
-  - ATRewriteTable (in src/backend/commands/tablecmds.c:6354)
+  - [CopyMultiInsertBufferCleanup](../C/CopyMultiInsertBufferCleanup.md) (in src/backend/commands/copyfrom.c:503)
+  - [intorel_shutdown](../i/intorel_shutdown.md) (in src/backend/commands/createas.c:615)
+  - [transientrel_shutdown](transientrel_shutdown.md) (in src/backend/commands/matview.c:526)
+  - [ATRewriteTable](../A/ATRewriteTable.md) (in src/backend/commands/tablecmds.c:6354)
 
 ## Notes and Other Information
 - This is an optional callback - not all table access methods need to implement finish_bulk_insert

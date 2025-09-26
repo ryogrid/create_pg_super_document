@@ -23,12 +23,12 @@ The function performs three key cleanup operations: closes the underlying file s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufFileClose (closes the underlying buffered file)
-  - pfree (frees allocated memory)
-  - LogicalTapeSet (structure type)
+  - [BufFileClose](../B/BufFileClose.md) (closes the underlying buffered file)
+  - [pfree](../p/pfree.md) (frees allocated memory)
+  - [LogicalTapeSet](LogicalTapeSet.md) (structure type)
 - Called from (representative examples):
-  - hashagg_reset_spill_state (hash aggregation cleanup)
-  - tuplesort_free (tuplesort cleanup)
+  - [hashagg_reset_spill_state](../h/hashagg_reset_spill_state.md) (hash aggregation cleanup)
+  - [tuplesort_free](../t/tuplesort_free.md) (tuplesort cleanup)
 
 ## Notes and Other Information
 - Individual LogicalTape objects must be closed separately before calling this function

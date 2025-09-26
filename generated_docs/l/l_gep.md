@@ -30,7 +30,7 @@ The GetElementPtr instruction is fundamental in LLVM for computing addresses of 
   - LLVMBuildGEP2 (LLVM >= 16)
 - Called from (representative examples):
   - [slot_compile_deform](../s/slot_compile_deform.md) (multiple calls in llvmjit_deform.c)
-  - llvm_compile_expr (multiple calls in llvmjit_expr.c)
+  - [llvm_compile_expr](llvm_compile_expr.md) (multiple calls in llvmjit_expr.c)
   - [l_load_gep1](l_load_gep1.md)
 
 ## Notes and Other Information

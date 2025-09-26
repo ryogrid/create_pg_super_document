@@ -20,7 +20,7 @@ This function safely increments the reference count of a tuple descriptor that i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwnerEnlarge
+  - [ResourceOwnerEnlarge](../R/ResourceOwnerEnlarge.md)
   - [ResourceOwnerRememberTupleDesc](../R/ResourceOwnerRememberTupleDesc.md)
 - Called from (representative examples):
   - [ExecEvalConvertRowtype](../E/ExecEvalConvertRowtype.md)

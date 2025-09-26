@@ -20,7 +20,7 @@ CloneArchive creates a deep clone of an ArchiveHandle for parallel processing in
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_malloc
+  - [pg_malloc](../p/pg_malloc.md)
   - [RestoreOptions](../R/RestoreOptions.md)
   - [ConnectDatabase](ConnectDatabase.md)
   - archModeRead

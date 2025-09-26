@@ -19,9 +19,9 @@ The verify_directory function performs a simple but essential validation check t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DIR (directory stream type)
-  - opendir (system function to open a directory stream)
-  - closedir (system function to close a directory stream)
+  - [DIR](../D/DIR.md) (directory stream type)
+  - [opendir](../o/opendir.md) (system function to open a directory stream)
+  - [closedir](../c/closedir.md) (system function to close a directory stream)
 - Called from (representative examples):
   - [main](../m/main.md) (called in pg_waldump.c:1102)
   - [main](../m/main.md) (called in pg_waldump.c:1126)

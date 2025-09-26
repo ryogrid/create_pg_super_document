@@ -40,9 +40,9 @@ The function performs several key operations:
   - TRIGGER_FIRED_BY_INSERT
   - TRIGGER_FIRED_BY_UPDATE
   - [table_slot_create](../t/table_slot_create.md)
-  - table_index_fetch_begin
-  - table_index_fetch_tuple
-  - table_index_fetch_end
+  - [table_index_fetch_begin](../t/table_index_fetch_begin.md)
+  - [table_index_fetch_tuple](../t/table_index_fetch_tuple.md)
+  - [table_index_fetch_end](../t/table_index_fetch_end.md)
   - [index_open](../i/index_open.md)
   - [BuildIndexInfo](../B/BuildIndexInfo.md)
   - [CreateExecutorState](../C/CreateExecutorState.md)

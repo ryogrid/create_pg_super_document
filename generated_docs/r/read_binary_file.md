@@ -22,15 +22,15 @@ This function provides low-level binary file reading capabilities with flexible 
 - Functions called/Symbols referenced:
   - MaxAllocSize: Maximum allowed allocation size for security
   - ereport: Error reporting mechanism
-  - AllocateFile: PostgreSQL file allocation wrapper
+  - [AllocateFile](../A/AllocateFile.md): PostgreSQL file allocation wrapper
   - PG_BINARY_R: Binary read mode constant
   - fseeko: File seeking with 64-bit offsets
   - VARHDRSZ: Variable-length data header size
   - VARDATA: Access variable-length data content
   - [palloc](../p/palloc.md): PostgreSQL memory allocator
-  - initStringInfo: Initialize dynamic string buffer
-  - appendBinaryStringInfo: Append binary data to string buffer
-  - FreeFile: Release file handle
+  - [initStringInfo](../i/initStringInfo.md): Initialize dynamic string buffer
+  - [appendBinaryStringInfo](../a/appendBinaryStringInfo.md): Append binary data to string buffer
+  - [FreeFile](../F/FreeFile.md): Release file handle
 - Called from (representative examples):
   - [read_text_file](read_text_file.md): For text file reading with encoding validation
   - [pg_read_binary_file_common](../p/pg_read_binary_file_common.md): Higher-level binary file reading wrapper

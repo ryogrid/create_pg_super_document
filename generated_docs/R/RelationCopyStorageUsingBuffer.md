@@ -34,15 +34,15 @@ The function respects PostgreSQL's WAL-before-data rule and logs new pages when 
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogIsNeeded
-  - smgrnblocks, smgropen, smgrextend
-  - GetAccessStrategy, FreeAccessStrategy
-  - ReadBufferWithoutRelcache
-  - LockBuffer, UnlockReleaseBuffer
-  - BufferGetPage, MarkBufferDirty
-  - log_newpage_buffer
+  - [smgrnblocks](../s/smgrnblocks.md), smgropen, smgrextend
+  - [GetAccessStrategy](../G/GetAccessStrategy.md), FreeAccessStrategy
+  - [ReadBufferWithoutRelcache](ReadBufferWithoutRelcache.md)
+  - [LockBuffer](../L/LockBuffer.md), UnlockReleaseBuffer
+  - [BufferGetPage](../B/BufferGetPage.md), MarkBufferDirty
+  - [log_newpage_buffer](../l/log_newpage_buffer.md)
   - START_CRIT_SECTION, END_CRIT_SECTION
 - Called from (representative examples):
-  - CreateAndCopyRelationData
+  - [CreateAndCopyRelationData](../C/CreateAndCopyRelationData.md)
 
 ## Notes and Other Information
 - This is a static function in bufmgr.c, indicating it's an internal implementation detail

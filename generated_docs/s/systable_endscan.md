@@ -27,7 +27,7 @@ The bsysscan flag reset is specifically related to transaction monitoring during
   - [index_endscan](../i/index_endscan.md) (index scan cleanup)
   - [index_close](../i/index_close.md) (index relation cleanup)
   - [table_endscan](../t/table_endscan.md) (heap scan cleanup)
-  - UnregisterSnapshot (snapshot cleanup)
+  - [UnregisterSnapshot](../U/UnregisterSnapshot.md) (snapshot cleanup)
   - TransactionIdIsValid (transaction validation)
   - [pfree](../p/pfree.md) (memory deallocation)
 - Called from (representative examples):

@@ -20,7 +20,7 @@ This function serves as a gate-keeper for query logging in PostgreSQL's error an
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ErrorData (error data structure type)
+  - [ErrorData](../E/ErrorData.md) (error data structure type)
   - is_log_level_output (function to check log level threshold)
   - log_min_error_statement (global configuration variable)
   - debug_query_string (global variable containing current query string)

@@ -25,14 +25,14 @@ The function uses exception handling to ensure proper cleanup if errors occur du
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ChoosePortalStrategy](../C/ChoosePortalStrategy.md)
-  - PushActiveSnapshot
-  - GetTransactionSnapshot
+  - [PushActiveSnapshot](PushActiveSnapshot.md)
+  - [GetTransactionSnapshot](../G/GetTransactionSnapshot.md)
   - [CreateQueryDesc](../C/CreateQueryDesc.md)
   - [ExecutorStart](../E/ExecutorStart.md)
-  - PortalGetPrimaryStmt
+  - [PortalGetPrimaryStmt](PortalGetPrimaryStmt.md)
   - [ExecCleanTypeFromTL](../E/ExecCleanTypeFromTL.md)
-  - UtilityTupleDescriptor
-  - MarkPortalFailed
+  - [UtilityTupleDescriptor](../U/UtilityTupleDescriptor.md)
+  - [MarkPortalFailed](../M/MarkPortalFailed.md)
 - Called from (representative examples):
   - [PerformCursorOpen](PerformCursorOpen.md)
   - [ExecuteQuery](../E/ExecuteQuery.md)

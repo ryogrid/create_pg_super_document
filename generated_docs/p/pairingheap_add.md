@@ -24,16 +24,16 @@ This simple insertion strategy maintains the heap property and the structural in
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - merge (internal merge function for combining subtrees)
-  - pairingheap (heap structure type)
-  - pairingheap_node (node structure type)
+  - [merge](../m/merge.md) (internal merge function for combining subtrees)
+  - [pairingheap](pairingheap.md) (heap structure type)
+  - [pairingheap_node](pairingheap_node.md) (node structure type)
 - Called from (representative examples):
-  - gistScanPage (GiST index page scanning)
-  - spgAddSearchItemToQueue (SP-GiST search queue management)
-  - reorderqueue_push (index scan reorder queue)
-  - ReorderBufferChangeMemoryUpdate (logical replication memory management)
-  - GetTransactionSnapshot (transaction snapshot management)
-  - RegisterSnapshotOnOwner (snapshot registration)
+  - [gistScanPage](../g/gistScanPage.md) (GiST index page scanning)
+  - [spgAddSearchItemToQueue](../s/spgAddSearchItemToQueue.md) (SP-GiST search queue management)
+  - [reorderqueue_push](../r/reorderqueue_push.md) (index scan reorder queue)
+  - [ReorderBufferChangeMemoryUpdate](../R/ReorderBufferChangeMemoryUpdate.md) (logical replication memory management)
+  - [GetTransactionSnapshot](../G/GetTransactionSnapshot.md) (transaction snapshot management)
+  - [RegisterSnapshotOnOwner](../R/RegisterSnapshotOnOwner.md) (snapshot registration)
 
 ## Notes and Other Information
 - Provides O(1) insertion time, a key advantage of pairing heaps over binary heaps

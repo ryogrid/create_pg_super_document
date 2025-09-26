@@ -30,7 +30,7 @@ NamedTuplestoreScanState provides the execution state for scanning tuplestores t
 - Functions called/Symbols referenced:
   - [ScanState](../S/ScanState.md)
   - [TupleDesc](../T/TupleDesc.md)
-  - Tuplestorestate
+  - [Tuplestorestate](../T/Tuplestorestate.md)
 - Called from (representative examples):
   - [ExecNamedTuplestoreScan](../E/ExecNamedTuplestoreScan.md)
   - [ExecInitNamedTuplestoreScan](../E/ExecInitNamedTuplestoreScan.md)

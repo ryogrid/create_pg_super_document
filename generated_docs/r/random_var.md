@@ -38,7 +38,7 @@ The core challenge is generating uniform random values for arbitrary-precision d
   - [sub_var](../s/sub_var.md) (computes range length)
   - init_var, alloc_var, free_var (memory management)
   - [set_var_from_var](../s/set_var_from_var.md) (copying values)
-  - pg_prng_uint64_range (random number generation)
+  - [pg_prng_uint64_range](../p/pg_prng_uint64_range.md) (random number generation)
   - [cmp_var](../c/cmp_var.md) (comparison for rejection sampling)
   - [add_var](../a/add_var.md) (shifting result to target range)
   - [strip_var](../s/strip_var.md) (removing leading/trailing zeros)

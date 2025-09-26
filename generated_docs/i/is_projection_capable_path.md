@@ -24,15 +24,15 @@ The `is_projection_capable_path` function evaluates whether a specific path node
   - CUSTOMPATH_SUPPORT_PROJECTION (flag indicating custom path supports projection)
   - IS_DUMMY_APPEND (macro to check if Append path represents a dummy path)
 - Called from (representative examples):
-  - create_projection_plan (determines if separate projection node is needed)
-  - create_projection_path (path creation logic)
-  - apply_projection_to_path (applies projection to paths)
+  - [create_projection_plan](../c/create_projection_plan.md) (determines if separate projection node is needed)
+  - [create_projection_path](../c/create_projection_path.md) (path creation logic)
+  - [apply_projection_to_path](../a/apply_projection_to_path.md) (applies projection to paths)
 
 ## Notes and Other Information
 - Uses a negative filtering approach - assumes most paths can project and lists exceptions
 - Non-projection-capable path types include: Hash, Material, Memoize, Sort, IncrementalSort, Unique, SetOp, LockRows, Limit, ModifyTable, MergeAppend, RecursiveUnion
-- CustomScan paths can project only if they have the CUSTOMPATH_SUPPORT_PROJECTION flag set  
-- Append paths are projection-capable only when they represent dummy paths (IS_DUMMY_APPEND)
-- ProjectSet paths are considered non-projection-capable to prevent interference with set-returning function placement
+- [CustomScan](../C/CustomScan.md) paths can project only if they have the CUSTOMPATH_SUPPORT_PROJECTION flag set  
+- [Append](../A/Append.md) paths are projection-capable only when they represent dummy paths (IS_DUMMY_APPEND)
+- [ProjectSet](../P/ProjectSet.md) paths are considered non-projection-capable to prevent interference with set-returning function placement
 - This function is crucial for the planner's decision on whether to add explicit Projection plan nodes
 - The restriction on ProjectSet may be relaxed in future PostgreSQL versions

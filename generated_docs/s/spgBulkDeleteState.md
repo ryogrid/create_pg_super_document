@@ -44,7 +44,7 @@ The structure is initialized during bulk delete operations and contains both the
   - [IndexVacuumInfo](../I/IndexVacuumInfo.md) (vacuum parameter structure)
   - [IndexBulkDeleteResult](../I/IndexBulkDeleteResult.md) (statistics collection structure)
   - IndexBulkDeleteCallback (callback function type)
-  - SpGistState (SPGiST operational state)
+  - [SpGistState](../S/SpGistState.md) (SPGiST operational state)
   - [spgVacPendingItem](spgVacPendingItem.md) (pending item list structure)
   - TransactionId (transaction identifier type)
   - BlockNumber (block number type)

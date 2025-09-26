@@ -37,9 +37,9 @@ The function determines whether to query the primary key or foreign key table ba
   - [ri_ExtractValues](ri_ExtractValues.md)
   - [ri_ReportViolation](ri_ReportViolation.md)
   - IsolationUsesXactSnapshot
-  - CommandCounterIncrement
-  - GetLatestSnapshot
-  - GetTransactionSnapshot
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md)
+  - [GetLatestSnapshot](../G/GetLatestSnapshot.md)
+  - [GetTransactionSnapshot](../G/GetTransactionSnapshot.md)
   - [GetUserIdAndSecContext](../G/GetUserIdAndSecContext.md)
   - [SetUserIdAndSecContext](../S/SetUserIdAndSecContext.md)
   - RelationGetForm

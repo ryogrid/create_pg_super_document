@@ -32,7 +32,7 @@ The function includes comprehensive error handling for undefined columns and pro
   - [transformTargetList](transformTargetList.md) (standard target list transformation)
   - EXPR_KIND_UPDATE_SOURCE (expression context for UPDATE sources)
   - RelationGetNumberOfAttributes (gets column count from relation)
-  - list_head (gets first list cell)
+  - [list_head](../l/list_head.md) (gets first list cell)
   - [attnameAttNum](../a/attnameAttNum.md) (resolves column name to attribute number)
   - InvalidAttrNumber (invalid attribute constant)
   - [updateTargetListEntry](../u/updateTargetListEntry.md) (updates target entry with column info)

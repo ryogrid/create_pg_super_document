@@ -58,4 +58,4 @@ The algorithm uses cursor positioning (z->c) and limit boundaries (z->lb, z->l) 
 - Implements the full Porter stemming algorithm with all steps executed in sequence
 - The function is UTF-8 aware and handles multi-byte character boundaries properly
 - Exception handling occurs at two points: before any processing and after Step 1a to handle irregular words
-- String processing occurs from right-to-left (suffix removal) using z->c cursor positioning from z->l (length) towards z->lb (left boundary)
+- [String](../S/String.md) processing occurs from right-to-left (suffix removal) using z->c cursor positioning from z->l (length) towards z->lb (left boundary)

@@ -27,7 +27,7 @@ The `make_tablefuncscan` function is a factory function that constructs a TableF
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to allocate TableFuncScan node)
-  - TableFuncScan (node type)
+  - [TableFuncScan](../T/TableFuncScan.md) (node type)
   - [TableFunc](../T/TableFunc.md) (structure type)
 - Called from (representative examples):
   - [create_tablefuncscan_plan](../c/create_tablefuncscan_plan.md)
@@ -35,6 +35,6 @@ The `make_tablefuncscan` function is a factory function that constructs a TableF
 ## Notes and Other Information
 - This is a static function within createplan.c, indicating it's an internal helper for plan creation
 - The function follows PostgreSQL's pattern of setting lefttree and righttree to NULL for leaf scan nodes
-- TableFuncScan is primarily used for SQL/XML and SQL/JSON functionality where structured data is extracted from documents
+- [TableFuncScan](../T/TableFuncScan.md) is primarily used for SQL/XML and SQL/JSON functionality where structured data is extracted from documents
 - The TableFunc structure contains all the necessary information about column definitions, namespaces, and data extraction logic
 - Part of PostgreSQL's query planner infrastructure that handles advanced table function operations for document processing

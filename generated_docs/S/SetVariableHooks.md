@@ -34,17 +34,17 @@ The function is typically used during psql initialization to establish special v
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - valid_variable_name (validates variable name format)
-  - pg_strdup (PostgreSQL string duplication function)
-  - pg_malloc (PostgreSQL memory allocation function)
+  - [valid_variable_name](../v/valid_variable_name.md) (validates variable name format)
+  - [pg_strdup](../p/pg_strdup.md) (PostgreSQL string duplication function)
+  - [pg_malloc](../p/pg_malloc.md) (PostgreSQL memory allocation function)
   - strcmp (standard C string comparison)
 - Data types referenced:
-  - VariableSpace
+  - [VariableSpace](../V/VariableSpace.md)
   - struct _variable
   - VariableSubstituteHook (function pointer type)
   - VariableAssignHook (function pointer type)
 - Called from (representative examples):
-  - EstablishVariableSpace (during psql initialization for setting up built-in variable hooks)
+  - [EstablishVariableSpace](../E/EstablishVariableSpace.md) (during psql initialization for setting up built-in variable hooks)
 
 ## Notes and Other Information
 - Creates variables with NULL values if they don't exist, just to hold the hooks

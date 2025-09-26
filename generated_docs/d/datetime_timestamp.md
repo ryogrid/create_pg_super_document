@@ -46,7 +46,7 @@ This function is essential for reconstructing complete datetime information from
 
 ## Notes and Other Information
 - The function preserves infinite date values (infinity/-infinity) without adding time components
-- Range validation ensures the combined result doesn't overflow timestamp limits
+- [Range](../R/Range.md) validation ensures the combined result doesn't overflow timestamp limits
 - The time component is added as microseconds to the base timestamp from the date
 - Error handling includes validation of the final timestamp range
 - The function assumes the time component represents local time (no timezone handling)

@@ -25,7 +25,7 @@ This function acquires a session-level lock on a shared database object, similar
   - SET_LOCKTAG_OBJECT
   - [LockAcquire](LockAcquire.md)
 - Types used:
-  - LOCKTAG
+  - [LOCKTAG](LOCKTAG.md)
 - Called from (representative examples):
   - [movedb](../m/movedb.md)
   - [dbase_redo](../d/dbase_redo.md)

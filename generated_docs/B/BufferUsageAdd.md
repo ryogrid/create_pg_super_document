@@ -29,7 +29,7 @@ For each category, it tracks hit counts, read counts, blocks dirtied, blocks wri
 ## Dependencies
 - Functions called/Symbols referenced:
   - INSTR_TIME_ADD (macro for adding timing measurements)
-  - BufferUsage (struct type definition)
+  - [BufferUsage](BufferUsage.md) (struct type definition)
 - Called from (representative examples):
   - [InstrAggNode](../I/InstrAggNode.md)
   - [InstrAccumParallelQuery](../I/InstrAccumParallelQuery.md)

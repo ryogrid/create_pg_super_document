@@ -31,7 +31,7 @@ The function handles output redirection, allowing the summary to be written to a
   - strftime (timestamp formatting)
   - [ahprintf](../a/ahprintf.md) (archive-specific formatted output)
   - [sanitize_line](../s/sanitize_line.md) (name sanitization for output)
-  - get_compress_algorithm_name (compression algorithm display)
+  - [get_compress_algorithm_name](../g/get_compress_algorithm_name.md) (compression algorithm display)
   - [_tocEntryRequired](../t/_tocEntryRequired.md) (object selection logic)
   - [StrictNamesCheck](../S/StrictNamesCheck.md) (name validation)
 - Called from (representative examples):

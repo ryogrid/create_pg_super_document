@@ -20,7 +20,7 @@ DecodeTimezone interprets string representations of numeric timezone offsets (li
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - strtoint
+  - [strtoint](../s/strtoint.md)
   - DTERR_BAD_FORMAT
   - DTERR_TZDISP_OVERFLOW  
   - MAX_TZDISP_HOUR

@@ -28,7 +28,7 @@ The function uses a pessimistic approach by assuming maximum backend concurrency
   - PrivateRefCountOverflowed (global variable)
   - REFCOUNT_ARRAY_ENTRIES
 - Called from (representative examples):
-  - read_stream_begin_relation
+  - [read_stream_begin_relation](../r/read_stream_begin_relation.md)
   - [ExtendBufferedRelShared](../E/ExtendBufferedRelShared.md)
   - RelationGetNumberOfBlocks
 

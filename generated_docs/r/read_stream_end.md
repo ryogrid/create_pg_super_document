@@ -22,11 +22,11 @@ The function is the counterpart to read_stream_begin_relation and must be called
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - read_stream_reset
-  - pfree
+  - [read_stream_reset](read_stream_reset.md)
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - heap_endscan
-  - acquire_sample_rows
+  - [heap_endscan](../h/heap_endscan.md)
+  - [acquire_sample_rows](../a/acquire_sample_rows.md)
 
 ## Notes and Other Information
 - Must be called for every read stream created with read_stream_begin_relation

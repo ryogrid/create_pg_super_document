@@ -26,20 +26,20 @@ The "deferrable" aspect allows the transaction to wait (potentially indefinitely
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetSerializableTransactionSnapshotInt
+  - [GetSerializableTransactionSnapshotInt](GetSerializableTransactionSnapshotInt.md)
   - InvalidPid
   - InvalidSerializableXact
   - SXACT_FLAG_DEFERRABLE_WAITING
-  - dlist_is_empty
+  - [dlist_is_empty](../d/dlist_is_empty.md)
   - SxactIsROUnsafe
-  - ProcWaitForSignal
+  - [ProcWaitForSignal](../P/ProcWaitForSignal.md)
   - DEBUG2
   - ERRCODE_T_R_SERIALIZATION_FAILURE
-  - ReleasePredicateLocks
+  - [ReleasePredicateLocks](../R/ReleasePredicateLocks.md)
   - SxactIsROSafe
 - Called from (representative examples):
-  - SerialControl (during setup)
-  - GetSerializableTransactionSnapshot (for deferrable transactions)
+  - [SerialControl](../S/SerialControl.md) (during setup)
+  - [GetSerializableTransactionSnapshot](GetSerializableTransactionSnapshot.md) (for deferrable transactions)
 
 ## Notes and Other Information
 - This is a static function local to predicate.c

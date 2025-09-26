@@ -27,18 +27,18 @@ The resulting FuncExpr contains all the metadata needed for proper function reso
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (for FuncExpr allocation)
-  - FuncExpr (struct type)
+  - [FuncExpr](../F/FuncExpr.md) (struct type)
   - CoercionForm (enum type)
 - Called from (representative examples):
-  - build_aggregate_transfn_expr
-  - build_aggregate_finalfn_expr
-  - build_coercion_expression
-  - makeJsonByteaToTextConversion
-  - transformJsonValueExpr
-  - coerceJsonFuncExpr
-  - get_qual_for_hash
-  - make_path_cat_expr
-  - rewriteSearchAndCycle
+  - [build_aggregate_transfn_expr](../b/build_aggregate_transfn_expr.md)
+  - [build_aggregate_finalfn_expr](../b/build_aggregate_finalfn_expr.md)
+  - [build_coercion_expression](../b/build_coercion_expression.md)
+  - [makeJsonByteaToTextConversion](makeJsonByteaToTextConversion.md)
+  - [transformJsonValueExpr](../t/transformJsonValueExpr.md)
+  - [coerceJsonFuncExpr](../c/coerceJsonFuncExpr.md)
+  - [get_qual_for_hash](../g/get_qual_for_hash.md)
+  - [make_path_cat_expr](make_path_cat_expr.md)
+  - [rewriteSearchAndCycle](../r/rewriteSearchAndCycle.md)
 
 ## Notes and Other Information
 - Sets funcretset to false (assumes non-set-returning function)

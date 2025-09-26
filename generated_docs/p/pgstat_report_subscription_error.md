@@ -25,8 +25,8 @@ The function works by preparing a pending statistics entry for the subscription 
 - Functions called/Symbols referenced:
   - [pgstat_prep_pending_entry](pgstat_prep_pending_entry.md)
   - PGSTAT_KIND_SUBSCRIPTION
-  - PgStat_EntryRef
-  - PgStat_BackendSubEntry
+  - [PgStat_EntryRef](../P/PgStat_EntryRef.md)
+  - [PgStat_BackendSubEntry](../P/PgStat_BackendSubEntry.md)
 - Called from (representative examples):
   - [start_table_sync](../s/start_table_sync.md)
   - [start_apply](../s/start_apply.md)

@@ -45,7 +45,7 @@ Key behaviors:
 ## Notes and Other Information
 - This is a public function declared in guc.h, essential for transaction management
 - The function name is somewhat misleading - it handles more than just end-of-transaction scenarios
-- Complex state machine logic handles interactions between SET and SET LOCAL operations
+- [Complex](../C/Complex.md) state machine logic handles interactions between SET and SET LOCAL operations
 - Stack merging logic ensures proper value inheritance across nesting levels
 - Memory management is critical - unused stack values must be properly discarded
 - The function includes extensive assertions to detect improper nesting level usage

@@ -34,7 +34,7 @@ The function initializes extensive merge-specific metadata including merge famil
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to create the MergeJoin node)
-  - MergeJoin (plan node structure)
+  - [MergeJoin](../M/MergeJoin.md) (plan node structure)
   - JoinType (enumeration for join types)
 - Called from (representative examples):
   - [create_mergejoin_plan](../c/create_mergejoin_plan.md) (in createplan.c:4726)

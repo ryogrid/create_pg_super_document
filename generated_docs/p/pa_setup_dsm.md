@@ -25,9 +25,9 @@ This function creates and configures a dynamic shared memory (DSM) segment that 
   - shm_toc_estimate_keys
   - [shm_toc_estimate](../s/shm_toc_estimate.md)
   - [dsm_create](../d/dsm_create.md)
-  - shm_toc_create
-  - shm_toc_allocate
-  - shm_toc_insert
+  - [shm_toc_create](../s/shm_toc_create.md)
+  - [shm_toc_allocate](../s/shm_toc_allocate.md)
+  - [shm_toc_insert](../s/shm_toc_insert.md)
   - [shm_mq_create](../s/shm_mq_create.md)
   - [shm_mq_set_sender](../s/shm_mq_set_sender.md)
   - [shm_mq_set_receiver](../s/shm_mq_set_receiver.md)

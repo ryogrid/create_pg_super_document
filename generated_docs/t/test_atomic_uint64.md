@@ -31,7 +31,7 @@ The  function is a thorough unit test that systematically validates all atomic o
   - [pg_atomic_fetch_add_u64](../p/pg_atomic_fetch_add_u64.md): Atomically adds and returns old value
   - [pg_atomic_add_fetch_u64](../p/pg_atomic_add_fetch_u64.md): Atomically adds and returns new value
   - [pg_atomic_fetch_sub_u64](../p/pg_atomic_fetch_sub_u64.md): Atomically subtracts and returns old value
-  - pg_atomic_sub_fetch_u64: Atomically subtracts and returns new value
+  - [pg_atomic_sub_fetch_u64](../p/pg_atomic_sub_fetch_u64.md): Atomically subtracts and returns new value
   - [pg_atomic_exchange_u64](../p/pg_atomic_exchange_u64.md): Atomically exchanges values
   - [pg_atomic_compare_exchange_u64](../p/pg_atomic_compare_exchange_u64.md): Atomic compare-and-swap operation
   - [pg_atomic_fetch_or_u64](../p/pg_atomic_fetch_or_u64.md): Atomic bitwise OR with fetch

@@ -38,7 +38,7 @@ The function determines whether the clause should be treated as a join clause or
 
 ## Notes and Other Information
 - The function intentionally simplifies row comparisons to single-column comparisons for estimation purposes
-- Join vs. restriction clause determination follows similar logic to clausesel.c's treat_as_join_clause()
+- [Join](../J/Join.md) vs. restriction clause determination follows similar logic to clausesel.c's treat_as_join_clause()
 - When varRelid is non-zero, the function is forced into restriction mode (e.g., for inner indexscan qualifiers)
 - The approach trades accuracy for simplicity, acknowledging that better estimates would require complex multi-column statistics
 - Returns a Selectivity value (double between 0.0 and 1.0) representing the estimated fraction of rows that will satisfy the condition

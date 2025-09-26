@@ -30,9 +30,9 @@ This function takes no parameters.
   - TOTAL_MAX_CACHED_SUBXIDS (constant)
 - Called from (representative examples):
   - [GetSnapshotData](GetSnapshotData.md)
-  - SetTransactionSnapshot
+  - [SetTransactionSnapshot](../S/SetTransactionSnapshot.md)
   - [ExportSnapshot](../E/ExportSnapshot.md)
-  - ImportSnapshot
+  - [ImportSnapshot](../I/ImportSnapshot.md)
 
 ## Notes and Other Information
 - This function was created specifically to export the TOTAL_MAX_CACHED_SUBXIDS constant for use by snapmgr.c

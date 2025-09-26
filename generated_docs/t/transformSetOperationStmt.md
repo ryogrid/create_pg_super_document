@@ -31,7 +31,7 @@ A key restriction is that ORDER BY clauses can only reference result columns by 
   - [transformWithClause](transformWithClause.md) (WITH clause processing)
   - [transformSetOperationTree](transformSetOperationTree.md) (recursive set operation tree processing)
   - rt_fetch (range table entry retrieval)
-  - makeVar/makeTargetEntry (dummy target list construction)
+  - [makeVar](../m/makeVar.md)/makeTargetEntry (dummy target list construction)
   - [addRangeTableEntryForJoin](../a/addRangeTableEntryForJoin.md) (temporary namespace creation for ORDER BY)
   - [transformSortClause](transformSortClause.md) (ORDER BY processing)
   - [transformLimitClause](transformLimitClause.md) (LIMIT/OFFSET processing)

@@ -28,7 +28,7 @@ This function provides a comparison mechanism for sorting transaction IDs using 
   - [ReorderBufferGetCatalogChangesXacts](../R/ReorderBufferGetCatalogChangesXacts.md) (in reorderbuffer.c)
   - [SnapBuildBuildSnapshot](../S/SnapBuildBuildSnapshot.md) (in snapbuild.c)
   - [SnapBuildInitialSnapshot](../S/SnapBuildInitialSnapshot.md) (in snapbuild.c)
-  - SnapBuildXidHasCatalogChanges (in snapbuild.c)
+  - [SnapBuildXidHasCatalogChanges](../S/SnapBuildXidHasCatalogChanges.md) (in snapbuild.c)
 
 ## Notes and Other Information
 - Does not use wraparound comparison because it would violate the triangle inequality required by sorting algorithms

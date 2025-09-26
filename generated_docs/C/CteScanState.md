@@ -37,7 +37,7 @@ CteScanState implements the execution state for CTE scan operations. CTEs (Commo
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ScanState](../S/ScanState.md)
-  - Tuplestorestate
+  - [Tuplestorestate](../T/Tuplestorestate.md)
   - [PlanState](../P/PlanState.md)
 - Called from (representative examples):
   - [ExecCteScan](../E/ExecCteScan.md)

@@ -31,7 +31,7 @@ This function accesses the line pointer array (pd_linp) in a page header to retu
   - [gistdoinsert](../g/gistdoinsert.md) (in src/backend/access/gist/gist.c:751)
   - [heapgettup](../h/heapgettup.md) (in src/backend/access/heap/heapam.c:928)
   - [_bt_search](../b/_bt_search.md) (in src/backend/access/nbtree/nbtsearch.c:150)
-  - PageAddItemExtended (in src/backend/storage/page/bufpage.c:233)
+  - [PageAddItemExtended](PageAddItemExtended.md) (in src/backend/storage/page/bufpage.c:233)
 
 ## Notes and Other Information
 - This is an inline function defined in bufpage.h for performance

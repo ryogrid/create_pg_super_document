@@ -32,7 +32,7 @@ The function handles dynamic allocation and reallocation of chunk arrays when ne
   - Max
   - Assert
 - Called from (representative examples):
-  - BlockRefTableMarkBlockModified
+  - [BlockRefTableMarkBlockModified](BlockRefTableMarkBlockModified.md)
 
 ## Notes and Other Information
 - Uses adaptive storage: arrays for sparse block modifications, bitmaps for dense modifications

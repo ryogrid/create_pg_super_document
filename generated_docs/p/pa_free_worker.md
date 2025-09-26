@@ -28,7 +28,7 @@ The serialization check is particularly important because when a leader apply wo
   - [am_parallel_apply_worker](../a/am_parallel_apply_worker.md) (assertion check)
   - [pa_get_xact_state](pa_get_xact_state.md) (verify transaction state)
   - [hash_search](../h/hash_search.md) (remove from ParallelApplyTxnHash)
-  - logicalrep_pa_worker_stop (stop the worker process)
+  - [logicalrep_pa_worker_stop](../l/logicalrep_pa_worker_stop.md) (stop the worker process)
   - [pa_free_worker_info](pa_free_worker_info.md) (free worker info structure)
 - Called from (representative examples):
   - [pa_xact_finish](pa_xact_finish.md)

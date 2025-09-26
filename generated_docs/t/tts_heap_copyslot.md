@@ -22,7 +22,7 @@ The function leverages the existing ExecCopySlotHeapTuple and ExecStoreHeapTuple
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecCopySlotHeapTuple (extracts/creates heap tuple from source slot)
+  - [ExecCopySlotHeapTuple](../E/ExecCopySlotHeapTuple.md) (extracts/creates heap tuple from source slot)
   - [ExecStoreHeapTuple](../E/ExecStoreHeapTuple.md) (stores heap tuple into destination slot)
 - Called from (representative examples):
   - [slot_deform_heap_tuple](../s/slot_deform_heap_tuple.md)

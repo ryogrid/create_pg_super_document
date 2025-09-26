@@ -27,7 +27,7 @@ The function handles password normalization gracefully - if SASLprep normalizati
   - [pg_saslprep](pg_saslprep.md)
   - [libpq_gettext](../l/libpq_gettext.md)
   - [pg_strong_random](pg_strong_random.md)
-  - scram_build_secret
+  - [scram_build_secret](../s/scram_build_secret.md)
   - free
 - Constants used:
   - SCRAM_DEFAULT_SALT_LEN

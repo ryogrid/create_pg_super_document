@@ -25,7 +25,7 @@ The lo_lseek64 function is the client-side implementation for seeking within a P
   - [lo_initialize](lo_initialize.md)
   - [lo_hton64](lo_hton64.md)
   - [lo_ntoh64](lo_ntoh64.md)
-  - PQfn
+  - [PQfn](../P/PQfn.md)
   - PQArgBlock
   - PGRES_COMMAND_OK
   - pg_int64

@@ -28,14 +28,14 @@ This function takes no parameters and operates on global TwoPhaseState.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AllocateDir
-  - ReadDir
-  - FreeDir
-  - FullTransactionIdFromU64
+  - [AllocateDir](../A/AllocateDir.md)
+  - [ReadDir](../R/ReadDir.md)
+  - [FreeDir](../F/FreeDir.md)
+  - [FullTransactionIdFromU64](../F/FullTransactionIdFromU64.md)
   - XidFromFullTransactionId
   - [ProcessTwoPhaseBuffer](../P/ProcessTwoPhaseBuffer.md)
   - [PrepareRedoAdd](../P/PrepareRedoAdd.md)
-  - LWLockAcquire/LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease
   - strtou64
 - Called from:
   - [StartupXLOG](../S/StartupXLOG.md)

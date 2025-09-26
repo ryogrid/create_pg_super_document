@@ -45,7 +45,7 @@ The deletion process updates sibling links to bypass the target page, marks the 
 - `leaftopparent`: Next child page down in the subtree (used only for internal page deletion, InvalidBlockNumber if not applicable)
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FullTransactionId (transaction ID type)
+  - [FullTransactionId](../F/FullTransactionId.md) (transaction ID type)
   - SizeOfBtreeUnlinkPage (size calculation macro)
   - xl_btree_metadata (optional trailing metadata)
 - Called from (representative examples):

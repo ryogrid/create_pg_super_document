@@ -43,16 +43,16 @@ CustomScan provides an extensibility mechanism for PostgreSQL, allowing external
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Scan (base structure)
-  - CustomScanMethods (callback method table)
-  - List, Bitmapset (container types)
+  - [Scan](../S/Scan.md) (base structure)
+  - [CustomScanMethods](CustomScanMethods.md) (callback method table)
+  - [List](../L/List.md), Bitmapset (container types)
 - Called from (representative examples):
-  - ExecInitNode (plan node initialization dispatcher)
-  - ExecInitCustomScan (initialization function)
-  - create_customscan_plan (plan creation)
-  - set_customscan_references (plan reference fixing)
-  - ExecSupportsBackwardScan (capability checking)
-  - is_projection_capable_plan (projection capability checking)
+  - [ExecInitNode](../E/ExecInitNode.md) (plan node initialization dispatcher)
+  - [ExecInitCustomScan](../E/ExecInitCustomScan.md) (initialization function)
+  - [create_customscan_plan](../c/create_customscan_plan.md) (plan creation)
+  - [set_customscan_references](../s/set_customscan_references.md) (plan reference fixing)
+  - [ExecSupportsBackwardScan](../E/ExecSupportsBackwardScan.md) (capability checking)
+  - [is_projection_capable_plan](../i/is_projection_capable_plan.md) (projection capability checking)
 
 ## Notes and Other Information
 - Part of PostgreSQL's extensible node framework for third-party extensions

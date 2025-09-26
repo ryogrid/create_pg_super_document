@@ -24,12 +24,12 @@ This mechanism is crucial for ensuring that ongoing I/O operations are properly 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwner (structure type)
-  - ResourceOwnerRemember (generic resource tracking function)
+  - [ResourceOwner](ResourceOwner.md) (structure type)
+  - [ResourceOwnerRemember](ResourceOwnerRemember.md) (generic resource tracking function)
   - [Int32GetDatum](../I/Int32GetDatum.md) (conversion function)
   - buffer_io_resowner_desc (resource descriptor for buffer I/O operations)
 - Called from (representative examples):
-  - StartBufferIO
+  - [StartBufferIO](../S/StartBufferIO.md)
 
 ## Notes and Other Information
 - This function is a static inline wrapper providing type-safe buffer I/O operation registration

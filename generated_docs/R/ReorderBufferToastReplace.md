@@ -29,7 +29,7 @@ This function performs the critical task of reconstructing large column values t
   - [hash_search](../h/hash_search.md) (finds TOAST entries in hash table)
   - dlist_foreach, dlist_container (iterates through chunk list)
   - SET_VARTAG_EXTERNAL, VARDATA_EXTERNAL (creates indirect pointers)
-  - ReorderBufferChangeMemoryUpdate (updates memory accounting)
+  - [ReorderBufferChangeMemoryUpdate](ReorderBufferChangeMemoryUpdate.md) (updates memory accounting)
   - Various TOAST macros for size and compression handling
 - Called from (representative examples):
   - [ReorderBufferProcessTXN](ReorderBufferProcessTXN.md) (during transaction commit processing)

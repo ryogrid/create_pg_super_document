@@ -41,7 +41,7 @@ WHERE (<partition constraint>) AND (fk.key IS NOT NULL [AND/OR ...])
   - RIAttName, RIAttType, RIAttCollation
   - [ri_GenerateQual](../r/ri_GenerateQual.md), ri_GenerateQualCollation
   - [pg_get_partconstrdef_string](../p/pg_get_partconstrdef_string.md)
-  - SPI_connect, SPI_prepare, SPI_execute_snapshot, SPI_finish
+  - [SPI_connect](../S/SPI_connect.md), SPI_prepare, SPI_execute_snapshot, SPI_finish
   - [MakeSingleTupleTableSlot](../M/MakeSingleTupleTableSlot.md)
   - [heap_deform_tuple](../h/heap_deform_tuple.md), ExecStoreVirtualTuple
   - [ri_ReportViolation](../r/ri_ReportViolation.md)

@@ -29,9 +29,9 @@ This record type is processed by the tablespace resource manager (RM_TBLSPC_ID) 
   - (None directly referenced)
 
 - Called from (representative examples):
-  - DropTableSpace (src/backend/commands/tablespace.c:531, 536)
-  - tblspc_redo (src/backend/commands/tablespace.c:1527)
-  - tblspc_desc (src/backend/access/rmgrdesc/tblspcdesc.c:34)
+  - [DropTableSpace](../D/DropTableSpace.md) (src/backend/commands/tablespace.c:531, 536)
+  - [tblspc_redo](../t/tblspc_redo.md) (src/backend/commands/tablespace.c:1527)
+  - [tblspc_desc](../t/tblspc_desc.md) (src/backend/access/rmgrdesc/tblspcdesc.c:34)
 
 ## Notes and Other Information
 - This structure is part of PostgreSQL's WAL logging system and is essential for crash recovery and replication

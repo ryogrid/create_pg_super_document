@@ -29,8 +29,8 @@ The structure is designed to be stored in a dynamic shared hash table (dshash) t
   - Oid (PostgreSQL object identifier type)
   - TimestampTz (timestamp with timezone type)
 - Called from (representative examples):
-  - ApplyLauncherSetWorkerStartTime
-  - ApplyLauncherGetWorkerStartTime
+  - [ApplyLauncherSetWorkerStartTime](../A/ApplyLauncherSetWorkerStartTime.md)
+  - [ApplyLauncherGetWorkerStartTime](../A/ApplyLauncherGetWorkerStartTime.md)
 
 ## Notes and Other Information
 - Located in src/backend/replication/logical/launcher.c:71-76

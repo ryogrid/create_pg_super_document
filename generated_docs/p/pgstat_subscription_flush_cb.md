@@ -23,9 +23,9 @@ The function performs atomic updates by acquiring a lock on the statistics entry
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_lock_entry
-  - pgstat_unlock_entry
-  - PgStat_BackendSubEntry (type cast)
+  - [pgstat_lock_entry](pgstat_lock_entry.md)
+  - [pgstat_unlock_entry](pgstat_unlock_entry.md)
+  - [PgStat_BackendSubEntry](../P/PgStat_BackendSubEntry.md) (type cast)
   - [PgStatShared_Subscription](../P/PgStatShared_Subscription.md) (type cast)
 - Called from (representative examples):
   - PostgreSQL statistics system via SH_DECLARE macro registration

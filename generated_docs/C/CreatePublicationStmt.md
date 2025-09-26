@@ -37,17 +37,17 @@ Publications can be configured with various options such as whether to replicate
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (standard parse tree node identifier)
-  - List (PostgreSQL's generic list structure)
-  - DefElem (definition element for options)
-  - PublicationObjSpec (implicit, through pubobjects list)
+  - [List](../L/List.md) (PostgreSQL's generic list structure)
+  - [DefElem](../D/DefElem.md) (definition element for options)
+  - [PublicationObjSpec](../P/PublicationObjSpec.md) (implicit, through pubobjects list)
 - Called from (representative examples):
-  - CreatePublication (in publicationcmds.c for statement execution)
-  - ProcessUtilitySlow (in utility.c for statement processing)
+  - [CreatePublication](CreatePublication.md) (in publicationcmds.c for statement execution)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (in utility.c for statement processing)
 
 ## Notes and Other Information
 - This structure is created during SQL parsing and consumed during statement execution
 - The  option creates a publication that automatically includes all existing tables and any tables created in the future
-- Publication options are extensible and can include parameters like 'publish' (INSERT, UPDATE, DELETE, TRUNCATE), 'publish_via_partition_root'
+- [Publication](../P/Publication.md) options are extensible and can include parameters like 'publish' (INSERT, UPDATE, DELETE, TRUNCATE), 'publish_via_partition_root'
 - When  is specified, it contains a mix of table specifications, schema specifications, or continuation markers
 - Publications are a key component of PostgreSQL's logical replication architecture, working in conjunction with subscriptions
 - The statement requires appropriate privileges (CREATE privilege on database or superuser)

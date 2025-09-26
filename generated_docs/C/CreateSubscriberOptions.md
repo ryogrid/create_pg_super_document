@@ -43,7 +43,7 @@ CreateSubscriberOptions serves as the central configuration structure for the pg
   - [SimpleStringList](../S/SimpleStringList.md) (used for storing lists of names)
 - Called from (representative examples):
   - [get_sub_conninfo](../g/get_sub_conninfo.md) (src/bin/pg_basebackup/pg_createsubscriber.c:315)
-  - store_pub_sub_info (src/bin/pg_basebackup/pg_createsubscriber.c:433)
+  - [store_pub_sub_info](../s/store_pub_sub_info.md) (src/bin/pg_basebackup/pg_createsubscriber.c:433)
   - [modify_subscriber_sysid](../m/modify_subscriber_sysid.md) (src/bin/pg_basebackup/pg_createsubscriber.c:629)
   - [start_standby_server](../s/start_standby_server.md) (src/bin/pg_basebackup/pg_createsubscriber.c:1443)
   - [wait_for_end_recovery](../w/wait_for_end_recovery.md) (src/bin/pg_basebackup/pg_createsubscriber.c:1511)

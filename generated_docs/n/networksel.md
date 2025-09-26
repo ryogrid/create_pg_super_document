@@ -26,8 +26,8 @@ The estimation process combines MCV selectivity (exact matches from frequent val
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_restriction_variable
-  - mcv_selectivity
+  - [get_restriction_variable](../g/get_restriction_variable.md)
+  - [mcv_selectivity](../m/mcv_selectivity.md)
   - [inet_opr_codenum](../i/inet_opr_codenum.md)
   - [inet_hist_value_sel](../i/inet_hist_value_sel.md)
   - [get_attstatsslot](../g/get_attstatsslot.md)

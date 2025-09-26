@@ -24,7 +24,7 @@ For all other parameter types, the function simply creates a copy of the origina
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_length (gets list length for bounds checking)
+  - [list_length](../l/list_length.md) (gets list length for bounds checking)
   - [list_nth](../l/list_nth.md) (retrieves list elements by index)
   - copyObject (creates deep copies of nodes)
   - elog (error logging for invalid parameter IDs)

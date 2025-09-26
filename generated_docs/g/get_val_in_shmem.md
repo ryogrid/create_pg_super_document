@@ -21,9 +21,9 @@ This function takes no SQL parameters and returns the integer value stored in sh
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `tdr_attach_shmem` - Ensures DSM segment is attached
-  - `LWLockAcquire` - Acquires shared lock for safe reading
-  - `LWLockRelease` - Releases the lock after operation
+  - `[tdr_attach_shmem](../t/tdr_attach_shmem.md)` - Ensures DSM segment is attached
+  - `[LWLockAcquire](../L/LWLockAcquire.md)` - Acquires shared lock for safe reading
+  - `[LWLockRelease](../L/LWLockRelease.md)` - Releases the lock after operation
   - `PG_RETURN_INT32` - Returns the integer value to SQL caller
   - `LW_SHARED` - Shared lock mode constant for concurrent reads
 - Called from (representative examples):

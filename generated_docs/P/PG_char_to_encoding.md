@@ -24,7 +24,7 @@ The underlying pg_char_to_encoding() function implements a binary search algorit
 - Functions called/Symbols referenced:
   - PG_GETARG_NAME - extracts name argument from function arguments
   - NameStr - converts PostgreSQL name to C string
-  - pg_char_to_encoding - performs the actual encoding name lookup
+  - [pg_char_to_encoding](../p/pg_char_to_encoding.md) - performs the actual encoding name lookup
   - PG_RETURN_INT32 - returns integer result to PostgreSQL
 
 - Called from (representative examples):

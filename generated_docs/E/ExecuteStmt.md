@@ -28,13 +28,13 @@ This structure is created during the parsing phase of an EXECUTE statement and i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - List (PostgreSQL list structure)
+  - [List](../L/List.md) (PostgreSQL list structure)
 - Called from (representative examples):
-  - ExecuteQuery (command execution function)  
-  - ExplainExecuteQuery (for EXPLAIN EXECUTE statements)
-  - standard_ProcessUtility (utility command dispatcher)
-  - ExecCreateTableAs (for CREATE TABLE AS EXECUTE)
-  - FetchStatementTargetList (for retrieving result column info)
+  - [ExecuteQuery](ExecuteQuery.md) (command execution function)  
+  - [ExplainExecuteQuery](ExplainExecuteQuery.md) (for EXPLAIN EXECUTE statements)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (utility command dispatcher)
+  - [ExecCreateTableAs](ExecCreateTableAs.md) (for CREATE TABLE AS EXECUTE)
+  - [FetchStatementTargetList](../F/FetchStatementTargetList.md) (for retrieving result column info)
 
 ## Notes and Other Information
 - Part of the SQL prepared statement functionality in PostgreSQL

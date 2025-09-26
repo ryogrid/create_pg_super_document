@@ -26,7 +26,7 @@ The function performs the following operations:
 ## Dependencies
 - Functions called/Symbols referenced:
   - SerializedReindexState (structure type)
-  - lappend_oid (list utility function to append OID values)
+  - [lappend_oid](../l/lappend_oid.md) (list utility function to append OID values)
   - [GetCurrentTransactionNestLevel](../G/GetCurrentTransactionNestLevel.md) (transaction utility function)
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (memory management function)
   - TopMemoryContext (global memory context)

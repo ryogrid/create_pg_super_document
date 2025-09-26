@@ -32,7 +32,7 @@ The function uses a shared buffer from getLocalPQExpBuffer(), so the returned st
 ## Dependencies
 - Functions called/Symbols referenced:
   - getLocalPQExpBuffer (for temporary buffer allocation)
-  - ScanKeywordLookup (for keyword validation)
+  - [ScanKeywordLookup](../S/ScanKeywordLookup.md) (for keyword validation)
   - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)/appendPQExpBufferChar (for buffer operations)
   - [pg_encoding_mblen](../p/pg_encoding_mblen.md) (for multibyte character length)
   - [pg_encoding_verifymbchar](../p/pg_encoding_verifymbchar.md) (for multibyte character validation)

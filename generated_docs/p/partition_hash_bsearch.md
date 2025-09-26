@@ -32,7 +32,7 @@ This function implements a binary search algorithm specifically designed for has
 ## Notes and Other Information
 - Returns the index of the matching bound or -1 if no suitable bound is found
 - Uses binary search for O(log n) time complexity
-- Hash partition bounds are stored as arrays with modulus at index 0 and remainder at index 1
+- [Hash](../H/Hash.md) partition bounds are stored as arrays with modulus at index 0 and remainder at index 1
 - Leverages partition_hbound_cmp for proper lexicographic comparison (modulus first, then remainder)
 - Critical for validating new hash partition bounds during DDL operations
 - Ensures hash partition bounds maintain proper ordering and don't conflict with existing partitions

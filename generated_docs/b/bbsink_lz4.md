@@ -39,7 +39,7 @@ The implementation is conditionally compiled and only available when PostgreSQL 
 - `bytes_written`: Size counter tracking the number of bytes that have been staged in the output buffer for the current operation
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbsink (base structure)
+  - [bbsink](bbsink.md) (base structure)
   - LZ4F_compressionContext_t (LZ4 library type)
   - LZ4F_preferences_t (LZ4 library type)
 

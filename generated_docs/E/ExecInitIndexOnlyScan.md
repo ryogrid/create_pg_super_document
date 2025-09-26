@@ -37,8 +37,8 @@ The function includes sophisticated handling of the "name" data type optimizatio
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode
-  - ExecAssignExprContext
-  - ExecOpenScanRelation
+  - [ExecAssignExprContext](ExecAssignExprContext.md)
+  - [ExecOpenScanRelation](ExecOpenScanRelation.md)
   - [ExecTypeFromTL](ExecTypeFromTL.md)
   - [ExecInitScanTupleSlot](ExecInitScanTupleSlot.md)
   - [ExecAllocTableSlot](ExecAllocTableSlot.md)
@@ -46,11 +46,11 @@ The function includes sophisticated handling of the "name" data type optimizatio
   - [ExecInitResultTypeTL](ExecInitResultTypeTL.md)
   - [ExecAssignScanProjectionInfoWithVarno](ExecAssignScanProjectionInfoWithVarno.md)
   - [ExecInitQual](ExecInitQual.md)
-  - exec_rt_fetch
+  - [exec_rt_fetch](../e/exec_rt_fetch.md)
   - [index_open](../i/index_open.md)
   - [ExecIndexBuildScanKeys](ExecIndexBuildScanKeys.md)
 - Types used:
-  - IndexOnlyScan
+  - [IndexOnlyScan](../I/IndexOnlyScan.md)
   - [IndexOnlyScanState](../I/IndexOnlyScanState.md)
   - [EState](EState.md)
   - [TupleDesc](../T/TupleDesc.md)

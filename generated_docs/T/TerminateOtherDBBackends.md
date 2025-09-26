@@ -25,12 +25,12 @@ The function operates in several phases:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire/LWLockRelease (for process array synchronization)
-  - lappend_int (for building list of process IDs)
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease (for process array synchronization)
+  - [lappend_int](../l/lappend_int.md) (for building list of process IDs)
   - [get_database_name](../g/get_database_name.md) (for error reporting)
-  - BackendPidGetProc (for process lookup)
-  - superuser/superuser_arg (for permission checks)
-  - has_privs_of_role (for role privilege validation)
+  - [BackendPidGetProc](../B/BackendPidGetProc.md) (for process lookup)
+  - [superuser](../s/superuser.md)/superuser_arg (for permission checks)
+  - [has_privs_of_role](../h/has_privs_of_role.md) (for role privilege validation)
   - kill (for sending termination signals)
 - Called from (representative examples):
   - [dropdb](../d/dropdb.md) (in dbcommands.c)

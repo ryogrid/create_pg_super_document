@@ -33,9 +33,9 @@ The structure maintains tuple slots for both the existing conflicting tuple and 
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag
-  - TupleTableSlot
+  - [TupleTableSlot](../T/TupleTableSlot.md)
   - [ProjectionInfo](../P/ProjectionInfo.md)
-  - ExprState
+  - [ExprState](../E/ExprState.md)
 - Called from (representative examples):
   - [ExecInitModifyTable](../E/ExecInitModifyTable.md)
   - [ExecInitPartitionInfo](../E/ExecInitPartitionInfo.md)

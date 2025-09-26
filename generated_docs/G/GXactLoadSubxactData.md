@@ -23,7 +23,7 @@ GXactLoadSubxactData is responsible for populating the subtransaction informatio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GlobalTransaction
+  - [GlobalTransaction](GlobalTransaction.md)
   - [PGPROC](../P/PGPROC.md)
   - GetPGProcByNumber
   - PGPROC_MAX_CACHED_SUBXIDS

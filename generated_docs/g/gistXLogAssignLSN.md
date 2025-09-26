@@ -32,7 +32,7 @@ This is commonly used in scenarios where GiST operations need to coordinate betw
   - XLOG_GIST_ASSIGN_LSN
   - RM_GIST_ID
 - Called from (representative examples):
-  - gistGetFakeLSN (when obtaining LSN for GiST page operations)
+  - [gistGetFakeLSN](gistGetFakeLSN.md) (when obtaining LSN for GiST page operations)
   - Referenced in GISTPageSplitInfo structure
 
 ## Notes and Other Information

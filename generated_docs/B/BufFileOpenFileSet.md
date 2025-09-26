@@ -26,20 +26,20 @@ The function starts with an initial capacity for file handles and expands it as 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc: Allocates initial memory for file handle array
-  - repalloc: Expands file handle array when more segments are discovered
-  - FileSetSegmentName: Constructs segment file names for discovery
-  - FileSetOpen: Opens individual segment files
+  - [palloc](../p/palloc.md): Allocates initial memory for file handle array
+  - [repalloc](../r/repalloc.md): Expands file handle array when more segments are discovered
+  - [FileSetSegmentName](../F/FileSetSegmentName.md): Constructs segment file names for discovery
+  - [FileSetOpen](../F/FileSetOpen.md): Opens individual segment files
   - CHECK_FOR_INTERRUPTS: Allows interruption during potentially long segment discovery
-  - pfree: Frees memory when no segments are found
+  - [pfree](../p/pfree.md): Frees memory when no segments are found
   - ereport: Reports errors when BufFile cannot be found
-  - makeBufFileCommon: Creates the BufFile structure with discovered segments
-  - pstrdup: Duplicates the name string
+  - [makeBufFileCommon](../m/makeBufFileCommon.md): Creates the BufFile structure with discovered segments
+  - [pstrdup](../p/pstrdup.md): Duplicates the name string
 - Called from (representative examples):
-  - LogicalTapeImport: When importing shared logical tapes for sorting
-  - sts_parallel_scan_next: In shared tuple store parallel scanning
-  - apply_spooled_messages: For logical replication message processing
-  - subxact_info_read: For reading logical replication subxact information
+  - [LogicalTapeImport](../L/LogicalTapeImport.md): When importing shared logical tapes for sorting
+  - [sts_parallel_scan_next](../s/sts_parallel_scan_next.md): In shared tuple store parallel scanning
+  - [apply_spooled_messages](../a/apply_spooled_messages.md): For logical replication message processing
+  - [subxact_info_read](../s/subxact_info_read.md): For reading logical replication subxact information
 
 ## Notes and Other Information
 - Dynamically discovers the number of segments by probing the filesystem sequentially

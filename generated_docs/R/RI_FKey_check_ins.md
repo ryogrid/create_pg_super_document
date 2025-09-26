@@ -32,7 +32,7 @@ This function follows PostgreSQL's trigger function interface:
   - [ri_CheckTrigger](../r/ri_CheckTrigger.md)
   - RI_FKey_check
   - RI_TRIGTYPE_INSERT (constant)
-  - TriggerData (type cast)
+  - [TriggerData](../T/TriggerData.md) (type cast)
 - Called from (representative examples):
   - [validateForeignKeyConstraint](../v/validateForeignKeyConstraint.md) (src/backend/commands/tablecmds.c:12318)
 

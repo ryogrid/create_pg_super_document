@@ -40,18 +40,18 @@ The analysis is performed per partition, and "previous call" refers to earlier c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WindowFunc
-  - WindowClause  
-  - MonotonicFunction
+  - [WindowFunc](../W/WindowFunc.md)
+  - [WindowClause](../W/WindowClause.md)  
+  - [MonotonicFunction](../M/MonotonicFunction.md)
 - Called from (representative examples):
-  - find_window_run_conditions
-  - int8inc_support
-  - window_row_number_support
-  - window_rank_support
-  - window_dense_rank_support
-  - window_percent_rank_support
-  - window_cume_dist_support
-  - window_ntile_support
+  - [find_window_run_conditions](../f/find_window_run_conditions.md)
+  - [int8inc_support](../i/int8inc_support.md)
+  - [window_row_number_support](../w/window_row_number_support.md)
+  - [window_rank_support](../w/window_rank_support.md)
+  - [window_dense_rank_support](../w/window_dense_rank_support.md)
+  - [window_percent_rank_support](../w/window_percent_rank_support.md)
+  - [window_cume_dist_support](../w/window_cume_dist_support.md)
+  - [window_ntile_support](../w/window_ntile_support.md)
 
 ## Notes and Other Information
 - This structure is specifically designed for window function optimization and is not used for regular aggregate functions

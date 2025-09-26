@@ -28,7 +28,7 @@ After acquiring the lock, the function calls AcceptInvalidationMessages() to ens
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LOCKTAG (data structure for lock identification)
+  - [LOCKTAG](LOCKTAG.md) (data structure for lock identification)
   - SET_LOCKTAG_OBJECT (macro to initialize object lock tag)
   - [LockAcquire](LockAcquire.md) (core lock acquisition function)
   - [AcceptInvalidationMessages](../A/AcceptInvalidationMessages.md) (system cache invalidation handling)

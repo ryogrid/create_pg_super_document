@@ -290,7 +290,7 @@ Text creation and manipulation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PredIterInfo](../P/PredIterInfo.md) (structure type)
-  - ScalarArrayOpExpr (structure type for scalar op ANY/ALL array expressions)
+  - [ScalarArrayOpExpr](../S/ScalarArrayOpExpr.md) (structure type for scalar op ANY/ALL array expressions)
   - ArrayConstIterState (specialized state structure for array iteration)
   - lsecond (function to get the second element of a list)
   - DatumGetArrayTypeP (function to convert Datum to ArrayType)

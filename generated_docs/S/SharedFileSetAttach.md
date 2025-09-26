@@ -31,14 +31,14 @@ Key operations performed:
   - SpinLockAcquire
   - SpinLockRelease
   - ereport
-  - errcode
-  - errmsg
-  - on_dsm_detach
-  - SharedFileSetOnDetach
-  - PointerGetDatum
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
+  - [on_dsm_detach](../o/on_dsm_detach.md)
+  - [SharedFileSetOnDetach](SharedFileSetOnDetach.md)
+  - [PointerGetDatum](../P/PointerGetDatum.md)
 - Called from (representative examples):
-  - ExecHashJoinInitializeWorker (Hash join worker process initialization)
-  - tuplesort_attach_shared (Shared tuplesort worker attachment)
+  - [ExecHashJoinInitializeWorker](../E/ExecHashJoinInitializeWorker.md) (Hash join worker process initialization)
+  - [tuplesort_attach_shared](../t/tuplesort_attach_shared.md) (Shared tuplesort worker attachment)
 
 ## Notes and Other Information
 - This function is essential for parallel query execution where worker processes need to access shared temporary files created by the leader process

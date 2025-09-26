@@ -20,9 +20,9 @@ The get_destination_dir function serves as a safe wrapper around the standard op
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert (assertion macro for debugging)
-  - opendir (POSIX system call for opening directories)
+  - [opendir](../o/opendir.md) (POSIX system call for opening directories)
   - [pg_fatal](../p/pg_fatal.md) (PostgreSQL error reporting function)
-  - DIR (POSIX directory stream type)
+  - [DIR](../D/DIR.md) (POSIX directory stream type)
 - Called from (representative examples):
   - [FindStreamingStart](../F/FindStreamingStart.md) (in pg_receivewal.c)
   - [main](../m/main.md) (in pg_receivewal.c)

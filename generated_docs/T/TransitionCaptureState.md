@@ -52,24 +52,24 @@ The structure is designed to handle complex scenarios involving table inheritanc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TupleTableSlot
-  - AfterTriggersTableData
+  - [TupleTableSlot](TupleTableSlot.md)
+  - [AfterTriggersTableData](../A/AfterTriggersTableData.md)
 
 - Called from (representative examples):
-  - MakeTransitionCaptureState
-  - ExecASInsertTriggers
-  - ExecARInsertTriggers
-  - ExecASDeleteTriggers
-  - ExecARDeleteTriggers
-  - ExecASUpdateTriggers
-  - ExecARUpdateTriggers
-  - GetAfterTriggersStoreSlot
-  - GetAfterTriggersTransitionTable
-  - TransitionTableAddTuple
-  - AfterTriggerSaveEvent
-  - ExecInsert
-  - ExecDeleteEpilogue
-  - ModifyTableState (as member)
+  - [MakeTransitionCaptureState](../M/MakeTransitionCaptureState.md)
+  - [ExecASInsertTriggers](../E/ExecASInsertTriggers.md)
+  - [ExecARInsertTriggers](../E/ExecARInsertTriggers.md)
+  - [ExecASDeleteTriggers](../E/ExecASDeleteTriggers.md)
+  - [ExecARDeleteTriggers](../E/ExecARDeleteTriggers.md)
+  - [ExecASUpdateTriggers](../E/ExecASUpdateTriggers.md)
+  - [ExecARUpdateTriggers](../E/ExecARUpdateTriggers.md)
+  - [GetAfterTriggersStoreSlot](../G/GetAfterTriggersStoreSlot.md)
+  - [GetAfterTriggersTransitionTable](../G/GetAfterTriggersTransitionTable.md)
+  - [TransitionTableAddTuple](TransitionTableAddTuple.md)
+  - [AfterTriggerSaveEvent](../A/AfterTriggerSaveEvent.md)
+  - [ExecInsert](../E/ExecInsert.md)
+  - [ExecDeleteEpilogue](../E/ExecDeleteEpilogue.md)
+  - [ModifyTableState](../M/ModifyTableState.md) (as member)
 
 ## Notes and Other Information
 - This structure is per-caller to avoid conflicts when setting tcs_original_insert_tuple, though the underlying private data may be shared across multiple callers

@@ -34,16 +34,16 @@ This function is designed to be the primary (ideally only) direct interface to o
   - open (system call)
   - close (system call)
   - fcntl (system call, for F_NOCACHE on some platforms)
-  - ReleaseLruFile
+  - [ReleaseLruFile](../R/ReleaseLruFile.md)
   - ereport
   - StaticAssertStmt (compile-time assertion)
   - Various O_* constants and PG_O_DIRECT
 - Called from (representative examples):
-  - BasicOpenFile
-  - readRecoverySignalFile
-  - LruInsert
-  - PathNameOpenFilePerm
-  - OpenTransientFilePerm
+  - [BasicOpenFile](BasicOpenFile.md)
+  - [readRecoverySignalFile](../r/readRecoverySignalFile.md)
+  - [LruInsert](../L/LruInsert.md)
+  - [PathNameOpenFilePerm](../P/PathNameOpenFilePerm.md)
+  - [OpenTransientFilePerm](../O/OpenTransientFilePerm.md)
 
 ## Notes and Other Information
 - Includes retry logic for EMFILE/ENFILE errors by releasing least-recently-used files

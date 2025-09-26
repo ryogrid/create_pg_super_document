@@ -37,7 +37,7 @@ The structure is designed to efficiently store constraint arrays with correspond
 - Functions called/Symbols referenced:
   - [AttrDefault](../A/AttrDefault.md)
   - [ConstrCheck](../C/ConstrCheck.md)
-  - AttrMissing
+  - [AttrMissing](../A/AttrMissing.md)
 - Called from (representative examples):
   - [CreateTupleDescCopyConstr](../C/CreateTupleDescCopyConstr.md)
   - [equalTupleDescs](../e/equalTupleDescs.md)
@@ -51,6 +51,6 @@ The structure is designed to efficiently store constraint arrays with correspond
 - Central component of PostgreSQL's constraint management system
 - Used extensively in table creation, constraint validation, and relation caching
 - The arrays are dynamically allocated based on the number of constraints
-- Boolean flags provide quick constraint type checking without array iteration
+- [Boolean](../B/Boolean.md) flags provide quick constraint type checking without array iteration
 - Part of the TupleDescData structure, making it integral to tuple descriptor functionality
 - Supports complex constraint scenarios including inheritance and generated columns

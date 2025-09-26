@@ -19,7 +19,7 @@ The function will raise an error if the specified schema does not exist, as it c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - text_to_cstring
+  - [text_to_cstring](../t/text_to_cstring.md)
   - [get_namespace_oid](../g/get_namespace_oid.md)
 - Called from (representative examples):
   - [has_schema_privilege_name_name](../h/has_schema_privilege_name_name.md)

@@ -27,7 +27,7 @@ This function is the core of the ReadStream's read-ahead mechanism. It repeatedl
   - [read_stream_unget_block](read_stream_unget_block.md) (function to defer block processing)
   - InvalidBlockNumber (constant for end-of-stream sentinel)
 - Called from (representative examples):
-  - read_stream_next_buffer (multiple call sites)
+  - [read_stream_next_buffer](read_stream_next_buffer.md) (multiple call sites)
 
 ## Notes and Other Information
 - The function implements sophisticated heuristics for when to start pending reads versus continuing to build larger requests

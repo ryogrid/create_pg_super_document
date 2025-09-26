@@ -43,7 +43,7 @@ The synchronized scanning decision follows similar logic to sequential scans - i
   - NBuffers (global variable)
 - Called from (representative examples):
   - [SampleHeapTupleVisible](../S/SampleHeapTupleVisible.md)
-  - table_scan_sample_next_tuple
+  - [table_scan_sample_next_tuple](table_scan_sample_next_tuple.md)
 
 ## Notes and Other Information
 - Part of the parallel scan infrastructure for block-oriented access methods

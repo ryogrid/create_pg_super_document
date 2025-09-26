@@ -30,7 +30,7 @@ The function uses a ValidIOData structure stored in fcinfo->flinfo->fn_extra to 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - text_to_cstring
+  - [text_to_cstring](../t/text_to_cstring.md)
   - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
   - [get_fn_expr_arg_stable](../g/get_fn_expr_arg_stable.md)
   - [parseTypeString](parseTypeString.md)

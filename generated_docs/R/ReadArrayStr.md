@@ -66,7 +66,7 @@ The function handles NULL values explicitly through ATOK_ELEM_NULL tokens and ma
   - palloc_array
   - repalloc_array
   - [InputFunctionCallSafe](../I/InputFunctionCallSafe.md)
-  - initStringInfo
+  - [initStringInfo](../i/initStringInfo.md)
   - MaxArraySize
   - MAXDIM
   - ArrayToken types (ATOK_LEVEL_START, ATOK_LEVEL_END, etc.)

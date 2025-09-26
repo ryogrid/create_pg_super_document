@@ -23,7 +23,7 @@ The callback mechanism allows the statistics system to perform type-specific ope
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PgStatShared_Common
+  - [PgStatShared_Common](../P/PgStatShared_Common.md)
   - [PgStatShared_Subscription](../P/PgStatShared_Subscription.md)
 - Called from (representative examples):
   - SH_DECLARE (part of statistics system infrastructure)

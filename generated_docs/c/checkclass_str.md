@@ -37,7 +37,7 @@ The implementation efficiently filters positions by weight when weight restricti
   - WEP_GETPOS: Extract position value from WordEntryPos
   - [palloc](../p/palloc.md): Allocate memory in PostgreSQL memory context
   - [pfree](../p/pfree.md): Free allocated memory
-  - WordEntryPosVector: Structure containing position array
+  - [WordEntryPosVector](../W/WordEntryPosVector.md): Structure containing position array
   - WordEntryPos: Position and weight information for lexeme
   - TSTernaryValue constants (TS_YES, TS_NO, TS_MAYBE)
 

@@ -41,6 +41,6 @@ When an element matches the extraction path, the function prepares for value cap
 - This function works in conjunction with array start/end callbacks to manage complete array processing
 - Array indexing is zero-based and maintained at each lexical level for nested arrays
 - [Path](../P/Path.md) matching logic supports both intermediate navigation and final element capture
-- String normalization is conditionally enabled based on parsing configuration
+- [String](../S/String.md) normalization is conditionally enabled based on parsing configuration
 - The function follows the same logical pattern as object field processing ("`same logic as for objects`" comment)
 - Null array elements are supported through the isnull parameter but current implementation focuses on index tracking regardless of null status

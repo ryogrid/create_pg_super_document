@@ -21,7 +21,7 @@ This function prepares the recovery configuration for a PostgreSQL standby serve
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - connect_database (connects using publisher connection info)
+  - [connect_database](../c/connect_database.md) (connects using publisher connection info)
   - [GenerateRecoveryConfig](../G/GenerateRecoveryConfig.md) (generates base recovery configuration)
   - [appendPQExpBuffer](../a/appendPQExpBuffer.md) (builds recovery configuration content)
   - [WriteRecoveryConfig](../W/WriteRecoveryConfig.md) (writes the configuration to disk)

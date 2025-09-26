@@ -24,14 +24,14 @@ The function always re-establishes the callbacks even if they were previously se
 - Functions called/Symbols referenced:
   - AllocSetContextCreate
   - ALLOCSET_DEFAULT_SIZES
-  - xml_palloc
-  - xml_repalloc
-  - xml_pfree
-  - xml_pstrdup
+  - [xml_palloc](xml_palloc.md)
+  - [xml_repalloc](xml_repalloc.md)
+  - [xml_pfree](xml_pfree.md)
+  - [xml_pstrdup](xml_pstrdup.md)
   - xmlMemSetup (libxml function)
 - Called from:
-  - PgXmlErrorContext
-  - pg_xml_init_library
+  - [PgXmlErrorContext](../P/PgXmlErrorContext.md)
+  - [pg_xml_init_library](../p/pg_xml_init_library.md)
 
 ## Notes and Other Information
 - This function is static and only used internally within the xml.c module

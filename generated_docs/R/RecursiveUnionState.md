@@ -44,13 +44,13 @@ RecursiveUnionState manages the execution of recursive UNION operations, which a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Tuplestorestate
+  - [Tuplestorestate](../T/Tuplestorestate.md)
   - [TupleHashTable](../T/TupleHashTable.md)
 - Called from (representative examples):
-  - ExecRecursiveUnion
-  - ExecInitRecursiveUnion
-  - ExecEndRecursiveUnion
-  - ExecReScanRecursiveUnion
+  - [ExecRecursiveUnion](../E/ExecRecursiveUnion.md)
+  - [ExecInitRecursiveUnion](../E/ExecInitRecursiveUnion.md)
+  - [ExecEndRecursiveUnion](../E/ExecEndRecursiveUnion.md)
+  - [ExecReScanRecursiveUnion](../E/ExecReScanRecursiveUnion.md)
 
 ## Notes and Other Information
 - Essential for implementing SQL recursive CTEs and hierarchical queries

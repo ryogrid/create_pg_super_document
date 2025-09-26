@@ -24,16 +24,16 @@ This function converts an A_Const node into its textual representation by output
 ## Dependencies
 - Functions called/Symbols referenced:
   - WRITE_NODE_TYPE (macro for writing node type identifier)
-  - appendStringInfoString (for appending literal strings)
-  - outNode (for recursively serializing the constant value)
+  - [appendStringInfoString](../a/appendStringInfoString.md) (for appending literal strings)
+  - [outNode](outNode.md) (for recursively serializing the constant value)
   - WRITE_LOCATION_FIELD (macro for writing location information)
-  - A_Const (node type)
+  - [A_Const](../A/A_Const.md) (node type)
 - Called from (representative examples):
   - No direct references found (likely called through outNode dispatch mechanism)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the outfuncs.c file
-- A_Const represents SQL constants in the abstract syntax tree (literals like numbers, strings, etc.)
+- [A_Const](../A/A_Const.md) represents SQL constants in the abstract syntax tree (literals like numbers, strings, etc.)
 - The function differentiates between NULL constants and actual values
 - Location information is always written for debugging and error reporting
 - Part of PostgreSQL's node serialization system used for debugging, logging, and inter-process communication

@@ -24,14 +24,14 @@ The use of BLCKSZ - 1 as the free space amount indicates that virtually the enti
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RecordPageWithFreeSpace (records the page with maximum free space in FSM)
+  - [RecordPageWithFreeSpace](RecordPageWithFreeSpace.md) (records the page with maximum free space in FSM)
 - Called from (representative examples):
-  - shiftList (GIN fast update cleanup)
-  - ginvacuumcleanup (GIN index vacuum cleanup)
-  - gistvacuumpage (GiST page vacuum processing)
-  - _bt_pendingfsm_finalize (B-tree FSM finalization)
-  - btvacuumpage (B-tree page vacuum processing)
-  - spgvacuumpage (SP-GiST page vacuum processing)
+  - [shiftList](../s/shiftList.md) (GIN fast update cleanup)
+  - [ginvacuumcleanup](../g/ginvacuumcleanup.md) (GIN index vacuum cleanup)
+  - [gistvacuumpage](../g/gistvacuumpage.md) (GiST page vacuum processing)
+  - [_bt_pendingfsm_finalize](../b/_bt_pendingfsm_finalize.md) (B-tree FSM finalization)
+  - [btvacuumpage](../b/btvacuumpage.md) (B-tree page vacuum processing)
+  - [spgvacuumpage](../s/spgvacuumpage.md) (SP-GiST page vacuum processing)
 
 ## Notes and Other Information
 - Marks pages with maximum free space (BLCKSZ - 1)

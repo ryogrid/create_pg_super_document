@@ -24,7 +24,7 @@ This function creates a Param node representing a function parameter () with the
 ## Dependencies
 - Functions called/Symbols referenced:
   - SQLFunctionParseInfoPtr
-  - Param
+  - [Param](../P/Param.md)
   - PARAM_EXTERN
   - [get_typcollation](../g/get_typcollation.md)
 - Called from (representative examples):

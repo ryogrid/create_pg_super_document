@@ -52,16 +52,16 @@ The function performs several major initialization tasks:
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (state structure creation)
-  - ExecAssignExprContext (expression context setup)
+  - [ExecAssignExprContext](ExecAssignExprContext.md) (expression context setup)
   - AllocSetContextCreate (memory context creation)  
   - [ExecInitQual](ExecInitQual.md) (qualification expression initialization)
   - [ExecInitNode](ExecInitNode.md) (child node initialization)
-  - ExecCreateScanSlotFromOuterPlan/ExecInitExtraTupleSlot (tuple slot setup)
+  - [ExecCreateScanSlotFromOuterPlan](ExecCreateScanSlotFromOuterPlan.md)/ExecInitExtraTupleSlot (tuple slot setup)
   - [ExecInitResultTupleSlotTL](ExecInitResultTupleSlotTL.md)/ExecAssignProjectionInfo (projection setup)
-  - execTuplesMatchPrepare (tuple comparison function preparation)
+  - [execTuplesMatchPrepare](../e/execTuplesMatchPrepare.md) (tuple comparison function preparation)
   - [object_aclcheck](../o/object_aclcheck.md)/aclcheck_error (permission checking)
   - [get_typlenbyval](../g/get_typlenbyval.md) (type information retrieval)
-  - initialize_peragg (aggregate state setup)
+  - [initialize_peragg](../i/initialize_peragg.md) (aggregate state setup)
   - [fmgr_info_cxt](../f/fmgr_info_cxt.md)/fmgr_info_set_expr (function call setup)
   - [ExecInitExpr](ExecInitExpr.md) (expression initialization)
 - Called from (representative examples):

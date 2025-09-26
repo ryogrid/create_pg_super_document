@@ -33,13 +33,13 @@ For CREATE operations, the function performs explicit zero-filling by writing ze
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - OpenTransientFile, CloseTransientFile
+  - [OpenTransientFile](../O/OpenTransientFile.md), CloseTransientFile
   - mmap, munmap, fstat, unlink, write
-  - errcode_for_dynamic_shared_memory
-  - pgstat_report_wait_start, pgstat_report_wait_end
-  - palloc0, ereport
+  - [errcode_for_dynamic_shared_memory](../e/errcode_for_dynamic_shared_memory.md)
+  - [pgstat_report_wait_start](../p/pgstat_report_wait_start.md), pgstat_report_wait_end
+  - [palloc0](../p/palloc0.md), ereport
 - Called from (representative examples):
-  - dsm_impl_op
+  - [dsm_impl_op](dsm_impl_op.md)
 
 ## Notes and Other Information
 - Files are created with pattern: 

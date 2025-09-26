@@ -30,7 +30,7 @@ If the CopyFile operation fails, the function maps the Windows error to a POSIX-
 ## Dependencies
 - Functions called/Symbols referenced:
   - CopyFile (Windows API function)
-  - _dosmaperr (Windows error mapping function)
+  - [_dosmaperr](../d/_dosmaperr.md) (Windows error mapping function)
   - GetLastError (Windows API function)
   - [pg_fatal](../p/pg_fatal.md) (PostgreSQL error reporting function)
   - [checksum_file](checksum_file.md) (internal function for checksum calculation)

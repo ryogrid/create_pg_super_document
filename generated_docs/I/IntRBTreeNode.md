@@ -26,20 +26,20 @@ The structure follows the established pattern for red-black tree nodes in Postgr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RBTNode (base red-black tree node structure)
+  - [RBTNode](../R/RBTNode.md) (base red-black tree node structure)
 
 - Called from (representative examples):
-  - irbt_cmp (comparison function for integer keys)
-  - irbt_combine (node combination function)
-  - irbt_alloc (node allocation function)
-  - create_int_rbtree (tree creation function)
-  - rbt_populate (tree population for testing)
-  - testleftright (left-right traversal tests)
-  - testrightleft (right-left traversal tests)
-  - testfind (node finding tests)
-  - testfindltgt (less-than/greater-than finding tests)
-  - testleftmost (leftmost node tests)
-  - testdelete (node deletion tests)
+  - [irbt_cmp](../i/irbt_cmp.md) (comparison function for integer keys)
+  - [irbt_combine](../i/irbt_combine.md) (node combination function)
+  - [irbt_alloc](../i/irbt_alloc.md) (node allocation function)
+  - [create_int_rbtree](../c/create_int_rbtree.md) (tree creation function)
+  - [rbt_populate](../r/rbt_populate.md) (tree population for testing)
+  - [testleftright](../t/testleftright.md) (left-right traversal tests)
+  - [testrightleft](../t/testrightleft.md) (right-left traversal tests)
+  - [testfind](../t/testfind.md) (node finding tests)
+  - [testfindltgt](../t/testfindltgt.md) (less-than/greater-than finding tests)
+  - [testleftmost](../t/testleftmost.md) (leftmost node tests)
+  - [testdelete](../t/testdelete.md) (node deletion tests)
 
 ## Notes and Other Information
 - This structure is located in src/test/modules/test_rbtree/test_rbtree.c and is used exclusively for testing red-black tree functionality

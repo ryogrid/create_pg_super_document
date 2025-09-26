@@ -30,14 +30,14 @@ The priority validation ensures that the resource management system releases res
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetPointer (macro to extract pointer from Datum)
+  - [DatumGetPointer](../D/DatumGetPointer.md) (macro to extract pointer from Datum)
   - elog (logging function)
   - Assert (assertion macro)
-  - dlist_delete (doubly-linked list deletion)
-  - pfree (memory deallocation)
+  - [dlist_delete](../d/dlist_delete.md) (doubly-linked list deletion)
+  - [pfree](../p/pfree.md) (memory deallocation)
 - Called from (representative examples):
   - ManyTestResource (referenced as callback)
-  - InitManyTestResourceKind (registered as callback)
+  - [InitManyTestResourceKind](../I/InitManyTestResourceKind.md) (registered as callback)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the test_resowner_many.c file

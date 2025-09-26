@@ -46,9 +46,9 @@ The structure is designed to support different levels of XML parsing strictness 
   - xmlExternalEntityLoader (libxml entity loader type)
 - Called from (representative examples):
   - [pg_xml_init](../p/pg_xml_init.md) (initializes XML context)
-  - pg_xml_done (cleans up XML context)
-  - xml_errorHandler (handles XML parsing errors)
-  - xml_errsave (saves XML parsing errors)
+  - [pg_xml_done](../p/pg_xml_done.md) (cleans up XML context)
+  - [xml_errorHandler](../x/xml_errorHandler.md) (handles XML parsing errors)
+  - [xml_errsave](../x/xml_errsave.md) (saves XML parsing errors)
   - [XmlTableBuilderData](../X/XmlTableBuilderData.md) (contains reference to this context)
 
 ## Notes and Other Information

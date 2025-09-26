@@ -31,10 +31,10 @@ The function ensures that temporary files are organized properly within PostgreS
   - snprintf (standard C library function)
 
 - Called from (representative examples):
-  - OpenTemporaryFileInTablespace
-  - FileSetCreate
-  - FileSetPath
-  - pg_ls_tmpdir
+  - [OpenTemporaryFileInTablespace](../O/OpenTemporaryFileInTablespace.md)
+  - [FileSetCreate](../F/FileSetCreate.md)
+  - [FileSetPath](../F/FileSetPath.md)
+  - [pg_ls_tmpdir](../p/pg_ls_tmpdir.md)
 
 ## Notes and Other Information
 - The function treats pg_global tablespace as equivalent to the default tablespace for temporary file placement

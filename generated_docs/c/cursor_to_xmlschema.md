@@ -23,13 +23,13 @@ This function generates an XML Schema Definition for the result set structure of
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - text_to_cstring
+  - [text_to_cstring](../t/text_to_cstring.md)
   - PG_GETARG_BOOL
-  - SPI_connect
+  - [SPI_connect](../S/SPI_connect.md)
   - [SPI_cursor_find](../S/SPI_cursor_find.md)
   - [_SPI_strdup](../S/_SPI_strdup.md)
   - [map_sql_table_to_xmlschema](../m/map_sql_table_to_xmlschema.md)
-  - SPI_finish
+  - [SPI_finish](../S/SPI_finish.md)
   - [cstring_to_xmltype](cstring_to_xmltype.md)
   - PG_RETURN_XML_P
 - Called from:

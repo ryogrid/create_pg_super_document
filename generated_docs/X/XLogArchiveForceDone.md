@@ -19,10 +19,10 @@ The function first checks if a .done file already exists and exits early if foun
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - StatusFilePath
+  - [StatusFilePath](../S/StatusFilePath.md)
   - [durable_rename](../d/durable_rename.md)  
-  - AllocateFile
-  - FreeFile
+  - [AllocateFile](../A/AllocateFile.md)
+  - [FreeFile](../F/FreeFile.md)
 - Called from (representative examples):
   - [KeepFileRestoredFromArchive](../K/KeepFileRestoredFromArchive.md)
   - [WalReceiverMain](../W/WalReceiverMain.md)

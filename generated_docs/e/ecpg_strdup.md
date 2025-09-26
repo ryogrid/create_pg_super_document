@@ -29,17 +29,17 @@ Unlike the standard , this function ensures proper error reporting through ECPG'
 ## Dependencies
 - Functions called/Symbols referenced:
   - strdup (standard C library function)
-  - ecpg_raise (ECPG error reporting function)
+  - [ecpg_raise](ecpg_raise.md) (ECPG error reporting function)
   - ECPG_OUT_OF_MEMORY (error constant)
   - ECPG_SQLSTATE_ECPG_OUT_OF_MEMORY (SQL state constant)
 - Called from (representative examples):
-  - ECPGconnect (connection string handling)
-  - ECPGget_desc (descriptor name handling)
-  - ecpg_store_input (string parameter processing)
-  - ecpg_do_prologue (statement and connection name handling)
-  - ecpg_register_prepared_stmt (prepared statement name handling)
-  - prepare_common (SQL statement duplication)
-  - AddStmtToCache (statement caching)
+  - [ECPGconnect](../E/ECPGconnect.md) (connection string handling)
+  - [ECPGget_desc](../E/ECPGget_desc.md) (descriptor name handling)
+  - [ecpg_store_input](ecpg_store_input.md) (string parameter processing)
+  - [ecpg_do_prologue](ecpg_do_prologue.md) (statement and connection name handling)
+  - [ecpg_register_prepared_stmt](ecpg_register_prepared_stmt.md) (prepared statement name handling)
+  - [prepare_common](../p/prepare_common.md) (SQL statement duplication)
+  - [AddStmtToCache](../A/AddStmtToCache.md) (statement caching)
 
 ## Notes and Other Information
 - Returns NULL if the input string is NULL, providing safe null pointer handling

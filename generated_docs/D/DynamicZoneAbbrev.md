@@ -19,12 +19,12 @@ DynamicZoneAbbrev provides support for timezone abbreviations that cannot be res
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_tz (opaque timezone structure type)
+  - [pg_tz](../p/pg_tz.md) (opaque timezone structure type)
   - FLEXIBLE_ARRAY_MEMBER (macro for flexible array implementation)
 
 - Called from (representative examples):
-  - ConvertTimeZoneAbbrevs (src/backend/utils/adt/datetime.c:4892,4920,4923,4931)
-  - FetchDynamicTimeZone (src/backend/utils/adt/datetime.c:4973,4979)
+  - [ConvertTimeZoneAbbrevs](../C/ConvertTimeZoneAbbrevs.md) (src/backend/utils/adt/datetime.c:4892,4920,4923,4931)
+  - [FetchDynamicTimeZone](../F/FetchDynamicTimeZone.md) (src/backend/utils/adt/datetime.c:4973,4979)
 
 ## Notes and Other Information
 - This structure is used in conjunction with TimeZoneAbbrevTable to handle timezone abbreviations that require dynamic resolution

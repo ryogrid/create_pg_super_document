@@ -35,16 +35,16 @@ The function implements sophisticated transaction handling logic: VACUUM operati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - vacuum_rel (per-relation vacuum processing)
-  - analyze_rel (per-relation analysis processing)
-  - expand_vacuum_rel (relation expansion utility)
-  - get_all_vacuum_rels (database-wide relation discovery)
-  - PreventInTransactionBlock (transaction validation)
-  - VacuumUpdateCosts (cost accounting initialization)
-  - vac_update_datfrozenxid (database statistics updates)
+  - [vacuum_rel](vacuum_rel.md) (per-relation vacuum processing)
+  - [analyze_rel](../a/analyze_rel.md) (per-relation analysis processing)
+  - [expand_vacuum_rel](../e/expand_vacuum_rel.md) (relation expansion utility)
+  - [get_all_vacuum_rels](../g/get_all_vacuum_rels.md) (database-wide relation discovery)
+  - [PreventInTransactionBlock](../P/PreventInTransactionBlock.md) (transaction validation)
+  - [VacuumUpdateCosts](../V/VacuumUpdateCosts.md) (cost accounting initialization)
+  - [vac_update_datfrozenxid](vac_update_datfrozenxid.md) (database statistics updates)
 - Called from (representative examples):
-  - ExecVacuum (user command entry point)
-  - autovacuum_do_vac_analyze (autovacuum worker)
+  - [ExecVacuum](../E/ExecVacuum.md) (user command entry point)
+  - [autovacuum_do_vac_analyze](../a/autovacuum_do_vac_analyze.md) (autovacuum worker)
 
 ## Notes and Other Information
 - Uses static variable in_vacuum to prevent recursive calls that could occur through index expressions

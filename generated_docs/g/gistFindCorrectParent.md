@@ -41,7 +41,7 @@ The function must handle different scenarios during normal operations versus ind
   - [ReadBuffer](../R/ReadBuffer.md)
   - [LockBuffer](../L/LockBuffer.md)
   - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
-  - ReleaseBuffer
+  - [ReleaseBuffer](../R/ReleaseBuffer.md)
 - Called from (representative examples):
   - [gistformdownlink](gistformdownlink.md)
   - [gistfinishsplit](gistfinishsplit.md)

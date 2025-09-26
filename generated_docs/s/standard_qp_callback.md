@@ -44,8 +44,8 @@ The function operates through several key phases:
 ## Dependencies
 - Functions called/Symbols referenced:
   - standard_qp_extra
-  - RollupData
-  - WindowClause
+  - [RollupData](../R/RollupData.md)
+  - [WindowClause](../W/WindowClause.md)
   - linitial_node
   - [grouping_is_sortable](../g/grouping_is_sortable.md)
   - [make_pathkeys_for_sortclauses](../m/make_pathkeys_for_sortclauses.md)
@@ -61,7 +61,7 @@ The function operates through several key phases:
 
 ## Notes and Other Information
 - Grouping sets disable aggregate ordering optimizations and don't combine with aggregate ordering
-- EquivalenceClass processing removes redundant GROUP BY and DISTINCT items (e.g., "WHERE x = y GROUP BY x, y" reduces to "GROUP BY x")
+- [EquivalenceClass](../E/EquivalenceClass.md) processing removes redundant GROUP BY and DISTINCT items (e.g., "WHERE x = y GROUP BY x, y" reduces to "GROUP BY x")
 - Only the first window is considered for pathkeys logic in multi-window queries
 - Priority ordering ensures the most restrictive/beneficial pathkeys are chosen as query_pathkeys
 - The choice between DISTINCT and ORDER BY pathkeys is straightforward since the parser ensures one is a superset of the other

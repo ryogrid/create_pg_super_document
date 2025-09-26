@@ -24,7 +24,7 @@ SlabAllocFromNewBlock is called when the slab allocator needs to obtain memory f
 - Functions called/Symbols referenced:
   - [SlabContext](SlabContext.md)
   - [SlabBlock](SlabBlock.md)
-  - MemoryChunk
+  - [MemoryChunk](../M/MemoryChunk.md)
   - [dclist_count](../d/dclist_count.md)
   - [dclist_pop_head_node](../d/dclist_pop_head_node.md)
   - dlist_container

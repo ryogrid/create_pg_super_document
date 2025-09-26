@@ -24,15 +24,15 @@ This function takes no parameters.
 - Functions called/Symbols referenced:
   - Assert (debug assertion)
 - Called from (representative examples):
-  - XLogFileClose (WAL file operations)
-  - ClosePostmasterPorts
-  - dsm_impl_posix (shared memory operations)
-  - InitializeLatchSupport
-  - CreateWaitEventSet
-  - FreeWaitEventSet
-  - FreeWaitEventSetAfterFork
-  - libpqsrv_disconnect
-  - libpqsrv_connect_internal
+  - [XLogFileClose](../X/XLogFileClose.md) (WAL file operations)
+  - [ClosePostmasterPorts](../C/ClosePostmasterPorts.md)
+  - [dsm_impl_posix](../d/dsm_impl_posix.md) (shared memory operations)
+  - [InitializeLatchSupport](../I/InitializeLatchSupport.md)
+  - [CreateWaitEventSet](../C/CreateWaitEventSet.md)
+  - [FreeWaitEventSet](../F/FreeWaitEventSet.md)
+  - [FreeWaitEventSetAfterFork](../F/FreeWaitEventSetAfterFork.md)
+  - [libpqsrv_disconnect](../l/libpqsrv_disconnect.md)
+  - [libpqsrv_connect_internal](../l/libpqsrv_connect_internal.md)
 
 ## Notes and Other Information
 - Guaranteed not to change errno, making it safe for use in failure paths

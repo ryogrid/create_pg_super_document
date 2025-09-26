@@ -63,7 +63,7 @@ This function serves as the primary interface for the CREATE EXTENSION SQL comma
   - [defGetBoolean](../d/defGetBoolean.md)
   - [CreateExtensionInternal](CreateExtensionInternal.md)
 - Types referenced:
-  - CreateExtensionStmt
+  - [CreateExtensionStmt](CreateExtensionStmt.md)
   - [DefElem](../D/DefElem.md)
 - Called from (representative examples):
   - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md)

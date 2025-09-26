@@ -21,7 +21,7 @@ This function is a core component of PostgreSQL's error reporting infrastructure
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ErrorData (struct type for error information)
+  - [ErrorData](../E/ErrorData.md) (struct type for error information)
   - CHECK_STACK_DEPTH (macro for stack depth validation)
   - EVALUATE_MESSAGE (macro for message processing and formatting)
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (memory context management)

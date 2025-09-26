@@ -33,10 +33,10 @@ The function supports three modes:
   - SxactIsRolledBack
   - SxactIsCommitted
   - SxactIsOnFinishedList
-  - LWLockHeldByMe
-  - LWLockAcquire
-  - LWLockRelease
-  - IsInParallelMode
+  - [LWLockHeldByMe](../L/LWLockHeldByMe.md)
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
+  - [IsInParallelMode](../I/IsInParallelMode.md)
   - dlist_foreach_modify
   - dlist_container
   - PredicateLockTargetTagHashCode
@@ -49,7 +49,7 @@ The function supports three modes:
   - [ReleasePredXact](ReleasePredXact.md)
 - Called from:
   - [SerialControl](../S/SerialControl.md)
-  - SummarizeOldestCommittedSxact
+  - [SummarizeOldestCommittedSxact](../S/SummarizeOldestCommittedSxact.md)
   - [ReleasePredicateLocks](ReleasePredicateLocks.md)
   - [ClearOldPredicateLocks](../C/ClearOldPredicateLocks.md)
 

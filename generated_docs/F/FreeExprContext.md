@@ -25,13 +25,13 @@ An important consequence of this function is that any previously computed pass-b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ShutdownExprContext (executes registered shutdown callbacks)
-  - MemoryContextDelete (frees the per-tuple memory context)
-  - list_delete_ptr (removes context from EState's context list)
-  - pfree (frees the ExprContext node memory)
+  - [ShutdownExprContext](../S/ShutdownExprContext.md) (executes registered shutdown callbacks)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md) (frees the per-tuple memory context)
+  - [list_delete_ptr](../l/list_delete_ptr.md) (removes context from EState's context list)
+  - [pfree](../p/pfree.md) (frees the ExprContext node memory)
 
 - Called from (representative examples):
-  - FreeExecutorState (in src/backend/executor/execUtils.c:203)
+  - [FreeExecutorState](FreeExecutorState.md) (in src/backend/executor/execUtils.c:203)
   - do_text_output_oneline (via inline in src/include/executor/executor.h:542)
 
 ## Notes and Other Information

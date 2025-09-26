@@ -23,17 +23,17 @@ PageIsVerifiedExtended performs comprehensive validation of a PostgreSQL page th
 ## Dependencies
 - Functions called/Symbols referenced:
   - PageHeader (type cast)
-  - PageIsNew (checks if page is all zeros)
-  - DataChecksumsEnabled (checks if checksums are enabled)
-  - pg_checksum_page (calculates page checksum)
-  - pgstat_report_checksum_failure (reports checksum failures to stats)
+  - [PageIsNew](PageIsNew.md) (checks if page is all zeros)
+  - [DataChecksumsEnabled](../D/DataChecksumsEnabled.md) (checks if checksums are enabled)
+  - [pg_checksum_page](../p/pg_checksum_page.md) (calculates page checksum)
+  - [pgstat_report_checksum_failure](../p/pgstat_report_checksum_failure.md) (reports checksum failures to stats)
   - PD_VALID_FLAG_BITS (valid page flag bits constant)
   - PIV_LOG_WARNING (flag for logging warnings)
   - PIV_REPORT_STAT (flag for reporting to statistics)
   - ERRCODE_DATA_CORRUPTED (error code constant)
 - Called from (representative examples):
-  - RelationCopyStorage (storage copy operations)
-  - WaitReadBuffers (buffer manager read operations)
+  - [RelationCopyStorage](../R/RelationCopyStorage.md) (storage copy operations)
+  - [WaitReadBuffers](../W/WaitReadBuffers.md) (buffer manager read operations)
   - PageIsVerified (inline wrapper function)
 
 ## Notes and Other Information

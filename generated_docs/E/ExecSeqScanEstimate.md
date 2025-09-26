@@ -28,7 +28,7 @@ This function is part of PostgreSQL's parallel scan support infrastructure. It e
   - [ParallelContext](../P/ParallelContext.md)
   - [EState](EState.md)
 - Called from (representative examples):
-  - ExecParallelEstimate (in execParallel.c)
+  - [ExecParallelEstimate](ExecParallelEstimate.md) (in execParallel.c)
 
 ## Notes and Other Information
 - This function is part of the parallel scan support infrastructure in PostgreSQL

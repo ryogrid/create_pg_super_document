@@ -23,7 +23,7 @@ The comparison uses the FullTransactionIdPrecedes() function to determine the or
 ## Dependencies
 - Functions called/Symbols referenced:
   - FullTransactionIdPrecedes
-  - FullTransactionId (type)
+  - [FullTransactionId](../F/FullTransactionId.md) (type)
 - Called from (representative examples):
   - [sort_snapshot](../s/sort_snapshot.md) (for qsort operations)
   - [is_visible_fxid](../i/is_visible_fxid.md) (for bsearch operations)

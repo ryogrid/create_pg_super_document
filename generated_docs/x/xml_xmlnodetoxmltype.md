@@ -20,10 +20,10 @@ This function converts libxml2 xmlNodePtr objects to PostgreSQL's internal xmlty
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - xml_ereport
+  - [xml_ereport](xml_ereport.md)
   - [xmlBuffer_to_xmltype](xmlBuffer_to_xmltype.md)
   - [escape_xml](../e/escape_xml.md)
-  - cstring_to_text
+  - [cstring_to_text](../c/cstring_to_text.md)
   - PG_TRY/PG_FINALLY/PG_END_TRY (PostgreSQL exception handling)
   - xmlBufferCreate, xmlCopyNode, xmlNodeDump, xmlXPathCastNodeToString (libxml2 functions)
 - Called from (representative examples):

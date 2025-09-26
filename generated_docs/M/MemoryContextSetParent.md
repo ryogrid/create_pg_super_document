@@ -32,17 +32,17 @@ The function is designed to not fail under normal circumstances and avoids elog(
 - Functions called/Symbols referenced:
   - MemoryContextIsValid (validation function)
 - Called from (representative examples):
-  - RelationBuildRowSecurity
-  - SPI_keepplan
-  - _SPI_save_plan
-  - RelationBuildPartitionDesc
-  - UploadManifest
-  - exec_parse_message
-  - TransferExpandedObject
-  - RE_compile_and_cache
-  - CompleteCachedPlan
-  - SaveCachedPlan
-  - CachedPlanSetParentContext
+  - [RelationBuildRowSecurity](../R/RelationBuildRowSecurity.md)
+  - [SPI_keepplan](../S/SPI_keepplan.md)
+  - [_SPI_save_plan](../S/_SPI_save_plan.md)
+  - [RelationBuildPartitionDesc](../R/RelationBuildPartitionDesc.md)
+  - [UploadManifest](../U/UploadManifest.md)
+  - [exec_parse_message](../e/exec_parse_message.md)
+  - [TransferExpandedObject](../T/TransferExpandedObject.md)
+  - [RE_compile_and_cache](../R/RE_compile_and_cache.md)
+  - [CompleteCachedPlan](../C/CompleteCachedPlan.md)
+  - [SaveCachedPlan](../S/SaveCachedPlan.md)
+  - [CachedPlanSetParentContext](../C/CachedPlanSetParentContext.md)
 
 ## Notes and Other Information
 - Designed to not fail under normal operation - no elog(ERROR) calls

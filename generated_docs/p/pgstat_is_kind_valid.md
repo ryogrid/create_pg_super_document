@@ -19,11 +19,11 @@ This inline utility function provides a simple bounds check to determine if an i
 - Functions called/Symbols referenced:
   - PGSTAT_KIND_FIRST_VALID
   - PGSTAT_KIND_LAST
-  - PgStat_KindInfo
+  - [PgStat_KindInfo](../P/PgStat_KindInfo.md)
 - Called from (representative examples):
-  - pgstat_snapshot_fixed (src/backend/utils/activity/pgstat.c:942)
-  - pgstat_get_kind_info (src/backend/utils/activity/pgstat.c:1267)
-  - pgstat_read_statsfile (src/backend/utils/activity/pgstat.c:1600, 1614)
+  - [pgstat_snapshot_fixed](pgstat_snapshot_fixed.md) (src/backend/utils/activity/pgstat.c:942)
+  - [pgstat_get_kind_info](pgstat_get_kind_info.md) (src/backend/utils/activity/pgstat.c:1267)
+  - [pgstat_read_statsfile](pgstat_read_statsfile.md) (src/backend/utils/activity/pgstat.c:1600, 1614)
 
 ## Notes and Other Information
 - Returns true if the kind value is within the valid range, false otherwise

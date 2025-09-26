@@ -25,21 +25,21 @@ The "public" pseudo-role is a fundamental concept in PostgreSQL's permission sys
 ## Dependencies
 - Functions called/Symbols referenced:
   - ACL_ID_PUBLIC (constant representing the public pseudo-role OID)
-  - get_role_oid (underlying role lookup function)
+  - [get_role_oid](get_role_oid.md) (underlying role lookup function)
   - strcmp (standard C string comparison)
 - Called from (representative examples):
-  - has_table_privilege_name_name (table privilege checking)
-  - has_sequence_privilege_name_name (sequence privilege checking)  
-  - has_any_column_privilege_name_name (column privilege checking)
-  - has_database_privilege_name_name (database privilege checking)
-  - has_foreign_data_wrapper_privilege_name_name (FDW privilege checking)
-  - has_function_privilege_name_name (function privilege checking)
-  - has_language_privilege_name_name (language privilege checking)
-  - has_schema_privilege_name_name (schema privilege checking)
-  - has_server_privilege_name_name (server privilege checking)
-  - has_tablespace_privilege_name_name (tablespace privilege checking)
-  - has_type_privilege_name_name (type privilege checking)
-  - has_parameter_privilege_name_name (parameter privilege checking)
+  - [has_table_privilege_name_name](../h/has_table_privilege_name_name.md) (table privilege checking)
+  - [has_sequence_privilege_name_name](../h/has_sequence_privilege_name_name.md) (sequence privilege checking)  
+  - [has_any_column_privilege_name_name](../h/has_any_column_privilege_name_name.md) (column privilege checking)
+  - [has_database_privilege_name_name](../h/has_database_privilege_name_name.md) (database privilege checking)
+  - [has_foreign_data_wrapper_privilege_name_name](../h/has_foreign_data_wrapper_privilege_name_name.md) (FDW privilege checking)
+  - [has_function_privilege_name_name](../h/has_function_privilege_name_name.md) (function privilege checking)
+  - [has_language_privilege_name_name](../h/has_language_privilege_name_name.md) (language privilege checking)
+  - [has_schema_privilege_name_name](../h/has_schema_privilege_name_name.md) (schema privilege checking)
+  - [has_server_privilege_name_name](../h/has_server_privilege_name_name.md) (server privilege checking)
+  - [has_tablespace_privilege_name_name](../h/has_tablespace_privilege_name_name.md) (tablespace privilege checking)
+  - [has_type_privilege_name_name](../h/has_type_privilege_name_name.md) (type privilege checking)
+  - [has_parameter_privilege_name_name](../h/has_parameter_privilege_name_name.md) (parameter privilege checking)
 
 ## Notes and Other Information
 - The "public" string comparison is case-sensitive

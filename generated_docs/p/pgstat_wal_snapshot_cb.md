@@ -23,10 +23,10 @@ The function is part of PostgreSQL's statistics collection framework and provide
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PgStatShared_Wal](../P/PgStatShared_Wal.md) (structure type)
-  - LWLockAcquire (for shared lock acquisition)
+  - [LWLockAcquire](../L/LWLockAcquire.md) (for shared lock acquisition)
   - LW_SHARED (lock mode constant)
   - memcpy (for copying statistics data)
-  - LWLockRelease (for lock release)
+  - [LWLockRelease](../L/LWLockRelease.md) (for lock release)
   - pgStatLocal.shmem->wal (shared memory statistics source)
   - pgStatLocal.snapshot.wal (local snapshot destination)
 

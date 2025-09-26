@@ -23,9 +23,9 @@ The function operates by taking the scan tuple slot from the provided ScanState 
 ## Dependencies
 - Functions called/Symbols referenced:
   - ExecSetSlotDescriptor
-  - ScanState (struct type)
+  - [ScanState](../S/ScanState.md) (struct type)
 - Called from (representative examples):
-  - ExecWorkTableScan
+  - [ExecWorkTableScan](ExecWorkTableScan.md)
   - ResetPerTupleExprContext
 
 ## Notes and Other Information

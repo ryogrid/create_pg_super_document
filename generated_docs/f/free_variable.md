@@ -19,7 +19,7 @@ The `free_variable` function iterates through a linked list of `variable` struct
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ecpg_free
+  - [ecpg_free](../e/ecpg_free.md)
 - Called from (representative examples):
   - [free_statement](free_statement.md) (multiple locations)
 

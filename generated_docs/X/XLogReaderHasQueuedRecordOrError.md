@@ -37,9 +37,9 @@ This optimization is particularly important for:
 - Functions called/Symbols referenced:
   - None (accesses struct fields directly)
 - Called from (representative examples):
-  - XLogPrefetcherNextBlock (src/backend/access/transam/xlogprefetcher.c:486)
-  - XLogPrefetcherReadRecord (src/backend/access/transam/xlogprefetcher.c:1043)
-  - XLogReadRecord (src/backend/access/transam/xlogreader.c:403)
+  - [XLogPrefetcherNextBlock](XLogPrefetcherNextBlock.md) (src/backend/access/transam/xlogprefetcher.c:486)
+  - [XLogPrefetcherReadRecord](XLogPrefetcherReadRecord.md) (src/backend/access/transam/xlogprefetcher.c:1043)
+  - [XLogReadRecord](XLogReadRecord.md) (src/backend/access/transam/xlogreader.c:403)
 
 ## Notes and Other Information
 - This is a static inline function defined in the header file for performance reasons, as it performs only simple field access operations

@@ -19,13 +19,13 @@ DatumGetIntervalP is an inline function that extracts a pointer to an Interval s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetPointer (implied, though not explicitly shown in references)
+  - [DatumGetPointer](DatumGetPointer.md) (implied, though not explicitly shown in references)
   - Interval (pointer type cast)
 - Called from (representative examples):
-  - check_timezone
-  - convert_timevalue_to_scalar
-  - timestamp_mi
-  - in_range_interval_interval
+  - [check_timezone](../c/check_timezone.md)
+  - [convert_timevalue_to_scalar](../c/convert_timevalue_to_scalar.md)
+  - [timestamp_mi](../t/timestamp_mi.md)
+  - [in_range_interval_interval](../i/in_range_interval_interval.md)
   - PG_GETARG_INTERVAL_P (macro)
 
 ## Notes and Other Information

@@ -35,8 +35,8 @@ The function is called as part of PostgreSQL's identifier normalization pipeline
 - Called from (representative examples):
   - [base_yylex](../b/base_yylex.md) (lexical analyzer in parser)
   - [downcase_identifier](../d/downcase_identifier.md) (identifier case conversion)
-  - SplitIdentifierString (identifier parsing utilities)
-  - parse_and_validate_value (configuration parameter processing)
+  - [SplitIdentifierString](../S/SplitIdentifierString.md) (identifier parsing utilities)
+  - [parse_and_validate_value](../p/parse_and_validate_value.md) (configuration parameter processing)
 
 ## Notes and Other Information
 - Modifies the input string in-place rather than allocating new memory

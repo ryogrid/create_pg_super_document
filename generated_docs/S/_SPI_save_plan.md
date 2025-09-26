@@ -24,18 +24,18 @@ The function ensures atomicity by performing all potentially failing operations 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SPIPlanPtr: Type definition for SPI plan pointers
+  - [SPIPlanPtr](SPIPlanPtr.md): Type definition for SPI plan pointers
   - AllocSetContextCreate: Creates temporary memory context for the copying process
   - ALLOCSET_SMALL_SIZES: Memory context size parameters for small allocations
-  - _SPI_plan: The actual SPIPlan structure type
+  - [_SPI_plan](_SPI_plan.md): The actual SPIPlan structure type
   - _SPI_PLAN_MAGIC: Magic number for plan validation
-  - CachedPlanSource: Structure representing cached execution plans
-  - CopyCachedPlan: Creates deep copies of cached plan sources
-  - MemoryContextSetParent: Reparents the plan context to CacheMemoryContext
-  - SaveCachedPlan: Marks cached plan sources as saved
+  - [CachedPlanSource](../C/CachedPlanSource.md): Structure representing cached execution plans
+  - [CopyCachedPlan](../C/CopyCachedPlan.md): Creates deep copies of cached plan sources
+  - [MemoryContextSetParent](../M/MemoryContextSetParent.md): Reparents the plan context to CacheMemoryContext
+  - [SaveCachedPlan](SaveCachedPlan.md): Marks cached plan sources as saved
   - EphemeralNamedRelation: Referenced in the same source region (context reference)
 - Called from (representative examples):
-  - SPI_saveplan: Public API function for saving SPI plans
+  - [SPI_saveplan](SPI_saveplan.md): Public API function for saving SPI plans
 
 ## Notes and Other Information
 - This is a static function internal to the SPI implementation, not part of the public SPI API

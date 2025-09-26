@@ -31,12 +31,12 @@ The function follows PostgreSQL's standard deparsing pattern:
   - [get_with_clause](get_with_clause.md)
   - rt_fetch  
   - only_marker
-  - generate_relation_name
-  - get_rte_alias
+  - [generate_relation_name](generate_relation_name.md)
+  - [get_rte_alias](get_rte_alias.md)
   - [get_update_query_targetlist_def](get_update_query_targetlist_def.md)
-  - get_from_clause
-  - appendContextKeyword
-  - get_rule_expr
+  - [get_from_clause](get_from_clause.md)
+  - [appendContextKeyword](../a/appendContextKeyword.md)
+  - [get_rule_expr](get_rule_expr.md)
   - [get_target_list](get_target_list.md)
 - Called from:
   - [get_query_def](get_query_def.md)

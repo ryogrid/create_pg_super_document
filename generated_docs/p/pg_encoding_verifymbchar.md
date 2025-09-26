@@ -39,7 +39,7 @@ The verification follows these rules:
   - Multiple Japanese encoding converters: `euc_jis_20042shift_jis_2004`, `shift_jis_20042euc_jis_2004`, etc.
   - Korean encoding converters: `euc_kr2mic`, `mic2euc_kr`
   - Chinese encoding converters: `euc_tw2big5`, `big52euc_tw`, etc.
-  - String utilities: `fmtIdEnc`, `appendStringLiteral`, `PQescapeStringInternal`
+  - [String](../S/String.md) utilities: `fmtIdEnc`, `appendStringLiteral`, `PQescapeStringInternal`
 
 ## Notes and Other Information
 - This function is defined in src/common/wchar.c:2189-2201

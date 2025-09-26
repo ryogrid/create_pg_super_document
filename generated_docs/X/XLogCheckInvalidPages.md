@@ -22,17 +22,17 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_seq_init
-  - hash_seq_search
-  - report_invalid_page
-  - hash_destroy
+  - [hash_seq_init](../h/hash_seq_init.md)
+  - [hash_seq_search](../h/hash_seq_search.md)
+  - [report_invalid_page](../r/report_invalid_page.md)
+  - [hash_destroy](../h/hash_destroy.md)
   - elog
 - Data structures used:
-  - HASH_SEQ_STATUS
-  - xl_invalid_page
+  - [HASH_SEQ_STATUS](../H/HASH_SEQ_STATUS.md)
+  - [xl_invalid_page](../x/xl_invalid_page.md)
   - invalid_page_tab (global hash table)
 - Called from:
-  - CheckRecoveryConsistency (src/backend/access/transam/xlogrecovery.c:2235)
+  - [CheckRecoveryConsistency](../C/CheckRecoveryConsistency.md) (src/backend/access/transam/xlogrecovery.c:2235)
 
 ## Notes and Other Information
 - The function uses a sequential scan approach to report all invalid pages before taking any fatal action

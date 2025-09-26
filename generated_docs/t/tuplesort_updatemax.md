@@ -23,12 +23,12 @@ The function implements a priority system where disk usage is considered more im
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LogicalTapeSetBlocks (gets number of disk blocks used by tape set)
+  - [LogicalTapeSetBlocks](../L/LogicalTapeSetBlocks.md) (gets number of disk blocks used by tape set)
   - BLCKSZ (PostgreSQL block size constant)
 
 - Called from (representative examples):
-  - tuplesort_reset (when resetting sort state statistics)
-  - tuplesort_get_stats (when gathering final statistics)
+  - [tuplesort_reset](tuplesort_reset.md) (when resetting sort state statistics)
+  - [tuplesort_get_stats](tuplesort_get_stats.md) (when gathering final statistics)
   - LEADER (in parallel sort leader context)
 
 ## Notes and Other Information

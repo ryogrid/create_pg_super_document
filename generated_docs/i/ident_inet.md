@@ -30,9 +30,9 @@ The function includes comprehensive error handling for network operations and pr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_getnameinfo_all (PostgreSQL network utilities)
-  - pg_getaddrinfo_all (PostgreSQL network utilities)  
-  - pg_freeaddrinfo_all (PostgreSQL network utilities)
+  - [pg_getnameinfo_all](../p/pg_getnameinfo_all.md) (PostgreSQL network utilities)
+  - [pg_getaddrinfo_all](../p/pg_getaddrinfo_all.md) (PostgreSQL network utilities)  
+  - [pg_freeaddrinfo_all](../p/pg_freeaddrinfo_all.md) (PostgreSQL network utilities)
   - socket/bind/connect/send/recv (socket API)
   - closesocket (socket cleanup)
   - [interpret_ident_response](interpret_ident_response.md)

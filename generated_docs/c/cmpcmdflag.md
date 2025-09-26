@@ -30,12 +30,12 @@ For numeric flags (FM_NUM), it performs integer comparison, while for character-
 - Functions called/Symbols referenced:
   - strcmp (standard C library function for string flags)
   - Assert (macro for validating matching flag modes)
-  - CompoundAffixFlag (structure type)
+  - [CompoundAffixFlag](../C/CompoundAffixFlag.md) (structure type)
   - FlagMode (enum type)
   - FM_NUM (flag mode constant for numeric flags)
 - Called from:
   - [getCompoundAffixFlagValue](../g/getCompoundAffixFlagValue.md) (src/backend/tsearch/spell.c:1145) - for binary search
-  - NIImportOOAffixes (src/backend/tsearch/spell.c:1292) - for sorting during dictionary import
+  - [NIImportOOAffixes](../N/NIImportOOAffixes.md) (src/backend/tsearch/spell.c:1292) - for sorting during dictionary import
 
 ## Notes and Other Information
 - This is a static function, accessible only within the spell.c compilation unit

@@ -32,14 +32,14 @@ The structure is particularly important for maintaining consistency and proper p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PlannedStmt - The planned statement structure containing execution plan details
-  - ParamListInfo - Parameter information framework for query parameters
-  - QueryEnvironment - Query execution environment container
+  - [PlannedStmt](../P/PlannedStmt.md) - The planned statement structure containing execution plan details
+  - [ParamListInfo](../P/ParamListInfo.md) - Parameter information framework for query parameters
+  - [QueryEnvironment](../Q/QueryEnvironment.md) - [Query](../Q/Query.md) execution environment container
 - Called from (representative examples):
-  - AlterTable - Main ALTER TABLE processing function
-  - ATController - ALTER TABLE controller managing the overall process
-  - ProcessUtilitySlow - Slow path utility statement processing
-  - ProcessUtilityForAlterTable - Specialized ALTER TABLE utility processing
+  - [AlterTable](AlterTable.md) - Main ALTER TABLE processing function
+  - [ATController](ATController.md) - ALTER TABLE controller managing the overall process
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) - Slow path utility statement processing
+  - [ProcessUtilityForAlterTable](../P/ProcessUtilityForAlterTable.md) - Specialized ALTER TABLE utility processing
   - Various AT* functions - Specific ALTER TABLE operation handlers
 
 ## Notes and Other Information

@@ -22,17 +22,17 @@ Large objects have their own privilege set (SELECT and UPDATE privileges) define
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open, table_close (with LargeObjectMetadataRelationId)
+  - [table_open](../t/table_open.md), table_close (with LargeObjectMetadataRelationId)
   - [ScanKeyInit](../S/ScanKeyInit.md), systable_beginscan, systable_getnext, systable_endscan
   - [heap_getattr](../h/heap_getattr.md), heap_modify_tuple
   - [acldefault](../a/acldefault.md), aclmembers (with OBJECT_LARGEOBJECT)
-  - select_best_grantor
+  - [select_best_grantor](../s/select_best_grantor.md)
   - [restrict_and_check_grant](../r/restrict_and_check_grant.md)
   - [merge_acl_with_grant](../m/merge_acl_with_grant.md)
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - [updateAclDependencies](../u/updateAclDependencies.md) (with LargeObjectRelationId)
   - [recordExtensionInitPriv](../r/recordExtensionInitPriv.md)
-  - CommandCounterIncrement
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md)
 - Called from:
   - [ExecGrantStmt_oids](ExecGrantStmt_oids.md) (when processing large object privileges)
 

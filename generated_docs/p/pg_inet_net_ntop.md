@@ -36,7 +36,7 @@ The function was authored by Paul Vixie (ISC) in October 1998 and is part of Pos
   - [network_host](../n/network_host.md)
   - [network_show](../n/network_show.md)
   - [inet_abbrev](../i/inet_abbrev.md)
-  - getHostaddr
+  - [getHostaddr](../g/getHostaddr.md)
   - [pq_verify_peer_name_matches_certificate_ip](pq_verify_peer_name_matches_certificate_ip.md)
 
 ## Notes and Other Information

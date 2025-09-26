@@ -24,7 +24,7 @@ The timestamp format follows the ISO-style pattern "YYYY-MM-DD HH:MM:SS TZ" whic
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strftime: PostgreSQL's timezone-aware strftime implementation
+  - [pg_strftime](../p/pg_strftime.md): PostgreSQL's timezone-aware strftime implementation
   - [pg_localtime](../p/pg_localtime.md): Converts timestamp to local time using specified timezone
   - log_timezone: Global variable containing the timezone for log messages
 

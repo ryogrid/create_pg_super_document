@@ -36,14 +36,14 @@ The function handles different query types and execution modes, setting appropri
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecCheckPermissions](../E/ExecCheckPermissions.md)
-  - ExecInitRangeTable
+  - [ExecInitRangeTable](../E/ExecInitRangeTable.md)
   - [ExecGetRangeTableRelation](../E/ExecGetRangeTableRelation.md)
   - [ExecInitNode](../E/ExecInitNode.md)
   - [ExecGetResultType](../E/ExecGetResultType.md)
   - [ExecInitExtraTupleSlot](../E/ExecInitExtraTupleSlot.md)
-  - ExecInitJunkFilter
+  - [ExecInitJunkFilter](../E/ExecInitJunkFilter.md)
   - [CheckValidRowMarkRel](../C/CheckValidRowMarkRel.md)
-  - exec_rt_fetch
+  - [exec_rt_fetch](../e/exec_rt_fetch.md)
   - [bms_is_member](../b/bms_is_member.md)
 - Called from (representative examples):
   - [standard_ExecutorStart](../s/standard_ExecutorStart.md)

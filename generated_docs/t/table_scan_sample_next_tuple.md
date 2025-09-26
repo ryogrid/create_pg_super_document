@@ -33,10 +33,10 @@ The function operates under the same preconditions as other tuple-fetching funct
   - `bsysscan`: System catalog scan indicator
   - `elog`: Error logging mechanism
   - `scan->rs_rd->rd_tableam->scan_sample_next_tuple`: Table access method implementation
-  - `TsmRoutine->NextSampleTuple`: Sampling method callback (mentioned in comments)
+  - `[TsmRoutine](../T/TsmRoutine.md)->NextSampleTuple`: Sampling method callback (mentioned in comments)
 
 - Called from (representative examples):
-  - `tablesample_getnext`: Main sample scan executor function
+  - `[tablesample_getnext](tablesample_getnext.md)`: Main sample scan executor function
 
 ## Notes and Other Information
 - Must be called after `table_scan_sample_next_block()` has successfully selected a block

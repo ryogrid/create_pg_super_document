@@ -20,7 +20,7 @@ PQcancelErrorMessage returns the error message associated with the most recent o
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQerrorMessage](PQerrorMessage.md)
-  - PGcancelConn (type)
+  - [PGcancelConn](PGcancelConn.md) (type)
 - Called from (representative examples):
   - [test_cancel](../t/test_cancel.md) (multiple instances in libpq_pipeline test module)
   - [libpqsrv_cancel](../l/libpqsrv_cancel.md) (libpq backend-frontend helpers)

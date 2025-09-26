@@ -29,7 +29,7 @@ The function is version-aware, handling differences between PostgreSQL versions:
   - [executeQuery](../e/executeQuery.md) (execute SQL queries against the database)
   - [PQgetisnull](../P/PQgetisnull.md), PQgetvalue (handle result set data and NULL values)
   - pg_log_warning, pg_log_error (log diagnostic messages)
-  - pg_malloc0, pg_free (memory management for tracking arrays)
+  - [pg_malloc0](../p/pg_malloc0.md), pg_free (memory management for tracking arrays)
   - [PQfinish](../P/PQfinish.md), exit_nicely (error handling and cleanup)
   - atooid (convert string OID to numeric OID type)
   - [resetPQExpBuffer](../r/resetPQExpBuffer.md), destroyPQExpBuffer (manage query buffers)

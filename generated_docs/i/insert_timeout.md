@@ -22,11 +22,11 @@ The function maintains the ordered structure of the active timeouts array by shi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TimeoutId (data type)
+  - [TimeoutId](../T/TimeoutId.md) (data type)
   - elog (for error reporting)
   - Assert (for debugging assertions)
 - Called from (representative examples):
-  - enable_timeout
+  - [enable_timeout](../e/enable_timeout.md)
 
 ## Notes and Other Information
 - This is a static function internal to the timeout.c module

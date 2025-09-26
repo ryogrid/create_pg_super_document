@@ -19,8 +19,8 @@ This function implements the CREATE SERVER SQL command by creating a new foreign
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreateForeignServerStmt
-  - AclResult
+  - [CreateForeignServerStmt](CreateForeignServerStmt.md)
+  - [AclResult](../A/AclResult.md)
   - [ForeignDataWrapper](../F/ForeignDataWrapper.md)
   - [get_foreign_server_oid](../g/get_foreign_server_oid.md)
   - ObjectAddressSet
@@ -29,7 +29,7 @@ This function implements the CREATE SERVER SQL command by creating a new foreign
   - [object_aclcheck](../o/object_aclcheck.md)
   - [aclcheck_error](../a/aclcheck_error.md)
   - [GetNewOidWithIndex](../G/GetNewOidWithIndex.md)
-  - namein
+  - [namein](../n/namein.md)
   - DirectFunctionCall1
   - [CStringGetDatum](CStringGetDatum.md)
   - [transformGenericOptions](../t/transformGenericOptions.md)

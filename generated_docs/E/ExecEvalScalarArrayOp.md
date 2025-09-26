@@ -30,13 +30,13 @@ The comparison operator is invoked via function call protocol, with the scalar a
 ## Dependencies
 - Functions called/Symbols referenced:
   - DatumGetArrayTypeP: Detoasts and extracts ArrayType from input Datum
-  - ArrayGetNItems: Calculates total number of elements in the array
+  - [ArrayGetNItems](../A/ArrayGetNItems.md): Calculates total number of elements in the array
   - ARR_NDIM/ARR_DIMS: Macros for accessing array dimensions
   - ARR_ELEMTYPE: Macro for getting array element type OID
   - [get_typlenbyvalalign](../g/get_typlenbyvalalign.md): Retrieves type information for array elements
   - ARR_DATA_PTR: Gets pointer to array data storage
   - ARR_NULLBITMAP: Gets pointer to array's NULL bitmap
-  - fetch_att: Extracts individual array element values
+  - [fetch_att](../f/fetch_att.md): Extracts individual array element values
   - att_addlength_pointer/att_align_nominal: Navigate through array storage
   - [BoolGetDatum](../B/BoolGetDatum.md)/DatumGetBool: Convert between boolean values and Datums
 - Called from (representative examples):

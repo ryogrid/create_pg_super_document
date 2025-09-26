@@ -23,12 +23,12 @@ This function provides a view of all WAL summary files currently available in th
   - [InitMaterializedSRF](../I/InitMaterializedSRF.md) (initializes set-returning function)
   - [GetWalSummaries](../G/GetWalSummaries.md) (retrieves list of WAL summary files)
   - [Int64GetDatum](../I/Int64GetDatum.md) (converts int64 to Datum)
-  - LSNGetDatum (converts XLogRecPtr to Datum)
+  - [LSNGetDatum](../L/LSNGetDatum.md) (converts XLogRecPtr to Datum)
   - [heap_form_tuple](../h/heap_form_tuple.md) (creates heap tuple)
-  - tuplestore_puttuple (stores tuple in result set)
+  - [tuplestore_puttuple](../t/tuplestore_puttuple.md) (stores tuple in result set)
 - Data types/structures used:
-  - ReturnSetInfo (set-returning function metadata)
-  - WalSummaryFile (WAL summary file information structure)
+  - [ReturnSetInfo](../R/ReturnSetInfo.md) (set-returning function metadata)
+  - [WalSummaryFile](../W/WalSummaryFile.md) (WAL summary file information structure)
   - NUM_WS_ATTS (constant defining number of attributes = 3)
 - Called from:
   - Available as SQL system function (no direct code references found)

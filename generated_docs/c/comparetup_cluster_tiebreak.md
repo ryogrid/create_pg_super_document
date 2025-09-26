@@ -28,18 +28,18 @@ The function also handles abbreviation comparators for the leading sort key when
 ## Dependencies
 - Functions called/Symbols referenced:
   - TuplesortstateGetPublic
-  - heap_getattr
-  - ApplySortAbbrevFullComparator
-  - ApplySortComparator
+  - [heap_getattr](../h/heap_getattr.md)
+  - [ApplySortAbbrevFullComparator](../A/ApplySortAbbrevFullComparator.md)
+  - [ApplySortComparator](../A/ApplySortComparator.md)
   - ResetPerTupleExprContext
   - GetPerTupleExprContext
-  - ExecStoreHeapTuple
-  - FormIndexDatum
+  - [ExecStoreHeapTuple](../E/ExecStoreHeapTuple.md)
+  - [FormIndexDatum](../F/FormIndexDatum.md)
   - INDEX_MAX_KEYS
   - TuplesortClusterArg
 - Called from (representative examples):
-  - comparetup_cluster
-  - tuplesort_begin_cluster
+  - [comparetup_cluster](comparetup_cluster.md)
+  - [tuplesort_begin_cluster](../t/tuplesort_begin_cluster.md)
   - CLUSTER_SORT operations
 
 ## Notes and Other Information

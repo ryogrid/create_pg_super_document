@@ -24,7 +24,7 @@ The function is responsible for memory management of the ReorderTuple structure 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pairingheap_remove_first
+  - [pairingheap_remove_first](../p/pairingheap_remove_first.md)
   - [pfree](../p/pfree.md)
   - [DatumGetPointer](../D/DatumGetPointer.md)
   - ReorderTuple (struct)

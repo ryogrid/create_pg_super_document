@@ -35,7 +35,7 @@ CollateClause is a parse tree node that represents collation specifications in S
   - [transformExprRecurse](../t/transformExprRecurse.md)
   - [FigureColnameInternal](../F/FigureColnameInternal.md)
   - [ColumnDef](ColumnDef.md) (in column definitions)
-  - CreateDomainStmt (in domain definitions)
+  - [CreateDomainStmt](CreateDomainStmt.md) (in domain definitions)
 
 ## Notes and Other Information
 - [CollateClause](CollateClause.md) nodes are transformed during analysis to apply the specified collation to expressions

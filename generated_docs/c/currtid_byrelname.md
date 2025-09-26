@@ -33,10 +33,10 @@ The function handles the complete lifecycle of the operation including:
   - PG_GETARG_TEXT_PP
   - PG_GETARG_ITEMPOINTER
   - [makeRangeVarFromNameList](../m/makeRangeVarFromNameList.md)
-  - textToQualifiedNameList
-  - table_openrv
+  - [textToQualifiedNameList](../t/textToQualifiedNameList.md)
+  - [table_openrv](../t/table_openrv.md)
   - [currtid_internal](currtid_internal.md)
-  - table_close
+  - [table_close](../t/table_close.md)
   - PG_RETURN_ITEMPOINTER
 - Called from (representative examples):
   - SQL queries and applications (no direct C code references found)

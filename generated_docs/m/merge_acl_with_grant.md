@@ -36,7 +36,7 @@ This static function performs the core ACL modification logic for PostgreSQL's G
   - lfirst_oid
   - ereport
 - Types used:
-  - Acl
+  - [Acl](../A/Acl.md)
   - AclItem
   - AclMode
   - DropBehavior

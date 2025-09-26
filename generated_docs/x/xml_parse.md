@@ -38,21 +38,21 @@ The function first extracts and validates any XML declaration, then determines t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - xml_text2xmlChar (convert PostgreSQL text to xmlChar string)
-  - pg_do_encoding_conversion (convert text encoding to UTF-8)
-  - pg_xml_init (initialize XML error context and libxml2)
-  - parse_xml_decl (parse and validate XML declaration)
-  - xml_doctype_in_content (detect DTD in CONTENT mode)
+  - [xml_text2xmlChar](xml_text2xmlChar.md) (convert PostgreSQL text to xmlChar string)
+  - [pg_do_encoding_conversion](../p/pg_do_encoding_conversion.md) (convert text encoding to UTF-8)
+  - [pg_xml_init](../p/pg_xml_init.md) (initialize XML error context and libxml2)
+  - [parse_xml_decl](../p/parse_xml_decl.md) (parse and validate XML declaration)
+  - [xml_doctype_in_content](xml_doctype_in_content.md) (detect DTD in CONTENT mode)
   - xmlNewParserCtxt, xmlCtxtReadDoc (libxml2 document parsing)
   - xmlParseBalancedChunkMemory (libxml2 fragment parsing)
-  - xml_ereport, xml_errsave, errsave (PostgreSQL error reporting)
-  - pg_xml_done (cleanup XML error context)
+  - [xml_ereport](xml_ereport.md), xml_errsave, errsave (PostgreSQL error reporting)
+  - [pg_xml_done](../p/pg_xml_done.md) (cleanup XML error context)
 - Called from (representative examples):
-  - xml_in (XML input function)
-  - xml_recv (XML binary input function)
-  - xmlparse (SQL/XML XMLPARSE function)
-  - xml_is_document (XML validation function)
-  - wellformed_xml (XML well-formedness checking)
+  - [xml_in](xml_in.md) (XML input function)
+  - [xml_recv](xml_recv.md) (XML binary input function)
+  - [xmlparse](xmlparse.md) (SQL/XML XMLPARSE function)
+  - [xml_is_document](xml_is_document.md) (XML validation function)
+  - [wellformed_xml](../w/wellformed_xml.md) (XML well-formedness checking)
 
 ## Notes and Other Information
 - Returns xmlDocPtr on success, NULL on soft error (caller must check SOFT_ERROR_OCCURRED())

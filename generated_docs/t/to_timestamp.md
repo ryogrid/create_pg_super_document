@@ -30,7 +30,7 @@ The final step converts the broken-down components into PostgreSQL's internal ti
   - PG_GETARG_TEXT_PP
   - PG_GET_COLLATION  
   - [do_to_timestamp](../d/do_to_timestamp.md) (core parsing engine)
-  - DetermineTimeZoneOffset
+  - [DetermineTimeZoneOffset](../D/DetermineTimeZoneOffset.md)
   - [tm2timestamp](tm2timestamp.md) (converts broken-down time to timestamp)
   - [AdjustTimestampForTypmod](../A/AdjustTimestampForTypmod.md) (applies fractional precision)
   - PG_RETURN_TIMESTAMP
@@ -46,4 +46,4 @@ The final step converts the broken-down components into PostgreSQL's internal ti
 - Part of PostgreSQL's public SQL function interface, accessible via SQL to_timestamp() calls
 - Uses session_timezone as fallback when no timezone specified in input
 - Precision adjustment ensures output matches expected timestamp typmod specifications
-- Complex parsing logic handled by do_to_timestamp() enables flexible input format support
+- [Complex](../C/Complex.md) parsing logic handled by do_to_timestamp() enables flexible input format support

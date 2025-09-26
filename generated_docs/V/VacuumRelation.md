@@ -28,13 +28,13 @@ VacuumRelation encapsulates the target information for VACUUM and ANALYZE comman
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RangeVar (for table name specification)
+  - [RangeVar](../R/RangeVar.md) (for table name specification)
 - Called from (representative examples):
-  - ExecVacuum
-  - vacuum
-  - expand_vacuum_rel
-  - makeVacuumRelation
-  - autovacuum_do_vac_analyze
+  - [ExecVacuum](../E/ExecVacuum.md)
+  - [vacuum](../v/vacuum.md)
+  - [expand_vacuum_rel](../e/expand_vacuum_rel.md)
+  - [makeVacuumRelation](../m/makeVacuumRelation.md)
+  - [autovacuum_do_vac_analyze](../a/autovacuum_do_vac_analyze.md)
 
 ## Notes and Other Information
 - This structure is part of the parse node hierarchy and inherits from Node

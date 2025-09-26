@@ -33,10 +33,10 @@ This simplified approach makes the function significantly faster than Transactio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TransactionIdPrecedes (for age-based quick rejection)
+  - [TransactionIdPrecedes](TransactionIdPrecedes.md) (for age-based quick rejection)
   - TransactionIdEquals (for exact XID matching)
   - UINT32_ACCESS_ONCE (for atomic XID access)
-  - ProcArrayStruct (access to process array structure)
+  - [ProcArrayStruct](../P/ProcArrayStruct.md) (access to process array structure)
 - Called from:
   - Currently only referenced in header file, suggesting limited specialized usage
 

@@ -39,10 +39,10 @@ The structure uses a flexible array member for the lexeme text, allowing for var
 - Functions called/Symbols referenced:
   - FLEXIBLE_ARRAY_MEMBER (macro for variable-length arrays)
 - Called from (representative examples):
-  - insertStatEntry (creates and populates new StatEntry nodes)
-  - walkStatEntryTree (traverses the binary tree of StatEntry nodes)
-  - ts_setup_firstcall (initializes traversal stack for StatEntry tree)
-  - ts_process_call (processes StatEntry nodes during result generation)
+  - [insertStatEntry](../i/insertStatEntry.md) (creates and populates new StatEntry nodes)
+  - [walkStatEntryTree](../w/walkStatEntryTree.md) (traverses the binary tree of StatEntry nodes)
+  - [ts_setup_firstcall](../t/ts_setup_firstcall.md) (initializes traversal stack for StatEntry tree)
+  - [ts_process_call](../t/ts_process_call.md) (processes StatEntry nodes during result generation)
 
 ## Notes and Other Information
 - The binary tree structure enables efficient alphabetical ordering and retrieval of lexeme statistics

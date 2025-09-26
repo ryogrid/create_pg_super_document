@@ -27,10 +27,10 @@ The function supports both exception-throwing mode (when escontext is NULL) and 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_USED_FOR_ASSERTS_ONLY (compiler annotation macro)
-  - pg_add_s32_overflow (safe arithmetic function)
+  - [pg_add_s32_overflow](../p/pg_add_s32_overflow.md) (safe arithmetic function)
   - ereturn (error handling macro)
 - Called from (representative examples):
-  - ArrayCheckBounds
+  - [ArrayCheckBounds](ArrayCheckBounds.md)
   - AARR_LBOUND (array header macro)
 
 ## Notes and Other Information

@@ -37,7 +37,7 @@ The function returns true if invalidation succeeded (buffer can be reused) or fa
   - [BufferDescriptorGetBuffer](../B/BufferDescriptorGetBuffer.md)
   - [BufTableHashCode](../B/BufTableHashCode.md)
   - [BufMappingPartitionLock](../B/BufMappingPartitionLock.md)
-  - LockBufHdr
+  - [LockBufHdr](../L/LockBufHdr.md)
   - [UnlockBufHdr](../U/UnlockBufHdr.md)
   - [BufferTagsEqual](../B/BufferTagsEqual.md)
   - [ClearBufferTag](../C/ClearBufferTag.md)

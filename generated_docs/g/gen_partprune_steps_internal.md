@@ -47,7 +47,7 @@ For BoolExpr clauses, it processes arguments recursively: OR expressions use UNI
   - bms_is_empty
   - [bms_num_members](../b/bms_num_members.md)
   - [list_concat](../l/list_concat.md)
-  - lappend_int
+  - [lappend_int](../l/lappend_int.md)
   - llast
 - Called from (representative examples):
   - [gen_partprune_steps](gen_partprune_steps.md) (partprune.c:736)

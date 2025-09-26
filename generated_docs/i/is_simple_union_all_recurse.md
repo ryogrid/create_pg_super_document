@@ -31,11 +31,11 @@ The function includes stack overflow protection since it can recurse deeply on c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth
-  - RangeTblRef
+  - [check_stack_depth](../c/check_stack_depth.md)
+  - [RangeTblRef](../R/RangeTblRef.md)
   - rt_fetch
   - [tlist_same_datatypes](../t/tlist_same_datatypes.md)
-  - SetOperationStmt
+  - [SetOperationStmt](../S/SetOperationStmt.md)
   - SETOP_UNION
   - nodeTag
   - [is_simple_union_all_recurse](is_simple_union_all_recurse.md) (recursive calls)

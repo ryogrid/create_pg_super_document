@@ -29,14 +29,14 @@ The action field contains a GrantStmt structure but with its objects list set to
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (parse tree node identification)
-  - List (PostgreSQL list data structure)
-  - GrantStmt (grant/revoke statement structure)
-  - DefElem (definition element for options)
+  - [List](../L/List.md) (PostgreSQL list data structure)
+  - [GrantStmt](../G/GrantStmt.md) (grant/revoke statement structure)
+  - [DefElem](../D/DefElem.md) (definition element for options)
 
 - Called from (representative examples):
-  - ExecAlterDefaultPrivilegesStmt
-  - EventTriggerCollectAlterDefPrivs
-  - ProcessUtilitySlow
+  - [ExecAlterDefaultPrivilegesStmt](../E/ExecAlterDefaultPrivilegesStmt.md)
+  - [EventTriggerCollectAlterDefPrivs](../E/EventTriggerCollectAlterDefPrivs.md)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md)
 
 ## Notes and Other Information
 - Default privileges only apply to objects created after the ALTER DEFAULT PRIVILEGES statement is executed

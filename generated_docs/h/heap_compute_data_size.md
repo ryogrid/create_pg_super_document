@@ -30,8 +30,8 @@ This function iterates through all attributes in a tuple descriptor and calculat
   - `att_align_datum`: Function to align data for a specific Datum value
   - `att_addlength_datum`: Function to add the length of a Datum to the running total
   - [DatumGetPointer](../D/DatumGetPointer.md): Macro to extract pointer from Datum
-  - `DatumGetEOHP`: Macro to get expanded object header pointer
-  - `EOH_get_flat_size`: Function to get size needed to flatten expanded object
+  - `[DatumGetEOHP](../D/DatumGetEOHP.md)`: Macro to get expanded object header pointer
+  - `[EOH_get_flat_size](../E/EOH_get_flat_size.md)`: Function to get size needed to flatten expanded object
 - Called from (representative examples):
   - [heap_form_tuple](heap_form_tuple.md): Uses this to determine tuple size before allocation
   - [heap_form_minimal_tuple](heap_form_minimal_tuple.md): Uses this for minimal tuple size calculation

@@ -24,15 +24,15 @@ The function processes named arguments by transforming ResTarget nodes, extracti
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode
-  - map_sql_identifier_to_xml_name
-  - transformExprRecurse
-  - FigureColname
-  - coerce_to_specific_type
-  - coerce_to_boolean
-  - makeString
-  - lappend
+  - [map_sql_identifier_to_xml_name](../m/map_sql_identifier_to_xml_name.md)
+  - [transformExprRecurse](transformExprRecurse.md)
+  - [FigureColname](../F/FigureColname.md)
+  - [coerce_to_specific_type](../c/coerce_to_specific_type.md)
+  - [coerce_to_boolean](../c/coerce_to_boolean.md)
+  - [makeString](../m/makeString.md)
+  - [lappend](../l/lappend.md)
 - Called from (representative examples):
-  - transformExprRecurse
+  - [transformExprRecurse](transformExprRecurse.md)
 
 ## Notes and Other Information
 - The function sets the output type to XMLOID to mark the node as transformed

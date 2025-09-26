@@ -24,7 +24,7 @@ This utility function serves as an adapter between the generic boolean value ext
   - VACOPTVALUE_ENABLED (enum constant)
   - VACOPTVALUE_DISABLED (enum constant)
 - Called from (representative examples):
-  - ExecVacuum (multiple times for different vacuum options)
+  - [ExecVacuum](../E/ExecVacuum.md) (multiple times for different vacuum options)
 
 ## Notes and Other Information
 - Function is static (internal to vacuum.c)

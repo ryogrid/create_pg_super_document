@@ -24,7 +24,7 @@ The function is designed to be lightweight since the prepared data might not act
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - resetStringInfo (resets the output buffer)
+  - [resetStringInfo](../r/resetStringInfo.md) (resets the output buffer)
   - [pq_sendbyte](../p/pq_sendbyte.md) (sends message type `w`)
   - [pq_sendint64](../p/pq_sendint64.md) (sends LSN and timestamp values)
   - [LogicalDecodingContext](../L/LogicalDecodingContext.md) (context structure)

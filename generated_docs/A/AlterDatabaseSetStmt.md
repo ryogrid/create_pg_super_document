@@ -28,10 +28,10 @@ The structure contains the essential information needed to execute the database 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - VariableSetStmt (embedded structure for SET/RESET details)
+  - [VariableSetStmt](../V/VariableSetStmt.md) (embedded structure for SET/RESET details)
 - Called from (representative examples):
-  - AlterDatabaseSet (execution function in dbcommands.c)
-  - standard_ProcessUtility (utility command processing)
+  - [AlterDatabaseSet](AlterDatabaseSet.md) (execution function in dbcommands.c)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (utility command processing)
 
 ## Notes and Other Information
 - This structure is part of the PostgreSQL parser node hierarchy and inherits from Node via the NodeTag

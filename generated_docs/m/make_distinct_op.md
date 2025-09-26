@@ -29,7 +29,7 @@ The `make_distinct_op` function constructs a DistinctExpr node to handle IS DIST
   - [errcode](../e/errcode.md)
   - [errmsg](../e/errmsg.md)
 - Called from (representative examples):
-  - transformAExprDistinct
+  - [transformAExprDistinct](../t/transformAExprDistinct.md)
   - [make_row_distinct_op](make_row_distinct_op.md)
 
 ## Notes and Other Information

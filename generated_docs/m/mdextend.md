@@ -25,17 +25,17 @@ The `mdextend` function is responsible for extending a relation by writing a new
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _mdfd_getseg (to get or create the appropriate segment)
-  - FileWrite (to perform the actual write operation)
-  - register_dirty_segment (to register for fsync if needed)
-  - mdnblocks (for assertion checking in debug builds)
+  - [_mdfd_getseg](_mdfd_getseg.md) (to get or create the appropriate segment)
+  - [FileWrite](../F/FileWrite.md) (to perform the actual write operation)
+  - [register_dirty_segment](../r/register_dirty_segment.md) (to register for fsync if needed)
+  - [mdnblocks](mdnblocks.md) (for assertion checking in debug builds)
   - relpath (for error message generation)
   - SmgrIsTemp (to check if relation is temporary)
   - ereport (for error reporting)
-  - FilePathName (for error message generation)
+  - [FilePathName](../F/FilePathName.md) (for error message generation)
 
 - Called from (representative examples):
-  - _mdfd_getseg (in some internal scenarios)
+  - [_mdfd_getseg](_mdfd_getseg.md) (in some internal scenarios)
   - Storage manager layer (via function pointer in smgr interface)
 
 ## Notes and Other Information

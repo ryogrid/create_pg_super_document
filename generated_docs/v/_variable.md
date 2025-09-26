@@ -39,12 +39,12 @@ Key behavioral characteristics:
   - VariableSubstituteHook (typedef)
   - VariableAssignHook (typedef)
 - Called from (representative examples):
-  - CreateVariableSpace
-  - GetVariable
-  - SetVariable
-  - SetVariableHooks
-  - PrintVariables
-  - VariableHasHook
+  - [CreateVariableSpace](../C/CreateVariableSpace.md)
+  - [GetVariable](../G/GetVariable.md)
+  - [SetVariable](../S/SetVariable.md)
+  - [SetVariableHooks](../S/SetVariableHooks.md)
+  - [PrintVariables](../P/PrintVariables.md)
+  - [VariableHasHook](../V/VariableHasHook.md)
 
 ## Notes and Other Information
 - This struct is part of psql's variable repository system, which provides an associative array-like interface for storing configuration and state

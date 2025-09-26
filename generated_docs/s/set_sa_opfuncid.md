@@ -22,15 +22,15 @@ ScalarArrayOpExpr nodes represent operations like 'value = ANY(array)' or 'value
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_opcode
+  - [get_opcode](../g/get_opcode.md)
   - InvalidOid (constant)
 - Called from (representative examples):
-  - fix_opfuncids_walker
-  - check_functions_in_node
-  - cost_qual_eval_walker
-  - fix_expr_common
-  - is_strict_saop
-  - eval_const_expressions_mutator
+  - [fix_opfuncids_walker](../f/fix_opfuncids_walker.md)
+  - [check_functions_in_node](../c/check_functions_in_node.md)
+  - [cost_qual_eval_walker](../c/cost_qual_eval_walker.md)
+  - [fix_expr_common](../f/fix_expr_common.md)
+  - [is_strict_saop](../i/is_strict_saop.md)
+  - [eval_const_expressions_mutator](../e/eval_const_expressions_mutator.md)
 
 ## Notes and Other Information
 - Specialized version of set_opfuncid for ScalarArrayOpExpr nodes

@@ -24,12 +24,12 @@ The function validates that the PlaceHolderVar is from an outer level (phlevelsu
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PlaceHolderVar](../P/PlaceHolderVar.md) (structure handling)
-  - Param (node structure)
+  - [Param](../P/Param.md) (node structure)
   - [assign_param_for_placeholdervar](../a/assign_param_for_placeholdervar.md) (to get parameter ID)
   - makeNode (node creation)
   - PARAM_EXEC (parameter type constant)
-  - exprType (get expression type)
-  - exprTypmod (get expression type modifier)
+  - [exprType](../e/exprType.md) (get expression type)
+  - [exprTypmod](../e/exprTypmod.md) (get expression type modifier)
   - [exprCollation](../e/exprCollation.md) (get expression collation)
 - Called from (representative examples):
   - [replace_correlation_vars_mutator](replace_correlation_vars_mutator.md)

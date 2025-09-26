@@ -25,10 +25,10 @@ ExecGetTriggerResultRel manages ResultRelInfo structures specifically for trigge
 - Functions called/Symbols referenced:
   - [InitResultRelInfo](../I/InitResultRelInfo.md)
   - RelationGetRelid
-  - table_open
+  - [table_open](../t/table_open.md)
   - makeNode
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
-  - lappend
+  - [lappend](../l/lappend.md)
 - Called from (representative examples):
   - [afterTriggerInvokeEvents](../a/afterTriggerInvokeEvents.md) (multiple locations in trigger.c)
 

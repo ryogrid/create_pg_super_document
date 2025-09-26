@@ -35,12 +35,12 @@ The function uses elog(ERROR, ...) to report any test failures, which will abort
   - LEN_WITH_TAIL (macro for buffer sizing)
   - LEN_NO_TAIL (macro for buffer sizing) 
   - Vector8 (type for vectorized operations)
-  - pg_lfind8_le (primary function being tested - "less than or equal" search)
+  - [pg_lfind8_le](../p/pg_lfind8_le.md) (primary function being tested - "less than or equal" search)
   - memset (standard C library function)
   - elog (PostgreSQL logging function)
 
 - Called from:
-  - test_lfind8_le (8 different calls with various key values)
+  - [test_lfind8_le](test_lfind8_le.md) (8 different calls with various key values)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the test_lfind.c file

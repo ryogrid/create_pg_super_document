@@ -17,8 +17,8 @@ This static function performs the complete initialization of a table sampling sc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TsmRoutine (sampling method interface)
-  - ExecEvalExprSwitchContext (parameter evaluation)
+  - [TsmRoutine](../T/TsmRoutine.md) (sampling method interface)
+  - [ExecEvalExprSwitchContext](../E/ExecEvalExprSwitchContext.md) (parameter evaluation)
   - [hashfloat8](../h/hashfloat8.md) (seed generation from REPEATABLE parameter)
   - DirectFunctionCall1 (function call wrapper)
   - [DatumGetUInt32](../D/DatumGetUInt32.md) (datum conversion)

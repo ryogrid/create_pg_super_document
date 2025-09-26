@@ -23,7 +23,7 @@ The function directly accesses the pre-computed values and null indicators from 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExprEvalStep (expression evaluation step structure)
+  - [ExprEvalStep](ExprEvalStep.md) (expression evaluation step structure)
   - TTS_IS_VIRTUAL (macro to check if slot is virtual)
   - TTS_FIXED (macro to check if slot layout is fixed)
 - Called from (representative examples):

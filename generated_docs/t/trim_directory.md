@@ -24,12 +24,12 @@ For the convenience of , the function returns a pointer to the new end location 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - skip_drive
+  - [skip_drive](../s/skip_drive.md)
   - IS_DIR_SEP (macro, used multiple times)
 - Called from (representative examples):
-  - canonicalize_path_enc
-  - make_relative_path
-  - get_parent_directory
+  - [canonicalize_path_enc](../c/canonicalize_path_enc.md)
+  - [make_relative_path](../m/make_relative_path.md)
+  - [get_parent_directory](../g/get_parent_directory.md)
 
 ## Notes and Other Information
 - This is a static function, only available within src/port/path.c

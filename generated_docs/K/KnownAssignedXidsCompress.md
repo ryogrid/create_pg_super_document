@@ -30,14 +30,14 @@ The compression process operates by iterating through the valid range of the arr
   - procArray (global process array instance)
   - KnownAssignedXids (global transaction ID array)
   - KnownAssignedXidsValid (global validity array)
-  - LWLockAcquire/LWLockRelease (locking primitives)
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease (locking primitives)
   - TimestampTzPlusMilliseconds (timestamp arithmetic)
   - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md) (current time function)
 - Called from:
-  - KnownAssignedTransactionIdsIdleMaintenance (idle maintenance)
-  - KnownAssignedXidsAdd (when adding new XIDs)
-  - KnownAssignedXidsRemoveTree (when removing XID trees)
-  - KnownAssignedXidsRemovePreceding (when removing preceding XIDs)
+  - [KnownAssignedTransactionIdsIdleMaintenance](KnownAssignedTransactionIdsIdleMaintenance.md) (idle maintenance)
+  - [KnownAssignedXidsAdd](KnownAssignedXidsAdd.md) (when adding new XIDs)
+  - [KnownAssignedXidsRemoveTree](KnownAssignedXidsRemoveTree.md) (when removing XID trees)
+  - [KnownAssignedXidsRemovePreceding](KnownAssignedXidsRemovePreceding.md) (when removing preceding XIDs)
 
 ## Notes and Other Information
 - KAX_COMPRESS_FREQUENCY constant (128) controls how often compression occurs for transaction end events

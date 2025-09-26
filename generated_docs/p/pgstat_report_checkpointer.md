@@ -34,8 +34,8 @@ After transferring statistics, it clears the local buffer and reports IO statist
   - MemSet
   - pgstat_report_io
 - Types referenced:
-  - PgStat_CheckpointerStats
-  - PgStatShared_Checkpointer
+  - [PgStat_CheckpointerStats](../P/PgStat_CheckpointerStats.md)
+  - [PgStatShared_Checkpointer](../P/PgStatShared_Checkpointer.md)
 - Called from (representative examples):
   - [CheckpointerMain](../C/CheckpointerMain.md)
   - [HandleCheckpointerInterrupts](../H/HandleCheckpointerInterrupts.md)

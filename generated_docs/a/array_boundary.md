@@ -30,8 +30,8 @@ The function returns `true` if the character matches the expected boundary marke
   - ECPG_ARRAY_ARRAY (enum constant)
   - ECPG_ARRAY_VECTOR (enum constant)
 - Called from (representative examples):
-  - garbage_left
-  - ecpg_get_data
+  - [garbage_left](../g/garbage_left.md)
+  - [ecpg_get_data](../e/ecpg_get_data.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the same source file (data.c)

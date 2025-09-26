@@ -28,8 +28,8 @@ The sendOnly parameter determines whether the backend can only send invalidation
 ## Dependencies
 - Functions called/Symbols referenced:
   - elog
-  - LWLockAcquire
-  - LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - [on_shmem_exit](../o/on_shmem_exit.md)
   - [CleanupInvalidationState](../C/CleanupInvalidationState.md)
   - [PointerGetDatum](../P/PointerGetDatum.md)

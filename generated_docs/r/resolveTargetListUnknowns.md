@@ -21,7 +21,7 @@ This function serves as a final type resolution step in PostgreSQL's query parsi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - exprType
+  - [exprType](../e/exprType.md)
   - [coerce_type](../c/coerce_type.md)
   - lfirst (macro)
   - UNKNOWNOID

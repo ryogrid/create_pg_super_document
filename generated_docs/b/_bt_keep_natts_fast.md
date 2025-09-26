@@ -33,8 +33,8 @@ The approach relies on the fact that most B-tree opclasses can only indicate two
 - Called from (representative examples):
   - [_bt_dedup_pass](_bt_dedup_pass.md)
   - [_bt_bottomupdel_pass](_bt_bottomupdel_pass.md)
-  - _bt_do_singleval
-  - _bt_load
+  - [_bt_do_singleval](_bt_do_singleval.md)
+  - [_bt_load](_bt_load.md)
   - [_bt_afternewitemoff](_bt_afternewitemoff.md)
   - [_bt_strategy](_bt_strategy.md)
   - [_bt_split_penalty](_bt_split_penalty.md)

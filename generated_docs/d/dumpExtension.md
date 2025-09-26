@@ -26,12 +26,12 @@ In regular mode, the function intentionally omits version specification to use t
   - [fmtId](../f/fmtId.md)
   - appendStringLiteralAH
   - [findObjectByDumpId](../f/findObjectByDumpId.md)
-  - appendPQExpBufferChar
+  - [appendPQExpBufferChar](../a/appendPQExpBufferChar.md)
   - [ArchiveEntry](../A/ArchiveEntry.md)
   - [dumpComment](dumpComment.md)
   - [dumpSecLabel](dumpSecLabel.md)
-  - createPQExpBuffer
-  - destroyPQExpBuffer
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)
+  - [destroyPQExpBuffer](destroyPQExpBuffer.md)
   - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
   - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
   - [pg_strdup](../p/pg_strdup.md)

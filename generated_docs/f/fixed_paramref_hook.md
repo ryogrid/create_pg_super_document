@@ -22,7 +22,7 @@ This hook function is called during query parsing to resolve parameter reference
 - Functions called/Symbols referenced:
   - [FixedParamState](../F/FixedParamState.md) (structure type)
   - [ParamRef](../P/ParamRef.md) (node type)
-  - Param (node type)
+  - [Param](../P/Param.md) (node type)
   - PARAM_EXTERN (parameter kind constant)
   - [get_typcollation](../g/get_typcollation.md) (function to get type collation)
   - makeNode (macro for creating nodes)

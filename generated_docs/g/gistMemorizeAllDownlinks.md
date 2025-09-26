@@ -31,7 +31,7 @@ This function iterates through all index tuples on a GiST internal page and extr
   - FirstOffsetNumber
   - ItemId
 - Called from (representative examples):
-  - gistbufferinginserttuples
+  - [gistbufferinginserttuples](gistbufferinginserttuples.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the gistbuild.c file

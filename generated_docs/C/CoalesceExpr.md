@@ -37,19 +37,19 @@ The structure includes query jumble ignore attributes on type and collation fiel
 ## Dependencies
 - Functions called/Symbols referenced:
   - ParseLoc
-  - Expr (base type)
-  - List
+  - [Expr](../E/Expr.md) (base type)
+  - [List](../L/List.md)
   - Oid
 
 - Called from (representative examples):
-  - transformCoalesceExpr (parse_expr.c:2214, 2216)
-  - ExecInitExprRec (execExpr.c:2138)
-  - exprType (nodeFuncs.c:210)
-  - eval_const_expressions_mutator (clauses.c:3292, 3293, 3334)
-  - get_rule_expr (ruleutils.c:9680)
+  - [transformCoalesceExpr](../t/transformCoalesceExpr.md) (parse_expr.c:2214, 2216)
+  - [ExecInitExprRec](../E/ExecInitExprRec.md) (execExpr.c:2138)
+  - [exprType](../e/exprType.md) (nodeFuncs.c:210)
+  - [eval_const_expressions_mutator](../e/eval_const_expressions_mutator.md) (clauses.c:3292, 3293, 3334)
+  - [get_rule_expr](../g/get_rule_expr.md) (ruleutils.c:9680)
 
 ## Notes and Other Information
-- CoalesceExpr is part of PostgreSQL's expression node hierarchy, inheriting from the base Expr type
+- [CoalesceExpr](CoalesceExpr.md) is part of PostgreSQL's expression node hierarchy, inheriting from the base Expr type
 - The pg_node_attr(query_jumble_ignore) annotations help optimize query plan caching by excluding type and collation information from query fingerprinting
 - COALESCE expressions are commonly used in SQL for handling null values and providing default values
 - The transformation from SQL COALESCE syntax to this internal representation happens in transformCoalesceExpr function

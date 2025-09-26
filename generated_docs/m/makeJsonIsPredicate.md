@@ -24,8 +24,8 @@ The `makeJsonIsPredicate` function is a constructor that creates and initializes
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (PostgreSQL node allocation macro)
-  - JsonIsPredicate (node type structure)
-  - JsonFormat (format specification structure)
+  - [JsonIsPredicate](../J/JsonIsPredicate.md) (node type structure)
+  - [JsonFormat](../J/JsonFormat.md) (format specification structure)
   - JsonValueType (enum for JSON value types)
 - Called from (representative examples):
   - [transformJsonIsPredicate](../t/transformJsonIsPredicate.md) (parser/parse_expr.c:4104)

@@ -21,9 +21,9 @@ This is typically the final step in the incremental block reference table writin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BlockRefTableFileTerminate (finalizes the buffer and output file)
+  - [BlockRefTableFileTerminate](../B/BlockRefTableFileTerminate.md) (finalizes the buffer and output file)
   - [pfree](../p/pfree.md) (frees the allocated memory)
-  - BlockRefTableWriter (writer structure type)
+  - [BlockRefTableWriter](../B/BlockRefTableWriter.md) (writer structure type)
 
 - Called from (representative examples):
   - Functions that complete block reference table generation

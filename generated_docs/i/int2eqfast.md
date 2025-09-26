@@ -20,9 +20,9 @@ This function performs optimized equality comparison between two PostgreSQL `int
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `DatumGetInt16`: Extracts int16 value from Datum (called twice)
+  - `[DatumGetInt16](../D/DatumGetInt16.md)`: Extracts int16 value from Datum (called twice)
 - Called from (representative examples):
-  - `GetCCHashEqFuncs`: Function that retrieves hash and equality functions for catalog cache
+  - `[GetCCHashEqFuncs](../G/GetCCHashEqFuncs.md)`: Function that retrieves hash and equality functions for catalog cache
 
 ## Notes and Other Information
 - Extremely simple and efficient implementation using direct integer comparison

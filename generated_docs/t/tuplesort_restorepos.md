@@ -25,15 +25,15 @@ The function operates within the sort's memory context to ensure proper memory m
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextSwitchTo
-  - LogicalTapeSeek
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [LogicalTapeSeek](../L/LogicalTapeSeek.md)
   - elog
 - Constants referenced:
   - TUPLESORT_RANDOMACCESS
   - TSS_SORTEDINMEM
   - TSS_SORTEDONTAPE
 - Called from (representative examples):
-  - ExecSortRestrPos (in nodeSort.c)
+  - [ExecSortRestrPos](../E/ExecSortRestrPos.md) (in nodeSort.c)
 
 ## Notes and Other Information
 - Requires TUPLESORT_RANDOMACCESS option to be set during tuplesort initialization

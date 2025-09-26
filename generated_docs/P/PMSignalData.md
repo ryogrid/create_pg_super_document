@@ -37,8 +37,8 @@ The structure supports bidirectional communication: child processes can signal t
   - QuitSignalReason (enum type for quit signal reasons)
   - FLEXIBLE_ARRAY_MEMBER (macro for variable-length arrays)
 - Called from (representative examples):
-  - PMSignalShmemSize (calculates shared memory size needed)
-  - PMSignalShmemInit (initializes the structure in shared memory)
+  - [PMSignalShmemSize](PMSignalShmemSize.md) (calculates shared memory size needed)
+  - [PMSignalShmemInit](PMSignalShmemInit.md) (initializes the structure in shared memory)
   - [SubPostmasterMain](../S/SubPostmasterMain.md) (accesses signal data in child processes)
 
 ## Notes and Other Information

@@ -24,8 +24,8 @@ The function uses exclusive locking on TwoPhaseStateLock to ensure atomic update
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire (acquires TwoPhaseStateLock in exclusive mode)
-  - LWLockRelease (releases TwoPhaseStateLock)
+  - [LWLockAcquire](../L/LWLockAcquire.md) (acquires TwoPhaseStateLock in exclusive mode)
+  - [LWLockRelease](../L/LWLockRelease.md) (releases TwoPhaseStateLock)
   - [RemoveGXact](../R/RemoveGXact.md) (removes invalid transaction entries from shared memory)
   - INVALID_PROC_NUMBER (constant indicating no backend owns the lock)
 - Global variables accessed:

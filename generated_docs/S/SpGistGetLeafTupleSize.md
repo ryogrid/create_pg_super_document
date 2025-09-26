@@ -37,7 +37,7 @@ This function computes the total space needed for a leaf tuple in an SP-GiST ind
   - SGLTHDRSZ (macro for leaf tuple header size)
   - SGDTSIZE (macro for dead tuple minimum size)
   - MAXALIGN (macro for memory alignment)
-  - SpGistLeafTuple (related structure type)
+  - [SpGistLeafTuple](SpGistLeafTuple.md) (related structure type)
 - Called from (representative examples):
   - [spgdoinsert](../s/spgdoinsert.md) (during index insertion operations)
 

@@ -34,11 +34,11 @@ The ternary logic is particularly valuable in index scans where TS_MAYBE indicat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TS_execute_recurse
+  - [TS_execute_recurse](TS_execute_recurse.md)
   - TSTernaryValue (return type)
 - Called from (representative examples):
-  - gin_tsquery_consistent (in tsginidx.c)
-  - gin_tsquery_triconsistent (in tsginidx.c)
+  - [gin_tsquery_consistent](../g/gin_tsquery_consistent.md) (in tsginidx.c)
+  - [gin_tsquery_triconsistent](../g/gin_tsquery_triconsistent.md) (in tsginidx.c)
 
 ## Notes and Other Information
 - Critical for GIN index operations where ternary logic enables efficient index scans

@@ -29,18 +29,18 @@ The algorithm ensures fairness by only granting locks to processes that don't co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dclist_is_empty (check if wait queue is empty)
+  - [dclist_is_empty](../d/dclist_is_empty.md) (check if wait queue is empty)
   - dclist_foreach_modify (safely iterate through wait queue with modifications)
   - dlist_container (get PGPROC from list node)
-  - LockCheckConflicts (check for conflicts with existing holders)
-  - GrantLock (grant the lock to a process)
-  - ProcWakeup (wake up the newly granted process)
+  - [LockCheckConflicts](../L/LockCheckConflicts.md) (check for conflicts with existing holders)
+  - [GrantLock](../G/GrantLock.md) (grant the lock to a process)
+  - [ProcWakeup](ProcWakeup.md) (wake up the newly granted process)
   - LOCKBIT_ON (convert lock mode to bitmask)
   - PROC_WAIT_STATUS_OK (success status for awakened processes)
 
 - Called from (representative examples):
-  - DeadLockCheck (when resolving deadlocks by aborting waiters)
-  - CleanUpLock (when locks are released during transaction cleanup)
+  - [DeadLockCheck](../D/DeadLockCheck.md) (when resolving deadlocks by aborting waiters)
+  - [CleanUpLock](../C/CleanUpLock.md) (when locks are released during transaction cleanup)
 
 ## Notes and Other Information
 - Must be called with the appropriate lock partition lock held by the caller

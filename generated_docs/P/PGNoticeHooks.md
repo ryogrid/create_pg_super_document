@@ -40,7 +40,7 @@ The structure supports two complementary notice handling mechanisms:
 - Called from (representative examples):
   - [pqInternalNotice](../p/pqInternalNotice.md) (processes notices using the hooks)
   - [pg_result](../p/pg_result.md) struct (contains noticeHooks member)
-  - pg_conn struct (contains noticeHooks member)
+  - [pg_conn](../p/pg_conn.md) struct (contains noticeHooks member)
 
 ## Notes and Other Information
 - The structure is defined in src/interfaces/libpq/libpq-int.h:153-159

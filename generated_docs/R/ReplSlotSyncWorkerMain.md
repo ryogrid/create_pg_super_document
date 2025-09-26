@@ -23,7 +23,7 @@ This function serves as the main entry point for the slot synchronization worker
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - InitProcess (process initialization)
+  - [InitProcess](../I/InitProcess.md) (process initialization)
   - [BaseInit](../B/BaseInit.md) (early backend initialization)
   - [InitPostgres](../I/InitPostgres.md) (database connection initialization)
   - walrcv_connect (primary server connection)

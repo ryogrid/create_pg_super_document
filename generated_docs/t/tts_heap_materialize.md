@@ -21,7 +21,7 @@ The materialization process resets the deformation state (tts_nvalid and off) to
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HeapTupleTableSlot (cast target type)
+  - [HeapTupleTableSlot](../H/HeapTupleTableSlot.md) (cast target type)
   - TTS_EMPTY (macro for checking empty slots)
   - TTS_SHOULDFREE (macro for checking materialization status)
   - [heap_form_tuple](../h/heap_form_tuple.md) (creates new tuple from values array)

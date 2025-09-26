@@ -24,8 +24,8 @@ The function sets up the command type as SQL_COMMAND, initializes statistics tra
 ## Dependencies
 - Functions called/Symbols referenced:
   - [skip_sql_comments](../s/skip_sql_comments.md): Filters out comments and whitespace from SQL text
-  - pg_malloc: Allocates memory for the Command structure
-  - initPQExpBuffer: Initializes the command's text buffer
+  - [pg_malloc](../p/pg_malloc.md): Allocates memory for the Command structure
+  - [initPQExpBuffer](../i/initPQExpBuffer.md): Initializes the command's text buffer
   - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md): Copies the cleaned SQL text to the command buffer
   - [initSimpleStats](../i/initSimpleStats.md): Initializes statistics tracking for the command
   - SQL_COMMAND: Enum value indicating this is an SQL command type

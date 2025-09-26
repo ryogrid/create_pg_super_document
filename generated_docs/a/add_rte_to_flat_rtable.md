@@ -37,9 +37,9 @@ The  function creates an optimized copy of a RangeTblEntry for inclusion in the 
 - Functions called/Symbols referenced:
   - [getRTEPermissionInfo](../g/getRTEPermissionInfo.md)
   - [addRTEPermissionInfo](addRTEPermissionInfo.md)
-  - lappend_oid
+  - [lappend_oid](../l/lappend_oid.md)
 - Types used:
-  - PlannerGlobal
+  - [PlannerGlobal](../P/PlannerGlobal.md)
   - [RTEPermissionInfo](../R/RTEPermissionInfo.md)
 - Constants used:
   - RTE_RELATION

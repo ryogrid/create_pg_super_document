@@ -34,14 +34,14 @@ The function ensures compatibility with the execution framework by properly init
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (creates LimitState structure)
-  - ExecAssignExprContext (sets up expression evaluation context)  
+  - [ExecAssignExprContext](ExecAssignExprContext.md) (sets up expression evaluation context)  
   - [ExecInitNode](ExecInitNode.md) (initializes child plan recursively)
   - [ExecInitExpr](ExecInitExpr.md) (initializes LIMIT/OFFSET expressions)
   - [ExecInitResultTypeTL](ExecInitResultTypeTL.md) (sets up result tuple descriptor)
   - [ExecGetResultSlotOps](ExecGetResultSlotOps.md) (gets tuple slot operations)
   - [ExecGetResultType](ExecGetResultType.md) (gets child plan's result type)
   - [ExecInitExtraTupleSlot](ExecInitExtraTupleSlot.md) (creates slot for WITH TIES boundary tuple)
-  - execTuplesMatchPrepare (prepares tuple comparison for WITH TIES)
+  - [execTuplesMatchPrepare](../e/execTuplesMatchPrepare.md) (prepares tuple comparison for WITH TIES)
 - Called from (representative examples):
   - [ExecInitNode](ExecInitNode.md) (as part of plan tree initialization)
 

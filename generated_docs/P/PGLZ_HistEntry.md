@@ -33,7 +33,7 @@ Each history entry points to a specific position in the input buffer and is inde
 ## Dependencies
 - Functions that use this structure:
   - pglz_hist_add (macro that adds new entries to the history table)
-  - pglz_find_match (function that searches for matching sequences using the history entries)
+  - [pglz_find_match](../p/pglz_find_match.md) (function that searches for matching sequences using the history entries)
 - Related constants:
   - PGLZ_HISTORY_SIZE (4096) - maximum number of history entries
   - PGLZ_MAX_MATCH (273) - maximum length of a match sequence

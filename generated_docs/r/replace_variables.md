@@ -21,16 +21,16 @@ The `replace_variables` function transforms SQL statements containing named para
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ecpg_alloc
-  - ecpg_free
-  - isvarchar
+  - [ecpg_alloc](../e/ecpg_alloc.md)
+  - [ecpg_free](../e/ecpg_free.md)
+  - [isvarchar](../i/isvarchar.md)
   - snprintf
   - memcpy
   - strcpy
   - strcat
   - strlen
 - Called from (representative examples):
-  - prepare_common
+  - [prepare_common](../p/prepare_common.md)
 
 ## Notes and Other Information
 - This is a static function local to the prepare.c file in the ECPG library

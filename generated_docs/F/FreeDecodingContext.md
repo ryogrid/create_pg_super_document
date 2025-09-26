@@ -24,13 +24,13 @@ The cleanup sequence is:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - shutdown_cb_wrapper
+  - [shutdown_cb_wrapper](../s/shutdown_cb_wrapper.md)
   - [ReorderBufferFree](../R/ReorderBufferFree.md)
   - [FreeSnapshotBuilder](FreeSnapshotBuilder.md)
   - [XLogReaderFree](../X/XLogReaderFree.md)
   - [MemoryContextDelete](../M/MemoryContextDelete.md)
 - Called from (representative examples):
-  - LogicalReplicationSlotHasPendingWal
+  - [LogicalReplicationSlotHasPendingWal](../L/LogicalReplicationSlotHasPendingWal.md)
   - [LogicalSlotAdvanceAndCheckSnapState](../L/LogicalSlotAdvanceAndCheckSnapState.md)
   - [pg_logical_slot_get_changes_guts](../p/pg_logical_slot_get_changes_guts.md)
   - [create_logical_replication_slot](../c/create_logical_replication_slot.md)

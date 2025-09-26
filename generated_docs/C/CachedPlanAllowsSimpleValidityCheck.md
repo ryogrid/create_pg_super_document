@@ -33,7 +33,7 @@ This optimization is particularly beneficial for PL/pgSQL use cases where plans 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchPathMatchesCurrentEnvironment](../S/SearchPathMatchesCurrentEnvironment.md)
-  - ResourceOwnerEnlarge
+  - [ResourceOwnerEnlarge](../R/ResourceOwnerEnlarge.md)
   - [ResourceOwnerRememberPlanCacheRef](../R/ResourceOwnerRememberPlanCacheRef.md)
   - CACHEDPLANSOURCE_MAGIC
   - CACHEDPLAN_MAGIC

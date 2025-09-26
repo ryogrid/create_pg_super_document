@@ -21,10 +21,10 @@ This inline function provides a simple accessor to retrieve the type modifier fo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PartitionKey (struct type)
+  - [PartitionKey](../P/PartitionKey.md) (struct type)
 - Called from (representative examples):
-  - transformPartitionBound
-  - transformPartitionRangeBounds
+  - [transformPartitionBound](../t/transformPartitionBound.md)
+  - [transformPartitionRangeBounds](../t/transformPartitionRangeBounds.md)
 
 ## Notes and Other Information
 - This is a static inline function defined in the header file for performance optimization

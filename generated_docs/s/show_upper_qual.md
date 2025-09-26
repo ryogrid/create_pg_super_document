@@ -28,7 +28,7 @@ The function implements a range table-based prefixing strategy: it uses table pr
 ## Dependencies
 - Functions called/Symbols referenced:
   - [show_qual](show_qual.md)
-  - list_length (macro to check range table size)
+  - [list_length](../l/list_length.md) (macro to check range table size)
 - Called from (representative examples):
   - [ExplainNode](../E/ExplainNode.md) (for join, aggregate, sort, and other upper-level nodes)
   - [show_modifytable_info](show_modifytable_info.md)

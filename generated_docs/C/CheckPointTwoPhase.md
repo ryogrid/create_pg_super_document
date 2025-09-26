@@ -29,7 +29,7 @@ For qualifying transactions, it reads the transaction data from WAL, recreates t
   - [XlogReadTwoPhaseData](../X/XlogReadTwoPhaseData.md)
   - [RecreateTwoPhaseFile](../R/RecreateTwoPhaseFile.md)
   - [fsync_fname](../f/fsync_fname.md)
-  - LWLockAcquire/LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease
   - [errmsg_plural](../e/errmsg_plural.md)
 - Called from:
   - [CheckPointGuts](CheckPointGuts.md)

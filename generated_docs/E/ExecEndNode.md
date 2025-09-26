@@ -27,7 +27,7 @@ The function is designed to be called only after query execution is complete, as
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth (stack overflow protection)
+  - [check_stack_depth](../c/check_stack_depth.md) (stack overflow protection)
   - [bms_free](../b/bms_free.md) (bitmap set memory deallocation)
   - nodeTag (node type identification)
   - [ExecEndResult](ExecEndResult.md), ExecEndProjectSet, ExecEndModifyTable (control node cleanup)

@@ -29,6 +29,6 @@ This function provides the implementation for the Boolean greater-than operator 
 ## Notes and Other Information
 - Located in src/backend/utils/adt/bool.c:250-258
 - Part of PostgreSQL's Boolean data type implementation
-- Boolean comparison follows the ordering: false < true
+- [Boolean](../B/Boolean.md) comparison follows the ordering: false < true
 - Returns true only when arg1 is true and arg2 is false
 - Integrated into PostgreSQL's operator system for the '>' operator on Boolean types

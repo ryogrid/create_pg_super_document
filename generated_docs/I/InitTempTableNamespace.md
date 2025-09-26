@@ -45,7 +45,7 @@ This function takes no parameters and operates on global state variables and sys
   - IsParallelWorker
   - [get_namespace_oid](../g/get_namespace_oid.md)
   - [NamespaceCreate](../N/NamespaceCreate.md)
-  - CommandCounterIncrement
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md)
   - [RemoveTempRelations](../R/RemoveTempRelations.md)
   - InvalidSubTransactionId
   - [GetCurrentSubTransactionId](../G/GetCurrentSubTransactionId.md)

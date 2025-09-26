@@ -29,7 +29,7 @@ This function is essential for safe date/time calculations where intermediate va
 - Functions called/Symbols referenced:
   - INT_MAX, INT_MIN (system constants)
 - Called from (representative examples):
-  - timesub (multiple calls for date calculations)
+  - [timesub](../t/timesub.md) (multiple calls for date calculations)
 
 ## Notes and Other Information
 - Returns true if overflow would occur, false if the operation is safe

@@ -22,7 +22,7 @@ checkDataDir performs comprehensive validation of the PostgreSQL data directory 
   - [stat](../s/stat.md) (system call for file information)
   - S_ISDIR (macro to check if path is directory)
   - PG_MODE_MASK_GROUP (permission mask constant)
-  - SetDataDirectoryCreatePerm (sets file creation permissions)
+  - [SetDataDirectoryCreatePerm](../S/SetDataDirectoryCreatePerm.md) (sets file creation permissions)
   - [ValidatePgVersion](../V/ValidatePgVersion.md) (verifies PostgreSQL version compatibility)
   - ereport, errcode_for_file_access, errmsg (error reporting functions)
 - Called from (representative examples):

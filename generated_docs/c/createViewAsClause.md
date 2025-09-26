@@ -25,15 +25,15 @@ This function is essential for generating syntactically correct view creation st
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - createPQExpBuffer: Creates buffers for query construction and result storage
+  - [createPQExpBuffer](createPQExpBuffer.md): Creates buffers for query construction and result storage
   - [appendPQExpBuffer](../a/appendPQExpBuffer.md): Constructs parameterized query to get view definition
   - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md): Executes the pg_get_viewdef query against the database
   - [PQntuples](../P/PQntuples.md): Checks that exactly one result row was returned
   - [PQgetlength](../P/PQgetlength.md): Gets the length of the view definition string
   - [PQgetvalue](../P/PQgetvalue.md): Extracts the view definition from query results
-  - appendBinaryPQExpBuffer: Copies view definition minus semicolon to result buffer
+  - [appendBinaryPQExpBuffer](../a/appendBinaryPQExpBuffer.md): Copies view definition minus semicolon to result buffer
   - [PQclear](../P/PQclear.md): Frees query result memory
-  - destroyPQExpBuffer: Cleans up query buffer
+  - [destroyPQExpBuffer](../d/destroyPQExpBuffer.md): Cleans up query buffer
   - [pg_fatal](../p/pg_fatal.md): Reports fatal errors if view definition is missing or invalid
 - Called from:
   - [dumpTableSchema](../d/dumpTableSchema.md): Used when dumping view and materialized view schema definitions

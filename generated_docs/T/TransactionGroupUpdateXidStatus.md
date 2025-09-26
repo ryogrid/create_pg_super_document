@@ -28,14 +28,14 @@ The optimization includes smart bank lock management - if group members need to 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_atomic_read_u32, pg_atomic_write_u32, pg_atomic_compare_exchange_u32
-  - SimpleLruGetBankLock
-  - TransactionIdSetPageStatusInternal
-  - PGSemaphoreLock, PGSemaphoreUnlock
-  - pgstat_report_wait_start, pgstat_report_wait_end
+  - [pg_atomic_read_u32](../p/pg_atomic_read_u32.md), pg_atomic_write_u32, pg_atomic_compare_exchange_u32
+  - [SimpleLruGetBankLock](../S/SimpleLruGetBankLock.md)
+  - [TransactionIdSetPageStatusInternal](TransactionIdSetPageStatusInternal.md)
+  - [PGSemaphoreLock](../P/PGSemaphoreLock.md), PGSemaphoreUnlock
+  - [pgstat_report_wait_start](../p/pgstat_report_wait_start.md), pgstat_report_wait_end
   - pg_write_barrier
 - Called from:
-  - TransactionIdSetPageStatus
+  - [TransactionIdSetPageStatus](TransactionIdSetPageStatus.md)
 
 ## Notes and Other Information
 - Returns true if transaction status was updated via group optimization, false if the process should use the normal update path

@@ -26,14 +26,14 @@ AggClauseCosts encapsulates the cost statistics required for accurate cost estim
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - QualCost (for both transCost and finalCost members)
+  - [QualCost](../Q/QualCost.md) (for both transCost and finalCost members)
   - Size (for transitionSpace)
 - Called from (representative examples):
-  - get_agg_clause_costs (primary function for computing aggregate costs)
-  - cost_agg (aggregate node costing)
-  - create_agg_path (aggregate path creation)
-  - create_groupingsets_path (grouping sets path creation)
-  - estimate_hashagg_tablesize (hash aggregate memory estimation)
+  - [get_agg_clause_costs](../g/get_agg_clause_costs.md) (primary function for computing aggregate costs)
+  - [cost_agg](../c/cost_agg.md) (aggregate node costing)
+  - [create_agg_path](../c/create_agg_path.md) (aggregate path creation)
+  - [create_groupingsets_path](../c/create_groupingsets_path.md) (grouping sets path creation)
+  - [estimate_hashagg_tablesize](../e/estimate_hashagg_tablesize.md) (hash aggregate memory estimation)
 
 ## Notes and Other Information
 - Designed to be safely initialized to zero with memset, making it easy to use in various contexts

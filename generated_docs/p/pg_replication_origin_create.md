@@ -29,11 +29,11 @@ The function enforces naming conventions to prevent conflicts with system-reserv
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - replorigin_check_prerequisites
-  - text_to_cstring
+  - [replorigin_check_prerequisites](../r/replorigin_check_prerequisites.md)
+  - [text_to_cstring](../t/text_to_cstring.md)
   - [IsReservedName](../I/IsReservedName.md)
-  - IsReservedOriginName
-  - replorigin_create
+  - [IsReservedOriginName](../I/IsReservedOriginName.md)
+  - [replorigin_create](../r/replorigin_create.md)
   - PG_RETURN_OID
   - LOGICALREP_ORIGIN_ANY/LOGICALREP_ORIGIN_NONE (constants)
 - Called from:

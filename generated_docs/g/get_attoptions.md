@@ -25,12 +25,12 @@ The function uses the PostgreSQL system cache mechanism (ATTNUM cache) to perfor
 - Functions called/Symbols referenced:
   - [SearchSysCache2](../S/SearchSysCache2.md) (performs system cache lookup)
   - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) (converts OID to Datum)
-  - Int16GetDatum (converts int16 to Datum)
+  - [Int16GetDatum](../I/Int16GetDatum.md) (converts int16 to Datum)
   - [SysCacheGetAttr](../S/SysCacheGetAttr.md) (extracts attribute from cached tuple)
   - [datumCopy](../d/datumCopy.md) (creates a copy of the datum)
   - [ReleaseSysCache](../R/ReleaseSysCache.md) (releases cache reference)
 - Called from (representative examples):
-  - index_concurrently_create_copy
+  - [index_concurrently_create_copy](../i/index_concurrently_create_copy.md)
   - [CheckIndexCompatible](../C/CheckIndexCompatible.md)
   - [generateClonedIndexStmt](generateClonedIndexStmt.md)
   - [transformIndexConstraint](../t/transformIndexConstraint.md)

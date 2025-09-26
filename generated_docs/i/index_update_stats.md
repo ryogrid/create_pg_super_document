@@ -34,7 +34,7 @@ index_update_stats is a critical internal function that updates statistical info
   - [CacheInvalidateRelcacheByTuple](../C/CacheInvalidateRelcacheByTuple.md) (function)
   - [heap_freetuple](../h/heap_freetuple.md) (function)
 - Called from (representative examples):
-  - index_create
+  - [index_create](index_create.md)
   - [index_build](index_build.md)
 
 ## Notes and Other Information

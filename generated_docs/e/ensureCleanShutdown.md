@@ -27,19 +27,19 @@ The function uses specific flags to optimize the recovery process: -F (disable f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_other_exec
-  - find_my_exec
-  - strlcpy
+  - [find_other_exec](../f/find_other_exec.md)
+  - [find_my_exec](../f/find_my_exec.md)
+  - [strlcpy](../s/strlcpy.md)
   - [pg_fatal](../p/pg_fatal.md)
   - pg_log_info
-  - createPQExpBuffer
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)
   - [appendShellString](../a/appendShellString.md)
   - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
   - fflush
   - system
   - pg_log_error
   - pg_log_error_detail
-  - destroyPQExpBuffer
+  - [destroyPQExpBuffer](../d/destroyPQExpBuffer.md)
 - Called from (representative examples):
   - [main](../m/main.md) (pg_rewind.c)
 

@@ -39,15 +39,15 @@ The isolation tester uses an array of IsoConnInfo structures, where conns[0] is 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PermutationStep (referenced as a pointer type for tracking active execution steps)
-  - PGconn (libpq connection type)
+  - [PermutationStep](../P/PermutationStep.md) (referenced as a pointer type for tracking active execution steps)
+  - [PGconn](../P/PGconn.md) (libpq connection type)
 
 - Called from (representative examples):
-  - main (at src/test/isolation/isolationtester.c:150)
-  - run_permutation (at src/test/isolation/isolationtester.c:576, 653)
-  - try_complete_step (at src/test/isolation/isolationtester.c:821)
-  - step_has_blocker (at src/test/isolation/isolationtester.c:1087)
-  - isotesterNoticeProcessor (at src/test/isolation/isolationtester.c:1128)
+  - [main](../m/main.md) (at src/test/isolation/isolationtester.c:150)
+  - [run_permutation](../r/run_permutation.md) (at src/test/isolation/isolationtester.c:576, 653)
+  - [try_complete_step](../t/try_complete_step.md) (at src/test/isolation/isolationtester.c:821)
+  - [step_has_blocker](../s/step_has_blocker.md) (at src/test/isolation/isolationtester.c:1087)
+  - [isotesterNoticeProcessor](../i/isotesterNoticeProcessor.md) (at src/test/isolation/isolationtester.c:1128)
 
 ## Notes and Other Information
 - The IsoConnInfo structure is defined in the isolation testing framework (src/test/isolation/isolationtester.c:25-38)

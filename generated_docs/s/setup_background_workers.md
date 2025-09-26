@@ -26,10 +26,10 @@ Each worker is configured to execute the `test_shm_mq_main` function from the `t
 - Functions called/Symbols referenced:
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
-  - on_dsm_detach
+  - [on_dsm_detach](../o/on_dsm_detach.md)
   - [cleanup_background_workers](../c/cleanup_background_workers.md)
   - [RegisterDynamicBackgroundWorker](../R/RegisterDynamicBackgroundWorker.md)
-  - dsm_segment_handle
+  - [dsm_segment_handle](../d/dsm_segment_handle.md)
   - [UInt32GetDatum](../U/UInt32GetDatum.md)
   - sprintf/snprintf
 - Called from (representative examples):

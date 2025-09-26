@@ -23,13 +23,13 @@ This function is typically used in replication contexts where the system needs t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - [ScanKeyInit](../S/ScanKeyInit.md)
   - [systable_beginscan](../s/systable_beginscan.md)
   - [systable_getnext](../s/systable_getnext.md)
   - [systable_endscan](../s/systable_endscan.md)
-  - table_close
-  - lappend_oid
+  - [table_close](../t/table_close.md)
+  - [lappend_oid](../l/lappend_oid.md)
   - Form_pg_publication
   - [SysScanDesc](../S/SysScanDesc.md)
 - Called from (representative examples):

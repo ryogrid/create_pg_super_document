@@ -35,7 +35,7 @@ Returns:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire/LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease
   - GET_VXID_FROM_PGPROC
   - VirtualTransactionIdIsValid
   - VirtualTransactionIdEquals

@@ -22,13 +22,13 @@ pg_sha256_update is the core function for feeding data into a SHA-256 hash compu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_sha256_ctx (context structure type)
+  - [pg_sha256_ctx](pg_sha256_ctx.md) (context structure type)
   - PG_SHA256_BLOCK_LENGTH (constant for 64-byte block size)
-  - SHA256_Transform (core transformation function)
+  - [SHA256_Transform](../S/SHA256_Transform.md) (core transformation function)
   - memcpy (standard library function for copying data)
 - Called from (representative examples):
-  - pg_cryptohash_update (in src/common/cryptohash.c)
-  - pg_sha224_update (in src/common/sha2.c)
+  - [pg_cryptohash_update](pg_cryptohash_update.md) (in src/common/cryptohash.c)
+  - [pg_sha224_update](pg_sha224_update.md) (in src/common/sha2.c)
 
 ## Notes and Other Information
 - Handles zero-length input gracefully by returning immediately
@@ -38,4 +38,4 @@ pg_sha256_update is the core function for feeding data into a SHA-256 hash compu
 - Efficiently manages partial blocks in the internal buffer
 - The bit count is maintained in bits (left-shifted by 3) rather than bytes
 - Critical for streaming hash operations where data arrives in arbitrary chunks
-- Variables are explicitly cleared at the end for security purposes
+- [Variables](../V/Variables.md) are explicitly cleared at the end for security purposes

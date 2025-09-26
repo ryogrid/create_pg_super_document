@@ -23,7 +23,7 @@ The function uses pattern matching and syntax validation to distinguish between 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - strtoint
+  - [strtoint](../s/strtoint.md)
   - LEFT_PAREN
   - RIGHT_PAREN  
   - LEFT_BRACE
@@ -37,7 +37,7 @@ The function uses pattern matching and syntax validation to distinguish between 
 - For numeric detection, handles optional leading '+' or '-' signs
 - Uses errno and range checking via strtoint() to distinguish integers from floats
 - Single-character structural tokens ('(', ')', '{') are handled as special cases
-- Boolean tokens must match exactly "true" or "false"
-- String tokens are identified by surrounding double quotes
+- [Boolean](../B/Boolean.md) tokens must match exactly "true" or "false"
+- [String](../S/String.md) tokens are identified by surrounding double quotes
 - Bit string tokens are identified by leading 'b' or 'x' characters
 - Static function internal to the node reading subsystem

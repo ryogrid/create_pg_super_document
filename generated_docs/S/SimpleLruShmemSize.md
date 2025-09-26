@@ -48,9 +48,9 @@ The function organizes buffers into banks (groups of SLRU_BANK_SIZE buffers) to 
   - BLCKSZ (block size constant)
 
 - Called from (representative examples):
-  - CLOGShmemSize
-  - CommitTsShmemSize
-  - SUBTRANSShmemSize
+  - [CLOGShmemSize](../C/CLOGShmemSize.md)
+  - [CommitTsShmemSize](../C/CommitTsShmemSize.md)
+  - [SUBTRANSShmemSize](SUBTRANSShmemSize.md)
   - [SimpleLruInit](SimpleLruInit.md)
   - [PredicateLockShmemSize](../P/PredicateLockShmemSize.md)
   - [AsyncShmemSize](../A/AsyncShmemSize.md)

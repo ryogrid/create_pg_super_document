@@ -24,12 +24,12 @@ This function creates a new zstd compression basebackup sink that wraps another 
   - ereport (for error reporting when zstd not supported)
   - [palloc0](../p/palloc0.md) (for memory allocation)
   - bbsink_zstd_ops (operations table for zstd sink)
-  - bbsink (base sink type)
+  - [bbsink](bbsink.md) (base sink type)
   - [pg_compress_specification](../p/pg_compress_specification.md) (compression configuration)
   - [bbsink_zstd](bbsink_zstd.md) (zstd-specific sink structure)
 - Called from (representative examples):
   - [SendBaseBackup](../S/SendBaseBackup.md) (main backup function)
-  - bbsink_cleanup (cleanup utility)
+  - [bbsink_cleanup](bbsink_cleanup.md) (cleanup utility)
 
 ## Notes and Other Information
 - Requires USE_ZSTD compile flag to be enabled, otherwise raises ERRCODE_FEATURE_NOT_SUPPORTED

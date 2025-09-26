@@ -25,12 +25,12 @@ The function is used throughout the B-tree implementation whenever a fresh page 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PageInit
+  - [PageInit](../P/PageInit.md)
   - [BTPageOpaqueData](../B/BTPageOpaqueData.md)
 
 - Called from (representative examples):
   - [_bt_split](_bt_split.md)
-  - _bt_initmetapage
+  - [_bt_initmetapage](_bt_initmetapage.md)
   - [_bt_allocbuf](_bt_allocbuf.md)
   - [_bt_blnewpage](_bt_blnewpage.md)
   - [btree_xlog_split](btree_xlog_split.md)

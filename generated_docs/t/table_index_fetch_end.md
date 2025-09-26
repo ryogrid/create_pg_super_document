@@ -81,12 +81,12 @@ The function serves as a thin wrapper around the table access method's implement
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IndexFetchTableData (structure type)
+  - [IndexFetchTableData](../I/IndexFetchTableData.md) (structure type)
   - rd_tableam->index_fetch_end (table access method function pointer)
 - Called from (representative examples):
-  - index_endscan (src/backend/access/index/indexam.c:386)
-  - table_index_fetch_tuple_check (src/backend/access/table/tableam.c:223)
-  - unique_key_recheck (src/backend/commands/constraint.c:120, 123)
+  - [index_endscan](../i/index_endscan.md) (src/backend/access/index/indexam.c:386)
+  - [table_index_fetch_tuple_check](table_index_fetch_tuple_check.md) (src/backend/access/table/tableam.c:223)
+  - [unique_key_recheck](../u/unique_key_recheck.md) (src/backend/commands/constraint.c:120, 123)
 
 ## Notes and Other Information
 - This is an inline function defined in the tableam.h header file

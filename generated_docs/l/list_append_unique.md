@@ -23,7 +23,7 @@ The function performs a simple linear search through the list to check for membe
 ## Dependencies
 - Functions called/Symbols referenced:
   - [list_member](list_member.md) - Checks if datum is already in the list using equal() comparison
-  - `lappend` - Appends the datum to the list if not already present
+  - `[lappend](lappend.md)` - Appends the datum to the list if not already present
 - Called from (representative examples):
   - [check_publications_origin](../c/check_publications_origin.md) (src/backend/commands/subscriptioncmds.c:2095)
   - [create_index_paths](../c/create_index_paths.md) (src/backend/optimizer/path/indxpath.c:371)

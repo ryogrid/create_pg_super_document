@@ -29,8 +29,8 @@ This conservative approach ensures that the valid range can only shrink, never e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire (CommitTsLock, LW_EXCLUSIVE)
-  - LWLockRelease (CommitTsLock)
+  - [LWLockAcquire](../L/LWLockAcquire.md) (CommitTsLock, LW_EXCLUSIVE)
+  - [LWLockRelease](../L/LWLockRelease.md) (CommitTsLock)
   - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md) (for comparing transaction IDs)
   - InvalidTransactionId (constant for invalid transaction ID)
   - Assert (for debugging validation)

@@ -20,15 +20,15 @@ UnpinBuffer is a static function that serves as a wrapper around UnpinBufferNoOw
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferDescriptorGetBuffer
-  - ResourceOwnerForgetBuffer
-  - UnpinBufferNoOwner
+  - [BufferDescriptorGetBuffer](../B/BufferDescriptorGetBuffer.md)
+  - [ResourceOwnerForgetBuffer](../R/ResourceOwnerForgetBuffer.md)
+  - [UnpinBufferNoOwner](UnpinBufferNoOwner.md)
 - Called from (representative examples):
-  - BufferAlloc
-  - GetVictimBuffer
-  - ReleaseBuffer
-  - SyncOneBuffer
-  - FlushRelationBuffers
+  - [BufferAlloc](../B/BufferAlloc.md)
+  - [GetVictimBuffer](../G/GetVictimBuffer.md)
+  - [ReleaseBuffer](../R/ReleaseBuffer.md)
+  - [SyncOneBuffer](../S/SyncOneBuffer.md)
+  - [FlushRelationBuffers](../F/FlushRelationBuffers.md)
 
 ## Notes and Other Information
 - This function should only be applied to shared buffers, never local ones

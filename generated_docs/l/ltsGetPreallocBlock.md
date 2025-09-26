@@ -27,15 +27,15 @@ The blocks are stored in descending order to enable efficient popping from the e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ltsGetFreeBlock
-  - palloc
-  - repalloc
+  - [ltsGetFreeBlock](ltsGetFreeBlock.md)
+  - [palloc](../p/palloc.md)
+  - [repalloc](../r/repalloc.md)
   - TAPE_WRITE_PREALLOC_MIN
   - TAPE_WRITE_PREALLOC_MAX
-  - LogicalTapeSet (struct)
-  - LogicalTape (struct)
+  - [LogicalTapeSet](../L/LogicalTapeSet.md) (struct)
+  - [LogicalTape](../L/LogicalTape.md) (struct)
 - Called from (representative examples):
-  - ltsGetBlock
+  - [ltsGetBlock](ltsGetBlock.md)
 
 ## Notes and Other Information
 - Returns the lowest available preallocated block number to minimize fragmentation

@@ -24,7 +24,7 @@ This function handles the evaluation of function call expressions where PostgreS
   - [pgstat_init_function_usage](../p/pgstat_init_function_usage.md) (initialize function usage tracking)
   - [pgstat_end_function_usage](../p/pgstat_end_function_usage.md) (finalize function usage tracking)
   - [FunctionCallInfo](../F/FunctionCallInfo.md) (structure type for function call parameters)
-  - PgStat_FunctionCallUsage (structure type for usage statistics)
+  - [PgStat_FunctionCallUsage](../P/PgStat_FunctionCallUsage.md) (structure type for usage statistics)
 - Called from (representative examples):
   - [ExecInterpExpr](ExecInterpExpr.md) (main expression interpreter at line 775)
   - [FunctionReturningBool](../F/FunctionReturningBool.md) (in LLVM JIT compilation)

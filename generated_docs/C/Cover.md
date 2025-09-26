@@ -20,13 +20,13 @@ This function implements a sophisticated algorithm to find the shortest contiguo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - QueryRepresentation (struct type)
+  - [QueryRepresentation](../Q/QueryRepresentation.md) (struct type)
   - CoverExt (struct type)
   - DocRepresentation (struct type)
-  - check_stack_depth (recursion depth check)
+  - [check_stack_depth](../c/check_stack_depth.md) (recursion depth check)
   - [resetQueryRepresentation](../r/resetQueryRepresentation.md) (reset query state)
   - [fillQueryRepresentationData](../f/fillQueryRepresentationData.md) (populate operand data)
-  - TS_execute (execute query condition)
+  - [TS_execute](../T/TS_execute.md) (execute query condition)
   - GETQUERY (macro to get query)
   - [checkcondition_QueryOperand](../c/checkcondition_QueryOperand.md) (condition checker function)
   - TS_EXEC_EMPTY (execution flag)

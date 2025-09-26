@@ -31,7 +31,7 @@ When an affix is found, the function calculates the appropriate length to return
   - strstr (substring search)
   - CMPDAffix structure fields (affix, len, issuffix)
 - Called from (representative examples):
-  - SplitToVariants (at line 2399)
+  - [SplitToVariants](../S/SplitToVariants.md) (at line 2399)
 
 ## Notes and Other Information
 - Returns -1 if no matching affix is found

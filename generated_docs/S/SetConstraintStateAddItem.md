@@ -27,8 +27,8 @@ The function may return a different pointer than the input if reallocation occur
 - Functions called/Symbols referenced:
   - SetConstraintState (parameter and return type)
   - [repalloc](../r/repalloc.md) (for expanding storage when needed)
-  - SetConstraintStateData (for size calculations)
-  - SetConstraintTriggerData (array element type and size calculations)
+  - [SetConstraintStateData](SetConstraintStateData.md) (for size calculations)
+  - [SetConstraintTriggerData](SetConstraintTriggerData.md) (array element type and size calculations)
   - Max (macro for minimum allocation size)
 - Called from:
   - [AfterTriggersTableData](../A/AfterTriggersTableData.md) (src/backend/commands/trigger.c:3995)

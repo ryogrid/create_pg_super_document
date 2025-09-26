@@ -22,7 +22,7 @@ The function creates a message buffer, writes the UUID's raw 16-byte binary data
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pq_begintypsend](../p/pq_begintypsend.md) (initializes message buffer for type sending)
-  - `pq_sendbytes` (writes binary data to message buffer)
+  - `[pq_sendbytes](../p/pq_sendbytes.md)` (writes binary data to message buffer)
   - [pq_endtypsend](../p/pq_endtypsend.md) (finalizes message buffer and returns bytea)
   - `PG_GETARG_UUID_P` (argument retrieval macro for UUID)
   - `PG_RETURN_BYTEA_P` (return value macro for bytea)

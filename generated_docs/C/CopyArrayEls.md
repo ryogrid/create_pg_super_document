@@ -38,7 +38,7 @@ The function operates by iterating through all elements, setting appropriate bit
 - Functions called/Symbols referenced:
   - ARR_DATA_PTR
   - ARR_NULLBITMAP
-  - ArrayCastAndSet
+  - [ArrayCastAndSet](../A/ArrayCastAndSet.md)
   - bits8
 - Called from (representative examples):
   - [EA_flatten_into](../E/EA_flatten_into.md)

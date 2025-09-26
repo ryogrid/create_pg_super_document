@@ -21,7 +21,7 @@ This function performs a trivial conversion from PostgreSQL's internal wide char
 - Functions called/Symbols referenced:
   - (No external function calls - direct character truncation)
 - Called from (representative examples):
-  - pg_encoding_set_invalid (multiple references for various encoding configurations)
+  - [pg_encoding_set_invalid](pg_encoding_set_invalid.md) (multiple references for various encoding configurations)
 
 ## Notes and Other Information
 - Returns the number of characters successfully converted

@@ -26,7 +26,7 @@ This callback is particularly valuable for diagnosing issues during parallel que
 - Functions called/Symbols referenced:
   - errcontext (PostgreSQL error reporting macro)
 - Called from:
-  - RestoreGUCState (registered as error context callback during GUC restoration)
+  - [RestoreGUCState](../R/RestoreGUCState.md) (registered as error context callback during GUC restoration)
 
 ## Notes and Other Information
 - This is a static function internal to the GUC restoration system

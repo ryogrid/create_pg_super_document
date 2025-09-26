@@ -31,13 +31,13 @@ The function carefully manages the doubly-linked structure of sibling nodes and 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pairingheap_remove_first
-  - merge_children
+  - [pairingheap_remove_first](pairingheap_remove_first.md)
+  - [merge_children](../m/merge_children.md)
 - Called from (representative examples):
-  - ReorderBufferChangeMemoryUpdate
-  - InvalidateCatalogSnapshot
-  - UnregisterSnapshotNoOwner
-  - AtEOXact_Snapshot
+  - [ReorderBufferChangeMemoryUpdate](../R/ReorderBufferChangeMemoryUpdate.md)
+  - [InvalidateCatalogSnapshot](../I/InvalidateCatalogSnapshot.md)
+  - [UnregisterSnapshotNoOwner](../U/UnregisterSnapshotNoOwner.md)
+  - [AtEOXact_Snapshot](../A/AtEOXact_Snapshot.md)
 
 ## Notes and Other Information
 - Unlike `pairingheap_remove_first`, this function can remove any node from the heap

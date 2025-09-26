@@ -29,7 +29,7 @@ The function carefully manages the planner's join_rel_list and join_rel_hash to 
   - [gimme_tree](gimme_tree.md) (constructs join tree from gene tour)
   - [list_truncate](../l/list_truncate.md) (restores join_rel_list state)
   - [MemoryContextDelete](../M/MemoryContextDelete.md) (cleanup)
-  - Gene, Cost, HTAB (type definitions)
+  - [Gene](../G/Gene.md), Cost, HTAB (type definitions)
   - ALLOCSET_DEFAULT_SIZES (memory allocation constant)
 
 - Called from (representative examples):

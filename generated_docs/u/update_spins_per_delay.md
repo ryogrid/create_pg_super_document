@@ -25,8 +25,8 @@ The algorithm deliberately truncates rather than rounds the result, allowing sma
 - Functions called/Symbols referenced:
   - spins_per_delay (local thread variable accessed)
 - Called from (representative examples):
-  - ProcKill (src/backend/storage/lmgr/proc.c:945)
-  - AuxiliaryProcKill (src/backend/storage/lmgr/proc.c:1011)
+  - [ProcKill](../P/ProcKill.md) (src/backend/storage/lmgr/proc.c:945)
+  - [AuxiliaryProcKill](../A/AuxiliaryProcKill.md) (src/backend/storage/lmgr/proc.c:1011)
 - Related symbols:
   - DEFAULT_SPINS_PER_DELAY (src/include/storage/s_lock.h:815)
 

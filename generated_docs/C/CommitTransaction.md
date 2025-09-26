@@ -41,11 +41,11 @@ This function takes no parameters but operates on global transaction state, part
   - [smgrDoPendingSyncs](../s/smgrDoPendingSyncs.md)
   - [AtEOXact_LargeObject](../A/AtEOXact_LargeObject.md)
   - [PreCommit_Notify](../P/PreCommit_Notify.md)
-  - PreCommit_CheckForSerializationFailure
+  - [PreCommit_CheckForSerializationFailure](../P/PreCommit_CheckForSerializationFailure.md)
   - [AtEOXact_RelationMap](../A/AtEOXact_RelationMap.md)
   - [RecordTransactionCommit](../R/RecordTransactionCommit.md)
   - [ProcArrayEndTransaction](../P/ProcArrayEndTransaction.md)
-  - ResourceOwnerRelease
+  - [ResourceOwnerRelease](../R/ResourceOwnerRelease.md)
   - [AtEOXact_Buffers](../A/AtEOXact_Buffers.md)
   - [AtEOXact_RelationCache](../A/AtEOXact_RelationCache.md)
   - [AtEOXact_Inval](../A/AtEOXact_Inval.md)
@@ -59,11 +59,11 @@ This function takes no parameters but operates on global transaction state, part
   - [AtEOXact_Namespace](../A/AtEOXact_Namespace.md)
   - [AtEOXact_SMgr](../A/AtEOXact_SMgr.md)
   - [AtEOXact_Files](../A/AtEOXact_Files.md)
-  - AtEOXact_ComboCid
+  - [AtEOXact_ComboCid](../A/AtEOXact_ComboCid.md)
   - [AtEOXact_HashTables](../A/AtEOXact_HashTables.md)
-  - AtEOXact_PgStat
+  - [AtEOXact_PgStat](../A/AtEOXact_PgStat.md)
   - [AtEOXact_Snapshot](../A/AtEOXact_Snapshot.md)
-  - AtEOXact_ApplyLauncher
+  - [AtEOXact_ApplyLauncher](../A/AtEOXact_ApplyLauncher.md)
   - [AtEOXact_LogicalRepWorkers](../A/AtEOXact_LogicalRepWorkers.md)
   - [AtCommit_Memory](../A/AtCommit_Memory.md)
 

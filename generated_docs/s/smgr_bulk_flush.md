@@ -24,7 +24,7 @@ This function performs the actual disk I/O for bulk write operations by processi
   - [log_newpages](../l/log_newpages.md)
   - [PageSetChecksumInplace](../P/PageSetChecksumInplace.md)
   - [smgrextend](smgrextend.md)
-  - smgrwrite
+  - [smgrwrite](smgrwrite.md)
   - [pfree](../p/pfree.md)
   - [PendingWrite](../P/PendingWrite.md)
   - MAX_PENDING_WRITES

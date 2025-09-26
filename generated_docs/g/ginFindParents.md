@@ -18,7 +18,7 @@ ginFindParents is a complex tree navigation function that rebuilds the parent-ch
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReleaseBuffer (buffer deallocation)
+  - [ReleaseBuffer](../R/ReleaseBuffer.md) (buffer deallocation)
   - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md) (buffer metadata access)
   - [palloc](../p/palloc.md) (memory allocation)
   - [LockBuffer](../L/LockBuffer.md) (buffer locking operations)

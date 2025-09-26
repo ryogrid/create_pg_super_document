@@ -39,7 +39,7 @@ The returned set includes the input relation itself as the first element, follow
   - SRF_PERCALL_SETUP: Sets up context for each subsequent call
   - SRF_RETURN_NEXT: Returns the next value in the result set
   - SRF_RETURN_DONE: Signals completion of the result set
-  - list_length: Gets the number of elements in the ancestors list
+  - [list_length](../l/list_length.md): Gets the number of elements in the ancestors list
   - [list_nth_oid](../l/list_nth_oid.md): Retrieves the OID at a specific position in the list
 
 - Called from (representative examples):

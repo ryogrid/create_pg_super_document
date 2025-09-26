@@ -23,12 +23,12 @@ Unlike normal reset operations that only affect backends that have fallen behind
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire/LWLockRelease (for SInvalWriteLock and SInvalReadLock exclusive access)
-  - SISeg (shared invalidation segment structure)
-  - ProcState (per-process state tracking)
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease (for SInvalWriteLock and SInvalReadLock exclusive access)
+  - [SISeg](SISeg.md) (shared invalidation segment structure)
+  - [ProcState](../P/ProcState.md) (per-process state tracking)
   - CLEANUP_MIN (cleanup threshold constant)
 - Called from (representative examples):
-  - StartupXLOG (during recovery operations when cache coherency is uncertain)
+  - [StartupXLOG](StartupXLOG.md) (during recovery operations when cache coherency is uncertain)
   - Critical system state transitions where comprehensive cache invalidation is required
 
 ## Notes and Other Information

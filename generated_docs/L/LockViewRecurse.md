@@ -27,9 +27,9 @@ LockViewRecurse implements the comprehensive locking mechanism for views in Post
   - LockViewRecurse_context (structure type)
   - [get_view_query](../g/get_view_query.md)
   - RelationHasSecurityInvoker
-  - lappend_oid
+  - [lappend_oid](../l/lappend_oid.md)
   - [LockViewRecurse_walker](LockViewRecurse_walker.md)
-  - list_delete_last
+  - [list_delete_last](../l/list_delete_last.md)
 - Called from (representative examples):
   - [LockTableCommand](LockTableCommand.md)
   - [LockViewRecurse_walker](LockViewRecurse_walker.md)

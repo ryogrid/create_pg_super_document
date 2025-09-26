@@ -22,15 +22,15 @@ The function requires that the buffer be pinned (to prevent it from being evicte
 ## Dependencies
 - Functions called/Symbols referenced:
   - BufferIsLocal: Determines if buffer is a local buffer
-  - GetLocalBufferDescriptor: Gets descriptor for local buffers
-  - GetBufferDescriptor: Gets descriptor for shared buffers  
+  - [GetLocalBufferDescriptor](../G/GetLocalBufferDescriptor.md): Gets descriptor for local buffers
+  - [GetBufferDescriptor](../G/GetBufferDescriptor.md): Gets descriptor for shared buffers  
   - BufferIsPinned: Assertion to verify buffer is pinned
-  - LWLockHeldByMeInMode: Assertion to verify exclusive lock is held
-  - BufferDescriptorGetContentLock: Gets the content lock for the buffer
-  - pg_atomic_read_u32: Atomic read of buffer state
+  - [LWLockHeldByMeInMode](../L/LWLockHeldByMeInMode.md): Assertion to verify exclusive lock is held
+  - [BufferDescriptorGetContentLock](BufferDescriptorGetContentLock.md): Gets the content lock for the buffer
+  - [pg_atomic_read_u32](../p/pg_atomic_read_u32.md): Atomic read of buffer state
   - BM_DIRTY: Buffer state flag indicating dirty status
 - Called from (representative examples):
-  - XLogRegisterBuffer: WAL logging system uses this to check buffer state
+  - [XLogRegisterBuffer](../X/XLogRegisterBuffer.md): WAL logging system uses this to check buffer state
   - BUFFER_LOCK_EXCLUSIVE: Buffer locking macros
 
 ## Notes and Other Information

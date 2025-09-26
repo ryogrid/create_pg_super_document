@@ -32,8 +32,8 @@ This function takes no parameters but operates on:
 
 ## Dependencies
 - Signal handling:
-  - pqsignal() - PostgreSQL signal registration function
-  - postmaster_death_handler() - Signal handler function
+  - [pqsignal](../p/pqsignal.md)() - PostgreSQL signal registration function
+  - [postmaster_death_handler](../p/postmaster_death_handler.md)() - Signal handler function
 - Platform-specific system calls:
   - prctl(PR_SET_PDEATHSIG) (Linux)
   - procctl(PROC_PDEATHSIG_CTL) (FreeBSD) 
@@ -44,7 +44,7 @@ This function takes no parameters but operates on:
 - Conditional compilation:
   - USE_POSTMASTER_DEATH_SIGNAL
 - Called from:
-  - InitPostmasterChild (src/backend/utils/init/miscinit.c:165)
+  - [InitPostmasterChild](../I/InitPostmasterChild.md) (src/backend/utils/init/miscinit.c:165)
 
 ## Notes and Other Information
 - Only compiled and functional on platforms that support USE_POSTMASTER_DEATH_SIGNAL

@@ -46,7 +46,7 @@ The function uses an intelligent pre-allocation strategy, initially allocating s
 ## Notes and Other Information
 - This function is part of the jsonb_ops GIN opclass infrastructure
 - Uses efficient pre-allocation based on root element count to minimize memory reallocations
-- String array elements are treated specially - they are indexed as keys rather than values to support array containment queries
+- [String](../S/String.md) array elements are treated specially - they are indexed as keys rather than values to support array containment queries
 - Structural JSONB tokens (like object/array start/end markers) are ignored during extraction
 - The function signature follows PostgreSQL's V1 calling convention
 - Memory management is handled by the GinEntries buffer system

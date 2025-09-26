@@ -23,20 +23,20 @@ InstrStopNode is called at the completion of plan node execution to finalize per
   - INSTR_TIME_ACCUM_DIFF (timing accumulation macro)
   - INSTR_TIME_SET_ZERO (timing reset macro)
   - INSTR_TIME_GET_DOUBLE (timing conversion macro)
-  - BufferUsageAccumDiff (buffer usage accumulation)
-  - WalUsageAccumDiff (WAL usage accumulation)
+  - [BufferUsageAccumDiff](../B/BufferUsageAccumDiff.md) (buffer usage accumulation)
+  - [WalUsageAccumDiff](../W/WalUsageAccumDiff.md) (WAL usage accumulation)
   - pgBufferUsage (global buffer usage counter)
   - pgWalUsage (global WAL usage counter)
   - elog (error logging)
 - Called from (representative examples):
-  - ExecCallTriggerFunc
-  - AfterTriggerExecute
-  - ExecAsyncRequest
-  - standard_ExecutorRun
-  - ExecProcNodeInstr
-  - MultiExecBitmapAnd
-  - MultiExecBitmapIndexScan
-  - MultiExecHash
+  - [ExecCallTriggerFunc](../E/ExecCallTriggerFunc.md)
+  - [AfterTriggerExecute](../A/AfterTriggerExecute.md)
+  - [ExecAsyncRequest](../E/ExecAsyncRequest.md)
+  - [standard_ExecutorRun](../s/standard_ExecutorRun.md)
+  - [ExecProcNodeInstr](../E/ExecProcNodeInstr.md)
+  - [MultiExecBitmapAnd](../M/MultiExecBitmapAnd.md)
+  - [MultiExecBitmapIndexScan](../M/MultiExecBitmapIndexScan.md)
+  - [MultiExecHash](../M/MultiExecHash.md)
 
 ## Notes and Other Information
 The function tracks the 'firsttuple' timing metric which is crucial for query optimization as it indicates how quickly a node starts producing results. In async mode, special logic handles cases where tuple emission may be delayed or irregular. The function safely resets the start time after use, allowing for proper detection of instrumentation errors in subsequent calls. Buffer and WAL usage calculations rely on the previously processed BufferUsageAccumDiff and WalUsageAccumDiff functions to provide accurate delta measurements.

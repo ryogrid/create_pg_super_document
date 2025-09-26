@@ -30,7 +30,7 @@ This function is essential for memory context management operations that need to
   - PointerGetMemoryChunk
   - [MemoryChunkIsExternal](../M/MemoryChunkIsExternal.md)
   - [MemoryChunkGetBlock](../M/MemoryChunkGetBlock.md)
-  - GetMemoryChunkContext
+  - [GetMemoryChunkContext](../G/GetMemoryChunkContext.md)
   - VALGRIND_MAKE_MEM_DEFINED
   - VALGRIND_MAKE_MEM_NOACCESS
 - Called from (representative examples):

@@ -419,16 +419,16 @@ v_str ESTAB   0      0                                               *:633275472
   - [WindowStatePerAgg](WindowStatePerAgg.md)
   - [WindowObjectData](WindowObjectData.md)
   - [WindowAggStatus](WindowAggStatus.md)
-  - Tuplestorestate
-  - ExprState
+  - [Tuplestorestate](../T/Tuplestorestate.md)
+  - [ExprState](../E/ExprState.md)
   - [FmgrInfo](../F/FmgrInfo.md)
   - [MemoryContext](../M/MemoryContext.md)
-  - TupleTableSlot
+  - [TupleTableSlot](../T/TupleTableSlot.md)
 - Called from (representative examples):
   - [ExecWindowAgg](../E/ExecWindowAgg.md)
   - [ExecInitWindowAgg](../E/ExecInitWindowAgg.md)
-  - ExecEndWindowAgg
-  - ExecReScanWindowAgg
+  - [ExecEndWindowAgg](../E/ExecEndWindowAgg.md)
+  - [ExecReScanWindowAgg](../E/ExecReScanWindowAgg.md)
   - [begin_partition](../b/begin_partition.md)
   - [eval_windowaggregates](../e/eval_windowaggregates.md)
   - [update_frameheadpos](../u/update_frameheadpos.md)

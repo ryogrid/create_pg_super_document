@@ -23,10 +23,10 @@ The function uses PostgreSQL's StringInfo mechanism to efficiently build the out
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_CIRCLE_P (retrieves input circle argument)
-  - initStringInfo (initializes string buffer)
-  - appendStringInfoChar (appends single characters)
-  - pair_encode (formats center point coordinates)
-  - single_encode (formats radius value)
+  - [initStringInfo](../i/initStringInfo.md) (initializes string buffer)
+  - [appendStringInfoChar](../a/appendStringInfoChar.md) (appends single characters)
+  - [pair_encode](../p/pair_encode.md) (formats center point coordinates)
+  - [single_encode](../s/single_encode.md) (formats radius value)
   - PG_RETURN_CSTRING (returns the formatted string)
 - Constants referenced:
   - LDELIM_C, LDELIM (left delimiter characters)

@@ -25,7 +25,7 @@ This function tokenizes a delimited string using the standard C library `strtok`
   - `strtok` - Standard C library string tokenization function
   - [add_stringlist_item](../a/add_stringlist_item.md) - Function to append items to the string list
   - `free` - Standard C library memory deallocation function
-  - `_stringlist` - Structure type for linked list nodes
+  - `[_stringlist](_stringlist.md)` - Structure type for linked list nodes
 - Called from (representative examples):
   - [regression_main](../r/regression_main.md) - in pg_regress for parsing test lists and configuration options
 

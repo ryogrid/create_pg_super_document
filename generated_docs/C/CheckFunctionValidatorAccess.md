@@ -37,7 +37,7 @@ The function performs comprehensive privilege checking to prevent potential secu
   - [ReleaseSysCache](../R/ReleaseSysCache.md) (cache cleanup)
   - ereport/errmsg/errcode (error reporting)
   - Form_pg_proc, Form_pg_language (catalog structure types)
-  - AclResult, ACL_USAGE, ACL_EXECUTE (access control types/constants)
+  - [AclResult](../A/AclResult.md), ACL_USAGE, ACL_EXECUTE (access control types/constants)
   - OBJECT_LANGUAGE, OBJECT_FUNCTION (object type constants)
 - Called from (representative examples):
   - [fmgr_internal_validator](../f/fmgr_internal_validator.md) (internal function validator)

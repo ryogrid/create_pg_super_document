@@ -31,7 +31,7 @@ This function is the core mechanism for modifying ACL arrays in PostgreSQL. It c
   - Various ACL manipulation macros (ACLITEM_GET_RIGHTS, ACLITEM_SET_RIGHTS, etc.)
 - Called from (representative examples):
   - [merge_acl_with_grant](../m/merge_acl_with_grant.md): Merging ACLs during privilege operations
-  - aclmerge: ACL merging operations
+  - [aclmerge](aclmerge.md): ACL merging operations
   - [check_circularity](../c/check_circularity.md): Circular dependency detection
   - [recursive_revoke](../r/recursive_revoke.md): Cascading revoke operations
 

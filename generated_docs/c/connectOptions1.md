@@ -27,7 +27,7 @@ This function handles the first phase of connection option processing for libpq.
   - CONNECTION_BAD (connection status constant)
 - Called from (representative examples):
   - [PQconnectStart](../P/PQconnectStart.md)
-  - PQsetdbLogin
+  - [PQsetdbLogin](../P/PQsetdbLogin.md)
 
 ## Notes and Other Information
 - Returns true if successful, false on failure

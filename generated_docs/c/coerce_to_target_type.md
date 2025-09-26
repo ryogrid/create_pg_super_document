@@ -42,7 +42,7 @@ The function returns NULL rather than throwing errors directly, allowing callers
   - [coerce_type](coerce_type.md)
   - [coerce_type_typmod](coerce_type_typmod.md)
   - [type_is_collatable](../t/type_is_collatable.md)
-  - CollateExpr (node type)
+  - [CollateExpr](../C/CollateExpr.md) (node type)
   - CoercionContext (enum)
   - CoercionForm (enum)
 - Called from (representative examples):

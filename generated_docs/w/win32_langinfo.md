@@ -35,7 +35,7 @@ The function handles special cases such as CP_ACP (no ANSI codepage available, r
   - sprintf (formatted string creation)
   - strcpy (string copying)
 - Called from (representative examples):
-  - pg_get_encoding_from_locale
+  - [pg_get_encoding_from_locale](../p/pg_get_encoding_from_locale.md)
 
 ## Notes and Other Information
 - This is a static function specific to Windows builds and is conditionally compiled

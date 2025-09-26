@@ -78,16 +78,16 @@ The generation counter tracks how many times an entry has been reused, which hel
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PgStat_HashKey (key structure)
-  - pg_atomic_uint32 (atomic integer type)
+  - [PgStat_HashKey](PgStat_HashKey.md) (key structure)
+  - [pg_atomic_uint32](../p/pg_atomic_uint32.md) (atomic integer type)
   - dsa_pointer (dynamic shared area pointer)
 - Called from (representative examples):
-  - pgstat_init_entry (entry initialization)
-  - pgstat_reinit_entry (entry reinitialization) 
-  - pgstat_get_entry_ref (reference acquisition)
-  - pgstat_release_entry_ref (reference release)
-  - pgstat_drop_entry (entry deletion)
-  - pgstat_build_snapshot (snapshot creation)
+  - [pgstat_init_entry](../p/pgstat_init_entry.md) (entry initialization)
+  - [pgstat_reinit_entry](../p/pgstat_reinit_entry.md) (entry reinitialization) 
+  - [pgstat_get_entry_ref](../p/pgstat_get_entry_ref.md) (reference acquisition)
+  - [pgstat_release_entry_ref](../p/pgstat_release_entry_ref.md) (reference release)
+  - [pgstat_drop_entry](../p/pgstat_drop_entry.md) (entry deletion)
+  - [pgstat_build_snapshot](../p/pgstat_build_snapshot.md) (snapshot creation)
 
 ## Notes and Other Information
 - The separation of entry metadata from actual statistics data allows for variable-sized statistics while maintaining efficient hashtable operations

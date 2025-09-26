@@ -20,12 +20,12 @@ This static function constructs a PostgreSQL connection string with properly quo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initPQExpBuffer
+  - [initPQExpBuffer](../i/initPQExpBuffer.md)
   - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
   - [appendConnStrVal](../a/appendConnStrVal.md)
   - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
   - [PQconnectdb](../P/PQconnectdb.md)
-  - termPQExpBuffer
+  - [termPQExpBuffer](../t/termPQExpBuffer.md)
 - Called from (representative examples):
   - [connectToServer](../c/connectToServer.md)
   - [start_postmaster](../s/start_postmaster.md)

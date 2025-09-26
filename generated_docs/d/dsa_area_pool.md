@@ -56,19 +56,19 @@ Each dsa_area_pool instance is part of a larger dsa_area_control structure, wher
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLock
+  - [LWLock](../L/LWLock.md)
   - dsa_pointer
   - DSA_FULLNESS_CLASSES
 - Called from (representative examples):
   - get_segment_index (src/backend/utils/mmgr/dsa.c:383, 385, 388)
-  - dsa_allocate_extended (src/backend/utils/mmgr/dsa.c:697)
-  - dsa_trim (src/backend/utils/mmgr/dsa.c:1053)
-  - init_span (src/backend/utils/mmgr/dsa.c:1379)
-  - transfer_first_span (src/backend/utils/mmgr/dsa.c:1433)
-  - alloc_object (src/backend/utils/mmgr/dsa.c:1474)
-  - ensure_active_superblock (src/backend/utils/mmgr/dsa.c:1560)
-  - unlink_span (src/backend/utils/mmgr/dsa.c:1922)
-  - add_span_to_fullness_class (src/backend/utils/mmgr/dsa.c:1933)
+  - [dsa_allocate_extended](dsa_allocate_extended.md) (src/backend/utils/mmgr/dsa.c:697)
+  - [dsa_trim](dsa_trim.md) (src/backend/utils/mmgr/dsa.c:1053)
+  - [init_span](../i/init_span.md) (src/backend/utils/mmgr/dsa.c:1379)
+  - [transfer_first_span](../t/transfer_first_span.md) (src/backend/utils/mmgr/dsa.c:1433)
+  - [alloc_object](../a/alloc_object.md) (src/backend/utils/mmgr/dsa.c:1474)
+  - [ensure_active_superblock](../e/ensure_active_superblock.md) (src/backend/utils/mmgr/dsa.c:1560)
+  - [unlink_span](../u/unlink_span.md) (src/backend/utils/mmgr/dsa.c:1922)
+  - [add_span_to_fullness_class](../a/add_span_to_fullness_class.md) (src/backend/utils/mmgr/dsa.c:1933)
 
 ## Notes and Other Information
 - The structure includes a comment about potential cacheline boundary padding, indicating performance considerations in the design

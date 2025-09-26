@@ -29,7 +29,7 @@ The function first extracts the int32 representation using DatumGetInt32(), then
   - [system_samplescangetsamplesize](../s/system_samplescangetsamplesize.md)
   - [system_beginsamplescan](../s/system_beginsamplescan.md)
   - [btfloat4fastcmp](../b/btfloat4fastcmp.md)
-  - convert_numeric_to_scalar
+  - [convert_numeric_to_scalar](../c/convert_numeric_to_scalar.md)
   - PG_GETARG_FLOAT4
   - [PLyFloat_FromFloat4](../P/PLyFloat_FromFloat4.md)
 

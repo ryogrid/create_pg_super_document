@@ -25,10 +25,10 @@ The function first checks for version mismatches, which indicate the module was 
 - Functions called/Symbols referenced:
   - Pg_magic_struct (struct type)
   - [StringInfoData](../S/StringInfoData.md) (for building detailed error messages)
-  - initStringInfo
-  - appendStringInfo
-  - appendStringInfoChar
-  - appendStringInfoString
+  - [initStringInfo](initStringInfo.md)
+  - [appendStringInfo](../a/appendStringInfo.md)
+  - [appendStringInfoChar](../a/appendStringInfoChar.md)
+  - [appendStringInfoString](../a/appendStringInfoString.md)
   - ereport
   - [errdetail_internal](../e/errdetail_internal.md)
 - Called from:

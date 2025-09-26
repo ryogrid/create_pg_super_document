@@ -24,19 +24,19 @@ For local buffers, the function only needs to check the local reference count si
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferIsValid
+  - [BufferIsValid](../B/BufferIsValid.md)
   - BufferIsLocal
-  - GetPrivateRefCount
-  - ConditionalLockBuffer
-  - GetBufferDescriptor
-  - LockBufHdr/UnlockBufHdr
+  - [GetPrivateRefCount](../G/GetPrivateRefCount.md)
+  - [ConditionalLockBuffer](ConditionalLockBuffer.md)
+  - [GetBufferDescriptor](../G/GetBufferDescriptor.md)
+  - [LockBufHdr](../L/LockBufHdr.md)/UnlockBufHdr
   - BUF_STATE_GET_REFCOUNT
-  - LockBuffer (for unlock)
+  - [LockBuffer](../L/LockBuffer.md) (for unlock)
 - Called from (representative examples):
-  - _hash_getbuf_with_condlock_cleanup
-  - _hash_finish_split
-  - heap_page_prune_opt
-  - lazy_scan_heap
+  - [_hash_getbuf_with_condlock_cleanup](../h/_hash_getbuf_with_condlock_cleanup.md)
+  - [_hash_finish_split](../h/_hash_finish_split.md)
+  - [heap_page_prune_opt](../h/heap_page_prune_opt.md)
+  - [lazy_scan_heap](../l/lazy_scan_heap.md)
 
 ## Notes and Other Information
 - Returns true if successfully acquired exclusive lock with pin count = 1

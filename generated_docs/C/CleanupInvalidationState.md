@@ -31,8 +31,8 @@ The function ensures that the shared invalidation system maintains an accurate l
   - [DatumGetPointer](../D/DatumGetPointer.md)
   - Assert
   - PointerIsValid
-  - LWLockAcquire
-  - LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - elog
 - Data types referenced:
   - [SISeg](../S/SISeg.md)

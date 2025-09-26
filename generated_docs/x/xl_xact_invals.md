@@ -24,15 +24,15 @@ The xl_xact_invals structure is a critical component of PostgreSQL's cache inval
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SharedInvalidationMessage
+  - [SharedInvalidationMessage](../S/SharedInvalidationMessage.md)
   - FLEXIBLE_ARRAY_MEMBER
 
 - Called from (representative examples):
-  - ParseCommitRecord (in xactdesc.c:100)
-  - xact_desc (in xactdesc.c:478)
-  - XactLogCommitRecord (in xact.c:5767)
-  - xact_decode (in decode.c:284, 287)
-  - LogLogicalInvalidations (in inval.c:1609)
+  - [ParseCommitRecord](../P/ParseCommitRecord.md) (in xactdesc.c:100)
+  - [xact_desc](xact_desc.md) (in xactdesc.c:478)
+  - [XactLogCommitRecord](../X/XactLogCommitRecord.md) (in xact.c:5767)
+  - [xact_decode](xact_decode.md) (in decode.c:284, 287)
+  - [LogLogicalInvalidations](../L/LogLogicalInvalidations.md) (in inval.c:1609)
   - MinSizeOfXactInvals (in xact.h:301)
 
 ## Notes and Other Information

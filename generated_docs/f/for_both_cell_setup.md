@@ -28,7 +28,7 @@ The function handles NULL initial cells by setting the corresponding index to th
 - Functions called/Symbols referenced:
   - [ForBothCellState](../F/ForBothCellState.md) (struct type)
   - [list_cell_number](../l/list_cell_number.md) (to convert cell pointers to indices)
-  - list_length (to get list lengths when initcells are NULL)
+  - [list_length](../l/list_length.md) (to get list lengths when initcells are NULL)
 - Called from (representative examples):
   - for_both_cell (macro)
 

@@ -41,7 +41,7 @@ The function supports intelligent index updates through the TU_UpdateIndexes mec
 - Called from (representative examples):
   - [apply_handle_update_internal](../a/apply_handle_update_internal.md): Logical replication worker for processing UPDATE operations
   - [apply_handle_tuple_routing](../a/apply_handle_tuple_routing.md): Handles updates with tuple routing for partitioned tables
-  - exec_rt_fetch: Through executor header inclusion
+  - [exec_rt_fetch](../e/exec_rt_fetch.md): Through executor header inclusion
 
 ## Notes and Other Information
 - Restricted to non-system, regular table relations (RELKIND_RELATION)

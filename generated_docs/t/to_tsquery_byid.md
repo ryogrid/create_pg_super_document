@@ -26,7 +26,7 @@ This function creates a TSQuery from input text using a specified text search co
   - [MorphOpaque](../M/MorphOpaque.md)
   - OP_PHRASE
   - [parse_tsquery](../p/parse_tsquery.md)
-  - text_to_cstring
+  - [text_to_cstring](text_to_cstring.md)
   - [pushval_morph](../p/pushval_morph.md)
   - [PointerGetDatum](../P/PointerGetDatum.md)
   - PG_RETURN_TSQUERY

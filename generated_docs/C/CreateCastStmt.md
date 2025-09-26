@@ -34,12 +34,12 @@ This structure is created during the parsing phase of a CREATE CAST statement an
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TypeName
-  - ObjectWithArgs  
+  - [TypeName](../T/TypeName.md)
+  - [ObjectWithArgs](../O/ObjectWithArgs.md)  
   - CoercionContext
 - Called from (representative examples):
-  - CreateCast (command execution function)
-  - ProcessUtilitySlow (utility command dispatcher)
+  - [CreateCast](CreateCast.md) (command execution function)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (utility command dispatcher)
 
 ## Notes and Other Information
 - Part of the SQL DDL (Data Definition Language) parse node hierarchy

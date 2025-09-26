@@ -25,9 +25,9 @@ The function processes the string character by character:
 ## Dependencies
 - Functions called/Symbols referenced:
   - IS_HIGHBIT_SET (macro to check if character has high bit set)
-  - pg_eucjp_verifychar (validates individual EUC-JP character sequences)
+  - [pg_eucjp_verifychar](pg_eucjp_verifychar.md) (validates individual EUC-JP character sequences)
 - Called from (representative examples):
-  - pg_encoding_set_invalid (indirectly through function pointer tables)
+  - [pg_encoding_set_invalid](pg_encoding_set_invalid.md) (indirectly through function pointer tables)
 
 ## Notes and Other Information
 - Implements the verifystr contract: validates whole string and returns byte offset of first invalid character

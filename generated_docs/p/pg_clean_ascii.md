@@ -26,11 +26,11 @@ The filtering approach is conservative, allowing only printable ASCII characters
 - Functions called/Symbols referenced:
   - FRONTEND (compile-time macro)
   - malloc (standard C library function, frontend only)
-  - palloc_extended (PostgreSQL memory allocator, backend only)
+  - [palloc_extended](palloc_extended.md) (PostgreSQL memory allocator, backend only)
 - Called from (representative examples):
-  - check_application_name (src/backend/commands/variable.c:1074)
-  - check_cluster_name (src/backend/commands/variable.c:1112)
-  - ProcessStartupPacket (src/backend/tcop/backend_startup.c:772)
+  - [check_application_name](../c/check_application_name.md) (src/backend/commands/variable.c:1074)
+  - [check_cluster_name](../c/check_cluster_name.md) (src/backend/commands/variable.c:1112)
+  - [ProcessStartupPacket](../P/ProcessStartupPacket.md) (src/backend/tcop/backend_startup.c:772)
 
 ## Notes and Other Information
 - The function documentation explicitly discourages its general use, preferring proper string handling over filtering

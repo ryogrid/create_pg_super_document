@@ -24,7 +24,7 @@ The `makeRelabelType` function creates a RelabelType node that represents a type
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode
-  - RelabelType (struct type)
+  - [RelabelType](../R/RelabelType.md) (struct type)
   - CoercionForm (enum type)
 - Called from (representative examples):
   - [buildMergedJoinVar](../b/buildMergedJoinVar.md)

@@ -24,7 +24,7 @@ ATExecAddOf implements the ALTER TABLE OF SQL command that converts a regular ta
 - Functions called/Symbols referenced:
   - [typenameType](../t/typenameType.md)
   - [check_of_type](../c/check_of_type.md)
-  - table_open
+  - [table_open](../t/table_open.md)
   - [systable_beginscan](../s/systable_beginscan.md)
   - [systable_getnext](../s/systable_getnext.md)
   - [lookup_rowtype_tupdesc](../l/lookup_rowtype_tupdesc.md)

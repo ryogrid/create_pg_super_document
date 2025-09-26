@@ -52,7 +52,7 @@ The function adapts its queries and output based on the PostgreSQL server versio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initPQExpBuffer: Initialize query buffer management
+  - [initPQExpBuffer](../i/initPQExpBuffer.md): Initialize query buffer management
   - [printfPQExpBuffer](../p/printfPQExpBuffer.md): Format SQL queries with parameters
   - [PSQLexec](../P/PSQLexec.md): Execute SQL queries against the database
   - [printTableInit](../p/printTableInit.md): Initialize table formatting structure

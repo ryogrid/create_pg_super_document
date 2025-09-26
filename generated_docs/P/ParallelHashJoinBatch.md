@@ -51,19 +51,19 @@ Variable-sized SharedTuplestore objects are allocated immediately after this str
 ## Dependencies
 - Functions called/Symbols referenced:
   - dsa_pointer (for shared memory access to buckets and chunks)
-  - Barrier (for worker process synchronization)
+  - [Barrier](../B/Barrier.md) (for worker process synchronization)
 - Called from (representative examples):
-  - ExecParallelHashIncreaseNumBatches (batch subdivision operations)
-  - ExecParallelHashRepartitionRest (repartitioning coordination)
-  - ExecParallelPrepHashTableForUnmatched (unmatched tuple processing setup)
-  - ExecParallelHashJoinSetUpBatches (initial batch setup)
-  - ExecParallelHashEnsureBatchAccessors (accessor management)
-  - ExecParallelHashTableAlloc (batch memory allocation)
-  - ExecHashTableDetachBatch (batch cleanup and detachment)
+  - [ExecParallelHashIncreaseNumBatches](../E/ExecParallelHashIncreaseNumBatches.md) (batch subdivision operations)
+  - [ExecParallelHashRepartitionRest](../E/ExecParallelHashRepartitionRest.md) (repartitioning coordination)
+  - [ExecParallelPrepHashTableForUnmatched](../E/ExecParallelPrepHashTableForUnmatched.md) (unmatched tuple processing setup)
+  - [ExecParallelHashJoinSetUpBatches](../E/ExecParallelHashJoinSetUpBatches.md) (initial batch setup)
+  - [ExecParallelHashEnsureBatchAccessors](../E/ExecParallelHashEnsureBatchAccessors.md) (accessor management)
+  - [ExecParallelHashTableAlloc](../E/ExecParallelHashTableAlloc.md) (batch memory allocation)
+  - [ExecHashTableDetachBatch](../E/ExecHashTableDetachBatch.md) (batch cleanup and detachment)
   - ParallelHashJoinBatchInner (accessor macro)
   - EstimateParallelHashJoinBatch (memory estimation macro)
   - NthParallelHashJoinBatch (batch indexing macro)
-  - ParallelHashJoinBatchAccessor (accessor creation macro)
+  - [ParallelHashJoinBatchAccessor](ParallelHashJoinBatchAccessor.md) (accessor creation macro)
 
 ## Notes and Other Information
 - Structures are allocated in contiguous shared memory but not accessed as a direct array due to variable-sized trailing data

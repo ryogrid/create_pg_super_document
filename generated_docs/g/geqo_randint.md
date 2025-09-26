@@ -23,8 +23,8 @@ This function is extensively used throughout the GEQO algorithm for operations t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GeqoPrivateData (struct type)
-  - pg_prng_uint64_range (PostgreSQL's pseudo-random integer range generator)
+  - [GeqoPrivateData](../G/GeqoPrivateData.md) (struct type)
+  - [pg_prng_uint64_range](../p/pg_prng_uint64_range.md) (PostgreSQL's pseudo-random integer range generator)
 - Called from (representative examples):
   - [cx](../c/cx.md) (crossover operation in geqo_cx.c:68)
   - [gimme_tour](gimme_tour.md), gimme_gene, edge_failure (in geqo_erx.c for edge recombination)

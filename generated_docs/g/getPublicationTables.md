@@ -29,7 +29,7 @@ The function filters results based on dump options and only processes relationsh
   - [findTableByOid](../f/findTableByOid.md) - looks up table info by OID
   - [AssignDumpId](../A/AssignDumpId.md) - assigns unique dump ID to the object
   - [selectDumpablePublicationObject](../s/selectDumpablePublicationObject.md) - determines if object should be dumped
-  - pg_malloc - allocates memory for publication relation info array
+  - [pg_malloc](../p/pg_malloc.md) - allocates memory for publication relation info array
   - atooid - converts string to OID
   - [parsePGArray](../p/parsePGArray.md) - parses PostgreSQL array format for column lists
   - [fmtId](../f/fmtId.md) - formats identifiers safely

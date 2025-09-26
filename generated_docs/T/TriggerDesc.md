@@ -73,15 +73,15 @@ TriggerDesc serves as an efficient container and index for all triggers associat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Trigger (struct type for the triggers array)
+  - [Trigger](Trigger.md) (struct type for the triggers array)
 - Called from (representative examples):
-  - RelationBuildTriggers
-  - SetTriggerFlags
-  - ExecBSInsertTriggers
-  - ExecASInsertTriggers
-  - ExecBRInsertTriggers
-  - has_row_triggers
-  - MakeTransitionCaptureState
+  - [RelationBuildTriggers](../R/RelationBuildTriggers.md)
+  - [SetTriggerFlags](../S/SetTriggerFlags.md)
+  - [ExecBSInsertTriggers](../E/ExecBSInsertTriggers.md)
+  - [ExecASInsertTriggers](../E/ExecASInsertTriggers.md)
+  - [ExecBRInsertTriggers](../E/ExecBRInsertTriggers.md)
+  - [has_row_triggers](../h/has_row_triggers.md)
+  - [MakeTransitionCaptureState](../M/MakeTransitionCaptureState.md)
 
 ## Notes and Other Information
 The optimization flags are crucial for performance in high-throughput scenarios where trigger checking occurs frequently. Note that TRUNCATE triggers only exist at the statement level (no row-level TRUNCATE triggers), which is reflected in the structure design. The transition table flags (trig_*_old_table, trig_*_new_table) are used to determine when OLD and NEW pseudo-relations need to be captured for statement-level triggers. This structure is typically built once when a relation is opened and cached for the lifetime of the relation, making the boolean flag optimization particularly effective for reducing repeated array scanning overhead.

@@ -30,7 +30,7 @@ The function is specifically designed to handle top-level statements, which have
 ## Dependencies
 - Functions called/Symbols referenced:
   - [transformOptionalSelectInto](transformOptionalSelectInto.md): Performs the actual statement transformation with SELECT INTO handling
-  - RawStmt: Structure containing the raw parsed statement and location data
+  - [RawStmt](../R/RawStmt.md): Structure containing the raw parsed statement and location data
 
 - Called from (representative examples):
   - [parse_analyze_fixedparams](../p/parse_analyze_fixedparams.md): Top-level analysis with fixed parameters

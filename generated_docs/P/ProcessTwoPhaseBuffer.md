@@ -25,7 +25,7 @@ ProcessTwoPhaseBuffer is a core function in PostgreSQL's two-phase commit recove
 ## Dependencies
 - Functions called/Symbols referenced:
   - XidFromFullTransactionId
-  - LWLockHeldByMeInMode
+  - [LWLockHeldByMeInMode](../L/LWLockHeldByMeInMode.md)
   - [TransactionIdDidCommit](../T/TransactionIdDidCommit.md)
   - [TransactionIdDidAbort](../T/TransactionIdDidAbort.md)
   - [RemoveTwoPhaseFile](../R/RemoveTwoPhaseFile.md)
@@ -35,7 +35,7 @@ ProcessTwoPhaseBuffer is a core function in PostgreSQL's two-phase commit recove
   - [XlogReadTwoPhaseData](../X/XlogReadTwoPhaseData.md)
   - TransactionIdEquals
   - [TransactionIdFollows](../T/TransactionIdFollows.md)
-  - AdvanceNextFullTransactionIdPastXid
+  - [AdvanceNextFullTransactionIdPastXid](../A/AdvanceNextFullTransactionIdPastXid.md)
   - [SubTransSetParent](../S/SubTransSetParent.md)
 - Called from (representative examples):
   - [restoreTwoPhaseData](../r/restoreTwoPhaseData.md)

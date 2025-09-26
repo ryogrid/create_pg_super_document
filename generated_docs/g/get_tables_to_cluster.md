@@ -19,14 +19,14 @@ The function performs a catalog scan on the IndexRelationId relation, filtering 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - [ScanKeyInit](../S/ScanKeyInit.md)
   - [table_beginscan_catalog](../t/table_beginscan_catalog.md)
   - [heap_getnext](../h/heap_getnext.md)
   - [cluster_is_permitted_for_relation](../c/cluster_is_permitted_for_relation.md)
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - [palloc](../p/palloc.md)
-  - lappend
+  - [lappend](../l/lappend.md)
   - [table_endscan](../t/table_endscan.md)
   - [relation_close](../r/relation_close.md)
 - Called from (representative examples):

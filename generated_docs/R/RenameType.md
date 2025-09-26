@@ -21,9 +21,9 @@ The function first resolves the type name and validates permissions, then applie
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeTypeNameFromNameList
+  - [makeTypeNameFromNameList](../m/makeTypeNameFromNameList.md)
   - [typenameTypeId](../t/typenameTypeId.md)
-  - table_open
+  - [table_open](../t/table_open.md)
   - SearchSysCacheCopy1
   - [object_ownercheck](../o/object_ownercheck.md)
   - [aclcheck_error_type](../a/aclcheck_error_type.md)

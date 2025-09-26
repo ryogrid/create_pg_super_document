@@ -31,7 +31,7 @@ For internal pages, it validates tuple integrity and detects legacy "invalid tup
   - [vacuum_delay_point](../v/vacuum_delay_point.md) (vacuum throttling)
   - [ReadBufferExtended](../R/ReadBufferExtended.md), LockBuffer, BufferGetPage, UnlockReleaseBuffer (buffer management)
   - [gistPageRecyclable](gistPageRecyclable.md), GistPageIsDeleted, GistPageIsLeaf (page state checking)
-  - RecordFreeIndexPage (FSM management)
+  - [RecordFreeIndexPage](../R/RecordFreeIndexPage.md) (FSM management)
   - GistFollowRight, GistPageGetNSN (split detection logic)
   - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md), PageGetItemId, PageGetItem (page/tuple access)
   - [PageIndexMultiDelete](../P/PageIndexMultiDelete.md), GistMarkTuplesDeleted (tuple deletion)

@@ -42,9 +42,9 @@ The structure is carefully designed to avoid padding bytes, using Oid type for t
 - Functions called/Symbols referenced:
   - Oid (PostgreSQL object identifier type)
 - Called from (representative examples):
-  - pltcl_proc_ptr (referenced at line 204)
-  - _PG_init (referenced at line 455)
-  - compile_pltcl_function (referenced at line 1405)
+  - [pltcl_proc_ptr](pltcl_proc_ptr.md) (referenced at line 204)
+  - [_PG_init](../P/_PG_init.md) (referenced at line 455)
+  - [compile_pltcl_function](../c/compile_pltcl_function.md) (referenced at line 1405)
 
 ## Notes and Other Information
 - The structure is designed to contain no padding bytes for optimal hash table performance

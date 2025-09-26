@@ -57,16 +57,16 @@ The structure supports various function call forms including regular functions, 
 - Functions called/Symbols referenced:
   - CoercionForm (for function display formatting)
   - ParseLoc (for location tracking)
-  - Expr (base expression structure)
-  - List (for argument expressions)
+  - [Expr](../E/Expr.md) (base expression structure)
+  - [List](../L/List.md) (for argument expressions)
   
 - Called from (representative examples):
-  - makeFuncExpr (function call creation utility)
-  - ParseFuncOrColumn (parser transformation of function calls)
-  - ExecInitExprRec (executor initialization for expressions)
-  - evaluate_function (optimizer constant folding)
-  - simplify_function (optimizer function simplification)
-  - get_func_expr (rule output formatting)
+  - [makeFuncExpr](../m/makeFuncExpr.md) (function call creation utility)
+  - [ParseFuncOrColumn](../P/ParseFuncOrColumn.md) (parser transformation of function calls)
+  - [ExecInitExprRec](../E/ExecInitExprRec.md) (executor initialization for expressions)
+  - [evaluate_function](../e/evaluate_function.md) (optimizer constant folding)
+  - [simplify_function](../s/simplify_function.md) (optimizer function simplification)
+  - [get_func_expr](../g/get_func_expr.md) (rule output formatting)
 
 ## Notes and Other Information
 - Central to PostgreSQL's function call mechanism, supporting both built-in and user-defined functions

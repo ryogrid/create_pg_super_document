@@ -35,7 +35,7 @@ The function follows PostgreSQL's encoding conversion framework and includes rob
   - CHECK_ENCODING_CONVERSION_ARGS
   - [report_invalid_encoding](../r/report_invalid_encoding.md)
   - IS_HIGHBIT_SET
-  - pg_utf_mblen
+  - [pg_utf_mblen](../p/pg_utf_mblen.md)
   - [pg_utf8_islegal](../p/pg_utf8_islegal.md)
   - [report_untranslatable_char](../r/report_untranslatable_char.md)
   - PG_RETURN_INT32

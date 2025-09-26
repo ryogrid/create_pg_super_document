@@ -32,7 +32,7 @@ The allocation uses atomic operations to track globally allocated blocks (phs_na
   - PARALLEL_SEQSCAN_RAMPDOWN_CHUNKS
 - Called from (representative examples):
   - [heap_scan_stream_read_next_parallel](../h/heap_scan_stream_read_next_parallel.md)
-  - table_scan_sample_next_tuple
+  - [table_scan_sample_next_tuple](table_scan_sample_next_tuple.md)
 
 ## Notes and Other Information
 - Returns InvalidBlockNumber when all blocks have been allocated to workers

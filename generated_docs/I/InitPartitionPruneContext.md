@@ -24,7 +24,7 @@ This function initializes a PartitionPruneContext structure that contains all th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_head
+  - [list_head](../l/list_head.md)
   - [bms_is_member](../b/bms_is_member.md)
   - PruneCxtStateIdx
   - [ExecInitExprWithParams](../E/ExecInitExprWithParams.md)

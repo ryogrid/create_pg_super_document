@@ -68,6 +68,6 @@ The function includes extensive safety checks and can abort the pull-up if condi
 - [Variable](../V/Variable.md) replacement requires careful handling of PlaceHolderVars, especially for appendrel members and queries with grouping sets
 - LATERAL subqueries require special handling to propagate lateral markers to child RTEs
 - The function performs extensive validation and can abort pull-up if the subquery becomes non-simple during processing
-- Range table combination preserves all metadata including row marks and permission info
+- [Range](../R/Range.md) table combination preserves all metadata including row marks and permission info
 - The original subquery is nulled out in the RTE to avoid waste when the query is later pulled up again
 - Returns either the subquery's jointree or a single member if the FromExpr is degenerate

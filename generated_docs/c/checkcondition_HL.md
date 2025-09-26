@@ -22,7 +22,7 @@ The `checkcondition_HL` function serves as a callback for the TS_execute framewo
 ## Dependencies
 - Functions called/Symbols referenced:
   - QueryOperand (query operand type)
-  - ExecPhraseData (execution phrase data structure)
+  - [ExecPhraseData](../E/ExecPhraseData.md) (execution phrase data structure)
   - hlCheck (headline check structure type cast)
   - [palloc](../p/palloc.md) (PostgreSQL memory allocation)
   - WordEntryPos (word entry position type)

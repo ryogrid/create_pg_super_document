@@ -32,7 +32,7 @@ The function iterates through all possible attribute numbers from FirstLowInvali
   - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - GETSTRUCT
   - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
-  - Int16GetDatum
+  - [Int16GetDatum](../I/Int16GetDatum.md)
   - HeapTupleIsValid
   - FirstLowInvalidHeapAttributeNumber
   - InvalidAttrNumber

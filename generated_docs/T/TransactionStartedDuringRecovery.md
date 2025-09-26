@@ -24,7 +24,7 @@ This function takes no parameters.
 - Functions called/Symbols referenced:
   - CurrentTransactionState (global transaction state variable)
 - Called from (representative examples):
-  - RelationGetIndexScan
+  - [RelationGetIndexScan](../R/RelationGetIndexScan.md)
 
 ## Notes and Other Information
 - Located in src/backend/access/transam/xact.c:1031-1042

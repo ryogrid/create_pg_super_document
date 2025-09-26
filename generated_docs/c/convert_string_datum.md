@@ -32,15 +32,15 @@ The implementation includes Windows-specific error handling for strxfrm() failur
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetChar (for character type conversion)
+  - [DatumGetChar](../D/DatumGetChar.md) (for character type conversion)
   - TextDatumGetCString (for text type conversion)
-  - NameData (structure for name type handling)
-  - lc_collate_is_c (locale checking)
+  - [NameData](../N/NameData.md) (structure for name type handling)
+  - [lc_collate_is_c](../l/lc_collate_is_c.md) (locale checking)
   - PG_USED_FOR_ASSERTS_ONLY (assertion macro)
-  - palloc, pstrdup, pfree (PostgreSQL memory management)
+  - [palloc](../p/palloc.md), pstrdup, pfree (PostgreSQL memory management)
   - strxfrm (standard C locale transformation function)
 - Called from (representative examples):
-  - convert_to_scalar (called 3 times for value, lobound, and hibound conversion)
+  - [convert_to_scalar](convert_to_scalar.md) (called 3 times for value, lobound, and hibound conversion)
 
 ## Notes and Other Information
 - The function is static, indicating it's an internal utility within selfuncs.c

@@ -47,22 +47,22 @@ The JoinPath contains essential join-specific information such as the join type 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Path (base structure)
+  - [Path](../P/Path.md) (base structure)
   - JoinType (enumeration for join types)
-  - List (PostgreSQL list structure)
-  - RestrictInfo (via joinrestrictinfo list)
+  - [List](../L/List.md) (PostgreSQL list structure)
+  - [RestrictInfo](../R/RestrictInfo.md) (via joinrestrictinfo list)
 
 - Called from (representative examples):
-  - GetExistingLocalJoinPath (foreign data wrapper support)
+  - [GetExistingLocalJoinPath](../G/GetExistingLocalJoinPath.md) (foreign data wrapper support)
   - cost_qual_eval_context (cost estimation)
-  - create_join_plan (plan creation)
-  - has_indexed_join_quals (join optimization)
-  - NestPath, MergePath, HashPath (concrete join path types)
+  - [create_join_plan](../c/create_join_plan.md) (plan creation)
+  - [has_indexed_join_quals](../h/has_indexed_join_quals.md) (join optimization)
+  - [NestPath](../N/NestPath.md), MergePath, HashPath (concrete join path types)
 
 ## Notes and Other Information
-- JoinPath is an abstract structure that is inherited by concrete join path types like NestPath, MergePath, and HashPath
+- [JoinPath](JoinPath.md) is an abstract structure that is inherited by concrete join path types like NestPath, MergePath, and HashPath
 - The inner_unique flag is critical for optimization decisions and is derived from uniqueness analysis of the inner relation
 - The joinrestrictinfo cannot be merged into the parent RelOptInfo because join conditions are specific to the particular join being considered
 - The structure supports foreign data wrapper integration through GetExistingLocalJoinPath
-- Join path selection involves comparing costs and capabilities of different join algorithms based on this common information
+- [Join](Join.md) path selection involves comparing costs and capabilities of different join algorithms based on this common information
 - The outer vs inner designation affects algorithm behavior and performance characteristics significantly

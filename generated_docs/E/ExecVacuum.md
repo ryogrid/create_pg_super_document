@@ -32,15 +32,15 @@ Key responsibilities include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - vacuum (core vacuum implementation)
-  - defGetBoolean, defGetString, defGetInt32 (option parsing utilities)
-  - parse_int (string to integer conversion with units)
-  - get_vacoptval_from_boolean (option value conversion)
+  - [vacuum](../v/vacuum.md) (core vacuum implementation)
+  - [defGetBoolean](../d/defGetBoolean.md), defGetString, defGetInt32 (option parsing utilities)
+  - [parse_int](../p/parse_int.md) (string to integer conversion with units)
+  - [get_vacoptval_from_boolean](../g/get_vacoptval_from_boolean.md) (option value conversion)
   - AllocSetContextCreate (memory context creation)
-  - GetAccessStrategyWithSize (buffer strategy creation)
-  - MemoryContextDelete (cleanup)
+  - [GetAccessStrategyWithSize](../G/GetAccessStrategyWithSize.md) (buffer strategy creation)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md) (cleanup)
 - Called from (representative examples):
-  - standard_ProcessUtility (main utility command dispatcher)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (main utility command dispatcher)
 
 ## Notes and Other Information
 - Supports extensive option validation including buffer usage limits, parallel worker counts, and option compatibility

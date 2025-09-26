@@ -35,8 +35,8 @@ The function performs extensive validation on the input parameters, calculates t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ArrayGetNItems
-  - ArrayCheckBounds
+  - [ArrayGetNItems](../A/ArrayGetNItems.md)
+  - [ArrayCheckBounds](../A/ArrayCheckBounds.md)
   - [construct_empty_array](construct_empty_array.md)
   - PG_DETOAST_DATUM
   - att_addlength_datum
@@ -58,7 +58,7 @@ The function performs extensive validation on the input parameters, calculates t
   - [array_set_element](../a/array_set_element.md)
   - [array_set_slice](../a/array_set_slice.md)
   - [array_iterate](../a/array_iterate.md)
-  - makeMdArrayResult
+  - [makeMdArrayResult](../m/makeMdArrayResult.md)
   - [percentile_disc_multi_final](../p/percentile_disc_multi_final.md)
   - [build_regexp_match_result](../b/build_regexp_match_result.md)
 

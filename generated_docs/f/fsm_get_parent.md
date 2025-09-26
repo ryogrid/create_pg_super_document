@@ -27,8 +27,8 @@ The calculation involves incrementing the level (moving up one level in the tree
   - SlotsPerFSMPage
 - Called from (representative examples):
   - FSMAddress
-  - fsm_search
-  - fsm_vacuum_page
+  - [fsm_search](fsm_search.md)
+  - [fsm_vacuum_page](fsm_vacuum_page.md)
 
 ## Notes and Other Information
 - This is a static function internal to the freespace.c module

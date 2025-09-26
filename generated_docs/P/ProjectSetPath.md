@@ -28,15 +28,15 @@ The path planning system recognizes when SRFs are present in the targetlist and 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Path (inherited base structure)
+  - [Path](Path.md) (inherited base structure)
 - Called from (representative examples):
-  - create_set_projection_path (path creation)
-  - create_project_set_plan (plan generation)
-  - apply_projection_to_path (projection application)
-  - is_dummy_rel (optimization checks)
+  - [create_set_projection_path](../c/create_set_projection_path.md) (path creation)
+  - [create_project_set_plan](../c/create_project_set_plan.md) (plan generation)
+  - [apply_projection_to_path](../a/apply_projection_to_path.md) (projection application)
+  - [is_dummy_rel](../i/is_dummy_rel.md) (optimization checks)
 
 ## Notes and Other Information
-- ProjectSetPath is specifically required when the targetlist contains set-returning functions that can expand single input rows into multiple output rows
+- [ProjectSetPath](ProjectSetPath.md) is specifically required when the targetlist contains set-returning functions that can expand single input rows into multiple output rows
 - Unlike ProjectionPath, there's no \dummy\ optimization available since ProjectSet execution semantics are fundamentally different from regular projection
 - The cost model must account for the row multiplication factor when SRFs are present
 - Essential for queries using functions like unnest(), generate_series(), json_array_elements(), and user-defined functions returning SETOF types

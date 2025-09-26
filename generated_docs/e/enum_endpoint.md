@@ -24,14 +24,14 @@ The function implements proper transaction safety by calling  to ensure that unc
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ScanKeyInit](../S/ScanKeyInit.md)
-  - table_open
+  - [table_open](../t/table_open.md)
   - [index_open](../i/index_open.md)
   - [systable_beginscan_ordered](../s/systable_beginscan_ordered.md)
   - [systable_getnext_ordered](../s/systable_getnext_ordered.md)
   - [check_safe_enum_use](../c/check_safe_enum_use.md)
   - [systable_endscan_ordered](../s/systable_endscan_ordered.md)
   - [index_close](../i/index_close.md)
-  - table_close
+  - [table_close](../t/table_close.md)
 - Called from:
   - [enum_first](enum_first.md)
   - [enum_last](enum_last.md)

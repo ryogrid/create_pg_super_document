@@ -29,17 +29,17 @@ The function works by:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CDEND (macro for color descriptor end)
+  - [CDEND](../C/CDEND.md) (macro for color descriptor end)
   - UNUSEDCOLOR (macro to check if color is unused)
-  - freearc (function to free an arc)
-  - newarc (function to create a new arc)
+  - [freearc](../f/freearc.md) (function to free an arc)
+  - [newarc](../n/newarc.md) (function to create a new arc)
 - Data structures used:
   - colordesc (color descriptor structure)
-  - arc (arc structure)
+  - [arc](../a/arc.md) (arc structure)
 - Constants used:
   - PLAIN, RAINBOW, PSEUDO, COLMARK (arc and color flags)
 - Called from:
-  - bracket (in regcomp.c:1717)
+  - [bracket](../b/bracket.md) (in regcomp.c:1717)
 
 ## Notes and Other Information
 - This function assumes all input arcs are PLAIN type arcs pointing to the same destination state

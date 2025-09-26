@@ -27,7 +27,7 @@ The structure is defined in src/backend/utils/activity/pgstat.c at lines 132-137
 - `*data`: Generic void pointer that points to the actual statistics data associated with this entry
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PgStat_HashKey
+  - [PgStat_HashKey](PgStat_HashKey.md)
 - Called from (representative examples):
   - [pgstat_fetch_entry](../p/pgstat_fetch_entry.md) (multiple references)
   - [pgstat_build_snapshot](../p/pgstat_build_snapshot.md)

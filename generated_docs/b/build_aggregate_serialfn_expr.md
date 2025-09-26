@@ -28,9 +28,9 @@ Unlike transition functions which have variable argument lists depending on the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `FuncExpr` (struct type for function call expressions)
+  - `[FuncExpr](../F/FuncExpr.md)` (struct type for function call expressions)
   - [make_agg_arg](../m/make_agg_arg.md)() (creates argument nodes for aggregates)
-  - `makeFuncExpr()` (creates function call expression nodes)
+  - `[makeFuncExpr](../m/makeFuncExpr.md)()` (creates function call expression nodes)
   - `COERCE_EXPLICIT_CALL` (constant for function coercion context)
   - `INTERNALOID`, `BYTEAOID` (type constants)
   - `InvalidOid` (constant for invalid OID values)

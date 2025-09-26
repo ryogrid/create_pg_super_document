@@ -25,15 +25,15 @@ The function allocates memory for the complete SQLDA structure including the hea
 ## Dependencies
 - Functions called/Symbols referenced:
   - [sqlda_native_total_size](../s/sqlda_native_total_size.md)
-  - ecpg_alloc
+  - [ecpg_alloc](ecpg_alloc.md)
   - [PQnfields](../P/PQnfields.md)
   - [ecpg_log](ecpg_log.md)
   - [sqlda_dynamic_type](../s/sqlda_dynamic_type.md)
-  - PQftype
+  - [PQftype](../P/PQftype.md)
   - [PQfname](../P/PQfname.md)
 - Called from (representative examples):
   - [ECPGdescribe](../E/ECPGdescribe.md)
-  - ecpg_process_output
+  - [ecpg_process_output](ecpg_process_output.md)
 
 ## Notes and Other Information
 - The function sets the standard SQLDA identifier "SQLDA  " (8 characters) in the `sqldaid` field

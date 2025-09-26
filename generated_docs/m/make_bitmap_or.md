@@ -23,12 +23,12 @@ The function initializes a new BitmapOr node with standard plan node fields set 
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to create the BitmapOr node)
-  - BitmapOr (plan node structure)
+  - [BitmapOr](../B/BitmapOr.md) (plan node structure)
 - Called from (representative examples):
   - [create_bitmap_subplan](../c/create_bitmap_subplan.md) (in createplan.c:3433)
 
 ## Notes and Other Information
 - This is a static function within createplan.c, indicating it's used internally by the plan creation subsystem
 - The function follows PostgreSQL's standard pattern for creating plan nodes with minimal initialization
-- BitmapOr nodes are typically created when the query planner determines that multiple indexes can be used with OR conditions
+- [BitmapOr](../B/BitmapOr.md) nodes are typically created when the query planner determines that multiple indexes can be used with OR conditions
 - The actual bitmap OR operation logic is handled during plan execution, not in this creation function

@@ -21,7 +21,7 @@ The function performs permission checking for PostgreSQL data types with special
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - superuser_arg
+  - [superuser_arg](../s/superuser_arg.md)
   - [SearchSysCache1](../S/SearchSysCache1.md)
   - IsTrueArrayType
   - [get_multirange_range](../g/get_multirange_range.md)

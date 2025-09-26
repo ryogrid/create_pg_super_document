@@ -37,8 +37,8 @@ The structure is primarily used during the CREATE FUNCTION process for SQL funct
   - Standard memory allocation functions (palloc)
 
 - Called from (representative examples):
-  - interpret_AS_clause (src/backend/commands/functioncmds.c:899)
-  - prepare_sql_fn_parse_info (src/backend/executor/functions.c:184)
+  - [interpret_AS_clause](../i/interpret_AS_clause.md) (src/backend/commands/functioncmds.c:899)
+  - [prepare_sql_fn_parse_info](../p/prepare_sql_fn_parse_info.md) (src/backend/executor/functions.c:184)
   - SQLFunctionParseInfoPtr typedef (src/include/executor/functions.h:35)
 
 ## Notes and Other Information

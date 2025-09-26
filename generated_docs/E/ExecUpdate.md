@@ -51,8 +51,8 @@ The function implements PostgreSQL's Multi-Version Concurrency Control (MVCC) se
   - [ExecInitUpdateProjection](ExecInitUpdateProjection.md)
   - [ExecGetUpdateNewTuple](ExecGetUpdateNewTuple.md)
   - [ExecProcessReturning](ExecProcessReturning.md)
-  - table_tuple_lock
-  - table_tuple_fetch_row_version
+  - [table_tuple_lock](../t/table_tuple_lock.md)
+  - [table_tuple_fetch_row_version](../t/table_tuple_fetch_row_version.md)
   - IsolationUsesXactSnapshot
 - Called from (representative examples):
   - [ExecOnConflictUpdate](ExecOnConflictUpdate.md) (src/backend/executor/nodeModifyTable.c:2746)

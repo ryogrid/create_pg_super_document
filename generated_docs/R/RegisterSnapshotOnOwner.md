@@ -20,14 +20,14 @@ RegisterSnapshotOnOwner is the core function for snapshot registration in Postgr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CopySnapshot
-  - ResourceOwnerEnlarge
-  - ResourceOwnerRememberSnapshot
-  - pairingheap_add
+  - [CopySnapshot](../C/CopySnapshot.md)
+  - [ResourceOwnerEnlarge](ResourceOwnerEnlarge.md)
+  - [ResourceOwnerRememberSnapshot](ResourceOwnerRememberSnapshot.md)
+  - [pairingheap_add](../p/pairingheap_add.md)
   - InvalidSnapshot
 - Called from (representative examples):
-  - RegisterSnapshot
-  - be_lo_open
+  - [RegisterSnapshot](RegisterSnapshot.md)
+  - [be_lo_open](../b/be_lo_open.md)
 
 ## Notes and Other Information
 - Creates a persistent copy of static snapshots using CopySnapshot

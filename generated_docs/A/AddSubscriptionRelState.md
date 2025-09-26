@@ -30,7 +30,7 @@ The function performs duplicate checking by searching the SUBSCRIPTIONRELMAP cac
   - [LockSharedObject](../L/LockSharedObject.md)
   - SearchSysCacheCopy2
   - [CharGetDatum](../C/CharGetDatum.md)
-  - LSNGetDatum
+  - [LSNGetDatum](../L/LSNGetDatum.md)
   - [heap_form_tuple](../h/heap_form_tuple.md)
   - [CatalogTupleInsert](../C/CatalogTupleInsert.md)
   - [heap_freetuple](../h/heap_freetuple.md)

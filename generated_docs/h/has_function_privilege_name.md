@@ -28,7 +28,7 @@ This variant is commonly used in SQL queries where users want to check their own
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AclResult: Enumeration for access control check results
+  - [AclResult](../A/AclResult.md): Enumeration for access control check results
   - [GetUserId](../G/GetUserId.md): Gets the current user's OID from the session context
   - [convert_function_name](../c/convert_function_name.md): Converts function name text to function OID
   - [convert_function_priv_string](../c/convert_function_priv_string.md): Converts privilege string to AclMode bitmask

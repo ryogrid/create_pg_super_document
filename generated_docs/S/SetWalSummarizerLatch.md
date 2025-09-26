@@ -22,8 +22,8 @@ The function uses a shared lock on WALSummarizerLock to safely read the summariz
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire
-  - LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - [SetLatch](SetLatch.md)
   - ProcNumber (type)
   - LW_SHARED (constant)

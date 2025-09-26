@@ -28,13 +28,13 @@ The statement can target specific named constraints or use ALL to affect all def
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - List (PostgreSQL's list data structure)
-  - RangeVar (for constraint name references)
+  - [List](../L/List.md) (PostgreSQL's list data structure)
+  - [RangeVar](../R/RangeVar.md) (for constraint name references)
   
 - Called from (representative examples):
-  - AfterTriggerSetState (main execution function in trigger.c:5746)
-  - PlannedStmtRequiresSnapshot (snapshot requirement check in pquery.c:1743)
-  - standard_ProcessUtility (utility command processor in utility.c:939)
+  - [AfterTriggerSetState](../A/AfterTriggerSetState.md) (main execution function in trigger.c:5746)
+  - [PlannedStmtRequiresSnapshot](../P/PlannedStmtRequiresSnapshot.md) (snapshot requirement check in pquery.c:1743)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (utility command processor in utility.c:939)
 
 ## Notes and Other Information
 - Only affects constraints that were declared as DEFERRABLE

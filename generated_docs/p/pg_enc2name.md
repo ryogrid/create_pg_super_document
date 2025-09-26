@@ -41,7 +41,7 @@ Example: cpi ega.cpi 850
 - Functions called/Symbols referenced:
   - [pg_enc](pg_enc.md) (enum type for encoding identifiers)
 - Called from (representative examples):
-  - pg_encoding_to_char (in src/common/encnames.c:591)
+  - [pg_encoding_to_char](pg_encoding_to_char.md) (in src/common/encnames.c:591)
   - Used in pg_enc2name_tbl[] array for encoding lookups
 
 ## Notes and Other Information

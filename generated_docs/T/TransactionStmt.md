@@ -37,19 +37,19 @@ TransactionStmt is a parse tree node that encapsulates all forms of transaction 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TransactionStmtKind
+  - [TransactionStmtKind](TransactionStmtKind.md)
   - ParseLoc
   - NodeTag
-  - List
+  - [List](../L/List.md)
 - Called from (representative examples):
-  - execute_sql_string
-  - exec_simple_query
-  - standard_ProcessUtility
-  - IsTransactionExitStmt
-  - ClassifyUtilityCommandAsReadOnly
+  - [execute_sql_string](../e/execute_sql_string.md)
+  - [exec_simple_query](../e/exec_simple_query.md)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md)
+  - [IsTransactionExitStmt](../I/IsTransactionExitStmt.md)
+  - [ClassifyUtilityCommandAsReadOnly](../C/ClassifyUtilityCommandAsReadOnly.md)
 
 ## Notes and Other Information
 - The pg_node_attr annotations indicate special handling during query jumbling for plan caching and fingerprinting
-- TransactionStmt supports all PostgreSQL transaction control features including nested transactions via savepoints and distributed transactions via two-phase commit
+- [TransactionStmt](TransactionStmt.md) supports all PostgreSQL transaction control features including nested transactions via savepoints and distributed transactions via two-phase commit
 - The chain field supports the SQL standard COMMIT AND CHAIN and ROLLBACK AND CHAIN syntax
 - Location tracking enables precise error reporting for syntax errors in transaction statements

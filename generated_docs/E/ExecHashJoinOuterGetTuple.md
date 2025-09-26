@@ -36,8 +36,8 @@ The function returns NULL when no more tuples are available in the current batch
 ## Dependencies
 - Functions called/Symbols referenced:
   - TupIsNull: Checks if a tuple slot is empty
-  - ExecProcNode: Executes the outer plan node to get next tuple
-  - ExecHashGetHashValue: Computes hash value for the tuple
+  - [ExecProcNode](ExecProcNode.md): Executes the outer plan node to get next tuple
+  - [ExecHashGetHashValue](ExecHashGetHashValue.md): Computes hash value for the tuple
   - [ExecHashJoinGetSavedTuple](ExecHashJoinGetSavedTuple.md): Retrieves tuple from batch file
   - HJ_FILL_OUTER: Macro to check if this is an outer join
 

@@ -39,26 +39,26 @@ Backward scanning requires special handling because tuples are variable-length a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getlen (reads tuple length from file)
+  - [getlen](../g/getlen.md) (reads tuple length from file)
   - READTUP (macro for reading tuple data)
-  - BufFileTell (gets current file position)
-  - BufFileSeek (seeks to file position)
+  - [BufFileTell](../B/BufFileTell.md) (gets current file position)
+  - [BufFileSeek](../B/BufFileSeek.md) (seeks to file position)
 - Types used:
-  - Tuplestorestate
+  - [Tuplestorestate](../T/Tuplestorestate.md)
   - TSReadPointer
 - Constants:
   - TSS_INMEM, TSS_WRITEFILE, TSS_READFILE
   - EXEC_FLAG_BACKWARD
 - Called from:
-  - tuplestore_gettupleslot
-  - tuplestore_advance  
-  - tuplestore_skiptuples
+  - [tuplestore_gettupleslot](tuplestore_gettupleslot.md)
+  - [tuplestore_advance](tuplestore_advance.md)  
+  - [tuplestore_skiptuples](tuplestore_skiptuples.md)
 
 ## Notes and Other Information
 - This is a static (internal) function not exposed in the public API
 - Backward scanning is only allowed if randomAccess was set or EXEC_FLAG_BACKWARD was specified
 - Memory-based tuples don't need to be freed, but file-based tuples do
-- Complex backward navigation logic handles variable-length tuple boundaries
+- [Complex](../C/Complex.md) backward navigation logic handles variable-length tuple boundaries
 - EOF state management differs between forward and backward directions
 - File-based backward scans read trailing length words to determine tuple boundaries
 - Handles edge cases like seeking beyond file boundaries and deleted tuple ranges

@@ -30,12 +30,12 @@ The function processes identifiers by:
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_TEXT_PP, PG_GETARG_BOOL, PG_RETURN_DATUM (PostgreSQL argument/return macros)
-  - text_to_cstring
+  - [text_to_cstring](../t/text_to_cstring.md)
   - [scanner_isspace](../s/scanner_isspace.md)
   - [is_ident_start](../i/is_ident_start.md)
   - [is_ident_cont](../i/is_ident_cont.md)
   - [downcase_identifier](../d/downcase_identifier.md)
-  - cstring_to_text_with_len
+  - [cstring_to_text_with_len](../c/cstring_to_text_with_len.md)
   - [accumArrayResult](../a/accumArrayResult.md)
   - [makeArrayResult](../m/makeArrayResult.md)
 - Called from (representative examples):

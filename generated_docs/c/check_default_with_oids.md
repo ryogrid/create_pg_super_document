@@ -24,7 +24,7 @@ The function will reject any attempt to set the parameter to true, regardless of
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GUC_check_errcode (macro for setting GUC error codes)
+  - [GUC_check_errcode](../G/GUC_check_errcode.md) (macro for setting GUC error codes)
   - GUC_check_errmsg (macro for setting GUC error messages)
   - GucSource (enum type for configuration sources)
   - ERRCODE_FEATURE_NOT_SUPPORTED (error code constant)

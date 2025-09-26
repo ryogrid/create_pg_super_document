@@ -30,7 +30,7 @@ The function processes each prepared transaction by calling ProcessTwoPhaseBuffe
   - XidFromFullTransactionId
   - [ProcessTwoPhaseBuffer](ProcessTwoPhaseBuffer.md)
   - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
-  - LWLockAcquire/LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease
   - [palloc](../p/palloc.md)/repalloc/pfree
 - Called from:
   - [StartupXLOG](../S/StartupXLOG.md)

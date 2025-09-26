@@ -26,16 +26,16 @@ The function uses TupleDescInitBuiltinEntry() instead of TupleDescInitEntry() fo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetConfigOptionByName (to retrieve parameter value and canonical name)
-  - CreateTemplateTupleDesc (to create the result tuple descriptor)
-  - TupleDescInitBuiltinEntry (to initialize the column definition efficiently)
-  - begin_tup_output_tupdesc (to set up tuple output infrastructure)
+  - [GetConfigOptionByName](../G/GetConfigOptionByName.md) (to retrieve parameter value and canonical name)
+  - [CreateTemplateTupleDesc](../C/CreateTemplateTupleDesc.md) (to create the result tuple descriptor)
+  - [TupleDescInitBuiltinEntry](../T/TupleDescInitBuiltinEntry.md) (to initialize the column definition efficiently)
+  - [begin_tup_output_tupdesc](../b/begin_tup_output_tupdesc.md) (to set up tuple output infrastructure)
   - do_text_output_oneline (macro to send a single text value as a tuple)
-  - end_tup_output (to clean up output state)
-  - DestReceiver (type for output destination)
-  - TupOutputState (type for output state management)
+  - [end_tup_output](../e/end_tup_output.md) (to clean up output state)
+  - [DestReceiver](../D/DestReceiver.md) (type for output destination)
+  - [TupOutputState](../T/TupOutputState.md) (type for output state management)
 - Called from (representative examples):
-  - GetPGVariable (when showing a specific parameter)
+  - [GetPGVariable](../G/GetPGVariable.md) (when showing a specific parameter)
 
 ## Notes and Other Information
 - This is a static function, only accessible within guc_funcs.c

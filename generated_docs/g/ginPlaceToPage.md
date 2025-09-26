@@ -40,7 +40,7 @@ The function maintains ACID properties through proper use of critical sections a
   - GinPageIsData, GinPageIsLeaf, GinPageGetOpaque
   - [GinNewBuffer](../G/GinNewBuffer.md), GinInitPage
   - [XLogBeginInsert](../X/XLogBeginInsert.md), XLogRegisterBuffer, XLogInsert
-  - PageGetTempPage, PredicateLockPageSplit
+  - [PageGetTempPage](../P/PageGetTempPage.md), PredicateLockPageSplit
   - START_CRIT_SECTION, END_CRIT_SECTION
 - Called from:
   - [ginFinishSplit](ginFinishSplit.md) (src/backend/access/gin/ginbtree.c:736)

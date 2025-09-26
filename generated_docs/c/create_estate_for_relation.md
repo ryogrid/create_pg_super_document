@@ -24,7 +24,7 @@ This function prepares the PostgreSQL executor infrastructure needed to evaluate
   - makeNode (macro for RangeTblEntry)
   - RelationGetRelid
   - [addRTEPermissionInfo](../a/addRTEPermissionInfo.md)
-  - ExecInitRangeTable
+  - [ExecInitRangeTable](../E/ExecInitRangeTable.md)
   - list_make1
   - [GetCurrentCommandId](../G/GetCurrentCommandId.md)
   - RTE_RELATION (constant)

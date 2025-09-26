@@ -42,8 +42,8 @@ The function handles both ordinary varlena arrays and provides comprehensive bou
   - DatumGetArrayTypeP
   - [deconstruct_array](../d/deconstruct_array.md)
   - [construct_md_array](../c/construct_md_array.md)
-  - ArrayGetNItems
-  - ArrayCheckBounds
+  - [ArrayGetNItems](../A/ArrayGetNItems.md)
+  - [ArrayCheckBounds](../A/ArrayCheckBounds.md)
   - [mda_get_range](../m/mda_get_range.md)
   - [array_nelems_size](array_nelems_size.md)
   - [array_slice_size](array_slice_size.md)

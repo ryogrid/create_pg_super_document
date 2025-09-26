@@ -28,7 +28,7 @@ The function uses a tree walker approach to traverse the plan's target list and 
   - [bms_add_member](../b/bms_add_member.md)
 - Types referenced:
   - [AggState](../A/AggState.md)
-  - Agg
+  - [Agg](../A/Agg.md)
   - [FindColsContext](../F/FindColsContext.md)
   - [Bitmapset](../B/Bitmapset.md)
 - Called from (representative examples):

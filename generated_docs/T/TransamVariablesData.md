@@ -88,13 +88,13 @@ The structure is initialized in shared memory during server startup and accessed
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FullTransactionId (for nextXid and latestCompletedXid fields)
+  - [FullTransactionId](../F/FullTransactionId.md) (for nextXid and latestCompletedXid fields)
   - TransactionId (for various XID limit fields)
   - Oid (for nextOid and oldestXidDB fields)
 
 - Called from (representative examples):
-  - VarsupShmemInit (initialization in shared memory)
-  - VarsupShmemSize (size calculation for shared memory allocation)
+  - [VarsupShmemInit](../V/VarsupShmemInit.md) (initialization in shared memory)
+  - [VarsupShmemSize](../V/VarsupShmemSize.md) (size calculation for shared memory allocation)
   - Various transaction and OID generation functions
 
 ## Notes and Other Information

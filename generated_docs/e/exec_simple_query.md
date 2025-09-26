@@ -49,11 +49,11 @@ The function includes extensive error handling, memory management through dedica
   - [pg_plan_queries](../p/pg_plan_queries.md)
   - [start_xact_command](../s/start_xact_command.md)
   - [finish_xact_command](../f/finish_xact_command.md)
-  - CreatePortal
+  - [CreatePortal](../C/CreatePortal.md)
   - [PortalDefineQuery](../P/PortalDefineQuery.md)
   - [PortalStart](../P/PortalStart.md)
   - [PortalRun](../P/PortalRun.md)
-  - PortalDrop
+  - [PortalDrop](../P/PortalDrop.md)
   - [pgstat_report_activity](../p/pgstat_report_activity.md)
   - [CreateCommandTag](../C/CreateCommandTag.md)
   - [BeginCommand](../B/BeginCommand.md)

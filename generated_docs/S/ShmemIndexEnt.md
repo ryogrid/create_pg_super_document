@@ -31,9 +31,9 @@ The key field uses a fixed-size buffer (48 bytes) to store the string name ident
   - Size (PostgreSQL's standard size type)
   
 - Called from (representative examples):
-  - CalculateShmemSize (in src/backend/storage/ipc/ipci.c:116)
-  - InitShmemIndex (in src/backend/storage/ipc/shmem.c:296)
-  - ShmemInitStruct (in src/backend/storage/ipc/shmem.c:389, 428)
+  - [CalculateShmemSize](../C/CalculateShmemSize.md) (in src/backend/storage/ipc/ipci.c:116)
+  - [InitShmemIndex](../I/InitShmemIndex.md) (in src/backend/storage/ipc/shmem.c:296)
+  - [ShmemInitStruct](ShmemInitStruct.md) (in src/backend/storage/ipc/shmem.c:389, 428)
   - PG_GET_SHMEM_SIZES_COLS (in src/backend/storage/ipc/shmem.c:532, 545)
 
 ## Notes and Other Information

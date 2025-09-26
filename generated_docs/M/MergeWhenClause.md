@@ -35,13 +35,13 @@ MergeWhenClause is a parse tree node that represents the syntactic structure of 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MergeMatchKind
+  - [MergeMatchKind](MergeMatchKind.md)
   - CmdType  
   - OverridingKind
 - Called from (representative examples):
-  - raw_expression_tree_walker_impl
-  - setNamespaceForMergeWhen
-  - transformMergeStmt
+  - [raw_expression_tree_walker_impl](../r/raw_expression_tree_walker_impl.md)
+  - [setNamespaceForMergeWhen](../s/setNamespaceForMergeWhen.md)
+  - [transformMergeStmt](../t/transformMergeStmt.md)
 
 ## Notes and Other Information
 - This structure is part of the raw parse tree and represents the syntactic structure before semantic analysis

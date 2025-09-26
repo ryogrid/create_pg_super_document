@@ -37,7 +37,7 @@ The function assumes that expressions from process_equivalence() are already val
   - makeNode
   - bms_is_empty
   - [bms_add_members](../b/bms_add_members.md)
-  - lappend
+  - [lappend](../l/lappend.md)
 - Called from (representative examples):
   - [process_equivalence](../p/process_equivalence.md)
   - [get_eclass_for_sort_expr](../g/get_eclass_for_sort_expr.md)

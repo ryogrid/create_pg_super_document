@@ -23,7 +23,7 @@ The lo_lseek function is the client-side implementation for seeking within a Pos
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lo_initialize](lo_initialize.md)
-  - PQfn
+  - [PQfn](../P/PQfn.md)
   - PQArgBlock
   - PGRES_COMMAND_OK
 - Called from (representative examples):

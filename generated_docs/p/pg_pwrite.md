@@ -33,18 +33,18 @@ Key behavioral characteristics:
   - `_get_osfhandle` (Windows CRT function)
   - `WriteFile` (Windows API)
   - `GetLastError` (Windows API)  
-  - `_dosmaperr` (PostgreSQL error mapping function)
+  - `[_dosmaperr](../d/_dosmaperr.md)` (PostgreSQL error mapping function)
   - `Min` (PostgreSQL macro)
   - `OVERLAPPED.Offset` (Windows structure member)
 
 - Called from (representative examples):
-  - `heap_xlog_logical_rewrite` (src/backend/access/heap/rewriteheap.c:1115)
-  - `SlruPhysicalWritePage` (src/backend/access/transam/slru.c:990)
-  - `XLogWrite` (src/backend/access/transam/xlog.c:2428)
-  - `XLogFileInitInternal` (src/backend/access/transam/xlog.c:3266)
-  - `XLogWalRcvWrite` (src/backend/replication/walreceiver.c:944)
-  - `AddToDataDirLockFile` (src/backend/utils/init/miscinit.c:1648)
-  - `pg_pwritev` (src/include/port/pg_iovec.h:106)
+  - `[heap_xlog_logical_rewrite](../h/heap_xlog_logical_rewrite.md)` (src/backend/access/heap/rewriteheap.c:1115)
+  - `[SlruPhysicalWritePage](../S/SlruPhysicalWritePage.md)` (src/backend/access/transam/slru.c:990)
+  - `[XLogWrite](../X/XLogWrite.md)` (src/backend/access/transam/xlog.c:2428)
+  - `[XLogFileInitInternal](../X/XLogFileInitInternal.md)` (src/backend/access/transam/xlog.c:3266)
+  - `[XLogWalRcvWrite](../X/XLogWalRcvWrite.md)` (src/backend/replication/walreceiver.c:944)
+  - `[AddToDataDirLockFile](../A/AddToDataDirLockFile.md)` (src/backend/utils/init/miscinit.c:1648)
+  - `[pg_pwritev](pg_pwritev.md)` (src/include/port/pg_iovec.h:106)
   - Various functions in `pg_test_fsync` utility
 
 ## Notes and Other Information

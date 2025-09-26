@@ -23,7 +23,7 @@ This capability is essential for PostgreSQL's type system, allowing functions to
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - exprType (extracts type OID from expression node)
+  - [exprType](../e/exprType.md) (extracts type OID from expression node)
   - InvalidOid (constant representing an invalid OID)
 - Called from (representative examples):
   - multirange_constructor functions (for determining appropriate multirange type)

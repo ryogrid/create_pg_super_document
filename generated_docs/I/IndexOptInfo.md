@@ -131,7 +131,7 @@ Key optimization features include tracking which index columns can support index
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelOptInfo (parent table information)
+  - [RelOptInfo](../R/RelOptInfo.md) (parent table information)
   - [List](../L/List.md) (expression and predicate lists)
   - [RestrictInfo](../R/RestrictInfo.md) (restriction clause information)
   - [IndexAmRoutine](IndexAmRoutine.md) (access method interface)

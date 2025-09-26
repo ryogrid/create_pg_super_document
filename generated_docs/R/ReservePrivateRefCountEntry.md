@@ -31,7 +31,7 @@ This function takes no parameters but operates on several global data structures
 - Functions called/Symbols referenced:
   - [hash_search](../h/hash_search.md)
   - HASH_ENTER
-  - PrivateRefCountEntry (struct type)
+  - [PrivateRefCountEntry](../P/PrivateRefCountEntry.md) (struct type)
   - REFCOUNT_ARRAY_ENTRIES (macro)
 - Called from (representative examples):
   - [GetPrivateRefCountEntry](../G/GetPrivateRefCountEntry.md)

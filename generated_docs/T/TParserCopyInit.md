@@ -21,13 +21,13 @@ The copy parser shares the string pointers with the original parser but adjusts 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0 (zero-initialized memory allocation)
-  - newTParserPosition (create initial parser position)
+  - [palloc0](../p/palloc0.md) (zero-initialized memory allocation)
+  - [newTParserPosition](../n/newTParserPosition.md) (create initial parser position)
   - TPS_Base (initial parser state constant)
 
 - Called from (representative examples):
-  - p_ishost (host parsing function)
-  - p_isURLPath (URL path parsing function)
+  - [p_ishost](../p/p_ishost.md) (host parsing function)
+  - [p_isURLPath](../p/p_isURLPath.md) (URL path parsing function)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the wparser_def.c module

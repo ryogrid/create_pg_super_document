@@ -33,12 +33,12 @@ The buffer management system uses a hierarchical approach where buffers are orga
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc
-  - BufFileCreateTemp
-  - hash_create
+  - [palloc](../p/palloc.md)
+  - [BufFileCreateTemp](../B/BufFileCreateTemp.md)
+  - [hash_create](../h/hash_create.md)
   - CurrentMemoryContext
 - Called from (representative examples):
-  - gistInitBuffering
+  - [gistInitBuffering](gistInitBuffering.md)
 
 ## Notes and Other Information
 - Creates a temporary file using BufFileCreateTemp(false) for persistent storage across transactions

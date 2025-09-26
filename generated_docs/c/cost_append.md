@@ -38,7 +38,7 @@ The function also adds a small per-tuple overhead cost using APPEND_CPU_COST_MUL
   - [clamp_row_est](clamp_row_est.md)
   - [append_nonpartial_cost](../a/append_nonpartial_cost.md)
   - APPEND_CPU_COST_MULTIPLIER
-  - AppendPath (struct)
+  - [AppendPath](../A/AppendPath.md) (struct)
 - Called from (representative examples):
   - [create_append_path](create_append_path.md)
 

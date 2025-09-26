@@ -31,13 +31,13 @@ CallStmt represents both the parsed and transformed forms of a CALL statement us
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FuncCall
-  - FuncExpr
+  - [FuncCall](../F/FuncCall.md)
+  - [FuncExpr](../F/FuncExpr.md)
 - Called from (representative examples):
-  - ExecuteCallStmt (src/backend/commands/functioncmds.c:2188)
-  - CallStmtResultDesc (src/backend/commands/functioncmds.c:2365)
-  - transformCallStmt (src/backend/parser/analyze.c:3088)
-  - standard_ProcessUtility (src/backend/tcop/utility.c:851)
+  - [ExecuteCallStmt](../E/ExecuteCallStmt.md) (src/backend/commands/functioncmds.c:2188)
+  - [CallStmtResultDesc](CallStmtResultDesc.md) (src/backend/commands/functioncmds.c:2365)
+  - [transformCallStmt](../t/transformCallStmt.md) (src/backend/parser/analyze.c:3088)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (src/backend/tcop/utility.c:851)
 
 ## Notes and Other Information
 The CALL statement is used to invoke stored procedures (not functions) and can handle procedures with output parameters. The separation of input and output arguments allows PostgreSQL to execute the procedure with only the necessary input parameters while maintaining metadata about expected outputs. The query jumbling annotation on funccall indicates that the original call structure should be ignored when computing query fingerprints, focusing only on the transformed execution form.

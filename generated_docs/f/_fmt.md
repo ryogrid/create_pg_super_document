@@ -29,15 +29,15 @@ Error handling includes bounds checking to prevent buffer overflows and warning 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _add (adds strings to output buffer)
-  - _conv (converts integers to formatted strings)
-  - _yconv (converts years with century handling)
+  - [_add](../a/_add.md) (adds strings to output buffer)
+  - [_conv](../c/_conv.md) (converts integers to formatted strings)
+  - [_yconv](../y/_yconv.md) (converts years with century handling)
   - isleap_sum (checks for leap years)
   - Locale (global locale information structure)
   - Various constants: DAYSPERWEEK, MONSPERYEAR, TM_YEAR_BASE, etc.
 - Called from (representative examples):
-  - pg_strftime (main entry point)
-  - _fmt (recursive calls for composite format specifiers)
+  - [pg_strftime](../p/pg_strftime.md) (main entry point)
+  - [_fmt](_fmt.md) (recursive calls for composite format specifiers)
 
 ## Notes and Other Information
 - Supports extensive format specifiers including POSIX standard and common extensions

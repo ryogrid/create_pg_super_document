@@ -27,7 +27,7 @@ The function handles two scenarios:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_malloc
+  - [pg_malloc](../p/pg_malloc.md)
   - [strtokx](../s/strtokx.md) 
   - strcpy
   - strlen

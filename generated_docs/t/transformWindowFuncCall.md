@@ -38,8 +38,8 @@ The function enforces SQL standard restrictions by rejecting window functions in
   - [locate_windowfunc](../l/locate_windowfunc.md)
   - [ParseExprKindName](../P/ParseExprKindName.md)
   - [equal](../e/equal.md)
-  - lappend
-  - list_length
+  - [lappend](../l/lappend.md)
+  - [list_length](../l/list_length.md)
 - Called from (representative examples):
   - [ParseFuncOrColumn](../P/ParseFuncOrColumn.md)
   - [transformJsonAggConstructor](transformJsonAggConstructor.md)

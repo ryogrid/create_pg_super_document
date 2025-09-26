@@ -28,7 +28,7 @@ Note that this function modifies schema-name fields within the passed-in structu
   - CreateSchemaStmtContext (local context structure)
   - [setSchemaName](../s/setSchemaName.md)
   - nodeTag
-  - lappend
+  - [lappend](../l/lappend.md)
   - [list_concat](../l/list_concat.md)
   - elog
 - Called from (representative examples):

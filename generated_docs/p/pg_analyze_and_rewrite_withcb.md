@@ -36,8 +36,8 @@ The function supports performance tracking through  and includes DTrace/SystemTa
 - Functions called/Symbols referenced:
   - [parse_analyze_withcb](parse_analyze_withcb.md)
   - [pg_rewrite_query](pg_rewrite_query.md)
-  - ResetUsage
-  - ShowUsage
+  - [ResetUsage](../R/ResetUsage.md)
+  - [ShowUsage](../S/ShowUsage.md)
   - TRACE_POSTGRESQL_QUERY_REWRITE_START
   - TRACE_POSTGRESQL_QUERY_REWRITE_DONE
 - Called from (representative examples):

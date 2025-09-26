@@ -32,13 +32,13 @@ Entries that meet the removal criteria are released using . After cleanup, the f
   -  - Starts iteration over the entry reference hash table
   -  - Gets the next entry during hash table iteration
   -  - Releases and cleans up an entry reference
-  -  - Hash table entry structure
+  -  - [Hash](../H/Hash.md) table entry structure
   -  - Statistics entry reference structure
   -  - Local hash table of entry references
   -  - Local variable tracking reference age
 
 - Called from (representative examples):
-  -  - Hash table declaration macro that may reference this function
+  -  - [Hash](../H/Hash.md) table declaration macro that may reference this function
   -  - Calls this function when GC is needed
 
 ## Notes and Other Information

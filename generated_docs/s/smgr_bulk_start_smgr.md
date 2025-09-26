@@ -22,7 +22,7 @@ This function creates and initializes a BulkWriteState structure for bulk write 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc](../p/palloc.md)
-  - smgrnblocks
+  - [smgrnblocks](smgrnblocks.md)
   - [GetRedoRecPtr](../G/GetRedoRecPtr.md)
   - SMgrRelation
   - [BulkWriteState](../B/BulkWriteState.md)

@@ -31,7 +31,7 @@ This function performs a system catalog lookup to retrieve the textual name of a
   - [show_sortorder_options](../s/show_sortorder_options.md) (EXPLAIN output formatting)
   - [DefineIndex](../D/DefineIndex.md) (index definition processing)
   - [DefineOpClass](../D/DefineOpClass.md) (operator class definition)
-  - print_expr (expression printing for debugging)
+  - [print_expr](../p/print_expr.md) (expression printing for debugging)
 
 ## Notes and Other Information
 - Returns a palloc'd copy of the operator name string, requiring the caller to pfree it when done

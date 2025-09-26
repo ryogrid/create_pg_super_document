@@ -22,11 +22,11 @@ The function is commonly used in hash table creation where fixed-size keys need 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_bytes
+  - [hash_bytes](../h/hash_bytes.md)
 - Called from (representative examples):
-  - dshash_memhash
-  - hash_create
-  - hash_uint32_extended
+  - [dshash_memhash](../d/dshash_memhash.md)
+  - [hash_create](../h/hash_create.md)
+  - [hash_uint32_extended](../h/hash_uint32_extended.md)
 
 ## Notes and Other Information
 - This function provides a consistent interface for hashing fixed-size structures across PostgreSQL

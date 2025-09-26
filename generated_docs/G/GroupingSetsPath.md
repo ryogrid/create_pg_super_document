@@ -34,9 +34,9 @@ GroupingSetsPath is a specialized path node that handles GROUPING SETS aggregati
 - Functions called/Symbols referenced:
   - AggStrategy
 - Called from (representative examples):
-  - create_groupingsets_plan
-  - create_groupingsets_path
-  - create_plan_recurse
+  - [create_groupingsets_plan](../c/create_groupingsets_plan.md)
+  - [create_groupingsets_path](../c/create_groupingsets_path.md)
+  - [create_plan_recurse](../c/create_plan_recurse.md)
 
 ## Notes and Other Information
 - This path type is specifically designed for handling complex GROUP BY operations with multiple grouping levels

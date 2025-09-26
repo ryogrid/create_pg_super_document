@@ -29,10 +29,10 @@ The function includes error handling for cases where the apply worker disappears
 ## Dependencies
 - Functions called/Symbols referenced:
   - `CHECK_FOR_INTERRUPTS()`
-  - `LWLockAcquire()`
-  - `logicalrep_worker_find()`
-  - `logicalrep_worker_wakeup_ptr()`
-  - `LWLockRelease()`
+  - `[LWLockAcquire](../L/LWLockAcquire.md)()`
+  - `[logicalrep_worker_find](../l/logicalrep_worker_find.md)()`
+  - `[logicalrep_worker_wakeup_ptr](../l/logicalrep_worker_wakeup_ptr.md)()`
+  - `[LWLockRelease](../L/LWLockRelease.md)()`
   - [WaitLatch](../W/WaitLatch.md)()
   - [ResetLatch](../R/ResetLatch.md)()
   - [LogicalRepWorker](../L/LogicalRepWorker.md)

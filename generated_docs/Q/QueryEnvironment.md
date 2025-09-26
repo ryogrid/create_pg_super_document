@@ -40,13 +40,13 @@ The implementation uses a simple linked list (List) because the number of epheme
 -  /  (relation access functions)
 
 ### Called from (representative examples):
-- Query parsing functions ()
-- Query execution (, )
-- Plan caching (, ) 
+- [Query](Query.md) parsing functions ()
+- [Query](Query.md) execution (, )
+- [Plan](../P/Plan.md) caching (, ) 
 - Utility commands (, )
 - SPI (Server Programming Interface) operations
-- Trigger execution contexts
-- Portal management
+- [Trigger](../T/Trigger.md) execution contexts
+- [Portal](../P/Portal.md) management
 
 ## Related Functions
 The QueryEnvironment is manipulated through these interface functions:

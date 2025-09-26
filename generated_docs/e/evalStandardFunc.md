@@ -22,17 +22,17 @@ The `evalStandardFunc` function implements eager evaluation for all non-lazy pgb
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `evaluateExpr` (recursive expression evaluation)
-  - `coerceToInt`, `coerceToDouble`, `coerceToBool` (type conversions)
-  - `setIntValue`, `setDoubleValue`, `setBoolValue`, `setNullValue` (result setters)
+  - `[evaluateExpr](evaluateExpr.md)` (recursive expression evaluation)
+  - `[coerceToInt](../c/coerceToInt.md)`, `coerceToDouble`, `coerceToBool` (type conversions)
+  - `[setIntValue](../s/setIntValue.md)`, `setDoubleValue`, `setBoolValue`, `setNullValue` (result setters)
   - Mathematical functions: `sqrt`, `log`, `exp`, `pow`
   - Random generators: `getrand`, `getGaussianRand`, `getZipfianRand`, `getExponentialRand`
-  - Hash functions: `getHashMurmur2`, `getHashFnv1a`
-  - `permute` (permutation function)
+  - [Hash](../H/Hash.md) functions: `getHashMurmur2`, `getHashFnv1a`
+  - `[permute](../p/permute.md)` (permutation function)
   - Overflow-safe arithmetic: `pg_add_s64_overflow`, `pg_sub_s64_overflow`, `pg_mul_s64_overflow`
   - Various `PGBENCH_*` enum constants for function types
 - Called from (representative examples):
-  - `evalFunc`
+  - `[evalFunc](evalFunc.md)`
 
 ## Notes and Other Information
 - This is a static function with internal linkage, only accessible within pgbench.c

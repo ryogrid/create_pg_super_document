@@ -289,7 +289,7 @@ v_str ESTAB      0      0                                               *:633275
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ScanState](../S/ScanState.md) (base structure)
-  - ExprContext (expression evaluation context)
+  - [ExprContext](../E/ExprContext.md) (expression evaluation context)
   - [List](../L/List.md) (PostgreSQL list structure)
 
 - Called from (representative examples):

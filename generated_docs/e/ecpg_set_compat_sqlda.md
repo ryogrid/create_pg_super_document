@@ -33,16 +33,16 @@ The function processes each field in the SQLDA, calculates proper memory offsets
   - [PGTYPESnumeric_from_asc](../P/PGTYPESnumeric_from_asc.md)
   - [PGTYPESnumeric_free](../P/PGTYPESnumeric_free.md)
   - [ECPGset_noind_null](../E/ECPGset_noind_null.md)
-  - ecpg_get_data
+  - [ecpg_get_data](ecpg_get_data.md)
   - [ecpg_log](ecpg_log.md)
 - Called from (representative examples):
-  - ecpg_process_output
+  - [ecpg_process_output](ecpg_process_output.md)
 
 ## Notes and Other Information
 - This function does not allocate the SQLDA structure itself; it only populates an existing one
 - Handles a wide variety of PostgreSQL data types including numeric, date/time, and string types
 - Special handling for numeric types includes copying digit buffers and adjusting internal pointers
 - Sets up NULL indicators for each field using predefined global values
-- String data longer than 32768 bytes gets special handling with sqlilongdata pointer
+- [String](../S/String.md) data longer than 32768 bytes gets special handling with sqlilongdata pointer
 - Uses proper memory alignment to ensure data can be accessed efficiently on different architectures
 - Part of the ECPG embedded SQL interface for PostgreSQL client applications

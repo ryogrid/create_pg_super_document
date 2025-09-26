@@ -21,14 +21,14 @@ The function includes an important caveat about race conditions - since timeouts
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TimeoutId (timeout identifier type)
+  - [TimeoutId](../T/TimeoutId.md) (timeout identifier type)
 - Called from (representative examples):
-  - start_xact_command (transaction command processing)
-  - assign_transaction_timeout (transaction timeout configuration)
-  - PostgresMain (main backend processing loop)
-  - enable_statement_timeout (statement timeout management)
-  - disable_statement_timeout (statement timeout management)
-  - DisableTimeoutParams (macro wrapper)
+  - [start_xact_command](../s/start_xact_command.md) (transaction command processing)
+  - [assign_transaction_timeout](../a/assign_transaction_timeout.md) (transaction timeout configuration)
+  - [PostgresMain](../P/PostgresMain.md) (main backend processing loop)
+  - [enable_statement_timeout](../e/enable_statement_timeout.md) (statement timeout management)
+  - [disable_statement_timeout](../d/disable_statement_timeout.md) (statement timeout management)
+  - [DisableTimeoutParams](../D/DisableTimeoutParams.md) (macro wrapper)
 
 ## Notes and Other Information
 - Subject to race conditions as acknowledged in the source comments

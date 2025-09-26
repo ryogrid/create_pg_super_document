@@ -25,9 +25,9 @@ The function is straightforward:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FileSetDeleteAll
+  - [FileSetDeleteAll](../F/FileSetDeleteAll.md)
 - Called from (representative examples):
-  - ExecHashJoinReInitializeDSM (Hash join reinitialization for DSM)
+  - [ExecHashJoinReInitializeDSM](../E/ExecHashJoinReInitializeDSM.md) (Hash join reinitialization for DSM)
 
 ## Notes and Other Information
 - This function does not affect the reference count or the SharedFileSet structure itself - only the files it contains

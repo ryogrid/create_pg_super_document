@@ -21,12 +21,12 @@ BufFileAppend performs a high-performance append operation by transferring owner
 ## Dependencies
 - Functions called/Symbols referenced:
   - BUFFILE_SEG_SIZE (constant)
-  - repalloc
+  - [repalloc](../r/repalloc.md)
   - File (type)
   - Assert
   - elog/ERROR
 - Called from (representative examples):
-  - LogicalTapeImport (src/backend/utils/sort/logtape.c:639)
+  - [LogicalTapeImport](../L/LogicalTapeImport.md) (src/backend/utils/sort/logtape.c:639)
 
 ## Notes and Other Information
 - Returns the block number within target where source content begins

@@ -35,8 +35,8 @@ The function raises appropriate errors if either check fails, preventing potenti
   - [check_enable_rls](../c/check_enable_rls.md)
   - [GetUserNameFromId](../G/GetUserNameFromId.md)
   - RelationGetRelationName
-  - AclResult (data type)
-  - RLS_ENABLED (constant)
+  - [AclResult](../A/AclResult.md) (data type)
+  - [RLS_ENABLED](../R/RLS_ENABLED.md) (constant)
 - Called from (representative examples):
   - [apply_handle_insert_internal](../a/apply_handle_insert_internal.md)
   - [apply_handle_update_internal](../a/apply_handle_update_internal.md)

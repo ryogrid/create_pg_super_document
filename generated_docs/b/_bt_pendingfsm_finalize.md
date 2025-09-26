@@ -30,13 +30,13 @@ The function includes debugging support (DEBUG_BTREE_PENDING_FSM) that introduce
 - Functions called/Symbols referenced:
   - [GetOldestNonRemovableTransactionId](../G/GetOldestNonRemovableTransactionId.md) (XID horizon update)
   - [GlobalVisCheckRemovableFullXid](../G/GlobalVisCheckRemovableFullXid.md) (safety check for page recycling)
-  - RecordFreeIndexPage (adds page to FSM)
+  - [RecordFreeIndexPage](../R/RecordFreeIndexPage.md) (adds page to FSM)
   - [pfree](../p/pfree.md) (memory deallocation)
   - [pg_usleep](../p/pg_usleep.md) (debugging only)
 - Structures referenced:
   - [IndexBulkDeleteResult](../I/IndexBulkDeleteResult.md) (vacuum statistics)
   - [BTPendingFSM](../B/BTPendingFSM.md) (pending page metadata)
-  - FullTransactionId (transaction ID for safety checks)
+  - [FullTransactionId](../F/FullTransactionId.md) (transaction ID for safety checks)
 - Called from (representative examples):
   - [btvacuumscan](btvacuumscan.md)
 

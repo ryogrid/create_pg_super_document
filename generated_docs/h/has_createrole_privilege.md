@@ -19,7 +19,7 @@ This function determines if a role has the CREATEROLE privilege, which allows cr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - superuser_arg
+  - [superuser_arg](../s/superuser_arg.md)
   - Form_pg_authid
 - Called from (representative examples):
   - [check_object_ownership](../c/check_object_ownership.md)

@@ -33,7 +33,7 @@ The function allocates a HashScanOpaque structure that maintains hash-specific s
   - Referenced in HASHNProcs (hash index procedure array)
 
 ## Notes and Other Information
-- Hash indexes do not support ordered scans, so norderbys must always be 0
+- [Hash](../H/Hash.md) indexes do not support ordered scans, so norderbys must always be 0
 - Initializes buffer references to InvalidBuffer indicating no pages are currently pinned
 - Sets up killed tuple tracking infrastructure for deferred cleanup optimization
 - The scan position is initially invalid and will be established on the first tuple fetch

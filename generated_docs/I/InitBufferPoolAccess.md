@@ -17,8 +17,8 @@ This function is called during backend startup (whether standalone or under the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HASHCTL (hash table control structure)
-  - PrivateRefCountEntry (hash table entry type)
+  - [HASHCTL](../H/HASHCTL.md) (hash table control structure)
+  - [PrivateRefCountEntry](../P/PrivateRefCountEntry.md) (hash table entry type)
   - [hash_create](../h/hash_create.md) (creates the private reference count hash table)
   - HASH_ELEM (hash table creation flag)
   - HASH_BLOBS (hash table creation flag)

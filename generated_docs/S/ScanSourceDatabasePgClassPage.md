@@ -46,7 +46,7 @@ The function performs direct page-level access without using the normal heap sca
   - ItemIdGetLength: Gets length of item data
   - [HeapTupleSatisfiesVisibility](../H/HeapTupleSatisfiesVisibility.md): Checks if tuple is visible to snapshot
   - [ScanSourceDatabasePgClassTuple](ScanSourceDatabasePgClassTuple.md): Processes individual pg_class tuples
-  - lappend: Adds elements to list
+  - [lappend](../l/lappend.md): Adds elements to list
 - Called from (representative examples):
   - [ScanSourceDatabasePgClass](ScanSourceDatabasePgClass.md): Uses this to process each page of pg_class
 

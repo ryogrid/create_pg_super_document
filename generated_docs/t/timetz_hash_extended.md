@@ -39,7 +39,7 @@ The extended hashing process:
   - TimeTzADT: Structure containing time (TimeADT) and zone (int32) fields
 - Called from (representative examples):
   - Advanced hash table operations requiring better distribution
-  - Hash joins with multiple hash phases
+  - [Hash](../H/Hash.md) joins with multiple hash phases
   - Partitioned hash operations
 
 ## Notes and Other Information

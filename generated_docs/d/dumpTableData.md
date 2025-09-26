@@ -31,7 +31,7 @@ For partitioned tables, it intelligently decides whether to force loading throug
   - [dumpTableData_copy](dumpTableData_copy.md)
   - [dumpTableData_insert](dumpTableData_insert.md)
   - [ArchiveEntry](../A/ArchiveEntry.md)
-  - createPQExpBuffer/destroyPQExpBuffer
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)/destroyPQExpBuffer
 - Called from (representative examples):
   - fmtQualifiedDumpable (src/bin/pg_dump/pg_dump.c:206)
   - [dumpDumpableObject](dumpDumpableObject.md) (src/bin/pg_dump/pg_dump.c:10622)

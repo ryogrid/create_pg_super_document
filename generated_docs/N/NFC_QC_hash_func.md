@@ -25,7 +25,7 @@ The function operates on 4-byte Unicode code point keys and returns an integer h
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_unicode_norminfo (referenced in surrounding context)
-  - pg_unicode_normprops (referenced in surrounding context)
+  - [pg_unicode_normprops](../p/pg_unicode_normprops.md) (referenced in surrounding context)
   - UNICODE_NORM_QC_MAYBE (constant used extensively in the hash table)
 
 - Called from (representative examples):

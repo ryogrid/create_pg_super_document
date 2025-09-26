@@ -36,7 +36,7 @@ None - this function takes no parameters and operates on global state.
 - Functions called/Symbols referenced:
   - [GetRedoRecPtr](../G/GetRedoRecPtr.md)
   - [ReplicationSlotsComputeLogicalRestartLSN](../R/ReplicationSlotsComputeLogicalRestartLSN.md)
-  - AllocateDir/ReadDir/FreeDir
+  - [AllocateDir](../A/AllocateDir.md)/ReadDir/FreeDir
   - [get_dirent_type](../g/get_dirent_type.md)
   - sscanf
   - unlink

@@ -19,7 +19,7 @@ ECPGget_PGconn is a utility function that provides access to the raw PostgreSQL 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ecpg_get_connection
+  - [ecpg_get_connection](../e/ecpg_get_connection.md)
 - Called from (representative examples):
   - Applications needing direct libpq access
   - Bridge code between ECPG and libpq interfaces

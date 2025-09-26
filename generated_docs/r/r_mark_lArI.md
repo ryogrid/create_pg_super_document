@@ -21,11 +21,11 @@ This function is part of the Turkish language stemming implementation that speci
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_among_b (Snowball library function for backwards pattern matching)
+  - [find_among_b](../f/find_among_b.md) (Snowball library function for backwards pattern matching)
   - a_1 (array of 2 'lArI' suffix patterns with vowel harmony variants)
 - Called from (representative examples):
-  - r_stem_suffix_chain_before_ki
-  - r_stem_noun_suffixes
+  - [r_stem_suffix_chain_before_ki](r_stem_suffix_chain_before_ki.md)
+  - [r_stem_noun_suffixes](r_stem_noun_suffixes.md)
 
 ## Notes and Other Information
 - Returns 1 on successful 'lArI' suffix identification, 0 on failure

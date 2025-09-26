@@ -29,12 +29,12 @@ The function handles both finite and infinite timestamps, with special logic for
   - [NonFiniteTimestampTzPart](../N/NonFiniteTimestampTzPart.md) - Handles infinite timestamp values
   - [timestamp2tm](timestamp2tm.md) - Converts timestamp to broken-down time structure
   - [date2isoweek](../d/date2isoweek.md), `date2isoyear`, `date2j`, `j2day` - Date calculation utilities
-  - [int64_div_fast_to_numeric](../i/int64_div_fast_to_numeric.md), `numeric_add_opt_error` - Numeric type operations
+  - [int64_div_fast_to_numeric](../i/int64_div_fast_to_numeric.md), `numeric_add_opt_error` - [Numeric](../N/Numeric.md) type operations
   - [SetEpochTimestamp](../S/SetEpochTimestamp.md) - Gets PostgreSQL epoch reference point
   - Various PostgreSQL datum conversion macros
 - Called from (representative examples):
   - [timestamptz_part](timestamptz_part.md) - Float8 variant of field extraction
-  - [extract_timestamptz](../e/extract_timestamptz.md) - Numeric variant of field extraction
+  - [extract_timestamptz](../e/extract_timestamptz.md) - [Numeric](../N/Numeric.md) variant of field extraction
 
 ## Notes and Other Information
 - Handles timezone-specific fields: DTK_TZ (timezone offset in seconds), DTK_TZ_MINUTE, DTK_TZ_HOUR

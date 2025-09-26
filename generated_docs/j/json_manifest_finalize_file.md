@@ -29,19 +29,19 @@ The function is designed to handle both regular pathnames and hex-encoded pathna
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `json_manifest_parse_failure` - error reporting for parsing failures
-  - `palloc` - PostgreSQL memory allocation
-  - `pfree` - PostgreSQL memory deallocation  
-  - `hexdecode_string` - hex string to binary conversion
+  - `[json_manifest_parse_failure](json_manifest_parse_failure.md)` - [error](../e/error.md) reporting for parsing failures
+  - `[palloc](../p/palloc.md)` - PostgreSQL memory allocation
+  - `[pfree](../p/pfree.md)` - PostgreSQL memory deallocation  
+  - `[hexdecode_string](../h/hexdecode_string.md)` - hex string to binary conversion
   - `strtoul` - string to unsigned long conversion
-  - `pg_checksum_parse_type` - checksum algorithm type parsing
+  - `[pg_checksum_parse_type](../p/pg_checksum_parse_type.md)` - checksum algorithm type parsing
   - `strlen` - string length calculation
   - `CHECKSUM_TYPE_NONE` - constant for no checksum type
   - `JsonManifestParseState` - parsing state structure
-  - `JsonManifestParseContext` - parsing context structure
+  - `[JsonManifestParseContext](../J/JsonManifestParseContext.md)` - parsing context structure
   - `pg_checksum_type` - checksum type enumeration
 - Called from (representative examples):
-  - `json_manifest_object_end` - JSON object completion handler
+  - `[json_manifest_object_end](json_manifest_object_end.md)` - JSON object completion handler
   - Used in `JsonManifestParseIncrementalState` structure
 
 ## Notes and Other Information

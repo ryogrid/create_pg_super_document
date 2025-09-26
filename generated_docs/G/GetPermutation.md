@@ -24,11 +24,11 @@ The function ensures that all possible permutations have equal probability of be
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (PostgreSQL memory allocation)
-  - pg_prng_uint64_range (PostgreSQL pseudorandom number generator)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation)
+  - [pg_prng_uint64_range](../p/pg_prng_uint64_range.md) (PostgreSQL pseudorandom number generator)
   - pg_global_prng_state (global PRNG state)
 - Called from (representative examples):
-  - rbt_populate (in test_rbtree.c:129)
+  - [rbt_populate](../r/rbt_populate.md) (in test_rbtree.c:129)
 
 ## Notes and Other Information
 - The function uses PostgreSQL's memory management (palloc) rather than standard malloc

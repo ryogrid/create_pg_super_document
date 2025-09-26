@@ -43,13 +43,13 @@ The function is exported for use by prepare.c in EXPLAIN EXECUTE scenarios and f
   - [ExecutorEnd](ExecutorEnd.md)
   - [ExplainPrintPlan](ExplainPrintPlan.md)
   - [ExplainPrintTriggers](ExplainPrintTriggers.md)
-  - ExplainPrintJITSummary
-  - ExplainPrintSerialize
+  - [ExplainPrintJITSummary](ExplainPrintJITSummary.md)
+  - [ExplainPrintSerialize](ExplainPrintSerialize.md)
   - [CreateIntoRelDestReceiver](../C/CreateIntoRelDestReceiver.md)
   - [CreateExplainSerializeDestReceiver](../C/CreateExplainSerializeDestReceiver.md)
-  - PushCopiedSnapshot
-  - GetActiveSnapshot
-  - UpdateActiveSnapshotCommandId
+  - [PushCopiedSnapshot](../P/PushCopiedSnapshot.md)
+  - [GetActiveSnapshot](../G/GetActiveSnapshot.md)
+  - [UpdateActiveSnapshotCommandId](../U/UpdateActiveSnapshotCommandId.md)
   - [elapsed_time](../e/elapsed_time.md)
 - Called from (representative examples):
   - [standard_ExplainOneQuery](../s/standard_ExplainOneQuery.md)

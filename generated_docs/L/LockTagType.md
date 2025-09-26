@@ -55,7 +55,7 @@ The lock tag types cover various levels of granularity:
 ## Dependencies
 - Functions called/Symbols referenced: None directly (enum definition)
 - Called from (representative examples):
-  - DescribeLockTag
+  - [DescribeLockTag](../D/DescribeLockTag.md)
   - [pg_lock_status](../p/pg_lock_status.md)
   - LOCK_LOCKTAG macro
   - LOCALLOCK_LOCKTAG macro

@@ -23,13 +23,13 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SlotSyncShmemSize (to determine memory size)
-  - SlotSyncCtxStruct (structure type)
-  - ShmemInitStruct (shared memory allocation)
+  - [SlotSyncShmemSize](SlotSyncShmemSize.md) (to determine memory size)
+  - [SlotSyncCtxStruct](SlotSyncCtxStruct.md) (structure type)
+  - [ShmemInitStruct](ShmemInitStruct.md) (shared memory allocation)
   - InvalidPid (constant for invalid process ID)
   - SpinLockInit (spinlock initialization)
 - Called from (representative examples):
-  - CreateOrAttachShmemStructs
+  - [CreateOrAttachShmemStructs](../C/CreateOrAttachShmemStructs.md)
 
 ## Notes and Other Information
 - Must be called after `SlotSyncShmemSize` has been used to calculate required memory during startup

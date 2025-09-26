@@ -34,13 +34,13 @@ The function ensures that privilege hierarchies remain consistent after revocati
 - Functions called/Symbols referenced:
   - GETSTRUCT
   - ereport
-  - errcode
-  - errmsg
-  - errhint
-  - plan_recursive_revoke (recursive call)
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
+  - [errhint](../e/errhint.md)
+  - [plan_recursive_revoke](plan_recursive_revoke.md) (recursive call)
 - Types used:
-  - CatCList
-  - RevokeRoleGrantAction
+  - [CatCList](../C/CatCList.md)
+  - [RevokeRoleGrantAction](../R/RevokeRoleGrantAction.md)
   - DropBehavior
   - Form_pg_auth_members
   - HeapTuple
@@ -52,9 +52,9 @@ The function ensures that privilege hierarchies remain consistent after revocati
   - ERROR
   - ERRCODE_DEPENDENT_OBJECTS_STILL_EXIST
 - Called from:
-  - plan_single_revoke
-  - plan_member_revoke
-  - plan_recursive_revoke (recursive)
+  - [plan_single_revoke](plan_single_revoke.md)
+  - [plan_member_revoke](plan_member_revoke.md)
+  - [plan_recursive_revoke](plan_recursive_revoke.md) (recursive)
 
 ## Notes and Other Information
 - The function implements a depth-first traversal of the privilege dependency graph

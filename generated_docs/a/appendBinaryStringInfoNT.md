@@ -21,13 +21,13 @@ The function follows the same basic pattern as appendBinaryStringInfo - it valid
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - enlargeStringInfo
+  - [enlargeStringInfo](../e/enlargeStringInfo.md)
   - memcpy (standard C library function)
   - Assert (debug assertion macro)
 - Called from (representative examples):
-  - pq_sendcountedtext
-  - pq_sendstring
-  - appendStringInfoStringQuoted
+  - [pq_sendcountedtext](../p/pq_sendcountedtext.md)
+  - [pq_sendstring](../p/pq_sendstring.md)
+  - [appendStringInfoStringQuoted](appendStringInfoStringQuoted.md)
   - appendStringInfoCharMacro
 
 ## Notes and Other Information

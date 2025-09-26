@@ -35,13 +35,13 @@ CustomPathMethods provides the callback interface for extensions to implement cu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CustomPath (structure that uses these methods)
+  - [CustomPath](CustomPath.md) (structure that uses these methods)
   - [Plan](../P/Plan.md) (return type for path planning)
   - [PlannerInfo](../P/PlannerInfo.md) (planner context)
-  - RelOptInfo (relation optimization info) 
+  - [RelOptInfo](../R/RelOptInfo.md) (relation optimization info) 
   - [List](../L/List.md) (PostgreSQL list structure)
 - Called from (representative examples):
-  - CustomPath (structure references these methods)
+  - [CustomPath](CustomPath.md) (structure references these methods)
   - [Query](../Q/Query.md) planner path conversion logic
   - Parameterized nested loop reparameterization
 

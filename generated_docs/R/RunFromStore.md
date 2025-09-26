@@ -28,7 +28,7 @@ RunFromStore is a specialized function that retrieves tuples from a portal's tup
   - ScanDirectionIsNoMovement
   - ScanDirectionIsForward
   - [tuplestore_gettupleslot](../t/tuplestore_gettupleslot.md)
-  - ExecClearTuple
+  - [ExecClearTuple](../E/ExecClearTuple.md)
   - [ExecDropSingleTupleTableSlot](../E/ExecDropSingleTupleTableSlot.md)
 - Called from (representative examples):
   - [PortalRunSelect](../P/PortalRunSelect.md)

@@ -19,7 +19,7 @@ This function provides a way to query whether a tuplestore is still operating en
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Tuplestorestate
+  - [Tuplestorestate](../T/Tuplestorestate.md)
   - TSS_INMEM (tuplestore status constant indicating in-memory mode)
 - Called from (representative examples):
   - [spool_tuples](../s/spool_tuples.md)

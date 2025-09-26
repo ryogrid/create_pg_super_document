@@ -25,7 +25,7 @@ The search relies on the fact that non-constant members are placed on the left s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - EquivalenceClass (struct type)
+  - [EquivalenceClass](../E/EquivalenceClass.md) (struct type)
   - [EquivalenceMember](../E/EquivalenceMember.md) (struct type)  
   - [RestrictInfo](../R/RestrictInfo.md) (struct type)
   - lfirst (list iteration macro)

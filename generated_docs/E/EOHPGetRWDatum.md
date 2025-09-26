@@ -41,17 +41,17 @@ The returned Datum represents a TOAST pointer that can be used to access and mod
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PointerGetDatum
-  - ExpandedObjectHeader
+  - [PointerGetDatum](../P/PointerGetDatum.md)
+  - [ExpandedObjectHeader](ExpandedObjectHeader.md)
 - Called from (representative examples):
-  - expand_array
-  - array_append
-  - array_prepend
-  - array_set_element_expanded
-  - TransferExpandedObject
-  - make_expanded_record_from_datum
+  - [expand_array](../e/expand_array.md)
+  - [array_append](../a/array_append.md)
+  - [array_prepend](../a/array_prepend.md)
+  - [array_set_element_expanded](../a/array_set_element_expanded.md)
+  - [TransferExpandedObject](../T/TransferExpandedObject.md)
+  - [make_expanded_record_from_datum](../m/make_expanded_record_from_datum.md)
   - PG_RETURN_EXPANDED_ARRAY
-  - ExpandedRecordGetDatum
+  - [ExpandedRecordGetDatum](ExpandedRecordGetDatum.md)
 
 ## Notes and Other Information
 - This is an inline function defined in src/include/utils/expandeddatum.h:139-142

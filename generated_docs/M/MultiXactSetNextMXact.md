@@ -27,8 +27,8 @@ A special consideration is made for binary upgrade operations, where the functio
 ## Dependencies
 - Functions called/Symbols referenced:
   - debug_elog4
-  - LWLockAcquire
-  - LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - [MaybeExtendOffsetSlru](MaybeExtendOffsetSlru.md)
 - Called from (representative examples):
   - [BootStrapXLOG](../B/BootStrapXLOG.md)

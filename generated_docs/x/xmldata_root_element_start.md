@@ -29,8 +29,8 @@ The function distinguishes between top-level elements (where namespace declarati
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert
-  - appendStringInfo
-  - appendStringInfoString
+  - [appendStringInfo](../a/appendStringInfo.md)
+  - [appendStringInfoString](../a/appendStringInfoString.md)
   - strlen
   - NAMESPACE_XSI (constant)
 - Called from (representative examples):

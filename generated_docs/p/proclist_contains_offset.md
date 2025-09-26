@@ -22,8 +22,8 @@ This function determines if a given process is currently a member of a specific 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [proclist_node_get](proclist_node_get.md) (to access node structures at specified offsets)
-  - proclist_head (list header structure)
-  - proclist_node (node structure within processes)
+  - [proclist_head](proclist_head.md) (list header structure)
+  - [proclist_node](proclist_node.md) (node structure within processes)
   - INVALID_PROC_NUMBER (constant indicating invalid process number)
   - [PGPROC](../P/PGPROC.md) (process structure type)
 - Called from (representative examples):

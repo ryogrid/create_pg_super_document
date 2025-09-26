@@ -29,10 +29,10 @@ The structure follows PostgreSQL's standard node pattern with a NodeTag for type
   - NodeTag (inherited structure member)
   
 - Called from (representative examples):
-  - exec_replication_command (src/backend/replication/walsender.c:2180)
-  - PlannedStmtRequiresSnapshot (src/backend/tcop/pquery.c:1742)  
-  - standard_ProcessUtility (src/backend/tcop/utility.c:877)
-  - UtilityTupleDescriptor (src/backend/tcop/utility.c:2118)
+  - [exec_replication_command](../e/exec_replication_command.md) (src/backend/replication/walsender.c:2180)
+  - [PlannedStmtRequiresSnapshot](../P/PlannedStmtRequiresSnapshot.md) (src/backend/tcop/pquery.c:1742)  
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (src/backend/tcop/utility.c:877)
+  - [UtilityTupleDescriptor](../U/UtilityTupleDescriptor.md) (src/backend/tcop/utility.c:2118)
 
 ## Notes and Other Information
 - This structure is part of PostgreSQL's parse tree node hierarchy defined in parsenodes.h

@@ -24,7 +24,7 @@ The function is declared as `static inline`, making it an internal utility funct
 - Functions called/Symbols referenced:
   - None (uses only bitwise operations)
 - Called from (representative examples):
-  - xoroshiro128ss (called 3 times within the xoroshiro128** algorithm)
+  - [xoroshiro128ss](../x/xoroshiro128ss.md) (called 3 times within the xoroshiro128** algorithm)
 
 ## Notes and Other Information
 - This is a static inline function, meaning it is only accessible within the same compilation unit and is optimized for performance

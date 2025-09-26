@@ -141,12 +141,12 @@ Key validation includes:
 ## Dependencies
 - Functions called/Symbols referenced:
   - popen/pclose (system process execution)
-  - pg_strip_crlf (string processing)
+  - [pg_strip_crlf](../p/pg_strip_crlf.md) (string processing)
   - [str2uint](../s/str2uint.md) (string to integer conversion)
   - setenv/unsetenv (environment manipulation)
   - [pg_log](../p/pg_log.md) (logging)
   - [pg_fatal](../p/pg_fatal.md) (error handling)
-  - strlcpy (safe string copying)
+  - [strlcpy](../s/strlcpy.md) (safe string copying)
   - [pg_free](../p/pg_free.md) (memory management)
 - Called from (representative examples):
   - [check_cluster_compatibility](../c/check_cluster_compatibility.md) (src/bin/pg_upgrade/check.c:842-843)

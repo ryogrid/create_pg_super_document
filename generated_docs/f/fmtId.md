@@ -30,7 +30,7 @@ Like fmtIdEnc(), this function uses a shared buffer, so the returned string is o
 - Called from (representative examples):
   - Extensively used throughout pg_dump utilities (pg_dump.c, pg_dumpall.c, dumputils.c)
   - PostgreSQL client utilities (createdb.c, createuser.c, psql)
-  - String utilities (appendReloptionsArray in string_utils.c)
+  - [String](../S/String.md) utilities (appendReloptionsArray in string_utils.c)
   - Test modules (test_escape.c)
 
 ## Notes and Other Information

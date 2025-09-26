@@ -27,15 +27,15 @@ The function allocates memory for attribute arrays and populates the LogicalRepR
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_getmsgint (extract integer values from message)
-  - pq_getmsgbyte (extract byte values from message)  
-  - pq_getmsgstring (extract string values from message)
-  - palloc (memory allocation)
-  - pstrdup (string duplication)
-  - bms_add_member (add member to bitmap set)
+  - [pq_getmsgint](../p/pq_getmsgint.md) (extract integer values from message)
+  - [pq_getmsgbyte](../p/pq_getmsgbyte.md) (extract byte values from message)  
+  - [pq_getmsgstring](../p/pq_getmsgstring.md) (extract string values from message)
+  - [palloc](../p/palloc.md) (memory allocation)
+  - [pstrdup](../p/pstrdup.md) (string duplication)
+  - [bms_add_member](../b/bms_add_member.md) (add member to bitmap set)
   - LOGICALREP_IS_REPLICA_IDENTITY (flag constant)
 - Called from:
-  - logicalrep_read_rel (reads complete relation information)
+  - [logicalrep_read_rel](logicalrep_read_rel.md) (reads complete relation information)
 
 ## Notes and Other Information
 - This is a static function used internally within the logical replication protocol implementation

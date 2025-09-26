@@ -22,7 +22,7 @@ This function determines if a RestrictInfo represents a range comparison clause 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [IsBinaryTidClause](IsBinaryTidClause.md) (validates binary TID clause structure)
-  - OpExpr (cast to access operator information)
+  - [OpExpr](../O/OpExpr.md) (cast to access operator information)
   - TIDLessOperator (constant for TID < operator)
   - TIDLessEqOperator (constant for TID <= operator)
   - TIDGreaterOperator (constant for TID > operator)

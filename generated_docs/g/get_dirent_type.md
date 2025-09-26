@@ -31,15 +31,15 @@ get_dirent_type(const char *path,
   - DT_REG, DT_DIR, DT_LNK (BSD/Linux dirent type constants)
   - [stat](../s/stat.md), lstat (system calls)
   - S_ISREG, S_ISDIR, S_ISLNK (POSIX stat macros)
-  - pg_log_generic (frontend logging)
+  - [pg_log_generic](../p/pg_log_generic.md) (frontend logging)
   - ereport (backend logging)
 - Called from (representative examples):
-  - CheckPointLogicalRewriteHeap
+  - [CheckPointLogicalRewriteHeap](../C/CheckPointLogicalRewriteHeap.md)
   - [RemoveXlogFile](../R/RemoveXlogFile.md)
-  - copydir
+  - [copydir](../c/copydir.md)
   - [walkdir](../w/walkdir.md)
-  - rmtree
-  - process_directory_recursively
+  - [rmtree](../r/rmtree.md)
+  - [process_directory_recursively](../p/process_directory_recursively.md)
 
 ## Notes and Other Information
 This function is part of PostgreSQL's common utilities and works in both frontend tools and backend code. It abstracts away platform differences in directory entry type detection, providing a consistent interface across different operating systems. The function returns PGFileType enum values: PGFILETYPE_REG (regular file), PGFILETYPE_DIR (directory), PGFILETYPE_LNK (symbolic link), PGFILETYPE_UNKNOWN (unknown type), or PGFILETYPE_ERROR (stat failed). This is essential for directory traversal operations in PostgreSQL utilities and server-side file management.

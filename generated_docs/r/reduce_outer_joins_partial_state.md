@@ -28,8 +28,8 @@ The structure maintains essential information about such partially reduced joins
 - Functions called/Symbols referenced:
   - Relids (PostgreSQL's bitmap set type for relation IDs)
 - Called from (representative examples):
-  - reduce_outer_joins
-  - report_reduced_full_join
+  - [reduce_outer_joins](reduce_outer_joins.md)
+  - [report_reduced_full_join](report_reduced_full_join.md)
 
 ## Notes and Other Information
 This structure is specifically used for tracking the intermediate state when full outer joins cannot be completely reduced to inner joins but can be simplified to left or right outer joins. The unreduced_side field is critical for maintaining correct join semantics - it identifies which relations may still produce null values after the partial reduction, ensuring that the optimizer and executor handle null values correctly in subsequent processing.

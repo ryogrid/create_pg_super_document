@@ -19,8 +19,8 @@ The function includes a comment noting that in SHARED_TUPLESTORE_SINGLE_PASS mod
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SharedTuplestoreAccessor (structure type)
-  - BufFileClose (function to close buffer files)
+  - [SharedTuplestoreAccessor](../S/SharedTuplestoreAccessor.md) (structure type)
+  - [BufFileClose](../B/BufFileClose.md) (function to close buffer files)
 - Called from (representative examples):
   - [sts_begin_parallel_scan](sts_begin_parallel_scan.md) (automatically called to end existing scans)
   - [ExecParallelHashRepartitionRest](../E/ExecParallelHashRepartitionRest.md) (in nodeHash.c:1429)

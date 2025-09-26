@@ -19,18 +19,18 @@ The function iterates through all local buffers and removes any that belong to t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetLocalBufferDescriptor
-  - pg_atomic_read_u32
-  - BufTagMatchesRelFileLocator
-  - BufTagGetRelFileLocator
-  - BufTagGetForkNum
+  - [GetLocalBufferDescriptor](../G/GetLocalBufferDescriptor.md)
+  - [pg_atomic_read_u32](../p/pg_atomic_read_u32.md)
+  - [BufTagMatchesRelFileLocator](../B/BufTagMatchesRelFileLocator.md)
+  - [BufTagGetRelFileLocator](../B/BufTagGetRelFileLocator.md)
+  - [BufTagGetForkNum](../B/BufTagGetForkNum.md)
   - relpathbackend
-  - hash_search
-  - ClearBufferTag
-  - pg_atomic_unlocked_write_u32
+  - [hash_search](../h/hash_search.md)
+  - [ClearBufferTag](../C/ClearBufferTag.md)
+  - [pg_atomic_unlocked_write_u32](../p/pg_atomic_unlocked_write_u32.md)
 - Called from (representative examples):
-  - DropRelationsAllBuffers
-  - ResourceOwnerForgetBufferIO
+  - [DropRelationsAllBuffers](DropRelationsAllBuffers.md)
+  - [ResourceOwnerForgetBufferIO](../R/ResourceOwnerForgetBufferIO.md)
 
 ## Notes and Other Information
 - WARNING: This function is NOT rollback-able - dirty pages are discarded without being written to disk

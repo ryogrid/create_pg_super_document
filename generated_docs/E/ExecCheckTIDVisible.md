@@ -31,10 +31,10 @@ This function encapsulates the common pattern of "fetch tuple by TID, then check
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsolationUsesXactSnapshot
-  - table_tuple_fetch_row_version
+  - [table_tuple_fetch_row_version](../t/table_tuple_fetch_row_version.md)
   - SnapshotAny
   - [ExecCheckTupleVisible](ExecCheckTupleVisible.md)
-  - ExecClearTuple
+  - [ExecClearTuple](ExecClearTuple.md)
 - Called from (representative examples):
   - [ExecInsert](ExecInsert.md)
 

@@ -21,7 +21,7 @@ The function uses the HdrMaskGetValue helper to extract the value from the speci
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryChunk (structure type)
+  - [MemoryChunk](MemoryChunk.md) (structure type)
   - HdrMaskIsExternal (helper macro/function for debug validation)
   - HdrMaskGetValue (helper macro/function to extract value)
 - Called from (representative examples):

@@ -22,7 +22,7 @@ The function is designed to be safe when interrupted by errors and called again 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [AfterTriggersQueryData](AfterTriggersQueryData.md) (query-level trigger state structure)
-  - Tuplestorestate (tuple storage state structure)
+  - [Tuplestorestate](../T/Tuplestorestate.md) (tuple storage state structure)
   - [afterTriggerFreeEventList](../a/afterTriggerFreeEventList.md) (frees trigger event list)
   - [tuplestore_end](../t/tuplestore_end.md) (closes tuple storage)
   - [AfterTriggersTableData](AfterTriggersTableData.md) (per-table trigger data structure)

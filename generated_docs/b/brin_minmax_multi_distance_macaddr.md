@@ -23,7 +23,7 @@ This function calculates the numerical distance between two MAC address values b
 - Functions called/Symbols referenced:
   - PG_GETARG_MACADDR_P (macro for extracting macaddr pointer arguments)
   - PG_RETURN_FLOAT8 (macro for returning float8 result)
-  - macaddr (PostgreSQL MAC address data type structure with fields a,b,c,d,e,f)
+  - [macaddr](../m/macaddr.md) (PostgreSQL MAC address data type structure with fields a,b,c,d,e,f)
 - Called from (representative examples):
   - No direct references found in codebase
 

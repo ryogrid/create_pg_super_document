@@ -44,6 +44,6 @@ All components are properly aligned according to the element type's alignment re
 - This is a static function used internally for memory allocation planning
 - The function accounts for alignment requirements which can add padding bytes between components
 - The calculation excludes one offset value (range_count - 1) because the first range's offset is implicit
-- Range header overhead (sizeof(RangeType) + sizeof(char)) is excluded from each range's contribution since only the bound data is stored
+- [Range](../R/Range.md) header overhead (sizeof(RangeType) + sizeof(char)) is excluded from each range's contribution since only the bound data is stored
 - The estimate is used by make_multirange to allocate the appropriate amount of memory before serialization
 - Proper size estimation is critical for avoiding buffer overruns during multirange construction

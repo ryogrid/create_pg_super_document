@@ -30,17 +30,17 @@ The function returns true if a usable snapshot was successfully restored, false 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SnapBuildRestoreContents](SnapBuildRestoreContents.md)
-  - OpenTransientFile/CloseTransientFile
+  - [OpenTransientFile](../O/OpenTransientFile.md)/CloseTransientFile
   - [fsync_fname](../f/fsync_fname.md)
   - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md)
   - CRC32C checksum functions (INIT_CRC32C, COMP_CRC32C, FIN_CRC32C, EQ_CRC32C)
   - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
   - [SnapBuildSnapDecRefcount](SnapBuildSnapDecRefcount.md)/SnapBuildSnapIncRefcount
   - [SnapBuildBuildSnapshot](SnapBuildBuildSnapshot.md)
-  - ReorderBufferSetRestartPoint
+  - [ReorderBufferSetRestartPoint](../R/ReorderBufferSetRestartPoint.md)
   - SNAPBUILD_MAGIC/SNAPBUILD_VERSION (constants)
 - Called from (representative examples):
-  - SnapBuildFindSnapshot
+  - [SnapBuildFindSnapshot](SnapBuildFindSnapshot.md)
   - [SnapBuildSerializationPoint](SnapBuildSerializationPoint.md)
 
 ## Notes and Other Information

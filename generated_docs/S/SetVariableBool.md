@@ -28,12 +28,12 @@ The function inherits all the behavior of SetVariable, including:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SetVariable (core variable setting function)
+  - [SetVariable](SetVariable.md) (core variable setting function)
 - Data types referenced:
-  - VariableSpace
+  - [VariableSpace](../V/VariableSpace.md)
 - Called from (representative examples):
-  - main (in src/bin/psql/startup.c - setting default boolean variables)
-  - parse_psql_options (in src/bin/psql/startup.c - processing command-line boolean flags)
+  - [main](../m/main.md) (in src/bin/psql/startup.c - setting default boolean variables)
+  - [parse_psql_options](../p/parse_psql_options.md) (in src/bin/psql/startup.c - processing command-line boolean flags)
 
 ## Notes and Other Information
 - Simple wrapper that always sets the value to "on" (boolean true)

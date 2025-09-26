@@ -29,13 +29,13 @@ The function implements a race condition-safe locking protocol and handles memor
   - [AcquirePlannerLocks](../A/AcquirePlannerLocks.md)
   - [MemoryContextDelete](../M/MemoryContextDelete.md)
   - [ReleaseGenericPlan](ReleaseGenericPlan.md)
-  - ActiveSnapshotSet
-  - GetTransactionSnapshot
-  - PushActiveSnapshot
+  - [ActiveSnapshotSet](../A/ActiveSnapshotSet.md)
+  - [GetTransactionSnapshot](../G/GetTransactionSnapshot.md)
+  - [PushActiveSnapshot](../P/PushActiveSnapshot.md)
   - copyObject
   - [pg_analyze_and_rewrite_withcb](../p/pg_analyze_and_rewrite_withcb.md)
   - [pg_analyze_and_rewrite_fixedparams](../p/pg_analyze_and_rewrite_fixedparams.md)
-  - PopActiveSnapshot
+  - [PopActiveSnapshot](../P/PopActiveSnapshot.md)
   - [PlanCacheComputeResultDesc](../P/PlanCacheComputeResultDesc.md)
   - [equalRowTypes](../e/equalRowTypes.md)
   - [CreateTupleDescCopy](../C/CreateTupleDescCopy.md)
@@ -43,7 +43,7 @@ The function implements a race condition-safe locking protocol and handles memor
   - AllocSetContextCreate
   - [extract_query_dependencies](../e/extract_query_dependencies.md)
   - [GetSearchPathMatcher](../G/GetSearchPathMatcher.md)
-  - MemoryContextSetParent
+  - [MemoryContextSetParent](../M/MemoryContextSetParent.md)
 
 - Called from (representative examples):
   - StmtPlanRequiresRevalidation (src/backend/utils/cache/plancache.c:103)

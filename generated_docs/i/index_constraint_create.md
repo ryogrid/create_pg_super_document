@@ -45,15 +45,15 @@ The function supports various constraint types (PRIMARY KEY, UNIQUE, EXCLUSION) 
   - ObjectAddressSet
   - [recordDependencyOn](../r/recordDependencyOn.md)
   - [CreateTrigger](../C/CreateTrigger.md)
-  - table_open
+  - [table_open](../t/table_open.md)
   - SearchSysCacheCopy1
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - [CacheInvalidateRelcache](../C/CacheInvalidateRelcache.md)
   - InvokeObjectPostAlterHookArg
   - [heap_freetuple](../h/heap_freetuple.md)
-  - table_close
+  - [table_close](../t/table_close.md)
 - Called from (representative examples):
-  - index_create
+  - [index_create](index_create.md)
   - [ATExecAddIndexConstraint](../A/ATExecAddIndexConstraint.md)
 
 ## Notes and Other Information

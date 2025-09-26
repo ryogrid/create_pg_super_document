@@ -33,7 +33,7 @@ The implementation leverages the fact that all supported server encodings allow 
   - `pgstat_track_activity_query_size`: Global variable defining the maximum activity string size
 
 - Called from (representative examples):
-  - `pgstat_get_backend_current_activity` (src/backend/utils/activity/backend_status.c:935)
+  - `[pgstat_get_backend_current_activity](pgstat_get_backend_current_activity.md)` (src/backend/utils/activity/backend_status.c:935)
   - `PG_STAT_GET_ACTIVITY_COLS` (src/backend/utils/adt/pgstatfuncs.c:392)
   - [pg_stat_get_backend_activity](pg_stat_get_backend_activity.md) (src/backend/utils/adt/pgstatfuncs.c:758)
 

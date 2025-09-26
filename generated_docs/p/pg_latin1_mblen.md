@@ -19,7 +19,7 @@ This function determines the byte length of a character in the ISO8859-1 (Latin-
 - Functions called/Symbols referenced:
   - (No external function calls)
 - Called from (representative examples):
-  - pg_encoding_set_invalid (multiple references for various encoding configurations)
+  - [pg_encoding_set_invalid](pg_encoding_set_invalid.md) (multiple references for various encoding configurations)
 
 ## Notes and Other Information
 - Always returns 1 since Latin-1 is a fixed single-byte encoding

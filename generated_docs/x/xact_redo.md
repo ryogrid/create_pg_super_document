@@ -31,9 +31,9 @@ This function serves as the central dispatcher for all transaction-related WAL r
   - [xact_redo_abort](xact_redo_abort.md)
   - [PrepareRedoAdd](../P/PrepareRedoAdd.md)
   - [PrepareRedoRemove](../P/PrepareRedoRemove.md)
-  - ProcArrayApplyXidAssignment
-  - LWLockAcquire
-  - LWLockRelease
+  - [ProcArrayApplyXidAssignment](../P/ProcArrayApplyXidAssignment.md)
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
 - Called from (representative examples):
   - WAL recovery system (registered as resource manager redo function)
 

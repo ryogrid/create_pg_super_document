@@ -18,11 +18,11 @@ PQfformat retrieves the format code for the specified field in a query result, i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_field_number: Validates that field_num is within valid range
+  - [check_field_number](../c/check_field_number.md): Validates that field_num is within valid range
 - Called from (representative examples):
-  - process_queued_fetch_requests (pg_rewind): Verifies binary format for file data transfers
-  - ecpg_get_data (ECPG): Determines how to process field data in embedded SQL
-  - ecpg_store_result (ECPG): Handles format-specific result processing
+  - [process_queued_fetch_requests](../p/process_queued_fetch_requests.md) (pg_rewind): Verifies binary format for file data transfers
+  - [ecpg_get_data](../e/ecpg_get_data.md) (ECPG): Determines how to process field data in embedded SQL
+  - [ecpg_store_result](../e/ecpg_store_result.md) (ECPG): Handles format-specific result processing
 
 ## Notes and Other Information
 - Returns 0 for text format, 1 for binary format

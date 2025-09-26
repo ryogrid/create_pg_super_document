@@ -34,12 +34,12 @@ The function creates user-friendly error messages that include constraint names,
   - [check_enable_rls](../c/check_enable_rls.md)
   - [pg_class_aclcheck](../p/pg_class_aclcheck.md)
   - [pg_attribute_aclcheck](../p/pg_attribute_aclcheck.md)
-  - slot_getattr
+  - [slot_getattr](../s/slot_getattr.md)
   - [getTypeOutputInfo](../g/getTypeOutputInfo.md)
   - [OidOutputFunctionCall](../O/OidOutputFunctionCall.md)
   - [errtableconstraint](../e/errtableconstraint.md)
   - RI_PLAN_CHECK_LOOKUPPK (constant)
-  - RLS_ENABLED (constant)
+  - [RLS_ENABLED](../R/RLS_ENABLED.md) (constant)
   - ACL_SELECT (constant)
 - Called from (representative examples):
   - [RI_Initial_Check](../R/RI_Initial_Check.md)

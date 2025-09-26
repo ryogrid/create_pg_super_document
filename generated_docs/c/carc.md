@@ -31,12 +31,12 @@ The `carc` (compacted arc) structure is a space-optimized version of the regular
   - `color` (type for the co field)
   - `COLORLESS` (constant for array termination)
 - Called from (representative examples):
-  - `compact` (converts NFA to compacted form using carc structures)
-  - `carcsort` (sorts carc arrays for optimization)
-  - `carc_cmp` (comparison function for sorting carcs)
-  - `dumpcstate` (debugging function to display compacted states)
-  - `miss` (DFA execution function that processes carc transitions)
-  - `traverse_lacons` (processes LACON constraints in carcs)
+  - `[compact](compact.md)` (converts NFA to compacted form using carc structures)
+  - `[carcsort](carcsort.md)` (sorts carc arrays for optimization)
+  - `[carc_cmp](carc_cmp.md)` (comparison function for sorting carcs)
+  - `[dumpcstate](../d/dumpcstate.md)` (debugging function to display compacted states)
+  - `[miss](../m/miss.md)` (DFA execution function that processes carc transitions)
+  - `[traverse_lacons](../t/traverse_lacons.md)` (processes LACON constraints in carcs)
 
 ## Notes and Other Information
 - Part of PostgreSQL's regex engine located in src/include/regex/regguts.h

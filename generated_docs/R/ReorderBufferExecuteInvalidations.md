@@ -19,7 +19,7 @@ This function applies all invalidation messages that have been collected during 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LocalExecuteInvalidationMessage](../L/LocalExecuteInvalidationMessage.md)
-  - SharedInvalidationMessage
+  - [SharedInvalidationMessage](../S/SharedInvalidationMessage.md)
 - Called from (representative examples):
   - [ReorderBufferProcessTXN](ReorderBufferProcessTXN.md)
   - [ReorderBufferFinishPrepared](ReorderBufferFinishPrepared.md)

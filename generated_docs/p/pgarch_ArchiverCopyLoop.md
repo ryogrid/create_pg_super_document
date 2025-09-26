@@ -33,7 +33,7 @@ The function includes robust error handling for various failure scenarios includ
   - [pgarch_readyXlog](pgarch_readyXlog.md) (find next WAL file ready for archival)
   - [PostmasterIsAlive](../P/PostmasterIsAlive.md) (check if postmaster process is running)
   - [HandlePgArchInterrupts](../H/HandlePgArchInterrupts.md) (process configuration updates and barriers)
-  - StatusFilePath (construct status file paths)
+  - [StatusFilePath](../S/StatusFilePath.md) (construct status file paths)
   - [pgarch_archiveXlog](pgarch_archiveXlog.md) (perform actual WAL file archival)
   - [pgarch_archiveDone](pgarch_archiveDone.md) (mark file as successfully archived)
   - [pgstat_report_archiver](pgstat_report_archiver.md) (report archival statistics)

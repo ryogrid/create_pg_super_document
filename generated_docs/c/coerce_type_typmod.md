@@ -40,11 +40,11 @@ The function specifically excludes domain types from processing, as domain typmo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - exprTypmod
+  - [exprTypmod](../e/exprTypmod.md)
   - [hide_coercion_node](../h/hide_coercion_node.md)
   - [find_typmod_coercion_function](../f/find_typmod_coercion_function.md)
   - [build_coercion_expression](../b/build_coercion_expression.md)
-  - applyRelabelType
+  - [applyRelabelType](../a/applyRelabelType.md)
   - [exprCollation](../e/exprCollation.md)
   - [CoercionPathType](../C/CoercionPathType.md) (enum)
   - CoercionContext (enum)

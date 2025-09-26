@@ -58,18 +58,18 @@ The structure supports various optional components that may be present in an abo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - xl_xact_stats_item
+  - [xl_xact_stats_item](xl_xact_stats_item.md)
   - GIDSIZE
 - Called from (representative examples):
-  - ParseAbortRecord (in src/backend/access/rmgrdesc/xactdesc.c:141)
-  - xact_desc_abort (in src/backend/access/rmgrdesc/xactdesc.c:371)
-  - xact_redo_abort (in src/backend/access/transam/xact.c:6222)
-  - xact_redo (in src/backend/access/transam/xact.c:6334)
-  - recoveryStopsBefore (in src/backend/access/transam/xlogrecovery.c:2648)
-  - recoveryStopsAfter (in src/backend/access/transam/xlogrecovery.c:2816)
-  - SummarizeXactRecord (in src/backend/postmaster/walsummarizer.c:1395)
-  - xact_decode (in src/backend/replication/logical/decode.c:249)
-  - DecodeAbort (in src/backend/replication/logical/decode.c:851)
+  - [ParseAbortRecord](../P/ParseAbortRecord.md) (in src/backend/access/rmgrdesc/xactdesc.c:141)
+  - [xact_desc_abort](xact_desc_abort.md) (in src/backend/access/rmgrdesc/xactdesc.c:371)
+  - [xact_redo_abort](xact_redo_abort.md) (in src/backend/access/transam/xact.c:6222)
+  - [xact_redo](xact_redo.md) (in src/backend/access/transam/xact.c:6334)
+  - [recoveryStopsBefore](../r/recoveryStopsBefore.md) (in src/backend/access/transam/xlogrecovery.c:2648)
+  - [recoveryStopsAfter](../r/recoveryStopsAfter.md) (in src/backend/access/transam/xlogrecovery.c:2816)
+  - [SummarizeXactRecord](../S/SummarizeXactRecord.md) (in src/backend/postmaster/walsummarizer.c:1395)
+  - [xact_decode](xact_decode.md) (in src/backend/replication/logical/decode.c:249)
+  - [DecodeAbort](../D/DecodeAbort.md) (in src/backend/replication/logical/decode.c:851)
 
 ## Notes and Other Information
 - This structure is defined in src/include/access/xact.h:404-426

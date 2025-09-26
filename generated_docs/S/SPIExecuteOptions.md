@@ -36,8 +36,8 @@ The structure is designed to accommodate both simple and complex execution scena
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ParamListInfo](../P/ParamListInfo.md)
-  - DestReceiver
-  - ResourceOwner
+  - [DestReceiver](../D/DestReceiver.md)
+  - [ResourceOwner](../R/ResourceOwner.md)
 
 - Called from (representative examples):
   - [SPI_execute](SPI_execute.md)

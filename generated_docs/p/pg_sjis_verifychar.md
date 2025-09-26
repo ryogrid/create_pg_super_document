@@ -32,12 +32,12 @@ Shift JIS uses a complex encoding scheme where:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_sjis_mblen
+  - [pg_sjis_mblen](pg_sjis_mblen.md)
   - ISSJISHEAD
   - ISSJISTAIL
 - Called from (representative examples):
-  - pg_sjis_verifystr
-  - pg_encoding_set_invalid
+  - [pg_sjis_verifystr](pg_sjis_verifystr.md)
+  - [pg_encoding_set_invalid](pg_encoding_set_invalid.md)
 
 ## Notes and Other Information
 - Returns the length of the valid character if successful, or -1 if invalid

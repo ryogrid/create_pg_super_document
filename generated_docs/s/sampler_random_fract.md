@@ -20,13 +20,13 @@ This function provides a random floating-point number generator specifically des
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_prng_double](../p/pg_prng_double.md)
-  - pg_prng_state (type)
-  - ReservoirStateData (type)
+  - [pg_prng_state](../p/pg_prng_state.md) (type)
+  - [ReservoirStateData](../R/ReservoirStateData.md) (type)
 - Called from (representative examples):
   - [acquire_sample_rows](../a/acquire_sample_rows.md)
-  - BlockSampler_Next
-  - reservoir_init_selection_state
-  - reservoir_get_next_S
+  - [BlockSampler_Next](../B/BlockSampler_Next.md)
+  - [reservoir_init_selection_state](../r/reservoir_init_selection_state.md)
+  - [reservoir_get_next_S](../r/reservoir_get_next_S.md)
   - [anl_random_fract](../a/anl_random_fract.md)
   - [anl_init_selection_state](../a/anl_init_selection_state.md)
 

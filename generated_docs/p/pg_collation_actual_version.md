@@ -28,7 +28,7 @@ The function determines the appropriate locale string based on the collation pro
   - [SysCacheGetAttrNotNull](../S/SysCacheGetAttrNotNull.md)
   - TextDatumGetCString
   - [get_collation_actual_version](../g/get_collation_actual_version.md)
-  - cstring_to_text
+  - [cstring_to_text](../c/cstring_to_text.md)
   - PG_RETURN_TEXT_P
 - Called from (representative examples):
   - SQL queries using pg_collation_actual_version() function

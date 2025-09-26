@@ -29,7 +29,7 @@ The retry mechanism is essential because other processes might be updating the s
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc](../p/palloc.md)
-  - IsInParallelMode
+  - [IsInParallelMode](../I/IsInParallelMode.md)
   - [IsInplaceUpdateRelation](../I/IsInplaceUpdateRelation.md)
   - [IsSystemRelation](../I/IsSystemRelation.md)
   - [systable_beginscan](systable_beginscan.md)

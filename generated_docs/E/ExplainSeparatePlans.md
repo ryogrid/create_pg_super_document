@@ -17,7 +17,7 @@ ExplainSeparatePlans handles the insertion of separators between multiple execut
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExplainState (structure type)
+  - [ExplainState](ExplainState.md) (structure type)
   - EXPLAIN_FORMAT_TEXT (enum constant)
   - EXPLAIN_FORMAT_XML (enum constant)
   - EXPLAIN_FORMAT_JSON (enum constant)

@@ -17,10 +17,10 @@ This function queries the PostgreSQL system catalogs to retrieve comprehensive i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initPQExpBuffer
+  - [initPQExpBuffer](../i/initPQExpBuffer.md)
   - [printfPQExpBuffer](../p/printfPQExpBuffer.md) 
   - [validateSQLNamePattern](../v/validateSQLNamePattern.md)
-  - termPQExpBuffer
+  - [termPQExpBuffer](../t/termPQExpBuffer.md)
   - [PSQLexec](../P/PSQLexec.md)
   - [PQgetisnull](../P/PQgetisnull.md)
   - [describeOneTSConfig](../d/describeOneTSConfig.md)

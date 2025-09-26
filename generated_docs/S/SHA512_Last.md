@@ -34,15 +34,15 @@ The function ensures that the message length modulo 1024 bits equals 896 bits, l
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SHA512_Transform
+  - [SHA512_Transform](SHA512_Transform.md)
   - REVERSE64
   - memset
 - Constants used:
   - PG_SHA512_BLOCK_LENGTH (128 bytes)
   - PG_SHA512_SHORT_BLOCK_LENGTH (112 bytes)
 - Called from (representative examples):
-  - pg_sha512_final
-  - pg_sha384_final
+  - [pg_sha512_final](../p/pg_sha512_final.md)
+  - [pg_sha384_final](../p/pg_sha384_final.md)
 
 ## Notes and Other Information
 - This is a static (internal) function not exposed outside the sha2.c module

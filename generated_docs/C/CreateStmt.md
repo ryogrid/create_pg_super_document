@@ -50,23 +50,23 @@ The structure supports PostgreSQL's advanced table features including table inhe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RangeVar (for relation and inheritance specifications)
-  - PartitionBoundSpec (for partition boundary definitions)
-  - PartitionSpec (for partitioning specifications)
-  - TypeName (for typed table definitions)
+  - [RangeVar](../R/RangeVar.md) (for relation and inheritance specifications)
+  - [PartitionBoundSpec](../P/PartitionBoundSpec.md) (for partition boundary definitions)
+  - [PartitionSpec](../P/PartitionSpec.md) (for partitioning specifications)
+  - [TypeName](../T/TypeName.md) (for typed table definitions)
   - OnCommitAction (for temporary table commit behavior)
 
 - Called from (representative examples):
-  - create_ctas_internal (src/backend/commands/createas.c:82)
-  - DefineSequence (src/backend/commands/sequence.c:127)
-  - DefineRelation (src/backend/commands/tablecmds.c:698)
-  - DefineCompositeType (src/backend/commands/typecmds.c:2520)
-  - transformCreateStmt (src/backend/parser/parse_utilcmd.c:163)
-  - ProcessUtilitySlow (src/backend/tcop/utility.c:1140)
+  - [create_ctas_internal](../c/create_ctas_internal.md) (src/backend/commands/createas.c:82)
+  - [DefineSequence](../D/DefineSequence.md) (src/backend/commands/sequence.c:127)
+  - [DefineRelation](../D/DefineRelation.md) (src/backend/commands/tablecmds.c:698)
+  - [DefineCompositeType](../D/DefineCompositeType.md) (src/backend/commands/typecmds.c:2520)
+  - [transformCreateStmt](../t/transformCreateStmt.md) (src/backend/parser/parse_utilcmd.c:163)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (src/backend/tcop/utility.c:1140)
 
 ## Notes and Other Information
 - This structure undergoes significant transformation during parse analysis, with constraints being separated from column definitions
 - Supports advanced PostgreSQL features including inheritance, partitioning, typed tables, and custom access methods
 - The structure is used for regular tables, temporary tables, unlogged tables, and foreign tables (through inheritance in CreateForeignTableStmt)
-- Constraint processing follows a two-phase approach: initial parsing intermixes constraints with column definitions, followed by reorganization during parse analysis
+- [Constraint](Constraint.md) processing follows a two-phase approach: initial parsing intermixes constraints with column definitions, followed by reorganization during parse analysis
 - Access method specification allows for pluggable storage engines beyond the default heap storage

@@ -27,18 +27,18 @@ The function continuously polls worker status until all are confirmed finished, 
 ## Dependencies
 - Functions called/Symbols referenced:
   - CHECK_FOR_INTERRUPTS
-  - GetBackgroundWorkerPid
-  - shm_mq_get_queue
-  - shm_mq_get_sender
-  - WaitLatch
-  - ResetLatch
-  - shm_toc_lookup
+  - [GetBackgroundWorkerPid](../G/GetBackgroundWorkerPid.md)
+  - [shm_mq_get_queue](../s/shm_mq_get_queue.md)
+  - [shm_mq_get_sender](../s/shm_mq_get_sender.md)
+  - [WaitLatch](WaitLatch.md)
+  - [ResetLatch](../R/ResetLatch.md)
+  - [shm_toc_lookup](../s/shm_toc_lookup.md)
   - ereport
 - Called from (representative examples):
-  - _brin_end_parallel
-  - _bt_end_parallel
-  - ExecParallelFinish
-  - parallel_vacuum_process_all_indexes
+  - [_brin_end_parallel](../b/_brin_end_parallel.md)
+  - [_bt_end_parallel](../b/_bt_end_parallel.md)
+  - [ExecParallelFinish](../E/ExecParallelFinish.md)
+  - [parallel_vacuum_process_all_indexes](../p/parallel_vacuum_process_all_indexes.md)
 
 ## Notes and Other Information
 - Essential function that must be called after parallel operations to ensure correctness

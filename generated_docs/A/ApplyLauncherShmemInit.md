@@ -19,7 +19,7 @@ This function sets up the shared memory infrastructure for the logical replicati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LogicalRepCtxStruct
+  - [LogicalRepCtxStruct](../L/LogicalRepCtxStruct.md)
   - [ShmemInitStruct](../S/ShmemInitStruct.md)
   - [ApplyLauncherShmemSize](ApplyLauncherShmemSize.md)
   - DSA_HANDLE_INVALID

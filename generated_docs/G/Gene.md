@@ -23,22 +23,22 @@ This is a simple typedef with no members or parameters - it aliases the  type.
 - Functions called/Symbols referenced:
   - (None - this is a basic typedef of int)
 - Called from (representative examples):
-  - cx (cycle crossover operation)
-  - gimme_edge_table (edge recombination functions)
-  - gimme_tour
-  - remove_gene
-  - gimme_gene
-  - edge_failure
-  - geqo_eval
-  - gimme_tree
-  - geqo (main genetic algorithm function)
-  - geqo_mutation
-  - ox1, ox2 (order crossover operations)
-  - pmx (partially mapped crossover)
-  - alloc_pool
-  - alloc_chromo
-  - px (position crossover)
-  - init_tour
+  - [cx](../c/cx.md) (cycle crossover operation)
+  - [gimme_edge_table](../g/gimme_edge_table.md) (edge recombination functions)
+  - [gimme_tour](../g/gimme_tour.md)
+  - [remove_gene](../r/remove_gene.md)
+  - [gimme_gene](../g/gimme_gene.md)
+  - [edge_failure](../e/edge_failure.md)
+  - [geqo_eval](../g/geqo_eval.md)
+  - [gimme_tree](../g/gimme_tree.md)
+  - [geqo](../g/geqo.md) (main genetic algorithm function)
+  - [geqo_mutation](../g/geqo_mutation.md)
+  - [ox1](../o/ox1.md), ox2 (order crossover operations)
+  - [pmx](../p/pmx.md) (partially mapped crossover)
+  - [alloc_pool](../a/alloc_pool.md)
+  - [alloc_chromo](../a/alloc_chromo.md)
+  - [px](../p/px.md) (position crossover)
+  - [init_tour](../i/init_tour.md)
 
 ## Notes and Other Information
 - The Gene typedef is explicitly designed to use  rather than  for compatibility and performance reasons in the genetic algorithm implementation

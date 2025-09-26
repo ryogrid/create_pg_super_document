@@ -21,17 +21,17 @@ The function uses a secondary snapshot storage area (SecondarySnapshot/Secondary
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsInParallelMode
-  - HistoricSnapshotActive
-  - GetTransactionSnapshot
-  - GetSnapshotData
+  - [IsInParallelMode](../I/IsInParallelMode.md)
+  - [HistoricSnapshotActive](../H/HistoricSnapshotActive.md)
+  - [GetTransactionSnapshot](GetTransactionSnapshot.md)
+  - [GetSnapshotData](GetSnapshotData.md)
 - Called from (representative examples):
-  - IndexCheckExclusion
-  - asyncQueueReadAllNotifications
-  - ATRewriteTable
-  - validateForeignKeyConstraint
-  - RI_Initial_Check
-  - ri_PerformCheck
+  - [IndexCheckExclusion](../I/IndexCheckExclusion.md)
+  - [asyncQueueReadAllNotifications](../a/asyncQueueReadAllNotifications.md)
+  - [ATRewriteTable](../A/ATRewriteTable.md)
+  - [validateForeignKeyConstraint](../v/validateForeignKeyConstraint.md)
+  - [RI_Initial_Check](../R/RI_Initial_Check.md)
+  - [ri_PerformCheck](../r/ri_PerformCheck.md)
 
 ## Notes and Other Information
 - Explicitly prohibited during parallel operations for consistency

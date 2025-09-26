@@ -19,7 +19,7 @@ The function implements careful state checking to ensure signals are only proces
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CheckPostmasterSignal (multiple signal types)
+  - [CheckPostmasterSignal](../C/CheckPostmasterSignal.md) (multiple signal types)
   - ereport (for logging)
   - XLogArchivingAlways (archiving check)
   - [StartChildProcess](../S/StartChildProcess.md) (process spawning)

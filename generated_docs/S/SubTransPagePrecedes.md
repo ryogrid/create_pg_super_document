@@ -30,7 +30,7 @@ This dual check ensures that page1 completely precedes all transactions that cou
   - FirstNormalTransactionId
 - Called from (representative examples):
   - SubTransCtl initialization (as page comparison function)
-  - SUBTRANSShmemInit (during shared memory setup)
+  - [SUBTRANSShmemInit](SUBTRANSShmemInit.md) (during shared memory setup)
 
 ## Notes and Other Information
 - Static function used internally by SUBTRANS system

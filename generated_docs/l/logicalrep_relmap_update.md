@@ -28,19 +28,19 @@ The function handles the complete relation schema including:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - logicalrep_relmap_init
-  - hash_search
-  - logicalrep_relmap_free_entry
-  - pstrdup (PostgreSQL string duplication)
-  - palloc (PostgreSQL memory allocation)
-  - bms_copy (bitmap set copy)
-  - MemoryContextSwitchTo
-  - LogicalRepRelation (relation metadata structure)
-  - LogicalRepRelMapEntry (cache entry structure)
+  - [logicalrep_relmap_init](logicalrep_relmap_init.md)
+  - [hash_search](../h/hash_search.md)
+  - [logicalrep_relmap_free_entry](logicalrep_relmap_free_entry.md)
+  - [pstrdup](../p/pstrdup.md) (PostgreSQL string duplication)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation)
+  - [bms_copy](../b/bms_copy.md) (bitmap set copy)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [LogicalRepRelation](../L/LogicalRepRelation.md) (relation metadata structure)
+  - [LogicalRepRelMapEntry](../L/LogicalRepRelMapEntry.md) (cache entry structure)
   - HASH_ENTER (hash table operation flag)
 - Called from (representative examples):
-  - copy_table
-  - apply_handle_relation
+  - [copy_table](../c/copy_table.md)
+  - [apply_handle_relation](../a/apply_handle_relation.md)
 
 ## Notes and Other Information
 - This is a public function, accessible from other modules

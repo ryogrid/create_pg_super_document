@@ -71,7 +71,7 @@ The structure ensures that parallel workers operate with the same database conte
   - [InitializeParallelDSM](../I/InitializeParallelDSM.md) (initializes the structure in shared memory)
   - [ReinitializeParallelDSM](../R/ReinitializeParallelDSM.md) (reinitializes for reused parallel contexts)
   - [ParallelWorkerMain](../P/ParallelWorkerMain.md) (workers read state from this structure)
-  - WaitForParallelWorkersToFinish (leader accesses coordination data)
+  - [WaitForParallelWorkersToFinish](../W/WaitForParallelWorkersToFinish.md) (leader accesses coordination data)
   - [ParallelWorkerReportLastRecEnd](../P/ParallelWorkerReportLastRecEnd.md) (workers update last_xlog_end field)
 
 ## Notes and Other Information

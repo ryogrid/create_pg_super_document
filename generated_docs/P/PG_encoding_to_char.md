@@ -23,9 +23,9 @@ The underlying pg_encoding_to_char() function performs a simple array lookup in 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_INT32 - extracts integer argument from function arguments
-  - pg_encoding_to_char - performs the actual encoding ID to name lookup
+  - [pg_encoding_to_char](../p/pg_encoding_to_char.md) - performs the actual encoding ID to name lookup
   - DirectFunctionCall1 - PostgreSQL function call framework
-  - namein - converts C string to PostgreSQL name type
+  - [namein](../n/namein.md) - converts C string to PostgreSQL name type
   - [CStringGetDatum](../C/CStringGetDatum.md) - converts C string to PostgreSQL Datum
 
 - Called from (representative examples):

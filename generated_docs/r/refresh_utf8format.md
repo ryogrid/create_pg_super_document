@@ -22,15 +22,15 @@ The function operates on the global  variable and configures it according to the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - printTableOpt (parameter type)
-  - printTextFormat (target structure type)
-  - unicodeStyleBorderFormat (border style structure)
-  - unicodeStyleRowFormat (row style structure)  
-  - unicodeStyleColumnFormat (column style structure)
+  - [printTableOpt](../p/printTableOpt.md) (parameter type)
+  - [printTextFormat](../p/printTextFormat.md) (target structure type)
+  - [unicodeStyleBorderFormat](../u/unicodeStyleBorderFormat.md) (border style structure)
+  - [unicodeStyleRowFormat](../u/unicodeStyleRowFormat.md) (row style structure)  
+  - [unicodeStyleColumnFormat](../u/unicodeStyleColumnFormat.md) (column style structure)
   - PRINT_RULE_TOP, PRINT_RULE_MIDDLE, PRINT_RULE_BOTTOM, PRINT_RULE_DATA (rule type constants)
 - Called from (representative examples):
   - fmt (src/bin/psql/command.c:4627, 4642, 4657)
-  - main (src/bin/psql/startup.c:181)
+  - [main](../m/main.md) (src/bin/psql/startup.c:181)
 
 ## Notes and Other Information
 - Modifies the global  variable which is used throughout PostgreSQL's table printing system

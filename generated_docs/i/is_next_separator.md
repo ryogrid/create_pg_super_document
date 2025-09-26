@@ -19,13 +19,13 @@ This function analyzes a FormatNode to determine if the next format element in a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FormatNode (structure type)
+  - [FormatNode](../F/FormatNode.md) (structure type)
   - NODE_TYPE_END (constant for end node type)
   - NODE_TYPE_ACTION (constant for action node type) 
   - S_THth (macro to test for TH/th suffix)
   - isdigit (standard library function)
 - Called from (representative examples):
-  - from_char_parse_int_len
+  - [from_char_parse_int_len](../f/from_char_parse_int_len.md)
 
 ## Notes and Other Information
 - This is a static function local to src/backend/utils/adt/formatting.c

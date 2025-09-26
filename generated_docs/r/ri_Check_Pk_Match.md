@@ -34,7 +34,7 @@ Key aspects of the implementation:
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ri_NullCheck](ri_NullCheck.md)
-  - SPI_connect/SPI_finish
+  - [SPI_connect](../S/SPI_connect.md)/SPI_finish
   - [ri_BuildQueryKey](ri_BuildQueryKey.md)
   - [ri_FetchPreparedPlan](ri_FetchPreparedPlan.md)
   - [ri_PlanCheck](ri_PlanCheck.md)

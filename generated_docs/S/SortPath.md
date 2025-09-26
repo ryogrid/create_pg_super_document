@@ -28,15 +28,15 @@ SortPath competes with other path alternatives during planning, and its cost inc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Path (inherited base structure)
+  - [Path](../P/Path.md) (inherited base structure)
 - Called from (representative examples):
-  - create_sort_path (path creation)
-  - create_sort_plan (plan generation)
-  - create_incremental_sort_path (incremental sort optimization)
+  - [create_sort_path](../c/create_sort_path.md) (path creation)
+  - [create_sort_plan](../c/create_sort_plan.md) (plan generation)
+  - [create_incremental_sort_path](../c/create_incremental_sort_path.md) (incremental sort optimization)
 
 ## Notes and Other Information
 - The sort keys are defined by path.pathkeys rather than being stored separately in the SortPath structure
-- SortPath cannot perform projection - the output pathtarget must match the input pathtarget exactly
+- [SortPath](SortPath.md) cannot perform projection - the output pathtarget must match the input pathtarget exactly
 - Used extensively for ORDER BY clauses, merge join preparation, and operations requiring sorted input
 - The planner considers sort costs including potential disk spilling when work_mem is exceeded
 - May be optimized away if the input is already sorted according to the required pathkeys

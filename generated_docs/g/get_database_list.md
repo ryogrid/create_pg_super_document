@@ -20,18 +20,18 @@ This function takes no parameters and returns a List of avw_dbase structures.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [StartTransactionCommand](../S/StartTransactionCommand.md)
-  - GetTransactionSnapshot
-  - table_open
+  - [GetTransactionSnapshot](../G/GetTransactionSnapshot.md)
+  - [table_open](../t/table_open.md)
   - [table_beginscan_catalog](../t/table_beginscan_catalog.md)
   - [heap_getnext](../h/heap_getnext.md)
   - [table_endscan](../t/table_endscan.md)
-  - table_close
+  - [table_close](../t/table_close.md)
   - [CommitTransactionCommand](../C/CommitTransactionCommand.md)
   - [database_is_invalid_form](../d/database_is_invalid_form.md)
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - [palloc](../p/palloc.md)
   - [pstrdup](../p/pstrdup.md)
-  - lappend
+  - [lappend](../l/lappend.md)
   - elog
   - GETSTRUCT
   - NameStr

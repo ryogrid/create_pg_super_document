@@ -34,7 +34,7 @@ SpGistCache serves as the primary cache structure for SP-GiST indexes, combining
 ## Dependencies
 - Functions called/Symbols referenced:
   - [spgConfigOut](../s/spgConfigOut.md)
-  - SpGistTypeDesc
+  - [SpGistTypeDesc](SpGistTypeDesc.md)
   - [SpGistLUPCache](SpGistLUPCache.md)
 - Called from (representative examples):
   - [spgcanreturn](../s/spgcanreturn.md)

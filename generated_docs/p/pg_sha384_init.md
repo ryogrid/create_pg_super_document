@@ -30,11 +30,11 @@ SHA-384 uses different initial hash values compared to SHA-512, even though both
   - `memset` - Clears the input buffer
   - `sha384_initial_hash_value` - Constant array containing SHA-384 initial hash values
 - Referenced types/constants:
-  - `pg_sha384_ctx` - SHA-384 context structure type
+  - `[pg_sha384_ctx](pg_sha384_ctx.md)` - SHA-384 context structure type
   - `PG_SHA512_DIGEST_LENGTH` - Length constant for copying initial state (64 bytes)  
   - `PG_SHA384_BLOCK_LENGTH` - Block size constant for buffer initialization (128 bytes)
 - Called from (representative examples):
-  - `pg_cryptohash_init` - Generic cryptographic hash initialization wrapper
+  - `[pg_cryptohash_init](pg_cryptohash_init.md)` - Generic cryptographic hash initialization wrapper
 
 ## Notes and Other Information
 - SHA-384 shares the same context structure type (`pg_sha384_ctx`) with SHA-512 since both algorithms use identical internal processing

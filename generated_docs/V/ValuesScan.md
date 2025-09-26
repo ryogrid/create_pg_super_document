@@ -26,15 +26,15 @@ The node stores multiple lists of expressions, where each inner list represents 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Scan (base structure)
-  - List (for values_lists storage)
+  - [Scan](../S/Scan.md) (base structure)
+  - [List](../L/List.md) (for values_lists storage)
   
 - Called from (representative examples):
-  - ExecInitValuesScan (executor initialization)
-  - create_valuesscan_plan (plan creation)
-  - make_valuesscan (plan node construction)
-  - set_plan_refs (plan reference setting)
-  - finalize_plan (plan finalization)
+  - [ExecInitValuesScan](../E/ExecInitValuesScan.md) (executor initialization)
+  - [create_valuesscan_plan](../c/create_valuesscan_plan.md) (plan creation)
+  - [make_valuesscan](../m/make_valuesscan.md) (plan node construction)
+  - [set_plan_refs](../s/set_plan_refs.md) (plan reference setting)
+  - [finalize_plan](../f/finalize_plan.md) (plan finalization)
 
 ## Notes and Other Information
 - Essential for implementing SQL VALUES clauses that provide constant data

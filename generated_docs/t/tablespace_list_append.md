@@ -30,7 +30,7 @@ The parser handles escaped equals signs (\=) in directory names, allowing for pa
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TablespaceListCell](../T/TablespaceListCell.md) (struct type for storing mappings)
-  - pg_malloc0 (PostgreSQL memory allocation function)
+  - [pg_malloc0](../p/pg_malloc0.md) (PostgreSQL memory allocation function)
   - is_nonwindows_absolute_path (path validation for Unix-style absolute paths)
   - is_windows_absolute_path (path validation for Windows-style absolute paths)
   - is_absolute_path (general absolute path validation)

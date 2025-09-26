@@ -25,9 +25,9 @@ This function takes no parameters and operates on the current PostgreSQL data di
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RemovePgTempFilesInDir (removes temporary files from specific directories)
-  - RemovePgTempRelationFiles (removes temporary relation files)
-  - AllocateDir, ReadDirExtended, FreeDir (directory traversal functions)
+  - [RemovePgTempFilesInDir](RemovePgTempFilesInDir.md) (removes temporary files from specific directories)
+  - [RemovePgTempRelationFiles](RemovePgTempRelationFiles.md) (removes temporary relation files)
+  - [AllocateDir](../A/AllocateDir.md), ReadDirExtended, FreeDir (directory traversal functions)
   - PG_TEMP_FILES_DIR, TABLESPACE_VERSION_DIRECTORY (path constants)
 - Called from (representative examples):
   - [PostmasterMain](../P/PostmasterMain.md) (during normal server startup)

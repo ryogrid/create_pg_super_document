@@ -42,21 +42,21 @@ The pullup process involves complex variable renumbering and reference adjustmen
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - nullingrel_info
-  - PlannerInfo
-  - List
-  - RangeTblEntry
+  - [nullingrel_info](../n/nullingrel_info.md)
+  - [PlannerInfo](../P/PlannerInfo.md)
+  - [List](../L/List.md)
+  - [RangeTblEntry](../R/RangeTblEntry.md)
   - Relids
-  - Node
+  - [Node](../N/Node.md)
 - Called from (representative examples):
-  - pull_up_simple_subquery
-  - pull_up_simple_values
-  - pull_up_constant_function
-  - perform_pullup_replace_vars
-  - replace_vars_in_jointree
-  - pullup_replace_vars
-  - pullup_replace_vars_callback
-  - pullup_replace_vars_subquery
+  - [pull_up_simple_subquery](pull_up_simple_subquery.md)
+  - [pull_up_simple_values](pull_up_simple_values.md)
+  - [pull_up_constant_function](pull_up_constant_function.md)
+  - [perform_pullup_replace_vars](perform_pullup_replace_vars.md)
+  - [replace_vars_in_jointree](../r/replace_vars_in_jointree.md)
+  - [pullup_replace_vars](pullup_replace_vars.md)
+  - [pullup_replace_vars_callback](pullup_replace_vars_callback.md)
+  - [pullup_replace_vars_subquery](pullup_replace_vars_subquery.md)
 
 ## Notes and Other Information
 This structure is particularly important for handling lateral subqueries, which can reference outer variables and require special handling of nulling relationships. The rv_cache mechanism helps optimize performance by avoiding repeated computation of the same PlaceHolderVar expressions. The wrap_non_vars flag is crucial for maintaining expression evaluation semantics in the pulled-up query.

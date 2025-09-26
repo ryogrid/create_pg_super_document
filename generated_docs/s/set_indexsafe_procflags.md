@@ -29,8 +29,8 @@ The function acquires the ProcArrayLock in exclusive mode to safely update both 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire
-  - LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - MyProc (global process structure)
   - ProcGlobal (global process array)
   - PROC_IN_SAFE_IC (status flag constant)

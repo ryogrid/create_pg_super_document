@@ -31,7 +31,7 @@ This function takes no parameters and operates on global recovery configuration 
   - [findNewestTimeLine](../f/findNewestTimeLine.md) (finds the newest available timeline)
   - [timestamptz_in](../t/timestamptz_in.md) (parses timestamp strings)
   - DirectFunctionCall3 (PostgreSQL function call interface)
-  - DatumGetTimestampTz (datum conversion utility)
+  - [DatumGetTimestampTz](../D/DatumGetTimestampTz.md) (datum conversion utility)
   - [CStringGetDatum](../C/CStringGetDatum.md) (datum conversion utility)
 - Called from:
   - [InitWalRecovery](../I/InitWalRecovery.md) (during WAL recovery initialization)

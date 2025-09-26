@@ -30,12 +30,12 @@ CreateUserMappingStmt is a parse tree node that stores the parsed representation
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RoleSpec
+  - [RoleSpec](../R/RoleSpec.md)
   - NodeTag
-  - List
+  - [List](../L/List.md)
 - Called from (representative examples):
-  - CreateUserMapping (src/backend/commands/foreigncmds.c:1111)
-  - ProcessUtilitySlow (src/backend/tcop/utility.c:1603)
+  - [CreateUserMapping](CreateUserMapping.md) (src/backend/commands/foreigncmds.c:1111)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (src/backend/tcop/utility.c:1603)
 
 ## Notes and Other Information
 - This structure is part of the PostgreSQL parser node hierarchy and inherits from the Node structure via NodeTag

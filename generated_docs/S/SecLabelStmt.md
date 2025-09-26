@@ -31,12 +31,12 @@ The SecLabelStmt structure is a parse tree node that encapsulates all informatio
 ## Dependencies
 - Functions called/Symbols referenced:
   - ObjectType (enum for database object types)
-  - Node (base parse tree node type)
+  - [Node](../N/Node.md) (base parse tree node type)
   - NodeTag (parse node type identifier)
 - Called from (representative examples):
-  - ExecSecLabelStmt (seclabel.c:115)
-  - standard_ProcessUtility (utility.c:1054)
-  - ProcessUtilitySlow (utility.c:1835)
+  - [ExecSecLabelStmt](../E/ExecSecLabelStmt.md) (seclabel.c:115)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (utility.c:1054)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (utility.c:1835)
 
 ## Notes and Other Information
 SecLabelStmt is processed by the utility command execution system and handled by ExecSecLabelStmt() function. Security label support must be enabled at compile time and requires appropriate security label providers to be loaded. The most common provider is SELinux, but the architecture supports pluggable providers. Security label operations are transactional and integrate with PostgreSQL's privilege system.

@@ -23,10 +23,10 @@ This function reads tuples that were previously spilled to disk during hash join
 ## Dependencies
 - Functions called/Symbols referenced:
   - CHECK_FOR_INTERRUPTS
-  - BufFileReadMaybeEOF
-  - ExecClearTuple
+  - [BufFileReadMaybeEOF](../B/BufFileReadMaybeEOF.md)
+  - [ExecClearTuple](ExecClearTuple.md)
   - [palloc](../p/palloc.md)
-  - BufFileReadExact
+  - [BufFileReadExact](../B/BufFileReadExact.md)
   - [ExecForceStoreMinimalTuple](ExecForceStoreMinimalTuple.md)
 - Called from (representative examples):
   - [ExecHashJoinOuterGetTuple](ExecHashJoinOuterGetTuple.md)

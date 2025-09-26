@@ -21,15 +21,15 @@ fsync_fname(const char *fname, bool isdir)
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fsync_fname_ext
-  - data_sync_elevel
+  - [fsync_fname_ext](fsync_fname_ext.md)
+  - [data_sync_elevel](../d/data_sync_elevel.md)
 - Called from (representative examples):
-  - CheckPointLogicalRewriteHeap
+  - [CheckPointLogicalRewriteHeap](../C/CheckPointLogicalRewriteHeap.md)
   - [SimpleLruWriteAll](../S/SimpleLruWriteAll.md)
   - [CheckPointTwoPhase](../C/CheckPointTwoPhase.md)
   - [CreateDirAndVersionFile](../C/CreateDirAndVersionFile.md)
   - [SnapBuildSerialize](../S/SnapBuildSerialize.md)
-  - copydir
+  - [copydir](../c/copydir.md)
   - [sync_pgdata](../s/sync_pgdata.md)
   - [durable_rename](../d/durable_rename.md)
 

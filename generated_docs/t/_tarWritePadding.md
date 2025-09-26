@@ -22,9 +22,9 @@ This function ensures TAR format compliance by padding file data with zero bytes
 - Functions called/Symbols referenced:
   - [tarPaddingBytesRequired](tarPaddingBytesRequired.md)
   - MemSet
-  - bbsink_archive_contents
+  - [bbsink_archive_contents](../b/bbsink_archive_contents.md)
   - TAR_BLOCK_SIZE
-  - bbsink
+  - [bbsink](../b/bbsink.md)
 - Called from (representative examples):
   - [sendFileWithContent](../s/sendFileWithContent.md)
   - [sendFile](../s/sendFile.md)

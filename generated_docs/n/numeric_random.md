@@ -22,7 +22,7 @@ The  function is a PostgreSQL built-in function that generates pseudo-random num
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_NUMERIC: Extracts Numeric arguments from PostgreSQL function call
-  - Numeric: PostgreSQL's arbitrary-precision numeric data type
+  - [Numeric](../N/Numeric.md): PostgreSQL's arbitrary-precision numeric data type
   - [initialize_prng](../i/initialize_prng.md): Initializes the pseudo-random number generator state
   - [random_numeric](../r/random_numeric.md): Generates a random Numeric within the specified range
   - PG_RETURN_NUMERIC: Returns a Numeric value from PostgreSQL function

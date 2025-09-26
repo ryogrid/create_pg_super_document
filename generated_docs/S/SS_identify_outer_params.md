@@ -31,8 +31,8 @@ The collected parameter set is stored in root->outer_params and is later used du
 - Data types referenced:
   - [Bitmapset](../B/Bitmapset.md)
   - [PlannerInfo](../P/PlannerInfo.md)
-  - PlannerParamItem
-  - SubPlan
+  - [PlannerParamItem](../P/PlannerParamItem.md)
+  - [SubPlan](SubPlan.md)
   - ListCell
 - Called from (representative examples):
   - [subquery_planner](../s/subquery_planner.md)

@@ -32,10 +32,10 @@ When a filter already exists for a relation, the function extends the filter's l
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  -  - Hash table operations for filter management
+  -  - [Hash](../H/Hash.md) table operations for filter management
   -  - Add filter to the active filter queue
   -  - Remove filter from queue for reordering
-  -  - Hash table insertion flag
+  -  - [Hash](../H/Hash.md) table insertion flag
 - Called from (representative examples):
   -  - Multiple call sites for different filtering scenarios
 

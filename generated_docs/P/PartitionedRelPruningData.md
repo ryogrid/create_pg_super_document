@@ -36,12 +36,12 @@ This structure is essential for PostgreSQL's partition pruning optimization, sto
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PartitionPruneContext (for execution contexts)
+  - [PartitionPruneContext](PartitionPruneContext.md) (for execution contexts)
 - Called from (representative examples):
-  - CreatePartitionPruneState
-  - ExecFindMatchingSubPlans
-  - PartitionPruneFixSubPlanMap
-  - find_matching_subplans_recurse
+  - [CreatePartitionPruneState](../C/CreatePartitionPruneState.md)
+  - [ExecFindMatchingSubPlans](../E/ExecFindMatchingSubPlans.md)
+  - [PartitionPruneFixSubPlanMap](PartitionPruneFixSubPlanMap.md)
+  - [find_matching_subplans_recurse](../f/find_matching_subplans_recurse.md)
 
 ## Notes and Other Information
 - The structure maintains the same subplan_map and subpart_map semantics as PartitionedRelPruneInfo from the planner

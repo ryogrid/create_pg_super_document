@@ -30,17 +30,17 @@ The planner creates HashPath nodes when evaluating different join strategies, an
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JoinPath (inherited base structure)
+  - [JoinPath](../J/JoinPath.md) (inherited base structure)
   - Cardinality (type for row count estimates)
 - Called from (representative examples):
-  - create_hashjoin_path (path creation)
-  - create_hashjoin_plan (plan generation)
-  - final_cost_hashjoin (cost calculation)
-  - cost_rescan (rescan cost estimation)
+  - [create_hashjoin_path](../c/create_hashjoin_path.md) (path creation)
+  - [create_hashjoin_plan](../c/create_hashjoin_plan.md) (plan generation)
+  - [final_cost_hashjoin](../f/final_cost_hashjoin.md) (cost calculation)
+  - [cost_rescan](../c/cost_rescan.md) (rescan cost estimation)
 
 ## Notes and Other Information
-- HashPath inherits from JoinPath, which provides the basic join path infrastructure including outer/inner paths and join conditions
-- Hash joins are generally efficient for equi-joins and are often preferred when neither input is already sorted on the join keys
+- [HashPath](HashPath.md) inherits from JoinPath, which provides the basic join path infrastructure including outer/inner paths and join conditions
+- [Hash](Hash.md) joins are generally efficient for equi-joins and are often preferred when neither input is already sorted on the join keys
 - The batching mechanism allows hash joins to handle datasets larger than available memory by processing data in chunks
 - Unlike MergePath, HashPath doesn't need to track sort keys since hash joins don't require sorted inputs
 - The path_hashclauses specifically contain equality conditions suitable for hashing, which may be a subset of the total join conditions

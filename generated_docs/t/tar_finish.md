@@ -35,22 +35,22 @@ The function handles both compressed and uncompressed TAR files appropriately, e
 ## Dependencies
 - Functions called/Symbols referenced:
   - clear_error
-  - tar_close
+  - [tar_close](tar_close.md)
   - write
-  - tar_write_compressed_data
+  - [tar_write_compressed_data](tar_write_compressed_data.md)
   - deflate (zlib)
   - deflateEnd (zlib)
   - fsync
   - close
-  - fsync_fname
-  - fsync_parent_path
-  - TarMethodData (structure type)
+  - [fsync_fname](../f/fsync_fname.md)
+  - [fsync_parent_path](../f/fsync_parent_path.md)
+  - [TarMethodData](../T/TarMethodData.md) (structure type)
   - CLOSE_NORMAL (constant)
   - PG_COMPRESSION_NONE (constant)
   - PG_COMPRESSION_GZIP (constant)
   - ZLIB_OUT_SIZE (constant)
 - Called from (representative examples):
-  - CreateWalDirectoryMethod (function pointer assignment)
+  - [CreateWalDirectoryMethod](../C/CreateWalDirectoryMethod.md) (function pointer assignment)
 
 ## Notes and Other Information
 - This function is marked as static, meaning it's only accessible within the walmethods.c file

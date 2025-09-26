@@ -21,7 +21,7 @@ This function is responsible for replaying BRIN index creation operations during
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData: Extracts the data portion from the WAL record
-  - XLogInitBufferForRedo: Initializes a buffer for redo operations
+  - [XLogInitBufferForRedo](../X/XLogInitBufferForRedo.md): Initializes a buffer for redo operations
   - [brin_metapage_init](brin_metapage_init.md): Initializes the BRIN metapage with specified parameters
   - [xl_brin_createidx](../x/xl_brin_createidx.md): Structure containing BRIN creation parameters (pagesPerRange, version)
 - Called from (representative examples):

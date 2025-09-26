@@ -37,7 +37,7 @@ The output member is marked as variable-size and must be last in the structure, 
   - [TBMSharedIteratorState](TBMSharedIteratorState.md) (shared state management)
   - [PTEntryArray](../P/PTEntryArray.md) (pagetable entry storage)
   - [PTIterationArray](../P/PTIterationArray.md) (iteration index management)
-  - TBMIterateResult (iteration output results)
+  - [TBMIterateResult](TBMIterateResult.md) (iteration output results)
 - Called from (representative examples):
   - [BitmapHeapNext](../B/BitmapHeapNext.md) (in nodeBitmapHeapscan.c)
   - [BitmapAdjustPrefetchIterator](../B/BitmapAdjustPrefetchIterator.md)

@@ -50,7 +50,7 @@ The exclusion logic ensures that when counting frame positions, only in-frame ro
   - [window_gettupleslot](../w/window_gettupleslot.md)
   - [row_is_in_frame](../r/row_is_in_frame.md)
   - [WinSetMarkPosition](WinSetMarkPosition.md)
-  - ExecEvalExpr
+  - [ExecEvalExpr](../E/ExecEvalExpr.md)
   - [list_nth](../l/list_nth.md)
 - Called from (representative examples):
   - [window_first_value](../w/window_first_value.md)

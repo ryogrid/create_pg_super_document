@@ -23,7 +23,7 @@ The function assumes that a cache entry has already been established via cache_l
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc](../p/palloc.md) (allocates memory for new MemoizeTuple structure)
-  - ExecCopySlotMinimalTuple (creates a minimal tuple copy from the slot)
+  - [ExecCopySlotMinimalTuple](../E/ExecCopySlotMinimalTuple.md) (creates a minimal tuple copy from the slot)
   - [cache_reduce_memory](cache_reduce_memory.md) (evicts entries if memory limit is exceeded)
   - [prepare_probe_slot](../p/prepare_probe_slot.md) (prepares hash lookup after eviction)
   - memoize_lookup (re-finds entry after potential hash table reorganization)
@@ -32,7 +32,7 @@ The function assumes that a cache entry has already been established via cache_l
   - Assert (debugging assertions)
 - Types referenced:
   - [MemoizeState](../M/MemoizeState.md)
-  - TupleTableSlot
+  - [TupleTableSlot](../T/TupleTableSlot.md)
   - [MemoizeTuple](../M/MemoizeTuple.md)
   - [MemoizeEntry](../M/MemoizeEntry.md)
   - [MemoizeKey](../M/MemoizeKey.md)

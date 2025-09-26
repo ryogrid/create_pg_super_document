@@ -23,7 +23,7 @@ Like its encoding counterpart, this function is part of PostgreSQL's ECPG (Embed
 - Functions called/Symbols referenced:
   - (None - simple arithmetic operation)
 - Called from (representative examples):
-  - ecpg_get_data
+  - [ecpg_get_data](ecpg_get_data.md)
 
 ## Notes and Other Information
 - Uses bit shifting (`srclen >> 1`) instead of division for efficiency, which is equivalent to `srclen / 2`

@@ -25,7 +25,7 @@ The function returns  if no runtime conversion is needed (descriptors are physic
 ## Dependencies
 - Functions called/Symbols referenced:
   - [build_attrmap_by_position](../b/build_attrmap_by_position.md)
-  - TupleConversionMap (struct)
+  - [TupleConversionMap](../T/TupleConversionMap.md) (struct)
   - [AttrMap](../A/AttrMap.md) (struct)
   - [palloc](../p/palloc.md)
 - Called from (representative examples):

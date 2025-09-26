@@ -27,13 +27,13 @@ The function handles both leaf and internal B-tree pages, with different key str
 ## Dependencies
 - Functions called/Symbols referenced:
   - fpm_segment_base
-  - FreePageBtreeFindRightSibling
-  - FreePageBtreeFindLeftSibling
-  - FreePageBtreeUpdateParentPointers
-  - FreePageBtreeRemovePage
+  - [FreePageBtreeFindRightSibling](FreePageBtreeFindRightSibling.md)
+  - [FreePageBtreeFindLeftSibling](FreePageBtreeFindLeftSibling.md)
+  - [FreePageBtreeUpdateParentPointers](FreePageBtreeUpdateParentPointers.md)
+  - [FreePageBtreeRemovePage](FreePageBtreeRemovePage.md)
 - Called from (representative examples):
-  - FreePageBtreeRemove
-  - FreePageBtreeRemovePage
+  - [FreePageBtreeRemove](FreePageBtreeRemove.md)
+  - [FreePageBtreeRemovePage](FreePageBtreeRemovePage.md)
 
 ## Notes and Other Information
 - Only consolidates pages that are less than 1/3 full to balance efficiency with stability

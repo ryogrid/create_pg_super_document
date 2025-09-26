@@ -30,12 +30,12 @@ An instance of this structure, `UnicodeDecompInfo`, is statically defined and co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_unicode_decomposition (struct type for individual decomposition entries)
+  - [pg_unicode_decomposition](pg_unicode_decomposition.md) (struct type for individual decomposition entries)
   - cp_hash_func (typedef for hash function pointer)
-  - Decomp_hash_func (the actual hash function used)
+  - [Decomp_hash_func](../D/Decomp_hash_func.md) (the actual hash function used)
   - UnicodeDecompMain (the main decomposition table)
 - Called from (representative examples):
-  - get_code_entry (in unicode_norm.c for character decomposition lookups)
+  - [get_code_entry](../g/get_code_entry.md) (in unicode_norm.c for character decomposition lookups)
   - Used throughout PostgreSQL's Unicode normalization routines
 
 ## Notes and Other Information

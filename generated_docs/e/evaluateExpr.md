@@ -29,7 +29,7 @@ The function handles three main expression types:
 - Functions called/Symbols referenced:
   - [lookupVariable](../l/lookupVariable.md)
   - [makeVariableValue](../m/makeVariableValue.md)  
-  - evalFunc
+  - [evalFunc](evalFunc.md)
   - pg_log_error
   - [pg_fatal](../p/pg_fatal.md)
 - Types used:
@@ -41,8 +41,8 @@ The function handles three main expression types:
   - ENODE_VARIABLE
   - ENODE_FUNCTION
 - Called from (representative examples):
-  - evalLazyFunc
-  - evalStandardFunc
+  - [evalLazyFunc](evalLazyFunc.md)
+  - [evalStandardFunc](evalStandardFunc.md)
   - [executeMetaCommand](executeMetaCommand.md)
 
 ## Notes and Other Information

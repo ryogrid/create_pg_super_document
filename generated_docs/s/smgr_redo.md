@@ -35,13 +35,13 @@ The function ensures crash consistency by carefully ordering operations and main
   - [smgropen](smgropen.md) (opens storage manager relation)
   - [smgrcreate](smgrcreate.md) (creates relation files)
   - [XLogFlush](../X/XLogFlush.md) (flushes WAL to ensure durability)
-  - smgrnblocks (gets number of blocks in relation fork)
+  - [smgrnblocks](smgrnblocks.md) (gets number of blocks in relation fork)
   - [XLogTruncateRelation](../X/XLogTruncateRelation.md) (notifies xlogutils about truncation)
   - [CreateFakeRelcacheEntry](../C/CreateFakeRelcacheEntry.md)/FreeFakeRelcacheEntry (temporary relation cache entries)
-  - FreeSpaceMapPrepareTruncateRel (prepares FSM for truncation)
+  - [FreeSpaceMapPrepareTruncateRel](../F/FreeSpaceMapPrepareTruncateRel.md) (prepares FSM for truncation)
   - [visibilitymap_prepare_truncate](../v/visibilitymap_prepare_truncate.md) (prepares visibility map for truncation)
-  - smgrtruncate2 (performs actual truncation)
-  - FreeSpaceMapVacuumRange (updates FSM after truncation)
+  - [smgrtruncate2](smgrtruncate2.md) (performs actual truncation)
+  - [FreeSpaceMapVacuumRange](../F/FreeSpaceMapVacuumRange.md) (updates FSM after truncation)
 
 - Called from (representative examples):
   - This function is registered as a WAL redo handler and called by the WAL replay mechanism during recovery

@@ -32,9 +32,9 @@ Virtual transaction IDs are particularly important for:
 ## Dependencies
 - Functions called/Symbols referenced: None directly
 - Called from (representative examples):
-  - GetCurrentVirtualXIDs
-  - GetConflictingVirtualXIDs
-  - VirtualXactLock
+  - [GetCurrentVirtualXIDs](../G/GetCurrentVirtualXIDs.md)
+  - [GetConflictingVirtualXIDs](../G/GetConflictingVirtualXIDs.md)
+  - [VirtualXactLock](VirtualXactLock.md)
   - [ResolveRecoveryConflictWithVirtualXIDs](../R/ResolveRecoveryConflictWithVirtualXIDs.md)
   - [GetLockConflicts](../G/GetLockConflicts.md)
 

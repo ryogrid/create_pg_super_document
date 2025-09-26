@@ -26,7 +26,7 @@ This function serves as the process exit cleanup handler for the PL/Perl extensi
   - [hash_seq_init](../h/hash_seq_init.md) (to initialize hash table iteration)
   - [hash_seq_search](../h/hash_seq_search.md) (to iterate through interpreter hash table)
   - [activate_interpreter](../a/activate_interpreter.md) (to set interpreter context before destruction)
-  - HASH_SEQ_STATUS (hash table iteration structure)
+  - [HASH_SEQ_STATUS](../H/HASH_SEQ_STATUS.md) (hash table iteration structure)
   - [plperl_interp_desc](plperl_interp_desc.md) (interpreter descriptor structure)
 - Called from (representative examples):
   - PostgreSQL process exit handler (registered via on_proc_exit)

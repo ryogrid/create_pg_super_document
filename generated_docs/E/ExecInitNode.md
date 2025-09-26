@@ -31,12 +31,12 @@ The initialization process ensures that all necessary data structures, memory co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth (stack overflow prevention)
+  - [check_stack_depth](../c/check_stack_depth.md) (stack overflow prevention)
   - nodeTag (node type identification)
   - ExecInit* functions for each node type (ExecInitSeqScan, ExecInitAgg, etc.)
   - [ExecSetExecProcNode](ExecSetExecProcNode.md) (execution procedure setup)
   - [ExecInitSubPlan](ExecInitSubPlan.md) (subplan initialization)
-  - InstrAlloc (instrumentation setup)
+  - [InstrAlloc](../I/InstrAlloc.md) (instrumentation setup)
 - Called from (representative examples):
   - [InitPlan](../I/InitPlan.md) (main executor initialization)
   - [EvalPlanQualStart](EvalPlanQualStart.md) (EPQ initialization)
@@ -47,5 +47,5 @@ The initialization process ensures that all necessary data structures, memory co
 - The function is recursive and can handle arbitrarily deep plan trees
 - Each node type has its own specialized ExecInit function that handles type-specific initialization
 - The function sets up both the execution state and the execution procedure for each node
-- Instrumentation is conditionally initialized based on estate->es_instrument setting
+- [Instrumentation](../I/Instrumentation.md) is conditionally initialized based on estate->es_instrument setting
 - Stack depth is checked to prevent stack overflow during initialization of deep plan trees

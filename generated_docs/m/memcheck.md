@@ -19,13 +19,13 @@ The `memcheck` function serves as a wrapper for validating memory allocation res
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - memory_exhausted (for handling allocation failure)
+  - [memory_exhausted](memory_exhausted.md) (for handling allocation failure)
   - strerror (standard library function to convert errno to error string)
   - errno (global error number variable)
 - Called from (representative examples):
-  - emalloc
-  - erealloc  
-  - ecpyalloc
+  - [emalloc](../e/emalloc.md)
+  - [erealloc](../e/erealloc.md)  
+  - [ecpyalloc](../e/ecpyalloc.md)
 
 ## Notes and Other Information
 - This is a static function, accessible only within the src/timezone/zic.c file

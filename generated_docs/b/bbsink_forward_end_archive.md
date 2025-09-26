@@ -21,8 +21,8 @@ This forwarding mechanism is crucial for maintaining the integrity of multi-stag
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbsink_end_archive
-  - bbsink (type reference)
+  - [bbsink_end_archive](bbsink_end_archive.md)
+  - [bbsink](bbsink.md) (type reference)
 - Called from (representative examples):
   - [bbsink_gzip_end_archive](bbsink_gzip_end_archive.md) (src/backend/backup/basebackup_gzip.c:270)
   - [bbsink_lz4_end_archive](bbsink_lz4_end_archive.md) (src/backend/backup/basebackup_lz4.c:266)

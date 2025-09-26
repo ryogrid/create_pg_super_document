@@ -24,7 +24,7 @@ This is the core function for evaluating window aggregates and differs significa
   - [window_gettupleslot](../w/window_gettupleslot.md)
   - [advance_windowaggregate_base](../a/advance_windowaggregate_base.md)
   - ResetExprContext
-  - ExecClearTuple
+  - [ExecClearTuple](../E/ExecClearTuple.md)
   - [WinSetMarkPosition](../W/WinSetMarkPosition.md)
   - [MemoryContextReset](../M/MemoryContextReset.md)
   - [initialize_windowaggregate](../i/initialize_windowaggregate.md)

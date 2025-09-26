@@ -34,7 +34,7 @@ A key design consideration is that cache entries are created only after reading 
   - HeapTupleIsValid: Check if catalog lookup succeeded
 - Data structures used:
   - TableSpaceCacheEntry: Cache entry structure for tablespace data
-  - TableSpaceOpts: Parsed tablespace options structure
+  - [TableSpaceOpts](../T/TableSpaceOpts.md): Parsed tablespace options structure
   - HeapTuple: System catalog tuple
   - TableSpaceCacheHash: Global cache hash table
 - Constants used:

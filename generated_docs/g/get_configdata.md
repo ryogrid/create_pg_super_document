@@ -27,8 +27,8 @@ Build-time compiler and linker information is retrieved from preprocessor macros
 - Functions called/Symbols referenced:
   - palloc_array
   - [pstrdup](../p/pstrdup.md)
-  - strlcpy
-  - strlcat
+  - [strlcpy](../s/strlcpy.md)
+  - [strlcat](../s/strlcat.md)
   - strrchr
   - [cleanup_path](../c/cleanup_path.md)
   - [get_doc_path](get_doc_path.md)

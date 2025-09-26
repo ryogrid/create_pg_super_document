@@ -45,7 +45,7 @@ Since PGSemaphore is a typedef to different types on different platforms:
   - [PGSemaphoreUnlock](PGSemaphoreUnlock.md) (unlocks/increments semaphore)
   - [PGSemaphoreTryLock](PGSemaphoreTryLock.md) (non-blocking lock attempt)
   - [PGSemaphoreReset](PGSemaphoreReset.md) (resets semaphore to count 0)
-  - SpinlockSemaInit (spin lock initialization)
+  - [SpinlockSemaInit](../S/SpinlockSemaInit.md) (spin lock initialization)
   - [PGPROC](PGPROC.md) (process structure for semaphore management)
 
 ## Notes and Other Information

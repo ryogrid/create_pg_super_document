@@ -26,8 +26,8 @@ This function generates a unique constraint name following SQL specification req
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
-  - strlcpy
+  - [table_open](../t/table_open.md)
+  - [strlcpy](../s/strlcpy.md)
   - [makeObjectName](../m/makeObjectName.md)
   - strcmp
   - lfirst
@@ -35,7 +35,7 @@ This function generates a unique constraint name following SQL specification req
   - [systable_beginscan](../s/systable_beginscan.md)
   - [systable_getnext](../s/systable_getnext.md)
   - [systable_endscan](../s/systable_endscan.md)
-  - table_close
+  - [table_close](../t/table_close.md)
   - [pfree](../p/pfree.md)
   - snprintf
   - [CStringGetDatum](CStringGetDatum.md)

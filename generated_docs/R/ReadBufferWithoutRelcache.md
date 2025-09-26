@@ -36,9 +36,9 @@ Note that this function cannot handle temporary relations, as temporary relation
   - RELPERSISTENCE_PERMANENT
   - RELPERSISTENCE_UNLOGGED
 - Called from (representative examples):
-  - XLogReadBufferExtended
+  - [XLogReadBufferExtended](../X/XLogReadBufferExtended.md)
   - [ScanSourceDatabasePgClass](../S/ScanSourceDatabasePgClass.md)
-  - RelationCopyStorageUsingBuffer
+  - [RelationCopyStorageUsingBuffer](RelationCopyStorageUsingBuffer.md)
 
 ## Notes and Other Information
 - Cannot be used for temporary relations due to their process-specific nature

@@ -37,7 +37,7 @@ The function includes special handling for RELATION and TYPE messages, ensuring 
   - [pq_getmsgint](../p/pq_getmsgint.md) (extracts transaction ID from message)
   - [subxact_info_add](../s/subxact_info_add.md) (tracks subxact information)
   - [stream_write_change](../s/stream_write_change.md) (writes changes to disk)
-  - pa_send_data (sends data to parallel worker)
+  - [pa_send_data](../p/pa_send_data.md) (sends data to parallel worker)
   - [pa_switch_to_partial_serialize](../p/pa_switch_to_partial_serialize.md) (switches to serialization mode)
   - [pa_start_subtrans](../p/pa_start_subtrans.md) (manages subtransaction savepoints)
   - TRANS_LEADER_APPLY, TRANS_LEADER_SERIALIZE, TRANS_LEADER_SEND_TO_PARALLEL, TRANS_LEADER_PARTIAL_SERIALIZE, TRANS_PARALLEL_APPLY (apply action constants)

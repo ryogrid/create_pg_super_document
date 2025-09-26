@@ -33,12 +33,12 @@ The function handles the complexities of variable-width data storage, including 
   - LOCAL_FCINFO
   - ARR_DATA_PTR
   - InitFunctionCallInfoData
-  - ArrayGetNItems
+  - [ArrayGetNItems](../A/ArrayGetNItems.md)
   - ARR_NDIM
   - ARR_DIMS
   - att_addlength_pointer
   - att_align_nominal
-  - fetch_att
+  - [fetch_att](../f/fetch_att.md)
   - FunctionCallInvoke
   - [DatumGetInt32](../D/DatumGetInt32.md)
 - Called from:

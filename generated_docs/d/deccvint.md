@@ -27,7 +27,7 @@ This function maintains Informix semantics for decimal conversion, ensuring seam
   - [risnull](../r/risnull.md)
   - [PGTYPESnumeric_new](../P/PGTYPESnumeric_new.md)
   - [PGTYPESnumeric_from_int](../P/PGTYPESnumeric_from_int.md)
-  - PGTYPESnumeric_to_decimal
+  - [PGTYPESnumeric_to_decimal](../P/PGTYPESnumeric_to_decimal.md)
   - [PGTYPESnumeric_free](../P/PGTYPESnumeric_free.md)
 - Called from (representative examples):
   - [main](../m/main.md) (in multiple test cases)

@@ -28,7 +28,7 @@ The function handles LZ4 compression initialization using the LZ4F (frame) API, 
   - LZ4F_getErrorName (LZ4 library function)
   - elog (error logging)
   - [psprintf](../p/psprintf.md) (formatted string allocation)
-  - bbsink_begin_archive (calls next sink in chain)
+  - [bbsink_begin_archive](bbsink_begin_archive.md) (calls next sink in chain)
   - [pfree](../p/pfree.md) (memory deallocation)
 - Called from (representative examples):
   - Referenced through bbsink_lz4_ops function pointer table

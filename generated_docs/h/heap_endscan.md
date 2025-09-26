@@ -20,16 +20,16 @@ The  function performs cleanup operations to terminate a heap table scan and fre
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReleaseBuffer
-  - read_stream_end
+  - [ReleaseBuffer](../R/ReleaseBuffer.md)
+  - [read_stream_end](../r/read_stream_end.md)
   - [RelationDecrementReferenceCount](../R/RelationDecrementReferenceCount.md)
   - [pfree](../p/pfree.md)
-  - FreeAccessStrategy
-  - UnregisterSnapshot
+  - [FreeAccessStrategy](../F/FreeAccessStrategy.md)
+  - [UnregisterSnapshot](../U/UnregisterSnapshot.md)
 - Data structures used:
   - [HeapScanDesc](../H/HeapScanDesc.md)
   - [TableScanDesc](../T/TableScanDesc.md)
-- Scan flags:
+- [Scan](../S/Scan.md) flags:
   - SO_TEMP_SNAPSHOT
 - Called from (representative examples):
   - [SampleHeapTupleVisible](../S/SampleHeapTupleVisible.md)

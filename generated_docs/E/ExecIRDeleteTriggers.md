@@ -34,9 +34,9 @@ INSTEAD OF triggers are commonly used to make views updatable by defining custom
   - GetPerTupleMemoryContext
   - [heap_freetuple](../h/heap_freetuple.md)
 - Data types referenced:
-  - TriggerDesc
-  - TriggerData
-  - Trigger
+  - [TriggerDesc](../T/TriggerDesc.md)
+  - [TriggerData](../T/TriggerData.md)
+  - [Trigger](../T/Trigger.md)
   - TRIGGER_EVENT_DELETE
   - TRIGGER_EVENT_ROW
   - TRIGGER_EVENT_INSTEAD

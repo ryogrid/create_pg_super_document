@@ -19,7 +19,7 @@ The local source provides an abstraction layer that allows pg_rewind to treat lo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_malloc0
+  - [pg_malloc0](../p/pg_malloc0.md)
   - [local_traverse_files](../l/local_traverse_files.md)
   - [local_fetch_file](../l/local_fetch_file.md)
   - [local_queue_fetch_file](../l/local_queue_fetch_file.md)

@@ -30,13 +30,13 @@ If no hash table exists or if the match callback is NULL, the function handles t
   -  - Starts iteration over the entry reference hash table
   -  - Gets the next entry during hash table iteration
   -  - Releases and cleans up an entry reference
-  -  - Hash table entry structure
+  -  - [Hash](../H/Hash.md) table entry structure
   -  - Callback function type for matching entries
   -  - Generic data type for passing match context
   -  - Local hash table of entry references
 
 - Called from (representative examples):
-  -  - Hash table declaration macro that may reference this function
+  -  - [Hash](../H/Hash.md) table declaration macro that may reference this function
   -  - Releases all entry references (likely passes NULL for match)
   -  - Releases entry references for a specific database
 

@@ -42,7 +42,7 @@ The function handles both current and historic timeline requests, performing ext
   - [readTimeLineHistory](../r/readTimeLineHistory.md)
   - [tliSwitchPoint](../t/tliSwitchPoint.md)
   - [WalSndSetState](../W/WalSndSetState.md)
-  - pq_beginmessage
+  - [pq_beginmessage](../p/pq_beginmessage.md)
   - [pq_sendbyte](../p/pq_sendbyte.md)
   - [pq_sendint16](../p/pq_sendint16.md)
   - [pq_endmessage](../p/pq_endmessage.md)

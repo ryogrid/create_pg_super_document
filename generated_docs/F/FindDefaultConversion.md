@@ -24,7 +24,7 @@ FindDefaultConversion locates the default conversion procedure for a specific so
   - SearchSysCacheList3
   - ReleaseSysCacheList
   - Form_pg_conversion (struct type)
-  - CatCList (struct type)
+  - [CatCList](../C/CatCList.md) (struct type)
 - Called from (representative examples):
   - [FindDefaultConversionProc](FindDefaultConversionProc.md)
   - [ConversionCreate](../C/ConversionCreate.md)

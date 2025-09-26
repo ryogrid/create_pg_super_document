@@ -23,7 +23,7 @@ If a matching mapping is found, the function returns the corresponding new_dir (
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - strlcpy
+  - [strlcpy](../s/strlcpy.md)
   - [canonicalize_path](../c/canonicalize_path.md)
   - [TablespaceListCell](../T/TablespaceListCell.md) (struct type)
   - tablespace_dirs (global variable)

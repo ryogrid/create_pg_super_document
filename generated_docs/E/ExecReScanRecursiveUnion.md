@@ -31,13 +31,13 @@ This comprehensive reset ensures that the recursive union can be executed again 
 - Functions called/Symbols referenced:
   - outerPlanState
   - innerPlanState
-  - bms_add_member
-  - ExecReScan
-  - MemoryContextReset
-  - ResetTupleHashTable
-  - tuplestore_clear
+  - [bms_add_member](../b/bms_add_member.md)
+  - [ExecReScan](ExecReScan.md)
+  - [MemoryContextReset](../M/MemoryContextReset.md)
+  - [ResetTupleHashTable](../R/ResetTupleHashTable.md)
+  - [tuplestore_clear](../t/tuplestore_clear.md)
 - Called from (representative examples):
-  - ExecReScan
+  - [ExecReScan](ExecReScan.md)
 
 ## Notes and Other Information
 - Part of PostgreSQL's plan node rescan framework for parameter changes and re-execution

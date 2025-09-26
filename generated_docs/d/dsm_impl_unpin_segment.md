@@ -27,11 +27,11 @@ On non-Windows platforms, this function performs no operations since those syste
 - Functions called/Symbols referenced:
   - DuplicateHandle (Windows API)
   - PostmasterHandle, GetLastError (Windows API)
-  - _dosmaperr, ereport  
-  - errcode_for_dynamic_shared_memory
+  - [_dosmaperr](_dosmaperr.md), ereport  
+  - [errcode_for_dynamic_shared_memory](../e/errcode_for_dynamic_shared_memory.md)
   - SEGMENT_NAME_PREFIX
 - Called from (representative examples):
-  - dsm_unpin_segment
+  - [dsm_unpin_segment](dsm_unpin_segment.md)
 
 ## Notes and Other Information
 - Only performs actual work on Windows platforms when  is defined

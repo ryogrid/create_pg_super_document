@@ -27,7 +27,7 @@ The function works by splitting flush requests at segment boundaries since Postg
 ## Dependencies
 - Functions called/Symbols referenced:
   - [_mdfd_getseg](_mdfd_getseg.md)
-  - FileWriteback
+  - [FileWriteback](../F/FileWriteback.md)
 - Called from (representative examples):
   - Storage manager layer functions (via MD_H interface)
 

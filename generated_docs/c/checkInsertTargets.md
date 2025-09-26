@@ -32,8 +32,8 @@ The function maintains two bitmapsets to track column usage:  for complete colum
   - TupleDescAttr
   - makeNode
   - [pstrdup](../p/pstrdup.md)
-  - lappend
-  - lappend_int
+  - [lappend](../l/lappend.md)
+  - [lappend_int](../l/lappend_int.md)
   - [attnameAttNum](../a/attnameAttNum.md)
   - [bms_is_member](../b/bms_is_member.md)
   - [bms_add_member](../b/bms_add_member.md)

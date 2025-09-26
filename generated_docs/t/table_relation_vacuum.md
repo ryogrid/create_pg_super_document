@@ -28,10 +28,10 @@ Important operational constraints include that a transaction must already be est
 ## Dependencies
 - Functions called/Symbols referenced:
   - rel->rd_tableam->relation_vacuum (table access method implementation)
-  - VacuumParams (vacuum operation parameters structure)
-  - BufferAccessStrategy (buffer management strategy)
+  - [VacuumParams](../V/VacuumParams.md) (vacuum operation parameters structure)
+  - [BufferAccessStrategy](../B/BufferAccessStrategy.md) (buffer management strategy)
 - Called from (representative examples):
-  - vacuum_rel (during regular vacuum operations)
+  - [vacuum_rel](../v/vacuum_rel.md) (during regular vacuum operations)
 
 ## Notes and Other Information
 - Requires an active transaction and ShareUpdateExclusive lock on the relation

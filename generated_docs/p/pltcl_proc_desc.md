@@ -67,18 +67,18 @@ Key design aspects:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pltcl_interp_desc (at line 150)
-  - MemoryContext (PostgreSQL memory management)
+  - [pltcl_interp_desc](pltcl_interp_desc.md) (at line 150)
+  - [MemoryContext](../M/MemoryContext.md) (PostgreSQL memory management)
   - TransactionId (PostgreSQL transaction system)
-  - ItemPointerData (PostgreSQL tuple identifier)
-  - FmgrInfo (PostgreSQL function manager)
+  - [ItemPointerData](../I/ItemPointerData.md) (PostgreSQL tuple identifier)
+  - [FmgrInfo](../F/FmgrInfo.md) (PostgreSQL function manager)
   - Oid (PostgreSQL object identifier)
 - Called from (representative examples):
-  - pltcl_proc_ptr (referenced at line 205)
-  - pltcl_call_state (referenced at line 221)
-  - pltcl_func_handler (referenced at line 801)
-  - pltcl_trigger_handler (referenced at line 1059)
-  - compile_pltcl_function (referenced at lines 1408, 1409, 1502)
+  - [pltcl_proc_ptr](pltcl_proc_ptr.md) (referenced at line 205)
+  - [pltcl_call_state](pltcl_call_state.md) (referenced at line 221)
+  - [pltcl_func_handler](pltcl_func_handler.md) (referenced at line 801)
+  - [pltcl_trigger_handler](pltcl_trigger_handler.md) (referenced at line 1059)
+  - [compile_pltcl_function](../c/compile_pltcl_function.md) (referenced at lines 1408, 1409, 1502)
 
 ## Notes and Other Information
 - Data in this struct is shared across all active calls; only `fn_refcount` should be modified by call instances

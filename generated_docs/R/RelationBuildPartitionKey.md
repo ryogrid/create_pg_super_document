@@ -38,7 +38,7 @@ Key operations include:
   - [get_opfamily_proc](../g/get_opfamily_proc.md) (finding support functions)
   - [fmgr_info_cxt](../f/fmgr_info_cxt.md) (caching function information)
   - [get_typlenbyvalalign](../g/get_typlenbyvalalign.md) (type information)
-  - MemoryContextSetParent (memory management)
+  - [MemoryContextSetParent](../M/MemoryContextSetParent.md) (memory management)
 - Called from:
   - [RelationGetPartitionKey](RelationGetPartitionKey.md) (when rd_partkey is NULL)
 

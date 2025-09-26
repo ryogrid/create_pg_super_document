@@ -20,15 +20,15 @@ PushCopiedSnapshot creates a copy of the provided snapshot and pushes it onto th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CopySnapshot
-  - PushActiveSnapshot
+  - [CopySnapshot](../C/CopySnapshot.md)
+  - [PushActiveSnapshot](PushActiveSnapshot.md)
 - Called from (representative examples):
-  - BeginCopyTo
-  - ExecCreateTableAs
-  - ExplainOnePlan
-  - refresh_matview_datafill
-  - _SPI_execute_plan
-  - PortalRunMulti
+  - [BeginCopyTo](../B/BeginCopyTo.md)
+  - [ExecCreateTableAs](../E/ExecCreateTableAs.md)
+  - [ExplainOnePlan](../E/ExplainOnePlan.md)
+  - [refresh_matview_datafill](../r/refresh_matview_datafill.md)
+  - [_SPI_execute_plan](../S/_SPI_execute_plan.md)
+  - [PortalRunMulti](PortalRunMulti.md)
 
 ## Notes and Other Information
 - Always creates a copy of the snapshot, ensuring the active snapshot is modifiable

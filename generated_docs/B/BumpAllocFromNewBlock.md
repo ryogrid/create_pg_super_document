@@ -24,8 +24,8 @@ This function is responsible for creating new memory blocks in the bump memory a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BumpContext (cast context to bump-specific type)
-  - BumpBlock (memory block structure)
+  - [BumpContext](BumpContext.md) (cast context to bump-specific type)
+  - [BumpBlock](BumpBlock.md) (memory block structure)
   - Bump_CHUNKHDRSZ (chunk header size constant)
   - Bump_BLOCKHDRSZ (block header size constant)
   - pg_nextpower2_size_t (rounds size up to next power of 2)

@@ -28,18 +28,18 @@ The function excludes tuple CID changes from memory accounting since these inter
 ## Dependencies
 - Functions called/Symbols referenced:
   - rbtxn_get_toptxn
-  - pairingheap_remove
-  - pairingheap_add
+  - [pairingheap_remove](../p/pairingheap_remove.md)
+  - [pairingheap_add](../p/pairingheap_add.md)
   - REORDER_BUFFER_CHANGE_INTERNAL_TUPLECID
 - Called from (representative examples):
   - IsInsertOrUpdate
-  - ReorderBufferReturnChange
-  - ReorderBufferQueueChange
-  - ReorderBufferCleanupTXN
-  - ReorderBufferTruncateTXN
-  - ReorderBufferSerializeTXN
-  - ReorderBufferRestoreChange
-  - ReorderBufferToastReplace
+  - [ReorderBufferReturnChange](ReorderBufferReturnChange.md)
+  - [ReorderBufferQueueChange](ReorderBufferQueueChange.md)
+  - [ReorderBufferCleanupTXN](ReorderBufferCleanupTXN.md)
+  - [ReorderBufferTruncateTXN](ReorderBufferTruncateTXN.md)
+  - [ReorderBufferSerializeTXN](ReorderBufferSerializeTXN.md)
+  - [ReorderBufferRestoreChange](ReorderBufferRestoreChange.md)
+  - [ReorderBufferToastReplace](ReorderBufferToastReplace.md)
 
 ## Notes and Other Information
 - Either txn or change must be non-NULL; if txn is NULL, the function uses change->txn

@@ -24,7 +24,7 @@ The function extracts both the content pointer and length from the xmlBuffer usi
 - Functions called/Symbols referenced:
   - xmlBufferContent (libxml2 function to get buffer content pointer)
   - xmlBufferLength (libxml2 function to get buffer length)
-  - cstring_to_text_with_len (creates PostgreSQL text with specified length)
+  - [cstring_to_text_with_len](../c/cstring_to_text_with_len.md) (creates PostgreSQL text with specified length)
   - [xmltype](xmltype.md) (PostgreSQL XML data type)
 - Called from:
   - [xmltotext_with_options](xmltotext_with_options.md) (XML to text conversion with options)

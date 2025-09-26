@@ -43,7 +43,7 @@ The recursive behavior ensures that type hierarchies and table relationships mai
   - [recordDependencyOn](../r/recordDependencyOn.md)
   - [recordExtObjInitPriv](../r/recordExtObjInitPriv.md)
   - [deleteDependencyRecordsForClass](../d/deleteDependencyRecordsForClass.md)
-  - extension_config_remove
+  - [extension_config_remove](../e/extension_config_remove.md)
   - [removeExtObjInitPriv](../r/removeExtObjInitPriv.md)
   - [get_array_type](../g/get_array_type.md)
   - [type_is_range](../t/type_is_range.md)

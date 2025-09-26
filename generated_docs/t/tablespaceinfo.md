@@ -31,18 +31,18 @@ In base backup operations, a list of `tablespaceinfo` structures is constructed 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SendBaseBackup
-  - BaseBackupCmd
-  - IncrementalBackupInfo
+  - [SendBaseBackup](../S/SendBaseBackup.md)
+  - [BaseBackupCmd](../B/BaseBackupCmd.md)
+  - [IncrementalBackupInfo](../I/IncrementalBackupInfo.md)
   
 - Called from (representative examples):
-  - do_pg_backup_start (src/backend/access/transam/xlog.c:8869, 9090)
-  - perform_base_backup (src/backend/backup/basebackup.c:283, 290, 304, 323)
-  - sendDir (src/backend/backup/basebackup.c:1447)
-  - SendTablespaceList (src/backend/backup/basebackup_copy.c:398)
-  - bbsink_copystream_begin_archive (src/backend/backup/basebackup_copy.c:168)
-  - read_tablespace_map (src/backend/access/transam/xlogrecovery.c:1356, 1409)
-  - InitWalRecovery (src/backend/access/transam/xlogrecovery.c:676)
+  - [do_pg_backup_start](../d/do_pg_backup_start.md) (src/backend/access/transam/xlog.c:8869, 9090)
+  - [perform_base_backup](../p/perform_base_backup.md) (src/backend/backup/basebackup.c:283, 290, 304, 323)
+  - [sendDir](../s/sendDir.md) (src/backend/backup/basebackup.c:1447)
+  - [SendTablespaceList](../S/SendTablespaceList.md) (src/backend/backup/basebackup_copy.c:398)
+  - [bbsink_copystream_begin_archive](../b/bbsink_copystream_begin_archive.md) (src/backend/backup/basebackup_copy.c:168)
+  - [read_tablespace_map](../r/read_tablespace_map.md) (src/backend/access/transam/xlogrecovery.c:1356, 1409)
+  - [InitWalRecovery](../I/InitWalRecovery.md) (src/backend/access/transam/xlogrecovery.c:676)
 
 ## Notes and Other Information
 - The structure is primarily used in list form, where multiple `tablespaceinfo` entries represent all tablespaces in a cluster during backup operations

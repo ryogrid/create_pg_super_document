@@ -32,7 +32,7 @@ The time2tm function performs the inverse operation of tm2time, converting Postg
   - [time_out](time_out.md)
   - [time_part_common](time_part_common.md)
   - [time_timetz](time_timetz.md)
-  - JsonEncodeDateTime
+  - [JsonEncodeDateTime](../J/JsonEncodeDateTime.md)
   - PG_RETURN_TIMETZADT_P
 
 ## Notes and Other Information

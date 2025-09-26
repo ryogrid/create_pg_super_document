@@ -42,7 +42,7 @@ The function creates a complex control flow graph with basic blocks for each att
   - [varsize_any](../v/varsize_any.md): Calculates size of variable-length attributes
   - strlen: Calculates length of null-terminated strings
 - Called from (representative examples):
-  - llvm_compile_expr: Uses deformation functions in expression compilation
+  - [llvm_compile_expr](../l/llvm_compile_expr.md): Uses deformation functions in expression compilation
 
 ## Notes and Other Information
 - The function performs extensive compile-time optimizations based on tuple descriptor analysis

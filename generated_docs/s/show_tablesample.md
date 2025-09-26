@@ -32,7 +32,7 @@ The function works by looking up the sampling method name from the handler funct
   - [ExplainIndentText](../E/ExplainIndentText.md) (adds proper indentation in text format)
   - [ExplainPropertyText](../E/ExplainPropertyText.md) (outputs named text properties in structured formats)
   - [ExplainPropertyList](../E/ExplainPropertyList.md) (outputs named list properties in structured formats)
-  - appendStringInfo/appendStringInfoString/appendStringInfoChar (builds output string)
+  - [appendStringInfo](../a/appendStringInfo.md)/appendStringInfoString/appendStringInfoChar (builds output string)
 - Constants referenced:
   - EXPLAIN_FORMAT_TEXT (indicates text output format)
 - Types referenced:

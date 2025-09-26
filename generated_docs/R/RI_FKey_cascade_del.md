@@ -26,7 +26,7 @@ The function uses RowExclusiveLock on the foreign key relation since it will per
 - Functions called/Symbols referenced:
   - [ri_CheckTrigger](../r/ri_CheckTrigger.md): Validates the trigger call context
   - [ri_FetchConstraintInfo](../r/ri_FetchConstraintInfo.md): Retrieves constraint metadata
-  - `table_open`: Opens the foreign key relation with RowExclusiveLock
+  - `[table_open](../t/table_open.md)`: Opens the foreign key relation with RowExclusiveLock
   - [ri_BuildQueryKey](../r/ri_BuildQueryKey.md): Builds query cache key
   - [ri_FetchPreparedPlan](../r/ri_FetchPreparedPlan.md): Retrieves cached query plan
   - [ri_GenerateQual](../r/ri_GenerateQual.md): Generates WHERE clause conditions

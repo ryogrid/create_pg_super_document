@@ -40,10 +40,10 @@ Finally, it constructs and returns a multirange from the deserialized ranges.
   - IOFunc_receive
   - [pq_getmsgint](../p/pq_getmsgint.md)
   - [pq_getmsgbytes](../p/pq_getmsgbytes.md)
-  - resetStringInfo
-  - appendBinaryStringInfo
+  - [resetStringInfo](../r/resetStringInfo.md)
+  - [appendBinaryStringInfo](../a/appendBinaryStringInfo.md)
   - [ReceiveFunctionCall](../R/ReceiveFunctionCall.md)
-  - DatumGetRangeTypeP
+  - [DatumGetRangeTypeP](../D/DatumGetRangeTypeP.md)
   - [pq_getmsgend](../p/pq_getmsgend.md)
   - [make_multirange](make_multirange.md)
   - PG_RETURN_MULTIRANGE_P

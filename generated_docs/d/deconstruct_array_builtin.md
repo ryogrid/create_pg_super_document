@@ -44,7 +44,7 @@ This function is particularly useful when working with system catalog arrays or 
   - [textarray_to_strvaluelist](../t/textarray_to_strvaluelist.md) (text array to string list conversion)
   - [pg_get_object_address](../p/pg_get_object_address.md) (object address resolution)
   - [oid_array_to_list](../o/oid_array_to_list.md) (OID array to list conversion)
-  - TidListEval (tuple ID list evaluation)
+  - [TidListEval](../T/TidListEval.md) (tuple ID list evaluation)
   - [ArrayGetIntegerTypmods](../A/ArrayGetIntegerTypmods.md) (integer type modifier extraction)
   - [json_object](../j/json_object.md)/jsonb_object (JSON object construction)
   - [percentile_disc_multi_final](../p/percentile_disc_multi_final.md) (percentile aggregate finalization)

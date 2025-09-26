@@ -26,8 +26,8 @@ AttributeTemplate serves as a template function in PostgreSQL's LLVM JIT compila
   - [llvm_function_reference](../l/llvm_function_reference.md) (in llvmjit.c:627)
   - [llvm_create_types](../l/llvm_create_types.md) (in llvmjit.c:1135)
   - [slot_compile_deform](../s/slot_compile_deform.md) (in llvmjit_deform.c:144)
-  - llvm_compile_expr (in llvmjit_expr.c:160)
-  - BuildV1Call (in llvmjit_expr.c:2726)
+  - [llvm_compile_expr](../l/llvm_compile_expr.md) (in llvmjit_expr.c:160)
+  - [BuildV1Call](../B/BuildV1Call.md) (in llvmjit_expr.c:2726)
 
 ## Notes and Other Information
 - This function is part of the JIT template system and should not be called directly during normal PostgreSQL operations

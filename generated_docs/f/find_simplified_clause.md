@@ -22,7 +22,7 @@ This function is a core optimization component for PostgreSQL's range type query
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetRangeTypeP
+  - [DatumGetRangeTypeP](../D/DatumGetRangeTypeP.md)
   - [lookup_type_cache](../l/lookup_type_cache.md)
   - RangeTypeGetOid
   - [range_deserialize](../r/range_deserialize.md)

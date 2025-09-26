@@ -22,7 +22,7 @@ This function determines if a RestrictInfo represents an equality clause of the 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [IsBinaryTidClause](IsBinaryTidClause.md) (validates binary TID clause structure)
-  - OpExpr (cast to access operator information)
+  - [OpExpr](../O/OpExpr.md) (cast to access operator information)
   - TIDEqualOperator (constant for TID equality operator)
 - Called from (representative examples):
   - [RestrictInfoIsTidQual](../R/RestrictInfoIsTidQual.md)

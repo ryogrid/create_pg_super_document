@@ -24,7 +24,7 @@ The function uses critical sections on Windows to ensure thread safety during th
 - Functions called/Symbols referenced:
   - [PQfreeCancel](../P/PQfreeCancel.md)
   - [PQgetCancel](../P/PQgetCancel.md)
-  - PGcancel (type)
+  - [PGcancel](../P/PGcancel.md) (type)
 - Called from (representative examples):
   - [runInitSteps](../r/runInitSteps.md) (pgbench)
   - [PSQLexec](../P/PSQLexec.md) (psql)

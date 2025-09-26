@@ -24,7 +24,7 @@ The function is typically accessed through the GetPerTupleExprContext() macro ra
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreateExprContext (creates new ExprContext if none exists)
+  - [CreateExprContext](../C/CreateExprContext.md) (creates new ExprContext if none exists)
 
 - Called from (representative examples):
   - ResetExprContext (via macro in src/include/executor/executor.h:548)

@@ -22,9 +22,9 @@ The function iterates through possible bit widths starting from 4, calculating t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initHyperLogLog (for actual initialization with calculated bit width)
+  - [initHyperLogLog](initHyperLogLog.md) (for actual initialization with calculated bit width)
   - sqrt (mathematical function for square root calculation)
-  - hyperLogLogState (structure type)
+  - [hyperLogLogState](../h/hyperLogLogState.md) (structure type)
 - Called from (representative examples):
   - No direct callers found in the current codebase
 

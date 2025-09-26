@@ -21,7 +21,7 @@ This function creates a new conditional branch by pushing a new IfStackElem onto
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_malloc (memory allocation for new stack element)
+  - [pg_malloc](../p/pg_malloc.md) (memory allocation for new stack element)
   - [IfStackElem](../I/IfStackElem.md) (structure type for stack elements)
   - ifState (enum type for conditional states)
 - Called from (representative examples):

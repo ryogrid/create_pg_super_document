@@ -24,10 +24,10 @@ The function only performs the operation if the buffer requires redo (BLK_NEEDS_
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogReadBufferForRedo
+  - [XLogReadBufferForRedo](../X/XLogReadBufferForRedo.md)
   - BTPageGetOpaque
   - [PageSetLSN](../P/PageSetLSN.md)
-  - MarkBufferDirty
+  - [MarkBufferDirty](../M/MarkBufferDirty.md)
   - [BufferIsValid](../B/BufferIsValid.md)
   - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
   - [BufferGetPage](../B/BufferGetPage.md)

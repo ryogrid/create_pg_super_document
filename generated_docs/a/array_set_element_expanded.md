@@ -41,12 +41,12 @@ The function is designed to be failure-safe, ensuring the expanded array object 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DatumGetExpandedArray](../D/DatumGetExpandedArray.md)
-  - deconstruct_expanded_array
+  - [deconstruct_expanded_array](../d/deconstruct_expanded_array.md)
   - [datumCopy](../d/datumCopy.md)
-  - ArrayGetNItems
-  - ArrayCheckBounds
-  - ArrayGetOffset
-  - EOHPGetRWDatum
+  - [ArrayGetNItems](../A/ArrayGetNItems.md)
+  - [ArrayCheckBounds](../A/ArrayCheckBounds.md)
+  - [ArrayGetOffset](../A/ArrayGetOffset.md)
+  - [EOHPGetRWDatum](../E/EOHPGetRWDatum.md)
   - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md)
   - [repalloc](../r/repalloc.md)
   - [pg_sub_s32_overflow](../p/pg_sub_s32_overflow.md)

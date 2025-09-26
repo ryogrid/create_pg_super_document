@@ -20,7 +20,7 @@ The function returns an array of INT32 values representing the PIDs of processes
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetBlockerStatusData](../G/GetBlockerStatusData.md) (retrieves lock blocking information)
-  - GetLockTagsMethodTable (gets lock method table for lock type)
+  - [GetLockTagsMethodTable](../G/GetLockTagsMethodTable.md) (gets lock method table for lock type)
   - [construct_array_builtin](../c/construct_array_builtin.md) (constructs PostgreSQL array result)
   - [palloc](palloc.md) (PostgreSQL memory allocation)
 - Referenced types:

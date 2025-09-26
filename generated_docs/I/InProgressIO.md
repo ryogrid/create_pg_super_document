@@ -28,7 +28,7 @@ The structure is designed to be compact, using only 16-bit integers for buffer i
   - [ReadBuffersOperation](../R/ReadBuffersOperation.md)
 - Called from (representative examples):
   - [ReadStream](../R/ReadStream.md) (as member variable)
-  - read_stream_begin_relation
+  - [read_stream_begin_relation](../r/read_stream_begin_relation.md)
 
 ## Notes and Other Information
 - This structure is part of PostgreSQL's asynchronous I/O infrastructure introduced for improved read-ahead performance

@@ -32,19 +32,19 @@ This approach is particularly useful for table functions, system information fun
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - heap_form_minimal_tuple
-  - GetMemoryChunkSpace
+  - [heap_form_minimal_tuple](../h/heap_form_minimal_tuple.md)
+  - [GetMemoryChunkSpace](../G/GetMemoryChunkSpace.md)
   - USEMEM
-  - tuplestore_puttuple_common
+  - [tuplestore_puttuple_common](tuplestore_puttuple_common.md)
 - Types used:
-  - Tuplestorestate
-  - TupleDesc
+  - [Tuplestorestate](../T/Tuplestorestate.md)
+  - [TupleDesc](../T/TupleDesc.md)
   - MinimalTuple
   - Datum
 - Called from (representative examples):
-  - ExecMakeTableFunctionResult (execSRF.c)
-  - pg_timezone_names (datetime.c)
-  - pg_config (pg_config.c)
+  - [ExecMakeTableFunctionResult](../E/ExecMakeTableFunctionResult.md) (execSRF.c)
+  - [pg_timezone_names](../p/pg_timezone_names.md) (datetime.c)
+  - [pg_config](../p/pg_config.md) (pg_config.c)
   - Various system information functions
 
 ## Notes and Other Information

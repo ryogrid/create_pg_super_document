@@ -27,7 +27,7 @@ The function is essential for determining which columns are being modified, whic
   - [ExecGetRootToChildMap](ExecGetRootToChildMap.md): Gets the tuple conversion map for partitioned table child relations
   - [execute_attr_map_cols](../e/execute_attr_map_cols.md): Applies attribute mapping to convert column bitmaps
   - [RTEPermissionInfo](../R/RTEPermissionInfo.md): Structure containing permission and column information
-  - TupleConversionMap: Structure for converting between different tuple schemas
+  - [TupleConversionMap](../T/TupleConversionMap.md): Structure for converting between different tuple schemas
 - Called from (representative examples):
   - [index_unchanged_by_update](../i/index_unchanged_by_update.md): To determine if an index needs updating based on modified columns
   - [ExecPartitionCheckEmitError](ExecPartitionCheckEmitError.md): When validating partition constraints during UPDATE operations

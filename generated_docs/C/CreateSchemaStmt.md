@@ -34,13 +34,13 @@ During execution, the new schema is temporarily added to the search_path, allowi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RoleSpec (for specifying schema ownership)
+  - [RoleSpec](../R/RoleSpec.md) (for specifying schema ownership)
   - NodeTag (inherited node type system)
-  - List (for schema elements)
+  - [List](../L/List.md) (for schema elements)
 - Called from (representative examples):
-  - CreateSchemaCommand (main execution function)
-  - ProcessUtilitySlow (utility command processing)
-  - CreateExtensionInternal (during extension creation)
+  - [CreateSchemaCommand](CreateSchemaCommand.md) (main execution function)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (utility command processing)
+  - [CreateExtensionInternal](CreateExtensionInternal.md) (during extension creation)
 
 ## Notes and Other Information
 - Schema elements are raw parse trees that are analyzed and executed after schema creation

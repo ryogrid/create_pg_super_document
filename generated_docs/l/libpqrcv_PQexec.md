@@ -26,7 +26,7 @@ As an optimization, the function skips try/catch error handling since all errors
   - [libpqrcv_PQgetResult](libpqrcv_PQgetResult.md) (for collecting query results)
   - [PQclear](../P/PQclear.md) (for cleaning up previous results)
   - [PQresultStatus](../P/PQresultStatus.md) (for checking result status)
-  - PQstatus (for checking connection status)
+  - [PQstatus](../P/PQstatus.md) (for checking connection status)
 - Used by:
   - [libpqrcv_connect](libpqrcv_connect.md) (for connection setup queries)
   - [libpqrcv_identify_system](libpqrcv_identify_system.md) (for system identification)

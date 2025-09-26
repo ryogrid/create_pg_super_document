@@ -24,7 +24,7 @@ The `lo_truncate64` function provides the same functionality as `lo_truncate` bu
   - [lo_initialize](lo_initialize.md)
   - [libpq_append_conn_error](libpq_append_conn_error.md)
   - [lo_hton64](lo_hton64.md)
-  - PQfn
+  - [PQfn](../P/PQfn.md)
   - [PQresultStatus](../P/PQresultStatus.md)
   - [PQclear](../P/PQclear.md)
 - Called from (representative examples):

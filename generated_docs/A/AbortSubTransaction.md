@@ -41,7 +41,7 @@ This function takes no parameters and operates on the global CurrentTransactionS
 - Functions called/Symbols referenced:
   - HOLD_INTERRUPTS, RESUME_INTERRUPTS
   - [AtSubAbort_Memory](AtSubAbort_Memory.md), AtSubAbort_ResourceOwner
-  - LWLockReleaseAll, UnlockBuffers
+  - [LWLockReleaseAll](../L/LWLockReleaseAll.md), UnlockBuffers
   - [XLogResetInsertion](../X/XLogResetInsertion.md)
   - [ConditionVariableCancelSleep](../C/ConditionVariableCancelSleep.md)
   - [LockErrorCleanup](../L/LockErrorCleanup.md), reschedule_timeouts
@@ -57,13 +57,13 @@ This function takes no parameters and operates on the global CurrentTransactionS
   - [RecordTransactionAbort](../R/RecordTransactionAbort.md)
   - [AtSubAbort_childXids](AtSubAbort_childXids.md)
   - [CallSubXactCallbacks](../C/CallSubXactCallbacks.md)
-  - ResourceOwnerRelease
+  - [ResourceOwnerRelease](../R/ResourceOwnerRelease.md)
   - [AtEOSubXact_RelationCache](AtEOSubXact_RelationCache.md), AtEOSubXact_Inval
   - [AtSubAbort_smgr](AtSubAbort_smgr.md)
   - [AtEOXact_GUC](AtEOXact_GUC.md), AtEOSubXact_SPI
   - [AtEOSubXact_on_commit_actions](AtEOSubXact_on_commit_actions.md), AtEOSubXact_Namespace
   - [AtEOSubXact_Files](AtEOSubXact_Files.md), AtEOSubXact_HashTables
-  - AtEOSubXact_PgStat
+  - [AtEOSubXact_PgStat](AtEOSubXact_PgStat.md)
   - [AtSubAbort_Snapshot](AtSubAbort_Snapshot.md)
 - Called from (representative examples):
   - [CommitTransactionCommandInternal](../C/CommitTransactionCommandInternal.md)

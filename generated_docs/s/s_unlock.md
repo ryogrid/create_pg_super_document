@@ -25,7 +25,7 @@ The function provides a clean abstraction for spinlock release while allowing th
 ## Dependencies
 - Functions called/Symbols referenced:
   - TAS_ACTIVE_WORD (HP PA-RISC specific macro, if defined)
-  - slock_t (spinlock data type)
+  - [slock_t](slock_t.md) (spinlock data type)
 - Called from (representative examples):
   - S_UNLOCK (header macro)
   - USE_DEFAULT_S_UNLOCK (configuration check)

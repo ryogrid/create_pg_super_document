@@ -31,11 +31,11 @@ CreateEventTrigStmt is a parse tree node that captures all components of a CREAT
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (for creating the node)
-  - DefElem (for when clause conditions)
+  - [DefElem](../D/DefElem.md) (for when clause conditions)
   - NodeTag (for type identification)
 - Called from (representative examples):
-  - CreateEventTrigger (in src/backend/commands/event_trigger.c:120)
-  - ProcessUtilitySlow (utility command processing)
+  - [CreateEventTrigger](CreateEventTrigger.md) (in src/backend/commands/event_trigger.c:120)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (utility command processing)
 
 ## Notes and Other Information
 - Part of PostgreSQL's event trigger system for monitoring DDL operations and database events

@@ -25,7 +25,7 @@ The function updates buffer usage statistics (shared_blks_hit or local_blks_hit)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BufferIsValid](../B/BufferIsValid.md): Validates buffer identifier
-  - ResourceOwnerEnlarge: Ensures resource tracking capacity
+  - [ResourceOwnerEnlarge](ResourceOwnerEnlarge.md): Ensures resource tracking capacity
   - [ReservePrivateRefCountEntry](ReservePrivateRefCountEntry.md): Reserves reference count entry
   - [InitBufferTag](../I/InitBufferTag.md): Creates buffer tag for comparison
   - BufferIsLocal: Determines if buffer is local or shared
@@ -33,13 +33,13 @@ The function updates buffer usage statistics (shared_blks_hit or local_blks_hit)
   - [GetBufferDescriptor](../G/GetBufferDescriptor.md): Gets shared buffer descriptor
   - [GetPrivateRefCount](../G/GetPrivateRefCount.md): Checks current pin count
   - [BufferTagsEqual](../B/BufferTagsEqual.md): Compares buffer tags for match
-  - PinLocalBuffer: Pins local buffer
-  - PinBuffer: Pins shared buffer (existing pin)
-  - PinBuffer_Locked: Pins shared buffer (new pin)
-  - LockBufHdr: Locks buffer header
+  - [PinLocalBuffer](../P/PinLocalBuffer.md): Pins local buffer
+  - [PinBuffer](../P/PinBuffer.md): Pins shared buffer (existing pin)
+  - [PinBuffer_Locked](../P/PinBuffer_Locked.md): Pins shared buffer (new pin)
+  - [LockBufHdr](../L/LockBufHdr.md): Locks buffer header
   - [UnlockBufHdr](../U/UnlockBufHdr.md): Unlocks buffer header
 - Called from (representative examples):
-  - XLogReadBufferExtended: WAL replay buffer access
+  - [XLogReadBufferExtended](../X/XLogReadBufferExtended.md): WAL replay buffer access
 
 ## Notes and Other Information
 - Returns true if successful with buffer pinned and usage count updated

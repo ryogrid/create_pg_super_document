@@ -33,7 +33,7 @@ The function includes safeguards for shutdown scenarios where sending replies mi
   - [WakeupRecovery](../W/WakeupRecovery.md)
   - AllowCascadeReplication
   - [WalSndWakeup](../W/WalSndWakeup.md)
-  - set_ps_display
+  - [set_ps_display](../s/set_ps_display.md)
   - [XLogWalRcvSendReply](XLogWalRcvSendReply.md)
   - [XLogWalRcvSendHSFeedback](XLogWalRcvSendHSFeedback.md)
 - Called from (representative examples):

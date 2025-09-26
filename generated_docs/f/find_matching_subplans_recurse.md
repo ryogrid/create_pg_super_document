@@ -32,7 +32,7 @@ For each partition found to be valid, the function either adds the corresponding
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth
+  - [check_stack_depth](../c/check_stack_depth.md)
   - [get_matching_partitions](../g/get_matching_partitions.md)
   - [bms_next_member](../b/bms_next_member.md)
   - [bms_add_member](../b/bms_add_member.md)

@@ -21,7 +21,7 @@ This function processes backup manifest contents for the Zstandard backup sink. 
 ## Dependencies
 - Functions called/Symbols referenced:
   - memcpy (standard C library function)
-  - bbsink_manifest_contents
+  - [bbsink_manifest_contents](bbsink_manifest_contents.md)
 - Called from (representative examples):
   - (No direct callers found - likely called through function pointer in bbsink vtable)
 

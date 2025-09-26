@@ -29,8 +29,8 @@ This is a PostgreSQL SQL function that can be called from SQL queries to convert
   - [palloc0](../p/palloc0.md): Allocates zero-initialized memory for the result
   - `PG_RETURN_MACADDR8_P`: Returns the macaddr8 result
 - Types referenced:
-  - `macaddr`: Input 6-byte MAC address type
-  - `macaddr8`: Output 8-byte MAC address type
+  - `[macaddr](macaddr.md)`: Input 6-byte MAC address type
+  - `[macaddr8](macaddr8.md)`: Output 8-byte MAC address type
 - Called from (representative examples):
   - No direct references found in the analyzed code
 

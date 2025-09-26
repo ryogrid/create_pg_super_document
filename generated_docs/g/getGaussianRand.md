@@ -28,12 +28,12 @@ The parameter controls the width of the distribution - larger parameter values a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_prng_state (PostgreSQL PRNG state type)
+  - [pg_prng_state](../p/pg_prng_state.md) (PostgreSQL PRNG state type)
   - MIN_GAUSSIAN_PARAM (minimum parameter constant, value 2.0)
   - [pg_prng_double_normal](../p/pg_prng_double_normal.md) (PostgreSQL normal distribution generator)
   - Assert (PostgreSQL assertion macro)
 - Called from (representative examples):
-  - evalStandardFunc (at src/bin/pgbench/pgbench.c:2699)
+  - [evalStandardFunc](../e/evalStandardFunc.md) (at src/bin/pgbench/pgbench.c:2699)
 
 ## Notes and Other Information
 - Function is declared static, limiting its scope to the pgbench.c file

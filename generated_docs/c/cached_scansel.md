@@ -24,7 +24,7 @@ The cache lookup is based on four key pathkey characteristics: operator family, 
 - Functions called/Symbols referenced:
   - [mergejoinscansel](../m/mergejoinscansel.md)
   - [MergeScanSelCache](../M/MergeScanSelCache.md) (struct)
-  - PathKey (struct)
+  - [PathKey](../P/PathKey.md) (struct)
 - Called from (representative examples):
   - [initial_cost_mergejoin](../i/initial_cost_mergejoin.md)
   - cost_qual_eval_context

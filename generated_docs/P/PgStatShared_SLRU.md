@@ -30,7 +30,7 @@ The structure is designed for concurrent access in a multi-process environment, 
   - [PgStat_SLRUStats](PgStat_SLRUStats.md)
   - SLRU_NUM_ELEMENTS
 - Called from (representative examples):
-  - pgstat_slru_flush
+  - [pgstat_slru_flush](../p/pgstat_slru_flush.md)
   - [pgstat_slru_snapshot_cb](../p/pgstat_slru_snapshot_cb.md)
   - [pgstat_reset_slru_counter_internal](../p/pgstat_reset_slru_counter_internal.md)
   - [PgStat_ShmemControl](PgStat_ShmemControl.md) (as a member)

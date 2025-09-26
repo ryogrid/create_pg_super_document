@@ -33,11 +33,11 @@ This mechanism ensures that under READ COMMITTED isolation, transactions see a c
   - [EPQState](EPQState.md) (structure type)
   - [EvalPlanQualBegin](EvalPlanQualBegin.md)
   - [EvalPlanQualSlot](EvalPlanQualSlot.md)
-  - ExecCopySlot
+  - [ExecCopySlot](ExecCopySlot.md)
   - [EvalPlanQualNext](EvalPlanQualNext.md)
   - TupIsNull
-  - ExecMaterializeSlot
-  - ExecClearTuple
+  - [ExecMaterializeSlot](ExecMaterializeSlot.md)
+  - [ExecClearTuple](ExecClearTuple.md)
 - Called from (representative examples):
   - [GetTupleForTrigger](../G/GetTupleForTrigger.md)
   - [ExecDelete](ExecDelete.md)

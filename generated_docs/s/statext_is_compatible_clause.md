@@ -32,7 +32,7 @@ This function serves as the public interface for clause compatibility checking w
   - [bms_next_member](../b/bms_next_member.md)
   - [bms_add_member](../b/bms_add_member.md)
   - [pull_varattnos](../p/pull_varattnos.md)
-  - all_rows_selectable
+  - [all_rows_selectable](../a/all_rows_selectable.md)
   - FirstLowInvalidHeapAttributeNumber
 - Called from (representative examples):
   - [statext_is_compatible_clause](statext_is_compatible_clause.md) (recursive calls for AND clauses)

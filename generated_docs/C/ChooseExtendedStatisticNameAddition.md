@@ -22,8 +22,8 @@ The generated string serves as the \"name2\" parameter for ChooseExtendedStatist
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - StatsElem (struct type)
-  - strlcpy
+  - [StatsElem](../S/StatsElem.md) (struct type)
+  - [strlcpy](../s/strlcpy.md)
   - [pstrdup](../p/pstrdup.md)
   - NAMEDATALEN (constant)
 - Called from (representative examples):

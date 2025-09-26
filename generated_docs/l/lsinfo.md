@@ -26,8 +26,8 @@ The lsinfo struct defines leap second transition information used by PostgreSQL'
 - Functions called/Symbols referenced:
   - pg_time_t (PostgreSQL time type)
 - Called from (representative examples):
-  - timesub (time subtraction calculations)
-  - leapcorr (leap second correction function)
+  - [timesub](../t/timesub.md) (time subtraction calculations)
+  - [leapcorr](leapcorr.md) (leap second correction function)
   - [state](../s/state.md) struct (as member lsis array)
 
 ## Notes and Other Information

@@ -29,7 +29,7 @@ The implementation relies on `AclMode` being an unsigned integer type to ensure 
 - Functions called/Symbols referenced:
   - No external functions called (uses only basic bitwise operations)
 - Called from (representative examples):
-  - `select_best_grantor`: Uses bit count for selecting the best privilege grantor
+  - `[select_best_grantor](../s/select_best_grantor.md)`: Uses bit count for selecting the best privilege grantor
 
 ## Notes and Other Information
 - This is a static function, meaning it's only visible within the `acl.c` compilation unit

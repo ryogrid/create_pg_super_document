@@ -19,14 +19,14 @@ InstrAlloc is a core function in PostgreSQL's execution instrumentation system t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0 (memory allocation)
-  - Instrumentation (structure type)
+  - [palloc0](../p/palloc0.md) (memory allocation)
+  - [Instrumentation](Instrumentation.md) (structure type)
   - INSTRUMENT_TIMER (constant)
   - INSTRUMENT_BUFFERS (constant)
   - INSTRUMENT_WAL (constant)
 - Called from (representative examples):
-  - InitResultRelInfo
-  - ExecInitNode
+  - [InitResultRelInfo](InitResultRelInfo.md)
+  - [ExecInitNode](../E/ExecInitNode.md)
 
 ## Notes and Other Information
 The function follows PostgreSQL's memory management conventions by using palloc0 for zero-initialized allocation. The instrumentation options are processed using bitwise operations to enable specific monitoring features. All allocated Instrumentation structures in the array share the same configuration based on the provided parameters, ensuring consistent monitoring behavior across multiple execution nodes.

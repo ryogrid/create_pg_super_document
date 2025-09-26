@@ -39,9 +39,9 @@ GS>: The GroupingSet node to expand, containing:
 ## Dependencies
 - Functions called/Symbols referenced:
   - list_make1
-  - list_length  
+  - [list_length](../l/list_length.md)  
   - [list_concat](../l/list_concat.md)
-  - lappend
+  - [lappend](../l/lappend.md)
   - lfirst
   - [expand_groupingset_node](expand_groupingset_node.md) (recursive call)
 - Called from:

@@ -25,14 +25,14 @@ This function is part of PostgreSQL's file descriptor management system that ens
   - DO_DB (debug logging macro)
   - AllocateDesc (descriptor structure type)
   - AllocateDescPipe (enum value for pipe descriptor type)
-  - FreeDesc (function to free a descriptor)
-  - pclose (system call to close pipe stream)
+  - [FreeDesc](../F/FreeDesc.md) (function to free a descriptor)
+  - [pclose](../p/pclose.md) (system call to close pipe stream)
   - elog (PostgreSQL logging function)
 - Called from (representative examples):
-  - pg_import_system_collations
-  - ClosePipeFromProgram
-  - ClosePipeToProgram
-  - run_ssl_passphrase_command
+  - [pg_import_system_collations](../p/pg_import_system_collations.md)
+  - [ClosePipeFromProgram](ClosePipeFromProgram.md)
+  - [ClosePipeToProgram](ClosePipeToProgram.md)
+  - [run_ssl_passphrase_command](../r/run_ssl_passphrase_command.md)
 
 ## Notes and Other Information
 - Returns the result of pclose when closing the pipe directly, or the result of FreeDesc when found in the allocated descriptors

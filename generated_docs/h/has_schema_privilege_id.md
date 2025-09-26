@@ -25,7 +25,7 @@ The function handles cases where the schema might not exist by checking for miss
   - [object_aclcheck_ext](../o/object_aclcheck_ext.md)
   - PG_GETARG_OID
   - PG_GETARG_TEXT_PP
-  - AclResult (type)
+  - [AclResult](../A/AclResult.md) (type)
 - Called from (representative examples):
   - No direct references found in codebase
 

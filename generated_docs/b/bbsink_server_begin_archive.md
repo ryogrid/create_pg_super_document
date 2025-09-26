@@ -24,7 +24,7 @@ The function includes safety assertions to verify that no file is currently open
 ## Dependencies
 - Functions called/Symbols referenced:
   - [psprintf](../p/psprintf.md)
-  - PathNameOpenFile
+  - [PathNameOpenFile](../P/PathNameOpenFile.md)
   - [pfree](../p/pfree.md)
   - ereport
   - [errcode_for_file_access](../e/errcode_for_file_access.md)

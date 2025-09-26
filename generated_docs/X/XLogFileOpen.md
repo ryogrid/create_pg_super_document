@@ -20,8 +20,8 @@ The function uses PANIC-level error reporting, indicating that failure to open a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogFilePath
-  - BasicOpenFile
+  - [XLogFilePath](XLogFilePath.md)
+  - [BasicOpenFile](../B/BasicOpenFile.md)
   - [get_sync_bit](../g/get_sync_bit.md)
   - ereport
   - [errcode_for_file_access](../e/errcode_for_file_access.md)

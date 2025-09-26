@@ -36,7 +36,7 @@ Critical locking protocol: The first page in the split remains locked throughout
 - Functions called/Symbols referenced:
   - XLogRecGetData (extracts gistxlogPageSplit structure)
   - [XLogRecGetBlockTag](../X/XLogRecGetBlockTag.md) (gets block information for each page)
-  - XLogInitBufferForRedo (initializes buffers for new pages)
+  - [XLogInitBufferForRedo](../X/XLogInitBufferForRedo.md) (initializes buffers for new pages)
   - [XLogRecGetBlockData](../X/XLogRecGetBlockData.md) (gets serialized tuple data for each page)
   - [decodePageSplitRecord](../d/decodePageSplitRecord.md) (deserializes tuple data)
   - [GISTInitBuffer](../G/GISTInitBuffer.md) (initializes page structure)

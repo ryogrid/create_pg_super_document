@@ -35,15 +35,15 @@ This function constructs a TupleDesc (tuple descriptor) for a new index by combi
   - RelationGetDescr: Gets the heap relation's tuple descriptor
   - RelationGetForm: Gets the heap relation's pg_class form
   - TupleDescAttr: Accesses tuple descriptor attributes
-  - list_head/lnext: List manipulation for iterating through column names and expressions
-  - exprType/exprTypmod: Determines type and type modifier of expressions
+  - [list_head](../l/list_head.md)/lnext: List manipulation for iterating through column names and expressions
+  - [exprType](../e/exprType.md)/exprTypmod: Determines type and type modifier of expressions
   - [SearchSysCache1](../S/SearchSysCache1.md): Looks up type and opclass information in system cache
   - [CheckAttributeType](CheckAttributeType.md): Validates that the attribute type is safe for index storage
   - [get_base_element_type](../g/get_base_element_type.md): Handles ANYELEMENT/ANYARRAY type resolution
   - MemSet: Initializes attribute structures
-  - namestrcpy: Copies attribute names
+  - [namestrcpy](../n/namestrcpy.md): Copies attribute names
 - Called from (representative examples):
-  - index_create: During index creation operations
+  - [index_create](../i/index_create.md): During index creation operations
   - SerializedReindexState: During reindex operations
 
 ## Notes and Other Information

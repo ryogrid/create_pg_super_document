@@ -20,11 +20,11 @@ The function is the counterpart to ResourceOwnerRememberFile and is part of Post
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwnerForget
-  - Int32GetDatum
+  - [ResourceOwnerForget](ResourceOwnerForget.md)
+  - [Int32GetDatum](../I/Int32GetDatum.md)
   - file_resowner_desc (resource descriptor for file cleanup)
 - Called from (representative examples):
-  - FileClose
+  - [FileClose](../F/FileClose.md)
 
 ## Notes and Other Information
 - This is a static inline function, so it's only visible within the fd.c source file

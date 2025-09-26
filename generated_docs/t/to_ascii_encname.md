@@ -24,7 +24,7 @@ The function follows PostgreSQL convention for SQL-callable functions by using P
 - Functions called/Symbols referenced:
   - PG_GETARG_TEXT_P_COPY (macro to get text argument with copy)
   - PG_GETARG_NAME (macro to get Name argument)
-  - pg_char_to_encoding (converts encoding name to encoding ID)
+  - [pg_char_to_encoding](../p/pg_char_to_encoding.md) (converts encoding name to encoding ID)
   - [encode_to_ascii](../e/encode_to_ascii.md) (performs the actual ASCII conversion)
   - PG_RETURN_TEXT_P (macro to return text result)
   - ereport (error reporting function)

@@ -39,7 +39,7 @@ This function implements view expansion by taking an ON SELECT rule and transfor
   - copyObject
   - rt_fetch
   - [ChangeVarNodes](../C/ChangeVarNodes.md)
-  - makeWholeRowVar
+  - [makeWholeRowVar](../m/makeWholeRowVar.md)
   - [makeTargetEntry](../m/makeTargetEntry.md)
   - [get_parse_rowmark](../g/get_parse_rowmark.md)
   - [AcquireRewriteLocks](AcquireRewriteLocks.md)

@@ -27,12 +27,12 @@ This is a critical component of PostgreSQL's cost-based query optimizer, providi
 - `stats`: PgStat_StatTabEntry structure containing comprehensive relation statistics including scan counts, tuple operations, buffer metrics, maintenance history, and tuple lifecycle data
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PgStatShared_Common
+  - [PgStatShared_Common](PgStatShared_Common.md)
   - [PgStat_StatTabEntry](PgStat_StatTabEntry.md)
 - Called from (representative examples):
-  - pgstat_copy_relation_stats
-  - pgstat_report_vacuum
-  - pgstat_report_analyze
+  - [pgstat_copy_relation_stats](../p/pgstat_copy_relation_stats.md)
+  - [pgstat_report_vacuum](../p/pgstat_report_vacuum.md)
+  - [pgstat_report_analyze](../p/pgstat_report_analyze.md)
   - [pgstat_relation_flush_cb](../p/pgstat_relation_flush_cb.md)
   - SH_DECLARE (hash table declarations)
 

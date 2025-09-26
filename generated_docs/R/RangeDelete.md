@@ -30,13 +30,13 @@ This function is typically called as part of the DROP TYPE command processing fo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - [ScanKeyInit](../S/ScanKeyInit.md)
   - [systable_beginscan](../s/systable_beginscan.md)
   - [systable_getnext](../s/systable_getnext.md)
   - [CatalogTupleDelete](../C/CatalogTupleDelete.md)
   - [systable_endscan](../s/systable_endscan.md)
-  - table_close
+  - [table_close](../t/table_close.md)
 - Called from (representative examples):
   - [RemoveTypeById](RemoveTypeById.md)
 

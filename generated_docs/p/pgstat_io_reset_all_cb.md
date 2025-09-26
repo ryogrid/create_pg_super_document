@@ -22,7 +22,7 @@ This function serves as a callback to reset all I/O statistics stored in shared 
 - Functions called/Symbols referenced:
   - BACKEND_NUM_TYPES
   - [LWLock](../L/LWLock.md)
-  - PgStat_BktypeIO
+  - [PgStat_BktypeIO](../P/PgStat_BktypeIO.md)
 - Called from (representative examples):
   - SH_DECLARE (as part of statistics system callbacks)
 

@@ -31,13 +31,13 @@ Key responsibilities include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_expected_areq
-  - pg_GSS_startup, pg_SSPI_startup (GSS/SSPI authentication)
-  - pg_GSS_continue, pg_SSPI_continue (GSS/SSPI continuation)
-  - pg_password_sendauth (password/MD5 authentication)
-  - pg_SASL_init, pg_SASL_continue (SASL authentication)
+  - [check_expected_areq](../c/check_expected_areq.md)
+  - [pg_GSS_startup](pg_GSS_startup.md), pg_SSPI_startup (GSS/SSPI authentication)
+  - [pg_GSS_continue](pg_GSS_continue.md), pg_SSPI_continue (GSS/SSPI continuation)
+  - [pg_password_sendauth](pg_password_sendauth.md) (password/MD5 authentication)
+  - [pg_SASL_init](pg_SASL_init.md), pg_SASL_continue (SASL authentication)
   - pglock_thread, pgunlock_thread (thread safety)
-  - libpq_append_conn_error (error reporting)
+  - [libpq_append_conn_error](../l/libpq_append_conn_error.md) (error reporting)
 - Called from (representative examples):
   - Connection establishment routines in libpq
 

@@ -39,7 +39,7 @@ This enumeration defines the different types of actions that can be performed wh
 - Functions called/Symbols referenced:
   - (None - this is an enum definition)
 - Called from (representative examples):
-  - AlterPublicationStmt (as the 'action' field)
+  - [AlterPublicationStmt](AlterPublicationStmt.md) (as the 'action' field)
   - Parser grammar rules in gram.y for ALTER PUBLICATION statements
   - [Publication](../P/Publication.md) command functions in src/backend/commands/publicationcmds.c
 

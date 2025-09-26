@@ -30,7 +30,7 @@ The function creates the child plan without constraining its target list since t
 - Functions called/Symbols referenced:
   - [create_plan_recurse](create_plan_recurse.md) (creates the child plan)
   - [build_path_tlist](../b/build_path_tlist.md) (builds the target list for the path)
-  - make_project_set (creates the ProjectSet plan node)
+  - [make_project_set](../m/make_project_set.md) (creates the ProjectSet plan node)
   - [copy_generic_path_info](copy_generic_path_info.md) (copies common path information to the plan)
 - Called from (representative examples):
   - [create_plan_recurse](create_plan_recurse.md) (main recursive plan creation function)

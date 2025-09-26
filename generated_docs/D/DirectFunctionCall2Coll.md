@@ -30,8 +30,8 @@ The function uses the `LOCAL_FCINFO` macro to create a local function call info 
 
 - Called from (representative examples):
   - [spg_text_leaf_consistent](../s/spg_text_leaf_consistent.md) (SP-GiST text processing)
-  - text_isequal (text equality comparison)
-  - texteqfast (fast text equality for catalog cache)
+  - [text_isequal](../t/text_isequal.md) (text equality comparison)
+  - [texteqfast](../t/texteqfast.md) (fast text equality for catalog cache)
   - DirectFunctionCall2 (as a fallback in the macro definition)
 
 ## Notes and Other Information

@@ -20,11 +20,11 @@ This function initializes the prng_state field of a PGconn structure to provide 
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_prng_strong_seed (attempts to seed with cryptographically strong randomness)
-  - gettimeofday (gets current time for fallback seed)
-  - pg_prng_seed (initializes PRNG with the computed seed)
+  - [gettimeofday](../g/gettimeofday.md) (gets current time for fallback seed)
+  - [pg_prng_seed](../p/pg_prng_seed.md) (initializes PRNG with the computed seed)
   - getpid (gets process ID for fallback seed)
 - Called from (representative examples):
-  - pqConnectOptions2
+  - [pqConnectOptions2](../p/pqConnectOptions2.md)
 
 ## Notes and Other Information
 - Prioritizes security by attempting to use strong random sources first

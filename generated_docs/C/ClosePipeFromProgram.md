@@ -26,9 +26,9 @@ The error handling ensures that PostgreSQL can provide meaningful diagnostic inf
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ClosePipeStream
-  - wait_result_is_signal
-  - wait_result_to_str
+  - [ClosePipeStream](ClosePipeStream.md)
+  - [wait_result_is_signal](../w/wait_result_is_signal.md)
+  - [wait_result_to_str](../w/wait_result_to_str.md)
   - [errdetail_internal](../e/errdetail_internal.md)
   - SIGPIPE
 - Called from (representative examples):

@@ -42,7 +42,7 @@ Key analysis patterns include:
   - [bms_add_members](../b/bms_add_members.md)
   - [bms_membership](../b/bms_membership.md)
   - [func_strict](func_strict.md)
-  - set_opfuncid
+  - [set_opfuncid](../s/set_opfuncid.md)
   - [is_strict_saop](../i/is_strict_saop.md)
 - Called from (representative examples):
   - [find_nonnullable_rels](find_nonnullable_rels.md)

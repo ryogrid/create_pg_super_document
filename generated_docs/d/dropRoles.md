@@ -25,7 +25,7 @@ The function handles different PostgreSQL server versions: for version 9.6 and l
   - [printfPQExpBuffer](../p/printfPQExpBuffer.md) (format SQL query strings)
   - [executeQuery](../e/executeQuery.md) (execute SQL queries against the database)
   - [fmtId](../f/fmtId.md) (format SQL identifiers with proper quoting)
-  - createPQExpBuffer, destroyPQExpBuffer (manage query buffers)
+  - [createPQExpBuffer](../c/createPQExpBuffer.md), destroyPQExpBuffer (manage query buffers)
   - [PQfnumber](../P/PQfnumber.md), PQntuples, PQgetvalue, PQclear (PostgreSQL result set handling)
 - Called from:
   - [main](../m/main.md) (in src/bin/pg_dump/pg_dumpall.c as part of the dump process)

@@ -25,11 +25,11 @@ The function is essential for converting human-readable enum option names (like 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - config_enum (struct type)
-  - config_enum_entry (struct type)
-  - pg_strcasecmp (for case-insensitive string comparison)
+  - [config_enum](config_enum.md) (struct type)
+  - [config_enum_entry](config_enum_entry.md) (struct type)
+  - [pg_strcasecmp](../p/pg_strcasecmp.md) (for case-insensitive string comparison)
 - Called from (representative examples):
-  - parse_and_validate_value
+  - [parse_and_validate_value](../p/parse_and_validate_value.md)
 
 ## Notes and Other Information
 - The function performs case-insensitive matching using pg_strcasecmp()

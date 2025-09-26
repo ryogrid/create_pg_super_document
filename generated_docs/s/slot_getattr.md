@@ -24,22 +24,22 @@ The function first ensures that the requested attribute is materialized by calli
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slot_getsomeattrs
+  - [slot_getsomeattrs](slot_getsomeattrs.md)
 - Called from (representative examples):
-  - debugtup
-  - FormIndexDatum
-  - validateDomainCheckConstraint
-  - ExecJustVarImpl
-  - TupleHashTableHash_internal
-  - FormPartitionKeyDatum
-  - heap_compare_slots
-  - ExecNestLoop
-  - ExecScanSubPlan
-  - buildSubPlanHash
-  - update_frameheadpos
-  - ri_ExtractValues
-  - ri_KeysEqual
-  - ExecGetJunkAttribute
+  - [debugtup](../d/debugtup.md)
+  - [FormIndexDatum](../F/FormIndexDatum.md)
+  - [validateDomainCheckConstraint](../v/validateDomainCheckConstraint.md)
+  - [ExecJustVarImpl](../E/ExecJustVarImpl.md)
+  - [TupleHashTableHash_internal](../T/TupleHashTableHash_internal.md)
+  - [FormPartitionKeyDatum](../F/FormPartitionKeyDatum.md)
+  - [heap_compare_slots](../h/heap_compare_slots.md)
+  - [ExecNestLoop](../E/ExecNestLoop.md)
+  - [ExecScanSubPlan](../E/ExecScanSubPlan.md)
+  - [buildSubPlanHash](../b/buildSubPlanHash.md)
+  - [update_frameheadpos](../u/update_frameheadpos.md)
+  - [ri_ExtractValues](../r/ri_ExtractValues.md)
+  - [ri_KeysEqual](../r/ri_KeysEqual.md)
+  - [ExecGetJunkAttribute](../E/ExecGetJunkAttribute.md)
 
 ## Notes and Other Information
 - This is an inline function defined in the header file for performance reasons

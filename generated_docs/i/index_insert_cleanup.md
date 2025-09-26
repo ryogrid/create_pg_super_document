@@ -23,7 +23,7 @@ This function serves as a wrapper that calls the access method-specific cleanup 
 ## Dependencies
 - Functions called/Symbols referenced:
   - RELATION_CHECKS (macro for relation validation)
-  - IndexInfo (structure type)
+  - [IndexInfo](../I/IndexInfo.md) (structure type)
   - [IndexScanDesc](../I/IndexScanDesc.md) (structure type)
 - Called from (representative examples):
   - [validate_index](../v/validate_index.md) (src/backend/catalog/index.c:3401)

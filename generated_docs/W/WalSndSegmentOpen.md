@@ -28,8 +28,8 @@ The function also provides clear error handling for missing WAL segments, distin
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLByteToSeg
-  - XLogFilePath
-  - BasicOpenFile
+  - [XLogFilePath](../X/XLogFilePath.md)
+  - [BasicOpenFile](../B/BasicOpenFile.md)
   - [XLogFileName](../X/XLogFileName.md)
   - ereport
 - Called from (representative examples):

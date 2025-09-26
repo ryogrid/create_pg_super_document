@@ -25,9 +25,9 @@ This function is the core parser for PostgreSQL's timezone abbreviation files. I
   - GUC_check_errmsg
   - [get_share_path](../g/get_share_path.md)
   - snprintf
-  - AllocateFile
-  - AllocateDir
-  - FreeDir
+  - [AllocateFile](../A/AllocateFile.md)
+  - [AllocateDir](../A/AllocateDir.md)
+  - [FreeDir](../F/FreeDir.md)
   - feof
   - fgets
   - ferror
@@ -40,7 +40,7 @@ This function is the core parser for PostgreSQL's timezone abbreviation files. I
   - [splitTzLine](../s/splitTzLine.md)
   - [validateTzEntry](../v/validateTzEntry.md)
   - [addToArray](../a/addToArray.md)
-  - FreeFile
+  - [FreeFile](../F/FreeFile.md)
 - Called from (representative examples):
   - [ParseTzFile](ParseTzFile.md) (recursive calls)
   - [load_tzoffsets](../l/load_tzoffsets.md)

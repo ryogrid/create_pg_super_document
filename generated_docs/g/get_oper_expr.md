@@ -24,14 +24,14 @@ The function distinguishes between binary and prefix operators by examining the 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PRETTY_PAREN (macro for checking parentheses formatting preference)
-  - list_length (to determine if binary or unary operator)
+  - [list_length](../l/list_length.md) (to determine if binary or unary operator)
   - linitial, lsecond (list access macros)
-  - get_rule_expr_paren (to recursively deparse operand expressions with parentheses)
-  - generate_operator_name (to get the operator's string name from its OID)
-  - exprType (to determine operand types for operator resolution)
-  - appendStringInfo, appendStringInfoChar (string buffer operations)
+  - [get_rule_expr_paren](get_rule_expr_paren.md) (to recursively deparse operand expressions with parentheses)
+  - [generate_operator_name](generate_operator_name.md) (to get the operator's string name from its OID)
+  - [exprType](../e/exprType.md) (to determine operand types for operator resolution)
+  - [appendStringInfo](../a/appendStringInfo.md), appendStringInfoChar (string buffer operations)
 - Called from:
-  - get_rule_expr (main expression deparsing dispatcher)
+  - [get_rule_expr](get_rule_expr.md) (main expression deparsing dispatcher)
 
 ## Notes and Other Information
 - This function is part of the larger rule deparsing system used for displaying views, rules, and constraints

@@ -27,13 +27,13 @@ The function operates by:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - SearchSysCacheCopy1 
   - HeapTupleIsValid
   - GETSTRUCT (macro)
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - [heap_freetuple](../h/heap_freetuple.md)
-  - table_close
+  - [table_close](../t/table_close.md)
   - Form_pg_partitioned_table (struct type)
 - Called from (representative examples):
   - [heap_drop_with_catalog](../h/heap_drop_with_catalog.md)

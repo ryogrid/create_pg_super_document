@@ -23,17 +23,17 @@ This is a critical function in PostgreSQL's executor system for lazy attribute m
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slot_getsomeattrs_int
+  - [slot_getsomeattrs_int](slot_getsomeattrs_int.md)
 - Called from (representative examples):
-  - ExecInterpExpr
-  - process_ordered_aggregate_multi
-  - prepare_hash_slot
-  - prepare_projection_slot
-  - hashagg_spill_tuple
-  - ExecSort
-  - slot_getallattrs
-  - slot_attisnull
-  - slot_getattr
+  - [ExecInterpExpr](../E/ExecInterpExpr.md)
+  - [process_ordered_aggregate_multi](../p/process_ordered_aggregate_multi.md)
+  - [prepare_hash_slot](../p/prepare_hash_slot.md)
+  - [prepare_projection_slot](../p/prepare_projection_slot.md)
+  - [hashagg_spill_tuple](../h/hashagg_spill_tuple.md)
+  - [ExecSort](../E/ExecSort.md)
+  - [slot_getallattrs](slot_getallattrs.md)
+  - [slot_attisnull](slot_attisnull.md)
+  - [slot_getattr](slot_getattr.md)
 
 ## Notes and Other Information
 - This is an inline function defined in the header file for performance reasons

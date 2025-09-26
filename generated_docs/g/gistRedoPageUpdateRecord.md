@@ -33,7 +33,7 @@ Key behaviors:
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData (extracts WAL record data)
-  - XLogReadBufferForRedo (reads buffer for redo operation)
+  - [XLogReadBufferForRedo](../X/XLogReadBufferForRedo.md) (reads buffer for redo operation)
   - [XLogRecGetBlockData](../X/XLogRecGetBlockData.md) (gets block data from WAL record)
   - [PageIndexTupleOverwrite](../P/PageIndexTupleOverwrite.md) (overwrites single tuple)
   - [PageIndexMultiDelete](../P/PageIndexMultiDelete.md) (deletes multiple tuples)

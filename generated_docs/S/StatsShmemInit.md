@@ -21,22 +21,22 @@ This function initializes the shared memory statistics system during PostgreSQL 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - StatsShmemSize: Gets total shared memory size needed
-  - ShmemInitStruct: Creates or attaches to shared memory structure
+  - [StatsShmemSize](StatsShmemSize.md): Gets total shared memory size needed
+  - [ShmemInitStruct](ShmemInitStruct.md): Creates or attaches to shared memory structure
   - dsa_create_in_place: Creates DSA in predetermined memory location
-  - dsa_pin/dsa_detach: DSA lifecycle management
-  - dsa_set_size_limit: Controls DSA growth limits
-  - dshash_create: Creates dynamic shared hash table
-  - dshash_get_hash_table_handle/dshash_detach: Hash table management
-  - pg_atomic_init_u64: Initializes atomic counter for garbage collection
-  - LWLockInitialize: Initializes lightweight locks for various stats components
-  - pgstat_dsa_init_size: Gets DSA initialization size
+  - [dsa_pin](../d/dsa_pin.md)/dsa_detach: DSA lifecycle management
+  - [dsa_set_size_limit](../d/dsa_set_size_limit.md): Controls DSA growth limits
+  - [dshash_create](../d/dshash_create.md): Creates dynamic shared hash table
+  - [dshash_get_hash_table_handle](../d/dshash_get_hash_table_handle.md)/dshash_detach: Hash table management
+  - [pg_atomic_init_u64](../p/pg_atomic_init_u64.md): Initializes atomic counter for garbage collection
+  - [LWLockInitialize](../L/LWLockInitialize.md): Initializes lightweight locks for various stats components
+  - [pgstat_dsa_init_size](../p/pgstat_dsa_init_size.md): Gets DSA initialization size
 - Called from (representative examples):
-  - CreateOrAttachShmemStructs: Called during shared memory initialization
+  - [CreateOrAttachShmemStructs](../C/CreateOrAttachShmemStructs.md): Called during shared memory initialization
 
 ## Notes and Other Information
 - Only the postmaster process (IsUnderPostmaster == false) creates the structures
-- Backend processes just attach to existing shared memory structures
+- [Backend](../B/Backend.md) processes just attach to existing shared memory structures
 - Creates DSA in "plain" shared memory to avoid DSM dependency in postmaster
 - Temporarily limits DSA size during hash table creation to ensure placement in plain shared memory
 - Initializes locks for: archiver, bgwriter, checkpointer, SLRU, WAL, and I/O statistics

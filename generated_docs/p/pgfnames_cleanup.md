@@ -20,9 +20,9 @@ The  function is a companion to  that properly deallocates all memory allocated 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree: Deallocates memory for individual filename strings and the array
+  - [pfree](pfree.md): Deallocates memory for individual filename strings and the array
 - Called from (representative examples):
-  - scan_available_timezones: Used in initdb after processing timezone directory listings
+  - [scan_available_timezones](../s/scan_available_timezones.md): Used in initdb after processing timezone directory listings
 
 ## Notes and Other Information
 - Must be called after using pgfnames to prevent memory leaks

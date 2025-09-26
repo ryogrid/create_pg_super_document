@@ -40,17 +40,17 @@ The structure's design reflects PostgreSQL's philosophy of coordination between 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TM_IndexDelete (component structure)
-  - TM_IndexStatus (component structure)  
-  - Relation (PostgreSQL relation type)
+  - [TM_IndexDelete](TM_IndexDelete.md) (component structure)
+  - [TM_IndexStatus](TM_IndexStatus.md) (component structure)  
+  - [Relation](../R/Relation.md) (PostgreSQL relation type)
   - BlockNumber (PostgreSQL block number type)
 - Called from (representative examples):
-  - heap_index_delete_tuples
-  - index_delete_check_htid
-  - _bt_bottomupdel_pass
-  - _bt_simpledel_pass
-  - table_index_delete_tuples
-  - index_compute_xid_horizon_for_tuples
+  - [heap_index_delete_tuples](../h/heap_index_delete_tuples.md)
+  - [index_delete_check_htid](../i/index_delete_check_htid.md)
+  - [_bt_bottomupdel_pass](../b/_bt_bottomupdel_pass.md)
+  - [_bt_simpledel_pass](../b/_bt_simpledel_pass.md)
+  - [table_index_delete_tuples](../t/table_index_delete_tuples.md)
+  - [index_compute_xid_horizon_for_tuples](../i/index_compute_xid_horizon_for_tuples.md)
 
 ## Notes and Other Information
 - Central to PostgreSQL's sophisticated index maintenance and space reclamation strategies

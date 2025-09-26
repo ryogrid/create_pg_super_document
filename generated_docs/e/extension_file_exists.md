@@ -29,14 +29,14 @@ The function specifically ignores auxiliary control files (those containing "--"
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_extension_control_directory](../g/get_extension_control_directory.md)
-  - AllocateDir
-  - ReadDir
+  - [AllocateDir](../A/AllocateDir.md)
+  - [ReadDir](../R/ReadDir.md)
   - [is_extension_control_filename](../i/is_extension_control_filename.md)
   - [pstrdup](../p/pstrdup.md)
   - strrchr
   - strstr
   - strcmp
-  - FreeDir
+  - [FreeDir](../F/FreeDir.md)
 - Called from (representative examples):
   - [CreateFunction](../C/CreateFunction.md) (in functioncmds.c)
   - [ExecuteDoStmt](../E/ExecuteDoStmt.md) (in functioncmds.c)

@@ -24,17 +24,17 @@ For frozen tapes (those that have been previously written and are being rewound 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ltsWriteBlock (writes final block during transition from writing)
-  - ltsReleaseBlock (returns preallocated blocks to free list)
+  - [ltsWriteBlock](../l/ltsWriteBlock.md) (writes final block during transition from writing)
+  - [ltsReleaseBlock](../l/ltsReleaseBlock.md) (returns preallocated blocks to free list)
   - TapeBlockSetNBytes (sets byte count in block trailer)
   - VALGRIND_MAKE_MEM_DEFINED (marks memory as defined for Valgrind)
-  - pfree (frees memory)
-  - LogicalTape (structure type)
-  - LogicalTapeSet (structure type)
+  - [pfree](../p/pfree.md) (frees memory)
+  - [LogicalTape](LogicalTape.md) (structure type)
+  - [LogicalTapeSet](LogicalTapeSet.md) (structure type)
 - Called from (representative examples):
-  - hashagg_spill_finish
-  - mergeruns
-  - tuplesort_rescan
+  - [hashagg_spill_finish](../h/hashagg_spill_finish.md)
+  - [mergeruns](../m/mergeruns.md)
+  - [tuplesort_rescan](../t/tuplesort_rescan.md)
 
 ## Notes and Other Information
 - Can handle both writing-to-reading transitions and frozen tape rewinds

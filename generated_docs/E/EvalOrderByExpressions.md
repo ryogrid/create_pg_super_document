@@ -29,7 +29,7 @@ The function provides the recalculated ORDER BY values that can be compared with
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
-  - ExecEvalExpr
+  - [ExecEvalExpr](ExecEvalExpr.md)
   - lfirst (list iteration macro)
   - foreach (list iteration macro)
 - Called from (representative examples):

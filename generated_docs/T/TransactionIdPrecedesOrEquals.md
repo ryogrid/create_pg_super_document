@@ -25,9 +25,9 @@ This function performs a logical comparison to determine if transaction ID `id1`
   - [heap_prepare_freeze_tuple](../h/heap_prepare_freeze_tuple.md)
   - [heap_tuple_should_freeze](../h/heap_tuple_should_freeze.md)
   - [vacuum_get_cutoffs](../v/vacuum_get_cutoffs.md)
-  - SnapBuildFindSnapshot
-  - TransactionIdIsInProgress
-  - ComputeXidHorizons
+  - [SnapBuildFindSnapshot](../S/SnapBuildFindSnapshot.md)
+  - [TransactionIdIsInProgress](TransactionIdIsInProgress.md)
+  - [ComputeXidHorizons](../C/ComputeXidHorizons.md)
 
 ## Notes and Other Information
 - Extends the functionality of `TransactionIdPrecedes` by including equality in the comparison

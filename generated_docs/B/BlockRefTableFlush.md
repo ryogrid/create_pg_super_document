@@ -21,11 +21,11 @@ This is a critical function in the block reference table I/O system, ensuring th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BlockRefTableBuffer (structure)
+  - [BlockRefTableBuffer](BlockRefTableBuffer.md) (structure)
   - io_callback (function pointer within buffer)
 - Called from (representative examples):
-  - BlockRefTableWriter
-  - BlockRefTableFileTerminate
+  - [BlockRefTableWriter](BlockRefTableWriter.md)
+  - [BlockRefTableFileTerminate](BlockRefTableFileTerminate.md)
 
 ## Notes and Other Information
 - Static function, only accessible within the blkreftable.c module

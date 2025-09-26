@@ -27,13 +27,13 @@ The sift-up process compares the new block number with its parent nodes, moving 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - parent_offset
-  - repalloc
+  - [parent_offset](../p/parent_offset.md)
+  - [repalloc](../r/repalloc.md)
   - MaxAllocSize
-  - LogicalTapeSet (struct)
+  - [LogicalTapeSet](../L/LogicalTapeSet.md) (struct)
 - Called from (representative examples):
-  - ltsReadFillBuffer
-  - LogicalTapeRewindForRead
+  - [ltsReadFillBuffer](ltsReadFillBuffer.md)
+  - [LogicalTapeRewindForRead](../L/LogicalTapeRewindForRead.md)
 
 ## Notes and Other Information
 - Uses a min-heap data structure to ensure efficient allocation of lowest-numbered blocks

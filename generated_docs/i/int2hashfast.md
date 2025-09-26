@@ -19,10 +19,10 @@ This function generates hash values for PostgreSQL `int2` (16-bit integer) data 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `murmurhash32`: Core hashing algorithm implementation
-  - `DatumGetInt16`: Extracts int16 value from Datum
+  - `[murmurhash32](../m/murmurhash32.md)`: Core hashing algorithm implementation
+  - `[DatumGetInt16](../D/DatumGetInt16.md)`: Extracts int16 value from Datum
 - Called from (representative examples):
-  - `GetCCHashEqFuncs`: Function that retrieves hash and equality functions for catalog cache
+  - `[GetCCHashEqFuncs](../G/GetCCHashEqFuncs.md)`: Function that retrieves hash and equality functions for catalog cache
 
 ## Notes and Other Information
 - Uses MurmurHash32 for consistent and fast hash generation

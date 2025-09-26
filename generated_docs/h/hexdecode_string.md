@@ -29,12 +29,12 @@ The function provides error handling by returning false if any invalid hexadecim
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hexdecode_char (called twice per byte to decode character pairs)
+  - [hexdecode_char](hexdecode_char.md) (called twice per byte to decode character pairs)
 
 - Called from (representative examples):
-  - json_manifest_finalize_file (for file checksum decoding)
-  - verify_manifest_checksum (for manifest checksum verification)
-  - JsonManifestParseIncrementalState (structure reference)
+  - [json_manifest_finalize_file](../j/json_manifest_finalize_file.md) (for file checksum decoding)
+  - [verify_manifest_checksum](../v/verify_manifest_checksum.md) (for manifest checksum verification)
+  - [JsonManifestParseIncrementalState](../J/JsonManifestParseIncrementalState.md) (structure reference)
 
 ## Notes and Other Information
 - This is a static function, limiting its scope to the parse_manifest.c compilation unit

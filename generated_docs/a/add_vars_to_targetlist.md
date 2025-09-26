@@ -41,13 +41,13 @@ The function is essential for building the distributed targetlists that ensure e
   - [bms_is_subset](../b/bms_is_subset.md)
   - [bms_add_members](../b/bms_add_members.md)
   - nodeTag
-  - lappend
+  - [lappend](../l/lappend.md)
   - elog (for error handling)
 - Data structures used:
-  - Var
+  - [Var](../V/Var.md)
   - [PlaceHolderVar](../P/PlaceHolderVar.md)
-  - PlaceHolderInfo
-  - RelOptInfo
+  - [PlaceHolderInfo](../P/PlaceHolderInfo.md)
+  - [RelOptInfo](../R/RelOptInfo.md)
 - Called from (representative examples):
   - [build_base_rel_tlists](../b/build_base_rel_tlists.md)
   - [extract_lateral_references](../e/extract_lateral_references.md)

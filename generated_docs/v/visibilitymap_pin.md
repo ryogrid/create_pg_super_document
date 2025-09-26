@@ -26,7 +26,7 @@ The function optimizes performance by reusing existing pinned buffers when possi
 - Functions called/Symbols referenced:
   - HEAPBLK_TO_MAPBLOCK (macro for converting heap block to map block)
   - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md) (gets block number from buffer)
-  - ReleaseBuffer (releases previously pinned buffer)
+  - [ReleaseBuffer](../R/ReleaseBuffer.md) (releases previously pinned buffer)
   - [vm_readbuf](vm_readbuf.md) (internal function to read/extend visibility map pages)
 - Called from (representative examples):
   - [heap_delete](../h/heap_delete.md) (pins before clearing bits during tuple deletion)

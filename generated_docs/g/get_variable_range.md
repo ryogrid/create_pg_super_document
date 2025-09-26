@@ -33,15 +33,15 @@ The function includes security checks to ensure the user has permission to acces
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - statistic_proc_security_check (security permission verification)
-  - get_opcode (retrieve function OID for operator)
-  - get_typlenbyval (get type storage information)
-  - get_attstatsslot (retrieve statistical data slots)
-  - datumCopy (safely copy datum values)
-  - get_stats_slot_range (scan statistics for range values)
-  - free_attstatsslot (cleanup statistical data slots)
+  - [statistic_proc_security_check](../s/statistic_proc_security_check.md) (security permission verification)
+  - [get_opcode](get_opcode.md) (retrieve function OID for operator)
+  - [get_typlenbyval](get_typlenbyval.md) (get type storage information)
+  - [get_attstatsslot](get_attstatsslot.md) (retrieve statistical data slots)
+  - [datumCopy](../d/datumCopy.md) (safely copy datum values)
+  - [get_stats_slot_range](get_stats_slot_range.md) (scan statistics for range values)
+  - [free_attstatsslot](../f/free_attstatsslot.md) (cleanup statistical data slots)
 - Called from (representative examples):
-  - mergejoinscansel (merge join selectivity estimation)
+  - [mergejoinscansel](../m/mergejoinscansel.md) (merge join selectivity estimation)
 
 ## Notes and Other Information
 - Returns true if successful in finding range data, false if no statistical information is available

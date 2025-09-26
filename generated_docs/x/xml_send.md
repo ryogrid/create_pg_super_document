@@ -26,7 +26,7 @@ The function first converts the XML value to its string representation using xml
   - [xml_out_internal](xml_out_internal.md) (converts XML to string representation)
   - [pg_get_client_encoding](../p/pg_get_client_encoding.md) (gets client character encoding)
   - [pq_begintypsend](../p/pq_begintypsend.md) (initializes binary send buffer)
-  - pq_sendtext (sends text data in binary format)
+  - [pq_sendtext](../p/pq_sendtext.md) (sends text data in binary format)
   - [pq_endtypsend](../p/pq_endtypsend.md) (finalizes binary send buffer)
   - PG_RETURN_BYTEA_P (returns bytea result)
 - Called from:

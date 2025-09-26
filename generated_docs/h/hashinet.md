@@ -31,4 +31,4 @@ This function serves as a support function for hash indexes on inet and cidr dat
 - The function includes a comment noting the assumption about no padding bytes in the inet data structure
 - The hash calculation includes the address size plus 2 additional bytes, likely for the inet structure metadata
 - This function is typically registered as part of the hash operator class for inet/cidr types rather than called directly
-- Hash functions like this are essential for the performance of hash joins and hash-based aggregations on network address data
+- [Hash](../H/Hash.md) functions like this are essential for the performance of hash joins and hash-based aggregations on network address data

@@ -27,10 +27,10 @@ If no explicit sign is provided, the offset is treated as positive. The function
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getsecs (for parsing the time portion after the optional sign)
+  - [getsecs](getsecs.md) (for parsing the time portion after the optional sign)
 - Called from (representative examples):
-  - getrule
-  - tzparse
+  - [getrule](getrule.md)
+  - [tzparse](../t/tzparse.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the timezone parsing subsystem

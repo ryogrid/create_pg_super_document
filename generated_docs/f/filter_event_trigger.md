@@ -20,7 +20,7 @@ This function implements the filtering logic for event triggers, deciding whethe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - EventTriggerCacheItem (cache structure type)
+  - [EventTriggerCacheItem](../E/EventTriggerCacheItem.md) (cache structure type)
   - CommandTag (command identification type)
   - SessionReplicationRole (global replication role variable)
   - SESSION_REPLICATION_ROLE_REPLICA (replication role constant)

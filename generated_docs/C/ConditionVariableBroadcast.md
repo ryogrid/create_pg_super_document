@@ -27,22 +27,22 @@ The implementation handles edge cases carefully:
 - Functions called/Symbols referenced:
   - SpinLockAcquire
   - SpinLockRelease
-  - proclist_is_empty
+  - [proclist_is_empty](../p/proclist_is_empty.md)
   - proclist_pop_head_node
   - proclist_push_tail
   - proclist_contains
-  - ConditionVariableCancelSleep
-  - SetLatch
+  - [ConditionVariableCancelSleep](ConditionVariableCancelSleep.md)
+  - [SetLatch](../S/SetLatch.md)
 - Called from (representative examples):
-  - _bt_parallel_done
-  - RecordNewMultiXact
-  - SetRecoveryPause
-  - BitmapDoneInitializingSharedState
-  - CheckpointerMain
-  - WalSummarizerMain
-  - ReplicationSlotCreate
-  - WalReceiverMain
-  - BarrierArriveAndWait
+  - [_bt_parallel_done](../b/_bt_parallel_done.md)
+  - [RecordNewMultiXact](../R/RecordNewMultiXact.md)
+  - [SetRecoveryPause](../S/SetRecoveryPause.md)
+  - [BitmapDoneInitializingSharedState](../B/BitmapDoneInitializingSharedState.md)
+  - [CheckpointerMain](CheckpointerMain.md)
+  - [WalSummarizerMain](../W/WalSummarizerMain.md)
+  - [ReplicationSlotCreate](../R/ReplicationSlotCreate.md)
+  - [WalReceiverMain](../W/WalReceiverMain.md)
+  - [BarrierArriveAndWait](../B/BarrierArriveAndWait.md)
 
 ## Notes and Other Information
 - Uses a sentinel-based algorithm to prevent infinite loops when awakened processes immediately re-queue themselves

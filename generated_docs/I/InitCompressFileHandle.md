@@ -17,7 +17,7 @@ This function acts as a factory method for creating compression file handles in 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_malloc0
+  - [pg_malloc0](../p/pg_malloc0.md)
   - [InitCompressFileHandleNone](InitCompressFileHandleNone.md)
   - [InitCompressFileHandleGzip](InitCompressFileHandleGzip.md)  
   - [InitCompressFileHandleLZ4](InitCompressFileHandleLZ4.md)

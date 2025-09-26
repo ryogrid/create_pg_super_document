@@ -20,7 +20,7 @@ The `puttzcode` function takes a 32-bit integer value and writes it to the speci
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - convert (for converting int32 to binary representation)
+  - [convert](../c/convert.md) (for converting int32 to binary representation)
   - fwrite (standard C library function for file writing)
 - Called from (representative examples):
   - [puttzcodepass](puttzcodepass.md)

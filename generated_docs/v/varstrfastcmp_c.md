@@ -24,7 +24,7 @@ The `varstrfastcmp_c` function provides an optimized comparison implementation f
 - Functions called/Symbols referenced:
   - DatumGetVarStringPP
   - [VarString](../V/VarString.md)
-  - SortSupport
+  - [SortSupport](../S/SortSupport.md)
   - VARDATA_ANY (macro)
   - VARSIZE_ANY_EXHDR (macro)
   - memcmp

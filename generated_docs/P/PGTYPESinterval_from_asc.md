@@ -27,7 +27,7 @@ The function includes robust error handling with proper memory management - it a
   - [tm2interval](../t/tm2interval.md) (converts tm structure to interval)
   - free (memory deallocation)
 - Called from (representative examples):
-  - ecpg_get_data (ECPG data retrieval)
+  - [ecpg_get_data](../e/ecpg_get_data.md) (ECPG data retrieval)
   - [main](../m/main.md) (in various test programs)
   - Client applications using ECPG interval types
 

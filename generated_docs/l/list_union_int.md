@@ -27,7 +27,7 @@ The function includes assertions to verify that both input lists contain only in
   - [list_copy](list_copy.md) (copy first list)
   - [list_member_int](list_member_int.md) (check membership)
   - lfirst_int (extract integer values)
-  - lappend_int (append integer values)
+  - [lappend_int](lappend_int.md) (append integer values)
   - [check_list_invariants](../c/check_list_invariants.md) (validation)
 - Called from (representative examples):
   - [expand_grouping_sets](../e/expand_grouping_sets.md) (parse_agg.c:1838, 1855)

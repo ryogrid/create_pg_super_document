@@ -29,8 +29,8 @@ This function takes no parameters.
   - `numTempTableSpaces` - Count of configured temporary tablespaces
 
 - Called from (representative examples):
-  - `PrepareTempTablespaces` (src/backend/commands/tablespace.c:1340)
-  - `GetTempTablespaces` (src/backend/storage/file/fd.c:3094)
+  - `[PrepareTempTablespaces](../P/PrepareTempTablespaces.md)` (src/backend/commands/tablespace.c:1340)
+  - `[GetTempTablespaces](../G/GetTempTablespaces.md)` (src/backend/storage/file/fd.c:3094)
 
 ## Notes and Other Information
 - This function is designed to avoid the need for tablespace.c to maintain its own per-transaction state

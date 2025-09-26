@@ -38,7 +38,7 @@ This function takes no parameters but operates on several global variables.
   - fgets (line reading)
   - fflush (output flushing)
   - [write_stderr](../w/write_stderr.md) (error output)
-  - pg_strip_crlf (line ending cleanup)
+  - [pg_strip_crlf](../p/pg_strip_crlf.md) (line ending cleanup)
   - [canonicalize_path](../c/canonicalize_path.md) (path normalization)
   - free (memory deallocation)
   - exit (program termination)

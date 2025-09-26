@@ -31,7 +31,7 @@ After validation, it updates the pg_subscription catalog, adjusts the dependency
 ## Dependencies
 - Functions called/Symbols referenced:
   - [object_ownercheck](../o/object_ownercheck.md): Verifies current user owns the subscription
-  - check_can_set_role: Validates user can assume the new owner role
+  - [check_can_set_role](../c/check_can_set_role.md): Validates user can assume the new owner role
   - [object_aclcheck](../o/object_aclcheck.md): Checks CREATE permission on database
   - [changeDependencyOnOwner](../c/changeDependencyOnOwner.md): Updates dependency records for new ownership
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md): Updates the subscription tuple in the catalog

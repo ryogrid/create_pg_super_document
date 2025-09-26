@@ -27,7 +27,7 @@ If inconsistencies are found, appropriate errors are reported with precise locat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Param
+  - [Param](../P/Param.md)
   - PARAM_EXTERN
   - [VarParamState](../V/VarParamState.md)
   - query_tree_walker

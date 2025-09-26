@@ -24,7 +24,7 @@ This function serves as the input conversion routine for PostgreSQL's DATE data 
 - Functions called/Symbols referenced:
   - [ParseDateTime](../P/ParseDateTime.md) (parses date string into field components)
   - [DecodeDateTime](../D/DecodeDateTime.md) (interprets parsed fields into date components)
-  - DateTimeParseError (reports parsing errors)
+  - [DateTimeParseError](../D/DateTimeParseError.md) (reports parsing errors)
   - [GetEpochTime](../G/GetEpochTime.md) (sets time to Unix epoch for DTK_EPOCH)
   - IS_VALID_JULIAN (validates Julian date range)
   - [date2j](date2j.md) (converts calendar date to Julian day number)
@@ -46,5 +46,5 @@ This function serves as the input conversion routine for PostgreSQL's DATE data 
 - Converts dates to internal representation as days since PostgreSQL epoch (2000-01-01)
 - Input string is processed through a work buffer to avoid modifying the original
 - Fractional seconds are parsed but ignored for DATE type (fsec parameter unused)
-- Range validation prevents integer overflow in Julian day calculations
+- [Range](../R/Range.md) validation prevents integer overflow in Julian day calculations
 - Part of PostgreSQL's date/time type system infrastructure

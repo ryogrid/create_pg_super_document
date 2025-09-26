@@ -28,7 +28,7 @@ The function ensures that sufficient shared memory is allocated for parallel sca
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsMVCCSnapshot (to check if snapshot needs serialization)
-  - EstimateSnapshotSpace (to calculate space needed for snapshot serialization)
+  - [EstimateSnapshotSpace](../E/EstimateSnapshotSpace.md) (to calculate space needed for snapshot serialization)
   - [add_size](../a/add_size.md) (to safely add sizes while checking for overflow)
   - SnapshotAny (global variable representing a special non-MVCC snapshot)
 
@@ -36,7 +36,7 @@ The function ensures that sufficient shared memory is allocated for parallel sca
   - [_brin_parallel_estimate_shared](../b/_brin_parallel_estimate_shared.md)
   - [_bt_parallel_estimate_shared](../b/_bt_parallel_estimate_shared.md)
   - [ExecSeqScanEstimate](../E/ExecSeqScanEstimate.md)
-  - table_scan_getnextslot_tidrange
+  - [table_scan_getnextslot_tidrange](table_scan_getnextslot_tidrange.md)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's parallel query execution framework

@@ -53,7 +53,7 @@ This comprehensive function processes support procedures being added to operator
 - Btree sort support functions must accept internal and return void
 - Btree in_range functions must be 5-arg returning bool
 - Btree equal image functions must be 1-arg returning bool and cannot be cross-type
-- Hash function 1 must be 1-arg returning int4, function 2 must be 2-arg returning int8
+- [Hash](../H/Hash.md) function 1 must be 1-arg returning int4, function 2 must be 2-arg returning int8
 - Automatically infers data types from procedure signatures when possible
 - Requires explicit type specification when inference is not possible
 - Part of the operator class/family validation and setup infrastructure

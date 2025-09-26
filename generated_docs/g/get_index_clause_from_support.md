@@ -36,7 +36,7 @@ The function initializes a support request structure with query context, functio
   - OidFunctionCall1
   - make_simple_restrictinfo
   - makeNode
-  - lappend
+  - [lappend](../l/lappend.md)
 - Called from (representative examples):
   - [match_opclause_to_indexcol](../m/match_opclause_to_indexcol.md)
   - [match_funcclause_to_indexcol](../m/match_funcclause_to_indexcol.md)

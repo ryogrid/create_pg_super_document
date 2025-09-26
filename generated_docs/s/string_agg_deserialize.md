@@ -42,7 +42,7 @@ The deserialization process:
   - [makeStringAggState](../m/makeStringAggState.md) (creates new StringInfo state in aggregate context)
   - [pq_getmsgint](../p/pq_getmsgint.md) (reads 4-byte integer from buffer)
   - [pq_getmsgbytes](../p/pq_getmsgbytes.md) (reads byte array from buffer)
-  - appendBinaryStringInfo (appends binary data to StringInfo)
+  - [appendBinaryStringInfo](../a/appendBinaryStringInfo.md) (appends binary data to StringInfo)
   - [pq_getmsgend](../p/pq_getmsgend.md) (validates complete message consumption)
   - VARDATA_ANY, VARSIZE_ANY_EXHDR (bytea data access macros)
 

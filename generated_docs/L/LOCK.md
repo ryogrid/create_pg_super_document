@@ -52,19 +52,19 @@ The lock manager uses this structure to implement PostgreSQL's multi-granularity
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LOCKTAG
+  - [LOCKTAG](LOCKTAG.md)
   - LOCKMASK  
-  - dlist_head
-  - dclist_head
+  - [dlist_head](../d/dlist_head.md)
+  - [dclist_head](../d/dclist_head.md)
   - MAX_LOCKMODES
 - Called from (representative examples):
-  - SetupLockInTable
-  - LockAcquireExtended
-  - LockRelease
-  - LockCheckConflicts
-  - GrantLock
-  - UnGrantLock
-  - GetLockConflicts
+  - [SetupLockInTable](../S/SetupLockInTable.md)
+  - [LockAcquireExtended](LockAcquireExtended.md)
+  - [LockRelease](LockRelease.md)
+  - [LockCheckConflicts](LockCheckConflicts.md)
+  - [GrantLock](../G/GrantLock.md)
+  - [UnGrantLock](../U/UnGrantLock.md)
+  - [GetLockConflicts](../G/GetLockConflicts.md)
 
 ## Notes and Other Information
 - Stored in the shared lock hashtable with LOCKTAG as the hash key

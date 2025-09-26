@@ -36,21 +36,21 @@ The Group node is used specifically for queries with GROUP BY clauses that do no
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Plan (base structure)
+  - [Plan](../P/Plan.md) (base structure)
   - AttrNumber
   - Oid
 
 - Called from (representative examples):
-  - ExecInitGroup (executor/nodeGroup.c:161)
-  - create_group_plan (optimizer/plan/createplan.c:2244)
-  - make_group (optimizer/plan/createplan.c:6678)
-  - show_group_keys (commands/explain.c:2742)
-  - make_windowagg (optimizer/plan/createplan.c:6669)
+  - [ExecInitGroup](../E/ExecInitGroup.md) (executor/nodeGroup.c:161)
+  - [create_group_plan](../c/create_group_plan.md) (optimizer/plan/createplan.c:2244)
+  - [make_group](../m/make_group.md) (optimizer/plan/createplan.c:6678)
+  - [show_group_keys](../s/show_group_keys.md) (commands/explain.c:2742)
+  - [make_windowagg](../m/make_windowagg.md) (optimizer/plan/createplan.c:6669)
 
 ## Notes and Other Information
 - The Group node requires its input to be presorted according to the grouping columns, typically provided by a Sort node beneath it
 - Unlike Agg nodes, Group nodes do not compute aggregate functions - they simply eliminate duplicates based on grouping columns
 - This node is used for queries like 'SELECT DISTINCT col1, col2 FROM table GROUP BY col1, col2' without aggregate functions
 - The node processes data in a streaming fashion, making it memory-efficient for large datasets
-- Group nodes are less common than Agg nodes since most GROUP BY queries involve aggregate functions
+- [Group](Group.md) nodes are less common than Agg nodes since most GROUP BY queries involve aggregate functions
 - The planner may choose Group over Agg when no aggregation is actually required

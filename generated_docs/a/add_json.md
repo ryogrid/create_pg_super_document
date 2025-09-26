@@ -24,13 +24,13 @@ add_json serves as a simplified interface for JSON conversion that combines type
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - json_categorize_type (determine JSON conversion category and output function)
-  - datum_to_json_internal (perform the actual JSON conversion)
+  - [json_categorize_type](../j/json_categorize_type.md) (determine JSON conversion category and output function)
+  - [datum_to_json_internal](../d/datum_to_json_internal.md) (perform the actual JSON conversion)
   - JSONTYPE_NULL (constant for NULL value category)
   - ereport, errcode, errmsg (error reporting for invalid type OID)
 - Called from (representative examples):
-  - json_build_object_worker
-  - json_build_array_worker
+  - [json_build_object_worker](../j/json_build_object_worker.md)
+  - [json_build_array_worker](../j/json_build_array_worker.md)
 
 ## Notes and Other Information
 The function includes input validation to ensure val_type is not InvalidOid, reporting an error if an invalid type is encountered. For NULL values, it bypasses type categorization and directly sets JSONTYPE_NULL category with InvalidOid output function. The function is designed as a convenience wrapper but carries a performance warning - applications converting many values of the same type should perform json_categorize_type once and reuse the results rather than calling this function repeatedly.

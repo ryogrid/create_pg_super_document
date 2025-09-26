@@ -46,7 +46,7 @@ The function is designed for exact equality detection, such as checking cache en
 
 ## Notes and Other Information
 - Returns true if both TriggerDesc structures are identical in all respects
-- Trigger order is significant - triggers must match in the same array positions
+- [Trigger](../T/Trigger.md) order is significant - triggers must match in the same array positions
 - Sensitive to parse column locations in WHEN clause comparisons
 - Primarily used for cache validation and staleness detection
 - Handles NULL pointers safely for all optional string fields

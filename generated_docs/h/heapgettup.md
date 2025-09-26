@@ -46,8 +46,8 @@ extract_readme_file_header_comments.py	update_symbol_types.py: ScanDirection - D
   - [ItemPointerSet](../I/ItemPointerSet.md)
   - [HeapTupleSatisfiesVisibility](../H/HeapTupleSatisfiesVisibility.md)
   - [HeapCheckForSerializableConflictOut](../H/HeapCheckForSerializableConflictOut.md)
-  - HeapKeyTest
-  - ReleaseBuffer
+  - [HeapKeyTest](../H/HeapKeyTest.md)
+  - [ReleaseBuffer](../R/ReleaseBuffer.md)
 - Called from (representative examples):
   - [heap_getnext](heap_getnext.md)
   - [heap_getnextslot](heap_getnextslot.md)

@@ -31,7 +31,7 @@ This function takes no parameters and operates on:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogFilePath (generates the WAL file path)
+  - [XLogFilePath](../X/XLogFilePath.md) (generates the WAL file path)
   - unlink (removes any existing file at the path)
   - open (creates the new WAL file)
   - write (writes data to the file)

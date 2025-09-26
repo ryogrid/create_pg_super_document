@@ -28,17 +28,17 @@ The function handles special cases like MyDatabaseTableSpace normalization and e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - InitializeRelfilenumberMap
+  - [InitializeRelfilenumberMap](../I/InitializeRelfilenumberMap.md)
   - MemSet
-  - hash_search (HASH_FIND, HASH_ENTER)
-  - RelationMapFilenumberToOid
-  - table_open, table_close
-  - systable_beginscan, systable_getnext, systable_endscan
+  - [hash_search](../h/hash_search.md) (HASH_FIND, HASH_ENTER)
+  - [RelationMapFilenumberToOid](RelationMapFilenumberToOid.md)
+  - [table_open](../t/table_open.md), table_close
+  - [systable_beginscan](../s/systable_beginscan.md), systable_getnext, systable_endscan
   - RelfilenumberMapKey, RelfilenumberMapEntry
   - Form_pg_class, SysScanDesc
 - Called from (representative examples):
-  - ReorderBufferProcessTXN
-  - pg_filenode_relation
+  - [ReorderBufferProcessTXN](ReorderBufferProcessTXN.md)
+  - [pg_filenode_relation](../p/pg_filenode_relation.md)
 
 ## Notes and Other Information
 - Returns InvalidOid if no matching relation is found

@@ -19,7 +19,7 @@ This is a simple utility function that initializes a pg_itm_in structure to a cl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_itm_in
+  - [pg_itm_in](../p/pg_itm_in.md)
 - Called from (representative examples):
   - [DecodeInterval](../D/DecodeInterval.md)
   - [DecodeISO8601Interval](../D/DecodeISO8601Interval.md)

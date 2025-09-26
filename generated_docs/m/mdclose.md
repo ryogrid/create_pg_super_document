@@ -22,7 +22,7 @@ The function includes an optimization to return early if no segments are current
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FileClose (closes individual file descriptors)
+  - [FileClose](../F/FileClose.md) (closes individual file descriptors)
   - [_fdvec_resize](../f/_fdvec_resize.md) (resizes the file descriptor vector after closing segments)
   - [MdfdVec](../M/MdfdVec.md) (structure type for file descriptor vector entries)
 - Called from (representative examples):

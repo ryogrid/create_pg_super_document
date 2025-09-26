@@ -79,9 +79,9 @@ After executing each subcommand, the function reports the operation to event tri
   - [ATParseTransformCmd](ATParseTransformCmd.md)
   - [AlterDomainAddConstraint](AlterDomainAddConstraint.md)
   - [CommentObject](../C/CommentObject.md)
-  - get_rolespec_oid
+  - [get_rolespec_oid](../g/get_rolespec_oid.md)
   - [EventTriggerCollectAlterTableSubcmd](../E/EventTriggerCollectAlterTableSubcmd.md)
-  - CommandCounterIncrement
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md)
 - Called from:
   - [ATRewriteCatalogs](ATRewriteCatalogs.md)
 

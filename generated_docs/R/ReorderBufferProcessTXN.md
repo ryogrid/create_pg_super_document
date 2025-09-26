@@ -27,7 +27,7 @@ ReorderBufferProcessTXN is the central engine for transaction processing in Post
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReorderBufferBuildTupleCidHash](ReorderBufferBuildTupleCidHash.md) (build tuple command ID hash)
-  - SetupHistoricSnapshot (setup snapshot for decoding)
+  - [SetupHistoricSnapshot](../S/SetupHistoricSnapshot.md) (setup snapshot for decoding)
   - [ReorderBufferIterTXNInit](ReorderBufferIterTXNInit.md)/ReorderBufferIterTXNNext (transaction iteration)
   - [ReorderBufferApplyChange](ReorderBufferApplyChange.md) (apply individual changes)
   - [ReorderBufferApplyMessage](ReorderBufferApplyMessage.md) (apply messages)

@@ -28,10 +28,10 @@ The actual portal cleanup and resource deallocation is handled by PortalDrop, wh
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PortalHashTableDeleteAll
-  - GetPortalByName
+  - [PortalHashTableDeleteAll](PortalHashTableDeleteAll.md)
+  - [GetPortalByName](../G/GetPortalByName.md)
   - PortalIsValid
-  - PortalDrop
+  - [PortalDrop](PortalDrop.md)
 - Called from (representative examples):
   - [standard_ProcessUtility](../s/standard_ProcessUtility.md)
 

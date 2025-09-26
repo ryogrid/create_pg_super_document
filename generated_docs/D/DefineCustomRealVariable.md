@@ -46,7 +46,7 @@ The function initializes all necessary metadata for the real variable including 
   - [init_custom_variable](../i/init_custom_variable.md)
   - [define_custom_variable](../d/define_custom_variable.md)
   - PGC_REAL
-  - config_real
+  - [config_real](../c/config_real.md)
   - GucContext
 - Called from (representative examples):
   - Extension initialization functions

@@ -29,7 +29,7 @@ The function uses COERCION_ASSIGNMENT context, which allows implicit casts that 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - exprType (get expression type)
+  - [exprType](../e/exprType.md) (get expression type)
   - [coerce_to_target_type](coerce_to_target_type.md) (perform type coercion)
   - [expression_returns_set](../e/expression_returns_set.md) (check for set-returning expressions)
   - [exprLocation](../e/exprLocation.md) (get source location for errors)
@@ -40,8 +40,8 @@ The function uses COERCION_ASSIGNMENT context, which allows implicit casts that 
   - [DoCopy](../D/DoCopy.md) (COPY command)
   - [domainAddCheckConstraint](../d/domainAddCheckConstraint.md) (domain constraints)
   - [transformJoinUsingClause](../t/transformJoinUsingClause.md), transformWhereClause (clause processing)
-  - transformAExprIn, transformBoolExpr, transformCaseExpr (expression transformation)
-  - transformXmlExpr, transformBooleanTest (specialized expressions)
+  - [transformAExprIn](../t/transformAExprIn.md), transformBoolExpr, transformCaseExpr (expression transformation)
+  - [transformXmlExpr](../t/transformXmlExpr.md), transformBooleanTest (specialized expressions)
 
 ## Notes and Other Information
 - This is a public function exposed through parse_coerce.h

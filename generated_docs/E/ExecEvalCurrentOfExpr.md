@@ -24,7 +24,7 @@ The function immediately raises an error with a descriptive message indicating t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExprEvalStep
+  - [ExprEvalStep](ExprEvalStep.md)
   - ereport (error reporting)
 - Called from (representative examples):
   - [ExecInterpExpr](ExecInterpExpr.md)

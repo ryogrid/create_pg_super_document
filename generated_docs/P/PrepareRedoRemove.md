@@ -21,7 +21,7 @@ PrepareRedoRemove is the cleanup counterpart to PrepareRedoAdd, responsible for 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockHeldByMeInMode
+  - [LWLockHeldByMeInMode](../L/LWLockHeldByMeInMode.md)
   - [RecoveryInProgress](../R/RecoveryInProgress.md)
   - [RemoveTwoPhaseFile](../R/RemoveTwoPhaseFile.md)
   - [RemoveGXact](../R/RemoveGXact.md)

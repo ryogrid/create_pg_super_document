@@ -28,7 +28,7 @@ The comparison follows a lexicographic ordering where:
 - Functions called/Symbols referenced:
   - AclItem (structure type)
 - Called from (representative examples):
-  - aclitemsort (via qsort)
+  - [aclitemsort](aclitemsort.md) (via qsort)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the acl.c compilation unit

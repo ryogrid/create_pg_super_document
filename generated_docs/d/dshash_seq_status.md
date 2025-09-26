@@ -37,10 +37,10 @@ The dshash_seq_status structure encapsulates all state information needed to per
   - [dshash_table_item](dshash_table_item.md)
   - dsa_pointer
 - Called from (representative examples):
-  - dshash_seq_init
-  - dshash_seq_next
-  - dshash_seq_term
-  - dshash_delete_current
+  - [dshash_seq_init](dshash_seq_init.md)
+  - [dshash_seq_next](dshash_seq_next.md)
+  - [dshash_seq_term](dshash_seq_term.md)
+  - [dshash_delete_current](dshash_delete_current.md)
 
 ## Notes and Other Information
 - Although the structure members are exposed, callers should treat this as an opaque type and only use the provided API functions

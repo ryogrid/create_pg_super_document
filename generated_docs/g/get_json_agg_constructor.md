@@ -30,20 +30,20 @@ This function is part of PostgreSQL's rule deparsing system, which converts inte
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initStringInfo (for StringInfo initialization)
-  - get_json_constructor_options (for collecting JSON options)
-  - get_agg_expr_helper (for aggregate function deparsing)
-  - get_windowfunc_expr_helper (for window function deparsing)
+  - [initStringInfo](../i/initStringInfo.md) (for StringInfo initialization)
+  - [get_json_constructor_options](get_json_constructor_options.md) (for collecting JSON options)
+  - [get_agg_expr_helper](get_agg_expr_helper.md) (for aggregate function deparsing)
+  - [get_windowfunc_expr_helper](get_windowfunc_expr_helper.md) (for window function deparsing)
   - IsA (for type checking macros)
   - nodeTag (for node type identification)
   - elog (for error reporting)
 - Types referenced:
-  - JsonConstructorExpr
-  - deparse_context
-  - Aggref
-  - WindowFunc
+  - [JsonConstructorExpr](../J/JsonConstructorExpr.md)
+  - [deparse_context](../d/deparse_context.md)
+  - [Aggref](../A/Aggref.md)
+  - [WindowFunc](../W/WindowFunc.md)
 - Called from:
-  - get_json_constructor (for JSON_OBJECTAGG and JSON_ARRAYAGG cases)
+  - [get_json_constructor](get_json_constructor.md) (for JSON_OBJECTAGG and JSON_ARRAYAGG cases)
 
 ## Notes and Other Information
 - This is a static function within ruleutils.c used exclusively for rule deparsing operations

@@ -24,7 +24,7 @@ This utility function wraps LLVM's  function to create size_t constant values in
   - TypeSizeT (global LLVM type reference)
 - Called from (representative examples):
   - [slot_compile_deform](../s/slot_compile_deform.md) (multiple locations in src/backend/jit/llvm/llvmjit_deform.c)
-  - llvm_compile_expr (extensively used in src/backend/jit/llvm/llvmjit_expr.c)
+  - [llvm_compile_expr](llvm_compile_expr.md) (extensively used in src/backend/jit/llvm/llvmjit_expr.c)
 
 ## Notes and Other Information
 - This function is heavily used throughout PostgreSQL's JIT expression and deform compilation

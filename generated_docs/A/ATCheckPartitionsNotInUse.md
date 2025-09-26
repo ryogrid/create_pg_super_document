@@ -22,9 +22,9 @@ ATCheckPartitionsNotInUse performs safety validation specifically for partitione
 ## Dependencies
 - Functions called/Symbols referenced:
   - [find_all_inheritors](../f/find_all_inheritors.md)
-  - table_open
+  - [table_open](../t/table_open.md)
   - [CheckAlterTableIsSafe](../C/CheckAlterTableIsSafe.md)
-  - table_close
+  - [table_close](../t/table_close.md)
   - [list_free](../l/list_free.md)
   - RelationGetRelid
   - for_each_from (macro)

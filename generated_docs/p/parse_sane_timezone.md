@@ -20,7 +20,7 @@ The `parse_sane_timezone` function attempts to parse and validate a timezone spe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - text_to_cstring_buffer
+  - [text_to_cstring_buffer](../t/text_to_cstring_buffer.md)
   - isdigit
   - ereport
   - [errcode](../e/errcode.md)
@@ -29,7 +29,7 @@ The `parse_sane_timezone` function attempts to parse and validate a timezone spe
   - [DecodeTimezone](../D/DecodeTimezone.md)
   - [DecodeTimezoneName](../D/DecodeTimezoneName.md)
   - [DetermineTimeZoneAbbrevOffset](../D/DetermineTimeZoneAbbrevOffset.md)
-  - DetermineTimeZoneOffset
+  - [DetermineTimeZoneOffset](../D/DetermineTimeZoneOffset.md)
 - Types referenced:
   - [pg_tm](pg_tm.md)
   - [pg_tz](pg_tz.md)

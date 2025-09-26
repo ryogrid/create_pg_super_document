@@ -28,13 +28,13 @@ This operation ensures that the BRIN index correctly reflects the invalidated st
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData: Extract record data from WAL
-  - XLogReadBufferForRedo: Read and prepare buffers for redo operation
+  - [XLogReadBufferForRedo](../X/XLogReadBufferForRedo.md): Read and prepare buffers for redo operation
   - [ItemPointerSetInvalid](../I/ItemPointerSetInvalid.md): Set item pointer to invalid state
   - [brinSetHeapBlockItemptr](brinSetHeapBlockItemptr.md): Set heap block item pointer in revmap
   - [BufferGetPage](../B/BufferGetPage.md): Get page from buffer
   - [PageIndexTupleDeleteNoCompact](../P/PageIndexTupleDeleteNoCompact.md): Delete tuple from page without compacting
   - [PageSetLSN](../P/PageSetLSN.md): Set LSN on page
-  - MarkBufferDirty: Mark buffer as modified
+  - [MarkBufferDirty](../M/MarkBufferDirty.md): Mark buffer as modified
   - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md): Release buffer locks
 - Called from (representative examples):
   - [brin_redo](brin_redo.md): Main BRIN WAL replay dispatcher function

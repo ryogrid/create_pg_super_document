@@ -26,15 +26,15 @@ Since DH parameter generation is computationally expensive, the parameters are p
 ## Dependencies
 - Functions called/Symbols referenced:
   - SSL_CTX_set_options (OpenSSL function to set SSL options)
-  - load_dh_file (PostgreSQL function to load DH parameters from file)
-  - load_dh_buffer (PostgreSQL function to load DH parameters from buffer)
+  - [load_dh_file](../l/load_dh_file.md) (PostgreSQL function to load DH parameters from file)
+  - [load_dh_buffer](../l/load_dh_buffer.md) (PostgreSQL function to load DH parameters from buffer)
   - FILE_DH2048 (Built-in DH parameters constant)
   - SSL_CTX_set_tmp_dh (OpenSSL function to set temporary DH parameters)
-  - SSLerrmessage (PostgreSQL function to format SSL error messages)
+  - [SSLerrmessage](../S/SSLerrmessage.md) (PostgreSQL function to format SSL error messages)
   - DH_free (OpenSSL function to free DH structure)
   - ereport (PostgreSQL error reporting function)
 - Called from (representative examples):
-  - be_tls_init (SSL context initialization)
+  - [be_tls_init](../b/be_tls_init.md) (SSL context initialization)
 
 ## Notes and Other Information
 - DH parameters can take significant time to compute, so precomputation is essential for performance

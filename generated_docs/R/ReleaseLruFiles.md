@@ -32,17 +32,17 @@ This proactive approach prevents file descriptor exhaustion and ensures that sub
   - numAllocatedDescs (count of allocated file descriptors)
   - numExternalFDs (count of external file descriptors)
   - max_safe_fds (system-determined safe limit for file descriptors)
-  - ReleaseLruFile (function to release one LRU file)
+  - [ReleaseLruFile](ReleaseLruFile.md) (function to release one LRU file)
 
 - Called from (representative examples):
   - AllocateDesc (when allocating new descriptors)
-  - ReserveExternalFD (when reserving external file descriptors)
-  - LruInsert (before attempting to reopen files)
-  - PathNameOpenFilePerm (before opening files with permissions)
-  - AllocateFile (when allocating FILE* structures)
-  - OpenTransientFilePerm (when opening transient files)
-  - OpenPipeStream (when opening pipe streams)
-  - AllocateDir (when allocating directory handles)
+  - [ReserveExternalFD](ReserveExternalFD.md) (when reserving external file descriptors)
+  - [LruInsert](../L/LruInsert.md) (before attempting to reopen files)
+  - [PathNameOpenFilePerm](../P/PathNameOpenFilePerm.md) (before opening files with permissions)
+  - [AllocateFile](../A/AllocateFile.md) (when allocating FILE* structures)
+  - [OpenTransientFilePerm](../O/OpenTransientFilePerm.md) (when opening transient files)
+  - [OpenPipeStream](../O/OpenPipeStream.md) (when opening pipe streams)
+  - [AllocateDir](../A/AllocateDir.md) (when allocating directory handles)
 
 ## Notes and Other Information
 - This is a static function internal to the file descriptor management module

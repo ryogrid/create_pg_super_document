@@ -23,7 +23,7 @@ This check is important for query optimization decisions, particularly when dete
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PathKey (structure access)
+  - [PathKey](../P/PathKey.md) (structure access)
 - Called from (representative examples):
   - [adjust_group_pathkeys_for_groupagg](../a/adjust_group_pathkeys_for_groupagg.md)
 

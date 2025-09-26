@@ -22,7 +22,7 @@ This function calculates and returns a pointer to the actual data portion of a s
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PgStat_Kind](../P/PgStat_Kind.md) (enum type for statistics kinds)
-  - PgStatShared_Common (base structure for shared statistics entries)
+  - [PgStatShared_Common](../P/PgStatShared_Common.md) (base structure for shared statistics entries)
   - [pgstat_get_kind_info](pgstat_get_kind_info.md) (function to get kind-specific information)
   - PG_UINT32_MAX (constant for maximum 32-bit unsigned integer value)
   - Assert (macro for debug assertions)
@@ -30,9 +30,9 @@ This function calculates and returns a pointer to the actual data portion of a s
   - [pgstat_fetch_entry](pgstat_fetch_entry.md) in pgstat.c
   - [pgstat_build_snapshot](pgstat_build_snapshot.md) in pgstat.c
   - [pgstat_write_statsfile](pgstat_write_statsfile.md) in pgstat.c
-  - pgstat_read_statsfile in pgstat.c
-  - pgstat_reinit_entry in pgstat_shmem.c
-  - shared_stat_reset_contents in pgstat_shmem.c
+  - [pgstat_read_statsfile](pgstat_read_statsfile.md) in pgstat.c
+  - [pgstat_reinit_entry](pgstat_reinit_entry.md) in pgstat_shmem.c
+  - [shared_stat_reset_contents](../s/shared_stat_reset_contents.md) in pgstat_shmem.c
 
 ## Notes and Other Information
 - Performs bounds checking with assertions to ensure the offset is non-zero and within valid range

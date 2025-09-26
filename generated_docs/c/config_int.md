@@ -47,12 +47,12 @@ The config_int structure represents integer-type GUC variables in PostgreSQL's c
 
 ## Dependencies
 - Types referenced:
-  - config_generic (base structure for all GUC variables)
+  - [config_generic](config_generic.md) (base structure for all GUC variables)
   - GucIntCheckHook (function pointer type for validation)
   - GucIntAssignHook (function pointer type for assignment)
   - GucShowHook (function pointer type for display)
 - Used by:
-  - DefineCustomIntVariable (function to create custom integer GUC variables)
+  - [DefineCustomIntVariable](../D/DefineCustomIntVariable.md) (function to create custom integer GUC variables)
   - Various GUC management functions (build_guc_variables, check_GUC_init, etc.)
   - GUC system functions for validation, assignment, and display operations
 

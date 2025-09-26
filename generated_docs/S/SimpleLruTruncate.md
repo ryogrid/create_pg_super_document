@@ -24,7 +24,7 @@ SimpleLruTruncate is a maintenance function that performs safe truncation of SLR
   - [pgstat_count_slru_truncate](../p/pgstat_count_slru_truncate.md)
   - [pg_atomic_read_u64](../p/pg_atomic_read_u64.md)
   - SlotGetBankNumber
-  - LWLockAcquire/LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease
   - [SlruInternalWritePage](SlruInternalWritePage.md)
   - [SimpleLruWaitIO](SimpleLruWaitIO.md)
   - [SlruScanDirectory](SlruScanDirectory.md)

@@ -19,10 +19,10 @@ This function performs garbage collection on a tuplestore by identifying and rem
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Tuplestorestate
+  - [Tuplestorestate](../T/Tuplestorestate.md)
   - EXEC_FLAG_REWIND (execution flag constant)
   - TSS_INMEM (tuplestore status constant)
-  - GetMemoryChunkSpace
+  - [GetMemoryChunkSpace](../G/GetMemoryChunkSpace.md)
   - FREEMEM (memory management macro)
 - Called from (representative examples):
   - [ExecMaterialMarkPos](../E/ExecMaterialMarkPos.md)

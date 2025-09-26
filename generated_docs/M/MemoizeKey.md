@@ -40,4 +40,4 @@ When the cache reaches capacity limits, the LRU mechanism uses the lru_node to i
 - Used as SH_KEY_TYPE in the specialized hash table implementation for memoization
 - The params field must be properly initialized with parameter values for hash and equality comparisons
 - LRU functionality is essential for cache management when memory limits are reached
-- Hash and equality functions are provided specifically for this key type (MemoizeHash_hash, MemoizeHash_equal)
+- [Hash](../H/Hash.md) and equality functions are provided specifically for this key type (MemoizeHash_hash, MemoizeHash_equal)

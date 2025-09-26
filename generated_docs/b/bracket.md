@@ -32,7 +32,7 @@ The  function processes non-complemented bracket expressions (like  or ) in regu
   - [okcolors](../o/okcolors.md) (closes open subcolors)
   - NOERR (error handling macro)
   - [charclasscomplement](../c/charclasscomplement.md) (handles complemented character classes)
-  - optimizebracket (optimizes bracket expression into rainbow if possible)
+  - [optimizebracket](../o/optimizebracket.md) (optimizes bracket expression into rainbow if possible)
   - NUM_CCLASSES (constant for number of character classes)
 - Called from:
   - ARCV (main arc processing function)

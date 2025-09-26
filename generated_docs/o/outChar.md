@@ -22,7 +22,7 @@ This approach ensures that single characters receive the same escaping treatment
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendStringInfoString (for null character '<>' representation)
+  - [appendStringInfoString](../a/appendStringInfoString.md) (for null character '<>' representation)
   - [outToken](outToken.md) (for delegating character escaping and formatting)
 
 - Called from (representative examples):

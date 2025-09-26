@@ -37,7 +37,7 @@ The function also supports cases where tupleDesc is NULL for relations not expec
   - HeapTupleHeaderGetNatts (get number of attributes in tuple)
   - TupleDescAttr (access tuple descriptor attribute info)
   - HeapTupleNoNulls (check if tuple has any null values)
-  - att_isnull (check specific bit in null bitmap)
+  - [att_isnull](../a/att_isnull.md) (check specific bit in null bitmap)
   - TableOidAttributeNumber, SelfItemPointerAttributeNumber, etc. (system attribute constants)
   - elog (error logging)
 - Called from (representative examples):

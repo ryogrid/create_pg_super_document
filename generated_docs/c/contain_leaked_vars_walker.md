@@ -30,7 +30,7 @@ The function is recursive and uses `expression_tree_walker` to continue traversa
 ## Dependencies
 - Functions called/Symbols referenced:
   - nodeTag
-  - check_functions_in_node
+  - [check_functions_in_node](check_functions_in_node.md)
   - [contain_leaked_vars_checker](contain_leaked_vars_checker.md)
   - [contain_var_clause](contain_var_clause.md)
   - [getSubscriptingRoutines](../g/getSubscriptingRoutines.md)

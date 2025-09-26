@@ -23,7 +23,7 @@ The function contains a comment questioning whether CatalogSnapshot should also 
 - Functions called/Symbols referenced:
   - CommandId (type)
 - Called from (representative examples):
-  - CommandCounterIncrement
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md)
 
 ## Notes and Other Information
 - Only operates if FirstSnapshotSet is true

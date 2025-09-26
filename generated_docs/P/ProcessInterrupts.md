@@ -31,31 +31,31 @@ This function takes no parameters and operates on global interrupt state variabl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LockErrorCleanup
+  - [LockErrorCleanup](../L/LockErrorCleanup.md)
   - AmAutoVacuumWorkerProcess
-  - IsLogicalWorker
-  - IsLogicalLauncher
+  - [IsLogicalWorker](../I/IsLogicalWorker.md)
+  - [IsLogicalLauncher](../I/IsLogicalLauncher.md)
   - AmBackgroundWorkerProcess
-  - pq_check_connection
-  - enable_timeout_after
-  - get_timeout_indicator
-  - get_timeout_finish_time
-  - ProcessRecoveryConflictInterrupts
-  - IsTransactionOrTransactionBlock
-  - pgstat_report_stat
-  - ProcessProcSignalBarrier
-  - HandleParallelMessages
-  - ProcessLogMemoryContextInterrupt
-  - HandleParallelApplyMessages
-  - proc_exit
+  - [pq_check_connection](../p/pq_check_connection.md)
+  - [enable_timeout_after](../e/enable_timeout_after.md)
+  - [get_timeout_indicator](../g/get_timeout_indicator.md)
+  - [get_timeout_finish_time](../g/get_timeout_finish_time.md)
+  - [ProcessRecoveryConflictInterrupts](ProcessRecoveryConflictInterrupts.md)
+  - [IsTransactionOrTransactionBlock](../I/IsTransactionOrTransactionBlock.md)
+  - [pgstat_report_stat](../p/pgstat_report_stat.md)
+  - [ProcessProcSignalBarrier](ProcessProcSignalBarrier.md)
+  - [HandleParallelMessages](../H/HandleParallelMessages.md)
+  - [ProcessLogMemoryContextInterrupt](ProcessLogMemoryContextInterrupt.md)
+  - [HandleParallelApplyMessages](../H/HandleParallelApplyMessages.md)
+  - [proc_exit](../p/proc_exit.md)
   - ereport (various error levels)
 - Called from (representative examples):
   - CHECK_FOR_INTERRUPTS macro (most common usage)
-  - die signal handler
+  - [die](../d/die.md) signal handler
 
 ## Notes and Other Information
 - The function checks InterruptHoldoffCount and CritSectionCount to ensure it's safe to process interrupts before proceeding
-- Query cancel interrupts are deferred while reading input from clients to maintain FE/BE protocol synchronization
+- [Query](../Q/Query.md) cancel interrupts are deferred while reading input from clients to maintain FE/BE protocol synchronization
 - Different process types (autovacuum, logical replication workers, background workers) receive specialized error messages
 - Lock and statement timeouts are handled with precedence logic to report the earlier-occurring timeout
 - The function includes injection points for testing timeout scenarios

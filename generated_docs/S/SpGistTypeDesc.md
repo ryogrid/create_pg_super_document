@@ -36,11 +36,11 @@ The structure is designed to be lightweight while providing all necessary type i
   - PostgreSQL type system primitives
 
 - Called from (representative examples):
-  - fillTypeDesc (spgutils.c:160)
-  - SpGistState (spgist_private.h:150-153)
-  - SpGistCache (spgist_private.h:255-258)
-  - getSpGistTupleDesc (spgutils.c:309)
-  - memcpyInnerDatum (spgutils.c:789)
+  - [fillTypeDesc](../f/fillTypeDesc.md) (spgutils.c:160)
+  - [SpGistState](SpGistState.md) (spgist_private.h:150-153)
+  - [SpGistCache](SpGistCache.md) (spgist_private.h:255-258)
+  - [getSpGistTupleDesc](../g/getSpGistTupleDesc.md) (spgutils.c:309)
+  - [memcpyInnerDatum](../m/memcpyInnerDatum.md) (spgutils.c:789)
 
 ## Notes and Other Information
 - Essential component of SpGistState and SpGistCache structures

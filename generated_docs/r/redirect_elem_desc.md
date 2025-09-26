@@ -24,7 +24,7 @@ The function expects the input to be a pointer to an array of two OffsetNumber v
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendStringInfo
+  - [appendStringInfo](../a/appendStringInfo.md)
   - OffsetNumber (data type)
 - Called from (representative examples):
   - [heap2_desc](../h/heap2_desc.md)

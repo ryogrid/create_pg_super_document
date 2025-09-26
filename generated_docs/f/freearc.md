@@ -27,8 +27,8 @@ The freearc function safely removes an arc from an NFA structure by performing c
   - [moveins](../m/moveins.md) (when reorganizing incoming arcs)
   - [moveouts](../m/moveouts.md) (when reorganizing outgoing arcs)
   - [pull](../p/pull.md)/push operations (during NFA optimization)
-  - fixempties (when fixing empty transitions)
-  - optimizebracket (during bracket optimization)
+  - [fixempties](fixempties.md) (when fixing empty transitions)
+  - [optimizebracket](../o/optimizebracket.md) (during bracket optimization)
 
 ## Notes and Other Information
 - Maintains bidirectional linked list integrity for both incoming and outgoing arc chains

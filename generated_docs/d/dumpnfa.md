@@ -35,8 +35,8 @@ The function iterates through all states in the NFA, calling  for each one to pr
   - [optimize](../o/optimize.md) (src/backend/regex/regc_nfa.c:1612, 1631)
   - [pullback](../p/pullback.md) (src/backend/regex/regc_nfa.c:1678)
   - [pushfwd](../p/pushfwd.md) (src/backend/regex/regc_nfa.c:1849)
-  - fixempties (src/backend/regex/regc_nfa.c:2284)
-  - fixconstraintloops (src/backend/regex/regc_nfa.c:2446)
+  - [fixempties](../f/fixempties.md) (src/backend/regex/regc_nfa.c:2284)
+  - [fixconstraintloops](../f/fixconstraintloops.md) (src/backend/regex/regc_nfa.c:2446)
 
 ## Notes and Other Information
 - This function is only available in debug builds (wrapped in )

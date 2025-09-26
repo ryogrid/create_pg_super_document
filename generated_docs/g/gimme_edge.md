@@ -23,8 +23,8 @@ This static function registers a directed edge from city1 to city2 in the input 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Edge (edge table data structure)
-  - Gene (genetic algorithm gene data type)  
+  - [Edge](../E/Edge.md) (edge table data structure)
+  - [Gene](../G/Gene.md) (genetic algorithm gene data type)  
   - abs (absolute value function for checking shared edges)
 - Called from (representative examples):
   - [gimme_edge_table](gimme_edge_table.md) (called multiple times to build complete edge table)

@@ -33,7 +33,7 @@ No constraints are generated for the resulting tuple descriptor, making it suita
   - forfour (macro for parallel iteration over four lists)
   - [TupleDescInitEntry](../T/TupleDescInitEntry.md) (initializes individual attribute entries)
   - [TupleDescInitEntryCollation](../T/TupleDescInitEntryCollation.md) (sets collation for attributes)
-  - list_length (gets list length)
+  - [list_length](../l/list_length.md) (gets list length)
   - strVal, lfirst_oid, lfirst_int (list access macros)
 - Called from (representative examples):
   - [ExecInitFunctionScan](../E/ExecInitFunctionScan.md) (function scan initialization)

@@ -39,18 +39,18 @@ The custom_read_write attribute indicates that this node has specialized seriali
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BoolExprType
+  - [BoolExprType](BoolExprType.md)
   - ParseLoc
 - Called from (representative examples):
-  - makeBoolExpr (creates BoolExpr nodes)
-  - make_andclause (creates AND expressions)
-  - make_orclause (creates OR expressions)
-  - make_notclause (creates NOT expressions)
-  - transformBoolExpr (during parse analysis)
-  - ExecInitExprRec (expression initialization)
-  - clause_selectivity_ext (selectivity estimation)
-  - negate_clause (query transformation)
-  - simplify_or_arguments/simplify_and_arguments (optimization)
+  - [makeBoolExpr](../m/makeBoolExpr.md) (creates BoolExpr nodes)
+  - [make_andclause](../m/make_andclause.md) (creates AND expressions)
+  - [make_orclause](../m/make_orclause.md) (creates OR expressions)
+  - [make_notclause](../m/make_notclause.md) (creates NOT expressions)
+  - [transformBoolExpr](../t/transformBoolExpr.md) (during parse analysis)
+  - [ExecInitExprRec](../E/ExecInitExprRec.md) (expression initialization)
+  - [clause_selectivity_ext](../c/clause_selectivity_ext.md) (selectivity estimation)
+  - [negate_clause](../n/negate_clause.md) (query transformation)
+  - [simplify_or_arguments](../s/simplify_or_arguments.md)/simplify_and_arguments (optimization)
 
 ## Notes and Other Information
 - Supports n-ary operations: AND and OR can have multiple arguments, enabling optimized representation of complex boolean expressions

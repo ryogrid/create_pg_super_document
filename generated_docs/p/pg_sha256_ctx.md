@@ -34,12 +34,12 @@ The structure is designed to support the standard init/update/final pattern of h
   - PG_SHA256_BLOCK_LENGTH (constant defining 64-byte block size)
 
 - Called from (representative examples):
-  - pg_cryptohash_ctx (general cryptographic hash context structure)
-  - pg_sha256_init (initializes the context)
-  - pg_sha256_update (processes data chunks)
-  - pg_sha256_final (finalizes hash computation)
-  - SHA256_Transform (core transformation function)
-  - SHA256_Last (final block processing)
+  - [pg_cryptohash_ctx](pg_cryptohash_ctx.md) (general cryptographic hash context structure)
+  - [pg_sha256_init](pg_sha256_init.md) (initializes the context)
+  - [pg_sha256_update](pg_sha256_update.md) (processes data chunks)
+  - [pg_sha256_final](pg_sha256_final.md) (finalizes hash computation)
+  - [SHA256_Transform](../S/SHA256_Transform.md) (core transformation function)
+  - [SHA256_Last](../S/SHA256_Last.md) (final block processing)
 
 ## Notes and Other Information
 - The structure size is exactly aligned for SHA-256's 512-bit block processing requirements

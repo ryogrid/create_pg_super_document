@@ -37,7 +37,7 @@ This function creates a new Red-Black Tree instance by allocating memory for the
   - Assert (assertion macro)
 - Called from (representative examples):
   - [ginInitBA](../g/ginInitBA.md) (GIN index bulk allocation initialization)
-  - create_int_rbtree (test module function)
+  - [create_int_rbtree](../c/create_int_rbtree.md) (test module function)
 
 ## Notes and Other Information
 - The combiner's righthand argument will be a "proposed" tree node where RBTNode fields aren't valid

@@ -21,10 +21,10 @@ This function calculates and returns the size of shared memory required to alloc
 ## Dependencies
 - Functions called/Symbols referenced:
   - NUM_EMULATION_SEMAPHORES (constant defining number of semaphores needed)
-  - PGSemaphore (semaphore structure type)
+  - [PGSemaphore](../P/PGSemaphore.md) (semaphore structure type)
 - Called from:
-  - CalculateShmemSize (in src/backend/storage/ipc/ipci.c:114)
-  - SpinlockSemaInit (in src/backend/storage/lmgr/spin.c:87)
+  - [CalculateShmemSize](../C/CalculateShmemSize.md) (in src/backend/storage/ipc/ipci.c:114)
+  - [SpinlockSemaInit](SpinlockSemaInit.md) (in src/backend/storage/lmgr/spin.c:87)
   - SpinLockFree (in src/include/storage/spin.h:70)
 
 ## Notes and Other Information

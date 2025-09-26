@@ -25,7 +25,7 @@ If the array has no null bitmap (ARR_HASNULL returns false), the function immedi
 ## Dependencies
 - Functions called/Symbols referenced:
   - ARR_HASNULL (macro to check if array has a null bitmap)
-  - ArrayGetNItems (calculates total number of elements)
+  - [ArrayGetNItems](../A/ArrayGetNItems.md) (calculates total number of elements)
   - ARR_NDIM (macro for array dimensions)
   - ARR_DIMS (macro for dimension sizes)
   - ARR_NULLBITMAP (macro to get pointer to null bitmap)

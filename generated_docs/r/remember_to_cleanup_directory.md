@@ -21,10 +21,10 @@ This function creates a new cleanup directory entry and adds it to the front of 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [cb_cleanup_dir](../c/cb_cleanup_dir.md) (structure type for cleanup directory entries)
-  - pg_malloc (PostgreSQL memory allocation function)
+  - [pg_malloc](../p/pg_malloc.md) (PostgreSQL memory allocation function)
 - Called from (representative examples):
-  - create_output_directory (in src/bin/pg_combinebackup/pg_combinebackup.c:731)
-  - create_output_directory (in src/bin/pg_combinebackup/pg_combinebackup.c:736)
+  - [create_output_directory](../c/create_output_directory.md) (in src/bin/pg_combinebackup/pg_combinebackup.c:731)
+  - [create_output_directory](../c/create_output_directory.md) (in src/bin/pg_combinebackup/pg_combinebackup.c:736)
 
 ## Notes and Other Information
 - This is a static function used specifically within pg_combinebackup utility

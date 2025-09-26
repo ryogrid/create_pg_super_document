@@ -69,9 +69,9 @@ The structure supports PostgreSQL's advanced execution features including parall
 - Functions called/Symbols referenced:
   - [CustomScanState](CustomScanState.md) (execution state structure)
   - [EState](../E/EState.md) (executor state)
-  - TupleTableSlot (tuple storage)
+  - [TupleTableSlot](../T/TupleTableSlot.md) (tuple storage)
   - [ParallelContext](../P/ParallelContext.md) (parallel execution context)
-  - ExplainState (query explanation state)
+  - [ExplainState](../E/ExplainState.md) (query explanation state)
   - [shm_toc](../s/shm_toc.md) (shared memory table of contents)
   - [List](../L/List.md) (PostgreSQL list structure)
 - Called from (representative examples):

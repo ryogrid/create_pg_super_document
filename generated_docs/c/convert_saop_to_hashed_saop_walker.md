@@ -31,10 +31,10 @@ Key validation steps include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ScalarArrayOpExpr
+  - [ScalarArrayOpExpr](../S/ScalarArrayOpExpr.md)
   - lsecond
   - [get_op_hash_functions](../g/get_op_hash_functions.md)
-  - ArrayGetNItems, ARR_NDIM, ARR_DIMS
+  - [ArrayGetNItems](../A/ArrayGetNItems.md), ARR_NDIM, ARR_DIMS
   - MIN_ARRAY_SIZE_FOR_HASHED_SAOP
   - [get_negator](../g/get_negator.md)
   - [get_opcode](../g/get_opcode.md)

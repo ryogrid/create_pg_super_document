@@ -33,7 +33,7 @@ The line pointer system allows PostgreSQL to efficiently manage variable-length 
   - LP_REDIRECT (constant)
   - LP_DEAD (constant)
 - Called from (representative examples):
-  - PageAddItemExtended
+  - [PageAddItemExtended](../P/PageAddItemExtended.md)
   - [PageGetFreeSpace](../P/PageGetFreeSpace.md)
   - [PageIndexTupleDelete](../P/PageIndexTupleDelete.md)
   - [PageIndexMultiDelete](../P/PageIndexMultiDelete.md)

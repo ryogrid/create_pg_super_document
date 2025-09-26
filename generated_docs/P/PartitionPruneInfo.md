@@ -33,15 +33,15 @@ The structure supports multiple partitioning hierarchies within a single plan no
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (node type identification)
-  - List (PostgreSQL list structure)
-  - Bitmapset (bit array for subplan indexing)
-  - PartitionedRelPruneInfo (detailed pruning info for individual partitioned relations)
+  - [List](../L/List.md) (PostgreSQL list structure)
+  - [Bitmapset](../B/Bitmapset.md) (bit array for subplan indexing)
+  - [PartitionedRelPruneInfo](PartitionedRelPruneInfo.md) (detailed pruning info for individual partitioned relations)
 - Called from (representative examples):
-  - ExecInitPartitionPruning (executor initialization for partition pruning)
-  - CreatePartitionPruneState (pruning state setup)
-  - create_append_plan (Append plan creation)
-  - create_merge_append_plan (MergeAppend plan creation)
-  - make_partition_pruneinfo (pruning info construction)
+  - [ExecInitPartitionPruning](../E/ExecInitPartitionPruning.md) (executor initialization for partition pruning)
+  - [CreatePartitionPruneState](../C/CreatePartitionPruneState.md) (pruning state setup)
+  - [create_append_plan](../c/create_append_plan.md) (Append plan creation)
+  - [create_merge_append_plan](../c/create_merge_append_plan.md) (MergeAppend plan creation)
+  - [make_partition_pruneinfo](../m/make_partition_pruneinfo.md) (pruning info construction)
 
 ## Notes and Other Information
 - The structure is designed to handle nested partitioning hierarchies where a partitioned table can itself contain partitioned child tables

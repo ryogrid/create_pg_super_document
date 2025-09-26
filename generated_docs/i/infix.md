@@ -30,7 +30,7 @@ The output buffer is dynamically resized as needed to accommodate the growing st
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth
+  - [check_stack_depth](../c/check_stack_depth.md)
   - RESIZEBUF
   - t_iseq
   - COPYCHAR

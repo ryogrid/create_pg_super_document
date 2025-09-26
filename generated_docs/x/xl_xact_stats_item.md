@@ -29,16 +29,16 @@ The xl_xact_stats_item structure represents a transactionally dropped statistics
   - Oid (data type)
 
 - Called from (representative examples):
-  - ParseCommitRecord (in xactdesc.c:95)
-  - ParseAbortRecord (in xactdesc.c:201)
-  - StartPrepare (in twophase.c:1057, 1058, 1121, 1127)
-  - FinishPreparedTransaction (in twophase.c:1502, 1503, 1538-1541)
-  - RecordTransactionCommit (in xact.c:1314)
-  - RecordTransactionAbort (in xact.c:1730)
-  - XactLogCommitRecord (in xact.c:5755, 5891)
-  - XactLogAbortRecord (in xact.c:5927, 6044)
-  - pgstat_get_transactional_drops (in pgstat_xact.c:270, 287)
-  - pgstat_execute_transactional_drops (in pgstat_xact.c:312, 321)
+  - [ParseCommitRecord](../P/ParseCommitRecord.md) (in xactdesc.c:95)
+  - [ParseAbortRecord](../P/ParseAbortRecord.md) (in xactdesc.c:201)
+  - [StartPrepare](../S/StartPrepare.md) (in twophase.c:1057, 1058, 1121, 1127)
+  - [FinishPreparedTransaction](../F/FinishPreparedTransaction.md) (in twophase.c:1502, 1503, 1538-1541)
+  - [RecordTransactionCommit](../R/RecordTransactionCommit.md) (in xact.c:1314)
+  - [RecordTransactionAbort](../R/RecordTransactionAbort.md) (in xact.c:1730)
+  - [XactLogCommitRecord](../X/XactLogCommitRecord.md) (in xact.c:5755, 5891)
+  - [XactLogAbortRecord](../X/XactLogAbortRecord.md) (in xact.c:5927, 6044)
+  - [pgstat_get_transactional_drops](../p/pgstat_get_transactional_drops.md) (in pgstat_xact.c:270, 287)
+  - [pgstat_execute_transactional_drops](../p/pgstat_execute_transactional_drops.md) (in pgstat_xact.c:312, 321)
 
 ## Notes and Other Information
 - Declared in xact.h rather than pgstat.h to ensure WAL format readability by frontend programs

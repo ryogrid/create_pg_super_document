@@ -19,7 +19,7 @@ For Query nodes, it checks the command type and returns either the main targetLi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetPortalByName
+  - [GetPortalByName](../G/GetPortalByName.md)
   - PortalIsValid  
   - [FetchPortalTargetList](FetchPortalTargetList.md)
   - [FetchPreparedStatement](FetchPreparedStatement.md)

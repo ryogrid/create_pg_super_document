@@ -58,7 +58,7 @@ During query planning, the funcparams bitmapset is populated to track PARAM_EXEC
   - [ExecInitFunctionScan](../E/ExecInitFunctionScan.md)
   - [ExecReScanFunctionScan](../E/ExecReScanFunctionScan.md)
   - [expandRTE](../e/expandRTE.md)
-  - get_from_clause_item
+  - [get_from_clause_item](../g/get_from_clause_item.md)
   - [inline_set_returning_function](../i/inline_set_returning_function.md)
   - [set_function_size_estimates](../s/set_function_size_estimates.md)
 

@@ -25,7 +25,7 @@ This is part of PostgreSQL's memory management system where different operations
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md): Core PostgreSQL function that switches active memory context
   - _SPI_current->execCxt: Execution memory context from current SPI connection
 - Called from (representative examples):
-  - _SPI_begin_call: When initializing SPI call context
+  - [_SPI_begin_call](_SPI_begin_call.md): When initializing SPI call context
 
 ## Notes and Other Information
 - Returns the previous MemoryContext, enabling context restoration

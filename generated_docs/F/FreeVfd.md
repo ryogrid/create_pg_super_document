@@ -32,8 +32,8 @@ The function operates by:
   - DO_DB (debug logging macro)
 - Called from (representative examples):
   - AllocateDesc
-  - PathNameOpenFilePerm
-  - FileClose
+  - [PathNameOpenFilePerm](../P/PathNameOpenFilePerm.md)
+  - [FileClose](FileClose.md)
 
 ## Notes and Other Information
 - This is a static function internal to fd.c, not exposed in the public API

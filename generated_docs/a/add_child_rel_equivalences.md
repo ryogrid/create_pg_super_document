@@ -34,7 +34,7 @@ The function updates both the equivalence class membership and the child relatio
 ## Dependencies
 - Functions called/Symbols referenced:
   - [AppendRelInfo](../A/AppendRelInfo.md) (struct type)
-  - EquivalenceClass (struct type)
+  - [EquivalenceClass](../E/EquivalenceClass.md) (struct type)
   - [EquivalenceMember](../E/EquivalenceMember.md) (struct type)
   - [bms_next_member](../b/bms_next_member.md)
   - [bms_is_subset](../b/bms_is_subset.md)

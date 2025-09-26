@@ -35,7 +35,7 @@ The iterator's state tracking enables efficient resumption of traversal across m
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TIDBitmap](TIDBitmap.md)
-  - TBMIterateResult
+  - [TBMIterateResult](TBMIterateResult.md)
 - Called from (representative examples):
   - [BitmapHeapNext](../B/BitmapHeapNext.md)
   - [BitmapAdjustPrefetchIterator](../B/BitmapAdjustPrefetchIterator.md)

@@ -27,11 +27,11 @@ This operation is atomic and thread-safe, ensuring consistent barrier state duri
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BarrierDetachImpl
-  - Barrier (struct type)
+  - [BarrierDetachImpl](BarrierDetachImpl.md)
+  - [Barrier](Barrier.md) (struct type)
 - Called from (representative examples):
-  - ExecHashTableDetachBatch
-  - ExecHashTableDetach
+  - [ExecHashTableDetachBatch](../E/ExecHashTableDetachBatch.md)
+  - [ExecHashTableDetach](../E/ExecHashTableDetach.md)
 
 ## Notes and Other Information
 - This function is only valid for dynamic barriers (not static_party barriers)

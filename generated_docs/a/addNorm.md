@@ -23,11 +23,11 @@ addNorm is a utility function that appends normalized word results to a dynamica
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (memory allocation for TSLexeme array)
+  - [palloc](../p/palloc.md) (memory allocation for TSLexeme array)
   - TSLexeme (structure type for text search lexemes)
   - MAX_NORM (maximum number of normalized forms)
 - Called from (representative examples):
-  - NINormalizeWord (at src/backend/tsearch/spell.c:2555, 2582, 2585)
+  - [NINormalizeWord](../N/NINormalizeWord.md) (at src/backend/tsearch/spell.c:2555, 2582, 2585)
 
 ## Notes and Other Information
 - Allocates space for MAX_NORM TSLexeme structures on first call

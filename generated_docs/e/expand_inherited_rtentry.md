@@ -40,7 +40,7 @@ The function also handles row locking (FOR UPDATE/SHARE) by updating PlanRowMark
   - [getRTEPermissionInfo](../g/getRTEPermissionInfo.md)
   - [build_simple_rel](../b/build_simple_rel.md)
   - [expand_planner_arrays](expand_planner_arrays.md)
-  - makeVar, makeTargetEntry, makeWholeRowVar
+  - [makeVar](../m/makeVar.md), makeTargetEntry, makeWholeRowVar
   - [add_vars_to_targetlist](../a/add_vars_to_targetlist.md)
 - Called from (representative examples):
   - [add_other_rels_to_query](../a/add_other_rels_to_query.md)

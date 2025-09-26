@@ -22,13 +22,13 @@ The function returns an ObjectAddress representing the modified publication, whi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - SearchSysCacheCopy1
   - [CStringGetDatum](../C/CStringGetDatum.md)
   - [AlterPublicationOwner_internal](AlterPublicationOwner_internal.md)
   - ObjectAddressSet
   - [heap_freetuple](../h/heap_freetuple.md)
-  - table_close
+  - [table_close](../t/table_close.md)
   - Form_pg_publication (struct type)
 - Called from (representative examples):
   - [ExecAlterOwnerStmt](../E/ExecAlterOwnerStmt.md)

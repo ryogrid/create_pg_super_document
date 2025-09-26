@@ -25,9 +25,9 @@ This function implements the core logic for JSONB object expansion operations. I
   - JB_ROOT_IS_OBJECT (validate object type)
   - [InitMaterializedSRF](../I/InitMaterializedSRF.md) (initialize set-returning function)
   - [JsonbIteratorInit](../J/JsonbIteratorInit.md), JsonbIteratorNext (JSONB iteration)
-  - cstring_to_text_with_len (key conversion)
+  - [cstring_to_text_with_len](../c/cstring_to_text_with_len.md) (key conversion)
   - [JsonbValueAsText](../J/JsonbValueAsText.md), JsonbValueToJsonb (value conversion)
-  - tuplestore_putvalues (result storage)
+  - [tuplestore_putvalues](../t/tuplestore_putvalues.md) (result storage)
   - AllocSetContextCreate, MemoryContextDelete (memory management)
 - Called from (representative examples):
   - [jsonb_each](../j/jsonb_each.md) (with as_text=false)

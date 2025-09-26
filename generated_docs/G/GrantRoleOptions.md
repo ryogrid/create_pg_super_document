@@ -37,8 +37,8 @@ This structure is used throughout PostgreSQL's role management system to track t
   - [GrantRole](GrantRole.md) (src/backend/commands/user.c:1486)
   - [AddRoleMems](../A/AddRoleMems.md) (src/backend/commands/user.c:1683)
   - [DelRoleMems](../D/DelRoleMems.md) (src/backend/commands/user.c:1980)
-  - plan_single_revoke (src/backend/commands/user.c:2320)
-  - InitGrantRoleOptions (src/backend/commands/user.c:2503)
+  - [plan_single_revoke](../p/plan_single_revoke.md) (src/backend/commands/user.c:2320)
+  - [InitGrantRoleOptions](../I/InitGrantRoleOptions.md) (src/backend/commands/user.c:2503)
 
 ## Notes and Other Information
 This structure is essential for maintaining the granular control over role privileges in PostgreSQL. The `specified` field allows the system to distinguish between options that were explicitly set by the user versus those using default values, which is crucial for proper role inheritance and permission management. The structure is used both for creating new role grants and for modifying existing ones.

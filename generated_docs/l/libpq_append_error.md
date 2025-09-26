@@ -24,12 +24,12 @@ The function preserves errno across its operation and includes retry logic to ha
   - PQExpBufferBroken
   - [libpq_gettext](libpq_gettext.md)
   - [appendPQExpBufferVA](../a/appendPQExpBufferVA.md)
-  - appendPQExpBufferChar
+  - [appendPQExpBufferChar](../a/appendPQExpBufferChar.md)
   - strlen (standard C library function)
   - va_start/va_end (standard C library macros)
 - Called from (representative examples):
   - [read_attr_value](../r/read_attr_value.md)
-  - pg_fe_getusername
+  - [pg_fe_getusername](../p/pg_fe_getusername.md)
   - [ldapServiceLookup](ldapServiceLookup.md)
   - [parseServiceInfo](../p/parseServiceInfo.md)
   - [conninfo_init](../c/conninfo_init.md)

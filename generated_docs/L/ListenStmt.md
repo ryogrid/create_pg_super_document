@@ -26,8 +26,8 @@ ListenStmt is a parse node that represents the LISTEN statement in PostgreSQL's 
 - Functions called/Symbols referenced:
   - NodeTag (for type identification)
 - Called from (representative examples):
-  - standard_ProcessUtility (processes the statement via Async_Listen in src/backend/tcop/utility.c:804)
-  - PlannedStmtRequiresSnapshot (for snapshot requirement checking in src/backend/tcop/pquery.c:1746)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (processes the statement via Async_Listen in src/backend/tcop/utility.c:804)
+  - [PlannedStmtRequiresSnapshot](../P/PlannedStmtRequiresSnapshot.md) (for snapshot requirement checking in src/backend/tcop/pquery.c:1746)
 
 ## Notes and Other Information
 - The statement is parsed in gram.y with the rule: `LISTEN ColId`

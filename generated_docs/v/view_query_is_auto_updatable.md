@@ -22,7 +22,7 @@ When check_cols is true, the function also verifies that at least one column in 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RangeTblRef (structure for range table references)
+  - [RangeTblRef](../R/RangeTblRef.md) (structure for range table references)
   - rt_fetch (function to retrieve range table entries)
   - RTE_RELATION (constant for relation range table entry type)
   - RELKIND_RELATION, RELKIND_FOREIGN_TABLE, RELKIND_VIEW, RELKIND_PARTITIONED_TABLE (relation kind constants)
@@ -30,7 +30,7 @@ When check_cols is true, the function also verifies that at least one column in 
   - gettext_noop (macro for marking translatable strings)
   - IsA (macro for type checking)
   - linitial (macro to get first list element)
-  - list_length (function to get list length)
+  - [list_length](../l/list_length.md) (function to get list length)
 - Called from (representative examples):
   - [ATExecSetRelOptions](../A/ATExecSetRelOptions.md) (in src/backend/commands/tablecmds.c:15146)
   - [DefineView](../D/DefineView.md) (in src/backend/commands/view.c:435)

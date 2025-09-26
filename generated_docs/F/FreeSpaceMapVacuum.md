@@ -19,10 +19,10 @@ The function works by recursively scanning the FSM tree starting from the root, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fsm_vacuum_page (recursively updates FSM pages)
+  - [fsm_vacuum_page](../f/fsm_vacuum_page.md) (recursively updates FSM pages)
 - Called from (representative examples):
-  - brin_vacuum_scan (src/backend/access/brin/brin.c:2192)
-  - IndexFreeSpaceMapVacuum (src/backend/storage/freespace/indexfsm.c:73)
+  - [brin_vacuum_scan](../b/brin_vacuum_scan.md) (src/backend/access/brin/brin.c:2192)
+  - [IndexFreeSpaceMapVacuum](../I/IndexFreeSpaceMapVacuum.md) (src/backend/storage/freespace/indexfsm.c:73)
 
 ## Notes and Other Information
 - This function assumes that bottom-level FSM pages have already been updated with new free-space information

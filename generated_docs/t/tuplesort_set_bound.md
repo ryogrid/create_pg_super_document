@@ -24,16 +24,16 @@ When a bound is set, the function also disables abbreviated key optimization sin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Tuplesortstate (sort state structure)
+  - [Tuplesortstate](../T/Tuplesortstate.md) (sort state structure)
   - TSS_INITIAL (initial sort status constant)
   - TUPLESORT_ALLOWBOUNDED (sort option flag)
   - WORKER (macro to check if running in parallel worker)
   - LEADER (macro to check if running in parallel leader)
 
 - Called from (representative examples):
-  - switchToPresortedPrefixMode (incremental sort execution)
-  - ExecIncrementalSort (incremental sort node execution)
-  - ExecSort (sort node execution)
+  - [switchToPresortedPrefixMode](../s/switchToPresortedPrefixMode.md) (incremental sort execution)
+  - [ExecIncrementalSort](../E/ExecIncrementalSort.md) (incremental sort node execution)
+  - [ExecSort](../E/ExecSort.md) (sort node execution)
 
 ## Notes and Other Information
 - Must be called before any tuples are inserted (checked via assertions)

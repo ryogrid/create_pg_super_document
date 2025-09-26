@@ -21,7 +21,7 @@ PQcancelSocket is a utility function that extracts the socket file descriptor fr
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQsocket](PQsocket.md)
-  - PGcancelConn (type)
+  - [PGcancelConn](PGcancelConn.md) (type)
 - Called from (representative examples):
   - [test_cancel](../t/test_cancel.md) (in libpq_pipeline test module)
   - [libpqsrv_cancel](../l/libpqsrv_cancel.md) (libpq backend-frontend helpers)

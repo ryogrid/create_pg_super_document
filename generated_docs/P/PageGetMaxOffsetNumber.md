@@ -29,7 +29,7 @@ This function is essential for page traversal operations, space management, and 
   - B-tree operations (_bt_binsrch, _bt_readpage, _bt_split)
   - GIN operations (entryLocateEntry, processPendingPage, ginVacuumEntryPage)
   - GiST operations (gistScanPage, gistformdownlink, gistvacuumpage)
-  - Hash operations (_hash_load_qualified_items, _hash_pgaddtup)
+  - [Hash](../H/Hash.md) operations (_hash_load_qualified_items, _hash_pgaddtup)
   - SP-GiST operations (spgWalk, vacuumLeafPage)
   - BRIN operations (brinGetTupleForHeapBlock, brin_evacuate_page)
   - Page management (PageAddItemExtended, PageRepairFragmentation)

@@ -34,14 +34,14 @@ The structure is part of PostgreSQL's internal cryptographic hash implementation
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_sha1_init (initializes context)
-  - pg_sha1_update (processes data)
-  - pg_sha1_final (finalizes hash computation)
+  - [pg_sha1_init](pg_sha1_init.md) (initializes context)
+  - [pg_sha1_update](pg_sha1_update.md) (processes data)
+  - [pg_sha1_final](pg_sha1_final.md) (finalizes hash computation)
 - Called from (representative examples):
-  - pg_cryptohash_ctx (as part of unified hash context)
-  - sha1_step (internal processing function)
-  - sha1_pad (padding operation)
-  - sha1_result (result extraction)
+  - [pg_cryptohash_ctx](pg_cryptohash_ctx.md) (as part of unified hash context)
+  - [sha1_step](../s/sha1_step.md) (internal processing function)
+  - [sha1_pad](../s/sha1_pad.md) (padding operation)
+  - [sha1_result](../s/sha1_result.md) (result extraction)
 
 ## Notes and Other Information
 - This is PostgreSQL's fallback SHA-1 implementation, used when external crypto libraries are unavailable

@@ -26,7 +26,7 @@ The design handles the case where files might not exist (if no backend has start
 ## Dependencies
 - Functions called/Symbols referenced:
   - [unlink_initfile](../u/unlink_initfile.md)
-  - LWLockAcquire (RelCacheInitLock)
+  - [LWLockAcquire](../L/LWLockAcquire.md) (RelCacheInitLock)
   - RELCACHE_INIT_FILENAME (constant)
   - DatabasePath (global variable)
 - Called from (representative examples):

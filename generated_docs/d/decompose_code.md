@@ -31,14 +31,14 @@ The function supports both canonical and compatibility decomposition modes, wher
 ## Dependencies
 - Functions called/Symbols referenced:
   - SBASE, SCOUNT, LBASE, VBASE, TBASE, VCOUNT, TCOUNT (Hangul constants)
-  - pg_unicode_decomposition (decomposition table structure)
-  - get_code_entry (retrieves decomposition entry for a codepoint)
-  - get_code_decomposition (retrieves decomposition sequence)
+  - [pg_unicode_decomposition](../p/pg_unicode_decomposition.md) (decomposition table structure)
+  - [get_code_entry](../g/get_code_entry.md) (retrieves decomposition entry for a codepoint)
+  - [get_code_decomposition](../g/get_code_decomposition.md) (retrieves decomposition sequence)
   - DECOMPOSITION_SIZE, DECOMPOSITION_IS_COMPAT (macros for decomposition properties)
-  - decompose_code (recursive self-call)
+  - [decompose_code](decompose_code.md) (recursive self-call)
 - Called from (representative examples):
-  - unicode_normalize
-  - decompose_code (recursive calls)
+  - [unicode_normalize](../u/unicode_normalize.md)
+  - [decompose_code](decompose_code.md) (recursive calls)
 
 ## Notes and Other Information
 - Performs recursive decomposition until base characters are reached

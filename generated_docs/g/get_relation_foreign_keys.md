@@ -36,7 +36,7 @@ The created ForeignKeyOptInfo structures are added to the root->fkey_list for la
   - [RelationGetFKeyList](../R/RelationGetFKeyList.md)
   - RelationGetRelid
   - makeNode
-  - lappend
+  - [lappend](../l/lappend.md)
   - memcpy, memset
 - Called from (representative examples):
   - [get_relation_info](get_relation_info.md)

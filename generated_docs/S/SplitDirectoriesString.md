@@ -53,7 +53,7 @@ The function handles both quoted and unquoted paths:
 - The function name is historical; it was originally designed for directory lists but expanded to handle general paths
 - Critical for PostgreSQL's library loading mechanism and path configuration processing
 - Each returned path string is separately allocated and canonicalized, requiring  for cleanup
-- Path canonicalization ensures consistent path representation across different platforms
+- [Path](../P/Path.md) canonicalization ensures consistent path representation across different platforms
 - Supports platform-specific path separators through the canonicalization process
 - Maximum path length enforcement prevents buffer overflows in downstream path processing
 - Used primarily during server initialization and configuration processing

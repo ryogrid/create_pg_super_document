@@ -22,7 +22,7 @@ This function takes no explicit parameters (uses PG_FUNCTION_ARGS macro for Post
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Port](../P/Port.md) (struct type from MyProcPort)
-  - pg_getnameinfo_all (address-to-string conversion)
+  - [pg_getnameinfo_all](../p/pg_getnameinfo_all.md) (address-to-string conversion)
   - [int4in](int4in.md) (string to int4 conversion function)
   - DirectFunctionCall1 (PostgreSQL function call interface)
   - [CStringGetDatum](../C/CStringGetDatum.md) (C string to Datum conversion)

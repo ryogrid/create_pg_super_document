@@ -51,7 +51,7 @@ The structure is primarily used within the libpqwalreceiver.c module, which prov
   - [libpqrcv_server_version](../l/libpqrcv_server_version.md)
   - [libpqrcv_readtimelinehistoryfile](../l/libpqrcv_readtimelinehistoryfile.md)
   - [libpqrcv_get_backend_pid](../l/libpqrcv_get_backend_pid.md)
-  - PGconn (libpq connection structure)
+  - [PGconn](../P/PGconn.md) (libpq connection structure)
   - [WalRcvStreamOptions](WalRcvStreamOptions.md)
   - [WalRcvExecResult](WalRcvExecResult.md)
 
@@ -61,7 +61,7 @@ The structure is primarily used within the libpqwalreceiver.c module, which prov
   - [DropSubscription](../D/DropSubscription.md) (for subscription cleanup)
   - synchronize_slots (for slot synchronization)
   - [ReplSlotSyncWorkerMain](../R/ReplSlotSyncWorkerMain.md) (for slot sync worker)
-  - SyncReplicationSlots (for replication slot synchronization)
+  - [SyncReplicationSlots](../S/SyncReplicationSlots.md) (for replication slot synchronization)
   - [TransApplyAction](../T/TransApplyAction.md) (for transaction application)
 
 ## Notes and Other Information

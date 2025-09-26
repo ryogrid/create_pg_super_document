@@ -22,7 +22,7 @@ The function creates an ErrorSaveContext to capture any parsing errors, then cal
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - xml_parse
+  - [xml_parse](../x/xml_parse.md)
   - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md)
   - xmlFreeDoc (libxml2 function)
   - [ErrorSaveContext](../E/ErrorSaveContext.md)

@@ -34,7 +34,7 @@ The structure serves as the foundation for result set introspection, enabling cl
   - PostgresPollingStatusType
   - [PQconnectdb](PQconnectdb.md)
   - [PQconnectdbParams](PQconnectdbParams.md)
-  - PQsetdbLogin
+  - [PQsetdbLogin](PQsetdbLogin.md)
 - Called from (representative examples):
   - [PQsetResultAttrs](PQsetResultAttrs.md)
   - [getRowDescriptions](../g/getRowDescriptions.md)

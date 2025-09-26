@@ -28,16 +28,16 @@ The function includes proper exception handling to ensure system caches are prop
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreateDecodingContext
-  - XLogBeginRead
-  - XLogReadRecord
-  - LogicalDecodingProcessRecord
-  - FreeDecodingContext
-  - InvalidateSystemCaches
-  - read_local_xlog_page, wal_segment_open, wal_segment_close (XL_ROUTINE)
+  - [CreateDecodingContext](../C/CreateDecodingContext.md)
+  - [XLogBeginRead](../X/XLogBeginRead.md)
+  - [XLogReadRecord](../X/XLogReadRecord.md)
+  - [LogicalDecodingProcessRecord](LogicalDecodingProcessRecord.md)
+  - [FreeDecodingContext](../F/FreeDecodingContext.md)
+  - [InvalidateSystemCaches](../I/InvalidateSystemCaches.md)
+  - [read_local_xlog_page](../r/read_local_xlog_page.md), wal_segment_open, wal_segment_close (XL_ROUTINE)
   - PG_TRY/PG_CATCH/PG_END_TRY (exception handling)
 - Called from (representative examples):
-  - binary_upgrade_logical_slot_has_caught_up
+  - [binary_upgrade_logical_slot_has_caught_up](../b/binary_upgrade_logical_slot_has_caught_up.md)
 
 ## Notes and Other Information
 - Uses fast-forward mode for efficient WAL scanning without full decoding overhead

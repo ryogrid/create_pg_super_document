@@ -23,7 +23,7 @@ The `range_empty` function is a range predicate function that checks whether a P
   - `RANGE_EMPTY` - Flag constant indicating an empty range
 - Called from (representative examples):
   - SQL queries using the `isempty()` function on range types
-  - Range validation and conditional operations
+  - [Range](../R/Range.md) validation and conditional operations
 
 ## Notes and Other Information
 - This is a very efficient operation that only examines the range header flags

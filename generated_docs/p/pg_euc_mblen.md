@@ -30,9 +30,9 @@ This function is critical for proper character boundary detection when processin
   - SS3: Single Shift 3 character set selector constant
   - IS_HIGHBIT_SET: Macro to test if the high bit (0x80) is set
 - Called from (representative examples):
-  - pg_eucjp_mblen
-  - pg_euckr_mblen  
-  - pg_johab_mblen
+  - [pg_eucjp_mblen](pg_eucjp_mblen.md)
+  - [pg_euckr_mblen](pg_euckr_mblen.md)  
+  - [pg_johab_mblen](pg_johab_mblen.md)
 
 ## Notes and Other Information
 - This is a static inline function for optimal performance, internal to the wchar.c module

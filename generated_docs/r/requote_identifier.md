@@ -30,7 +30,7 @@ The function calculates the required buffer size first, accounting for:
 ## Dependencies
 - Functions called/Symbols referenced:
   - [identifier_needs_quotes](../i/identifier_needs_quotes.md) (called twice to determine if quoting is needed)
-  - pg_malloc (for memory allocation)
+  - [pg_malloc](../p/pg_malloc.md) (for memory allocation)
 - Called from (representative examples):
   - THING_NO_SHOW (completion handling)
   - [_complete_from_query](../c/_complete_from_query.md) (query-based completion)

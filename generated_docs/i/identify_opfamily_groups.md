@@ -21,13 +21,13 @@ This function analyzes an operator family's operators and support functions to c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CatCList (catalog cache list structure)
+  - [CatCList](../C/CatCList.md) (catalog cache list structure)
   - [OpFamilyOpFuncGroup](../O/OpFamilyOpFuncGroup.md) (result structure type)
   - Form_pg_amop (operator tuple form)
   - Form_pg_amproc (support function tuple form)
   - GETSTRUCT (macro to extract tuple structure)
   - [palloc](../p/palloc.md) (memory allocation)
-  - lappend (list append function)
+  - [lappend](../l/lappend.md) (list append function)
 - Called from (representative examples):
   - [brinvalidate](../b/brinvalidate.md)
   - [ginvalidate](../g/ginvalidate.md)

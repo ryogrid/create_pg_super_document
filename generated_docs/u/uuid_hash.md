@@ -26,8 +26,8 @@ The function uses PostgreSQL's general-purpose `hash_any` function to compute a 
   - [hash_any](../h/hash_any.md) (general hash function)
   - UUID_LEN (UUID length constant - 16 bytes)
 - Called from (representative examples):
-  - Hash index operations
-  - Hash join and aggregation operations
+  - [Hash](../H/Hash.md) index operations
+  - [Hash](../H/Hash.md) join and aggregation operations
 
 ## Notes and Other Information
 - Computes hash over the full 16-byte UUID data for complete hash coverage

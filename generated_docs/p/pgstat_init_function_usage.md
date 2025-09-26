@@ -23,7 +23,7 @@ This function initializes the statistics tracking infrastructure before executin
   - [pgstat_prep_pending_entry](pgstat_prep_pending_entry.md)
   - [AcceptInvalidationMessages](../A/AcceptInvalidationMessages.md)
   - SearchSysCacheExists1
-  - pgstat_drop_entry
+  - [pgstat_drop_entry](pgstat_drop_entry.md)
   - INSTR_TIME_SET_CURRENT
   - PGSTAT_KIND_FUNCTION
 - Called from (representative examples):

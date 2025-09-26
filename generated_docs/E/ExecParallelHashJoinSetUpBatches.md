@@ -35,12 +35,12 @@ The function ensures that all parallel workers can coordinate effectively during
   - EstimateParallelHashJoinBatch (calculate space needed per batch)
   - [dsa_get_address](../d/dsa_get_address.md) (convert DSA pointer to local address)
   - palloc0_array (allocate zero-initialized array)
-  - BarrierInit, BarrierAttach, BarrierPhase, BarrierArriveAndWait, BarrierDetach (barrier coordination)
+  - [BarrierInit](../B/BarrierInit.md), BarrierAttach, BarrierPhase, BarrierArriveAndWait, BarrierDetach (barrier coordination)
   - [sts_initialize](../s/sts_initialize.md) (shared tuplestore initialization)
   - NthParallelHashJoinBatch (get Nth batch from array)
   - ParallelHashJoinBatchInner/Outer (get inner/outer tuplestore areas)
 - Called from:
-  - ExecHashTableCreate (nodeHash.c:622)
+  - [ExecHashTableCreate](ExecHashTableCreate.md) (nodeHash.c:622)
   - [ExecParallelHashIncreaseNumBatches](ExecParallelHashIncreaseNumBatches.md) (nodeHash.c:1148)
 
 ## Notes and Other Information

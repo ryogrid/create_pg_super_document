@@ -26,14 +26,14 @@ The  function performs immediate truncation of multiple forks of a storage manag
 ## Dependencies
 - Functions called/Symbols referenced:
   - SMgrRelation (type)
-  - DropRelationBuffers
-  - CacheInvalidateSmgr
+  - [DropRelationBuffers](../D/DropRelationBuffers.md)
+  - [CacheInvalidateSmgr](../C/CacheInvalidateSmgr.md)
   - InvalidBlockNumber
   - smgrsw (storage manager dispatch table)
 - Called from (representative examples):
-  - RelationTruncate
-  - smgr_redo
-  - smgrtruncate
+  - [RelationTruncate](../R/RelationTruncate.md)
+  - [smgr_redo](smgr_redo.md)
+  - [smgrtruncate](smgrtruncate.md)
   - SmgrIsTemp
 
 ## Notes and Other Information

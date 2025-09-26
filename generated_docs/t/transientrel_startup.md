@@ -22,7 +22,7 @@ This function serves as the startup callback for a DestReceiver that handles wri
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](table_open.md)
   - [GetCurrentCommandId](../G/GetCurrentCommandId.md)
   - [GetBulkInsertState](../G/GetBulkInsertState.md)
   - RelationGetTargetBlock

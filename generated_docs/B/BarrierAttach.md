@@ -33,12 +33,12 @@ The returned phase number allows the new participant to understand which synchro
 ## Dependencies
 - Functions called/Symbols referenced:
   - SpinLockAcquire/SpinLockRelease
-  - Barrier (struct type)
+  - [Barrier](Barrier.md) (struct type)
 - Called from (representative examples):
-  - MultiExecParallelHash
-  - ExecHashTableCreate
-  - ExecParallelHashJoinSetUpBatches
-  - ExecParallelHashJoinNewBatch
+  - [MultiExecParallelHash](../M/MultiExecParallelHash.md)
+  - [ExecHashTableCreate](../E/ExecHashTableCreate.md)
+  - [ExecParallelHashJoinSetUpBatches](../E/ExecParallelHashJoinSetUpBatches.md)
+  - [ExecParallelHashJoinNewBatch](../E/ExecParallelHashJoinNewBatch.md)
 
 ## Notes and Other Information
 - Only valid for dynamic barriers (static_party must be false) - will assert if used on static barriers

@@ -26,7 +26,7 @@ The results are returned as a palloc'd list of OpBtreeInterpretation structures,
   - SearchSysCacheList1
   - [get_negator](get_negator.md)
   - ReleaseSysCacheList
-  - OpBtreeInterpretation
+  - [OpBtreeInterpretation](../O/OpBtreeInterpretation.md)
   - StrategyNumber
   - ROWCOMPARE_NE
   - BTEqualStrategyNumber

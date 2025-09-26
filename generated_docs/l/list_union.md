@@ -28,14 +28,14 @@ The performance complexity is O(n*m) where n and m are the lengths of the two li
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsPointerList: Validates that both input lists are pointer lists (called twice)
-  - list_copy: Creates a copy of list1 as the starting point for the result
-  - list_member: Checks if an element from list2 already exists in the result list
-  - lappend: Adds unique elements from list2 to the result list
+  - [list_copy](list_copy.md): Creates a copy of list1 as the starting point for the result
+  - [list_member](list_member.md): Checks if an element from list2 already exists in the result list
+  - [lappend](lappend.md): Adds unique elements from list2 to the result list
   - lfirst: Extracts the data pointer from list cells during iteration
-  - check_list_invariants: Validates the final result list structure
+  - [check_list_invariants](../c/check_list_invariants.md): Validates the final result list structure
 - Called from (representative examples):
-  - AddRelationNewConstraints: Constraint management during table operations
-  - process_duplicate_ors: Query optimization for OR clause processing
+  - [AddRelationNewConstraints](../A/AddRelationNewConstraints.md): Constraint management during table operations
+  - [process_duplicate_ors](../p/process_duplicate_ors.md): Query optimization for OR clause processing
 
 ## Notes and Other Information
 - Both input lists must be pointer lists (not integer or OID lists)

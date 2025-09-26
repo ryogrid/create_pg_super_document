@@ -30,22 +30,22 @@ The function delegates the actual I/O termination to TerminateBufferIO, ensuring
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferDesc
-  - GetBufferDescriptor
-  - LockBufHdr
-  - UnlockBufHdr
+  - [BufferDesc](../B/BufferDesc.md)
+  - [GetBufferDescriptor](../G/GetBufferDescriptor.md)
+  - [LockBufHdr](../L/LockBufHdr.md)
+  - [UnlockBufHdr](../U/UnlockBufHdr.md)
   - BM_IO_IN_PROGRESS
   - BM_TAG_VALID
   - BM_VALID
   - BM_DIRTY
   - BM_IO_ERROR
   - relpathperm
-  - BufTagGetRelFileLocator
-  - BufTagGetForkNum
-  - TerminateBufferIO
+  - [BufTagGetRelFileLocator](../B/BufTagGetRelFileLocator.md)
+  - [BufTagGetForkNum](../B/BufTagGetForkNum.md)
+  - [TerminateBufferIO](../T/TerminateBufferIO.md)
 - Called from (representative examples):
   - BufferIsPinned
-  - ResOwnerReleaseBufferIO
+  - [ResOwnerReleaseBufferIO](../R/ResOwnerReleaseBufferIO.md)
 
 ## Notes and Other Information
 - Assumes all LWLocks have been released but buffer pins are still held

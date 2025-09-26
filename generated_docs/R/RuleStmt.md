@@ -37,13 +37,13 @@ RuleStmt is a parse node that represents the CREATE RULE statement in PostgreSQL
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (for type identification)
-  - RangeVar (for relation specification)
+  - [RangeVar](RangeVar.md) (for relation specification)
   - CmdType (for event type specification)
-  - List (for actions storage)
+  - [List](../L/List.md) (for actions storage)
 - Called from (representative examples):
-  - DefineRule (processes the statement in src/backend/rewrite/rewriteDefine.c:190)
-  - ProcessUtilitySlow (dispatches the statement in src/backend/tcop/utility.c:1663)
-  - transformRuleStmt (transforms the statement in src/backend/parser/parse_utilcmd.c:2967)
+  - [DefineRule](../D/DefineRule.md) (processes the statement in src/backend/rewrite/rewriteDefine.c:190)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (dispatches the statement in src/backend/tcop/utility.c:1663)
+  - [transformRuleStmt](../t/transformRuleStmt.md) (transforms the statement in src/backend/parser/parse_utilcmd.c:2967)
 
 ## Notes and Other Information
 - Rules are parsed in gram.y with the syntax: `CREATE opt_or_replace RULE name AS ON event TO qualified_name where_clause DO opt_instead RuleActionList`

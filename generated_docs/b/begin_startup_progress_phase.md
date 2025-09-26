@@ -31,8 +31,8 @@ This function takes no parameters.
 
 - Called from:
   - [PerformWalRecovery](../P/PerformWalRecovery.md) (src/backend/access/transam/xlogrecovery.c:1745)
-  - SyncDataDirectory (src/backend/storage/file/fd.c:3582, 3608, 3622)
-  - ResetUnloggedRelations (src/backend/storage/file/reinit.c:70)
+  - [SyncDataDirectory](../S/SyncDataDirectory.md) (src/backend/storage/file/fd.c:3582, 3608, 3622)
+  - [ResetUnloggedRelations](../R/ResetUnloggedRelations.md) (src/backend/storage/file/reinit.c:70)
   - ereport_startup_progress (referenced in src/include/postmaster/startup.h:37)
 
 ## Notes and Other Information

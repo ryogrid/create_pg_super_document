@@ -21,13 +21,13 @@ Unlike ltsWriteBlock, this function is straightforward - it seeks to the specifi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufFileSeekBlock (positions file pointer to target block)
-  - BufFileReadExact (reads exactly BLCKSZ bytes)
+  - [BufFileSeekBlock](../B/BufFileSeekBlock.md) (positions file pointer to target block)
+  - [BufFileReadExact](../B/BufFileReadExact.md) (reads exactly BLCKSZ bytes)
 - Called from (representative examples):
-  - ltsReadFillBuffer
-  - LogicalTapeFreeze
-  - LogicalTapeBackspace
-  - LogicalTapeSeek
+  - [ltsReadFillBuffer](ltsReadFillBuffer.md)
+  - [LogicalTapeFreeze](../L/LogicalTapeFreeze.md)
+  - [LogicalTapeBackspace](../L/LogicalTapeBackspace.md)
+  - [LogicalTapeSeek](../L/LogicalTapeSeek.md)
 
 ## Notes and Other Information
 - Function assumes the caller has verified the block exists and is readable

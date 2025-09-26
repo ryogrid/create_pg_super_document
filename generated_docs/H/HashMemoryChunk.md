@@ -25,17 +25,17 @@ This is a simple typedef with no direct members, but provides typed access to al
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HashMemoryChunkData (the underlying structure type)
+  - [HashMemoryChunkData](HashMemoryChunkData.md) (the underlying structure type)
 - Called from (representative examples):
-  - ExecHashIncreaseNumBatches (batch size management)
-  - ExecParallelHashRepartitionFirst (parallel hash repartitioning)
-  - ExecHashIncreaseNumBuckets (bucket resizing operations)
-  - ExecParallelHashIncreaseNumBuckets (parallel bucket operations)
-  - dense_alloc (memory allocation routines)
-  - ExecParallelHashTupleAlloc (tuple allocation in parallel context)
-  - ExecHashTableDetachBatch (batch cleanup operations)
-  - ExecParallelHashTableSetCurrentBatch (batch switching)
-  - ExecParallelHashPopChunkQueue (chunk queue management)
+  - [ExecHashIncreaseNumBatches](../E/ExecHashIncreaseNumBatches.md) (batch size management)
+  - [ExecParallelHashRepartitionFirst](../E/ExecParallelHashRepartitionFirst.md) (parallel hash repartitioning)
+  - [ExecHashIncreaseNumBuckets](../E/ExecHashIncreaseNumBuckets.md) (bucket resizing operations)
+  - [ExecParallelHashIncreaseNumBuckets](../E/ExecParallelHashIncreaseNumBuckets.md) (parallel bucket operations)
+  - [dense_alloc](../d/dense_alloc.md) (memory allocation routines)
+  - [ExecParallelHashTupleAlloc](../E/ExecParallelHashTupleAlloc.md) (tuple allocation in parallel context)
+  - [ExecHashTableDetachBatch](../E/ExecHashTableDetachBatch.md) (batch cleanup operations)
+  - [ExecParallelHashTableSetCurrentBatch](../E/ExecParallelHashTableSetCurrentBatch.md) (batch switching)
+  - [ExecParallelHashPopChunkQueue](../E/ExecParallelHashPopChunkQueue.md) (chunk queue management)
   - HashJoinTableData (as member types for chunk tracking)
 
 ## Notes and Other Information

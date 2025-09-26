@@ -47,15 +47,15 @@ PgStat_TableXactStatus is a crucial data structure in PostgreSQL's statistics su
 ## Dependencies
 - Functions called/Symbols referenced:
   - PgStat_Counter
-  - PgStat_TableStatus
+  - [PgStat_TableStatus](PgStat_TableStatus.md)
 - Called from (representative examples):
-  - pgstat_report_analyze
-  - find_tabstat_entry
-  - AtEOXact_PgStat_Relations
-  - AtEOSubXact_PgStat_Relations
-  - add_tabstat_xact_level
-  - save_truncdrop_counters
-  - restore_truncdrop_counters
+  - [pgstat_report_analyze](../p/pgstat_report_analyze.md)
+  - [find_tabstat_entry](../f/find_tabstat_entry.md)
+  - [AtEOXact_PgStat_Relations](../A/AtEOXact_PgStat_Relations.md)
+  - [AtEOSubXact_PgStat_Relations](../A/AtEOSubXact_PgStat_Relations.md)
+  - [add_tabstat_xact_level](../a/add_tabstat_xact_level.md)
+  - [save_truncdrop_counters](../s/save_truncdrop_counters.md)
+  - [restore_truncdrop_counters](../r/restore_truncdrop_counters.md)
 
 ## Notes and Other Information
 This structure is essential for PostgreSQL's MVCC (Multi-Version Concurrency Control) and nested transaction support. The pre-truncate/drop counters are particularly important for maintaining accurate statistics when DDL operations occur within transactions. The linked list structure (via 'next' pointer) allows multiple tables to be tracked at the same subtransaction level, while the 'upper' pointer maintains the transaction hierarchy for proper rollback and commit handling.

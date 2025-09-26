@@ -29,13 +29,13 @@ The function supports multiple compression algorithms conditionally based on bui
   - PGAlignedBlock (aligned buffer for decompression)
   - [report_invalid_record](../r/report_invalid_record.md) (error reporting)
   - BKPIMAGE_COMPRESSED and compression flag macros
-  - pglz_decompress (PGLZ decompression)
+  - [pglz_decompress](../p/pglz_decompress.md) (PGLZ decompression)
   - LZ4_decompress_safe (LZ4 decompression, if built with LZ4)
   - ZSTD_decompress (ZSTD decompression, if built with ZSTD)
   - MemSet (memory zeroing utility)
 - Called from (representative examples):
   - [verifyBackupPageConsistency](../v/verifyBackupPageConsistency.md)
-  - XLogReadBufferForRedoExtended
+  - [XLogReadBufferForRedoExtended](../X/XLogReadBufferForRedoExtended.md)
   - [XLogRecordSaveFPWs](../X/XLogRecordSaveFPWs.md)
   - XLogRecHasBlockData
 

@@ -23,7 +23,7 @@ This function serves as a debug print callback for PostgreSQL's ResourceOwner sy
   - [psprintf](../p/psprintf.md) (PostgreSQL's sprintf-like function for formatted string allocation)
   - [DatumGetInt32](../D/DatumGetInt32.md) (converts Datum to int32)
 - Called from (representative examples):
-  - ResourceOwner debugging mechanisms
+  - [ResourceOwner](ResourceOwner.md) debugging mechanisms
   - Registered as DebugPrint callback in file_resowner_desc
 
 ## Notes and Other Information

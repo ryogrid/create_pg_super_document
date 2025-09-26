@@ -27,17 +27,17 @@ When creating segments, the function maintains the invariant that all segments e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - mdopenfork (opens the initial fork if none are open)
+  - [mdopenfork](mdopenfork.md) (opens the initial fork if none are open)
   - [_mdnblocks](_mdnblocks.md) (gets the number of blocks in a segment)
   - [palloc_aligned](../p/palloc_aligned.md) (allocates aligned zero buffer)
-  - mdextend (extends segments with padding)
+  - [mdextend](mdextend.md) (extends segments with padding)
   - [pfree](../p/pfree.md) (frees allocated memory)
   - [_mdfd_segpath](_mdfd_segpath.md) (constructs segment file paths)
   - [_mdfd_openseg](_mdfd_openseg.md) (opens new segment files)
   - ereport, elog (error reporting)
 - Called from (representative examples):
-  - mdextend (src/backend/storage/smgr/md.c:489)
-  - mdzeroextend (src/backend/storage/smgr/md.c:562)
+  - [mdextend](mdextend.md) (src/backend/storage/smgr/md.c:489)
+  - [mdzeroextend](mdzeroextend.md) (src/backend/storage/smgr/md.c:562)
   - [mdprefetch](mdprefetch.md) (src/backend/storage/smgr/md.c:730)
   - [mdreadv](mdreadv.md) (src/backend/storage/smgr/md.c:824)
   - [mdwritev](mdwritev.md) (src/backend/storage/smgr/md.c:947)

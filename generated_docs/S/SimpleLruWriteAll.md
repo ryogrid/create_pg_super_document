@@ -23,9 +23,9 @@ SimpleLruWriteAll is a critical function that performs bulk write operations of 
 - Functions called/Symbols referenced:
   - [pgstat_count_slru_flush](../p/pgstat_count_slru_flush.md)
   - SlotGetBankNumber
-  - LWLockAcquire/LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease
   - [SlruInternalWritePage](SlruInternalWritePage.md)
-  - CloseTransientFile
+  - [CloseTransientFile](../C/CloseTransientFile.md)
   - [SlruReportIOError](SlruReportIOError.md)
   - [fsync_fname](../f/fsync_fname.md)
 - Constants used:

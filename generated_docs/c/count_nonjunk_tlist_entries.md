@@ -22,8 +22,8 @@ The `count_nonjunk_tlist_entries` function iterates through a target list and co
 - Functions called/Symbols referenced:
   - None (uses only basic list iteration)
 - Called from (representative examples):
-  - transformMultiAssignRef
-  - transformSubLink
+  - [transformMultiAssignRef](../t/transformMultiAssignRef.md)
+  - [transformSubLink](../t/transformSubLink.md)
   - [transformJsonArrayQueryConstructor](../t/transformJsonArrayQueryConstructor.md)
   - [get_update_query_targetlist_def](../g/get_update_query_targetlist_def.md)
 

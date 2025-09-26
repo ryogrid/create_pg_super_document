@@ -34,7 +34,7 @@ JsonbInState serves as a context structure that maintains the state during JSONB
   - [jsonb_from_cstring](../j/jsonb_from_cstring.md)
   - [jsonb_agg_transfn_worker](../j/jsonb_agg_transfn_worker.md)
   - [jsonb_object_agg_transfn_worker](../j/jsonb_object_agg_transfn_worker.md)
-  - datum_to_jsonb_internal
+  - [datum_to_jsonb_internal](../d/datum_to_jsonb_internal.md)
   - [jsonb_build_object_worker](../j/jsonb_build_object_worker.md)
   - [jsonb_build_array_worker](../j/jsonb_build_array_worker.md)
 

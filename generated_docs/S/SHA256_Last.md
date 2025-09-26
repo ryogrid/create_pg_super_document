@@ -20,15 +20,15 @@ SHA256_Last implements the crucial final phase of SHA-256 hashing, applying the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_sha256_ctx (context structure type)
+  - [pg_sha256_ctx](../p/pg_sha256_ctx.md) (context structure type)
   - PG_SHA256_BLOCK_LENGTH (constant for 64-byte block size)
   - PG_SHA256_SHORT_BLOCK_LENGTH (constant for 56-byte short block)
   - REVERSE64 (macro for byte order conversion)
-  - SHA256_Transform (core transformation function)
+  - [SHA256_Transform](SHA256_Transform.md) (core transformation function)
   - memset (standard library function for zero padding)
 - Called from (representative examples):
-  - pg_sha256_final (in src/common/sha2.c)
-  - pg_sha224_final (in src/common/sha2.c)
+  - [pg_sha256_final](../p/pg_sha256_final.md) (in src/common/sha2.c)
+  - [pg_sha224_final](../p/pg_sha224_final.md) (in src/common/sha2.c)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the same source file

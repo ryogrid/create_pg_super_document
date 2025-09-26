@@ -26,7 +26,7 @@ The function operates within PostgreSQL's error handling framework, setting up t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ErrorData (error data structure)
+  - [ErrorData](../E/ErrorData.md) (error data structure)
   - CHECK_STACK_DEPTH (recursion safety check)
   - EVALUATE_MESSAGE (message processing macro)
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (memory management)

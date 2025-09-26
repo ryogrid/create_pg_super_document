@@ -27,7 +27,7 @@ When a clause needs reordering (when the right side references the outer relatio
   - makeNode
   - [list_copy](../l/list_copy.md)
   - [CommuteOpExpr](../C/CommuteOpExpr.md)
-  - lappend
+  - [lappend](../l/lappend.md)
 - Called from (representative examples):
   - [create_mergejoin_plan](../c/create_mergejoin_plan.md)
   - [create_hashjoin_plan](../c/create_hashjoin_plan.md)

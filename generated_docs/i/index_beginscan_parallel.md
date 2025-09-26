@@ -34,9 +34,9 @@ The function leverages the already-processed `index_beginscan_internal` for the 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RestoreSnapshot](../R/RestoreSnapshot.md) (restores snapshot from serialized data)
-  - `RegisterSnapshot` (registers snapshot for transaction management)
+  - `[RegisterSnapshot](../R/RegisterSnapshot.md)` (registers snapshot for transaction management)
   - [index_beginscan_internal](index_beginscan_internal.md) (core scan initialization)
-  - `table_index_fetch_begin` (initializes heap tuple fetching)
+  - `[table_index_fetch_begin](../t/table_index_fetch_begin.md)` (initializes heap tuple fetching)
   - [ParallelIndexScanDesc](../P/ParallelIndexScanDesc.md) (parallel scan descriptor type)
   - [IndexScanDesc](../I/IndexScanDesc.md) (scan descriptor type)
 - Called from (representative examples):

@@ -28,11 +28,11 @@ The function performs a critical validation check for foreign tables with transi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AfterTriggerSaveEvent
+  - [AfterTriggerSaveEvent](../A/AfterTriggerSaveEvent.md)
   - TRIGGER_EVENT_INSERT
 - Data structures used:
-  - TransitionCaptureState
-  - TriggerDesc
+  - [TransitionCaptureState](../T/TransitionCaptureState.md)
+  - [TriggerDesc](../T/TriggerDesc.md)
 - Called from (representative examples):
   - [CopyMultiInsertBufferFlush](../C/CopyMultiInsertBufferFlush.md)
   - [CopyFrom](../C/CopyFrom.md)

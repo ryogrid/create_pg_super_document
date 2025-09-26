@@ -30,10 +30,10 @@ The function returns a pointer to the  structure containing the case conversion 
   - pg_case_map (case mapping structure type)
   - case_map (global case mapping table array)
 - Called from (representative examples):
-  - unicode_lowercase_simple
-  - unicode_titlecase_simple
-  - unicode_uppercase_simple
-  - convert_case
+  - [unicode_lowercase_simple](../u/unicode_lowercase_simple.md)
+  - [unicode_titlecase_simple](../u/unicode_titlecase_simple.md)
+  - [unicode_uppercase_simple](../u/unicode_uppercase_simple.md)
+  - [convert_case](../c/convert_case.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the unicode_case.c file

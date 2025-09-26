@@ -36,8 +36,8 @@ The function handles the case where the predicate lock table becomes full by pro
   - BlockNumberIsValid
   - SET_PREDICATELOCKTARGETTAG_PAGE
   - [TransferPredicateLocksToNewTarget](../T/TransferPredicateLocksToNewTarget.md)
-  - GetParentPredicateLockTag
-  - LWLockAcquire/LWLockRelease
+  - [GetParentPredicateLockTag](../G/GetParentPredicateLockTag.md)
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease
 - Called from (representative examples):
   - [ginPlaceToPage](../g/ginPlaceToPage.md) (GIN index splits)
   - [gistplacetopage](../g/gistplacetopage.md) (GiST index splits)

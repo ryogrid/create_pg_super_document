@@ -25,7 +25,7 @@ TupleHashEntry represents individual entries in PostgreSQL's all-in-memory tuple
   - [TupleHashEntryData](TupleHashEntryData.md) (the actual struct definition)
   - MinimalTuple (tuple representation type)
 - Called from (representative examples):
-  - LookupTupleHashEntry (src/backend/executor/execGrouping.c:307)
+  - [LookupTupleHashEntry](../L/LookupTupleHashEntry.md) (src/backend/executor/execGrouping.c:307)
   - [lookup_hash_entries](../l/lookup_hash_entries.md) (src/backend/executor/nodeAgg.c:2106)
   - [findPartialMatch](../f/findPartialMatch.md) (src/backend/executor/nodeSubplan.c:750)
 

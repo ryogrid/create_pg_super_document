@@ -22,7 +22,7 @@ The function includes protection against resource exhaustion by checking against
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogRecData (struct type for managing data segments)
+  - [XLogRecData](XLogRecData.md) (struct type for managing data segments)
   - [errdetail_internal](../e/errdetail_internal.md) (for error reporting)
   - Assert (for debug assertions)
   - ereport (for error reporting)

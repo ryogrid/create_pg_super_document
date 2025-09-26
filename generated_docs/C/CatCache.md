@@ -51,19 +51,19 @@ A key feature is support for negative cache entries, which record the absence of
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_head (doubly-linked list infrastructure)
+  - [dlist_head](../d/dlist_head.md) (doubly-linked list infrastructure)
   - CCHashFN (hash function type)
   - CCFastEqualFN (equality function type)
-  - TupleDesc (tuple descriptor)
-  - ScanKeyData (scan key structure)
+  - [TupleDesc](../T/TupleDesc.md) (tuple descriptor)
+  - [ScanKeyData](../S/ScanKeyData.md) (scan key structure)
   - HeapTuple (tuple data structure)
 
 - Called from (representative examples):
-  - InitCatCache (cache initialization)
-  - SearchCatCache family (cache lookup functions)
-  - CatalogCacheComputeHashValue (hash computation)
-  - CatCacheInvalidate (cache invalidation)
-  - ResetCatalogCache (cache reset operations)
+  - [InitCatCache](../I/InitCatCache.md) (cache initialization)
+  - [SearchCatCache](../S/SearchCatCache.md) family (cache lookup functions)
+  - [CatalogCacheComputeHashValue](CatalogCacheComputeHashValue.md) (hash computation)
+  - [CatCacheInvalidate](CatCacheInvalidate.md) (cache invalidation)
+  - [ResetCatalogCache](../R/ResetCatalogCache.md) (cache reset operations)
 
 ## Notes and Other Information
 - Each catalog cache must have a corresponding unique index on the system table that exactly matches the cache lookup keys

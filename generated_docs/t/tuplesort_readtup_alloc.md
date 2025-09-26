@@ -23,7 +23,7 @@ This function is crucial for performance optimization during external merge sort
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Tuplesortstate (structure type)
+  - [Tuplesortstate](../T/Tuplesortstate.md) (structure type)
   - SlabSlot (structure type for slab allocation slots)
   - SLAB_SLOT_SIZE (constant defining maximum slab slot size)
   - [MemoryContextAlloc](../M/MemoryContextAlloc.md) (PostgreSQL memory allocation function)
@@ -32,7 +32,7 @@ This function is crucial for performance optimization during external merge sort
   - [readtup_cluster](../r/readtup_cluster.md) (src/backend/utils/sort/tuplesortvariants.c:1376)
   - [readtup_index](../r/readtup_index.md) (src/backend/utils/sort/tuplesortvariants.c:1693)
   - [readtup_index_brin](../r/readtup_index_brin.md) (src/backend/utils/sort/tuplesortvariants.c:1766)
-  - readtup_datum (src/backend/utils/sort/tuplesortvariants.c:1880)
+  - [readtup_datum](../r/readtup_datum.md) (src/backend/utils/sort/tuplesortvariants.c:1880)
 
 ## Notes and Other Information
 - This is a public function (non-static), accessible from other compilation units

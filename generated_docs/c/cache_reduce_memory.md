@@ -47,4 +47,4 @@ The function returns a boolean indicating whether a 'special' cache entry (if sp
 - LRU pointers are stored in the key rather than the entry due to hash table resizing considerations
 - Memory limit enforcement is strict - eviction continues until memory usage is at or below the limit
 - Statistics tracking includes both eviction counts and peak memory usage
-- Hash table lookup is required for each LRU entry due to the architectural decision to store LRU pointers in keys rather than entries
+- [Hash](../H/Hash.md) table lookup is required for each LRU entry due to the architectural decision to store LRU pointers in keys rather than entries

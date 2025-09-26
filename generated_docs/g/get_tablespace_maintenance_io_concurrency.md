@@ -26,7 +26,7 @@ The maintenance I/O concurrency setting controls how many concurrent I/O operati
   - maintenance_io_concurrency (global variable)
 - Called from (representative examples):
   - [heap_index_delete_tuples](../h/heap_index_delete_tuples.md)
-  - read_stream_begin_relation
+  - [read_stream_begin_relation](../r/read_stream_begin_relation.md)
   - SPCCACHE_H (header declaration)
 
 ## Notes and Other Information

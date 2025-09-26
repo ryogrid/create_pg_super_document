@@ -26,7 +26,7 @@ WaitLatch is the primary function for waiting on latch events in PostgreSQL. It 
   - [WaitEvent](WaitEvent.md) (structure type)
   - WL_EXIT_ON_PM_DEATH, WL_POSTMASTER_DEATH, WL_LATCH_SET, WL_TIMEOUT (wait event flags)
   - [ModifyWaitEvent](../M/ModifyWaitEvent.md)
-  - WaitEventSetWait
+  - [WaitEventSetWait](WaitEventSetWait.md)
   - LatchWaitSetLatchPos
 - Called from (representative examples):
   - [BackgroundWriterMain](../B/BackgroundWriterMain.md)

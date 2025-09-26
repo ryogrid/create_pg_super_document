@@ -32,7 +32,7 @@ The function handles proper memory management by copying non-by-value fields int
   - [datumCopy](../d/datumCopy.md)
   - [get_short_term_cxt](../g/get_short_term_cxt.md)
   - [domain_check](../d/domain_check.md)
-  - ExpandedRecordGetRODatum
+  - [ExpandedRecordGetRODatum](../E/ExpandedRecordGetRODatum.md)
 - Called from (representative examples):
   - No direct callers found in codebase
 

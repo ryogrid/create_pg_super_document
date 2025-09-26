@@ -25,19 +25,19 @@ This function is part of PostgreSQL's file descriptor management system that tra
   - DO_DB (debug logging macro)
   - AllocateDesc (descriptor structure type)
   - AllocateDescRawFD (enum value for raw file descriptor type)
-  - FreeDesc (function to free a descriptor)
+  - [FreeDesc](../F/FreeDesc.md) (function to free a descriptor)
   - close (system call to close file descriptor)
   - elog (PostgreSQL logging function)
 - Called from (representative examples):
-  - heap_xlog_logical_rewrite
-  - SlruInternalWritePage
+  - [heap_xlog_logical_rewrite](../h/heap_xlog_logical_rewrite.md)
+  - [SlruInternalWritePage](../S/SlruInternalWritePage.md)
   - writeTwoPhaseFile
-  - XLogFileCopy
-  - perform_base_backup
-  - ReorderBufferSerializeTXN
-  - SnapBuildSerialize
-  - durable_rename
-  - fsync_fname_ext
+  - [XLogFileCopy](../X/XLogFileCopy.md)
+  - [perform_base_backup](../p/perform_base_backup.md)
+  - [ReorderBufferSerializeTXN](../R/ReorderBufferSerializeTXN.md)
+  - [SnapBuildSerialize](../S/SnapBuildSerialize.md)
+  - [durable_rename](../d/durable_rename.md)
+  - [fsync_fname_ext](../f/fsync_fname_ext.md)
 
 ## Notes and Other Information
 - The function does not check close's return value - it is the caller's responsibility to handle close errors

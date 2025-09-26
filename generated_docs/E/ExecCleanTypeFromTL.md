@@ -25,7 +25,7 @@ Like ExecTypeFromTL, it delegates the actual work to ExecTypeFromTLInternal, but
 - Functions called/Symbols referenced:
   - [ExecTypeFromTLInternal](ExecTypeFromTLInternal.md) (the actual implementation function with skipjunk=true)
 - Called from (representative examples):
-  - ExecInitJunkFilter
+  - [ExecInitJunkFilter](ExecInitJunkFilter.md)
   - [PortalStart](../P/PortalStart.md)
   - [PlanCacheComputeResultDesc](../P/PlanCacheComputeResultDesc.md)
 

@@ -22,9 +22,9 @@ This function is crucial for proper text formatting and alignment in PostgreSQL 
 ## Dependencies
 - Functions called/Symbols referenced:
   - IS_HIGHBIT_SET (macro to check if high bit is set)
-  - pg_ascii_dsplen (handles ASCII character display length)
+  - [pg_ascii_dsplen](pg_ascii_dsplen.md) (handles ASCII character display length)
 - Called from (representative examples):
-  - pg_encoding_set_invalid (indirectly through encoding function tables)
+  - [pg_encoding_set_invalid](pg_encoding_set_invalid.md) (indirectly through encoding function tables)
 
 ## Notes and Other Information
 - This is a static function within src/common/wchar.c, used internally by PostgreSQLs character encoding subsystem

@@ -36,7 +36,7 @@ Important note: The costs of initially evaluating/computing the CTE query itself
 - Types referenced:
   - [ParamPathInfo](../P/ParamPathInfo.md) (parameterized path information)
   - Cost (cost calculation type)
-  - QualCost (qualification cost structure)
+  - [QualCost](../Q/QualCost.md) (qualification cost structure)
   - RTE_CTE (enum value for CTE range table entries)
 - Called from:
   - [create_ctescan_path](create_ctescan_path.md) (in pathnode.c:2139)

@@ -71,21 +71,21 @@ SelectStmt is the most complex parse tree node representing SELECT statements an
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IntoClause
-  - LimitOption
-  - WithClause
-  - SetOperation
-  - SelectStmt (self-reference for tree structure)
+  - [IntoClause](../I/IntoClause.md)
+  - [LimitOption](../L/LimitOption.md)
+  - [WithClause](../W/WithClause.md)
+  - [SetOperation](SetOperation.md)
+  - [SelectStmt](SelectStmt.md) (self-reference for tree structure)
 - Called from (representative examples):
-  - transformSelectStmt
-  - transformStmt
-  - transformSetOperationStmt
-  - transformValuesClause
-  - transformWithClause
-  - DoCopy
+  - [transformSelectStmt](../t/transformSelectStmt.md)
+  - [transformStmt](../t/transformStmt.md)
+  - [transformSetOperationStmt](../t/transformSetOperationStmt.md)
+  - [transformValuesClause](../t/transformValuesClause.md)
+  - [transformWithClause](../t/transformWithClause.md)
+  - [DoCopy](../D/DoCopy.md)
 
 ## Notes and Other Information
-- SelectStmt is the most versatile parse tree node, handling both simple queries and complex set operations
+- [SelectStmt](SelectStmt.md) is the most versatile parse tree node, handling both simple queries and complex set operations
 - The structure forms a binary tree for set operations, enabling nested UNION/INTERSECT/EXCEPT operations
 - VALUES clauses are represented as special SelectStmt nodes with valuesLists populated
 - Window functions are supported through the windowClause for advanced analytical queries

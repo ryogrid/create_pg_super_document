@@ -20,10 +20,10 @@ This function serves as the primary entry point for numeric format caching in Po
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - text_to_cstring
+  - [text_to_cstring](../t/text_to_cstring.md)
   - [NUM_cache_fetch](NUM_cache_fetch.md)
   - zeroize_NUM
-  - parse_format
+  - [parse_format](../p/parse_format.md)
   - [palloc](../p/palloc.md)
   - [pfree](../p/pfree.md)
   - NUM_CACHE_SIZE (constant)
@@ -31,7 +31,7 @@ This function serves as the primary entry point for numeric format caching in Po
   - NUM_index (global array)
   - NUM_FLAG (constant)
   - NUMCacheEntry (struct type)
-  - FormatNode (struct type)
+  - [FormatNode](../F/FormatNode.md) (struct type)
 - Called from (representative examples):
   - NUM_TOCHAR_prepare
   - [numeric_to_number](../n/numeric_to_number.md)

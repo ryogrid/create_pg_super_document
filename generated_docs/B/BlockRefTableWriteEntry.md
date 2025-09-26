@@ -22,10 +22,10 @@ The function is critical for incremental writing of block reference tables and r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BlockRefTableWrite (writes data through the buffer system)
-  - BlockRefTableSerializedEntry (serialized format structure)
-  - BlockRefTableWriter (writer structure type)
-  - BlockRefTableEntry (input entry structure type)
+  - [BlockRefTableWrite](BlockRefTableWrite.md) (writes data through the buffer system)
+  - [BlockRefTableSerializedEntry](BlockRefTableSerializedEntry.md) (serialized format structure)
+  - [BlockRefTableWriter](BlockRefTableWriter.md) (writer structure type)
+  - [BlockRefTableEntry](BlockRefTableEntry.md) (input entry structure type)
 
 - Called from (representative examples):
   - Functions that incrementally build block reference table files

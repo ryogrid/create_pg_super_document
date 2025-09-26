@@ -41,10 +41,10 @@ The function converts the input ArrayType pointer to a Datum, calls  to perform 
   - [PointerGetDatum](../P/PointerGetDatum.md) (converts ArrayType* to Datum)
   - DatumGetArrayTypeP (converts result Datum back to ArrayType*)
 - Called from:
-  - pg_extension_config_dump
-  - GUCArrayAdd
-  - GUCArrayDelete
-  - GUCArrayReset
+  - [pg_extension_config_dump](../p/pg_extension_config_dump.md)
+  - [GUCArrayAdd](../G/GUCArrayAdd.md)
+  - [GUCArrayDelete](../G/GUCArrayDelete.md)
+  - [GUCArrayReset](../G/GUCArrayReset.md)
 
 ## Notes and Other Information
 - This is explicitly a backwards compatibility function maintained to support existing code

@@ -22,7 +22,7 @@ This is the core function that determines whether a specific restriction clause 
 - Functions called/Symbols referenced:
   - [restriction_is_securely_promotable](../r/restriction_is_securely_promotable.md)
   - [match_clause_to_indexcol](match_clause_to_indexcol.md)
-  - IndexClause
+  - [IndexClause](../I/IndexClause.md)
   - [IndexOptInfo](../I/IndexOptInfo.md)
   - IndexClauseSet
 - Called from (representative examples):

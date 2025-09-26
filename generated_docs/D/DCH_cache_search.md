@@ -24,14 +24,14 @@ Before performing any counter updates, the function proactively calls DCH_preven
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DCH_prevent_counter_overflow (counter overflow protection)
-  - DCHCacheEntry (structure type)
+  - [DCH_prevent_counter_overflow](DCH_prevent_counter_overflow.md) (counter overflow protection)
+  - [DCHCacheEntry](DCHCacheEntry.md) (structure type)
   - strcmp (string comparison)
   - DCHCache (global cache array)
   - n_DCHCache (global cache size variable)
   - DCHCounter (global age counter)
 - Called from:
-  - DCH_cache_fetch
+  - [DCH_cache_fetch](DCH_cache_fetch.md)
 
 ## Notes and Other Information
 - Uses linear search algorithm with O(n) complexity where n is the number of cached entries

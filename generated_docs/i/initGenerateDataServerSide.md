@@ -22,7 +22,7 @@ This function provides an alternative approach to initializing pgbench test data
 - Functions called/Symbols referenced:
   - [executeStatement](../e/executeStatement.md): Executes SQL statements including BEGIN, INSERT, and COMMIT
   - [initTruncateTables](initTruncateTables.md): Truncates all pgbench tables to remove existing data
-  - initPQExpBuffer/termPQExpBuffer: PostgreSQL buffer management for SQL statement construction
+  - [initPQExpBuffer](initPQExpBuffer.md)/termPQExpBuffer: PostgreSQL buffer management for SQL statement construction
   - [printfPQExpBuffer](../p/printfPQExpBuffer.md): Formats SQL INSERT statements with parameters
   - nbranches, ntellers, naccounts: Global variables defining record counts per table type
   - scale: Global scaling factor for total record generation

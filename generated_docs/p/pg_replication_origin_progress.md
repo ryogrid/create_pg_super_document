@@ -24,10 +24,10 @@ The function performs prerequisite checks to ensure replication origins are prop
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - replorigin_check_prerequisites
-  - text_to_cstring
+  - [replorigin_check_prerequisites](../r/replorigin_check_prerequisites.md)
+  - [text_to_cstring](../t/text_to_cstring.md)
   - PG_GETARG_BOOL
-  - replorigin_by_name
+  - [replorigin_by_name](../r/replorigin_by_name.md)
   - [replorigin_get_progress](../r/replorigin_get_progress.md)
   - PG_RETURN_LSN
 - Called from (representative examples):

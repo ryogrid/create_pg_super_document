@@ -21,7 +21,7 @@ heapam_relation_copy_data performs a comprehensive physical copy of a heap relat
   - [FlushRelationBuffers](../F/FlushRelationBuffers.md)
   - [RelationCreateStorage](../R/RelationCreateStorage.md)  
   - [RelationCopyStorage](../R/RelationCopyStorage.md)
-  - RelationGetSmgr
+  - [RelationGetSmgr](../R/RelationGetSmgr.md)
   - [smgrexists](../s/smgrexists.md)
   - [smgrcreate](../s/smgrcreate.md)
   - RelationIsPermanent

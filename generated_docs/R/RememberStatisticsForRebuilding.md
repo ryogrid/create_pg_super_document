@@ -22,7 +22,7 @@ This function is a subroutine for ATExecAlterColumnType that manages extended st
 - Functions called/Symbols referenced:
   - [list_member_oid](../l/list_member_oid.md)
   - [pg_get_statisticsobjdef_string](../p/pg_get_statisticsobjdef_string.md)
-  - lappend_oid
+  - [lappend_oid](../l/lappend_oid.md)
   - [AlteredTableInfo](../A/AlteredTableInfo.md) (struct)
 - Called from (representative examples):
   - child_dependency_type

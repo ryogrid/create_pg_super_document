@@ -30,7 +30,7 @@ The design assumes that the target PathTarget does not already contain duplicate
   - [add_column_to_pathtarget](add_column_to_pathtarget.md)
   - copyObject
   - [palloc0](../p/palloc0.md)
-  - list_length
+  - [list_length](../l/list_length.md)
 - Called from (representative examples):
   - [add_sp_items_to_pathtarget](add_sp_items_to_pathtarget.md)
   - [split_pathtarget_at_srfs](../s/split_pathtarget_at_srfs.md)

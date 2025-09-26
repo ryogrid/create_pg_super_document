@@ -24,7 +24,7 @@ This function takes no parameters and returns an integer representing the buffer
   - [PROC_HDR](../P/PROC_HDR.md) (structure type)
 
 - Called from (representative examples):
-  - HoldingBufferPinThatDelaysRecovery
+  - [HoldingBufferPinThatDelaysRecovery](../H/HoldingBufferPinThatDelaysRecovery.md)
   - [ProcessRecoveryConflictInterrupt](../P/ProcessRecoveryConflictInterrupt.md)
 
 ## Notes and Other Information

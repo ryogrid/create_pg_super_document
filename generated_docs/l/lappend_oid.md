@@ -26,17 +26,17 @@ This function is extensively used throughout PostgreSQL for managing collections
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsOidList (assertion check for OID list type)
-  - new_list (creates new list when input is NIL, with T_OidList type)
-  - new_tail_cell (adds new cell to existing list)
+  - [new_list](../n/new_list.md) (creates new list when input is NIL, with T_OidList type)
+  - [new_tail_cell](../n/new_tail_cell.md) (adds new cell to existing list)
   - llast_oid (macro to access last OID element of list)
-  - check_list_invariants (debugging/validation function)
+  - [check_list_invariants](../c/check_list_invariants.md) (debugging/validation function)
 - Called from (representative examples):
-  - ExecuteGrantStmt (ACL/permission management)
-  - objectNamesToOids (object name resolution)
-  - find_all_inheritors (inheritance processing)
-  - GetRelationPublications (publication management)
-  - CreateExtensionInternal (extension management)
-  - transformInsertStmt (INSERT statement processing)
+  - [ExecuteGrantStmt](../E/ExecuteGrantStmt.md) (ACL/permission management)
+  - [objectNamesToOids](../o/objectNamesToOids.md) (object name resolution)
+  - [find_all_inheritors](../f/find_all_inheritors.md) (inheritance processing)
+  - [GetRelationPublications](../G/GetRelationPublications.md) (publication management)
+  - [CreateExtensionInternal](../C/CreateExtensionInternal.md) (extension management)
+  - [transformInsertStmt](../t/transformInsertStmt.md) (INSERT statement processing)
 
 ## Notes and Other Information
 - Specialized for OID values only, ensuring type safety in PostgreSQL's object reference system

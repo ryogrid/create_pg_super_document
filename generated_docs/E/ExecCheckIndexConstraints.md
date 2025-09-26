@@ -47,7 +47,7 @@ Key characteristics:
   - [list_member_oid](../l/list_member_oid.md): Checks if an index OID is in the arbiter list
   - [errtableconstraint](../e/errtableconstraint.md): Reports constraint violation errors with proper error context
   - [ExecPrepareQual](ExecPrepareQual.md): Prepares partial index predicate expressions for evaluation
-  - ExecQual: Evaluates partial index predicate expressions
+  - [ExecQual](ExecQual.md): Evaluates partial index predicate expressions
   - [FormIndexDatum](../F/FormIndexDatum.md): Extracts index column values from the heap tuple
   - [check_exclusion_or_unique_constraint](../c/check_exclusion_or_unique_constraint.md): Performs the actual constraint checking logic
 - Called from (representative examples):

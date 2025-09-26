@@ -29,14 +29,14 @@ This function takes no parameters.
 - Functions called/Symbols referenced:
   - lstat: Check if pg_wal is a symlink
   - S_ISLNK: Test symlink status
-  - begin_startup_progress_phase: Progress reporting during startup
-  - do_syncfs: Perform syncfs() operation (Linux only)
-  - AllocateDir/ReadDirExtended/FreeDir: Directory traversal
-  - walkdir: Recursive directory walking
-  - pre_sync_fname: Pre-sync hint callback
-  - datadir_fsync_fname: fsync callback function
+  - [begin_startup_progress_phase](../b/begin_startup_progress_phase.md): Progress reporting during startup
+  - [do_syncfs](../d/do_syncfs.md): Perform syncfs() operation (Linux only)
+  - [AllocateDir](../A/AllocateDir.md)/ReadDirExtended/FreeDir: Directory traversal
+  - [walkdir](../w/walkdir.md): Recursive directory walking
+  - [pre_sync_fname](../p/pre_sync_fname.md): Pre-sync hint callback
+  - [datadir_fsync_fname](../d/datadir_fsync_fname.md): fsync callback function
 - Called from (representative examples):
-  - StartupXLOG: During WAL recovery startup
+  - [StartupXLOG](StartupXLOG.md): During WAL recovery startup
 
 ## Notes and Other Information
 - The function assumes it's already chdir'd into PGDATA

@@ -27,15 +27,15 @@ This function provides comprehensive logging of recovery conflicts during hot st
 - Functions called/Symbols referenced:
   - [TimestampDifference](../T/TimestampDifference.md) (calculates time difference between timestamps)
   - VirtualTransactionIdIsValid (checks validity of virtual transaction ID)
-  - ProcNumberGetProc (gets PGPROC structure from process number)
-  - initStringInfo/appendStringInfo (builds process ID list string)
+  - [ProcNumberGetProc](../P/ProcNumberGetProc.md) (gets PGPROC structure from process number)
+  - [initStringInfo](../i/initStringInfo.md)/appendStringInfo (builds process ID list string)
   - [get_recovery_conflict_desc](../g/get_recovery_conflict_desc.md) (gets human-readable conflict description)
   - ereport/errmsg/errdetail_log_plural (logging functions)
   - [pfree](../p/pfree.md) (frees allocated memory)
 - Called from (representative examples):
-  - LockBufferForCleanup (buffer cleanup conflicts)
+  - [LockBufferForCleanup](LockBufferForCleanup.md) (buffer cleanup conflicts)
   - [ResolveRecoveryConflictWithVirtualXIDs](../R/ResolveRecoveryConflictWithVirtualXIDs.md) (virtual transaction conflicts)
-  - ProcSleep (lock conflicts during recovery)
+  - [ProcSleep](../P/ProcSleep.md) (lock conflicts during recovery)
 
 ## Notes and Other Information
 - Formats wait time as milliseconds with microsecond precision (e.g., "1234.567 ms")

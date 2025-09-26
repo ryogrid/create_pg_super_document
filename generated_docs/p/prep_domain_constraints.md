@@ -26,7 +26,7 @@ The function iterates through each constraint in the input list, creating new Do
   - [DomainConstraintState](../D/DomainConstraintState.md) (struct for constraint state representation)
   - [ExecInitExpr](../E/ExecInitExpr.md) (initializes expression state trees for execution)
   - makeNode (creates new node instances)
-  - lappend (appends items to lists)
+  - [lappend](../l/lappend.md) (appends items to lists)
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (switches memory contexts)
 - Called from (representative examples):
   - [InitDomainConstraintRef](../I/InitDomainConstraintRef.md)

@@ -93,7 +93,7 @@ EPQState implements EvalPlanQual (EPQ) rechecking, a critical mechanism in Postg
 - Functions called/Symbols referenced:
   - [EState](EState.md)
   - [List](../L/List.md)
-  - TupleTableSlot
+  - [TupleTableSlot](../T/TupleTableSlot.md)
   - [Plan](../P/Plan.md)
   - [ExecAuxRowMark](ExecAuxRowMark.md)
   - [PlanState](../P/PlanState.md)

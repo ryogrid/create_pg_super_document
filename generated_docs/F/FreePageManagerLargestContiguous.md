@@ -29,13 +29,13 @@ This approach is efficient because the freelist organization naturally groups sp
   - relptr_access (accesses span nodes via relative pointers)
   - relptr_is_null (checks for null relative pointers)
 - Types/Constants referenced:
-  - FreePageManager
-  - FreePageSpanLeader
+  - [FreePageManager](FreePageManager.md)
+  - [FreePageSpanLeader](FreePageSpanLeader.md)
   - FPM_NUM_FREELISTS
 - Called from:
-  - FreePageManagerGet (debug assertion)
-  - FreePageManagerUpdateLargest (cached value computation)
-  - FreePageManagerPut (debug assertion)
+  - [FreePageManagerGet](FreePageManagerGet.md) (debug assertion)
+  - [FreePageManagerUpdateLargest](FreePageManagerUpdateLargest.md) (cached value computation)
+  - [FreePageManagerPut](FreePageManagerPut.md) (debug assertion)
 
 ## Notes and Other Information
 - This is a static function used internally for tracking largest contiguous ranges

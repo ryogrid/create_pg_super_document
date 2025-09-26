@@ -21,14 +21,14 @@ This function implements lazy opening of relations referenced in the query's ran
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - exec_rt_fetch
-  - table_open
+  - [exec_rt_fetch](../e/exec_rt_fetch.md)
+  - [table_open](../t/table_open.md)
   - IsParallelWorker
   - [CheckRelationLockedByMe](../C/CheckRelationLockedByMe.md)
 - Called from (representative examples):
   - [InitPlan](../I/InitPlan.md)
   - [CreatePartitionPruneState](../C/CreatePartitionPruneState.md)
-  - ExecOpenScanRelation
+  - [ExecOpenScanRelation](ExecOpenScanRelation.md)
   - [ExecInitResultRelation](ExecInitResultRelation.md)
 
 ## Notes and Other Information

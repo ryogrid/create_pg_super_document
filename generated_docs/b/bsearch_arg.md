@@ -35,10 +35,10 @@ The algorithm works by repeatedly dividing the search space in half:
 ## Dependencies
 - Functions called/Symbols referenced: (none - uses only standard operations)
 - Called from (representative examples):
-  - AssertCheckRanges (src/backend/access/brin/brin_minmax_multi.c:413)
-  - range_contains_value (src/backend/access/brin/brin_minmax_multi.c:1085)
-  - statext_mcv_build (src/backend/statistics/mcv.c:324)
-  - statext_mcv_serialize (src/backend/statistics/mcv.c:956)
+  - [AssertCheckRanges](../A/AssertCheckRanges.md) (src/backend/access/brin/brin_minmax_multi.c:413)
+  - [range_contains_value](../r/range_contains_value.md) (src/backend/access/brin/brin_minmax_multi.c:1085)
+  - [statext_mcv_build](../s/statext_mcv_build.md) (src/backend/statistics/mcv.c:324)
+  - [statext_mcv_serialize](../s/statext_mcv_serialize.md) (src/backend/statistics/mcv.c:956)
 
 ## Notes and Other Information
 - Returns a pointer to the matching element if found, or NULL if not found

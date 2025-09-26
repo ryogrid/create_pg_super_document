@@ -30,8 +30,8 @@ The Session struct is designed to manage session-scoped state that was previousl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dsm_segment
-  - dsa_area
+  - [dsm_segment](../d/dsm_segment.md)
+  - [dsa_area](../d/dsa_area.md)
   - [SharedRecordTypmodRegistry](SharedRecordTypmodRegistry.md)
   - [dshash_table](../d/dshash_table.md)
 - Called from (representative examples):

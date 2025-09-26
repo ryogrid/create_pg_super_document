@@ -21,12 +21,12 @@ The function specifically filters directories to only process those with purely 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AllocateDir
-  - ReadDirExtended
-  - RemovePgTempRelationFilesInDbspace
-  - FreeDir
+  - [AllocateDir](../A/AllocateDir.md)
+  - [ReadDirExtended](ReadDirExtended.md)
+  - [RemovePgTempRelationFilesInDbspace](RemovePgTempRelationFilesInDbspace.md)
+  - [FreeDir](../F/FreeDir.md)
 - Called from (representative examples):
-  - RemovePgTempFiles
+  - [RemovePgTempFiles](RemovePgTempFiles.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the fd.c source file

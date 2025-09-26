@@ -19,17 +19,17 @@ VarsupShmemInit is responsible for initializing the shared memory segment that c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ShmemInitStruct
-  - TransamVariablesData
-  - FullTransactionId
+  - [ShmemInitStruct](../S/ShmemInitStruct.md)
+  - [TransamVariablesData](../T/TransamVariablesData.md)
+  - [FullTransactionId](../F/FullTransactionId.md)
 - Called from (representative examples):
-  - CreateOrAttachShmemStructs
+  - [CreateOrAttachShmemStructs](../C/CreateOrAttachShmemStructs.md)
 
 ## Notes and Other Information
 - This function is part of the transaction variable support (varsup) subsystem
 - Located in src/backend/access/transam/varsup.c:47-62
 - Uses different behavior based on `IsUnderPostmaster` flag
 - Postmaster process creates and initializes the shared memory structure
-- Backend processes attach to existing shared memory structure
+- [Backend](../B/Backend.md) processes attach to existing shared memory structure
 - Essential for maintaining consistent transaction state across all processes
 - The function includes assertions to verify correct initialization behavior

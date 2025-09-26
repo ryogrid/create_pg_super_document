@@ -31,7 +31,7 @@ The filtering step is critical for freezing operations - it removes dead members
   - MultiXactIdIsValid
   - [GetMultiXactIdMembers](../G/GetMultiXactIdMembers.md)
   - TransactionIdEquals
-  - TransactionIdIsInProgress
+  - [TransactionIdIsInProgress](../T/TransactionIdIsInProgress.md)
   - [TransactionIdDidCommit](../T/TransactionIdDidCommit.md)
   - ISUPDATE_from_mxstatus
   - [MultiXactIdCreateFromMembers](MultiXactIdCreateFromMembers.md)

@@ -24,12 +24,12 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_atomic_fetch_add_u32
-  - pg_atomic_compare_exchange_u32
+  - [pg_atomic_fetch_add_u32](../p/pg_atomic_fetch_add_u32.md)
+  - [pg_atomic_compare_exchange_u32](../p/pg_atomic_compare_exchange_u32.md)
   - SpinLockAcquire
   - SpinLockRelease
 - Called from (representative examples):
-  - StrategyGetBuffer
+  - [StrategyGetBuffer](../S/StrategyGetBuffer.md)
 
 ## Notes and Other Information
 - The function is marked as static inline for performance optimization since it's called frequently during buffer replacement

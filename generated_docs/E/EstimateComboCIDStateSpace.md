@@ -26,11 +26,11 @@ The function uses PostgreSQL's overflow-safe arithmetic functions (add_size and 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - add_size (overflow-safe addition)
-  - mul_size (overflow-safe multiplication) 
-  - ComboCidKeyData (structure type)
+  - [add_size](../a/add_size.md) (overflow-safe addition)
+  - [mul_size](../m/mul_size.md) (overflow-safe multiplication) 
+  - [ComboCidKeyData](../C/ComboCidKeyData.md) (structure type)
 - Called from (representative examples):
-  - InitializeParallelDSM (for parallel query setup)
+  - [InitializeParallelDSM](../I/InitializeParallelDSM.md) (for parallel query setup)
   - COMBOCID_H (header file inclusion)
 
 ## Notes and Other Information

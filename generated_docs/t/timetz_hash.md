@@ -35,9 +35,9 @@ The hashing process:
 - Data types used:
   - TimeTzADT: Structure containing time (TimeADT) and zone (int32) fields
 - Called from (representative examples):
-  - Hash table operations for timetz data
-  - Hash-based indexing (hash indexes)
-  - Hash joins involving timetz columns
+  - [Hash](../H/Hash.md) table operations for timetz data
+  - [Hash](../H/Hash.md)-based indexing (hash indexes)
+  - [Hash](../H/Hash.md) joins involving timetz columns
 
 ## Notes and Other Information
 - Essential for hash-based operations in PostgreSQL's query execution engine

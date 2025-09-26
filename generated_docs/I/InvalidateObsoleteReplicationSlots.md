@@ -37,7 +37,7 @@ The function is designed to be safe for use during checkpoints and avoids raisin
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogSegNoOffsetToRecPtr
-  - LWLockAcquire/LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease
   - SlotIsLogical
   - [InvalidatePossiblyObsoleteSlot](InvalidatePossiblyObsoleteSlot.md)
   - [ReplicationSlotsComputeRequiredXmin](../R/ReplicationSlotsComputeRequiredXmin.md)

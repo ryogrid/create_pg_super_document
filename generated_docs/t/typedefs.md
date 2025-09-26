@@ -30,14 +30,14 @@ This structure is used by the ECPG preprocessor to maintain information about ty
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - this_type (struct used for type information)
-  - ECPGstruct_member (struct used for structure member lists)
-  - typedefs (self-reference for linked list structure)
+  - [this_type](this_type.md) (struct used for type information)
+  - [ECPGstruct_member](../E/ECPGstruct_member.md) (struct used for structure member lists)
+  - [typedefs](typedefs.md) (self-reference for linked list structure)
 - Called from (representative examples):
-  - main (in src/interfaces/ecpg/preproc/ecpg.c:364, 429)
-  - remove_typedefs (in src/interfaces/ecpg/preproc/variable.c:262)
-  - check_indicator (in src/interfaces/ecpg/preproc/variable.c:497)
-  - get_typedef (in src/interfaces/ecpg/preproc/variable.c:500)
+  - [main](../m/main.md) (in src/interfaces/ecpg/preproc/ecpg.c:364, 429)
+  - [remove_typedefs](../r/remove_typedefs.md) (in src/interfaces/ecpg/preproc/variable.c:262)
+  - [check_indicator](../c/check_indicator.md) (in src/interfaces/ecpg/preproc/variable.c:497)
+  - [get_typedef](../g/get_typedef.md) (in src/interfaces/ecpg/preproc/variable.c:500)
 
 ## Notes and Other Information
 - This structure is part of the ECPG preprocessor implementation (src/interfaces/ecpg/preproc/type.h:157-164)

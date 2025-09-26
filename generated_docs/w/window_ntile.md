@@ -32,7 +32,7 @@ The function uses a ntile_context structure stored in partition-local memory to 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WindowObject
+  - [WindowObject](../W/WindowObject.md)
   - PG_WINDOW_OBJECT
   - [WinGetPartitionLocalMemory](../W/WinGetPartitionLocalMemory.md)
   - [WinGetPartitionRowCount](../W/WinGetPartitionRowCount.md)

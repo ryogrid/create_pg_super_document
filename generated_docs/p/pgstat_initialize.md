@@ -34,8 +34,8 @@ The initialization is crucial for enabling all subsequent statistics operations 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_attach_shmem
-  - pgstat_init_wal
+  - [pgstat_attach_shmem](pgstat_attach_shmem.md)
+  - [pgstat_init_wal](pgstat_init_wal.md)
   - [before_shmem_exit](../b/before_shmem_exit.md)
   - [pgstat_shutdown_hook](pgstat_shutdown_hook.md)
 - Called from (representative examples):

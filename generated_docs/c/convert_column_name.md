@@ -21,7 +21,7 @@ This function serves as a support routine for the has_column_privilege family of
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - text_to_cstring
+  - [text_to_cstring](../t/text_to_cstring.md)
   - [SearchSysCache2](../S/SearchSysCache2.md)
   - [CStringGetDatum](../C/CStringGetDatum.md)
   - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)

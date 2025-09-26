@@ -21,12 +21,12 @@ The `get_descriptors` function provides access to the thread-local descriptor st
 - Functions called/Symbols referenced:
   - pthread_once
   - [descriptor_key_init](../d/descriptor_key_init.md)
-  - pthread_getspecific
+  - [pthread_getspecific](../p/pthread_getspecific.md)
   - [descriptor](../d/descriptor.md) (pthread key variable)
 - Called from (representative examples):
   - [ECPGdeallocate_desc](../E/ECPGdeallocate_desc.md)
   - [ECPGallocate_desc](../E/ECPGallocate_desc.md)
-  - ecpg_find_desc
+  - [ecpg_find_desc](../e/ecpg_find_desc.md)
 
 ## Notes and Other Information
 - This function is declared as static, meaning it has internal linkage and is only accessible within the descriptor.c compilation unit

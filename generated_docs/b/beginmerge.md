@@ -20,13 +20,13 @@ The beginmerge function prepares for a merge pass by reading the first tuple fro
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Tuplesortstate (state structure)
+  - [Tuplesortstate](../T/Tuplesortstate.md) (state structure)
   - SortTuple (tuple structure for sorting)
-  - mergereadnext (reads next tuple from tape)
-  - tuplesort_heap_insert (inserts tuple into merge heap)
+  - [mergereadnext](../m/mergereadnext.md) (reads next tuple from tape)
+  - [tuplesort_heap_insert](../t/tuplesort_heap_insert.md) (inserts tuple into merge heap)
 - Called from (representative examples):
-  - mergeruns
-  - mergeonerun
+  - [mergeruns](../m/mergeruns.md)
+  - [mergeonerun](../m/mergeonerun.md)
 
 ## Notes and Other Information
 - The function assumes the merge heap is initially empty (verified by Assert)

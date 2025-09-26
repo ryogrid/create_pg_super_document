@@ -23,13 +23,13 @@ The function creates AggInfo structures for each aggregate, populating them with
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - createPQExpBuffer
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)
   - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
   - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
-  - appendPQExpBufferChar
+  - [appendPQExpBufferChar](../a/appendPQExpBufferChar.md)
   - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
   - [PQntuples](../P/PQntuples.md)
-  - pg_malloc
+  - [pg_malloc](../p/pg_malloc.md)
   - [PQfnumber](../P/PQfnumber.md)
   - [PQgetvalue](../P/PQgetvalue.md)
   - atooid
@@ -42,7 +42,7 @@ The function creates AggInfo structures for each aggregate, populating them with
   - [selectDumpableObject](../s/selectDumpableObject.md)
   - [PQgetisnull](../P/PQgetisnull.md)
   - [PQclear](../P/PQclear.md)
-  - destroyPQExpBuffer
+  - [destroyPQExpBuffer](../d/destroyPQExpBuffer.md)
 - Called from (representative examples):
   - [getSchemaData](getSchemaData.md)
 

@@ -24,13 +24,13 @@ The parsed tablespace information is returned as a list of tablespaceinfo struct
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AllocateFile (opens tablespace_map file for reading)
-  - FreeFile (closes the tablespace_map file)
+  - [AllocateFile](../A/AllocateFile.md) (opens tablespace_map file for reading)
+  - [FreeFile](../F/FreeFile.md) (closes the tablespace_map file)
   - [palloc0](../p/palloc0.md) (allocates zeroed memory for tablespaceinfo structs)
   - [pstrdup](../p/pstrdup.md) (duplicates path strings)
-  - lappend (appends tablespaceinfo to the list)
+  - [lappend](../l/lappend.md) (appends tablespaceinfo to the list)
   - TABLESPACE_MAP (tablespace_map filename constant)
-  - tablespaceinfo (struct type for storing tablespace OID and path)
+  - [tablespaceinfo](../t/tablespaceinfo.md) (struct type for storing tablespace OID and path)
 - Called from:
   - [InitWalRecovery](../I/InitWalRecovery.md) (during WAL recovery initialization)
 

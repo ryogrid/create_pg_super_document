@@ -28,7 +28,7 @@ The function performs TID range filtering by comparing each retrieved tuple's TI
   - [heapgettup_pagemode](heapgettup_pagemode.md): Page-mode tuple retrieval
   - [heapgettup](heapgettup.md): Standard tuple-mode retrieval
   - [ItemPointerCompare](../I/ItemPointerCompare.md): TID comparison for range filtering
-  - ExecClearTuple: Clear tuple slot when filtering
+  - [ExecClearTuple](../E/ExecClearTuple.md): Clear tuple slot when filtering
   - ScanDirectionIsBackward/ScanDirectionIsForward: Direction checking
   - pgstat_count_heap_getnext: Statistics collection
   - [ExecStoreBufferHeapTuple](../E/ExecStoreBufferHeapTuple.md): Store tuple in slot

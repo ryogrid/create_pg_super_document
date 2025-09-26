@@ -22,12 +22,12 @@ The `evalFunc` function serves as the main entry point for evaluating pgbench fu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `isLazyFunc` (determines evaluation strategy)
-  - `evalLazyFunc` (handles lazy evaluation)
-  - `evalStandardFunc` (handles eager evaluation)
-  - `CState`, `PgBenchFunction`, `PgBenchExprLink`, `PgBenchValue` (type definitions)
+  - `[isLazyFunc](../i/isLazyFunc.md)` (determines evaluation strategy)
+  - `[evalLazyFunc](evalLazyFunc.md)` (handles lazy evaluation)
+  - `[evalStandardFunc](evalStandardFunc.md)` (handles eager evaluation)
+  - `[CState](../C/CState.md)`, `PgBenchFunction`, `PgBenchExprLink`, `PgBenchValue` (type definitions)
 - Called from (representative examples):
-  - `evaluateExpr`
+  - `[evaluateExpr](evaluateExpr.md)`
 
 ## Notes and Other Information
 - This is a static function with internal linkage, only accessible within pgbench.c

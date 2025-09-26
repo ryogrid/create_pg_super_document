@@ -25,7 +25,7 @@ The function includes an optimization that avoids unnecessary copying when the p
 - Functions called/Symbols referenced:
   - (No external function calls - uses standard C library functions strlen, memmove)
 - Called from (representative examples):
-  - canonicalize_path_enc (multiple call sites)
+  - [canonicalize_path_enc](../c/canonicalize_path_enc.md) (multiple call sites)
 
 ## Notes and Other Information
 - This is a static function, only available within src/port/path.c

@@ -23,18 +23,18 @@ The function performs bounds checking on the array dimensions, computes the requ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - construct_empty_array
-  - ArrayGetNItems
-  - ArrayCheckBounds
-  - array_bitmap_copy
-  - MemoryContextSwitchTo
-  - MemoryContextDelete
+  - [construct_empty_array](../c/construct_empty_array.md)
+  - [ArrayGetNItems](../A/ArrayGetNItems.md)
+  - [ArrayCheckBounds](../A/ArrayCheckBounds.md)
+  - [array_bitmap_copy](../a/array_bitmap_copy.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
   - SET_VARSIZE
   - ARR_OVERHEAD_WITHNULLS, ARR_OVERHEAD_NONULLS
   - ARR_DIMS, ARR_LBOUND, ARR_DATA_PTR, ARR_NULLBITMAP
 - Called from (representative examples):
-  - array_agg_array_finalfn
-  - makeArrayResultAny
+  - [array_agg_array_finalfn](../a/array_agg_array_finalfn.md)
+  - [makeArrayResultAny](makeArrayResultAny.md)
 
 ## Notes and Other Information
 - **Empty array handling**: Returns a proper empty array if no inputs were accumulated (ndims == 0)

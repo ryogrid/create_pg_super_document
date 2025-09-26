@@ -68,7 +68,7 @@ Key features include constraint reuse optimization (avoiding duplicate constrain
   - [tryAttachPartitionForeignKey](../t/tryAttachPartitionForeignKey.md)
   - [addFkConstraint](addFkConstraint.md)
   - [addFkRecurseReferencing](addFkRecurseReferencing.md) (recursive call)
-  - table_open/table_close
+  - [table_open](../t/table_open.md)/table_close
 - Called from (representative examples):
   - [ATAddForeignKeyConstraint](../A/ATAddForeignKeyConstraint.md)
   - [addFkRecurseReferencing](addFkRecurseReferencing.md) (recursive)
@@ -78,7 +78,7 @@ Key features include constraint reuse optimization (avoiding duplicate constrain
 - This is a static function within tablecmds.c, part of the foreign key constraint creation infrastructure
 - The function is recursive and calls itself when processing partitioned tables
 - Foreign tables are explicitly rejected with an error message
-- Constraint reuse optimization can significantly improve performance when adding foreign keys to partitioned tables with existing compatible constraints
+- [Constraint](../C/Constraint.md) reuse optimization can significantly improve performance when adding foreign keys to partitioned tables with existing compatible constraints
 - The work queue integration allows proper validation scheduling during ALTER TABLE operations
 - Proper lock management ensures consistency during concurrent operations
 - The function efficiently manages the trigger catalog relation during partition processing to avoid excessive open/close operations

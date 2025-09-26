@@ -31,7 +31,7 @@ This type is part of the broader predicate locking infrastructure that prevents 
   - [HTAB](../H/HTAB.md) (hash table type for various predicate lock tables)
   - [PREDICATELOCKTARGETTAG](../P/PREDICATELOCKTARGETTAG.md) (predicate lock target identification)
 - Called from (representative examples):
-  - SerialInit (initialization function)
+  - [SerialInit](SerialInit.md) (initialization function)
   - Various predicate locking functions that access serialControl
 
 ## Notes and Other Information

@@ -37,8 +37,8 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsBootstrapProcessingMode (macro to verify bootstrap mode)
-  - LWLockAcquire (acquiring RelationMappingLock in LW_EXCLUSIVE mode)
-  - LWLockRelease (releasing RelationMappingLock)
+  - [LWLockAcquire](../L/LWLockAcquire.md) (acquiring RelationMappingLock in LW_EXCLUSIVE mode)
+  - [LWLockRelease](../L/LWLockRelease.md) (releasing RelationMappingLock)
   - [write_relmap_file](../w/write_relmap_file.md) (called twice - once for shared map, once for local map)
   - Assert (for debugging verification of state)
 - Global variables accessed:

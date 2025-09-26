@@ -27,10 +27,10 @@ This operation is atomic and does not involve waiting or condition variable sign
 ## Dependencies
 - Functions called/Symbols referenced:
   - SpinLockAcquire/SpinLockRelease
-  - Barrier (struct type)
+  - [Barrier](Barrier.md) (struct type)
 - Called from (representative examples):
-  - ExecParallelPrepHashTableForUnmatched
-  - ExecHashTableDetachBatch
+  - [ExecParallelPrepHashTableForUnmatched](../E/ExecParallelPrepHashTableForUnmatched.md)
+  - [ExecHashTableDetachBatch](../E/ExecHashTableDetachBatch.md)
 
 ## Notes and Other Information
 - Returns true only for the last participant to call this function (the "winner")

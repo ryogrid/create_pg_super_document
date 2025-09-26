@@ -32,7 +32,7 @@ This behavior is crucial for handling historical timezone abbreviations that may
   - [pg_tm](../p/pg_tm.md) (struct)
   - [pg_tz](../p/pg_tz.md) (struct) 
   - pg_time_t (type)
-  - DetermineTimeZoneOffsetInternal
+  - [DetermineTimeZoneOffsetInternal](DetermineTimeZoneOffsetInternal.md)
   - [DetermineTimeZoneAbbrevOffsetInternal](DetermineTimeZoneAbbrevOffsetInternal.md)
 - Called from (representative examples):
   - [DecodeDateTime](DecodeDateTime.md)

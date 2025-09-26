@@ -188,18 +188,18 @@ The structure includes several categories of information: system identification 
 - Functions called/Symbols referenced:
   - DBState (database state enumeration)
   - pg_time_t (timestamp type)
-  - CheckPoint (checkpoint record structure)
+  - [CheckPoint](CheckPoint.md) (checkpoint record structure)
   - MOCK_AUTH_NONCE_LEN (authentication nonce length constant)
   - pg_crc32c (CRC checksum type)
   - XLogRecPtr (WAL record pointer type)
   - TimeLineID (timeline identifier type)
 
 - Called from (representative examples):
-  - ReadControlFile (reads pg_control file)
-  - WriteControlFile (writes pg_control file)  
-  - InitControlFile (initializes new pg_control file)
-  - get_controlfile (common utility function)
-  - LocalProcessControlFile (processes control file during startup)
+  - [ReadControlFile](../R/ReadControlFile.md) (reads pg_control file)
+  - [WriteControlFile](../W/WriteControlFile.md) (writes pg_control file)  
+  - [InitControlFile](../I/InitControlFile.md) (initializes new pg_control file)
+  - [get_controlfile](../g/get_controlfile.md) (common utility function)
+  - [LocalProcessControlFile](../L/LocalProcessControlFile.md) (processes control file during startup)
 
 ## Notes and Other Information
 - The pg_control file is critical for database startup and recovery; corruption can prevent database startup

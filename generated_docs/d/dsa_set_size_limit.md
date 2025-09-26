@@ -23,11 +23,11 @@ The function uses exclusive locking to ensure thread-safe modification of the ar
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire
-  - LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - DSA_AREA_LOCK
 - Called from (representative examples):
-  - StatsShmemInit (in pgstat_shmem.c)
+  - [StatsShmemInit](../S/StatsShmemInit.md) (in pgstat_shmem.c)
 
 ## Notes and Other Information
 - The function acquires an exclusive lock on the DSA area to ensure atomic updates to the size limit

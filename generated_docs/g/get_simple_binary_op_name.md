@@ -17,12 +17,12 @@ This function examines an OpExpr to determine whether it represents a simple bin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - generate_operator_name
+  - [generate_operator_name](generate_operator_name.md)
   - lsecond
-  - list_length
+  - [list_length](../l/list_length.md)
   - linitial
-  - exprType
-  - OpExpr
+  - [exprType](../e/exprType.md)
+  - [OpExpr](../O/OpExpr.md)
 - Called from (representative examples):
   - [isSimpleNode](../i/isSimpleNode.md)
 

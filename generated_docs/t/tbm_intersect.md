@@ -24,7 +24,7 @@ The function maintains proper entry counts and status transitions, ensuring the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - tbm_intersect_page
+  - [tbm_intersect_page](tbm_intersect_page.md)
   - pagetable_start_iterate
   - pagetable_iterate  
   - pagetable_delete
@@ -32,9 +32,9 @@ The function maintains proper entry counts and status transitions, ensuring the 
   - TBM_ONE_PAGE (constant)
   - TBM_HASH (constant)
   - TBM_EMPTY (constant)
-  - PagetableEntry (type)
+  - [PagetableEntry](../P/PagetableEntry.md) (type)
 - Called from (representative examples):
-  - MultiExecBitmapAnd (in src/backend/executor/nodeBitmapAnd.c:144)
+  - [MultiExecBitmapAnd](../M/MultiExecBitmapAnd.md) (in src/backend/executor/nodeBitmapAnd.c:144)
 
 ## Notes and Other Information
 - The function asserts that the target bitmap is not currently being iterated over

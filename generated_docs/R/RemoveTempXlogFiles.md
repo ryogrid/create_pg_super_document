@@ -26,9 +26,9 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AllocateDir
-  - ReadDir
-  - FreeDir
+  - [AllocateDir](../A/AllocateDir.md)
+  - [ReadDir](ReadDir.md)
+  - [FreeDir](../F/FreeDir.md)
   - unlink
   - elog
   - snprintf

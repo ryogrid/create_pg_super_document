@@ -26,13 +26,13 @@ The materialization is performed in the slot's memory context to ensure proper m
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferHeapTupleTableSlot (cast target)
+  - [BufferHeapTupleTableSlot](../B/BufferHeapTupleTableSlot.md) (cast target)
   - TTS_EMPTY (macro to check if slot is empty)
   - TTS_SHOULDFREE (macro to check if slot owns its tuple)
   - [heap_form_tuple](../h/heap_form_tuple.md) (creates HeapTuple from values/nulls arrays)
   - [heap_copytuple](../h/heap_copytuple.md) (creates copy of existing HeapTuple)
   - likely (branch prediction hint macro)
-  - ReleaseBuffer (releases buffer reference)
+  - [ReleaseBuffer](../R/ReleaseBuffer.md) (releases buffer reference)
   - TTS_FLAG_SHOULDFREE (flag indicating slot owns tuple memory)
   
 - Called from (representative examples):

@@ -33,8 +33,8 @@ This is essential for window functions that need to understand row equivalence, 
 - Functions called/Symbols referenced:
   - WindowObjectIsValid
   - [window_gettupleslot](../w/window_gettupleslot.md)
-  - are_peers
-  - ExecClearTuple
+  - [are_peers](../a/are_peers.md)
+  - [ExecClearTuple](../E/ExecClearTuple.md)
 - Called from (representative examples):
   - [rank_up](../r/rank_up.md)
   - [window_cume_dist](../w/window_cume_dist.md)

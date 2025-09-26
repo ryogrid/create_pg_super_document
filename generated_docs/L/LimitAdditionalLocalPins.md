@@ -26,8 +26,8 @@ The function includes an optimization for small requests, immediately returning 
 - Functions called/Symbols referenced:
   - None (uses only global variables num_temp_buffers and NLocalPinnedBuffers)
 - Called from (representative examples):
-  - read_stream_begin_relation: Used in streaming read operations for temporary relations
-  - ExtendBufferedRelLocal: Used when extending buffered local relations
+  - [read_stream_begin_relation](../r/read_stream_begin_relation.md): Used in streaming read operations for temporary relations
+  - [ExtendBufferedRelLocal](../E/ExtendBufferedRelLocal.md): Used when extending buffered local relations
   - RelationGetNumberOfBlocks: Used in relation block count operations
 
 ## Notes and Other Information

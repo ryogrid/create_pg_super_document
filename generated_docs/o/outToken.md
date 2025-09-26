@@ -28,16 +28,16 @@ This encoding ensures that when the serialized output is later parsed by Postgre
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendStringInfoString (for appending literal strings like '<>' and '\"\"')
-  - appendStringInfoChar (for appending individual characters including escape backslashes)
+  - [appendStringInfoString](../a/appendStringInfoString.md) (for appending literal strings like '<>' and '\"\"')
+  - [appendStringInfoChar](../a/appendStringInfoChar.md) (for appending individual characters including escape backslashes)
   - isdigit (standard C library function for digit checking)
 
 - Called from (representative examples):
   - WRITE_STRING_FIELD (macro in outfuncs.c:90)
   - [outChar](outChar.md) (function in outfuncs.c:204)
   - [_outBoolExpr](_outBoolExpr.md) (function in outfuncs.c:422)
-  - _outString (function in outfuncs.c:679)
-  - _outBitString (function in outfuncs.c:692)
+  - [_outString](_outString.md) (function in outfuncs.c:679)
+  - [_outBitString](_outBitString.md) (function in outfuncs.c:692)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's serialization infrastructure, working in conjunction with the parsing functions in read.c

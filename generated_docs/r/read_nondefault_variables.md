@@ -37,11 +37,11 @@ None - this function takes no parameters and operates on the global configuratio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AllocateFile
-  - FreeFile
+  - [AllocateFile](../A/AllocateFile.md)
+  - [FreeFile](../F/FreeFile.md)
   - [read_string_with_null](read_string_with_null.md)
-  - find_option
-  - set_config_option_ext
+  - [find_option](../f/find_option.md)
+  - [set_config_option_ext](../s/set_config_option_ext.md)
   - [set_config_sourcefile](../s/set_config_sourcefile.md)
   - [guc_free](../g/guc_free.md)
   - fread

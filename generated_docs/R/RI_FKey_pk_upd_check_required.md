@@ -33,7 +33,7 @@ The function implements several optimization strategies:
   - [ri_KeysEqual](../r/ri_KeysEqual.md)
   - RI_KEYS_NONE_NULL
 - Called from (representative examples):
-  - AfterTriggerSaveEvent
+  - [AfterTriggerSaveEvent](../A/AfterTriggerSaveEvent.md)
 
 ## Notes and Other Information
 - This is a performance optimization function that helps reduce unnecessary trigger executions

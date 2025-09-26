@@ -24,26 +24,26 @@ Memory management is carefully handled through proper context switching and chun
 ## Dependencies
 - Functions called/Symbols referenced:
   - palloc0_array/repalloc0_array (allocate/reallocate batch file arrays)
-  - PrepareTempTablespaces (ensure temporary tablespace availability)
-  - ExecHashGetBucketAndBatch (determine new batch assignment for tuples)
-  - dense_alloc (allocate space in hash table chunks)
-  - ExecHashJoinSaveTuple (save tuples to batch files)
+  - [PrepareTempTablespaces](../P/PrepareTempTablespaces.md) (ensure temporary tablespace availability)
+  - [ExecHashGetBucketAndBatch](ExecHashGetBucketAndBatch.md) (determine new batch assignment for tuples)
+  - [dense_alloc](../d/dense_alloc.md) (allocate space in hash table chunks)
+  - [ExecHashJoinSaveTuple](ExecHashJoinSaveTuple.md) (save tuples to batch files)
   - CHECK_FOR_INTERRUPTS (allow query cancellation)
 - Called from (representative examples):
-  - ExecHashTableInsert (when memory limit exceeded during insertion)
-  - ExecHashSkewTableInsert (when skew table memory limit exceeded)
+  - [ExecHashTableInsert](ExecHashTableInsert.md) (when memory limit exceeded during insertion)
+  - [ExecHashSkewTableInsert](ExecHashSkewTableInsert.md) (when skew table memory limit exceeded)
 
 ## Dependencies
 - Functions called/Symbols referenced:
   - palloc0_array/repalloc0_array (allocate/reallocate batch file arrays)
-  - PrepareTempTablespaces (ensure temporary tablespace availability)
-  - ExecHashGetBucketAndBatch (determine new batch assignment for tuples)
-  - dense_alloc (allocate space in hash table chunks)
-  - ExecHashJoinSaveTuple (save tuples to batch files)
+  - [PrepareTempTablespaces](../P/PrepareTempTablespaces.md) (ensure temporary tablespace availability)
+  - [ExecHashGetBucketAndBatch](ExecHashGetBucketAndBatch.md) (determine new batch assignment for tuples)
+  - [dense_alloc](../d/dense_alloc.md) (allocate space in hash table chunks)
+  - [ExecHashJoinSaveTuple](ExecHashJoinSaveTuple.md) (save tuples to batch files)
   - CHECK_FOR_INTERRUPTS (allow query cancellation)
 - Called from (representative examples):
-  - ExecHashTableInsert (when memory limit exceeded during insertion)
-  - ExecHashSkewTableInsert (when skew table memory limit exceeded)
+  - [ExecHashTableInsert](ExecHashTableInsert.md) (when memory limit exceeded during insertion)
+  - [ExecHashSkewTableInsert](ExecHashSkewTableInsert.md) (when skew table memory limit exceeded)
 
 ## Notes and Other Information
 - The function is static and only called internally when memory pressure is detected

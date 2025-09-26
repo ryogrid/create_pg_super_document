@@ -28,10 +28,10 @@ The structure is designed for use in shared memory hash tables where multiple pr
 - Functions called/Symbols referenced:
   - NAMEDATALEN (constant defining maximum length for names)
 - Called from (representative examples):
-  - WaitEventCustomShmemSize
-  - WaitEventCustomShmemInit
-  - WaitEventCustomNew
-  - GetWaitEventCustomIdentifier
+  - [WaitEventCustomShmemSize](WaitEventCustomShmemSize.md)
+  - [WaitEventCustomShmemInit](WaitEventCustomShmemInit.md)
+  - [WaitEventCustomNew](WaitEventCustomNew.md)
+  - [GetWaitEventCustomIdentifier](../G/GetWaitEventCustomIdentifier.md)
 
 ## Notes and Other Information
 - This structure is part of a dual hash table system where WaitEventCustomEntryByName provides the reverse mapping (name to ID)

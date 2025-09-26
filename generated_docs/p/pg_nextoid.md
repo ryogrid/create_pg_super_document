@@ -30,15 +30,15 @@ The function is intentionally not documented in user-facing documentation as it 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_NAME: Extract name argument from function call
-  - superuser: Check if current user has superuser privileges
-  - table_open: Open relation with specified lock mode
+  - [superuser](../s/superuser.md): Check if current user has superuser privileges
+  - [table_open](../t/table_open.md): Open relation with specified lock mode
   - [index_open](../i/index_open.md): Open index with specified lock mode
   - [IsSystemRelation](../I/IsSystemRelation.md): Verify if relation is a system catalog
   - [SearchSysCacheAttName](../S/SearchSysCacheAttName.md): Look up attribute information by name
   - IndexRelationGetNumberOfKeyAttributes: Get number of key attributes in index
   - [GetNewOidWithIndex](../G/GetNewOidWithIndex.md): Generate new unique OID using specified index
   - [index_close](../i/index_close.md): Close index and release lock
-  - table_close: Close relation and release lock
+  - [table_close](../t/table_close.md): Close relation and release lock
   - PG_RETURN_OID: Return OID value to SQL caller
 - Called from (representative examples):
   - No direct references found (function is accessible via SQL interface)

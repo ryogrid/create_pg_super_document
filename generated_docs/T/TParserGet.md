@@ -35,7 +35,7 @@ The parser supports:
 - Functions called/Symbols referenced:
   - CHECK_FOR_INTERRUPTS (PostgreSQL interrupt handling)
   - [pg_mblen](../p/pg_mblen.md) (multibyte character length calculation)
-  - newTParserPosition (stack state creation)
+  - [newTParserPosition](../n/newTParserPosition.md) (stack state creation)
   - [pfree](../p/pfree.md) (memory deallocation)
   - Various state constants (TPS_Base, TPS_Null, etc.)
   - Action flags (A_BINGO, A_POP, A_PUSH, A_CLEAR, A_MERGE, A_CLRALL, A_RERUN)

@@ -33,7 +33,7 @@ When sizeonly is true, the function performs size calculation without actually w
 ## Dependencies
 - Functions called/Symbols referenced:
   - tarCreateHeader
-  - bbsink_archive_contents
+  - [bbsink_archive_contents](../b/bbsink_archive_contents.md)
   - StaticAssertDecl
   - ereport
   - elog

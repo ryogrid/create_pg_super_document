@@ -33,15 +33,15 @@ The implementation assumes track_commit_timestamp is a PGC_POSTMASTER parameter,
   - TransactionIdEquals (newestXact, FirstNormalTransactionId)
   - [TransactionIdToCTsPage](../T/TransactionIdToCTsPage.md) (newestXact)
   - [SimpleLruGetBankLock](../S/SimpleLruGetBankLock.md) (CommitTsCtl, pageno)
-  - LWLockAcquire (lock, LW_EXCLUSIVE)
+  - [LWLockAcquire](../L/LWLockAcquire.md) (lock, LW_EXCLUSIVE)
   - [ZeroCommitTsPage](../Z/ZeroCommitTsPage.md) (pageno, !InRecovery)
-  - LWLockRelease (lock)
+  - [LWLockRelease](../L/LWLockRelease.md) (lock)
   - Assert (!InRecovery)
   - FirstNormalTransactionId (constant)
   - CommitTsCtl (SLRU control structure)
 
 - Called from (representative examples):
-  - GetNewTransactionId (main transaction ID allocation function)
+  - [GetNewTransactionId](../G/GetNewTransactionId.md) (main transaction ID allocation function)
 
 ## Notes and Other Information
 - This function is only called from GetNewTransactionId, which never runs on standby servers

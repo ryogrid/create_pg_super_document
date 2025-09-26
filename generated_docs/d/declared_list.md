@@ -26,9 +26,9 @@ This structure is used by the ECPG preprocessor to maintain a list of declared e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - declared_list (self-reference for linked list structure)
+  - [declared_list](declared_list.md) (self-reference for linked list structure)
 - Called from (representative examples):
-  - main (in src/interfaces/ecpg/preproc/ecpg.c:365, 395)
+  - [main](../m/main.md) (in src/interfaces/ecpg/preproc/ecpg.c:365, 395)
 
 ## Notes and Other Information
 - This structure is part of the ECPG preprocessor implementation (src/interfaces/ecpg/preproc/type.h:150-155)

@@ -31,13 +31,13 @@ The function uses  for actual data transmission, which provides SSL/TLS encrypti
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - secure_write (encrypted/secure data transmission)
+  - [secure_write](../s/secure_write.md) (encrypted/secure data transmission)
   - ereport/COMMERROR (error reporting)
-  - errcode_for_socket_access (socket error code mapping)
+  - [errcode_for_socket_access](../e/errcode_for_socket_access.md) (socket error code mapping)
   - EINTR, EAGAIN, EWOULDBLOCK (system error constants)
 - Called from (representative examples):
-  - internal_flush (standard buffer flushing)
-  - internal_putbytes (large data bypass flushing)
+  - [internal_flush](internal_flush.md) (standard buffer flushing)
+  - [internal_putbytes](internal_putbytes.md) (large data bypass flushing)
 
 ## Notes and Other Information
 - Function is marked as pg_noinline to prevent inlining (likely for debugging and stack trace clarity)

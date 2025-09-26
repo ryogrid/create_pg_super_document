@@ -32,12 +32,12 @@ The typical usage pattern involves calling ConditionVariablePrepareToSleep (opti
   - [GetMultiXactIdMembers](../G/GetMultiXactIdMembers.md)
   - [BitmapShouldInitializeSharedState](../B/BitmapShouldInitializeSharedState.md)
   - Checkpointer signal handling
-  - replorigin_state_clear
+  - [replorigin_state_clear](../r/replorigin_state_clear.md)
   - [ReplicationSlotAcquire](../R/ReplicationSlotAcquire.md)
   - [InvalidatePossiblyObsoleteSlot](../I/InvalidatePossiblyObsoleteSlot.md)
   - [ShutdownWalRcv](../S/ShutdownWalRcv.md)
-  - WaitIO
-  - BarrierArriveAndWait
+  - [WaitIO](../W/WaitIO.md)
+  - [BarrierArriveAndWait](../B/BarrierArriveAndWait.md)
   - [injection_wait](../i/injection_wait.md)
 
 ## Notes and Other Information

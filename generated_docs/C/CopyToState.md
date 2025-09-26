@@ -38,13 +38,13 @@ CopyToState encapsulates all state information needed during COPY TO operations,
 ## Dependencies
 - Functions called/Symbols referenced:
   - CopyDest (enum for copy destination types)
-  - QueryDesc (query execution descriptor)
-  - CopyFormatOptions (formatting options structure)
+  - [QueryDesc](../Q/QueryDesc.md) (query execution descriptor)
+  - [CopyFormatOptions](CopyFormatOptions.md) (formatting options structure)
 - Called from (representative examples):
-  - DoCopy (main COPY command handler)
-  - BeginCopyTo (initializes COPY TO operation)
-  - DoCopyTo (executes COPY TO operation)
-  - EndCopyTo (finalizes COPY TO operation)
+  - [DoCopy](../D/DoCopy.md) (main COPY command handler)
+  - [BeginCopyTo](../B/BeginCopyTo.md) (initializes COPY TO operation)
+  - [DoCopyTo](../D/DoCopyTo.md) (executes COPY TO operation)
+  - [EndCopyTo](../E/EndCopyTo.md) (finalizes COPY TO operation)
 
 ## Notes and Other Information
 This structure is the central state holder for all COPY TO operations in PostgreSQL. Unlike CopyFromState, it has a simpler design focused on output generation rather than input parsing. The structure includes special handling for multi-byte character encodings, where the encoding_embeds_ascii flag determines whether ASCII scanning needs to use full multi-byte character processing to avoid false matches with trailing bytes. The dual memory context approach (copycontext for operation-wide allocations, rowcontext for per-row processing) enables efficient memory management during large data exports. The structure supports various output destinations including files, programs, and frontend connections through the copy_dest enum and associated callback mechanisms.

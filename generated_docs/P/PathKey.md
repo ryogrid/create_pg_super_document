@@ -39,20 +39,20 @@ This representation enables powerful optimizations such as recognizing when an e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - EquivalenceClass (structure for equivalence classes)
+  - [EquivalenceClass](../E/EquivalenceClass.md) (structure for equivalence classes)
 
 - Called from (representative examples):
-  - make_canonical_pathkey (pathkeys.c:59, 73, 87)
-  - compare_pathkeys (pathkeys.c:317, 318)
-  - pathkey_is_redundant (pathkeys.c:158, 170, 196)
-  - build_index_pathkeys (pathkeys.c:756)
-  - make_pathkeys_for_sortclauses_extended (pathkeys.c:1386)
-  - select_outer_pathkeys_for_merge (pathkeys.c:1718, 1739, 1781)
-  - create_mergejoin_plan (createplan.c:4457, 4598, 4636, 4660, 4678)
-  - initial_cost_mergejoin (costsize.c:3558, 3559, 3567, 3568)
+  - [make_canonical_pathkey](../m/make_canonical_pathkey.md) (pathkeys.c:59, 73, 87)
+  - [compare_pathkeys](../c/compare_pathkeys.md) (pathkeys.c:317, 318)
+  - [pathkey_is_redundant](../p/pathkey_is_redundant.md) (pathkeys.c:158, 170, 196)
+  - [build_index_pathkeys](../b/build_index_pathkeys.md) (pathkeys.c:756)
+  - [make_pathkeys_for_sortclauses_extended](../m/make_pathkeys_for_sortclauses_extended.md) (pathkeys.c:1386)
+  - [select_outer_pathkeys_for_merge](../s/select_outer_pathkeys_for_merge.md) (pathkeys.c:1718, 1739, 1781)
+  - [create_mergejoin_plan](../c/create_mergejoin_plan.md) (createplan.c:4457, 4598, 4636, 4660, 4678)
+  - [initial_cost_mergejoin](../i/initial_cost_mergejoin.md) (costsize.c:3558, 3559, 3567, 3568)
 
 ## Notes and Other Information
-- PathKey nodes assume all ordering-capable index types use btree-compatible strategy numbers for consistency
+- [PathKey](PathKey.md) nodes assume all ordering-capable index types use btree-compatible strategy numbers for consistency
 - The copy_as_scalar and equal_as_scalar attributes on pk_eclass enable efficient pointer-based equality comparisons without deep copying
 - Lists of PathKeys represent complete sort orderings where order matters (first PathKey is primary sort, second is secondary, etc.)
 - Empty PathKey lists indicate no known or required ordering

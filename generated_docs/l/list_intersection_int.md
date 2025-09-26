@@ -29,7 +29,7 @@ Key behavioral characteristics:
   - IsIntegerList (validation)
   - [list_member_int](list_member_int.md) (check integer membership)
   - lfirst_int (extract integer values)
-  - lappend_int (append integer values)
+  - [lappend_int](lappend_int.md) (append integer values)
   - [check_list_invariants](../c/check_list_invariants.md) (validation)
 - Called from (representative examples):
   - [parseCheckAggregates](../p/parseCheckAggregates.md) (parse_agg.c:1124)

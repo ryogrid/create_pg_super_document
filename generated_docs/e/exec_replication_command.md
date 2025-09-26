@@ -50,7 +50,7 @@ The function supports a wide range of replication commands including:
   - [IsAbortedTransactionBlockState](../I/IsAbortedTransactionBlockState.md)
   - [PreventInTransactionBlock](../P/PreventInTransactionBlock.md)
   - [StartTransactionCommand](../S/StartTransactionCommand.md), CommitTransactionCommand
-  - set_ps_display, EndReplicationCommand
+  - [set_ps_display](../s/set_ps_display.md), EndReplicationCommand
   - [Command](../C/Command.md)-specific handlers: IdentifySystem, ReadReplicationSlot, SendBaseBackup, CreateReplicationSlot, DropReplicationSlot, AlterReplicationSlot, StartReplication, StartLogicalReplication, SendTimeLineHistory, GetPGVariable, UploadManifest
 - Called from (representative examples):
   - [PostgresMain](../P/PostgresMain.md) (at src/backend/tcop/postgres.c:4763)

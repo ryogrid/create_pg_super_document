@@ -32,7 +32,7 @@ This function encodes a custom MESSAGE operation into the logical replication pr
   - [pq_sendint8](../p/pq_sendint8.md)
   - [pq_sendint64](../p/pq_sendint64.md)
   - [pq_sendstring](../p/pq_sendstring.md)
-  - pq_sendbytes
+  - [pq_sendbytes](../p/pq_sendbytes.md)
   - LOGICAL_REP_MSG_MESSAGE
   - MESSAGE_TRANSACTIONAL
 - Called from (representative examples):

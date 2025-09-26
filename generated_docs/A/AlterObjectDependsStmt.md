@@ -33,13 +33,13 @@ AlterObjectDependsStmt represents SQL statements that establish or remove depend
 ## Dependencies
 - Functions called/Symbols referenced:
   - ObjectType (enumeration for database object types)
-  - RangeVar (structure for table/relation references)
-  - String (PostgreSQL string node type)
+  - [RangeVar](../R/RangeVar.md) (structure for table/relation references)
+  - [String](../S/String.md) (PostgreSQL string node type)
   - NodeTag (standard parse node identification)
 - Called from (representative examples):
-  - ExecAlterObjectDependsStmt (main execution function)
-  - standard_ProcessUtility (utility command processing)
-  - ProcessUtilitySlow (utility command processing)
+  - [ExecAlterObjectDependsStmt](../E/ExecAlterObjectDependsStmt.md) (main execution function)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (utility command processing)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (utility command processing)
 
 ## Notes and Other Information
 This statement type is crucial for extension management in PostgreSQL, allowing fine-grained control over which objects belong to which extensions. It supports the SQL standard ALTER ... DEPENDS ON EXTENSION syntax and enables proper cleanup when extensions are dropped. The remove flag provides bidirectional functionality, allowing both the establishment and removal of extension dependencies.

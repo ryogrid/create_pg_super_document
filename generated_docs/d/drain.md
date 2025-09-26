@@ -38,7 +38,7 @@ This function takes no parameters and operates on global state:
   - `WAIT_USE_SELF_PIPE` (conditional compilation macro)
 
 - Called from (representative examples):
-  - `WaitEventSetWaitBlock` - after waking up from blocking wait
+  - `[WaitEventSetWaitBlock](../W/WaitEventSetWaitBlock.md)` - after waking up from blocking wait
   - `LatchWaitSetLatchPos` - during latch position management
 
 ## Notes and Other Information

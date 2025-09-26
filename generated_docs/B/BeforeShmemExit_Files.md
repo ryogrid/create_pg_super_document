@@ -30,7 +30,7 @@ This ensures that no temporary files are left behind when a backend process term
   - temporary_files_allowed (debug variable set to false)
 - Called from (representative examples):
   - AllocateDesc (registers this hook in src/backend/storage/file/fd.c:339)
-  - InitTemporaryFileAccess (registers this hook in src/backend/storage/file/fd.c:939)
+  - [InitTemporaryFileAccess](../I/InitTemporaryFileAccess.md) (registers this hook in src/backend/storage/file/fd.c:939)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the fd.c module

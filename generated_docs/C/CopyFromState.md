@@ -70,14 +70,14 @@ CopyFromState encapsulates all state information needed during COPY FROM operati
 - Functions called/Symbols referenced:
   - CopySource (enum for copy source types)
   - EolType (enum for end-of-line types)
-  - CopyFormatOptions (formatting options structure)
-  - ErrorSaveContext (soft error handling)
-  - TransitionCaptureState (transition table support)
+  - [CopyFormatOptions](CopyFormatOptions.md) (formatting options structure)
+  - [ErrorSaveContext](../E/ErrorSaveContext.md) (soft error handling)
+  - [TransitionCaptureState](../T/TransitionCaptureState.md) (transition table support)
 - Called from (representative examples):
-  - DoCopy (main COPY command handler)
-  - BeginCopyFrom (initializes COPY FROM operation)
-  - CopyFrom (executes COPY FROM operation)
-  - EndCopyFrom (finalizes COPY FROM operation)
+  - [DoCopy](../D/DoCopy.md) (main COPY command handler)
+  - [BeginCopyFrom](../B/BeginCopyFrom.md) (initializes COPY FROM operation)
+  - [CopyFrom](CopyFrom.md) (executes COPY FROM operation)
+  - [EndCopyFrom](../E/EndCopyFrom.md) (finalizes COPY FROM operation)
 
 ## Notes and Other Information
 This structure is the central state holder for all COPY FROM operations in PostgreSQL. It uses a sophisticated buffering system with separate raw and converted input buffers to optimize performance during large data imports. The structure supports soft error handling, allowing operations to continue and collect multiple errors rather than stopping at the first error. The dual buffer system (raw_buf for unconverted data, input_buf for database-encoding data) enables efficient character set conversion. Buffer sizes are defined as constants (INPUT_BUF_SIZE and RAW_BUF_SIZE = 65536 bytes each) with convenience macros for calculating available bytes.

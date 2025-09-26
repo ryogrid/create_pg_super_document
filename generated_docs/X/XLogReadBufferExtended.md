@@ -36,20 +36,20 @@ Important: Redo functions should typically use XLogReadBufferForRedoExtended ins
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReadRecentBuffer
-  - smgropen, smgrcreate, smgrnblocks
-  - ReadBufferWithoutRelcache
-  - ExtendBufferedRelTo
-  - log_invalid_page
-  - PageIsNew, ReleaseBuffer
+  - [ReadRecentBuffer](../R/ReadRecentBuffer.md)
+  - [smgropen](../s/smgropen.md), smgrcreate, smgrnblocks
+  - [ReadBufferWithoutRelcache](../R/ReadBufferWithoutRelcache.md)
+  - [ExtendBufferedRelTo](../E/ExtendBufferedRelTo.md)
+  - [log_invalid_page](../l/log_invalid_page.md)
+  - [PageIsNew](../P/PageIsNew.md), ReleaseBuffer
 - Constants used:
   - RBM_NORMAL, RBM_NORMAL_NO_LOG, RBM_ZERO_*
   - INVALID_PROC_NUMBER
   - EB_PERFORMING_RECOVERY, EB_SKIP_EXTENSION_LOCK
 - Called from:
-  - XLogReadBufferForRedoExtended (primary caller)
-  - verifyBackupPageConsistency
-  - XLogRecordPageWithFreeSpace
+  - [XLogReadBufferForRedoExtended](XLogReadBufferForRedoExtended.md) (primary caller)
+  - [verifyBackupPageConsistency](../v/verifyBackupPageConsistency.md)
+  - [XLogRecordPageWithFreeSpace](XLogRecordPageWithFreeSpace.md)
 
 ## Notes and Other Information
 - Creates target files automatically to handle replay sequences with later-deleted relations

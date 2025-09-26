@@ -19,11 +19,11 @@ This function processes a TSVector document and builds a DocRepresentation array
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - QueryRepresentation (struct type)
+  - [QueryRepresentation](../Q/QueryRepresentation.md) (struct type)
   - TSVector (document vector type)
   - GETQUERY (macro to extract query)
   - QueryItem (query item structure)
-  - WordEntry (word entry structure)
+  - [WordEntry](../W/WordEntry.md) (word entry structure)
   - WordEntryPos (word position structure)
   - DocRepresentation (document representation structure)
   - QueryOperand (query operand structure)

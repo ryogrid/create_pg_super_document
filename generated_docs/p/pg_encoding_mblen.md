@@ -31,7 +31,7 @@ The function is designed for use cases where the input string is either zero-ter
 - Called from (representative examples):
   - [CopyAttributeOutText](../C/CopyAttributeOutText.md) (COPY command text output)
   - [CopyAttributeOutCSV](../C/CopyAttributeOutCSV.md) (COPY command CSV output)
-  - sqlchar_to_unicode (XML processing)
+  - [sqlchar_to_unicode](../s/sqlchar_to_unicode.md) (XML processing)
   - [pg_encoding_mblen_or_incomplete](pg_encoding_mblen_or_incomplete.md) (safer variant)
   - [pg_encoding_mblen_bounded](pg_encoding_mblen_bounded.md) (bounded variant)
   - [fmtIdEnc](../f/fmtIdEnc.md) (identifier encoding)

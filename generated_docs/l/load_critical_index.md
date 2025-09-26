@@ -40,8 +40,8 @@ The function performs several important operations:
   - [UnlockRelationOid](../U/UnlockRelationOid.md)
   - [RelationGetIndexAttOptions](../R/RelationGetIndexAttOptions.md)
 - Called from (representative examples):
-  - RelationCacheInitializePhase3 (for critical local indexes like ClassOidIndexId, AttributeRelidNumIndexId, etc.)
-  - RelationCacheInitializePhase2 (for shared critical indexes like DatabaseNameIndexId, AuthIdRolnameIndexId, etc.)
+  - [RelationCacheInitializePhase3](../R/RelationCacheInitializePhase3.md) (for critical local indexes like ClassOidIndexId, AttributeRelidNumIndexId, etc.)
+  - [RelationCacheInitializePhase2](../R/RelationCacheInitializePhase2.md) (for shared critical indexes like DatabaseNameIndexId, AuthIdRolnameIndexId, etc.)
 
 ## Notes and Other Information
 - This is a static function only used within relcache.c during relation cache initialization

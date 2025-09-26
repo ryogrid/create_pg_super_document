@@ -24,11 +24,11 @@ The function allocates a new ReorderBufferChange structure, sets it up as an int
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReorderBufferGetChange
-  - ReorderBufferQueueChange
+  - [ReorderBufferGetChange](ReorderBufferGetChange.md)
+  - [ReorderBufferQueueChange](ReorderBufferQueueChange.md)
   - REORDER_BUFFER_CHANGE_INTERNAL_SNAPSHOT
 - Called from (representative examples):
-  - SnapBuildDistributeSnapshotAndInval
+  - [SnapBuildDistributeSnapshotAndInval](../S/SnapBuildDistributeSnapshotAndInval.md)
 
 ## Notes and Other Information
 - The snapshot is marked with action type REORDER_BUFFER_CHANGE_INTERNAL_SNAPSHOT to distinguish it from regular data changes

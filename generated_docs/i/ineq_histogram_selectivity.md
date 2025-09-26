@@ -41,20 +41,20 @@ The function handles edge cases like identical bin boundaries, conversion failur
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - statistic_proc_security_check
-  - get_attstatsslot
-  - comparison_ops_are_compatible
-  - get_actual_variable_range
-  - FunctionCall2Coll
-  - convert_to_scalar
-  - get_variable_numdistinct
+  - [statistic_proc_security_check](../s/statistic_proc_security_check.md)
+  - [get_attstatsslot](../g/get_attstatsslot.md)
+  - [comparison_ops_are_compatible](../c/comparison_ops_are_compatible.md)
+  - [get_actual_variable_range](../g/get_actual_variable_range.md)
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md)
+  - [convert_to_scalar](../c/convert_to_scalar.md)
+  - [get_variable_numdistinct](../g/get_variable_numdistinct.md)
   - InitFunctionCallInfoData
   - FunctionCallInvoke
-  - free_attstatsslot
+  - [free_attstatsslot](../f/free_attstatsslot.md)
   - CLAMP_PROBABILITY
 - Called from (representative examples):
-  - scalarineqsel
-  - prefix_selectivity
+  - [scalarineqsel](../s/scalarineqsel.md)
+  - [prefix_selectivity](../p/prefix_selectivity.md)
 
 ## Notes and Other Information
 - Returns -1 if no histogram is available or histogram is incompatible
@@ -65,5 +65,5 @@ The function handles edge cases like identical bin boundaries, conversion failur
 - Applies equality selectivity corrections for inclusive operators (<= and >=)
 - Clamps results to avoid extreme estimates: uses CLAMP_PROBABILITY with current endpoints, or custom cutoff (0.01/histogram_resolution) otherwise
 - Falls back to brute-force search if histogram sort order is incompatible with query operator
-- Result excludes MCV entries and nulls - caller must combine with those statistics
+- [Result](../R/Result.md) excludes MCV entries and nulls - caller must combine with those statistics
 - Exported function used by multiple selectivity estimation routines

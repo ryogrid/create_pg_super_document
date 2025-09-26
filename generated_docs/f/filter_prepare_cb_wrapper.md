@@ -25,8 +25,8 @@ This wrapper is specifically designed for the prepare phase of two-phase commit 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LogicalDecodingContext](../L/LogicalDecodingContext.md)
-  - LogicalErrorCallbackState
-  - output_plugin_error_callback
+  - [LogicalErrorCallbackState](../L/LogicalErrorCallbackState.md)
+  - [output_plugin_error_callback](../o/output_plugin_error_callback.md)
 - Called from (representative examples):
   - [FilterPrepare](../F/FilterPrepare.md)
 

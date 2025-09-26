@@ -21,15 +21,15 @@ For BAS_NORMAL operations, it returns NULL to indicate standard buffer managemen
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetAccessStrategyWithSize (creates strategy with specified ring size)
+  - [GetAccessStrategyWithSize](GetAccessStrategyWithSize.md) (creates strategy with specified ring size)
   - BufferAccessStrategyType (enum type for strategy types)
   - BAS_NORMAL, BAS_BULKREAD, BAS_BULKWRITE, BAS_VACUUM (enum values)
   - elog (error logging function)
 - Called from (representative examples):
-  - initscan (src/backend/access/heap/heapam.c:388)
-  - GetBulkInsertState (src/backend/access/heap/heapam.c:1976)
-  - ScanSourceDatabasePgClass (src/backend/commands/dbcommands.c:283)
-  - RelationCopyStorageUsingBuffer (src/backend/storage/buffer/bufmgr.c:4719, 4720)
+  - [initscan](../i/initscan.md) (src/backend/access/heap/heapam.c:388)
+  - [GetBulkInsertState](GetBulkInsertState.md) (src/backend/access/heap/heapam.c:1976)
+  - [ScanSourceDatabasePgClass](../S/ScanSourceDatabasePgClass.md) (src/backend/commands/dbcommands.c:283)
+  - [RelationCopyStorageUsingBuffer](../R/RelationCopyStorageUsingBuffer.md) (src/backend/storage/buffer/bufmgr.c:4719, 4720)
 
 ## Notes and Other Information
 - Ring sizes are carefully chosen: BAS_BULKREAD uses 256KB, BAS_BULKWRITE uses 16MB, and BAS_VACUUM uses 2MB

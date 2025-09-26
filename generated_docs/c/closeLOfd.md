@@ -27,7 +27,7 @@ The function prioritizes crash prevention over memory leak prevention by nullify
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LargeObjectDesc](../L/LargeObjectDesc.md) (struct type)
-  - UnregisterSnapshotFromOwner
+  - [UnregisterSnapshotFromOwner](../U/UnregisterSnapshotFromOwner.md)
   - [inv_close](../i/inv_close.md)
 - Called from (representative examples):
   - [be_lo_close](../b/be_lo_close.md) (src/backend/libpq/be-fsstubs.c:139)

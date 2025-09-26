@@ -34,10 +34,10 @@ The caching strategy uses a dual-purpose pointer system where  can point to eith
 - Functions called/Symbols referenced:
   - (None - this is a passive data structure)
 - Called from (representative examples):
-  - ExecInitExprRec (multiple locations in execExpr.c)
-  - get_cached_rowtype (execExprInterp.c:2085)
+  - [ExecInitExprRec](ExecInitExprRec.md) (multiple locations in execExpr.c)
+  - [get_cached_rowtype](../g/get_cached_rowtype.md) (execExprInterp.c:2085)
   - EEO_JUMP (execExprInterp.c:151)
-  - ExprEvalStep (used as member in various step types)
+  - [ExprEvalStep](ExprEvalStep.md) (used as member in various step types)
 
 ## Notes and Other Information
 - This structure is designed to fit in-line within some ExprEvalStep types to minimize memory overhead, but can also be allocated out-of-line when necessary

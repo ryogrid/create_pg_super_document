@@ -39,17 +39,17 @@ The function handles both OR semantics (ANY operations) and AND semantics (ALL o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - estimate_expression_value
-  - get_base_element_type
-  - strip_array_coercion
-  - scalararraysel_containment
-  - lookup_type_cache
-  - get_oprjoin/get_oprrest
-  - deconstruct_array
+  - [estimate_expression_value](../e/estimate_expression_value.md)
+  - [get_base_element_type](../g/get_base_element_type.md)
+  - [strip_array_coercion](strip_array_coercion.md)
+  - [scalararraysel_containment](scalararraysel_containment.md)
+  - [lookup_type_cache](../l/lookup_type_cache.md)
+  - [get_oprjoin](../g/get_oprjoin.md)/get_oprrest
+  - [deconstruct_array](../d/deconstruct_array.md)
   - CLAMP_PROBABILITY
 - Called from (representative examples):
-  - clause_selectivity_ext
-  - GenericCosts
+  - [clause_selectivity_ext](../c/clause_selectivity_ext.md)
+  - [GenericCosts](../G/GenericCosts.md)
 
 ## Notes and Other Information
 - Handles both ANY (OR) and ALL (AND) array operations with appropriate probability mathematics

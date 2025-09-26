@@ -25,7 +25,7 @@ The function ensures proper constraint inheritance semantics by maintaining depe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - elog
@@ -39,7 +39,7 @@ The function ensures proper constraint inheritance semantics by maintaining depe
   - [recordDependencyOn](../r/recordDependencyOn.md)
   - [deleteDependencyRecordsForClass](../d/deleteDependencyRecordsForClass.md)
   - [ReleaseSysCache](../R/ReleaseSysCache.md)
-  - table_close
+  - [table_close](../t/table_close.md)
 - Called from (representative examples):
   - [DefineIndex](../D/DefineIndex.md) (indexcmds.c:1417)
   - [tryAttachPartitionForeignKey](../t/tryAttachPartitionForeignKey.md) (tablecmds.c:11188)

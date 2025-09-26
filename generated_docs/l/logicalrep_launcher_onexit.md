@@ -27,7 +27,7 @@ This cleanup ensures that future attempts to start a new launcher or check launc
 - Functions called/Symbols referenced:
   - LogicalRepCtx (global shared memory context)
 - Called from (representative examples):
-  - ApplyLauncherMain (src/backend/replication/logical/launcher.c:1140)
+  - [ApplyLauncherMain](../A/ApplyLauncherMain.md) (src/backend/replication/logical/launcher.c:1140)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the launcher.c file

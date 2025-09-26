@@ -29,7 +29,7 @@ The function maintains PostgreSQL's inheritance semantics where attributes appea
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeColumnDef (creates column definition structures)
+  - [makeColumnDef](../m/makeColumnDef.md) (creates column definition structures)
   - [findAttrByName](../f/findAttrByName.md) (locates columns by name in inheritance hierarchy)
   - [MergeInheritedAttribute](MergeInheritedAttribute.md) (merges column definitions from multiple parents)
   - [MergeChildAttribute](MergeChildAttribute.md) (merges child and inherited column definitions)

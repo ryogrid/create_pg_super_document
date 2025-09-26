@@ -37,7 +37,7 @@ The structure manages the state of file I/O operations during the backup process
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbsink (base structure)
+  - [bbsink](bbsink.md) (base structure)
   - File (PostgreSQL file handle type)
 - Called from (representative examples):
   - [bbsink_server_new](bbsink_server_new.md)

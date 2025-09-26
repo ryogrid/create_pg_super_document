@@ -20,12 +20,12 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [build_guc_variables](../b/build_guc_variables.md)
-  - get_guc_variables
+  - [get_guc_variables](../g/get_guc_variables.md)
   - [displayStruct](../d/displayStruct.md)
   - [printMixedStruct](../p/printMixedStruct.md)
   - exit
 - Types referenced:
-  - config_generic
+  - [config_generic](../c/config_generic.md)
   - mixedStruct
 - Called from (representative examples):
   - [main](../m/main.md) (from src/backend/main/main.c:194)

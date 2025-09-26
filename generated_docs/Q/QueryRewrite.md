@@ -29,7 +29,7 @@ The function requires that input queries come directly from the parser or have b
 - Functions called/Symbols referenced:
   - [RewriteQuery](../R/RewriteQuery.md)
   - [fireRIRrules](../f/fireRIRrules.md)
-  - lappend
+  - [lappend](../l/lappend.md)
 - Called from (representative examples):
   - [ExecCreateTableAs](../E/ExecCreateTableAs.md) (src/backend/commands/createas.c:291)
   - [ExplainQuery](../E/ExplainQuery.md) (src/backend/commands/explain.c:321)

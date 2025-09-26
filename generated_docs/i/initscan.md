@@ -35,8 +35,8 @@ The function applies a threshold of NBuffers/4 to determine if a table is "large
 - Functions called/Symbols referenced:
   - RelationGetNumberOfBlocks
   - RelationUsesLocalBuffers  
-  - GetAccessStrategy
-  - FreeAccessStrategy
+  - [GetAccessStrategy](../G/GetAccessStrategy.md)
+  - [FreeAccessStrategy](../F/FreeAccessStrategy.md)
   - [ss_get_location](../s/ss_get_location.md)
   - [ItemPointerSetInvalid](../I/ItemPointerSetInvalid.md)
   - pgstat_count_heap_scan

@@ -24,7 +24,7 @@ The function provides error handling by checking the validity of the interval co
   - [pgtypes_strdup](../p/pgtypes_strdup.md) (duplicates string)
 - Called from (representative examples):
   - [intoasc](../i/intoasc.md) (Informix compatibility function)
-  - ecpg_store_input (ECPG input storage)
+  - [ecpg_store_input](../e/ecpg_store_input.md) (ECPG input storage)
   - [main](../m/main.md) (in various test programs)
   - Client applications needing string representation of intervals
 

@@ -21,7 +21,7 @@ This function iterates through the pre-generated combinations stored in a Combin
 - Functions called/Symbols referenced:
   - [CombinationGenerator](../C/CombinationGenerator.md) (structure type)
 - Called from (representative examples):
-  - statext_ndistinct_build
+  - [statext_ndistinct_build](../s/statext_ndistinct_build.md)
 
 ## Notes and Other Information
 - The function is declared as static, limiting scope to mvdistinct.c

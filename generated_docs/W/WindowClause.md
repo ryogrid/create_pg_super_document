@@ -63,19 +63,19 @@ For RANGE frame specifications with offset bounds, the structure maintains detai
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SortGroupClause (for partition and order specifications)
-  - Node (for offset expressions)
-  - List (for clause storage)
+  - [SortGroupClause](../S/SortGroupClause.md) (for partition and order specifications)
+  - [Node](../N/Node.md) (for offset expressions)
+  - [List](../L/List.md) (for clause storage)
 - Called from (representative examples):
-  - transformWindowDefinitions (parser/parse_clause.c)
-  - create_windowagg_plan (optimizer/plan/createplan.c)
-  - optimize_window_clauses (optimizer/plan/planner.c)
-  - make_pathkeys_for_window (optimizer/plan/planner.c)
+  - [transformWindowDefinitions](../t/transformWindowDefinitions.md) (parser/parse_clause.c)
+  - [create_windowagg_plan](../c/create_windowagg_plan.md) (optimizer/plan/createplan.c)
+  - [optimize_window_clauses](../o/optimize_window_clauses.md) (optimizer/plan/planner.c)
+  - [make_pathkeys_for_window](../m/make_pathkeys_for_window.md) (optimizer/plan/planner.c)
 
 ## Notes and Other Information
 - Window inheritance follows SQL standard rules: partition clauses always copied, order clauses may be copied, frame options never copied
 - The winref field must be unique among all windows in a query's windowClause list
-- Query planner sanitizes partitionClause to remove redundant PathKeys for optimization
+- [Query](../Q/Query.md) planner sanitizes partitionClause to remove redundant PathKeys for optimization
 - RANGE frame semantics with offsets require special in_range functions and collation handling
 - Window clause optimization can merge or reorder windows to minimize sorting overhead
 - Multiple WindowFunc nodes can reference the same WindowClause via winref

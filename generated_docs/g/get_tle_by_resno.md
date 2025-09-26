@@ -28,7 +28,7 @@ The function is widely used throughout PostgreSQL's query processing components,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RowMarkClause (referenced but not called within this function)
+  - [RowMarkClause](../R/RowMarkClause.md) (referenced but not called within this function)
   - Standard PostgreSQL list iteration macros (foreach, lfirst)
 - Called from (representative examples):
   - [show_grouping_set_keys](../s/show_grouping_set_keys.md) (EXPLAIN functionality)

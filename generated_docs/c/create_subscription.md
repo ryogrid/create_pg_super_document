@@ -22,7 +22,7 @@ The function constructs a CREATE SUBSCRIPTION SQL command with proper escaping f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - createPQExpBuffer
+  - [createPQExpBuffer](createPQExpBuffer.md)
   - [PQescapeIdentifier](../P/PQescapeIdentifier.md)
   - [PQescapeLiteral](../P/PQescapeLiteral.md)
   - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
@@ -35,7 +35,7 @@ The function constructs a CREATE SUBSCRIPTION SQL command with proper escaping f
   - [disconnect_database](../d/disconnect_database.md)
   - [PQfreemem](../P/PQfreemem.md)
   - [PQclear](../P/PQclear.md)
-  - destroyPQExpBuffer
+  - [destroyPQExpBuffer](../d/destroyPQExpBuffer.md)
 - Called from (representative examples):
   - [setup_subscriber](../s/setup_subscriber.md)
 

@@ -21,7 +21,7 @@ The function operates on the current error stack entry without incrementing the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ErrorData (struct type)
+  - [ErrorData](../E/ErrorData.md) (struct type)
   - CHECK_STACK_DEPTH (macro for validating error stack state)
   - errordata (global error stack array)
   - errordata_stack_depth (global error stack depth counter)

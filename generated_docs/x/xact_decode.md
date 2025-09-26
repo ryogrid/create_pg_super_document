@@ -43,10 +43,10 @@ The function is essential for logical replication as it transforms low-level WAL
   - [ParseCommitRecord](../P/ParseCommitRecord.md) / ParseAbortRecord / ParsePrepareRecord
   - [FilterPrepare](../F/FilterPrepare.md)
   - [DecodeCommit](../D/DecodeCommit.md) / DecodeAbort / DecodePrepare
-  - ReorderBufferAddInvalidations
+  - [ReorderBufferAddInvalidations](../R/ReorderBufferAddInvalidations.md)
   - [ReorderBufferXidSetCatalogChanges](../R/ReorderBufferXidSetCatalogChanges.md)
   - [ReorderBufferImmediateInvalidation](../R/ReorderBufferImmediateInvalidation.md)
-  - ReorderBufferProcessXid
+  - [ReorderBufferProcessXid](../R/ReorderBufferProcessXid.md)
 - Constants used:
   - XLOG_XACT_OPMASK
   - XLOG_XACT_COMMIT, XLOG_XACT_ABORT, XLOG_XACT_PREPARE
@@ -56,7 +56,7 @@ The function is essential for logical replication as it transforms low-level WAL
 - Data types used:
   - [xl_xact_commit](xl_xact_commit.md), xl_xact_abort, xl_xact_prepare
   - [xl_xact_parsed_commit](xl_xact_parsed_commit.md), xl_xact_parsed_abort, xl_xact_parsed_prepare
-  - xl_xact_invals
+  - [xl_xact_invals](xl_xact_invals.md)
 - Called from:
   - Resource manager system via LogicalDecodingProcessRecord (registered in rmgrlist.h)
 

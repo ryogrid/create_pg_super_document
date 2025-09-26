@@ -19,7 +19,7 @@ This function performs a reverse lookup in the pg_attrdef system catalog, taking
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open/table_close: Opens and closes pg_attrdef catalog with shared lock
+  - [table_open](../t/table_open.md)/table_close: Opens and closes pg_attrdef catalog with shared lock
   - [ScanKeyInit](../S/ScanKeyInit.md): Initializes scan key for OID-based lookup
   - [systable_beginscan](../s/systable_beginscan.md): Begins scan using AttrDefaultOidIndexId for efficient OID lookup
   - [systable_getnext](../s/systable_getnext.md): Retrieves matching tuple from scan

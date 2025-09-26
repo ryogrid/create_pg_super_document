@@ -32,15 +32,15 @@ The function uses PostgreSQL's SRF framework to maintain state across multiple c
   - PG_GETARG_NUMERIC - Extract numeric arguments
   - NUMERIC_IS_SPECIAL, NUMERIC_IS_NAN - Check for special values
   - PG_NARGS - Get number of function arguments
-  - init_var_from_num, set_var_from_num, set_var_from_var - NumericVar operations
-  - cmp_var - Compare numeric variables
-  - add_var - Add numeric variables
-  - make_result - Convert NumericVar to Numeric
+  - [init_var_from_num](../i/init_var_from_num.md), set_var_from_num, set_var_from_var - [NumericVar](../N/NumericVar.md) operations
+  - [cmp_var](../c/cmp_var.md) - Compare numeric variables
+  - [add_var](../a/add_var.md) - Add numeric variables
+  - [make_result](../m/make_result.md) - Convert NumericVar to Numeric
   - SRF_FIRSTCALL_INIT, SRF_PERCALL_SETUP - SRF framework functions
   - SRF_RETURN_NEXT, SRF_RETURN_DONE - SRF return macros
-  - NumericGetDatum - Convert Numeric to Datum
+  - [NumericGetDatum](../N/NumericGetDatum.md) - Convert Numeric to Datum
 - Called from:
-  - generate_series_numeric (wrapper for two-parameter version)
+  - [generate_series_numeric](generate_series_numeric.md) (wrapper for two-parameter version)
 
 ## Notes and Other Information
 - Located in src/backend/utils/adt/numeric.c:1707-1844

@@ -32,7 +32,7 @@ The function automatically detects the appropriate conversion method based on th
   - [asc_toupper](../a/asc_toupper.md): ASCII-only uppercase conversion
   - [pg_newlocale_from_collation](../p/pg_newlocale_from_collation.md): Get locale information from collation OID
   - [icu_to_uchar](../i/icu_to_uchar.md), `icu_convert_case`, `icu_from_uchar`: ICU conversion functions
-  - `unicode_strupper`: Built-in Unicode uppercase conversion
+  - `[unicode_strupper](../u/unicode_strupper.md)`: Built-in Unicode uppercase conversion
   - [char2wchar](../c/char2wchar.md), `wchar2char`: Wide character conversion functions
   - `towupper_l`, `toupper_l`: Locale-aware case conversion
   - [pg_toupper](../p/pg_toupper.md): PostgreSQL's ASCII case conversion

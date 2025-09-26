@@ -37,7 +37,7 @@ The function handles the case where the `CurrentMemoryContext` global variable h
   - [l_load](l_load.md): To generate a load instruction for the current memory context
   - `LLVMBuildStore`: To generate a store instruction for the new memory context
 - Called from (representative examples):
-  - `llvm_compile_expr`: Used when compiling expressions that need to manage memory contexts during execution
+  - `[llvm_compile_expr](llvm_compile_expr.md)`: Used when compiling expressions that need to manage memory contexts during execution
 
 ## Notes and Other Information
 - Returns the previous memory context, allowing for proper context restoration after operations

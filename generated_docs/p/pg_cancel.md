@@ -39,9 +39,9 @@ The pg_cancel structure is the backing struct for the opaque PGcancel type expos
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SockAddr](../S/SockAddr.md) (network address structure)
-  - PGcancelConn (related cancellation connection structure)
+  - [PGcancelConn](../P/PGcancelConn.md) (related cancellation connection structure)
 - Called from (representative examples):
-  - PGcancel (typedef in libpq-fe.h)
+  - [PGcancel](../P/PGcancel.md) (typedef in libpq-fe.h)
   - [Query](../Q/Query.md) cancellation functions in libpq
 
 ## Notes and Other Information

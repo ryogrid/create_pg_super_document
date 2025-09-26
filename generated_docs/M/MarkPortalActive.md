@@ -24,11 +24,11 @@ Upon successful validation, the function updates the portal's status to ACTIVE a
 - Functions called/Symbols referenced:
   - PORTAL_READY (constant for ready state check)
   - PORTAL_ACTIVE (constant for setting active state) 
-  - GetCurrentSubTransactionId (to record current subtransaction)
+  - [GetCurrentSubTransactionId](../G/GetCurrentSubTransactionId.md) (to record current subtransaction)
 - Called from (representative examples):
-  - PersistHoldablePortal (src/backend/commands/portalcmds.c:351)
-  - PortalRun (src/backend/tcop/pquery.c:717)
-  - PortalRunFetch (src/backend/tcop/pquery.c:1396)
+  - [PersistHoldablePortal](../P/PersistHoldablePortal.md) (src/backend/commands/portalcmds.c:351)
+  - [PortalRun](../P/PortalRun.md) (src/backend/tcop/pquery.c:717)
+  - [PortalRunFetch](../P/PortalRunFetch.md) (src/backend/tcop/pquery.c:1396)
 
 ## Notes and Other Information
 - The function enforces that portals must never have their status set to PORTAL_ACTIVE directly - this function must always be used to ensure proper subtransaction tracking

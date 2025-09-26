@@ -25,7 +25,7 @@ This is primarily used by the object address subsystem to validate whether opera
   - lengthof (macro for array length)
   - ObjectPropertyType (via ObjectProperty array access)
 - Called from (representative examples):
-  - pg_identify_object
+  - [pg_identify_object](../p/pg_identify_object.md)
   - [EventTriggerSQLDropAddObject](../E/EventTriggerSQLDropAddObject.md)  
   - [pg_event_trigger_ddl_commands](../p/pg_event_trigger_ddl_commands.md)
   - ObjectAddressSet

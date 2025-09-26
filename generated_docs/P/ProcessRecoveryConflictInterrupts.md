@@ -38,7 +38,7 @@ This function takes no parameters.
   - RecoveryConflictPending (cleared after processing begins)
   - RecoveryConflictPendingReasons (array tracking specific pending conflicts)
 - Called from:
-  - ProcessInterrupts (main interrupt processing function)
+  - [ProcessInterrupts](ProcessInterrupts.md) (main interrupt processing function)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the same source file

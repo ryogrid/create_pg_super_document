@@ -27,13 +27,13 @@ Key characteristics:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLock (struct type)
-  - pgstat_report_wait_start (statistics reporting function)
+  - [LWLock](LWLock.md) (struct type)
+  - [pgstat_report_wait_start](../p/pgstat_report_wait_start.md) (statistics reporting function)
   - PG_WAIT_LWLOCK (wait event category constant)
 - Called from (representative examples):
-  - LWLockAcquire (when entering wait state during lock acquisition)
-  - LWLockAcquireOrWait (when waiting becomes necessary)
-  - LWLockWaitForVar (when waiting for variable changes)
+  - [LWLockAcquire](LWLockAcquire.md) (when entering wait state during lock acquisition)
+  - [LWLockAcquireOrWait](LWLockAcquireOrWait.md) (when waiting becomes necessary)
+  - [LWLockWaitForVar](LWLockWaitForVar.md) (when waiting for variable changes)
 
 ## Notes and Other Information
 - Inline function designed for minimal performance overhead during lock contention

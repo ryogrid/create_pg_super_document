@@ -27,7 +27,7 @@ For TABLE DATA entries, the function establishes a reverse mapping by examining 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_malloc0 (memory allocation)
+  - [pg_malloc0](../p/pg_malloc0.md) (memory allocation)
   - [pg_fatal](../p/pg_fatal.md) (error reporting)
   - DumpId (type)
   - [TocEntry](../T/TocEntry.md) (struct type)

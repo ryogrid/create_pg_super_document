@@ -21,7 +21,7 @@ PQfreeCancel is a simple memory management function in the libpq library that de
 ## Dependencies
 - Functions called/Symbols referenced:
   - free (standard C library function)
-  - PGcancel (structure type)
+  - [PGcancel](PGcancel.md) (structure type)
 - Called from (representative examples):
   - [set_archive_cancel_info](../s/set_archive_cancel_info.md) (src/bin/pg_dump/parallel.c:757)
   - [SetCancelConn](../S/SetCancelConn.md) (src/fe_utils/cancel.c:92)

@@ -32,9 +32,9 @@ If no options procedure exists but options are provided, the function raises an 
   - FunctionCall1
   - [build_local_reloptions](../b/build_local_reloptions.md)
   - [SysCacheGetAttrNotNull](../S/SysCacheGetAttrNotNull.md)
-  - generate_opclass_name
+  - [generate_opclass_name](../g/generate_opclass_name.md)
 - Called from (representative examples):
-  - index_create (during index creation)
+  - [index_create](index_create.md) (during index creation)
   - [RelationGetIndexAttOptions](../R/RelationGetIndexAttOptions.md) (when retrieving cached options)
 
 ## Notes and Other Information

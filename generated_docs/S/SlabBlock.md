@@ -34,7 +34,7 @@ The block uses a freelist data structure to link together freed chunks, enabling
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SlabContext](SlabContext.md)
-  - MemoryChunk
+  - [MemoryChunk](../M/MemoryChunk.md)
   - [dlist_node](../d/dlist_node.md)
 
 - Called from (representative examples):

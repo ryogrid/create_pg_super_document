@@ -25,8 +25,8 @@ This function is a specialized JSON parsing callback that ensures object field n
   - [json_unique_check_key](json_unique_check_key.md)
   - [pfree](../p/pfree.md)
 - Data types referenced:
-  - JsonUniqueParsingState
-  - JsonUniqueStackEntry
+  - [JsonUniqueParsingState](../J/JsonUniqueParsingState.md)
+  - [JsonUniqueStackEntry](../J/JsonUniqueStackEntry.md)
   - JSON_SUCCESS
 - Called from (representative examples):
   - [json_validate](json_validate.md)

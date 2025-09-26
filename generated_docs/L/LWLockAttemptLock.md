@@ -32,8 +32,8 @@ LWLockAttemptLock is a critical low-level function that implements the core atom
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_atomic_read_u32 (atomic read operation)
-  - pg_atomic_compare_exchange_u32 (atomic compare-and-exchange)
+  - [pg_atomic_read_u32](../p/pg_atomic_read_u32.md) (atomic read operation)
+  - [pg_atomic_compare_exchange_u32](../p/pg_atomic_compare_exchange_u32.md) (atomic compare-and-exchange)
   - LW_EXCLUSIVE, LW_SHARED (lock mode constants)
   - LW_LOCK_MASK, LW_VAL_EXCLUSIVE, LW_VAL_SHARED (state bit masks and values)
   - Assert (parameter validation macro)
@@ -41,9 +41,9 @@ LWLockAttemptLock is a critical low-level function that implements the core atom
   - MyProc (current process identifier, used in debug builds)
 
 - Called from (representative examples):
-  - LWLockAcquire (blocking lock acquisition)
-  - LWLockConditionalAcquire (non-blocking conditional acquisition)
-  - LWLockAcquireOrWait (acquire or wait for lock availability)
+  - [LWLockAcquire](LWLockAcquire.md) (blocking lock acquisition)
+  - [LWLockConditionalAcquire](LWLockConditionalAcquire.md) (non-blocking conditional acquisition)
+  - [LWLockAcquireOrWait](LWLockAcquireOrWait.md) (acquire or wait for lock availability)
 
 ## Notes and Other Information
 - **Static function**: Only accessible within lwlock.c, serving as an internal implementation detail

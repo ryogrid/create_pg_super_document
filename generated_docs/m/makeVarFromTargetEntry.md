@@ -20,20 +20,20 @@ The makeVarFromTargetEntry function is a convenience utility that constructs a V
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeVar (creates the actual Var node)
-  - exprType (extracts type OID from expression)
-  - exprTypmod (extracts type modifier from expression)
-  - exprCollation (extracts collation OID from expression)
-  - TargetEntry (struct type from primnodes.h)
+  - [makeVar](makeVar.md) (creates the actual Var node)
+  - [exprType](../e/exprType.md) (extracts type OID from expression)
+  - [exprTypmod](../e/exprTypmod.md) (extracts type modifier from expression)
+  - [exprCollation](../e/exprCollation.md) (extracts collation OID from expression)
+  - [TargetEntry](../T/TargetEntry.md) (struct type from primnodes.h)
 - Called from (representative examples):
-  - coerce_fn_result_column
-  - search_indexed_tlist_for_phv
-  - search_indexed_tlist_for_non_var
-  - search_indexed_tlist_for_sortgroupref
-  - generate_subquery_vars
-  - make_setop_translation_list
-  - build_physical_tlist
-  - transformInsertStmt
+  - [coerce_fn_result_column](../c/coerce_fn_result_column.md)
+  - [search_indexed_tlist_for_phv](../s/search_indexed_tlist_for_phv.md)
+  - [search_indexed_tlist_for_non_var](../s/search_indexed_tlist_for_non_var.md)
+  - [search_indexed_tlist_for_sortgroupref](../s/search_indexed_tlist_for_sortgroupref.md)
+  - [generate_subquery_vars](../g/generate_subquery_vars.md)
+  - [make_setop_translation_list](make_setop_translation_list.md)
+  - [build_physical_tlist](../b/build_physical_tlist.md)
+  - [transformInsertStmt](../t/transformInsertStmt.md)
 
 ## Notes and Other Information
 - Uses TargetEntry's resno as the varattno for the created Var

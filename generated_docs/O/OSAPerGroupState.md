@@ -37,7 +37,7 @@ This structure serves as the internal-type transition state datum that is return
 ## Dependencies
 - Functions called/Symbols referenced:
   - [OSAPerQueryState](OSAPerQueryState.md)
-  - Tuplesortstate
+  - [Tuplesortstate](../T/Tuplesortstate.md)
 - Called from (representative examples):
   - [ordered_set_startup](../o/ordered_set_startup.md)
   - [ordered_set_shutdown](../o/ordered_set_shutdown.md)

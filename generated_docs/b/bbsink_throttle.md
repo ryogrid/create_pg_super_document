@@ -43,7 +43,7 @@ The implementation uses a sampling approach rather than throttling every individ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbsink (base struct)
+  - [bbsink](bbsink.md) (base struct)
   - TimeOffset (for time calculations)
   - TimestampTz (for timestamp storage)
 - Called from (representative examples):

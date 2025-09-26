@@ -22,9 +22,9 @@ The function returns `true` as soon as it reaches the end of the abbreviation st
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lowerit (src/timezone/zic.c:3645)
+  - [lowerit](../l/lowerit.md) (src/timezone/zic.c:3645)
 - Called from (representative examples):
-  - byword (src/timezone/zic.c:3664, 3688)
+  - [byword](../b/byword.md) (src/timezone/zic.c:3664, 3688)
 
 ## Notes and Other Information
 - Returns `true` if `abbr` is a case-insensitive initial prefix of `word`, `false` otherwise

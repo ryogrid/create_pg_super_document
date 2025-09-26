@@ -23,9 +23,9 @@ This static function implements the standby wait logic used by ResolveRecoveryCo
   - CHECK_FOR_INTERRUPTS (checks for pending interrupts)
   - [GetStandbyLimitTime](../G/GetStandbyLimitTime.md) (gets the cutoff time for conflicts)
   - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md) (gets current system timestamp)
-  - pgstat_report_wait_start (reports start of wait to statistics system)
+  - [pgstat_report_wait_start](../p/pgstat_report_wait_start.md) (reports start of wait to statistics system)
   - [pg_usleep](../p/pg_usleep.md) (sleeps for specified microseconds)
-  - pgstat_report_wait_end (reports end of wait to statistics system)
+  - [pgstat_report_wait_end](../p/pgstat_report_wait_end.md) (reports end of wait to statistics system)
   - standbyWait_us (global variable tracking current sleep duration)
 - Called from (representative examples):
   - [ResolveRecoveryConflictWithVirtualXIDs](../R/ResolveRecoveryConflictWithVirtualXIDs.md) (main conflict resolution function)

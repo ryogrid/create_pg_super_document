@@ -25,15 +25,15 @@ For entries stored in the hash table (overflow entries), the function removes th
 - Functions called/Symbols referenced:
   - [hash_search](../h/hash_search.md)
   - HASH_REMOVE
-  - PrivateRefCountEntry (struct type)
+  - [PrivateRefCountEntry](../P/PrivateRefCountEntry.md) (struct type)
   - REFCOUNT_ARRAY_ENTRIES (macro)
 - Called from (representative examples):
-  - UnpinBufferNoOwner
+  - [UnpinBufferNoOwner](../U/UnpinBufferNoOwner.md)
 
 ## Notes and Other Information
 - The function includes an assertion ensuring the refcount is 0 before forgetting
 - Array entries are optimistically reserved for future use rather than just marked free
-- Hash table entries are completely removed to reduce memory usage
+- [Hash](../H/Hash.md) table entries are completely removed to reduce memory usage
 - Properly maintains the PrivateRefCountOverflowed counter for accurate overflow tracking
 - The different handling strategies optimize for the common case of array-based storage
 - Essential for preventing memory leaks in the private reference counting system

@@ -25,9 +25,9 @@ The function supports three possible outcomes: finding blocks already cached (wi
   - BlockNumberIsValid: Validates block number
   - RelationUsesLocalBuffers: Determines buffer pool type
   - RELATION_IS_OTHER_TEMP: Checks for cross-session temporary table access
-  - PrefetchLocalBuffer: Handles local buffer prefetching
+  - [PrefetchLocalBuffer](PrefetchLocalBuffer.md): Handles local buffer prefetching
   - [PrefetchSharedBuffer](PrefetchSharedBuffer.md): Handles shared buffer prefetching
-  - RelationGetSmgr: Gets storage manager handle
+  - [RelationGetSmgr](../R/RelationGetSmgr.md): Gets storage manager handle
 - Called from (representative examples):
   - [index_delete_prefetch_buffer](../i/index_delete_prefetch_buffer.md): Index tuple deletion optimization
   - [count_nondeletable_pages](../c/count_nondeletable_pages.md): Vacuum operation optimization

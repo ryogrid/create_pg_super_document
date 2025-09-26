@@ -24,16 +24,16 @@ The function creates a lock tag specifically for relation extension using SET_LO
 ## Dependencies
 - Functions called/Symbols referenced:
   - SET_LOCKTAG_RELATION_EXTEND (macro to set up lock tag for relation extension)
-  - LockAcquire (core lock acquisition function)
+  - [LockAcquire](LockAcquire.md) (core lock acquisition function)
 - Called from (representative examples):
-  - brin_page_cleanup (BRIN index page cleanup)
-  - brin_getinsertbuffer (BRIN index buffer management)
-  - ginvacuumcleanup (GIN index vacuum cleanup)
-  - gistvacuumscan (GiST index vacuum scan)
-  - btvacuumscan (B-tree vacuum scan)
-  - spgvacuumscan (SP-GiST vacuum scan)
-  - ExtendBufferedRelTo (buffered relation extension)
-  - ExtendBufferedRelShared (shared buffered relation extension)
+  - [brin_page_cleanup](../b/brin_page_cleanup.md) (BRIN index page cleanup)
+  - [brin_getinsertbuffer](../b/brin_getinsertbuffer.md) (BRIN index buffer management)
+  - [ginvacuumcleanup](../g/ginvacuumcleanup.md) (GIN index vacuum cleanup)
+  - [gistvacuumscan](../g/gistvacuumscan.md) (GiST index vacuum scan)
+  - [btvacuumscan](../b/btvacuumscan.md) (B-tree vacuum scan)
+  - [spgvacuumscan](../s/spgvacuumscan.md) (SP-GiST vacuum scan)
+  - [ExtendBufferedRelTo](../E/ExtendBufferedRelTo.md) (buffered relation extension)
+  - [ExtendBufferedRelShared](../E/ExtendBufferedRelShared.md) (shared buffered relation extension)
 
 ## Notes and Other Information
 - The lock uses LOCKTAG_RELATION_EXTEND lock tag type which is distinct from regular relation locks

@@ -37,7 +37,7 @@ The Material node reads all tuples from its child plan on first execution and st
   - [create_plan_recurse](create_plan_recurse.md) (main recursive plan creation function)
 
 ## Notes and Other Information
-- Material nodes consume memory proportional to the size of their child's output
+- [Material](../M/Material.md) nodes consume memory proportional to the size of their child's output
 - Large result sets may spill to disk if they don't fit in available memory (work_mem)
 - The Material node doesn't perform any projection or filtering - it passes through the child's target list unchanged
 - Commonly inserted by the optimizer for inner sides of nested loop joins and hash joins

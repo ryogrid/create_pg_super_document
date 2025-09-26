@@ -32,7 +32,7 @@ This function is essential for determining transaction visibility horizons and m
   - InvalidTransactionId (constant)
 - Called from (representative examples):
   - xc_slow_answer_inc
-  - ComputeXidHorizons
+  - [ComputeXidHorizons](../C/ComputeXidHorizons.md)
 
 ## Notes and Other Information
 - This is a static function accessible only within procarray.c

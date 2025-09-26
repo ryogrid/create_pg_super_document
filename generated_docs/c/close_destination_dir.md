@@ -22,7 +22,7 @@ The function is part of the pg_receivewal utility's file management infrastructu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - closedir (system call)
+  - [closedir](closedir.md) (system call)
   - [pg_fatal](../p/pg_fatal.md) (PostgreSQL error handling)
   - Assert (assertion macro)
 - Called from (representative examples):

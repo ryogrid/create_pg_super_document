@@ -21,10 +21,10 @@ The function is used specifically by the catalog cache system to efficiently has
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - murmurhash32 (hash function for generating hash values)
-  - DatumGetInt32 (macro for extracting int32 from Datum)
+  - [murmurhash32](../m/murmurhash32.md) (hash function for generating hash values)
+  - [DatumGetInt32](../D/DatumGetInt32.md) (macro for extracting int32 from Datum)
 - Called from (representative examples):
-  - GetCCHashEqFuncs (assigned as hash function for INT4OID and various REG* types)
+  - [GetCCHashEqFuncs](../G/GetCCHashEqFuncs.md) (assigned as hash function for INT4OID and various REG* types)
 
 ## Notes and Other Information
 - This function is static and only used within catcache.c

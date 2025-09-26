@@ -24,7 +24,7 @@ The function includes safety assertions to ensure the input parameter e is withi
 - Functions called/Symbols referenced:
   - Assert (for input validation)
 - Called from (representative examples):
-  - d2d (in src/common/d2s.c at lines 397, 443)
+  - [d2d](../d/d2d.md) (in src/common/d2s.c at lines 397, 443)
   - [f2d](../f/f2d.md) (in src/common/f2s.c at lines 269, 284, 317, 326)
 
 ## Notes and Other Information

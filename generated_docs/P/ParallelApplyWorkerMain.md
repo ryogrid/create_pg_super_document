@@ -32,12 +32,12 @@ The function includes an assertion at the end that should never be reached, as p
   - [die](../d/die.md)
   - [BackgroundWorkerUnblockSignals](../B/BackgroundWorkerUnblockSignals.md)
   - [dsm_attach](../d/dsm_attach.md)
-  - shm_toc_attach
+  - [shm_toc_attach](../s/shm_toc_attach.md)
   - [shm_toc_lookup](../s/shm_toc_lookup.md)
   - [shm_mq_set_receiver](../s/shm_mq_set_receiver.md)
   - [shm_mq_set_sender](../s/shm_mq_set_sender.md)
   - [shm_mq_attach](../s/shm_mq_attach.md)
-  - logicalrep_worker_attach
+  - [logicalrep_worker_attach](../l/logicalrep_worker_attach.md)
   - [before_shmem_exit](../b/before_shmem_exit.md)
   - [pa_shutdown](../p/pa_shutdown.md)
   - [pq_redirect_to_shm_mq](../p/pq_redirect_to_shm_mq.md)
@@ -46,7 +46,7 @@ The function includes an assertion at the end that should never be reached, as p
   - [StartTransactionCommand](../S/StartTransactionCommand.md)
   - [CommitTransactionCommand](../C/CommitTransactionCommand.md)
   - [ReplicationOriginNameForLogicalRep](../R/ReplicationOriginNameForLogicalRep.md)
-  - replorigin_by_name
+  - [replorigin_by_name](../r/replorigin_by_name.md)
   - [replorigin_session_setup](../r/replorigin_session_setup.md)
   - [CacheRegisterSyscacheCallback](../C/CacheRegisterSyscacheCallback.md)
   - [invalidate_syncing_table_states](../i/invalidate_syncing_table_states.md)

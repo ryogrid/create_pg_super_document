@@ -34,7 +34,7 @@ The calculation is complex because it maintains calendar semantics - for example
   - Timestamp (timestamp data type)
   - Interval (interval data type)  
   - fsec_t (fractional seconds type)
-  - pg_itm (interval time structure)
+  - [pg_itm](../p/pg_itm.md) (interval time structure)
   - [pg_tm](../p/pg_tm.md) (broken-down time structure)
   - PG_GETARG_TIMESTAMP (PostgreSQL macro)
   - PG_RETURN_INTERVAL_P (PostgreSQL macro)

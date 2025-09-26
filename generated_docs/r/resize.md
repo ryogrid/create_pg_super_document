@@ -31,19 +31,19 @@ This operation is expensive but infrequent, as hash tables only resize when they
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert
-  - LWLockHeldByMe
-  - LWLockAcquire  
-  - LWLockRelease
+  - [LWLockHeldByMe](../L/LWLockHeldByMe.md)
+  - [LWLockAcquire](../L/LWLockAcquire.md)  
+  - [LWLockRelease](../L/LWLockRelease.md)
   - PARTITION_LOCK
-  - dsa_allocate_extended
-  - dsa_get_address
-  - dsa_free
+  - [dsa_allocate_extended](../d/dsa_allocate_extended.md)
+  - [dsa_get_address](../d/dsa_get_address.md)
+  - [dsa_free](../d/dsa_free.md)
   - DsaPointerIsValid
-  - insert_item_into_bucket
+  - [insert_item_into_bucket](../i/insert_item_into_bucket.md)
   - BUCKET_INDEX_FOR_HASH_AND_SIZE
 - Types used:
-  - dshash_table
-  - dshash_table_item
+  - [dshash_table](../d/dshash_table.md)
+  - [dshash_table_item](../d/dshash_table_item.md)
   - dsa_pointer
 - Constants used:
   - DSHASH_NUM_PARTITIONS
@@ -51,7 +51,7 @@ This operation is expensive but infrequent, as hash tables only resize when they
   - DSA_ALLOC_HUGE
   - DSA_ALLOC_ZERO
 - Called from (representative examples):
-  - dshash_find_or_insert
+  - [dshash_find_or_insert](../d/dshash_find_or_insert.md)
   - BUCKET_FOR_HASH (indirectly)
 
 ## Notes and Other Information

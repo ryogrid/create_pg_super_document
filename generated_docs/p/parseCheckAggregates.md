@@ -49,5 +49,5 @@ The function handles complex grouping scenarios including grouping sets, functio
 - Should only be called when aggregates, GROUP BY, HAVING, or grouping sets are present
 - Most misplaced aggregates are caught earlier in transformAggregateCall, but this provides additional validation
 - The 4096 grouping set limit is arbitrary but prevents pathological resource consumption
-- Join alias flattening is expensive but necessary for correct variable equality determination
+- [Join](../J/Join.md) alias flattening is expensive but necessary for correct variable equality determination
 - Handles both simple grouping and complex grouping sets scenarios with appropriate optimizations

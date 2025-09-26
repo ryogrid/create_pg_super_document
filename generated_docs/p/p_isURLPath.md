@@ -25,13 +25,13 @@ The function creates a new parser position state and sets it to TPS_InURLPathFir
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TParser](../T/TParser.md) (structure type)
-  - TParserCopyInit (creates a copy of the parser)
-  - newTParserPosition (creates a new parser position)
+  - [TParserCopyInit](../T/TParserCopyInit.md) (creates a copy of the parser)
+  - [newTParserPosition](../n/newTParserPosition.md) (creates a new parser position)
   - TPS_InURLPathFirst (parser state constant for URL path parsing)
-  - check_stack_depth (checks for stack overflow)
+  - [check_stack_depth](../c/check_stack_depth.md) (checks for stack overflow)
   - [TParserGet](../T/TParserGet.md) (parses the next token)
   - URLPATH (token type constant)
-  - TParserCopyClose (cleans up the temporary parser)
+  - [TParserCopyClose](../T/TParserCopyClose.md) (cleans up the temporary parser)
 - Called from (representative examples):
   - [p_isspecial](p_isspecial.md) (at src/backend/tsearch/wparser_def.c:1478)
 

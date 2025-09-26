@@ -21,7 +21,7 @@ The input tuple is expected to be stored in tmpcontext->ecxt_outertuple before c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecEvalExprSwitchContext
+  - [ExecEvalExprSwitchContext](../E/ExecEvalExprSwitchContext.md)
 - Data types used:
   - [AggState](../A/AggState.md)
 - Called from (representative examples):

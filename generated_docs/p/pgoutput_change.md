@@ -42,8 +42,8 @@ The function supports both regular and streaming replication modes, handling tra
   - [pgoutput_send_begin](pgoutput_send_begin.md)
   - [maybe_send_schema](../m/maybe_send_schema.md)
   - [logicalrep_write_insert](../l/logicalrep_write_insert.md)
-  - logicalrep_write_update
-  - logicalrep_write_delete
+  - [logicalrep_write_update](../l/logicalrep_write_update.md)
+  - [logicalrep_write_delete](../l/logicalrep_write_delete.md)
   - [OutputPluginPrepareWrite](../O/OutputPluginPrepareWrite.md)
   - [OutputPluginWrite](../O/OutputPluginWrite.md)
 - Called from (representative examples):

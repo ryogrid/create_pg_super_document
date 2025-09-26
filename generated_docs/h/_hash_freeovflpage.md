@@ -38,7 +38,7 @@ The function is designed to be called during VACUUM operations and bucket squeez
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _hash_checkpage (page validation)
+  - [_hash_checkpage](_hash_checkpage.md) (page validation)
   - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)/BufferGetPage (buffer access)
   - HashPageGetOpaque/HashPageGetMeta/HashPageGetBitmap (page structure access)
   - [_hash_getbuf_with_strategy](_hash_getbuf_with_strategy.md)/_hash_getbuf (buffer management with strategy)

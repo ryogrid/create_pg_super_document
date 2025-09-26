@@ -24,14 +24,14 @@ For the very first partition, it fetches the initial input row from the outer pl
 ## Dependencies
 - Functions called/Symbols referenced:
   - outerPlanState
-  - ExecClearTuple
-  - ExecProcNode
-  - ExecCopySlot
+  - [ExecClearTuple](../E/ExecClearTuple.md)
+  - [ExecProcNode](../E/ExecProcNode.md)
+  - [ExecCopySlot](../E/ExecCopySlot.md)
   - TupIsNull
-  - tuplestore_begin_heap
-  - tuplestore_set_eflags
-  - tuplestore_alloc_read_pointer
-  - tuplestore_puttupleslot
+  - [tuplestore_begin_heap](../t/tuplestore_begin_heap.md)
+  - [tuplestore_set_eflags](../t/tuplestore_set_eflags.md)
+  - [tuplestore_alloc_read_pointer](../t/tuplestore_alloc_read_pointer.md)
+  - [tuplestore_puttupleslot](../t/tuplestore_puttupleslot.md)
 - Called from (representative examples):
   - [ExecWindowAgg](../E/ExecWindowAgg.md)
 

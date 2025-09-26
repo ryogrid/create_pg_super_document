@@ -25,7 +25,7 @@ The function iterates through each character of the input string, filters out ir
 - Functions called/Symbols referenced:
   - isalnum (standard C library function for checking alphanumeric characters)
 - Called from (representative examples):
-  - pg_char_to_encoding
+  - [pg_char_to_encoding](../p/pg_char_to_encoding.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the encnames.c file

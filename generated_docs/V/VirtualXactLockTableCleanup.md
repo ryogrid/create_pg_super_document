@@ -25,17 +25,17 @@ None (void function)
 - Functions called/Symbols referenced:
   - LocalTransactionIdIsValid
   - SET_LOCKTAG_VIRTUALTRANSACTION
-  - LockRefindAndRelease
+  - [LockRefindAndRelease](../L/LockRefindAndRelease.md)
   - LocalTransactionId (type)
-  - VirtualTransactionId (type)
-  - LOCKTAG (type)
+  - [VirtualTransactionId](VirtualTransactionId.md) (type)
+  - [LOCKTAG](../L/LOCKTAG.md) (type)
   - InvalidLocalTransactionId
   - INVALID_PROC_NUMBER
   - DEFAULT_LOCKMETHOD
   - ExclusiveLock
 - Called from (representative examples):
-  - LockReleaseAll
-  - ShutdownRecoveryTransactionEnvironment
+  - [LockReleaseAll](../L/LockReleaseAll.md)
+  - [ShutdownRecoveryTransactionEnvironment](../S/ShutdownRecoveryTransactionEnvironment.md)
   - LockHashPartitionLockByProc
 
 ## Notes and Other Information

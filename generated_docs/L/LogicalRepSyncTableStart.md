@@ -38,7 +38,7 @@ The function implements sophisticated error handling and recovery mechanisms, in
   - [ReplicationSlotDropAtPubNode](../R/ReplicationSlotDropAtPubNode.md)
   - [UpdateSubscriptionRelState](../U/UpdateSubscriptionRelState.md)
   - walrcv_create_slot
-  - replorigin_create/replorigin_session_setup
+  - [replorigin_create](../r/replorigin_create.md)/replorigin_session_setup
   - [copy_table](../c/copy_table.md)
   - [wait_for_worker_state_change](../w/wait_for_worker_state_change.md)
 - Called from (representative examples):

@@ -24,12 +24,12 @@ The newly created tape is initialized in write state, ready to accept data. The 
 ## Dependencies
 - Functions called/Symbols referenced:
   - elog (error logging and reporting)
-  - ltsCreateTape (internal tape creation function)
-  - LogicalTapeSet (structure type)
-  - LogicalTape (structure type)
+  - [ltsCreateTape](../l/ltsCreateTape.md) (internal tape creation function)
+  - [LogicalTapeSet](LogicalTapeSet.md) (structure type)
+  - [LogicalTape](LogicalTape.md) (structure type)
 - Called from (representative examples):
-  - hashagg_spill_init (hash aggregation spill initialization)
-  - selectnewtape (tuplesort tape selection)
+  - [hashagg_spill_init](../h/hashagg_spill_init.md) (hash aggregation spill initialization)
+  - [selectnewtape](../s/selectnewtape.md) (tuplesort tape selection)
 
 ## Notes and Other Information
 - The function includes explicit error checking to prevent tape creation in leader processes during parallel operations

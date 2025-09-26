@@ -25,12 +25,12 @@ This function is part of PostgreSQL's planner support infrastructure that allows
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `SupportRequestSimplify`: Structure type for simplification requests
-  - `FuncExpr`: Function expression node type
+  - `[SupportRequestSimplify](../S/SupportRequestSimplify.md)`: Structure type for simplification requests
+  - `[FuncExpr](../F/FuncExpr.md)`: Function expression node type
   - `lsecond`: Macro to get the second element of a list
-  - `exprTypmod`: Extracts type modifier from an expression
+  - `[exprTypmod](../e/exprTypmod.md)`: Extracts type modifier from an expression
   - [DatumGetInt32](../D/DatumGetInt32.md): Converts Datum to int32 value
-  - `relabel_to_typmod`: Creates a relabeling node with new type modifier
+  - `[relabel_to_typmod](../r/relabel_to_typmod.md)`: Creates a relabeling node with new type modifier
   - `VARHDRSZ`: Constant representing variable header size
 
 - Called from (representative examples):

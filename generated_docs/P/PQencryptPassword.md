@@ -26,7 +26,7 @@ The function allocates memory for the encrypted password string and returns it t
 ## Dependencies
 - Functions called/Symbols referenced:
   - malloc (memory allocation for result)
-  - pg_md5_encrypt (core MD5 encryption functionality)
+  - [pg_md5_encrypt](../p/pg_md5_encrypt.md) (core MD5 encryption functionality)
   - MD5_PASSWD_LEN (constant defining encrypted password length)
 - Called from (representative examples):
   - Referenced in libpq-fe.h header definitions

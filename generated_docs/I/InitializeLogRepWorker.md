@@ -42,7 +42,7 @@ This function takes no parameters but operates on global variables:
   - [LockSharedObject](../L/LockSharedObject.md): Lock subscription to prevent concurrent drops
   - [GetSubscription](../G/GetSubscription.md): Load subscription configuration from catalog
   - [am_leader_apply_worker](../a/am_leader_apply_worker.md)/am_tablesync_worker: Worker type identification
-  - ApplyLauncherForgetWorkerStartTime: Clean up launcher tracking
+  - [ApplyLauncherForgetWorkerStartTime](../A/ApplyLauncherForgetWorkerStartTime.md): Clean up launcher tracking
   - [apply_worker_exit](../a/apply_worker_exit.md): Graceful worker termination
   - [CacheRegisterSyscacheCallback](../C/CacheRegisterSyscacheCallback.md): Register for catalog change notifications
   - [subscription_change_cb](../s/subscription_change_cb.md): Callback for subscription/role changes

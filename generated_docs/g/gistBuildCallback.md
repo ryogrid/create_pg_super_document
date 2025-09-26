@@ -40,7 +40,7 @@ The function implements adaptive behavior, starting with direct insertion and po
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - gistFormTuple
+  - [gistFormTuple](gistFormTuple.md)
   - [gistBufferingBuildInsert](gistBufferingBuildInsert.md)
   - [gistdoinsert](gistdoinsert.md)
   - [calculatePagesPerBuffer](../c/calculatePagesPerBuffer.md)
@@ -48,8 +48,8 @@ The function implements adaptive behavior, starting with direct insertion and po
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - [MemoryContextReset](../M/MemoryContextReset.md)
   - IndexTupleSize
-  - smgrnblocks
-  - RelationGetSmgr
+  - [smgrnblocks](../s/smgrnblocks.md)
+  - [RelationGetSmgr](../R/RelationGetSmgr.md)
 - Called from (representative examples):
   - [gistbuild](gistbuild.md) (via table_index_build_scan)
 

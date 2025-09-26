@@ -27,8 +27,8 @@ The BgwHandleStatus enumeration provides a comprehensive way to track the curren
   - [GetBackgroundWorkerPid](../G/GetBackgroundWorkerPid.md)
   - [WaitForBackgroundWorkerStartup](../W/WaitForBackgroundWorkerStartup.md)
   - [WaitForBackgroundWorkerShutdown](../W/WaitForBackgroundWorkerShutdown.md)
-  - WaitForParallelWorkersToAttach
-  - WaitForParallelWorkersToExit
+  - [WaitForParallelWorkersToAttach](../W/WaitForParallelWorkersToAttach.md)
+  - [WaitForParallelWorkersToExit](../W/WaitForParallelWorkersToExit.md)
 
 ## Notes and Other Information
 This enumeration is primarily used with BackgroundWorkerHandle structures to provide status information about dynamically registered workers. The BGWH_POSTMASTER_DIED state is particularly important for robust error handling, as it indicates that the monitoring infrastructure itself has failed. Applications using background workers should check this status before attempting operations that depend on worker availability. The status transitions follow a predictable pattern: NOT_YET_STARTED → STARTED → STOPPED, with POSTMASTER_DIED being possible from any state during abnormal shutdown scenarios.

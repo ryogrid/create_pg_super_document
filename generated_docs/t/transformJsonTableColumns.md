@@ -41,7 +41,7 @@ The function integrates with the broader JSON_TABLE execution framework by creat
   - [transformJsonTableNestedColumns](transformJsonTableNestedColumns.md) (recursive nested processing)
   - [makeJsonTablePathScan](../m/makeJsonTablePathScan.md) (scan plan creation)
   - [isCompositeType](../i/isCompositeType.md) (type checking)
-  - exprType, exprTypmod, exprCollation (expression metadata)
+  - [exprType](../e/exprType.md), exprTypmod, exprCollation (expression metadata)
 - Called from (representative examples):
   - [transformJsonTable](transformJsonTable.md) (root level processing)
   - [transformJsonTableNestedColumns](transformJsonTableNestedColumns.md) (recursive nested processing)

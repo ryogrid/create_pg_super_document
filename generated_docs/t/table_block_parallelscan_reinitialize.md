@@ -30,7 +30,7 @@ This is more efficient than completely reinitializing the descriptor, as it pres
   - [ParallelBlockTableScanDesc](../P/ParallelBlockTableScanDesc.md) (target type)
 - Called from (representative examples):
   - [SampleHeapTupleVisible](../S/SampleHeapTupleVisible.md)
-  - table_scan_sample_next_tuple
+  - [table_scan_sample_next_tuple](table_scan_sample_next_tuple.md)
 
 ## Notes and Other Information
 - Part of the parallel scan infrastructure for block-oriented access methods

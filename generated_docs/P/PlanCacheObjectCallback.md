@@ -33,7 +33,7 @@ The function operates in two main phases:
   - StmtPlanRequiresRevalidation (checks if plan needs revalidation)
   - lfirst (list cell access)
   - lfirst_node (typed list cell access for PlannedStmt)
-  - PlanInvalItem (structure containing cache dependency information)
+  - [PlanInvalItem](PlanInvalItem.md) (structure containing cache dependency information)
 
 - Called from (representative examples):
   - [InitPlanCache](../I/InitPlanCache.md) (registers this callback)

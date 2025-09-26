@@ -41,9 +41,9 @@ This is a critical component for view insertability in PostgreSQL, enabling comp
   - TRIGGER_TYPE_INSTEAD
   - TRIGGER_TYPE_INSERT
 - Data structures used:
-  - TriggerDesc
-  - TriggerData
-  - Trigger
+  - [TriggerDesc](../T/TriggerDesc.md)
+  - [TriggerData](../T/TriggerData.md)
+  - [Trigger](../T/Trigger.md)
 - Called from (representative examples):
   - [CopyFrom](../C/CopyFrom.md)
   - [ExecInsert](ExecInsert.md)
@@ -55,4 +55,4 @@ This is a critical component for view insertability in PostgreSQL, enabling comp
 - Memory management is handled carefully with should_free tracking to avoid double-frees
 - INSTEAD OF triggers are commonly used to make views insertable
 - The function properly handles the case where triggers return the same tuple vs. a modified tuple
-- Trigger functions are cached in relinfo->ri_TrigFunctions for performance
+- [Trigger](../T/Trigger.md) functions are cached in relinfo->ri_TrigFunctions for performance

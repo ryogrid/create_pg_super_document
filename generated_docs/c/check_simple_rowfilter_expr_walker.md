@@ -32,8 +32,8 @@ The function supports various node types including operators (OpExpr, DistinctEx
   - InvalidAttrNumber
   - FirstNormalObjectId
   - [contain_mutable_or_user_functions_checker](contain_mutable_or_user_functions_checker.md)
-  - check_functions_in_node
-  - exprType
+  - [check_functions_in_node](check_functions_in_node.md)
+  - [exprType](../e/exprType.md)
   - [exprCollation](../e/exprCollation.md)
   - [exprInputCollation](../e/exprInputCollation.md)
   - [errdetail_internal](../e/errdetail_internal.md)

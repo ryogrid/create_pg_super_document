@@ -28,16 +28,16 @@ This function is critical for maintaining the integrity of the predicate locking
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockHeldByMeInMode
-  - LWLockHeldByMe
+  - [LWLockHeldByMeInMode](../L/LWLockHeldByMeInMode.md)
+  - [LWLockHeldByMe](../L/LWLockHeldByMe.md)
   - PredicateLockHashPartitionLock
-  - LWLockAcquire
+  - [LWLockAcquire](../L/LWLockAcquire.md)
   - dlist_foreach_modify
   - dlist_container
   - [dlist_delete](../d/dlist_delete.md)
   - [hash_search_with_hash_value](../h/hash_search_with_hash_value.md)
   - PredicateLockHashCodeFromTargetHashCode
-  - LWLockRelease
+  - [LWLockRelease](../L/LWLockRelease.md)
   - [RemoveTargetIfNoLongerUsed](../R/RemoveTargetIfNoLongerUsed.md)
 - Called from (representative examples):
   - [SerialControl](../S/SerialControl.md)

@@ -29,21 +29,21 @@ The function performs several important steps:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - newstate (creates a new NFA state)
-  - cclasscvec (gets character vector for character class)
-  - subcolorcvec (creates arcs for character vector)
-  - okcolors (closes open subcolors)
+  - [newstate](../n/newstate.md) (creates a new NFA state)
+  - [cclasscvec](../c/cclasscvec.md) (gets character vector for character class)
+  - [subcolorcvec](../s/subcolorcvec.md) (creates arcs for character vector)
+  - [okcolors](../o/okcolors.md) (closes open subcolors)
   - NOERR (error checking macro)
   - NOTE (debugging/logging macro)
 - Data structures used:
-  - cvec (character vector structure)
-  - state (NFA state structure)
+  - [cvec](../c/cvec.md) (character vector structure)
+  - [state](../s/state.md) (NFA state structure)
 - Constants used:
-  - CC_WORD (word character class identifier)
+  - [CC_WORD](../C/CC_WORD.md) (word character class identifier)
   - REG_ICASE, REG_ULOCALE (regex compilation flags)
 - Called from (representative examples):
-  - word function (regcomp.c:1482)
-  - nonword function (regcomp.c:1468)
+  - [word](word.md) function (regcomp.c:1482)
+  - [nonword](../n/nonword.md) function (regcomp.c:1468)
   - ARCV macro usage in various locations
 
 ## Notes and Other Information

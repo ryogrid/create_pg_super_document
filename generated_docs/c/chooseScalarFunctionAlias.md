@@ -26,7 +26,7 @@ This function implements a priority-based algorithm to determine the best column
 - Functions called/Symbols referenced:
   - IsA (type checking macro)
   - [get_func_result_name](../g/get_func_result_name.md) (retrieves named OUT parameter)
-  - FuncExpr (function expression node type)
+  - [FuncExpr](../F/FuncExpr.md) (function expression node type)
 - Called from (representative examples):
   - [addRangeTableEntryForFunction](../a/addRangeTableEntryForFunction.md)
 

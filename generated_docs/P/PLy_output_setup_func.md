@@ -34,7 +34,7 @@ The function handles the RECORD type as a special case, treating it as a composi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth: Prevents stack overflow in recursive calls
+  - [check_stack_depth](../c/check_stack_depth.md): Prevents stack overflow in recursive calls
   - [lookup_type_cache](../l/lookup_type_cache.md): Retrieves type information from PostgreSQL's cache
   - [getBaseType](../g/getBaseType.md): Gets the base type for arrays
   - [get_transform_tosql](../g/get_transform_tosql.md): Looks up custom transform functions

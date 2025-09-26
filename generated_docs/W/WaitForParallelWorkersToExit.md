@@ -26,12 +26,12 @@ The function is called internally by DestroyParallelContext to ensure all worker
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WaitForBackgroundWorkerShutdown
+  - [WaitForBackgroundWorkerShutdown](WaitForBackgroundWorkerShutdown.md)
   - ereport (with FATAL level)
-  - pfree
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - DestroyParallelContext
-  - ReinitializeParallelDSM
+  - [DestroyParallelContext](../D/DestroyParallelContext.md)
+  - [ReinitializeParallelDSM](../R/ReinitializeParallelDSM.md)
 
 ## Notes and Other Information
 - Static function, not part of the public API

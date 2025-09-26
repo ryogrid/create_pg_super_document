@@ -27,7 +27,7 @@ This static helper function constructs the result string for regexp split operat
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_wchar2mb_with_len](../p/pg_wchar2mb_with_len.md)
-  - cstring_to_text_with_len
+  - [cstring_to_text_with_len](../c/cstring_to_text_with_len.md)
   - [text_substr](../t/text_substr.md)
   - DirectFunctionCall3
   - [PointerGetDatum](../P/PointerGetDatum.md), Int32GetDatum

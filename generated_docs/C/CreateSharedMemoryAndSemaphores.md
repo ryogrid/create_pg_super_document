@@ -29,11 +29,11 @@ The function then sets up the shared memory allocation framework and calls Creat
   - [GetConfigOption](../G/GetConfigOption.md) (validates huge pages configuration)
   - [InitShmemAccess](../I/InitShmemAccess.md) (initializes shared memory access)
   - [PGReserveSemaphores](../P/PGReserveSemaphores.md) (creates semaphore resources)
-  - SpinlockSemaInit (initializes spinlock emulation if needed)
+  - [SpinlockSemaInit](../S/SpinlockSemaInit.md) (initializes spinlock emulation if needed)
   - [InitShmemAllocation](../I/InitShmemAllocation.md) (sets up memory allocation framework)
   - [CreateOrAttachShmemStructs](CreateOrAttachShmemStructs.md) (initializes subsystem structures)
   - [ShmemBackendArrayAllocation](../S/ShmemBackendArrayAllocation.md) (EXEC_BACKEND backend tracking)
-  - dsm_postmaster_startup (dynamic shared memory initialization)
+  - [dsm_postmaster_startup](../d/dsm_postmaster_startup.md) (dynamic shared memory initialization)
   - shmem_startup_hook (extension initialization hook)
 - Called from (representative examples):
   - [BootstrapModeMain](../B/BootstrapModeMain.md) (bootstrap database creation)

@@ -40,7 +40,7 @@ This structure is logged as part of the WAL stream specifically for logical repl
   - XLogRecPtr (type)
 - Called from (representative examples):
   - [logical_heap_rewrite_flush_mappings](../l/logical_heap_rewrite_flush_mappings.md) (src/backend/access/heap/rewriteheap.c:827)
-  - heap_xlog_logical_rewrite (src/backend/access/heap/rewriteheap.c:1077,1081)
+  - [heap_xlog_logical_rewrite](../h/heap_xlog_logical_rewrite.md) (src/backend/access/heap/rewriteheap.c:1077,1081)
 
 ## Notes and Other Information
 - Specifically designed for logical replication - not used in physical replication or crash recovery

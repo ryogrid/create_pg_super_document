@@ -29,12 +29,12 @@ The time counters are stored in instr_time format within this structure and are 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PgStat_Counter
-  - instr_time
+  - [instr_time](../i/instr_time.md)
 - Called from (representative examples):
-  - pgstat_init_function_usage (statistics initialization)
-  - pgstat_end_function_usage (statistics finalization)
-  - pgstat_function_flush_cb (statistics flushing)
-  - PgStat_FunctionCallUsage (embedded in function call usage structure)
+  - [pgstat_init_function_usage](../p/pgstat_init_function_usage.md) (statistics initialization)
+  - [pgstat_end_function_usage](../p/pgstat_end_function_usage.md) (statistics finalization)
+  - [pgstat_function_flush_cb](../p/pgstat_function_flush_cb.md) (statistics flushing)
+  - [PgStat_FunctionCallUsage](PgStat_FunctionCallUsage.md) (embedded in function call usage structure)
 
 ## Notes and Other Information
 - This structure is optimized for performance by containing only actual counters

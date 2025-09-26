@@ -25,7 +25,7 @@ The function enforces type safety by asserting that the target list contains onl
 - Functions called/Symbols referenced:
   - `list_make1_oid`: Creates a new single-element Oid list (used for NIL case)
   - `IsOidList`: Validates that the list contains Oid elements
-  - `insert_new_cell`: Internal helper function to create and position a new list cell
+  - `[insert_new_cell](../i/insert_new_cell.md)`: Internal helper function to create and position a new list cell
   - `lfirst_oid`: Macro to access the Oid value of a list cell
   - [check_list_invariants](../c/check_list_invariants.md): Debug function to verify list structural integrity
 

@@ -25,7 +25,7 @@ The function uses PostgreSQL's standard binary serialization API, beginning with
   - PG_GETARG_VARBIT_P
   - [pq_begintypsend](../p/pq_begintypsend.md)
   - [pq_sendint32](../p/pq_sendint32.md)
-  - pq_sendbytes
+  - [pq_sendbytes](../p/pq_sendbytes.md)
   - [pq_endtypsend](../p/pq_endtypsend.md)
   - VARBITLEN
   - VARBITS

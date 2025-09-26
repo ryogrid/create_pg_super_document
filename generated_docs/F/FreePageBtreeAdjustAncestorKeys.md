@@ -30,14 +30,14 @@ The function assumes that the key change is small enough that it doesn't affect 
 ## Dependencies
 - Functions called/Symbols referenced:
   - fpm_segment_base
-  - FreePageBtree (struct type)
+  - [FreePageBtree](FreePageBtree.md) (struct type)
   - FREE_PAGE_LEAF_MAGIC, FREE_PAGE_INTERNAL_MAGIC (constants)
   - FPM_ITEMS_PER_LEAF_PAGE, FPM_ITEMS_PER_INTERNAL_PAGE (constants)
   - relptr_access
-  - FreePageBtreeSearchInternal
+  - [FreePageBtreeSearchInternal](FreePageBtreeSearchInternal.md)
 - Called from (representative examples):
-  - FreePageBtreeRemove
-  - FreePageBtreeRemovePage
+  - [FreePageBtreeRemove](FreePageBtreeRemove.md)
+  - [FreePageBtreeRemovePage](FreePageBtreeRemovePage.md)
   - [FreePageManagerGetInternal](FreePageManagerGetInternal.md)
   - [FreePageManagerPutInternal](FreePageManagerPutInternal.md)
 

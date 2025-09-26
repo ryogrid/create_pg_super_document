@@ -35,7 +35,7 @@ Global variables accessed:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - logicalrep_worker_attach: Attach to logical replication worker slot
+  - [logicalrep_worker_attach](../l/logicalrep_worker_attach.md): Attach to logical replication worker slot
   - [am_tablesync_worker](../a/am_tablesync_worker.md)/am_leader_apply_worker: Worker type identification functions
   - [pqsignal](../p/pqsignal.md): Register signal handlers for SIGHUP and SIGTERM
   - [SignalHandlerForConfigReload](SignalHandlerForConfigReload.md)/die: Signal handler functions

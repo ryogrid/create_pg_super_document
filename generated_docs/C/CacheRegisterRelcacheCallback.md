@@ -34,11 +34,11 @@ The function maintains a global callback list and simply appends new callbacks t
   - relcache_callback_list (global array storing callback information)
   - elog (error logging function)
 - Called from (representative examples):
-  - logicalrep_relmap_init (src/backend/replication/logical/relation.c:124)
+  - [logicalrep_relmap_init](../l/logicalrep_relmap_init.md) (src/backend/replication/logical/relation.c:124)
   - [logicalrep_partmap_init](../l/logicalrep_partmap_init.md) (src/backend/replication/logical/relation.c:586)
   - [init_rel_sync_cache](../i/init_rel_sync_cache.md) (src/backend/replication/pgoutput/pgoutput.c:1942)
   - [InitPlanCache](../I/InitPlanCache.md) (src/backend/utils/cache/plancache.c:157)
-  - InitializeRelfilenumberMap (src/backend/utils/cache/relfilenumbermap.c:125)
+  - [InitializeRelfilenumberMap](../I/InitializeRelfilenumberMap.md) (src/backend/utils/cache/relfilenumbermap.c:125)
   - [lookup_type_cache](../l/lookup_type_cache.md) (src/backend/utils/cache/typcache.c:362)
 
 ## Notes and Other Information

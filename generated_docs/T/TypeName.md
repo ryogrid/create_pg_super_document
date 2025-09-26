@@ -47,7 +47,7 @@ The pct_type flag enables PostgreSQL's %TYPE functionality, where instead of spe
   - [LookupTypeName](../L/LookupTypeName.md)
   - [typenameType](../t/typenameType.md)
   - [typenameTypeId](../t/typenameTypeId.md)
-  - makeTypeName
+  - [makeTypeName](../m/makeTypeName.md)
   - [TypeNameToString](TypeNameToString.md)
   - [parseTypeString](../p/parseTypeString.md)
   - [CreateFunction](../C/CreateFunction.md)

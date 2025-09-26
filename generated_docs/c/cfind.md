@@ -22,9 +22,9 @@ The `cfind` function handles regex pattern matching when complications are prese
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - newdfa
-  - cfindloop
-  - freedfa
+  - [newdfa](../n/newdfa.md)
+  - [cfindloop](cfindloop.md)
+  - [freedfa](../f/freedfa.md)
   - NOERR
   - OFF
 - Called from (representative examples):

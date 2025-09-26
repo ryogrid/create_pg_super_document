@@ -25,14 +25,14 @@ The function ensures consistent behavior across different platforms by initializ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getaddrinfo_unix (for Unix domain socket handling)
+  - [getaddrinfo_unix](../g/getaddrinfo_unix.md) (for Unix domain socket handling)
   - getaddrinfo (standard system call for network sockets)
 - Called from (representative examples):
-  - ident_inet (authentication)
-  - PerformRadiusTransaction (RADIUS authentication)
-  - parse_hba_line (HBA configuration parsing)
-  - ListenServerPort (server connection setup)
-  - PQconnectPoll (client connection establishment)
+  - [ident_inet](../i/ident_inet.md) (authentication)
+  - [PerformRadiusTransaction](../P/PerformRadiusTransaction.md) (RADIUS authentication)
+  - [parse_hba_line](parse_hba_line.md) (HBA configuration parsing)
+  - [ListenServerPort](../L/ListenServerPort.md) (server connection setup)
+  - [PQconnectPoll](../P/PQconnectPoll.md) (client connection establishment)
 
 ## Notes and Other Information
 - Special handling for AF_UNIX family addresses through getaddrinfo_unix()

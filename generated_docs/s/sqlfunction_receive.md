@@ -27,8 +27,8 @@ The function always returns true, indicating successful processing of the tuple.
 ## Dependencies
 - Functions called/Symbols referenced:
   - DR_sqlfunction (cast target for self parameter)
-  - ExecFilterJunk (filters out junk attributes from the tuple)
-  - tuplestore_puttupleslot (stores the filtered tuple)
+  - [ExecFilterJunk](../E/ExecFilterJunk.md) (filters out junk attributes from the tuple)
+  - [tuplestore_puttupleslot](../t/tuplestore_puttupleslot.md) (stores the filtered tuple)
 - Called from (representative examples):
   - [CreateSQLFunctionDestReceiver](../C/CreateSQLFunctionDestReceiver.md) (sets this as receive callback)
   - Used within SQLFunctionCachePtr context

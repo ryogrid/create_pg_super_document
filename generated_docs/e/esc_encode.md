@@ -30,7 +30,7 @@ The encoding ensures that binary data can be safely represented as text and late
   - IS_HIGHBIT_SET (macro to check if high bit is set)
   - DIG (macro to convert digit to character for octal representation)
 - Called from (representative examples):
-  - esc_dec_len (indirectly referenced)
+  - [esc_dec_len](esc_dec_len.md) (indirectly referenced)
 
 ## Notes and Other Information
 - This is a static utility function used internally within PostgreSQL's encoding system

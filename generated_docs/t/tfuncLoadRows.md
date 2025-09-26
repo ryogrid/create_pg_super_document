@@ -20,12 +20,12 @@ tfuncLoadRows is responsible for the actual data extraction phase of table funct
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_head
-  - ExecClearTuple
-  - ExecEvalExpr
+  - [list_head](../l/list_head.md)
+  - [ExecClearTuple](../E/ExecClearTuple.md)
+  - [ExecEvalExpr](../E/ExecEvalExpr.md)
   - [bms_is_member](../b/bms_is_member.md)
   - [lnext](../l/lnext.md)
-  - tuplestore_putvalues
+  - [tuplestore_putvalues](tuplestore_putvalues.md)
   - [MemoryContextReset](../M/MemoryContextReset.md)
 - Called from (representative examples):
   - [tfuncFetchRows](tfuncFetchRows.md)

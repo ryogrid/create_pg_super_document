@@ -21,10 +21,10 @@ The function operates by sequentially calling three specialized dump functions, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecMergeTupleDumpOuter
-  - ExecMergeTupleDumpInner  
-  - ExecMergeTupleDumpMarked
-  - MergeJoinState (type)
+  - [ExecMergeTupleDumpOuter](ExecMergeTupleDumpOuter.md)
+  - [ExecMergeTupleDumpInner](ExecMergeTupleDumpInner.md)  
+  - [ExecMergeTupleDumpMarked](ExecMergeTupleDumpMarked.md)
+  - [MergeJoinState](../M/MergeJoinState.md) (type)
 - Called from (representative examples):
   - MJ_dump (macro in execdebug.h)
 

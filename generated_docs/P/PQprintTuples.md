@@ -36,12 +36,12 @@ The function uses a format string approach to control output formatting and calc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQnfields
-  - PQntuples  
+  - [PQnfields](PQnfields.md)
+  - [PQntuples](PQntuples.md)  
   - malloc
-  - libpq_gettext
-  - PQfname
-  - PQgetvalue
+  - [libpq_gettext](../l/libpq_gettext.md)
+  - [PQfname](PQfname.md)
+  - [PQgetvalue](PQgetvalue.md)
 - Called from (representative examples):
   - PQnoPasswordSupplied (referenced in src/interfaces/libpq/libpq-fe.h:661)
 

@@ -37,14 +37,14 @@ The function updates the constraint catalog entry to mark it as validated only a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - [ScanKeyInit](../S/ScanKeyInit.md)
   - [systable_beginscan](../s/systable_beginscan.md)
   - [systable_getnext](../s/systable_getnext.md)
   - makeNode
   - [palloc0](../p/palloc0.md)
   - [ATGetQueueEntry](ATGetQueueEntry.md)
-  - lappend
+  - [lappend](../l/lappend.md)
   - [find_all_inheritors](../f/find_all_inheritors.md)
   - [ATExecValidateConstraint](ATExecValidateConstraint.md) (recursive self-call)
   - [SysCacheGetAttrNotNull](../S/SysCacheGetAttrNotNull.md)

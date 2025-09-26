@@ -27,7 +27,7 @@ This function serves as a safety net to prevent parallel context leaks that coul
 - Functions called/Symbols referenced:
   - [dlist_is_empty](../d/dlist_is_empty.md)
   - dlist_head_element
-  - DestroyParallelContext
+  - [DestroyParallelContext](../D/DestroyParallelContext.md)
   - elog
 
 - Called from (representative examples):

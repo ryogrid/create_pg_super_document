@@ -26,7 +26,7 @@ This function takes no parameters.
   - syncsw[].sync_syncfiletag (handler-specific file sync function)
   - [hash_search](../h/hash_search.md) (remove processed entries from hash table)
   - INSTR_TIME_* macros (performance timing instrumentation)
-  - data_sync_elevel (get appropriate error level for sync failures)
+  - [data_sync_elevel](../d/data_sync_elevel.md) (get appropriate error level for sync failures)
   - FILE_POSSIBLY_DELETED (check if file deletion error is expected)
   - PendingFsyncEntry (structure representing sync requests)
   - FSYNCS_PER_ABSORB (constant for periodic request absorption)

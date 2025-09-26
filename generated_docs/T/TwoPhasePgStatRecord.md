@@ -46,9 +46,9 @@ The data is serialized and stored in the 2PC state file, allowing the statistics
   - PgStat_Counter (int64 typedef)
   - Oid (built-in type)
 - Called from (representative examples):
-  - AtPrepare_PgStat_Relations (creates and populates records)
-  - pgstat_twophase_postcommit (processes records on commit)
-  - pgstat_twophase_postabort (processes records on rollback)
+  - [AtPrepare_PgStat_Relations](../A/AtPrepare_PgStat_Relations.md) (creates and populates records)
+  - [pgstat_twophase_postcommit](../p/pgstat_twophase_postcommit.md) (processes records on commit)
+  - [pgstat_twophase_postabort](../p/pgstat_twophase_postabort.md) (processes records on rollback)
 
 ## Notes and Other Information
 - This structure is part of PostgreSQL's Two-Phase Commit implementation and is critical for maintaining statistical accuracy across prepared transactions

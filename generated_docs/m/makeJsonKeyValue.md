@@ -22,8 +22,8 @@ The `makeJsonKeyValue` function is a constructor that creates and initializes a 
 - Functions called/Symbols referenced:
   - makeNode (PostgreSQL node allocation macro)
   - castNode (PostgreSQL type casting macro)
-  - JsonKeyValue (node type structure)
-  - JsonValueExpr (value expression node type)
+  - [JsonKeyValue](../J/JsonKeyValue.md) (node type structure)
+  - [JsonValueExpr](../J/JsonValueExpr.md) (value expression node type)
 - Called from (representative examples):
   - Referenced in makefuncs.h header file
 

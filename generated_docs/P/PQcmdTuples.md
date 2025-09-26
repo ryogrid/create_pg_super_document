@@ -24,7 +24,7 @@ PQcmdTuples parses the command status string from a PGresult to extract the coun
   - isdigit (standard C library)
 - Called from (representative examples):
   - [SetResultVariables](../S/SetResultVariables.md) (src/bin/psql/common.c:465)
-  - ecpg_process_output (src/interfaces/ecpg/ecpglib/execute.c:1868)
+  - [ecpg_process_output](../e/ecpg_process_output.md) (src/interfaces/ecpg/ecpglib/execute.c:1868)
 
 ## Notes and Other Information
 - Returns an empty string ("") for unsupported command types or NULL results

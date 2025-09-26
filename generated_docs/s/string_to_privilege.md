@@ -48,5 +48,5 @@ The function includes special handling for the legacy "rule" privilege type, whi
 - This is a static function, only accessible within the aclchk.c compilation unit
 - Both "temporary" and "temp" strings map to the same ACL_CREATE_TEMP privilege
 - The legacy "rule" privilege type is maintained for compatibility but effectively ignored
-- String matching is case-sensitive and exact
+- [String](../S/String.md) matching is case-sensitive and exact
 - Function will not return on invalid input - it raises an ERROR instead

@@ -22,7 +22,7 @@ This static function parses timezone strings by scanning forward from a given po
 - Functions called/Symbols referenced:
   - is_digit (macro/function for digit checking)
 - Called from (representative examples):
-  - tzparse
+  - [tzparse](../t/tzparse.md)
 
 ## Notes and Other Information
 - Returns a pointer to the first character that is not valid in a timezone abbreviation

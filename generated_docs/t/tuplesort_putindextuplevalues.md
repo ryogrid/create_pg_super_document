@@ -28,8 +28,8 @@ This function constructs an IndexTuple from arrays of attribute values and null 
   - RelationGetDescr
   - [index_getattr](../i/index_getattr.md)
   - TupleSortUseBumpTupleCxt
-  - GetMemoryChunkSpace
-  - tuplesort_puttuple_common
+  - [GetMemoryChunkSpace](../G/GetMemoryChunkSpace.md)
+  - [tuplesort_puttuple_common](tuplesort_puttuple_common.md)
 - Called from (representative examples):
   - [gistSortedBuildCallback](../g/gistSortedBuildCallback.md)
   - [_h_spool](../h/_h_spool.md)

@@ -28,7 +28,7 @@ PQescapeLiteral is a wrapper function that calls PQescapeInternal with the  para
   - [check_and_drop_existing_subscriptions](../c/check_and_drop_existing_subscriptions.md) (in pg_createsubscriber.c)
   - [create_logical_replication_slot](../c/create_logical_replication_slot.md) (in pg_createsubscriber.c)
   - [psql_get_variable](../p/psql_get_variable.md) (in psql/common.c)
-  - PQchangePassword (in fe-auth.c)
+  - [PQchangePassword](PQchangePassword.md) (in fe-auth.c)
 
 ## Notes and Other Information
 - Returns a newly allocated string that must be freed by the caller

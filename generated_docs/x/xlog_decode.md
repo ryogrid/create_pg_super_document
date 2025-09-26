@@ -31,7 +31,7 @@ The function ensures proper transaction processing by calling ReorderBufferProce
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetInfo
-  - ReorderBufferProcessXid  
+  - [ReorderBufferProcessXid](../R/ReorderBufferProcessXid.md)  
   - XLogRecGetXid
   - [SnapBuildSerializationPoint](../S/SnapBuildSerializationPoint.md)
   - XLogRecGetData

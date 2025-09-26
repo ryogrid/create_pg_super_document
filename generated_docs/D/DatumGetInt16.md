@@ -23,9 +23,9 @@ The function is declared as static inline, meaning it will be inlined by the com
 ## Dependencies
 - Functions called/Symbols referenced: None (simple cast operation)
 - Called from (representative examples):
-  - btint2fastcmp (nbtree comparison functions)
+  - [btint2fastcmp](../b/btint2fastcmp.md) (nbtree comparison functions)
   - PG_GETARG_INT16 (function argument extraction macro)
-  - int2eqfast, int2hashfast (catalog cache functions)
+  - [int2eqfast](../i/int2eqfast.md), int2hashfast (catalog cache functions)
   - Various analysis, optimizer, and utility functions
 
 ## Notes and Other Information

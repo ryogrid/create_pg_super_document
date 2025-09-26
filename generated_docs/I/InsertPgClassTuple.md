@@ -38,7 +38,7 @@ The function uses heap_form_tuple to construct the tuple from arrays of values a
   - Various Datum conversion functions (ObjectIdGetDatum, NameGetDatum, Int32GetDatum, etc.)
 - Called from (representative examples):
   - [AddNewRelationTuple](../A/AddNewRelationTuple.md)
-  - index_create
+  - [index_create](../i/index_create.md)
 
 ## Notes and Other Information
 - The caller must have already opened and locked the pg_class relation before calling this function

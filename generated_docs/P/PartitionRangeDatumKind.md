@@ -33,12 +33,12 @@ PartitionRangeDatumKind defines the three types of boundary values that can appe
   - None (enum definition)
 - Called from (representative examples):
   - [PartitionRangeDatum](PartitionRangeDatum.md) (in kind field)
-  - PartitionBoundInfoData (in kind array field)
+  - [PartitionBoundInfoData](PartitionBoundInfoData.md) (in kind array field)
   - Various partitioning functions in partbounds.c
 
 ## Notes and Other Information
 - Located in src/include/nodes/parsenodes.h:922-927
-- Integer values are chosen to enable direct comparison: MINVALUE (-1) < VALUE (0) < MAXVALUE (1)
+- [Integer](../I/Integer.md) values are chosen to enable direct comparison: MINVALUE (-1) < VALUE (0) < MAXVALUE (1)
 - Used extensively in range partition bound comparison and validation functions
 - Essential for partition pruning optimization where the planner determines which partitions need to be scanned
 - Only applies to range partitioned tables; not used for hash or list partitioning strategies

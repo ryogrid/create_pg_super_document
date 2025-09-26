@@ -21,12 +21,12 @@ This function is part of the Turkish language stemming implementation that handl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_check_vowel_harmony (validates Turkish vowel harmony rules)
-  - in_grouping_b_U (checks if character belongs to U vowel group, backward direction)
-  - r_mark_suffix_with_optional_y_consonant (handles optional 'y' consonant in suffixes)
+  - [r_check_vowel_harmony](r_check_vowel_harmony.md) (validates Turkish vowel harmony rules)
+  - [in_grouping_b_U](../i/in_grouping_b_U.md) (checks if character belongs to U vowel group, backward direction)
+  - [r_mark_suffix_with_optional_y_consonant](r_mark_suffix_with_optional_y_consonant.md) (handles optional 'y' consonant in suffixes)
   - g_U (vowel group definition for U vowels)
 - Called from (representative examples):
-  - r_stem_noun_suffixes
+  - [r_stem_noun_suffixes](r_stem_noun_suffixes.md)
 
 ## Notes and Other Information
 - Returns 1 on successful suffix identification and marking, 0 on failure

@@ -26,7 +26,7 @@ This structure serves as a context object passed during the parallel execution e
 - Functions called/Symbols referenced:
   - [ParallelContext](../P/ParallelContext.md) (core parallel execution context structure)
 - Called from (representative examples):
-  - ExecParallelEstimate (primary function that uses this context for estimation)
+  - [ExecParallelEstimate](ExecParallelEstimate.md) (primary function that uses this context for estimation)
   - [ExecInitParallelPlan](ExecInitParallelPlan.md) (during parallel plan initialization phase)
 
 ## Notes and Other Information

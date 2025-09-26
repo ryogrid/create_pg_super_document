@@ -32,7 +32,7 @@ This recursive function is used during custom variable definition to restore the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - set_config_option_ext (multiple calls with different actions)
+  - [set_config_option_ext](../s/set_config_option_ext.md) (multiple calls with different actions)
   - [slist_delete](../s/slist_delete.md)
   - [reapply_stacked_values](reapply_stacked_values.md) (recursive self-call)
   - GUC_ACTION_SAVE, GUC_ACTION_SET, GUC_ACTION_LOCAL (action constants)

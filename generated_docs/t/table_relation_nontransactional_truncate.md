@@ -24,7 +24,7 @@ The function delegates to the table access method's specific implementation of n
 - Functions called/Symbols referenced:
   - rel->rd_tableam->relation_nontransactional_truncate (table access method implementation)
 - Called from (representative examples):
-  - heap_truncate_one_rel (during heap table truncation operations)
+  - [heap_truncate_one_rel](../h/heap_truncate_one_rel.md) (during heap table truncation operations)
 
 ## Notes and Other Information
 - This is a non-transactional operation - changes cannot be rolled back

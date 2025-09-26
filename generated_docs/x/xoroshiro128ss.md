@@ -27,18 +27,18 @@ This implementation is specifically the "starstar" variant, which uses multiplic
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - rotl (called 3 times for bit rotation operations)
-  - pg_prng_state (state structure)
+  - [rotl](../r/rotl.md) (called 3 times for bit rotation operations)
+  - [pg_prng_state](../p/pg_prng_state.md) (state structure)
 - Called from (representative examples):
-  - pg_prng_uint64
-  - pg_prng_uint64_range
-  - pg_prng_int64
-  - pg_prng_int64p
-  - pg_prng_uint32
-  - pg_prng_int32
-  - pg_prng_int32p
-  - pg_prng_double
-  - pg_prng_bool
+  - [pg_prng_uint64](../p/pg_prng_uint64.md)
+  - [pg_prng_uint64_range](../p/pg_prng_uint64_range.md)
+  - [pg_prng_int64](../p/pg_prng_int64.md)
+  - [pg_prng_int64p](../p/pg_prng_int64p.md)
+  - [pg_prng_uint32](../p/pg_prng_uint32.md)
+  - [pg_prng_int32](../p/pg_prng_int32.md)
+  - [pg_prng_int32p](../p/pg_prng_int32p.md)
+  - [pg_prng_double](../p/pg_prng_double.md)
+  - [pg_prng_bool](../p/pg_prng_bool.md)
 
 ## Notes and Other Information
 - The state vector must never be all-zeroes, as that creates a fixed point where the generator will always output zero

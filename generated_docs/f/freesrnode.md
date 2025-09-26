@@ -26,11 +26,11 @@ The function ensures proper cleanup by clearing all pointers and flags, preventi
   - [freecnfa](freecnfa.md): Function to free CNFA structures
   - `FREE`: Memory deallocation macro
   - [cnfa](../c/cnfa.md): CNFA structure member
-  - `subre`: Sub-regular expression structure type
+  - `[subre](../s/subre.md)`: Sub-regular expression structure type
 - Called from (representative examples):
   - [parse](../p/parse.md): Main regex parsing function
   - `ARCV`: Arc vector processing functions
-  - `freesubre`: Parent subRE cleanup function
+  - `[freesubre](freesubre.md)`: Parent subRE cleanup function
 
 ## Notes and Other Information
 - Implements memory pool optimization by reusing freed nodes during compilation

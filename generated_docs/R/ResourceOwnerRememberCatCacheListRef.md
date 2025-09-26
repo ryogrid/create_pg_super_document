@@ -21,17 +21,17 @@ ResourceOwnerRememberCatCacheListRef is a static inline wrapper function that re
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwnerRemember
-  - PointerGetDatum
+  - [ResourceOwnerRemember](ResourceOwnerRemember.md)
+  - [PointerGetDatum](../P/PointerGetDatum.md)
   - catlistref_resowner_desc (static resource owner descriptor for catalog cache lists)
 - Called from (representative examples):
-  - SearchCatCacheList (multiple call sites at lines 1809 and 2059)
+  - [SearchCatCacheList](../S/SearchCatCacheList.md) (multiple call sites at lines 1809 and 2059)
 
 ## Notes and Other Information
 - This is a static inline function defined in src/backend/utils/cache/catcache.c (lines 169-173)
 - Part of a pair with ResourceOwnerForgetCatCacheListRef for symmetric resource management
 - Uses catlistref_resowner_desc descriptor with release_phase RESOURCE_RELEASE_AFTER_LOCKS and priority RELEASE_PRIO_CATCACHE_LIST_REFS
-- CatCList objects are more complex than individual catalog cache references as they contain multiple tuples
+- [CatCList](../C/CatCList.md) objects are more complex than individual catalog cache references as they contain multiple tuples
 - Essential for preventing catalog cache list reference leaks during error recovery
 - Works in conjunction with the catalog cache list reference counting system
 - The function handles CatCList pointers specifically, distinct from individual HeapTuple references

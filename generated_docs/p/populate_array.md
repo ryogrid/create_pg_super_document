@@ -36,7 +36,7 @@ This function serves as the primary interface for converting JSON or JSONB data 
   - [initArrayResult](../i/initArrayResult.md) (array building state initialization)
   - [populate_array_json](populate_array_json.md) (JSON text parsing)
   - [populate_array_dim_jsonb](populate_array_dim_jsonb.md) (JSONB binary parsing)
-  - makeMdArrayResult (multi-dimensional array construction)
+  - [makeMdArrayResult](../m/makeMdArrayResult.md) (multi-dimensional array construction)
 - Called from (representative examples):
   - JsObjectFree
   - [populate_record_field](populate_record_field.md)

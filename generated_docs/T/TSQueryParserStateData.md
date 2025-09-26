@@ -60,11 +60,11 @@ TSQueryParserStateData serves as the central state container for parsing tsquery
 ## Dependencies
 - Functions called/Symbols referenced:
   - ts_parserstate
-  - TSVectorParseState
+  - [TSVectorParseState](TSVectorParseState.md)
 - Called from (representative examples):
-  - parse_tsquery
+  - [parse_tsquery](../p/parse_tsquery.md)
   - ISOPERATOR
-  - TSQueryParserState
+  - [TSQueryParserState](TSQueryParserState.md)
 
 ## Notes and Other Information
 This structure is fundamental to PostgreSQL's full-text search parsing infrastructure. The Polish notation representation (polstr) enables efficient query evaluation by maintaining operators and operands in prefix order. The dual buffer management system (buffer/buf for input, op/curop for operands) allows for efficient string processing during parsing. The integration with TSVectorParseState ensures consistency between query and document parsing operations. Error context management through escontext enables robust error reporting without breaking parser state.

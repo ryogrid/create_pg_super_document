@@ -45,8 +45,8 @@ A_Expr_Kind categorizes different types of expressions in PostgreSQL's abstract 
   - None (enum definition)
 - Called from (representative examples):
   - [A_Expr](A_Expr.md) (in kind field)
-  - makeA_Expr
-  - makeSimpleA_Expr
+  - [makeA_Expr](../m/makeA_Expr.md)
+  - [makeSimpleA_Expr](../m/makeSimpleA_Expr.md)
 
 ## Notes and Other Information
 - Located in src/include/nodes/parsenodes.h:311-327

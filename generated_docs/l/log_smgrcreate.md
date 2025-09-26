@@ -23,7 +23,7 @@ log_smgrcreate performs XLogInsert of an XLOG_SMGR_CREATE record to the Write-Ah
   - [XLogBeginInsert](../X/XLogBeginInsert.md)
   - [XLogRegisterData](../X/XLogRegisterData.md)
   - [XLogInsert](../X/XLogInsert.md)
-  - xl_smgr_create
+  - [xl_smgr_create](../x/xl_smgr_create.md)
   - XLOG_SMGR_CREATE
   - XLR_SPECIAL_REL_UPDATE
 - Called from (representative examples):

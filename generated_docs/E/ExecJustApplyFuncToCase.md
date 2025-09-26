@@ -23,7 +23,7 @@ The function is optimized for performance by being part of the "just-in-time" ex
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExprEvalStep (expression evaluation step structure)
+  - [ExprEvalStep](ExprEvalStep.md) (expression evaluation step structure)
   - [FunctionCallInfo](../F/FunctionCallInfo.md) (function call information structure)
   - [NullableDatum](../N/NullableDatum.md) (nullable datum structure for function arguments)
 - Called from (representative examples):

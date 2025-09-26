@@ -25,11 +25,11 @@ This function adds a page to the btree recycle list by converting it into a Free
   - fpm_page_to_pointer
   - relptr_store
   - FREE_PAGE_SPAN_LEADER_MAGIC
-  - FreePageSpanLeader
+  - [FreePageSpanLeader](FreePageSpanLeader.md)
 - Called from (representative examples):
-  - FreePageBtreeCleanup
-  - FreePageBtreeRemovePage
-  - FreePageManagerPutInternal
+  - [FreePageBtreeCleanup](FreePageBtreeCleanup.md)
+  - [FreePageBtreeRemovePage](FreePageBtreeRemovePage.md)
+  - [FreePageManagerPutInternal](FreePageManagerPutInternal.md)
 
 ## Notes and Other Information
 - Initializes the recycled page as a span leader with magic number for validation

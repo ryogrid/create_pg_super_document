@@ -31,9 +31,9 @@ The pgParameterStatus structure implements a singly-linked list to maintain Post
   - Self-references via next pointer for linked list structure
 - Used by:
   - [pqDropServerData](pqDropServerData.md) (in fe-connect.c:587, 604) - for cleanup
-  - PQparameterStatus (in fe-connect.c:7126) - for parameter lookup
+  - [PQparameterStatus](../P/PQparameterStatus.md) (in fe-connect.c:7126) - for parameter lookup
   - [pqSaveParameterStatus](pqSaveParameterStatus.md) (in fe-exec.c:1083, 1084, 1107, 1113) - for storing parameters
-  - pg_conn structure (in libpq-int.h:511) - as pstatus field
+  - [pg_conn](pg_conn.md) structure (in libpq-int.h:511) - as pstatus field
 
 ## Notes and Other Information
 - Used to implement the ParameterStatus protocol message handling in libpq

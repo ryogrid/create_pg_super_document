@@ -30,16 +30,16 @@ The function includes robust error handling throughout, cleaning up temporary fi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - OpenTransientFile - opens temporary and source files
-  - CloseTransientFile - closes file handles
-  - TLHistoryFileName - constructs timeline history filename
-  - TLHistoryFilePath - constructs local path to history file
+  - [OpenTransientFile](../O/OpenTransientFile.md) - opens temporary and source files
+  - [CloseTransientFile](../C/CloseTransientFile.md) - closes file handles
+  - [TLHistoryFileName](../T/TLHistoryFileName.md) - constructs timeline history filename
+  - [TLHistoryFilePath](../T/TLHistoryFilePath.md) - constructs local path to history file
   - [RestoreArchivedFile](../R/RestoreArchivedFile.md) - restores parent history from archive if needed
   - [durable_rename](../d/durable_rename.md) - atomically renames temporary file to final location
   - XLogArchivingActive - checks if archiving is enabled
   - [XLogArchiveNotify](../X/XLogArchiveNotify.md) - notifies archiver of new file
-  - pg_fsync - ensures data is written to disk
-  - pgstat_report_wait_start/end - reports wait events for monitoring
+  - [pg_fsync](../p/pg_fsync.md) - ensures data is written to disk
+  - [pgstat_report_wait_start](../p/pgstat_report_wait_start.md)/end - reports wait events for monitoring
   - Various system calls: read, write, unlink, access
 - Called from (representative examples):
   - [StartupXLOG](../S/StartupXLOG.md) - during database startup when creating new timelines

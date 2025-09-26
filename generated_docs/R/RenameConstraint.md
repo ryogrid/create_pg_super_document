@@ -27,8 +27,8 @@ The function delegates the actual renaming work to rename_constraint_internal, p
 ## Dependencies
 - Functions called/Symbols referenced:
   - [typenameTypeId](../t/typenameTypeId.md)
-  - makeTypeNameFromNameList
-  - table_open/table_close
+  - [makeTypeNameFromNameList](../m/makeTypeNameFromNameList.md)
+  - [table_open](../t/table_open.md)/table_close
   - [checkDomainOwner](../c/checkDomainOwner.md)
   - [RangeVarGetRelidExtended](RangeVarGetRelidExtended.md)
   - [RangeVarCallbackForRenameAttribute](RangeVarCallbackForRenameAttribute.md)

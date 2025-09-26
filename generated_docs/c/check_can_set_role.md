@@ -25,21 +25,21 @@ This function is commonly used in ownership transfer operations and other admini
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - member_can_set_role
-  - GetUserNameFromId
+  - [member_can_set_role](../m/member_can_set_role.md)
+  - [GetUserNameFromId](../G/GetUserNameFromId.md)
   - ereport (implicitly through ERROR)
   - ERRCODE_INSUFFICIENT_PRIVILEGE (error code constant)
 - Called from:
-  - AlterObjectOwner_internal
-  - createdb
-  - AlterDatabaseOwner
-  - AlterForeignServerOwner_internal
-  - AlterPublicationOwner_internal
-  - CreateSchemaCommand
-  - AlterSchemaOwner_internal
-  - AlterSubscriptionOwner_internal
-  - ATExecChangeOwner
-  - AlterTypeOwner
+  - [AlterObjectOwner_internal](../A/AlterObjectOwner_internal.md)
+  - [createdb](createdb.md)
+  - [AlterDatabaseOwner](../A/AlterDatabaseOwner.md)
+  - [AlterForeignServerOwner_internal](../A/AlterForeignServerOwner_internal.md)
+  - [AlterPublicationOwner_internal](../A/AlterPublicationOwner_internal.md)
+  - [CreateSchemaCommand](../C/CreateSchemaCommand.md)
+  - [AlterSchemaOwner_internal](../A/AlterSchemaOwner_internal.md)
+  - [AlterSubscriptionOwner_internal](../A/AlterSubscriptionOwner_internal.md)
+  - [ATExecChangeOwner](../A/ATExecChangeOwner.md)
+  - [AlterTypeOwner](../A/AlterTypeOwner.md)
 
 ## Notes and Other Information
 - Does not return a value - either succeeds silently or raises an ERROR

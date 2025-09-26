@@ -19,7 +19,7 @@ This function optionally suppresses the CONTEXT: field from appearing in log ent
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ErrorData (struct type)
+  - [ErrorData](../E/ErrorData.md) (struct type)
   - CHECK_STACK_DEPTH (macro)
 - Called from (representative examples):
   - [llvm_compile_module](../l/llvm_compile_module.md) (src/backend/jit/llvm/llvmjit.c)

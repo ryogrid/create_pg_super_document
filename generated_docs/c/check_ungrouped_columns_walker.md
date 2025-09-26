@@ -46,7 +46,7 @@ The function uses expression_tree_walker and query_tree_walker for efficient tre
   - [list_member_int](../l/list_member_int.md)
   - rt_fetch
   - [get_rte_attribute_name](../g/get_rte_attribute_name.md)
-  - lappend_int
+  - [lappend_int](../l/lappend_int.md)
 - Called from (representative examples):
   - [check_ungrouped_columns](check_ungrouped_columns.md) (entry point)
   - Self-recursion for tree traversal

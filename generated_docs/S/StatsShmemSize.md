@@ -22,12 +22,12 @@ This function calculates the total amount of shared memory required for the Post
 ## Dependencies
 - Functions called/Symbols referenced:
   - MAXALIGN: Ensures proper alignment of PgStat_ShmemControl size
-  - add_size: Safely adds sizes to prevent overflow
-  - pgstat_dsa_init_size: Gets the DSA initialization size (256KB)
-  - PgStat_ShmemControl: Main statistics control structure
+  - [add_size](../a/add_size.md): Safely adds sizes to prevent overflow
+  - [pgstat_dsa_init_size](../p/pgstat_dsa_init_size.md): Gets the DSA initialization size (256KB)
+  - [PgStat_ShmemControl](../P/PgStat_ShmemControl.md): Main statistics control structure
 - Called from (representative examples):
-  - CalculateShmemSize: Uses this in total shared memory calculations during startup
-  - StatsShmemInit: Verifies size during initialization
+  - [CalculateShmemSize](../C/CalculateShmemSize.md): Uses this in total shared memory calculations during startup
+  - [StatsShmemInit](StatsShmemInit.md): Verifies size during initialization
 
 ## Notes and Other Information
 - Part of the shared memory sizing calculation performed during PostgreSQL startup

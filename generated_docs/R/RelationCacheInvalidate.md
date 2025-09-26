@@ -40,11 +40,11 @@ The function also handles SMgrRelation cleanup and optionally signals any in-pro
   - RelationHasReferenceCountZero
   - [RelationClearRelation](RelationClearRelation.md)
   - RelationIsMapped
-  - RelationCloseSmgr
+  - [RelationCloseSmgr](RelationCloseSmgr.md)
   - [RelationInitPhysicalAddr](RelationInitPhysicalAddr.md)
   - [smgrreleaseall](../s/smgrreleaseall.md)
   - [lcons](../l/lcons.md)
-  - lappend
+  - [lappend](../l/lappend.md)
   - [list_free](../l/list_free.md)
 - Called from (representative examples):
   - [InvalidateSystemCachesExtended](../I/InvalidateSystemCachesExtended.md)

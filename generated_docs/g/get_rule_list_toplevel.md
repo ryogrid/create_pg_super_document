@@ -29,13 +29,13 @@ The caller is responsible for providing any surrounding decoration (such as pare
 - Functions called/Symbols referenced:
   - foreach (PostgreSQL list iteration macro)
   - lfirst (list cell content extraction macro)
-  - appendStringInfoString
-  - get_rule_expr_toplevel
+  - [appendStringInfoString](../a/appendStringInfoString.md)
+  - [get_rule_expr_toplevel](get_rule_expr_toplevel.md)
 
 - Called from (representative examples):
-  - get_insert_query_def
-  - get_merge_query_def
-  - get_rule_expr (for RowCompareExpr handling)
+  - [get_insert_query_def](get_insert_query_def.md)
+  - [get_merge_query_def](get_merge_query_def.md)
+  - [get_rule_expr](get_rule_expr.md) (for RowCompareExpr handling)
 
 ## Notes and Other Information
 - Part of PostgreSQL's rule deparsing infrastructure

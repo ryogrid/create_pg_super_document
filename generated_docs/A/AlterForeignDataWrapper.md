@@ -20,9 +20,9 @@ This function implements the ALTER FOREIGN DATA WRAPPER SQL command by modifying
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AlterFdwStmt
+  - [AlterFdwStmt](AlterFdwStmt.md)
   - Form_pg_foreign_data_wrapper
-  - superuser
+  - [superuser](../s/superuser.md)
   - SearchSysCacheCopy1
   - [CStringGetDatum](../C/CStringGetDatum.md)
   - [parse_func_options](../p/parse_func_options.md)

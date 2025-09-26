@@ -43,12 +43,12 @@ The function implements a sophisticated algorithm that:
 ## Dependencies
 - Functions called/Symbols referenced:
   - [WaitReadBuffersCanStartIO](WaitReadBuffersCanStartIO.md)
-  - IOContextForStrategy
+  - [IOContextForStrategy](../I/IOContextForStrategy.md)
   - [BufferGetBlock](../B/BufferGetBlock.md)
   - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)
   - [smgrreadv](../s/smgrreadv.md)
-  - PageIsVerifiedExtended
-  - TerminateBufferIO
+  - [PageIsVerifiedExtended](../P/PageIsVerifiedExtended.md)
+  - [TerminateBufferIO](../T/TerminateBufferIO.md)
   - [GetLocalBufferDescriptor](../G/GetLocalBufferDescriptor.md)
   - [GetBufferDescriptor](../G/GetBufferDescriptor.md)
   - [pgstat_prepare_io_time](../p/pgstat_prepare_io_time.md)
@@ -59,7 +59,7 @@ The function implements a sophisticated algorithm that:
   - BM_VALID
   - READ_BUFFERS_ZERO_ON_ERROR
 - Called from (representative examples):
-  - read_stream_next_buffer
+  - [read_stream_next_buffer](../r/read_stream_next_buffer.md)
   - [ReadBuffer_common](../R/ReadBuffer_common.md)
 
 ## Notes and Other Information

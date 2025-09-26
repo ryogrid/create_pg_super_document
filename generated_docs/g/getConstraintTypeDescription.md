@@ -27,16 +27,16 @@ If neither conrelid nor contypid is valid, the constraint is considered invalid 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
-  - get_catalog_object_by_oid
+  - [table_open](../t/table_open.md)
+  - [get_catalog_object_by_oid](get_catalog_object_by_oid.md)
   - HeapTupleIsValid
   - GETSTRUCT
-  - appendStringInfoString
-  - table_close
+  - [appendStringInfoString](../a/appendStringInfoString.md)
+  - [table_close](../t/table_close.md)
   - OidIsValid
   - Form_pg_constraint
 - Called from (representative examples):
-  - getObjectTypeDescription
+  - [getObjectTypeDescription](getObjectTypeDescription.md)
   - object_type_map
 
 ## Notes and Other Information

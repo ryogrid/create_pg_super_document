@@ -32,10 +32,10 @@ The function is primarily used to check if variables need special handling durin
   - strcmp (standard C string comparison)
   - Assert (PostgreSQL assertion macro)
 - Data types referenced:
-  - VariableSpace
+  - [VariableSpace](VariableSpace.md)
   - struct _variable
 - Called from (representative examples):
-  - StoreQueryTuple (in src/bin/psql/common.c:789 - checks if query result variables have hooks)
+  - [StoreQueryTuple](../S/StoreQueryTuple.md) (in src/bin/psql/common.c:789 - checks if query result variables have hooks)
 
 ## Notes and Other Information
 - Returns true if either substitute_hook OR assign_hook is non-NULL

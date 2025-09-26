@@ -19,10 +19,10 @@ The `pop_prediction` function implements a stack pop operation for the JSON pars
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonParserStack (struct type)
+  - [JsonParserStack](../J/JsonParserStack.md) (struct type)
   - Assert (macro for debugging checks)
 - Called from (representative examples):
-  - pg_parse_json_incremental (at src/common/jsonapi.c:687)
+  - [pg_parse_json_incremental](pg_parse_json_incremental.md) (at src/common/jsonapi.c:687)
 
 ## Notes and Other Information
 - This is a static inline function for performance optimization

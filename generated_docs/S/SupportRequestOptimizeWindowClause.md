@@ -37,16 +37,16 @@ The planner coordinates this optimization across all WindowFuncs using the same 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WindowFunc
-  - WindowClause
+  - [WindowFunc](../W/WindowFunc.md)
+  - [WindowClause](../W/WindowClause.md)
 - Called from (representative examples):
-  - optimize_window_clauses
-  - window_row_number_support
-  - window_rank_support
-  - window_dense_rank_support
-  - window_percent_rank_support
-  - window_cume_dist_support
-  - window_ntile_support
+  - [optimize_window_clauses](../o/optimize_window_clauses.md)
+  - [window_row_number_support](../w/window_row_number_support.md)
+  - [window_rank_support](../w/window_rank_support.md)
+  - [window_dense_rank_support](../w/window_dense_rank_support.md)
+  - [window_percent_rank_support](../w/window_percent_rank_support.md)
+  - [window_cume_dist_support](../w/window_cume_dist_support.md)
+  - [window_ntile_support](../w/window_ntile_support.md)
 
 ## Notes and Other Information
 - This optimization primarily targets the RANGE vs ROWS distinction, where ROWS is generally more efficient as it avoids peer row checking

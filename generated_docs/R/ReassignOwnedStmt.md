@@ -28,13 +28,13 @@ The structure follows PostgreSQL's standard parse node pattern and contains the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RoleSpec (structure representing role specifications)
+  - [RoleSpec](RoleSpec.md) (structure representing role specifications)
   - NodeTag (for parse node identification) 
-  - List (PostgreSQL's generic list structure)
+  - [List](../L/List.md) (PostgreSQL's generic list structure)
 
 - Called from (representative examples):
-  - ReassignOwnedObjects (executes the REASSIGN OWNED command)
-  - standard_ProcessUtility (standard utility command processing)
+  - [ReassignOwnedObjects](ReassignOwnedObjects.md) (executes the REASSIGN OWNED command)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (standard utility command processing)
 
 ## Notes and Other Information
 - This statement is commonly used in role management scenarios, particularly when reorganizing database ownership or preparing roles for deletion

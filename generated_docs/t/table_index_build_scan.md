@@ -41,7 +41,7 @@ Progress reporting is optionally supported, updating PROGRESS_SCAN_BLOCKS_TOTAL 
   - table_rel->rd_tableam->index_build_range_scan (delegates to table AM implementation)
 - Types referenced:
   - [Relation](../R/Relation.md)
-  - IndexInfo
+  - [IndexInfo](../I/IndexInfo.md)
   - IndexBuildCallback
   - [TableScanDesc](../T/TableScanDesc.md)
 - Called from (representative examples):

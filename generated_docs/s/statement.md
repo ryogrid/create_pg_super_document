@@ -66,13 +66,13 @@ The structure handles locale-specific operations and maintains compatibility acr
   - ECPG_statement_type (enumeration for statement types)
   - locale_t (locale type for internationalization)
 - Called from (representative examples):
-  - ECPGget_desc (src/interfaces/ecpg/ecpglib/descriptor.c:473)
-  - prepared_statement (src/interfaces/ecpg/ecpglib/ecpglib_extern.h:99)
-  - free_statement (src/interfaces/ecpg/ecpglib/execute.c:96)
-  - ecpg_execute (src/interfaces/ecpg/ecpglib/execute.c:1602)
-  - ecpg_do_prologue (src/interfaces/ecpg/ecpglib/execute.c:1947-1971)
-  - ecpg_do_epilogue (src/interfaces/ecpg/ecpglib/execute.c:2211)
-  - prepare_common (src/interfaces/ecpg/ecpglib/prepare.c:161-170)
+  - [ECPGget_desc](../E/ECPGget_desc.md) (src/interfaces/ecpg/ecpglib/descriptor.c:473)
+  - [prepared_statement](../p/prepared_statement.md) (src/interfaces/ecpg/ecpglib/ecpglib_extern.h:99)
+  - [free_statement](../f/free_statement.md) (src/interfaces/ecpg/ecpglib/execute.c:96)
+  - [ecpg_execute](../e/ecpg_execute.md) (src/interfaces/ecpg/ecpglib/execute.c:1602)
+  - [ecpg_do_prologue](../e/ecpg_do_prologue.md) (src/interfaces/ecpg/ecpglib/execute.c:1947-1971)
+  - [ecpg_do_epilogue](../e/ecpg_do_epilogue.md) (src/interfaces/ecpg/ecpglib/execute.c:2211)
+  - [prepare_common](../p/prepare_common.md) (src/interfaces/ecpg/ecpglib/prepare.c:161-170)
 
 ## Notes and Other Information
 - This structure serves as the central hub for all SQL statement operations in ECPG

@@ -24,12 +24,12 @@ The function processes input data incrementally, allowing for streaming hash com
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_sha256_update
+  - [pg_sha256_update](pg_sha256_update.md)
 - Types referenced:
-  - pg_sha224_ctx (typedef for pg_sha256_ctx)
-  - pg_sha256_ctx
+  - [pg_sha224_ctx](pg_sha224_ctx.md) (typedef for pg_sha256_ctx)
+  - [pg_sha256_ctx](pg_sha256_ctx.md)
 - Called from (representative examples):
-  - pg_cryptohash_update (in cryptohash.c)
+  - [pg_cryptohash_update](pg_cryptohash_update.md) (in cryptohash.c)
 
 ## Notes and Other Information
 - SHA-224 is defined in FIPS 180-4 as a variant of SHA-256

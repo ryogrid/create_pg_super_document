@@ -21,9 +21,9 @@ This function serves as a wrapper around  to parse a PREPARE message from the lo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - logicalrep_read_prepare_common
+  - [logicalrep_read_prepare_common](logicalrep_read_prepare_common.md)
 - Called from (representative examples):
-  - apply_handle_prepare
+  - [apply_handle_prepare](../a/apply_handle_prepare.md)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's logical replication protocol implementation

@@ -31,7 +31,7 @@ The function handles a special case for typmod mismatches: when a Var has typmod
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_head (gets first element of target list)
+  - [list_head](../l/list_head.md) (gets first element of target list)
   - [lnext](../l/lnext.md) (iterates through target list)
   - TupleDescAttr (macro to access tuple descriptor attributes)
   - IsA (checks if node is a Var)

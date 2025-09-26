@@ -30,13 +30,13 @@ The function handles all standard realloc() scenarios: expanding existing blocks
 ## Dependencies
 - Functions called/Symbols referenced:
   - realloc (standard C library function)
-  - ecpg_raise (ECPG error reporting function)
+  - [ecpg_raise](ecpg_raise.md) (ECPG error reporting function)
   - ECPG_OUT_OF_MEMORY (error constant)
   - ECPG_SQLSTATE_ECPG_OUT_OF_MEMORY (SQL state constant)
 - Called from (representative examples):
-  - var_list (variable list management)
-  - ecpg_store_input (parameter processing with dynamic sizing)
-  - ecpg_build_params (parameter array building)
+  - [var_list](../v/var_list.md) (variable list management)
+  - [ecpg_store_input](ecpg_store_input.md) (parameter processing with dynamic sizing)
+  - [ecpg_build_params](ecpg_build_params.md) (parameter array building)
 
 ## Notes and Other Information
 - Returns NULL on reallocation failure after raising an appropriate error, leaving the original block unchanged

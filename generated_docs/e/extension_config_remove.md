@@ -22,17 +22,17 @@ The function searches for the specified table OID in the extconfig array and rem
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open: Opens pg_extension catalog for modification
-  - ScanKeyInit: Initializes scan key for extension lookup
-  - systable_beginscan/systable_getnext: Scans for extension tuple
-  - heap_getattr: Retrieves extconfig and extcondition arrays
+  - [table_open](../t/table_open.md): Opens pg_extension catalog for modification
+  - [ScanKeyInit](../S/ScanKeyInit.md): Initializes scan key for extension lookup
+  - [systable_beginscan](../s/systable_beginscan.md)/systable_getnext: Scans for extension tuple
+  - [heap_getattr](../h/heap_getattr.md): Retrieves extconfig and extcondition arrays
   - DatumGetArrayTypeP: Converts datum to array type
-  - deconstruct_array_builtin: Breaks down arrays into individual elements
-  - construct_array_builtin: Rebuilds arrays after element removal
-  - heap_modify_tuple: Updates extension tuple
-  - CatalogTupleUpdate: Commits changes to catalog
+  - [deconstruct_array_builtin](../d/deconstruct_array_builtin.md): Breaks down arrays into individual elements
+  - [construct_array_builtin](../c/construct_array_builtin.md): Rebuilds arrays after element removal
+  - [heap_modify_tuple](../h/heap_modify_tuple.md): Updates extension tuple
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md): Commits changes to catalog
 - Called from (representative examples):
-  - ExecAlterExtensionContentsRecurse: Used during ALTER EXTENSION DROP operations
+  - [ExecAlterExtensionContentsRecurse](../E/ExecAlterExtensionContentsRecurse.md): Used during ALTER EXTENSION DROP operations
 
 ## Notes and Other Information
 - This is a static internal function, not exposed as a SQL-callable function

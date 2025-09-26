@@ -20,12 +20,12 @@ This function appends a human-readable description of a lockable object to a Str
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendStringInfo (formats and appends text to the buffer)
-  - LockTagType enumeration values (LOCKTAG_RELATION, LOCKTAG_TUPLE, etc.)
+  - [appendStringInfo](../a/appendStringInfo.md) (formats and appends text to the buffer)
+  - [LockTagType](../L/LockTagType.md) enumeration values (LOCKTAG_RELATION, LOCKTAG_TUPLE, etc.)
   - Internationalization macro _() for translatable strings
 - Called from (representative examples):
-  - DeadLockReport (for deadlock error reporting)
-  - ProcSleep (when logging lock wait information)
+  - [DeadLockReport](DeadLockReport.md) (for deadlock error reporting)
+  - [ProcSleep](../P/ProcSleep.md) (when logging lock wait information)
 
 ## Notes and Other Information
 - Handles all major lock tag types including relations, pages, tuples, transactions, virtual transactions, speculative tokens, database objects, user locks, advisory locks, and apply transactions

@@ -35,17 +35,17 @@ This is specifically designed for binary upgrade scenarios where subscription re
 - Functions called/Symbols referenced:
   - CHECK_IS_BINARY_UPGRADE
   - PG_ARGISNULL
-  - text_to_cstring
+  - [text_to_cstring](../t/text_to_cstring.md)
   - PG_GETARG_TEXT_PP
   - PG_GETARG_OID
   - PG_GETARG_CHAR
   - PG_GETARG_LSN
-  - table_open
+  - [table_open](../t/table_open.md)
   - [get_subscription_oid](../g/get_subscription_oid.md)
   - [relation_open](../r/relation_open.md)
   - [AddSubscriptionRelState](../A/AddSubscriptionRelState.md)
   - [relation_close](../r/relation_close.md)
-  - table_close
+  - [table_close](../t/table_close.md)
   - PG_RETURN_VOID
 - Called from (representative examples):
   - No direct callers found (likely called via SQL during binary upgrades)

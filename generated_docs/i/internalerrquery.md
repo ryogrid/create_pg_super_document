@@ -20,7 +20,7 @@ The  function manages the internal query text associated with the current error 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ErrorData (structure type)
+  - [ErrorData](../E/ErrorData.md) (structure type)
   - CHECK_STACK_DEPTH (macro for stack validation)
   - [MemoryContextStrdup](../M/MemoryContextStrdup.md) (memory allocation function)
   - [pfree](../p/pfree.md) (memory deallocation function)

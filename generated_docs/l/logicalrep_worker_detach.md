@@ -29,16 +29,16 @@ This function takes no parameters and operates on the global MyLogicalRepWorker 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - am_leader_apply_worker
-  - pa_detach_all_error_mq
-  - LWLockAcquire (LogicalRepWorkerLock, LW_SHARED/LW_EXCLUSIVE)
-  - LWLockRelease
-  - logicalrep_workers_find
+  - [am_leader_apply_worker](../a/am_leader_apply_worker.md)
+  - [pa_detach_all_error_mq](../p/pa_detach_all_error_mq.md)
+  - [LWLockAcquire](../L/LWLockAcquire.md) (LogicalRepWorkerLock, LW_SHARED/LW_EXCLUSIVE)
+  - [LWLockRelease](../L/LWLockRelease.md)
+  - [logicalrep_workers_find](logicalrep_workers_find.md)
   - isParallelApplyWorker
-  - logicalrep_worker_stop_internal
-  - logicalrep_worker_cleanup
+  - [logicalrep_worker_stop_internal](logicalrep_worker_stop_internal.md)
+  - [logicalrep_worker_cleanup](logicalrep_worker_cleanup.md)
 - Called from (representative examples):
-  - logicalrep_worker_onexit (src/backend/replication/logical/launcher.c:837)
+  - [logicalrep_worker_onexit](logicalrep_worker_onexit.md) (src/backend/replication/logical/launcher.c:837)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the launcher.c file

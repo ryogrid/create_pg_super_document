@@ -30,10 +30,10 @@ The targetlist and qual fields of the plan are unused and always set to NIL sinc
 - Functions called/Symbols referenced:
   - (No direct symbol references from this struct)
 - Called from (representative examples):
-  - ExecInitBitmapAnd
-  - make_bitmap_and
-  - bitmap_subplan_mark_shared
-  - set_plan_refs
+  - [ExecInitBitmapAnd](../E/ExecInitBitmapAnd.md)
+  - [make_bitmap_and](../m/make_bitmap_and.md)
+  - [bitmap_subplan_mark_shared](../b/bitmap_subplan_mark_shared.md)
+  - [set_plan_refs](../s/set_plan_refs.md)
 
 ## Notes and Other Information
 - Part of PostgreSQL's bitmap index scan optimization strategy

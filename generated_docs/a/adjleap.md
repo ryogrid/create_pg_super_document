@@ -20,8 +20,8 @@ The adjleap function performs post-processing of leap second data within Postgre
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - tadd (time addition with overflow handling)
-  - oadd (overflow-safe addition)
+  - [tadd](../t/tadd.md) (time addition with overflow handling)
+  - [oadd](../o/oadd.md) (overflow-safe addition)
   - [warning](../w/warning.md) (warning message output)
   - SECSPERDAY (seconds per day constant)
   - EXIT_FAILURE (error exit status)

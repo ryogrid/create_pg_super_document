@@ -29,9 +29,9 @@ This function is essential for:
 - Functions called/Symbols referenced:
   - MemoryContextIsValid (validates the context)
 - Called from (representative examples):
-  - ExecAggCopyTransValue (aggregate function execution)
-  - advance_windowaggregate (window function processing)
-  - GetCachedPlan (plan caching system)
+  - [ExecAggCopyTransValue](../E/ExecAggCopyTransValue.md) (aggregate function execution)
+  - [advance_windowaggregate](../a/advance_windowaggregate.md) (window function processing)
+  - [GetCachedPlan](../G/GetCachedPlan.md) (plan caching system)
 
 ## Notes and Other Information
 - Returns NULL if the context has no parent (i.e., it's a top-level context like TopMemoryContext)

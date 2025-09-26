@@ -26,7 +26,7 @@ The simplicity of this handler reflects the timeout system's design philosophy -
 - Functions called/Symbols referenced:
   - Sets global variable  to true
 - Called from (representative examples):
-  - StartupProcessMain (src/backend/postmaster/startup.c:246) - likely through timeout system registration
+  - [StartupProcessMain](StartupProcessMain.md) (src/backend/postmaster/startup.c:246) - likely through timeout system registration
 
 ## Notes and Other Information
 - This is a timeout handler function, called automatically by PostgreSQL's timeout system

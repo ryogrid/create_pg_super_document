@@ -28,7 +28,7 @@ This ensures consistency with any uncommitted mapping changes during analysis op
   - [RelMapFile](RelMapFile.md) (structure type used for mapping tables)
   - InvalidOid (returned when no mapping is found)
 - Called from (representative examples):
-  - RelidByRelfilenumber (relfilenumbermap.c:185, 236)
+  - [RelidByRelfilenumber](RelidByRelfilenumber.md) (relfilenumbermap.c:185, 236)
 
 ## Notes and Other Information
 - Not intended for normal runtime operations but rather for diagnostic and analysis purposes

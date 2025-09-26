@@ -23,9 +23,9 @@ The function returns 0 if the operation is successful and EOF if it fails. Like 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQputCopyData
+  - [PQputCopyData](PQputCopyData.md)
 - Called from (representative examples):
-  - PQputline
+  - [PQputline](PQputline.md)
 
 ## Notes and Other Information
 - Provides more control than PQputline by accepting explicit byte counts

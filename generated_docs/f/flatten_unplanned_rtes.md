@@ -28,7 +28,7 @@ The  flag ensures that RTEs are examined before recursing into substructures, wh
   - query_tree_walker
   - [flatten_rtes_walker](flatten_rtes_walker.md)
 - Types used:
-  - PlannerGlobal
+  - [PlannerGlobal](../P/PlannerGlobal.md)
   - flatten_rtes_walker_context
 - Constants used:
   - [QTW_EXAMINE_RTES_BEFORE](../Q/QTW_EXAMINE_RTES_BEFORE.md)

@@ -109,13 +109,13 @@ For indirection cases, the function distinguishes between INSERT and UPDATE oper
   - TupleDescAttr
   - IsA
   - [makeNullConst](../m/makeNullConst.md)
-  - makeVar
+  - [makeVar](../m/makeVar.md)
   - [transformAssignmentIndirection](transformAssignmentIndirection.md)
   - [coerce_to_target_type](../c/coerce_to_target_type.md)
-  - exprType
+  - [exprType](../e/exprType.md)
   - [exprLocation](../e/exprLocation.md)
   - [format_type_be](../f/format_type_be.md)
-  - list_head
+  - [list_head](../l/list_head.md)
   - Constants: EXPR_KIND_NONE, COERCION_ASSIGNMENT, COERCE_IMPLICIT_CAST
 - Called from:
   - [transformInsertRow](transformInsertRow.md) (analyze.c)

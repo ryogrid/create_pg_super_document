@@ -23,7 +23,7 @@ The  function is a PostgreSQL function that implements sort support for text dat
 ## Dependencies
 - Functions called/Symbols referenced:
   - [varstr_sortsupport](../v/varstr_sortsupport.md)
-  - SortSupport
+  - [SortSupport](../S/SortSupport.md)
   - PG_RETURN_VOID
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (implicit)
   - PG_GETARG_POINTER (implicit)

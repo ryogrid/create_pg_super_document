@@ -19,15 +19,15 @@ dshash_seq_term provides cleanup functionality for sequential scans of dynamic s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dshash_seq_status (scan status structure type)
+  - [dshash_seq_status](dshash_seq_status.md) (scan status structure type)
   - PARTITION_LOCK (partition lock macro)
-  - LWLockRelease (lock release function)
+  - [LWLockRelease](../L/LWLockRelease.md) (lock release function)
 - Called from (representative examples):
-  - pgstat_build_snapshot (src/backend/utils/activity/pgstat.c:1044)
-  - pgstat_write_statsfile (src/backend/utils/activity/pgstat.c:1441)
-  - pgstat_drop_database_and_contents (src/backend/utils/activity/pgstat_shmem.c:905)
-  - pgstat_drop_all_entries (src/backend/utils/activity/pgstat_shmem.c:986)
-  - pgstat_reset_matching_entries (src/backend/utils/activity/pgstat_shmem.c:1055)
+  - [pgstat_build_snapshot](../p/pgstat_build_snapshot.md) (src/backend/utils/activity/pgstat.c:1044)
+  - [pgstat_write_statsfile](../p/pgstat_write_statsfile.md) (src/backend/utils/activity/pgstat.c:1441)
+  - [pgstat_drop_database_and_contents](../p/pgstat_drop_database_and_contents.md) (src/backend/utils/activity/pgstat_shmem.c:905)
+  - [pgstat_drop_all_entries](../p/pgstat_drop_all_entries.md) (src/backend/utils/activity/pgstat_shmem.c:986)
+  - [pgstat_reset_matching_entries](../p/pgstat_reset_matching_entries.md) (src/backend/utils/activity/pgstat_shmem.c:1055)
 
 ## Notes and Other Information
 - Must be called to properly terminate any scan initiated with dshash_seq_init()

@@ -32,10 +32,10 @@ This node allows the planner to defer the choice between different execution str
 - Functions called/Symbols referenced:
   - (No direct symbol references)
 - Called from (representative examples):
-  - make_subplan
-  - process_sublinks_mutator
-  - fix_alternative_subplan
-  - cost_qual_eval_walker
+  - [make_subplan](../m/make_subplan.md)
+  - [process_sublinks_mutator](../p/process_sublinks_mutator.md)
+  - [fix_alternative_subplan](../f/fix_alternative_subplan.md)
+  - [cost_qual_eval_walker](../c/cost_qual_eval_walker.md)
 
 ## Notes and Other Information
 - This node exists only during planning and is never seen by the executor

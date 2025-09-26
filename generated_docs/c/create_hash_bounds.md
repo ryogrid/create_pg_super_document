@@ -38,13 +38,13 @@ The resulting structure enables efficient hash value to partition mapping during
   - [Int32GetDatum](../I/Int32GetDatum.md)
   - PARTITION_STRATEGY_HASH
   - [PartitionHashBound](../P/PartitionHashBound.md)
-  - PartitionBoundInfoData
+  - [PartitionBoundInfoData](../P/PartitionBoundInfoData.md)
 - Called from (representative examples):
   - [partition_bounds_create](../p/partition_bounds_create.md) (src/backend/partitioning/partbounds.c:329)
 
 ## Notes and Other Information
 - Static function, only accessible within partbounds.c
-- Hash partitions do not support NULL or DEFAULT partitions (null_index and default_index set to -1)
+- [Hash](../H/Hash.md) partitions do not support NULL or DEFAULT partitions (null_index and default_index set to -1)
 - The indexes array size is determined by the greatest modulus among all partitions
 - Uses a single large Datum array allocation and assigns portions to each partition for efficiency
 - Validates that all bound specifications use PARTITION_STRATEGY_HASH strategy

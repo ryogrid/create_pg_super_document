@@ -82,7 +82,7 @@ The structure is set up during the first call of the transition function and liv
 - `equalfn`: Function manager info for equality function (created on demand)
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Aggref
+  - [Aggref](../A/Aggref.md)
 - Called from (representative examples):
   - [OSAPerGroupState](OSAPerGroupState.md) (as a member)
   - [ordered_set_startup](../o/ordered_set_startup.md)

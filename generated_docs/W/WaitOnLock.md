@@ -36,7 +36,7 @@ The function is designed with careful consideration of interrupt handling and st
   - LockMethods (global array)
   - LOCK_PRINT (debug macro)
   - [set_ps_display_suffix](../s/set_ps_display_suffix.md)
-  - ProcSleep
+  - [ProcSleep](../P/ProcSleep.md)
   - LockHashPartitionLock
   - [DeadLockReport](../D/DeadLockReport.md)
   - [set_ps_display_remove_suffix](../s/set_ps_display_remove_suffix.md)

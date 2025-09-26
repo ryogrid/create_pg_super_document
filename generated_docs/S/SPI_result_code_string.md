@@ -30,7 +30,7 @@ For unrecognized codes, the function falls back to generating a formatted string
   - [ri_PerformCheck](../r/ri_PerformCheck.md)
   - [plperl_spi_execute_fetch_result](../p/plperl_spi_execute_fetch_result.md)
   - [PLy_cursor_query](../P/PLy_cursor_query.md)
-  - pltcl_process_SPI_result
+  - [pltcl_process_SPI_result](../p/pltcl_process_SPI_result.md)
 
 ## Notes and Other Information
 - Returns string literals for recognized codes, ensuring the returned pointer remains valid

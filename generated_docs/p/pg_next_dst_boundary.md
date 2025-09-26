@@ -33,11 +33,11 @@ The function is critical for PostgreSQL's timezone handling, particularly for op
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_next_dst_boundary (recursive call for extrapolation)
+  - [pg_next_dst_boundary](pg_next_dst_boundary.md) (recursive call for extrapolation)
   - pg_time_t, pg_tz, ttinfo (timezone-related types)
   - YEARSPERREPEAT, AVGSECSPERYEAR (constants for extrapolation)
 - Called from (representative examples):
-  - DetermineTimeZoneOffsetInternal (for timezone offset calculations)
+  - [DetermineTimeZoneOffsetInternal](../D/DetermineTimeZoneOffsetInternal.md) (for timezone offset calculations)
 
 ## Notes and Other Information
 - Returns 1 if a DST boundary is found, 0 if no boundary exists after the given time, -1 on failure

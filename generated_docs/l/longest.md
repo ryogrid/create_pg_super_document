@@ -35,8 +35,8 @@ The `longest` function is the core longest-preferred matching engine for DFA-bas
   - FDEBUG (for debug tracing)
 - Called from (representative examples):
   - LOFF (regex execution offset function)
-  - find (main regex search function)
-  - cfindloop (complex find loop)
+  - [find](../f/find.md) (main regex search function)
+  - [cfindloop](../c/cfindloop.md) (complex find loop)
   - [ccondissect](../c/ccondissect.md), caltdissect, citerdissect (dissection functions)
 
 ## Notes and Other Information

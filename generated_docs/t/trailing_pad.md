@@ -23,13 +23,13 @@ This function works in conjunction with the `compute_padlen` function's conventi
 ## Dependencies
 - Functions called/Symbols referenced:
   - PrintfTarget (structure used for output handling)
-  - dopr_outchmulti (outputs multiple copies of a character - in this case, spaces)
+  - [dopr_outchmulti](../d/dopr_outchmulti.md) (outputs multiple copies of a character - in this case, spaces)
 - Called from (representative examples):
-  - flushbuffer (at src/port/snprintf.c:338)
-  - fmtstr (at src/port/snprintf.c:989)
-  - fmtint (at src/port/snprintf.c:1114)
-  - fmtchar (at src/port/snprintf.c:1132)
-  - fmtfloat (at src/port/snprintf.c:1265)
+  - [flushbuffer](../f/flushbuffer.md) (at src/port/snprintf.c:338)
+  - [fmtstr](../f/fmtstr.md) (at src/port/snprintf.c:989)
+  - [fmtint](../f/fmtint.md) (at src/port/snprintf.c:1114)
+  - [fmtchar](../f/fmtchar.md) (at src/port/snprintf.c:1132)
+  - [fmtfloat](../f/fmtfloat.md) (at src/port/snprintf.c:1265)
 
 ## Notes and Other Information
 - This is a static function within the snprintf.c module, indicating it's an internal utility

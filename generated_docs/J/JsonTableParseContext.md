@@ -30,7 +30,7 @@ The JsonTableParseContext structure serves as a centralized context for transfor
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonTable
+  - [JsonTable](JsonTable.md)
   - [TableFunc](../T/TableFunc.md)
 - Called from (representative examples):
   - [transformJsonTable](../t/transformJsonTable.md)

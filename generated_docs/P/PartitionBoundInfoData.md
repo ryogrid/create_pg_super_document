@@ -66,17 +66,17 @@ The datums array is always sorted in increasing order according to the partition
 ## Dependencies
 - Functions called/Symbols referenced:
   - PartitionStrategy
-  - PartitionRangeDatumKind
+  - [PartitionRangeDatumKind](PartitionRangeDatumKind.md)
   - Datum
-  - Bitmapset
+  - [Bitmapset](../B/Bitmapset.md)
 
 - Called from (representative examples):
-  - create_hash_bounds
-  - create_list_bounds  
-  - create_range_bounds
-  - partition_bounds_copy
-  - build_merged_partition_bounds
-  - RelOptInfo (as part_bounds member)
+  - [create_hash_bounds](../c/create_hash_bounds.md)
+  - [create_list_bounds](../c/create_list_bounds.md)  
+  - [create_range_bounds](../c/create_range_bounds.md)
+  - [partition_bounds_copy](../p/partition_bounds_copy.md)
+  - [build_merged_partition_bounds](../b/build_merged_partition_bounds.md)
+  - [RelOptInfo](../R/RelOptInfo.md) (as part_bounds member)
 
 ## Notes and Other Information
 - Used in both base relations and join relations, though interleaved_parts is only set for base relations

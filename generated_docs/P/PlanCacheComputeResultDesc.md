@@ -27,7 +27,7 @@ This function analyzes a list of statement queries to determine what type of res
   - PORTAL_ONE_RETURNING
   - [QueryListGetPrimaryStmt](../Q/QueryListGetPrimaryStmt.md)
   - PORTAL_UTIL_SELECT
-  - UtilityTupleDescriptor
+  - [UtilityTupleDescriptor](../U/UtilityTupleDescriptor.md)
   - PORTAL_MULTI_QUERY
 - Called from (representative examples):
   - [CompleteCachedPlan](../C/CompleteCachedPlan.md)

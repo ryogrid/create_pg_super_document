@@ -43,15 +43,15 @@ Each function pointer represents a specific phase or operation in the table gene
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TableFuncScanState (primary state structure)
+  - [TableFuncScanState](TableFuncScanState.md) (primary state structure)
   - Datum (PostgreSQL data type)
   - Oid (object identifier type)
   - int32 (type modifier)
   
 - Called from (representative examples):
-  - tfuncFetchRows (nodeTableFuncscan.c:270)
-  - tfuncInitialize (nodeTableFuncscan.c:342)  
-  - tfuncLoadRows (nodeTableFuncscan.c:437)
+  - [tfuncFetchRows](../t/tfuncFetchRows.md) (nodeTableFuncscan.c:270)
+  - [tfuncInitialize](../t/tfuncInitialize.md) (nodeTableFuncscan.c:342)  
+  - [tfuncLoadRows](../t/tfuncLoadRows.md) (nodeTableFuncscan.c:437)
 
 ## Notes and Other Information
 - The routine provides a clean separation between the executor logic and specific document format handling

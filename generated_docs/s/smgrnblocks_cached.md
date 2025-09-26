@@ -25,9 +25,9 @@ The  function retrieves the cached number of blocks for a specified fork of a st
   - InRecovery (global variable)
   - InvalidBlockNumber (constant)
 - Called from (representative examples):
-  - DropRelationBuffers
-  - DropRelationsAllBuffers
-  - smgrnblocks
+  - [DropRelationBuffers](../D/DropRelationBuffers.md)
+  - [DropRelationsAllBuffers](../D/DropRelationsAllBuffers.md)
+  - [smgrnblocks](smgrnblocks.md)
   - SmgrIsTemp
 
 ## Notes and Other Information

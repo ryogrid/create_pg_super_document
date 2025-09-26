@@ -30,11 +30,11 @@ The entire operation is wrapped in a PG_TRY/PG_CATCH block to handle errors duri
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SavedTransactionCharacteristics (transaction state structure)
+  - [SavedTransactionCharacteristics](SavedTransactionCharacteristics.md) (transaction state structure)
   - [IsSubTransaction](../I/IsSubTransaction.md) (check for active subtransaction)
   - [SaveTransactionCharacteristics](SaveTransactionCharacteristics.md) (save current transaction properties)
-  - HoldPinnedPortals (protect portals during transaction boundary)
-  - ForgetPortalSnapshots (release portal snapshots)
+  - [HoldPinnedPortals](../H/HoldPinnedPortals.md) (protect portals during transaction boundary)
+  - [ForgetPortalSnapshots](../F/ForgetPortalSnapshots.md) (release portal snapshots)
   - [AbortCurrentTransaction](../A/AbortCurrentTransaction.md) (abort the current transaction)
   - [StartTransactionCommand](StartTransactionCommand.md) (start new transaction)
   - [RestoreTransactionCharacteristics](../R/RestoreTransactionCharacteristics.md) (restore transaction properties when chaining)

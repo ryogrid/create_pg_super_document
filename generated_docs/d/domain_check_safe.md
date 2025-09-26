@@ -28,12 +28,12 @@ The function directly delegates to `domain_check_internal` with the provided err
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - domain_check_internal
+  - [domain_check_internal](domain_check_internal.md)
 - Called from (representative examples):
-  - ExecEvalJsonCoercion
-  - populate_composite
-  - populate_domain
-  - populate_recordset_record
+  - [ExecEvalJsonCoercion](../E/ExecEvalJsonCoercion.md)
+  - [populate_composite](../p/populate_composite.md)
+  - [populate_domain](../p/populate_domain.md)
+  - [populate_recordset_record](../p/populate_recordset_record.md)
 
 ## Notes and Other Information
 - This is a thin wrapper around `domain_check_internal` that enables error-safe domain validation

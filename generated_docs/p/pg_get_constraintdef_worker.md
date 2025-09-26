@@ -25,13 +25,13 @@ The function supports generating either just the constraint clause (e.g., 'CHECK
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RegisterSnapshot/UnregisterSnapshot (MVCC transaction snapshot management)
-  - table_open/table_close (system catalog access)
+  - [RegisterSnapshot](../R/RegisterSnapshot.md)/UnregisterSnapshot (MVCC transaction snapshot management)
+  - [table_open](../t/table_open.md)/table_close (system catalog access)
   - [systable_beginscan](../s/systable_beginscan.md)/systable_getnext/systable_endscan (system catalog scanning)
   - [SysCacheGetAttrNotNull](../S/SysCacheGetAttrNotNull.md)/SysCacheGetAttr (system cache attribute retrieval)
   - [decompile_column_index_array](../d/decompile_column_index_array.md) (column list decompilation)
-  - generate_qualified_relation_name/generate_relation_name (relation name generation)
-  - generate_qualified_type_name (type name generation)
+  - [generate_qualified_relation_name](../g/generate_qualified_relation_name.md)/generate_relation_name (relation name generation)
+  - [generate_qualified_type_name](../g/generate_qualified_type_name.md) (type name generation)
   - [quote_identifier](../q/quote_identifier.md) (SQL identifier quoting)
   - [deparse_expression_pretty](../d/deparse_expression_pretty.md) (expression decompilation)
   - [pg_get_indexdef_worker](pg_get_indexdef_worker.md) (index definition generation for exclusion constraints)

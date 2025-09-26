@@ -19,7 +19,7 @@ This function allocates a new temporary page in local memory that mirrors the sp
 - Functions called/Symbols referenced:
   - [PageGetPageSize](PageGetPageSize.md)
   - [palloc](../p/palloc.md)
-  - PageInit
+  - [PageInit](PageInit.md)
   - [PageGetSpecialSize](PageGetSpecialSize.md)
   - [PageGetSpecialPointer](PageGetSpecialPointer.md)
   - memcpy

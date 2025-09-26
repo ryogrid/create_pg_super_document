@@ -21,14 +21,14 @@ The phase number increments each time all participants reach the barrier and pro
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Barrier (struct type)
+  - [Barrier](Barrier.md) (struct type)
 - Called from (representative examples):
-  - MultiExecParallelHash (extensively)
-  - ExecHashTableCreate
-  - ExecParallelHashIncreaseNumBatches
-  - ExecParallelHashIncreaseNumBuckets
-  - ExecParallelHashTableInsert
-  - ExecHashJoinImpl
+  - [MultiExecParallelHash](../M/MultiExecParallelHash.md) (extensively)
+  - [ExecHashTableCreate](../E/ExecHashTableCreate.md)
+  - [ExecParallelHashIncreaseNumBatches](../E/ExecParallelHashIncreaseNumBatches.md)
+  - [ExecParallelHashIncreaseNumBuckets](../E/ExecParallelHashIncreaseNumBuckets.md)
+  - [ExecParallelHashTableInsert](../E/ExecParallelHashTableInsert.md)
+  - [ExecHashJoinImpl](../E/ExecHashJoinImpl.md)
 
 ## Notes and Other Information
 - The function reads barrier->phase without locking, which is safe due to the synchronization guarantees of the barrier mechanism

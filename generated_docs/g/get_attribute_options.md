@@ -24,28 +24,28 @@ A key implementation detail is the careful ordering of operations: the pg_attrib
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - InitializeAttoptCache - Initialize cache if not already done
-  - hash_search (HASH_FIND/HASH_ENTER) - Search/insert cache entries
-  - SearchSysCache2 - Look up attribute in pg_attribute catalog
-  - SysCacheGetAttr - Extract attoptions field from catalog tuple
-  - attribute_reloptions - Parse and validate attribute options
-  - MemoryContextAlloc - Allocate memory in cache context
-  - ReleaseSysCache - Release system catalog tuple
-  - palloc - Allocate memory in caller's context
+  - [InitializeAttoptCache](../I/InitializeAttoptCache.md) - [Initialize](../I/Initialize.md) cache if not already done
+  - [hash_search](../h/hash_search.md) (HASH_FIND/HASH_ENTER) - Search/insert cache entries
+  - [SearchSysCache2](../S/SearchSysCache2.md) - Look up attribute in pg_attribute catalog
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md) - Extract attoptions field from catalog tuple
+  - [attribute_reloptions](../a/attribute_reloptions.md) - Parse and validate attribute options
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md) - Allocate memory in cache context
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) - Release system catalog tuple
+  - [palloc](../p/palloc.md) - Allocate memory in caller's context
   - memcpy - Copy binary data
 - Data structures used:
   - AttoptCacheKey - Cache key structure (attrelid + attnum)
   - AttoptCacheEntry - Cache entry containing parsed options
-  - AttributeOpts - Parsed attribute options structure
+  - [AttributeOpts](../A/AttributeOpts.md) - Parsed attribute options structure
   - HeapTuple - System catalog tuple representation
 - Constants used:
-  - HASH_FIND - Hash operation to search for existing entry
-  - HASH_ENTER - Hash operation to create new entry
+  - HASH_FIND - [Hash](../H/Hash.md) operation to search for existing entry
+  - HASH_ENTER - [Hash](../H/Hash.md) operation to create new entry
   - ATTNUM - System catalog cache for pg_attribute
   - Anum_pg_attribute_attoptions - Column number for attoptions field
 - Called from:
-  - do_analyze_rel - During table analysis for statistics collection
-  - compute_expr_stats - During extended statistics computation
+  - [do_analyze_rel](../d/do_analyze_rel.md) - During table analysis for statistics collection
+  - [compute_expr_stats](../c/compute_expr_stats.md) - During extended statistics computation
 
 ## Notes and Other Information
 - Returns NULL if no options are defined for the specified attribute

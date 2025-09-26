@@ -21,9 +21,9 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockReleaseAll
+  - [LWLockReleaseAll](../L/LWLockReleaseAll.md)
   - [ConditionVariableCancelSleep](../C/ConditionVariableCancelSleep.md)
-  - pgstat_report_wait_end
+  - [pgstat_report_wait_end](../p/pgstat_report_wait_end.md)
   - [wal_segment_close](../w/wal_segment_close.md)
   - [ReplicationSlotRelease](../R/ReplicationSlotRelease.md)
   - [ReplicationSlotCleanup](../R/ReplicationSlotCleanup.md)

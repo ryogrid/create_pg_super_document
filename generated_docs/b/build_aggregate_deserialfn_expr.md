@@ -26,8 +26,8 @@ The function is part of PostgreSQL's aggregate expression building infrastructur
 - Functions called/Symbols referenced:
   - list_make2
   - [make_agg_arg](../m/make_agg_arg.md)
-  - makeFuncExpr
-  - FuncExpr (struct type)
+  - [makeFuncExpr](../m/makeFuncExpr.md)
+  - [FuncExpr](../F/FuncExpr.md) (struct type)
   - COERCE_EXPLICIT_CALL (constant)
 - Called from (representative examples):
   - [build_pertrans_for_aggref](build_pertrans_for_aggref.md) (in nodeAgg.c)

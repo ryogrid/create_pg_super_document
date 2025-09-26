@@ -23,13 +23,13 @@ This function takes no parameters.
   - xact_started (global variable indicating if transaction has started)
   - StatementTimeout (global variable containing statement timeout value in milliseconds)
   - TransactionTimeout (global variable containing transaction timeout value)
-  - get_timeout_active (function to check if a timeout is currently active)
-  - enable_timeout_after (function to start a timeout timer)
-  - disable_timeout (function to stop a timeout timer)
+  - [get_timeout_active](../g/get_timeout_active.md) (function to check if a timeout is currently active)
+  - [enable_timeout_after](enable_timeout_after.md) (function to start a timeout timer)
+  - [disable_timeout](../d/disable_timeout.md) (function to stop a timeout timer)
   - STATEMENT_TIMEOUT (timeout type constant)
 
 - Called from (representative examples):
-  - start_xact_command (transaction command initiation)
+  - [start_xact_command](../s/start_xact_command.md) (transaction command initiation)
 
 ## Notes and Other Information
 - Must be called within an active transaction (enforced by assertion)

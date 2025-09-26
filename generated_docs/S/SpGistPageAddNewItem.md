@@ -38,11 +38,11 @@ The function includes sophisticated error handling with PANIC conditions when sp
   -  - constant for dead tuple size
   -  - constant identifying placeholder tuples
 - Called from (representative examples):
-  -  - when inserting new leaf tuples
+  -  - [when](../w/when.md) inserting new leaf tuples
   -  - during leaf tuple relocation operations
-  -  - when splitting nodes and distributing tuples
+  -  - [when](../w/when.md) splitting nodes and distributing tuples
   -  - during node addition operations
-  -  - when performing node split actions
+  -  - [when](../w/when.md) performing node split actions
 
 ## Notes and Other Information
 - Prioritizes placeholder replacement over free space allocation for better space utilization

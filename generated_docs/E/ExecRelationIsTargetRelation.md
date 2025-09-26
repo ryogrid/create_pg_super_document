@@ -24,7 +24,7 @@ Although this function is no longer actively used in PostgreSQL's core executor 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_member_int
+  - [list_member_int](../l/list_member_int.md)
 - Called from (representative examples):
   - ResetPerTupleExprContext
 

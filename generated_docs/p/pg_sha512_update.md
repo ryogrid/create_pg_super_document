@@ -33,14 +33,14 @@ This streaming approach allows hashing of data larger than memory by processing 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SHA512_Transform
-  - ADDINC128
+  - [SHA512_Transform](../S/SHA512_Transform.md)
+  - [ADDINC128](../A/ADDINC128.md)
   - memcpy
 - Constants used:
   - PG_SHA512_BLOCK_LENGTH (128 bytes)
 - Called from (representative examples):
-  - pg_cryptohash_update
-  - pg_sha384_update
+  - [pg_cryptohash_update](pg_cryptohash_update.md)
+  - [pg_sha384_update](pg_sha384_update.md)
 
 ## Notes and Other Information
 - Safe to call with len=0 (no-op)

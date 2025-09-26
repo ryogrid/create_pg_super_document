@@ -34,7 +34,7 @@ The structure maintains both the execution state of the function expression and 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SetExprState](../S/SetExprState.md)
-  - Tuplestorestate
+  - [Tuplestorestate](../T/Tuplestorestate.md)
 - Called from (representative examples):
   - [FunctionNext](FunctionNext.md)
   - [ExecInitFunctionScan](../E/ExecInitFunctionScan.md)

@@ -21,13 +21,13 @@ This function validates the existence of a resource manager by checking if the s
 ## Dependencies
 - Functions called/Symbols referenced:
   - RmgrTable (global resource manager table accessed via array indexing)
-  - RmgrData (struct type containing rm_name field)
+  - [RmgrData](RmgrData.md) (struct type containing rm_name field)
 - Called from (representative examples):
-  - RmgrStartup (in src/backend/access/transam/rmgr.c)
-  - RmgrCleanup (in src/backend/access/transam/rmgr.c)
-  - RegisterCustomRmgr (in src/backend/access/transam/rmgr.c)
-  - GetRmgr (in src/include/access/xlog_internal.h)
-  - check_wal_consistency_checking (in src/backend/access/transam/xlog.c)
+  - [RmgrStartup](RmgrStartup.md) (in src/backend/access/transam/rmgr.c)
+  - [RmgrCleanup](RmgrCleanup.md) (in src/backend/access/transam/rmgr.c)
+  - [RegisterCustomRmgr](RegisterCustomRmgr.md) (in src/backend/access/transam/rmgr.c)
+  - [GetRmgr](../G/GetRmgr.md) (in src/include/access/xlog_internal.h)
+  - [check_wal_consistency_checking](../c/check_wal_consistency_checking.md) (in src/backend/access/transam/xlog.c)
 
 ## Notes and Other Information
 The function provides a lightweight way to validate resource manager IDs before performing operations that assume the resource manager exists. It's commonly used as a guard condition in resource manager initialization, cleanup, and consistency checking operations. The validation relies on the convention that registered resource managers have non-NULL rm_name fields in the RmgrTable.

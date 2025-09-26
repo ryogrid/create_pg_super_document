@@ -21,7 +21,7 @@ This function is fundamental to the genetic algorithm's operation, providing the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GeqoPrivateData (struct type)
+  - [GeqoPrivateData](../G/GeqoPrivateData.md) (struct type)
   - [pg_prng_double](../p/pg_prng_double.md) (PostgreSQL's pseudo-random double generator function)
 - Called from (representative examples):
   - [linear_rand](../l/linear_rand.md) (in geqo_selection.c:104 for selection operations)

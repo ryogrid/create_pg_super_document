@@ -28,7 +28,7 @@ This structure is used to log GiST index page reuse operations in the write-ahea
 - `isCatalogRel`: Boolean flag indicating if this is a catalog relation, used for handling recovery conflicts during logical decoding on standby servers
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FullTransactionId
+  - [FullTransactionId](../F/FullTransactionId.md)
 - Called from (representative examples):
   - [gistRedoPageReuse](gistRedoPageReuse.md)
   - [gistXLogPageReuse](gistXLogPageReuse.md)

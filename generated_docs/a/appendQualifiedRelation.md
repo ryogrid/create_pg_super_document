@@ -30,7 +30,7 @@ After obtaining the qualified name, it formats it properly using fmtQualifiedIdE
 - Functions called/Symbols referenced:
   - [splitTableColumnsSpec](../s/splitTableColumnsSpec.md)
   - [PQclientEncoding](../P/PQclientEncoding.md)
-  - initPQExpBuffer
+  - [initPQExpBuffer](../i/initPQExpBuffer.md)
   - [appendPQExpBufferStr](appendPQExpBufferStr.md)
   - [appendStringLiteralConn](appendStringLiteralConn.md)
   - [executeCommand](../e/executeCommand.md)
@@ -39,7 +39,7 @@ After obtaining the qualified name, it formats it properly using fmtQualifiedIdE
   - [PQgetvalue](../P/PQgetvalue.md)
   - [fmtQualifiedIdEnc](../f/fmtQualifiedIdEnc.md)
   - [PQclear](../P/PQclear.md)
-  - termPQExpBuffer
+  - [termPQExpBuffer](../t/termPQExpBuffer.md)
   - [pg_free](../p/pg_free.md)
   - ALWAYS_SECURE_SEARCH_PATH_SQL
 - Called from (representative examples):

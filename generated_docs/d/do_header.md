@@ -38,10 +38,10 @@ The function constructs borders by calculating total width needed, including fie
 ## Dependencies
 - Functions called/Symbols referenced:
   - malloc
-  - libpq_gettext
-  - PQfname
+  - [libpq_gettext](../l/libpq_gettext.md)
+  - [PQfname](../P/PQfname.md)
 - Called from (representative examples):
-  - winsize (src/interfaces/libpq/fe-print.c:287)
+  - [winsize](../w/winsize.md) (src/interfaces/libpq/fe-print.c:287)
 
 ## Notes and Other Information
 - Returns allocated border string on success, NULL on memory allocation failure

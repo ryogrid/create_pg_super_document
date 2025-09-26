@@ -24,7 +24,7 @@ For each partition specification, the function examines every Const node in the 
 - Functions called/Symbols referenced:
   - foreach (macro for list iteration)
   - lfirst_node (list cell access macro)
-  - Const (node type for constant values)
+  - [Const](../C/Const.md) (node type for constant values)
 - Called from (representative examples):
   - [create_list_bounds](../c/create_list_bounds.md) (src/backend/partitioning/partbounds.c:482)
 

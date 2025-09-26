@@ -18,7 +18,7 @@ This function serves as a validation hook for the HISTCONTROL psql variable. It 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_strcasecmp](../p/pg_strcasecmp.md) (for case-insensitive string comparison)  
-  - PsqlVarEnumError (for error reporting on invalid values)
+  - [PsqlVarEnumError](../P/PsqlVarEnumError.md) (for error reporting on invalid values)
   - hctl_none (enum constant for no history control)
   - hctl_ignorespace (enum constant for ignoring commands starting with space)
   - hctl_ignoredups (enum constant for ignoring duplicate commands)

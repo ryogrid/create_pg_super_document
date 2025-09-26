@@ -36,20 +36,20 @@ The function returns different XLogRedoAction values indicating what action the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogRecGetBlockTagExtended
+  - [XLogRecGetBlockTagExtended](XLogRecGetBlockTagExtended.md)
   - XLogRecBlockImageApply
-  - XLogReadBufferExtended
-  - RestoreBlockImage
-  - PageSetLSN, PageGetLSN, PageIsNew
-  - LockBufferForCleanup
-  - FlushOneBuffer
+  - [XLogReadBufferExtended](XLogReadBufferExtended.md)
+  - [RestoreBlockImage](../R/RestoreBlockImage.md)
+  - [PageSetLSN](../P/PageSetLSN.md), PageGetLSN, PageIsNew
+  - [LockBufferForCleanup](../L/LockBufferForCleanup.md)
+  - [FlushOneBuffer](../F/FlushOneBuffer.md)
 - Constants used:
   - BLK_NEEDS_REDO, BLK_DONE, BLK_RESTORED, BLK_NOTFOUND
   - BKPBLOCK_WILL_INIT
   - RBM_ZERO_AND_LOCK, RBM_ZERO_AND_CLEANUP_LOCK
 - Called from:
-  - XLogReadBufferForRedo (simplified wrapper)
-  - XLogInitBufferForRedo (initialization wrapper)
+  - [XLogReadBufferForRedo](XLogReadBufferForRedo.md) (simplified wrapper)
+  - [XLogInitBufferForRedo](XLogInitBufferForRedo.md) (initialization wrapper)
   - Various specialized redo functions requiring extended control
 
 ## Notes and Other Information

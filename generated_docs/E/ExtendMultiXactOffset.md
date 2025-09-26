@@ -22,9 +22,9 @@ When extension is required, it acquires an exclusive lock on the appropriate SLR
   - [MultiXactIdToOffsetEntry](../M/MultiXactIdToOffsetEntry.md)
   - [MultiXactIdToOffsetPage](../M/MultiXactIdToOffsetPage.md)
   - [SimpleLruGetBankLock](../S/SimpleLruGetBankLock.md)
-  - LWLockAcquire
+  - [LWLockAcquire](../L/LWLockAcquire.md)
   - [ZeroMultiXactOffsetPage](../Z/ZeroMultiXactOffsetPage.md)
-  - LWLockRelease
+  - [LWLockRelease](../L/LWLockRelease.md)
 - Called from (representative examples):
   - [GetNewMultiXactId](../G/GetNewMultiXactId.md)
 

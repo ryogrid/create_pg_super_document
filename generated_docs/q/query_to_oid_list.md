@@ -23,8 +23,8 @@ This function serves as a utility for XML mapping operations in PostgreSQL, spec
   - [SPI_execute](../S/SPI_execute.md)
   - SPI_OK_SELECT
   - [SPI_result_code_string](../S/SPI_result_code_string.md)
-  - SPI_getbinval
-  - lappend_oid
+  - [SPI_getbinval](../S/SPI_getbinval.md)
+  - [lappend_oid](../l/lappend_oid.md)
   - [DatumGetObjectId](../D/DatumGetObjectId.md)
 - Called from (representative examples):
   - [schema_get_xml_visible_tables](../s/schema_get_xml_visible_tables.md)

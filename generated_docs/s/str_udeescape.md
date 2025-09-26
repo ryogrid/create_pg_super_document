@@ -31,9 +31,9 @@ The function properly handles UTF-16 surrogate pairs for Unicode code points abo
 - Functions called/Symbols referenced:
   - [hexval](../h/hexval.md) (converts hexadecimal character to numeric value)
   - [check_unicode_value](../c/check_unicode_value.md) (validates Unicode code point)
-  - is_utf16_surrogate_first (checks if code point is first half of surrogate pair)
-  - is_utf16_surrogate_second (checks if code point is second half of surrogate pair)
-  - surrogate_pair_to_codepoint (combines surrogate pair into full Unicode code point)
+  - [is_utf16_surrogate_first](../i/is_utf16_surrogate_first.md) (checks if code point is first half of surrogate pair)
+  - [is_utf16_surrogate_second](../i/is_utf16_surrogate_second.md) (checks if code point is second half of surrogate pair)
+  - [surrogate_pair_to_codepoint](surrogate_pair_to_codepoint.md) (combines surrogate pair into full Unicode code point)
   - [pg_unicode_to_server](../p/pg_unicode_to_server.md) (converts Unicode to server encoding)
   - setup_scanner_errposition_callback (sets up error positioning)
   - cancel_scanner_errposition_callback (cleans up error positioning)

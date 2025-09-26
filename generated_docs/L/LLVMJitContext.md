@@ -56,7 +56,7 @@ The context manages the lifecycle of LLVM modules and compilation units, ensurin
 ## Dependencies
 - Functions called/Symbols referenced:
   - [JitContext](../J/JitContext.md)
-  - ResourceOwner
+  - [ResourceOwner](../R/ResourceOwner.md)
   - LLVMContextRef (LLVM API)
   - LLVMModuleRef (LLVM API)
   - [List](List.md) (PostgreSQL list structure)
@@ -65,11 +65,11 @@ The context manages the lifecycle of LLVM modules and compilation units, ensurin
   - [llvm_create_context](../l/llvm_create_context.md)
   - [llvm_release_context](../l/llvm_release_context.md)
   - [llvm_mutable_module](../l/llvm_mutable_module.md)
-  - llvm_compile_expr
+  - [llvm_compile_expr](../l/llvm_compile_expr.md)
   - [slot_compile_deform](../s/slot_compile_deform.md)
   - [llvm_compile_module](../l/llvm_compile_module.md)
   - [llvm_optimize_module](../l/llvm_optimize_module.md)
-  - ResOwnerReleaseJitContext
+  - [ResOwnerReleaseJitContext](../R/ResOwnerReleaseJitContext.md)
 
 ## Notes and Other Information
 - The LLVM context is periodically reset to prevent excessive memory accumulation from type information

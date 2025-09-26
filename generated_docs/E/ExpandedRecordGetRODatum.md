@@ -25,12 +25,12 @@ This inline function provides a convenient wrapper to convert an ExpandedRecordH
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - EOHPGetRODatum
+  - [EOHPGetRODatum](EOHPGetRODatum.md)
   - ExpandedRecordHeader
 - Called from (representative examples):
-  - expanded_record_set_fields
-  - check_domain_for_new_field
-  - check_domain_for_new_tuple
+  - [expanded_record_set_fields](../e/expanded_record_set_fields.md)
+  - [check_domain_for_new_field](../c/check_domain_for_new_field.md)
+  - [check_domain_for_new_tuple](../c/check_domain_for_new_tuple.md)
 
 ## Notes and Other Information
 - This is an inline function defined in the header file for performance

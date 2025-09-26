@@ -36,7 +36,7 @@ This function creates a specialized tuplesort state for GiST index creation oper
   - [comparetup_index_btree_tiebreak](../c/comparetup_index_btree_tiebreak.md)
   - [writetup_index](../w/writetup_index.md)
   - [readtup_index](../r/readtup_index.md)
-  - PrepareSortSupportFromGistIndexRel
+  - [PrepareSortSupportFromGistIndexRel](../P/PrepareSortSupportFromGistIndexRel.md)
 - Called from (representative examples):
   - [gistbuild](../g/gistbuild.md) (gistbuild.c:267)
 

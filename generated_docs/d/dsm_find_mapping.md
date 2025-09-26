@@ -26,10 +26,10 @@ This is a local operation that only searches within the current process's mappin
   - dlist_foreach (doubly-linked list iteration macro)
   - dlist_container (container extraction macro)
   - dsm_handle, dsm_segment (types)
-  - dlist_iter (iterator type)
+  - [dlist_iter](dlist_iter.md) (iterator type)
   - dsm_segment_list (process-local global list)
 - Called from (representative examples):
-  - GetNamedDSMSegment (src/backend/storage/ipc/dsm_registry.c:181)
+  - [GetNamedDSMSegment](../G/GetNamedDSMSegment.md) (src/backend/storage/ipc/dsm_registry.c:181)
 
 ## Notes and Other Information
 - Returns NULL if no mapping exists for the given handle in the current process

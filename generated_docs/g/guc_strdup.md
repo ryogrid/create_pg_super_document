@@ -36,7 +36,7 @@ The function leverages the existing  infrastructure for memory allocation, which
   - [add_placeholder_variable](../a/add_placeholder_variable.md)
   - [InitializeOneGUCOption](../I/InitializeOneGUCOption.md)
   - [ReportGUCOption](../R/ReportGUCOption.md)
-  - parse_and_validate_value
+  - [parse_and_validate_value](../p/parse_and_validate_value.md)
   - [set_config_sourcefile](../s/set_config_sourcefile.md)
   - [init_custom_variable](../i/init_custom_variable.md)
 

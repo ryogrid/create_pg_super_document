@@ -33,11 +33,11 @@ The function supports optional metadata that can be stored alongside tuples (use
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SharedTuplestore (struct type)
+  - [SharedTuplestore](../S/SharedTuplestore.md) (struct type)
   - SharedFileSet (struct type)  
-  - SharedTuplestoreAccessor (struct type)
+  - [SharedTuplestoreAccessor](../S/SharedTuplestoreAccessor.md) (struct type)
   - STS_CHUNK_DATA_SIZE (constant)
-  - LWLockInitialize
+  - [LWLockInitialize](../L/LWLockInitialize.md)
   - LWTRANCHE_SHARED_TUPLESTORE (constant)
 - Called from (representative examples):
   - [ExecParallelHashJoinSetUpBatches](../E/ExecParallelHashJoinSetUpBatches.md)

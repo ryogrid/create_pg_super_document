@@ -28,13 +28,13 @@ This design allows PostgreSQL to use a single set of partition locks for both ha
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PREDICATELOCKTAG (structure type)
+  - [PREDICATELOCKTAG](../P/PREDICATELOCKTAG.md) (structure type)
   - PredicateLockTargetTagHashCode
   - PredicateLockHashCodeFromTargetHashCode
-  - PredicateLockData
+  - [PredicateLockData](../P/PredicateLockData.md)
 - Called from (representative examples):
-  - SerialControl (hash table setup)
-  - InitPredicateLocks (initialization)
+  - [SerialControl](../S/SerialControl.md) (hash table setup)
+  - [InitPredicateLocks](../I/InitPredicateLocks.md) (initialization)
 
 ## Notes and Other Information
 - This is a static function local to predicate.c

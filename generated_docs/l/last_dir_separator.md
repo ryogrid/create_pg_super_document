@@ -36,7 +36,7 @@ This is one of the most commonly used path manipulation functions in PostgreSQL,
   - [should_allow_existing_directory](../s/should_allow_existing_directory.md) (in src/bin/pg_basebackup/bbstreamer_file.c)
   - [check_file_excluded](../c/check_file_excluded.md) (in src/bin/pg_rewind/filemap.c)
   - [setup](../s/setup.md) (in src/bin/pg_upgrade/pg_upgrade.c)
-  - find_other_exec (in src/common/exec.c)
+  - [find_other_exec](../f/find_other_exec.md) (in src/common/exec.c)
   - [ECPGconnect](../E/ECPGconnect.md) (in src/interfaces/ecpg/ecpglib/connect.c)
   - [main](../m/main.md) (in src/interfaces/ecpg/preproc/ecpg.c)
   - [get_progname](../g/get_progname.md) (in src/port/path.c)

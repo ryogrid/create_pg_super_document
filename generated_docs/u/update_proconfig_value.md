@@ -24,11 +24,11 @@ The function is used internally by PostgreSQL's function management system to ma
 ## Dependencies
 - Functions called/Symbols referenced:
   - lfirst_node (macro for list traversal)
-  - VariableSetStmt (structure type)
+  - [VariableSetStmt](../V/VariableSetStmt.md) (structure type)
   - VAR_RESET_ALL (enum constant)
   - [ExtractSetVariableArgs](../E/ExtractSetVariableArgs.md) (extracts value string from SET statement)
-  - GUCArrayAdd (adds a GUC parameter to array)
-  - GUCArrayDelete (removes a GUC parameter from array)
+  - [GUCArrayAdd](../G/GUCArrayAdd.md) (adds a GUC parameter to array)
+  - [GUCArrayDelete](../G/GUCArrayDelete.md) (removes a GUC parameter from array)
 - Called from (representative examples):
   - [compute_function_attributes](../c/compute_function_attributes.md) (src/backend/commands/functioncmds.c:817)
   - [AlterFunction](../A/AlterFunction.md) (src/backend/commands/functioncmds.c:1483)

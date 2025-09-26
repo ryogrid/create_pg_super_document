@@ -35,17 +35,17 @@ Different error types produce specialized error messages:
 - Functions called/Symbols referenced:
   - errsave (PostgreSQL error handling)
 - Structures used:
-  - DateTimeErrorExtra (auxiliary error information)
-  - Node (PostgreSQL node system)
+  - [DateTimeErrorExtra](DateTimeErrorExtra.md) (auxiliary error information)
+  - [Node](../N/Node.md) (PostgreSQL node system)
 - Error codes handled:
   - DTERR_FIELD_OVERFLOW, DTERR_MD_FIELD_OVERFLOW
   - DTERR_INTERVAL_OVERFLOW, DTERR_TZDISP_OVERFLOW
   - DTERR_BAD_TIMEZONE, DTERR_BAD_ZONE_ABBREV
   - DTERR_BAD_FORMAT
 - Called from (representative examples):
-  - date_in, time_in, timetz_in (date.c)
-  - timestamp_in, timestamptz_in, interval_in (timestamp.c)
-  - DecodeTimezoneName, do_to_timestamp (datetime.c, formatting.c)
+  - [date_in](../d/date_in.md), time_in, timetz_in (date.c)
+  - [timestamp_in](../t/timestamp_in.md), timestamptz_in, interval_in (timestamp.c)
+  - [DecodeTimezoneName](DecodeTimezoneName.md), do_to_timestamp (datetime.c, formatting.c)
 
 ## Notes and Other Information
 - Implements SQL99-compliant SQLSTATE codes for different error types

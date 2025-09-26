@@ -27,12 +27,12 @@ The function includes an optimization where it avoids replacing simple Const nod
 - Functions called/Symbols referenced:
   - IsA
   - [tlist_member](../t/tlist_member.md)
-  - makeVarFromTargetEntry
+  - [makeVarFromTargetEntry](../m/makeVarFromTargetEntry.md)
 - Data types used:
   - [Expr](../E/Expr.md)
   - [indexed_tlist](../i/indexed_tlist.md)
   - [TargetEntry](../T/TargetEntry.md)
-  - Const
+  - [Const](../C/Const.md)
 - Called from (representative examples):
   - fix_scan_list
   - [fix_join_expr_mutator](../f/fix_join_expr_mutator.md)

@@ -38,11 +38,11 @@ The function uses the expression_tree_mutator framework for efficient tree trave
   - expression_tree_mutator
   - [list_concat](../l/list_concat.md)
 - Data types referenced:
-  - SubLink
+  - [SubLink](../S/SubLink.md)
   - [PlaceHolderVar](../P/PlaceHolderVar.md)
-  - Aggref
-  - GroupingFunc
-  - BoolExpr
+  - [Aggref](../A/Aggref.md)
+  - [GroupingFunc](../G/GroupingFunc.md)
+  - [BoolExpr](../B/BoolExpr.md)
   - [process_sublinks_context](process_sublinks_context.md)
 - Called from (representative examples):
   - [SS_process_sublinks](../S/SS_process_sublinks.md)

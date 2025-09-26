@@ -33,7 +33,7 @@ The function performs validation to ensure the parent transaction ID is valid an
 - Called from (representative examples):
   - [ProcessTwoPhaseBuffer](../P/ProcessTwoPhaseBuffer.md) (during two-phase commit recovery)
   - [AssignTransactionId](../A/AssignTransactionId.md) (when assigning transaction IDs)
-  - ProcArrayApplyXidAssignment (during transaction ID assignment in standby)
+  - [ProcArrayApplyXidAssignment](../P/ProcArrayApplyXidAssignment.md) (during transaction ID assignment in standby)
 
 ## Notes and Other Information
 - Uses exclusive LWLock to ensure thread-safe access to subtransaction data

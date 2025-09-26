@@ -23,7 +23,7 @@ This function serves as a compatibility layer that normalizes the different stre
 - Functions called/Symbols referenced:
   - strerror_r (platform-specific, when available)
   - strerror (fallback when strerror_r unavailable)
-  - strlcpy (safe string copying)
+  - [strlcpy](../s/strlcpy.md) (safe string copying)
 - Called from (representative examples):
   - [pg_strerror_r](../p/pg_strerror_r.md)
   - strerror_r (alias reference at src/port/strerror.c:24)

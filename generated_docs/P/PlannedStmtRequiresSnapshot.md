@@ -52,16 +52,16 @@ Transaction control statements (BEGIN, COMMIT, ROLLBACK) cannot have snapshots b
   - [PlannedStmt](PlannedStmt.md) structure and its utilityStmt field
   - [Node](../N/Node.md) type checking (IsA macro)
   - Various utility statement types:
-    - TransactionStmt
-    - LockStmt
-    - VariableSetStmt
-    - VariableShowStmt
-    - ConstraintsSetStmt
-    - FetchStmt
-    - ListenStmt
-    - NotifyStmt
-    - UnlistenStmt
-    - CheckPointStmt
+    - [TransactionStmt](../T/TransactionStmt.md)
+    - [LockStmt](../L/LockStmt.md)
+    - [VariableSetStmt](../V/VariableSetStmt.md)
+    - [VariableShowStmt](../V/VariableShowStmt.md)
+    - [ConstraintsSetStmt](../C/ConstraintsSetStmt.md)
+    - [FetchStmt](../F/FetchStmt.md)
+    - [ListenStmt](../L/ListenStmt.md)
+    - [NotifyStmt](../N/NotifyStmt.md)
+    - [UnlistenStmt](../U/UnlistenStmt.md)
+    - [CheckPointStmt](../C/CheckPointStmt.md)
 - Called from (representative examples):
   - [PortalRunUtility](PortalRunUtility.md)
   - [_SPI_execute_plan](../S/_SPI_execute_plan.md)

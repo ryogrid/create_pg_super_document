@@ -28,7 +28,7 @@ The optimization is safe only when there's exactly one child plan and the parall
 ## Dependencies
 - Functions called/Symbols referenced:
   - [set_plan_refs](set_plan_refs.md) (recursive processing)
-  - list_length
+  - [list_length](../l/list_length.md)
   - linitial
   - [clean_up_removed_plan_level](../c/clean_up_removed_plan_level.md)
   - [set_dummy_tlist_references](set_dummy_tlist_references.md)
@@ -44,7 +44,7 @@ The optimization is safe only when there's exactly one child plan and the parall
 - Returns Plan* instead of void, allowing for plan node elimination optimization
 - This is a static function within setrefs.c for internal plan reference adjustment
 - The function includes special handling for partition pruning information (part_prune_info)
-- Append nodes don't evaluate target lists or quals directly, making them candidates for elimination
+- [Append](../A/Append.md) nodes don't evaluate target lists or quals directly, making them candidates for elimination
 - The parallel awareness check prevents incorrect behavior in parallel execution contexts
 - Partition pruning steps (both initial and execution-time) are properly adjusted with range table offsets
 - The function asserts that Append nodes have no left or right subtrees, consistent with their structure

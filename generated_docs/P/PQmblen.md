@@ -26,7 +26,7 @@ This function serves as a wrapper around pg_encoding_mblen() specifically design
   - [pg_wcswidth](../p/pg_wcswidth.md) (src/fe_utils/mbprint.c:186)
   - [pg_wcssize](../p/pg_wcssize.md) (src/fe_utils/mbprint.c:223)
   - [pg_wcsformat](../p/pg_wcsformat.md) (src/fe_utils/mbprint.c:304)
-  - strlen_max_width (src/fe_utils/print.c:3767)
+  - [strlen_max_width](../s/strlen_max_width.md) (src/fe_utils/print.c:3767)
   - [appendStringLiteral](../a/appendStringLiteral.md) (src/fe_utils/string_utils.c:385)
 
 ## Notes and Other Information

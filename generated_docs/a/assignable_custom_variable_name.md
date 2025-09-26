@@ -41,7 +41,7 @@ The function is separate from valid_custom_variable_name() because the reserved 
   - ListCell
   - GUC_QUALIFIER_SEPARATOR
 - Called from:
-  - find_option (src/backend/utils/misc/guc.c:1270)
+  - [find_option](../f/find_option.md) (src/backend/utils/misc/guc.c:1270)
   - [check_GUC_name_for_parameter_acl](../c/check_GUC_name_for_parameter_acl.md) (src/backend/utils/misc/guc.c:1418)
   - [AlterSystemSetConfigFile](../A/AlterSystemSetConfigFile.md) (src/backend/utils/misc/guc.c:4734)
 

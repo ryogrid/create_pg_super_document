@@ -31,9 +31,9 @@ Special handling ensures that expressions won't be misinterpreted during reparsi
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_sortgroupref_tle](get_sortgroupref_tle.md) (retrieve TargetEntry by reference number)
-  - get_const_expr (format constant expressions with explicit casting)
+  - [get_const_expr](get_const_expr.md) (format constant expressions with explicit casting)
   - [get_variable](get_variable.md) (format variable expressions with conflict checking)
-  - get_rule_expr (format general expressions)
+  - [get_rule_expr](get_rule_expr.md) (format general expressions)
   - PRETTY_PAREN (check formatting preference for parentheses)
 - Called from (representative examples):
   - [get_basic_select_query](get_basic_select_query.md) (src/backend/utils/adt/ruleutils.c:5949, 5994)

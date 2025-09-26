@@ -42,9 +42,9 @@ The function performs several important validations:
   -  - macro to get pointer to prefix data area
   -  - macro to get pointer to node array area
 - Called from (representative examples):
-  -  - when adding new nodes during insertion
+  -  - [when](../w/when.md) adding new nodes during insertion
   -  - during node splitting operations
-  -  - when performing split actions
+  -  - [when](../w/when.md) performing split actions
 
 ## Notes and Other Information
 - The function ensures proper memory alignment by relying on node tuples being maxaligned

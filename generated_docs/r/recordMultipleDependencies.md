@@ -27,10 +27,10 @@ This function provides an optimized way to record multiple dependency relationsh
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsBootstrapProcessingMode
-  - table_open
+  - [table_open](../t/table_open.md)
   - [isObjectPinned](../i/isObjectPinned.md)
   - [MakeSingleTupleTableSlot](../M/MakeSingleTupleTableSlot.md)
-  - ExecClearTuple
+  - [ExecClearTuple](../E/ExecClearTuple.md)
   - [ExecStoreVirtualTuple](../E/ExecStoreVirtualTuple.md)
   - [CatalogOpenIndexes](../C/CatalogOpenIndexes.md)
   - [CatalogTuplesMultiInsertWithInfo](../C/CatalogTuplesMultiInsertWithInfo.md)
@@ -38,7 +38,7 @@ This function provides an optimized way to record multiple dependency relationsh
   - [ExecDropSingleTupleTableSlot](../E/ExecDropSingleTupleTableSlot.md)
   - MAX_CATALOG_MULTI_INSERT_BYTES
   - DependencyType
-  - CatalogIndexState
+  - [CatalogIndexState](../C/CatalogIndexState.md)
   - [CharGetDatum](../C/CharGetDatum.md)
 - Called from (representative examples):
   - [recordDependencyOnExpr](recordDependencyOnExpr.md)

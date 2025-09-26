@@ -23,7 +23,7 @@ This static function extends the functionality of  by allowing parsing of timezo
 - Functions called/Symbols referenced:
   - None (uses only basic C operations)
 - Called from (representative examples):
-  - tzparse
+  - [tzparse](../t/tzparse.md)
 
 ## Notes and Other Information
 - Returns a pointer to the delimiter character, or to the null terminator if delimiter is not found

@@ -34,9 +34,9 @@ The structure works in conjunction with PostgreSQL's array iterator mechanism an
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - array_iter_setup
-  - array_iter_next
-  - ArrayGetNItems
+  - [array_iter_setup](array_iter_setup.md)
+  - [array_iter_next](array_iter_next.md)
+  - [ArrayGetNItems](../A/ArrayGetNItems.md)
   - AARR_NDIM
   - AARR_DIMS
   - AARR_ELEMTYPE

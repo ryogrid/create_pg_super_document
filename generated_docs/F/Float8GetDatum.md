@@ -28,7 +28,7 @@ This function is part of PostgreSQL's type system infrastructure that provides a
   - Statistical analysis functions
   - Geometric and mathematical functions
   - JSON path execution functions
-  - Range type analysis functions
+  - [Range](../R/Range.md) type analysis functions
   - Time/interval arithmetic functions
 
 ## Notes and Other Information

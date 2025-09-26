@@ -24,12 +24,12 @@ The function navigates up the planner hierarchy to find the appropriate query le
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PlaceHolderVar](../P/PlaceHolderVar.md) (structure handling)
-  - PlannerParamItem (structure creation)
+  - [PlannerParamItem](../P/PlannerParamItem.md) (structure creation)
   - copyObject (deep copy of the PlaceHolderVar node)
   - [IncrementVarSublevelsUp](../I/IncrementVarSublevelsUp.md) (adjust variable level references)
   - makeNode (node creation)
-  - lappend_oid (append OID to list)
-  - exprType (get expression type)
+  - [lappend_oid](../l/lappend_oid.md) (append OID to list)
+  - [exprType](../e/exprType.md) (get expression type)
 - Called from (representative examples):
   - [replace_outer_placeholdervar](../r/replace_outer_placeholdervar.md)
 

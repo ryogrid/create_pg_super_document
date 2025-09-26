@@ -36,9 +36,9 @@ The interpreter processes each step sequentially, with each step potentially mod
 - Functions called/Symbols referenced:
   - Various ExecEval* functions for complex operations (ExecEvalSysVar, ExecEvalWholeRowVar, etc.)
   - [CheckOpSlotCompatibility](../C/CheckOpSlotCompatibility.md) for slot validation
-  - slot_getsomeattrs for tuple attribute fetching
+  - [slot_getsomeattrs](../s/slot_getsomeattrs.md) for tuple attribute fetching
   - FunctionCallInvoke for user-defined function calls
-  - MakeExpandedObjectReadOnlyInternal for object lifecycle management
+  - [MakeExpandedObjectReadOnlyInternal](../M/MakeExpandedObjectReadOnlyInternal.md) for object lifecycle management
 - Called from:
   - [ExecReadyInterpretedExpr](ExecReadyInterpretedExpr.md) (as evalfunc_private)
   - [ExecInitInterpreter](ExecInitInterpreter.md) (for dispatch table initialization)

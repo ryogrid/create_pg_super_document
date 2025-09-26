@@ -30,7 +30,7 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CLOGShmemBuffers (calculates optimal buffer count)
+  - [CLOGShmemBuffers](CLOGShmemBuffers.md) (calculates optimal buffer count)
   - [SetConfigOption](../S/SetConfigOption.md) (sets configuration parameters)
   - [CLOGPagePrecedes](CLOGPagePrecedes.md) (page ordering function)
   - [SimpleLruInit](../S/SimpleLruInit.md) (initializes SLRU structure)

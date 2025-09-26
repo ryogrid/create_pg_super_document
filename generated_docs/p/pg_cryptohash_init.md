@@ -38,10 +38,10 @@ The function must be called after pg_cryptohash_create() and before any pg_crypt
   - [InitializeBackupManifest](../I/InitializeBackupManifest.md)
   - [scram_mock_salt](../s/scram_mock_salt.md)
   - [cryptohash_internal](../c/cryptohash_internal.md)
-  - pg_checksum_init
+  - [pg_checksum_init](pg_checksum_init.md)
   - [pg_hmac_init](pg_hmac_init.md)
   - [pg_md5_hash](pg_md5_hash.md)
-  - scram_H
+  - [scram_H](../s/scram_H.md)
 
 ## Notes and Other Information
 - Two implementations exist: generic (src/common/cryptohash.c:100-135) and OpenSSL-specific (src/common/cryptohash_openssl.c:177-222)

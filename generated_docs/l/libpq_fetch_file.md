@@ -31,7 +31,7 @@ The function performs error checking to ensure the SQL query succeeds and return
   - [PQgetlength](../P/PQgetlength.md) (gets length of result value)
   - [PQgetvalue](../P/PQgetvalue.md) (gets result value data)
   - [PQclear](../P/PQclear.md) (cleans up result)
-  - pg_malloc (PostgreSQL memory allocation)
+  - [pg_malloc](../p/pg_malloc.md) (PostgreSQL memory allocation)
   - [pg_fatal](../p/pg_fatal.md) (PostgreSQL fatal error reporting)
   - pg_log_debug (PostgreSQL debug logging)
 - Called from (representative examples):

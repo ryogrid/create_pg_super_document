@@ -26,8 +26,8 @@ This selective approach is particularly efficient when working with short values
   - VARATT_IS_EXTERNAL (macro to check if datum is externally stored)
   - [detoast_attr](../d/detoast_attr.md) (function to fully detoast extended datums)
 - Called from (representative examples):
-  - text_to_cstring
-  - text_to_cstring_buffer
+  - [text_to_cstring](../t/text_to_cstring.md)
+  - [text_to_cstring_buffer](../t/text_to_cstring_buffer.md)
   - [makeJsonLexContext](../m/makeJsonLexContext.md)
   - [transform_jsonb_string_values](../t/transform_jsonb_string_values.md)
   - PG_DETOAST_DATUM_PACKED (macro)

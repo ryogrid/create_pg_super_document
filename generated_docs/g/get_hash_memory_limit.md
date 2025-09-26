@@ -35,10 +35,10 @@ This centralized approach ensures consistent memory limit calculations across al
   - Min (macro)
   - SIZE_MAX (constant)
 - Called from:
-  - BuildTupleHashTableExt
+  - [BuildTupleHashTableExt](../B/BuildTupleHashTableExt.md)
   - [hash_agg_set_limits](../h/hash_agg_set_limits.md)
   - [hash_choose_num_partitions](../h/hash_choose_num_partitions.md)
-  - ExecChooseHashTableSize
+  - [ExecChooseHashTableSize](../E/ExecChooseHashTableSize.md)
   - [ExecParallelHashIncreaseNumBatches](../E/ExecParallelHashIncreaseNumBatches.md)
   - [ExecInitMemoize](../E/ExecInitMemoize.md)
   - [cost_memoize_rescan](../c/cost_memoize_rescan.md)

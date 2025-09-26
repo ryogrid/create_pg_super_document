@@ -22,7 +22,7 @@ The `smgrunpin` function decrements the pin count of an SMgrRelation object, pot
   - [dlist_push_tail](../d/dlist_push_tail.md)
   - SMgrRelation (type)
 - Called from (representative examples):
-  - RelationCloseSmgr (src/include/utils/rel.h:586)
+  - [RelationCloseSmgr](../R/RelationCloseSmgr.md) (src/include/utils/rel.h:586)
 
 ## Notes and Other Information
 - The function includes an assertion to ensure the relation is actually pinned before unpinning

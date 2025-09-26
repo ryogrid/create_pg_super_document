@@ -58,12 +58,12 @@ The parameters control various aspects of autovacuum behavior including triggeri
 - Functions called/Symbols referenced:
   - float8 (PostgreSQL's double precision type)
 - Called from (representative examples):
-  - extract_autovac_opts (autovacuum worker)
-  - default_reloptions (relation options parsing)
-  - do_autovacuum (autovacuum main logic)
-  - relation_needs_vacanalyze (autovacuum decision making)
-  - table_recheck_autovac (autovacuum rechecking)
-  - StdRdOptions (embedded as autovacuum member)
+  - [extract_autovac_opts](../e/extract_autovac_opts.md) (autovacuum worker)
+  - [default_reloptions](../d/default_reloptions.md) (relation options parsing)
+  - [do_autovacuum](../d/do_autovacuum.md) (autovacuum main logic)
+  - [relation_needs_vacanalyze](../r/relation_needs_vacanalyze.md) (autovacuum decision making)
+  - [table_recheck_autovac](../t/table_recheck_autovac.md) (autovacuum rechecking)
+  - [StdRdOptions](../S/StdRdOptions.md) (embedded as autovacuum member)
 
 ## Notes and Other Information
 - These options can be set using the WITH clause in CREATE TABLE or ALTER TABLE statements

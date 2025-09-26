@@ -34,15 +34,15 @@ The objtype field specifies the type of database object being altered (table, in
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RangeVar (for table identification)
+  - [RangeVar](../R/RangeVar.md) (for table identification)
   - ObjectType (for object type specification)
   - NodeTag (inherited node type system)
-  - List (for subcommand storage)
+  - [List](../L/List.md) (for subcommand storage)
 - Called from (representative examples):
-  - AlterTable (main execution function)
-  - ATController (alter table controller)
-  - ProcessUtilitySlow (utility command processing)
-  - transformAlterTableStmt (statement transformation)
+  - [AlterTable](AlterTable.md) (main execution function)
+  - [ATController](ATController.md) (alter table controller)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (utility command processing)
+  - [transformAlterTableStmt](../t/transformAlterTableStmt.md) (statement transformation)
 
 ## Notes and Other Information
 - Supports complex multi-step table alterations in a single statement

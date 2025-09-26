@@ -40,9 +40,9 @@ The function handles special cases like:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - strtoint
+  - [strtoint](../s/strtoint.md)
   - [DecodeNumberField](DecodeNumberField.md)
-  - ParseFractionalSecond
+  - [ParseFractionalSecond](../P/ParseFractionalSecond.md)
   - DTK_M, DTK_DATE_M (field mask macros)
   - YEAR, MONTH, DAY, DOY (field type constants)
   - DATEORDER_YMD, DATEORDER_DMY, DATEORDER_MDY

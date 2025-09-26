@@ -24,7 +24,7 @@ The function takes a void pointer to an Oid value, casts it appropriately, deref
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendStringInfo
+  - [appendStringInfo](../a/appendStringInfo.md)
   - Oid (data type)
 - Called from (representative examples):
   - [heap_desc](../h/heap_desc.md)

@@ -24,7 +24,7 @@ The function performs a simple but important role in psql's history management b
 - Functions called/Symbols referenced:
   - USE_READLINE (preprocessor macro)
   - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
-  - appendPQExpBufferChar
+  - [appendPQExpBufferChar](../a/appendPQExpBufferChar.md)
   - strlen
 - Called from (representative examples):
   - [MainLoop](../M/MainLoop.md) (multiple locations)

@@ -40,15 +40,15 @@ When a matching entry is found, the password field is extracted, de-escaped (rem
   - [libpq_gettext](../l/libpq_gettext.md)
   - S_IRWXG, S_IRWXO
   - fopen
-  - initPQExpBuffer
+  - [initPQExpBuffer](../i/initPQExpBuffer.md)
   - [enlargePQExpBuffer](../e/enlargePQExpBuffer.md)
-  - pg_strip_crlf
+  - [pg_strip_crlf](pg_strip_crlf.md)
   - [pwdfMatchesString](pwdfMatchesString.md)
-  - explicit_bzero
-  - termPQExpBuffer
+  - [explicit_bzero](../e/explicit_bzero.md)
+  - [termPQExpBuffer](../t/termPQExpBuffer.md)
 - Called from (representative examples):
   - internalPQconninfoOption (fe-connect.c:446)
-  - pqConnectOptions2 (fe-connect.c:1332)
+  - [pqConnectOptions2](pqConnectOptions2.md) (fe-connect.c:1332)
 
 ## Notes and Other Information
 - This function is marked as static, indicating it's only used within the fe-connect.c file

@@ -49,4 +49,4 @@ The function uses a temporary memory context to manage allocations during the po
 - The function modifies only the first BrinValues parameter (col_a)
 - Memory management is carefully handled using a temporary context to avoid leaks during distance calculations
 - The union operation maintains the maxvalues limit from the first range summary
-- Range reduction is applied to ensure the result fits within storage constraints
+- [Range](../R/Range.md) reduction is applied to ensure the result fits within storage constraints

@@ -32,17 +32,17 @@ The hash table sizes are calculated based on NLOCKENTS() with partitioning acros
 - Functions called/Symbols referenced:
   - NLOCKENTS (macro for calculating lock table size)
   - ShmemInitHash (shared memory hash table initialization)
-  - ShmemInitStruct (shared memory structure initialization)  
+  - [ShmemInitStruct](../S/ShmemInitStruct.md) (shared memory structure initialization)  
   - SpinLockInit (spinlock initialization)
-  - hash_destroy (local hash table destruction)
-  - hash_create (local hash table creation)
-  - proclock_hash (hash function for PROCLOCK table)
+  - [hash_destroy](../h/hash_destroy.md) (local hash table destruction)
+  - [hash_create](../h/hash_create.md) (local hash table creation)
+  - [proclock_hash](../p/proclock_hash.md) (hash function for PROCLOCK table)
 - Called from (representative examples):
-  - CreateOrAttachShmemStructs (src/backend/storage/ipc/ipci.c:313)
+  - [CreateOrAttachShmemStructs](../C/CreateOrAttachShmemStructs.md) (src/backend/storage/ipc/ipci.c:313)
 
 ## Notes and Other Information
 - This function must be called during shared memory initialization
-- Hash table size calculations must agree with LockShmemSize() function
+- [Hash](../H/Hash.md) table size calculations must agree with LockShmemSize() function
 - The LOCALLOCK hash table is recreated each time to ensure it's clean in case of postmaster restart after backend crash
 - Uses hash partitioning for improved concurrency across multiple lock partitions
 - Fast-path structures are initialized for optimizing frequently used relation locks

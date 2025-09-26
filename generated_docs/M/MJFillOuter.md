@@ -28,12 +28,12 @@ This function is essential for implementing LEFT OUTER JOIN and FULL OUTER JOIN 
 ## Dependencies
 - Functions called/Symbols referenced:
   - ResetExprContext
-  - ExecQual
-  - ExecProject
+  - [ExecQual](../E/ExecQual.md)
+  - [ExecProject](../E/ExecProject.md)
   - InstrCountFiltered2
   - MJ_printf (debug macro)
 - Called from:
-  - ExecMergeJoin (multiple call sites)
+  - [ExecMergeJoin](../E/ExecMergeJoin.md) (multiple call sites)
 
 ## Notes and Other Information
 - Returns a TupleTableSlot containing the projected result tuple, or NULL if non-join qualifications fail

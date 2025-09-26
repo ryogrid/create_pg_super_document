@@ -22,7 +22,7 @@ This is a simple utility function that computes the output buffer size needed to
 - Functions called/Symbols referenced:
   - (None - simple arithmetic operation)
 - Called from (representative examples):
-  - esc_dec_len (escape decoder length calculation function)
+  - [esc_dec_len](../e/esc_dec_len.md) (escape decoder length calculation function)
 
 ## Notes and Other Information
 - Returns the calculated length as uint64 to handle large data sizes

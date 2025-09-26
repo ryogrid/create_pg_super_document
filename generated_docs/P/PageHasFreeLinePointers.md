@@ -25,7 +25,7 @@ The function operates on the page header structure, which contains metadata abou
   - PageHeader (cast to access page header structure)
   - PD_HAS_FREE_LINES (flag constant)
 - Called from (representative examples):
-  - PageAddItemExtended (src/backend/storage/page/bufpage.c:251)
+  - [PageAddItemExtended](PageAddItemExtended.md) (src/backend/storage/page/bufpage.c:251)
   - [PageGetHeapFreeSpace](PageGetHeapFreeSpace.md) (src/backend/storage/page/bufpage.c:1007)
 
 ## Notes and Other Information

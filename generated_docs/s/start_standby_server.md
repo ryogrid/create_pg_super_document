@@ -29,7 +29,7 @@ The function sets the global standby_running flag upon successful startup and pr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - createPQExpBuffer, destroyPQExpBuffer, appendPQExpBuffer, appendPQExpBufferStr, appendPQExpBufferChar (PQExpBuffer utilities)
+  - [createPQExpBuffer](../c/createPQExpBuffer.md), destroyPQExpBuffer, appendPQExpBuffer, appendPQExpBufferStr, appendPQExpBufferChar (PQExpBuffer utilities)
   - [appendShellString](../a/appendShellString.md) (shell-safe string escaping)
   - system (execute shell command)
   - [pg_ctl_status](../p/pg_ctl_status.md) (error handling for pg_ctl)

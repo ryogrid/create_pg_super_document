@@ -22,11 +22,11 @@ The two-step process (cleanup then append) prevents accumulation of multiple tra
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - chopStringInfoNewlines (removes existing trailing newlines)
-  - appendStringInfoChar (adds the new newline character)
+  - [chopStringInfoNewlines](../c/chopStringInfoNewlines.md) (removes existing trailing newlines)
+  - [appendStringInfoChar](appendStringInfoChar.md) (adds the new newline character)
 - Called from (representative examples):
-  - xml_errorHandler (multiple call sites for error message formatting)
-  - PgXmlErrorContext (for error context formatting)
+  - [xml_errorHandler](../x/xml_errorHandler.md) (multiple call sites for error message formatting)
+  - [PgXmlErrorContext](../P/PgXmlErrorContext.md) (for error context formatting)
 
 ## Notes and Other Information
 - This is a static function, accessible only within the xml.c compilation unit

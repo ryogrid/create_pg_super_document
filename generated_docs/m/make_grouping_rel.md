@@ -35,7 +35,7 @@ The function also maintains Foreign Data Wrapper (FDW) context by copying server
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fetch_upper_rel
+  - [fetch_upper_rel](../f/fetch_upper_rel.md)
   - IS_OTHER_REL (macro)
   - [is_parallel_safe](../i/is_parallel_safe.md)
 - Constants used:

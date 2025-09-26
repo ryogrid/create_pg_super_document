@@ -30,7 +30,7 @@ The function performs a simple conversion by checking the special timestamp type
   - EARLY (string constant for negative infinity representation)
   - LATE (string constant for positive infinity representation)
 - Called from (representative examples):
-  - JsonEncodeDateTime (JSON encoding functions)
+  - [JsonEncodeDateTime](../J/JsonEncodeDateTime.md) (JSON encoding functions)
   - [timestamp_out](../t/timestamp_out.md) (timestamp output function)
   - [timestamptz_out](../t/timestamptz_out.md) (timestamptz output function)
   - [timestamptz_to_str](../t/timestamptz_to_str.md) (timestamptz string conversion)

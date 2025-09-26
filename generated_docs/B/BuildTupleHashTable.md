@@ -39,7 +39,7 @@ This function serves as a simplified interface to BuildTupleHashTableExt for bac
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BuildTupleHashTableExt (the extended implementation that does the actual work)
+  - [BuildTupleHashTableExt](BuildTupleHashTableExt.md) (the extended implementation that does the actual work)
 - Called from (representative examples):
   - Referenced in executor header files as part of the public API
 

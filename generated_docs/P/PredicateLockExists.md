@@ -22,13 +22,13 @@ The function has important limitations: it may return false positives or false n
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_search
+  - [hash_search](../h/hash_search.md)
   - HASH_FIND (hash operation constant)
 - Called from (representative examples):
-  - SerialControl
-  - CoarserLockCovers
-  - PredicateLockAcquire
-  - PredicateLockTID
+  - [SerialControl](../S/SerialControl.md)
+  - [CoarserLockCovers](../C/CoarserLockCovers.md)
+  - [PredicateLockAcquire](PredicateLockAcquire.md)
+  - [PredicateLockTID](PredicateLockTID.md)
 
 ## Notes and Other Information
 - Static function, only accessible within predicate.c

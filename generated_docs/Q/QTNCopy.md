@@ -19,7 +19,7 @@ QTNCopy performs a recursive deep copy of a QTNode tree, creating new memory all
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth (prevents stack overflow during recursion)
+  - [check_stack_depth](../c/check_stack_depth.md) (prevents stack overflow during recursion)
   - [palloc](../p/palloc.md) (allocates memory for nodes and data)
   - memcpy (copies word string data)
   - [QTNCopy](QTNCopy.md) (recursive call for child nodes)

@@ -24,13 +24,13 @@ The function is static and serves as an internal utility within the fileset.c mo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TempTablespacePath (constructs the base temporary directory path for the tablespace)
+  - [TempTablespacePath](../T/TempTablespacePath.md) (constructs the base temporary directory path for the tablespace)
   - PG_TEMP_FILE_PREFIX (constant prefix for temporary files)
-  - FileSet (struct type for fileset metadata)
+  - [FileSet](FileSet.md) (struct type for fileset metadata)
 - Called from (representative examples):
-  - FileSetCreate (when creating a new FileSet)
-  - FileSetDeleteAll (when cleaning up FileSet directories)
-  - FilePath (when constructing paths to individual files within a FileSet)
+  - [FileSetCreate](FileSetCreate.md) (when creating a new FileSet)
+  - [FileSetDeleteAll](FileSetDeleteAll.md) (when cleaning up FileSet directories)
+  - [FilePath](FilePath.md) (when constructing paths to individual files within a FileSet)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the fileset.c compilation unit

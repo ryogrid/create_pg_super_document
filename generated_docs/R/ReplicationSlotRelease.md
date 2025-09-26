@@ -29,7 +29,7 @@ This function takes no parameters but operates on the global MyReplicationSlot v
   - SlotIsLogical  
   - [ReplicationSlotsComputeRequiredXmin](ReplicationSlotsComputeRequiredXmin.md)
   - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
-  - ConditionVariableBroadcast
+  - [ConditionVariableBroadcast](../C/ConditionVariableBroadcast.md)
 - Called from (representative examples):
   - [pg_logical_slot_get_changes_guts](../p/pg_logical_slot_get_changes_guts.md)
   - [synchronize_one_slot](../s/synchronize_one_slot.md)

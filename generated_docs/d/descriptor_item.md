@@ -40,13 +40,13 @@ This structure contains comprehensive metadata for individual columns in a resul
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - descriptor_item (self-reference for linked list)
+  - [descriptor_item](descriptor_item.md) (self-reference for linked list)
 - Called from (representative examples):
-  - set_desc_attr (setting descriptor attributes)
-  - ECPGset_desc (descriptor manipulation)
-  - descriptor_free (cleanup operations)
-  - store_input_from_desc (parameter handling)
-  - ecpg_build_params (parameter building)
+  - [set_desc_attr](../s/set_desc_attr.md) (setting descriptor attributes)
+  - [ECPGset_desc](../E/ECPGset_desc.md) (descriptor manipulation)
+  - [descriptor_free](descriptor_free.md) (cleanup operations)
+  - [store_input_from_desc](../s/store_input_from_desc.md) (parameter handling)
+  - [ecpg_build_params](../e/ecpg_build_params.md) (parameter building)
 
 ## Notes and Other Information
 This structure is fundamental to ECPGs dynamic SQL capabilities, enabling runtime introspection and manipulation of SQL data structures. The comprehensive metadata allows for proper data conversion, memory management, and NULL handling across different PostgreSQL data types. The linked list design supports variable-length result sets and parameter lists, which is essential for dynamic SQL operations where the structure is not known at compile time.

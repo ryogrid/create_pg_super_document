@@ -26,14 +26,14 @@ The function performs a straightforward insertion: allocates shared memory for t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecFetchSlotMinimalTuple
-  - ExecHashGetBucketAndBatch
-  - ExecParallelHashTupleAlloc
+  - [ExecFetchSlotMinimalTuple](ExecFetchSlotMinimalTuple.md)
+  - [ExecHashGetBucketAndBatch](ExecHashGetBucketAndBatch.md)
+  - [ExecParallelHashTupleAlloc](ExecParallelHashTupleAlloc.md)
   - HeapTupleHeaderClearMatch
-  - ExecParallelHashPushTuple
-  - heap_free_minimal_tuple
+  - [ExecParallelHashPushTuple](ExecParallelHashPushTuple.md)
+  - [heap_free_minimal_tuple](../h/heap_free_minimal_tuple.md)
 - Called from (representative examples):
-  - ExecParallelHashJoinNewBatch
+  - [ExecParallelHashJoinNewBatch](ExecParallelHashJoinNewBatch.md)
 
 ## Notes and Other Information
 - Assumes memory allocation will always succeed - no retry mechanism for allocation failures

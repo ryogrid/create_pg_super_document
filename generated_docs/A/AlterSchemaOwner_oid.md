@@ -27,7 +27,7 @@ Key behaviors include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open/table_close (catalog access with RowExclusiveLock)
+  - [table_open](../t/table_open.md)/table_close (catalog access with RowExclusiveLock)
   - [SearchSysCache1](../S/SearchSysCache1.md)/ReleaseSysCache (schema lookup by OID)
   - [AlterSchemaOwner_internal](AlterSchemaOwner_internal.md) (performs the actual ownership change)
 - Called from (representative examples):

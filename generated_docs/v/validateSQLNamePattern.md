@@ -40,10 +40,10 @@ The function integrates pattern processing with safety checks to prevent common 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQExpBufferData](../P/PQExpBufferData.md) (data structure)
-  - initPQExpBuffer
+  - [initPQExpBuffer](../i/initPQExpBuffer.md)
   - [processSQLNamePattern](../p/processSQLNamePattern.md)
   - [PQdb](../P/PQdb.md)
-  - termPQExpBuffer
+  - [termPQExpBuffer](../t/termPQExpBuffer.md)
 - Called from (representative examples):
   - [describeAggregates](../d/describeAggregates.md) (src/bin/psql/describe.c:111)
   - [listForeignTables](../l/listForeignTables.md) (src/bin/psql/describe.c:5971)

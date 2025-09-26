@@ -25,12 +25,12 @@ The function processes WAL records of type  by extracting the relation locator i
 - Functions called/Symbols referenced:
   - XLogRecGetData
   - XLogRecGetInfo
-  - appendStringInfo
+  - [appendStringInfo](../a/appendStringInfo.md)
 - Constants used:
   - XLR_INFO_MASK
   - XLOG_SEQ_LOG
 - Structures used:
-  - xl_seq_rec
+  - [xl_seq_rec](../x/xl_seq_rec.md)
 - Called from (representative examples):
   - WAL description infrastructure (no direct references found)
 

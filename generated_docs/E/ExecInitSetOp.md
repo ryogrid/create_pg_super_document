@@ -34,13 +34,13 @@ The initialization process adapts to the specific set operation command and stra
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (creates SetOpState node)
-  - ExecAssignExprContext (sets up expression evaluation context)
+  - [ExecAssignExprContext](ExecAssignExprContext.md) (sets up expression evaluation context)
   - AllocSetContextCreate (creates memory context for hash table)
   - [ExecInitNode](ExecInitNode.md) (initializes child plan node)
   - [ExecGetResultType](ExecGetResultType.md) (gets result tuple descriptor from child)
   - [ExecInitResultTupleSlotTL](ExecInitResultTupleSlotTL.md) (initializes result tuple slot)
-  - execTuplesHashPrepare (prepares hash functions for hashed strategy)
-  - execTuplesMatchPrepare (prepares equality functions for direct strategy)
+  - [execTuplesHashPrepare](../e/execTuplesHashPrepare.md) (prepares hash functions for hashed strategy)
+  - [execTuplesMatchPrepare](../e/execTuplesMatchPrepare.md) (prepares equality functions for direct strategy)
   - [build_hash_table](../b/build_hash_table.md) (constructs hash table for hashed strategy)
   - [palloc0](../p/palloc0.md) (allocates zeroed memory for per-group state)
 - Called from (representative examples):

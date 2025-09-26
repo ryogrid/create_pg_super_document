@@ -24,12 +24,12 @@ This function iterates through a list of schema names and collects all objects o
   - [LookupExplicitNamespace](../L/LookupExplicitNamespace.md)
   - [getRelationsInNamespace](../g/getRelationsInNamespace.md)
   - [list_concat](../l/list_concat.md)
-  - lappend_oid
-  - table_open
+  - [lappend_oid](../l/lappend_oid.md)
+  - [table_open](../t/table_open.md)
   - [table_beginscan_catalog](../t/table_beginscan_catalog.md)
   - [heap_getnext](../h/heap_getnext.md)
   - [table_endscan](../t/table_endscan.md)
-  - table_close
+  - [table_close](../t/table_close.md)
 - Called from (representative examples):
   - InternalDefaultACL
   - [ExecuteGrantStmt](../E/ExecuteGrantStmt.md)

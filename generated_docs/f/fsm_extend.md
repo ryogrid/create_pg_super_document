@@ -27,14 +27,14 @@ The function is designed to be safe for concurrent access, as multiple backends 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExtendBufferedRelTo
+  - [ExtendBufferedRelTo](../E/ExtendBufferedRelTo.md)
   - BMR_REL (macro)
   - FSM_FORKNUM (constant)
   - EB_CREATE_FORK_IF_NEEDED (flag)
   - EB_CLEAR_SIZE_CACHE (flag)
   - RBM_ZERO_ON_ERROR (flag)
 - Called from (representative examples):
-  - fsm_readbuf
+  - [fsm_readbuf](fsm_readbuf.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the freespace.c file

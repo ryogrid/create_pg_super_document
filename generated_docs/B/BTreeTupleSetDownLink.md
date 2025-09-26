@@ -25,8 +25,8 @@ The function is implemented as a static inline function for performance, as it's
   - [_bt_insert_parent](../b/_bt_insert_parent.md)
   - [_bt_newlevel](../b/_bt_newlevel.md)
   - [_bt_mark_page_halfdead](../b/_bt_mark_page_halfdead.md)
-  - _bt_buildadd
-  - _bt_uppershutdown
+  - [_bt_buildadd](../b/_bt_buildadd.md)
+  - [_bt_uppershutdown](../b/_bt_uppershutdown.md)
   - [btree_xlog_mark_page_halfdead](../b/btree_xlog_mark_page_halfdead.md)
 
 ## Notes and Other Information

@@ -34,13 +34,13 @@ This function is particularly important for checkpoint operations and buffer man
 ## Dependencies
 - Functions called/Symbols referenced:
   - FileIsValid: Validates the file descriptor
-  - FileAccess: Ensures file is accessible and opens if needed
-  - pgstat_report_wait_start: Reports start of wait event for monitoring
-  - pgstat_report_wait_end: Reports end of wait event
-  - pg_flush_data: Platform-specific function to flush data to storage
+  - [FileAccess](FileAccess.md): Ensures file is accessible and opens if needed
+  - [pgstat_report_wait_start](../p/pgstat_report_wait_start.md): Reports start of wait event for monitoring
+  - [pgstat_report_wait_end](../p/pgstat_report_wait_end.md): Reports end of wait event
+  - [pg_flush_data](../p/pg_flush_data.md): Platform-specific function to flush data to storage
   - PG_O_DIRECT: Flag indicating direct I/O mode
 - Called from (representative examples):
-  - mdwriteback: Magnetic disk storage manager writeback operations
+  - [mdwriteback](../m/mdwriteback.md): Magnetic disk storage manager writeback operations
 
 ## Notes and Other Information
 - The function is a no-op for files opened with PG_O_DIRECT since such files bypass OS page cache

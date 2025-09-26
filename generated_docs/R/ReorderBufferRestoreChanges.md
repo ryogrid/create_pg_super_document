@@ -27,10 +27,10 @@ The function works within memory limits (max_changes_in_memory) and processes ch
   - [ReorderBufferReturnChange](ReorderBufferReturnChange.md) (to free existing changes)
   - XLByteToSeg (WAL segment calculation)
   - [ReorderBufferSerializedPath](ReorderBufferSerializedPath.md) (path generation for spill files)
-  - PathNameOpenFile (file opening)
+  - [PathNameOpenFile](../P/PathNameOpenFile.md) (file opening)
   - [ReorderBufferSerializeReserve](ReorderBufferSerializeReserve.md) (buffer management)
   - [FileRead](../F/FileRead.md) (disk I/O)
-  - FileClose (file cleanup)
+  - [FileClose](../F/FileClose.md) (file cleanup)
   - [ReorderBufferRestoreChange](ReorderBufferRestoreChange.md) (change deserialization)
   - dlist_* functions (doubly-linked list operations)
 - Called from (representative examples):

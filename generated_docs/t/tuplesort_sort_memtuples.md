@@ -32,15 +32,15 @@ The function is used for both small in-memory sorts and for sorting individual r
   - qsort_tuple_int32: Optimized sort for 32-bit integer comparisons
   - qsort_ssup: Single-key sort using SortSupport infrastructure
   - qsort_tuple: Generic multi-key tuple sort
-  - ssup_datum_unsigned_cmp: Comparator for unsigned datum values
-  - ssup_datum_signed_cmp: Comparator for signed datum values
-  - ssup_datum_int32_cmp: Comparator for 32-bit integer values
+  - [ssup_datum_unsigned_cmp](../s/ssup_datum_unsigned_cmp.md): Comparator for unsigned datum values
+  - [ssup_datum_signed_cmp](../s/ssup_datum_signed_cmp.md): Comparator for signed datum values
+  - [ssup_datum_int32_cmp](../s/ssup_datum_int32_cmp.md): Comparator for 32-bit integer values
   - LEADER: Macro checking if this is a parallel sort leader
   - SIZEOF_DATUM: Size of the Datum type for platform-specific optimizations
 
 - Called from:
-  - tuplesort_performsort: Main sorting orchestration function
-  - dumptuples: When creating sorted runs for external sorting
+  - [tuplesort_performsort](tuplesort_performsort.md): Main sorting orchestration function
+  - [dumptuples](../d/dumptuples.md): When creating sorted runs for external sorting
   - LEADER: Referenced by parallel sort leader processes
 
 ## Notes and Other Information

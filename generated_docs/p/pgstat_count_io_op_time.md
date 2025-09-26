@@ -60,8 +60,8 @@ The function provides detailed tracking for specific operation types:
   - [FlushBuffer](../F/FlushBuffer.md)
   - [FlushRelationBuffers](../F/FlushRelationBuffers.md)
   - [IssuePendingWritebacks](../I/IssuePendingWritebacks.md)
-  - GetLocalVictimBuffer
-  - ExtendBufferedRelLocal
+  - [GetLocalVictimBuffer](../G/GetLocalVictimBuffer.md)
+  - [ExtendBufferedRelLocal](../E/ExtendBufferedRelLocal.md)
   - [register_dirty_segment](../r/register_dirty_segment.md)
   - [mdsyncfiletag](../m/mdsyncfiletag.md)
 

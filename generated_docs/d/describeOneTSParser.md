@@ -19,10 +19,10 @@ This function provides comprehensive details about a single text search parser b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initPQExpBuffer
+  - [initPQExpBuffer](../i/initPQExpBuffer.md)
   - [printfPQExpBuffer](../p/printfPQExpBuffer.md)  
   - [PSQLexec](../P/PSQLexec.md)
-  - termPQExpBuffer
+  - [termPQExpBuffer](../t/termPQExpBuffer.md)
   - [printQuery](../p/printQuery.md)
   - [PQclear](../P/PQclear.md)
   - gettext_noop

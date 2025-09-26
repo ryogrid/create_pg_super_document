@@ -29,7 +29,7 @@ PQescapeIdentifier is a wrapper function that calls PQescapeInternal with the  p
   - [create_publication](../c/create_publication.md) (in pg_createsubscriber.c)
   - [ddlinfo](../d/ddlinfo.md) (in pgbench.c)
   - [psql_get_variable](../p/psql_get_variable.md) (in psql/common.c)
-  - PQchangePassword (in fe-auth.c)
+  - [PQchangePassword](PQchangePassword.md) (in fe-auth.c)
 
 ## Notes and Other Information
 - Returns a newly allocated string that must be freed by the caller

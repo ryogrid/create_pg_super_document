@@ -33,7 +33,7 @@ The function sets the  option to ensure that ECDH keys are never reused across c
   - EC_KEY_free (OpenSSL function to free EC key structure)
   - ereport (PostgreSQL error reporting function)
 - Called from (representative examples):
-  - be_tls_init (SSL context initialization)
+  - [be_tls_init](../b/be_tls_init.md) (SSL context initialization)
 
 ## Notes and Other Information
 - ECDH setup is much simpler than traditional DH because it only requires specifying a curve name

@@ -29,10 +29,10 @@ The algorithm determines which splitpoint group the phase belongs to, calculates
   - HASH_SPLITPOINT_PHASE_BITS (constant)
   - HASH_SPLITPOINT_PHASE_MASK (constant)
 - Called from (representative examples):
-  - bitno_to_blkno
-  - _hash_ovflblkno_to_bitno
-  - _hash_init_metabuffer
-  - _hash_expandtable
+  - [bitno_to_blkno](../b/bitno_to_blkno.md)
+  - [_hash_ovflblkno_to_bitno](_hash_ovflblkno_to_bitno.md)
+  - [_hash_init_metabuffer](_hash_init_metabuffer.md)
+  - [_hash_expandtable](_hash_expandtable.md)
 
 ## Notes and Other Information
 This function is critical for hash index maintenance and expansion operations. It provides the foundation for determining bucket numbering and allocation strategies. The splitpoint mechanism allows hash indexes to grow incrementally without requiring complete reorganization, making this function essential for performance during dynamic index growth.

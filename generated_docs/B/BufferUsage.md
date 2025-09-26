@@ -54,13 +54,13 @@ The counters are designed to be monotonically increasing and are never reset to 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - instr_time (timing infrastructure)
+  - [instr_time](../i/instr_time.md) (timing infrastructure)
 - Called from (representative examples):
-  - BufferUsageAdd
-  - BufferUsageAccumDiff
-  - InstrEndParallelQuery
-  - InstrAccumParallelQuery
-  - show_buffer_usage (EXPLAIN output)
+  - [BufferUsageAdd](BufferUsageAdd.md)
+  - [BufferUsageAccumDiff](BufferUsageAccumDiff.md)
+  - [InstrEndParallelQuery](../I/InstrEndParallelQuery.md)
+  - [InstrAccumParallelQuery](../I/InstrAccumParallelQuery.md)
+  - [show_buffer_usage](../s/show_buffer_usage.md) (EXPLAIN output)
   - parallel vacuum operations
   - parallel index building
 

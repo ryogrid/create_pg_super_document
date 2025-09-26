@@ -27,8 +27,8 @@ The function balances between providing useful coordination information and avoi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockConditionalAcquire
-  - LWLockRelease
+  - [LWLockConditionalAcquire](../L/LWLockConditionalAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - [ss_search](ss_search.md) (internal function with set=true)
   - SYNC_SCAN_REPORT_INTERVAL (constant, 128KB / BLCKSZ)
   - SyncScanLock (lock identifier)

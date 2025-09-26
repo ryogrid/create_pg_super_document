@@ -20,15 +20,15 @@ This function serves as a convenient wrapper around `cstring_to_text()` for scen
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - cstring_to_text
-  - pfree
+  - [cstring_to_text](../c/cstring_to_text.md)
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - pg_get_ruledef
-  - pg_get_viewdef
-  - pg_get_triggerdef
-  - pg_get_indexdef
-  - pg_get_constraintdef
-  - pg_get_functiondef
+  - [pg_get_ruledef](../p/pg_get_ruledef.md)
+  - [pg_get_viewdef](../p/pg_get_viewdef.md)
+  - [pg_get_triggerdef](../p/pg_get_triggerdef.md)
+  - [pg_get_indexdef](../p/pg_get_indexdef.md)
+  - [pg_get_constraintdef](../p/pg_get_constraintdef.md)
+  - [pg_get_functiondef](../p/pg_get_functiondef.md)
 
 ## Notes and Other Information
 - This is a static function within ruleutils.c, primarily used for rule decompilation utilities

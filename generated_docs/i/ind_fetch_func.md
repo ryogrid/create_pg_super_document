@@ -25,7 +25,7 @@ The  function is a specialized fetch function used during index analysis operati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - VacAttrStatsP (structure type)
+  - [VacAttrStatsP](../V/VacAttrStatsP.md) (structure type)
 - Called from (representative examples):
   - [compute_index_stats](../c/compute_index_stats.md)
 

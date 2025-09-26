@@ -20,13 +20,13 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [OnCommitItem](../O/OnCommitItem.md) (struct for on-commit entries)
-  - lappend_oid (append OID to list)
+  - [lappend_oid](../l/lappend_oid.md) (append OID to list)
   - [heap_truncate](../h/heap_truncate.md) (truncate heap relations)
   - [new_object_addresses](../n/new_object_addresses.md) (create object address collection)
   - [object_address_present](../o/object_address_present.md) (check if object exists in collection)
   - [add_exact_object_address](../a/add_exact_object_address.md) (add object to collection)
-  - GetTransactionSnapshot (get current transaction snapshot)
-  - PushActiveSnapshot/PopActiveSnapshot (snapshot management)
+  - [GetTransactionSnapshot](../G/GetTransactionSnapshot.md) (get current transaction snapshot)
+  - [PushActiveSnapshot](PushActiveSnapshot.md)/PopActiveSnapshot (snapshot management)
   - [performMultipleDeletions](../p/performMultipleDeletions.md) (delete multiple database objects)
 - Called from:
   - [CommitTransaction](../C/CommitTransaction.md) (during normal transaction commit)

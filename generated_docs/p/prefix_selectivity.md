@@ -39,7 +39,7 @@ The function handles edge cases where histograms are unavailable (returns DEFAUL
 - Functions called/Symbols referenced:
   - [get_opcode](../g/get_opcode.md) (to get operator implementation function)
   - [fmgr_info](../f/fmgr_info.md) (to initialize function manager info)
-  - ineq_histogram_selectivity (core histogram-based selectivity estimation)
+  - [ineq_histogram_selectivity](../i/ineq_histogram_selectivity.md) (core histogram-based selectivity estimation)
   - [make_greater_string](../m/make_greater_string.md) (creates next possible string for upper bound)
   - [var_eq_const](../v/var_eq_const.md) (estimates equality selectivity for clamping)
   - DEFAULT_MATCH_SEL (fallback selectivity when no histogram available)

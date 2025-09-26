@@ -25,11 +25,11 @@ The structure is allocated in the sort context's memory and is paired with a shi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FmgrInfo (PostgreSQL function manager info structure)
-  - FunctionCallInfoBaseData (base structure for function call information)
+  - [FmgrInfo](../F/FmgrInfo.md) (PostgreSQL function manager info structure)
+  - [FunctionCallInfoBaseData](../F/FunctionCallInfoBaseData.md) (base structure for function call information)
 - Called from (representative examples):
-  - comparison_shim (uses SortShimExtra to perform actual comparisons)
-  - PrepareSortSupportComparisonShim (allocates and initializes SortShimExtra)
+  - [comparison_shim](../c/comparison_shim.md) (uses SortShimExtra to perform actual comparisons)
+  - [PrepareSortSupportComparisonShim](../P/PrepareSortSupportComparisonShim.md) (allocates and initializes SortShimExtra)
   - SizeForSortShimExtra (macro that calculates the memory size needed for allocation)
 
 ## Notes and Other Information

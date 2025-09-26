@@ -22,7 +22,7 @@ This function acquires a shared advisory lock that is scoped to the current sess
 - Functions called/Symbols referenced:
   - SET_LOCKTAG_INT32: Macro to initialize the lock tag with two 32-bit integers
   - [LockAcquire](../L/LockAcquire.md): Core lock acquisition function with ShareLock mode and session scope (true)
-  - LOCKTAG: Lock identifier structure
+  - [LOCKTAG](../L/LOCKTAG.md): Lock identifier structure
   - ShareLock: Lock mode constant for shared access
   - PG_RETURN_VOID: Macro to return void from a PostgreSQL function
 - Called from (representative examples):

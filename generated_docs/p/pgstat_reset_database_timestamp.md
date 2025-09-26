@@ -18,11 +18,11 @@ This function provides a mechanism to update only the reset timestamp of a datab
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PgStat_EntryRef (statistics entry reference structure)
+  - [PgStat_EntryRef](../P/PgStat_EntryRef.md) (statistics entry reference structure)
   - [PgStatShared_Database](../P/PgStatShared_Database.md) (shared database statistics structure)
-  - pgstat_get_entry_ref_locked (obtains locked reference to statistics entry)
+  - [pgstat_get_entry_ref_locked](pgstat_get_entry_ref_locked.md) (obtains locked reference to statistics entry)
   - PGSTAT_KIND_DATABASE (constant indicating database-level statistics)
-  - pgstat_unlock_entry (releases lock on statistics entry)
+  - [pgstat_unlock_entry](pgstat_unlock_entry.md) (releases lock on statistics entry)
 - Called from (representative examples):
   - [pgstat_reset](pgstat_reset.md) (from src/backend/utils/activity/pgstat.c:745)
 

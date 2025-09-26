@@ -21,13 +21,13 @@ This function implements a worker pool management strategy for parallel apply wo
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pa_setup_dsm](pa_setup_dsm.md)
-  - logicalrep_worker_launch
-  - dsm_segment_handle
+  - [logicalrep_worker_launch](../l/logicalrep_worker_launch.md)
+  - [dsm_segment_handle](../d/dsm_segment_handle.md)
   - [pa_free_worker_info](pa_free_worker_info.md)
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - [palloc0](palloc0.md)
   - [pfree](pfree.md)
-  - lappend
+  - [lappend](../l/lappend.md)
   - lfirst
 - Called from:
   - [pa_allocate_worker](pa_allocate_worker.md)

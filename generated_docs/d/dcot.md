@@ -21,7 +21,7 @@ This function implements the SQL COT function for PostgreSQL, computing the cota
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT8
   - isnan
-  - get_float8_nan
+  - [get_float8_nan](../g/get_float8_nan.md)
   - tan (standard C library function)
   - isinf
   - ereport

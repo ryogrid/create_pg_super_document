@@ -29,8 +29,8 @@ The function first handles memory management by freeing any existing buffer in t
   - memcpy (copies digit array)
   - memmove (copies entire structure)
 - Called from (representative examples):
-  - generate_series_step_numeric (numeric series generation)
-  - width_bucket_numeric (histogram bucket calculations)
+  - [generate_series_step_numeric](../g/generate_series_step_numeric.md) (numeric series generation)
+  - [width_bucket_numeric](../w/width_bucket_numeric.md) (histogram bucket calculations)
   - [compute_bucket](../c/compute_bucket.md) (bucket computation utilities)
   - [div_mod_var](../d/div_mod_var.md) (division and modulo operations)
   - [ceil_var](../c/ceil_var.md) (ceiling function implementation)

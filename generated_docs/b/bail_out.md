@@ -21,8 +21,8 @@ This function handles critical failures that make continued testing impossible b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `emit_tap_output_v` - Function to output TAP protocol messages
-  - `BAIL` - TAPtype enum value indicating a bail-out condition
+  - `[emit_tap_output_v](../e/emit_tap_output_v.md)` - Function to output TAP protocol messages
+  - `BAIL` - [TAPtype](../T/TAPtype.md) enum value indicating a bail-out condition
   - `_exit` - System call for immediate process termination
   - `exit` - Standard library function for process termination
 - Called from (representative examples):

@@ -44,7 +44,7 @@ The function is designed to be called in uncommon operations like variable delet
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - config_generic (struct)
+  - [config_generic](../c/config_generic.md) (struct)
   - PGC_S_DEFAULT (constant)
   - [dlist_delete](../d/dlist_delete.md) (function)
   - [slist_delete](../s/slist_delete.md) (function)
@@ -52,7 +52,7 @@ The function is designed to be called in uncommon operations like variable delet
 - Called from (representative examples):
   - [define_custom_variable](../d/define_custom_variable.md)
   - [MarkGUCPrefixReserved](../M/MarkGUCPrefixReserved.md)
-  - RestoreGUCState
+  - [RestoreGUCState](RestoreGUCState.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the guc.c file

@@ -24,16 +24,16 @@ The function ensures data consistency through proper locking and implements safe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_lock_entry
-  - pgstat_unlock_entry
+  - [pgstat_lock_entry](pgstat_lock_entry.md)
+  - [pgstat_unlock_entry](pgstat_unlock_entry.md)
   - [GetCurrentTransactionStopTimestamp](../G/GetCurrentTransactionStopTimestamp.md)
   - [pgstat_prep_database_pending](pgstat_prep_database_pending.md)
-  - PgStat_EntryRef (data structure)
-  - PgStat_TableStatus (data structure)
+  - [PgStat_EntryRef](../P/PgStat_EntryRef.md) (data structure)
+  - [PgStat_TableStatus](../P/PgStat_TableStatus.md) (data structure)
   - [PgStatShared_Relation](../P/PgStatShared_Relation.md) (data structure)
   - [PgStat_StatTabEntry](../P/PgStat_StatTabEntry.md) (data structure)
   - [PgStat_StatDBEntry](../P/PgStat_StatDBEntry.md) (data structure)
-  - PgStat_TableCounts (data structure)
+  - [PgStat_TableCounts](../P/PgStat_TableCounts.md) (data structure)
 - Called from (representative examples):
   - Statistics hash table management system (SH_DECLARE in pgstat.c)
 

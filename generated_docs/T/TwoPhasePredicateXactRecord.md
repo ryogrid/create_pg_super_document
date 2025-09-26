@@ -33,9 +33,9 @@ The structure is used during the prepare phase to serialize critical transaction
 - Functions called/Symbols referenced:
   - TransactionId (PostgreSQL transaction identifier type)
 - Called from (representative examples):
-  - AtPrepare_PredicateLocks
-  - predicatelock_twophase_recover
-  - TwoPhasePredicateRecord
+  - [AtPrepare_PredicateLocks](../A/AtPrepare_PredicateLocks.md)
+  - [predicatelock_twophase_recover](../p/predicatelock_twophase_recover.md)
+  - [TwoPhasePredicateRecord](TwoPhasePredicateRecord.md)
 
 ## Notes and Other Information
 - Located in src/include/storage/predicate_internals.h:441-445

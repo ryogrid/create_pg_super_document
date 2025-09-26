@@ -19,7 +19,7 @@ This function is a type-checking utility that determines whether a given clause 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BoolExpr (structure type)
+  - [BoolExpr](../B/BoolExpr.md) (structure type)
   - NOT_EXPR (enum value)
   - IsA (macro for type checking)
 - Called from (representative examples):
@@ -27,7 +27,7 @@ This function is a type-checking utility that determines whether a given clause 
   - [match_boolean_index_clause](../m/match_boolean_index_clause.md)
   - [predicate_implied_by_simple_clause](../p/predicate_implied_by_simple_clause.md)
   - [dependency_is_compatible_clause](../d/dependency_is_compatible_clause.md)
-  - mcv_get_match_bitmap
+  - [mcv_get_match_bitmap](../m/mcv_get_match_bitmap.md)
 
 ## Notes and Other Information
 - This is an inline function defined in a header file for performance

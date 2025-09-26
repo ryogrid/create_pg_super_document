@@ -23,7 +23,7 @@ This PostgreSQL function implements privilege checking for database types using 
 - Functions called/Symbols referenced:
   - PG_GETARG_NAME
   - PG_GETARG_TEXT_PP
-  - get_role_oid_or_public
+  - [get_role_oid_or_public](../g/get_role_oid_or_public.md)
   - [convert_type_name](../c/convert_type_name.md)
   - [convert_type_priv_string](../c/convert_type_priv_string.md)
   - [object_aclcheck](../o/object_aclcheck.md)

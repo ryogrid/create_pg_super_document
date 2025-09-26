@@ -26,15 +26,15 @@ This approach is particularly beneficial when sorting multiple small batches of 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `tuplesort_updatemax`: Updates maximum memory usage statistics
-  - `tuplesort_free`: Frees per-batch memory resources
-  - `tuplesort_begin_batch`: Initializes state for a new batch
-  - `Tuplesortstate`: The tuplesort state structure being operated on
+  - `[tuplesort_updatemax](tuplesort_updatemax.md)`: Updates maximum memory usage statistics
+  - `[tuplesort_free](tuplesort_free.md)`: Frees per-batch memory resources
+  - `[tuplesort_begin_batch](tuplesort_begin_batch.md)`: Initializes state for a new batch
+  - `[Tuplesortstate](../T/Tuplesortstate.md)`: The tuplesort state structure being operated on
 
 - Called from (representative examples):
-  - `switchToPresortedPrefixMode` (src/backend/executor/nodeIncrementalSort.c:323)
-  - `ExecIncrementalSort` (src/backend/executor/nodeIncrementalSort.c:626)
-  - `ExecReScanIncrementalSort` (src/backend/executor/nodeIncrementalSort.c:1149, 1151)
+  - `[switchToPresortedPrefixMode](../s/switchToPresortedPrefixMode.md)` (src/backend/executor/nodeIncrementalSort.c:323)
+  - `[ExecIncrementalSort](../E/ExecIncrementalSort.md)` (src/backend/executor/nodeIncrementalSort.c:626)
+  - `[ExecReScanIncrementalSort](../E/ExecReScanIncrementalSort.md)` (src/backend/executor/nodeIncrementalSort.c:1149, 1151)
 
 ## Notes and Other Information
 - This function is primarily used by incremental sort operations where multiple small batches need to be sorted

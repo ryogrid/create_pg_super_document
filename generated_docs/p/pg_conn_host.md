@@ -37,10 +37,10 @@ The structure supports three types of host addressing: host names, IP addresses,
 - Functions called/Symbols referenced:
   - pg_conn_host_type (enum for host type classification)
 - Called from (representative examples):
-  - pqConnectOptions2 (in fe-connect.c for parsing connection options)
-  - PQconnectPoll (in fe-connect.c for connection polling)
-  - PQcancelCreate (in fe-cancel.c for cancellation requests)
-  - pg_conn (main connection structure)
+  - [pqConnectOptions2](pqConnectOptions2.md) (in fe-connect.c for parsing connection options)
+  - [PQconnectPoll](../P/PQconnectPoll.md) (in fe-connect.c for connection polling)
+  - [PQcancelCreate](../P/PQcancelCreate.md) (in fe-cancel.c for cancellation requests)
+  - [pg_conn](pg_conn.md) (main connection structure)
 
 ## Notes and Other Information
 - Part of the libpq internal interface, defined in libpq-int.h:349-359

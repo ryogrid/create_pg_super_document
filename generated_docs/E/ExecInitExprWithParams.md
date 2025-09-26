@@ -39,7 +39,7 @@ This function is typically used for expressions that need to be evaluated indepe
   - [ParamListInfo](../P/ParamListInfo.md) (parameter information structure)
 - Called from (representative examples):
   - [InitPartitionPruneContext](../I/InitPartitionPruneContext.md) (for partition pruning expressions)
-  - ExecProcNode (header inclusion)
+  - [ExecProcNode](ExecProcNode.md) (header inclusion)
 
 ## Notes and Other Information
 - Designed specifically for standalone expressions not associated with a plan tree

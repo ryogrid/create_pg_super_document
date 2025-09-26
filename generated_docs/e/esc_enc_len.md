@@ -28,7 +28,7 @@ The calculation ensures precise memory allocation for the encoding operation, pr
 - Functions called/Symbols referenced:
   - IS_HIGHBIT_SET (macro to check if high bit is set in a character)
 - Called from (representative examples):
-  - esc_dec_len (indirectly referenced)
+  - [esc_dec_len](esc_dec_len.md) (indirectly referenced)
 
 ## Notes and Other Information
 - This is a static utility function used internally for memory allocation planning

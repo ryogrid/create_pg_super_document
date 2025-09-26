@@ -29,7 +29,7 @@ This function serves as the primary constructor for ArchiveHandle objects in Pos
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_log_debug
-  - pg_malloc0
+  - [pg_malloc0](../p/pg_malloc0.md)
   - [pg_strdup](../p/pg_strdup.md)
   - time
   - [InitCompressFileHandle](../I/InitCompressFileHandle.md)

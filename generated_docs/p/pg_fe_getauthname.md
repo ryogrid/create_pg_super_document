@@ -24,11 +24,11 @@ This function is commonly used during connection establishment when no explicit 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_fe_getusername (core username resolution functionality)
+  - [pg_fe_getusername](pg_fe_getusername.md) (core username resolution functionality)
   - geteuid (Unix effective user ID retrieval)
 - Called from (representative examples):
-  - pqConnectOptions2 (connection parameter setup)
-  - conninfo_add_defaults (default connection info setup)
+  - [pqConnectOptions2](pqConnectOptions2.md) (connection parameter setup)
+  - [conninfo_add_defaults](../c/conninfo_add_defaults.md) (default connection info setup)
 
 ## Notes and Other Information
 - Returns malloc'd memory that must be freed by caller

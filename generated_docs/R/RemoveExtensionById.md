@@ -25,8 +25,8 @@ This function implements the core deletion logic for PostgreSQL extensions. It p
   - [systable_getnext](../s/systable_getnext.md)
   - [CatalogTupleDelete](../C/CatalogTupleDelete.md)
   - [systable_endscan](../s/systable_endscan.md)
-  - table_open
-  - table_close
+  - [table_open](../t/table_open.md)
+  - [table_close](../t/table_close.md)
 - Global variables referenced:
   - CurrentExtensionObject
 - Called from (representative examples):

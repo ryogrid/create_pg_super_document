@@ -42,6 +42,6 @@ The conversion process involves parsing the source EUC-JP encoded string, mappin
 ## Notes and Other Information
 - This function is typically registered as a conversion procedure in PostgreSQL's system catalogs rather than being called directly
 - The function returns the number of bytes successfully converted as an integer
-- Error handling is controlled by the  parameter - when true, conversion failures are silently handled rather than throwing exceptions
+- Error handling is controlled by the  parameter - [when](../w/when.md) true, conversion failures are silently handled rather than throwing exceptions
 - The conversion relies on pre-built mapping trees that contain the character correspondence between EUC-JP and Unicode code points
 - Located in: 

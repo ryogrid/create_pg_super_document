@@ -29,11 +29,11 @@ The initialization follows PostgreSQL's standard executor initialization pattern
   - makeNode: Creates new NamedTuplestoreScanState node
   - [ExecNamedTuplestoreScan](ExecNamedTuplestoreScan.md): Sets as the main execution function
   - [get_ENR](../g/get_ENR.md): Retrieves Ephemeral Named Relation by name from query environment
-  - ENRMetadataGetTupDesc: Gets tuple descriptor from ENR metadata
-  - tuplestore_alloc_read_pointer: Allocates new read pointer for tuple store access
+  - [ENRMetadataGetTupDesc](ENRMetadataGetTupDesc.md): Gets tuple descriptor from ENR metadata
+  - [tuplestore_alloc_read_pointer](../t/tuplestore_alloc_read_pointer.md): Allocates new read pointer for tuple store access
   - [tuplestore_select_read_pointer](../t/tuplestore_select_read_pointer.md): Selects the read pointer for operations
   - [tuplestore_rescan](../t/tuplestore_rescan.md): Rewinds the tuple store to beginning
-  - ExecAssignExprContext: Creates expression evaluation context
+  - [ExecAssignExprContext](ExecAssignExprContext.md): Creates expression evaluation context
   - [ExecInitScanTupleSlot](ExecInitScanTupleSlot.md): Initializes scan tuple slot with tuple descriptor
   - [ExecInitResultTypeTL](ExecInitResultTypeTL.md): Initializes result tuple type from target list
   - [ExecAssignScanProjectionInfo](ExecAssignScanProjectionInfo.md): Sets up projection information

@@ -293,7 +293,7 @@ Text creation and manipulation
 - Functions called/Symbols referenced:
   - [xl_xact_abort](xl_xact_abort.md) (struct type)
   - RepOriginId (type)
-  - xl_xact_parsed_abort (struct type)
+  - [xl_xact_parsed_abort](xl_xact_parsed_abort.md) (struct type)
   - [ParseAbortRecord](../P/ParseAbortRecord.md) (parses abort record into structured format)
   - [timestamptz_to_str](../t/timestamptz_to_str.md) (formats timestamps)
   - [xact_desc_relations](xact_desc_relations.md) (formats relation information)

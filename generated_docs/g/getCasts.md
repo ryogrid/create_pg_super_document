@@ -25,11 +25,11 @@ The function constructs different SQL queries based on the server version: for P
 - Functions called/Symbols referenced:
   - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
   - [CastInfo](../C/CastInfo.md)
-  - pg_malloc
+  - [pg_malloc](../p/pg_malloc.md)
   - atooid
   - [AssignDumpId](../A/AssignDumpId.md)
   - [findTypeByOid](../f/findTypeByOid.md)
-  - initPQExpBuffer
+  - [initPQExpBuffer](../i/initPQExpBuffer.md)
   - [selectDumpableCast](../s/selectDumpableCast.md)
 - Called from (representative examples):
   - [getSchemaData](getSchemaData.md)

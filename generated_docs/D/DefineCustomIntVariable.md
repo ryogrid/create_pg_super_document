@@ -45,7 +45,7 @@ This function provides the public interface for PostgreSQL extensions to create 
   - [init_custom_variable](../i/init_custom_variable.md)
   - [define_custom_variable](../d/define_custom_variable.md)
   - PGC_INT (config type constant)
-  - config_int (structure type)
+  - [config_int](../c/config_int.md) (structure type)
 - Called from (representative examples):
   - [_PG_init](../P/_PG_init.md) functions in test modules
   - delay_execution module initialization
@@ -54,11 +54,11 @@ This function provides the public interface for PostgreSQL extensions to create 
 ## Notes and Other Information
 - This is a public function exported in the PostgreSQL API for extensions
 - The valueAddr parameter must point to a variable with sufficient lifetime (typically static/global)
-- Range validation is automatically performed by the GUC system using min/max values
+- [Range](../R/Range.md) validation is automatically performed by the GUC system using min/max values
 - The bootValue is used as both the initial value and reset value and must be within [minValue, maxValue]
 - Hook functions are optional and can be NULL
 - [Variable](../V/Variable.md) names should follow the pattern 'extension_name.variable_name' to avoid conflicts
 - All custom variables are grouped under CUSTOM_OPTIONS in pg_settings
 - The function performs security checks inherited from init_custom_variable
 - Memory for the config structure is allocated via guc_malloc and managed by the GUC system
-- Range violations are automatically caught and reported as errors by the GUC infrastructure
+- [Range](../R/Range.md) violations are automatically caught and reported as errors by the GUC infrastructure

@@ -25,10 +25,10 @@ When content is provided, the function strips leading whitespace and formats the
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_strcasecmp](../p/pg_strcasecmp.md) (case-insensitive string comparison)
-  - text_to_cstring (text to C string conversion)
+  - [text_to_cstring](../t/text_to_cstring.md) (text to C string conversion)
   - [stringinfo_to_xmltype](../s/stringinfo_to_xmltype.md) (StringInfo to XML type conversion)
-  - appendStringInfo/appendStringInfoChar/appendStringInfoString (string building)
-  - initStringInfo (StringInfo initialization)
+  - [appendStringInfo](../a/appendStringInfo.md)/appendStringInfoChar/appendStringInfoString (string building)
+  - [initStringInfo](../i/initStringInfo.md) (StringInfo initialization)
 - Called from (representative examples):
   - [ExecEvalXmlExpr](../E/ExecEvalXmlExpr.md) (expression evaluation in executor)
   - PG_RETURN_XML_P (via macro usage)

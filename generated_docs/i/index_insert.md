@@ -38,7 +38,7 @@ The function returns a boolean indicating whether the insertion was successful.
 ## Dependencies
 - Functions called/Symbols referenced:
   - IndexUniqueCheck (type)
-  - IndexInfo (type)
+  - [IndexInfo](../I/IndexInfo.md) (type)
   - RELATION_CHECKS (macro)
   - CHECK_REL_PROCEDURE (macro)
   - [CheckForSerializableConflictIn](../C/CheckForSerializableConflictIn.md)

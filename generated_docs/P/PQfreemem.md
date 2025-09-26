@@ -29,7 +29,7 @@ The function ensures that memory is freed using the same memory management syste
   - [ReceiveCopyData](../R/ReceiveCopyData.md)
   - [StreamLogicalLog](../S/StreamLogicalLog.md)
   - [dumpTableData_copy](../d/dumpTableData_copy.md)
-  - PQchangePassword
+  - [PQchangePassword](PQchangePassword.md)
 
 ## Notes and Other Information
 - This function is essential for proper memory management when using libpq in Windows environments or multithreaded applications

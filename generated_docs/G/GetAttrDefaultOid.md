@@ -20,7 +20,7 @@ This function performs a lookup in the pg_attrdef system catalog to find the OID
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open/table_close: Opens and closes pg_attrdef catalog with shared lock
+  - [table_open](../t/table_open.md)/table_close: Opens and closes pg_attrdef catalog with shared lock
   - [ScanKeyInit](../S/ScanKeyInit.md): Initializes scan keys for relation ID and attribute number
   - [systable_beginscan](../s/systable_beginscan.md): Begins scan using AttrDefaultIndexId for efficient lookup
   - [systable_getnext](../s/systable_getnext.md): Retrieves matching tuple from scan

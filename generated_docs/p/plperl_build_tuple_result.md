@@ -49,6 +49,6 @@ The function handles missing columns gracefully by leaving them as NULL, but thr
 - System attributes (attn <= 0) are explicitly rejected with ERRCODE_FEATURE_NOT_SUPPORTED
 - Nonexistent columns trigger ERRCODE_UNDEFINED_COLUMN errors
 - The function properly manages memory by freeing temporary allocations
-- Hash iteration is reset at the end to ensure consistent state
+- [Hash](../H/Hash.md) iteration is reset at the end to ensure consistent state
 - All unspecified columns in the hash are set to NULL in the resulting tuple
 - This function is essential for PL/Perl functions that return composite types or records

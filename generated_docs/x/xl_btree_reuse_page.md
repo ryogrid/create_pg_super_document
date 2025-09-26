@@ -33,7 +33,7 @@ When a page is reused, any transactions that might have been reading the old con
 - Functions called/Symbols referenced:
   - [RelFileLocator](../R/RelFileLocator.md) (type)
   - BlockNumber (type)
-  - FullTransactionId (type)
+  - [FullTransactionId](../F/FullTransactionId.md) (type)
   - [bool](../b/bool.md) (type)
 
 - Called from (representative examples):

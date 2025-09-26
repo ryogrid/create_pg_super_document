@@ -139,12 +139,12 @@ The structure contains comprehensive information needed for cost-based optimizat
 - Functions called/Symbols referenced:
   - RelOptKind (line 859)
   - Cardinality (lines 871, 943)
-  - PathTarget (line 887)
-  - RTEKind (line 916)
-  - PartitionScheme (line 1009)
-  - PartitionBoundInfoData (line 1017)
-  - QualCost (line 981)
-  - FdwRoutine (line 964)
+  - [PathTarget](../P/PathTarget.md) (line 887)
+  - [RTEKind](RTEKind.md) (line 916)
+  - [PartitionScheme](../P/PartitionScheme.md) (line 1009)
+  - [PartitionBoundInfoData](../P/PartitionBoundInfoData.md) (line 1017)
+  - [QualCost](../Q/QualCost.md) (line 981)
+  - [FdwRoutine](../F/FdwRoutine.md) (line 964)
 - Called from (representative examples):
   - Used extensively throughout the PostgreSQL optimizer
   - Core structure in src/backend/optimizer/ modules

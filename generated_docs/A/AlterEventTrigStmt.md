@@ -31,8 +31,8 @@ AlterEventTrigStmt is a parse tree node that captures the components of an ALTER
   - TRIGGER_FIRES_* constants (for firing configurations)
   - NodeTag (for type identification)
 - Called from (representative examples):
-  - AlterEventTrigger (in src/backend/commands/event_trigger.c:423)
-  - ProcessUtilitySlow (utility command processing)
+  - [AlterEventTrigger](AlterEventTrigger.md) (in src/backend/commands/event_trigger.c:423)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (utility command processing)
 
 ## Notes and Other Information
 - Part of PostgreSQL's event trigger system for controlling trigger behavior in replication environments

@@ -26,11 +26,11 @@ This setup ensures that when catalog tables are accessed during logical decoding
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HTAB (hash table data type)
+  - [HTAB](../H/HTAB.md) (hash table data type)
   - Assert (assertion macro)
 - Called from (representative examples):
-  - ReorderBufferQueueMessage (in logical reorderbuffer)
-  - ReorderBufferProcessTXN (in logical reorderbuffer, multiple locations)
+  - [ReorderBufferQueueMessage](../R/ReorderBufferQueueMessage.md) (in logical reorderbuffer)
+  - [ReorderBufferProcessTXN](../R/ReorderBufferProcessTXN.md) (in logical reorderbuffer, multiple locations)
 
 ## Notes and Other Information
 - This function is specifically designed for logical decoding functionality

@@ -26,7 +26,7 @@ This provides a conservative estimate of available free space, ensuring that all
   - MaxFSMRequestSize (maximum free space request size constant)
   - FSM_CAT_STEP (step size for category calculation)
 - Called from (representative examples):
-  - GetRecordedFreeSpace (src/backend/storage/freespace/freespace.c:260)
+  - [GetRecordedFreeSpace](../G/GetRecordedFreeSpace.md) (src/backend/storage/freespace/freespace.c:260)
 
 ## Notes and Other Information
 - This is a static internal function, not exposed in the public API

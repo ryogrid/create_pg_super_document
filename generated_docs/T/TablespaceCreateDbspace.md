@@ -27,7 +27,7 @@ For the global tablespace (GLOBALTABLESPACE_OID), the function returns early as 
 - Functions called/Symbols referenced:
   - [GetDatabasePath](../G/GetDatabasePath.md): Constructs the full path for the database directory
   - S_ISDIR: System macro to check if a file is a directory
-  - MakePGDirectory: PostgreSQL wrapper for creating directories
+  - [MakePGDirectory](../M/MakePGDirectory.md): PostgreSQL wrapper for creating directories
   - [pg_mkdir_p](../p/pg_mkdir_p.md): Creates directory hierarchies recursively
 - Called from (representative examples):
   - [mdcreate](../m/mdcreate.md): During relation file creation

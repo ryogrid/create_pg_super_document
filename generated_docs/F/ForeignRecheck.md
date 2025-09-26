@@ -28,7 +28,7 @@ The expression context is properly set up with the tuple as the scan tuple and r
 ## Dependencies
 - Functions called/Symbols referenced:
   - ResetExprContext
-  - ExecQual
+  - [ExecQual](../E/ExecQual.md)
   - RecheckForeignScan (via fdwroutine callback)
 - Called from:
   - [ExecForeignScan](../E/ExecForeignScan.md)

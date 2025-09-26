@@ -24,10 +24,10 @@ The function returns the removed element without deallocating it, allowing the c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ListParsedLex (structure type)
-  - ParsedLex (structure type)
+  - [ListParsedLex](ListParsedLex.md) (structure type)
+  - [ParsedLex](../P/ParsedLex.md) (structure type)
 - Called from (representative examples):
-  - RemoveHead
+  - [RemoveHead](../R/RemoveHead.md)
 
 ## Notes and Other Information
 - Static function with local scope to ts_parse.c

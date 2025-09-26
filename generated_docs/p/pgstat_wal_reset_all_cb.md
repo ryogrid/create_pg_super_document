@@ -23,9 +23,9 @@ The function is part of PostgreSQL's statistics collection framework and is desi
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PgStatShared_Wal](../P/PgStatShared_Wal.md) (structure type)
-  - LWLockAcquire (for exclusive lock acquisition)
+  - [LWLockAcquire](../L/LWLockAcquire.md) (for exclusive lock acquisition)
   - memset (for zeroing statistics structure)
-  - LWLockRelease (for lock release)
+  - [LWLockRelease](../L/LWLockRelease.md) (for lock release)
   - pgStatLocal.shmem->wal (shared memory statistics access)
 
 - Called from (representative examples):

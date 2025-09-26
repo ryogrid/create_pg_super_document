@@ -23,11 +23,11 @@ The `mark_async_capable_plan` function evaluates whether a given execution plan 
   - nodeTag
   - [trivial_subqueryscan](../t/trivial_subqueryscan.md)
   - [mark_async_capable_plan](mark_async_capable_plan.md) (recursive call)
-  - SubqueryScan (type)
+  - [SubqueryScan](../S/SubqueryScan.md) (type)
   - [FdwRoutine](../F/FdwRoutine.md) (type)
-  - SubqueryScanPath (type)
-  - ForeignPath (type)
-  - ProjectionPath (type)
+  - [SubqueryScanPath](../S/SubqueryScanPath.md) (type)
+  - [ForeignPath](../F/ForeignPath.md) (type)
+  - [ProjectionPath](../P/ProjectionPath.md) (type)
   - [Result](../R/Result.md) (type)
 - Called from (representative examples):
   - [create_append_plan](../c/create_append_plan.md)

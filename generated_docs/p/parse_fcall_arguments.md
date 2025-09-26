@@ -24,8 +24,8 @@ parse_fcall_arguments is responsible for extracting and processing function argu
   - [pq_getmsgint](pq_getmsgint.md)
   - FUNC_MAX_ARGS
   - [pq_getmsgbytes](pq_getmsgbytes.md)
-  - resetStringInfo
-  - appendBinaryStringInfo
+  - [resetStringInfo](../r/resetStringInfo.md)
+  - [appendBinaryStringInfo](../a/appendBinaryStringInfo.md)
   - [getTypeInputInfo](../g/getTypeInputInfo.md)
   - [pg_client_to_server](pg_client_to_server.md)
   - [OidInputFunctionCall](../O/OidInputFunctionCall.md)

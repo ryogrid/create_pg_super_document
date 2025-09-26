@@ -22,13 +22,13 @@ CreateRole is the core implementation function for the CREATE ROLE, CREATE USER,
 - Functions called/Symbols referenced:
   - [GetUserId](../G/GetUserId.md)
   - [has_createrole_privilege](../h/has_createrole_privilege.md)
-  - superuser_arg
+  - [superuser_arg](../s/superuser_arg.md)
   - [have_createdb_privilege](../h/have_createdb_privilege.md)
   - [has_rolreplication](../h/has_rolreplication.md)
   - [has_bypassrls_privilege](../h/has_bypassrls_privilege.md)
   - [IsReservedName](../I/IsReservedName.md)
-  - get_role_oid
-  - table_open
+  - [get_role_oid](../g/get_role_oid.md)
+  - [table_open](../t/table_open.md)
   - RelationGetDescr
   - [CatalogTupleInsert](CatalogTupleInsert.md)
   - [AddRoleMems](../A/AddRoleMems.md)

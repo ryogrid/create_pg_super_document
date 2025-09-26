@@ -33,7 +33,7 @@ The function is conditionally compiled to fall back to scalar implementation whe
   - [pg_lfind32_simd_helper](pg_lfind32_simd_helper.md) (vectorized 4-register block processing)
   - USE_NO_SIMD (compilation flag controlling SIMD availability)
 - Called from (representative examples):
-  - TransactionIdIsInProgress (transaction processing)
+  - [TransactionIdIsInProgress](../T/TransactionIdIsInProgress.md) (transaction processing)
   - [XidIsConcurrent](../X/XidIsConcurrent.md) (concurrency control)
   - [XidInMVCCSnapshot](../X/XidInMVCCSnapshot.md) (snapshot management)
   - Various test functions in test_lfind module

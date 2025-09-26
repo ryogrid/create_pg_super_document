@@ -26,7 +26,7 @@ This is a typedef, so it doesn't have direct members, but it points to a Paralle
 - Called from (representative examples):
   - [table_block_parallelscan_startblock_init](../t/table_block_parallelscan_startblock_init.md)
   - [table_block_parallelscan_nextpage](../t/table_block_parallelscan_nextpage.md)
-  - table_scan_sample_next_tuple
+  - [table_scan_sample_next_tuple](../t/table_scan_sample_next_tuple.md)
 
 ## Notes and Other Information
 - This typedef is part of PostgreSQL's parallel query execution framework

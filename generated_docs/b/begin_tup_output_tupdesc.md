@@ -31,15 +31,15 @@ This infrastructure is commonly used by utility commands like EXPLAIN and SHOW A
   - [palloc](../p/palloc.md)
   - [MakeSingleTupleTableSlot](../M/MakeSingleTupleTableSlot.md)
   - CMD_SELECT
-  - DestReceiver->rStartup
+  - [DestReceiver](../D/DestReceiver.md)->rStartup
 - Called from (representative examples):
   - [SendXlogRecPtrResult](../S/SendXlogRecPtrResult.md) (basebackup_copy.c)
   - [SendTablespaceList](../S/SendTablespaceList.md) (basebackup_copy.c)
   - [ExplainQuery](../E/ExplainQuery.md) (explain.c)
   - [ExecuteCallStmt](../E/ExecuteCallStmt.md) (functioncmds.c)
   - [IdentifySystem](../I/IdentifySystem.md) (walsender.c)
-  - ShowGUCConfigOption (guc_funcs.c)
-  - ShowAllGUCConfig (guc_funcs.c)
+  - [ShowGUCConfigOption](../S/ShowGUCConfigOption.md) (guc_funcs.c)
+  - [ShowAllGUCConfig](../S/ShowAllGUCConfig.md) (guc_funcs.c)
 
 ## Notes and Other Information
 - This function is part of a tuple output infrastructure specifically designed for utility commands

@@ -303,14 +303,14 @@ Text creation and manipulation
 - Data structures used:
   - [TwoPhaseLockRecord](../T/TwoPhaseLockRecord.md) (2PC lock record structure)
   - [PGPROC](../P/PGPROC.md) (process structure)
-  - LOCKTAG (lock identification tag)
+  - [LOCKTAG](../L/LOCKTAG.md) (lock identification tag)
   - LOCKMETHODID (lock method identifier)
   - LockMethod (lock method table)
 - Global variables accessed:
   - LockMethods (array of lock method tables)
 - Called from (representative examples):
   - 2PC commit processing during COMMIT PREPARED
-  - lock_twophase_postabort (reused for abort processing in lock.c)
+  - [lock_twophase_postabort](lock_twophase_postabort.md) (reused for abort processing in lock.c)
 
 ## Notes and Other Information
 - This function is called during the second phase of two-phase commit when the transaction is definitively committed.

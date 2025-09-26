@@ -35,7 +35,7 @@ This function is a helper for range containment optimization that builds specifi
   - BTLessStrategyNumber
   - [get_opfamily_member](../g/get_opfamily_member.md)
   - [makeConst](../m/makeConst.md)
-  - make_opclause
+  - [make_opclause](../m/make_opclause.md)
   - OidIsValid
   - BOOLOID
   - InvalidOid

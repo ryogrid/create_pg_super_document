@@ -27,13 +27,13 @@ The function sets the global variable `max_safe_fds` which is used throughout Po
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - count_usable_fds
+  - [count_usable_fds](../c/count_usable_fds.md)
   - Min (macro)
   - ereport
   - elog
   - Constants: NUM_RESERVED_FDS, FD_MINFREE, max_files_per_process
 - Called from (representative examples):
-  - PostmasterMain
+  - [PostmasterMain](../P/PostmasterMain.md)
   - Referenced in header file src/include/storage/fd.h
 
 ## Notes and Other Information

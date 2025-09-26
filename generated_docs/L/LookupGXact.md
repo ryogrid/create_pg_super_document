@@ -27,12 +27,12 @@ The LSN comparison uses the prepare_end_lsn (where the prepare phase ends) becau
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire
-  - LWLockRelease
+  - [LWLockAcquire](LWLockAcquire.md)
+  - [LWLockRelease](LWLockRelease.md)
   - [ReadTwoPhaseFile](../R/ReadTwoPhaseFile.md)
   - [XlogReadTwoPhaseData](../X/XlogReadTwoPhaseData.md)
   - TwoPhaseFileHeader
-  - GlobalTransaction
+  - [GlobalTransaction](../G/GlobalTransaction.md)
   - LW_SHARED
 - Called from (representative examples):
   - [apply_handle_rollback_prepared](../a/apply_handle_rollback_prepared.md)

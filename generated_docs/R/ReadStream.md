@@ -93,9 +93,9 @@ The structure supports both maintenance operations (governed by maintenance_io_c
   - [heap_scan_stream_read_next_serial](../h/heap_scan_stream_read_next_serial.md)
   - [heapam_scan_analyze_next_block](../h/heapam_scan_analyze_next_block.md)
   - [block_sampling_read_stream_next](../b/block_sampling_read_stream_next.md)
-  - read_stream_begin_relation
-  - read_stream_next_buffer
-  - read_stream_next_block
+  - [read_stream_begin_relation](../r/read_stream_begin_relation.md)
+  - [read_stream_next_buffer](../r/read_stream_next_buffer.md)
+  - [read_stream_next_block](../r/read_stream_next_block.md)
 
 ## Notes and Other Information
 - Part of PostgreSQL's asynchronous I/O infrastructure introduced for improved read-ahead performance

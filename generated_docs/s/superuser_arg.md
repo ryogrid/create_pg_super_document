@@ -27,22 +27,22 @@ The function is designed to be efficient for repeated calls with the same role I
 ## Dependencies
 - Functions called/Symbols referenced:
   - `Form_pg_authid`: Structure representing pg_authid catalog entries
-  - `CacheRegisterSyscacheCallback`: Registers callback for cache invalidation
-  - `RoleidCallback`: Callback function to invalidate cached results
+  - `[CacheRegisterSyscacheCallback](../C/CacheRegisterSyscacheCallback.md)`: Registers callback for cache invalidation
+  - `[RoleidCallback](../R/RoleidCallback.md)`: Callback function to invalidate cached results
   - `OidIsValid()`: Checks if OID is valid (implicit)
   - `IsUnderPostmaster`: Checks if running under postmaster (implicit)
-  - `SearchSysCache1()`: Searches system catalog (implicit)
+  - `[SearchSysCache1](../S/SearchSysCache1.md)()`: Searches system catalog (implicit)
   - `HeapTupleIsValid()`: Validates heap tuple (implicit)
   - `GETSTRUCT()`: Extracts struct from heap tuple (implicit)
-  - `ReleaseSysCache()`: Releases system cache entry (implicit)
+  - `[ReleaseSysCache](../R/ReleaseSysCache.md)()`: Releases system cache entry (implicit)
 
 - Called from (representative examples):
-  - `superuser`: The parameterless wrapper function
-  - `LockGXact`: Two-phase commit operations
-  - `object_aclmask_ext`: Access control checks
-  - `pg_class_aclmask_ext`: Table access permission checks
-  - `CreateSubscription`: Logical replication setup
-  - `check_role_membership_authorization`: Role membership verification
+  - `[superuser](superuser.md)`: The parameterless wrapper function
+  - `[LockGXact](../L/LockGXact.md)`: Two-phase commit operations
+  - `[object_aclmask_ext](../o/object_aclmask_ext.md)`: Access control checks
+  - `[pg_class_aclmask_ext](../p/pg_class_aclmask_ext.md)`: Table access permission checks
+  - `[CreateSubscription](../C/CreateSubscription.md)`: Logical replication setup
+  - `[check_role_membership_authorization](../c/check_role_membership_authorization.md)`: Role membership verification
   - Various privilege and ownership checks throughout the system
 
 ## Notes and Other Information

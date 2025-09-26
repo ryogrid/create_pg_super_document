@@ -22,9 +22,9 @@ The function serves as a wrapper around PostgreSQL's PRNG seeding mechanism, pro
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_prng_state (PostgreSQL PRNG state type)
-  - pg_prng_seed (PostgreSQL PRNG seeding function)
-  - pg_prng_uint64 (PostgreSQL PRNG 64-bit value generator)
+  - [pg_prng_state](../p/pg_prng_state.md) (PostgreSQL PRNG state type)
+  - [pg_prng_seed](../p/pg_prng_seed.md) (PostgreSQL PRNG seeding function)
+  - [pg_prng_uint64](../p/pg_prng_uint64.md) (PostgreSQL PRNG 64-bit value generator)
   - base_random_sequence (global PRNG state used as entropy source)
 - Called from (representative examples):
   - [main](../m/main.md) (at src/bin/pgbench/pgbench.c:7237, 7329, 7330, 7331)

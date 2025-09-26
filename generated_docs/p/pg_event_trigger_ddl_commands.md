@@ -37,17 +37,17 @@ The function includes special handling for different command types:
 - Functions called/Symbols referenced:
   - [InitMaterializedSRF](../I/InitMaterializedSRF.md)
   - [getObjectIdentity](../g/getObjectIdentity.md)
-  - getObjectTypeDescription
+  - [getObjectTypeDescription](../g/getObjectTypeDescription.md)
   - [is_objectclass_supported](../i/is_objectclass_supported.md)
   - [get_object_attnum_namespace](../g/get_object_attnum_namespace.md)
   - [get_catalog_object_by_oid](../g/get_catalog_object_by_oid.md)
   - [get_object_attnum_oid](../g/get_object_attnum_oid.md)
   - [heap_getattr](../h/heap_getattr.md)
   - [get_namespace_name_or_temp](../g/get_namespace_name_or_temp.md)
-  - CreateCommandName
+  - [CreateCommandName](../C/CreateCommandName.md)
   - [stringify_adefprivs_objtype](../s/stringify_adefprivs_objtype.md)
   - [stringify_grant_objtype](../s/stringify_grant_objtype.md)
-  - tuplestore_putvalues
+  - [tuplestore_putvalues](../t/tuplestore_putvalues.md)
 - Called from: 
   - Available as SQL function pg_event_trigger_ddl_commands()
 

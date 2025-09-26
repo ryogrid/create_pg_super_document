@@ -28,7 +28,7 @@ The function is primarily used in visibility checking contexts where the system 
 - Functions called/Symbols referenced:
   - TransactionIdEquals (compares transaction IDs for equality)
   - TransactionIdIsNormal (checks if transaction ID is a normal user transaction)
-  - TransactionIdGetStatus (retrieves transaction status and associated LSN)
+  - [TransactionIdGetStatus](TransactionIdGetStatus.md) (retrieves transaction status and associated LSN)
 - Called from (representative examples):
   - [SetHintBits](../S/SetHintBits.md) (heap tuple visibility hint bit setting)
 

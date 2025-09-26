@@ -23,9 +23,9 @@ This function handles the opening of logical groups in explain output, providing
   - EXPLAIN_FORMAT_TEXT, EXPLAIN_FORMAT_XML, EXPLAIN_FORMAT_JSON, EXPLAIN_FORMAT_YAML (format constants)
   - [ExplainXMLTag](ExplainXMLTag.md) (for XML tag generation with X_OPENING parameter)
   - [ExplainJSONLineEnding](ExplainJSONLineEnding.md) (for JSON line ending management)
-  - appendStringInfoSpaces (for JSON indentation)
+  - [appendStringInfoSpaces](../a/appendStringInfoSpaces.md) (for JSON indentation)
   - [escape_json](../e/escape_json.md) (for JSON string escaping)
-  - appendStringInfoString, appendStringInfoChar (for string building)
+  - [appendStringInfoString](../a/appendStringInfoString.md), appendStringInfoChar (for string building)
   - [ExplainYAMLLineStarting](ExplainYAMLLineStarting.md) (for YAML line starting management)
   - [lcons_int](../l/lcons_int.md) (for maintaining integer stacks for grouping state)
 - Called from (representative examples):

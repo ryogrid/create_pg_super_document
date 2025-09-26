@@ -33,7 +33,7 @@ The function performs the intersection by ANDing corresponding words from both b
   - [make_outerjoininfo](../m/make_outerjoininfo.md) (outer join information creation)
   - [find_nonnullable_rels_walker](../f/find_nonnullable_rels_walker.md) (nullable relation analysis)
   - [perform_pruning_combine_step](../p/perform_pruning_combine_step.md) (partition pruning logic)
-  - get_param_path_clause_serials (parameter path processing)
+  - [get_param_path_clause_serials](../g/get_param_path_clause_serials.md) (parameter path processing)
 
 ## Notes and Other Information
 - Returns NULL if either input is NULL or if the intersection is empty

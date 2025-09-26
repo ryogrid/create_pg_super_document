@@ -22,7 +22,7 @@ Note that this operation flushes the entire segment file that contains the speci
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_INT64`: Extracts the int64 argument from function call
-  - `FileTag`: Structure for identifying file segments
+  - `[FileTag](../F/FileTag.md)`: Structure for identifying file segments
   - `SLRU_PAGES_PER_SEGMENT`: Constant defining pages per segment
   - [SlruSyncFileTag](../S/SlruSyncFileTag.md): Synchronizes the segment file to disk
   - `TestSlruCtl`: The test SLRU control structure

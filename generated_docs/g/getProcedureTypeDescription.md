@@ -28,7 +28,7 @@ The function handles missing procedures gracefully when missing_ok is true, fall
   - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup)
   - HeapTupleIsValid (tuple validation)
   - elog (error logging)
-  - appendStringInfoString (string buffer operations)
+  - [appendStringInfoString](../a/appendStringInfoString.md) (string buffer operations)
   - GETSTRUCT (tuple data extraction)
   - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) (OID conversion)
   - [ReleaseSysCache](../R/ReleaseSysCache.md) (cache cleanup)
@@ -37,7 +37,7 @@ The function handles missing procedures gracefully when missing_ok is true, fall
   - PROKIND_PROCEDURE (procedure kind constant)
 
 - Called from (representative examples):
-  - getObjectTypeDescription (primary caller for object type descriptions)
+  - [getObjectTypeDescription](getObjectTypeDescription.md) (primary caller for object type descriptions)
   - object_type_map (object type mapping structure)
 
 ## Notes and Other Information

@@ -36,16 +36,16 @@ The function is part of PostgreSQL's free page management system, which organize
   - relptr_store
   - Min
 - Types used:
-  - FreePageManager
-  - FreePageSpanLeader
+  - [FreePageManager](FreePageManager.md)
+  - [FreePageSpanLeader](FreePageSpanLeader.md)
   - Size
 - Constants used:
   - FPM_NUM_FREELISTS
   - FREE_PAGE_SPAN_LEADER_MAGIC
 - Called from (representative examples):
-  - FreePageBtreeCleanup
-  - FreePageManagerGetInternal
-  - FreePageManagerPutInternal
+  - [FreePageBtreeCleanup](FreePageBtreeCleanup.md)
+  - [FreePageManagerGetInternal](FreePageManagerGetInternal.md)
+  - [FreePageManagerPutInternal](FreePageManagerPutInternal.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the freepage.c module

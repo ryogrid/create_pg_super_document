@@ -36,8 +36,8 @@ The protocol uses a header structure (PipeProtoHeader) that includes:
 ## Dependencies
 - Functions called/Symbols referenced:
   - [write_syslogger_file](../w/write_syslogger_file.md) (outputs complete messages to appropriate log files)
-  - appendBinaryStringInfo (accumulates partial message chunks)
-  - initStringInfo (initializes string buffers for new messages)
+  - [appendBinaryStringInfo](../a/appendBinaryStringInfo.md) (accumulates partial message chunks)
+  - [initStringInfo](../i/initStringInfo.md) (initializes string buffers for new messages)
   - [PipeProtoHeader](../P/PipeProtoHeader.md) (protocol header structure)
   - PIPE_PROTO_DEST_* constants (destination flags)
   - LOG_DESTINATION_* constants (log file destinations)

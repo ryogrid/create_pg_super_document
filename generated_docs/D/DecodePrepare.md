@@ -39,7 +39,7 @@ The function performs several key operations:
   - [ReorderBufferInvalidate](../R/ReorderBufferInvalidate.md)
   - [ReorderBufferCommitChild](../R/ReorderBufferCommitChild.md)
   - [ReorderBufferPrepare](../R/ReorderBufferPrepare.md)
-  - UpdateDecodingStats
+  - [UpdateDecodingStats](../U/UpdateDecodingStats.md)
 - Called from (representative examples):
   - [xact_decode](../x/xact_decode.md)
 

@@ -31,8 +31,8 @@ The WAL record uses the XLOG_INVALIDATIONS record type and includes both the hea
   - [XLogRegisterData](../X/XLogRegisterData.md)
   - [XLogInsert](../X/XLogInsert.md)
   - XLOG_INVALIDATIONS
-  - xl_invalidations
-  - SharedInvalidationMessage
+  - [xl_invalidations](../x/xl_invalidations.md)
+  - [SharedInvalidationMessage](../S/SharedInvalidationMessage.md)
   - MinSizeOfInvalidations
 - Called from (representative examples):
   - [RecordTransactionCommit](../R/RecordTransactionCommit.md)

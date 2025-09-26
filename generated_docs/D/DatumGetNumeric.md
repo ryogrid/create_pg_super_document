@@ -21,7 +21,7 @@ This function serves as a conversion utility in PostgreSQL's function manager (f
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_DETOAST_DATUM (macro for handling TOAST decompression)
-  - Numeric (data type)
+  - [Numeric](../N/Numeric.md) (data type)
 - Called from (representative examples):
   - [extract_date](../e/extract_date.md)
   - [numeric_absolute](../n/numeric_absolute.md)
@@ -31,7 +31,7 @@ This function serves as a conversion utility in PostgreSQL's function manager (f
   - [numeric_to_number](../n/numeric_to_number.md)
   - [numeric_to_char](../n/numeric_to_char.md)
   - [jsonb_in_scalar](../j/jsonb_in_scalar.md)
-  - datum_to_jsonb_internal
+  - [datum_to_jsonb_internal](../d/datum_to_jsonb_internal.md)
   - [numeric_fast_cmp](../n/numeric_fast_cmp.md)
   - [timestamp_part_common](../t/timestamp_part_common.md)
   - PG_GETARG_NUMERIC

@@ -302,7 +302,7 @@ Text creation and manipulation
   - RELATION_IS_LOCAL, LockRelationForExtension, UnlockRelationForExtension (concurrency control)
   - RelationGetNumberOfBlocks (relation size management)
   - [gistvacuumpage](gistvacuumpage.md) (per-page processing)
-  - IndexFreeSpaceMapVacuum (FSM maintenance)
+  - [IndexFreeSpaceMapVacuum](../I/IndexFreeSpaceMapVacuum.md) (FSM maintenance)
   - [gistvacuum_delete_empty_pages](gistvacuum_delete_empty_pages.md) (empty page cleanup)
 - Called from (representative examples):
   - [gistbulkdelete](gistbulkdelete.md) (bulk delete phase)

@@ -27,8 +27,8 @@ The `hlparsetext` function serves as the main entry point for parsing text durin
   - [lookup_ts_parser_cache](../l/lookup_ts_parser_cache.md) (retrieve cached parser)
   - FunctionCall2/FunctionCall3/FunctionCall1 (PostgreSQL function calling interface)
   - [DatumGetInt32](../D/DatumGetInt32.md)/DatumGetPointer/PointerGetDatum/Int32GetDatum (datum conversion)
-  - LexizeInit (initialize lexicalization)
-  - LexizeAddLemm (add lemma to lexicalization data)
+  - [LexizeInit](../L/LexizeInit.md) (initialize lexicalization)
+  - [LexizeAddLemm](../L/LexizeAddLemm.md) (add lemma to lexicalization data)
   - [LexizeExec](../L/LexizeExec.md) (execute lexicalization)
   - [addHLParsedLex](../a/addHLParsedLex.md) (add processed lexemes to headline structure)
   - ereport (error reporting)
@@ -38,8 +38,8 @@ The `hlparsetext` function serves as the main entry point for parsing text durin
   - LexizeData
   - TSLexeme
   - [ParsedLex](../P/ParsedLex.md)
-  - TSConfigCacheEntry
-  - TSParserCacheEntry
+  - [TSConfigCacheEntry](../T/TSConfigCacheEntry.md)
+  - [TSParserCacheEntry](../T/TSParserCacheEntry.md)
 - Constants used:
   - MAXSTRLEN (maximum lexeme length)
   - IGNORE_LONGLEXEME (compilation flag for handling long lexemes)

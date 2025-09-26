@@ -23,7 +23,7 @@ This function implements the SQL/JSON IS JSON predicate evaluation, which tests 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - exprType
+  - [exprType](../e/exprType.md)
   - DatumGetTextP
   - [json_get_first_token](../j/json_get_first_token.md)
   - [json_validate](../j/json_validate.md)

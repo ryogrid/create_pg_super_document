@@ -24,18 +24,18 @@ This function is essential for ECPG dynamic SQL operations where descriptors are
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `get_descriptors`: Retrieves the thread-local descriptor list head
+  - `[get_descriptors](../g/get_descriptors.md)`: Retrieves the thread-local descriptor list head
   - `strcmp`: Standard C library function for string comparison
-  - `ecpg_raise`: ECPG error reporting function
+  - `[ecpg_raise](ecpg_raise.md)`: ECPG error reporting function
   - `ECPG_UNKNOWN_DESCRIPTOR`: Error code constant for unknown descriptor
   - `ECPG_SQLSTATE_INVALID_SQL_DESCRIPTOR_NAME`: SQL state constant for invalid descriptor name
 - Called from (representative examples):
-  - `ecpg_result_by_descriptor`: Retrieves result data using a descriptor
-  - `ECPGset_desc_header`: Sets descriptor header information
-  - `ECPGset_desc`: Sets descriptor item values
-  - `ECPGdescribe`: Describes a prepared statement using a descriptor
-  - `ecpg_build_params`: Builds parameter list from descriptor
-  - `ecpg_process_output`: Processes output using descriptor information
+  - `[ecpg_result_by_descriptor](ecpg_result_by_descriptor.md)`: Retrieves result data using a descriptor
+  - `[ECPGset_desc_header](../E/ECPGset_desc_header.md)`: Sets descriptor header information
+  - `[ECPGset_desc](../E/ECPGset_desc.md)`: Sets descriptor item values
+  - `[ECPGdescribe](../E/ECPGdescribe.md)`: Describes a prepared statement using a descriptor
+  - `[ecpg_build_params](ecpg_build_params.md)`: Builds parameter list from descriptor
+  - `[ecpg_process_output](ecpg_process_output.md)`: Processes output using descriptor information
 
 ## Notes and Other Information
 - The function maintains thread-safety by using thread-local storage for descriptor lists via `get_descriptors()`

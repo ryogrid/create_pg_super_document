@@ -46,20 +46,20 @@ JsonFuncExpr is a comprehensive parse tree node representing SQL/JSON query func
 ## Dependencies
 - Functions called/Symbols referenced:
   - JsonExprOp
-  - JsonValueExpr
-  - JsonOutput
-  - JsonBehavior
+  - [JsonValueExpr](JsonValueExpr.md)
+  - [JsonOutput](JsonOutput.md)
+  - [JsonBehavior](JsonBehavior.md)
   - JsonWrapper
   - JsonQuotes
   - ParseLoc
 - Called from (representative examples):
-  - raw_expression_tree_walker_impl
-  - transformExprRecurse
-  - transformJsonFuncExpr
-  - transformJsonTable
-  - transformJsonTableColumns
-  - transformJsonTableColumn
-  - FigureColnameInternal
+  - [raw_expression_tree_walker_impl](../r/raw_expression_tree_walker_impl.md)
+  - [transformExprRecurse](../t/transformExprRecurse.md)
+  - [transformJsonFuncExpr](../t/transformJsonFuncExpr.md)
+  - [transformJsonTable](../t/transformJsonTable.md)
+  - [transformJsonTableColumns](../t/transformJsonTableColumns.md)
+  - [transformJsonTableColumn](../t/transformJsonTableColumn.md)
+  - [FigureColnameInternal](../F/FigureColnameInternal.md)
 
 ## Notes and Other Information
 - Central structure for PostgreSQL's SQL/JSON query function support

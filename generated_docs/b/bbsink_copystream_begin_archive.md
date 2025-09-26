@@ -19,13 +19,13 @@ This function creates and sends a CopyData message that signals the start of a n
 ## Dependencies
 - Functions called/Symbols referenced:
   - [list_nth](../l/list_nth.md)
-  - pq_beginmessage
+  - [pq_beginmessage](../p/pq_beginmessage.md)
   - [pq_sendbyte](../p/pq_sendbyte.md)
   - [pq_sendstring](../p/pq_sendstring.md) (called twice)
   - [pq_endmessage](../p/pq_endmessage.md)
   - PqMsg_CopyData
-  - tablespaceinfo
-  - bbsink_state
+  - [tablespaceinfo](../t/tablespaceinfo.md)
+  - [bbsink_state](bbsink_state.md)
 - Called from (representative examples):
   - Referenced by bbsink_copystream_ops structure as the begin_archive handler
 

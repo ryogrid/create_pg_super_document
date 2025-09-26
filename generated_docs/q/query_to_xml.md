@@ -26,7 +26,7 @@ This function provides more flexibility than `table_to_xml` as it can work with 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_TEXT_PP
-  - text_to_cstring
+  - [text_to_cstring](../t/text_to_cstring.md)
   - PG_GETARG_BOOL
   - [query_to_xml_internal](query_to_xml_internal.md)
   - [stringinfo_to_xmltype](../s/stringinfo_to_xmltype.md)

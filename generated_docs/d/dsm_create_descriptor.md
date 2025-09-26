@@ -28,10 +28,10 @@ The caller is responsible for setting the `handle` field after creation, as this
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwnerEnlarge
+  - [ResourceOwnerEnlarge](../R/ResourceOwnerEnlarge.md)
   - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
   - [dlist_push_head](dlist_push_head.md)
-  - ResourceOwnerRememberDSM
+  - [ResourceOwnerRememberDSM](../R/ResourceOwnerRememberDSM.md)
   - [slist_init](../s/slist_init.md)
   - INVALID_CONTROL_SLOT
 - Called from (representative examples):

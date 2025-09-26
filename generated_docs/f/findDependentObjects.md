@@ -43,7 +43,7 @@ The function handles various dependency types (NORMAL, AUTO, INTERNAL, EXTENSION
 ## Dependencies
 - Functions called/Symbols referenced:
   - [stack_address_present_add_flags](../s/stack_address_present_add_flags.md)
-  - check_stack_depth
+  - [check_stack_depth](../c/check_stack_depth.md)
   - [object_address_present_add_flags](../o/object_address_present_add_flags.md)
   - [IsPinnedObject](../I/IsPinnedObject.md)
   - [getObjectDescription](../g/getObjectDescription.md)

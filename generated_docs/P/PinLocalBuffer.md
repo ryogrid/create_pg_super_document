@@ -20,17 +20,17 @@ The function also registers the buffer with the current resource owner for autom
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferDescriptorGetBuffer
-  - pg_atomic_read_u32
+  - [BufferDescriptorGetBuffer](../B/BufferDescriptorGetBuffer.md)
+  - [pg_atomic_read_u32](../p/pg_atomic_read_u32.md)
   - BUF_STATE_GET_USAGECOUNT
-  - pg_atomic_unlocked_write_u32
-  - ResourceOwnerRememberBuffer
+  - [pg_atomic_unlocked_write_u32](../p/pg_atomic_unlocked_write_u32.md)
+  - [ResourceOwnerRememberBuffer](../R/ResourceOwnerRememberBuffer.md)
 - Called from (representative examples):
-  - ReadRecentBuffer
-  - LocalBufferAlloc
-  - GetLocalVictimBuffer
-  - ExtendBufferedRelLocal
-  - ResourceOwnerForgetBufferIO
+  - [ReadRecentBuffer](../R/ReadRecentBuffer.md)
+  - [LocalBufferAlloc](../L/LocalBufferAlloc.md)
+  - [GetLocalVictimBuffer](../G/GetLocalVictimBuffer.md)
+  - [ExtendBufferedRelLocal](../E/ExtendBufferedRelLocal.md)
+  - [ResourceOwnerForgetBufferIO](../R/ResourceOwnerForgetBufferIO.md)
 
 ## Notes and Other Information
 - Returns true if buffer contains valid data (BM_VALID flag set), false otherwise

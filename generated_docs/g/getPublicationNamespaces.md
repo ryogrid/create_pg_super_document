@@ -27,7 +27,7 @@ The function filters results based on dump options and only processes relationsh
   - [findNamespaceByOid](../f/findNamespaceByOid.md) - looks up namespace info by OID
   - [AssignDumpId](../A/AssignDumpId.md) - assigns unique dump ID to the object
   - [selectDumpablePublicationObject](../s/selectDumpablePublicationObject.md) - determines if object should be dumped
-  - pg_malloc - allocates memory for publication schema info array
+  - [pg_malloc](../p/pg_malloc.md) - allocates memory for publication schema info array
   - atooid - converts string to OID
 - Called from (representative examples):
   - [getSchemaData](getSchemaData.md) - part of the schema discovery process

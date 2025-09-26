@@ -101,18 +101,18 @@ The discriminated union design allows efficient storage of command-specific data
 ## Dependencies
 - Functions called/Symbols referenced:
   - CollectedCommandType (enum)
-  - ObjectAddress (from catalog/objectaddress.h)
-  - Node (from nodes/nodes.h)
-  - InternalGrant (from utils/aclchk_internal.h)
-  - CollectedATSubcmd
+  - [ObjectAddress](../O/ObjectAddress.md) (from catalog/objectaddress.h)
+  - [Node](../N/Node.md) (from nodes/nodes.h)
+  - [InternalGrant](../I/InternalGrant.md) (from utils/aclchk_internal.h)
+  - [CollectedATSubcmd](CollectedATSubcmd.md)
 - Called from (representative examples):
-  - EventTriggerCollectSimpleCommand()
-  - EventTriggerAlterTableStart()
-  - EventTriggerCollectGrant()
+  - [EventTriggerCollectSimpleCommand](../E/EventTriggerCollectSimpleCommand.md)()
+  - [EventTriggerAlterTableStart](../E/EventTriggerAlterTableStart.md)()
+  - [EventTriggerCollectGrant](../E/EventTriggerCollectGrant.md)()
   - EventTriggerCollectAlterOpFamily()
-  - EventTriggerCollectCreateOpClass()
-  - EventTriggerCollectAlterTSConfig()
-  - EventTriggerCollectAlterDefPrivs()
+  - [EventTriggerCollectCreateOpClass](../E/EventTriggerCollectCreateOpClass.md)()
+  - [EventTriggerCollectAlterTSConfig](../E/EventTriggerCollectAlterTSConfig.md)()
+  - [EventTriggerCollectAlterDefPrivs](../E/EventTriggerCollectAlterDefPrivs.md)()
 
 ## Notes and Other Information
 - The structure is allocated in the event trigger memory context to ensure persistence during DDL command execution

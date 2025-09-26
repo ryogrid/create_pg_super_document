@@ -28,7 +28,7 @@ The function is specifically designed for signed integer data types and provides
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SortSupport (struct type)
+  - [SortSupport](../S/SortSupport.md) (struct type)
   - [DatumGetInt64](../D/DatumGetInt64.md) (conversion macro/function)
   - INVERT_COMPARE_RESULT (macro)
 - Called from (representative examples):

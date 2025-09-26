@@ -27,7 +27,7 @@ The security-definer mechanism allows functions to execute with the privileges o
   - [fmgr_info_cxt_security](fmgr_info_cxt_security.md)  
   - [SearchSysCache1](../S/SearchSysCache1.md)
   - [SysCacheGetAttr](../S/SysCacheGetAttr.md)
-  - TransformGUCArray
+  - [TransformGUCArray](../T/TransformGUCArray.md)
   - [get_config_handle](../g/get_config_handle.md)
   - [GetUserIdAndSecContext](../G/GetUserIdAndSecContext.md)
   - [SetUserIdAndSecContext](../S/SetUserIdAndSecContext.md)

@@ -36,12 +36,12 @@ The function uses getopt() for parsing and applies configuration changes through
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SetConfigOption](../S/SetConfigOption.md) (for applying configuration changes)
-  - ParseLongOption (for parsing --name=value format options)
+  - [ParseLongOption](../P/ParseLongOption.md) (for parsing --name=value format options)
   - [get_stats_option_name](../g/get_stats_option_name.md) (for mapping statistics option names)
   - [set_debug_options](../s/set_debug_options.md) (for debug level configuration)
   - [set_plan_disabling_options](../s/set_plan_disabling_options.md) (for planner option configuration)
-  - getopt (for command-line parsing)
-  - strlcpy (for safe string copying)
+  - [getopt](../g/getopt.md) (for command-line parsing)
+  - [strlcpy](../s/strlcpy.md) (for safe string copying)
 - Called from (representative examples):
   - [PostgresSingleUserMain](../P/PostgresSingleUserMain.md) (in src/backend/tcop/postgres.c:4147)
   - [process_startup_options](process_startup_options.md) (in src/backend/utils/init/postinit.c:1297)

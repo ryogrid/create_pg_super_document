@@ -29,14 +29,14 @@ The function processes each relation in the istmt->objects list, handling relati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - [SearchSysCacheLocked1](../S/SearchSysCacheLocked1.md)
   - [SysCacheGetAttr](../S/SysCacheGetAttr.md)
   - [acldefault](../a/acldefault.md)
   - DatumGetAclPCopy
   - [aclmembers](../a/aclmembers.md)
-  - aclcopy
-  - select_best_grantor
+  - [aclcopy](../a/aclcopy.md)
+  - [select_best_grantor](../s/select_best_grantor.md)
   - [restrict_and_check_grant](../r/restrict_and_check_grant.md)
   - [merge_acl_with_grant](../m/merge_acl_with_grant.md)
   - [expand_all_col_privileges](../e/expand_all_col_privileges.md)
@@ -47,7 +47,7 @@ The function processes each relation in the istmt->objects list, handling relati
   - [UnlockTuple](../U/UnlockTuple.md)
   - [recordExtensionInitPriv](../r/recordExtensionInitPriv.md)
   - [updateAclDependencies](../u/updateAclDependencies.md)
-  - CommandCounterIncrement
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md)
 - Called from (representative examples):
   - [ExecGrantStmt_oids](ExecGrantStmt_oids.md)
 

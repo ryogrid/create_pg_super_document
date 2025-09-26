@@ -25,15 +25,15 @@ The function includes performance optimizations with branch prediction hints, fa
 ## Dependencies
 - Functions called/Symbols referenced:
   - TransactionIdIsNormal
-  - FullTransactionIdFromEpochAndXid
-  - TransactionIdPrecedesOrEquals
+  - [FullTransactionIdFromEpochAndXid](FullTransactionIdFromEpochAndXid.md)
+  - [TransactionIdPrecedesOrEquals](../T/TransactionIdPrecedesOrEquals.md)
   - XidFromFullTransactionId
   - EpochFromFullTransactionId
 - Called from (representative examples):
-  - AdjustToFullTransactionId (in two-phase commit processing)
-  - XLogRecGetFullXid (in WAL record processing)
-  - TransactionIdInRecentPast (in XID8 utility functions)
-  - pg_current_snapshot (for snapshot introspection)
+  - [AdjustToFullTransactionId](../A/AdjustToFullTransactionId.md) (in two-phase commit processing)
+  - [XLogRecGetFullXid](../X/XLogRecGetFullXid.md) (in WAL record processing)
+  - [TransactionIdInRecentPast](../T/TransactionIdInRecentPast.md) (in XID8 utility functions)
+  - [pg_current_snapshot](../p/pg_current_snapshot.md) (for snapshot introspection)
 
 ## Notes and Other Information
 - This is an inline function defined in the transaction management header file

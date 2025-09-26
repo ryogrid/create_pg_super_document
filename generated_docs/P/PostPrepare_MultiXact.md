@@ -21,8 +21,8 @@ This function handles the transfer of MultiXact state from the current backend p
 - Functions called/Symbols referenced:
   - MultiXactIdIsValid
   - [TwoPhaseGetDummyProcNumber](../T/TwoPhaseGetDummyProcNumber.md)
-  - LWLockAcquire (MultiXactGenLock, LW_EXCLUSIVE)
-  - LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md) (MultiXactGenLock, LW_EXCLUSIVE)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - InvalidMultiXactId (constant)
   - [dclist_init](../d/dclist_init.md)
 - Global variables modified:

@@ -26,7 +26,7 @@ The function supports four compression algorithms:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_compress_algorithm_name
+  - [get_compress_algorithm_name](../g/get_compress_algorithm_name.md)
   - [psprintf](../p/psprintf.md)
   - [pg_compress_specification](../p/pg_compress_specification.md)
   - [pg_compress_algorithm](../p/pg_compress_algorithm.md)

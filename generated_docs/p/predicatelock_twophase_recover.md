@@ -36,14 +36,14 @@ The conservative approach during recovery ensures serialization safety by assumi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreatePredXact: Creates new SERIALIZABLEXACT structure
-  - CreatePredicateLock: Recreates individual predicate locks
+  - [CreatePredXact](../C/CreatePredXact.md): Creates new SERIALIZABLEXACT structure
+  - [CreatePredicateLock](../C/CreatePredicateLock.md): Recreates individual predicate locks
   - PredicateLockTargetTagHashCode: Computes hash for lock targets
-  - hash_search: Searches/inserts into SerializableXidHash
-  - SerialSetActiveSerXmin: Updates global minimum transaction ID
-  - TransactionIdFollows/TransactionIdEquals: Transaction ID comparison utilities
-  - dlist_init/dlist_node_init: Initialize list structures
-  - LWLockAcquire/LWLockRelease: Lock management
+  - [hash_search](../h/hash_search.md): Searches/inserts into SerializableXidHash
+  - [SerialSetActiveSerXmin](../S/SerialSetActiveSerXmin.md): Updates global minimum transaction ID
+  - [TransactionIdFollows](../T/TransactionIdFollows.md)/TransactionIdEquals: Transaction ID comparison utilities
+  - [dlist_init](../d/dlist_init.md)/dlist_node_init: Initialize list structures
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease: Lock management
 - Called from (representative examples):
   - Two-phase commit recovery system during database startup
 

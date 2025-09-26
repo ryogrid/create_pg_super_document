@@ -32,7 +32,7 @@ This optimization function provides a fast way to determine if calling ereport()
   - [ProcessWalSndrMessage](../P/ProcessWalSndrMessage.md)
   - [ProcessStandbyReplyMessage](../P/ProcessStandbyReplyMessage.md)
   - [ProcessStandbyHSFeedbackMessage](../P/ProcessStandbyHSFeedbackMessage.md)
-  - ProcSleep
+  - [ProcSleep](../P/ProcSleep.md)
 
 ## Notes and Other Information
 - This function must be kept in sync with the decision-making logic in errstart() to ensure consistency

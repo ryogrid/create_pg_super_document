@@ -36,7 +36,7 @@ The function is part of the function cache utilities in lsyscache.c and provides
   - [AlterFunction](../A/AlterFunction.md) (function modification commands)
   - [ExecInitFunc](../E/ExecInitFunc.md) (executor function initialization)
   - [HandleFunctionRequest](../H/HandleFunctionRequest.md) (fastpath function calls)
-  - print_expr (expression printing for debugging)
+  - [print_expr](../p/print_expr.md) (expression printing for debugging)
 
 ## Notes and Other Information
 - This function is part of the lsyscache.c module which provides cached access to system catalog information

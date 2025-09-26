@@ -29,8 +29,8 @@ Key limitations include potential race conditions during concurrent DDL operatio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth (prevent stack overflow in recursion)
-  - table_open/relation_open/relation_close (relation access)
+  - [check_stack_depth](../c/check_stack_depth.md) (prevent stack overflow in recursion)
+  - [table_open](../t/table_open.md)/relation_open/relation_close (relation access)
   - [systable_beginscan](../s/systable_beginscan.md)/systable_getnext/systable_endscan (catalog scanning)
   - [get_typtype](get_typtype.md) (determine if dependent type is a domain)
   - [find_composite_type_dependencies](../f/find_composite_type_dependencies.md) (check for container type usage)

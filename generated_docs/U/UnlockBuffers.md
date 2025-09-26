@@ -20,7 +20,7 @@ None - this function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LockBufHdr, UnlockBufHdr
+  - [LockBufHdr](../L/LockBufHdr.md), UnlockBufHdr
   - [BufferDesc](../B/BufferDesc.md) (type)
   - BM_PIN_COUNT_WAITER (buffer state flag)
   - PinCountWaitBuf (global variable)

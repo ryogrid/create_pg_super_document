@@ -29,7 +29,7 @@ The function includes assertions to ensure the provided space matches the estima
 ## Dependencies
 - Functions called/Symbols referenced:
   - [EstimateUncommittedEnumsSpace](../E/EstimateUncommittedEnumsSpace.md) (for size validation)
-  - HASH_SEQ_STATUS (hash table iteration structure)
+  - [HASH_SEQ_STATUS](../H/HASH_SEQ_STATUS.md) (hash table iteration structure)
   - [hash_seq_init](../h/hash_seq_init.md) (initialize hash table iteration)
   - [hash_seq_search](../h/hash_seq_search.md) (iterate through hash table entries)
   - uncommitted_enum_types (global hash table variable)
@@ -43,4 +43,4 @@ The function includes assertions to ensure the provided space matches the estima
 - Part of PostgreSQL's parallel query infrastructure for sharing transaction state
 - Safe to call even when hash tables are NULL (will just write terminators)
 - The serialized format must be compatible with RestoreUncommittedEnums for deserialization
-- Hash table iteration order is not guaranteed to be consistent across calls
+- [Hash](../H/Hash.md) table iteration order is not guaranteed to be consistent across calls

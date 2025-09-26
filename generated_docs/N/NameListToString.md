@@ -22,13 +22,13 @@ The function builds the output string by iterating through each element in the l
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_head: Used to check if current element is the first in the list
-  - String: Node type for string name components  
+  - [list_head](../l/list_head.md): Used to check if current element is the first in the list
+  - [String](../S/String.md): Node type for string name components  
   - [A_Star](../A/A_Star.md): Node type for asterisk wildcard components
   - nodeTag: Used for error reporting when an unexpected node type is encountered
-  - initStringInfo: Initializes the StringInfo buffer
-  - appendStringInfoChar: Appends single characters (dots and asterisks)
-  - appendStringInfoString: Appends string values
+  - [initStringInfo](../i/initStringInfo.md): Initializes the StringInfo buffer
+  - [appendStringInfoChar](../a/appendStringInfoChar.md): Appends single characters (dots and asterisks)
+  - [appendStringInfoString](../a/appendStringInfoString.md): Appends string values
   - strVal: Extracts string value from String nodes
   - elog: Reports errors for unexpected node types
 

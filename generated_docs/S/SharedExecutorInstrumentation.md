@@ -40,7 +40,7 @@ This structure serves as the central repository for collecting execution instrum
   - [ExecParallelRetrieveInstrumentation](../E/ExecParallelRetrieveInstrumentation.md) (for collecting data from workers)
   - [ExecParallelReportInstrumentation](../E/ExecParallelReportInstrumentation.md) (for reporting collected data)
   - [ParallelQueryMain](../P/ParallelQueryMain.md) (in worker processes)
-  - ParallelExecutorInfo (as part of larger parallel execution structures)
+  - [ParallelExecutorInfo](../P/ParallelExecutorInfo.md) (as part of larger parallel execution structures)
 
 ## Notes and Other Information
 - This structure is designed for shared memory usage and must be carefully managed across process boundaries

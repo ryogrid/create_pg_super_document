@@ -23,7 +23,7 @@ The function implements a sophisticated detection algorithm: ASCII characters (h
 - Functions called/Symbols referenced:
   - IS_HIGHBIT_SET (macro to check if high bit is set)
 - Called from (representative examples):
-  - pg_encoding_set_invalid (indirectly through encoding function tables)
+  - [pg_encoding_set_invalid](pg_encoding_set_invalid.md) (indirectly through encoding function tables)
 
 ## Notes and Other Information
 - This is a static function within src/common/wchar.c, used internally by PostgreSQLs character encoding subsystem

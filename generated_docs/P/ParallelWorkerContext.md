@@ -23,13 +23,13 @@ ParallelWorkerContext is a simple but essential structure used within parallel w
 - `*toc`: Pointer to the table of contents for the shared memory segment, used to locate specific data structures within the segment
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dsm_segment
+  - [dsm_segment](../d/dsm_segment.md)
   - [shm_toc](../s/shm_toc.md)
 - Called from (representative examples):
   - [ExecParallelInitializeWorker](../E/ExecParallelInitializeWorker.md)
   - [ParallelQueryMain](ParallelQueryMain.md)
   - [ExecAggInitializeWorker](../E/ExecAggInitializeWorker.md)
-  - ExecHashInitializeWorker
+  - [ExecHashInitializeWorker](../E/ExecHashInitializeWorker.md)
   - [ExecSeqScanInitializeWorker](../E/ExecSeqScanInitializeWorker.md)
 
 ## Notes and Other Information

@@ -22,11 +22,11 @@ The function allocates memory for the result array using palloc() and iterates t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_length (to determine array size)
+  - [list_length](../l/list_length.md) (to determine array size)
   - [palloc](../p/palloc.md) (for memory allocation)
   - lfirst (for list iteration)
   - OidIsValid (for assertion checking)
-  - SortGroupClause (structure type)
+  - [SortGroupClause](../S/SortGroupClause.md) (structure type)
 - Called from (representative examples):
   - [create_group_plan](../c/create_group_plan.md) (src/backend/optimizer/plan/createplan.c:2264)
   - [create_agg_plan](../c/create_agg_plan.md) (src/backend/optimizer/plan/createplan.c:2332)

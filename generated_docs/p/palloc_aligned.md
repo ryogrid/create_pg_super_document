@@ -29,7 +29,7 @@ The function is particularly useful for code that needs aligned memory but doesn
   - [MemoryContextAllocAligned](../M/MemoryContextAllocAligned.md)
   - CurrentMemoryContext (implicitly used)
 - Called from (representative examples):
-  - GenericXLogStart
+  - [GenericXLogStart](../G/GenericXLogStart.md)
   - [_mdfd_getseg](../m/_mdfd_getseg.md)
   - [InitCatCache](../I/InitCatCache.md)
 

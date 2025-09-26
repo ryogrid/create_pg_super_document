@@ -33,14 +33,14 @@ The function includes debug assertions to verify data structure consistency when
   - [FreePageManagerPutInternal](FreePageManagerPutInternal.md)
   - [FreePageBtreeCleanup](FreePageBtreeCleanup.md)
   - [FreePageManagerUpdateLargest](FreePageManagerUpdateLargest.md)
-  - sum_free_pages (debug only)
-  - FreePageManagerLargestContiguous (debug only)
+  - [sum_free_pages](../s/sum_free_pages.md) (debug only)
+  - [FreePageManagerLargestContiguous](FreePageManagerLargestContiguous.md) (debug only)
 - Called from (representative examples):
-  - dsm_shmem_init
+  - [dsm_shmem_init](../d/dsm_shmem_init.md)
   - [dsm_create](../d/dsm_create.md)
   - [dsm_detach](../d/dsm_detach.md)
   - [dsa_free](../d/dsa_free.md)
-  - make_new_segment
+  - [make_new_segment](../m/make_new_segment.md)
 
 ## Notes and Other Information
 This is a public API function (non-static) used by dynamic shared memory (DSM) and dynamic shared arrays (DSA) subsystems. The function handles memory coalescing optimization and maintains internal consistency. Debug builds include additional assertions to verify the correctness of free page accounting and contiguous page calculations.

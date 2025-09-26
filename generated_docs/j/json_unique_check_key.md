@@ -27,8 +27,8 @@ The function uses PostgreSQL's hash table infrastructure to efficiently track ke
   - [hash_search](../h/hash_search.md)
   - strlen
 - Data structures used:
-  - JsonUniqueCheckState
-  - JsonUniqueHashEntry
+  - [JsonUniqueCheckState](../J/JsonUniqueCheckState.md)
+  - [JsonUniqueHashEntry](../J/JsonUniqueHashEntry.md)
   - HASH_ENTER
 - Called from (representative examples):
   - [json_object_agg_transfn_worker](json_object_agg_transfn_worker.md)

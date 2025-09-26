@@ -21,8 +21,8 @@ The function ensures that no directory handles are left open and no memory is le
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_tzenum (structure type being cleaned up)
-  - FreeDir (PostgreSQL function to close directory descriptors)
+  - [pg_tzenum](pg_tzenum.md) (structure type being cleaned up)
+  - [FreeDir](../F/FreeDir.md) (PostgreSQL function to close directory descriptors)
   - [pfree](pfree.md) (PostgreSQL memory deallocation function)
 - Called from (representative examples):
   - [pg_timezone_names](pg_timezone_names.md) (in datetime.c after completing timezone enumeration)

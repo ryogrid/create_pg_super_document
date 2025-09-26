@@ -22,7 +22,7 @@ The function performs a three-part check to ensure the clause is genuinely a con
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA macro (PostgreSQL type checking)
-  - Const struct (constisnull, constvalue fields)
+  - [Const](../C/Const.md) struct (constisnull, constvalue fields)
   - [DatumGetBool](../D/DatumGetBool.md) macro (for extracting boolean value)
 - Called from (representative examples):
   - [get_actual_clauses](../g/get_actual_clauses.md) (src/backend/optimizer/util/restrictinfo.c:479)

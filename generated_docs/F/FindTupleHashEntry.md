@@ -26,10 +26,10 @@ The function only performs lookups and never creates new entries, making it pure
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextSwitchTo
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - tuplehash_lookup
 - Called from (representative examples):
-  - ExecHashSubPlan (nodeSubplan.c:160)
+  - [ExecHashSubPlan](../E/ExecHashSubPlan.md) (nodeSubplan.c:160)
   - Referenced in executor.h header for external usage
 
 ## Notes and Other Information

@@ -21,16 +21,16 @@ This function is useful when a segment that was pinned for session-level persist
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwnerEnlarge
-  - ResourceOwnerRememberDSM  
-  - dsm_segment (structure type)
+  - [ResourceOwnerEnlarge](../R/ResourceOwnerEnlarge.md)
+  - [ResourceOwnerRememberDSM](../R/ResourceOwnerRememberDSM.md)  
+  - [dsm_segment](dsm_segment.md) (structure type)
   - CurrentResourceOwner (global variable)
 - Called from (representative examples):
   - Limited direct usage found in codebase (primarily used internally)
 
 ## Notes and Other Information
 - The function includes an Assert(seg->resowner == NULL) to ensure the segment is currently pinned
-- ResourceOwnerEnlarge() is called first to ensure the resource owner has capacity for the new DSM reference
+- [ResourceOwnerEnlarge](../R/ResourceOwnerEnlarge.md)() is called first to ensure the resource owner has capacity for the new DSM reference
 - This operation is the inverse of dsm_pin_mapping() and restores normal resource management
 - Should be used carefully to avoid premature cleanup of shared memory segments that are still in use
 - Once unpinned, the segment's lifetime is tied to the current resource owner's lifecycle

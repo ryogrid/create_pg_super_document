@@ -29,12 +29,12 @@ Each pair of hexadecimal digits is converted to a single byte by combining the h
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_hex (helper function to convert single hex character to value)
+  - [get_hex](../g/get_hex.md) (helper function to convert single hex character to value)
   - ereturn (error reporting macro with context support)
-  - pg_mblen (multibyte character length function for error messages)
+  - [pg_mblen](../p/pg_mblen.md) (multibyte character length function for error messages)
 - Called from (representative examples):
-  - hex_decode (wrapper function for traditional error handling)
-  - byteain (bytea input function for processing hex-encoded input)
+  - [hex_decode](hex_decode.md) (wrapper function for traditional error handling)
+  - [byteain](../b/byteain.md) (bytea input function for processing hex-encoded input)
 
 ## Notes and Other Information
 - Returns the number of bytes written to the destination buffer (uint64)

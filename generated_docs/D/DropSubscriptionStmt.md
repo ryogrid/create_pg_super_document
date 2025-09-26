@@ -38,8 +38,8 @@ The structure provides flexibility in how errors are handled (via missing_ok) an
 - Functions called/Symbols referenced:
   - DropBehavior (enum type)
 - Called from (representative examples):
-  - DropSubscription (main execution function in subscriptioncmds.c:1553)
-  - ProcessUtilitySlow (utility command dispatcher in utility.c:1869)
+  - [DropSubscription](DropSubscription.md) (main execution function in subscriptioncmds.c:1553)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (utility command dispatcher in utility.c:1869)
 
 ## Notes and Other Information
 - This structure is defined in src/include/nodes/parsenodes.h at lines 4225-4231

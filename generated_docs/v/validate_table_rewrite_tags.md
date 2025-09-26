@@ -25,7 +25,7 @@ validate_table_rewrite_tags is a static helper function specifically designed to
   - [command_tag_table_rewrite_ok](../c/command_tag_table_rewrite_ok.md)() - checks if command tag is valid for table rewrite events
   - ereport() - reports errors with appropriate error codes
 - Called from (representative examples):
-  - [CreateEventTrigger](../C/CreateEventTrigger.md)() - when creating event triggers with table_rewrite event and tag filters
+  - [CreateEventTrigger](../C/CreateEventTrigger.md)() - [when](../w/when.md) creating event triggers with table_rewrite event and tag filters
 
 ## Notes and Other Information
 - This is a static function only accessible within event_trigger.c

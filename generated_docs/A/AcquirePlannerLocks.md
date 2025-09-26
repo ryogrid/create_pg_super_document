@@ -21,7 +21,7 @@ This function manages locks required during the planning phase of query executio
 ## Dependencies
 - Functions called/Symbols referenced:
   - CMD_UTILITY
-  - UtilityContainsQuery
+  - [UtilityContainsQuery](../U/UtilityContainsQuery.md)
   - [ScanQueryForLocks](../S/ScanQueryForLocks.md)
 - Called from (representative examples):
   - StmtPlanRequiresRevalidation

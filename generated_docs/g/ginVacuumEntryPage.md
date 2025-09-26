@@ -35,7 +35,7 @@ The function uses a copy-on-write strategy where it works with the original page
   - [ginPostingListDecode](ginPostingListDecode.md)
   - [ginVacuumItemPointers](ginVacuumItemPointers.md)
   - [ginCompressPostingList](ginCompressPostingList.md)
-  - PageGetTempPageCopy
+  - [PageGetTempPageCopy](../P/PageGetTempPageCopy.md)
   - [GinFormTuple](../G/GinFormTuple.md)
   - [PageIndexTupleDelete](../P/PageIndexTupleDelete.md)
   - PageAddItem

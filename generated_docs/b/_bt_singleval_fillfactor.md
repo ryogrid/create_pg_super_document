@@ -31,12 +31,12 @@ The calculation works by:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PageGetPageSize
+  - [PageGetPageSize](../P/PageGetPageSize.md)
   - SizeOfPageHeaderData (constant)
-  - BTPageOpaqueData (type)
+  - [BTPageOpaqueData](../B/BTPageOpaqueData.md) (type)
   - BTREE_SINGLEVAL_FILLFACTOR (constant)
 - Called from:
-  - _bt_dedup_pass
+  - [_bt_dedup_pass](_bt_dedup_pass.md)
 
 ## Notes and Other Information
 - This is a static function within the nbtdedup.c module, part of PostgreSQL's B-tree deduplication system

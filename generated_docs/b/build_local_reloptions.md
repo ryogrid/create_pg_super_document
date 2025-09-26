@@ -28,7 +28,7 @@ This function handles the processing of local relation options that are not part
   - [parseLocalRelOptions](../p/parseLocalRelOptions.md) (function)
   - [allocateReloptStruct](../a/allocateReloptStruct.md) (function)
   - [fillRelOptions](../f/fillRelOptions.md) (function)
-  - list_length (PostgreSQL list function)
+  - [list_length](../l/list_length.md) (PostgreSQL list function)
   - [palloc](../p/palloc.md) (PostgreSQL memory allocation)
   - [pfree](../p/pfree.md) (PostgreSQL memory deallocation)
   - foreach, lfirst (PostgreSQL list macros)

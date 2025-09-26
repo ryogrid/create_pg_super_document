@@ -31,7 +31,7 @@ This function searches through a hash bucket's linked list to find and remove a 
   - [dshash_table_item](dshash_table_item.md) (type)
   - dsa_pointer (type)
 - Called from (representative examples):
-  - delete_item
+  - [delete_item](delete_item.md)
 
 ## Notes and Other Information
 - This is a static function, only used internally within dshash.c

@@ -19,7 +19,7 @@ This function safely disconnects from a PostgreSQL database by performing proper
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQtransactionStatus (checks if there are active queries)
+  - [PQtransactionStatus](../P/PQtransactionStatus.md) (checks if there are active queries)
   - [PQcancel](../P/PQcancel.md) (cancels active queries)
   - [set_archive_cancel_info](../s/set_archive_cancel_info.md) (deregisters signal handlers)
   - [PQfinish](../P/PQfinish.md) (closes the PostgreSQL connection)

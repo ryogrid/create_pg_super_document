@@ -20,10 +20,10 @@ This function converts the byte-based position of a match to a character-based p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TextPositionState (structure accessed and modified)
+  - [TextPositionState](../T/TextPositionState.md) (structure accessed and modified)
   - [pg_mbstrlen_with_len](../p/pg_mbstrlen_with_len.md) (multibyte string length calculation)
 - Called from (representative examples):
-  - text_position (main text position function)
+  - [text_position](text_position.md) (main text position function)
 
 ## Notes and Other Information
 - This is a static function, accessible only within varlena.c

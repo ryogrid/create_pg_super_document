@@ -22,9 +22,9 @@ The function returns standard comparator values: negative for a < b, zero for a 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BlockRefTableSerializedEntry (structure)
+  - [BlockRefTableSerializedEntry](BlockRefTableSerializedEntry.md) (structure)
 - Called from (representative examples):
-  - BlockRefTableWriter
+  - [BlockRefTableWriter](BlockRefTableWriter.md)
   - [WriteBlockRefTable](../W/WriteBlockRefTable.md)
 
 ## Notes and Other Information

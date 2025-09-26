@@ -49,7 +49,7 @@ The sink also tracks progress reporting by maintaining timestamps and byte count
 - `bytes_done_at_last_time_check`: Number of bytes processed at the time of the last progress check, used for calculating progress rates
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbsink (base structure)
+  - [bbsink](bbsink.md) (base structure)
   - TimestampTz (PostgreSQL timestamp type)
 - Called from (representative examples):
   - [bbsink_copystream_new](bbsink_copystream_new.md)

@@ -24,14 +24,14 @@ An important performance consideration is that this operation takes O(n) time pr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_list_invariants: Validates list structure integrity
-  - list_delete_nth_cell: Performs the actual deletion of the cell at index 0
+  - [check_list_invariants](../c/check_list_invariants.md): Validates list structure integrity
+  - [list_delete_nth_cell](list_delete_nth_cell.md): Performs the actual deletion of the cell at index 0
 - Called from (representative examples):
-  - gistFindPath: GiST index path finding
-  - CopyMultiInsertInfoFlush: COPY command processing
-  - ExplainNode: Query plan explanation
-  - simplify_or_arguments: Query optimization
-  - transformPLAssignStmt: PL/pgSQL statement transformation
+  - [gistFindPath](../g/gistFindPath.md): GiST index path finding
+  - [CopyMultiInsertInfoFlush](../C/CopyMultiInsertInfoFlush.md): COPY command processing
+  - [ExplainNode](../E/ExplainNode.md): Query plan explanation
+  - [simplify_or_arguments](../s/simplify_or_arguments.md): Query optimization
+  - [transformPLAssignStmt](../t/transformPLAssignStmt.md): PL/pgSQL statement transformation
 
 ## Notes and Other Information
 - Returns NIL if the input list is empty (no error is raised)

@@ -28,7 +28,7 @@ This structure holds the Unicode characters used for formatting table rows in Po
   - (No direct function calls - this is a data structure definition)
 - Called from (representative examples):
   - [unicodeStyleFormat](unicodeStyleFormat.md) (at src/fe_utils/print.c:128)
-  - refresh_utf8format (at src/fe_utils/print.c:3696)
+  - [refresh_utf8format](../r/refresh_utf8format.md) (at src/fe_utils/print.c:3696)
 
 ## Notes and Other Information
 - This structure is part of PostgreSQL's table formatting system for frontend utilities like psql

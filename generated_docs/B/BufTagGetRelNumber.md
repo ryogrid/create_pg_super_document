@@ -22,7 +22,7 @@ BufTagGetRelNumber is a simple inline accessor function that retrieves the relat
 - Functions called/Symbols referenced:
   - BufferTag (structure type)
 - Called from (representative examples):
-  - BufferSync
+  - [BufferSync](BufferSync.md)
   - [BufTagGetRelFileLocator](BufTagGetRelFileLocator.md)
   - [BufTagMatchesRelFileLocator](BufTagMatchesRelFileLocator.md)
 

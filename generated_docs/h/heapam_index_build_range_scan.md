@@ -46,7 +46,7 @@ The function performs detailed visibility checks for each tuple, deciding whethe
   - [HeapTupleSatisfiesVacuum](../H/HeapTupleSatisfiesVacuum.md)
   - [heap_get_root_tuples](heap_get_root_tuples.md)
   - [FormIndexDatum](../F/FormIndexDatum.md)
-  - ExecQual
+  - [ExecQual](../E/ExecQual.md)
   - [table_beginscan_strat](../t/table_beginscan_strat.md)
   - [GetOldestNonRemovableTransactionId](../G/GetOldestNonRemovableTransactionId.md)
 - Called from (representative examples):

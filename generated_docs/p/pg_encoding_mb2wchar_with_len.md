@@ -25,7 +25,7 @@ This function provides the same multibyte to wide character conversion functiona
   - pg_wchar_table (global encoding table)
   - mb2wchar_with_len (encoding-specific conversion function pointer)
 - Called from (representative examples):
-  - sqlchar_to_unicode (in src/backend/utils/adt/xml.c:2344)
+  - [sqlchar_to_unicode](../s/sqlchar_to_unicode.md) (in src/backend/utils/adt/xml.c:2344)
 
 ## Notes and Other Information
 - This function provides encoding flexibility compared to pg_mb2wchar_with_len which uses the current database encoding

@@ -28,7 +28,7 @@ If authentication succeeds, it sends an AUTH_REQ_OK message to the client. If it
 - Functions called/Symbols referenced:
   - [hba_getauthmethod](../h/hba_getauthmethod.md) (retrieve authentication method from HBA rules)
   - [secure_loaded_verify_locations](../s/secure_loaded_verify_locations.md) (check SSL certificate store)
-  - pg_getnameinfo_all (resolve client address information)
+  - [pg_getnameinfo_all](../p/pg_getnameinfo_all.md) (resolve client address information)
   - [sendAuthRequest](../s/sendAuthRequest.md) (send authentication requests/responses to client)
   - [auth_failed](../a/auth_failed.md) (handle authentication failure and termination)
 - Authentication method handlers:

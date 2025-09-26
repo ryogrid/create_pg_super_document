@@ -35,12 +35,12 @@ The caller is responsible for providing element type information (length, alignm
 ## Dependencies
 - Functions called/Symbols referenced:
   - ARR_ELEMTYPE (macro for getting array element type)
-  - ArrayGetNItems (calculates total number of elements)
+  - [ArrayGetNItems](../A/ArrayGetNItems.md) (calculates total number of elements)
   - ARR_NDIM (macro for array dimensions)
   - ARR_DIMS (macro for dimension sizes)
   - ARR_DATA_PTR (macro for array data pointer)
   - ARR_NULLBITMAP (macro for null bitmap)
-  - fetch_att (extracts attribute value)
+  - [fetch_att](../f/fetch_att.md) (extracts attribute value)
   - att_addlength_pointer (advances pointer by attribute length)
   - att_align_nominal (aligns pointer to required boundary)
   - bits8 (type for bitmap manipulation)
@@ -52,7 +52,7 @@ The caller is responsible for providing element type information (length, alignm
   - [array_set_slice](../a/array_set_slice.md) (array slice assignment)
   - [deconstruct_array_builtin](deconstruct_array_builtin.md) (specialized version for built-in types)
   - [array_contain_compare](../a/array_contain_compare.md) (array containment operations)
-  - scalararraysel (selectivity estimation for scalar array operations)
+  - [scalararraysel](../s/scalararraysel.md) (selectivity estimation for scalar array operations)
 
 ## Notes and Other Information
 - The function includes an assertion to verify that the provided element type matches the array's actual element type

@@ -24,8 +24,8 @@ This is essential for maintaining data consistency in replication scenarios - wi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire (ReplicationSlotControlLock)
-  - LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md) (ReplicationSlotControlLock)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - SpinLockAcquire/SpinLockRelease
   - TransactionIdIsValid
   - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
@@ -33,8 +33,8 @@ This is essential for maintaining data consistency in replication scenarios - wi
   - RS_INVAL_NONE (enum value)
   - [ReplicationSlot](ReplicationSlot.md) (struct type)
 - Called from (representative examples):
-  - CreateInitDecodingContext
-  - LogicalConfirmReceivedLocation
+  - [CreateInitDecodingContext](../C/CreateInitDecodingContext.md)
+  - [LogicalConfirmReceivedLocation](../L/LogicalConfirmReceivedLocation.md)
   - [ReplicationSlotRelease](ReplicationSlotRelease.md)
   - [ReplicationSlotDropPtr](ReplicationSlotDropPtr.md)
   - [InvalidateObsoleteReplicationSlots](../I/InvalidateObsoleteReplicationSlots.md)

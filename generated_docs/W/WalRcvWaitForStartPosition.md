@@ -34,7 +34,7 @@ Process title is updated to reflect the current activity state for monitoring pu
 - Functions called/Symbols referenced:
   - SpinLockAcquire, SpinLockRelease
   - [proc_exit](../p/proc_exit.md), elog
-  - set_ps_display
+  - [set_ps_display](../s/set_ps_display.md)
   - [WakeupRecovery](WakeupRecovery.md)
   - [ResetLatch](../R/ResetLatch.md), WaitLatch
   - [ProcessWalRcvInterrupts](../P/ProcessWalRcvInterrupts.md)

@@ -26,11 +26,11 @@ The function uses shared page and chunk index arrays to access the actual Pageta
 - Functions called/Symbols referenced:
   - [tbm_advance_schunkbit](tbm_advance_schunkbit.md)
   - [tbm_extract_page_tuple](tbm_extract_page_tuple.md)
-  - LWLockAcquire
-  - LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - [TBMSharedIterator](../T/TBMSharedIterator.md)
   - [TBMSharedIteratorState](../T/TBMSharedIteratorState.md)
-  - TBMIterateResult
+  - [TBMIterateResult](../T/TBMIterateResult.md)
   - [PagetableEntry](../P/PagetableEntry.md)
   - PAGES_PER_CHUNK
 - Called from (representative examples):

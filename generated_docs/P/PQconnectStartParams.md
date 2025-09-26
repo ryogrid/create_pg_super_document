@@ -27,7 +27,7 @@ PQconnectStartParams is the foundational function for creating asynchronous Post
   - [conninfo_array_parse](../c/conninfo_array_parse.md)
   - [fillPGconn](../f/fillPGconn.md)
   - [PQconninfoFree](PQconninfoFree.md)
-  - pqConnectOptions2
+  - [pqConnectOptions2](../p/pqConnectOptions2.md)
   - [pqConnectDBStart](../p/pqConnectDBStart.md)
   - CONNECTION_BAD (status constant)
   - [PQconninfoOption](PQconninfoOption.md) (structure type)

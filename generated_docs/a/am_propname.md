@@ -29,7 +29,7 @@ The structure is primarily used in the static array  defined in the same file, w
   - IndexAMProperty (enum type)
 - Used by:
   - am_propnames[] (static array)
-  - lookup_prop_name() function (indirectly through am_propnames array)
+  - [lookup_prop_name](../l/lookup_prop_name.md)() function (indirectly through am_propnames array)
 
 ## Notes and Other Information
 - The structure is defined in 

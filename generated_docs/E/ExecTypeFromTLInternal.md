@@ -35,7 +35,7 @@ The skipjunk parameter controls whether resjunk columns are included in the fina
   - [CreateTemplateTupleDesc](../C/CreateTemplateTupleDesc.md) (for creating the empty descriptor template)
   - [TupleDescInitEntry](../T/TupleDescInitEntry.md) (for initializing each attribute entry)
   - [TupleDescInitEntryCollation](../T/TupleDescInitEntryCollation.md) (for setting collation information)
-  - exprType, exprTypmod, exprCollation (for extracting type information from expressions)
+  - [exprType](../e/exprType.md), exprTypmod, exprCollation (for extracting type information from expressions)
 - Called from (representative examples):
   - [ExecTypeFromTL](ExecTypeFromTL.md) (with skipjunk=false)
   - [ExecCleanTypeFromTL](ExecCleanTypeFromTL.md) (with skipjunk=true)

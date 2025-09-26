@@ -26,7 +26,7 @@ This function retrieves the next IndexTuple from a completed sorting operation, 
 - Called from (representative examples):
   - [gist_indexsortbuild](../g/gist_indexsortbuild.md)
   - [_h_indexbuild](../h/_h_indexbuild.md)
-  - _bt_load (multiple locations in B-tree index building)
+  - [_bt_load](../b/_bt_load.md) (multiple locations in B-tree index building)
 
 ## Notes and Other Information
 - Returns NULL if no more tuples are available

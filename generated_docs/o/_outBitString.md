@@ -21,10 +21,10 @@ This function converts a BitString node into its textual representation by outpu
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert (for validating the bit string format)
-  - outToken (for escaping and outputting the bit string value)
-  - BitString (node type)
+  - [outToken](outToken.md) (for escaping and outputting the bit string value)
+  - [BitString](../B/BitString.md) (node type)
 - Called from (representative examples):
-  - outNode (main node serialization dispatcher)
+  - [outNode](outNode.md) (main node serialization dispatcher)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the outfuncs.c file

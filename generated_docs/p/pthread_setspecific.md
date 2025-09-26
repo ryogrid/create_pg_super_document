@@ -22,11 +22,11 @@ This function provides a Windows-compatible stub implementation of the POSIX pth
 - Functions called/Symbols referenced:
   - pthread_key_t (type reference)
 - Called from (representative examples):
-  - ecpg_finish (in src/interfaces/ecpg/ecpglib/connect.c:136)
-  - ECPGsetconn (in src/interfaces/ecpg/ecpglib/connect.c:202)
-  - ECPGconnect (in src/interfaces/ecpg/ecpglib/connect.c:538)
-  - set_descriptors (in src/interfaces/ecpg/ecpglib/descriptor.c:49)
-  - set_auto_allocs (in src/interfaces/ecpg/ecpglib/memory.c:97)
+  - [ecpg_finish](../e/ecpg_finish.md) (in src/interfaces/ecpg/ecpglib/connect.c:136)
+  - [ECPGsetconn](../E/ECPGsetconn.md) (in src/interfaces/ecpg/ecpglib/connect.c:202)
+  - [ECPGconnect](../E/ECPGconnect.md) (in src/interfaces/ecpg/ecpglib/connect.c:538)
+  - [set_descriptors](../s/set_descriptors.md) (in src/interfaces/ecpg/ecpglib/descriptor.c:49)
+  - [set_auto_allocs](../s/set_auto_allocs.md) (in src/interfaces/ecpg/ecpglib/memory.c:97)
   - ECPGget_sqlca (in src/interfaces/ecpg/ecpglib/misc.c:121)
 
 ## Notes and Other Information

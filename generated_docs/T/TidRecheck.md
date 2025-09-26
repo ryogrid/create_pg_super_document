@@ -24,10 +24,10 @@ The comment also notes special considerations for "WHERE CURRENT OF" cases, wher
 
 ## Dependencies
 - Types used:
-  - TidScanState
-  - TupleTableSlot
+  - [TidScanState](TidScanState.md)
+  - [TupleTableSlot](TupleTableSlot.md)
 - Called from:
-  - ExecTidScan (as part of the EvalPlanQual mechanism)
+  - [ExecTidScan](../E/ExecTidScan.md) (as part of the EvalPlanQual mechanism)
 
 ## Notes and Other Information
 - This is a static function, only accessible within nodeTidscan.c

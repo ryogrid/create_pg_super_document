@@ -33,7 +33,7 @@ The function implements a buffering strategy where it forwards compressed data t
   - LZ4F_compressUpdate  
   - LZ4F_compressBound
   - [bbstreamer_content](bbstreamer_content.md)
-  - enlargeStringInfo
+  - [enlargeStringInfo](../e/enlargeStringInfo.md)
 - Called from (representative examples):
   - [bbstreamer](bbstreamer.md) operation table (via function pointer)
 

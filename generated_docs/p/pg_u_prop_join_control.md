@@ -35,7 +35,7 @@ The function implements the standard two-tier lookup strategy:
 ## Notes and Other Information
 - Critical for proper handling of cursive scripts and complex text layout
 - Used by pg_u_isword function for word boundary analysis in complex scripts
-- Join control characters are invisible but affect text rendering and shaping
+- [Join](../J/Join.md) control characters are invisible but affect text rendering and shaping
 - Essential for correct text processing in Arabic, Persian, Urdu, and similar scripts
 - These characters have special significance in text segmentation and word identification
 - No ASCII characters have the Join_Control property (all are in the higher Unicode ranges)

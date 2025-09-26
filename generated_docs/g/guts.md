@@ -43,7 +43,7 @@ The guts struct is the core internal representation of a compiled regular expres
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - subre (subexpression tree nodes)
+  - [subre](../s/subre.md) (subexpression tree nodes)
   - [cnfa](../c/cnfa.md) (compiled NFA structure)
   - [colormap](../c/colormap.md) (character classification structure)
 - Called from (representative examples):

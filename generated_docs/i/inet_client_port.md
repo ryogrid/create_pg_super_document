@@ -36,7 +36,7 @@ This function takes no parameters (uses PG_FUNCTION_ARGS macro for PostgreSQL fu
 - Functions called/Symbols referenced:
   - [Port](../P/Port.md) (structure representing connection port information)
   - MyProcPort (global variable pointing to current process's port)
-  - pg_getnameinfo_all (PostgreSQL wrapper for address-to-name conversion)
+  - [pg_getnameinfo_all](../p/pg_getnameinfo_all.md) (PostgreSQL wrapper for address-to-name conversion)
   - [int4in](int4in.md) (function to parse integer from string)
   - DirectFunctionCall1 (PostgreSQL function call interface)
   - [CStringGetDatum](../C/CStringGetDatum.md) (converts C string to Datum type)

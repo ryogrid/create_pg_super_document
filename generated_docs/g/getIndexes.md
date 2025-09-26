@@ -24,10 +24,10 @@ The getIndexes function performs a sophisticated query against PostgreSQL system
 - Functions called/Symbols referenced:
   - [TableInfo](../T/TableInfo.md) (structure type)
   - [IndxInfo](../I/IndxInfo.md) (structure type)
-  - appendPQExpBufferChar
+  - [appendPQExpBufferChar](../a/appendPQExpBufferChar.md)
   - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
   - PGRES_TUPLES_OK (constant)
-  - pg_malloc
+  - [pg_malloc](../p/pg_malloc.md)
   - atooid
   - DO_INDEX (enum value)
   - [AssignDumpId](../A/AssignDumpId.md)

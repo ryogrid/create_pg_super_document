@@ -21,13 +21,13 @@ This function implements the PostgreSQL DO statement functionality for PL/Perl b
 ## Dependencies
 - Functions called/Symbols referenced:
   - LOCAL_FCINFO (macro to create local function call info)
-  - InlineCodeBlock (structure containing code block information)
+  - [InlineCodeBlock](../I/InlineCodeBlock.md) (structure containing code block information)
   - [plperl_proc_desc](plperl_proc_desc.md) (procedure descriptor structure)
   - [plperl_call_data](plperl_call_data.md) (call state management structure)
   - MemSet (memory initialization)
   - [plperl_inline_callback](plperl_inline_callback.md) (error context callback)
   - SizeForFunctionCallInfo (size calculation for fcinfo)
-  - SPI_connect_ext, SPI_finish (SPI database interface)
+  - [SPI_connect_ext](../S/SPI_connect_ext.md), SPI_finish (SPI database interface)
   - SPI_OPT_NONATOMIC (non-atomic SPI option)
   - [select_perl_context](../s/select_perl_context.md) (Perl interpreter context selection)
   - [plperl_create_sub](plperl_create_sub.md) (create Perl subroutine)

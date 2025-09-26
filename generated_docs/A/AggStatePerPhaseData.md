@@ -54,12 +54,12 @@ Each phase after the first requires a sort order, which is specified by the sort
 ## Dependencies
 - Functions called/Symbols referenced:
   - AggStrategy
-  - Agg
-  - Sort
+  - [Agg](Agg.md)
+  - [Sort](../S/Sort.md)
 - Called from (representative examples):
-  - ExecInitAgg
-  - ExecProcNode
-  - AggStatePerPhase
+  - [ExecInitAgg](../E/ExecInitAgg.md)
+  - [ExecProcNode](../E/ExecProcNode.md)
+  - [AggStatePerPhase](AggStatePerPhase.md)
 
 ## Notes and Other Information
 The phase-based approach to grouping sets is a key optimization in PostgreSQL's aggregate processing. By grouping compatible grouping sets into phases, the system minimizes the number of data passes required while maintaining correct results. The cached expression variants (evaltrans_cache) provide significant performance benefits by avoiding repeated expression compilation for common tuple slot operation and NULL checking patterns during aggregate evaluation.

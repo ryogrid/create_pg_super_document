@@ -28,7 +28,7 @@ NestLoopState extends JoinState to provide specific state management for nested 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [JoinState](../J/JoinState.md) (inherited base structure)
-  - TupleTableSlot (for null inner tuple storage)
+  - [TupleTableSlot](../T/TupleTableSlot.md) (for null inner tuple storage)
 - Called from (representative examples):
   - [ExecNestLoop](../E/ExecNestLoop.md) (main execution function)
   - [ExecInitNestLoop](../E/ExecInitNestLoop.md) (initialization function)

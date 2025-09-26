@@ -23,18 +23,18 @@ The cleanup process includes closing any temporary "tape" files used for externa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextSwitchTo (memory context management)
-  - LogicalTapeSetBlocks (get disk usage statistics) 
-  - LogicalTapeSetClose (close temporary tape files)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (memory context management)
+  - [LogicalTapeSetBlocks](../L/LogicalTapeSetBlocks.md) (get disk usage statistics) 
+  - [LogicalTapeSetClose](../L/LogicalTapeSetClose.md) (close temporary tape files)
   - SERIAL (macro to check if sort is serial vs parallel)
-  - pg_rusage_show (display resource usage statistics)
+  - [pg_rusage_show](../p/pg_rusage_show.md) (display resource usage statistics)
   - FREESTATE (macro to free sort state structure)
-  - MemoryContextReset (reset sort memory context)
+  - [MemoryContextReset](../M/MemoryContextReset.md) (reset sort memory context)
   - TRACE_POSTGRESQL_SORT_DONE (tracing probe point)
 
 - Called from (representative examples):
-  - tuplesort_end (normal sort completion)
-  - tuplesort_reset (sort state reset)
+  - [tuplesort_end](tuplesort_end.md) (normal sort completion)
+  - [tuplesort_reset](tuplesort_reset.md) (sort state reset)
   - LEADER (parallel sort leader cleanup)
 
 ## Notes and Other Information

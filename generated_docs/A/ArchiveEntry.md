@@ -28,8 +28,8 @@ The function maintains archive statistics by incrementing the TOC count and trac
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_malloc0 (for TocEntry allocation)
-  - pg_malloc (for dependencies array allocation)
+  - [pg_malloc0](../p/pg_malloc0.md) (for TocEntry allocation)
+  - [pg_malloc](../p/pg_malloc.md) (for dependencies array allocation)
   - [pg_strdup](../p/pg_strdup.md) (for string duplication)
   - memcpy (for copying dependency arrays)
   - AH->ArchiveEntryPtr (format-specific entry handler)

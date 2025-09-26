@@ -29,7 +29,7 @@ The "1" in the function name indicates it performs a single-index GEP operation,
   - [l_load](l_load.md): Used to load the value from the computed pointer
 - Called from (representative examples):
   - [slot_compile_deform](../s/slot_compile_deform.md) (in llvmjit_deform.c)
-  - llvm_compile_expr (extensively in llvmjit_expr.c)
+  - [llvm_compile_expr](llvm_compile_expr.md) (extensively in llvmjit_expr.c)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's JIT compilation infrastructure

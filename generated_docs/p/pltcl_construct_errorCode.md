@@ -30,14 +30,14 @@ The errorCode structure enables PL/Tcl procedures to implement sophisticated err
   - Tcl_NewStringObj
   - Tcl_NewIntObj
   - Tcl_SetObjErrorCode
-  - unpack_sql_state
-  - pltcl_get_condition_name
+  - [unpack_sql_state](../u/unpack_sql_state.md)
+  - [pltcl_get_condition_name](pltcl_get_condition_name.md)
   - UTF_E2U
 - Called from (representative examples):
-  - pltcl_elog
-  - pltcl_subtrans_abort
-  - pltcl_commit
-  - pltcl_rollback
+  - [pltcl_elog](pltcl_elog.md)
+  - [pltcl_subtrans_abort](pltcl_subtrans_abort.md)
+  - [pltcl_commit](pltcl_commit.md)
+  - [pltcl_rollback](pltcl_rollback.md)
 
 ## Notes and Other Information
 - Creates errorCode as a flat list with alternating keys and values for easy Tcl processing

@@ -23,7 +23,7 @@ PQrequestCancel provides a simplified interface for canceling queries on an exis
   - [PQgetCancel](PQgetCancel.md) (creates PGcancel object from connection)
   - [PQcancel](PQcancel.md) (sends the actual cancel request)
   - [PQfreeCancel](PQfreeCancel.md) (cleans up the cancel object)
-  - strlcpy (safe string copying for error messages)
+  - [strlcpy](../s/strlcpy.md) (safe string copying for error messages)
   - strlen (string length calculation)
 - Called from (representative examples):
   - [test_cancel](../t/test_cancel.md) (src/test/modules/libpq_pipeline/libpq_pipeline.c:281)

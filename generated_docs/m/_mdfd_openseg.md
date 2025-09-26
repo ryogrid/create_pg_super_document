@@ -25,7 +25,7 @@ The function includes assertions to validate that segments are being opened in t
 ## Dependencies
 - Functions called/Symbols referenced:
   - [_mdfd_segpath](_mdfd_segpath.md) (constructs segment file path)
-  - PathNameOpenFile (opens the file)
+  - [PathNameOpenFile](../P/PathNameOpenFile.md) (opens the file)
   - [_mdfd_open_flags](_mdfd_open_flags.md) (gets default opening flags)
   - [pfree](../p/pfree.md) (frees allocated path)
   - [_fdvec_resize](../f/_fdvec_resize.md) (expands segment descriptor array)

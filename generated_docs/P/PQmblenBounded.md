@@ -21,7 +21,7 @@ This function combines the functionality of pg_encoding_mblen() with strnlen() t
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_encoding_mblen](../p/pg_encoding_mblen.md)
-  - strnlen
+  - [strnlen](../s/strnlen.md)
 - Called from (representative examples):
   - [skip_white_space](../s/skip_white_space.md) (src/bin/psql/common.c:1839, 1876)
   - [command_no_begin](../c/command_no_begin.md) (src/bin/psql/common.c:1911, 1942, 1976, 1992, 2003, 2020, 2043, 2058, 2077, 2097)

@@ -23,7 +23,7 @@ This function performs the core attribute extraction from a BRIN tuple's on-disk
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - att_isnull (checks if attribute is null in bitmask)
+  - [att_isnull](../a/att_isnull.md) (checks if attribute is null in bitmask)
   - [brtuple_disk_tupdesc](brtuple_disk_tupdesc.md) (gets disk format tuple descriptor)
   - att_align_pointer (aligns pointer for variable-length attributes)
   - att_align_nominal (aligns offset for fixed-length attributes)

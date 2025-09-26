@@ -28,11 +28,11 @@ This design allows the CLUSTER command to process multiple tables safely while m
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PopActiveSnapshot
+  - [PopActiveSnapshot](../P/PopActiveSnapshot.md)
   - [CommitTransactionCommand](../C/CommitTransactionCommand.md)
   - [StartTransactionCommand](../S/StartTransactionCommand.md)
-  - GetTransactionSnapshot
-  - PushActiveSnapshot
+  - [GetTransactionSnapshot](../G/GetTransactionSnapshot.md)
+  - [PushActiveSnapshot](../P/PushActiveSnapshot.md)
   - [cluster_rel](cluster_rel.md)
 - Called from (representative examples):
   - [cluster](cluster.md)

@@ -35,10 +35,10 @@ This design pattern follows modern PostgreSQL practices of using option structur
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _SPI_begin_call (initialize SPI context)
+  - [_SPI_begin_call](_SPI_begin_call.md) (initialize SPI context)
   - [_SPI_prepare_plan](_SPI_prepare_plan.md) (parse and plan the query)
   - [SPI_cursor_open_internal](SPI_cursor_open_internal.md) (create the actual cursor)
-  - _SPI_end_call (cleanup SPI context)
+  - [_SPI_end_call](_SPI_end_call.md) (cleanup SPI context)
   - elog (error logging)
 - Called from (representative examples):
   - Available through SPI interface for modern applications

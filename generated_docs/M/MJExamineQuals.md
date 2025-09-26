@@ -42,12 +42,12 @@ The function ensures that abbreviation optimization is disabled for merge joins 
   - [get_op_opfamily_properties](../g/get_op_opfamily_properties.md)
   - [get_opfamily_proc](../g/get_opfamily_proc.md)
   - OidFunctionCall1
-  - PrepareSortSupportComparisonShim
+  - [PrepareSortSupportComparisonShim](../P/PrepareSortSupportComparisonShim.md)
   - lsecond
   - BTSORTSUPPORT_PROC
   - BTORDER_PROC
 - Called from:
-  - ExecInitMergeJoin
+  - [ExecInitMergeJoin](../E/ExecInitMergeJoin.md)
 
 ## Notes and Other Information
 - The function is static and only used internally within the merge join executor

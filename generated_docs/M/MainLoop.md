@@ -30,7 +30,7 @@ The function maintains several buffers to manage multi-line queries, command his
 - Functions called/Symbols referenced:
   - psql_scan_create: Initialize lexical scanner
   - [conditional_stack_create](../c/conditional_stack_create.md): Create conditional processing stack for \\if blocks
-  - createPQExpBuffer: Create expandable string buffers for queries
+  - [createPQExpBuffer](../c/createPQExpBuffer.md): Create expandable string buffers for queries
   - [gets_interactive](../g/gets_interactive.md): Read input line in interactive mode with readline support
   - [gets_fromFile](../g/gets_fromFile.md): Read input line from file
   - psql_scan: Tokenize and parse input line

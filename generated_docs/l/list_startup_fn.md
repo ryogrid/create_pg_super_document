@@ -290,7 +290,7 @@ Text creation and manipulation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PredIterInfo](../P/PredIterInfo.md) (structure type)
-  - list_head (function to get the first ListCell of a list)
+  - [list_head](list_head.md) (function to get the first ListCell of a list)
 - Called from (representative examples):
   - iterate_end (in predicate classification logic)
   - [predicate_classify](../p/predicate_classify.md) (during predicate analysis)

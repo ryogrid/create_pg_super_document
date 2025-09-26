@@ -24,7 +24,7 @@ This structure is used to log GiST index page deletion operations in the write-a
 - `downlinkOffset`: Offset number in the parent page where the downlink (pointer) to this deleted page is located
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FullTransactionId
+  - [FullTransactionId](../F/FullTransactionId.md)
 - Called from (representative examples):
   - [gistRedoPageDelete](gistRedoPageDelete.md)
   - [gistXLogPageDelete](gistXLogPageDelete.md)

@@ -30,7 +30,7 @@ The function is optimized for sort/group operations and is faster than search_in
 - Functions called/Symbols referenced:
   - lfirst
   - [equal](../e/equal.md)
-  - makeVarFromTargetEntry
+  - [makeVarFromTargetEntry](../m/makeVarFromTargetEntry.md)
 - Data types used:
   - [Expr](../E/Expr.md)
   - Index

@@ -28,8 +28,8 @@ The optimization is particularly effective because RANK() internally calculates 
   - PG_GETARG_POINTER
   - IsA (macro)
   - PG_RETURN_POINTER
-  - SupportRequestWFuncMonotonic (struct)
-  - SupportRequestOptimizeWindowClause (struct)
+  - [SupportRequestWFuncMonotonic](../S/SupportRequestWFuncMonotonic.md) (struct)
+  - [SupportRequestOptimizeWindowClause](../S/SupportRequestOptimizeWindowClause.md) (struct)
   - MONOTONICFUNC_INCREASING
   - FRAMEOPTION_NONDEFAULT
   - FRAMEOPTION_ROWS

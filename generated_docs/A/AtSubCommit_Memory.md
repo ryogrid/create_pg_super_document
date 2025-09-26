@@ -25,7 +25,7 @@ This function takes no parameters but works with transaction state and memory co
 - Functions called/Symbols referenced:
   - TransactionState (type)
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (implicitly called)
-  - MemoryContextIsEmpty
+  - [MemoryContextIsEmpty](../M/MemoryContextIsEmpty.md)
   - [MemoryContextDelete](../M/MemoryContextDelete.md)
 - Called from (representative examples):
   - [CommitSubTransaction](../C/CommitSubTransaction.md)

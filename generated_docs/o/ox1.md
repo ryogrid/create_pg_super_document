@@ -35,8 +35,8 @@ The crossover preserves the relative order of elements from the second parent wh
 ## Dependencies
 - Functions called/Symbols referenced:
   - [geqo_randint](../g/geqo_randint.md) (for generating random segment boundaries)
-  - Gene (typedef for gene representation)
-  - City (structure with 'used' field for tracking gene usage)
+  - [Gene](../G/Gene.md) (typedef for gene representation)
+  - [City](../C/City.md) (structure with 'used' field for tracking gene usage)
 - Called from (representative examples):
   - [geqo](../g/geqo.md) (main GEQO algorithm function in geqo_main.c:213)
 

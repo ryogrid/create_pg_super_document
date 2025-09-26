@@ -25,17 +25,17 @@ The function handles expanded objects specially by flattening them during materi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - VirtualTupleTableSlot (cast type)
+  - [VirtualTupleTableSlot](../V/VirtualTupleTableSlot.md) (cast type)
   - TTS_SHOULDFREE (macro to check if slot should be freed)
   - VARATT_IS_EXTERNAL_EXPANDED (macro to check for expanded objects)
   - att_align_nominal (function to align data based on type requirements)
-  - DatumGetEOHP (macro to get expanded object header)
-  - EOH_get_flat_size (function to get flattened size of expanded object)
+  - [DatumGetEOHP](../D/DatumGetEOHP.md) (macro to get expanded object header)
+  - [EOH_get_flat_size](../E/EOH_get_flat_size.md) (function to get flattened size of expanded object)
   - att_addlength_datum (function to calculate attribute storage length)
   - [MemoryContextAlloc](../M/MemoryContextAlloc.md) (function to allocate memory)
   - TTS_FLAG_SHOULDFREE (flag indicating slot owns its data)
   - [ExpandedObjectHeader](../E/ExpandedObjectHeader.md) (type for expanded object headers)
-  - EOH_flatten_into (function to flatten expanded object)
+  - [EOH_flatten_into](../E/EOH_flatten_into.md) (function to flatten expanded object)
 - Called from (representative examples):
   - [tts_virtual_copyslot](tts_virtual_copyslot.md) (at src/backend/executor/execTuples.c:287)
   - [slot_deform_heap_tuple](../s/slot_deform_heap_tuple.md) (at src/backend/executor/execTuples.c:1115)

@@ -218,21 +218,21 @@ The sorting system employs several memory management strategies including slab a
 - Functions called/Symbols referenced:
   - TuplesortPublic (base interface)
   - TupSortStatus (status enumeration)
-  - LogicalTapeSet (tape management)
+  - [LogicalTapeSet](../L/LogicalTapeSet.md) (tape management)
   - SortTuple (tuple storage structure)
   - SlabSlot (slab allocation)
-  - LogicalTape (individual tape operations)
-  - Sharedsort (parallel coordination)
-  - PGRUsage (resource usage tracking)
+  - [LogicalTape](../L/LogicalTape.md) (individual tape operations)
+  - [Sharedsort](../S/Sharedsort.md) (parallel coordination)
+  - [PGRUsage](../P/PGRUsage.md) (resource usage tracking)
 
 - Called from (representative examples):
-  - tuplesort_begin_heap
-  - tuplesort_begin_cluster  
-  - tuplesort_begin_index_btree
-  - tuplesort_performsort
-  - tuplesort_gettuple_common
-  - ExecSort (executor node)
-  - build_pertrans_for_aggref (aggregate functions)
+  - [tuplesort_begin_heap](../t/tuplesort_begin_heap.md)
+  - [tuplesort_begin_cluster](../t/tuplesort_begin_cluster.md)  
+  - [tuplesort_begin_index_btree](../t/tuplesort_begin_index_btree.md)
+  - [tuplesort_performsort](../t/tuplesort_performsort.md)
+  - [tuplesort_gettuple_common](../t/tuplesort_gettuple_common.md)
+  - [ExecSort](../E/ExecSort.md) (executor node)
+  - [build_pertrans_for_aggref](../b/build_pertrans_for_aggref.md) (aggregate functions)
 
 ## Notes and Other Information
 - The structure is designed to handle both small in-memory sorts and large external sorts seamlessly

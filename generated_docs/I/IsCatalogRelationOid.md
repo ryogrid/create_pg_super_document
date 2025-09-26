@@ -29,7 +29,7 @@ The function is designed to be extremely lightweight, performing no catalog acce
   - [IsCatalogRelation](IsCatalogRelation.md)
   - [is_publishable_class](../i/is_publishable_class.md)
   - [ReindexMultipleTables](../R/ReindexMultipleTables.md)
-  - read_stream_begin_relation
+  - [read_stream_begin_relation](../r/read_stream_begin_relation.md)
 
 ## Notes and Other Information
 - Uses OID comparison as the sole criterion for identification

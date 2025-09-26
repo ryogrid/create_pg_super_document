@@ -24,12 +24,12 @@ The conversion handles the TOAST (The Oversized-Attribute Storage Technique) dec
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - text_to_cstring (PostgreSQL function to convert text to null-terminated C string)
+  - [text_to_cstring](../t/text_to_cstring.md) (PostgreSQL function to convert text to null-terminated C string)
 - Called from (representative examples):
-  - xmltext (convert XML to text)
-  - xmltotext_with_options (XML to text conversion with options)
-  - xmlroot (XML root element processing)
-  - xml_parse (main XML parsing function)
+  - [xmltext](xmltext.md) (convert XML to text)
+  - [xmltotext_with_options](xmltotext_with_options.md) (XML to text conversion with options)
+  - [xmlroot](xmlroot.md) (XML root element processing)
+  - [xml_parse](xml_parse.md) (main XML parsing function)
 
 ## Notes and Other Information
 - Returns xmlChar* (libxml2's string type, equivalent to unsigned char*)
@@ -37,6 +37,6 @@ The conversion handles the TOAST (The Oversized-Attribute Storage Technique) dec
 - Part of the xmlChar<->text conversion utility functions
 - Simple wrapper around text_to_cstring with appropriate type casting
 - Handles TOAST decompression automatically through text_to_cstring
-- Result is a null-terminated string suitable for libxml2 functions
+- [Result](../R/Result.md) is a null-terminated string suitable for libxml2 functions
 - Memory management follows PostgreSQL conventions (result is palloc'd)
 - Essential for interfacing PostgreSQL text data with libxml2 API

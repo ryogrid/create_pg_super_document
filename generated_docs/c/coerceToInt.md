@@ -30,9 +30,9 @@ The function includes safety checks for NaN values and integer overflow when con
   - isnan (checks for NaN values)
   - FLOAT8_FITS_IN_INT64 (macro to check if double fits in int64)
   - pg_log_error (error logging function)
-  - valueTypeName (returns string name of value type)
+  - [valueTypeName](../v/valueTypeName.md) (returns string name of value type)
 - Called from (representative examples):
-  - evalStandardFunc (multiple locations for various mathematical operations)
+  - [evalStandardFunc](../e/evalStandardFunc.md) (multiple locations for various mathematical operations)
 
 ## Notes and Other Information
 - This is a static function within pgbench.c, used internally for expression evaluation

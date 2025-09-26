@@ -19,19 +19,19 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SimpleLruGetBankLock
-  - LWLockAcquire
-  - ZeroSUBTRANSPage
-  - SimpleLruWritePage
-  - LWLockRelease
+  - [SimpleLruGetBankLock](../S/SimpleLruGetBankLock.md)
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [ZeroSUBTRANSPage](../Z/ZeroSUBTRANSPage.md)
+  - [SimpleLruWritePage](../S/SimpleLruWritePage.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
 - Global variables accessed:
   - SubTransCtl
 - Types used:
-  - LWLock
+  - [LWLock](../L/LWLock.md)
 - Constants used:
   - LW_EXCLUSIVE
 - Called from (representative examples):
-  - BootStrapXLOG
+  - [BootStrapXLOG](BootStrapXLOG.md)
 
 ## Notes and Other Information
 - Must be called during system installation (initdb) and only once

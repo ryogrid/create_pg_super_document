@@ -26,12 +26,12 @@ The function returns the number of bytes consumed by the valid character, or -1 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_big5_mblen (function to determine byte length of Big5 character)
+  - [pg_big5_mblen](pg_big5_mblen.md) (function to determine byte length of Big5 character)
   - NONUTF8_INVALID_BYTE0 (constant for invalid byte sequence detection)
   - NONUTF8_INVALID_BYTE1 (constant for invalid byte sequence detection)
 - Called from (representative examples):
-  - pg_big5_verifystr (for string-level verification)
-  - pg_encoding_set_invalid (in encoding validation routines)
+  - [pg_big5_verifystr](pg_big5_verifystr.md) (for string-level verification)
+  - [pg_encoding_set_invalid](pg_encoding_set_invalid.md) (in encoding validation routines)
 
 ## Notes and Other Information
 - Returns the number of bytes in the valid character (typically 1 or 2 for Big5), or -1 for invalid characters

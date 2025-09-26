@@ -29,12 +29,12 @@ This separation ensures proper cleanup without creating circular dependencies in
   - [DatumGetInt32](../D/DatumGetInt32.md)
   - [BufferIsValid](../B/BufferIsValid.md)
   - BufferIsLocal
-  - UnpinLocalBufferNoOwner
-  - UnpinBufferNoOwner
+  - [UnpinLocalBufferNoOwner](../U/UnpinLocalBufferNoOwner.md)
+  - [UnpinBufferNoOwner](../U/UnpinBufferNoOwner.md)
   - [GetBufferDescriptor](../G/GetBufferDescriptor.md)
   - elog (implicit - for error reporting)
 - Called from (representative examples):
-  - ResourceOwner system (callback mechanism)
+  - [ResourceOwner](ResourceOwner.md) system (callback mechanism)
 
 ## Notes and Other Information
 - Static function scope limits visibility to the current compilation unit (bufmgr.c)

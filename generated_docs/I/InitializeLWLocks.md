@@ -28,9 +28,9 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - NumLWLocksForNamedTranches: Calculates number of locks needed for named tranches
-  - LWLockInitialize: Initializes individual lock structures
-  - LWLockNewTrancheId: Allocates new tranche IDs for named tranches
+  - [NumLWLocksForNamedTranches](../N/NumLWLocksForNamedTranches.md): Calculates number of locks needed for named tranches
+  - [LWLockInitialize](../L/LWLockInitialize.md): Initializes individual lock structures
+  - [LWLockNewTrancheId](../L/LWLockNewTrancheId.md): Allocates new tranche IDs for named tranches
 - Constants used:
   - NUM_INDIVIDUAL_LWLOCKS: Number of basic individual locks
   - BUFFER_MAPPING_LWLOCK_OFFSET: Offset for buffer mapping locks
@@ -45,7 +45,7 @@ This function takes no parameters.
   - LWTRANCHE_LOCK_MANAGER: For lock manager locks
   - LWTRANCHE_PREDICATE_LOCK_MANAGER: For predicate lock locks
 - Called from:
-  - CreateLWLocks: Main LWLock creation function
+  - [CreateLWLocks](../C/CreateLWLocks.md): Main LWLock creation function
 
 ## Notes and Other Information
 - This is a static function, only called internally from CreateLWLocks

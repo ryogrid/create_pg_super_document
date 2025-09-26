@@ -56,7 +56,7 @@ Key responsibilities include:
   - [CreateConstraintEntry](../C/CreateConstraintEntry.md)
   - ObjectAddressSet
   - [recordDependencyOn](../r/recordDependencyOn.md)
-  - CommandCounterIncrement
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md)
   - RelationGetNamespace
   - RelationGetRelid
   - RelationGetRelationName
@@ -71,6 +71,6 @@ Key responsibilities include:
 - This is a static function within tablecmds.c, part of the ALTER TABLE infrastructure
 - The function does not create pg_trigger entries - that is handled separately by addFkRecurseReferenced and addFkRecurseReferencing
 - For partitioned tables, special dependency relationships are created to ensure proper constraint management during partition operations
-- Constraint names are automatically modified if conflicts exist, ensuring uniqueness within the relation
+- [Constraint](../C/Constraint.md) names are automatically modified if conflicts exist, ensuring uniqueness within the relation
 - The function handles both top-level constraints and partition-specific constraints differently regarding inheritance properties
 - [Command](../C/Command.md) counter increment ensures constraint visibility for subsequent operations in the same transaction

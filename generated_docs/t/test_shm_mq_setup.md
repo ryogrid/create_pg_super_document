@@ -34,7 +34,7 @@ The setup process involves four main phases:
   - [setup_background_workers](../s/setup_background_workers.md)
   - [shm_mq_attach](../s/shm_mq_attach.md)
   - [wait_for_workers_to_become_ready](../w/wait_for_workers_to_become_ready.md)
-  - cancel_on_dsm_detach
+  - [cancel_on_dsm_detach](../c/cancel_on_dsm_detach.md)
   - [cleanup_background_workers](../c/cleanup_background_workers.md)
   - [pfree](../p/pfree.md)
 - Called from (representative examples):

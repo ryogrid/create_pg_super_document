@@ -29,7 +29,7 @@ The function provides the foundation for sequential access to all values in a Js
   - [JsonValueList](JsonValueList.md) (structure type)
   - [JsonValueListIterator](JsonValueListIterator.md) (structure type)
   - linitial (PostgreSQL list utility function)
-  - list_second_cell (PostgreSQL list utility function)
+  - [list_second_cell](../l/list_second_cell.md) (PostgreSQL list utility function)
   - NIL (PostgreSQL constant for empty list)
 - Called from (representative examples):
   - [executeItemOptUnwrapResult](../e/executeItemOptUnwrapResult.md)

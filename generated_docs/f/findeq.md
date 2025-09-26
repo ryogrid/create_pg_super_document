@@ -28,11 +28,11 @@ The function sets the QTN_NOCHANGE flag on successfully modified nodes to preven
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - QTNEq (tree node equality comparison)
-  - QTNFree (tree node memory deallocation)
+  - [QTNEq](../Q/QTNEq.md) (tree node equality comparison)
+  - [QTNFree](../Q/QTNFree.md) (tree node memory deallocation)
   - [QTNCopy](../Q/QTNCopy.md) (tree node deep copy)
-  - QTNodeCompare (tree node comparison for sorting)
-  - QTNSort (tree node sorting)
+  - [QTNodeCompare](../Q/QTNodeCompare.md) (tree node comparison for sorting)
+  - [QTNSort](../Q/QTNSort.md) (tree node sorting)
 - Called from (representative examples):
   - [dofindsubquery](../d/dofindsubquery.md)
 

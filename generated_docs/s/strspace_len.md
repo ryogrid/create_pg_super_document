@@ -23,7 +23,7 @@ This static function scans through the beginning of a string and counts consecut
   - isspace() (standard C library function)
 - Called from (representative examples):
   - DCH_ZONED (formatting.c:1055)
-  - from_char_parse_int_len (formatting.c:2474)
+  - [from_char_parse_int_len](../f/from_char_parse_int_len.md) (formatting.c:2474)
 
 ## Notes and Other Information
 - This is a static function within the formatting.c file, so it's only accessible within that compilation unit

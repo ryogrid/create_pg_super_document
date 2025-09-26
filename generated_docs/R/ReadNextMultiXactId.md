@@ -25,8 +25,8 @@ Key characteristics:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire (with LW_SHARED)
-  - LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md) (with LW_SHARED)
+  - [LWLockRelease](../L/LWLockRelease.md)
 - Global variables accessed:
   - MultiXactState->nextMXact
   - FirstMultiXactId

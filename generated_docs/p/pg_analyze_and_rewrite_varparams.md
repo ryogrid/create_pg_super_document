@@ -33,12 +33,12 @@ This flexibility makes the function essential for PostgreSQL's extended query pr
 - Functions called/Symbols referenced:
   - [parse_analyze_varparams](parse_analyze_varparams.md)
   - [pg_rewrite_query](pg_rewrite_query.md)
-  - ResetUsage
-  - ShowUsage
+  - [ResetUsage](../R/ResetUsage.md)
+  - [ShowUsage](../S/ShowUsage.md)
   - InvalidOid (constant)
   - UNKNOWNOID (constant)
-  - RawStmt (type)
-  - QueryEnvironment (type)
+  - [RawStmt](../R/RawStmt.md) (type)
+  - [QueryEnvironment](../Q/QueryEnvironment.md) (type)
 - Called from (representative examples):
   - [PrepareQuery](../P/PrepareQuery.md)
   - [exec_parse_message](../e/exec_parse_message.md)

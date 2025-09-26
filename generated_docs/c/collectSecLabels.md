@@ -24,18 +24,18 @@ The resulting array is sorted by (classoid, objoid, objsubid) to enable efficien
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - createPQExpBuffer: Creates buffer for SQL query construction
+  - [createPQExpBuffer](createPQExpBuffer.md): Creates buffer for SQL query construction
   - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md): Adds SQL query text to buffer
   - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md): Executes the security label query against database
   - [PQfnumber](../P/PQfnumber.md): Gets column numbers from query result
   - [PQntuples](../P/PQntuples.md): Gets number of result rows
-  - pg_malloc: Allocates memory for security labels array
+  - [pg_malloc](../p/pg_malloc.md): Allocates memory for security labels array
   - atooid: Converts string to OID
   - [findObjectByCatalogId](../f/findObjectByCatalogId.md): Locates dumpable object by catalog ID
   - [findTypeByOid](../f/findTypeByOid.md): Locates type information by OID
   - [pg_strdup](../p/pg_strdup.md): Duplicates strings for storage
   - [PQclear](../P/PQclear.md): Frees query result memory
-  - destroyPQExpBuffer: Cleans up query buffer
+  - [destroyPQExpBuffer](../d/destroyPQExpBuffer.md): Cleans up query buffer
 - Called from:
   - [main](../m/main.md): Called during pg_dump initialization phase
   - fmtQualifiedDumpable: Referenced for qualified name formatting

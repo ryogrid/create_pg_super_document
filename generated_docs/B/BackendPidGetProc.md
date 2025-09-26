@@ -21,17 +21,17 @@ The function includes a special check to never match dummy PGPROCs (those with P
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BackendPidGetProcWithLock
-  - LWLockAcquire
-  - LWLockRelease
+  - [BackendPidGetProcWithLock](BackendPidGetProcWithLock.md)
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - ProcArrayLock (global lock)
 - Called from (representative examples):
-  - IsBackendPid
-  - TerminateOtherDBBackends
-  - pg_signal_backend
-  - pg_log_backend_memory_contexts
-  - pg_stat_get_backend_wait_event_type
-  - pg_isolation_test_session_is_blocked
+  - [IsBackendPid](../I/IsBackendPid.md)
+  - [TerminateOtherDBBackends](../T/TerminateOtherDBBackends.md)
+  - [pg_signal_backend](../p/pg_signal_backend.md)
+  - [pg_log_backend_memory_contexts](../p/pg_log_backend_memory_contexts.md)
+  - [pg_stat_get_backend_wait_event_type](../p/pg_stat_get_backend_wait_event_type.md)
+  - [pg_isolation_test_session_is_blocked](../p/pg_isolation_test_session_is_blocked.md)
 
 ## Notes and Other Information
 - Returns NULL if the PID is not found or is 0 (dummy PGPROC)

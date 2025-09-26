@@ -20,7 +20,7 @@ This is essential for preventing SQL injection and ensuring that user input cont
 ## Dependencies
 - Functions called/Symbols referenced:
   - strlen
-  - pg_malloc
+  - [pg_malloc](../p/pg_malloc.md)
   - [PQescapeStringConn](../P/PQescapeStringConn.md)
 - Called from (representative examples):
   - [_complete_from_query](../c/_complete_from_query.md) (multiple locations)

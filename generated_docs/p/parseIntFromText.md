@@ -35,7 +35,7 @@ Any parsing errors result in detailed error messages that include the problemati
   - strchr (standard C library)
   - ereport (PostgreSQL error reporting)
 - Called from (representative examples):
-  - ImportSnapshot (multiple calls for parsing different integer fields)
+  - [ImportSnapshot](../I/ImportSnapshot.md) (multiple calls for parsing different integer fields)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the snapmgr.c compilation unit

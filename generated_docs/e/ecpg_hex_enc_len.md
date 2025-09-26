@@ -23,9 +23,9 @@ The function is part of PostgreSQL's ECPG (Embedded SQL in C) library and is use
 - Functions called/Symbols referenced:
   - (None - simple arithmetic operation)
 - Called from (representative examples):
-  - ecpg_get_data
-  - convert_bytea_to_string  
-  - print_param_value
+  - [ecpg_get_data](ecpg_get_data.md)
+  - [convert_bytea_to_string](../c/convert_bytea_to_string.md)  
+  - [print_param_value](../p/print_param_value.md)
 
 ## Notes and Other Information
 - Uses bit shifting (`srclen << 1`) instead of multiplication for efficiency, which is equivalent to `srclen * 2`

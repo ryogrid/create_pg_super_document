@@ -33,7 +33,7 @@ After processing affixes, it sorts all spell entries lexicographically and build
   - qsort
   - [cmpspellaffix](../c/cmpspellaffix.md)  
   - [cmpspell](../c/cmpspell.md)
-  - mkSPNode
+  - [mkSPNode](../m/mkSPNode.md)
   - [cpstrdup](../c/cpstrdup.md)
   - [t_isdigit](../t/t_isdigit.md)
   - [t_isspace](../t/t_isspace.md)

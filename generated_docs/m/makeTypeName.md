@@ -22,8 +22,8 @@ This function is commonly used in the PostgreSQL parser when processing SQL stat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeTypeNameFromNameList
-  - makeString
+  - [makeTypeNameFromNameList](makeTypeNameFromNameList.md)
+  - [makeString](makeString.md)
   - list_make1
 - Called from (representative examples):
   - Various parser functions and SQL processing routines

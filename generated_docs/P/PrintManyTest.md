@@ -26,11 +26,11 @@ The function assumes it is called exactly once per leaked resource and that ther
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetPointer (macro to extract pointer from Datum)
-  - psprintf (PostgreSQL's sprintf variant that allocates memory)
+  - [DatumGetPointer](../D/DatumGetPointer.md) (macro to extract pointer from Datum)
+  - [psprintf](../p/psprintf.md) (PostgreSQL's sprintf variant that allocates memory)
 - Called from (representative examples):
   - ManyTestResource (referenced as callback)
-  - InitManyTestResourceKind (registered as callback)
+  - [InitManyTestResourceKind](../I/InitManyTestResourceKind.md) (registered as callback)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the test_resowner_many.c file

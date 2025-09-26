@@ -31,14 +31,14 @@ This function is essential for explicit resource management in FileSet operation
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FilePath: Constructs the complete file path for the given fileset and name
-  - PathNameDeleteTemporaryFile: Performs the actual file deletion operation
+  - [FilePath](FilePath.md): Constructs the complete file path for the given fileset and name
+  - [PathNameDeleteTemporaryFile](../P/PathNameDeleteTemporaryFile.md): Performs the actual file deletion operation
   - MAXPGPATH: Maximum path length constant
 
 - Called from (representative examples):
-  - MakeNewFileSetSegment: Used in BufFile operations for cleaning up temporary segments
-  - BufFileDeleteFileSet: Used to delete specific files in buffered file operations
-  - BufFileTruncateFileSet: Used during file truncation operations
+  - [MakeNewFileSetSegment](../M/MakeNewFileSetSegment.md): Used in BufFile operations for cleaning up temporary segments
+  - [BufFileDeleteFileSet](../B/BufFileDeleteFileSet.md): Used to delete specific files in buffered file operations
+  - [BufFileTruncateFileSet](../B/BufFileTruncateFileSet.md): Used during file truncation operations
 
 ## Notes and Other Information
 - Part of the explicit resource management strategy for FileSet - files are not automatically cleaned up

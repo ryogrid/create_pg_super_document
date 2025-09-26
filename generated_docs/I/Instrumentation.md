@@ -72,19 +72,19 @@ The instrumentation system supports both synchronous and asynchronous execution 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - instr_time (timing infrastructure)
-  - BufferUsage (buffer I/O tracking)
-  - WalUsage (WAL activity tracking)
+  - [instr_time](../i/instr_time.md) (timing infrastructure)
+  - [BufferUsage](../B/BufferUsage.md) (buffer I/O tracking)
+  - [WalUsage](../W/WalUsage.md) (WAL activity tracking)
 - Called from (representative examples):
-  - InstrAlloc
-  - InstrInit
-  - InstrStartNode
-  - InstrStopNode
-  - InstrUpdateTupleCount
-  - InstrEndLoop
-  - InstrAggNode
-  - ExplainNode (EXPLAIN output)
-  - PlanState (executor nodes)
+  - [InstrAlloc](InstrAlloc.md)
+  - [InstrInit](InstrInit.md)
+  - [InstrStartNode](InstrStartNode.md)
+  - [InstrStopNode](InstrStopNode.md)
+  - [InstrUpdateTupleCount](InstrUpdateTupleCount.md)
+  - [InstrEndLoop](InstrEndLoop.md)
+  - [InstrAggNode](InstrAggNode.md)
+  - [ExplainNode](../E/ExplainNode.md) (EXPLAIN output)
+  - [PlanState](../P/PlanState.md) (executor nodes)
 
 ## Notes and Other Information
 - The struct is defined in src/include/executor/instrument.h:68-93

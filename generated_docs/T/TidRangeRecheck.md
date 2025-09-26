@@ -22,7 +22,7 @@ This function serves as the recheck routine for TID range scans during EvalPlanQ
 ## Dependencies
 - Data structures used:
   - [TidRangeScanState](TidRangeScanState.md)
-  - TupleTableSlot
+  - [TupleTableSlot](TupleTableSlot.md)
 - Called from:
   - [ExecTidRangeScan](../E/ExecTidRangeScan.md) (as part of EPQ processing)
 

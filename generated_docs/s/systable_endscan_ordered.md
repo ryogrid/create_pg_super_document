@@ -21,7 +21,7 @@ A key aspect of this function is its handling of the bsysscan flag, which is use
 - Functions called/Symbols referenced:
   - [ExecDropSingleTupleTableSlot](../E/ExecDropSingleTupleTableSlot.md)
   - [index_endscan](../i/index_endscan.md)
-  - UnregisterSnapshot
+  - [UnregisterSnapshot](../U/UnregisterSnapshot.md)
   - TransactionIdIsValid
   - CheckXidAlive (global variable)
   - [pfree](../p/pfree.md)

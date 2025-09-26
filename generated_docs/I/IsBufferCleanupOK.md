@@ -25,20 +25,20 @@ This allows callers who initially acquired a regular exclusive lock to upgrade t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferDesc
+  - [BufferDesc](../B/BufferDesc.md)
   - BufferIsLocal
-  - GetPrivateRefCount
-  - GetBufferDescriptor
-  - LWLockHeldByMeInMode
-  - BufferDescriptorGetContentLock
-  - LockBufHdr
+  - [GetPrivateRefCount](../G/GetPrivateRefCount.md)
+  - [GetBufferDescriptor](../G/GetBufferDescriptor.md)
+  - [LWLockHeldByMeInMode](../L/LWLockHeldByMeInMode.md)
+  - [BufferDescriptorGetContentLock](../B/BufferDescriptorGetContentLock.md)
+  - [LockBufHdr](../L/LockBufHdr.md)
   - BUF_STATE_GET_REFCOUNT
-  - UnlockBufHdr
+  - [UnlockBufHdr](../U/UnlockBufHdr.md)
 - Called from (representative examples):
-  - hashbucketcleanup
-  - _hash_doinsert
-  - _hash_expandtable
-  - _hash_splitbucket
+  - [hashbucketcleanup](../h/hashbucketcleanup.md)
+  - [_hash_doinsert](../h/_hash_doinsert.md)
+  - [_hash_expandtable](../h/_hash_expandtable.md)
+  - [_hash_splitbucket](../h/_hash_splitbucket.md)
   - RelationGetNumberOfBlocks
 
 ## Notes and Other Information

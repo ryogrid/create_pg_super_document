@@ -20,11 +20,11 @@ This function is part of the pg_dump utility and extracts default access control
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - createPQExpBuffer
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)
   - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
   - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
   - [PQntuples](../P/PQntuples.md)/PQfnumber/PQgetvalue
-  - pg_malloc
+  - [pg_malloc](../p/pg_malloc.md)
   - atooid
   - [AssignDumpId](../A/AssignDumpId.md)
   - [findNamespace](../f/findNamespace.md)
@@ -32,7 +32,7 @@ This function is part of the pg_dump utility and extracts default access control
   - [selectDumpableDefaultACL](../s/selectDumpableDefaultACL.md)
   - [pg_strdup](../p/pg_strdup.md)
   - [PQclear](../P/PQclear.md)
-  - destroyPQExpBuffer
+  - [destroyPQExpBuffer](../d/destroyPQExpBuffer.md)
 - Called from (representative examples):
   - [getSchemaData](getSchemaData.md)
 

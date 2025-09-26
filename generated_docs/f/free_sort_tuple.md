@@ -23,14 +23,14 @@ The function is designed to be safe to call multiple times on the same SortTuple
 ## Dependencies
 - Functions called/Symbols referenced:
   - FREEMEM (macro to update memory accounting in the sort state)
-  - GetMemoryChunkSpace (function to get the size of allocated memory chunk)
-  - pfree (PostgreSQL's memory deallocation function)
+  - [GetMemoryChunkSpace](../G/GetMemoryChunkSpace.md) (function to get the size of allocated memory chunk)
+  - [pfree](../p/pfree.md) (PostgreSQL's memory deallocation function)
   - SortTuple (structure representing a tuple in the sort)
-  - Tuplesortstate (main sorting state structure)
+  - [Tuplesortstate](../T/Tuplesortstate.md) (main sorting state structure)
 
 - Called from (representative examples):
-  - tuplesort_puttuple_common (when handling tuple input)
-  - make_bounded_heap (during bounded heap operations)
+  - [tuplesort_puttuple_common](../t/tuplesort_puttuple_common.md) (when handling tuple input)
+  - [make_bounded_heap](../m/make_bounded_heap.md) (during bounded heap operations)
 
 ## Notes and Other Information
 - This function is safe to call multiple times on the same SortTuple due to the NULL check

@@ -23,10 +23,10 @@ This function performs comparison of two datum-based tuples during sorting opera
 ## Dependencies
 - Functions called/Symbols referenced:
   - TuplesortstateGetPublic
-  - ApplySortComparator
-  - comparetup_datum_tiebreak
+  - [ApplySortComparator](../A/ApplySortComparator.md)
+  - [comparetup_datum_tiebreak](comparetup_datum_tiebreak.md)
 - Called from (representative examples):
-  - tuplesort_begin_datum
+  - [tuplesort_begin_datum](../t/tuplesort_begin_datum.md)
   - CLUSTER_SORT
 
 ## Notes and Other Information

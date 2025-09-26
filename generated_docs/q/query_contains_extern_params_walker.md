@@ -23,7 +23,7 @@ The function operates efficiently by returning true immediately upon finding the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Param
+  - [Param](../P/Param.md)
   - PARAM_EXTERN
   - query_tree_walker
   - expression_tree_walker

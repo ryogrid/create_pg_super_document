@@ -38,7 +38,7 @@ The function carefully manages memory contexts when measuring memory usage, crea
   - [BufferUsageAccumDiff](../B/BufferUsageAccumDiff.md)
   - AllocSetContextCreate
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
-  - MemoryContextMemConsumed
+  - [MemoryContextMemConsumed](../M/MemoryContextMemConsumed.md)
   - INSTR_TIME_SET_CURRENT/INSTR_TIME_SUBTRACT
 - Called from (representative examples):
   - [ExplainOneQuery](../E/ExplainOneQuery.md)

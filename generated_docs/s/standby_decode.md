@@ -32,9 +32,9 @@ Other record types like STANDBY_LOCK and INVALIDATIONS are present but don't req
 - Functions called/Symbols referenced:
   - XLogRecGetInfo
   - XLogRecGetXid
-  - ReorderBufferProcessXid
+  - [ReorderBufferProcessXid](../R/ReorderBufferProcessXid.md)
   - XLogRecGetData
-  - SnapBuildProcessRunningXacts
+  - [SnapBuildProcessRunningXacts](../S/SnapBuildProcessRunningXacts.md)
   - [ReorderBufferAbortOld](../R/ReorderBufferAbortOld.md)
 - Constants used:
   - XLR_INFO_MASK
@@ -43,7 +43,7 @@ Other record types like STANDBY_LOCK and INVALIDATIONS are present but don't req
   - XLOG_INVALIDATIONS
 - Data types used:
   - [SnapBuild](../S/SnapBuild.md)
-  - xl_running_xacts
+  - [xl_running_xacts](../x/xl_running_xacts.md)
 - Called from:
   - Resource manager system via LogicalDecodingProcessRecord (registered in rmgrlist.h)
 

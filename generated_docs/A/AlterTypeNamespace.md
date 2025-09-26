@@ -24,7 +24,7 @@ AlterTypeNamespace is the main entry point for handling ALTER TYPE SET SCHEMA SQ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeTypeNameFromNameList
+  - [makeTypeNameFromNameList](../m/makeTypeNameFromNameList.md)
   - [typenameTypeId](../t/typenameTypeId.md)
   - [get_typtype](../g/get_typtype.md)
   - [LookupCreationNamespace](../L/LookupCreationNamespace.md)

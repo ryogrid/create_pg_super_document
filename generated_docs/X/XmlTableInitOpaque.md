@@ -26,9 +26,9 @@ The function uses PostgreSQL's PG_TRY/PG_CATCH exception handling to ensure prop
   - [pg_xml_init](../p/pg_xml_init.md) (XML subsystem initialization)
   - xmlInitParser (libxml2 parser initialization)
   - xmlNewParserCtxt (libxml2 parser context creation)
-  - xml_ereport (XML error reporting)
+  - [xml_ereport](../x/xml_ereport.md) (XML error reporting)
   - xmlFreeParserCtxt (libxml2 cleanup)
-  - pg_xml_done (XML subsystem cleanup)
+  - [pg_xml_done](../p/pg_xml_done.md) (XML subsystem cleanup)
   - PG_TRY/PG_CATCH/PG_END_TRY (PostgreSQL exception handling)
   - [XmlTableBuilderData](XmlTableBuilderData.md), XMLTABLE_CONTEXT_MAGIC, PgXmlErrorContext
 - Called from (representative examples):

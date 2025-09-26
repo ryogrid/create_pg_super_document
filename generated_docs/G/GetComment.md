@@ -22,14 +22,14 @@ The GetComment function performs a lookup in the pg_description system catalog t
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ScanKeyInit](../S/ScanKeyInit.md)
-  - table_open
+  - [table_open](../t/table_open.md)
   - RelationGetDescr
   - [systable_beginscan](../s/systable_beginscan.md)
   - [systable_getnext](../s/systable_getnext.md)
   - [heap_getattr](../h/heap_getattr.md)
   - TextDatumGetCString
   - [systable_endscan](../s/systable_endscan.md)
-  - table_close
+  - [table_close](../t/table_close.md)
 - Called from (representative examples):
   - [ATPostAlterTypeParse](../A/ATPostAlterTypeParse.md)
   - [RebuildConstraintComment](../R/RebuildConstraintComment.md)

@@ -26,7 +26,7 @@ The function is simpler and faster than  because it doesn't need to handle local
 - Functions called/Symbols referenced:
   - None (operates directly on character values)
 - Called from (representative examples):
-  - String formatting functions (asc_toupper, asc_initcap)
+  - [String](../S/String.md) formatting functions (asc_toupper, asc_initcap)
   - Regular expression processing (pg_wc_toupper)
   - Event trigger command filtering (filter_list_to_array)
 

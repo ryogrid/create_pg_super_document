@@ -26,12 +26,12 @@ The function includes the same optional filtering capability for running workers
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockHeldByMe (for assertion checking)
-  - lappend (to build the result list)
+  - [LWLockHeldByMe](../L/LWLockHeldByMe.md) (for assertion checking)
+  - [lappend](lappend.md) (to build the result list)
 - Called from:
-  - DropSubscription
-  - logicalrep_worker_detach  
-  - AtEOXact_LogicalRepWorkers
+  - [DropSubscription](../D/DropSubscription.md)
+  - [logicalrep_worker_detach](logicalrep_worker_detach.md)  
+  - [AtEOXact_LogicalRepWorkers](../A/AtEOXact_LogicalRepWorkers.md)
 
 ## Notes and Other Information
 - Must be called while holding LogicalRepWorkerLock (enforced by assertion)

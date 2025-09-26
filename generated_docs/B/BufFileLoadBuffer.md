@@ -29,14 +29,14 @@ The function assumes that on entry, the buffer is clean (not dirty), and both po
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FileRead (performs the actual file read operation)
-  - FilePathName (gets file path for error reporting)
+  - [FileRead](../F/FileRead.md) (performs the actual file read operation)
+  - [FilePathName](../F/FilePathName.md) (gets file path for error reporting)
   - INSTR_TIME_SET_CURRENT (sets timing measurement points)
   - INSTR_TIME_SET_ZERO (initializes timing variables)
   - INSTR_TIME_ACCUM_DIFF (accumulates timing differences)
   - ereport (reports errors)
 - Called from (representative examples):
-  - BufFileReadCommon (main read operation entry point)
+  - [BufFileReadCommon](BufFileReadCommon.md) (main read operation entry point)
 
 ## Notes and Other Information
 - This is a static (internal) function, not part of the public BufFile API

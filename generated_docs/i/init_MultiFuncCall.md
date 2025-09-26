@@ -34,7 +34,7 @@ The function enforces that it can only be called once per function invocation se
   - [shutdown_MultiFuncCall](../s/shutdown_MultiFuncCall.md)
 - Types referenced:
   - [FuncCallContext](../F/FuncCallContext.md)
-  - ReturnSetInfo
+  - [ReturnSetInfo](../R/ReturnSetInfo.md)
 - Constants used:
   - ALLOCSET_SMALL_SIZES
 - Called from (representative examples):

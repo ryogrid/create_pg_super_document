@@ -33,13 +33,13 @@ This approach provides better performance for read-only access patterns while ma
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SimpleLruGetBankLock](SimpleLruGetBankLock.md) (get bank lock for page)
-  - LWLockAcquire (acquire locks in shared/exclusive modes)
-  - LWLockRelease (release bank lock for upgrade)
+  - [LWLockAcquire](../L/LWLockAcquire.md) (acquire locks in shared/exclusive modes)
+  - [LWLockRelease](../L/LWLockRelease.md) (release bank lock for upgrade)
   - [SlruRecentlyUsed](SlruRecentlyUsed.md) (update LRU information)
   - [pgstat_count_slru_page_hit](../p/pgstat_count_slru_page_hit.md) (update statistics)
   - [SimpleLruReadPage](SimpleLruReadPage.md) (fallback for exclusive access)
 - Called from (representative examples):
-  - TransactionIdGetStatus
+  - [TransactionIdGetStatus](../T/TransactionIdGetStatus.md)
   - [TransactionIdGetCommitTsData](../T/TransactionIdGetCommitTsData.md)
   - [find_multixact_start](../f/find_multixact_start.md)
   - [SubTransGetParent](SubTransGetParent.md)

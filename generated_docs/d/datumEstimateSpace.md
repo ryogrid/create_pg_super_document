@@ -32,11 +32,11 @@ The function is designed to work in conjunction with parallel query execution an
 ## Dependencies
 - Functions called/Symbols referenced:
   - VARATT_IS_EXTERNAL_EXPANDED (checks if value is an expanded object)
-  - DatumGetEOHP (gets Expanded Object Header Pointer)
-  - EOH_get_flat_size (gets flattened size of expanded object)
+  - [DatumGetEOHP](../D/DatumGetEOHP.md) (gets Expanded Object Header Pointer)
+  - [EOH_get_flat_size](../E/EOH_get_flat_size.md) (gets flattened size of expanded object)
   - [datumGetSize](datumGetSize.md) (gets size of standard datum values)
 - Called from (representative examples):
-  - EstimateParamExecSpace (in parallel execution parameter estimation)
+  - [EstimateParamExecSpace](../E/EstimateParamExecSpace.md) (in parallel execution parameter estimation)
   - [EstimateParamListSpace](../E/EstimateParamListSpace.md) (in parameter list space estimation)
 
 ## Notes and Other Information

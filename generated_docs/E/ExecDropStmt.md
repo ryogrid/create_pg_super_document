@@ -26,14 +26,14 @@ For concurrent index drops (DROP INDEX CONCURRENTLY), the function enforces tran
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PreventInTransactionBlock (for concurrent index drops)
-  - RemoveRelations (for relation-like objects)
-  - RemoveObjects (for other database objects)
+  - [PreventInTransactionBlock](../P/PreventInTransactionBlock.md) (for concurrent index drops)
+  - [RemoveRelations](../R/RemoveRelations.md) (for relation-like objects)
+  - [RemoveObjects](../R/RemoveObjects.md) (for other database objects)
   - Object type constants: OBJECT_INDEX, OBJECT_TABLE, OBJECT_SEQUENCE, OBJECT_VIEW, OBJECT_MATVIEW, OBJECT_FOREIGN_TABLE
 
 - Called from:
-  - standard_ProcessUtility
-  - ProcessUtilitySlow
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md)
 
 ## Notes and Other Information
 - This function is static and only accessible within the utility.c module

@@ -25,7 +25,7 @@ The function respects dump options, skipping execution if --no-security-labels i
 ## Dependencies
 - Functions called/Symbols referenced:
   - [findSecLabels](../f/findSecLabels.md): Searches for security labels associated with the table
-  - createPQExpBuffer: Creates buffer for SQL statement construction
+  - [createPQExpBuffer](../c/createPQExpBuffer.md): Creates buffer for SQL statement construction
   - [resetPQExpBuffer](../r/resetPQExpBuffer.md): Resets buffer contents for reuse
   - fmtQualifiedDumpable: Formats qualified object name for SQL
   - [getAttrName](../g/getAttrName.md): Retrieves column name by attribute number
@@ -33,7 +33,7 @@ The function respects dump options, skipping execution if --no-security-labels i
   - appendStringLiteralAH: Appends properly escaped string literal
   - [createDumpId](../c/createDumpId.md): Creates unique dump identifier
   - [ArchiveEntry](../A/ArchiveEntry.md): Adds entry to archive with dependencies
-  - destroyPQExpBuffer: Cleans up allocated buffers
+  - [destroyPQExpBuffer](destroyPQExpBuffer.md): Cleans up allocated buffers
 - Called from:
   - [dumpTableSchema](dumpTableSchema.md): Called to dump security labels as part of table schema dumping
 

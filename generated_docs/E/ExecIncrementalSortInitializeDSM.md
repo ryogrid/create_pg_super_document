@@ -30,9 +30,9 @@ This setup enables parallel workers to contribute their individual incremental s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - shm_toc_allocate (allocates shared memory chunk)
+  - [shm_toc_allocate](../s/shm_toc_allocate.md) (allocates shared memory chunk)
   - memset (initializes memory to zero)
-  - shm_toc_insert (registers shared memory with unique key)
+  - [shm_toc_insert](../s/shm_toc_insert.md) (registers shared memory with unique key)
 - Called from (representative examples):
   - [ExecParallelInitializeDSM](ExecParallelInitializeDSM.md) (parallel execution DSM initialization dispatcher)
 

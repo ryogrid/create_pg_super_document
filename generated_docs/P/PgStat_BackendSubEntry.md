@@ -26,8 +26,8 @@ This structure maintains error counts for logical replication subscriptions that
 - Functions called/Symbols referenced:
   - PgStat_Counter (used for both counter fields)
 - Called from (representative examples):
-  - pgstat_report_subscription_error (error reporting)
-  - pgstat_subscription_flush_cb (statistics flushing callback)
+  - [pgstat_report_subscription_error](../p/pgstat_report_subscription_error.md) (error reporting)
+  - [pgstat_subscription_flush_cb](../p/pgstat_subscription_flush_cb.md) (statistics flushing callback)
 
 ## Notes and Other Information
 - Part of PostgreSQL's logical replication monitoring system

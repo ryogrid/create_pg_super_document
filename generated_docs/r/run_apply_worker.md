@@ -31,7 +31,7 @@ This function takes no parameters but operates on global variables:
 - Functions called/Symbols referenced:
   - [ReplicationOriginNameForLogicalRep](../R/ReplicationOriginNameForLogicalRep.md): Generates standardized origin name
   - [StartTransactionCommand](../S/StartTransactionCommand.md)/CommitTransactionCommand: Transaction management
-  - replorigin_by_name/replorigin_create: Replication origin management
+  - [replorigin_by_name](replorigin_by_name.md)/replorigin_create: Replication origin management
   - [replorigin_session_setup](replorigin_session_setup.md)/replorigin_session_get_progress: Session origin tracking
   - walrcv_connect/walrcv_identify_system: WAL receiver connection management
   - [set_apply_error_context_origin](../s/set_apply_error_context_origin.md): Error context setup

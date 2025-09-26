@@ -21,7 +21,7 @@ The function follows PostgreSQL's standard cleanup pattern by checking for valid
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReleaseBuffer
+  - [ReleaseBuffer](../R/ReleaseBuffer.md)
   - [index_endscan](../i/index_endscan.md)
   - [index_close](../i/index_close.md)
 - Types used:

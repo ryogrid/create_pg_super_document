@@ -30,14 +30,14 @@ The output format shows each valid transaction ID with its array index position,
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ProcArrayStruct](../P/ProcArrayStruct.md)
-  - initStringInfo
-  - appendStringInfo
+  - [initStringInfo](../i/initStringInfo.md)
+  - [appendStringInfo](../a/appendStringInfo.md)
   - elog
   - [pfree](../p/pfree.md)
 - Called from (representative examples):
   - xc_slow_answer_inc
-  - ProcArrayApplyRecoveryInfo
-  - KnownAssignedXidsAdd
+  - [ProcArrayApplyRecoveryInfo](../P/ProcArrayApplyRecoveryInfo.md)
+  - [KnownAssignedXidsAdd](KnownAssignedXidsAdd.md)
 
 ## Notes and Other Information
 - This is a static function accessible only within procarray.c

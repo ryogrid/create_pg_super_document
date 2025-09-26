@@ -27,7 +27,7 @@ The function handles the SQL_ASCII encoding specially and includes fallback logi
   - setlocale (system locale function)
   - [pg_strcasecmp](pg_strcasecmp.md) (case-insensitive string comparison)
   - [raw_pg_bind_textdomain_codeset](../r/raw_pg_bind_textdomain_codeset.md) (performs actual binding)
-  - pg_get_encoding_from_locale (derives encoding from locale)
+  - [pg_get_encoding_from_locale](pg_get_encoding_from_locale.md) (derives encoding from locale)
   - [GetMessageEncoding](../G/GetMessageEncoding.md) (gets current message encoding)
   - PG_SQL_ASCII (ASCII encoding constant)
 - Called from (representative examples):

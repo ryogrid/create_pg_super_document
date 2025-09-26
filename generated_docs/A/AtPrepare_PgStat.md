@@ -19,10 +19,10 @@ AtPrepare_PgStat is part of PostgreSQL's two-phase commit protocol implementatio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AtPrepare_PgStat_Relations
-  - PgStat_SubXactStatus (struct type)
+  - [AtPrepare_PgStat_Relations](AtPrepare_PgStat_Relations.md)
+  - [PgStat_SubXactStatus](../P/PgStat_SubXactStatus.md) (struct type)
 - Called from (representative examples):
-  - PrepareTransaction (src/backend/access/transam/xact.c:2617)
+  - [PrepareTransaction](../P/PrepareTransaction.md) (src/backend/access/transam/xact.c:2617)
 
 ## Notes and Other Information
 - This function is specifically designed for two-phase commit (2PC) protocol support

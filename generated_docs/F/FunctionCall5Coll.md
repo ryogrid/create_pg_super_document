@@ -34,7 +34,7 @@ The function uses the LOCAL_FCINFO macro to create a local FunctionCallInfo stru
   - [gistindex_keytest](../g/gistindex_keytest.md) (GiST index key testing)
   - [update_frameheadpos](../u/update_frameheadpos.md) (window aggregate frame position updates)
   - [update_frametailpos](../u/update_frametailpos.md) (window aggregate frame position updates)
-  - scalararraysel (selectivity estimation for scalar array operations)
+  - [scalararraysel](../s/scalararraysel.md) (selectivity estimation for scalar array operations)
   - [OidFunctionCall5Coll](../O/OidFunctionCall5Coll.md) (OID-based function calling wrapper)
 
 ## Notes and Other Information

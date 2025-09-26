@@ -24,11 +24,11 @@ Note that AtEOXact_PgStat_Relations is not called during the PREPARE phase, maki
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PgStat_SubXactStatus (subtransaction status structure)
-  - PgStat_TableXactStatus (transaction-level table statistics)
-  - PgStat_TableStatus (base table statistics structure)
+  - [PgStat_SubXactStatus](PgStat_SubXactStatus.md) (subtransaction status structure)
+  - [PgStat_TableXactStatus](PgStat_TableXactStatus.md) (transaction-level table statistics)
+  - [PgStat_TableStatus](PgStat_TableStatus.md) (base table statistics structure)
 - Called from (representative examples):
-  - PostPrepare_PgStat (main post-prepare statistics handler)
+  - [PostPrepare_PgStat](PostPrepare_PgStat.md) (main post-prepare statistics handler)
 
 ## Notes and Other Information
 - Called only after successful transaction preparation in two-phase commit

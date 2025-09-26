@@ -30,7 +30,7 @@ The function is designed to be called by PostgreSQL's type system when subscript
   - [jsonb_subscript_transform](jsonb_subscript_transform.md) (transform function)
   - [jsonb_exec_setup](jsonb_exec_setup.md) (execution setup function)
 - Data structures referenced:
-  - `SubscriptRoutines`
+  - `[SubscriptRoutines](../S/SubscriptRoutines.md)`
 - Called from:
   - PostgreSQL type system (no direct references found in codebase)
 

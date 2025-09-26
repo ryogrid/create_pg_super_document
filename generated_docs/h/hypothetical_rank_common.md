@@ -28,12 +28,12 @@ The flag parameter controls tie-breaking behavior: -1 sorts the hypothetical row
   - [OSAPerGroupState](../O/OSAPerGroupState.md): Ordered-set aggregate per-group state structure
   - [AggCheckCallContext](../A/AggCheckCallContext.md): Validates aggregate calling context
   - [hypothetical_check_argtypes](hypothetical_check_argtypes.md): Validates argument type consistency
-  - `ExecClearTuple`: Clears tuple slot contents
+  - `[ExecClearTuple](../E/ExecClearTuple.md)`: Clears tuple slot contents
   - [ExecStoreVirtualTuple](../E/ExecStoreVirtualTuple.md): Stores virtual tuple in slot
   - [tuplesort_puttupleslot](../t/tuplesort_puttupleslot.md): Adds tuple to sort operation
-  - `tuplesort_performsort`: Completes the sorting operation
+  - `[tuplesort_performsort](../t/tuplesort_performsort.md)`: Completes the sorting operation
   - [tuplesort_gettupleslot](../t/tuplesort_gettupleslot.md): Retrieves next tuple from sort
-  - `slot_getattr`: Extracts attribute value from tuple slot
+  - `[slot_getattr](../s/slot_getattr.md)`: Extracts attribute value from tuple slot
   - [DatumGetInt32](../D/DatumGetInt32.md): Extracts int32 value from Datum
   - `CHECK_FOR_INTERRUPTS`: Allows query cancellation
 - Called from (representative examples):

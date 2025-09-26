@@ -35,7 +35,7 @@ The function is designed to work with any type of relation (tables, indexes, seq
   - IsBootstrapProcessingMode - Checks if in bootstrap mode
   - [CheckRelationLockedByMe](../C/CheckRelationLockedByMe.md) - Verifies lock ownership
   - RelationUsesLocalBuffers - Checks if relation uses local buffers
-  - pgstat_init_relation - Initializes relation statistics
+  - [pgstat_init_relation](../p/pgstat_init_relation.md) - Initializes relation statistics
   - MAX_LOCKMODES - Maximum lock mode constant
   - XACT_FLAGS_ACCESSEDTEMPNAMESPACE - Transaction flag for temp namespace access
 
@@ -43,7 +43,7 @@ The function is designed to work with any type of relation (tables, indexes, seq
   - [relation_openrv](relation_openrv.md) - Opens relation by name
   - [relation_openrv_extended](relation_openrv_extended.md) - Extended relation opening by name
   - [index_open](../i/index_open.md) - Opens index relations
-  - table_open - Opens table relations
+  - [table_open](../t/table_open.md) - Opens table relations
   - [sequence_open](../s/sequence_open.md) - Opens sequence relations
   - Various catalog and command functions
 

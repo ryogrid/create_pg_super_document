@@ -23,7 +23,7 @@ The function is designed to handle race conditions where a relation might be dro
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RangeVar](RangeVar.md) (struct representing relation name with optional schema)
-  - AclResult (enum for access control check results)
+  - [AclResult](../A/AclResult.md) (enum for access control check results)
   - [get_rel_relkind](../g/get_rel_relkind.md) (function to get relation kind)
   - RELKIND_RELATION, RELKIND_TOASTVALUE, RELKIND_MATVIEW, RELKIND_PARTITIONED_TABLE (relation type constants)
   - [pg_class_aclcheck](../p/pg_class_aclcheck.md) (function to check access permissions)

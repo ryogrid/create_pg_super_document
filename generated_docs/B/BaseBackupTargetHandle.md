@@ -27,7 +27,7 @@ The BaseBackupTargetHandle structure serves as a concrete instance of a backup t
   - [BaseBackupTargetType](BaseBackupTargetType.md) (target type definition)
   - [initialize_target_list](../i/initialize_target_list.md)
   - [blackhole_get_sink](../b/blackhole_get_sink.md)
-  - bbsink
+  - [bbsink](../b/bbsink.md)
   - [server_get_sink](../s/server_get_sink.md)
   - [reject_target_detail](../r/reject_target_detail.md)
   - [server_check_detail](../s/server_check_detail.md)

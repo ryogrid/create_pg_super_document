@@ -25,11 +25,11 @@ This is an internal implementation function used by the public list insertion AP
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - enlarge_list (expands list capacity when current space is insufficient)
+  - [enlarge_list](../e/enlarge_list.md) (expands list capacity when current space is insufficient)
 - Called from (representative examples):
-  - list_insert_nth (public API for inserting pointer values at specific positions)
-  - list_insert_nth_int (public API for inserting integer values at specific positions)
-  - list_insert_nth_oid (public API for inserting OID values at specific positions)
+  - [list_insert_nth](../l/list_insert_nth.md) (public API for inserting pointer values at specific positions)
+  - [list_insert_nth_int](../l/list_insert_nth_int.md) (public API for inserting integer values at specific positions)
+  - [list_insert_nth_oid](../l/list_insert_nth_oid.md) (public API for inserting OID values at specific positions)
 
 ## Notes and Other Information
 - Static function, not part of the public API - used internally by list insertion functions

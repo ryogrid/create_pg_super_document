@@ -37,8 +37,8 @@ The function assumes callers have pre-validated that each clause is a mergejoina
   - castNode (safely casts nodes to specific types)
   - [get_rightop](../g/get_rightop.md) (extracts right operand from expressions)
   - [get_leftop](../g/get_leftop.md) (extracts left operand from expressions)
-  - lappend_int (appends integers to lists)
-  - lappend_oid (appends OIDs to lists)
+  - [lappend_int](../l/lappend_int.md) (appends integers to lists)
+  - [lappend_oid](../l/lappend_oid.md) (appends OIDs to lists)
   - [query_is_distinct_for](../q/query_is_distinct_for.md) (analyzes subquery distinctness)
 - Called from (representative examples):
   - [join_is_removable](../j/join_is_removable.md) (when checking if joins can be eliminated)

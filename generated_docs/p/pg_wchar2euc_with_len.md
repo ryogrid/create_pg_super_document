@@ -30,7 +30,7 @@ The bit pattern analysis allows the function to reconstruct the exact original E
 - Functions called/Symbols referenced:
   - None (uses only basic bit manipulation operations)
 - Called from (representative examples):
-  - pg_encoding_set_invalid (indirectly through encoding conversion tables for multiple EUC variants)
+  - [pg_encoding_set_invalid](pg_encoding_set_invalid.md) (indirectly through encoding conversion tables for multiple EUC variants)
 
 ## Notes and Other Information
 - Returns the number of bytes written to the output buffer (not including null terminator)

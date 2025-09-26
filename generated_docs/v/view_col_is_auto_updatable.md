@@ -20,9 +20,9 @@ The function is part of the view updatability analysis system and focuses solely
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RangeTblRef (structure representing range table references)
+  - [RangeTblRef](../R/RangeTblRef.md) (structure representing range table references)
   - [TargetEntry](../T/TargetEntry.md) (structure representing target list entries)
-  - Var (node type for variable references)
+  - [Var](../V/Var.md) (node type for variable references)
   - IsA (macro for type checking)
   - gettext_noop (macro for marking translatable strings)
 - Called from (representative examples):

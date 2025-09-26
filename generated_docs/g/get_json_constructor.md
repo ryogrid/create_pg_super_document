@@ -32,17 +32,17 @@ The function carefully handles the syntax differences between different JSON con
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_json_agg_constructor (handles JSON aggregation constructors)
-  - appendStringInfo (appends formatted text to StringInfo buffer)
-  - appendStringInfoString (appends string to StringInfo buffer) 
-  - appendStringInfoChar (appends single character to StringInfo buffer)
+  - [get_json_agg_constructor](get_json_agg_constructor.md) (handles JSON aggregation constructors)
+  - [appendStringInfo](../a/appendStringInfo.md) (appends formatted text to StringInfo buffer)
+  - [appendStringInfoString](../a/appendStringInfoString.md) (appends string to StringInfo buffer) 
+  - [appendStringInfoChar](../a/appendStringInfoChar.md) (appends single character to StringInfo buffer)
   - foreach_current_index (gets current index in foreach loop)
-  - get_rule_expr (decompiles general expressions)
-  - get_json_constructor_options (handles constructor-specific options)
+  - [get_rule_expr](get_rule_expr.md) (decompiles general expressions)
+  - [get_json_constructor_options](get_json_constructor_options.md) (handles constructor-specific options)
   - elog (error logging)
   - JSCTOR_* enum values (constructor type constants)
 - Called from (representative examples):
-  - get_rule_expr (general expression decompilation)
+  - [get_rule_expr](get_rule_expr.md) (general expression decompilation)
 
 ## Notes and Other Information
 - This is a static function local to ruleutils.c, part of the internal decompilation infrastructure

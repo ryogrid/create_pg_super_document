@@ -24,7 +24,7 @@ The function processes triggers in the order they were defined and calls each en
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - before_stmt_triggers_fired
+  - [before_stmt_triggers_fired](../b/before_stmt_triggers_fired.md)
   - [ExecCallTriggerFunc](ExecCallTriggerFunc.md)
   - [TriggerEnabled](../T/TriggerEnabled.md)
   - GetPerTupleMemoryContext
@@ -38,9 +38,9 @@ The function processes triggers in the order they were defined and calls each en
   - TRIGGER_TYPE_DELETE
   - CMD_DELETE
 - Data structures used:
-  - TriggerDesc
-  - TriggerData
-  - Trigger
+  - [TriggerDesc](../T/TriggerDesc.md)
+  - [TriggerData](../T/TriggerData.md)
+  - [Trigger](../T/Trigger.md)
 - Called from (representative examples):
   - [fireBSTriggers](../f/fireBSTriggers.md)
 

@@ -29,9 +29,9 @@ This function converts a multibyte character string to an array of wide characte
   - [regcomp_auth_token](../r/regcomp_auth_token.md) (in src/backend/libpq/hba.c:315)
   - [regexec_auth_token](../r/regexec_auth_token.md) (in src/backend/libpq/hba.c:356)
   - [NIAddAffix](../N/NIAddAffix.md) (in src/backend/tsearch/spell.c:732)
-  - TParserInit (in src/backend/tsearch/wparser_def.c:312)
+  - [TParserInit](../T/TParserInit.md) (in src/backend/tsearch/wparser_def.c:312)
   - [RE_compile_and_cache](../R/RE_compile_and_cache.md) (in src/backend/utils/adt/regexp.c:193)
-  - replace_text_regexp (in src/backend/utils/adt/varlena.c:4228)
+  - [replace_text_regexp](../r/replace_text_regexp.md) (in src/backend/utils/adt/varlena.c:4228)
 
 ## Notes and Other Information
 - This function is primarily used in text search, regular expression processing, and authentication token handling

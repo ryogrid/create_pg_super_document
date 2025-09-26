@@ -23,7 +23,7 @@ The function allocates a new BoolExpr node, sets its operation type to AND_EXPR,
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to create BoolExpr)
-  - BoolExpr (expression node type)
+  - [BoolExpr](../B/BoolExpr.md) (expression node type)
   - AND_EXPR (boolean operation constant)
 - Called from (representative examples):
   - [make_and_qual](make_and_qual.md)

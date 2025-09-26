@@ -24,7 +24,7 @@ This function is a progress reporting utility used during PostgreSQL base backup
   - PROGRESS_BASEBACKUP_PHASE_TRANSFER_WAL (phase constant)
 - Called from (representative examples):
   - [perform_base_backup](../p/perform_base_backup.md)
-  - bbsink_cleanup
+  - [bbsink_cleanup](bbsink_cleanup.md)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's progress tracking infrastructure for base backup operations

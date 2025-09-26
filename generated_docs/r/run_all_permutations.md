@@ -29,8 +29,8 @@ The function is particularly useful for discovering race conditions and concurre
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_malloc0 (zero-initialized memory allocation for PermutationStep array)
-  - pg_malloc (memory allocation for step pointers and piles)
+  - [pg_malloc0](../p/pg_malloc0.md) (zero-initialized memory allocation for PermutationStep array)
+  - [pg_malloc](../p/pg_malloc.md) (memory allocation for step pointers and piles)
   - [run_all_permutations_recurse](run_all_permutations_recurse.md) (performs recursive permutation generation)
   - free (memory deallocation)
 - Data structures used:

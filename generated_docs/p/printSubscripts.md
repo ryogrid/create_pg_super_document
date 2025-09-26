@@ -22,13 +22,13 @@ The function formats each subscript as [lower:upper] when both bounds are presen
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_head (gets head of the lower index expression list)
-  - get_rule_expr (recursively prints each index expression)
-  - lnext (advances to next item in lower index list)
+  - [list_head](../l/list_head.md) (gets head of the lower index expression list)
+  - [get_rule_expr](../g/get_rule_expr.md) (recursively prints each index expression)
+  - [lnext](../l/lnext.md) (advances to next item in lower index list)
   - lfirst (extracts current list item)
 - Called from (representative examples):
-  - get_rule_expr
-  - processIndirection
+  - [get_rule_expr](../g/get_rule_expr.md)
+  - [processIndirection](processIndirection.md)
 
 ## Notes and Other Information
 - Handles both single subscripts [n] and range subscripts [m:n] syntax

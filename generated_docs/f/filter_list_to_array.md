@@ -21,12 +21,12 @@ The function iterates through each string in the input list, converts each strin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_length (to get the number of elements)
+  - [list_length](../l/list_length.md) (to get the number of elements)
   - [palloc](../p/palloc.md) (to allocate memory for the Datum array)
   - strVal (to extract string value from String nodes)
   - [pstrdup](../p/pstrdup.md) (to duplicate strings for modification)
   - [pg_ascii_toupper](../p/pg_ascii_toupper.md) (to convert characters to uppercase)
-  - cstring_to_text (to convert C strings to PostgreSQL text type)
+  - [cstring_to_text](../c/cstring_to_text.md) (to convert C strings to PostgreSQL text type)
   - [PointerGetDatum](../P/PointerGetDatum.md) (to convert pointers to Datum)
   - [construct_array_builtin](../c/construct_array_builtin.md) (to construct PostgreSQL array from Datum array)
   - [pfree](../p/pfree.md) (to free allocated memory)

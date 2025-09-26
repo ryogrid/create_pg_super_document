@@ -28,7 +28,7 @@ This validation is essential for ensuring that SQL identifiers can be properly c
   - xmlIsCombiningQ (libxml2 function to check if character is combining)
   - xmlIsExtenderQ (libxml2 function to check if character is an extender)
 - Called from (representative examples):
-  - map_sql_identifier_to_xml_name
+  - [map_sql_identifier_to_xml_name](../m/map_sql_identifier_to_xml_name.md)
 
 ## Notes and Other Information
 - This is a static function, accessible only within the xml.c compilation unit

@@ -31,16 +31,16 @@ The function processes the source string character by character, converting each
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - utf8_to_unicode (converts UTF-8 bytes to Unicode codepoint)
-  - unicode_utf8len (calculates UTF-8 byte length for a Unicode codepoint)
-  - find_case_map (finds case mapping for a Unicode codepoint)
-  - unicode_to_utf8 (converts Unicode codepoint back to UTF-8 bytes)
+  - [utf8_to_unicode](../u/utf8_to_unicode.md) (converts UTF-8 bytes to Unicode codepoint)
+  - [unicode_utf8len](../u/unicode_utf8len.md) (calculates UTF-8 byte length for a Unicode codepoint)
+  - [find_case_map](../f/find_case_map.md) (finds case mapping for a Unicode codepoint)
+  - [unicode_to_utf8](../u/unicode_to_utf8.md) (converts Unicode codepoint back to UTF-8 bytes)
   - pg_case_map (Unicode case mapping structure)
-  - CaseKind (enumeration for case conversion types)
+  - [CaseKind](../C/CaseKind.md) (enumeration for case conversion types)
 - Called from (representative examples):
-  - unicode_strlower
-  - unicode_strtitle  
-  - unicode_strupper
+  - [unicode_strlower](../u/unicode_strlower.md)
+  - [unicode_strtitle](../u/unicode_strtitle.md)  
+  - [unicode_strupper](../u/unicode_strupper.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the unicode_case.c file

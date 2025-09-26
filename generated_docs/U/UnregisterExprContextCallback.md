@@ -21,12 +21,12 @@ The function is typically used when a resource or operation that registered a cl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExprContext_CB (callback structure type)
+  - [ExprContext_CB](../E/ExprContext_CB.md) (callback structure type)
   - [pfree](../p/pfree.md) (memory deallocation)
 - Called from (representative examples):
   - [fmgr_sql](../f/fmgr_sql.md) (SQL function execution cleanup)
   - [end_MultiFuncCall](../e/end_MultiFuncCall.md) (multi-function call cleanup)
-  - exec_rt_fetch (runtime tuple fetch cleanup)
+  - [exec_rt_fetch](../e/exec_rt_fetch.md) (runtime tuple fetch cleanup)
 
 ## Notes and Other Information
 This function performs an exact match on both the function pointer and argument value, ensuring that only the specific callback instance is removed. Multiple callbacks with the same function but different arguments will remain intact unless they specifically match both criteria. The function safely handles cases where the callback to be removed is not found in the list.

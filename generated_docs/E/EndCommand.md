@@ -27,7 +27,7 @@ The function uses a switch statement to handle different CommandDest values, wit
   - [BuildQueryCompletionString](../B/BuildQueryCompletionString.md) (builds formatted completion tag)
   - pq_putmessage (sends protocol message to client)
   - CommandDest enum values (DestRemote, DestRemoteExecute, etc.)
-  - QueryCompletion struct
+  - [QueryCompletion](../Q/QueryCompletion.md) struct
   - PqMsg_CommandComplete (protocol message type)
 - Called from (representative examples):
   - [exec_simple_query](../e/exec_simple_query.md) (in postgres.c)

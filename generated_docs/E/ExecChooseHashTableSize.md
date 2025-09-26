@@ -31,13 +31,13 @@ The function also incorporates skew optimization by estimating how many most-com
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_hash_memory_limit (retrieves memory limit from GUC settings)
-  - pg_nextpower2_32 (rounds up to next power of 2)
+  - [get_hash_memory_limit](../g/get_hash_memory_limit.md) (retrieves memory limit from GUC settings)
+  - [pg_nextpower2_32](../p/pg_nextpower2_32.md) (rounds up to next power of 2)
   - pg_prevpower2_size_t (rounds down to previous power of 2)
-  - ExecChooseHashTableSize (recursive call for parallel fallback)
+  - [ExecChooseHashTableSize](ExecChooseHashTableSize.md) (recursive call for parallel fallback)
 - Called from (representative examples):
-  - ExecHashTableCreate (hash table initialization)
-  - initial_cost_hashjoin (query planning cost estimation)
+  - [ExecHashTableCreate](ExecHashTableCreate.md) (hash table initialization)
+  - [initial_cost_hashjoin](../i/initial_cost_hashjoin.md) (query planning cost estimation)
 
 ## Notes and Other Information
 - Both bucket count and batch count must be powers of 2 for efficient hash computation using bitwise operations

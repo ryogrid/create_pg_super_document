@@ -25,7 +25,7 @@ The function is part of PostgreSQL's visibility checking infrastructure, which i
 - Called from (representative examples):
   - [getObjectDescription](../g/getObjectDescription.md) (for object description formatting)
   - [regcollationout](../r/regcollationout.md) (for collation output formatting)
-  - generate_collation_name (for SQL generation)
+  - [generate_collation_name](../g/generate_collation_name.md) (for SQL generation)
   - RangeVarGetRelid (via header inclusion)
 
 ## Notes and Other Information

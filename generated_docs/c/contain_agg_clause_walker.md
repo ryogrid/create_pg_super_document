@@ -21,9 +21,9 @@ This static function serves as the core implementation for aggregate function de
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Aggref
-  - GroupingFunc
-  - SubLink
+  - [Aggref](../A/Aggref.md)
+  - [GroupingFunc](../G/GroupingFunc.md)
+  - [SubLink](../S/SubLink.md)
   - expression_tree_walker
   - [contain_agg_clause_walker](contain_agg_clause_walker.md) (recursive call)
 - Called from (representative examples):

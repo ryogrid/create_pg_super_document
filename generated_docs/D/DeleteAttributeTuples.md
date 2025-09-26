@@ -34,13 +34,13 @@ This function is designed to be shared between relation deletion and index delet
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open (opens pg_attribute catalog for modification)
+  - [table_open](../t/table_open.md) (opens pg_attribute catalog for modification)
   - [ScanKeyInit](../S/ScanKeyInit.md) (initializes scan key for relation ID lookup)
   - [systable_beginscan](../s/systable_beginscan.md) (begins indexed scan on pg_attribute)
   - [systable_getnext](../s/systable_getnext.md) (retrieves next matching attribute tuple)
   - [CatalogTupleDelete](../C/CatalogTupleDelete.md) (deletes attribute tuple from catalog)
   - [systable_endscan](../s/systable_endscan.md) (ends the system catalog scan)
-  - table_close (closes pg_attribute catalog relation)
+  - [table_close](../t/table_close.md) (closes pg_attribute catalog relation)
 - Called from (representative examples):
   - [heap_drop_with_catalog](../h/heap_drop_with_catalog.md) (during table deletion)
   - [index_drop](../i/index_drop.md) (during index deletion)

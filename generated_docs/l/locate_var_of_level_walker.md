@@ -35,7 +35,7 @@ The function uses the standard PostgreSQL short-circuit tree walker pattern, ret
   - query_tree_walker (for recursing into Query nodes)
   - expression_tree_walker (for recursing into expression nodes)
 - Referenced node types:
-  - Var
+  - [Var](../V/Var.md)
   - [CurrentOfExpr](../C/CurrentOfExpr.md)
   - [PlaceHolderVar](../P/PlaceHolderVar.md)
   - [Query](../Q/Query.md)

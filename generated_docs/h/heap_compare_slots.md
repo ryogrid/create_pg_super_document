@@ -29,15 +29,15 @@ The function stops as soon as it finds a difference between the tuples on any so
 - Functions called/Symbols referenced:
   - [DatumGetInt32](../D/DatumGetInt32.md)
   - TupIsNull
-  - slot_getattr
+  - [slot_getattr](../s/slot_getattr.md)
   - [ApplySortComparator](../A/ApplySortComparator.md)
   - INVERT_COMPARE_RESULT
   - [GatherMergeState](../G/GatherMergeState.md)
   - SlotNumber
-  - SortSupport
+  - [SortSupport](../S/SortSupport.md)
 - Called from (representative examples):
   - [gather_merge_setup](../g/gather_merge_setup.md)
-  - ExecInitMergeAppend (in nodeMergeAppend.c)
+  - [ExecInitMergeAppend](../E/ExecInitMergeAppend.md) (in nodeMergeAppend.c)
 
 ## Notes and Other Information
 - Returns negative, zero, or positive value indicating the relative order of the two tuples

@@ -23,14 +23,14 @@ This function builds a prefix tree structure for efficient spell-checking by rec
 ## Dependencies
 - Functions called/Symbols referenced:
   - cpalloc0 (zero-initialized memory allocation)
-  - mkSPNode (recursive calls for child nodes)
-  - makeCompoundFlags (extracts compound flags from affix)
-  - MergeAffix (merges multiple affix sets)
+  - [mkSPNode](mkSPNode.md) (recursive calls for child nodes)
+  - [makeCompoundFlags](makeCompoundFlags.md) (extracts compound flags from affix)
+  - [MergeAffix](../M/MergeAffix.md) (merges multiple affix sets)
   - SPNHDRSZ (SPNode header size constant)
   - FF_COMPOUNDONLY/FF_COMPOUNDFLAG (compound word flag constants)
 - Called from (representative examples):
-  - mkSPNode (recursive self-calls)
-  - NISortDictionary (initial tree construction)
+  - [mkSPNode](mkSPNode.md) (recursive self-calls)
+  - [NISortDictionary](../N/NISortDictionary.md) (initial tree construction)
 
 ## Notes and Other Information
 - Returns NULL if no characters are found at the current level

@@ -34,7 +34,7 @@ The function is essential for maintaining consistency in SERIALIZABLE isolation 
   - [SerializationNeededForRead](../S/SerializationNeededForRead.md)
   - [TransactionIdIsCurrentTransactionId](../T/TransactionIdIsCurrentTransactionId.md)  
   - SET_PREDICATELOCKTARGETTAG_RELATION
-  - PredicateLockExists
+  - [PredicateLockExists](PredicateLockExists.md)
   - SET_PREDICATELOCKTARGETTAG_TUPLE
   - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)
   - [ItemPointerGetOffsetNumber](../I/ItemPointerGetOffsetNumber.md)

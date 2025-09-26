@@ -23,7 +23,7 @@ This function initializes or reinitializes a singly-linked list by setting the h
   - [slist_head](slist_head.md) (parameter type)
 - Called from (representative examples):
   - [EventTriggerBeginCompleteQuery](../E/EventTriggerBeginCompleteQuery.md) (event trigger processing)
-  - SPI_connect_ext (Server Programming Interface)
+  - [SPI_connect_ext](../S/SPI_connect_ext.md) (Server Programming Interface)
   - [dsm_create_descriptor](../d/dsm_create_descriptor.md) (dynamic shared memory)
   - [InitCatCache](../I/InitCatCache.md) (system catalog cache)
 

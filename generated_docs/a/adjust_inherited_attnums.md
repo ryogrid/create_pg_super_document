@@ -26,7 +26,7 @@ The function includes comprehensive error checking to validate that each attribu
   - lfirst_int (extracts integer from list cell)
   - [get_rel_name](../g/get_rel_name.md) (gets relation name for error messages)
   - [list_nth](../l/list_nth.md) (retrieves nth element from list)
-  - lappend_int (appends integer to list)
+  - [lappend_int](../l/lappend_int.md) (appends integer to list)
 - Called from (representative examples):
   - [adjust_inherited_attnums_multilevel](adjust_inherited_attnums_multilevel.md)
 

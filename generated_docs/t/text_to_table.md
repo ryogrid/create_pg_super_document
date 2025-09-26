@@ -19,7 +19,7 @@ The text_to_table function is a PostgreSQL set-returning function (SRF) that spl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReturnSetInfo (structure for SRF result information)
+  - [ReturnSetInfo](../R/ReturnSetInfo.md) (structure for SRF result information)
   - SplitTextOutputData (structure for output state)
   - [InitMaterializedSRF](../I/InitMaterializedSRF.md) (initializes materialized set-returning function)
   - MAT_SRF_USE_EXPECTED_DESC (flag for using expected descriptor)

@@ -36,6 +36,6 @@ The function differs from its OID-based counterpart by using object names (strin
 - This is part of the string-based variant of PostgreSQL's object access hook system for drop operations
 - The function initializes an ObjectAccessDrop structure with zeroed memory and sets the dropflags field based on the parameter
 - Drop flags typically include information about CASCADE/RESTRICT behavior and other drop operation modifiers
-- String-based drop hooks are particularly useful for extensions that need to track object names during drop operations
+- [String](../S/String.md)-based drop hooks are particularly useful for extensions that need to track object names during drop operations
 - This hook is commonly used by logical replication systems, auditing extensions, and dependency tracking tools that need to respond to schema changes
 - Extensions can use this hook to perform cleanup operations, validate drop permissions, or maintain external metadata structures

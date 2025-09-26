@@ -21,7 +21,7 @@ The transformRangeFunction function handles the complex transformation of functi
 - Functions called/Symbols referenced:
   - [transformExpr](transformExpr.md)
   - [FigureColname](../F/FigureColname.md)
-  - makeFuncCall
+  - [makeFuncCall](../m/makeFuncCall.md)
   - SystemFuncName
   - [assign_list_collations](../a/assign_list_collations.md)
   - [contain_vars_of_level](../c/contain_vars_of_level.md)

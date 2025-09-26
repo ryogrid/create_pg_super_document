@@ -48,18 +48,18 @@ The off field stores saved state information used during tuple deformation, allo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TupleTableSlot
+  - [TupleTableSlot](../T/TupleTableSlot.md)
   - HeapTuple
   - MinimalTuple
-  - HeapTupleData
+  - [HeapTupleData](../H/HeapTupleData.md)
   - MINIMAL_TUPLE_OFFSET (constant)
 
 - Called from (representative examples):
-  - tts_minimal_init
-  - tts_minimal_clear
-  - tts_minimal_getsomeattrs
-  - tts_minimal_materialize
-  - slot_deform_heap_tuple
+  - [tts_minimal_init](../t/tts_minimal_init.md)
+  - [tts_minimal_clear](../t/tts_minimal_clear.md)
+  - [tts_minimal_getsomeattrs](../t/tts_minimal_getsomeattrs.md)
+  - [tts_minimal_materialize](../t/tts_minimal_materialize.md)
+  - [slot_deform_heap_tuple](../s/slot_deform_heap_tuple.md)
 
 ## Notes and Other Information
 - Used primarily for efficient storage and manipulation of temporary tuples during sorting, hashing, and other operations

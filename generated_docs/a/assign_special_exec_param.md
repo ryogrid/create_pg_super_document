@@ -21,7 +21,7 @@ The returned parameter ID can be used by execution nodes to coordinate special r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lappend_oid
+  - [lappend_oid](../l/lappend_oid.md)
   - InvalidOid (implicitly referenced)
 - Called from (representative examples):
   - [create_gather_plan](../c/create_gather_plan.md)

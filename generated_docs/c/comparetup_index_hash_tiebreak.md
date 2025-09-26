@@ -32,7 +32,7 @@ The function immediately asserts false if called, indicating a programming error
 
 ## Notes and Other Information
 - This function should never execute during normal operation - the Assert(false) ensures immediate termination if called
-- Hash indexes use only the hash value as the sort key, making tiebreaking unnecessary beyond ItemPointer comparison
+- [Hash](../H/Hash.md) indexes use only the hash value as the sort key, making tiebreaking unnecessary beyond ItemPointer comparison
 - The function exists for interface consistency with other index types that do require tiebreaking
 - If this function is ever called, it indicates a bug in the hash index sorting logic
 - The presence of this function helps maintain a uniform API across different index sorting variants

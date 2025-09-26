@@ -36,8 +36,8 @@ This function extracts statistical information from a specific slot within a pg_
   - [pfree](../p/pfree.md)
 - Called from (representative examples):
   - [var_eq_const](../v/var_eq_const.md)
-  - histogram_selectivity
-  - mcv_selectivity
+  - [histogram_selectivity](../h/histogram_selectivity.md)
+  - [mcv_selectivity](../m/mcv_selectivity.md)
   - [eqjoinsel](../e/eqjoinsel.md)
   - [calc_rangesel](../c/calc_rangesel.md)
   - [btcostestimate](../b/btcostestimate.md)

@@ -25,13 +25,13 @@ After processing all options, the function also handles positional arguments for
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getopt_long (GNU command-line parsing)
-  - SetVariable (psql variable setting)
-  - SetVariableBool (boolean variable setting)
+  - [getopt_long](../g/getopt_long.md) (GNU command-line parsing)
+  - [SetVariable](../S/SetVariable.md) (psql variable setting)
+  - [SetVariableBool](../S/SetVariableBool.md) (boolean variable setting)
   - [simple_action_list_append](../s/simple_action_list_append.md) (action queue management)
   - [setQFout](../s/setQFout.md) (output file configuration)
   - do_pset (print setting configuration)
-  - DeleteVariable (variable removal)
+  - [DeleteVariable](../D/DeleteVariable.md) (variable removal)
   - [showVersion](../s/showVersion.md) (version display)
   - [usage](../u/usage.md) (help display)
   - [slashUsage](../s/slashUsage.md) (slash command help)

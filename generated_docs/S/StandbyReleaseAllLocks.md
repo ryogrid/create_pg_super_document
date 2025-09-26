@@ -23,17 +23,17 @@ The function is typically invoked in two scenarios: when recovery completes succ
 ## Dependencies
 - Functions called/Symbols referenced:
   - elog (DEBUG2 logging)
-  - hash_seq_init (initialize hash table sequential scan)
-  - hash_seq_search (iterate through hash table entries)
-  - StandbyReleaseXidEntryLocks (release locks for individual transaction)
-  - hash_search (remove entries from hash table with HASH_REMOVE)
+  - [hash_seq_init](../h/hash_seq_init.md) (initialize hash table sequential scan)
+  - [hash_seq_search](../h/hash_seq_search.md) (iterate through hash table entries)
+  - [StandbyReleaseXidEntryLocks](StandbyReleaseXidEntryLocks.md) (release locks for individual transaction)
+  - [hash_search](../h/hash_search.md) (remove entries from hash table with HASH_REMOVE)
 - Data structures used:
-  - HASH_SEQ_STATUS
-  - RecoveryLockXidEntry
+  - [HASH_SEQ_STATUS](../H/HASH_SEQ_STATUS.md)
+  - [RecoveryLockXidEntry](../R/RecoveryLockXidEntry.md)
   - RecoveryLockXidHash
 - Called from (representative examples):
-  - ShutdownRecoveryTransactionEnvironment (src/backend/storage/ipc/standby.c:175)
-  - StandbyReleaseLocks (src/backend/storage/ipc/standby.c:1080)
+  - [ShutdownRecoveryTransactionEnvironment](ShutdownRecoveryTransactionEnvironment.md) (src/backend/storage/ipc/standby.c:175)
+  - [StandbyReleaseLocks](StandbyReleaseLocks.md) (src/backend/storage/ipc/standby.c:1080)
 
 ## Notes and Other Information
 - This is a comprehensive cleanup function that releases ALL recovery locks

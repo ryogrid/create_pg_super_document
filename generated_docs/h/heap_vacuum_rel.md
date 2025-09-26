@@ -41,7 +41,7 @@ The function handles both aggressive and non-aggressive vacuum modes, supports p
   - [should_attempt_truncation](../s/should_attempt_truncation.md) / lazy_truncate_heap (relation truncation)
   - [update_relstats_all_indexes](../u/update_relstats_all_indexes.md) (statistics updates)
   - [vac_update_relstats](../v/vac_update_relstats.md) (relation statistics)
-  - pgstat_report_vacuum (statistics reporting)
+  - [pgstat_report_vacuum](../p/pgstat_report_vacuum.md) (statistics reporting)
 
 - Called from (representative examples):
   - [SampleHeapTupleVisible](../S/SampleHeapTupleVisible.md) (src/backend/access/heap/heapam_handler.c:2632)

@@ -41,12 +41,12 @@ ReturnSetInfo serves as the communication protocol between PostgreSQL's function
 - Functions called/Symbols referenced:
   - SetFunctionReturnMode (enumeration of function return modes)
   - ExprDoneCond (enumeration for expression completion status)
-  - Tuplestorestate (structure for storing tuple sets)
-  - ExprContext (expression evaluation context)
+  - [Tuplestorestate](../T/Tuplestorestate.md) (structure for storing tuple sets)
+  - [ExprContext](../E/ExprContext.md) (expression evaluation context)
 - Called from (representative examples):
-  - ExecMakeTableFunctionResult (table function execution)
-  - ExecMakeFunctionResultSet (set returning function execution)
-  - fmgr_sql (SQL function manager)
+  - [ExecMakeTableFunctionResult](../E/ExecMakeTableFunctionResult.md) (table function execution)
+  - [ExecMakeFunctionResultSet](../E/ExecMakeFunctionResultSet.md) (set returning function execution)
+  - [fmgr_sql](../f/fmgr_sql.md) (SQL function manager)
   - Various built-in set returning functions (pg_stat_*, pg_ls_dir, etc.)
 
 ## Notes and Other Information

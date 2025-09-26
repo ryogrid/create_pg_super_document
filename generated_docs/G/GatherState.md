@@ -43,8 +43,8 @@ GatherState maintains the execution state for Gather nodes, which implement Post
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PlanState](../P/PlanState.md) (inherited structure)
-  - TupleTableSlot (for tuple collection)
-  - ParallelExecutorInfo (for parallel execution context)
+  - [TupleTableSlot](../T/TupleTableSlot.md) (for tuple collection)
+  - [ParallelExecutorInfo](../P/ParallelExecutorInfo.md) (for parallel execution context)
   - [TupleQueueReader](../T/TupleQueueReader.md) (for reading from parallel worker queues)
 - Called from (representative examples):
   - [ExecInitGather](../E/ExecInitGather.md) (initialization function)

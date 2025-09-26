@@ -23,9 +23,9 @@ The decoding process:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ItemPointerSet
+  - [ItemPointerSet](../I/ItemPointerSet.md)
 - Called from (representative examples):
-  - heapam_index_validate_scan
+  - [heapam_index_validate_scan](../h/heapam_index_validate_scan.md)
 
 ## Notes and Other Information
 - This function is the inverse of itemptr_encode and must be used with values encoded by that function

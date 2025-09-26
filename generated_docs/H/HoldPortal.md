@@ -31,7 +31,7 @@ This function is essential for implementing holdable cursors in PostgreSQL, whic
   - InvalidSubTransactionId
 - Called from (representative examples):
   - [PreCommit_Portals](../P/PreCommit_Portals.md)
-  - HoldPinnedPortals
+  - [HoldPinnedPortals](HoldPinnedPortals.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within portalmem.c

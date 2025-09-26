@@ -45,8 +45,8 @@ The design philosophy centers on allowing multiple independent updates to be bat
   - [relation_open](../r/relation_open.md) (opens the target relation using the provided OID)
   - [CheckAlterTableIsSafe](../C/CheckAlterTableIsSafe.md) (performs safety checks before allowing ALTER operations)
   - [ATController](ATController.md) (orchestrates the three-phase execution process)
-  - AlterTableStmt (structure type for parsed ALTER TABLE statements)
-  - AlterTableUtilityContext (context structure for execution state)
+  - [AlterTableStmt](AlterTableStmt.md) (structure type for parsed ALTER TABLE statements)
+  - [AlterTableUtilityContext](AlterTableUtilityContext.md) (context structure for execution state)
 - Called from (representative examples):
   - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (in utility.c:1318, during utility command processing)
 

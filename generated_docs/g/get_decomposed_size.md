@@ -30,16 +30,16 @@ The function returns 1 for characters that cannot be decomposed further or have 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_code_entry
-  - get_code_decomposition
-  - get_decomposed_size (recursive call)
+  - [get_code_entry](get_code_entry.md)
+  - [get_code_decomposition](get_code_decomposition.md)
+  - [get_decomposed_size](get_decomposed_size.md) (recursive call)
   - SBASE, SCOUNT, TCOUNT (Hangul constants)
   - DECOMPOSITION_SIZE (macro)
   - DECOMPOSITION_IS_COMPAT (macro)
-  - pg_unicode_decomposition (structure type)
+  - [pg_unicode_decomposition](../p/pg_unicode_decomposition.md) (structure type)
 - Called from (representative examples):
-  - get_decomposed_size (recursive calls)
-  - unicode_normalize
+  - [get_decomposed_size](get_decomposed_size.md) (recursive calls)
+  - [unicode_normalize](../u/unicode_normalize.md)
 
 ## Notes and Other Information
 - This is a static function, accessible only within unicode_norm.c

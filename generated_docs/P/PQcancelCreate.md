@@ -32,7 +32,7 @@ The function is designed to work with PostgreSQL's secure query cancellation mec
   - [pqMakeEmptyPGconn](../p/pqMakeEmptyPGconn.md)
   - [libpq_append_conn_error](../l/libpq_append_conn_error.md)
   - [pqCopyPGconn](../p/pqCopyPGconn.md)
-  - pqConnectOptions2
+  - [pqConnectOptions2](../p/pqConnectOptions2.md)
   - [pqReleaseConnHosts](../p/pqReleaseConnHosts.md)
   - calloc
   - strdup

@@ -23,7 +23,7 @@ This function is a custom implementation of the standard POSIX pthread_mutex_ini
   - [pthread_mutex_t](pthread_mutex_t.md) (mutex structure type)
 - Called from (representative examples):
   - PTHREAD_ONCE_INIT (in src/interfaces/ecpg/include/ecpg-pthread-win32.h)
-  - pgtls_init (in src/interfaces/libpq/fe-secure-openssl.c)
+  - [pgtls_init](pgtls_init.md) (in src/interfaces/libpq/fe-secure-openssl.c)
   - pthread_once_t (in src/port/pthread-win32.h)
   - [pthread_barrier_init](pthread_barrier_init.md) (in src/port/pthread_barrier_wait.c)
 

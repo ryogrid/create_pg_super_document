@@ -24,7 +24,7 @@ The function also handles the coordination with the outer plan (typically a bitm
   - [tbm_end_iterate](../t/tbm_end_iterate.md)
   - [tbm_end_shared_iterate](../t/tbm_end_shared_iterate.md)  
   - [tbm_free](../t/tbm_free.md)
-  - ReleaseBuffer
+  - [ReleaseBuffer](../R/ReleaseBuffer.md)
   - [ExecScanReScan](ExecScanReScan.md)
   - [ExecReScan](ExecReScan.md)
 - Data types referenced:

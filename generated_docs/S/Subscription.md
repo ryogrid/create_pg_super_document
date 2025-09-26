@@ -72,7 +72,7 @@ The Subscription structure is a core data structure in PostgreSQL's logical repl
   - [FreeSubscription](../F/FreeSubscription.md) (deallocates subscription structure memory)
   - [AlterSubscription_refresh](../A/AlterSubscription_refresh.md) (refreshes subscription configuration)
   - [AlterSubscription](../A/AlterSubscription.md) (modifies subscription parameters)
-  - get_subscription_list (retrieves list of subscriptions for launcher)
+  - [get_subscription_list](../g/get_subscription_list.md) (retrieves list of subscriptions for launcher)
   - [maybe_reread_subscription](../m/maybe_reread_subscription.md) (checks if subscription needs to be reloaded)
 
 ## Notes and Other Information

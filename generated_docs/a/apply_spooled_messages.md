@@ -27,7 +27,7 @@ The function tracks progress with debug logging and ensures proper cleanup by va
   - [maybe_start_skipping_changes](../m/maybe_start_skipping_changes.md)
   - [begin_replication_step](../b/begin_replication_step.md)/end_replication_step
   - [changes_filename](../c/changes_filename.md)
-  - BufFileOpenFileSet/BufFileReadMaybeEOF/BufFileReadExact/BufFileTell
+  - [BufFileOpenFileSet](../B/BufFileOpenFileSet.md)/BufFileReadMaybeEOF/BufFileReadExact/BufFileTell
   - [pgstat_report_activity](../p/pgstat_report_activity.md)
   - [apply_dispatch](apply_dispatch.md)
   - [ensure_last_message](../e/ensure_last_message.md)

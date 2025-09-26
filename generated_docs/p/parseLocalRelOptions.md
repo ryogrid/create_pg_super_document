@@ -21,7 +21,7 @@ This function handles the parsing of locally-defined relation options that are n
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_length
+  - [list_length](../l/list_length.md)
   - [palloc](palloc.md)
   - foreach (macro)
   - lfirst (macro)

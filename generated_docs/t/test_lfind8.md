@@ -29,11 +29,11 @@ This function takes no specific parameters but uses the PostgreSQL function call
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - test_lfind8_internal (called 8 times with different test values)
+  - [test_lfind8_internal](test_lfind8_internal.md) (called 8 times with different test values)
   - PG_RETURN_VOID (PostgreSQL macro for returning void)
 
 - Called from:
-  - test_lfind8_internal (there appears to be a reference, likely through PG_FUNCTION_INFO_V1 registration)
+  - [test_lfind8_internal](test_lfind8_internal.md) (there appears to be a reference, likely through PG_FUNCTION_INFO_V1 registration)
   - SQL interface (as this is a PostgreSQL SQL-callable function)
 
 ## Notes and Other Information

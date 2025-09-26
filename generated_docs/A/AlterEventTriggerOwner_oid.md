@@ -25,14 +25,14 @@ Unlike its name-based counterpart, this function returns void rather than an Obj
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open (to open the pg_event_trigger relation)
+  - [table_open](../t/table_open.md) (to open the pg_event_trigger relation)
   - SearchSysCacheCopy1 (to find the event trigger by OID)
   - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) (to convert trigger OID to Datum)
   - HeapTupleIsValid (to validate the found tuple)
   - ereport (to report errors if trigger not found)
   - [AlterEventTriggerOwner_internal](AlterEventTriggerOwner_internal.md) (to perform the actual ownership change)
   - [heap_freetuple](../h/heap_freetuple.md) (to free tuple memory)
-  - table_close (to close the relation)
+  - [table_close](../t/table_close.md) (to close the relation)
 - Called from (representative examples):
   - [shdepReassignOwned_Owner](../s/shdepReassignOwned_Owner.md) (bulk ownership reassignment operations)
 

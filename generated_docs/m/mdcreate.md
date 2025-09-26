@@ -21,7 +21,7 @@ This function creates a new relation file on disk with comprehensive error handl
 - Functions called/Symbols referenced:
   - [TablespaceCreateDbspace](../T/TablespaceCreateDbspace.md) (ensures tablespace directory exists)
   - relpath (constructs the file path)
-  - PathNameOpenFile (opens/creates the file)
+  - [PathNameOpenFile](../P/PathNameOpenFile.md) (opens/creates the file)
   - [_mdfd_open_flags](_mdfd_open_flags.md) (gets appropriate file open flags)
   - [_fdvec_resize](../f/_fdvec_resize.md) (resizes the file descriptor vector)
   - SmgrIsTemp (checks if relation is temporary)

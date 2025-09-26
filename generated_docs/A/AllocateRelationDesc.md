@@ -20,7 +20,7 @@ The function creates a template tuple descriptor using CreateTemplateTupleDesc a
 ## Dependencies
 - Functions called/Symbols referenced:
   - Form_pg_class (pg_class tuple structure type)
-  - RelationData (relation descriptor structure type)
+  - [RelationData](../R/RelationData.md) (relation descriptor structure type)
   - CLASS_TUPLE_SIZE (constant for fixed-size portion of pg_class)
   - [CreateTemplateTupleDesc](../C/CreateTemplateTupleDesc.md) (creates empty tuple descriptor template)
 - Called from (representative examples):

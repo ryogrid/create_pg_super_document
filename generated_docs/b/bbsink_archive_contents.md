@@ -21,19 +21,19 @@ This inline function handles the processing of archive content data within Postg
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbsink (structure type)
+  - [bbsink](bbsink.md) (structure type)
   - Assert (assertion macro)
 - Called from (representative examples):
-  - perform_base_backup
-  - sendFileWithContent
-  - sendFile
-  - push_to_sink
-  - _tarWriteHeader
-  - _tarWritePadding
-  - bbsink_gzip_archive_contents
-  - bbsink_lz4_archive_contents
-  - bbsink_forward_archive_contents
-  - bbsink_zstd_archive_contents
+  - [perform_base_backup](../p/perform_base_backup.md)
+  - [sendFileWithContent](../s/sendFileWithContent.md)
+  - [sendFile](../s/sendFile.md)
+  - [push_to_sink](../p/push_to_sink.md)
+  - [_tarWriteHeader](../t/_tarWriteHeader.md)
+  - [_tarWritePadding](../t/_tarWritePadding.md)
+  - [bbsink_gzip_archive_contents](bbsink_gzip_archive_contents.md)
+  - [bbsink_lz4_archive_contents](bbsink_lz4_archive_contents.md)
+  - [bbsink_forward_archive_contents](bbsink_forward_archive_contents.md)
+  - [bbsink_zstd_archive_contents](bbsink_zstd_archive_contents.md)
 
 ## Notes and Other Information
 - This is an inline function defined in the header file for performance optimization

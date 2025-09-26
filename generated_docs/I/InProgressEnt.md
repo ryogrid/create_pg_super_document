@@ -49,11 +49,11 @@ The in_progress_list acts as a stack where each entry represents an active Relat
 - Functions called/Symbols referenced:
   - Used in conjunction with static variables: in_progress_list, in_progress_list_len, in_progress_list_maxlen
 - Called from (representative examples):
-  - RelationBuildDesc (main usage for tracking build progress)
-  - RelationCacheInvalidateEntry (sets invalidated flag)
-  - RelationCacheInvalidate (sets invalidated flag for bulk invalidations)
-  - AtEOXact_RelationCache (cleanup at transaction end)
-  - AtEOSubXact_RelationCache (cleanup at subtransaction end)
+  - [RelationBuildDesc](../R/RelationBuildDesc.md) (main usage for tracking build progress)
+  - [RelationCacheInvalidateEntry](../R/RelationCacheInvalidateEntry.md) (sets invalidated flag)
+  - [RelationCacheInvalidate](../R/RelationCacheInvalidate.md) (sets invalidated flag for bulk invalidations)
+  - [AtEOXact_RelationCache](../A/AtEOXact_RelationCache.md) (cleanup at transaction end)
+  - [AtEOSubXact_RelationCache](../A/AtEOSubXact_RelationCache.md) (cleanup at subtransaction end)
 
 ## Notes and Other Information
 - This mechanism is specific to CREATE INDEX CONCURRENTLY and differs from typical invalidation consumers that don't retry operations

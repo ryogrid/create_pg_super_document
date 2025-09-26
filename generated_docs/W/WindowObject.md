@@ -36,30 +36,30 @@ As an opaque pointer type, WindowObject itself has no directly accessible member
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WindowObjectData (underlying structure)
+  - [WindowObjectData](WindowObjectData.md) (underlying structure)
   
 - Called from (representative examples):
-  - window_row_number (window function implementation)
-  - window_rank (window function implementation)
-  - window_dense_rank (window function implementation)
-  - window_percent_rank (window function implementation)
-  - window_cume_dist (window function implementation)
-  - window_ntile (window function implementation)
-  - window_first_value (window function implementation)
-  - window_last_value (window function implementation)
-  - window_nth_value (window function implementation)
-  - leadlag_common (helper for LAG/LEAD functions)
+  - [window_row_number](../w/window_row_number.md) (window function implementation)
+  - [window_rank](../w/window_rank.md) (window function implementation)
+  - [window_dense_rank](../w/window_dense_rank.md) (window function implementation)
+  - [window_percent_rank](../w/window_percent_rank.md) (window function implementation)
+  - [window_cume_dist](../w/window_cume_dist.md) (window function implementation)
+  - [window_ntile](../w/window_ntile.md) (window function implementation)
+  - [window_first_value](../w/window_first_value.md) (window function implementation)
+  - [window_last_value](../w/window_last_value.md) (window function implementation)
+  - [window_nth_value](../w/window_nth_value.md) (window function implementation)
+  - [leadlag_common](../l/leadlag_common.md) (helper for LAG/LEAD functions)
 
 ## Notes and Other Information
 - Window functions must use the V1 calling convention to receive a WindowObject
 - The WindowObject validity can be tested using WindowObjectIsValid() macro
 - Window functions should not directly access the WindowObjectData structure but use the provided API functions:
-  - WinGetPartitionLocalMemory() - Allocate partition-local memory
-  - WinGetCurrentPosition() - Get current row position
-  - WinGetPartitionRowCount() - Get total rows in partition
-  - WinSetMarkPosition() - Set mark position for efficient access
-  - WinRowsArePeers() - Check if two rows are peers
-  - WinGetFuncArgInPartition() - Evaluate argument at any partition row
-  - WinGetFuncArgInFrame() - Evaluate argument at any frame row
-  - WinGetFuncArgCurrent() - Evaluate argument at current row
+  - [WinGetPartitionLocalMemory](WinGetPartitionLocalMemory.md)() - Allocate partition-local memory
+  - [WinGetCurrentPosition](WinGetCurrentPosition.md)() - Get current row position
+  - [WinGetPartitionRowCount](WinGetPartitionRowCount.md)() - Get total rows in partition
+  - [WinSetMarkPosition](WinSetMarkPosition.md)() - Set mark position for efficient access
+  - [WinRowsArePeers](WinRowsArePeers.md)() - Check if two rows are peers
+  - [WinGetFuncArgInPartition](WinGetFuncArgInPartition.md)() - Evaluate argument at any partition row
+  - [WinGetFuncArgInFrame](WinGetFuncArgInFrame.md)() - Evaluate argument at any frame row
+  - [WinGetFuncArgCurrent](WinGetFuncArgCurrent.md)() - Evaluate argument at current row
 - The WindowObject provides the foundation for PostgreSQL's window function framework and enables efficient implementation of complex analytical functions

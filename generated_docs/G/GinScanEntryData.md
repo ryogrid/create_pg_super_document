@@ -77,7 +77,7 @@ The design supports both posting list processing (for smaller result sets) and p
   - StrategyNumber (strategy number type)
   - [TIDBitmap](../T/TIDBitmap.md) (tuple ID bitmap structure)
   - [TBMIterator](../T/TBMIterator.md) (bitmap iterator)
-  - TBMIterateResult (bitmap iteration result)
+  - [TBMIterateResult](../T/TBMIterateResult.md) (bitmap iteration result)
   - [GinBtreeData](GinBtreeData.md) (B-tree navigation data)
 - Called from (representative examples):
   - [ginFillScanEntry](../g/ginFillScanEntry.md) (src/backend/access/gin/ginscan.c:101)

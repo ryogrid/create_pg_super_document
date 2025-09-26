@@ -29,14 +29,14 @@ The formatting ensures vertical alignment of test names and runtimes across all 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - emit_tap_output
+  - [emit_tap_output](../e/emit_tap_output.md)
   - fail_count (global variable)
   - success_count (global variable)
   - TEST_STATUS (TAPtype enum value)
   - TESTNAME_WIDTH (macro)
 - Called from (representative examples):
-  - test_status_ok
-  - test_status_failed
+  - [test_status_ok](test_status_ok.md)
+  - [test_status_failed](test_status_failed.md)
 
 ## Notes and Other Information
 - The function uses a specific formatting strategy where test numbers are padded to 5 characters (supporting up to 9999 tests)

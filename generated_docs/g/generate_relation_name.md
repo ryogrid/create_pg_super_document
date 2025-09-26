@@ -21,22 +21,22 @@ This function generates a display-ready relation name by looking up the relation
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - GETSTRUCT
   - NameStr
-  - RelationIsVisible
-  - get_namespace_name_or_temp
-  - quote_qualified_identifier
-  - ReleaseSysCache
+  - [RelationIsVisible](../R/RelationIsVisible.md)
+  - [get_namespace_name_or_temp](get_namespace_name_or_temp.md)
+  - [quote_qualified_identifier](../q/quote_qualified_identifier.md)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
 - Called from (representative examples):
-  - pg_get_triggerdef_worker
-  - pg_get_indexdef_worker
-  - pg_get_constraintdef_worker
-  - make_ruledef
-  - get_insert_query_def
-  - get_update_query_def
-  - get_from_clause_item
+  - [pg_get_triggerdef_worker](../p/pg_get_triggerdef_worker.md)
+  - [pg_get_indexdef_worker](../p/pg_get_indexdef_worker.md)
+  - [pg_get_constraintdef_worker](../p/pg_get_constraintdef_worker.md)
+  - [make_ruledef](../m/make_ruledef.md)
+  - [get_insert_query_def](get_insert_query_def.md)
+  - [get_update_query_def](get_update_query_def.md)
+  - [get_from_clause_item](get_from_clause_item.md)
 
 ## Notes and Other Information
 - This is a static function local to ruleutils.c

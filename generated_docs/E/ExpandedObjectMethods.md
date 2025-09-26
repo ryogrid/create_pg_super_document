@@ -33,8 +33,8 @@ These methods are called when PostgreSQL needs to serialize an expanded object b
   - EOM_get_flat_size_method (typedef)
   - EOM_flatten_into_method (typedef)
 - Used by (representative examples):
-  - ExpandedObjectHeader (as eoh_methods member)
-  - EOH_init_header
+  - [ExpandedObjectHeader](ExpandedObjectHeader.md) (as eoh_methods member)
+  - [EOH_init_header](EOH_init_header.md)
   - MakeExpandedObjectReadOnly
 
 ## Notes and Other Information

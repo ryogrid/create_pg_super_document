@@ -32,7 +32,7 @@ This approach provides better safety and debugging capabilities compared to the 
   - [SyncRepCancelWait](../S/SyncRepCancelWait.md) (src/backend/replication/syncrep.c:410)
   - [SyncRepCleanupAtProcExit](../S/SyncRepCleanupAtProcExit.md) (src/backend/replication/syncrep.c:428)
   - [SyncRepWakeQueue](../S/SyncRepWakeQueue.md) (src/backend/replication/syncrep.c:930)
-  - SummarizeOldestCommittedSxact (src/backend/storage/lmgr/predicate.c:1521)
+  - [SummarizeOldestCommittedSxact](../S/SummarizeOldestCommittedSxact.md) (src/backend/storage/lmgr/predicate.c:1521)
   - [ClearOldPredicateLocks](../C/ClearOldPredicateLocks.md) (src/backend/storage/lmgr/predicate.c:3711, 3728)
   - [dlist_delete_from_thoroughly](dlist_delete_from_thoroughly.md) (src/include/lib/ilist.h:443)
 

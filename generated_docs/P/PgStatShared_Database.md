@@ -27,7 +27,7 @@ This structure is part of PostgreSQL's extensible statistics framework that allo
 - `stats`: PgStat_StatDBEntry structure containing comprehensive database statistics including transaction counts, block I/O metrics, tuple operation counters, conflict statistics, session data, and timing information
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PgStatShared_Common
+  - [PgStatShared_Common](PgStatShared_Common.md)
   - [PgStat_StatDBEntry](PgStat_StatDBEntry.md)
 - Called from (representative examples):
   - [pgstat_report_autovac](../p/pgstat_report_autovac.md)

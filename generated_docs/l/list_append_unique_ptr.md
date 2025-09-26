@@ -23,10 +23,10 @@ If the pointer is found to be a member (same memory address), the original list 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [list_member_ptr](list_member_ptr.md) - Checks if datum pointer is already in the list using pointer equality
-  - `lappend` - Appends the datum to the list if not already present
+  - `[lappend](lappend.md)` - Appends the datum to the list if not already present
 - Called from (representative examples):
-  - `subbuild_joinrel_restrictlist` (src/backend/optimizer/util/relnode.c:1403)
-  - `subbuild_joinrel_joinlist` (src/backend/optimizer/util/relnode.c:1448)
+  - `[subbuild_joinrel_restrictlist](../s/subbuild_joinrel_restrictlist.md)` (src/backend/optimizer/util/relnode.c:1403)
+  - `[subbuild_joinrel_joinlist](../s/subbuild_joinrel_joinlist.md)` (src/backend/optimizer/util/relnode.c:1448)
 
 ## Notes and Other Information
 - Uses simple pointer equality (==) for membership testing, not content comparison

@@ -26,11 +26,11 @@ The collected comments are stored in a global array  sorted by  for fast lookup 
   - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
   - [findObjectByCatalogId](../f/findObjectByCatalogId.md)
   - [findTypeByOid](../f/findTypeByOid.md)
-  - pg_malloc
+  - [pg_malloc](../p/pg_malloc.md)
   - atooid
-  - createPQExpBuffer
+  - [createPQExpBuffer](createPQExpBuffer.md)
   - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
-  - destroyPQExpBuffer
+  - [destroyPQExpBuffer](../d/destroyPQExpBuffer.md)
   - [pg_strdup](../p/pg_strdup.md)
 - Called from (representative examples):
   - [main](../m/main.md) (in pg_dump.c:991)

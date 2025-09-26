@@ -27,7 +27,7 @@ The structure is used internally by the B-tree vacuum process and is exported to
 - `safexid`: The full transaction ID from the deleted page's BTDeletedPageData.safexid field, used to determine when the page can be safely recycled
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FullTransactionId (transaction identifier type)
+  - [FullTransactionId](../F/FullTransactionId.md) (transaction identifier type)
   - BlockNumber (for page references)
 - Called from (representative examples):
   - [_bt_pendingfsm_init](../b/_bt_pendingfsm_init.md) (initialize pending FSM tracking)

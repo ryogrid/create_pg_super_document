@@ -36,7 +36,7 @@ The function handles the complex PostgreSQL transaction state transitions requir
   - [CommitTransactionCommand](../C/CommitTransactionCommand.md) (commit transaction command)
   - [DefineSavepoint](../D/DefineSavepoint.md) (create named savepoint)
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (memory context management)
-  - lappend_xid (append XID to list)
+  - [lappend_xid](../l/lappend_xid.md) (append XID to list)
   - MySubscription (global subscription info)
   - TopTransactionContext (transaction memory context)
   - subxactlist (global subtransaction list)

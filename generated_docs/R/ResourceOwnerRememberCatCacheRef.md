@@ -21,12 +21,12 @@ ResourceOwnerRememberCatCacheRef is a static inline wrapper function that simpli
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwnerRemember
-  - PointerGetDatum
+  - [ResourceOwnerRemember](ResourceOwnerRemember.md)
+  - [PointerGetDatum](../P/PointerGetDatum.md)
   - catcache_resowner_desc (static resource owner descriptor)
 - Called from (representative examples):
-  - SearchCatCacheInternal
-  - SearchCatCacheMiss
+  - [SearchCatCacheInternal](../S/SearchCatCacheInternal.md)
+  - [SearchCatCacheMiss](../S/SearchCatCacheMiss.md)
 
 ## Notes and Other Information
 - This is a static inline function defined in src/backend/utils/cache/catcache.c (lines 159-163)

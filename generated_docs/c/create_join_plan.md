@@ -25,9 +25,9 @@ The `create_join_plan` function serves as the main dispatcher for creating join 
   - [create_nestloop_plan](create_nestloop_plan.md)
   - [get_gating_quals](../g/get_gating_quals.md)
   - [create_gating_plan](create_gating_plan.md)
-  - MergePath (type)
-  - HashPath (type) 
-  - NestPath (type)
+  - [MergePath](../M/MergePath.md) (type)
+  - [HashPath](../H/HashPath.md) (type) 
+  - [NestPath](../N/NestPath.md) (type)
 - Called from (representative examples):
   - [create_plan_recurse](create_plan_recurse.md)
 

@@ -25,8 +25,8 @@ The function assumes that AccessExclusiveLock has already been acquired on the d
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CountDBBackends
-  - CancelDBBackends
+  - [CountDBBackends](../C/CountDBBackends.md)
+  - [CancelDBBackends](../C/CancelDBBackends.md)
   - PROCSIG_RECOVERY_CONFLICT_DATABASE
   - [pg_usleep](../p/pg_usleep.md)
 - Called from (representative examples):

@@ -27,7 +27,7 @@ This function is part of PostgreSQL's range type serialization system and handle
 ## Dependencies
 - Functions called/Symbols referenced:
   - att_align_nominal
-  - store_att_byval
+  - [store_att_byval](../s/store_att_byval.md)
   - VARATT_IS_EXTERNAL
   - VARATT_IS_SHORT
   - VARSIZE_SHORT

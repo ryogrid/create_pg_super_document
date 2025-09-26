@@ -31,7 +31,7 @@ The function implements a two-phase pause mechanism where requesting a pause onl
   - SpinLockRelease
   - RECOVERY_NOT_PAUSED
   - RECOVERY_PAUSE_REQUESTED
-  - ConditionVariableBroadcast
+  - [ConditionVariableBroadcast](../C/ConditionVariableBroadcast.md)
   - XLogRecoveryCtl (global structure)
 - Called from (representative examples):
   - [pg_wal_replay_pause](../p/pg_wal_replay_pause.md)

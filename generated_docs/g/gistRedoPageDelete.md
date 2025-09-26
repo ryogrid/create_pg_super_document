@@ -27,13 +27,13 @@ Both pages are only modified if they need redo (determined by LSN comparison), e
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData: Extract WAL record data
-  - XLogReadBufferForRedo: Read buffers and determine if redo is needed
+  - [XLogReadBufferForRedo](../X/XLogReadBufferForRedo.md): Read buffers and determine if redo is needed
   - BLK_NEEDS_REDO: Constant indicating buffer needs redo
   - [GistPageSetDeleted](../G/GistPageSetDeleted.md): Mark page as deleted with deletion XID
   - [PageIndexTupleDelete](../P/PageIndexTupleDelete.md): Remove tuple from page at specified offset
   - [BufferGetPage](../B/BufferGetPage.md): Get page from buffer
   - [PageSetLSN](../P/PageSetLSN.md): Set page LSN
-  - MarkBufferDirty: Mark buffer as dirty
+  - [MarkBufferDirty](../M/MarkBufferDirty.md): Mark buffer as dirty
   - [BufferIsValid](../B/BufferIsValid.md): Check if buffer is valid
   - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md): Unlock and release buffer
 - Called from:

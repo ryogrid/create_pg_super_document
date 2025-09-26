@@ -23,10 +23,10 @@ This function performs a comprehensive reset of an aggregate execution node to e
   - [bms_overlap](../b/bms_overlap.md)
   - ResetTupleHashIterator
   - [select_current_set](../s/select_current_set.md)
-  - tuplesort_end
-  - ReScanExprContext
+  - [tuplesort_end](../t/tuplesort_end.md)
+  - [ReScanExprContext](../R/ReScanExprContext.md)
   - [heap_freetuple](../h/heap_freetuple.md)
-  - ExecClearTuple
+  - [ExecClearTuple](ExecClearTuple.md)
   - MemSet
   - [hashagg_reset_spill_state](../h/hashagg_reset_spill_state.md)
   - [build_hash_tables](../b/build_hash_tables.md)

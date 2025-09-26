@@ -23,21 +23,21 @@ For built-in types, it uses predefined XML type names. For user-defined types an
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - map_multipart_sql_identifier_to_xml_name
-  - get_database_name
-  - get_namespace_name
-  - SearchSysCache1 (PostgreSQL system cache lookup)
+  - [map_multipart_sql_identifier_to_xml_name](map_multipart_sql_identifier_to_xml_name.md)
+  - [get_database_name](../g/get_database_name.md)
+  - [get_namespace_name](../g/get_namespace_name.md)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (PostgreSQL system cache lookup)
   - Form_pg_type (PostgreSQL type system structure)
   - TYPTYPE_DOMAIN (PostgreSQL type system constant)
 - Called from (representative examples):
-  - map_sql_table_to_xmlschema
-  - map_sql_type_to_xmlschema_type
+  - [map_sql_table_to_xmlschema](map_sql_table_to_xmlschema.md)
+  - [map_sql_type_to_xmlschema_type](map_sql_type_to_xmlschema_type.md)
 
 ## Notes and Other Information
 - Handles the following built-in PostgreSQL types with specific XML mappings:
   - Character types: BPCHAR → CHAR, VARCHAR → VARCHAR (with length modifiers)
-  - Numeric types: NUMERIC (with precision/scale), INTEGER, SMALLINT, BIGINT, REAL, DOUBLE
-  - Boolean type: BOOLEAN
+  - [Numeric](../N/Numeric.md) types: NUMERIC (with precision/scale), INTEGER, SMALLINT, BIGINT, REAL, DOUBLE
+  - [Boolean](../B/Boolean.md) type: BOOLEAN
   - Date/time types: TIME, TIME_WTZ, TIMESTAMP, TIMESTAMP_WTZ, DATE (with precision modifiers)
   - XML type: XML
 - For NUMERIC types, extracts precision and scale from typmod using bit manipulation

@@ -35,7 +35,7 @@ The function handles all possible heap_update results:
   - elog (error reporting)
 - Type references:
   - TM_Result (tuple manager result codes)
-  - TM_FailureData (failure information structure)
+  - [TM_FailureData](../T/TM_FailureData.md) (failure information structure)
   - [LockTupleMode](../L/LockTupleMode.md) (tuple locking modes)
   - TU_UpdateIndexes (index update control)
 - Called from (representative examples):

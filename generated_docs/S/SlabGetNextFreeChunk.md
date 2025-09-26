@@ -22,7 +22,7 @@ This function implements the core chunk allocation logic within a slab block. It
 - Functions called/Symbols referenced:
   - [SlabContext](SlabContext.md) (struct type)
   - [SlabBlock](SlabBlock.md) (struct type)
-  - MemoryChunk (struct type)
+  - [MemoryChunk](../M/MemoryChunk.md) (struct type)
   - VALGRIND_MAKE_MEM_DEFINED (Valgrind macro for memory debugging)
   - SlabChunkGetPointer (function to get pointer from chunk)
   - SlabBlockGetChunk (function to get specific chunk from block)

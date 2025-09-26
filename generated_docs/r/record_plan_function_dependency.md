@@ -26,10 +26,10 @@ For performance optimization, built-in functions (those with OIDs less than Firs
 ## Dependencies
 - Functions called/Symbols referenced:
   - FirstUnpinnedObjectId (constant for built-in object threshold)
-  - PlanInvalItem (structure type)
+  - [PlanInvalItem](../P/PlanInvalItem.md) (structure type)
   - makeNode (node creation function)
   - GetSysCacheHashValue1 (syscache hash function)
-  - lappend (list append function)
+  - [lappend](../l/lappend.md) (list append function)
 - Called from (representative examples):
   - [fix_expr_common](../f/fix_expr_common.md) (multiple calls for different expression types)
   - [inline_function](../i/inline_function.md)

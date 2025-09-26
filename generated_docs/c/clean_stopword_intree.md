@@ -30,13 +30,13 @@ The most complex aspect is managing phrase operator distances when stopwords are
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `check_stack_depth`: Prevents stack overflow in recursive calls
+  - `[check_stack_depth](check_stack_depth.md)`: Prevents stack overflow in recursive calls
   - [clean_stopword_intree](clean_stopword_intree.md): Recursive self-call for subtrees
   - [freetree](../f/freetree.md): Frees memory for removed tree nodes
   - [pfree](../p/pfree.md): Frees individual nodes
   - `QI_VAL`, `QI_VALSTOP`, `QI_OPR`: Query item type constants
   - `OP_NOT`, `OP_PHRASE`: Operator type constants
-  - `NODE`: Tree node structure type
+  - `[NODE](../N/NODE.md)`: Tree node structure type
 
 - Called from (representative examples):
   - [cleanup_tsquery_stopwords](cleanup_tsquery_stopwords.md): Main stopword cleanup function in tsquery_cleanup.c:404

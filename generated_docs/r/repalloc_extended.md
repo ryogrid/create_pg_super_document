@@ -23,7 +23,7 @@ The function includes optimization considerations, specifically designed to leve
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetMemoryChunkContext (retrieves the memory context associated with a chunk)
+  - [GetMemoryChunkContext](../G/GetMemoryChunkContext.md) (retrieves the memory context associated with a chunk)
   - AssertNotInCriticalSection (ensures not in critical section during allocation)
   - MCXT_METHOD (macro for calling memory context method implementations)
   - VALGRIND_MEMPOOL_CHANGE (Valgrind integration for memory pool tracking)

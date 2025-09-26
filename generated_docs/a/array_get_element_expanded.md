@@ -30,11 +30,11 @@ The `array_get_element_expanded` function is a static helper function that handl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `DatumGetEOHP`: Extracts expanded object header pointer
+  - `[DatumGetEOHP](../D/DatumGetEOHP.md)`: Extracts expanded object header pointer
   - `ExpandedArrayHeader`: Expanded array header structure
   - `EA_MAGIC`: Magic number for expanded array validation
-  - `ArrayGetOffset`: Calculates linear offset from subscripts
-  - `deconstruct_expanded_array`: Ensures array is deconstructed into dvalues/dnulls
+  - `[ArrayGetOffset](../A/ArrayGetOffset.md)`: Calculates linear offset from subscripts
+  - `[deconstruct_expanded_array](../d/deconstruct_expanded_array.md)`: Ensures array is deconstructed into dvalues/dnulls
   - `MAXDIM`: Maximum number of array dimensions
 - Called from (representative examples):
   - [array_get_element](array_get_element.md): Main array element access function for expanded arrays

@@ -25,7 +25,7 @@ The function replaces the original input with a cleaned version, ensuring that a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `pg_clean_ascii`: Sanitizes the input string to contain only clean ASCII characters
+  - `[pg_clean_ascii](../p/pg_clean_ascii.md)`: Sanitizes the input string to contain only clean ASCII characters
   - [guc_strdup](../g/guc_strdup.md): Duplicates a string using GUC memory management
   - [guc_free](../g/guc_free.md): Frees memory allocated by GUC functions
   - [pfree](../p/pfree.md): PostgreSQL memory deallocation function

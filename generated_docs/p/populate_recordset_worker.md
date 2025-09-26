@@ -26,11 +26,11 @@ The `populate_recordset_worker` function is the central implementation for all J
   - [get_record_type_from_argument](../g/get_record_type_from_argument.md)
   - [get_record_type_from_query](../g/get_record_type_from_query.md)
   - [update_cached_tupdesc](../u/update_cached_tupdesc.md)
-  - tuplestore_begin_heap
+  - [tuplestore_begin_heap](../t/tuplestore_begin_heap.md)
   - [makeJsonLexContext](../m/makeJsonLexContext.md)
   - [populate_recordset_array_start](populate_recordset_array_start.md) (and other JSON parsing callbacks)
   - pg_parse_json_or_ereport
-  - freeJsonLexContext
+  - [freeJsonLexContext](../f/freeJsonLexContext.md)
   - [JsonbIteratorInit](../J/JsonbIteratorInit.md)
   - [JsonbIteratorNext](../J/JsonbIteratorNext.md)
   - [populate_recordset_record](populate_recordset_record.md)

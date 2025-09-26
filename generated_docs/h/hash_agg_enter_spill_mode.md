@@ -30,7 +30,7 @@ The function ensures that hash aggregation can continue processing even when mem
 - Functions called/Symbols referenced:
   - [AggState](../A/AggState.md)
   - [hashagg_recompile_expressions](hashagg_recompile_expressions.md)
-  - LogicalTapeSetCreate
+  - [LogicalTapeSetCreate](../L/LogicalTapeSetCreate.md)
   - [HashAggSpill](../H/HashAggSpill.md)
   - [AggStatePerHash](../A/AggStatePerHash.md)
   - [hashagg_spill_init](hashagg_spill_init.md)

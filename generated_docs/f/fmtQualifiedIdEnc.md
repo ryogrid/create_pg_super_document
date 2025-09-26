@@ -24,11 +24,11 @@ The function uses a local PQExpBuffer for intermediate processing and returns th
 ## Dependencies
 - Functions called/Symbols referenced:
   - [fmtIdEnc](fmtIdEnc.md) (called twice - once for schema, once for id)
-  - `createPQExpBuffer`
+  - `[createPQExpBuffer](../c/createPQExpBuffer.md)`
   - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
   - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
   - `getLocalPQExpBuffer`
-  - `destroyPQExpBuffer`
+  - `[destroyPQExpBuffer](../d/destroyPQExpBuffer.md)`
 - Called from (representative examples):
   - [appendQualifiedRelation](../a/appendQualifiedRelation.md) (src/bin/scripts/common.c:115)
   - [get_parallel_object_list](../g/get_parallel_object_list.md) (src/bin/scripts/reindexdb.c:791, 805)

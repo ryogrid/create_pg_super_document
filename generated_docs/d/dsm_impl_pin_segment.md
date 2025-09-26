@@ -29,11 +29,11 @@ On non-Windows platforms (Linux, Unix variants), this function performs no opera
 - Functions called/Symbols referenced:
   - DuplicateHandle (Windows API)
   - GetCurrentProcess, GetLastError (Windows API)  
-  - _dosmaperr, ereport
-  - errcode_for_dynamic_shared_memory
+  - [_dosmaperr](_dosmaperr.md), ereport
+  - [errcode_for_dynamic_shared_memory](../e/errcode_for_dynamic_shared_memory.md)
   - SEGMENT_NAME_PREFIX
 - Called from (representative examples):
-  - dsm_pin_segment
+  - [dsm_pin_segment](dsm_pin_segment.md)
 
 ## Notes and Other Information
 - Only performs actual work on Windows platforms when  is defined

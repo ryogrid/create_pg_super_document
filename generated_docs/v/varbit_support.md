@@ -25,12 +25,12 @@ The function processes SupportRequestSimplify requests, examining the function c
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (macro)
-  - SupportRequestSimplify
-  - FuncExpr
+  - [SupportRequestSimplify](../S/SupportRequestSimplify.md)
+  - [FuncExpr](../F/FuncExpr.md)
   - lsecond
   - [DatumGetInt32](../D/DatumGetInt32.md)
-  - exprTypmod
-  - relabel_to_typmod
+  - [exprTypmod](../e/exprTypmod.md)
+  - [relabel_to_typmod](../r/relabel_to_typmod.md)
 - Called from:
   - No direct callers found (called by PostgreSQL's planner system)
 

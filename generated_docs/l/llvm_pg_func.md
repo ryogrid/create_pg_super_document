@@ -31,8 +31,8 @@ When adding a function to the module, it copies both the function type and attri
 
 - Called from (representative examples):
   - [slot_compile_deform](../s/slot_compile_deform.md) (in llvmjit_deform.c)
-  - llvm_compile_expr (in llvmjit_expr.c)
-  - build_EvalXFuncInt (in llvmjit_expr.c)
+  - [llvm_compile_expr](llvm_compile_expr.md) (in llvmjit_expr.c)
+  - [build_EvalXFuncInt](../b/build_EvalXFuncInt.md) (in llvmjit_expr.c)
 
 ## Notes and Other Information
 - Located in src/backend/jit/llvm/llvmjit.c:497-524

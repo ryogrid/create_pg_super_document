@@ -39,11 +39,11 @@ The function creates a hierarchical text representation where indentation level 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendStringInfoSpaces (for indentation)
-  - pairingheap_dump_recurse (recursive self-call)
+  - [appendStringInfoSpaces](../a/appendStringInfoSpaces.md) (for indentation)
+  - [pairingheap_dump_recurse](pairingheap_dump_recurse.md) (recursive self-call)
 - Called from (representative examples):
-  - pairingheap_dump_recurse (recursive calls)
-  - pairingheap_dump
+  - [pairingheap_dump_recurse](pairingheap_dump_recurse.md) (recursive calls)
+  - [pairingheap_dump](pairingheap_dump.md)
 
 ## Notes and Other Information
 - This is a static (internal) function used only for debugging purposes

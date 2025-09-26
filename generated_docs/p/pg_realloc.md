@@ -27,13 +27,13 @@ This function is used throughout PostgreSQL frontend utilities when dynamic data
   - fprintf (for error reporting)
   - exit (with EXIT_FAILURE on reallocation failure)
 - Called from (representative examples):
-  - readfile (initdb, pgbench)
-  - extend_pattern_info_array (pg_amcheck)
-  - readMessageFromPipe (pg_dump parallel)
-  - datapagemap_add (pg_rewind)
-  - enlargeVariables (pgbench)
-  - exec_command_set (psql)
-  - repalloc (fe_memutils wrapper)
+  - [readfile](../r/readfile.md) (initdb, pgbench)
+  - [extend_pattern_info_array](../e/extend_pattern_info_array.md) (pg_amcheck)
+  - [readMessageFromPipe](../r/readMessageFromPipe.md) (pg_dump parallel)
+  - [datapagemap_add](../d/datapagemap_add.md) (pg_rewind)
+  - [enlargeVariables](../e/enlargeVariables.md) (pgbench)
+  - [exec_command_set](../e/exec_command_set.md) (psql)
+  - [repalloc](../r/repalloc.md) (fe_memutils wrapper)
 
 ## Notes and Other Information
 - Handles the edge case of realloc(NULL, 0) by allocating at least 1 byte to avoid unportable behavior

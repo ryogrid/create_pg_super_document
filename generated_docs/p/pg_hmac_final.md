@@ -32,7 +32,7 @@ The pg_hmac_final function completes the HMAC computation process by implementin
 - Called from (representative examples):
   - [verify_client_proof](../v/verify_client_proof.md) (SCRAM authentication)
   - [build_server_final_message](../b/build_server_final_message.md) (SCRAM authentication)
-  - scram_SaltedPassword (SCRAM key derivation)
+  - [scram_SaltedPassword](../s/scram_SaltedPassword.md) (SCRAM key derivation)
   - [calculate_client_proof](../c/calculate_client_proof.md) (libpq SCRAM client)
 
 ## Notes and Other Information

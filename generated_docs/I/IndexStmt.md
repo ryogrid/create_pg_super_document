@@ -70,15 +70,15 @@ The IndexStmt structure is a comprehensive parse tree node that handles both ind
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RangeVar (table/relation reference)
-  - RelFileNumber (relation file number type)
+  - [RangeVar](../R/RangeVar.md) (table/relation reference)
+  - [RelFileNumber](../R/RelFileNumber.md) (relation file number type)
   - SubTransactionId (subtransaction identifier type)
   - NodeTag (parse node type identifier)
 - Called from (representative examples):
-  - DefineIndex (indexcmds.c:541)
-  - ATExecAddIndex (tablecmds.c:9180)
-  - transformIndexStmt (parse_utilcmd.c:2797)
-  - ProcessUtilitySlow (utility.c:1454)
+  - [DefineIndex](../D/DefineIndex.md) (indexcmds.c:541)
+  - [ATExecAddIndex](../A/ATExecAddIndex.md) (tablecmds.c:9180)
+  - [transformIndexStmt](../t/transformIndexStmt.md) (parse_utilcmd.c:2797)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (utility.c:1454)
 
 ## Notes and Other Information
 IndexStmt is one of the most complex DDL statement structures in PostgreSQL, supporting multiple index types and constraint scenarios. It's processed by DefineIndex() and integrates with the constraint system when isconstraint is true. The structure supports advanced features like partial indexes, included columns, concurrent builds, and index reuse for constraints. Proper handling requires coordination between the index creation system and constraint management.

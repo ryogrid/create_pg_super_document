@@ -26,14 +26,14 @@ The function retrieves statistics from the system catalog (pg_statistic) to iden
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache3 (retrieves statistics from pg_statistic)
-  - get_attstatsslot (extracts MCV values and frequencies)
-  - pg_nextpower2_32 (calculates optimal hash table size)
-  - MemoryContextAllocZero (allocates skew bucket arrays)
-  - FunctionCall1Coll (computes hash values for MCVs)
-  - free_attstatsslot (releases statistics slot)
+  - [SearchSysCache3](../S/SearchSysCache3.md) (retrieves statistics from pg_statistic)
+  - [get_attstatsslot](../g/get_attstatsslot.md) (extracts MCV values and frequencies)
+  - [pg_nextpower2_32](../p/pg_nextpower2_32.md) (calculates optimal hash table size)
+  - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md) (allocates skew bucket arrays)
+  - [FunctionCall1Coll](../F/FunctionCall1Coll.md) (computes hash values for MCVs)
+  - [free_attstatsslot](../f/free_attstatsslot.md) (releases statistics slot)
 - Called from:
-  - ExecHashTableCreate (during hash table initialization)
+  - [ExecHashTableCreate](ExecHashTableCreate.md) (during hash table initialization)
 
 ## Notes and Other Information
 - Only activates when the planner has identified a valid skewTable OID

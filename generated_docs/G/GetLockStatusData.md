@@ -41,7 +41,7 @@ The returned data consists of LockInstanceData objects, which are abstracted ver
 - Functions called/Symbols referenced:
   - ,  - Memory allocation functions
   - ,  - Lock acquisition and release
-  - , ,  - Hash table operations
+  - , ,  - [Hash](../H/Hash.md) table operations
   -  - Fast-path lock bit manipulation
   - ,  - Lock tag construction
   -  - Lock partition access

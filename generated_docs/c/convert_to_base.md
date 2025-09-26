@@ -22,7 +22,7 @@ This function implements efficient base conversion using a reverse-building algo
 ## Dependencies
 - Functions called/Symbols referenced:
   - BITS_PER_BYTE (macro for calculating buffer size based on bit width)
-  - cstring_to_text_with_len (converts the resulting C string to PostgreSQL text type)
+  - [cstring_to_text_with_len](cstring_to_text_with_len.md) (converts the resulting C string to PostgreSQL text type)
   - Assert (debug assertions to validate base parameter constraints)
 - Called from:
   - [to_bin32](../t/to_bin32.md), to_bin64 (binary conversion functions)

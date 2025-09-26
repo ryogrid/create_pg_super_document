@@ -50,9 +50,9 @@ The structure includes validation flags to track which fixed statistics are vali
 - Functions called/Symbols referenced:
   - PgStat_FetchConsistency
   - PGSTAT_NUM_KINDS
-  - PgStat_ArchiverStats
-  - PgStat_BgWriterStats
-  - PgStat_CheckpointerStats
+  - [PgStat_ArchiverStats](PgStat_ArchiverStats.md)
+  - [PgStat_BgWriterStats](PgStat_BgWriterStats.md)
+  - [PgStat_CheckpointerStats](PgStat_CheckpointerStats.md)
   - [PgStat_IO](PgStat_IO.md)
   - [PgStat_SLRUStats](PgStat_SLRUStats.md)
   - SLRU_NUM_ELEMENTS

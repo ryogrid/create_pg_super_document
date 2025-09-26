@@ -35,11 +35,11 @@ The structure supports subscription to multiple publications from the same publi
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (standard parse tree node identifier)
-  - List (PostgreSQL's generic list structure for publication names and options)
-  - DefElem (definition element for subscription options)
+  - [List](../L/List.md) (PostgreSQL's generic list structure for publication names and options)
+  - [DefElem](../D/DefElem.md) (definition element for subscription options)
 - Called from (representative examples):
-  - CreateSubscription (in subscriptioncmds.c for subscription creation and execution)
-  - ProcessUtilitySlow (in utility.c for statement processing)
+  - [CreateSubscription](CreateSubscription.md) (in subscriptioncmds.c for subscription creation and execution)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (in utility.c for statement processing)
 
 ## Notes and Other Information
 - Creating a subscription requires superuser privileges or a role with CREATE privilege on the database

@@ -21,14 +21,14 @@ The function performs several safety checks including magic number validation an
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire
-  - LWLockRelease
-  - dsm_unpin_segment
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
+  - [dsm_unpin_segment](dsm_unpin_segment.md)
   - dsa_area_control (struct type)
   - DSA_SEGMENT_HEADER_MAGIC
   - DSM_HANDLE_INVALID
 - Called from (representative examples):
-  - pgstat_detach_shmem (src/backend/utils/activity/pgstat_shmem.c:255)
+  - [pgstat_detach_shmem](../p/pgstat_detach_shmem.md) (src/backend/utils/activity/pgstat_shmem.c:255)
   - [dsa_on_dsm_detach_release_in_place](dsa_on_dsm_detach_release_in_place.md) (src/backend/utils/mmgr/dsa.c:578)
   - [dsa_on_shmem_exit_release_in_place](dsa_on_shmem_exit_release_in_place.md) (src/backend/utils/mmgr/dsa.c:592)
 

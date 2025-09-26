@@ -32,12 +32,12 @@ The write barrier (pg_write_barrier) is crucial for ensuring memory ordering - i
   - [BufferAlloc](../B/BufferAlloc.md)
   - [InvalidateBuffer](../I/InvalidateBuffer.md)
   - [GetVictimBuffer](../G/GetVictimBuffer.md)
-  - PinBuffer_Locked
-  - UnpinBufferNoOwner
-  - SyncOneBuffer
+  - [PinBuffer_Locked](../P/PinBuffer_Locked.md)
+  - [UnpinBufferNoOwner](UnpinBufferNoOwner.md)
+  - [SyncOneBuffer](../S/SyncOneBuffer.md)
   - [FlushBuffer](../F/FlushBuffer.md)
-  - StartBufferIO
-  - TerminateBufferIO
+  - [StartBufferIO](../S/StartBufferIO.md)
+  - [TerminateBufferIO](../T/TerminateBufferIO.md)
 
 ## Notes and Other Information
 - This function must only be called when the caller actually holds the buffer header lock

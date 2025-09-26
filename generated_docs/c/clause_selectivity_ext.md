@@ -51,8 +51,8 @@ The function implements sophisticated logic for different expression types:
   - [join_selectivity](../j/join_selectivity.md) (for join clauses)
   - [restriction_selectivity](../r/restriction_selectivity.md) (for restriction clauses)
   - [function_selectivity](../f/function_selectivity.md) (for function expressions)
-  - boolvarsel (for boolean variables)
-  - scalararraysel, rowcomparesel, nulltestsel, booltestsel (for specific node types)
+  - [boolvarsel](../b/boolvarsel.md) (for boolean variables)
+  - [scalararraysel](../s/scalararraysel.md), rowcomparesel, nulltestsel, booltestsel (for specific node types)
   - [estimate_expression_value](../e/estimate_expression_value.md) (for parameter evaluation)
 - Called from (representative examples):
   - [clause_selectivity](clause_selectivity.md) (standard interface)

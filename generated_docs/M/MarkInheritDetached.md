@@ -21,7 +21,7 @@ MarkInheritDetached is a utility function used by the concurrent partition detac
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - [ScanKeyInit](../S/ScanKeyInit.md)
   - [systable_beginscan](../s/systable_beginscan.md)
   - [systable_getnext](../s/systable_getnext.md)
@@ -29,7 +29,7 @@ MarkInheritDetached is a utility function used by the concurrent partition detac
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - [heap_freetuple](../h/heap_freetuple.md)
   - [systable_endscan](../s/systable_endscan.md)
-  - table_close
+  - [table_close](../t/table_close.md)
   - [get_rel_name](../g/get_rel_name.md)
   - [get_namespace_name](../g/get_namespace_name.md)
 - Called from (representative examples):

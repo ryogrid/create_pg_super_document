@@ -33,8 +33,8 @@ Key behaviors:
   - [set_stack_value](../s/set_stack_value.md)  
   - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md)
   - [slist_push_head](../s/slist_push_head.md)
-  - GucStack (struct)
-  - GucAction (enum)
+  - [GucStack](../G/GucStack.md) (struct)
+  - [GucAction](../G/GucAction.md) (enum)
   - GUC_ACTION_SET, GUC_ACTION_LOCAL, GUC_ACTION_SAVE (enum values)
   - GUC_SET, GUC_SET_LOCAL, GUC_LOCAL, GUC_SAVE (state enum values)
 - Called from (representative examples):

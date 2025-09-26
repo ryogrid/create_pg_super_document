@@ -17,11 +17,11 @@ tts_buffer_heap_clear is responsible for cleaning up and resetting a buffer-back
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferHeapTupleTableSlot (cast target type)
+  - [BufferHeapTupleTableSlot](../B/BufferHeapTupleTableSlot.md) (cast target type)
   - TTS_SHOULDFREE (flag check macro)
   - [heap_freetuple](../h/heap_freetuple.md) (tuple memory deallocation)
   - TTS_FLAG_SHOULDFREE (flag manipulation)
-  - ReleaseBuffer (buffer reference management)
+  - [ReleaseBuffer](../R/ReleaseBuffer.md) (buffer reference management)
   - TTS_FLAG_EMPTY (slot state flag)
   - [ItemPointerSetInvalid](../I/ItemPointerSetInvalid.md) (tuple ID invalidation)
 - Called from (representative examples):

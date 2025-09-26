@@ -30,18 +30,18 @@ The function is designed to handle both buffered output (when target->bufend is 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dopr_outch
-  - flushbuffer
+  - [dopr_outch](dopr_outch.md)
+  - [flushbuffer](../f/flushbuffer.md)
   - memmove (system library)
   - PrintfTarget (structure)
 - Called from:
-  - dopr
-  - fmtstr
-  - fmtptr
-  - fmtint
-  - fmtfloat
-  - pg_strfromd
-  - flushbuffer
+  - [dopr](dopr.md)
+  - [fmtstr](../f/fmtstr.md)
+  - [fmtptr](../f/fmtptr.md)
+  - [fmtint](../f/fmtint.md)
+  - [fmtfloat](../f/fmtfloat.md)
+  - [pg_strfromd](../p/pg_strfromd.md)
+  - [flushbuffer](../f/flushbuffer.md)
 
 ## Notes and Other Information
 - Provides fast path optimization for single-character strings to avoid unnecessary buffer management overhead

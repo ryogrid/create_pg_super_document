@@ -25,7 +25,7 @@ The function constructs a SQL query to fetch language metadata including permiss
 - Functions called/Symbols referenced:
   - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
   - [ProcLangInfo](../P/ProcLangInfo.md)
-  - pg_malloc
+  - [pg_malloc](../p/pg_malloc.md)
   - atooid
   - [AssignDumpId](../A/AssignDumpId.md)
   - [getRoleName](getRoleName.md)

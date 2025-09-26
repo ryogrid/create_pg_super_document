@@ -19,26 +19,26 @@ The `freeJsonLexContext` function is responsible for properly cleaning up and fr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonLexContext (structure type)
+  - [JsonLexContext](../J/JsonLexContext.md) (structure type)
   - JSONLEX_FREE_STRVAL (flag constant)
-  - destroyStringInfo
+  - [destroyStringInfo](../d/destroyStringInfo.md)
   - JSONLEX_FREE_STRUCT (flag constant)
   - JsonParseErrorType
-  - pfree (PostgreSQL memory deallocation function)
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation function)
 - Called from (representative examples):
-  - json_validate
-  - datum_to_jsonb_internal
-  - json_object_keys
-  - get_worker
-  - each_worker
-  - elements_worker
-  - populate_array_json
-  - get_json_object_as_hash
-  - populate_recordset_worker
-  - iterate_json_values
-  - transform_json_string_values
-  - json_parse_manifest_incremental_shutdown
-  - json_parse_manifest
+  - [json_validate](../j/json_validate.md)
+  - [datum_to_jsonb_internal](../d/datum_to_jsonb_internal.md)
+  - [json_object_keys](../j/json_object_keys.md)
+  - [get_worker](../g/get_worker.md)
+  - [each_worker](../e/each_worker.md)
+  - [elements_worker](../e/elements_worker.md)
+  - [populate_array_json](../p/populate_array_json.md)
+  - [get_json_object_as_hash](../g/get_json_object_as_hash.md)
+  - [populate_recordset_worker](../p/populate_recordset_worker.md)
+  - [iterate_json_values](../i/iterate_json_values.md)
+  - [transform_json_string_values](../t/transform_json_string_values.md)
+  - [json_parse_manifest_incremental_shutdown](../j/json_parse_manifest_incremental_shutdown.md)
+  - [json_parse_manifest](../j/json_parse_manifest.md)
 
 ## Notes and Other Information
 The function includes detailed logic for different cleanup scenarios:

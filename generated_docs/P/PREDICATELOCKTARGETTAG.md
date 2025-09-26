@@ -31,21 +31,21 @@ PREDICATELOCKTARGETTAG is a versatile identification structure used to uniquely 
 - Called from (representative examples):
   - [SerialControl](../S/SerialControl.md) (extensive usage in predicate locking control structure)
   - [InitPredicateLocks](../I/InitPredicateLocks.md) (predicate locking system initialization)
-  - GetPredicateLockStatusData (lock status reporting)
+  - [GetPredicateLockStatusData](../G/GetPredicateLockStatusData.md) (lock status reporting)
   - [CreateLocalPredicateLockHash](../C/CreateLocalPredicateLockHash.md) (local predicate lock hash creation)
-  - PageIsPredicateLocked (page lock checking)
-  - PredicateLockExists (lock existence checking)
-  - GetParentPredicateLockTag (parent lock tag construction)
-  - CoarserLockCovers (lock coverage checking)
+  - [PageIsPredicateLocked](PageIsPredicateLocked.md) (page lock checking)
+  - [PredicateLockExists](PredicateLockExists.md) (lock existence checking)
+  - [GetParentPredicateLockTag](../G/GetParentPredicateLockTag.md) (parent lock tag construction)
+  - [CoarserLockCovers](../C/CoarserLockCovers.md) (lock coverage checking)
   - [PredicateLockRelation](PredicateLockRelation.md) (relation-level predicate locking)
   - [PredicateLockPage](PredicateLockPage.md) (page-level predicate locking)
   - [PredicateLockTID](PredicateLockTID.md) (tuple-level predicate locking)
-  - PREDICATELOCKTARGET (uses this as tag field)
-  - LOCALPREDICATELOCK (uses this as tag field)
+  - [PREDICATELOCKTARGET](PREDICATELOCKTARGET.md) (uses this as tag field)
+  - [LOCALPREDICATELOCK](../L/LOCALPREDICATELOCK.md) (uses this as tag field)
 
 ## Notes and Other Information
 - The generic field design allows the same structure to identify different lock granularities
-- Hash function considerations require careful initialization of any slack space in the structure
+- [Hash](../H/Hash.md) function considerations require careful initialization of any slack space in the structure
 - Structure size must be carefully managed to ensure proper hash function behavior
 - Currently under consideration for field renaming to make usage patterns clearer
 - Essential component of the predicate locking system that prevents serialization anomalies

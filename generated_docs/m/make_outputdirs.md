@@ -27,8 +27,8 @@ The directory structure created follows the pattern:  with subdirectories for du
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_malloc0 (memory allocation)
-  - gettimeofday (high precision timestamp)
+  - [pg_malloc0](../p/pg_malloc0.md) (memory allocation)
+  - [gettimeofday](../g/gettimeofday.md) (high precision timestamp)
   - strftime (timestamp formatting)
   - mkdir (directory creation)
   - fopen_priv (secure file opening)

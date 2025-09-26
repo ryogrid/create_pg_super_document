@@ -38,7 +38,7 @@ The combinations are stored as consecutive sequences of k integers in the combin
   - [generator_init](../g/generator_init.md) (creates and initializes the generator)
   - [generator_next](../g/generator_next.md) (iterates through combinations)
   - [generator_free](../g/generator_free.md) (deallocates the generator)
-  - statext_ndistinct_build (uses generator for multivariate statistics)
+  - [statext_ndistinct_build](../s/statext_ndistinct_build.md) (uses generator for multivariate statistics)
   - [generate_combinations](../g/generate_combinations.md) (populates the combinations array)
   - [num_combinations](../n/num_combinations.md) (calculates the total number of combinations)
 

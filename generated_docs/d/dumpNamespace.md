@@ -29,8 +29,8 @@ The function also handles binary upgrade scenarios and dumps associated metadata
   - [dumpCommentExtended](dumpCommentExtended.md)
   - [dumpSecLabel](dumpSecLabel.md)
   - [dumpACL](dumpACL.md)
-  - createPQExpBuffer
-  - destroyPQExpBuffer
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)
+  - [destroyPQExpBuffer](destroyPQExpBuffer.md)
   - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
   - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
   - [pg_strdup](../p/pg_strdup.md)

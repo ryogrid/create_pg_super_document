@@ -27,8 +27,8 @@ This structure is used to create an array of test configurations (`rt_node_class
 ## Dependencies
 - Functions called/Symbols referenced: None (simple data structure)
 - Called from (representative examples):
-  - test_basic (uses this structure to parameterize radix tree tests)
-  - test_radixtree (iterates through array of these structures)
+  - [test_basic](../t/test_basic.md) (uses this structure to parameterize radix tree tests)
+  - [test_radixtree](../t/test_radixtree.md) (iterates through array of these structures)
 
 ## Notes and Other Information
 - This structure is specifically designed for testing PostgreSQL's radix tree implementation

@@ -21,7 +21,7 @@ The `set_schema_sent_in_streamed_txn` function is used in PostgreSQL's logical r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lappend_xid
+  - [lappend_xid](../l/lappend_xid.md)
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (implicit via CacheMemoryContext)
 - Called from (representative examples):
   - [maybe_send_schema](../m/maybe_send_schema.md)

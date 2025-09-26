@@ -30,10 +30,10 @@ SharedTuplestoreChunk serves as the fundamental storage unit for tuple data in P
 
 - Called from (representative examples):
   - STS_CHUNK_HEADER_SIZE (macro that calculates chunk header size)
-  - SharedTuplestoreAccessor (structure that uses chunk information)
-  - sts_puttuple (function that writes tuples to chunks)
-  - sts_read_tuple (function that reads tuples from chunks)
-  - sts_parallel_scan_next (function that scans chunks during parallel operations)
+  - [SharedTuplestoreAccessor](SharedTuplestoreAccessor.md) (structure that uses chunk information)
+  - [sts_puttuple](../s/sts_puttuple.md) (function that writes tuples to chunks)
+  - [sts_read_tuple](../s/sts_read_tuple.md) (function that reads tuples from chunks)
+  - [sts_parallel_scan_next](../s/sts_parallel_scan_next.md) (function that scans chunks during parallel operations)
 
 ## Notes and Other Information
 - The chunk structure is optimized for disk I/O operations in shared tuple store scenarios

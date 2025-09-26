@@ -38,8 +38,8 @@ The function includes cost estimation logic and handles the case where the actua
   - [use_physical_tlist](../u/use_physical_tlist.md)
   - [create_plan_recurse](create_plan_recurse.md) (with various flags)
   - [apply_pathtarget_labeling_to_tlist](../a/apply_pathtarget_labeling_to_tlist.md)
-  - is_projection_capable_path
-  - is_projection_capable_plan
+  - [is_projection_capable_path](../i/is_projection_capable_path.md)
+  - [is_projection_capable_plan](../i/is_projection_capable_plan.md)
   - [build_path_tlist](../b/build_path_tlist.md)
   - [tlist_same_exprs](../t/tlist_same_exprs.md)
   - [make_result](../m/make_result.md)

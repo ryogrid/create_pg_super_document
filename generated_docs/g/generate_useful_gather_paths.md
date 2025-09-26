@@ -37,7 +37,7 @@ The function intelligently chooses between full and incremental sort based on th
   - [create_incremental_sort_path](../c/create_incremental_sort_path.md)
   - [create_gather_merge_path](../c/create_gather_merge_path.md)
   - [add_path](../a/add_path.md)
-  - GatherMergePath (type)
+  - [GatherMergePath](../G/GatherMergePath.md) (type)
 - Called from (representative examples):
   - [set_rel_pathlist](../s/set_rel_pathlist.md)
   - [standard_join_search](../s/standard_join_search.md)

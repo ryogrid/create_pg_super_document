@@ -25,7 +25,7 @@ The function ensures that LSN values only advance forward (never backward) by ch
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire/LWLockRelease (on session state lock)
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease (on session state lock)
   - InvalidRepOriginId (for assertions)
 - Called from (representative examples):
   - [EndPrepare](../E/EndPrepare.md)

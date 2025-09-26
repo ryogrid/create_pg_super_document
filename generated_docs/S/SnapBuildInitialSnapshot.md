@@ -30,8 +30,8 @@ This function creates the initial snapshot for a logical replication slot, which
 - Functions called/Symbols referenced:
   - [SnapBuildBuildSnapshot](SnapBuildBuildSnapshot.md)
   - [InvalidateCatalogSnapshot](../I/InvalidateCatalogSnapshot.md)
-  - HaveRegisteredOrActiveSnapshot
-  - HistoricSnapshotActive
+  - [HaveRegisteredOrActiveSnapshot](../H/HaveRegisteredOrActiveSnapshot.md)
+  - [HistoricSnapshotActive](../H/HistoricSnapshotActive.md)
   - [GetOldestSafeDecodingTransactionId](../G/GetOldestSafeDecodingTransactionId.md)
   - [GetMaxSnapshotXidCount](../G/GetMaxSnapshotXidCount.md)
   - [TransactionIdFollows](../T/TransactionIdFollows.md)

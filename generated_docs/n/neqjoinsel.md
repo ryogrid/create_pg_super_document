@@ -31,7 +31,7 @@ The function is designed to work within PostgreSQL's cost-based query optimizer 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_join_variables
+  - [get_join_variables](../g/get_join_variables.md)
   - [get_negator](../g/get_negator.md)
   - [eqjoinsel](../e/eqjoinsel.md)
   - [DirectFunctionCall5Coll](../D/DirectFunctionCall5Coll.md)

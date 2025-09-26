@@ -37,7 +37,7 @@ When execPlan is NULL, the value and isnull fields contain the actual parameter 
   - [standard_ExecutorStart](../s/standard_ExecutorStart.md) (executor initialization)
   - [ExecScanSubPlan](../E/ExecScanSubPlan.md) (sub-plan scanning)
   - [ExecSetParamPlan](../E/ExecSetParamPlan.md) (parameter plan setting)
-  - SerializeParamExecParams (parallel execution serialization)
+  - [SerializeParamExecParams](../S/SerializeParamExecParams.md) (parallel execution serialization)
   - [ExecInitSubPlan](../E/ExecInitSubPlan.md) (sub-plan initialization)
 
 ## Notes and Other Information

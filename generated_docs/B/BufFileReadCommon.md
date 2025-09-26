@@ -37,14 +37,14 @@ Key behavioral aspects:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufFileFlush (ensures any pending writes are completed before reading)
-  - BufFileLoadBuffer (loads fresh data into buffer when needed)
+  - [BufFileFlush](BufFileFlush.md) (ensures any pending writes are completed before reading)
+  - [BufFileLoadBuffer](BufFileLoadBuffer.md) (loads fresh data into buffer when needed)
   - memcpy (copies data from buffer to destination)
   - ereport (reports errors for incomplete reads when exact=true)
 - Called from (representative examples):
-  - BufFileRead (standard read operation)
-  - BufFileReadExact (read requiring exact byte count)
-  - BufFileReadMaybeEOF (read allowing EOF conditions)
+  - [BufFileRead](BufFileRead.md) (standard read operation)
+  - [BufFileReadExact](BufFileReadExact.md) (read requiring exact byte count)
+  - [BufFileReadMaybeEOF](BufFileReadMaybeEOF.md) (read allowing EOF conditions)
 
 ## Notes and Other Information
 - This is a static (internal) function that provides the common implementation for all BufFile read variants

@@ -34,7 +34,7 @@ This function takes no parameters and operates on global state variables related
 - Functions called/Symbols referenced:
   - [IsTransactionState](../I/IsTransactionState.md)
   - [AbortCurrentTransaction](../A/AbortCurrentTransaction.md)
-  - ResourceOwner (type)
+  - [ResourceOwner](../R/ResourceOwner.md) (type)
 - Called from (representative examples):
   - [exec_replication_command](../e/exec_replication_command.md)
 

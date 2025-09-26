@@ -22,10 +22,10 @@ pg_parse_json serves as the main interface for parsing JSON data in PostgreSQL. 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_parse_json_incremental](pg_parse_json_incremental.md) (for non-recursive mode)
-  - json_lex (for initial token lexing)
+  - [json_lex](../j/json_lex.md) (for initial token lexing)
   - [lex_peek](../l/lex_peek.md) (for token lookahead)
-  - parse_object (for JSON object parsing)
-  - parse_array (for JSON array parsing) 
+  - [parse_object](parse_object.md) (for JSON object parsing)
+  - [parse_array](parse_array.md) (for JSON array parsing) 
   - [parse_scalar](parse_scalar.md) (for JSON scalar value parsing)
   - [lex_expect](../l/lex_expect.md) (for end-of-input validation)
 - Called from (representative examples):

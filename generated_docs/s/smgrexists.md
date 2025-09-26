@@ -34,7 +34,7 @@ The function uses the storage manager switch (smgrsw) to call the appropriate ex
   - [index_build](../i/index_build.md) (index construction)
   - [RelationTruncate](../R/RelationTruncate.md) (relation truncation operations)
   - [ExtendBufferedRelTo](../E/ExtendBufferedRelTo.md) (buffer management)
-  - CreateAndCopyRelationData (relation data copying)
+  - [CreateAndCopyRelationData](../C/CreateAndCopyRelationData.md) (relation data copying)
 
 ## Notes and Other Information
 - This is a fundamental storage layer function used throughout PostgreSQL for checking file existence before operations

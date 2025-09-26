@@ -27,14 +27,14 @@ For each GUC type, it calculates:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - can_skip_gucvar
-  - config_int, config_string, config_enum (struct types)
+  - [can_skip_gucvar](../c/can_skip_gucvar.md)
+  - [config_int](../c/config_int.md), config_string, config_enum (struct types)
   - PGC_BOOL, PGC_INT, PGC_REAL, PGC_STRING, PGC_ENUM (enum constants)
-  - config_enum_lookup_by_value
-  - add_size
+  - [config_enum_lookup_by_value](../c/config_enum_lookup_by_value.md)
+  - [add_size](../a/add_size.md)
   - REALTYPE_PRECISION (constant)
 - Called from (representative examples):
-  - EstimateGUCStateSpace
+  - [EstimateGUCStateSpace](../E/EstimateGUCStateSpace.md)
 
 ## Notes and Other Information
 - Returns 0 for skippable GUCs to optimize space usage

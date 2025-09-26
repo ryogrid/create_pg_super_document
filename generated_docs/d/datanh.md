@@ -20,7 +20,7 @@ The datanh function is a PostgreSQL wrapper around the standard C library atanh(
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT8: Extracts float8 argument from function call context
-  - get_float8_infinity: Returns positive infinity representation (used twice for boundary cases)
+  - [get_float8_infinity](../g/get_float8_infinity.md): Returns positive infinity representation (used twice for boundary cases)
   - ereport: Reports PostgreSQL errors
   - [errcode](../e/errcode.md): Sets error code for out of range values
   - [errmsg](../e/errmsg.md): Sets error message text

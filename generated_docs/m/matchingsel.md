@@ -33,7 +33,7 @@ The function acts as a PostgreSQL function interface wrapper around the generic 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GET_COLLATION: Macro to extract collation from function call context
-  - generic_restriction_selectivity: Core selectivity estimation logic
+  - [generic_restriction_selectivity](../g/generic_restriction_selectivity.md): Core selectivity estimation logic
   - DEFAULT_MATCHING_SEL: Default selectivity constant for matching operations
 - Called from (representative examples):
   - No direct references found - likely registered as selectivity function in pg_proc catalog

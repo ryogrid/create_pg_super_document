@@ -28,7 +28,7 @@ The function establishes a connection to the primary server using the configured
   - [load_file](../l/load_file.md): Loads the libpqwalreceiver module
   - [CheckAndGetDbnameFromConninfo](../C/CheckAndGetDbnameFromConninfo.md): Validates primary connection information
   - walrcv_connect: Establishes connection to the primary server
-  - SyncReplicationSlots: Performs the actual slot synchronization
+  - [SyncReplicationSlots](../S/SyncReplicationSlots.md): Performs the actual slot synchronization
   - walrcv_disconnect: Closes the connection to the primary server
 - Called from (representative examples):
   - SQL interface as pg_sync_replication_slots function

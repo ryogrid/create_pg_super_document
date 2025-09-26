@@ -30,7 +30,7 @@ This is part of PostgreSQL's GIN index data page management system, specifically
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dataPlaceToPageLeafRecompress](dataPlaceToPageLeafRecompress.md)
-  - MarkBufferDirty
+  - [MarkBufferDirty](../M/MarkBufferDirty.md)
   - RelationNeedsWAL
   - [XLogRegisterBuffer](../X/XLogRegisterBuffer.md)
   - [XLogRegisterBufData](../X/XLogRegisterBufData.md)

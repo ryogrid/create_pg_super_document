@@ -19,12 +19,12 @@ This function serves as the startup callback for DR_intorel destination receiver
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_head
+  - [list_head](../l/list_head.md)
   - [lnext](../l/lnext.md)
-  - makeColumnDef
+  - [makeColumnDef](../m/makeColumnDef.md)
   - [type_is_collatable](../t/type_is_collatable.md)
   - [create_ctas_internal](../c/create_ctas_internal.md)
-  - table_open
+  - [table_open](../t/table_open.md)
   - [check_enable_rls](../c/check_enable_rls.md)
   - [SetMatViewPopulatedState](../S/SetMatViewPopulatedState.md)
   - [GetCurrentCommandId](../G/GetCurrentCommandId.md)

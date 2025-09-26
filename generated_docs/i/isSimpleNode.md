@@ -22,28 +22,28 @@ This function implements PostgreSQL's logic for determining when parentheses can
   - [get_simple_binary_op_name](../g/get_simple_binary_op_name.md)
   - nodeTag
   - [isSimpleNode](isSimpleNode.md) (recursive calls)
-  - FieldSelect
-  - FieldStore
-  - CoerceToDomain
-  - RelabelType
-  - CoerceViaIO
-  - ArrayCoerceExpr
-  - ConvertRowtypeExpr
-  - OpExpr
+  - [FieldSelect](../F/FieldSelect.md)
+  - [FieldStore](../F/FieldStore.md)
+  - [CoerceToDomain](../C/CoerceToDomain.md)
+  - [RelabelType](../R/RelabelType.md)
+  - [CoerceViaIO](../C/CoerceViaIO.md)
+  - [ArrayCoerceExpr](../A/ArrayCoerceExpr.md)
+  - [ConvertRowtypeExpr](../C/ConvertRowtypeExpr.md)
+  - [OpExpr](../O/OpExpr.md)
   - PRETTYFLAG_PAREN
   - CoercionForm
-  - FuncExpr
+  - [FuncExpr](../F/FuncExpr.md)
   - COERCE_EXPLICIT_CAST
   - COERCE_IMPLICIT_CAST
   - COERCE_SQL_SYNTAX
-  - BoolExpr
+  - [BoolExpr](../B/BoolExpr.md)
   - [BoolExprType](../B/BoolExprType.md)
   - NOT_EXPR
   - AND_EXPR
   - OR_EXPR
-  - JsonValueExpr
+  - [JsonValueExpr](../J/JsonValueExpr.md)
 - Called from (representative examples):
-  - get_rule_expr_paren
+  - [get_rule_expr_paren](../g/get_rule_expr_paren.md)
   - [isSimpleNode](isSimpleNode.md) (recursive calls)
 
 ## Notes and Other Information

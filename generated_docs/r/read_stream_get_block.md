@@ -25,8 +25,8 @@ This function serves as the primary interface for obtaining the next block numbe
   - [callback](../c/callback.md) (function pointer within stream structure)
 - Called from (representative examples):
   - [read_stream_look_ahead](read_stream_look_ahead.md)
-  - read_stream_next_buffer
-  - read_stream_next_block
+  - [read_stream_next_buffer](read_stream_next_buffer.md)
+  - [read_stream_next_block](read_stream_next_block.md)
 
 ## Notes and Other Information
 - This function supports the unget functionality by maintaining a one-block buffer (buffered_blocknum)

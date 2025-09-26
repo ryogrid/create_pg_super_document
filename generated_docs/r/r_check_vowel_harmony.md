@@ -28,17 +28,17 @@ This is essential for correct Turkish morphological analysis, as suffix attachme
   - [out_grouping_b_U](../o/out_grouping_b_U.md) (called 12 times for vowel group checking)
   - [eq_s_b](../e/eq_s_b.md) (called 3 times for string equality checking)
   - Various vowel groups: g_vowel, g_vowel1, g_vowel2, g_vowel3, g_vowel4, g_vowel5, g_vowel6
-  - String constants: s_0, s_1, s_2
+  - [String](../S/String.md) constants: s_0, s_1, s_2
 
 - Called from (representative examples):
-  - r_mark_sU
-  - r_mark_yU
-  - r_mark_nU
-  - r_mark_nUn
-  - r_mark_yA
-  - r_mark_nA
-  - r_mark_DA
-  - r_mark_ndA
+  - [r_mark_sU](r_mark_sU.md)
+  - [r_mark_yU](r_mark_yU.md)
+  - [r_mark_nU](r_mark_nU.md)
+  - [r_mark_nUn](r_mark_nUn.md)
+  - [r_mark_yA](r_mark_yA.md)
+  - [r_mark_nA](r_mark_nA.md)
+  - [r_mark_DA](r_mark_DA.md)
+  - [r_mark_ndA](r_mark_ndA.md)
   - [r_mark_DAn](r_mark_DAn.md)
   - [r_mark_ndAn](r_mark_ndAn.md)
   - [r_mark_ylA](r_mark_ylA.md)

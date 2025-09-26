@@ -29,7 +29,7 @@ The function serves as a notational convenience by returning the same PathTarget
   - [clamp_width_est](../c/clamp_width_est.md)
 - Types used:
   - [PathTarget](../P/PathTarget.md)
-  - QualCost
+  - [QualCost](../Q/QualCost.md)
 - Called from (representative examples):
   - [make_group_input_target](../m/make_group_input_target.md)
   - [make_partial_grouping_target](../m/make_partial_grouping_target.md)

@@ -57,7 +57,7 @@ The function dynamically manages memory for runtime keys and array keys, sharing
 - The function performs extensive validation of index qualifications including operator compatibility with index
 - Runtime keys are dynamically resized using exponential growth strategy (starting at 8, doubling as needed)
 - RowCompareExpr processing is restricted to B-tree indexes and creates subsidiary ScanKey structures
-- ScalarArrayOpExpr handling depends on whether the index AM supports amsearcharray
+- [ScalarArrayOpExpr](../S/ScalarArrayOpExpr.md) handling depends on whether the index AM supports amsearcharray
 - The function includes comprehensive error checking for malformed index qualifications
 - Array keys are allocated optimistically and freed if unused
 - Caller may pass NULL for arrayKeys/numArrayKeys to indicate array operations are not supported

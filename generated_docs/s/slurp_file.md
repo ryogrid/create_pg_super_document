@@ -24,7 +24,7 @@ This function performs a complete file read operation by first checking the file
 - Functions called/Symbols referenced:
   - ssize_t (POSIX type for signed size values)
   - fstat (system call to get file status)
-  - enlargeStringInfo (PostgreSQL function to expand StringInfo capacity)
+  - [enlargeStringInfo](../e/enlargeStringInfo.md) (PostgreSQL function to expand StringInfo capacity)
   - read (system call for file reading)
 - Called from (representative examples):
   - [check_backup_label_files](../c/check_backup_label_files.md) (in src/bin/pg_combinebackup/pg_combinebackup.c:534)

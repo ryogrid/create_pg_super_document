@@ -35,7 +35,7 @@ Physical maintenance operations (pruning, visibility changes, locking) are ignor
 - Functions called/Symbols referenced:
   - XLogRecGetInfo
   - XLogRecGetXid
-  - ReorderBufferProcessXid
+  - [ReorderBufferProcessXid](../R/ReorderBufferProcessXid.md)
   - [SnapBuildCurrentState](../S/SnapBuildCurrentState.md)
   - [SnapBuildProcessChange](../S/SnapBuildProcessChange.md)
   - [DecodeMultiInsert](../D/DecodeMultiInsert.md)

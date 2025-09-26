@@ -42,17 +42,17 @@ The structure captures all essential attributes of a replication slot including 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReplicationSlotInvalidationCause (enumeration for slot invalidation reasons)
+  - [ReplicationSlotInvalidationCause](ReplicationSlotInvalidationCause.md) (enumeration for slot invalidation reasons)
 - Called from (representative examples):
-  - update_local_synced_slot (updates local slots with remote slot information)
-  - local_sync_slot_required (determines if slot synchronization is needed)
-  - update_and_persist_local_synced_slot (persists synchronized slot data)
-  - synchronize_one_slot (performs synchronization of a single slot)
+  - [update_local_synced_slot](../u/update_local_synced_slot.md) (updates local slots with remote slot information)
+  - [local_sync_slot_required](../l/local_sync_slot_required.md) (determines if slot synchronization is needed)
+  - [update_and_persist_local_synced_slot](../u/update_and_persist_local_synced_slot.md) (persists synchronized slot data)
+  - [synchronize_one_slot](../s/synchronize_one_slot.md) (performs synchronization of a single slot)
 
 ## Notes and Other Information
 - This structure is used exclusively during slot synchronization operations and represents transient data
 - The invalidated field uses RS_INVAL_NONE to indicate a valid slot, with other values representing specific invalidation causes
-- String fields (name, plugin, database) are dynamically allocated and must be properly managed for memory leaks
+- [String](../S/String.md) fields (name, plugin, database) are dynamically allocated and must be properly managed for memory leaks
 - The restart_lsn and confirmed_lsn fields are critical for maintaining WAL position consistency during synchronization
 - The two_phase and failover flags control advanced replication features and determine sync behavior
 - This structure is populated from query results when fetching slot information from the primary server

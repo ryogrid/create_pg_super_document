@@ -24,9 +24,9 @@ The function allocates memory for keyword and value arrays, iterates through all
 - Functions called/Symbols referenced:
   - [PQconninfo](../P/PQconninfo.md)
   - [PQconninfoOption](../P/PQconninfoOption.md)
-  - pg_malloc
+  - [pg_malloc](../p/pg_malloc.md)
   - [PQconnectdbParams](../P/PQconnectdbParams.md)
-  - PQstatus
+  - [PQstatus](../P/PQstatus.md)
   - CONNECTION_OK
   - [pg_fatal](../p/pg_fatal.md)
   - [PQerrorMessage](../P/PQerrorMessage.md)

@@ -23,12 +23,12 @@ The function is typically called during the dropping of shared objects to clean 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open: Opens the pg_shdescription relation for modification
+  - [table_open](../t/table_open.md): Opens the pg_shdescription relation for modification
   - [systable_beginscan](../s/systable_beginscan.md): Initiates indexed scan using SharedDescriptionObjIndexId
   - [systable_getnext](../s/systable_getnext.md): Iterates through matching comment tuples
   - [CatalogTupleDelete](../C/CatalogTupleDelete.md): Removes each matching comment tuple
   - [systable_endscan](../s/systable_endscan.md): Ends the systematic scan
-  - table_close: Closes the pg_shdescription relation
+  - [table_close](../t/table_close.md): Closes the pg_shdescription relation
 - Called from (representative examples):
   - [dropdb](../d/dropdb.md): Removes database comments when dropping a database
   - [DropTableSpace](DropTableSpace.md): Removes tablespace comments when dropping a tablespace

@@ -34,9 +34,9 @@ The  function implements comprehensive datetime comparison logic for SQL/JSON pa
   - [cmpDateToTimestampTz](cmpDateToTimestampTz.md)
   - [cmpTimestampToTimestampTz](cmpTimestampToTimestampTz.md)
   - [castTimeToTimeTz](castTimeToTimeTz.md)
-  - DatumGetDateADT
-  - DatumGetTimestamp
-  - DatumGetTimestampTz
+  - [DatumGetDateADT](../D/DatumGetDateADT.md)
+  - [DatumGetTimestamp](../D/DatumGetTimestamp.md)
+  - [DatumGetTimestampTz](../D/DatumGetTimestampTz.md)
   - [DatumGetInt32](../D/DatumGetInt32.md)
   - DirectFunctionCall2
 - Called from (representative examples):

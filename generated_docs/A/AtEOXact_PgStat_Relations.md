@@ -26,12 +26,12 @@ The function doesn't free transactional state memory since it resides in TopTran
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - restore_truncdrop_counters (restores counters after aborted truncate/drop)
-  - PgStat_SubXactStatus (subtransaction status structure)
-  - PgStat_TableXactStatus (transaction-level table statistics)
-  - PgStat_TableStatus (base table statistics structure)
+  - [restore_truncdrop_counters](../r/restore_truncdrop_counters.md) (restores counters after aborted truncate/drop)
+  - [PgStat_SubXactStatus](../P/PgStat_SubXactStatus.md) (subtransaction status structure)
+  - [PgStat_TableXactStatus](../P/PgStat_TableXactStatus.md) (transaction-level table statistics)
+  - [PgStat_TableStatus](../P/PgStat_TableStatus.md) (base table statistics structure)
 - Called from (representative examples):
-  - AtEOXact_PgStat (main end-of-transaction statistics handler)
+  - [AtEOXact_PgStat](AtEOXact_PgStat.md) (main end-of-transaction statistics handler)
 
 ## Notes and Other Information
 - Only processes top-level transactions (nest_level == 1)

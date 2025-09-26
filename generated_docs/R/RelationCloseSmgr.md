@@ -22,15 +22,15 @@ The function includes a NULL check to ensure it only performs cleanup operations
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - smgrunpin: Unpins the storage manager relation, releasing the pin reference
-  - smgrclose: Closes the storage manager relation and releases associated resources
+  - [smgrunpin](../s/smgrunpin.md): Unpins the storage manager relation, releasing the pin reference
+  - [smgrclose](../s/smgrclose.md): Closes the storage manager relation and releases associated resources
 - Called from (representative examples):
-  - RelationDropStorage: Storage cleanup during relation drop
-  - RelationReloadIndexInfo: Index information reloading cleanup
-  - RelationDestroyRelation: Relation destruction cleanup
-  - RelationInvalidateRelation: Relation invalidation cleanup  
-  - RelationClearRelation: General relation cleanup
-  - RelationCacheInvalidate: Relation cache invalidation
+  - [RelationDropStorage](RelationDropStorage.md): Storage cleanup during relation drop
+  - [RelationReloadIndexInfo](RelationReloadIndexInfo.md): Index information reloading cleanup
+  - [RelationDestroyRelation](RelationDestroyRelation.md): Relation destruction cleanup
+  - [RelationInvalidateRelation](RelationInvalidateRelation.md): Relation invalidation cleanup  
+  - [RelationClearRelation](RelationClearRelation.md): General relation cleanup
+  - [RelationCacheInvalidate](RelationCacheInvalidate.md): Relation cache invalidation
 
 ## Notes and Other Information
 - This is an inline function defined in rel.h for performance reasons

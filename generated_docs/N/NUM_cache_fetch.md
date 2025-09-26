@@ -20,7 +20,7 @@ This function serves as the primary interface for obtaining a cached numeric for
   - [NUM_cache_search](NUM_cache_search.md)
   - [NUM_cache_getnew](NUM_cache_getnew.md)
   - zeroize_NUM
-  - parse_format
+  - [parse_format](../p/parse_format.md)
   - NUM_keywords (global array)
   - NUM_index (global array)
   - NUM_FLAG (constant)

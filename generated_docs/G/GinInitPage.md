@@ -24,7 +24,7 @@ This function serves as the foundation for all GIN page types (entry pages, data
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PageInit: Standard PostgreSQL function for basic page initialization
+  - [PageInit](../P/PageInit.md): Standard PostgreSQL function for basic page initialization
   - GinPageGetOpaque: Retrieves the GIN-specific opaque data from the page
   - GinPageOpaque: Type definition for GIN page opaque data structure
   - [GinPageOpaqueData](GinPageOpaqueData.md): Structure containing GIN-specific page metadata

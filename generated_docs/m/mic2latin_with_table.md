@@ -34,7 +34,7 @@ The `mic2latin_with_table` function converts from PostgreSQL's internal MIC form
   - [report_invalid_encoding](../r/report_invalid_encoding.md): Reports invalid character encoding errors
   - `PG_MULE_INTERNAL`: Constant identifier for MIC encoding
   - `IS_HIGHBIT_SET`: Macro to check if the high bit (0x80) is set in a character
-  - `pg_mule_mblen`: Returns the byte length of a MIC character sequence
+  - `[pg_mule_mblen](../p/pg_mule_mblen.md)`: Returns the byte length of a MIC character sequence
   - `HIGHBIT`: Constant representing the high bit value (0x80)
   - [report_untranslatable_char](../r/report_untranslatable_char.md): Reports characters that cannot be translated between encodings
 

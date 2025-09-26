@@ -22,7 +22,7 @@ The function recursively traverses the query tree and applies boolean logic rule
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth
+  - [check_stack_depth](../c/check_stack_depth.md)
   - [tsquery_requires_match](tsquery_requires_match.md) (recursive calls)
 - Called from (representative examples):
   - [gin_extract_tsquery](../g/gin_extract_tsquery.md)

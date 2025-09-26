@@ -23,14 +23,14 @@ The function creates a minimal ParamPathInfo with zero ppi_rows and empty ppi_cl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_is_subset
+  - [bms_is_subset](../b/bms_is_subset.md)
   - bms_is_empty
-  - bms_overlap
-  - find_param_path_info
+  - [bms_overlap](../b/bms_overlap.md)
+  - [find_param_path_info](../f/find_param_path_info.md)
   - makeNode (ParamPathInfo)
 - Called from (representative examples):
-  - create_append_path
-  - create_merge_append_path
+  - [create_append_path](../c/create_append_path.md)
+  - [create_merge_append_path](../c/create_merge_append_path.md)
 
 ## Notes and Other Information
 - Returns NULL for unparameterized paths (when required_outer is empty)

@@ -47,8 +47,8 @@ For each unprocessed object, the function calls findLoop() to detect cycles star
 ## Dependencies
 - Functions called/Symbols referenced:
   - [getMaxDumpId](../g/getMaxDumpId.md)
-  - pg_malloc0
-  - pg_malloc
+  - [pg_malloc0](../p/pg_malloc0.md)
+  - [pg_malloc](../p/pg_malloc.md)
   - [findLoop](findLoop.md)
   - [repairDependencyLoop](../r/repairDependencyLoop.md)
   - [pg_fatal](../p/pg_fatal.md)

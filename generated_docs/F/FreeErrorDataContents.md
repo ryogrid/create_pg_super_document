@@ -19,7 +19,7 @@ FreeErrorDataContents is a static utility function that systematically deallocat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ErrorData (structure type)
+  - [ErrorData](../E/ErrorData.md) (structure type)
   - [pfree](../p/pfree.md) (memory deallocation function)
 
 - Called from (representative examples):

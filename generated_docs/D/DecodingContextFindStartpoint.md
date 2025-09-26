@@ -29,7 +29,7 @@ The function implements a loop that:
   - [XLogBeginRead](../X/XLogBeginRead.md)
   - [XLogReadRecord](../X/XLogReadRecord.md)
   - [LogicalDecodingProcessRecord](../L/LogicalDecodingProcessRecord.md)
-  - DecodingContextReady
+  - [DecodingContextReady](DecodingContextReady.md)
   - CHECK_FOR_INTERRUPTS
   - SpinLockAcquire/SpinLockRelease
 - Called from (representative examples):

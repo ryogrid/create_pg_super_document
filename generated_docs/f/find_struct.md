@@ -30,14 +30,14 @@ This is a critical component of ECPG's variable resolution system, enabling embe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_variable (looks up the base variable)
-  - find_struct_member (handles detailed member traversal)
+  - [find_variable](find_variable.md) (looks up the base variable)
+  - [find_struct_member](find_struct_member.md) (handles detailed member traversal)
   - mmfatal (error reporting function)
   - ECPGt_array, ECPGt_struct, ECPGt_union (ECPG type constants)
   - PARSE_ERROR (error constant)
 
 - Called from (representative examples):
-  - find_variable (main variable resolution function)
+  - [find_variable](find_variable.md) (main variable resolution function)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the variable.c file

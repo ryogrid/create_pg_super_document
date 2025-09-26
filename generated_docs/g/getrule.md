@@ -26,14 +26,14 @@ After parsing the date specification, the function optionally parses a time spec
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getnum (for parsing numeric components)
-  - getoffset (for parsing optional time specification)
+  - [getnum](getnum.md) (for parsing numeric components)
+  - [getoffset](getoffset.md) (for parsing optional time specification)
   - is_digit (for checking if character is a digit)
   - JULIAN_DAY, MONTH_NTH_DAY_OF_WEEK, DAY_OF_YEAR (rule type constants)
   - DAYSPERNYEAR, MONSPERYEAR, DAYSPERWEEK, DAYSPERLYEAR (time constants)
   - SECSPERHOUR (for default time calculation)
 - Called from (representative examples):
-  - tzparse
+  - [tzparse](../t/tzparse.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the timezone parsing subsystem

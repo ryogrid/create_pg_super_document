@@ -27,7 +27,7 @@ The function includes a runtime check to ensure the slot is actually a minimal t
   - TTS_IS_MINIMALTUPLE (macro for type checking)
   - [tts_minimal_store_tuple](../t/tts_minimal_store_tuple.md) (low-level storage function)
 - Called from (representative examples):
-  - TupleHashTableHash_internal
+  - [TupleHashTableHash_internal](../T/TupleHashTableHash_internal.md)
   - [TupleHashTableMatch](../T/TupleHashTableMatch.md)
   - [agg_refill_hash_table](../a/agg_refill_hash_table.md)
   - [gather_getnext](../g/gather_getnext.md)

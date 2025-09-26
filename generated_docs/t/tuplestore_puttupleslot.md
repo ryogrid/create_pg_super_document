@@ -31,19 +31,19 @@ The tuple is always copied, so the caller doesn't need to preserve the original 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecCopySlotMinimalTuple
-  - GetMemoryChunkSpace  
+  - [ExecCopySlotMinimalTuple](../E/ExecCopySlotMinimalTuple.md)
+  - [GetMemoryChunkSpace](../G/GetMemoryChunkSpace.md)  
   - USEMEM
-  - tuplestore_puttuple_common
+  - [tuplestore_puttuple_common](tuplestore_puttuple_common.md)
 - Types used:
-  - Tuplestorestate
+  - [Tuplestorestate](../T/Tuplestorestate.md)
   - MinimalTuple
-  - TupleTableSlot
+  - [TupleTableSlot](../T/TupleTableSlot.md)
 - Called from (representative examples):
-  - ExecMaterial (nodeMaterial.c)
-  - CteScanNext (nodeCtescan.c)
-  - ExecRecursiveUnion (nodeRecursiveunion.c)
-  - TransitionTableAddTuple (trigger.c)
+  - [ExecMaterial](../E/ExecMaterial.md) (nodeMaterial.c)
+  - [CteScanNext](../C/CteScanNext.md) (nodeCtescan.c)
+  - [ExecRecursiveUnion](../E/ExecRecursiveUnion.md) (nodeRecursiveunion.c)
+  - [TransitionTableAddTuple](../T/TransitionTableAddTuple.md) (trigger.c)
 
 ## Notes and Other Information
 - The input tuple is always copied, ensuring the caller can safely modify or deallocate the original slot

@@ -24,13 +24,13 @@ This function provides proactive deletion capability, allowing backends to expli
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FileSetSegmentName: Constructs segment file names for deletion
-  - FileSetDelete: Deletes individual segment files (with missing_ok=true for segments)
+  - [FileSetSegmentName](../F/FileSetSegmentName.md): Constructs segment file names for deletion
+  - [FileSetDelete](../F/FileSetDelete.md): Deletes individual segment files (with missing_ok=true for segments)
   - CHECK_FOR_INTERRUPTS: Allows interruption during potentially long deletion process
   - elog: Reports errors when BufFile is not found and missing_ok is false
 - Called from (representative examples):
-  - subxact_info_write: Cleanup during logical replication subxact processing
-  - stream_cleanup_files: File cleanup in logical replication streaming operations
+  - [subxact_info_write](../s/subxact_info_write.md): Cleanup during logical replication subxact processing
+  - [stream_cleanup_files](../s/stream_cleanup_files.md): File cleanup in logical replication streaming operations
 
 ## Notes and Other Information
 - Deletion is optional - files are automatically cleaned up when the FileSet is destroyed

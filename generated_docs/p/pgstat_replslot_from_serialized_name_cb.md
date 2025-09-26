@@ -26,7 +26,7 @@ The function handles the case where a replication slot might have been deleted b
   - NameStr (macro)
 - Types/Constants referenced:
   - [NameData](../N/NameData.md)
-  - PgStat_HashKey
+  - [PgStat_HashKey](../P/PgStat_HashKey.md)
   - PGSTAT_KIND_REPLSLOT
   - InvalidOid
 - Called from (representative examples):

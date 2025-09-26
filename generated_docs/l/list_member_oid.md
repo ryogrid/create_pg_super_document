@@ -36,7 +36,7 @@ This function is optimized for OID comparison and should only be used with lists
   - [list_union_oid](list_union_oid.md) - Used when creating union of OID lists
   - [ExecInsertIndexTuples](../E/ExecInsertIndexTuples.md) - Used in executor for index operations
   - [fireRIRrules](../f/fireRIRrules.md) - Used in rewrite rule processing
-  - has_privs_of_role - Used in access control checking
+  - [has_privs_of_role](../h/has_privs_of_role.md) - Used in access control checking
 
 ## Notes and Other Information
 - The function uses direct OID value comparison (typically 32-bit unsigned integers)

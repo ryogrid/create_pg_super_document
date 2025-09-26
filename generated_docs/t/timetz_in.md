@@ -34,7 +34,7 @@ The function handles various time formats and timezone representations, making i
 - Functions called/Symbols referenced:
   - [ParseDateTime](../P/ParseDateTime.md)
   - [DecodeTimeOnly](../D/DecodeTimeOnly.md)
-  - DateTimeParseError
+  - [DateTimeParseError](../D/DateTimeParseError.md)
   - [tm2timetz](tm2timetz.md)
   - [AdjustTimeForTypmod](../A/AdjustTimeForTypmod.md)
   - PG_RETURN_TIMETZADT_P

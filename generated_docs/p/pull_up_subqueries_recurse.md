@@ -62,4 +62,4 @@ The recursive traversal handles different jointree node types (RangeTblRef, From
 - The  parameter constrains LATERAL subquery transformations
 - For append relation members, additional safety checks are required via 
 - The function modifies the jointree in-place, returning the transformed node
-- Complex variable substitution is handled by specialized functions like 
+- [Complex](../C/Complex.md) variable substitution is handled by specialized functions like 

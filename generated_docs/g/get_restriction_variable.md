@@ -29,22 +29,22 @@ The function handles the complexity of determining which expressions qualify as 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_length
+  - [list_length](../l/list_length.md)
   - linitial
   - lsecond
-  - examine_variable
-  - estimate_expression_value
+  - [examine_variable](../e/examine_variable.md)
+  - [estimate_expression_value](../e/estimate_expression_value.md)
   - ReleaseVariableStats
 - Called from (representative examples):
-  - eqsel_internal
-  - generic_restriction_selectivity
-  - scalarineqsel_wrapper
-  - tsmatchsel
-  - arraycontsel
-  - patternsel_common
-  - multirangesel
-  - networksel
-  - rangesel
+  - [eqsel_internal](../e/eqsel_internal.md)
+  - [generic_restriction_selectivity](generic_restriction_selectivity.md)
+  - [scalarineqsel_wrapper](../s/scalarineqsel_wrapper.md)
+  - [tsmatchsel](../t/tsmatchsel.md)
+  - [arraycontsel](../a/arraycontsel.md)
+  - [patternsel_common](../p/patternsel_common.md)
+  - [multirangesel](../m/multirangesel.md)
+  - [networksel](../n/networksel.md)
+  - [rangesel](../r/rangesel.md)
 
 ## Notes and Other Information
 - The function returns true only if exactly one side is a variable and the other is a pseudoconstant; if both sides are variables, it fails because callers expect the other side to act as a constant

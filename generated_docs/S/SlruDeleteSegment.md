@@ -30,7 +30,7 @@ The bank locking mechanism minimizes contention by only holding locks on relevan
 ## Dependencies
 - Functions called/Symbols referenced:
   - SlotGetBankNumber (to determine which bank lock to use)
-  - LWLockAcquire/LWLockRelease (for bank locking)
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease (for bank locking)
   - [SlruInternalWritePage](SlruInternalWritePage.md) (to flush dirty pages)
   - [SimpleLruWaitIO](SimpleLruWaitIO.md) (to wait for ongoing I/O)
   - [SlruInternalDeleteSegment](SlruInternalDeleteSegment.md) (to perform actual file deletion)

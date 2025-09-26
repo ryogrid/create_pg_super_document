@@ -30,13 +30,13 @@ The structure contains the statement name, parameter type specifications, and th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - List (PostgreSQL list structure)
-  - Node (base parse tree node)
-  - TypeName (indirectly through List content)
+  - [List](../L/List.md) (PostgreSQL list structure)
+  - [Node](../N/Node.md) (base parse tree node)
+  - [TypeName](../T/TypeName.md) (indirectly through List content)
 - Called from (representative examples):
-  - PrepareQuery (command execution function)
-  - standard_ProcessUtility (utility command dispatcher)
-  - GetCommandLogLevel (logging level determination)
+  - [PrepareQuery](PrepareQuery.md) (command execution function)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (utility command dispatcher)
+  - [GetCommandLogLevel](../G/GetCommandLogLevel.md) (logging level determination)
 
 ## Notes and Other Information
 - Part of the SQL prepared statement functionality in PostgreSQL

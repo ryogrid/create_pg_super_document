@@ -25,7 +25,7 @@ This function performs a lookup in the parent map hash table to find the parent 
   - HASH_FIND
   - elog (for error reporting)
 - Called from (representative examples):
-  - gistBufferingFindCorrectParent
+  - [gistBufferingFindCorrectParent](gistBufferingFindCorrectParent.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the gistbuild.c file

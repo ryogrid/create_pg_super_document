@@ -29,9 +29,9 @@ This function takes no parameters and returns:
   - `IsBinaryUpgrade` (macro/variable check)
   - `OidIsValid` (macro for OID validation)
   - `ereport` (error reporting function)
-  - `table_open` (system catalog access)
+  - `[table_open](../t/table_open.md)` (system catalog access)
   - [GetNewOidWithIndex](../G/GetNewOidWithIndex.md) (OID generation function)
-  - `table_close` (system catalog cleanup)
+  - `[table_close](../t/table_close.md)` (system catalog cleanup)
   
 - Called from (representative examples):
   - [DefineRange](../D/DefineRange.md) (src/backend/commands/typecmds.c:1525)

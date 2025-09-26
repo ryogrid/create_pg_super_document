@@ -24,18 +24,18 @@ The hash table using these entries is created during GUC system initialization a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HTAB (hash table type for )
-  - config_generic (the actual GUC variable structure)
-  - dlist_head, slist_head (for additional GUC categorization lists)
-  - guc_name_hash, guc_name_match (hash table operations)
+  - [HTAB](../H/HTAB.md) (hash table type for )
+  - [config_generic](../c/config_generic.md) (the actual GUC variable structure)
+  - [dlist_head](../d/dlist_head.md), slist_head (for additional GUC categorization lists)
+  - [guc_name_hash](../g/guc_name_hash.md), guc_name_match (hash table operations)
 
 - Called from (representative examples):
-  - get_guc_variables (iterates through hash table entries)
-  - build_guc_variables (constructs hash entries during initialization)
-  - add_guc_variable (creates new hash entries for custom GUCs)
-  - find_option (looks up GUC variables by name)
-  - InitializeGUCOptions (populates the hash table during startup)
-  - define_custom_variable (adds custom GUC variables to the hash table)
+  - [get_guc_variables](../g/get_guc_variables.md) (iterates through hash table entries)
+  - [build_guc_variables](../b/build_guc_variables.md) (constructs hash entries during initialization)
+  - [add_guc_variable](../a/add_guc_variable.md) (creates new hash entries for custom GUCs)
+  - [find_option](../f/find_option.md) (looks up GUC variables by name)
+  - [InitializeGUCOptions](../I/InitializeGUCOptions.md) (populates the hash table during startup)
+  - [define_custom_variable](../d/define_custom_variable.md) (adds custom GUC variables to the hash table)
 
 ## Notes and Other Information
 - The hash table storing these entries () is static and private to the GUC subsystem

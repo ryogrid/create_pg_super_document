@@ -36,8 +36,8 @@ Placeholder variables have special characteristics: they're marked with GUC_CUST
   - memset
   - unconstify
 - Data structures used:
-  - config_string
-  - config_generic
+  - [config_string](../c/config_string.md)
+  - [config_generic](../c/config_generic.md)
 - Constants used:
   - PGC_USERSET
   - CUSTOM_OPTIONS
@@ -46,7 +46,7 @@ Placeholder variables have special characteristics: they're marked with GUC_CUST
   - GUC_CUSTOM_PLACEHOLDER
   - PGC_STRING
 - Called from:
-  - find_option (src/backend/utils/misc/guc.c:1271)
+  - [find_option](../f/find_option.md) (src/backend/utils/misc/guc.c:1271)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the guc.c file

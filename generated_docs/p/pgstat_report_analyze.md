@@ -23,19 +23,19 @@ The function adjusts the provided live and dead tuple estimates by subtracting t
 ## Dependencies
 - Functions called/Symbols referenced:
   - pgstat_should_count_relation
-  - pgstat_get_entry_ref_locked
+  - [pgstat_get_entry_ref_locked](pgstat_get_entry_ref_locked.md)
   - AmAutoVacuumWorkerProcess
-  - GetCurrentTimestamp
-  - pgstat_unlock_entry
-  - pgstat_flush_io
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
+  - [pgstat_unlock_entry](pgstat_unlock_entry.md)
+  - [pgstat_flush_io](pgstat_flush_io.md)
   - PGSTAT_KIND_RELATION
   - PgStat_Counter
-  - PgStat_EntryRef
-  - PgStatShared_Relation
-  - PgStat_StatTabEntry
-  - PgStat_TableXactStatus
+  - [PgStat_EntryRef](../P/PgStat_EntryRef.md)
+  - [PgStatShared_Relation](../P/PgStatShared_Relation.md)
+  - [PgStat_StatTabEntry](../P/PgStat_StatTabEntry.md)
+  - [PgStat_TableXactStatus](../P/PgStat_TableXactStatus.md)
 - Called from (representative examples):
-  - do_analyze_rel
+  - [do_analyze_rel](../d/do_analyze_rel.md)
   - pgstat_count_conn_txn_idle_time
 
 ## Notes and Other Information

@@ -20,7 +20,7 @@ This function removes a specific publication-relation mapping from the pg_public
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open (catalog access)
+  - [table_open](../t/table_open.md) (catalog access)
   - [SearchSysCache1](../S/SearchSysCache1.md) (cache lookup)
   - [GetPubPartitionOptionRelations](../G/GetPubPartitionOptionRelations.md) (partition hierarchy resolution)
   - [InvalidatePublicationRels](../I/InvalidatePublicationRels.md) (cache invalidation)

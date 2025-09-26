@@ -31,14 +31,14 @@ The Integer node type is part of a family of value nodes (Integer, Float, String
   - NodeTag (for node type identification)
   
 - Called from (representative examples):
-  - makeInteger (creates Integer nodes)
-  - _outInteger (serializes Integer nodes)
-  - _readA_Const (reads Integer nodes during deserialization)
-  - createdb (uses Integer nodes in database creation)
-  - typenameTypeMod (uses Integer nodes for type modifiers)
+  - [makeInteger](../m/makeInteger.md) (creates Integer nodes)
+  - [_outInteger](../o/_outInteger.md) (serializes Integer nodes)
+  - [_readA_Const](../r/_readA_Const.md) (reads Integer nodes during deserialization)
+  - [createdb](../c/createdb.md) (uses Integer nodes in database creation)
+  - [typenameTypeMod](../t/typenameTypeMod.md) (uses Integer nodes for type modifiers)
 
 ## Notes and Other Information
 - The Integer node includes the  attribute, indicating it requires special handling during node serialization/deserialization
-- Integer nodes can be stored in List structures, unlike plain int values
+- [Integer](Integer.md) nodes can be stored in List structures, unlike plain int values
 - The  macro (defined in value.h:79) provides convenient access to the ival field
 - This node type is part of PostgreSQL's node system and follows the standard node conventions for memory management and traversal

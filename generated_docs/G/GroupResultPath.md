@@ -28,10 +28,10 @@ This is commonly seen in queries like `SELECT COUNT(*) FROM table` or `SELECT SU
 - Functions called/Symbols referenced:
   - (No direct symbol references)
 - Called from (representative examples):
-  - ExecSupportsMarkRestore
-  - create_plan_recurse
-  - create_group_result_plan
-  - create_group_result_path
+  - [ExecSupportsMarkRestore](../E/ExecSupportsMarkRestore.md)
+  - [create_plan_recurse](../c/create_plan_recurse.md)
+  - [create_group_result_plan](../c/create_group_result_plan.md)
+  - [create_group_result_path](../c/create_group_result_path.md)
 
 ## Notes and Other Information
 - Used specifically for degenerate grouping cases where exactly one row is guaranteed

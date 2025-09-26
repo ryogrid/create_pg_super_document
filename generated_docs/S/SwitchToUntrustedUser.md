@@ -27,7 +27,7 @@ This design prevents privilege escalation attacks where a less-privileged user c
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetUserIdAndSecContext](../G/GetUserIdAndSecContext.md)
-  - member_can_set_role
+  - [member_can_set_role](../m/member_can_set_role.md)
   - [GetUserNameFromId](../G/GetUserNameFromId.md)
   - [SetUserIdAndSecContext](SetUserIdAndSecContext.md)
   - [NewGUCNestLevel](../N/NewGUCNestLevel.md)

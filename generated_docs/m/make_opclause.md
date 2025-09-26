@@ -26,18 +26,18 @@ The make_opclause function constructs an OpExpr node, which represents operator 
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to allocate OpExpr node)
-  - OpExpr (the node structure being created)
+  - [OpExpr](../O/OpExpr.md) (the node structure being created)
   - list_make1 (for unary operators)
   - list_make2 (for binary operators)
   - InvalidOid (constant for uninitialized OID fields)
 - Called from (representative examples):
-  - match_boolean_index_clause
-  - expand_indexqual_rowcompare
-  - process_implied_equality
-  - build_implied_join_equality
-  - convert_EXISTS_to_ANY
-  - make_partition_op_expr
-  - match_pattern_prefix
+  - [match_boolean_index_clause](match_boolean_index_clause.md)
+  - [expand_indexqual_rowcompare](../e/expand_indexqual_rowcompare.md)
+  - [process_implied_equality](../p/process_implied_equality.md)
+  - [build_implied_join_equality](../b/build_implied_join_equality.md)
+  - [convert_EXISTS_to_ANY](../c/convert_EXISTS_to_ANY.md)
+  - [make_partition_op_expr](make_partition_op_expr.md)
+  - [match_pattern_prefix](match_pattern_prefix.md)
 
 ## Notes and Other Information
 - The function automatically determines whether to create a unary or binary operator expression based on whether rightop is NULL

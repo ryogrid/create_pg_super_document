@@ -26,16 +26,16 @@ This function is essential for the timezone compiler's arithmetic operations, en
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - time_overflow (overflow error handler)
+  - [time_overflow](../t/time_overflow.md) (overflow error handler)
   - ZIC_MIN (minimum value constant for zic_t type)
   - ZIC_MAX (maximum value constant for zic_t type)
   - zic_t (timezone-specific integer type)
 - Called from (representative examples):
-  - gethms
-  - getleapdatetime
-  - years_of_observations
-  - adjleap
-  - rpytime
+  - [gethms](../g/gethms.md)
+  - [getleapdatetime](../g/getleapdatetime.md)
+  - [years_of_observations](../y/years_of_observations.md)
+  - [adjleap](../a/adjleap.md)
+  - [rpytime](../r/rpytime.md)
 
 ## Notes and Other Information
 - Part of the timezone compiler's safe arithmetic infrastructure

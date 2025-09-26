@@ -34,7 +34,7 @@ The function performs a direct memory copy of the digit array from the source Nu
   - [numeric](../n/numeric.md) (main numeric input function)
   - [numeric_round](../n/numeric_round.md) (rounding operations)
   - [numeric_trunc](../n/numeric_trunc.md) (truncation operations)
-  - generate_series_step_numeric (numeric series generation)
+  - [generate_series_step_numeric](../g/generate_series_step_numeric.md) (numeric series generation)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the numeric.c module

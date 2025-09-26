@@ -19,13 +19,13 @@ This static function creates a zeroed page in the SUBTRANS system for the specif
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SimpleLruZeroPage
+  - [SimpleLruZeroPage](../S/SimpleLruZeroPage.md)
 - Global variables accessed:
   - SubTransCtl
 - Called from (representative examples):
-  - BootStrapSUBTRANS
-  - StartupSUBTRANS
-  - ExtendSUBTRANS
+  - [BootStrapSUBTRANS](../B/BootStrapSUBTRANS.md)
+  - [StartupSUBTRANS](../S/StartupSUBTRANS.md)
+  - [ExtendSUBTRANS](../E/ExtendSUBTRANS.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within subtrans.c

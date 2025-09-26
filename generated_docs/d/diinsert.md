@@ -31,7 +31,7 @@ This function implements the tuple insertion interface for PostgreSQL's dummy in
 ## Dependencies
 - Functions called/Symbols referenced:
   - IndexUniqueCheck (enumeration type for uniqueness checking)
-  - IndexInfo (index information structure type)
+  - [IndexInfo](../I/IndexInfo.md) (index information structure type)
   - ItemPointer (tuple identifier type)
   - Datum (PostgreSQL data value type)
 - Called from (representative examples):

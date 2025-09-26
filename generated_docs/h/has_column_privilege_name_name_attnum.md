@@ -24,7 +24,7 @@ Like other privilege checking functions, it converts the input parameters to the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_role_oid_or_public: Converts role name to OID, handling "public" role
+  - [get_role_oid_or_public](../g/get_role_oid_or_public.md): Converts role name to OID, handling "public" role
   - [convert_table_name](../c/convert_table_name.md): Converts table name string to table OID
   - [convert_column_priv_string](../c/convert_column_priv_string.md): Converts privilege text to AclMode
   - [column_privilege_check](../c/column_privilege_check.md): Performs the actual privilege verification

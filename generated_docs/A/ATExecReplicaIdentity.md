@@ -45,7 +45,7 @@ The validation ensures the index can reliably identify rows for replication, mai
   - [RelationGetIndexExpressions](../R/RelationGetIndexExpressions.md): Checks for expression indexes
   - [RelationGetIndexPredicate](../R/RelationGetIndexPredicate.md): Checks for partial indexes
   - IndexRelationGetNumberOfKeyAttributes: Gets count of key attributes
-  - ReplicaIdentityStmt: Structure containing parsed statement information
+  - [ReplicaIdentityStmt](../R/ReplicaIdentityStmt.md): Structure containing parsed statement information
   - REPLICA_IDENTITY_DEFAULT/FULL/NOTHING/INDEX: Constants for identity types
 
 - Called from (representative examples):

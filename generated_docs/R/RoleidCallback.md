@@ -29,7 +29,7 @@ The function is declared as `static` since it is only used internally within the
   - Uses static variable `last_roleid` from the same module
 
 - Called from (representative examples):
-  - `superuser_arg`: Registers this callback via `CacheRegisterSyscacheCallback`
+  - `[superuser_arg](../s/superuser_arg.md)`: Registers this callback via `CacheRegisterSyscacheCallback`
   - PostgreSQL syscache system: Automatically invoked when pg_authid changes occur
 
 ## Notes and Other Information

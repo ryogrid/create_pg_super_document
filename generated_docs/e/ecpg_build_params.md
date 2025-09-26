@@ -20,20 +20,20 @@ This comprehensive function is the central parameter processing engine for ECPG 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQparameterStatus
-  - ecpg_find_desc
-  - store_input_from_desc
-  - ecpg_store_input
-  - next_insert
-  - insert_tobeinserted
-  - convert_bytea_to_string
-  - ecpg_alloc
-  - ecpg_realloc
-  - ecpg_free
-  - ecpg_free_params
-  - ecpg_raise
+  - [PQparameterStatus](../P/PQparameterStatus.md)
+  - [ecpg_find_desc](ecpg_find_desc.md)
+  - [store_input_from_desc](../s/store_input_from_desc.md)
+  - [ecpg_store_input](ecpg_store_input.md)
+  - [next_insert](../n/next_insert.md)
+  - [insert_tobeinserted](../i/insert_tobeinserted.md)
+  - [convert_bytea_to_string](../c/convert_bytea_to_string.md)
+  - [ecpg_alloc](ecpg_alloc.md)
+  - [ecpg_realloc](ecpg_realloc.md)
+  - [ecpg_free](ecpg_free.md)
+  - [ecpg_free_params](ecpg_free_params.md)
+  - [ecpg_raise](ecpg_raise.md)
 - Called from:
-  - ecpg_do
+  - [ecpg_do](ecpg_do.md)
 
 ## Notes and Other Information
 - Returns true on successful parameter processing, false on error

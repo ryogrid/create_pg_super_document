@@ -29,7 +29,7 @@ The function is part of PostgreSQL's type system infrastructure that provides a 
   - Various statistical and system information functions
   - Sequence-related functions
   - Cash/money type conversion functions
-  - Range type functions
+  - [Range](../R/Range.md) type functions
   - File system functions
 
 ## Notes and Other Information

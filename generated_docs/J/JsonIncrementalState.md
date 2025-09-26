@@ -29,8 +29,8 @@ JsonIncrementalState is used in PostgreSQL's incremental JSON parsing to handle 
   - (No direct symbol references)
 - Called from (representative examples):
   - makeJsonLexContextIncremental
-  - pg_parse_json
-  - JsonLexContext (as a member)
+  - [pg_parse_json](../p/pg_parse_json.md)
+  - [JsonLexContext](JsonLexContext.md) (as a member)
 
 ## Notes and Other Information
 The typedef for this structure appears in jsonapi.h, making it available throughout the PostgreSQL codebase. This structure is crucial for streaming JSON parsing where the input may be too large to fit in memory or arrives in chunks over a network connection. The StringInfoData member uses PostgreSQL's dynamic string buffer implementation to efficiently accumulate partial token data.

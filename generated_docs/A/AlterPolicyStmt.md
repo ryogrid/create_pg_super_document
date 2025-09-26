@@ -33,11 +33,11 @@ AlterPolicyStmt is a parse tree node that captures the components of an ALTER PO
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (for creating the node)
-  - RangeVar (for table reference)
+  - [RangeVar](../R/RangeVar.md) (for table reference)
   - NodeTag (for type identification)
 - Called from (representative examples):
-  - AlterPolicy (in src/backend/commands/policy.c:768)
-  - ProcessUtilitySlow (in src/backend/tcop/utility.c:1831)
+  - [AlterPolicy](AlterPolicy.md) (in src/backend/commands/policy.c:768)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (in src/backend/tcop/utility.c:1831)
 
 ## Notes and Other Information
 - Part of PostgreSQL's row-level security (RLS) implementation

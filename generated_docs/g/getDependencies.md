@@ -28,7 +28,7 @@ Key behaviors:
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_log_info
-  - createPQExpBuffer
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)
   - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
   - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
   - [PQntuples](../P/PQntuples.md)
@@ -38,7 +38,7 @@ Key behaviors:
   - [findObjectByCatalogId](../f/findObjectByCatalogId.md)
   - [addObjectDependency](../a/addObjectDependency.md)
   - [PQclear](../P/PQclear.md)
-  - destroyPQExpBuffer
+  - [destroyPQExpBuffer](../d/destroyPQExpBuffer.md)
   - pg_log_warning (in debug builds)
 - Called from:
   - [main](../m/main.md) (in src/bin/pg_dump/pg_dump.c:983)

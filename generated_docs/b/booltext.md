@@ -22,7 +22,7 @@ This function is specifically designed for explicit casting operations where SQL
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_BOOL` - Retrieves boolean argument from function call
-  - `cstring_to_text` - Converts C string to PostgreSQL text type
+  - `[cstring_to_text](../c/cstring_to_text.md)` - Converts C string to PostgreSQL text type
   - `PG_RETURN_TEXT_P` - Returns the text result
 
 - Called from (representative examples):

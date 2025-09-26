@@ -27,13 +27,13 @@ The function uses the SecLabelObjectIndexId index for efficient lookups and hand
   - [IsSharedRelation](../I/IsSharedRelation.md)
   - [GetSharedSecurityLabel](GetSharedSecurityLabel.md)
   - [ScanKeyInit](../S/ScanKeyInit.md)
-  - table_open
+  - [table_open](../t/table_open.md)
   - [systable_beginscan](../s/systable_beginscan.md)
   - [systable_getnext](../s/systable_getnext.md)
   - [heap_getattr](../h/heap_getattr.md)
   - TextDatumGetCString
   - [systable_endscan](../s/systable_endscan.md)
-  - table_close
+  - [table_close](../t/table_close.md)
   - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - [Int32GetDatum](../I/Int32GetDatum.md)
   - CStringGetTextDatum

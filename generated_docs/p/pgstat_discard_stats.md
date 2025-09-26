@@ -31,7 +31,7 @@ After file operations, the function calls  to reset all statistics counters and 
 - Functions called/Symbols referenced:
   - unlink (system call)
   - PGSTAT_STAT_PERMANENT_FILENAME (constant)
-  - pgstat_reset_after_failure
+  - [pgstat_reset_after_failure](pgstat_reset_after_failure.md)
 - Called from (representative examples):
   - [StartupXLOG](../S/StartupXLOG.md) (src/backend/access/transam/xlog.c:5638)
 

@@ -29,13 +29,13 @@ The decompression process ensures that compressed or encoded attribute values ar
 ## Dependencies
 - Functions called/Symbols referenced:
   - IndexRelationGetNumberOfKeyAttributes
-  - index_getattr
-  - gistdentryinit
+  - [index_getattr](../i/index_getattr.md)
+  - [gistdentryinit](gistdentryinit.md)
 - Called from (representative examples):
-  - gistRelocateBuildBuffersOnSplit
-  - placeOne
-  - gistgetadjusted
-  - gistchoose
+  - [gistRelocateBuildBuffersOnSplit](gistRelocateBuildBuffersOnSplit.md)
+  - [placeOne](../p/placeOne.md)
+  - [gistgetadjusted](gistgetadjusted.md)
+  - [gistchoose](gistchoose.md)
 
 ## Notes and Other Information
 - This function processes all key attributes of the tuple in sequence (excluding any included columns)

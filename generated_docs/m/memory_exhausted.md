@@ -25,9 +25,9 @@ The `memory_exhausted` function serves as a centralized error handler for memory
   - _ (gettext macro for internationalization)
   - progname (global variable containing program name)
 - Called from (representative examples):
-  - size_product
-  - memcheck
-  - growalloc
+  - [size_product](../s/size_product.md)
+  - [memcheck](memcheck.md)
+  - [growalloc](../g/growalloc.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it is only accessible within the src/timezone/zic.c file

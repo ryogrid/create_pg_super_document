@@ -55,17 +55,17 @@ The structure handles both single-byte and multibyte character encodings, making
 - Functions called/Symbols referenced:
   - (No direct function calls - this is a data structure)
 - Called from (representative examples):
-  - text_position
-  - text_position_setup
-  - text_position_next
-  - text_position_next_internal
-  - text_position_get_match_ptr
-  - text_position_get_match_pos
-  - text_position_reset
-  - text_position_cleanup
-  - replace_text
-  - split_part
-  - split_text
+  - [text_position](../t/text_position.md)
+  - [text_position_setup](../t/text_position_setup.md)
+  - [text_position_next](../t/text_position_next.md)
+  - [text_position_next_internal](../t/text_position_next_internal.md)
+  - [text_position_get_match_ptr](../t/text_position_get_match_ptr.md)
+  - [text_position_get_match_pos](../t/text_position_get_match_pos.md)
+  - [text_position_reset](../t/text_position_reset.md)
+  - [text_position_cleanup](../t/text_position_cleanup.md)
+  - [replace_text](../r/replace_text.md)
+  - [split_part](../s/split_part.md)
+  - [split_text](../s/split_text.md)
 
 ## Notes and Other Information
 - The structure is optimized for repeated searches by caching position information and maintaining Boyer-Moore-Horspool skip tables

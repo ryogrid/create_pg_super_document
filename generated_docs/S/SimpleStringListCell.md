@@ -36,7 +36,7 @@ SimpleStringListCell represents a single node in a singly-linked list specifical
   - [simple_string_list_destroy](../s/simple_string_list_destroy.md)
   - [simple_string_list_not_touched](../s/simple_string_list_not_touched.md)
   - Various PostgreSQL frontend tools (pg_dump, clusterdb, reindexdb, vacuumdb)
-  - store_pub_sub_info
+  - [store_pub_sub_info](../s/store_pub_sub_info.md)
   - expand_*_name_patterns functions
 
 ## Notes and Other Information

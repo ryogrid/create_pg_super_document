@@ -31,8 +31,8 @@ The handler implements sophisticated logic to handle differences between libxml2
   - PgXmlErrorPtr, PgXmlErrorContext structures
   - ERRCXT_MAGIC (validation constant)
   - PG_XML_STRICTNESS_WELLFORMED, PG_XML_STRICTNESS_LEGACY (strictness levels)
-  - makeStringInfo, appendStringInfo, appendStringInfoLineSeparator
-  - appendBinaryStringInfo, destroyStringInfo, chopStringInfoNewlines
+  - [makeStringInfo](../m/makeStringInfo.md), appendStringInfo, appendStringInfoLineSeparator
+  - [appendBinaryStringInfo](../a/appendBinaryStringInfo.md), destroyStringInfo, chopStringInfoNewlines
   - xmlParserPrintFileContext, xmlSetGenericErrorFunc (libxml2 functions)
   - ereport, errmsg_internal, WARNING, NOTICE (PostgreSQL error system)
 - Called from (representative examples):

@@ -21,10 +21,10 @@ The function implements lazy initialization - if the buffer hasn't been created 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initStringInfo
+  - [initStringInfo](../i/initStringInfo.md)
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
 - Data structures used:
-  - JsonUniqueBuilderState
+  - [JsonUniqueBuilderState](../J/JsonUniqueBuilderState.md)
   - StringInfo
   - [MemoryContext](../M/MemoryContext.md)
 - Called from (representative examples):

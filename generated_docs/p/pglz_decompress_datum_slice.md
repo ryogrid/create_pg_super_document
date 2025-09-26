@@ -26,7 +26,7 @@ Unlike the full decompression function, this variant allows specifying the exact
 - Functions called/Symbols referenced:
   - [palloc](palloc.md) (PostgreSQL memory allocation)
   - VARHDRSZ (standard varlena header size)
-  - pglz_decompress (core PGLZ decompression function)
+  - [pglz_decompress](pglz_decompress.md) (core PGLZ decompression function)
   - VARHDRSZ_COMPRESSED (compressed varlena header size)  
   - VARSIZE (macro to get varlena total size)
   - VARDATA (macro to get data portion of varlena)

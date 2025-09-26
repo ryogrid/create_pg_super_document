@@ -32,7 +32,7 @@ This function computes the penalty for adding a new entry to an existing GiST in
   - [GISTENTRY](../G/GISTENTRY.md) (struct)
   - [GISTSTATE](../G/GISTSTATE.md) (struct)
 - Called from (representative examples):
-  - gistchoose
+  - [gistchoose](gistchoose.md)
   - [findDontCares](../f/findDontCares.md)
   - [placeOne](../p/placeOne.md)
   - [supportSecondarySplit](../s/supportSecondarySplit.md)

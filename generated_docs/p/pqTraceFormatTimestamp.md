@@ -20,7 +20,7 @@ pqTraceFormatTimestamp is an internal utility function that generates formatted 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - gettimeofday (system call to get current time)
+  - [gettimeofday](../g/gettimeofday.md) (system call to get current time)
   - strftime (formats the date/time portion)
   - localtime (converts time_t to local time structure)
   - strlen, snprintf (string manipulation functions)

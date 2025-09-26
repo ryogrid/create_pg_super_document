@@ -23,15 +23,15 @@ The function handles multiple return types including scalars, tuples, and set-re
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SPI_connect_ext/SPI_finish (SPI interface management)
-  - compile_pltcl_function (function compilation/lookup)
-  - pltcl_build_tuple_argument (tuple to Tcl conversion)
-  - pltcl_build_tuple_result (Tcl to tuple conversion)
+  - [SPI_connect_ext](../S/SPI_connect_ext.md)/SPI_finish (SPI interface management)
+  - [compile_pltcl_function](../c/compile_pltcl_function.md) (function compilation/lookup)
+  - [pltcl_build_tuple_argument](pltcl_build_tuple_argument.md) (tuple to Tcl conversion)
+  - [pltcl_build_tuple_result](pltcl_build_tuple_result.md) (Tcl to tuple conversion)
   - [OutputFunctionCall](../O/OutputFunctionCall.md)/InputFunctionCall (data type I/O)
   - HeapTupleHeader functions (tuple manipulation)
   - [TupleDescGetAttInMetadata](../T/TupleDescGetAttInMetadata.md) (tuple descriptor utilities)
   - [CreateTupleDescCopy](../C/CreateTupleDescCopy.md) (tuple descriptor copying)
-  - throw_tcl_error (error handling)
+  - [throw_tcl_error](../t/throw_tcl_error.md) (error handling)
   - Tcl library functions (Tcl_EvalObjEx, Tcl_ListObjAppendElement, etc.)
 - Called from (representative examples):
   - [pltcl_handler](pltcl_handler.md) (main dispatcher)

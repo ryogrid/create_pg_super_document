@@ -31,7 +31,7 @@ A_ArrayExpr is a parse tree node that represents the ARRAY[] constructor syntax 
   - ParseLoc (parse location tracking type)
 - Called from (representative examples):
   - [transformExprRecurse](../t/transformExprRecurse.md) (src/backend/parser/parse_expr.c:167)
-  - transformArrayExpr (src/backend/parser/parse_expr.c:2015, 2041, 2044)
+  - [transformArrayExpr](../t/transformArrayExpr.md) (src/backend/parser/parse_expr.c:2015, 2041, 2044)
   - [transformTypeCast](../t/transformTypeCast.md) (src/backend/parser/parse_expr.c:2712, 2730)
   - [exprLocation](../e/exprLocation.md) (src/backend/nodes/nodeFuncs.c:1680)
   - [raw_expression_tree_walker_impl](../r/raw_expression_tree_walker_impl.md) (src/backend/nodes/nodeFuncs.c:4401)

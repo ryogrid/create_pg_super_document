@@ -31,11 +31,11 @@ Predicate locks are crucial for maintaining serializable isolation by preventing
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PREDICATELOCKTARGETTAG (identifies lock targets)
+  - [PREDICATELOCKTARGETTAG](../P/PREDICATELOCKTARGETTAG.md) (identifies lock targets)
 - Called from (representative examples):
-  - AtPrepare_PredicateLocks
-  - predicatelock_twophase_recover
-  - TwoPhasePredicateRecord
+  - [AtPrepare_PredicateLocks](../A/AtPrepare_PredicateLocks.md)
+  - [predicatelock_twophase_recover](../p/predicatelock_twophase_recover.md)
+  - [TwoPhasePredicateRecord](TwoPhasePredicateRecord.md)
 
 ## Notes and Other Information
 - Located in src/include/storage/predicate_internals.h:448-452

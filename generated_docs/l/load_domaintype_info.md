@@ -31,7 +31,7 @@ The function optimizes for the common case of no constraints by deferring memory
 ## Dependencies
 - Functions called/Symbols referenced:
   - [decr_dcc_refcount](../d/decr_dcc_refcount.md)
-  - table_open
+  - [table_open](../t/table_open.md)
   - [SearchSysCache1](../S/SearchSysCache1.md)
   - [systable_beginscan](../s/systable_beginscan.md)
   - [systable_getnext](../s/systable_getnext.md)
@@ -45,7 +45,7 @@ The function optimizes for the common case of no constraints by deferring memory
   - qsort
   - [dcs_cmp](../d/dcs_cmp.md)
   - [lcons](lcons.md)
-  - MemoryContextSetParent
+  - [MemoryContextSetParent](../M/MemoryContextSetParent.md)
 - Called from (representative examples):
   - [lookup_type_cache](lookup_type_cache.md)
   - [UpdateDomainConstraintRef](../U/UpdateDomainConstraintRef.md)
@@ -54,7 +54,7 @@ The function optimizes for the common case of no constraints by deferring memory
 - This is a static function, only accessible within typcache.c
 - Uses a dedicated memory context ('Domain constraints') for constraint data to enable proper cleanup
 - Implements reference counting for DomainConstraintCache objects to support sharing
-- Constraint expressions are pre-planned for efficiency during runtime evaluation
+- [Constraint](../C/Constraint.md) expressions are pre-planned for efficiency during runtime evaluation
 - Constraints from parent domains are applied before child domain constraints (using lcons)
 - The function assumes it's called in a short-lived context and may leak temporary data
 - Sets the TCFLAGS_CHECKED_DOMAIN_CONSTRAINTS flag to mark the type cache entry as having valid domain data

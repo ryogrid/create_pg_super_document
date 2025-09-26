@@ -24,15 +24,15 @@ The implementation includes overflow protection by periodically decrementing all
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire/LWLockRelease (for SInvalWriteLock and SInvalReadLock)
-  - SendProcSignal (to send PROCSIG_CATCHUP_INTERRUPT)
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease (for SInvalWriteLock and SInvalReadLock)
+  - [SendProcSignal](SendProcSignal.md) (to send PROCSIG_CATCHUP_INTERRUPT)
   - elog (for debug logging)
-  - SISeg (shared invalidation segment structure)
-  - ProcState (per-process state tracking)
+  - [SISeg](SISeg.md) (shared invalidation segment structure)
+  - [ProcState](../P/ProcState.md) (per-process state tracking)
   - SIG_THRESHOLD, MAXNUMMESSAGES, MSGNUMWRAPAROUND (configuration constants)
   - CLEANUP_MIN, CLEANUP_QUANTUM (cleanup threshold constants)
 - Called from (representative examples):
-  - SIInsertDataEntries (when queue space is needed)
+  - [SIInsertDataEntries](SIInsertDataEntries.md) (when queue space is needed)
   - Periodic maintenance routines in sinval.c
 
 ## Notes and Other Information

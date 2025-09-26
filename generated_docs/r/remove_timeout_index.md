@@ -24,10 +24,10 @@ The function maintains the contiguous structure of the active timeouts array by 
   - elog (for error reporting)
   - Assert (for debugging assertions)
 - Called from (representative examples):
-  - enable_timeout
-  - handle_sig_alarm
-  - disable_timeout
-  - disable_timeouts
+  - [enable_timeout](../e/enable_timeout.md)
+  - [handle_sig_alarm](../h/handle_sig_alarm.md)
+  - [disable_timeout](../d/disable_timeout.md)
+  - [disable_timeouts](../d/disable_timeouts.md)
 
 ## Notes and Other Information
 - This is a static function internal to the timeout.c module

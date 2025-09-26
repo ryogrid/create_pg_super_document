@@ -49,6 +49,6 @@ This function is particularly important for hash partitioning and other operatio
 - Uses  flag to look up extended hash functions
 - NULL elements are assigned hash value 0 for consistent behavior
 - Does not handle RECORD types with special logic (unlike regular )
-- Hash algorithm provides better distribution properties due to 64-bit arithmetic
+- [Hash](../H/Hash.md) algorithm provides better distribution properties due to 64-bit arithmetic
 - Multiplicative constant 31 maintains good distribution properties in 64-bit space
 - Essential for modern hash-based operations that require collision resistance

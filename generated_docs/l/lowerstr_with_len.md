@@ -26,7 +26,7 @@ The function is primarily used in PostgreSQL text search functionality to normal
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `pg_locale_t`: Locale type definition
+  - `[pg_locale_t](../p/pg_locale_t.md)`: Locale type definition
   - [pg_database_encoding_max_length](../p/pg_database_encoding_max_length.md): Gets maximum character length for database encoding
   - [char2wchar](../c/char2wchar.md): Converts multi-byte string to wide character string
   - [wchar2char](../w/wchar2char.md): Converts wide character string back to multi-byte string

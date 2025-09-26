@@ -23,10 +23,10 @@ The `pg_role_aclcheck` function is a static helper function that provides "quick
 ## Dependencies
 - Functions called/Symbols referenced:
   - ACL_GRANT_OPTION_FOR
-  - is_admin_of_role
-  - is_member_of_role
-  - has_privs_of_role
-  - member_can_set_role
+  - [is_admin_of_role](../i/is_admin_of_role.md)
+  - [is_member_of_role](../i/is_member_of_role.md)
+  - [has_privs_of_role](../h/has_privs_of_role.md)
+  - [member_can_set_role](../m/member_can_set_role.md)
   - ACL_CREATE
   - ACL_USAGE
   - ACL_SET

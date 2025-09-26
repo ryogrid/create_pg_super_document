@@ -40,14 +40,14 @@ The function also handles special partition indexes for NULL values and default 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PartitionBoundInfo](../P/PartitionBoundInfo.md) (return type)
-  - PartitionBoundInfoData (struct for allocation)
+  - [PartitionBoundInfoData](../P/PartitionBoundInfoData.md) (struct for allocation)
   - [PartitionRangeDatumKind](../P/PartitionRangeDatumKind.md) (enum type for range boundary kinds)
   - PARTITION_STRATEGY_RANGE (constant)
   - PARTITION_STRATEGY_LIST (constant)
-  - lappend_int (list manipulation)
+  - [lappend_int](../l/lappend_int.md) (list manipulation)
   - lfirst_int (list access)
   - lfirst (list access)
-  - list_length (list utility)
+  - [list_length](../l/list_length.md) (list utility)
   - [palloc](../p/palloc.md) (memory allocation)
 - Called from (representative examples):
   - compare_range_bounds

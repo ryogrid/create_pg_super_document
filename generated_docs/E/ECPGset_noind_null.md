@@ -24,10 +24,10 @@ ECPGset_noind_null initializes variables with type-specific NULL values when SQL
   - Standard C limit constants (SHRT_MIN, INT_MIN, LONG_MIN, LONG_LONG_MIN)
   - memset function for floating-point and complex types
   - NUMERIC_NULL constant for decimal/numeric types
-  - ECPGgeneric_varchar, ECPGgeneric_bytea structures
+  - [ECPGgeneric_varchar](ECPGgeneric_varchar.md), ECPGgeneric_bytea structures
 - Called from (representative examples):
   - [rsetnull](../r/rsetnull.md) in informix compatibility library
-  - ecpg_get_data for NULL value handling in data retrieval
+  - [ecpg_get_data](../e/ecpg_get_data.md) for NULL value handling in data retrieval
   - [ecpg_set_compat_sqlda](../e/ecpg_set_compat_sqlda.md), ecpg_set_native_sqlda for SQLDA NULL handling
 
 ## Notes and Other Information

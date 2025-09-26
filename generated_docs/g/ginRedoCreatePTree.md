@@ -22,13 +22,13 @@ The function extracts the posting tree creation data from the WAL record, initia
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData
-  - XLogInitBufferForRedo
+  - [XLogInitBufferForRedo](../X/XLogInitBufferForRedo.md)
   - [BufferGetPage](../B/BufferGetPage.md)
   - [GinInitBuffer](../G/GinInitBuffer.md)
   - GinDataLeafPageGetPostingList
   - GinDataPageSetDataSize
   - [PageSetLSN](../P/PageSetLSN.md)
-  - MarkBufferDirty
+  - [MarkBufferDirty](../M/MarkBufferDirty.md)
   - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
 - Data structures used:
   - [ginxlogCreatePostingTree](ginxlogCreatePostingTree.md)

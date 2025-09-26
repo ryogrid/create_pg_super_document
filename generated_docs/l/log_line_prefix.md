@@ -22,7 +22,7 @@ The  function is a simple wrapper that delegates to  to format log line prefixes
 ## Dependencies
 - Functions called/Symbols referenced:
   - [log_status_format](log_status_format.md)
-  - ErrorData (struct type)
+  - [ErrorData](../E/ErrorData.md) (struct type)
 - Called from (representative examples):
   - [send_message_to_server_log](../s/send_message_to_server_log.md) (multiple locations)
 

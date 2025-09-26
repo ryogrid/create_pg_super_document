@@ -26,17 +26,17 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - add_size (safe addition to prevent overflow)
-  - mul_size (safe multiplication to prevent overflow)
+  - [add_size](../a/add_size.md) (safe addition to prevent overflow)
+  - [mul_size](../m/mul_size.md) (safe multiplication to prevent overflow)
   - MaxBackends (GUC parameter for max backend processes)
   - NUM_AUXILIARY_PROCS (constant for auxiliary processes)
   - max_prepared_xacts (GUC parameter for prepared transactions)
 - Referenced types:
-  - PROC_HDR (process management header structure)
-  - PGPROC (individual process structure)
-  - slock_t (spinlock type)
+  - [PROC_HDR](PROC_HDR.md) (process management header structure)
+  - [PGPROC](PGPROC.md) (individual process structure)
+  - [slock_t](../s/slock_t.md) (spinlock type)
 - Called from:
-  - CalculateShmemSize (in shared memory initialization)
+  - [CalculateShmemSize](../C/CalculateShmemSize.md) (in shared memory initialization)
 
 ## Notes and Other Information
 - Critical for shared memory sizing during PostgreSQL startup

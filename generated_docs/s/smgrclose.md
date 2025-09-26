@@ -30,7 +30,7 @@ The  function provides a conceptual "close" operation for SMgrRelation objects. 
   - [index_copy_data](../i/index_copy_data.md)
   - [DropRelationFiles](../D/DropRelationFiles.md)
   - [RelationSetNewRelfilenumber](../R/RelationSetNewRelfilenumber.md)
-  - RelationCloseSmgr
+  - [RelationCloseSmgr](../R/RelationCloseSmgr.md)
 
 ## Notes and Other Information
 - This is a public function available to other modules throughout PostgreSQL

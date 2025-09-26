@@ -20,7 +20,7 @@ This is a support function for PostgreSQL's SQL-callable pgstat* functions that 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_read_current_status
+  - [pgstat_read_current_status](pgstat_read_current_status.md)
 - Called from (representative examples):
   - PG_STAT_GET_PROGRESS_COLS
   - PG_STAT_GET_ACTIVITY_COLS  

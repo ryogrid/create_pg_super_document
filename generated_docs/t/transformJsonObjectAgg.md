@@ -50,9 +50,9 @@ The transformation process includes:
 ## Notes and Other Information
 - The function supports four variants for each format based on behavioral flags:
   - Standard: basic object aggregation allowing duplicate keys and including null values
-  - Unique: enforces unique keys, raises error on duplicates
+  - [Unique](../U/Unique.md): enforces unique keys, raises error on duplicates
   - Strict: excludes null values from the result (absent-on-null behavior)
-  - Unique + Strict: combines both unique key enforcement and null exclusion
+  - [Unique](../U/Unique.md) + Strict: combines both unique key enforcement and null exclusion
 - The choice between JSON and JSONB output formats affects both the aggregate function and the result type
 - Key expressions are transformed normally while value expressions receive special JSON formatting treatment
 - All location and error context information is preserved through the transformation chain

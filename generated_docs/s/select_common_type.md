@@ -36,7 +36,7 @@ The function is crucial for SQL constructs like CASE expressions, UNION queries,
 ## Dependencies
 - Functions called/Symbols referenced:
   - linitial, list_second_cell, for_each_cell (list manipulation)
-  - exprType, exprLocation
+  - [exprType](../e/exprType.md), exprLocation
   - [getBaseType](../g/getBaseType.md)
   - [get_type_category_preferred](../g/get_type_category_preferred.md)
   - [can_coerce_type](../c/can_coerce_type.md)
@@ -47,9 +47,9 @@ The function is crucial for SQL constructs like CASE expressions, UNION queries,
 - Called from (representative examples):
   - [transformValuesClause](../t/transformValuesClause.md) (src/backend/parser/analyze.c:1592)
   - [transformSetOperationTree](../t/transformSetOperationTree.md) (src/backend/parser/analyze.c:2204)
-  - transformCaseExpr (src/backend/parser/parse_expr.c:1731)
-  - transformArrayExpr (src/backend/parser/parse_expr.c:2100)
-  - transformCoalesceExpr (src/backend/parser/parse_expr.c:2231)
+  - [transformCaseExpr](../t/transformCaseExpr.md) (src/backend/parser/parse_expr.c:1731)
+  - [transformArrayExpr](../t/transformArrayExpr.md) (src/backend/parser/parse_expr.c:2100)
+  - [transformCoalesceExpr](../t/transformCoalesceExpr.md) (src/backend/parser/parse_expr.c:2231)
 
 ## Notes and Other Information
 - Earlier expressions in the list are preferred when there is ambiguity in type selection

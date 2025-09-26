@@ -22,7 +22,7 @@ IsManifestEnabled is a utility function that provides a simple boolean check to 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - backup_manifest_info (structure type)
+  - [backup_manifest_info](../b/backup_manifest_info.md) (structure type)
 - Called from (representative examples):
   - [AddFileToBackupManifest](../A/AddFileToBackupManifest.md) (src/backend/backup/backup_manifest.c:109)
   - [AddWALInfoToBackupManifest](../A/AddWALInfoToBackupManifest.md) (src/backend/backup/backup_manifest.c:221)  

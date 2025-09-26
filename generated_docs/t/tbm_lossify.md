@@ -30,19 +30,19 @@ The current implementation is intentionally simple, using "essentially random or
 - Functions called/Symbols referenced:
   - pagetable_start_iterate_at (to begin hash table iteration)
   - pagetable_iterate (to iterate through entries)
-  - tbm_mark_page_lossy (to convert individual pages)
+  - [tbm_mark_page_lossy](tbm_mark_page_lossy.md) (to convert individual pages)
 - Types used:
-  - TIDBitmap
-  - PagetableEntry
+  - [TIDBitmap](../T/TIDBitmap.md)
+  - [PagetableEntry](../P/PagetableEntry.md)
   - pagetable_iterator
 - Constants used:
   - TBM_NOT_ITERATING, TBM_HASH (status constants)
   - PAGES_PER_CHUNK (chunk size definition)
   - INT_MAX (for limit calculations)
 - Called from:
-  - tbm_add_tuples
-  - tbm_add_page
-  - tbm_union_page
+  - [tbm_add_tuples](tbm_add_tuples.md)
+  - [tbm_add_page](tbm_add_page.md)
+  - [tbm_union_page](tbm_union_page.md)
   - Referenced in TBMSharedIterator
 
 ## Notes and Other Information

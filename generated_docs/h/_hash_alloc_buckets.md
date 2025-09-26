@@ -27,7 +27,7 @@ This function extends the hash index file to accommodate a new splitpoint's wort
   - [log_newpage](../l/log_newpage.md)
   - [PageSetChecksumInplace](../P/PageSetChecksumInplace.md)
   - [smgrextend](../s/smgrextend.md)
-  - RelationGetSmgr
+  - [RelationGetSmgr](../R/RelationGetSmgr.md)
   - MAIN_FORKNUM
   - InvalidBlockNumber
   - InvalidBucket

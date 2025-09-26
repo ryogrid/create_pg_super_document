@@ -34,7 +34,7 @@ The function is primarily used for:
   - MemoryContextIsValid (validates the context)
   - context->methods->is_empty (type-specific emptiness check)
 - Called from (representative examples):
-  - AtSubCommit_Memory (transaction memory management)
+  - [AtSubCommit_Memory](../A/AtSubCommit_Memory.md) (transaction memory management)
 
 ## Notes and Other Information
 - Returns true if the context is empty (no children and no allocations), false otherwise

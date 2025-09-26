@@ -36,7 +36,7 @@ This function takes no parameters and returns a boolean indicating success or fa
   - [parse_ident_line](../p/parse_ident_line.md) (parses individual ident mapping lines)
   - [free_auth_file](../f/free_auth_file.md) (cleans up file resources)
   - [MemoryContextDelete](../M/MemoryContextDelete.md) (manages memory cleanup)
-  - lappend (adds parsed lines to result list)
+  - [lappend](lappend.md) (adds parsed lines to result list)
   - IdentFileName (global variable containing ident file path)
   - PostmasterContext (parent memory context)
   - parsed_ident_context, parsed_ident_lines (global variables storing results)

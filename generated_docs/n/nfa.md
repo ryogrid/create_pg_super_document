@@ -62,15 +62,15 @@ The `nfa` structure is the central data structure in PostgreSQL's regex engine, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `state` (for pre, init, final, post, states, slast, freestates)
-  - `arc` (for freearcs chain)
-  - `statebatch` (for lastsb batch allocation)
-  - `arcbatch` (for lastab batch allocation)
-  - `colormap` (for cm character classification)
+  - `[state](../s/state.md)` (for pre, init, final, post, states, slast, freestates)
+  - `[arc](../a/arc.md)` (for freearcs chain)
+  - `[statebatch](../s/statebatch.md)` (for lastsb batch allocation)
+  - `[arcbatch](../a/arcbatch.md)` (for lastab batch allocation)
+  - `[colormap](../c/colormap.md)` (for cm character classification)
   - `color` (for bos/eos arrays)
 - Called from (representative examples):
-  - `newnfa` (for NFA creation and initialization)
-  - `freenfa` (for NFA cleanup and deallocation)
+  - `[newnfa](newnfa.md)` (for NFA creation and initialization)
+  - `[freenfa](../f/freenfa.md)` (for NFA cleanup and deallocation)
   - Various regex compilation and optimization functions
 
 ## Notes and Other Information

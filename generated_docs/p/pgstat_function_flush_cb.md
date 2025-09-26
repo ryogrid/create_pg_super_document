@@ -20,10 +20,10 @@ This function serves as a callback in PostgreSQL's statistics system to transfer
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_lock_entry
-  - pgstat_unlock_entry
+  - [pgstat_lock_entry](pgstat_lock_entry.md)
+  - [pgstat_unlock_entry](pgstat_unlock_entry.md)
   - INSTR_TIME_GET_MICROSEC
-  - PgStat_FunctionCounts (type)
+  - [PgStat_FunctionCounts](../P/PgStat_FunctionCounts.md) (type)
   - [PgStatShared_Function](../P/PgStatShared_Function.md) (type)
 - Called from (representative examples):
   - SH_DECLARE (statistics hash table infrastructure in src/backend/utils/activity/pgstat.c:301)

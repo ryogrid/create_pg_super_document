@@ -20,7 +20,7 @@ DoCopyTo performs the core execution of COPY TO operations by coordinating data 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SendCopyBegin](../S/SendCopyBegin.md)
-  - makeStringInfo
+  - [makeStringInfo](../m/makeStringInfo.md)
   - [getTypeBinaryOutputInfo](../g/getTypeBinaryOutputInfo.md)
   - [getTypeOutputInfo](../g/getTypeOutputInfo.md)
   - [fmgr_info](../f/fmgr_info.md)
@@ -35,7 +35,7 @@ DoCopyTo performs the core execution of COPY TO operations by coordinating data 
   - [table_beginscan](../t/table_beginscan.md)
   - [table_slot_create](../t/table_slot_create.md)
   - [table_scan_getnextslot](../t/table_scan_getnextslot.md)
-  - slot_getallattrs
+  - [slot_getallattrs](../s/slot_getallattrs.md)
   - [CopyOneRowTo](../C/CopyOneRowTo.md)
   - [pgstat_progress_update_param](../p/pgstat_progress_update_param.md)
   - [ExecDropSingleTupleTableSlot](../E/ExecDropSingleTupleTableSlot.md)
@@ -46,7 +46,7 @@ DoCopyTo performs the core execution of COPY TO operations by coordinating data 
   - [SendCopyEnd](../S/SendCopyEnd.md)
 - Called from (representative examples):
   - [DoCopy](DoCopy.md)
-  - test_copy_to_callback
+  - [test_copy_to_callback](../t/test_copy_to_callback.md)
 
 ## Notes and Other Information
 The function handles two distinct data sources: direct table scans for relation-based copies and query execution for complex queries. It manages memory efficiently by creating a temporary row context that gets reset for each row, preventing accumulation of memory during large copy operations. The function supports both binary and text formats, with binary format requiring special signatures and trailers. Progress reporting is integrated throughout the process to provide feedback on large operations. The function returns the total number of processed rows for reporting purposes.

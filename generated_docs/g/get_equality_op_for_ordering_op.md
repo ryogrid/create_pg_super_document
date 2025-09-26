@@ -28,7 +28,7 @@ The function also optionally reports whether the input operator represents a "re
   - BTGreaterStrategyNumber
 - Called from (representative examples):
   - [show_sortorder_options](../s/show_sortorder_options.md)
-  - preparePresortedCols
+  - [preparePresortedCols](../p/preparePresortedCols.md)
   - [create_unique_plan](../c/create_unique_plan.md)
   - [preprocess_minmax_aggregates](../p/preprocess_minmax_aggregates.md)
   - [addTargetToSortList](../a/addTargetToSortList.md)

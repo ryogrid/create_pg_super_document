@@ -33,7 +33,7 @@ The function is optimized for replication workloads where the same tuple structu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slot_getallattrs (to extract all attribute values from slots)
+  - [slot_getallattrs](../s/slot_getallattrs.md) (to extract all attribute values from slots)
   - TupleDescAttr (to access attribute metadata)
   - [lookup_type_cache](../l/lookup_type_cache.md) (to get type-specific equality operator information)
   - TYPECACHE_EQ_OPR_FINFO (flag for caching equality operator function info)

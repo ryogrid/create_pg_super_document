@@ -19,7 +19,7 @@ This function performs a security check to ensure that pg_upgrade operations onl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQconndefaults
+  - [PQconndefaults](../P/PQconndefaults.md)
   - [PQconninfoFree](../P/PQconninfoFree.md)
   - getenv
   - [is_unixsock_path](../i/is_unixsock_path.md)

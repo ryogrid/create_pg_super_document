@@ -33,7 +33,7 @@ The function determines appropriate operator classes based on partitioning strat
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCacheAttName](../S/SearchSysCacheAttName.md) - Looks up column information by name
-  - exprType, exprCollation - Extract expression type and collation
+  - [exprType](../e/exprType.md), exprCollation - Extract expression type and collation
   - [CheckAttributeType](CheckAttributeType.md) - Validates type suitability for partition keys
   - [pull_varattnos](../p/pull_varattnos.md) - Extracts attribute references from expressions
   - [expression_planner](../e/expression_planner.md) - Preprocesses expressions for mutability analysis

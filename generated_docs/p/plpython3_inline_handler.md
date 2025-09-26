@@ -23,7 +23,7 @@ The function performs comprehensive setup including SPI connection establishment
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PLy_initialize](../P/PLy_initialize.md): Initializes the Python language environment
-  - SPI_connect_ext: Establishes SPI connection for database access
+  - [SPI_connect_ext](../S/SPI_connect_ext.md): Establishes SPI connection for database access
   - AllocSetContextCreate: Creates memory context for the procedure
   - [PLy_push_execution_context](../P/PLy_push_execution_context.md): Sets up execution context stack
   - [PLy_procedure_compile](../P/PLy_procedure_compile.md): Compiles the Python source code

@@ -21,11 +21,11 @@ This function performs a comprehensive search through an expression tree to loca
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WindowFuncLists
+  - [WindowFuncLists](../W/WindowFuncLists.md)
   - [find_window_functions_walker](find_window_functions_walker.md)
 - Called from (representative examples):
   - [grouping_planner](../g/grouping_planner.md)
-  - WindowFuncLists
+  - [WindowFuncLists](../W/WindowFuncLists.md)
 
 ## Notes and Other Information
 - The function allocates memory for the WindowFuncLists structure and its internal arrays

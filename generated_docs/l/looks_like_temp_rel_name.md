@@ -31,11 +31,11 @@ The function parses each component sequentially, ensuring proper formatting at e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - forkname_chars
+  - [forkname_chars](../f/forkname_chars.md)
   - isdigit (from standard C library)
 - Called from (representative examples):
-  - RemovePgTempRelationFilesInDbspace
-  - sendDir
+  - [RemovePgTempRelationFilesInDbspace](../R/RemovePgTempRelationFilesInDbspace.md)
+  - [sendDir](../s/sendDir.md)
 
 ## Notes and Other Information
 - Returns true if the name matches the temporary relation pattern, false otherwise

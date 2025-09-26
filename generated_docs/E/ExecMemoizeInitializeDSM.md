@@ -22,9 +22,9 @@ The function calculates the required memory size, allocates it from the shared m
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - shm_toc_allocate (allocates memory from shared memory TOC)
+  - [shm_toc_allocate](../s/shm_toc_allocate.md) (allocates memory from shared memory TOC)
   - memset (initializes memory to zero)
-  - shm_toc_insert (registers the allocated memory with a key in the TOC)
+  - [shm_toc_insert](../s/shm_toc_insert.md) (registers the allocated memory with a key in the TOC)
 - Types referenced:
   - [MemoizeState](../M/MemoizeState.md) (memoize execution state structure)
   - [ParallelContext](../P/ParallelContext.md) (parallel execution context)

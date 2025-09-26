@@ -20,17 +20,17 @@ This function looks up a relation in the system cache by its OID and extracts th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - elog
-  - ObjectIdGetDatum
-  - SysCacheGetAttr
-  - initStringInfo
-  - get_reloptions
-  - ReleaseSysCache
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md)
+  - [initStringInfo](../i/initStringInfo.md)
+  - [get_reloptions](../g/get_reloptions.md)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
 - Called from (representative examples):
-  - pg_get_indexdef_worker
-  - pg_get_constraintdef_worker
+  - [pg_get_indexdef_worker](../p/pg_get_indexdef_worker.md)
+  - [pg_get_constraintdef_worker](../p/pg_get_constraintdef_worker.md)
 
 ## Notes and Other Information
 - This is a static function within ruleutils.c, used for SQL object definition reconstruction

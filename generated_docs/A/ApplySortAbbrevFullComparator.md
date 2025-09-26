@@ -28,16 +28,16 @@ The function is typically used in tiebreaker scenarios during abbreviated sortin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SortSupport (struct type)
+  - [SortSupport](../S/SortSupport.md) (struct type)
   - ssup->abbrev_full_comparator (function pointer)
   - INVERT_COMPARE_RESULT (macro)
   - Various utility functions: ssup_datum_unsigned_cmp, ssup_datum_signed_cmp, ssup_datum_int32_cmp
   - Preparation functions: PrepareSortSupportComparisonShim, PrepareSortSupportFromOrderingOp, PrepareSortSupportFromIndexRel, PrepareSortSupportFromGistIndexRel
 - Called from (representative examples):
   - [comparetup_heap_tiebreak](../c/comparetup_heap_tiebreak.md) (src/backend/utils/sort/tuplesortvariants.c:1132)
-  - comparetup_cluster_tiebreak (src/backend/utils/sort/tuplesortvariants.c:1278)
+  - [comparetup_cluster_tiebreak](../c/comparetup_cluster_tiebreak.md) (src/backend/utils/sort/tuplesortvariants.c:1278)
   - [comparetup_index_btree_tiebreak](../c/comparetup_index_btree_tiebreak.md) (src/backend/utils/sort/tuplesortvariants.c:1494)
-  - comparetup_datum_tiebreak (src/backend/utils/sort/tuplesortvariants.c:1816)
+  - [comparetup_datum_tiebreak](../c/comparetup_datum_tiebreak.md) (src/backend/utils/sort/tuplesortvariants.c:1816)
 
 ## Notes and Other Information
 This function is a critical component of PostgreSQL's abbreviated sorting optimization. Abbreviated sorting uses shorter representations of values for initial comparisons to improve performance, but when these abbreviated comparisons are inconclusive (i.e., the abbreviated keys are equal but the full values might not be), this function provides the definitive comparison using the full authoritative comparator. The function is primarily used in tiebreaker scenarios across various tuple sorting variants to ensure correct ordering when abbreviated comparisons are insufficient.

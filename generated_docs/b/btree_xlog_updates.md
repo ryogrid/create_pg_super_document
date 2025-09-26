@@ -36,7 +36,7 @@ Key operations performed:
 - Functions called/Symbols referenced:
   - [PageGetItemId](../P/PageGetItemId.md)
   - [PageGetItem](../P/PageGetItem.md)
-  - _bt_update_posting
+  - [_bt_update_posting](_bt_update_posting.md)
   - IndexTupleSize
   - [PageIndexTupleOverwrite](../P/PageIndexTupleOverwrite.md)
   - [palloc](../p/palloc.md)

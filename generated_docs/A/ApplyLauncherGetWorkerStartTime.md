@@ -23,12 +23,12 @@ This timing information is essential for preventing rapid restart loops when wor
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - logicalrep_launcher_attach_dshmem
-  - dshash_find
-  - dshash_release_lock
-  - LauncherLastStartTimesEntry
+  - [logicalrep_launcher_attach_dshmem](../l/logicalrep_launcher_attach_dshmem.md)
+  - [dshash_find](../d/dshash_find.md)
+  - [dshash_release_lock](../d/dshash_release_lock.md)
+  - [LauncherLastStartTimesEntry](../L/LauncherLastStartTimesEntry.md)
 - Called from:
-  - ApplyLauncherMain
+  - [ApplyLauncherMain](ApplyLauncherMain.md)
 
 ## Notes and Other Information
 - Returns TimestampTz (timestamp with timezone) or 0 if no entry exists

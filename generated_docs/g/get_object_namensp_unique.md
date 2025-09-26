@@ -24,7 +24,7 @@ The function accesses the centralized object property system to retrieve the uni
   - [get_object_property_data](get_object_property_data.md)
   - ObjectPropertyType (struct)
 - Called from (representative examples):
-  - pg_identify_object
+  - [pg_identify_object](../p/pg_identify_object.md)
   - [EventTriggerSQLDropAddObject](../E/EventTriggerSQLDropAddObject.md)
   - ObjectAddressSet
 

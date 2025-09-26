@@ -22,7 +22,7 @@ This function is the abort counterpart to ParseCommitRecord, responsible for par
 ## Dependencies
 - Functions called/Symbols referenced:
   - memset
-  - strlcpy
+  - [strlcpy](../s/strlcpy.md)
   - memcpy
   - strlen
   - MinSizeOfXactAbort

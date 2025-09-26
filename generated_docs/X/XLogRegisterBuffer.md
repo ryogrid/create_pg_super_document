@@ -34,10 +34,10 @@ The function maintains a registered_buffers array where each entry contains comp
   - [BufferGetTag](../B/BufferGetTag.md): Extracts buffer's file locator, fork, and block information
   - [BufferGetPage](../B/BufferGetPage.md): Gets pointer to the buffer's page data
   - [BufferIsExclusiveLocked](../B/BufferIsExclusiveLocked.md): Validates buffer is properly locked (debug builds)
-  - BufferIsDirty: Validates buffer is marked dirty (debug builds)
+  - [BufferIsDirty](../B/BufferIsDirty.md): Validates buffer is marked dirty (debug builds)
   - RelFileLocatorEquals: Checks for duplicate buffer registration (debug builds)
   - [registered_buffer](../r/registered_buffer.md): Buffer registration structure type
-  - XLogRecData: Data chain structure for buffer-associated data
+  - [XLogRecData](XLogRecData.md): Data chain structure for buffer-associated data
 - Called from (representative examples):
   - [heap_insert](../h/heap_insert.md): Registers heap pages for tuple insertion
   - [_bt_insertonpg](../b/_bt_insertonpg.md): Registers B-tree pages for index operations

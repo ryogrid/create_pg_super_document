@@ -23,7 +23,7 @@ InitSharedLatch initializes a latch structure for shared memory usage across mul
   - SECURITY_ATTRIBUTES (Windows-specific)
 - Called from (representative examples):
   - [XLogRecoveryShmemInit](../X/XLogRecoveryShmemInit.md)
-  - InitProcGlobal
+  - [InitProcGlobal](InitProcGlobal.md)
 
 ## Notes and Other Information
 - Must be called in postmaster before forking child processes

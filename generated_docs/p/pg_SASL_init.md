@@ -23,7 +23,7 @@ The function implements mechanism selection logic that prioritizes SCRAM-SHA-256
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initPQExpBuffer
+  - [initPQExpBuffer](../i/initPQExpBuffer.md)
   - [pqGets](pqGets.md)
   - PQExpBufferDataBroken
   - [libpq_append_conn_error](../l/libpq_append_conn_error.md)
@@ -33,7 +33,7 @@ The function implements mechanism selection logic that prioritizes SCRAM-SHA-256
   - [pqPutnchar](pqPutnchar.md)
   - [pqPutMsgEnd](pqPutMsgEnd.md)
   - [pqFlush](pqFlush.md)
-  - termPQExpBuffer
+  - [termPQExpBuffer](../t/termPQExpBuffer.md)
 - Constants used:
   - SCRAM_SHA_256_PLUS_NAME
   - SCRAM_SHA_256_NAME
@@ -42,7 +42,7 @@ The function implements mechanism selection logic that prioritizes SCRAM-SHA-256
   - STATUS_ERROR
   - SASL_FAILED
 - Called from:
-  - pg_fe_sendauth
+  - [pg_fe_sendauth](pg_fe_sendauth.md)
 
 ## Notes and Other Information
 - The function prioritizes SCRAM-SHA-256-PLUS over SCRAM-SHA-256 when SSL is available and channel binding is enabled

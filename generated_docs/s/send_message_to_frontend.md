@@ -20,7 +20,7 @@ This function serves as the central dispatcher for sending error and notice mess
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_PROTOCOL_MAJOR
-  - pq_beginmessage
+  - [pq_beginmessage](../p/pq_beginmessage.md)
   - PqMsg_NoticeResponse, PqMsg_ErrorResponse
   - [error_severity](../e/error_severity.md)
   - [pq_sendbyte](../p/pq_sendbyte.md)

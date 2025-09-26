@@ -22,7 +22,7 @@ This function is called during the DETACH PARTITION operation to ensure referent
 - Functions called/Symbols referenced:
   - [GetParentedForeignKeyRefs](../G/GetParentedForeignKeyRefs.md)
   - Form_pg_constraint
-  - Trigger
+  - [Trigger](../T/Trigger.md)
   - ShareLock
   - TRIGGER_FIRES_ON_ORIGIN
   - [RI_PartitionRemove_Check](../R/RI_PartitionRemove_Check.md)

@@ -28,12 +28,12 @@ The function operates by opening the relation, validating the move operation, al
   - [CheckRelationTableSpaceMove](../C/CheckRelationTableSpaceMove.md): Validates whether the move operation is allowed
   - [GetNewRelFileNumber](../G/GetNewRelFileNumber.md): Allocates a new relfilenumber in the target tablespace
   - [index_copy_data](../i/index_copy_data.md): Copies index data to new storage location
-  - table_relation_copy_data: Copies table data to new storage location
+  - [table_relation_copy_data](../t/table_relation_copy_data.md): Copies table data to new storage location
   - [SetRelationTableSpace](../S/SetRelationTableSpace.md): Updates pg_class with new tablespace and relfilenumber
   - [RelationGetIndexList](../R/RelationGetIndexList.md): Gets list of indexes for TOAST relations
   - [RelationAssumeNewRelfilelocator](../R/RelationAssumeNewRelfilelocator.md): Updates relation's internal locator information
   - InvokeObjectPostAlterHook: Triggers post-alter hooks for dependency tracking
-  - CommandCounterIncrement: Makes catalog changes visible to subsequent operations
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md): Makes catalog changes visible to subsequent operations
 
 - Called from (representative examples):
   - [ATRewriteTables](ATRewriteTables.md): Main table rewriting function during ALTER TABLE

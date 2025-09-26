@@ -31,7 +31,7 @@ The function resets the global counters (bufferedTuples and bufferedBytes) to ze
 - Functions called/Symbols referenced:
   - [CopyMultiInsertBufferFlush](CopyMultiInsertBufferFlush.md) (flushes individual buffers)
   - MAX_PARTITION_BUFFERS (constant defining maximum buffer count: 32)
-  - list_delete_first, lappend (list manipulation functions)
+  - [list_delete_first](../l/list_delete_first.md), lappend (list manipulation functions)
   - [CopyMultiInsertBufferCleanup](CopyMultiInsertBufferCleanup.md) (cleanup of removed buffers)
 - Called from (representative examples):
   - [CopyFrom](CopyFrom.md) (at src/backend/commands/copyfrom.c:1092)

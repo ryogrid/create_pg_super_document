@@ -30,7 +30,7 @@ This function is the core parsing engine used by all the specific privilege conv
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - text_to_cstring (converts PostgreSQL text to C string)
+  - [text_to_cstring](../t/text_to_cstring.md) (converts PostgreSQL text to C string)
   - strchr (finds comma separators)
   - isspace (checks for whitespace characters)
   - strlen (gets string length)

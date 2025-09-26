@@ -21,7 +21,7 @@ This function serves as a convenient wrapper around jspInitByBuffer that initial
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonPath (struct type)
+  - [JsonPath](../J/JsonPath.md) (struct type)
   - JsonPathItem (struct type)
   - JSONPATH_VERSION (version constant)
   - JSONPATH_LAX (flag constant)

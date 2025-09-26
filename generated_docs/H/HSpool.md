@@ -37,7 +37,7 @@ The HSpool structure is a key component in PostgreSQL's hash index construction 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Tuplesortstate
+  - [Tuplesortstate](../T/Tuplesortstate.md)
 - Called from (representative examples):
   - [_h_spoolinit](../h/_h_spoolinit.md)
   - [_h_spooldestroy](../h/_h_spooldestroy.md)

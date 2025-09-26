@@ -30,7 +30,7 @@ The function maintains a global character pool for all timezone abbreviations us
 ## Dependencies
 - Functions called/Symbols referenced:
   - `GRANDPARENTED`: Special constant for legacy timezone abbreviations
-  - `is_alpha`: Character classification function for alphabetic characters
+  - `[is_alpha](../i/is_alpha.md)`: Character classification function for alphabetic characters
   - [warning](../w/warning.md): Warning message function for validation issues
   - [error](../e/error.md): Error reporting function for fatal conditions
   - `strlen`: Standard C string length function

@@ -26,7 +26,7 @@ This comprehensive function handles dumping all aspects of a database definition
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - createPQExpBuffer
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)
   - [GetConnection](../G/GetConnection.md)
   - [ExecuteSqlQueryForSingleRow](../E/ExecuteSqlQueryForSingleRow.md)
   - [PQfnumber](../P/PQfnumber.md)
@@ -44,15 +44,15 @@ This comprehensive function handles dumping all aspects of a database definition
   - [emitShSecLabels](../e/emitShSecLabels.md)
   - [dumpACL](dumpACL.md)
   - [dumpDatabaseConfig](dumpDatabaseConfig.md)
-  - destroyPQExpBuffer
+  - [destroyPQExpBuffer](destroyPQExpBuffer.md)
   - [PQclear](../P/PQclear.md)
   - free
 - Types referenced:
   - [Archive](../A/Archive.md)
   - DumpOptions
   - PQExpBuffer
-  - PGconn
-  - PGresult
+  - [PGconn](../P/PGconn.md)
+  - [PGresult](../P/PGresult.md)
   - [CatalogId](../C/CatalogId.md)
   - DumpId
   - DumpableAcl

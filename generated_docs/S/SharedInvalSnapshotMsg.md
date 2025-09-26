@@ -37,13 +37,13 @@ The message uses a union-based design where it's part of the larger SharedInvali
   - SHAREDINVALSNAPSHOT_ID (constant value -5)
 
 - Called from (representative examples):
-  - AddSnapshotInvalidationMessage (creates and populates these messages)
-  - LocalExecuteInvalidationMessage (processes these messages)
-  - standby_desc_invalidations (describes these messages for WAL logging)
+  - [AddSnapshotInvalidationMessage](../A/AddSnapshotInvalidationMessage.md) (creates and populates these messages)
+  - [LocalExecuteInvalidationMessage](../L/LocalExecuteInvalidationMessage.md) (processes these messages)
+  - [standby_desc_invalidations](../s/standby_desc_invalidations.md) (describes these messages for WAL logging)
 
 ## Notes and Other Information
 - This structure is part of the SharedInvalidationMessage union and follows the same memory layout requirements
 - The id field must always be first to enable proper union discrimination
 - Used specifically for snapshot cache invalidation, distinct from other cache invalidation types like catcache or relcache
 - The message is processed through PostgreSQL's shared invalidation infrastructure to ensure all processes receive and act on the invalidation
-- Snapshot invalidations are particularly important for maintaining MVCC (Multi-Version Concurrency Control) consistency across transactions
+- [Snapshot](Snapshot.md) invalidations are particularly important for maintaining MVCC (Multi-Version Concurrency Control) consistency across transactions

@@ -47,7 +47,7 @@ It also maintains backward compatibility with pre-7.3 PostgreSQL syntax that all
 
 ## Notes and Other Information
 - The structure is allocated using  to ensure all fields are initially zero/NULL
-- String fields (, , ) are allocated separately and must be freed individually
+- [String](../S/String.md) fields (, , ) are allocated separately and must be freed individually
 - The  field is initialized to an empty string and built incrementally during parsing
 - Supports both regular files and program execution through the  flag
 - Handles special psql-specific stdin/stdout redirection via  flag

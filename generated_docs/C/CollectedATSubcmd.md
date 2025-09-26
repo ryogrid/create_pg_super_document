@@ -31,10 +31,10 @@ The structure is created and populated in the EventTriggerCollectAlterTableSubcm
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ObjectAddress (from catalog/objectaddress.h)
-  - Node (from nodes/nodes.h)
+  - [ObjectAddress](../O/ObjectAddress.md) (from catalog/objectaddress.h)
+  - [Node](../N/Node.md) (from nodes/nodes.h)
 - Called from (representative examples):
-  - EventTriggerCollectAlterTableSubcmd()
+  - [EventTriggerCollectAlterTableSubcmd](../E/EventTriggerCollectAlterTableSubcmd.md)()
   - Used within CollectedCommand.d.alterTable.subcmds list
 
 ## Notes and Other Information

@@ -40,7 +40,7 @@ This approach ensures that recursive references appear only in semantically vali
   - raw_expression_tree_walker (generic tree traversal)
   - [checkWellFormedRecursionWalker](checkWellFormedRecursionWalker.md) (specialized recursion walker)
   - elog (internal error logging)
-  - SelectStmt (SELECT statement structure)
+  - [SelectStmt](../S/SelectStmt.md) (SELECT statement structure)
   - [CteState](../C/CteState.md) (CTE validation state)
   - [RecursionContext](../R/RecursionContext.md) (recursion context enum)
   - SETOP_* constants (set operation type enumeration)

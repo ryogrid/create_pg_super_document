@@ -21,7 +21,7 @@ tfuncInitialize prepares the table function execution environment by configuring
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecEvalExpr
+  - [ExecEvalExpr](../E/ExecEvalExpr.md)
   - TextDatumGetCString
   - forboth
   - TupleDescAttr

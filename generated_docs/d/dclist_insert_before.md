@@ -27,7 +27,7 @@ Similar to dclist_insert_after, this function includes important safety measures
   - [dlist_member_check](dlist_member_check.md)
   - [dlist_insert_before](dlist_insert_before.md)
 - Called from (representative examples):
-  - ProcSleep (src/backend/storage/lmgr/proc.c:1195)
+  - [ProcSleep](../P/ProcSleep.md) (src/backend/storage/lmgr/proc.c:1195)
 
 ## Notes and Other Information
 - Includes comprehensive validation: the 'before' node must be verified as a member of the target list

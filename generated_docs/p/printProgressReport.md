@@ -22,7 +22,7 @@ The printProgressReport function collects statistics from all active worker thre
   - [mergeSimpleStats](../m/mergeSimpleStats.md) - Merges statistics from multiple threads
   - [getFailures](../g/getFailures.md) - Calculates total failure count from statistics
   - PG_TIME_GET_DOUBLE - Converts time to double precision
-  - snprintf - String formatting
+  - snprintf - [String](../S/String.md) formatting
   - fprintf - Output formatting to stderr
 - Called from (representative examples):
   - [threadRun](../t/threadRun.md) - Main thread execution function that calls this for periodic progress reporting

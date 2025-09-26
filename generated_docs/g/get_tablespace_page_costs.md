@@ -35,7 +35,7 @@ The cost parameters are essential for PostgreSQL's cost-based query optimizer to
   - seq_page_cost: Global default for sequential page access cost
 - Data structures used:
   - TableSpaceCacheEntry: Cache entry containing tablespace options
-  - TableSpaceOpts: Structure containing tablespace-specific cost parameters
+  - [TableSpaceOpts](../T/TableSpaceOpts.md): Structure containing tablespace-specific cost parameters
 - Called from:
   - [cost_seqscan](../c/cost_seqscan.md): Sequential scan cost estimation
   - [cost_samplescan](../c/cost_samplescan.md): Sample scan cost estimation  

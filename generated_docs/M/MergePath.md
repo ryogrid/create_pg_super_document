@@ -36,24 +36,24 @@ The path contains detailed information about sorting requirements, optimization 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JoinPath (base structure)
-  - List (PostgreSQL list structure)
-  - RestrictInfo (via path_mergeclauses)
+  - [JoinPath](../J/JoinPath.md) (base structure)
+  - [List](../L/List.md) (PostgreSQL list structure)
+  - [RestrictInfo](../R/RestrictInfo.md) (via path_mergeclauses)
   - PathKeys (via sort key lists)
 
 - Called from (representative examples):
-  - GetExistingLocalJoinPath (foreign data wrapper support)
-  - final_cost_mergejoin (merge join specific cost calculation)
-  - create_mergejoin_plan (converts path to execution plan)
-  - create_mergejoin_path (creates new MergePath instances)
-  - create_nestloop_path (when considering join alternatives)
+  - [GetExistingLocalJoinPath](../G/GetExistingLocalJoinPath.md) (foreign data wrapper support)
+  - [final_cost_mergejoin](../f/final_cost_mergejoin.md) (merge join specific cost calculation)
+  - [create_mergejoin_plan](../c/create_mergejoin_plan.md) (converts path to execution plan)
+  - [create_mergejoin_path](../c/create_mergejoin_path.md) (creates new MergePath instances)
+  - [create_nestloop_path](../c/create_nestloop_path.md) (when considering join alternatives)
 
 ## Notes and Other Information
 - Merge join requires mergeable join clauses (typically equality conditions on sortable types)
 - Can be very efficient for large datasets, especially when inputs are pre-sorted or sorting cost is amortized
 - The skip_mark_restore optimization applies when each outer tuple matches at most one inner tuple and mergeclauses are sufficient for identification
 - Materialization of inner input may be necessary when the inner path cannot be efficiently rescanned
-- Sort costs are included in the overall path cost when outersortkeys or innersortkeys are non-NIL
+- [Sort](../S/Sort.md) costs are included in the overall path cost when outersortkeys or innersortkeys are non-NIL
 - Non-mergeable join conditions must be evaluated as qpquals during execution
 - The algorithm performs best with high-cardinality, well-distributed join keys
 - Memory usage is typically lower than hash joins since it does not require loading one side entirely into memory

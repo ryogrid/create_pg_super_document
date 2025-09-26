@@ -21,25 +21,25 @@ The function applies worker offset adjustments for leader tapesets, enabling pro
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ltsReadBlock (reads individual blocks from storage)
-  - ltsReleaseBlock (releases blocks for unfrozen tapes)
+  - [ltsReadBlock](ltsReadBlock.md) (reads individual blocks from storage)
+  - [ltsReleaseBlock](ltsReleaseBlock.md) (releases blocks for unfrozen tapes)
   - TapeBlockGetNBytes (gets actual data bytes in block)
   - TapeBlockIsLast (checks if block is final in tape)
   - TapeBlockGetTrailer (gets block trailer for chaining)
 - Called from (representative examples):
-  - ltsInitReadBuffer
-  - LogicalTapeRead
+  - [ltsInitReadBuffer](ltsInitReadBuffer.md)
+  - [LogicalTapeRead](../L/LogicalTapeRead.md)
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ltsReadBlock
-  - ltsReleaseBlock  
+  - [ltsReadBlock](ltsReadBlock.md)
+  - [ltsReleaseBlock](ltsReleaseBlock.md)  
   - TapeBlockGetNBytes
   - TapeBlockIsLast
   - TapeBlockGetTrailer
 - Called from (representative examples):
-  - ltsInitReadBuffer
-  - LogicalTapeRead
+  - [ltsInitReadBuffer](ltsInitReadBuffer.md)
+  - [LogicalTapeRead](../L/LogicalTapeRead.md)
 
 ## Notes and Other Information
 - Returns true if any data was read, false on EOF condition

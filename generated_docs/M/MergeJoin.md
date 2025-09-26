@@ -52,16 +52,16 @@ The skip_mark_restore flag optimizes performance by avoiding expensive mark/rest
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Join (inherited base structure)
-  - List (for mergeclauses)
+  - [Join](../J/Join.md) (inherited base structure)
+  - [List](../L/List.md) (for mergeclauses)
   - Oid (for operator families and collations)
 
 - Called from (representative examples):
-  - ExplainNode (commands/explain.c:2175)
-  - ExecInitNode (executor/execProcnode.c:303)
-  - ExecInitMergeJoin (executor/nodeMergejoin.c:1444)
-  - create_mergejoin_plan (optimizer/plan/createplan.c:4443)
-  - make_mergejoin (optimizer/plan/createplan.c:6042)
+  - [ExplainNode](../E/ExplainNode.md) (commands/explain.c:2175)
+  - [ExecInitNode](../E/ExecInitNode.md) (executor/execProcnode.c:303)
+  - [ExecInitMergeJoin](../E/ExecInitMergeJoin.md) (executor/nodeMergejoin.c:1444)
+  - [create_mergejoin_plan](../c/create_mergejoin_plan.md) (optimizer/plan/createplan.c:4443)
+  - [make_mergejoin](../m/make_mergejoin.md) (optimizer/plan/createplan.c:6042)
 
 ## Notes and Other Information
 - Both input relations must be sorted according to the merge clauses for the algorithm to work correctly

@@ -43,7 +43,7 @@ The parser delegates individual range parsing to the underlying range type's inp
   - [pnstrdup](../p/pnstrdup.md)
   - [repalloc](../r/repalloc.md)
   - [InputFunctionCallSafe](../I/InputFunctionCallSafe.md)
-  - DatumGetRangeTypeP
+  - [DatumGetRangeTypeP](../D/DatumGetRangeTypeP.md)
   - RangeIsEmpty
   - [make_multirange](make_multirange.md)
   - PG_RETURN_MULTIRANGE_P

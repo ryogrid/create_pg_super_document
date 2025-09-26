@@ -22,8 +22,8 @@ The leader starts from the last (cheapest) subplan and works backward, immediate
 ## Dependencies
 - Functions called/Symbols referenced:
   - ScanDirectionIsForward
-  - LWLockAcquire
-  - LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - [ExecFindMatchingSubPlans](../E/ExecFindMatchingSubPlans.md)
   - [mark_invalid_subplans_as_finished](../m/mark_invalid_subplans_as_finished.md)
   - INVALID_SUBPLAN_INDEX (constant)

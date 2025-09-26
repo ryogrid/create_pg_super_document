@@ -28,7 +28,7 @@ The function also establishes the scan infrastructure by calling standard execut
   - makeNode
   - outerPlan/innerPlan (assertions)
   - [ExecValuesScan](ExecValuesScan.md)
-  - ExecAssignExprContext
+  - [ExecAssignExprContext](ExecAssignExprContext.md)
   - [ExecTypeFromExprList](ExecTypeFromExprList.md)
   - [ExecInitScanTupleSlot](ExecInitScanTupleSlot.md)
   - [ExecInitResultTypeTL](ExecInitResultTypeTL.md)

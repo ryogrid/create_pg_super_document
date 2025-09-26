@@ -34,7 +34,7 @@ The referenced cursor can be specified in two ways: as a hardwired string name (
   - [execCurrentOf](../e/execCurrentOf.md) (src/backend/executor/execCurrent.c:44)
   - [TidExprListCreate](../T/TidExprListCreate.md) (src/backend/executor/nodeTidscan.c:109)
   - [IsCurrentOfClause](../I/IsCurrentOfClause.md) (src/backend/optimizer/path/tidpath.c:213)
-  - transformCurrentOfExpr (src/backend/parser/parse_expr.c:2568)
+  - [transformCurrentOfExpr](../t/transformCurrentOfExpr.md) (src/backend/parser/parse_expr.c:2568)
 
 ## Notes and Other Information
 - Used exclusively in UPDATE and DELETE statements with WHERE CURRENT OF clauses

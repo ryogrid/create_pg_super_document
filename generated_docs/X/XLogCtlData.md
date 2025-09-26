@@ -154,12 +154,12 @@ Key responsibilities include tracking WAL insertion progress, managing the WAL b
 - Functions called/Symbols referenced:
   - [XLogCtlInsert](XLogCtlInsert.md) (WAL insertion control structure)
   - [XLogwrtRqst](XLogwrtRqst.md) (write request structure)
-  - FullTransactionId (transaction ID type)
+  - [FullTransactionId](../F/FullTransactionId.md) (transaction ID type)
   - XLogSegNo (WAL segment number type)
   - [pg_atomic_uint64](../p/pg_atomic_uint64.md) (atomic 64-bit integer type)
   - pg_time_t (time type)
   - [RecoveryState](../R/RecoveryState.md) (recovery state enumeration)
-  - CheckPoint (checkpoint record structure)
+  - [CheckPoint](../C/CheckPoint.md) (checkpoint record structure)
   - [slock_t](../s/slock_t.md) (spinlock type)
 - Called from (representative examples):
   - [WalInsertClass](../W/WalInsertClass.md)

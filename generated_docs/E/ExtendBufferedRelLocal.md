@@ -41,19 +41,19 @@ The function handles the complexity of coordinating buffer allocation, hash tabl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - InitLocalBuffers: Initializes local buffer system if needed
-  - LimitAdditionalLocalPins: Limits extension size based on available pins
-  - GetLocalVictimBuffer: Obtains buffers for new blocks
-  - GetLocalBufferDescriptor: Converts buffer IDs to BufferDesc pointers
+  - [InitLocalBuffers](../I/InitLocalBuffers.md): Initializes local buffer system if needed
+  - [LimitAdditionalLocalPins](../L/LimitAdditionalLocalPins.md): Limits extension size based on available pins
+  - [GetLocalVictimBuffer](../G/GetLocalVictimBuffer.md): Obtains buffers for new blocks
+  - [GetLocalBufferDescriptor](../G/GetLocalBufferDescriptor.md): Converts buffer IDs to BufferDesc pointers
   - LocalBufHdrGetBlock: Accesses buffer data pages
-  - smgrnblocks: Gets current relation size in blocks
-  - InitBufferTag/hash_search: Manages local buffer hash table entries
-  - smgrzeroextend: Performs physical extension of relation on disk
+  - [smgrnblocks](../s/smgrnblocks.md): Gets current relation size in blocks
+  - [InitBufferTag](../I/InitBufferTag.md)/hash_search: Manages local buffer hash table entries
+  - [smgrzeroextend](../s/smgrzeroextend.md): Performs physical extension of relation on disk
   - Various buffer state management functions (PinLocalBuffer, UnpinLocalBuffer, etc.)
   - I/O statistics tracking (pgstat_prepare_io_time, pgstat_count_io_op_time)
 - Called from (representative examples):
-  - ExtendBufferedRelCommon: Main relation extension function delegates to this for temporary relations
-  - ResourceOwnerForgetBufferIO: Buffer resource management
+  - [ExtendBufferedRelCommon](ExtendBufferedRelCommon.md): Main relation extension function delegates to this for temporary relations
+  - [ResourceOwnerForgetBufferIO](../R/ResourceOwnerForgetBufferIO.md): Buffer resource management
 
 ## Notes and Other Information
 - Unlike shared relations, temporary relations don't require concurrency control during extension

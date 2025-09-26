@@ -40,21 +40,21 @@ AggPath is fundamental to implementing SQL aggregate queries including SUM, COUN
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Path (base structure)
+  - [Path](../P/Path.md) (base structure)
   - AggStrategy (aggregation strategy enumeration)
   - AggSplit (aggregate splitting mode enumeration)
-  - List (for groupClause and qual)
-  - SortGroupClause (grouping specifications)
+  - [List](../L/List.md) (for groupClause and qual)
+  - [SortGroupClause](../S/SortGroupClause.md) (grouping specifications)
   - Cardinality (row count estimation type)
 - Called from (representative examples):
-  - create_agg_path (creates AggPath instances)
-  - create_agg_plan (converts AggPath to execution plan)
-  - create_plan_recurse (part of plan creation process)
+  - [create_agg_path](../c/create_agg_path.md) (creates AggPath instances)
+  - [create_agg_plan](../c/create_agg_plan.md) (converts AggPath to execution plan)
+  - [create_plan_recurse](../c/create_plan_recurse.md) (part of plan creation process)
 
 ## Notes and Other Information
 - For AGG_SORTED strategy, input must be presorted on grouping columns
 - AGG_HASHED strategy can work with unsorted input but requires memory for hash tables
-- Path ordering is preserved for AGG_SORTED, but output is unordered for AGG_HASHED
+- [Path](../P/Path.md) ordering is preserved for AGG_SORTED, but output is unordered for AGG_HASHED
 - Cost estimation includes aggregate function computation costs and memory usage
 - Supports parallel aggregate execution through aggsplit modes
 - transitionSpace is crucial for memory planning in complex aggregate operations

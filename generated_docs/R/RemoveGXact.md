@@ -20,11 +20,11 @@ RemoveGXact is a static function in the two-phase commit system that manages the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockHeldByMeInMode (for lock assertion)
+  - [LWLockHeldByMeInMode](../L/LWLockHeldByMeInMode.md) (for lock assertion)
   - elog (for error reporting)
 - Global structures accessed:
   - TwoPhaseState (global two-phase commit state)
-  - GlobalTransaction (transaction structure type)
+  - [GlobalTransaction](../G/GlobalTransaction.md) (transaction structure type)
 - Called from:
   - [AtAbort_Twophase](../A/AtAbort_Twophase.md)
   - [FinishPreparedTransaction](../F/FinishPreparedTransaction.md)

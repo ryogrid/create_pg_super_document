@@ -35,7 +35,7 @@ The function deliberately avoids full MVCC time qualification checks since TOAST
   - HeapTupleHeaderGetXvac
   - HeapTupleHeaderGetXmin
   - [TransactionIdIsCurrentTransactionId](../T/TransactionIdIsCurrentTransactionId.md)
-  - TransactionIdIsInProgress
+  - [TransactionIdIsInProgress](../T/TransactionIdIsInProgress.md)
   - [TransactionIdDidCommit](../T/TransactionIdDidCommit.md)
   - [SetHintBits](../S/SetHintBits.md)
   - [ItemPointerIsValid](../I/ItemPointerIsValid.md)

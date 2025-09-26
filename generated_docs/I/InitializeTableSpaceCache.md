@@ -27,7 +27,7 @@ This function takes no parameters.
   - [CacheRegisterSyscacheCallback](../C/CacheRegisterSyscacheCallback.md): Registers invalidation callback for TABLESPACEOID
   - [InvalidateTableSpaceCacheCallback](InvalidateTableSpaceCacheCallback.md): The callback function for cache invalidation
 - Data structures used:
-  - HASHCTL: Hash table control structure for configuration
+  - [HASHCTL](../H/HASHCTL.md): Hash table control structure for configuration
   - TableSpaceCacheEntry: Cache entry structure definition
   - TableSpaceCacheHash: Global hash table variable
   - CacheMemoryContext: Memory context for cache allocations

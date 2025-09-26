@@ -29,14 +29,14 @@ The time complexity is O(log n) due to the sift-down operation performed by the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - tuplesort_heap_replace_top: Replaces the top element with a given tuple and restores heap invariant
+  - [tuplesort_heap_replace_top](tuplesort_heap_replace_top.md): Replaces the top element with a given tuple and restores heap invariant
   - SortTuple: Structure representing a sortable tuple
-  - Tuplesortstate: Main state structure for sorting operations
+  - [Tuplesortstate](../T/Tuplesortstate.md): Main state structure for sorting operations
 
 - Called from:
-  - tuplesort_gettuple_common: When retrieving tuples during result reading
-  - mergeonerun: During external sort merge operations
-  - sort_bounded_heap: When converting bounded heap to sorted array
+  - [tuplesort_gettuple_common](tuplesort_gettuple_common.md): When retrieving tuples during result reading
+  - [mergeonerun](../m/mergeonerun.md): During external sort merge operations
+  - [sort_bounded_heap](../s/sort_bounded_heap.md): When converting bounded heap to sorted array
   - LEADER: Referenced by parallel sort leader processes
 
 ## Notes and Other Information

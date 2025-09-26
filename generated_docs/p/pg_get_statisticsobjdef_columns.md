@@ -21,7 +21,7 @@ This function is a PostgreSQL built-in function (accessible via SQL) that extrac
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_get_statisticsobj_worker](pg_get_statisticsobj_worker.md)
-  - string_to_text
+  - [string_to_text](../s/string_to_text.md)
   - PG_RETURN_TEXT_P
 - Called from (representative examples):
   - No direct references found (likely called via SQL interface)

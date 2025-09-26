@@ -27,8 +27,8 @@ Since PostgreSQL doesn't expect pg_subtrans to be valid across crashes, this ini
   - [TransactionIdToPage](../T/TransactionIdToPage.md)
   - XidFromFullTransactionId
   - [SimpleLruGetBankLock](SimpleLruGetBankLock.md)
-  - ZeroSUBTRANSPage
-  - LWLockAcquire/LWLockRelease
+  - [ZeroSUBTRANSPage](../Z/ZeroSUBTRANSPage.md)
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease
 - Called from (representative examples):
   - [StartupXLOG](StartupXLOG.md) (during crash recovery and normal startup)
 

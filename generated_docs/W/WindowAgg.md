@@ -107,23 +107,23 @@ The WindowAgg node implements SQL window functions such as ROW_NUMBER(), RANK(),
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Plan (base structure)
+  - [Plan](../P/Plan.md) (base structure)
   - Index
   - AttrNumber
   - Oid
-  - Node
-  - List
+  - [Node](../N/Node.md)
+  - [List](../L/List.md)
 
 - Called from (representative examples):
-  - ExecInitWindowAgg (executor/nodeWindowAgg.c:2374)
-  - create_windowagg_plan (optimizer/plan/createplan.c:2619)
-  - make_windowagg (optimizer/plan/createplan.c:6636)
-  - begin_partition (executor/nodeWindowAgg.c:1083)
-  - update_frameheadpos (executor/nodeWindowAgg.c:1487)
-  - WinRowsArePeers (executor/nodeWindowAgg.c:3256)
+  - [ExecInitWindowAgg](../E/ExecInitWindowAgg.md) (executor/nodeWindowAgg.c:2374)
+  - [create_windowagg_plan](../c/create_windowagg_plan.md) (optimizer/plan/createplan.c:2619)
+  - [make_windowagg](../m/make_windowagg.md) (optimizer/plan/createplan.c:6636)
+  - [begin_partition](../b/begin_partition.md) (executor/nodeWindowAgg.c:1083)
+  - [update_frameheadpos](../u/update_frameheadpos.md) (executor/nodeWindowAgg.c:1487)
+  - [WinRowsArePeers](WinRowsArePeers.md) (executor/nodeWindowAgg.c:3256)
 
 ## Notes and Other Information
-- WindowAgg nodes require their input to be sorted by partition columns first, then by ordering columns within each partition
+- [WindowAgg](WindowAgg.md) nodes require their input to be sorted by partition columns first, then by ordering columns within each partition
 - The node can handle complex frame specifications including UNBOUNDED PRECEDING/FOLLOWING, CURRENT ROW, and numeric/interval offsets
 - Multiple window functions with identical window specifications can be computed by a single WindowAgg node for efficiency
 - The topWindow field helps optimize execution when multiple WindowAgg nodes are stacked

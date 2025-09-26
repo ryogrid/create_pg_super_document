@@ -21,7 +21,7 @@ The function is part of the resource owner framework that helps PostgreSQL track
 - Functions called/Symbols referenced:
   - [DatumGetPointer](../D/DatumGetPointer.md) (macro to extract pointer from Datum)
   - [psprintf](../p/psprintf.md) (PostgreSQL's safe sprintf equivalent)
-  - CatCList (struct containing cache list information)
+  - [CatCList](../C/CatCList.md) (struct containing cache list information)
 - Called from (representative examples):
   - Resource owner debug/error reporting mechanisms via catlistref_resowner_desc.DebugPrint callback
 

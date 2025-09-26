@@ -39,16 +39,16 @@ Key behaviors include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth
+  - [check_stack_depth](../c/check_stack_depth.md)
   - CHECK_FOR_INTERRUPTS
   - TS_phrase_output
   - chkcond (callback)
   - memset
   - elog
 - Called from (representative examples):
-  - TS_phrase_execute (recursive calls)
-  - TS_execute_recurse
-  - TS_execute_locations_recurse
+  - [TS_phrase_execute](TS_phrase_execute.md) (recursive calls)
+  - [TS_execute_recurse](TS_execute_recurse.md)
+  - [TS_execute_locations_recurse](TS_execute_locations_recurse.md)
 
 ## Notes and Other Information
 - The function is designed to be recursively safe with stack depth monitoring

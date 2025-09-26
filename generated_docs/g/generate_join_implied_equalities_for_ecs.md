@@ -39,7 +39,7 @@ Currently assumes sjinfo == NULL (no outer-join filter clauses), though this res
   - [generate_join_implied_equalities_broken](generate_join_implied_equalities_broken.md)
   - [list_concat](../l/list_concat.md)
 - Called from (representative examples):
-  - get_joinrel_parampathinfo (src/backend/optimizer/util/relnode.c:1803)
+  - [get_joinrel_parampathinfo](get_joinrel_parampathinfo.md) (src/backend/optimizer/util/relnode.c:1803)
 
 ## Notes and Other Information
 - More efficient than full generate_join_implied_equalities when relevant ECs are pre-identified

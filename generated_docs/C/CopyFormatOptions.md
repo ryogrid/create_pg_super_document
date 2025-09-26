@@ -78,9 +78,9 @@ CopyFormatOptions encapsulates all formatting and behavioral parameters for Post
   - CopyOnErrorChoice (enum for error handling behavior)
   - CopyLogVerbosityChoice (enum for logging verbosity)
 - Called from (representative examples):
-  - ProcessCopyOptions (populates this struct from COPY command options)
-  - CopyToState (uses this struct for COPY TO operations)
-  - CopyFromStateData (uses this struct for COPY FROM operations)
+  - [ProcessCopyOptions](../P/ProcessCopyOptions.md) (populates this struct from COPY command options)
+  - [CopyToState](CopyToState.md) (uses this struct for COPY TO operations)
+  - [CopyFromStateData](CopyFromStateData.md) (uses this struct for COPY FROM operations)
 
 ## Notes and Other Information
 This struct serves as the central configuration hub for all COPY operations in PostgreSQL. While most members relate to formatting, the  option is noted in the source comments as not truly belonging here but being parsed along with other options for convenience. The structure supports both text and binary formats, with extensive CSV-specific options for fine-grained control over column behavior. The per-column flag arrays enable different formatting rules for individual columns within the same COPY operation.

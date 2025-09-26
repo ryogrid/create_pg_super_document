@@ -19,17 +19,17 @@ The store_att_byval function is a partial inverse of fetch_att that stores a giv
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetChar (for 1-byte values)
-  - DatumGetInt16 (for 2-byte values) 
-  - DatumGetInt32 (for 4-byte values)
+  - [DatumGetChar](../D/DatumGetChar.md) (for 1-byte values)
+  - [DatumGetInt16](../D/DatumGetInt16.md) (for 2-byte values) 
+  - [DatumGetInt32](../D/DatumGetInt32.md) (for 4-byte values)
   - SIZEOF_DATUM (compile-time constant for 8-byte values)
   - elog (for error reporting)
 - Called from (representative examples):
-  - brin_range_serialize
-  - fill_val
-  - statext_mcv_serialize
-  - ArrayCastAndSet
-  - datum_write
+  - [brin_range_serialize](../b/brin_range_serialize.md)
+  - [fill_val](../f/fill_val.md)
+  - [statext_mcv_serialize](statext_mcv_serialize.md)
+  - [ArrayCastAndSet](../A/ArrayCastAndSet.md)
+  - [datum_write](../d/datum_write.md)
 
 ## Notes and Other Information
 - This is an inline function for performance optimization during tuple construction and modification

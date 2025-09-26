@@ -20,7 +20,7 @@ This function provides access to the left (or first) argument of an OpExpr node 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - OpExpr (node type)
+  - [OpExpr](../O/OpExpr.md) (node type)
   - linitial (macro to get first list element)
   - NIL (empty list constant)
 - Called from (representative examples):

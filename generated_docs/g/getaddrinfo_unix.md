@@ -28,9 +28,9 @@ The implementation handles path length validation, memory allocation, and proper
   - strcpy (string copying)
   - memcpy (memory copying)
   - strlen (string length calculation)
-  - sockaddr_un (Unix socket address structure)
+  - [sockaddr_un](../s/sockaddr_un.md) (Unix socket address structure)
 - Called from:
-  - pg_getaddrinfo_all (when ai_family is AF_UNIX)
+  - [pg_getaddrinfo_all](../p/pg_getaddrinfo_all.md) (when ai_family is AF_UNIX)
 
 ## Notes and Other Information
 - Static function, only accessible within src/common/ip.c

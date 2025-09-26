@@ -51,16 +51,16 @@ For ON CONFLICT UPDATE scenarios, the structure maintains a list of SET target e
 - Functions called/Symbols referenced:
   - OnConflictAction (enumeration for conflict actions)
   - NodeTag (for node identification)
-  - List (for various element collections)
-  - Node (for WHERE clause expressions)
+  - [List](../L/List.md) (for various element collections)
+  - [Node](../N/Node.md) (for WHERE clause expressions)
   - Oid (for constraint identification)
 - Called from (representative examples):
-  - transformOnConflictClause (analyze.c:1129)
-  - make_modifytable (createplan.c:7036)
-  - create_modifytable_path (pathnode.c:3733)
-  - infer_arbiter_indexes (plancat.c:707)
-  - get_insert_query_def (ruleutils.c:6785)
-  - rewriteTargetView (rewriteHandler.c:3709)
+  - [transformOnConflictClause](../t/transformOnConflictClause.md) (analyze.c:1129)
+  - [make_modifytable](../m/make_modifytable.md) (createplan.c:7036)
+  - [create_modifytable_path](../c/create_modifytable_path.md) (pathnode.c:3733)
+  - [infer_arbiter_indexes](../i/infer_arbiter_indexes.md) (plancat.c:707)
+  - [get_insert_query_def](../g/get_insert_query_def.md) (ruleutils.c:6785)
+  - [rewriteTargetView](../r/rewriteTargetView.md) (rewriteHandler.c:3709)
 
 ## Notes and Other Information
 - Essential for implementing PostgreSQL's UPSERT functionality through ON CONFLICT clauses
@@ -70,5 +70,5 @@ For ON CONFLICT UPDATE scenarios, the structure maintains a list of SET target e
 - Optimizer integration allows for efficient conflict detection and resolution planning
 - Used in ModifyTable execution nodes for handling INSERT conflicts
 - The constraint OID provides a direct link to the pg_constraint catalog for validation
-- InferenceElem nodes in arbiterElems help the optimizer choose appropriate unique indexes
+- [InferenceElem](../I/InferenceElem.md) nodes in arbiterElems help the optimizer choose appropriate unique indexes
 - Critical component in PostgreSQL's advanced INSERT statement processing

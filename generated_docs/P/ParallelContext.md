@@ -51,15 +51,15 @@ ParallelContext is the central management structure for PostgreSQL's parallel ex
 - Functions called/Symbols referenced:
   - [dlist_node](../d/dlist_node.md)
   - SubTransactionId
-  - shm_toc_estimator
-  - dsm_segment
+  - [shm_toc_estimator](../s/shm_toc_estimator.md)
+  - [dsm_segment](../d/dsm_segment.md)
   - [shm_toc](../s/shm_toc.md)
   - [ParallelWorkerInfo](ParallelWorkerInfo.md)
 - Called from (representative examples):
   - [CreateParallelContext](../C/CreateParallelContext.md)
   - [InitializeParallelDSM](../I/InitializeParallelDSM.md)
   - [LaunchParallelWorkers](../L/LaunchParallelWorkers.md)
-  - WaitForParallelWorkersToFinish
+  - [WaitForParallelWorkersToFinish](../W/WaitForParallelWorkersToFinish.md)
   - [ExecInitParallelPlan](../E/ExecInitParallelPlan.md)
 
 ## Notes and Other Information

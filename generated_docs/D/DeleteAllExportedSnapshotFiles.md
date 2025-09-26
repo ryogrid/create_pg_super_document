@@ -28,14 +28,14 @@ The function uses conservative error handling - problems with reading the direct
 ## Dependencies
 - Functions called/Symbols referenced:
   - SNAPSHOT_EXPORT_DIR (directory constant)
-  - AllocateDir
-  - ReadDirExtended
+  - [AllocateDir](../A/AllocateDir.md)
+  - [ReadDirExtended](../R/ReadDirExtended.md)
   - unlink
-  - FreeDir
-  - DIR (directory structure)
-  - dirent (directory entry structure)
+  - [FreeDir](../F/FreeDir.md)
+  - [DIR](DIR.md) (directory structure)
+  - [dirent](../d/dirent.md) (directory entry structure)
 - Called from (representative examples):
-  - StartupXLOG (during database startup and crash recovery)
+  - [StartupXLOG](../S/StartupXLOG.md) (during database startup and crash recovery)
 
 ## Notes and Other Information
 - Called during database startup or crash recovery to clean up orphaned snapshot files

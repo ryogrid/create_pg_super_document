@@ -30,9 +30,9 @@ The function modifies the input line pointer to advance past the processed token
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - resetStringInfo (clears the output buffer)
+  - [resetStringInfo](../r/resetStringInfo.md) (clears the output buffer)
   - [pg_isblank](../p/pg_isblank.md) (tests for whitespace characters)
-  - appendStringInfoChar (appends characters to the buffer)
+  - [appendStringInfoChar](../a/appendStringInfoChar.md) (appends characters to the buffer)
 - Called from (representative examples):
   - [next_field_expand](next_field_expand.md) (in src/backend/libpq/hba.c)
   - [base_yylex](../b/base_yylex.md) (in src/backend/parser/parser.c)

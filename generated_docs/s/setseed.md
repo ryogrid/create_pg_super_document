@@ -23,7 +23,7 @@ The function validates that the input seed falls within the acceptable range of 
 - Functions called/Symbols referenced:
   - `PG_GETARG_FLOAT8` - Extracts float8 argument from function call
   - `isnan` - Checks if the seed value is NaN
-  - `pg_prng_fseed` - Seeds the PRNG with a floating-point value
+  - `[pg_prng_fseed](../p/pg_prng_fseed.md)` - Seeds the PRNG with a floating-point value
   - `PG_RETURN_VOID` - Returns void from PostgreSQL function
 - Called from:
   - [assign_random_seed](../a/assign_random_seed.md) - Assignment function for random_seed GUC variable

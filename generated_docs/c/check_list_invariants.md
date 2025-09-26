@@ -27,7 +27,7 @@ This function performs sanity checks on a List structure to ensure it maintains 
 - Called from (representative examples):
   - [list_make1_impl](../l/list_make1_impl.md)
   - [list_make2_impl](../l/list_make2_impl.md)
-  - lappend
+  - [lappend](../l/lappend.md)
   - [list_insert_nth](../l/list_insert_nth.md)
   - [list_concat](../l/list_concat.md)
   - [list_member](../l/list_member.md)

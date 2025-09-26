@@ -33,10 +33,10 @@ The structure implements a locking mechanism to prevent concurrent slot synchron
 ## Dependencies
 - Functions called/Symbols referenced:
   - pid_t (system type for process IDs)
-  - slock_t (PostgreSQL spinlock type)
+  - [slock_t](../s/slock_t.md) (PostgreSQL spinlock type)
 - Called from (representative examples):
-  - SlotSyncShmemSize (calculates shared memory size requirements)
-  - SlotSyncShmemInit (initializes the shared memory structure)
+  - [SlotSyncShmemSize](SlotSyncShmemSize.md) (calculates shared memory size requirements)
+  - [SlotSyncShmemInit](SlotSyncShmemInit.md) (initializes the shared memory structure)
 
 ## Notes and Other Information
 - This structure is designed to handle race conditions during standby promotion when the postmaster may not immediately notice the promotion

@@ -28,11 +28,11 @@ Key behaviors include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open/table_close: Access pg_authid catalog
+  - [table_open](../t/table_open.md)/table_close: Access pg_authid catalog
   - [SearchSysCache1](../S/SearchSysCache1.md)/ReleaseSysCache: Cache-based role lookup
   - [GetSessionUserId](../G/GetSessionUserId.md)/GetOuterUserId: Current user validation
   - [IsReservedName](../I/IsReservedName.md): Reserved name checking
-  - superuser/have_createrole_privilege/is_admin_of_role: Permission validation
+  - [superuser](../s/superuser.md)/have_createrole_privilege/is_admin_of_role: Permission validation
   - [get_password_type](../g/get_password_type.md): Password type detection for MD5 handling
   - [heap_modify_tuple](../h/heap_modify_tuple.md)/CatalogTupleUpdate: Catalog modification
   - InvokeObjectPostAlterHook: Post-operation hooks

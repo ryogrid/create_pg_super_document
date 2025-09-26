@@ -27,7 +27,7 @@ If no bits are set in the considered range, or if the first set bit is beyond th
 - Functions called/Symbols referenced:
   - [pg_leftmost_one_pos32](../p/pg_leftmost_one_pos32.md)
 - Called from (representative examples):
-  - addHyperLogLog
+  - [addHyperLogLog](../a/addHyperLogLog.md)
 
 ## Notes and Other Information
 - The function is declared as  for performance optimization since it's called frequently in cardinality estimation

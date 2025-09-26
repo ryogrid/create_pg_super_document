@@ -46,7 +46,7 @@ If the target type is a domain over a composite type, it applies domain constrai
   - [coerce_to_target_type](coerce_to_target_type.md) (recursive field coercion)
   - [coerce_to_domain](coerce_to_domain.md) (domain constraint application)
   - makeNode, makeNullConst (node construction)
-  - list_head, lnext, lappend (list operations)
+  - [list_head](../l/list_head.md), lnext, lappend (list operations)
   - [format_type_be](../f/format_type_be.md), parser_coercion_errposition (error reporting)
 - Called from:
   - [coerce_type](coerce_type.md)

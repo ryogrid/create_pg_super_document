@@ -21,7 +21,7 @@ This function is part of PostgreSQL's plan node building infrastructure and crea
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SeqScan (the plan node type being created)
+  - [SeqScan](../S/SeqScan.md) (the plan node type being created)
   - makeNode (PostgreSQL's node allocation macro)
 - Called from (representative examples):
   - [create_seqscan_plan](../c/create_seqscan_plan.md)

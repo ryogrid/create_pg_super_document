@@ -30,7 +30,7 @@ This function is a core component of PostgreSQL's regression testing framework. 
   - [add_stringlist_item](../a/add_stringlist_item.md): Add file paths to result and expected file lists
   - [spawn_process](../s/spawn_process.md): Create and start the psql subprocess
   - setenv/unsetenv: Manage PGAPPNAME environment variable
-  - initStringInfo/appendStringInfo: Build psql command string
+  - [initStringInfo](../i/initStringInfo.md)/appendStringInfo: Build psql command string
   - [pfree](pfree.md): Free allocated memory
 - Called from (representative examples):
   - [main](../m/main.md) (in src/test/regress/pg_regress_main.c:115)

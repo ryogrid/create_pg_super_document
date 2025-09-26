@@ -24,11 +24,11 @@ The Sync message serves as a synchronization point in pipeline mode, marking bou
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqPipelineSyncInternal
+  - [pqPipelineSyncInternal](../p/pqPipelineSyncInternal.md)
 
 - Called from (representative examples):
-  - executeMetaCommand (pgbench.c)
-  - test_multi_pipelines (libpq_pipeline.c)
+  - [executeMetaCommand](../e/executeMetaCommand.md) (pgbench.c)
+  - [test_multi_pipelines](../t/test_multi_pipelines.md) (libpq_pipeline.c)
 
 ## Notes and Other Information
 - Returns 1 on success, 0 on failure

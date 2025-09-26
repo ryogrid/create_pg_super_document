@@ -36,7 +36,7 @@ The function operates directly on the catalog tuple by copying it, modifying the
   - [relation_open](relation_open.md), table_open, relation_close, table_close (relation management)
   - [systable_beginscan](../s/systable_beginscan.md), systable_getnext, systable_endscan (catalog scanning)
   - [heap_copytuple](../h/heap_copytuple.md) (tuple duplication)
-  - namestrcpy (name field modification)
+  - [namestrcpy](../n/namestrcpy.md) (name field modification)
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md) (catalog updates)
   - InvokeObjectPostAlterHook (event hooks)
   - [CacheInvalidateRelcache](../C/CacheInvalidateRelcache.md) (cache management)

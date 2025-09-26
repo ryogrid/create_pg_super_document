@@ -23,7 +23,7 @@ The function validates the access method type and logs warnings for invalid type
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - createPQExpBuffer/destroyPQExpBuffer (for SQL statement building)
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)/destroyPQExpBuffer (for SQL statement building)
   - [pg_strdup](../p/pg_strdup.md)/free (for memory management)
   - [fmtId](../f/fmtId.md) (for proper identifier formatting)
   - [appendPQExpBuffer](../a/appendPQExpBuffer.md)/appendPQExpBufferStr (for statement construction)

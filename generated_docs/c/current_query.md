@@ -24,7 +24,7 @@ This function is commonly used for logging, debugging, audit trails, and dynamic
 ## Dependencies
 - Functions called/Symbols referenced:
   - debug_query_string (global variable)
-  - cstring_to_text
+  - [cstring_to_text](cstring_to_text.md)
   - PG_RETURN_TEXT_P
   - PG_RETURN_NULL
 - Called from (representative examples):

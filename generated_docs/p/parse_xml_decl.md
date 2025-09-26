@@ -35,19 +35,19 @@ The function also validates that all characters in the parsed declaration are AS
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_xml_init_library (initialize libxml2)
-  - strnlen (get string length with limit)
+  - [pg_xml_init_library](pg_xml_init_library.md) (initialize libxml2)
+  - [strnlen](../s/strnlen.md) (get string length with limit)
   - xmlGetUTF8Char (get UTF-8 character from libxml2)
   - PG_XMLISNAMECHAR (check if character is valid XML name character)
   - CHECK_XML_SPACE, SKIP_XML_SPACE (XML whitespace handling macros)
-  - xml_pnstrdup (PostgreSQL XML string duplication)
+  - [xml_pnstrdup](../x/xml_pnstrdup.md) (PostgreSQL XML string duplication)
   - xmlStrncmp, xmlStrchr (libxml2 string functions)
 - Called from (representative examples):
-  - xml_out_internal (XML output processing)
-  - xml_recv (XML input from binary format)
-  - xmlconcat (XML concatenation)
-  - xmlroot (XML root element processing)
-  - xml_parse (main XML parsing function)
+  - [xml_out_internal](../x/xml_out_internal.md) (XML output processing)
+  - [xml_recv](../x/xml_recv.md) (XML input from binary format)
+  - [xmlconcat](../x/xmlconcat.md) (XML concatenation)
+  - [xmlroot](../x/xmlroot.md) (XML root element processing)
+  - [xml_parse](../x/xml_parse.md) (main XML parsing function)
 
 ## Notes and Other Information
 - Returns 0 (XML_ERR_OK) on success, error codes on failure

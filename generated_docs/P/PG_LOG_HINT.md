@@ -23,7 +23,7 @@ This is an enum constant, so it has no parameters or member variables.
 - Functions called/Symbols referenced:
   - pg_log_part (parent enum)
 - Called from (representative examples):
-  - pg_log_generic_v (src/common/logging.c:298)
+  - [pg_log_generic_v](../p/pg_log_generic_v.md) (src/common/logging.c:298)
   - pg_log_error_hint (src/include/common/logging.h:113)
   - pg_log_warning_hint (src/include/common/logging.h:122)
   - pg_log_info_hint (src/include/common/logging.h:131)

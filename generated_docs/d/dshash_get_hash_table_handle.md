@@ -24,10 +24,10 @@ The function includes validation to ensure the hash table is still valid by chec
 - Functions called/Symbols referenced:
   - Assert (validates DSHASH_MAGIC)
 - Called from (representative examples):
-  - logicalrep_launcher_attach_dshmem
-  - init_dsm_registry
-  - StatsShmemInit
-  - SharedRecordTypmodRegistryInit
+  - [logicalrep_launcher_attach_dshmem](../l/logicalrep_launcher_attach_dshmem.md)
+  - [init_dsm_registry](../i/init_dsm_registry.md)
+  - [StatsShmemInit](../S/StatsShmemInit.md)
+  - [SharedRecordTypmodRegistryInit](../S/SharedRecordTypmodRegistryInit.md)
 
 ## Notes and Other Information
 - Returns the handle stored in the control structure during hash table creation

@@ -32,7 +32,7 @@ This follows the common C idiom of using one-past-the-end pointers for range ite
   - [rainbow](../r/rainbow.md) (color assignment)
   - [colorcomplement](../c/colorcomplement.md) (color complementing)
   - [dumpcolors](../d/dumpcolors.md) (debugging output)
-  - optimizebracket (bracket optimization)
+  - [optimizebracket](../o/optimizebracket.md) (bracket optimization)
 
 ## Notes and Other Information
 - This is a common C programming pattern for providing end-of-array sentinels

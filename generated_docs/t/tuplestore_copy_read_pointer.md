@@ -23,11 +23,11 @@ This function copies all the state information from a source read pointer to a d
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Tuplestorestate
+  - [Tuplestorestate](../T/Tuplestorestate.md)
   - TSReadPointer
   - TSS_INMEM, TSS_WRITEFILE, TSS_READFILE (tuplestore status constants)
-  - BufFileSeek
-  - BufFileTell
+  - [BufFileSeek](../B/BufFileSeek.md)
+  - [BufFileTell](../B/BufFileTell.md)
 - Called from (representative examples):
   - [ExecMaterialMarkPos](../E/ExecMaterialMarkPos.md)
   - [ExecMaterialRestrPos](../E/ExecMaterialRestrPos.md)

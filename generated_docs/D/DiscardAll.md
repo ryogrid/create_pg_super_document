@@ -31,7 +31,7 @@ The function includes transaction safety checks to prevent DISCARD ALL from bein
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PreventInTransactionBlock](../P/PreventInTransactionBlock.md)
-  - PortalHashTableDeleteAll
+  - [PortalHashTableDeleteAll](../P/PortalHashTableDeleteAll.md)
   - [SetPGVariable](../S/SetPGVariable.md)
   - [ResetAllOptions](../R/ResetAllOptions.md)
   - [DropAllPreparedStatements](DropAllPreparedStatements.md)

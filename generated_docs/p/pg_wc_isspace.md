@@ -28,7 +28,7 @@ The function supports multiple strategies:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_u_isspace
+  - [pg_u_isspace](pg_u_isspace.md)
   - iswspace_l
   - isspace_l
   - u_isspace (ICU)
@@ -42,8 +42,8 @@ The function supports multiple strategies:
   - PG_REGEX_LOCALE_ICU
   - PG_ISSPACE
 - Called from (representative examples):
-  - cclasscvec
-  - cclass_column_index
+  - [cclasscvec](../c/cclasscvec.md)
+  - [cclass_column_index](../c/cclass_column_index.md)
   - iscspace
 
 ## Notes and Other Information

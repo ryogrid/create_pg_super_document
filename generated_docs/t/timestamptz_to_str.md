@@ -27,7 +27,7 @@ This function produces a C-string representation of a TimestampTz value with the
   - [timestamp2tm](timestamp2tm.md) (function to convert timestamp to broken-down time)
   - [EncodeDateTime](../E/EncodeDateTime.md) (function to encode datetime to string)
   - USE_ISO_DATES (constant for ISO date format)
-  - strlcpy (safe string copy function)
+  - [strlcpy](../s/strlcpy.md) (safe string copy function)
 - Called from (representative examples):
   - [xact_desc_commit](../x/xact_desc_commit.md) (transaction commit descriptions)
   - [xact_desc_abort](../x/xact_desc_abort.md) (transaction abort descriptions)

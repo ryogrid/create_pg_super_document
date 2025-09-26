@@ -23,16 +23,16 @@ The bit width determines the number of registers (2^bwidth) and directly impacts
 ## Dependencies
 - Functions called/Symbols referenced:
   - elog (for error reporting)
-  - palloc0 (for zero-initialized memory allocation)
-  - hyperLogLogState (structure type)
+  - [palloc0](../p/palloc0.md) (for zero-initialized memory allocation)
+  - [hyperLogLogState](../h/hyperLogLogState.md) (structure type)
 - Called from (representative examples):
-  - hashagg_spill_init
-  - initHyperLogLogError
-  - macaddr_sortsupport
-  - network_sortsupport
-  - numeric_sortsupport
-  - uuid_sortsupport
-  - varstr_sortsupport
+  - [hashagg_spill_init](../h/hashagg_spill_init.md)
+  - [initHyperLogLogError](initHyperLogLogError.md)
+  - [macaddr_sortsupport](../m/macaddr_sortsupport.md)
+  - [network_sortsupport](../n/network_sortsupport.md)
+  - [numeric_sortsupport](../n/numeric_sortsupport.md)
+  - [uuid_sortsupport](../u/uuid_sortsupport.md)
+  - [varstr_sortsupport](../v/varstr_sortsupport.md)
 
 ## Notes and Other Information
 - The function calculates alpha correction factors for specific register counts (16, 32, 64) with hardcoded values, and uses a general formula for other counts

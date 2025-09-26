@@ -26,7 +26,7 @@ The function sets the `trss_inScan` flag to false, indicating that the scan is n
   - [ExecReScan](ExecReScan.md) (generic plan node rescan dispatcher)
 
 ## Notes and Other Information
-- The function implements lazy rescanning - table_rescan_tidrange is not called until TidRangeNext executes
+- The function implements lazy rescanning - [table_rescan_tidrange](../t/table_rescan_tidrange.md) is not called until TidRangeNext executes
 - The `trss_inScan` flag is used to track whether a scan is currently active
 - This function is part of the standard PostgreSQL executor interface for rescan operations
 - The deferred rescan approach helps optimize cases where a rescan is requested but the scan may not actually be resumed

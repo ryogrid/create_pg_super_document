@@ -29,7 +29,7 @@ The function leverages the underlying dlist_push_tail implementation for the act
   - [logical_rewrite_log_mapping](../l/logical_rewrite_log_mapping.md) (src/backend/access/heap/rewriteheap.c:983)
   - [ReorderBufferXidSetCatalogChanges](../R/ReorderBufferXidSetCatalogChanges.md) (src/backend/replication/logical/reorderbuffer.c:3540, 3556)
   - [DeadLockCheck](../D/DeadLockCheck.md) (src/backend/storage/lmgr/deadlock.c:262)
-  - ProcSleep (src/backend/storage/lmgr/proc.c:1197)
+  - [ProcSleep](../P/ProcSleep.md) (src/backend/storage/lmgr/proc.c:1197)
   - [ri_LoadConstraintInfo](../r/ri_LoadConstraintInfo.md) (src/backend/utils/adt/ri_triggers.c:2182)
 
 ## Notes and Other Information

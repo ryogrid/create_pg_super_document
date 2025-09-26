@@ -22,11 +22,11 @@ ExecInitResultSlot is a convenience function that sets up the result tuple slot 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecAllocTableSlot](ExecAllocTableSlot.md): Creates and adds the tuple slot to the tuple table
-  - TupleTableSlotOps: Structure defining slot operations
+  - [TupleTableSlotOps](../T/TupleTableSlotOps.md): Structure defining slot operations
 - Called from (representative examples):
   - [ExecInitResultTupleSlotTL](ExecInitResultTupleSlotTL.md): Higher-level initialization that calls this function
   - [ExecConditionalAssignProjectionInfo](ExecConditionalAssignProjectionInfo.md): Part of projection setup process
-  - ExecQualAndReset: Used in qualification and reset operations
+  - [ExecQualAndReset](ExecQualAndReset.md): Used in qualification and reset operations
 
 ## Notes and Other Information
 - This is a convenience routine as part of the ExecInit{Result,Scan,Extra}TupleSlot family

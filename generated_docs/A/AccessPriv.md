@@ -32,13 +32,13 @@ Special handling is provided for the ALL PRIVILEGES case:
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (for parse tree node identification)
-  - List (PostgreSQL list data structure)
+  - [List](../L/List.md) (PostgreSQL list data structure)
 
 - Called from (representative examples):
-  - ExecuteGrantStmt
-  - ExecAlterDefaultPrivilegesStmt
-  - ExecGrant_Relation
-  - GrantRole
+  - [ExecuteGrantStmt](../E/ExecuteGrantStmt.md)
+  - [ExecAlterDefaultPrivilegesStmt](../E/ExecAlterDefaultPrivilegesStmt.md)
+  - [ExecGrant_Relation](../E/ExecGrant_Relation.md)
+  - [GrantRole](../G/GrantRole.md)
 
 ## Notes and Other Information
 - This structure is part of the SQL parser's abstract syntax tree (AST) representation

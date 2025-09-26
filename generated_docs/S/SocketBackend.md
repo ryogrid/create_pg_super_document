@@ -29,7 +29,7 @@ The function includes robust error handling for client disconnections and protoc
   - [pq_getbyte](../p/pq_getbyte.md)() (protocol byte reading)
   - [IsTransactionState](../I/IsTransactionState.md)() (transaction state checking)
   - ereport() (error reporting via COMMERROR, DEBUG1, FATAL levels)
-  - pq_getmessage() (protocol message body reading)
+  - [pq_getmessage](../p/pq_getmessage.md)() (protocol message body reading)
   - RESUME_CANCEL_INTERRUPTS() (interrupt control macro)
   - Message type constants (PqMsg_Query, PqMsg_Parse, PqMsg_Bind, etc.)
   - Size limit constants (PQ_LARGE_MESSAGE_LIMIT, PQ_SMALL_MESSAGE_LIMIT)

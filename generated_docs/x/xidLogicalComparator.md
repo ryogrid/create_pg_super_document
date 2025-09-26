@@ -23,7 +23,7 @@ This function provides a comparison mechanism for sorting transaction IDs that t
   - TransactionIdIsNormal (macro to check if XID is normal)
   - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md) (function for wraparound-aware XID comparison)
 - Called from (representative examples):
-  - ProcArrayApplyRecoveryInfo (in procarray.c)
+  - [ProcArrayApplyRecoveryInfo](../P/ProcArrayApplyRecoveryInfo.md) (in procarray.c)
 
 ## Notes and Other Information
 - Specifically designed for XIDs from the same epoch to avoid triangle inequality violations

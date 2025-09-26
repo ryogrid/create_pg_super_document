@@ -20,9 +20,9 @@ This function performs maintenance work on the KnownAssignedXids data structure 
 ## Dependencies
 - Functions called/Symbols referenced:
   - KAX_STARTUP_PROCESS_IDLE (constant indicating startup process idle state)
-  - KnownAssignedXidsCompress (compresses the KnownAssignedXids array)
+  - [KnownAssignedXidsCompress](KnownAssignedXidsCompress.md) (compresses the KnownAssignedXids array)
 - Called from (representative examples):
-  - WaitForWALToBecomeAvailable (during WAL waiting periods in recovery)
+  - [WaitForWALToBecomeAvailable](../W/WaitForWALToBecomeAvailable.md) (during WAL waiting periods in recovery)
 
 ## Notes and Other Information
 - This is a lightweight maintenance operation designed to run during idle periods

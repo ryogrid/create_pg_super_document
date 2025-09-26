@@ -29,7 +29,7 @@ Unlike ExecInitQual's optimized short-circuit evaluation that immediately fails 
   - [ExecInitExpr](ExecInitExpr.md) (compiles the resulting explicit AND expression)
 - Called from (representative examples):
   - [ExecPrepareCheck](ExecPrepareCheck.md) (for preparing standalone check constraints)
-  - ExecProcNode (header inclusion)
+  - [ExecProcNode](ExecProcNode.md) (header inclusion)
 
 ## Notes and Other Information
 - Designed specifically for CHECK constraint evaluation following SQL semantics

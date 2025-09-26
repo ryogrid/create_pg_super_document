@@ -32,7 +32,7 @@ This function is optimized for boolean queries - it only needs to determine pres
 - Functions called/Symbols referenced:
   - IsA (node type checking macros)
   - expression_tree_walker (recursive expression tree traversal)
-  - Var, CurrentOfExpr, PlaceHolderVar (node type structures)
+  - [Var](../V/Var.md), CurrentOfExpr, PlaceHolderVar (node type structures)
 - Called from (representative examples):
   - [contain_var_clause](contain_var_clause.md) (primary caller)
   - [contain_var_clause_walker](contain_var_clause_walker.md) (recursive self-calls via expression_tree_walker)

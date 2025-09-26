@@ -32,10 +32,10 @@ The function maintains proper nesting level tracking when encountering Query nod
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (node type checking macros)
-  - lappend (list append function)
+  - [lappend](../l/lappend.md) (list append function)
   - query_tree_walker (recursive query tree traversal)
   - expression_tree_walker (recursive expression tree traversal)
-  - Var, PlaceHolderVar (node type structures)
+  - [Var](../V/Var.md), PlaceHolderVar (node type structures)
 - Called from (representative examples):
   - [pull_vars_of_level](pull_vars_of_level.md) (primary caller via query_or_expression_tree_walker)
   - [pull_vars_walker](pull_vars_walker.md) (recursive self-calls)

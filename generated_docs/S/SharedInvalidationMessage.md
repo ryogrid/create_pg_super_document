@@ -45,17 +45,17 @@ The system supports six distinct invalidation types:
 ## Dependencies
 - Functions called/Symbols referenced:
   - int8 (PostgreSQL's 8-bit signed integer type)
-  - SharedInvalCatcacheMsg, SharedInvalCatalogMsg, SharedInvalRelcacheMsg
-  - SharedInvalSmgrMsg, SharedInvalRelmapMsg, SharedInvalSnapshotMsg
+  - [SharedInvalCatcacheMsg](SharedInvalCatcacheMsg.md), SharedInvalCatalogMsg, SharedInvalRelcacheMsg
+  - [SharedInvalSmgrMsg](SharedInvalSmgrMsg.md), SharedInvalRelmapMsg, SharedInvalSnapshotMsg
   - Various ID constants (SHAREDINVALCATCACHE_ID through SHAREDINVALSNAPSHOT_ID)
 
 - Called from (representative examples):
-  - SendSharedInvalidMessages (sends messages to other processes)
+  - [SendSharedInvalidMessages](SendSharedInvalidMessages.md) (sends messages to other processes)
   - ReceiveSharedInvalidMessages (receives and processes messages)
-  - LocalExecuteInvalidationMessage (processes individual messages)
-  - xactGetCommittedInvalidationMessages (retrieves transaction invalidations)
-  - ProcessCommittedInvalidationMessages (processes committed transaction invalidations)
-  - AddInvalidationMessage (adds messages to pending list)
+  - [LocalExecuteInvalidationMessage](../L/LocalExecuteInvalidationMessage.md) (processes individual messages)
+  - [xactGetCommittedInvalidationMessages](../x/xactGetCommittedInvalidationMessages.md) (retrieves transaction invalidations)
+  - [ProcessCommittedInvalidationMessages](../P/ProcessCommittedInvalidationMessages.md) (processes committed transaction invalidations)
+  - [AddInvalidationMessage](../A/AddInvalidationMessage.md) (adds messages to pending list)
 
 ## Notes and Other Information
 - The union design ensures all message types have the same memory footprint, optimizing shared memory usage

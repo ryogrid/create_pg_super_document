@@ -29,16 +29,16 @@ The function employs several optimizations: it bypasses qualification and projec
   - [ExecScanFetch](ExecScanFetch.md) (tuple fetching with EPQ handling)
   - ResetExprContext (memory context management)
   - TupIsNull (tuple validity checking)
-  - ExecQual (qualification evaluation)
-  - ExecProject (result projection)
-  - ExecClearTuple (tuple slot clearing)
+  - [ExecQual](ExecQual.md) (qualification evaluation)
+  - [ExecProject](ExecProject.md) (result projection)
+  - [ExecClearTuple](ExecClearTuple.md) (tuple slot clearing)
   - InstrCountFiltered1 (instrumentation for filtered tuples)
 - Data structures used:
   - [ScanState](../S/ScanState.md)
   - [ProjectionInfo](../P/ProjectionInfo.md)
-  - ExprContext
-  - ExprState
-  - TupleTableSlot
+  - [ExprContext](ExprContext.md)
+  - [ExprState](ExprState.md)
+  - [TupleTableSlot](../T/TupleTableSlot.md)
 - Called from (representative examples):
   - [ExecSeqScan](ExecSeqScan.md) (sequential scan execution)
   - [ExecIndexScan](ExecIndexScan.md) (index scan execution)
@@ -51,6 +51,6 @@ The function employs several optimizations: it bypasses qualification and projec
 - Performance optimization: directly returns raw scan tuple when no qualification or projection is needed
 - Proper memory management through strategic ResetExprContext calls prevents memory leaks during long scans
 - The infinite loop with qualification checking ensures only qualifying tuples are returned
-- Instrumentation support tracks filtered tuple counts for query performance analysis
+- [Instrumentation](../I/Instrumentation.md) support tracks filtered tuple counts for query performance analysis
 - The function maintains cursor semantics as required by the access method interface
 - Projection result slot is used for consistent tuple descriptor handling when returning empty results

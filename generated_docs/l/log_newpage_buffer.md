@@ -32,8 +32,8 @@ The function supports optimization for standard page layouts by allowing unused 
   - [gistbuildempty](../g/gistbuildempty.md) (GiST index empty page creation)
   - [lazy_scan_new_or_empty](lazy_scan_new_or_empty.md) (vacuum operations)
   - [visibilitymap_prepare_truncate](../v/visibilitymap_prepare_truncate.md) (visibility map operations)
-  - RelationCopyStorageUsingBuffer (relation storage operations)
-  - FreeSpaceMapPrepareTruncateRel (free space map operations)
+  - [RelationCopyStorageUsingBuffer](../R/RelationCopyStorageUsingBuffer.md) (relation storage operations)
+  - [FreeSpaceMapPrepareTruncateRel](../F/FreeSpaceMapPrepareTruncateRel.md) (free space map operations)
 
 ## Notes and Other Information
 - Must be called within a critical section (CritSectionCount > 0)

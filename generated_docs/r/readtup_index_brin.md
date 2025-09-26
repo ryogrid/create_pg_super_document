@@ -26,7 +26,7 @@ The deserialized tuple is integrated into the sorting framework by setting the S
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Tuplesortstate (sort state management structure)
+  - [Tuplesortstate](../T/Tuplesortstate.md) (sort state management structure)
   - SortTuple (generic sort tuple structure)
   - [LogicalTape](../L/LogicalTape.md) (tape abstraction for external sorting)
   - [BrinSortTuple](../B/BrinSortTuple.md) (BRIN-specific tuple structure)

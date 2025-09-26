@@ -26,7 +26,7 @@ The audit messages follow a structured format that includes user privilege infor
 - Functions called/Symbols referenced:
   - REGRESS_audit (global variable controlling audit output)
   - IsParallelWorker() (checks if running in parallel worker process)
-  - superuser_arg() (checks superuser status)
+  - [superuser_arg](../s/superuser_arg.md)() (checks superuser status)
   - [GetUserId](../G/GetUserId.md)() (gets current user ID)
   - ereport() (PostgreSQL error/notice reporting)
   - [pfree](../p/pfree.md)() (PostgreSQL memory deallocation)

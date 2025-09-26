@@ -22,7 +22,7 @@ This function creates a TableDataInfo object that represents the data content of
 ## Dependencies
 - Functions called/Symbols referenced:
   - [simple_oid_list_member](../s/simple_oid_list_member.md)
-  - pg_malloc
+  - [pg_malloc](../p/pg_malloc.md)
   - [AssignDumpId](../A/AssignDumpId.md)
   - [addObjectDependency](../a/addObjectDependency.md)
 - Types referenced:

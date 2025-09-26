@@ -24,7 +24,7 @@ This baseline measurement is essential for calculating the relative overhead of 
   - printf
   - fflush
   - open
-  - pg_pwrite
+  - [pg_pwrite](../p/pg_pwrite.md)
   - close
   - [die](../d/die.md)
 - Macros used:

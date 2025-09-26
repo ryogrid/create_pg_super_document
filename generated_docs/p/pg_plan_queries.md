@@ -37,7 +37,7 @@ The function iterates through each query in the input list, determines the appro
   - [pg_plan_query](pg_plan_query.md)
   - makeNode
   - lfirst_node
-  - lappend
+  - [lappend](../l/lappend.md)
 - Called from (representative examples):
   - [exec_simple_query](../e/exec_simple_query.md)
   - [execute_sql_string](../e/execute_sql_string.md)

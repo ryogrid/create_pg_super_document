@@ -34,12 +34,12 @@ The structure uses relative pointers (RelptrFreePageSpanLeader) for the linked l
   - RelptrFreePageSpanLeader (relative pointer type)
 
 - Called from (representative examples):
-  - FreePageManagerInitialize
-  - FreePageManagerGetInternal
-  - FreePagePopSpanLeader
-  - FreePagePushSpanLeader
-  - FreePageBtreeGetRecycled
-  - FreePageBtreeRecycle
+  - [FreePageManagerInitialize](FreePageManagerInitialize.md)
+  - [FreePageManagerGetInternal](FreePageManagerGetInternal.md)
+  - [FreePagePopSpanLeader](FreePagePopSpanLeader.md)
+  - [FreePagePushSpanLeader](FreePagePushSpanLeader.md)
+  - [FreePageBtreeGetRecycled](FreePageBtreeGetRecycled.md)
+  - [FreePageBtreeRecycle](FreePageBtreeRecycle.md)
 
 ## Notes and Other Information
 - The structure is stored at the beginning of the first page in each free span

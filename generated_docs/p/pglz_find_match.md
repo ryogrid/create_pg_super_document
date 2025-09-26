@@ -33,12 +33,12 @@ The algorithm employs several optimizations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PGLZ_HistEntry (history entry structure)
+  - [PGLZ_HistEntry](../P/PGLZ_HistEntry.md) (history entry structure)
   - pglz_hist_idx (hash function for history table indexing)
   - INVALID_ENTRY_PTR (sentinel value for end of history chain)
   - PGLZ_MAX_MATCH (maximum allowed match length constant)
 - Called from:
-  - pglz_compress (main compression function)
+  - [pglz_compress](pglz_compress.md) (main compression function)
 
 ## Notes and Other Information
 - Returns 1 if a beneficial match is found (length > 2), 0 otherwise

@@ -26,12 +26,12 @@ The function returns the PostgreSQL system catalog OID that uniquely identifies 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PartitionKey (struct type)
+  - [PartitionKey](../P/PartitionKey.md) (struct type)
   - Oid (PostgreSQL object identifier type)
 - Called from (representative examples):
-  - ExecBuildSlotPartitionKeyDescription
-  - transformPartitionBound
-  - transformPartitionRangeBounds
+  - [ExecBuildSlotPartitionKeyDescription](../E/ExecBuildSlotPartitionKeyDescription.md)
+  - [transformPartitionBound](../t/transformPartitionBound.md)
+  - [transformPartitionRangeBounds](../t/transformPartitionRangeBounds.md)
 
 ## Notes and Other Information
 - This is a static inline function defined in partcache.h for efficient access

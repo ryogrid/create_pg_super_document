@@ -19,7 +19,7 @@ This function sets the internal cursor position in the current error data struct
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ErrorData (struct type)
+  - [ErrorData](../E/ErrorData.md) (struct type)
   - CHECK_STACK_DEPTH (macro)
 - Called from (representative examples):
   - [function_parse_error_transpose](../f/function_parse_error_transpose.md) (src/backend/catalog/pg_proc.c)

@@ -30,7 +30,7 @@ MultiAssignRef nodes are generated during parsing of UPDATE statements that use 
   - NodeTag (inherited structure member)
   - [Node](../N/Node.md) (base type for source pointer)
 - Called from (representative examples):
-  - transformMultiAssignRef (src/backend/parser/parse_expr.c:1484)
+  - [transformMultiAssignRef](../t/transformMultiAssignRef.md) (src/backend/parser/parse_expr.c:1484)
   - [transformExprRecurse](../t/transformExprRecurse.md) (src/backend/parser/parse_expr.c:233)
   - [raw_expression_tree_walker_impl](../r/raw_expression_tree_walker_impl.md) (src/backend/nodes/nodeFuncs.c:4413)
   - [exprLocation](../e/exprLocation.md) (src/backend/nodes/nodeFuncs.c:1687)

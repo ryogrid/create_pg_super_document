@@ -30,7 +30,7 @@ The function includes overflow protection when calculating the new element index
   - PG_GETARG_DATUM
   - [pg_add_s32_overflow](../p/pg_add_s32_overflow.md)
   - [array_set_element](array_set_element.md)
-  - EOHPGetRWDatum
+  - [EOHPGetRWDatum](../E/EOHPGetRWDatum.md)
   - PG_RETURN_DATUM
 - Called from (representative examples):
   - SQL array_append() function calls

@@ -24,7 +24,7 @@ void XLogReaderSetDecodeBuffer(XLogReaderState *state, void *buffer, size_t size
   - Assert (assertion macro)
 - Called from (representative examples):
   - [InitWalRecovery](../I/InitWalRecovery.md)
-  - XLogReaderHasQueuedRecordOrError
+  - [XLogReaderHasQueuedRecordOrError](XLogReaderHasQueuedRecordOrError.md)
 
 ## Notes and Other Information
 - The function asserts that no decode buffer is currently set (decode_buffer must be NULL)

@@ -28,12 +28,12 @@ When extracting from the min-heap, the function performs a standard heap deletio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - left_offset
-  - right_offset
-  - LogicalTapeSet (struct)
+  - [left_offset](left_offset.md)
+  - [right_offset](../r/right_offset.md)
+  - [LogicalTapeSet](../L/LogicalTapeSet.md) (struct)
 - Called from (representative examples):
-  - ltsGetBlock
-  - ltsGetPreallocBlock
+  - [ltsGetBlock](ltsGetBlock.md)
+  - [ltsGetPreallocBlock](ltsGetPreallocBlock.md)
 
 ## Notes and Other Information
 - Returns the lowest available block number (int64), which helps minimize file fragmentation

@@ -36,12 +36,12 @@ This macro is primarily used within PostgreSQL's common utility functions, parti
   - [errmsg_internal](../e/errmsg_internal.md)
   - LOG (error level constant)
 - Called from (representative examples):
-  - find_my_exec
-  - normalize_exec_path
+  - [find_my_exec](../f/find_my_exec.md)
+  - [normalize_exec_path](../n/normalize_exec_path.md)
   - [pipe_read_line](../p/pipe_read_line.md)
   - [pclose_check](../p/pclose_check.md)
   - [AddUserToTokenDacl](../A/AddUserToTokenDacl.md)
-  - GetTokenUser
+  - [GetTokenUser](../G/GetTokenUser.md)
   - [pgwin32_is_admin](../p/pgwin32_is_admin.md)
 
 ## Notes and Other Information

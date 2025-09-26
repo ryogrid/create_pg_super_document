@@ -22,7 +22,7 @@ The function is implemented as a static inline function in the cryptohash_openss
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwnerForget
+  - [ResourceOwnerForget](ResourceOwnerForget.md)
   - [PointerGetDatum](../P/PointerGetDatum.md)
   - cryptohash_resowner_desc (resource descriptor)
 - Called from (representative examples):

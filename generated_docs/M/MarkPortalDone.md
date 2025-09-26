@@ -24,9 +24,9 @@ The function first validates that the portal is in the expected ACTIVE state usi
   - PORTAL_ACTIVE (constant for state validation)
   - PORTAL_DONE (constant for setting done state)
   - PointerIsValid (macro to check if cleanup function pointer is valid)
-  - cleanup (portal cleanup function pointer)
+  - [cleanup](../c/cleanup.md) (portal cleanup function pointer)
 - Called from (representative examples):
-  - PortalRun (src/backend/tcop/pquery.c:793)
+  - [PortalRun](../P/PortalRun.md) (src/backend/tcop/pquery.c:793)
   - PortalIsValid (src/include/utils/portal.h:235)
 
 ## Notes and Other Information

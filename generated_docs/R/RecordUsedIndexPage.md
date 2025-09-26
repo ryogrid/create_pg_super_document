@@ -24,9 +24,9 @@ This function is typically called immediately after a free page is allocated (as
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RecordPageWithFreeSpace (records the page with zero free space in FSM)
+  - [RecordPageWithFreeSpace](RecordPageWithFreeSpace.md) (records the page with zero free space in FSM)
 - Called from (representative examples):
-  - GetFreeIndexPage (marks newly allocated pages as used)
+  - [GetFreeIndexPage](../G/GetFreeIndexPage.md) (marks newly allocated pages as used)
 
 ## Notes and Other Information
 - Marks pages with zero free space to indicate full utilization

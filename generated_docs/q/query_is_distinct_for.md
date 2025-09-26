@@ -31,19 +31,19 @@ Operator compatibility is checked using `equality_ops_are_compatible()` to ensur
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_length
+  - [list_length](../l/list_length.md)
   - [get_sortgroupclause_tle](../g/get_sortgroupclause_tle.md)
   - [distinct_col_search](../d/distinct_col_search.md)  
   - [equality_ops_are_compatible](../e/equality_ops_are_compatible.md)
   - castNode
-  - list_head
+  - [list_head](../l/list_head.md)
   - [lnext](../l/lnext.md)
   - linitial
 - Data structures used:
-  - SortGroupClause
+  - [SortGroupClause](../S/SortGroupClause.md)
   - [TargetEntry](../T/TargetEntry.md)
-  - GroupingSet
-  - SetOperationStmt
+  - [GroupingSet](../G/GroupingSet.md)
+  - [SetOperationStmt](../S/SetOperationStmt.md)
 - Called from:
   - [rel_is_distinct_for](../r/rel_is_distinct_for.md) (src/backend/optimizer/plan/analyzejoins.c:939)
   - [create_unique_path](../c/create_unique_path.md) (src/backend/optimizer/util/pathnode.c:1762)

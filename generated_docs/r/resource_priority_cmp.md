@@ -27,10 +27,10 @@ The reverse ordering is intentional and explicitly noted in the source code comm
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceElem (struct type)
-  - pg_cmp_u32 (for comparing unsigned 32-bit integers)
+  - [ResourceElem](../R/ResourceElem.md) (struct type)
+  - [pg_cmp_u32](../p/pg_cmp_u32.md) (for comparing unsigned 32-bit integers)
 - Called from (representative examples):
-  - ResourceOwnerSort (as a comparison function for sorting operations)
+  - [ResourceOwnerSort](../R/ResourceOwnerSort.md) (as a comparison function for sorting operations)
 
 ## Notes and Other Information
 - This is a static function following the standard C comparison function signature required by qsort and similar sorting functions

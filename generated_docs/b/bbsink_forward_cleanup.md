@@ -21,10 +21,10 @@ This forwarding pattern ensures that cleanup operations cascade through the enti
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbsink_cleanup
-  - bbsink (structure type)
+  - [bbsink_cleanup](bbsink_cleanup.md)
+  - [bbsink](bbsink.md) (structure type)
 - Called from (representative examples):
-  - bbsink_cleanup (as part of recursive cleanup chain)
+  - [bbsink_cleanup](bbsink_cleanup.md) (as part of recursive cleanup chain)
 
 ## Notes and Other Information
 - This function is essential for proper resource management and preventing memory/resource leaks

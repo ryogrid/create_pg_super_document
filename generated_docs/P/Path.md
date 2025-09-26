@@ -85,7 +85,7 @@ The rows field typically matches parent->rows for simple paths but may be less f
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (for type and pathtype identification)
-  - RelOptInfo (parent relation information)
+  - [RelOptInfo](../R/RelOptInfo.md) (parent relation information)
   - [PathTarget](PathTarget.md) (output column specifications)
   - [ParamPathInfo](ParamPathInfo.md) (parameterization information)
   - Cardinality (rowcount estimates)

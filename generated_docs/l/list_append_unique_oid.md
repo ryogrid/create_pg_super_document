@@ -23,7 +23,7 @@ This ensures that the resulting list contains only unique OID values, which is c
 ## Dependencies
 - Functions called/Symbols referenced:
   - [list_member_oid](list_member_oid.md)
-  - lappend_oid
+  - [lappend_oid](lappend_oid.md)
 - Called from (representative examples):
   - [hashvalidate](../h/hashvalidate.md)
   - [btvalidate](../b/btvalidate.md)
@@ -32,7 +32,7 @@ This ensures that the resulting list contains only unique OID values, which is c
   - [ATExecAlterConstrRecurse](../A/ATExecAlterConstrRecurse.md)
   - [DropRole](../D/DropRole.md)
   - [LogicalRepWorkersWakeupAtCommit](../L/LogicalRepWorkersWakeupAtCommit.md)
-  - map_sql_typecoll_to_xmlschema_types
+  - [map_sql_typecoll_to_xmlschema_types](../m/map_sql_typecoll_to_xmlschema_types.md)
   - forfive
 
 ## Notes and Other Information

@@ -26,7 +26,7 @@ A key feature is the filename normalization process: the function strips directo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ErrorData (struct type)
+  - [ErrorData](../E/ErrorData.md) (struct type)
   - strrchr (standard library function for finding last occurrence of character)
 
 - Called from (representative examples):

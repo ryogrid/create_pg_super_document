@@ -40,16 +40,16 @@ The function includes sophisticated retry logic to handle concurrent modificatio
   - [index_rescan](../i/index_rescan.md) (to restart scan with keys)
   - [index_getnext_slot](../i/index_getnext_slot.md) (to retrieve tuples from index)
   - [tuples_equal](../t/tuples_equal.md) (to compare tuples when needed)
-  - ExecMaterializeSlot (to materialize the output slot)
+  - [ExecMaterializeSlot](../E/ExecMaterializeSlot.md) (to materialize the output slot)
   - [XactLockTableWait](../X/XactLockTableWait.md) (to wait for blocking transactions)
-  - table_tuple_lock (to lock the found tuple)
+  - [table_tuple_lock](../t/table_tuple_lock.md) (to lock the found tuple)
   - [GetCurrentCommandId](../G/GetCurrentCommandId.md) (to get current command ID for locking)
   - [index_endscan](../i/index_endscan.md) (to end the index scan)
   - [index_close](../i/index_close.md) (to close the index relation)
 
 - Called from (representative examples):
   - [FindReplTupleInLocalRel](../F/FindReplTupleInLocalRel.md)
-  - exec_rt_fetch
+  - [exec_rt_fetch](../e/exec_rt_fetch.md)
 
 ## Notes and Other Information
 - Returns true if a matching tuple was found and successfully locked, false otherwise

@@ -59,19 +59,19 @@ The optimization process uses EquivalenceClasses to generate implied equality cl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - EquivalenceClass (self-reference for ec_merged)
-  - List (generic list structure)
+  - [EquivalenceClass](EquivalenceClass.md) (self-reference for ec_merged)
+  - [List](../L/List.md) (generic list structure)
   - Relids (relation ID bitmap)
 
 - Called from (representative examples):
-  - process_equivalence (equivclass.c:132, 245, 409)
-  - add_eq_member (equivclass.c:516, 585)
-  - get_eclass_for_sort_expr (equivclass.c:597, 618, 669)
-  - generate_base_implied_equalities (equivclass.c:1045)
-  - generate_join_implied_equalities_for_ecs (equivclass.c:1506)
-  - make_canonical_pathkey (pathkeys.c:56)
-  - select_outer_pathkeys_for_merge (pathkeys.c:1645, 1659, 1666)
-  - create_mergejoin_plan (createplan.c:4458, 4596, 4597, 4599)
+  - [process_equivalence](../p/process_equivalence.md) (equivclass.c:132, 245, 409)
+  - [add_eq_member](../a/add_eq_member.md) (equivclass.c:516, 585)
+  - [get_eclass_for_sort_expr](../g/get_eclass_for_sort_expr.md) (equivclass.c:597, 618, 669)
+  - [generate_base_implied_equalities](../g/generate_base_implied_equalities.md) (equivclass.c:1045)
+  - [generate_join_implied_equalities_for_ecs](../g/generate_join_implied_equalities_for_ecs.md) (equivclass.c:1506)
+  - [make_canonical_pathkey](../m/make_canonical_pathkey.md) (pathkeys.c:56)
+  - [select_outer_pathkeys_for_merge](../s/select_outer_pathkeys_for_merge.md) (pathkeys.c:1645, 1659, 1666)
+  - [create_mergejoin_plan](../c/create_mergejoin_plan.md) (createplan.c:4458, 4596, 4597, 4599)
 
 ## Notes and Other Information
 - EquivalenceClasses are never copied after creation, enabling efficient pointer-based equality comparisons

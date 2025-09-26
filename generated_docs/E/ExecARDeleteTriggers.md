@@ -37,11 +37,11 @@ The function includes special handling for foreign data wrapper tables, prohibit
   - [ExecGetTriggerOldSlot](ExecGetTriggerOldSlot.md)
   - [GetTupleForTrigger](../G/GetTupleForTrigger.md)
   - [ExecForceStoreHeapTuple](ExecForceStoreHeapTuple.md)
-  - AfterTriggerSaveEvent
+  - [AfterTriggerSaveEvent](../A/AfterTriggerSaveEvent.md)
   - [ItemPointerIsValid](../I/ItemPointerIsValid.md)
 - Data types referenced:
-  - TransitionCaptureState
-  - TriggerDesc
+  - [TransitionCaptureState](../T/TransitionCaptureState.md)
+  - [TriggerDesc](../T/TriggerDesc.md)
   - LockTupleExclusive
   - TRIGGER_EVENT_DELETE
 - Called from (representative examples):

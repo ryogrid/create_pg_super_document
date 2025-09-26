@@ -35,7 +35,7 @@ The function includes extensive special case handling for scalar types, providin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth: Prevents stack overflow in recursive calls
+  - [check_stack_depth](../c/check_stack_depth.md): Prevents stack overflow in recursive calls
   - [lookup_type_cache](../l/lookup_type_cache.md): Retrieves type information from PostgreSQL's cache
   - [get_transform_fromsql](../g/get_transform_fromsql.md): Looks up custom transform functions
   - [getTypeOutputInfo](../g/getTypeOutputInfo.md): Gets output function information for scalar types

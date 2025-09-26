@@ -20,7 +20,7 @@ This function provides coordination between B-tree maintenance operations and ac
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire/LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease
   - BtreeVacuumLock (LWLock)
   - btvacinfo (global vacuum info structure)
   - [BTOneVacInfo](../B/BTOneVacInfo.md) (vacuum info structure)

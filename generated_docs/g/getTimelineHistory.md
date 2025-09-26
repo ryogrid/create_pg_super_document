@@ -28,8 +28,8 @@ The function also provides debug output when debug mode is enabled, displaying t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_malloc (memory allocation)
-  - TLHistoryFilePath (constructs timeline history file path)
+  - [pg_malloc](../p/pg_malloc.md) (memory allocation)
+  - [TLHistoryFilePath](../T/TLHistoryFilePath.md) (constructs timeline history file path)
   - source->fetch_file (fetches file from source system via replication)
   - [slurpFile](../s/slurpFile.md) (reads file from local target directory)
   - [rewind_parseTimeLineHistory](../r/rewind_parseTimeLineHistory.md) (parses timeline history file content)

@@ -26,25 +26,25 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreateCacheMemoryContext
+  - [CreateCacheMemoryContext](../C/CreateCacheMemoryContext.md)
   - MemSet
-  - fmgr_info_cxt
-  - hash_create
-  - CacheRegisterRelcacheCallback
-  - RelfilenumberMapInvalidateCallback
-  - HASHCTL
+  - [fmgr_info_cxt](../f/fmgr_info_cxt.md)
+  - [hash_create](../h/hash_create.md)
+  - [CacheRegisterRelcacheCallback](../C/CacheRegisterRelcacheCallback.md)
+  - [RelfilenumberMapInvalidateCallback](../R/RelfilenumberMapInvalidateCallback.md)
+  - [HASHCTL](../H/HASHCTL.md)
   - RelfilenumberMapKey
   - RelfilenumberMapEntry
   - HASH_ELEM, HASH_BLOBS, HASH_CONTEXT
 - Called from (representative examples):
-  - RelidByRelfilenumber
+  - [RelidByRelfilenumber](../R/RelidByRelfilenumber.md)
 
 ## Notes and Other Information
 - This is a static function only used within the relfilenumbermap.c module
 - Initializes global variables: RelfilenumberMapHash and relfilenumber_skey
 - Uses CacheMemoryContext for persistent cache storage across transactions  
-- Hash table is created with initial capacity of 64 entries
-- Scan keys are configured for equality searches on pg_class.reltablespace and pg_class.relfilenode
+- [Hash](../H/Hash.md) table is created with initial capacity of 64 entries
+- [Scan](../S/Scan.md) keys are configured for equality searches on pg_class.reltablespace and pg_class.relfilenode
 - Critical for establishing the reverse mapping infrastructure from file identifiers to relation OIDs
 - Registers RelfilenumberMapInvalidateCallback to handle cache invalidation events
 - Delayed hash table creation prevents partial initialization on memory errors

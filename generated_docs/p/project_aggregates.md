@@ -19,8 +19,8 @@ This function performs the final step in aggregate processing by projecting the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecQual
-  - ExecProject
+  - [ExecQual](../E/ExecQual.md)
+  - [ExecProject](../E/ExecProject.md)
   - InstrCountFiltered1
 - Called from (representative examples):
   - [agg_retrieve_direct](../a/agg_retrieve_direct.md)

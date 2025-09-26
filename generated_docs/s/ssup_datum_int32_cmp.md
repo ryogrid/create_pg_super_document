@@ -23,14 +23,14 @@ The function is designed for data types that can be represented as or converted 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetInt32 (macro to extract int32 value from Datum)
-  - SortSupport (sort support framework structure)
+  - [DatumGetInt32](../D/DatumGetInt32.md) (macro to extract int32 value from Datum)
+  - [SortSupport](../S/SortSupport.md) (sort support framework structure)
 
 - Called from (representative examples):
-  - btint4sortsupport (B-tree support for int4/integer sorting)
-  - date_sortsupport (date sorting support)
-  - tuplesort_sort_memtuples (in-memory tuple sorting)
-  - ApplySortAbbrevFullComparator (abbreviated key comparison)
+  - [btint4sortsupport](../b/btint4sortsupport.md) (B-tree support for int4/integer sorting)
+  - [date_sortsupport](../d/date_sortsupport.md) (date sorting support)
+  - [tuplesort_sort_memtuples](../t/tuplesort_sort_memtuples.md) (in-memory tuple sorting)
+  - [ApplySortAbbrevFullComparator](../A/ApplySortAbbrevFullComparator.md) (abbreviated key comparison)
 
 ## Notes and Other Information
 - Specifically designed for signed 32-bit integer comparisons

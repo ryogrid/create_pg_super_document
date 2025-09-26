@@ -28,8 +28,8 @@ The function explicitly checks for six specific whitespace characters: space (' 
   - [CleanQuerytext](../C/CleanQuerytext.md) (query text normalization)
   - [array_in](../a/array_in.md)/array_out (array parsing and formatting)
   - [parse_ident](../p/parse_ident.md) (identifier parsing utilities)
-  - SplitIdentifierString (identifier splitting functions)
-  - SplitDirectoriesString/SplitGUCList (configuration parsing)
+  - [SplitIdentifierString](../S/SplitIdentifierString.md) (identifier splitting functions)
+  - [SplitDirectoriesString](../S/SplitDirectoriesString.md)/SplitGUCList (configuration parsing)
 
 ## Notes and Other Information
 - Designed to match exactly the whitespace definition in scan.l (the flex scanner specification)

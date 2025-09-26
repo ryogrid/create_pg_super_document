@@ -26,7 +26,7 @@ This function encodes a relation description into the logical replication protoc
   - [pq_sendbyte](../p/pq_sendbyte.md)
   - [pq_sendint32](../p/pq_sendint32.md)
   - [pq_sendstring](../p/pq_sendstring.md)
-  - logicalrep_write_namespace
+  - [logicalrep_write_namespace](logicalrep_write_namespace.md)
   - [logicalrep_write_attrs](logicalrep_write_attrs.md)
   - RelationGetRelid
   - RelationGetNamespace

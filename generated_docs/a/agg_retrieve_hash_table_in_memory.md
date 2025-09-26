@@ -33,8 +33,8 @@ The function performs several key operations:
   - ResetTupleHashIterator
   - ResetExprContext
   - [ExecStoreMinimalTuple](../E/ExecStoreMinimalTuple.md)
-  - slot_getallattrs
-  - ExecClearTuple
+  - [slot_getallattrs](../s/slot_getallattrs.md)
+  - [ExecClearTuple](../E/ExecClearTuple.md)
   - [ExecStoreVirtualTuple](../E/ExecStoreVirtualTuple.md)
   - [prepare_projection_slot](../p/prepare_projection_slot.md)
   - [finalize_aggregates](../f/finalize_aggregates.md)

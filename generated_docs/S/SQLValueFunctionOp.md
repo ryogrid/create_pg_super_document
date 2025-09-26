@@ -52,7 +52,7 @@ SQLValueFunctionOp serves as a type identifier for parameterless SQL functions t
 - Functions called/Symbols referenced:
   - None (this is an enumeration)
 - Called from (representative examples):
-  - SQLValueFunction struct (used as op field type)
+  - [SQLValueFunction](SQLValueFunction.md) struct (used as op field type)
 
 ## Notes and Other Information
 - All functions represented by this enumeration are parameterless and have special grammar productions

@@ -37,7 +37,7 @@ Each operation type has specific argument handling and uses specialized XML proc
   - [xmltotext_with_options](../x/xmltotext_with_options.md)
   - [xml_is_document](../x/xml_is_document.md)
   - [map_sql_value_to_xml_value](../m/map_sql_value_to_xml_value.md)
-  - cstring_to_text_with_len
+  - [cstring_to_text_with_len](../c/cstring_to_text_with_len.md)
   - DatumGetTextPP
   - [DatumGetXmlP](../D/DatumGetXmlP.md)
   - [DatumGetInt32](../D/DatumGetInt32.md)
@@ -50,7 +50,7 @@ Each operation type has specific argument handling and uses specialized XML proc
 - Function initializes result to null and only sets non-null results when operations succeed
 - XML operations require PostgreSQL to be built with XML support (--with-libxml configure option)
 - Memory management is handled through PostgreSQL's memory context system
-- String operations use StringInfo for efficient buffer management in XMLFOREST
+- [String](../S/String.md) operations use StringInfo for efficient buffer management in XMLFOREST
 - Error handling includes assertion checks for expected argument counts and types
 - The function supports both named arguments (for attributes) and positional arguments (for content)
 - NULL handling follows SQL standards where NULL inputs typically result in NULL outputs, with some exceptions for specific operations

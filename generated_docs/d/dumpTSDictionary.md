@@ -23,8 +23,8 @@ The function performs a database query to retrieve the template namespace and na
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - createPQExpBuffer
-  - destroyPQExpBuffer
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)
+  - [destroyPQExpBuffer](destroyPQExpBuffer.md)
   - [pg_strdup](../p/pg_strdup.md)
   - [fmtId](../f/fmtId.md)
   - fmtQualifiedDumpable

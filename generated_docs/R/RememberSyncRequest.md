@@ -27,7 +27,7 @@ The function operates within the checkpointer's memory context and includes logi
   - syncsw[].sync_filetagmatches (handler-specific file matching function)
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (switch to pendingOpsCxt for allocations)
   - [palloc](../p/palloc.md) (allocate memory for unlink entries)
-  - lappend (add entries to pendingUnlinks list)
+  - [lappend](../l/lappend.md) (add entries to pendingUnlinks list)
   - PendingFsyncEntry (structure for fsync requests)
   - [PendingUnlinkEntry](../P/PendingUnlinkEntry.md) (structure for unlink requests)
   - SyncRequestType (enum defining request types)

@@ -23,11 +23,11 @@ This function is the heart of JSONB to string conversion in PostgreSQL. It uses 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeStringInfo, enlargeStringInfo (for buffer management)
+  - [makeStringInfo](../m/makeStringInfo.md), enlargeStringInfo (for buffer management)
   - [JsonbIteratorInit](JsonbIteratorInit.md), JsonbIteratorNext (for JSONB traversal)
   - [jsonb_put_escaped_value](../j/jsonb_put_escaped_value.md) (for scalar value conversion)
-  - add_indent (for indentation formatting)
-  - appendBinaryStringInfo, appendStringInfoCharMacro (for string building)
+  - [add_indent](../a/add_indent.md) (for indentation formatting)
+  - [appendBinaryStringInfo](../a/appendBinaryStringInfo.md), appendStringInfoCharMacro (for string building)
   - JsonbIterator, JsonbIteratorToken, JsonbValue (JSONB iterator types)
   - WJB_* constants (iterator token types: WJB_DONE, WJB_BEGIN_ARRAY, WJB_BEGIN_OBJECT, WJB_KEY, WJB_ELEM, WJB_VALUE, WJB_END_ARRAY, WJB_END_OBJECT)
 - Called from (representative examples):

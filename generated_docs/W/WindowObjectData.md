@@ -40,7 +40,7 @@ The structure maintains pointers into the tuplestore that holds the partition's 
   - [WindowAggState](WindowAggState.md)
 - Called from (representative examples):
   - [ExecInitWindowAgg](../E/ExecInitWindowAgg.md)
-  - WindowObject (typedef)
+  - [WindowObject](WindowObject.md) (typedef)
   - WindowObjectIsValid
 
 ## Notes and Other Information

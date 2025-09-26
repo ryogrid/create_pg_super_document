@@ -23,9 +23,9 @@ This function is essential for efficiently searching the decomposition lookup ta
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_unicode_decomposition (struct type)
+  - [pg_unicode_decomposition](../p/pg_unicode_decomposition.md) (struct type)
 - Called from (representative examples):
-  - get_code_entry
+  - [get_code_entry](../g/get_code_entry.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the  file

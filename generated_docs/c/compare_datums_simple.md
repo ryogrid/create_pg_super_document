@@ -23,7 +23,7 @@ This function serves as a wrapper around PostgreSQL's ApplySortComparator functi
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ApplySortComparator](../A/ApplySortComparator.md)
-  - SortSupport (type)
+  - [SortSupport](../S/SortSupport.md) (type)
 - Called from (representative examples):
   - [compare_scalars_simple](compare_scalars_simple.md)
   - [statext_mcv_serialize](../s/statext_mcv_serialize.md)

@@ -24,7 +24,7 @@ This function collects comprehensive information about logical replication slots
   - GET_MAJOR_VERSION
   - [connectToServer](../c/connectToServer.md)
   - [executeQueryOrDie](../e/executeQueryOrDie.md)
-  - pg_malloc
+  - [pg_malloc](../p/pg_malloc.md)
   - [pg_strdup](../p/pg_strdup.md)
   - [PQfnumber](../P/PQfnumber.md)
   - [PQntuples](../P/PQntuples.md)

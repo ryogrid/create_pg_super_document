@@ -58,10 +58,10 @@ The structure maintains multiple representations of the input text (multibyte, w
 - Functions called/Symbols referenced:
   - [TParserPosition](TParserPosition.md)
 - Called from (representative examples):
-  - TParserInit
-  - TParserCopyInit
-  - TParserClose
-  - TParserCopyClose
+  - [TParserInit](TParserInit.md)
+  - [TParserCopyInit](TParserCopyInit.md)
+  - [TParserClose](TParserClose.md)
+  - [TParserCopyClose](TParserCopyClose.md)
   - [TParserGet](TParserGet.md)
   - [prsd_nexttoken](../p/prsd_nexttoken.md)
   - [prsd_end](../p/prsd_end.md)

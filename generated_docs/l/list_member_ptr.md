@@ -30,7 +30,7 @@ This function is optimized for pointer comparison and should only be used with l
 
 - Called from (representative examples):
   - [ExecInsert](../E/ExecInsert.md) - Used in executor for insert operations
-  - list_union_ptr - Used when creating union of pointer lists
+  - [list_union_ptr](list_union_ptr.md) - Used when creating union of pointer lists
   - [list_difference_ptr](list_difference_ptr.md) - Used when computing difference between pointer lists
   - [list_append_unique_ptr](list_append_unique_ptr.md) - Used to ensure uniqueness when appending pointers
   - [get_foreign_key_join_selectivity](../g/get_foreign_key_join_selectivity.md) - Used in query optimization

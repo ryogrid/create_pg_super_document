@@ -43,11 +43,11 @@ The design uses a union to optimize memory usage, allowing the same memory space
 - Functions called/Symbols referenced:
   - FLEXIBLE_ARRAY_MEMBER (macro for flexible array implementation)
 - Called from (representative examples):
-  - NIAddSpell (adds new words to temporary SPELL array)
-  - cmpspell (comparison function for sorting SPELL entries)
-  - cmpspellaffix (comparison function considering affix data)
-  - NISortDictionary (processes and sorts SPELL array)
-  - mkSPNode (uses SPELL data to build prefix tree)
+  - [NIAddSpell](../N/NIAddSpell.md) (adds new words to temporary SPELL array)
+  - [cmpspell](../c/cmpspell.md) (comparison function for sorting SPELL entries)
+  - [cmpspellaffix](../c/cmpspellaffix.md) (comparison function considering affix data)
+  - [NISortDictionary](../N/NISortDictionary.md) (processes and sorts SPELL array)
+  - [mkSPNode](../m/mkSPNode.md) (uses SPELL data to build prefix tree)
 
 ## Notes and Other Information
 - Part of PostgreSQL's Ispell dictionary implementation located in src/include/tsearch/dicts/spell.h:61-79

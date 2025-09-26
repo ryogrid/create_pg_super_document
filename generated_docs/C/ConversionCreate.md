@@ -30,8 +30,8 @@ ConversionCreate is responsible for creating new encoding conversions in Postgre
 - Functions called/Symbols referenced:
   - SearchSysCacheExists2
   - [FindDefaultConversion](../F/FindDefaultConversion.md)
-  - pg_encoding_to_char
-  - namestrcpy
+  - [pg_encoding_to_char](../p/pg_encoding_to_char.md)
+  - [namestrcpy](../n/namestrcpy.md)
   - [GetNewOidWithIndex](../G/GetNewOidWithIndex.md)
   - [heap_form_tuple](../h/heap_form_tuple.md)
   - [CatalogTupleInsert](CatalogTupleInsert.md)

@@ -24,7 +24,7 @@ The function is part of PostgreSQL's access control system for configuration par
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - text_to_cstring (converts PostgreSQL text to C string)
+  - [text_to_cstring](../t/text_to_cstring.md) (converts PostgreSQL text to C string)
   - [pg_parameter_aclcheck](../p/pg_parameter_aclcheck.md) (performs the actual ACL check)
 - Called from (representative examples):
   - [has_parameter_privilege_name_name](has_parameter_privilege_name_name.md)

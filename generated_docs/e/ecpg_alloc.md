@@ -26,17 +26,17 @@ The function allocates memory using , ensuring that all allocated memory is init
 ## Dependencies
 - Functions called/Symbols referenced:
   - calloc (standard C library function)
-  - ecpg_raise (ECPG error reporting function)
+  - [ecpg_raise](ecpg_raise.md) (ECPG error reporting function)
   - ECPG_OUT_OF_MEMORY (error constant)
   - ECPG_SQLSTATE_ECPG_OUT_OF_MEMORY (SQL state constant)
 - Called from (representative examples):
-  - ECPGconnect (connection establishment)
-  - ecpg_get_data (data retrieval operations)
-  - ECPGset_desc (descriptor operations)
-  - ecpg_store_input (parameter processing)
-  - ecpg_build_params (parameter building)
-  - ecpg_auto_alloc (automatic memory management)
-  - replace_variables (SQL statement processing)
+  - [ECPGconnect](../E/ECPGconnect.md) (connection establishment)
+  - [ecpg_get_data](ecpg_get_data.md) (data retrieval operations)
+  - [ECPGset_desc](../E/ECPGset_desc.md) (descriptor operations)
+  - [ecpg_store_input](ecpg_store_input.md) (parameter processing)
+  - [ecpg_build_params](ecpg_build_params.md) (parameter building)
+  - [ecpg_auto_alloc](ecpg_auto_alloc.md) (automatic memory management)
+  - [replace_variables](../r/replace_variables.md) (SQL statement processing)
 
 ## Notes and Other Information
 - Returns NULL on allocation failure after raising an appropriate error

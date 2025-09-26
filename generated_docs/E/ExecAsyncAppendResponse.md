@@ -26,7 +26,7 @@ The function is part of PostgreSQL's asynchronous execution framework, allowing 
   - IsA (assertion macro)
   - Assert (assertion macro)
 - Called from (representative examples):
-  - ExecAsyncResponse
+  - [ExecAsyncResponse](ExecAsyncResponse.md)
 
 ## Notes and Other Information
 - The function performs extensive assertion checks to validate the request state and result types

@@ -48,17 +48,17 @@ CookedConstraint is typically used when constraints are inherited from existing 
   - ConstrType (enum type)
   - Oid (type)
   - AttrNumber (type) 
-  - Node (type)
+  - [Node](../N/Node.md) (type)
 
 - Called from (representative examples):
-  - StoreConstraints (src/backend/catalog/heap.c:2257)
-  - AddRelationNewConstraints (src/backend/catalog/heap.c:2331, 2391, 2520)
-  - DefineRelation (src/backend/commands/tablecmds.c:944, 946)
-  - MergeCheckConstraint (src/backend/commands/tablecmds.c:3055, 3059, 3088)
-  - ATAddCheckConstraint (src/backend/commands/tablecmds.c:9508)
+  - [StoreConstraints](../S/StoreConstraints.md) (src/backend/catalog/heap.c:2257)
+  - [AddRelationNewConstraints](../A/AddRelationNewConstraints.md) (src/backend/catalog/heap.c:2331, 2391, 2520)
+  - [DefineRelation](../D/DefineRelation.md) (src/backend/commands/tablecmds.c:944, 946)
+  - [MergeCheckConstraint](../M/MergeCheckConstraint.md) (src/backend/commands/tablecmds.c:3055, 3059, 3088)
+  - [ATAddCheckConstraint](../A/ATAddCheckConstraint.md) (src/backend/commands/tablecmds.c:9508)
 
 ## Notes and Other Information
-- CookedConstraint is used specifically for pre-processed constraints, typically those inherited from existing relations
+- [CookedConstraint](CookedConstraint.md) is used specifically for pre-processed constraints, typically those inherited from existing relations
 - The distinction between "cooked" and "raw" constraints is important: cooked constraints contain executable expression trees while raw constraints contain untransformed parse trees
 - Only DEFAULT and CHECK constraint types are supported; other constraint types like PRIMARY KEY, FOREIGN KEY, etc. are handled differently
 - The inheritance-related fields (is_local, inhcount, is_no_inherit) are crucial for PostgreSQL's table inheritance feature

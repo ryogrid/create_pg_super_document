@@ -26,8 +26,8 @@ The transformation process involves calling the user-provided action function wi
   - [TransformJsonStringValuesState](../T/TransformJsonStringValuesState.md) (state structure containing transformation context)
   - JSON_TOKEN_STRING (enum value for string tokens)
   - [escape_json](../e/escape_json.md) (function to properly escape JSON string literals)
-  - text_to_cstring (function to convert PostgreSQL text to C string)
-  - appendStringInfoString (function to append strings to StringInfo buffer)
+  - [text_to_cstring](text_to_cstring.md) (function to convert PostgreSQL text to C string)
+  - [appendStringInfoString](../a/appendStringInfoString.md) (function to append strings to StringInfo buffer)
   - JSON_SUCCESS (return value constant)
   - [JsonTokenType](../J/JsonTokenType.md) (enum type for token classification)
 - Called from (representative examples):
@@ -37,7 +37,7 @@ The transformation process involves calling the user-provided action function wi
 ## Notes and Other Information
 - This is a static function, only used within jsonfuncs.c
 - The core logic that differentiates between transformable strings and pass-through scalars
-- String transformations are applied via the action function pointer stored in the state structure
+- [String](../S/String.md) transformations are applied via the action function pointer stored in the state structure
 - Non-string scalars (numbers, booleans, null) are preserved exactly as parsed
 - The action function is expected to return a PostgreSQL text object with the transformed string
 - Part of the JSON transformation infrastructure supporting functions like json_strip_nulls, json_transform_text, etc.

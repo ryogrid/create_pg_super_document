@@ -27,7 +27,7 @@ The function prepares the shared memory structure that will be accessed by multi
   - RELATION_CHECKS (validation macro for relations)
   - [add_size](../a/add_size.md) (safe size addition utility)
   - [ParallelIndexScanDescData](../P/ParallelIndexScanDescData.md) (parallel scan descriptor structure)
-  - EstimateSnapshotSpace (estimates snapshot serialization space)
+  - [EstimateSnapshotSpace](../E/EstimateSnapshotSpace.md) (estimates snapshot serialization space)
   - MAXALIGN (memory alignment macro)
   - RelationGetRelid (gets relation OID)
   - [SerializeSnapshot](../S/SerializeSnapshot.md) (serializes snapshot to shared memory)

@@ -31,14 +31,14 @@ The function includes an assertion to ensure it's called while holding the appro
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert
-  - LWLockHeldByMeInMode
+  - [LWLockHeldByMeInMode](../L/LWLockHeldByMeInMode.md)
   - WORKERTYPE_UNKNOWN
   - InvalidOid
   - InvalidPid
 - Called from (representative examples):
-  - WaitForReplicationWorkerAttach (src/backend/replication/logical/launcher.c:218)
-  - logicalrep_worker_launch (src/backend/replication/logical/launcher.c:398, 521)
-  - logicalrep_worker_detach (src/backend/replication/logical/launcher.c:790)
+  - [WaitForReplicationWorkerAttach](../W/WaitForReplicationWorkerAttach.md) (src/backend/replication/logical/launcher.c:218)
+  - [logicalrep_worker_launch](logicalrep_worker_launch.md) (src/backend/replication/logical/launcher.c:398, 521)
+  - [logicalrep_worker_detach](logicalrep_worker_detach.md) (src/backend/replication/logical/launcher.c:790)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the launcher.c file

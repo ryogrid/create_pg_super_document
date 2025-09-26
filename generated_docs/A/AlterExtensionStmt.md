@@ -29,11 +29,11 @@ The update process involves reading extension control files and executing SQL up
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (from node system)
-  - List (from PostgreSQL's list implementation)
-  - DefElem (for option specification)
+  - [List](../L/List.md) (from PostgreSQL's list implementation)
+  - [DefElem](../D/DefElem.md) (for option specification)
 - Called from (representative examples):
-  - ExecAlterExtensionStmt (main execution function)
-  - ProcessUtilitySlow (utility command processor)
+  - [ExecAlterExtensionStmt](../E/ExecAlterExtensionStmt.md) (main execution function)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (utility command processor)
 
 ## Notes and Other Information
 - Currently only supports ALTER EXTENSION UPDATE operations

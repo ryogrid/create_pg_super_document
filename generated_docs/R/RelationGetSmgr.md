@@ -22,18 +22,18 @@ The function uses the unlikely() compiler hint to optimize for the common case w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - smgropen: Opens a storage manager relation using the relation's locator and backend ID
-  - smgrpin: Pins the storage manager relation to prevent premature closure
+  - [smgropen](../s/smgropen.md): Opens a storage manager relation using the relation's locator and backend ID
+  - [smgrpin](../s/smgrpin.md): Pins the storage manager relation to prevent premature closure
 - Called from (representative examples):
-  - gistBuildCallback: GiST index building
-  - _hash_alloc_buckets: Hash index bucket allocation
-  - heapam_relation_copy_data: Heap access method data copying
-  - visibilitymap_prepare_truncate: Visibility map truncation preparation
-  - table_block_relation_size: Table block size calculation
-  - RelationTruncate: Relation truncation operations
-  - PrefetchBuffer: Buffer prefetching operations
-  - ReadBufferExtended: Extended buffer reading
-  - RelationGetNumberOfBlocksInFork: Block count retrieval
+  - [gistBuildCallback](../g/gistBuildCallback.md): GiST index building
+  - [_hash_alloc_buckets](../h/_hash_alloc_buckets.md): Hash index bucket allocation
+  - [heapam_relation_copy_data](../h/heapam_relation_copy_data.md): Heap access method data copying
+  - [visibilitymap_prepare_truncate](../v/visibilitymap_prepare_truncate.md): Visibility map truncation preparation
+  - [table_block_relation_size](../t/table_block_relation_size.md): Table block size calculation
+  - [RelationTruncate](RelationTruncate.md): Relation truncation operations
+  - [PrefetchBuffer](../P/PrefetchBuffer.md): Buffer prefetching operations
+  - [ReadBufferExtended](ReadBufferExtended.md): Extended buffer reading
+  - [RelationGetNumberOfBlocksInFork](RelationGetNumberOfBlocksInFork.md): Block count retrieval
 
 ## Notes and Other Information
 - This is an inline function defined in rel.h for performance reasons

@@ -23,11 +23,11 @@ This shutdown process is essential for parallel hash joins where multiple worker
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecHashTableDetachBatch
-  - ExecHashTableDetach
-  - HashJoinState (struct type)
+  - [ExecHashTableDetachBatch](ExecHashTableDetachBatch.md)
+  - [ExecHashTableDetach](ExecHashTableDetach.md)
+  - [HashJoinState](../H/HashJoinState.md) (struct type)
 - Called from (representative examples):
-  - ExecShutdownNode_walker
+  - [ExecShutdownNode_walker](ExecShutdownNode_walker.md)
 
 ## Notes and Other Information
 - This function is specifically designed for parallel hash join cleanup scenarios

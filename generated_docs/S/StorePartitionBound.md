@@ -28,7 +28,7 @@ The function converts the PartitionBoundSpec to a text representation for storag
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - SearchSysCacheCopy1
   - HeapTupleIsValid
   - elog
@@ -38,9 +38,9 @@ The function converts the PartitionBoundSpec to a text representation for storag
   - [heap_modify_tuple](../h/heap_modify_tuple.md)
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - [heap_freetuple](../h/heap_freetuple.md)
-  - table_close
+  - [table_close](../t/table_close.md)
   - [update_default_partition_oid](../u/update_default_partition_oid.md)
-  - CommandCounterIncrement
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md)
   - [RelationGetPartitionDesc](../R/RelationGetPartitionDesc.md)
   - [get_default_oid_from_partdesc](../g/get_default_oid_from_partdesc.md)
   - [CacheInvalidateRelcacheByRelid](../C/CacheInvalidateRelcacheByRelid.md)

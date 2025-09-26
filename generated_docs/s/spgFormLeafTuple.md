@@ -36,8 +36,8 @@ Key aspects of the tuple formation process:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SpGistState (index state structure)
-  - SpGistLeafTuple (return type structure)
+  - [SpGistState](../S/SpGistState.md) (index state structure)
+  - [SpGistLeafTuple](../S/SpGistLeafTuple.md) (return type structure)
   - [heap_compute_data_size](../h/heap_compute_data_size.md) (data size calculation)
   - SGLTHDRSZ (header size macro)
   - SGDTSIZE (dead tuple size constant)

@@ -23,7 +23,7 @@ This function retrieves the current activity string for a PostgreSQL backend pro
   - [PgBackendStatus](../P/PgBackendStatus.md): Structure containing backend status information including st_activity_raw
   - HAS_PGSTAT_PERMISSIONS: Macro checking if current user has permissions to view statistics
   - [pgstat_clip_activity](pgstat_clip_activity.md): Function to properly clip/truncate activity strings for display
-  - cstring_to_text: Converts C string to PostgreSQL text type
+  - [cstring_to_text](../c/cstring_to_text.md): Converts C string to PostgreSQL text type
   - PG_GETARG_INT32: Macro to extract int32 argument from function call
   - PG_RETURN_TEXT_P: Macro to return text value from PostgreSQL function
   - [pfree](pfree.md): Memory deallocation function

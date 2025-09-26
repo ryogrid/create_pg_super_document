@@ -21,8 +21,8 @@ ReplicationOriginExitCleanup is a process exit callback function that ensures pr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire/LWLockRelease
-  - ConditionVariableBroadcast
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease
+  - [ConditionVariableBroadcast](../C/ConditionVariableBroadcast.md)
   - ConditionVariable (struct)
   - ReplicationOriginLock
   - LW_EXCLUSIVE

@@ -22,7 +22,7 @@ The function uses shared locking to ensure consistent reads of the xmin values w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire/LWLockRelease (for process array synchronization with shared lock)
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease (for process array synchronization with shared lock)
 - Called from (representative examples):
   - [logical_begin_heap_rewrite](../l/logical_begin_heap_rewrite.md) (in rewriteheap.c)
 

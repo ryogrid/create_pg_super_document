@@ -21,11 +21,11 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open (opens the pg_type relation)
+  - [table_open](../t/table_open.md) (opens the pg_type relation)
   - [table_beginscan_catalog](../t/table_beginscan_catalog.md) (begins catalog scan)
   - [heap_getnext](../h/heap_getnext.md) (retrieves next tuple from scan)
   - [table_endscan](../t/table_endscan.md) (ends the table scan)
-  - table_close (closes the relation)
+  - [table_close](../t/table_close.md) (closes the relation)
   - ForwardScanDirection (scan direction constant)
   - Form_pg_type (type form structure)
   - [typmap](../t/typmap.md) (type mapping structure)

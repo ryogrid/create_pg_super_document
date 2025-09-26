@@ -22,7 +22,7 @@ This function generates random integers following a Zipfian distribution using t
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_prng_double](../p/pg_prng_double.md)
-  - pg_prng_state (type)
+  - [pg_prng_state](../p/pg_prng_state.md) (type)
   - pow (math function)
   - floor (math function)
 - Called from (representative examples):

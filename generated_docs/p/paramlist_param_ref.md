@@ -26,7 +26,7 @@ The paramlist_param_ref function is a parameter reference hook that gets called 
   - OidIsValid (macro to validate OID)
   - [ParamListInfo](../P/ParamListInfo.md) (parameter list structure type)
   - ParamExternData (individual parameter data type)
-  - Param (execution node for parameters)
+  - [Param](../P/Param.md) (execution node for parameters)
   - PARAM_EXTERN (parameter kind constant)
 - Called from (representative examples):
   - [paramlist_parser_setup](paramlist_parser_setup.md) (sets this as the p_paramref_hook)

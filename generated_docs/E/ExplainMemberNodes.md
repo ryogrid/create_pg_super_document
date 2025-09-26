@@ -23,7 +23,7 @@ This function iterates through an array of child plan states and recursively cal
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExplainNode](ExplainNode.md)
-  - ExplainState (struct)
+  - [ExplainState](ExplainState.md) (struct)
 - Called from (representative examples):
   - [ExplainNode](ExplainNode.md) (for Append, MergeAppend, BitmapAnd, BitmapOr nodes)
 

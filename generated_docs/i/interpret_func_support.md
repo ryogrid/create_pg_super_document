@@ -27,7 +27,7 @@ The function performs comprehensive validation including existence checks, signa
   - [func_signature_string](../f/func_signature_string.md) (creates function signature string for error messages)
   - [get_func_rettype](../g/get_func_rettype.md) (gets function return type)
   - [NameListToString](../N/NameListToString.md) (converts name list to string)
-  - superuser (checks if current user is superuser)
+  - [superuser](../s/superuser.md) (checks if current user is superuser)
   - INTERNALOID (internal type OID constant)
 - Called from (representative examples):
   - [compute_function_attributes](../c/compute_function_attributes.md) (src/backend/commands/functioncmds.c:835)

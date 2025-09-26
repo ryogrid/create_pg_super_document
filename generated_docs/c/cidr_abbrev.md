@@ -26,7 +26,7 @@ The cidr_abbrev function provides an abbreviated representation of a cidr value 
   - ip_family (to get address family)
   - ip_addr (to get address data)
   - ip_bits (to get the netmask length)
-  - cstring_to_text (to convert C string to PostgreSQL text)
+  - [cstring_to_text](cstring_to_text.md) (to convert C string to PostgreSQL text)
   - PG_RETURN_TEXT_P (to return text result)
 - Called from (representative examples):
   - No direct references found in the analyzed codebase

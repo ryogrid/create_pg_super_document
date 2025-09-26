@@ -30,11 +30,11 @@ The function maintains the same snapshot data structure passed in - no new alloc
 - Functions called/Symbols referenced:
   - IsolationIsSerializable (checks if current isolation level is serializable)
   - [RecoveryInProgress](../R/RecoveryInProgress.md) (verifies system is not in recovery mode)
-  - GetSafeSnapshot (special path for read-only deferrable transactions)
+  - [GetSafeSnapshot](GetSafeSnapshot.md) (special path for read-only deferrable transactions)
   - [GetSerializableTransactionSnapshotInt](GetSerializableTransactionSnapshotInt.md) (main implementation for regular serializable transactions)
   - InvalidPid (constant used as parameter)
 - Called from (representative examples):
-  - GetTransactionSnapshot (in src/backend/utils/time/snapmgr.c:257)
+  - [GetTransactionSnapshot](GetTransactionSnapshot.md) (in src/backend/utils/time/snapmgr.c:257)
 
 ## Notes and Other Information
 - Only available when IsolationIsSerializable() returns true

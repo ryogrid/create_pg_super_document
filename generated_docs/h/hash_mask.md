@@ -50,7 +50,7 @@ This masking is essential for hash indexes because certain optimizations allow s
 ## Notes and Other Information
 - This function is part of PostgreSQL's WAL consistency checking infrastructure
 - The masking operations ensure that consistency checks don't fail due to legitimate differences in non-essential page data
-- Hash indexes have specific optimizations that allow certain operations to avoid WAL logging for performance reasons
+- [Hash](../H/Hash.md) indexes have specific optimizations that allow certain operations to avoid WAL logging for performance reasons
 - The LH_PAGE_HAS_DEAD_TUPLES hint bit masking is particularly important because tuple killing operations (_hash_kill_items) may not always generate WAL records
 - Line pointer flags can be modified during index scans (hashgettuple) without WAL logging
 - Different page types (unused, bucket, overflow) require different masking strategies

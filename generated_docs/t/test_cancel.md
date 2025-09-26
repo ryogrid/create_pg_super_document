@@ -45,7 +45,7 @@ Each test involves sending a long-running cancellable query using a separate mon
   - [PQcancelReset](../P/PQcancelReset.md)
   - [PQcancelFinish](../P/PQcancelFinish.md)
   - [PQcancelErrorMessage](../P/PQcancelErrorMessage.md)
-  - PQstatus
+  - [PQstatus](../P/PQstatus.md)
   - CONNECTION_OK
   - PGRES_POLLING_OK
   - PGRES_POLLING_READING

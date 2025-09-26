@@ -31,9 +31,9 @@ Additionally, when include_command_not_found is true, the function treats shell 
   - WEXITSTATUS (macro to extract exit status code)
 
 - Called from (representative examples):
-  - RestoreArchivedFile
-  - ExecuteRecoveryCommand
-  - shell_archive_file
+  - [RestoreArchivedFile](../R/RestoreArchivedFile.md)
+  - [ExecuteRecoveryCommand](../E/ExecuteRecoveryCommand.md)
+  - [shell_archive_file](../s/shell_archive_file.md)
 
 ## Notes and Other Information
 - Uses threshold comparison (exit code > 125 or > 128) to detect shell-reported signal termination

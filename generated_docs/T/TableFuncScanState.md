@@ -316,9 +316,9 @@ v_str ESTAB      0      0                                               *:633275
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ScanState](../S/ScanState.md) (base structure)
-  - ExprState (expression evaluation state)
-  - TableFuncRoutine (pluggable table builder interface)
-  - Tuplestorestate (tuple storage)
+  - [ExprState](../E/ExprState.md) (expression evaluation state)
+  - [TableFuncRoutine](TableFuncRoutine.md) (pluggable table builder interface)
+  - [Tuplestorestate](Tuplestorestate.md) (tuple storage)
   - [FmgrInfo](../F/FmgrInfo.md) (function manager info)
   - [MemoryContext](../M/MemoryContext.md) (memory management)
   - [Bitmapset](../B/Bitmapset.md) (bit manipulation)

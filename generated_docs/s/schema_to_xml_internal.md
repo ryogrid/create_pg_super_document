@@ -36,13 +36,13 @@ The function supports both simple XML output and XML Schema-aware output, and ca
 - Functions called/Symbols referenced:
   - [map_sql_identifier_to_xml_name](../m/map_sql_identifier_to_xml_name.md)
   - [get_namespace_name](../g/get_namespace_name.md)
-  - makeStringInfo
+  - [makeStringInfo](../m/makeStringInfo.md)
   - [xmldata_root_element_start](../x/xmldata_root_element_start.md)
-  - SPI_connect
+  - [SPI_connect](../S/SPI_connect.md)
   - [schema_get_xml_visible_tables](schema_get_xml_visible_tables.md)
   - [table_to_xml_internal](../t/table_to_xml_internal.md)
-  - appendBinaryStringInfo
-  - SPI_finish
+  - [appendBinaryStringInfo](../a/appendBinaryStringInfo.md)
+  - [SPI_finish](../S/SPI_finish.md)
   - [xmldata_root_element_end](../x/xmldata_root_element_end.md)
 - Called from (representative examples):
   - [schema_to_xml](schema_to_xml.md)

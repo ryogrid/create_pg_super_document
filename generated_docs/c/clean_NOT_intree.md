@@ -28,7 +28,7 @@ The function includes stack overflow protection and uses careful memory manageme
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth (stack overflow protection)
+  - [check_stack_depth](check_stack_depth.md) (stack overflow protection)
   - [freetree](../f/freetree.md) (memory deallocation for removed subtrees)
   - [clean_NOT_intree](clean_NOT_intree.md) (recursive self-call)
   - [pfree](../p/pfree.md) (individual node deallocation)

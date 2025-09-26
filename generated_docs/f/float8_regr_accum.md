@@ -25,7 +25,7 @@ This function implements the accumulation phase for SQL binary regression aggreg
   - isinf (check for infinite values)
   - isnan (check for NaN values)
   - [float_overflow_error](float_overflow_error.md) (report overflow errors)
-  - get_float8_nan (get NaN value)
+  - [get_float8_nan](../g/get_float8_nan.md) (get NaN value)
   - [AggCheckCallContext](../A/AggCheckCallContext.md) (check if in aggregate context)
   - Float8GetDatumFast (convert float8 to Datum)
   - [construct_array](../c/construct_array.md) (build new array)

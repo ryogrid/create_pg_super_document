@@ -39,33 +39,33 @@ The function contains detailed logic for handling posting lists and considers th
 ## Dependencies
 - Functions called/Symbols referenced:
   - CHECK_FOR_INTERRUPTS
-  - PageGetFreeSpace
+  - [PageGetFreeSpace](../P/PageGetFreeSpace.md)
   - IndexTupleSize
   - MAXALIGN
   - BTMaxItemSize
-  - _bt_check_third_page
-  - _bt_blnewpage
-  - PageGetItemId
-  - PageGetItem
-  - _bt_sortaddtup
+  - [_bt_check_third_page](_bt_check_third_page.md)
+  - [_bt_blnewpage](_bt_blnewpage.md)
+  - [PageGetItemId](../P/PageGetItemId.md)
+  - [PageGetItem](../P/PageGetItem.md)
+  - [_bt_sortaddtup](_bt_sortaddtup.md)
   - ItemIdGetLength
   - ItemIdSetUnused
-  - _bt_truncate
-  - PageIndexTupleOverwrite
-  - _bt_pagestate
+  - [_bt_truncate](_bt_truncate.md)
+  - [PageIndexTupleOverwrite](../P/PageIndexTupleOverwrite.md)
+  - [_bt_pagestate](_bt_pagestate.md)
   - BTreeTupleGetNAtts
-  - BTreeTupleSetDownLink
-  - CopyIndexTuple
+  - [BTreeTupleSetDownLink](../B/BTreeTupleSetDownLink.md)
+  - [CopyIndexTuple](../C/CopyIndexTuple.md)
   - BTPageGetOpaque
-  - _bt_blwritepage
+  - [_bt_blwritepage](_bt_blwritepage.md)
   - OffsetNumberNext
-  - palloc0
-  - BTreeTupleSetNAtts
+  - [palloc0](../p/palloc0.md)
+  - [BTreeTupleSetNAtts](../B/BTreeTupleSetNAtts.md)
 - Called from (representative examples):
-  - _bt_buildadd (recursive call for parent pages)
-  - _bt_sort_dedup_finish_pending
-  - _bt_uppershutdown
-  - _bt_load
+  - [_bt_buildadd](_bt_buildadd.md) (recursive call for parent pages)
+  - [_bt_sort_dedup_finish_pending](_bt_sort_dedup_finish_pending.md)
+  - [_bt_uppershutdown](_bt_uppershutdown.md)
+  - [_bt_load](_bt_load.md)
 
 ## Notes and Other Information
 - This function implements a recursive algorithm where page splits can trigger additional calls to handle parent page updates

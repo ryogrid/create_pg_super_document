@@ -33,10 +33,10 @@ HashInstrumentation serves as a data collection structure for monitoring and ana
   - Size (for memory measurement)
 - Called from (representative examples):
   - [show_hash_info](../s/show_hash_info.md) (for EXPLAIN ANALYZE output)
-  - ExecHashRetrieveInstrumentation (for collecting metrics)
-  - ExecHashAccumInstrumentation (for accumulating metrics)
-  - ExecHashEstimate (for estimation)
-  - ExecShutdownHash (during cleanup)
+  - [ExecHashRetrieveInstrumentation](../E/ExecHashRetrieveInstrumentation.md) (for collecting metrics)
+  - [ExecHashAccumInstrumentation](../E/ExecHashAccumInstrumentation.md) (for accumulating metrics)
+  - [ExecHashEstimate](../E/ExecHashEstimate.md) (for estimation)
+  - [ExecShutdownHash](../E/ExecShutdownHash.md) (during cleanup)
 
 ## Notes and Other Information
 - Essential component of PostgreSQL's query performance analysis infrastructure

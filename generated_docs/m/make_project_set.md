@@ -23,13 +23,13 @@ The  function constructs a ProjectSet plan node used in PostgreSQL's query execu
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to create the ProjectSet node)
-  - ProjectSet (the plan node type being created)
+  - [ProjectSet](../P/ProjectSet.md) (the plan node type being created)
 - Called from (representative examples):
-  - create_project_set_plan (primary caller that builds ProjectSet plans from ProjectSetPath)
+  - [create_project_set_plan](../c/create_project_set_plan.md) (primary caller that builds ProjectSet plans from ProjectSetPath)
 
 ## Notes and Other Information
 - This is a static helper function used internally within the query planner
 - The function sets the qual (qualification/WHERE conditions) to NIL since ProjectSet nodes don't filter rows
 - Only sets lefttree to the subplan; righttree is always NULL for ProjectSet nodes
 - Part of PostgreSQL's plan creation infrastructure in the optimizer module
-- ProjectSet nodes are specifically designed to handle the complexities of set-returning functions in the target list
+- [ProjectSet](../P/ProjectSet.md) nodes are specifically designed to handle the complexities of set-returning functions in the target list

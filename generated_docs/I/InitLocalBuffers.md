@@ -21,13 +21,13 @@ None (void function)
 - Functions called/Symbols referenced:
   - IsParallelWorker
   - calloc
-  - GetLocalBufferDescriptor
-  - hash_create
+  - [GetLocalBufferDescriptor](../G/GetLocalBufferDescriptor.md)
+  - [hash_create](../h/hash_create.md)
 - Called from (representative examples):
   - LocalBufHdrGetBlock
-  - PrefetchLocalBuffer
-  - LocalBufferAlloc
-  - ExtendBufferedRelLocal
+  - [PrefetchLocalBuffer](../P/PrefetchLocalBuffer.md)
+  - [LocalBufferAlloc](../L/LocalBufferAlloc.md)
+  - [ExtendBufferedRelLocal](../E/ExtendBufferedRelLocal.md)
 
 ## Notes and Other Information
 - Uses lazy allocation - buffer headers are created but actual data page memory allocated on demand

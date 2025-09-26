@@ -20,13 +20,13 @@ AtEOSubXact_PgStat manages the completion of subtransactions in PostgreSQL's sta
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AtEOSubXact_PgStat_Relations
-  - AtEOSubXact_PgStat_DroppedStats
-  - pfree
-  - PgStat_SubXactStatus (struct type)
+  - [AtEOSubXact_PgStat_Relations](AtEOSubXact_PgStat_Relations.md)
+  - [AtEOSubXact_PgStat_DroppedStats](AtEOSubXact_PgStat_DroppedStats.md)
+  - [pfree](../p/pfree.md)
+  - [PgStat_SubXactStatus](../P/PgStat_SubXactStatus.md) (struct type)
 - Called from (representative examples):
-  - CommitSubTransaction (src/backend/access/transam/xact.c:5136)
-  - AbortSubTransaction (src/backend/access/transam/xact.c:5300)
+  - [CommitSubTransaction](../C/CommitSubTransaction.md) (src/backend/access/transam/xact.c:5136)
+  - [AbortSubTransaction](AbortSubTransaction.md) (src/backend/access/transam/xact.c:5300)
 
 ## Notes and Other Information
 - This function is called from access/transam/xact.c at subtransaction commit/abort

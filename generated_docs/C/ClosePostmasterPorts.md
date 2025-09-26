@@ -31,7 +31,7 @@ The function handles platform-specific differences between Unix and Windows syst
   - [FreeWaitEventSetAfterFork](../F/FreeWaitEventSetAfterFork.md)
   - close
   - closesocket  
-  - ReleaseExternalFD
+  - [ReleaseExternalFD](../R/ReleaseExternalFD.md)
   - ereport
   - elog
   - [pfree](../p/pfree.md)

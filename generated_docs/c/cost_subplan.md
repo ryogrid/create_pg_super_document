@@ -40,9 +40,9 @@ The function also handles startup cost accounting based on correlation and mater
 
 ## Notes and Other Information
 - Sets subplan->startup_cost and subplan->per_call_cost based on the cost analysis
-- Hash table strategy is a major optimization for subplans that can be executed once and reused
+- [Hash](../H/Hash.md) table strategy is a major optimization for subplans that can be executed once and reused
 - Cost estimates for different sublink types reflect their typical execution patterns (EXISTS vs ALL/ANY vs others)
 - Startup cost handling distinguishes between correlated and uncorrelated subplans
 - The logic should align with tuple_fraction estimates used in make_subplan() for consistency
-- Hash table probing cost estimation is conservative and could potentially be refined
+- [Hash](../H/Hash.md) table probing cost estimation is conservative and could potentially be refined
 - For materialized uncorrelated subplans, startup cost is only charged once rather than per execution

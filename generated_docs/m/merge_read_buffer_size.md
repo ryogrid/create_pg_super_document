@@ -32,7 +32,7 @@ The calculation follows the inverse of the formula used in tuplesort_merge_order
   - Min (macro for constraining output tapes to maximum allowed)
   - Max (macro for ensuring non-negative buffer size)
 - Called from (representative examples):
-  - mergeruns (during merge pass execution)
+  - [mergeruns](mergeruns.md) (during merge pass execution)
 
 ## Notes and Other Information
 - This is a static internal helper function, not exposed in the public API

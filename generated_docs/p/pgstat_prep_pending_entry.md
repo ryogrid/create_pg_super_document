@@ -27,7 +27,7 @@ The function validates that the requested statistics kind supports pending data 
 - Functions called/Symbols referenced:
   - [pgstat_get_kind_info](pgstat_get_kind_info.md)
   - AllocSetContextCreate
-  - pgstat_get_entry_ref
+  - [pgstat_get_entry_ref](pgstat_get_entry_ref.md)
   - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md)
   - [dlist_push_tail](../d/dlist_push_tail.md)
   - ALLOCSET_SMALL_SIZES

@@ -27,17 +27,17 @@ The function is designed to work with any catalog table that stores ACLs by acce
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_object_catcache_oid](../g/get_object_catcache_oid.md)
-  - table_open, table_close
+  - [table_open](../t/table_open.md), table_close
   - [SearchSysCacheLocked1](../S/SearchSysCacheLocked1.md), ReleaseSysCache
   - [SysCacheGetAttr](../S/SysCacheGetAttr.md), SysCacheGetAttrNotNull
   - [acldefault](../a/acldefault.md), aclmembers
-  - select_best_grantor
+  - [select_best_grantor](../s/select_best_grantor.md)
   - [restrict_and_check_grant](../r/restrict_and_check_grant.md)
   - [merge_acl_with_grant](../m/merge_acl_with_grant.md)
   - [heap_modify_tuple](../h/heap_modify_tuple.md), CatalogTupleUpdate
   - [updateAclDependencies](../u/updateAclDependencies.md)
   - [recordExtensionInitPriv](../r/recordExtensionInitPriv.md)
-  - CommandCounterIncrement
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md)
 - Called from:
   - [ExecGrantStmt_oids](ExecGrantStmt_oids.md) (for various object types like tables, functions, databases, etc.)
 

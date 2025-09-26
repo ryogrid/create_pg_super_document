@@ -36,17 +36,17 @@ As a typedef of ArrayType, Acl inherits these members:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ArrayType (base structure)
+  - [ArrayType](ArrayType.md) (base structure)
   - AclItem (array element type)
 
 - Called from (representative examples):
-  - acldefault
-  - aclupdate  
-  - aclcopy
-  - aclmerge
-  - object_aclcheck
-  - pg_class_aclmask
-  - ExecGrant_Relation
+  - [acldefault](../a/acldefault.md)
+  - [aclupdate](../a/aclupdate.md)  
+  - [aclcopy](../a/aclcopy.md)
+  - [aclmerge](../a/aclmerge.md)
+  - [object_aclcheck](../o/object_aclcheck.md)
+  - [pg_class_aclmask](../p/pg_class_aclmask.md)
+  - [ExecGrant_Relation](../E/ExecGrant_Relation.md)
 
 ## Notes and Other Information
 - **Toasting Warning**: Always use detoasting macros (DatumGetAclP, DatumGetAclPCopy) when accessing Acl arrays, as they may be compressed or stored externally

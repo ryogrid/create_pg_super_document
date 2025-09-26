@@ -39,12 +39,12 @@ The structure follows the common header pattern with dictId and isvalid at the b
 ## Dependencies
 - Functions called/Symbols referenced:
   - Oid (PostgreSQL object identifier type)
-  - FmgrInfo (function manager information structure)
-  - MemoryContext (PostgreSQL memory management context)
+  - [FmgrInfo](../F/FmgrInfo.md) (function manager information structure)
+  - [MemoryContext](../M/MemoryContext.md) (PostgreSQL memory management context)
 - Called from (representative examples):
-  - lookup_ts_dictionary_cache
-  - ts_lexize
-  - LexizeExec
+  - [lookup_ts_dictionary_cache](../l/lookup_ts_dictionary_cache.md)
+  - [ts_lexize](../t/ts_lexize.md)
+  - [LexizeExec](../L/LexizeExec.md)
 
 ## Notes and Other Information
 - The dictId field must be first to ensure proper hash table functionality and compatibility with TSAnyCacheEntry casting

@@ -24,10 +24,10 @@ The function also handles expanded datums by forcing them to read-only state to 
 ## Dependencies
 - Functions called/Symbols referenced:
   - ScanDirectionIsForward
-  - ExecClearTuple
-  - ReScanExprContext
+  - [ExecClearTuple](../E/ExecClearTuple.md)
+  - [ReScanExprContext](../R/ReScanExprContext.md)
   - [ExecInitExprList](../E/ExecInitExprList.md)
-  - ExecEvalExpr
+  - [ExecEvalExpr](../E/ExecEvalExpr.md)
   - MakeExpandedObjectReadOnly
   - [ExecStoreVirtualTuple](../E/ExecStoreVirtualTuple.md)
 - Called from:

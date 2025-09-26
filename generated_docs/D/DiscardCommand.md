@@ -30,7 +30,7 @@ The function is designed to handle different levels of session cleanup, allowing
   - [ResetPlanCache](../R/ResetPlanCache.md)
   - [ResetSequenceCaches](../R/ResetSequenceCaches.md)
   - [ResetTempTableNamespace](../R/ResetTempTableNamespace.md)
-  - DiscardStmt (structure)
+  - [DiscardStmt](DiscardStmt.md) (structure)
   - DISCARD_ALL, DISCARD_PLANS, DISCARD_SEQUENCES, DISCARD_TEMP (enum values)
 - Called from (representative examples):
   - [standard_ProcessUtility](../s/standard_ProcessUtility.md)

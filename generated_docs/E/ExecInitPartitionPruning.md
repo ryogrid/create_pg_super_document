@@ -22,7 +22,7 @@ This function creates and initializes a PartitionPruneState structure that enabl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecAssignExprContext
+  - [ExecAssignExprContext](ExecAssignExprContext.md)
   - [CreatePartitionPruneState](../C/CreatePartitionPruneState.md)
   - [ExecFindMatchingSubPlans](ExecFindMatchingSubPlans.md)
   - [bms_add_range](../b/bms_add_range.md)
@@ -30,7 +30,7 @@ This function creates and initializes a PartitionPruneState structure that enabl
   - [PartitionPruneFixSubPlanMap](../P/PartitionPruneFixSubPlanMap.md)
 - Called from (representative examples):
   - [ExecInitAppend](ExecInitAppend.md)
-  - ExecInitMergeAppend
+  - [ExecInitMergeAppend](ExecInitMergeAppend.md)
 
 ## Notes and Other Information
 - Supports both Append and MergeAppend plan types with arbitrary numbers of subplans

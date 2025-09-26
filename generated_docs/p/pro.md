@@ -182,8 +182,8 @@ The table supports three main categories of options:
   - PRO_BOOL, PRO_INT, PRO_SPECIAL (type constants)
   - Various global formatting variables (e.g., blanklines_around_conditional_compilation, ps.ind_size)
 - Called from (representative examples):
-  - set_defaults (src/tools/pg_bsd_indent/args.c:248, 255)
-  - set_option (src/tools/pg_bsd_indent/args.c:263, 267)
+  - [set_defaults](../s/set_defaults.md) (src/tools/pg_bsd_indent/args.c:248, 255)
+  - [set_option](../s/set_option.md) (src/tools/pg_bsd_indent/args.c:263, 267)
 
 ## Notes and Other Information
 The usage: pro [-h] [--debug] [--version] <command> ...

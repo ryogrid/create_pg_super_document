@@ -32,17 +32,17 @@ Key characteristics:
 - Functions called/Symbols referenced:
   - ProcNumber (typedef used for head/tail fields)
 - Called from (representative examples):
-  - LWLockWakeup
-  - LWLockUpdateVar  
+  - [LWLockWakeup](../L/LWLockWakeup.md)
+  - [LWLockUpdateVar](../L/LWLockUpdateVar.md)  
   - CONDITION_VARIABLE_H
-  - LWLock
-  - proclist_init
-  - proclist_is_empty
-  - proclist_push_head_offset
-  - proclist_push_tail_offset
-  - proclist_delete_offset
-  - proclist_contains_offset
-  - proclist_pop_head_node_offset
+  - [LWLock](../L/LWLock.md)
+  - [proclist_init](proclist_init.md)
+  - [proclist_is_empty](proclist_is_empty.md)
+  - [proclist_push_head_offset](proclist_push_head_offset.md)
+  - [proclist_push_tail_offset](proclist_push_tail_offset.md)
+  - [proclist_delete_offset](proclist_delete_offset.md)
+  - [proclist_contains_offset](proclist_contains_offset.md)
+  - [proclist_pop_head_node_offset](proclist_pop_head_node_offset.md)
   - proclist_foreach_modify
 
 ## Notes and Other Information

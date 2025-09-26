@@ -32,8 +32,8 @@ The function implements an optimized approach:
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (memory management)
   - [tuplestore_select_read_pointer](../t/tuplestore_select_read_pointer.md) (tuple store navigation)
   - [tuplestore_gettupleslot](../t/tuplestore_gettupleslot.md) (tuple retrieval from buffer)
-  - are_peers (comparison of rows for peer group membership)
-  - ExecClearTuple (cleanup of temporary tuple slot)
+  - [are_peers](../a/are_peers.md) (comparison of rows for peer group membership)
+  - [ExecClearTuple](../E/ExecClearTuple.md) (cleanup of temporary tuple slot)
 - Called from (representative examples):
   - [row_is_in_frame](../r/row_is_in_frame.md) (for GROUPS frame processing and exclusion)
   - [ExecWindowAgg](../E/ExecWindowAgg.md) (main window aggregation execution)

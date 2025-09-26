@@ -51,16 +51,16 @@ The structure follows the common header pattern by placing prsId and isvalid at 
 ## Dependencies
 - Functions called/Symbols referenced:
   - Oid (PostgreSQL object identifier type)
-  - FmgrInfo (function manager information structure)
+  - [FmgrInfo](../F/FmgrInfo.md) (function manager information structure)
 - Called from (representative examples):
-  - lookup_ts_parser_cache
-  - parsetext
-  - hlparsetext
-  - ts_headline_byid_opt
+  - [lookup_ts_parser_cache](../l/lookup_ts_parser_cache.md)
+  - [parsetext](../p/parsetext.md)
+  - [hlparsetext](../h/hlparsetext.md)
+  - [ts_headline_byid_opt](../t/ts_headline_byid_opt.md)
 
 ## Notes and Other Information
 - The prsId field must be first to ensure proper hash table functionality and compatibility with TSAnyCacheEntry casting
-- FmgrInfo structures are expensive to initialize, so caching them provides significant performance benefits
+- [FmgrInfo](../F/FmgrInfo.md) structures are expensive to initialize, so caching them provides significant performance benefits
 - Used extensively in text search parsing operations where parser functions are called repeatedly
 - Part of PostgreSQL's text search caching infrastructure that reduces function lookup overhead
 - Cache entries are invalidated when parser definitions change in the system catalogs

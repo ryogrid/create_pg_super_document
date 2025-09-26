@@ -32,7 +32,7 @@ The function intelligently determines whether to flatten unplanned RTEs or recur
 - Functions called/Symbols referenced:
   - [add_rte_to_flat_rtable](add_rte_to_flat_rtable.md)
   - [flatten_unplanned_rtes](../f/flatten_unplanned_rtes.md)
-  - fetch_upper_rel
+  - [fetch_upper_rel](../f/fetch_upper_rel.md)
   - IS_DUMMY_REL
   - [add_rtes_to_flat_rtable](add_rtes_to_flat_rtable.md) (recursive call)
 - Constants used:
@@ -40,7 +40,7 @@ The function intelligently determines whether to flatten unplanned RTEs or recur
   - RTE_SUBQUERY
   - UPPERREL_FINAL
 - Types used:
-  - PlannerGlobal
+  - [PlannerGlobal](../P/PlannerGlobal.md)
 - Called from (representative examples):
   - [set_plan_references](../s/set_plan_references.md)
   - fix_scan_list

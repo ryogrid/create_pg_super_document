@@ -39,12 +39,12 @@ The function uses  to perform the complex logic of comparing ACL states and gene
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - createPQExpBuffer
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)
   - [buildACLCommands](../b/buildACLCommands.md)
   - [createDumpId](../c/createDumpId.md)
   - [ArchiveEntry](../A/ArchiveEntry.md)
   - [pg_fatal](../p/pg_fatal.md)
-  - destroyPQExpBuffer
+  - [destroyPQExpBuffer](destroyPQExpBuffer.md)
   - InvalidDumpId constant
 - Called from (representative examples):
   - [dumpTable](dumpTable.md)

@@ -44,7 +44,7 @@ Special consideration is given to WAL summarization - if WAL summarization is ac
   - [XLogFileName](../X/XLogFileName.md): Generates WAL filename for given timeline and segment
   - [XLogArchiveIsReadyOrDone](../X/XLogArchiveIsReadyOrDone.md): Checks archive status of a WAL segment
   - [WaitForWalSummarization](../W/WaitForWalSummarization.md): Waits for WAL summarization to complete
-  - XLogFilePath: Constructs full path to WAL file
+  - [XLogFilePath](../X/XLogFilePath.md): Constructs full path to WAL file
   - [XLogArchiveCleanup](../X/XLogArchiveCleanup.md): Removes archive status files
   - [durable_rename](../d/durable_rename.md): Performs atomic file rename with error handling
   - [XLogArchiveNotify](../X/XLogArchiveNotify.md): Creates archive notification for a WAL segment

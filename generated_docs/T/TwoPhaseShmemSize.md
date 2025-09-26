@@ -25,7 +25,7 @@ The function performs careful size calculations using PostgreSQL's safe arithmet
   - offsetof (standard C macro)
 - Types referenced:
   - [TwoPhaseStateData](TwoPhaseStateData.md) (main state structure)
-  - GlobalTransaction (pointer type)
+  - [GlobalTransaction](../G/GlobalTransaction.md) (pointer type)
   - [GlobalTransactionData](../G/GlobalTransactionData.md) (actual transaction data structure)
 - Called from:
   - [TwoPhaseShmemInit](TwoPhaseShmemInit.md) (in twophase.c:258)

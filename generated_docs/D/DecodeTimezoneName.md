@@ -33,11 +33,11 @@ The lookup order prioritizes abbreviations over full names to handle cases where
 - Functions called/Symbols referenced:
   - [downcase_truncate_identifier](../d/downcase_truncate_identifier.md) (string processing function)
   - [DecodeTimezoneAbbrev](DecodeTimezoneAbbrev.md) (timezone abbreviation resolver)
-  - DateTimeParseError (error handling function)
+  - [DateTimeParseError](DateTimeParseError.md) (error handling function)
   - [pg_tzset](../p/pg_tzset.md) (timezone database lookup function)
   - ereport, errcode, errmsg (PostgreSQL error reporting)
   - [pg_tz](../p/pg_tz.md) (PostgreSQL timezone type)
-  - DateTimeErrorExtra (error information structure)
+  - [DateTimeErrorExtra](DateTimeErrorExtra.md) (error information structure)
   - TZ, DTZ, DYNTZ (timezone type constants)
   - TZNAME_FIXED_OFFSET, TZNAME_DYNTZ, TZNAME_ZONE (return type constants)
 

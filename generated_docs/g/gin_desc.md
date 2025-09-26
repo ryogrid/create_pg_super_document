@@ -25,8 +25,8 @@ The function handles multiple GIN operation types including tree creation, inser
 - Functions called/Symbols referenced:
   - XLogRecGetData
   - XLogRecGetInfo
-  - appendStringInfo
-  - appendStringInfoString
+  - [appendStringInfo](../a/appendStringInfo.md)
+  - [appendStringInfoString](../a/appendStringInfoString.md)
   - XLogRecHasBlockImage
   - XLogRecBlockImageApply
   - [XLogRecGetBlockData](../X/XLogRecGetBlockData.md)

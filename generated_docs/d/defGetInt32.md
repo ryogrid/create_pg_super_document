@@ -34,7 +34,7 @@ The function performs a simple extraction and cast from the internal integer rep
   - [createdb](../c/createdb.md) (src/backend/commands/dbcommands.c:940)
   - [AlterDatabase](../A/AlterDatabase.md) (src/backend/commands/dbcommands.c:2410)
   - [ATExecSetIdentity](../A/ATExecSetIdentity.md) (src/backend/commands/tablecmds.c:8201)
-  - ExecVacuum (src/backend/commands/vacuum.c:268)
+  - [ExecVacuum](../E/ExecVacuum.md) (src/backend/commands/vacuum.c:268)
 
 ## Notes and Other Information
 - Most restrictive of the defGet functions - only accepts T_Integer node types

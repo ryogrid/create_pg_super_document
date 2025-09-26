@@ -24,11 +24,11 @@ The getConstraints function focuses specifically on foreign key constraints, as 
 - Functions called/Symbols referenced:
   - [TableInfo](../T/TableInfo.md) (structure type)
   - [ConstraintInfo](../C/ConstraintInfo.md) (structure type)
-  - appendPQExpBufferChar
+  - [appendPQExpBufferChar](../a/appendPQExpBufferChar.md)
   - DUMP_COMPONENT_DEFINITION (flag constant)
   - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
   - PGRES_TUPLES_OK (constant)
-  - pg_malloc
+  - [pg_malloc](../p/pg_malloc.md)
   - atooid
   - DO_FK_CONSTRAINT (enum value)
   - [AssignDumpId](../A/AssignDumpId.md)

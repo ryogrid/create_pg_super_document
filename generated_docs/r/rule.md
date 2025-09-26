@@ -66,20 +66,20 @@ The structure supports different types of rules (indicated by r_type) and provid
 ## Dependencies
 - Functions called/Symbols referenced:
   - r_type (enum)
-  - gmtsub
+  - [gmtsub](../g/gmtsub.md)
   - pg_time_t
   - [pg_tm](../p/pg_tm.md)
-  - increment_overflow
-  - increment_overflow_time
-  - leapcorr
-  - timesub
-  - typesequiv
+  - [increment_overflow](../i/increment_overflow.md)
+  - [increment_overflow_time](../i/increment_overflow_time.md)
+  - [leapcorr](../l/leapcorr.md)
+  - [timesub](../t/timesub.md)
+  - [typesequiv](../t/typesequiv.md)
 
 - Called from (representative examples):
-  - getrule
-  - transtime
-  - tzparse
-  - rulesub
+  - [getrule](../g/getrule.md)
+  - [transtime](../t/transtime.md)
+  - [tzparse](../t/tzparse.md)
+  - [rulesub](rulesub.md)
   - [stringrule](../s/stringrule.md)
   - [outzone](../o/outzone.md)
 

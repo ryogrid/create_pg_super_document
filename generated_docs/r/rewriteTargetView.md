@@ -38,7 +38,7 @@ Key operations include:
   - [error_view_not_updatable](../e/error_view_not_updatable.md)
   - [view_cols_are_auto_updatable](../v/view_cols_are_auto_updatable.md)
   - [view_has_instead_trigger](../v/view_has_instead_trigger.md)
-  - table_open
+  - [table_open](../t/table_open.md)
   - [acquireLocksOnSubLinks](../a/acquireLocksOnSubLinks.md)
   - [ChangeVarNodes](../C/ChangeVarNodes.md)
   - [ReplaceVarsFromTargetList](../R/ReplaceVarsFromTargetList.md)

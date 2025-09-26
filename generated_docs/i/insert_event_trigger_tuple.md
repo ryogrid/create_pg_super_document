@@ -23,9 +23,9 @@ insert_event_trigger_tuple is the core function responsible for physically creat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open() - opens the pg_event_trigger relation with lock
+  - [table_open](../t/table_open.md)() - opens the pg_event_trigger relation with lock
   - [GetNewOidWithIndex](../G/GetNewOidWithIndex.md)() - generates a new unique OID for the trigger
-  - namestrcpy() - copies strings into NameData structures
+  - [namestrcpy](../n/namestrcpy.md)() - copies strings into NameData structures
   - [NameGetDatum](../N/NameGetDatum.md)() - converts NameData to Datum
   - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)() - converts OID to Datum
   - [CharGetDatum](../C/CharGetDatum.md)() - converts char to Datum
@@ -38,7 +38,7 @@ insert_event_trigger_tuple is the core function responsible for physically creat
   - [recordDependencyOn](../r/recordDependencyOn.md)() - records function dependency
   - [recordDependencyOnCurrentExtension](../r/recordDependencyOnCurrentExtension.md)() - records extension dependency if applicable
   - InvokeObjectPostCreateHook() - invokes post-creation hooks
-  - table_close() - closes the relation and releases lock
+  - [table_close](../t/table_close.md)() - closes the relation and releases lock
 - Called from (representative examples):
   - [CreateEventTrigger](../C/CreateEventTrigger.md)() - as the final step in event trigger creation
 

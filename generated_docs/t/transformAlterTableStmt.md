@@ -73,7 +73,7 @@ The function ensures race condition safety by relying on the passed relid rather
 - Identity column support includes automatic sequence management for type changes
 - Foreign key validation can be optimized when certain conditions are met (no new non-null defaults)
 - The function distinguishes between regular tables and foreign tables for appropriate handling
-- Constraint processing is deferred until all subcommands are initially processed
+- [Constraint](../C/Constraint.md) processing is deferred until all subcommands are initially processed
 - Index statements generated from constraints are automatically transformed and integrated
 - Race condition safety is maintained through consistent use of relid parameter
 - The three-phase execution model (before/main/after) ensures proper dependency ordering

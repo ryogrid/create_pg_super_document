@@ -35,7 +35,7 @@ The function includes safety checks to handle NULL pointers and invalid structur
 - Functions called/Symbols referenced:
   - REMAGIC - Magic number constant for validating regex structures
   - [freecm](../f/freecm.md) - Frees color map structures
-  - freesubre - Recursively frees sub-regular expression tree structures
+  - [freesubre](../f/freesubre.md) - Recursively frees sub-regular expression tree structures
   - [freelacons](../f/freelacons.md) - Frees lookaround constraint arrays
   - NULLCNFA - Macro to check if compiled NFA is null
   - [freecnfa](../f/freecnfa.md) - Frees compiled NFA structures  

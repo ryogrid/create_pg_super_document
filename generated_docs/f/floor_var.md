@@ -36,7 +36,7 @@ The algorithm:
   - `const_one`: Predefined `NumericVar` constant representing value 1
 
 - Called from (representative examples):
-  - `numeric_floor`: SQL-callable floor function wrapper
+  - `[numeric_floor](../n/numeric_floor.md)`: SQL-callable floor function wrapper
   - [compute_bucket](../c/compute_bucket.md): Used in histogram bucket calculations
 
 ## Notes and Other Information

@@ -30,7 +30,7 @@ This approach ensures that the guc_nondef_list always accurately reflects which 
 ## Dependencies
 - Functions called/Symbols referenced:
   - GucSource (enum type)
-  - config_generic (struct)
+  - [config_generic](../c/config_generic.md) (struct)
   - PGC_S_DEFAULT (source constant)
   - [dlist_push_tail](../d/dlist_push_tail.md)
   - [dlist_delete](../d/dlist_delete.md)

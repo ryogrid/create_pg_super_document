@@ -21,7 +21,7 @@ The function is part of PostgreSQL's modular backup architecture where different
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bbsink_server_new](../b/bbsink_server_new.md)
-  - bbsink (type)
+  - [bbsink](../b/bbsink.md) (type)
 - Called from (representative examples):
   - [BaseBackupTargetHandle](../B/BaseBackupTargetHandle.md) (via function pointer in target type structure)
 

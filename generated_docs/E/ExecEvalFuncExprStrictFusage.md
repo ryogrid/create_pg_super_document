@@ -24,7 +24,7 @@ This function handles the evaluation of strict function call expressions where P
   - [pgstat_init_function_usage](../p/pgstat_init_function_usage.md) (initialize function usage tracking)
   - [pgstat_end_function_usage](../p/pgstat_end_function_usage.md) (finalize function usage tracking)
   - [FunctionCallInfo](../F/FunctionCallInfo.md) (structure type for function call parameters)
-  - PgStat_FunctionCallUsage (structure type for usage statistics)
+  - [PgStat_FunctionCallUsage](../P/PgStat_FunctionCallUsage.md) (structure type for usage statistics)
   - [NullableDatum](../N/NullableDatum.md) (structure type for nullable arguments)
 - Called from (representative examples):
   - [ExecInterpExpr](ExecInterpExpr.md) (main expression interpreter at line 783)

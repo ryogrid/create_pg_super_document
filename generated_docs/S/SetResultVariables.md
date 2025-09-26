@@ -23,7 +23,7 @@ SetResultVariables is a static function that maintains psql's special variables 
 - Functions called/Symbols referenced:
   - [PQcmdTuples](../P/PQcmdTuples.md) (PostgreSQL libpq function for row count)
   - [PQresultErrorField](../P/PQresultErrorField.md) (PostgreSQL libpq function for error details)
-  - SetVariable (psql variable management function)
+  - [SetVariable](SetVariable.md) (psql variable management function)
 - Constants referenced:
   - PG_DIAG_SQLSTATE (PostgreSQL diagnostic field identifier)
   - PG_DIAG_MESSAGE_PRIMARY (PostgreSQL diagnostic field identifier)

@@ -27,17 +27,17 @@ The function uses WaitLatch with timeouts to avoid indefinite blocking, and incl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WaitLatch: Used to wait with timeout during worker startup and shutdown phases
-  - LWLockHeldByMeInMode: Asserts proper lock acquisition before proceeding
-  - LWLockRelease/LWLockAcquire: Manages LogicalRepWorkerLock during wait periods
-  - ResetLatch: Clears latch state after wakeup
+  - [WaitLatch](../W/WaitLatch.md): Used to wait with timeout during worker startup and shutdown phases
+  - [LWLockHeldByMeInMode](../L/LWLockHeldByMeInMode.md): Asserts proper lock acquisition before proceeding
+  - [LWLockRelease](../L/LWLockRelease.md)/LWLockAcquire: Manages LogicalRepWorkerLock during wait periods
+  - [ResetLatch](../R/ResetLatch.md): Clears latch state after wakeup
   - CHECK_FOR_INTERRUPTS: Handles query cancellation and other interrupts
   - kill: Sends termination signal to the worker process
 
 - Called from:
-  - logicalrep_worker_stop: Public interface for stopping subscription workers
-  - logicalrep_pa_worker_stop: Interface for stopping parallel apply workers  
-  - logicalrep_worker_detach: Part of worker cleanup during detachment
+  - [logicalrep_worker_stop](logicalrep_worker_stop.md): Public interface for stopping subscription workers
+  - [logicalrep_pa_worker_stop](logicalrep_pa_worker_stop.md): Interface for stopping parallel apply workers  
+  - [logicalrep_worker_detach](logicalrep_worker_detach.md): Part of worker cleanup during detachment
 
 ## Notes and Other Information
 - Requires LogicalRepWorkerLock to be held in LW_SHARED mode before calling

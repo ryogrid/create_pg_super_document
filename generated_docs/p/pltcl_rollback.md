@@ -24,12 +24,12 @@ pltcl_rollback provides a way for PL/Tcl functions to abort the current transact
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SPI_rollback
-  - CopyErrorData
-  - FlushErrorState
-  - pltcl_construct_errorCode
-  - FreeErrorData
-  - MemoryContextSwitchTo
+  - [SPI_rollback](../S/SPI_rollback.md)
+  - [CopyErrorData](../C/CopyErrorData.md)
+  - [FlushErrorState](../F/FlushErrorState.md)
+  - [pltcl_construct_errorCode](pltcl_construct_errorCode.md)
+  - [FreeErrorData](../F/FreeErrorData.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - UTF_E2U (encoding conversion)
   - Tcl_SetObjResult
   - Tcl_NewStringObj

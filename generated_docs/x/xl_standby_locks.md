@@ -28,12 +28,12 @@ During WAL replay on standby servers, this record is processed by the  function,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - xl_standby_lock
+  - [xl_standby_lock](xl_standby_lock.md)
   - FLEXIBLE_ARRAY_MEMBER
 - Called from (representative examples):
-  - LogAccessExclusiveLocks
-  - standby_redo
-  - standby_desc
+  - [LogAccessExclusiveLocks](../L/LogAccessExclusiveLocks.md)
+  - [standby_redo](../s/standby_redo.md)
+  - [standby_desc](../s/standby_desc.md)
 
 ## Notes and Other Information
 - This structure uses a flexible array member to accommodate variable numbers of locks in a single WAL record

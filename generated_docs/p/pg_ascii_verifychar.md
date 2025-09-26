@@ -24,7 +24,7 @@ The function follows the general contract for verifychar functions: given a poin
 ## Dependencies
 - Functions called/Symbols referenced: None
 - Called from (representative examples):
-  - pg_encoding_set_invalid (indirectly through function pointer tables)
+  - [pg_encoding_set_invalid](pg_encoding_set_invalid.md) (indirectly through function pointer tables)
 
 ## Notes and Other Information
 - This function can assume that len > 0 and that *s != '\0' according to the verifychar function contract

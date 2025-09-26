@@ -28,7 +28,7 @@ The function also sets up null tuple slots for outer joins (LEFT and ANTI joins)
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode: Creates a new NestLoopState node
-  - ExecAssignExprContext: Creates expression evaluation context
+  - [ExecAssignExprContext](ExecAssignExprContext.md): Creates expression evaluation context
   - [ExecInitNode](ExecInitNode.md): Recursively initializes outer and inner child plan nodes
   - [ExecInitResultTupleSlotTL](ExecInitResultTupleSlotTL.md): Initializes result tuple slot and type information
   - [ExecAssignProjectionInfo](ExecAssignProjectionInfo.md): Sets up projection infrastructure for result tuples

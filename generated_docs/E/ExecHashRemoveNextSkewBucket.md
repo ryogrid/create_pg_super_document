@@ -36,13 +36,13 @@ When all skew buckets are removed, the function disables skew optimization entir
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecHashGetBucketAndBatch (determines target bucket and batch for tuples)
-  - dense_alloc (allocates dense storage for tuples moved to main hash table)
-  - ExecHashJoinSaveTuple (saves tuples to batch files for future processing)
-  - pfree (frees memory for hash tuples and bucket structures)
+  - [ExecHashGetBucketAndBatch](ExecHashGetBucketAndBatch.md) (determines target bucket and batch for tuples)
+  - [dense_alloc](../d/dense_alloc.md) (allocates dense storage for tuples moved to main hash table)
+  - [ExecHashJoinSaveTuple](ExecHashJoinSaveTuple.md) (saves tuples to batch files for future processing)
+  - [pfree](../p/pfree.md) (frees memory for hash tuples and bucket structures)
   - CHECK_FOR_INTERRUPTS (allows cancellation during tuple processing)
 - Called from:
-  - ExecHashSkewTableInsert (when skew space limit is exceeded)
+  - [ExecHashSkewTableInsert](ExecHashSkewTableInsert.md) (when skew space limit is exceeded)
 
 ## Notes and Other Information
 - Always removes buckets in reverse order of creation to maintain hash table lookup integrity

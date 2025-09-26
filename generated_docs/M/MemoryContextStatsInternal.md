@@ -30,7 +30,7 @@ This static function performs the actual recursive traversal of memory context h
   - [MemoryContextCounters](MemoryContextCounters.md) (statistics accumulation structure)
   - MemoryContextIsValid (context validation)
   - [MemoryContextStatsPrint](MemoryContextStatsPrint.md) (context-specific statistics printing callback)
-  - stack_is_too_deep (stack overflow protection)
+  - [stack_is_too_deep](../s/stack_is_too_deep.md) (stack overflow protection)
   - [MemoryContextTraverseNext](MemoryContextTraverseNext.md) (non-recursive context traversal)
   - LOG_SERVER_ONLY (logging level for ereport)
   - [errhidestmt](../e/errhidestmt.md)/errhidecontext (error reporting functions)

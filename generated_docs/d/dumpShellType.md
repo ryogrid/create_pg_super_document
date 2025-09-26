@@ -26,9 +26,9 @@ The function generates a simple CREATE TYPE statement without any implementation
   - [binary_upgrade_set_type_oids_by_type_oid](../b/binary_upgrade_set_type_oids_by_type_oid.md)
   - fmtQualifiedDumpable
   - [ArchiveEntry](../A/ArchiveEntry.md)
-  - createPQExpBuffer
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)
   - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
-  - destroyPQExpBuffer
+  - [destroyPQExpBuffer](destroyPQExpBuffer.md)
 - Called from (representative examples):
   - [dumpDumpableObject](dumpDumpableObject.md)
 

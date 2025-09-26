@@ -31,10 +31,10 @@ The function is designed as boilerplate code where only the attach_to_queues() a
 - Functions called/Symbols referenced:
   - [pqsignal](../p/pqsignal.md), BackgroundWorkerUnblockSignals (signal handling)
   - [dsm_attach](../d/dsm_attach.md), dsm_detach, dsm_segment_address (dynamic shared memory management)
-  - shm_toc_attach, shm_toc_lookup (shared memory table of contents)
+  - [shm_toc_attach](../s/shm_toc_attach.md), shm_toc_lookup (shared memory table of contents)
   - [attach_to_queues](../a/attach_to_queues.md) (application-specific queue setup)
   - [copy_messages](../c/copy_messages.md) (application-specific message processing)
-  - BackendPidGetProc, SetLatch (process communication)
+  - [BackendPidGetProc](../B/BackendPidGetProc.md), SetLatch (process communication)
   - [proc_exit](../p/proc_exit.md) (process termination)
 - Called from (representative examples):
   - test_shm_mq_header (registered as background worker entry point)

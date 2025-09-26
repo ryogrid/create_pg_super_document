@@ -31,14 +31,14 @@ The function preserves CUBE and ROLLUP syntax within GROUPING SETS to maintain t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth
+  - [check_stack_depth](../c/check_stack_depth.md)
   - [flatten_grouping_sets](flatten_grouping_sets.md) (recursive calls)
   - [makeGroupingSet](../m/makeGroupingSet.md)
   - [list_concat](../l/list_concat.md)
-  - lappend
+  - [lappend](../l/lappend.md)
   - lfirst
   - RowExpr
-  - GroupingSet
+  - [GroupingSet](../G/GroupingSet.md)
   - COERCE_IMPLICIT_CAST
   - GROUPING_SET_EMPTY
   - GROUPING_SET_SETS

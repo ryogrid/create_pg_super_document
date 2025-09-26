@@ -22,7 +22,7 @@ Similar to `make_andclause`, this function allocates a new BoolExpr node, sets i
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to create BoolExpr)
-  - BoolExpr (expression node type)
+  - [BoolExpr](../B/BoolExpr.md) (expression node type)
   - OR_EXPR (boolean operation constant)
 - Called from (representative examples):
   - [create_bitmap_subplan](../c/create_bitmap_subplan.md)

@@ -33,7 +33,7 @@ This function performs a system catalog lookup to determine the element type of 
   - [ProcedureCreate](../P/ProcedureCreate.md)
   - [CreateCast](../C/CreateCast.md)
   - [build_coercion_expression](../b/build_coercion_expression.md)
-  - transformArrayExpr
+  - [transformArrayExpr](../t/transformArrayExpr.md)
   - [json_categorize_type](../j/json_categorize_type.md)
   - [get_promoted_array_type](get_promoted_array_type.md)
 

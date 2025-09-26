@@ -29,7 +29,7 @@ The function manages several critical aspects: permission checking (ACL_EXECUTE)
   - [ExecPrepareExpr](ExecPrepareExpr.md)/ExecEvalExprSwitchContext (argument evaluation)
   - FunctionCallInvoke (procedure execution)
   - [begin_tup_output_tupdesc](../b/begin_tup_output_tupdesc.md)/end_tup_output (result handling)
-  - GetTransactionSnapshot/PushActiveSnapshot (snapshot management)
+  - [GetTransactionSnapshot](../G/GetTransactionSnapshot.md)/PushActiveSnapshot (snapshot management)
 - Called from (representative examples):
   - [standard_ProcessUtility](../s/standard_ProcessUtility.md)
 

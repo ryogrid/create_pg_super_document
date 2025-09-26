@@ -38,7 +38,7 @@ The function implements a sophisticated two-pass strategy for relations with ind
   - [lazy_cleanup_all_indexes](lazy_cleanup_all_indexes.md) (final index cleanup)
   - [TidStoreMemoryUsage](../T/TidStoreMemoryUsage.md) (memory monitoring)
   - [lazy_check_wraparound_failsafe](lazy_check_wraparound_failsafe.md) (safety checks)
-  - FreeSpaceMapVacuumRange (FSM maintenance)
+  - [FreeSpaceMapVacuumRange](../F/FreeSpaceMapVacuumRange.md) (FSM maintenance)
   - [visibilitymap_pin](../v/visibilitymap_pin.md) (visibility map management)
   - [PageGetHeapFreeSpace](../P/PageGetHeapFreeSpace.md) (free space calculation)
   - [vac_estimate_reltuples](../v/vac_estimate_reltuples.md) (tuple statistics)

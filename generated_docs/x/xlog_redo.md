@@ -34,9 +34,9 @@ The function operates during various recovery modes and ensures that the replayi
   - [SetTransactionIdLimit](../S/SetTransactionIdLimit.md), TransactionIdPrecedes, TransactionIdRetreat
   - [GetCurrentReplayRecPtr](../G/GetCurrentReplayRecPtr.md), RecoveryRestartPoint
   - [PrescanPreparedTransactions](../P/PrescanPreparedTransactions.md), StandbyRecoverPreparedTransactions
-  - ProcArrayApplyRecoveryInfo, InvalidateObsoleteReplicationSlots
-  - XLogReadBufferForRedo, CommitTsParameterChange
-  - UpdateControlFile, CheckRequiredParameterValues
+  - [ProcArrayApplyRecoveryInfo](../P/ProcArrayApplyRecoveryInfo.md), InvalidateObsoleteReplicationSlots
+  - [XLogReadBufferForRedo](../X/XLogReadBufferForRedo.md), CommitTsParameterChange
+  - [UpdateControlFile](../U/UpdateControlFile.md), CheckRequiredParameterValues
   - Various record types: XLOG_NEXTOID, XLOG_CHECKPOINT_SHUTDOWN, XLOG_CHECKPOINT_ONLINE, XLOG_FPI, etc.
 - Called from (representative examples):
   - WAL replay subsystem during recovery operations

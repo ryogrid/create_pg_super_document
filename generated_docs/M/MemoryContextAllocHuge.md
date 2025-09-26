@@ -27,7 +27,7 @@ The function sets the context's isReset flag to false and integrates with debugg
   - MCXT_ALLOC_HUGE (flag indicating huge allocation)
   - VALGRIND_MEMPOOL_ALLOC (Valgrind integration for memory pool tracking)
 - Called from (representative examples):
-  - pgstat_read_current_status (statistics system reading current backend status)
+  - [pgstat_read_current_status](../p/pgstat_read_current_status.md) (statistics system reading current backend status)
   - [pg_do_encoding_conversion](../p/pg_do_encoding_conversion.md) (character encoding conversion operations)
   - [perform_default_encoding_conversion](../p/perform_default_encoding_conversion.md) (default character encoding conversions)
   - repalloc0_array (array reallocation with zero initialization)

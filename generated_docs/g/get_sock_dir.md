@@ -25,7 +25,7 @@ This function sets the socket directory for a PostgreSQL cluster with different 
   - fgets (for reading file lines)
   - sscanf (for parsing port number)
   - [pg_strdup](../p/pg_strdup.md) (for string duplication)
-  - pg_strip_crlf (to clean string endings)
+  - [pg_strip_crlf](../p/pg_strip_crlf.md) (to clean string endings)
   - [pg_fatal](../p/pg_fatal.md) (for error reporting)
   - [pg_log](../p/pg_log.md) (for warnings)
 - Constants used:

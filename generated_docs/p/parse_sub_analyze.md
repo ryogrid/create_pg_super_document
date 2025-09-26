@@ -46,7 +46,7 @@ This function is essential for PostgreSQL's ability to handle complex nested que
   - [transformSetOperationTree](../t/transformSetOperationTree.md): For analyzing UNION/INTERSECT/EXCEPT operations
   - [transformRangeSubselect](../t/transformRangeSubselect.md): For analyzing subqueries in FROM clauses
   - [analyzeCTE](../a/analyzeCTE.md): For analyzing Common Table Expression definitions
-  - transformSubLink: For analyzing subquery expressions
+  - [transformSubLink](../t/transformSubLink.md): For analyzing subquery expressions
 
 ## Notes and Other Information
 - This function handles recursive parsing for nested query structures

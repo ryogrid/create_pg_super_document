@@ -24,7 +24,7 @@ This function retrieves the count of heap tuple identifiers (TIDs) stored in a p
 - Called from (representative examples):
   - [_bt_dedup_start_pending](../b/_bt_dedup_start_pending.md)
   - [_bt_dedup_save_htid](../b/_bt_dedup_save_htid.md)
-  - _bt_update_posting
+  - [_bt_update_posting](../b/_bt_update_posting.md)
   - [_bt_check_unique](../b/_bt_check_unique.md)
   - [btvacuumpage](../b/btvacuumpage.md)
   - [_bt_binsrch_posting](../b/_bt_binsrch_posting.md)

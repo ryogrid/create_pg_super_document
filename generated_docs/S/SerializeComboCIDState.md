@@ -29,9 +29,9 @@ The function includes bounds checking to ensure the provided buffer is large eno
 - Functions called/Symbols referenced:
   - elog (for error reporting)
   - memcpy (for copying combo CID data)
-  - ComboCidKeyData (structure type)
+  - [ComboCidKeyData](../C/ComboCidKeyData.md) (structure type)
 - Called from (representative examples):
-  - InitializeParallelDSM (during parallel query setup)
+  - [InitializeParallelDSM](../I/InitializeParallelDSM.md) (during parallel query setup)
   - COMBOCID_H (header file inclusion)
 
 ## Notes and Other Information

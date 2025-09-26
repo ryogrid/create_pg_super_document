@@ -28,7 +28,7 @@ This function serves as a compatibility wrapper for LLVM's struct GEP (Get Eleme
   - LLVMBuildStructGEP2 (LLVM C API function, for LLVM >= 16)
 - Called from (representative examples):
   - [slot_compile_deform](../s/slot_compile_deform.md) (multiple locations in src/backend/jit/llvm/llvmjit_deform.c)
-  - llvm_compile_expr (multiple locations in src/backend/jit/llvm/llvmjit_expr.c)
+  - [llvm_compile_expr](llvm_compile_expr.md) (multiple locations in src/backend/jit/llvm/llvmjit_expr.c)
   - [l_load_struct_gep](l_load_struct_gep.md) (src/include/jit/llvmjit_emit.h:155)
   - [l_funcnullp](l_funcnullp.md) and l_funcvaluep (utility functions in src/include/jit/llvmjit_emit.h)
 

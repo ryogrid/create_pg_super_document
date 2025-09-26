@@ -24,7 +24,7 @@ The  function is a PostgreSQL input conversion function that parses string repre
 - Functions called/Symbols referenced:
   - PG_GETARG_CSTRING
   - [palloc](../p/palloc.md)
-  - path_decode
+  - [path_decode](../p/path_decode.md)
   - [float8_lt](../f/float8_lt.md)
   - PG_RETURN_BOX_P
   - PG_RETURN_NULL

@@ -29,19 +29,19 @@ None (void function)
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TempTablespacesAreSet
+  - [TempTablespacesAreSet](../T/TempTablespacesAreSet.md)
   - [IsTransactionState](../I/IsTransactionState.md)
-  - SplitIdentifierString
+  - [SplitIdentifierString](../S/SplitIdentifierString.md)
   - [get_tablespace_oid](../g/get_tablespace_oid.md)
   - [object_aclcheck](../o/object_aclcheck.md)
-  - SetTempTablespaces
+  - [SetTempTablespaces](../S/SetTempTablespaces.md)
   - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
   - [list_free](../l/list_free.md)
 - Called from (representative examples):
   - [GetDefaultTablespace](../G/GetDefaultTablespace.md) (src/backend/commands/tablespace.c:1150)
-  - ExecHashTableCreate (src/backend/executor/nodeHash.c:586)
-  - BufFileCreateTemp (src/backend/storage/file/buffile.c:207)
-  - inittapestate (src/backend/utils/sort/tuplesort.c:1965)
+  - [ExecHashTableCreate](../E/ExecHashTableCreate.md) (src/backend/executor/nodeHash.c:586)
+  - [BufFileCreateTemp](../B/BufFileCreateTemp.md) (src/backend/storage/file/buffile.c:207)
+  - [inittapestate](../i/inittapestate.md) (src/backend/utils/sort/tuplesort.c:1965)
 
 ## Notes and Other Information
 - Called once per transaction, subsequent calls in the same transaction are no-ops

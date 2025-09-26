@@ -24,12 +24,12 @@ This function is essential for preventing memory leaks when working with minimal
   - [pfree](../p/pfree.md)
 - Called from (representative examples):
   - [tts_minimal_clear](../t/tts_minimal_clear.md)
-  - ExecHashTableInsert
-  - ExecParallelHashTableInsert
-  - ExecParallelHashTableInsertCurrentBatch
-  - ExecHashSkewTableInsert
+  - [ExecHashTableInsert](../E/ExecHashTableInsert.md)
+  - [ExecParallelHashTableInsert](../E/ExecParallelHashTableInsert.md)
+  - [ExecParallelHashTableInsertCurrentBatch](../E/ExecParallelHashTableInsertCurrentBatch.md)
+  - [ExecHashSkewTableInsert](../E/ExecHashSkewTableInsert.md)
   - [ExecHashJoinImpl](../E/ExecHashJoinImpl.md)
-  - ExecParallelHashJoinPartitionOuter
+  - [ExecParallelHashJoinPartitionOuter](../E/ExecParallelHashJoinPartitionOuter.md)
   - [writetup_heap](../w/writetup_heap.md)
   - HeapTupleClearHeapOnly
 

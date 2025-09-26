@@ -36,10 +36,10 @@ The design includes predefined field number constants (FIELDNO_NULLABLE_DATUM_DA
 - Used by (representative examples):
   - SerializedReindexState (catalog/index.c:110)
   - [AppendAttributeTuples](../A/AppendAttributeTuples.md) (catalog/index.c:510)
-  - index_create (catalog/index.c:738)
+  - [index_create](../i/index_create.md) (catalog/index.c:738)
   - [ExecBuildAggTrans](../E/ExecBuildAggTrans.md) (executor/execExpr.c:3545)
   - [ExecInterpExpr](../E/ExecInterpExpr.md) (executor/execExprInterp.c:750, 1687)
-  - ExprEvalStep (include/executor/execExpr.h:662)
+  - [ExprEvalStep](../E/ExprEvalStep.md) (include/executor/execExpr.h:662)
   - [FunctionCallInfoBaseData](../F/FunctionCallInfoBaseData.md) (include/fmgr.h:95)
   - [JsonExprState](../J/JsonExprState.md) (include/nodes/execnodes.h:1028, 1031, 1044, 1047)
 

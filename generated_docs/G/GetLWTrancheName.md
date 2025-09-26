@@ -32,8 +32,8 @@ This function is primarily used for debugging, logging, and diagnostic purposes 
 
 - Called from (representative examples):
   - T_NAME (macro for tranche name display)
-  - print_lwlock_stats (statistics printing function)
-  - GetLWLockIdentifier (identifier formatting function)
+  - [print_lwlock_stats](../p/print_lwlock_stats.md) (statistics printing function)
+  - [GetLWLockIdentifier](GetLWLockIdentifier.md) (identifier formatting function)
 
 ## Notes and Other Information
 - This function is static, meaning it's only accessible within the lwlock.c file

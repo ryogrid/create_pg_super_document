@@ -23,13 +23,13 @@ The function operates under LogicalRepWorkerLock protection to ensure thread-saf
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire/LWLockRelease: Acquires LogicalRepWorkerLock for thread-safe worker access
-  - logicalrep_worker_find: Locates the worker matching the subscription/relation pair (with include_stopping=true)
-  - logicalrep_worker_wakeup_ptr: Performs the actual latch-based worker wakeup
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease: Acquires LogicalRepWorkerLock for thread-safe worker access
+  - [logicalrep_worker_find](logicalrep_worker_find.md): Locates the worker matching the subscription/relation pair (with include_stopping=true)
+  - [logicalrep_worker_wakeup_ptr](logicalrep_worker_wakeup_ptr.md): Performs the actual latch-based worker wakeup
 
 - Called from:
-  - pg_attribute_noreturn: Used in table synchronization context for worker coordination
-  - apply_handle_stream_start: Wakes workers when new replication streams begin
+  - [pg_attribute_noreturn](../p/pg_attribute_noreturn.md): Used in table synchronization context for worker coordination
+  - [apply_handle_stream_start](../a/apply_handle_stream_start.md): Wakes workers when new replication streams begin
 
 ## Notes and Other Information
 - Safe to call even if no worker exists for the given subscription/relation pair

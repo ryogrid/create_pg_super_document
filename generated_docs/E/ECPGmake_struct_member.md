@@ -24,8 +24,8 @@ The  function is responsible for creating a new struct member node and adding it
 - Functions called/Symbols referenced:
   - [mm_alloc](../m/mm_alloc.md) (memory allocation with error checking)
   - [mm_strdup](../m/mm_strdup.md) (string duplication with error checking)
-  - ECPGstruct_member (struct type for linked list nodes)
-  - ECPGtype (struct type for type information)
+  - [ECPGstruct_member](ECPGstruct_member.md) (struct type for linked list nodes)
+  - [ECPGtype](ECPGtype.md) (struct type for type information)
 - Called from (representative examples):
   - [ECPGstruct_member_dup](ECPGstruct_member_dup.md)
   - Referenced in ECPGtype structure definition

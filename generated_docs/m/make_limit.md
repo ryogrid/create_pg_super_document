@@ -32,7 +32,7 @@ The Limit node is essential for implementing query result pagination and limitin
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (creates a new Limit node)
-  - Limit (the plan node type being created)
+  - [Limit](../L/Limit.md) (the plan node type being created)
   - [LimitOption](../L/LimitOption.md) (enumeration for limit behavior options)
 - Called from (representative examples):
   - [create_limit_plan](../c/create_limit_plan.md)

@@ -29,28 +29,28 @@ The function modifies the restrict_clauses parameter by adding clauses that shou
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_is_subset
+  - [bms_is_subset](../b/bms_is_subset.md)
   - bms_is_empty
-  - bms_overlap
-  - bms_union
+  - [bms_overlap](../b/bms_overlap.md)
+  - [bms_union](../b/bms_union.md)
   - PATH_REQ_OUTER
-  - join_clause_is_movable_into
-  - generate_join_implied_equalities
-  - generate_join_implied_equalities_for_ecs
-  - list_concat
-  - find_param_path_info
-  - get_parameterized_joinrel_size
+  - [join_clause_is_movable_into](../j/join_clause_is_movable_into.md)
+  - [generate_join_implied_equalities](generate_join_implied_equalities.md)
+  - [generate_join_implied_equalities_for_ecs](generate_join_implied_equalities_for_ecs.md)
+  - [list_concat](../l/list_concat.md)
+  - [find_param_path_info](../f/find_param_path_info.md)
+  - [get_parameterized_joinrel_size](get_parameterized_joinrel_size.md)
   - makeNode (ParamPathInfo)
 - Called from (representative examples):
-  - create_nestloop_path
-  - create_mergejoin_path  
-  - create_hashjoin_path
+  - [create_nestloop_path](../c/create_nestloop_path.md)
+  - [create_mergejoin_path](../c/create_mergejoin_path.md)  
+  - [create_hashjoin_path](../c/create_hashjoin_path.md)
 
 ## Notes and Other Information
 - Returns NULL for unparameterized joins (when required_outer is empty)
 - Handles complex EquivalenceClass interactions to ensure proper constraint enforcement
 - The restrict_clauses parameter is modified as an in/out parameter to return moved clauses
 - For nested loop joins, caller must remove movable clauses scheduled for the right-hand path
-- ParamPathInfo structures are cached but clause lists are input-pair dependent
+- [ParamPathInfo](../P/ParamPathInfo.md) structures are cached but clause lists are input-pair dependent
 - Special handling for dropped EquivalenceClass clauses ensures no constraint enforcement gaps
 - The function is located in src/backend/optimizer/util/relnode.c:1671-1867

@@ -19,13 +19,13 @@ BufFileSize calculates the total logical size of a BufFile that is backed by a f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FileSize
-  - FilePathName
+  - [FileSize](../F/FileSize.md)
+  - [FilePathName](../F/FilePathName.md)
   - MAX_PHYSICAL_FILESIZE (constant)
   - Assert
   - ereport/ERROR
 - Called from (representative examples):
-  - LogicalTapeImport (src/backend/utils/sort/logtape.c:625)
+  - [LogicalTapeImport](../L/LogicalTapeImport.md) (src/backend/utils/sort/logtape.c:625)
 
 ## Notes and Other Information
 - Only works with fileset-based BufFiles (requires file->fileset != NULL)

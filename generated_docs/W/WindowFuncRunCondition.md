@@ -45,12 +45,12 @@ This structure encapsulates a comparison operation between a window function res
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Expr (base expression structure)
+  - [Expr](../E/Expr.md) (base expression structure)
   - Oid (for operator and collation references)
   
 - Called from (representative examples):
-  - find_window_run_conditions (optimizer path planning for creating run conditions)
-  - create_one_window_path (query planner when building window execution paths)
+  - [find_window_run_conditions](../f/find_window_run_conditions.md) (optimizer path planning for creating run conditions)
+  - [create_one_window_path](../c/create_one_window_path.md) (query planner when building window execution paths)
   - LIST_WALK and MUTATE (node traversal and transformation functions)
 
 ## Notes and Other Information

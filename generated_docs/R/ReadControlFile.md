@@ -17,34 +17,34 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BasicOpenFile
+  - [BasicOpenFile](../B/BasicOpenFile.md)
   - read
   - close
   - ereport
-  - pgstat_report_wait_start
-  - pgstat_report_wait_end
+  - [pgstat_report_wait_start](../p/pgstat_report_wait_start.md)
+  - [pgstat_report_wait_end](../p/pgstat_report_wait_end.md)
   - INIT_CRC32C
   - COMP_CRC32C
   - FIN_CRC32C
   - EQ_CRC32C
   - IsValidWalSegSize
   - ConvertToXSegs
-  - CalculateCheckpointSegments
-  - SetConfigOption
-  - DataChecksumsEnabled
+  - [CalculateCheckpointSegments](../C/CalculateCheckpointSegments.md)
+  - [SetConfigOption](../S/SetConfigOption.md)
+  - [DataChecksumsEnabled](../D/DataChecksumsEnabled.md)
   - snprintf
-  - errcode_for_file_access
-  - errmsg
-  - errdetail
-  - errhint
-  - errmsg_plural
+  - [errcode_for_file_access](../e/errcode_for_file_access.md)
+  - [errmsg](../e/errmsg.md)
+  - [errdetail](../e/errdetail.md)
+  - [errhint](../e/errhint.md)
+  - [errmsg_plural](../e/errmsg_plural.md)
   - XLOG_CONTROL_FILE
   - PG_CONTROL_VERSION
   - CATALOG_VERSION_NO
 - Called from (representative examples):
   - RefreshXLogWriteResult
-  - LocalProcessControlFile
-  - BootStrapXLOG
+  - [LocalProcessControlFile](../L/LocalProcessControlFile.md)
+  - [BootStrapXLOG](../B/BootStrapXLOG.md)
 
 ## Notes and Other Information
 - Performs wait event reporting with WAIT_EVENT_CONTROL_FILE_READ for monitoring

@@ -41,11 +41,11 @@ The query_jumble_ignore attributes on the type-related fields indicate that thes
 - Functions called/Symbols referenced:
   - (No direct symbol references)
 - Called from (representative examples):
-  - ExecInitExprRec
-  - eval_const_expressions_mutator
-  - ParseComplexProjection
-  - ExpandRowReference
-  - get_rule_expr
+  - [ExecInitExprRec](../E/ExecInitExprRec.md)
+  - [eval_const_expressions_mutator](../e/eval_const_expressions_mutator.md)
+  - [ParseComplexProjection](../P/ParseComplexProjection.md)
+  - [ExpandRowReference](../E/ExpandRowReference.md)
+  - [get_rule_expr](../g/get_rule_expr.md)
 
 ## Notes and Other Information
 - Used for accessing individual fields from composite types, records, and row expressions

@@ -24,7 +24,7 @@ This function unlocks a relation lock identified by a relation OID and lock mode
   - [LockRelease](../L/LockRelease.md) (performs the actual lock release)
 - Types referenced:
   - Oid (object identifier type)
-  - LOCKTAG (lock tag structure)
+  - [LOCKTAG](../L/LOCKTAG.md) (lock tag structure)
   - LOCKMODE (enumeration of lock modes)
 - Called from (representative examples):
   - [try_relation_open](../t/try_relation_open.md) (in relation.c:106)

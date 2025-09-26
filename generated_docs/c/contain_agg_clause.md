@@ -24,7 +24,7 @@ This function provides a convenient wrapper around  to detect the presence of ag
 - Called from (representative examples):
   - [get_eclass_for_sort_expr](../g/get_eclass_for_sort_expr.md)
   - [subquery_planner](../s/subquery_planner.md)
-  - WindowFuncLists
+  - [WindowFuncLists](../W/WindowFuncLists.md)
 
 ## Notes and Other Information
 - This function should only be used after reduction of sublinks to subplans or in contexts where it's known there are no subqueries

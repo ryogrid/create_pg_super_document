@@ -78,8 +78,8 @@ The structure leverages WAL summaries to determine what has changed rather than 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BlockRefTable
-  - JsonManifestParseIncrementalState
+  - [BlockRefTable](../B/BlockRefTable.md)
+  - [JsonManifestParseIncrementalState](../J/JsonManifestParseIncrementalState.md)
   - [manifest_process_version](../m/manifest_process_version.md)
   - [manifest_process_system_identifier](../m/manifest_process_system_identifier.md)
   - [manifest_process_file](../m/manifest_process_file.md)

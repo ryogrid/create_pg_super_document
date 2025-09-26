@@ -34,11 +34,11 @@ TimeoutId provides a comprehensive enumeration system for managing various timeo
 ## Dependencies
 - Functions called/Symbols referenced: None (enum definition)
 - Called from (representative examples):
-  - timeout_params (timeout.c:28)
-  - find_active_timeout (timeout.c:96)
-  - enable_timeout_after (timeout.c:560)
-  - disable_timeout (timeout.c:685)
-  - RegisterTimeout (timeout.c:505)
+  - [timeout_params](../t/timeout_params.md) (timeout.c:28)
+  - [find_active_timeout](../f/find_active_timeout.md) (timeout.c:96)
+  - [enable_timeout_after](../e/enable_timeout_after.md) (timeout.c:560)
+  - [disable_timeout](../d/disable_timeout.md) (timeout.c:685)
+  - [RegisterTimeout](../R/RegisterTimeout.md) (timeout.c:505)
   - EnableTimeoutParams struct
   - [DisableTimeoutParams](../D/DisableTimeoutParams.md) struct
 

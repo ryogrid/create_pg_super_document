@@ -26,20 +26,20 @@ The structure is designed to work with PostgreSQL's hash table infrastructure (H
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Portal (typedef for PortalData pointer)
+  - [Portal](Portal.md) (typedef for PortalData pointer)
   - MAX_PORTALNAME_LEN (constant, equals NAMEDATALEN)
-  - HTAB (hash table type)
+  - [HTAB](../H/HTAB.md) (hash table type)
 
 - Used by (representative examples):
   - PortalHashTableLookup (macro for finding portals by name)
   - PortalHashTableInsert (macro for inserting new portal entries)
   - PortalHashTableDelete (macro for removing portal entries)
-  - EnablePortalManager (initializes the portal hash table)
+  - [EnablePortalManager](../E/EnablePortalManager.md) (initializes the portal hash table)
   - Various portal lifecycle functions (PreCommit_Portals, AtAbort_Portals, etc.)
 
 ## Notes and Other Information
 - This structure is part of the internal implementation of portal memory management and is not exposed to external modules
 - The hash table using this structure is initialized during EnablePortalManager() and persists throughout the backend process lifetime
-- Portal names must be unique within a database session, enforced through the hash table lookup mechanism
+- [Portal](Portal.md) names must be unique within a database session, enforced through the hash table lookup mechanism
 - The structure is used extensively in transaction cleanup operations to iterate through all active portals
 - Memory for PortalHashEnt instances is managed by PostgreSQL's hash table infrastructure, not directly by application code

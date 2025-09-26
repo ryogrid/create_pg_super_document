@@ -22,16 +22,16 @@ The function handles buffer expansion automatically and maintains proper null te
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - enlargePQExpBuffer
+  - [enlargePQExpBuffer](../e/enlargePQExpBuffer.md)
 - Called from (representative examples):
-  - replace_guc_value (src/bin/initdb/initdb.c)
-  - indent_lines (src/bin/pg_amcheck/pg_amcheck.c)
-  - appendConnStrItem (src/bin/pg_basebackup/pg_createsubscriber.c)
-  - quoteAclUserName (src/bin/pg_dump/dumputils.c)
-  - read_quoted_string (src/bin/pg_dump/filter.c)
-  - fmtIdEnc (src/fe_utils/string_utils.c)
-  - appendStringLiteralConn (src/fe_utils/string_utils.c)
-  - build_client_first_message (src/interfaces/libpq/fe-auth-scram.c)
+  - [replace_guc_value](../r/replace_guc_value.md) (src/bin/initdb/initdb.c)
+  - [indent_lines](../i/indent_lines.md) (src/bin/pg_amcheck/pg_amcheck.c)
+  - [appendConnStrItem](appendConnStrItem.md) (src/bin/pg_basebackup/pg_createsubscriber.c)
+  - [quoteAclUserName](../q/quoteAclUserName.md) (src/bin/pg_dump/dumputils.c)
+  - [read_quoted_string](../r/read_quoted_string.md) (src/bin/pg_dump/filter.c)
+  - [fmtIdEnc](../f/fmtIdEnc.md) (src/fe_utils/string_utils.c)
+  - [appendStringLiteralConn](appendStringLiteralConn.md) (src/fe_utils/string_utils.c)
+  - [build_client_first_message](../b/build_client_first_message.md) (src/interfaces/libpq/fe-auth-scram.c)
 
 ## Notes and Other Information
 - This function is a performance optimization for single character appends

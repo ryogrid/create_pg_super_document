@@ -31,7 +31,7 @@ Like its 32-bit counterpart, this function includes careful handling of the sign
 - Functions called/Symbols referenced:
   - TWOS_COMPLEMENT (macro for architecture detection, used twice at lines 151 and 163)
 - Called from (representative examples):
-  - tzloadbody (calls at lines 295, 353)
+  - [tzloadbody](../t/tzloadbody.md) (calls at lines 295, 353)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the localtime.c compilation unit

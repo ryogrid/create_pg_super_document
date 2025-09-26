@@ -30,7 +30,7 @@ This operation is commonly used in scenarios where the list is being used as a q
   - [ReorderBufferIterTXNNext](../R/ReorderBufferIterTXNNext.md)
   - [ReorderBufferIterTXNFinish](../R/ReorderBufferIterTXNFinish.md)
   - [CreatePredXact](../C/CreatePredXact.md)
-  - InitProcess
+  - [InitProcess](../I/InitProcess.md)
   - [dclist_pop_head_node](dclist_pop_head_node.md)
 
 ## Notes and Other Information

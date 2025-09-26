@@ -20,7 +20,7 @@ This function prepares string values for insertion into BKI data files, which ar
 ## Dependencies
 - Functions called/Symbols referenced:
   - [escape_quotes](escape_quotes.md) (applies basic quote escaping)
-  - pg_malloc (PostgreSQL memory allocation)
+  - [pg_malloc](../p/pg_malloc.md) (PostgreSQL memory allocation)
   - free (memory deallocation)
 - Called from (representative examples):
   - AUTHTRUST_WARNING (in src/bin/initdb/initdb.c:295)

@@ -29,7 +29,7 @@ The function handles two scenarios: when the operator name is schema-qualified (
 - Functions called/Symbols referenced:
   - [DeconstructQualifiedName](../D/DeconstructQualifiedName.md)
   - MemSet
-  - strlcpy
+  - [strlcpy](../s/strlcpy.md)
   - [setup_parser_errposition_callback](../s/setup_parser_errposition_callback.md)
   - [LookupExplicitNamespace](../L/LookupExplicitNamespace.md)
   - [cancel_parser_errposition_callback](../c/cancel_parser_errposition_callback.md)

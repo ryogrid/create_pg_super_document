@@ -29,18 +29,18 @@ The function first attempts to verify the downlink at the previously known locat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - gistGetParent
-  - ReadBuffer
-  - BufferGetPage
-  - LockBuffer
-  - gistcheckpage
-  - PageGetMaxOffsetNumber
-  - PageGetItemId
-  - PageGetItem
-  - ItemPointerGetBlockNumber
+  - [gistGetParent](gistGetParent.md)
+  - [ReadBuffer](../R/ReadBuffer.md)
+  - [BufferGetPage](../B/BufferGetPage.md)
+  - [LockBuffer](../L/LockBuffer.md)
+  - [gistcheckpage](gistcheckpage.md)
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md)
+  - [PageGetItemId](../P/PageGetItemId.md)
+  - [PageGetItem](../P/PageGetItem.md)
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)
   - OffsetNumberNext
 - Called from (representative examples):
-  - gistbufferinginserttuples
+  - [gistbufferinginserttuples](gistbufferinginserttuples.md)
 
 ## Notes and Other Information
 - Returns an exclusively-locked buffer containing the parent page with the downlink

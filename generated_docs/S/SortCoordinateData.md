@@ -37,12 +37,12 @@ The parallel tuplesort architecture uses a leader-worker model where the leader 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Sharedsort
+  - [Sharedsort](Sharedsort.md)
 - Called from (representative examples):
-  - brinbuild (src/backend/access/brin/brin.c:1178)
-  - _brin_parallel_scan_and_build (src/backend/access/brin/brin.c:2807)
-  - _bt_spools_heapscan (src/backend/access/nbtree/nbtsort.c:399,457)
-  - _bt_parallel_scan_and_sort (src/backend/access/nbtree/nbtsort.c:1873,1900)
+  - [brinbuild](../b/brinbuild.md) (src/backend/access/brin/brin.c:1178)
+  - [_brin_parallel_scan_and_build](../b/_brin_parallel_scan_and_build.md) (src/backend/access/brin/brin.c:2807)
+  - [_bt_spools_heapscan](../b/_bt_spools_heapscan.md) (src/backend/access/nbtree/nbtsort.c:399,457)
+  - [_bt_parallel_scan_and_sort](../b/_bt_parallel_scan_and_sort.md) (src/backend/access/nbtree/nbtsort.c:1873,1900)
 
 ## Notes and Other Information
 - This structure is allocated by each participant in local memory, not shared memory

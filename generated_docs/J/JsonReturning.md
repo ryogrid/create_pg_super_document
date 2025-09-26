@@ -30,25 +30,25 @@ This structure is created during the parsing and transformation phase when proce
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonFormat
+  - [JsonFormat](JsonFormat.md)
 
 - Called from (representative examples):
-  - transformJsonOutput
-  - transformJsonConstructorOutput
-  - coerceJsonFuncExpr
-  - makeJsonConstructorExpr
-  - transformJsonObjectConstructor
-  - transformJsonAggConstructor
-  - transformJsonObjectAgg
-  - transformJsonArrayAgg
-  - transformJsonArrayConstructor
-  - transformJsonIsPredicate
-  - transformJsonReturning
-  - transformJsonParseExpr
-  - transformJsonScalarExpr
-  - transformJsonSerializeExpr
-  - transformJsonFuncExpr
-  - transformJsonBehavior
+  - [transformJsonOutput](../t/transformJsonOutput.md)
+  - [transformJsonConstructorOutput](../t/transformJsonConstructorOutput.md)
+  - [coerceJsonFuncExpr](../c/coerceJsonFuncExpr.md)
+  - [makeJsonConstructorExpr](../m/makeJsonConstructorExpr.md)
+  - [transformJsonObjectConstructor](../t/transformJsonObjectConstructor.md)
+  - [transformJsonAggConstructor](../t/transformJsonAggConstructor.md)
+  - [transformJsonObjectAgg](../t/transformJsonObjectAgg.md)
+  - [transformJsonArrayAgg](../t/transformJsonArrayAgg.md)
+  - [transformJsonArrayConstructor](../t/transformJsonArrayConstructor.md)
+  - [transformJsonIsPredicate](../t/transformJsonIsPredicate.md)
+  - [transformJsonReturning](../t/transformJsonReturning.md)
+  - [transformJsonParseExpr](../t/transformJsonParseExpr.md)
+  - [transformJsonScalarExpr](../t/transformJsonScalarExpr.md)
+  - [transformJsonSerializeExpr](../t/transformJsonSerializeExpr.md)
+  - [transformJsonFuncExpr](../t/transformJsonFuncExpr.md)
+  - [transformJsonBehavior](../t/transformJsonBehavior.md)
 
 ## Notes and Other Information
 - This structure is part of the PostgreSQL node system and follows standard node conventions

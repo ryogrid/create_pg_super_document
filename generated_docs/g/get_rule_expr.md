@@ -41,18 +41,18 @@ Key design principles:
 ## Dependencies
 - Functions called/Symbols referenced:
   - CHECK_FOR_INTERRUPTS
-  - check_stack_depth
+  - [check_stack_depth](../c/check_stack_depth.md)
   - nodeTag
-  - get_variable, get_const_expr, get_parameter
-  - get_agg_expr, get_windowfunc_expr, get_func_expr
-  - get_oper_expr, get_sublink_expr
-  - appendStringInfo, appendStringInfoString, appendStringInfoChar
+  - [get_variable](get_variable.md), get_const_expr, get_parameter
+  - [get_agg_expr](get_agg_expr.md), get_windowfunc_expr, get_func_expr
+  - [get_oper_expr](get_oper_expr.md), get_sublink_expr
+  - [appendStringInfo](../a/appendStringInfo.md), appendStringInfoString, appendStringInfoChar
   - Many specialized helper functions for specific node types
 
 - Called from (representative examples):
-  - deparse_expression_pretty
-  - get_rule_expr_toplevel
-  - get_rule_expr_funccall
+  - [deparse_expression_pretty](../d/deparse_expression_pretty.md)
+  - [get_rule_expr_toplevel](get_rule_expr_toplevel.md)
+  - [get_rule_expr_funccall](get_rule_expr_funccall.md)
   - Various other rule deparsing functions
   - Recursively calls itself for nested expressions
 

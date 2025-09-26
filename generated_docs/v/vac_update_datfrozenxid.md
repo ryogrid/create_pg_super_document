@@ -28,10 +28,10 @@ This function takes no parameters and operates on the current database (MyDataba
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LockDatabaseFrozenIds
+  - [LockDatabaseFrozenIds](../L/LockDatabaseFrozenIds.md)
   - [GetOldestNonRemovableTransactionId](../G/GetOldestNonRemovableTransactionId.md)
   - [GetOldestMultiXactId](../G/GetOldestMultiXactId.md)
-  - ReadNextTransactionId
+  - [ReadNextTransactionId](../R/ReadNextTransactionId.md)
   - [ReadNextMultiXactId](../R/ReadNextMultiXactId.md)
   - [systable_beginscan](../s/systable_beginscan.md)
   - [systable_getnext](../s/systable_getnext.md)
@@ -46,7 +46,7 @@ This function takes no parameters and operates on the current database (MyDataba
   - [vac_truncate_clog](vac_truncate_clog.md)
   - [heap_freetuple](../h/heap_freetuple.md)
 - Called from (representative examples):
-  - vacuum
+  - [vacuum](vacuum.md)
   - [do_autovacuum](../d/do_autovacuum.md)
 
 ## Notes and Other Information

@@ -28,7 +28,7 @@ The function handles the GEN_IPADD type from Subject Alternative Names (SAN), wh
   - [pq_verify_peer_name_matches_certificate_ip](../p/pq_verify_peer_name_matches_certificate_ip.md) (generic IP verification function)
   - [libpq_append_conn_error](../l/libpq_append_conn_error.md) (for error reporting)
 - Called from (representative examples):
-  - pgtls_verify_peer_name_matches_certificate_guts (during SAN IP address processing)
+  - [pgtls_verify_peer_name_matches_certificate_guts](../p/pgtls_verify_peer_name_matches_certificate_guts.md) (during SAN IP address processing)
 
 ## Notes and Other Information
 - Returns -1 on error, or the result from pq_verify_peer_name_matches_certificate_ip

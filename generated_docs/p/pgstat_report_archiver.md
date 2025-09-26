@@ -20,11 +20,11 @@ This function updates the archiver statistics in shared memory based on the outc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PgStatShared_Archiver
+  - [PgStatShared_Archiver](../P/PgStatShared_Archiver.md)
   - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
   - [pgstat_begin_changecount_write](pgstat_begin_changecount_write.md)
   - [pgstat_end_changecount_write](pgstat_end_changecount_write.md)
-  - PgStat_ArchiverStats
+  - [PgStat_ArchiverStats](../P/PgStat_ArchiverStats.md)
 - Called from (representative examples):
   - [pgarch_ArchiverCopyLoop](pgarch_ArchiverCopyLoop.md)
 

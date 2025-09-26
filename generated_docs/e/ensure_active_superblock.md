@@ -41,17 +41,17 @@ The algorithm first searches higher-numbered fullness classes (2 to N-2) for spa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dsa_get_address
+  - [dsa_get_address](../d/dsa_get_address.md)
   - DsaPointerIsValid
-  - transfer_first_span
-  - alloc_object
-  - get_best_segment
-  - make_new_segment
-  - FreePageManagerGet
-  - init_span
+  - [transfer_first_span](../t/transfer_first_span.md)
+  - [alloc_object](../a/alloc_object.md)
+  - [get_best_segment](../g/get_best_segment.md)
+  - [make_new_segment](../m/make_new_segment.md)
+  - [FreePageManagerGet](../F/FreePageManagerGet.md)
+  - [init_span](../i/init_span.md)
   - get_segment_index
 - Called from (representative examples):
-  - alloc_object
+  - [alloc_object](../a/alloc_object.md)
 
 ## Notes and Other Information
 The function must be called while holding the size class lock (DSA_SCLASS_LOCK). It handles the special case of DSA_SCLASS_BLOCK_OF_SPANS differently, where the span descriptor is stored inline within the allocated block rather than as a separate allocation. Returns false if no superblock can be made available due to memory constraints.

@@ -22,12 +22,12 @@ For ASCII characters (high bit not set), the function accepts them immediately. 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_johab_mblen (determines multi-byte character length)
+  - [pg_johab_mblen](pg_johab_mblen.md) (determines multi-byte character length)
   - IS_HIGHBIT_SET (macro to check if high bit is set)
   - IS_EUC_RANGE_VALID (macro to validate EUC byte range 0xA1-0xFE)
 - Called from (representative examples):
-  - pg_johab_verifystr
-  - pg_encoding_set_invalid
+  - [pg_johab_verifystr](pg_johab_verifystr.md)
+  - [pg_encoding_set_invalid](pg_encoding_set_invalid.md)
 
 ## Notes and Other Information
 - Returns the number of bytes consumed for valid characters, -1 for invalid sequences

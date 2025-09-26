@@ -47,7 +47,7 @@ Special handling is included for:
   - [get_typlenbyval](../g/get_typlenbyval.md)
   - [GetAggInitVal](../G/GetAggInitVal.md)
   - [agg_args_support_sendreceive](../a/agg_args_support_sendreceive.md)
-  - exprTypmod
+  - [exprTypmod](../e/exprTypmod.md)
   - [SysCacheGetAttr](../S/SysCacheGetAttr.md)
   - list_nth_node
   - makeNode (AggInfo, AggTransInfo)

@@ -31,7 +31,7 @@ This validation helps prevent subscription creation with non-existent publicatio
 - Functions called/Symbols referenced:
   - [get_publications_str](../g/get_publications_str.md): Formats publication list for SQL query
   - walrcv_exec: Executes SQL query on publisher via WAL receiver
-  - makeStringInfo/destroyStringInfo: String buffer management
+  - [makeStringInfo](../m/makeStringInfo.md)/destroyStringInfo: String buffer management
   - [MakeSingleTupleTableSlot](../M/MakeSingleTupleTableSlot.md)/ExecDropSingleTupleTableSlot: Tuple processing utilities
   - [tuplestore_gettupleslot](../t/tuplestore_gettupleslot.md): Retrieves query result tuples
   - [list_copy](../l/list_copy.md)/list_delete: List manipulation for tracking missing publications

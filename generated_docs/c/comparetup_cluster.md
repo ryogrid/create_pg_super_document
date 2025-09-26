@@ -28,12 +28,12 @@ This approach provides optimal performance for datasets where the first sort col
 ## Dependencies
 - Functions called/Symbols referenced:
   - TuplesortstateGetPublic
-  - ApplySortComparator
-  - comparetup_cluster_tiebreak
-  - SortSupport
+  - [ApplySortComparator](../A/ApplySortComparator.md)
+  - [comparetup_cluster_tiebreak](comparetup_cluster_tiebreak.md)
+  - [SortSupport](../S/SortSupport.md)
   - TuplesortPublic
 - Called from (representative examples):
-  - tuplesort_begin_cluster
+  - [tuplesort_begin_cluster](../t/tuplesort_begin_cluster.md)
   - CLUSTER_SORT operations
 
 ## Notes and Other Information

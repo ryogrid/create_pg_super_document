@@ -30,7 +30,7 @@ The function includes special handling for outer join relations that may not hav
   - [bms_next_member](../b/bms_next_member.md) (bitmap set iteration function)
   - [bms_is_member](../b/bms_is_member.md) (bitmap set membership test)
   - [bms_add_members](../b/bms_add_members.md) (bitmap set union operation)
-  - RelOptInfo (structure accessed for eclass_indexes field)
+  - [RelOptInfo](../R/RelOptInfo.md) (structure accessed for eclass_indexes field)
 - Called from (representative examples):
   - [generate_join_implied_equalities](generate_join_implied_equalities.md) (src/backend/optimizer/path/equivclass.c:1423)
   - [add_child_join_rel_equivalences](../a/add_child_join_rel_equivalences.md) (src/backend/optimizer/path/equivclass.c:2767)

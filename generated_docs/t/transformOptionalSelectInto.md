@@ -28,9 +28,9 @@ The transformation ensures that SELECT INTO statements are properly converted to
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SelectStmt (structure access and casting)
+  - [SelectStmt](../S/SelectStmt.md) (structure access and casting)
   - SETOP_NONE (constant for detecting non-set operations)
-  - CreateTableAsStmt (node creation via makeNode)
+  - [CreateTableAsStmt](../C/CreateTableAsStmt.md) (node creation via makeNode)
   - OBJECT_TABLE (constant for object type specification)
   - [transformStmt](transformStmt.md) (recursive statement transformation)
 

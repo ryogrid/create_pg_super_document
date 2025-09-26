@@ -26,10 +26,10 @@ A critical aspect of this function is its return of a snapshotConflictHorizon Tr
 ## Dependencies
 - Functions called/Symbols referenced:
   - `rel->rd_tableam->index_delete_tuples` (access method-specific implementation)
-  - `TM_IndexDeleteOp` (structure type)
+  - `[TM_IndexDeleteOp](../T/TM_IndexDeleteOp.md)` (structure type)
 - Called from (representative examples):
-  - `index_compute_xid_horizon_for_tuples` (src/backend/access/index/genam.c:336)
-  - `_bt_delitems_delete_check` (src/backend/access/nbtree/nbtpage.c:1526)
+  - `[index_compute_xid_horizon_for_tuples](../i/index_compute_xid_horizon_for_tuples.md)` (src/backend/access/index/genam.c:336)
+  - `[_bt_delitems_delete_check](../b/_bt_delitems_delete_check.md)` (src/backend/access/nbtree/nbtpage.c:1526)
 
 ## Notes and Other Information
 - Part of the table access method abstraction layer for supporting pluggable storage engines

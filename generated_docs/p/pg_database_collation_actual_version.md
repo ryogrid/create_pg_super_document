@@ -36,7 +36,7 @@ This function is typically used for monitoring collation version changes that mi
   - [get_collation_actual_version](../g/get_collation_actual_version.md)
   - TextDatumGetCString
   - [ReleaseSysCache](../R/ReleaseSysCache.md)
-  - cstring_to_text
+  - [cstring_to_text](../c/cstring_to_text.md)
   - PG_RETURN_TEXT_P
   - PG_RETURN_NULL
 - Called from (representative examples):

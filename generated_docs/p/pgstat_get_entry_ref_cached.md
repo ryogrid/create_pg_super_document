@@ -30,10 +30,10 @@ The function returns true for cache hits (when a valid cached entry exists) and 
 ## Dependencies
 - Functions called/Symbols referenced:
   - pgstat_entry_ref_hash_insert
-  - MemoryContextAlloc
-  - pg_atomic_read_u32
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
+  - [pg_atomic_read_u32](pg_atomic_read_u32.md)
 - Called from (representative examples):
-  - pgstat_get_entry_ref
+  - [pgstat_get_entry_ref](pgstat_get_entry_ref.md)
 
 ## Notes and Other Information
 - This is a static helper function, only accessible within the pgstat_shmem.c module

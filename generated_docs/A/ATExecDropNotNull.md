@@ -23,7 +23,7 @@ The function returns the ObjectAddress of the modified column if the constraint 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open (opens system catalog tables)
+  - [table_open](../t/table_open.md) (opens system catalog tables)
   - [SearchSysCacheCopyAttName](../S/SearchSysCacheCopyAttName.md) (searches for attribute by name)
   - HeapTupleIsValid (validates heap tuple)
   - RelationGetRelid (gets relation OID)
@@ -42,7 +42,7 @@ The function returns the ObjectAddress of the modified column if the constraint 
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md) (updates system catalog)
   - ObjectAddressSubSet (sets object address components)
   - InvokeObjectPostAlterHook (triggers post-alter hooks)
-  - table_close (closes system catalog tables)
+  - [table_close](../t/table_close.md) (closes system catalog tables)
 - Called from (representative examples):
   - [ATExecCmd](ATExecCmd.md) (main ALTER TABLE command execution dispatcher)
 

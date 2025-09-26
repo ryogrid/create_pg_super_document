@@ -27,13 +27,13 @@ The function handles multiple node types that contain CoercionForm fields and se
   - elog (for error logging)
   - COERCE_IMPLICIT_CAST (constant)
 - [Node](../N/Node.md) types handled:
-  - FuncExpr
-  - RelabelType
-  - CoerceViaIO
-  - ArrayCoerceExpr
-  - ConvertRowtypeExpr
+  - [FuncExpr](../F/FuncExpr.md)
+  - [RelabelType](../R/RelabelType.md)
+  - [CoerceViaIO](../C/CoerceViaIO.md)
+  - [ArrayCoerceExpr](../A/ArrayCoerceExpr.md)
+  - [ConvertRowtypeExpr](../C/ConvertRowtypeExpr.md)
   - RowExpr
-  - CoerceToDomain
+  - [CoerceToDomain](../C/CoerceToDomain.md)
 - Called from:
   - [coerce_to_domain](../c/coerce_to_domain.md)
   - [coerce_type_typmod](../c/coerce_type_typmod.md)

@@ -21,12 +21,12 @@ ShowTransactionStateRec is a recursive subroutine used internally by ShowTransac
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - stack_is_too_deep
+  - [stack_is_too_deep](../s/stack_is_too_deep.md)
   - ereport (with DEBUG5 level)
   - [errmsg_internal](../e/errmsg_internal.md)
   - [ShowTransactionStateRec](ShowTransactionStateRec.md) (recursive call)
-  - initStringInfo
-  - appendStringInfo
+  - [initStringInfo](../i/initStringInfo.md)
+  - [appendStringInfo](../a/appendStringInfo.md)
   - PointerIsValid
   - [BlockStateAsString](../B/BlockStateAsString.md)
   - [TransStateAsString](../T/TransStateAsString.md)

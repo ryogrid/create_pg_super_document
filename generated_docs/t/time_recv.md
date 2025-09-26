@@ -36,6 +36,6 @@ The function performs strict range validation to ensure the time value falls wit
 ## Notes and Other Information
 - This is a binary input function, complementary to  for binary output
 - The function assumes input is in microseconds since midnight format
-- Range validation ensures time values are within a single day (0 ≤ time < USECS_PER_DAY)
+- [Range](../R/Range.md) validation ensures time values are within a single day (0 ≤ time < USECS_PER_DAY)
 - Type modifier adjustments handle precision constraints (e.g., TIME(3) for 3 decimal places)
 - Located in src/backend/utils/adt/date.c:1521-1546

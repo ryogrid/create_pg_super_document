@@ -33,7 +33,7 @@ The function includes sophisticated record type handling that can resolve RECORD
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth (prevents stack overflow in recursion)
+  - [check_stack_depth](../c/check_stack_depth.md) (prevents stack overflow in recursion)
   - [_sv_to_datum_finfo](../s/_sv_to_datum_finfo.md) (sets up type conversion functions)
   - [InputFunctionCall](../I/InputFunctionCall.md) (calls PostgreSQL input functions)
   - [get_transform_tosql](../g/get_transform_tosql.md) (finds custom transform functions)

@@ -31,7 +31,7 @@ The iterator state is returned through the iter_state parameter rather than as a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AssertChangeLsnOrder (validates LSN ordering within transactions)
+  - [AssertChangeLsnOrder](../A/AssertChangeLsnOrder.md) (validates LSN ordering within transactions)
   - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md) (allocates zeroed memory)
   - dlist_foreach, dlist_container, dlist_head_element (doubly-linked list operations)
   - [binaryheap_allocate](../b/binaryheap_allocate.md), binaryheap_add_unordered, binaryheap_build (binary heap operations)

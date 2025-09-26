@@ -43,12 +43,12 @@ Each state transition is logged with detailed information about remaining transa
 - Functions called/Symbols referenced:
   - TransactionIdIsNormal
   - NormalTransactionIdPrecedes  
-  - TransactionIdPrecedesOrEquals
-  - SnapBuildWaitSnapshot
-  - SnapBuildRestore
+  - [TransactionIdPrecedesOrEquals](../T/TransactionIdPrecedesOrEquals.md)
+  - [SnapBuildWaitSnapshot](SnapBuildWaitSnapshot.md)
+  - [SnapBuildRestore](SnapBuildRestore.md)
   - ereport (with LOG and DEBUG1 levels)
 - Called from (representative examples):
-  - SnapBuildProcessRunningXacts
+  - [SnapBuildProcessRunningXacts](SnapBuildProcessRunningXacts.md)
 
 ## Notes and Other Information
 - Returns true if internal maintenance/cleanup should be performed using the xl_running_xacts record

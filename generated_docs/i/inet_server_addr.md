@@ -23,7 +23,7 @@ This function takes no explicit parameters (uses PG_FUNCTION_ARGS macro for Post
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Port](../P/Port.md) (struct type from MyProcPort)
-  - pg_getnameinfo_all (address-to-string conversion)
+  - [pg_getnameinfo_all](../p/pg_getnameinfo_all.md) (address-to-string conversion)
   - [clean_ipv6_addr](../c/clean_ipv6_addr.md) (IPv6 address formatting)
   - [network_in](../n/network_in.md) (string to inet type conversion)
   - PG_RETURN_INET_P (PostgreSQL return macro)

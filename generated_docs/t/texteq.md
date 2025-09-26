@@ -34,8 +34,8 @@ texteq(PG_FUNCTION_ARGS)
   - PG_FREE_IF_COPY (macro)
   - PG_RETURN_BOOL (macro)
 - Called from (representative examples):
-  - text_isequal
-  - texteqfast
+  - [text_isequal](text_isequal.md)
+  - [texteqfast](texteqfast.md)
 
 ## Notes and Other Information
 - Optimizes equality testing by checking lengths before content comparison

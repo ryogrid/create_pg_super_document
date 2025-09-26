@@ -29,17 +29,17 @@ This function takes no parameters and operates on the current SPI connection sta
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _SPI_begin_call (connection validation)
-  - MemoryContextSwitchTo (context restoration)
-  - MemoryContextDelete (memory cleanup)
+  - [_SPI_begin_call](_SPI_begin_call.md) (connection validation)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (context restoration)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md) (memory cleanup)
 
 - Called from (representative examples):
-  - refresh_by_match_merge (materialized view operations)
-  - ri_Check_Pk_Match, ri_restrict, RI_FKey_cascade_del (foreign key constraint handling)
-  - pg_get_ruledef_worker, pg_get_viewdef_worker (rule and view definition functions)
-  - plperl_func_handler, plperl_trigger_handler (Perl procedural language)
-  - PLy_exec_function, PLy_exec_trigger (Python procedural language)
-  - pltcl_func_handler, pltcl_trigger_handler (Tcl procedural language)
+  - [refresh_by_match_merge](../r/refresh_by_match_merge.md) (materialized view operations)
+  - [ri_Check_Pk_Match](../r/ri_Check_Pk_Match.md), ri_restrict, RI_FKey_cascade_del (foreign key constraint handling)
+  - [pg_get_ruledef_worker](../p/pg_get_ruledef_worker.md), pg_get_viewdef_worker (rule and view definition functions)
+  - [plperl_func_handler](../p/plperl_func_handler.md), plperl_trigger_handler (Perl procedural language)
+  - [PLy_exec_function](../P/PLy_exec_function.md), PLy_exec_trigger (Python procedural language)
+  - [pltcl_func_handler](../p/pltcl_func_handler.md), pltcl_trigger_handler (Tcl procedural language)
   - Various XML processing functions
 
 ## Notes and Other Information

@@ -28,14 +28,14 @@ PgStatShared_BgWriter implements the shared memory storage for PostgreSQL's back
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLock
-  - PgStat_BgWriterStats
+  - [LWLock](../L/LWLock.md)
+  - [PgStat_BgWriterStats](PgStat_BgWriterStats.md)
   - PgStat_Counter
   - TimestampTz
 - Called from (representative examples):
-  - pgstat_report_bgwriter
-  - pgstat_bgwriter_reset_all_cb
-  - pgstat_bgwriter_snapshot_cb
+  - [pgstat_report_bgwriter](../p/pgstat_report_bgwriter.md)
+  - [pgstat_bgwriter_reset_all_cb](../p/pgstat_bgwriter_reset_all_cb.md)
+  - [pgstat_bgwriter_snapshot_cb](../p/pgstat_bgwriter_snapshot_cb.md)
 
 ## Notes and Other Information
 - Uses the same changecount mechanism as PgStatShared_Archiver for lock-free reads and high-performance writes

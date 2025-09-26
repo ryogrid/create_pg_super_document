@@ -25,7 +25,7 @@ The function constructs an iovec structure from the provided buffer and amount p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FileWriteV (the underlying vectored write function)
+  - [FileWriteV](FileWriteV.md) (the underlying vectored write function)
   - unconstify (macro to safely cast away const qualifier)
   - [iovec](../i/iovec.md) (POSIX structure for vectored I/O operations)
   - File (PostgreSQL virtual file descriptor type)
@@ -36,14 +36,14 @@ The function constructs an iovec structure from the provided buffer and amount p
   - [bbsink_server_archive_contents](../b/bbsink_server_archive_contents.md) (in src/backend/backup/basebackup_server.c:165)
   - [bbsink_server_manifest_contents](../b/bbsink_server_manifest_contents.md) (in src/backend/backup/basebackup_server.c:258)
   - [WriteWalSummary](../W/WriteWalSummary.md) (in src/backend/backup/walsummary.c:299)
-  - BufFileDumpBuffer (in src/backend/storage/file/buffile.c:537)
-  - mdextend (in src/backend/storage/smgr/md.c:495)
+  - [BufFileDumpBuffer](../B/BufFileDumpBuffer.md) (in src/backend/storage/file/buffile.c:537)
+  - [mdextend](../m/mdextend.md) (in src/backend/storage/smgr/md.c:495)
 
 ## Notes and Other Information
 - This is an inline function defined in src/include/storage/fd.h, making it efficient for frequent use
 - The function is a thin wrapper that simplifies the interface for single-buffer writes while leveraging the comprehensive functionality in FileWriteV
 - Uses the unconstify macro to handle the const-correctness mismatch between the function's const buffer parameter and iovec's non-const iov_base field
-- FileWriteV provides sophisticated features including temporary file size limit enforcement, automatic file size tracking for temp files, and robust error handling with retry logic
+- [FileWriteV](FileWriteV.md) provides sophisticated features including temporary file size limit enforcement, automatic file size tracking for temp files, and robust error handling with retry logic
 - Uses PostgreSQL's wait event reporting system to track I/O operations for monitoring and debugging
 - Returns the number of bytes actually written, or -1 on error following standard POSIX conventions
 - Part of PostgreSQL's VFD system which provides automatic file handle management and efficient resource usage

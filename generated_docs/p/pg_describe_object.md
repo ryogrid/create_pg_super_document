@@ -28,7 +28,7 @@ The function uses missing_ok=true when calling getObjectDescription, meaning it 
   - PG_GETARG_INT32 (argument extraction for sub-object ID)
   - OidIsValid (OID validation)
   - [getObjectDescription](../g/getObjectDescription.md) (core description functionality)
-  - cstring_to_text (string conversion for SQL)
+  - [cstring_to_text](../c/cstring_to_text.md) (string conversion for SQL)
   - PG_RETURN_NULL (null return macro)
   - PG_RETURN_TEXT_P (text return macro)
 

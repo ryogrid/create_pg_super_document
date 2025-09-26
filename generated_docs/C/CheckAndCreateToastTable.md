@@ -28,8 +28,8 @@ The function takes care of proper resource management by opening the relation wi
 ## Dependencies
 - Functions called/Symbols referenced:
   - [create_toast_table](../c/create_toast_table.md)
-  - table_open
-  - table_close
+  - [table_open](../t/table_open.md)
+  - [table_close](../t/table_close.md)
 - Called from (representative examples):
   - [AlterTableCreateToastTable](../A/AlterTableCreateToastTable.md) (in src/backend/catalog/toasting.c:60)
   - [NewHeapCreateToastTable](../N/NewHeapCreateToastTable.md) (in src/backend/catalog/toasting.c:67)

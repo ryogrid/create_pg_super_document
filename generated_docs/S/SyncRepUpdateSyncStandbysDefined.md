@@ -30,7 +30,7 @@ The function is designed to be safe for concurrent access, as only the checkpoin
 ## Dependencies
 - Functions called/Symbols referenced:
   - SyncStandbysDefined (checks current sync standby configuration)
-  - LWLockAcquire/LWLockRelease (exclusive lock management)
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease (exclusive lock management)
   - [SyncRepWakeQueue](SyncRepWakeQueue.md) (wakes waiting backends)
   - SYNC_STANDBY_DEFINED, SYNC_STANDBY_INIT (status flag constants)
   - NUM_SYNC_REP_WAIT_MODE (number of wait modes)

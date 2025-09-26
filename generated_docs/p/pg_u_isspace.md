@@ -22,7 +22,7 @@ This function determines if a given Unicode code point has the White_Space prope
 - Functions called/Symbols referenced:
   - [pg_u_prop_white_space](pg_u_prop_white_space.md)
 - Called from (representative examples):
-  - pg_wc_isspace (in regex locale handling)
+  - [pg_wc_isspace](pg_wc_isspace.md) (in regex locale handling)
   - [icu_test](../i/icu_test.md) (in Unicode category tests)
   - [pg_u_isgraph](pg_u_isgraph.md) (complementary character classification)
 

@@ -26,7 +26,7 @@ This cleanup is essential in PostgreSQL's memory management strategy, as hash jo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecHashTableDestroy: Destroys the hash table and frees associated memory
+  - [ExecHashTableDestroy](ExecHashTableDestroy.md): Destroys the hash table and frees associated memory
   - [ExecEndNode](ExecEndNode.md): Recursively cleans up child plan nodes
   - outerPlanState: Accesses the outer child plan state
   - innerPlanState: Accesses the inner child plan state

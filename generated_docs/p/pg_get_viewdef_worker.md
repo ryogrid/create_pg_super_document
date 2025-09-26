@@ -27,14 +27,14 @@ This internal worker function implements the core logic for retrieving view defi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initStringInfo
-  - SPI_connect
+  - [initStringInfo](../i/initStringInfo.md)
+  - [SPI_connect](../S/SPI_connect.md)
   - [SPI_prepare](../S/SPI_prepare.md)
   - [SPI_keepplan](../S/SPI_keepplan.md)
   - [SPI_execute_plan](../S/SPI_execute_plan.md)
-  - SPI_finish
+  - [SPI_finish](../S/SPI_finish.md)
   - DirectFunctionCall1
-  - namein
+  - [namein](../n/namein.md)
   - [CStringGetDatum](../C/CStringGetDatum.md)
   - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - [make_viewdef](../m/make_viewdef.md)

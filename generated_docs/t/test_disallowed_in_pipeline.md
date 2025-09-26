@@ -32,7 +32,7 @@ The function performs the following test sequence:
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQisnonblocking](../P/PQisnonblocking.md)
-  - PQenterPipelineMode
+  - [PQenterPipelineMode](../P/PQenterPipelineMode.md)
   - [PQpipelineStatus](../P/PQpipelineStatus.md)
   - PQ_PIPELINE_OFF
   - [PQexec](../P/PQexec.md)
@@ -42,7 +42,7 @@ The function performs the following test sequence:
   - [PQerrorMessage](../P/PQerrorMessage.md)
   - [PQsendQuery](../P/PQsendQuery.md)
   - [PQisBusy](../P/PQisBusy.md)
-  - PQexitPipelineMode
+  - [PQexitPipelineMode](../P/PQexitPipelineMode.md)
   - strcmp
   - fprintf
   - [pg_fatal](../p/pg_fatal.md)

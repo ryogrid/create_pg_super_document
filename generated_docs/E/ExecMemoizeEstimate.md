@@ -33,7 +33,7 @@ The function performs memory size calculations using PostgreSQL's safe arithmeti
   - [MemoizeInstrumentation](../M/MemoizeInstrumentation.md) (memoize statistics structure)
   - [SharedMemoizeInfo](../S/SharedMemoizeInfo.md) (shared memory info structure)
 - Called from:
-  - ExecParallelEstimate (main parallel execution estimator)
+  - [ExecParallelEstimate](ExecParallelEstimate.md) (main parallel execution estimator)
 
 ## Notes and Other Information
 - Only performs estimation when instrumentation is enabled (node->ss.ps.instrument is true) and parallel workers are present (pcxt->nworkers > 0)

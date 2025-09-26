@@ -21,9 +21,9 @@ This function retrieves information about the most recently committed transactio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire (CommitTsLock, LW_SHARED)
+  - [LWLockAcquire](../L/LWLockAcquire.md) (CommitTsLock, LW_SHARED)
   - [error_commit_ts_disabled](../e/error_commit_ts_disabled.md)
-  - LWLockRelease (CommitTsLock)
+  - [LWLockRelease](../L/LWLockRelease.md) (CommitTsLock)
 - Called from (representative examples):
   - [pg_last_committed_xact](../p/pg_last_committed_xact.md)
 

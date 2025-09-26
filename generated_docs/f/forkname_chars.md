@@ -26,8 +26,8 @@ This function examines the beginning of a string to determine if it starts with 
   - strncmp (standard C string comparison function)
   - InvalidForkNumber (constant for invalid fork)
 - Called from (representative examples):
-  - looks_like_temp_rel_name (in src/backend/storage/file/fd.c:3470)
-  - parse_filename_for_nontemp_relation (in src/backend/storage/file/reinit.c:422)
+  - [looks_like_temp_rel_name](../l/looks_like_temp_rel_name.md) (in src/backend/storage/file/fd.c:3470)
+  - [parse_filename_for_nontemp_relation](../p/parse_filename_for_nontemp_relation.md) (in src/backend/storage/file/reinit.c:422)
   - FORKNAMECHARS (referenced in src/include/common/relpath.h:69)
 
 ## Notes and Other Information

@@ -39,7 +39,7 @@ The function uses either direct updates (when serialized snapshots exist) or slo
   - [ReplicationSlotSave](../R/ReplicationSlotSave.md)
   - [ReplicationSlotsComputeRequiredXmin](../R/ReplicationSlotsComputeRequiredXmin.md)
   - [ReplicationSlotsComputeRequiredLSN](../R/ReplicationSlotsComputeRequiredLSN.md)
-  - namestrcpy
+  - [namestrcpy](../n/namestrcpy.md)
 - Called from:
   - [update_and_persist_local_synced_slot](update_and_persist_local_synced_slot.md)
   - [synchronize_one_slot](../s/synchronize_one_slot.md)

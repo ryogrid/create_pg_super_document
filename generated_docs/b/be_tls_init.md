@@ -38,7 +38,7 @@ The function uses either FATAL or LOG level error reporting depending on whether
   - SSL_CTX_check_private_key (key validation)
   - [ssl_protocol_version_to_openssl](../s/ssl_protocol_version_to_openssl.md) (protocol version conversion)
   - [SSL_CTX_set_min_proto_version](../S/SSL_CTX_set_min_proto_version.md) / SSL_CTX_set_max_proto_version (protocol configuration)
-  - initialize_dh / initialize_ecdh (key exchange setup)
+  - [initialize_dh](../i/initialize_dh.md) / initialize_ecdh (key exchange setup)
   - SSL_CTX_set_cipher_list (cipher configuration)
   - SSL_CTX_load_verify_locations (CA certificate loading)
   - [check_ssl_key_file_permissions](../c/check_ssl_key_file_permissions.md) (key file security check)

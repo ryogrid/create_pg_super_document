@@ -30,7 +30,7 @@ The function inherits parallel safety characteristics from the input relation, a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fetch_upper_rel
+  - [fetch_upper_rel](../f/fetch_upper_rel.md)
   - [create_final_distinct_paths](create_final_distinct_paths.md)  
   - [create_partial_distinct_paths](create_partial_distinct_paths.md)
   - [set_cheapest](../s/set_cheapest.md)

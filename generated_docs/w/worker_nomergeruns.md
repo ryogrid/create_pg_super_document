@@ -21,9 +21,9 @@ This function serves as an alternative to mergeruns() for worker processes when 
 - Functions called/Symbols referenced:
   - [worker_freeze_result_tape](worker_freeze_result_tape.md)
   - WORKER (macro)
-  - Tuplesortstate
+  - [Tuplesortstate](../T/Tuplesortstate.md)
 - Called from (representative examples):
-  - tuplesort_performsort
+  - [tuplesort_performsort](../t/tuplesort_performsort.md)
 
 ## Notes and Other Information
 - Function is marked as static, indicating internal use within the tuplesort module

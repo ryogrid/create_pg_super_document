@@ -24,7 +24,7 @@ This function determines whether an operator is strict, meaning it returns NULL 
   - elog
   - RegProcedure
 - Called from (representative examples):
-  - ExecHashTableCreate
+  - [ExecHashTableCreate](../E/ExecHashTableCreate.md)
   - [clause_is_strict_for](../c/clause_is_strict_for.md)
   - [operator_predicate_proof](operator_predicate_proof.md)
   - [have_partkey_equi_join](../h/have_partkey_equi_join.md)

@@ -23,7 +23,7 @@ The function systematically scans the pg_depend catalog to find all records wher
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - [ScanKeyInit](../S/ScanKeyInit.md)
   - [systable_beginscan](../s/systable_beginscan.md)
   - [systable_getnext](../s/systable_getnext.md)
@@ -32,12 +32,12 @@ The function systematically scans the pg_depend catalog to find all records wher
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - [heap_freetuple](../h/heap_freetuple.md)
   - [systable_endscan](../s/systable_endscan.md)
-  - table_close
+  - [table_close](../t/table_close.md)
   - [SysScanDesc](../S/SysScanDesc.md)
   - Form_pg_depend
 
 - Called from (representative examples):
-  - index_concurrently_swap (src/backend/catalog/index.c:1788,1791)
+  - [index_concurrently_swap](../i/index_concurrently_swap.md) (src/backend/catalog/index.c:1788,1791)
 
 ## Notes and Other Information
 - Updates all dependency records originating from the old object, regardless of dependency type or target

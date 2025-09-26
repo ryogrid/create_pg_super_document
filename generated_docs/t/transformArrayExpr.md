@@ -34,20 +34,20 @@ The function handles both simple one-dimensional arrays and complex multi-dimens
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (creates new ArrayExpr node)
-  - transformExprRecurse (transforms individual element expressions)
-  - transformArrayExpr (recursive call for nested arrays)
-  - select_common_type (infers common type from multiple expressions)
-  - get_element_type (extracts element type from array type)
-  - get_array_type (finds array type for given element type)
-  - coerce_to_target_type (explicit type coercion)
-  - coerce_to_common_type (implicit type coercion)
+  - [transformExprRecurse](transformExprRecurse.md) (transforms individual element expressions)
+  - [transformArrayExpr](transformArrayExpr.md) (recursive call for nested arrays)
+  - [select_common_type](../s/select_common_type.md) (infers common type from multiple expressions)
+  - [get_element_type](../g/get_element_type.md) (extracts element type from array type)
+  - [get_array_type](../g/get_array_type.md) (finds array type for given element type)
+  - [coerce_to_target_type](../c/coerce_to_target_type.md) (explicit type coercion)
+  - [coerce_to_common_type](../c/coerce_to_common_type.md) (implicit type coercion)
   - type_is_array (checks if type is an array type)
-  - exprType (gets the type of an expression)
-  - exprLocation (gets source location of an expression)
+  - [exprType](../e/exprType.md) (gets the type of an expression)
+  - [exprLocation](../e/exprLocation.md) (gets source location of an expression)
 
 - Called from (representative examples):
-  - transformExprRecurse (main expression transformation dispatcher)
-  - transformTypeCast (when casting to array types)
+  - [transformExprRecurse](transformExprRecurse.md) (main expression transformation dispatcher)
+  - [transformTypeCast](transformTypeCast.md) (when casting to array types)
 
 ## Notes and Other Information
 - The function sets `multidims = true` when it detects array elements, enabling proper handling of multi-dimensional arrays

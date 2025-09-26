@@ -240,13 +240,13 @@ USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT: Week of mon
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FromCharDateMode enum (for mode tracking)
-  - pg_tz structure (for timezone handling)
+  - [FromCharDateMode](../F/FromCharDateMode.md) enum (for mode tracking)
+  - [pg_tz](../p/pg_tz.md) structure (for timezone handling)
   - ZERO_tmfc macro (for initialization)
 - Called from (representative examples):
-  - DCH_from_char: Main parsing function that populates TmFromChar
-  - do_to_timestamp: Uses TmFromChar for timestamp conversion
-  - from_char_set_mode: Validates and sets parsing mode
+  - [DCH_from_char](../D/DCH_from_char.md): Main parsing function that populates TmFromChar
+  - [do_to_timestamp](../d/do_to_timestamp.md): Uses TmFromChar for timestamp conversion
+  - [from_char_set_mode](../f/from_char_set_mode.md): Validates and sets parsing mode
 
 ## Notes and Other Information
 - Initialized using the ZERO_tmfc macro which zeroes all fields using memset

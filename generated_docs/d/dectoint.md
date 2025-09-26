@@ -22,8 +22,8 @@ The  function is part of PostgreSQL's ECPG (Embedded SQL in C) compatibility lib
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PGTYPESnumeric_new](../P/PGTYPESnumeric_new.md)
-  - PGTYPESnumeric_from_decimal  
-  - PGTYPESnumeric_to_int
+  - [PGTYPESnumeric_from_decimal](../P/PGTYPESnumeric_from_decimal.md)  
+  - [PGTYPESnumeric_to_int](../P/PGTYPESnumeric_to_int.md)
   - [PGTYPESnumeric_free](../P/PGTYPESnumeric_free.md)
   - ECPG_INFORMIX_OUT_OF_MEMORY (error constant)
   - ECPG_INFORMIX_NUM_OVERFLOW (error constant)

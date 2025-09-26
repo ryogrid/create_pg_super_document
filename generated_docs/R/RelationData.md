@@ -271,16 +271,16 @@ Access methods:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelFileLocator, SMgrRelation, ProcNumber
+  - [RelFileLocator](RelFileLocator.md), SMgrRelation, ProcNumber
   - Form_pg_class, TupleDesc, LockInfoData
-  - PartitionKey, PartitionDesc, TriggerDesc
-  - TableAmRoutine, IndexAmRoutine, FdwRoutine
+  - [PartitionKey](../P/PartitionKey.md), PartitionDesc, TriggerDesc
+  - [TableAmRoutine](../T/TableAmRoutine.md), IndexAmRoutine, FdwRoutine
   - Various list and memory context types
 - Called from (representative examples):
-  - AllocateRelationDesc
-  - RelationBuildLocalRelation
-  - load_relcache_init_file
-  - XLogReadBufferExtended
+  - [AllocateRelationDesc](../A/AllocateRelationDesc.md)
+  - [RelationBuildLocalRelation](RelationBuildLocalRelation.md)
+  - [load_relcache_init_file](../l/load_relcache_init_file.md)
+  - [XLogReadBufferExtended](../X/XLogReadBufferExtended.md)
 
 ## Notes and Other Information
 - This structure is at the heart of PostgreSQL's relcache system and is one of the most important data structures for relation metadata management

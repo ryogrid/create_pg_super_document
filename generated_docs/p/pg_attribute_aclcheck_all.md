@@ -24,14 +24,14 @@ The `pg_attribute_aclcheck_all` function is an exported routine that verifies wh
 - Functions called/Symbols referenced:
   - [pg_attribute_aclcheck_all_ext](pg_attribute_aclcheck_all_ext.md)
   - AclMaskHow
-  - AclResult
+  - [AclResult](../A/AclResult.md)
 - Called from (representative examples):
   - [ExecCheckOneRelPerms](../E/ExecCheckOneRelPerms.md)
   - [ExecCheckPermissionsModified](../E/ExecCheckPermissionsModified.md)
   - [has_any_column_privilege_name_name](../h/has_any_column_privilege_name_name.md)
   - [has_any_column_privilege_name](../h/has_any_column_privilege_name.md)
   - [has_any_column_privilege_id_name](../h/has_any_column_privilege_id_name.md)
-  - all_rows_selectable
+  - [all_rows_selectable](../a/all_rows_selectable.md)
 
 ## Notes and Other Information
 - Part of PostgreSQL's column-level access control system for checking multiple columns at once

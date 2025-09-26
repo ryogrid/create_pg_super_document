@@ -35,8 +35,8 @@ The calculation considers that space is consumed from both ends of the segment -
 - Functions called/Symbols referenced:
   - SpinLockAcquire/SpinLockRelease (for thread-safe access to TOC metadata)
   - BUFFERALIGN (for calculating aligned TOC structure size)
-  - shm_toc_entry (for TOC entry size calculations)
-  - shm_toc (structure type for offset calculations)
+  - [shm_toc_entry](shm_toc_entry.md) (for TOC entry size calculations)
+  - [shm_toc](shm_toc.md) (structure type for offset calculations)
 
 - Called from (representative examples):
   - No references to this symbol (based on current codebase analysis)

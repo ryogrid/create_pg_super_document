@@ -30,17 +30,17 @@ The GroupPath is designed to handle both simple grouping operations and more com
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Path (base structure)
-  - List (for groupClause and qual)
-  - SortGroupClause (grouping column specifications)
+  - [Path](../P/Path.md) (base structure)
+  - [List](../L/List.md) (for groupClause and qual)
+  - [SortGroupClause](../S/SortGroupClause.md) (grouping column specifications)
 - Called from (representative examples):
-  - create_group_path (creates GroupPath instances)
-  - create_group_plan (converts GroupPath to execution plan)
-  - create_plan_recurse (part of plan creation process)
+  - [create_group_path](../c/create_group_path.md) (creates GroupPath instances)
+  - [create_group_plan](../c/create_group_plan.md) (converts GroupPath to execution plan)
+  - [create_plan_recurse](../c/create_plan_recurse.md) (part of plan creation process)
 
 ## Notes and Other Information
 - The input data must be presorted according to the grouping columns for efficient processing
-- GroupPath preserves the sort ordering of its input, making it suitable for chaining with other operations
+- [GroupPath](GroupPath.md) preserves the sort ordering of its input, making it suitable for chaining with other operations
 - Cost estimation is performed by the cost_group function during path creation
 - The path supports parallel execution when the underlying subpath is parallel-safe
-- GroupPath is typically created during the upper planning phase when processing GROUP BY clauses
+- [GroupPath](GroupPath.md) is typically created during the upper planning phase when processing GROUP BY clauses

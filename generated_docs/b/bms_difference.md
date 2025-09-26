@@ -34,7 +34,7 @@ This function performs a bitwise difference operation (A - B) on two Bitmapsets,
   - [finalize_plan](../f/finalize_plan.md)
   - [make_restrictinfo_internal](../m/make_restrictinfo_internal.md)
   - [pull_varnos_walker](../p/pull_varnos_walker.md)
-  - examine_variable
+  - [examine_variable](../e/examine_variable.md)
 
 ## Notes and Other Information
 - Returns NULL if the first input is NULL (nothing to subtract from)

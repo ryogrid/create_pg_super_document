@@ -31,8 +31,8 @@ The function initializes all the memoization-specific fields including the hash 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Memoize (struct type, created with makeNode())
-  - Agg (related type)
+  - [Memoize](../M/Memoize.md) (struct type, created with makeNode())
+  - [Agg](../A/Agg.md) (related type)
 - Called from (representative examples):
   - [create_memoize_plan](../c/create_memoize_plan.md)
 

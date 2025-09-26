@@ -35,7 +35,7 @@ The implementation includes sophisticated error handling with optional structura
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth
+  - [check_stack_depth](../c/check_stack_depth.md)
   - [JsonbIteratorInit](../J/JsonbIteratorInit.md)
   - [JsonbIteratorNext](../J/JsonbIteratorNext.md)
   - [executeItemOptUnwrapTarget](executeItemOptUnwrapTarget.md)

@@ -21,10 +21,10 @@ chareqfast is a performance-optimized equality comparison function specifically 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetChar (inline function that extracts char from Datum)
+  - [DatumGetChar](../D/DatumGetChar.md) (inline function that extracts char from Datum)
 - Called from (representative examples):
-  - GetCCHashEqFuncs (for BOOLOID at line 280)
-  - GetCCHashEqFuncs (for CHAROID at line 285)
+  - [GetCCHashEqFuncs](../G/GetCCHashEqFuncs.md) (for BOOLOID at line 280)
+  - [GetCCHashEqFuncs](../G/GetCCHashEqFuncs.md) (for CHAROID at line 285)
 
 ## Notes and Other Information
 - This is a static function defined in src/backend/utils/cache/catcache.c (lines 191-196)

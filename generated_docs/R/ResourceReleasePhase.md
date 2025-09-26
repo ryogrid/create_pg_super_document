@@ -35,10 +35,10 @@ This phased approach ensures that when PostgreSQL releases a lock that another b
 - Functions called/Symbols referenced:
   - (none - this is a basic enum type)
 - Called from (representative examples):
-  - ResourceOwnerRelease
-  - ResourceOwnerReleaseAll 
-  - ResourceOwnerReleaseInternal
-  - ResourceOwnerDesc (as a member field)
+  - [ResourceOwnerRelease](ResourceOwnerRelease.md)
+  - [ResourceOwnerReleaseAll](ResourceOwnerReleaseAll.md) 
+  - [ResourceOwnerReleaseInternal](ResourceOwnerReleaseInternal.md)
+  - [ResourceOwnerDesc](ResourceOwnerDesc.md) (as a member field)
   - Test modules for resource management
 
 ## Notes and Other Information

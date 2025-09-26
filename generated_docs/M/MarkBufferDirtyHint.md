@@ -22,7 +22,7 @@ This function is designed for marking buffers dirty when making non-critical cha
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BufferGetPage](../B/BufferGetPage.md), BufferIsValid, BufferIsLocal
-  - MarkLocalBufferDirty, GetBufferDescriptor
+  - [MarkLocalBufferDirty](MarkLocalBufferDirty.md), GetBufferDescriptor
   - [GetPrivateRefCount](../G/GetPrivateRefCount.md), LWLockHeldByMe, BufferDescriptorGetContentLock
   - [pg_atomic_read_u32](../p/pg_atomic_read_u32.md), XLogHintBitIsNeeded
   - [RecoveryInProgress](../R/RecoveryInProgress.md), RelFileLocatorSkippingWAL, BufTagGetRelFileLocator  

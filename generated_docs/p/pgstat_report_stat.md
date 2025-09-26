@@ -31,18 +31,18 @@ The function maintains static variables to track timing state across calls and c
   - [pgstat_assert_is_up](pgstat_assert_is_up.md)
   - [IsTransactionOrTransactionBlock](../I/IsTransactionOrTransactionBlock.md)
   - [dlist_is_empty](../d/dlist_is_empty.md)
-  - pgstat_have_pending_wal
+  - [pgstat_have_pending_wal](pgstat_have_pending_wal.md)
   - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
   - [GetCurrentTransactionStopTimestamp](../G/GetCurrentTransactionStopTimestamp.md)
   - [TimestampDifferenceExceeds](../T/TimestampDifferenceExceeds.md)
   - [pgstat_update_dbstats](pgstat_update_dbstats.md)
-  - pgstat_flush_pending_entries
+  - [pgstat_flush_pending_entries](pgstat_flush_pending_entries.md)
   - [pgstat_flush_io](pgstat_flush_io.md)
-  - pgstat_flush_wal
-  - pgstat_slru_flush
+  - [pgstat_flush_wal](pgstat_flush_wal.md)
+  - [pgstat_slru_flush](pgstat_slru_flush.md)
 - Called from (representative examples):
   - [PostgresMain](../P/PostgresMain.md) (main query processing loop)
-  - ProcessInterrupts (interrupt handling)
+  - [ProcessInterrupts](../P/ProcessInterrupts.md) (interrupt handling)
   - [LogicalRepApplyLoop](../L/LogicalRepApplyLoop.md) (logical replication)
   - [pgstat_shutdown_hook](pgstat_shutdown_hook.md) (shutdown processing)
   - [worker_spi_main](../w/worker_spi_main.md) (background worker processes)

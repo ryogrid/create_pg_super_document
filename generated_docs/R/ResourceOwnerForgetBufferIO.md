@@ -23,11 +23,11 @@ The function delegates to ResourceOwnerForget with the buffer converted to a Dat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwnerForget
+  - [ResourceOwnerForget](ResourceOwnerForget.md)
   - [Int32GetDatum](../I/Int32GetDatum.md)
   - buffer_io_resowner_desc
 - Called from (representative examples):
-  - TerminateBufferIO
+  - [TerminateBufferIO](../T/TerminateBufferIO.md)
 
 ## Notes and Other Information
 - This is a static inline function defined in src/include/storage/buf_internals.h:407-411

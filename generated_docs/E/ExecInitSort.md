@@ -42,7 +42,7 @@ The function optimizes performance by selecting the most efficient sorting strat
   - : During executor initialization phase
 
 ## Notes and Other Information
-- Sort nodes do not initialize ExprContexts since they never call ExecQual or ExecProject
+- [Sort](../S/Sort.md) nodes do not initialize ExprContexts since they never call ExecQual or ExecProject
 - The function shields child nodes from supporting REWIND, BACKWARD, or MARK/RESTORE operations
 - Uses TTSOpsVirtual for scan slots and TTSOpsMinimalTuple for result slots for memory efficiency
 - Automatically determines datum vs tuple sort strategy based on the number of output columns (natts == 1 triggers datum sort)

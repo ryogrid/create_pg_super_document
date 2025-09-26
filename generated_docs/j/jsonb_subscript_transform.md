@@ -37,7 +37,7 @@ The transformation process includes:
 ## Dependencies
 - Functions called/Symbols referenced:
   - [transformExpr](../t/transformExpr.md)
-  - exprType
+  - [exprType](../e/exprType.md)
   - [can_coerce_type](../c/can_coerce_type.md)
   - [coerce_type](../c/coerce_type.md)
   - [format_type_be](../f/format_type_be.md)

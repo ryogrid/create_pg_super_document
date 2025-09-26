@@ -33,12 +33,12 @@ PgStat_BktypeIO is a multidimensional statistics structure that captures detaile
   - IOCONTEXT_NUM_TYPES  
   - IOOP_NUM_TYPES
 - Called from (representative examples):
-  - pgstat_bktype_io_stats_valid
-  - pgstat_flush_io
-  - pgstat_io_reset_all_cb
-  - pgstat_io_snapshot_cb
-  - pg_stat_get_io
-  - PgStat_IO
+  - [pgstat_bktype_io_stats_valid](../p/pgstat_bktype_io_stats_valid.md)
+  - [pgstat_flush_io](../p/pgstat_flush_io.md)
+  - [pgstat_io_reset_all_cb](../p/pgstat_io_reset_all_cb.md)
+  - [pgstat_io_snapshot_cb](../p/pgstat_io_snapshot_cb.md)
+  - [pg_stat_get_io](../p/pg_stat_get_io.md)
+  - [PgStat_IO](PgStat_IO.md)
 
 ## Notes and Other Information
 This structure is central to PostgreSQL's enhanced I/O statistics system introduced in recent versions. The multidimensional approach allows for very detailed analysis of I/O patterns, helping database administrators identify performance bottlenecks at a granular level. For example, it can distinguish between I/O patterns for regular table access versus vacuum operations, or between normal reads and bulk read operations. The statistics collected here are exposed through the pg_stat_io system view, providing valuable insights for performance tuning and capacity planning. The structure's design reflects PostgreSQL's sophisticated understanding of different I/O workload patterns and the need for detailed performance monitoring.

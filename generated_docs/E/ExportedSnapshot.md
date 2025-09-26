@@ -28,18 +28,18 @@ The structure is allocated in TopTransactionContext to ensure it persists for th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Snapshot (data type)
+  - [Snapshot](../S/Snapshot.md) (data type)
   - char (basic data type)
   
 - Called from (representative examples):
-  - ExportSnapshot (creates and manages ExportedSnapshot instances)
-  - AtEOXact_Snapshot (cleanup of exported snapshots at transaction end)
+  - [ExportSnapshot](ExportSnapshot.md) (creates and manages ExportedSnapshot instances)
+  - [AtEOXact_Snapshot](../A/AtEOXact_Snapshot.md) (cleanup of exported snapshots at transaction end)
 
 ## Notes and Other Information
-- ExportedSnapshot structures are stored in the exportedSnapshots global list
+- [ExportedSnapshot](ExportedSnapshot.md) structures are stored in the exportedSnapshots global list
 - Memory allocation occurs in TopTransactionContext for transaction-lifetime persistence  
 - The snapfile path follows the format: SNAPSHOT_EXPORT_DIR/VXID-COUNTER where VXID is the virtual transaction ID
 - Associated snapshots are pseudo-registered (regd_count incremented) to prevent premature cleanup
 - Used primarily for pg_export_snapshot() SQL function functionality
 - Critical for maintaining MVCC consistency across multiple database connections
-- Snapshot files contain serialized transaction state information including xmin, xmax, active XIDs, and isolation level
+- [Snapshot](../S/Snapshot.md) files contain serialized transaction state information including xmin, xmax, active XIDs, and isolation level

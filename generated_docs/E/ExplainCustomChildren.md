@@ -22,7 +22,7 @@ This function iterates through the list of child PlanState nodes associated with
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_length (determines number of child plans)
+  - [list_length](../l/list_length.md) (determines number of child plans)
   - [ExplainNode](ExplainNode.md) (recursively explains each child plan)
 - Called from:
   - [ExplainNode](ExplainNode.md) (when processing CustomScan nodes)

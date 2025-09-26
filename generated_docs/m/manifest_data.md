@@ -38,7 +38,7 @@ The `manifest_data` structure represents the complete parsed contents of a backu
   - [parse_manifest_file](../p/parse_manifest_file.md) (src/bin/pg_verifybackup/pg_verifybackup.c:400)
   - [main](main.md) (src/bin/pg_verifybackup/pg_verifybackup.c:389)
   - [verifybackup_version_cb](../v/verifybackup_version_cb.md) (src/bin/pg_verifybackup/pg_verifybackup.c:525)
-  - process_directory_recursively (src/bin/pg_combinebackup/pg_combinebackup.c:829)
+  - [process_directory_recursively](../p/process_directory_recursively.md) (src/bin/pg_combinebackup/pg_combinebackup.c:829)
 
 ## Notes and Other Information
 This structure is the primary data container used by PostgreSQL backup tools (pg_verifybackup, pg_combinebackup) to manage and process backup manifests. The system_identifier is crucial for ensuring that backups come from the correct database instance. The structure efficiently organizes files in a hash table for fast lookup while maintaining WAL ranges in a linked list for sequential processing. The version field allows for future extensibility of the manifest format.

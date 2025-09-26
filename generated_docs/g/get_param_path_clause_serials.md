@@ -25,15 +25,15 @@ The function is essential for determining clause redundancy and ensuring proper 
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (for NestPath, MergePath, HashPath, AppendPath, MergeAppendPath)
-  - bms_add_members
-  - bms_add_member
-  - bms_copy
-  - bms_int_members
-  - list_head
-  - get_param_path_clause_serials (recursive calls)
+  - [bms_add_members](../b/bms_add_members.md)
+  - [bms_add_member](../b/bms_add_member.md)
+  - [bms_copy](../b/bms_copy.md)
+  - [bms_int_members](../b/bms_int_members.md)
+  - [list_head](../l/list_head.md)
+  - [get_param_path_clause_serials](get_param_path_clause_serials.md) (recursive calls)
 - Called from (representative examples):
-  - create_nestloop_path
-  - get_param_path_clause_serials (recursive self-calls)
+  - [create_nestloop_path](../c/create_nestloop_path.md)
+  - [get_param_path_clause_serials](get_param_path_clause_serials.md) (recursive self-calls)
 
 ## Notes and Other Information
 - Returns NULL for unparameterized paths (when path->param_info is NULL)

@@ -26,7 +26,7 @@ This function is a key component in PostgreSQL's access control system, ensuring
   - [markRTEForSelectPriv](markRTEForSelectPriv.md)
 - Called from (representative examples):
   - [transformJoinUsingClause](../t/transformJoinUsingClause.md)
-  - transformWholeRowRef
+  - [transformWholeRowRef](../t/transformWholeRowRef.md)
   - [scanNSItemForColumn](../s/scanNSItemForColumn.md)
   - [expandNSItemAttrs](../e/expandNSItemAttrs.md)
   - [ExpandSingleTable](../E/ExpandSingleTable.md)

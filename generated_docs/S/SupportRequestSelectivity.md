@@ -52,15 +52,15 @@ This functionality is particularly important for custom data types and functions
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag
-  - PlannerInfo
+  - [PlannerInfo](../P/PlannerInfo.md)
   - JoinType
-  - SpecialJoinInfo
+  - [SpecialJoinInfo](SpecialJoinInfo.md)
   - Selectivity
 
 - Called from (representative examples):
-  - function_selectivity (src/backend/optimizer/util/plancat.c:2037)
-  - like_regex_support (src/backend/utils/adt/like_support.c:160)
-  - test_support_func (src/test/regress/regress.c:1035)
+  - [function_selectivity](../f/function_selectivity.md) (src/backend/optimizer/util/plancat.c:2037)
+  - [like_regex_support](../l/like_regex_support.md) (src/backend/utils/adt/like_support.c:160)
+  - [test_support_func](../t/test_support_func.md) (src/test/regress/regress.c:1035)
 
 ## Notes and Other Information
 - This mechanism applies only to functions returning boolean values that appear at the top level of WHERE clauses

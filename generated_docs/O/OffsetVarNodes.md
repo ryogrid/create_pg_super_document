@@ -26,7 +26,7 @@ This function serves as the main entry point for offsetting variable node refere
   - query_tree_walker (for Query node traversal)
   - [OffsetVarNodes_walker](OffsetVarNodes_walker.md) (for actual node processing)
   - OffsetVarNodes_context (context structure)
-  - RowMarkClause (for rowMarks processing)
+  - [RowMarkClause](../R/RowMarkClause.md) (for rowMarks processing)
 - Called from (representative examples):
   - [convert_EXISTS_sublink_to_join](../c/convert_EXISTS_sublink_to_join.md)
   - [pull_up_simple_subquery](../p/pull_up_simple_subquery.md)

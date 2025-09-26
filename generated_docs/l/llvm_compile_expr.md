@@ -41,19 +41,19 @@ The function handles complex control flow through basic blocks and conditional b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - llvm_create_context
-  - llvm_mutable_module  
-  - llvm_expand_funcname
-  - llvm_pg_var_func_type
-  - llvm_copy_attributes
-  - AttributeTemplate
-  - BuildV1Call
+  - [llvm_create_context](llvm_create_context.md)
+  - [llvm_mutable_module](llvm_mutable_module.md)  
+  - [llvm_expand_funcname](llvm_expand_funcname.md)
+  - [llvm_pg_var_func_type](llvm_pg_var_func_type.md)
+  - [llvm_copy_attributes](llvm_copy_attributes.md)
+  - [AttributeTemplate](../A/AttributeTemplate.md)
+  - [BuildV1Call](../B/BuildV1Call.md)
   - build_EvalXFunc
-  - slot_compile_deform
-  - CompiledExprState
-  - ExecRunCompiledExpr
+  - [slot_compile_deform](../s/slot_compile_deform.md)
+  - [CompiledExprState](../C/CompiledExprState.md)
+  - [ExecRunCompiledExpr](../E/ExecRunCompiledExpr.md)
 - Called from (representative examples):
-  - _PG_jit_provider_init
+  - [_PG_jit_provider_init](../P/_PG_jit_provider_init.md)
 
 ## Notes and Other Information
 - Returns true on successful compilation, false on failure

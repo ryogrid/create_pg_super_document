@@ -20,9 +20,9 @@ This internal function ensures that the large object heap relation and its prima
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open (via LargeObjectRelationId)
+  - [table_open](../t/table_open.md) (via LargeObjectRelationId)
   - [index_open](../i/index_open.md) (via LargeObjectLOidPNIndexId) 
-  - ResourceOwner (resource management)
+  - [ResourceOwner](../R/ResourceOwner.md) (resource management)
 - Called from (representative examples):
   - [inv_getsize](../i/inv_getsize.md)
   - [inv_read](../i/inv_read.md)

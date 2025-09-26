@@ -21,7 +21,7 @@ The function is designed to handle both critical and non-critical contexts - err
 ## Dependencies
 - Functions called/Symbols referenced:
   - [XLogFileInitInternal](XLogFileInitInternal.md)
-  - BasicOpenFile
+  - [BasicOpenFile](../B/BasicOpenFile.md)
   - [get_sync_bit](../g/get_sync_bit.md)
   - ereport
   - [errcode_for_file_access](../e/errcode_for_file_access.md)

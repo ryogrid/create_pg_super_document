@@ -22,8 +22,8 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire (with LW_SHARED mode)
-  - LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md) (with LW_SHARED mode)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - SpinLockAcquire
   - SpinLockRelease
   - [XLogSetReplicationSlotMinimumLSN](../X/XLogSetReplicationSlotMinimumLSN.md)
@@ -31,7 +31,7 @@ This function takes no parameters.
   - RS_INVAL_NONE (invalidation state constant)
 
 - Called from (representative examples):
-  - LogicalConfirmReceivedLocation
+  - [LogicalConfirmReceivedLocation](../L/LogicalConfirmReceivedLocation.md)
   - [ReplicationSlotDropPtr](ReplicationSlotDropPtr.md)
   - [ReplicationSlotReserveWal](ReplicationSlotReserveWal.md)
   - [InvalidateObsoleteReplicationSlots](../I/InvalidateObsoleteReplicationSlots.md)

@@ -25,7 +25,7 @@ This function is optimized for integer operations and provides better performanc
   - IsIntegerList
   - [list_member_int](list_member_int.md)
   - lfirst_int
-  - lappend_int
+  - [lappend_int](lappend_int.md)
   - [check_list_invariants](../c/check_list_invariants.md)
 - Called from (representative examples):
   - forfive

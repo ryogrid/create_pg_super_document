@@ -26,10 +26,10 @@ The algorithm iterates through available units and selects the first unit where 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_INT64 (extracts 64-bit integer argument)
-  - size_pretty_unit (structure defining size units and their properties)
+  - [size_pretty_unit](../s/size_pretty_unit.md) (structure defining size units and their properties)
   - half_rounded (applies half-rounding to values when needed)
   - INT64_FORMAT (macro for formatting 64-bit integers)
-  - cstring_to_text (converts C string to PostgreSQL text type)
+  - [cstring_to_text](../c/cstring_to_text.md) (converts C string to PostgreSQL text type)
   - PG_RETURN_TEXT_P (returns text result)
 - Called from (representative examples):
   - SQL queries using pg_size_pretty() function

@@ -27,7 +27,7 @@ The retrieved information is stored in the cluster's template0 field for later u
   - [connectToServer](../c/connectToServer.md)
   - [executeQueryOrDie](../e/executeQueryOrDie.md)
   - GET_MAJOR_VERSION
-  - pg_malloc
+  - [pg_malloc](../p/pg_malloc.md)
   - [pg_strdup](../p/pg_strdup.md)
   - [PQfnumber](../P/PQfnumber.md)
   - [PQgetvalue](../P/PQgetvalue.md)
@@ -40,8 +40,8 @@ The retrieved information is stored in the cluster's template0 field for later u
 - Data structures used:
   - ClusterInfo
   - DbLocaleInfo
-  - PGconn
-  - PGresult
+  - [PGconn](../P/PGconn.md)
+  - [PGresult](../P/PGresult.md)
 - Called from (representative examples):
   - [get_db_rel_and_slot_infos](get_db_rel_and_slot_infos.md)
 

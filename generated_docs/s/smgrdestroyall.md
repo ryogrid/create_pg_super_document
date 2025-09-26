@@ -23,7 +23,7 @@ The  function performs a comprehensive cleanup of all unpinned SMgrRelation obje
   - dlist_foreach_modify (safely iterates through the unpinned relations list)
   - dlist_container (extracts SMgrRelation from list node)
   - [smgrdestroy](smgrdestroy.md) (destroys individual relations)
-  - SMgrRelationData (relation structure type)
+  - [SMgrRelationData](../S/SMgrRelationData.md) (relation structure type)
   - unpinned_relns (global list of unpinned relations)
 - Called from (representative examples):
   - [XLogDropDatabase](../X/XLogDropDatabase.md)

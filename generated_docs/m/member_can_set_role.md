@@ -28,15 +28,15 @@ The function is used in several contexts:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - superuser_arg
-  - roles_is_member_of
-  - list_member_oid
-  - ROLERECURSE_SETROLE (constant)
+  - [superuser_arg](../s/superuser_arg.md)
+  - [roles_is_member_of](../r/roles_is_member_of.md)
+  - [list_member_oid](../l/list_member_oid.md)
+  - [ROLERECURSE_SETROLE](../R/ROLERECURSE_SETROLE.md) (constant)
 - Called from:
-  - check_role
-  - pg_role_aclcheck
-  - check_can_set_role
-  - SwitchToUntrustedUser
+  - [check_role](../c/check_role.md)
+  - [pg_role_aclcheck](../p/pg_role_aclcheck.md)
+  - [check_can_set_role](../c/check_can_set_role.md)
+  - [SwitchToUntrustedUser](../S/SwitchToUntrustedUser.md)
 
 ## Notes and Other Information
 - Uses ROLERECURSE_SETROLE to traverse only grants with set_option enabled

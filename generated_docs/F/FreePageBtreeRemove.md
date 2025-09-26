@@ -21,15 +21,15 @@ This function removes an entry from a btree leaf page and maintains btree integr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FreePageBtreeRemovePage
+  - [FreePageBtreeRemovePage](FreePageBtreeRemovePage.md)
   - memmove
-  - FreePageBtreeAdjustAncestorKeys
-  - FreePageBtreeConsolidate
+  - [FreePageBtreeAdjustAncestorKeys](FreePageBtreeAdjustAncestorKeys.md)
+  - [FreePageBtreeConsolidate](FreePageBtreeConsolidate.md)
   - FREE_PAGE_LEAF_MAGIC
-  - FreePageBtreeLeafKey
+  - [FreePageBtreeLeafKey](FreePageBtreeLeafKey.md)
 - Called from (representative examples):
-  - FreePageManagerGetInternal
-  - FreePageManagerPutInternal
+  - [FreePageManagerGetInternal](FreePageManagerGetInternal.md)
+  - [FreePageManagerPutInternal](FreePageManagerPutInternal.md)
 
 ## Notes and Other Information
 - Function includes assertions to validate leaf page magic number and index bounds

@@ -30,8 +30,8 @@ Each selection within a priority tier is made randomly to maintain genetic diver
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Edge (type)
-  - Gene (type)
+  - [Edge](../E/Edge.md) (type)
+  - [Gene](../G/Gene.md) (type)
   - [geqo_randint](../g/geqo_randint.md) (random number generation function)
 - Called from (representative examples):
   - [gimme_tour](../g/gimme_tour.md)

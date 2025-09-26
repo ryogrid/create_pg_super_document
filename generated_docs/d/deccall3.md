@@ -25,8 +25,8 @@ The `deccall3` function is an internal helper in the ECPG Informix compatibility
   - [risnull](../r/risnull.md)
   - [PGTYPESnumeric_new](../P/PGTYPESnumeric_new.md)
   - [PGTYPESnumeric_free](../P/PGTYPESnumeric_free.md)
-  - PGTYPESnumeric_from_decimal
-  - PGTYPESnumeric_to_decimal
+  - [PGTYPESnumeric_from_decimal](../P/PGTYPESnumeric_from_decimal.md)
+  - [PGTYPESnumeric_to_decimal](../P/PGTYPESnumeric_to_decimal.md)
   - [rsetnull](../r/rsetnull.md)
   - CDECIMALTYPE
   - ECPG_INFORMIX_OUT_OF_MEMORY

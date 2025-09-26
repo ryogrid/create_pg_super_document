@@ -24,7 +24,7 @@ The locate_var_of_level_context structure serves as a walker context for the loc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Var (struct)
+  - [Var](../V/Var.md) (struct)
   - Parse location system
 - Called from (representative examples):
   - [locate_var_of_level](locate_var_of_level.md)

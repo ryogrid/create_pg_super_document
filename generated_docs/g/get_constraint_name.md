@@ -38,7 +38,7 @@ The function performs a system cache lookup to efficiently retrieve the constrai
 ## Notes and Other Information
 - Returns NULL if the constraint OID is not found, rather than throwing an error
 - The returned string is palloc'd and must be freed by the caller
-- Constraint names are not unique across different schemas or even within the same table for different constraint types
+- [Constraint](../C/Constraint.md) names are not unique across different schemas or even within the same table for different constraint types
 - The function explicitly warns in comments that constraint names are not unique, making it unsuitable for identification purposes
 - Primarily intended for error messages and diagnostic output where human-readable constraint names are helpful
 - Part of PostgreSQL's constraint enforcement and metadata management infrastructure

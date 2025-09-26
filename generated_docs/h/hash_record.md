@@ -28,7 +28,7 @@ The hash computation follows the same algorithm as hash_array(), using a left-sh
   - [heap_deform_tuple](heap_deform_tuple.md): Break down tuple into individual column values
   - [lookup_type_cache](../l/lookup_type_cache.md): Get type cache entry with hash function info
   - FunctionCallInvoke: Call the hash function for each column
-  - check_stack_depth: Prevent stack overflow in recursive calls
+  - [check_stack_depth](../c/check_stack_depth.md): Prevent stack overflow in recursive calls
 - Called from (representative examples):
   - No direct references found in the analyzed codebase
 

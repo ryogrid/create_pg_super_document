@@ -20,9 +20,9 @@ The `set_fnull` function is a static inline helper function that sets a boolean 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonLexContext (structure type)
+  - [JsonLexContext](../J/JsonLexContext.md) (structure type)
 - Called from (representative examples):
-  - pg_parse_json_incremental (multiple locations)
+  - [pg_parse_json_incremental](../p/pg_parse_json_incremental.md) (multiple locations)
 
 ## Notes and Other Information
 This is a static inline function, meaning it is only accessible within the jsonapi.c file and will likely be inlined by the compiler for performance. The function works in conjunction with `get_fnull` to manage null state tracking during JSON parsing. This functionality is important for properly handling JSON null values and distinguishing them from other value types during parsing operations.

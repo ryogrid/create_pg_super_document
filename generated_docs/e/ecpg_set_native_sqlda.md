@@ -33,10 +33,10 @@ The function processes each field in the native SQLDA, calculates proper memory 
   - [PGTYPESnumeric_from_asc](../P/PGTYPESnumeric_from_asc.md)
   - [PGTYPESnumeric_free](../P/PGTYPESnumeric_free.md)
   - [ECPGset_noind_null](../E/ECPGset_noind_null.md)
-  - ecpg_get_data
+  - [ecpg_get_data](ecpg_get_data.md)
   - [ecpg_log](ecpg_log.md)
 - Called from (representative examples):
-  - ecpg_process_output
+  - [ecpg_process_output](ecpg_process_output.md)
 
 ## Notes and Other Information
 - This function works with the native SQLDA format (sqlda_struct) rather than the compatibility format (sqlda_compat)

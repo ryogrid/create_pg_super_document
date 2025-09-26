@@ -39,7 +39,7 @@ Key safety features include comprehensive error handling with PG_ENSURE_ERROR_CL
   - [build_backup_content](../b/build_backup_content.md)
   - [CheckXLogRemoved](../C/CheckXLogRemoved.md)
   - [compareWalFileNames](../c/compareWalFileNames.md)
-  - bbsink_begin_backup/bbsink_end_backup
+  - [bbsink_begin_backup](../b/bbsink_begin_backup.md)/bbsink_end_backup
   - [RecoveryInProgress](../R/RecoveryInProgress.md)
 - Called from (representative examples):
   - [SendBaseBackup](../S/SendBaseBackup.md)

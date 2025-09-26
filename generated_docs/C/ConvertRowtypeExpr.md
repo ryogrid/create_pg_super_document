@@ -42,13 +42,13 @@ Key characteristics:
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (for creating ConvertRowtypeExpr instances)
-  - getBaseType (to handle domains over composite types)
-  - ExprEvalRowtypeCache (for execution-time caching)
+  - [getBaseType](../g/getBaseType.md) (to handle domains over composite types)
+  - [ExprEvalRowtypeCache](../E/ExprEvalRowtypeCache.md) (for execution-time caching)
   - Composite type manipulation functions
 - Called from (representative examples):
-  - ReplaceVarsFromTargetList (in rewriteManip.c for inheritance handling)
-  - coerce_record_to_complex (in parse_coerce.c for record coercion)
-  - ExecInitExprRec (during execution plan initialization)
+  - [ReplaceVarsFromTargetList](../R/ReplaceVarsFromTargetList.md) (in rewriteManip.c for inheritance handling)
+  - [coerce_record_to_complex](../c/coerce_record_to_complex.md) (in parse_coerce.c for record coercion)
+  - [ExecInitExprRec](../E/ExecInitExprRec.md) (during execution plan initialization)
 
 ## Notes and Other Information
 - Designed specifically for inheritance relationships where child types extend parent types

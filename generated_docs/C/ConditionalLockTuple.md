@@ -25,7 +25,7 @@ ConditionalLockTuple is a non-blocking variant of LockTuple that attempts to acq
   - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)
   - [ItemPointerGetOffsetNumber](../I/ItemPointerGetOffsetNumber.md)
   - [LockAcquire](../L/LockAcquire.md)
-  - LOCKTAG
+  - [LOCKTAG](../L/LOCKTAG.md)
   - LOCKACQUIRE_NOT_AVAIL
 - Called from (representative examples):
   - ConditionalLockTupleTuplock

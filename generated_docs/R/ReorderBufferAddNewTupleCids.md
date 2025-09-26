@@ -24,12 +24,12 @@ This function records mappings between tuple identifiers (relfilelocator, tid) a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReorderBufferGetChange
-  - ReorderBufferTXNByXid
-  - dlist_push_tail
+  - [ReorderBufferGetChange](ReorderBufferGetChange.md)
+  - [ReorderBufferTXNByXid](ReorderBufferTXNByXid.md)
+  - [dlist_push_tail](../d/dlist_push_tail.md)
   - REORDER_BUFFER_CHANGE_INTERNAL_TUPLECID
 - Called from (representative examples):
-  - SnapBuildProcessNewCid
+  - [SnapBuildProcessNewCid](../S/SnapBuildProcessNewCid.md)
 
 ## Notes and Other Information
 - CID mappings are stored separately from regular changes and are not subject to memory eviction

@@ -17,20 +17,20 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - update_controlfile
+  - [update_controlfile](../u/update_controlfile.md)
   - DataDir
   - ControlFile
 - Called from (representative examples):
   - RefreshXLogWriteResult
-  - UpdateMinRecoveryPoint
-  - StartupXLOG
-  - SwitchIntoArchiveRecovery
-  - ReachedEndOfBackup
-  - CreateCheckPoint
-  - CreateEndOfRecoveryRecord
-  - CreateRestartPoint
-  - XLogReportParameters
-  - xlog_redo
+  - [UpdateMinRecoveryPoint](UpdateMinRecoveryPoint.md)
+  - [StartupXLOG](../S/StartupXLOG.md)
+  - [SwitchIntoArchiveRecovery](../S/SwitchIntoArchiveRecovery.md)
+  - [ReachedEndOfBackup](../R/ReachedEndOfBackup.md)
+  - [CreateCheckPoint](../C/CreateCheckPoint.md)
+  - [CreateEndOfRecoveryRecord](../C/CreateEndOfRecoveryRecord.md)
+  - [CreateRestartPoint](../C/CreateRestartPoint.md)
+  - [XLogReportParameters](../X/XLogReportParameters.md)
+  - [xlog_redo](../x/xlog_redo.md)
 
 ## Notes and Other Information
 - This is a thin wrapper around the more general update_controlfile() function

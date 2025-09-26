@@ -28,17 +28,17 @@ This function is central to PostgreSQL's WAL archiving infrastructure, enabling 
 - Functions called/Symbols referenced:
   - XLOGDIR (macro defining the WAL directory path, typically "pg_wal")
 - Called from (representative examples):
-  - XLogArchiveNotify (creates .ready status files for archiving)
-  - XLogArchiveForceDone (marks files as .done)
-  - XLogArchiveCheckDone (checks for .done status files)
-  - XLogArchiveIsBusy (checks for archiving in progress)
-  - pgarch_readyXlog (archiver process reads status files)
-  - pgarch_archiveDone (marks archival completion)
+  - [XLogArchiveNotify](../X/XLogArchiveNotify.md) (creates .ready status files for archiving)
+  - [XLogArchiveForceDone](../X/XLogArchiveForceDone.md) (marks files as .done)
+  - [XLogArchiveCheckDone](../X/XLogArchiveCheckDone.md) (checks for .done status files)
+  - [XLogArchiveIsBusy](../X/XLogArchiveIsBusy.md) (checks for archiving in progress)
+  - [pgarch_readyXlog](../p/pgarch_readyXlog.md) (archiver process reads status files)
+  - [pgarch_archiveDone](../p/pgarch_archiveDone.md) (marks archival completion)
 
 ## Notes and Other Information
 - This is an inline function defined in the header for performance optimization
 - The function uses snprintf for safe string formatting with buffer bounds checking
-- Archive status files are small marker files that contain no actual data - their existence indicates state
+- [Archive](../A/Archive.md) status files are small marker files that contain no actual data - their existence indicates state
 - Common suffixes include .ready (ready for archiving), .done (successfully archived), .backup (backup in progress)
 - The archive_status subdirectory isolates status files from actual WAL data files
 - Status files are critical for ensuring reliable WAL archiving and preventing data loss

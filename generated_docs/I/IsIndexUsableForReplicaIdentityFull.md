@@ -29,7 +29,7 @@ The design accommodates the specific needs of logical replication where full row
   - AttrNumberGetAttrOffset
   - [GetIndexAmRoutineByAmId](../G/GetIndexAmRoutineByAmId.md) (in assertion code)
 - Types referenced:
-  - IndexInfo
+  - [IndexInfo](IndexInfo.md)
   - [AttrMap](../A/AttrMap.md)
   - AttrNumber
   - [IndexAmRoutine](IndexAmRoutine.md) (in assertion code)

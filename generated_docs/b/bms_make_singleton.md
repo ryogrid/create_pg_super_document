@@ -32,7 +32,7 @@ This function constructs a new Bitmapset with a single bit set at position . It 
   - [build_base_rel_tlists](build_base_rel_tlists.md)
   - [transform_MERGE_to_join](../t/transform_MERGE_to_join.md)
   - [get_matching_hash_bounds](../g/get_matching_hash_bounds.md)
-  - examine_simple_variable
+  - [examine_simple_variable](../e/examine_simple_variable.md)
 
 ## Notes and Other Information
 - The function validates input by rejecting negative bit positions with an ERROR

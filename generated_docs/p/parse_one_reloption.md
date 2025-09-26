@@ -26,8 +26,8 @@ This function is the core parsing logic for individual relation options, called 
   - [palloc](palloc.md)
   - memcpy
   - [parse_bool](parse_bool.md)
-  - parse_int
-  - parse_real
+  - [parse_int](parse_int.md)
+  - [parse_real](parse_real.md)
   - [pg_strcasecmp](pg_strcasecmp.md)
   - [errdetail_internal](../e/errdetail_internal.md)
   - elog
@@ -39,7 +39,7 @@ This function is the core parsing logic for individual relation options, called 
 - Detects and reports duplicate option specifications when validation is enabled
 - Performs bounds checking for integer and real number types against min/max constraints
 - Supports case-insensitive enum value matching using pg_strcasecmp
-- String values are stored directly without copying (nofree=true) for efficiency
+- [String](../S/String.md) values are stored directly without copying (nofree=true) for efficiency
 - Provides detailed error messages including valid value ranges for out-of-bounds errors
 - Uses PostgreSQL's standard error reporting system with appropriate error codes
 - Memory management includes conditional freeing based on option type (strings are not freed)

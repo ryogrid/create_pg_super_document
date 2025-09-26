@@ -28,19 +28,19 @@ This debugging capability is essential for performance analysis, understanding h
 - Functions called/Symbols referenced:
   - Assert
   - ASSERT_NO_PARTITION_LOCKS_HELD_BY_ME
-  - LWLockHeldByMe
-  - LWLockAcquire
-  - LWLockRelease
+  - [LWLockHeldByMe](../L/LWLockHeldByMe.md)
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - PARTITION_LOCK
-  - ensure_valid_bucket_pointers
+  - [ensure_valid_bucket_pointers](../e/ensure_valid_bucket_pointers.md)
   - BUCKET_INDEX_FOR_PARTITION
   - DsaPointerIsValid
-  - dsa_get_address
+  - [dsa_get_address](dsa_get_address.md)
   - fprintf
 - Types used:
-  - dshash_table
-  - dshash_partition
-  - dshash_table_item
+  - [dshash_table](dshash_table.md)
+  - [dshash_partition](dshash_partition.md)
+  - [dshash_table_item](dshash_table_item.md)
   - dsa_pointer
 - Constants used:
   - DSHASH_MAGIC

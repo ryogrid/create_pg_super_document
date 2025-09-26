@@ -26,7 +26,7 @@ The function is part of PostgreSQL's comprehensive EXPLAIN system, specifically 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [show_sort_group_keys](show_sort_group_keys.md) (delegates the actual formatting work)
-  - Sort (casts to access the plan structure)
+  - [Sort](../S/Sort.md) (casts to access the plan structure)
 - Called from (representative examples):
   - [ExplainNode](../E/ExplainNode.md) (specifically for Sort node types)
 

@@ -21,14 +21,14 @@ This function implements the core logic for managing default ACL entries in the 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [acldefault](../a/acldefault.md)
-  - make_empty_acl
+  - [make_empty_acl](../m/make_empty_acl.md)
   - [SearchSysCache3](SearchSysCache3.md)
   - [SysCacheGetAttr](SysCacheGetAttr.md)
   - DatumGetAclPCopy
   - [aclmembers](../a/aclmembers.md)
-  - aclcopy
+  - [aclcopy](../a/aclcopy.md)
   - [merge_acl_with_grant](../m/merge_acl_with_grant.md)
-  - aclitemsort
+  - [aclitemsort](../a/aclitemsort.md)
   - [aclequal](../a/aclequal.md)
   - [performDeletion](../p/performDeletion.md)
   - [GetNewOidWithIndex](../G/GetNewOidWithIndex.md)
@@ -41,7 +41,7 @@ This function implements the core logic for managing default ACL entries in the 
   - [updateAclDependencies](../u/updateAclDependencies.md)
   - InvokeObjectPostCreateHook
   - InvokeObjectPostAlterHook
-  - CommandCounterIncrement
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md)
 - Called from (representative examples):
   - [SetDefaultACLsInSchemas](SetDefaultACLsInSchemas.md)
   - [RemoveRoleFromObjectACL](../R/RemoveRoleFromObjectACL.md)
@@ -55,5 +55,5 @@ This function implements the core logic for managing default ACL entries in the 
 - ACL comparison requires sorting both ACLs to ensure accurate equality checks
 - The function uses RowExclusiveLock on pg_default_acl to prevent concurrent modifications
 - Dependency management includes both ownership dependencies (on the role) and usage dependencies (on the namespace)
-- CommandCounterIncrement() prevents issues when processing duplicate objects in the same command
+- [CommandCounterIncrement](../C/CommandCounterIncrement.md)() prevents issues when processing duplicate objects in the same command
 - Post-creation/alteration hooks are invoked for proper event notification

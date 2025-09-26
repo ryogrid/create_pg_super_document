@@ -27,7 +27,7 @@ This function serves as a factory for creating DR_printtup structures, which are
   - [printtup_shutdown](printtup_shutdown.md) (shutdown callback)
   - [printtup_destroy](printtup_destroy.md) (destruction callback)
   - DestRemote (destination constant)
-  - DestReceiver (base receiver type)
+  - [DestReceiver](../D/DestReceiver.md) (base receiver type)
 - Called from (representative examples):
   - [CreateDestReceiver](../C/CreateDestReceiver.md)
 

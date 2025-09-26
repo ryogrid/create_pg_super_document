@@ -41,7 +41,7 @@ The function ensures proper locking, advances internal counters, and maintains c
   - [MultiXactAdvanceNextMXact](../M/MultiXactAdvanceNextMXact.md)
   - XLogRecGetXid
   - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
-  - AdvanceNextFullTransactionIdPastXid
+  - [AdvanceNextFullTransactionIdPastXid](../A/AdvanceNextFullTransactionIdPastXid.md)
   - [SetMultiXactIdLimit](../S/SetMultiXactIdLimit.md)
   - [PerformMembersTruncation](../P/PerformMembersTruncation.md)
   - [PerformOffsetsTruncation](../P/PerformOffsetsTruncation.md)

@@ -20,8 +20,8 @@ This function converts a RangeType value from its internal representation to a b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth: Stack overflow protection for recursive calls
-  - makeStringInfo: Creates a new StringInfo buffer for output
+  - [check_stack_depth](../c/check_stack_depth.md): Stack overflow protection for recursive calls
+  - [makeStringInfo](../m/makeStringInfo.md): Creates a new StringInfo buffer for output
   - [get_range_io_data](../g/get_range_io_data.md): Retrieves I/O function cache data for the range type
   - RangeTypeGetOid: Extracts the OID from the range type
   - [range_deserialize](range_deserialize.md): Extracts boundary information from the range
@@ -29,7 +29,7 @@ This function converts a RangeType value from its internal representation to a b
   - [pq_begintypsend](../p/pq_begintypsend.md): Initializes the output buffer for type sending
   - [pq_sendbyte](../p/pq_sendbyte.md): Writes a single byte to the output buffer
   - [pq_sendint32](../p/pq_sendint32.md): Writes a 4-byte integer to the output buffer
-  - pq_sendbytes: Writes binary data to the output buffer
+  - [pq_sendbytes](../p/pq_sendbytes.md): Writes binary data to the output buffer
   - [pq_endtypsend](../p/pq_endtypsend.md): Finalizes the output buffer and returns the result
   - [SendFunctionCall](../S/SendFunctionCall.md): Calls the element type's send function for boundaries
   - [PointerGetDatum](../P/PointerGetDatum.md): Converts pointer to Datum for function calls

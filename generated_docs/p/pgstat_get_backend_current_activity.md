@@ -24,15 +24,15 @@ The function is specifically designed for use in diagnostic scenarios where the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PgBackendStatus (backend status structure type)
+  - [PgBackendStatus](../P/PgBackendStatus.md) (backend status structure type)
   - pgstat_begin_read_activity (atomic read protocol start)
   - pgstat_end_read_activity (atomic read protocol end)
   - pgstat_read_activity_complete (consistency verification)
-  - superuser (permission checking)
-  - pgstat_clip_activity (activity string formatting)
-  - GetUserId (current user identification)
+  - [superuser](../s/superuser.md) (permission checking)
+  - [pgstat_clip_activity](pgstat_clip_activity.md) (activity string formatting)
+  - [GetUserId](../G/GetUserId.md) (current user identification)
 - Called from:
-  - DeadLockReport (for deadlock diagnostic reporting)
+  - [DeadLockReport](../D/DeadLockReport.md) (for deadlock diagnostic reporting)
 
 ## Notes and Other Information
 - Returns special strings for various conditions:

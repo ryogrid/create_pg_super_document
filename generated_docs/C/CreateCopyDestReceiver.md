@@ -37,7 +37,7 @@ This function takes no parameters. The returned DR_copy structure contains:
   - [copy_dest_destroy](../c/copy_dest_destroy.md) (cleanup callback)
   - DestCopyOut (destination type constant)
   - DR_copy (structure type)
-  - DestReceiver (base structure type)
+  - [DestReceiver](../D/DestReceiver.md) (base structure type)
 
 - Called from (representative examples):
   - [CreateDestReceiver](CreateDestReceiver.md) (in dest.c:145 - general destination receiver factory)

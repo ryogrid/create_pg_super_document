@@ -26,14 +26,14 @@ The function holds interrupts during the critical section to prevent corruption 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAttemptLock
-  - LWLockQueueSelf  
-  - LWLockDequeueSelf
-  - LWLockReportWaitStart/LWLockReportWaitEnd
-  - PGSemaphoreLock/PGSemaphoreUnlock
+  - [LWLockAttemptLock](LWLockAttemptLock.md)
+  - [LWLockQueueSelf](LWLockQueueSelf.md)  
+  - [LWLockDequeueSelf](LWLockDequeueSelf.md)
+  - [LWLockReportWaitStart](LWLockReportWaitStart.md)/LWLockReportWaitEnd
+  - [PGSemaphoreLock](../P/PGSemaphoreLock.md)/PGSemaphoreUnlock
   - HOLD_INTERRUPTS/RESUME_INTERRUPTS
 - Called from (representative examples):
-  - XLogFlush (for WALWriteLock coordination)
+  - [XLogFlush](../X/XLogFlush.md) (for WALWriteLock coordination)
 
 ## Notes and Other Information
 - Returns true if lock was successfully acquired, false if had to wait

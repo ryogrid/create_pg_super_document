@@ -30,10 +30,10 @@ Note that this function may allocate memory via palloc during conversion, which 
   - UTF_U2E (macro wrapper)
   - [pltcl_func_handler](../p/pltcl_func_handler.md)
   - [pltcl_trigger_handler](../p/pltcl_trigger_handler.md)
-  - throw_tcl_error
-  - compile_pltcl_function
-  - pltcl_returnnext
-  - pltcl_build_tuple_result
+  - [throw_tcl_error](../t/throw_tcl_error.md)
+  - [compile_pltcl_function](../c/compile_pltcl_function.md)
+  - [pltcl_returnnext](../p/pltcl_returnnext.md)
+  - [pltcl_build_tuple_result](../p/pltcl_build_tuple_result.md)
 
 ## Notes and Other Information
 - This function is part of a pair with  for bidirectional UTF-8/database encoding conversion

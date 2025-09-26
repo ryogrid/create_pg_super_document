@@ -22,7 +22,7 @@ The function performs three XOR-shift operations (each shifting by 33 bits) inte
 ## Dependencies
 - Functions called/Symbols referenced: None (pure computational function)
 - Called from (representative examples):
-  - hash_resource_elem (src/backend/utils/resowner/resowner.c:227)
+  - [hash_resource_elem](../h/hash_resource_elem.md) (src/backend/utils/resowner/resowner.c:227)
 
 ## Notes and Other Information
 - This is the 64-bit variant of the MurmurHash algorithm, complementing `murmurhash32`

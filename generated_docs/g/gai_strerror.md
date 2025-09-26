@@ -34,13 +34,13 @@ This implementation is part of PostgreSQL's portability layer (`src/port/`), ens
 
 - Called from (representative examples):
   - HOSTNAME_LOOKUP_DETAIL (src/backend/libpq/auth.c:525, 529)
-  - CheckPAMAuth (src/backend/libpq/auth.c:2098)
-  - PerformRadiusTransaction (src/backend/libpq/auth.c:2986)
-  - parse_hba_line (src/backend/libpq/hba.c:1558, 1562, 1638, 1642)
-  - parse_hba_auth_opt (src/backend/libpq/hba.c:2353)
-  - ListenServerPort (src/backend/libpq/pqcomm.c:477, 481)
-  - BackendInitialize (src/backend/tcop/backend_startup.c:193)
-  - PQconnectPoll (src/interfaces/libpq/fe-connect.c:2748, 2760, 2785)
+  - [CheckPAMAuth](../C/CheckPAMAuth.md) (src/backend/libpq/auth.c:2098)
+  - [PerformRadiusTransaction](../P/PerformRadiusTransaction.md) (src/backend/libpq/auth.c:2986)
+  - [parse_hba_line](../p/parse_hba_line.md) (src/backend/libpq/hba.c:1558, 1562, 1638, 1642)
+  - [parse_hba_auth_opt](../p/parse_hba_auth_opt.md) (src/backend/libpq/hba.c:2353)
+  - [ListenServerPort](../L/ListenServerPort.md) (src/backend/libpq/pqcomm.c:477, 481)
+  - [BackendInitialize](../B/BackendInitialize.md) (src/backend/tcop/backend_startup.c:193)
+  - [PQconnectPoll](../P/PQconnectPoll.md) (src/interfaces/libpq/fe-connect.c:2748, 2760, 2785)
 
 ## Notes and Other Information
 - This function is Windows-specific and located in `src/port/win32gai_strerror.c`

@@ -32,7 +32,7 @@ The function requires exact matches on indexed columns/expressions but allows fl
 ## Dependencies
 - Functions called/Symbols referenced:
   - rt_fetch
-  - table_open, table_close
+  - [table_open](../t/table_open.md), table_close
   - [RelationGetIndexList](../R/RelationGetIndexList.md)
   - [index_open](index_open.md), index_close
   - [get_constraint_index](../g/get_constraint_index.md)
@@ -43,7 +43,7 @@ The function requires exact matches on indexed columns/expressions but allows fl
   - [bms_add_member](../b/bms_add_member.md), bms_equal
   - [list_member](../l/list_member.md), list_difference
 - Called from (representative examples):
-  - make_modifytable
+  - [make_modifytable](../m/make_modifytable.md)
 
 ## Notes and Other Information
 - Returns NIL for ON CONFLICT DO NOTHING without inference specification

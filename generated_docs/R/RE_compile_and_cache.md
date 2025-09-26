@@ -31,7 +31,7 @@ The function handles memory management carefully by creating separate memory con
   - AllocSetContextCreate (memory context creation)
   - pg_regcomp (regex compilation)
   - [pg_regerror](../p/pg_regerror.md) (error message generation)
-  - MemoryContextSetIdentifier, MemoryContextSetParent, MemoryContextDelete (memory management)
+  - [MemoryContextSetIdentifier](../M/MemoryContextSetIdentifier.md), MemoryContextSetParent, MemoryContextDelete (memory management)
   - [cached_re_str](../c/cached_re_str.md) (cache entry structure)
   - MAX_CACHED_RES (cache size constant)
 - Called from (representative examples):
@@ -39,7 +39,7 @@ The function handles memory management carefully by creating separate memory con
   - [textregexsubstr](../t/textregexsubstr.md)
   - [setup_regexp_matches](../s/setup_regexp_matches.md)
   - [regexp_fixed_prefix](../r/regexp_fixed_prefix.md)
-  - replace_text_regexp
+  - [replace_text_regexp](../r/replace_text_regexp.md)
 
 ## Notes and Other Information
 - Implements an LRU cache with a maximum size defined by MAX_CACHED_RES

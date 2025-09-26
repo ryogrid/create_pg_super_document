@@ -29,11 +29,11 @@ This shim is essentially an inlined, optimized version of FunctionCall2Coll(), w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SortSupport (type)
-  - SortShimExtra (type)
+  - [SortSupport](../S/SortSupport.md) (type)
+  - [SortShimExtra](../S/SortShimExtra.md) (type)
   - FunctionCallInvoke
 - Called from:
-  - PrepareSortSupportComparisonShim (at src/backend/utils/sort/sortsupport.c:85)
+  - [PrepareSortSupportComparisonShim](../P/PrepareSortSupportComparisonShim.md) (at src/backend/utils/sort/sortsupport.c:85)
 
 ## Notes and Other Information
 - This is a static function, only accessible within sortsupport.c

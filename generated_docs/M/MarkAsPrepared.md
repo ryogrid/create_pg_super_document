@@ -21,7 +21,7 @@ MarkAsPrepared is the final step in preparing a transaction for two-phase commit
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GlobalTransaction
+  - [GlobalTransaction](../G/GlobalTransaction.md)
   - [ProcArrayAdd](../P/ProcArrayAdd.md)
   - GetPGProcByNumber
 - Called from (representative examples):

@@ -23,13 +23,13 @@ The  function performs type inference and conversion on a variable that currentl
   - strlen
   - [pg_strcasecmp](../p/pg_strcasecmp.md)
   - [pg_strncasecmp](../p/pg_strncasecmp.md)
-  - setNullValue
-  - setBoolValue
+  - [setNullValue](../s/setNullValue.md)
+  - [setBoolValue](../s/setBoolValue.md)
   - [is_an_int](../i/is_an_int.md)
   - [strtoint64](../s/strtoint64.md)
-  - setIntValue
+  - [setIntValue](../s/setIntValue.md)
   - [strtodouble](../s/strtodouble.md)
-  - setDoubleValue
+  - [setDoubleValue](../s/setDoubleValue.md)
   - pg_log_error
 - Types referenced:
   - [Variable](../V/Variable.md)
@@ -43,6 +43,6 @@ The  function performs type inference and conversion on a variable that currentl
 - Supports flexible boolean parsing (accepts prefixes like 'y', 'ye', 'n', 'no', but not 'o')
 - Recognizes 'on'/'off' and 'of' as boolean values
 - Empty strings cause conversion failure
-- Integer overflow during conversion results in failure
+- [Integer](../I/Integer.md) overflow during conversion results in failure
 - Double conversion allows for scientific notation and handles malformed input gracefully
 - Part of pgbench's expression evaluation system for dynamic typing

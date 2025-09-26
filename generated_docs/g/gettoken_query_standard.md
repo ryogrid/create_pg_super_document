@@ -29,7 +29,7 @@ The parser leverages the tsvector parser for operand processing and supports wei
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TSQueryParserState
+  - [TSQueryParserState](../T/TSQueryParserState.md)
   - t_iseq
   - [t_isspace](../t/t_isspace.md)
   - [reset_tsvector_parser](../r/reset_tsvector_parser.md)

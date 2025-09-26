@@ -34,16 +34,16 @@ The function operates by:
 - Functions called/Symbols referenced:
   - TupIsNull (macro)
 - Types used:
-  - Tuplestorestate
-  - TupleTableSlot
-  - TransitionCaptureState
+  - [Tuplestorestate](../T/Tuplestorestate.md)
+  - [TupleTableSlot](../T/TupleTableSlot.md)
+  - [TransitionCaptureState](../T/TransitionCaptureState.md)
 - Constants:
   - TRIGGER_EVENT_DELETE
   - TRIGGER_EVENT_INSERT
   - TRIGGER_EVENT_UPDATE
 - Called from (representative examples):
   - [AfterTriggersTableData](../A/AfterTriggersTableData.md) (src/backend/commands/trigger.c:3982)
-  - AfterTriggerSaveEvent (src/backend/commands/trigger.c:6195, 6211)
+  - [AfterTriggerSaveEvent](../A/AfterTriggerSaveEvent.md) (src/backend/commands/trigger.c:6195, 6211)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the trigger.c file

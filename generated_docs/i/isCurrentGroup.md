@@ -25,14 +25,14 @@ The function implements an optimization by comparing columns in reverse order (f
 ## Dependencies
 - Functions called/Symbols referenced:
   - castNode (macro to safely cast plan node)
-  - slot_getattr (extracts attribute value from tuple slot)
+  - [slot_getattr](../s/slot_getattr.md) (extracts attribute value from tuple slot)
   - FunctionCallInvoke (invokes cached comparison function)
-  - DatumGetBool (extracts boolean result from Datum)
-  - IncrementalSort (plan node type)
-  - PresortedKeyData (structure containing cached comparison functions)
+  - [DatumGetBool](../D/DatumGetBool.md) (extracts boolean result from Datum)
+  - [IncrementalSort](../I/IncrementalSort.md) (plan node type)
+  - [PresortedKeyData](../P/PresortedKeyData.md) (structure containing cached comparison functions)
 - Called from (representative examples):
-  - switchToPresortedPrefixMode (when switching sort modes)
-  - ExecIncrementalSort (main execution function, multiple locations)
+  - [switchToPresortedPrefixMode](../s/switchToPresortedPrefixMode.md) (when switching sort modes)
+  - [ExecIncrementalSort](../E/ExecIncrementalSort.md) (main execution function, multiple locations)
 
 ## Notes and Other Information
 - The function returns true if the tuple belongs to the current group, false otherwise

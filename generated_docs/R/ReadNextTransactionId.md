@@ -22,20 +22,20 @@ The function is designed for scenarios where the full 64-bit transaction ID is n
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReadNextFullTransactionId
+  - [ReadNextFullTransactionId](ReadNextFullTransactionId.md)
   - XidFromFullTransactionId
 - Called from (representative examples):
-  - ginDeletePage
-  - heap_vacuum_rel
-  - ActivateCommitTs
-  - GetStableLatestTransactionId
-  - vacuum_get_cutoffs
-  - vacuum_xid_failsafe_check
-  - vac_update_relstats
-  - vac_update_datfrozenxid
-  - vac_truncate_clog
-  - do_start_worker
-  - AutoVacWorkerMain
+  - [ginDeletePage](../g/ginDeletePage.md)
+  - [heap_vacuum_rel](../h/heap_vacuum_rel.md)
+  - [ActivateCommitTs](../A/ActivateCommitTs.md)
+  - [GetStableLatestTransactionId](../G/GetStableLatestTransactionId.md)
+  - [vacuum_get_cutoffs](../v/vacuum_get_cutoffs.md)
+  - [vacuum_xid_failsafe_check](../v/vacuum_xid_failsafe_check.md)
+  - [vac_update_relstats](../v/vac_update_relstats.md)
+  - [vac_update_datfrozenxid](../v/vac_update_datfrozenxid.md)
+  - [vac_truncate_clog](../v/vac_truncate_clog.md)
+  - [do_start_worker](../d/do_start_worker.md)
+  - [AutoVacWorkerMain](../A/AutoVacWorkerMain.md)
 
 ## Notes and Other Information
 - This is a static inline function for performance

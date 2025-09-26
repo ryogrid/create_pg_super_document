@@ -30,12 +30,12 @@ The path inherits the base Path structure and adds specific information needed f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Path (base structure)
+  - [Path](../P/Path.md) (base structure)
   - pathkeys (from subpath for ordering information)
 - Called from (representative examples):
-  - create_upper_unique_path (creates UpperUniquePath instances)
-  - create_upper_unique_plan (converts UpperUniquePath to execution plan)
-  - create_plan_recurse (part of plan creation process)
+  - [create_upper_unique_path](../c/create_upper_unique_path.md) (creates UpperUniquePath instances)
+  - [create_upper_unique_plan](../c/create_upper_unique_plan.md) (converts UpperUniquePath to execution plan)
+  - [create_plan_recurse](../c/create_plan_recurse.md) (part of plan creation process)
 
 ## Notes and Other Information
 - The input data must be presorted on the columns specified by the first numkeys pathkeys

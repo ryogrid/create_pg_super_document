@@ -17,10 +17,10 @@ AtEOXact_LogicalRepWorkers is called at the end of a transaction (EOXact = End o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire (with LogicalRepWorkerLock and LW_SHARED)
-  - logicalrep_workers_find
-  - logicalrep_worker_wakeup_ptr
-  - LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md) (with LogicalRepWorkerLock and LW_SHARED)
+  - [logicalrep_workers_find](../l/logicalrep_workers_find.md)
+  - [logicalrep_worker_wakeup_ptr](../l/logicalrep_worker_wakeup_ptr.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - lfirst_oid
   - lfirst
 - Called from (representative examples):

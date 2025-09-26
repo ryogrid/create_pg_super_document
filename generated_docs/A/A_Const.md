@@ -34,7 +34,7 @@ A_Const is a fundamental parse tree node that encapsulates constant values found
 - Called from (representative examples):
   - [_copyA_Const](../c/_copyA_Const.md)
   - [_equalA_Const](../e/_equalA_Const.md)
-  - makeStringConst
+  - [makeStringConst](../m/makeStringConst.md)
   - [exprLocation](../e/exprLocation.md)
   - [transformExprRecurse](../t/transformExprRecurse.md)
   - [make_const](../m/make_const.md)

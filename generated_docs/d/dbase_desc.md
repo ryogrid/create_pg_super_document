@@ -23,17 +23,17 @@ The  function is part of PostgreSQL's WAL record description system, specificall
 - Functions called/Symbols referenced:
   - XLogRecGetData
   - XLogRecGetInfo
-  - appendStringInfo
-  - appendStringInfoString
+  - [appendStringInfo](../a/appendStringInfo.md)
+  - [appendStringInfoString](../a/appendStringInfoString.md)
 - Constants used:
   - XLR_INFO_MASK
   - XLOG_DBASE_CREATE_FILE_COPY
   - XLOG_DBASE_CREATE_WAL_LOG
   - XLOG_DBASE_DROP
 - Structures used:
-  - xl_dbase_create_file_copy_rec
-  - xl_dbase_create_wal_log_rec
-  - xl_dbase_drop_rec
+  - [xl_dbase_create_file_copy_rec](../x/xl_dbase_create_file_copy_rec.md)
+  - [xl_dbase_create_wal_log_rec](../x/xl_dbase_create_wal_log_rec.md)
+  - [xl_dbase_drop_rec](../x/xl_dbase_drop_rec.md)
 - Called from (representative examples):
   - WAL dump utilities and debugging tools
 

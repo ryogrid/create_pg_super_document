@@ -30,7 +30,7 @@ The function enforces several important constraints:
   - [object_aclcheck](../o/object_aclcheck.md)
   - [aclcheck_error](../a/aclcheck_error.md)
   - [get_namespace_name](../g/get_namespace_name.md)
-  - pg_char_to_encoding
+  - [pg_char_to_encoding](../p/pg_char_to_encoding.md)
   - [LookupFuncName](../L/LookupFuncName.md)
   - [get_func_rettype](../g/get_func_rettype.md)
   - [NameListToString](../N/NameListToString.md)

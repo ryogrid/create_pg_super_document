@@ -30,8 +30,8 @@ The function is simpler than ExecMergeMatched because NOT MATCHED cases don't ne
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecQual
-  - ExecProject
+  - [ExecQual](ExecQual.md)
+  - [ExecProject](ExecProject.md)
   - [ExecInsert](ExecInsert.md)
   - [MergeActionState](../M/MergeActionState.md)
   - MERGE_WHEN_NOT_MATCHED_BY_TARGET

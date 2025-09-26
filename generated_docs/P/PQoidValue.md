@@ -24,7 +24,7 @@ PQoidValue serves as a more robust and type-safe version of PQoidStatus by parsi
   - InvalidOid (PostgreSQL constant)
 - Called from (representative examples):
   - [PrintQueryStatus](PrintQueryStatus.md) (src/bin/psql/common.c:989)
-  - ecpg_process_output (src/interfaces/ecpg/ecpglib/execute.c:1867)
+  - [ecpg_process_output](../e/ecpg_process_output.md) (src/interfaces/ecpg/ecpglib/execute.c:1867)
 
 ## Notes and Other Information
 - Returns InvalidOid for non-INSERT commands, NULL results, or parsing errors

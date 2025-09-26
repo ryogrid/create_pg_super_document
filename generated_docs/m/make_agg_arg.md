@@ -23,7 +23,7 @@ The function creates PARAM_EXEC type parameters with a fixed paramid of -1, indi
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode
-  - Param (struct type)
+  - [Param](../P/Param.md) (struct type)
   - PARAM_EXEC (constant)
 - Called from (representative examples):
   - [build_aggregate_transfn_expr](../b/build_aggregate_transfn_expr.md)

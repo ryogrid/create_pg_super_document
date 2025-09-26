@@ -20,7 +20,7 @@ This function handles command-line argument parsing for the pg_test_fsync utilit
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getopt_long (GNU option parsing)
+  - [getopt_long](../g/getopt_long.md) (GNU option parsing)
   - [pg_strdup](../p/pg_strdup.md) (PostgreSQL string duplication)
   - strtoul (string to unsigned long conversion)
   - pg_log_error (PostgreSQL error logging)

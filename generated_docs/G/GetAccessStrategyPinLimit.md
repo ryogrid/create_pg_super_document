@@ -25,11 +25,11 @@ When no strategy is provided (NULL), it returns NBuffers, effectively removing a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferAccessStrategy (type)
+  - [BufferAccessStrategy](../B/BufferAccessStrategy.md) (type)
   - BAS_BULKREAD (enum value)
   - NBuffers (global variable)
 - Called from (representative examples):
-  - read_stream_begin_relation
+  - [read_stream_begin_relation](../r/read_stream_begin_relation.md)
   - RelationGetNumberOfBlocks
 
 ## Notes and Other Information

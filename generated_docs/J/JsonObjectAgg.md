@@ -30,13 +30,13 @@ JsonObjectAgg represents the parsed form of JSON_OBJECTAGG() function calls befo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonAggConstructor
-  - JsonKeyValue
+  - [JsonAggConstructor](JsonAggConstructor.md)
+  - [JsonKeyValue](JsonKeyValue.md)
 - Called from (representative examples):
-  - exprLocation
-  - transformExprRecurse
-  - transformJsonObjectAgg
-  - raw_expression_tree_walker_impl
+  - [exprLocation](../e/exprLocation.md)
+  - [transformExprRecurse](../t/transformExprRecurse.md)
+  - [transformJsonObjectAgg](../t/transformJsonObjectAgg.md)
+  - [raw_expression_tree_walker_impl](../r/raw_expression_tree_walker_impl.md)
 
 ## Notes and Other Information
 - This structure is used during the parsing phase before transformation into execution-ready aggregate expressions

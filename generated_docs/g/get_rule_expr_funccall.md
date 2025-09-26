@@ -27,16 +27,16 @@ This mechanism ensures grammatical correctness when reconstructing SQL from inte
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - looks_like_function
-  - get_rule_expr
-  - appendStringInfoString
-  - appendStringInfo
-  - format_type_with_typemod
-  - exprType
-  - exprTypmod
+  - [looks_like_function](../l/looks_like_function.md)
+  - [get_rule_expr](get_rule_expr.md)
+  - [appendStringInfoString](../a/appendStringInfoString.md)
+  - [appendStringInfo](../a/appendStringInfo.md)
+  - [format_type_with_typemod](../f/format_type_with_typemod.md)
+  - [exprType](../e/exprType.md)
+  - [exprTypmod](../e/exprTypmod.md)
 
 - Called from (representative examples):
-  - get_from_clause_item (for function calls in FROM clause)
+  - [get_from_clause_item](get_from_clause_item.md) (for function calls in FROM clause)
 
 ## Notes and Other Information
 - Critical for maintaining grammatical correctness in SQL reconstruction

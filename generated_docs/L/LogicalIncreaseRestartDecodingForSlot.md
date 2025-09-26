@@ -28,12 +28,12 @@ Three main scenarios are handled:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReplicationSlot (MyReplicationSlot global)
-  - LogicalConfirmReceivedLocation
+  - [ReplicationSlot](../R/ReplicationSlot.md) (MyReplicationSlot global)
+  - [LogicalConfirmReceivedLocation](LogicalConfirmReceivedLocation.md)
   - SpinLockAcquire/SpinLockRelease
   - elog (DEBUG1 logging)
 - Called from (representative examples):
-  - SnapBuildProcessRunningXacts
+  - [SnapBuildProcessRunningXacts](../S/SnapBuildProcessRunningXacts.md)
 
 ## Notes and Other Information
 - Similar to LogicalIncreaseXminForSlot but operates on restart LSN instead of xmin

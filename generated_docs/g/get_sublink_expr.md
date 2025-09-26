@@ -28,23 +28,23 @@ The function carefully handles parentheses and operator syntax, including specia
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendStringInfoString/appendStringInfoChar/appendStringInfo (for buffer operations)
-  - get_rule_expr (for expression deparsing)
-  - generate_operator_name (for operator name lookup)
-  - get_query_def (for subquery deparsing)
+  - [appendStringInfoString](../a/appendStringInfoString.md)/appendStringInfoChar/appendStringInfo (for buffer operations)
+  - [get_rule_expr](get_rule_expr.md) (for expression deparsing)
+  - [generate_operator_name](generate_operator_name.md) (for operator name lookup)
+  - [get_query_def](get_query_def.md) (for subquery deparsing)
   - IsA (for type checking)
   - linitial/lsecond/linitial_oid (for list operations)
   - lfirst_node (for list iteration)
-  - exprType (for type information)
+  - [exprType](../e/exprType.md) (for type information)
   - nodeTag (for node identification)
   - elog (for error reporting)
 - Constants referenced:
   - ARRAY_SUBLINK, EXISTS_SUBLINK, ANY_SUBLINK, ALL_SUBLINK
   - ROWCOMPARE_SUBLINK, EXPR_SUBLINK, MULTIEXPR_SUBLINK, CTE_SUBLINK
 - Types referenced:
-  - SubLink, OpExpr, BoolExpr, RowCompareExpr, Query
+  - [SubLink](../S/SubLink.md), OpExpr, BoolExpr, RowCompareExpr, Query
 - Called from:
-  - get_rule_expr (for SubLink node processing)
+  - [get_rule_expr](get_rule_expr.md) (for SubLink node processing)
 
 ## Notes and Other Information
 - This is a static function within ruleutils.c used exclusively for rule deparsing operations

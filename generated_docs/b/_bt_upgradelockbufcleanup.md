@@ -29,7 +29,7 @@ The upgrade is atomic in the sense that the function maintains continuous exclus
   - [BufferGetPage](../B/BufferGetPage.md)
   - [LockBuffer](../L/LockBuffer.md)
   - BUFFER_LOCK_UNLOCK
-  - LockBufferForCleanup
+  - [LockBufferForCleanup](../L/LockBufferForCleanup.md)
 
 - Called from (representative examples):
   - [btvacuumpage](btvacuumpage.md)

@@ -25,7 +25,7 @@ This function applies a projection target to a path, with the key difference fro
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - is_projection_capable_path
+  - [is_projection_capable_path](../i/is_projection_capable_path.md)
   - [create_projection_path](../c/create_projection_path.md)
   - [is_parallel_safe](../i/is_parallel_safe.md)
   - IsA

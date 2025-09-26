@@ -51,8 +51,8 @@ The structure uses a flexible array member for tupledata, allowing it to store v
   - BlockNumber (for prev field)
   - FLEXIBLE_ARRAY_MEMBER (for tupledata array)
 - Called from (representative examples):
-  - gistAllocateNewPageBuffer (allocates and initializes new buffer pages)
-  - gistGetNodeBuffer (retrieves buffer pages)
+  - [gistAllocateNewPageBuffer](../g/gistAllocateNewPageBuffer.md) (allocates and initializes new buffer pages)
+  - [gistGetNodeBuffer](../g/gistGetNodeBuffer.md) (retrieves buffer pages)
   - [gistPlaceItupToPage](../g/gistPlaceItupToPage.md) (places tuples into buffer pages)
   - [gistGetItupFromPage](../g/gistGetItupFromPage.md) (retrieves tuples from buffer pages)
   - [gistPushItupToNodeBuffer](../g/gistPushItupToNodeBuffer.md) (adds tuples to node buffers)

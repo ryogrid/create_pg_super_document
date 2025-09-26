@@ -24,8 +24,8 @@ The function serves as an abstraction layer between the high-level handle interf
   - [shm_mq_handle](shm_mq_handle.md) (parameter type)
   - [shm_mq](shm_mq.md) (return type)
 - Called from (representative examples):
-  - WaitForParallelWorkersToAttach
-  - WaitForParallelWorkersToFinish
+  - [WaitForParallelWorkersToAttach](../W/WaitForParallelWorkersToAttach.md)
+  - [WaitForParallelWorkersToFinish](../W/WaitForParallelWorkersToFinish.md)
 
 ## Notes and Other Information
 - Simple accessor function with no error checking or validation

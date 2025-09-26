@@ -25,7 +25,7 @@ SlabAllocSetupNewChunk is a small helper function designed to avoid code duplica
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SlabBlock](SlabBlock.md)
-  - MemoryChunk
+  - [MemoryChunk](../M/MemoryChunk.md)
   - [SlabContext](SlabContext.md)
   - SlabBlockGetChunk
   - SlabChunkMod

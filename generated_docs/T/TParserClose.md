@@ -21,11 +21,11 @@ After cleaning up the state stack, the function deallocates any wide character s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree (PostgreSQL memory deallocation)
-  - TParserPosition (structure type for state stack traversal)
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation)
+  - [TParserPosition](TParserPosition.md) (structure type for state stack traversal)
 
 - Called from (representative examples):
-  - prsd_end (text search parser end function)
+  - [prsd_end](../p/prsd_end.md) (text search parser end function)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the wparser_def.c module

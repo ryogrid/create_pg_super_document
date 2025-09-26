@@ -28,9 +28,9 @@ This approach ensures that relation cache initialization files are removed from 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AllocateDir
-  - ReadDirExtended  
-  - FreeDir
+  - [AllocateDir](../A/AllocateDir.md)
+  - [ReadDirExtended](ReadDirExtended.md)  
+  - [FreeDir](../F/FreeDir.md)
   - [unlink_initfile](../u/unlink_initfile.md)
   - RELCACHE_INIT_FILENAME
 - Called from (representative examples):

@@ -29,7 +29,7 @@ The function leverages PostgreSQL's `hash_any_extended` function to compute the 
   - UUID_LEN (UUID length constant - 16 bytes)
   - PG_GETARG_INT64 (64-bit integer argument extraction macro)
 - Called from (representative examples):
-  - Hash partitioning operations
+  - [Hash](../H/Hash.md) partitioning operations
   - Distributed query processing
   - Advanced hash-based algorithms
 

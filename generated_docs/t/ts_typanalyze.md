@@ -20,7 +20,7 @@ This function serves as a specialized analysis function for tsvector data types 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - VacAttrStats
+  - [VacAttrStats](../V/VacAttrStats.md)
   - [compute_tsvector_stats](../c/compute_tsvector_stats.md)
 - Called from (representative examples):
   - No direct references found (likely called via function pointer in system catalogs)

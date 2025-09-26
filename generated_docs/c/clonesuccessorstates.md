@@ -49,15 +49,15 @@ Key optimizations include:
   - REG_ETOOBIG, REG_ESPACE (error codes)
   - MALLOC, FREE (memory management)
   - NISERR (error checking macro)
-  - isconstraintarc (constraint arc identification)
-  - hasconstraintout (checks if state has constraint outarcs)
-  - dropstate (removes a state from NFA)
-  - cparc (copies an arc between states)
-  - newstate (creates new NFA state)
-  - clonesuccessorstates (recursive self-calls)
+  - [isconstraintarc](../i/isconstraintarc.md) (constraint arc identification)
+  - [hasconstraintout](../h/hasconstraintout.md) (checks if state has constraint outarcs)
+  - [dropstate](../d/dropstate.md) (removes a state from NFA)
+  - [cparc](cparc.md) (copies an arc between states)
+  - [newstate](../n/newstate.md) (creates new NFA state)
+  - [clonesuccessorstates](clonesuccessorstates.md) (recursive self-calls)
 - Called from (representative examples):
-  - breakconstraintloop (main entry point for loop breaking)
-  - clonesuccessorstates (recursive self-calls)
+  - [breakconstraintloop](../b/breakconstraintloop.md) (main entry point for loop breaking)
+  - [clonesuccessorstates](clonesuccessorstates.md) (recursive self-calls)
 
 ## Notes and Other Information
 - Uses tmp fields in clone states to track their source states during processing

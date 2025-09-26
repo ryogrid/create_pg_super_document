@@ -29,9 +29,9 @@ The transformJsonPassingArgs function processes the PASSING clause arguments use
   - [transformJsonValueExpr](transformJsonValueExpr.md)
   - castNode
   - lfirst
-  - lappend
+  - [lappend](../l/lappend.md)
   - [makeString](../m/makeString.md)
-  - JsonArgument
+  - [JsonArgument](../J/JsonArgument.md)
   - JsonFormatType
 - Called from (representative examples):
   - [transformJsonFuncExpr](transformJsonFuncExpr.md)

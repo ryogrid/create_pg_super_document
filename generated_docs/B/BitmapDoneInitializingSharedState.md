@@ -28,7 +28,7 @@ The synchronization mechanism ensures that worker processes don't attempt to acc
 ## Dependencies
 - Functions called/Symbols referenced:
   - `SpinLockAcquire`/`SpinLockRelease`: Acquire and release spinlock for atomic state updates
-  - `ConditionVariableBroadcast`: Wake up all processes waiting on the condition variable
+  - `[ConditionVariableBroadcast](../C/ConditionVariableBroadcast.md)`: Wake up all processes waiting on the condition variable
   - `BM_FINISHED`: Enumeration value indicating completed initialization
 - Called from (representative examples):
   - [BitmapHeapNext](BitmapHeapNext.md): Called after leader completes shared state setup

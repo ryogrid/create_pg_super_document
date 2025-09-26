@@ -27,15 +27,15 @@ The function operates in different modes depending on the standby state. In earl
   - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
   - TransactionIdAdvance
   - [ExtendSUBTRANS](../E/ExtendSUBTRANS.md)
-  - KnownAssignedXidsAdd
-  - AdvanceNextFullTransactionIdPastXid
+  - [KnownAssignedXidsAdd](../K/KnownAssignedXidsAdd.md)
+  - [AdvanceNextFullTransactionIdPastXid](../A/AdvanceNextFullTransactionIdPastXid.md)
   - STANDBY_INITIALIZED (constant)
   - DEBUG4 (logging level)
 - Called from (representative examples):
   - [xact_redo_commit](../x/xact_redo_commit.md)
   - [xact_redo_abort](../x/xact_redo_abort.md)
   - [ApplyWalRecord](../A/ApplyWalRecord.md)
-  - ProcArrayApplyXidAssignment
+  - [ProcArrayApplyXidAssignment](../P/ProcArrayApplyXidAssignment.md)
 
 ## Notes and Other Information
 - Must be called for every WAL record associated with a transaction during recovery

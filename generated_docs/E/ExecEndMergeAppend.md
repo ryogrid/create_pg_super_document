@@ -27,9 +27,9 @@ Note that the function only handles cleanup of the subplans themselves - the Mer
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecEndNode (recursively shuts down each child plan)
+  - [ExecEndNode](ExecEndNode.md) (recursively shuts down each child plan)
 - Called from (representative examples):
-  - ExecEndNode (main executor cleanup dispatcher)
+  - [ExecEndNode](ExecEndNode.md) (main executor cleanup dispatcher)
 
 ## Notes and Other Information
 - The function is part of the standard PostgreSQL executor node lifecycle (Init -> Exec -> End)

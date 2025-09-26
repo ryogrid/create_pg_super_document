@@ -21,22 +21,22 @@ The function implements a critical safety mechanism by requiring space allocatio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextAllocZero (for allocating expanded hash table)
-  - ResourceOwnerAddToHash (for transferring items to hash table)
-  - pfree (for releasing old hash table)
+  - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md) (for allocating expanded hash table)
+  - [ResourceOwnerAddToHash](ResourceOwnerAddToHash.md) (for transferring items to hash table)
+  - [pfree](../p/pfree.md) (for releasing old hash table)
   - RESOWNER_ARRAY_SIZE, RESOWNER_HASH_INIT_SIZE, RESOWNER_HASH_MAX_ITEMS (sizing constants)
 - Called from (representative examples):
-  - IncrTupleDescRefCount (tuple descriptor reference management)
-  - BufferAlloc, GetVictimBuffer (buffer management)
-  - OpenTemporaryFile (file descriptor management)
-  - SearchCatCacheInternal (catalog cache management)
-  - CreateWaitEventSet (wait event management)
-  - dsm_create_descriptor (dynamic shared memory)
+  - [IncrTupleDescRefCount](../I/IncrTupleDescRefCount.md) (tuple descriptor reference management)
+  - [BufferAlloc](../B/BufferAlloc.md), GetVictimBuffer (buffer management)
+  - [OpenTemporaryFile](../O/OpenTemporaryFile.md) (file descriptor management)
+  - [SearchCatCacheInternal](../S/SearchCatCacheInternal.md) (catalog cache management)
+  - [CreateWaitEventSet](../C/CreateWaitEventSet.md) (wait event management)
+  - [dsm_create_descriptor](../d/dsm_create_descriptor.md) (dynamic shared memory)
 
 ## Notes and Other Information
 - Must be called before acquiring a resource, never after ResourceOwner release has started
 - Uses a two-tier storage strategy: array (fast, limited) and hash table (larger capacity)
-- Hash table capacity always remains a power of 2 for efficient hash operations
+- [Hash](../H/Hash.md) table capacity always remains a power of 2 for efficient hash operations
 - When expanding, all existing items are rehashed into the new table
 - The function is designed to be allocation-failure safe after the initial memory allocation
 - Critical for preventing resource leaks during error conditions

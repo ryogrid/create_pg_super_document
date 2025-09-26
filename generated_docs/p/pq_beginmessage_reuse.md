@@ -23,12 +23,12 @@ Like , it stores the message type character in the buffer's cursor field for lat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - resetStringInfo (from StringInfo API)
+  - [resetStringInfo](../r/resetStringInfo.md) (from StringInfo API)
 - Called from (representative examples):
-  - SendRowDescriptionMessage
-  - printtup
-  - serializeAnalyzeReceive
-  - exec_describe_statement_message
+  - [SendRowDescriptionMessage](../S/SendRowDescriptionMessage.md)
+  - [printtup](printtup.md)
+  - [serializeAnalyzeReceive](../s/serializeAnalyzeReceive.md)
+  - [exec_describe_statement_message](../e/exec_describe_statement_message.md)
 
 ## Notes and Other Information
 - Requires the buffer to be allocated in a sufficiently long-lived memory context since it reuses existing memory

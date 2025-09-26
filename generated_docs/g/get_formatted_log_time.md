@@ -27,8 +27,8 @@ The function uses a specific format: "YYYY-MM-DD HH:MM:SS.mmm TZ" where mmm repr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - gettimeofday (system call for current time)
-  - pg_strftime (PostgreSQL timezone-aware strftime)
+  - [gettimeofday](gettimeofday.md) (system call for current time)
+  - [pg_strftime](../p/pg_strftime.md) (PostgreSQL timezone-aware strftime)
   - [pg_localtime](../p/pg_localtime.md) (PostgreSQL timezone-aware localtime)  
   - sprintf, memcpy (standard C library functions)
   - FORMATTED_TS_LEN (constant defining timestamp buffer length)

@@ -39,11 +39,11 @@ The union-based flag storage optimizes memory usage while supporting the differe
 - Functions called/Symbols referenced:
   - FlagMode (enumeration for flag encoding types)
 - Called from (representative examples):
-  - addCompoundAffixFlagValue (creates and adds new CompoundAffixFlag entries)
-  - setCompoundAffixFlagValue (initializes CompoundAffixFlag structure fields)
-  - getCompoundAffixFlagValue (retrieves flag values during processing)
-  - cmpcmdflag (comparison function for sorting CompoundAffixFlag arrays)
-  - NIImportOOAffixes (processes compound flags during affix import)
+  - [addCompoundAffixFlagValue](../a/addCompoundAffixFlagValue.md) (creates and adds new CompoundAffixFlag entries)
+  - [setCompoundAffixFlagValue](../s/setCompoundAffixFlagValue.md) (initializes CompoundAffixFlag structure fields)
+  - [getCompoundAffixFlagValue](../g/getCompoundAffixFlagValue.md) (retrieves flag values during processing)
+  - [cmpcmdflag](../c/cmpcmdflag.md) (comparison function for sorting CompoundAffixFlag arrays)
+  - [NIImportOOAffixes](../N/NIImportOOAffixes.md) (processes compound flags during affix import)
 
 ## Notes and Other Information
 - Part of PostgreSQL's Ispell dictionary implementation located in src/include/tsearch/dicts/spell.h:168-180

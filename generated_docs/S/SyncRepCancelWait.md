@@ -23,8 +23,8 @@ This function is typically called during error conditions, process termination, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire (acquires SyncRepLock exclusively)
-  - LWLockRelease (releases SyncRepLock)
+  - [LWLockAcquire](../L/LWLockAcquire.md) (acquires SyncRepLock exclusively)
+  - [LWLockRelease](../L/LWLockRelease.md) (releases SyncRepLock)
   - [dlist_node_is_detached](../d/dlist_node_is_detached.md) (checks if node is in a list)
   - [dlist_delete_thoroughly](../d/dlist_delete_thoroughly.md) (removes and reinitializes list node)
   - SYNC_REP_NOT_WAITING (synchronization state constant)

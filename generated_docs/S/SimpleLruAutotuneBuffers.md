@@ -39,8 +39,8 @@ The function uses nested Min/Max operations to ensure all constraints are satisf
   - Max (macro for maximum of two values)
 
 - Called from (representative examples):
-  - CLOGShmemBuffers
-  - CommitTsShmemBuffers  
+  - [CLOGShmemBuffers](../C/CLOGShmemBuffers.md)
+  - [CommitTsShmemBuffers](../C/CommitTsShmemBuffers.md)  
   - [SUBTRANSShmemBuffers](SUBTRANSShmemBuffers.md)
   - [SimpleLruGetBankLock](SimpleLruGetBankLock.md)
 

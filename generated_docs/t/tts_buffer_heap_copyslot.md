@@ -35,11 +35,11 @@ In this case, it shares the buffer reference via tts_buffer_heap_store_tuple() b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferHeapTupleTableSlot (cast for both source and destination)
+  - [BufferHeapTupleTableSlot](../B/BufferHeapTupleTableSlot.md) (cast for both source and destination)
   - TTS_SHOULDFREE (checks if source slot owns its tuple)
-  - ExecClearTuple (clears destination slot)
+  - [ExecClearTuple](../E/ExecClearTuple.md) (clears destination slot)
   - TTS_FLAG_EMPTY (flag indicating empty slot)
-  - ExecCopySlotHeapTuple (creates HeapTuple copy from slot)
+  - [ExecCopySlotHeapTuple](../E/ExecCopySlotHeapTuple.md) (creates HeapTuple copy from slot)
   - TTS_FLAG_SHOULDFREE (marks slot as owning tuple memory)
   - [tts_buffer_heap_store_tuple](tts_buffer_heap_store_tuple.md) (stores tuple with buffer reference)
   - [HeapTupleData](../H/HeapTupleData.md) (tuple header structure)

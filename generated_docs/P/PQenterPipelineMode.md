@@ -23,13 +23,13 @@ This function doesn't send any data over the network; it only changes the intern
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - libpq_append_conn_error (for error reporting)
+  - [libpq_append_conn_error](../l/libpq_append_conn_error.md) (for error reporting)
 - Constants used:
   - PQ_PIPELINE_OFF
   - PQ_PIPELINE_ON
   - PGASYNC_IDLE
 - Called from (representative examples):
-  - executeMetaCommand (in pgbench)
+  - [executeMetaCommand](../e/executeMetaCommand.md) (in pgbench)
   - Various test functions in libpq_pipeline test module
 
 ## Notes and Other Information

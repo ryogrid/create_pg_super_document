@@ -42,7 +42,7 @@ The function ensures catalog consistency by properly handling all the metadata a
   - ObjectAddressSet
   - [recordDependencyOn](../r/recordDependencyOn.md)
   - [deleteDependencyRecordsForClass](../d/deleteDependencyRecordsForClass.md)
-  - CommandCounterIncrement
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md)
 - Called from (representative examples):
   - [DefineIndex](../D/DefineIndex.md)
   - [AttachPartitionEnsureIndexes](../A/AttachPartitionEnsureIndexes.md)

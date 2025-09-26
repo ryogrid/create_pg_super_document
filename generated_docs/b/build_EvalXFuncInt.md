@@ -48,11 +48,11 @@ This function is essential for integrating complex expression evaluation operati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExprEvalStep
-  - llvm_pg_func
-  - l_ptr_const
-  - l_ptr
-  - l_call
+  - [ExprEvalStep](../E/ExprEvalStep.md)
+  - [llvm_pg_func](../l/llvm_pg_func.md)
+  - [l_ptr_const](../l/l_ptr_const.md)
+  - [l_ptr](../l/l_ptr.md)
+  - [l_call](../l/l_call.md)
 - Called from (representative examples):
   - build_EvalXFunc
 

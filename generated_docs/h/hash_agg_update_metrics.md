@@ -24,8 +24,8 @@ The function only operates when the aggregation strategy is either AGG_MIXED or 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextMemAllocated
-  - LogicalTapeSetBlocks
+  - [MemoryContextMemAllocated](../M/MemoryContextMemAllocated.md)
+  - [LogicalTapeSetBlocks](../L/LogicalTapeSetBlocks.md)
   - HASHAGG_WRITE_BUFFER_SIZE
   - HASHAGG_READ_BUFFER_SIZE
   - [TupleHashEntryData](../T/TupleHashEntryData.md)
@@ -39,6 +39,6 @@ The function only operates when the aggregation strategy is either AGG_MIXED or 
 ## Notes and Other Information
 - The function tracks three main types of memory: metadata context memory, hashkey context memory, and buffer memory for tape operations
 - Peak memory tracking helps PostgreSQL make informed decisions about when to spill to disk
-- Hash entry size estimation is dynamically updated based on actual memory usage per group, improving future planning
+- [Hash](../H/Hash.md) entry size estimation is dynamically updated based on actual memory usage per group, improving future planning
 - Buffer memory calculation includes write buffers for all partitions and optionally a read buffer when reading from tape
 - Disk usage is measured in kilobytes and only tracked when a tape set exists

@@ -71,7 +71,7 @@ ColumnDef is a comprehensive structure representing column definitions in CREATE
   - [ATExecAddColumn](../A/ATExecAddColumn.md)
   - [MergeAttributes](../M/MergeAttributes.md)
   - [transformColumnDefinition](../t/transformColumnDefinition.md)
-  - makeColumnDef
+  - [makeColumnDef](../m/makeColumnDef.md)
 
 ## Notes and Other Information
 - Located in src/include/nodes/parsenodes.h:723-746

@@ -25,12 +25,12 @@ This function takes no parameters and operates on the current transaction's seri
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RegisterTwoPhaseRecord: Registers 2PC state records for persistence
-  - LWLockAcquire/LWLockRelease: Manages SerializablePredicateListLock
+  - [RegisterTwoPhaseRecord](../R/RegisterTwoPhaseRecord.md): Registers 2PC state records for persistence
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease: Manages SerializablePredicateListLock
   - dlist_foreach/dlist_container: Iterates through predicate locks
   - IsParallelWorker/ParallelContextActive: Parallel execution checks
 - Called from (representative examples):
-  - PrepareTransaction: During two-phase commit preparation
+  - [PrepareTransaction](../P/PrepareTransaction.md): During two-phase commit preparation
 
 ## Notes and Other Information
 - Only creates records if the current transaction is actually serializable (MySerializableXact != InvalidSerializableXact)

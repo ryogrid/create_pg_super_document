@@ -21,7 +21,7 @@ The function performs a safe bit-level copy of the double's memory representatio
 - Functions called/Symbols referenced:
   - memcpy (standard C library function)
 - Called from (representative examples):
-  - double_to_shortest_decimal_bufn
+  - [double_to_shortest_decimal_bufn](double_to_shortest_decimal_bufn.md)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's Ryu floating-point output implementation, adapted from Ulf Adams' Ryu algorithm

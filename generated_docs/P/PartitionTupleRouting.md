@@ -40,7 +40,7 @@ PartitionTupleRouting is a central structure in PostgreSQL's partition tuple rou
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PartitionDispatch
+  - [PartitionDispatch](PartitionDispatch.md)
 - Called from (representative examples):
   - [CopyFrom](../C/CopyFrom.md)
   - [ExecSetupPartitionTupleRouting](../E/ExecSetupPartitionTupleRouting.md)

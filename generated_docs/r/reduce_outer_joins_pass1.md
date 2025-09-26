@@ -33,7 +33,7 @@ This information gathering phase is crucial for the optimizations efficiency, al
   - [palloc](../p/palloc.md)
   - [bms_make_singleton](../b/bms_make_singleton.md)
   - [bms_add_members](../b/bms_add_members.md)
-  - lappend
+  - [lappend](../l/lappend.md)
   - IS_OUTER_JOIN
   - nodeTag
   - elog
@@ -46,5 +46,5 @@ This information gathering phase is crucial for the optimizations efficiency, al
 - The function is static (internal to prepjointree.c) and only used within the outer join reduction algorithm
 - Handles NULL jointree nodes gracefully by returning an empty state
 - The recursive nature allows it to build a complete picture of the jointree structure
-- Join expressions own RT indexes are intentionally excluded from the relids result
+- [Join](../J/Join.md) expressions own RT indexes are intentionally excluded from the relids result
 - Error handling is provided for unrecognized node types to aid debugging

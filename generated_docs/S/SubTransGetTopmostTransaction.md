@@ -29,7 +29,7 @@ Due to SUBTRANS log truncation, the function may return an intermediate subtrans
   - [SubTransGetParent](SubTransGetParent.md) (retrieves parent transaction ID)
 - Called from (representative examples):
   - [HeapCheckForSerializableConflictOut](../H/HeapCheckForSerializableConflictOut.md) (serializable isolation conflict detection)
-  - TransactionIdIsInProgress (checking if transaction is still running)
+  - [TransactionIdIsInProgress](../T/TransactionIdIsInProgress.md) (checking if transaction is still running)
   - [XactLockTableWait](../X/XactLockTableWait.md) (transaction lock waiting)
   - [ConditionalXactLockTableWait](../C/ConditionalXactLockTableWait.md) (non-blocking transaction lock waiting)
   - [XidInMVCCSnapshot](../X/XidInMVCCSnapshot.md) (MVCC snapshot visibility checks)

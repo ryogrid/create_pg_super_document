@@ -26,23 +26,23 @@ Key behaviors:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HistoricSnapshotActive
-  - InvalidateCatalogSnapshot
+  - [HistoricSnapshotActive](../H/HistoricSnapshotActive.md)
+  - [InvalidateCatalogSnapshot](../I/InvalidateCatalogSnapshot.md)
   - pairingheap_is_empty
-  - IsInParallelMode
+  - [IsInParallelMode](../I/IsInParallelMode.md)
   - IsolationUsesXactSnapshot
   - IsolationIsSerializable
-  - GetSerializableTransactionSnapshot
-  - GetSnapshotData
-  - CopySnapshot
-  - pairingheap_add
+  - [GetSerializableTransactionSnapshot](GetSerializableTransactionSnapshot.md)
+  - [GetSnapshotData](GetSnapshotData.md)
+  - [CopySnapshot](../C/CopySnapshot.md)
+  - [pairingheap_add](../p/pairingheap_add.md)
 - Called from (representative examples):
-  - _brin_begin_parallel
-  - heapam_index_build_range_scan
-  - exec_simple_query
-  - PortalStart
-  - InitPostgres
-  - GetLatestSnapshot
+  - [_brin_begin_parallel](../b/_brin_begin_parallel.md)
+  - [heapam_index_build_range_scan](../h/heapam_index_build_range_scan.md)
+  - [exec_simple_query](../e/exec_simple_query.md)
+  - [PortalStart](../P/PortalStart.md)
+  - [InitPostgres](../I/InitPostgres.md)
+  - [GetLatestSnapshot](GetLatestSnapshot.md)
 
 ## Notes and Other Information
 - The returned snapshot may point to static storage that gets modified by future calls

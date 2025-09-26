@@ -23,14 +23,14 @@ The function is optimized for performance - if the attribute's null status has a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slot_getsomeattrs
+  - [slot_getsomeattrs](slot_getsomeattrs.md)
 - Called from (representative examples):
-  - ATRewriteTable
-  - validateDomainNotNullConstraint
-  - ExecConstraints
-  - slotAllNulls
-  - slotNoNulls
-  - ri_NullCheck
+  - [ATRewriteTable](../A/ATRewriteTable.md)
+  - [validateDomainNotNullConstraint](../v/validateDomainNotNullConstraint.md)
+  - [ExecConstraints](../E/ExecConstraints.md)
+  - [slotAllNulls](slotAllNulls.md)
+  - [slotNoNulls](slotNoNulls.md)
+  - [ri_NullCheck](../r/ri_NullCheck.md)
 
 ## Notes and Other Information
 - This is an inline function defined in the header file for performance reasons

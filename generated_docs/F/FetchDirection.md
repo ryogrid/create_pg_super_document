@@ -41,7 +41,7 @@ This enumeration is used in conjunction with FetchStmt structures to implement S
   - [SPI_scroll_cursor_move](../S/SPI_scroll_cursor_move.md) (src/backend/executor/spi.c:1850)
   - [PortalRunFetch](../P/PortalRunFetch.md) (src/backend/tcop/pquery.c:1381)
   - [DoPortalRunFetch](../D/DoPortalRunFetch.md) (src/backend/tcop/pquery.c:1479)
-  - FetchStmt (src/include/nodes/parsenodes.h:3331)
+  - [FetchStmt](FetchStmt.md) (src/include/nodes/parsenodes.h:3331)
 
 ## Notes and Other Information
 - The FETCH_ALL constant is defined as LONG_MAX to represent fetching all available rows

@@ -25,7 +25,7 @@ The algorithm follows the same design principles as `hash_combine()` but operate
   - UINT64CONST (macro for 64-bit constants)
 - Called from (representative examples):
   - [compute_partition_hash_value](../c/compute_partition_hash_value.md)
-  - hash_resource_elem
+  - [hash_resource_elem](hash_resource_elem.md)
 
 ## Notes and Other Information
 This function is primarily used in specialized contexts within PostgreSQL, particularly in partitioning logic where hash values need to be combined for partition selection, and in resource management where composite hash keys are needed. The algorithm has been tested to produce good bit mixing properties, ensuring that the combined hash maintains the statistical qualities expected of a good hash function. The magic constant and shift values are carefully chosen to maximize avalanche effects and minimize bias in the output distribution.

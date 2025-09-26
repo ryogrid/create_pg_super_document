@@ -20,7 +20,7 @@ This function builds dependency relationships for materialized view refresh oper
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - createPQExpBuffer
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)
   - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
   - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
   - [PQntuples](../P/PQntuples.md)
@@ -30,11 +30,11 @@ This function builds dependency relationships for materialized view refresh oper
   - [findObjectByCatalogId](../f/findObjectByCatalogId.md)
   - [addObjectDependency](../a/addObjectDependency.md)
   - [PQclear](../P/PQclear.md)
-  - destroyPQExpBuffer
+  - [destroyPQExpBuffer](../d/destroyPQExpBuffer.md)
 - Types referenced:
   - [Archive](../A/Archive.md)
   - PQExpBuffer
-  - PGresult
+  - [PGresult](../P/PGresult.md)
   - [CatalogId](../C/CatalogId.md)
   - DumpableObject
   - [TableInfo](../T/TableInfo.md)

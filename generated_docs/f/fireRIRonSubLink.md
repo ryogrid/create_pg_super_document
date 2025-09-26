@@ -28,7 +28,7 @@ The function operates as part of the rule rewriting system (RIR - Rules Instead 
   - [fireRIRrules](fireRIRrules.md)
   - expression_tree_walker
   - IsA (macro)
-  - SubLink (struct)
+  - [SubLink](../S/SubLink.md) (struct)
   - [fireRIRonSubLink_context](fireRIRonSubLink_context.md) (struct)
 - Called from (representative examples):
   - [fireRIRrules](fireRIRrules.md) (multiple locations in rewriteHandler.c)

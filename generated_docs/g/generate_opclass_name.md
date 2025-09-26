@@ -21,10 +21,10 @@ The function ensures that the returned name includes proper identifier quoting a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_opclass_name (performs the actual name generation logic)
-  - initStringInfo (initializes string buffer)
+  - [get_opclass_name](get_opclass_name.md) (performs the actual name generation logic)
+  - [initStringInfo](../i/initStringInfo.md) (initializes string buffer)
 - Called from (representative examples):
-  - index_opclass_options (in indexam.c)
+  - [index_opclass_options](../i/index_opclass_options.md) (in indexam.c)
 
 ## Notes and Other Information
 - Always generates the operator class name regardless of whether it's the default (passes InvalidOid as actual_datatype)

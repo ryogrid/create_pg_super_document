@@ -27,11 +27,11 @@ Key characteristics:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_report_wait_end (statistics reporting function)
+  - [pgstat_report_wait_end](../p/pgstat_report_wait_end.md) (statistics reporting function)
 - Called from (representative examples):
-  - LWLockAcquire (when exiting wait state after lock acquisition)
-  - LWLockAcquireOrWait (when wait period completes)
-  - LWLockWaitForVar (when variable wait completes)
+  - [LWLockAcquire](LWLockAcquire.md) (when exiting wait state after lock acquisition)
+  - [LWLockAcquireOrWait](LWLockAcquireOrWait.md) (when wait period completes)
+  - [LWLockWaitForVar](LWLockWaitForVar.md) (when variable wait completes)
 
 ## Notes and Other Information
 - Inline function designed for minimal performance overhead during lock operations

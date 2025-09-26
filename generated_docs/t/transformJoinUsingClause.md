@@ -36,7 +36,7 @@ The function employs a "cheating" approach by building an untransformed operator
   - forboth
   - [A_Expr](../A/A_Expr.md)
   - [markVarForSelectPriv](../m/markVarForSelectPriv.md)
-  - makeSimpleA_Expr
+  - [makeSimpleA_Expr](../m/makeSimpleA_Expr.md)
   - AEXPR_OP
   - copyObject
   - [makeBoolExpr](../m/makeBoolExpr.md)

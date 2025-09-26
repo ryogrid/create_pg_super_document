@@ -17,16 +17,16 @@ This function tests the interaction between PostgreSQL's resource ownership syst
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockNewTrancheId: Creates a new lightweight lock tranche identifier
-  - LWLockRegisterTranche: Registers the tranche with a descriptive name
+  - [LWLockNewTrancheId](../L/LWLockNewTrancheId.md): Creates a new lightweight lock tranche identifier
+  - [LWLockRegisterTranche](../L/LWLockRegisterTranche.md): Registers the tranche with a descriptive name
   - dsa_create: Creates a new DSA area
-  - ResourceOwnerCreate: Creates a child resource owner
+  - [ResourceOwnerCreate](../R/ResourceOwnerCreate.md): Creates a child resource owner
   - dsa_allocate: Allocates memory blocks within the DSA
   - [dsa_get_address](../d/dsa_get_address.md): Translates DSA pointers to virtual addresses
   - [dsa_free](../d/dsa_free.md): Frees allocated memory blocks
-  - ResourceOwnerRelease: Releases resources managed by a resource owner
+  - [ResourceOwnerRelease](../R/ResourceOwnerRelease.md): Releases resources managed by a resource owner
   - [ResourceOwnerDelete](../R/ResourceOwnerDelete.md): Deletes a resource owner
-  - dsa_detach: Detaches from and cleans up the DSA area
+  - [dsa_detach](../d/dsa_detach.md): Detaches from and cleans up the DSA area
   - PG_RETURN_VOID: PostgreSQL macro for returning void from functions
 - Called from (representative examples):
   - [test_dsa_basic](test_dsa_basic.md): Referenced in the same file (cross-reference)

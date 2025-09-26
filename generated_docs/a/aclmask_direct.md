@@ -35,7 +35,7 @@ The function maintains the same owner privilege handling as , where owners impli
   - ACLITEM_ALL_GOPTION_BITS
   - ACLMASK_ALL
 - Called from (representative examples):
-  - select_best_grantor
+  - [select_best_grantor](../s/select_best_grantor.md)
 
 ## Notes and Other Information
 - Static function, only used internally within the ACL module

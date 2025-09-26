@@ -23,14 +23,14 @@ The function handles errors differently based on the server state - during serve
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AllocateFile (opens the DH parameters file)
-  - FreeFile (closes the file handle)
+  - [AllocateFile](../A/AllocateFile.md) (opens the DH parameters file)
+  - [FreeFile](../F/FreeFile.md) (closes the file handle)
   - [SSLerrmessage](../S/SSLerrmessage.md) (formats SSL error messages)
   - PEM_read_DHparams (OpenSSL function to read DH parameters)
   - DH_check (OpenSSL function to validate DH parameters)
   - DH_free (OpenSSL function to free DH structure)
 - Called from (representative examples):
-  - initialize_dh (src/backend/libpq/be-secure-openssl.c:1382)
+  - [initialize_dh](../i/initialize_dh.md) (src/backend/libpq/be-secure-openssl.c:1382)
 
 ## Notes and Other Information
 - Returns NULL if file cannot be opened, read, or contains invalid parameters

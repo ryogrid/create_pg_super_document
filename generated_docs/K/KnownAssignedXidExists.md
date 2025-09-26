@@ -20,9 +20,9 @@ This function is typically used during transaction visibility checks to determin
 ## Dependencies
 - Functions called/Symbols referenced:
   - TransactionIdIsValid (via Assert)
-  - KnownAssignedXidsSearch
+  - [KnownAssignedXidsSearch](KnownAssignedXidsSearch.md)
 - Called from (representative examples):
-  - TransactionIdIsInProgress
+  - [TransactionIdIsInProgress](../T/TransactionIdIsInProgress.md)
 
 ## Notes and Other Information
 - Caller must hold ProcArrayLock in shared or exclusive mode

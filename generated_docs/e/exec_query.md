@@ -27,7 +27,7 @@ Unlike normal query execution, this function deliberately suppresses error messa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQstatus (to check database connection status)
+  - [PQstatus](../P/PQstatus.md) (to check database connection status)
   - CONNECTION_OK (constant for valid connection state)
   - [PQexec](../P/PQexec.md) (PostgreSQL function to execute queries)
   - PGRES_TUPLES_OK (constant for successful SELECT result)

@@ -40,17 +40,17 @@ The function supports both standard and non-standard parsing modes, implements s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `text_to_cstring` - Convert text to C strings
-  - `parse_format` - Parse format string into nodes
-  - `DCH_cache_fetch` - Retrieve cached format entries
+  - `[text_to_cstring](../t/text_to_cstring.md)` - Convert text to C strings
+  - `[parse_format](../p/parse_format.md)` - Parse format string into nodes
+  - `[DCH_cache_fetch](../D/DCH_cache_fetch.md)` - Retrieve cached format entries
   - [DCH_from_char](../D/DCH_from_char.md) - Core character-to-datetime parsing
-  - `DCH_datetime_type` - Determine datetime component types
+  - `[DCH_datetime_type](../D/DCH_datetime_type.md)` - Determine datetime component types
   - [j2date](../j/j2date.md) - Convert Julian day to date components
   - [isoweek2date](../i/isoweek2date.md), `isoweekdate2date` - ISO week date conversions
   - [isoweek2j](../i/isoweek2j.md) - ISO week to Julian day conversion
   - `isleap` - Leap year detection
-  - `ValidateDate` - Date component validation
-  - `DateTimeParseError` - Error reporting
+  - `[ValidateDate](../V/ValidateDate.md)` - Date component validation
+  - `[DateTimeParseError](../D/DateTimeParseError.md)` - Error reporting
   - [DetermineTimeZoneAbbrevOffset](../D/DetermineTimeZoneAbbrevOffset.md) - Timezone abbreviation resolution
   - Various datetime constants (SECS_PER_HOUR, MINS_PER_HOUR, etc.)
 - Called from (representative examples):

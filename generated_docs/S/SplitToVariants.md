@@ -25,16 +25,16 @@ SplitToVariants is a complex recursive function that analyzes compound words by 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth (stack overflow protection)
-  - CopyVar (copying SplitVar structures)
-  - CheckCompoundAffixes (compound affix validation)
-  - NormalizeSubWord (word normalization)
-  - AddStem (adding stems to variants)
-  - palloc/pfree (memory management)
-  - pnstrdup (string duplication)
+  - [check_stack_depth](../c/check_stack_depth.md) (stack overflow protection)
+  - [CopyVar](../C/CopyVar.md) (copying SplitVar structures)
+  - [CheckCompoundAffixes](../C/CheckCompoundAffixes.md) (compound affix validation)
+  - [NormalizeSubWord](../N/NormalizeSubWord.md) (word normalization)
+  - [AddStem](../A/AddStem.md) (adding stems to variants)
+  - [palloc](../p/palloc.md)/pfree (memory management)
+  - [pnstrdup](../p/pnstrdup.md) (string duplication)
 - Called from (representative examples):
-  - SplitToVariants (recursive calls at src/backend/tsearch/spell.c:2446, 2501)
-  - NINormalizeWord (at src/backend/tsearch/spell.c:2565)
+  - [SplitToVariants](SplitToVariants.md) (recursive calls at src/backend/tsearch/spell.c:2446, 2501)
+  - [NINormalizeWord](../N/NINormalizeWord.md) (at src/backend/tsearch/spell.c:2565)
 
 ## Notes and Other Information
 - Implements recursive backtracking with stack depth checking to prevent overflow

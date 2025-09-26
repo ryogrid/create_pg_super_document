@@ -24,13 +24,13 @@ The function is static and serves as an internal utility within the fileset.c mo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FileSetPath (constructs the directory path for the FileSet)
-  - ChooseTablespace (determines which tablespace the file should belong to)
-  - FileSet (struct type containing FileSet metadata and configuration)
+  - [FileSetPath](FileSetPath.md) (constructs the directory path for the FileSet)
+  - [ChooseTablespace](../C/ChooseTablespace.md) (determines which tablespace the file should belong to)
+  - [FileSet](FileSet.md) (struct type containing FileSet metadata and configuration)
 - Called from (representative examples):
-  - FileSetCreate (when creating initial files in a FileSet)
-  - FileSetOpen (when opening existing files within a FileSet)
-  - FileSetDelete (when deleting specific files from a FileSet)
+  - [FileSetCreate](FileSetCreate.md) (when creating initial files in a FileSet)
+  - [FileSetOpen](FileSetOpen.md) (when opening existing files within a FileSet)
+  - [FileSetDelete](FileSetDelete.md) (when deleting specific files from a FileSet)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the fileset.c compilation unit

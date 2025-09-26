@@ -44,7 +44,7 @@ The function includes strict state validation, ensuring it's only called when th
   - plperl_spi_* functions (PL/Perl SPI operations)
   - [PLy_spi_subtransaction_commit](../P/PLy_spi_subtransaction_commit.md) (PL/Python)
   - [PLy_subtransaction_exit](../P/PLy_subtransaction_exit.md) (PL/Python)
-  - pltcl_subtrans_commit (PL/Tcl)
+  - [pltcl_subtrans_commit](../p/pltcl_subtrans_commit.md) (PL/Tcl)
 
 ## Notes and Other Information
 - Must not be used with CommitTransactionCommand/StartTransactionCommand - it handles subtransaction lifecycle directly

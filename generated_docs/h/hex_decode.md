@@ -24,10 +24,10 @@ This is the standard entry point for hex decoding when error context handling is
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `hex_decode_safe` - The underlying safe decoding function that performs the actual work
+  - `[hex_decode_safe](hex_decode_safe.md)` - The underlying safe decoding function that performs the actual work
 - Called from (representative examples):
-  - `esc_dec_len` - Escape encoding/decoding length calculations
-  - `ecpg_get_data` - ECPG data retrieval operations
+  - `[esc_dec_len](../e/esc_dec_len.md)` - Escape encoding/decoding length calculations
+  - `[ecpg_get_data](../e/ecpg_get_data.md)` - ECPG data retrieval operations
 
 ## Notes and Other Information
 - Simple wrapper around `hex_decode_safe` with NULL error context

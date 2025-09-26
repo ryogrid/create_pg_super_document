@@ -32,7 +32,7 @@ DefineQueryRewrite implements the comprehensive logic for creating rewrite rules
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - AccessExclusiveLock
   - [errdetail_relkind_not_supported](../e/errdetail_relkind_not_supported.md)
   - [IsSystemRelation](../I/IsSystemRelation.md)

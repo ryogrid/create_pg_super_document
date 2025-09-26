@@ -36,10 +36,10 @@ The function includes comprehensive error checking for malformed input and buffe
   - `Assert` (for debugging assertions)
 
 - Called from (representative examples):
-  - `scram_verify_plain_password` (src/backend/libpq/auth-scram.c:542)
-  - `parse_scram_secret` (src/backend/libpq/auth-scram.c:639, 650, 658)
-  - `read_client_final_message` (src/backend/libpq/auth-scram.c:1375)
-  - `read_server_first_message` (src/interfaces/libpq/fe-auth-scram.c:655)
+  - `[scram_verify_plain_password](../s/scram_verify_plain_password.md)` (src/backend/libpq/auth-scram.c:542)
+  - `[parse_scram_secret](parse_scram_secret.md)` (src/backend/libpq/auth-scram.c:639, 650, 658)
+  - `[read_client_final_message](../r/read_client_final_message.md)` (src/backend/libpq/auth-scram.c:1375)
+  - `[read_server_first_message](../r/read_server_first_message.md)` (src/interfaces/libpq/fe-auth-scram.c:655)
 
 ## Notes and Other Information
 - Returns the length of the decoded data on success, or -1 on error

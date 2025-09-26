@@ -36,16 +36,16 @@ The function handles several complex scenarios including recursive cache lookups
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
-  - table_close
+  - [table_open](../t/table_open.md)
+  - [table_close](../t/table_close.md)
   - [systable_beginscan](../s/systable_beginscan.md)
   - [systable_getnext](../s/systable_getnext.md)
   - [systable_endscan](../s/systable_endscan.md)
   - [CatalogCacheCreateEntry](../C/CatalogCacheCreateEntry.md)
   - [IndexScanOK](../I/IndexScanOK.md)
   - IsBootstrapProcessingMode
-  - ResourceOwnerEnlarge
-  - ResourceOwnerRememberCatCacheRef
+  - [ResourceOwnerEnlarge](../R/ResourceOwnerEnlarge.md)
+  - [ResourceOwnerRememberCatCacheRef](../R/ResourceOwnerRememberCatCacheRef.md)
   - CACHE_elog
 - Called from (representative examples):
   - [SearchCatCacheInternal](SearchCatCacheInternal.md)

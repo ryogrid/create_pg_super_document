@@ -43,12 +43,12 @@ Key features include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - OpenTransientFile, CloseTransientFile
+  - [OpenTransientFile](../O/OpenTransientFile.md), CloseTransientFile
   - [read_file_data_into_buffer](../r/read_file_data_into_buffer.md)
   - [push_to_sink](../p/push_to_sink.md)
   - [_tarWriteHeader](../t/_tarWriteHeader.md), _tarWritePadding
-  - bbsink_archive_contents
-  - pg_checksum_init, pg_checksum_update
+  - [bbsink_archive_contents](../b/bbsink_archive_contents.md)
+  - [pg_checksum_init](../p/pg_checksum_init.md), pg_checksum_update
   - [DataChecksumsEnabled](../D/DataChecksumsEnabled.md)
   - [AddFileToBackupManifest](../A/AddFileToBackupManifest.md)
   - [pgstat_report_checksum_failures_in_db](../p/pgstat_report_checksum_failures_in_db.md)

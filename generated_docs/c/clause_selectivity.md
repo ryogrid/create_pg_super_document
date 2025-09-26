@@ -39,7 +39,7 @@ The function handles various join contexts through the `sjinfo` parameter, suppo
   - [approx_tuple_count](../a/approx_tuple_count.md)
   - [get_foreign_key_join_selectivity](../g/get_foreign_key_join_selectivity.md)
   - [consider_new_or_clause](consider_new_or_clause.md)
-  - booltestsel
+  - [booltestsel](../b/booltestsel.md)
 
 ## Notes and Other Information
 - This is a thin wrapper that always calls clause_selectivity_ext with extended statistics enabled

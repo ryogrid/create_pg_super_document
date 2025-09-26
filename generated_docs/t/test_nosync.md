@@ -35,7 +35,7 @@ This test validates that pipelines work correctly without explicit synchronizati
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQsocket](../P/PQsocket.md)
-  - PQenterPipelineMode
+  - [PQenterPipelineMode](../P/PQenterPipelineMode.md)
   - [PQsendQueryParams](../P/PQsendQueryParams.md)
   - [PQflush](../P/PQflush.md)
   - [PQconsumeInput](../P/PQconsumeInput.md)

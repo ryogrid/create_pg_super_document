@@ -29,7 +29,7 @@ The function includes stack overflow protection via  to prevent infinite recursi
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc](../p/palloc.md) (memory allocation)
-  - check_stack_depth (stack overflow protection)
+  - [check_stack_depth](../c/check_stack_depth.md) (stack overflow protection)
   - [maketree](maketree.md) (recursive self-call)
 - Called from (representative examples):
   - [clean_NOT](../c/clean_NOT.md)

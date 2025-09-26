@@ -27,7 +27,7 @@ The function uses partition-local memory to maintain a  structure that tracks th
   - [WinRowsArePeers](../W/WinRowsArePeers.md)
   - [WinSetMarkPosition](../W/WinSetMarkPosition.md)
   - [rank_context](rank_context.md) (struct)
-  - WindowObject (type)
+  - [WindowObject](../W/WindowObject.md) (type)
 - Called from (representative examples):
   - [window_rank](../w/window_rank.md)
   - [window_dense_rank](../w/window_dense_rank.md)

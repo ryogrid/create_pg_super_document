@@ -25,7 +25,7 @@ The analysis considers factors such as datetime operations, function calls, and 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonPath (structure type)
+  - [JsonPath](../J/JsonPath.md) (structure type)
   - [JsonPathMutableContext](../J/JsonPathMutableContext.md) (structure type)
   - JsonPathItem (structure type)
   - jpdsNonDateTime (enum constant)

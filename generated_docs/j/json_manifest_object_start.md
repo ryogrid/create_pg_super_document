@@ -22,7 +22,7 @@ The function handles three main object types in manifest JSON: the top-level doc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - json_manifest_parse_failure
+  - [json_manifest_parse_failure](json_manifest_parse_failure.md)
   - JSON_SUCCESS
   - JM_EXPECT_TOPLEVEL_START
   - JM_EXPECT_TOPLEVEL_FIELD

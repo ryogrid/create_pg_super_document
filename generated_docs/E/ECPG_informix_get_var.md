@@ -23,7 +23,7 @@ This function is the counterpart to ECPG_informix_set_var, providing the getter 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ECPGget_var (the core ECPG function that performs the actual variable retrieval)
+  - [ECPGget_var](ECPGget_var.md) (the core ECPG function that performs the actual variable retrieval)
 - Called from (representative examples):
   - Referenced in ECPG_INFORMIX_EXTRA_CHARS macro at src/interfaces/ecpg/include/ecpg_informix.h:58
 

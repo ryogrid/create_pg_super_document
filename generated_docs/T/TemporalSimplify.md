@@ -29,13 +29,13 @@ The function operates on FuncExpr nodes representing calls to temporal coercion 
 ## Dependencies
 - Functions called/Symbols referenced:
   - castNode (macro for safe casting)
-  - list_length (list utility function)
+  - [list_length](../l/list_length.md) (list utility function)
   - lsecond (get second list element)
   - IsA (type checking macro)
   - linitial (get first list element)  
-  - exprTypmod (extract type modifier from expression)
+  - [exprTypmod](../e/exprTypmod.md) (extract type modifier from expression)
   - [DatumGetInt32](../D/DatumGetInt32.md) (extract int32 from Datum)
-  - relabel_to_typmod (create RelabelType node)
+  - [relabel_to_typmod](../r/relabel_to_typmod.md) (create RelabelType node)
 - Called from (representative examples):
   - [time_support](../t/time_support.md) (src/backend/utils/adt/date.c:1614)
   - [timestamp_support](../t/timestamp_support.md) (src/backend/utils/adt/timestamp.c:334)

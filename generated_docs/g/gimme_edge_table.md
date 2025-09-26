@@ -26,8 +26,8 @@ This function fills an edge table data structure that represents the set of expl
 ## Dependencies
 - Functions called/Symbols referenced:
   - [gimme_edge](gimme_edge.md) (called to add individual edges to the table)
-  - Gene (genetic algorithm gene data type)
-  - Edge (edge table data structure)
+  - [Gene](../G/Gene.md) (genetic algorithm gene data type)
+  - [Edge](../E/Edge.md) (edge table data structure)
 - Called from (representative examples):
   - [geqo](geqo.md) (main genetic algorithm function during crossover operations)
 
@@ -37,4 +37,4 @@ This function fills an edge table data structure that represents the set of expl
 - Clears existing edge table data before filling with new information
 - The return value indicates tour diversity: 2.0 means tours are identical, 4.0 means completely different
 - Used in the ERX (Edge Recombination Crossover) algorithm to identify common edges between parent tours
-- Edge processing involves calling gimme_edge twice for each connection to handle bidirectionality
+- [Edge](../E/Edge.md) processing involves calling gimme_edge twice for each connection to handle bidirectionality

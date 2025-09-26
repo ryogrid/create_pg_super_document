@@ -28,10 +28,10 @@ This restoration ensures that if a transaction containing destructive operations
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `PgStat_TableXactStatus`: Transaction-specific table statistics structure containing the counter fields and saved values
+  - `[PgStat_TableXactStatus](../P/PgStat_TableXactStatus.md)`: Transaction-specific table statistics structure containing the counter fields and saved values
 - Called from (representative examples):
-  - `AtEOXact_PgStat_Relations`: During transaction abort cleanup
-  - `AtEOSubXact_PgStat_Relations`: During subtransaction abort cleanup
+  - `[AtEOXact_PgStat_Relations](../A/AtEOXact_PgStat_Relations.md)`: During transaction abort cleanup
+  - `[AtEOSubXact_PgStat_Relations](../A/AtEOSubXact_PgStat_Relations.md)`: During subtransaction abort cleanup
 
 ## Notes and Other Information
 - The function is static and only used internally within the statistics relation module

@@ -43,7 +43,7 @@ For internal pages, oversized tuples indicate a serious inconsistency since leaf
   - Constants: BTREE_VERSION, BTREE_NOVAC_VERSION
 - Called from (representative examples):
   - [_bt_findinsertloc](_bt_findinsertloc.md)
-  - _bt_buildadd
+  - [_bt_buildadd](_bt_buildadd.md)
 
 ## Notes and Other Information
 - Enforces the "rule of three" - every B-tree page must accommodate at least three items

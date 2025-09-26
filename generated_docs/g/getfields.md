@@ -26,13 +26,13 @@ The parsing stops when either the end of string is reached or a comment characte
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - emalloc (memory allocation wrapper)
-  - size_product (safe multiplication for memory allocation)
-  - is_space (whitespace character checking)
-  - error (error reporting function)
+  - [emalloc](../e/emalloc.md) (memory allocation wrapper)
+  - [size_product](../s/size_product.md) (safe multiplication for memory allocation)
+  - [is_space](../i/is_space.md) (whitespace character checking)
+  - [error](../e/error.md) (error reporting function)
   - EXIT_FAILURE (exit status constant)
 - Called from (representative examples):
-  - infile
+  - [infile](../i/infile.md)
 
 ## Notes and Other Information
 - Returns NULL if input string is NULL

@@ -29,7 +29,7 @@ The target minimum cardinality threshold is conservatively set at 1 per 10k rows
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - estimateHyperLogLog (cardinality estimation)
+  - [estimateHyperLogLog](../e/estimateHyperLogLog.md) (cardinality estimation)
   - elog (optional debug logging when TRACE_SORT enabled)
 - Called from (representative examples):
   - [numeric_sortsupport](numeric_sortsupport.md) (as abbreviation abort callback)

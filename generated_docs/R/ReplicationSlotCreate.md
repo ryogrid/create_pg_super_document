@@ -31,11 +31,11 @@ The function implements strict validation rules to prevent invalid configuration
 - Functions called/Symbols referenced:
   - [ReplicationSlotValidateName](ReplicationSlotValidateName.md)
   - [RecoveryInProgress](RecoveryInProgress.md)
-  - IsSyncingReplicationSlots
-  - LWLockAcquire/LWLockRelease
+  - [IsSyncingReplicationSlots](../I/IsSyncingReplicationSlots.md)
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease
   - [CreateSlotOnDisk](../C/CreateSlotOnDisk.md)
-  - pgstat_create_replslot
-  - ConditionVariableBroadcast
+  - [pgstat_create_replslot](../p/pgstat_create_replslot.md)
+  - [ConditionVariableBroadcast](../C/ConditionVariableBroadcast.md)
 - Called from (representative examples):
   - [create_physical_replication_slot](../c/create_physical_replication_slot.md)
   - [create_logical_replication_slot](../c/create_logical_replication_slot.md)

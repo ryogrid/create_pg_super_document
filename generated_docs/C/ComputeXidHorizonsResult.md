@@ -95,11 +95,11 @@ The differentiation between raw and non-raw horizons allows the system to handle
 - `temp_oldest_nonremovable`: The oldest XID for which deleted tuples must be retained in the current session's temporary tables
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FullTransactionId
+  - [FullTransactionId](../F/FullTransactionId.md)
   - TransactionId
 
 - Called from (representative examples):
-  - ComputeXidHorizons
+  - [ComputeXidHorizons](ComputeXidHorizons.md)
   - [GetOldestNonRemovableTransactionId](../G/GetOldestNonRemovableTransactionId.md)
   - [GetOldestTransactionIdConsideredRunning](../G/GetOldestTransactionIdConsideredRunning.md)
   - [GetReplicationHorizons](../G/GetReplicationHorizons.md)

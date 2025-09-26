@@ -37,20 +37,20 @@ The returned items are used by commit/abort and 2PC PREPARE processing to build 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PgStat_SubXactStatus (structure type)
-  - xl_xact_stats_item (structure type)
-  - PgStat_PendingDroppedStatsItem (structure type)
-  - dlist_iter
-  - dclist_count
+  - [PgStat_SubXactStatus](../P/PgStat_SubXactStatus.md) (structure type)
+  - [xl_xact_stats_item](../x/xl_xact_stats_item.md) (structure type)
+  - [PgStat_PendingDroppedStatsItem](../P/PgStat_PendingDroppedStatsItem.md) (structure type)
+  - [dlist_iter](../d/dlist_iter.md)
+  - [dclist_count](../d/dclist_count.md)
   - dclist_foreach
   - dclist_container
-  - palloc
+  - [palloc](palloc.md)
   - pgStatXactStack (global variable)
 
 - Called from (representative examples):
-  - StartPrepare (src/backend/access/transam/twophase.c:1085, 1087)
-  - RecordTransactionCommit (src/backend/access/transam/xact.c:1333)
-  - RecordTransactionAbort (src/backend/access/transam/xact.c:1775)
+  - [StartPrepare](../S/StartPrepare.md) (src/backend/access/transam/twophase.c:1085, 1087)
+  - [RecordTransactionCommit](../R/RecordTransactionCommit.md) (src/backend/access/transam/xact.c:1333)
+  - [RecordTransactionAbort](../R/RecordTransactionAbort.md) (src/backend/access/transam/xact.c:1775)
 
 ## Notes and Other Information
 - Memory is allocated in CurrentMemoryContext and must be freed by caller

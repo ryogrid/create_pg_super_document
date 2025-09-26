@@ -37,7 +37,7 @@ The  structure serves as a comprehensive descriptor for tables that have passed 
 - `*at_datname`: Name of the database containing this relation
 ## Dependencies
 - Functions called/Symbols referenced:
-  - VacuumParams (vacuum operation parameters structure)
+  - [VacuumParams](../V/VacuumParams.md) (vacuum operation parameters structure)
 - Called from (representative examples):
   - [do_autovacuum](../d/do_autovacuum.md)
   - [extract_autovac_opts](../e/extract_autovac_opts.md)

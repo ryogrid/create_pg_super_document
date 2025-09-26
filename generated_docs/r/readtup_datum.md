@@ -24,10 +24,10 @@ This function deserializes a datum-based SortTuple from persistent storage via a
 - Functions called/Symbols referenced:
   - TuplesortstateGetPublic
   - LogicalTapeReadExact
-  - tuplesort_readtup_alloc
-  - PointerGetDatum
+  - [tuplesort_readtup_alloc](../t/tuplesort_readtup_alloc.md)
+  - [PointerGetDatum](../P/PointerGetDatum.md)
 - Called from (representative examples):
-  - tuplesort_begin_datum
+  - [tuplesort_begin_datum](../t/tuplesort_begin_datum.md)
   - CLUSTER_SORT
 
 ## Notes and Other Information

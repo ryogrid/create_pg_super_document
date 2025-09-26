@@ -32,10 +32,10 @@ This function takes no parameters and returns a boolean indicating success or fa
   - realloc (memory expansion)
   - ereport/ERROR (error reporting for fatal memory failures)
 - Called from (representative examples):
-  - AllocateFile (when allocating stdio FILE* descriptors)
-  - OpenTransientFilePerm (for temporary file operations)  
-  - OpenPipeStream (for pipe operations)
-  - AllocateDir (for directory stream allocation)
+  - [AllocateFile](../A/AllocateFile.md) (when allocating stdio FILE* descriptors)
+  - [OpenTransientFilePerm](../O/OpenTransientFilePerm.md) (for temporary file operations)  
+  - [OpenPipeStream](../O/OpenPipeStream.md) (for pipe operations)
+  - [AllocateDir](../A/AllocateDir.md) (for directory stream allocation)
 
 ## Notes and Other Information
 - This is a static function internal to fd.c and not exposed in headers

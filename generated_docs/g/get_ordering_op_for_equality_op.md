@@ -30,7 +30,7 @@ If multiple possibilities exist, the function returns the first valid one found,
   - [get_opfamily_member](get_opfamily_member.md)
   - BTLessStrategyNumber
   - Form_pg_amop
-  - CatCList
+  - [CatCList](../C/CatCList.md)
 - Called from (representative examples):
   - [create_unique_plan](../c/create_unique_plan.md)
 

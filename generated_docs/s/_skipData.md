@@ -28,7 +28,7 @@ The function manages memory efficiently by reusing and growing the buffer as nee
   - [lclContext](../l/lclContext.md): Local context structure for custom format handling
   - [ReadInt](../R/ReadInt.md): Reads integer length values from the archive
   - fseeko: Performs file seeking operations when available
-  - pg_malloc: Allocates memory for the read buffer
+  - [pg_malloc](../p/pg_malloc.md): Allocates memory for the read buffer
 - Called from (representative examples):
   - [_PrintTocData](../P/_PrintTocData.md): Used during table of contents processing
   - [_skipLOs](_skipLOs.md): Used when skipping Large Object data blocks

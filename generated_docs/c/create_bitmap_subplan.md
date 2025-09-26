@@ -50,8 +50,8 @@ This function is essential for bitmap scan optimization, enabling PostgreSQL to 
   - [get_actual_clauses](../g/get_actual_clauses.md)
   - [predicate_implied_by](../p/predicate_implied_by.md)
   - nodeTag
-  - BitmapAndPath, BitmapOrPath, IndexPath, IndexScan (struct types)
-  - IndexClause (struct type)
+  - [BitmapAndPath](../B/BitmapAndPath.md), BitmapOrPath, IndexPath, IndexScan (struct types)
+  - [IndexClause](../I/IndexClause.md) (struct type)
 - Called from (representative examples):
   - [create_bitmap_scan_plan](create_bitmap_scan_plan.md)
   - [create_bitmap_subplan](create_bitmap_subplan.md) (recursive calls)

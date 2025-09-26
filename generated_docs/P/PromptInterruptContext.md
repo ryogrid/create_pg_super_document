@@ -41,12 +41,12 @@ This approach ensures that cancellation only happens when it's safe to do so, an
   - Relies on signal handling infrastructure
 
 - Called from (representative examples):
-  - simple_prompt_extended (src/common/sprompt.c:54)
-  - pg_get_line (src/common/pg_get_line.c:59)
-  - pg_get_line_append (src/common/pg_get_line.c:125)
-  - exec_command_password (src/bin/psql/command.c:2136)
-  - exec_command_prompt (src/bin/psql/command.c:2224)
-  - prompt_for_password (src/bin/psql/command.c:3338)
+  - [simple_prompt_extended](../s/simple_prompt_extended.md) (src/common/sprompt.c:54)
+  - [pg_get_line](../p/pg_get_line.md) (src/common/pg_get_line.c:59)
+  - [pg_get_line_append](../p/pg_get_line_append.md) (src/common/pg_get_line.c:125)
+  - [exec_command_password](../e/exec_command_password.md) (src/bin/psql/command.c:2136)
+  - [exec_command_prompt](../e/exec_command_prompt.md) (src/bin/psql/command.c:2224)
+  - [prompt_for_password](../p/prompt_for_password.md) (src/bin/psql/command.c:3338)
 
 ## Notes and Other Information
 - The structure is defined in src/include/common/string.h, making it available to both frontend and backend code

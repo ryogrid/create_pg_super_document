@@ -23,12 +23,12 @@ The function uses DirectFunctionCall2Coll to invoke the texteq operator with the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - texteq (PostgreSQL's text equality operator function)
-  - DirectFunctionCall2Coll (direct function call with collation support)
-  - DatumGetBool (extract boolean value from Datum)
-  - PointerGetDatum (convert pointer to Datum)
+  - [texteq](texteq.md) (PostgreSQL's text equality operator function)
+  - [DirectFunctionCall2Coll](../D/DirectFunctionCall2Coll.md) (direct function call with collation support)
+  - [DatumGetBool](../D/DatumGetBool.md) (extract boolean value from Datum)
+  - [PointerGetDatum](../P/PointerGetDatum.md) (convert pointer to Datum)
 - Called from (representative examples):
-  - split_text_accum_result
+  - [split_text_accum_result](../s/split_text_accum_result.md)
 
 ## Notes and Other Information
 - This is a static function internal to varlena.c, designed to simplify text equality testing within the module

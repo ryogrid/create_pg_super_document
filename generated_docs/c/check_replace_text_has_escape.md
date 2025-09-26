@@ -30,7 +30,7 @@ The function optimizes performance by returning immediately upon finding the hig
   - VARSIZE_ANY_EXHDR (macro for getting text size excluding header)
   - memchr (C library function for finding characters)
 - Called from (representative examples):
-  - replace_text_regexp
+  - [replace_text_regexp](../r/replace_text_regexp.md)
 
 ## Notes and Other Information
 - This is a static function internal to varlena.c, designed specifically for optimizing regexp replacement operations

@@ -40,11 +40,11 @@ The estimates help determine both the total cost (how much data to scan) and sta
 - Functions called/Symbols referenced:
   - [is_opclause](../i/is_opclause.md): Validates that clause is an operator expression
   - [get_leftop](../g/get_leftop.md)/get_rightop: Extract operands from the clause
-  - examine_variable: Gather statistics for join variables
+  - [examine_variable](../e/examine_variable.md): Gather statistics for join variables
   - [get_op_opfamily_properties](../g/get_op_opfamily_properties.md): Get operator properties from catalogs
   - [get_opfamily_member](../g/get_opfamily_member.md): Look up specific operators in the operator family
-  - get_variable_range: Extract min/max values from variable statistics
-  - scalarineqsel: Estimate selectivity of inequality conditions
+  - [get_variable_range](../g/get_variable_range.md): Extract min/max values from variable statistics
+  - [scalarineqsel](../s/scalarineqsel.md): Estimate selectivity of inequality conditions
   - ReleaseVariableStats: Clean up variable statistics
 - Called from (representative examples):
   - [cached_scansel](../c/cached_scansel.md): Uses merge join scan selectivity in cost calculations

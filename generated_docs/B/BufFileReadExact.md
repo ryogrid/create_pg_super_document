@@ -28,16 +28,16 @@ This function is typically used when the caller expects a specific amount of dat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufFileReadCommon (internal function that performs the actual reading)
+  - [BufFileReadCommon](BufFileReadCommon.md) (internal function that performs the actual reading)
 - Called from (representative examples):
-  - ReadTempFileBlock (GIST index building)
-  - SendBackupManifest (backup operations)
-  - ExecHashJoinGetSavedTuple (hash join execution)
-  - apply_spooled_messages (logical replication)
-  - subxact_info_read (logical replication subtransaction handling)
-  - ltsReadBlock (log tape sorting)
-  - sts_read_tuple (shared tuplestore operations)
-  - readtup_heap (tuplestore heap reading)
+  - [ReadTempFileBlock](../R/ReadTempFileBlock.md) (GIST index building)
+  - [SendBackupManifest](../S/SendBackupManifest.md) (backup operations)
+  - [ExecHashJoinGetSavedTuple](../E/ExecHashJoinGetSavedTuple.md) (hash join execution)
+  - [apply_spooled_messages](../a/apply_spooled_messages.md) (logical replication)
+  - [subxact_info_read](../s/subxact_info_read.md) (logical replication subtransaction handling)
+  - [ltsReadBlock](../l/ltsReadBlock.md) (log tape sorting)
+  - [sts_read_tuple](../s/sts_read_tuple.md) (shared tuplestore operations)
+  - [readtup_heap](../r/readtup_heap.md) (tuplestore heap reading)
 
 ## Notes and Other Information
 - This function will raise an ERROR (via ereport) if it cannot read exactly the requested number of bytes

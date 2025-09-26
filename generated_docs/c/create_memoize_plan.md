@@ -45,6 +45,6 @@ The Memoize node maintains a hash table where keys are parameter value combinati
 - The cache can operate in binary mode for more efficient storage when appropriate
 - Cache size is estimated based on the MemoizePath's est_entries field
 - Single-row mode optimizes for cases where each parameter combination produces at most one row
-- Hash operators from the MemoizePath determine how parameter values are hashed for cache lookup
+- [Hash](../H/Hash.md) operators from the MemoizePath determine how parameter values are hashed for cache lookup
 - Memory usage is bounded by work_mem settings and the estimated number of cache entries
 - Particularly beneficial for nested loops with expensive inner relations or complex parameter-dependent computations

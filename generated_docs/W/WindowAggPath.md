@@ -33,11 +33,11 @@ WindowAggPath represents the execution path for window function computation in P
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WindowClause
+  - [WindowClause](WindowClause.md)
 - Called from (representative examples):
-  - create_windowagg_plan
-  - create_windowagg_path
-  - create_plan_recurse
+  - [create_windowagg_plan](../c/create_windowagg_plan.md)
+  - [create_windowagg_path](../c/create_windowagg_path.md)
+  - [create_plan_recurse](../c/create_plan_recurse.md)
 
 ## Notes and Other Information
 - The topwindow flag helps optimize nested window function execution by identifying the outermost window operation

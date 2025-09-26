@@ -31,11 +31,11 @@ The ttinfo struct defines the properties of a specific timezone state, including
 ## Dependencies
 - Functions called/Symbols referenced: None (pure data structure)
 - Called from (representative examples):
-  - init_ttinfo (initialization function)
-  - tzloadbody (timezone data loading)
-  - typesequiv (timezone type comparison)
-  - localsub (local time calculation)
-  - pg_next_dst_boundary (DST boundary calculation)
+  - [init_ttinfo](../i/init_ttinfo.md) (initialization function)
+  - [tzloadbody](tzloadbody.md) (timezone data loading)
+  - [typesequiv](typesequiv.md) (timezone type comparison)
+  - [localsub](../l/localsub.md) (local time calculation)
+  - [pg_next_dst_boundary](../p/pg_next_dst_boundary.md) (DST boundary calculation)
   - [pg_interpret_timezone_abbrev](../p/pg_interpret_timezone_abbrev.md) (timezone abbreviation interpretation)
 
 ## Notes and Other Information

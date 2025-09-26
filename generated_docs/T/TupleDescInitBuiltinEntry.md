@@ -35,7 +35,7 @@ Unlike TupleDescInitEntry which can handle any type by consulting the catalog, t
 ## Dependencies
 - Functions called/Symbols referenced:
   - PointerIsValid (validation macro)
-  - namestrcpy (string copying utility)
+  - [namestrcpy](../n/namestrcpy.md) (string copying utility)
   - TupleDescAttr (tuple descriptor accessor macro)
   - Various type alignment constants (TYPALIGN_INT, TYPALIGN_CHAR, TYPALIGN_DOUBLE)
   - Storage method constants (TYPSTORAGE_EXTENDED, TYPSTORAGE_PLAIN)
@@ -43,7 +43,7 @@ Unlike TupleDescInitEntry which can handle any type by consulting the catalog, t
 - Called from (representative examples):
   - [SendXlogRecPtrResult](../S/SendXlogRecPtrResult.md) (basebackup functionality)
   - [IdentifySystem](../I/IdentifySystem.md) (replication protocol)
-  - ShowGUCConfigOption (configuration display)
+  - [ShowGUCConfigOption](../S/ShowGUCConfigOption.md) (configuration display)
   - [CreateReplicationSlot](../C/CreateReplicationSlot.md) (replication slot management)
 
 ## Notes and Other Information

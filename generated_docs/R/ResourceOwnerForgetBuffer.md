@@ -24,13 +24,13 @@ This is the counterpart to ResourceOwnerRememberBuffer and is essential for main
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwner (structure type)
-  - ResourceOwnerForget (generic resource untracking function)
+  - [ResourceOwner](ResourceOwner.md) (structure type)
+  - [ResourceOwnerForget](ResourceOwnerForget.md) (generic resource untracking function)
   - [Int32GetDatum](../I/Int32GetDatum.md) (conversion function)
   - buffer_pin_resowner_desc (resource descriptor for buffer pins)
 - Called from (representative examples):
-  - UnpinBuffer
-  - UnpinLocalBuffer
+  - [UnpinBuffer](../U/UnpinBuffer.md)
+  - [UnpinLocalBuffer](../U/UnpinLocalBuffer.md)
 
 ## Notes and Other Information
 - This function is a static inline wrapper providing type-safe buffer pin unregistration

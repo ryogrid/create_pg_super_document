@@ -19,11 +19,11 @@ PathNameDeleteTemporaryDir performs a complete recursive deletion of a directory
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - stat
-  - walkdir
-  - unlink_if_exists_fname
+  - [stat](../s/stat.md)
+  - [walkdir](../w/walkdir.md)
+  - [unlink_if_exists_fname](../u/unlink_if_exists_fname.md)
 - Called from (representative examples):
-  - FileSetDeleteAll
+  - [FileSetDeleteAll](../F/FileSetDeleteAll.md)
 
 ## Notes and Other Information
 This function is part of PostgreSQL's temporary file cleanup infrastructure in src/backend/storage/file/fd.c. It's designed to be robust in cleanup scenarios, silently ignoring missing directories and logging (rather than erroring on) deletion failures. The function uses the walkdir utility which traverses the directory tree and applies the unlink_if_exists_fname callback to each entry. The implementation prioritizes cleanup completion over strict error handling, which is appropriate for its use in resource cleanup scenarios. The function currently has a limitation in that walkdir doesn't provide state management for error reporting, though this is acceptable given its cleanup-focused usage pattern.

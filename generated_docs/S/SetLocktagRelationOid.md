@@ -24,7 +24,7 @@ This function is primarily used internally by other locking functions to standar
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LOCKTAG
+  - [LOCKTAG](../L/LOCKTAG.md)
   - [IsSharedRelation](../I/IsSharedRelation.md)
   - SET_LOCKTAG_RELATION
   - InvalidOid

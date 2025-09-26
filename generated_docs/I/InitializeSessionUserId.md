@@ -30,7 +30,7 @@ This function performs comprehensive user identity initialization for PostgreSQL
   - [SetConfigOption](../S/SetConfigOption.md) (sets GUC variables)
   - PGC_BACKEND, PGC_S_OVERRIDE (GUC setting flags)
   - AmRegularBackendProcess (backend process type check)
-  - CountUserBackends (connection count function)
+  - [CountUserBackends](../C/CountUserBackends.md) (connection count function)
   - [SearchSysCache1](../S/SearchSysCache1.md), HeapTupleIsValid, ReleaseSysCache (catalog access functions)
 - Called from (representative examples):
   - [InitPostgres](InitPostgres.md) (src/backend/utils/init/postinit.c:917, 927)

@@ -25,11 +25,11 @@ The function implements dynamic memory management by doubling the allocated spac
 - Functions called/Symbols referenced:
   - realloc
 - Types referenced:
-  - pg_ctype_cache
-  - chr
-  - cvec
+  - [pg_ctype_cache](../p/pg_ctype_cache.md)
+  - [chr](../c/chr.md)
+  - [cvec](../c/cvec.md)
 - Called from (representative examples):
-  - pg_ctype_get_cache
+  - [pg_ctype_get_cache](../p/pg_ctype_get_cache.md)
 
 ## Notes and Other Information
 - Returns true on success, false if memory allocation fails

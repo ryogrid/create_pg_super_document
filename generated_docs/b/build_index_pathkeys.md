@@ -34,7 +34,7 @@ The resulting pathkeys list is canonical, meaning redundant pathkeys are removed
   - [indexcol_is_bool_constant_for_query](../i/indexcol_is_bool_constant_for_query.md)
   - [IndexOptInfo](../I/IndexOptInfo.md) (type)
   - ScanDirection (type)
-  - PathKey (type)
+  - [PathKey](../P/PathKey.md) (type)
 - Called from (representative examples):
   - [build_index_paths](build_index_paths.md)
 

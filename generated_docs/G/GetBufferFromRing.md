@@ -29,16 +29,16 @@ This design ensures that ring buffers are only reused when they're not actively 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferAccessStrategy (type)
-  - BufferDesc (type)
-  - GetBufferDescriptor (function)
-  - LockBufHdr (function)
+  - [BufferAccessStrategy](../B/BufferAccessStrategy.md) (type)
+  - [BufferDesc](../B/BufferDesc.md) (type)
+  - [GetBufferDescriptor](GetBufferDescriptor.md) (function)
+  - [LockBufHdr](../L/LockBufHdr.md) (function)
   - BUF_STATE_GET_REFCOUNT (macro)
   - BUF_STATE_GET_USAGECOUNT (macro)
-  - UnlockBufHdr (function)
+  - [UnlockBufHdr](../U/UnlockBufHdr.md) (function)
   - InvalidBuffer (constant)
 - Called from (representative examples):
-  - StrategyGetBuffer
+  - [StrategyGetBuffer](../S/StrategyGetBuffer.md)
 
 ## Notes and Other Information
 - Static function, only called internally within the buffer freelist management

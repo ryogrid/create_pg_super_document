@@ -22,7 +22,7 @@ This callback is selected by `tstoreStartupReceiver` when analysis determines th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - tuplestore_puttupleslot
+  - [tuplestore_puttupleslot](tuplestore_puttupleslot.md)
 - Called from (representative examples):
   - Set as callback by tstoreStartupReceiver
   - Referenced in TStoreState structure

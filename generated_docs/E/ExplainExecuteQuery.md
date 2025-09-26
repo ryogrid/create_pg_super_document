@@ -44,13 +44,13 @@ The function supports both regular EXPLAIN EXECUTE and EXPLAIN CREATE TABLE AS E
   - [FreeExecutorState](../F/FreeExecutorState.md)
   - [ReleaseCachedPlan](../R/ReleaseCachedPlan.md)
 - Data structures used:
-  - PreparedStatement
-  - CachedPlan
-  - ExecuteStmt
-  - ExplainState
+  - [PreparedStatement](../P/PreparedStatement.md)
+  - [CachedPlan](../C/CachedPlan.md)
+  - [ExecuteStmt](ExecuteStmt.md)
+  - [ExplainState](ExplainState.md)
   - [IntoClause](../I/IntoClause.md)
   - [ParamListInfo](../P/ParamListInfo.md)
-  - QueryEnvironment
+  - [QueryEnvironment](../Q/QueryEnvironment.md)
 - Called from (representative examples):
   - [ExplainOneUtility](ExplainOneUtility.md)
 

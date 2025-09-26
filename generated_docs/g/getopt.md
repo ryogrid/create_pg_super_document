@@ -35,10 +35,10 @@ The function processes one option per call and maintains parsing state internall
   - strchr (C library function to search for option character)
   - fprintf (C library function for error reporting)
 - Called from (representative examples):
-  - BootstrapModeMain
-  - PostmasterMain
-  - process_postgres_switches
-  - main (in various test utilities and tools)
+  - [BootstrapModeMain](../B/BootstrapModeMain.md)
+  - [PostmasterMain](../P/PostmasterMain.md)
+  - [process_postgres_switches](../p/process_postgres_switches.md)
+  - [main](../m/main.md) (in various test utilities and tools)
 
 ## Notes and Other Information
 - This is a BSD-licensed implementation derived from the University of California's getopt

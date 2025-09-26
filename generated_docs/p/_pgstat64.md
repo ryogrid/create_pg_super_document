@@ -35,7 +35,7 @@ Key features:
 - Functions called/Symbols referenced:
   - [_pglstat64](_pglstat64.md) (lstat implementation for initial and recursive calls)
   - readlink (read symbolic link target paths)
-  - strlcpy (safe string copying)
+  - [strlcpy](../s/strlcpy.md) (safe string copying)
   - strcpy (string copying for current path tracking)
   - S_ISLNK (macro to test for symbolic links)
   - pg_RtlGetLastNtStatus (Windows NT status checking)

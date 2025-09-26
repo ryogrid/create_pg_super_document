@@ -40,12 +40,12 @@ The design ensures that only one of reliddesc or tupdesc is used at any time, ne
 ## Dependencies
 - Functions called/Symbols referenced:
   - EphemeralNameRelationType (enum defining ENR types)
-  - TupleDesc (tuple descriptor structure from access/tupdesc.h)
+  - [TupleDesc](../T/TupleDesc.md) (tuple descriptor structure from access/tupdesc.h)
   - Oid (object identifier type)
 
 - Called from (representative examples):
   - EphemeralNamedRelationMetadata (typedef pointer to this structure)
-  - EphemeralNamedRelationData (contains this structure as a member)
+  - [EphemeralNamedRelationData](EphemeralNamedRelationData.md) (contains this structure as a member)
 
 ## Notes and Other Information
 - This structure is part of PostgreSQL's query environment infrastructure

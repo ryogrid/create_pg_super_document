@@ -22,7 +22,7 @@ The function ensures that both the main error message domain and the context mes
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ErrorData (struct type)
+  - [ErrorData](../E/ErrorData.md) (struct type)
   - PG_TEXTDOMAIN (macro for text domain specification)
 
 - Called from (representative examples):

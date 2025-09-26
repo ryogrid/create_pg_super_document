@@ -38,7 +38,7 @@ This function creates a RangeTblEntry of type RTE_VALUES for handling VALUES cla
   - [makeAlias](../m/makeAlias.md) (for default alias creation)
   - [makeString](../m/makeString.md) (for column name creation)
   - [buildNSItemFromLists](../b/buildNSItemFromLists.md) (for ParseNamespaceItem construction)
-  - lappend (for list operations)
+  - [lappend](../l/lappend.md) (for list operations)
 - Called from (representative examples):
   - [transformInsertStmt](../t/transformInsertStmt.md) (in analyze.c:890)
   - [transformValuesClause](../t/transformValuesClause.md) (in analyze.c:1639)

@@ -23,16 +23,16 @@ The function handles both built-in and custom GUC variables, applying proper acc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_option
-  - ConfigOptionIsVisible
+  - [find_option](../f/find_option.md)
+  - [ConfigOptionIsVisible](../C/ConfigOptionIsVisible.md)
   - [ShowGUCOption](../S/ShowGUCOption.md)
-  - config_generic
+  - [config_generic](../c/config_generic.md)
 - Called from (representative examples):
   - [ExplainPrintSettings](../E/ExplainPrintSettings.md) (explain.c:828, explain.c:853)
   - [ExtractSetVariableArgs](../E/ExtractSetVariableArgs.md) (guc_funcs.c:174)
   - [set_config_by_name](../s/set_config_by_name.md) (guc_funcs.c:371)
-  - GetPGVariableResultDesc (guc_funcs.c:414)
-  - ShowGUCConfigOption (guc_funcs.c:436)
+  - [GetPGVariableResultDesc](GetPGVariableResultDesc.md) (guc_funcs.c:414)
+  - [ShowGUCConfigOption](../S/ShowGUCConfigOption.md) (guc_funcs.c:436)
   - [show_config_by_name](../s/show_config_by_name.md) (guc_funcs.c:813)
   - [show_config_by_name_missing_ok](../s/show_config_by_name_missing_ok.md) (guc_funcs.c:832)
 

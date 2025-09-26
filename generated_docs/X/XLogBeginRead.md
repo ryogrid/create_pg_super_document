@@ -31,7 +31,7 @@ The function is designed to be safe and cannot fail during initialization - any 
   - [XLogFindNextRecord](XLogFindNextRecord.md)
   - [SummarizeWAL](../S/SummarizeWAL.md)
   - [DecodingContextFindStartpoint](../D/DecodingContextFindStartpoint.md)
-  - LogicalReplicationSlotHasPendingWal
+  - [LogicalReplicationSlotHasPendingWal](../L/LogicalReplicationSlotHasPendingWal.md)
   - [StartLogicalReplication](../S/StartLogicalReplication.md)
   - [extractPageMap](../e/extractPageMap.md)
   - [findLastCheckpoint](../f/findLastCheckpoint.md)

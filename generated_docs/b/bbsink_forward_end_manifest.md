@@ -21,8 +21,8 @@ This forwarding pattern maintains the chain of responsibility design, allowing d
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbsink_end_manifest
-  - bbsink (structure type)
+  - [bbsink_end_manifest](bbsink_end_manifest.md)
+  - [bbsink](bbsink.md) (structure type)
 - Called from (representative examples):
   - [bbsink_server_end_manifest](bbsink_server_end_manifest.md)
 

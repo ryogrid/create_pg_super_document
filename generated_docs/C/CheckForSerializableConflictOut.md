@@ -37,8 +37,8 @@ The function implements several optimizations and special cases:
   - SxactIsDoomed
   - TransactionIdEquals
   - [GetTopTransactionIdIfAny](../G/GetTopTransactionIdIfAny.md)
-  - LWLockAcquire
-  - LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - [hash_search](../h/hash_search.md)
   - [SerialGetMinConflictCommitSeqNo](../S/SerialGetMinConflictCommitSeqNo.md)
   - SxactIsReadOnly

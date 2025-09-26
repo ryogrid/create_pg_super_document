@@ -23,17 +23,17 @@ The function includes comprehensive compile-time assertions to ensure that all s
 ## Dependencies
 - Functions called/Symbols referenced:
   - FIN_CRC32C (macro for CRC32C finalization)
-  - pg_cryptohash_final (finalizes cryptographic hash computation)
-  - pg_cryptohash_free (frees cryptographic hash contexts)
+  - [pg_cryptohash_final](pg_cryptohash_final.md) (finalizes cryptographic hash computation)
+  - [pg_cryptohash_free](pg_cryptohash_free.md) (frees cryptographic hash contexts)
   - StaticAssertDecl (compile-time assertions for digest size validation)
   - memcpy (for copying CRC32C result to output buffer)
   - PG_SHA*_DIGEST_LENGTH constants (digest size constants for SHA variants)
   - CHECKSUM_TYPE_* enumeration constants
 - Called from (representative examples):
-  - AddFileToBackupManifest (in src/backend/backup/backup_manifest.c)
-  - process_directory_recursively (in src/bin/pg_combinebackup/pg_combinebackup.c)
-  - reconstruct_from_incremental_file (in src/bin/pg_combinebackup/reconstruct.c)
-  - verify_file_checksum (in src/bin/pg_verifybackup/pg_verifybackup.c)
+  - [AddFileToBackupManifest](../A/AddFileToBackupManifest.md) (in src/backend/backup/backup_manifest.c)
+  - [process_directory_recursively](process_directory_recursively.md) (in src/bin/pg_combinebackup/pg_combinebackup.c)
+  - [reconstruct_from_incremental_file](../r/reconstruct_from_incremental_file.md) (in src/bin/pg_combinebackup/reconstruct.c)
+  - [verify_file_checksum](../v/verify_file_checksum.md) (in src/bin/pg_verifybackup/pg_verifybackup.c)
 
 ## Notes and Other Information
 - Returns the number of bytes written to output buffer on success, -1 on failure

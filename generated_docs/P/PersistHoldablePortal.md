@@ -33,10 +33,10 @@ The function distinguishes between scrollable and non-scrollable cursors: scroll
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CreateTupleDescCopy](../C/CreateTupleDescCopy.md)
-  - MarkPortalActive
-  - MarkPortalFailed
-  - PushActiveSnapshot
-  - PopActiveSnapshot
+  - [MarkPortalActive](../M/MarkPortalActive.md)
+  - [MarkPortalFailed](../M/MarkPortalFailed.md)
+  - [PushActiveSnapshot](PushActiveSnapshot.md)
+  - [PopActiveSnapshot](PopActiveSnapshot.md)
   - [ExecutorRewind](../E/ExecutorRewind.md)
   - [ExecutorRun](../E/ExecutorRun.md)
   - [ExecutorFinish](../E/ExecutorFinish.md)

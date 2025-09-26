@@ -33,10 +33,10 @@ The function adopts a conservative approach - when in doubt, it returns false, w
   - Various node type constants (T_FuncExpr, T_NullIfExpr, etc.)
 
 - Called from (representative examples):
-  - get_rule_expr_funccall
-  - pg_get_indexdef_worker
-  - pg_get_statisticsobj_worker
-  - pg_get_partkeydef_worker
+  - [get_rule_expr_funccall](../g/get_rule_expr_funccall.md)
+  - [pg_get_indexdef_worker](../p/pg_get_indexdef_worker.md)
+  - [pg_get_statisticsobj_worker](../p/pg_get_statisticsobj_worker.md)
+  - [pg_get_partkeydef_worker](../p/pg_get_partkeydef_worker.md)
 
 ## Notes and Other Information
 - Critical for maintaining SQL grammar compliance in deparsing operations

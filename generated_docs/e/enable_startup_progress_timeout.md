@@ -25,7 +25,7 @@ This function takes no parameters.
 - Functions called:
   - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)() (timestamp utility function)
   - `TimestampTzPlusMilliseconds()` (timestamp arithmetic function)
-  - `enable_timeout_every()` (timeout management function)
+  - `[enable_timeout_every](enable_timeout_every.md)()` (timeout management function)
 
 - Constants referenced:
   - `STARTUP_PROGRESS_TIMEOUT` (timeout identifier)

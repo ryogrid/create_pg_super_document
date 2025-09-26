@@ -21,25 +21,25 @@ This function cleans up the in-memory replication state associated with a specif
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire
-  - LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - ereport
-  - errcode
-  - errmsg
-  - ConditionVariableSleep
-  - ConditionVariableCancelSleep
-  - XLogBeginInsert
-  - XLogRegisterData
-  - XLogInsert
-  - ReplicationState
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
+  - [ConditionVariableSleep](../C/ConditionVariableSleep.md)
+  - [ConditionVariableCancelSleep](../C/ConditionVariableCancelSleep.md)
+  - [XLogBeginInsert](../X/XLogBeginInsert.md)
+  - [XLogRegisterData](../X/XLogRegisterData.md)
+  - [XLogInsert](../X/XLogInsert.md)
+  - [ReplicationState](../R/ReplicationState.md)
   - ConditionVariable
-  - xl_replorigin_drop
+  - [xl_replorigin_drop](../x/xl_replorigin_drop.md)
   - RepOriginId
   - XLOG_REPLORIGIN_DROP
   - InvalidRepOriginId
   - InvalidXLogRecPtr
 - Called from (representative examples):
-  - replorigin_drop_by_name
+  - [replorigin_drop_by_name](replorigin_drop_by_name.md)
 
 ## Notes and Other Information
 - This is a static function, accessible only within the origin.c file

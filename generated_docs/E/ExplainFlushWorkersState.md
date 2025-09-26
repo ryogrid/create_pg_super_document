@@ -22,11 +22,11 @@ The function ensures proper formatting by wrapping all worker output in "Workers
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExplainState (struct type)
-  - ExplainWorkersState (struct type)  
+  - [ExplainState](ExplainState.md) (struct type)
+  - [ExplainWorkersState](ExplainWorkersState.md) (struct type)  
   - [ExplainOpenGroup](ExplainOpenGroup.md)
   - [ExplainCloseGroup](ExplainCloseGroup.md)
-  - appendStringInfoString
+  - [appendStringInfoString](../a/appendStringInfoString.md)
   - [pfree](../p/pfree.md)
 - Called from (representative examples):
   - [ExplainNode](ExplainNode.md) (at src/backend/commands/explain.c:2310)

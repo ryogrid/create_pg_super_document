@@ -33,7 +33,7 @@ This function is typically called during the replay of lock operations that occu
 - Functions called/Symbols referenced:
   - XLogRecGetData (extracts xl_heap_lock_updated structure from WAL record)
   - [XLogRecGetBlockTag](../X/XLogRecGetBlockTag.md) (retrieves block location information)
-  - XLogReadBufferForRedo (reads and locks target buffer for redo operations)
+  - [XLogReadBufferForRedo](../X/XLogReadBufferForRedo.md) (reads and locks target buffer for redo operations)
   - [visibilitymap_pin](../v/visibilitymap_pin.md), visibilitymap_clear (visibility map maintenance for frozen status)
   - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md), PageGetItemId, PageGetItem (page-level tuple access functions)
   - [fix_infomask_from_infobits](../f/fix_infomask_from_infobits.md) (reconstructs tuple visibility state from logged information)

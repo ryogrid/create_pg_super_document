@@ -21,11 +21,11 @@ The function returns 0 on success and 1 on failure. It includes a basic null poi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqEndcopy3
+  - [pqEndcopy3](../p/pqEndcopy3.md)
 - Called from (representative examples):
-  - libpqrcv_endstreaming (in WAL receiver)
-  - initPopulateTable (in pgbench)
-  - ecpg_check_PQresult (in ECPG)
+  - [libpqrcv_endstreaming](../l/libpqrcv_endstreaming.md) (in WAL receiver)
+  - [initPopulateTable](../i/initPopulateTable.md) (in pgbench)
+  - [ecpg_check_PQresult](../e/ecpg_check_PQresult.md) (in ECPG)
 
 ## Notes and Other Information
 - This function is deprecated in favor of using PQgetResult for better status handling

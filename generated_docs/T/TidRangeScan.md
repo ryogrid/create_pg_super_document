@@ -26,19 +26,19 @@ The tidrangequals field contains an implicitly AND'ed list of qualification expr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Scan (base structure)
+  - [Scan](../S/Scan.md) (base structure)
 - Called from (representative examples):
-  - ExplainNode (for EXPLAIN output)
-  - ExecInitNode (executor initialization)
-  - TidExprListCreate (expression processing for range conditions)
-  - ExecInitTidRangeScan (node-specific initialization)
-  - create_tidrangescan_plan (plan creation)
-  - make_tidrangescan (plan node construction)
+  - [ExplainNode](../E/ExplainNode.md) (for EXPLAIN output)
+  - [ExecInitNode](../E/ExecInitNode.md) (executor initialization)
+  - [TidExprListCreate](TidExprListCreate.md) (expression processing for range conditions)
+  - [ExecInitTidRangeScan](../E/ExecInitTidRangeScan.md) (node-specific initialization)
+  - [create_tidrangescan_plan](../c/create_tidrangescan_plan.md) (plan creation)
+  - [make_tidrangescan](../m/make_tidrangescan.md) (plan node construction)
 
 ## Notes and Other Information
-- TidRangeScan provides more flexible tuple access than TidScan by supporting range operations rather than just equality
+- [TidRangeScan](TidRangeScan.md) provides more flexible tuple access than TidScan by supporting range operations rather than just equality
 - The scan processes tuples in CTID order, making it efficient for accessing contiguous blocks of data
-- Range conditions are combined with AND semantics, allowing specification of both upper and lower bounds
+- [Range](../R/Range.md) conditions are combined with AND semantics, allowing specification of both upper and lower bounds
 - Particularly useful for administrative operations, bulk data processing, or debugging scenarios where specific physical regions of a table need examination
 - Like TidScan, the CTID boundary values must be compile-time constants or parameters
 - The scan can handle open-ended ranges (e.g., only upper bound or only lower bound specified)

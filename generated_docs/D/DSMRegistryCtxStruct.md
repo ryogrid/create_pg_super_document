@@ -28,8 +28,8 @@ The structure is used internally by the DSM registry implementation to maintain 
   - dsa_handle
   - dshash_table_handle
 - Called from (representative examples):
-  - DSMRegistryShmemSize
-  - DSMRegistryShmemInit
+  - [DSMRegistryShmemSize](DSMRegistryShmemSize.md)
+  - [DSMRegistryShmemInit](DSMRegistryShmemInit.md)
 
 ## Notes and Other Information
 - This structure is used as a singleton context (DSMRegistryCtx) in the DSM registry implementation

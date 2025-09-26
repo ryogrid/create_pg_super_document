@@ -28,7 +28,7 @@ The function first checks local cache for performance, then validates the MultiX
   - [mXactCacheGetById](../m/mXactCacheGetById.md), mXactCachePut (caching operations)
   - [MultiXactIdSetOldestVisible](../M/MultiXactIdSetOldestVisible.md) (visibility management)
   - [MultiXactIdPrecedes](../M/MultiXactIdPrecedes.md) (wraparound-aware comparison)
-  - LWLockAcquire, LWLockRelease (locking)
+  - [LWLockAcquire](../L/LWLockAcquire.md), LWLockRelease (locking)
   - [SimpleLruGetBankLock](../S/SimpleLruGetBankLock.md), SimpleLruReadPage (SLRU operations)
   - [MultiXactIdToOffsetPage](../M/MultiXactIdToOffsetPage.md), MultiXactIdToOffsetEntry (page/entry calculation)
   - [MXOffsetToMemberPage](../M/MXOffsetToMemberPage.md), MXOffsetToMemberOffset (member location calculation)

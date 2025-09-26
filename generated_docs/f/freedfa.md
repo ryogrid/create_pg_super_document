@@ -31,8 +31,8 @@ The function safely handles NULL pointers and only frees memory that was actuall
   - [newdfa](../n/newdfa.md) (when DFA creation fails)
   - LOFF (during regex execution cleanup)
   - LOCALDFA (for local DFA cleanup)
-  - find (regex matching function cleanup)
-  - cfind (case-insensitive regex matching cleanup)
+  - [find](find.md) (regex matching function cleanup)
+  - [cfind](../c/cfind.md) (case-insensitive regex matching cleanup)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the rege_dfa.c compilation unit

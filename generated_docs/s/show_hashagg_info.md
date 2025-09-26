@@ -40,9 +40,9 @@ The function handles the complexity of parallel aggregation where the leader pro
   - BYTES_TO_KILOBYTES: Converts memory usage from bytes to kilobytes
   - [ExplainPropertyInteger](../E/ExplainPropertyInteger.md): Adds integer properties to structured output
   - [ExplainIndentText](../E/ExplainIndentText.md): Handles text output indentation
-  - appendStringInfo/appendStringInfoSpaces: Formats and appends text to output buffer
+  - [appendStringInfo](../a/appendStringInfo.md)/appendStringInfoSpaces: Formats and appends text to output buffer
   - [ExplainOpenWorker](../E/ExplainOpenWorker.md)/ExplainCloseWorker: Manages worker-specific output sections
-  - appendStringInfoChar: Adds single characters to output buffer
+  - [appendStringInfoChar](../a/appendStringInfoChar.md): Adds single characters to output buffer
 - Called from (representative examples):
   - [ExplainNode](../E/ExplainNode.md): Main EXPLAIN node processing function for aggregation nodes
 

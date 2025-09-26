@@ -37,7 +37,7 @@ RemoveObjects processes DROP statements by looking up all specified objects firs
   - [free_object_addresses](../f/free_object_addresses.md): Cleans up ObjectAddresses structure
 
 - Called from (representative examples):
-  - ExecDropStmt: Main utility command execution
+  - [ExecDropStmt](../E/ExecDropStmt.md): Main utility command execution
 
 ## Notes and Other Information
 - Does not handle relation drops (tables, indexes) which require special locking

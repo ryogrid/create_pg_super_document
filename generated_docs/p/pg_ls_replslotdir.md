@@ -24,7 +24,7 @@ The function performs validation to ensure the specified replication slot exists
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - text_to_cstring
+  - [text_to_cstring](../t/text_to_cstring.md)
   - [SearchNamedReplicationSlot](../S/SearchNamedReplicationSlot.md)
   - [pg_ls_dir_files](pg_ls_dir_files.md)
 - Called from (representative examples):

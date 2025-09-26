@@ -27,12 +27,12 @@ The function takes a conservative approach by always syncing the entire TAR file
 - Functions called/Symbols referenced:
   - clear_error
   - fsync
-  - TarMethodData (structure type)
+  - [TarMethodData](../T/TarMethodData.md) (structure type)
   - Walfile (structure type)
   - PG_COMPRESSION_NONE (constant)
 - Called from (representative examples):
-  - CreateWalDirectoryMethod (function pointer assignment)
-  - tar_close
+  - [CreateWalDirectoryMethod](../C/CreateWalDirectoryMethod.md) (function pointer assignment)
+  - [tar_close](tar_close.md)
 
 ## Notes and Other Information
 - This function is marked as static, meaning it's only accessible within the walmethods.c file

@@ -25,10 +25,10 @@ An important safety check prevents temporary buffers (those marked with isTemp f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - repalloc
+  - [repalloc](../r/repalloc.md)
 - Called from (representative examples):
-  - gistLoadNodeBuffer
-  - gistPushItupToNodeBuffer
+  - [gistLoadNodeBuffer](gistLoadNodeBuffer.md)
+  - [gistPushItupToNodeBuffer](gistPushItupToNodeBuffer.md)
 
 ## Notes and Other Information
 - Function is declared static, making it internal to the gistbuildbuffers.c module

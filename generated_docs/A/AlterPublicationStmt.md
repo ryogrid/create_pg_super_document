@@ -50,17 +50,17 @@ For all-tables publications, the  flag indicates operations on the publication's
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AlterPublicationAction (enum defining the type of alteration)
+  - [AlterPublicationAction](AlterPublicationAction.md) (enum defining the type of alteration)
   - NodeTag (standard parse tree node identifier)
-  - List (PostgreSQL's generic list structure)
-  - DefElem (definition element for options)
-  - PublicationObjSpec (implicit, through pubobjects list)
+  - [List](../L/List.md) (PostgreSQL's generic list structure)
+  - [DefElem](../D/DefElem.md) (definition element for options)
+  - [PublicationObjSpec](../P/PublicationObjSpec.md) (implicit, through pubobjects list)
 - Called from (representative examples):
-  - AlterPublicationOptions (in publicationcmds.c for option modifications)
-  - AlterPublicationTables (in publicationcmds.c for table operations)
-  - AlterPublicationSchemas (in publicationcmds.c for schema operations)
-  - AlterPublication (in publicationcmds.c for main execution logic)
-  - ProcessUtilitySlow (in utility.c for statement processing)
+  - [AlterPublicationOptions](AlterPublicationOptions.md) (in publicationcmds.c for option modifications)
+  - [AlterPublicationTables](AlterPublicationTables.md) (in publicationcmds.c for table operations)
+  - [AlterPublicationSchemas](AlterPublicationSchemas.md) (in publicationcmds.c for schema operations)
+  - [AlterPublication](AlterPublication.md) (in publicationcmds.c for main execution logic)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (in utility.c for statement processing)
 
 ## Notes and Other Information
 - This structure handles both configuration changes (via options) and membership changes (via action and pubobjects)
@@ -69,4 +69,4 @@ For all-tables publications, the  flag indicates operations on the publication's
 - ALTER PUBLICATION requires ownership of the publication or superuser privileges
 - Object operations (ADD/DROP/SET) can work with individual tables, entire schemas, or mixed combinations
 - The structure supports atomic operations - either all specified changes succeed or the entire statement fails
-- Publication alterations may trigger invalidation messages to subscribers to refresh their cached metadata
+- [Publication](../P/Publication.md) alterations may trigger invalidation messages to subscribers to refresh their cached metadata

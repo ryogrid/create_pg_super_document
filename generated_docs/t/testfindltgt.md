@@ -26,15 +26,15 @@ This test function performs thorough validation of Red-Black Tree range search f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - create_int_rbtree: Creates a new integer Red-Black Tree
-  - pg_prng_uint64_range: Generates random numbers for key selection and deletion decisions  
-  - rbt_populate: Populates tree with natural numbers
-  - rbt_find_less: Finds the largest key less than or equal to the search key
-  - rbt_find_great: Finds the smallest key greater than or equal to the search key
-  - rbt_delete: Removes nodes from the tree
+  - [create_int_rbtree](../c/create_int_rbtree.md): Creates a new integer Red-Black Tree
+  - [pg_prng_uint64_range](../p/pg_prng_uint64_range.md): Generates random numbers for key selection and deletion decisions  
+  - [rbt_populate](../r/rbt_populate.md): Populates tree with natural numbers
+  - [rbt_find_less](../r/rbt_find_less.md): Finds the largest key less than or equal to the search key
+  - [rbt_find_great](../r/rbt_find_great.md): Finds the smallest key greater than or equal to the search key
+  - [rbt_delete](../r/rbt_delete.md): Removes nodes from the tree
   - elog: Reports test failures with ERROR level
 - Called from (representative examples):
-  - test_rb_tree: Main test function that orchestrates all Red-Black Tree tests
+  - [test_rb_tree](test_rb_tree.md): Main test function that orchestrates all Red-Black Tree tests
 
 ## Notes and Other Information
 - Uses IntRBTreeNode structure for test data with integer keys

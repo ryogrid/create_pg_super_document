@@ -24,7 +24,7 @@ The `varchar_input` function serves as the core input processing routine for Pos
 - Functions called/Symbols referenced:
   - [pg_mbcharcliplen](../p/pg_mbcharcliplen.md): Calculates maximum byte length for multibyte character truncation
   - `ereturn`: Returns error through soft error context mechanism
-  - `cstring_to_text_with_len`: Converts C string to VarChar/text with specified length
+  - `[cstring_to_text_with_len](../c/cstring_to_text_with_len.md)`: Converts C string to VarChar/text with specified length
   - [errcode](../e/errcode.md): Sets error code for string truncation violations
   - [errmsg](../e/errmsg.md): Formats error message for length violations
 - Called from (representative examples):

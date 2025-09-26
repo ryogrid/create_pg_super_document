@@ -37,8 +37,8 @@ These options can be set using the `CREATE TABLESPACE` statement with the `WITH`
   - (None directly referenced from the structure definition)
 
 - Called from (representative examples):
-  - tablespace_reloptions (src/backend/access/common/reloptions.c:2098-2106)
-  - get_tablespace (src/backend/utils/cache/spccache.c:111)
+  - [tablespace_reloptions](../t/tablespace_reloptions.md) (src/backend/access/common/reloptions.c:2098-2106)
+  - [get_tablespace](../g/get_tablespace.md) (src/backend/utils/cache/spccache.c:111)
 
 ## Notes and Other Information
 - This structure is stored as part of the tablespace's metadata in the PostgreSQL system catalogs

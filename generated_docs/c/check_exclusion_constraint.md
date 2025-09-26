@@ -34,7 +34,7 @@ The function uses the  mode internally, which means it will wait for concurrent 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [check_exclusion_or_unique_constraint](check_exclusion_or_unique_constraint.md)
-  - IndexInfo
+  - [IndexInfo](../I/IndexInfo.md)
   - CEOUC_WAIT
 - Called from (representative examples):
   - [IndexCheckExclusion](../I/IndexCheckExclusion.md)

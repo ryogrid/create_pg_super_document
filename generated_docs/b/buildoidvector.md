@@ -27,7 +27,7 @@ The buildoidvector function creates an oidvector structure, which is PostgreSQL'
   - SET_VARSIZE: Macro to set the variable-length header size for PostgreSQL variable-length types
 - Called from (representative examples):
   - [StorePartitionKey](../S/StorePartitionKey.md): Used when storing partition key information in system catalogs
-  - UpdateIndexRelation: Used when updating index relation metadata
+  - [UpdateIndexRelation](../U/UpdateIndexRelation.md): Used when updating index relation metadata
   - [DefineAggregate](../D/DefineAggregate.md): Used in aggregate function definition to store argument types
   - [interpret_function_parameter_list](../i/interpret_function_parameter_list.md): Used in function definition to store parameter types
   - [makeRangeConstructors](../m/makeRangeConstructors.md): Used when creating constructor functions for range types

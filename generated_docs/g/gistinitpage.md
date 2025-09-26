@@ -20,7 +20,7 @@ This function initializes a new page for use in a GiST index by calling PageInit
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PageInit
+  - [PageInit](../P/PageInit.md)
   - GistPageGetOpaque
   - GISTPageOpaque (type)
   - [GISTPageOpaqueData](../G/GISTPageOpaqueData.md) (struct)

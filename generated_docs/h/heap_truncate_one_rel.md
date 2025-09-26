@@ -19,12 +19,12 @@ The truncation process involves: (1) truncating the underlying relation storage 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_relation_nontransactional_truncate
+  - [table_relation_nontransactional_truncate](../t/table_relation_nontransactional_truncate.md)
   - [RelationTruncateIndexes](../R/RelationTruncateIndexes.md)
   - OidIsValid
-  - table_open
+  - [table_open](../t/table_open.md)
   - AccessExclusiveLock
-  - table_close
+  - [table_close](../t/table_close.md)
   - NoLock
 - Called from (representative examples):
   - [heap_truncate](heap_truncate.md)

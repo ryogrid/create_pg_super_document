@@ -28,7 +28,7 @@ The function operates by opening the necessary system catalogs (pg_foreign_table
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open, table_close
+  - [table_open](../t/table_open.md), table_close
   - [SearchSysCache1](../S/SearchSysCache1.md), SearchSysCacheAttName, ReleaseSysCache
   - [GetForeignServer](../G/GetForeignServer.md), GetForeignDataWrapper
   - [SysCacheGetAttr](../S/SysCacheGetAttr.md), transformGenericOptions

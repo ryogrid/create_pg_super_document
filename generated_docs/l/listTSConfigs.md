@@ -19,10 +19,10 @@ This function implements the \dF psql command for listing text search configurat
 ## Dependencies
 - Functions called/Symbols referenced:
   - [listTSConfigsVerbose](listTSConfigsVerbose.md) (when verbose=true)
-  - initPQExpBuffer
+  - [initPQExpBuffer](../i/initPQExpBuffer.md)
   - [printfPQExpBuffer](../p/printfPQExpBuffer.md)
   - [validateSQLNamePattern](../v/validateSQLNamePattern.md)
-  - termPQExpBuffer
+  - [termPQExpBuffer](../t/termPQExpBuffer.md)
   - [PSQLexec](../P/PSQLexec.md)
   - [printQuery](../p/printQuery.md)
   - [PQclear](../P/PQclear.md)

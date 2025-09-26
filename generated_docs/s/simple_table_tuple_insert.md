@@ -20,11 +20,11 @@ This function serves as a convenience wrapper around table_tuple_insert, providi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_tuple_insert
+  - [table_tuple_insert](../t/table_tuple_insert.md)
   - [GetCurrentCommandId](../G/GetCurrentCommandId.md)
 - Called from (representative examples):
   - [ExecSimpleRelationInsert](../E/ExecSimpleRelationInsert.md) (logical replication)
-  - table_scan_sample_next_tuple (sampling operations)
+  - [table_scan_sample_next_tuple](../t/table_scan_sample_next_tuple.md) (sampling operations)
 
 ## Notes and Other Information
 - Designed for cases where default insertion behavior is sufficient

@@ -33,10 +33,10 @@ The function ensures that the namespace item is marked as unconditionally visibl
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (creates RangeTblRef node)
-  - lappend (appends to lists)
+  - [lappend](../l/lappend.md) (appends to lists)
 - Data structures used:
   - [ParseNamespaceItem](../P/ParseNamespaceItem.md)
-  - RangeTblRef
+  - [RangeTblRef](../R/RangeTblRef.md)
   - [ParseState](../P/ParseState.md)
 - Called from (representative examples):
   - [transformInsertStmt](../t/transformInsertStmt.md) (in INSERT statement processing)

@@ -24,7 +24,7 @@ This function attempts to locate the subplan or initplan that emits the value fo
   - foreach_int
   - foreach_current_index
   - deparse_namespace
-  - SubPlan
+  - [SubPlan](../S/SubPlan.md)
   - PARAM_EXEC
   - MULTIEXPR_SUBLINK
 - Called from (representative examples):

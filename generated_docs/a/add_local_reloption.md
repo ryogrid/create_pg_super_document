@@ -23,7 +23,7 @@ This is a static helper function that manages the addition of custom reloptions 
 - Functions called/Symbols referenced:
   - [palloc](../p/palloc.md) (memory allocation)
   - Assert (assertion macro)
-  - lappend (list append function)
+  - [lappend](../l/lappend.md) (list append function)
 - Called from (representative examples):
   - [add_local_bool_reloption](add_local_bool_reloption.md)
   - [add_local_int_reloption](add_local_int_reloption.md)

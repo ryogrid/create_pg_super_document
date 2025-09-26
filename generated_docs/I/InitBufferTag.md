@@ -34,9 +34,9 @@ The function extracts the tablespace OID and database OID directly from the RelF
   - [BufferAlloc](../B/BufferAlloc.md)
   - [ExtendBufferedRelShared](../E/ExtendBufferedRelShared.md)
   - [FindAndDropRelationBuffers](../F/FindAndDropRelationBuffers.md)
-  - PrefetchLocalBuffer
-  - LocalBufferAlloc
-  - ExtendBufferedRelLocal
+  - [PrefetchLocalBuffer](../P/PrefetchLocalBuffer.md)
+  - [LocalBufferAlloc](../L/LocalBufferAlloc.md)
+  - [ExtendBufferedRelLocal](../E/ExtendBufferedRelLocal.md)
 
 ## Notes and Other Information
 - This is an inline function defined in buf_internals.h for performance optimization

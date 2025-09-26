@@ -28,13 +28,13 @@ The design follows PostgreSQL's extension architecture patterns, providing all n
 - Functions called/Symbols referenced:
   - (No direct references - this is a simple struct definition)
 - Called from (representative examples):
-  - complex_in (input function)
-  - complex_out (output function)
-  - complex_recv (binary input function)
-  - complex_send (binary output function)
-  - complex_add (addition operator)
-  - complex_abs_lt, complex_abs_le, complex_abs_eq, complex_abs_ge, complex_abs_gt (comparison operators)
-  - complex_abs_cmp (comparison function for B-tree support)
+  - [complex_in](../c/complex_in.md) (input function)
+  - [complex_out](../c/complex_out.md) (output function)
+  - [complex_recv](../c/complex_recv.md) (binary input function)
+  - [complex_send](../c/complex_send.md) (binary output function)
+  - [complex_add](../c/complex_add.md) (addition operator)
+  - [complex_abs_lt](../c/complex_abs_lt.md), complex_abs_le, complex_abs_eq, complex_abs_ge, complex_abs_gt (comparison operators)
+  - [complex_abs_cmp](../c/complex_abs_cmp.md) (comparison function for B-tree support)
 
 ## Notes and Other Information
 - This is a tutorial/educational implementation demonstrating PostgreSQL's extensibility features

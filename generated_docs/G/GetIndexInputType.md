@@ -27,9 +27,9 @@ The function handles both simple index columns (referencing heap table columns) 
   - [get_atttype](../g/get_atttype.md) (get attribute type from relation)
   - [getBaseType](../g/getBaseType.md) (flatten domain types to base types)
   - [RelationGetIndexExpressions](../R/RelationGetIndexExpressions.md) (get index expressions if not cached)
-  - list_head (get first element of list)
+  - [list_head](../l/list_head.md) (get first element of list)
   - [lnext](../l/lnext.md) (get next element in list)
-  - exprType (get type of expression node)
+  - [exprType](../e/exprType.md) (get type of expression node)
 - Called from (representative examples):
   - [spgGetCache](../s/spgGetCache.md) (at src/backend/access/spgist/spgutils.c:204)
 

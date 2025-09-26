@@ -22,7 +22,7 @@ The time_out function serves as the output function for PostgreSQL's time data t
 - Functions called/Symbols referenced:
   - PG_GETARG_TIMEADT (macro for parameter extraction)
   - [time2tm](time2tm.md) (time decomposition function)
-  - EncodeTimeOnly (time formatting function)
+  - [EncodeTimeOnly](../E/EncodeTimeOnly.md) (time formatting function)
   - [pstrdup](../p/pstrdup.md) (string duplication function)
   - PG_RETURN_CSTRING (return value macro)
 - Types used:

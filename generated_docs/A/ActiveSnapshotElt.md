@@ -28,15 +28,15 @@ The structure supports PostgreSQL's multi-level transaction system by tracking w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Snapshot (data type)
+  - [Snapshot](../S/Snapshot.md) (data type)
   - struct ActiveSnapshotElt (self-reference for linked list)
   
 - Called from (representative examples):
-  - PushActiveSnapshotWithLevel (creates new elements)
-  - PopActiveSnapshot (removes elements)
-  - AtSubCommit_Snapshot (transaction cleanup)
-  - AtSubAbort_Snapshot (transaction rollback)
-  - AtEOXact_Snapshot (end-of-transaction cleanup)
+  - [PushActiveSnapshotWithLevel](../P/PushActiveSnapshotWithLevel.md) (creates new elements)
+  - [PopActiveSnapshot](../P/PopActiveSnapshot.md) (removes elements)
+  - [AtSubCommit_Snapshot](AtSubCommit_Snapshot.md) (transaction cleanup)
+  - [AtSubAbort_Snapshot](AtSubAbort_Snapshot.md) (transaction rollback)
+  - [AtEOXact_Snapshot](AtEOXact_Snapshot.md) (end-of-transaction cleanup)
 
 ## Notes and Other Information
 - The active snapshot stack must always be NULL-terminated

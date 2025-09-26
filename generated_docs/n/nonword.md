@@ -147,7 +147,7 @@ write_data_to_archive_lz4_doc.md: Direction flag - either AHEAD or BEHIND to spe
   - BEHIND (constant)
   - [newarc](newarc.md)
   - [colorcomplement](../c/colorcomplement.md)
-  - wordchrs (from vars structure)
+  - [wordchrs](../w/wordchrs.md) (from vars structure)
 - Called from (representative examples):
   - ARCV (multiple call sites in regcomp.c)
 

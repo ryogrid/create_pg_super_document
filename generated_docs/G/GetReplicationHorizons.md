@@ -29,7 +29,7 @@ The function specifically avoids using `shared_oldest_nonremovable` because that
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ComputeXidHorizons
+  - [ComputeXidHorizons](../C/ComputeXidHorizons.md)
   - [ComputeXidHorizonsResult](../C/ComputeXidHorizonsResult.md) (struct type)
 - Called from:
   - [XLogWalRcvSendHSFeedback](../X/XLogWalRcvSendHSFeedback.md) (in walreceiver.c)

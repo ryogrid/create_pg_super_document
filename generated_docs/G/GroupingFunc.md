@@ -34,8 +34,8 @@ The GroupingFunc structure implements the SQL GROUPING() function, which is esse
 - Functions called/Symbols referenced:
   - ParseLoc
 - Called from (representative examples):
-  - ExecInitExprRec (expression initialization)
-  - transformGroupingFunc (parser processing)
+  - [ExecInitExprRec](../E/ExecInitExprRec.md) (expression initialization)
+  - [transformGroupingFunc](../t/transformGroupingFunc.md) (parser processing)
   - Various optimizer functions for grouping set planning
   - Expression evaluation and manipulation utilities
 

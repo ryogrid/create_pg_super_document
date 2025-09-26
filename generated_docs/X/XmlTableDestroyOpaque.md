@@ -23,13 +23,13 @@ The function also performs final cleanup of the PostgreSQL XML error context and
 - Functions called/Symbols referenced:
   - [GetXmlTableBuilderPrivateData](../G/GetXmlTableBuilderPrivateData.md)
   - xmlSetStructuredErrorFunc (libxml2)
-  - xml_errorHandler
+  - [xml_errorHandler](../x/xml_errorHandler.md)
   - xmlXPathFreeCompExpr (libxml2)
   - xmlXPathFreeObject (libxml2)
   - xmlXPathFreeContext (libxml2)
   - xmlFreeDoc (libxml2)
   - xmlFreeParserCtxt (libxml2)
-  - pg_xml_done
+  - [pg_xml_done](../p/pg_xml_done.md)
   - NO_XML_SUPPORT
 - Called from (representative examples):
   - No direct callers found in codebase analysis

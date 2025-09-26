@@ -22,13 +22,13 @@ This function manages the persistent storage of subtransaction information for l
 - Functions called/Symbols referenced:
   - [subxact_filename](subxact_filename.md)
   - [cleanup_subxact_info](../c/cleanup_subxact_info.md)
-  - BufFileDeleteFileSet
-  - BufFileOpenFileSet
-  - BufFileCreateFileSet
-  - BufFileWrite
-  - BufFileClose
-  - SubXactInfo
-  - BufFile
+  - [BufFileDeleteFileSet](../B/BufFileDeleteFileSet.md)
+  - [BufFileOpenFileSet](../B/BufFileOpenFileSet.md)
+  - [BufFileCreateFileSet](../B/BufFileCreateFileSet.md)
+  - [BufFileWrite](../B/BufFileWrite.md)
+  - [BufFileClose](../B/BufFileClose.md)
+  - [SubXactInfo](../S/SubXactInfo.md)
+  - [BufFile](../B/BufFile.md)
 - Called from (representative examples):
   - [stream_stop_internal](stream_stop_internal.md)
   - [stream_abort_internal](stream_abort_internal.md)

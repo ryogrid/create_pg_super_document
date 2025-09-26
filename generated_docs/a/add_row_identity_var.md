@@ -31,7 +31,7 @@ The function transforms the original Var into a ROWID_VAR reference and manages 
   - [bms_add_member](../b/bms_add_member.md): Adds rtindex to existing RowIdentityVarInfo
   - [bms_make_singleton](../b/bms_make_singleton.md): Creates single-member bitmapset for new RowIdentityVarInfo
   - [get_typavgwidth](../g/get_typavgwidth.md): Estimates width of the row-identity column
-  - exprType/exprTypmod: Extract type information from expressions
+  - [exprType](../e/exprType.md)/exprTypmod: Extract type information from expressions
 
 - Called from (representative examples):
   - [add_row_identity_columns](add_row_identity_columns.md): When adding multiple row-identity columns

@@ -36,7 +36,7 @@ The function recursively traverses the entire plan tree using planstate_tree_wal
   - memcpy
   - [ExecSortRetrieveInstrumentation](ExecSortRetrieveInstrumentation.md)
   - [ExecIncrementalSortRetrieveInstrumentation](ExecIncrementalSortRetrieveInstrumentation.md)
-  - ExecHashRetrieveInstrumentation
+  - [ExecHashRetrieveInstrumentation](ExecHashRetrieveInstrumentation.md)
   - [ExecAggRetrieveInstrumentation](ExecAggRetrieveInstrumentation.md)
   - [ExecMemoizeRetrieveInstrumentation](ExecMemoizeRetrieveInstrumentation.md)
   - planstate_tree_walker

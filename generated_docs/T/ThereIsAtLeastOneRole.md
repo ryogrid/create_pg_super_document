@@ -22,12 +22,12 @@ The function uses PostgreSQL's table access methods to safely scan the system ca
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TableScanDesc](TableScanDesc.md) (type)
-  - table_open
+  - [table_open](../t/table_open.md)
   - [table_beginscan_catalog](../t/table_beginscan_catalog.md)
   - [heap_getnext](../h/heap_getnext.md)
   - ForwardScanDirection (constant)
   - [table_endscan](../t/table_endscan.md)
-  - table_close
+  - [table_close](../t/table_close.md)
 - Called from (representative examples):
   - [InitPostgres](../I/InitPostgres.md)
 

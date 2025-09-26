@@ -19,8 +19,8 @@ WriteTempFileBlock is a wrapper around BufFile operations specifically designed 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufFileSeekBlock
-  - BufFileWrite
+  - [BufFileSeekBlock](../B/BufFileSeekBlock.md)
+  - [BufFileWrite](../B/BufFileWrite.md)
   - elog (for error reporting)
 - Called from (representative examples):
   - [gistUnloadNodeBuffer](../g/gistUnloadNodeBuffer.md)

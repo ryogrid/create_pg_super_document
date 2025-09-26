@@ -23,11 +23,11 @@ LockGXact is responsible for finding and securing exclusive access to a prepared
 - Functions called/Symbols referenced:
   - [AtProcExit_Twophase](../A/AtProcExit_Twophase.md)
   - [before_shmem_exit](../b/before_shmem_exit.md)
-  - GlobalTransaction
+  - [GlobalTransaction](../G/GlobalTransaction.md)
   - [PGPROC](../P/PGPROC.md)
   - GetPGProcByNumber
   - INVALID_PROC_NUMBER
-  - superuser_arg
+  - [superuser_arg](../s/superuser_arg.md)
 - Called from (representative examples):
   - [FinishPreparedTransaction](../F/FinishPreparedTransaction.md)
 

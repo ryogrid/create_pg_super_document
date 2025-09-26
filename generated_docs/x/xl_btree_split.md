@@ -46,7 +46,7 @@ Special handling exists for posting list splits, where the record may contain an
 - Supports two operation variants: SPLIT_L (new item to left page) and SPLIT_R (new item to right page)
 - Uses optimized logging strategy: complete right page reconstruction vs. incremental left page updates
 - Backup blocks include: original/left page (Blk 0), right page (Blk 1), next block (Blk 2), child's left sibling for non-leaf (Blk 3)
-- Complex posting list split handling where postingoff indicates need for posting list reconstruction
+- [Complex](../C/Complex.md) posting list split handling where postingoff indicates need for posting list reconstruction
 - Left page's high key is always logged due to suffix truncation and user-defined code requirements
 - The postingoff field being non-zero indicates REDO must reconstruct posting list tuple for left page
 - Equivalent to xl_btree_insert's INSERT_POST handling but more complex due to page split context

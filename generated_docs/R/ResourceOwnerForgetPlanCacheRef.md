@@ -22,7 +22,7 @@ The function uses the same planref_resowner_desc descriptor as its counterpart t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwnerForget
+  - [ResourceOwnerForget](ResourceOwnerForget.md)
   - [PointerGetDatum](../P/PointerGetDatum.md)
   - planref_resowner_desc (static descriptor)
 - Called from (representative examples):

@@ -25,10 +25,10 @@ The function serves as a specialized interface for JOHAB encoding while leveragi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_euc_mblen (function to determine EUC character byte length)
+  - [pg_euc_mblen](pg_euc_mblen.md) (function to determine EUC character byte length)
 - Called from (representative examples):
-  - pg_johab_verifychar (for character validation in JOHAB encoding)
-  - pg_encoding_set_invalid (indirectly through encoding function tables)
+  - [pg_johab_verifychar](pg_johab_verifychar.md) (for character validation in JOHAB encoding)
+  - [pg_encoding_set_invalid](pg_encoding_set_invalid.md) (indirectly through encoding function tables)
 
 ## Notes and Other Information
 - Returns an integer representing the number of bytes in the character (1 or 2 for JOHAB)

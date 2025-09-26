@@ -28,7 +28,7 @@ The conversion process involves decomposing the timestamp into components, deter
 - Functions called/Symbols referenced:
   - TIMESTAMP_NOT_FINITE
   - [timestamp2tm](timestamp2tm.md)
-  - DetermineTimeZoneOffset
+  - [DetermineTimeZoneOffset](../D/DetermineTimeZoneOffset.md)
   - [dt2local](../d/dt2local.md)
   - IS_VALID_TIMESTAMP
   - TIMESTAMP_NOBEGIN

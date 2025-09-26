@@ -29,7 +29,7 @@ The structure is designed to be used in lists, where each list element represent
   - [gistplacetopage](../g/gistplacetopage.md) (creates and returns list of GISTPageSplitInfo structures)
   - [gistfixsplit](../g/gistfixsplit.md) (processes split information during page split operations)
   - [gistfinishsplit](../g/gistfinishsplit.md) (completes split operations using split information)
-  - gistbufferinginserttuples (handles split information during buffering builds)
+  - [gistbufferinginserttuples](../g/gistbufferinginserttuples.md) (handles split information during buffering builds)
   - [gistFreeBuildBuffers](../g/gistFreeBuildBuffers.md) (cleans up split information)
   - [gistRelocateBuildBuffersOnSplit](../g/gistRelocateBuildBuffersOnSplit.md) (relocates buffers based on split information)
 

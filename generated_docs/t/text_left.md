@@ -24,7 +24,7 @@ This function implements PostgreSQL's left() SQL function for extracting charact
 - Functions called/Symbols referenced:
   - [pg_mbstrlen_with_len](../p/pg_mbstrlen_with_len.md)
   - [pg_mbcharcliplen](../p/pg_mbcharcliplen.md)
-  - cstring_to_text_with_len
+  - [cstring_to_text_with_len](../c/cstring_to_text_with_len.md)
   - [text_substring](text_substring.md)
   - PG_RETURN_TEXT_P
 - Called from (representative examples):

@@ -32,7 +32,7 @@ This type of consonant insertion is part of Turkish morphophonological processes
   - g_vowel (vowel group definition)
 
 - Called from (representative examples):
-  - r_mark_sU (suffix marking function for possessive 's' + vowel patterns)
+  - [r_mark_sU](r_mark_sU.md) (suffix marking function for possessive 's' + vowel patterns)
 
 ## Notes and Other Information
 - Returns 1 if the optional 's' consonant pattern is valid, 0 otherwise

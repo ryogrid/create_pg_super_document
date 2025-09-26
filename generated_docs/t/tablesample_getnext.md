@@ -19,9 +19,9 @@ This static function implements the core tuple retrieval logic for table samplin
 - Functions called/Symbols referenced:
   - [SampleScanState](../S/SampleScanState.md) (scan state structure)
   - [TableScanDesc](../T/TableScanDesc.md) (table scan descriptor)
-  - ExecClearTuple (tuple slot management)
-  - table_scan_sample_next_block (block-level sampling)
-  - table_scan_sample_next_tuple (tuple-level sampling)
+  - [ExecClearTuple](../E/ExecClearTuple.md) (tuple slot management)
+  - [table_scan_sample_next_block](table_scan_sample_next_block.md) (block-level sampling)
+  - [table_scan_sample_next_tuple](table_scan_sample_next_tuple.md) (tuple-level sampling)
 - Called from (representative examples):
   - [SampleNext](../S/SampleNext.md) (in nodeSamplescan.c:53)
 

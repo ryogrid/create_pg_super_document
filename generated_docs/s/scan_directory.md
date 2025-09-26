@@ -47,7 +47,7 @@ Key capabilities include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `opendir`, `readdir`, `closedir` (POSIX directory traversal functions)
+  - `[opendir](../o/opendir.md)`, `readdir`, `closedir` (POSIX directory traversal functions)
   - `lstat` (file system status function)
   - `snprintf`, `strcmp`, `strncmp`, `strlen` (standard C string functions)
   - `strchr`, `strlcpy`, `atoi` (string manipulation and parsing functions)

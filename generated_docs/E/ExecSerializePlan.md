@@ -31,12 +31,12 @@ The function ensures that worker processes receive only the information they nee
 - Functions called/Symbols referenced:
   - copyObject
   - makeNode
-  - pgstat_get_my_query_id
-  - nodeToString
+  - [pgstat_get_my_query_id](../p/pgstat_get_my_query_id.md)
+  - [nodeToString](../n/nodeToString.md)
   - lfirst_node
-  - lappend
+  - [lappend](../l/lappend.md)
 - Called from:
-  - ExecInitParallelPlan
+  - [ExecInitParallelPlan](ExecInitParallelPlan.md)
 
 ## Notes and Other Information
 - The function creates a "dummy" PlannedStmt with minimal required fields since workers only need basic executor initialization data

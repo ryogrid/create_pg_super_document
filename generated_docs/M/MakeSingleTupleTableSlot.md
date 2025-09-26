@@ -25,14 +25,14 @@ This function is particularly useful in scenarios where you need a temporary or 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MakeTupleTableSlot](MakeTupleTableSlot.md)
-  - TupleTableSlotOps
+  - [TupleTableSlotOps](../T/TupleTableSlotOps.md)
 
 - Called from (representative examples):
   - [table_slot_create](../t/table_slot_create.md)
   - [CatalogIndexInsert](../C/CatalogIndexInsert.md)
   - [ATRewriteTable](../A/ATRewriteTable.md)
-  - ExecInitJunkFilter
-  - BuildTupleHashTableExt
+  - [ExecInitJunkFilter](../E/ExecInitJunkFilter.md)
+  - [BuildTupleHashTableExt](../B/BuildTupleHashTableExt.md)
   - [init_sql_fcache](../i/init_sql_fcache.md)
 
 ## Notes and Other Information

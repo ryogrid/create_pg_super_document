@@ -71,15 +71,15 @@ TupleTableSlotOps implements the Strategy pattern to provide different behaviors
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TupleTableSlot
+  - [TupleTableSlot](TupleTableSlot.md)
   - HeapTuple
   - MinimalTuple
   - Datum
 - Called from (representative examples):
-  - MakeTupleTableSlot
-  - ExecAllocTableSlot
-  - table_slot_create
-  - slot_deform_heap_tuple
+  - [MakeTupleTableSlot](../M/MakeTupleTableSlot.md)
+  - [ExecAllocTableSlot](../E/ExecAllocTableSlot.md)
+  - [table_slot_create](../t/table_slot_create.md)
+  - [slot_deform_heap_tuple](../s/slot_deform_heap_tuple.md)
 
 ## Notes and Other Information
 - Different slot implementations include TTSOpsVirtual, TTSOpsHeapTuple, TTSOpsMinimalTuple, and TTSOpsBufferHeapTuple

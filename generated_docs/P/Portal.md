@@ -25,8 +25,8 @@ Portal is a fundamental abstraction in PostgreSQL's query execution system that 
   - [PerformPortalFetch](PerformPortalFetch.md)  
   - [PortalStart](PortalStart.md)
   - [PortalRun](PortalRun.md)
-  - CreatePortal
-  - PortalDrop
+  - [CreatePortal](../C/CreatePortal.md)
+  - [PortalDrop](PortalDrop.md)
   - [exec_simple_query](../e/exec_simple_query.md)
   - [exec_execute_message](../e/exec_execute_message.md)
   - [SPI_cursor_open](../S/SPI_cursor_open.md)

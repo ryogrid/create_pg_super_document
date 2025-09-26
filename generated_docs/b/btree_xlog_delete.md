@@ -34,13 +34,13 @@ The main difference from btree_xlog_vacuum is the conflict resolution step and t
   - XLogRecGetData
   - [XLogRecGetBlockTag](../X/XLogRecGetBlockTag.md)
   - [ResolveRecoveryConflictWithSnapshot](../R/ResolveRecoveryConflictWithSnapshot.md)
-  - XLogReadBufferForRedo
+  - [XLogReadBufferForRedo](../X/XLogReadBufferForRedo.md)
   - [XLogRecGetBlockData](../X/XLogRecGetBlockData.md)
   - [btree_xlog_updates](btree_xlog_updates.md)
   - [PageIndexMultiDelete](../P/PageIndexMultiDelete.md)
   - BTPageGetOpaque
   - [PageSetLSN](../P/PageSetLSN.md)
-  - MarkBufferDirty
+  - [MarkBufferDirty](../M/MarkBufferDirty.md)
 - Called from (representative examples):
   - [btree_redo](btree_redo.md)
 

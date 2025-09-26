@@ -24,7 +24,7 @@ The function performs validation on the magic number and ensures that block coun
 - Functions called/Symbols referenced:
   - [make_rfile](make_rfile.md)
   - [read_bytes](../r/read_bytes.md)
-  - pg_malloc0
+  - [pg_malloc0](../p/pg_malloc0.md)
   - [pg_fatal](../p/pg_fatal.md)
   - INCREMENTAL_MAGIC
   - RELSEG_SIZE

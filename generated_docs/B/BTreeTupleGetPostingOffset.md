@@ -21,10 +21,10 @@ This function retrieves the byte offset that points to the actual posting list d
   - [ItemPointerGetBlockNumberNoCheck](../I/ItemPointerGetBlockNumberNoCheck.md)
 - Called from (representative examples):
   - [_bt_dedup_start_pending](../b/_bt_dedup_start_pending.md)
-  - _bt_form_posting
-  - _bt_update_posting
+  - [_bt_form_posting](../b/_bt_form_posting.md)
+  - [_bt_update_posting](../b/_bt_update_posting.md)
   - [_bt_setuppostingitems](../b/_bt_setuppostingitems.md)
-  - _bt_sort_dedup_finish_pending
+  - [_bt_sort_dedup_finish_pending](../b/_bt_sort_dedup_finish_pending.md)
   - [_bt_recsplitloc](../b/_bt_recsplitloc.md)
   - [BTreeTupleGetPosting](BTreeTupleGetPosting.md)
 

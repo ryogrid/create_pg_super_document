@@ -30,7 +30,7 @@ A key aspect is the handling of RestrictInfo nodes: the function uses embedded R
 ## Dependencies
 - Functions called/Symbols referenced:
   - [is_orclause](../i/is_orclause.md)
-  - BoolExpr (struct access)
+  - [BoolExpr](../B/BoolExpr.md) (struct access)
   - [is_andclause](../i/is_andclause.md)  
   - [restriction_is_or_clause](../r/restriction_is_or_clause.md)
   - [extract_or_clause](extract_or_clause.md) (recursive call)

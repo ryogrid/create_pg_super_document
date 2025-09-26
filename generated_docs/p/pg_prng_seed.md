@@ -28,17 +28,17 @@ This approach ensures that even if consecutive or similar seed values are used, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - splitmix64 (called twice to generate s0 and s1 values)
-  - pg_prng_seed_check (called to validate the resulting state)
-  - pg_prng_state (state structure type)
+  - [splitmix64](../s/splitmix64.md) (called twice to generate s0 and s1 values)
+  - [pg_prng_seed_check](pg_prng_seed_check.md) (called to validate the resulting state)
+  - [pg_prng_state](pg_prng_state.md) (state structure type)
 - Called from (representative examples):
-  - InitProcessGlobals (process initialization)
-  - initialize_prng (pseudorandom function initialization)
-  - sampler_random_init_state (sampling utilities)
-  - choose_dsm_implementation (initdb)
-  - setup_publisher (pg_createsubscriber)
-  - initRandomState (pgbench)
-  - libpq_prng_init (libpq connection handling)
+  - [InitProcessGlobals](../I/InitProcessGlobals.md) (process initialization)
+  - [initialize_prng](../i/initialize_prng.md) (pseudorandom function initialization)
+  - [sampler_random_init_state](../s/sampler_random_init_state.md) (sampling utilities)
+  - [choose_dsm_implementation](../c/choose_dsm_implementation.md) (initdb)
+  - [setup_publisher](../s/setup_publisher.md) (pg_createsubscriber)
+  - [initRandomState](../i/initRandomState.md) (pgbench)
+  - [libpq_prng_init](../l/libpq_prng_init.md) (libpq connection handling)
   - Various test modules and utilities
 
 ## Notes and Other Information

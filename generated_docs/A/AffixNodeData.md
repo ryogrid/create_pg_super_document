@@ -30,7 +30,7 @@ The structure uses bit fields to pack the character value and affix count into a
 ## Dependencies
 - Functions called/Symbols referenced:
   - AFFIX (affix structure type)
-  - AffixNode (parent node structure)
+  - [AffixNode](AffixNode.md) (parent node structure)
 - Called from (representative examples):
   - [mkANode](../m/mkANode.md) (creates affix nodes)
   - [mkVoidAffix](../m/mkVoidAffix.md) (creates empty affix nodes)  

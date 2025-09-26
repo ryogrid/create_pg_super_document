@@ -63,15 +63,15 @@ The structure maintains both public and private fields, with clear separation be
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `RelFileLocatorBackend`
+  - `[RelFileLocatorBackend](../R/RelFileLocatorBackend.md)`
   - `MAX_FORKNUM`
-  - `_MdfdVec`
-  - `dlist_node`
+  - `[_MdfdVec](../M/_MdfdVec.md)`
+  - `[dlist_node](../d/dlist_node.md)`
 - Called from (representative examples):
-  - `smgropen`
-  - `smgrdestroyall`
-  - `BufferManagerRelation`
-  - `ReadBuffersOperation`
+  - `[smgropen](../s/smgropen.md)`
+  - `[smgrdestroyall](../s/smgrdestroyall.md)`
+  - `[BufferManagerRelation](../B/BufferManagerRelation.md)`
+  - `[ReadBuffersOperation](../R/ReadBuffersOperation.md)`
   - `BulkWriteBuffer`
 
 ## Notes and Other Information

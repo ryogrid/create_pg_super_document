@@ -30,8 +30,8 @@ The approach of resetting rather than deallocating tuplesort states avoids the o
 ## Dependencies
 - Functions called/Symbols referenced:
   - outerPlanState (gets outer child plan state)
-  - ExecClearTuple (clears tuple slots)
-  - tuplesort_reset (resets tuplesort states)
+  - [ExecClearTuple](ExecClearTuple.md) (clears tuple slots)
+  - [tuplesort_reset](../t/tuplesort_reset.md) (resets tuplesort states)
   - [ExecReScan](ExecReScan.md) (rescans outer child node)
 - Called from (representative examples):
   - [ExecReScan](ExecReScan.md) (main rescan dispatcher)

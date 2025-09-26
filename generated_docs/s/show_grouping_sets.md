@@ -28,11 +28,11 @@ This function displays comprehensive information about grouping sets, which are 
   - [ExplainCloseGroup](../E/ExplainCloseGroup.md): Closes the grouping section in the EXPLAIN output  
   - [show_grouping_set_keys](show_grouping_set_keys.md): Displays the actual grouping keys for each level
   - `lfirst`: List traversal macro for iterating through the aggregation chain
-  - `list_length`: Utility function to determine if table prefixes are needed
+  - `[list_length](../l/list_length.md)`: Utility function to determine if table prefixes are needed
   - [PlanState](../P/PlanState.md): Runtime state structure for plan execution
-  - `Agg`: Plan node structure containing aggregation and grouping set configuration
-  - `Sort`: Plan node structure for sorting operations in chained aggregations
-  - `ExplainState`: State structure for EXPLAIN command formatting
+  - `[Agg](../A/Agg.md)`: Plan node structure containing aggregation and grouping set configuration
+  - `[Sort](../S/Sort.md)`: Plan node structure for sorting operations in chained aggregations
+  - `[ExplainState](../E/ExplainState.md)`: State structure for EXPLAIN command formatting
 - Called from (representative examples):
   - [show_agg_keys](show_agg_keys.md): When the aggregation node has grouping sets defined (at line 2618)
 

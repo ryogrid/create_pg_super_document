@@ -26,14 +26,14 @@ The function's sophisticated error handling prevents the archiver process from r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - set_ps_display (update process title display)
+  - [set_ps_display](../s/set_ps_display.md) (update process title display)
   - sigsetjmp (set up exception handling)
   - [EmitErrorReport](../E/EmitErrorReport.md) (log errors)
   - HOLD_INTERRUPTS/RESUME_INTERRUPTS (interrupt control)
-  - disable_all_timeouts (cleanup timeouts)
-  - LWLockReleaseAll (release lightweight locks)
+  - [disable_all_timeouts](../d/disable_all_timeouts.md) (cleanup timeouts)
+  - [LWLockReleaseAll](../L/LWLockReleaseAll.md) (release lightweight locks)
   - [ConditionVariableCancelSleep](../C/ConditionVariableCancelSleep.md) (cancel condition variable waits)
-  - pgstat_report_wait_end (end statistics wait reporting)
+  - [pgstat_report_wait_end](pgstat_report_wait_end.md) (end statistics wait reporting)
   - [ReleaseAuxProcessResources](../R/ReleaseAuxProcessResources.md) (release auxiliary process resources)
   - [AtEOXact_Files](../A/AtEOXact_Files.md)/AtEOXact_HashTables (end-of-transaction cleanup)
   - [MemoryContextReset](../M/MemoryContextReset.md) (reset memory context)

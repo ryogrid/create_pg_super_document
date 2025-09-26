@@ -31,13 +31,13 @@ This centralization is important because many different subsystems need to ensur
   - AllocSetContextCreate (for creating the memory context)
   - ALLOCSET_DEFAULT_SIZES (macro providing standard size parameters)
 - Called from (representative examples):
-  - InitializeAttoptCache
+  - [InitializeAttoptCache](../I/InitializeAttoptCache.md)
   - [InitCatCache](../I/InitCatCache.md)
   - [BuildEventTriggerCache](../B/BuildEventTriggerCache.md)
   - [LookupOpclassInfo](../L/LookupOpclassInfo.md)
   - [RelationBuildLocalRelation](../R/RelationBuildLocalRelation.md)
   - [RelationCacheInitialize](../R/RelationCacheInitialize.md)
-  - InitializeRelfilenumberMap
+  - [InitializeRelfilenumberMap](../I/InitializeRelfilenumberMap.md)
   - [InitializeTableSpaceCache](../I/InitializeTableSpaceCache.md)
   - Various type and text search cache functions
 

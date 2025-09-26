@@ -34,7 +34,7 @@ Key features include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TSQueryParserState
+  - [TSQueryParserState](../T/TSQueryParserState.md)
   - t_iseq
   - [t_isspace](../t/t_isspace.md)
   - ISOPERATOR

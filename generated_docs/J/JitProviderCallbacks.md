@@ -25,7 +25,7 @@ JitProviderCallbacks serves as the plugin interface for JIT compilation provider
   - JitProviderReleaseContextCB (function pointer type)
   - JitProviderCompileExprCB (function pointer type)
   - [JitContext](JitContext.md) (parameter type for release_context)
-  - ExprState (parameter type for compile_expr)
+  - [ExprState](../E/ExprState.md) (parameter type for compile_expr)
   - [_PG_jit_provider_init](../P/_PG_jit_provider_init.md) (initialization function that receives this structure)
 - Called from (representative examples):
   - [_PG_jit_provider_init](../P/_PG_jit_provider_init.md) (in LLVM provider)

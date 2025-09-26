@@ -31,7 +31,7 @@ This function takes no parameters but maintains several static variables:
 ## Dependencies
 - Functions called/Symbols referenced:
   - AllocSetContextCreate (for creating memory context)
-  - MemoryContextAlloc (for memory allocation)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md) (for memory allocation)
   - TYPEALIGN (for memory alignment)
 - Constants referenced:
   - ALLOCSET_DEFAULT_SIZES
@@ -43,7 +43,7 @@ This function takes no parameters but maintains several static variables:
   - TopMemoryContext (parent memory context)
 - Called from (representative examples):
   - LocalBufHdrGetBlock
-  - GetLocalVictimBuffer
+  - [GetLocalVictimBuffer](GetLocalVictimBuffer.md)
 
 ## Notes and Other Information
 - The function is static, meaning it's only accessible within the localbuf.c file

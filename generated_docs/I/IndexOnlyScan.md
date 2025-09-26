@@ -36,18 +36,18 @@ Unlike regular IndexScan, all variables in IndexOnlyScan reference index columns
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Scan (inherited base structure)
+  - [Scan](../S/Scan.md) (inherited base structure)
   - ScanDirection (enumeration for scan direction)
   - Oid (object identifier type)
-  - List (PostgreSQL list type)
+  - [List](../L/List.md) (PostgreSQL list type)
 
 - Called from (representative examples):
-  - ExecInitIndexOnlyScan (executor initialization for index-only scans)
-  - IndexOnlyNext (main index-only scan execution function)
-  - make_indexonlyscan (planner utility to create IndexOnlyScan nodes)
-  - set_indexonlyscan_references (reference setting for index-only scans)
-  - ExplainNode (query explanation functionality)
-  - set_deparse_plan (plan deparsing for rule utilities)
+  - [ExecInitIndexOnlyScan](../E/ExecInitIndexOnlyScan.md) (executor initialization for index-only scans)
+  - [IndexOnlyNext](IndexOnlyNext.md) (main index-only scan execution function)
+  - [make_indexonlyscan](../m/make_indexonlyscan.md) (planner utility to create IndexOnlyScan nodes)
+  - [set_indexonlyscan_references](../s/set_indexonlyscan_references.md) (reference setting for index-only scans)
+  - [ExplainNode](../E/ExplainNode.md) (query explanation functionality)
+  - [set_deparse_plan](../s/set_deparse_plan.md) (plan deparsing for rule utilities)
 
 ## Notes and Other Information
 - Most efficient scan type when the index contains all required query columns (covering index)

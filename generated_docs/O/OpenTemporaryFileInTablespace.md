@@ -29,16 +29,16 @@ The function uses a specific naming scheme (PG_TEMP_FILE_PREFIX + ProcPid + coun
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TempTablespacePath (constructs temp directory path)
-  - PathNameOpenFile (opens/creates the file)
-  - MakePGDirectory (creates directory if needed)
+  - [TempTablespacePath](../T/TempTablespacePath.md) (constructs temp directory path)
+  - [PathNameOpenFile](../P/PathNameOpenFile.md) (opens/creates the file)
+  - [MakePGDirectory](../M/MakePGDirectory.md) (creates directory if needed)
   - PG_TEMP_FILE_PREFIX (constant prefix for temp files)
   - PG_BINARY (file mode constant)
   - MyProcPid (current process ID)
   - tempFileCounter (global counter for uniqueness)
 
 - Called from (representative examples):
-  - OpenTemporaryFile (main entry point for temp file creation)
+  - [OpenTemporaryFile](OpenTemporaryFile.md) (main entry point for temp file creation)
   - AllocateDesc (file descriptor allocation)
 
 ## Notes and Other Information

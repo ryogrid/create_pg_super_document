@@ -30,8 +30,8 @@ This function is recursion-safe and handles nested indirect datums by recursivel
   - VARATT_IS_COMPRESSED
   - VARATT_IS_SHORT
   - VARATT_EXTERNAL_GET_POINTER
-  - EOH_get_flat_size
-  - DatumGetEOHP
+  - [EOH_get_flat_size](../E/EOH_get_flat_size.md)
+  - [DatumGetEOHP](../D/DatumGetEOHP.md)
   - VARDATA_COMPRESSED_GET_EXTSIZE
   - VARSIZE_SHORT
   - VARSIZE

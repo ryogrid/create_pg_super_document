@@ -25,8 +25,8 @@ The function is part of PostgreSQL's character encoding conversion system that e
   - [pg_server_to_any](pg_server_to_any.md) (performs the actual encoding conversion)
   - ClientEncoding (global variable containing current client encoding info)
 - Called from (representative examples):
-  - pq_sendcountedtext (sends text with length prefix)
-  - pq_sendtext (sends text data in protocol messages)
+  - [pq_sendcountedtext](pq_sendcountedtext.md) (sends text with length prefix)
+  - [pq_sendtext](pq_sendtext.md) (sends text data in protocol messages)
   - [pq_sendstring](pq_sendstring.md) (sends null-terminated strings)
   - [pq_puttextmessage](pq_puttextmessage.md) (sends text messages to client)
   - [pq_writestring](pq_writestring.md) (writes strings to output buffer)

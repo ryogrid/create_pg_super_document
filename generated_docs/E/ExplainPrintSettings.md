@@ -26,14 +26,14 @@ The function only outputs information when the SETTINGS option is enabled in the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_explain_guc_options
+  - [get_explain_guc_options](../g/get_explain_guc_options.md)
   - [GetConfigOptionByName](../G/GetConfigOptionByName.md)
   - [ExplainOpenGroup](ExplainOpenGroup.md)
   - [ExplainCloseGroup](ExplainCloseGroup.md)
   - [ExplainPropertyText](ExplainPropertyText.md)
-  - initStringInfo
-  - appendStringInfoString
-  - appendStringInfo
+  - [initStringInfo](../i/initStringInfo.md)
+  - [appendStringInfoString](../a/appendStringInfoString.md)
+  - [appendStringInfo](../a/appendStringInfo.md)
 - Called from (representative examples):
   - [ExplainPrintPlan](ExplainPrintPlan.md)
 

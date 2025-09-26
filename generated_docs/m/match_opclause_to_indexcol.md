@@ -49,7 +49,7 @@ When standard operator matching fails, the function falls back to planner suppor
   - [op_in_opfamily](../o/op_in_opfamily.md)
   - [get_commutator](../g/get_commutator.md)
   - [commute_restrictinfo](../c/commute_restrictinfo.md)
-  - set_opfuncid
+  - [set_opfuncid](../s/set_opfuncid.md)
   - [get_index_clause_from_support](../g/get_index_clause_from_support.md)
   - linitial/lsecond (list access)
   - makeNode (IndexClause creation)

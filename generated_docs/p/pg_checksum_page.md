@@ -29,7 +29,7 @@ The algorithm includes several important safety measures:
   - [pg_checksum_block](pg_checksum_block.md) (core checksum computation function)
 - Called from (representative examples):
   - [verify_page_checksum](../v/verify_page_checksum.md) (in basebackup.c)
-  - PageIsVerifiedExtended (in bufpage.c)
+  - [PageIsVerifiedExtended](../P/PageIsVerifiedExtended.md) (in bufpage.c)
   - [PageSetChecksumCopy](../P/PageSetChecksumCopy.md) (in bufpage.c)
   - [PageSetChecksumInplace](../P/PageSetChecksumInplace.md) (in bufpage.c)
   - [scan_file](../s/scan_file.md) (in pg_checksums.c)

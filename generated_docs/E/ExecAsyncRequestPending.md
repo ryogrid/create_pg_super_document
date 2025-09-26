@@ -31,8 +31,8 @@ The asynchronous execution framework allows nodes to request tuples from other n
   - [AsyncRequest](../A/AsyncRequest.md) (struct type from execnodes.h)
 - Called from (representative examples):
   - Async-capable node implementations (e.g., ForeignScan nodes)
-  - ExecAsyncRequest callbacks
-  - ExecAsyncNotify callbacks
+  - [ExecAsyncRequest](ExecAsyncRequest.md) callbacks
+  - [ExecAsyncNotify](ExecAsyncNotify.md) callbacks
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's asynchronous execution framework introduced for better performance with parallel operations and foreign data wrappers

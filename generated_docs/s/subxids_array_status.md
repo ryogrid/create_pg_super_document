@@ -30,7 +30,7 @@ The enum is essential for hot standby operations and WAL replay, where accurate 
 ## Dependencies
 - Functions called/Symbols referenced: (None - this is an enum definition)
 - Called from (representative examples):
-  - RunningTransactionsData (as a member field)
+  - [RunningTransactionsData](../R/RunningTransactionsData.md) (as a member field)
 
 ## Notes and Other Information
 - This enum is crucial for determining how to handle subtransaction visibility during WAL replay and hot standby operations

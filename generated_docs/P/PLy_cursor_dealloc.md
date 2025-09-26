@@ -24,7 +24,7 @@ The function follows Python's object deallocation protocol by calling the type's
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetPortalByName
+  - [GetPortalByName](../G/GetPortalByName.md)
   - PortalIsValid
   - [UnpinPortal](../U/UnpinPortal.md)
   - [SPI_cursor_close](../S/SPI_cursor_close.md)

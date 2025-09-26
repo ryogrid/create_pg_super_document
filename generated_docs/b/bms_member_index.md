@@ -29,8 +29,8 @@ This function calculates the ordinal position of member `x` within the bitmap se
   - bitmapword (type for bitmap word storage)
 - Called from (representative examples):
   - [clauselist_apply_dependencies](../c/clauselist_apply_dependencies.md) (statistics dependency analysis)
-  - mcv_match_expression (most common values statistics)
-  - mcv_get_match_bitmap (bitmap matching for statistics)
+  - [mcv_match_expression](../m/mcv_match_expression.md) (most common values statistics)
+  - [mcv_get_match_bitmap](../m/mcv_get_match_bitmap.md) (bitmap matching for statistics)
 
 ## Notes and Other Information
 This function is primarily used in PostgreSQL's extended statistics system where the order of attributes or expressions within a bitmap needs to be determined for statistical calculations. The 0-based indexing makes it suitable for array indexing operations. The function is optimized to avoid unnecessary computation by first checking membership and by skipping population counts for zero words. The masking operation in the final word ensures that only bits preceding the target bit are counted, maintaining the correct 0-based index semantics.

@@ -25,7 +25,7 @@ The function includes a static assertion to ensure that the semaphore field in t
   - [pg_atomic_uint32](pg_atomic_uint32.md) (structure type)
   - StaticAssertDecl (compile-time assertion macro)
   - [slock_t](../s/slock_t.md) (spinlock type)
-  - s_init_lock_sema (semaphore-based lock initialization)
+  - [s_init_lock_sema](../s/s_init_lock_sema.md) (semaphore-based lock initialization)
   - SpinLockInit (spinlock initialization)
 - Called from (representative examples):
   - [pg_atomic_init_u32](pg_atomic_init_u32.md) (wrapper function in atomics.h)

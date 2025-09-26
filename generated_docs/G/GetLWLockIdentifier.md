@@ -26,12 +26,12 @@ This function serves as an interface layer between PostgreSQL's wait event monit
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_WAIT_LWLOCK (constant for LWLock wait event class)
-  - GetLWTrancheName (function to retrieve tranche name from tranche ID)
+  - [GetLWTrancheName](GetLWTrancheName.md) (function to retrieve tranche name from tranche ID)
   - Assert (assertion macro for parameter validation)
 
 - Called from (representative examples):
-  - pgstat_get_wait_event (wait event statistics collection)
-  - LWLockMode (related to LWLock mode operations in header definitions)
+  - [pgstat_get_wait_event](../p/pgstat_get_wait_event.md) (wait event statistics collection)
+  - [LWLockMode](../L/LWLockMode.md) (related to LWLock mode operations in header definitions)
 
 ## Notes and Other Information
 - This function is part of the public API (non-static) and can be called from other modules

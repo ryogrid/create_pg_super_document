@@ -35,7 +35,7 @@ The function iterates through all outgoing arcs of the old state and creates cor
   - [sortouts_cmp](../s/sortouts_cmp.md) (in conditional compilation sections)
   - NOTREACHED (in conditional compilation sections)
 - Called from (representative examples):
-  - push
+  - [push](../p/push.md)
   - [makesearch](../m/makesearch.md)
 
 ## Notes and Other Information

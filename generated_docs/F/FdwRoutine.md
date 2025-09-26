@@ -149,7 +149,7 @@ The structure is organized into several functional groups: basic scanning operat
   - [GetFdwRoutineByRelId](../G/GetFdwRoutineByRelId.md)
   - [GetFdwRoutineForRelation](../G/GetFdwRoutineForRelation.md)
   - [ExecInitForeignScan](../E/ExecInitForeignScan.md)
-  - make_modifytable
+  - [make_modifytable](../m/make_modifytable.md)
   - [select_rowmark_type](../s/select_rowmark_type.md)
   - [analyze_rel](../a/analyze_rel.md)
   - [show_foreignscan_info](../s/show_foreignscan_info.md)

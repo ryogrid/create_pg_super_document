@@ -46,18 +46,18 @@ The statement supports both session-level and transaction-level variable modific
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (parse tree node identification)
-  - VariableSetKind (enumeration for SET operation types)
-  - List (PostgreSQL list data structure)
-  - A_Const (constant value nodes)
+  - [VariableSetKind](VariableSetKind.md) (enumeration for SET operation types)
+  - [List](../L/List.md) (PostgreSQL list data structure)
+  - [A_Const](../A/A_Const.md) (constant value nodes)
 
 - Called from (representative examples):
-  - AlterSetting
-  - update_proconfig_value
-  - PlannedStmtRequiresSnapshot
-  - standard_ProcessUtility
-  - CreateCommandTag
-  - ExecSetVariableStmt
-  - ExtractSetVariableArgs
+  - [AlterSetting](../A/AlterSetting.md)
+  - [update_proconfig_value](../u/update_proconfig_value.md)
+  - [PlannedStmtRequiresSnapshot](../P/PlannedStmtRequiresSnapshot.md)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md)
+  - [CreateCommandTag](../C/CreateCommandTag.md)
+  - [ExecSetVariableStmt](../E/ExecSetVariableStmt.md)
+  - [ExtractSetVariableArgs](../E/ExtractSetVariableArgs.md)
 
 ## Notes and Other Information
 - The structure handles both SET and RESET commands despite their semantic differences

@@ -32,7 +32,7 @@ Join alias variables are used internally by PostgreSQL to represent the output c
 ## Notes and Other Information
 - This flag specifically affects RTE_JOIN type range table entries
 - When set, the joinaliasvars field of JOIN range table entries is skipped during traversal
-- Join alias variables represent the output column structure of JOIN operations
+- [Join](../J/Join.md) alias variables represent the output column structure of JOIN operations
 - Used in dependency analysis to control which references are tracked
 - Applied in lock management to avoid processing join column mappings
 - The flag is checked using bitwise AND operation: `!(flags & QTW_IGNORE_JOINALIASES)`

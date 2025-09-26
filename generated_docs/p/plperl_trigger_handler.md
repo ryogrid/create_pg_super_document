@@ -23,7 +23,7 @@ The function builds the `$_TD` hash containing trigger metadata and row data, ex
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SPI_connect / SPI_finish (SPI connection management)
+  - [SPI_connect](../S/SPI_connect.md) / SPI_finish (SPI connection management)
   - [SPI_register_trigger_data](../S/SPI_register_trigger_data.md) (transition table support)
   - [compile_plperl_function](../c/compile_plperl_function.md) (function compilation)
   - increment_prodesc_refcount (reference counting)

@@ -35,10 +35,10 @@ The function includes safety assertions to prevent out-of-bounds memory access w
 - Functions called/Symbols referenced:
   - [pg_tzset](../p/pg_tzset.md) (load timezone from system database)
 - Data structures referenced:
-  - DynamicZoneAbbrev (dynamic timezone abbreviation structure)
+  - [DynamicZoneAbbrev](../D/DynamicZoneAbbrev.md) (dynamic timezone abbreviation structure)
   - datetkn (timezone token structure)
-  - TimeZoneAbbrevTable (timezone abbreviation table)
-  - DateTimeErrorExtra (error context structure)
+  - [TimeZoneAbbrevTable](../T/TimeZoneAbbrevTable.md) (timezone abbreviation table)
+  - [DateTimeErrorExtra](../D/DateTimeErrorExtra.md) (error context structure)
 - Called from (representative examples):
   - [DecodeTimezoneAbbrev](../D/DecodeTimezoneAbbrev.md) (src/backend/utils/adt/datetime.c:3120)
   - [DecodeTimezoneAbbrevPrefix](../D/DecodeTimezoneAbbrevPrefix.md) (src/backend/utils/adt/datetime.c:3310)

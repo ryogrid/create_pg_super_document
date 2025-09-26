@@ -21,7 +21,7 @@ The function iterates through all placeholders in the planner's placeholder list
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PlaceHolderInfo (struct type)
+  - [PlaceHolderInfo](../P/PlaceHolderInfo.md) (struct type)
   - [pull_var_clause](../p/pull_var_clause.md) (extracts variables from expression nodes)
   - PVC_RECURSE_AGGREGATES (flag for variable extraction)
   - PVC_RECURSE_WINDOWFUNCS (flag for variable extraction)

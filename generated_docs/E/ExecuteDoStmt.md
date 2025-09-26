@@ -29,7 +29,7 @@ The function creates an InlineCodeBlock structure containing the source code and
   - [SearchSysCache1](../S/SearchSysCache1.md) (language lookup)
   - [extension_file_exists](../e/extension_file_exists.md) (extension existence check)
   - [object_aclcheck](../o/object_aclcheck.md) (permission checking)
-  - superuser (superuser check)
+  - [superuser](../s/superuser.md) (superuser check)
   - [aclcheck_error](../a/aclcheck_error.md) (permission error reporting)
   - OidFunctionCall1 (inline handler execution)
 - Called from (representative examples):

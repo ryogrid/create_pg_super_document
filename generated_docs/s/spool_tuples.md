@@ -25,12 +25,12 @@ The function operates in the query memory context when calling the outer plan an
 ## Dependencies
 - Functions called/Symbols referenced:
   - outerPlanState
-  - ExecProcNode
+  - [ExecProcNode](../E/ExecProcNode.md)
   - TupIsNull
   - [tuplestore_in_memory](../t/tuplestore_in_memory.md)
-  - ExecQualAndReset
-  - ExecCopySlot
-  - tuplestore_puttupleslot
+  - [ExecQualAndReset](../E/ExecQualAndReset.md)
+  - [ExecCopySlot](../E/ExecCopySlot.md)
+  - [tuplestore_puttupleslot](../t/tuplestore_puttupleslot.md)
 - Called from (representative examples):
   - [update_frameheadpos](../u/update_frameheadpos.md)
   - [update_frametailpos](../u/update_frametailpos.md)

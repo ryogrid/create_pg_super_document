@@ -21,8 +21,8 @@ This function manages block selection and positioning during sample scans of hea
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TsmRoutine.NextSampleBlock (custom sampling method)
-  - ReleaseBuffer (buffer management)
+  - [TsmRoutine](../T/TsmRoutine.md).NextSampleBlock (custom sampling method)
+  - [ReleaseBuffer](../R/ReleaseBuffer.md) (buffer management)
   - [ss_report_location](../s/ss_report_location.md) (scan synchronization)
   - CHECK_FOR_INTERRUPTS (interrupt handling)
   - [ReadBufferExtended](../R/ReadBufferExtended.md) (buffer reading)

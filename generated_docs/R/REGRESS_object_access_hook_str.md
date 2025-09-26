@@ -32,7 +32,7 @@ The function specifically handles parameter access control by checking various A
   - [audit_attempt](../a/audit_attempt.md)
   - [accesstype_to_string](../a/accesstype_to_string.md)
   - [audit_success](../a/audit_success.md)
-  - superuser_arg
+  - [superuser_arg](../s/superuser_arg.md)
   - [GetUserId](../G/GetUserId.md)
   - ereport
   - [errcode](../e/errcode.md)

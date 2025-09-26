@@ -29,19 +29,19 @@ The history file format consists of lines containing: timeline_id, switchpoint_l
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TLHistoryFileName - constructs timeline history filename
+  - [TLHistoryFileName](../T/TLHistoryFileName.md) - constructs timeline history filename
   - [RestoreArchivedFile](../R/RestoreArchivedFile.md) - restores archived file during recovery
-  - TLHistoryFilePath - constructs local path to history file
-  - AllocateFile - opens the history file for reading
-  - FreeFile - closes the file handle
+  - [TLHistoryFilePath](../T/TLHistoryFilePath.md) - constructs local path to history file
+  - [AllocateFile](../A/AllocateFile.md) - opens the history file for reading
+  - [FreeFile](../F/FreeFile.md) - closes the file handle
   - [palloc](../p/palloc.md) - allocates memory for timeline entries
   - [lcons](../l/lcons.md) - prepends entries to the result list
   - [KeepFileRestoredFromArchive](../K/KeepFileRestoredFromArchive.md) - preserves restored archive file
-  - pgstat_report_wait_start/end - reports wait events for monitoring
+  - [pgstat_report_wait_start](../p/pgstat_report_wait_start.md)/end - reports wait events for monitoring
 - Called from (representative examples):
   - [WaitForWALToBecomeAvailable](../W/WaitForWALToBecomeAvailable.md) - during WAL recovery
-  - [rescanLatestTimeLine](rescanLatestTimeLine.md) - when rescanning timeline information
-  - [XLogFileReadAnyTLI](../X/XLogFileReadAnyTLI.md) - when reading WAL files across timelines
+  - [rescanLatestTimeLine](rescanLatestTimeLine.md) - [when](../w/when.md) rescanning timeline information
+  - [XLogFileReadAnyTLI](../X/XLogFileReadAnyTLI.md) - [when](../w/when.md) reading WAL files across timelines
   - [StartReplication](../S/StartReplication.md) - during replication setup
   - various backup and WAL summarizer functions
 

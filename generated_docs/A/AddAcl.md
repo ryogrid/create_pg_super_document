@@ -19,7 +19,7 @@ This function is used to build comma-separated lists of privilege keywords when 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendPQExpBufferChar
+  - [appendPQExpBufferChar](../a/appendPQExpBufferChar.md)
   - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)  
   - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
 - Called from (representative examples):

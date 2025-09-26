@@ -27,7 +27,7 @@ The function is conservative in its approach - it only approves subqueries that 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SetOperationStmt
+  - [SetOperationStmt](../S/SetOperationStmt.md)
   - CMD_SELECT  
   - [is_simple_union_all_recurse](is_simple_union_all_recurse.md)
 - Called from:

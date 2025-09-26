@@ -29,13 +29,13 @@ This function is called by the leader process in parallel query execution and au
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsParallelWorker
-  - dshash_create
-  - dshash_get_hash_table_handle
+  - [dshash_create](../d/dshash_create.md)
+  - [dshash_get_hash_table_handle](../d/dshash_get_hash_table_handle.md)
   - [pg_atomic_init_u32](../p/pg_atomic_init_u32.md)
   - [share_tupledesc](../s/share_tupledesc.md)
   - [dshash_find_or_insert](../d/dshash_find_or_insert.md)
   - [dshash_release_lock](../d/dshash_release_lock.md)
-  - on_dsm_detach
+  - [on_dsm_detach](../o/on_dsm_detach.md)
   - [shared_record_typmod_registry_detach](../s/shared_record_typmod_registry_detach.md)
 - Called from (representative examples):
   - [GetSessionDsmHandle](../G/GetSessionDsmHandle.md)

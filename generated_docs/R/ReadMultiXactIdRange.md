@@ -23,8 +23,8 @@ This function is essential for operations that need to understand the valid rang
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire (with MultiXactGenLock, LW_SHARED)
-  - LWLockRelease (with MultiXactGenLock)
+  - [LWLockAcquire](../L/LWLockAcquire.md) (with MultiXactGenLock, LW_SHARED)
+  - [LWLockRelease](../L/LWLockRelease.md) (with MultiXactGenLock)
   - MultiXactState (global state structure)
   - FirstMultiXactId (minimum valid MultiXact ID constant)
 - Called from (representative examples):

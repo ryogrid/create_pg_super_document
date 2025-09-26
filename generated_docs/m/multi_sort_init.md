@@ -28,7 +28,7 @@ The resulting structure provides a framework for setting up sort operations acro
 ## Dependencies
 - Functions called/Symbols referenced:
   - MultiSortSupport, MultiSortSupportData (type definitions for sort support)
-  - SortSupportData (individual column sort support structure)
+  - [SortSupportData](../S/SortSupportData.md) (individual column sort support structure)
   - [palloc0](../p/palloc0.md) (zero-initialized memory allocation)
   - offsetof (structure offset calculation macro)
 - Called from (representative examples):

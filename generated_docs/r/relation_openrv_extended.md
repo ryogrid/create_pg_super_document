@@ -37,7 +37,7 @@ This function is particularly useful for operations that need to conditionally w
   - OidIsValid - Checks if an OID is valid
 
 - Called from (representative examples):
-  - table_openrv_extended - Extended table opening with missing_ok
+  - [table_openrv_extended](../t/table_openrv_extended.md) - Extended table opening with missing_ok
   - [get_relation_by_qualified_name](../g/get_relation_by_qualified_name.md) - Object address resolution with optional existence
   - [get_object_address_publication_rel](../g/get_object_address_publication_rel.md) - [Publication](../P/Publication.md) relation address resolution
 

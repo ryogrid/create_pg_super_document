@@ -31,8 +31,8 @@ The function acquires an exclusive lock on the control file to ensure atomic upd
 - Functions called/Symbols referenced:
   - XLogRecPtrIsInvalid
   - [GetCurrentReplayRecPtr](../G/GetCurrentReplayRecPtr.md)
-  - UpdateControlFile
-  - LWLockAcquire/LWLockRelease
+  - [UpdateControlFile](UpdateControlFile.md)
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease
 - Called from (representative examples):
   - RefreshXLogWriteResult
   - [XLogFlush](../X/XLogFlush.md)

@@ -30,7 +30,7 @@ The smgrextend function is a storage manager interface for extending relation fi
   - InvalidBlockNumber (constant for invalid block number)
 - Called from (representative examples):
   - [_hash_alloc_buckets](../h/_hash_alloc_buckets.md) (hash index bucket allocation)
-  - RelationCopyStorageUsingBuffer (relation copying utility)
+  - [RelationCopyStorageUsingBuffer](../R/RelationCopyStorageUsingBuffer.md) (relation copying utility)
   - [smgr_bulk_flush](smgr_bulk_flush.md) (bulk write operations)
 
 ## Notes and Other Information

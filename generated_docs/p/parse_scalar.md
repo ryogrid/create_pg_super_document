@@ -22,14 +22,14 @@ parse_scalar handles the parsing of JSON scalar values within the recursive desc
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lex_peek](../l/lex_peek.md) (for token lookahead and validation)
-  - report_parse_error (for invalid token error reporting)
-  - json_lex (for token consumption)
+  - [report_parse_error](../r/report_parse_error.md) (for invalid token error reporting)
+  - [json_lex](../j/json_lex.md) (for token consumption)
   - [pstrdup](pstrdup.md) (for string duplication)
   - [palloc](palloc.md)/memcpy (for raw lexeme extraction)
 - Called from (representative examples):
   - [pg_parse_json](pg_parse_json.md) (src/common/jsonapi.c:569) - for bare scalar JSON values
   - [parse_object_field](parse_object_field.md) (src/common/jsonapi.c:1098) - for object field values
-  - parse_array_element (src/common/jsonapi.c:1215) - for array element values
+  - [parse_array_element](parse_array_element.md) (src/common/jsonapi.c:1215) - for array element values
 
 ## Notes and Other Information
 The function is declared as static inline for performance optimization within the parser. It distinguishes between string tokens (which provide processed string data) and other scalar tokens (which require raw lexeme extraction). The semantic callback receives both the extracted value and the original token type for proper type handling. If no semantic function is provided, the function simply consumes the token without further processing. Token validation ensures only valid scalar types are accepted, returning parse errors for invalid tokens.

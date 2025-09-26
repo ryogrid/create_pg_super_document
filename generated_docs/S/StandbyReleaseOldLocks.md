@@ -22,18 +22,18 @@ The function iterates through all entries in the RecoveryLockXidHash and applies
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_seq_init (initialize hash table sequential scan)
-  - hash_seq_search (iterate through hash table entries)
-  - StandbyTransactionIdIsPrepared (check if transaction is prepared)
-  - TransactionIdPrecedes (compare transaction ID precedence)
-  - StandbyReleaseXidEntryLocks (release locks for individual transaction)
-  - hash_search (remove entries from hash table with HASH_REMOVE)
+  - [hash_seq_init](../h/hash_seq_init.md) (initialize hash table sequential scan)
+  - [hash_seq_search](../h/hash_seq_search.md) (iterate through hash table entries)
+  - [StandbyTransactionIdIsPrepared](StandbyTransactionIdIsPrepared.md) (check if transaction is prepared)
+  - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md) (compare transaction ID precedence)
+  - [StandbyReleaseXidEntryLocks](StandbyReleaseXidEntryLocks.md) (release locks for individual transaction)
+  - [hash_search](../h/hash_search.md) (remove entries from hash table with HASH_REMOVE)
 - Data structures used:
-  - HASH_SEQ_STATUS
-  - RecoveryLockXidEntry
+  - [HASH_SEQ_STATUS](../H/HASH_SEQ_STATUS.md)
+  - [RecoveryLockXidEntry](../R/RecoveryLockXidEntry.md)
   - RecoveryLockXidHash
 - Called from (representative examples):
-  - ProcArrayApplyRecoveryInfo (src/backend/storage/ipc/procarray.c:1084)
+  - [ProcArrayApplyRecoveryInfo](../P/ProcArrayApplyRecoveryInfo.md) (src/backend/storage/ipc/procarray.c:1084)
 
 ## Notes and Other Information
 - This function implements selective lock cleanup based on transaction age and status

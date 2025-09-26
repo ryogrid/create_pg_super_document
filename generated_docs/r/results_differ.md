@@ -26,7 +26,7 @@ This function is the core comparison engine for PostgreSQL's regression testing 
   - [get_alternative_expectfile](../g/get_alternative_expectfile.md) (numbered alternative file generation)
   - [run_diff](run_diff.md) (diff command execution)
   - [file_line_count](../f/file_line_count.md), file_exists (file utility functions)
-  - strlcpy, unlink, fopen (system functions)
+  - [strlcpy](../s/strlcpy.md), unlink, fopen (system functions)
   - bail (error handling)
 - Called from (representative examples):
   - [run_single_test](run_single_test.md) (in src/test/regress/pg_regress.c:1879)

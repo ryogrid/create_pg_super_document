@@ -44,7 +44,7 @@ This state tracking is essential for PostgreSQL's transactional behavior, ensuri
 ## Dependencies
 - Functions called/Symbols referenced: None (enum definition)
 - Called from (representative examples):
-  - guc_stack struct (src/include/utils/guc_tables.h:121) - uses GucStackState as the 'state' field
+  - [guc_stack](../g/guc_stack.md) struct (src/include/utils/guc_tables.h:121) - uses GucStackState as the 'state' field
 
 ## Notes and Other Information
 - The comment indicates this is "almost GucAction, but we need a fourth state for SET+LOCAL", showing it's an extension of a simpler state model

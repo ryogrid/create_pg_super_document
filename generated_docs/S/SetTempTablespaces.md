@@ -24,7 +24,7 @@ The tablespace array may contain `InvalidOid` entries, which indicate that the c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `pg_prng_uint64_range` - Generates random number for starting position selection
+  - `[pg_prng_uint64_range](../p/pg_prng_uint64_range.md)` - Generates random number for starting position selection
   - `pg_global_prng_state` (global variable) - Global pseudo-random number generator state
 
 - Global variables modified:
@@ -33,8 +33,8 @@ The tablespace array may contain `InvalidOid` entries, which indicate that the c
   - `nextTempTableSpace` - Stores the index of the next tablespace to use
 
 - Called from (representative examples):
-  - `assign_temp_tablespaces` (src/backend/commands/tablespace.c:1318, 1320)
-  - `PrepareTempTablespaces` (src/backend/commands/tablespace.c:1360, 1412)
+  - `[assign_temp_tablespaces](../a/assign_temp_tablespaces.md)` (src/backend/commands/tablespace.c:1318, 1320)
+  - `[PrepareTempTablespaces](../P/PrepareTempTablespaces.md)` (src/backend/commands/tablespace.c:1360, 1412)
 
 ## Notes and Other Information
 - The caller is responsible for ensuring the tableSpaces array has adequate lifespan, typically allocated in TopTransactionContext

@@ -31,15 +31,15 @@ The function creates a binary file containing the SnapBuildOnDisk structure, whi
 - Functions called/Symbols referenced:
   - [ReorderBufferGetCatalogChangesXacts](../R/ReorderBufferGetCatalogChangesXacts.md)
   - [dclist_count](../d/dclist_count.md)
-  - OpenTransientFile
+  - [OpenTransientFile](../O/OpenTransientFile.md)
   - write/pg_fsync/CloseTransientFile
   - [fsync_fname](../f/fsync_fname.md)
   - rename
-  - ReorderBufferSetRestartPoint
+  - [ReorderBufferSetRestartPoint](../R/ReorderBufferSetRestartPoint.md)
   - SNAPBUILD_MAGIC/SNAPBUILD_VERSION (constants)
   - CRC32C checksum functions (INIT_CRC32C, COMP_CRC32C, FIN_CRC32C)
 - Called from (representative examples):
-  - SnapBuildProcessRunningXacts
+  - [SnapBuildProcessRunningXacts](SnapBuildProcessRunningXacts.md)
   - [SnapBuildSerializationPoint](SnapBuildSerializationPoint.md)
 
 ## Notes and Other Information

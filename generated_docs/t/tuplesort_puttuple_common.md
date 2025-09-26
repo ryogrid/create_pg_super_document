@@ -37,23 +37,23 @@ The function includes sophisticated heuristics for determining when to switch fr
 - Functions called/Symbols referenced:
   - `LEADER`: Macro to check if this is a leader process
   - `USEMEM`: Macro for memory usage tracking
-  - `consider_abort_common`: Determines if abbreviated key optimization should be aborted
+  - `[consider_abort_common](../c/consider_abort_common.md)`: Determines if abbreviated key optimization should be aborted
   - `REMOVEABBREV`: Macro to remove abbreviated keys from existing tuples
-  - `grow_memtuples`: Expands the memtuples array when needed
+  - `[grow_memtuples](../g/grow_memtuples.md)`: Expands the memtuples array when needed
   - `LACKMEM`: Macro to check if memory is insufficient
-  - `make_bounded_heap`: Converts to bounded heap sorting
-  - `inittapes`: Initializes tape-based sorting
-  - `dumptuples`: Writes tuples to tape
+  - `[make_bounded_heap](../m/make_bounded_heap.md)`: Converts to bounded heap sorting
+  - `[inittapes](../i/inittapes.md)`: Initializes tape-based sorting
+  - `[dumptuples](../d/dumptuples.md)`: Writes tuples to tape
   - `COMPARETUP`: Macro for tuple comparison
-  - `free_sort_tuple`: Frees tuple memory
-  - `tuplesort_heap_replace_top`: Replaces heap root in bounded sort
+  - `[free_sort_tuple](../f/free_sort_tuple.md)`: Frees tuple memory
+  - `[tuplesort_heap_replace_top](tuplesort_heap_replace_top.md)`: Replaces heap root in bounded sort
 
 - Called from (representative examples):
-  - `tuplesort_puttupleslot` (src/backend/utils/sort/tuplesortvariants.c:696)
-  - `tuplesort_putheaptuple` (src/backend/utils/sort/tuplesortvariants.c:739)
-  - `tuplesort_putindextuplevalues` (src/backend/utils/sort/tuplesortvariants.c:778)
-  - `tuplesort_putbrintuple` (src/backend/utils/sort/tuplesortvariants.c:812)
-  - `tuplesort_putdatum` (src/backend/utils/sort/tuplesortvariants.c:862)
+  - `[tuplesort_puttupleslot](tuplesort_puttupleslot.md)` (src/backend/utils/sort/tuplesortvariants.c:696)
+  - `[tuplesort_putheaptuple](tuplesort_putheaptuple.md)` (src/backend/utils/sort/tuplesortvariants.c:739)
+  - `[tuplesort_putindextuplevalues](tuplesort_putindextuplevalues.md)` (src/backend/utils/sort/tuplesortvariants.c:778)
+  - `[tuplesort_putbrintuple](tuplesort_putbrintuple.md)` (src/backend/utils/sort/tuplesortvariants.c:812)
+  - `[tuplesort_putdatum](tuplesort_putdatum.md)` (src/backend/utils/sort/tuplesortvariants.c:862)
 
 ## Notes and Other Information
 - The function operates within the sort context memory context for proper memory management

@@ -36,7 +36,7 @@ The function validates input strictly, rejecting malformed addresses and ensurin
   - pg_hton32
 - Called from (representative examples):
   - [pq_verify_peer_name_matches_certificate_ip](../p/pq_verify_peer_name_matches_certificate_ip.md)
-  - is_ip_address
+  - [is_ip_address](is_ip_address.md)
 
 ## Notes and Other Information
 - Returns 1 on successful conversion, 0 on failure

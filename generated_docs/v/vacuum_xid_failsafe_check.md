@@ -24,7 +24,7 @@ The function uses configurable thresholds (vacuum_failsafe_age and vacuum_multix
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReadNextTransactionId
+  - [ReadNextTransactionId](../R/ReadNextTransactionId.md)
   - [ReadNextMultiXactId](../R/ReadNextMultiXactId.md)
   - TransactionIdIsNormal
   - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)

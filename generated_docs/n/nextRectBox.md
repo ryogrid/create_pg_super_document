@@ -31,7 +31,7 @@ The algorithm either sets a low boundary (if the bit is set) or a high boundary 
 ## Dependencies
 - Functions called/Symbols referenced:
   - RectBox (4D rectangular constraint structure)
-  - RangeBox (4D range representation structure)
+  - [RangeBox](../R/RangeBox.md) (4D range representation structure)
   - [palloc](../p/palloc.md) (PostgreSQL memory allocation function)
   - memcpy (memory copy function)
 - Called from (representative examples):

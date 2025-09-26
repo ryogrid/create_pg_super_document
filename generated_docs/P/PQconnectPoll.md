@@ -23,10 +23,10 @@ This function implements the core non-blocking connection establishment mechanis
   - [libpq_append_conn_error](../l/libpq_append_conn_error.md): Appends error messages to connection
   - [release_conn_addrinfo](../r/release_conn_addrinfo.md): Releases address information for previous host
   - [pqParseIntParam](../p/pqParseIntParam.md): Parses integer parameters like port numbers
-  - `pg_getaddrinfo_all`: Resolves hostnames to network addresses
+  - `[pg_getaddrinfo_all](../p/pg_getaddrinfo_all.md)`: Resolves hostnames to network addresses
   - [store_conn_addrinfo](../s/store_conn_addrinfo.md): Stores address information in connection structure
-  - `pg_freeaddrinfo_all`: Frees address information
-  - `pg_prng_uint64_range`: Generates random numbers for load balancing
+  - `[pg_freeaddrinfo_all](../p/pg_freeaddrinfo_all.md)`: Frees address information
+  - `[pg_prng_uint64_range](../p/pg_prng_uint64_range.md)`: Generates random numbers for load balancing
   - [pqDropConnection](../p/pqDropConnection.md): Closes existing connection
   - [pqDropServerData](../p/pqDropServerData.md): Clears server-specific data
   - [pqClearAsyncResult](../p/pqClearAsyncResult.md): Clears asynchronous result data

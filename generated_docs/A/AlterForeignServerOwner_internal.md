@@ -22,9 +22,9 @@ This internal function handles the core logic for changing the ownership of a fo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - superuser: Check if current user has superuser privileges
+  - [superuser](../s/superuser.md): Check if current user has superuser privileges
   - [object_ownercheck](../o/object_ownercheck.md): Verify current user owns the foreign server
-  - check_can_set_role: Validate ability to become the new owner
+  - [check_can_set_role](../c/check_can_set_role.md): Validate ability to become the new owner
   - [object_aclcheck](../o/object_aclcheck.md): Check new owner has USAGE privilege on FDW
   - [GetForeignDataWrapper](../G/GetForeignDataWrapper.md): Retrieve FDW information for error reporting
   - [aclnewowner](../a/aclnewowner.md): Update ACL with new owner information

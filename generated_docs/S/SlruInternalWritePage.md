@@ -36,7 +36,7 @@ The function is designed to be called only once per write attempt, meaning it ma
   - [SimpleLruGetBankLock](SimpleLruGetBankLock.md)  
   - [SimpleLruWaitIO](SimpleLruWaitIO.md)
   - [SlruPhysicalWritePage](SlruPhysicalWritePage.md)
-  - CloseTransientFile
+  - [CloseTransientFile](../C/CloseTransientFile.md)
   - [SlruReportIOError](SlruReportIOError.md)
 - Called from (representative examples):
   - [SimpleLruWritePage](SimpleLruWritePage.md)

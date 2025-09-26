@@ -32,11 +32,11 @@ For recursive CTEs, it uses "WITH RECURSIVE" instead of just "WITH". The functio
 - Functions called/Symbols referenced:
   - [quote_identifier](../q/quote_identifier.md)
   - [get_query_def](get_query_def.md)
-  - get_rule_expr
-  - appendContextKeyword
-  - appendStringInfoString
-  - appendStringInfoChar
-  - appendStringInfo
+  - [get_rule_expr](get_rule_expr.md)
+  - [appendContextKeyword](../a/appendContextKeyword.md)
+  - [appendStringInfoString](../a/appendStringInfoString.md)
+  - [appendStringInfoChar](../a/appendStringInfoChar.md)
+  - [appendStringInfo](../a/appendStringInfo.md)
   - PRETTY_INDENT
   - PRETTYINDENT_STD
   - CTEMaterializeDefault, CTEMaterializeAlways, CTEMaterializeNever

@@ -42,7 +42,7 @@ The function ensures atomic insertion with proper logging for durability and con
   - [BufferGetPage](../B/BufferGetPage.md)
   - PageAddItem
   - IndexTupleSize
-  - MarkBufferDirty
+  - [MarkBufferDirty](../M/MarkBufferDirty.md)
   - RelationNeedsWAL
   - [XLogRegisterBuffer](../X/XLogRegisterBuffer.md)
   - [XLogRegisterBufData](../X/XLogRegisterBufData.md)

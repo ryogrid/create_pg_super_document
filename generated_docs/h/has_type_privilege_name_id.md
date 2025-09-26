@@ -24,7 +24,7 @@ This PostgreSQL function provides an optimized variant of type privilege checkin
   - PG_GETARG_NAME
   - PG_GETARG_OID
   - PG_GETARG_TEXT_PP
-  - get_role_oid_or_public
+  - [get_role_oid_or_public](../g/get_role_oid_or_public.md)
   - [convert_type_priv_string](../c/convert_type_priv_string.md)
   - [object_aclcheck_ext](../o/object_aclcheck_ext.md)
   - PG_RETURN_NULL

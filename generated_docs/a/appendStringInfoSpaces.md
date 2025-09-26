@@ -20,19 +20,19 @@ The function includes a safety check to ensure count is positive before proceedi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - enlargeStringInfo
+  - [enlargeStringInfo](../e/enlargeStringInfo.md)
   - memset (standard C library function)
 - Called from (representative examples):
-  - show_incremental_sort_group_info
-  - show_hashagg_info
-  - ExplainPropertyList
-  - ExplainOpenGroup
-  - ExplainCloseGroup
-  - ExplainIndentText
-  - add_indent
-  - appendContextKeyword
-  - text_format_append_string
-  - log_status_format
+  - [show_incremental_sort_group_info](../s/show_incremental_sort_group_info.md)
+  - [show_hashagg_info](../s/show_hashagg_info.md)
+  - [ExplainPropertyList](../E/ExplainPropertyList.md)
+  - [ExplainOpenGroup](../E/ExplainOpenGroup.md)
+  - [ExplainCloseGroup](../E/ExplainCloseGroup.md)
+  - [ExplainIndentText](../E/ExplainIndentText.md)
+  - [add_indent](add_indent.md)
+  - [appendContextKeyword](appendContextKeyword.md)
+  - [text_format_append_string](../t/text_format_append_string.md)
+  - [log_status_format](../l/log_status_format.md)
 
 ## Notes and Other Information
 - This function is widely used throughout PostgreSQL for formatting and indentation

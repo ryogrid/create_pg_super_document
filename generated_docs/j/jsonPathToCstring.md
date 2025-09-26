@@ -19,12 +19,12 @@ This function converts a JsonPath value to its C-string representation. It provi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initStringInfo
-  - enlargeStringInfo
-  - appendStringInfoString
+  - [initStringInfo](../i/initStringInfo.md)
+  - [enlargeStringInfo](../e/enlargeStringInfo.md)
+  - [appendStringInfoString](../a/appendStringInfoString.md)
   - [jspInit](jspInit.md)
   - [printJsonPathItem](../p/printJsonPathItem.md)
-  - JsonPath (struct type)
+  - [JsonPath](../J/JsonPath.md) (struct type)
   - JsonPathItem (struct type)
   - JSONPATH_LAX (constant)
 - Called from (representative examples):

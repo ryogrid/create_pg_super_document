@@ -28,10 +28,10 @@ The query retrieves:
 - Functions called/Symbols referenced:
   - [PQExpBufferData](../P/PQExpBufferData.md) (data structure)
   - [printQueryOpt](../p/printQueryOpt.md) (data structure)
-  - initPQExpBuffer
+  - [initPQExpBuffer](../i/initPQExpBuffer.md)
   - [printfPQExpBuffer](../p/printfPQExpBuffer.md)
   - [validateSQLNamePattern](../v/validateSQLNamePattern.md)
-  - termPQExpBuffer
+  - [termPQExpBuffer](../t/termPQExpBuffer.md)
   - [PSQLexec](../P/PSQLexec.md)
   - [printQuery](../p/printQuery.md)
 - Called from (representative examples):

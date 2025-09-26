@@ -36,7 +36,7 @@ The  structure contains comprehensive metadata about a column in a PostgreSQL qu
   - Oid (PostgreSQL object identifier type)
 - Called from (representative examples):
   - [Query](../Q/Query.md) result processing functions in libpq
-  - PGresult structure members for column metadata
+  - [PGresult](../P/PGresult.md) structure members for column metadata
 
 ## Notes and Other Information
 - This structure is part of the libpq public API for examining query result metadata

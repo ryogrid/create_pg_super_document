@@ -24,7 +24,7 @@ The serialization process copies the core snapshot metadata (xmin, xmax, transac
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SerializedSnapshotData (struct type used for serialization)
+  - [SerializedSnapshotData](SerializedSnapshotData.md) (struct type used for serialization)
   - memcpy (for copying data to target memory)
   - Assert (for runtime validation)
 - Called from (representative examples):

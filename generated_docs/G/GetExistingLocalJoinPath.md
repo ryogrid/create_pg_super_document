@@ -31,7 +31,7 @@ The primary use case is for EPQ checks, where PostgreSQL needs a local execution
   - IsA (for type checking path nodes)
 - Types referenced:
   - [Path](../P/Path.md), JoinPath, HashPath, NestPath, MergePath, ForeignPath
-  - RelOptInfo, ListCell
+  - [RelOptInfo](../R/RelOptInfo.md), ListCell
 - Called from (representative examples):
   - No direct callers found in current analysis
 

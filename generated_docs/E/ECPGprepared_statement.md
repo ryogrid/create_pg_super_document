@@ -21,8 +21,8 @@ This function serves as a public API wrapper for retrieving prepared SQL stateme
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ecpg_get_connection
-  - ecpg_prepared
+  - [ecpg_get_connection](../e/ecpg_get_connection.md)
+  - [ecpg_prepared](../e/ecpg_prepared.md)
 - Called from (representative examples):
   - Various ECPG test programs and applications
   - Generated ECPG code from precompiled embedded SQL

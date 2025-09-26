@@ -23,7 +23,7 @@ The function is part of PostgreSQL's JSONB GIN indexing infrastructure, which al
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GinEntries (struct type)
+  - [GinEntries](../G/GinEntries.md) (struct type)
   - [palloc](../p/palloc.md) (memory allocation function)
 - Called from (representative examples):
   - [gin_extract_jsonb](../g/gin_extract_jsonb.md) (at src/backend/utils/adt/jsonb_gin.c:247)

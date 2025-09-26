@@ -57,7 +57,7 @@ The function performs comprehensive type-specific processing, with special handl
 - Uses type-specific buffer size calculations to prevent overflow
 - Integrates with ECPG's comprehensive error handling system
 - Memory allocated by this function becomes the caller's responsibility
-- Boolean values are represented as PostgreSQL's 't'/'f' format
-- Complex types like numeric and dates use PostgreSQL's type library functions for accurate conversion
+- [Boolean](../B/Boolean.md) values are represented as PostgreSQL's 't'/'f' format
+- [Complex](../C/Complex.md) types like numeric and dates use PostgreSQL's type library functions for accurate conversion
 - Special handling for string types includes proper null termination and quoting
 - Returns false on any error condition, with detailed error reporting through ECPG's error system

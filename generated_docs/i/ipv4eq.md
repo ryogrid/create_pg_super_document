@@ -25,7 +25,7 @@ This function is used within PostgreSQL's Host-Based Authentication (HBA) system
 - Functions called/Symbols referenced:
   - (None - uses only standard struct field access)
 - Called from (representative examples):
-  - check_hostname (in hba.c)
+  - [check_hostname](../c/check_hostname.md) (in hba.c)
 
 ## Notes and Other Information
 - Only compares the IP address portion (sin_addr.s_addr), not port or other fields

@@ -26,7 +26,7 @@ The function searches the target list for these specially named junk columns and
   - [ExecRowMark](ExecRowMark.md) (structure type)
   - [ExecAuxRowMark](ExecAuxRowMark.md) (structure type)
   - ROW_MARK_COPY (constant)
-  - ExecFindJunkAttributeInTlist
+  - [ExecFindJunkAttributeInTlist](ExecFindJunkAttributeInTlist.md)
   - AttributeNumberIsValid
   - [palloc0](../p/palloc0.md)
   - snprintf

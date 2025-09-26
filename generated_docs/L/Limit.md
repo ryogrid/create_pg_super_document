@@ -54,16 +54,16 @@ The node can handle dynamic limit and offset values through expression evaluatio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Plan (base structure)
-  - Node (expression tree nodes)
-  - LimitOption (enumeration for limit types)
+  - [Plan](../P/Plan.md) (base structure)
+  - [Node](../N/Node.md) (expression tree nodes)
+  - [LimitOption](LimitOption.md) (enumeration for limit types)
   - AttrNumber (column attribute numbers)
   - Oid (object identifiers)
 - Called from (representative examples):
-  - ExecInitLimit (executor initialization)
-  - create_limit_plan (planner)
-  - make_limit (plan creation utility)
-  - ExecInitNode (generic executor initialization)
+  - [ExecInitLimit](../E/ExecInitLimit.md) (executor initialization)
+  - [create_limit_plan](../c/create_limit_plan.md) (planner)
+  - [make_limit](../m/make_limit.md) (plan creation utility)
+  - [ExecInitNode](../E/ExecInitNode.md) (generic executor initialization)
 
 ## Notes and Other Information
 - Since PostgreSQL 8.2, limit and offset expressions yield int8 (bigint) values instead of int4 (integer) for better range support

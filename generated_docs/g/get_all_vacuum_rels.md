@@ -23,15 +23,15 @@ The function creates VacuumRelation entries with OIDs but no RangeVar, since the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - [table_beginscan_catalog](../t/table_beginscan_catalog.md)
   - [heap_getnext](../h/heap_getnext.md)
-  - vacuum_is_permitted_for_relation
+  - [vacuum_is_permitted_for_relation](../v/vacuum_is_permitted_for_relation.md)
   - [makeVacuumRelation](../m/makeVacuumRelation.md)
   - [table_endscan](../t/table_endscan.md)
-  - table_close
+  - [table_close](../t/table_close.md)
 - Called from (representative examples):
-  - vacuum (src/backend/commands/vacuum.c:547)
+  - [vacuum](../v/vacuum.md) (src/backend/commands/vacuum.c:547)
 
 ## Notes and Other Information
 - Includes partitioned tables in the scan; caller decides whether to process them

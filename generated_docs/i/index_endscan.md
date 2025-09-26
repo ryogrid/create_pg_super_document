@@ -24,9 +24,9 @@ The function includes validation checks through SCAN_CHECKS and CHECK_SCAN_PROCE
 - Functions called/Symbols referenced:
   - SCAN_CHECKS (validation macro)
   - CHECK_SCAN_PROCEDURE (validation macro for amendscan)
-  - table_index_fetch_end (releases heap fetch resources)
+  - [table_index_fetch_end](../t/table_index_fetch_end.md) (releases heap fetch resources)
   - [RelationDecrementReferenceCount](../R/RelationDecrementReferenceCount.md) (decrements index relation refcount)
-  - UnregisterSnapshot (unregisters temporary snapshots)
+  - [UnregisterSnapshot](../U/UnregisterSnapshot.md) (unregisters temporary snapshots)
   - [IndexScanEnd](../I/IndexScanEnd.md) (deallocates scan descriptor)
 - Called from (representative examples):
   - [systable_endscan](../s/systable_endscan.md)

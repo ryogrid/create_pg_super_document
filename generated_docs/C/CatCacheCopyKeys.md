@@ -27,7 +27,7 @@ A special case is handled for NAME type attributes (NAMEOID), where C strings ar
 ## Dependencies
 - Functions called/Symbols referenced:
   - TupleDescAttr (macro to get attribute from tuple descriptor)
-  - namestrcpy (converts C string to padded NAME)
+  - [namestrcpy](../n/namestrcpy.md) (converts C string to padded NAME)
   - [DatumGetCString](../D/DatumGetCString.md) (extracts C string from Datum)
   - [NameGetDatum](../N/NameGetDatum.md) (converts NAME to Datum)
   - [datumCopy](../d/datumCopy.md) (performs deep copy of datum)

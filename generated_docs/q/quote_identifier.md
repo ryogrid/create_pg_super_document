@@ -20,7 +20,7 @@ quote_identifier analyzes a SQL identifier string and determines whether it need
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ScanKeywordLookup (performs case-insensitive keyword matching)
+  - [ScanKeywordLookup](../S/ScanKeywordLookup.md) (performs case-insensitive keyword matching)
   - ScanKeywords (global keyword list structure)
   - ScanKeywordCategories (array of keyword categories)
   - UNRESERVED_KEYWORD (enum value for unreserved keywords)
@@ -31,8 +31,8 @@ quote_identifier analyzes a SQL identifier string and determines whether it need
   - [quote_ident](quote_ident.md) (SQL function wrapper)
   - [pg_get_triggerdef_worker](../p/pg_get_triggerdef_worker.md) (trigger definition generation)
   - [pg_get_indexdef_worker](../p/pg_get_indexdef_worker.md) (index definition generation)
-  - get_rule_expr (rule expression formatting)
-  - get_from_clause_item (FROM clause formatting)
+  - [get_rule_expr](../g/get_rule_expr.md) (rule expression formatting)
+  - [get_from_clause_item](../g/get_from_clause_item.md) (FROM clause formatting)
   - Various ruleutils.c functions for SQL reconstruction
 
 ## Notes and Other Information

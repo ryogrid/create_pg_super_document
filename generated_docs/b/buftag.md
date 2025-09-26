@@ -39,7 +39,7 @@ The structure is designed to be used as a hash key, which requires careful handl
   - [BufTableHashCode](../B/BufTableHashCode.md) (for hash table operations)
   - [BufTableLookup](../B/BufTableLookup.md) (for buffer lookups)
   - [BufferAlloc](../B/BufferAlloc.md) (for buffer allocation)
-  - SyncOneBuffer (for buffer synchronization)
+  - [SyncOneBuffer](../S/SyncOneBuffer.md) (for buffer synchronization)
   - [InitBufferTag](../I/InitBufferTag.md) (for tag initialization)
   - [BufferTagsEqual](../B/BufferTagsEqual.md) (for tag comparison)
 

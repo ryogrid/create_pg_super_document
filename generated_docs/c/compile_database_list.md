@@ -23,13 +23,13 @@ This function constructs a comprehensive list of databases to be checked by pg_a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_malloc0
+  - [pg_malloc0](../p/pg_malloc0.md)
   - pg_log_info  
   - [pstrdup](../p/pstrdup.md)
   - [simple_ptr_list_append](../s/simple_ptr_list_append.md)
-  - initPQExpBuffer
+  - [initPQExpBuffer](../i/initPQExpBuffer.md)
   - [append_db_pattern_cte](../a/append_db_pattern_cte.md)
-  - termPQExpBuffer
+  - [termPQExpBuffer](../t/termPQExpBuffer.md)
   - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
   - [executeQuery](../e/executeQuery.md)
   - [PQresultStatus](../P/PQresultStatus.md)

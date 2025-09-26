@@ -28,12 +28,12 @@ The function initializes all barrier state variables to their starting values, s
 ## Dependencies
 - Functions called/Symbols referenced:
   - SpinLockInit
-  - ConditionVariableInit
-  - Barrier (struct type)
+  - [ConditionVariableInit](../C/ConditionVariableInit.md)
+  - [Barrier](Barrier.md) (struct type)
 - Called from (representative examples):
-  - ExecParallelHashJoinSetUpBatches
-  - ExecHashJoinInitializeDSM
-  - ExecHashJoinReInitializeDSM
+  - [ExecParallelHashJoinSetUpBatches](../E/ExecParallelHashJoinSetUpBatches.md)
+  - [ExecHashJoinInitializeDSM](../E/ExecHashJoinInitializeDSM.md)
+  - [ExecHashJoinReInitializeDSM](../E/ExecHashJoinReInitializeDSM.md)
 
 ## Notes and Other Information
 - The barrier structure includes a  field used primarily for assertions to ensure proper usage patterns

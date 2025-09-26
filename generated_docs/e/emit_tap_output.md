@@ -21,11 +21,11 @@ The function follows the standard C pattern for variadic wrapper functions, usin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - emit_tap_output_v
+  - [emit_tap_output_v](emit_tap_output_v.md)
   - va_start (macro)
   - va_end (macro)
 - Called from (representative examples):
-  - test_status_print
+  - [test_status_print](../t/test_status_print.md)
   - plan() macro
   - note() macro  
   - diag() macro

@@ -19,10 +19,10 @@ This function serves as a custom memory allocation callback for the libxml libra
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextAlloc
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
 - Called from:
-  - PgXmlErrorContext  
-  - xml_memory_init (as callback registration)
+  - [PgXmlErrorContext](../P/PgXmlErrorContext.md)  
+  - [xml_memory_init](xml_memory_init.md) (as callback registration)
   - Indirectly called by libxml through callback mechanism
 
 ## Notes and Other Information

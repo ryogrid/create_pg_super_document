@@ -25,7 +25,7 @@ This is commonly used in JSONB GIN index extraction to create indexable nodes fr
 - Functions called/Symbols referenced:
   - [make_jsp_entry_node](make_jsp_entry_node.md) (creates the JsonPathGinNode wrapper)
   - [make_scalar_key](make_scalar_key.md) (converts JsonbValue to indexable Datum format)
-  - JsonPathGinNode (return type structure)
+  - [JsonPathGinNode](../J/JsonPathGinNode.md) (return type structure)
 
 - Called from:
   - [jsonb_ops__extract_nodes](../j/jsonb_ops__extract_nodes.md) (multiple calls for extracting various scalar types during index creation)

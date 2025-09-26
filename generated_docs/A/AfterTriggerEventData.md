@@ -46,7 +46,7 @@ The structure is designed to handle various types of trigger events efficiently:
 - Called from (representative examples):
   - [AfterTriggerEvent](AfterTriggerEvent.md) (pointer typedef)
   - SizeofTriggerEvent (macro for size calculation)
-  - AfterTriggerSaveEvent
+  - [AfterTriggerSaveEvent](AfterTriggerSaveEvent.md)
 
 ## Notes and Other Information
 - This is the full-sized event structure containing all possible fields

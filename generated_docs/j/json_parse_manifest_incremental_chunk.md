@@ -27,10 +27,10 @@ The function handles both intermediate chunks (where JSON parsing may be incompl
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_parse_json_incremental](../p/pg_parse_json_incremental.md)
-  - json_manifest_parse_failure
-  - json_errdetail
+  - [json_manifest_parse_failure](json_manifest_parse_failure.md)
+  - [json_errdetail](json_errdetail.md)
   - [pg_cryptohash_update](../p/pg_cryptohash_update.md)
-  - verify_manifest_checksum
+  - [verify_manifest_checksum](../v/verify_manifest_checksum.md)
   - JSON_SUCCESS
   - JSON_INCOMPLETE
   - JM_EXPECT_EOF
@@ -43,7 +43,7 @@ The function handles both intermediate chunks (where JSON parsing may be incompl
 ## Notes and Other Information
 - Expects JSON_INCOMPLETE for non-final chunks and JSON_SUCCESS for the final chunk
 - The final chunk must result in JM_EXPECT_EOF parser state
-- Hash computation excludes the final chunk since it contains the checksum itself
+- [Hash](../H/Hash.md) computation excludes the final chunk since it contains the checksum itself
 - Parse errors trigger the context error callback with detailed error information
 - Checksum verification is only performed on the final chunk
 - Critical component of PostgreSQL's streaming backup manifest processing

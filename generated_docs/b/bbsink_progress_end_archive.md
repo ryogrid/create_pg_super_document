@@ -20,7 +20,7 @@ This static function handles progress reporting at the end of each archive strea
   - [pgstat_progress_update_param](../p/pgstat_progress_update_param.md) (progress parameter update function)
   - PROGRESS_BASEBACKUP_TBLSPC_STREAMED (progress parameter constant)
   - [bbsink_forward_end_archive](bbsink_forward_end_archive.md) (forwarding function)
-  - list_length (list utility function)
+  - [list_length](../l/list_length.md) (list utility function)
 - Called from (representative examples):
   - This is a static function, typically called through function pointers in the bbsink operations structure
 

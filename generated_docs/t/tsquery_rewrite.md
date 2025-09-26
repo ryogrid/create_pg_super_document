@@ -31,11 +31,11 @@ This function provides a simpler interface compared to `tsquery_rewrite_query` f
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_TSQUERY_COPY, PG_GETARG_TSQUERY (argument extraction)
-  - QT2QTN (TSQuery to tree conversion)
-  - QTNTernary, QTNSort (tree preprocessing)
+  - [QT2QTN](../Q/QT2QTN.md) (TSQuery to tree conversion)
+  - [QTNTernary](../Q/QTNTernary.md), QTNSort (tree preprocessing)
   - [findsubquery](../f/findsubquery.md) (pattern replacement)
-  - QTNFree (memory cleanup)
-  - QTNBinary, QTN2QT (tree to TSQuery conversion)
+  - [QTNFree](../Q/QTNFree.md) (memory cleanup)
+  - [QTNBinary](../Q/QTNBinary.md), QTN2QT (tree to TSQuery conversion)
   - SET_VARSIZE, HDRSIZETQ (empty query handling)
 - Called from (representative examples):
   - SQL queries using ts_rewrite(tsquery, tsquery, tsquery) function

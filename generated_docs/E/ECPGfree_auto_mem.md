@@ -25,15 +25,15 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_auto_allocs
-  - auto_mem (struct)
-  - ecpg_free
-  - set_auto_allocs
+  - [get_auto_allocs](../g/get_auto_allocs.md)
+  - [auto_mem](../a/auto_mem.md) (struct)
+  - [ecpg_free](../e/ecpg_free.md)
+  - [set_auto_allocs](../s/set_auto_allocs.md)
 - Called from (representative examples):
-  - ecpg_raise
-  - ecpg_raise_backend
-  - auto_mem_destructor
-  - ECPGset_var
+  - [ecpg_raise](../e/ecpg_raise.md)
+  - [ecpg_raise_backend](../e/ecpg_raise_backend.md)
+  - [auto_mem_destructor](../a/auto_mem_destructor.md)
+  - [ECPGset_var](ECPGset_var.md)
   - SQLSTATE (macro)
 
 ## Notes and Other Information

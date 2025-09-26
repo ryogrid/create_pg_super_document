@@ -34,19 +34,19 @@ This function is crucial for verifying that PostgreSQL's resource management sys
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwner
-  - ManyTestResourceKind
-  - InitManyTestResourceKind  
-  - RememberManyTestResources
-  - ForgetManyTestResources
-  - GetTotalResourceCount
-  - ResourceOwnerCreate
-  - ResourceOwnerRelease
-  - ResourceOwnerDelete
+  - [ResourceOwner](../R/ResourceOwner.md)
+  - [ManyTestResourceKind](../M/ManyTestResourceKind.md)
+  - [InitManyTestResourceKind](../I/InitManyTestResourceKind.md)  
+  - [RememberManyTestResources](../R/RememberManyTestResources.md)
+  - [ForgetManyTestResources](../F/ForgetManyTestResources.md)
+  - [GetTotalResourceCount](../G/GetTotalResourceCount.md)
+  - [ResourceOwnerCreate](../R/ResourceOwnerCreate.md)
+  - [ResourceOwnerRelease](../R/ResourceOwnerRelease.md)
+  - [ResourceOwnerDelete](../R/ResourceOwnerDelete.md)
   - PG_GETARG_INT32
   - PG_RETURN_VOID
 - Called from (representative examples):
-  - GetTotalResourceCount (referenced by this function)
+  - [GetTotalResourceCount](../G/GetTotalResourceCount.md) (referenced by this function)
 
 ## Notes and Other Information
 - This is a PostgreSQL extension function marked with PG_FUNCTION_INFO_V1 macro

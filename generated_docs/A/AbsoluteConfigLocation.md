@@ -27,8 +27,8 @@ The function uses PostgreSQL's path manipulation utilities to ensure proper path
 - Functions called/Symbols referenced:
   - is_absolute_path
   - [pstrdup](../p/pstrdup.md)  
-  - strlcpy
-  - get_parent_directory
+  - [strlcpy](../s/strlcpy.md)
+  - [get_parent_directory](../g/get_parent_directory.md)
   - [join_path_components](../j/join_path_components.md)
   - [canonicalize_path](../c/canonicalize_path.md)
 - Called from (representative examples):

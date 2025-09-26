@@ -22,9 +22,9 @@ This function serves as a GUC (Grand Unified Configuration) assign hook that is 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [IsTransactionState](../I/IsTransactionState.md): Checks if currently within a transaction block
-  - get_timeout_active: Determines if the TRANSACTION_TIMEOUT is currently active
-  - enable_timeout_after: Enables the transaction timeout with specified duration
-  - disable_timeout: Disables the transaction timeout
+  - [get_timeout_active](../g/get_timeout_active.md): Determines if the TRANSACTION_TIMEOUT is currently active
+  - [enable_timeout_after](../e/enable_timeout_after.md): Enables the transaction timeout with specified duration
+  - [disable_timeout](../d/disable_timeout.md): Disables the transaction timeout
   - TRANSACTION_TIMEOUT: Timeout identifier constant
 - Called from (representative examples):
   - GUC system (via function pointer in guc_hooks.h)

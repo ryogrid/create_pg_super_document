@@ -29,7 +29,7 @@ This function takes no parameters and returns a boolean indicating success/valid
 ## Dependencies
 - Functions called/Symbols referenced:
   - open (file opening with O_RDONLY and PG_BINARY flags)
-  - pg_malloc (memory allocation)
+  - [pg_malloc](../p/pg_malloc.md) (memory allocation)
   - read (file reading)
   - close (file closing)
   - pg_log_error (error logging)

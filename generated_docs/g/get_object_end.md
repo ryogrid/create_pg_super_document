@@ -18,7 +18,7 @@ The `get_object_end` function is a semantic action callback used during JSON par
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetState](../G/GetState.md)
-  - cstring_to_text_with_len
+  - [cstring_to_text_with_len](../c/cstring_to_text_with_len.md)
   - JSON_SUCCESS
   - JsonParseErrorType
 - Called from (representative examples):

@@ -20,11 +20,11 @@ This function converts a String node into its textual representation by wrapping
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendStringInfoChar (for adding quote characters)
-  - outToken (for escaping string content)
-  - String (node type)
+  - [appendStringInfoChar](../a/appendStringInfoChar.md) (for adding quote characters)
+  - [outToken](outToken.md) (for escaping string content)
+  - [String](../S/String.md) (node type)
 - Called from (representative examples):
-  - outNode (main node serialization dispatcher)
+  - [outNode](outNode.md) (main node serialization dispatcher)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the outfuncs.c file

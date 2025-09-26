@@ -23,12 +23,12 @@ The function iterates through the provided names list in parallel with the tuple
   - strVal
   - lfirst
   - TupleDescAttr
-  - namestrcpy
+  - [namestrcpy](../n/namestrcpy.md)
 
 - Called from (representative examples):
   - [ExecInitExprRec](ExecInitExprRec.md)
   - [ExecEvalWholeRowVar](ExecEvalWholeRowVar.md)
-  - ExecQualAndReset
+  - [ExecQualAndReset](ExecQualAndReset.md)
 
 ## Notes and Other Information
 - Only works with RECORD-type tuple descriptors (tdtypeid == RECORDOID)

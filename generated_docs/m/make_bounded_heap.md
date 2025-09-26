@@ -29,10 +29,10 @@ This approach is particularly efficient for queries like "SELECT * FROM table OR
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - reversedirection (to invert comparison logic)
-  - tuplesort_heap_insert (to add tuples to heap)
-  - tuplesort_heap_replace_top (to replace largest tuple)
-  - free_sort_tuple (to deallocate discarded tuples)
+  - [reversedirection](../r/reversedirection.md) (to invert comparison logic)
+  - [tuplesort_heap_insert](../t/tuplesort_heap_insert.md) (to add tuples to heap)
+  - [tuplesort_heap_replace_top](../t/tuplesort_heap_replace_top.md) (to replace largest tuple)
+  - [free_sort_tuple](../f/free_sort_tuple.md) (to deallocate discarded tuples)
   - COMPARETUP (macro for tuple comparison)
   - SERIAL (macro to check if operation is serial)
   - CHECK_FOR_INTERRUPTS (to allow query cancellation)
@@ -40,7 +40,7 @@ This approach is particularly efficient for queries like "SELECT * FROM table OR
   - TSS_INITIAL
   - TSS_BOUNDED
 - Called from (representative examples):
-  - tuplesort_puttuple_common (when memory limit reached in bounded sort)
+  - [tuplesort_puttuple_common](../t/tuplesort_puttuple_common.md) (when memory limit reached in bounded sort)
 
 ## Notes and Other Information
 - Only called for bounded sorts (queries with LIMIT clauses)

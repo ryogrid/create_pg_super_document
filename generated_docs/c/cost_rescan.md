@@ -37,8 +37,8 @@ The function accounts for spilling to disk when materialized results exceed work
   - [relation_byte_size](../r/relation_byte_size.md)
   - [cost_memoize_rescan](cost_memoize_rescan.md)
   - Cost (type)
-  - HashPath (type)
-  - MemoizePath (type)
+  - [HashPath](../H/HashPath.md) (type)
+  - [MemoizePath](../M/MemoizePath.md) (type)
 - Called from (representative examples):
   - cost_qual_eval_context
   - [initial_cost_nestloop](../i/initial_cost_nestloop.md)

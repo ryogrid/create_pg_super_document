@@ -28,14 +28,14 @@ The hash table containing these entries is created using PostgreSQL's simplehash
 
 ## Dependencies
 - Types referenced:
-  - PgStat_HashKey (hash key structure identifying statistics objects)
-  - PgStat_EntryRef (backend-local reference to shared statistics entry)
+  - [PgStat_HashKey](PgStat_HashKey.md) (hash key structure identifying statistics objects)
+  - [PgStat_EntryRef](PgStat_EntryRef.md) (backend-local reference to shared statistics entry)
 - Used by (representative examples):
   - SH_ELEMENT_TYPE (simplehash macro definition)
-  - pgstat_get_entry_ref_cached (cached entry reference retrieval)
-  - pgstat_gc_entry_refs (garbage collection of entry references)
-  - pgstat_release_matching_entry_refs (selective entry reference release)
-  - pgstat_drop_entry (statistics entry deletion)
+  - [pgstat_get_entry_ref_cached](../p/pgstat_get_entry_ref_cached.md) (cached entry reference retrieval)
+  - [pgstat_gc_entry_refs](../p/pgstat_gc_entry_refs.md) (garbage collection of entry references)
+  - [pgstat_release_matching_entry_refs](../p/pgstat_release_matching_entry_refs.md) (selective entry reference release)
+  - [pgstat_drop_entry](../p/pgstat_drop_entry.md) (statistics entry deletion)
 
 ## Notes and Other Information
 This structure is integral to PostgreSQL's two-tiered statistics architecture, where backend-local hash tables (using this entry type) provide fast access to shared statistics data. The simplehash infrastructure used requires the `status` field for internal hash table management. The structure is defined in `src/backend/utils/activity/pgstat_shmem.c` and is used extensively throughout the statistics collection subsystem for efficient local caching of statistics references.

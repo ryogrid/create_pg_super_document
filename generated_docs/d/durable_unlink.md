@@ -25,11 +25,11 @@ This approach guarantees that once the function returns successfully, the file d
 ## Dependencies
 - Functions called/Symbols referenced:
   - unlink
-  - fsync_parent_path
+  - [fsync_parent_path](../f/fsync_parent_path.md)
 - Called from (representative examples):
-  - InstallXLogFileSegment
-  - RemoveXlogFile
-  - StartupXLOG
+  - [InstallXLogFileSegment](../I/InstallXLogFileSegment.md)
+  - [RemoveXlogFile](../R/RemoveXlogFile.md)
+  - [StartupXLOG](../S/StartupXLOG.md)
 
 ## Notes and Other Information
 - Essential for maintaining PostgreSQL's crash recovery guarantees when removing files

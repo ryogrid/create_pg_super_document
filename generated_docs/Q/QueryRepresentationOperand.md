@@ -34,9 +34,9 @@ The structure supports up to MAXQROPOS (defined as MAXENTRYPOS) positions per op
   - MAXQROPOS (macro definition)
   - WordEntryPos (type for position data)
 - Called from (representative examples):
-  - checkcondition_QueryOperand
-  - fillQueryRepresentationData
-  - calc_rank_cd
+  - [checkcondition_QueryOperand](../c/checkcondition_QueryOperand.md)
+  - [fillQueryRepresentationData](../f/fillQueryRepresentationData.md)
+  - [calc_rank_cd](../c/calc_rank_cd.md)
 
 ## Notes and Other Information
 - Used primarily in text search ranking calculations within tsrank.c

@@ -22,7 +22,7 @@ The verification process involves reading each qualifying file from disk and com
 ## Dependencies
 - Functions called/Symbols referenced:
   - [progress_report](../p/progress_report.md)
-  - pg_malloc
+  - [pg_malloc](../p/pg_malloc.md)
   - manifest_files_start_iterate
   - manifest_files_iterate
   - should_verify_checksum

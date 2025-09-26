@@ -29,7 +29,7 @@ This function is commonly used during tuple deletion, cleanup operations, error 
   - [heap_form_tuple](../h/heap_form_tuple.md)
   - [entryGetItem](../e/entryGetItem.md)
   - [toast_flatten_tuple_to_datum](../t/toast_flatten_tuple_to_datum.md)
-  - AfterTriggerSaveEvent
+  - [AfterTriggerSaveEvent](../A/AfterTriggerSaveEvent.md)
   - [ExecCheckIndexConstraints](../E/ExecCheckIndexConstraints.md)
 
 ## Notes and Other Information

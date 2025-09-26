@@ -30,10 +30,10 @@ This structure represents preprocessor macro definitions in the ECPG preprocesso
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _defines (self-reference for linked list structure)
+  - [_defines](_defines.md) (self-reference for linked list structure)
 - Called from (representative examples):
-  - add_preprocessor_define (in src/interfaces/ecpg/preproc/ecpg.c:94, 96)
-  - main (in src/interfaces/ecpg/preproc/ecpg.c:361, 362, 363)
+  - [add_preprocessor_define](../a/add_preprocessor_define.md) (in src/interfaces/ecpg/preproc/ecpg.c:94, 96)
+  - [main](../m/main.md) (in src/interfaces/ecpg/preproc/ecpg.c:361, 362, 363)
 
 ## Notes and Other Information
 - This structure is part of the ECPG preprocessor implementation (src/interfaces/ecpg/preproc/type.h:178-187)

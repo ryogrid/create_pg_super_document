@@ -41,19 +41,19 @@ Upper relations are identified by an UpperRelationKind enum value and a Relids s
 ## Dependencies
 - Functions called/Symbols referenced:
   - UpperRelationKind
-  - bms_equal
+  - [bms_equal](../b/bms_equal.md)
   - RELOPT_UPPER_REL
-  - bms_copy
-  - create_empty_pathtarget
+  - [bms_copy](../b/bms_copy.md)
+  - [create_empty_pathtarget](../c/create_empty_pathtarget.md)
 - Called from (representative examples):
-  - set_subquery_pathlist
-  - standard_planner
-  - subquery_planner
-  - grouping_planner
-  - make_grouping_rel
-  - create_window_paths
-  - create_distinct_paths
-  - create_ordered_paths
+  - [set_subquery_pathlist](../s/set_subquery_pathlist.md)
+  - [standard_planner](../s/standard_planner.md)
+  - [subquery_planner](../s/subquery_planner.md)
+  - [grouping_planner](../g/grouping_planner.md)
+  - [make_grouping_rel](../m/make_grouping_rel.md)
+  - [create_window_paths](../c/create_window_paths.md)
+  - [create_distinct_paths](../c/create_distinct_paths.md)
+  - [create_ordered_paths](../c/create_ordered_paths.md)
 
 ## Notes and Other Information
 - The function uses a simple List-based indexing structure for each relation kind, which could be optimized if performance becomes an issue

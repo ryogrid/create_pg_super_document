@@ -28,16 +28,16 @@ At the top level, this is typically called with `unlink_all = false` to selectiv
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AllocateDir
-  - ReadDirExtended  
-  - get_dirent_type
+  - [AllocateDir](../A/AllocateDir.md)
+  - [ReadDirExtended](ReadDirExtended.md)  
+  - [get_dirent_type](../g/get_dirent_type.md)
   - unlink
   - rmdir
-  - FreeDir
-  - RemovePgTempFilesInDir (recursive call)
+  - [FreeDir](../F/FreeDir.md)
+  - [RemovePgTempFilesInDir](RemovePgTempFilesInDir.md) (recursive call)
 - Called from (representative examples):
-  - PostmasterMain
-  - RemovePgTempFiles
+  - [PostmasterMain](../P/PostmasterMain.md)
+  - [RemovePgTempFiles](RemovePgTempFiles.md)
 
 ## Notes and Other Information
 - The function uses recursive calls to handle nested directory structures

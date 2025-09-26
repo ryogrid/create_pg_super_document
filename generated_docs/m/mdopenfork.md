@@ -23,18 +23,18 @@ The `mdopenfork` function is responsible for opening the first segment (segment 
 ## Dependencies
 - Functions called/Symbols referenced:
   - relpath (to construct the file path for the fork)
-  - PathNameOpenFile (to open the file with appropriate flags)
-  - _mdfd_open_flags (to get the correct file open flags)
-  - _fdvec_resize (to resize the file descriptor vector)
-  - _mdnblocks (for assertion checking)
+  - [PathNameOpenFile](../P/PathNameOpenFile.md) (to open the file with appropriate flags)
+  - [_mdfd_open_flags](_mdfd_open_flags.md) (to get the correct file open flags)
+  - [_fdvec_resize](../f/_fdvec_resize.md) (to resize the file descriptor vector)
+  - [_mdnblocks](_mdnblocks.md) (for assertion checking)
   - FILE_POSSIBLY_DELETED (macro to check for file deletion errno values)
   - ereport (for error reporting)
-  - pfree (for memory cleanup)
+  - [pfree](../p/pfree.md) (for memory cleanup)
 
 - Called from (representative examples):
-  - mdexists (to check if a relation fork exists)
-  - mdnblocks (to get the number of blocks in a fork)
-  - _mdfd_getseg (when opening segments for various operations)
+  - [mdexists](mdexists.md) (to check if a relation fork exists)
+  - [mdnblocks](mdnblocks.md) (to get the number of blocks in a fork)
+  - [_mdfd_getseg](_mdfd_getseg.md) (when opening segments for various operations)
 
 ## Notes and Other Information
 - This is a static function only accessible within md.c

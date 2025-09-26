@@ -42,7 +42,7 @@ The function initializes all necessary metadata for the string variable includin
   - [init_custom_variable](../i/init_custom_variable.md)
   - [define_custom_variable](../d/define_custom_variable.md)
   - PGC_STRING
-  - config_string
+  - [config_string](../c/config_string.md)
   - GucContext
 - Called from (representative examples):
   - [_PG_init](../P/_PG_init.md) (plperl.c:418, plperl.c:440, plperl.c:448)

@@ -20,13 +20,13 @@ UnregisterSnapshotFromOwner handles snapshot unregistration from a specific reso
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwnerForgetSnapshot
-  - UnregisterSnapshotNoOwner
+  - [ResourceOwnerForgetSnapshot](../R/ResourceOwnerForgetSnapshot.md)
+  - [UnregisterSnapshotNoOwner](UnregisterSnapshotNoOwner.md)
 - Called from (representative examples):
-  - UnregisterSnapshot
-  - closeLOfd
-  - PortalDrop
-  - PreCommit_Portals
+  - [UnregisterSnapshot](UnregisterSnapshot.md)
+  - [closeLOfd](../c/closeLOfd.md)
+  - [PortalDrop](../P/PortalDrop.md)
+  - [PreCommit_Portals](../P/PreCommit_Portals.md)
 
 ## Notes and Other Information
 - Returns immediately without action if passed NULL snapshot

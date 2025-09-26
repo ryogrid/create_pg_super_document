@@ -30,12 +30,12 @@ Key differences from ExecInitJunkFilter:
 ## Dependencies
 - Functions called/Symbols referenced:
   - ExecSetSlotDescriptor: Sets tuple descriptor for existing slot
-  - MakeSingleTupleTableSlot: Creates new virtual tuple slot if none provided
-  - list_head: Gets first cell of target list for iteration
-  - lnext: Advances to next cell in target list during mapping creation
-  - JunkFilter: The result structure type
+  - [MakeSingleTupleTableSlot](../M/MakeSingleTupleTableSlot.md): Creates new virtual tuple slot if none provided
+  - [list_head](../l/list_head.md): Gets first cell of target list for iteration
+  - [lnext](../l/lnext.md): Advances to next cell in target list during mapping creation
+  - [JunkFilter](../J/JunkFilter.md): The result structure type
 - Called from (representative examples):
-  - init_sql_fcache: For SQL function caching with type conversion needs
+  - [init_sql_fcache](../i/init_sql_fcache.md): For SQL function caching with type conversion needs
 
 ## Notes and Other Information
 - Designed specifically for rowtype conversion scenarios where schema changes may have occurred

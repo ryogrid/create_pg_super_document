@@ -25,7 +25,7 @@ Similar to `GlobalVisCheckRemovableFullXid()` but works with 32-bit transaction 
   - [GlobalVisTestFor](GlobalVisTestFor.md)
   - [GlobalVisTestIsRemovableXid](GlobalVisTestIsRemovableXid.md)
   - [GlobalVisState](GlobalVisState.md) (type)
-  - FullTransactionId (type)
+  - [FullTransactionId](../F/FullTransactionId.md) (type)
 - Called from (representative examples):
   - [GinPageIsRecyclable](GinPageIsRecyclable.md)
 

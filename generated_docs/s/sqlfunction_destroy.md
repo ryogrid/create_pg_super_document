@@ -24,7 +24,7 @@ Unlike the startup and shutdown callbacks which are no-ops, this destroy functio
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pfree](../p/pfree.md) (PostgreSQL's memory deallocation function)
-  - DestReceiver (parameter type)
+  - [DestReceiver](../D/DestReceiver.md) (parameter type)
 - Called from (representative examples):
   - [CreateSQLFunctionDestReceiver](../C/CreateSQLFunctionDestReceiver.md) (sets this as destroy callback)
   - Used within SQLFunctionCachePtr context

@@ -24,7 +24,7 @@ The returned string must be freed by the caller, as it represents a newly alloca
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initStringInfo
+  - [initStringInfo](../i/initStringInfo.md)
   - [appendTypeNameToBuffer](../a/appendTypeNameToBuffer.md)
 - Called from (representative examples):
   - [get_object_address_type](../g/get_object_address_type.md)

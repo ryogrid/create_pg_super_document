@@ -34,15 +34,15 @@ This design allows the function to gracefully handle boundary conditions while s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - time_overflow (overflow error handler)
+  - [time_overflow](time_overflow.md) (overflow error handler)
   - min_time (minimum valid time value)
   - max_time (maximum valid time value)
   - zic_t (timezone-specific integer type)
 - Called from (representative examples):
-  - getleapdatetime
-  - writezone
-  - years_of_observations
-  - adjleap
+  - [getleapdatetime](../g/getleapdatetime.md)
+  - [writezone](../w/writezone.md)
+  - [years_of_observations](../y/years_of_observations.md)
+  - [adjleap](../a/adjleap.md)
 
 ## Notes and Other Information
 - Part of the timezone compiler's time arithmetic infrastructure

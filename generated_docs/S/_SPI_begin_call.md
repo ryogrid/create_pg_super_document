@@ -24,15 +24,15 @@ The function is designed to work in conjunction with _SPI_end_call to provide pr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentSubTransactionId: Records the current subtransaction ID for cleanup purposes
-  - _SPI_execmem: Switches to the Executor memory context
+  - [GetCurrentSubTransactionId](../G/GetCurrentSubTransactionId.md): Records the current subtransaction ID for cleanup purposes
+  - [_SPI_execmem](_SPI_execmem.md): Switches to the Executor memory context
   - SPI_ERROR_UNCONNECTED: Error code returned when no SPI connection exists
 - Called from (representative examples):
-  - SPI_execute: Main SPI execution function
-  - SPI_execute_plan: Executes prepared SPI plans
-  - SPI_prepare_extended: Prepares extended SPI statements
-  - SPI_cursor_open_internal: Opens SPI cursors
-  - _SPI_cursor_operation: Performs cursor operations
+  - [SPI_execute](SPI_execute.md): Main SPI execution function
+  - [SPI_execute_plan](SPI_execute_plan.md): Executes prepared SPI plans
+  - [SPI_prepare_extended](SPI_prepare_extended.md): Prepares extended SPI statements
+  - [SPI_cursor_open_internal](SPI_cursor_open_internal.md): Opens SPI cursors
+  - [_SPI_cursor_operation](_SPI_cursor_operation.md): Performs cursor operations
 
 ## Notes and Other Information
 - This is a static function internal to the SPI implementation, not part of the public SPI API

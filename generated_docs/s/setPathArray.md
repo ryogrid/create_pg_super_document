@@ -41,7 +41,7 @@ The function includes special handling for edge cases like empty arrays, prepend
 ## Dependencies
 - Functions called/Symbols referenced:
   - TextDatumGetCString
-  - strtoint
+  - [strtoint](strtoint.md)
   - [JsonbIteratorNext](../J/JsonbIteratorNext.md)
   - [pushJsonbValue](../p/pushJsonbValue.md)
   - [setPath](setPath.md) (recursive call)

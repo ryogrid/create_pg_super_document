@@ -27,14 +27,14 @@ This is the most complex describe function in psql, handling the \df command wit
 ## Dependencies
 - Functions called/Symbols referenced:
   - [formatPGVersionNumber](../f/formatPGVersionNumber.md)
-  - initPQExpBuffer
+  - [initPQExpBuffer](../i/initPQExpBuffer.md)
   - [printfPQExpBuffer](../p/printfPQExpBuffer.md)
   - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
   - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
   - [printACLColumn](../p/printACLColumn.md)
   - [validateSQLNamePattern](../v/validateSQLNamePattern.md)
   - [map_typename_pattern](../m/map_typename_pattern.md)
-  - termPQExpBuffer
+  - [termPQExpBuffer](../t/termPQExpBuffer.md)
   - [PSQLexec](../P/PSQLexec.md)
   - [printQuery](../p/printQuery.md)
   - [PQclear](../P/PQclear.md)

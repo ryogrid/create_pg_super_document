@@ -22,13 +22,13 @@ The function performs recursive calls to itself when filling gaps, writing zero 
 ## Dependencies
 - Functions called/Symbols referenced:
   - MemSet (fills zero buffer)
-  - BufFileSeekBlock (positions file pointer)
-  - BufFileWrite (performs actual write)
-  - ltsWriteBlock (recursive calls for gap filling)
+  - [BufFileSeekBlock](../B/BufFileSeekBlock.md) (positions file pointer)
+  - [BufFileWrite](../B/BufFileWrite.md) (performs actual write)
+  - [ltsWriteBlock](ltsWriteBlock.md) (recursive calls for gap filling)
 - Called from (representative examples):
-  - LogicalTapeWrite
-  - LogicalTapeRewindForRead
-  - LogicalTapeFreeze
+  - [LogicalTapeWrite](../L/LogicalTapeWrite.md)
+  - [LogicalTapeRewindForRead](../L/LogicalTapeRewindForRead.md)
+  - [LogicalTapeFreeze](../L/LogicalTapeFreeze.md)
 
 ## Notes and Other Information
 - Function uses recursive calls to fill file gaps, which could potentially cause stack overflow for very large gaps

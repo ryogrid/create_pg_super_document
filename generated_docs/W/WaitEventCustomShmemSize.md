@@ -29,9 +29,9 @@ The function uses proper memory alignment (MAXALIGN) and safe size addition (add
   - MAXALIGN (memory alignment macro)
   - [add_size](../a/add_size.md) (safe size addition function)
   - [hash_estimate_size](../h/hash_estimate_size.md) (hash table size estimation function)
-  - WaitEventCustomCounterData (counter data structure type)
-  - WaitEventCustomEntryByInfo (hash entry type for info-based lookup)
-  - WaitEventCustomEntryByName (hash entry type for name-based lookup)
+  - [WaitEventCustomCounterData](WaitEventCustomCounterData.md) (counter data structure type)
+  - [WaitEventCustomEntryByInfo](WaitEventCustomEntryByInfo.md) (hash entry type for info-based lookup)
+  - [WaitEventCustomEntryByName](WaitEventCustomEntryByName.md) (hash entry type for name-based lookup)
   - WAIT_EVENT_CUSTOM_HASH_MAX_SIZE (maximum hash table size constant)
 
 - Called from (representative examples):

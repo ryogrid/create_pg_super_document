@@ -23,11 +23,11 @@ The output format is a JSON-like structure where each entry shows the attribute 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_BYTEA_PP (macro to get bytea input parameter)
-  - statext_ndistinct_deserialize (deserializes bytea to MVNDistinct structure)
-  - initStringInfo (initializes string buffer)
-  - appendStringInfoChar (appends character to string buffer)
-  - appendStringInfoString (appends string to string buffer)  
-  - appendStringInfo (appends formatted string to buffer)
+  - [statext_ndistinct_deserialize](../s/statext_ndistinct_deserialize.md) (deserializes bytea to MVNDistinct structure)
+  - [initStringInfo](../i/initStringInfo.md) (initializes string buffer)
+  - [appendStringInfoChar](../a/appendStringInfoChar.md) (appends character to string buffer)
+  - [appendStringInfoString](../a/appendStringInfoString.md) (appends string to string buffer)  
+  - [appendStringInfo](../a/appendStringInfo.md) (appends formatted string to buffer)
   - PG_RETURN_CSTRING (macro to return C string as Datum)
 - Data types used:
   - [MVNDistinct](../M/MVNDistinct.md) (multivariate n-distinct statistics structure)

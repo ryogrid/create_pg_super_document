@@ -30,10 +30,10 @@ Not all FullTransactionId values represent valid normal XIDs - some may be speci
   - TransactionId (underlying 32-bit transaction ID type)
 
 - Called from (representative examples):
-  - GetNewTransactionId (transaction ID generation)
-  - GetCurrentFullTransactionId (current transaction access)
-  - GlobalVisTestIsRemovableFullXid (visibility testing)
-  - FullTransactionIdFromEpochAndXid (construction from components)
+  - [GetNewTransactionId](../G/GetNewTransactionId.md) (transaction ID generation)
+  - [GetCurrentFullTransactionId](../G/GetCurrentFullTransactionId.md) (current transaction access)
+  - [GlobalVisTestIsRemovableFullXid](../G/GlobalVisTestIsRemovableFullXid.md) (visibility testing)
+  - [FullTransactionIdFromEpochAndXid](FullTransactionIdFromEpochAndXid.md) (construction from components)
   - U64FromFullTransactionId (value extraction)
 
 ## Notes and Other Information

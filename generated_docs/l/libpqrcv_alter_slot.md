@@ -21,7 +21,7 @@ This function constructs and executes an ALTER_REPLICATION_SLOT command to modif
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initStringInfo/appendStringInfo: PostgreSQL string manipulation functions for building the command
+  - [initStringInfo](../i/initStringInfo.md)/appendStringInfo: PostgreSQL string manipulation functions for building the command
   - [quote_identifier](../q/quote_identifier.md): PostgreSQL function to safely quote SQL identifiers
   - [libpqrcv_PQexec](libpqrcv_PQexec.md): Internal wrapper for PQexec with connection management
   - [PQresultStatus](../P/PQresultStatus.md): libpq function to check the execution result status

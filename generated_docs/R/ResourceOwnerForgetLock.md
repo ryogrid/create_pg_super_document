@@ -28,15 +28,15 @@ The backward search optimization takes advantage of the common pattern where rec
 ## Dependencies
 - Functions called/Symbols referenced:
   - MAX_RESOWNER_LOCKS (constant defining cache size limit)
-  - LOCALLOCK (structure representing backend's view of a lock)
-  - ResourceOwner (structure managing resource ownership)
+  - [LOCALLOCK](../L/LOCALLOCK.md) (structure representing backend's view of a lock)
+  - [ResourceOwner](ResourceOwner.md) (structure managing resource ownership)
   - elog (PostgreSQL logging/error reporting function)
 - Called from (representative examples):
-  - RemoveLocalLock (in src/backend/storage/lmgr/lock.c:1383)
-  - LockRelease (in src/backend/storage/lmgr/lock.c:2031)
-  - LockReleaseAll (in src/backend/storage/lmgr/lock.c:2242)
-  - ReleaseLockIfHeld (in src/backend/storage/lmgr/lock.c:2538)
-  - LockReassignOwner (in src/backend/storage/lmgr/lock.c:2637)
+  - [RemoveLocalLock](RemoveLocalLock.md) (in src/backend/storage/lmgr/lock.c:1383)
+  - [LockRelease](../L/LockRelease.md) (in src/backend/storage/lmgr/lock.c:2031)
+  - [LockReleaseAll](../L/LockReleaseAll.md) (in src/backend/storage/lmgr/lock.c:2242)
+  - [ReleaseLockIfHeld](ReleaseLockIfHeld.md) (in src/backend/storage/lmgr/lock.c:2538)
+  - [LockReassignOwner](../L/LockReassignOwner.md) (in src/backend/storage/lmgr/lock.c:2637)
 
 ## Notes and Other Information
 - The function uses backward iteration (i = nlocks-1 to 0) as an optimization, assuming recently added locks are more likely to be removed first

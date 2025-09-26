@@ -29,16 +29,16 @@ The returned tuple descriptor is created in or copied into the current memory co
 ## Dependencies
 - Functions called/Symbols referenced:
   - nodeTag (to identify statement type)
-  - CallStmtResultDesc (for CALL statements)
-  - GetPortalByName, PortalIsValid (for FETCH statements)
-  - CreateTupleDescCopy (to copy portal tuple descriptors)
-  - FetchPreparedStatement, FetchPreparedStatementResultDesc (for EXECUTE statements)
-  - ExplainResultDesc (for EXPLAIN statements)
-  - GetPGVariableResultDesc (for SHOW statements)
+  - [CallStmtResultDesc](../C/CallStmtResultDesc.md) (for CALL statements)
+  - [GetPortalByName](../G/GetPortalByName.md), PortalIsValid (for FETCH statements)
+  - [CreateTupleDescCopy](../C/CreateTupleDescCopy.md) (to copy portal tuple descriptors)
+  - [FetchPreparedStatement](../F/FetchPreparedStatement.md), FetchPreparedStatementResultDesc (for EXECUTE statements)
+  - [ExplainResultDesc](../E/ExplainResultDesc.md) (for EXPLAIN statements)
+  - [GetPGVariableResultDesc](../G/GetPGVariableResultDesc.md) (for SHOW statements)
 
 - Called from:
-  - PortalStart (during portal initialization)
-  - PlanCacheComputeResultDesc (for result descriptor computation)
+  - [PortalStart](../P/PortalStart.md) (during portal initialization)
+  - [PlanCacheComputeResultDesc](../P/PlanCacheComputeResultDesc.md) (for result descriptor computation)
   - COMMAND_IS_NOT_READ_ONLY macro
 
 ## Notes and Other Information

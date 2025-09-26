@@ -35,8 +35,8 @@ ProcessQuery orchestrates the complete execution of a single planned query state
   - [ExecutorFinish](../E/ExecutorFinish.md)
   - [ExecutorEnd](../E/ExecutorEnd.md)
   - [FreeQueryDesc](../F/FreeQueryDesc.md)
-  - GetActiveSnapshot
-  - SetQueryCompletion
+  - [GetActiveSnapshot](../G/GetActiveSnapshot.md)
+  - [SetQueryCompletion](../S/SetQueryCompletion.md)
   - ForwardScanDirection
   - InvalidSnapshot
 - Called from (representative examples):

@@ -29,7 +29,7 @@ The walker uses `check_functions_in_node` with `contain_mutable_functions_checke
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_functions_in_node
+  - [check_functions_in_node](check_functions_in_node.md)
   - [contain_mutable_functions_checker](contain_mutable_functions_checker.md)  
   - [to_jsonb_is_immutable](../t/to_jsonb_is_immutable.md)
   - [to_json_is_immutable](../t/to_json_is_immutable.md)

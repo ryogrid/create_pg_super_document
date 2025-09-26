@@ -29,7 +29,7 @@ The function is essential for preparing parameter values when executing referent
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slot_getattr
+  - [slot_getattr](../s/slot_getattr.md)
   - [RI_ConstraintInfo](../R/RI_ConstraintInfo.md) (structure access)
 - Called from (representative examples):
   - [ri_PerformCheck](ri_PerformCheck.md) (called multiple times to extract old and new tuple values)

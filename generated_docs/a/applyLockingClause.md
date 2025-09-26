@@ -29,7 +29,7 @@ The pushedDown parameter tracks whether the locking requirement originated from 
 - Functions called/Symbols referenced:
   - [get_parse_rowmark](../g/get_parse_rowmark.md) (checks for existing RowMarkClause)
   - makeNode (creates new RowMarkClause structures)
-  - lappend (adds new clause to rowMarks list)
+  - [lappend](../l/lappend.md) (adds new clause to rowMarks list)
   - Max (macro for selecting maximum values)
   - Assert (assertion macro)
   - LCS_NONE (enum value for validation)

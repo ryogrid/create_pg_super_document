@@ -30,7 +30,7 @@ Like its non-extended counterpart, it uses caching mechanisms to avoid repeated 
   - [heap_deform_tuple](heap_deform_tuple.md): Break down tuple into individual column values
   - [lookup_type_cache](../l/lookup_type_cache.md): Get type cache entry with extended hash function info
   - FunctionCallInvoke: Call the extended hash function for each column
-  - check_stack_depth: Prevent stack overflow in recursive calls
+  - [check_stack_depth](../c/check_stack_depth.md): Prevent stack overflow in recursive calls
   - [Int64GetDatum](../I/Int64GetDatum.md): Convert seed value to Datum for function calls
 - Called from (representative examples):
   - No direct references found in the analyzed codebase

@@ -53,7 +53,7 @@ The function accounts for the fact that set operation inputs are always unsorted
 
 ## Notes and Other Information
 - The function assumes input is always unsorted since it comes from appending unrelated sub-relations
-- Hash entry size calculation includes both tuple width and minimal tuple header overhead with proper alignment
+- [Hash](../H/Hash.md) entry size calculation includes both tuple width and minimal tuple header overhead with proper alignment
 - When  is false, the function always chooses sorting regardless of cost estimates
 - The cost comparison uses fractional path costing to properly account for LIMIT clauses and partial result retrieval
 - Error reporting provides helpful details when data types have conflicting sorting/hashing support capabilities

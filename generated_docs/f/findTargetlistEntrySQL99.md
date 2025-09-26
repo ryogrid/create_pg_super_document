@@ -39,7 +39,7 @@ The matching process ignores implicit casts on existing target list expressions,
   - [strip_implicit_coercions](../s/strip_implicit_coercions.md)
   - [equal](../e/equal.md)
   - [transformTargetEntry](../t/transformTargetEntry.md)
-  - lappend
+  - [lappend](../l/lappend.md)
   - [ParseExprKind](../P/ParseExprKind.md)
 - Called from (representative examples):
   - [findTargetlistEntrySQL92](findTargetlistEntrySQL92.md)

@@ -28,13 +28,13 @@ The rationale is that if there are many active backends, introducing a small del
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ProcArrayStruct (procArray global variable)
-  - PGPROC (process structure)
+  - [ProcArrayStruct](../P/ProcArrayStruct.md) (procArray global variable)
+  - [PGPROC](../P/PGPROC.md) (process structure)
   - MyProc (current process)
   - InvalidTransactionId (constant for invalid transaction ID)
 
 - Called from (representative examples):
-  - XLogFlush (in src/backend/access/transam/xlog.c:2881)
+  - [XLogFlush](../X/XLogFlush.md) (in src/backend/access/transam/xlog.c:2881)
 
 ## Notes and Other Information
 - The function intentionally operates without acquiring ProcArrayLock for performance, accepting slight race conditions since the result is only used heuristically

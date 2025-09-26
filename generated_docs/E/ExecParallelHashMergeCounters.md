@@ -30,8 +30,8 @@ This synchronization is essential for making informed decisions about memory usa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire, LWLockRelease (lightweight locking)
-  - ParallelHashJoinState, ParallelHashJoinBatchAccessor (parallel state structures)
+  - [LWLockAcquire](../L/LWLockAcquire.md), LWLockRelease (lightweight locking)
+  - [ParallelHashJoinState](../P/ParallelHashJoinState.md), ParallelHashJoinBatchAccessor (parallel state structures)
 
 - Called from (representative examples):
   - [MultiExecParallelHash](../M/MultiExecParallelHash.md)

@@ -27,7 +27,7 @@ Key behaviors include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecEvalExprSwitchContext (evaluates LIMIT/OFFSET expressions)
+  - [ExecEvalExprSwitchContext](../E/ExecEvalExprSwitchContext.md) (evaluates LIMIT/OFFSET expressions)
   - [DatumGetInt64](../D/DatumGetInt64.md) (extracts int64 values from expression results)
   - [ExecSetTupleBound](../E/ExecSetTupleBound.md) (notifies child about required tuple count)
   - [compute_tuples_needed](../c/compute_tuples_needed.md) (calculates optimal tuple bound for child)

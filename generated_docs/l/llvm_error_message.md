@@ -27,14 +27,14 @@ This conversion is essential because LLVM and PostgreSQL have different memory m
 ## Dependencies
 - Functions called/Symbols referenced:
   - LLVMGetErrorMessage (LLVM API function)
-  - pstrdup (PostgreSQL string duplication function)
+  - [pstrdup](../p/pstrdup.md) (PostgreSQL string duplication function)
   - LLVMDisposeErrorMessage (LLVM memory cleanup function)
 - Called from (representative examples):
-  - llvm_get_function (for JIT lookup errors)
-  - llvm_optimize_module (for optimization errors)
-  - llvm_compile_module (for compilation errors)
-  - llvm_log_jit_error (for general JIT errors)
-  - llvm_create_jit_instance (for JIT instance creation errors)
+  - [llvm_get_function](llvm_get_function.md) (for JIT lookup errors)
+  - [llvm_optimize_module](llvm_optimize_module.md) (for optimization errors)
+  - [llvm_compile_module](llvm_compile_module.md) (for compilation errors)
+  - [llvm_log_jit_error](llvm_log_jit_error.md) (for general JIT errors)
+  - [llvm_create_jit_instance](llvm_create_jit_instance.md) (for JIT instance creation errors)
 
 ## Notes and Other Information
 - This is a static function local to llvmjit.c

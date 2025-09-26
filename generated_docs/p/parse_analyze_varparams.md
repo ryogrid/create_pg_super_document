@@ -39,7 +39,7 @@ This approach is particularly useful for dynamic SQL scenarios where parameter i
   - [setup_parse_variable_parameters](../s/setup_parse_variable_parameters.md): Sets up dynamic parameter handling
   - [transformTopLevelStmt](../t/transformTopLevelStmt.md): Performs the main statement transformation
   - [check_variable_parameters](../c/check_variable_parameters.md): Validates parameter resolution
-  - IsQueryIdEnabled: Checks if query ID generation is enabled
+  - [IsQueryIdEnabled](../I/IsQueryIdEnabled.md): Checks if query ID generation is enabled
   - [JumbleQuery](../J/JumbleQuery.md): Generates query ID for statistics
   - [free_parsestate](../f/free_parsestate.md): Cleanup parse state structure
   - [pgstat_report_query_id](pgstat_report_query_id.md): Reports query ID for statistics collection

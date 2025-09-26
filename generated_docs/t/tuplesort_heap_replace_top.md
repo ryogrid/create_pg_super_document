@@ -32,14 +32,14 @@ The function uses unsigned integers to prevent integer overflow in child index c
   - COMPARETUP: Macro that performs tuple comparison using the appropriate comparison function
   - CHECK_FOR_INTERRUPTS: PostgreSQL macro to handle query cancellation and other interrupts
   - SortTuple: Structure representing a sortable tuple
-  - Tuplesortstate: Main state structure for sorting operations
+  - [Tuplesortstate](../T/Tuplesortstate.md): Main state structure for sorting operations
 
 - Called from:
-  - tuplesort_puttuple_common: When adding tuples in bounded sort operations
-  - tuplesort_gettuple_common: During tuple retrieval operations
-  - tuplesort_heap_delete_top: As part of the heap deletion process
-  - mergeonerun: During external sort merge operations
-  - make_bounded_heap: When maintaining bounded heap size constraints
+  - [tuplesort_puttuple_common](tuplesort_puttuple_common.md): When adding tuples in bounded sort operations
+  - [tuplesort_gettuple_common](tuplesort_gettuple_common.md): During tuple retrieval operations
+  - [tuplesort_heap_delete_top](tuplesort_heap_delete_top.md): As part of the heap deletion process
+  - [mergeonerun](../m/mergeonerun.md): During external sort merge operations
+  - [make_bounded_heap](../m/make_bounded_heap.md): When maintaining bounded heap size constraints
   - LEADER: Referenced by parallel sort leader processes
 
 ## Notes and Other Information

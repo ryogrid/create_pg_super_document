@@ -41,13 +41,13 @@ During parse analysis, the argnumber field is set to the positional index of the
 - Functions called/Symbols referenced:
   - ParseLoc
 - Called from (representative examples):
-  - exprType (for type analysis)
-  - exprLocation (for error reporting)
-  - transformExprRecurse (during parse analysis)
-  - ParseFuncOrColumn (during function call parsing)
-  - func_get_detail (for function resolution)
-  - make_fn_arguments (for argument processing)
-  - get_rule_expr (for query deparsing)
+  - [exprType](../e/exprType.md) (for type analysis)
+  - [exprLocation](../e/exprLocation.md) (for error reporting)
+  - [transformExprRecurse](../t/transformExprRecurse.md) (during parse analysis)
+  - [ParseFuncOrColumn](../P/ParseFuncOrColumn.md) (during function call parsing)
+  - [func_get_detail](../f/func_get_detail.md) (for function resolution)
+  - [make_fn_arguments](../m/make_fn_arguments.md) (for argument processing)
+  - [get_rule_expr](../g/get_rule_expr.md) (for query deparsing)
 
 ## Notes and Other Information
 - Only appears in parse tree nodes (FuncCall, FuncExpr) and is eliminated before execution

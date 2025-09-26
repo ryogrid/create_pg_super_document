@@ -27,10 +27,10 @@ The function operates within replication steps (begin_replication_step/end_repli
   - [IsTransactionState](../I/IsTransactionState.md) (assertion check)
   - [begin_replication_step](../b/begin_replication_step.md)
   - [changes_filename](../c/changes_filename.md) (constructs file path)
-  - BufFileOpenFileSet
-  - BufFileSeek
-  - BufFileTell  
-  - BufFileClose
+  - [BufFileOpenFileSet](../B/BufFileOpenFileSet.md)
+  - [BufFileSeek](../B/BufFileSeek.md)
+  - [BufFileTell](../B/BufFileTell.md)  
+  - [BufFileClose](../B/BufFileClose.md)
   - [end_replication_step](end_replication_step.md)
 - Called from (representative examples):
   - [apply_spooled_messages](../a/apply_spooled_messages.md)

@@ -27,17 +27,17 @@ The function validates that the number of arguments is even (since each key must
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeStringInfo
+  - [makeStringInfo](../m/makeStringInfo.md)
   - [json_unique_builder_init](json_unique_builder_init.md)
   - [json_unique_builder_get_throwawaybuf](json_unique_builder_get_throwawaybuf.md)
-  - add_json
+  - [add_json](../a/add_json.md)
   - [json_unique_check_key](json_unique_check_key.md)
-  - cstring_to_text_with_len
-  - appendStringInfoChar
-  - appendStringInfoString
+  - [cstring_to_text_with_len](../c/cstring_to_text_with_len.md)
+  - [appendStringInfoChar](../a/appendStringInfoChar.md)
+  - [appendStringInfoString](../a/appendStringInfoString.md)
   - [pstrdup](../p/pstrdup.md)
 - Types referenced:
-  - JsonUniqueBuilderState
+  - [JsonUniqueBuilderState](../J/JsonUniqueBuilderState.md)
 - Called from (representative examples):
   - [json_build_object](json_build_object.md)
   - [ExecEvalJsonConstructor](../E/ExecEvalJsonConstructor.md)

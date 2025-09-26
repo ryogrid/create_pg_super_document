@@ -24,14 +24,14 @@ This function validates that the psql parser interprets the provided input buffe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - createPQExpBuffer
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)
   - psql_scan_create
   - psql_scan_setup
   - psql_scan
   - psql_scan_destroy
   - [resetPQExpBuffer](../r/resetPQExpBuffer.md)
   - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
-  - destroyPQExpBuffer
+  - [destroyPQExpBuffer](../d/destroyPQExpBuffer.md)
   - [PQclientEncoding](../P/PQclientEncoding.md)
   - scan_res_s
   - [escapify](../e/escapify.md)

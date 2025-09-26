@@ -41,7 +41,7 @@ After processing all segments, if any modifications were made, the function reco
   - [XLogRegisterBufData](../X/XLogRegisterBufData.md)
   - [XLogInsert](../X/XLogInsert.md)
   - RelationNeedsWAL
-  - MarkBufferDirty
+  - [MarkBufferDirty](../M/MarkBufferDirty.md)
   - [PageSetLSN](../P/PageSetLSN.md)
   - START_CRIT_SECTION/END_CRIT_SECTION
   - dlist_foreach

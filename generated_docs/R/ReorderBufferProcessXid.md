@@ -23,15 +23,15 @@ The function performs a simple but crucial task: it checks if the provided trans
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReorderBufferTXNByXid
+  - [ReorderBufferTXNByXid](ReorderBufferTXNByXid.md)
 - Called from (representative examples):
-  - LogicalDecodingProcessRecord
-  - xlog_decode
-  - xact_decode
-  - standby_decode
-  - heap2_decode
-  - heap_decode
-  - logicalmsg_decode
+  - [LogicalDecodingProcessRecord](../L/LogicalDecodingProcessRecord.md)
+  - [xlog_decode](../x/xlog_decode.md)
+  - [xact_decode](../x/xact_decode.md)
+  - [standby_decode](../s/standby_decode.md)
+  - [heap2_decode](../h/heap2_decode.md)
+  - [heap_decode](../h/heap_decode.md)
+  - [logicalmsg_decode](../l/logicalmsg_decode.md)
 
 ## Notes and Other Information
 - This function acts as a filter, only processing valid transaction IDs and ignoring InvalidTransactionId

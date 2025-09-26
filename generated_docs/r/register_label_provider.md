@@ -34,7 +34,7 @@ The registered provider becomes available for use with SECURITY LABEL SQL comman
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - [palloc](../p/palloc.md)
   - [pstrdup](../p/pstrdup.md)
-  - lappend
+  - [lappend](../l/lappend.md)
 - Called from (representative examples):
   - [_PG_init](../P/_PG_init.md) (in security label extension modules)
 

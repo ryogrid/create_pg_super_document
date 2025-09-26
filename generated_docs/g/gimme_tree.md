@@ -35,7 +35,7 @@ The process occurs in two phases: first, relations are joined using only desirab
   - [list_nth](../l/list_nth.md) (accesses relations from initial_rels list)
   - [merge_clump](../m/merge_clump.md) (merges clumps using join heuristics)
   - [palloc](../p/palloc.md) (memory allocation for clump structures)
-  - GeqoPrivateData, Clump, Gene (data structure types)
+  - [GeqoPrivateData](../G/GeqoPrivateData.md), Clump, Gene (data structure types)
 
 - Called from (representative examples):
   - [geqo_eval](geqo_eval.md) (fitness evaluation in genetic algorithm)

@@ -38,11 +38,11 @@ The function examines both the tuple's insertion transaction (xmin) and modifica
   - HeapTupleHeaderGetXvac
   - HeapTupleHeaderGetRawXmin
   - HeapTupleHeaderGetRawXmax
-  - HeapTupleHeaderGetCmin
-  - HeapTupleHeaderGetCmax
+  - [HeapTupleHeaderGetCmin](HeapTupleHeaderGetCmin.md)
+  - [HeapTupleHeaderGetCmax](HeapTupleHeaderGetCmax.md)
   - [HeapTupleGetUpdateXid](HeapTupleGetUpdateXid.md)
   - [TransactionIdIsCurrentTransactionId](../T/TransactionIdIsCurrentTransactionId.md)
-  - TransactionIdIsInProgress
+  - [TransactionIdIsInProgress](../T/TransactionIdIsInProgress.md)
   - [TransactionIdDidCommit](../T/TransactionIdDidCommit.md)
   - [MultiXactIdIsRunning](../M/MultiXactIdIsRunning.md)
   - [SetHintBits](../S/SetHintBits.md)

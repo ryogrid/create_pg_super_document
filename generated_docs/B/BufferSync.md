@@ -19,23 +19,23 @@ BufferSync is the main function called during checkpoints to write all dirty sha
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetBufferDescriptor
-  - LockBufHdr
-  - UnlockBufHdr
-  - BufTagGetRelNumber
-  - BufTagGetForkNum
+  - [GetBufferDescriptor](../G/GetBufferDescriptor.md)
+  - [LockBufHdr](../L/LockBufHdr.md)
+  - [UnlockBufHdr](../U/UnlockBufHdr.md)
+  - [BufTagGetRelNumber](BufTagGetRelNumber.md)
+  - [BufTagGetForkNum](BufTagGetForkNum.md)
   - sort_checkpoint_bufferids
-  - binaryheap_allocate
-  - binaryheap_add_unordered
-  - binaryheap_build
-  - binaryheap_first
-  - binaryheap_remove_first
-  - binaryheap_replace_first
-  - SyncOneBuffer
-  - CheckpointWriteDelay
-  - IssuePendingWritebacks
+  - [binaryheap_allocate](../b/binaryheap_allocate.md)
+  - [binaryheap_add_unordered](../b/binaryheap_add_unordered.md)
+  - [binaryheap_build](../b/binaryheap_build.md)
+  - [binaryheap_first](../b/binaryheap_first.md)
+  - [binaryheap_remove_first](../b/binaryheap_remove_first.md)
+  - [binaryheap_replace_first](../b/binaryheap_replace_first.md)
+  - [SyncOneBuffer](../S/SyncOneBuffer.md)
+  - [CheckpointWriteDelay](../C/CheckpointWriteDelay.md)
+  - [IssuePendingWritebacks](../I/IssuePendingWritebacks.md)
 - Called from (representative examples):
-  - CheckPointBuffers
+  - [CheckPointBuffers](../C/CheckPointBuffers.md)
   - BufferIsPinned
 
 ## Notes and Other Information

@@ -37,11 +37,11 @@ The function includes comprehensive error handling and cleanup for all failure s
   - shm_unlink (POSIX shared memory removal)
   - mmap/munmap (memory mapping operations)
   - fstat (file statistics for size determination)
-  - dsm_impl_posix_resize (segment resizing)
-  - ReserveExternalFD/ReleaseExternalFD (file descriptor management)
-  - errcode_for_dynamic_shared_memory (error code helper)
+  - [dsm_impl_posix_resize](dsm_impl_posix_resize.md) (segment resizing)
+  - [ReserveExternalFD](../R/ReserveExternalFD.md)/ReleaseExternalFD (file descriptor management)
+  - [errcode_for_dynamic_shared_memory](../e/errcode_for_dynamic_shared_memory.md) (error code helper)
 - Called from:
-  - dsm_impl_op (when dynamic_shared_memory_type is DSM_IMPL_POSIX)
+  - [dsm_impl_op](dsm_impl_op.md) (when dynamic_shared_memory_type is DSM_IMPL_POSIX)
 
 ## Notes and Other Information
 - Uses file descriptor reservation to prevent EMFILE errors during segment operations

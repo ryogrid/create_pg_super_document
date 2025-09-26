@@ -38,7 +38,7 @@ This static function performs the core column name lookup within a specific Rang
   - RELKIND_COMPOSITE_TYPE
   - [specialAttNum](specialAttNum.md)
   - SearchSysCacheExists2
-  - Int16GetDatum
+  - [Int16GetDatum](../I/Int16GetDatum.md)
 - Called from (representative examples):
   - MAX_FUZZY_DISTANCE
   - [scanNSItemForColumn](scanNSItemForColumn.md)

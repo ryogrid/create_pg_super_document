@@ -28,7 +28,7 @@ Similar to , the function includes a note that the approach has limitations for 
   - isupper (standard C library function for locale-aware uppercase detection)
   - tolower (standard C library function for locale-aware case conversion)
 - Called from (representative examples):
-  - String formatting functions (str_tolower, str_initcap)
+  - [String](../S/String.md) formatting functions (str_tolower, str_initcap)
   - Date/time parsing (APPEND_CHAR macro, DecodeTimezoneAbbrevPrefix)
   - Pattern matching utilities (SB_lower_char, patternToSQLRegex)
   - libpq field name lookup (PQfnumber)

@@ -19,7 +19,7 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwnerCreate
+  - [ResourceOwnerCreate](../R/ResourceOwnerCreate.md)
   - TransactionState (type)
 - Called from (representative examples):
   - [StartSubTransaction](../S/StartSubTransaction.md)

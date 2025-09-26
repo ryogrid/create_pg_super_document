@@ -45,13 +45,13 @@ The function examines each column pair in the row comparison, checking if additi
   - [match_index_to_operand](../m/match_index_to_operand.md)
   - [get_op_opfamily_strategy](../g/get_op_opfamily_strategy.md)
   - IndexCollMatchesExprColl
-  - lappend_int
-  - lappend_oid
+  - [lappend_int](../l/lappend_int.md)
+  - [lappend_oid](../l/lappend_oid.md)
   - [list_truncate](../l/list_truncate.md)
   - [get_opfamily_member](../g/get_opfamily_member.md)
   - [list_copy_head](../l/list_copy_head.md)
   - make_simple_restrictinfo
-  - make_opclause
+  - [make_opclause](../m/make_opclause.md)
   - copyObject
 - Called from (representative examples):
   - [match_rowcompare_to_indexcol](../m/match_rowcompare_to_indexcol.md)

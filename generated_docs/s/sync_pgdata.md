@@ -34,7 +34,7 @@ Special handling is provided for:
   - [walkdir](../w/walkdir.md)
   - [pre_sync_fname](../p/pre_sync_fname.md)
   - [fsync_fname](../f/fsync_fname.md)
-  - opendir/readdir/closedir
+  - [opendir](../o/opendir.md)/readdir/closedir
   - lstat
   - S_ISLNK
 - Called from (representative examples):

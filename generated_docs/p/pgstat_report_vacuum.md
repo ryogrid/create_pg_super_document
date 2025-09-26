@@ -22,18 +22,18 @@ The function also flushes IO statistics immediately after updating the relation 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentTimestamp
-  - pgstat_get_entry_ref_locked
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
+  - [pgstat_get_entry_ref_locked](pgstat_get_entry_ref_locked.md)
   - AmAutoVacuumWorkerProcess
-  - pgstat_unlock_entry
-  - pgstat_flush_io
+  - [pgstat_unlock_entry](pgstat_unlock_entry.md)
+  - [pgstat_flush_io](pgstat_flush_io.md)
   - PGSTAT_KIND_RELATION
   - PgStat_Counter
-  - PgStat_EntryRef
-  - PgStatShared_Relation
-  - PgStat_StatTabEntry
+  - [PgStat_EntryRef](../P/PgStat_EntryRef.md)
+  - [PgStatShared_Relation](../P/PgStatShared_Relation.md)
+  - [PgStat_StatTabEntry](../P/PgStat_StatTabEntry.md)
 - Called from (representative examples):
-  - heap_vacuum_rel
+  - [heap_vacuum_rel](../h/heap_vacuum_rel.md)
   - pgstat_count_conn_txn_idle_time
 
 ## Notes and Other Information

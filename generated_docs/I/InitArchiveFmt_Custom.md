@@ -37,7 +37,7 @@ The function supports both sequential and parallel restore operations but only p
   - [_StartLOs](../S/_StartLOs.md), _StartLO, _EndLO, _EndLOs
   - [_PrepParallelRestore](../P/_PrepParallelRestore.md), _Clone, _DeClone
   - [_WorkerJobRestoreCustom](../W/_WorkerJobRestoreCustom.md)
-  - pg_malloc0, fopen, checkSeek, ReadHead, ReadToc, _getFilePos
+  - [pg_malloc0](../p/pg_malloc0.md), fopen, checkSeek, ReadHead, ReadToc, _getFilePos
 
 - Called from (representative examples):
   - [_allocAH](../a/_allocAH.md) (in pg_backup_archiver.c:2449)

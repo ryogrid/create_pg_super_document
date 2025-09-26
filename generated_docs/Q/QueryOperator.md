@@ -43,9 +43,9 @@ For phrase operations, the distance field specifies the maximum allowed distance
   - QueryItemType (discriminator for union type)
   - Used within QueryItem union alongside QueryOperand
 - Used by (representative examples):
-  - pushOperator (building query parse trees)
-  - findoprnd_recurse (traversing operand trees) 
-  - QTNodeCompare (comparing query tree nodes)
+  - [pushOperator](../p/pushOperator.md) (building query parse trees)
+  - [findoprnd_recurse](../f/findoprnd_recurse.md) (traversing operand trees) 
+  - [QTNodeCompare](QTNodeCompare.md) (comparing query tree nodes)
   - QO_PRIORITY (getting operator precedence)
 
 ## Notes and Other Information

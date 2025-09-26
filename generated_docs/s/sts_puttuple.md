@@ -30,18 +30,18 @@ This function writes a tuple to the shared tuplestore associated with the given 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SharedTuplestoreAccessor, SharedTuplestoreParticipant, SharedTuplestoreChunk (structure types)
+  - [SharedTuplestoreAccessor](../S/SharedTuplestoreAccessor.md), SharedTuplestoreParticipant, SharedTuplestoreChunk (structure types)
   - MinimalTuple (tuple type)
-  - sts_filename (function to generate filename)
-  - BufFileCreateFileSet (function to create buffer file)
+  - [sts_filename](sts_filename.md) (function to generate filename)
+  - [BufFileCreateFileSet](../B/BufFileCreateFileSet.md) (function to create buffer file)
   - [sts_flush_chunk](sts_flush_chunk.md) (function to flush chunks to disk)
   - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md) (memory allocation function)
   - STS_CHUNK_PAGES, STS_CHUNK_DATA_SIZE (constants)
 - Called from (representative examples):
   - [ExecParallelHashRepartitionFirst](../E/ExecParallelHashRepartitionFirst.md) (in nodeHash.c:1356)
   - [ExecParallelHashRepartitionRest](../E/ExecParallelHashRepartitionRest.md) (in nodeHash.c:1424)
-  - ExecParallelHashTableInsert (in nodeHash.c:1771)
-  - ExecParallelHashJoinPartitionOuter (in nodeHashjoin.c:1529)
+  - [ExecParallelHashTableInsert](../E/ExecParallelHashTableInsert.md) (in nodeHash.c:1771)
+  - [ExecParallelHashJoinPartitionOuter](../E/ExecParallelHashJoinPartitionOuter.md) (in nodeHashjoin.c:1529)
 
 ## Notes and Other Information
 - Creates write files lazily on first tuple write to avoid unnecessary file creation

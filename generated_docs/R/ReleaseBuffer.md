@@ -26,16 +26,16 @@ This function is essential for proper buffer management and resource cleanup, en
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferIsValid, BufferIsLocal
-  - UnpinLocalBuffer
-  - UnpinBuffer
-  - GetBufferDescriptor
+  - [BufferIsValid](../B/BufferIsValid.md), BufferIsLocal
+  - [UnpinLocalBuffer](../U/UnpinLocalBuffer.md)
+  - [UnpinBuffer](../U/UnpinBuffer.md)
+  - [GetBufferDescriptor](../G/GetBufferDescriptor.md)
 - Called from (representative examples):
-  - brininsert
-  - heap_fetch
-  - _bt_relbuf
-  - XLogReadBufferExtended
-  - UnlockReleaseBuffer
+  - [brininsert](../b/brininsert.md)
+  - [heap_fetch](../h/heap_fetch.md)
+  - [_bt_relbuf](../b/_bt_relbuf.md)
+  - [XLogReadBufferExtended](../X/XLogReadBufferExtended.md)
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
 
 ## Notes and Other Information
 - This is the primary public interface for releasing buffer pins in PostgreSQL

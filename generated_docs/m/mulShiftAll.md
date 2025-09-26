@@ -32,9 +32,9 @@ The scaling by 4 and the additions/subtractions (±2, -1-mmShift) are part of th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - mulShift (called three times with different parameters)
+  - [mulShift](mulShift.md) (called three times with different parameters)
 - Called from (representative examples):
-  - d2d (multiple calls in src/common/d2s.c)
+  - [d2d](../d/d2d.md) (multiple calls in src/common/d2s.c)
 
 ## Notes and Other Information
 - This function is marked as `static inline` for performance optimization

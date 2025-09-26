@@ -23,7 +23,7 @@ The function validates the column number (attno) to ensure it is positive (rejec
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - text_to_cstring
+  - [text_to_cstring](../t/text_to_cstring.md)
   - [indexam_property](../i/indexam_property.md)
 - Called from (representative examples):
   - No direct callers found (likely called via SQL interface)

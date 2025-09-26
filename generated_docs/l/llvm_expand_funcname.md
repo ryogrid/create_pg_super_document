@@ -30,7 +30,7 @@ The function also increments the instrumentation counter for tracking the number
   - context->base.instr.created_functions (instrumentation counter)
 - Called from:
   - [slot_compile_deform](../s/slot_compile_deform.md) (tuple deforming compilation)
-  - llvm_compile_expr (expression compilation)
+  - [llvm_compile_expr](llvm_compile_expr.md) (expression compilation)
 
 ## Notes and Other Information
 - Returns a dynamically allocated string that must be freed by the caller

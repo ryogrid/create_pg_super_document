@@ -25,7 +25,7 @@ This is a static utility function that implements reference counting for snapsho
   - [SnapBuildGetOrBuildSnapshot](SnapBuildGetOrBuildSnapshot.md)
   - [SnapBuildProcessChange](SnapBuildProcessChange.md)
   - [SnapBuildDistributeSnapshotAndInval](SnapBuildDistributeSnapshotAndInval.md)
-  - SnapBuildCommitTxn
+  - [SnapBuildCommitTxn](SnapBuildCommitTxn.md)
   - [SnapBuildRestore](SnapBuildRestore.md)
 
 ## Notes and Other Information

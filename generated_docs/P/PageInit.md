@@ -25,15 +25,15 @@ PageInit is a fundamental function that initializes a PostgreSQL page structure.
   - PageHeader (type cast)
   - MAXALIGN (alignment macro)
   - MemSet (memory clearing function)
-  - PageSetPageSizeAndVersion (page version setting function)
+  - [PageSetPageSizeAndVersion](PageSetPageSizeAndVersion.md) (page version setting function)
   - SizeOfPageHeaderData (constant for header size)
   - PG_PAGE_LAYOUT_VERSION (page layout version constant)
 - Called from (representative examples):
-  - brin_page_init (BRIN index page initialization)
-  - GinInitPage (GIN index page initialization)
-  - gistinitpage (GiST index page initialization)
-  - _hash_pageinit (hash index page initialization)
-  - _bt_pageinit (B-tree index page initialization)
+  - [brin_page_init](../b/brin_page_init.md) (BRIN index page initialization)
+  - [GinInitPage](../G/GinInitPage.md) (GIN index page initialization)
+  - [gistinitpage](../g/gistinitpage.md) (GiST index page initialization)
+  - [_hash_pageinit](../h/_hash_pageinit.md) (hash index page initialization)
+  - [_bt_pageinit](../b/_bt_pageinit.md) (B-tree index page initialization)
 
 ## Notes and Other Information
 - The function does not calculate an initial checksum - this is deferred until write time

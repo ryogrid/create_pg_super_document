@@ -35,11 +35,11 @@ The state machine ensures that logical replication starts from a consistent poin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SnapBuild (struct definition in snapbuild.h:50)
+  - [SnapBuild](SnapBuild.md) (struct definition in snapbuild.h:50)
 
 - Used by (representative examples):
-  - SnapBuild struct (as state field in snapbuild.c:155)
-  - SnapBuildCurrentState function (returns this enum in snapbuild.c:412-419)
+  - [SnapBuild](SnapBuild.md) struct (as state field in snapbuild.c:155)
+  - [SnapBuildCurrentState](SnapBuildCurrentState.md) function (returns this enum in snapbuild.c:412-419)
   - Various state transition logic throughout snapbuild.c
 
 ## Notes and Other Information

@@ -34,14 +34,14 @@ The function handles both main region segments (allocated from PostgreSQL's shar
   - [slist_is_empty](../s/slist_is_empty.md)/slist_pop_head_node/slist_container (callback management)
   - HOLD_INTERRUPTS/RESUME_INTERRUPTS (interrupt control)
   - [is_main_region_dsm_handle](../i/is_main_region_dsm_handle.md) (segment type checking)
-  - dsm_impl_op (platform-specific operations)
+  - [dsm_impl_op](dsm_impl_op.md) (platform-specific operations)
   - [FreePageManagerPut](../F/FreePageManagerPut.md) (main region deallocation)
-  - ResourceOwnerForgetDSM (resource owner cleanup)
+  - [ResourceOwnerForgetDSM](../R/ResourceOwnerForgetDSM.md) (resource owner cleanup)
   - [dlist_delete](dlist_delete.md) (list management)
 - Called from (representative examples):
   - [DetachSession](../D/DetachSession.md) (session management)
-  - DestroyParallelContext (parallel query cleanup)
-  - dsa_detach (dynamic shared arrays)
+  - [DestroyParallelContext](../D/DestroyParallelContext.md) (parallel query cleanup)
+  - [dsa_detach](dsa_detach.md) (dynamic shared arrays)
   - [dsm_backend_shutdown](dsm_backend_shutdown.md) (backend shutdown)
 
 ## Notes and Other Information

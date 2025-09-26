@@ -32,7 +32,7 @@ This is the preferred interface for external callers throughout the PostgreSQL c
   - Assert (debugging macro)
 - Called from (representative examples):
   - [heap_create_with_catalog](../h/heap_create_with_catalog.md)
-  - index_create
+  - [index_create](../i/index_create.md)
   - [AggregateCreate](../A/AggregateCreate.md)
   - [ProcedureCreate](../P/ProcedureCreate.md)
   - [CreateConstraintEntry](../C/CreateConstraintEntry.md)

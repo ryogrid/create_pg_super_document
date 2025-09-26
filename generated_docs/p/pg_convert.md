@@ -41,7 +41,7 @@ Key characteristics:
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_BYTEA_PP/PG_GETARG_NAME (argument extraction macros)
-  - pg_char_to_encoding (encoding name to ID conversion)
+  - [pg_char_to_encoding](pg_char_to_encoding.md) (encoding name to ID conversion)
   - [pg_verify_mbstr](pg_verify_mbstr.md) (source data validation)
   - [pg_do_encoding_conversion](pg_do_encoding_conversion.md) (core conversion function)
   - unconstify (const removal utility)

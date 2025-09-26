@@ -23,7 +23,7 @@ The Integer node type is specifically designed to represent integer literals fou
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (macro for node allocation and initialization)
-  - Integer (struct type definition)
+  - [Integer](../I/Integer.md) (struct type definition)
 - Called from (representative examples):
   - [buildDefItem](../b/buildDefItem.md) (in tsearchcmds.c)
   - [nodeRead](../n/nodeRead.md) (in read.c for deserialization)

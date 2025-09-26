@@ -24,16 +24,16 @@ The function is widely used throughout PostgreSQL's XML processing code, particu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (PostgreSQL memory allocation function)
+  - [palloc](palloc.md) (PostgreSQL memory allocation function)
   - memcpy (standard C memory copy function)
 
 - Called from (representative examples):
-  - PgXmlErrorContext (structure initialization)
-  - xpath_internal (for XPath expression processing)
-  - XmlTableSetDocument (XML table document setup)
-  - XmlTableSetNamespace (XML namespace handling)
-  - XmlTableSetRowFilter (XML row filtering)
-  - XmlTableSetColumnFilter (XML column filtering)
+  - [PgXmlErrorContext](../P/PgXmlErrorContext.md) (structure initialization)
+  - [xpath_internal](../x/xpath_internal.md) (for XPath expression processing)
+  - [XmlTableSetDocument](../X/XmlTableSetDocument.md) (XML table document setup)
+  - [XmlTableSetNamespace](../X/XmlTableSetNamespace.md) (XML namespace handling)
+  - [XmlTableSetRowFilter](../X/XmlTableSetRowFilter.md) (XML row filtering)
+  - [XmlTableSetColumnFilter](../X/XmlTableSetColumnFilter.md) (XML column filtering)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the xml.c file

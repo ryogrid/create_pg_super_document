@@ -33,8 +33,8 @@ The implementation is only active on WIN32 platforms - on other platforms, the s
   - [pthread_mutex_lock](pthread_mutex_lock.md) (src/interfaces/ecpg/ecpglib/misc.c:435)
   - [pthread_mutex_unlock](pthread_mutex_unlock.md) (src/interfaces/ecpg/ecpglib/misc.c:453)
   - [default_threadlock](../d/default_threadlock.md) (src/interfaces/libpq/fe-connect.c:7747)
-  - pq_threadidcallback (src/interfaces/libpq/fe-secure-openssl.c:735)
-  - pgtls_init (src/interfaces/libpq/fe-secure-openssl.c:785)
+  - [pq_threadidcallback](pq_threadidcallback.md) (src/interfaces/libpq/fe-secure-openssl.c:735)
+  - [pgtls_init](pgtls_init.md) (src/interfaces/libpq/fe-secure-openssl.c:785)
 
 ## Notes and Other Information
 - This structure is only defined when compiling on WIN32 platforms; on Unix-like systems, the standard pthread.h mutex type is used instead

@@ -22,11 +22,11 @@ The returned Datum represents a TOAST pointer that provides read-only access to 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PointerGetDatum
-  - ExpandedObjectHeader
+  - [PointerGetDatum](../P/PointerGetDatum.md)
+  - [ExpandedObjectHeader](ExpandedObjectHeader.md)
 - Called from (representative examples):
-  - MakeExpandedObjectReadOnlyInternal
-  - ExpandedRecordGetRODatum
+  - [MakeExpandedObjectReadOnlyInternal](../M/MakeExpandedObjectReadOnlyInternal.md)
+  - [ExpandedRecordGetRODatum](ExpandedRecordGetRODatum.md)
 
 ## Notes and Other Information
 - This is an inline function defined in src/include/utils/expandeddatum.h:144-148

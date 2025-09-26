@@ -23,8 +23,8 @@ ri_set is the central workhorse function that implements the actual logic for ON
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ri_FetchConstraintInfo](ri_FetchConstraintInfo.md) (retrieves constraint metadata)
-  - table_open (opens the foreign key relation with RowExclusiveLock)
-  - SPI_connect/SPI_finish (SPI interface management)
+  - [table_open](../t/table_open.md) (opens the foreign key relation with RowExclusiveLock)
+  - [SPI_connect](../S/SPI_connect.md)/SPI_finish (SPI interface management)
   - [ri_BuildQueryKey](ri_BuildQueryKey.md)/ri_FetchPreparedPlan (query plan management)
   - [ri_PlanCheck](ri_PlanCheck.md) (prepares new query plans when needed)
   - [ri_PerformCheck](ri_PerformCheck.md) (executes the UPDATE statement)

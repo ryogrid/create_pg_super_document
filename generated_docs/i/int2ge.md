@@ -23,7 +23,7 @@ This function implements the greater-than-or-equal-to comparison operator (>=) f
   - PG_RETURN_BOOL: Returns boolean result to PostgreSQL
 - Called from (representative examples):
   - SQL queries using >= operator on smallint columns
-  - Range validation and boundary condition checks
+  - [Range](../R/Range.md) validation and boundary condition checks
 
 ## Notes and Other Information
 - Located in src/backend/utils/adt/int.c:495-503

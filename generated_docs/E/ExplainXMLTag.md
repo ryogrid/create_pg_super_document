@@ -19,11 +19,11 @@ ExplainXMLTag generates properly formatted XML tags for EXPLAIN output. The func
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExplainState (structure type)
+  - [ExplainState](ExplainState.md) (structure type)
   - X_NOWHITESPACE (flag constant)
   - X_CLOSING (flag constant)
   - X_CLOSE_IMMEDIATE (flag constant)
-  - appendStringInfoSpaces (string formatting function)
+  - [appendStringInfoSpaces](../a/appendStringInfoSpaces.md) (string formatting function)
   - appendStringInfoCharMacro (string formatting macro)
 - Called from (representative examples):
   - [ExplainPropertyList](ExplainPropertyList.md)

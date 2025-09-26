@@ -29,7 +29,7 @@ This function is the primary interface for adding changes to transactions during
   - [ReorderBufferReturnChange](ReorderBufferReturnChange.md) (returns change if transaction aborted)
   - rbtxn_get_toptxn (gets top-level transaction)
   - [dlist_push_tail](../d/dlist_push_tail.md) (adds change to transaction's change list)
-  - ReorderBufferChangeMemoryUpdate (updates memory accounting)
+  - [ReorderBufferChangeMemoryUpdate](ReorderBufferChangeMemoryUpdate.md) (updates memory accounting)
   - [ReorderBufferChangeSize](ReorderBufferChangeSize.md) (calculates change memory size)
   - [ReorderBufferProcessPartialChange](ReorderBufferProcessPartialChange.md) (handles partial change processing)
   - [ReorderBufferCheckMemoryLimit](ReorderBufferCheckMemoryLimit.md) (enforces memory limits)

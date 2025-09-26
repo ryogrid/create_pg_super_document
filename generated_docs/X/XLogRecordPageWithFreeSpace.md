@@ -23,24 +23,24 @@ The function follows a careful protocol for buffer management: it extends the FS
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fsm_space_avail_to_cat
+  - [fsm_space_avail_to_cat](../f/fsm_space_avail_to_cat.md)
   - FSMAddress
-  - fsm_get_location
-  - fsm_logical_to_physical
-  - XLogReadBufferExtended
+  - [fsm_get_location](../f/fsm_get_location.md)
+  - [fsm_logical_to_physical](../f/fsm_logical_to_physical.md)
+  - [XLogReadBufferExtended](XLogReadBufferExtended.md)
   - FSM_FORKNUM
   - RBM_ZERO_ON_ERROR
   - BUFFER_LOCK_EXCLUSIVE
-  - PageIsNew
-  - PageInit
-  - fsm_set_avail
-  - MarkBufferDirtyHint
+  - [PageIsNew](../P/PageIsNew.md)
+  - [PageInit](../P/PageInit.md)
+  - [fsm_set_avail](../f/fsm_set_avail.md)
+  - [MarkBufferDirtyHint](../M/MarkBufferDirtyHint.md)
 - Called from (representative examples):
-  - heap_xlog_prune_freeze
-  - heap_xlog_visible
-  - heap_xlog_insert
-  - heap_xlog_multi_insert
-  - heap_xlog_update
+  - [heap_xlog_prune_freeze](../h/heap_xlog_prune_freeze.md)
+  - [heap_xlog_visible](../h/heap_xlog_visible.md)
+  - [heap_xlog_insert](../h/heap_xlog_insert.md)
+  - [heap_xlog_multi_insert](../h/heap_xlog_multi_insert.md)
+  - [heap_xlog_update](../h/heap_xlog_update.md)
 
 ## Notes and Other Information
 - Specifically designed for WAL replay operations during crash recovery

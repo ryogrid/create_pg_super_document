@@ -34,27 +34,27 @@ The Numeric typedef itself has no direct members, but it points to NumericData w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - NumericData (the underlying structure)
+  - [NumericData](NumericData.md) (the underlying structure)
   - NumericChoice (union for format selection)
-  - NumericShort (compact format)
-  - NumericLong (extended format)
+  - [NumericShort](NumericShort.md) (compact format)
+  - [NumericLong](NumericLong.md) (extended format)
   - PG_DETOAST_DATUM (for extracting from Datum)
-  - PointerGetDatum (for converting to Datum)
+  - [PointerGetDatum](../P/PointerGetDatum.md) (for converting to Datum)
 
 - Called from (representative examples):
-  - numeric_in (input function)
-  - numeric_out (output function) 
-  - numeric_add, numeric_sub, numeric_mul, numeric_div (arithmetic operations)
-  - numeric_cmp, numeric_eq, numeric_lt, etc. (comparison functions)
-  - numeric_sqrt, numeric_exp, numeric_ln (mathematical functions)
-  - DatumGetNumeric, NumericGetDatum (conversion macros)
+  - [numeric_in](../n/numeric_in.md) (input function)
+  - [numeric_out](../n/numeric_out.md) (output function) 
+  - [numeric_add](../n/numeric_add.md), numeric_sub, numeric_mul, numeric_div (arithmetic operations)
+  - [numeric_cmp](../n/numeric_cmp.md), numeric_eq, numeric_lt, etc. (comparison functions)
+  - [numeric_sqrt](../n/numeric_sqrt.md), numeric_exp, numeric_ln (mathematical functions)
+  - [DatumGetNumeric](../D/DatumGetNumeric.md), NumericGetDatum (conversion macros)
   - Over 200 other functions throughout the PostgreSQL codebase
 
 ## Notes and Other Information
 - The Numeric type is implemented as a TOAST-able variable-length type
 - Values are automatically converted between short and long formats as needed
 - The implementation provides both error-throwing and non-throwing variants of arithmetic operations
-- Numeric values maintain exact precision, making them ideal for monetary calculations
+- [Numeric](Numeric.md) values maintain exact precision, making them ideal for monetary calculations
 - The type supports PostgreSQL's full range of SQL numeric operations and functions
 - Memory management follows PostgreSQL's palloc/pfree conventions
 - The format is optimized for common use cases while supporting extreme precision when needed

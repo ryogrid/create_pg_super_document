@@ -21,12 +21,12 @@ The function performs a linear search through all auxiliary process slots, compa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PGPROC (process control block structure)
+  - [PGPROC](../P/PGPROC.md) (process control block structure)
   - NUM_AUXILIARY_PROCS (maximum number of auxiliary processes)
   - AuxiliaryProcs (global array of auxiliary process control blocks)
 
 - Called from (representative examples):
-  - pg_log_backend_memory_contexts (for memory context debugging)
+  - [pg_log_backend_memory_contexts](../p/pg_log_backend_memory_contexts.md) (for memory context debugging)
   - PG_STAT_GET_ACTIVITY_COLS (for process activity statistics)
 
 ## Notes and Other Information

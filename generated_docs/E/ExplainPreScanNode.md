@@ -26,12 +26,12 @@ The function uses a switch statement to handle different plan node types and ext
   - [bms_add_member](../b/bms_add_member.md)
   - [bms_add_members](../b/bms_add_members.md)
   - planstate_tree_walker
-  - Scan (cast)
-  - ForeignScan (cast)
-  - CustomScan (cast)
+  - [Scan](../S/Scan.md) (cast)
+  - [ForeignScan](../F/ForeignScan.md) (cast)
+  - [CustomScan](../C/CustomScan.md) (cast)
   - [ModifyTable](../M/ModifyTable.md) (cast)
-  - Append (cast)
-  - MergeAppend (cast)
+  - [Append](../A/Append.md) (cast)
+  - [MergeAppend](../M/MergeAppend.md) (cast)
 - Called from (representative examples):
   - [ExplainPrintPlan](ExplainPrintPlan.md)
   - [ExplainPreScanNode](ExplainPreScanNode.md) (recursive)

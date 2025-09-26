@@ -29,7 +29,7 @@ This validation is crucial for maintaining data integrity and proper collation b
 ## Dependencies
 - Functions called/Symbols referenced:
   - [builtin_locale_encoding](builtin_locale_encoding.md)
-  - pg_encoding_to_char
+  - [pg_encoding_to_char](../p/pg_encoding_to_char.md)
   - strcmp (standard C library function)
   - ereport (for error reporting)
   - [errcode](../e/errcode.md), ERRCODE_WRONG_OBJECT_TYPE

@@ -24,7 +24,7 @@ The function performs a linear search through the join_domains list and returns 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bms_is_subset](../b/bms_is_subset.md)
-  - JoinDomain (struct type)
+  - [JoinDomain](../J/JoinDomain.md) (struct type)
   - elog (for error reporting)
   - lfirst (list iteration macro)
 - Called from (representative examples):

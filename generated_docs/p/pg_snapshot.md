@@ -41,7 +41,7 @@ The struct uses a flexible array member design where the `xip` array contains th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FullTransactionId (struct type for 64-bit transaction IDs)
+  - [FullTransactionId](../F/FullTransactionId.md) (struct type for 64-bit transaction IDs)
   - FLEXIBLE_ARRAY_MEMBER (macro for variable-length arrays)
 
 - Called from (representative examples):

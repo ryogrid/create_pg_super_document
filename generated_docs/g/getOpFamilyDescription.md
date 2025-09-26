@@ -26,8 +26,8 @@ The function handles schema qualification by checking if the operator family is 
   - [SearchSysCache1](../S/SearchSysCache1.md) (system catalog lookups for OPFAMILYOID and AMOID)
   - [OpfamilyIsVisible](../O/OpfamilyIsVisible.md) (visibility checking for operator families)
   - [get_namespace_name](get_namespace_name.md) (schema name retrieval)
-  - quote_qualified_identifier (safe name quoting)
-  - appendStringInfo (string formatting)
+  - [quote_qualified_identifier](../q/quote_qualified_identifier.md) (safe name quoting)
+  - [appendStringInfo](../a/appendStringInfo.md) (string formatting)
   - [ReleaseSysCache](../R/ReleaseSysCache.md) (cache cleanup)
   - Form_pg_opfamily and Form_pg_am structures
 

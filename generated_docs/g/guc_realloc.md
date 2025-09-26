@@ -24,7 +24,7 @@ The function includes an important safety feature: it verifies that any existing
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetMemoryChunkContext (for memory context verification)
+  - [GetMemoryChunkContext](../G/GetMemoryChunkContext.md) (for memory context verification)
   - [repalloc_extended](../r/repalloc_extended.md) (for resizing existing memory)
   - [MemoryContextAllocExtended](../M/MemoryContextAllocExtended.md) (for new allocations when old is NULL)
   - MCXT_ALLOC_NO_OOM (flag for no-OOM allocation)

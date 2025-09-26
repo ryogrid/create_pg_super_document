@@ -41,8 +41,8 @@ The registration process involves:
   - [pg_atomic_write_u64](../p/pg_atomic_write_u64.md)
   - [pg_atomic_write_u32](../p/pg_atomic_write_u32.md)
   - pg_write_barrier
-  - strlcpy
-  - LWLockAcquire/LWLockRelease
+  - [strlcpy](../s/strlcpy.md)
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease
 - Types referenced:
   - [InjectionPointEntry](InjectionPointEntry.md)
 - Constants used:

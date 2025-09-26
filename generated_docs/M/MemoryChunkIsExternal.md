@@ -21,7 +21,7 @@ External chunks are typically used for large allocations that exceed the normal 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryChunk (structure type)
+  - [MemoryChunk](MemoryChunk.md) (structure type)
   - HdrMaskIsExternal (helper macro/function)
   - HdrMaskCheckMagic (helper macro/function for debug validation)
 - Called from (representative examples):

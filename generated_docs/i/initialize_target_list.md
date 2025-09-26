@@ -25,7 +25,7 @@ The function is called lazily by other functions (BaseBackupAddTarget and BaseBa
   - builtin_backup_targets (static array)
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - TopMemoryContext
-  - lappend
+  - [lappend](../l/lappend.md)
   - BaseBackupTargetTypeList (global variable)
 
 - Called from (representative examples):

@@ -37,16 +37,16 @@ The function ensures thread-safe allocation while maintaining optimal performanc
 - Functions called/Symbols referenced:
   - MAXALIGN (memory alignment)
   - [dsa_get_address](../d/dsa_get_address.md) (convert DSA pointer to local address)
-  - LWLockAcquire/LWLockRelease (exclusive locking)
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease (exclusive locking)
   - dsa_allocate (shared memory allocation)
   - [ExecParallelHashIncreaseNumBatches](ExecParallelHashIncreaseNumBatches.md) (batch growth)
-  - ExecParallelHashIncreaseNumBuckets (bucket growth)
-  - BarrierPhase (parallel coordination)
+  - [ExecParallelHashIncreaseNumBuckets](ExecParallelHashIncreaseNumBuckets.md) (bucket growth)
+  - [BarrierPhase](../B/BarrierPhase.md) (parallel coordination)
   - HASH_CHUNK_DATA, HASH_CHUNK_HEADER_SIZE, HASH_CHUNK_THRESHOLD constants
 - Called from:
   - [ExecParallelHashRepartitionFirst](ExecParallelHashRepartitionFirst.md) (nodeHash.c:1341)
-  - ExecParallelHashTableInsert (nodeHash.c:1741)
-  - ExecParallelHashTableInsertCurrentBatch (nodeHash.c:1800)
+  - [ExecParallelHashTableInsert](ExecParallelHashTableInsert.md) (nodeHash.c:1741)
+  - [ExecParallelHashTableInsertCurrentBatch](ExecParallelHashTableInsertCurrentBatch.md) (nodeHash.c:1800)
 
 ## Notes and Other Information
 - This is a static function internal to nodeHash.c for parallel hash join operations

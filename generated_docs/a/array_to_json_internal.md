@@ -23,16 +23,16 @@ array_to_json_internal serves as the main entry point for converting PostgreSQL 
 - Functions called/Symbols referenced:
   - DatumGetArrayTypeP (extract ArrayType from Datum)
   - ARR_ELEMTYPE, ARR_NDIM, ARR_DIMS (array metadata macros)
-  - ArrayGetNItems (calculate total number of elements)
-  - get_typlenbyvalalign (get type information for element type)
-  - json_categorize_type (determine JSON conversion approach)
-  - deconstruct_array (extract individual elements and null flags)
-  - array_dim_to_json (recursive dimension processing)
-  - pfree (memory cleanup)
+  - [ArrayGetNItems](../A/ArrayGetNItems.md) (calculate total number of elements)
+  - [get_typlenbyvalalign](../g/get_typlenbyvalalign.md) (get type information for element type)
+  - [json_categorize_type](../j/json_categorize_type.md) (determine JSON conversion approach)
+  - [deconstruct_array](../d/deconstruct_array.md) (extract individual elements and null flags)
+  - [array_dim_to_json](array_dim_to_json.md) (recursive dimension processing)
+  - [pfree](../p/pfree.md) (memory cleanup)
 - Called from (representative examples):
-  - datum_to_json_internal
-  - array_to_json
-  - array_to_json_pretty
+  - [datum_to_json_internal](../d/datum_to_json_internal.md)
+  - [array_to_json](array_to_json.md)
+  - [array_to_json_pretty](array_to_json_pretty.md)
 
 ## Notes and Other Information
 The function optimizes for empty arrays by immediately returning "[]" without further processing. It properly handles PostgreSQL's array storage format by deconstructing the array using the element type's storage characteristics (length, by-value flag, alignment). Memory management is handled carefully with pfree calls to avoid leaks from the temporary element and nulls arrays created by deconstruct_array.

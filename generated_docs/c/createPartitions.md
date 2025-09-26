@@ -20,13 +20,13 @@ The createPartitions function creates partitioned tables for the pgbench_account
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQExpBufferData](../P/PQExpBufferData.md) (for building SQL statements)
-  - initPQExpBuffer (initializes query buffer)
+  - [initPQExpBuffer](../i/initPQExpBuffer.md) (initializes query buffer)
   - [printfPQExpBuffer](../p/printfPQExpBuffer.md) (formats SQL statements)
   - [appendPQExpBuffer](../a/appendPQExpBuffer.md) (appends formatted text to buffer)
   - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md) (appends string to buffer)
-  - appendPQExpBufferChar (appends character to buffer)
+  - [appendPQExpBufferChar](../a/appendPQExpBufferChar.md) (appends character to buffer)
   - [executeStatement](../e/executeStatement.md) (executes the SQL statements)
-  - termPQExpBuffer (cleans up query buffer)
+  - [termPQExpBuffer](../t/termPQExpBuffer.md) (cleans up query buffer)
   - PART_RANGE, PART_HASH (partition method constants)
   - INT64_FORMAT (format macro for 64-bit integers)
 - Called from (representative examples):

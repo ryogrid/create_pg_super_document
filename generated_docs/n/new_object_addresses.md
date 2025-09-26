@@ -32,7 +32,7 @@ This is a fundamental utility function used extensively throughout the catalog s
   - [performMultipleDeletions](../p/performMultipleDeletions.md)
   - [recordDependencyOnExpr](../r/recordDependencyOnExpr.md)
   - [heap_create_with_catalog](../h/heap_create_with_catalog.md)
-  - index_create
+  - [index_create](../i/index_create.md)
   - [AggregateCreate](../A/AggregateCreate.md)
   - [ProcedureCreate](../P/ProcedureCreate.md)
   - [RemoveObjects](../R/RemoveObjects.md)

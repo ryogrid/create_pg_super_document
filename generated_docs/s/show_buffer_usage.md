@@ -31,16 +31,16 @@ The function must stay synchronized with  to ensure consistent buffer usage repo
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExplainIndentText](../E/ExplainIndentText.md)
-  - appendStringInfoString
-  - appendStringInfo
-  - appendStringInfoChar
+  - [appendStringInfoString](../a/appendStringInfoString.md)
+  - [appendStringInfo](../a/appendStringInfo.md)
+  - [appendStringInfoChar](../a/appendStringInfoChar.md)
   - [ExplainPropertyInteger](../E/ExplainPropertyInteger.md)
   - [ExplainPropertyFloat](../E/ExplainPropertyFloat.md)
   - INSTR_TIME_IS_ZERO
   - INSTR_TIME_GET_MILLISEC
 - Called from (representative examples):
   - [ExplainOnePlan](../E/ExplainOnePlan.md)
-  - ExplainPrintSerialize
+  - [ExplainPrintSerialize](../E/ExplainPrintSerialize.md)
   - [ExplainNode](../E/ExplainNode.md)
 
 ## Notes and Other Information

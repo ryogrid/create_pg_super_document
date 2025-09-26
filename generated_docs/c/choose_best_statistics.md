@@ -32,7 +32,7 @@ This function implements a selection algorithm to choose the most appropriate st
   - [bms_add_members](../b/bms_add_members.md)
   - [bms_num_members](../b/bms_num_members.md)
   - [bms_free](../b/bms_free.md)
-  - list_length
+  - [list_length](../l/list_length.md)
   - STATS_MAX_DIMENSIONS
 - Called from (representative examples):
   - [statext_mcv_clauselist_selectivity](../s/statext_mcv_clauselist_selectivity.md)

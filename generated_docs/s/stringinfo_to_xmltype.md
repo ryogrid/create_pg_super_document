@@ -22,7 +22,7 @@ The function works by extracting both the data pointer and length from the Strin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - cstring_to_text_with_len (creates text value from C string with specified length)
+  - [cstring_to_text_with_len](../c/cstring_to_text_with_len.md) (creates text value from C string with specified length)
   - [xmltype](../x/xmltype.md) (PostgreSQL XML data type)
 - Called from:
   - [xmlcomment](../x/xmlcomment.md) (XML comment creation)

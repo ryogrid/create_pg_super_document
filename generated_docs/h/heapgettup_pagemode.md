@@ -44,8 +44,8 @@ extract_readme_file_header_comments.py	update_symbol_types.py: ScanDirection - D
   - [PageGetItem](../P/PageGetItem.md)
   - ItemIdGetLength
   - [ItemPointerSet](../I/ItemPointerSet.md)
-  - HeapKeyTest
-  - ReleaseBuffer
+  - [HeapKeyTest](../H/HeapKeyTest.md)
+  - [ReleaseBuffer](../R/ReleaseBuffer.md)
 - Called from (representative examples):
   - [heap_getnext](heap_getnext.md)
   - [heap_getnextslot](heap_getnextslot.md)
@@ -58,4 +58,4 @@ extract_readme_file_header_comments.py	update_symbol_types.py: ScanDirection - D
 - Assumes ItemIdIsNormal() for all tuples in rs_vistuples[] since they were pre-validated
 - More efficient than regular heapgettup when many tuples on a page are not visible
 - Still performs scan key filtering even though visibility is pre-determined
-- Scan state reset behavior is identical to regular heapgettup when reaching scan end
+- [Scan](../S/Scan.md) state reset behavior is identical to regular heapgettup when reaching scan end

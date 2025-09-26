@@ -29,12 +29,12 @@ The algorithm relies on the input being pre-sorted by the grouping columns, whic
 - Functions called/Symbols referenced:
   - [GroupState](../G/GroupState.md) (cast target)
   - TupIsNull (tuple checking)
-  - ExecProcNode (child node execution)
+  - [ExecProcNode](ExecProcNode.md) (child node execution)
   - outerPlanState (access child plan)
-  - ExecCopySlot (tuple copying)
-  - ExecQual (HAVING clause evaluation)
-  - ExecProject (result projection)
-  - ExecQualAndReset (group equality testing)
+  - [ExecCopySlot](ExecCopySlot.md) (tuple copying)
+  - [ExecQual](ExecQual.md) (HAVING clause evaluation)
+  - [ExecProject](ExecProject.md) (result projection)
+  - [ExecQualAndReset](ExecQualAndReset.md) (group equality testing)
   - InstrCountFiltered1 (instrumentation)
 - Called from (representative examples):
   - [ExecInitGroup](ExecInitGroup.md) (as assigned ExecProcNode function)

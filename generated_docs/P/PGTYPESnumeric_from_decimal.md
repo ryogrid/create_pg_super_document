@@ -22,15 +22,15 @@ This function serves as the reverse operation of `PGTYPESnumeric_to_decimal`, pr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - numeric (type)
+  - [numeric](../n/numeric.md) (type)
   - decimal (type)
-  - zero_var (numeric initialization function)
-  - alloc_var (numeric memory allocation function)
+  - [zero_var](../z/zero_var.md) (numeric initialization function)
+  - [alloc_var](../a/alloc_var.md) (numeric memory allocation function)
 - Called from (representative examples):
-  - deccall2, deccall3 (in compatlib/informix.c)
-  - dectoasc, dectodbl, dectoint, dectolong (in compatlib/informix.c)
-  - ecpg_store_input (in ecpglib/execute.c)
-  - main (in test files for numeric operations)
+  - [deccall2](../d/deccall2.md), deccall3 (in compatlib/informix.c)
+  - [dectoasc](../d/dectoasc.md), dectodbl, dectoint, dectolong (in compatlib/informix.c)
+  - [ecpg_store_input](../e/ecpg_store_input.md) (in ecpglib/execute.c)
+  - [main](../m/main.md) (in test files for numeric operations)
 
 ## Notes and Other Information
 - Returns 0 on successful conversion, -1 on memory allocation failure

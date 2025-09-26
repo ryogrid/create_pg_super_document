@@ -35,7 +35,7 @@ The algorithm:
   - [has_subclass](../h/has_subclass.md): Checks if a relation has any child relations
   - list_make1_oid: Creates a list with one OID element
   - [list_member_oid](../l/list_member_oid.md): Checks if OID is already in the list
-  - lappend_oid: Appends OID to list
+  - [lappend_oid](../l/lappend_oid.md): Appends OID to list
   - [systable_beginscan](../s/systable_beginscan.md): Begins system table scan
   - [systable_getnext](../s/systable_getnext.md): Gets next tuple from system scan
   - [list_free](../l/list_free.md): Frees memory allocated for lists

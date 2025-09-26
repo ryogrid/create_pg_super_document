@@ -32,9 +32,9 @@ The function performs the following operations in each iteration:
   - `CHECK_FOR_INTERRUPTS()`
   - [InvalidateCatalogSnapshot](../I/InvalidateCatalogSnapshot.md)()
   - [GetSubscriptionRelState](../G/GetSubscriptionRelState.md)()
-  - `LWLockAcquire()`
-  - `logicalrep_worker_find()`
-  - `LWLockRelease()`
+  - `[LWLockAcquire](../L/LWLockAcquire.md)()`
+  - `[logicalrep_worker_find](../l/logicalrep_worker_find.md)()`
+  - `[LWLockRelease](../L/LWLockRelease.md)()`
   - [WaitLatch](../W/WaitLatch.md)()
   - [ResetLatch](../R/ResetLatch.md)()
   - `SUBREL_STATE_UNKNOWN`

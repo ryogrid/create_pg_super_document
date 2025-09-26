@@ -21,7 +21,7 @@ _hash_dropbuf(Relation rel, Buffer buf)
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReleaseBuffer (core buffer management function for unpinning)
+  - [ReleaseBuffer](../R/ReleaseBuffer.md) (core buffer management function for unpinning)
 
 - Called from (representative examples):
   - [hashbulkdelete](hashbulkdelete.md) (bulk deletion operations)

@@ -23,15 +23,15 @@ This function executes a SQL query and generates an XML Schema Definition that d
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - text_to_cstring
+  - [text_to_cstring](../t/text_to_cstring.md)
   - PG_GETARG_BOOL
-  - SPI_connect
+  - [SPI_connect](../S/SPI_connect.md)
   - [SPI_prepare](../S/SPI_prepare.md)
   - [SPI_cursor_open](../S/SPI_cursor_open.md)
   - [_SPI_strdup](../S/_SPI_strdup.md)
   - [map_sql_table_to_xmlschema](../m/map_sql_table_to_xmlschema.md)
   - [SPI_cursor_close](../S/SPI_cursor_close.md)
-  - SPI_finish
+  - [SPI_finish](../S/SPI_finish.md)
   - [cstring_to_xmltype](../c/cstring_to_xmltype.md)
   - PG_RETURN_XML_P
 - Called from:

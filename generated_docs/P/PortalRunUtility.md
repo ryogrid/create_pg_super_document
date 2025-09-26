@@ -28,13 +28,13 @@ PortalRunUtility is responsible for executing utility statements (non-DML comman
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PlannedStmtRequiresSnapshot](PlannedStmtRequiresSnapshot.md)
-  - GetTransactionSnapshot
-  - RegisterSnapshot
-  - PushActiveSnapshotWithLevel
-  - GetActiveSnapshot
+  - [GetTransactionSnapshot](../G/GetTransactionSnapshot.md)
+  - [RegisterSnapshot](../R/RegisterSnapshot.md)
+  - [PushActiveSnapshotWithLevel](PushActiveSnapshotWithLevel.md)
+  - [GetActiveSnapshot](../G/GetActiveSnapshot.md)
   - [ProcessUtility](ProcessUtility.md)
-  - ActiveSnapshotSet
-  - PopActiveSnapshot
+  - [ActiveSnapshotSet](../A/ActiveSnapshotSet.md)
+  - [PopActiveSnapshot](PopActiveSnapshot.md)
 - Called from (representative examples):
   - [FillPortalStore](../F/FillPortalStore.md)
   - [PortalRunMulti](PortalRunMulti.md)

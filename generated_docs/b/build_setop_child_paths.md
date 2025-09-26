@@ -41,7 +41,7 @@ The function is particularly intelligent about sorting: it always includes the c
 - Functions called/Symbols referenced:
   - [add_setop_child_rel_equivalences](../a/add_setop_child_rel_equivalences.md)
   - [set_subquery_size_estimates](../s/set_subquery_size_estimates.md)
-  - fetch_upper_rel
+  - [fetch_upper_rel](../f/fetch_upper_rel.md)
   - [convert_subquery_pathkeys](../c/convert_subquery_pathkeys.md)
   - [make_tlist_from_pathtarget](../m/make_tlist_from_pathtarget.md)
   - [create_subqueryscan_path](../c/create_subqueryscan_path.md)

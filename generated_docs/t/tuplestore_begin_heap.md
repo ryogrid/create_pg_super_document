@@ -24,20 +24,20 @@ The function configures execution flags based on the randomAccess parameter to d
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - tuplestore_begin_common (common initialization)
-  - copytup_heap (heap tuple copy function)
-  - writetup_heap (heap tuple write function)
-  - readtup_heap (heap tuple read function)
+  - [tuplestore_begin_common](tuplestore_begin_common.md) (common initialization)
+  - [copytup_heap](../c/copytup_heap.md) (heap tuple copy function)
+  - [writetup_heap](../w/writetup_heap.md) (heap tuple write function)
+  - [readtup_heap](../r/readtup_heap.md) (heap tuple read function)
   - EXEC_FLAG_BACKWARD (backward scan capability flag)
   - EXEC_FLAG_REWIND (rewind capability flag)
 - Data structures used:
-  - Tuplestorestate (main tuplestore state structure)
+  - [Tuplestorestate](../T/Tuplestorestate.md) (main tuplestore state structure)
 - Called from (representative examples):
-  - ExecMaterial (materialization executor node)
-  - ExecMakeTableFunctionResult (table function execution)
-  - PortalCreateHoldStore (holdable cursor storage)
-  - plperl_return_next_internal (PL/Perl function returns)
-  - MakeTransitionCaptureState (trigger transition tables)
+  - [ExecMaterial](../E/ExecMaterial.md) (materialization executor node)
+  - [ExecMakeTableFunctionResult](../E/ExecMakeTableFunctionResult.md) (table function execution)
+  - [PortalCreateHoldStore](../P/PortalCreateHoldStore.md) (holdable cursor storage)
+  - [plperl_return_next_internal](../p/plperl_return_next_internal.md) (PL/Perl function returns)
+  - [MakeTransitionCaptureState](../M/MakeTransitionCaptureState.md) (trigger transition tables)
 
 ## Notes and Other Information
 - This is the standard public API for creating tuplestores in PostgreSQL

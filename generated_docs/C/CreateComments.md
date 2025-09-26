@@ -25,7 +25,7 @@ The function treats empty strings as NULL comments, effectively deleting any exi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open: Opens the pg_description relation for modification
+  - [table_open](../t/table_open.md): Opens the pg_description relation for modification
   - [systable_beginscan](../s/systable_beginscan.md): Initiates indexed scan for existing comment
   - [systable_getnext](../s/systable_getnext.md): Retrieves matching tuples from the scan
   - [CatalogTupleDelete](CatalogTupleDelete.md): Removes existing comment tuple

@@ -28,7 +28,7 @@ This function performs the low-level removal of an attribute default entry when 
   - [CatalogTupleDelete](../C/CatalogTupleDelete.md): Deletes the pg_attrdef tuple
   - SearchSysCacheCopy2: Finds corresponding pg_attribute entry
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md): Updates pg_attribute to clear atthasdef flag
-  - table_open/table_close: Opens and closes system catalog tables
+  - [table_open](../t/table_open.md)/table_close: Opens and closes system catalog tables
 
 - Called from (representative examples):
   - [doDeletion](../d/doDeletion.md): Called by dependency system during object deletion cascades

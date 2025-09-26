@@ -38,7 +38,7 @@ The graceful approach allows for proper transaction cleanup and resource dealloc
   - DoingCommandRead (global flag for command reading state)
   - DestRemote (output destination constant)
   - whereToSendOutput (global variable for output destination)
-  - ProcessInterrupts (function to handle pending interrupts)
+  - [ProcessInterrupts](../P/ProcessInterrupts.md) (function to handle pending interrupts)
 - Called from (representative examples):
   - [PostgresMain](../P/PostgresMain.md) (in src/backend/tcop/postgres.c:4274, 4287) - registered as signal handler
   - [ParallelWorkerMain](../P/ParallelWorkerMain.md), AutoVacWorkerMain, ApplyLauncherMain (various worker processes)

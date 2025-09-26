@@ -34,7 +34,7 @@ The function handles several scenarios:
 - Functions called/Symbols referenced:
   - [ri_FetchConstraintInfo](../r/ri_FetchConstraintInfo.md)
   - [ri_NullCheck](../r/ri_NullCheck.md)
-  - slot_is_current_xact_tuple
+  - [slot_is_current_xact_tuple](../s/slot_is_current_xact_tuple.md)
   - [ri_KeysEqual](../r/ri_KeysEqual.md)
   - RI_KEYS_ALL_NULL
   - RI_KEYS_SOME_NULL
@@ -42,7 +42,7 @@ The function handles several scenarios:
   - FKCONSTR_MATCH_PARTIAL
   - FKCONSTR_MATCH_FULL
 - Called from (representative examples):
-  - AfterTriggerSaveEvent
+  - [AfterTriggerSaveEvent](../A/AfterTriggerSaveEvent.md)
 
 ## Notes and Other Information
 - This function is never called for partitioned tables due to how AfterTriggerSaveEvent() handles them

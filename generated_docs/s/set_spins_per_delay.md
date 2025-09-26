@@ -28,8 +28,8 @@ The function is designed to be extremely fast since it may be called while holdi
 - Functions called/Symbols referenced:
   - (None - simple assignment operation)
 - Called from (representative examples):
-  - InitProcess (src/backend/storage/lmgr/proc.c:334)
-  - InitAuxiliaryProcess (src/backend/storage/lmgr/proc.c:552)
+  - [InitProcess](../I/InitProcess.md) (src/backend/storage/lmgr/proc.c:334)
+  - [InitAuxiliaryProcess](../I/InitAuxiliaryProcess.md) (src/backend/storage/lmgr/proc.c:552)
 - Related symbols:
   - DEFAULT_SPINS_PER_DELAY (src/include/storage/s_lock.h:814)
 

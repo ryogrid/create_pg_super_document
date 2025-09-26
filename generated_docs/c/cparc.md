@@ -35,9 +35,9 @@ The function name "cparc" likely stands for "copy arc". It's a simple but freque
   - [copyouts](copyouts.md) (in regc_nfa.c:1189)
   - [duptraverse](../d/duptraverse.md) (in regc_nfa.c:1408)
   - [pull](../p/pull.md) (in regc_nfa.c:1750, 1786, 1787)
-  - push (in regc_nfa.c:1921, 1957, 1958)
-  - breakconstraintloop (in regc_nfa.c:2659)
-  - clonesuccessorstates (in regc_nfa.c:2868, 2886, 2895)
+  - [push](../p/push.md) (in regc_nfa.c:1921, 1957, 1958)
+  - [breakconstraintloop](../b/breakconstraintloop.md) (in regc_nfa.c:2659)
+  - [clonesuccessorstates](clonesuccessorstates.md) (in regc_nfa.c:2868, 2886, 2895)
   - [makesearch](../m/makesearch.md) (in regcomp.c:700)
 
 ## Notes and Other Information

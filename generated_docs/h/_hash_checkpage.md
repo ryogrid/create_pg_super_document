@@ -28,21 +28,21 @@ The function reports detailed error messages with hints for recovery (typically 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferGetPage
-  - PageIsNew
-  - BufferGetBlockNumber
-  - PageGetSpecialSize
+  - [BufferGetPage](../B/BufferGetPage.md)
+  - [PageIsNew](../P/PageIsNew.md)
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)
+  - [PageGetSpecialSize](../P/PageGetSpecialSize.md)
   - HashPageGetOpaque
   - HashPageGetMeta
   - HASH_MAGIC (constant)
   - HASH_VERSION (constant)
   - LH_META_PAGE (constant)
 - Called from (representative examples):
-  - hashbulkdelete
-  - _hash_pgaddtup
-  - _hash_getbuf
-  - _hash_expandtable
-  - _hash_readpage
+  - [hashbulkdelete](hashbulkdelete.md)
+  - [_hash_pgaddtup](_hash_pgaddtup.md)
+  - [_hash_getbuf](_hash_getbuf.md)
+  - [_hash_expandtable](_hash_expandtable.md)
+  - [_hash_readpage](_hash_readpage.md)
 
 ## Notes and Other Information
 This function is called extensively throughout hash index operations as a protective measure. It's particularly important during recovery scenarios and when debugging index corruption issues. The function distinguishes between different types of corruption (structural vs. content-based) and provides appropriate error messages and recovery suggestions for each case.

@@ -22,7 +22,7 @@ For set-returning functions, it supports two modes: explicit calls to `return_ne
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SPI_connect_ext / SPI_finish (SPI connection management)
+  - [SPI_connect_ext](../S/SPI_connect_ext.md) / SPI_finish (SPI connection management)
   - [compile_plperl_function](../c/compile_plperl_function.md) (function compilation)
   - increment_prodesc_refcount (reference counting)
   - [activate_interpreter](../a/activate_interpreter.md) (Perl interpreter management)

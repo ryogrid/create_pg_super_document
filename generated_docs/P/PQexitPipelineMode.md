@@ -22,8 +22,8 @@ The function returns 1 on success (pipeline mode ended or connection wasn't in p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - libpq_append_conn_error
-  - pqFlush
+  - [libpq_append_conn_error](../l/libpq_append_conn_error.md)
+  - [pqFlush](../p/pqFlush.md)
   - PQ_PIPELINE_OFF
   - PGASYNC_IDLE
   - PGASYNC_PIPELINE_IDLE
@@ -35,11 +35,11 @@ The function returns 1 on success (pipeline mode ended or connection wasn't in p
   - PGASYNC_COPY_BOTH
 
 - Called from (representative examples):
-  - readCommandResponse (pgbench.c)
-  - discardUntilSync (pgbench.c)
-  - test_disallowed_in_pipeline (libpq_pipeline.c)
-  - test_multi_pipelines (libpq_pipeline.c)
-  - test_simple_pipeline (libpq_pipeline.c)
+  - [readCommandResponse](../r/readCommandResponse.md) (pgbench.c)
+  - [discardUntilSync](../d/discardUntilSync.md) (pgbench.c)
+  - [test_disallowed_in_pipeline](../t/test_disallowed_in_pipeline.md) (libpq_pipeline.c)
+  - [test_multi_pipelines](../t/test_multi_pipelines.md) (libpq_pipeline.c)
+  - [test_simple_pipeline](../t/test_simple_pipeline.md) (libpq_pipeline.c)
 
 ## Notes and Other Information
 - Returns 1 if already not in pipeline mode and connection is idle

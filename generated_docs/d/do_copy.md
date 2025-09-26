@@ -24,12 +24,12 @@ This is the main execution function for psql's \copy command (frontend copy). It
   - [canonicalize_path_enc](../c/canonicalize_path_enc.md) (path normalization)
   - popen, fopen, fclose, pclose (file operations)
   - fstat, S_ISDIR (file system checks)
-  - initPQExpBuffer, printfPQExpBuffer, appendPQExpBufferStr, termPQExpBuffer (query building)
+  - [initPQExpBuffer](../i/initPQExpBuffer.md), printfPQExpBuffer, appendPQExpBufferStr, termPQExpBuffer (query building)
   - [SendQuery](../S/SendQuery.md) (query execution)
   - [free_copy_options](../f/free_copy_options.md) (cleanup)
   - [disable_sigpipe_trap](disable_sigpipe_trap.md), restore_sigpipe_trap (signal handling)
   - [SetShellResultVariables](../S/SetShellResultVariables.md) (result handling)
-  - wait_result_to_str (error reporting)
+  - [wait_result_to_str](../w/wait_result_to_str.md) (error reporting)
 - Called from (representative examples):
   - psql command processor (main psql loop)
 

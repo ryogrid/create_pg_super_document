@@ -29,18 +29,18 @@ The function maintains proper memory context management and includes provisions 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_list_invariants: Validates list structure integrity (called twice in debug mode)
-  - list_length: Determines if the entire list should be deleted
-  - list_free: Deallocates the entire list when all elements are removed
+  - [check_list_invariants](../c/check_list_invariants.md): Validates list structure integrity (called twice in debug mode)
+  - [list_length](list_length.md): Determines if the entire list should be deleted
+  - [list_free](list_free.md): Deallocates the entire list when all elements are removed
   - memmove: Shifts remaining elements in normal mode
-  - GetMemoryChunkContext: Gets the memory context for new allocations in debug mode
-  - MemoryContextAlloc: Allocates new memory for remaining elements in debug mode
-  - wipe_mem: Clears freed memory in debug mode with CLOBBER_FREED_MEMORY
+  - [GetMemoryChunkContext](../G/GetMemoryChunkContext.md): Gets the memory context for new allocations in debug mode
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md): Allocates new memory for remaining elements in debug mode
+  - [wipe_mem](../w/wipe_mem.md): Clears freed memory in debug mode with CLOBBER_FREED_MEMORY
   - VALGRIND_MAKE_MEM_NOACCESS: Marks memory as inaccessible for Valgrind in debug mode
 - Called from (representative examples):
-  - add_function_defaults: Function default argument processing
-  - func_get_detail: Function signature resolution
-  - SyncPostCheckpoint: Post-checkpoint synchronization
+  - [add_function_defaults](../a/add_function_defaults.md): Function default argument processing
+  - [func_get_detail](../f/func_get_detail.md): Function signature resolution
+  - [SyncPostCheckpoint](../S/SyncPostCheckpoint.md): Post-checkpoint synchronization
 
 ## Notes and Other Information
 - Performance complexity: O(list_length - n) due to element shifting

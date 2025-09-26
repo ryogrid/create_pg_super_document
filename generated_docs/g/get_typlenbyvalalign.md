@@ -43,7 +43,7 @@ This function is extensively used throughout PostgreSQL's array handling, type c
   - [array_position_common](../a/array_position_common.md) (array position functions)
   - [array_map](../a/array_map.md) (array mapping operations)
   - [array_create_iterator](../a/array_create_iterator.md) (array iterator creation)
-  - scalararraysel (scalar array selectivity estimation)
+  - [scalararraysel](../s/scalararraysel.md) (scalar array selectivity estimation)
 
 ## Notes and Other Information
 - Raises an ERROR if the type OID is invalid or not found

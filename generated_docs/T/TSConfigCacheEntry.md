@@ -37,13 +37,13 @@ The map field contains an array of ListDictionary structures, where each array i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ListDictionary (for token type to dictionary mapping)
+  - [ListDictionary](../L/ListDictionary.md) (for token type to dictionary mapping)
   - Oid (PostgreSQL object identifier type)
 - Called from (representative examples):
-  - lookup_ts_config_cache (main cache lookup function)
-  - LexizeInit (text search parsing initialization)
-  - parsetext (text parsing operations)
-  - ts_headline_byid_opt (headline generation)
+  - [lookup_ts_config_cache](../l/lookup_ts_config_cache.md) (main cache lookup function)
+  - [LexizeInit](../L/LexizeInit.md) (text search parsing initialization)
+  - [parsetext](../p/parsetext.md) (text parsing operations)
+  - [ts_headline_byid_opt](../t/ts_headline_byid_opt.md) (headline generation)
 
 ## Notes and Other Information
 - Used as entries in TSConfigCacheHash, PostgreSQL's global text search configuration cache

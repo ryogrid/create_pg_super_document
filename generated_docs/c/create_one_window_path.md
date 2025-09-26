@@ -48,7 +48,7 @@ The function processes window clauses in the order determined by select_active_w
   - [add_column_to_pathtarget](../a/add_column_to_pathtarget.md)
   - [get_typavgwidth](../g/get_typavgwidth.md)
   - [clamp_width_est](clamp_width_est.md)
-  - make_opclause
+  - [make_opclause](../m/make_opclause.md)
   - [create_windowagg_path](create_windowagg_path.md)
   - [add_path](../a/add_path.md)
 - Called from (representative examples):
@@ -58,7 +58,7 @@ The function processes window clauses in the order determined by select_active_w
 - Input target must contain all variables, aggregates, and window partitioning/sorting expressions to ensure they're computed only once at the bottom of the execution stack
 - Volatile functions in partitioning/sorting expressions require careful handling to prevent multiple evaluations
 - The function supports incremental sorting when enabled and beneficial, reducing sorting overhead for partially ordered input
-- WindowFuncRunCondition elements are converted to OpExpr nodes for runtime evaluation during window function processing
+- [WindowFuncRunCondition](../W/WindowFuncRunCondition.md) elements are converted to OpExpr nodes for runtime evaluation during window function processing
 - Each intermediate WindowAgg node includes only the window functions relevant to its window clause
 - The topmost WindowAgg node receives the final output target and any accumulated run condition qualifications
 - Critical for performance of queries with multiple window functions having different PARTITION BY or ORDER BY clauses

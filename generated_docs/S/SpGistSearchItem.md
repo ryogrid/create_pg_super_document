@@ -47,18 +47,18 @@ The structure supports sophisticated search operations including distance-based 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pairingheap_node (priority queue implementation)
-  - SpGistLeafTuple (leaf tuple representation)
+  - [pairingheap_node](../p/pairingheap_node.md) (priority queue implementation)
+  - [SpGistLeafTuple](SpGistLeafTuple.md) (leaf tuple representation)
   - FLEXIBLE_ARRAY_MEMBER (variable-length array support)
   - Datum (PostgreSQL data type)
-  - ItemPointerData (heap tuple pointers)
+  - [ItemPointerData](../I/ItemPointerData.md) (heap tuple pointers)
 
 - Called from (representative examples):
-  - spgAllocSearchItem (spgscan.c:117)
-  - spgAddSearchItemToQueue (spgscan.c:108)
-  - spgNewHeapItem (spgscan.c:467)
-  - spgMakeInnerItem (spgscan.c:630)
-  - spgGetNextQueueItem (spgscan.c:752)
+  - [spgAllocSearchItem](../s/spgAllocSearchItem.md) (spgscan.c:117)
+  - [spgAddSearchItemToQueue](../s/spgAddSearchItemToQueue.md) (spgscan.c:108)
+  - [spgNewHeapItem](../s/spgNewHeapItem.md) (spgscan.c:467)
+  - [spgMakeInnerItem](../s/spgMakeInnerItem.md) (spgscan.c:630)
+  - [spgGetNextQueueItem](../s/spgGetNextQueueItem.md) (spgscan.c:752)
 
 ## Notes and Other Information
 - Central to SP-GiST's search algorithm, enabling efficient priority-based traversal

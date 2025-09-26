@@ -35,7 +35,7 @@ The function performs proper memory management for potentially large ACL objects
   - DatumGetAclP
   - [aclmask](../a/aclmask.md)
   - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
-  - Int16GetDatum
+  - [Int16GetDatum](../I/Int16GetDatum.md)
   - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - [pfree](pfree.md)
   - GETSTRUCT

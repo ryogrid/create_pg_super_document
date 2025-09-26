@@ -42,7 +42,7 @@ This enum is extensively used throughout the JSONPath execution system to provid
 - Works in conjunction with:
   - `RETURN_ERROR` macro for error handling
   - `jperIsError` macro for error checking
-  - JsonPath execution context structures
+  - [JsonPath](JsonPath.md) execution context structures
 
 ## Notes and Other Information
 - The enum values are designed to be compatible with boolean logic (0 = success, non-zero = failure/special case)

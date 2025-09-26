@@ -37,7 +37,7 @@ The function is designed with error safety in mind - slots are created as epheme
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReplicationSlotCreate](../R/ReplicationSlotCreate.md)
-  - CreateInitDecodingContext
+  - [CreateInitDecodingContext](../C/CreateInitDecodingContext.md)
   - [DecodingContextFindStartpoint](../D/DecodingContextFindStartpoint.md)
   - [FreeDecodingContext](../F/FreeDecodingContext.md)
   - [LogicalDecodingContext](../L/LogicalDecodingContext.md) (type)

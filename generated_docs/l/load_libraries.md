@@ -32,7 +32,7 @@ The function performs the following operations:
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pstrdup](../p/pstrdup.md)
-  - SplitDirectoriesString
+  - [SplitDirectoriesString](../S/SplitDirectoriesString.md)
   - [list_free_deep](list_free_deep.md)
   - [pfree](../p/pfree.md)
   - ereport

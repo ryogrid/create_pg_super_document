@@ -25,14 +25,14 @@ When instrumentation is required, the function calculates the total memory neede
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - mul_size (safely multiplies sizes to avoid overflow)
-  - add_size (safely adds sizes to avoid overflow)
+  - [mul_size](../m/mul_size.md) (safely multiplies sizes to avoid overflow)
+  - [add_size](../a/add_size.md) (safely adds sizes to avoid overflow)
   - shm_toc_estimate_chunk (estimates shared memory chunk requirements)
   - shm_toc_estimate_keys (estimates shared memory key requirements)
-  - HashInstrumentation (structure for collecting hash join performance data)
-  - SharedHashInfo (container structure for shared hash instrumentation data)
+  - [HashInstrumentation](../H/HashInstrumentation.md) (structure for collecting hash join performance data)
+  - [SharedHashInfo](../S/SharedHashInfo.md) (container structure for shared hash instrumentation data)
 - Called from:
-  - ExecParallelEstimate (during parallel query planning phase)
+  - [ExecParallelEstimate](ExecParallelEstimate.md) (during parallel query planning phase)
   - Referenced in nodeHash.h header
 
 ## Notes and Other Information

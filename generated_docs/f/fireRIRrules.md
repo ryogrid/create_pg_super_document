@@ -35,7 +35,7 @@ The function modifies the parse tree in-place, potentially replacing simple tabl
   - [rewriteSearchAndCycle](../r/rewriteSearchAndCycle.md)
   - rt_fetch
   - [rangeTableEntry_used](../r/rangeTableEntry_used.md)
-  - table_open
+  - [table_open](../t/table_open.md)
   - [ApplyRetrieveRule](../A/ApplyRetrieveRule.md)
   - [get_row_security_policies](../g/get_row_security_policies.md)
   - [acquireLocksOnSubLinks](../a/acquireLocksOnSubLinks.md)
@@ -43,8 +43,8 @@ The function modifies the parse tree in-place, potentially replacing simple tabl
   - query_tree_walker
   - expression_tree_walker
   - [list_member_oid](../l/list_member_oid.md)
-  - lappend_oid
-  - list_delete_last
+  - [lappend_oid](../l/lappend_oid.md)
+  - [list_delete_last](../l/list_delete_last.md)
   - [list_concat](../l/list_concat.md)
 - Called from (representative examples):
   - [QueryRewrite](../Q/QueryRewrite.md)

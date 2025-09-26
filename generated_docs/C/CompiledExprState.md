@@ -29,8 +29,8 @@ This design allows PostgreSQL to efficiently manage JIT-compiled expressions by 
 - Functions called/Symbols referenced:
   - [LLVMJitContext](../L/LLVMJitContext.md)
 - Called from (representative examples):
-  - llvm_compile_expr
-  - ExecRunCompiledExpr
+  - [llvm_compile_expr](../l/llvm_compile_expr.md)
+  - [ExecRunCompiledExpr](../E/ExecRunCompiledExpr.md)
 
 ## Notes and Other Information
 - This structure is allocated and populated during the  process when an expression is successfully JIT-compiled

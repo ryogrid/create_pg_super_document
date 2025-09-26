@@ -25,7 +25,7 @@ A notable design trade-off exists in this function: it uses NoLock when resolvin
 - Functions called/Symbols referenced:
   - PG_GETARG_TEXT_PP (to get text argument)
   - [makeRangeVarFromNameList](../m/makeRangeVarFromNameList.md)
-  - textToQualifiedNameList  
+  - [textToQualifiedNameList](../t/textToQualifiedNameList.md)  
   - RangeVarGetRelid (with NoLock)
   - [nextval_internal](nextval_internal.md)
   - PG_RETURN_INT64

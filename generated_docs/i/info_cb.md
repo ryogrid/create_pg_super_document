@@ -26,10 +26,10 @@ The callback handles multiple SSL event types including handshake start/completi
 - Functions called/Symbols referenced:
   - SSL_state_string_long (OpenSSL function)
   - ereport (PostgreSQL logging function)
-  - errmsg_internal (PostgreSQL error message formatting)
+  - [errmsg_internal](../e/errmsg_internal.md) (PostgreSQL error message formatting)
   - DEBUG4 (PostgreSQL log level constant)
 - Called from (representative examples):
-  - be_tls_open_server (registered as SSL info callback)
+  - [be_tls_open_server](../b/be_tls_open_server.md) (registered as SSL info callback)
 
 ## Notes and Other Information
 - This function is only active when PostgreSQL is compiled with OpenSSL support

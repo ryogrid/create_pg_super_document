@@ -34,8 +34,8 @@ The function can restart processing from the beginning when concurrent updates a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecQual
-  - ExecProject
+  - [ExecQual](ExecQual.md)
+  - [ExecProject](ExecProject.md)
   - [ExecUpdatePrologue](ExecUpdatePrologue.md)
   - [ExecUpdateAct](ExecUpdateAct.md)
   - [ExecUpdateEpilogue](ExecUpdateEpilogue.md)
@@ -45,8 +45,8 @@ The function can restart processing from the beginning when concurrent updates a
   - [ExecProcessReturning](ExecProcessReturning.md)
   - [EvalPlanQual](EvalPlanQual.md)
   - [EvalPlanQualSlot](EvalPlanQualSlot.md)
-  - table_tuple_lock
-  - table_tuple_fetch_row_version
+  - [table_tuple_lock](../t/table_tuple_lock.md)
+  - [table_tuple_fetch_row_version](../t/table_tuple_fetch_row_version.md)
   - [TransactionIdIsCurrentTransactionId](../T/TransactionIdIsCurrentTransactionId.md)
 - Called from (representative examples):
   - [ExecMerge](ExecMerge.md)

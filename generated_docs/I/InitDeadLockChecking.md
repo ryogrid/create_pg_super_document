@@ -32,7 +32,7 @@ This function takes no parameters.
   - WAIT_ORDER (struct type)
   - [EDGE](../E/EDGE.md) (struct type)
 - Called from (representative examples):
-  - InitProcess
+  - [InitProcess](InitProcess.md)
   - LockHashPartitionLockByProc
 
 ## Notes and Other Information

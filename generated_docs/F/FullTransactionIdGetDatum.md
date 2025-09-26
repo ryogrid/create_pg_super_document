@@ -23,7 +23,7 @@ The conversion is performed by first extracting the underlying 64-bit value from
 - Functions called/Symbols referenced:
   - U64FromFullTransactionId
   - [UInt64GetDatum](../U/UInt64GetDatum.md)
-  - FullTransactionId (type)
+  - [FullTransactionId](FullTransactionId.md) (type)
 - Called from (representative examples):
   - [pg_snapshot_xip](../p/pg_snapshot_xip.md)
   - PG_RETURN_FULLTRANSACTIONID

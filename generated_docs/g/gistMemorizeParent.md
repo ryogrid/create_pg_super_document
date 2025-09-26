@@ -26,7 +26,7 @@ This function stores a mapping from a child block number to its parent block num
   - HASH_ENTER
 - Called from (representative examples):
   - [gistProcessItup](gistProcessItup.md)
-  - gistbufferinginserttuples
+  - [gistbufferinginserttuples](gistbufferinginserttuples.md)
   - [gistMemorizeAllDownlinks](gistMemorizeAllDownlinks.md)
 
 ## Notes and Other Information

@@ -27,8 +27,8 @@ The function provides a type-safe conversion from the generic Datum type to the 
   - [compute_tsvector_stats](../c/compute_tsvector_stats.md)
   - [gtsvector_compress](../g/gtsvector_compress.md)
   - [ts_match_tt](../t/ts_match_tt.md)
-  - ts_match_tq
-  - ts_accum
+  - [ts_match_tq](../t/ts_match_tq.md)
+  - [ts_accum](../t/ts_accum.md)
   - PG_GETARG_TSVECTOR
 
 ## Notes and Other Information

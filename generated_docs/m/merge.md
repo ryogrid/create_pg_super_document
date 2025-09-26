@@ -26,12 +26,12 @@ This is a core primitive operation used by other pairing heap functions like `pa
 ## Dependencies
 - Functions called/Symbols referenced:
   - heap->ph_compare (comparison function stored in heap)
-  - pairingheap (structure type)
-  - pairingheap_node (node structure type)
+  - [pairingheap](../p/pairingheap.md) (structure type)
+  - [pairingheap_node](../p/pairingheap_node.md) (node structure type)
 - Called from (representative examples):
-  - _bt_load (B-tree loading operations)
-  - pairingheap_add (adding elements to heap)
-  - merge_children (complex merge operations during deletion)
+  - [_bt_load](../b/_bt_load.md) (B-tree loading operations)
+  - [pairingheap_add](../p/pairingheap_add.md) (adding elements to heap)
+  - [merge_children](merge_children.md) (complex merge operations during deletion)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the pairingheap.c file

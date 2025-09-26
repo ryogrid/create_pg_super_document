@@ -208,7 +208,7 @@ write_data_to_archive_lz4_doc.md: A null-terminated string containing the path o
   - S_IRWXO (POSIX constant for others read/write/execute permissions)
   - bail (PostgreSQL regression test function for fatal error handling)
 - Called from (representative examples):
-  - TAPtype (used in TAP test type setup)
+  - [TAPtype](../T/TAPtype.md) (used in TAP test type setup)
   - [open_result_files](../o/open_result_files.md) (used to create result directories before opening files)
   - [regression_main](../r/regression_main.md) (used to create various test directories during setup)
 

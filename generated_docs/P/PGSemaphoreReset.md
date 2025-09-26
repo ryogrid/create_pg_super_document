@@ -26,7 +26,7 @@ The function handles interrupts (EINTR) by retrying the operation, and reports f
   - elog (error reporting with FATAL level)
   - errno constants: EAGAIN, EDEADLK, EINTR
 - Called from (representative examples):
-  - InitProcess (process initialization)
+  - [InitProcess](../I/InitProcess.md) (process initialization)
   - [InitAuxiliaryProcess](../I/InitAuxiliaryProcess.md) (auxiliary process initialization)
 
 ## Notes and Other Information

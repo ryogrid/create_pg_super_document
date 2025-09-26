@@ -26,7 +26,7 @@ This function parses a string containing a numeric value and creates a PostgreSQ
   - [numeric](../n/numeric.md) (type definition)
 - Called from (representative examples):
   - [deccvasc](../d/deccvasc.md) (Informix compatibility function)
-  - ecpg_get_data (ECPG data retrieval)
+  - [ecpg_get_data](../e/ecpg_get_data.md) (ECPG data retrieval)
   - [PGTYPESnumeric_from_double](PGTYPESnumeric_from_double.md) (numeric conversion)
   - Various test functions
 

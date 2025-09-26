@@ -53,7 +53,7 @@ The function supports extracting a comprehensive set of database properties incl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - [ScanKeyInit](../S/ScanKeyInit.md)
   - [systable_beginscan](../s/systable_beginscan.md)
   - [systable_getnext](../s/systable_getnext.md)
@@ -63,7 +63,7 @@ The function supports extracting a comprehensive set of database properties incl
   - [SysCacheGetAttr](../S/SysCacheGetAttr.md)/SysCacheGetAttrNotNull
   - TextDatumGetCString
   - [ReleaseSysCache](../R/ReleaseSysCache.md)
-  - table_close
+  - [table_close](../t/table_close.md)
 - Called from (representative examples):
   - [createdb](../c/createdb.md)
   - [dropdb](../d/dropdb.md)

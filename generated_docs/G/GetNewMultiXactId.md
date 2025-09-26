@@ -23,9 +23,9 @@ The function implements sophisticated wraparound protection by monitoring severa
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RecoveryInProgress](../R/RecoveryInProgress.md) (recovery state checking)
-  - LWLockAcquire, LWLockRelease (with MultiXactGenLock)
+  - [LWLockAcquire](../L/LWLockAcquire.md), LWLockRelease (with MultiXactGenLock)
   - [MultiXactIdPrecedes](../M/MultiXactIdPrecedes.md) (wraparound-aware comparison)
-  - SendPostmasterSignal (autovacuum triggering)
+  - [SendPostmasterSignal](../S/SendPostmasterSignal.md) (autovacuum triggering)
   - [get_database_name](../g/get_database_name.md) (database name lookup)
   - ereport, errmsg_plural (error/warning reporting)
   - [ExtendMultiXactOffset](../E/ExtendMultiXactOffset.md), ExtendMultiXactMember (SLRU file extension)

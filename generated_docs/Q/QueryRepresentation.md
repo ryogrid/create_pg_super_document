@@ -27,14 +27,14 @@ The structure is fundamental to PostgreSQL text search ranking algorithms, parti
 ## Dependencies
 - Functions called/Symbols referenced:
   - TSQuery (core text search query type)
-  - QueryRepresentationOperand (operand-specific data structure)
+  - [QueryRepresentationOperand](QueryRepresentationOperand.md) (operand-specific data structure)
 - Called from (representative examples):
-  - checkcondition_QueryOperand
-  - resetQueryRepresentation
-  - fillQueryRepresentationData
-  - Cover
-  - get_docrep
-  - calc_rank_cd
+  - [checkcondition_QueryOperand](../c/checkcondition_QueryOperand.md)
+  - [resetQueryRepresentation](../r/resetQueryRepresentation.md)
+  - [fillQueryRepresentationData](../f/fillQueryRepresentationData.md)
+  - [Cover](../C/Cover.md)
+  - [get_docrep](../g/get_docrep.md)
+  - [calc_rank_cd](../c/calc_rank_cd.md)
 
 ## Notes and Other Information
 - The operandData array size corresponds to query->size, providing one-to-one mapping between query operands and their document-specific data

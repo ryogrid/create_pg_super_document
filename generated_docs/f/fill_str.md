@@ -27,10 +27,10 @@ The function uses `memset` to efficiently fill the buffer with the specified cha
   - No other PostgreSQL-specific dependencies
 - Called from (representative examples):
   - [int_to_roman](../i/int_to_roman.md) - Roman numeral conversion
-  - [numeric_to_char](../n/numeric_to_char.md) - Numeric to string formatting
-  - [int4_to_char](../i/int4_to_char.md) - Integer formatting
+  - [numeric_to_char](../n/numeric_to_char.md) - [Numeric](../N/Numeric.md) to string formatting
+  - [int4_to_char](../i/int4_to_char.md) - [Integer](../I/Integer.md) formatting
   - [int8_to_char](../i/int8_to_char.md) - Long integer formatting
-  - [float4_to_char](float4_to_char.md) - Float formatting
+  - [float4_to_char](float4_to_char.md) - [Float](../F/Float.md) formatting
   - [float8_to_char](float8_to_char.md) - Double formatting
 
 ## Notes and Other Information

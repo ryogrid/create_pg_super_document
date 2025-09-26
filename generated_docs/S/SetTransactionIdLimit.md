@@ -30,11 +30,11 @@ The limits are calculated with generous safety margins to account for scenarios 
 ## Dependencies
 - Functions called/Symbols referenced:
   - `TransactionIdIsNormal`
-  - `LWLockAcquire` (XidGenLock, LW_EXCLUSIVE)
+  - `[LWLockAcquire](../L/LWLockAcquire.md)` (XidGenLock, LW_EXCLUSIVE)
   - `XidFromFullTransactionId`
-  - `LWLockRelease` (XidGenLock)
+  - `[LWLockRelease](../L/LWLockRelease.md)` (XidGenLock)
   - [TransactionIdFollowsOrEquals](../T/TransactionIdFollowsOrEquals.md)
-  - `SendPostmasterSignal` (PMSIGNAL_START_AUTOVAC_LAUNCHER)
+  - `[SendPostmasterSignal](SendPostmasterSignal.md)` (PMSIGNAL_START_AUTOVAC_LAUNCHER)
   - [IsTransactionState](../I/IsTransactionState.md)
   - [get_database_name](../g/get_database_name.md)
 - Called from (representative examples):

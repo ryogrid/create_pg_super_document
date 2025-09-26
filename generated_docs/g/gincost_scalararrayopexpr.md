@@ -24,7 +24,7 @@ The gincost_scalararrayopexpr function handles cost estimation for ScalarArrayOp
 - Functions called/Symbols referenced:
   - lsecond
   - [estimate_expression_value](../e/estimate_expression_value.md)
-  - RelabelType
+  - [RelabelType](../R/RelabelType.md)
   - [estimate_array_length](../e/estimate_array_length.md)
   - DatumGetArrayTypeP
   - [get_typlenbyvalalign](get_typlenbyvalalign.md)

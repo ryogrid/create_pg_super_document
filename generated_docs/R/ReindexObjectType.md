@@ -32,7 +32,7 @@ This enumeration defines the different types of database objects that can be tar
 - Functions called/Symbols referenced:
   - (None - this is an enum definition)
 - Called from (representative examples):
-  - ReindexStmt (as the 'kind' field)
+  - [ReindexStmt](ReindexStmt.md) (as the 'kind' field)
   - [ReindexMultipleTables](ReindexMultipleTables.md) function
   - Parser grammar rules in gram.y
 

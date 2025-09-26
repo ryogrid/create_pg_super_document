@@ -28,10 +28,10 @@ The function returns status codes to indicate success or the specific type of fa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BackendPidGetProc
-  - superuser_arg
-  - superuser
-  - has_privs_of_role
+  - [BackendPidGetProc](../B/BackendPidGetProc.md)
+  - [superuser_arg](../s/superuser_arg.md)
+  - [superuser](../s/superuser.md)
+  - [has_privs_of_role](../h/has_privs_of_role.md)
   - [GetUserId](../G/GetUserId.md)
   - kill (system call)
 - Called from (representative examples):

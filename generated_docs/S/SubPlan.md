@@ -77,14 +77,14 @@ The planner derives lists of values needed for passing into and out of the subpl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SubLinkType
+  - [SubLinkType](SubLinkType.md)
   - Cost
 - Called from (representative examples):
-  - ExecSubPlan
-  - ExecInitSubPlan
-  - make_subplan
-  - build_subplan
-  - cost_subplan
+  - [ExecSubPlan](../E/ExecSubPlan.md)
+  - [ExecInitSubPlan](../E/ExecInitSubPlan.md)
+  - [make_subplan](../m/make_subplan.md)
+  - [build_subplan](../b/build_subplan.md)
+  - [cost_subplan](../c/cost_subplan.md)
 
 ## Notes and Other Information
 - The parallel_safe field does not consider contents of testexpr or args

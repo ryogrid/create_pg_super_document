@@ -24,12 +24,12 @@ The  function is responsible for releasing the lightweight lock (LWLock) that wa
   - ITEM_FROM_ENTRY: Macro to convert entry pointer to internal item structure
   - PARTITION_FOR_HASH: Macro to determine partition index from hash value
   - PARTITION_LOCK: Macro to get the appropriate partition lock
-  - LWLockRelease: Releases the lightweight lock on the partition
+  - [LWLockRelease](../L/LWLockRelease.md): Releases the lightweight lock on the partition
 - Called from (representative examples):
-  - ApplyLauncherSetWorkerStartTime: After setting worker startup times
-  - ApplyLauncherGetWorkerStartTime: After retrieving worker startup times
-  - GetNamedDSMSegment: After DSM segment operations
-  - pgstat_get_entry_ref: After statistics entry reference operations
+  - [ApplyLauncherSetWorkerStartTime](../A/ApplyLauncherSetWorkerStartTime.md): After setting worker startup times
+  - [ApplyLauncherGetWorkerStartTime](../A/ApplyLauncherGetWorkerStartTime.md): After retrieving worker startup times
+  - [GetNamedDSMSegment](../G/GetNamedDSMSegment.md): After DSM segment operations
+  - [pgstat_get_entry_ref](../p/pgstat_get_entry_ref.md): After statistics entry reference operations
   - [lookup_rowtype_tupdesc_internal](../l/lookup_rowtype_tupdesc_internal.md): After type descriptor lookups
   - [find_or_make_matching_shared_tupledesc](../f/find_or_make_matching_shared_tupledesc.md): After tuple descriptor operations
 

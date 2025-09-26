@@ -44,5 +44,5 @@ The function ensures the page is properly prepared for subsequent insertion oper
 ## Notes and Other Information
 - This is a static function, used internally within ginentrypage.c
 - The function includes assertions to ensure it's only called on non-data pages and that insertData->entry is valid
-- Delete operations are only performed on leaf pages, while downlink updates only occur on internal pages
+- [Delete](../D/Delete.md) operations are only performed on leaf pages, while downlink updates only occur on internal pages
 - The function is part of the GIN index entry page management subsystem

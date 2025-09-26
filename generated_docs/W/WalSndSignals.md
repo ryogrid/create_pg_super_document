@@ -23,7 +23,7 @@ This function takes no parameters.
   - [SignalHandlerForConfigReload](../S/SignalHandlerForConfigReload.md) (config reload handler)
   - [StatementCancelHandler](../S/StatementCancelHandler.md) (query cancellation handler) 
   - [die](../d/die.md) (termination handler)
-  - InitializeTimeouts (timeout infrastructure setup)
+  - [InitializeTimeouts](../I/InitializeTimeouts.md) (timeout infrastructure setup)
   - [procsignal_sigusr1_handler](../p/procsignal_sigusr1_handler.md) (inter-process signal handler)
   - [WalSndLastCycleHandler](WalSndLastCycleHandler.md) (final cycle handler)
   - Signal constants: SIGHUP, SIGINT, SIGTERM, SIGPIPE, SIGUSR1, SIGUSR2, SIGCHLD

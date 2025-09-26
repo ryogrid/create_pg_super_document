@@ -21,8 +21,8 @@ This function is specifically designed for use during recovery mode to confirm i
   - TransactionIdEquals
   - TwoPhaseFileHeader
 - Called from (representative examples):
-  - KnownAssignedXidsRemovePreceding
-  - StandbyReleaseOldLocks
+  - [KnownAssignedXidsRemovePreceding](../K/KnownAssignedXidsRemovePreceding.md)
+  - [StandbyReleaseOldLocks](StandbyReleaseOldLocks.md)
 
 ## Notes and Other Information
 - This function is specifically used during recovery operations, not normal runtime

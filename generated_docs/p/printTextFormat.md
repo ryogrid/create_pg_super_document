@@ -51,7 +51,7 @@ The printTextFormat structure represents a complete formatting theme for text-ba
   - [print_aligned_text](print_aligned_text.md) (src/fe_utils/print.c:640)
   - [print_aligned_vertical](print_aligned_vertical.md) (src/fe_utils/print.c:1329)
   - [setDecimalLocale](../s/setDecimalLocale.md) (src/fe_utils/print.c:3676)
-  - refresh_utf8format (src/fe_utils/print.c:3693)
+  - [refresh_utf8format](../r/refresh_utf8format.md) (src/fe_utils/print.c:3693)
   - [printTableOpt](printTableOpt.md) (src/include/fe_utils/print.h:131)
 
 ## Notes and Other Information

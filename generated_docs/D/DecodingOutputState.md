@@ -30,7 +30,7 @@ The structure acts as a bridge between the logical decoding framework and the SQ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Tuplestorestate (tuple storage management)
+  - [Tuplestorestate](../T/Tuplestorestate.md) (tuple storage management)
 - Called from (representative examples):
   - [LogicalOutputWrite](../L/LogicalOutputWrite.md) (at src/backend/replication/logical/logicalfuncs.c:67,73)
   - [pg_logical_slot_get_changes_guts](../p/pg_logical_slot_get_changes_guts.md) (at src/backend/replication/logical/logicalfuncs.c:114,143)

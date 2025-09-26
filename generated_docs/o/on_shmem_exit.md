@@ -31,9 +31,9 @@ The function manages an internal list (`on_shmem_exit_list`) of registered callb
   - [PGReserveSemaphores](../P/PGReserveSemaphores.md) (semaphore resource management)
   - [PGSharedMemoryCreate](../P/PGSharedMemoryCreate.md) (shared memory initialization)
   - [AutoVacWorkerMain](../A/AutoVacWorkerMain.md) (autovacuum worker processes)
-  - `InitProcess` (process initialization in shared memory)
+  - `[InitProcess](../I/InitProcess.md)` (process initialization in shared memory)
   - [InitBufferPoolAccess](../I/InitBufferPoolAccess.md) (buffer pool management)
-  - `dsm_postmaster_startup` (dynamic shared memory)
+  - `[dsm_postmaster_startup](../d/dsm_postmaster_startup.md)` (dynamic shared memory)
   - [WalReceiverMain](../W/WalReceiverMain.md) (WAL receiver process)
 
 ## Notes and Other Information

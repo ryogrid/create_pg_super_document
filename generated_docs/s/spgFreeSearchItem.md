@@ -26,7 +26,7 @@ The function follows PostgreSQL's memory management conventions, using pfree() f
   - [DatumGetPointer](../D/DatumGetPointer.md) (PostgreSQL utility to extract pointer from Datum)
   - [pfree](../p/pfree.md) (PostgreSQL memory deallocation function)
   - SpGistScanOpaque (scan context structure type)
-  - SpGistSearchItem (search item structure type)
+  - [SpGistSearchItem](../S/SpGistSearchItem.md) (search item structure type)
 - Called from (representative examples):
   - [spgWalk](spgWalk.md) (main search traversal function that cleans up processed items)
 

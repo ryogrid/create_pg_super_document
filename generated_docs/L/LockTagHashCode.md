@@ -29,14 +29,14 @@ This function is essential for the lock manager's performance as it enables effi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_hash_value (PostgreSQL hash table function)
+  - [get_hash_value](../g/get_hash_value.md) (PostgreSQL hash table function)
   - LockMethodLockHash (global shared hash table for locks)
-  - LOCKTAG (structure type)
+  - [LOCKTAG](LOCKTAG.md) (structure type)
 - Called from (representative examples):
-  - LockAcquireExtended (src/backend/storage/lmgr/lock.c:847)
-  - proclock_hash (src/backend/storage/lmgr/lock.c:530)
-  - LockReleaseAll (src/backend/storage/lmgr/lock.c:2426)
-  - CheckDeadLock (src/backend/storage/lmgr/proc.c:1813)
+  - [LockAcquireExtended](LockAcquireExtended.md) (src/backend/storage/lmgr/lock.c:847)
+  - [proclock_hash](../p/proclock_hash.md) (src/backend/storage/lmgr/lock.c:530)
+  - [LockReleaseAll](LockReleaseAll.md) (src/backend/storage/lmgr/lock.c:2426)
+  - [CheckDeadLock](../C/CheckDeadLock.md) (src/backend/storage/lmgr/proc.c:1813)
 
 ## Notes and Other Information
 - The function is designed to be called once per lock operation and the result passed around to avoid recomputation

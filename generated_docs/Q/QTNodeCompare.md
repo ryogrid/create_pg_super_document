@@ -28,22 +28,22 @@ This deterministic ordering is essential for query normalization, optimization, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth (stack overflow protection)
-  - QTNodeCompare (recursive self-call)
-  - tsCompareString (string comparison utility)
+  - [check_stack_depth](../c/check_stack_depth.md) (stack overflow protection)
+  - [QTNodeCompare](QTNodeCompare.md) (recursive self-call)
+  - [tsCompareString](../t/tsCompareString.md) (string comparison utility)
   - elog (error logging)
 - Data types and constants used:
-  - QTNode
-  - QueryOperator
+  - [QTNode](QTNode.md)
+  - [QueryOperator](QueryOperator.md)
   - QueryOperand
   - QI_OPR (operator query item type)
   - QI_VAL (value query item type)
   - OP_PHRASE (phrase operator constant)
 - Called from (representative examples):
-  - CompareTSQ
-  - findeq
-  - cmpQTN
-  - QTNEq
+  - [CompareTSQ](../C/CompareTSQ.md)
+  - [findeq](../f/findeq.md)
+  - [cmpQTN](../c/cmpQTN.md)
+  - [QTNEq](QTNEq.md)
 
 ## Notes and Other Information
 - Returns -1 if an < bn, 0 if an == bn, 1 if an > bn in the defined ordering

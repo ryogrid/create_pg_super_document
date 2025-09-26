@@ -28,7 +28,7 @@ The `uuid_cmp` function is specifically designed as a handler for B-tree index o
 - Called from (representative examples):
   - B-tree index operations during INSERT, UPDATE, DELETE
   - ORDER BY clauses on UUID columns
-  - Range queries and index scans on UUID data
+  - [Range](../R/Range.md) queries and index scans on UUID data
 
 ## Notes and Other Information
 - Returns the raw integer result from `uuid_internal_cmp` without modification

@@ -24,15 +24,15 @@ Early returns occur when: no synchronized slots are configured, the server is in
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RecoveryInProgress
+  - [RecoveryInProgress](../R/RecoveryInProgress.md)
   - XLogRecPtrIsInvalid
-  - LWLockAcquire/LWLockRelease (with ReplicationSlotControlLock)
-  - SearchNamedReplicationSlot
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease (with ReplicationSlotControlLock)
+  - [SearchNamedReplicationSlot](SearchNamedReplicationSlot.md)
   - SlotIsLogical
   - ereport
 - Called from (representative examples):
-  - WaitForStandbyConfirmation
-  - NeedToWaitForStandbys
+  - [WaitForStandbyConfirmation](../W/WaitForStandbyConfirmation.md)
+  - [NeedToWaitForStandbys](../N/NeedToWaitForStandbys.md)
 
 ## Notes and Other Information
 - Returns true immediately if synchronized_standby_slots is not configured or if running on a standby server

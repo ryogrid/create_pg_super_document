@@ -23,12 +23,12 @@ This function is essential for query planning as it provides the collation infor
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_length (to determine array size)
+  - [list_length](../l/list_length.md) (to determine array size)
   - [palloc](../p/palloc.md) (for memory allocation)
   - lfirst (for list iteration)
   - [get_sortgroupclause_tle](../g/get_sortgroupclause_tle.md) (to find corresponding TargetEntry)
   - [exprCollation](exprCollation.md) (to extract collation from expression)
-  - SortGroupClause (structure type)
+  - [SortGroupClause](../S/SortGroupClause.md) (structure type)
   - [TargetEntry](../T/TargetEntry.md) (structure type)
 - Called from (representative examples):
   - [create_group_plan](../c/create_group_plan.md) (src/backend/optimizer/plan/createplan.c:2265)

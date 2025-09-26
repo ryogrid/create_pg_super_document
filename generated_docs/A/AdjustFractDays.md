@@ -29,9 +29,9 @@ The function operates through these steps:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_itm_in (PostgreSQL internal time structure type)
+  - [pg_itm_in](../p/pg_itm_in.md) (PostgreSQL internal time structure type)
   - [pg_add_s32_overflow](../p/pg_add_s32_overflow.md) (overflow-safe 32-bit integer addition)
-  - AdjustFractMicroseconds (handles fractional day remainder)
+  - [AdjustFractMicroseconds](AdjustFractMicroseconds.md) (handles fractional day remainder)
   - USECS_PER_DAY (constant defining microseconds per day)
 - Called from (representative examples):
   - [DecodeInterval](../D/DecodeInterval.md) (multiple locations in backend)

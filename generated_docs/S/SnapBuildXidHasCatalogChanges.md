@@ -33,12 +33,12 @@ This function is inline for performance reasons since it's called frequently dur
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReorderBufferXidHasCatalogChanges
+  - [ReorderBufferXidHasCatalogChanges](../R/ReorderBufferXidHasCatalogChanges.md)
   - bsearch (for searching the catchange.xip array)
-  - xidComparator (comparison function for binary search)
+  - [xidComparator](../x/xidComparator.md) (comparison function for binary search)
   - XACT_XINFO_HAS_INVALS (flag constant)
 - Called from (representative examples):
-  - SnapBuildCommitTxn (multiple times for main transaction and subtransactions)
+  - [SnapBuildCommitTxn](SnapBuildCommitTxn.md) (multiple times for main transaction and subtransactions)
 
 ## Notes and Other Information
 - Declared as static inline for performance optimization since it's called frequently

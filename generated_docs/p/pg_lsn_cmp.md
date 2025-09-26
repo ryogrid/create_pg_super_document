@@ -27,7 +27,7 @@ This function is essential for creating btree indexes on pg_lsn columns, enablin
   - PG_RETURN_INT32 (macro to return integer result)
 - Called from (representative examples):
   - PostgreSQL's btree index operations when indexing pg_lsn columns
-  - Sort operations on pg_lsn values
+  - [Sort](../S/Sort.md) operations on pg_lsn values
   - ORDER BY clauses involving pg_lsn columns
 
 ## Notes and Other Information

@@ -32,7 +32,7 @@ For two-phase transactions, it calls ReorderBufferFinishPrepared with a false co
   - [DecodeTXNNeedSkip](DecodeTXNNeedSkip.md)
   - [ReorderBufferFinishPrepared](../R/ReorderBufferFinishPrepared.md)
   - [ReorderBufferAbort](../R/ReorderBufferAbort.md)
-  - UpdateDecodingStats
+  - [UpdateDecodingStats](../U/UpdateDecodingStats.md)
 - Called from (representative examples):
   - [xact_decode](../x/xact_decode.md)
 

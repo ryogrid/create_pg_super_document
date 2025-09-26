@@ -32,10 +32,10 @@ Like its read counterpart pg_preadv, this function includes important platform-s
   - ssize_t (type)
   - pwrite (POSIX function)
   - pwritev (POSIX function, if available)
-  - pg_pwrite (PostgreSQL wrapper function)
+  - [pg_pwrite](pg_pwrite.md) (PostgreSQL wrapper function)
 - Called from:
-  - FileWriteV
-  - pg_pwritev_with_retry
+  - [FileWriteV](../F/FileWriteV.md)
+  - [pg_pwritev_with_retry](pg_pwritev_with_retry.md)
 
 ## Notes and Other Information
 - The function is marked as static inline for performance

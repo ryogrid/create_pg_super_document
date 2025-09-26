@@ -28,7 +28,7 @@ This function is particularly useful for detecting orphaned temporary tables or 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetTempNamespaceProcNumber](../G/GetTempNamespaceProcNumber.md)
-  - ProcNumberGetProc
+  - [ProcNumberGetProc](../P/ProcNumberGetProc.md)
   - [PGPROC](../P/PGPROC.md) (structure type)
   - ProcNumber (type)
   - INVALID_PROC_NUMBER (constant)

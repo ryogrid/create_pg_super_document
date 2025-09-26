@@ -29,13 +29,13 @@ The function uses write_item() as a helper to write individual data structures w
 ## Dependencies
 - Functions called/Symbols referenced:
   - [write_item](write_item.md)
-  - AllocateFile/FreeFile
+  - [AllocateFile](../A/AllocateFile.md)/FreeFile
   - [RelationIdIsInInitFile](../R/RelationIdIsInInitFile.md)
   - [hash_seq_init](../h/hash_seq_init.md)/hash_seq_search
   - [AcceptInvalidationMessages](../A/AcceptInvalidationMessages.md)
-  - LWLockAcquire/LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease
 - Called from (representative examples):
-  - RelationCacheInitializePhase3 (inferred from context)
+  - [RelationCacheInitializePhase3](../R/RelationCacheInitializePhase3.md) (inferred from context)
   - Relcache invalidation handlers
 
 ## Notes and Other Information
@@ -45,5 +45,5 @@ The function uses write_item() as a helper to write individual data structures w
 - Uses RelCacheInitLock for serialization during final validation and file installation
 - File naming convention includes process ID for temporary files to avoid conflicts
 - Filters relations based on RelationIdIsInInitFile() for local databases
-- Complex index metadata is fully preserved including operator classes and support functions
+- [Complex](../C/Complex.md) index metadata is fully preserved including operator classes and support functions
 - File location: src/backend/utils/cache/relcache.c:6491-6702

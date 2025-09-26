@@ -25,7 +25,7 @@ The BaseBackupTargetType structure serves as a template or configuration object 
 - `*)`: Function pointer that creates and returns a bbsink object for the backup target, taking a bbsink parameter and detail arguments
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbsink (backup sink structure)
+  - [bbsink](../b/bbsink.md) (backup sink structure)
 - Called from (representative examples):
   - [BaseBackupTargetHandle](BaseBackupTargetHandle.md)
   - [BaseBackupAddTarget](BaseBackupAddTarget.md)

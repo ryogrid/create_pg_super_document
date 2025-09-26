@@ -24,7 +24,7 @@ The caller is responsible for freeing the returned GISTSearchItem using pfree() 
 ## Dependencies
 - Functions called/Symbols referenced:
   - pairingheap_is_empty
-  - pairingheap_remove_first
+  - [pairingheap_remove_first](../p/pairingheap_remove_first.md)
 - Called from:
   - [getNextNearest](getNextNearest.md)
   - [gistgettuple](gistgettuple.md)

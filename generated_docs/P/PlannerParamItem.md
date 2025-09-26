@@ -43,16 +43,16 @@ The planner performs duplicate elimination for Var and PlaceHolderVar parameters
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (node type system)
-  - Node (base node type for expressions)
+  - [Node](../N/Node.md) (base node type for expressions)
 
 - Called from (representative examples):
-  - assign_param_for_var (in paramassign.c:69, 79, 103)
-  - assign_param_for_placeholdervar (in paramassign.c:152, 162, 178)
-  - replace_outer_agg (in paramassign.c:227, 244)
-  - replace_outer_grouping (in paramassign.c:273, 291)
-  - replace_outer_merge_support (in paramassign.c:320, 342)
-  - SS_identify_outer_params (in subselect.c:2097)
-  - build_subplan (in subselect.c:353)
+  - [assign_param_for_var](../a/assign_param_for_var.md) (in paramassign.c:69, 79, 103)
+  - [assign_param_for_placeholdervar](../a/assign_param_for_placeholdervar.md) (in paramassign.c:152, 162, 178)
+  - [replace_outer_agg](../r/replace_outer_agg.md) (in paramassign.c:227, 244)
+  - [replace_outer_grouping](../r/replace_outer_grouping.md) (in paramassign.c:273, 291)
+  - [replace_outer_merge_support](../r/replace_outer_merge_support.md) (in paramassign.c:320, 342)
+  - [SS_identify_outer_params](../S/SS_identify_outer_params.md) (in subselect.c:2097)
+  - [build_subplan](../b/build_subplan.md) (in subselect.c:353)
 
 ## Notes and Other Information
 - Uses pg_node_attr with no_copy_equal, no_read, no_query_jumble attributes to control node processing behavior

@@ -25,9 +25,9 @@ Unlike the ExecJustVar* functions that return the extracted value, this function
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExprEvalStep (step structure access)
+  - [ExprEvalStep](ExprEvalStep.md) (step structure access)
   - [CheckOpSlotCompatibility](../C/CheckOpSlotCompatibility.md) (input slot validation)
-  - slot_getattr (attribute extraction)
+  - [slot_getattr](../s/slot_getattr.md) (attribute extraction)
 - Called from (representative examples):
   - [ExecJustAssignInnerVar](ExecJustAssignInnerVar.md)
   - [ExecJustAssignOuterVar](ExecJustAssignOuterVar.md)  

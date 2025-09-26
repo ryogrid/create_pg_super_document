@@ -33,8 +33,8 @@ The conversion follows this mapping:
   - `ereport`: Reports error when conversion is not possible
   - `PG_RETURN_MACADDR_P`: Returns the macaddr result
 - Types referenced:
-  - `macaddr8`: Input 8-byte MAC address type
-  - `macaddr`: Output 6-byte MAC address type
+  - `[macaddr8](macaddr8.md)`: Input 8-byte MAC address type
+  - `[macaddr](macaddr.md)`: Output 6-byte MAC address type
 - Called from (representative examples):
   - No direct references found in the analyzed code
 

@@ -51,9 +51,9 @@ Cost calculation is intentionally simplified since ModifyTable is always a top-l
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to create ModifyTablePath node)
-  - list_length (for validating list consistency)
+  - [list_length](../l/list_length.md) (for validating list consistency)
   - CmdType, CMD_MERGE, CMD_UPDATE (command type constants)
-  - OnConflictExpr (ON CONFLICT expression structure)
+  - [OnConflictExpr](../O/OnConflictExpr.md) (ON CONFLICT expression structure)
 - Called from (representative examples):
   - [grouping_planner](../g/grouping_planner.md) (src/backend/optimizer/plan/planner.c:2009)
 

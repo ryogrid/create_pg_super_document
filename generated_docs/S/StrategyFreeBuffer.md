@@ -29,10 +29,10 @@ When adding a buffer to the free list, it becomes the new head (firstFreeBuffer)
   - FREENEXT_NOT_IN_LIST (constant)
   - StrategyControl (global buffer strategy control structure)
 - Called from (representative examples):
-  - BufferAlloc
-  - InvalidateBuffer
-  - ExtendBufferedRelShared
-  - ResourceOwnerForgetBufferIO
+  - [BufferAlloc](../B/BufferAlloc.md)
+  - [InvalidateBuffer](../I/InvalidateBuffer.md)
+  - [ExtendBufferedRelShared](../E/ExtendBufferedRelShared.md)
+  - [ResourceOwnerForgetBufferIO](../R/ResourceOwnerForgetBufferIO.md)
 
 ## Notes and Other Information
 - Uses spinlock protection to ensure atomic updates to the free list structure

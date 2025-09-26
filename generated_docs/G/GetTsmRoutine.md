@@ -23,7 +23,7 @@ The function is designed as a convenience routine specifically for error checkin
 ## Dependencies
 - Functions called/Symbols referenced:
   - OidFunctionCall1
-  - TsmRoutine (struct type)
+  - [TsmRoutine](../T/TsmRoutine.md) (struct type)
   - [DatumGetPointer](../D/DatumGetPointer.md)
   - [PointerGetDatum](../P/PointerGetDatum.md)
   - IsA (macro)

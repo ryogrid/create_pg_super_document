@@ -23,18 +23,18 @@ This checkpoint process ensures that after a crash recovery, logical decoding ca
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetRedoRecPtr: Get current redo pointer from shared memory
-  - ReplicationSlotsComputeLogicalRestartLSN: Calculate minimum restart LSN from replication slots
-  - AllocateDir/ReadDir/FreeDir: Directory scanning operations
-  - get_dirent_type: Determine file type from directory entry
-  - OpenTransientFile/CloseTransientFile: File operations with automatic cleanup
-  - pg_fsync: Sync file contents to disk
-  - fsync_fname: Sync directory changes to disk
+  - [GetRedoRecPtr](../G/GetRedoRecPtr.md): Get current redo pointer from shared memory
+  - [ReplicationSlotsComputeLogicalRestartLSN](../R/ReplicationSlotsComputeLogicalRestartLSN.md): Calculate minimum restart LSN from replication slots
+  - [AllocateDir](../A/AllocateDir.md)/ReadDir/FreeDir: Directory scanning operations
+  - [get_dirent_type](../g/get_dirent_type.md): Determine file type from directory entry
+  - [OpenTransientFile](../O/OpenTransientFile.md)/CloseTransientFile: File operations with automatic cleanup
+  - [pg_fsync](../p/pg_fsync.md): Sync file contents to disk
+  - [fsync_fname](../f/fsync_fname.md): Sync directory changes to disk
   - unlink: Remove obsolete mapping files
-  - pgstat_report_wait_start/pgstat_report_wait_end: Report wait events for monitoring
-  - data_sync_elevel: Get appropriate error level for sync operations
+  - [pgstat_report_wait_start](../p/pgstat_report_wait_start.md)/pgstat_report_wait_end: Report wait events for monitoring
+  - [data_sync_elevel](../d/data_sync_elevel.md): Get appropriate error level for sync operations
 - Called from (representative examples):
-  - CheckPointGuts: Main checkpoint processing function
+  - [CheckPointGuts](CheckPointGuts.md): Main checkpoint processing function
 
 ## Notes and Other Information
 - Critical for maintaining logical decoding consistency across checkpoints and recovery

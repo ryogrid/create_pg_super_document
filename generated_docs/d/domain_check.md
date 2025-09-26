@@ -29,7 +29,7 @@ This function is commonly used by procedural language implementations (PL/Perl, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - domain_check_internal
+  - [domain_check_internal](domain_check_internal.md)
 
 - Called from (representative examples):
   - [expanded_record_set_fields](../e/expanded_record_set_fields.md) (src/backend/utils/adt/expandedrecord.c:1359)
@@ -37,7 +37,7 @@ This function is commonly used by procedural language implementations (PL/Perl, 
   - [check_domain_for_new_tuple](../c/check_domain_for_new_tuple.md) (src/backend/utils/adt/expandedrecord.c:1587)
   - [plperl_sv_to_datum](../p/plperl_sv_to_datum.md) (src/pl/plperl/plperl.c:1406)
   - [PLyObject_ToDomain](../P/PLyObject_ToDomain.md) (src/pl/plpython/plpy_typeio.c:1106)
-  - pltcl_build_tuple_result (src/pl/tcl/pltcl.c:3252)
+  - [pltcl_build_tuple_result](../p/pltcl_build_tuple_result.md) (src/pl/tcl/pltcl.c:3252)
 
 ## Notes and Other Information
 - This is a wrapper function that always uses traditional error reporting (ereport) rather than soft error contexts

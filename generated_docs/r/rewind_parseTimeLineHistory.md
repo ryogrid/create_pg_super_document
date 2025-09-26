@@ -23,10 +23,10 @@ The parsing follows a strict format where each line contains a timeline ID follo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TimeLineHistoryEntry (struct type)
+  - [TimeLineHistoryEntry](../T/TimeLineHistoryEntry.md) (struct type)
   - pg_log_error_detail
-  - pg_realloc
-  - pg_malloc
+  - [pg_realloc](../p/pg_realloc.md)
+  - [pg_malloc](../p/pg_malloc.md)
 - Called from (representative examples):
   - [getTimelineHistory](../g/getTimelineHistory.md) (in src/bin/pg_rewind/pg_rewind.c:884)
 

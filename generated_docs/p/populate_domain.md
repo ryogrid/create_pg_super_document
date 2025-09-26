@@ -39,7 +39,7 @@ The function follows PostgreSQL's type system hierarchy where domains add constr
 ## Dependencies
 - Functions called/Symbols referenced:
   - [populate_record_field](populate_record_field.md)
-  - domain_check_safe
+  - [domain_check_safe](../d/domain_check_safe.md)
   - SOFT_ERROR_OCCURRED
 - Called from (representative examples):
   - [populate_record_field](populate_record_field.md)

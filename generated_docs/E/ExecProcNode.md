@@ -22,12 +22,12 @@ This design allows for a uniform interface across all plan node types while enab
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecReScan (triggered when parameters change)
+  - [ExecReScan](ExecReScan.md) (triggered when parameters change)
   - node->ExecProcNode (node-specific execution function)
 - Called from (representative examples):
-  - ExecutePlan (main execution loop)
-  - EvalPlanQualNext (during EPQ processing)
-  - ExecProcNodeFirst (first-time node execution)
+  - [ExecutePlan](ExecutePlan.md) (main execution loop)
+  - [EvalPlanQualNext](EvalPlanQualNext.md) (during EPQ processing)
+  - [ExecProcNodeFirst](ExecProcNodeFirst.md) (first-time node execution)
   - Various node-specific execution functions (for child nodes)
   - Dozens of executor nodes for retrieving tuples from child plans
 

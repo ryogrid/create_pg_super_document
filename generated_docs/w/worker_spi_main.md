@@ -44,8 +44,8 @@ The function implements a worker that consolidates incremental values ('delta' t
   - [initialize_worker_spi](../i/initialize_worker_spi.md), quote_identifier
   - [WaitEventExtensionNew](../W/WaitEventExtensionNew.md), WaitLatch, ResetLatch
   - [SetCurrentStatementStartTimestamp](../S/SetCurrentStatementStartTimestamp.md), StartTransactionCommand
-  - SPI_connect, SPI_execute, SPI_finish
-  - GetTransactionSnapshot, PushActiveSnapshot, PopActiveSnapshot
+  - [SPI_connect](../S/SPI_connect.md), SPI_execute, SPI_finish
+  - [GetTransactionSnapshot](../G/GetTransactionSnapshot.md), PushActiveSnapshot, PopActiveSnapshot
   - [CommitTransactionCommand](../C/CommitTransactionCommand.md), pgstat_report_activity, pgstat_report_stat
 - Called from (representative examples):
   - Referenced by PostgreSQL background worker framework (no direct callers in codebase)

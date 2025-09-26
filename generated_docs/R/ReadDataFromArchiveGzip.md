@@ -21,7 +21,7 @@ This function handles the decompression of gzip-compressed data during the readi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_malloc
+  - [pg_malloc](../p/pg_malloc.md)
   - inflateInit
   - inflate
   - inflateEnd

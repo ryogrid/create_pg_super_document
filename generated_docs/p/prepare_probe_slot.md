@@ -28,10 +28,10 @@ After populating the values and null flags, the function calls ExecStoreVirtualT
 - Functions called/Symbols referenced:
   - [MemoizeKey](../M/MemoizeKey.md)
   - [MemoizeState](../M/MemoizeState.md)
-  - ExecClearTuple
-  - ExecEvalExpr
+  - [ExecClearTuple](../E/ExecClearTuple.md)
+  - [ExecEvalExpr](../E/ExecEvalExpr.md)
   - [ExecStoreMinimalTuple](../E/ExecStoreMinimalTuple.md)
-  - slot_getallattrs
+  - [slot_getallattrs](../s/slot_getallattrs.md)
   - [ExecStoreVirtualTuple](../E/ExecStoreVirtualTuple.md)
 - Called from (representative examples):
   - [cache_reduce_memory](../c/cache_reduce_memory.md)

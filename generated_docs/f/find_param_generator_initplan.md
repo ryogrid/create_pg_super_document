@@ -22,8 +22,8 @@ This function serves as a subroutine for find_param_generator, focusing on searc
   - foreach_node
   - foreach_int
   - foreach_current_index
-  - SubPlan
-  - Param
+  - [SubPlan](../S/SubPlan.md)
+  - [Param](../P/Param.md)
 - Called from (representative examples):
   - [find_param_generator](find_param_generator.md)
 

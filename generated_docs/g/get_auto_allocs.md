@@ -27,14 +27,14 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - pthread_once
-  - pthread_getspecific
-  - auto_mem_key_init (callback function)
+  - [pthread_getspecific](../p/pthread_getspecific.md)
+  - [auto_mem_key_init](../a/auto_mem_key_init.md) (callback function)
   - auto_mem_once (static variable)
   - auto_mem_key (static variable)
 - Called from (representative examples):
-  - ecpg_add_mem (line 125)
-  - ECPGfree_auto_mem (line 133)
-  - ecpg_clear_auto_mem (line 153)
+  - [ecpg_add_mem](../e/ecpg_add_mem.md) (line 125)
+  - [ECPGfree_auto_mem](../E/ECPGfree_auto_mem.md) (line 133)
+  - [ecpg_clear_auto_mem](../e/ecpg_clear_auto_mem.md) (line 153)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the memory.c file

@@ -26,10 +26,10 @@ The counter starts from a base value and increments for each new custom wait eve
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slock_t (PostgreSQL spinlock type for lightweight synchronization)
+  - [slock_t](../s/slock_t.md) (PostgreSQL spinlock type for lightweight synchronization)
 - Called from (representative examples):
-  - WaitEventCustomShmemSize
-  - WaitEventCustomShmemInit
+  - [WaitEventCustomShmemSize](WaitEventCustomShmemSize.md)
+  - [WaitEventCustomShmemInit](WaitEventCustomShmemInit.md)
 
 ## Notes and Other Information
 - This structure is allocated in shared memory during PostgreSQL startup to be accessible across all backend processes

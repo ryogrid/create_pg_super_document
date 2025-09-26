@@ -30,13 +30,13 @@ The reset operation does not actually clear the array contents but rather resets
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ProcArrayStruct](../P/ProcArrayStruct.md)
-  - LWLockAcquire
-  - LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - ProcArrayLock
   - LW_EXCLUSIVE
 - Called from (representative examples):
   - xc_slow_answer_inc
-  - ProcArrayApplyRecoveryInfo
+  - [ProcArrayApplyRecoveryInfo](../P/ProcArrayApplyRecoveryInfo.md)
 
 ## Notes and Other Information
 - This is a static function accessible only within procarray.c

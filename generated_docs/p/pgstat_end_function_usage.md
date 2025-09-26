@@ -24,7 +24,7 @@ This function completes the statistics tracking for a function call that was pre
   - INSTR_TIME_SUBTRACT
   - INSTR_TIME_ADD
   - [instr_time](../i/instr_time.md) (type)
-  - PgStat_FunctionCounts (type)
+  - [PgStat_FunctionCounts](../P/PgStat_FunctionCounts.md) (type)
 - Called from (representative examples):
   - [ExecEvalFuncExprFusage](../E/ExecEvalFuncExprFusage.md) (in src/backend/executor/execExprInterp.c:2466)
   - [fmgr_security_definer](../f/fmgr_security_definer.md) (in src/backend/utils/fmgr/fmgr.c:753)

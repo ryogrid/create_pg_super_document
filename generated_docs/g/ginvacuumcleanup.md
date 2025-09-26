@@ -25,18 +25,18 @@ The function scans all pages in the index to identify recyclable pages, count di
   - AmAutoVacuumWorkerProcess
   - [initGinState](../i/initGinState.md)
   - [ginInsertCleanup](ginInsertCleanup.md)
-  - LockRelationForExtension
+  - [LockRelationForExtension](../L/LockRelationForExtension.md)
   - RelationGetNumberOfBlocks
-  - UnlockRelationForExtension
+  - [UnlockRelationForExtension](../U/UnlockRelationForExtension.md)
   - [ReadBufferExtended](../R/ReadBufferExtended.md)
   - [GinPageIsRecyclable](../G/GinPageIsRecyclable.md)
-  - RecordFreeIndexPage
+  - [RecordFreeIndexPage](../R/RecordFreeIndexPage.md)
   - GinPageIsData
   - GinPageIsList
   - GinPageIsLeaf
   - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md)
   - [ginUpdateStats](ginUpdateStats.md)
-  - IndexFreeSpaceMapVacuum
+  - [IndexFreeSpaceMapVacuum](../I/IndexFreeSpaceMapVacuum.md)
 - Called from (representative examples):
   - [ginhandler](ginhandler.md) (as part of index AM interface)
 

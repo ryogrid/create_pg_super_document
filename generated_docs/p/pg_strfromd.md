@@ -32,15 +32,15 @@ The function is part of PostgreSQL's portable printf implementation and provides
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dopr_outch
-  - dostr
+  - [dopr_outch](../d/dopr_outch.md)
+  - [dostr](../d/dostr.md)
   - isnan
   - isinf
   - snprintf (system library)
   - PrintfTarget (structure)
 - Called from:
-  - float4out
-  - float8out_internal
+  - [float4out](../f/float4out.md)
+  - [float8out_internal](../f/float8out_internal.md)
   - printf (via include/port.h)
 
 ## Notes and Other Information

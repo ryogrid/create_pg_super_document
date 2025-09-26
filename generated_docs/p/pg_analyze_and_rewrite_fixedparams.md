@@ -33,10 +33,10 @@ Performance statistics can be logged if log_parser_stats is enabled, and the fun
 - Functions called/Symbols referenced:
   - [parse_analyze_fixedparams](parse_analyze_fixedparams.md)
   - [pg_rewrite_query](pg_rewrite_query.md)
-  - ResetUsage
-  - ShowUsage
-  - RawStmt (type)
-  - QueryEnvironment (type)
+  - [ResetUsage](../R/ResetUsage.md)
+  - [ShowUsage](../S/ShowUsage.md)
+  - [RawStmt](../R/RawStmt.md) (type)
+  - [QueryEnvironment](../Q/QueryEnvironment.md) (type)
 - Called from (representative examples):
   - [exec_simple_query](../e/exec_simple_query.md)
   - [_SPI_prepare_plan](../S/_SPI_prepare_plan.md)

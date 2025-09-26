@@ -25,7 +25,7 @@ This function removes the current element from a singly-linked list during itera
   - [AtEOSubXact_SPI](../A/AtEOSubXact_SPI.md) (in src/backend/executor/spi.c:566)
   - [SPI_freetuptable](../S/SPI_freetuptable.md) (in src/backend/executor/spi.c:1409)
   - [ForgetBackgroundWorker](../F/ForgetBackgroundWorker.md) (in src/backend/postmaster/bgworker.c:457)
-  - cancel_on_dsm_detach (in src/backend/storage/ipc/dsm.c:1159)
+  - [cancel_on_dsm_detach](../c/cancel_on_dsm_detach.md) (in src/backend/storage/ipc/dsm.c:1159)
   - [AtEOXact_GUC](../A/AtEOXact_GUC.md) (in src/backend/utils/misc/guc.c:2525)
   - [ReportChangedGUCOptions](../R/ReportChangedGUCOptions.md) (in src/backend/utils/misc/guc.c:2625)
 

@@ -22,12 +22,12 @@ This function should be called when the operations within the subtransaction hav
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReleaseCurrentSubTransaction
-  - MemoryContextSwitchTo (implicitly via context switch)
+  - [ReleaseCurrentSubTransaction](../R/ReleaseCurrentSubTransaction.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (implicitly via context switch)
   - CurrentResourceOwner (global variable assignment)
 - Called from (representative examples):
-  - pltcl_returnnext
-  - pltcl_SPI_prepare
+  - [pltcl_returnnext](pltcl_returnnext.md)
+  - [pltcl_SPI_prepare](pltcl_SPI_prepare.md)
 
 ## Notes and Other Information
 - Must be preceded by a successful call to `pltcl_subtrans_begin`

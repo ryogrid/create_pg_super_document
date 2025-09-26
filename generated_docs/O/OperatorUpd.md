@@ -30,8 +30,8 @@ The function performs thorough validation to detect and prevent inconsistent ope
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CommandCounterIncrement (ensures transaction visibility)
-  - table_open/table_close (catalog relation access)
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md) (ensures transaction visibility)
+  - [table_open](../t/table_open.md)/table_close (catalog relation access)
   - SearchSysCacheCopy1 (retrieves operator tuples)
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md) (updates catalog tuples)
   - [get_opname](../g/get_opname.md) (gets operator name for error messages)
@@ -45,5 +45,5 @@ The function performs thorough validation to detect and prevent inconsistent ope
 - Uses RowExclusiveLock when opening the pg_operator catalog to ensure exclusive update access
 - Performs careful validation to prevent corruption of operator relationships
 - Handles edge cases like self-commutative operators and self-negating operators
-- CommandCounterIncrement calls are strategically placed to handle cases where operators reference themselves or each other
+- [CommandCounterIncrement](../C/CommandCounterIncrement.md) calls are strategically placed to handle cases where operators reference themselves or each other
 - Essential for maintaining referential integrity in the operator system, preventing orphaned references after operator deletion

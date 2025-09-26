@@ -35,13 +35,13 @@ The function is particularly careful during error abort situations (when portal-
   - [FreeQueryDesc](../F/FreeQueryDesc.md)
   - CurrentResourceOwner (global variable)
 - Called from (representative examples):
-  - PortalDrop (indirectly via portal cleanup mechanism)
+  - [PortalDrop](PortalDrop.md) (indirectly via portal cleanup mechanism)
   - [Portal](Portal.md) cleanup hooks during transaction abort
 
 ## Notes and Other Information
 - This function is set as the default cleanup hook for portals in CreatePortal via portal->cleanup = PortalCleanup
 - Special error handling ensures safety during transaction abort scenarios when portal->status is PORTAL_FAILED
 - The function temporarily switches to the portal's resource owner context to ensure proper resource cleanup
-- QueryDesc is reset to NULL early to prevent double cleanup attempts in case of errors
+- [QueryDesc](../Q/QueryDesc.md) is reset to NULL early to prevent double cleanup attempts in case of errors
 - The function is idempotent - it's safe to call multiple times on the same portal
 - Transaction abort mechanisms will handle resource cleanup if this function itself fails during error scenarios

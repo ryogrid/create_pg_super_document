@@ -28,7 +28,7 @@ Unlike single field validation, this function works with complete tuples and doe
   - [MemoryContextReset](../M/MemoryContextReset.md)
   - [build_dummy_expanded_header](../b/build_dummy_expanded_header.md)
   - HeapTupleHasExternal
-  - ExpandedRecordGetRODatum
+  - [ExpandedRecordGetRODatum](../E/ExpandedRecordGetRODatum.md)
 - Called from (representative examples):
   - [expanded_record_set_tuple](../e/expanded_record_set_tuple.md)
 

@@ -34,17 +34,17 @@ The remote LSN advancement ensures that after the binary upgrade, logical replic
 - Functions called/Symbols referenced:
   - CHECK_IS_BINARY_UPGRADE
   - PG_ARGISNULL
-  - text_to_cstring
+  - [text_to_cstring](../t/text_to_cstring.md)
   - PG_GETARG_TEXT_PP
   - PG_GETARG_LSN
-  - table_open
+  - [table_open](../t/table_open.md)
   - [get_subscription_oid](../g/get_subscription_oid.md)
   - [ReplicationOriginNameForLogicalRep](../R/ReplicationOriginNameForLogicalRep.md)
   - [LockRelationOid](../L/LockRelationOid.md)
-  - replorigin_by_name
+  - [replorigin_by_name](../r/replorigin_by_name.md)
   - [replorigin_advance](../r/replorigin_advance.md)
   - [UnlockRelationOid](../U/UnlockRelationOid.md)
-  - table_close
+  - [table_close](../t/table_close.md)
   - PG_RETURN_VOID
 - Called from (representative examples):
   - No direct callers found (likely called via SQL during binary upgrades)

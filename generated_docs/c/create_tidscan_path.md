@@ -28,7 +28,7 @@ The function initializes the standard Path structure fields and calls cost_tidsc
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (creates new TidPath node)
-  - get_baserel_parampathinfo (gets parameterization info for the path)
+  - [get_baserel_parampathinfo](../g/get_baserel_parampathinfo.md) (gets parameterization info for the path)
   - [cost_tidscan](cost_tidscan.md) (calculates startup and total execution costs)
 - Called from (representative examples):
   - [BuildParameterizedTidPaths](../B/BuildParameterizedTidPaths.md) (for parameterized TID scan paths)

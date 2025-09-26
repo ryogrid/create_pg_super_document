@@ -32,18 +32,18 @@ The function maintains the original SQL syntax structure while reconstructing fr
 ## Dependencies
 - Functions called/Symbols referenced:
   - castNode (safe type casting macro)
-  - appendStringInfoString, appendStringInfo, appendStringInfoChar
-  - appendContextKeyword
+  - [appendStringInfoString](../a/appendStringInfoString.md), appendStringInfo, appendStringInfoChar
+  - [appendContextKeyword](../a/appendContextKeyword.md)
   - PRETTY_INDENT, PRETTYINDENT_VAR (formatting macros)
-  - get_rule_expr (for expressions)
-  - get_const_expr (for constant values)
-  - quote_identifier (for SQL identifier quoting)
+  - [get_rule_expr](get_rule_expr.md) (for expressions)
+  - [get_const_expr](get_const_expr.md) (for constant values)
+  - [quote_identifier](../q/quote_identifier.md) (for SQL identifier quoting)
   - forboth (macro for parallel list iteration)
   - lfirst_node (list access macro)
-  - get_json_table_columns
-  - get_json_behavior
+  - [get_json_table_columns](get_json_table_columns.md)
+  - [get_json_behavior](get_json_behavior.md)
 - Called from (representative examples):
-  - get_tablefunc
+  - [get_tablefunc](get_tablefunc.md)
 
 ## Notes and Other Information
 - This is a static function used internally by the rule deparsing system

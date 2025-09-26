@@ -19,10 +19,10 @@ This function is part of PostgreSQL's character encoding infrastructure, providi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ucs_wcwidth (to determine Unicode character display width)
-  - utf8_to_unicode (to convert UTF-8 bytes to Unicode code point)
+  - [ucs_wcwidth](../u/ucs_wcwidth.md) (to determine Unicode character display width)
+  - [utf8_to_unicode](../u/utf8_to_unicode.md) (to convert UTF-8 bytes to Unicode code point)
 - Called from:
-  - pg_encoding_set_invalid (as part of encoding function table setup)
+  - [pg_encoding_set_invalid](pg_encoding_set_invalid.md) (as part of encoding function table setup)
 
 ## Notes and Other Information
 - This is a static function used internally within PostgreSQL's character encoding system

@@ -33,7 +33,7 @@ The function bridges the gap between autovacuum's table selection logic and Post
   - AllocSetContextCreate
   - [makeRangeVar](../m/makeRangeVar.md)
   - [makeVacuumRelation](../m/makeVacuumRelation.md)
-  - vacuum
+  - [vacuum](../v/vacuum.md)
   - [MemoryContextDelete](../M/MemoryContextDelete.md)
 - Called from (representative examples):
   - [do_autovacuum](../d/do_autovacuum.md)

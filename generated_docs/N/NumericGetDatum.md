@@ -21,7 +21,7 @@ This function serves as a conversion utility in PostgreSQL's function manager (f
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PointerGetDatum](../P/PointerGetDatum.md) (implicitly called, converts pointer to Datum)
-  - Numeric (data type)
+  - [Numeric](Numeric.md) (data type)
 - Called from (representative examples):
   - [ExecGetJsonValueItemString](../E/ExecGetJsonValueItemString.md)
   - [cash_numeric](../c/cash_numeric.md)
@@ -41,7 +41,7 @@ This function serves as a conversion utility in PostgreSQL's function manager (f
   - [executeUnaryArithmExpr](../e/executeUnaryArithmExpr.md)
   - [executeNumericItemMethod](../e/executeNumericItemMethod.md)
   - [compareNumeric](../c/compareNumeric.md)
-  - generate_series_step_numeric
+  - [generate_series_step_numeric](../g/generate_series_step_numeric.md)
   - [numeric_float8](../n/numeric_float8.md)/float4
   - [numeric_poly_avg](../n/numeric_poly_avg.md)
   - [numeric_avg](../n/numeric_avg.md)

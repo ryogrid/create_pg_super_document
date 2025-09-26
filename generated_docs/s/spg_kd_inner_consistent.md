@@ -47,7 +47,7 @@ Key features:
   - [DatumGetPointP](../D/DatumGetPointP.md)
   - [DatumGetBoxP](../D/DatumGetBoxP.md)
   - [FPlt](../F/FPlt.md), FPgt (floating point comparisons)
-  - get_float8_infinity
+  - [get_float8_infinity](../g/get_float8_infinity.md)
   - [box_copy](../b/box_copy.md)
   - [spg_key_orderbys_distances](spg_key_orderbys_distances.md)
   - [BoxPGetDatum](../B/BoxPGetDatum.md)

@@ -31,7 +31,7 @@ The function allows changes when not in an active transaction, similar to other 
 - Functions called/Symbols referenced:
   - [IsTransactionState](../I/IsTransactionState.md)
   - [IsSubTransaction](../I/IsSubTransaction.md)
-  - GUC_check_errcode
+  - [GUC_check_errcode](../G/GUC_check_errcode.md)
   - GUC_check_errmsg
   - GUC_check_errhint
   - [RecoveryInProgress](../R/RecoveryInProgress.md)

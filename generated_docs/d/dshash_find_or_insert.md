@@ -27,19 +27,19 @@ The  function performs an atomic find-or-insert operation on a dynamic shared ha
   - [hash_key](../h/hash_key.md): Computes hash value for the given key
   - PARTITION_FOR_HASH: Macro to determine partition from hash value
   - PARTITION_LOCK: Macro to get partition lock
-  - ensure_valid_bucket_pointers: Ensures bucket pointers are valid
-  - find_in_bucket: Searches for item within a specific bucket
+  - [ensure_valid_bucket_pointers](../e/ensure_valid_bucket_pointers.md): Ensures bucket pointers are valid
+  - [find_in_bucket](../f/find_in_bucket.md): Searches for item within a specific bucket
   - BUCKET_FOR_HASH: Macro to determine bucket from hash value
   - MAX_COUNT_PER_PARTITION: Macro to determine maximum count per partition
-  - resize: Resizes the hash table when load factor is too high
+  - [resize](../r/resize.md): Resizes the hash table when load factor is too high
   - [insert_into_bucket](../i/insert_into_bucket.md): Inserts new item into specified bucket
   - ENTRY_FROM_ITEM: Macro to convert item to entry pointer
-  - LWLockAcquire: Acquires exclusive lightweight lock
-  - LWLockRelease: Releases lightweight lock
+  - [LWLockAcquire](../L/LWLockAcquire.md): Acquires exclusive lightweight lock
+  - [LWLockRelease](../L/LWLockRelease.md): Releases lightweight lock
 - Called from (representative examples):
-  - ApplyLauncherSetWorkerStartTime: Setting worker startup times
-  - GetNamedDSMSegment: DSM segment retrieval operations
-  - pgstat_get_entry_ref: Statistics entry reference operations
+  - [ApplyLauncherSetWorkerStartTime](../A/ApplyLauncherSetWorkerStartTime.md): Setting worker startup times
+  - [GetNamedDSMSegment](../G/GetNamedDSMSegment.md): DSM segment retrieval operations
+  - [pgstat_get_entry_ref](../p/pgstat_get_entry_ref.md): Statistics entry reference operations
   - [find_or_make_matching_shared_tupledesc](../f/find_or_make_matching_shared_tupledesc.md): Type descriptor matching operations
 
 ## Notes and Other Information

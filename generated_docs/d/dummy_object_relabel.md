@@ -22,7 +22,7 @@ The function validates incoming security labels against a set of allowed values:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - superuser
+  - [superuser](../s/superuser.md)
   - strcmp
   - ereport
   - [errcode](../e/errcode.md)

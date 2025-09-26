@@ -27,16 +27,16 @@ The function first checks if a check hook exists for the parameter. If no hook i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - config_int (struct type)
+  - [config_int](config_int.md) (struct type)
   - GucSource (enum type) 
-  - errdetail_internal
-  - FlushErrorState
+  - [errdetail_internal](../e/errdetail_internal.md)
+  - [FlushErrorState](../F/FlushErrorState.md)
   - ereport (via error reporting macros)
-  - errcode, errmsg_internal, errmsg, errhint (error reporting functions)
+  - [errcode](../e/errcode.md), errmsg_internal, errmsg, errhint (error reporting functions)
 
 - Called from (representative examples):
-  - InitializeOneGUCOption
-  - parse_and_validate_value
+  - [InitializeOneGUCOption](../I/InitializeOneGUCOption.md)
+  - [parse_and_validate_value](../p/parse_and_validate_value.md)
 
 ## Notes and Other Information
 - This is a static function internal to the GUC system implementation

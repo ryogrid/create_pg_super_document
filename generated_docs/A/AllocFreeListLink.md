@@ -22,7 +22,7 @@ AllocFreeListLink is a crucial component of the allocation set's free list manag
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryChunk (structure representing a memory chunk)
+  - [MemoryChunk](../M/MemoryChunk.md) (structure representing a memory chunk)
 - Called from (representative examples):
   - GetFreeListLink (retrieves free list link from memory chunk)
   - [AllocSetContextCreateInternal](AllocSetContextCreateInternal.md) (initializes allocation context with free lists)

@@ -26,10 +26,10 @@ The function is particularly useful in scenarios where hash values are computed 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextSwitchTo
-  - LookupTupleHashEntry_internal
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [LookupTupleHashEntry_internal](LookupTupleHashEntry_internal.md)
 - Called from (representative examples):
-  - agg_refill_hash_table (nodeAgg.c:2677)
+  - [agg_refill_hash_table](../a/agg_refill_hash_table.md) (nodeAgg.c:2677)
   - Referenced in executor.h header for external usage
 
 ## Notes and Other Information

@@ -44,8 +44,8 @@ Key operations include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CommandCounterIncrement
-  - CookedConstraint
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md)
+  - [CookedConstraint](../C/CookedConstraint.md)
   - CONSTR_DEFAULT
   - [StoreAttrDefault](StoreAttrDefault.md)
   - CONSTR_CHECK

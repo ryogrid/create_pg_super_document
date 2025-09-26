@@ -39,7 +39,7 @@ LogicalRepInfo serves as a per-database container for logical replication config
 - Functions called/Symbols referenced:
   - [CreateSubscriberOptions](../C/CreateSubscriberOptions.md) (referenced in function signatures that use LogicalRepInfo)
 - Called from (representative examples):
-  - store_pub_sub_info (src/bin/pg_basebackup/pg_createsubscriber.c:437)
+  - [store_pub_sub_info](../s/store_pub_sub_info.md) (src/bin/pg_basebackup/pg_createsubscriber.c:437)
   - [setup_publisher](../s/setup_publisher.md) (src/bin/pg_basebackup/pg_createsubscriber.c:734)
   - [check_publisher](../c/check_publisher.md) (src/bin/pg_basebackup/pg_createsubscriber.c:841)
   - [check_subscriber](../c/check_subscriber.md) (src/bin/pg_basebackup/pg_createsubscriber.c:961)

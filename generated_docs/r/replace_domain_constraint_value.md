@@ -24,7 +24,7 @@ The CoerceToDomainValue node is copied from the parser state's hook context (set
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_length (check for single field reference)
+  - [list_length](../l/list_length.md) (check for single field reference)
   - linitial (get first list element)
   - strVal (extract string value from node)
   - strcmp (string comparison)

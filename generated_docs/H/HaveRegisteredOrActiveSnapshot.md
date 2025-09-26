@@ -35,9 +35,9 @@ The catalog snapshot exclusion logic is particularly important: the catalog snap
   - pairingheap_is_empty (checks if RegisteredSnapshots is empty)
   - RegisteredSnapshots (pairing heap of registered snapshots)
 - Called from (representative examples):
-  - init_toast_snapshot (ensures snapshot availability for TOAST operations)
-  - AssertHasSnapshotForToast (assertion for TOAST snapshot requirements)
-  - SnapBuildInitialSnapshot (logical replication snapshot building)
+  - [init_toast_snapshot](../i/init_toast_snapshot.md) (ensures snapshot availability for TOAST operations)
+  - [AssertHasSnapshotForToast](../A/AssertHasSnapshotForToast.md) (assertion for TOAST snapshot requirements)
+  - [SnapBuildInitialSnapshot](../S/SnapBuildInitialSnapshot.md) (logical replication snapshot building)
 
 ## Notes and Other Information
 - Specifically designed for enforcing longer-lived snapshot requirements

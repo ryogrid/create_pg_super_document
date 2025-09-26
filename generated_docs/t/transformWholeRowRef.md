@@ -28,13 +28,13 @@ The function also handles the special case of scalar functions, where it creates
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeWholeRowVar
-  - markNullableIfNeeded
-  - markVarForSelectPriv
-  - expandRTE
+  - [makeWholeRowVar](../m/makeWholeRowVar.md)
+  - [markNullableIfNeeded](../m/markNullableIfNeeded.md)
+  - [markVarForSelectPriv](../m/markVarForSelectPriv.md)
+  - [expandRTE](../e/expandRTE.md)
   - makeNode
-  - list_truncate
-  - list_length
+  - [list_truncate](../l/list_truncate.md)
+  - [list_length](../l/list_length.md)
   - copyObject
 - Called from (representative examples):
   - Column reference resolution functions (multiple locations in parse_expr.c)

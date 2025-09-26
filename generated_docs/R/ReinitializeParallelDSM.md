@@ -22,8 +22,8 @@ The function first ensures all previous workers have completed and exited, then 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WaitForParallelWorkersToFinish (ensures all workers complete their tasks)
-  - WaitForParallelWorkersToExit (waits for worker processes to terminate)
+  - [WaitForParallelWorkersToFinish](../W/WaitForParallelWorkersToFinish.md) (ensures all workers complete their tasks)
+  - [WaitForParallelWorkersToExit](../W/WaitForParallelWorkersToExit.md) (waits for worker processes to terminate)
   - [shm_toc_lookup](../s/shm_toc_lookup.md) (locates shared memory segments by key)
   - [shm_mq_create](../s/shm_mq_create.md), shm_mq_set_receiver, shm_mq_attach (recreates error message queues)
   - [FixedParallelState](../F/FixedParallelState.md) (structure containing parallel execution state)

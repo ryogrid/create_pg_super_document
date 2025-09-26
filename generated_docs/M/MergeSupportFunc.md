@@ -34,14 +34,14 @@ Currently, the primary supported function is MERGE_ACTION(), which returns a str
 ## Dependencies
 - Functions called/Symbols referenced:
   - ParseLoc (for location tracking)
-  - Expr (base expression structure)
+  - [Expr](../E/Expr.md) (base expression structure)
   - Oid (for type and collation references)
   
 - Called from (representative examples):
-  - transformMergeSupportFunc (parser transformation of merge support function calls)
-  - exprType, exprCollation, exprLocation (expression node utility functions)
-  - replace_correlation_vars_mutator (query rewriting for correlated variables)
-  - replace_outer_merge_support (parameter assignment optimization)
+  - [transformMergeSupportFunc](../t/transformMergeSupportFunc.md) (parser transformation of merge support function calls)
+  - [exprType](../e/exprType.md), exprCollation, exprLocation (expression node utility functions)
+  - [replace_correlation_vars_mutator](../r/replace_correlation_vars_mutator.md) (query rewriting for correlated variables)
+  - [replace_outer_merge_support](../r/replace_outer_merge_support.md) (parameter assignment optimization)
 
 ## Notes and Other Information
 - Restricted to use only in RETURNING clauses of MERGE statements - cannot be used in other contexts

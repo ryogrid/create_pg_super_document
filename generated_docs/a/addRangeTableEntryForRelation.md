@@ -47,7 +47,7 @@ The function includes strict assertions to ensure lock mode validity (must be Ac
   - [makeAlias](../m/makeAlias.md) (alias creation)
   - [buildRelationAliases](../b/buildRelationAliases.md) (column name building)
   - [addRTEPermissionInfo](addRTEPermissionInfo.md) (permission setup)
-  - lappend (list manipulation)
+  - [lappend](../l/lappend.md) (list manipulation)
   - [buildNSItemFromTupleDesc](../b/buildNSItemFromTupleDesc.md) (namespace item creation)
 - Called from (representative examples):
   - [AddRelationNewConstraints](../A/AddRelationNewConstraints.md) (in heap.c)

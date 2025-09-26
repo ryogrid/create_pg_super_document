@@ -33,7 +33,7 @@ The function is primarily designed to be usable at index_form_tuple time to ensu
   - [nocache_index_getattr](../n/nocache_index_getattr.md)
   - [index_deform_tuple](../i/index_deform_tuple.md)
   - [index_getattr](../i/index_getattr.md)
-  - _hash_get_indextuple_hashkey
+  - [_hash_get_indextuple_hashkey](../h/_hash_get_indextuple_hashkey.md)
   - GinCategoryOffset
 
 ## Notes and Other Information

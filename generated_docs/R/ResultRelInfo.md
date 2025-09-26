@@ -206,16 +206,16 @@ ResultRelInfo can refer to tables in the query's range table (with ri_RangeTable
   - NodeTag
   - [Relation](Relation.md)
   - RelationPtr
-  - IndexInfo
+  - [IndexInfo](../I/IndexInfo.md)
   - [ProjectionInfo](../P/ProjectionInfo.md)
-  - TriggerDesc
+  - [TriggerDesc](../T/TriggerDesc.md)
   - [OnConflictSetState](../O/OnConflictSetState.md)
-  - TupleConversionMap
+  - [TupleConversionMap](../T/TupleConversionMap.md)
   - [FdwRoutine](../F/FdwRoutine.md)
   - Various executor data types
 - Called from (representative examples):
   - Data modification operations (INSERT, UPDATE, DELETE, MERGE)
-  - Trigger execution
+  - [Trigger](../T/Trigger.md) execution
   - Partition handling
   - Foreign data wrapper operations
 

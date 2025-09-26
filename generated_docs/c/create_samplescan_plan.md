@@ -35,7 +35,7 @@ This function supports various sampling methods like BERNOULLI and SYSTEM, as sp
   - [make_samplescan](../m/make_samplescan.md)
   - [copy_generic_path_info](copy_generic_path_info.md)
   - RTE_RELATION (enum value)
-  - SampleScan (struct type)
+  - [SampleScan](../S/SampleScan.md) (struct type)
   - [TableSampleClause](../T/TableSampleClause.md) (struct type)
 - Called from (representative examples):
   - [create_scan_plan](create_scan_plan.md)

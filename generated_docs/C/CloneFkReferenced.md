@@ -37,7 +37,7 @@ For each constraint to be cloned, the function:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open/table_close: Access system catalogs
+  - [table_open](../t/table_open.md)/table_close: Access system catalogs
   - [ScanKeyInit](../S/ScanKeyInit.md)/systable_beginscan/systable_getnext: Scan pg_constraint catalog
   - [build_attrmap_by_name](../b/build_attrmap_by_name.md): Map attributes between parent and partition
   - [DeconstructFkConstraintRow](../D/DeconstructFkConstraintRow.md): Extract FK constraint details from catalog tuple

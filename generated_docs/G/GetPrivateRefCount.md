@@ -26,7 +26,7 @@ If no reference count entry exists for the buffer (indicating it's not currently
   - [BufferIsValid](../B/BufferIsValid.md)
   - BufferIsLocal  
   - [GetPrivateRefCountEntry](GetPrivateRefCountEntry.md)
-  - PrivateRefCountEntry (struct type)
+  - [PrivateRefCountEntry](../P/PrivateRefCountEntry.md) (struct type)
 - Called from (representative examples):
   - BufferIsPinned
   - [ReadRecentBuffer](../R/ReadRecentBuffer.md)
@@ -36,10 +36,10 @@ If no reference count entry exists for the buffer (indicating it's not currently
   - [PrintBufferDescs](../P/PrintBufferDescs.md)
   - [PrintPinnedBufs](../P/PrintPinnedBufs.md)
   - [MarkBufferDirtyHint](../M/MarkBufferDirtyHint.md)
-  - CheckBufferIsPinnedOnce
-  - HoldingBufferPinThatDelaysRecovery
-  - ConditionalLockBufferForCleanup
-  - IsBufferCleanupOK
+  - [CheckBufferIsPinnedOnce](../C/CheckBufferIsPinnedOnce.md)
+  - [HoldingBufferPinThatDelaysRecovery](../H/HoldingBufferPinThatDelaysRecovery.md)
+  - [ConditionalLockBufferForCleanup](../C/ConditionalLockBufferForCleanup.md)
+  - [IsBufferCleanupOK](../I/IsBufferCleanupOK.md)
 
 ## Notes and Other Information
 - Only works for shared memory buffers (not local buffers)

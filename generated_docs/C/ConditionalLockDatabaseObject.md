@@ -28,7 +28,7 @@ When a lock is successfully acquired (and it wasn't already held in clear state)
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LOCKTAG (data structure for lock identification)
+  - [LOCKTAG](../L/LOCKTAG.md) (data structure for lock identification)
   - [LOCALLOCK](../L/LOCALLOCK.md) (backend's local view of a lock)
   - LockAcquireResult (enumeration for lock acquisition results)
   - SET_LOCKTAG_OBJECT (macro to initialize object lock tag)

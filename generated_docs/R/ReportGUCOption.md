@@ -29,7 +29,7 @@ The function includes robust memory management with graceful handling of out-of-
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ShowGUCOption](../S/ShowGUCOption.md): Converts configuration value to string representation
-  - pq_beginmessage: Starts construction of protocol message
+  - [pq_beginmessage](../p/pq_beginmessage.md): Starts construction of protocol message
   - [pq_sendstring](../p/pq_sendstring.md): Adds string data to protocol message
   - [pq_endmessage](../p/pq_endmessage.md): Finalizes and sends protocol message
   - [guc_free](../g/guc_free.md): Frees GUC-allocated memory

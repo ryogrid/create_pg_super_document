@@ -79,12 +79,12 @@ The structure is passed through the vacuum/analyze call chain to ensure consiste
   - VACOPT_* constants (option flags)
 
 - Called from (representative examples):
-  - ExecVacuum (src/backend/commands/vacuum.c:150)
-  - vacuum (src/backend/commands/vacuum.c:479)
-  - vacuum_rel (src/backend/commands/vacuum.c:1973)
-  - heap_vacuum_rel (src/backend/access/heap/vacuumlazy.c:295)
-  - analyze_rel (src/backend/commands/analyze.c:112)
-  - autovac_table (src/backend/postmaster/autovacuum.c:199)
+  - [ExecVacuum](../E/ExecVacuum.md) (src/backend/commands/vacuum.c:150)
+  - [vacuum](../v/vacuum.md) (src/backend/commands/vacuum.c:479)
+  - [vacuum_rel](../v/vacuum_rel.md) (src/backend/commands/vacuum.c:1973)
+  - [heap_vacuum_rel](../h/heap_vacuum_rel.md) (src/backend/access/heap/vacuumlazy.c:295)
+  - [analyze_rel](../a/analyze_rel.md) (src/backend/commands/analyze.c:112)
+  - [autovac_table](../a/autovac_table.md) (src/backend/postmaster/autovacuum.c:199)
 
 ## Notes and Other Information
 - When adding new VacuumParams members, consider updating vacuumdb utility as well

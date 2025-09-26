@@ -38,6 +38,6 @@ wtmp begins Sun Aug 20 19:22:10 2023: The last Unicode codepoint in the range (i
 ## Notes and Other Information
 - Used extensively in  to define tables for different Unicode character properties
 - The structure supports the full Unicode range (up to 0x10FFFF) through 32-bit integers
-- Ranges are typically stored in sorted arrays to enable efficient binary search operations
+- [Ranges](../R/Ranges.md) are typically stored in sorted arrays to enable efficient binary search operations
 - This design allows PostgreSQL to handle Unicode character classification efficiently without storing every individual codepoint
 - The structure is used in conjunction with other Unicode-related structures like  and 

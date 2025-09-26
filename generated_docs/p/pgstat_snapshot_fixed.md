@@ -22,7 +22,7 @@ The function performs validation to ensure the requested kind is valid and repre
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_is_kind_valid
+  - [pgstat_is_kind_valid](pgstat_is_kind_valid.md)
   - [pgstat_get_kind_info](pgstat_get_kind_info.md)
   - [pgstat_clear_snapshot](pgstat_clear_snapshot.md)
   - [pgstat_build_snapshot](pgstat_build_snapshot.md)
@@ -34,7 +34,7 @@ The function performs validation to ensure the requested kind is valid and repre
   - [pgstat_fetch_stat_checkpointer](pgstat_fetch_stat_checkpointer.md)
   - [pgstat_fetch_stat_io](pgstat_fetch_stat_io.md)
   - [pgstat_fetch_slru](pgstat_fetch_slru.md)
-  - pgstat_fetch_stat_wal
+  - [pgstat_fetch_stat_wal](pgstat_fetch_stat_wal.md)
 
 ## Notes and Other Information
 - The function includes assertions to validate that the kind is valid and represents fixed-amount statistics

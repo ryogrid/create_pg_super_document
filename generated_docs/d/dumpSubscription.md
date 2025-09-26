@@ -23,7 +23,7 @@ This function creates the complete SQL DDL needed to recreate a subscription dur
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpOptions
-  - createPQExpBuffer
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)
   - [pg_strdup](../p/pg_strdup.md)
   - [fmtId](../f/fmtId.md)
   - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
@@ -41,7 +41,7 @@ This function creates the complete SQL DDL needed to recreate a subscription dur
   - [dumpComment](dumpComment.md)
   - DUMP_COMPONENT_SECLABEL
   - [dumpSecLabel](dumpSecLabel.md)
-  - destroyPQExpBuffer
+  - [destroyPQExpBuffer](destroyPQExpBuffer.md)
   - free
 - Called from (representative examples):
   - Main dump process for subscriptions

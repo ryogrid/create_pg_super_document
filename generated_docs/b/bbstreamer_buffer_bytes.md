@@ -27,7 +27,7 @@ The function takes a portion of the input data (specified by nbytes), appends it
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bbstreamer](bbstreamer.md) (struct type)
-  - appendBinaryStringInfo (PostgreSQL StringInfo function)
+  - [appendBinaryStringInfo](../a/appendBinaryStringInfo.md) (PostgreSQL StringInfo function)
   - Assert (assertion macro)
 
 - Called from (representative examples):

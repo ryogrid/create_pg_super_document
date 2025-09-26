@@ -19,14 +19,14 @@ The function performs two main operations: flushing WAL statistics and flushing 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_flush_wal
-  - pgstat_flush_io
-  - PgStat_WalStats
+  - [pgstat_flush_wal](pgstat_flush_wal.md)
+  - [pgstat_flush_io](pgstat_flush_io.md)
+  - [PgStat_WalStats](../P/PgStat_WalStats.md)
 - Called from (representative examples):
-  - BackgroundWriterMain
-  - CheckpointerMain
-  - HandleCheckpointerInterrupts
-  - WalWriterMain
+  - [BackgroundWriterMain](../B/BackgroundWriterMain.md)
+  - [CheckpointerMain](../C/CheckpointerMain.md)
+  - [HandleCheckpointerInterrupts](../H/HandleCheckpointerInterrupts.md)
+  - [WalWriterMain](../W/WalWriterMain.md)
   - pgstat_count_buffer_hit
 
 ## Notes and Other Information

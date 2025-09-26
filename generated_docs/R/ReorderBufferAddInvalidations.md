@@ -21,13 +21,13 @@ This function processes invalidation messages from transaction commit records an
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReorderBufferTXNByXid
-  - MemoryContextSwitchTo
+  - [ReorderBufferTXNByXid](ReorderBufferTXNByXid.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - rbtxn_get_toptxn
-  - ReorderBufferAccumulateInvalidations
-  - ReorderBufferQueueInvalidations
+  - [ReorderBufferAccumulateInvalidations](ReorderBufferAccumulateInvalidations.md)
+  - [ReorderBufferQueueInvalidations](ReorderBufferQueueInvalidations.md)
 - Called from (representative examples):
-  - xact_decode
+  - [xact_decode](../x/xact_decode.md)
 
 ## Notes and Other Information
 - Invalidations are accumulated under the top-level transaction for efficient batch processing

@@ -41,4 +41,4 @@ The structure provides essential hash-related parameters including high and low 
 - The structure is set by tuplesort_begin_index_hash function and used only by IndexTuple routines
 - The mask fields are crucial for determining how hash codes are partitioned and sorted during index construction
 - Part of PostgreSQL's tuple sorting variants system located in src/backend/utils/sort/tuplesortvariants.c
-- Hash indexes in PostgreSQL use these parameters to organize data into buckets for efficient retrieval
+- [Hash](../H/Hash.md) indexes in PostgreSQL use these parameters to organize data into buckets for efficient retrieval

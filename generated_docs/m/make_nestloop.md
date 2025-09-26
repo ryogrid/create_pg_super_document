@@ -29,7 +29,7 @@ This join method is typically chosen when one of the relations is small, when th
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to create the NestLoop node)
-  - NestLoop (plan node structure)
+  - [NestLoop](../N/NestLoop.md) (plan node structure)
   - JoinType (enumeration for join types)
 - Called from (representative examples):
   - [create_nestloop_plan](../c/create_nestloop_plan.md) (in createplan.c:4425)
@@ -39,4 +39,4 @@ This join method is typically chosen when one of the relations is small, when th
 - The nested loop join is the most basic join algorithm, with O(M*N) complexity in the worst case
 - The `nestParams` field enables efficient parameterized nested loops where inner scans can use parameters from the current outer row
 - The `inner_unique` flag can enable optimizations during execution when the planner knows the inner relation will produce unique matches
-- NestLoop joins are often chosen when suitable indexes exist on the inner relation's join columns
+- [NestLoop](../N/NestLoop.md) joins are often chosen when suitable indexes exist on the inner relation's join columns

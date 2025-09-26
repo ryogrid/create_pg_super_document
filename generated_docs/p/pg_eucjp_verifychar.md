@@ -30,8 +30,8 @@ The function examines the first byte to determine the character type and validat
   - IS_EUC_RANGE_VALID (macro checking if byte is in range 0xA1-0xFE)
   - IS_HIGHBIT_SET (macro checking if high bit is set)
 - Called from (representative examples):
-  - pg_eucjp_verifystr
-  - pg_encoding_set_invalid (indirectly through function pointer tables)
+  - [pg_eucjp_verifystr](pg_eucjp_verifystr.md)
+  - [pg_encoding_set_invalid](pg_encoding_set_invalid.md) (indirectly through function pointer tables)
 
 ## Notes and Other Information
 - EUC-JP character validation requires understanding of Japanese character set structure

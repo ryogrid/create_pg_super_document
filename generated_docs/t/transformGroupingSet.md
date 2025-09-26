@@ -36,7 +36,7 @@ This function processes GroupingSet nodes, which can contain various types of co
   - [makeGroupingSet](../m/makeGroupingSet.md)
   - [exprLocation](../e/exprLocation.md)
   - list_make1_int
-  - GroupingSet (struct type)
+  - [GroupingSet](../G/GroupingSet.md) (struct type)
   - [ParseExprKind](../P/ParseExprKind.md) (enum type)
   - GROUPING_SET_SETS, GROUPING_SET_SIMPLE, GROUPING_SET_CUBE (enum values)
 - Called from (representative examples):

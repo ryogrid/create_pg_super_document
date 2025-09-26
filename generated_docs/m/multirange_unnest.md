@@ -45,7 +45,7 @@ The implementation uses a local structure `multirange_unnest_fctx` to maintain:
   - `MultirangeTypeGetOid()`: Get OID of multirange type
   - `SRF_PERCALL_SETUP()`: Setup for each SRF call
   - [multirange_get_range](multirange_get_range.md)(): Extract specific range from multirange
-  - `RangeTypePGetDatum()`: Convert range to Datum
+  - `[RangeTypePGetDatum](../R/RangeTypePGetDatum.md)()`: Convert range to Datum
   - `SRF_RETURN_NEXT()`: Return next result in SRF
   - `SRF_RETURN_DONE()`: Signal completion of SRF
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)(): Memory context management

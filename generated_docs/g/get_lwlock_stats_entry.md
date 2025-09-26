@@ -26,19 +26,19 @@ When creating new entries, the function initializes all counters to zero. The ha
   - [hash_search](../h/hash_search.md)
 - Types referenced:
   - [LWLock](../L/LWLock.md)
-  - lwlock_stats_key
-  - lwlock_stats
+  - [lwlock_stats_key](../l/lwlock_stats_key.md)
+  - [lwlock_stats](../l/lwlock_stats.md)
 - Constants used:
   - HASH_ENTER
 - Global variables accessed:
   - lwlock_stats_htab
   - lwlock_stats_dummy
 - Called from:
-  - LWLockWaitListLock (src/backend/storage/lmgr/lwlock.c:864)
-  - LWLockDequeueSelf (src/backend/storage/lmgr/lwlock.c:1088)
-  - LWLockAcquire (src/backend/storage/lmgr/lwlock.c:1178)
-  - LWLockAcquireOrWait (src/backend/storage/lmgr/lwlock.c:1406)
-  - LWLockWaitForVar (src/backend/storage/lmgr/lwlock.c:1595)
+  - [LWLockWaitListLock](../L/LWLockWaitListLock.md) (src/backend/storage/lmgr/lwlock.c:864)
+  - [LWLockDequeueSelf](../L/LWLockDequeueSelf.md) (src/backend/storage/lmgr/lwlock.c:1088)
+  - [LWLockAcquire](../L/LWLockAcquire.md) (src/backend/storage/lmgr/lwlock.c:1178)
+  - [LWLockAcquireOrWait](../L/LWLockAcquireOrWait.md) (src/backend/storage/lmgr/lwlock.c:1406)
+  - [LWLockWaitForVar](../L/LWLockWaitForVar.md) (src/backend/storage/lmgr/lwlock.c:1595)
   - LOG_LWDEBUG (src/backend/storage/lmgr/lwlock.c:309)
 
 ## Notes and Other Information

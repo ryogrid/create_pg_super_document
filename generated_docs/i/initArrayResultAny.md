@@ -24,15 +24,15 @@ The function uses get_array_type() to determine if the input_type is a scalar (h
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_array_type
-  - initArrayResultArr (for array inputs)
-  - initArrayResult (for scalar inputs)
-  - MemoryContextAlloc
+  - [get_array_type](../g/get_array_type.md)
+  - [initArrayResultArr](initArrayResultArr.md) (for array inputs)
+  - [initArrayResult](initArrayResult.md) (for scalar inputs)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
   - OidIsValid
 - Called from (representative examples):
-  - ExecScanSubPlan
-  - ExecSetParamPlan
-  - accumArrayResultAny
+  - [ExecScanSubPlan](../E/ExecScanSubPlan.md)
+  - [ExecSetParamPlan](../E/ExecSetParamPlan.md)
+  - [accumArrayResultAny](../a/accumArrayResultAny.md)
 
 ## Notes and Other Information
 - **Type detection**: Uses get_array_type() rather than get_element_type() for type detection

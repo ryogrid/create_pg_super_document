@@ -28,8 +28,8 @@ This function is essential for WAL analysis, debugging multixact issues, and und
 - Functions called/Symbols referenced:
   - XLogRecGetData
   - XLogRecGetInfo
-  - appendStringInfo
-  - appendStringInfoString
+  - [appendStringInfo](../a/appendStringInfo.md)
+  - [appendStringInfoString](../a/appendStringInfoString.md)
   - memcpy
   - [out_member](../o/out_member.md)
   - XLR_INFO_MASK

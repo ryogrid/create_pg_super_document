@@ -28,8 +28,8 @@ The function handles the extraction of name data using the appropriate OpenSSL A
   - [pq_verify_peer_name_matches_certificate_name](../p/pq_verify_peer_name_matches_certificate_name.md) (generic verification function)
   - [libpq_append_conn_error](../l/libpq_append_conn_error.md) (for error reporting)
 - Called from (representative examples):
-  - pgtls_verify_peer_name_matches_certificate_guts (during SAN processing)
-  - pgtls_verify_peer_name_matches_certificate_guts (during Common Name processing)
+  - [pgtls_verify_peer_name_matches_certificate_guts](../p/pgtls_verify_peer_name_matches_certificate_guts.md) (during SAN processing)
+  - [pgtls_verify_peer_name_matches_certificate_guts](../p/pgtls_verify_peer_name_matches_certificate_guts.md) (during Common Name processing)
 
 ## Notes and Other Information
 - Returns -1 on error, or the result from pq_verify_peer_name_matches_certificate_name

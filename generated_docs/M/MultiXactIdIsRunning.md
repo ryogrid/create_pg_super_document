@@ -28,7 +28,7 @@ The function is used primarily in heap tuple visibility checks and transaction c
 - Functions called/Symbols referenced:
   - [GetMultiXactIdMembers](../G/GetMultiXactIdMembers.md)
   - [TransactionIdIsCurrentTransactionId](../T/TransactionIdIsCurrentTransactionId.md)  
-  - TransactionIdIsInProgress
+  - [TransactionIdIsInProgress](../T/TransactionIdIsInProgress.md)
   - debug_elog3, debug_elog2, debug_elog4
 - Called from (representative examples):
   - [compute_new_xmax_infomask](../c/compute_new_xmax_infomask.md) (src/backend/access/heap/heapam.c:5375)

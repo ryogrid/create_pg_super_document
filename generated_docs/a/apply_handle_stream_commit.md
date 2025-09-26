@@ -32,7 +32,7 @@ The function ensures proper cleanup, state management, and coordination between 
   - [apply_spooled_messages](apply_spooled_messages.md) (processes serialized changes)
   - [apply_handle_commit_internal](apply_handle_commit_internal.md) (actual commit processing)
   - [stream_cleanup_files](../s/stream_cleanup_files.md)/stream_close_file (file management)
-  - pa_send_data, pa_xact_finish, pa_switch_to_partial_serialize (parallel apply coordination)
+  - [pa_send_data](../p/pa_send_data.md), pa_xact_finish, pa_switch_to_partial_serialize (parallel apply coordination)
   - [stream_open_and_write_change](../s/stream_open_and_write_change.md) (serialization)
   - [pa_set_fileset_state](../p/pa_set_fileset_state.md), pa_set_xact_state, pa_unlock_transaction (state management)
   - [process_syncing_tables](../p/process_syncing_tables.md) (parallel table sync)

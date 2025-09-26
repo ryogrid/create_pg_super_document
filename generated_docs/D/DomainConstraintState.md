@@ -32,7 +32,7 @@ DomainConstraintState manages the runtime validation of domain constraints when 
   - [DomainConstraintType](DomainConstraintType.md)
   - NodeTag
   - [Expr](../E/Expr.md)
-  - ExprState
+  - [ExprState](../E/ExprState.md)
 - Called from (representative examples):
   - [ExecInitCoerceToDomain](../E/ExecInitCoerceToDomain.md)
   - [domain_check_input](../d/domain_check_input.md)

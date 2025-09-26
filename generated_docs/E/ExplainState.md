@@ -85,21 +85,21 @@ The structure supports multiple output formats through a unified interface, hand
 ## Dependencies
 
 ### Functions called/Symbols referenced:
-- ExplainSerializeOption (enumeration for serialization options)
-- ExplainFormat (enumeration for output format types)
-- PlannedStmt (structure representing the planned query)
-- ExplainWorkersState (structure for parallel worker output management)
+- [ExplainSerializeOption](ExplainSerializeOption.md) (enumeration for serialization options)
+- [ExplainFormat](ExplainFormat.md) (enumeration for output format types)
+- [PlannedStmt](../P/PlannedStmt.md) (structure representing the planned query)
+- [ExplainWorkersState](ExplainWorkersState.md) (structure for parallel worker output management)
 - StringInfo (PostgreSQL string buffer type)
-- List (PostgreSQL list type)
-- Bitmapset (PostgreSQL bitmap set type)
+- [List](../L/List.md) (PostgreSQL list type)
+- [Bitmapset](../B/Bitmapset.md) (PostgreSQL bitmap set type)
 
 ### Called from (representative examples):
-- NewExplainState (creates and initializes new ExplainState)
-- ExplainQuery (main entry point for EXPLAIN command)
-- ExplainOneQuery (explains a single query)
-- ExplainOnePlan (explains a single execution plan)
-- ExplainNode (recursive plan node explanation)
-- ExplainPrintPlan (prints plan with statistics)
+- [NewExplainState](../N/NewExplainState.md) (creates and initializes new ExplainState)
+- [ExplainQuery](ExplainQuery.md) (main entry point for EXPLAIN command)
+- [ExplainOneQuery](ExplainOneQuery.md) (explains a single query)
+- [ExplainOnePlan](ExplainOnePlan.md) (explains a single execution plan)
+- [ExplainNode](ExplainNode.md) (recursive plan node explanation)
+- [ExplainPrintPlan](ExplainPrintPlan.md) (prints plan with statistics)
 - All show_* functions for displaying specific plan node details
 
 ## Notes and Other Information

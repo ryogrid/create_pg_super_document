@@ -27,9 +27,9 @@ This function provides a unified interface for accumulating array elements durin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initArrayResultAny (for state initialization when astate is NULL)
+  - [initArrayResultAny](../i/initArrayResultAny.md) (for state initialization when astate is NULL)
   - [accumArrayResult](accumArrayResult.md) (for scalar element accumulation)
-  - accumArrayResultArr (for array input accumulation)
+  - [accumArrayResultArr](accumArrayResultArr.md) (for array input accumulation)
   - [ArrayBuildStateAny](../A/ArrayBuildStateAny.md) (state structure type)
 - Called from (representative examples):
   - [ExecScanSubPlan](../E/ExecScanSubPlan.md) (in nodeSubplan.c:395)

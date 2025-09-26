@@ -20,15 +20,15 @@ AtEOXact_PgStat is a critical function in PostgreSQL's statistics subsystem that
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AtEOXact_PgStat_Database
-  - AtEOXact_PgStat_Relations  
-  - AtEOXact_PgStat_DroppedStats
-  - pgstat_clear_snapshot
-  - PgStat_SubXactStatus (struct type)
+  - [AtEOXact_PgStat_Database](AtEOXact_PgStat_Database.md)
+  - [AtEOXact_PgStat_Relations](AtEOXact_PgStat_Relations.md)  
+  - [AtEOXact_PgStat_DroppedStats](AtEOXact_PgStat_DroppedStats.md)
+  - [pgstat_clear_snapshot](../p/pgstat_clear_snapshot.md)
+  - [PgStat_SubXactStatus](../P/PgStat_SubXactStatus.md) (struct type)
 - Called from (representative examples):
-  - CommitTransaction (src/backend/access/transam/xact.c:2420)
-  - AbortTransaction (src/backend/access/transam/xact.c:2929)
-  - FinishPreparedTransaction (src/backend/access/transam/twophase.c:1661)
+  - [CommitTransaction](../C/CommitTransaction.md) (src/backend/access/transam/xact.c:2420)
+  - [AbortTransaction](AbortTransaction.md) (src/backend/access/transam/xact.c:2929)
+  - [FinishPreparedTransaction](../F/FinishPreparedTransaction.md) (src/backend/access/transam/twophase.c:1661)
 
 ## Notes and Other Information
 - This function is called from access/transam/xact.c at top-level transaction commit/abort only

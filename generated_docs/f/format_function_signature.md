@@ -23,10 +23,10 @@ The function uses PostgreSQL's PQExpBuffer system for efficient string building 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initPQExpBuffer
+  - [initPQExpBuffer](../i/initPQExpBuffer.md)
   - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
   - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
-  - appendPQExpBufferChar
+  - [appendPQExpBufferChar](../a/appendPQExpBufferChar.md)
   - [fmtId](fmtId.md)
   - [getFormattedTypeName](../g/getFormattedTypeName.md)
 - Called from (representative examples):

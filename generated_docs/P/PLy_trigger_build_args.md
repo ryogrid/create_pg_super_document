@@ -26,8 +26,8 @@ This function constructs a comprehensive Python dictionary that contains all the
   - [PLy_input_from_tuple](PLy_input_from_tuple.md)
   - DirectFunctionCall1
   - [DatumGetCString](../D/DatumGetCString.md)
-  - SPI_getrelname
-  - SPI_getnspname
+  - [SPI_getrelname](../S/SPI_getrelname.md)
+  - [SPI_getnspname](../S/SPI_getnspname.md)
   - TRIGGER_FIRED_BEFORE/AFTER/INSTEAD
   - TRIGGER_FIRED_FOR_ROW/STATEMENT
   - TRIGGER_FIRED_BY_INSERT/DELETE/UPDATE/TRUNCATE

@@ -22,7 +22,7 @@ This hook function handles parameter references ($1, $2, etc.) when parameter ty
 - Functions called/Symbols referenced:
   - [VarParamState](../V/VarParamState.md) (structure type)
   - [ParamRef](../P/ParamRef.md) (node type)
-  - Param (node type)
+  - [Param](../P/Param.md) (node type)
   - PARAM_EXTERN (parameter kind constant)
   - [get_typcollation](../g/get_typcollation.md) (function to get type collation)
   - makeNode (macro for creating nodes)

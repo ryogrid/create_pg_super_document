@@ -43,7 +43,7 @@ This function executes BEFORE ROW UPDATE triggers for update operations, providi
   - [ExecGetAllUpdatedCols](ExecGetAllUpdatedCols.md)
   - [TriggerEnabled](../T/TriggerEnabled.md)
   - [ExecCallTriggerFunc](ExecCallTriggerFunc.md)
-  - ExecMaterializeSlot
+  - [ExecMaterializeSlot](ExecMaterializeSlot.md)
   - [heap_freetuple](../h/heap_freetuple.md)
 - Called from (representative examples):
   - [ExecBRUpdateTriggers](ExecBRUpdateTriggers.md)

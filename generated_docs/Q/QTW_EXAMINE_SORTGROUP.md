@@ -35,5 +35,5 @@ Without this flag, the default behavior of query tree traversal would skip over 
 - Essential for complete dependency analysis when queries contain ORDER BY, GROUP BY, or DISTINCT clauses
 - Used by the dependency tracking system to identify all objects referenced by a query
 - Important for query transformation passes that need to modify or analyze sorting/grouping expressions
-- SortGroupClause lists contain expressions that may reference columns, functions, or other database objects
+- [SortGroupClause](../S/SortGroupClause.md) lists contain expressions that may reference columns, functions, or other database objects
 - Particularly relevant for operations like column dependency analysis, query rewriting, and optimization passes that need to understand the complete structure of sorting and grouping specifications

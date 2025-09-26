@@ -26,17 +26,17 @@ The function performs thorough metadata extraction from system catalogs (pg_inde
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - index_open (to access the original index)
-  - BuildIndexInfo (to extract index metadata)
-  - SearchSysCache1/SearchSysCache2 (for catalog lookups)
-  - SysCacheGetAttrNotNull/SysCacheGetAttr (for attribute retrieval)
+  - [index_open](index_open.md) (to access the original index)
+  - [BuildIndexInfo](../B/BuildIndexInfo.md) (to extract index metadata)
+  - [SearchSysCache1](../S/SearchSysCache1.md)/SearchSysCache2 (for catalog lookups)
+  - [SysCacheGetAttrNotNull](../S/SysCacheGetAttrNotNull.md)/SysCacheGetAttr (for attribute retrieval)
   - TextDatumGetCString (for text field conversion)
-  - stringToNode (for parsing stored expressions and predicates)
-  - makeIndexInfo (to construct new IndexInfo structure)
-  - get_attoptions (for attribute-specific options)
-  - make_ands_implicit (for predicate format conversion)
-  - index_create (to create the new index)
-  - index_close (for cleanup)
+  - [stringToNode](../s/stringToNode.md) (for parsing stored expressions and predicates)
+  - [makeIndexInfo](../m/makeIndexInfo.md) (to construct new IndexInfo structure)
+  - [get_attoptions](../g/get_attoptions.md) (for attribute-specific options)
+  - [make_ands_implicit](../m/make_ands_implicit.md) (for predicate format conversion)
+  - [index_create](index_create.md) (to create the new index)
+  - [index_close](index_close.md) (for cleanup)
 - Called from (representative examples):
   - Concurrent reindex operations
 

@@ -32,7 +32,7 @@ compute_remaining_iovec(struct iovec *destination,
 - Called from (representative examples):
   - [mdreadv](../m/mdreadv.md)
   - [mdwritev](../m/mdwritev.md)
-  - pg_pwritev_with_retry
+  - [pg_pwritev_with_retry](../p/pg_pwritev_with_retry.md)
 
 ## Notes and Other Information
 This function is crucial for implementing robust vectored I/O in PostgreSQL, particularly in the storage manager (smgr) subsystem where large multi-page reads and writes need to handle partial transfers gracefully. The function returns the number of remaining iovecs after adjustment, with a return value of 0 indicating that all data has been transferred. It includes assertions to detect kernel behavior that violates expected I/O semantics (such as transferring more data than requested). The function enables PostgreSQL to retry I/O operations reliably when dealing with signals, resource constraints, or other conditions that might cause partial transfers.

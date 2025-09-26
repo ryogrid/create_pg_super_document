@@ -28,7 +28,7 @@ This function safely adds a new OpFamilyMember to a list while ensuring uniquene
   - [errcode](../e/errcode.md)
   - [errmsg](../e/errmsg.md)
   - [format_type_be](../f/format_type_be.md)
-  - lappend
+  - [lappend](../l/lappend.md)
 - Called from (representative examples):
   - [DefineOpClass](../D/DefineOpClass.md)
   - [AlterOpFamilyAdd](../A/AlterOpFamilyAdd.md)

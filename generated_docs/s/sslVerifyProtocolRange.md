@@ -26,10 +26,10 @@ This function ensures that the SSL protocol range specified by minimum and maxim
   - Assert (PostgreSQL assertion macro)
 - Called from (representative examples):
   - internalPQconninfoOption
-  - pqConnectOptions2
+  - [pqConnectOptions2](../p/pqConnectOptions2.md)
 
 ## Notes and Other Information
-- Range is valid if at least one bound is unset (NULL or empty string)
+- [Range](../R/Range.md) is valid if at least one bound is unset (NULL or empty string)
 - If minimum is "TLSv1" (lowest supported), any maximum is valid
 - Maximum cannot be "TLSv1" if minimum is a higher version
 - Uses string comparison to ensure min ≤ max for TLSv1.1 through TLSv1.3

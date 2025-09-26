@@ -31,15 +31,15 @@ Key features include:
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RuleInfo](../R/RuleInfo.md) (struct type)
-  - createPQExpBuffer, appendPQExpBufferStr (query building functions)
+  - [createPQExpBuffer](../c/createPQExpBuffer.md), appendPQExpBufferStr (query building functions)
   - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md) (query execution)
   - [PQntuples](../P/PQntuples.md), PQfnumber, PQgetvalue (libpq result processing functions)
-  - pg_malloc (memory allocation)
+  - [pg_malloc](../p/pg_malloc.md) (memory allocation)
   - atooid (string to OID conversion)
   - [AssignDumpId](../A/AssignDumpId.md) (dump ID assignment)
   - [findTableByOid](../f/findTableByOid.md) (table lookup function)
   - [addObjectDependency](../a/addObjectDependency.md) (dependency management)
-  - destroyPQExpBuffer (cleanup)
+  - [destroyPQExpBuffer](../d/destroyPQExpBuffer.md) (cleanup)
   - DO_RULE (object type enum)
   - RELKIND_VIEW, RELKIND_MATVIEW (relation kind enums)
   - PGRES_TUPLES_OK (libpq result status)

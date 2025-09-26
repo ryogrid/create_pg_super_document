@@ -28,14 +28,14 @@ This function is a fundamental building block for VFD cache management, used whe
   - Vfd (VFD structure type)
   - VfdCache (global VFD cache array)
   - DO_DB (debug macro)
-  - _dump_lru (debugging function)
+  - [_dump_lru](../d/_dump_lru.md) (debugging function)
   - elog (logging function)
   - Assert (assertion macro)
 - Called from (representative examples):
   - AllocateDesc
-  - LruDelete
-  - FileAccess
-  - FileClose
+  - [LruDelete](../L/LruDelete.md)
+  - [FileAccess](../F/FileAccess.md)
+  - [FileClose](../F/FileClose.md)
 
 ## Notes and Other Information
 - Static function, only accessible within the fd.c source file

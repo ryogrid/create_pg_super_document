@@ -25,22 +25,22 @@ The function handles both local buffers (used for temporary tables) and shared b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferIsValid: Validates buffer identifier
+  - [BufferIsValid](../B/BufferIsValid.md): Validates buffer identifier
   - BufferIsPinned: Assertion to verify buffer is pinned
   - BufferIsLocal: Determines if buffer is a local buffer
-  - GetLocalBufferDescriptor: Gets descriptor for local buffers
-  - GetBufferDescriptor: Gets descriptor for shared buffers
-  - BufTagMatchesRelFileLocator: Compares buffer tag with relation file locator
-  - BufTagGetForkNum: Extracts fork number from buffer tag
-  - UnpinLocalBuffer: Releases pin on local buffer
-  - UnpinBuffer: Releases pin on shared buffer
-  - ReadBuffer: Reads a block into a buffer
+  - [GetLocalBufferDescriptor](../G/GetLocalBufferDescriptor.md): Gets descriptor for local buffers
+  - [GetBufferDescriptor](../G/GetBufferDescriptor.md): Gets descriptor for shared buffers
+  - [BufTagMatchesRelFileLocator](../B/BufTagMatchesRelFileLocator.md): Compares buffer tag with relation file locator
+  - [BufTagGetForkNum](../B/BufTagGetForkNum.md): Extracts fork number from buffer tag
+  - [UnpinLocalBuffer](../U/UnpinLocalBuffer.md): Releases pin on local buffer
+  - [UnpinBuffer](../U/UnpinBuffer.md): Releases pin on shared buffer
+  - [ReadBuffer](ReadBuffer.md): Reads a block into a buffer
   - MAIN_FORKNUM: Main fork identifier constant
 - Called from (representative examples):
-  - ginFindLeafPage: GIN index navigation
-  - heapam_index_fetch_tuple: Heap access method for index fetches
-  - heapam_scan_bitmap_next_block: Bitmap heap scan operations
-  - _bt_relandgetbuf: B-tree buffer management
+  - [ginFindLeafPage](../g/ginFindLeafPage.md): GIN index navigation
+  - [heapam_index_fetch_tuple](../h/heapam_index_fetch_tuple.md): Heap access method for index fetches
+  - [heapam_scan_bitmap_next_block](../h/heapam_scan_bitmap_next_block.md): Bitmap heap scan operations
+  - [_bt_relandgetbuf](../b/_bt_relandgetbuf.md): B-tree buffer management
   - BUFFER_LOCK_EXCLUSIVE: Buffer locking macros
 
 ## Notes and Other Information

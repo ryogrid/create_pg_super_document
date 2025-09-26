@@ -23,7 +23,7 @@ This function implements the SQL function `json_strip_nulls(json) -> json` which
   - `PG_GETARG_TEXT_PP` - Macro to extract text argument from function args
   - [palloc0](../p/palloc0.md) - PostgreSQL memory allocation function with zero initialization
   - [makeJsonLexContext](../m/makeJsonLexContext.md) - Creates JSON lexical parsing context
-  - `makeStringInfo` - Creates expandable string buffer
+  - `[makeStringInfo](../m/makeStringInfo.md)` - Creates expandable string buffer
   - [sn_object_start](../s/sn_object_start.md) - Callback for JSON object start
   - [sn_object_end](../s/sn_object_end.md) - Callback for JSON object end  
   - [sn_array_start](../s/sn_array_start.md) - Callback for JSON array start
@@ -32,7 +32,7 @@ This function implements the SQL function `json_strip_nulls(json) -> json` which
   - [sn_array_element_start](../s/sn_array_element_start.md) - Callback for JSON array element start
   - [sn_object_field_start](../s/sn_object_field_start.md) - Callback for JSON object field start
   - `pg_parse_json_or_ereport` - Main JSON parsing function with error reporting
-  - `cstring_to_text_with_len` - Converts C string to PostgreSQL text datum
+  - `[cstring_to_text_with_len](../c/cstring_to_text_with_len.md)` - Converts C string to PostgreSQL text datum
   - `PG_RETURN_TEXT_P` - Macro to return text datum from function
 
 - Called from (representative examples):

@@ -38,12 +38,12 @@ The function maintains a running count of values processed through the valcount 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pushJsonbValue
-  - datum_to_jsonb_internal
-  - array_dim_to_jsonb (recursive self-call)
+  - [pushJsonbValue](../p/pushJsonbValue.md)
+  - [datum_to_jsonb_internal](../d/datum_to_jsonb_internal.md)
+  - [array_dim_to_jsonb](array_dim_to_jsonb.md) (recursive self-call)
 - Called from (representative examples):
-  - array_dim_to_jsonb (recursive calls)
-  - array_to_jsonb_internal
+  - [array_dim_to_jsonb](array_dim_to_jsonb.md) (recursive calls)
+  - [array_to_jsonb_internal](array_to_jsonb_internal.md)
 
 ## Notes and Other Information
 - This is a static function used internally within jsonb.c for array processing

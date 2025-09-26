@@ -41,7 +41,7 @@ If a `deptype` filter is specified, only sequences with that exact dependency ty
   - DEPENDENCY_INTERNAL
   - [get_rel_relkind](get_rel_relkind.md)
   - RELKIND_SEQUENCE
-  - lappend_oid
+  - [lappend_oid](../l/lappend_oid.md)
 - Called from (representative examples):
   - [getOwnedSequences](getOwnedSequences.md)
   - [getIdentitySequence](getIdentitySequence.md)

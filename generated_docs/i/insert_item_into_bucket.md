@@ -31,7 +31,7 @@ This is a low-level utility function in PostgreSQL's dynamic shared hash table i
   - dsa_pointer (type)
   - [dshash_table_item](../d/dshash_table_item.md) (type)
 - Called from (representative examples):
-  - resize
+  - [resize](../r/resize.md)
   - [insert_into_bucket](insert_into_bucket.md)
 
 ## Notes and Other Information

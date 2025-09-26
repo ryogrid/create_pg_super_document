@@ -33,7 +33,7 @@ Sampling is distributed proportionally based on each child's block count, ensuri
 - Functions called/Symbols referenced:
   - [find_all_inheritors](../f/find_all_inheritors.md)
   - [acquire_sample_rows](acquire_sample_rows.md)
-  - CommandCounterIncrement
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md)
   - [SetRelationHasSubclass](../S/SetRelationHasSubclass.md)
   - [GetFdwRoutineForRelation](../G/GetFdwRoutineForRelation.md)
   - [equalRowTypes](../e/equalRowTypes.md)

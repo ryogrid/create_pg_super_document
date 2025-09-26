@@ -29,7 +29,7 @@ This function serves as a post-processing callback for column references encount
   - lsecond
   - [sql_fn_resolve_param_name](sql_fn_resolve_param_name.md)
   - lthird
-  - String
+  - [String](../S/String.md)
   - [ParseFuncOrColumn](../P/ParseFuncOrColumn.md)
 - Called from (representative examples):
   - [sql_fn_parser_setup](sql_fn_parser_setup.md) (src/backend/executor/functions.c:268)

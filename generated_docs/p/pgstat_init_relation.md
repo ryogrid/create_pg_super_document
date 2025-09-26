@@ -24,12 +24,12 @@ The function assumes that the relation's `pgstat_info` field has been zeroed dur
 ## Dependencies
 - Functions called/Symbols referenced:
   - RELKIND_HAS_STORAGE (macro)
-  - pgstat_unlink_relation
+  - [pgstat_unlink_relation](pgstat_unlink_relation.md)
   - pgstat_track_counts (global variable)
   - RELKIND_PARTITIONED_TABLE (constant)
 - Called from (representative examples):
-  - relation_open
-  - try_relation_open
+  - [relation_open](../r/relation_open.md)
+  - [try_relation_open](../t/try_relation_open.md)
 
 ## Notes and Other Information
 - This function is called every time a relation is opened, making it a critical performance path

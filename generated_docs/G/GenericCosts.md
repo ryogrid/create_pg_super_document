@@ -37,11 +37,11 @@ The structure contains both the final cost estimates that must be returned to th
   - Used by various index-specific cost estimators
 
 - Called from (representative examples):
-  - genericcostestimate
-  - btcostestimate (B-tree index cost estimation)
-  - hashcostestimate (hash index cost estimation) 
-  - gistcostestimate (GiST index cost estimation)
-  - spgcostestimate (SP-GiST index cost estimation)
+  - [genericcostestimate](../g/genericcostestimate.md)
+  - [btcostestimate](../b/btcostestimate.md) (B-tree index cost estimation)
+  - [hashcostestimate](../h/hashcostestimate.md) (hash index cost estimation) 
+  - [gistcostestimate](../g/gistcostestimate.md) (GiST index cost estimation)
+  - [spgcostestimate](../s/spgcostestimate.md) (SP-GiST index cost estimation)
 
 ## Notes and Other Information
 - Callers should initialize all fields to zero before calling genericcostestimate()

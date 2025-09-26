@@ -34,7 +34,7 @@ heapam_scan_analyze_next_tuple is a core function for ANALYZE operations that it
   - HeapTupleHeaderGetXmin, HeapTupleHeaderGetUpdateXid
   - [ExecStoreBufferHeapTuple](../E/ExecStoreBufferHeapTuple.md)
   - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
-  - ExecClearTuple
+  - [ExecClearTuple](../E/ExecClearTuple.md)
 - Constants referenced:
   - HEAPTUPLE_LIVE, HEAPTUPLE_DEAD, HEAPTUPLE_RECENTLY_DEAD
   - HEAPTUPLE_INSERT_IN_PROGRESS, HEAPTUPLE_DELETE_IN_PROGRESS
@@ -46,8 +46,8 @@ heapam_scan_analyze_next_tuple is a core function for ANALYZE operations that it
 - This is a static function, only accessible within heapam_handler.c
 - Returns true when a tuple is selected for sampling, false when the page is exhausted
 - Handles complex transaction visibility logic for in-progress transactions
-- Insert-in-progress tuples are only counted/sampled if they belong to the current transaction
-- Delete-in-progress tuples are treated as live unless deleted by the current transaction
+- [Insert](../I/Insert.md)-in-progress tuples are only counted/sampled if they belong to the current transaction
+- [Delete](../D/Delete.md)-in-progress tuples are treated as live unless deleted by the current transaction
 - Ignores unused and redirect line pointers but counts DEAD line pointers as dead rows
 - Maintains buffer lock throughout tuple processing until a sample tuple is found
 - Releases buffer lock and clears slot when no more tuples are available on the page

@@ -41,19 +41,19 @@ The no-op case occurs when the planner can prove the input is already unique thr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - UniquePathMethod
+  - [UniquePathMethod](UniquePathMethod.md)
 - Called from (representative examples):
-  - final_cost_mergejoin
-  - final_cost_hashjoin
-  - create_plan_recurse
-  - create_unique_plan
-  - create_unique_path
+  - [final_cost_mergejoin](../f/final_cost_mergejoin.md)
+  - [final_cost_hashjoin](../f/final_cost_hashjoin.md)
+  - [create_plan_recurse](../c/create_plan_recurse.md)
+  - [create_unique_plan](../c/create_unique_plan.md)
+  - [create_unique_path](../c/create_unique_path.md)
 
 ## Notes and Other Information
 - Primarily used for semi-join optimization to ensure RHS uniqueness
 - The planner caches UniquePath results in rel->cheapest_unique_path to avoid recomputation
-- Hash method may be disabled if estimated memory usage exceeds hash_mem_multiplier * work_mem
-- Sort method preserves any existing ordering in the input when possible
+- [Hash](../H/Hash.md) method may be disabled if estimated memory usage exceeds hash_mem_multiplier * work_mem
+- [Sort](../S/Sort.md) method preserves any existing ordering in the input when possible
 - No-op method is preferred when input uniqueness can be proven via indexes or subquery analysis
 - Cost estimation compares hash vs sort methods and chooses the cheaper option
 - Memory context handling ensures paths survive GEQO planning cycles when needed

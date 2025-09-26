@@ -39,16 +39,16 @@ The function includes comprehensive validation and will panic if inconsistencies
   - [CreateFakeRelcacheEntry](../C/CreateFakeRelcacheEntry.md)/FreeFakeRelcacheEntry: Temporary relation cache management
   - [visibilitymap_pin](../v/visibilitymap_pin.md)/visibilitymap_clear: Update visibility map when needed
   - XLogRecGetInfo: Check for special page initialization flag
-  - XLogInitBufferForRedo: Initialize buffer for page creation
-  - XLogReadBufferForRedo: Read target page for redo operation
-  - PageInit: Initialize new page structure
+  - [XLogInitBufferForRedo](../X/XLogInitBufferForRedo.md): Initialize buffer for page creation
+  - [XLogReadBufferForRedo](../X/XLogReadBufferForRedo.md): Read target page for redo operation
+  - [PageInit](../P/PageInit.md): Initialize new page structure
   - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md): Validate insertion offset
   - [XLogRecGetBlockData](../X/XLogRecGetBlockData.md): Extract tuple data from WAL record
   - HeapTupleHeaderSetXmin/HeapTupleHeaderSetCmin: Set transaction and command IDs
   - PageAddItem: Insert tuple into page at specified offset
   - [PageGetHeapFreeSpace](../P/PageGetHeapFreeSpace.md): Calculate remaining free space
   - [PageClearAllVisible](../P/PageClearAllVisible.md): Clear page visibility flag when needed
-  - XLogRecordPageWithFreeSpace: Update FSM for low free space pages
+  - [XLogRecordPageWithFreeSpace](../X/XLogRecordPageWithFreeSpace.md): Update FSM for low free space pages
 
 - Called from:
   - [heap_redo](heap_redo.md): Main heap WAL record replay dispatcher

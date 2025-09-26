@@ -19,12 +19,12 @@ InstrInit is a utility function that reinitializes an existing Instrumentation s
 ## Dependencies
 - Functions called/Symbols referenced:
   - memset (memory clearing)
-  - Instrumentation (structure type)
+  - [Instrumentation](Instrumentation.md) (structure type)
   - INSTRUMENT_BUFFERS (constant)
   - INSTRUMENT_WAL (constant)
   - INSTRUMENT_TIMER (constant)
 - Called from (representative examples):
-  - ExecInitParallelPlan
+  - [ExecInitParallelPlan](../E/ExecInitParallelPlan.md)
 
 ## Notes and Other Information
 Unlike InstrAlloc, this function operates on pre-allocated memory and doesn't handle async_mode configuration. It's commonly used in parallel execution scenarios where instrumentation structures need to be reinitialized for worker processes. The function ensures consistent behavior by completely zeroing the structure before setting the required flags.

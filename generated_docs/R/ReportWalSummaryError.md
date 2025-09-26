@@ -23,9 +23,9 @@ All errors reported through this function are classified as data corruption erro
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initStringInfo (PostgreSQL string utility function)
-  - appendStringInfoVA (PostgreSQL string formatting function)
-  - enlargeStringInfo (PostgreSQL string buffer expansion function)
+  - [initStringInfo](../i/initStringInfo.md) (PostgreSQL string utility function)
+  - [appendStringInfoVA](../a/appendStringInfoVA.md) (PostgreSQL string formatting function)
+  - [enlargeStringInfo](../e/enlargeStringInfo.md) (PostgreSQL string buffer expansion function)
   - ereport (PostgreSQL error reporting function)
   - [errcode](../e/errcode.md) (PostgreSQL error code function)
   - [errmsg_internal](../e/errmsg_internal.md) (PostgreSQL internal error message function)

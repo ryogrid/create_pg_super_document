@@ -25,7 +25,7 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockReleaseClearVar (releases lock and clears the insertingAt variable)
+  - [LWLockReleaseClearVar](../L/LWLockReleaseClearVar.md) (releases lock and clears the insertingAt variable)
   - NUM_XLOGINSERT_LOCKS (constant defining number of WAL insertion locks)
   - holdingAllLocks (global flag indicating exclusive lock ownership)
   - MyLockNo (backend-specific lock identifier)

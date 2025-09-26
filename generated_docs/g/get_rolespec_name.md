@@ -22,15 +22,15 @@ The returned string is allocated using pstrdup() and must be freed by the caller
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_rolespec_tuple
+  - [get_rolespec_tuple](get_rolespec_tuple.md)
   - Form_pg_authid (struct type)
-  - pstrdup
-  - ReleaseSysCache
+  - [pstrdup](../p/pstrdup.md)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - GETSTRUCT
   - NameStr
 - Called from (representative examples):
-  - AddRoleMems (in src/backend/commands/user.c)
-  - DelRoleMems (in src/backend/commands/user.c)
+  - [AddRoleMems](../A/AddRoleMems.md) (in src/backend/commands/user.c)
+  - [DelRoleMems](../D/DelRoleMems.md) (in src/backend/commands/user.c)
 
 ## Notes and Other Information
 - The function assumes the RoleSpec is valid and will find a corresponding role

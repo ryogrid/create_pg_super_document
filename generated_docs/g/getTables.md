@@ -25,12 +25,12 @@ A key feature is its table locking mechanism that acquires ACCESS SHARE locks on
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - createPQExpBuffer
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)
   - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
   - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
   - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
   - [PQntuples](../P/PQntuples.md)
-  - pg_malloc0
+  - [pg_malloc0](../p/pg_malloc0.md)
   - [PQfnumber](../P/PQfnumber.md)
   - [resetPQExpBuffer](../r/resetPQExpBuffer.md)
   - [appendStringLiteralConn](../a/appendStringLiteralConn.md)
@@ -48,7 +48,7 @@ A key feature is its table locking mechanism that acquires ACCESS SHARE locks on
   - fmtQualifiedDumpable
   - [GetConnection](../G/GetConnection.md)
   - [PQclear](../P/PQclear.md)
-  - destroyPQExpBuffer
+  - [destroyPQExpBuffer](../d/destroyPQExpBuffer.md)
 - Called from (representative examples):
   - [getSchemaData](getSchemaData.md)
 

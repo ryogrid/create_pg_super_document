@@ -40,4 +40,4 @@ The function charges a bookkeeping overhead of 2x cpu_operator_cost per tuple, w
 - Charges seq_page_cost per page when spilling to disk
 - Bookkeeping overhead (2x cpu_operator_cost) is higher than rescan cost to prefer materializing smaller relations
 - Assumes spilling costs are evenly distributed during execution, though this may not be perfectly accurate
-- Material nodes have lower overhead than most plan nodes since they don't perform qual-checking or projection
+- [Material](../M/Material.md) nodes have lower overhead than most plan nodes since they don't perform qual-checking or projection

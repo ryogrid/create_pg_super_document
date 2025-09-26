@@ -36,12 +36,12 @@ The implementation uses a stable insertion sort rather than qsort() to preserve 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_length
+  - [list_length](../l/list_length.md)
   - [palloc](../p/palloc.md)
   - [cost_qual_eval_node](../c/cost_qual_eval_node.md)
   - lfirst
   - IsA
-  - lappend
+  - [lappend](../l/lappend.md)
   - NIL
   - cpu_operator_cost
 - Called from (representative examples):

@@ -31,7 +31,7 @@ This function is conditionally compiled and only available when the CX (Cycle Cr
 ## Dependencies
 - Functions called/Symbols referenced:
   - [geqo_randint](geqo_randint.md): Generates random integers within specified ranges using the GEQO random state
-  - Gene: Typedef for int, representing a relation identifier in the genetic algorithm
+  - [Gene](../G/Gene.md): Typedef for int, representing a relation identifier in the genetic algorithm
 - Called from (representative examples):
   - [geqo](geqo.md): Main GEQO algorithm in geqo_main.c:206
 
@@ -40,5 +40,5 @@ This function is conditionally compiled and only available when the CX (Cycle Cr
 - The mutation rate is adaptive, with the number of swaps being a random value between 0 and num_gene/3
 - The function ensures that swap positions are always different by re-randomizing swap2 if it equals swap1
 - The implementation is derived from the Genitor genetic algorithm system and maintains the original copyright attribution
-- Gene is defined as a simple int typedef in geqo_gene.h, representing relation identifiers
+- [Gene](../G/Gene.md) is defined as a simple int typedef in geqo_gene.h, representing relation identifiers
 - The random number generation uses PostgreSQL's internal PRNG system via geqo_randint, ensuring reproducible results when needed

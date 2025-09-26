@@ -26,11 +26,11 @@ These estimations are crucial for proper shared memory allocation in PostgreSQL'
 - Functions called/Symbols referenced:
   - shm_toc_estimate_chunk
   - shm_toc_estimate_keys
-  - ParallelHashJoinState (struct type)
-  - ParallelContext (struct type)
-  - HashJoinState (struct type)
+  - [ParallelHashJoinState](../P/ParallelHashJoinState.md) (struct type)
+  - [ParallelContext](../P/ParallelContext.md) (struct type)
+  - [HashJoinState](../H/HashJoinState.md) (struct type)
 - Called from (representative examples):
-  - ExecParallelEstimate
+  - [ExecParallelEstimate](ExecParallelEstimate.md)
 
 ## Notes and Other Information
 - Part of PostgreSQL's parallel query execution infrastructure

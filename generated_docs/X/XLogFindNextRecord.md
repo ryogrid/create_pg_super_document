@@ -47,7 +47,7 @@ This function is particularly valuable for debugging tools and recovery scenario
 - Called from (representative examples):
   - [SummarizeWAL](../S/SummarizeWAL.md) (at line 970 in walsummarizer.c)
   - [main](../m/main.md) (at line 1214 in pg_waldump.c)
-  - XLogReaderHasQueuedRecordOrError (header function at line 346)
+  - [XLogReaderHasQueuedRecordOrError](XLogReaderHasQueuedRecordOrError.md) (header function at line 346)
 
 ## Notes and Other Information
 - Returns the LSN of the first valid record at or after RecPtr, or InvalidXLogRecPtr on failure

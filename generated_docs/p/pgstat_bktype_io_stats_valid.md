@@ -29,7 +29,7 @@ For each combination, it checks whether the backend type should track that speci
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pgstat_tracks_io_op](pgstat_tracks_io_op.md)
-  - PgStat_BktypeIO
+  - [PgStat_BktypeIO](../P/PgStat_BktypeIO.md)
   - [BackendType](../B/BackendType.md)
   - IOOBJECT_NUM_TYPES
   - IOCONTEXT_NUM_TYPES  

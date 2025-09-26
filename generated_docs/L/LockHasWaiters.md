@@ -26,7 +26,7 @@ The function operates by first locating the local lock entry in the current back
 - Functions called/Symbols referenced:
   - [hash_search](../h/hash_search.md) (to find LOCALLOCK entry)
   - LockHashPartitionLock (to get partition lock for safe access)
-  - LWLockAcquire/LWLockRelease (for shared lock table synchronization)
+  - [LWLockAcquire](LWLockAcquire.md)/LWLockRelease (for shared lock table synchronization)
   - [RemoveLocalLock](../R/RemoveLocalLock.md) (cleanup on error conditions)
   - LOCKBIT_ON (macro for lock mode bit manipulation)
   - MemSet (memory initialization)

@@ -23,7 +23,7 @@ The function provides flexible error handling through the `noerror` parameter. W
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - typedefs: Global linked list structure containing typedef definitions
+  - [typedefs](../t/typedefs.md): Global linked list structure containing typedef definitions
   - mmfatal: Fatal error reporting function that terminates execution
   - PARSE_ERROR: Error code constant for parsing errors
 - Called from (representative examples):

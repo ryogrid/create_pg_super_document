@@ -30,14 +30,14 @@ The escaping logic allocates a buffer of up to twice the original string length 
 - Functions called/Symbols referenced:
   - Tcl_WrongNumArgs (Tcl library function)
   - Tcl_GetStringFromObj (Tcl library function)
-  - palloc (PostgreSQL memory allocator)
+  - [palloc](palloc.md) (PostgreSQL memory allocator)
   - Tcl_SetObjResult (Tcl library function)
   - Tcl_NewStringObj (Tcl library function)
-  - pfree (PostgreSQL memory deallocator)
+  - [pfree](pfree.md) (PostgreSQL memory deallocator)
   - Tcl_Size (Tcl type definition)
 - Called from (representative examples):
   - TclExceptionNameMap (registered as Tcl command)
-  - pltcl_init_interp (command registration)
+  - [pltcl_init_interp](pltcl_init_interp.md) (command registration)
 
 ## Notes and Other Information
 - Returns TCL_ERROR if wrong number of arguments provided

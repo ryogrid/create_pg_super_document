@@ -60,20 +60,20 @@ Similar to OpExpr, function OIDs (opfuncid, hashfuncid, negfuncid) may not be fi
 - Functions called/Symbols referenced:
   - ParseLoc
 - Called from (representative examples):
-  - make_scalar_array_op (creates ScalarArrayOpExpr nodes)
-  - ExecInitExprRec (expression initialization)
-  - ExecEvalHashedScalarArrayOp (optimized hash-based evaluation)
-  - clause_selectivity_ext (selectivity estimation)
-  - match_saopclause_to_indexcol (index usage analysis)
-  - convert_saop_to_hashed_saop_walker (hash optimization)
-  - scalararraysel (selectivity calculation)
-  - negate_clause (query transformation)
+  - [make_scalar_array_op](../m/make_scalar_array_op.md) (creates ScalarArrayOpExpr nodes)
+  - [ExecInitExprRec](../E/ExecInitExprRec.md) (expression initialization)
+  - [ExecEvalHashedScalarArrayOp](../E/ExecEvalHashedScalarArrayOp.md) (optimized hash-based evaluation)
+  - [clause_selectivity_ext](../c/clause_selectivity_ext.md) (selectivity estimation)
+  - [match_saopclause_to_indexcol](../m/match_saopclause_to_indexcol.md) (index usage analysis)
+  - [convert_saop_to_hashed_saop_walker](../c/convert_saop_to_hashed_saop_walker.md) (hash optimization)
+  - [scalararraysel](../s/scalararraysel.md) (selectivity calculation)
+  - [negate_clause](../n/negate_clause.md) (query transformation)
 
 ## Notes and Other Information
 - Exclusively handles IN, NOT IN, and similar array membership tests with ANY/ALL semantics
-- Hash-based execution optimization provides significant performance improvements for large constant arrays
-- Result type is always boolean, unlike regular OpExpr which can return any type
+- [Hash](../H/Hash.md)-based execution optimization provides significant performance improvements for large constant arrays
+- [Result](../R/Result.md) type is always boolean, unlike regular OpExpr which can return any type
 - Critical for efficient execution of queries with IN clauses and array comparisons
 - Supports both traditional element-by-element evaluation and hash table-based lookups
 - The useOr flag determines the logical combination: ANY uses OR (true if any match), ALL uses AND (true if all match)
-- Query jumbling considers the operator and arguments but ignores function OIDs for plan cache efficiency
+- [Query](../Q/Query.md) jumbling considers the operator and arguments but ignores function OIDs for plan cache efficiency

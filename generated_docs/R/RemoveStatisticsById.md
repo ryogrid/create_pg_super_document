@@ -29,7 +29,7 @@ Key operations performed:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open (opens catalogs with appropriate locks)
+  - [table_open](../t/table_open.md) (opens catalogs with appropriate locks)
   - [SearchSysCache1](../S/SearchSysCache1.md) (retrieves statistics object metadata by OID)
   - [RemoveStatisticsDataById](RemoveStatisticsDataById.md) (removes statistical data for both inheritance modes)
   - [CacheInvalidateRelcacheByRelid](../C/CacheInvalidateRelcacheByRelid.md) (invalidates cached plans for affected table)

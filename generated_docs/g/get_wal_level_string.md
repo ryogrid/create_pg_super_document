@@ -22,7 +22,7 @@ The function supports all standard WAL levels including "minimal", "replica", "l
 ## Dependencies
 - Functions called/Symbols referenced:
   - wal_level_options (configuration array)
-  - config_enum_entry (struct type)
+  - [config_enum_entry](../c/config_enum_entry.md) (struct type)
 - Called from (representative examples):
   - [xlog_desc](../x/xlog_desc.md) (multiple locations in xlogdesc.c)
 

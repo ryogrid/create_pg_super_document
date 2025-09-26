@@ -32,9 +32,9 @@ After setting defaults, it calls parse_extension_control_file() with version=NUL
   - [CreateExtensionInternal](../C/CreateExtensionInternal.md)
   - [pg_available_extensions](../p/pg_available_extensions.md)
   - [pg_available_extension_versions](../p/pg_available_extension_versions.md)
-  - pg_extension_update_paths
-  - AlterExtensionNamespace
-  - ExecAlterExtensionStmt
+  - [pg_extension_update_paths](../p/pg_extension_update_paths.md)
+  - [AlterExtensionNamespace](../A/AlterExtensionNamespace.md)
+  - [ExecAlterExtensionStmt](../E/ExecAlterExtensionStmt.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the extension.c source file

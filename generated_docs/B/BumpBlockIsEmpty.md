@@ -20,7 +20,7 @@ This function provides a simple and efficient way to check if a bump memory bloc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BumpBlock (block structure type)
+  - [BumpBlock](BumpBlock.md) (block structure type)
   - Bump_BLOCKHDRSZ (size of block header constant)
 - Called from (representative examples):
   - ExternalChunkGetBlock (to verify block state)

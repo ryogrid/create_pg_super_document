@@ -29,7 +29,7 @@ The function is part of PostgreSQL's extended statistics system, which allows fo
 - Functions called/Symbols referenced:
   - [CreateStatistics](../C/CreateStatistics.md)
   - [AlteredTableInfo](AlteredTableInfo.md) (struct)
-  - CreateStatsStmt (struct)
+  - [CreateStatsStmt](../C/CreateStatsStmt.md) (struct)
 - Called from (representative examples):
   - [ATExecCmd](ATExecCmd.md)
   - child_dependency_type

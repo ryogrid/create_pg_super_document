@@ -28,17 +28,17 @@ The function operates in two phases:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MultiAssignRef, SubLink, RowExpr (struct types for multi-assignment references)
+  - [MultiAssignRef](../M/MultiAssignRef.md), SubLink, RowExpr (struct types for multi-assignment references)
   - EXPR_KIND_UPDATE_SOURCE (expression context for UPDATE sources)
   - EXPR_SUBLINK, MULTIEXPR_SUBLINK (sublink type constants)
   - PARAM_MULTIEXPR (parameter type for multi-expression references)
-  - transformExprRecurse (recursively transforms expressions)
-  - transformRowExpr (transforms row expressions with special handling)
-  - count_nonjunk_tlist_entries (counts non-junk target list entries)
-  - makeTargetEntry, makeNode (node creation functions)
-  - exprType, exprTypmod, exprCollation, exprLocation (expression metadata functions)
+  - [transformExprRecurse](transformExprRecurse.md) (recursively transforms expressions)
+  - [transformRowExpr](transformRowExpr.md) (transforms row expressions with special handling)
+  - [count_nonjunk_tlist_entries](../c/count_nonjunk_tlist_entries.md) (counts non-junk target list entries)
+  - [makeTargetEntry](../m/makeTargetEntry.md), makeNode (node creation functions)
+  - [exprType](../e/exprType.md), exprTypmod, exprCollation, exprLocation (expression metadata functions)
 - Called from:
-  - transformExprRecurse (main expression transformation dispatcher)
+  - [transformExprRecurse](transformExprRecurse.md) (main expression transformation dispatcher)
 
 ## Notes and Other Information
 - This function is specific to UPDATE statement processing and only operates in EXPR_KIND_UPDATE_SOURCE context

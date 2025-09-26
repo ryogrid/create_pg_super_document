@@ -28,8 +28,8 @@ This function takes no parameters.
 - Functions called/Symbols referenced:
   - FRONTEND (preprocessor macro)
 - Called from (representative examples):
-  - BootstrapModeMain (src/backend/bootstrap/bootstrap.c:341)
-  - pqConnectDBStart (src/interfaces/libpq/fe-connect.c:2406)
+  - [BootstrapModeMain](../B/BootstrapModeMain.md) (src/backend/bootstrap/bootstrap.c:341)
+  - [pqConnectDBStart](pqConnectDBStart.md) (src/interfaces/libpq/fe-connect.c:2406)
 
 ## Notes and Other Information
 - The function is declared in  (line 15)

@@ -22,7 +22,7 @@ This function takes a list of namespace OIDs and produces the final search path 
 - Functions called/Symbols referenced:
   - [list_member_oid](../l/list_member_oid.md)
   - InvokeNamespaceSearchHook
-  - lappend_oid
+  - [lappend_oid](../l/lappend_oid.md)
   - linitial_oid
   - [lcons_oid](../l/lcons_oid.md)
   - [SearchPathCacheEntry](../S/SearchPathCacheEntry.md)

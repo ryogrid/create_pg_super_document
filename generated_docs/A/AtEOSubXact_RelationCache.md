@@ -38,8 +38,8 @@ The function must be called before processing invalidation messages, similar to 
   - [hash_search](../h/hash_search.md)
   - [AtEOSubXact_cleanup](AtEOSubXact_cleanup.md)
 - Data structures used:
-  - HASH_SEQ_STATUS
-  - RelIdCacheEnt
+  - [HASH_SEQ_STATUS](../H/HASH_SEQ_STATUS.md)
+  - [RelIdCacheEnt](../R/RelIdCacheEnt.md)
   - SubTransactionId
   - HASH_FIND
 - Global variables accessed:

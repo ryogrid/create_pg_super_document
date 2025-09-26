@@ -26,10 +26,10 @@ The output format follows the pattern: {"attr1, attr2 => attr3": degree, "attr4 
 - Functions called/Symbols referenced:
   - PG_GETARG_BYTEA_PP (extract bytea argument)
   - [statext_dependencies_deserialize](../s/statext_dependencies_deserialize.md) (convert binary to MVDependencies)
-  - initStringInfo (initialize string buffer)
-  - appendStringInfoChar (append single character)
-  - appendStringInfoString (append string literal)
-  - appendStringInfo (append formatted string)
+  - [initStringInfo](../i/initStringInfo.md) (initialize string buffer)
+  - [appendStringInfoChar](../a/appendStringInfoChar.md) (append single character)
+  - [appendStringInfoString](../a/appendStringInfoString.md) (append string literal)
+  - [appendStringInfo](../a/appendStringInfo.md) (append formatted string)
   - PG_RETURN_CSTRING (return C string result)
 
 - Called from (representative examples):

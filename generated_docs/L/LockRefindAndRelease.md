@@ -40,7 +40,7 @@ This is a low-level function that assumes the caller has verified the operation 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LockTagHashCode
+  - [LockTagHashCode](LockTagHashCode.md)
   - LockHashPartitionLock
   - [hash_search_with_hash_value](../h/hash_search_with_hash_value.md)
   - [ProcLockHashCode](../P/ProcLockHashCode.md)
@@ -52,7 +52,7 @@ This is a low-level function that assumes the caller has verified the operation 
 - Called from (representative examples):
   - [LockReleaseAll](LockReleaseAll.md)
   - [lock_twophase_postcommit](../l/lock_twophase_postcommit.md)
-  - VirtualXactLockTableCleanup
+  - [VirtualXactLockTableCleanup](../V/VirtualXactLockTableCleanup.md)
 
 ## Notes and Other Information
 - This is a static function only used within the lock manager

@@ -32,7 +32,7 @@ This function takes no parameters but works with numerous local variables:
   - XLogLogicalInfoActive/LogLogicalInvalidations
   - [smgrGetPendingDeletes](../s/smgrGetPendingDeletes.md)
   - [xactGetCommittedChildren](../x/xactGetCommittedChildren.md)
-  - pgstat_get_transactional_drops
+  - [pgstat_get_transactional_drops](../p/pgstat_get_transactional_drops.md)
   - XLogStandbyInfoActive/xactGetCommittedInvalidationMessages
   - [LogStandbyInvalidations](../L/LogStandbyInvalidations.md)
   - [XactLogCommitRecord](../X/XactLogCommitRecord.md)

@@ -28,17 +28,17 @@ The function only adds placeholders that weren't already computed in either inpu
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SpecialJoinInfo](../S/SpecialJoinInfo.md) (struct type for special join information)
-  - PlaceHolderInfo (struct type for placeholder metadata)
+  - [PlaceHolderInfo](../P/PlaceHolderInfo.md) (struct type for placeholder metadata)
   - [bms_is_subset](../b/bms_is_subset.md) (checks if one bitmap is subset of another)
   - [bms_nonempty_difference](../b/bms_nonempty_difference.md) (checks for non-empty set difference)
   - copyObject (creates copy of placeholder variable)
   - [PlaceHolderVar](../P/PlaceHolderVar.md) (struct type for placeholder variables)
-  - QualCost (struct type for cost information)
+  - [QualCost](../Q/QualCost.md) (struct type for cost information)
   - [cost_qual_eval_node](../c/cost_qual_eval_node.md) (evaluates cost of expression evaluation)
   - [bms_add_members](../b/bms_add_members.md) (adds members to a bitmap set)
   - [clamp_width_est](../c/clamp_width_est.md) (clamps width estimate to prevent overflow)
 - Called from (representative examples):
-  - build_join_rel (src/backend/optimizer/util/relnode.c:788)
+  - [build_join_rel](../b/build_join_rel.md) (src/backend/optimizer/util/relnode.c:788)
 
 ## Notes and Other Information
 - The function includes cost accounting logic that may double-charge PHV costs when multiple input relation pairs are considered for the same joinrel

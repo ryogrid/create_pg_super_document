@@ -35,7 +35,7 @@ This function is essential for ensuring that timestamp truncation behaves correc
   - [timestamp2tm](timestamp2tm.md)
   - [date2isoweek](../d/date2isoweek.md)
   - [isoweek2date](../i/isoweek2date.md)
-  - DetermineTimeZoneOffset
+  - [DetermineTimeZoneOffset](../D/DetermineTimeZoneOffset.md)
   - [tm2timestamp](tm2timestamp.md)
   - [format_type_be](../f/format_type_be.md)
   - Various DTK_* constants (DTK_WEEK, DTK_YEAR, DTK_MONTH, etc.)

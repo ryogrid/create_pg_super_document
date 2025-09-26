@@ -29,11 +29,11 @@ This operation is typically used when a span's utilization changes (due to alloc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dsa_get_address
+  - [dsa_get_address](../d/dsa_get_address.md)
   - DsaPointerIsValid
   - InvalidDsaPointer
 - Called from (representative examples):
-  - dsa_free
+  - [dsa_free](../d/dsa_free.md)
 
 ## Notes and Other Information
 The function assumes the span is not currently in any fullness class list and does not perform unlinking from a previous list - callers should use unlink_span() first if needed. Like unlink_span(), this function does not handle locking and relies on callers to ensure proper synchronization. The span is always added at the head of the list, making it the first candidate for future allocations in that fullness class.

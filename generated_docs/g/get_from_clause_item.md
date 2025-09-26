@@ -35,20 +35,20 @@ Special handling is provided for:
 - Functions called/Symbols referenced:
   - rt_fetch
   - deparse_columns_fetch
-  - generate_relation_name
-  - get_query_def
-  - get_rule_expr_funccall
-  - get_tablefunc
-  - get_values_def
-  - get_rte_alias
-  - get_column_alias_list
-  - get_from_clause_coldeflist
-  - get_tablesample_def
-  - appendContextKeyword
-  - get_rule_expr
+  - [generate_relation_name](generate_relation_name.md)
+  - [get_query_def](get_query_def.md)
+  - [get_rule_expr_funccall](get_rule_expr_funccall.md)
+  - [get_tablefunc](get_tablefunc.md)
+  - [get_values_def](get_values_def.md)
+  - [get_rte_alias](get_rte_alias.md)
+  - [get_column_alias_list](get_column_alias_list.md)
+  - [get_from_clause_coldeflist](get_from_clause_coldeflist.md)
+  - [get_tablesample_def](get_tablesample_def.md)
+  - [appendContextKeyword](../a/appendContextKeyword.md)
+  - [get_rule_expr](get_rule_expr.md)
 - Called from (representative examples):
-  - get_from_clause
-  - get_from_clause_item (recursive calls for join processing)
+  - [get_from_clause](get_from_clause.md)
+  - [get_from_clause_item](get_from_clause_item.md) (recursive calls for join processing)
 
 ## Notes and Other Information
 - This is a recursive function that calls itself when processing join expressions

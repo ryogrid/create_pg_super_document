@@ -34,7 +34,7 @@ The function is designed to be conservative - it returns false for any malformed
   - xmlStrncmp (libxml2 string comparison function)
   - xmlStrstr (libxml2 string search function)
 - Called from (representative examples):
-  - xml_parse (main XML parsing function)
+  - [xml_parse](xml_parse.md) (main XML parsing function)
 
 ## Notes and Other Information
 - Returns true if DOCTYPE declaration is detected, false otherwise

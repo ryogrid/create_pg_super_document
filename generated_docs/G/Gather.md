@@ -43,16 +43,16 @@ Key operational aspects:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Plan (base structure)
-  - Bitmapset
-  - ParallelExecutorInfo
-  - TupleQueueReader
+  - [Plan](../P/Plan.md) (base structure)
+  - [Bitmapset](../B/Bitmapset.md)
+  - [ParallelExecutorInfo](../P/ParallelExecutorInfo.md)
+  - [TupleQueueReader](../T/TupleQueueReader.md)
 - Called from (representative examples):
-  - ExecInitGather
-  - ExecGather
-  - ExecReScanGather
-  - create_gather_plan
-  - make_gather
+  - [ExecInitGather](../E/ExecInitGather.md)
+  - [ExecGather](../E/ExecGather.md)
+  - [ExecReScanGather](../E/ExecReScanGather.md)
+  - [create_gather_plan](../c/create_gather_plan.md)
+  - [make_gather](../m/make_gather.md)
 
 ## Notes and Other Information
 - The Gather node is essential for PostgreSQL's parallel query execution framework

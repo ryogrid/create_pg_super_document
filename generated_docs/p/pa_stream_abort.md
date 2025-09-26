@@ -42,7 +42,7 @@ The function also updates replication origin state to ensure proper crash recove
   - [RollbackToSavepoint](../R/RollbackToSavepoint.md)
   - [list_truncate](../l/list_truncate.md)
   - lfirst_xid
-  - list_nth_cell
+  - [list_nth_cell](../l/list_nth_cell.md)
 - Called from (representative examples):
   - [apply_handle_stream_abort](../a/apply_handle_stream_abort.md)
 

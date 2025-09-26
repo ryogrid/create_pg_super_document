@@ -23,13 +23,13 @@ The function navigates up the planner hierarchy to find the query level where th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Aggref (aggregate reference structure)
-  - Param (parameter node structure)
-  - PlannerParamItem (parameter item structure)
+  - [Aggref](../A/Aggref.md) (aggregate reference structure)
+  - [Param](../P/Param.md) (parameter node structure)
+  - [PlannerParamItem](../P/PlannerParamItem.md) (parameter item structure)
   - copyObject (deep copy of the Aggref node)
   - [IncrementVarSublevelsUp](../I/IncrementVarSublevelsUp.md) (adjust variable level references)
   - makeNode (node creation)
-  - lappend_oid (append OID to list)
+  - [lappend_oid](../l/lappend_oid.md) (append OID to list)
   - PARAM_EXEC (parameter type constant)
 - Called from (representative examples):
   - [replace_correlation_vars_mutator](replace_correlation_vars_mutator.md)

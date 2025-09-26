@@ -33,4 +33,4 @@ _LoadLOs is responsible for restoring all large objects from a PostgreSQL archiv
   - [_PrintTocData](../P/_PrintTocData.md) (in tar format)
 
 ## Notes and Other Information
-This function relies on the zero OID terminator protocol established by _EndLOs during the dump process. The drop parameter allows for different restoration strategies - when true, existing large objects with the same OID will be removed before restoring the archived version. The function uses _PrintData to handle the actual data restoration, ensuring consistent handling of compressed data streams.
+This function relies on the zero OID terminator protocol established by _EndLOs during the dump process. The drop parameter allows for different restoration strategies - [when](../w/when.md) true, existing large objects with the same OID will be removed before restoring the archived version. The function uses _PrintData to handle the actual data restoration, ensuring consistent handling of compressed data streams.

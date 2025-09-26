@@ -24,21 +24,21 @@ The function handles character set conversion intelligently by checking if  actu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_server_to_client (character set conversion)
-  - appendBinaryStringInfo (append binary data with trailing null)
+  - [pg_server_to_client](pg_server_to_client.md) (character set conversion)
+  - [appendBinaryStringInfo](../a/appendBinaryStringInfo.md) (append binary data with trailing null)
   - strlen (get length of converted string)
-  - pfree (free converted string memory)
+  - [pfree](pfree.md) (free converted string memory)
 - Called from (representative examples):
-  - enum_send
-  - json_send
-  - jsonb_send
-  - jsonpath_send
-  - namesend
-  - cstring_send
-  - tsvectorsend
-  - textsend
-  - unknownsend
-  - xml_send
+  - [enum_send](../e/enum_send.md)
+  - [json_send](../j/json_send.md)
+  - [jsonb_send](../j/jsonb_send.md)
+  - [jsonpath_send](../j/jsonpath_send.md)
+  - [namesend](../n/namesend.md)
+  - [cstring_send](../c/cstring_send.md)
+  - [tsvectorsend](../t/tsvectorsend.md)
+  - [textsend](../t/textsend.md)
+  - [unknownsend](../u/unknownsend.md)
+  - [xml_send](../x/xml_send.md)
 
 ## Notes and Other Information
 - Does not include a length prefix, making it unsuitable for direct frontend communication where length is needed

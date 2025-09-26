@@ -34,7 +34,7 @@ The function allocates memory for the result using  and returns a newly allocate
 - Called from (representative examples):
   - [extract_date](../e/extract_date.md) (in date/time processing)
   - [timestamp_trunc](../t/timestamp_trunc.md) (timestamp truncation operations)
-  - SplitIdentifierString (identifier parsing utilities)
+  - [SplitIdentifierString](../S/SplitIdentifierString.md) (identifier parsing utilities)
   - Various date/time functions for field name processing
 
 ## Notes and Other Information

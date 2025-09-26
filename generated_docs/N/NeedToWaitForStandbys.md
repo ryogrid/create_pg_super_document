@@ -22,7 +22,7 @@ The function handles shutdown scenarios gracefully by escalating the error level
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - StandbySlotsHaveCaughtup (checks if all standby slots have reached the specified LSN)
+  - [StandbySlotsHaveCaughtup](../S/StandbySlotsHaveCaughtup.md) (checks if all standby slots have reached the specified LSN)
 - Global variables accessed:
   - got_STOPPING (indicates if shutdown signal was received)
   - replication_active (indicates if replication is currently active)

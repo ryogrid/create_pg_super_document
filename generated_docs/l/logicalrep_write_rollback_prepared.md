@@ -23,12 +23,12 @@ This function serializes a ROLLBACK PREPARED message into the logical replicatio
 ## Dependencies
 - Functions called/Symbols referenced:
   - LOGICAL_REP_MSG_ROLLBACK_PREPARED
-  - pq_sendbyte
-  - pq_sendint64
-  - pq_sendint32
-  - pq_sendstring
+  - [pq_sendbyte](../p/pq_sendbyte.md)
+  - [pq_sendint64](../p/pq_sendint64.md)
+  - [pq_sendint32](../p/pq_sendint32.md)
+  - [pq_sendstring](../p/pq_sendstring.md)
 - Called from (representative examples):
-  - pgoutput_rollback_prepared_txn
+  - [pgoutput_rollback_prepared_txn](../p/pgoutput_rollback_prepared_txn.md)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's logical replication protocol implementation for two-phase commit support

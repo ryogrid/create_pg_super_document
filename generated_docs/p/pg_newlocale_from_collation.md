@@ -28,7 +28,7 @@ This function creates a pg_locale_t object from a collation OID, implementing a 
   - [report_newlocale_failure](../r/report_newlocale_failure.md)
   - [MemoryContextStrdup](../M/MemoryContextStrdup.md), MemoryContextAlloc
   - TextDatumGetCString
-  - quote_qualified_identifier, get_namespace_name
+  - [quote_qualified_identifier](../q/quote_qualified_identifier.md), get_namespace_name
 - Called from (representative examples):
   - [hashtext](../h/hashtext.md) (at line 281)
   - [DefineCollation](../D/DefineCollation.md) (at line 386)

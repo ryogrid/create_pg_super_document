@@ -29,7 +29,7 @@ The function performs several validation checks to ensure the parameters are wit
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryChunk (structure type)
+  - [MemoryChunk](MemoryChunk.md) (structure type)
   - MemoryContextMethodID (enum type)
   - MEMORYCHUNK_BLOCKOFFSET_MASK
   - MEMORYCHUNK_MAX_VALUE  

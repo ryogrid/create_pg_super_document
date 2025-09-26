@@ -44,7 +44,7 @@ The function performs validation checks, assigns the event to the next available
   - [pq_init](../p/pq_init.md)
   - [ConfigurePostmasterWaitSet](../C/ConfigurePostmasterWaitSet.md)
   - [SysLoggerMain](../S/SysLoggerMain.md)
-  - InitializeLatchWaitSet
+  - [InitializeLatchWaitSet](../I/InitializeLatchWaitSet.md)
   - [WaitLatchOrSocket](../W/WaitLatchOrSocket.md)
 
 ## Notes and Other Information

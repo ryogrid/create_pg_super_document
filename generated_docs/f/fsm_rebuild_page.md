@@ -24,16 +24,16 @@ This rebuilding process is essential after operations that modify leaf nodes (su
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PageGetContents: Extracts the FSM page content from the generic page structure
+  - [PageGetContents](../P/PageGetContents.md): Extracts the FSM page content from the generic page structure
   - leftchild: Macro/function to calculate the left child node index for a given parent node
 - Constants referenced:
   - FSMPage: Type definition for FSM page structure
   - NonLeafNodesPerPage: Number of non-leaf nodes per FSM page
   - NodesPerPage: Total number of nodes per FSM page
 - Called from (representative examples):
-  - fsm_set_avail: After setting available space for a specific slot
-  - fsm_search_avail: After searching and potentially modifying available space
-  - fsm_truncate_avail: After truncating slots in an FSM page
+  - [fsm_set_avail](fsm_set_avail.md): After setting available space for a specific slot
+  - [fsm_search_avail](fsm_search_avail.md): After searching and potentially modifying available space
+  - [fsm_truncate_avail](fsm_truncate_avail.md): After truncating slots in an FSM page
 
 ## Notes and Other Information
 - Returns  if the page was modified during reconstruction,  if no changes were needed

@@ -24,7 +24,7 @@ The function uses the EVALUATE_MESSAGE_PLURAL macro to handle the pluralization 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ErrorData (struct type)
+  - [ErrorData](../E/ErrorData.md) (struct type)
   - CHECK_STACK_DEPTH (macro)
   - EVALUATE_MESSAGE_PLURAL (macro)
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)

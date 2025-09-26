@@ -19,8 +19,8 @@ This function processes the server-first-message in the SCRAM authentication pro
 ## Dependencies
 - Functions called/Symbols referenced:
   - [read_attr_value](read_attr_value.md) (parses SCRAM message attributes)
-  - pg_b64_decode (decodes base64-encoded salt)
-  - pg_b64_dec_len (calculates decoded length)
+  - [pg_b64_decode](../p/pg_b64_decode.md) (decodes base64-encoded salt)
+  - [pg_b64_dec_len](../p/pg_b64_dec_len.md) (calculates decoded length)
   - strdup (duplicates strings)
   - malloc (allocates memory for salt)
   - strtol (converts iteration count string to integer)

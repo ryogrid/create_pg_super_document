@@ -30,11 +30,11 @@ For each statement in the plan, it sets up appropriate destination receivers, ma
 ## Dependencies
 - Functions called/Symbols referenced:
   - [IsSubTransaction](../I/IsSubTransaction.md)
-  - PushActiveSnapshot/PopActiveSnapshot
+  - [PushActiveSnapshot](../P/PushActiveSnapshot.md)/PopActiveSnapshot
   - [GetCachedPlan](../G/GetCachedPlan.md)/ReleaseCachedPlan
   - [CreateQueryDesc](../C/CreateQueryDesc.md)/FreeQueryDesc
   - [ProcessUtility](../P/ProcessUtility.md)
-  - CommandCounterIncrement
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md)
   - [_SPI_pquery](_SPI_pquery.md)
   - [pg_analyze_and_rewrite_withcb](../p/pg_analyze_and_rewrite_withcb.md)
   - [pg_analyze_and_rewrite_fixedparams](../p/pg_analyze_and_rewrite_fixedparams.md)

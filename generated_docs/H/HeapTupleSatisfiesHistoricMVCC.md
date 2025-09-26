@@ -37,7 +37,7 @@ Key features include:
   - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
   - [TransactionIdFollowsOrEquals](../T/TransactionIdFollowsOrEquals.md)
   - [ResolveCminCmaxDuringDecoding](../R/ResolveCminCmaxDuringDecoding.md)
-  - HistoricSnapshotGetTupleCids
+  - [HistoricSnapshotGetTupleCids](HistoricSnapshotGetTupleCids.md)
   - [HeapTupleGetUpdateXid](HeapTupleGetUpdateXid.md)
   - HeapTupleHeaderGetRawCommandId
   - [ItemPointerIsValid](../I/ItemPointerIsValid.md)

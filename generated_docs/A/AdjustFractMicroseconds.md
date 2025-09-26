@@ -30,13 +30,13 @@ The function assumes the input fractional value has an absolute value less than 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_add_s64_overflow (safe 64-bit addition with overflow detection)
-  - pg_itm_in (PostgreSQL interval time input structure)
+  - [pg_add_s64_overflow](../p/pg_add_s64_overflow.md) (safe 64-bit addition with overflow detection)
+  - [pg_itm_in](../p/pg_itm_in.md) (PostgreSQL interval time input structure)
 - Called from (representative examples):
-  - AdjustFractDays
-  - AdjustMicroseconds  
-  - DecodeInterval
-  - DecodeISO8601Interval (multiple locations)
+  - [AdjustFractDays](AdjustFractDays.md)
+  - [AdjustMicroseconds](AdjustMicroseconds.md)  
+  - [DecodeInterval](../D/DecodeInterval.md)
+  - [DecodeISO8601Interval](../D/DecodeISO8601Interval.md) (multiple locations)
 
 ## Notes and Other Information
 - Returns true on successful operation, false if overflow would occur

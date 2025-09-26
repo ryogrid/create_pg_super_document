@@ -28,7 +28,7 @@ This is part of PostgreSQL's JIT compilation infrastructure and is widely used d
   - int32 (PostgreSQL type alias for signed 32-bit integer)
 - Called from (representative examples):
   - [slot_compile_deform](../s/slot_compile_deform.md) (in llvmjit_deform.c, used for tuple slot deformation operations)
-  - llvm_compile_expr (in llvmjit_expr.c, used extensively for expression compilation with 15+ call sites)
+  - [llvm_compile_expr](llvm_compile_expr.md) (in llvmjit_expr.c, used extensively for expression compilation with 15+ call sites)
 
 ## Notes and Other Information
 - This is a header-only inline function defined in src/include/jit/llvmjit_emit.h

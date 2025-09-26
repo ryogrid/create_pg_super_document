@@ -28,7 +28,7 @@ The function implements a two-pointer algorithm to traverse through the sorted r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_malloc
+  - [pg_malloc](../p/pg_malloc.md)
   - [report_unmatched_relation](../r/report_unmatched_relation.md)
   - [create_rel_filename_map](../c/create_rel_filename_map.md)
   - [pg_log](../p/pg_log.md)

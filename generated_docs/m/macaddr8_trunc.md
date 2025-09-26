@@ -26,7 +26,7 @@ This operation allows for comparing MAC addresses based solely on their manufact
   - PG_GETARG_MACADDR8_P (macro for extracting macaddr8 argument)
   - [palloc0](../p/palloc0.md) (PostgreSQL memory allocation function)
   - PG_RETURN_MACADDR8_P (macro for returning macaddr8 result)
-  - macaddr8 (data structure type)
+  - [macaddr8](macaddr8.md) (data structure type)
 - Called from (representative examples):
   - SQL functions for manufacturer-based MAC address comparisons
   - Network analysis queries grouping devices by vendor

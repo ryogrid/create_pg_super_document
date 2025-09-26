@@ -39,7 +39,7 @@ The function always includes the cheapest total path (which may require addition
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fetch_upper_rel
+  - [fetch_upper_rel](../f/fetch_upper_rel.md)
   - [is_parallel_safe](../i/is_parallel_safe.md)
   - [pathkeys_count_contained_in](../p/pathkeys_count_contained_in.md)
   - [create_one_window_path](create_one_window_path.md)

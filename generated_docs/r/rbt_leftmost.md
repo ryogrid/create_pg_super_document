@@ -28,8 +28,8 @@ Note that this function only retrieves the leftmost node without unlinking it fr
   - [RBTNode](../R/RBTNode.md) (node structure type)  
   - RBTNIL (sentinel value for null nodes)
 - Called from (representative examples):
-  - testleftmost (in test_rbtree.c:393, 400)
-  - testdelete (in test_rbtree.c:488)
+  - [testleftmost](../t/testleftmost.md) (in test_rbtree.c:393, 400)
+  - [testdelete](../t/testdelete.md) (in test_rbtree.c:488)
 
 ## Notes and Other Information
 - Returns NULL if the tree is empty (root is RBTNIL)

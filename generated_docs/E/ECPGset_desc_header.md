@@ -23,7 +23,7 @@ The function performs minimal validation - it only checks that the descriptor ex
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ecpg_find_desc
+  - [ecpg_find_desc](../e/ecpg_find_desc.md)
   - [descriptor](../d/descriptor.md) (struct type)
 - Called from (representative examples):
   - ECPG test programs (sql-desc.c)

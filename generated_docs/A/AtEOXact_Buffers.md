@@ -18,7 +18,7 @@ This function serves as a transaction cleanup routine for buffer management in P
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CheckForBufferLeaks](../C/CheckForBufferLeaks.md)
-  - AtEOXact_LocalBuffers
+  - [AtEOXact_LocalBuffers](AtEOXact_LocalBuffers.md)
   - PrivateRefCountOverflowed (global variable)
 - Called from (representative examples):
   - [CommitTransaction](../C/CommitTransaction.md)

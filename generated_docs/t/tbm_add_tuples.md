@@ -28,9 +28,9 @@ When the bitmap exceeds its memory limit (`maxentries`), the function triggers l
 - Functions called/Symbols referenced:
   - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)
   - [ItemPointerGetOffsetNumber](../I/ItemPointerGetOffsetNumber.md)
-  - tbm_page_is_lossy
-  - tbm_get_pageentry
-  - tbm_lossify
+  - [tbm_page_is_lossy](tbm_page_is_lossy.md)
+  - [tbm_get_pageentry](tbm_get_pageentry.md)
+  - [tbm_lossify](tbm_lossify.md)
   - elog
   - Assert (macro)
   - WORDNUM (macro)

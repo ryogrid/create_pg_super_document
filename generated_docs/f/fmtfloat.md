@@ -38,18 +38,18 @@ The function uses a 1024-byte buffer to handle the extreme range of double value
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - adjust_sign
-  - compute_padlen
-  - leading_pad
-  - trailing_pad
-  - dostr
-  - dopr_outchmulti
+  - [adjust_sign](../a/adjust_sign.md)
+  - [compute_padlen](../c/compute_padlen.md)
+  - [leading_pad](../l/leading_pad.md)
+  - [trailing_pad](../t/trailing_pad.md)
+  - [dostr](../d/dostr.md)
+  - [dopr_outchmulti](../d/dopr_outchmulti.md)
   - isnan
   - isinf
   - snprintf (system library)
 - Called from:
-  - dopr
-  - flushbuffer
+  - [dopr](../d/dopr.md)
+  - [flushbuffer](flushbuffer.md)
 
 ## Notes and Other Information
 - Handles IEEE floating-point special cases for cross-platform consistency

@@ -27,7 +27,7 @@ Important: This function does not read new data from the socket - applications s
   - PGnotify
 - Called from (representative examples):
   - [PrintNotifications](PrintNotifications.md) (in psql)
-  - ecpg_process_output (in ECPG)
+  - [ecpg_process_output](../e/ecpg_process_output.md) (in ECPG)
   - [main](../m/main.md) (in testlibpq2 example)
   - [try_complete_step](../t/try_complete_step.md) (in isolation tester)
 

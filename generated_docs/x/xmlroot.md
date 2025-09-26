@@ -26,10 +26,10 @@ This function takes an existing XML document and creates a new XML document with
 ## Dependencies
 - Functions called/Symbols referenced:
   - VARSIZE
-  - text_to_cstring
-  - parse_xml_decl
-  - xml_text2xmlChar
-  - print_xml_decl
+  - [text_to_cstring](../t/text_to_cstring.md)
+  - [parse_xml_decl](../p/parse_xml_decl.md)
+  - [xml_text2xmlChar](xml_text2xmlChar.md)
+  - [print_xml_decl](../p/print_xml_decl.md)
   - [stringinfo_to_xmltype](../s/stringinfo_to_xmltype.md)
   - XML_STANDALONE_* constants
 - Called from (representative examples):

@@ -23,7 +23,7 @@ The function includes important assertions to ensure that the read pointer has t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufFileSeek (for file-based tuplestores)
+  - [BufFileSeek](../B/BufFileSeek.md) (for file-based tuplestores)
   - [errcode_for_file_access](../e/errcode_for_file_access.md) (for error reporting)
   - ereport/errmsg (for error handling)
 - Types referenced:

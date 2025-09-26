@@ -38,7 +38,7 @@ For AND and OR operations, the arguments are provided as a List that can contain
 - Functions called/Symbols referenced:
   - (No direct references from this enum)
 - Called from (representative examples):
-  - BoolExpr struct (uses BoolExprType as boolop field)
+  - [BoolExpr](BoolExpr.md) struct (uses BoolExprType as boolop field)
   - [makeBoolExpr](../m/makeBoolExpr.md) function
   - [isSimpleNode](../i/isSimpleNode.md) function
 

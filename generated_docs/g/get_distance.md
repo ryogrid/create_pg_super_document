@@ -31,7 +31,7 @@ The distance calculation is fundamental to estimating how much of a range histog
   - [FunctionCall2Coll](../F/FunctionCall2Coll.md)
   - [DatumGetFloat8](../D/DatumGetFloat8.md)
   - isnan
-  - get_float8_infinity
+  - [get_float8_infinity](get_float8_infinity.md)
   - RangeBound
 - Called from (representative examples):
   - [calc_hist_selectivity_contained](../c/calc_hist_selectivity_contained.md)

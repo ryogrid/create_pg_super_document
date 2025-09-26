@@ -30,13 +30,13 @@ The function also includes assertion checks to verify internal consistency of th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - shm_toc (structure type for casting and validation)
+  - [shm_toc](shm_toc.md) (structure type for casting and validation)
 
 - Called from (representative examples):
-  - AttachSession (src/backend/access/common/session.c:170)
-  - ParallelWorkerMain (src/backend/access/transam/parallel.c:1345)
-  - ParallelApplyWorkerMain (src/backend/replication/logical/applyparallelworker.c:892)
-  - test_shm_mq_main (src/test/modules/test_shm_mq/worker.c:85)
+  - [AttachSession](../A/AttachSession.md) (src/backend/access/common/session.c:170)
+  - [ParallelWorkerMain](../P/ParallelWorkerMain.md) (src/backend/access/transam/parallel.c:1345)
+  - [ParallelApplyWorkerMain](../P/ParallelApplyWorkerMain.md) (src/backend/replication/logical/applyparallelworker.c:892)
+  - [test_shm_mq_main](../t/test_shm_mq_main.md) (src/test/modules/test_shm_mq/worker.c:85)
 
 ## Notes and Other Information
 - This function is the counterpart to shm_toc_create and is used in master-worker process scenarios

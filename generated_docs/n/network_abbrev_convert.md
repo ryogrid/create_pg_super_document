@@ -42,7 +42,7 @@ The function also maintains cardinality statistics for the abbreviation abort me
   - `ip_maxbits`: Gets maximum bits for IP family (32 for IPv4, 128 for IPv6)
   - `pg_bswap32`: Byte-swaps 32-bit values on little-endian systems
   - `DatumBigEndianToNative`: Converts big-endian datum to native byte order
-  - `addHyperLogLog`: Adds hash to cardinality estimator
+  - `[addHyperLogLog](../a/addHyperLogLog.md)`: Adds hash to cardinality estimator
   - [hash_uint32](../h/hash_uint32.md): Hashes 32-bit values for cardinality estimation
 
 - Called from (representative examples):

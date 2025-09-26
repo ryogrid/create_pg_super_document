@@ -20,7 +20,7 @@ lseg_inside_poly implements a comprehensive algorithm to test whether a line seg
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth: Prevents stack overflow during recursion
+  - [check_stack_depth](../c/check_stack_depth.md): Prevents stack overflow during recursion
   - [lseg_contain_point](lseg_contain_point.md): Tests if a line segment contains a point
   - [touched_lseg_inside_poly](../t/touched_lseg_inside_poly.md): Handles special cases where segment touches polygon edge
   - [lseg_interpt_lseg](lseg_interpt_lseg.md): Finds intersection point between two line segments
@@ -31,7 +31,7 @@ lseg_inside_poly implements a comprehensive algorithm to test whether a line seg
 - Called from (representative examples):
   - [touched_lseg_inside_poly](../t/touched_lseg_inside_poly.md): For recursive edge case handling
   - [poly_contain_poly](../p/poly_contain_poly.md): As part of polygon containment testing
-  - PATH_CLOSED: For closed path containment testing
+  - [PATH_CLOSED](../P/PATH_CLOSED.md): For closed path containment testing
 
 ## Notes and Other Information
 - Located in src/backend/utils/adt/geo_ops.c:3866-3937

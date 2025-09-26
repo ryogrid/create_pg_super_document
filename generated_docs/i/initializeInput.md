@@ -35,7 +35,7 @@ The readline integration provides users with command editing capabilities, inclu
   - using_history (initializes history functionality)
   - [GetVariable](../G/GetVariable.md) (retrieves psql variables like HISTFILE)
   - getenv (retrieves environment variables like PSQL_HISTORY)
-  - get_home_path (determines user's home directory)
+  - [get_home_path](../g/get_home_path.md) (determines user's home directory)
   - [psprintf](../p/psprintf.md) (formatted string creation)
   - [pg_strdup](../p/pg_strdup.md) (string duplication)
   - [expand_tilde](../e/expand_tilde.md) (expands ~ in file paths)

@@ -28,7 +28,7 @@ Key features:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - createPQExpBuffer
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)
   - [resetPQExpBuffer](../r/resetPQExpBuffer.md)
   - fgets
   - ferror

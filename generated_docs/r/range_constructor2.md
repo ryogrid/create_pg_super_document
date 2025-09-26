@@ -29,7 +29,7 @@ The `range_constructor2` function constructs a PostgreSQL range type from two in
   - `PG_RETURN_RANGE_P` - Returns the constructed range as a PostgreSQL Datum
 - Called from (representative examples):
   - SQL range constructor functions
-  - Range type operations in query execution
+  - [Range](../R/Range.md) type operations in query execution
 
 ## Notes and Other Information
 - The function creates ranges with inclusive lower bound (`lower.inclusive = true`) and exclusive upper bound (`upper.inclusive = false`)

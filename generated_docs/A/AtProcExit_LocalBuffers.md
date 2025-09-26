@@ -26,9 +26,9 @@ The comment in the source code indicates that if buffer pins remain and assertio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CheckForLocalBufferLeaks (internal function for detecting buffer reference leaks)
+  - [CheckForLocalBufferLeaks](../C/CheckForLocalBufferLeaks.md) (internal function for detecting buffer reference leaks)
 - Called from (representative examples):
-  - AtProcExit_Buffers (main buffer cleanup function during process exit)
+  - [AtProcExit_Buffers](AtProcExit_Buffers.md) (main buffer cleanup function during process exit)
   - RelationGetNumberOfBlocks (buffer management context)
 
 ## Notes and Other Information

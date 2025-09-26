@@ -61,18 +61,18 @@ The key distinction from table_tuple_fetch_row_version() is that this function c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IndexFetchTableData (structure type)
+  - [IndexFetchTableData](../I/IndexFetchTableData.md) (structure type)
   - ItemPointer (tuple identifier type)
-  - Snapshot (visibility testing context)
-  - TupleTableSlot (tuple storage)
+  - [Snapshot](../S/Snapshot.md) (visibility testing context)
+  - [TupleTableSlot](../T/TupleTableSlot.md) (tuple storage)
   - TransactionIdIsValid (transaction validation)
   - CheckXidAlive (logical decoding check)
   - bsysscan (system scan flag)
   - rd_tableam->index_fetch_tuple (table access method function pointer)
 - Called from (representative examples):
-  - index_fetch_heap (src/backend/access/index/indexam.c:637)
-  - table_index_fetch_tuple_check (src/backend/access/table/tableam.c:221)
-  - unique_key_recheck (src/backend/commands/constraint.c:112)
+  - [index_fetch_heap](../i/index_fetch_heap.md) (src/backend/access/index/indexam.c:637)
+  - [table_index_fetch_tuple_check](table_index_fetch_tuple_check.md) (src/backend/access/table/tableam.c:221)
+  - [unique_key_recheck](../u/unique_key_recheck.md) (src/backend/commands/constraint.c:112)
 
 ## Notes and Other Information
 - This is an inline function defined in the tableam.h header file

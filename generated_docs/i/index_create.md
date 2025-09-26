@@ -41,20 +41,20 @@ The function supports various index creation modes including concurrent creation
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - heap_create (for creating the index relation)
-  - ConstructTupleDescriptor (for building index tuple descriptor)
-  - UpdateIndexRelation (for pg_index catalog entry)
-  - InsertPgClassTuple (for pg_class catalog entry)
-  - InitializeAttributeOids (for attribute OID assignment)
-  - AppendAttributeTuples (for pg_attribute entries)
-  - index_constraint_create (for constraint creation)
-  - StoreSingleInheritance (for partitioned index inheritance)
-  - recordDependencyOn (for dependency recording)
-  - index_build (for building index data)
+  - [heap_create](../h/heap_create.md) (for creating the index relation)
+  - [ConstructTupleDescriptor](../C/ConstructTupleDescriptor.md) (for building index tuple descriptor)
+  - [UpdateIndexRelation](../U/UpdateIndexRelation.md) (for pg_index catalog entry)
+  - [InsertPgClassTuple](../I/InsertPgClassTuple.md) (for pg_class catalog entry)
+  - [InitializeAttributeOids](../I/InitializeAttributeOids.md) (for attribute OID assignment)
+  - [AppendAttributeTuples](../A/AppendAttributeTuples.md) (for pg_attribute entries)
+  - [index_constraint_create](index_constraint_create.md) (for constraint creation)
+  - [StoreSingleInheritance](../S/StoreSingleInheritance.md) (for partitioned index inheritance)
+  - [recordDependencyOn](../r/recordDependencyOn.md) (for dependency recording)
+  - [index_build](index_build.md) (for building index data)
 - Called from (representative examples):
-  - DefineIndex (from CREATE INDEX command)
-  - create_toast_table (for TOAST table indexes)
-  - index_concurrently_create_copy (for concurrent index creation)
+  - [DefineIndex](../D/DefineIndex.md) (from CREATE INDEX command)
+  - [create_toast_table](../c/create_toast_table.md) (for TOAST table indexes)
+  - [index_concurrently_create_copy](index_concurrently_create_copy.md) (for concurrent index creation)
 
 ## Notes and Other Information
 - Returns the OID of the created index relation

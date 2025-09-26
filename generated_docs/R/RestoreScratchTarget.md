@@ -22,9 +22,9 @@ The function ensures proper locking semantics by checking if the caller already 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockHeldByMe
-  - LWLockAcquire
-  - LWLockRelease
+  - [LWLockHeldByMe](../L/LWLockHeldByMe.md)
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - [hash_search_with_hash_value](../h/hash_search_with_hash_value.md)
   - HASH_ENTER
 - Called from (representative examples):

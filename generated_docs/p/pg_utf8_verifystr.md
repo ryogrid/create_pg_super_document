@@ -22,17 +22,17 @@ The implementation is designed for high performance with vectorized operations w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - is_valid_ascii - Checks if a memory chunk contains only ASCII characters
-  - utf8_advance - Advances the UTF-8 validation state machine through a chunk of data
-  - pg_utf8_verifychar - Validates a single UTF-8 character sequence
-  - pg_utf_mblen - Returns the byte length of a UTF-8 character
+  - [is_valid_ascii](../i/is_valid_ascii.md) - Checks if a memory chunk contains only ASCII characters
+  - [utf8_advance](../u/utf8_advance.md) - Advances the UTF-8 validation state machine through a chunk of data
+  - [pg_utf8_verifychar](pg_utf8_verifychar.md) - Validates a single UTF-8 character sequence
+  - [pg_utf_mblen](pg_utf_mblen.md) - Returns the byte length of a UTF-8 character
   - BGN - Begin/End state constant for the UTF-8 state machine
   - END - End state constant (same as BGN)
   - ERR - Error state constant
   - STRIDE_LENGTH - Macro defining vectorized processing chunk size
 
 - Called from (representative examples):
-  - pg_encoding_set_invalid - Used as part of encoding validation function table
+  - [pg_encoding_set_invalid](pg_encoding_set_invalid.md) - Used as part of encoding validation function table
 
 ## Notes and Other Information
 - This is a static function, only accessible within the same compilation unit (wchar.c)

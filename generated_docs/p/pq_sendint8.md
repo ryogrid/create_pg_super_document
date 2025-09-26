@@ -20,7 +20,7 @@ static inline void pq_sendint8(StringInfo buf, uint8 i)
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - enlargeStringInfo
+  - [enlargeStringInfo](../e/enlargeStringInfo.md)
   - [pq_writeint8](pq_writeint8.md)
 - Called from (representative examples):
   - [logicalrep_write_truncate](../l/logicalrep_write_truncate.md)

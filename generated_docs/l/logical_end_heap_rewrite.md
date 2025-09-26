@@ -30,9 +30,9 @@ The function is critical for ensuring crash safety and consistency of logical re
 - Functions called/Symbols referenced:
   - [logical_heap_rewrite_flush_mappings](logical_heap_rewrite_flush_mappings.md) (flushes remaining mappings)
   - [hash_seq_init](../h/hash_seq_init.md), hash_seq_search (hash table iteration)
-  - FileSync (synchronizes file to disk)
-  - FileClose (closes file descriptors)
-  - data_sync_elevel (error level for sync operations)
+  - [FileSync](../F/FileSync.md) (synchronizes file to disk)
+  - [FileClose](../F/FileClose.md) (closes file descriptors)
+  - [data_sync_elevel](../d/data_sync_elevel.md) (error level for sync operations)
 - Called from (representative examples):
   - [end_heap_rewrite](../e/end_heap_rewrite.md)
 

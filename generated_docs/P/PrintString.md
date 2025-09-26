@@ -19,10 +19,10 @@ This function serves as a resource print callback in the PostgreSQL resource own
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - psprintf (for formatted string allocation and formatting)
-  - DatumGetPointer (to extract the pointer from the Datum)
+  - [psprintf](../p/psprintf.md) (for formatted string allocation and formatting)
+  - [DatumGetPointer](../D/DatumGetPointer.md) (to extract the pointer from the Datum)
 - Called from (representative examples):
-  - test_resowner_priorities (used as callback in resource owner registration)
+  - [test_resowner_priorities](../t/test_resowner_priorities.md) (used as callback in resource owner registration)
 
 ## Notes and Other Information
 - This function is part of the test_resowner module, specifically designed for testing resource owner functionality

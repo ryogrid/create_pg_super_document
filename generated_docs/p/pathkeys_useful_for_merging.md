@@ -35,7 +35,7 @@ The function supports the path optimization strategy of only retaining useful pa
   - [right_merge_direction](../r/right_merge_direction.md)
   - [eclass_useful_for_merging](../e/eclass_useful_for_merging.md)
   - [update_mergeclause_eclasses](../u/update_mergeclause_eclasses.md)
-  - PathKey
+  - [PathKey](../P/PathKey.md)
 - Called from (representative examples):
   - [truncate_useless_pathkeys](../t/truncate_useless_pathkeys.md) (src/backend/optimizer/path/pathkeys.c:2219)
 

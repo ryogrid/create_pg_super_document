@@ -32,7 +32,7 @@ The function follows the POSIX TAR format specification, parsing standard TAR he
   - [_tarReadRaw](_tarReadRaw.md)
   - [tarChecksum](tarChecksum.md)
   - [read_tar_number](../r/read_tar_number.md)
-  - strlcpy
+  - [strlcpy](../s/strlcpy.md)
   - pg_log_debug
   - [pg_fatal](../p/pg_fatal.md)
   - ngettext

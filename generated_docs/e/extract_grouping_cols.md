@@ -23,11 +23,11 @@ The result column numbers (resnos) are essential for execution plan nodes to ide
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_length (to determine array size)
+  - [list_length](../l/list_length.md) (to determine array size)
   - [palloc](../p/palloc.md) (for memory allocation)
   - lfirst (for list iteration)
   - [get_sortgroupclause_tle](../g/get_sortgroupclause_tle.md) (to find corresponding TargetEntry)
-  - SortGroupClause (structure type)
+  - [SortGroupClause](../S/SortGroupClause.md) (structure type)
   - [TargetEntry](../T/TargetEntry.md) (structure type)
   - AttrNumber (type for column numbers)
 - Called from (representative examples):

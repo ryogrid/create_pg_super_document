@@ -26,7 +26,7 @@ The function simply calls GrantLockLocal with the global variables awaitedLock a
   - awaitedLock (LOCALLOCK being waited on)
   - awaitedOwner (ResourceOwner for the awaited lock)
 - Called from (representative examples):
-  - ProcSleep (in timeout/interrupt scenarios)
+  - [ProcSleep](../P/ProcSleep.md) (in timeout/interrupt scenarios)
   - [LockErrorCleanup](../L/LockErrorCleanup.md)
 
 ## Notes and Other Information

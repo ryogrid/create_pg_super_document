@@ -21,7 +21,7 @@ This function determines if a timeline history file exists for the current timel
 - Functions called/Symbols referenced:
   - [StreamCtl](../S/StreamCtl.md) (structure)
   - MAXFNAMELEN (constant)
-  - TLHistoryFileName
+  - [TLHistoryFileName](../T/TLHistoryFileName.md)
   - walmethod->ops->existsfile
 - Called from (representative examples):
   - [ReceiveXlogStream](../R/ReceiveXlogStream.md)

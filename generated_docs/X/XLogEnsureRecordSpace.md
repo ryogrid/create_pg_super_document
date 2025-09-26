@@ -33,7 +33,7 @@ The function maintains two key data structures: registered_buffers array for buf
   - XLR_NORMAL_RDATAS: Default maximum data chunks constant
   - XLR_MAX_BLOCK_ID: System maximum block ID limit
   - [registered_buffer](../r/registered_buffer.md): Buffer registration structure type
-  - XLogRecData: WAL data chunk structure type
+  - [XLogRecData](XLogRecData.md): WAL data chunk structure type
 - Called from (representative examples):
   - [shiftList](../s/shiftList.md): GIN index list shifting operations
   - [gistplacetopage](../g/gistplacetopage.md): GiST index page placement

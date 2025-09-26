@@ -24,12 +24,12 @@ This function is commonly used in execution contexts where the executor needs to
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slot_getattr (the underlying slot access function)
+  - [slot_getattr](../s/slot_getattr.md) (the underlying slot access function)
 - Called from (representative examples):
-  - EvalPlanQualFetchRowMark (for fetching row marks during EPQ processing)
-  - ExecLockRows (for accessing row identification attributes)
-  - ExecMergeMatched (for MERGE statement processing)
-  - ExecModifyTable (for various modification operations)
+  - [EvalPlanQualFetchRowMark](EvalPlanQualFetchRowMark.md) (for fetching row marks during EPQ processing)
+  - [ExecLockRows](ExecLockRows.md) (for accessing row identification attributes)
+  - [ExecMergeMatched](ExecMergeMatched.md) (for MERGE statement processing)
+  - [ExecModifyTable](ExecModifyTable.md) (for various modification operations)
 
 ## Notes and Other Information
 - This is a static inline function defined in executor.h, making it efficiently accessible across the executor subsystem

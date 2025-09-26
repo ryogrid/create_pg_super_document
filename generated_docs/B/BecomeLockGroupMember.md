@@ -19,8 +19,8 @@ BecomeLockGroupMember allows a process to join an existing lock group under a de
 ## Dependencies
 - Functions called/Symbols referenced:
   - LockHashPartitionLockByProc
-  - LWLockAcquire
-  - LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - [dlist_push_tail](../d/dlist_push_tail.md)
   - [PGPROC](../P/PGPROC.md)
   - [LWLock](../L/LWLock.md)

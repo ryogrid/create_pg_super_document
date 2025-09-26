@@ -44,12 +44,12 @@ This function takes no parameters but returns a RunningTransactions structure co
   - XidFromFullTransactionId
   - TransactionIdIsValid
   - TransactionIdIsNormal
-  - LWLockAcquire
+  - [LWLockAcquire](../L/LWLockAcquire.md)
   - UINT32_ACCESS_ONCE
   - pg_read_barrier
   - malloc
 - Called from (representative examples):
-  - LogStandbySnapshot (src/backend/storage/ipc/standby.c:1306)
+  - [LogStandbySnapshot](../L/LogStandbySnapshot.md) (src/backend/storage/ipc/standby.c:1306)
 
 ## Notes and Other Information
 - Only executed during normal operation, never during recovery

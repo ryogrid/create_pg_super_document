@@ -31,11 +31,11 @@ The function is designed to work with both min-heaps and max-heaps, depending on
   - COMPARETUP: Macro that performs tuple comparison using the appropriate comparison function
   - CHECK_FOR_INTERRUPTS: PostgreSQL macro to handle query cancellation and other interrupts
   - SortTuple: Structure representing a sortable tuple
-  - Tuplesortstate: Main state structure for sorting operations
+  - [Tuplesortstate](../T/Tuplesortstate.md): Main state structure for sorting operations
 
 - Called from:
-  - make_bounded_heap: When building initial bounded heaps for top-K operations
-  - beginmerge: During external sort merge operations to populate merge heaps
+  - [make_bounded_heap](../m/make_bounded_heap.md): When building initial bounded heaps for top-K operations
+  - [beginmerge](../b/beginmerge.md): During external sort merge operations to populate merge heaps
   - LEADER: Referenced by parallel sort leader processes
 
 ## Notes and Other Information

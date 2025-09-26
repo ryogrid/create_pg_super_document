@@ -37,10 +37,10 @@ The function also initializes the joinrel's partition-related data structures in
   - [partition_bounds_equal](../p/partition_bounds_equal.md)
   - [partition_bounds_merge](../p/partition_bounds_merge.md)
   - [get_matching_part_pairs](../g/get_matching_part_pairs.md)
-  - list_length
+  - [list_length](../l/list_length.md)
   - [palloc0](../p/palloc0.md)
   - Assert
-  - PartitionScheme
+  - [PartitionScheme](../P/PartitionScheme.md)
   - [PartitionBoundInfo](../P/PartitionBoundInfo.md)
 - Called from (representative examples):
   - [try_partitionwise_join](../t/try_partitionwise_join.md)

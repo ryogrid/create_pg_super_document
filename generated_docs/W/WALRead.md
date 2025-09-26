@@ -30,9 +30,9 @@ WALRead provides a convenient abstraction for reading WAL data by handling segme
   - XLogSegmentOffset
   - XLByteInSeg
   - XLByteToSeg
-  - pgstat_report_wait_start
-  - pg_pread
-  - pgstat_report_wait_end
+  - [pgstat_report_wait_start](../p/pgstat_report_wait_start.md)
+  - [pg_pread](../p/pg_pread.md)
+  - [pgstat_report_wait_end](../p/pgstat_report_wait_end.md)
 - Called from (representative examples):
   - [read_local_xlog_page_guts](../r/read_local_xlog_page_guts.md)
   - [summarizer_read_local_xlog_page](../s/summarizer_read_local_xlog_page.md)

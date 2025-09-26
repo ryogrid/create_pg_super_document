@@ -20,7 +20,7 @@ ExecModifyTable is the core execution engine for data modification operations in
 ## Dependencies
 - Functions called/Symbols referenced:
   - [fireBSTriggers](../f/fireBSTriggers.md), fireASTriggers
-  - ExecProcNode, TupIsNull
+  - [ExecProcNode](ExecProcNode.md), TupIsNull
   - [ExecMergeNotMatched](ExecMergeNotMatched.md), ExecMerge
   - [ExecInsert](ExecInsert.md), ExecUpdate, ExecDelete
   - [ExecGetInsertNewTuple](ExecGetInsertNewTuple.md), ExecGetUpdateNewTuple
@@ -28,7 +28,7 @@ ExecModifyTable is the core execution engine for data modification operations in
   - [ExecProcessReturning](ExecProcessReturning.md), ExecPendingInserts
   - [ExecLookupResultRelByOid](ExecLookupResultRelByOid.md), ExecGetJunkAttribute
   - EvalPlanQualSetSlot, ResetPerTupleExprContext
-  - table_tuple_fetch_row_version, LockTuple, UnlockTuple
+  - [table_tuple_fetch_row_version](../t/table_tuple_fetch_row_version.md), LockTuple, UnlockTuple
   - Various relation kind constants (RELKIND_RELATION, RELKIND_VIEW, etc.)
   - [Command](../C/Command.md) type constants (CMD_INSERT, CMD_UPDATE, CMD_DELETE, CMD_MERGE)
 - Called from (representative examples):

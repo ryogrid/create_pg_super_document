@@ -42,7 +42,7 @@ The function assumes the input data is already sorted appropriately for the grou
   - [cost_qual_eval](cost_qual_eval.md)
   - [clamp_row_est](clamp_row_est.md)
   - [clauselist_selectivity](clauselist_selectivity.md)
-  - QualCost
+  - [QualCost](../Q/QualCost.md)
   - Cost
   - JOIN_INNER
 - Called from (representative examples):
@@ -54,4 +54,4 @@ The function assumes the input data is already sorted appropriately for the grou
 - The cost model assumes all grouping columns are compared for most input tuples
 - HAVING clause selectivity is applied to refine output tuple estimates
 - The function uses clamp_row_est to ensure row estimates remain within reasonable bounds
-- Group operations require pre-sorted input to function efficiently
+- [Group](../G/Group.md) operations require pre-sorted input to function efficiently

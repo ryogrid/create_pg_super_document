@@ -30,10 +30,10 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire/LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease
   - TransactionIdIsValid
   - SerialPage
-  - SerialPagePrecedesLogically
+  - [SerialPagePrecedesLogically](../S/SerialPagePrecedesLogically.md)
   - [SimpleLruTruncate](../S/SimpleLruTruncate.md)
   - [SimpleLruWriteAll](../S/SimpleLruWriteAll.md)
 - Called from (representative examples):

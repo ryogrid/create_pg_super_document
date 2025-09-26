@@ -111,17 +111,17 @@ PgStat_KindInfo serves as a configuration and metadata structure that describes 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PgStat_EntryRef
-  - PgStatShared_Common
-  - PgStat_HashKey
-  - NameData
+  - [PgStat_EntryRef](PgStat_EntryRef.md)
+  - [PgStatShared_Common](PgStatShared_Common.md)
+  - [PgStat_HashKey](PgStat_HashKey.md)
+  - [NameData](../N/NameData.md)
   - TimestampTz
 - Called from (representative examples):
-  - pgstat_reset
-  - pgstat_build_snapshot
-  - pgstat_flush_pending_entries
-  - pgstat_write_statsfile
-  - pgstat_read_statsfile
+  - [pgstat_reset](../p/pgstat_reset.md)
+  - [pgstat_build_snapshot](../p/pgstat_build_snapshot.md)
+  - [pgstat_flush_pending_entries](../p/pgstat_flush_pending_entries.md)
+  - [pgstat_write_statsfile](../p/pgstat_write_statsfile.md)
+  - [pgstat_read_statsfile](../p/pgstat_read_statsfile.md)
 
 ## Notes and Other Information
 - This structure is central to PostgreSQL's statistics system architecture, enabling polymorphic behavior across different statistics types

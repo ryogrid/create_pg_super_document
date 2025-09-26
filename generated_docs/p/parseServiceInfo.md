@@ -26,7 +26,7 @@ The function first checks for a service name in the options array or the PGSERVI
   - [parseServiceFile](parseServiceFile.md)
   - [pqGetHomeDirectory](pqGetHomeDirectory.md)
   - [libpq_append_error](../l/libpq_append_error.md)
-  - strlcpy
+  - [strlcpy](../s/strlcpy.md)
   - getenv, stat, snprintf (standard C library functions)
   - MAXPGPATH, SYSCONFDIR (constants)
 - Called from (representative examples):

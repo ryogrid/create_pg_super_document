@@ -21,34 +21,34 @@ This function creates a new replication origin by performing a sequential search
 ## Dependencies
 - Functions called/Symbols referenced:
   - CStringGetTextDatum
-  - IsTransactionState
+  - [IsTransactionState](../I/IsTransactionState.md)
   - InitDirtySnapshot
-  - table_open
-  - table_close
-  - ScanKeyInit
-  - systable_beginscan
-  - systable_getnext
-  - systable_endscan
+  - [table_open](../t/table_open.md)
+  - [table_close](../t/table_close.md)
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [systable_endscan](../s/systable_endscan.md)
   - HeapTupleIsValid
-  - heap_form_tuple
-  - CatalogTupleInsert
-  - CommandCounterIncrement
-  - heap_freetuple
+  - [heap_form_tuple](../h/heap_form_tuple.md)
+  - [CatalogTupleInsert](../C/CatalogTupleInsert.md)
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
   - ereport
-  - errcode
-  - errmsg
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
   - CHECK_FOR_INTERRUPTS
-  - ObjectIdGetDatum
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - RelationGetDescr
-  - SnapshotData
-  - SysScanDesc
+  - [SnapshotData](../S/SnapshotData.md)
+  - [SysScanDesc](../S/SysScanDesc.md)
   - ExclusiveLock
   - PG_UINT16_MAX
 - Called from (representative examples):
-  - CreateSubscription
-  - pg_replication_origin_create
-  - LogicalRepSyncTableStart
-  - run_apply_worker
+  - [CreateSubscription](../C/CreateSubscription.md)
+  - [pg_replication_origin_create](../p/pg_replication_origin_create.md)
+  - [LogicalRepSyncTableStart](../L/LogicalRepSyncTableStart.md)
+  - [run_apply_worker](run_apply_worker.md)
 
 ## Notes and Other Information
 - Must be called within a transaction context (asserted via IsTransactionState)

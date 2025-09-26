@@ -41,9 +41,9 @@ Special attention is given to variable-length data types (varlena), which are fo
 
 - Called from (representative examples):
   -  - during constant folding optimization
-  -  - when evaluating function calls with constant arguments
+  -  - [when](../w/when.md) evaluating function calls with constant arguments
   -  - during expression evaluation with context
-  -  - when processing partition boundary values
+  -  - [when](../w/when.md) processing partition boundary values
 
 ## Notes and Other Information
 - The function assumes the input expression is actually constant (context-independent)

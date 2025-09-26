@@ -20,9 +20,9 @@ This function allows worker processes to connect to the shared tuple sorting inf
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SharedFileSetAttach
-  - dsm_segment
-  - Sharedsort
+  - [SharedFileSetAttach](../S/SharedFileSetAttach.md)
+  - [dsm_segment](../d/dsm_segment.md)
+  - [Sharedsort](../S/Sharedsort.md)
 - Called from (representative examples):
   - [_brin_parallel_build_main](../b/_brin_parallel_build_main.md)
   - [_bt_parallel_build_main](../b/_bt_parallel_build_main.md)

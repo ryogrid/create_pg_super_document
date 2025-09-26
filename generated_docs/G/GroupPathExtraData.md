@@ -36,7 +36,7 @@ The structure is particularly important for foreign data wrappers and partitione
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AggClauseCosts (for cost estimation structures)
+  - [AggClauseCosts](../A/AggClauseCosts.md) (for cost estimation structures)
   - [PartitionwiseAggregateType](../P/PartitionwiseAggregateType.md) (for partitioning strategy)
   - [Node](../N/Node.md) (for HAVING qualifiers)
   - [List](../L/List.md) (for target list management)

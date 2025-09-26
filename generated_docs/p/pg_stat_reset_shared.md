@@ -32,7 +32,7 @@ The function supports resetting statistics for several key PostgreSQL subsystems
 - Functions called/Symbols referenced:
   - [pgstat_reset_of_kind](pgstat_reset_of_kind.md) (multiple calls for different PGSTAT_KIND_* constants)
   - [XLogPrefetchResetStats](../X/XLogPrefetchResetStats.md)
-  - text_to_cstring
+  - [text_to_cstring](../t/text_to_cstring.md)
   - PG_RETURN_VOID
   - ereport (for error handling)
 - Constants used:

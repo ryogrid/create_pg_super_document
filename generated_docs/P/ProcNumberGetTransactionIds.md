@@ -26,12 +26,12 @@ All output parameters are initialized to safe default values (InvalidTransaction
 ## Dependencies
 - Functions called/Symbols referenced:
   - GetPGProcByNumber
-  - LWLockAcquire
-  - LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - ProcGlobal (global variable access)
   - ProcArrayLock (global lock)
 - Called from (representative examples):
-  - pgstat_read_current_status
+  - [pgstat_read_current_status](../p/pgstat_read_current_status.md)
 
 ## Notes and Other Information
 - Uses ProcArrayLock in shared mode to ensure consistent transaction state reads

@@ -27,11 +27,11 @@ When a match is found, the function sets the appropriate IEEE 754 floating-point
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strncasecmp (case-insensitive string comparison)
-  - get_float8_nan (returns IEEE 754 NaN value)
-  - get_float8_infinity (returns IEEE 754 positive infinity value)
+  - [pg_strncasecmp](../p/pg_strncasecmp.md) (case-insensitive string comparison)
+  - [get_float8_nan](../g/get_float8_nan.md) (returns IEEE 754 NaN value)
+  - [get_float8_infinity](../g/get_float8_infinity.md) (returns IEEE 754 positive infinity value)
 - Called from (representative examples):
-  - ecpg_get_data
+  - [ecpg_get_data](../e/ecpg_get_data.md)
 
 ## Notes and Other Information
 - This is a static helper function used internally within the ECPG data conversion routines

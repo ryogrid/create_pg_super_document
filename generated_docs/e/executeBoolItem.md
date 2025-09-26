@@ -24,7 +24,7 @@ The  function is the core boolean expression evaluator for JSONPath. It implemen
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth
+  - [check_stack_depth](../c/check_stack_depth.md)
   - jspHasNext
   - [jspGetLeftArg](../j/jspGetLeftArg.md)
   - [jspGetRightArg](../j/jspGetRightArg.md)  

@@ -23,7 +23,7 @@ The function serves as the counterpart to _bt_getbuf and is used throughout the 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [_bt_unlockbuf](_bt_unlockbuf.md) (releases the buffer lock)
-  - ReleaseBuffer (drops the buffer pin)
+  - [ReleaseBuffer](../R/ReleaseBuffer.md) (drops the buffer pin)
 - Called from (representative examples):
   - [_bt_doinsert](_bt_doinsert.md) (after insertion operations)
   - [_bt_check_unique](_bt_check_unique.md) (after uniqueness checks)

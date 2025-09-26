@@ -24,8 +24,8 @@ The function follows PostgreSQL's standard executor initialization pattern, ensu
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (creates new TidRangeScanState structure)
-  - ExecAssignExprContext (creates expression context for the node)
-  - ExecOpenScanRelation (opens the relation to be scanned)
+  - [ExecAssignExprContext](ExecAssignExprContext.md) (creates expression context for the node)
+  - [ExecOpenScanRelation](ExecOpenScanRelation.md) (opens the relation to be scanned)
   - [ExecInitScanTupleSlot](ExecInitScanTupleSlot.md) (initializes the scan tuple slot)
   - RelationGetDescr (gets relation descriptor)
   - [table_slot_callbacks](../t/table_slot_callbacks.md) (gets table slot callbacks)

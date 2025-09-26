@@ -33,7 +33,7 @@ For unsupported operations like NOT EXISTS or inequality comparisons with negati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth (stack overflow protection)
+  - [check_stack_depth](../c/check_stack_depth.md) (stack overflow protection)
   - [jspGetLeftArg](../j/jspGetLeftArg.md), jspGetRightArg, jspGetArg (jsonpath item accessors)
   - [make_jsp_expr_node_binary](../m/make_jsp_expr_node_binary.md) (creates binary expression nodes)
   - [extract_jsp_path_expr](extract_jsp_path_expr.md) (processes path expressions)

@@ -21,7 +21,7 @@ The pg_euccn_mblen function calculates how many bytes are needed to represent a 
 - Functions called/Symbols referenced:
   - IS_HIGHBIT_SET (macro to test if the high bit of a byte is set)
 - Called from (representative examples):
-  - pg_encoding_set_invalid (via function pointer assignment)
+  - [pg_encoding_set_invalid](pg_encoding_set_invalid.md) (via function pointer assignment)
 
 ## Notes and Other Information
 - This is a static function with internal linkage, only visible within the wchar.c compilation unit

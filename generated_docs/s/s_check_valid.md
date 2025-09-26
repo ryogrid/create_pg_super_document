@@ -23,9 +23,9 @@ This inline function performs bounds checking on spinlock indices used in the se
   - unlikely() (compiler optimization hint macro)
   - elog() (PostgreSQL logging function)
 - Called from:
-  - s_init_lock_sema (in src/backend/storage/lmgr/spin.c:146)
-  - s_unlock_sema (in src/backend/storage/lmgr/spin.c:156)
-  - tas_sema (in src/backend/storage/lmgr/spin.c:174)
+  - [s_init_lock_sema](s_init_lock_sema.md) (in src/backend/storage/lmgr/spin.c:146)
+  - [s_unlock_sema](s_unlock_sema.md) (in src/backend/storage/lmgr/spin.c:156)
+  - [tas_sema](../t/tas_sema.md) (in src/backend/storage/lmgr/spin.c:174)
 
 ## Notes and Other Information
 - The function intentionally excludes 0 as a valid lock index to help detect uninitialized spinlocks

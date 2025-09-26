@@ -29,10 +29,10 @@ The function performs type-specific handling to format values appropriately:
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ShowGUCOption](../S/ShowGUCOption.md)
-  - get_config_unit_name
-  - config_enum_get_options
-  - config_enum_lookup_by_value
-  - has_privs_of_role
+  - [get_config_unit_name](../g/get_config_unit_name.md)
+  - [config_enum_get_options](../c/config_enum_get_options.md)
+  - [config_enum_lookup_by_value](../c/config_enum_lookup_by_value.md)
+  - [has_privs_of_role](../h/has_privs_of_role.md)
   - [GetUserId](GetUserId.md)
   - [pstrdup](../p/pstrdup.md)
 - Called from (representative examples):

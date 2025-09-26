@@ -30,7 +30,7 @@ The function is specifically designed for cases where 64-bit integer precision i
   - DirectFunctionCall1 (to call PostgreSQL functions)
   - [int8in](../i/int8in.md) (PostgreSQL function to parse int8 from string)
   - [CStringGetDatum](../C/CStringGetDatum.md) (to convert C string to Datum)
-  - Float (cast node type)
+  - [Float](../F/Float.md) (cast node type)
   - castNode (for safe type casting)
   - ereport (for error reporting)
   - [errcode](../e/errcode.md)/errmsg (for error handling)

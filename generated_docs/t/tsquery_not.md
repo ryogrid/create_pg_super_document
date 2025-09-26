@@ -24,16 +24,16 @@ The implementation creates a new QTNode structure representing the NOT operator,
 - Functions called/Symbols referenced:
   - PG_GETARG_TSQUERY_COPY
   - [palloc0](../p/palloc0.md)
-  - QT2QTN
+  - [QT2QTN](../Q/QT2QTN.md)
   - GETQUERY
   - GETOPERAND  
   - [QTN2QT](../Q/QTN2QT.md)
-  - QTNFree
+  - [QTNFree](../Q/QTNFree.md)
   - PG_FREE_IF_COPY
   - PG_RETURN_POINTER
 - Data structures used:
   - TSQuery
-  - QTNode
+  - [QTNode](../Q/QTNode.md)
   - QueryItem
   - QTN_NEEDFREE flag
   - QI_OPR type

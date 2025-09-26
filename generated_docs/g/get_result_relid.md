@@ -28,7 +28,7 @@ This is used extensively during RTE_RESULT optimization to identify candidates f
 ## Dependencies
 - Functions called/Symbols referenced:
   - rt_fetch (macro to access range table entries)
-  - RangeTblRef (type checking and casting)
+  - [RangeTblRef](../R/RangeTblRef.md) (type checking and casting)
   - RTE_RESULT (constant for relation type comparison)
 
 - Called from (representative examples):

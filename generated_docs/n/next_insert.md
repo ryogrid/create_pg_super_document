@@ -24,7 +24,7 @@ The `next_insert` function scans SQL statement text starting from a given positi
 - Functions called/Symbols referenced:
   - Uses standard C library functions (isdigit, isalpha, isascii)
 - Called from (representative examples):
-  - ecpg_build_params (multiple locations)
+  - [ecpg_build_params](../e/ecpg_build_params.md) (multiple locations)
 
 ## Notes and Other Information
 - Returns the position of the next placeholder, or -1 if none found

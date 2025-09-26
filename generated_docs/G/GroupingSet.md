@@ -36,14 +36,14 @@ This design enables PostgreSQL to efficiently process complex grouping operation
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GroupingSetKind (enumeration for node types)
+  - [GroupingSetKind](GroupingSetKind.md) (enumeration for node types)
   - ParseLoc (for source location tracking)
-  - List (for content storage)
+  - [List](../L/List.md) (for content storage)
 - Called from (representative examples):
-  - transformGroupingSet (parser/parse_clause.c)
-  - expand_groupingset_node (parser/parse_agg.c)
-  - flatten_grouping_sets (parser/parse_clause.c)
-  - makeGroupingSet (nodes/makefuncs.c)
+  - [transformGroupingSet](../t/transformGroupingSet.md) (parser/parse_clause.c)
+  - [expand_groupingset_node](../e/expand_groupingset_node.md) (parser/parse_agg.c)
+  - [flatten_grouping_sets](../f/flatten_grouping_sets.md) (parser/parse_clause.c)
+  - [makeGroupingSet](../m/makeGroupingSet.md) (nodes/makefuncs.c)
 
 ## Notes and Other Information
 - The structure evolves during parsing: raw parser output contains expressions and potentially nested structures, while analyzed output uses standardized ressortgroupref values

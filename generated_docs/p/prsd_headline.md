@@ -39,7 +39,7 @@ Configuration options processed:
 - Functions called/Symbols referenced:
   - [defGetString](../d/defGetString.md) (extract string values from configuration options)
   - [pg_strtoint32](pg_strtoint32.md) (parse integer configuration values)
-  - TS_execute_locations (execute query against document to find matches)
+  - [TS_execute_locations](../T/TS_execute_locations.md) (execute query against document to find matches)
   - GETQUERY (extract query from TSQuery structure)
   - [checkcondition_HL](../c/checkcondition_HL.md) (condition checking function for highlighting)
   - [mark_hl_words](../m/mark_hl_words.md) (single fragment headline selection)

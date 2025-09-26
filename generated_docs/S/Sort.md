@@ -42,21 +42,21 @@ The Sort node is a fundamental plan node in PostgreSQL's execution framework tha
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Plan (base structure)
+  - [Plan](../P/Plan.md) (base structure)
   - AttrNumber
   - Oid
 
 - Called from (representative examples):
-  - ExecSort (executor/nodeSort.c:77)
-  - ExecInitSort (executor/nodeSort.c:221)
-  - create_sort_plan (optimizer/plan/createplan.c:2183)
-  - make_sort (optimizer/plan/createplan.c:6073)
-  - create_mergejoin_plan (optimizer/plan/createplan.c:4530)
-  - show_sort_keys (commands/explain.c:2561)
+  - [ExecSort](../E/ExecSort.md) (executor/nodeSort.c:77)
+  - [ExecInitSort](../E/ExecInitSort.md) (executor/nodeSort.c:221)
+  - [create_sort_plan](../c/create_sort_plan.md) (optimizer/plan/createplan.c:2183)
+  - [make_sort](../m/make_sort.md) (optimizer/plan/createplan.c:6073)
+  - [create_mergejoin_plan](../c/create_mergejoin_plan.md) (optimizer/plan/createplan.c:4530)
+  - [show_sort_keys](../s/show_sort_keys.md) (commands/explain.c:2561)
 
 ## Notes and Other Information
 - The Sort node is used extensively throughout PostgreSQL's execution engine for implementing ORDER BY clauses, preparing input for merge joins, and supporting various aggregate operations
-- Sort operations can be memory-intensive and may spill to disk when the work_mem setting is exceeded
+- [Sort](Sort.md) operations can be memory-intensive and may spill to disk when the work_mem setting is exceeded
 - The node supports multi-column sorting with different operators and collations for each column
 - NULL handling can be specified independently for each sort column
 - Related to IncrementalSort which provides optimized sorting for partially pre-sorted input

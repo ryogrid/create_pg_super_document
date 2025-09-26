@@ -44,7 +44,7 @@ The function sets the  flag when the first subscript is an integer, which helps 
 ## Notes and Other Information
 - Returns  if any subscript is NULL in a fetch context, instructing the caller to skip the rest of the SubscriptingRef sequence
 - Throws an error if any subscript is NULL in an assignment context
-- Integer subscripts are converted to text format using the int4out function for internal consistency
+- [Integer](../I/Integer.md) subscripts are converted to text format using the int4out function for internal consistency
 - The  flag is set when the first subscript is an integer, helping to determine the expected JSONB container type
 - Text subscripts are used as-is without conversion
 - The function assumes subscripts have already been evaluated and type-checked during the transform phase

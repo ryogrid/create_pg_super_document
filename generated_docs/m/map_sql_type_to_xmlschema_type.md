@@ -29,20 +29,20 @@ The function handles special cases:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - map_sql_type_to_xml_name (for generating type names and domain base types)
-  - get_typtype (PostgreSQL function to determine type category)
-  - getBaseTypeAndTypmod (PostgreSQL function for resolving domain base types)
+  - [map_sql_type_to_xml_name](map_sql_type_to_xml_name.md) (for generating type names and domain base types)
+  - [get_typtype](../g/get_typtype.md) (PostgreSQL function to determine type category)
+  - [getBaseTypeAndTypmod](../g/getBaseTypeAndTypmod.md) (PostgreSQL function for resolving domain base types)
   - TYPTYPE_DOMAIN (PostgreSQL constant for domain types)
   - XMLBINARY_BASE64 (XML binary encoding option)
   - Various PostgreSQL constants: INT64_FORMAT, PG_INT64_MAX, PG_INT64_MIN, etc.
 - Called from (representative examples):
-  - map_sql_typecoll_to_xmlschema_types
+  - [map_sql_typecoll_to_xmlschema_types](map_sql_typecoll_to_xmlschema_types.md)
 
 ## Notes and Other Information
 - Creates comprehensive XML Schema definitions with detailed validation:
-  - String types: `xsd:maxLength` restrictions for VARCHAR/CHAR with length limits
-  - Numeric types: `xsd:totalDigits` and `xsd:fractionDigits` for NUMERIC types
-  - Integer types: `xsd:maxInclusive` and `xsd:minInclusive` range constraints
+  - [String](../S/String.md) types: `xsd:maxLength` restrictions for VARCHAR/CHAR with length limits
+  - [Numeric](../N/Numeric.md) types: `xsd:totalDigits` and `xsd:fractionDigits` for NUMERIC types
+  - [Integer](../I/Integer.md) types: `xsd:maxInclusive` and `xsd:minInclusive` range constraints
   - Binary types: Base64Binary or hexBinary encoding based on configuration
   - Date/time types: Complex regex patterns for format validation including timezone handling
 - XML types receive special treatment with `mixed="true"` complex types allowing arbitrary content

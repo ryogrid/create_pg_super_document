@@ -27,13 +27,13 @@ This function ensures that no memory leaks occur and that all resources are prop
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - tuplestore_end
-  - MemoryContextDelete
-  - ExecEndNode
+  - [tuplestore_end](../t/tuplestore_end.md)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
+  - [ExecEndNode](ExecEndNode.md)
   - outerPlanState
   - innerPlanState
 - Called from (representative examples):
-  - ExecEndNode
+  - [ExecEndNode](ExecEndNode.md)
 
 ## Notes and Other Information
 - Part of PostgreSQL's systematic resource cleanup framework for plan nodes

@@ -51,8 +51,8 @@ The function handles complex setup tasks including validating column specificati
   - [contain_volatile_functions_not_nextval](../c/contain_volatile_functions_not_nextval.md)
   - [pgstat_progress_start_command](../p/pgstat_progress_start_command.md)
   - [ReceiveCopyBegin](../R/ReceiveCopyBegin.md)
-  - OpenPipeStream
-  - AllocateFile
+  - [OpenPipeStream](../O/OpenPipeStream.md)
+  - [AllocateFile](../A/AllocateFile.md)
   - [ReceiveCopyBinaryHeader](../R/ReceiveCopyBinaryHeader.md)
   - AllocSetContextCreate
 - Called from (representative examples):

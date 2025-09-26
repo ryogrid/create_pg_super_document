@@ -32,22 +32,22 @@ This design allows the function to detect when the work has already been done an
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferDesc
-  - ResourceOwnerEnlarge
-  - LockBufHdr
-  - UnlockBufHdr
+  - [BufferDesc](../B/BufferDesc.md)
+  - [ResourceOwnerEnlarge](../R/ResourceOwnerEnlarge.md)
+  - [LockBufHdr](../L/LockBufHdr.md)
+  - [UnlockBufHdr](../U/UnlockBufHdr.md)
   - BM_IO_IN_PROGRESS
-  - WaitIO
+  - [WaitIO](../W/WaitIO.md)
   - BM_VALID
   - BM_DIRTY
-  - ResourceOwnerRememberBufferIO
-  - BufferDescriptorGetBuffer
+  - [ResourceOwnerRememberBufferIO](../R/ResourceOwnerRememberBufferIO.md)
+  - [BufferDescriptorGetBuffer](../B/BufferDescriptorGetBuffer.md)
 - Called from (representative examples):
   - BufferIsPinned
-  - ZeroAndLockBuffer
-  - WaitReadBuffersCanStartIO
-  - ExtendBufferedRelShared
-  - FlushBuffer
+  - [ZeroAndLockBuffer](../Z/ZeroAndLockBuffer.md)
+  - [WaitReadBuffersCanStartIO](../W/WaitReadBuffersCanStartIO.md)
+  - [ExtendBufferedRelShared](../E/ExtendBufferedRelShared.md)
+  - [FlushBuffer](../F/FlushBuffer.md)
 
 ## Notes and Other Information
 - Returns true if I/O was successfully started, false if the work was already done or in progress

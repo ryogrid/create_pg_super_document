@@ -25,11 +25,11 @@ The function uses a temporary buffer to hold the formatted pointer string, which
 - Functions called/Symbols referenced:
   - PrintfTarget (struct type for output destination)
   - snprintf (standard C library function for formatted output)
-  - dostr (function to output string content to target)
+  - [dostr](../d/dostr.md) (function to output string content to target)
 
 - Called from (representative examples):
-  - dopr (main printf formatting function)
-  - flushbuffer (output buffer management function)
+  - [dopr](../d/dopr.md) (main printf formatting function)
+  - [flushbuffer](flushbuffer.md) (output buffer management function)
 
 ## Notes and Other Information
 - Part of PostgreSQL's platform-independent printf implementation

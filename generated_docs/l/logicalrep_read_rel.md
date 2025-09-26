@@ -22,10 +22,10 @@ This function is the counterpart to logicalrep_write_rel, responsible for parsin
   - [palloc](../p/palloc.md)
   - [pq_getmsgint](../p/pq_getmsgint.md)
   - [pstrdup](../p/pstrdup.md)
-  - logicalrep_read_namespace
+  - [logicalrep_read_namespace](logicalrep_read_namespace.md)
   - [pq_getmsgstring](../p/pq_getmsgstring.md)
   - [pq_getmsgbyte](../p/pq_getmsgbyte.md)
-  - logicalrep_read_attrs
+  - [logicalrep_read_attrs](logicalrep_read_attrs.md)
   - [LogicalRepRelation](../L/LogicalRepRelation.md)
 - Called from (representative examples):
   - [apply_handle_relation](../a/apply_handle_relation.md)

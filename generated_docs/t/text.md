@@ -36,7 +36,7 @@ As a typedef of ,  inherits:
   - [text_catenate](text_catenate.md)
   - [text_substring](text_substring.md)
   - [text_overlay](text_overlay.md)
-  - text_position
+  - [text_position](text_position.md)
   - [text_cmp](text_cmp.md)
   - [split_text](../s/split_text.md)
   - Various text manipulation and I/O functions

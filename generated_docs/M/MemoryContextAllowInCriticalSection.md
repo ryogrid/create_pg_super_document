@@ -27,10 +27,10 @@ The function simply sets the  flag in the memory context structure after validat
 - Functions called/Symbols referenced:
   - MemoryContextIsValid (validation function)
 - Called from (representative examples):
-  - XLOGShmemInit
-  - init_lwlock_stats
-  - InitSync
-  - MemoryContextInit
+  - [XLOGShmemInit](../X/XLOGShmemInit.md)
+  - [init_lwlock_stats](../i/init_lwlock_stats.md)
+  - [InitSync](../I/InitSync.md)
+  - [MemoryContextInit](MemoryContextInit.md)
 
 ## Notes and Other Information
 - Used primarily for debugging contexts or other special-purpose memory contexts

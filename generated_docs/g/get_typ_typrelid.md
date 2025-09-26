@@ -31,7 +31,7 @@ This function performs a system catalog lookup to fetch the typrelid field from 
   - [process_function_rte_ref](../p/process_function_rte_ref.md)
   - [CheckAttributeType](../C/CheckAttributeType.md)
   - [ATPostAlterTypeCleanup](../A/ATPostAlterTypeCleanup.md)
-  - processIndirection
+  - [processIndirection](../p/processIndirection.md)
 
 ## Notes and Other Information
 This function is essential for distinguishing between simple and complex types in PostgreSQL. It's commonly used in dependency tracking, type validation, and situations where the system needs to understand the internal structure of a type. The function's graceful handling of invalid type OIDs (returning InvalidOid instead of throwing an error) makes it suitable for defensive programming contexts where type existence is uncertain.

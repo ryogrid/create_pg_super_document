@@ -26,8 +26,8 @@ The function follows PostgreSQL"s WAL record format conventions, using the opera
 - Functions called/Symbols referenced:
   - XLogRecGetData
   - XLogRecGetInfo
-  - appendStringInfo
-  - appendStringInfoString
+  - [appendStringInfo](../a/appendStringInfo.md)
+  - [appendStringInfoString](../a/appendStringInfoString.md)
   - [infobits_desc](../i/infobits_desc.md)
   - [truncate_flags_desc](../t/truncate_flags_desc.md)
   - [array_desc](../a/array_desc.md)
@@ -45,6 +45,6 @@ The function follows PostgreSQL"s WAL record format conventions, using the opera
 - HOT (Heap-Only Tuple) updates are handled separately from regular updates for optimization
 - TRUNCATE operations include array descriptions of affected relation OIDs
 - CONFIRM operations are used for speculative insertion confirmation
-- LOCK operations describe tuple locking without modification
+- [LOCK](../L/LOCK.md) operations describe tuple locking without modification
 - INPLACE operations describe in-place tuple modifications
 - Part of PostgreSQL"s resource manager description system for WAL analysis and debugging

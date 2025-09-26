@@ -22,7 +22,7 @@ This static helper function extends the 2D overlap test to 4D space for rectangu
 - Functions called/Symbols referenced:
   - [overlap2D](overlap2D.md) (called twice for X and Y dimensions)
   - RectBox (structure type)
-  - RangeBox (structure type)
+  - [RangeBox](../R/RangeBox.md) (structure type)
 - Called from (representative examples):
   - [spg_box_quad_inner_consistent](../s/spg_box_quad_inner_consistent.md)
 

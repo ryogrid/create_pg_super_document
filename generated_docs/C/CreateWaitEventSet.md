@@ -25,14 +25,14 @@ Platform-specific initialization includes creating file descriptors for epoll/kq
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md) (memory allocation)
-  - ResourceOwnerEnlarge/ResourceOwnerRememberWaitEventSet (resource tracking)
-  - AcquireExternalFD/ReleaseExternalFD (file descriptor management)
+  - [ResourceOwnerEnlarge](../R/ResourceOwnerEnlarge.md)/ResourceOwnerRememberWaitEventSet (resource tracking)
+  - [AcquireExternalFD](../A/AcquireExternalFD.md)/ReleaseExternalFD (file descriptor management)
   - epoll_create1 (Linux epoll initialization)
   - kqueue/fcntl (BSD kqueue initialization)
   - pgwin32_signal_event (Windows signal handling)
 - Called from (representative examples):
   - [WaitLatchOrSocket](../W/WaitLatchOrSocket.md) (latch waiting with socket support)
-  - InitializeLatchWaitSet (shared latch wait set initialization)
+  - [InitializeLatchWaitSet](../I/InitializeLatchWaitSet.md) (shared latch wait set initialization)
   - [ConfigurePostmasterWaitSet](ConfigurePostmasterWaitSet.md) (postmaster event monitoring)
   - [ExecAppendAsyncEventWait](../E/ExecAppendAsyncEventWait.md) (async append execution)
 

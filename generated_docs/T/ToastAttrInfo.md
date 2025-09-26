@@ -36,10 +36,10 @@ Each ToastAttrInfo instance corresponds to one column in a tuple being processed
   - int32, uint8, char (basic types)
 - Used by (representative examples):
   - ToastTupleContext.ttc_attr
-  - toast_tuple_try_compression
-  - toast_tuple_externalize
-  - toast_tuple_cleanup
-  - heap_toast_insert_or_update
+  - [toast_tuple_try_compression](../t/toast_tuple_try_compression.md)
+  - [toast_tuple_externalize](../t/toast_tuple_externalize.md)
+  - [toast_tuple_cleanup](../t/toast_tuple_cleanup.md)
+  - [heap_toast_insert_or_update](../h/heap_toast_insert_or_update.md)
 
 ## Notes and Other Information
 - The tai_size field is only made valid for varlena attributes with toast_action[i] different from TYPSTORAGE_PLAIN

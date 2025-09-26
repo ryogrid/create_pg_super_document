@@ -22,13 +22,13 @@ The `makeBoolExpr` function creates a BoolExpr node that represents boolean expr
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode
-  - BoolExpr (struct type)
+  - [BoolExpr](../B/BoolExpr.md) (struct type)
   - [BoolExprType](../B/BoolExprType.md) (enum type)
 - Called from (representative examples):
   - [transformJoinUsingClause](../t/transformJoinUsingClause.md)
-  - transformAExprDistinct
-  - transformAExprIn
-  - transformAExprBetween
+  - [transformAExprDistinct](../t/transformAExprDistinct.md)
+  - [transformAExprIn](../t/transformAExprIn.md)
+  - [transformAExprBetween](../t/transformAExprBetween.md)
   - [make_row_comparison_op](make_row_comparison_op.md)
 
 ## Notes and Other Information

@@ -24,9 +24,9 @@ The function is particularly useful in XML processing contexts where formatted o
 - Functions called/Symbols referenced:
   - (No external function calls - operates directly on StringInfo data and len fields)
 - Called from (representative examples):
-  - xml_errorHandler
-  - appendStringInfoLineSeparator
-  - PgXmlErrorContext
+  - [xml_errorHandler](../x/xml_errorHandler.md)
+  - [appendStringInfoLineSeparator](../a/appendStringInfoLineSeparator.md)
+  - [PgXmlErrorContext](../P/PgXmlErrorContext.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the xml.c compilation unit

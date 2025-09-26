@@ -34,9 +34,9 @@ Key behaviors include:
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to create SubqueryScanPath node)
-  - get_baserel_parampathinfo (to get parameter information)
+  - [get_baserel_parampathinfo](../g/get_baserel_parampathinfo.md) (to get parameter information)
   - [cost_subqueryscan](cost_subqueryscan.md) (to calculate execution costs)
-  - SubqueryScanPath (the path node structure)
+  - [SubqueryScanPath](../S/SubqueryScanPath.md) (the path node structure)
 
 - Called from (representative examples):
   - [set_subquery_pathlist](../s/set_subquery_pathlist.md) (in allpaths.c:2710, 2736)

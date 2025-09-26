@@ -21,13 +21,13 @@ The function is designed to provide user-friendly error reporting by filtering o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - createPQExpBuffer (PostgreSQL utility function)
+  - [createPQExpBuffer](../c/createPQExpBuffer.md) (PostgreSQL utility function)
   - [PQresultErrorField](../P/PQresultErrorField.md) (libpq function)
   - [printfPQExpBuffer](../p/printfPQExpBuffer.md) (PostgreSQL utility function)  
   - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md) (PostgreSQL utility function)
-  - appendPQExpBufferChar (PostgreSQL utility function)
+  - [appendPQExpBufferChar](../a/appendPQExpBufferChar.md) (PostgreSQL utility function)
   - pg_log_error (PostgreSQL logging function)
-  - destroyPQExpBuffer (PostgreSQL utility function)
+  - [destroyPQExpBuffer](../d/destroyPQExpBuffer.md) (PostgreSQL utility function)
   - PG_DIAG_SEVERITY (PostgreSQL diagnostic field constant)
   - PG_DIAG_MESSAGE_PRIMARY (PostgreSQL diagnostic field constant)
 - Called from (representative examples):

@@ -42,7 +42,7 @@ The spgLeafConsistentOut structure is used as an output parameter for SP-GiST le
 
 ## Notes and Other Information
 - The leafValue field should contain the original indexed data, which may need to be reconstructed if the index stores compressed or transformed values
-- The recheck flag is crucial for indexes that provide approximate results - when set to true, PostgreSQL will re-evaluate the search condition using the original operator on the heap tuple
+- The recheck flag is crucial for indexes that provide approximate results - [when](../w/when.md) set to true, PostgreSQL will re-evaluate the search condition using the original operator on the heap tuple
 - The recheckDistances flag is used in nearest-neighbor searches when the index can only provide approximate distance calculations
 - The distances array must have the same length as the number of ordering operators in the query (norderbys from the input structure)
 - If no distance calculation is needed (non-ordered scan), the distances field should be set to NULL

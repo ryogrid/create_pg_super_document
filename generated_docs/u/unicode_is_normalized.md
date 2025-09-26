@@ -20,18 +20,18 @@ The `unicode_is_normalized` function determines whether input text is already in
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - text_to_cstring
+  - [text_to_cstring](../t/text_to_cstring.md)
   - [unicode_norm_form_from_string](unicode_norm_form_from_string.md)
   - [pg_mbstrlen_with_len](../p/pg_mbstrlen_with_len.md)
   - [utf8_to_unicode](utf8_to_unicode.md)
-  - pg_utf_mblen
-  - unicode_is_normalized_quickcheck
-  - unicode_normalize
+  - [pg_utf_mblen](../p/pg_utf_mblen.md)
+  - [unicode_is_normalized_quickcheck](unicode_is_normalized_quickcheck.md)
+  - [unicode_normalize](unicode_normalize.md)
   - [palloc](../p/palloc.md)
   - memcmp
 - Types referenced:
   - UnicodeNormalizationForm
-  - UnicodeNormalizationQC
+  - [UnicodeNormalizationQC](../U/UnicodeNormalizationQC.md)
 - Constants referenced:
   - UNICODE_NORM_QC_YES
   - UNICODE_NORM_QC_NO

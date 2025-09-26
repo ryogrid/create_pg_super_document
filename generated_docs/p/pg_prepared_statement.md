@@ -34,16 +34,16 @@ This function follows PostgreSQL's SRF (Set-Returning Function) convention:
   - [hash_seq_init](../h/hash_seq_init.md)
   - [hash_seq_search](../h/hash_seq_search.md)
   - CStringGetTextDatum
-  - TimestampTzGetDatum
+  - [TimestampTzGetDatum](../T/TimestampTzGetDatum.md)
   - [build_regtype_array](../b/build_regtype_array.md)
   - palloc_array
   - [BoolGetDatum](../B/BoolGetDatum.md)
   - Int64GetDatumFast
-  - tuplestore_putvalues
+  - [tuplestore_putvalues](../t/tuplestore_putvalues.md)
 - Data structures used:
-  - ReturnSetInfo
-  - HASH_SEQ_STATUS
-  - PreparedStatement
+  - [ReturnSetInfo](../R/ReturnSetInfo.md)
+  - [HASH_SEQ_STATUS](../H/HASH_SEQ_STATUS.md)
+  - [PreparedStatement](../P/PreparedStatement.md)
   - [TupleDesc](../T/TupleDesc.md)
   - prepared_queries (global hash table)
 - Called from (representative examples):

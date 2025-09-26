@@ -22,17 +22,17 @@ The `BlockRefTableWriter` is a lightweight wrapper around `BlockRefTableBuffer` 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BlockRefTableBuffer
-  - BlockRefTableComparator
-  - BlockRefTableFlush
-  - BlockRefTableRead
-  - BlockRefTableWrite
-  - BlockRefTableFileTerminate
-  - BlockRefTable
+  - [BlockRefTableBuffer](BlockRefTableBuffer.md)
+  - [BlockRefTableComparator](BlockRefTableComparator.md)
+  - [BlockRefTableFlush](BlockRefTableFlush.md)
+  - [BlockRefTableRead](BlockRefTableRead.md)
+  - [BlockRefTableWrite](BlockRefTableWrite.md)
+  - [BlockRefTableFileTerminate](BlockRefTableFileTerminate.md)
+  - [BlockRefTable](BlockRefTable.md)
 - Called from (representative examples):
-  - CreateBlockRefTableWriter
-  - BlockRefTableWriteEntry
-  - DestroyBlockRefTableWriter
+  - [CreateBlockRefTableWriter](../C/CreateBlockRefTableWriter.md)
+  - [BlockRefTableWriteEntry](BlockRefTableWriteEntry.md)
+  - [DestroyBlockRefTableWriter](../D/DestroyBlockRefTableWriter.md)
 
 ## Notes and Other Information
 - Much simpler than BlockRefTableReader as it only needs buffering for output operations

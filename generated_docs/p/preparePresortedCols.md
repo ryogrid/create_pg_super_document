@@ -28,16 +28,16 @@ This preparation is essential for the incremental sort algorithm to quickly dete
 ## Dependencies
 - Functions called/Symbols referenced:
   - castNode (macro to safely cast plan node)
-  - palloc (memory allocation)
-  - get_equality_op_for_ordering_op (finds equality operator for sort operator)
-  - get_opcode (gets function OID for operator)
-  - fmgr_info_cxt (initializes function manager info)
+  - [palloc](palloc.md) (memory allocation)
+  - [get_equality_op_for_ordering_op](../g/get_equality_op_for_ordering_op.md) (finds equality operator for sort operator)
+  - [get_opcode](../g/get_opcode.md) (gets function OID for operator)
+  - [fmgr_info_cxt](../f/fmgr_info_cxt.md) (initializes function manager info)
   - SizeForFunctionCallInfo (calculates size for function call structure)
   - InitFunctionCallInfoData (initializes function call info structure)
-  - IncrementalSort (plan node type)
-  - PresortedKeyData (structure for storing pre-sorted key information)
+  - [IncrementalSort](../I/IncrementalSort.md) (plan node type)
+  - [PresortedKeyData](../P/PresortedKeyData.md) (structure for storing pre-sorted key information)
 - Called from (representative examples):
-  - ExecIncrementalSort (main execution function for incremental sort)
+  - [ExecIncrementalSort](../E/ExecIncrementalSort.md) (main execution function for incremental sort)
 
 ## Notes and Other Information
 - This function is called once during incremental sort initialization to cache all comparison functions

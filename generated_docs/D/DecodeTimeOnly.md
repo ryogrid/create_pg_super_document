@@ -47,12 +47,12 @@ The function performs extensive validation and field mask checking to ensure con
   - [DecodeNumber](DecodeNumber.md)
   - [DecodeSpecial](DecodeSpecial.md)
   - [DecodeTimezoneAbbrev](DecodeTimezoneAbbrev.md)
-  - DetermineTimeZoneOffset
+  - [DetermineTimeZoneOffset](DetermineTimeZoneOffset.md)
   - [DetermineTimeZoneAbbrevOffset](DetermineTimeZoneAbbrevOffset.md)
-  - ValidateDate
+  - [ValidateDate](../V/ValidateDate.md)
   - [pg_tzset](../p/pg_tzset.md)
   - [pg_get_timezone_offset](../p/pg_get_timezone_offset.md)
-  - GetCurrentTimeUsec
+  - [GetCurrentTimeUsec](../G/GetCurrentTimeUsec.md)
   - [GetCurrentDateTime](../G/GetCurrentDateTime.md)
   - [j2date](../j/j2date.md) (Julian to date conversion)
   - [dt2time](../d/dt2time.md) (day time to time components)

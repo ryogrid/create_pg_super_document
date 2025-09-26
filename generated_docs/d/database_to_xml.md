@@ -23,7 +23,7 @@ This function serves as the PostgreSQL SQL function entry point for converting a
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_BOOL
-  - text_to_cstring
+  - [text_to_cstring](../t/text_to_cstring.md)
   - [database_to_xml_internal](database_to_xml_internal.md)
   - [stringinfo_to_xmltype](../s/stringinfo_to_xmltype.md)
   - PG_RETURN_XML_P

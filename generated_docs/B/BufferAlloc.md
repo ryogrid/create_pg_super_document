@@ -41,7 +41,7 @@ The function is designed to handle high concurrency scenarios and includes robus
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwnerEnlarge
+  - [ResourceOwnerEnlarge](../R/ResourceOwnerEnlarge.md)
   - [ReservePrivateRefCountEntry](../R/ReservePrivateRefCountEntry.md)
   - [InitBufferTag](../I/InitBufferTag.md)
   - [BufTableHashCode](BufTableHashCode.md)
@@ -50,10 +50,10 @@ The function is designed to handle high concurrency scenarios and includes robus
   - [BufTableInsert](BufTableInsert.md)
   - [GetBufferDescriptor](../G/GetBufferDescriptor.md)
   - [GetVictimBuffer](../G/GetVictimBuffer.md)
-  - PinBuffer
-  - UnpinBuffer
-  - StrategyFreeBuffer
-  - LockBufHdr
+  - [PinBuffer](../P/PinBuffer.md)
+  - [UnpinBuffer](../U/UnpinBuffer.md)
+  - [StrategyFreeBuffer](../S/StrategyFreeBuffer.md)
+  - [LockBufHdr](../L/LockBufHdr.md)
   - [UnlockBufHdr](../U/UnlockBufHdr.md)
 - Constants used:
   - LW_SHARED

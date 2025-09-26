@@ -24,7 +24,7 @@ This function takes no parameters but uses several key variables:
 - Functions called/Symbols referenced:
   - snprintf
   - elog (with DEBUG1 level)
-  - pg_file_exists
+  - [pg_file_exists](pg_file_exists.md)
   - [load_external_function](../l/load_external_function.md)
   - [_PG_jit_provider_init](../P/_PG_jit_provider_init.md) (dynamically loaded function)
 - Called from (representative examples):

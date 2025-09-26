@@ -25,7 +25,7 @@ The function follows PostgreSQL's standard function calling convention, acceptin
   - PG_GETARG_NUMERIC: Extracts the NUMERIC argument from function arguments
   - [duplicate_numeric](../d/duplicate_numeric.md): Creates a copy of the input numeric value
   - PG_RETURN_NUMERIC: Returns the result as a NUMERIC Datum
-  - Numeric: PostgreSQL's internal numeric data type
+  - [Numeric](../N/Numeric.md): PostgreSQL's internal numeric data type
 
 - Called from (representative examples):
   - [jsonb_agg_transfn_worker](../j/jsonb_agg_transfn_worker.md): Used in JSON aggregation operations

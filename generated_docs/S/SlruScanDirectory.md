@@ -21,13 +21,13 @@ SlruScanDirectory is a fundamental utility function in the PostgreSQL SLRU subsy
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AllocateDir
-  - ReadDir  
+  - [AllocateDir](../A/AllocateDir.md)
+  - [ReadDir](../R/ReadDir.md)  
   - [SlruCorrectSegmentFilenameLength](SlruCorrectSegmentFilenameLength.md)
   - strtoi64
   - SLRU_PAGES_PER_SEGMENT
   - elog (DEBUG2)
-  - FreeDir
+  - [FreeDir](../F/FreeDir.md)
 - Called from (representative examples):
   - [TruncateCLOG](../T/TruncateCLOG.md)
   - [DeactivateCommitTs](../D/DeactivateCommitTs.md)

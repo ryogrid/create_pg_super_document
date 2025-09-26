@@ -25,17 +25,17 @@ This function serves as the entry point for window function run condition optimi
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (type checking macro)
-  - list_length (list utility function)
-  - set_opfuncid (set operator function ID)
+  - [list_length](../l/list_length.md) (list utility function)
+  - [set_opfuncid](../s/set_opfuncid.md) (set operator function ID)
   - [func_strict](../f/func_strict.md) (check if function is strict)
   - linitial (get first list element)
   - lsecond (get second list element)
   - [list_nth](../l/list_nth.md) (get nth list element)
   - [find_window_run_conditions](../f/find_window_run_conditions.md) (analyze specific window function)
-  - OpExpr (struct type)
-  - Var (struct type)
+  - [OpExpr](../O/OpExpr.md) (struct type)
+  - [Var](../V/Var.md) (struct type)
   - [TargetEntry](../T/TargetEntry.md) (struct type)
-  - WindowFunc (struct type)
+  - [WindowFunc](../W/WindowFunc.md) (struct type)
 - Called from (representative examples):
   - [set_subquery_pathlist](../s/set_subquery_pathlist.md)
 

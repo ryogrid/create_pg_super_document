@@ -32,7 +32,7 @@ Key implementation details:
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ScanKeyInit](../S/ScanKeyInit.md)
-  - table_open/table_close
+  - [table_open](../t/table_open.md)/table_close
   - [index_open](../i/index_open.md)/index_close
   - [systable_beginscan_ordered](../s/systable_beginscan_ordered.md)/systable_endscan_ordered
   - [systable_getnext_ordered](../s/systable_getnext_ordered.md)

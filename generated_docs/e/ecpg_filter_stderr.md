@@ -23,8 +23,8 @@ The function operates by reading the result file line by line, identifying conne
 ## Dependencies
 - Functions called/Symbols referenced:
   - fopen (for file I/O operations)
-  - pg_get_line_buf (PostgreSQL utility for line reading)
-  - initStringInfo, pfree (PostgreSQL string utilities)
+  - [pg_get_line_buf](../p/pg_get_line_buf.md) (PostgreSQL utility for line reading)
+  - [initStringInfo](../i/initStringInfo.md), pfree (PostgreSQL string utilities)
   - rename (system call for file replacement)
   - Standard C string functions (strstr, memmove, strlen)
 - Called from:

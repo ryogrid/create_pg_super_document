@@ -22,14 +22,14 @@ The function is widely used throughout PostgreSQL frontend utilities and tools a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_malloc_internal (with flags = 0)
+  - [pg_malloc_internal](pg_malloc_internal.md) (with flags = 0)
 - Called from (representative examples):
-  - escape_quotes_bki (initdb)
-  - readfile (pg_ctl)
-  - parallel_exec_prog (pg_upgrade)
-  - parseVariable (pgbench)
-  - strtokx (psql)
-  - simple_string_list_append (fe_utils)
+  - [escape_quotes_bki](../e/escape_quotes_bki.md) (initdb)
+  - [readfile](../r/readfile.md) (pg_ctl)
+  - [parallel_exec_prog](parallel_exec_prog.md) (pg_upgrade)
+  - [parseVariable](parseVariable.md) (pgbench)
+  - [strtokx](../s/strtokx.md) (psql)
+  - [simple_string_list_append](../s/simple_string_list_append.md) (fe_utils)
 
 ## Notes and Other Information
 - This is the most commonly used memory allocation function in PostgreSQL frontend code

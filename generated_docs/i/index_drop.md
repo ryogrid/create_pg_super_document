@@ -32,7 +32,7 @@ The function also handles predicate lock transfers, statistics removal, and clea
 - Functions called/Symbols referenced:
   - [get_rel_persistence](../g/get_rel_persistence.md)
   - [IndexGetRelation](../I/IndexGetRelation.md)
-  - table_open
+  - [table_open](../t/table_open.md)
   - [index_open](index_open.md)
   - [CheckTableNotInUse](../C/CheckTableNotInUse.md)
   - [GetTopTransactionIdIfAny](../G/GetTopTransactionIdIfAny.md)
@@ -41,12 +41,12 @@ The function also handles predicate lock transfers, statistics removal, and clea
   - [LockRelationIdForSession](../L/LockRelationIdForSession.md)
   - [CommitTransactionCommand](../C/CommitTransactionCommand.md)
   - [StartTransactionCommand](../S/StartTransactionCommand.md)
-  - PopActiveSnapshot
+  - [PopActiveSnapshot](../P/PopActiveSnapshot.md)
   - [WaitForLockers](../W/WaitForLockers.md)
   - [index_concurrently_set_dead](index_concurrently_set_dead.md)
   - [TransferPredicateLocksToHeapRelation](../T/TransferPredicateLocksToHeapRelation.md)
   - [RelationDropStorage](../R/RelationDropStorage.md)
-  - pgstat_drop_relation
+  - [pgstat_drop_relation](../p/pgstat_drop_relation.md)
   - [index_close](index_close.md)
   - [RelationForgetRelation](../R/RelationForgetRelation.md)
   - [SearchSysCache1](../S/SearchSysCache1.md)

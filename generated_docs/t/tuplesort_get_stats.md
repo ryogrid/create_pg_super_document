@@ -29,7 +29,7 @@ Space information includes both the type (memory vs. disk) and the amount used i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - tuplesort_updatemax
+  - [tuplesort_updatemax](tuplesort_updatemax.md)
 - Constants referenced:
   - SORT_SPACE_TYPE_DISK
   - SORT_SPACE_TYPE_MEMORY
@@ -42,9 +42,9 @@ Space information includes both the type (memory vs. disk) and the amount used i
   - TSS_SORTEDONTAPE
   - TSS_FINALMERGE
 - Called from (representative examples):
-  - show_sort_info (in explain.c for EXPLAIN output)
-  - ExecSort (in nodeSort.c for execution statistics)
-  - instrumentSortedGroup (in nodeIncrementalSort.c)
+  - [show_sort_info](../s/show_sort_info.md) (in explain.c for EXPLAIN output)
+  - [ExecSort](../E/ExecSort.md) (in nodeSort.c for execution statistics)
+  - [instrumentSortedGroup](../i/instrumentSortedGroup.md) (in nodeIncrementalSort.c)
 
 ## Notes and Other Information
 - Should only be called after tuplesort_performsort() has completed

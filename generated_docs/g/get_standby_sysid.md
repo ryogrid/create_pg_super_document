@@ -22,9 +22,9 @@ This local approach is more efficient than establishing a database connection an
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ControlFileData (PostgreSQL structure representing control file contents)
+  - [ControlFileData](../C/ControlFileData.md) (PostgreSQL structure representing control file contents)
   - pg_log_info (logging function for informational messages)
-  - get_controlfile (utility function to read and parse the control file)
+  - [get_controlfile](get_controlfile.md) (utility function to read and parse the control file)
   - [pg_fatal](../p/pg_fatal.md) (function to log fatal error and exit program)
   - [pg_free](../p/pg_free.md) (PostgreSQL memory deallocation function)
 

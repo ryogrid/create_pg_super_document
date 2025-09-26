@@ -24,8 +24,8 @@ The function delegates the actual finalization work to DetachPartitionFinalize()
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetActiveSnapshot
-  - table_openrv
+  - [GetActiveSnapshot](../G/GetActiveSnapshot.md)
+  - [table_openrv](../t/table_openrv.md)
   - AccessExclusiveLock
   - [WaitForOlderSnapshots](../W/WaitForOlderSnapshots.md)
   - [DetachPartitionFinalize](../D/DetachPartitionFinalize.md)

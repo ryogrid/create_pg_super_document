@@ -32,7 +32,7 @@ The function demonstrates proper memory allocation patterns for ECPG application
 ## Dependencies
 - Functions called/Symbols referenced:
   - malloc (for memory allocation)
-  - ECPGset_var (ECPG runtime function for variable registration)
+  - [ECPGset_var](../E/ECPGset_var.md) (ECPG runtime function for variable registration)
   - [MYTYPE](../M/MYTYPE.md) (custom data type)
   - [MYNULLTYPE](../M/MYNULLTYPE.md) (custom null indicator type)
 - Called from (representative examples):

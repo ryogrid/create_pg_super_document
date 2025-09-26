@@ -44,7 +44,7 @@ This function creates a WindowAggPath node that represents the execution of wind
 
 ## Notes and Other Information
 - The input data must be sorted according to the WindowClause's PARTITION keys plus ORDER BY keys
-- WindowAgg preserves the input sort order in its output
+- [WindowAgg](../W/WindowAgg.md) preserves the input sort order in its output
 - For now, assumes no parameterization (above any joins) for simplification
 - Parallel safety depends on the relation's consider_parallel flag and subpath's parallel safety
 - The qual parameter can only be set when topwindow is true, enforced by an assertion

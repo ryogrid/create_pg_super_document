@@ -30,14 +30,14 @@ The function allocates memory for the returned strings using palloc functions, m
 ## Dependencies
 - Functions called/Symbols referenced:
   - strcspn (find position of delimiter character)
-  - palloc (allocate memory for name when value present)
-  - strlcpy (safely copy string with size limit)
-  - pstrdup (duplicate string using palloc)
+  - [palloc](../p/palloc.md) (allocate memory for name when value present)
+  - [strlcpy](../s/strlcpy.md) (safely copy string with size limit)
+  - [pstrdup](../p/pstrdup.md) (duplicate string using palloc)
 - Called from (representative examples):
-  - BootstrapModeMain (src/backend/bootstrap/bootstrap.c:233)
-  - PostmasterMain (src/backend/postmaster/postmaster.c:617)
-  - process_postgres_switches (src/backend/tcop/postgres.c:3940)
-  - TransformGUCArray (src/backend/utils/misc/guc.c:6438)
+  - [BootstrapModeMain](../B/BootstrapModeMain.md) (src/backend/bootstrap/bootstrap.c:233)
+  - [PostmasterMain](PostmasterMain.md) (src/backend/postmaster/postmaster.c:617)
+  - [process_postgres_switches](../p/process_postgres_switches.md) (src/backend/tcop/postgres.c:3940)
+  - [TransformGUCArray](../T/TransformGUCArray.md) (src/backend/utils/misc/guc.c:6438)
 
 ## Notes and Other Information
 - The function is not fully GNU long options compliant but provides similar functionality

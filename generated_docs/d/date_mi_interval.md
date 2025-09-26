@@ -29,7 +29,7 @@ The result is returned as a timestamp since subtracting an interval from a date 
   - [date2timestamp](date2timestamp.md) - Converts date to timestamp
   - `DirectFunctionCall2` - Direct function call mechanism
   - [timestamp_mi_interval](../t/timestamp_mi_interval.md) - Timestamp interval subtraction function
-  - `TimestampGetDatum`, `PointerGetDatum` - Datum conversion functions
+  - `[TimestampGetDatum](../T/TimestampGetDatum.md)`, `PointerGetDatum` - Datum conversion functions
   - `DateADT`, `Interval`, `Timestamp` - Data type definitions
 - Called from (representative examples):
   - No direct references found in the codebase

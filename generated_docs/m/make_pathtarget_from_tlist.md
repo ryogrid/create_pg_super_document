@@ -25,8 +25,8 @@ The function iterates through each TargetEntry in the input list, extracting the
   - [PathTarget](../P/PathTarget.md) (data structure)
   - makeNode (node creation)
   - [palloc](../p/palloc.md) (memory allocation)
-  - list_length (list utility)
-  - lappend (list append)
+  - [list_length](../l/list_length.md) (list utility)
+  - [lappend](../l/lappend.md) (list append)
   - VOLATILITY_UNKNOWN (volatility constant)
 - Called from (representative examples):
   - create_pathtarget

@@ -25,7 +25,7 @@ The function accesses parameters through an array index stored in the ExprEvalSt
 - Functions called/Symbols referenced:
   - [ExecSetParamPlan](ExecSetParamPlan.md)
   - [ParamExecData](../P/ParamExecData.md)
-  - ExprEvalStep
+  - [ExprEvalStep](ExprEvalStep.md)
 - Called from (representative examples):
   - [ExecInterpExpr](ExecInterpExpr.md)
   - [FunctionReturningBool](../F/FunctionReturningBool.md) (via JIT compilation)

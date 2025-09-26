@@ -23,16 +23,16 @@ Dynamic shared memory segments in PostgreSQL are used for inter-process communic
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert (assertion macro)
-  - dsm_segment (structure type)
+  - [dsm_segment](dsm_segment.md) (structure type)
 - Called from (representative examples):
-  - GetSessionDsmHandle
-  - AttachSession
-  - InitializeParallelDSM
-  - ParallelWorkerMain
-  - dsa_create_ext
-  - dsa_attach
-  - get_segment_by_index
-  - make_new_segment
+  - [GetSessionDsmHandle](../G/GetSessionDsmHandle.md)
+  - [AttachSession](../A/AttachSession.md)
+  - [InitializeParallelDSM](../I/InitializeParallelDSM.md)
+  - [ParallelWorkerMain](../P/ParallelWorkerMain.md)
+  - [dsa_create_ext](dsa_create_ext.md)
+  - [dsa_attach](dsa_attach.md)
+  - [get_segment_by_index](../g/get_segment_by_index.md)
+  - [make_new_segment](../m/make_new_segment.md)
 
 ## Notes and Other Information
 - The function assumes that seg->mapped_address is not NULL, enforced by an assertion

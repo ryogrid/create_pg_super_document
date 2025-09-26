@@ -27,7 +27,7 @@ The resulting TSVector contains lexemes without position or weight information (
   - [deconstruct_array_builtin](../d/deconstruct_array_builtin.md) - Decompose array into elements
   - VARSIZE - Get size of variable-length data
   - ereport - Report errors for validation failures
-  - qsort - Sort lexemes alphabetically
+  - qsort - [Sort](../S/Sort.md) lexemes alphabetically
   - [qunique](../q/qunique.md) - Remove duplicate lexemes
   - [compare_text_lexemes](../c/compare_text_lexemes.md) - Comparison function for lexeme sorting
   - CALCDATASIZE - Calculate required TSVector size

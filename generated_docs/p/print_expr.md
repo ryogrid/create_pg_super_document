@@ -22,22 +22,22 @@ The `print_expr` function is a comprehensive expression printing utility that re
 - Functions called/Symbols referenced:
   - IsA: PostgreSQL macro for type checking nodes
   - rt_fetch: Retrieves a range table entry by index
-  - get_rte_attribute_name: Gets the name of an attribute from a range table entry
-  - getTypeOutputInfo: Gets output function information for a data type
-  - OidOutputFunctionCall: Calls the output function for a data type
-  - get_opname: Gets the name of an operator by OID
-  - get_leftop/get_rightop: Extract left and right operands from expressions
-  - get_func_name: Gets the name of a function by OID
+  - [get_rte_attribute_name](../g/get_rte_attribute_name.md): Gets the name of an attribute from a range table entry
+  - [getTypeOutputInfo](../g/getTypeOutputInfo.md): Gets output function information for a data type
+  - [OidOutputFunctionCall](../O/OidOutputFunctionCall.md): Calls the output function for a data type
+  - [get_opname](../g/get_opname.md): Gets the name of an operator by OID
+  - [get_leftop](../g/get_leftop.md)/get_rightop: Extract left and right operands from expressions
+  - [get_func_name](../g/get_func_name.md): Gets the name of a function by OID
   - printf: Standard C library function for formatted output
-  - pfree: Frees allocated memory
-  - list_length: Gets the length of a PostgreSQL list
+  - [pfree](pfree.md): Frees allocated memory
+  - [list_length](../l/list_length.md): Gets the length of a PostgreSQL list
   - foreach/lfirst/lnext: PostgreSQL list iteration macros
   - INNER_VAR/OUTER_VAR/INDEX_VAR: Special variable number constants
 
 - Called from (representative examples):
-  - print_expr: Recursive self-calls for sub-expressions
-  - print_pathkeys: Used to print expressions within path keys
-  - print_tl: Used to print expressions within target lists
+  - [print_expr](print_expr.md): Recursive self-calls for sub-expressions
+  - [print_pathkeys](print_pathkeys.md): Used to print expressions within path keys
+  - [print_tl](print_tl.md): Used to print expressions within target lists
   - nodeDisplay: Header declaration and debugging macros
 
 ## Notes and Other Information

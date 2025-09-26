@@ -19,7 +19,7 @@ ExecWorkTableScan implements the primary execution logic for WorkTableScan plan 
 - Functions called/Symbols referenced:
   - castNode (type casting with assertion)
   - [DatumGetPointer](../D/DatumGetPointer.md) (extracts pointer from Datum)
-  - ExecAssignScanType (assigns scan tuple descriptor)
+  - [ExecAssignScanType](ExecAssignScanType.md) (assigns scan tuple descriptor)
   - [ExecGetResultType](ExecGetResultType.md) (gets result tuple type from plan state)
   - [ExecAssignScanProjectionInfo](ExecAssignScanProjectionInfo.md) (initializes projection information)
   - [ExecScan](ExecScan.md) (generic scan execution framework)
@@ -27,7 +27,7 @@ ExecWorkTableScan implements the primary execution logic for WorkTableScan plan 
   - [WorkTableScanRecheck](../W/WorkTableScanRecheck.md) (recheck method for EvalPlanQual)
 - Types used:
   - [WorkTableScanState](../W/WorkTableScanState.md) (scan execution state)
-  - WorkTableScan (plan node structure)
+  - [WorkTableScan](../W/WorkTableScan.md) (plan node structure)
   - [EState](EState.md) (executor state)
   - [ParamExecData](../P/ParamExecData.md) (executor parameter data)
   - [RecursiveUnionState](../R/RecursiveUnionState.md) (recursive union execution state)

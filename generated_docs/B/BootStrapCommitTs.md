@@ -28,7 +28,7 @@ This function takes no parameters.
 - Functions called/Symbols referenced:
   - None (function body is empty)
 - Called from (representative examples):
-  - BootStrapXLOG
+  - [BootStrapXLOG](BootStrapXLOG.md)
 
 ## Notes and Other Information
 - This function must be called exactly ONCE during system installation

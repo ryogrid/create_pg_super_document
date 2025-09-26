@@ -21,13 +21,13 @@ The function handles runtime key evaluation, manages array keys for IN-clause ex
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - InstrStartNode (for instrumentation support)
+  - [InstrStartNode](../I/InstrStartNode.md) (for instrumentation support)
   - [ExecReScan](../E/ExecReScan.md) (for runtime key setup)
   - [tbm_create](../t/tbm_create.md) (to create new TID bitmap)
   - [index_getbitmap](../i/index_getbitmap.md) (to collect TIDs from index)
   - [ExecIndexAdvanceArrayKeys](../E/ExecIndexAdvanceArrayKeys.md) (for array key iteration)
   - [index_rescan](../i/index_rescan.md) (to reset index scan for array keys)
-  - InstrStopNode (for instrumentation support)
+  - [InstrStopNode](../I/InstrStopNode.md) (for instrumentation support)
 - Called from (representative examples):
   - [MultiExecProcNode](MultiExecProcNode.md) (from the executor framework)
 

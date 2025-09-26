@@ -25,7 +25,7 @@ BASH_ARGC=([0]="0")
 BASH_ARGV=()
 BASH_CMDS=()
 BASH_COMPAT=51
-BASH_EXECUTION_STRING=$'source /home/ryo/.claude/shell-snapshots/snapshot-bash-1758658980143-6oc6jy.sh && eval \'python3 scripts/mcp_tool.py return_document GetNumRegisteredWaitEvents "# GetNumRegisteredWaitEvents\n\n## Overview\nGetNumRegisteredWaitEvents is a simple accessor function that returns the number of events currently registered in a WaitEventSet.\n\n## Definition\n```c\nint GetNumRegisteredWaitEvents(WaitEventSet *set)\n```\n\n## Detailed Description\nGetNumRegisteredWaitEvents provides a straightforward way to query the number of events that have been registered in a given WaitEventSet. The function simply returns the nevents field from the WaitEventSet structure, which tracks the current count of registered events.\n\nThis function is useful for code that needs to know how many events are currently being monitored in a wait set, perhaps for logging, debugging, or making decisions about whether to add more events or create additional wait sets.\n\n## Parameters / Member Variables\n- `set`: WaitEventSet to query for the number of registered events\n\n## Dependencies\n- Functions called/Symbols referenced:\n  - WaitEventSet (struct type)\n- Called from (representative examples):\n  - ExecAppendAsyncEventWait\n\n## Notes and Other Information\n- Returns the current number of events registered in the WaitEventSet\n- This is a simple getter function with no side effects\n- The count includes all types of registered events (sockets, latches, postmaster death, etc.)\n- Useful for monitoring and debugging wait event usage\n- The returned count reflects the current state and may change if events are added or removed from the set"\' < /dev/null && pwd -P >| /tmp/claude-b484-cwd'
+BASH_EXECUTION_STRING=$'source /home/ryo/.claude/shell-snapshots/snapshot-bash-1758658980143-6oc6jy.sh && eval \'python3 scripts/mcp_tool.py return_document GetNumRegisteredWaitEvents "# GetNumRegisteredWaitEvents\n\n## Overview\nGetNumRegisteredWaitEvents is a simple accessor function that returns the number of events currently registered in a WaitEventSet.\n\n## Definition\n```c\nint GetNumRegisteredWaitEvents(WaitEventSet *set)\n```\n\n## Detailed Description\nGetNumRegisteredWaitEvents provides a straightforward way to query the number of events that have been registered in a given WaitEventSet. The function simply returns the nevents field from the WaitEventSet structure, which tracks the current count of registered events.\n\nThis function is useful for code that needs to know how many events are currently being monitored in a wait set, perhaps for logging, debugging, or making decisions about whether to add more events or create additional wait sets.\n\n## Parameters / Member Variables\n- `set`: WaitEventSet to query for the number of registered events\n\n## Dependencies\n- Functions called/Symbols referenced:\n  - [WaitEventSet](../W/WaitEventSet.md) (struct type)\n- Called from (representative examples):\n  - [ExecAppendAsyncEventWait](../E/ExecAppendAsyncEventWait.md)\n\n## Notes and Other Information\n- Returns the current number of events registered in the WaitEventSet\n- This is a simple getter function with no side effects\n- The count includes all types of registered events (sockets, latches, postmaster death, etc.)\n- Useful for monitoring and debugging wait event usage\n- The returned count reflects the current state and may change if events are added or removed from the set"\' < /dev/null && pwd -P >| /tmp/claude-b484-cwd'
 BASH_LINENO=()
 BASH_SOURCE=()
 BASH_VERSINFO=([0]="5" [1]="1" [2]="16" [3]="1" [4]="release" [5]="x86_64-pc-linux-gnu")
@@ -123,9 +123,9 @@ gawkpath_prepend ()
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WaitEventSet (struct type)
+  - [WaitEventSet](../W/WaitEventSet.md) (struct type)
 - Called from (representative examples):
-  - ExecAppendAsyncEventWait
+  - [ExecAppendAsyncEventWait](../E/ExecAppendAsyncEventWait.md)
 
 ## Notes and Other Information
 - Returns the current number of events registered in the WaitEventSet

@@ -26,9 +26,9 @@ This function takes no parameters.
 - Functions called/Symbols referenced:
   - [hash_seq_init](../h/hash_seq_init.md)
   - [hash_seq_search](../h/hash_seq_search.md)
-  - PortalDrop
-  - HASH_SEQ_STATUS
-  - PortalHashEnt
+  - [PortalDrop](PortalDrop.md)
+  - [HASH_SEQ_STATUS](../H/HASH_SEQ_STATUS.md)
+  - [PortalHashEnt](PortalHashEnt.md)
 - Called from (representative examples):
   - [PostgresMain](PostgresMain.md)
 

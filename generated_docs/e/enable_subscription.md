@@ -29,13 +29,13 @@ This function is part of the pg_createsubscriber utility and is responsible for 
   - [PQresultErrorMessage](../P/PQresultErrorMessage.md) (retrieves error messages on failure)
   - [disconnect_database](../d/disconnect_database.md) (handles database disconnection on errors)
   - [PQfreemem](../P/PQfreemem.md) (frees escaped identifier memory)
-  - createPQExpBuffer/destroyPQExpBuffer (manages query buffer)
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)/destroyPQExpBuffer (manages query buffer)
 - Called from (representative examples):
   - [setup_subscriber](../s/setup_subscriber.md) (main subscription setup workflow)
 
 ## Notes and Other Information
 - The function is marked as static, indicating it's only used within the pg_createsubscriber.c file
-- Includes dry-run support through the global dry_run variable - when enabled, the command is logged but not executed
+- Includes dry-run support through the global dry_run variable - [when](../w/when.md) enabled, the command is logged but not executed
 - Uses proper SQL identifier escaping to prevent SQL injection attacks
 - Implements robust error handling that terminates the database connection on command failure
 - Part of the larger pg_createsubscriber utility workflow for converting a physical replica to a logical subscriber

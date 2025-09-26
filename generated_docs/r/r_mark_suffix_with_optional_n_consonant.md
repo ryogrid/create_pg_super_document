@@ -32,7 +32,7 @@ This function is crucial for correctly identifying and processing Turkish suffix
   - g_vowel (vowel group definition)
 
 - Called from (representative examples):
-  - r_mark_nUn (suffix marking function)
+  - [r_mark_nUn](r_mark_nUn.md) (suffix marking function)
   - [r_mark_ncA](r_mark_ncA.md) (suffix marking function)
 
 ## Notes and Other Information

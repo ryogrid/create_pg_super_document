@@ -30,7 +30,7 @@ The function performs a loop that:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - strlcpy
+  - [strlcpy](../s/strlcpy.md)
   - [makeObjectName](../m/makeObjectName.md)
   - GetSysCacheOid2
   - NAMEDATALEN (constant)

@@ -48,7 +48,7 @@ The structure is used primarily in the relation cache system to store precompute
 - Called from (representative examples):
   - [CheckCmdReplicaIdentity](../C/CheckCmdReplicaIdentity.md) (src/backend/executor/execReplication.c:658)
   - [RelationBuildPublicationDesc](../R/RelationBuildPublicationDesc.md) (src/backend/utils/cache/relcache.c:5728)
-  - RelationData (src/include/utils/rel.h:168)
+  - [RelationData](../R/RelationData.md) (src/include/utils/rel.h:168)
   - IndexAttrBitmapKind (src/include/utils/relcache.h:81)
 
 ## Notes and Other Information

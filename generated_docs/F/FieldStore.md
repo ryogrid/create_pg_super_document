@@ -39,11 +39,11 @@ While the parser generates FieldStores with single-element lists for individual 
 - Functions called/Symbols referenced:
   - (No direct symbol references)
 - Called from (representative examples):
-  - ExecInitExprRec
-  - transformAssignmentIndirection
-  - process_matched_tle
-  - get_assignment_input
-  - isAssignmentIndirectionExpr
+  - [ExecInitExprRec](../E/ExecInitExprRec.md)
+  - [transformAssignmentIndirection](../t/transformAssignmentIndirection.md)
+  - [process_matched_tle](../p/process_matched_tle.md)
+  - [get_assignment_input](../g/get_assignment_input.md)
+  - [isAssignmentIndirectionExpr](../i/isAssignmentIndirectionExpr.md)
 
 ## Notes and Other Information
 - The operation is non-destructive - the input tuple is not modified, a new tuple is created

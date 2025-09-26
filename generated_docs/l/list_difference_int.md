@@ -26,7 +26,7 @@ The function iterates through each integer element in `list1` and checks if that
   - [list_copy](list_copy.md) - Creates a copy of list1 when list2 is NIL
   - [list_member_int](list_member_int.md) - Checks integer membership in list2
   - `lfirst_int` - Extracts integer values from list cells
-  - `lappend_int` - Appends integer elements to the result list
+  - `[lappend_int](lappend_int.md)` - Appends integer elements to the result list
   - [check_list_invariants](../c/check_list_invariants.md) - Validates the final result list
 - Called from (representative examples):
   - [reorder_grouping_sets](../r/reorder_grouping_sets.md) (src/backend/optimizer/plan/planner.c:3201)

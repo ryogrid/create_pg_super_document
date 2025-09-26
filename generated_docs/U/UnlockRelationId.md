@@ -23,8 +23,8 @@ This function unlocks a relation lock identified by a LockRelId structure and lo
   - SET_LOCKTAG_RELATION (macro to set up lock tag for relation)
   - [LockRelease](../L/LockRelease.md) (performs the actual lock release)
 - Types referenced:
-  - LockRelId (structure containing database and relation IDs)
-  - LOCKTAG (lock tag structure)
+  - [LockRelId](../L/LockRelId.md) (structure containing database and relation IDs)
+  - [LOCKTAG](../L/LOCKTAG.md) (lock tag structure)
   - LOCKMODE (enumeration of lock modes)
 - Called from (representative examples):
   - [relation_close](../r/relation_close.md) (in relation.c:215)

@@ -22,7 +22,7 @@ BufTableShmemSize calculates the amount of shared memory required to allocate a 
   - [hash_estimate_size](../h/hash_estimate_size.md)
   - BufferLookupEnt
 - Called from (representative examples):
-  - StrategyShmemSize
+  - [StrategyShmemSize](../S/StrategyShmemSize.md)
   - [ResourceOwnerForgetBufferIO](../R/ResourceOwnerForgetBufferIO.md)
 
 ## Notes and Other Information

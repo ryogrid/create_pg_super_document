@@ -25,7 +25,7 @@ The ModifyTable node is one of the most complex plan nodes in PostgreSQL due to 
 - Functions called/Symbols referenced:
   - [create_plan_recurse](create_plan_recurse.md)
   - [apply_tlist_labeling](../a/apply_tlist_labeling.md)
-  - make_modifytable
+  - [make_modifytable](../m/make_modifytable.md)
   - [copy_generic_path_info](copy_generic_path_info.md)
   - CP_EXACT_TLIST (flag constant)
 - Called from (representative examples):

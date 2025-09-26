@@ -25,7 +25,7 @@ The pull_vars_context structure serves as a walker context for the pull_vars_wal
 ## Dependencies
 - Functions called/Symbols referenced:
   - [List](../L/List.md) (typedef)
-  - Var (struct)
+  - [Var](../V/Var.md) (struct)
   - [PlaceHolderVar](../P/PlaceHolderVar.md) (struct)
 - Called from (representative examples):
   - [pull_vars_of_level](pull_vars_of_level.md)

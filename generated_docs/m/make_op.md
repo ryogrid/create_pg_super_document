@@ -28,7 +28,7 @@ The function distinguishes between prefix operators (when ltree is NULL) and bin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - exprType
+  - [exprType](../e/exprType.md)
   - [left_oper](../l/left_oper.md)
   - [oper](../o/oper.md)
   - [op_signature_string](../o/op_signature_string.md)
@@ -41,8 +41,8 @@ The function distinguishes between prefix operators (when ltree is NULL) and bin
   - [ReleaseSysCache](../R/ReleaseSysCache.md)
 - Called from (representative examples):
   - [transformAExprOp](../t/transformAExprOp.md)
-  - transformAExprNullIf
-  - transformAExprIn
+  - [transformAExprNullIf](../t/transformAExprNullIf.md)
+  - [transformAExprIn](../t/transformAExprIn.md)
   - [make_row_comparison_op](make_row_comparison_op.md)
   - [make_distinct_op](make_distinct_op.md)
 

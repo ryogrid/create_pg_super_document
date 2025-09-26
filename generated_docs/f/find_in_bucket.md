@@ -26,16 +26,16 @@ This is a fundamental building block for hash table lookup operations, providing
 ## Dependencies
 - Functions called/Symbols referenced:
   - DsaPointerIsValid (checks if DSA pointer is valid)
-  - dsa_get_address (converts DSA pointer to local memory address)
-  - equal_keys (compares two keys for equality)
+  - [dsa_get_address](../d/dsa_get_address.md) (converts DSA pointer to local memory address)
+  - [equal_keys](../e/equal_keys.md) (compares two keys for equality)
   - ENTRY_FROM_ITEM (macro to extract user entry from item wrapper)
 - Types used:
-  - dshash_table
-  - dshash_table_item
+  - [dshash_table](../d/dshash_table.md)
+  - [dshash_table_item](../d/dshash_table_item.md)
   - dsa_pointer
 - Called from (representative examples):
-  - dshash_find
-  - dshash_find_or_insert
+  - [dshash_find](../d/dshash_find.md)
+  - [dshash_find_or_insert](../d/dshash_find_or_insert.md)
   - BUCKET_FOR_HASH (indirectly)
 
 ## Notes and Other Information

@@ -19,7 +19,7 @@ This function unregisters a function from PostgreSQL's statistics tracking subsy
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_drop_transactional
+  - [pgstat_drop_transactional](pgstat_drop_transactional.md)
   - PGSTAT_KIND_FUNCTION
   - MyDatabaseId
 - Called from (representative examples):

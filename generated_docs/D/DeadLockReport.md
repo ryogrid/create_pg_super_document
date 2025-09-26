@@ -26,14 +26,14 @@ This function takes no parameters but operates on global state:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initStringInfo
-  - resetStringInfo  
-  - DescribeLockTag
-  - appendStringInfoChar
-  - appendStringInfo
+  - [initStringInfo](../i/initStringInfo.md)
+  - [resetStringInfo](../r/resetStringInfo.md)  
+  - [DescribeLockTag](DescribeLockTag.md)
+  - [appendStringInfoChar](../a/appendStringInfoChar.md)
+  - [appendStringInfo](../a/appendStringInfo.md)
   - [GetLockmodeName](../G/GetLockmodeName.md)
-  - appendBinaryStringInfo
-  - pgstat_get_backend_current_activity
+  - [appendBinaryStringInfo](../a/appendBinaryStringInfo.md)
+  - [pgstat_get_backend_current_activity](../p/pgstat_get_backend_current_activity.md)
   - [pgstat_report_deadlock](../p/pgstat_report_deadlock.md)
   - ereport
   - [errcode](../e/errcode.md)

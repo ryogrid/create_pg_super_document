@@ -27,12 +27,12 @@ The function is designed to handle race conditions gracefully - if the target pr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire/LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease
   - GET_VXID_FROM_PGPROC
-  - SendProcSignal
+  - [SendProcSignal](SendProcSignal.md)
 - Called from (representative examples):
-  - CancelVirtualTransaction (in storage/ipc/procarray.c)
-  - ResolveRecoveryConflictWithLock (in storage/ipc/standby.c)
+  - [CancelVirtualTransaction](../C/CancelVirtualTransaction.md) (in storage/ipc/procarray.c)
+  - [ResolveRecoveryConflictWithLock](../R/ResolveRecoveryConflictWithLock.md) (in storage/ipc/standby.c)
 
 ## Notes and Other Information
 - Returns the PID of the signaled process, or 0 if the target virtual transaction was not found

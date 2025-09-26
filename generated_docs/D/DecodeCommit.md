@@ -36,14 +36,14 @@ The two-phase parameter determines the commit path:
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetOrigin
-  - SnapBuildCommitTxn
+  - [SnapBuildCommitTxn](../S/SnapBuildCommitTxn.md)
   - [DecodeTXNNeedSkip](DecodeTXNNeedSkip.md)
   - [ReorderBufferForget](../R/ReorderBufferForget.md)
   - [ReorderBufferCommitChild](../R/ReorderBufferCommitChild.md)
   - [ReorderBufferFinishPrepared](../R/ReorderBufferFinishPrepared.md)
   - [SnapBuildGetTwoPhaseAt](../S/SnapBuildGetTwoPhaseAt.md)
   - [ReorderBufferCommit](../R/ReorderBufferCommit.md)
-  - UpdateDecodingStats
+  - [UpdateDecodingStats](../U/UpdateDecodingStats.md)
 - Called from (representative examples):
   - [xact_decode](../x/xact_decode.md) (at line 242)
 

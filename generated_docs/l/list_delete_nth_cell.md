@@ -25,7 +25,7 @@ The deletion operation has O(n) time complexity proportional to the distance fro
   - [check_list_invariants](../c/check_list_invariants.md) - Validates list structure integrity (called at start and optionally at end)
   - [list_free](list_free.md) - Frees the entire list when deleting the last element
   - memmove - Moves remaining elements when not in debug mode
-  - GetMemoryChunkContext - Gets the memory context of the list for new allocations
+  - [GetMemoryChunkContext](../G/GetMemoryChunkContext.md) - Gets the memory context of the list for new allocations
   - [MemoryContextAlloc](../M/MemoryContextAlloc.md) - Allocates new memory for list elements in debug mode
   - memcpy - Copies list elements in debug mode
   - [pfree](../p/pfree.md) - Frees old element array in debug mode
@@ -35,7 +35,7 @@ The deletion operation has O(n) time complexity proportional to the distance fro
 - Called from (representative examples):
   - [MergeAttributes](../M/MergeAttributes.md) - Used in table command processing
   - [list_delete_cell](list_delete_cell.md) - Higher-level function for deleting cells by reference
-  - list_delete_first - Convenience function for deleting the first element
+  - [list_delete_first](list_delete_first.md) - Convenience function for deleting the first element
   - [process_equivalence](../p/process_equivalence.md) - Used in query optimization equivalence class processing
   - [sort_inner_and_outer](../s/sort_inner_and_outer.md) - Used in join path optimization
   - foreach_delete_current - Macro for safe deletion during iteration

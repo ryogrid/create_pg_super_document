@@ -32,9 +32,9 @@ The function handles complex ownership scenarios such as domain constraints (whi
   - [object_ownercheck](../o/object_ownercheck.md)
   - [aclcheck_error](../a/aclcheck_error.md)
   - [aclcheck_error_type](../a/aclcheck_error_type.md)
-  - superuser_arg
+  - [superuser_arg](../s/superuser_arg.md)
   - [has_createrole_privilege](../h/has_createrole_privilege.md)
-  - is_admin_of_role
+  - [is_admin_of_role](../i/is_admin_of_role.md)
   - [SearchSysCache1](../S/SearchSysCache1.md)
   - [typenameTypeId](../t/typenameTypeId.md)
   - [format_type_be](../f/format_type_be.md)

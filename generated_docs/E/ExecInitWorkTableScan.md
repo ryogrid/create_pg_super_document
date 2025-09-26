@@ -21,13 +21,13 @@ ExecInitWorkTableScan performs the initialization phase for WorkTableScan plan n
 - Functions called/Symbols referenced:
   - makeNode (creates new WorkTableScanState node)
   - outerPlan/innerPlan (macros to check for child plans) 
-  - ExecAssignExprContext (assigns expression evaluation context)
+  - [ExecAssignExprContext](ExecAssignExprContext.md) (assigns expression evaluation context)
   - [ExecInitResultTypeTL](ExecInitResultTypeTL.md) (initializes result tuple type from target list)
   - [ExecInitScanTupleSlot](ExecInitScanTupleSlot.md) (initializes scan tuple slot)
   - [ExecInitQual](ExecInitQual.md) (initializes qualification expressions)
   - [ExecWorkTableScan](ExecWorkTableScan.md) (sets as the execution procedure)
 - Types used:
-  - WorkTableScan (plan node structure)
+  - [WorkTableScan](../W/WorkTableScan.md) (plan node structure)
   - [WorkTableScanState](../W/WorkTableScanState.md) (execution state structure)
   - [EState](EState.md) (executor state)
   - TTSOpsMinimalTuple (tuple slot operations)

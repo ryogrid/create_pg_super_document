@@ -38,9 +38,9 @@ The function supports both local and shared radix tree configurations and provid
   - rt_free (radix tree cleanup)
   - [palloc](../p/palloc.md), pfree (memory allocation/deallocation)
   - elog (logging functionality)
-  - LWLockNewTrancheId, LWLockRegisterTranche, dsa_create, dsa_detach (shared memory operations)
+  - [LWLockNewTrancheId](../L/LWLockNewTrancheId.md), LWLockRegisterTranche, dsa_create, dsa_detach (shared memory operations)
 - Called from (representative examples):
-  - test_radixtree (main test function, called multiple times with different parameters)
+  - [test_radixtree](test_radixtree.md) (main test function, called multiple times with different parameters)
 
 ## Notes and Other Information
 - This is a static function used internally within the test_radixtree module

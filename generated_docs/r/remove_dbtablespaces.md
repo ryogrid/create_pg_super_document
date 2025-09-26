@@ -30,10 +30,10 @@ The function handles errors gracefully - if a directory doesn't exist or can't b
   -  - Check if directory exists and get file status
   -  - Verify path is a directory
   -  - Recursively remove directory and contents
-  -  - Append OID to list
+  -  - [Append](../A/Append.md) OID to list
   -  - Begin WAL record construction
   -  - Register data for WAL record
-  -  - Insert WAL record
+  -  - [Insert](../I/Insert.md) WAL record
   -  - End table scan
   -  - Close table
   -  - Free list memory

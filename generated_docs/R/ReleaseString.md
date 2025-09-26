@@ -20,10 +20,10 @@ This function serves as a resource release callback in the PostgreSQL resource o
 ## Dependencies
 - Functions called/Symbols referenced:
   - elog (for logging the notice message)
-  - DatumGetPointer (to extract the pointer from the Datum)
+  - [DatumGetPointer](../D/DatumGetPointer.md) (to extract the pointer from the Datum)
   - NOTICE (log level constant)
 - Called from (representative examples):
-  - test_resowner_priorities (used as callback in resource owner registration)
+  - [test_resowner_priorities](../t/test_resowner_priorities.md) (used as callback in resource owner registration)
 
 ## Notes and Other Information
 - This function is part of the test_resowner module, specifically designed for testing resource owner functionality

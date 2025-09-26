@@ -30,23 +30,23 @@ The function includes protection against unexpected usage during logical decodin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Relation (table relation structure)
+  - [Relation](../R/Relation.md) (table relation structure)
   - ItemPointer (tuple identifier type)
-  - Snapshot (visibility testing context)
-  - TupleTableSlot (tuple storage)
+  - [Snapshot](../S/Snapshot.md) (visibility testing context)
+  - [TupleTableSlot](../T/TupleTableSlot.md) (tuple storage)
   - TransactionIdIsValid (transaction validation)
   - CheckXidAlive (logical decoding check)
   - bsysscan (system scan flag)
   - rd_tableam->tuple_fetch_row_version (table access method function pointer)
 - Called from (representative examples):
-  - GetTupleForTrigger (src/backend/commands/trigger.c:3497)
-  - AfterTriggerExecute (src/backend/commands/trigger.c:4456, 4498)
-  - EvalPlanQualFetchRowMark (src/backend/executor/execMain.c:2709)
-  - ExecCheckTIDVisible (src/backend/executor/nodeModifyTable.c:354)
-  - ExecDelete (src/backend/executor/nodeModifyTable.c:1721)
-  - ExecUpdate (src/backend/executor/nodeModifyTable.c:2461)
-  - ExecMergeMatched (src/backend/executor/nodeModifyTable.c:2953, 3281)
-  - TidNext (src/backend/executor/nodeTidscan.c:380)
+  - [GetTupleForTrigger](../G/GetTupleForTrigger.md) (src/backend/commands/trigger.c:3497)
+  - [AfterTriggerExecute](../A/AfterTriggerExecute.md) (src/backend/commands/trigger.c:4456, 4498)
+  - [EvalPlanQualFetchRowMark](../E/EvalPlanQualFetchRowMark.md) (src/backend/executor/execMain.c:2709)
+  - [ExecCheckTIDVisible](../E/ExecCheckTIDVisible.md) (src/backend/executor/nodeModifyTable.c:354)
+  - [ExecDelete](../E/ExecDelete.md) (src/backend/executor/nodeModifyTable.c:1721)
+  - [ExecUpdate](../E/ExecUpdate.md) (src/backend/executor/nodeModifyTable.c:2461)
+  - [ExecMergeMatched](../E/ExecMergeMatched.md) (src/backend/executor/nodeModifyTable.c:2953, 3281)
+  - [TidNext](../T/TidNext.md) (src/backend/executor/nodeTidscan.c:380)
 
 ## Notes and Other Information
 - This is an inline function defined in the tableam.h header file

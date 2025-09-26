@@ -27,7 +27,7 @@ RetrieveDataDirCreatePerm determines the permission mode of the PostgreSQL data 
   - [PQnfields](../P/PQnfields.md)
   - [PQgetvalue](../P/PQgetvalue.md)
   - [PQclear](../P/PQclear.md)
-  - SetDataDirectoryCreatePerm
+  - [SetDataDirectoryCreatePerm](../S/SetDataDirectoryCreatePerm.md)
   - sscanf
   - pg_log_error
   - MINIMUM_VERSION_FOR_GROUP_ACCESS

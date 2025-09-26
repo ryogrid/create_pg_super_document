@@ -34,7 +34,7 @@ This function serves as the entry point for heap table scanning operations. It a
   - [PredicateLockRelation](../P/PredicateLockRelation.md)
   - RelationGetRelid
   - [initscan](../i/initscan.md)
-  - read_stream_begin_relation
+  - [read_stream_begin_relation](../r/read_stream_begin_relation.md)
   - [heap_scan_stream_read_next_parallel](heap_scan_stream_read_next_parallel.md)
   - [heap_scan_stream_read_next_serial](heap_scan_stream_read_next_serial.md)
 - Called from (representative examples):

@@ -40,7 +40,7 @@ The function ensures that the tree remains consistent and accessible even after 
   - [LockBuffer](../L/LockBuffer.md)
   - RelationGetRelationName
   - ereport
-  - lappend
+  - [lappend](../l/lappend.md)
   - [palloc](../p/palloc.md)
 - Called from (representative examples):
   - [gistdoinsert](gistdoinsert.md)

@@ -25,8 +25,8 @@ This function takes no parameters.
   - fopen
   - bail
   - [string_matches_pattern](../s/string_matches_pattern.md)
-  - pg_malloc
-  - _resultmap (struct type)
+  - [pg_malloc](../p/pg_malloc.md)
+  - [_resultmap](../r/_resultmap.md) (struct type)
 - Called from (representative examples):
   - [initialize_environment](../i/initialize_environment.md)
 

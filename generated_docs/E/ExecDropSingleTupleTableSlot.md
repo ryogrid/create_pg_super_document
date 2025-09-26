@@ -22,7 +22,7 @@ This function should ONLY be used on slots created with MakeSingleTupleTableSlot
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecClearTuple
+  - [ExecClearTuple](ExecClearTuple.md)
   - ReleaseTupleDesc
   - TTS_FIXED
   - [pfree](../p/pfree.md)

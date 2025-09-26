@@ -36,7 +36,7 @@ The evaluation placement logic for PlaceHolderVars is sophisticated:
   - [adjust_standard_join_alias_expression](adjust_standard_join_alias_expression.md)
   - [pull_varnos_of_level](../p/pull_varnos_of_level.md)
   - bms_is_empty, bms_del_member, bms_copy
-  - get_relids_for_join
+  - [get_relids_for_join](../g/get_relids_for_join.md)
   - [make_placeholder_expr](../m/make_placeholder_expr.md)
 - Called from (representative examples):
   - [flatten_join_alias_vars_mutator](../f/flatten_join_alias_vars_mutator.md) (for both regular and whole-row Var replacements)

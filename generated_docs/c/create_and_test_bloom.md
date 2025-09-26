@@ -25,15 +25,15 @@ The function includes intelligent alerting - it issues a WARNING if the false po
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bloom_create (creates the Bloom filter with specified parameters)
-  - populate_with_dummy_strings (adds test data to the filter)
-  - nfalsepos_for_missing_strings (measures false positive rate)
-  - bloom_prop_bits_set (calculates proportion of set bits)
-  - bloom_free (releases filter memory)
-  - pg_prng_int32p (generates random seed when needed)
+  - [bloom_create](../b/bloom_create.md) (creates the Bloom filter with specified parameters)
+  - [populate_with_dummy_strings](../p/populate_with_dummy_strings.md) (adds test data to the filter)
+  - [nfalsepos_for_missing_strings](../n/nfalsepos_for_missing_strings.md) (measures false positive rate)
+  - [bloom_prop_bits_set](../b/bloom_prop_bits_set.md) (calculates proportion of set bits)
+  - [bloom_free](../b/bloom_free.md) (releases filter memory)
+  - [pg_prng_int32p](../p/pg_prng_int32p.md) (generates random seed when needed)
   - elog/ereport (logging and reporting functions)
 - Called from (representative examples):
-  - test_bloomfilter
+  - [test_bloomfilter](../t/test_bloomfilter.md)
 
 ## Notes and Other Information
 - Uses `FPOSITIVE_THRESHOLD` (0.01 or 1%) as the warning threshold for false positive rates

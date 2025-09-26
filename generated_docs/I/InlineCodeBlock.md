@@ -34,9 +34,9 @@ InlineCodeBlock serves as the execution-time API for DO statements, as opposed t
 - Functions called/Symbols referenced:
   - (None directly referenced)
 - Called from (representative examples):
-  - ExecuteDoStmt (src/backend/commands/functioncmds.c:2068)
-  - plperl_inline_handler (src/pl/plperl/plperl.c:1897)
-  - plpython3_inline_handler (src/pl/plpython/plpy_main.c:266)
+  - [ExecuteDoStmt](../E/ExecuteDoStmt.md) (src/backend/commands/functioncmds.c:2068)
+  - [plperl_inline_handler](../p/plperl_inline_handler.md) (src/pl/plperl/plperl.c:1897)
+  - [plpython3_inline_handler](../p/plpython3_inline_handler.md) (src/pl/plpython/plpy_main.c:266)
 
 ## Notes and Other Information
 This structure is created by ExecuteDoStmt when processing a DoStmt and is passed to the appropriate procedural language handler for execution. Each procedural language (PL/pgSQL, PL/Perl, PL/Python, etc.) provides an inline handler function that receives an InlineCodeBlock and executes the contained code. The atomic flag controls whether the code block can perform transaction control operations.

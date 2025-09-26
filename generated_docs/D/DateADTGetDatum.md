@@ -22,12 +22,12 @@ The function is defined as a static inline function in the header file, meaning 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Int32GetDatum (underlying conversion mechanism)
+  - [Int32GetDatum](../I/Int32GetDatum.md) (underlying conversion mechanism)
   - DateADT (source type for conversion)
 - Called from (representative examples):
-  - ExecEvalSQLValueFunction (SQL function execution)
-  - parse_datetime (date/time parsing operations)
-  - daterange_canonical (range type canonicalization)
+  - [ExecEvalSQLValueFunction](../E/ExecEvalSQLValueFunction.md) (SQL function execution)
+  - [parse_datetime](../p/parse_datetime.md) (date/time parsing operations)
+  - [daterange_canonical](../d/daterange_canonical.md) (range type canonicalization)
   - PG_RETURN_DATEADT (function return value macro)
 
 ## Notes and Other Information

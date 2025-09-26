@@ -26,13 +26,13 @@ This function takes no parameters.
   - TransactionState (type definition)
   - CurrentTransactionState (global transaction state variable)
 - Called from (representative examples):
-  - heap_delete, heap_update, heap_inplace_update
-  - CreateParallelContext
-  - CommandCounterIncrement
-  - PrepareTransaction
+  - [heap_delete](../h/heap_delete.md), heap_update, heap_inplace_update
+  - [CreateParallelContext](../C/CreateParallelContext.md)
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md)
+  - [PrepareTransaction](../P/PrepareTransaction.md)
   - Various predicate locking functions
-  - PreventCommandIfParallelMode
-  - GetTransactionSnapshot, UpdateActiveSnapshotCommandId
+  - [PreventCommandIfParallelMode](../P/PreventCommandIfParallelMode.md)
+  - [GetTransactionSnapshot](../G/GetTransactionSnapshot.md), UpdateActiveSnapshotCommandId
 
 ## Notes and Other Information
 - Located in src/backend/access/transam/xact.c:1072-1091

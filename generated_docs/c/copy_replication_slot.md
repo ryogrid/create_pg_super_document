@@ -39,7 +39,7 @@ The function deliberately does not copy the failover option to prevent synchroni
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CheckSlotPermissions](../C/CheckSlotPermissions.md) - Validates user permissions for slot operations
-  - `CheckLogicalDecodingRequirements` - Validates logical decoding prerequisites
+  - `[CheckLogicalDecodingRequirements](../C/CheckLogicalDecodingRequirements.md)` - Validates logical decoding prerequisites
   - [CheckSlotRequirements](../C/CheckSlotRequirements.md) - Validates general slot requirements
   - [create_logical_replication_slot](create_logical_replication_slot.md) - Creates a new logical replication slot
   - [create_physical_replication_slot](create_physical_replication_slot.md) - Creates a new physical replication slot

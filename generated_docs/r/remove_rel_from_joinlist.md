@@ -28,7 +28,7 @@ When a matching relation is found, the removal counter is incremented and the no
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (macro for type checking)
-  - lappend (appends elements to lists)
+  - [lappend](../l/lappend.md) (appends elements to lists)
   - elog (error logging)
   - nodeTag (gets the node type tag)
   - [remove_rel_from_joinlist](remove_rel_from_joinlist.md) (recursive self-call)

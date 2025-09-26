@@ -26,12 +26,12 @@ The implementation avoids using the system's mktime() function for performance a
 ## Dependencies
 - Functions called/Symbols referenced:
   - IS_VALID_JULIAN (macro to validate Julian date range)
-  - date2j (convert date to Julian day number)
-  - pg_next_dst_boundary (find next DST transition boundary)
+  - [date2j](../d/date2j.md) (convert date to Julian day number)
+  - [pg_next_dst_boundary](../p/pg_next_dst_boundary.md) (find next DST transition boundary)
   - UNIX_EPOCH_JDATE, SECS_PER_DAY, MINS_PER_HOUR, SECS_PER_MINUTE (time constants)
 - Called from (representative examples):
-  - DetermineTimeZoneOffset (public wrapper function)
-  - DetermineTimeZoneAbbrevOffset (timezone abbreviation handling)
+  - [DetermineTimeZoneOffset](DetermineTimeZoneOffset.md) (public wrapper function)
+  - [DetermineTimeZoneAbbrevOffset](DetermineTimeZoneAbbrevOffset.md) (timezone abbreviation handling)
 
 ## Notes and Other Information
 - Returns GMT offset in seconds (negative of the timezone's UTC offset)

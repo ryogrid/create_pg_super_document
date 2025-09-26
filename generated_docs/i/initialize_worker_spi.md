@@ -32,16 +32,16 @@ This function is designed to be idempotent - it can be safely called multiple ti
 - Functions called/Symbols referenced:
   - [SetCurrentStatementStartTimestamp](../S/SetCurrentStatementStartTimestamp.md)
   - [StartTransactionCommand](../S/StartTransactionCommand.md)  
-  - SPI_connect
-  - GetTransactionSnapshot
-  - PushActiveSnapshot
+  - [SPI_connect](../S/SPI_connect.md)
+  - [GetTransactionSnapshot](../G/GetTransactionSnapshot.md)
+  - [PushActiveSnapshot](../P/PushActiveSnapshot.md)
   - [pgstat_report_activity](../p/pgstat_report_activity.md)
   - [SPI_execute](../S/SPI_execute.md)
-  - SPI_getbinval
+  - [SPI_getbinval](../S/SPI_getbinval.md)
   - [DatumGetInt64](../D/DatumGetInt64.md)
-  - resetStringInfo
-  - SPI_finish
-  - PopActiveSnapshot
+  - [resetStringInfo](../r/resetStringInfo.md)
+  - [SPI_finish](../S/SPI_finish.md)
+  - [PopActiveSnapshot](../P/PopActiveSnapshot.md)
   - [CommitTransactionCommand](../C/CommitTransactionCommand.md)
 - Called from (representative examples):
   - [worker_spi_main](../w/worker_spi_main.md)

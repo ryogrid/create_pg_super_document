@@ -25,7 +25,7 @@ This function generates a complete XML Schema definition for a single SQL table,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initStringInfo
+  - [initStringInfo](../i/initStringInfo.md)
   - [SearchSysCache1](../S/SearchSysCache1.md)
   - [map_sql_identifier_to_xml_name](map_sql_identifier_to_xml_name.md)
   - [map_multipart_sql_identifier_to_xml_name](map_multipart_sql_identifier_to_xml_name.md)
@@ -33,8 +33,8 @@ This function generates a complete XML Schema definition for a single SQL table,
   - [get_namespace_name](../g/get_namespace_name.md)
   - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - [xsd_schema_element_start](../x/xsd_schema_element_start.md)
-  - map_sql_typecoll_to_xmlschema_types
-  - map_sql_type_to_xml_name
+  - [map_sql_typecoll_to_xmlschema_types](map_sql_typecoll_to_xmlschema_types.md)
+  - [map_sql_type_to_xml_name](map_sql_type_to_xml_name.md)
   - [xsd_schema_element_end](../x/xsd_schema_element_end.md)
 - Called from:
   - [table_to_xmlschema](../t/table_to_xmlschema.md)

@@ -28,14 +28,14 @@ The function is designed to work correctly only for successful lock acquisition 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_node_is_detached (check if process already removed from queue)
-  - dclist_delete_from_thoroughly (remove from wait queue)
-  - pg_atomic_write_u64 (atomically clear wait start time)
-  - SetLatch (signal the sleeping process to wake up)
+  - [dlist_node_is_detached](../d/dlist_node_is_detached.md) (check if process already removed from queue)
+  - [dclist_delete_from_thoroughly](../d/dclist_delete_from_thoroughly.md) (remove from wait queue)
+  - [pg_atomic_write_u64](../p/pg_atomic_write_u64.md) (atomically clear wait start time)
+  - [SetLatch](../S/SetLatch.md) (signal the sleeping process to wake up)
   - PROC_WAIT_STATUS_WAITING (expected current status)
 
 - Called from (representative examples):
-  - ProcLockWakeup (wake up processes when locks are released)
+  - [ProcLockWakeup](ProcLockWakeup.md) (wake up processes when locks are released)
 
 ## Notes and Other Information
 - Must be called with the appropriate lock partition lock held

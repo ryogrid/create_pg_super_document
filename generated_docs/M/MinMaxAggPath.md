@@ -26,11 +26,11 @@ MinMaxAggPath is an optimization path node used when PostgreSQL can compute MIN 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MinMaxAggInfo (referenced in mmaggregates list)
+  - [MinMaxAggInfo](MinMaxAggInfo.md) (referenced in mmaggregates list)
 - Called from (representative examples):
-  - create_minmaxagg_plan
-  - create_minmaxagg_path
-  - create_plan_recurse
+  - [create_minmaxagg_plan](../c/create_minmaxagg_plan.md)
+  - [create_minmaxagg_path](../c/create_minmaxagg_path.md)
+  - [create_plan_recurse](../c/create_plan_recurse.md)
 
 ## Notes and Other Information
 - This path type enables significant performance improvements for queries with MIN/MAX aggregates by leveraging index ordering

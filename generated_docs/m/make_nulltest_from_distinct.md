@@ -26,12 +26,12 @@ The function determines the null test type by examining the kind of the A_Expr: 
   - makeNode (to create NullTest node)
   - [transformExprRecurse](../t/transformExprRecurse.md) (to transform the argument expression)
   - [A_Expr](../A/A_Expr.md) (input parameter type)
-  - NullTest (created node type)
+  - [NullTest](../N/NullTest.md) (created node type)
   - AEXPR_NOT_DISTINCT (expression kind constant)
   - IS_NULL (null test type constant)
   - IS_NOT_NULL (null test type constant)
 - Called from (representative examples):
-  - transformAExprDistinct
+  - [transformAExprDistinct](../t/transformAExprDistinct.md)
 
 ## Notes and Other Information
 - This is a static helper function within parse_expr.c

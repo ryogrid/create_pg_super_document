@@ -23,11 +23,11 @@ This function implements a critical aspect of PostgreSQL's outer join semantics 
 - Functions called/Symbols referenced:
   - [markRelsAsNulledBy](markRelsAsNulledBy.md) (recursive calls)
   - [bms_add_member](../b/bms_add_member.md)
-  - list_nth_cell
+  - [list_nth_cell](../l/list_nth_cell.md)
   - nodeTag
 - Types referenced:
-  - RangeTblRef
-  - JoinExpr
+  - [RangeTblRef](../R/RangeTblRef.md)
+  - [JoinExpr](../J/JoinExpr.md)
   - [Bitmapset](../B/Bitmapset.md)
 - Called from (representative examples):
   - [transformFromClauseItem](../t/transformFromClauseItem.md) (for LEFT, RIGHT, and FULL outer joins)

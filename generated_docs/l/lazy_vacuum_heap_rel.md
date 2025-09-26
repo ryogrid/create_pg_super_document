@@ -34,7 +34,7 @@ The two-pass approach is necessary because index entries must be removed before 
   - [ReadBufferExtended](../R/ReadBufferExtended.md)
   - [lazy_vacuum_heap_page](lazy_vacuum_heap_page.md)
   - [PageGetHeapFreeSpace](../P/PageGetHeapFreeSpace.md)
-  - RecordPageWithFreeSpace
+  - [RecordPageWithFreeSpace](../R/RecordPageWithFreeSpace.md)
   - [restore_vacuum_error_info](../r/restore_vacuum_error_info.md)
 - Called from:
   - [lazy_vacuum](lazy_vacuum.md)

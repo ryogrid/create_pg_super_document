@@ -32,7 +32,7 @@ The `setitimer` function provides POSIX setitimer() compatibility on Windows by 
   - [itimerval](../i/itimerval.md)
   - timerCommArea (global communication structure)
 - Called from (representative examples):
-  - schedule_alarm (timeout.c:339)
+  - [schedule_alarm](schedule_alarm.md) (timeout.c:339)
   - [fork_process](../f/fork_process.md) (fork_process.c:72)
   - [do_watch](../d/do_watch.md) (psql command.c:5384, 5560)
 

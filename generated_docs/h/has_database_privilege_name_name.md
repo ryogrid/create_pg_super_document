@@ -25,7 +25,7 @@ This PostgreSQL function implements one variant of the has_database_privilege SQ
 - Functions called/Symbols referenced:
   - PG_GETARG_NAME
   - PG_GETARG_TEXT_PP
-  - get_role_oid_or_public
+  - [get_role_oid_or_public](../g/get_role_oid_or_public.md)
   - [convert_database_name](../c/convert_database_name.md)
   - [convert_database_priv_string](../c/convert_database_priv_string.md)
   - [object_aclcheck](../o/object_aclcheck.md)

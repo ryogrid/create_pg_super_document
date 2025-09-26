@@ -23,25 +23,25 @@ Unlike the general PinBuffer() function, this variant does not modify the buffer
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetPrivateRefCountEntry: Assertion to verify no preexisting pin exists
-  - BufferDescriptorGetBuffer: Converts buffer descriptor to Buffer ID
+  - [GetPrivateRefCountEntry](../G/GetPrivateRefCountEntry.md): Assertion to verify no preexisting pin exists
+  - [BufferDescriptorGetBuffer](../B/BufferDescriptorGetBuffer.md): Converts buffer descriptor to Buffer ID
   - BufHdrGetBlock: Gets block data for Valgrind instrumentation
   - VALGRIND_MAKE_MEM_DEFINED: Valgrind memory debugging support
-  - pg_atomic_read_u32: Atomic read of buffer state
-  - UnlockBufHdr: Atomically updates state and releases spinlock
-  - NewPrivateRefCountEntry: Creates new private reference count entry
-  - ResourceOwnerRememberBuffer: Tracks buffer ownership for cleanup
+  - [pg_atomic_read_u32](../p/pg_atomic_read_u32.md): Atomic read of buffer state
+  - [UnlockBufHdr](../U/UnlockBufHdr.md): Atomically updates state and releases spinlock
+  - [NewPrivateRefCountEntry](../N/NewPrivateRefCountEntry.md): Creates new private reference count entry
+  - [ResourceOwnerRememberBuffer](../R/ResourceOwnerRememberBuffer.md): Tracks buffer ownership for cleanup
   - BM_LOCKED: Buffer state flag for locked status
   - BUF_REFCOUNT_ONE: Constant for incrementing reference count
 - Called from (representative examples):
   - BufferIsPinned: Buffer status checking operations
-  - ReadRecentBuffer: Recent buffer access optimization
-  - GetVictimBuffer: Buffer replacement victim selection
-  - SyncOneBuffer: Individual buffer synchronization
-  - FlushRelationBuffers: Relation-specific buffer flushing
-  - FlushRelationsAllBuffers: Multi-relation buffer flushing
-  - FlushDatabaseBuffers: Database-wide buffer flushing
-  - EvictUnpinnedBuffer: Buffer eviction operations
+  - [ReadRecentBuffer](../R/ReadRecentBuffer.md): Recent buffer access optimization
+  - [GetVictimBuffer](../G/GetVictimBuffer.md): Buffer replacement victim selection
+  - [SyncOneBuffer](../S/SyncOneBuffer.md): Individual buffer synchronization
+  - [FlushRelationBuffers](../F/FlushRelationBuffers.md): Relation-specific buffer flushing
+  - [FlushRelationsAllBuffers](../F/FlushRelationsAllBuffers.md): Multi-relation buffer flushing
+  - [FlushDatabaseBuffers](../F/FlushDatabaseBuffers.md): Database-wide buffer flushing
+  - [EvictUnpinnedBuffer](../E/EvictUnpinnedBuffer.md): Buffer eviction operations
 
 ## Notes and Other Information
 - Requires caller to already hold the buffer header spinlock

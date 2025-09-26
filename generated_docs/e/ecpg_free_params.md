@@ -21,12 +21,12 @@ This function performs cleanup of all parameter-related data structures associat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - print_param_value
-  - ecpg_free
+  - [print_param_value](../p/print_param_value.md)
+  - [ecpg_free](ecpg_free.md)
 - Called from (representative examples):
-  - ecpg_build_params (multiple locations)
-  - ecpg_autostart_transaction
-  - ecpg_execute
+  - [ecpg_build_params](ecpg_build_params.md) (multiple locations)
+  - [ecpg_autostart_transaction](ecpg_autostart_transaction.md)
+  - [ecpg_execute](ecpg_execute.md)
 
 ## Notes and Other Information
 - This function is essential for preventing memory leaks in ECPG parameter handling

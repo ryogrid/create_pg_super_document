@@ -32,7 +32,7 @@ The function operates on the live enum type and immediately makes changes visibl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeTypeNameFromNameList: Converts name list to TypeName structure
+  - [makeTypeNameFromNameList](../m/makeTypeNameFromNameList.md): Converts name list to TypeName structure
   - [typenameTypeId](../t/typenameTypeId.md): Resolves type name to OID
   - [SearchSysCache1](../S/SearchSysCache1.md): Retrieves type tuple from system cache
   - [checkEnumOwner](../c/checkEnumOwner.md): Validates user permissions to modify the enum

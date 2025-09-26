@@ -19,7 +19,7 @@ This function performs cleanup by identifying and removing failover replication 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - connect_database (connects to subscriber server, with non-fatal connection flag)
+  - [connect_database](../c/connect_database.md) (connects to subscriber server, with non-fatal connection flag)
   - [PQexec](../P/PQexec.md) (executes query to find failover replication slots)
   - [PQresultStatus](../P/PQresultStatus.md)/PGRES_TUPLES_OK (checks query execution success)
   - [PQntuples](../P/PQntuples.md) (gets number of result rows)

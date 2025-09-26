@@ -26,7 +26,7 @@ The size calculation depends on the attribute type descriptor:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SpGistTypeDesc (type descriptor structure)
+  - [SpGistTypeDesc](SpGistTypeDesc.md) (type descriptor structure)
   - VARSIZE_ANY (macro for getting variable-length type size)
   - MAXALIGN (macro for memory alignment)
 - Called from (representative examples):

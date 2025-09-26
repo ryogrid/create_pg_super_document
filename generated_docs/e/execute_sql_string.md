@@ -32,13 +32,13 @@ Key design decisions include avoiding SPI to prevent issues with forward referen
   - [pg_parse_query](../p/pg_parse_query.md) (parses SQL string into parse trees)
   - [CreateDestReceiver](../C/CreateDestReceiver.md) (creates output destination)
   - AllocSetContextCreate (creates memory context)
-  - CommandCounterIncrement (makes DDL changes visible)
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md) (makes DDL changes visible)
   - [pg_analyze_and_rewrite_fixedparams](../p/pg_analyze_and_rewrite_fixedparams.md) (analyzes and rewrites queries)
   - [pg_plan_queries](../p/pg_plan_queries.md) (creates execution plans)
   - [CreateQueryDesc](../C/CreateQueryDesc.md) (creates query descriptor)
   - [ExecutorStart](../E/ExecutorStart.md)/ExecutorRun/ExecutorFinish/ExecutorEnd (query execution)
   - [ProcessUtility](../P/ProcessUtility.md) (executes utility statements)
-  - PushActiveSnapshot/PopActiveSnapshot (snapshot management)
+  - [PushActiveSnapshot](../P/PushActiveSnapshot.md)/PopActiveSnapshot (snapshot management)
 - Called from:
   - [execute_extension_script](execute_extension_script.md)
 

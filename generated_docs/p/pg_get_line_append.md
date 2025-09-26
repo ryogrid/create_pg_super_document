@@ -28,15 +28,15 @@ The function supports sophisticated SIGINT handling through the `prompt_ctx` par
   - sigsetjmp
   - fgets
   - strlen
-  - enlargeStringInfo
+  - [enlargeStringInfo](../e/enlargeStringInfo.md)
   - ferror
   - sigjmp_buf (type)
-  - PromptInterruptContext (struct)
+  - [PromptInterruptContext](../P/PromptInterruptContext.md) (struct)
 
 - Called from (representative examples):
-  - tokenize_auth_file (src/backend/libpq/hba.c:733)
-  - pg_get_line (src/common/pg_get_line.c:65)
-  - pg_get_line_buf (src/common/pg_get_line.c:99)
+  - [tokenize_auth_file](../t/tokenize_auth_file.md) (src/backend/libpq/hba.c:733)
+  - [pg_get_line](pg_get_line.md) (src/common/pg_get_line.c:65)
+  - [pg_get_line_buf](pg_get_line_buf.md) (src/common/pg_get_line.c:99)
 
 ## Notes and Other Information
 - Returns true if a line was successfully collected (including non-newline-terminated lines at EOF)

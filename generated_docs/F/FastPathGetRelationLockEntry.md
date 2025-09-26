@@ -22,7 +22,7 @@ The function first searches the current backend's fast-path slots for the specif
 ## Dependencies
 - Functions called/Symbols referenced:
   - LockHashPartitionLock: Determines the appropriate partition lock for the hash code
-  - LWLockAcquire/LWLockRelease: Low-level locking primitives for concurrency control
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease: Low-level locking primitives for concurrency control
   - FAST_PATH_GET_BITS: Macro to check if a fast-path slot is in use
   - FAST_PATH_CHECK_LOCKMODE: Macro to verify specific lock modes in fast-path slots
   - FAST_PATH_CLEAR_LOCKMODE: Macro to clear specific lock modes from fast-path slots

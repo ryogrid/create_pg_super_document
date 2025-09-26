@@ -31,8 +31,8 @@ The function ensures proper stdio state before forking and includes comprehensiv
   - [transfer_all_new_dbs](../t/transfer_all_new_dbs.md)
   - [reap_child](../r/reap_child.md)
   - [win32_transfer_all_new_dbs](../w/win32_transfer_all_new_dbs.md) (Windows only)
-  - pg_malloc
-  - pg_malloc0
+  - [pg_malloc](pg_malloc.md)
+  - [pg_malloc0](pg_malloc0.md)
   - [pg_free](pg_free.md)
   - [pg_strdup](pg_strdup.md)
   - fork (Unix)

@@ -20,11 +20,11 @@ This function implements the CREATE FOREIGN DATA WRAPPER SQL command by creating
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreateFdwStmt
-  - superuser
+  - [CreateFdwStmt](CreateFdwStmt.md)
+  - [superuser](../s/superuser.md)
   - [GetForeignDataWrapperByName](../G/GetForeignDataWrapperByName.md)
   - [GetNewOidWithIndex](../G/GetNewOidWithIndex.md)
-  - namein
+  - [namein](../n/namein.md)
   - DirectFunctionCall1
   - [CStringGetDatum](CStringGetDatum.md)
   - [parse_func_options](../p/parse_func_options.md)

@@ -28,7 +28,7 @@ This operation is critical during certain DDL operations where a relation is reb
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open: Opens the pg_statistic catalog relation
+  - [table_open](../t/table_open.md): Opens the pg_statistic catalog relation
   - [ScanKeyInit](../S/ScanKeyInit.md): Initializes scan key for searching by relation ID
   - [systable_beginscan](../s/systable_beginscan.md): Begins system catalog scan with index
   - [systable_getnext](../s/systable_getnext.md): Retrieves next tuple from the scan
@@ -38,10 +38,10 @@ This operation is critical during certain DDL operations where a relation is reb
   - [heap_freetuple](../h/heap_freetuple.md): Frees memory allocated for a heap tuple
   - [CatalogCloseIndexes](CatalogCloseIndexes.md): Closes catalog indexes
   - [systable_endscan](../s/systable_endscan.md): Ends the system catalog scan
-  - table_close: Closes the catalog relation
+  - [table_close](../t/table_close.md): Closes the catalog relation
 
 - Called from (representative examples):
-  - index_concurrently_swap: During concurrent index rebuild operations
+  - [index_concurrently_swap](../i/index_concurrently_swap.md): During concurrent index rebuild operations
 
 ## Notes and Other Information
 - The function uses RowExclusiveLock to ensure exclusive access during statistics modification

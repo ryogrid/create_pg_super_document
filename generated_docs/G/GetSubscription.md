@@ -32,7 +32,7 @@ GetSubscription retrieves a subscription record by its OID from the PostgreSQL s
   - [DatumGetName](../D/DatumGetName.md) (extract name from datum)
   - [textarray_to_stringlist](../t/textarray_to_stringlist.md) (convert text array to string list)
   - DatumGetArrayTypeP (convert datum to array type)
-  - superuser_arg (check if user is superuser)
+  - [superuser_arg](../s/superuser_arg.md) (check if user is superuser)
   - [ReleaseSysCache](../R/ReleaseSysCache.md) (release cache entry)
 - Called from (representative examples):
   - [AlterSubscription](../A/AlterSubscription.md) (subscription management)

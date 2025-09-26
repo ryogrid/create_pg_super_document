@@ -22,8 +22,8 @@ WriteBlockRefTable converts an in-memory BlockRefTable hash table into a seriali
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BlockRefTableWrite
-  - BlockRefTableFileTerminate
+  - [BlockRefTableWrite](../B/BlockRefTableWrite.md)
+  - [BlockRefTableFileTerminate](../B/BlockRefTableFileTerminate.md)
   - [BlockRefTableComparator](../B/BlockRefTableComparator.md)
   - blockreftable_start_iterate
   - blockreftable_iterate

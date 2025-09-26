@@ -30,19 +30,19 @@ The function maintains atomicity by using a two-phase approach: first collecting
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - proclist_init
-  - LWLockWaitListLock
+  - [proclist_init](../p/proclist_init.md)
+  - [LWLockWaitListLock](LWLockWaitListLock.md)
   - proclist_foreach_modify
   - GetPGProcByNumber
   - proclist_delete
   - proclist_push_tail
-  - pg_atomic_read_u32
-  - pg_atomic_compare_exchange_u32
+  - [pg_atomic_read_u32](../p/pg_atomic_read_u32.md)
+  - [pg_atomic_compare_exchange_u32](../p/pg_atomic_compare_exchange_u32.md)
   - pg_write_barrier
-  - PGSemaphoreUnlock
+  - [PGSemaphoreUnlock](../P/PGSemaphoreUnlock.md)
   - LOG_LWDEBUG
 - Called from (representative examples):
-  - LWLockRelease
+  - [LWLockRelease](LWLockRelease.md)
 
 ## Notes and Other Information
 - The function uses a sophisticated state management system with atomic operations to ensure thread safety

@@ -39,8 +39,8 @@ The function must be called before processing invalidation messages because duri
   - [FreeTupleDesc](../F/FreeTupleDesc.md)
   - [pfree](../p/pfree.md)
 - Data structures used:
-  - HASH_SEQ_STATUS
-  - RelIdCacheEnt
+  - [HASH_SEQ_STATUS](../H/HASH_SEQ_STATUS.md)
+  - [RelIdCacheEnt](../R/RelIdCacheEnt.md)
   - HASH_FIND
 - Global variables accessed:
   - in_progress_list_len

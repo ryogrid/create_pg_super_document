@@ -51,6 +51,6 @@ The function carefully manages the SubLink tracking state, preserving and restor
 ## Notes and Other Information
 - The function is publicly exposed (unlike typical mutator functions) because callbacks often need to recurse directly to it on sub-expressions
 - WHERE CURRENT OF on views is explicitly not supported and will raise an error
-- SubLink tracking is carefully managed across recursive calls to ensure accurate query metadata
+- [SubLink](../S/SubLink.md) tracking is carefully managed across recursive calls to ensure accurate query metadata
 - The function handles both planned and unplanned subquery contexts appropriately
 - Recursive calls to itself occur when processing Query nodes and through expression_tree_mutator for general expression processing

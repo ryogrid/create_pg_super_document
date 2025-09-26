@@ -24,7 +24,7 @@ The function takes a void pointer to an OffsetNumber, casts it appropriately, de
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendStringInfo
+  - [appendStringInfo](../a/appendStringInfo.md)
   - OffsetNumber (data type)
 - Called from (representative examples):
   - [plan_elem_desc](../p/plan_elem_desc.md)

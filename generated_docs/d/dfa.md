@@ -74,9 +74,9 @@ The dfa structure is the central data structure for PostgreSQL's regular express
   - [initialize](../i/initialize.md) (state initialization)
   - [miss](../m/miss.md) (cache miss handling)
   - [smalldfa](../s/smalldfa.md) (small DFA operations)
-  - find (pattern search)
-  - cfind (case-sensitive search)
-  - cfindloop (loop-optimized search)
+  - [find](../f/find.md) (pattern search)
+  - [cfind](../c/cfind.md) (case-sensitive search)
+  - [cfindloop](../c/cfindloop.md) (loop-optimized search)
 
 ## Notes and Other Information
 The dfa structure is designed for both performance and flexibility. The state cache (ssets) provides significant performance improvements by avoiding recomputation of frequently accessed states. The separation of memory management flags (ismalloced, arraysmalloced) allows for flexible memory allocation strategies, including stack-based allocation for small DFAs. The backref-related fields enable support for backreference matching, which requires special DFA handling. The structure supports both lazy and eager state computation strategies depending on the matching context.

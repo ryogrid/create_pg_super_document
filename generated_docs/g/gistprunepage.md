@@ -35,9 +35,9 @@ The function also handles Write-Ahead Logging (WAL) requirements for crash recov
   - [index_compute_xid_horizon_for_tuples](../i/index_compute_xid_horizon_for_tuples.md)
   - [PageIndexMultiDelete](../P/PageIndexMultiDelete.md)
   - GistClearPageHasGarbage
-  - MarkBufferDirty
+  - [MarkBufferDirty](../M/MarkBufferDirty.md)
   - [gistXLogDelete](gistXLogDelete.md)
-  - gistGetFakeLSN
+  - [gistGetFakeLSN](gistGetFakeLSN.md)
   - [PageSetLSN](../P/PageSetLSN.md)
 - Called from (representative examples):
   - [gistplacetopage](gistplacetopage.md)

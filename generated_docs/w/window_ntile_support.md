@@ -25,8 +25,8 @@ The function uses PostgreSQL's support function infrastructure to provide these 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SupportRequestWFuncMonotonic
-  - SupportRequestOptimizeWindowClause  
+  - [SupportRequestWFuncMonotonic](../S/SupportRequestWFuncMonotonic.md)
+  - [SupportRequestOptimizeWindowClause](../S/SupportRequestOptimizeWindowClause.md)  
   - MONOTONICFUNC_INCREASING
   - FRAMEOPTION_NONDEFAULT
   - FRAMEOPTION_ROWS

@@ -73,7 +73,7 @@ The caching mechanism invalidates all stored procedures when the sub-type change
   - TupleDescAttr
   - [SearchSysCache4](../S/SearchSysCache4.md)
   - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
-  - Int16GetDatum
+  - [Int16GetDatum](../I/Int16GetDatum.md)
   - HeapTupleIsValid
   - [DatumGetObjectId](../D/DatumGetObjectId.md)
   - [SysCacheGetAttrNotNull](../S/SysCacheGetAttrNotNull.md)

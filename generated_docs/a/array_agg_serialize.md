@@ -32,7 +32,7 @@ The function handles two different serialization strategies depending on whether
   - [pq_sendint64](../p/pq_sendint64.md)
   - [pq_sendint16](../p/pq_sendint16.md)
   - [pq_sendbyte](../p/pq_sendbyte.md)
-  - pq_sendbytes
+  - [pq_sendbytes](../p/pq_sendbytes.md)
   - [SerialIOData](../S/SerialIOData.md)
   - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
   - [getTypeBinaryOutputInfo](../g/getTypeBinaryOutputInfo.md)

@@ -17,7 +17,7 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ErrorData (structure type)
+  - [ErrorData](../E/ErrorData.md) (structure type)
   - CHECK_STACK_DEPTH (macro for stack validation)
 - Called from (representative examples):
   - [pcb_error_callback](../p/pcb_error_callback.md) (in parse_node.c)

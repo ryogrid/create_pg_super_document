@@ -24,7 +24,7 @@ This function takes no parameters and operates on the current process`s replicat
   - SlotIsPhysical (verifies the current slot is a physical replication slot)
   - [RecoveryInProgress](../R/RecoveryInProgress.md) (checks if the database is in recovery mode)
   - [SlotExistsInSyncStandbySlots](../S/SlotExistsInSyncStandbySlots.md) (checks if slot is in synchronized_standby_slots GUC)
-  - ConditionVariableBroadcast (wakes up waiting logical WAL senders)
+  - [ConditionVariableBroadcast](../C/ConditionVariableBroadcast.md) (wakes up waiting logical WAL senders)
 - Called from (representative examples):
   - [pg_physical_replication_slot_advance](../p/pg_physical_replication_slot_advance.md) (when manually advancing physical slots)
   - [PhysicalConfirmReceivedLocation](PhysicalConfirmReceivedLocation.md) (when physical replication confirms WAL receipt)

@@ -32,17 +32,17 @@ DeleteStmt is a parse tree node that represents a DELETE statement after SQL par
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RangeVar
-  - WithClause
+  - [RangeVar](../R/RangeVar.md)
+  - [WithClause](../W/WithClause.md)
 - Called from (representative examples):
-  - transformStmt
-  - transformDeleteStmt
-  - raw_expression_tree_walker_impl
-  - transformWithClause
-  - makeDependencyGraphWalker
+  - [transformStmt](../t/transformStmt.md)
+  - [transformDeleteStmt](../t/transformDeleteStmt.md)
+  - [raw_expression_tree_walker_impl](../r/raw_expression_tree_walker_impl.md)
+  - [transformWithClause](../t/transformWithClause.md)
+  - [makeDependencyGraphWalker](../m/makeDependencyGraphWalker.md)
 
 ## Notes and Other Information
-- DeleteStmt is part of the parse tree node hierarchy and inherits from the base Node structure
+- [DeleteStmt](DeleteStmt.md) is part of the parse tree node hierarchy and inherits from the base Node structure
 - The structure supports complex DELETE operations including multi-table deletes via USING clause
 - RETURNING clause allows retrieving values from deleted rows, useful for triggers and application logic
 - WITH clause support enables use of CTEs in DELETE statements for complex data manipulation scenarios

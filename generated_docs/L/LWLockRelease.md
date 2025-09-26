@@ -24,8 +24,8 @@ After releasing the lock, the function may call LWLockWakeup() to notify waiting
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_atomic_sub_fetch_u32 (atomic lock state updates)
-  - LWLockWakeup (waiter notification) 
+  - [pg_atomic_sub_fetch_u32](../p/pg_atomic_sub_fetch_u32.md) (atomic lock state updates)
+  - [LWLockWakeup](LWLockWakeup.md) (waiter notification) 
   - RESUME_INTERRUPTS (interrupt management)
   - T_NAME (lock name for debugging)
   - LW_VAL_EXCLUSIVE/LW_VAL_SHARED (lock mode constants)

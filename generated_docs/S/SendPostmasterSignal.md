@@ -33,12 +33,12 @@ This two-step approach (shared memory flag + signal) allows multiple types of si
   - kill (system call to send signal)
   - SIGUSR1 (signal constant)
 - Called from (representative examples):
-  - GetNewMultiXactId (multixact ID management)
-  - GetNewTransactionId (transaction ID management)  
-  - do_start_worker (autovacuum worker startup)
-  - RegisterDynamicBackgroundWorker (background worker management)
-  - RequestXLogStreaming (WAL streaming requests)
-  - pg_rotate_logfile (log file rotation)
+  - [GetNewMultiXactId](../G/GetNewMultiXactId.md) (multixact ID management)
+  - [GetNewTransactionId](../G/GetNewTransactionId.md) (transaction ID management)  
+  - [do_start_worker](../d/do_start_worker.md) (autovacuum worker startup)
+  - [RegisterDynamicBackgroundWorker](../R/RegisterDynamicBackgroundWorker.md) (background worker management)
+  - [RequestXLogStreaming](../R/RequestXLogStreaming.md) (WAL streaming requests)
+  - [pg_rotate_logfile](../p/pg_rotate_logfile.md) (log file rotation)
 
 ## Notes and Other Information
 - This is a public function used throughout PostgreSQL for postmaster communication

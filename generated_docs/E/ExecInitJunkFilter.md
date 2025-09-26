@@ -30,14 +30,14 @@ The mapping mechanism is crucial - it creates an array where each position corre
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecCleanTypeFromTL: Generates tuple descriptor excluding junk columns
+  - [ExecCleanTypeFromTL](ExecCleanTypeFromTL.md): Generates tuple descriptor excluding junk columns
   - ExecSetSlotDescriptor: Sets tuple descriptor for existing slot
-  - MakeSingleTupleTableSlot: Creates new virtual tuple slot if none provided
-  - JunkFilter: The result structure type
+  - [MakeSingleTupleTableSlot](../M/MakeSingleTupleTableSlot.md): Creates new virtual tuple slot if none provided
+  - [JunkFilter](../J/JunkFilter.md): The result structure type
 - Called from (representative examples):
-  - ExecInitWholeRowVar: For whole-row variable initialization
-  - InitPlan: During plan initialization in main executor
-  - init_sql_fcache: For SQL function caching setup
+  - [ExecInitWholeRowVar](ExecInitWholeRowVar.md): For whole-row variable initialization
+  - [InitPlan](../I/InitPlan.md): During plan initialization in main executor
+  - [init_sql_fcache](../i/init_sql_fcache.md): For SQL function caching setup
 
 ## Notes and Other Information
 - The function includes a TODO comment suggesting this should be rewritten to use ExecProject() and ProjectionInfo nodes for better integration

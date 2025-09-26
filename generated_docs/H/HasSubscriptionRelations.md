@@ -22,13 +22,13 @@ The function uses a system catalog scan with an equality condition on the subscr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - [ScanKeyInit](../S/ScanKeyInit.md)
   - [systable_beginscan](../s/systable_beginscan.md)
   - [systable_getnext](../s/systable_getnext.md)
   - HeapTupleIsValid
   - [systable_endscan](../s/systable_endscan.md)
-  - table_close
+  - [table_close](../t/table_close.md)
   - [SysScanDesc](../S/SysScanDesc.md)
 - Called from (representative examples):
   - [FetchTableStates](../F/FetchTableStates.md)

@@ -31,10 +31,10 @@ The preprocessed targetlist is stored in , and for UPDATE operations, the target
   - [extract_update_targetlist_colnos](../e/extract_update_targetlist_colnos.md)
   - [add_row_identity_columns](../a/add_row_identity_columns.md)
   - rt_fetch
-  - table_open/table_close
+  - [table_open](../t/table_open.md)/table_close
   - [makeTargetEntry](../m/makeTargetEntry.md)
-  - makeVar
-  - makeWholeRowVar
+  - [makeVar](../m/makeVar.md)
+  - [makeWholeRowVar](../m/makeWholeRowVar.md)
   - [pull_var_clause](pull_var_clause.md)
   - [tlist_member](../t/tlist_member.md)
   - [list_concat_copy](../l/list_concat_copy.md)

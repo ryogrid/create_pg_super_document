@@ -23,8 +23,8 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire
-  - LWLockRelease 
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md) 
   - dlist_foreach_modify
   - dlist_container
   - [TransactionIdPrecedesOrEquals](../T/TransactionIdPrecedesOrEquals.md)

@@ -32,7 +32,7 @@ When a suitable tuple is found, it is stored in the provided slot and the functi
 - Types referenced:
   - [TableScanDesc](../T/TableScanDesc.md)
   - TransactionId
-  - TupleTableSlot
+  - [TupleTableSlot](../T/TupleTableSlot.md)
 - Called from (representative examples):
   - [acquire_sample_rows](../a/acquire_sample_rows.md) (src/backend/commands/analyze.c:1212)
 

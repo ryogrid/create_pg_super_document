@@ -27,12 +27,12 @@ The function includes the same safety checks as AfterTriggerSaveEvent, ensuring 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AfterTriggerEnlargeQueryState (ensures adequate query depth storage)
-  - GetAfterTriggersTableData (retrieves or creates table data for the relation/command)
+  - [AfterTriggerEnlargeQueryState](../A/AfterTriggerEnlargeQueryState.md) (ensures adequate query depth storage)
+  - [GetAfterTriggersTableData](../G/GetAfterTriggersTableData.md) (retrieves or creates table data for the relation/command)
 - Called from (representative examples):
-  - ExecBSInsertTriggers (before statement INSERT trigger execution)
-  - ExecBSDeleteTriggers (before statement DELETE trigger execution)  
-  - ExecBSUpdateTriggers (before statement UPDATE trigger execution)
+  - [ExecBSInsertTriggers](../E/ExecBSInsertTriggers.md) (before statement INSERT trigger execution)
+  - [ExecBSDeleteTriggers](../E/ExecBSDeleteTriggers.md) (before statement DELETE trigger execution)  
+  - [ExecBSUpdateTriggers](../E/ExecBSUpdateTriggers.md) (before statement UPDATE trigger execution)
 
 ## Notes and Other Information
 - The function's design ensures BEFORE STATEMENT triggers fire exactly once per statement, which is a fundamental requirement of the SQL standard

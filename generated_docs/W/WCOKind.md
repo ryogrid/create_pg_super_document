@@ -36,7 +36,7 @@ WCOKind classifies different types of WITH CHECK OPTION constraints in PostgreSQ
   - [ExecWithCheckOptions](../E/ExecWithCheckOptions.md) (src/backend/executor/execMain.c:2053)
   - [ExecInsert](../E/ExecInsert.md) (src/backend/executor/nodeModifyTable.c:978)
   - [add_with_check_options](../a/add_with_check_options.md) (src/backend/rewrite/rowsecurity.c:798)
-  - ExecGetJunkAttribute (src/include/executor/executor.h:230)
+  - [ExecGetJunkAttribute](../E/ExecGetJunkAttribute.md) (src/include/executor/executor.h:230)
   - [WithCheckOption](WithCheckOption.md) (src/include/nodes/parsenodes.h:1371)
 
 ## Notes and Other Information

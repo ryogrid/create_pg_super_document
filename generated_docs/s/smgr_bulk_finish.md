@@ -31,7 +31,7 @@ This function completes a bulk write operation by first flushing any remaining p
   - [gist_indexsortbuild](../g/gist_indexsortbuild.md)
   - [end_heap_rewrite](../e/end_heap_rewrite.md)
   - [btbuildempty](../b/btbuildempty.md)
-  - _bt_load
+  - [_bt_load](../b/_bt_load.md)
   - [spgbuildempty](spgbuildempty.md)
   - [RelationCopyStorage](../R/RelationCopyStorage.md)
 

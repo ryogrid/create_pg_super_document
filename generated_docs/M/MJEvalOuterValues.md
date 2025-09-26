@@ -32,12 +32,12 @@ The function assumes that mergejoin operators are strict (return NULL when any i
   - TupIsNull
   - ResetExprContext
   - [MemoryContextSwitchTo](MemoryContextSwitchTo.md)
-  - ExecEvalExpr
+  - [ExecEvalExpr](../E/ExecEvalExpr.md)
   - MJEVAL_ENDOFJOIN
   - MJEVAL_MATCHABLE
   - MJEVAL_NONMATCHABLE
 - Called from:
-  - ExecMergeJoin (multiple call sites)
+  - [ExecMergeJoin](../E/ExecMergeJoin.md) (multiple call sites)
 
 ## Notes and Other Information
 - Uses OuterEContext for expression evaluation, which can be reset for each new tuple

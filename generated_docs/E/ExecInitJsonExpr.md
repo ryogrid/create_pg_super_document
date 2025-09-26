@@ -51,9 +51,9 @@ The function carefully manages jump targets and implements complex control flow 
   - [palloc0](../p/palloc0.md)
   - [get_typtype](../g/get_typtype.md)
   - [ExecInitExprRec](ExecInitExprRec.md)
-  - lappend_int
+  - [lappend_int](../l/lappend_int.md)
   - [ExprEvalPushStep](ExprEvalPushStep.md)
-  - lappend
+  - [lappend](../l/lappend.md)
   - [getTypeInputInfo](../g/getTypeInputInfo.md)
   - [fmgr_info](../f/fmgr_info.md)
   - fmgr_info_set_expr
@@ -64,7 +64,7 @@ The function carefully manages jump targets and implements complex control flow 
   - [ExecInitJsonCoercion](ExecInitJsonCoercion.md)
   - lfirst_int
   - [JsonExprState](../J/JsonExprState.md)
-  - JsonPathVariable
+  - [JsonPathVariable](../J/JsonPathVariable.md)
   - [ErrorSaveContext](ErrorSaveContext.md)
   - EEOP_JUMP_IF_NULL
   - EEOP_JSONEXPR_PATH

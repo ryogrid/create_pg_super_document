@@ -27,7 +27,7 @@ NamedLWLockTranche is a metadata structure that associates human-readable names 
   - (None - simple data structure)
 - Called from (representative examples):
   - [LWLockShmemSize](../L/LWLockShmemSize.md) (calculating shared memory requirements)
-  - InitializeLWLocks (setting up lock tranche names during startup)
+  - [InitializeLWLocks](../I/InitializeLWLocks.md) (setting up lock tranche names during startup)
 
 ## Notes and Other Information
 - Used primarily for debugging and monitoring purposes to provide meaningful names for lock tranches

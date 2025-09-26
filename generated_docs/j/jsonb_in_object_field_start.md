@@ -24,16 +24,16 @@ The function is more complex than the simple start/end callbacks as it handles a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonbValue (value structure for JSONB data)
+  - [JsonbValue](../J/JsonbValue.md) (value structure for JSONB data)
   - jbvString (enum value indicating string type)
-  - checkStringLen (validates string length constraints)
-  - pushJsonbValue (pushes parsing tokens onto the state stack)
+  - [checkStringLen](../c/checkStringLen.md) (validates string length constraints)
+  - [pushJsonbValue](../p/pushJsonbValue.md) (pushes parsing tokens onto the state stack)
   - WJB_KEY (token constant indicating object key)
   - JSON_SUCCESS (return value indicating successful parsing)
   - JSON_SEM_ACTION_FAILED (return value for validation failures)
 - Called from (representative examples):
-  - jsonb_from_cstring (main JSONB input function)
-  - datum_to_jsonb_internal (internal conversion function)
+  - [jsonb_from_cstring](jsonb_from_cstring.md) (main JSONB input function)
+  - [datum_to_jsonb_internal](../d/datum_to_jsonb_internal.md) (internal conversion function)
 
 ## Notes and Other Information
 - This is a static function internal to the jsonb.c module

@@ -25,16 +25,16 @@ Block accounting is carefully maintained to track allocated blocks, written bloc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ltsCreateTape (creates new LogicalTape structure)
-  - pg_itoa (converts worker ID to filename string)
-  - BufFileOpenFileSet (opens worker's BufFile from shared fileset)
-  - BufFileSize (gets size of worker's BufFile)
-  - BufFileAppend (appends worker BufFile to leader's concatenated file)
+  - [ltsCreateTape](../l/ltsCreateTape.md) (creates new LogicalTape structure)
+  - [pg_itoa](../p/pg_itoa.md) (converts worker ID to filename string)
+  - [BufFileOpenFileSet](../B/BufFileOpenFileSet.md) (opens worker's BufFile from shared fileset)
+  - [BufFileSize](../B/BufFileSize.md) (gets size of worker's BufFile)
+  - [BufFileAppend](../B/BufFileAppend.md) (appends worker BufFile to leader's concatenated file)
   - Min (minimum value macro)
   - MaxAllocSize (maximum allocation size constant)
-  - TapeShare (shared tape information structure)
+  - [TapeShare](../T/TapeShare.md) (shared tape information structure)
 - Called from (representative examples):
-  - leader_takeover_tapes (parallel tuplesort leader takeover)
+  - [leader_takeover_tapes](../l/leader_takeover_tapes.md) (parallel tuplesort leader takeover)
 
 ## Notes and Other Information
 - This function should only be called by the leader process, not by workers

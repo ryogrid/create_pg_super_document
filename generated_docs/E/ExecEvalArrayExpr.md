@@ -43,8 +43,8 @@ The function performs extensive validation including type compatibility checks, 
   - [construct_md_array](../c/construct_md_array.md): Construct multidimensional array from values
   - [construct_empty_array](../c/construct_empty_array.md): Create an empty array of specified type
   - DatumGetArrayTypeP: Extract ArrayType from Datum
-  - ArrayGetNItems: Calculate total number of items in array
-  - ArrayCheckBounds: Validate array bounds
+  - [ArrayGetNItems](../A/ArrayGetNItems.md): Calculate total number of items in array
+  - [ArrayCheckBounds](../A/ArrayCheckBounds.md): Validate array bounds
   - [array_bitmap_copy](../a/array_bitmap_copy.md): Copy null bitmap between arrays
   - Various ARR_* macros for array access and manipulation
   - Memory allocation functions (palloc, palloc0)

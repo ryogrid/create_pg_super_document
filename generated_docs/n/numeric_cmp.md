@@ -25,13 +25,13 @@ The function follows PostgreSQL's standard function calling conventions, using t
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_NUMERIC (extracts Numeric arguments from function call)
-  - cmp_numerics (performs the actual numeric comparison)
+  - [cmp_numerics](../c/cmp_numerics.md) (performs the actual numeric comparison)
   - PG_FREE_IF_COPY (frees copied numeric values if necessary)
   - PG_RETURN_INT32 (returns integer result)
-  - Numeric (PostgreSQL numeric data type)
+  - [Numeric](../N/Numeric.md) (PostgreSQL numeric data type)
 - Called from (representative examples):
-  - compareJsonbScalarValue (JSON-B scalar value comparison)
-  - compareNumeric (JSON path execution numeric comparison)
+  - [compareJsonbScalarValue](../c/compareJsonbScalarValue.md) (JSON-B scalar value comparison)
+  - [compareNumeric](../c/compareNumeric.md) (JSON path execution numeric comparison)
 
 ## Notes and Other Information
 - This is an ordinary comparison function, distinct from the optimized sort support comparisons

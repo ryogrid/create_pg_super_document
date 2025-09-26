@@ -35,7 +35,7 @@ Key responsibilities include:
 - Functions called/Symbols referenced:
   - [palloc0](../p/palloc0.md): Allocate zero-initialized memory for spool structures
   - [_bt_parallel_scan_and_sort](_bt_parallel_scan_and_sort.md): Core parallel scanning and sorting function
-  - ShowUsage/ResetUsage: Debug performance statistics (ifdef BTREE_BUILD_STATS)
+  - [ShowUsage](../S/ShowUsage.md)/ResetUsage: Debug performance statistics (ifdef BTREE_BUILD_STATS)
   - [BTSpool](../B/BTSpool.md): Private spool structure for tuple processing
   - [BTLeader](../B/BTLeader.md): Leader state containing shared context and worker coordination
 - Called from (representative examples):

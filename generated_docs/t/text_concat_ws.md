@@ -20,7 +20,7 @@ This function implements PostgreSQL's concat_ws() SQL function (concatenate with
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - text_to_cstring
+  - [text_to_cstring](text_to_cstring.md)
   - [concat_internal](../c/concat_internal.md)
   - PG_RETURN_TEXT_P
 - Called from (representative examples):

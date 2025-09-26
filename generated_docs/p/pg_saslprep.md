@@ -29,11 +29,11 @@ The function includes an optimization for pure ASCII input (no processing needed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_utf8_string_len](pg_utf8_string_len.md) (UTF-8 validation and length calculation)
-  - pg_is_ascii (ASCII optimization check)
+  - [pg_is_ascii](pg_is_ascii.md) (ASCII optimization check)
   - [utf8_to_unicode](../u/utf8_to_unicode.md) (UTF-8 to Unicode codepoint conversion)
-  - unicode_normalize (Unicode NFKC normalization)
-  - unicode_to_utf8 (Unicode codepoint to UTF-8 conversion)
-  - pg_utf_mblen (UTF-8 multibyte length calculation)
+  - [unicode_normalize](../u/unicode_normalize.md) (Unicode NFKC normalization)
+  - [unicode_to_utf8](../u/unicode_to_utf8.md) (Unicode codepoint to UTF-8 conversion)
+  - [pg_utf_mblen](pg_utf_mblen.md) (UTF-8 multibyte length calculation)
   - IS_CODE_IN_TABLE (codepoint range checking macro)
   - Memory allocation/deallocation macros (ALLOC, FREE, STRDUP)
 - Called from (representative examples):

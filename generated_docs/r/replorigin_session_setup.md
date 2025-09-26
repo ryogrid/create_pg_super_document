@@ -29,8 +29,8 @@ The function also registers a cleanup handler on first use to ensure proper reso
 - Functions called/Symbols referenced:
   - [on_shmem_exit](../o/on_shmem_exit.md)
   - [ReplicationOriginExitCleanup](../R/ReplicationOriginExitCleanup.md) 
-  - LWLockAcquire/LWLockRelease
-  - ConditionVariableBroadcast
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease
+  - [ConditionVariableBroadcast](../C/ConditionVariableBroadcast.md)
   - ereport/elog
 - Called from (representative examples):
   - [ParallelApplyWorkerMain](../P/ParallelApplyWorkerMain.md)

@@ -34,12 +34,12 @@ The function leverages the assumption that mergejoin operators are strict to ena
   - TupIsNull
   - ResetExprContext
   - [MemoryContextSwitchTo](MemoryContextSwitchTo.md)
-  - ExecEvalExpr
+  - [ExecEvalExpr](../E/ExecEvalExpr.md)
   - MJEVAL_ENDOFJOIN
   - MJEVAL_MATCHABLE
   - MJEVAL_NONMATCHABLE
 - Called from:
-  - ExecMergeJoin (multiple call sites)
+  - [ExecMergeJoin](../E/ExecMergeJoin.md) (multiple call sites)
 
 ## Notes and Other Information
 - Uses InnerEContext for expression evaluation with proper per-tuple memory management

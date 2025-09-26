@@ -25,22 +25,22 @@ This function performs the core work of deparsing WindowFunc nodes into SQL text
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - generate_function_name
-  - get_rule_expr
-  - get_rule_windowspec
-  - quote_identifier
+  - [generate_function_name](generate_function_name.md)
+  - [get_rule_expr](get_rule_expr.md)
+  - [get_rule_windowspec](get_rule_windowspec.md)
+  - [quote_identifier](../q/quote_identifier.md)
   - lsecond
-  - exprType
-  - appendStringInfo functions
+  - [exprType](../e/exprType.md)
+  - [appendStringInfo](../a/appendStringInfo.md) functions
 - Types referenced:
-  - WindowFunc
-  - deparse_context
-  - NamedArgExpr
-  - WindowClause
+  - [WindowFunc](../W/WindowFunc.md)
+  - [deparse_context](../d/deparse_context.md)
+  - [NamedArgExpr](../N/NamedArgExpr.md)
+  - [WindowClause](../W/WindowClause.md)
   - FUNC_MAX_ARGS (constant)
 - Called from (representative examples):
-  - get_windowfunc_expr
-  - get_json_agg_constructor
+  - [get_windowfunc_expr](get_windowfunc_expr.md)
+  - [get_json_agg_constructor](get_json_agg_constructor.md)
 
 ## Notes and Other Information
 This function is central to PostgreSQL's rule deparsing system for window functions. It handles several complex cases including star expressions (COUNT(*) OVER ...), filtered aggregates (SUM(x) FILTER (WHERE ...) OVER ...), named window clauses, and inline window specifications. The function includes error handling for too many arguments and missing window clauses. Special logic exists for EXPLAIN contexts where window clause information may not be available, resulting in a placeholder '(?)' output.

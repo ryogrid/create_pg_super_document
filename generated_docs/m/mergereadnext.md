@@ -21,15 +21,15 @@ The mergereadnext function is a core component of the merge phase in PostgreSQL'
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LogicalTape (tape abstraction structure)
-  - Tuplesortstate (sorting state structure)
+  - [LogicalTape](../L/LogicalTape.md) (tape abstraction structure)
+  - [Tuplesortstate](../T/Tuplesortstate.md) (sorting state structure)
   - SortTuple (tuple container structure)
-  - getlen (reads tuple length from tape)
+  - [getlen](../g/getlen.md) (reads tuple length from tape)
   - READTUP (macro for reading tuple data)
 - Called from (representative examples):
-  - tuplesort_gettuple_common
-  - mergeonerun
-  - beginmerge
+  - [tuplesort_gettuple_common](../t/tuplesort_gettuple_common.md)
+  - [mergeonerun](mergeonerun.md)
+  - [beginmerge](../b/beginmerge.md)
 
 ## Notes and Other Information
 - Returns true if a tuple was successfully read, false on EOF

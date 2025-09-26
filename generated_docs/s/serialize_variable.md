@@ -27,22 +27,22 @@ Additionally, the function serializes metadata including the source file path, s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - can_skip_gucvar
-  - do_serialize
-  - do_serialize_binary
-  - config_enum_lookup_by_value
+  - [can_skip_gucvar](../c/can_skip_gucvar.md)
+  - [do_serialize](../d/do_serialize.md)
+  - [do_serialize_binary](../d/do_serialize_binary.md)
+  - [config_enum_lookup_by_value](../c/config_enum_lookup_by_value.md)
 - Configuration types:
-  - config_generic
+  - [config_generic](../c/config_generic.md)
   - config_bool
-  - config_int
-  - config_real
-  - config_string
-  - config_enum
+  - [config_int](../c/config_int.md)
+  - [config_real](../c/config_real.md)
+  - [config_string](../c/config_string.md)
+  - [config_enum](../c/config_enum.md)
 - Constants:
   - PGC_BOOL, PGC_INT, PGC_REAL, PGC_STRING, PGC_ENUM
   - REALTYPE_PRECISION
 - Called from:
-  - SerializeGUCState
+  - [SerializeGUCState](../S/SerializeGUCState.md)
 
 ## Notes and Other Information
 - This is a static function internal to the GUC serialization system

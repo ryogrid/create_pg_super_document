@@ -29,7 +29,7 @@ The function deliberately ignores certain fields that are not semantically relev
 - Functions called/Symbols referenced:
   - [TupleConstr](../T/TupleConstr.md) (constraint structure access)
   - [AttrDefault](../A/AttrDefault.md) (default value structures)
-  - AttrMissing (missing value structures)
+  - [AttrMissing](../A/AttrMissing.md) (missing value structures)
   - [datumIsEqual](../d/datumIsEqual.md) (value comparison for missing values)
   - [ConstrCheck](../C/ConstrCheck.md) (check constraint structures)
 - Called from (representative examples):

@@ -27,9 +27,9 @@ The function implements sophisticated priority logic where .history files are co
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_atomic_exchange_u32](pg_atomic_exchange_u32.md) (check/clear forced directory scan flag)
-  - StatusFilePath (construct status file paths)
+  - [StatusFilePath](../S/StatusFilePath.md) (construct status file paths)
   - [binaryheap_reset](../b/binaryheap_reset.md) (reset the priority heap)
-  - AllocateDir/ReadDir/FreeDir (directory traversal)
+  - [AllocateDir](../A/AllocateDir.md)/ReadDir/FreeDir (directory traversal)
   - [binaryheap_add_unordered](../b/binaryheap_add_unordered.md)/binaryheap_build (heap construction)
   - [binaryheap_first](../b/binaryheap_first.md)/binaryheap_remove_first (heap operations)
   - [ready_file_comparator](../r/ready_file_comparator.md) (compare file priorities)

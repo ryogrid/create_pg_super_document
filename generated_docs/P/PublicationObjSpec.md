@@ -37,12 +37,12 @@ This structure is primarily used during the parsing phase of CREATE PUBLICATION 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PublicationObjSpecType (enum defining object types)
-  - PublicationTable (struct for table-specific publication details)
+  - [PublicationObjSpecType](PublicationObjSpecType.md) (enum defining object types)
+  - [PublicationTable](PublicationTable.md) (struct for table-specific publication details)
   - ParseLoc (location tracking for parser)
   - NodeTag (standard parse tree node identifier)
 - Called from (representative examples):
-  - ObjectsInPublicationToOids (in publicationcmds.c for converting specs to OIDs)
+  - [ObjectsInPublicationToOids](../O/ObjectsInPublicationToOids.md) (in publicationcmds.c for converting specs to OIDs)
 
 ## Notes and Other Information
 - This structure is part of PostgreSQL's logical replication system, introduced to support selective publication of database objects

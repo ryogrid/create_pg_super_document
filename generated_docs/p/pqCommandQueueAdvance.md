@@ -26,14 +26,14 @@ When advancing, the function unlinks the head element, updates queue pointers, a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqRecycleCmdQueueEntry
-  - PGcmdQueueEntry
+  - [pqRecycleCmdQueueEntry](pqRecycleCmdQueueEntry.md)
+  - [PGcmdQueueEntry](../P/PGcmdQueueEntry.md)
   - PGQUERY_SIMPLE
   - PGQUERY_SYNC
 
 - Called from (representative examples):
-  - PQgetResult (fe-exec.c)
-  - pqParseInput3 (fe-protocol3.c)
+  - [PQgetResult](../P/PQgetResult.md) (fe-exec.c)
+  - [pqParseInput3](pqParseInput3.md) (fe-protocol3.c)
 
 ## Notes and Other Information
 - Only advances for simple queries when ReadyForQuery is received

@@ -25,7 +25,7 @@ The core update operation is delegated to heap_inplace_update_and_unlock(), whic
   - [heap_inplace_update_and_unlock](../h/heap_inplace_update_and_unlock.md)
   - [systable_endscan](systable_endscan.md)
   - [SysScanDesc](../S/SysScanDesc.md) (type)
-  - BufferHeapTupleTableSlot (type)
+  - [BufferHeapTupleTableSlot](../B/BufferHeapTupleTableSlot.md) (type)
 - Called from (representative examples):
   - [index_update_stats](../i/index_update_stats.md)
   - [create_toast_table](../c/create_toast_table.md)  

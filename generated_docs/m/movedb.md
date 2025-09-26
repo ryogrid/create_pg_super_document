@@ -29,12 +29,12 @@ movedb performs a complete database tablespace relocation operation involving fi
   - [GetDatabasePath](../G/GetDatabasePath.md): Constructs source and destination paths
   - [RequestCheckpoint](../R/RequestCheckpoint.md): Forces checkpoint for consistency
   - [DropDatabaseBuffers](../D/DropDatabaseBuffers.md): Clears database buffers from shared memory
-  - copydir: Physically copies database files
+  - [copydir](../c/copydir.md): Physically copies database files
   - [XLogBeginInsert](../X/XLogBeginInsert.md)/XLogRegisterData/XLogInsert: WAL logging operations
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md): Updates pg_database tablespace reference
   - [ForceSyncCommit](../F/ForceSyncCommit.md): Ensures synchronous transaction commit
   - [CommitTransactionCommand](../C/CommitTransactionCommand.md)/StartTransactionCommand: Transaction boundaries
-  - rmtree: Removes old database directory
+  - [rmtree](../r/rmtree.md): Removes old database directory
 - Called from (representative examples):
   - [AlterDatabase](../A/AlterDatabase.md): Database alteration command handler
 

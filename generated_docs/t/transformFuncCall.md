@@ -26,14 +26,14 @@ Key processing steps:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FuncCall (struct type for function call expressions)
-  - SortBy (struct type for ORDER BY expressions)
-  - transformExprRecurse (recursively transforms expression nodes)
-  - transformExpr (transforms expressions with specific kind context)
-  - ParseFuncOrColumn (resolves function names and performs type checking)
+  - [FuncCall](../F/FuncCall.md) (struct type for function call expressions)
+  - [SortBy](../S/SortBy.md) (struct type for ORDER BY expressions)
+  - [transformExprRecurse](transformExprRecurse.md) (recursively transforms expression nodes)
+  - [transformExpr](transformExpr.md) (transforms expressions with specific kind context)
+  - [ParseFuncOrColumn](../P/ParseFuncOrColumn.md) (resolves function names and performs type checking)
   - EXPR_KIND_ORDER_BY (expression context constant)
 - Called from:
-  - transformExprRecurse (main expression transformation dispatcher)
+  - [transformExprRecurse](transformExprRecurse.md) (main expression transformation dispatcher)
 
 ## Notes and Other Information
 - This function is part of the SQL parser's expression transformation pipeline

@@ -31,7 +31,7 @@ A key feature is its blocking behavior management: when a read would block (EWOU
   - [be_gssapi_read](../b/be_gssapi_read.md): GSS-API encrypted read operation (when GSS is enabled)  
   - [secure_raw_read](secure_raw_read.md): Raw socket read for unencrypted connections
   - [ModifyWaitEvent](../M/ModifyWaitEvent.md): Updates wait event configuration for socket monitoring
-  - WaitEventSetWait: Blocks until socket becomes ready or other events occur
+  - [WaitEventSetWait](../W/WaitEventSetWait.md): Blocks until socket becomes ready or other events occur
   - [ResetLatch](../R/ResetLatch.md): Clears the process latch after interrupt processing
 - Called from (representative examples):
   - [pq_recvbuf](../p/pq_recvbuf.md): Main packet receive buffer management

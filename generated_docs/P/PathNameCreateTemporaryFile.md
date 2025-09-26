@@ -30,15 +30,15 @@ The file is opened with O_RDWR | O_CREAT | O_TRUNC | PG_BINARY flags but deliber
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwnerEnlarge (ensures resource tracking capacity)
-  - PathNameOpenFile (performs actual file creation/opening)
-  - RegisterTemporaryFile (registers for automatic cleanup)
+  - [ResourceOwnerEnlarge](../R/ResourceOwnerEnlarge.md) (ensures resource tracking capacity)
+  - [PathNameOpenFile](PathNameOpenFile.md) (performs actual file creation/opening)
+  - [RegisterTemporaryFile](../R/RegisterTemporaryFile.md) (registers for automatic cleanup)
   - PG_BINARY (binary file mode constant)
   - FD_TEMP_FILE_LIMIT (flag for temp file limit accounting)
   - VfdCache (virtual file descriptor cache)
 
 - Called from (representative examples):
-  - FileSetCreate (creates shared temp files for filesets)
+  - [FileSetCreate](../F/FileSetCreate.md) (creates shared temp files for filesets)
 
 ## Notes and Other Information
 - Files created this way are NOT automatically deleted on close, making them suitable for sharing between backends

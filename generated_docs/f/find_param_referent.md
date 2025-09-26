@@ -56,8 +56,8 @@ The function maintains the invariant that parameters are resolved in their prope
 ## Notes and Other Information
 - Returns NULL if no referent can be found, indicating the parameter cannot be resolved
 - Only handles PARAM_EXEC parameters; other parameter kinds are ignored
-- NestLoop parameters are only passed to the inner child, never the outer child
-- SubPlan argument resolution requires finding a non-SubPlan ancestor for proper variable context
+- [NestLoop](../N/NestLoop.md) parameters are only passed to the inner child, never the outer child
+- [SubPlan](../S/SubPlan.md) argument resolution requires finding a non-SubPlan ancestor for proper variable context
 - The function does not examine initPlan lists since initplans never have parParams
 - Critical for proper decompilation of correlated subqueries and parameterized nested loops
 - Output parameters must be used with push_ancestor_plan() to establish correct evaluation context

@@ -24,10 +24,10 @@ The function handles various execution modes including EXPLAIN-only operations, 
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to create BitmapIndexScanState)
-  - exec_rt_fetch (to get relation lock mode)
+  - [exec_rt_fetch](../e/exec_rt_fetch.md) (to get relation lock mode)
   - [index_open](../i/index_open.md) (to open the index relation)
   - [ExecIndexBuildScanKeys](ExecIndexBuildScanKeys.md) (to build scan keys from qualification)
-  - ExecAssignExprContext (to set up expression context for runtime keys)
+  - [ExecAssignExprContext](ExecAssignExprContext.md) (to set up expression context for runtime keys)
   - [index_beginscan_bitmap](../i/index_beginscan_bitmap.md) (to initialize bitmap index scan)
   - [index_rescan](../i/index_rescan.md) (to set initial scan keys if no runtime keys)
 - Called from (representative examples):

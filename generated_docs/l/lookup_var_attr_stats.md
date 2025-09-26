@@ -32,7 +32,7 @@ The function implements a strict "all-or-nothing" policy - if statistics for any
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - VacAttrStats (structure manipulation)
+  - [VacAttrStats](../V/VacAttrStats.md) (structure manipulation)
   - [bms_num_members](../b/bms_num_members.md) (count members in Bitmapset)
   - [bms_next_member](../b/bms_next_member.md) (iterate through Bitmapset)
   - [examine_attribute](../e/examine_attribute.md) (analyze expressions for statistics)

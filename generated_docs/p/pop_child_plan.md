@@ -23,7 +23,7 @@ The function ensures that the deparse context is properly restored to its state 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_delete_first (removes the first element from a list)
+  - [list_delete_first](../l/list_delete_first.md) (removes the first element from a list)
 - Called from (representative examples):
   - [get_variable](../g/get_variable.md)
   - [resolve_special_varno](../r/resolve_special_varno.md)

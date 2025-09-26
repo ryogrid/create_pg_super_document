@@ -22,7 +22,7 @@ This function establishes the shared dependency relationships for a newly create
 - Functions called/Symbols referenced:
   - [MakeSingleTupleTableSlot](../M/MakeSingleTupleTableSlot.md) (creates tuple slots for batch operations)
   - [ExecDropSingleTupleTableSlot](../E/ExecDropSingleTupleTableSlot.md) (cleans up tuple slots)
-  - ExecClearTuple (clears tuple slot contents)
+  - [ExecClearTuple](../E/ExecClearTuple.md) (clears tuple slot contents)
   - [ExecStoreVirtualTuple](../E/ExecStoreVirtualTuple.md) (stores tuple data in slot)
   - [CatalogOpenIndexes](../C/CatalogOpenIndexes.md) (opens catalog indexes for insertion)
   - [CatalogCloseIndexes](../C/CatalogCloseIndexes.md) (closes catalog indexes)

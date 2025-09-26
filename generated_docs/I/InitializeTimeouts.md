@@ -30,16 +30,16 @@ This function is fork-safe and should be called after process forking but before
 - Functions called/Symbols referenced:
   - disable_alarm: Disables alarm system temporarily
   - MAX_TIMEOUTS: Maximum number of concurrent timeouts supported
-  - pqsignal: PostgreSQL signal registration function
+  - [pqsignal](../p/pqsignal.md): PostgreSQL signal registration function
   - SIGALRM: POSIX alarm signal constant
-  - handle_sig_alarm: The signal handler function for timeout processing
+  - [handle_sig_alarm](../h/handle_sig_alarm.md): The signal handler function for timeout processing
 - Called from (representative examples):
-  - AutoVacWorkerMain: Autovacuum worker process initialization
-  - BackgroundWorkerMain: Background worker process initialization  
-  - StartupProcessMain: Database startup process initialization
-  - BackendInitialize: Backend process initialization
-  - PostgresMain: Main postgres process initialization
-  - WalSndSignals: WAL sender process signal setup
+  - [AutoVacWorkerMain](../A/AutoVacWorkerMain.md): Autovacuum worker process initialization
+  - [BackgroundWorkerMain](../B/BackgroundWorkerMain.md): Background worker process initialization  
+  - [StartupProcessMain](../S/StartupProcessMain.md): Database startup process initialization
+  - [BackendInitialize](../B/BackendInitialize.md): Backend process initialization
+  - [PostgresMain](../P/PostgresMain.md): Main postgres process initialization
+  - [WalSndSignals](../W/WalSndSignals.md): WAL sender process signal setup
 
 ## Notes and Other Information
 - Must be called in every process that uses timeouts before any timeout registration

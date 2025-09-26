@@ -21,12 +21,12 @@ This function searches the pg_constraint catalog to determine if a constraint na
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - [ScanKeyInit](../S/ScanKeyInit.md)
   - [systable_beginscan](../s/systable_beginscan.md)
   - [systable_getnext](../s/systable_getnext.md)
   - [systable_endscan](../s/systable_endscan.md)
-  - table_close
+  - [table_close](../t/table_close.md)
   - HeapTupleIsValid
   - [CStringGetDatum](CStringGetDatum.md)
   - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)

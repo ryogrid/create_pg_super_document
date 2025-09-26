@@ -34,7 +34,7 @@ IndexOrderByDistance is used to store distance values computed during index scan
   - [storeGettuple](../s/storeGettuple.md)
   - [GISTSearchItem](../G/GISTSearchItem.md) (as member)
   - [GISTScanOpaqueData](../G/GISTScanOpaqueData.md) (as member)
-  - SpGistScanOpaqueData (as member)
+  - [SpGistScanOpaqueData](../S/SpGistScanOpaqueData.md) (as member)
 
 ## Notes and Other Information
 - Primarily used in geometric and spatial index operations where distance calculations are fundamental

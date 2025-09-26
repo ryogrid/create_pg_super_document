@@ -34,7 +34,7 @@ This function is commonly used during bootstrap operations and WAL replay when s
   - [commit_ts_redo](../c/commit_ts_redo.md)
   - [BootStrapMultiXact](../B/BootStrapMultiXact.md)
   - [multixact_redo](../m/multixact_redo.md)
-  - BootStrapSUBTRANS
+  - [BootStrapSUBTRANS](../B/BootStrapSUBTRANS.md)
 
 ## Notes and Other Information
 - Always passes NULL as the fdata parameter to SlruInternalWritePage, meaning it never participates in checkpoint flush operations

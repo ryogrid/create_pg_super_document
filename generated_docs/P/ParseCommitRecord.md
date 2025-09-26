@@ -291,7 +291,7 @@ Text creation and manipulation
 ## Dependencies
 - Functions called/Symbols referenced:
   - memset
-  - strlcpy
+  - [strlcpy](../s/strlcpy.md)
   - memcpy
   - MinSizeOfXactCommit
   - XLOG_XACT_HAS_INFO

@@ -25,11 +25,11 @@ The function requires a caller-provided LWLock tranche ID because these are scar
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dsm_create](dsm_create.md)
-  - dsm_pin_segment
-  - create_internal
-  - dsm_segment_address
-  - dsm_segment_handle
-  - on_dsm_detach
+  - [dsm_pin_segment](dsm_pin_segment.md)
+  - [create_internal](../c/create_internal.md)
+  - [dsm_segment_address](dsm_segment_address.md)
+  - [dsm_segment_handle](dsm_segment_handle.md)
+  - [on_dsm_detach](../o/on_dsm_detach.md)
   - [dsa_on_dsm_detach_release_in_place](dsa_on_dsm_detach_release_in_place.md)
 - Called from (representative examples):
   - [TidStoreCreateShared](../T/TidStoreCreateShared.md)

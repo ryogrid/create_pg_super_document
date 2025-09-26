@@ -27,14 +27,14 @@ This selective debugging mechanism allows PostgreSQL developers to focus on spec
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LOCKTAG (structure)
+  - [LOCKTAG](LOCKTAG.md) (structure)
   - LockMethods (global array)
   - Trace_lock_oidmin (global variable)
   - Trace_lock_table (global variable)
 - Called from (representative examples):
-  - LockHasWaiters (src/backend/storage/lmgr/lock.c:661)
-  - LockAcquireExtended (src/backend/storage/lmgr/lock.c:817)
-  - LockRelease (src/backend/storage/lmgr/lock.c:1982)
+  - [LockHasWaiters](LockHasWaiters.md) (src/backend/storage/lmgr/lock.c:661)
+  - [LockAcquireExtended](LockAcquireExtended.md) (src/backend/storage/lmgr/lock.c:817)
+  - [LockRelease](LockRelease.md) (src/backend/storage/lmgr/lock.c:1982)
 
 ## Notes and Other Information
 - This function is only compiled when LOCK_DEBUG is defined at compile time

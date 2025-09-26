@@ -26,7 +26,7 @@ The function first creates a role with LOGIN privilege, then iterates through th
   - [psql_start_command](../p/psql_start_command.md)
   - [psql_add_command](../p/psql_add_command.md)  
   - [psql_end_command](../p/psql_end_command.md)
-  - _stringlist
+  - [_stringlist](../s/_stringlist.md)
 - Called from (representative examples):
   - No references found (appears to be an internal utility function)
 

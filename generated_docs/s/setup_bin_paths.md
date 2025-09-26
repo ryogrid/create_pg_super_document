@@ -19,14 +19,14 @@ The function implements robust error handling and provides detailed diagnostic m
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_other_exec (PostgreSQL utility for locating executables)
-  - find_my_exec (PostgreSQL utility for self-location)
-  - strlcpy (Safe string copy utility)
+  - [find_other_exec](../f/find_other_exec.md) (PostgreSQL utility for locating executables)
+  - [find_my_exec](../f/find_my_exec.md) (PostgreSQL utility for self-location)
+  - [strlcpy](strlcpy.md) (Safe string copy utility)
   - [pg_fatal](../p/pg_fatal.md) (PostgreSQL fatal error function)
   - strcpy (C standard library)
   - [last_dir_separator](../l/last_dir_separator.md) (PostgreSQL path utility)
   - [canonicalize_path](../c/canonicalize_path.md) (PostgreSQL path utility)
-  - pg_malloc (PostgreSQL memory allocation)
+  - [pg_malloc](../p/pg_malloc.md) (PostgreSQL memory allocation)
   - [get_share_path](../g/get_share_path.md) (PostgreSQL utility for locating share directory)
   - is_absolute_path (PostgreSQL path validation utility)
 - Global constants/variables referenced:

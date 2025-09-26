@@ -26,7 +26,7 @@ This function is part of PostgreSQL's EPQ (Eval Plan Qual) infrastructure, which
   - [EPQState](EPQState.md)
 - Called from (representative examples):
   - [ExecInitModifyTable](ExecInitModifyTable.md)
-  - ExecGetJunkAttribute
+  - [ExecGetJunkAttribute](ExecGetJunkAttribute.md)
 
 ## Notes and Other Information
 - The function includes a comment noting that it was originally needed for ModifyTable to handle multiple subplans

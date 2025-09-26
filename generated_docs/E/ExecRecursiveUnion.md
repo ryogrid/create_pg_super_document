@@ -27,18 +27,18 @@ The function manages three key data structures: a working table (current iterati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecProcNode
-  - LookupTupleHashEntry
-  - MemoryContextReset
-  - tuplestore_puttupleslot
-  - tuplestore_end
-  - tuplestore_begin_heap
-  - bms_add_member
+  - [ExecProcNode](ExecProcNode.md)
+  - [LookupTupleHashEntry](../L/LookupTupleHashEntry.md)
+  - [MemoryContextReset](../M/MemoryContextReset.md)
+  - [tuplestore_puttupleslot](../t/tuplestore_puttupleslot.md)
+  - [tuplestore_end](../t/tuplestore_end.md)
+  - [tuplestore_begin_heap](../t/tuplestore_begin_heap.md)
+  - [bms_add_member](../b/bms_add_member.md)
   - TupIsNull
   - outerPlanState
   - innerPlanState
 - Called from (representative examples):
-  - ExecInitRecursiveUnion
+  - [ExecInitRecursiveUnion](ExecInitRecursiveUnion.md)
 
 ## Notes and Other Information
 - Supports optional duplicate elimination through hash table lookups when numCols > 0

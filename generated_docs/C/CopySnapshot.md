@@ -27,15 +27,15 @@ Key behaviors:
 ## Dependencies
 - Functions called/Symbols referenced:
   - InvalidSnapshot
-  - SnapshotData
-  - MemoryContextAlloc
+  - [SnapshotData](../S/SnapshotData.md)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
 - Called from (representative examples):
-  - GetTransactionSnapshot
-  - SetTransactionSnapshot
-  - PushActiveSnapshotWithLevel
-  - PushCopiedSnapshot
-  - RegisterSnapshotOnOwner
-  - ExportSnapshot
+  - [GetTransactionSnapshot](../G/GetTransactionSnapshot.md)
+  - [SetTransactionSnapshot](../S/SetTransactionSnapshot.md)
+  - [PushActiveSnapshotWithLevel](../P/PushActiveSnapshotWithLevel.md)
+  - [PushCopiedSnapshot](../P/PushCopiedSnapshot.md)
+  - [RegisterSnapshotOnOwner](../R/RegisterSnapshotOnOwner.md)
+  - [ExportSnapshot](../E/ExportSnapshot.md)
 
 ## Notes and Other Information
 - This is a static function in snapmgr.c, not exposed as a public API

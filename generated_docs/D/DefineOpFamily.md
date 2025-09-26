@@ -29,7 +29,7 @@ The function is relatively simple compared to DefineOpClass because operator fam
   - [aclcheck_error](../a/aclcheck_error.md)
   - [get_namespace_name](../g/get_namespace_name.md)
   - [get_index_am_oid](../g/get_index_am_oid.md)
-  - superuser
+  - [superuser](../s/superuser.md)
   - [CreateOpFamily](../C/CreateOpFamily.md)
 - Called from (representative examples):
   - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (utility command processing)

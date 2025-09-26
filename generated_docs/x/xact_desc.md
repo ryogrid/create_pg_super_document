@@ -37,7 +37,7 @@ This function is primarily used by PostgreSQL's WAL inspection tools and logging
   - [xact_desc_prepare](xact_desc_prepare.md)
   - [xact_desc_assignment](xact_desc_assignment.md)
   - [standby_desc_invalidations](../s/standby_desc_invalidations.md)
-  - appendStringInfo
+  - [appendStringInfo](../a/appendStringInfo.md)
 - Called from (representative examples):
   - WAL description framework (no direct references found in current analysis)
 

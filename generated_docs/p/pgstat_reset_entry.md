@@ -22,18 +22,18 @@ The `pgstat_reset_entry` function resets the contents of a specific statistics e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_get_kind_info
-  - pgstat_get_entry_ref
-  - pgstat_lock_entry
-  - shared_stat_reset_contents
-  - pgstat_unlock_entry
+  - [pgstat_get_kind_info](pgstat_get_kind_info.md)
+  - [pgstat_get_entry_ref](pgstat_get_entry_ref.md)
+  - [pgstat_lock_entry](pgstat_lock_entry.md)
+  - [shared_stat_reset_contents](../s/shared_stat_reset_contents.md)
+  - [pgstat_unlock_entry](pgstat_unlock_entry.md)
 - Types used:
-  - PgStat_Kind
-  - PgStat_EntryRef
+  - [PgStat_Kind](../P/PgStat_Kind.md)
+  - [PgStat_EntryRef](../P/PgStat_EntryRef.md)
   - TimestampTz
 - Called from:
-  - pgstat_reset
-  - pgstat_create_subscription
+  - [pgstat_reset](pgstat_reset.md)
+  - [pgstat_create_subscription](pgstat_create_subscription.md)
 
 ## Notes and Other Information
 - Only works with variable-numbered statistics entries, not fixed-amount entries

@@ -29,7 +29,7 @@ This function is called at the end of every transaction (both commit and abort) 
   - [pgarch_archiveXlog](../p/pgarch_archiveXlog.md)
   - [WalSummarizerMain](../W/WalSummarizerMain.md)
   - [WalWriterMain](../W/WalWriterMain.md)
-  - HASH_SEQ_STATUS
+  - [HASH_SEQ_STATUS](../H/HASH_SEQ_STATUS.md)
 
 ## Notes and Other Information
 - This is a public function, callable from outside dynahash.c

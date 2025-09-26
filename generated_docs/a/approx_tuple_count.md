@@ -32,7 +32,7 @@ The function creates a dummy SpecialJoinInfo structure for JOIN_INNER semantics,
   - [init_dummy_sjinfo](../i/init_dummy_sjinfo.md)
   - [clause_selectivity](../c/clause_selectivity.md)
   - [clamp_row_est](../c/clamp_row_est.md)
-  - JoinPath
+  - [JoinPath](../J/JoinPath.md)
   - [SpecialJoinInfo](../S/SpecialJoinInfo.md)
   - JOIN_INNER
 - Called from (representative examples):

@@ -27,19 +27,19 @@ This approach ensures that both successful insertions and collision scenarios ar
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetPermutation (generates random insertion order)
-  - rbt_insert (inserts nodes into the red-black tree)
+  - [GetPermutation](../G/GetPermutation.md) (generates random insertion order)
+  - [rbt_insert](rbt_insert.md) (inserts nodes into the red-black tree)
   - elog (PostgreSQL error logging)
-  - pfree (PostgreSQL memory deallocation)
-  - IntRBTreeNode (test-specific node structure)
-  - RBTNode (generic red-black tree node type)
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation)
+  - [IntRBTreeNode](../I/IntRBTreeNode.md) (test-specific node structure)
+  - [RBTNode](../R/RBTNode.md) (generic red-black tree node type)
 - Called from (representative examples):
-  - testleftright (test_rbtree.c:178)
-  - testrightleft (test_rbtree.c:218) 
-  - testfind (test_rbtree.c:249)
-  - testfindltgt (test_rbtree.c:303)
-  - testleftmost (test_rbtree.c:397)
-  - testdelete (test_rbtree.c:417)
+  - [testleftright](../t/testleftright.md) (test_rbtree.c:178)
+  - [testrightleft](../t/testrightleft.md) (test_rbtree.c:218) 
+  - [testfind](../t/testfind.md) (test_rbtree.c:249)
+  - [testfindltgt](../t/testfindltgt.md) (test_rbtree.c:303)
+  - [testleftmost](../t/testleftmost.md) (test_rbtree.c:397)
+  - [testdelete](../t/testdelete.md) (test_rbtree.c:417)
 
 ## Notes and Other Information
 - Expects the input tree to be empty; behavior with non-empty trees is not defined

@@ -23,7 +23,7 @@ The function includes comprehensive error handling for connection failures, quer
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_log_info (logging function for informational messages)
-  - connect_database (utility function to establish database connection)
+  - [connect_database](../c/connect_database.md) (utility function to establish database connection)
   - [PQexec](../P/PQexec.md) (libpq function for executing SQL queries)
   - PGRES_TUPLES_OK (libpq constant for successful SELECT result)
   - [PQresultErrorMessage](../P/PQresultErrorMessage.md) (libpq function to get error message from result)

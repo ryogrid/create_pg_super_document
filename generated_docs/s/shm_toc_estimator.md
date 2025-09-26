@@ -33,11 +33,11 @@ This estimation approach allows PostgreSQL to pre-calculate the exact size of dy
 ## Dependencies
 - Functions called/Symbols referenced: None (this is a simple data structure)
 - Used with helper macros:
-  - `shm_toc_initialize_estimator()` - Initialize estimator to zero values
+  - `shm_toc_initialize_estimator()` - [Initialize](../I/Initialize.md) estimator to zero values
   - `shm_toc_estimate_chunk()` - Add chunk size to space estimation
   - `shm_toc_estimate_keys()` - Add number of keys to key count
 - Used by function:
-  - `shm_toc_estimate()` - Calculate final memory requirement from estimator
+  - `[shm_toc_estimate](shm_toc_estimate.md)()` - Calculate final memory requirement from estimator
 
 ## Notes and Other Information
 - The estimator is designed for use during the planning phase before shared memory allocation

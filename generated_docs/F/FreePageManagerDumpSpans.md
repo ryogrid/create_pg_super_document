@@ -26,8 +26,8 @@ This function traverses a linked list of free page spans starting from the given
   - fpm_segment_base
   - fpm_pointer_to_page
   - relptr_access  
-  - appendStringInfo
-  - appendStringInfoChar
+  - [appendStringInfo](../a/appendStringInfo.md)
+  - [appendStringInfoChar](../a/appendStringInfoChar.md)
 - Called from (representative examples):
   - [FreePageManagerDump](FreePageManagerDump.md) (multiple calls)
 

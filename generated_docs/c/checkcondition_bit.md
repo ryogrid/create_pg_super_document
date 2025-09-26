@@ -33,7 +33,7 @@ This approach enables efficient filtering of index subtrees during query process
   - `HASHVAL`: Macro to compute hash position within signature length
   - `GETSIGLEN`: Macro to get the signature length
   - `QueryOperand`: Query operand structure
-  - `ExecPhraseData`: Execution phrase data structure
+  - `[ExecPhraseData](../E/ExecPhraseData.md)`: Execution phrase data structure
   - `TSTernaryValue`: Return type enum (`TS_NO`, `TS_MAYBE`, `TS_YES`)
 - Called from (representative examples):
   - [gtsvector_consistent](../g/gtsvector_consistent.md): Main consistency checking function for TSVector GiST operations

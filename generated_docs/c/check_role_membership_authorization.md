@@ -32,8 +32,8 @@ Key authorization rules enforced:
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetUserNameFromId](../G/GetUserNameFromId.md)
-  - superuser_arg
-  - is_admin_of_role
+  - [superuser_arg](../s/superuser_arg.md)
+  - [is_admin_of_role](../i/is_admin_of_role.md)
 - Called from (representative examples):
   - [CreateRole](../C/CreateRole.md)
   - [GrantRole](../G/GrantRole.md)

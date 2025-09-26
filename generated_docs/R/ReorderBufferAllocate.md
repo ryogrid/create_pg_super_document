@@ -25,12 +25,12 @@ This function takes no parameters.
   - [SlabContextCreate](../S/SlabContextCreate.md)
   - [GenerationContextCreate](../G/GenerationContextCreate.md)
   - [hash_create](../h/hash_create.md)
-  - pairingheap_allocate
+  - [pairingheap_allocate](../p/pairingheap_allocate.md)
   - [dlist_init](../d/dlist_init.md)
   - [dclist_init](../d/dclist_init.md)
   - [ReorderBufferCleanupSerializedTXNs](ReorderBufferCleanupSerializedTXNs.md)
 - Called from (representative examples):
-  - StartupDecodingContext
+  - [StartupDecodingContext](../S/StartupDecodingContext.md)
 
 ## Notes and Other Information
 - Creates specialized memory contexts: main context, change_context (slab), txn_context (slab), and tup_context (generation)

@@ -31,7 +31,7 @@ This function takes no parameters but operates on global predicate locking state
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockHeldByMe (assertion check for SerializableXactHashLock)
+  - [LWLockHeldByMe](../L/LWLockHeldByMe.md) (assertion check for SerializableXactHashLock)
   - dlist_foreach (iteration over active transaction list)
   - dlist_container (container access for serializable transactions)
   - SxactIsRolledBack (transaction state check)

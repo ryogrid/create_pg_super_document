@@ -23,7 +23,7 @@ The function uses a systematic approach: it first searches for existing entries,
 ## Dependencies
 - Functions called/Symbols referenced:
   - [aclmembers](../a/aclmembers.md)
-  - table_open/table_close
+  - [table_open](../t/table_open.md)/table_close
   - [systable_beginscan](../s/systable_beginscan.md)/systable_endscan/systable_getnext
   - [heap_getattr](../h/heap_getattr.md)
   - DatumGetAclP
@@ -32,7 +32,7 @@ The function uses a systematic approach: it first searches for existing entries,
   - [heap_modify_tuple](../h/heap_modify_tuple.md)
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)/CatalogTupleDelete/CatalogTupleInsert
   - [heap_form_tuple](../h/heap_form_tuple.md)
-  - CommandCounterIncrement
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md)
   - INITPRIVS_EXTENSION
   - [CharGetDatum](../C/CharGetDatum.md)
 - Called from (representative examples):

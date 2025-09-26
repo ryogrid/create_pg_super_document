@@ -19,9 +19,9 @@ This function discovers and imports collations from multiple sources depending o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - superuser (permission check)
+  - [superuser](../s/superuser.md) (permission check)
   - SearchSysCacheExists1 (namespace validation)
-  - OpenPipeStream/ClosePipeStream (execute "locale -a")
+  - [OpenPipeStream](../O/OpenPipeStream.md)/ClosePipeStream (execute "locale -a")
   - create_collation_from_locale (create individual collations)
   - [normalize_libc_locale_name](../n/normalize_libc_locale_name.md) (generate aliases)
   - qsort/cmpaliases (sort alias data)
@@ -30,7 +30,7 @@ This function discovers and imports collations from multiple sources depending o
   - [icu_language_tag](../i/icu_language_tag.md) (ICU locale processing)
   - [get_icu_locale_comment](../g/get_icu_locale_comment.md) (ICU locale comments)
   - [win32_read_locale](../w/win32_read_locale.md) (Windows callback function)
-  - CommandCounterIncrement (transaction management)
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md) (transaction management)
 - Called from (representative examples):
   - SQL command: SELECT pg_import_system_collations(namespace_oid)
 

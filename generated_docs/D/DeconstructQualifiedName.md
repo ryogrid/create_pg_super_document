@@ -21,7 +21,7 @@ DeconstructQualifiedName takes a list of String nodes representing a qualified n
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_length
+  - [list_length](../l/list_length.md)
   - strVal
   - linitial
   - lsecond

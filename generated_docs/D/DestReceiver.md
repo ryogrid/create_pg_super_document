@@ -28,15 +28,15 @@ DestReceiver is a typedef, so it doesn't have direct members, but it refers to t
 - Functions called/Symbols referenced:
   - struct _DestReceiver (the actual struct definition)
   - CommandDest (enum for destination types)
-  - TupleTableSlot (for tuple handling)
-  - TupleDesc (for tuple description)
+  - [TupleTableSlot](../T/TupleTableSlot.md) (for tuple handling)
+  - [TupleDesc](../T/TupleDesc.md) (for tuple description)
 
 - Called from (representative examples):
-  - CreateDestReceiver (creates receiver instances)
-  - ExecutePlan (executor main function)
-  - ProcessQuery (query processing)
-  - PortalRun (portal execution)
-  - standard_ExecutorRun (executor entry point)
+  - [CreateDestReceiver](../C/CreateDestReceiver.md) (creates receiver instances)
+  - [ExecutePlan](../E/ExecutePlan.md) (executor main function)
+  - [ProcessQuery](../P/ProcessQuery.md) (query processing)
+  - [PortalRun](../P/PortalRun.md) (portal execution)
+  - [standard_ExecutorRun](../s/standard_ExecutorRun.md) (executor entry point)
   - Many destination-specific implementations (printtup, copy, SPI, etc.)
 
 ## Notes and Other Information

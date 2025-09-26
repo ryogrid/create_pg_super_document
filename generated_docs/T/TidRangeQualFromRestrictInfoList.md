@@ -29,7 +29,7 @@ This function is simpler than its counterpart TidQualFromRestrictInfoList becaus
 - Functions called/Symbols referenced:
   - AMFLAG_HAS_TID_RANGE (access method flag)
   - [IsTidRangeClause](../I/IsTidRangeClause.md)
-  - lappend
+  - [lappend](../l/lappend.md)
 - Called from (representative examples):
   - [create_tidscan_paths](../c/create_tidscan_paths.md)
 
@@ -40,4 +40,4 @@ This function is simpler than its counterpart TidQualFromRestrictInfoList becaus
 - Returns list with implicit AND semantics across all range conditions
 - Part of PostgreSQL's TID range scan optimization infrastructure
 - Access method capability check prevents unnecessary processing for unsupported storage engines
-- Range scans are useful for inequality conditions on CTID values (e.g., ctid > '(1,1)' AND ctid < '(10,100)')
+- [Range](../R/Range.md) scans are useful for inequality conditions on CTID values (e.g., ctid > '(1,1)' AND ctid < '(10,100)')

@@ -31,8 +31,8 @@ The function is designed to maintain transactional consistency and handles both 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open (relation opening)
-  - table_close (relation closing)
+  - [table_open](../t/table_open.md) (relation opening)
+  - [table_close](../t/table_close.md) (relation closing)
   - [ScanKeyInit](../S/ScanKeyInit.md) (scan key initialization)
   - [systable_beginscan](../s/systable_beginscan.md) (system catalog scan)
   - [systable_getnext](../s/systable_getnext.md) (scan result retrieval)
@@ -62,6 +62,6 @@ The function is designed to maintain transactional consistency and handles both 
 - Supports both regular tables (RELKIND_RELATION) and partitioned tables (RELKIND_PARTITIONED_TABLE)
 - System table modification protection is enforced through allowSystemTableMods global variable
 - Cache invalidation ensures that all database sessions immediately see the policy removal
-- The function maintains the important distinction that relrowsecurity flag behavior is independent of policy existence - when set by users, it enforces default-deny behavior even without explicit policies
+- The function maintains the important distinction that relrowsecurity flag behavior is independent of policy existence - [when](../w/when.md) set by users, it enforces default-deny behavior even without explicit policies
 - Error handling includes specific error codes: ERRCODE_WRONG_OBJECT_TYPE for non-table relations, ERRCODE_INSUFFICIENT_PRIVILEGE for system catalog restrictions
 - The function is typically called through PostgreSQL's dependency management system during DROP POLICY operations or cascaded deletions

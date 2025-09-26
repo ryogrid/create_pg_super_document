@@ -24,7 +24,7 @@ The caller must have already verified that the view is auto-updatable using view
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RangeTblRef (structure for range table references)
+  - [RangeTblRef](../R/RangeTblRef.md) (structure for range table references)
   - linitial_node (macro to get first list node with type checking)
   - FirstLowInvalidHeapAttributeNumber (constant for attribute numbering)
   - [view_col_is_auto_updatable](view_col_is_auto_updatable.md) (function to check individual column updatability)
@@ -38,7 +38,7 @@ The caller must have already verified that the view is auto-updatable using view
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RangeTblRef (structure for range table references)
+  - [RangeTblRef](../R/RangeTblRef.md) (structure for range table references)
   - linitial_node (macro to get first list node with type checking)
   - FirstLowInvalidHeapAttributeNumber (constant for attribute numbering)
   - [view_col_is_auto_updatable](view_col_is_auto_updatable.md) (function to check individual column updatability)

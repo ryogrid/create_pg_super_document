@@ -30,7 +30,7 @@ The function determines which case applies based on the ResultRelInfo structure'
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RTEPermissionInfo](../R/RTEPermissionInfo.md) (return type)
-  - exec_rt_fetch (to get RangeTblEntry from range table)
+  - [exec_rt_fetch](../e/exec_rt_fetch.md) (to get RangeTblEntry from range table)
   - [getRTEPermissionInfo](../g/getRTEPermissionInfo.md) (to get permission info from RTE)
 - Called from (representative examples):
   - [ExecGetInsertedCols](../E/ExecGetInsertedCols.md) (src/backend/executor/execUtils.c:1269)

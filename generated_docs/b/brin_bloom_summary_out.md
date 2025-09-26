@@ -21,9 +21,9 @@ This function serves as the output routine for the brin_bloom_summary data type,
 - Functions called/Symbols referenced:
   - PG_DETOAST_DATUM (to handle potentially compressed data)
   - PG_GETARG_DATUM 
-  - initStringInfo
-  - appendStringInfoChar
-  - appendStringInfo
+  - [initStringInfo](../i/initStringInfo.md)
+  - [appendStringInfoChar](../a/appendStringInfoChar.md)
+  - [appendStringInfo](../a/appendStringInfo.md)
   - PG_RETURN_CSTRING
 - Data types used:
   - [BloomFilter](../B/BloomFilter.md)

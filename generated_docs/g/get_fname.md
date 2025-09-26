@@ -19,9 +19,9 @@ The `get_fname` function is a static inline helper function that returns the fie
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonLexContext (structure type)
+  - [JsonLexContext](../J/JsonLexContext.md) (structure type)
 - Called from (representative examples):
-  - pg_parse_json_incremental (multiple locations)
+  - [pg_parse_json_incremental](../p/pg_parse_json_incremental.md) (multiple locations)
 
 ## Notes and Other Information
 This is a static inline function, meaning it is only accessible within the jsonapi.c file and will likely be inlined by the compiler for performance. The function serves as a companion to `set_fname`, providing read access to the field names stored during JSON parsing. It returns a char pointer to the field name string, which may be NULL if no field name has been set for the current level.

@@ -25,7 +25,7 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogRecData: Referenced when resetting mainrdata_last pointer
+  - [XLogRecData](XLogRecData.md): Referenced when resetting mainrdata_last pointer
 - Called from (representative examples):
   - [XLogInsert](XLogInsert.md): Called after successful WAL record insertion to clean up state
   - [XLogInsert](XLogInsert.md): Called on error paths to ensure cleanup even when insertion fails

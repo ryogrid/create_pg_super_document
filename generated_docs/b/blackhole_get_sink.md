@@ -22,7 +22,7 @@ The blackhole target is primarily useful for testing scenarios where backup oper
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbsink (type)
+  - [bbsink](bbsink.md) (type)
 
 - Called from (representative examples):
   - Referenced in builtin_backup_targets array

@@ -22,11 +22,11 @@ The `populate_recordset_record` function is responsible for converting a single 
 - Functions called/Symbols referenced:
   - [update_cached_tupdesc](../u/update_cached_tupdesc.md)
   - [populate_record](populate_record.md)
-  - domain_check_safe
+  - [domain_check_safe](../d/domain_check_safe.md)
   - [HeapTupleHeaderGetDatum](../H/HeapTupleHeaderGetDatum.md)
   - HeapTupleHeaderGetDatumLength
   - [ItemPointerSetInvalid](../I/ItemPointerSetInvalid.md)
-  - tuplestore_puttuple
+  - [tuplestore_puttuple](../t/tuplestore_puttuple.md)
 - Called from (representative examples):
   - [populate_recordset_worker](populate_recordset_worker.md)
   - [populate_recordset_object_end](populate_recordset_object_end.md)

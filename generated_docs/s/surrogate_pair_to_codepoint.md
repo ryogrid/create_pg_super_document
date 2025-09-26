@@ -21,8 +21,8 @@ The conversion formula extracts the 10-bit payload from each surrogate (using ma
 ## Dependencies
 - Functions called/Symbols referenced: None (bitwise operations and arithmetic)
 - Called from (representative examples):
-  - str_udeescape (src/backend/parser/parser.c:434, 473)
-  - unistr (src/backend/utils/adt/varlena.c:6547, 6582, 6617)
+  - [str_udeescape](str_udeescape.md) (src/backend/parser/parser.c:434, 473)
+  - [unistr](../u/unistr.md) (src/backend/utils/adt/varlena.c:6547, 6582, 6617)
 
 ## Notes and Other Information
 - Defined as a static inline function for optimal performance

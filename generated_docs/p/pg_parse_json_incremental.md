@@ -23,12 +23,12 @@ pg_parse_json_incremental implements a table-driven, non-recursive parser specif
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - json_lex (for token lexing)
+  - [json_lex](../j/json_lex.md) (for token lexing)
   - [lex_peek](../l/lex_peek.md) (for token lookahead)
-  - have_prediction/pop_prediction/push_prediction (prediction stack management)
+  - [have_prediction](../h/have_prediction.md)/pop_prediction/push_prediction (prediction stack management)
   - [inc_lex_level](../i/inc_lex_level.md)/dec_lex_level (nesting level tracking)
-  - set_fname/get_fname/set_fnull/get_fnull (field name and null value tracking)
-  - report_parse_error (error reporting)
+  - [set_fname](../s/set_fname.md)/get_fname/set_fnull/get_fnull (field name and null value tracking)
+  - [report_parse_error](../r/report_parse_error.md) (error reporting)
 - Called from (representative examples):
   - [pg_parse_json](pg_parse_json.md) (src/common/jsonapi.c:542)
   - [json_parse_manifest_incremental_chunk](../j/json_parse_manifest_incremental_chunk.md) (src/common/parse_manifest.c:193)

@@ -36,7 +36,7 @@ TidStoreIter provides a standardized interface for iterating through all tuple i
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TidStore](TidStore.md) (parent structure type)
-  - TidStoreIterResult (output structure type)
+  - [TidStoreIterResult](TidStoreIterResult.md) (output structure type)
   - [BlocktableEntry](../B/BlocktableEntry.md) (for TID extraction)
   - [tidstore_iter_extract_tids](../t/tidstore_iter_extract_tids.md) (helper function)
 - Called from (representative examples):

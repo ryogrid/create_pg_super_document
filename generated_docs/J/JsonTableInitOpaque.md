@@ -31,9 +31,9 @@ The function bridges the SQL execution infrastructure with the JSON table proces
   - [JsonTableExecContext](JsonTableExecContext.md) (struct allocation)
   - castNode (for TableFuncScan and JsonExpr casting)
   - [palloc0](../p/palloc0.md)/palloc (memory allocation)
-  - ExecEvalExpr (expression evaluation)
+  - [ExecEvalExpr](../E/ExecEvalExpr.md) (expression evaluation)
   - [JsonTableInitPlan](JsonTableInitPlan.md) (recursive plan initialization)
-  - exprType/exprTypmod (expression type information)
+  - [exprType](../e/exprType.md)/exprTypmod (expression type information)
 - Called from (representative examples):
   - Table function scan initialization routines
 

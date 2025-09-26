@@ -22,13 +22,13 @@ The cleanup mechanism ensures that resources are properly released regardless of
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbsink (struct type)
+  - [bbsink](bbsink.md) (struct type)
   - Assert (assertion macro)
   - sink->bbs_ops->cleanup (callback function)
 
 - Called from (representative examples):
-  - SendBaseBackup
-  - bbsink_forward_cleanup
+  - [SendBaseBackup](../S/SendBaseBackup.md)
+  - [bbsink_forward_cleanup](bbsink_forward_cleanup.md)
 
 ## Notes and Other Information
 - This is an inline function defined in the header file for performance

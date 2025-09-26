@@ -19,8 +19,8 @@ This function implements PostgreSQL's sort support interface for DATE data types
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SortSupport (PostgreSQL sort optimization structure type)
-  - ssup_datum_int32_cmp (optimized 32-bit integer comparator function)
+  - [SortSupport](../S/SortSupport.md) (PostgreSQL sort optimization structure type)
+  - [ssup_datum_int32_cmp](../s/ssup_datum_int32_cmp.md) (optimized 32-bit integer comparator function)
   - PG_GETARG_POINTER (macro to extract pointer from function arguments)
   - PG_RETURN_VOID (macro to return void result)
 - Called from (representative examples):

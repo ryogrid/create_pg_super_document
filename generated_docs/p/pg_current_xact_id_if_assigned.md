@@ -24,7 +24,7 @@ This function provides a non-intrusive way to check the current toplevel transac
   - PG_RETURN_FULLTRANSACTIONID
   - PG_RETURN_NULL
 - Types referenced:
-  - FullTransactionId
+  - [FullTransactionId](../F/FullTransactionId.md)
 - Called from (representative examples):
   - No direct references found (called via SQL function interface)
 

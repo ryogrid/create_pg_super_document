@@ -21,10 +21,10 @@ This function provides a detailed view of a specific text search configuration b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initPQExpBuffer
+  - [initPQExpBuffer](../i/initPQExpBuffer.md)
   - [printfPQExpBuffer](../p/printfPQExpBuffer.md)
   - [PSQLexec](../P/PSQLexec.md)
-  - termPQExpBuffer
+  - [termPQExpBuffer](../t/termPQExpBuffer.md)
   - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
   - [printQuery](../p/printQuery.md)
   - [PQclear](../P/PQclear.md)

@@ -23,10 +23,10 @@ The function provides a fast, efficient way to validate that a string contains o
 - Functions called/Symbols referenced:
   - IS_HIGHBIT_SET (PostgreSQL macro for checking high bit)
 - Called from (representative examples):
-  - pg_import_system_collations (src/backend/commands/collationcmds.c:1008)
-  - check_locale (src/backend/utils/adt/pg_locale.c:322, 354)
-  - check_locale_name (src/bin/initdb/initdb.c:2190, 2236)
-  - pg_saslprep (src/common/saslprep.c:1069)
+  - [pg_import_system_collations](pg_import_system_collations.md) (src/backend/commands/collationcmds.c:1008)
+  - [check_locale](../c/check_locale.md) (src/backend/utils/adt/pg_locale.c:322, 354)
+  - [check_locale_name](../c/check_locale_name.md) (src/bin/initdb/initdb.c:2190, 2236)
+  - [pg_saslprep](pg_saslprep.md) (src/common/saslprep.c:1069)
 
 ## Notes and Other Information
 - Returns  if the entire string consists only of ASCII characters (0-127)

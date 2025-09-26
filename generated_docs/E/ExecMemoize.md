@@ -33,9 +33,9 @@ The function maintains statistics on cache hits, misses, and overflows to monito
   - [cache_lookup](../c/cache_lookup.md)
   - [cache_store_tuple](../c/cache_store_tuple.md)
   - [entry_purge_tuples](../e/entry_purge_tuples.md)
-  - ExecProcNode
+  - [ExecProcNode](ExecProcNode.md)
   - [ExecStoreMinimalTuple](ExecStoreMinimalTuple.md)
-  - ExecCopySlot
+  - [ExecCopySlot](ExecCopySlot.md)
   - outerPlanState
   - TupIsNull
 - Called from (representative examples):

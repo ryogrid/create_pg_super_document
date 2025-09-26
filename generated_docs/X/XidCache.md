@@ -30,6 +30,6 @@ The cache is part of PostgreSQL's visibility checking mechanism. When determinin
 
 ## Notes and Other Information
 - The cache size of 64 subtransactions is noted as a "guessed-at value" and may be subject to tuning
-- Cache overflow handling is critical - when overflow occurs, the system must fall back to pg_subtrans lookups
+- Cache overflow handling is critical - [when](../w/when.md) overflow occurs, the system must fall back to pg_subtrans lookups
 - This mechanism is part of PostgreSQL's transaction visibility optimization strategy
 - Related test specifications can be found in src/test/isolation/specs/subxid-overflow.spec

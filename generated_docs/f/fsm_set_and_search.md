@@ -33,19 +33,19 @@ The search operation, when performed, takes advantage of already holding the buf
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fsm_readbuf
-  - LockBuffer
-  - BufferGetPage
-  - fsm_set_avail
-  - MarkBufferDirtyHint
-  - fsm_search_avail
-  - UnlockReleaseBuffer
+  - [fsm_readbuf](fsm_readbuf.md)
+  - [LockBuffer](../L/LockBuffer.md)
+  - [BufferGetPage](../B/BufferGetPage.md)
+  - [fsm_set_avail](fsm_set_avail.md)
+  - [MarkBufferDirtyHint](../M/MarkBufferDirtyHint.md)
+  - [fsm_search_avail](fsm_search_avail.md)
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
   - BUFFER_LOCK_EXCLUSIVE
   - FSM_BOTTOM_LEVEL
 - Called from (representative examples):
-  - RecordAndGetPageWithFreeSpace
-  - RecordPageWithFreeSpace
-  - fsm_search
+  - [RecordAndGetPageWithFreeSpace](../R/RecordAndGetPageWithFreeSpace.md)
+  - [RecordPageWithFreeSpace](../R/RecordPageWithFreeSpace.md)
+  - [fsm_search](fsm_search.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the freespace.c file

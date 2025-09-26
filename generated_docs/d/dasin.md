@@ -26,7 +26,7 @@ The function explicitly handles:
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT8 (to extract input argument)
   - isnan (to check for NaN values)
-  - get_float8_nan (to return NaN value)
+  - [get_float8_nan](../g/get_float8_nan.md) (to return NaN value)
   - ereport (PostgreSQL error reporting system)
   - [errcode](../e/errcode.md) (error code specification)
   - [errmsg](../e/errmsg.md) (error message specification)

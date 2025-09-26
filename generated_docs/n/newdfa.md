@@ -33,9 +33,9 @@ The `newdfa` function allocates and initializes a new DFA structure for regex ex
   - FEWSTATES, FEWCOLORS, UBITS, WORK (size and allocation constants)
 - Called from (representative examples):
   - LOFF (regex execution setup)
-  - getsubdfa, getladfa (DFA retrieval functions)
-  - find (main search function)
-  - cfind (complex find function)
+  - [getsubdfa](../g/getsubdfa.md), getladfa (DFA retrieval functions)
+  - [find](../f/find.md) (main search function)
+  - [cfind](../c/cfind.md) (complex find function)
 
 ## Notes and Other Information
 - Uses smalldfa optimization for DFAs with ≤FEWSTATES states and ≤FEWCOLORS colors

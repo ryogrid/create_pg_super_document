@@ -26,7 +26,7 @@ Each worker is configured to execute the ParallelWorkerMain function with the DS
 - Functions called/Symbols referenced:
   - [BecomeLockGroupLeader](../B/BecomeLockGroupLeader.md) (establishes lock group coordination)
   - [RegisterDynamicBackgroundWorker](../R/RegisterDynamicBackgroundWorker.md) (registers worker with background worker infrastructure)
-  - dsm_segment_handle (obtains handle to shared memory segment)
+  - [dsm_segment_handle](../d/dsm_segment_handle.md) (obtains handle to shared memory segment)
   - [shm_mq_set_handle](../s/shm_mq_set_handle.md), shm_mq_detach (manages message queue handles)
   - [BackgroundWorker](../B/BackgroundWorker.md) (structure type for worker configuration)
   - [UInt32GetDatum](../U/UInt32GetDatum.md) (converts segment handle to Datum for worker argument)

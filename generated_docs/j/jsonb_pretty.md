@@ -22,10 +22,10 @@ The function leverages `JsonbToCStringIndent` to perform the actual formatting w
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_JSONB_P
-  - makeStringInfo
+  - [makeStringInfo](../m/makeStringInfo.md)
   - [JsonbToCStringIndent](../J/JsonbToCStringIndent.md)
   - VARSIZE
-  - cstring_to_text_with_len
+  - [cstring_to_text_with_len](../c/cstring_to_text_with_len.md)
   - PG_RETURN_TEXT_P
 - Called from (representative examples):
   - No direct callers found (exposed as SQL function)

@@ -25,9 +25,9 @@ This function serves as a central control point for vacuum operations, providing
   - ProcessConfigFile
   - [VacuumUpdateCosts](../V/VacuumUpdateCosts.md)
   - [compute_parallel_delay](../c/compute_parallel_delay.md)
-  - pgstat_report_wait_start
+  - [pgstat_report_wait_start](../p/pgstat_report_wait_start.md)
   - [pg_usleep](../p/pg_usleep.md)
-  - pgstat_report_wait_end
+  - [pgstat_report_wait_end](../p/pgstat_report_wait_end.md)
   - [PostmasterIsAlive](../P/PostmasterIsAlive.md)
   - [AutoVacuumUpdateCostLimit](../A/AutoVacuumUpdateCostLimit.md)
 - Called from (representative examples):

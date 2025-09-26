@@ -24,7 +24,7 @@ The function handles UTF-8 encoding properly, converting multi-byte Unicode char
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - convert_case (internal conversion function)
+  - [convert_case](../c/convert_case.md) (internal conversion function)
   - CaseLower (enum value for lowercase conversion)
   - ssize_t (signed size type)
 - Called from (representative examples):

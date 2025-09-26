@@ -34,7 +34,7 @@ This function takes no parameters but monitors these critical GUC parameters:
   - [XLogRegisterData](XLogRegisterData.md)
   - [XLogInsert](XLogInsert.md)
   - [XLogFlush](XLogFlush.md)
-  - UpdateControlFile
+  - [UpdateControlFile](../U/UpdateControlFile.md)
   - [xl_parameter_change](../x/xl_parameter_change.md) (struct type)
   - XLOG_PARAMETER_CHANGE (record type)
 - Called from (representative examples):

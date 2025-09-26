@@ -25,9 +25,9 @@ This function is part of the timezone parsing and management system, specificall
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ttinfo (struct type)
+  - [ttinfo](../t/ttinfo.md) (struct type)
 - Called from (representative examples):
-  - tzparse (multiple calls at lines 1053, 1054, 1217, 1218, 1228)
+  - [tzparse](../t/tzparse.md) (multiple calls at lines 1053, 1054, 1217, 1218, 1228)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the localtime.c compilation unit

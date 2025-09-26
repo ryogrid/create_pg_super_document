@@ -37,7 +37,7 @@ Range types support various operations like overlap detection, containment check
   - Various range operation functions (range_eq_internal, range_contains_internal, etc.)
 
 ## Notes and Other Information
-- Range data follows the struct: bounds are stored after the OID, followed by a flags byte
+- [Range](Range.md) data follows the struct: bounds are stored after the OID, followed by a flags byte
 - Use RangeTypeGetOid(r) macro instead of direct rangetypid field access
 - Flags byte encodes range properties: RANGE_EMPTY, RANGE_LB_INC, RANGE_UB_INC, RANGE_LB_INF, RANGE_UB_INF
 - Related helper structure RangeBound represents individual bounds during processing

@@ -23,9 +23,9 @@ This function is part of PostgreSQL's resource management infrastructure, ensuri
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DatumGetInt32](../D/DatumGetInt32.md)
-  - AbortBufferIO
+  - [AbortBufferIO](../A/AbortBufferIO.md)
 - Called from (representative examples):
-  - ResourceOwner system (callback mechanism)
+  - [ResourceOwner](ResourceOwner.md) system (callback mechanism)
 
 ## Notes and Other Information
 - Static function scope limits visibility to the current compilation unit (bufmgr.c)

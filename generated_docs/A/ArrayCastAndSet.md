@@ -27,14 +27,14 @@ The function assumes the caller has already handled NULL values and provides the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - store_att_byval (stores by-value attributes)
+  - [store_att_byval](../s/store_att_byval.md) (stores by-value attributes)
   - att_align_nominal (calculates aligned size)
   - att_addlength_datum (calculates actual length of variable-length datum)
-  - DatumGetPointer (converts Datum to pointer for by-reference types)
+  - [DatumGetPointer](../D/DatumGetPointer.md) (converts Datum to pointer for by-reference types)
 - Called from (representative examples):
-  - CopyArrayEls
-  - array_set_element
-  - array_fill_internal
+  - [CopyArrayEls](../C/CopyArrayEls.md)
+  - [array_set_element](../a/array_set_element.md)
+  - [array_fill_internal](../a/array_fill_internal.md)
 
 ## Notes and Other Information
 - Returns the total number of bytes used including alignment padding

@@ -26,8 +26,8 @@ The function handles MultiXactId wraparound by ensuring the computed value is at
 ## Dependencies
 - Functions called/Symbols referenced:
   - MultiXactIdIsValid
-  - LWLockAcquire (with LW_EXCLUSIVE)  
-  - LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md) (with LW_EXCLUSIVE)  
+  - [LWLockRelease](../L/LWLockRelease.md)
   - [MultiXactIdPrecedes](MultiXactIdPrecedes.md)
   - debug_elog4
 - Global variables accessed:

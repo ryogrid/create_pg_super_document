@@ -33,16 +33,16 @@ The function tracks the largest contiguous range created during cleanup and retu
 ## Dependencies
 - Functions called/Symbols referenced:
   - fpm_segment_base
-  - FreePageBtree (struct type)
+  - [FreePageBtree](FreePageBtree.md) (struct type)
   - relptr_access, relptr_store, relptr_copy
   - FREE_PAGE_LEAF_MAGIC, FREE_PAGE_INTERNAL_MAGIC (constants)
-  - FreePageBtreeRecycle
+  - [FreePageBtreeRecycle](FreePageBtreeRecycle.md)
   - fpm_pointer_to_page
   - [FreePagePopSpanLeader](FreePagePopSpanLeader.md), FreePagePushSpanLeader
-  - FreePageBtreeGetRecycled
+  - [FreePageBtreeGetRecycled](FreePageBtreeGetRecycled.md)
   - [FreePageManagerPutInternal](FreePageManagerPutInternal.md)
 - Called from (representative examples):
-  - FreePageManagerGet
+  - [FreePageManagerGet](FreePageManagerGet.md)
   - [FreePageManagerPut](FreePageManagerPut.md)
 
 ## Notes and Other Information

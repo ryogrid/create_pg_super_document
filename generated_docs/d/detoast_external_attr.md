@@ -33,9 +33,9 @@ The function ensures that the returned datum contains all necessary data interna
   - VARATT_IS_EXTERNAL_EXPANDED: Macro to check if value is an expanded object
   - VARATT_IS_EXTERNAL: General macro to check if value has any external storage
   - VARATT_EXTERNAL_GET_POINTER: Macro to extract pointer from indirect reference
-  - DatumGetEOHP: Converts datum to ExpandedObjectHeader pointer
-  - EOH_get_flat_size: Gets the size needed for flattened expanded object
-  - EOH_flatten_into: Flattens expanded object into provided buffer
+  - [DatumGetEOHP](../D/DatumGetEOHP.md): Converts datum to ExpandedObjectHeader pointer
+  - [EOH_get_flat_size](../E/EOH_get_flat_size.md): Gets the size needed for flattened expanded object
+  - [EOH_flatten_into](../E/EOH_flatten_into.md): Flattens expanded object into provided buffer
   - VARSIZE_ANY: Gets the total size of a varlena value
   - [palloc](../p/palloc.md): PostgreSQL memory allocation function
 - Called from (representative examples):

@@ -29,7 +29,7 @@ Key features:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_inet_net_ntop (for both IPv4 and IPv6 conversion)
+  - [pg_inet_net_ntop](../p/pg_inet_net_ntop.md) (for both IPv4 and IPv6 conversion)
 - Called from (representative examples):
   - Connection handling code (referenced by CONNECTION_FAILED)
 

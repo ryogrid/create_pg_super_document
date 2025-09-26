@@ -34,7 +34,7 @@ The function incorporates the target role directly into the command rather than 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - createPQExpBuffer/destroyPQExpBuffer (for buffer management)
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)/destroyPQExpBuffer (for buffer management)
   - [fmtId](../f/fmtId.md) (for identifier quoting)
   - [buildACLCommands](buildACLCommands.md) (for actual ACL command generation)
   - [appendPQExpBuffer](../a/appendPQExpBuffer.md) (for string building)

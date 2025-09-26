@@ -43,9 +43,9 @@ The function iterates through all applicable triggers, calling each one with the
   - [heap_freetuple](../h/heap_freetuple.md) (memory cleanup)
   - GetPerTupleMemoryContext (memory context management)
 - Data structures used:
-  - TriggerData (trigger execution context)
-  - TriggerDesc (trigger descriptor from relinfo)
-  - Trigger (individual trigger structure)
+  - [TriggerData](../T/TriggerData.md) (trigger execution context)
+  - [TriggerDesc](../T/TriggerDesc.md) (trigger descriptor from relinfo)
+  - [Trigger](../T/Trigger.md) (individual trigger structure)
 - Called from (representative examples):
   - [CopyFrom](../C/CopyFrom.md) (during COPY FROM operations)
   - [ExecInsert](ExecInsert.md) (from nodeModifyTable executor)
@@ -56,7 +56,7 @@ The function iterates through all applicable triggers, calling each one with the
 - Triggers returning NULL effectively act as row-level filters, preventing specific inserts
 - The partition check prevents data inconsistency when triggers modify partition keys
 - Memory management is carefully handled to avoid leaks during tuple modifications
-- Trigger execution order follows the creation order of triggers on the table
+- [Trigger](../T/Trigger.md) execution order follows the creation order of triggers on the table
 - The function supports both regular tables and partitioned table hierarchies
 - Critical for maintaining data integrity while allowing flexible business logic implementation
 - Used in high-throughput operations like COPY FROM where performance optimization is essential

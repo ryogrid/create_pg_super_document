@@ -35,9 +35,9 @@ For internal page splits, it also clears incomplete split flags on child pages, 
   - XLogRecGetData
   - [XLogRecGetBlockTag](../X/XLogRecGetBlockTag.md)
   - [XLogRecGetBlockTagExtended](../X/XLogRecGetBlockTagExtended.md)
-  - XLogInitBufferForRedo
+  - [XLogInitBufferForRedo](../X/XLogInitBufferForRedo.md)
   - [XLogRecGetBlockData](../X/XLogRecGetBlockData.md)
-  - XLogReadBufferForRedo
+  - [XLogReadBufferForRedo](../X/XLogReadBufferForRedo.md)
   - [_bt_pageinit](_bt_pageinit.md)
   - [_bt_restore_page](_bt_restore_page.md)
   - BTPageGetOpaque
@@ -52,7 +52,7 @@ For internal page splits, it also clears incomplete split flags on child pages, 
   - [_bt_swap_posting](_bt_swap_posting.md)
   - [PageRestoreTempPage](../P/PageRestoreTempPage.md)
   - [PageSetLSN](../P/PageSetLSN.md)
-  - MarkBufferDirty
+  - [MarkBufferDirty](../M/MarkBufferDirty.md)
   - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
 - Data types used:
   - [xl_btree_split](../x/xl_btree_split.md)

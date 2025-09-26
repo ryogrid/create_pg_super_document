@@ -27,7 +27,7 @@ The function outputs critical information including the transaction ID of the la
   - [gistxlogPageDelete](../g/gistxlogPageDelete.md) (struct type)
   - EpochFromFullTransactionId (extracts epoch from FullTransactionId)
   - XidFromFullTransactionId (extracts transaction ID from FullTransactionId)
-  - appendStringInfo (StringInfo formatting function)
+  - [appendStringInfo](../a/appendStringInfo.md) (StringInfo formatting function)
 - Called from (representative examples):
   - [gist_desc](../g/gist_desc.md) (when processing XLOG_GIST_PAGE_DELETE records)
 

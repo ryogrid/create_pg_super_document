@@ -35,7 +35,7 @@ The analysis involves:
   - [op_mergejoinable](../o/op_mergejoinable.md)
   - [get_mergejoin_opfamilies](../g/get_mergejoin_opfamilies.md)
   - [op_hashjoinable](../o/op_hashjoinable.md)
-  - lappend_oid
+  - [lappend_oid](../l/lappend_oid.md)
   - copyObject
   - bms_* (various bitmap set operations)
 - Called from (representative examples):

@@ -21,23 +21,23 @@ A notable design consideration is that the function accepts potentially compress
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `pg_detoast_datum_packed` - detoasts compressed or out-of-line values
+  - `[pg_detoast_datum_packed](../p/pg_detoast_datum_packed.md)` - detoasts compressed or out-of-line values
   - `unconstify` - macro to cast away const qualifier
   - `VARSIZE_ANY_EXHDR` - macro to get data size excluding header
   - `VARDATA_ANY` - macro to get pointer to the actual data
-  - `palloc` - PostgreSQL's memory allocation function
+  - `[palloc](../p/palloc.md)` - PostgreSQL's memory allocation function
   - `memcpy` - standard C library function for memory copying
-  - `pfree` - PostgreSQL's memory deallocation function
+  - `[pfree](../p/pfree.md)` - PostgreSQL's memory deallocation function
 
 - Called from (representative examples):
-  - `pg_notify` - notification functions
-  - `json_object_field_text` - JSON field extraction
-  - `quote_ident` - identifier quoting
-  - `parse_ident` - identifier parsing
-  - `to_regproc` - register type conversion functions
-  - `xml_out_internal` - XML output processing
-  - `array_to_text` - array to text conversion
-  - `pg_backup_start` - backup and recovery functions
+  - `[pg_notify](../p/pg_notify.md)` - notification functions
+  - `[json_object_field_text](../j/json_object_field_text.md)` - JSON field extraction
+  - `[quote_ident](../q/quote_ident.md)` - identifier quoting
+  - `[parse_ident](../p/parse_ident.md)` - identifier parsing
+  - `[to_regproc](to_regproc.md)` - register type conversion functions
+  - `[xml_out_internal](../x/xml_out_internal.md)` - XML output processing
+  - `[array_to_text](../a/array_to_text.md)` - array to text conversion
+  - `[pg_backup_start](../p/pg_backup_start.md)` - backup and recovery functions
 
 ## Notes and Other Information
 - The function automatically handles memory management for detoasted values, freeing the temporary detoasted copy if it differs from the original input

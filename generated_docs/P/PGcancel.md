@@ -37,14 +37,14 @@ The cancel request uses the backend's process ID and a secret cancellation key t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_cancel (the underlying struct type)
-  - SockAddr (network address structure)
+  - [pg_cancel](../p/pg_cancel.md) (the underlying struct type)
+  - [SockAddr](../S/SockAddr.md) (network address structure)
 - Called from (representative examples):
-  - PQgetCancel - Extract cancel information from PGconn
-  - PQcancel - Send synchronous cancellation request
-  - PQfreeCancel - Free PGcancel resources
-  - SetCancelConn - Utilities for cancel connection management
-  - PQrequestCancel - Legacy cancellation function
+  - [PQgetCancel](PQgetCancel.md) - Extract cancel information from PGconn
+  - [PQcancel](PQcancel.md) - Send synchronous cancellation request
+  - [PQfreeCancel](PQfreeCancel.md) - Free PGcancel resources
+  - [SetCancelConn](../S/SetCancelConn.md) - Utilities for cancel connection management
+  - [PQrequestCancel](PQrequestCancel.md) - Legacy cancellation function
 
 ## Notes and Other Information
 - The structure contents are intentionally opaque to applications

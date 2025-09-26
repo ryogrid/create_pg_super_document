@@ -21,7 +21,7 @@ The function is called after invalidation message processing is complete to allo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockRelease (implicitly called on RelCacheInitLock)
+  - [LWLockRelease](../L/LWLockRelease.md) (implicitly called on RelCacheInitLock)
 - Called from (representative examples):
   - [FinishPreparedTransaction](../F/FinishPreparedTransaction.md)
   - [ProcessCommittedInvalidationMessages](../P/ProcessCommittedInvalidationMessages.md)

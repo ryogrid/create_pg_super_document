@@ -23,7 +23,7 @@ When an incompatible encoding is detected, the function provides clear error mes
 ## Dependencies
 - Functions called/Symbols referenced:
   - [is_encoding_supported_by_icu](../i/is_encoding_supported_by_icu.md) (checks if the encoding is compatible with ICU)
-  - pg_encoding_to_char (converts encoding ID to human-readable name)
+  - [pg_encoding_to_char](../p/pg_encoding_to_char.md) (converts encoding ID to human-readable name)
   - pg_log_error (logs error messages)
   - pg_log_error_detail (provides detailed error explanations)
   - pg_log_error_hint (offers suggestions for resolution)

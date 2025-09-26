@@ -27,8 +27,8 @@ This function is particularly important for operations that need to track the mo
   - FullTransactionIdIsValid
   - FullTransactionIdFollows
 - Called from (representative examples):
-  - GetSnapshotData (multiple calls for snapshot computation with full transaction IDs)
-  - GlobalVisUpdateApply (for global visibility updates)
+  - [GetSnapshotData](../G/GetSnapshotData.md) (multiple calls for snapshot computation with full transaction IDs)
+  - [GlobalVisUpdateApply](../G/GlobalVisUpdateApply.md) (for global visibility updates)
 
 ## Notes and Other Information
 - This is an inline function defined in the transaction management header file

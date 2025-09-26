@@ -51,22 +51,22 @@ Key features:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - VirtualXactLockTableCleanup
+  - [VirtualXactLockTableCleanup](../V/VirtualXactLockTableCleanup.md)
   - [hash_seq_init](../h/hash_seq_init.md)/hash_seq_search (hash table iteration)
   - [RemoveLocalLock](../R/RemoveLocalLock.md)
   - LOCALLOCK_LOCKMETHOD/LOCALLOCK_LOCKTAG (macros)
-  - ResourceOwnerForgetLock
+  - [ResourceOwnerForgetLock](../R/ResourceOwnerForgetLock.md)
   - EligibleForRelationFastPath
   - [FastPathUnGrantRelationLock](../F/FastPathUnGrantRelationLock.md)
   - [LockRefindAndRelease](LockRefindAndRelease.md)
   - LockHashPartitionLockByIndex
   - [UnGrantLock](../U/UnGrantLock.md)
   - [CleanUpLock](../C/CleanUpLock.md)
-  - LockTagHashCode
+  - [LockTagHashCode](LockTagHashCode.md)
   - dlist operations (dlist_foreach_modify, dlist_container, etc.)
 - Called from (representative examples):
   - [DiscardAll](../D/DiscardAll.md)
-  - logicalrep_worker_onexit
+  - [logicalrep_worker_onexit](../l/logicalrep_worker_onexit.md)
   - [ProcReleaseLocks](../P/ProcReleaseLocks.md)
   - [ShutdownPostgres](../S/ShutdownPostgres.md)
   - LockHashPartitionLockByProc

@@ -25,11 +25,11 @@ The query joins multiple system catalogs (, , , , ) to gather comprehensive info
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initPQExpBuffer
+  - [initPQExpBuffer](../i/initPQExpBuffer.md)
   - [printfPQExpBuffer](../p/printfPQExpBuffer.md)
   - [validateSQLNamePattern](../v/validateSQLNamePattern.md)
   - [PSQLexec](../P/PSQLexec.md)
-  - termPQExpBuffer
+  - [termPQExpBuffer](../t/termPQExpBuffer.md)
   - lengthof
   - [printQuery](../p/printQuery.md)
   - [PQExpBufferData](../P/PQExpBufferData.md)

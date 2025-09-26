@@ -26,8 +26,8 @@ This function performs a logical comparison to determine if transaction ID `id1`
   - [heap_prune_record_unchanged_lp_normal](../h/heap_prune_record_unchanged_lp_normal.md)
   - [SubTransSetParent](../S/SubTransSetParent.md)
   - [SnapBuildInitialSnapshot](../S/SnapBuildInitialSnapshot.md)
-  - GetConflictingVirtualXIDs
-  - SerialAdd
+  - [GetConflictingVirtualXIDs](../G/GetConflictingVirtualXIDs.md)
+  - [SerialAdd](../S/SerialAdd.md)
 
 ## Notes and Other Information
 - Provides the opposite comparison logic to `TransactionIdPrecedes` - returns true when `id1` is logically newer than `id2`

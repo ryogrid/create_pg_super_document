@@ -26,7 +26,7 @@ This function provides a mechanism to obtain real-time minimum and maximum value
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - VariableStatData
+  - [VariableStatData](../V/VariableStatData.md)
   - RTE_RELATION
   - [IndexOptInfo](../I/IndexOptInfo.md)
   - [match_index_to_operand](../m/match_index_to_operand.md)
@@ -40,8 +40,8 @@ This function provides a mechanism to obtain real-time minimum and maximum value
   - [ExecDropSingleTupleTableSlot](../E/ExecDropSingleTupleTableSlot.md)
   - [index_close](../i/index_close.md)
 - Called from (representative examples):
-  - ineq_histogram_selectivity
-  - get_variable_range
+  - [ineq_histogram_selectivity](../i/ineq_histogram_selectivity.md)
+  - [get_variable_range](get_variable_range.md)
 
 ## Notes and Other Information
 This function is particularly useful when stored statistics are outdated or when precise range information is critical for query optimization. It creates a temporary memory context to ensure proper cleanup of resources used during index scanning. The function only considers B-tree indexes since they maintain ordered data, and it skips partial indexes to ensure complete relation coverage. When both minimum and maximum values are requested, it performs two separate index scans in opposite directions. The function respects existing locks and uses NoLock when opening relations, assuming appropriate locks are already held by the calling context.

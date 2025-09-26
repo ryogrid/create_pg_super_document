@@ -472,19 +472,19 @@ The large union 'd' contains operation-specific data for different types of step
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TupleTableSlotOps (for slot operations)
-  - ExprEvalRowtypeCache (for composite type caching)
-  - FunctionCallInfo (for function calls)
-  - SubscriptingRefState (for array/subscript operations)
-  - JsonConstructorExprState (for JSON construction)
-  - WindowFuncExprState (for window functions)
-  - SubPlanState (for subplans)
+  - [TupleTableSlotOps](../T/TupleTableSlotOps.md) (for slot operations)
+  - [ExprEvalRowtypeCache](ExprEvalRowtypeCache.md) (for composite type caching)
+  - [FunctionCallInfo](../F/FunctionCallInfo.md) (for function calls)
+  - [SubscriptingRefState](../S/SubscriptingRefState.md) (for array/subscript operations)
+  - [JsonConstructorExprState](../J/JsonConstructorExprState.md) (for JSON construction)
+  - [WindowFuncExprState](../W/WindowFuncExprState.md) (for window functions)
+  - [SubPlanState](../S/SubPlanState.md) (for subplans)
   - Various other PostgreSQL data types and structures
 - Called from (representative examples):
-  - ExecInitExprRec (expression initialization)
-  - ExprEvalPushStep (step creation)
-  - ExecInterpExpr (expression interpretation)
-  - llvm_compile_expr (JIT compilation)
+  - [ExecInitExprRec](ExecInitExprRec.md) (expression initialization)
+  - [ExprEvalPushStep](ExprEvalPushStep.md) (step creation)
+  - [ExecInterpExpr](ExecInterpExpr.md) (expression interpretation)
+  - [llvm_compile_expr](../l/llvm_compile_expr.md) (JIT compilation)
 
 ## Notes and Other Information
 - The structure is carefully sized to fit in a single 64-byte cache line for optimal performance

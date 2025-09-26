@@ -34,7 +34,7 @@ The function validates that both operands have the same number of columns and es
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth (stack overflow protection)
+  - [check_stack_depth](../c/check_stack_depth.md) (stack overflow protection)
   - [parse_sub_analyze](../p/parse_sub_analyze.md) (subquery transformation)
   - [contain_vars_of_level](../c/contain_vars_of_level.md)/locate_var_of_level (variable reference validation)
   - [addRangeTableEntryForSubquery](../a/addRangeTableEntryForSubquery.md) (subquery RTE creation)

@@ -50,7 +50,7 @@ The function also sets up a GroupPathExtraData structure containing flags and me
   - [create_ordinary_grouping_paths](create_ordinary_grouping_paths.md)
   - [set_cheapest](../s/set_cheapest.md)
 - Data structures used:
-  - AggClauseCosts
+  - [AggClauseCosts](../A/AggClauseCosts.md)
   - [GroupPathExtraData](../G/GroupPathExtraData.md)
   - [PathTarget](../P/PathTarget.md)
   - grouping_sets_data

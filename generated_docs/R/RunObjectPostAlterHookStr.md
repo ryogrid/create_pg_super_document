@@ -37,7 +37,7 @@ The function differs from its OID-based counterpart by using object names (strin
 - This is part of the string-based variant of PostgreSQL's object access hook system for ALTER operations
 - The function initializes an ObjectAccessPostAlter structure with zeroed memory and sets both the auxiliary_id and is_internal fields based on the parameters
 - The auxiliaryId parameter provides additional context about related objects involved in complex alter operations
-- String-based alter hooks are particularly useful for extensions that prefer to work with object names rather than OIDs
+- [String](../S/String.md)-based alter hooks are particularly useful for extensions that prefer to work with object names rather than OIDs
 - The is_internal flag helps extensions distinguish between user-initiated alterations and internal PostgreSQL operations
 - This hook is commonly used by logical replication systems, auditing extensions, schema change tracking tools, and cache invalidation mechanisms
 - Extensions can use this hook to update external metadata, invalidate cached information, or trigger related operations after schema changes

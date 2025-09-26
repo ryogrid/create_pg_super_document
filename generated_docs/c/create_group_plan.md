@@ -38,8 +38,8 @@ The Group node implementation assumes that input data is already sorted by the g
 
 ## Notes and Other Information
 - This is a static function, only accessible within the createplan.c compilation unit
-- Group nodes can perform projection, making them more flexible than Sort nodes in terms of target list requirements
+- [Group](../G/Group.md) nodes can perform projection, making them more flexible than Sort nodes in terms of target list requirements
 - The CP_LABEL_TLIST flag ensures that grouping columns are properly labeled and available for extraction
 - The function relies on three extraction functions to properly set up grouping metadata: columns, operators, and collations
-- Group operations assume pre-sorted input data - the planner ensures this by including appropriate Sort nodes when necessary
+- [Group](../G/Group.md) operations assume pre-sorted input data - the planner ensures this by including appropriate Sort nodes when necessary
 - The qualification clauses (HAVING clauses) are processed and ordered for optimal execution performance

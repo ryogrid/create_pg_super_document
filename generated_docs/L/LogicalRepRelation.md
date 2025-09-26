@@ -46,9 +46,9 @@ The structure is particularly important for handling schema differences between 
 - Called from (representative examples):
   - [logicalrep_write_rel](../l/logicalrep_write_rel.md)
   - [logicalrep_read_rel](../l/logicalrep_read_rel.md)
-  - logicalrep_read_attrs
-  - logicalrep_relmap_update
-  - logicalrep_rel_open
+  - [logicalrep_read_attrs](../l/logicalrep_read_attrs.md)
+  - [logicalrep_relmap_update](../l/logicalrep_relmap_update.md)
+  - [logicalrep_rel_open](../l/logicalrep_rel_open.md)
   - [apply_handle_relation](../a/apply_handle_relation.md)
   - [fetch_remote_table_info](../f/fetch_remote_table_info.md)
   - [copy_table](../c/copy_table.md)

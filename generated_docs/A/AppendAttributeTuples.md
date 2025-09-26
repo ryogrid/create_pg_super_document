@@ -25,15 +25,15 @@ This function completes the index creation process by inserting attribute metada
   - palloc0_array: Allocates zero-initialized array for extra attribute data
   - [FormExtraData_pg_attribute](../F/FormExtraData_pg_attribute.md): Structure type for additional attribute metadata
   - [NullableDatum](../N/NullableDatum.md): Structure for nullable Datum values
-  - CatalogIndexState: Structure for managing catalog index state
-  - table_open: Opens the pg_attribute system catalog with specified lock mode
+  - [CatalogIndexState](../C/CatalogIndexState.md): Structure for managing catalog index state
+  - [table_open](../t/table_open.md): Opens the pg_attribute system catalog with specified lock mode
   - [CatalogOpenIndexes](../C/CatalogOpenIndexes.md): Opens indexes associated with the pg_attribute catalog
   - RelationGetDescr: Retrieves the tuple descriptor from the index relation
   - [InsertPgAttributeTuples](../I/InsertPgAttributeTuples.md): Performs the actual insertion of attribute tuples
   - [CatalogCloseIndexes](../C/CatalogCloseIndexes.md): Closes catalog indexes and updates them with new entries
-  - table_close: Closes the pg_attribute catalog relation
+  - [table_close](../t/table_close.md): Closes the pg_attribute catalog relation
 - Called from (representative examples):
-  - index_create: During normal index creation process
+  - [index_create](../i/index_create.md): During normal index creation process
   - SerializedReindexState: During reindex operations
 
 ## Notes and Other Information

@@ -28,7 +28,7 @@ The function is implemented as a simple wrapper around `list_free_private(list, 
   - [heap_truncate_find_FKs](../h/heap_truncate_find_FKs.md)  
   - [ExecOpenIndices](../E/ExecOpenIndices.md)
   - [RelationGetIndexList](../R/RelationGetIndexList.md)
-  - ProcessGUCArray
+  - [ProcessGUCArray](../P/ProcessGUCArray.md)
 
 ## Notes and Other Information
 - This function performs a shallow free - only the list structure is freed, not the elements it points to

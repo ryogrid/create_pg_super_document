@@ -34,7 +34,7 @@ This enables a pattern where formatting state can be temporarily set aside, cont
 ## Dependencies
 - Functions called/Symbols referenced:
   - linitial_int (to retrieve the first integer from the grouping stack)
-  - list_delete_first (to remove the top item from the grouping stack)
+  - [list_delete_first](../l/list_delete_first.md) (to remove the top item from the grouping stack)
 - Called from (representative examples):
   - [ExplainCloseWorker](ExplainCloseWorker.md)
 

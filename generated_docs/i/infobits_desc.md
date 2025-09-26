@@ -23,9 +23,9 @@ The function checks each relevant infobits flag and appends corresponding descri
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendStringInfo
-  - appendStringInfoString  
-  - appendStringInfoChar
+  - [appendStringInfo](../a/appendStringInfo.md)
+  - [appendStringInfoString](../a/appendStringInfoString.md)  
+  - [appendStringInfoChar](../a/appendStringInfoChar.md)
   - XLHL_XMAX_IS_MULTI (flag constant)
   - XLHL_XMAX_LOCK_ONLY (flag constant)
   - XLHL_XMAX_EXCL_LOCK (flag constant)

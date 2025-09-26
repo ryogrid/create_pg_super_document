@@ -33,8 +33,8 @@ The execution performs extensive validation to ensure the specified index meets 
   - NodeTag (inherited node type system)
   - REPLICA_IDENTITY_* constants (for identity type values)
 - Called from (representative examples):
-  - ATExecReplicaIdentity (main execution function for ALTER TABLE context)
-  - ATExecCmd (ALTER TABLE command dispatcher)
+  - [ATExecReplicaIdentity](../A/ATExecReplicaIdentity.md) (main execution function for ALTER TABLE context)
+  - [ATExecCmd](../A/ATExecCmd.md) (ALTER TABLE command dispatcher)
   - child_dependency_type (for inheritance handling)
 
 ## Notes and Other Information

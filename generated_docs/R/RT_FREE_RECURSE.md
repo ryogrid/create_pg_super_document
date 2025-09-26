@@ -29,7 +29,7 @@ This is an internal helper function (note the static modifier) that performs a d
   - RT_MAKE_NAME
   - RT_MAKE_PREFIX
   - RT_PREFIX (defined by the including code)
-  - check_stack_depth (PostgreSQL stack overflow protection)
+  - [check_stack_depth](../c/check_stack_depth.md) (PostgreSQL stack overflow protection)
   - [dsa_free](../d/dsa_free.md) (Dynamic Shared Area memory freeing)
   - [RT_PTR_SET_LOCAL](RT_PTR_SET_LOCAL.md) (converts DSA pointer to local pointer)
   - [RT_CHILDPTR_IS_VALUE](RT_CHILDPTR_IS_VALUE.md) (checks if child pointer is a value or node)

@@ -31,7 +31,7 @@ For foreign tables, the function enforces PostgreSQL's design decision that cert
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lappend (for adding constraints to respective lists)
+  - [lappend](../l/lappend.md) (for adding constraints to respective lists)
   - ereport (for error reporting)
   - elog (for internal errors)
 - Called from (representative examples):

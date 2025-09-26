@@ -31,16 +31,16 @@ Each event trigger is processed through the standard dumpable object system, all
 ## Dependencies
 - Functions called/Symbols referenced:
   - EventTriggerInfo (struct type)
-  - createPQExpBuffer, appendPQExpBufferStr (query building)
+  - [createPQExpBuffer](../c/createPQExpBuffer.md), appendPQExpBufferStr (query building)
   - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md) (query execution)
   - [PQntuples](../P/PQntuples.md), PQfnumber, PQgetvalue (libpq result processing functions)
-  - pg_malloc (memory allocation)
+  - [pg_malloc](../p/pg_malloc.md) (memory allocation)
   - atooid (OID conversion)
   - [AssignDumpId](../A/AssignDumpId.md) (dump ID assignment)
   - [pg_strdup](../p/pg_strdup.md) (string duplication)
   - [getRoleName](getRoleName.md) (role name resolution)
   - [selectDumpableObject](../s/selectDumpableObject.md) (dump selection logic)
-  - destroyPQExpBuffer (cleanup)
+  - [destroyPQExpBuffer](../d/destroyPQExpBuffer.md) (cleanup)
   - DO_EVENT_TRIGGER (object type enum)
   - PGRES_TUPLES_OK (result status)
 

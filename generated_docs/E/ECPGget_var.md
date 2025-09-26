@@ -21,12 +21,12 @@ This is a complementary function to ECPGset_var and is essential for the ECPG va
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - var_list (structure type)
+  - [var_list](../v/var_list.md) (structure type)
   - ivlist (global variable list)
 - Called from (representative examples):
-  - ECPG_informix_get_var (Informix compatibility)
-  - open_cur1 (cursor operations in tests)
-  - get_record1 (record retrieval in tests)
+  - [ECPG_informix_get_var](ECPG_informix_get_var.md) (Informix compatibility)
+  - [open_cur1](../o/open_cur1.md) (cursor operations in tests)
+  - [get_record1](../g/get_record1.md) (record retrieval in tests)
   - Generated ECPG code for variable access
 
 ## Notes and Other Information

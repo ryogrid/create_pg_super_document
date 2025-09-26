@@ -24,7 +24,7 @@ SlabAlloc is the primary allocation function for PostgreSQL's slab memory alloca
 - Functions called/Symbols referenced:
   - [SlabContext](SlabContext.md)
   - [SlabBlock](SlabBlock.md)
-  - MemoryChunk
+  - [MemoryChunk](../M/MemoryChunk.md)
   - SlabIsValid
   - [SlabBlocklistIndex](SlabBlocklistIndex.md)
   - SlabAllocInvalidSize (when size is invalid)

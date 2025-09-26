@@ -39,5 +39,5 @@ The conversion process involves translating EUC_TW multibyte characters (which c
 ## Notes and Other Information
 - This is a PostgreSQL V1 calling convention function (uses PG_FUNCTION_ARGS)
 - The function returns the number of bytes processed from the source string
-- Error handling is controlled by the noError parameter - when true, conversion stops on invalid characters without throwing errors
+- Error handling is controlled by the noError parameter - [when](../w/when.md) true, conversion stops on invalid characters without throwing errors
 - Part of PostgreSQL's multibyte character encoding conversion system located in src/backend/utils/mb/conversion_procs/euc_tw_and_big5/euc_tw_and_big5.c:49-64

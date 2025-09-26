@@ -26,9 +26,9 @@ For valid matches, the function preserves the original order of the set operatio
 ## Dependencies
 - Functions called/Symbols referenced:
   - copyObject
-  - list_head
+  - [list_head](../l/list_head.md)
   - [lnext](../l/lnext.md)
-  - exprType
+  - [exprType](../e/exprType.md)
   - [assignSortGroupRef](../a/assignSortGroupRef.md)
 - Called from (representative examples):
   - [standard_qp_callback](../s/standard_qp_callback.md)

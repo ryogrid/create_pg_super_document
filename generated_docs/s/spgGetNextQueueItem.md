@@ -25,9 +25,9 @@ This function serves as a queue management utility for SP-GiST (Space-partitione
 ## Dependencies
 - Functions called/Symbols referenced:
   - pairingheap_is_empty
-  - pairingheap_remove_first
+  - [pairingheap_remove_first](../p/pairingheap_remove_first.md)
   - SpGistScanOpaque
-  - SpGistSearchItem
+  - [SpGistSearchItem](../S/SpGistSearchItem.md)
 - Called from (representative examples):
   - [spgWalk](spgWalk.md)
 

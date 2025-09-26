@@ -41,6 +41,6 @@ The structure is particularly important for handling mixed subscript types (inte
 - The workspace is allocated with additional memory beyond the basic struct size to accommodate variable-length arrays for indexOid and index members
 - Memory allocation assumes sizeof(Datum) >= sizeof(Oid) for proper pointer alignment
 - The expectArray flag is used to construct appropriate empty JSONB structures when the source is NULL
-- Integer subscripts are converted to text format during processing since JSONB operations expect text-based paths
+- [Integer](../I/Integer.md) subscripts are converted to text format during processing since JSONB operations expect text-based paths
 - The structure supports unlimited nesting levels, unlike array subscripting which has defined limits
 - Type coercion is handled to support both integer indices (for arrays) and text keys (for objects) within the same subscript expression sequence

@@ -25,8 +25,8 @@ The function performs a simple check to see if the iteration is already complete
   - [RBTNode](../R/RBTNode.md) (return type - red-black tree node)
 - Called from (representative examples):
   - [ginGetBAEntry](../g/ginGetBAEntry.md) (src/backend/access/gin/ginbulk.c:275)
-  - testleftright (src/test/modules/test_rbtree/test_rbtree.c:174, 183)
-  - testrightleft (src/test/modules/test_rbtree/test_rbtree.c:214, 223)
+  - [testleftright](../t/testleftright.md) (src/test/modules/test_rbtree/test_rbtree.c:174, 183)
+  - [testrightleft](../t/testrightleft.md) (src/test/modules/test_rbtree/test_rbtree.c:214, 223)
 
 ## Notes and Other Information
 - Must be preceded by a call to rbt_begin_iterate() to initialize the iterator

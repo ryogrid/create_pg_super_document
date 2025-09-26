@@ -55,9 +55,9 @@ GatherMergeState extends the concept of parallel execution beyond simple gatheri
 - Functions called/Symbols referenced:
   - [PlanState](../P/PlanState.md) (inherited structure)
   - [TupleDesc](../T/TupleDesc.md) (for tuple structure description)
-  - SortSupport (for sort key management)
-  - ParallelExecutorInfo (for parallel execution context)
-  - TupleTableSlot (for tuple storage during merge)
+  - [SortSupport](../S/SortSupport.md) (for sort key management)
+  - [ParallelExecutorInfo](../P/ParallelExecutorInfo.md) (for parallel execution context)
+  - [TupleTableSlot](../T/TupleTableSlot.md) (for tuple storage during merge)
   - [TupleQueueReader](../T/TupleQueueReader.md) (for reading from parallel workers)
   - [GMReaderTupleBuffer](GMReaderTupleBuffer.md) (for tuple buffering)
   - [binaryheap](../b/binaryheap.md) (for efficient merge ordering)

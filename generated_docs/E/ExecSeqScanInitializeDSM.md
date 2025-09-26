@@ -20,9 +20,9 @@ This function initializes the Dynamic Shared Memory (DSM) structures required fo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - shm_toc_allocate
+  - [shm_toc_allocate](../s/shm_toc_allocate.md)
   - [table_parallelscan_initialize](../t/table_parallelscan_initialize.md)
-  - shm_toc_insert
+  - [shm_toc_insert](../s/shm_toc_insert.md)
   - [table_beginscan_parallel](../t/table_beginscan_parallel.md)
 - Types referenced:
   - [SeqScanState](../S/SeqScanState.md)

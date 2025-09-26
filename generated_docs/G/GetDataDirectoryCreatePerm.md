@@ -19,13 +19,13 @@ This frontend-only function retrieves the file system permissions of the specifi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - stat() (system call for getting file status)
-  - SetDataDirectoryCreatePerm() (to configure permission globals)
+  - [stat](../s/stat.md)() (system call for getting file status)
+  - [SetDataDirectoryCreatePerm](../S/SetDataDirectoryCreatePerm.md)() (to configure permission globals)
 - Called from (representative examples):
-  - main (src/bin/pg_ctl/pg_ctl.c:2455)
-  - main (src/bin/pg_resetwal/pg_resetwal.c:350)
-  - main (src/bin/pg_rewind/pg_rewind.c:292)
-  - main (src/bin/pg_upgrade/pg_upgrade.c:114)
+  - [main](../m/main.md) (src/bin/pg_ctl/pg_ctl.c:2455)
+  - [main](../m/main.md) (src/bin/pg_resetwal/pg_resetwal.c:350)
+  - [main](../m/main.md) (src/bin/pg_rewind/pg_rewind.c:292)
+  - [main](../m/main.md) (src/bin/pg_upgrade/pg_upgrade.c:114)
 
 ## Notes and Other Information
 - This function is only available in frontend applications (compiled with FRONTEND defined)

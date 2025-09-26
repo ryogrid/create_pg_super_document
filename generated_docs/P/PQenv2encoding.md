@@ -20,7 +20,7 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - getenv (standard C library function)
-  - pg_char_to_encoding
+  - [pg_char_to_encoding](../p/pg_char_to_encoding.md)
   - PG_SQL_ASCII (constant)
 - Called from (representative examples):
   - [main](../m/main.md) (in src/bin/psql/startup.c)

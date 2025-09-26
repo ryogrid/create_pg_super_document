@@ -23,14 +23,14 @@ The function first performs sanity checks on the control segment to detect poten
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dsm_control_segment_sane
-  - is_main_region_dsm_handle
-  - dsm_impl_op
+  - [dsm_control_segment_sane](dsm_control_segment_sane.md)
+  - [is_main_region_dsm_handle](../i/is_main_region_dsm_handle.md)
+  - [dsm_impl_op](dsm_impl_op.md)
   - ereport
   - elog
-  - DatumGetPointer
+  - [DatumGetPointer](../D/DatumGetPointer.md)
 - Called from (representative examples):
-  - dsm_postmaster_startup (registered as shutdown hook)
+  - [dsm_postmaster_startup](dsm_postmaster_startup.md) (registered as shutdown hook)
 
 ## Notes and Other Information
 - Designed to be error-tolerant during shutdown - avoids throwing errors that could prevent clean shutdown

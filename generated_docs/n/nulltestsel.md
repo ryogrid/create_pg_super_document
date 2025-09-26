@@ -36,15 +36,15 @@ This function is essential for query optimization as NULL handling has significa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - examine_variable
+  - [examine_variable](../e/examine_variable.md)
   - ReleaseVariableStats
   - CLAMP_PROBABILITY
   - Form_pg_statistic
-  - NullTestType (IS_NULL, IS_NOT_NULL)
+  - [NullTestType](../N/NullTestType.md) (IS_NULL, IS_NOT_NULL)
 - Called from (representative examples):
-  - clauselist_selectivity_ext
-  - clause_selectivity_ext
-  - GenericCosts
+  - [clauselist_selectivity_ext](../c/clauselist_selectivity_ext.md)
+  - [clause_selectivity_ext](../c/clause_selectivity_ext.md)
+  - [GenericCosts](../G/GenericCosts.md)
 
 ## Notes and Other Information
 - Uses the  statistic from ANALYZE to provide accurate null fraction estimates

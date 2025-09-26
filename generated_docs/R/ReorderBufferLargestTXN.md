@@ -30,7 +30,7 @@ This function is typically called when the reorder buffer needs to free up memor
 ## Dependencies
 - Functions called/Symbols referenced:
   - pairingheap_container (macro for extracting container structure from heap node)
-  - pairingheap_first (retrieves the first/root element from the pairing heap)
+  - [pairingheap_first](../p/pairingheap_first.md) (retrieves the first/root element from the pairing heap)
   - [ReorderBufferTXN](ReorderBufferTXN.md) (transaction structure type)
 - Called from (representative examples):
   - [ReorderBufferCheckMemoryLimit](ReorderBufferCheckMemoryLimit.md) (for identifying transactions to spill during memory pressure)

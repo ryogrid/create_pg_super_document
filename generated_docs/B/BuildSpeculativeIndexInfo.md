@@ -32,7 +32,7 @@ BuildSpeculativeIndexInfo extends an existing IndexInfo structure with specializ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IndexInfo (structure type)
+  - [IndexInfo](../I/IndexInfo.md) (structure type)
   - IndexRelationGetNumberOfKeyAttributes (function)
   - [get_opfamily_member](../g/get_opfamily_member.md) (function) 
   - [get_opcode](../g/get_opcode.md) (function)

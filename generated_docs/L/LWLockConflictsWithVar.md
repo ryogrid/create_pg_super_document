@@ -29,11 +29,11 @@ The function is designed to work without explicit memory barriers due to implied
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_atomic_read_u32 (for lock state)
-  - pg_atomic_read_u64 (for variable value)
+  - [pg_atomic_read_u32](../p/pg_atomic_read_u32.md) (for lock state)
+  - [pg_atomic_read_u64](../p/pg_atomic_read_u64.md) (for variable value)
   - LW_VAL_EXCLUSIVE (lock state constant)
 - Called from (representative examples):
-  - LWLockWaitForVar (twice - before and after queueing)
+  - [LWLockWaitForVar](LWLockWaitForVar.md) (twice - before and after queueing)
 
 ## Notes and Other Information
 - This is a static helper function used exclusively by LWLockWaitForVar

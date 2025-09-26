@@ -21,8 +21,8 @@ This is a critical synchronization point in the two-phase commit protocol, ensur
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire (acquires TwoPhaseStateLock in exclusive mode)
-  - LWLockRelease (releases TwoPhaseStateLock)
+  - [LWLockAcquire](../L/LWLockAcquire.md) (acquires TwoPhaseStateLock in exclusive mode)
+  - [LWLockRelease](../L/LWLockRelease.md) (releases TwoPhaseStateLock)
   - INVALID_PROC_NUMBER (constant indicating no backend owns the transaction)
 - Global variables accessed:
   - MyLockedGxact (current process's locked global transaction)

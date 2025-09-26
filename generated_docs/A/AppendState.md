@@ -66,9 +66,9 @@ AppendState coordinates the execution of multiple child plans in sequence, suppo
 - Functions called/Symbols referenced:
   - [PlanState](../P/PlanState.md) (inherited base structure)
   - [ParallelAppendState](../P/ParallelAppendState.md) (for parallel coordination)
-  - PartitionPruneState (for runtime pruning)
+  - [PartitionPruneState](../P/PartitionPruneState.md) (for runtime pruning)
   - [AsyncRequest](AsyncRequest.md) (for asynchronous execution)
-  - TupleTableSlot (for result storage)
+  - [TupleTableSlot](../T/TupleTableSlot.md) (for result storage)
   - [WaitEventSet](../W/WaitEventSet.md) (for event management)
   - [Bitmapset](../B/Bitmapset.md) (for plan tracking)
 - Called from (representative examples):

@@ -38,7 +38,7 @@ This function is fundamental to the SPI interface and is widely used throughout 
   - [query_to_xml_and_xmlschema](../q/query_to_xml_and_xmlschema.md)
   - [plperl_spi_prepare](../p/plperl_spi_prepare.md)
   - [PLy_spi_prepare](../P/PLy_spi_prepare.md)
-  - pltcl_SPI_prepare
+  - [pltcl_SPI_prepare](../p/pltcl_SPI_prepare.md)
 
 ## Notes and Other Information
 - Returns SPIPlanPtr on success, NULL on failure

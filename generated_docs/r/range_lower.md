@@ -26,7 +26,7 @@ The `range_lower` function is a range accessor function that extracts and return
   - `PG_RETURN_DATUM` - Returns the lower bound value as a PostgreSQL Datum
 - Called from (representative examples):
   - SQL queries using the `lower()` function on range types
-  - Range analysis and boundary checking operations
+  - [Range](../R/Range.md) analysis and boundary checking operations
 
 ## Notes and Other Information
 - Returns NULL for empty ranges or ranges with infinite lower bounds

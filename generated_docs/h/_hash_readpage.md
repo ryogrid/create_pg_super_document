@@ -23,7 +23,7 @@ The function handles both forward and backward scan directions with different po
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _hash_checkpage
+  - [_hash_checkpage](_hash_checkpage.md)
   - [BufferGetPage](../B/BufferGetPage.md)
   - HashPageGetOpaque
   - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)

@@ -25,7 +25,7 @@ The function uses a memory barrier after clearing the latch state to ensure prop
   - MyProcPid (current process ID for ownership verification)
   - Assert (debugging assertions)
 - Called from (representative examples):
-  - WaitForParallelWorkersToAttach (parallel processing coordination)
+  - [WaitForParallelWorkersToAttach](../W/WaitForParallelWorkersToAttach.md) (parallel processing coordination)
   - [BackgroundWriterMain](../B/BackgroundWriterMain.md) (background writer process main loop)
   - [CheckpointerMain](../C/CheckpointerMain.md) (checkpoint process main loop)
   - [WalReceiverMain](../W/WalReceiverMain.md) (WAL receiver main loop)

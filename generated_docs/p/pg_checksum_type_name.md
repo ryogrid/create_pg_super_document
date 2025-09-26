@@ -29,10 +29,10 @@ The function includes an assertion to catch invalid enumeration values during de
   - CHECKSUM_TYPE_SHA512
   - Assert (for debugging invalid types)
 - Called from (representative examples):
-  - AddFileToBackupManifest (in src/backend/backup/backup_manifest.c)
-  - copy_file (in src/bin/pg_combinebackup/copy_file.c)
-  - write_reconstructed_file (in src/bin/pg_combinebackup/reconstruct.c)
-  - add_file_to_manifest (in src/bin/pg_combinebackup/write_manifest.c)
+  - [AddFileToBackupManifest](../A/AddFileToBackupManifest.md) (in src/backend/backup/backup_manifest.c)
+  - [copy_file](../c/copy_file.md) (in src/bin/pg_combinebackup/copy_file.c)
+  - [write_reconstructed_file](../w/write_reconstructed_file.md) (in src/bin/pg_combinebackup/reconstruct.c)
+  - [add_file_to_manifest](../a/add_file_to_manifest.md) (in src/bin/pg_combinebackup/write_manifest.c)
 
 ## Notes and Other Information
 - Returns uppercase canonical names: "NONE", "CRC32C", "SHA224", "SHA256", "SHA384", "SHA512"

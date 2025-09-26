@@ -28,7 +28,7 @@ The hash table using JoinHashEntry is built on-demand when the planner needs to 
 ## Dependencies
 - Functions called/Symbols referenced:
   - Relids (typedef for Bitmapset*)
-  - RelOptInfo
+  - [RelOptInfo](../R/RelOptInfo.md)
 - Called from (representative examples):
   - [build_join_rel_hash](../b/build_join_rel_hash.md) (creates hash entries for existing join relations)
   - [find_join_rel](../f/find_join_rel.md) (searches for existing join relations using hash lookup)

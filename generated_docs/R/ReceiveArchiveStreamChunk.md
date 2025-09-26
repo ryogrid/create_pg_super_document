@@ -42,7 +42,7 @@ The function manages the complete lifecycle of archive processing, from initiali
   - [CreateBackupStreamer](../C/CreateBackupStreamer.md)
   - [ReportCopyDataParseError](ReportCopyDataParseError.md)
   - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
-  - createPQExpBuffer
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)
   - fopen
   - fwrite
 - Called from (representative examples):

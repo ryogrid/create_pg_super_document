@@ -34,7 +34,7 @@ This function takes no parameters.
   - [InitializeOneGUCOption](InitializeOneGUCOption.md): Initializes individual GUC parameters
   - [SetConfigOption](../S/SetConfigOption.md): Sets configuration parameter values
   - [InitializeGUCOptionsFromEnvironment](InitializeGUCOptionsFromEnvironment.md): Processes environment variable defaults
-  - HASH_SEQ_STATUS, GUCHashEntry: Hash table structures
+  - [HASH_SEQ_STATUS](../H/HASH_SEQ_STATUS.md), GUCHashEntry: Hash table structures
   - PGC_POSTMASTER, PGC_S_OVERRIDE: Configuration context and source constants
 - Called from (representative examples):
   - [BootstrapModeMain](../B/BootstrapModeMain.md): Bootstrap process initialization

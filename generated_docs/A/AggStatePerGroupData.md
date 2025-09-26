@@ -45,12 +45,12 @@ The structure handles the distinction between NULL transition values and uniniti
 - Functions called/Symbols referenced:
   - (No direct symbol references)
 - Called from (representative examples):
-  - build_hash_table
-  - hash_agg_entry_size
-  - initialize_hash_entry
-  - ExecInitAgg
-  - ExecReScanAgg
-  - AggStatePerGroup
+  - [build_hash_table](../b/build_hash_table.md)
+  - [hash_agg_entry_size](../h/hash_agg_entry_size.md)
+  - [initialize_hash_entry](../i/initialize_hash_entry.md)
+  - [ExecInitAgg](../E/ExecInitAgg.md)
+  - [ExecReScanAgg](../E/ExecReScanAgg.md)
+  - [AggStatePerGroup](AggStatePerGroup.md)
 
 ## Notes and Other Information
 The noTransValue and transValueIsNull fields serve different purposes: noTransValue tracks whether any value has been processed yet, while transValueIsNull indicates the current value's NULL status. Initially both have the same value, but they diverge after the first input - noTransValue becomes false permanently, while transValueIsNull reflects the actual NULL status of subsequent transition function results. This distinction ensures that only the first non-NULL input triggers auto-substitution behavior in aggregates that support it.

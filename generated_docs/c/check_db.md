@@ -34,12 +34,12 @@ Special logic exists for WAL sender connections, where physical replication conn
 ## Dependencies
 - Functions called/Symbols referenced:
   - token_is_keyword
-  - is_member
+  - [is_member](../i/is_member.md)
   - token_has_regexp
-  - regexec_auth_token
+  - [regexec_auth_token](../r/regexec_auth_token.md)
   - token_matches
 - Called from (representative examples):
-  - check_hba (in hba.c)
+  - [check_hba](check_hba.md) (in hba.c)
 
 ## Notes and Other Information
 - Part of PostgreSQL's HBA authentication framework

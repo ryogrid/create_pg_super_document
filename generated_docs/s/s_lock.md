@@ -29,16 +29,16 @@ The function returns the total number of delays encountered, which can be used f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - init_spin_delay (initializes delay tracking)
+  - [init_spin_delay](../i/init_spin_delay.md) (initializes delay tracking)
   - TAS_SPIN (test-and-set spinlock primitive)
-  - perform_spin_delay (handles delay logic and stuck lock detection)
-  - finish_spin_delay (cleanup and statistics collection)
+  - [perform_spin_delay](../p/perform_spin_delay.md) (handles delay logic and stuck lock detection)
+  - [finish_spin_delay](../f/finish_spin_delay.md) (cleanup and statistics collection)
   - SpinDelayStatus (delay state management structure)
-  - slock_t (spinlock data type)
+  - [slock_t](slock_t.md) (spinlock data type)
 - Called from (representative examples):
   - S_LOCK (header macro)
-  - main (in test mode)
-  - test_lock_struct
+  - [main](../m/main.md) (in test mode)
+  - [test_lock_struct](../t/test_lock_struct.md)
 
 ## Notes and Other Information
 - Returns the number of delay cycles encountered during acquisition

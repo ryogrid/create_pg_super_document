@@ -20,7 +20,7 @@ This function adds a new string value to the end of a SimpleStringList. It alloc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_malloc (for memory allocation)
+  - [pg_malloc](../p/pg_malloc.md) (for memory allocation)
   - strlen (for string length calculation)
   - strcpy (for string copying)
   - offsetof (for calculating memory offset)

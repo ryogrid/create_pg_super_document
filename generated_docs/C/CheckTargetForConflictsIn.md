@@ -38,7 +38,7 @@ The conflict detection logic ensures that:
   - SxactIsDoomed
   - SxactIsCommitted
   - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
-  - GetTransactionSnapshot
+  - [GetTransactionSnapshot](../G/GetTransactionSnapshot.md)
   - [RWConflictExists](../R/RWConflictExists.md)
   - [FlagRWConflict](../F/FlagRWConflict.md)
   - [RemoveTargetIfNoLongerUsed](../R/RemoveTargetIfNoLongerUsed.md)

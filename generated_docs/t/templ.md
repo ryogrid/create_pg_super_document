@@ -29,7 +29,7 @@ The `specials` array contains 43 entries covering standard C keywords like `int`
 - Functions called/Symbols referenced:
   - (None - this is a simple data structure)
 - Called from (representative examples):
-  - `lexi` function at src/tools/pg_bsd_indent/lexi.c:243 (declares pointer to struct templ)
+  - `[lexi](../l/lexi.md)` function at src/tools/pg_bsd_indent/lexi.c:243 (declares pointer to struct templ)
   - `specials` array at src/tools/pg_bsd_indent/lexi.c:69 (array of struct templ)
   - `bsearch` function uses this struct via the `specials` array for keyword lookup
 

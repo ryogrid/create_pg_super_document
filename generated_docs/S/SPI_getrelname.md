@@ -21,14 +21,14 @@ This function is commonly used in procedural language implementations and trigge
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pstrdup
+  - [pstrdup](../p/pstrdup.md)
   - RelationGetRelationName
 - Called from (representative examples):
-  - plperl_trigger_build_args (src/pl/plperl/plperl.c)
-  - PLy_trigger_build_args (src/pl/plpython/plpy_exec.c)
-  - pltcl_trigger_handler (src/pl/tcl/pltcl.c)
-  - plsample_trigger_handler (src/test/modules/plsample/plsample.c)
-  - ttdummy (src/test/regress/regress.c)
+  - [plperl_trigger_build_args](../p/plperl_trigger_build_args.md) (src/pl/plperl/plperl.c)
+  - [PLy_trigger_build_args](../P/PLy_trigger_build_args.md) (src/pl/plpython/plpy_exec.c)
+  - [pltcl_trigger_handler](../p/pltcl_trigger_handler.md) (src/pl/tcl/pltcl.c)
+  - [plsample_trigger_handler](../p/plsample_trigger_handler.md) (src/test/modules/plsample/plsample.c)
+  - [ttdummy](../t/ttdummy.md) (src/test/regress/regress.c)
 
 ## Notes and Other Information
 - Returns a dynamically allocated string that must be freed by the caller

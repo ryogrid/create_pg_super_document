@@ -47,7 +47,7 @@ Shell types (types that are declared but not fully defined) are explicitly rejec
   - [parseNameAndArgTypes](parseNameAndArgTypes.md) (src/backend/utils/adt/regproc.c:2023)
   - [plperl_spi_prepare](plperl_spi_prepare.md) (src/pl/plperl/plperl.c:3630)
   - [PLy_spi_prepare](../P/PLy_spi_prepare.md) (src/pl/plpython/plpy_spi.c:108)
-  - pltcl_SPI_prepare (src/pl/tcl/pltcl.c:2616)
+  - [pltcl_SPI_prepare](pltcl_SPI_prepare.md) (src/pl/tcl/pltcl.c:2616)
 
 ## Notes and Other Information
 - Returns true on success, false on failure (when escontext is provided)

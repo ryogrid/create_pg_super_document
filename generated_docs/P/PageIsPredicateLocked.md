@@ -26,9 +26,9 @@ The function is particularly important for GiST index vacuum operations, where i
   - SET_PREDICATELOCKTARGETTAG_PAGE
   - PredicateLockTargetTagHashCode
   - PredicateLockHashPartitionLock
-  - LWLockAcquire
-  - hash_search_with_hash_value
-  - LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [hash_search_with_hash_value](../h/hash_search_with_hash_value.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
 - Called from (representative examples):
   - SerializableXactHandle (referenced in predicate.h)
 

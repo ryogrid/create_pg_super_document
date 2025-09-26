@@ -28,7 +28,7 @@ The state changes follow a specific pattern: subtransactions between current and
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsInParallelMode
+  - [IsInParallelMode](../I/IsInParallelMode.md)
   - IsParallelWorker
   - ereport
   - PointerIsValid

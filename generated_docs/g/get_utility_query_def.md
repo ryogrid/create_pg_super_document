@@ -30,9 +30,9 @@ For any other utility statement type, the function raises an error, as only NOTI
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendContextKeyword
+  - [appendContextKeyword](../a/appendContextKeyword.md)
   - [quote_identifier](../q/quote_identifier.md)
-  - simple_quote_literal
+  - [simple_quote_literal](../s/simple_quote_literal.md)
 - Called from:
   - [get_query_def](get_query_def.md)
 

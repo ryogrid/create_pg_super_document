@@ -19,10 +19,10 @@ This function provides access to replication slot statistics for SQL-callable fu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire (with ReplicationSlotControlLock, LW_SHARED)
-  - get_replslot_index (with NameStr conversion and create=false)
-  - pgstat_fetch_entry (with PGSTAT_KIND_REPLSLOT)
-  - LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md) (with ReplicationSlotControlLock, LW_SHARED)
+  - [get_replslot_index](../g/get_replslot_index.md) (with NameStr conversion and create=false)
+  - [pgstat_fetch_entry](pgstat_fetch_entry.md) (with PGSTAT_KIND_REPLSLOT)
+  - [LWLockRelease](../L/LWLockRelease.md)
 - Called from (representative examples):
   - PG_STAT_GET_REPLICATION_SLOT_COLS
 

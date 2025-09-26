@@ -51,7 +51,7 @@ The context structure encapsulates the main execution states, tuple slots for da
 - Functions called/Symbols referenced:
   - [ModifyTableState](ModifyTableState.md)
   - [EPQState](../E/EPQState.md)  
-  - TM_FailureData
+  - [TM_FailureData](../T/TM_FailureData.md)
 - Called from (representative examples):
   - [ExecInsert](../E/ExecInsert.md)
   - [ExecUpdate](../E/ExecUpdate.md)

@@ -27,7 +27,7 @@ The function initializes the TwoPhaseState global variable, which serves as the 
   - MAXALIGN (memory alignment macro)
   - offsetof (standard C macro)
 - Types referenced:
-  - GlobalTransaction (pointer to transaction data)
+  - [GlobalTransaction](../G/GlobalTransaction.md) (pointer to transaction data)
   - [TwoPhaseStateData](TwoPhaseStateData.md) (main state structure)
 - Global variables accessed:
   - TwoPhaseState (global state variable)

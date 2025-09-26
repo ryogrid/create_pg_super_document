@@ -32,9 +32,9 @@ The offsets array contains the actual offset numbers within the block, ordered i
 - Functions called/Symbols referenced: 
   - Uses PostgreSQL built-in types: BlockNumber, OffsetNumber
 - Called from (representative examples):
-  - TidStoreIterateNext
-  - lazy_vacuum_heap_rel (in vacuum operations)
-  - check_set_block_offsets (in test modules)
+  - [TidStoreIterateNext](TidStoreIterateNext.md)
+  - [lazy_vacuum_heap_rel](../l/lazy_vacuum_heap_rel.md) (in vacuum operations)
+  - [check_set_block_offsets](../c/check_set_block_offsets.md) (in test modules)
 
 ## Notes and Other Information
 - The structure is returned by reference from TidStoreIterateNext(), so callers should not modify or free the structure or its offsets array

@@ -23,7 +23,7 @@ The function plays a crucial role in optimizing merge joins by ensuring that the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PathKey (structure type)
+  - [PathKey](../P/PathKey.md) (structure type)
   - BTLessStrategyNumber (constant)
 - Called from (representative examples):
   - [pathkeys_useful_for_merging](../p/pathkeys_useful_for_merging.md)

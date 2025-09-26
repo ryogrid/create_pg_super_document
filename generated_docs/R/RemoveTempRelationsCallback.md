@@ -32,10 +32,10 @@ This callback mechanism ensures that temporary relations are cleaned up even in 
 - Functions called/Symbols referenced:
   - [AbortOutOfAnyTransaction](../A/AbortOutOfAnyTransaction.md)
   - [StartTransactionCommand](../S/StartTransactionCommand.md)
-  - GetTransactionSnapshot
-  - PushActiveSnapshot
+  - [GetTransactionSnapshot](../G/GetTransactionSnapshot.md)
+  - [PushActiveSnapshot](../P/PushActiveSnapshot.md)
   - [RemoveTempRelations](RemoveTempRelations.md)
-  - PopActiveSnapshot
+  - [PopActiveSnapshot](../P/PopActiveSnapshot.md)
   - [CommitTransactionCommand](../C/CommitTransactionCommand.md)
 - Called from (representative examples):
   - [AtEOXact_Namespace](../A/AtEOXact_Namespace.md) (registered as callback)

@@ -33,10 +33,10 @@ The test includes several validation checks to ensure pipeline mode behaves corr
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQisnonblocking](../P/PQisnonblocking.md) - Check if connection is in non-blocking mode
-  - PQenterPipelineMode - Enter pipeline mode
+  - [PQenterPipelineMode](../P/PQenterPipelineMode.md) - Enter pipeline mode
   - [PQsendQueryParams](../P/PQsendQueryParams.md) - Send parameterized query
-  - PQexitPipelineMode - Exit pipeline mode
-  - PQpipelineSync - Send pipeline synchronization
+  - [PQexitPipelineMode](../P/PQexitPipelineMode.md) - Exit pipeline mode
+  - [PQpipelineSync](../P/PQpipelineSync.md) - Send pipeline synchronization
   - [PQgetResult](../P/PQgetResult.md) - Retrieve query results
   - [PQresultStatus](../P/PQresultStatus.md) - Get result status
   - [PQresStatus](../P/PQresStatus.md) - Get status string

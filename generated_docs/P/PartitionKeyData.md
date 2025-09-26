@@ -59,9 +59,9 @@ The structure supports both column-based partitioning (using attribute numbers) 
 - Functions called/Symbols referenced:
   - PartitionStrategy (enum defining partitioning strategies)
 - Called from (representative examples):
-  - RelationBuildPartitionKey (builds PartitionKeyData from catalog information)
+  - [RelationBuildPartitionKey](../R/RelationBuildPartitionKey.md) (builds PartitionKeyData from catalog information)
 - Type alias:
-  - PartitionKey (pointer to PartitionKeyData defined in partdefs.h)
+  - [PartitionKey](PartitionKey.md) (pointer to PartitionKeyData defined in partdefs.h)
 
 ## Notes and Other Information
 - This structure is typically allocated in a long-lived memory context as it represents cached metadata that persists for the lifetime of a relation's cache entry

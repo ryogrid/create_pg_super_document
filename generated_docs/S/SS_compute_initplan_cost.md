@@ -33,7 +33,7 @@ The function makes a conservative assumption that each initPlan executes once du
 - Data types referenced:
   - [List](../L/List.md)
   - Cost
-  - SubPlan
+  - [SubPlan](SubPlan.md)
   - ListCell
 - Called from (representative examples):
   - [SS_charge_for_initplans](SS_charge_for_initplans.md)

@@ -26,9 +26,9 @@ The function returns the number of bytes successfully validated, which may be le
 ## Dependencies
 - Functions called/Symbols referenced:
   - IS_HIGHBIT_SET
-  - pg_mule_verifychar
+  - [pg_mule_verifychar](pg_mule_verifychar.md)
 - Called from (representative examples):
-  - pg_encoding_set_invalid
+  - [pg_encoding_set_invalid](pg_encoding_set_invalid.md)
 
 ## Notes and Other Information
 - Returns the number of bytes successfully validated from the beginning of the string

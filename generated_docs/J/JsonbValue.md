@@ -85,7 +85,7 @@ The structure uses a discriminated union approach where the  field determines wh
 ## Dependencies
 - Types referenced:
   - jbvType (enum defining JSON value types)
-  - Numeric (PostgreSQL numeric type)
+  - [Numeric](../N/Numeric.md) (PostgreSQL numeric type)
   - [JsonbPair](JsonbPair.md) (key-value pair structure)
   - [JsonbContainer](JsonbContainer.md) (on-disk container format)
   - Datum (PostgreSQL datum type)
@@ -98,7 +98,7 @@ The structure uses a discriminated union approach where the  field determines wh
 ## Notes and Other Information
 - The structure is designed for efficient in-memory JSON manipulation while the on-disk Jsonb format prioritizes storage efficiency and alignment
 - The  field not only determines union member access but also influences sort order for JSON values
-- String values in the structure are not necessarily null-terminated, requiring explicit length tracking
+- [String](../S/String.md) values in the structure are not necessarily null-terminated, requiring explicit length tracking
 - The  flag in arrays indicates special handling for top-level scalar values stored as single-element arrays
 - Binary format support allows direct access to on-disk Jsonb data without full deserialization
 - Date/time support includes timezone information for TimestampTz types

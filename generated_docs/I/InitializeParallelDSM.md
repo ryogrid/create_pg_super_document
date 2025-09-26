@@ -23,8 +23,8 @@ Key responsibilities include setting up error queues for each worker, serializin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetTransactionSnapshot (obtains current transaction snapshot)
-  - GetActiveSnapshot (obtains current active snapshot)
+  - [GetTransactionSnapshot](../G/GetTransactionSnapshot.md) (obtains current transaction snapshot)
+  - [GetActiveSnapshot](../G/GetActiveSnapshot.md) (obtains current active snapshot)
   - [GetSessionDsmHandle](../G/GetSessionDsmHandle.md) (creates per-session DSM segment)
   - [EstimateLibraryStateSpace](../E/EstimateLibraryStateSpace.md), EstimateGUCStateSpace, EstimateTransactionStateSpace (space estimation functions)
   - [EstimatePendingSyncsSpace](../E/EstimatePendingSyncsSpace.md), EstimateUncommittedEnumsSpace (state size estimation)

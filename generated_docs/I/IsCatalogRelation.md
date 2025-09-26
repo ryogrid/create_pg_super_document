@@ -25,7 +25,7 @@ The function serves as a wrapper around IsCatalogRelationOid, extracting the rel
   - RelationGetRelid (macro to extract OID from relation)
 - Called from (representative examples):
   - [heap_multi_insert](../h/heap_multi_insert.md)
-  - index_create
+  - [index_create](../i/index_create.md)
   - [check_publication_add_relation](../c/check_publication_add_relation.md)
   - [needs_toast_table](../n/needs_toast_table.md)
   - [CacheInvalidateHeapTuple](../C/CacheInvalidateHeapTuple.md)

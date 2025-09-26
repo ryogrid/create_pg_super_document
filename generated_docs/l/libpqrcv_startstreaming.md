@@ -24,10 +24,10 @@ The function performs version-specific feature checking, ensuring that advanced 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initStringInfo
-  - appendStringInfoString
-  - appendStringInfo
-  - appendStringInfoChar
+  - [initStringInfo](../i/initStringInfo.md)
+  - [appendStringInfoString](../a/appendStringInfoString.md)
+  - [appendStringInfo](../a/appendStringInfo.md)
+  - [appendStringInfoChar](../a/appendStringInfoChar.md)
   - [stringlist_to_identifierstr](../s/stringlist_to_identifierstr.md)
   - [PQescapeLiteral](../P/PQescapeLiteral.md)
   - [PQfreemem](../P/PQfreemem.md)

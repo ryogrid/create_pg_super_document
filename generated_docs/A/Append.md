@@ -41,12 +41,12 @@ The Append node supports both synchronous and asynchronous execution modes, allo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PartitionPruneInfo
+  - [PartitionPruneInfo](../P/PartitionPruneInfo.md)
 - Called from (representative examples):
-  - ExecInitAppend
-  - create_append_plan
-  - set_append_references
-  - ExplainNode
+  - [ExecInitAppend](../E/ExecInitAppend.md)
+  - [create_append_plan](../c/create_append_plan.md)
+  - [set_append_references](../s/set_append_references.md)
+  - [ExplainNode](../E/ExplainNode.md)
 
 ## Notes and Other Information
 - The Append node is fundamental to PostgreSQL's execution of UNION operations and partitioned table queries

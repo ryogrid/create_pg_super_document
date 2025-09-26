@@ -41,7 +41,7 @@ The function delegates actual catalog insertion to CastCreate after completing a
   - [LookupFuncWithArgs](../L/LookupFuncWithArgs.md)
   - [SearchSysCache1](../S/SearchSysCache1.md)
   - [IsBinaryCoercibleWithCast](../I/IsBinaryCoercibleWithCast.md)
-  - superuser
+  - [superuser](../s/superuser.md)
   - [get_typlenbyvalalign](../g/get_typlenbyvalalign.md)
   - [get_element_type](../g/get_element_type.md)
   - [CastCreate](CastCreate.md)

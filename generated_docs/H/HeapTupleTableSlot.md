@@ -31,16 +31,16 @@ HeapTupleTableSlot represents tuples that are stored as HeapTuple structures, wh
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TupleTableSlot (base structure)
+  - [TupleTableSlot](../T/TupleTableSlot.md) (base structure)
   - HeapTuple
-  - HeapTupleData
+  - [HeapTupleData](HeapTupleData.md)
   - TTSOpsHeapTuple (operations table)
 - Called from (representative examples):
-  - tts_heap_clear
-  - tts_heap_getsomeattrs
-  - tts_heap_getsysattr
-  - tts_heap_materialize
-  - tts_heap_store_tuple
+  - [tts_heap_clear](../t/tts_heap_clear.md)
+  - [tts_heap_getsomeattrs](../t/tts_heap_getsomeattrs.md)
+  - [tts_heap_getsysattr](../t/tts_heap_getsysattr.md)
+  - [tts_heap_materialize](../t/tts_heap_materialize.md)
+  - [tts_heap_store_tuple](../t/tts_heap_store_tuple.md)
 
 ## Notes and Other Information
 - Heap tuple slots use TTSOpsHeapTuple as their operations table

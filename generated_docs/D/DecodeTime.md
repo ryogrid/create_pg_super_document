@@ -25,10 +25,10 @@ DecodeTime is specifically designed for timestamp processing and serves as a wra
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DecodeTimeCommon
+  - [DecodeTimeCommon](DecodeTimeCommon.md)
   - fsec_t (type)
   - [pg_tm](../p/pg_tm.md) (type)
-  - pg_itm (type)
+  - [pg_itm](../p/pg_itm.md) (type)
   - DTERR_FIELD_OVERFLOW (constant)
 - Called from (representative examples):
   - [DecodeDateTime](DecodeDateTime.md)

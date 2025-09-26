@@ -42,7 +42,7 @@ The function ensures that older update scripts remain functional even when newer
 ## Dependencies
 - Functions called/Symbols referenced:
   - [read_extension_aux_control_file](../r/read_extension_aux_control_file.md)
-  - table_open
+  - [table_open](../t/table_open.md)
   - [systable_beginscan](../s/systable_beginscan.md)/systable_getnext
   - [get_namespace_name](../g/get_namespace_name.md)
   - [heap_modify_tuple](../h/heap_modify_tuple.md)
@@ -55,7 +55,7 @@ The function ensures that older update scripts remain functional even when newer
   - [execute_extension_script](../e/execute_extension_script.md)
 - Called from (representative examples):
   - [CreateExtensionInternal](../C/CreateExtensionInternal.md) (during extension creation)
-  - ExecAlterExtensionStmt (during explicit extension updates)
+  - [ExecAlterExtensionStmt](../E/ExecAlterExtensionStmt.md) (during explicit extension updates)
 
 ## Notes and Other Information
 - This function is static and only used internally within extension.c

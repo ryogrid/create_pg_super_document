@@ -28,7 +28,7 @@ This function converts various network-related data types to approximate scalar 
   - `ip_addr` - gets address bytes from inet structure
   - `PGSQL_AF_INET` - constant for IPv4 address family
 - Called from (representative examples):
-  - `convert_to_scalar` in src/backend/utils/adt/selfuncs.c
+  - `[convert_to_scalar](convert_to_scalar.md)` in src/backend/utils/adt/selfuncs.c
 
 ## Notes and Other Information
 - Used specifically for query planner selectivity estimation, not for general conversion

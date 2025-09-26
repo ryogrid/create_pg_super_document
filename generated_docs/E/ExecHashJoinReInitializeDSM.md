@@ -27,14 +27,14 @@ The function includes detailed comments about potential optimizations for single
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - shm_toc_lookup
-  - ExecHashTableDetachBatch
-  - ExecHashTableDetach
-  - SharedFileSetDeleteAll
-  - BarrierInit
-  - ParallelHashJoinState (struct type)
+  - [shm_toc_lookup](../s/shm_toc_lookup.md)
+  - [ExecHashTableDetachBatch](ExecHashTableDetachBatch.md)
+  - [ExecHashTableDetach](ExecHashTableDetach.md)
+  - [SharedFileSetDeleteAll](../S/SharedFileSetDeleteAll.md)
+  - [BarrierInit](../B/BarrierInit.md)
+  - [ParallelHashJoinState](../P/ParallelHashJoinState.md) (struct type)
 - Called from (representative examples):
-  - ExecParallelReInitializeDSM
+  - [ExecParallelReInitializeDSM](ExecParallelReInitializeDSM.md)
 
 ## Notes and Other Information
 - Returns early if no DSM segment is available, consistent with other parallel hash join functions

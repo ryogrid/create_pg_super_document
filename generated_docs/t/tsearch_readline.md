@@ -25,7 +25,7 @@ The function increments the line number counter for error reporting purposes and
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_get_line_buf
+  - [pg_get_line_buf](../p/pg_get_line_buf.md)
   - [pg_any_to_server](../p/pg_any_to_server.md)
   - [pstrdup](../p/pstrdup.md)
   - [pfree](../p/pfree.md)
@@ -34,8 +34,8 @@ The function increments the line number counter for error reporting purposes and
   - [dsynonym_init](../d/dsynonym_init.md)
   - [thesaurusRead](thesaurusRead.md)
   - [NIImportDictionary](../N/NIImportDictionary.md)
-  - NIImportOOAffixes
-  - NIImportAffixes
+  - [NIImportOOAffixes](../N/NIImportOOAffixes.md)
+  - [NIImportAffixes](../N/NIImportAffixes.md)
   - [readstoplist](../r/readstoplist.md)
 
 ## Notes and Other Information

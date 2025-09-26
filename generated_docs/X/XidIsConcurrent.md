@@ -27,7 +27,7 @@ This concurrency detection is crucial for the serializable snapshot isolation im
   - TransactionIdIsValid
   - TransactionIdEquals
   - [GetTopTransactionIdIfAny](../G/GetTopTransactionIdIfAny.md)
-  - GetTransactionSnapshot
+  - [GetTransactionSnapshot](../G/GetTransactionSnapshot.md)
   - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
   - [TransactionIdFollowsOrEquals](../T/TransactionIdFollowsOrEquals.md)
   - [pg_lfind32](../p/pg_lfind32.md)

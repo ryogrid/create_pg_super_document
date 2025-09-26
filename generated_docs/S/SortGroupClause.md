@@ -41,10 +41,10 @@ For ORDER BY items, all fields must be valid (though collation information is ob
   - Index (for targetlist references)  
   - Oid (for operator references)
 - Called from (representative examples):
-  - transformGroupClauseExpr (parser/parse_clause.c)
-  - make_pathkeys_for_sortclauses_extended (optimizer/path/pathkeys.c)
-  - create_unique_plan (optimizer/plan/createplan.c)
-  - preprocess_groupclause (optimizer/plan/planner.c)
+  - [transformGroupClauseExpr](../t/transformGroupClauseExpr.md) (parser/parse_clause.c)
+  - [make_pathkeys_for_sortclauses_extended](../m/make_pathkeys_for_sortclauses_extended.md) (optimizer/path/pathkeys.c)
+  - [create_unique_plan](../c/create_unique_plan.md) (optimizer/plan/createplan.c)
+  - [preprocess_groupclause](../p/preprocess_groupclause.md) (optimizer/plan/planner.c)
 
 ## Notes and Other Information
 - The parser may rearrange distinctClause lists to match ORDER BY requirements, ensuring only one sort step is needed

@@ -31,7 +31,7 @@ For btree indexes, the function enforces strict opfamily compatibility since no 
   - [list_member_oid](../l/list_member_oid.md)
   - IndexCollMatchesExprColl
   - [match_index_to_operand](../m/match_index_to_operand.md)
-  - EquivalenceClass (structure)
+  - [EquivalenceClass](../E/EquivalenceClass.md) (structure)
   - [EquivalenceMember](../E/EquivalenceMember.md) (structure)
   - [IndexOptInfo](../I/IndexOptInfo.md) (structure)
   - ec_member_matches_arg (structure)

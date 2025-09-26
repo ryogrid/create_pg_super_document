@@ -26,12 +26,12 @@ The function handles all three WAL metrics: the number of WAL records produced, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WalUsage (struct type definition)
+  - [WalUsage](WalUsage.md) (struct type definition)
 - Called from (representative examples):
   - [heap_vacuum_rel](../h/heap_vacuum_rel.md)
-  - InstrStopNode
+  - [InstrStopNode](../I/InstrStopNode.md)
   - [InstrEndParallelQuery](../I/InstrEndParallelQuery.md)
-  - pgstat_flush_wal
+  - [pgstat_flush_wal](../p/pgstat_flush_wal.md)
 
 ## Notes and Other Information
 - This is a public function (non-static), making it accessible from other compilation units

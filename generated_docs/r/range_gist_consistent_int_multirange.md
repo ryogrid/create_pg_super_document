@@ -46,7 +46,7 @@ The function handles all range strategy operators including before, overleft, ov
 
 ## Notes and Other Information
 - This is a static function used internally within the range types GiST implementation
-- The function implements conservative logic for internal nodes - when in doubt, it returns true to ensure no valid results are missed
+- The function implements conservative logic for internal nodes - [when](../w/when.md) in doubt, it returns true to ensure no valid results are missed
 - Special handling is provided for empty ranges and multiranges, as they have unique containment semantics
 - The RANGESTRAT_CONTAINED_BY case includes special logic for empty ranges, which are considered contained by any range
 - The RANGESTRAT_EQ case handles empty query multiranges specially, only descending if the key contains empty ranges

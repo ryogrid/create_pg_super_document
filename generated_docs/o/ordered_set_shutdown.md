@@ -23,8 +23,8 @@ The function does not need to free memory allocated in the per-group context sin
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DatumGetPointer](../D/DatumGetPointer.md)
-  - tuplesort_end
-  - ExecClearTuple
+  - [tuplesort_end](../t/tuplesort_end.md)
+  - [ExecClearTuple](../E/ExecClearTuple.md)
 - Called from (representative examples):
   - Registered as callback in ordered_set_startup (called by aggregate framework)
 

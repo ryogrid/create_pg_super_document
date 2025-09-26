@@ -23,9 +23,9 @@ This function is essential for parallel query planning, allowing PostgreSQL to d
 ## Dependencies
 - Functions called/Symbols referenced:
   - [mul_size](../m/mul_size.md) (safe multiplication function to prevent overflow)
-  - TapeShare (structure type for shared tape coordination)
+  - [TapeShare](../T/TapeShare.md) (structure type for shared tape coordination)
   - [add_size](../a/add_size.md) (safe addition function to prevent overflow)  
-  - Sharedsort (structure type for shared sort state)
+  - [Sharedsort](../S/Sharedsort.md) (structure type for shared sort state)
 - Called from (representative examples):
   - [_brin_begin_parallel](../b/_brin_begin_parallel.md) (src/backend/access/brin/brin.c:2402)
   - [_bt_begin_parallel](../b/_bt_begin_parallel.md) (src/backend/access/nbtree/nbtsort.c:1446)

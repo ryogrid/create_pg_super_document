@@ -38,7 +38,7 @@ The function includes stack depth checking to prevent stack overflow from deeply
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth (prevents stack overflow in deep recursion)
+  - [check_stack_depth](../c/check_stack_depth.md) (prevents stack overflow in deep recursion)
   - [regex_selectivity_sub](regex_selectivity_sub.md) (recursive self-calls for subpatterns and alternatives)
   - CHAR_RANGE_SEL (selectivity constant for character classes)
   - ANY_CHAR_SEL (selectivity constant for dot metacharacter)

@@ -34,12 +34,12 @@ The function exists in multiple architecture-specific variants:
 - Functions called/Symbols referenced (SSE 4.2 version):
   - [pg_crc32c_sse42_available](pg_crc32c_sse42_available.md)
   - `pg_comp_crc32c_sse42`
-  - `pg_comp_crc32c_sb8`
+  - `[pg_comp_crc32c_sb8](pg_comp_crc32c_sb8.md)`
 
 - Functions called/Symbols referenced (ARMv8 version):
-  - `pg_crc32c_armv8_available`
-  - `pg_comp_crc32c_armv8`
-  - `pg_comp_crc32c_sb8`
+  - `[pg_crc32c_armv8_available](pg_crc32c_armv8_available.md)`
+  - `[pg_comp_crc32c_armv8](pg_comp_crc32c_armv8.md)`
+  - `[pg_comp_crc32c_sb8](pg_comp_crc32c_sb8.md)`
 
 - Called from:
   - Initially assigned to `pg_comp_crc32c` function pointer

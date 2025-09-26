@@ -31,7 +31,7 @@ This function retrieves MCV statistics data from the pg_statistic_ext_data syste
   - STATS_EXT_MCV
 - Called from (representative examples):
   - [statext_mcv_clauselist_selectivity](statext_mcv_clauselist_selectivity.md)
-  - mcv_clauselist_selectivity
+  - [mcv_clauselist_selectivity](../m/mcv_clauselist_selectivity.md)
 
 ## Notes and Other Information
 - Part of PostgreSQL's extended statistics system for query planning

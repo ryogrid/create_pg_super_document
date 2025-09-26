@@ -39,17 +39,17 @@ For other cases, it creates a flat representation by detoasting and copying the 
 - Functions called/Symbols referenced:
   - AllocSetContextCreate
   - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
-  - EOH_init_header
+  - [EOH_init_header](../E/EOH_init_header.md)
   - VARATT_IS_EXTERNAL_EXPANDED
-  - DatumGetEOHP
+  - [DatumGetEOHP](../D/DatumGetEOHP.md)
   - [copy_byval_expanded_array](../c/copy_byval_expanded_array.md)
   - DatumGetArrayTypePCopy
   - [get_typlenbyvalalign](../g/get_typlenbyvalalign.md)
-  - EOHPGetRWDatum
+  - [EOHPGetRWDatum](../E/EOHPGetRWDatum.md)
   - ARR_NDIM, ARR_DIMS, ARR_LBOUND, ARR_ELEMTYPE, ARR_DATA_PTR, ARR_SIZE
 - Called from (representative examples):
   - [DatumGetExpandedArray](../D/DatumGetExpandedArray.md)
-  - DatumGetExpandedArrayX
+  - [DatumGetExpandedArrayX](../D/DatumGetExpandedArrayX.md)
   - [construct_empty_expanded_array](../c/construct_empty_expanded_array.md)
   - AARR_LBOUND
 

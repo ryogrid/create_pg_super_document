@@ -28,8 +28,8 @@ The function uses PostgreSQL's support request infrastructure to communicate the
   - PG_GETARG_POINTER
   - IsA (macro)
   - PG_RETURN_POINTER
-  - SupportRequestWFuncMonotonic (struct)
-  - SupportRequestOptimizeWindowClause (struct)
+  - [SupportRequestWFuncMonotonic](../S/SupportRequestWFuncMonotonic.md) (struct)
+  - [SupportRequestOptimizeWindowClause](../S/SupportRequestOptimizeWindowClause.md) (struct)
   - MONOTONICFUNC_INCREASING
   - FRAMEOPTION_NONDEFAULT
   - FRAMEOPTION_ROWS

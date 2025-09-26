@@ -42,16 +42,16 @@ The bump allocator is particularly well-suited for scenarios where:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextData (inherited structure)
-  - dlist_head (for block list management)
+  - [MemoryContextData](../M/MemoryContextData.md) (inherited structure)
+  - [dlist_head](../d/dlist_head.md) (for block list management)
 - Called from (representative examples):
-  - BumpContextCreate
-  - BumpReset
-  - BumpAlloc
-  - BumpAllocLarge
-  - BumpStats
-  - BumpCheck
-  - BumpIsEmpty
+  - [BumpContextCreate](BumpContextCreate.md)
+  - [BumpReset](BumpReset.md)
+  - [BumpAlloc](BumpAlloc.md)
+  - [BumpAllocLarge](BumpAllocLarge.md)
+  - [BumpStats](BumpStats.md)
+  - [BumpCheck](BumpCheck.md)
+  - [BumpIsEmpty](BumpIsEmpty.md)
 
 ## Notes and Other Information
 - The bump allocation strategy provides O(1) allocation time but does not support individual chunk deallocation

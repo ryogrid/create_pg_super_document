@@ -32,7 +32,7 @@ The dshash_table_item struct serves as a wrapper around user-defined data entrie
 - Called from (representative examples):
   - ENTRY_FROM_ITEM (macro for accessing user data)
   - ITEM_FROM_ENTRY (macro for getting item from user data)
-  - find_in_bucket
+  - [find_in_bucket](../f/find_in_bucket.md)
   - [insert_item_into_bucket](../i/insert_item_into_bucket.md)
   - [delete_item_from_bucket](delete_item_from_bucket.md)
   - [dshash_find](dshash_find.md)

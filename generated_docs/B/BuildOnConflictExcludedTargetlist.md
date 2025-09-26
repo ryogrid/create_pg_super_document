@@ -35,7 +35,7 @@ The function handles the special requirements of the EXCLUDED relation:
 - Functions called/Symbols referenced:
   - RelationGetNumberOfAttributes (gets column count from relation)
   - [makeNullConst](../m/makeNullConst.md) (creates NULL constants for dropped columns)
-  - makeVar (creates variable references for active columns)
+  - [makeVar](../m/makeVar.md) (creates variable references for active columns)
   - [makeTargetEntry](../m/makeTargetEntry.md) (creates target list entries)
   - TupleDescAttr (accesses attribute metadata)
 

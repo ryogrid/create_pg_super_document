@@ -27,8 +27,8 @@ The `valueTypeName` function provides a mapping from PgBenchValue type enumerati
   - PGBT_BOOLEAN - Enumeration value for boolean values
 - Called from (representative examples):
   - [coerceToBool](../c/coerceToBool.md) - Uses valueTypeName for error reporting when type coercion fails
-  - coerceToInt - Uses valueTypeName for error reporting when type coercion fails
-  - coerceToDouble - Uses valueTypeName for error reporting when type coercion fails
+  - [coerceToInt](../c/coerceToInt.md) - Uses valueTypeName for error reporting when type coercion fails
+  - [coerceToDouble](../c/coerceToDouble.md) - Uses valueTypeName for error reporting when type coercion fails
 
 ## Notes and Other Information
 - Returns static string literals, so the returned pointer should not be freed

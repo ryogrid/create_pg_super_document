@@ -56,5 +56,5 @@ FilterObjectType is an enumeration used by PostgreSQL's backup and restore utili
 - Defined in src/bin/pg_dump/filter.h:47-61
 - Used across pg_dump, pg_dumpall, and pg_restore utilities for consistent object type identification
 - The enum values map to specific string keywords in filter files (e.g., "table_data", "schema", "function")
-- String conversion is handled by the filter_object_type_name() function for error messaging
+- [String](../S/String.md) conversion is handled by the filter_object_type_name() function for error messaging
 - Part of PostgreSQL's selective backup/restore filtering system introduced for fine-grained control over dump operations

@@ -33,13 +33,13 @@ Note that this approach can be quite slow on large tables since it performs a fu
   - [table_slot_create](../t/table_slot_create.md): Creates scan slot
   - [table_scan_getnextslot](../t/table_scan_getnextslot.md): Gets next tuple from scan
   - [tuples_equal](../t/tuples_equal.md): Compares tuples for equality
-  - ExecCopySlot: Copies tuple data between slots
-  - table_tuple_lock: Locks the found tuple
+  - [ExecCopySlot](../E/ExecCopySlot.md): Copies tuple data between slots
+  - [table_tuple_lock](../t/table_tuple_lock.md): Locks the found tuple
   - [GetCurrentCommandId](../G/GetCurrentCommandId.md): Gets current command ID for locking
   - [ExecDropSingleTupleTableSlot](../E/ExecDropSingleTupleTableSlot.md): Cleans up scan slot
 - Called from (representative examples):
   - [FindReplTupleInLocalRel](../F/FindReplTupleInLocalRel.md): Logical replication worker function
-  - exec_rt_fetch: Through executor header inclusion
+  - [exec_rt_fetch](../e/exec_rt_fetch.md): Through executor header inclusion
 
 ## Notes and Other Information
 - Uses a retry mechanism with goto statements to handle concurrent modifications

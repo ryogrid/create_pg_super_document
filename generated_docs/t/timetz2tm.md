@@ -34,7 +34,7 @@ The function performs integer arithmetic to extract each time component by succe
 - Called from (representative examples):
   - [timetz_out](timetz_out.md): For text output formatting
   - [timetz_part_common](timetz_part_common.md): For EXTRACT() function implementation
-  - JsonEncodeDateTime: For JSON serialization
+  - [JsonEncodeDateTime](../J/JsonEncodeDateTime.md): For JSON serialization
 
 ## Notes and Other Information
 - Returns 0 on success (currently no failure conditions exist)

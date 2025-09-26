@@ -27,15 +27,15 @@ The function provides only active GUC values to workers, not stacked or reset va
 ## Dependencies
 - Functions called/Symbols referenced:
   - dlist_foreach_modify (iterate through guc_nondef_list)
-  - can_skip_gucvar (check if GUC should be skipped)
-  - guc_free (free GUC memory allocations)
-  - RemoveGUCFromLists (remove GUC from tracking lists)
-  - InitializeOneGUCOption (reset GUC to default state)
-  - read_gucstate/read_gucstate_binary (deserialize GUC data)
-  - set_config_option_ext (apply GUC values)
-  - set_config_sourcefile (set source file information)
+  - [can_skip_gucvar](../c/can_skip_gucvar.md) (check if GUC should be skipped)
+  - [guc_free](../g/guc_free.md) (free GUC memory allocations)
+  - [RemoveGUCFromLists](RemoveGUCFromLists.md) (remove GUC from tracking lists)
+  - [InitializeOneGUCOption](../I/InitializeOneGUCOption.md) (reset GUC to default state)
+  - [read_gucstate](../r/read_gucstate.md)/read_gucstate_binary (deserialize GUC data)
+  - [set_config_option_ext](../s/set_config_option_ext.md) (apply GUC values)
+  - [set_config_sourcefile](../s/set_config_sourcefile.md) (set source file information)
 - Called from (representative examples):
-  - ParallelWorkerMain (src/backend/access/transam/parallel.c:1450)
+  - [ParallelWorkerMain](../P/ParallelWorkerMain.md) (src/backend/access/transam/parallel.c:1450)
 
 ## Notes and Other Information
 - The function assumes the GUC stack is empty (Assert(gconf->stack == NULL))

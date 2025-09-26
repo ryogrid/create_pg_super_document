@@ -28,11 +28,11 @@ If either operation would cause an overflow, the function returns false and leav
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_mul_s64_overflow (safe 64-bit multiplication with overflow detection)
-  - pg_add_s64_overflow (safe 64-bit addition with overflow detection)
+  - [pg_mul_s64_overflow](../p/pg_mul_s64_overflow.md) (safe 64-bit multiplication with overflow detection)
+  - [pg_add_s64_overflow](../p/pg_add_s64_overflow.md) (safe 64-bit addition with overflow detection)
 - Called from (representative examples):
-  - AdjustMicroseconds
-  - DecodeTimeForInterval (multiple times for different time units)
+  - [AdjustMicroseconds](../A/AdjustMicroseconds.md)
+  - [DecodeTimeForInterval](../D/DecodeTimeForInterval.md) (multiple times for different time units)
 
 ## Notes and Other Information
 - Returns true on successful operation, false if overflow would occur

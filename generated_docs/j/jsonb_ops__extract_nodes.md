@@ -27,9 +27,9 @@ This function is responsible for extracting indexable nodes from JSON path expre
   - [make_jsp_entry_node](../m/make_jsp_entry_node.md)
   - [make_jsp_entry_node_scalar](../m/make_jsp_entry_node_scalar.md)
   - [make_jsp_expr_node_binary](../m/make_jsp_expr_node_binary.md)
-  - lappend
-  - JsonPathGinPathItem
-  - JsonPathGinNode
+  - [lappend](../l/lappend.md)
+  - [JsonPathGinPathItem](../J/JsonPathGinPathItem.md)
+  - [JsonPathGinNode](../J/JsonPathGinNode.md)
   - GinTernaryValue
   - Various enum values (jpiKey, jbvString, JSP_GIN_OR, GIN_TRUE, GIN_FALSE, GIN_MAYBE)
 - Called from (representative examples):

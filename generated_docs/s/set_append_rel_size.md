@@ -33,7 +33,7 @@ Width estimates are computed by weighting child relation widths proportionally t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth (prevents stack overflow in deep inheritance trees)
+  - [check_stack_depth](../c/check_stack_depth.md) (prevents stack overflow in deep inheritance trees)
   - IS_SIMPLE_REL (checks if relation is a simple base relation)
   - bms_is_empty (checks if bitmap set is empty)
   - [find_base_rel](../f/find_base_rel.md) (locates child relation's RelOptInfo)
@@ -48,7 +48,7 @@ Width estimates are computed by weighting child relation widths proportionally t
   - [set_rel_size](set_rel_size.md) (recursively computes child relation sizes)
   - forboth (macro for parallel iteration over two lists)
   - [get_typavgwidth](../g/get_typavgwidth.md) (gets average width for a data type)
-  - exprType/exprTypmod (extracts type information from expressions)
+  - [exprType](../e/exprType.md)/exprTypmod (extracts type information from expressions)
 
 - Called from (representative examples):
   - [set_rel_size](set_rel_size.md) (main relation sizing dispatcher)

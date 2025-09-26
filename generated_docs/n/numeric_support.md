@@ -22,17 +22,17 @@ The  function is a PostgreSQL planner support function specifically designed to 
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (macro for type checking)
-  - SupportRequestSimplify
-  - FuncExpr
-  - list_length
+  - [SupportRequestSimplify](../S/SupportRequestSimplify.md)
+  - [FuncExpr](../F/FuncExpr.md)
+  - [list_length](../l/list_length.md)
   - lsecond
   - linitial
-  - exprTypmod
+  - [exprTypmod](../e/exprTypmod.md)
   - [DatumGetInt32](../D/DatumGetInt32.md)
   - [numeric_typmod_scale](numeric_typmod_scale.md)
   - [numeric_typmod_precision](numeric_typmod_precision.md)
   - [is_valid_numeric_typmod](../i/is_valid_numeric_typmod.md)
-  - relabel_to_typmod
+  - [relabel_to_typmod](../r/relabel_to_typmod.md)
   - PG_RETURN_POINTER
 - Called from:
   - Used as a support function registered in PostgreSQL's system catalogs for numeric type operations

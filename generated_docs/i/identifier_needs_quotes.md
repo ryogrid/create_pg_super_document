@@ -26,7 +26,7 @@ The function is conservative, requiring quotes for any non-ASCII characters, mat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ScanKeywordLookup (for keyword validation against ScanKeywords)
+  - [ScanKeywordLookup](../S/ScanKeywordLookup.md) (for keyword validation against ScanKeywords)
   - UNRESERVED_KEYWORD (constant for keyword category comparison)
   - ScanKeywordCategories (array for keyword category lookup)
 - Called from (representative examples):

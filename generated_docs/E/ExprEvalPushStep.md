@@ -21,7 +21,7 @@ ExprEvalPushStep is a utility function responsible for appending evaluation step
   - [palloc](../p/palloc.md) (for initial memory allocation)
   - [repalloc](../r/repalloc.md) (for expanding existing allocation)
   - memcpy (for copying step data)
-  - ExprEvalStep (structure type)
+  - [ExprEvalStep](ExprEvalStep.md) (structure type)
 - Called from (representative examples):
   - [ExecInitExpr](ExecInitExpr.md)
   - [ExecInitExprWithParams](ExecInitExprWithParams.md)

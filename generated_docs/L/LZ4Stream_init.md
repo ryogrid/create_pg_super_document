@@ -26,7 +26,7 @@ This static function performs the lazy initialization of an LZ4State structure, 
   - LZ4F_createDecompressionContext (LZ4 library function)
   - LZ4F_isError (LZ4 library error checking function)
   - fwrite (standard C library I/O function)
-  - pg_malloc (PostgreSQL memory allocation function)
+  - [pg_malloc](../p/pg_malloc.md) (PostgreSQL memory allocation function)
   - Max (PostgreSQL macro for maximum value)
 - Constants referenced:
   - DEFAULT_IO_BUFFER_SIZE

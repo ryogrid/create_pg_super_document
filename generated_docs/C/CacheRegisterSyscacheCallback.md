@@ -46,7 +46,7 @@ The function maintains a global callback list and uses a link array to organize 
 ## Notes and Other Information
 - The callback registration is permanent for the lifetime of the backend process
 - Callbacks are invoked in registration order (older callbacks first) when invalidation occurs
-- Hash value zero has special meaning (cache reset) and may occasionally create false matches with actual zero hash values
+- [Hash](../H/Hash.md) value zero has special meaning (cache reset) and may occasionally create false matches with actual zero hash values
 - Most callback implementations handle cache resets by flushing all cached state regardless of the hash value
 - Essential for maintaining consistency of derived caches that depend on system catalog data
 - Used extensively throughout PostgreSQL for coordinating cache invalidation across subsystems

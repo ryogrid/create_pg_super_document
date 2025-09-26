@@ -28,7 +28,7 @@ The node relies on the common Plan structure for basic plan information, with th
   - [Plan](Plan.md) (base structure)
 
 - Called from (representative examples):
-  - make_project_set (optimizer/plan/createplan.c:7013)
+  - [make_project_set](../m/make_project_set.md) (optimizer/plan/createplan.c:7013)
   - [create_project_set_plan](../c/create_project_set_plan.md) (optimizer/plan/createplan.c:1615)
   - [ExecInitProjectSet](../E/ExecInitProjectSet.md) (executor/nodeProjectSet.c:227)
   - [create_group_result_plan](../c/create_group_result_plan.md) (optimizer/plan/createplan.c:1612)

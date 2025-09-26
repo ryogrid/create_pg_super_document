@@ -29,10 +29,10 @@ The allocated hash table uses atomic pointers for thread-safe access across para
   - InvalidDsaPointer
 - Data types used:
   - [HashJoinTable](../H/HashJoinTable.md)
-  - ParallelHashJoinBatch
+  - [ParallelHashJoinBatch](../P/ParallelHashJoinBatch.md)
   - dsa_pointer_atomic
 - Called from (representative examples):
-  - ExecHashTableCreate
+  - [ExecHashTableCreate](ExecHashTableCreate.md)
   - [ExecParallelHashJoinNewBatch](ExecParallelHashJoinNewBatch.md)
 
 ## Notes and Other Information

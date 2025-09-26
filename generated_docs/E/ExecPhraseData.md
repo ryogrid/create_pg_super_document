@@ -34,18 +34,18 @@ The structure supports both positive matches (where the query matches) and negat
 
 ## Dependencies
 - Used by callback functions:
-  - checkcondition_HL
-  - hlCover
-  - checkcondition_gin
-  - checkcondition_arr
-  - checkcondition_bit
-  - checkcondition_QueryOperand
-  - checkclass_str
-  - checkcondition_str
+  - [checkcondition_HL](../c/checkcondition_HL.md)
+  - [hlCover](../h/hlCover.md)
+  - [checkcondition_gin](../c/checkcondition_gin.md)
+  - [checkcondition_arr](../c/checkcondition_arr.md)
+  - [checkcondition_bit](../c/checkcondition_bit.md)
+  - [checkcondition_QueryOperand](../c/checkcondition_QueryOperand.md)
+  - [checkclass_str](../c/checkclass_str.md)
+  - [checkcondition_str](../c/checkcondition_str.md)
 - Used by phrase processing functions:
   - TS_phrase_output
-  - TS_phrase_execute
-  - TS_execute_locations_recurse
+  - [TS_phrase_execute](../T/TS_phrase_execute.md)
+  - [TS_execute_locations_recurse](../T/TS_execute_locations_recurse.md)
 - Related types:
   - WordEntryPos (lexeme position data type)
   - TSExecuteCallback (callback function type that uses this structure)

@@ -28,7 +28,7 @@ When quoting is required, it properly escapes internal quotes and backslashes. T
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendPQExpBufferChar
+  - [appendPQExpBufferChar](appendPQExpBufferChar.md)
   - [appendPQExpBufferStr](appendPQExpBufferStr.md)
   - [pg_strcasecmp](../p/pg_strcasecmp.md)
 

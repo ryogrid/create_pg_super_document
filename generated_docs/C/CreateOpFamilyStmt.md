@@ -30,10 +30,10 @@ When a CREATE OPERATOR FAMILY statement is parsed, it creates this structure whi
 - Functions called/Symbols referenced:
   - (None directly - uses basic List and string types)
 - Called from (representative examples):
-  - CreateOpFamily
-  - DefineOpClass
-  - DefineOpFamily
-  - ProcessUtilitySlow
+  - [CreateOpFamily](CreateOpFamily.md)
+  - [DefineOpClass](../D/DefineOpClass.md)
+  - [DefineOpFamily](../D/DefineOpFamily.md)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md)
 
 ## Notes and Other Information
 - Operator families are a higher-level abstraction than operator classes, allowing multiple operator classes to share operators

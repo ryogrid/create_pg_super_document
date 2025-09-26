@@ -30,7 +30,7 @@ The function automatically uses the planstate's expression context, result tuple
   - [ExecInitAgg](ExecInitAgg.md) (nodeAgg.c:3351)
   - [ExecInitGroup](ExecInitGroup.md) (nodeGroup.c:198)
   - [ExecInitHashJoin](ExecInitHashJoin.md) (nodeHashjoin.c:763)
-  - ExecInitMergeJoin (nodeMergejoin.c:1525)
+  - [ExecInitMergeJoin](ExecInitMergeJoin.md) (nodeMergejoin.c:1525)
   - Various executor node initialization functions
 
 ## Notes and Other Information

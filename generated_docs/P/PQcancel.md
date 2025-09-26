@@ -31,7 +31,7 @@ PQcancel implements the original PostgreSQL query cancellation mechanism. It est
   - recv (system call for receiving data)
   - closesocket (socket cleanup)
   - [optional_setsockopt](../o/optional_setsockopt.md) (helper for socket options)
-  - strlcpy (safe string copying)
+  - [strlcpy](../s/strlcpy.md) (safe string copying)
   - pg_hton32 (host to network byte order conversion)
   - [pqSetKeepalivesWin32](../p/pqSetKeepalivesWin32.md) (Windows keepalive configuration)
 - Called from (representative examples):

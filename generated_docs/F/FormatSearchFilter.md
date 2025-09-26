@@ -25,9 +25,9 @@ This mechanism allows administrators to configure flexible LDAP search filters i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `initStringInfo`: Initialize the StringInfo buffer
-  - `appendStringInfoString`: Append the username to the output
-  - `appendStringInfoChar`: Append individual characters to the output
+  - `[initStringInfo](../i/initStringInfo.md)`: Initialize the StringInfo buffer
+  - `[appendStringInfoString](../a/appendStringInfoString.md)`: Append the username to the output
+  - `[appendStringInfoChar](../a/appendStringInfoChar.md)`: Append individual characters to the output
   - `strncmp`: Compare pattern against LPH_USERNAME placeholder
   - LPH_USERNAME: Constant defining the "$username" placeholder string
   - LPH_USERNAME_LEN: Length of the placeholder string

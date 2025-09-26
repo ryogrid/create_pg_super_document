@@ -40,11 +40,11 @@ The MERGE_ACTION() function is a special PostgreSQL function that returns inform
 - Functions called/Symbols referenced:
   - EXPR_KIND_MERGE_RETURNING (constant for context checking)
   - ereport (for error reporting)
-  - errcode
-  - errmsg
-  - parser_errposition
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
+  - [parser_errposition](../p/parser_errposition.md)
 - Called from (representative examples):
-  - transformExprRecurse
+  - [transformExprRecurse](transformExprRecurse.md)
 
 ## Notes and Other Information
 - The function is static, meaning it's only accessible within parse_expr.c

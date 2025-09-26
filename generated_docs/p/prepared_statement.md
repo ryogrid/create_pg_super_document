@@ -30,18 +30,18 @@ The structure supports ECPG's prepared statement functionality by maintaining th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - statement (core statement structure for SQL execution details)
-  - prepared_statement (self-reference for linked list structure)
+  - [statement](../s/statement.md) (core statement structure for SQL execution details)
+  - [prepared_statement](prepared_statement.md) (self-reference for linked list structure)
 - Called from (representative examples):
-  - ECPGdescribe (src/interfaces/ecpg/ecpglib/descriptor.c:851)
-  - connection (src/interfaces/ecpg/ecpglib/ecpglib_extern.h:110)
-  - ecpg_register_prepared_stmt (src/interfaces/ecpg/ecpglib/prepare.c:62-73)
-  - prepare_common (src/interfaces/ecpg/ecpglib/prepare.c:162-166)
-  - ECPGprepare (src/interfaces/ecpg/ecpglib/prepare.c:221-238)
-  - ecpg_find_prepared_statement (src/interfaces/ecpg/ecpglib/prepare.c:240-242)
-  - deallocate_one (src/interfaces/ecpg/ecpglib/prepare.c:261)
-  - ECPGdeallocate (src/interfaces/ecpg/ecpglib/prepare.c:318)
-  - ecpg_auto_prepare (src/interfaces/ecpg/ecpglib/prepare.c:565)
+  - [ECPGdescribe](../E/ECPGdescribe.md) (src/interfaces/ecpg/ecpglib/descriptor.c:851)
+  - [connection](../c/connection.md) (src/interfaces/ecpg/ecpglib/ecpglib_extern.h:110)
+  - [ecpg_register_prepared_stmt](../e/ecpg_register_prepared_stmt.md) (src/interfaces/ecpg/ecpglib/prepare.c:62-73)
+  - [prepare_common](prepare_common.md) (src/interfaces/ecpg/ecpglib/prepare.c:162-166)
+  - [ECPGprepare](../E/ECPGprepare.md) (src/interfaces/ecpg/ecpglib/prepare.c:221-238)
+  - [ecpg_find_prepared_statement](../e/ecpg_find_prepared_statement.md) (src/interfaces/ecpg/ecpglib/prepare.c:240-242)
+  - [deallocate_one](../d/deallocate_one.md) (src/interfaces/ecpg/ecpglib/prepare.c:261)
+  - [ECPGdeallocate](../E/ECPGdeallocate.md) (src/interfaces/ecpg/ecpglib/prepare.c:318)
+  - [ecpg_auto_prepare](../e/ecpg_auto_prepare.md) (src/interfaces/ecpg/ecpglib/prepare.c:565)
 
 ## Notes and Other Information
 - Implements a simple linked list structure for organizing prepared statements per database connection

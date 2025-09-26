@@ -31,17 +31,17 @@ The structure inherits from Expr, making it a proper expression node that can be
 ## Dependencies
 - Functions called/Symbols referenced:
   - ParseLoc (for location tracking)
-  - Expr (base expression structure)
+  - [Expr](../E/Expr.md) (base expression structure)
 
 - Called from (representative examples):
-  - ExecInitExprRec (expression initialization during execution)
-  - transformCaseExpr (parser transformation of CASE expressions)
-  - eval_const_expressions_mutator (constant folding optimization)
-  - get_rule_expr (rule decompilation for pg_dump and view definitions)
-  - assign_collations_walker (collation assignment during parsing)
+  - [ExecInitExprRec](../E/ExecInitExprRec.md) (expression initialization during execution)
+  - [transformCaseExpr](../t/transformCaseExpr.md) (parser transformation of CASE expressions)
+  - [eval_const_expressions_mutator](../e/eval_const_expressions_mutator.md) (constant folding optimization)
+  - [get_rule_expr](../g/get_rule_expr.md) (rule decompilation for pg_dump and view definitions)
+  - [assign_collations_walker](../a/assign_collations_walker.md) (collation assignment during parsing)
 
 ## Notes and Other Information
-- CaseWhen nodes are typically created during the parsing phase when transforming SQL CASE expressions
+- [CaseWhen](CaseWhen.md) nodes are typically created during the parsing phase when transforming SQL CASE expressions
 - Multiple CaseWhen nodes are collected in a list to represent all WHEN arms of a single CASE expression
 - The expression tree walker and mutator functions handle CaseWhen nodes specially to traverse both the condition and result expressions
 - This structure is used in conjunction with CaseExpr which contains the overall CASE expression including the list of CaseWhen arms and optional ELSE clause

@@ -23,8 +23,8 @@ The function constructs the complete CREATE statement by conditionally including
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - createPQExpBuffer
-  - destroyPQExpBuffer
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)
+  - [destroyPQExpBuffer](destroyPQExpBuffer.md)
   - [pg_strdup](../p/pg_strdup.md)
   - [fmtId](../f/fmtId.md)
   - [appendPQExpBuffer](../a/appendPQExpBuffer.md)

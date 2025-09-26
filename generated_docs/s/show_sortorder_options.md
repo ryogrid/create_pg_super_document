@@ -27,14 +27,14 @@ The function intelligently determines when to show collation information (COLLAT
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - exprType (determines the data type of the sort expression)
+  - [exprType](../e/exprType.md) (determines the data type of the sort expression)
   - [lookup_type_cache](../l/lookup_type_cache.md) (gets type information including default operators)
   - [get_typcollation](../g/get_typcollation.md) (gets the default collation for a type)
   - [get_collation_name](../g/get_collation_name.md) (converts collation OID to name)
   - [quote_identifier](../q/quote_identifier.md) (properly quotes collation names)
   - [get_opname](../g/get_opname.md) (converts operator OID to name)
   - [get_equality_op_for_ordering_op](../g/get_equality_op_for_ordering_op.md) (determines if operator is ascending/descending)
-  - appendStringInfo/appendStringInfoString (builds output string)
+  - [appendStringInfo](../a/appendStringInfo.md)/appendStringInfoString (builds output string)
 - Constants referenced:
   - TYPECACHE_LT_OPR, TYPECACHE_GT_OPR (type cache flags)
 - Types referenced:

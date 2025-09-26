@@ -46,8 +46,8 @@ The function accesses the pg_proc system catalog to retrieve function metadata n
   - [evaluate_function](../e/evaluate_function.md)
   - [inline_function](../i/inline_function.md)
   - Form_pg_proc
-  - SupportRequestSimplify
-  - FuncExpr
+  - [SupportRequestSimplify](../S/SupportRequestSimplify.md)
+  - [FuncExpr](../F/FuncExpr.md)
 - Called from (representative examples):
   - [eval_const_expressions_mutator](../e/eval_const_expressions_mutator.md)
 

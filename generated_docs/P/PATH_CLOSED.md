@@ -28,7 +28,7 @@ This is an enumeration constant with no parameters or members.
   -  (src/backend/utils/adt/geo_ops.c:3463)
 
 ## Notes and Other Information
-- PATH_CLOSED causes paths to be delimited with parentheses '(' and ')' characters (LDELIM and RDELIM)
+- [PATH_CLOSED](PATH_CLOSED.md) causes paths to be delimited with parentheses '(' and ')' characters (LDELIM and RDELIM)
 - Used in conjunction with PATH_OPEN (delimited with '[' and ']') and PATH_NONE (no delimiters)
 - The choice between PATH_CLOSED and PATH_OPEN depends on the  boolean field of the PATH data structure
 - Part of PostgreSQL's geometric data type system for handling 2D geometric objects

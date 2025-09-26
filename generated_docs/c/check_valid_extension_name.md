@@ -35,7 +35,7 @@ Each validation failure triggers an ERROR with ERRCODE_INVALID_PARAMETER_VALUE, 
 - Called from (representative examples):
   - [CreateExtension](../C/CreateExtension.md) (during extension creation)
   - [get_required_extension](../g/get_required_extension.md) (when resolving extension dependencies)
-  - pg_extension_update_paths (when checking update path validity)
+  - [pg_extension_update_paths](../p/pg_extension_update_paths.md) (when checking update path validity)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the extension.c compilation unit

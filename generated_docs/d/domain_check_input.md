@@ -35,22 +35,22 @@ If the  parameter points to an ErrorSaveContext, any failures are reported there
   - [DomainConstraintState](../D/DomainConstraintState.md)
   - DOM_CONSTRAINT_NOTNULL
   - errsave
-  - errdatatype
+  - [errdatatype](../e/errdatatype.md)
   - DOM_CONSTRAINT_CHECK
-  - CreateStandaloneExprContext
+  - [CreateStandaloneExprContext](../C/CreateStandaloneExprContext.md)
   - MakeExpandedObjectReadOnly
   - [ExecCheck](../E/ExecCheck.md)
-  - errdomainconstraint
-  - ReScanExprContext
+  - [errdomainconstraint](../e/errdomainconstraint.md)
+  - [ReScanExprContext](../R/ReScanExprContext.md)
 
 - Called from (representative examples):
   - [domain_in](domain_in.md) (src/backend/utils/adt/domains.c:275)
   - [domain_recv](domain_recv.md) (src/backend/utils/adt/domains.c:331)
-  - domain_check_internal (src/backend/utils/adt/domains.c:397)
+  - [domain_check_internal](domain_check_internal.md) (src/backend/utils/adt/domains.c:397)
 
 ## Notes and Other Information
 - The function creates an ExprContext lazily when needed for CHECK constraint evaluation
 - Values are protected against modification during constraint checking using MakeExpandedObjectReadOnly
 - The function performs cleanup by calling ReScanExprContext to avoid leaking non-memory resources
-- Constraint validation follows a fail-fast approach - the first failed constraint causes the function to jump to cleanup
+- [Constraint](../C/Constraint.md) validation follows a fail-fast approach - the first failed constraint causes the function to jump to cleanup
 - The function updates domain constraints before validation to ensure they are current

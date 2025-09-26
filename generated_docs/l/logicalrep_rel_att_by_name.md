@@ -23,9 +23,9 @@ This function is typically used during relation mapping operations where the sub
 ## Dependencies
 - Functions called/Symbols referenced:
   - strcmp (standard C string comparison)
-  - LogicalRepRelation (relation metadata structure)
+  - [LogicalRepRelation](../L/LogicalRepRelation.md) (relation metadata structure)
 - Called from (representative examples):
-  - logicalrep_rel_open
+  - [logicalrep_rel_open](logicalrep_rel_open.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the relation.c file

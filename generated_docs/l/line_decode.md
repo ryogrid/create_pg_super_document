@@ -24,7 +24,7 @@ The  function is a static helper function that parses a string representation of
 ## Dependencies
 - Functions called/Symbols referenced:
   - LINE (geometric line data type)
-  - single_decode (function to decode individual floating-point values)
+  - [single_decode](../s/single_decode.md) (function to decode individual floating-point values)
   - DELIM (delimiter constant for separating values)
   - RDELIM_L (right delimiter constant for ending)
   - ereturn (error return macro with context)

@@ -24,7 +24,7 @@ The function is part of PostgreSQL's domain constraint enforcement mechanism, en
   - [errcode](../e/errcode.md)
   - [errmsg](../e/errmsg.md)
   - [format_type_be](../f/format_type_be.md)
-  - errdatatype
+  - [errdatatype](../e/errdatatype.md)
 - Called from (representative examples):
   - [ExecInterpExpr](ExecInterpExpr.md)
   - [FunctionReturningBool](../F/FunctionReturningBool.md) (via JIT compilation)

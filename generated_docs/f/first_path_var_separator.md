@@ -30,7 +30,7 @@ This function is essential for parsing environment variables like PATH, LD_LIBRA
   - unconstify (macro for casting away const qualifier)
 - Called from (representative examples):
   - [find_in_dynamic_libpath](find_in_dynamic_libpath.md) (in src/backend/utils/fmgr/dfmgr.c)
-  - find_my_exec (in src/common/exec.c)
+  - [find_my_exec](find_my_exec.md) (in src/common/exec.c)
 
 ## Notes and Other Information
 - Returns NULL if no path variable separator is found in the pathlist

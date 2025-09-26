@@ -51,12 +51,12 @@ This struct supports PostgreSQL's flexible statistics system where different typ
   - Oid (PostgreSQL object identifier type)
   - Datum (PostgreSQL generic data value type)
 - Called from (representative examples):
-  - get_attstatsslot (primary constructor function)
-  - free_attstatsslot (memory cleanup function)
-  - ExecHashBuildSkewHash
-  - var_eq_const
-  - histogram_selectivity
-  - eqjoinsel
+  - [get_attstatsslot](../g/get_attstatsslot.md) (primary constructor function)
+  - [free_attstatsslot](../f/free_attstatsslot.md) (memory cleanup function)
+  - [ExecHashBuildSkewHash](../E/ExecHashBuildSkewHash.md)
+  - [var_eq_const](../v/var_eq_const.md)
+  - [histogram_selectivity](../h/histogram_selectivity.md)
+  - [eqjoinsel](../e/eqjoinsel.md)
 
 ## Notes and Other Information
 - The struct must be initialized using `get_attstatsslot` and cleaned up with `free_attstatsslot` to prevent memory leaks

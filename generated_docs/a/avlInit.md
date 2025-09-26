@@ -23,7 +23,7 @@ This AVL tree implementation is optimized for the specific use case of collectin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_malloc0 (for allocating zeroed memory for the sentinel node)
+  - [pg_malloc0](../p/pg_malloc0.md) (for allocating zeroed memory for the sentinel node)
   - avl_node (structure type for tree nodes)
   - avl_tree (structure type for the tree container)
 - Called from (representative examples):

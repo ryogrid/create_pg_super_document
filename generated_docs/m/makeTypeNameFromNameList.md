@@ -22,15 +22,15 @@ The function allocates a new TypeName node using `makeNode` and sets up the basi
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (for TypeName allocation)
-  - TypeName (struct type)
+  - [TypeName](../T/TypeName.md) (struct type)
   - NIL (empty list constant)
 - Called from (representative examples):
-  - makeTypeName
-  - defGetTypeName
-  - objectNamesToOids
-  - RenameConstraint
-  - AlterEnum
-  - FuncNameAsType
+  - [makeTypeName](makeTypeName.md)
+  - [defGetTypeName](../d/defGetTypeName.md)
+  - [objectNamesToOids](../o/objectNamesToOids.md)
+  - [RenameConstraint](../R/RenameConstraint.md)
+  - [AlterEnum](../A/AlterEnum.md)
+  - [FuncNameAsType](../F/FuncNameAsType.md)
 
 ## Notes and Other Information
 - Sets typmods to NIL (no type modifiers initially)

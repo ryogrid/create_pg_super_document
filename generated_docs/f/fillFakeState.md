@@ -28,7 +28,7 @@ The function is designed to be lightweight and efficient, avoiding the overhead 
 - Functions called/Symbols referenced:
   - memset (standard C library function)
   - [palloc0](../p/palloc0.md) (PostgreSQL memory allocation)
-  - SpGistState (structure type)
+  - [SpGistState](../S/SpGistState.md) (structure type)
   - [spgxlogState](../s/spgxlogState.md) (structure type)
   - SGDTSIZE (macro for dead tuple storage size)
 - Called from (representative examples):

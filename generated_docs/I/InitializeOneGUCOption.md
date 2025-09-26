@@ -25,17 +25,17 @@ The function ensures that validation hooks are called even for boot values, allo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - config_generic: Base structure for all GUC parameters
+  - [config_generic](../c/config_generic.md): Base structure for all GUC parameters
   - PGC_S_DEFAULT, PGC_INTERNAL: Configuration source and context constants
   - BOOTSTRAP_SUPERUSERID: Default role ID for system initialization
   - PGC_BOOL, PGC_INT, PGC_REAL, PGC_STRING, PGC_ENUM: Parameter type constants
   - config_bool, config_int, config_real, config_string, config_enum: Type-specific structures
-  - call_bool_check_hook, call_int_check_hook, call_real_check_hook, call_string_check_hook, call_enum_check_hook: Type-specific validation functions
+  - [call_bool_check_hook](../c/call_bool_check_hook.md), call_int_check_hook, call_real_check_hook, call_string_check_hook, call_enum_check_hook: Type-specific validation functions
   - [guc_strdup](../g/guc_strdup.md): GUC-specific string duplication function
 - Called from (representative examples):
   - [InitializeGUCOptions](InitializeGUCOptions.md): Main GUC initialization during startup
   - [define_custom_variable](../d/define_custom_variable.md): Custom parameter registration
-  - RestoreGUCState: State restoration during recovery
+  - [RestoreGUCState](../R/RestoreGUCState.md): State restoration during recovery
 
 ## Notes and Other Information
 - Static function used only within the GUC subsystem

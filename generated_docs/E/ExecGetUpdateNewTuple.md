@@ -35,7 +35,7 @@ Unlike the INSERT case, UPDATE operations always require projection due to the c
 ## Dependencies
 - Functions called/Symbols referenced:
   - TTS_EMPTY (macro)
-  - ExecProject
+  - [ExecProject](ExecProject.md)
 - Called from (representative examples):
   - [ExecBRUpdateTriggersNew](ExecBRUpdateTriggersNew.md)
   - [ExecCrossPartitionUpdate](ExecCrossPartitionUpdate.md)

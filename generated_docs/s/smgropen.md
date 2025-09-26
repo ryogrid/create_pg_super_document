@@ -29,10 +29,10 @@ The `smgropen` function is responsible for obtaining an SMgrRelation object that
   - MAX_FORKNUM
   - SMgrRelation, RelFileLocatorBackend, SMgrRelationData, HASHCTL types
 - Called from (representative examples):
-  - XLogReadBufferExtended (src/backend/access/transam/xlogutils.c:491)
+  - [XLogReadBufferExtended](../X/XLogReadBufferExtended.md) (src/backend/access/transam/xlogutils.c:491)
   - [RelationCreateStorage](../R/RelationCreateStorage.md) (src/backend/catalog/storage.c:149)
   - [ReadBufferWithoutRelcache](../R/ReadBufferWithoutRelcache.md) (src/backend/storage/buffer/bufmgr.c:833)
-  - RelationGetSmgr (src/include/utils/rel.h:571)
+  - [RelationGetSmgr](../R/RelationGetSmgr.md) (src/include/utils/rel.h:571)
 
 ## Notes and Other Information
 - In PostgreSQL versions prior to 17, the object had no defined lifetime

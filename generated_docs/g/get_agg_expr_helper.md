@@ -37,17 +37,17 @@ The function extracts argument types, resolves function names, formats arguments
 ## Dependencies
 - Functions called/Symbols referenced:
   - DO_AGGSPLIT_COMBINE, DO_AGGSPLIT_SKIPFINAL (aggregate splitting macros)
-  - get_agg_combine_expr (for handling combining aggregates)
-  - get_aggregate_argtypes (to extract argument types)
-  - generate_function_name (to resolve function names with overloading)
+  - [get_agg_combine_expr](get_agg_combine_expr.md) (for handling combining aggregates)
+  - [get_aggregate_argtypes](get_aggregate_argtypes.md) (to extract argument types)
+  - [generate_function_name](generate_function_name.md) (to resolve function names with overloading)
   - AGGKIND_IS_ORDERED_SET (macro to detect ordered-set aggregates)
-  - get_rule_expr (for deparsing arguments and filter expressions)
-  - get_rule_orderby (for deparsing ORDER BY clauses)
-  - resolve_special_varno (for resolving special variables in combining aggregates)
+  - [get_rule_expr](get_rule_expr.md) (for deparsing arguments and filter expressions)
+  - [get_rule_orderby](get_rule_orderby.md) (for deparsing ORDER BY clauses)
+  - [resolve_special_varno](../r/resolve_special_varno.md) (for resolving special variables in combining aggregates)
   - FUNC_MAX_ARGS (maximum function arguments constant)
 - Called from:
-  - get_agg_expr (standard aggregate expression wrapper)
-  - get_json_agg_constructor (JSON aggregate constructor)
+  - [get_agg_expr](get_agg_expr.md) (standard aggregate expression wrapper)
+  - [get_json_agg_constructor](get_json_agg_constructor.md) (JSON aggregate constructor)
 
 ## Notes and Other Information
 - Part of PostgreSQL's rule deparsing system used for displaying views, rules, and constraints

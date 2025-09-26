@@ -23,9 +23,9 @@ This function is a PostgreSQL-callable wrapper that implements the ">=" operator
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_POINTER (to extract Complex pointers from arguments)
-  - complex_abs_cmp_internal (for the actual magnitude comparison)
+  - [complex_abs_cmp_internal](complex_abs_cmp_internal.md) (for the actual magnitude comparison)
   - PG_RETURN_BOOL (to return boolean result)
-  - Complex (struct type for complex numbers)
+  - [Complex](../C/Complex.md) (struct type for complex numbers)
 - Called from (representative examples):
   - PostgreSQL query execution engine when using `>=` operator on complex values
   - B-tree index operations for complex number ordering

@@ -31,17 +31,17 @@ The serialized data structure enables parallel workers to reconstruct the exact 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - EstimateParamExecSpace
+  - [EstimateParamExecSpace](../E/EstimateParamExecSpace.md)
   - dsa_allocate
-  - dsa_get_address
-  - bms_num_members
-  - bms_next_member
-  - list_nth_oid
-  - get_typlenbyval
-  - datumSerialize
+  - [dsa_get_address](../d/dsa_get_address.md)
+  - [bms_num_members](../b/bms_num_members.md)
+  - [bms_next_member](../b/bms_next_member.md)
+  - [list_nth_oid](../l/list_nth_oid.md)
+  - [get_typlenbyval](../g/get_typlenbyval.md)
+  - [datumSerialize](../d/datumSerialize.md)
 - Called from:
-  - ExecInitParallelPlan
-  - ExecParallelReinitialize
+  - [ExecInitParallelPlan](../E/ExecInitParallelPlan.md)
+  - [ExecParallelReinitialize](../E/ExecParallelReinitialize.md)
 
 ## Notes and Other Information
 - The function returns a dsa_pointer that can be used by workers to access the serialized parameter data

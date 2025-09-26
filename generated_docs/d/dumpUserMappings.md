@@ -36,7 +36,7 @@ The function is typically called after a foreign server has been archived to ens
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - createPQExpBuffer
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)
   - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
   - [PQntuples](../P/PQntuples.md)
   - [PQfnumber](../P/PQfnumber.md)
@@ -46,7 +46,7 @@ The function is typically called after a foreign server has been archived to ens
   - [createDumpId](../c/createDumpId.md)
   - [ArchiveEntry](../A/ArchiveEntry.md)
   - [PQclear](../P/PQclear.md)
-  - destroyPQExpBuffer
+  - [destroyPQExpBuffer](destroyPQExpBuffer.md)
 - Called from (representative examples):
   - [dumpForeignServer](dumpForeignServer.md)
   - fmtQualifiedDumpable

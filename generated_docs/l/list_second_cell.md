@@ -20,8 +20,8 @@ The function operates on PostgreSQL's internal List data structure, which stores
 ## Dependencies
 - Functions called/Symbols referenced: None (simple array access and length check)
 - Called from (representative examples):
-  - select_common_type (src/backend/parser/parse_coerce.c:1355)
-  - JsonValueListInitIterator (src/backend/utils/adt/jsonpath_exec.c:3566)
+  - [select_common_type](../s/select_common_type.md) (src/backend/parser/parse_coerce.c:1355)
+  - [JsonValueListInitIterator](../J/JsonValueListInitIterator.md) (src/backend/utils/adt/jsonpath_exec.c:3566)
 
 ## Notes and Other Information
 - This function is marked as static inline for performance optimization

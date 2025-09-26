@@ -22,7 +22,7 @@ This function determines the display width of a character in the MULE (Multi-Lin
   - IS_LC2 (macro for checking Latin Character set 2)
   - IS_LCPRV2 (macro for checking Latin Character Private set 2)
 - Called from (representative examples):
-  - pg_encoding_set_invalid
+  - [pg_encoding_set_invalid](pg_encoding_set_invalid.md)
 
 ## Notes and Other Information
 - Returns 1 for single-byte characters (LC1, LCPRV1, or ASCII)

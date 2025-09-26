@@ -29,7 +29,7 @@ The function handles edge cases like all-zeroes pages (from crashed backends) an
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetFreeIndexPage (queries FSM for free pages)
+  - [GetFreeIndexPage](../G/GetFreeIndexPage.md) (queries FSM for free pages)
   - [ReadBuffer](../R/ReadBuffer.md) (reads candidate pages into buffer pool)
   - [_bt_conditionallockbuf](_bt_conditionallockbuf.md) (attempts conditional locking to avoid deadlocks)
   - [PageIsNew](../P/PageIsNew.md) (checks for all-zeroes pages)

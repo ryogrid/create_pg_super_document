@@ -24,7 +24,7 @@ This function is essential for dynamic attribute access in stored procedures and
 ## Dependencies
 - Functions called/Symbols referenced:
   - TupleDescAttr (macro for accessing tuple descriptor attributes)
-  - namestrcmp (for comparing attribute names)
+  - [namestrcmp](../n/namestrcmp.md) (for comparing attribute names)
   - [SystemAttributeByName](SystemAttributeByName.md) (for looking up system attributes)
 - Called from (representative examples):
   - [make_ruledef](../m/make_ruledef.md) (rule utilities)
@@ -32,7 +32,7 @@ This function is essential for dynamic attribute access in stored procedures and
   - [tsvector_update_trigger](../t/tsvector_update_trigger.md) (text search triggers)
   - [plperl_build_tuple_result](../p/plperl_build_tuple_result.md) (Perl procedural language)
   - [PLy_modify_tuple](../P/PLy_modify_tuple.md) (Python procedural language)
-  - pltcl_build_tuple_result (Tcl procedural language)
+  - [pltcl_build_tuple_result](../p/pltcl_build_tuple_result.md) (Tcl procedural language)
   - [ttdummy](../t/ttdummy.md) (regression test trigger)
 
 ## Notes and Other Information

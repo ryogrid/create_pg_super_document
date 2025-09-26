@@ -21,13 +21,13 @@ This static function constructs a Unique plan node that removes duplicate rows f
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to create Unique node)
-  - list_length (to get number of distinct columns)
+  - [list_length](../l/list_length.md) (to get number of distinct columns)
   - [palloc](../p/palloc.md) (to allocate arrays for column information)
   - [get_sortgroupclause_tle](../g/get_sortgroupclause_tle.md) (to find target entry for each sort group clause)
   - [exprCollation](../e/exprCollation.md) (to extract collation from target entry expression)
 - Types referenced:
-  - Unique (the uniqueness filtering plan node structure)
-  - SortGroupClause (structure defining sorting/grouping criteria)
+  - [Unique](../U/Unique.md) (the uniqueness filtering plan node structure)
+  - [SortGroupClause](../S/SortGroupClause.md) (structure defining sorting/grouping criteria)
   - [TargetEntry](../T/TargetEntry.md) (structure representing output columns)
 - Called from (representative examples):
   - [create_unique_plan](../c/create_unique_plan.md)

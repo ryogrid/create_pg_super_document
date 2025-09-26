@@ -24,10 +24,10 @@ The function formats the signature as  or  for aggregates that accept any argume
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initPQExpBuffer
+  - [initPQExpBuffer](../i/initPQExpBuffer.md)
   - [fmtId](fmtId.md)
   - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
-  - appendPQExpBufferChar
+  - [appendPQExpBufferChar](../a/appendPQExpBufferChar.md)
   - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
   - [getFormattedTypeName](../g/getFormattedTypeName.md)
 - Called from (representative examples):

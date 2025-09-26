@@ -28,7 +28,7 @@ When the primary sort key comparison returns non-zero (indicating the tuples are
   - TuplesortstateGetPublic
   - [ApplySortComparator](../A/ApplySortComparator.md)
   - [comparetup_heap_tiebreak](comparetup_heap_tiebreak.md)
-  - SortSupport (type)
+  - [SortSupport](../S/SortSupport.md) (type)
   - TuplesortPublic (struct type)
 - Called from (representative examples):
   - [tuplesort_begin_heap](../t/tuplesort_begin_heap.md) (via CLUSTER_SORT macro)

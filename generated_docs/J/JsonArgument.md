@@ -26,10 +26,10 @@ JsonArgument represents individual named arguments from the PASSING clause in SQ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonValueExpr
+  - [JsonValueExpr](JsonValueExpr.md)
 - Called from (representative examples):
-  - raw_expression_tree_walker_impl
-  - transformJsonPassingArgs
+  - [raw_expression_tree_walker_impl](../r/raw_expression_tree_walker_impl.md)
+  - [transformJsonPassingArgs](../t/transformJsonPassingArgs.md)
 
 ## Notes and Other Information
 - Essential component of SQL/JSON's PASSING clause mechanism for parameter binding

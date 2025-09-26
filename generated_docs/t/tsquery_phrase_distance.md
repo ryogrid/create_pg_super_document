@@ -28,11 +28,11 @@ The `tsquery_phrase_distance` function is a PostgreSQL built-in function that pe
   - `ereport` - Reports errors for invalid distance values
   - [join_tsqueries](../j/join_tsqueries.md) - Helper function to combine queries with phrase operator
   - [QTN2QT](../Q/QTN2QT.md) - Converts query tree node back to TSQuery format
-  - `QTNFree` - Frees query tree node memory
+  - `[QTNFree](../Q/QTNFree.md)` - Frees query tree node memory
   - `OP_PHRASE` - Phrase operator constant
   - `MAXENTRYPOS` - Maximum allowed position/distance value
   - `TSQuery` - Text search query data type
-  - `QTNode` - [Query](../Q/Query.md) tree node structure
+  - `[QTNode](../Q/QTNode.md)` - [Query](../Q/Query.md) tree node structure
 
 - Called from (representative examples):
   - [tsquery_phrase](tsquery_phrase.md) - Default phrase search with distance 1

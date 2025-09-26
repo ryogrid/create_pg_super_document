@@ -29,9 +29,9 @@ The function formats the output to show:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - xl_running_xacts (struct type)
-  - appendStringInfo
-  - appendStringInfoString
+  - [xl_running_xacts](../x/xl_running_xacts.md) (struct type)
+  - [appendStringInfo](../a/appendStringInfo.md)
+  - [appendStringInfoString](../a/appendStringInfoString.md)
 - Called from (representative examples):
   - [standby_desc](standby_desc.md)
 

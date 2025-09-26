@@ -19,7 +19,7 @@ This is a static helper function used by the has_database_privilege family of fu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - text_to_cstring: Converts PostgreSQL text type to C string
+  - [text_to_cstring](../t/text_to_cstring.md): Converts PostgreSQL text type to C string
   - [get_database_oid](../g/get_database_oid.md): Looks up database OID by name (with error if not found)
 - Called from (representative examples):
   - [has_database_privilege_name_name](../h/has_database_privilege_name_name.md): User name + database name variant

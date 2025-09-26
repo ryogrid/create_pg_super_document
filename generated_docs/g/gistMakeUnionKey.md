@@ -34,7 +34,7 @@ The function uses a clever union-based storage allocation to create a properly s
   - [PointerGetDatum](../P/PointerGetDatum.md) (converts pointer to Datum)
 - Called from (representative examples):
   - [supportSecondarySplit](../s/supportSecondarySplit.md) (in gistsplit.c:328, 332)
-  - gistgetadjusted (in gistutil.c:335)
+  - [gistgetadjusted](gistgetadjusted.md) (in gistutil.c:335)
 
 ## Notes and Other Information
 - The function uses a union structure for efficient stack-based allocation of the GistEntryVector with exactly 2 entries

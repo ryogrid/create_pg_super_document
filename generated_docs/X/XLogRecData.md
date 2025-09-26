@@ -28,12 +28,12 @@ The XLogRecData structure is a fundamental component of PostgreSQL's WAL record 
 - Functions called/Symbols referenced:
   - (Self-referential through next pointer)
 - Called from (representative examples):
-  - XLogInsertRecord
-  - CopyXLogRecordToWAL  
-  - XLogRecordAssemble
-  - XLogRegisterData
-  - XLogRegisterBufData
-  - XLogInsert
+  - [XLogInsertRecord](XLogInsertRecord.md)
+  - [CopyXLogRecordToWAL](../C/CopyXLogRecordToWAL.md)  
+  - [XLogRecordAssemble](XLogRecordAssemble.md)
+  - [XLogRegisterData](XLogRegisterData.md)
+  - [XLogRegisterBufData](XLogRegisterBufData.md)
+  - [XLogInsert](XLogInsert.md)
 
 ## Notes and Other Information
 - This structure is primarily used internally by the WAL insertion system and is not typically manipulated directly by user code

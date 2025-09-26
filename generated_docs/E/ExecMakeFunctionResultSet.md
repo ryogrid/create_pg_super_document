@@ -36,7 +36,7 @@ The function uses a restart mechanism to seamlessly transition between reading c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth (stack overflow protection)
+  - [check_stack_depth](../c/check_stack_depth.md) (stack overflow protection)
   - [tuplestore_gettupleslot](../t/tuplestore_gettupleslot.md), tuplestore_end (tuplestore management)
   - [ExecFetchSlotHeapTupleDatum](ExecFetchSlotHeapTupleDatum.md), slot_getattr (tuple/scalar extraction)
   - [ExecEvalFuncArgs](ExecEvalFuncArgs.md) (argument evaluation)  

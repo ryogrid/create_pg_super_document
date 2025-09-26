@@ -20,7 +20,7 @@ The function converts the LLVMJitContext pointer to a Datum using PointerGetDatu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwnerForget
+  - [ResourceOwnerForget](ResourceOwnerForget.md)
   - [PointerGetDatum](../P/PointerGetDatum.md) (macro)
   - jit_resowner_desc (resource descriptor)
 - Called from (representative examples):

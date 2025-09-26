@@ -25,7 +25,7 @@ LockTuple is a PostgreSQL locking function that acquires a tuple-level lock on a
   - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)
   - [ItemPointerGetOffsetNumber](../I/ItemPointerGetOffsetNumber.md)
   - [LockAcquire](LockAcquire.md)
-  - LOCKTAG
+  - [LOCKTAG](LOCKTAG.md)
 - Called from (representative examples):
   - LockTupleTuplock
   - [heap_inplace_lock](../h/heap_inplace_lock.md)

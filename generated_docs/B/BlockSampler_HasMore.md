@@ -22,10 +22,10 @@ The function returns true only when both conditions are met, ensuring the sampli
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BlockSamplerData structure members (t, N, m, n)
+  - [BlockSamplerData](BlockSamplerData.md) structure members (t, N, m, n)
 - Called from (representative examples):
-  - block_sampling_read_stream_next (in src/backend/commands/analyze.c:1121)
-  - BlockSampler_Next (in src/backend/utils/misc/sampling.c:71)
+  - [block_sampling_read_stream_next](../b/block_sampling_read_stream_next.md) (in src/backend/commands/analyze.c:1121)
+  - [BlockSampler_Next](BlockSampler_Next.md) (in src/backend/utils/misc/sampling.c:71)
 
 ## Notes and Other Information
 - This function is essential for the main sampling loop in Algorithm S implementation

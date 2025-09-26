@@ -41,15 +41,15 @@ If the input value satisfies all domain constraints, it is returned as the resul
 - Functions called/Symbols referenced:
   - CoercionForm (enum for display formatting)
   - ParseLoc (for location tracking)
-  - Expr (base expression structure)
+  - [Expr](../E/Expr.md) (base expression structure)
   - Oid (object identifier type)
   
 - Called from (representative examples):
-  - ExecInitCoerceToDomain (executor initialization for domain coercion)
-  - coerce_to_domain (parser function for creating domain coercions)
-  - transformInsertRow (handling INSERT statement type coercion)
-  - process_matched_tle (rewrite system for target list entries)
-  - get_rule_expr (rule decompilation)
+  - [ExecInitCoerceToDomain](../E/ExecInitCoerceToDomain.md) (executor initialization for domain coercion)
+  - [coerce_to_domain](../c/coerce_to_domain.md) (parser function for creating domain coercions)
+  - [transformInsertRow](../t/transformInsertRow.md) (handling INSERT statement type coercion)
+  - [process_matched_tle](../p/process_matched_tle.md) (rewrite system for target list entries)
+  - [get_rule_expr](../g/get_rule_expr.md) (rule decompilation)
 
 ## Notes and Other Information
 - Essential for implementing PostgreSQL's domain type system with constraint enforcement

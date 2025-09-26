@@ -22,7 +22,7 @@ The  function implements the tangent function for degree-based input, following 
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT8: Extracts float8 argument from function call
   - isnan: Checks for NaN input values
-  - get_float8_nan: Returns NaN value for float8 type  
+  - [get_float8_nan](../g/get_float8_nan.md): Returns NaN value for float8 type  
   - isinf: Checks for infinite input values
   - INIT_DEGREE_CONSTANTS: Initializes degree calculation constants
   - [sind_q1](../s/sind_q1.md): Computes sine for first quadrant (0-90 degrees)

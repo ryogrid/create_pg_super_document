@@ -28,7 +28,7 @@ pgoutput_stream_start is a callback function in the pgoutput logical replication
   - InvalidRepOriginId
   - rbtxn_is_streamed
   - [OutputPluginPrepareWrite](../O/OutputPluginPrepareWrite.md)
-  - logicalrep_write_stream_start
+  - [logicalrep_write_stream_start](../l/logicalrep_write_stream_start.md)
   - [send_repl_origin](../s/send_repl_origin.md)
   - [OutputPluginWrite](../O/OutputPluginWrite.md)
 - Called from (representative examples):

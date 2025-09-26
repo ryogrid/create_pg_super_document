@@ -30,12 +30,12 @@ This structure serves as the central container for managing constraint deferral 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SetConstraintTriggerData
+  - [SetConstraintTriggerData](SetConstraintTriggerData.md)
   - FLEXIBLE_ARRAY_MEMBER (PostgreSQL macro for variable-length arrays)
 - Called from (representative examples):
   - SetConstraintState
-  - SetConstraintStateCreate
-  - SetConstraintStateAddItem
+  - [SetConstraintStateCreate](SetConstraintStateCreate.md)
+  - [SetConstraintStateAddItem](SetConstraintStateAddItem.md)
 
 ## Notes and Other Information
 - Part of PostgreSQL's intra-transaction constraint state management system

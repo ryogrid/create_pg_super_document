@@ -29,7 +29,7 @@ Additionally, the function maintains cached copies of several critical parameter
   - strcmp (for parameter name comparisons)
   - strcpy (for copying parameter strings)
   - strlen (for calculating string lengths)
-  - pg_char_to_encoding (for converting encoding names)
+  - [pg_char_to_encoding](pg_char_to_encoding.md) (for converting encoding names)
   - sscanf (for parsing server version)
   - atoi (for parsing numeric values)
 - Types used:
@@ -48,7 +48,7 @@ Additionally, the function maintains cached copies of several critical parameter
 - Handles server version parsing for both old format (9.6.1) and new format (10.1) version numbers
 - Updates static variables for client_encoding and standard_conforming_strings to support legacy escape functions
 - Server version is converted to numeric format: major*10000 + minor*100 + revision for old style, or major*10000 + minor for new style
-- Boolean parameters are converted from string "on"/"off" to PG_BOOL_YES/PG_BOOL_NO constants
+- [Boolean](../B/Boolean.md) parameters are converted from string "on"/"off" to PG_BOOL_YES/PG_BOOL_NO constants
 - Memory allocation failure is handled gracefully - the function continues even if malloc fails
 - Parameter names and values are copied, not referenced, ensuring the connection owns the data
 - The function supports various PostgreSQL configuration parameters including encoding settings, version info, transaction settings, and authentication parameters

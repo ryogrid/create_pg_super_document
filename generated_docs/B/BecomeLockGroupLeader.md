@@ -18,8 +18,8 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - LockHashPartitionLockByProc
-  - LWLockAcquire
-  - LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - [dlist_push_head](../d/dlist_push_head.md)
   - [LWLock](../L/LWLock.md)
 - Called from (representative examples):

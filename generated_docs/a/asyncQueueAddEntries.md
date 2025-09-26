@@ -38,7 +38,7 @@ The function processes notifications from the pendingNotifies list, converting e
   - [SimpleLruGetBankLock](../S/SimpleLruGetBankLock.md) (to get SLRU bank lock for page)
   - [SimpleLruZeroPage](../S/SimpleLruZeroPage.md) (to initialize new pages)
   - [SimpleLruReadPage](../S/SimpleLruReadPage.md) (to read existing pages)
-  - LWLockAcquire/LWLockRelease (for locking)
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease (for locking)
   - QUEUE_HEAD, QUEUE_POS_PAGE, QUEUE_POS_OFFSET (queue position macros)
   - QUEUE_POS_IS_ZERO (to check for first write)
   - QUEUE_PAGESIZE (page size constant)

@@ -32,7 +32,7 @@ Unlike vacuum records which handle conflicts globally, individual GiST delete re
   - XLogRecGetData (extracts gistxlogDelete structure from WAL record)
   - [XLogRecGetBlockTag](../X/XLogRecGetBlockTag.md) (gets block tag for conflict resolution)
   - [ResolveRecoveryConflictWithSnapshot](../R/ResolveRecoveryConflictWithSnapshot.md) (handles Hot Standby conflicts)
-  - XLogReadBufferForRedo (reads buffer for redo operation)
+  - [XLogReadBufferForRedo](../X/XLogReadBufferForRedo.md) (reads buffer for redo operation)
   - [PageIndexMultiDelete](../P/PageIndexMultiDelete.md) (performs the actual tuple deletions)
   - GistClearPageHasGarbage (clears page garbage flag)
   - GistMarkTuplesDeleted (marks tuples as deleted)

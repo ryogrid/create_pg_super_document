@@ -33,7 +33,7 @@ The function performs comprehensive validation including type checking, mutabili
   - [contain_var_clause](contain_var_clause.md): Verifies absence of column references in regular defaults
   - [coerce_to_target_type](coerce_to_target_type.md): Handles type conversion and validation
   - [assign_expr_collations](../a/assign_expr_collations.md): Resolves collation assignments in the final expression
-  - exprType: Determines the data type of an expression
+  - [exprType](../e/exprType.md): Determines the data type of an expression
   - [format_type_be](../f/format_type_be.md): Formats type names for error messages
 
 - Called from (representative examples):

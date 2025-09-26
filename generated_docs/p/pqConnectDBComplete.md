@@ -30,7 +30,7 @@ This function implements a blocking connection completion mechanism that repeate
 - Called from (representative examples):
   - [PQconnectdbParams](../P/PQconnectdbParams.md): Main connection function with parameters
   - [PQconnectdb](../P/PQconnectdb.md): Simple connection function
-  - `PQsetdbLogin`: Legacy connection function
+  - `[PQsetdbLogin](../P/PQsetdbLogin.md)`: Legacy connection function
   - [PQreset](../P/PQreset.md): Connection reset function
   - [internal_ping](../i/internal_ping.md): Internal connection ping function
   - [PQcancelBlocking](../P/PQcancelBlocking.md): Blocking connection cancellation

@@ -19,11 +19,11 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AllocateDir (opens pg_replslot directory)
-  - ReadDir (reads directory entries)
+  - [AllocateDir](../A/AllocateDir.md) (opens pg_replslot directory)
+  - [ReadDir](../R/ReadDir.md) (reads directory entries)
   - [ReplicationSlotValidateName](../R/ReplicationSlotValidateName.md) (validates slot directory names)
   - [ReorderBufferCleanupSerializedTXNs](../R/ReorderBufferCleanupSerializedTXNs.md) (removes spilled files from individual slots)
-  - FreeDir (closes directory handle)
+  - [FreeDir](../F/FreeDir.md) (closes directory handle)
   - strcmp (string comparison for directory entry filtering)
 - Called from (representative examples):
   - [StartupXLOG](StartupXLOG.md) (during WAL recovery startup process)

@@ -26,8 +26,8 @@ The function includes an assertion to verify that the pathvalue parameter is ind
   - makeNode (macro for node allocation)
   - IsA (macro for type checking)
   - Assert (assertion macro)
-  - JsonTablePath (the struct type being created)
-  - Const (input parameter type)
+  - [JsonTablePath](../J/JsonTablePath.md) (the struct type being created)
+  - [Const](../C/Const.md) (input parameter type)
 
 - Called from (representative examples):
   - [makeJsonTablePathScan](makeJsonTablePathScan.md) (in src/backend/parser/parse_jsontable.c:515)
@@ -35,7 +35,7 @@ The function includes an assertion to verify that the pathvalue parameter is ind
 ## Notes and Other Information
 - This function is defined in src/backend/nodes/makefuncs.c:998-1007
 - The function is declared in src/include/nodes/makefuncs.h:122
-- JsonTablePath is a simple structure with just two fields: the path value (Const) and an optional name (char *)
+- [JsonTablePath](../J/JsonTablePath.md) is a simple structure with just two fields: the path value (Const) and an optional name (char *)
 - The function follows PostgreSQL's standard pattern for node constructor functions using the makeNode infrastructure
 - This is part of the JSON_TABLE feature implementation which allows SQL queries to extract data from JSON documents in a tabular format
 - The created JsonTablePath nodes are used during query planning and execution to represent path expressions that need to be evaluated against JSON data

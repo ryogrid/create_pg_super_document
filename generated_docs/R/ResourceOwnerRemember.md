@@ -23,15 +23,15 @@ The function performs several safety checks to ensure the ResourceOwner is in a 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwnerDesc (resource type descriptor structure)
+  - [ResourceOwnerDesc](ResourceOwnerDesc.md) (resource type descriptor structure)
   - RESOWNER_ARRAY_SIZE (array size limit constant)
 - Called from (representative examples):
-  - ResourceOwnerRememberTupleDesc (tuple descriptor tracking)
-  - ResourceOwnerRememberBuffer (buffer tracking)
-  - ResourceOwnerRememberFile (file descriptor tracking)
-  - ResourceOwnerRememberCatCacheRef (catalog cache reference tracking)
-  - ResourceOwnerRememberSnapshot (snapshot tracking)
-  - ResourceOwnerRememberDSM (dynamic shared memory tracking)
+  - [ResourceOwnerRememberTupleDesc](ResourceOwnerRememberTupleDesc.md) (tuple descriptor tracking)
+  - [ResourceOwnerRememberBuffer](ResourceOwnerRememberBuffer.md) (buffer tracking)
+  - [ResourceOwnerRememberFile](ResourceOwnerRememberFile.md) (file descriptor tracking)
+  - [ResourceOwnerRememberCatCacheRef](ResourceOwnerRememberCatCacheRef.md) (catalog cache reference tracking)
+  - [ResourceOwnerRememberSnapshot](ResourceOwnerRememberSnapshot.md) (snapshot tracking)
+  - [ResourceOwnerRememberDSM](ResourceOwnerRememberDSM.md) (dynamic shared memory tracking)
 
 ## Notes and Other Information
 - Must be preceded by a call to ResourceOwnerEnlarge() to ensure space availability

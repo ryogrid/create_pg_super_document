@@ -23,7 +23,7 @@ The function handles three types of blockers: PSB_ONCE (handled specially elsewh
 ## Dependencies
 - Functions called/Symbols referenced:
   - PermutationStepBlocker (structure)
-  - IsoConnInfo (structure) 
+  - [IsoConnInfo](../I/IsoConnInfo.md) (structure) 
   - PSB_ONCE, PSB_OTHER_STEP, PSB_NUM_NOTICES (blocker type constants)
   - conns global array (connection information)
 - Called from (representative examples):

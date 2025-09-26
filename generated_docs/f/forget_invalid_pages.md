@@ -29,7 +29,7 @@ The `forget_invalid_pages` function cleans up the invalid page hash table by rem
   - elog
   - [pfree](../p/pfree.md)
   - [hash_search](../h/hash_search.md)
-  - HASH_SEQ_STATUS
+  - [HASH_SEQ_STATUS](../H/HASH_SEQ_STATUS.md)
   - [xl_invalid_page](../x/xl_invalid_page.md)
 - Called from (representative examples):
   - [XLogDropRelation](../X/XLogDropRelation.md)

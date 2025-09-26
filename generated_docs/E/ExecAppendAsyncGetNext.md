@@ -32,7 +32,7 @@ The function returns true when a tuple is available (including end-of-scan indic
   - [ExecAppendAsyncRequest](ExecAppendAsyncRequest.md) (async tuple request processing)
   - [ExecAppendAsyncEventWait](ExecAppendAsyncEventWait.md) (async event waiting and processing)
   - CHECK_FOR_INTERRUPTS (query interruption handling)
-  - ExecClearTuple (tuple slot clearing for end-of-scan)
+  - [ExecClearTuple](ExecClearTuple.md) (tuple slot clearing for end-of-scan)
 - Called from (representative examples):
   - [ExecAppend](ExecAppend.md) (main append execution function)
 

@@ -22,7 +22,7 @@ The function implements careful length management to respect PostgreSQL's NAMEDA
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - strlcpy (safe string copying)
+  - [strlcpy](../s/strlcpy.md) (safe string copying)
   - strVal (extract string value from Value node)
   - lfirst (list iteration macro)
   - [pstrdup](../p/pstrdup.md) (PostgreSQL string duplication)

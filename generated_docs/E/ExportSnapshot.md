@@ -31,11 +31,11 @@ The exported snapshot file contains critical transaction information including v
   - [IsSubTransaction](../I/IsSubTransaction.md)  
   - [xactGetCommittedChildren](../x/xactGetCommittedChildren.md)
   - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
-  - CopySnapshot
+  - [CopySnapshot](../C/CopySnapshot.md)
   - [GetMaxSnapshotSubxidCount](../G/GetMaxSnapshotSubxidCount.md)
-  - AllocateFile
-  - FreeFile
-  - pairingheap_add
+  - [AllocateFile](../A/AllocateFile.md)
+  - [FreeFile](../F/FreeFile.md)
+  - [pairingheap_add](../p/pairingheap_add.md)
 - Called from (representative examples):
   - [pg_export_snapshot](../p/pg_export_snapshot.md)
   - [SnapBuildExportSnapshot](../S/SnapBuildExportSnapshot.md)

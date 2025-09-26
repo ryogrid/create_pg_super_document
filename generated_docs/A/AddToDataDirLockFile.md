@@ -22,11 +22,11 @@ This function performs an atomic update of a specific line in the data directory
 - Functions called/Symbols referenced:
   - open
   - read
-  - pg_pwrite
-  - pg_fsync
+  - [pg_pwrite](../p/pg_pwrite.md)
+  - [pg_fsync](../p/pg_fsync.md)
   - close
-  - pgstat_report_wait_start
-  - pgstat_report_wait_end
+  - [pgstat_report_wait_start](../p/pgstat_report_wait_start.md)
+  - [pgstat_report_wait_end](../p/pgstat_report_wait_end.md)
   - DIRECTORY_LOCK_FILE (constant)
   - PG_BINARY (constant)
 - Called from (representative examples):

@@ -22,23 +22,23 @@ FlushBuffer is the core function responsible for writing dirty buffers to persis
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - StartBufferIO
+  - [StartBufferIO](../S/StartBufferIO.md)
   - [smgropen](../s/smgropen.md)
   - [BufTagGetRelFileLocator](../B/BufTagGetRelFileLocator.md)
   - [BufTagGetForkNum](../B/BufTagGetForkNum.md)
-  - LockBufHdr/UnlockBufHdr
+  - [LockBufHdr](../L/LockBufHdr.md)/UnlockBufHdr
   - BufferGetLSN
   - [XLogFlush](../X/XLogFlush.md)
   - BufHdrGetBlock
   - [PageSetChecksumCopy](../P/PageSetChecksumCopy.md)
-  - smgrwrite
-  - TerminateBufferIO
+  - [smgrwrite](../s/smgrwrite.md)
+  - [TerminateBufferIO](../T/TerminateBufferIO.md)
   - [pgstat_count_io_op_time](../p/pgstat_count_io_op_time.md)
 - Called from (representative examples):
   - [GetVictimBuffer](../G/GetVictimBuffer.md)
-  - SyncOneBuffer
+  - [SyncOneBuffer](../S/SyncOneBuffer.md)
   - [FlushRelationBuffers](FlushRelationBuffers.md)
-  - FlushDatabaseBuffers
+  - [FlushDatabaseBuffers](FlushDatabaseBuffers.md)
 
 ## Notes and Other Information
 - Implements WAL-before-data rule except for unlogged relations

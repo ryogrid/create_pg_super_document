@@ -21,11 +21,11 @@ This function provides a way to increment the reference count (pin count) on a b
 ## Dependencies
 - Functions called/Symbols referenced:
   - BufferIsPinned (assertion check)
-  - ResourceOwnerEnlarge
+  - [ResourceOwnerEnlarge](../R/ResourceOwnerEnlarge.md)
   - BufferIsLocal
   - [GetPrivateRefCountEntry](../G/GetPrivateRefCountEntry.md)
   - [ResourceOwnerRememberBuffer](../R/ResourceOwnerRememberBuffer.md)
-  - PrivateRefCountEntry (type)
+  - [PrivateRefCountEntry](../P/PrivateRefCountEntry.md) (type)
 - Called from (representative examples):
   - [scanPostingTree](../s/scanPostingTree.md) (GIN index scanning)
   - [startScanEntry](../s/startScanEntry.md) (GIN index operations)

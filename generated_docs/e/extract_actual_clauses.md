@@ -24,7 +24,7 @@ The function performs two levels of filtering: first, it checks whether each Res
 - Functions called/Symbols referenced:
   - [rinfo_is_constant_true](../r/rinfo_is_constant_true.md) (Line 505) - to filter out constant TRUE clauses
   - lfirst_node macro - for safe list iteration
-  - lappend - to build the result list
+  - [lappend](../l/lappend.md) - to build the result list
   - NIL - PostgreSQL's empty list constant
 - Called from (representative examples):
   - [get_gating_quals](../g/get_gating_quals.md) (src/backend/optimizer/plan/createplan.c:1013)

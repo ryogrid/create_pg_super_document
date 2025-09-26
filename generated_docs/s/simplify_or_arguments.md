@@ -38,7 +38,7 @@ The function implements sophisticated memory management to avoid list leakage du
   -  - Creates a copy of the input arguments list
   -  - Removes first element from unprocessed arguments
   -  - Checks if a node is an OR boolean expression
-  -  - Boolean expression node type for accessing OR arguments
+  -  - [Boolean](../B/Boolean.md) expression node type for accessing OR arguments
   -  - Concatenates lists for flattening nested ORs
   -  - Memory cleanup for old argument lists
   -  - Recursively simplifies individual arguments

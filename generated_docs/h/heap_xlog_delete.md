@@ -34,7 +34,7 @@ The function carefully validates the tuple location and panics if inconsistencie
   - [ItemPointerSetBlockNumber](../I/ItemPointerSetBlockNumber.md)/ItemPointerSetOffsetNumber: Set target tuple location
   - [CreateFakeRelcacheEntry](../C/CreateFakeRelcacheEntry.md)/FreeFakeRelcacheEntry: Temporary relation cache management
   - [visibilitymap_pin](../v/visibilitymap_pin.md)/visibilitymap_clear: Update visibility map when needed
-  - XLogReadBufferForRedo: Read target page for redo operation
+  - [XLogReadBufferForRedo](../X/XLogReadBufferForRedo.md): Read target page for redo operation
   - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md)/PageGetItemId: Access tuple within page
   - [PageGetItem](../P/PageGetItem.md): Get tuple data from page
   - [fix_infomask_from_infobits](../f/fix_infomask_from_infobits.md): Restore tuple header flags from compressed WAL data

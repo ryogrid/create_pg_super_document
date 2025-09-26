@@ -22,7 +22,7 @@ The restored snapshot is marked as 'copied' to indicate it was reconstructed fro
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SerializedSnapshotData (struct type for deserialization)
+  - [SerializedSnapshotData](../S/SerializedSnapshotData.md) (struct type for deserialization)
   - [SnapshotData](../S/SnapshotData.md) (target snapshot structure)
   - [MemoryContextAlloc](../M/MemoryContextAlloc.md) (for allocating snapshot memory)
   - SNAPSHOT_MVCC (snapshot type constant)

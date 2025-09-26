@@ -21,7 +21,7 @@ The escape_string_conn function provides a wrapper around libpq's PQescapeString
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendPQExpBufferChar
+  - [appendPQExpBufferChar](../a/appendPQExpBufferChar.md)
   - [enlargePQExpBuffer](enlargePQExpBuffer.md)
   - [PQescapeStringConn](../P/PQescapeStringConn.md)
   - [appendPQExpBuffer](../a/appendPQExpBuffer.md)

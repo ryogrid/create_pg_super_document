@@ -20,11 +20,11 @@ This static inline function serves as a convenience wrapper around the general R
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwnerForget
-  - PointerGetDatum
+  - [ResourceOwnerForget](ResourceOwnerForget.md)
+  - [PointerGetDatum](../P/PointerGetDatum.md)
   - snapshot_resowner_desc (static descriptor)
 - Called from (representative examples):
-  - UnregisterSnapshotFromOwner
+  - [UnregisterSnapshotFromOwner](../U/UnregisterSnapshotFromOwner.md)
 
 ## Notes and Other Information
 - This is a static inline function, meaning its only visible within snapmgr.c and gets inlined at compile time

@@ -22,7 +22,7 @@ This is a pointer typedef, so it does not have direct member variables. It point
   - [TableScanDescData](TableScanDescData.md)
 - Called from (representative examples):
   - Various table access method functions
-  - Scan execution nodes
+  - [Scan](../S/Scan.md) execution nodes
   - System catalog scanning functions
 
 ## Notes and Other Information

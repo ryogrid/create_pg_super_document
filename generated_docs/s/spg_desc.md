@@ -33,8 +33,8 @@ The function uses a switch statement to handle various SP-GiST operation types:
 - Functions called/Symbols referenced:
   - XLogRecGetData
   - XLogRecGetInfo
-  - appendStringInfo
-  - appendStringInfoString
+  - [appendStringInfo](../a/appendStringInfo.md)
+  - [appendStringInfoString](../a/appendStringInfoString.md)
 - WAL record types and structures:
   - XLR_INFO_MASK
   - XLOG_SPGIST_ADD_LEAF, XLOG_SPGIST_MOVE_LEAFS, XLOG_SPGIST_ADD_NODE

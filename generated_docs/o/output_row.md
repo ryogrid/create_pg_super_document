@@ -37,7 +37,7 @@ The function accesses pre-processed field data from the fields array, which was 
 - Functions called/Symbols referenced:
   - PQprintOpt (struct type)
 - Called from (representative examples):
-  - winsize (src/interfaces/libpq/fe-print.c:290)
+  - [winsize](../w/winsize.md) (src/interfaces/libpq/fe-print.c:290)
 
 ## Notes and Other Information
 - This is a void function that performs output operations only

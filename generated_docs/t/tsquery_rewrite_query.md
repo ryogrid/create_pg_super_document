@@ -31,9 +31,9 @@ The function handles edge cases such as empty queries, invalid SQL queries, and 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_TSQUERY_COPY (get TSQuery argument)
-  - QT2QTN (convert TSQuery to tree representation)
-  - QTNTernary, QTNSort (tree preprocessing)
-  - SPI_connect, SPI_prepare, SPI_cursor_open (SQL execution)
+  - [QT2QTN](../Q/QT2QTN.md) (convert TSQuery to tree representation)
+  - [QTNTernary](../Q/QTNTernary.md), QTNSort (tree preprocessing)
+  - [SPI_connect](../S/SPI_connect.md), SPI_prepare, SPI_cursor_open (SQL execution)
   - [SPI_cursor_fetch](../S/SPI_cursor_fetch.md), SPI_getbinval (result processing)
   - [findsubquery](../f/findsubquery.md) (pattern replacement)
   - [QTNClearFlags](../Q/QTNClearFlags.md), QTNBinary (tree postprocessing)

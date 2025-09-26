@@ -31,7 +31,7 @@ This function is essential for the multi-insert optimization in COPY FROM operat
   - [CopyMultiInsertInfo](CopyMultiInsertInfo.md) (struct type)
   - [CopyMultiInsertBuffer](CopyMultiInsertBuffer.md) (struct type)  
   - [CopyMultiInsertBufferInit](CopyMultiInsertBufferInit.md) (buffer initialization function)
-  - lappend (list append function)
+  - [lappend](../l/lappend.md) (list append function)
 - Called from (representative examples):
   - [CopyMultiInsertInfoInit](CopyMultiInsertInfoInit.md) (at src/backend/commands/copyfrom.c:276)
   - [CopyFrom](CopyFrom.md) (at src/backend/commands/copyfrom.c:1082)

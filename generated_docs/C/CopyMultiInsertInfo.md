@@ -37,7 +37,7 @@ The structure integrates with PostgreSQL's executor framework through the EState
 ## Dependencies
 - Functions called/Symbols referenced:
   - [List](../L/List.md) (PostgreSQL list structure)
-  - CopyFromState
+  - [CopyFromState](CopyFromState.md)
   - [EState](../E/EState.md)
   - CommandId
   - [CopyMultiInsertBuffer](CopyMultiInsertBuffer.md) (via multiInsertBuffers list)

@@ -35,9 +35,9 @@ For text and binary columns, it reads the length, allocates memory, copies the d
   - LOGICALREP_COLUMN_* constants: Column representation type identifiers
 
 - Called from (representative examples):
-  - logicalrep_read_insert: For parsing INSERT operation tuples
-  - logicalrep_read_update: For parsing UPDATE operation tuples (old and new)
-  - logicalrep_read_delete: For parsing DELETE operation tuples
+  - [logicalrep_read_insert](logicalrep_read_insert.md): For parsing INSERT operation tuples
+  - [logicalrep_read_update](logicalrep_read_update.md): For parsing UPDATE operation tuples (old and new)
+  - [logicalrep_read_delete](logicalrep_read_delete.md): For parsing DELETE operation tuples
 
 ## Notes and Other Information
 - Static function, only accessible within the logical replication protocol module

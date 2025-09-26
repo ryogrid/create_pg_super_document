@@ -24,16 +24,16 @@ The function supports weight filtering through the ws parameter, allowing analys
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - text_to_cstring
+  - [text_to_cstring](text_to_cstring.md)
   - [SPI_prepare](../S/SPI_prepare.md)
   - [SPI_cursor_open](../S/SPI_cursor_open.md)
   - [SPI_cursor_fetch](../S/SPI_cursor_fetch.md)
-  - SPI_gettypeid
+  - [SPI_gettypeid](../S/SPI_gettypeid.md)
   - [IsBinaryCoercible](../I/IsBinaryCoercible.md)
   - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md)
   - [pg_mblen](../p/pg_mblen.md)
-  - SPI_getbinval
-  - ts_accum
+  - [SPI_getbinval](../S/SPI_getbinval.md)
+  - [ts_accum](ts_accum.md)
   - [SPI_freetuptable](../S/SPI_freetuptable.md)
   - [SPI_cursor_close](../S/SPI_cursor_close.md)
   - [SPI_freeplan](../S/SPI_freeplan.md)

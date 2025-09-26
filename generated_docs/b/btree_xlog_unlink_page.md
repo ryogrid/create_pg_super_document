@@ -299,8 +299,8 @@ Text creation and manipulation
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData
-  - XLogReadBufferForRedo
-  - XLogInitBufferForRedo
+  - [XLogReadBufferForRedo](../X/XLogReadBufferForRedo.md)
+  - [XLogInitBufferForRedo](../X/XLogInitBufferForRedo.md)
   - XLogRecHasBlockRef
   - [XLogRecGetBlockData](../X/XLogRecGetBlockData.md)
   - BTPageGetOpaque
@@ -310,7 +310,7 @@ Text creation and manipulation
   - [_bt_restore_meta](_bt_restore_meta.md)
   - PageAddItem
   - [PageSetLSN](../P/PageSetLSN.md)
-  - MarkBufferDirty
+  - [MarkBufferDirty](../M/MarkBufferDirty.md)
   - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
 - Called from (representative examples):
   - [btree_redo](btree_redo.md)

@@ -32,14 +32,14 @@ This function is critical for maintaining data durability and is called by vario
   - SmgrIsTemp
   - [RegisterSyncRequest](../R/RegisterSyncRequest.md)
   - [pgstat_prepare_io_time](../p/pgstat_prepare_io_time.md)
-  - FileSync
-  - data_sync_elevel
+  - [FileSync](../F/FileSync.md)
+  - [data_sync_elevel](../d/data_sync_elevel.md)
   - [FilePathName](../F/FilePathName.md)
   - [pgstat_count_io_op_time](../p/pgstat_count_io_op_time.md)
 - Called from (representative examples):
   - [mdcreate](../m/mdcreate.md)
-  - mdextend
-  - mdzeroextend
+  - [mdextend](../m/mdextend.md)
+  - [mdzeroextend](../m/mdzeroextend.md)
   - [mdwritev](../m/mdwritev.md)
   - [mdtruncate](../m/mdtruncate.md)
   - [mdregistersync](../m/mdregistersync.md)

@@ -32,7 +32,7 @@ ProcessCopyOptions is the central option processing function for COPY statements
   - [defGetCopyOnErrorChoice](../d/defGetCopyOnErrorChoice.md)
   - [defGetCopyLogVerbosityChoice](../d/defGetCopyLogVerbosityChoice.md)
   - [errorConflictingDefElem](../e/errorConflictingDefElem.md)
-  - pg_char_to_encoding
+  - [pg_char_to_encoding](../p/pg_char_to_encoding.md)
   - ereport/parser_errposition
   - [palloc0](../p/palloc0.md)
   - strlen/strchr/strncmp

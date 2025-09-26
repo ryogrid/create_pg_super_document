@@ -31,7 +31,7 @@ The function cannot operate when parameter fetch hooks are active or during abor
   - [OidOutputFunctionCall](../O/OidOutputFunctionCall.md) (to convert values to text)
   - [MemoryContextDelete](../M/MemoryContextDelete.md) (cleanup)
 - Called from (representative examples):
-  - ExplainQueryParameters (for EXPLAIN command output)
+  - [ExplainQueryParameters](../E/ExplainQueryParameters.md) (for EXPLAIN command output)
   - [exec_bind_message](../e/exec_bind_message.md) (for query execution logging)
   - [errdetail_params](../e/errdetail_params.md) (for error message parameter details)
 

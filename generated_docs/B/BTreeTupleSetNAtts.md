@@ -32,8 +32,8 @@ Several assertions ensure data integrity: the attribute count doesn't exceed IND
 - Called from (representative examples):
   - [_bt_newlevel](../b/_bt_newlevel.md)
   - [_bt_pgaddtup](../b/_bt_pgaddtup.md)
-  - _bt_sortaddtup
-  - _bt_buildadd
+  - [_bt_sortaddtup](../b/_bt_sortaddtup.md)
+  - [_bt_buildadd](../b/_bt_buildadd.md)
   - [_bt_truncate](../b/_bt_truncate.md)
   - [BTreeTupleSetTopParent](BTreeTupleSetTopParent.md)
 

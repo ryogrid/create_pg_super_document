@@ -296,8 +296,8 @@ v_str ESTAB      0      0                                               *:633275
   - [ExecInitTidScan](../E/ExecInitTidScan.md)
   - [ExecEndTidScan](../E/ExecEndTidScan.md)
   - [ExecReScanTidScan](../E/ExecReScanTidScan.md)
-  - TidNext
-  - TidListEval
+  - [TidNext](TidNext.md)
+  - [TidListEval](TidListEval.md)
   - [TidExprListCreate](TidExprListCreate.md)
 
 ## Notes and Other Information

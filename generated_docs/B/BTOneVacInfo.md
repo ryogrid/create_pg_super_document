@@ -23,7 +23,7 @@ This structure represents a single entry in the shared memory area that tracks c
 - `cycleid`: BTCycleId value representing the unique cycle identifier assigned to this vacuum operation, used for coordination with other processes
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LockRelId (struct type)
+  - [LockRelId](../L/LockRelId.md) (struct type)
   - BTCycleId (type)
 - Called from (representative examples):
   - [BTVacInfo](BTVacInfo.md) (as array member)

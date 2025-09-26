@@ -32,7 +32,7 @@ This function is essential for proper state management during asynchronous query
   - [pqClosePGconn](pqClosePGconn.md) (during connection cleanup)
   - [pqSaveErrorResult](pqSaveErrorResult.md) (before saving error results)
   - [PQsendQueryStart](../P/PQsendQueryStart.md) (when starting new queries)
-  - pqPipelineProcessQueue (during pipeline processing)
+  - [pqPipelineProcessQueue](pqPipelineProcessQueue.md) (during pipeline processing)
   - [getRowDescriptions](../g/getRowDescriptions.md) (during result processing)
   - [getParamDescriptions](../g/getParamDescriptions.md) (during parameter description processing)
   - [getAnotherTuple](../g/getAnotherTuple.md) (during tuple fetching)

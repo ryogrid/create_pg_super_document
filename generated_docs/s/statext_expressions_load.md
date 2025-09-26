@@ -24,10 +24,10 @@ The function performs a cache lookup to find the statistics data, extracts the e
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache2](../S/SearchSysCache2.md), SysCacheGetAttr, DatumGetExpandedArray
-  - deconstruct_expanded_array, DatumGetHeapTupleHeader, HeapTupleHeaderGetDatumLength
+  - [deconstruct_expanded_array](../d/deconstruct_expanded_array.md), DatumGetHeapTupleHeader, HeapTupleHeaderGetDatumLength
   - [ItemPointerSetInvalid](../I/ItemPointerSetInvalid.md), heap_copytuple, ReleaseSysCache
 - Called from (representative examples):
-  - examine_variable
+  - [examine_variable](../e/examine_variable.md)
 
 ## Notes and Other Information
 - Uses the STATEXTDATASTXOID system cache for efficient lookup of statistics data

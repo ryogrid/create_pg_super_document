@@ -44,12 +44,12 @@ This function implements the ALTER DEFAULT PRIVILEGES SQL command, which allows 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [errorConflictingDefElem](../e/errorConflictingDefElem.md)
-  - get_rolespec_oid
-  - lappend_oid
+  - [get_rolespec_oid](../g/get_rolespec_oid.md)
+  - [lappend_oid](../l/lappend_oid.md)
   - [string_to_privilege](../s/string_to_privilege.md)
   - [privilege_to_string](../p/privilege_to_string.md)
   - [GetUserId](../G/GetUserId.md)
-  - has_privs_of_role
+  - [has_privs_of_role](../h/has_privs_of_role.md)
   - [SetDefaultACLsInSchemas](../S/SetDefaultACLsInSchemas.md)
 - Called from (representative examples):
   - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md)

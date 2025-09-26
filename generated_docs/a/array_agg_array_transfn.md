@@ -27,8 +27,8 @@ Unlike the scalar version of array_agg that builds a simple array from individua
   - [get_fn_expr_argtype](../g/get_fn_expr_argtype.md)
   - [ArrayBuildStateArr](../A/ArrayBuildStateArr.md)
   - [AggCheckCallContext](../A/AggCheckCallContext.md)
-  - initArrayResultArr
-  - accumArrayResultArr
+  - [initArrayResultArr](../i/initArrayResultArr.md)
+  - [accumArrayResultArr](accumArrayResultArr.md)
   - ereport
   - elog
   - PG_ARGISNULL

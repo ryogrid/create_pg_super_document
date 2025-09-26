@@ -32,7 +32,7 @@ The function is widely used throughout PostgreSQL to conditionally enable/disabl
   - RECOVERY_STATE_DONE (recovery completion state constant)
   - LocalRecoveryInProgress (process-local cache variable)
 - Called from (representative examples):
-  - GetNewTransactionId (transaction ID assignment)
+  - [GetNewTransactionId](../G/GetNewTransactionId.md) (transaction ID assignment)
   - [CreateCheckPoint](../C/CreateCheckPoint.md) (checkpoint creation logic)
   - [pg_is_in_recovery](../p/pg_is_in_recovery.md) (SQL function)
   - [BackgroundWriterMain](../B/BackgroundWriterMain.md) (background writer process)

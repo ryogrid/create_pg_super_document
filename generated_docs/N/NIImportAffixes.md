@@ -20,15 +20,15 @@ This function serves as the main entry point for affix file parsing. It initiall
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - tsearch_readline_begin/tsearch_readline/tsearch_readline_end (file reading utilities)
-  - lowerstr (string case conversion)
-  - findchar2 (character search utility)
-  - addCompoundAffixFlagValue (compound flag processing)
-  - parse_affentry (old-format affix entry parsing)
-  - NIAddAffix (adds affix to dictionary)
-  - NIImportOOAffixes (new-format affix processing)
+  - [tsearch_readline_begin](../t/tsearch_readline_begin.md)/tsearch_readline/tsearch_readline_end (file reading utilities)
+  - [lowerstr](../l/lowerstr.md) (string case conversion)
+  - [findchar2](../f/findchar2.md) (character search utility)
+  - [addCompoundAffixFlagValue](../a/addCompoundAffixFlagValue.md) (compound flag processing)
+  - [parse_affentry](../p/parse_affentry.md) (old-format affix entry parsing)
+  - [NIAddAffix](NIAddAffix.md) (adds affix to dictionary)
+  - [NIImportOOAffixes](NIImportOOAffixes.md) (new-format affix processing)
 - Called from (representative examples):
-  - dispell_init (dictionary initialization)
+  - [dispell_init](../d/dispell_init.md) (dictionary initialization)
   - IspellDict (dictionary setup)
 
 ## Notes and Other Information

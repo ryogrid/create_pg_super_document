@@ -40,7 +40,7 @@ The struct is part of a static array  that maintains all currently registered bu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogRecData
+  - [XLogRecData](../X/XLogRecData.md)
   - [RelFileLocator](../R/RelFileLocator.md)
   - [ForkNumber](../F/ForkNumber.md)
   - BlockNumber

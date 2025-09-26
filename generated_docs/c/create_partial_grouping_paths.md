@@ -38,7 +38,7 @@ The function intelligently determines whether partial aggregation is beneficial 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fetch_upper_rel
+  - [fetch_upper_rel](../f/fetch_upper_rel.md)
   - [make_partial_grouping_target](../m/make_partial_grouping_target.md)
   - [get_agg_clause_costs](../g/get_agg_clause_costs.md)
   - [get_number_of_groups](../g/get_number_of_groups.md)

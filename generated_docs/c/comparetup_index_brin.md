@@ -24,7 +24,7 @@ The function first asserts that the sort state has valid datum1 values available
 ## Dependencies
 - Functions called/Symbols referenced:
   - SortTuple (generic sort tuple structure)
-  - Tuplesortstate (sort state management structure)
+  - [Tuplesortstate](../T/Tuplesortstate.md) (sort state management structure)
   - TuplesortstateGetPublic (accessor for public sort state)
   - [DatumGetUInt32](../D/DatumGetUInt32.md) (macro to extract uint32 from Datum)
 - Called from (representative examples):

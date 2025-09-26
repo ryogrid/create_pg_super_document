@@ -33,8 +33,8 @@ The function is designed to be called before updating the relcache entry when cr
   - rel->rd_tableam->relation_set_new_filelocator (table access method implementation)
   - MultiXactId (transaction management type)
 - Called from (representative examples):
-  - heap_create (during table creation)
-  - RelationSetNewRelfilenumber (during relation file replacement)
+  - [heap_create](../h/heap_create.md) (during table creation)
+  - [RelationSetNewRelfilenumber](../R/RelationSetNewRelfilenumber.md) (during relation file replacement)
 
 ## Notes and Other Information
 - This is an inline wrapper function that provides a consistent interface across different table access methods

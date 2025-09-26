@@ -22,7 +22,7 @@ The  function computes the tangent of a floating-point argument expressed in rad
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT8 (to extract the float8 argument)
   - isnan (to check for NaN input)
-  - get_float8_nan (to return NaN when input is NaN)
+  - [get_float8_nan](../g/get_float8_nan.md) (to return NaN when input is NaN)
   - tan (standard C library tangent function)
   - isinf (to check for infinite input)
   - ereport (for error reporting)

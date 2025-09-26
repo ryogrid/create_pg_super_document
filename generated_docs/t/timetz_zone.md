@@ -25,7 +25,7 @@ The conversion process adjusts the time component by the difference between the 
 - Functions called/Symbols referenced:
   - PG_GETARG_TEXT_PP
   - PG_GETARG_TIMETZADT_P
-  - text_to_cstring_buffer
+  - [text_to_cstring_buffer](text_to_cstring_buffer.md)
   - [DecodeTimezoneName](../D/DecodeTimezoneName.md)
   - [GetCurrentTransactionStartTimestamp](../G/GetCurrentTransactionStartTimestamp.md)
   - [DetermineTimeZoneAbbrevOffsetTS](../D/DetermineTimeZoneAbbrevOffsetTS.md)

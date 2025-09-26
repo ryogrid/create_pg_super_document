@@ -19,17 +19,17 @@ The `pprint` function is a debugging utility similar to `print` but with enhance
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - nodeToStringWithLocations: Converts the node to a string representation with location information
+  - [nodeToStringWithLocations](../n/nodeToStringWithLocations.md): Converts the node to a string representation with location information
   - pretty_format_node_dump: Applies pretty formatting to the node string for enhanced readability
-  - pfree: Frees allocated memory
+  - [pfree](pfree.md): Frees allocated memory
   - printf: Standard C library function for output
   - fflush: Ensures output is immediately displayed
 
 - Called from (representative examples):
-  - set_rel_pathlist: Used in optimizer path selection debugging
-  - standard_join_search: Used in join planning debugging
-  - generate_partitionwise_join_paths: Used in partitioned table join debugging
-  - preprocess_expression: Used in expression preprocessing debugging
+  - [set_rel_pathlist](../s/set_rel_pathlist.md): Used in optimizer path selection debugging
+  - [standard_join_search](../s/standard_join_search.md): Used in join planning debugging
+  - [generate_partitionwise_join_paths](../g/generate_partitionwise_join_paths.md): Used in partitioned table join debugging
+  - [preprocess_expression](preprocess_expression.md): Used in expression preprocessing debugging
   - nodeDisplay: Header declaration and macro usage
 
 ## Notes and Other Information

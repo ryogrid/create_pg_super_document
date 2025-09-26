@@ -29,13 +29,13 @@ This enumeration is central to the lexical analysis phase of tsquery parsing, wh
 ## Dependencies
 - Functions called/Symbols referenced:
   - int8 (used in ts_tokenizer function pointer)
-  - TSQueryParserState (used in ts_tokenizer function pointer)
+  - [TSQueryParserState](../T/TSQueryParserState.md) (used in ts_tokenizer function pointer)
 
 - Called from (representative examples):
-  - gettoken_query_standard
-  - gettoken_query_websearch  
-  - parse_or_operator
-  - makepol
+  - [gettoken_query_standard](../g/gettoken_query_standard.md)
+  - [gettoken_query_websearch](../g/gettoken_query_websearch.md)  
+  - [parse_or_operator](../p/parse_or_operator.md)
+  - [makepol](../m/makepol.md)
 
 ## Notes and Other Information
 - This enum is defined in src/backend/utils/adt/tsquery.c and is primarily used internally by the tsquery parsing infrastructure

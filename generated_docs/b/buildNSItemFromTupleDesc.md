@@ -25,7 +25,7 @@ This function constructs a ParseNamespaceItem that encapsulates a relation's col
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_length (list operations)
+  - [list_length](../l/list_length.md) (list operations)
   - [palloc0](../p/palloc0.md) (zero-initialized memory allocation)
   - [palloc](../p/palloc.md) (memory allocation)
   - TupleDescAttr (tuple descriptor access macro)

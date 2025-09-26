@@ -31,7 +31,7 @@ The function ensures that no postmaster processes interfere with the upgrade pro
 ## Dependencies
 - Functions called/Symbols referenced:
   - [check_pghost_envvar](../c/check_pghost_envvar.md) (environment validation)
-  - find_my_exec (executable path resolution) 
+  - [find_my_exec](../f/find_my_exec.md) (executable path resolution) 
   - [last_dir_separator](../l/last_dir_separator.md) (path manipulation)
   - [canonicalize_path](../c/canonicalize_path.md) (path normalization)
   - [verify_directories](../v/verify_directories.md) (directory validation)

@@ -25,11 +25,11 @@ The function transforms each target entry in the plan's targetlist to reference 
 - Functions called/Symbols referenced:
   - lfirst (list iteration macro)
   - IsA (type checking macro)
-  - lappend
-  - makeVar
+  - [lappend](../l/lappend.md)
+  - [makeVar](../m/makeVar.md)
   - OUTER_VAR (special varno for referencing outer plan)
-  - exprType
-  - exprTypmod  
+  - [exprType](../e/exprType.md)
+  - [exprTypmod](../e/exprTypmod.md)  
   - [exprCollation](../e/exprCollation.md)
   - [flatCopyTargetEntry](../f/flatCopyTargetEntry.md)
 - Called from (representative examples):

@@ -30,7 +30,7 @@ The function first checks if the result is already cached in . If not cached, it
 - Functions called/Symbols referenced:
   - [bms_copy](../b/bms_copy.md)
   - RelationGetForm
-  - HistoricSnapshotActive
+  - [HistoricSnapshotActive](../H/HistoricSnapshotActive.md)
   - [RelationGetReplicaIndex](RelationGetReplicaIndex.md)
   - [RelationIdGetRelation](RelationIdGetRelation.md)
   - RelationIsValid

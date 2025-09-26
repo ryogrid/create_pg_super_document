@@ -37,7 +37,7 @@ The function skips dropped columns and generated columns, and only processes col
   - [build_column_default](../b/build_column_default.md)
   - [expression_planner](../e/expression_planner.md)
   - [ExecInitExpr](../E/ExecInitExpr.md)
-  - ExecEvalExpr
+  - [ExecEvalExpr](../E/ExecEvalExpr.md)
   - [palloc](../p/palloc.md)
 - Called from (representative examples):
   - [apply_handle_insert](../a/apply_handle_insert.md)

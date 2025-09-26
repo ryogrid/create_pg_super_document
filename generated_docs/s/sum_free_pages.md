@@ -28,15 +28,15 @@ This function is essential for maintaining data structure integrity and is used 
 - Functions called/Symbols referenced:
   - fpm_segment_base (gets base address for relative pointer operations)
   - relptr_access (accesses linked list nodes via relative pointers)
-  - sum_free_pages_recurse (recursively counts B-tree pages)
+  - [sum_free_pages_recurse](sum_free_pages_recurse.md) (recursively counts B-tree pages)
 - Types/Constants referenced:
-  - FreePageManager
-  - FreePageSpanLeader
-  - FreePageBtree
+  - [FreePageManager](../F/FreePageManager.md)
+  - [FreePageSpanLeader](../F/FreePageSpanLeader.md)
+  - [FreePageBtree](../F/FreePageBtree.md)
   - FPM_NUM_FREELISTS
 - Called from:
-  - FreePageManagerGet (debug assertion)
-  - FreePageManagerPut (debug assertion)
+  - [FreePageManagerGet](../F/FreePageManagerGet.md) (debug assertion)
+  - [FreePageManagerPut](../F/FreePageManagerPut.md) (debug assertion)
 
 ## Notes and Other Information
 - This is a static function used internally for debugging and verification

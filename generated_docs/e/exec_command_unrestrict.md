@@ -29,7 +29,7 @@ The function validates that psql is currently in restricted mode, requires a key
   - [pfree](../p/pfree.md) - Free the stored restriction key after successful unrestriction
   - [ignore_slash_options](../i/ignore_slash_options.md) - Skip option parsing when not in active branch
 - Global variables accessed:
-  - `restricted` - Boolean flag indicating if psql is in restricted mode
+  - `restricted` - [Boolean](../B/Boolean.md) flag indicating if psql is in restricted mode
   - `restrict_key` - The key required to exit restricted mode
 - Called from:
   - [exec_command](exec_command.md) - Main command dispatcher for `\unrestrict` command

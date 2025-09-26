@@ -21,7 +21,7 @@ This function serves as the primary input mechanism for multi-phase aggregate op
 - Functions called/Symbols referenced:
   - [AggState](../A/AggState.md) (struct type)
   - [tuplesort_gettupleslot](../t/tuplesort_gettupleslot.md)
-  - ExecProcNode
+  - [ExecProcNode](../E/ExecProcNode.md)
   - outerPlanState
   - TupIsNull
   - [tuplesort_puttupleslot](../t/tuplesort_puttupleslot.md)

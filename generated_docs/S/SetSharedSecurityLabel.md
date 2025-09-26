@@ -30,7 +30,7 @@ The function uses a three-key scan (objectId, classId, provider) to locate exist
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ScanKeyInit](ScanKeyInit.md)
-  - table_open
+  - [table_open](../t/table_open.md)
   - [systable_beginscan](../s/systable_beginscan.md)
   - [systable_getnext](../s/systable_getnext.md)
   - [CatalogTupleDelete](../C/CatalogTupleDelete.md)
@@ -40,7 +40,7 @@ The function uses a three-key scan (objectId, classId, provider) to locate exist
   - [CatalogTupleInsert](../C/CatalogTupleInsert.md)
   - [heap_freetuple](../h/heap_freetuple.md)
   - [systable_endscan](../s/systable_endscan.md)
-  - table_close
+  - [table_close](../t/table_close.md)
   - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - CStringGetTextDatum
   - RelationGetDescr

@@ -28,7 +28,7 @@ Memory management is handled according to the private_cxt flag: if the ArrayBuil
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeMdArrayResult (performs the actual multi-dimensional array construction)
+  - [makeMdArrayResult](makeMdArrayResult.md) (performs the actual multi-dimensional array construction)
 - Called from (representative examples):
   - [array_positions](../a/array_positions.md) (finding positions of elements in arrays)
   - [parse_ident](../p/parse_ident.md) (identifier parsing functions)

@@ -35,7 +35,7 @@ The function is particularly important in the parsing phase where prefix operato
   - [op_error](../o/op_error.md)
 - Called from (representative examples):
   - [make_op](../m/make_op.md)
-  - generate_operator_name
+  - [generate_operator_name](../g/generate_operator_name.md)
 
 ## Notes and Other Information
 - Returns a syscache entry that must be released with ReleaseSysCache() when done

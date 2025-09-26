@@ -22,7 +22,7 @@ PageSetPageSizeAndVersion initializes the pd_pagesize_version field in a page he
   - PageHeader (type cast to access page header structure)
   - Assert (for parameter validation)
 - Called from (representative examples):
-  - PageInit (primary caller during page initialization)
+  - [PageInit](PageInit.md) (primary caller during page initialization)
 
 ## Notes and Other Information
 - This is an inline function defined in bufpage.h for performance

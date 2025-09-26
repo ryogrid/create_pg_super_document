@@ -29,7 +29,7 @@ Since TAR_BLOCK_SIZE is a power of 2, the TYPEALIGN macro can use bitwise operat
   - [_tarWritePadding](_tarWritePadding.md) (src/backend/backup/basebackup.c:2073)
   - [bbstreamer_tar_header](../b/bbstreamer_tar_header.md) (src/bin/pg_basebackup/bbstreamer_tar.c:305)
   - [bbstreamer_tar_archiver_content](../b/bbstreamer_tar_archiver_content.md) (src/bin/pg_basebackup/bbstreamer_tar.c:417)
-  - tar_close (src/bin/pg_basebackup/walmethods.c:1114)
+  - [tar_close](tar_close.md) (src/bin/pg_basebackup/walmethods.c:1114)
   - [_tarAddFile](_tarAddFile.md) (src/bin/pg_dump/pg_backup_tar.c:1054)
   - [_tarPositionTo](_tarPositionTo.md) (src/bin/pg_dump/pg_backup_tar.c:1121)
 

@@ -59,9 +59,9 @@ If an invalid escape sequence is encountered (a backslash not followed by valid 
 - Functions called/Symbols referenced:
   - ereport (for error reporting)
   - ERROR (error level constant)
-  - errcode (for error code specification)
+  - [errcode](errcode.md) (for error code specification)
   - ERRCODE_INVALID_TEXT_REPRESENTATION (specific error code)
-  - errmsg (for error message formatting)
+  - [errmsg](errmsg.md) (for error message formatting)
 - Called from (representative examples):
   - Used in the escape encoding system as part of the enclist structure
   - Part of PostgreSQL's bytea encoding/decoding infrastructure

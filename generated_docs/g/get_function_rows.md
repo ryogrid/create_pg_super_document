@@ -35,7 +35,7 @@ The function includes an assertion to verify that the target function is indeed 
   - OidFunctionCall1
   - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - Form_pg_proc
-  - SupportRequestRows
+  - [SupportRequestRows](../S/SupportRequestRows.md)
 - Called from (representative examples):
   - [expression_returns_set_rows](../e/expression_returns_set_rows.md)
 

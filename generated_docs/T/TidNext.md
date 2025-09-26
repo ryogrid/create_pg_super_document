@@ -29,23 +29,23 @@ The function continues iterating through TIDs until it finds a valid, visible tu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TidListEval
+  - [TidListEval](TidListEval.md)
   - ScanDirectionIsBackward
-  - table_tuple_get_latest_tid
-  - table_tuple_fetch_row_version
-  - ExecClearTuple
+  - [table_tuple_get_latest_tid](../t/table_tuple_get_latest_tid.md)
+  - [table_tuple_fetch_row_version](../t/table_tuple_fetch_row_version.md)
+  - [ExecClearTuple](../E/ExecClearTuple.md)
   - CHECK_FOR_INTERRUPTS
 - Types used:
-  - TidScanState
-  - TupleTableSlot
-  - EState
+  - [TidScanState](TidScanState.md)
+  - [TupleTableSlot](TupleTableSlot.md)
+  - [EState](../E/EState.md)
   - ScanDirection
-  - Snapshot
-  - TableScanDesc
-  - Relation
-  - ItemPointerData
+  - [Snapshot](../S/Snapshot.md)
+  - [TableScanDesc](TableScanDesc.md)
+  - [Relation](../R/Relation.md)
+  - [ItemPointerData](../I/ItemPointerData.md)
 - Called from:
-  - ExecTidScan
+  - [ExecTidScan](../E/ExecTidScan.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within nodeTidscan.c

@@ -25,14 +25,14 @@ This function performs the recovery replay of transaction abort operations durin
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TransactionIdLatest](../T/TransactionIdLatest.md)
-  - AdvanceNextFullTransactionIdPastXid
+  - [AdvanceNextFullTransactionIdPastXid](../A/AdvanceNextFullTransactionIdPastXid.md)
   - [TransactionIdAbortTree](../T/TransactionIdAbortTree.md)
   - [RecordKnownAssignedTransactionIds](../R/RecordKnownAssignedTransactionIds.md)
-  - ExpireTreeKnownAssignedTransactionIds
-  - StandbyReleaseLockTree
+  - [ExpireTreeKnownAssignedTransactionIds](../E/ExpireTreeKnownAssignedTransactionIds.md)
+  - [StandbyReleaseLockTree](../S/StandbyReleaseLockTree.md)
   - [replorigin_advance](../r/replorigin_advance.md)
   - [DropRelationFiles](../D/DropRelationFiles.md)
-  - pgstat_execute_transactional_drops
+  - [pgstat_execute_transactional_drops](../p/pgstat_execute_transactional_drops.md)
   - [XLogFlush](../X/XLogFlush.md)
 - Called from (representative examples):
   - [xact_redo](xact_redo.md) (for both XLOG_XACT_ABORT and XLOG_XACT_ABORT_PREPARED)

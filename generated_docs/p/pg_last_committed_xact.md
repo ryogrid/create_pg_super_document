@@ -23,7 +23,7 @@ This function provides a SQL-callable interface to retrieve detailed information
   - [get_call_result_type](../g/get_call_result_type.md)
   - TransactionIdIsNormal
   - [TransactionIdGetDatum](../T/TransactionIdGetDatum.md)
-  - TimestampTzGetDatum
+  - [TimestampTzGetDatum](../T/TimestampTzGetDatum.md)
   - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - [heap_form_tuple](../h/heap_form_tuple.md)
   - [HeapTupleGetDatum](../H/HeapTupleGetDatum.md)

@@ -29,7 +29,7 @@ The operation involves multiple steps: validating the column, updating the pg_at
   - InvokeObjectPostAlterHook
   - [GetAttrDefaultOid](../G/GetAttrDefaultOid.md)
   - [deleteDependencyRecordsFor](../d/deleteDependencyRecordsFor.md)
-  - CommandCounterIncrement
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md)
   - [RemoveAttrDefault](../R/RemoveAttrDefault.md)
   - ObjectAddressSubSet
 - Called from (representative examples):

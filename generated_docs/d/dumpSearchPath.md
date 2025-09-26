@@ -22,7 +22,7 @@ The  function captures the current database's search path and stores it as a res
 - Functions called/Symbols referenced:
   - [ExecuteSqlQueryForSingleRow](../E/ExecuteSqlQueryForSingleRow.md) (executes current_schemas() query)
   - [parsePGArray](../p/parsePGArray.md) (parses the PostgreSQL array result into C array)
-  - createPQExpBuffer/appendPQExpBufferStr/destroyPQExpBuffer (string buffer management)
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)/appendPQExpBufferStr/destroyPQExpBuffer (string buffer management)
   - [fmtId](../f/fmtId.md) (properly quotes schema names as SQL identifiers)
   - appendStringLiteralAH (safely quotes the search path as SQL literal)
   - pg_log_info (logs the search path being saved)

@@ -22,20 +22,20 @@ The function uses a heap scan over the pg_subscription table and creates Subscri
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - StartTransactionCommand
-  - GetTransactionSnapshot  
-  - table_open
-  - table_beginscan_catalog
-  - heap_getnext
-  - table_endscan
-  - table_close
-  - CommitTransactionCommand
-  - MemoryContextSwitchTo
-  - palloc0
-  - pstrdup
-  - lappend
+  - [StartTransactionCommand](../S/StartTransactionCommand.md)
+  - [GetTransactionSnapshot](../G/GetTransactionSnapshot.md)  
+  - [table_open](../t/table_open.md)
+  - [table_beginscan_catalog](../t/table_beginscan_catalog.md)
+  - [heap_getnext](../h/heap_getnext.md)
+  - [table_endscan](../t/table_endscan.md)
+  - [table_close](../t/table_close.md)
+  - [CommitTransactionCommand](../C/CommitTransactionCommand.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [palloc0](../p/palloc0.md)
+  - [pstrdup](../p/pstrdup.md)
+  - [lappend](../l/lappend.md)
 - Called from:
-  - ApplyLauncherMain
+  - [ApplyLauncherMain](../A/ApplyLauncherMain.md)
 
 ## Notes and Other Information
 - The function includes a FIXME comment noting that the snapshot handling may not reliably prevent HOT pruning as intended

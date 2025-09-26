@@ -34,7 +34,7 @@ The function performs several checks similar to : it validates that both ranges 
   -  - GiST index consistency checking
   -  - GiST leaf consistency checking
   -  - SP-GiST quadtree consistency checking
-  -  - Range strategy macro
+  -  - [Range](../R/Range.md) strategy macro
 
 ## Notes and Other Information
 - Empty ranges are treated as neither before nor after any other range, ensuring consistent behavior

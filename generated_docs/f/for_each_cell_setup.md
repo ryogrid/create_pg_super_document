@@ -25,7 +25,7 @@ When a valid initial cell is provided, the function uses `list_cell_number` to c
 - Functions called/Symbols referenced:
   - [ForEachState](../F/ForEachState.md) (struct type)
   - [list_cell_number](../l/list_cell_number.md) (to convert cell pointer to index)
-  - list_length (to get list length when initcell is NULL)
+  - [list_length](../l/list_length.md) (to get list length when initcell is NULL)
 - Called from (representative examples):
   - for_each_cell (macro)
 

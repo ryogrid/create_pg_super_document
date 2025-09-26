@@ -42,8 +42,8 @@ If neither special case applies, it falls through to SQL99 rules by calling find
   - intVal
   - [ColumnRef](../C/ColumnRef.md)
   - [A_Const](../A/A_Const.md)
-  - String
-  - Integer
+  - [String](../S/String.md)
+  - [Integer](../I/Integer.md)
   - EXPR_KIND_GROUP_BY
 - Called from (representative examples):
   - [transformGroupClauseExpr](../t/transformGroupClauseExpr.md)

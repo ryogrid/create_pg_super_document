@@ -22,7 +22,7 @@ The function operates on the current error context and uses the context_domain f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ErrorData (struct type)
+  - [ErrorData](../E/ErrorData.md) (struct type)
   - CHECK_STACK_DEPTH (macro)
   - EVALUATE_MESSAGE (macro)
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
@@ -31,7 +31,7 @@ The function operates on the current error context and uses the context_domain f
 
 ## Notes and Other Information
 - Returns 0 as the return value does not matter for this function
-- Unique among error message functions in allowing multiple calls to build up context stack
+- [Unique](../U/Unique.md) among error message functions in allowing multiple calls to build up context stack
 - Uses context_domain field instead of regular domain field for special context handling
 - Earlier calls represent more-closely-nested states in the context stack
 - Part of PostgreSQL's error reporting infrastructure for providing execution context

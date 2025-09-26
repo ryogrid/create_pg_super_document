@@ -26,14 +26,14 @@ This function is used in PostgreSQL's transaction management and replication sys
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsXidList (assertion check for XID list type)
-  - new_list (creates new list when input is NIL, with T_XidList type)
-  - new_tail_cell (adds new cell to existing list)
+  - [new_list](../n/new_list.md) (creates new list when input is NIL, with T_XidList type)
+  - [new_tail_cell](../n/new_tail_cell.md) (adds new cell to existing list)
   - llast_xid (macro to access last TransactionId element of list)
-  - check_list_invariants (debugging/validation function)
+  - [check_list_invariants](../c/check_list_invariants.md) (debugging/validation function)
 - Called from (representative examples):
-  - nodeRead (node reading/parsing operations)
-  - pa_start_subtrans (parallel apply subtransaction handling)
-  - set_schema_sent_in_streamed_txn (logical replication schema tracking)
+  - [nodeRead](../n/nodeRead.md) (node reading/parsing operations)
+  - [pa_start_subtrans](../p/pa_start_subtrans.md) (parallel apply subtransaction handling)
+  - [set_schema_sent_in_streamed_txn](../s/set_schema_sent_in_streamed_txn.md) (logical replication schema tracking)
   - forfive (list iteration macro)
 
 ## Notes and Other Information

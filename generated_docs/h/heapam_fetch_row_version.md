@@ -28,7 +28,7 @@ The function ensures that the slot is of the correct type (BufferHeapTupleTableS
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferHeapTupleTableSlot (type cast)
+  - [BufferHeapTupleTableSlot](../B/BufferHeapTupleTableSlot.md) (type cast)
   - TTS_IS_BUFFERTUPLE (assertion check)
   - [heap_fetch](heap_fetch.md) (core tuple fetching)
   - [ExecStorePinnedBufferHeapTuple](../E/ExecStorePinnedBufferHeapTuple.md) (slot storage)

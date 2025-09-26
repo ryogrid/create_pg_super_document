@@ -23,11 +23,11 @@ Combining classes range from 0 to 255, with 0 indicating a base character and hi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_code_entry
-  - pg_unicode_decomposition (structure type)
+  - [get_code_entry](get_code_entry.md)
+  - [pg_unicode_decomposition](../p/pg_unicode_decomposition.md) (structure type)
 - Called from (representative examples):
-  - unicode_normalize
-  - unicode_is_normalized_quickcheck
+  - [unicode_normalize](../u/unicode_normalize.md)
+  - [unicode_is_normalized_quickcheck](../u/unicode_is_normalized_quickcheck.md)
 
 ## Notes and Other Information
 - This is a static function, accessible only within unicode_norm.c

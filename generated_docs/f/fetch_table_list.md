@@ -22,22 +22,22 @@ This function queries the publisher database to obtain a comprehensive list of a
 ## Dependencies
 - Functions called/Symbols referenced:
   - walrcv_server_version
-  - initStringInfo
+  - [initStringInfo](../i/initStringInfo.md)
   - [get_publications_str](../g/get_publications_str.md)
-  - appendStringInfo
-  - appendStringInfoString
-  - appendStringInfoChar
+  - [appendStringInfo](../a/appendStringInfo.md)
+  - [appendStringInfoString](../a/appendStringInfoString.md)
+  - [appendStringInfoChar](../a/appendStringInfoChar.md)
   - [pfree](../p/pfree.md)
   - walrcv_exec
   - ereport
   - [MakeSingleTupleTableSlot](../M/MakeSingleTupleTableSlot.md)
   - [tuplestore_gettupleslot](../t/tuplestore_gettupleslot.md)
-  - slot_getattr
+  - [slot_getattr](../s/slot_getattr.md)
   - TextDatumGetCString
   - [makeRangeVar](../m/makeRangeVar.md)
   - [list_member](../l/list_member.md)
-  - lappend
-  - ExecClearTuple
+  - [lappend](../l/lappend.md)
+  - [ExecClearTuple](../E/ExecClearTuple.md)
   - [ExecDropSingleTupleTableSlot](../E/ExecDropSingleTupleTableSlot.md)
   - [walrcv_clear_result](../w/walrcv_clear_result.md)
 - Called from (representative examples):

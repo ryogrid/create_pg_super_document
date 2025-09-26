@@ -51,7 +51,7 @@ For parallel execution, the function explores partial hash join paths when the j
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the joinpath.c compilation unit
 - The function filters hash clauses based on join type - outer joins only use their own clauses while inner joins are less restrictive
-- Hash joins require that neither path is parameterized by the other relation
+- [Hash](../H/Hash.md) joins require that neither path is parameterized by the other relation
 - For JOIN_UNIQUE_OUTER and JOIN_UNIQUE_INNER, the function applies uniqueness through create_unique_path
 - Parallel hash joins are only considered when enable_parallel_hash is true and certain join type restrictions are met
 - The function cannot handle certain join types (FULL, RIGHT, RIGHT_ANTI) with parallelism due to match bit distribution requirements

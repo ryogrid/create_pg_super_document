@@ -29,14 +29,14 @@ The function processes timezone files in multiple passes to handle both 32-bit (
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_open_tzfile (opens timezone files)
-  - detzcode, detzcode64 (decode big-endian integers)
-  - differ_by_repeat (check for repeating patterns)
-  - typesequiv (check timezone type equivalence)
-  - tzparse (parse POSIX timezone strings)
-  - leapcorr (leap second corrections)
+  - [pg_open_tzfile](../p/pg_open_tzfile.md) (opens timezone files)
+  - [detzcode](../d/detzcode.md), detzcode64 (decode big-endian integers)
+  - [differ_by_repeat](../d/differ_by_repeat.md) (check for repeating patterns)
+  - [typesequiv](typesequiv.md) (check timezone type equivalence)
+  - [tzparse](tzparse.md) (parse POSIX timezone strings)
+  - [leapcorr](../l/leapcorr.md) (leap second corrections)
 - Called from (representative examples):
-  - tzload (single caller at line 594)
+  - [tzload](tzload.md) (single caller at line 594)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the localtime.c compilation unit

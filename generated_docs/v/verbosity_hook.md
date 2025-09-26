@@ -26,10 +26,10 @@ This hook function is responsible for parsing and setting the error message verb
   - PQERRORS_VERBOSE (PostgreSQL error verbosity constant)
   - PQERRORS_TERSE (PostgreSQL error verbosity constant)
   - PQERRORS_SQLSTATE (PostgreSQL error verbosity constant)
-  - PsqlVarEnumError (error reporting function)
+  - [PsqlVarEnumError](../P/PsqlVarEnumError.md) (error reporting function)
   - [PQsetErrorVerbosity](../P/PQsetErrorVerbosity.md) (PostgreSQL libpq function to set error verbosity)
 - Called from (representative examples):
-  - SetVariableHooks registration in EstablishVariableSpace
+  - [SetVariableHooks](../S/SetVariableHooks.md) registration in EstablishVariableSpace
 
 ## Notes and Other Information
 - Works in conjunction with verbosity_substitute_hook which ensures newval is never NULL

@@ -36,15 +36,15 @@ Relations below outer joins may appear in multiple join domains, but nullingrel 
   - Relids (bitmap set for relation IDs)
 
 - Called from (representative examples):
-  - process_equivalence (equivclass.c:119)
-  - add_eq_member (equivclass.c:517)
-  - get_eclass_for_sort_expr (equivclass.c:595, 611)
-  - reconsider_outer_join_clause (equivclass.c:2195)
-  - find_join_domain (equivclass.c:2426)
-  - deconstruct_jointree (initsplan.c:743, 755)
-  - deconstruct_recurse (initsplan.c:823, 909, 944, 1012, 1016, 1025)
-  - distribute_qual_to_rels (initsplan.c:2310)
-  - subquery_planner (planner.c:688)
+  - [process_equivalence](../p/process_equivalence.md) (equivclass.c:119)
+  - [add_eq_member](../a/add_eq_member.md) (equivclass.c:517)
+  - [get_eclass_for_sort_expr](../g/get_eclass_for_sort_expr.md) (equivclass.c:595, 611)
+  - [reconsider_outer_join_clause](../r/reconsider_outer_join_clause.md) (equivclass.c:2195)
+  - [find_join_domain](../f/find_join_domain.md) (equivclass.c:2426)
+  - [deconstruct_jointree](../d/deconstruct_jointree.md) (initsplan.c:743, 755)
+  - [deconstruct_recurse](../d/deconstruct_recurse.md) (initsplan.c:823, 909, 944, 1012, 1016, 1025)
+  - [distribute_qual_to_rels](../d/distribute_qual_to_rels.md) (initsplan.c:2310)
+  - [subquery_planner](../s/subquery_planner.md) (planner.c:688)
 
 ## Notes and Other Information
 - JoinDomains are computed during the deconstruct_jointree phase of query planning

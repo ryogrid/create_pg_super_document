@@ -29,7 +29,7 @@ The function enforces a critical rule: there must not be any resjunk ORDER BY it
   - copyObject: Creates a deep copy of a PostgreSQL node structure
   - [addTargetToGroupList](../a/addTargetToGroupList.md): Adds a target entry to the group list using default sort/group semantics
   - [exprLocation](../e/exprLocation.md): Gets the parse location of an expression for error reporting
-  - SortGroupClause: Structure representing sort/group operations
+  - [SortGroupClause](../S/SortGroupClause.md): Structure representing sort/group operations
 - Called from (representative examples):
   - [transformSelectStmt](transformSelectStmt.md): Main SELECT statement transformation in analyzer
   - [transformAggregateCall](transformAggregateCall.md): Aggregate function call transformation

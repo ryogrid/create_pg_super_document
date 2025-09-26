@@ -29,10 +29,10 @@ This is essential for maintaining data integrity in multibyte environments where
   - `DatabaseEncoding` (current database encoding information)
 - Called from (representative examples):
   - [truncate_identifier](../t/truncate_identifier.md) (truncating SQL identifiers to valid lengths)
-  - `namein` and `text_name` (converting strings to PostgreSQL name type)
+  - `[namein](../n/namein.md)` and `text_name` (converting strings to PostgreSQL name type)
   - [bpchar_name](../b/bpchar_name.md) (fixed-length character type operations)
   - [pgstat_clip_activity](pgstat_clip_activity.md) (truncating activity descriptions for statistics)
-  - `text_to_cstring_buffer` (safe string buffer operations)
+  - `[text_to_cstring_buffer](../t/text_to_cstring_buffer.md)` (safe string buffer operations)
   - [write_syslog](../w/write_syslog.md) (truncating log messages)
 
 ## Notes and Other Information

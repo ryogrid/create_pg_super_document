@@ -20,13 +20,13 @@ The function uses ShmemInitStruct to either create a new shared memory segment o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DSMRegistryCtxStruct (structure type for the registry context)
-  - ShmemInitStruct (shared memory initialization function)
-  - DSMRegistryShmemSize (calculates required memory size)
+  - [DSMRegistryCtxStruct](DSMRegistryCtxStruct.md) (structure type for the registry context)
+  - [ShmemInitStruct](../S/ShmemInitStruct.md) (shared memory initialization function)
+  - [DSMRegistryShmemSize](DSMRegistryShmemSize.md) (calculates required memory size)
   - DSA_HANDLE_INVALID (constant for invalid DSA handle)
   - DSHASH_HANDLE_INVALID (constant for invalid DSHASH handle)
 - Called from (representative examples):
-  - CreateOrAttachShmemStructs (during PostgreSQL startup)
+  - [CreateOrAttachShmemStructs](../C/CreateOrAttachShmemStructs.md) (during PostgreSQL startup)
 
 ## Notes and Other Information
 - This function must be called during PostgreSQL startup after shared memory has been set up

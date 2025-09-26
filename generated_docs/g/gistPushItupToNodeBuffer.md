@@ -24,9 +24,9 @@ This function is the main entry point for adding index tuples to node buffers du
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
-  - gistAllocateNewPageBuffer
-  - gistAddLoadedBuffer
-  - gistLoadNodeBuffer
+  - [gistAllocateNewPageBuffer](gistAllocateNewPageBuffer.md)
+  - [gistAddLoadedBuffer](gistAddLoadedBuffer.md)
+  - [gistLoadNodeBuffer](gistLoadNodeBuffer.md)
   - PAGE_NO_SPACE (macro)
   - [gistBuffersGetFreeBlock](gistBuffersGetFreeBlock.md)
   - [WriteTempFileBlock](../W/WriteTempFileBlock.md)

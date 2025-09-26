@@ -29,15 +29,15 @@ A notable aspect is that allocation can paradoxically create opportunities for l
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FreePageManagerGetInternal (performs actual allocation)
-  - FreePageBtreeCleanup (cleanup and range merging)
-  - FreePageManagerUpdateLargest (updates largest contiguous range tracking)
-  - sum_free_pages (debug assertion)
-  - FreePageManagerLargestContiguous (debug assertion)
+  - [FreePageManagerGetInternal](FreePageManagerGetInternal.md) (performs actual allocation)
+  - [FreePageBtreeCleanup](FreePageBtreeCleanup.md) (cleanup and range merging)
+  - [FreePageManagerUpdateLargest](FreePageManagerUpdateLargest.md) (updates largest contiguous range tracking)
+  - [sum_free_pages](../s/sum_free_pages.md) (debug assertion)
+  - [FreePageManagerLargestContiguous](FreePageManagerLargestContiguous.md) (debug assertion)
 - Called from (representative examples):
-  - dsm_create
-  - dsa_allocate_extended
-  - ensure_active_superblock
+  - [dsm_create](../d/dsm_create.md)
+  - [dsa_allocate_extended](../d/dsa_allocate_extended.md)
+  - [ensure_active_superblock](../e/ensure_active_superblock.md)
   - fpm_largest
 
 ## Notes and Other Information

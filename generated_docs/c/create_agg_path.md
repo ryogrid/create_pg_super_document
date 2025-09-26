@@ -41,9 +41,9 @@ The function sets up pathkey handling based on the aggregation strategy - preser
 - Functions called/Symbols referenced:
   - makeNode (creates AggPath node)
   - [cost_agg](cost_agg.md) (calculates aggregation operation costs)
-  - list_length (counts grouping columns and pathkeys)
+  - [list_length](../l/list_length.md) (counts grouping columns and pathkeys)
   - [list_copy_head](../l/list_copy_head.md) (preserves subset of input pathkeys for sorted aggregation)
-  - AggPath (return type structure)
+  - [AggPath](../A/AggPath.md) (return type structure)
   - [PathTarget](../P/PathTarget.md) (target list specification)
 - Called from (representative examples):
   - [create_partial_distinct_paths](create_partial_distinct_paths.md)

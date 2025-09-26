@@ -26,7 +26,7 @@ The function serves as a robust alternative to the SHOW SQL command, particularl
   - TextDatumGetCString
   - PG_GETARG_BOOL
   - [GetConfigOptionByName](../G/GetConfigOptionByName.md)
-  - cstring_to_text
+  - [cstring_to_text](../c/cstring_to_text.md)
   - PG_RETURN_TEXT_P
   - PG_RETURN_NULL
 - Called from (representative examples):

@@ -36,30 +36,30 @@ QTNode trees are typically created from flat TSQuery representations and can be 
 
 ## Dependencies
 - Functions that create/manipulate QTNode trees:
-  - QT2QTN (convert QueryItem to QTNode)
-  - QTN2QT (convert QTNode back to QueryItem)
-  - QTNFree (free QTNode tree memory)
-  - QTNCopy (copy QTNode tree)
-  - QTNSort (sort child nodes)
-  - QTNEq (compare QTNode trees for equality)
-  - QTNTernary (process ternary operators)
-  - QTNBinary (process binary operators)
-  - QTNClearFlags (clear processing flags)
+  - [QT2QTN](QT2QTN.md) (convert QueryItem to QTNode)
+  - [QTN2QT](QTN2QT.md) (convert QTNode back to QueryItem)
+  - [QTNFree](QTNFree.md) (free QTNode tree memory)
+  - [QTNCopy](QTNCopy.md) (copy QTNode tree)
+  - [QTNSort](QTNSort.md) (sort child nodes)
+  - [QTNEq](QTNEq.md) (compare QTNode trees for equality)
+  - [QTNTernary](QTNTernary.md) (process ternary operators)
+  - [QTNBinary](QTNBinary.md) (process binary operators)
+  - [QTNClearFlags](QTNClearFlags.md) (clear processing flags)
 - Used by query operations:
-  - tsquery_numnode
-  - join_tsqueries
-  - tsquery_and, tsquery_or, tsquery_not
-  - tsquery_phrase_distance
-  - CompareTSQ
+  - [tsquery_numnode](../t/tsquery_numnode.md)
+  - [join_tsqueries](../j/join_tsqueries.md)
+  - [tsquery_and](../t/tsquery_and.md), tsquery_or, tsquery_not
+  - [tsquery_phrase_distance](../t/tsquery_phrase_distance.md)
+  - [CompareTSQ](../C/CompareTSQ.md)
 - Used by query rewriting functions:
-  - findeq
-  - dofindsubquery
-  - findsubquery
-  - tsquery_rewrite_query
-  - tsquery_rewrite
+  - [findeq](../f/findeq.md)
+  - [dofindsubquery](../d/dofindsubquery.md)
+  - [findsubquery](../f/findsubquery.md)
+  - [tsquery_rewrite_query](../t/tsquery_rewrite_query.md)
+  - [tsquery_rewrite](../t/tsquery_rewrite.md)
 - Related types:
   - QueryItem (union containing query data)
-  - QueryOperator (operator-specific data)
+  - [QueryOperator](QueryOperator.md) (operator-specific data)
   - QueryOperand (operand-specific data)
 
 ## Notes and Other Information

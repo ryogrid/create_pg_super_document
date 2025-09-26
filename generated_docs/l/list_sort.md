@@ -26,7 +26,7 @@ The function includes an optimization to skip sorting when the list has fewer th
 - Functions called/Symbols referenced:
   - [check_list_invariants](../c/check_list_invariants.md)
   - qsort (standard library function)
-  - list_length (indirectly referenced)
+  - [list_length](list_length.md) (indirectly referenced)
 - Called from (representative examples):
   - [perform_base_backup](../p/perform_base_backup.md)
   - [WalSummariesAreComplete](../W/WalSummariesAreComplete.md)

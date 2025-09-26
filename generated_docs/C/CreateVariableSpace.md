@@ -21,11 +21,11 @@ This function takes no parameters and returns a newly allocated VariableSpace.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_malloc (PostgreSQL memory allocation function)
+  - [pg_malloc](../p/pg_malloc.md) (PostgreSQL memory allocation function)
   - struct _variable (internal variable structure)
 - Called from (representative examples):
   - [EstablishVariableSpace](../E/EstablishVariableSpace.md)
-  - VariableSpace (typedef reference)
+  - [VariableSpace](../V/VariableSpace.md) (typedef reference)
 
 ## Notes and Other Information
 - The returned structure serves as a list header, not an actual variable entry

@@ -30,10 +30,10 @@ The  function constructs a complete row for the pg_ident_file_mappings system vi
 - Functions called/Symbols referenced:
   - [Int32GetDatum](../I/Int32GetDatum.md), CStringGetTextDatum
   - [heap_form_tuple](../h/heap_form_tuple.md)
-  - tuplestore_puttuple
+  - [tuplestore_puttuple](../t/tuplestore_puttuple.md)
   - Assert, memset
 - Types referenced:
-  - Tuplestorestate, TupleDesc, IdentLine
+  - [Tuplestorestate](../T/Tuplestorestate.md), TupleDesc, IdentLine
   - NUM_PG_IDENT_FILE_MAPPINGS_ATTS
   - HeapTuple, Datum
 - Called from:

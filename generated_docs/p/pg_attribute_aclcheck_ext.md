@@ -28,7 +28,7 @@ The  function is an exported routine that verifies whether a specified user (rol
   - [pg_attribute_aclmask_ext](pg_attribute_aclmask_ext.md)
   - ACLMASK_ANY
   - ACLCHECK_NO_PRIV
-  - AclResult
+  - [AclResult](../A/AclResult.md)
 - Called from (representative examples):
   - [pg_attribute_aclcheck](pg_attribute_aclcheck.md)
   - [column_privilege_check](../c/column_privilege_check.md)

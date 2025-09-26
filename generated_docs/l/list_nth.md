@@ -24,7 +24,7 @@ This function is one of the core list access utilities in PostgreSQL, providing 
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (for type checking)
-  - list_nth_cell (to get the cell at position n)
+  - [list_nth_cell](list_nth_cell.md) (to get the cell at position n)
   - lfirst (to extract the pointer value from the cell)
 - Called from (representative examples):
   - [gistfinishsplit](../g/gistfinishsplit.md) (GiST index operations)

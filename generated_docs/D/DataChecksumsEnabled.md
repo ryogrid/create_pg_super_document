@@ -24,9 +24,9 @@ This function takes no parameters and returns a boolean value indicating checksu
   - ControlFile (global variable access)
   - Assert (assertion check)
 - Called from (representative examples):
-  - ReadControlFile
+  - [ReadControlFile](../R/ReadControlFile.md)
   - [sendFile](../s/sendFile.md)
-  - PageIsVerifiedExtended
+  - [PageIsVerifiedExtended](../P/PageIsVerifiedExtended.md)
   - [PageSetChecksumCopy](../P/PageSetChecksumCopy.md)
   - [PageSetChecksumInplace](../P/PageSetChecksumInplace.md)
   - [pg_stat_get_db_checksum_failures](../p/pg_stat_get_db_checksum_failures.md)

@@ -21,8 +21,8 @@ The returned size represents only the currently active segments and does not inc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire
-  - LWLockRelease  
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)  
   - DSA_AREA_LOCK
 - Called from (representative examples):
   - [RT_MEMORY_USAGE](../R/RT_MEMORY_USAGE.md) (in radixtree.h)

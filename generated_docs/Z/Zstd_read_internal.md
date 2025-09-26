@@ -22,7 +22,7 @@ This function implements the internal reading mechanism for Zstd-compressed file
 - Functions called/Symbols referenced:
   - [CompressFileHandle](../C/CompressFileHandle.md) (struct type)
   - [ZstdCompressorState](ZstdCompressorState.md) (struct type)
-  - pg_malloc0 (memory allocation)
+  - [pg_malloc0](../p/pg_malloc0.md) (memory allocation)
   - unconstify (utility function)
   - ZSTD_createDStream() (Zstd library function)
   - ZSTD_decompressStream() (Zstd library function)

@@ -36,7 +36,7 @@ The cost calculation is similar to other scan types but specifically accounts fo
 - Types referenced:
   - [ParamPathInfo](../P/ParamPathInfo.md) (parameterized path information)
   - Cost (cost calculation type)
-  - QualCost (qualification cost structure)
+  - [QualCost](../Q/QualCost.md) (qualification cost structure)
   - RTE_NAMEDTUPLESTORE (enum value for named tuplestore range table entries)
 - Called from:
   - [create_namedtuplestorescan_path](create_namedtuplestorescan_path.md) (in pathnode.c:2165)

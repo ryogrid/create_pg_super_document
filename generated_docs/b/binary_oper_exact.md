@@ -24,7 +24,7 @@ The  function performs an "exact" match search for binary operators based on the
 - Functions called/Symbols referenced:
   - [OpernameGetOprid](../O/OpernameGetOprid.md) (called twice for operator lookup)
   - [getBaseType](../g/getBaseType.md) (to resolve domain types to base types)
-  - FuncDetailCode (referenced but usage context unclear from this snippet)
+  - [FuncDetailCode](../F/FuncDetailCode.md) (referenced but usage context unclear from this snippet)
 - Called from (representative examples):
   - [oper](../o/oper.md) (main operator resolution function)
 

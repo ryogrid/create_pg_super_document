@@ -41,7 +41,7 @@ SortBy nodes are fundamental components of PostgreSQL's ORDER BY clause processi
   - [transformSortClause](../t/transformSortClause.md) (src/backend/parser/parse_clause.c:2743)
   - [addTargetToSortList](../a/addTargetToSortList.md) (src/backend/parser/parse_clause.c:3394)
   - [transformAggregateCall](../t/transformAggregateCall.md) (src/backend/parser/parse_agg.c:139)
-  - transformFuncCall (src/backend/parser/parse_expr.c:1466)
+  - [transformFuncCall](../t/transformFuncCall.md) (src/backend/parser/parse_expr.c:1466)
 
 ## Notes and Other Information
 - [SortBy](SortBy.md) nodes are created during SQL parsing and are later processed to generate sort specifications for query execution

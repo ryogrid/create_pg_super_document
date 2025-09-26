@@ -24,7 +24,7 @@ The function initializes a materialized SRF and delegates the actual memory cont
 - Functions called/Symbols referenced:
   - [InitMaterializedSRF](../I/InitMaterializedSRF.md)
   - PutMemoryContextsStatsTupleStore
-  - ReturnSetInfo (struct type)
+  - [ReturnSetInfo](../R/ReturnSetInfo.md) (struct type)
 - Called from (representative examples):
   - pg_backend_memory_contexts system view (via SQL queries)
 

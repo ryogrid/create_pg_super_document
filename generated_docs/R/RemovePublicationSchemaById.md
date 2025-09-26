@@ -20,7 +20,7 @@ This function removes a specific publication-schema mapping from the pg_publicat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open (catalog access)
+  - [table_open](../t/table_open.md) (catalog access)
   - [SearchSysCache1](../S/SearchSysCache1.md) (cache lookup)
   - [GetSchemaPublicationRelations](../G/GetSchemaPublicationRelations.md) (relation enumeration)
   - [InvalidatePublicationRels](../I/InvalidatePublicationRels.md) (cache invalidation)

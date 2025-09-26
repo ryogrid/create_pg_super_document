@@ -24,18 +24,18 @@ The IncrementalSort node is an optimized variant of the Sort node that leverages
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Sort (base structure)
+  - [Sort](../S/Sort.md) (base structure)
 
 - Called from (representative examples):
-  - ExecIncrementalSort (executor/nodeIncrementalSort.c:503)
-  - ExecInitIncrementalSort (executor/nodeIncrementalSort.c:976)
-  - create_incrementalsort_plan (optimizer/plan/createplan.c:2218)
-  - make_incrementalsort (optimizer/plan/createplan.c:6103)
-  - show_incremental_sort_keys (commands/explain.c:2577)
-  - preparePresortedCols (executor/nodeIncrementalSort.c:166)
+  - [ExecIncrementalSort](../E/ExecIncrementalSort.md) (executor/nodeIncrementalSort.c:503)
+  - [ExecInitIncrementalSort](../E/ExecInitIncrementalSort.md) (executor/nodeIncrementalSort.c:976)
+  - [create_incrementalsort_plan](../c/create_incrementalsort_plan.md) (optimizer/plan/createplan.c:2218)
+  - [make_incrementalsort](../m/make_incrementalsort.md) (optimizer/plan/createplan.c:6103)
+  - [show_incremental_sort_keys](../s/show_incremental_sort_keys.md) (commands/explain.c:2577)
+  - [preparePresortedCols](../p/preparePresortedCols.md) (executor/nodeIncrementalSort.c:166)
 
 ## Notes and Other Information
-- IncrementalSort is particularly beneficial when dealing with multi-column sorts where some leading columns are already ordered
+- [IncrementalSort](IncrementalSort.md) is particularly beneficial when dealing with multi-column sorts where some leading columns are already ordered
 - The node can switch between different execution modes: full sort mode for the first group and incremental sort mode for subsequent groups
 - Memory usage is typically much lower than regular Sort since it processes data in smaller chunks
 - The optimization is most effective when the presorted columns have low cardinality relative to the total number of rows

@@ -28,11 +28,11 @@ This design handles the case where multiple truncates might occur in the same su
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `PgStat_TableXactStatus`: Transaction-specific table statistics structure containing the counter fields
+  - `[PgStat_TableXactStatus](../P/PgStat_TableXactStatus.md)`: Transaction-specific table statistics structure containing the counter fields
 - Called from (representative examples):
-  - `pgstat_drop_relation`: When a relation is being dropped
-  - `pgstat_count_truncate`: When a table truncation occurs
-  - `AtEOSubXact_PgStat_Relations`: During subtransaction cleanup processing
+  - `[pgstat_drop_relation](../p/pgstat_drop_relation.md)`: When a relation is being dropped
+  - `[pgstat_count_truncate](../p/pgstat_count_truncate.md)`: When a table truncation occurs
+  - `[AtEOSubXact_PgStat_Relations](../A/AtEOSubXact_PgStat_Relations.md)`: During subtransaction cleanup processing
 
 ## Notes and Other Information
 - The function is static and only used internally within the statistics relation module

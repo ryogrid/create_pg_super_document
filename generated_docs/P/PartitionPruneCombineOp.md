@@ -29,7 +29,7 @@ UNION operations correspond to OR clauses - if any argument step indicates a par
 ## Dependencies
 - Functions called/Symbols referenced: None (enum definition)
 - Used by:
-  - PartitionPruneStepCombine struct (as combineOp member)
+  - [PartitionPruneStepCombine](PartitionPruneStepCombine.md) struct (as combineOp member)
   - [gen_prune_step_combine](../g/gen_prune_step_combine.md)() function in partprune.c
   - [perform_pruning_combine_step](../p/perform_pruning_combine_step.md)() function in partprune.c
 

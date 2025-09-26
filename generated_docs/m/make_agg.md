@@ -40,7 +40,7 @@ This function constructs an Agg plan node that represents aggregation operations
 - Types referenced:
   - AggStrategy (enumeration for aggregation strategies)
   - AggSplit (enumeration for aggregation splitting)
-  - Agg (the aggregation plan node structure)
+  - [Agg](../A/Agg.md) (the aggregation plan node structure)
 - Called from (representative examples):
   - [create_agg_plan](../c/create_agg_plan.md)
   - [create_unique_plan](../c/create_unique_plan.md)

@@ -20,7 +20,7 @@ This static function serves as a backend process exit handler that performs crit
 - Functions called/Symbols referenced:
   - [UnlockBuffers](../U/UnlockBuffers.md)
   - [CheckForBufferLeaks](../C/CheckForBufferLeaks.md)
-  - AtProcExit_LocalBuffers
+  - [AtProcExit_LocalBuffers](AtProcExit_LocalBuffers.md)
 - Called from (representative examples):
   - [InitBufferPoolAccess](../I/InitBufferPoolAccess.md) (registers this function as exit callback)
   - Process exit mechanism (automatic callback)

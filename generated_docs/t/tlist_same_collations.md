@@ -26,7 +26,7 @@ Like its datatype counterpart, this function handles resjunk columns based on th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_head (to get the first element of colCollations list)
+  - [list_head](../l/list_head.md) (to get the first element of colCollations list)
   - [exprCollation](../e/exprCollation.md) (to get the collation of an expression)
   - [lnext](../l/lnext.md) (to advance through colCollations list)
   - lfirst_oid (to extract Oid from list cell)

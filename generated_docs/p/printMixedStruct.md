@@ -20,7 +20,7 @@ printMixedStruct is responsible for outputting PostgreSQL configuration paramete
 ## Dependencies
 - Functions called/Symbols referenced:
   - printf (standard library)
-  - config_enum_lookup_by_value
+  - [config_enum_lookup_by_value](../c/config_enum_lookup_by_value.md)
   - [write_stderr](../w/write_stderr.md)
   - _ (internationalization macro)
 - Constants referenced:
@@ -28,7 +28,7 @@ printMixedStruct is responsible for outputting PostgreSQL configuration paramete
   - PGC_INT
   - PGC_REAL
   - PGC_STRING
-  - PGC_ENUM
+  - [PGC_ENUM](../P/PGC_ENUM.md)
 - Global arrays referenced:
   - GucContext_Names
   - config_group_names

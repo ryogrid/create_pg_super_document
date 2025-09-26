@@ -45,7 +45,7 @@ The function handles various edge cases including missing tuples, concurrent pag
   - ItemIdIsUsed
   - [brinSetHeapBlockItemptr](brinSetHeapBlockItemptr.md)
   - [PageIndexTupleDeleteNoCompact](../P/PageIndexTupleDeleteNoCompact.md)
-  - MarkBufferDirty
+  - [MarkBufferDirty](../M/MarkBufferDirty.md)
   - [XLogBeginInsert](../X/XLogBeginInsert.md)
   - [XLogRegisterData](../X/XLogRegisterData.md)
   - [XLogRegisterBuffer](../X/XLogRegisterBuffer.md)

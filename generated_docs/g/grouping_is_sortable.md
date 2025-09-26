@@ -26,7 +26,7 @@ This check is crucial for the query planner to decide between different grouping
 - Functions called/Symbols referenced:
   - lfirst (for list iteration)
   - OidIsValid (to check validity of sort operators)
-  - SortGroupClause (structure type)
+  - [SortGroupClause](../S/SortGroupClause.md) (structure type)
 - Called from (representative examples):
   - [standard_qp_callback](../s/standard_qp_callback.md) (src/backend/optimizer/plan/planner.c:3531)
   - [create_grouping_paths](../c/create_grouping_paths.md) (src/backend/optimizer/plan/planner.c:3864)

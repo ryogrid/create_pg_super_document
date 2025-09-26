@@ -20,7 +20,7 @@ This function handles the execution of the \unset command in psql, which is used
 ## Dependencies
 - Functions called/Symbols referenced:
   - psql_scan_slash_option: Parses the variable name argument
-  - SetVariable: Removes the variable by setting it to NULL
+  - [SetVariable](../S/SetVariable.md): Removes the variable by setting it to NULL
   - [ignore_slash_options](../i/ignore_slash_options.md): Skips parsing when in inactive branch
   - pg_log_error: Reports error messages
 - Called from (representative examples):

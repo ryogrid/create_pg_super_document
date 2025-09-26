@@ -19,15 +19,15 @@ This function serves as an error context callback specifically designed to provi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferDesc (structure type)
+  - [BufferDesc](../B/BufferDesc.md) (structure type)
   - relpathbackend (converts relation file locator to backend-specific path)
-  - BufTagGetRelFileLocator (extracts relation file locator from buffer tag)
+  - [BufTagGetRelFileLocator](../B/BufTagGetRelFileLocator.md) (extracts relation file locator from buffer tag)
   - MyProcNumber (global variable for current process number)
-  - BufTagGetForkNum (extracts fork number from buffer tag)
+  - [BufTagGetForkNum](../B/BufTagGetForkNum.md) (extracts fork number from buffer tag)
   - errcontext (adds context information to error reports)
 - Called from (representative examples):
   - BufferIsPinned
-  - FlushRelationBuffers
+  - [FlushRelationBuffers](../F/FlushRelationBuffers.md)
 
 ## Notes and Other Information
 - This is a static function internal to bufmgr.c

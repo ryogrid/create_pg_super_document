@@ -21,7 +21,7 @@ This function is responsible for notifying listening backend processes that new 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc](../p/palloc.md) (allocates memory for PID and ProcNumber arrays)
-  - LWLockAcquire/LWLockRelease (manages NotifyQueueLock in exclusive mode)
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease (manages NotifyQueueLock in exclusive mode)
   - QUEUE_FIRST_LISTENER, QUEUE_NEXT_LISTENER (iterates through listening backends)
   - QUEUE_BACKEND_PID, QUEUE_BACKEND_POS, QUEUE_BACKEND_DBOID (accesses backend information)
   - QUEUE_POS_EQUAL, QUEUE_POS_PAGE (queue position comparisons)

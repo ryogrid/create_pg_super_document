@@ -38,10 +38,10 @@ The structure provides a generic insertion scankey that can be reused throughout
   - [_bt_blnewpage](../b/_bt_blnewpage.md)
   - [_bt_blwritepage](../b/_bt_blwritepage.md)
   - [_bt_pagestate](../b/_bt_pagestate.md)
-  - _bt_buildadd
-  - _bt_sort_dedup_finish_pending
-  - _bt_uppershutdown
-  - _bt_load
+  - [_bt_buildadd](../b/_bt_buildadd.md)
+  - [_bt_sort_dedup_finish_pending](../b/_bt_sort_dedup_finish_pending.md)
+  - [_bt_uppershutdown](../b/_bt_uppershutdown.md)
+  - [_bt_load](../b/_bt_load.md)
 
 ## Notes and Other Information
 BTWriteState is specifically designed for the writing phase of index construction and provides centralized management of bulk write operations. The structure maintains references to both source and target relations to coordinate data movement during index building. The generic insertion scankey (inskey) is an optimization that avoids repeatedly constructing scankeys for tuple insertion operations. The page allocation counter (btws_pages_alloced) helps track storage resource usage and can be used for monitoring and debugging index construction progress.

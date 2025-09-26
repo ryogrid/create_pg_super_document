@@ -23,9 +23,9 @@ The function employs a fast-path optimization for ASCII characters (bytes withou
 ## Dependencies
 - Functions called/Symbols referenced:
   - IS_HIGHBIT_SET (macro to check if the high bit is set)
-  - pg_euctw_verifychar (validates individual EUC-TW characters)
+  - [pg_euctw_verifychar](pg_euctw_verifychar.md) (validates individual EUC-TW characters)
 - Called from (representative examples):
-  - pg_encoding_set_invalid
+  - [pg_encoding_set_invalid](pg_encoding_set_invalid.md)
 
 ## Notes and Other Information
 - Returns the number of valid bytes processed, which may be less than `len` if an invalid character or null terminator is encountered

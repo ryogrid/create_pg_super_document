@@ -32,19 +32,19 @@ The structure contains only the time components that are relevant during the int
 - Functions called/Symbols referenced:
   - None (this is a data structure)
 - Called from (representative examples):
-  - `AdjustFractMicroseconds` (src/backend/utils/adt/datetime.c:538)
-  - `AdjustFractDays` (src/backend/utils/adt/datetime.c:570)
-  - `AdjustFractYears` (src/backend/utils/adt/datetime.c:602)
-  - `AdjustMicroseconds` (src/backend/utils/adt/datetime.c:619)
-  - `AdjustDays` (src/backend/utils/adt/datetime.c:633)
-  - `AdjustMonths` (src/backend/utils/adt/datetime.c:649)
-  - `AdjustYears` (src/backend/utils/adt/datetime.c:662)
-  - `DecodeTimeForInterval` (src/backend/utils/adt/datetime.c:2702)
-  - `ClearPgItmIn` (src/backend/utils/adt/datetime.c:3340)
-  - `DecodeInterval` (src/backend/utils/adt/datetime.c:3365)
-  - `DecodeISO8601Interval` (src/backend/utils/adt/datetime.c:3830)
-  - `interval_in` (src/backend/utils/adt/timestamp.c:909)
-  - `itmin2interval` (src/backend/utils/adt/timestamp.c:2115)
+  - `[AdjustFractMicroseconds](../A/AdjustFractMicroseconds.md)` (src/backend/utils/adt/datetime.c:538)
+  - `[AdjustFractDays](../A/AdjustFractDays.md)` (src/backend/utils/adt/datetime.c:570)
+  - `[AdjustFractYears](../A/AdjustFractYears.md)` (src/backend/utils/adt/datetime.c:602)
+  - `[AdjustMicroseconds](../A/AdjustMicroseconds.md)` (src/backend/utils/adt/datetime.c:619)
+  - `[AdjustDays](../A/AdjustDays.md)` (src/backend/utils/adt/datetime.c:633)
+  - `[AdjustMonths](../A/AdjustMonths.md)` (src/backend/utils/adt/datetime.c:649)
+  - `[AdjustYears](../A/AdjustYears.md)` (src/backend/utils/adt/datetime.c:662)
+  - `[DecodeTimeForInterval](../D/DecodeTimeForInterval.md)` (src/backend/utils/adt/datetime.c:2702)
+  - `[ClearPgItmIn](../C/ClearPgItmIn.md)` (src/backend/utils/adt/datetime.c:3340)
+  - `[DecodeInterval](../D/DecodeInterval.md)` (src/backend/utils/adt/datetime.c:3365)
+  - `[DecodeISO8601Interval](../D/DecodeISO8601Interval.md)` (src/backend/utils/adt/datetime.c:3830)
+  - `[interval_in](../i/interval_in.md)` (src/backend/utils/adt/timestamp.c:909)
+  - `[itmin2interval](../i/itmin2interval.md)` (src/backend/utils/adt/timestamp.c:2115)
 
 ## Notes and Other Information
 - Specialized purpose: Unlike `pg_itm`, this structure is specifically optimized for interval decoding operations

@@ -29,7 +29,7 @@ Uses PostgreSQL's standard function argument interface:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_restriction_variable
+  - [get_restriction_variable](../g/get_restriction_variable.md)
   - ReleaseVariableStats  
   - DEFAULT_SEL
   - [get_base_element_type](../g/get_base_element_type.md)

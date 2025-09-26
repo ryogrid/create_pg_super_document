@@ -38,7 +38,7 @@ The function provides flexible memory management options: it can adopt an existi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextSetParent
+  - [MemoryContextSetParent](../M/MemoryContextSetParent.md)
   - AllocSetContextCreate
   - copyObject
   - StmtPlanRequiresRevalidation

@@ -55,22 +55,22 @@ During parse analysis, a Range Table Entry (RTE) is created for the join and its
 ## Dependencies
 - Functions called/Symbols referenced:
   - JoinType (enumeration for join types)
-  - Alias (for alias handling)
+  - [Alias](../A/Alias.md) (for alias handling)
   - NodeTag (for node identification)
-  - Node (for subtree references)
-  - List (for USING clause column names)
+  - [Node](../N/Node.md) (for subtree references)
+  - [List](../L/List.md) (for USING clause column names)
 - Called from (representative examples):
-  - add_base_rels_to_query (initsplan.c:175)
-  - transformFromClauseItem (parse_clause.c:1151)
-  - pull_up_subqueries_recurse (prepjointree.c:979)
-  - get_from_clause_item (ruleutils.c:12199)
-  - deconstruct_recurse (initsplan.c:906)
-  - reduce_outer_joins_pass1 (prepjointree.c:3040)
+  - [add_base_rels_to_query](../a/add_base_rels_to_query.md) (initsplan.c:175)
+  - [transformFromClauseItem](../t/transformFromClauseItem.md) (parse_clause.c:1151)
+  - [pull_up_subqueries_recurse](../p/pull_up_subqueries_recurse.md) (prepjointree.c:979)
+  - [get_from_clause_item](../g/get_from_clause_item.md) (ruleutils.c:12199)
+  - [deconstruct_recurse](../d/deconstruct_recurse.md) (initsplan.c:906)
+  - [reduce_outer_joins_pass1](../r/reduce_outer_joins_pass1.md) (prepjointree.c:3040)
 
 ## Notes and Other Information
-- JoinExpr nodes form the internal nodes of join trees, with RangeTblRef as leaves
+- [JoinExpr](JoinExpr.md) nodes form the internal nodes of join trees, with RangeTblRef as leaves
 - The interdependence of isNatural, usingClause, and quals fields requires careful handling during parse analysis
-- Join aliases have significant semantic impact on column visibility and must be handled correctly
+- [Join](Join.md) aliases have significant semantic impact on column visibility and must be handled correctly
 - The rtindex field enables proper variable referencing in complex join expressions
 - Planner-generated JoinExprs may not have corresponding range table entries
 - The structure supports both traditional SQL joins and newer SQL:2016 JOIN/USING correlation names

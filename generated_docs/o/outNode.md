@@ -20,23 +20,23 @@ This function serves as the central dispatcher for PostgreSQL's node serializati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth (stack overflow protection)
-  - appendStringInfoString (for NULL object representation)
+  - [check_stack_depth](../c/check_stack_depth.md) (stack overflow protection)
+  - [appendStringInfoString](../a/appendStringInfoString.md) (for NULL object representation)
   - IsA (type checking macro)
-  - _outList (for List, IntList, OidList, XidList)
-  - _outInteger (for Integer nodes)
-  - _outFloat (for Float nodes)
-  - _outBoolean (for Boolean nodes)
-  - _outString (for String nodes)
-  - _outBitString (for BitString nodes)
-  - outBitmapset (for Bitmapset objects)
+  - [_outList](_outList.md) (for List, IntList, OidList, XidList)
+  - [_outInteger](_outInteger.md) (for Integer nodes)
+  - [_outFloat](_outFloat.md) (for Float nodes)
+  - [_outBoolean](_outBoolean.md) (for Boolean nodes)
+  - [_outString](_outString.md) (for String nodes)
+  - [_outBitString](_outBitString.md) (for BitString nodes)
+  - [outBitmapset](outBitmapset.md) (for Bitmapset objects)
   - nodeTag (for node type identification)
   - elog (for warning messages)
 - Called from (representative examples):
   - WRITE_NODE_FIELD (macro for serializing node fields)
-  - _outList (for recursive list serialization)
-  - _outA_Const (for constant value serialization)
-  - nodeToStringInternal (main entry point for node-to-string conversion)
+  - [_outList](_outList.md) (for recursive list serialization)
+  - [_outA_Const](_outA_Const.md) (for constant value serialization)
+  - [nodeToStringInternal](../n/nodeToStringInternal.md) (main entry point for node-to-string conversion)
 
 ## Notes and Other Information
 - This is a public function accessible throughout PostgreSQL
@@ -45,5 +45,5 @@ This function serves as the central dispatcher for PostgreSQL's node serializati
 - Gracefully handles unrecognized node types with warnings rather than errors
 - Central component of PostgreSQL's debugging and logging infrastructure
 - The serialized format is designed to be human-readable and parseable
-- Complex nodes are wrapped in curly braces { } while simple scalar types are not
+- [Complex](../C/Complex.md) nodes are wrapped in curly braces { } while simple scalar types are not
 - Used extensively in query plan visualization, debugging output, and inter-process communication

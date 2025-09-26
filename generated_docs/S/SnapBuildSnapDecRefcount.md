@@ -27,7 +27,7 @@ This function implements the decrement side of the reference counting mechanism 
   - [ReorderBufferCleanupTXN](../R/ReorderBufferCleanupTXN.md)
   - [ReorderBufferFreeSnap](../R/ReorderBufferFreeSnap.md)
   - [FreeSnapshotBuilder](../F/FreeSnapshotBuilder.md)
-  - SnapBuildCommitTxn
+  - [SnapBuildCommitTxn](SnapBuildCommitTxn.md)
   - [SnapBuildRestore](SnapBuildRestore.md)
 
 ## Notes and Other Information

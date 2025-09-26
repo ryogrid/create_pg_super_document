@@ -25,7 +25,7 @@ validate_ddl_tags is a static helper function that validates a list of DDL comma
   - [command_tag_event_trigger_ok](../c/command_tag_event_trigger_ok.md)() - checks if command tag is supported by event triggers
   - ereport() - reports errors with appropriate error codes
 - Called from (representative examples):
-  - [CreateEventTrigger](../C/CreateEventTrigger.md)() - when creating event triggers with DDL tag filters
+  - [CreateEventTrigger](../C/CreateEventTrigger.md)() - [when](../w/when.md) creating event triggers with DDL tag filters
 
 ## Notes and Other Information
 - This is a static function only accessible within event_trigger.c

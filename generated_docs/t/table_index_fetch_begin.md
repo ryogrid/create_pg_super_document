@@ -22,13 +22,13 @@ The returned IndexFetchTableData structure maintains state and provides context 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IndexFetchTableData (return type)
+  - [IndexFetchTableData](../I/IndexFetchTableData.md) (return type)
   - rel->rd_tableam->index_fetch_begin (table access method function)
 - Called from (representative examples):
-  - index_beginscan
-  - index_beginscan_parallel
-  - table_index_fetch_tuple_check
-  - unique_key_recheck
+  - [index_beginscan](../i/index_beginscan.md)
+  - [index_beginscan_parallel](../i/index_beginscan_parallel.md)
+  - [table_index_fetch_tuple_check](table_index_fetch_tuple_check.md)
+  - [unique_key_recheck](../u/unique_key_recheck.md)
 
 ## Notes and Other Information
 - This is an inline function defined in the table access method header

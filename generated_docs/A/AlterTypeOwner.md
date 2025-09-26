@@ -23,7 +23,7 @@ The function implements a complete permission model where the current user must 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeTypeNameFromNameList
+  - [makeTypeNameFromNameList](../m/makeTypeNameFromNameList.md)
   - [LookupTypeName](../L/LookupTypeName.md)
   - [TypeNameToString](../T/TypeNameToString.md)
   - [typeTypeId](../t/typeTypeId.md)
@@ -32,10 +32,10 @@ The function implements a complete permission model where the current user must 
   - [get_rel_relkind](../g/get_rel_relkind.md)
   - IsTrueArrayType
   - [get_multirange_range](../g/get_multirange_range.md)
-  - superuser
+  - [superuser](../s/superuser.md)
   - [object_ownercheck](../o/object_ownercheck.md)
   - [aclcheck_error_type](../a/aclcheck_error_type.md)
-  - check_can_set_role
+  - [check_can_set_role](../c/check_can_set_role.md)
   - [object_aclcheck](../o/object_aclcheck.md)
   - [aclcheck_error](../a/aclcheck_error.md)
   - [get_namespace_name](../g/get_namespace_name.md)

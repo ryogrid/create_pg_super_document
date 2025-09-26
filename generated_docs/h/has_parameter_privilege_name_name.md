@@ -28,7 +28,7 @@ This function is designed to be called directly from SQL queries where users wan
   - PG_GETARG_NAME (extracts Name argument)
   - PG_GETARG_TEXT_PP (extracts text arguments)
   - [convert_parameter_priv_string](../c/convert_parameter_priv_string.md) (converts privilege string to AclMode)
-  - get_role_oid_or_public (converts username to role OID)
+  - [get_role_oid_or_public](../g/get_role_oid_or_public.md) (converts username to role OID)
   - [has_param_priv_byname](has_param_priv_byname.md) (performs the actual privilege check)
 - Called from (representative examples):
   - SQL queries using has_parameter_privilege(username, parameter, privilege) syntax

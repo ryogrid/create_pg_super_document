@@ -27,7 +27,7 @@ This function performs a logical comparison to determine if transaction ID `id1`
   - [heap_prepare_freeze_tuple](../h/heap_prepare_freeze_tuple.md)
   - [HeapTupleSatisfiesVacuum](../H/HeapTupleSatisfiesVacuum.md)
   - [TransactionIdDidCommit](TransactionIdDidCommit.md)
-  - TransactionIdIsInProgress
+  - [TransactionIdIsInProgress](TransactionIdIsInProgress.md)
   - [xidLogicalComparator](../x/xidLogicalComparator.md)
 
 ## Notes and Other Information

@@ -26,14 +26,14 @@ The relation cache is critical for PostgreSQL's performance as it avoids repeate
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HTAB (used by RelationIdCache)
+  - [HTAB](../H/HTAB.md) (used by RelationIdCache)
 - Called from (representative examples):
   - RelationCacheInsert
   - RelationIdCacheLookup  
   - RelationCacheDelete
-  - RelationCacheInvalidate
-  - RelationCacheInitializePhase3
-  - write_relcache_init_file
+  - [RelationCacheInvalidate](RelationCacheInvalidate.md)
+  - [RelationCacheInitializePhase3](RelationCacheInitializePhase3.md)
+  - [write_relcache_init_file](../w/write_relcache_init_file.md)
 
 ## Notes and Other Information
 - This structure is used exclusively within the relation cache implementation in relcache.c

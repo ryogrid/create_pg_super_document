@@ -44,7 +44,7 @@ This function is essential for implementing window functions like LAG/LEAD that 
   - [spool_tuples](../s/spool_tuples.md)
   - [window_gettupleslot](../w/window_gettupleslot.md)
   - [WinSetMarkPosition](WinSetMarkPosition.md)
-  - ExecEvalExpr
+  - [ExecEvalExpr](../E/ExecEvalExpr.md)
   - [list_nth](../l/list_nth.md)
 - Called from (representative examples):
   - [leadlag_common](../l/leadlag_common.md)

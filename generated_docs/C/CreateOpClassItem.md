@@ -41,12 +41,12 @@ The structure supports three types of items:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ObjectWithArgs
-  - TypeName
+  - [ObjectWithArgs](../O/ObjectWithArgs.md)
+  - [TypeName](../T/TypeName.md)
 - Called from (representative examples):
-  - DefineOpClass
-  - AlterOpFamilyAdd
-  - AlterOpFamilyDrop
+  - [DefineOpClass](../D/DefineOpClass.md)
+  - [AlterOpFamilyAdd](../A/AlterOpFamilyAdd.md)
+  - [AlterOpFamilyDrop](../A/AlterOpFamilyDrop.md)
 
 ## Notes and Other Information
 - This structure is primarily used during CREATE OPERATOR CLASS and ALTER OPERATOR FAMILY operations

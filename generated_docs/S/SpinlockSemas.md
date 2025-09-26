@@ -21,8 +21,8 @@ This function returns the constant value NUM_EMULATION_SEMAPHORES, which defines
 - Functions called/Symbols referenced:
   - NUM_EMULATION_SEMAPHORES (constant defining number of emulation semaphores)
 - Called from:
-  - CalculateShmemSize (in src/backend/storage/ipc/ipci.c:97)
-  - SpinlockSemaInit (in src/backend/storage/lmgr/spin.c:80)
+  - [CalculateShmemSize](../C/CalculateShmemSize.md) (in src/backend/storage/ipc/ipci.c:97)
+  - [SpinlockSemaInit](SpinlockSemaInit.md) (in src/backend/storage/lmgr/spin.c:80)
   - SpinLockFree (in src/include/storage/spin.h:69)
 
 ## Notes and Other Information

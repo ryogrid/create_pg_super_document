@@ -35,8 +35,8 @@ The function performs several key operations:
   - DatumGetArrayTypeP, ARR_NDIM, ARR_HASNULL, ARR_ELEMTYPE (array processing)
   - [get_attname](../g/get_attname.md), quote_identifier (column name handling)
   - [deparse_context_for](../d/deparse_context_for.md), deparse_expression_pretty (expression formatting)
-  - generate_relation_name (relation name formatting)
-  - looks_like_function (expression analysis)
+  - [generate_relation_name](../g/generate_relation_name.md) (relation name formatting)
+  - [looks_like_function](../l/looks_like_function.md) (expression analysis)
 - Called from (representative examples):
   - [pg_get_statisticsobjdef](pg_get_statisticsobjdef.md)
   - [pg_get_statisticsobjdef_string](pg_get_statisticsobjdef_string.md)

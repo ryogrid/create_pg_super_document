@@ -31,15 +31,15 @@ The function employs a macro-based approach () to accumulate multiple statistica
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_get_entry_ref_locked
-  - ReplicationSlotIndex
-  - pgstat_unlock_entry
+  - [pgstat_get_entry_ref_locked](pgstat_get_entry_ref_locked.md)
+  - [ReplicationSlotIndex](../R/ReplicationSlotIndex.md)
+  - [pgstat_unlock_entry](pgstat_unlock_entry.md)
   - PGSTAT_KIND_REPLSLOT
-  - PgStat_EntryRef
-  - PgStatShared_ReplSlot
-  - PgStat_StatReplSlotEntry
+  - [PgStat_EntryRef](../P/PgStat_EntryRef.md)
+  - [PgStatShared_ReplSlot](../P/PgStatShared_ReplSlot.md)
+  - [PgStat_StatReplSlotEntry](../P/PgStat_StatReplSlotEntry.md)
 - Called from (representative examples):
-  - UpdateDecodingStats (in logical.c)
+  - [UpdateDecodingStats](../U/UpdateDecodingStats.md) (in logical.c)
 
 ## Notes and Other Information
 - This function must only be called after the replication slot statistics entry has been initialized via  or 

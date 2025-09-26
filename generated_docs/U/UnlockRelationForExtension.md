@@ -24,17 +24,17 @@ The function ensures that other processes waiting for the relation extension loc
 ## Dependencies
 - Functions called/Symbols referenced:
   - SET_LOCKTAG_RELATION_EXTEND (macro to set up lock tag for relation extension)
-  - LockRelease (core lock release function that handles lock cleanup and waiter notification)
+  - [LockRelease](../L/LockRelease.md) (core lock release function that handles lock cleanup and waiter notification)
 - Called from (representative examples):
-  - brin_page_cleanup (BRIN index page cleanup)
-  - brin_getinsertbuffer (BRIN index buffer management, multiple call sites)
-  - ginvacuumcleanup (GIN index vacuum cleanup)
-  - gistvacuumscan (GiST index vacuum scan)
-  - btvacuumscan (B-tree vacuum scan)
-  - spgvacuumscan (SP-GiST vacuum scan)
-  - ExtendBufferedRelTo (buffered relation extension)
-  - ExtendBufferedRelShared (shared buffered relation extension, multiple call sites)
-  - XLTW_Oper (transaction lock wait operations)
+  - [brin_page_cleanup](../b/brin_page_cleanup.md) (BRIN index page cleanup)
+  - [brin_getinsertbuffer](../b/brin_getinsertbuffer.md) (BRIN index buffer management, multiple call sites)
+  - [ginvacuumcleanup](../g/ginvacuumcleanup.md) (GIN index vacuum cleanup)
+  - [gistvacuumscan](../g/gistvacuumscan.md) (GiST index vacuum scan)
+  - [btvacuumscan](../b/btvacuumscan.md) (B-tree vacuum scan)
+  - [spgvacuumscan](../s/spgvacuumscan.md) (SP-GiST vacuum scan)
+  - [ExtendBufferedRelTo](../E/ExtendBufferedRelTo.md) (buffered relation extension)
+  - [ExtendBufferedRelShared](../E/ExtendBufferedRelShared.md) (shared buffered relation extension, multiple call sites)
+  - [XLTW_Oper](../X/XLTW_Oper.md) (transaction lock wait operations)
 
 ## Notes and Other Information
 - Must be called with the exact same lockmode that was used to acquire the lock

@@ -23,7 +23,7 @@ UInt32GetDatum is a static inline function that provides type-safe conversion fr
   - (None - simple cast operation)
 - Called from (representative examples):
   - [directBoolConsistentFn](../d/directBoolConsistentFn.md) (src/backend/access/gin/ginlogic.c:78)
-  - _hash_convert_tuple (src/backend/access/hash/hashutil.c:332)
+  - [_hash_convert_tuple](../h/_hash_convert_tuple.md) (src/backend/access/hash/hashutil.c:332)
   - [LaunchParallelWorkers](../L/LaunchParallelWorkers.md) (src/backend/access/transam/parallel.c:601)
   - [jsonb_path_ops__extract_nodes](../j/jsonb_path_ops__extract_nodes.md) (src/backend/utils/adt/jsonb_gin.c:489)
   - [pg_lock_status](../p/pg_lock_status.md) (src/backend/utils/adt/lockfuncs.c:273, 284)

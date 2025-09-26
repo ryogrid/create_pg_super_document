@@ -33,8 +33,8 @@ The function also cleans up "allocated" stdio files, directories, and file descr
 ## Dependencies
 - Functions called/Symbols referenced:
   - FileIsNotOpen (assertion check for VFD ring integrity)
-  - FileClose (to close individual temporary files)
-  - FreeDesc (to clean up allocated descriptors)
+  - [FileClose](../F/FileClose.md) (to close individual temporary files)
+  - [FreeDesc](../F/FreeDesc.md) (to clean up allocated descriptors)
   - FD_DELETE_AT_CLOSE, FD_CLOSE_AT_EOXACT (file descriptor state flags)
 - Called from (representative examples):
   - [AtEOXact_Files](../A/AtEOXact_Files.md) (for transaction-level cleanup)

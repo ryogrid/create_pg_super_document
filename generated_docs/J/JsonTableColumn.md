@@ -45,18 +45,18 @@ JsonTableColumn defines how a specific column should be extracted from JSON data
 ## Dependencies
 - Functions called/Symbols referenced:
   - JsonTableColumnType (column type classification)
-  - TypeName (PostgreSQL type system)
-  - JsonTablePathSpec (path specification)
-  - JsonFormat (formatting options)
+  - [TypeName](../T/TypeName.md) (PostgreSQL type system)
+  - [JsonTablePathSpec](JsonTablePathSpec.md) (path specification)
+  - [JsonFormat](JsonFormat.md) (formatting options)
   - JsonWrapper (wrapping behavior)
   - JsonQuotes (quote handling)
-  - JsonBehavior (error/empty handling)
+  - [JsonBehavior](JsonBehavior.md) (error/empty handling)
   - ParseLoc (location tracking)
 - Called from (representative examples):
-  - transformJsonTableColumns (column list processing)
-  - transformJsonTableColumn (individual column transformation)
-  - transformJsonTableNestedColumns (nested column processing)
-  - CheckDuplicateColumnOrPathNames (validation)
+  - [transformJsonTableColumns](../t/transformJsonTableColumns.md) (column list processing)
+  - [transformJsonTableColumn](../t/transformJsonTableColumn.md) (individual column transformation)
+  - [transformJsonTableNestedColumns](../t/transformJsonTableNestedColumns.md) (nested column processing)
+  - [CheckDuplicateColumnOrPathNames](../C/CheckDuplicateColumnOrPathNames.md) (validation)
 
 ## Notes and Other Information
 - Supports nested column definitions for extracting data from complex JSON structures

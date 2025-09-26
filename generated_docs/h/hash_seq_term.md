@@ -21,12 +21,12 @@ The hash_seq_term function is responsible for properly cleaning up after a seque
 ## Dependencies
 - Functions called/Symbols referenced:
   - [deregister_seq_scan](../d/deregister_seq_scan.md)
-  - HASH_SEQ_STATUS (structure access)
+  - [HASH_SEQ_STATUS](../H/HASH_SEQ_STATUS.md) (structure access)
 - Called from (representative examples):
-  - logicalrep_relmap_invalidate_cb
-  - logicalrep_partmap_invalidate_cb  
+  - [logicalrep_relmap_invalidate_cb](../l/logicalrep_relmap_invalidate_cb.md)
+  - [logicalrep_partmap_invalidate_cb](../l/logicalrep_partmap_invalidate_cb.md)  
   - [hash_seq_search](hash_seq_search.md)
-  - PortalHashTableDeleteAll
+  - [PortalHashTableDeleteAll](../P/PortalHashTableDeleteAll.md)
   - [PreCommit_Portals](../P/PreCommit_Portals.md)
 
 ## Notes and Other Information

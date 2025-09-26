@@ -30,8 +30,8 @@ The function includes robust error handling with a safety mechanism that prevent
   - [init_tour](../i/init_tour.md) (generates random valid tours/execution plans)
   - [geqo_eval](../g/geqo_eval.md) (evaluates fitness of chromosomes)
   - elog (PostgreSQL logging function)
-  - Chromosome (struct type for individual solutions)
-  - Pool (struct type for genetic algorithm pool)
+  - [Chromosome](../C/Chromosome.md) (struct type for individual solutions)
+  - [Pool](../P/Pool.md) (struct type for genetic algorithm pool)
   - DBL_MAX (maximum double value constant)
   - DEBUG1 (debug logging level)
 - Called from (representative examples):

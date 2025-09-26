@@ -50,15 +50,15 @@ The enumeration handles different cardinality requirements - some types expect a
 - Functions called/Symbols referenced:
   - (No direct references from this enum)
 - Called from (representative examples):
-  - SubLink struct (uses SubLinkType as subLinkType field)
-  - SubPlan struct (uses SubLinkType as subLinkType field)
+  - [SubLink](SubLink.md) struct (uses SubLinkType as subLinkType field)
+  - [SubPlan](SubPlan.md) struct (uses SubLinkType as subLinkType field)
   - [ExecScanSubPlan](../E/ExecScanSubPlan.md) function
   - [ExecSetParamPlan](../E/ExecSetParamPlan.md) function
   - [make_subplan](../m/make_subplan.md) function
   - [build_subplan](../b/build_subplan.md) function
 
 ## Notes and Other Information
-- SubLink nodes are not directly executable and must be replaced by SubPlan nodes during query planning
+- [SubLink](SubLink.md) nodes are not directly executable and must be replaced by SubPlan nodes during query planning
 - ROWCOMPARE_SUBLINK always involves multiple columns; single-column comparisons use EXPR_SUBLINK instead
 - ALL and ANY types require boolean-returning combining operators
 - MULTIEXPR_SUBLINK uses subLinkId for identifying different multiple-assignment subqueries within UPDATE statements

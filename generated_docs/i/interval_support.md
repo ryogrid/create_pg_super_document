@@ -38,16 +38,16 @@ A conversion is considered redundant (no-op) when:
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (node type checking)
-  - SupportRequestSimplify
-  - FuncExpr
-  - list_length, lsecond, linitial (list operations)
+  - [SupportRequestSimplify](../S/SupportRequestSimplify.md)
+  - [FuncExpr](../F/FuncExpr.md)
+  - [list_length](../l/list_length.md), lsecond, linitial (list operations)
   - [DatumGetInt32](../D/DatumGetInt32.md)
-  - exprTypmod
+  - [exprTypmod](../e/exprTypmod.md)
   - [intervaltypmodleastfield](intervaltypmodleastfield.md) (called twice)
   - INTERVAL_FULL_PRECISION
   - INTERVAL_PRECISION  
   - MAX_INTERVAL_PRECISION
-  - relabel_to_typmod
+  - [relabel_to_typmod](../r/relabel_to_typmod.md)
   - PG_RETURN_POINTER
 - Called from (representative examples):
   - PostgreSQL planner during query optimization

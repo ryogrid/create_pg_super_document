@@ -20,7 +20,7 @@ This function is similar to pgstat_get_beentry_by_proc_number() but returns the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_read_current_status
+  - [pgstat_read_current_status](pgstat_read_current_status.md)
   - bsearch (C standard library function)
   - [cmp_lbestatus](../c/cmp_lbestatus.md)
   - ProcNumber (type)

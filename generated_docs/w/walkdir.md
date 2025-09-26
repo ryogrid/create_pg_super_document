@@ -31,7 +31,7 @@ The function is critical for implementing file synchronization operations like f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - opendir/readdir/closedir
+  - [opendir](../o/opendir.md)/readdir/closedir
   - [get_dirent_type](../g/get_dirent_type.md)
   - PGFILETYPE_REG
   - PGFILETYPE_DIR

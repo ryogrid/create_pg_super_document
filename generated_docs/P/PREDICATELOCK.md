@@ -33,16 +33,16 @@ PREDICATELOCK is the central data structure representing individual predicate lo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PREDICATELOCKTAG
-  - dlist_node
+  - [PREDICATELOCKTAG](PREDICATELOCKTAG.md)
+  - [dlist_node](../d/dlist_node.md)
   - SerCommitSeqNo
 - Called from (representative examples):
-  - CreatePredicateLock
-  - DeleteChildTargetLocks
-  - TransferPredicateLocksToNewTarget
-  - CheckTargetForConflictsIn
-  - ClearOldPredicateLocks
-  - ReleaseOneSerializableXact
+  - [CreatePredicateLock](../C/CreatePredicateLock.md)
+  - [DeleteChildTargetLocks](../D/DeleteChildTargetLocks.md)
+  - [TransferPredicateLocksToNewTarget](../T/TransferPredicateLocksToNewTarget.md)
+  - [CheckTargetForConflictsIn](../C/CheckTargetForConflictsIn.md)
+  - [ClearOldPredicateLocks](../C/ClearOldPredicateLocks.md)
+  - [ReleaseOneSerializableXact](../R/ReleaseOneSerializableXact.md)
 
 ## Notes and Other Information
 - Maintained in shared memory hash table for concurrent access across transactions

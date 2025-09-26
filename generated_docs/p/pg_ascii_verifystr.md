@@ -22,7 +22,7 @@ The function uses memchr() to efficiently locate the first null byte in the stri
 - Functions called/Symbols referenced:
   - memchr (C standard library function)
 - Called from (representative examples):
-  - pg_encoding_set_invalid (indirectly through function pointer tables)
+  - [pg_encoding_set_invalid](pg_encoding_set_invalid.md) (indirectly through function pointer tables)
 
 ## Notes and Other Information
 - The function must reject null bytes as per the verifystr contract

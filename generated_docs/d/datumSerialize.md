@@ -38,13 +38,13 @@ The function updates the `start_address` pointer to point immediately after the 
 - Functions called/Symbols referenced:
   - [ExpandedObjectHeader](../E/ExpandedObjectHeader.md) (type for expanded object metadata)
   - VARATT_IS_EXTERNAL_EXPANDED (checks if value is an expanded object)
-  - DatumGetEOHP (gets Expanded Object Header Pointer)
-  - EOH_get_flat_size (gets flattened size of expanded object)
+  - [DatumGetEOHP](../D/DatumGetEOHP.md) (gets Expanded Object Header Pointer)
+  - [EOH_get_flat_size](../E/EOH_get_flat_size.md) (gets flattened size of expanded object)
   - [datumGetSize](datumGetSize.md) (gets size of standard datum values)
-  - EOH_flatten_into (flattens expanded object into buffer)
+  - [EOH_flatten_into](../E/EOH_flatten_into.md) (flattens expanded object into buffer)
   - [palloc](../p/palloc.md)/pfree (memory allocation/deallocation)
 - Called from (representative examples):
-  - SerializeParamExecParams (in parallel execution parameter serialization)
+  - [SerializeParamExecParams](../S/SerializeParamExecParams.md) (in parallel execution parameter serialization)
   - [SerializeParamList](../S/SerializeParamList.md) (in parameter list serialization)
 
 ## Notes and Other Information

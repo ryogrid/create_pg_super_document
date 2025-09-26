@@ -33,11 +33,11 @@ This information is essential for correct optimization of queries involving oute
 - Functions called/Symbols referenced:
   - Relids (PostgreSQL's bitmap set type for relation IDs)
 - Called from (representative examples):
-  - pullup_replace_vars_context
-  - pullup_replace_vars_callback
-  - find_jointree_node_for_rel
-  - get_nullingrels
-  - get_nullingrels_recurse
+  - [pullup_replace_vars_context](../p/pullup_replace_vars_context.md)
+  - [pullup_replace_vars_callback](../p/pullup_replace_vars_callback.md)
+  - [find_jointree_node_for_rel](../f/find_jointree_node_for_rel.md)
+  - [get_nullingrels](../g/get_nullingrels.md)
+  - [get_nullingrels_recurse](../g/get_nullingrels_recurse.md)
 
 ## Notes and Other Information
 This structure is primarily used within the prepjointree.c module during query tree preprocessing. The nullingrels array is indexed by range table index (RTI), making it efficient to look up nulling information for any relation. The rtlength field serves as a safety measure to prevent array bounds violations during debugging builds.

@@ -27,7 +27,7 @@ This function sets up the necessary data structures and state for iterating thro
   - [PagetableEntry](../P/PagetableEntry.md) (structure type)
   - [MemoryContextAlloc](../M/MemoryContextAlloc.md) (function)
   - qsort (function)
-  - tbm_comparator (function)
+  - [tbm_comparator](tbm_comparator.md) (function)
   - TBM_ITERATING_PRIVATE (constant)
 - Called from (representative examples):
   - [startScanEntry](../s/startScanEntry.md) (src/backend/access/gin/ginget.c:388)

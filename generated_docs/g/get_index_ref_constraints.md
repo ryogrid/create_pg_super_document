@@ -22,9 +22,9 @@ This function searches the PostgreSQL dependency system to find all foreign key 
   - [systable_getnext](../s/systable_getnext.md)
   - Form_pg_depend
   - DEPENDENCY_NORMAL
-  - lappend_oid
+  - [lappend_oid](../l/lappend_oid.md)
 - Called from (representative examples):
-  - index_concurrently_swap
+  - [index_concurrently_swap](../i/index_concurrently_swap.md)
 
 ## Notes and Other Information
 The function uses the DependReferenceIndexId for efficient scanning of the pg_depend catalog, searching specifically for normal dependencies (as opposed to internal dependencies). This is crucial for foreign key constraint management since foreign keys establish normal dependency relationships with the indexes they reference. The function accumulates all matching constraint OIDs into a list, which allows callers to understand the full scope of foreign key dependencies before performing operations that might affect the index. This is essential for maintaining referential integrity in PostgreSQL's constraint system.

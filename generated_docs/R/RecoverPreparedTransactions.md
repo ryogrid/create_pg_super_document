@@ -35,10 +35,10 @@ This function takes no parameters and operates on the global TwoPhaseState.
   - [GXactLoadSubxactData](../G/GXactLoadSubxactData.md)
   - [MarkAsPrepared](../M/MarkAsPrepared.md)
   - [ProcessRecords](../P/ProcessRecords.md)
-  - StandbyReleaseLockTree
+  - [StandbyReleaseLockTree](../S/StandbyReleaseLockTree.md)
   - [PostPrepare_Twophase](../P/PostPrepare_Twophase.md)
   - TransactionIdEquals
-  - LWLockAcquire/LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease
 - Called from:
   - [StartupXLOG](../S/StartupXLOG.md)
 

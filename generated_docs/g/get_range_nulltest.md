@@ -21,8 +21,8 @@ This is a critical component of range partition constraint generation, as it enf
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_head
-  - makeVar
+  - [list_head](../l/list_head.md)
+  - [makeVar](../m/makeVar.md)
   - copyObject
   - [lnext](../l/lnext.md)
   - makeNode

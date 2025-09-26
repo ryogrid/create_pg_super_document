@@ -22,7 +22,7 @@ The datum_to_jsonb function performs the actual conversion of PostgreSQL Datum v
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - datum_to_jsonb_internal
+  - [datum_to_jsonb_internal](datum_to_jsonb_internal.md)
   - [JsonbValueToJsonb](../J/JsonbValueToJsonb.md)
   - [JsonbPGetDatum](../J/JsonbPGetDatum.md)
   - [JsonbInState](../J/JsonbInState.md)

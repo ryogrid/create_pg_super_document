@@ -25,7 +25,7 @@ N/A - This is a simple typedef, not a function or structure.
 
 - Called from (representative examples):
   - [heap_create](../h/heap_create.md) (creates new relation files)
-  - index_create (creates new index files)  
+  - [index_create](../i/index_create.md) (creates new index files)  
   - [RelationInitPhysicalAddr](RelationInitPhysicalAddr.md) (initializes physical addresses)
   - [GetRelationPath](../G/GetRelationPath.md) (constructs file paths)
   - [swap_relation_files](../s/swap_relation_files.md) (exchanges relation files during operations like CLUSTER)

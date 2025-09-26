@@ -22,14 +22,14 @@ The function is defined as a static inline function in the utility.h header file
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCommandTagName - Converts a CommandTag enum to its string representation
-  - CreateCommandTag - Determines the CommandTag for a parse tree node
+  - [GetCommandTagName](../G/GetCommandTagName.md) - Converts a CommandTag enum to its string representation
+  - [CreateCommandTag](CreateCommandTag.md) - Determines the CommandTag for a parse tree node
 - Called from (representative examples):
-  - pg_event_trigger_ddl_commands - For DDL event trigger functionality
-  - ExecCheckXactReadOnly - For read-only transaction validation
-  - init_execution_state - During function execution state initialization
-  - SPI_cursor_open_internal - In the Server Programming Interface
-  - _SPI_execute_plan - During SPI plan execution
+  - [pg_event_trigger_ddl_commands](../p/pg_event_trigger_ddl_commands.md) - For DDL event trigger functionality
+  - [ExecCheckXactReadOnly](../E/ExecCheckXactReadOnly.md) - For read-only transaction validation
+  - [init_execution_state](../i/init_execution_state.md) - During function execution state initialization
+  - [SPI_cursor_open_internal](../S/SPI_cursor_open_internal.md) - In the Server Programming Interface
+  - [_SPI_execute_plan](../S/_SPI_execute_plan.md) - During SPI plan execution
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's command identification infrastructure

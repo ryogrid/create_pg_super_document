@@ -27,7 +27,7 @@ When changing ownership, the function updates the pg_class catalog, adjusts ACLs
 - Functions called/Symbols referenced:
   - [relation_open](../r/relation_open.md), relation_close, table_open, table_close
   - [SearchSysCache1](../S/SearchSysCache1.md), ReleaseSysCache, SysCacheGetAttr
-  - superuser, object_ownercheck, check_can_set_role, object_aclcheck
+  - [superuser](../s/superuser.md), object_ownercheck, check_can_set_role, object_aclcheck
   - [aclnewowner](../a/aclnewowner.md), change_owner_fix_column_acls, changeDependencyOnOwner
   - [AlterTypeOwnerInternal](AlterTypeOwnerInternal.md), RelationGetIndexList
   - [change_owner_recurse_to_sequences](../c/change_owner_recurse_to_sequences.md)

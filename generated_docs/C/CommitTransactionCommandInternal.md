@@ -36,7 +36,7 @@ The function saves transaction characteristics at the beginning and restores the
   - [CommitTransaction](CommitTransaction.md)/AbortTransaction/CleanupTransaction (main transaction operations)
   - [StartTransaction](../S/StartTransaction.md)/PrepareTransaction (transaction lifecycle)
   - [StartSubTransaction](../S/StartSubTransaction.md)/CommitSubTransaction/AbortSubTransaction/CleanupSubTransaction (subtransaction operations)
-  - CommandCounterIncrement (command sequencing)
+  - [CommandCounterIncrement](CommandCounterIncrement.md) (command sequencing)
   - [DefineSavepoint](../D/DefineSavepoint.md) (savepoint creation)
   - [BlockStateAsString](../B/BlockStateAsString.md) (error reporting)
   - Various TBLOCK_* constants (transaction block states)

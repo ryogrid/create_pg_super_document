@@ -26,12 +26,12 @@ The function determines the type class using get_type_func_class and handles eac
 - Functions called/Symbols referenced:
   - [get_type_func_class](../g/get_type_func_class.md)
   - [lookup_rowtype_tupdesc_copy](../l/lookup_rowtype_tupdesc_copy.md)
-  - list_length
+  - [list_length](../l/list_length.md)
   - [list_nth](../l/list_nth.md)
   - strVal
   - linitial
   - TupleDescAttr
-  - namestrcpy
+  - [namestrcpy](../n/namestrcpy.md)
   - [CreateTemplateTupleDesc](../C/CreateTemplateTupleDesc.md)
   - [TupleDescInitEntry](TupleDescInitEntry.md)
   - ereport, errcode, errmsg

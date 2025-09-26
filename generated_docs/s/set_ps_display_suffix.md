@@ -28,12 +28,12 @@ The function is commonly used by PostgreSQL processes to indicate their current 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [update_ps_display_precheck](../u/update_ps_display_precheck.md) (prerequisite validation)
-  - flush_ps_display (applies the title change to the system)
+  - [flush_ps_display](../f/flush_ps_display.md) (applies the title change to the system)
   - strlen, memcpy (string manipulation functions)
   - Assert (debugging assertion macro)
 - Called from (representative examples):
   - [SyncRepWaitForLSN](../S/SyncRepWaitForLSN.md) (src/backend/replication/syncrep.c:262)
-  - LockBufferForCleanup (src/backend/storage/buffer/bufmgr.c:5281)
+  - [LockBufferForCleanup](../L/LockBufferForCleanup.md) (src/backend/storage/buffer/bufmgr.c:5281)
   - [ResolveRecoveryConflictWithVirtualXIDs](../R/ResolveRecoveryConflictWithVirtualXIDs.md) (src/backend/storage/ipc/standby.c:422)
   - [WaitOnLock](../W/WaitOnLock.md) (src/backend/storage/lmgr/lock.c:1827)
 

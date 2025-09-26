@@ -19,10 +19,10 @@ The comment indicates this function "used to be more complex, but fjoins are dea
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_length (get list length)
+  - [list_length](../l/list_length.md) (get list length)
 - Called from (representative examples):
   - [ExecTypeFromTLInternal](ExecTypeFromTLInternal.md) (tuple type construction from target list)
-  - exec_rt_fetch (runtime tuple access)
+  - [exec_rt_fetch](../e/exec_rt_fetch.md) (runtime tuple access)
 
 ## Notes and Other Information
 The function includes resjunk items in its count, which is important for callers that need to allocate structures (like tuple descriptors) that must account for all target list entries, not just the visible result columns. This differs from functions that might only count non-resjunk entries for result set sizing.

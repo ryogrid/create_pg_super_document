@@ -38,16 +38,16 @@ The structure handles the dual nature of functions and procedures in PostgreSQL,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TypeName (for return type specification)
-  - FunctionParameter (for parameter definitions)
-  - DefElem (for function options)
+  - [TypeName](../T/TypeName.md) (for return type specification)
+  - [FunctionParameter](../F/FunctionParameter.md) (for parameter definitions)
+  - [DefElem](../D/DefElem.md) (for function options)
   - NodeTag (parse tree infrastructure)
-  - List (PostgreSQL list structure)
+  - [List](../L/List.md) (PostgreSQL list structure)
 
 - Called from (representative examples):
-  - CreateFunction (main function creation handler)
-  - ProcessUtilitySlow (utility command dispatcher)
-  - CreateCommandTag (command tagging for logging)
+  - [CreateFunction](CreateFunction.md) (main function creation handler)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (utility command dispatcher)
+  - [CreateCommandTag](CreateCommandTag.md) (command tagging for logging)
 
 ## Notes and Other Information
 - Handles both CREATE FUNCTION and CREATE PROCEDURE statements through is_procedure flag

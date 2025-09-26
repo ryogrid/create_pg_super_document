@@ -19,15 +19,15 @@ The  function reads a directory specified by the  parameter and returns an array
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - opendir: Opens the directory for reading
-  - readdir: Reads directory entries sequentially
-  - closedir: Closes the directory handle
-  - palloc: Allocates initial memory for the filename array
-  - repalloc: Reallocates memory when the array needs to grow
-  - pstrdup: Duplicates strings for filename storage
+  - [opendir](../o/opendir.md): Opens the directory for reading
+  - [readdir](../r/readdir.md): Reads directory entries sequentially
+  - [closedir](../c/closedir.md): Closes the directory handle
+  - [palloc](palloc.md): Allocates initial memory for the filename array
+  - [repalloc](../r/repalloc.md): Reallocates memory when the array needs to grow
+  - [pstrdup](pstrdup.md): Duplicates strings for filename storage
   - pg_log_warning: Logs warning messages for error conditions
 - Called from (representative examples):
-  - scan_available_timezones: Used in initdb to scan timezone directories
+  - [scan_available_timezones](../s/scan_available_timezones.md): Used in initdb to scan timezone directories
 
 ## Notes and Other Information
 - Caller must call pgfnames_cleanup() to free the allocated memory

@@ -21,8 +21,8 @@ This function implements platform-specific mechanisms to retrieve backend parame
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AllocateFile (Unix/Linux only)
-  - FreeFile (Unix/Linux only) 
+  - [AllocateFile](../A/AllocateFile.md) (Unix/Linux only)
+  - [FreeFile](../F/FreeFile.md) (Unix/Linux only) 
   - [write_stderr](../w/write_stderr.md)
   - exit
   - [palloc](../p/palloc.md)

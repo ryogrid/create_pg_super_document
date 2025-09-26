@@ -26,13 +26,13 @@ Each function is represented by a FuncInfo structure containing comprehensive me
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - createPQExpBuffer
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)
   - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
   - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
-  - appendPQExpBufferChar
+  - [appendPQExpBufferChar](../a/appendPQExpBufferChar.md)
   - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
   - [PQntuples](../P/PQntuples.md)
-  - pg_malloc0
+  - [pg_malloc0](../p/pg_malloc0.md)
   - [PQfnumber](../P/PQfnumber.md)
   - [PQgetvalue](../P/PQgetvalue.md)
   - atooid
@@ -45,7 +45,7 @@ Each function is represented by a FuncInfo structure containing comprehensive me
   - [selectDumpableObject](../s/selectDumpableObject.md)
   - [PQgetisnull](../P/PQgetisnull.md)
   - [PQclear](../P/PQclear.md)
-  - destroyPQExpBuffer
+  - [destroyPQExpBuffer](../d/destroyPQExpBuffer.md)
 - Called from (representative examples):
   - [getSchemaData](getSchemaData.md)
 

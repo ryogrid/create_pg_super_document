@@ -31,8 +31,8 @@ This function performs a bitwise union operation on two Bitmapsets, creating a n
   - [join_is_removable](../j/join_is_removable.md)
   - [deconstruct_jointree](../d/deconstruct_jointree.md)
   - [finalize_plan](../f/finalize_plan.md)
-  - build_join_rel
-  - get_joinrel_parampathinfo
+  - [build_join_rel](build_join_rel.md)
+  - [get_joinrel_parampathinfo](../g/get_joinrel_parampathinfo.md)
 
 ## Notes and Other Information
 - Safely handles NULL inputs by treating NULL as an empty set

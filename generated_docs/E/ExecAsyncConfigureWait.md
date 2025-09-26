@@ -32,12 +32,12 @@ This is a critical component of PostgreSQL's asynchronous execution framework, e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - InstrStartNode: Starts performance instrumentation for the configuration phase
+  - [InstrStartNode](../I/InstrStartNode.md): Starts performance instrumentation for the configuration phase
   - nodeTag: Determines the executor node type for proper dispatching
-  - ExecAsyncForeignScanConfigureWait: Handles wait configuration for foreign scan nodes
-  - InstrStopNode: Stops performance instrumentation (with 0.0 tuple count since this is configuration)
+  - [ExecAsyncForeignScanConfigureWait](ExecAsyncForeignScanConfigureWait.md): Handles wait configuration for foreign scan nodes
+  - [InstrStopNode](../I/InstrStopNode.md): Stops performance instrumentation (with 0.0 tuple count since this is configuration)
 - Called from (representative examples):
-  - ExecAppendAsyncEventWait: When setting up wait events in Append node async execution
+  - [ExecAppendAsyncEventWait](ExecAppendAsyncEventWait.md): When setting up wait events in Append node async execution
 
 ## Notes and Other Information
 - Currently only supports T_ForeignScanState nodes; other async node types will trigger an error

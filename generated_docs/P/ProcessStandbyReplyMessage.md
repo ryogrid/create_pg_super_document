@@ -33,7 +33,7 @@ This function takes no parameters but processes data from the global  buffer con
   - [LagTrackerRead](../L/LagTrackerRead.md) (lag calculation)
   - [WalSndKeepalive](../W/WalSndKeepalive.md) (keepalive responses)
   - [SyncRepReleaseWaiters](../S/SyncRepReleaseWaiters.md) (synchronous replication)
-  - LogicalConfirmReceivedLocation, PhysicalConfirmReceivedLocation (slot advancement)
+  - [LogicalConfirmReceivedLocation](../L/LogicalConfirmReceivedLocation.md), PhysicalConfirmReceivedLocation (slot advancement)
   - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md), timestamptz_to_str (timing functions)
 - Called from (representative examples):
   - [ProcessStandbyMessage](ProcessStandbyMessage.md)

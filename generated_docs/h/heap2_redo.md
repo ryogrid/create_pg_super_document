@@ -26,7 +26,7 @@ The function processes various advanced heap operations including page pruning (
   - [heap_xlog_visible](heap_xlog_visible.md) (handles visibility map updates)
   - [heap_xlog_multi_insert](heap_xlog_multi_insert.md) (handles multi-tuple insert operations)
   - [heap_xlog_lock_updated](heap_xlog_lock_updated.md) (handles lock update operations)
-  - heap_xlog_logical_rewrite (handles logical rewrite operations)
+  - [heap_xlog_logical_rewrite](heap_xlog_logical_rewrite.md) (handles logical rewrite operations)
 - Called from:
   - WAL replay infrastructure (not directly referenced by other functions)
 

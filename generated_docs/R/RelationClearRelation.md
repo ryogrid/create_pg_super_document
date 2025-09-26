@@ -29,14 +29,14 @@ For rebuilds, the function creates a temporary new entry, swaps its contents wit
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelationHasReferenceCountZero
-  - RelationCloseSmgr
+  - [RelationCloseSmgr](RelationCloseSmgr.md)
   - [RelationReloadNailed](RelationReloadNailed.md)
   - [RelationReloadIndexInfo](RelationReloadIndexInfo.md)
   - RelationCacheDelete
   - [RelationDestroyRelation](RelationDestroyRelation.md)
   - [RelationBuildDesc](RelationBuildDesc.md)
   - [IsTransactionState](../I/IsTransactionState.md)
-  - HistoricSnapshotActive
+  - [HistoricSnapshotActive](../H/HistoricSnapshotActive.md)
   - [equalTupleDescs](../e/equalTupleDescs.md)
   - [equalRuleLocks](../e/equalRuleLocks.md)
   - [equalRSDesc](../e/equalRSDesc.md)

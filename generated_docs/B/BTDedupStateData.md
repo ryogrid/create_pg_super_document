@@ -68,7 +68,7 @@ The deduplication process involves examining tuples on a page, identifying range
 - Called from (representative examples):
   - [_bt_dedup_pass](../b/_bt_dedup_pass.md)
   - [_bt_bottomupdel_pass](../b/_bt_bottomupdel_pass.md)
-  - _bt_load
+  - [_bt_load](../b/_bt_load.md)
   - [btree_xlog_dedup](../b/btree_xlog_dedup.md)
   - BTDedupState (typedef alias)
 

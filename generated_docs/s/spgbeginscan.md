@@ -28,7 +28,7 @@ The function also prepares function manager info for the inner and leaf consiste
   - [initSpGistState](../i/initSpGistState.md)
   - AllocSetContextCreate
   - [getSpGistTupleDesc](../g/getSpGistTupleDesc.md)
-  - get_float8_infinity
+  - [get_float8_infinity](../g/get_float8_infinity.md)
   - [fmgr_info_copy](../f/fmgr_info_copy.md)
   - [index_getprocinfo](../i/index_getprocinfo.md)
   - SPGIST_INNER_CONSISTENT_PROC (constant)
@@ -41,7 +41,7 @@ The function also prepares function manager info for the inner and leaf consiste
 - Types used:
   - [IndexScanDesc](../I/IndexScanDesc.md)
   - SpGistScanOpaque
-  - SpGistScanOpaqueData
+  - [SpGistScanOpaqueData](../S/SpGistScanOpaqueData.md)
   - ScanKey
   - [Relation](../R/Relation.md)
 

@@ -32,7 +32,7 @@ This function performs the core catalog operations for extension registration. I
 - Functions called/Symbols referenced:
   - [GetNewOidWithIndex](../G/GetNewOidWithIndex.md)
   - DirectFunctionCall1
-  - namein
+  - [namein](../n/namein.md)
   - [CStringGetDatum](../C/CStringGetDatum.md)
   - [heap_form_tuple](../h/heap_form_tuple.md)
   - [CatalogTupleInsert](../C/CatalogTupleInsert.md)

@@ -41,11 +41,11 @@ During the prepare phase of two-phase commit, the system generates one per-trans
 ## Dependencies
 - Functions called/Symbols referenced:
   - TwoPhasePredicateRecordType (discriminator enum)
-  - TwoPhasePredicateXactRecord (transaction record type)
-  - TwoPhasePredicateLockRecord (lock record type)
+  - [TwoPhasePredicateXactRecord](TwoPhasePredicateXactRecord.md) (transaction record type)
+  - [TwoPhasePredicateLockRecord](TwoPhasePredicateLockRecord.md) (lock record type)
 - Called from (representative examples):
-  - AtPrepare_PredicateLocks
-  - predicatelock_twophase_recover
+  - [AtPrepare_PredicateLocks](../A/AtPrepare_PredicateLocks.md)
+  - [predicatelock_twophase_recover](../p/predicatelock_twophase_recover.md)
 
 ## Notes and Other Information
 - Located in src/include/storage/predicate_internals.h:454-462

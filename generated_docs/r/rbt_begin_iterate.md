@@ -35,8 +35,8 @@ The iterator maintains internal state to track the current position in the tree 
   - elog (error logging function)
 - Called from (representative examples):
   - [ginBeginBAScan](../g/ginBeginBAScan.md) (src/backend/access/gin/ginbulk.c:259)
-  - testleftright (src/test/modules/test_rbtree/test_rbtree.c:173, 181)
-  - testrightleft (src/test/modules/test_rbtree/test_rbtree.c:213, 221)
+  - [testleftright](../t/testleftright.md) (src/test/modules/test_rbtree/test_rbtree.c:173, 181)
+  - [testrightleft](../t/testrightleft.md) (src/test/modules/test_rbtree/test_rbtree.c:213, 221)
 
 ## Notes and Other Information
 - The iterator state is stored in an opaque RBTreeIterator struct that callers should not modify directly

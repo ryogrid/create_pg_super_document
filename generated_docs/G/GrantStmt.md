@@ -46,16 +46,16 @@ The structure supports PostgreSQL's advanced privilege features including grant 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GrantTargetType
+  - [GrantTargetType](GrantTargetType.md)
   - ObjectType
-  - RoleSpec
+  - [RoleSpec](../R/RoleSpec.md)
   - DropBehavior
 - Called from (representative examples):
-  - ExecuteGrantStmt
-  - ExecAlterDefaultPrivilegesStmt
-  - standard_ProcessUtility
-  - ProcessUtilitySlow
-  - CreateCommandTag
+  - [ExecuteGrantStmt](../E/ExecuteGrantStmt.md)
+  - [ExecAlterDefaultPrivilegesStmt](../E/ExecAlterDefaultPrivilegesStmt.md)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md)
+  - [CreateCommandTag](../C/CreateCommandTag.md)
 
 ## Notes and Other Information
 - Part of PostgreSQL's parse tree node system, inheriting from the standard Node structure

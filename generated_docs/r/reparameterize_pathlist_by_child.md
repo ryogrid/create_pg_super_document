@@ -23,7 +23,7 @@ The function implements an all-or-nothing approach: if any path in the list cann
 - Functions called/Symbols referenced:
   - [reparameterize_path_by_child](reparameterize_path_by_child.md) (core reparameterization logic for individual paths)
   - [list_free](../l/list_free.md) (memory cleanup when operation fails)
-  - lappend (list manipulation for building result)
+  - [lappend](../l/lappend.md) (list manipulation for building result)
   - lfirst (list traversal)
 - Called from (representative examples):
   - REPARAMETERIZE_CHILD_PATH_LIST macro

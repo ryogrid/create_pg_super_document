@@ -33,11 +33,11 @@ This function is a specialized subroutine used by ATPostAlterTypeParse to preser
   - [pstrdup](../p/pstrdup.md)
   - list_make3
   - list_make2
-  - makeTypeNameFromNameList
+  - [makeTypeNameFromNameList](../m/makeTypeNameFromNameList.md)
   - copyObject
-  - lappend
-  - CommentStmt (struct)
-  - AlterTableCmd (struct)
+  - [lappend](../l/lappend.md)
+  - [CommentStmt](../C/CommentStmt.md) (struct)
+  - [AlterTableCmd](../A/AlterTableCmd.md) (struct)
   - [AlteredTableInfo](../A/AlteredTableInfo.md) (struct)
   - [AlterTablePass](../A/AlterTablePass.md) (enum)
 - Called from (representative examples):

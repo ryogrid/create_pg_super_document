@@ -29,7 +29,7 @@ The result is returned as a timestamp since adding an interval to a date may res
   - [date2timestamp](date2timestamp.md) - Converts date to timestamp
   - `DirectFunctionCall2` - Direct function call mechanism
   - [timestamp_pl_interval](../t/timestamp_pl_interval.md) - Timestamp interval addition function
-  - `TimestampGetDatum`, `PointerGetDatum` - Datum conversion functions
+  - `[TimestampGetDatum](../T/TimestampGetDatum.md)`, `PointerGetDatum` - Datum conversion functions
   - `DateADT`, `Interval`, `Timestamp` - Data type definitions
 - Called from (representative examples):
   - No direct references found in the codebase

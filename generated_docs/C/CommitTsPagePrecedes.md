@@ -24,7 +24,7 @@ This function decides whether a commit timestamp page number is "older" for trun
   - FirstNormalTransactionId
   - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
 - Called from (representative examples):
-  - CommitTsShmemInit (as a function pointer for SLRU operations)
+  - [CommitTsShmemInit](CommitTsShmemInit.md) (as a function pointer for SLRU operations)
 
 ## Notes and Other Information
 - Static function, internal to commit_ts.c

@@ -21,7 +21,7 @@ The `get_tlist_exprs` function takes a target list and extracts only the express
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lappend (implicitly used for list building)
+  - [lappend](../l/lappend.md) (implicitly used for list building)
 - Called from (representative examples):
   - [build_setop_child_paths](../b/build_setop_child_paths.md)
   - Referenced in optimizer/tlist.h header

@@ -28,7 +28,7 @@ This function creates and initializes an index scan descriptor for scanning an i
 ## Dependencies
 - Functions called/Symbols referenced:
   - [index_beginscan_internal](index_beginscan_internal.md) (internal scan initialization)
-  - table_index_fetch_begin (heap fetch preparation)
+  - [table_index_fetch_begin](../t/table_index_fetch_begin.md) (heap fetch preparation)
   - InvalidSnapshot (constant for validation)
   - [IndexScanDesc](../I/IndexScanDesc.md) (return type structure)
 - Called from (representative examples):

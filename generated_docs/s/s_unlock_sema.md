@@ -24,7 +24,7 @@ The function operates on a volatile slock_t pointer to ensure proper memory orde
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - s_check_valid: Validates that the semaphore index is within valid bounds
+  - [s_check_valid](s_check_valid.md): Validates that the semaphore index is within valid bounds
   - [PGSemaphoreUnlock](../P/PGSemaphoreUnlock.md): Unlocks the semaphore by incrementing its count, potentially waking up blocked processes
   - [slock_t](slock_t.md): The spinlock data type used to store semaphore array indices
 - Called from (representative examples):

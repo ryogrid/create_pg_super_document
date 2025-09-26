@@ -23,11 +23,11 @@ This mechanism is essential for subscription management operations that need to 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ApplyLauncherWakeup
+  - [ApplyLauncherWakeup](ApplyLauncherWakeup.md)
 - Called from:
-  - CommitTransaction
-  - PrepareTransaction  
-  - AbortTransaction
+  - [CommitTransaction](../C/CommitTransaction.md)
+  - [PrepareTransaction](../P/PrepareTransaction.md)  
+  - [AbortTransaction](AbortTransaction.md)
 
 ## Notes and Other Information
 - This is a public function exported in logicallauncher.h as part of the transaction callback interface

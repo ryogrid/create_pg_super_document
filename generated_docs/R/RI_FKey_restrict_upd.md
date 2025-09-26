@@ -27,7 +27,7 @@ The function performs validation to ensure it's called in the correct trigger co
   - [ri_CheckTrigger](../r/ri_CheckTrigger.md): Validates the trigger call context
   - [ri_restrict](../r/ri_restrict.md): Shared implementation for restriction-based constraints
   - `RI_TRIGTYPE_UPDATE`: Constant defining UPDATE trigger type
-  - `TriggerData`: Structure containing trigger execution context
+  - `[TriggerData](../T/TriggerData.md)`: Structure containing trigger execution context
   
 - Called from (representative examples):
   - No direct callers found (invoked by PostgreSQL trigger system)

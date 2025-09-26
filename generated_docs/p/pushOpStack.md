@@ -23,7 +23,7 @@ The pushOpStack function is a simple stack management utility used specifically 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - OperatorElement (structure type)
+  - [OperatorElement](../O/OperatorElement.md) (structure type)
   - STACKDEPTH (constant for maximum stack size)
   - elog (error logging function)
 - Called from (representative examples):

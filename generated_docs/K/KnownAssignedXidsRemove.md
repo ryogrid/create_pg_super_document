@@ -21,9 +21,9 @@ The function includes debug logging at level 4 to track removal operations and d
 - Functions called/Symbols referenced:
   - TransactionIdIsValid (via Assert)
   - elog (with DEBUG4 level)
-  - KnownAssignedXidsSearch
+  - [KnownAssignedXidsSearch](KnownAssignedXidsSearch.md)
 - Called from (representative examples):
-  - KnownAssignedXidsRemoveTree
+  - [KnownAssignedXidsRemoveTree](KnownAssignedXidsRemoveTree.md)
 
 ## Notes and Other Information
 - Caller must hold ProcArrayLock in exclusive mode

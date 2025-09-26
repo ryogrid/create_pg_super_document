@@ -31,7 +31,7 @@ For domain types, the function automatically resolves to the base type before pe
 - Functions called/Symbols referenced:
   - [getBaseType](../g/getBaseType.md) (for domain type resolution)
   - [TypeCategory](../T/TypeCategory.md) (for type category determination)
-  - table_open, table_close (for catalog access)
+  - [table_open](../t/table_open.md), table_close (for catalog access)
   - [systable_beginscan](../s/systable_beginscan.md), systable_getnext, systable_endscan (for catalog scanning)
   - [IsBinaryCoercible](../I/IsBinaryCoercible.md) (for type compatibility checking)
   - [IsPreferredType](../I/IsPreferredType.md) (for preferred type determination)

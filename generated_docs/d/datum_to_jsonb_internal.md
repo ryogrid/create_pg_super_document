@@ -37,32 +37,32 @@ Special considerations include key_scalar mode where certain complex types are r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth
-  - array_to_jsonb_internal
-  - composite_to_jsonb
+  - [check_stack_depth](../c/check_stack_depth.md)
+  - [array_to_jsonb_internal](../a/array_to_jsonb_internal.md)
+  - [composite_to_jsonb](../c/composite_to_jsonb.md)
   - OidFunctionCall1
-  - OidOutputFunctionCall
-  - DatumGetBool
+  - [OidOutputFunctionCall](../O/OidOutputFunctionCall.md)
+  - [DatumGetBool](../D/DatumGetBool.md)
   - DirectFunctionCall3
-  - numeric_in
-  - DatumGetNumeric
-  - JsonEncodeDateTime
+  - [numeric_in](../n/numeric_in.md)
+  - [DatumGetNumeric](../D/DatumGetNumeric.md)
+  - [JsonEncodeDateTime](../J/JsonEncodeDateTime.md)
   - DatumGetTextPP
-  - makeJsonLexContext
+  - [makeJsonLexContext](../m/makeJsonLexContext.md)
   - pg_parse_json_or_ereport
-  - freeJsonLexContext
-  - DatumGetJsonbP
-  - JsonbIteratorInit
-  - JsonbIteratorNext
-  - pushJsonbValue
-  - checkStringLen
+  - [freeJsonLexContext](../f/freeJsonLexContext.md)
+  - [DatumGetJsonbP](../D/DatumGetJsonbP.md)
+  - [JsonbIteratorInit](../J/JsonbIteratorInit.md)
+  - [JsonbIteratorNext](../J/JsonbIteratorNext.md)
+  - [pushJsonbValue](../p/pushJsonbValue.md)
+  - [checkStringLen](../c/checkStringLen.md)
 - Called from (representative examples):
-  - array_dim_to_jsonb
-  - composite_to_jsonb
-  - add_jsonb
-  - datum_to_jsonb
-  - jsonb_agg_transfn_worker
-  - jsonb_object_agg_transfn_worker
+  - [array_dim_to_jsonb](../a/array_dim_to_jsonb.md)
+  - [composite_to_jsonb](../c/composite_to_jsonb.md)
+  - [add_jsonb](../a/add_jsonb.md)
+  - [datum_to_jsonb](datum_to_jsonb.md)
+  - [jsonb_agg_transfn_worker](../j/jsonb_agg_transfn_worker.md)
+  - [jsonb_object_agg_transfn_worker](../j/jsonb_object_agg_transfn_worker.md)
 
 ## Notes and Other Information
 - This is a static function used internally within jsonb.c for type conversion

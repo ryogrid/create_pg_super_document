@@ -26,9 +26,9 @@ This function processes  records during recovery, extracting the new mapping dat
   - XLogRecHasAnyBlockRefs  
   - XLogRecGetData
   - [GetDatabasePath](../G/GetDatabasePath.md)
-  - LWLockAcquire
+  - [LWLockAcquire](../L/LWLockAcquire.md)
   - [write_relmap_file](../w/write_relmap_file.md)
-  - LWLockRelease
+  - [LWLockRelease](../L/LWLockRelease.md)
   - [pfree](../p/pfree.md)
   - elog
 - Called from (representative examples):

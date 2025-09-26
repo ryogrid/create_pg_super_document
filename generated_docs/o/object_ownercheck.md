@@ -21,7 +21,7 @@ This function provides a centralized mechanism for checking object ownership acr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - superuser_arg
+  - [superuser_arg](../s/superuser_arg.md)
   - [get_object_catcache_oid](../g/get_object_catcache_oid.md)
   - [get_object_class_descr](../g/get_object_class_descr.md)
   - [SysCacheGetAttrNotNull](../S/SysCacheGetAttrNotNull.md)
@@ -32,14 +32,14 @@ This function provides a centralized mechanism for checking object ownership acr
   - [get_object_oid_index](../g/get_object_oid_index.md)
   - [systable_getnext](../s/systable_getnext.md)
   - [heap_getattr](../h/heap_getattr.md)
-  - has_privs_of_role
+  - [has_privs_of_role](../h/has_privs_of_role.md)
 - Called from (representative examples):
   - [check_object_ownership](../c/check_object_ownership.md)
   - [ATSimplePermissions](../A/ATSimplePermissions.md)
   - [AlterFunction](../A/AlterFunction.md)
   - [DropTableSpace](../D/DropTableSpace.md)
   - [DefineType](../D/DefineType.md)
-  - vacuum_is_permitted_for_relation
+  - [vacuum_is_permitted_for_relation](../v/vacuum_is_permitted_for_relation.md)
 
 ## Notes and Other Information
 - Located in src/backend/catalog/aclchk.c:4147-4227

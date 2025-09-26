@@ -23,7 +23,7 @@ The function serves as a security wrapper around the shared dependency system's 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [roleSpecsToIds](../r/roleSpecsToIds.md): Convert role specifications to OID list
-  - has_privs_of_role: Check if current user has privileges of target role
+  - [has_privs_of_role](../h/has_privs_of_role.md): Check if current user has privileges of target role
   - [GetUserNameFromId](../G/GetUserNameFromId.md): Get role name for error messages
   - [shdepDropOwned](../s/shdepDropOwned.md): Perform the actual object dropping operation
 - Called from (representative examples):

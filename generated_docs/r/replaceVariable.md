@@ -23,7 +23,7 @@ This function performs in-place replacement of variable placeholders in SQL stri
 ## Dependencies
 - Functions called/Symbols referenced:
   - strlen
-  - pg_realloc
+  - [pg_realloc](../p/pg_realloc.md)
   - memmove
   - memcpy
 - Called from:

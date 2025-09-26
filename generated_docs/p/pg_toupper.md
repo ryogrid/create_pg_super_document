@@ -28,7 +28,7 @@ The function includes a note that the entire approach is somewhat limited for mu
   - islower (standard C library function for locale-aware lowercase detection)
   - toupper (standard C library function for locale-aware case conversion)
 - Called from (representative examples):
-  - String formatting functions (str_toupper, str_initcap)
+  - [String](../S/String.md) formatting functions (str_toupper, str_initcap)
   - Currency formatting (cash_words)
   - Timezone processing (pg_timezone_abbrevs, pg_tzset)
   - SQL file name processing (PG_SPLIT_WALFILE_NAME_COLS)

@@ -23,7 +23,7 @@ This function prepares for the restoration of an individual Large Object. It ini
 - Functions called/Symbols referenced:
   - K_VERS_1_12
   - LOBBUFSIZE
-  - pg_malloc
+  - [pg_malloc](../p/pg_malloc.md)
   - pg_log_info
   - [DropLOIfExists](../D/DropLOIfExists.md)
   - [lo_create](../l/lo_create.md)

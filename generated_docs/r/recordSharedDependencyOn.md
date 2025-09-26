@@ -25,10 +25,10 @@ This function creates an entry in the pg_shdepend catalog table to track depende
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsBootstrapProcessingMode
-  - table_open
+  - [table_open](../t/table_open.md)
   - [IsPinnedObject](../I/IsPinnedObject.md)
   - [shdepAddDependency](../s/shdepAddDependency.md)
-  - table_close
+  - [table_close](../t/table_close.md)
 - Called from (representative examples):
   - [recordDependencyOnOwner](recordDependencyOnOwner.md)
   - [recordDependencyOnTablespace](recordDependencyOnTablespace.md)

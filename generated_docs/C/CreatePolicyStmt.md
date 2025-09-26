@@ -36,13 +36,13 @@ CreatePolicyStmt is a parse tree node that stores the parsed representation of a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RangeVar
+  - [RangeVar](../R/RangeVar.md)
   - NodeTag
-  - List
-  - Node
+  - [List](../L/List.md)
+  - [Node](../N/Node.md)
 - Called from (representative examples):
-  - CreatePolicy (src/backend/commands/policy.c:569)
-  - ProcessUtilitySlow (src/backend/tcop/utility.c:1827)
+  - [CreatePolicy](CreatePolicy.md) (src/backend/commands/policy.c:569)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (src/backend/tcop/utility.c:1827)
 
 ## Notes and Other Information
 - This structure is part of the PostgreSQL parser node hierarchy and inherits from the Node structure via NodeTag

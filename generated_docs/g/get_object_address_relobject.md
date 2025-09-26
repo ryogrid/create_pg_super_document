@@ -31,13 +31,13 @@ The function includes careful resource management - if the target object is not 
 - Functions called/Symbols referenced:
   - llast (to extract dependent object name)
   - [list_copy_head](../l/list_copy_head.md) (to extract relation name components)
-  - table_openrv_extended (to open the relation)
+  - [table_openrv_extended](../t/table_openrv_extended.md) (to open the relation)
   - [makeRangeVarFromNameList](../m/makeRangeVarFromNameList.md) (to convert name list to RangeVar)
   - [get_rewrite_oid](get_rewrite_oid.md) (for rules)
   - [get_trigger_oid](get_trigger_oid.md) (for triggers)
   - [get_relation_constraint_oid](get_relation_constraint_oid.md) (for table constraints)
   - [get_relation_policy_oid](get_relation_policy_oid.md) (for policies)
-  - table_close (for cleanup on failure)
+  - [table_close](../t/table_close.md) (for cleanup on failure)
 - Called from (representative examples):
   - [get_object_address](get_object_address.md)
 

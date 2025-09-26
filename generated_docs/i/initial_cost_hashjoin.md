@@ -33,7 +33,7 @@ The division of labor with final_cost_hashjoin represents a speed vs. accuracy t
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_parallel_divisor](../g/get_parallel_divisor.md)
-  - ExecChooseHashTableSize
+  - [ExecChooseHashTableSize](../E/ExecChooseHashTableSize.md)
   - [page_size](../p/page_size.md)
 - Called from (representative examples):
   - [try_hashjoin_path](../t/try_hashjoin_path.md)

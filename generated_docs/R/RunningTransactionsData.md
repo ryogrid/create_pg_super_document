@@ -40,13 +40,13 @@ The structure captures both main transactions and subtransactions, along with me
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - subxids_array_status
+  - [subxids_array_status](../s/subxids_array_status.md)
   - TransactionId
 - Called from (representative examples):
-  - StartupXLOG
-  - xlog_redo
-  - GetRunningTransactionData
-  - standby_redo
+  - [StartupXLOG](../S/StartupXLOG.md)
+  - [xlog_redo](../x/xlog_redo.md)
+  - [GetRunningTransactionData](../G/GetRunningTransactionData.md)
+  - [standby_redo](../s/standby_redo.md)
   - RunningTransactions
 
 ## Notes and Other Information

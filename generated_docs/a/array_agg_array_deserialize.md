@@ -24,7 +24,7 @@ This function is the counterpart to array_agg_array_serialize, taking a serializ
   - [pq_getmsgint](../p/pq_getmsgint.md)
   - [pq_getmsgbytes](../p/pq_getmsgbytes.md)
   - [pq_getmsgend](../p/pq_getmsgend.md)
-  - initArrayResultArr
+  - [initArrayResultArr](../i/initArrayResultArr.md)
   - [palloc](../p/palloc.md)
   - memcpy
 - Called from (representative examples):

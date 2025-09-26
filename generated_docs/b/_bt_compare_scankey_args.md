@@ -40,7 +40,7 @@ The function is essential for scan key preprocessing and redundancy elimination 
   - [get_opcode](../g/get_opcode.md) (operator procedure lookup)
   - [OidFunctionCall2Coll](../O/OidFunctionCall2Coll.md) (cross-type function call)
   - Various strategy constants (BTLessStrategyNumber, BTEqualStrategyNumber, etc.)
-  - Scan key flags (SK_ISNULL, SK_SEARCHARRAY, SK_BT_NULLS_FIRST, SK_BT_DESC)
+  - [Scan](../S/Scan.md) key flags (SK_ISNULL, SK_SEARCHARRAY, SK_BT_NULLS_FIRST, SK_BT_DESC)
 
 - Called from (representative examples):
   - [_bt_preprocess_keys](_bt_preprocess_keys.md) (multiple calls during scan key preprocessing and redundancy elimination)

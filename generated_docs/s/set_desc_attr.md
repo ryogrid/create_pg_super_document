@@ -25,10 +25,10 @@ The function also manages memory by freeing any existing data in the descriptor 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ecpg_free
+  - [ecpg_free](../e/ecpg_free.md)
   - [ECPGt_bytea](../E/ECPGt_bytea.md) (enum constant)
-  - ECPGgeneric_bytea (struct type)
-  - descriptor_item (struct type)
+  - [ECPGgeneric_bytea](../E/ECPGgeneric_bytea.md) (struct type)
+  - [descriptor_item](../d/descriptor_item.md) (struct type)
 - Called from (representative examples):
   - [ECPGset_desc](../E/ECPGset_desc.md)
 

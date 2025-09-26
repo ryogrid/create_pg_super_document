@@ -30,9 +30,9 @@ The function supports two comparison modes:
   - [MemoizeKey](MemoizeKey.md)
   - [MemoizeState](MemoizeState.md)
   - [ExecStoreMinimalTuple](../E/ExecStoreMinimalTuple.md)
-  - slot_getallattrs
+  - [slot_getallattrs](../s/slot_getallattrs.md)
   - [datum_image_eq](../d/datum_image_eq.md)
-  - ExecQual
+  - [ExecQual](../E/ExecQual.md)
 - Called from (representative examples):
   - SH_DECLARE (hash table declaration)
   - SH_EQUAL (hash table equality macro)

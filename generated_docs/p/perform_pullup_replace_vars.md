@@ -36,9 +36,9 @@ The function is careful not to replace any jointree structure itself, delegating
 - Functions called/Symbols referenced:
   - [pullup_replace_vars](pullup_replace_vars.md)
   - [replace_vars_in_jointree](../r/replace_vars_in_jointree.md)
-  - pullup_replace_vars_context
+  - [pullup_replace_vars_context](pullup_replace_vars_context.md)
   - [AppendRelInfo](../A/AppendRelInfo.md)
-  - MergeAction
+  - [MergeAction](../M/MergeAction.md)
   - RTE_JOIN
 - Called from (representative examples):
   - [pull_up_simple_subquery](pull_up_simple_subquery.md)

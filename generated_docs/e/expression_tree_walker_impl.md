@@ -38,7 +38,7 @@ The function handles all major expression node types including operators, functi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth
+  - [check_stack_depth](../c/check_stack_depth.md)
   - nodeTag
   - elog
   - Various macros: WALK, LIST_WALK, IsA

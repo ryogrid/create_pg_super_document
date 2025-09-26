@@ -23,7 +23,7 @@ The JsonPath structure represents a compiled JSON path expression used for query
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_DETOAST_DATUM (macro for detoasting PostgreSQL data)
-  - JsonPath (structure type definition)
+  - [JsonPath](../J/JsonPath.md) (structure type definition)
 - Called from (representative examples):
   - [ExecEvalJsonExprPath](../E/ExecEvalJsonExprPath.md) (src/backend/executor/execExprInterp.c:4293)
   - [contain_mutable_functions_walker](../c/contain_mutable_functions_walker.md) (src/backend/optimizer/util/clauses.c:432)

@@ -26,9 +26,9 @@ Key initialization steps include creating a per-table memory context, setting up
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TableFuncScan, TableFuncScanState, TableFunc (struct types)
+  - [TableFuncScan](../T/TableFuncScan.md), TableFuncScanState, TableFunc (struct types)
   - [ExecTableFuncScan](ExecTableFuncScan.md) (assigned as execution function)
-  - ExecAssignExprContext, ExecInitScanTupleSlot, ExecInitResultTypeTL
+  - [ExecAssignExprContext](ExecAssignExprContext.md), ExecInitScanTupleSlot, ExecInitResultTypeTL
   - [BuildDescFromLists](../B/BuildDescFromLists.md), ExecAssignScanProjectionInfo, ExecInitQual
   - [ExecInitExpr](ExecInitExpr.md), ExecInitExprList (expression initialization)
   - AllocSetContextCreate, getTypeInputInfo, fmgr_info

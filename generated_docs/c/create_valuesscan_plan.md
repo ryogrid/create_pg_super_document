@@ -30,7 +30,7 @@ This function creates a ValuesScan plan node for executing a VALUES clause scan.
   - [replace_nestloop_params](../r/replace_nestloop_params.md)
   - [make_valuesscan](../m/make_valuesscan.md)
   - [copy_generic_path_info](copy_generic_path_info.md)
-  - ValuesScan (return type)
+  - [ValuesScan](../V/ValuesScan.md) (return type)
   - RTE_VALUES (constant)
 - Called from (representative examples):
   - [create_scan_plan](create_scan_plan.md)

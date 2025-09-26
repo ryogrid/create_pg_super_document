@@ -38,7 +38,7 @@ The function performs bounds checking using check_tuple_field_number() before ex
   - [run_simple_query](../r/run_simple_query.md)
   - [StoreQueryTuple](../S/StoreQueryTuple.md)
   - [printQuery](../p/printQuery.md)
-  - ecpg_get_data
+  - [ecpg_get_data](../e/ecpg_get_data.md)
 
 ## Notes and Other Information
 - Returns 1 (true) if the field value is NULL or if the tuple/field number is invalid

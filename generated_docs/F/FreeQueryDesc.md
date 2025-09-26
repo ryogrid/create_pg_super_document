@@ -19,8 +19,8 @@ FreeQueryDesc is the destructor function for QueryDesc structures created by Cre
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - QueryDesc
-  - UnregisterSnapshot (called twice)
+  - [QueryDesc](../Q/QueryDesc.md)
+  - [UnregisterSnapshot](../U/UnregisterSnapshot.md) (called twice)
   - Assert (for safety check)
   - [pfree](../p/pfree.md) (for memory deallocation)
 - Called from (representative examples):

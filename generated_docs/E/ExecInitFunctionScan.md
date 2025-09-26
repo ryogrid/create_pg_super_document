@@ -42,7 +42,7 @@ The function handles various complexity levels from simple single-function scans
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode
-  - ExecAssignExprContext
+  - [ExecAssignExprContext](ExecAssignExprContext.md)
   - [ExecInitTableFunctionResult](ExecInitTableFunctionResult.md)
   - [BuildDescFromLists](../B/BuildDescFromLists.md)
   - [BlessTupleDesc](../B/BlessTupleDesc.md)

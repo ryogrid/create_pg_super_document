@@ -20,7 +20,7 @@ This function takes no parameters and operates on shared memory structures.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dlist_iter](../d/dlist_iter.md)
-  - LWLockHeldByMe
+  - [LWLockHeldByMe](../L/LWLockHeldByMe.md)
   - [pg_atomic_read_u32](../p/pg_atomic_read_u32.md)
   - dlist_foreach
   - dlist_container

@@ -25,7 +25,7 @@ The function deliberately does not release the ArrayBuildState memory, as aggreg
 - Functions called/Symbols referenced:
   - [AggCheckCallContext](../A/AggCheckCallContext.md)
   - [ArrayBuildState](../A/ArrayBuildState.md)
-  - makeMdArrayResult
+  - [makeMdArrayResult](../m/makeMdArrayResult.md)
   - PG_RETURN_DATUM
   - PG_ARGISNULL
   - PG_GETARG_POINTER

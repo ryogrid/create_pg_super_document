@@ -29,9 +29,9 @@ The function handles all the same conversions as make_result_opt_error, includin
   - [numeric_sign](../n/numeric_sign.md)
   - [numeric_round](../n/numeric_round.md)
   - [numeric_trunc](../n/numeric_trunc.md)
-  - numeric_ceil
-  - numeric_floor
-  - generate_series_step_numeric
+  - [numeric_ceil](../n/numeric_ceil.md)
+  - [numeric_floor](../n/numeric_floor.md)
+  - [generate_series_step_numeric](../g/generate_series_step_numeric.md)
   - [numeric_add_opt_error](../n/numeric_add_opt_error.md)
   - [numeric_sub_opt_error](../n/numeric_sub_opt_error.md)
   - [numeric_mul_opt_error](../n/numeric_mul_opt_error.md)

@@ -36,7 +36,7 @@ The algorithm considers splits where the left group has an upper bound and the r
   - [range_gist_fallback_split](range_gist_fallback_split.md)
   - [call_subtype_diff](../c/call_subtype_diff.md)
   - [common_entry_cmp](../c/common_entry_cmp.md)
-  - DatumGetRangeTypeP
+  - [DatumGetRangeTypeP](../D/DatumGetRangeTypeP.md)
   - PLACE_LEFT (macro)
   - PLACE_RIGHT (macro)
   - FirstOffsetNumber (constant)

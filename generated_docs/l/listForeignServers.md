@@ -18,13 +18,13 @@ This function queries the pg_foreign_server and related system catalogs to displ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initPQExpBuffer
+  - [initPQExpBuffer](../i/initPQExpBuffer.md)
   - [printfPQExpBuffer](../p/printfPQExpBuffer.md)
   - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
   - [printACLColumn](../p/printACLColumn.md)
   - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
   - [validateSQLNamePattern](../v/validateSQLNamePattern.md)
-  - termPQExpBuffer
+  - [termPQExpBuffer](../t/termPQExpBuffer.md)
   - [PSQLexec](../P/PSQLexec.md)
   - [printQuery](../p/printQuery.md)
   - [PQclear](../P/PQclear.md)

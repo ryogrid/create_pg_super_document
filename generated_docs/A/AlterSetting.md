@@ -30,11 +30,11 @@ The function uses a system catalog scan to locate existing settings and performs
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExtractSetVariableArgs](../E/ExtractSetVariableArgs.md)
-  - table_open/table_close
+  - [table_open](../t/table_open.md)/table_close
   - [ScanKeyInit](../S/ScanKeyInit.md)
   - [systable_beginscan](../s/systable_beginscan.md)/systable_endscan/systable_getnext
   - [heap_getattr](../h/heap_getattr.md)
-  - GUCArrayReset/GUCArrayAdd/GUCArrayDelete
+  - [GUCArrayReset](../G/GUCArrayReset.md)/GUCArrayAdd/GUCArrayDelete
   - [heap_modify_tuple](../h/heap_modify_tuple.md)/heap_form_tuple
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)/CatalogTupleInsert/CatalogTupleDelete
   - InvokeObjectPostAlterHookArg

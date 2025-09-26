@@ -36,7 +36,7 @@ Key optimizations include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - att_isnull
+  - [att_isnull](../a/att_isnull.md)
   - att_align_nominal
   - att_align_pointer
   - att_addlength_pointer

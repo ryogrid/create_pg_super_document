@@ -35,16 +35,16 @@ The round-robin approach with fallback searching ensures even distribution of re
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetTotalResourceCount (helper function to count available resources)
+  - [GetTotalResourceCount](../G/GetTotalResourceCount.md) (helper function to count available resources)
   - elog (logging function for PANIC and ERROR)
-  - dlist_is_empty (check if resource list is empty)
+  - [dlist_is_empty](../d/dlist_is_empty.md) (check if resource list is empty)
   - dlist_head_element (get first element from list)
-  - ResourceOwnerForget (unregister resource from owner)
-  - dlist_delete (remove from doubly-linked list)
-  - pfree (PostgreSQL memory deallocation)
-  - PointerGetDatum (convert pointer to Datum)
+  - [ResourceOwnerForget](../R/ResourceOwnerForget.md) (unregister resource from owner)
+  - [dlist_delete](../d/dlist_delete.md) (remove from doubly-linked list)
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation)
+  - [PointerGetDatum](../P/PointerGetDatum.md) (convert pointer to Datum)
 - Called from (representative examples):
-  - test_resowner_many (main test function)
+  - [test_resowner_many](../t/test_resowner_many.md) (main test function)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the test_resowner_many.c file

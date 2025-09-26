@@ -27,8 +27,8 @@ The function checks if there is an active query output stream (pset.queryFout) a
   - stdout (standard output stream)
 - Called from (representative examples):
   - [main](../m/main.md) (registered as callback)
-  - pg_logging_set_pre_callback
-  - pg_log_generic_v
+  - [pg_logging_set_pre_callback](../p/pg_logging_set_pre_callback.md)
+  - [pg_log_generic_v](../p/pg_log_generic_v.md)
 
 ## Notes and Other Information
 - This is a static function local to src/bin/psql/startup.c

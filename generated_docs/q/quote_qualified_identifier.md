@@ -22,18 +22,18 @@ This function creates a qualified identifier in the format "qualifier.ident" or 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initStringInfo
-  - appendStringInfo  
-  - appendStringInfoString
-  - quote_identifier
+  - [initStringInfo](../i/initStringInfo.md)
+  - [appendStringInfo](../a/appendStringInfo.md)  
+  - [appendStringInfoString](../a/appendStringInfoString.md)
+  - [quote_identifier](quote_identifier.md)
 - Called from (representative examples):
-  - getObjectDescription (multiple calls in objectaddress.c)
-  - generate_relation_name
-  - generate_qualified_relation_name
-  - generate_function_name
-  - format_type_extended
-  - regprocout
-  - regclassout
+  - [getObjectDescription](../g/getObjectDescription.md) (multiple calls in objectaddress.c)
+  - [generate_relation_name](../g/generate_relation_name.md)
+  - [generate_qualified_relation_name](../g/generate_qualified_relation_name.md)
+  - [generate_function_name](../g/generate_function_name.md)
+  - [format_type_extended](../f/format_type_extended.md)
+  - [regprocout](../r/regprocout.md)
+  - [regclassout](../r/regclassout.md)
 
 ## Notes and Other Information
 - Returns a palloc'd string that must be freed by the caller

@@ -29,7 +29,7 @@ The function is designed to be efficient for repeated queries of the same transa
 - Functions called/Symbols referenced:
   - TransactionIdEquals
   - TransactionIdIsNormal  
-  - TransactionIdGetStatus
+  - [TransactionIdGetStatus](TransactionIdGetStatus.md)
   - BootstrapTransactionId
   - FrozenTransactionId
   - XidStatus (return type)

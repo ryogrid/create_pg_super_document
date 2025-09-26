@@ -25,12 +25,12 @@ After creating the new ParsedLex element and adding it to the tail of the work q
 ## Dependencies
 - Functions called/Symbols referenced:
   - LexizeData (structure type)
-  - ParsedLex (structure type)
-  - palloc (memory allocation function)
-  - LPLAddTail (list manipulation function)
+  - [ParsedLex](../P/ParsedLex.md) (structure type)
+  - [palloc](../p/palloc.md) (memory allocation function)
+  - [LPLAddTail](LPLAddTail.md) (list manipulation function)
 - Called from (representative examples):
-  - parsetext
-  - hlparsetext
+  - [parsetext](../p/parsetext.md)
+  - [hlparsetext](../h/hlparsetext.md)
 
 ## Notes and Other Information
 - Static function with local scope to ts_parse.c

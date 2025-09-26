@@ -22,9 +22,9 @@ This function performs recursive directory verification as part of the backup ve
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - opendir
-  - readdir
-  - closedir
+  - [opendir](../o/opendir.md)
+  - [readdir](../r/readdir.md)
+  - [closedir](../c/closedir.md)
   - [report_fatal_error](../r/report_fatal_error.md)
   - [report_backup_error](../r/report_backup_error.md)
   - [simple_string_list_append](../s/simple_string_list_append.md)
@@ -35,7 +35,7 @@ This function performs recursive directory verification as part of the backup ve
   - [pfree](../p/pfree.md)
 - Types referenced:
   - [verifier_context](verifier_context.md)
-  - DIR
+  - [DIR](../D/DIR.md)
   - struct dirent
 - Called from (representative examples):
   - [main](../m/main.md)

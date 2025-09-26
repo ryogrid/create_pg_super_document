@@ -47,9 +47,9 @@ Like other hash join structures, it supports both shared and unshared memory con
 ## Dependencies
 - Functions called/Symbols referenced:
   - dsa_pointer (for parallel hash join support)
-  - HashMemoryChunkData (self-reference for linked list structure)
+  - [HashMemoryChunkData](HashMemoryChunkData.md) (self-reference for linked list structure)
 - Called from (representative examples):
-  - HashMemoryChunk (typedef alias for pointer to this structure)
+  - [HashMemoryChunk](HashMemoryChunk.md) (typedef alias for pointer to this structure)
   - HASH_CHUNK_HEADER_SIZE (macro calculating the header size offset)
 
 ## Notes and Other Information

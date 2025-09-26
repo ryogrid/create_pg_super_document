@@ -28,13 +28,13 @@ This cleanup is particularly important because the startup process during promot
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WalReceiverConn (connection structure type)
-  - ReplicationSlotRelease (releases active slots)
-  - ReplicationSlotCleanup (cleans up temporary slots)
-  - reset_syncing_flag (resets synchronization flags)
+  - [WalReceiverConn](../W/WalReceiverConn.md) (connection structure type)
+  - [ReplicationSlotRelease](../R/ReplicationSlotRelease.md) (releases active slots)
+  - [ReplicationSlotCleanup](../R/ReplicationSlotCleanup.md) (cleans up temporary slots)
+  - [reset_syncing_flag](../r/reset_syncing_flag.md) (resets synchronization flags)
   - walrcv_disconnect (disconnects WAL receiver connection)
 - Called from (representative examples):
-  - SyncReplicationSlots (registered as error callback)
+  - [SyncReplicationSlots](../S/SyncReplicationSlots.md) (registered as error callback)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the slotsync.c file

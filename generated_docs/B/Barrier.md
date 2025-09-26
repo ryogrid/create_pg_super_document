@@ -42,9 +42,9 @@ Static barriers behave similarly to POSIX's pthread_barrier_t, while dynamic bar
   - ConditionVariable (for process synchronization)
 - Called from (representative examples):
   - [MultiExecParallelHash](../M/MultiExecParallelHash.md) (parallel hash table execution)
-  - ExecHashTableCreate (hash table creation in parallel execution)
+  - [ExecHashTableCreate](../E/ExecHashTableCreate.md) (hash table creation in parallel execution)
   - [ExecHashJoinImpl](../E/ExecHashJoinImpl.md) (parallel hash join implementation)
-  - ParallelHashJoinState (state management for parallel hash joins)
+  - [ParallelHashJoinState](../P/ParallelHashJoinState.md) (state management for parallel hash joins)
 
 ## Notes and Other Information
 - The barrier is primarily used in PostgreSQL's parallel query execution, particularly for hash joins and hash table operations

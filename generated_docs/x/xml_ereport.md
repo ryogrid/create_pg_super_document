@@ -26,15 +26,15 @@ The function validates the error context, resets error state flags, and construc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PgXmlErrorContext (structure)
+  - [PgXmlErrorContext](../P/PgXmlErrorContext.md) (structure)
   - ERRCXT_MAGIC (validation constant)
-  - errdetail_internal (PostgreSQL error reporting)
+  - [errdetail_internal](../e/errdetail_internal.md) (PostgreSQL error reporting)
   - elog, ereport, errcode, errmsg_internal (PostgreSQL error system)
 - Called from (representative examples):
-  - xmltotext_with_options (multiple calls)
-  - xmlelement
-  - xml_parse
-  - xpath_internal
+  - [xmltotext_with_options](xmltotext_with_options.md) (multiple calls)
+  - [xmlelement](xmlelement.md)
+  - [xml_parse](xml_parse.md)
+  - [xpath_internal](xpath_internal.md)
   - XmlTable* functions
 
 ## Notes and Other Information

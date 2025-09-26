@@ -31,7 +31,7 @@ When indexOid is InvalidOid, the function clears the clustered flag from all ind
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_index_isclustered](../g/get_index_isclustered.md)
-  - table_open/table_close
+  - [table_open](../t/table_open.md)/table_close
   - [RelationGetIndexList](../R/RelationGetIndexList.md)
   - SearchSysCacheCopy1
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)

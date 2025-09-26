@@ -31,7 +31,7 @@ The caching fields (last_found_*) provide significant performance improvements f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PartitionDescData (underlying structure)
+  - [PartitionDescData](PartitionDescData.md) (underlying structure)
   - [PartitionBoundInfo](PartitionBoundInfo.md) (partition boundary information)
   - Oid (object identifier for partitions)
 

@@ -26,8 +26,8 @@ Unlike most other functions in prepjointree.c, this function does not recurse on
 - Functions called/Symbols referenced:
   - makeNode (for RangeTblEntry, RangeTblRef)
   - [makeAlias](../m/makeAlias.md)
-  - lappend
-  - list_length
+  - [lappend](../l/lappend.md)
+  - [list_length](../l/list_length.md)
   - list_make1
   - RTE_RESULT constant
 - Called from (representative examples):

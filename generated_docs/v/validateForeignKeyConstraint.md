@@ -30,9 +30,9 @@ The function uses proper memory management with a per-tuple memory context to pr
   - [table_beginscan](../t/table_beginscan.md)
   - [table_scan_getnextslot](../t/table_scan_getnextslot.md)
   - [table_endscan](../t/table_endscan.md)
-  - RegisterSnapshot
-  - GetLatestSnapshot
-  - UnregisterSnapshot
+  - [RegisterSnapshot](../R/RegisterSnapshot.md)
+  - [GetLatestSnapshot](../G/GetLatestSnapshot.md)
+  - [UnregisterSnapshot](../U/UnregisterSnapshot.md)
   - AllocSetContextCreate
   - [MemoryContextDelete](../M/MemoryContextDelete.md)
   - [ExecFetchSlotHeapTuple](../E/ExecFetchSlotHeapTuple.md)

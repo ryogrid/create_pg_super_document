@@ -45,7 +45,7 @@ This function creates a RecursiveUnionPath node that represents the execution of
 - Assumes no parameterization (above any joins) for simplification
 - Parallel safety requires both leftpath and rightpath to be parallel-safe, plus relation's consider_parallel flag
 - Uses leftpath's parallel_workers count (similar to join operations)
-- RecursiveUnion result is always unsorted, regardless of input path ordering
+- [RecursiveUnion](../R/RecursiveUnion.md) result is always unsorted, regardless of input path ordering
 - The wtParam represents the work table parameter that enables the recursive execution mechanism
 - Cost calculation is delegated to the cost_recursive_union function which handles the complexity of iterative execution
 - Essential for implementing SQL standard recursive Common Table Expressions (WITH RECURSIVE)

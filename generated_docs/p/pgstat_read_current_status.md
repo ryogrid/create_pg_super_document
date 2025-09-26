@@ -26,17 +26,17 @@ This function takes no parameters but operates on several global structures:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_setup_backend_status_context (memory context setup)
-  - MemoryContextAlloc/MemoryContextAllocHuge (memory allocation)
+  - [pgstat_setup_backend_status_context](pgstat_setup_backend_status_context.md) (memory context setup)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)/MemoryContextAllocHuge (memory allocation)
   - pgstat_begin_read_activity (atomic read protocol start)
   - pgstat_end_read_activity (atomic read protocol end)
   - pgstat_read_activity_complete (consistency check)
-  - ProcNumberGetTransactionIds (transaction ID retrieval)
+  - [ProcNumberGetTransactionIds](../P/ProcNumberGetTransactionIds.md) (transaction ID retrieval)
   - unvolatize (volatile pointer casting)
 - Called from:
-  - pgstat_get_local_beentry_by_proc_number
-  - pgstat_get_local_beentry_by_index
-  - pgstat_fetch_stat_numbackends
+  - [pgstat_get_local_beentry_by_proc_number](pgstat_get_local_beentry_by_proc_number.md)
+  - [pgstat_get_local_beentry_by_index](pgstat_get_local_beentry_by_index.md)
+  - [pgstat_fetch_stat_numbackends](pgstat_fetch_stat_numbackends.md)
 
 ## Notes and Other Information
 - Function is marked static, indicating internal use within backend_status.c

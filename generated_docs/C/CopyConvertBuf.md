@@ -31,7 +31,7 @@ The function implements sophisticated error handling, deferring error reporting 
   - [pg_do_encoding_conversion_buf](../p/pg_do_encoding_conversion_buf.md)
   - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md)
   - MAX_CONVERSION_INPUT_LENGTH
-  - CopyFromState
+  - [CopyFromState](CopyFromState.md)
 - Called from (representative examples):
   - [CopyLoadInputBuf](CopyLoadInputBuf.md)
 

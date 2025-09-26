@@ -24,7 +24,7 @@ This function is a core component of bitmap heap scans, responsible for processi
 - Functions called/Symbols referenced:
   - VM_ALL_VISIBLE (visibility map check)
   - IsolationIsSerializable (isolation level check)
-  - ReleaseAndReadBuffer (buffer management)
+  - [ReleaseAndReadBuffer](../R/ReleaseAndReadBuffer.md) (buffer management)
   - [heap_page_prune_opt](heap_page_prune_opt.md) (page maintenance)
   - [heap_hot_search_buffer](heap_hot_search_buffer.md) (HOT chain traversal)
   - [HeapTupleSatisfiesVisibility](../H/HeapTupleSatisfiesVisibility.md) (tuple visibility)

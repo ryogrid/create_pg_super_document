@@ -30,7 +30,7 @@ The function creates a dummy ParseState to provide the necessary context for exp
   - copyObject - Deep copies partition element to avoid modifying input
   - [transformExpr](transformExpr.md) - Transforms expressions using parser context
   - [assign_expr_collations](../a/assign_expr_collations.md) - Assigns collations to transformed expressions
-  - lappend - Appends elements to result list
+  - [lappend](../l/lappend.md) - Appends elements to result list
 - Called from (representative examples):
   - [DefineRelation](../D/DefineRelation.md) (src/backend/commands/tablecmds.c:1170)
 

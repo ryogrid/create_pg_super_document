@@ -20,14 +20,14 @@ The `aclitemsort` function arranges ACL entries in a deterministic order using t
 ## Dependencies
 - Functions called/Symbols referenced:
   - `qsort` - Standard library sorting function
-  - `aclitemComparator` - Custom comparison function for ACL items
+  - `[aclitemComparator](aclitemComparator.md)` - Custom comparison function for ACL items
   - `ACL_NUM` - Macro to get the number of entries in an ACL
   - `ACL_DAT` - Macro to access the data portion of an ACL
   - `AclItem` - Structure type representing individual ACL entries
-  - `Acl` - ACL structure type definition
+  - `[Acl](../A/Acl.md)` - ACL structure type definition
 - Called from (representative examples):
-  - `SetDefaultACL` - After setting default ACL permissions to ensure consistent ordering
-  - `get_user_default_acl` - When retrieving user default ACL permissions
+  - `[SetDefaultACL](../S/SetDefaultACL.md)` - After setting default ACL permissions to ensure consistent ordering
+  - `[get_user_default_acl](../g/get_user_default_acl.md)` - When retrieving user default ACL permissions
   - Referenced in `AclResult` type definitions
 
 ## Notes and Other Information

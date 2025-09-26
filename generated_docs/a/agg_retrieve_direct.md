@@ -35,22 +35,22 @@ The function implements a complex state machine that:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReScanExprContext
+  - [ReScanExprContext](../R/ReScanExprContext.md)
   - [initialize_phase](../i/initialize_phase.md)
   - ResetTupleHashIterator
   - [select_current_set](../s/select_current_set.md)
   - [agg_retrieve_hash_table](agg_retrieve_hash_table.md)
-  - ExecQualAndReset
+  - [ExecQualAndReset](../E/ExecQualAndReset.md)
   - [fetch_input_tuple](../f/fetch_input_tuple.md)
   - TupIsNull
-  - ExecCopySlotHeapTuple
+  - [ExecCopySlotHeapTuple](../E/ExecCopySlotHeapTuple.md)
   - [initialize_aggregates](../i/initialize_aggregates.md)
   - [ExecForceStoreHeapTuple](../E/ExecForceStoreHeapTuple.md)
   - [lookup_hash_entries](../l/lookup_hash_entries.md)
   - [advance_aggregates](advance_aggregates.md)
   - ResetExprContext
   - [hashagg_finish_initial_spills](../h/hashagg_finish_initial_spills.md)
-  - ExecQual
+  - [ExecQual](../E/ExecQual.md)
   - [prepare_projection_slot](../p/prepare_projection_slot.md)
   - [finalize_aggregates](../f/finalize_aggregates.md)
   - [project_aggregates](../p/project_aggregates.md)
@@ -61,6 +61,6 @@ The function implements a complex state machine that:
 - This function handles the most complex aggregation scenarios including grouping sets and multi-phase processing
 - For mixed aggregation (AGG_MIXED), it can switch to hash table processing by calling agg_retrieve_hash_table
 - The function maintains careful state tracking through aggstate->projected_set to handle grouping set boundaries
-- Group boundary detection relies on equality functions stored in aggstate->phase->eqfunctions
+- [Group](../G/Group.md) boundary detection relies on equality functions stored in aggstate->phase->eqfunctions
 - Input tuple processing includes special handling for empty input when grouping sets are involved
 - The function supports interrupt checking through the main execution loop for long-running aggregations

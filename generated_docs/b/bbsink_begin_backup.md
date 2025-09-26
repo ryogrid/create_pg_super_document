@@ -22,16 +22,16 @@ This inline function serves as the initialization entry point for PostgreSQL's b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbsink (structure type)
-  - bbsink_state (structure type)
+  - [bbsink](bbsink.md) (structure type)
+  - [bbsink_state](bbsink_state.md) (structure type)
   - Assert (assertion macro)
   - BLCKSZ (block size constant)
 - Called from (representative examples):
-  - perform_base_backup
-  - bbsink_gzip_begin_backup
-  - bbsink_lz4_begin_backup
-  - bbsink_forward_begin_backup
-  - bbsink_zstd_begin_backup
+  - [perform_base_backup](../p/perform_base_backup.md)
+  - [bbsink_gzip_begin_backup](bbsink_gzip_begin_backup.md)
+  - [bbsink_lz4_begin_backup](bbsink_lz4_begin_backup.md)
+  - [bbsink_forward_begin_backup](bbsink_forward_begin_backup.md)
+  - [bbsink_zstd_begin_backup](bbsink_zstd_begin_backup.md)
 
 ## Notes and Other Information
 - This is an inline function defined in the header file for performance optimization

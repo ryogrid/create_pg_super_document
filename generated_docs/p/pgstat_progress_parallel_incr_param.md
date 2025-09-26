@@ -27,7 +27,7 @@ This design allows parallel operations to maintain consistent progress reporting
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsParallelWorker (function)
-  - pq_beginmessage (function)
+  - [pq_beginmessage](pq_beginmessage.md) (function)
   - PqMsg_Progress (message type constant)
   - [pq_sendint32](pq_sendint32.md) (function)
   - [pq_sendint64](pq_sendint64.md) (function)

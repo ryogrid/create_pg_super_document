@@ -38,10 +38,10 @@ The function uses a large if-else chain to handle each supported parameter, with
 - Returns a newly allocated string that must be freed by the caller
 - Handles NULL parameter values appropriately, often returning empty strings
 - The "expanded" parameter has special logic for auto mode (value 2)
-- String parameters distinguish between unset (NULL) and empty string cases
+- [String](../S/String.md) parameters distinguish between unset (NULL) and empty string cases
 - The "xheader_width" parameter supports multiple width types (full, column, page, exact)
 - Returns "ERROR" for unrecognized parameter names
 - All boolean values use PostgreSQL's "on"/"off" convention
-- String values are properly quoted and escaped to handle special characters
+- [String](../S/String.md) values are properly quoted and escaped to handle special characters
 - Static function scope limits usage to within command.c
 - Essential for implementing the \pset command's parameter display functionality

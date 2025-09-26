@@ -30,12 +30,12 @@ The function queries the pg_operator system catalog to retrieve operator informa
   - GETSTRUCT
   - NameStr
   - IsBootstrapProcessingMode
-  - initStringInfo
+  - [initStringInfo](../i/initStringInfo.md)
   - [OperatorIsVisible](../O/OperatorIsVisible.md)
   - [get_namespace_name](../g/get_namespace_name.md)
   - [quote_identifier](../q/quote_identifier.md)
-  - appendStringInfo
-  - appendStringInfoString
+  - [appendStringInfo](../a/appendStringInfo.md)
+  - [appendStringInfoString](../a/appendStringInfoString.md)
   - [format_type_be_qualified](format_type_be_qualified.md)
   - [format_type_be](format_type_be.md)
   - [ReleaseSysCache](../R/ReleaseSysCache.md)

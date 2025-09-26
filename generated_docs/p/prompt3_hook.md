@@ -22,7 +22,7 @@ This hook function is responsible for updating the psql prompt3 setting when the
 - Functions called/Symbols referenced:
   - pset.prompt3 (global variable assignment)
 - Called from (representative examples):
-  - SetVariableHooks registration in EstablishVariableSpace
+  - [SetVariableHooks](../S/SetVariableHooks.md) registration in EstablishVariableSpace
 
 ## Notes and Other Information
 - This is one of several prompt hook functions (prompt1_hook, prompt2_hook, prompt3_hook) that manage different prompt types in psql

@@ -25,7 +25,7 @@ This function serves as a debugging and diagnostic tool, helping developers and 
   - [DatumGetInt32](../D/DatumGetInt32.md)
   - [psprintf](../p/psprintf.md) (implicit - used for string formatting)
 - Called from (representative examples):
-  - ResourceOwner system (callback mechanism for diagnostic output)
+  - [ResourceOwner](ResourceOwner.md) system (callback mechanism for diagnostic output)
 
 ## Notes and Other Information
 - Static function scope limits visibility to the current compilation unit (bufmgr.c)

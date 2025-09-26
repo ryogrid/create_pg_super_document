@@ -23,7 +23,7 @@ The function handles complex relationships between operator classes and their co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - createPQExpBuffer/destroyPQExpBuffer (for SQL statement building)
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)/destroyPQExpBuffer (for SQL statement building)
   - [appendPQExpBuffer](../a/appendPQExpBuffer.md)/appendPQExpBufferStr/resetPQExpBuffer (for statement construction)
   - [ExecuteSqlQueryForSingleRow](../E/ExecuteSqlQueryForSingleRow.md)/ExecuteSqlQuery (for catalog queries)
   - [PQfnumber](../P/PQfnumber.md)/PQgetvalue/PQntuples/PQclear (for result processing)

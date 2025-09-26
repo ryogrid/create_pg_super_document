@@ -24,7 +24,7 @@ This function takes no parameters and returns void.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ECPGdo](../E/ECPGdo.md) (ECPG runtime function for executing SQL statements)
-  - ECPGget_var (ECPG runtime function for variable access)
+  - [ECPGget_var](../E/ECPGget_var.md) (ECPG runtime function for variable access)
   - [dosqlprint](../d/dosqlprint.md) (error reporting function)
 - Called from (representative examples):
   - [main](../m/main.md) (called once during test execution)

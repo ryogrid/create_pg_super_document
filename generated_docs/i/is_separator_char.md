@@ -31,8 +31,8 @@ Characters like spaces (0x20) and DEL (0x7F) are excluded as they are not consid
   - None (uses only basic character comparisons)
 - Called from (representative examples):
   - DCH_ZONED
-  - parse_format
-  - DCH_from_char
+  - [parse_format](../p/parse_format.md)
+  - [DCH_from_char](../D/DCH_from_char.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within formatting.c

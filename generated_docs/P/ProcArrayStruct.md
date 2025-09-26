@@ -66,9 +66,9 @@ The structure manages two primary areas of concern: active process tracking thro
   - [CreateSharedProcArray](../C/CreateSharedProcArray.md)
   - [ProcArrayAdd](ProcArrayAdd.md)
   - [ProcArrayRemove](ProcArrayRemove.md)
-  - ComputeXidHorizons
+  - [ComputeXidHorizons](../C/ComputeXidHorizons.md)
   - [GetSnapshotData](../G/GetSnapshotData.md)
-  - TransactionIdIsInProgress
+  - [TransactionIdIsInProgress](../T/TransactionIdIsInProgress.md)
   - [GetOldestActiveTransactionId](../G/GetOldestActiveTransactionId.md)
 
 ## Notes and Other Information

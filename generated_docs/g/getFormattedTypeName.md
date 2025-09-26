@@ -23,13 +23,13 @@ This function converts a PostgreSQL type OID into a human-readable, formatted ty
 ## Dependencies
 - Functions called/Symbols referenced:
   - [findTypeByOid](../f/findTypeByOid.md)
-  - createPQExpBuffer
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)
   - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
   - [ExecuteSqlQueryForSingleRow](../E/ExecuteSqlQueryForSingleRow.md)
   - [PQgetvalue](../P/PQgetvalue.md)
   - [pg_strdup](../p/pg_strdup.md)
   - [PQclear](../P/PQclear.md)
-  - destroyPQExpBuffer
+  - [destroyPQExpBuffer](../d/destroyPQExpBuffer.md)
 - Types used:
   - [TypeInfo](../T/TypeInfo.md)
   - [OidOptions](../O/OidOptions.md)

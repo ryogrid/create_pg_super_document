@@ -30,7 +30,7 @@ The constraint check follows SQL semantics where:
   - [errcode](../e/errcode.md)
   - [errmsg](../e/errmsg.md)
   - [format_type_be](../f/format_type_be.md)
-  - errdomainconstraint
+  - [errdomainconstraint](../e/errdomainconstraint.md)
 - Called from (representative examples):
   - [ExecInterpExpr](ExecInterpExpr.md)
   - [FunctionReturningBool](../F/FunctionReturningBool.md) (via JIT compilation)

@@ -18,7 +18,7 @@ This function handles the complete process of renaming a tablespace in PostgreSQ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open: Opens the pg_tablespace relation with specified lock
+  - [table_open](../t/table_open.md): Opens the pg_tablespace relation with specified lock
   - [ScanKeyInit](../S/ScanKeyInit.md): Initializes scan key for catalog searches
   - [table_beginscan_catalog](../t/table_beginscan_catalog.md): Begins catalog table scan
   - [heap_getnext](../h/heap_getnext.md): Retrieves next tuple from heap scan  
@@ -27,7 +27,7 @@ This function handles the complete process of renaming a tablespace in PostgreSQ
   - [object_ownercheck](../o/object_ownercheck.md): Verifies user ownership of object
   - [aclcheck_error](../a/aclcheck_error.md): Reports access control errors
   - [IsReservedName](../I/IsReservedName.md): Checks if name uses reserved pg_ prefix
-  - namestrcpy: Copies string to Name data type
+  - [namestrcpy](../n/namestrcpy.md): Copies string to Name data type
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md): Updates tuple in system catalog
   - InvokeObjectPostAlterHook: Triggers post-alter event hooks
   - ObjectAddressSet: Sets object address for return value

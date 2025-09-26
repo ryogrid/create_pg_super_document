@@ -40,7 +40,7 @@ The function performs comprehensive permission checking, ensuring the user has a
   - [pg_class_aclcheck](../p/pg_class_aclcheck.md)
   - [aclcheck_error](../a/aclcheck_error.md)
   - [errdetail_relkind_not_supported](../e/errdetail_relkind_not_supported.md)
-  - makeColumnDef
+  - [makeColumnDef](../m/makeColumnDef.md)
   - [getIdentitySequence](../g/getIdentitySequence.md)
   - [sequence_options](../s/sequence_options.md)
   - [generateSerialExtraStmts](../g/generateSerialExtraStmts.md)
@@ -50,7 +50,7 @@ The function performs comprehensive permission checking, ensuring the user has a
   - makeNode (CommentStmt)
   - [makeString](../m/makeString.md)
   - list_make3
-  - table_close
+  - [table_close](table_close.md)
 - Called from (representative examples):
   - [transformCreateStmt](transformCreateStmt.md)
 

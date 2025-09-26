@@ -25,7 +25,7 @@ The `CatalogCacheCompareTuple` function performs optimized key-by-key comparison
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `CatCache`: Structure type containing the fast equality function array (`cc_fastequal`)
+  - `[CatCache](CatCache.md)`: Structure type containing the fast equality function array (`cc_fastequal`)
 - Called from (representative examples):
   - [SearchCatCacheInternal](../S/SearchCatCacheInternal.md): Used during primary catalog cache search operations
   - [SearchCatCacheList](../S/SearchCatCacheList.md): Used during list-based catalog cache searches

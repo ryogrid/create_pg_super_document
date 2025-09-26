@@ -29,7 +29,7 @@ The function combines both equality and greater-than comparisons into a single o
   - `PG_RETURN_BOOL`: Macro to return boolean result as Datum
 - Called from (representative examples):
   - SQL queries using the >= operator with JSONB types
-  - Range query processing for inclusive upper bounds
+  - [Range](../R/Range.md) query processing for inclusive upper bounds
   - B-Tree index operations for boundary checks and range scans
 
 ## Notes and Other Information

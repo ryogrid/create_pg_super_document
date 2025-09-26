@@ -42,18 +42,18 @@ The `config_real` structure is one of the core data types in PostgreSQL's GUC (G
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - config_generic
+  - [config_generic](config_generic.md)
 - Called from (representative examples):
-  - extra_field_used
-  - set_stack_value
-  - build_guc_variables
-  - InitializeOneGUCOption
-  - DefineCustomRealVariable
-  - call_real_check_hook
+  - [extra_field_used](../e/extra_field_used.md)
+  - [set_stack_value](../s/set_stack_value.md)
+  - [build_guc_variables](../b/build_guc_variables.md)
+  - [InitializeOneGUCOption](../I/InitializeOneGUCOption.md)
+  - [DefineCustomRealVariable](../D/DefineCustomRealVariable.md)
+  - [call_real_check_hook](call_real_check_hook.md)
 
 ## Notes and Other Information
 - Part of PostgreSQL's type-safe configuration system that prevents runtime type errors
 - Supports transaction-safe parameter changes through reset_val mechanism
-- Range validation is performed automatically before custom check_hook execution
+- [Range](../R/Range.md) validation is performed automatically before custom check_hook execution
 - Used extensively for performance tuning parameters that require floating-point precision
 - Hook functions provide extensibility for custom validation and side effects during parameter changes

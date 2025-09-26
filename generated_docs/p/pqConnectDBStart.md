@@ -24,7 +24,7 @@ Special handling is provided for cancel requests, which should only attempt conn
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_link_canary_is_frontend (validates proper library linking)
+  - [pg_link_canary_is_frontend](pg_link_canary_is_frontend.md) (validates proper library linking)
   - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md) (appends error messages to connection)
   - [PQconnectPoll](../P/PQconnectPoll.md) (continues the asynchronous connection process)
   - [pqDropConnection](pqDropConnection.md) (closes connection on failure)
@@ -35,7 +35,7 @@ Special handling is provided for cancel requests, which should only attempt conn
   - [PQcancelStart](../P/PQcancelStart.md) (connection cancellation)
   - [PQconnectStartParams](../P/PQconnectStartParams.md) (parameterized connection start)
   - [PQconnectStart](../P/PQconnectStart.md) (standard connection start)
-  - PQsetdbLogin (legacy connection interface)
+  - [PQsetdbLogin](../P/PQsetdbLogin.md) (legacy connection interface)
   - [PQreset](../P/PQreset.md) (connection reset)
   - [PQresetStart](../P/PQresetStart.md) (asynchronous connection reset)
 

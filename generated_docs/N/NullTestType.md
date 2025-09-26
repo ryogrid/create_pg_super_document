@@ -26,9 +26,9 @@ NullTestType specifies the type of NULL test to be performed on expressions, sup
 - Functions called/Symbols referenced:
   - None (this is an enumeration)
 - Called from (representative examples):
-  - nulltestsel (selectivity estimation for NULL tests)
-  - NullTest struct (used as nulltesttype field)
-  - GenericCosts (cost estimation structure)
+  - [nulltestsel](../n/nulltestsel.md) (selectivity estimation for NULL tests)
+  - [NullTest](NullTest.md) struct (used as nulltesttype field)
+  - [GenericCosts](../G/GenericCosts.md) (cost estimation structure)
 
 ## Notes and Other Information
 - Used in conjunction with NullTest structure for implementing NULL testing operations

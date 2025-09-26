@@ -27,16 +27,16 @@ CreateRangeStmt is a parse tree node that represents CREATE TYPE statements used
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag
-  - List (containing String and DefElem nodes)
+  - [List](../L/List.md) (containing String and DefElem nodes)
 - Called from (representative examples):
-  - DefineRange
-  - ProcessUtilitySlow
+  - [DefineRange](../D/DefineRange.md)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md)
 
 ## Notes and Other Information
-- Range types support various operators for containment, overlap, intersection, and ordering
+- [Range](../R/Range.md) types support various operators for containment, overlap, intersection, and ordering
 - The params list can include subtype (required), canonical function, subtype difference function, and collation specifications
 - Common built-in range types include int4range, int8range, numrange, tsrange, tstzrange, and daterange
-- Range types support both inclusive and exclusive bounds using bracket notation (e.g., "[1,10)" means 1 ≤ x < 10)
+- [Range](../R/Range.md) types support both inclusive and exclusive bounds using bracket notation (e.g., "[1,10)" means 1 ≤ x < 10)
 - The canonical function normalizes equivalent range representations
 - The difference function enables more efficient GiST indexing by quantifying the "distance" between range bounds
-- Range types are particularly useful for temporal data, reservation systems, and any application dealing with continuous intervals
+- [Range](../R/Range.md) types are particularly useful for temporal data, reservation systems, and any application dealing with continuous intervals

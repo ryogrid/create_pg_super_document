@@ -24,10 +24,10 @@ When setting a variable, the function parses the variable name as the first argu
 ## Dependencies
 - Functions called/Symbols referenced:
   - psql_scan_slash_option
-  - PrintVariables
+  - [PrintVariables](../P/PrintVariables.md)
   - [pg_strdup](../p/pg_strdup.md)
-  - pg_realloc
-  - SetVariable
+  - [pg_realloc](../p/pg_realloc.md)
+  - [SetVariable](../S/SetVariable.md)
   - [ignore_slash_options](../i/ignore_slash_options.md)
   - strcat
   - strlen

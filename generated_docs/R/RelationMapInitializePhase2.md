@@ -22,7 +22,7 @@ This function takes no parameters.
   - IsBootstrapProcessingMode
   - [load_relmap_file](../l/load_relmap_file.md)
 - Called from (representative examples):
-  - RelationCacheInitializePhase2 (at src/backend/utils/cache/relcache.c:4050)
+  - [RelationCacheInitializePhase2](RelationCacheInitializePhase2.md) (at src/backend/utils/cache/relcache.c:4050)
 
 ## Notes and Other Information
 - Only loads the shared map file, not the local database-specific map

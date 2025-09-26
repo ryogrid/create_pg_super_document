@@ -19,7 +19,7 @@ tts_buffer_heap_getsysattr extracts system attribute values from buffer-backed h
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferHeapTupleTableSlot (cast target type)
+  - [BufferHeapTupleTableSlot](../B/BufferHeapTupleTableSlot.md) (cast target type)
   - TTS_EMPTY (slot state check macro)
   - [heap_getsysattr](../h/heap_getsysattr.md) (core system attribute extraction function)
 - Called from (representative examples):

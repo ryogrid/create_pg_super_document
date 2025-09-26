@@ -20,7 +20,7 @@ This function implements the core hash table expansion algorithm that creates a 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _hash_checkpage
+  - [_hash_checkpage](_hash_checkpage.md)
   - HashPageGetMeta
   - BUCKET_TO_BLKNO
   - [_hash_getbuf_with_condlock_cleanup](_hash_getbuf_with_condlock_cleanup.md)
@@ -28,7 +28,7 @@ This function implements the core hash table expansion algorithm that creates a 
   - [_hash_dropbuf](_hash_dropbuf.md)
   - [hashbucketcleanup](hashbucketcleanup.md)
   - [_hash_spareindex](_hash_spareindex.md)
-  - _hash_get_totalbuckets
+  - [_hash_get_totalbuckets](_hash_get_totalbuckets.md)
   - [_hash_alloc_buckets](_hash_alloc_buckets.md)
   - [_hash_getnewbuf](_hash_getnewbuf.md)
   - [_hash_splitbucket](_hash_splitbucket.md)

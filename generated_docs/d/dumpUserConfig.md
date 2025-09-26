@@ -24,7 +24,7 @@ The function includes proper sanitization of the username for safe display in co
 - Functions called/Symbols referenced:
   - [printfPQExpBuffer](../p/printfPQExpBuffer.md): Formats the SQL query string
   - [appendStringLiteralConn](../a/appendStringLiteralConn.md): Safely appends username as string literal to query
-  - appendPQExpBufferChar: Adds closing parenthesis to query
+  - [appendPQExpBufferChar](../a/appendPQExpBufferChar.md): Adds closing parenthesis to query
   - [executeQuery](../e/executeQuery.md): Executes the constructed query
   - [sanitize_line](../s/sanitize_line.md): Sanitizes username for safe display in comments
   - [resetPQExpBuffer](../r/resetPQExpBuffer.md): Clears buffer for reuse

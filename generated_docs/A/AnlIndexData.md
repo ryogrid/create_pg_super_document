@@ -29,8 +29,8 @@ The structure is primarily used within the analyze.c module to coordinate the co
 - `attr_cnt`: Integer count of the number of attributes in the index that require analysis
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IndexInfo
-  - VacAttrStats
+  - [IndexInfo](../I/IndexInfo.md)
+  - [VacAttrStats](../V/VacAttrStats.md)
 - Called from (representative examples):
   - [do_analyze_rel](../d/do_analyze_rel.md) (multiple references for index processing)
   - [compute_index_stats](../c/compute_index_stats.md) (for statistical computation)

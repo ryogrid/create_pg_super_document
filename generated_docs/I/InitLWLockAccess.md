@@ -24,10 +24,10 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - init_lwlock_stats: Initializes LWLock statistics (only when LWLOCK_STATS is defined)
+  - [init_lwlock_stats](../i/init_lwlock_stats.md): Initializes LWLock statistics (only when LWLOCK_STATS is defined)
 - Called from:
-  - InitProcess: Main backend process initialization
-  - InitAuxiliaryProcess: Auxiliary process initialization
+  - [InitProcess](InitProcess.md): Main backend process initialization
+  - [InitAuxiliaryProcess](InitAuxiliaryProcess.md): Auxiliary process initialization
 
 ## Notes and Other Information
 - This function must be called in every backend process that will use LWLocks

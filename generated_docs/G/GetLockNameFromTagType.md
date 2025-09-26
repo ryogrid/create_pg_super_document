@@ -22,7 +22,7 @@ This function provides a simple mapping from numeric lock tag types to their cor
   - LOCKTAG_LAST_TYPE (constant defining the maximum valid lock tag type)
   - LockTagTypeNames (array of string names corresponding to each lock tag type)
 - Called from (representative examples):
-  - pgstat_get_wait_event (for wait event reporting in pg_stat_activity)
+  - [pgstat_get_wait_event](../p/pgstat_get_wait_event.md) (for wait event reporting in pg_stat_activity)
 
 ## Notes and Other Information
 - Returns a const char pointer to a static string, so the result should not be modified or freed

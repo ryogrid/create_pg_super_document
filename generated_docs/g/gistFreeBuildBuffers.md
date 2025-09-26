@@ -21,7 +21,7 @@ This is a crucial cleanup function that ensures proper resource management and p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufFileClose (to close the temporary buffer file)
+  - [BufFileClose](../B/BufFileClose.md) (to close the temporary buffer file)
   - [GISTBuildBuffers](../G/GISTBuildBuffers.md) (structure access)
 - Called from (representative examples):
   - [gistbuild](gistbuild.md)

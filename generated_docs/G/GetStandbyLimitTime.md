@@ -25,8 +25,8 @@ This static function calculates the maximum time the standby server should wait 
   - max_standby_archive_delay (GUC variable for archive delay)
 - Called from (representative examples):
   - [WaitExceedsMaxStandbyDelay](../W/WaitExceedsMaxStandbyDelay.md) (checks if wait time has exceeded limits)
-  - ResolveRecoveryConflictWithLock (resolves lock conflicts during recovery)
-  - ResolveRecoveryConflictWithBufferPin (resolves buffer pin conflicts during recovery)
+  - [ResolveRecoveryConflictWithLock](../R/ResolveRecoveryConflictWithLock.md) (resolves lock conflicts during recovery)
+  - [ResolveRecoveryConflictWithBufferPin](../R/ResolveRecoveryConflictWithBufferPin.md) (resolves buffer pin conflicts during recovery)
 
 ## Notes and Other Information
 - Static function, only used within standby.c

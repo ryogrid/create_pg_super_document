@@ -38,17 +38,17 @@ The function preserves the structure and field names of the original composite t
   - DatumGetHeapTupleHeader
   - HeapTupleHeaderGetTypeId
   - HeapTupleHeaderGetTypMod
-  - lookup_rowtype_tupdesc
+  - [lookup_rowtype_tupdesc](../l/lookup_rowtype_tupdesc.md)
   - HeapTupleHeaderGetDatumLength
-  - pushJsonbValue
+  - [pushJsonbValue](../p/pushJsonbValue.md)
   - TupleDescAttr
   - NameStr
-  - heap_getattr
-  - json_categorize_type
-  - datum_to_jsonb_internal
+  - [heap_getattr](../h/heap_getattr.md)
+  - [json_categorize_type](../j/json_categorize_type.md)
+  - [datum_to_jsonb_internal](../d/datum_to_jsonb_internal.md)
   - ReleaseTupleDesc
 - Called from (representative examples):
-  - datum_to_jsonb_internal
+  - [datum_to_jsonb_internal](../d/datum_to_jsonb_internal.md)
 
 ## Notes and Other Information
 - This is a static function used internally within jsonb.c for composite type conversion

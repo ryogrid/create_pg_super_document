@@ -28,17 +28,17 @@ This is typically called during system startup or when dynamically creating new 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLock (struct type)
-  - pg_atomic_init_u32 (atomic operation initialization)
+  - [LWLock](LWLock.md) (struct type)
+  - [pg_atomic_init_u32](../p/pg_atomic_init_u32.md) (atomic operation initialization)
   - LW_FLAG_RELEASE_OK (initial lock state flag)
-  - proclist_init (process list initialization)
+  - [proclist_init](../p/proclist_init.md) (process list initialization)
 - Called from (representative examples):
-  - SimpleLruInit (SLRU buffer management)
-  - XLOGShmemInit (WAL system initialization)
-  - InitializeLWLocks (system lock initialization)
-  - dshash_create (dynamic shared hash tables)
-  - InitBufferPool (buffer manager initialization)
-  - StatsShmemInit (statistics system initialization)
+  - [SimpleLruInit](../S/SimpleLruInit.md) (SLRU buffer management)
+  - [XLOGShmemInit](../X/XLOGShmemInit.md) (WAL system initialization)
+  - [InitializeLWLocks](../I/InitializeLWLocks.md) (system lock initialization)
+  - [dshash_create](../d/dshash_create.md) (dynamic shared hash tables)
+  - [InitBufferPool](../I/InitBufferPool.md) (buffer manager initialization)
+  - [StatsShmemInit](../S/StatsShmemInit.md) (statistics system initialization)
 
 ## Notes and Other Information
 - The lock is initialized in an unlocked state, ready for immediate use

@@ -46,7 +46,7 @@ The loop uses DetermineSleepTime() to calculate optimal wait durations, balancin
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ConfigurePostmasterWaitSet](../C/ConfigurePostmasterWaitSet.md)
-  - WaitEventSetWait
+  - [WaitEventSetWait](../W/WaitEventSetWait.md)
   - [DetermineSleepTime](../D/DetermineSleepTime.md)
   - [ResetLatch](../R/ResetLatch.md)
   - [AcceptConnection](../A/AcceptConnection.md)

@@ -23,7 +23,7 @@ If the role replacement results in an empty ACL, the entire pg_init_privs entry 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open/table_close
+  - [table_open](../t/table_open.md)/table_close
   - [ScanKeyInit](../S/ScanKeyInit.md)
   - [systable_beginscan](../s/systable_beginscan.md)/systable_endscan/systable_getnext
   - [heap_getattr](../h/heap_getattr.md)
@@ -35,7 +35,7 @@ If the role replacement results in an empty ACL, the entire pg_init_privs entry 
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - [aclmembers](../a/aclmembers.md)
   - [updateInitAclDependencies](../u/updateInitAclDependencies.md)
-  - CommandCounterIncrement
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md)
 - Called from (representative examples):
   - [shdepReassignOwned_InitAcl](../s/shdepReassignOwned_InitAcl.md)
 

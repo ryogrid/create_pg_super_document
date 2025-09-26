@@ -28,7 +28,7 @@ USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT: A two-eleme
 - Functions called/Symbols referenced:
   - None (pure macro expansion)
 - Called from (representative examples):
-  - pg_sha512_update (multiple locations in src/common/sha2.c)
+  - [pg_sha512_update](../p/pg_sha512_update.md) (multiple locations in src/common/sha2.c)
 
 ## Notes and Other Information
 - This macro is specifically used in SHA-512 operations where bit counts can exceed 64-bit limits

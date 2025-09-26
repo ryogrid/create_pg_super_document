@@ -24,13 +24,13 @@ None - operates on global configuration variables
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SimpleLruAutotuneBuffers
+  - [SimpleLruAutotuneBuffers](../S/SimpleLruAutotuneBuffers.md)
   - transaction_buffers (global GUC variable)
   - CLOG_MAX_ALLOWED_BUFFERS (constant)
   - Min, Max (macros)
 - Called from:
-  - CLOGShmemSize
-  - CLOGShmemInit
+  - [CLOGShmemSize](CLOGShmemSize.md)
+  - [CLOGShmemInit](CLOGShmemInit.md)
 
 ## Notes and Other Information
 - Returns buffer count, not byte size - actual memory calculation happens in CLOGShmemSize

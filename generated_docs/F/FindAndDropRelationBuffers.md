@@ -25,11 +25,11 @@ FindAndDropRelationBuffers implements an optimized approach to buffer removal by
   - [InitBufferTag](../I/InitBufferTag.md)
   - [BufTableHashCode](../B/BufTableHashCode.md)
   - [BufMappingPartitionLock](../B/BufMappingPartitionLock.md)
-  - LWLockAcquire
+  - [LWLockAcquire](../L/LWLockAcquire.md)
   - [BufTableLookup](../B/BufTableLookup.md)
-  - LWLockRelease
+  - [LWLockRelease](../L/LWLockRelease.md)
   - [GetBufferDescriptor](../G/GetBufferDescriptor.md)
-  - LockBufHdr
+  - [LockBufHdr](../L/LockBufHdr.md)
   - [BufTagMatchesRelFileLocator](../B/BufTagMatchesRelFileLocator.md)
   - [BufTagGetForkNum](../B/BufTagGetForkNum.md)
   - [InvalidateBuffer](../I/InvalidateBuffer.md)

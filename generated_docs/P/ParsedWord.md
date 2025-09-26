@@ -41,13 +41,13 @@ The structure is primarily used during the text parsing phase of full-text searc
   - Standard C types (uint16, char*)
 
 - Called from (representative examples):
-  - compareWORD (src/backend/tsearch/to_tsany.c:61-70)
-  - uniqueWORD (src/backend/tsearch/to_tsany.c:77-99)
-  - to_tsvector_byid (src/backend/tsearch/to_tsany.c:254-258)
-  - add_to_tsvector (src/backend/tsearch/to_tsany.c:456)
-  - pushval_morph (src/backend/tsearch/to_tsany.c:506)
-  - parsetext (src/backend/tsearch/ts_parse.c:413)
-  - tsvector_update_trigger (src/backend/utils/adt/tsvector_op.c:2842)
+  - [compareWORD](../c/compareWORD.md) (src/backend/tsearch/to_tsany.c:61-70)
+  - [uniqueWORD](../u/uniqueWORD.md) (src/backend/tsearch/to_tsany.c:77-99)
+  - [to_tsvector_byid](../t/to_tsvector_byid.md) (src/backend/tsearch/to_tsany.c:254-258)
+  - [add_to_tsvector](../a/add_to_tsvector.md) (src/backend/tsearch/to_tsany.c:456)
+  - [pushval_morph](../p/pushval_morph.md) (src/backend/tsearch/to_tsany.c:506)
+  - [parsetext](../p/parsetext.md) (src/backend/tsearch/ts_parse.c:413)
+  - [tsvector_update_trigger](../t/tsvector_update_trigger.md) (src/backend/utils/adt/tsvector_op.c:2842)
   - ParsedText structure (contains array of ParsedWord elements)
 
 ## Notes and Other Information

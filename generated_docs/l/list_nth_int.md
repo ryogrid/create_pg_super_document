@@ -24,7 +24,7 @@ This function ensures type safety by asserting that the list is of type IntList 
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (for type checking to ensure list is IntList)
-  - list_nth_cell (to get the cell at position n)
+  - [list_nth_cell](list_nth_cell.md) (to get the cell at position n)
   - lfirst_int (to extract the integer value from the cell)
 - Called from (representative examples):
   - [CopyReadAttributesText](../C/CopyReadAttributesText.md) (COPY command attribute processing)
@@ -32,7 +32,7 @@ This function ensures type safety by asserting that the list is of type IntList 
   - [set_cte_pathlist](../s/set_cte_pathlist.md) (CTE path planning)
   - [create_ctescan_plan](../c/create_ctescan_plan.md) (CTE scan plan creation)
   - [rewriteSearchAndCycle](../r/rewriteSearchAndCycle.md) (search/cycle rewriting logic)
-  - examine_simple_variable (statistics analysis)
+  - [examine_simple_variable](../e/examine_simple_variable.md) (statistics analysis)
 
 ## Notes and Other Information
 - This is a static inline function for optimal performance

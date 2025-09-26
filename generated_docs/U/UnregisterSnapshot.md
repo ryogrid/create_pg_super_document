@@ -19,14 +19,14 @@ UnregisterSnapshot provides a simple interface for unregistering a snapshot from
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - UnregisterSnapshotFromOwner
+  - [UnregisterSnapshotFromOwner](UnregisterSnapshotFromOwner.md)
 - Called from (representative examples):
-  - _brin_begin_parallel
-  - heap_endscan
-  - systable_endscan
-  - index_endscan
-  - standard_ExecutorEnd
-  - FreeQueryDesc
+  - [_brin_begin_parallel](../b/_brin_begin_parallel.md)
+  - [heap_endscan](../h/heap_endscan.md)
+  - [systable_endscan](../s/systable_endscan.md)
+  - [index_endscan](../i/index_endscan.md)
+  - [standard_ExecutorEnd](../s/standard_ExecutorEnd.md)
+  - [FreeQueryDesc](../F/FreeQueryDesc.md)
 
 ## Notes and Other Information
 - Returns immediately without action if passed NULL snapshot

@@ -35,19 +35,19 @@ The `array_set_element` function creates a new array identical to the input arra
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `ArrayCastAndSet`: Sets element value in fixed-length arrays
+  - `[ArrayCastAndSet](../A/ArrayCastAndSet.md)`: Sets element value in fixed-length arrays
   - `PG_DETOAST_DATUM`: Detoasts varlena elements before insertion
   - `VARATT_IS_EXTERNAL_EXPANDED`: Checks for expanded array format
   - [array_set_element_expanded](array_set_element_expanded.md): Handles expanded array assignments
   - `DatumGetArrayTypeP`: Converts datum to ArrayType pointer
   - `ARR_NDIM`, `ARR_DIMS`, `ARR_LBOUND`, `ARR_ELEMTYPE`: Array metadata
   - [construct_md_array](../c/construct_md_array.md): Creates new arrays from empty arrays
-  - `ArrayGetNItems`, `ArrayCheckBounds`: Array validation functions
+  - `[ArrayGetNItems](../A/ArrayGetNItems.md)`, `ArrayCheckBounds`: Array validation functions
   - `ARR_OVERHEAD_WITHNULLS`, `ARR_OVERHEAD_NONULLS`: Size calculations
-  - `ArrayGetOffset`: Calculates linear offset from subscripts
-  - `array_seek`, `array_get_isnull`: Element access functions
+  - `[ArrayGetOffset](../A/ArrayGetOffset.md)`: Calculates linear offset from subscripts
+  - `[array_seek](array_seek.md)`, `array_get_isnull`: Element access functions
   - `att_addlength_datum`, `att_align_nominal`: Data size/alignment
-  - `array_set_isnull`, `array_bitmap_copy`: Null bitmap management
+  - `[array_set_isnull](array_set_isnull.md)`, `array_bitmap_copy`: Null bitmap management
 - Called from (representative examples):
   - [array_set](array_set.md): Array assignment operations
   - [array_subscript_assign](array_subscript_assign.md): Subscripted assignment operations

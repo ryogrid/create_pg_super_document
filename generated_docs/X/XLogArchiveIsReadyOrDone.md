@@ -24,7 +24,7 @@ This function is specifically designed for use during recovery operations where 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - StatusFilePath
+  - [StatusFilePath](../S/StatusFilePath.md)
 - Called from (representative examples):
   - [CleanupAfterArchiveRecovery](../C/CleanupAfterArchiveRecovery.md)
 

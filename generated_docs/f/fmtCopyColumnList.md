@@ -21,7 +21,7 @@ This function constructs a properly formatted column list for use in COPY statem
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendPQExpBufferChar
+  - [appendPQExpBufferChar](../a/appendPQExpBufferChar.md)
   - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
   - [fmtId](fmtId.md)
 - Types used:

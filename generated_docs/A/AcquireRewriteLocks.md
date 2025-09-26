@@ -39,7 +39,7 @@ A key secondary function is fixing up JOIN RTE references to dropped columns by 
   - [get_parse_rowmark](../g/get_parse_rowmark.md)
   - query_tree_walker
   - [acquireLocksOnSubLinks](../a/acquireLocksOnSubLinks.md)
-  - table_open/table_close
+  - [table_open](../t/table_open.md)/table_close
 - Called from (representative examples):
   - [rewriteRuleAction](../r/rewriteRuleAction.md)
   - [ApplyRetrieveRule](ApplyRetrieveRule.md)

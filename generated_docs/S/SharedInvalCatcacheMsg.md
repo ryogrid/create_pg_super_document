@@ -31,7 +31,7 @@ The structure is part of PostgreSQL's shared invalidation mechanism that ensures
   - Oid (PostgreSQL object identifier type)
   - int8, uint32 (PostgreSQL integer types)
 - Called from (representative examples):
-  - SharedInvalidationMessage (union containing this structure)
+  - [SharedInvalidationMessage](SharedInvalidationMessage.md) (union containing this structure)
   - Various cache invalidation functions in the sinval subsystem
 
 ## Notes and Other Information

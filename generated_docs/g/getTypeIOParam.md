@@ -33,7 +33,7 @@ Note that as of PostgreSQL 8.1, output functions only receive the value itself w
   - [getTypeInputInfo](getTypeInputInfo.md) (type input function information)
   - [getTypeBinaryInputInfo](getTypeBinaryInputInfo.md) (binary input function information)
   - [compile_plperl_function](../c/compile_plperl_function.md) (PL/Perl function compilation)
-  - compile_pltcl_function (PL/Tcl function compilation)
+  - [compile_pltcl_function](../c/compile_pltcl_function.md) (PL/Tcl function compilation)
   - [plsample_func_handler](../p/plsample_func_handler.md) (sample procedural language handler)
 
 ## Notes and Other Information

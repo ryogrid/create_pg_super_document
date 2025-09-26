@@ -34,7 +34,7 @@ This function serves as the primary interface for retrieving transaction objects
   - [ReorderBufferQueueChange](ReorderBufferQueueChange.md) (queuing transaction changes)
   - [ReorderBufferQueueMessage](ReorderBufferQueueMessage.md) (queuing transaction messages)
   - [ReorderBufferCommit](ReorderBufferCommit.md) (committing transactions)
-  - ReorderBufferAssignChild (assigning subtransactions)
+  - [ReorderBufferAssignChild](ReorderBufferAssignChild.md) (assigning subtransactions)
 
 ## Notes and Other Information
 - Uses a single-entry cache (by_txn_last_xid/by_txn_last_txn) to optimize repeated lookups of the same transaction

@@ -89,24 +89,24 @@ The function dynamically switches between full sorting (for small groups) and pr
 - Functions called/Symbols referenced:
   - castNode (safely cast plan state)
   - CHECK_FOR_INTERRUPTS (check for query cancellation)
-  - tuplesort_gettupleslot (retrieve tuple from sort state)
-  - tuplesort_puttupleslot (add tuple to sort state) 
-  - tuplesort_performsort (execute the sort operation)
-  - tuplesort_begin_heap (initialize new sort state)
-  - tuplesort_reset (reset sort state for reuse)
-  - tuplesort_set_bound (set bound for bounded sorts)
-  - tuplesort_used_bound (check if bounded sort was used)
-  - ExecProcNode (get next tuple from outer node)
-  - preparePresortedCols (initialize comparison functions)
-  - isCurrentGroup (check if tuple belongs to current group)
-  - switchToPresortedPrefixMode (transition to prefix sort mode)
-  - ExecGetResultType (get tuple descriptor)
-  - ExecCopySlot/ExecClearTuple (tuple slot management)
+  - [tuplesort_gettupleslot](../t/tuplesort_gettupleslot.md) (retrieve tuple from sort state)
+  - [tuplesort_puttupleslot](../t/tuplesort_puttupleslot.md) (add tuple to sort state) 
+  - [tuplesort_performsort](../t/tuplesort_performsort.md) (execute the sort operation)
+  - [tuplesort_begin_heap](../t/tuplesort_begin_heap.md) (initialize new sort state)
+  - [tuplesort_reset](../t/tuplesort_reset.md) (reset sort state for reuse)
+  - [tuplesort_set_bound](../t/tuplesort_set_bound.md) (set bound for bounded sorts)
+  - [tuplesort_used_bound](../t/tuplesort_used_bound.md) (check if bounded sort was used)
+  - [ExecProcNode](ExecProcNode.md) (get next tuple from outer node)
+  - [preparePresortedCols](../p/preparePresortedCols.md) (initialize comparison functions)
+  - [isCurrentGroup](../i/isCurrentGroup.md) (check if tuple belongs to current group)
+  - [switchToPresortedPrefixMode](../s/switchToPresortedPrefixMode.md) (transition to prefix sort mode)
+  - [ExecGetResultType](ExecGetResultType.md) (get tuple descriptor)
+  - [ExecCopySlot](ExecCopySlot.md)/ExecClearTuple (tuple slot management)
   - outerPlanState (get outer plan state)
   - INSTRUMENT_SORT_GROUP (macro for performance instrumentation)
   - Various constants: INCSORT_* execution states, DEFAULT_MIN_GROUP_SIZE, DEFAULT_MAX_FULL_SORT_GROUP_SIZE
 - Called from (representative examples):
-  - ExecInitIncrementalSort (registered as the execution function)
+  - [ExecInitIncrementalSort](ExecInitIncrementalSort.md) (registered as the execution function)
 
 ## Notes and Other Information
 - This is the primary entry point for incremental sort execution in PostgreSQL's executor

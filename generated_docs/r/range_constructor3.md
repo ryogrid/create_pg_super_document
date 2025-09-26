@@ -24,7 +24,7 @@ The `range_constructor3` function constructs a PostgreSQL range type from three 
   - `RangeBound` - Structure representing range boundary information
   - [range_get_typcache](range_get_typcache.md) - Retrieves type cache entry for the range type
   - [range_parse_flags](range_parse_flags.md) - Parses the flags string to determine boundary inclusiveness
-  - `text_to_cstring` - Converts PostgreSQL text type to C string
+  - `[text_to_cstring](../t/text_to_cstring.md)` - Converts PostgreSQL text type to C string
   - `RANGE_LB_INC` - Flag constant for inclusive lower bound
   - `RANGE_UB_INC` - Flag constant for inclusive upper bound
   - [make_range](../m/make_range.md) - Constructs and validates the actual range value

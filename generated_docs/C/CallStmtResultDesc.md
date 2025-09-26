@@ -25,9 +25,9 @@ The function resolves this by examining the stmt->outargs list, which contains t
   - [build_function_result_tupdesc_t](../b/build_function_result_tupdesc_t.md) (initial tuple descriptor creation)
   - [TupleDescInitEntry](../T/TupleDescInitEntry.md) (attribute initialization)
   - [list_nth](../l/list_nth.md) (output argument access)
-  - exprType (type extraction from expressions)
+  - [exprType](../e/exprType.md) (type extraction from expressions)
 - Called from (representative examples):
-  - UtilityTupleDescriptor
+  - [UtilityTupleDescriptor](../U/UtilityTupleDescriptor.md)
 
 ## Notes and Other Information
 - Returns NULL if the procedure has no output arguments

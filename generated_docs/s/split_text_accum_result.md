@@ -26,8 +26,8 @@ This internal function is responsible for accumulating text fields during string
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - text_isequal (for comparing field_value with null_string)
-  - tuplestore_putvalues (for adding values to tuple store)
+  - [text_isequal](../t/text_isequal.md) (for comparing field_value with null_string)
+  - [tuplestore_putvalues](../t/tuplestore_putvalues.md) (for adding values to tuple store)
   - [accumArrayResult](../a/accumArrayResult.md) (for adding values to array accumulator)
   - [PointerGetDatum](../P/PointerGetDatum.md) (for converting text pointer to Datum)
   - CurrentMemoryContext (for memory management)

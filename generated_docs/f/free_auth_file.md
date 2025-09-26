@@ -26,7 +26,7 @@ This function is part of PostgreSQL's authentication configuration file processi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FreeFile
+  - [FreeFile](../F/FreeFile.md)
   - [MemoryContextDelete](../M/MemoryContextDelete.md)
   - CONF_FILE_START_DEPTH
 - Called from (representative examples):

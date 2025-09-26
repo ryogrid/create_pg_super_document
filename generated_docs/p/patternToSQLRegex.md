@@ -40,10 +40,10 @@ The function intelligently distributes pattern components across the provided bu
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQExpBufferData](../P/PQExpBufferData.md)
-  - initPQExpBuffer
+  - [initPQExpBuffer](../i/initPQExpBuffer.md)
   - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
-  - appendPQExpBufferChar
-  - termPQExpBuffer
+  - [appendPQExpBufferChar](../a/appendPQExpBufferChar.md)
+  - [termPQExpBuffer](../t/termPQExpBuffer.md)
   - [pg_tolower](pg_tolower.md)
   - [PQmblenBounded](../P/PQmblenBounded.md)
   - strchr
@@ -62,5 +62,5 @@ The function intelligently distributes pattern components across the provided bu
 - Special handling for '[]' patterns to avoid regex bracket expressions
 - Callers should check dotcnt return value for error handling when too many dots are present
 - Used primarily by PostgreSQL utilities for pattern matching in database object queries
-- Complex state machine handles quote processing and component separation
+- [Complex](../C/Complex.md) state machine handles quote processing and component separation
 - Part of frontend utilities library for advanced pattern processing

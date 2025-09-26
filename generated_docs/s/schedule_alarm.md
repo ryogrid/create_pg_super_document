@@ -31,20 +31,20 @@ The function implements an optimization where if a signal is already pending for
   - TimestampTz (data type)
   - struct itimerval
   - MemSet
-  - TimestampDifference
+  - [TimestampDifference](../T/TimestampDifference.md)
   - enable_alarm
-  - setitimer
+  - [setitimer](setitimer.md)
   - ITIMER_REAL
   - elog (for error reporting)
 - Called from (representative examples):
-  - handle_sig_alarm
-  - reschedule_timeouts
-  - enable_timeout_after
-  - enable_timeout_every
-  - enable_timeout_at
-  - enable_timeouts
-  - disable_timeout
-  - disable_timeouts
+  - [handle_sig_alarm](../h/handle_sig_alarm.md)
+  - [reschedule_timeouts](../r/reschedule_timeouts.md)
+  - [enable_timeout_after](../e/enable_timeout_after.md)
+  - [enable_timeout_every](../e/enable_timeout_every.md)
+  - [enable_timeout_at](../e/enable_timeout_at.md)
+  - [enable_timeouts](../e/enable_timeouts.md)
+  - [disable_timeout](../d/disable_timeout.md)
+  - [disable_timeouts](../d/disable_timeouts.md)
 
 ## Notes and Other Information
 - This is a static function internal to the timeout.c module

@@ -23,16 +23,16 @@ This mechanism optimizes performance by avoiding redundant preparation of identi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchStmtCache
+  - [SearchStmtCache](../S/SearchStmtCache.md)
   - [ecpg_log](ecpg_log.md)
-  - ecpg_get_connection
+  - [ecpg_get_connection](ecpg_get_connection.md)
   - [ecpg_find_prepared_statement](ecpg_find_prepared_statement.md)
-  - prepare_common
-  - ecpg_strdup
-  - ECPGprepare
-  - AddStmtToCache
+  - [prepare_common](../p/prepare_common.md)
+  - [ecpg_strdup](ecpg_strdup.md)
+  - [ECPGprepare](../E/ECPGprepare.md)
+  - [AddStmtToCache](../A/AddStmtToCache.md)
 - Called from (representative examples):
-  - ecpg_do_prologue
+  - [ecpg_do_prologue](ecpg_do_prologue.md)
 
 ## Notes and Other Information
 - The function maintains a global statement cache () and statement ID counter ()

@@ -29,9 +29,9 @@ The perfect hash guarantee means that for any codepoint that has normalization p
 - Functions called/Symbols referenced:
   - pg_unicode_norminfo (normalization info structure)
   - pg_hton32 (converts 32-bit value to network byte order)
-  - UnicodeNormalizationQC (related to Quick Check functionality)
+  - [UnicodeNormalizationQC](../U/UnicodeNormalizationQC.md) (related to Quick Check functionality)
 - Called from (representative examples):
-  - qc_is_allowed (multiple calls for Quick Check validation)
+  - [qc_is_allowed](qc_is_allowed.md) (multiple calls for Quick Check validation)
 
 ## Notes and Other Information
 - Returns pointer to `pg_unicode_normprops` structure on success, NULL on failure
@@ -39,4 +39,4 @@ The perfect hash guarantee means that for any codepoint that has normalization p
 - Network byte order ensures consistent hashing across different architectures
 - Part of the Unicode Quick Check optimization system for normalization
 - Critical for efficient normalization form validation without full normalization
-- Hash collision handling is unnecessary due to perfect hash properties
+- [Hash](../H/Hash.md) collision handling is unnecessary due to perfect hash properties

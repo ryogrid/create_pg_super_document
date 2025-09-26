@@ -26,17 +26,17 @@ PredicateLockData serves as a container for capturing a complete snapshot of the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PREDICATELOCKTARGETTAG
-  - SERIALIZABLEXACT
+  - [PREDICATELOCKTARGETTAG](PREDICATELOCKTARGETTAG.md)
+  - [SERIALIZABLEXACT](../S/SERIALIZABLEXACT.md)
 - Called from (representative examples):
-  - GetPredicateLockStatusData
-  - pg_lock_status
-  - predicatelock_hash
+  - [GetPredicateLockStatusData](../G/GetPredicateLockStatusData.md)
+  - [pg_lock_status](../p/pg_lock_status.md)
+  - [predicatelock_hash](../p/predicatelock_hash.md)
 
 ## Notes and Other Information
 - Designed specifically for the pg_locks system view functionality
 - Provides read-only snapshot of predicate lock state for monitoring and debugging
-- Arrays locktags and xacts are parallel - element i in each array corresponds to the same predicate lock
+- Arrays locktags and xacts are parallel - [element](../e/element.md) i in each array corresponds to the same predicate lock
 - Used primarily by database administrators and monitoring tools to understand serializable transaction behavior
 - Does not participate in actual predicate locking logic - purely for status reporting
 - Memory for the arrays is typically allocated temporarily and freed after use

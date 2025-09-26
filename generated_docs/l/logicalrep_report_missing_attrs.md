@@ -23,11 +23,11 @@ The function iterates through the bitmap of missing attributes, extracts the col
 ## Dependencies
 - Functions called/Symbols referenced:
   - bms_is_empty: Checks if the bitmap of missing attributes is empty
-  - bms_next_member: Iterates through the bitmap to get the next missing attribute index
-  - errmsg_plural: Provides pluralized error messages for internationalization
-  - LogicalRepRelation: Structure type representing remote relation metadata
+  - [bms_next_member](../b/bms_next_member.md): Iterates through the bitmap to get the next missing attribute index
+  - [errmsg_plural](../e/errmsg_plural.md): Provides pluralized error messages for internationalization
+  - [LogicalRepRelation](../L/LogicalRepRelation.md): Structure type representing remote relation metadata
 - Called from (representative examples):
-  - logicalrep_rel_open: Main function that opens logical replication relations and validates attribute compatibility
+  - [logicalrep_rel_open](logicalrep_rel_open.md): Main function that opens logical replication relations and validates attribute compatibility
 
 ## Notes and Other Information
 - This is a static function, only accessible within the relation.c file

@@ -34,7 +34,7 @@ Operators within the same btree opfamily have compatible comparison semantics, m
   - Form_pg_amop
   - BTREE_AM_OID
 - Called from (representative examples):
-  - ineq_histogram_selectivity
+  - [ineq_histogram_selectivity](../i/ineq_histogram_selectivity.md)
 
 ## Notes and Other Information
 - Returns true if the operators are compatible, false otherwise

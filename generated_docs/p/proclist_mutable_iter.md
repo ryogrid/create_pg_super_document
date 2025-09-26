@@ -34,8 +34,8 @@ The iterator works by maintaining both the current position and pre-fetching the
 - Functions called/Symbols referenced:
   - ProcNumber (typedef used for cur/next fields)
 - Called from (representative examples):
-  - LWLockWakeup
-  - LWLockUpdateVar
+  - [LWLockWakeup](../L/LWLockWakeup.md)
+  - [LWLockUpdateVar](../L/LWLockUpdateVar.md)
   - proclist_foreach_modify
 
 ## Notes and Other Information

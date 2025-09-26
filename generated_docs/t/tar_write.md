@@ -30,7 +30,7 @@ This function serves as the main write interface for TAR-based WAL files in Post
 - Called from:
   - [CreateWalDirectoryMethod](../C/CreateWalDirectoryMethod.md) (as function pointer assignment)
   - [tar_write_padding_data](tar_write_padding_data.md)
-  - tar_close
+  - [tar_close](tar_close.md)
 
 ## Notes and Other Information
 - Returns the number of bytes written on success, -1 on failure

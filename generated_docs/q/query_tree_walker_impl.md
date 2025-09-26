@@ -35,7 +35,7 @@ The traversal is performed using a callback mechanism where a user-provided walk
 - Functions called/Symbols referenced:
   - WALK (macro for calling walker callback)
   - range_table_walker
-  - WindowClause
+  - [WindowClause](../W/WindowClause.md)
   - [QTW_EXAMINE_SORTGROUP](../Q/QTW_EXAMINE_SORTGROUP.md)
   - [QTW_IGNORE_CTE_SUBQUERIES](../Q/QTW_IGNORE_CTE_SUBQUERIES.md)  
   - [QTW_IGNORE_RANGE_TABLE](../Q/QTW_IGNORE_RANGE_TABLE.md)
@@ -46,6 +46,6 @@ The traversal is performed using a callback mechanism where a user-provided walk
 ## Notes and Other Information
 - The function specifically excludes utilityStmt from traversal as these are handled separately
 - groupingSets and rowMarks are intentionally not walked as they contain only integers and indexes that are meaningless without their corresponding context
-- WindowClause expressions are walked even when SortGroupClause nodes are ignored, ensuring window function expressions are not missed
+- [WindowClause](../W/WindowClause.md) expressions are walked even when SortGroupClause nodes are ignored, ensuring window function expressions are not missed
 - The function assumes the Query node is valid and uses Assert to verify this
 - Early termination is supported - if any walker callback returns true, the entire traversal stops and returns true

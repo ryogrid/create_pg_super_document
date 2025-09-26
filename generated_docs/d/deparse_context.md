@@ -56,21 +56,21 @@ The structure manages output formatting through pretty-printing controls, mainta
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AppendRelInfo (for inheritance relationship mapping)
+  - [AppendRelInfo](../A/AppendRelInfo.md) (for inheritance relationship mapping)
   - StringInfo (for output buffer management)
-  - List (for namespace and clause management)
-  - TupleDesc (for result descriptor handling)
-  - Bitmapset (for relation mapping)
+  - [List](../L/List.md) (for namespace and clause management)
+  - [TupleDesc](../T/TupleDesc.md) (for result descriptor handling)
+  - [Bitmapset](../B/Bitmapset.md) (for relation mapping)
 
 - Called from (representative examples):
-  - pg_get_triggerdef_worker
-  - deparse_expression_pretty
-  - get_rtable_name
-  - make_ruledef
-  - get_query_def
-  - get_select_query_def
-  - get_rule_expr
-  - get_from_clause
+  - [pg_get_triggerdef_worker](../p/pg_get_triggerdef_worker.md)
+  - [deparse_expression_pretty](deparse_expression_pretty.md)
+  - [get_rtable_name](../g/get_rtable_name.md)
+  - [make_ruledef](../m/make_ruledef.md)
+  - [get_query_def](../g/get_query_def.md)
+  - [get_select_query_def](../g/get_select_query_def.md)
+  - [get_rule_expr](../g/get_rule_expr.md)
+  - [get_from_clause](../g/get_from_clause.md)
 
 ## Notes and Other Information
 - This structure is fundamental to PostgreSQL's ability to reconstruct SQL text from parsed query trees

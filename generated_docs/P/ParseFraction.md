@@ -27,10 +27,10 @@ The function performs strict validation, ensuring that the entire input string a
   - strtod (standard library function)
   - Assert (assertion macro)
 - Called from (representative examples):
-  - ParseFractionalSecond
-  - DecodeDateTime  
-  - DecodeTimeOnly
-  - DecodeInterval
+  - [ParseFractionalSecond](ParseFractionalSecond.md)
+  - [DecodeDateTime](../D/DecodeDateTime.md)  
+  - [DecodeTimeOnly](../D/DecodeTimeOnly.md)
+  - [DecodeInterval](../D/DecodeInterval.md)
 
 ## Notes and Other Information
 - Returns 0 on success, DTERR_BAD_FORMAT on parsing errors

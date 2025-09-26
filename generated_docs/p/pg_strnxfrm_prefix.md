@@ -31,7 +31,7 @@ Like its sibling function, it supports different collation providers through the
   - PGLOCALE_SUPPORT_ERROR
   - COLLPROVIDER_ICU
   - COLLPROVIDER_LIBC
-  - pg_locale_t
+  - [pg_locale_t](pg_locale_t.md)
 - Called from (representative examples):
   - (Referenced in pg_locale.h but specific callers not found in current analysis)
 

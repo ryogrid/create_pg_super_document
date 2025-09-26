@@ -55,13 +55,13 @@ Upon backup completion, the structure records the ending WAL coordinates and tim
   - MAXPGPATH (for backup name buffer sizing)
 
 - Called from (representative examples):
-  - do_pg_backup_start (src/backend/access/transam/xlog.c:8809)
-  - do_pg_backup_stop (src/backend/access/transam/xlog.c:9136)
-  - build_backup_content (src/backend/access/transam/xlogbackup.c:29)
-  - pg_backup_start (src/backend/access/transam/xlogfuncs.c:92)
-  - perform_base_backup (src/backend/backup/basebackup.c:241, 263)
-  - PrepareForIncrementalBackup (src/backend/backup/basebackup_incremental.c:266)
-  - SessionBackupState (src/include/access/xlog.h:291, 293)
+  - [do_pg_backup_start](../d/do_pg_backup_start.md) (src/backend/access/transam/xlog.c:8809)
+  - [do_pg_backup_stop](../d/do_pg_backup_stop.md) (src/backend/access/transam/xlog.c:9136)
+  - [build_backup_content](../b/build_backup_content.md) (src/backend/access/transam/xlogbackup.c:29)
+  - [pg_backup_start](../p/pg_backup_start.md) (src/backend/access/transam/xlogfuncs.c:92)
+  - [perform_base_backup](../p/perform_base_backup.md) (src/backend/backup/basebackup.c:241, 263)
+  - [PrepareForIncrementalBackup](../P/PrepareForIncrementalBackup.md) (src/backend/backup/basebackup_incremental.c:266)
+  - [SessionBackupState](../S/SessionBackupState.md) (src/include/access/xlog.h:291, 293)
 
 ## Notes and Other Information
 - The structure supports both traditional full backups and incremental backup operations through dedicated fields (istartpoint, istarttli)

@@ -26,14 +26,14 @@ The function ensures that stale cache entries are cleaned up whenever relevant c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_seq_init
-  - hash_seq_search  
-  - hash_search
+  - [hash_seq_init](../h/hash_seq_init.md)
+  - [hash_seq_search](../h/hash_seq_search.md)  
+  - [hash_search](../h/hash_search.md)
   - HASH_REMOVE
-  - HASH_SEQ_STATUS
+  - [HASH_SEQ_STATUS](../H/HASH_SEQ_STATUS.md)
   - RelfilenumberMapEntry
 - Called from (representative examples):
-  - InitializeRelfilenumberMap (registered as callback)
+  - [InitializeRelfilenumberMap](../I/InitializeRelfilenumberMap.md) (registered as callback)
 
 ## Notes and Other Information
 - This is a static function only used within the relfilenumbermap.c module

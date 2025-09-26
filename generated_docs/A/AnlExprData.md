@@ -27,7 +27,7 @@ The structure facilitates the analysis of complex expressions (not just simple c
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Node](../N/Node.md) (PostgreSQL parse tree node base type)
-  - VacAttrStats (PostgreSQL statistics collection structure)
+  - [VacAttrStats](../V/VacAttrStats.md) (PostgreSQL statistics collection structure)
 
 - Called from (representative examples):
   - [BuildRelationExtStatistics](../B/BuildRelationExtStatistics.md)

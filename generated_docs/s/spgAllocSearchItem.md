@@ -28,7 +28,7 @@ For non-NULL items with distance-based ordering, the function allocates addition
   - memcpy (standard library function for memory copying)
   - SizeOfSpGistSearchItem (macro calculating structure size based on distance array needs)
   - SpGistScanOpaque (scan context structure type)
-  - SpGistSearchItem (search item structure type)
+  - [SpGistSearchItem](../S/SpGistSearchItem.md) (search item structure type)
 - Called from (representative examples):
   - [spgAddStartItem](spgAddStartItem.md) (allocates initial search items)
   - [spgNewHeapItem](spgNewHeapItem.md) (creates items for heap tuples)

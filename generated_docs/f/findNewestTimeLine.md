@@ -27,7 +27,7 @@ An important guarantee provided by this function is that (result + 1) represents
 - Called from (representative examples):
   - [StartupXLOG](../S/StartupXLOG.md) - during database startup to determine current timeline state
   - [validateRecoveryParameters](../v/validateRecoveryParameters.md) - during recovery parameter validation
-  - [rescanLatestTimeLine](../r/rescanLatestTimeLine.md) - when rescanning timeline information
+  - [rescanLatestTimeLine](../r/rescanLatestTimeLine.md) - [when](../w/when.md) rescanning timeline information
 
 ## Notes and Other Information
 - The algorithm assumes sequential timeline IDs without gaps, though comments suggest this assumption might be reconsidered

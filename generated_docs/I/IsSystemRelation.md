@@ -25,7 +25,7 @@ The function acts as a wrapper around IsSystemClass, extracting the relation OID
   - RelationGetRelid (macro to extract OID from relation)
 - Called from (representative examples):
   - [heapam_relation_copy_for_cluster](../h/heapam_relation_copy_for_cluster.md)
-  - index_create
+  - [index_create](../i/index_create.md)
   - [ATRewriteTables](../A/ATRewriteTables.md)
   - [CreateTriggerFiringOn](../C/CreateTriggerFiringOn.md)
   - [get_relation_info](../g/get_relation_info.md)

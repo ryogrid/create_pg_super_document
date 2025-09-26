@@ -30,7 +30,7 @@ The function handles special date values:
   - USECS_PER_DAY (constant for microseconds per day conversion)
   - DateADT (PostgreSQL's date type)
 - Called from (representative examples):
-  - convert_timevalue_to_scalar (in query planner statistics)
+  - [convert_timevalue_to_scalar](../c/convert_timevalue_to_scalar.md) (in query planner statistics)
 
 ## Notes and Other Information
 - The function is specifically designed to avoid overflow exceptions that could occur with regular timestamp conversion

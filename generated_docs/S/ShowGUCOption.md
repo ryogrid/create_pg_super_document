@@ -36,14 +36,14 @@ The function processes each variable type differently:
 ## Dependencies
 - Functions called/Symbols referenced:
   - [convert_int_from_base_unit](../c/convert_int_from_base_unit.md)
-  - convert_real_from_base_unit
-  - config_enum_lookup_by_value
+  - [convert_real_from_base_unit](../c/convert_real_from_base_unit.md)
+  - [config_enum_lookup_by_value](../c/config_enum_lookup_by_value.md)
   - [pstrdup](../p/pstrdup.md)
   - snprintf
 - Called from (representative examples):
   - [ReportGUCOption](../R/ReportGUCOption.md)
   - [GetConfigOptionByName](../G/GetConfigOptionByName.md)
-  - ShowAllGUCConfig
+  - [ShowAllGUCConfig](ShowAllGUCConfig.md)
   - [GetConfigOptionValues](../G/GetConfigOptionValues.md)
 
 ## Notes and Other Information

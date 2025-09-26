@@ -22,7 +22,7 @@ The function includes an important safety feature that helps catch programming e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetMemoryChunkContext (for memory context verification)
+  - [GetMemoryChunkContext](../G/GetMemoryChunkContext.md) (for memory context verification)
   - [pfree](../p/pfree.md) (for actual memory deallocation)
 
 - Called from (representative examples):
@@ -34,10 +34,10 @@ The function includes an important safety feature that helps catch programming e
   - [add_placeholder_variable](../a/add_placeholder_variable.md)
   - [SelectConfigFiles](../S/SelectConfigFiles.md)
   - [ReportGUCOption](../R/ReportGUCOption.md)
-  - parse_and_validate_value
+  - [parse_and_validate_value](../p/parse_and_validate_value.md)
   - [AlterSystemSetConfigFile](../A/AlterSystemSetConfigFile.md)
-  - RestoreGUCState
-  - call_string_check_hook
+  - [RestoreGUCState](../R/RestoreGUCState.md)
+  - [call_string_check_hook](../c/call_string_check_hook.md)
 
 ## Notes and Other Information
 - Part of the GUC infrastructure for memory management

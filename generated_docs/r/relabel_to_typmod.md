@@ -35,15 +35,15 @@ This ensures that the relabeling operation is both safe and maintains proper exp
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - applyRelabelType (the underlying implementation for relabeling)
-  - exprType (to extract current type)
-  - exprCollation (to extract current collation)
+  - [applyRelabelType](../a/applyRelabelType.md) (the underlying implementation for relabeling)
+  - [exprType](../e/exprType.md) (to extract current type)
+  - [exprCollation](../e/exprCollation.md) (to extract current collation)
   - COERCE_EXPLICIT_CAST (coercion format constant)
 
 - Called from (representative examples):
   - Type support functions (numeric_support, interval_support, varchar_support, varbit_support)
-  - TemporalSimplify (for datetime processing)
-  - QTW_EXAMINE_SORTGROUP (query tree walker examination)
+  - [TemporalSimplify](../T/TemporalSimplify.md) (for datetime processing)
+  - [QTW_EXAMINE_SORTGROUP](../Q/QTW_EXAMINE_SORTGROUP.md) (query tree walker examination)
 
 ## Notes and Other Information
 - This is a convenience function for a common usage pattern of applyRelabelType

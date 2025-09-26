@@ -31,7 +31,7 @@ The algorithm iterates through each partition key attribute, then through all al
   - [get_sortgrouplist_exprs](get_sortgrouplist_exprs.md)
   - [exprCollation](../e/exprCollation.md)
   - [equal](../e/equal.md)
-  - RelabelType (type checking)
+  - [RelabelType](../R/RelabelType.md) (type checking)
 - Called from (representative examples):
   - [create_ordinary_grouping_paths](../c/create_ordinary_grouping_paths.md)
 

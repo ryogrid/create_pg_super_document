@@ -23,7 +23,7 @@ The function serves as a clean API boundary between the cache invalidation logic
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SIInsertDataEntries](SIInsertDataEntries.md) (handles actual insertion into shared invalidation queue)
-  - SharedInvalidationMessage (message structure type)
+  - [SharedInvalidationMessage](SharedInvalidationMessage.md) (message structure type)
 - Called from (representative examples):
   - [FinishPreparedTransaction](../F/FinishPreparedTransaction.md) (during two-phase commit completion)
   - [ProcessCommittedInvalidationMessages](../P/ProcessCommittedInvalidationMessages.md) (when processing committed invalidations)  

@@ -23,11 +23,11 @@ The function performs the necessary pointer casting and dereferencing to convert
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - QTNodeCompare (actual comparison implementation)
+  - [QTNodeCompare](../Q/QTNodeCompare.md) (actual comparison implementation)
 - Data types used:
-  - QTNode (through pointer casting)
+  - [QTNode](../Q/QTNode.md) (through pointer casting)
 - Called from (representative examples):
-  - QTNSort
+  - [QTNSort](../Q/QTNSort.md)
 
 ## Notes and Other Information
 - Static function, only accessible within the tsquery_util.c compilation unit

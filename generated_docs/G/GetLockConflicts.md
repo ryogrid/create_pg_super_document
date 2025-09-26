@@ -23,18 +23,18 @@ The implementation first checks for potential fast-path conflicts by examining e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LockTagHashCode: Computes hash code for the lock tag
+  - [LockTagHashCode](../L/LockTagHashCode.md): Computes hash code for the lock tag
   - LockHashPartitionLock: Determines the appropriate partition lock
   - ConflictsWithRelationFastPath: Checks if the lock could conflict with fast-path locks
   - FAST_PATH_GET_BITS: Macro to extract lock bits from fast-path slots
   - [hash_search_with_hash_value](../h/hash_search_with_hash_value.md): Searches for lock objects in shared hash table
   - GET_VXID_FROM_PGPROC: Macro to extract virtual transaction ID from PGPROC
   - VirtualTransactionIdIsValid/VirtualTransactionIdEquals: VXID utility functions
-  - LWLockAcquire/LWLockRelease: Low-level locking primitives
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease: Low-level locking primitives
   - dlist_foreach/dlist_container: Doubly-linked list iteration macros
 - Called from (representative examples):
-  - ProcSleep: During lock waiting to identify blocking transactions
-  - ResolveRecoveryConflictWithLock: For resolving conflicts during hot standby recovery
+  - [ProcSleep](../P/ProcSleep.md): During lock waiting to identify blocking transactions
+  - [ResolveRecoveryConflictWithLock](../R/ResolveRecoveryConflictWithLock.md): For resolving conflicts during hot standby recovery
   - [WaitForLockersMultiple](../W/WaitForLockersMultiple.md): When waiting for multiple lock holders to complete
 
 ## Notes and Other Information

@@ -35,7 +35,7 @@ The structure encapsulates all the necessary information needed to define how a 
   - [List](../L/List.md) (PostgreSQL list type)
 - Called from (representative examples):
   - [transformPartitionSpec](../t/transformPartitionSpec.md)
-  - CreateStmt
+  - [CreateStmt](../C/CreateStmt.md)
   - [RangeVarCallbackForAlterRelation](../R/RangeVarCallbackForAlterRelation.md)
 
 ## Notes and Other Information

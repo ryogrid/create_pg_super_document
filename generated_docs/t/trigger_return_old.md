@@ -22,7 +22,7 @@ trigger_return_old is a PostgreSQL trigger function designed to return the origi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TriggerData (structure containing trigger context information)
+  - [TriggerData](../T/TriggerData.md) (structure containing trigger context information)
   - CALLED_AS_TRIGGER (macro to validate trigger context)
   - elog (PostgreSQL logging/error function)
   - [PointerGetDatum](../P/PointerGetDatum.md) (converts pointer to Datum)

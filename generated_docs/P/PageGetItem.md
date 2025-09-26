@@ -29,7 +29,7 @@ This function is fundamental to PostgreSQL's storage layer and is used extensive
   - B-tree operations (_bt_search, _bt_readpage, _bt_split)
   - GIN operations (collectMatchBitmap, entryLocateEntry)
   - GiST operations (gistScanPage, gistdoinsert)
-  - Hash operations (_hash_load_qualified_items)
+  - [Hash](../H/Hash.md) operations (_hash_load_qualified_items)
   - SP-GiST operations (spgWalk, vacuumLeafPage)
   - BRIN operations (brinGetTupleForHeapBlock)
 

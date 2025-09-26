@@ -37,10 +37,10 @@ In the context of PostgreSQL's JIT compilation, this intrinsic is used to mark t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - l_ptr
+  - [l_ptr](../l/l_ptr.md)
   - lengthof
 - Called from (representative examples):
-  - BuildV1Call
+  - [BuildV1Call](../B/BuildV1Call.md)
 
 ## Notes and Other Information
 - Returns an LLVMValueRef representing the llvm.lifetime.end.p0i8 intrinsic function

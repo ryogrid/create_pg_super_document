@@ -28,12 +28,12 @@ This structure focuses on the transition from plan to execution state, with the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CustomScan (plan node structure that uses these methods)
+  - [CustomScan](CustomScan.md) (plan node structure that uses these methods)
   - [Node](../N/Node.md) (return type for state creation)
 - Called from (representative examples):
   - [RegisterCustomScanMethods](../R/RegisterCustomScanMethods.md) (registration function)
   - [GetCustomScanMethods](../G/GetCustomScanMethods.md) (lookup function)
-  - CustomScan (plan node references these methods)
+  - [CustomScan](CustomScan.md) (plan node references these methods)
   - Executor initialization code
 
 ## Notes and Other Information

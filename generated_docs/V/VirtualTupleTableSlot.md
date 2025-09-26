@@ -27,12 +27,12 @@ VirtualTupleTableSlot represents tuples that exist only in their decomposed form
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TupleTableSlot (base structure)
+  - [TupleTableSlot](../T/TupleTableSlot.md) (base structure)
   - TTSOpsVirtual (operations table)
 - Called from (representative examples):
-  - tts_virtual_clear
-  - tts_virtual_materialize
-  - slot_deform_heap_tuple
+  - [tts_virtual_clear](../t/tts_virtual_clear.md)
+  - [tts_virtual_materialize](../t/tts_virtual_materialize.md)
+  - [slot_deform_heap_tuple](../s/slot_deform_heap_tuple.md)
 
 ## Notes and Other Information
 - Virtual slots use TTSOpsVirtual as their operations table

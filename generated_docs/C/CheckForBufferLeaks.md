@@ -17,10 +17,10 @@ This static function serves as a debugging cross-check to ensure that no buffer 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PrivateRefCountEntry (reference count entry structure)
+  - [PrivateRefCountEntry](../P/PrivateRefCountEntry.md) (reference count entry structure)
   - REFCOUNT_ARRAY_ENTRIES (size constant for the static array)
   - [DebugPrintBufferRefcount](../D/DebugPrintBufferRefcount.md) (generates detailed buffer information)
-  - HASH_SEQ_STATUS (hash table iteration state)
+  - [HASH_SEQ_STATUS](../H/HASH_SEQ_STATUS.md) (hash table iteration state)
   - [hash_seq_init](../h/hash_seq_init.md) (initializes hash table iteration)
   - [hash_seq_search](../h/hash_seq_search.md) (iterates through hash table entries)
 - Called from (representative examples):

@@ -24,7 +24,7 @@ This function manages the dynamic typenames array by adding new type names while
   - [err](../e/err.md) (error reporting and program termination)
 - Called from (representative examples):
   - [set_option](../s/set_option.md) (at src/tools/pg_bsd_indent/args.c:296)
-  - add_typedefs_from_file (at src/tools/pg_bsd_indent/args.c:347)
+  - [add_typedefs_from_file](add_typedefs_from_file.md) (at src/tools/pg_bsd_indent/args.c:347)
 
 ## Notes and Other Information
 - Maintains the typenames array in sorted alphabetical order

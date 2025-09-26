@@ -36,7 +36,7 @@ The algorithm ensures efficient tree traversal while maintaining the SP-GiST inv
   - [commonPrefix](../c/commonPrefix.md) (prefix length calculation)
   - [formTextDatum](../f/formTextDatum.md) (text datum creation)
   - [searchChar](searchChar.md) (binary search in node labels)
-  - Int16GetDatum (int16 to datum conversion)
+  - [Int16GetDatum](../I/Int16GetDatum.md) (int16 to datum conversion)
   - spgSplitTuple, spgMatchNode, spgAddNode (SP-GiST result types)
   - PG_RETURN_VOID (PostgreSQL return macro)
 - Called from (representative examples):

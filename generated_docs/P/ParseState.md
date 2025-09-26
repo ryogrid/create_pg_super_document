@@ -106,7 +106,7 @@ The parser uses this structure to track range table entries (RTEs), namespace vi
 - Functions called/Symbols referenced:
   - [ParseNamespaceItem](ParseNamespaceItem.md) (used in p_namespace list)
   - [ParseExprKind](ParseExprKind.md) (for p_expr_kind field)
-  - QueryEnvironment (for p_queryEnv field)
+  - [QueryEnvironment](../Q/QueryEnvironment.md) (for p_queryEnv field)
   - CommonTableExpr (for p_parent_cte field)
   - [RangeTblEntry](../R/RangeTblEntry.md) (for p_rtable list)
   - [RTEPermissionInfo](../R/RTEPermissionInfo.md) (for p_rteperminfos list)

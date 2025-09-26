@@ -27,7 +27,7 @@ queue_listen serves as the shared implementation for all listening-related SQL c
   - [palloc](../p/palloc.md)
   - strcpy
   - list_make1
-  - lappend
+  - [lappend](../l/lappend.md)
   - [ListenAction](../L/ListenAction.md) (struct)
   - [ActionList](../A/ActionList.md) (struct)
   - [ListenActionKind](../L/ListenActionKind.md) (enum)

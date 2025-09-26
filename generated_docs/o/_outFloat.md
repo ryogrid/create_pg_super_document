@@ -23,11 +23,11 @@ This straightforward approach reflects PostgreSQL's design where Float nodes sto
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendStringInfoString
+  - [appendStringInfoString](../a/appendStringInfoString.md)
 - Types referenced:
-  - Float
+  - [Float](../F/Float.md)
 - Called from (representative examples):
-  - outNode at src/backend/nodes/outfuncs.c:730
+  - [outNode](outNode.md) at src/backend/nodes/outfuncs.c:730
 
 ## Notes and Other Information
 - This is a static function, used only within the outfuncs.c compilation unit

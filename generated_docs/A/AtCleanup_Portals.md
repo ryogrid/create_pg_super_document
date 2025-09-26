@@ -28,7 +28,7 @@ This function takes no parameters.
   - [hash_seq_init](../h/hash_seq_init.md)
   - [hash_seq_search](../h/hash_seq_search.md)
   - PointerIsValid
-  - PortalDrop
+  - [PortalDrop](../P/PortalDrop.md)
   - elog
   - PORTAL_ACTIVE
   - InvalidSubTransactionId

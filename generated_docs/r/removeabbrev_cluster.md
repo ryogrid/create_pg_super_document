@@ -26,11 +26,11 @@ The function is specifically designed for CLUSTER operations, which sort table d
 ## Dependencies
 - Functions called/Symbols referenced:
   - TuplesortstateGetPublic
-  - heap_getattr
+  - [heap_getattr](../h/heap_getattr.md)
   - TuplesortClusterArg
   - TuplesortPublic
 - Called from (representative examples):
-  - tuplesort_begin_cluster
+  - [tuplesort_begin_cluster](../t/tuplesort_begin_cluster.md)
   - CLUSTER_SORT operations
 
 ## Notes and Other Information

@@ -19,14 +19,14 @@ RemoveTSConfigurationById performs the low-level deletion of a text search confi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open (opens system catalog relations)
+  - [table_open](../t/table_open.md) (opens system catalog relations)
   - [SearchSysCache1](../S/SearchSysCache1.md) (finds configuration tuple by OID)
   - [CatalogTupleDelete](../C/CatalogTupleDelete.md) (removes tuples from catalogs)
   - [ReleaseSysCache](ReleaseSysCache.md) (releases cached tuple)
   - [ScanKeyInit](../S/ScanKeyInit.md) (initializes scan key)
   - [systable_beginscan](../s/systable_beginscan.md)/systable_getnext (scans configuration map)
   - [systable_endscan](../s/systable_endscan.md) (ends scan)
-  - table_close (closes relations)
+  - [table_close](../t/table_close.md) (closes relations)
 - Called from (representative examples):
   - [doDeletion](../d/doDeletion.md) (dependency system deletion)
 

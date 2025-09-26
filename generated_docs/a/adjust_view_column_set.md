@@ -29,7 +29,7 @@ The mapping process assumes that relevant targetlist entries are plain Var nodes
   - [get_tle_by_resno](../g/get_tle_by_resno.md) (function to find target list entry by result number)
   - AttrNumber (type for attribute numbers)
   - [TargetEntry](../T/TargetEntry.md) (structure for target list entries)
-  - Var (node type for variable references)
+  - [Var](../V/Var.md) (node type for variable references)
   - lfirst_node (macro to get list cell content with type checking)
   - castNode (macro for safe node type casting)
   - IsA (macro for type checking)

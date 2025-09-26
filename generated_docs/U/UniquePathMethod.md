@@ -37,12 +37,12 @@ UNIQUE_PATH_NOOP represents an optimization where the input is already guarantee
 - Called from (representative examples):
   - [create_unique_plan](../c/create_unique_plan.md) (in createplan.c for plan creation)
   - [create_unique_path](../c/create_unique_path.md) (in pathnode.c for path generation)
-  - UniquePath struct (as umethod field)
+  - [UniquePath](UniquePath.md) struct (as umethod field)
 
 ## Notes and Other Information
 - Used exclusively within UniquePath structures to control deduplication strategy
 - The choice between HASH and SORT methods is made by the optimizer based on cost estimates
 - NOOP method is an important optimization that avoids unnecessary work when uniqueness is already guaranteed
-- Hash-based method generally preferred for large datasets with good hash distribution
-- Sort-based method leveraged when input has existing ordering or when memory is constrained
+- [Hash](../H/Hash.md)-based method generally preferred for large datasets with good hash distribution
+- [Sort](../S/Sort.md)-based method leveraged when input has existing ordering or when memory is constrained
 - Critical for implementing SQL DISTINCT and UNION operations efficiently

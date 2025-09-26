@@ -26,9 +26,9 @@ This function is essential for accurate time calculations in timezones that acco
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_time_t (PostgreSQL time type)
-  - lsinfo (leap second info structure)
+  - [lsinfo](lsinfo.md) (leap second info structure)
 - Called from (representative examples):
-  - tzloadbody (during timezone data loading and validation)
+  - [tzloadbody](../t/tzloadbody.md) (during timezone data loading and validation)
 
 ## Notes and Other Information
 - Returns the cumulative leap second correction as a 64-bit signed integer

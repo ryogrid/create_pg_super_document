@@ -25,7 +25,7 @@ The node maintains a list of row marking specifications that determine what type
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (creates a new LockRows node)
-  - LockRows (the plan node type being created)
+  - [LockRows](../L/LockRows.md) (the plan node type being created)
 - Called from (representative examples):
   - [create_lockrows_plan](../c/create_lockrows_plan.md)
   - CP_IGNORE_TLIST

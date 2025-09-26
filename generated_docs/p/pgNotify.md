@@ -40,9 +40,9 @@ The structure supports both simple notifications (just a condition name) and ric
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgNotify (self-referential for linked list)
+  - [pgNotify](pgNotify.md) (self-referential for linked list)
 - Called from (representative examples):
-  - PQnotifies - Retrieves the next pending notification from the queue
+  - [PQnotifies](../P/PQnotifies.md) - Retrieves the next pending notification from the queue
   - NOTIFY SQL commands - Generate notifications that result in pgNotify structures
   - LISTEN SQL commands - Set up to receive notifications
 

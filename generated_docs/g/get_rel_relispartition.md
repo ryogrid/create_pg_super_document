@@ -30,7 +30,7 @@ The function performs a system cache lookup on the pg_class catalog using the re
   - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) (OID to Datum conversion)
 
 - Called from (representative examples):
-  - index_concurrently_swap
+  - [index_concurrently_swap](../i/index_concurrently_swap.md)
   - [filter_partitions](../f/filter_partitions.md)
   - [get_rel_sync_entry](get_rel_sync_entry.md)
   - [check_rel_can_be_partition](../c/check_rel_can_be_partition.md)

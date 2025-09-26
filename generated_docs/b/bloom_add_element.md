@@ -30,8 +30,8 @@ Once an element is added to the filter, subsequent calls to `bloom_lacks_element
   - [bloom_filter](bloom_filter.md): The filter structure type
 
 - Called from (representative examples):
-  - `roles_list_append`: Adding role identifiers to ACL membership filter
-  - `populate_with_dummy_strings`: Test data population
+  - `[roles_list_append](../r/roles_list_append.md)`: Adding role identifiers to ACL membership filter
+  - `[populate_with_dummy_strings](../p/populate_with_dummy_strings.md)`: Test data population
 
 ## Notes and Other Information
 - Sets bits but never clears them - Bloom filters only support additions, not deletions

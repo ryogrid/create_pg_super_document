@@ -29,13 +29,13 @@ A key difference from normal processing is that during recovery, subtransactions
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TransactionIdLatest (to find the maximum XID among all transactions)
-  - RecordKnownAssignedTransactionIds (to mark subtransactions as observed)
-  - SubTransSetParent (to establish parent-child relationships in pg_subtrans)
-  - KnownAssignedXidsRemoveTree (to remove assigned subtransactions from known assignments)
-  - TransactionIdPrecedes (for XID comparison and ordering)
+  - [TransactionIdLatest](../T/TransactionIdLatest.md) (to find the maximum XID among all transactions)
+  - [RecordKnownAssignedTransactionIds](../R/RecordKnownAssignedTransactionIds.md) (to mark subtransactions as observed)
+  - [SubTransSetParent](../S/SubTransSetParent.md) (to establish parent-child relationships in pg_subtrans)
+  - [KnownAssignedXidsRemoveTree](../K/KnownAssignedXidsRemoveTree.md) (to remove assigned subtransactions from known assignments)
+  - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md) (for XID comparison and ordering)
 - Called from:
-  - xact_redo (during transaction-related WAL record replay)
+  - [xact_redo](../x/xact_redo.md) (during transaction-related WAL record replay)
 
 ## Notes and Other Information
 - Must be called with standbyState >= STANDBY_INITIALIZED

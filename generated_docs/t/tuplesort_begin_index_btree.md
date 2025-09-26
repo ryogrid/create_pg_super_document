@@ -41,7 +41,7 @@ This function creates a specialized tuplesort state for B-tree index creation op
   - [comparetup_index_btree_tiebreak](../c/comparetup_index_btree_tiebreak.md)
   - [writetup_index](../w/writetup_index.md)
   - [readtup_index](../r/readtup_index.md)
-  - PrepareSortSupportFromIndexRel
+  - [PrepareSortSupportFromIndexRel](../P/PrepareSortSupportFromIndexRel.md)
 - Called from (representative examples):
   - [_bt_spools_heapscan](../b/_bt_spools_heapscan.md) (nbtsort.c:428, nbtsort.c:469)
   - [_bt_parallel_scan_and_sort](../b/_bt_parallel_scan_and_sort.md) (nbtsort.c:1879, nbtsort.c:1905)

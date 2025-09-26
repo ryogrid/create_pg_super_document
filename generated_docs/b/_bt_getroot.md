@@ -35,7 +35,7 @@ The function guarantees to return a live (not deleted or half-dead) page that is
 ## Dependencies
 - Functions called/Symbols referenced:
   - [_bt_getbuf](_bt_getbuf.md): Acquires buffer for specified block number
-  - _bt_getmeta: Gets metadata from metapage
+  - [_bt_getmeta](_bt_getmeta.md): Gets metadata from metapage
   - [_bt_allocbuf](_bt_allocbuf.md): Allocates new buffer for page creation
   - [_bt_relbuf](_bt_relbuf.md): Releases buffer
   - [_bt_lockbuf](_bt_lockbuf.md)/_bt_unlockbuf: Buffer locking operations

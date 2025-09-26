@@ -20,7 +20,7 @@ This function performs cleanup by removing the physical replication slot on the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - connect_database (connects to primary server, with non-fatal connection flag)
+  - [connect_database](../c/connect_database.md) (connects to primary server, with non-fatal connection flag)
   - [drop_replication_slot](drop_replication_slot.md) (performs the actual slot deletion)
   - [disconnect_database](disconnect_database.md) (closes the connection after slot deletion)
   - pg_log_warning (logs warning messages for connection failures)
@@ -31,7 +31,7 @@ This function performs cleanup by removing the physical replication slot on the 
 ## Notes and Other Information
 - This is a static function, only accessible within pg_createsubscriber.c
 - Uses global variable primary_slot_name to check if a slot exists
-- Designed to be non-fatal - connection failures result in warnings rather than errors
+- Designed to be non-fatal - [connection](../c/connection.md) failures result in warnings rather than errors
 - Critical for preventing WAL file accumulation on the primary server
 - Part of the cleanup phase in the standby-to-subscriber conversion workflow
 - Provides user guidance through warning hints if automatic cleanup fails

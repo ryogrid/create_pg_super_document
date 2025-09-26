@@ -37,17 +37,17 @@ When the buffer field is set to a valid buffer ID (not InvalidBuffer), the slot 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HeapTupleTableSlot
+  - [HeapTupleTableSlot](../H/HeapTupleTableSlot.md)
   - Buffer (type)
   - InvalidBuffer (constant)
 
 - Called from (representative examples):
-  - heapam_index_fetch_tuple
-  - heapam_fetch_row_version  
-  - heapam_tuple_satisfies_snapshot
-  - tts_buffer_heap_clear
-  - tts_buffer_heap_materialize
-  - ExecForceStoreHeapTuple
+  - [heapam_index_fetch_tuple](../h/heapam_index_fetch_tuple.md)
+  - [heapam_fetch_row_version](../h/heapam_fetch_row_version.md)  
+  - [heapam_tuple_satisfies_snapshot](../h/heapam_tuple_satisfies_snapshot.md)
+  - [tts_buffer_heap_clear](../t/tts_buffer_heap_clear.md)
+  - [tts_buffer_heap_materialize](../t/tts_buffer_heap_materialize.md)
+  - [ExecForceStoreHeapTuple](../E/ExecForceStoreHeapTuple.md)
 
 ## Notes and Other Information
 - This slot type is primarily used by the heap access method handler functions

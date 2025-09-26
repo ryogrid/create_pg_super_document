@@ -25,7 +25,7 @@ The conversion from 32-bit to full transaction ID is performed safely by using t
   - [FullXidRelativeTo](../F/FullXidRelativeTo.md)
   - [GlobalVisTestIsRemovableFullXid](GlobalVisTestIsRemovableFullXid.md)
   - [GlobalVisState](GlobalVisState.md) (type)
-  - FullTransactionId (type)
+  - [FullTransactionId](../F/FullTransactionId.md) (type)
 - Called from (representative examples):
   - [HeapTupleSatisfiesNonVacuumable](../H/HeapTupleSatisfiesNonVacuumable.md)
   - [HeapTupleIsSurelyDead](../H/HeapTupleIsSurelyDead.md)

@@ -31,7 +31,7 @@ The algorithm uses a sophisticated calculation that accounts for leap years and 
   - [DecodeDateTime](../D/DecodeDateTime.md) (date/time parsing)
   - [timestamp_part_common](../t/timestamp_part_common.md) (timestamp extraction)
   - [date2isoweek](date2isoweek.md) (ISO week calculations)
-  - ValidateDate (date validation)
+  - [ValidateDate](../V/ValidateDate.md) (date validation)
 
 ## Notes and Other Information
 - Returns the Julian day number as an integer

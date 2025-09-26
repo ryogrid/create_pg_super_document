@@ -35,15 +35,15 @@ The function handles several special cases:
   - PG_GETARG_TEXT_PP (get text argument with potential detoasting)
   - PG_GETARG_INT32 (get integer argument)
   - PG_GET_COLLATION (get collation for string operations)
-  - text_position_setup (initialize text search state)
-  - text_position_next (find next occurrence of separator)
-  - text_position_get_match_ptr (get pointer to match location)
-  - text_position_cleanup (clean up search state)
-  - text_position_reset (reset search to beginning)
-  - cstring_to_text (convert C string to PostgreSQL text)
-  - cstring_to_text_with_len (convert C string with length to PostgreSQL text)
+  - [text_position_setup](../t/text_position_setup.md) (initialize text search state)
+  - [text_position_next](../t/text_position_next.md) (find next occurrence of separator)
+  - [text_position_get_match_ptr](../t/text_position_get_match_ptr.md) (get pointer to match location)
+  - [text_position_cleanup](../t/text_position_cleanup.md) (clean up search state)
+  - [text_position_reset](../t/text_position_reset.md) (reset search to beginning)
+  - [cstring_to_text](../c/cstring_to_text.md) (convert C string to PostgreSQL text)
+  - [cstring_to_text_with_len](../c/cstring_to_text_with_len.md) (convert C string with length to PostgreSQL text)
   - PG_RETURN_TEXT_P (return text value from function)
-  - TextPositionState (structure for text search state)
+  - [TextPositionState](../T/TextPositionState.md) (structure for text search state)
 - Called from (representative examples):
   - SQL queries using split_part() function
 

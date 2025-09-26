@@ -43,7 +43,7 @@ The function includes an optimization where it returns immediately if the statem
   - [FigureIndexColname](../F/FigureIndexColname.md)
   - [transformExpr](transformExpr.md)
   - [free_parsestate](../f/free_parsestate.md)
-  - table_close
+  - [table_close](table_close.md)
 - Called from (representative examples):
   - [ATPostAlterTypeParse](../A/ATPostAlterTypeParse.md)
   - [transformAlterTableStmt](transformAlterTableStmt.md)

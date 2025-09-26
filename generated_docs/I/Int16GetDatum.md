@@ -24,7 +24,7 @@ The function is declared as static inline for performance optimization, allowing
 - Functions called/Symbols referenced: None (simple cast operation)
 - Called from (representative examples):
   - PG_RETURN_INT16 (function return value macro)
-  - InsertPgAttributeTuples (catalog tuple creation)
+  - [InsertPgAttributeTuples](InsertPgAttributeTuples.md) (catalog tuple creation)
   - Various catalog management functions (heap.c, pg_constraint.c, etc.)
   - Index and access method functions (BRIN, GiST, SP-GiST)
   - Statistics and analysis functions

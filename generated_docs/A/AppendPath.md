@@ -33,14 +33,14 @@ A key feature is support for "dummy" AppendPaths with no subpaths, representing 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Path (base structure)
-  - List (for subpaths storage)  
+  - [Path](../P/Path.md) (base structure)
+  - [List](../L/List.md) (for subpaths storage)  
   - Cardinality (for limit_tuples)
 - Called from (representative examples):
-  - create_append_path (creates AppendPath instances)
-  - create_append_plan (converts AppendPath to execution plan)
-  - add_paths_to_append_rel (builds paths for partitioned relations)
-  - cost_append (calculates execution costs)
+  - [create_append_path](../c/create_append_path.md) (creates AppendPath instances)
+  - [create_append_plan](../c/create_append_plan.md) (converts AppendPath to execution plan)
+  - [add_paths_to_append_rel](../a/add_paths_to_append_rel.md) (builds paths for partitioned relations)
+  - [cost_append](../c/cost_append.md) (calculates execution costs)
 
 ## Notes and Other Information
 - Supports both ordered and unordered execution based on pathkeys

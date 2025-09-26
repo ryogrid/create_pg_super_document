@@ -35,14 +35,14 @@ The function uses PostgreSQL's Set-Returning Function (SRF) framework to iterate
   - [FetchDynamicTimeZone](../F/FetchDynamicTimeZone.md) (resolve dynamic timezone abbreviations)
   - [GetCurrentTransactionStartTimestamp](../G/GetCurrentTransactionStartTimestamp.md) (get current time for dynamic resolution)
   - [DetermineTimeZoneAbbrevOffsetTS](../D/DetermineTimeZoneAbbrevOffsetTS.md) (calculate timezone offset at specific time)
-  - DateTimeParseError (report timezone resolution errors)
+  - [DateTimeParseError](../D/DateTimeParseError.md) (report timezone resolution errors)
   - Memory management (palloc, MemoryContextSwitchTo)
-  - String/data conversion utilities (strlcpy, pg_toupper, itmin2interval)
+  - [String](../S/String.md)/data conversion utilities (strlcpy, pg_toupper, itmin2interval)
 - Data structures referenced:
-  - TimeZoneAbbrevTable (via global zoneabbrevtbl)
+  - [TimeZoneAbbrevTable](../T/TimeZoneAbbrevTable.md) (via global zoneabbrevtbl)
   - [FuncCallContext](../F/FuncCallContext.md) (SRF state management)
   - datetkn (timezone token entries)
-  - pg_itm_in, Interval (time interval representation)
+  - [pg_itm_in](pg_itm_in.md), Interval (time interval representation)
 - Called from:
   - SQL queries via function call mechanism
 

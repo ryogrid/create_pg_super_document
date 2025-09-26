@@ -27,7 +27,7 @@ The function handles both regular functions and procedures, with special logic f
   - [compute_function_attributes](../c/compute_function_attributes.md) (processes function options and attributes)
   - [SearchSysCache1](../S/SearchSysCache1.md), ReleaseSysCache (language catalog lookups)
   - [extension_file_exists](../e/extension_file_exists.md) (checks for language extensions)
-  - superuser (privilege validation)
+  - [superuser](../s/superuser.md) (privilege validation)
   - [typenameTypeId](../t/typenameTypeId.md), get_base_element_type (type resolution)
   - [get_transform_oid](../g/get_transform_oid.md) (transform function validation)
   - [interpret_function_parameter_list](../i/interpret_function_parameter_list.md) (parameter processing)

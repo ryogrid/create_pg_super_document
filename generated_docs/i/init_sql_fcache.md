@@ -33,8 +33,8 @@ This function performs comprehensive initialization of a SQL function's cache st
   - [check_sql_fn_statements](../c/check_sql_fn_statements.md)
   - [check_sql_fn_retval](../c/check_sql_fn_retval.md)
   - [MakeSingleTupleTableSlot](../M/MakeSingleTupleTableSlot.md)
-  - ExecInitJunkFilter
-  - ExecInitJunkFilterConversion
+  - [ExecInitJunkFilter](../E/ExecInitJunkFilter.md)
+  - [ExecInitJunkFilterConversion](../E/ExecInitJunkFilterConversion.md)
   - [BlessTupleDesc](../B/BlessTupleDesc.md)
   - [init_execution_state](init_execution_state.md)
   - [GetCurrentSubTransactionId](../G/GetCurrentSubTransactionId.md)

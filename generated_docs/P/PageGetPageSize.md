@@ -24,10 +24,10 @@ PageGetPageSize extracts the page size from a formatted page by reading the pd_p
 - Called from (representative examples):
   - [dataSplitPageInternal](../d/dataSplitPageInternal.md)
   - [entrySplitPage](../e/entrySplitPage.md)
-  - _bt_singleval_fillfactor
+  - [_bt_singleval_fillfactor](../b/_bt_singleval_fillfactor.md)
   - [_bt_findsplitloc](../b/_bt_findsplitloc.md)
-  - PageGetTempPage
-  - PageGetTempPageCopy
+  - [PageGetTempPage](PageGetTempPage.md)
+  - [PageGetTempPageCopy](PageGetTempPageCopy.md)
   - [PageGetSpecialSize](PageGetSpecialSize.md)
 
 ## Notes and Other Information

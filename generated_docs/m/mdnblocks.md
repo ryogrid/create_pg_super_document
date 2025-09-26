@@ -23,12 +23,12 @@ The function works by starting from the last known open segment and iterating th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - mdopenfork
+  - [mdopenfork](mdopenfork.md)
   - [_mdnblocks](_mdnblocks.md)
   - [_mdfd_openseg](_mdfd_openseg.md)
 - Called from (representative examples):
-  - mdextend
-  - mdzeroextend
+  - [mdextend](mdextend.md)
+  - [mdzeroextend](mdzeroextend.md)
   - [mdwritev](mdwritev.md)
   - [mdregistersync](mdregistersync.md)
   - [mdimmedsync](mdimmedsync.md)

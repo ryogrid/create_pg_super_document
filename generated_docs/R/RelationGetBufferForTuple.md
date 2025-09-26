@@ -59,7 +59,7 @@ This is a comprehensive function responsible for obtaining a suitable buffer for
   - [GetVisibilityMapPins](../G/GetVisibilityMapPins.md), visibilitymap_pin, visibilitymap_pin_ok
   - [LockBuffer](../L/LockBuffer.md), ConditionalLockBuffer, ReleaseBuffer, UnlockReleaseBuffer
   - RelationGetTargetBlock, RelationSetTargetBlock, RelationAddBlocks
-  - GetPageWithFreeSpace, RecordPageWithFreeSpace, RecordAndGetPageWithFreeSpace
+  - [GetPageWithFreeSpace](../G/GetPageWithFreeSpace.md), RecordPageWithFreeSpace, RecordAndGetPageWithFreeSpace
   - RelationGetTargetPageFreeSpace, RelationGetNumberOfBlocks
 - Called from:
   - [heap_insert](../h/heap_insert.md)
@@ -73,5 +73,5 @@ This is a comprehensive function responsible for obtaining a suitable buffer for
 - Handles race conditions where page state changes during lock/pin operations
 - Supports both single tuple insertion and bulk insert optimization
 - EREPORT(ERROR) is allowed, unlike lower-level functions like RelationPutHeapTuple
-- Complex retry logic handles cases where target buffer state changes during processing
+- [Complex](../C/Complex.md) retry logic handles cases where target buffer state changes during processing
 - The function maintains relation's target block cache for insertion locality

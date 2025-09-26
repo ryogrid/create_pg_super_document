@@ -24,14 +24,14 @@ The function enforces PostgreSQL's inheritance rules by validating ownership per
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_openrv
+  - [table_openrv](../t/table_openrv.md)
   - [ATSimplePermissions](ATSimplePermissions.md)
   - [find_all_inheritors](../f/find_all_inheritors.md)
   - [list_member_oid](../l/list_member_oid.md)
   - [FindTriggerIncompatibleWithInheritance](../F/FindTriggerIncompatibleWithInheritance.md)
   - [CreateInheritance](../C/CreateInheritance.md)
   - ObjectAddressSet
-  - table_close
+  - [table_close](../t/table_close.md)
   - RelationGetRelid
   - RelationGetRelationName
 - Called from (representative examples):

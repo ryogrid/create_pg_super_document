@@ -33,7 +33,7 @@ This design ensures that functions like age(xid) get consistent results even if 
   - LocalTransactionId (type)
   - InvalidLocalTransactionId
   - [GetTopTransactionIdIfAny](GetTopTransactionIdIfAny.md)
-  - ReadNextTransactionId
+  - [ReadNextTransactionId](../R/ReadNextTransactionId.md)
 - Called from (representative examples):
   - [xid_age](../x/xid_age.md)
 

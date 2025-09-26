@@ -25,12 +25,12 @@ The function processes each tuple by iterating through all row marks associated 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecProcNode (to get tuples from outer plan)
+  - [ExecProcNode](ExecProcNode.md) (to get tuples from outer plan)
   - TupIsNull (to check for null tuples)
   - [EvalPlanQualEnd](EvalPlanQualEnd.md)/Begin/SetSlot/Next (EPQ machinery)
-  - ExecGetJunkAttribute (to extract ctid and tableoid)
+  - [ExecGetJunkAttribute](ExecGetJunkAttribute.md) (to extract ctid and tableoid)
   - [GetFdwRoutineForRelation](../G/GetFdwRoutineForRelation.md) (for foreign table operations)
-  - table_tuple_lock (core tuple locking function)
+  - [table_tuple_lock](../t/table_tuple_lock.md) (core tuple locking function)
   - IsolationUsesXactSnapshot (isolation level checking)
 - Called from (representative examples):
   - [ExecInitLockRows](ExecInitLockRows.md) (sets this as the ExecProcNode function)

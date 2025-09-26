@@ -25,7 +25,7 @@ The function operates within the memory context of the SPI tuple table to ensure
 - Functions called/Symbols referenced:
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - [repalloc_huge](../r/repalloc_huge.md)
-  - ExecCopySlotHeapTuple
+  - [ExecCopySlotHeapTuple](../E/ExecCopySlotHeapTuple.md)
   - elog
 - Called from (representative examples):
   - Used as callback function in DestReceiver operations

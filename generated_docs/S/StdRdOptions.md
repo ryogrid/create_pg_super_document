@@ -36,13 +36,13 @@ StdRdOptions serves as the standard structure for storing relation options (relo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AutoVacOpts
-  - StdRdOptIndexCleanup
+  - [AutoVacOpts](../A/AutoVacOpts.md)
+  - [StdRdOptIndexCleanup](StdRdOptIndexCleanup.md)
 - Called from (representative examples):
-  - default_reloptions
-  - heap_reloptions
-  - vacuum_rel
-  - extract_autovac_opts
+  - [default_reloptions](../d/default_reloptions.md)
+  - [heap_reloptions](../h/heap_reloptions.md)
+  - [vacuum_rel](../v/vacuum_rel.md)
+  - [extract_autovac_opts](../e/extract_autovac_opts.md)
   - RelationGetToastTupleTarget
   - RelationGetFillFactor
   - RelationIsUsedAsCatalogTable

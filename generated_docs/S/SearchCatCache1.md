@@ -23,10 +23,10 @@ Like its parent function, SearchCatCache1 searches a system catalog cache for a 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchCatCacheInternal](SearchCatCacheInternal.md)
-  - CatCache (structure type)
+  - [CatCache](../C/CatCache.md) (structure type)
 - Called from (representative examples):
   - [SearchSysCache1](SearchSysCache1.md)
-  - CatCacheHeader
+  - [CatCacheHeader](../C/CatCacheHeader.md)
 
 ## Notes and Other Information
 - This is an optimized version that hard-codes the number of keys to 1

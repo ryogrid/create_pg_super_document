@@ -25,7 +25,7 @@ This function provides a context-aware wrapper around the lowerstr() function. I
   - IspellDict (struct type)
 - Called from (representative examples):
   - [NIImportDictionary](../N/NIImportDictionary.md)
-  - NIImportOOAffixes
+  - [NIImportOOAffixes](../N/NIImportOOAffixes.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the spell.c compilation unit

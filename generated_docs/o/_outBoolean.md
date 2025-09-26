@@ -21,10 +21,10 @@ This function converts a Boolean node into its textual representation by appendi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendStringInfoString (indirectly via string literal appending)
-  - Boolean (node type)
+  - [appendStringInfoString](../a/appendStringInfoString.md) (indirectly via string literal appending)
+  - [Boolean](../B/Boolean.md) (node type)
 - Called from (representative examples):
-  - outNode (main node serialization dispatcher)
+  - [outNode](outNode.md) (main node serialization dispatcher)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the outfuncs.c file

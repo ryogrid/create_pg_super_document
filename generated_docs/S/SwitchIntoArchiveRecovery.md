@@ -29,7 +29,7 @@ This transition is essential for ensuring that archive recovery can proceed safe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - UpdateControlFile (persists control file changes to disk)
+  - [UpdateControlFile](../U/UpdateControlFile.md) (persists control file changes to disk)
   - DB_IN_ARCHIVE_RECOVERY (control file state constant)
   - RECOVERY_STATE_ARCHIVE (shared memory recovery state)
 - Called from (representative examples):

@@ -29,7 +29,7 @@ The function is crucial for PostgreSQL's constraint enforcement mechanism, allow
   - AFTER_TRIGGER_DEFERRABLE (flag check)
   - AFTER_TRIGGER_INITDEFERRED (flag check)
   - SetConstraintState (type)
-  - AfterTriggerShared (type)
+  - [AfterTriggerShared](../A/AfterTriggerShared.md) (type)
   - afterTriggers (global state structure)
 - Called from (representative examples):
   - [afterTriggerMarkEvents](afterTriggerMarkEvents.md)

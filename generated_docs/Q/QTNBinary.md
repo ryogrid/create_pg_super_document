@@ -23,13 +23,13 @@ This binary tree structure is often required for certain query processing algori
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth (stack overflow protection)
-  - QTNBinary (recursive self-call)
-  - palloc0 (zero-initialized memory allocation)
-  - QTNode, QueryItem, QI_OPR, QTN_NEEDFREE (data types and constants)
+  - [check_stack_depth](../c/check_stack_depth.md) (stack overflow protection)
+  - [QTNBinary](QTNBinary.md) (recursive self-call)
+  - [palloc0](../p/palloc0.md) (zero-initialized memory allocation)
+  - [QTNode](QTNode.md), QueryItem, QI_OPR, QTN_NEEDFREE (data types and constants)
 - Called from (representative examples):
-  - tsquery_rewrite_query (in tsquery_rewrite.c)
-  - tsquery_rewrite (in tsquery_rewrite.c)
+  - [tsquery_rewrite_query](../t/tsquery_rewrite_query.md) (in tsquery_rewrite.c)
+  - [tsquery_rewrite](../t/tsquery_rewrite.md) (in tsquery_rewrite.c)
 
 ## Notes and Other Information
 - Only processes operator nodes (QI_OPR type), leaving leaf nodes unchanged

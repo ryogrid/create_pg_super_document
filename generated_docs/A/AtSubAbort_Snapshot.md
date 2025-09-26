@@ -29,8 +29,8 @@ The function ensures that aborted subtransactions do not leave dangling snapshot
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ActiveSnapshotElt
-  - FreeSnapshot
+  - [ActiveSnapshotElt](ActiveSnapshotElt.md)
+  - [FreeSnapshot](../F/FreeSnapshot.md)
   - [SnapshotResetXmin](../S/SnapshotResetXmin.md)
 - Called from (representative examples):
   - [AbortSubTransaction](AbortSubTransaction.md)

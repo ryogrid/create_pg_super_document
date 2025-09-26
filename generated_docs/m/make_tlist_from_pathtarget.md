@@ -23,7 +23,7 @@ The function serves as the inverse of make_pathtarget_from_tlist, allowing the o
 - Functions called/Symbols referenced:
   - [PathTarget](../P/PathTarget.md) (data structure)
   - [makeTargetEntry](makeTargetEntry.md) (TargetEntry creation)
-  - lappend (list append)
+  - [lappend](../l/lappend.md) (list append)
   - NIL (empty list constant)
 - Called from (representative examples):
   - [set_subquery_pathlist](../s/set_subquery_pathlist.md)
@@ -35,5 +35,5 @@ The function serves as the inverse of make_pathtarget_from_tlist, allowing the o
 - [TargetEntry](../T/TargetEntry.md) nodes are created with sequential resource numbers starting from 1
 - Column names are set to NULL since PathTarget doesn't preserve original column names
 - All created TargetEntry nodes are marked as not resjunk (false)
-- Sort group references are preserved if present in the source PathTarget
+- [Sort](../S/Sort.md) group references are preserved if present in the source PathTarget
 - The function is declared in src/include/optimizer/tlist.h

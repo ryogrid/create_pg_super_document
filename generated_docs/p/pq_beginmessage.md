@@ -23,18 +23,18 @@ The function is part of PostgreSQL's internal protocol formatting system and is 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initStringInfo (from StringInfo API)
+  - [initStringInfo](../i/initStringInfo.md) (from StringInfo API)
 - Called from (representative examples):
-  - printsimple_startup
-  - printsimple
-  - bbsink_copystream_begin_archive
-  - NotifyMyFrontEnd
-  - ReceiveCopyBegin
-  - SendCopyBegin
-  - sendAuthRequest
-  - ReadyForQuery
-  - send_message_to_frontend
-  - ReportGUCOption
+  - [printsimple_startup](printsimple_startup.md)
+  - [printsimple](printsimple.md)
+  - [bbsink_copystream_begin_archive](../b/bbsink_copystream_begin_archive.md)
+  - [NotifyMyFrontEnd](../N/NotifyMyFrontEnd.md)
+  - [ReceiveCopyBegin](../R/ReceiveCopyBegin.md)
+  - [SendCopyBegin](../S/SendCopyBegin.md)
+  - [sendAuthRequest](../s/sendAuthRequest.md)
+  - [ReadyForQuery](../R/ReadyForQuery.md)
+  - [send_message_to_frontend](../s/send_message_to_frontend.md)
+  - [ReportGUCOption](../R/ReportGUCOption.md)
 
 ## Notes and Other Information
 - The message type is stored in the cursor field as a temporary holding place, expecting that subsequent pq_sendXXX routines won't modify this field

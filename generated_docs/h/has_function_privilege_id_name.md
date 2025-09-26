@@ -24,7 +24,7 @@ This function is a PostgreSQL built-in function that verifies if a specified use
   - [convert_function_name](../c/convert_function_name.md)(): Converts function name to function OID
   - [convert_function_priv_string](../c/convert_function_priv_string.md)(): Converts privilege string to AclMode bitmask
   - [object_aclcheck](../o/object_aclcheck.md)(): Performs the actual privilege check against the ACL
-  - AclResult: Enum type for ACL check results
+  - [AclResult](../A/AclResult.md): Enum type for ACL check results
 - Called from (representative examples):
   - No direct callers found (likely called via SQL function interface)
 

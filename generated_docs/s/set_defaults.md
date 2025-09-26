@@ -24,7 +24,7 @@ The function uses the parameter configuration structure where each entry contain
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pro (global parameter configuration table)
+  - [pro](../p/pro.md) (global parameter configuration table)
   - PRO_SPECIAL (constant indicating special parameter types)
   - ps.case_indent (global parser state variable for case statement indentation)
 - Called from (representative examples):

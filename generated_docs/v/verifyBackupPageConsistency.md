@@ -21,7 +21,7 @@ The function iterates through all block references in a WAL record, reads both t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetRmgr: Gets the resource manager for the record type
+  - [GetRmgr](../G/GetRmgr.md): Gets the resource manager for the record type
   - XLogRecGetRmid: Extracts resource manager ID from the record
   - XLogRecHasAnyBlockRefs: Checks if the record contains block references
   - XLogRecGetInfo: Gets the info field from the record
@@ -29,7 +29,7 @@ The function iterates through all block references in a WAL record, reads both t
   - [XLogRecGetBlockTagExtended](../X/XLogRecGetBlockTagExtended.md): Extracts block location information
   - XLogRecHasBlockImage: Checks if block has a backup image
   - XLogRecBlockImageApply: Checks if block image was already applied
-  - XLogReadBufferExtended: Reads the current page from buffer
+  - [XLogReadBufferExtended](../X/XLogReadBufferExtended.md): Reads the current page from buffer
   - [LockBuffer](../L/LockBuffer.md)/UnlockReleaseBuffer: Buffer locking operations
   - [BufferGetPage](../B/BufferGetPage.md): Gets page from buffer
   - [PageGetLSN](../P/PageGetLSN.md): Gets the Log Sequence Number from page

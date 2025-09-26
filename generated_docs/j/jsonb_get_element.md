@@ -33,7 +33,7 @@ The  function implements the fundamental JSONB path traversal logic in PostgreSQ
   - [JsonbValueAsText](../J/JsonbValueAsText.md) (value-to-text conversion)
   - [JsonbValueToJsonb](../J/JsonbValueToJsonb.md) (value-to-JSONB conversion)
   - JsonContainerIsArray, JsonContainerIsObject (container type checking)
-  - strtoint (string-to-integer conversion)
+  - [strtoint](../s/strtoint.md) (string-to-integer conversion)
 - Called from (representative examples):
   - [get_jsonb_path_all](../g/get_jsonb_path_all.md)
   - [jsonb_subscript_fetch](jsonb_subscript_fetch.md)

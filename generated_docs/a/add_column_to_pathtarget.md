@@ -24,8 +24,8 @@ The function also resets the volatility status to unknown when adding a new expr
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PathTarget](../P/PathTarget.md) (data structure)
-  - lappend (list append)
-  - list_length (list utility)
+  - [lappend](../l/lappend.md) (list append)
+  - [list_length](../l/list_length.md) (list utility)
   - [repalloc](../r/repalloc.md) (memory reallocation)
   - [palloc0](../p/palloc0.md) (zero-initialized memory allocation)
   - VOLATILITY_NOVOLATILE (volatility constant)

@@ -52,17 +52,17 @@ During parse analysis, the parser transforms raw expressions: testexpr becomes a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SubLinkType
+  - [SubLinkType](SubLinkType.md)
   - ParseLoc
 - Called from (representative examples):
-  - transformSubLink (during parse analysis)
-  - transformMultiAssignRef (for multi-assignment updates)
-  - process_sublinks_mutator (sublink processing)
-  - convert_ANY_sublink_to_join (join conversion optimization)
-  - convert_EXISTS_sublink_to_join (EXISTS to join conversion)
-  - pull_up_sublinks_qual_recurse (sublink pullup optimization)
-  - get_sublink_expr (query deparsing)
-  - fireRIRonSubLink (rule processing)
+  - [transformSubLink](../t/transformSubLink.md) (during parse analysis)
+  - [transformMultiAssignRef](../t/transformMultiAssignRef.md) (for multi-assignment updates)
+  - [process_sublinks_mutator](../p/process_sublinks_mutator.md) (sublink processing)
+  - [convert_ANY_sublink_to_join](../c/convert_ANY_sublink_to_join.md) (join conversion optimization)
+  - [convert_EXISTS_sublink_to_join](../c/convert_EXISTS_sublink_to_join.md) (EXISTS to join conversion)
+  - [pull_up_sublinks_qual_recurse](../p/pull_up_sublinks_qual_recurse.md) (sublink pullup optimization)
+  - [get_sublink_expr](../g/get_sublink_expr.md) (query deparsing)
+  - [fireRIRonSubLink](../f/fireRIRonSubLink.md) (rule processing)
 
 ## Notes and Other Information
 - Not directly executable - must be replaced by SubPlan nodes during planning phase

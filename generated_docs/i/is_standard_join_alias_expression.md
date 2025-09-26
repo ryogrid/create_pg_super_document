@@ -39,7 +39,7 @@ The function serves as a gatekeeper for the optimization where nullingrels can b
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PlaceHolderVar](../P/PlaceHolderVar.md), FuncExpr, RelabelType
-  - CoerceViaIO, ArrayCoerceExpr, CoalesceExpr
+  - [CoerceViaIO](../C/CoerceViaIO.md), ArrayCoerceExpr, CoalesceExpr
   - COERCE_IMPLICIT_CAST
   - linitial (for examining first arguments)
   - Recursive calls to is_standard_join_alias_expression

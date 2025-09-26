@@ -30,7 +30,7 @@ When name conflicts arise, the function automatically resolves them by appending
   - [pg_mbcliplen](../p/pg_mbcliplen.md) (multibyte-aware string clipping function)
   - lfirst (list iteration macro)
   - foreach (list iteration macro)
-  - lappend (list append function)
+  - [lappend](../l/lappend.md) (list append function)
   - [pstrdup](../p/pstrdup.md) (PostgreSQL's string duplication function)
   - strcmp (string comparison function)
 - Called from:

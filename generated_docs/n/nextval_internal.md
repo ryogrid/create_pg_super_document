@@ -38,7 +38,7 @@ The function uses a two-phase approach: first it checks if cached values are ava
   - [GetRedoRecPtr](../G/GetRedoRecPtr.md)/PageGetLSN (WAL checkpoint handling)
   - RelationNeedsWAL/GetTopTransactionId (WAL logging setup)
   - [XLogBeginInsert](../X/XLogBeginInsert.md)/XLogRegisterBuffer/XLogInsert (WAL logging)
-  - MarkBufferDirty (buffer management)
+  - [MarkBufferDirty](../M/MarkBufferDirty.md) (buffer management)
   - [sequence_close](../s/sequence_close.md) (resource cleanup)
 - Called from (representative examples):
   - [nextval](nextval.md) (text-based sequence interface)

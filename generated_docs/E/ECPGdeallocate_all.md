@@ -23,7 +23,7 @@ ECPGdeallocate_all(int lineno, int compat, const char *connection_name)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ecpg_deallocate_all_conn](../e/ecpg_deallocate_all_conn.md) (internal function that performs the bulk deallocation)
-  - ecpg_get_connection (retrieve connection structure by name)
+  - [ecpg_get_connection](../e/ecpg_get_connection.md) (retrieve connection structure by name)
 - Called from (representative examples):
   - Test programs for ECPG functionality
   - Application cleanup routines

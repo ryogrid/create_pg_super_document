@@ -28,7 +28,7 @@ This function takes no parameters and returns a BulkInsertState object with the 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc](../p/palloc.md)
-  - GetAccessStrategy
+  - [GetAccessStrategy](GetAccessStrategy.md)
   - BAS_BULKWRITE
   - [BulkInsertStateData](../B/BulkInsertStateData.md)
   - InvalidBuffer

@@ -28,7 +28,7 @@ The function is designed to work with PostgreSQLs sorting infrastructure, return
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DatumGetCString](../D/DatumGetCString.md): Extracts C string from Datum values
-  - `IsTLHistoryFileName`: Checks if a filename represents a timeline history file
+  - `[IsTLHistoryFileName](../I/IsTLHistoryFileName.md)`: Checks if a filename represents a timeline history file
   - `strcmp`: Standard C library string comparison function
 
 - Called from (representative examples):

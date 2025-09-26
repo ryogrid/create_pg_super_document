@@ -28,13 +28,13 @@ The exponential distribution is particularly useful in pgbench for modeling scen
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_prng_state (PostgreSQL PRNG state type)
+  - [pg_prng_state](../p/pg_prng_state.md) (PostgreSQL PRNG state type)
   - [pg_prng_double](../p/pg_prng_double.md) (PostgreSQL PRNG double-precision generator)
   - exp (standard C math library exponential function)
   - log (standard C math library natural logarithm function)
   - Assert (PostgreSQL assertion macro)
 - Called from (representative examples):
-  - evalStandardFunc (at src/bin/pgbench/pgbench.c:2724)
+  - [evalStandardFunc](../e/evalStandardFunc.md) (at src/bin/pgbench/pgbench.c:2724)
 
 ## Notes and Other Information
 - Function is declared static, limiting its scope to the pgbench.c file

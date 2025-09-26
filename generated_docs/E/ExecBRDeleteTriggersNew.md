@@ -58,11 +58,11 @@ For MERGE operations, the function skips EPQ rechecking and delegates additional
   - LockTupleExclusive
 - Data structures used:
   - [EPQState](EPQState.md)
-  - TriggerDesc
-  - TriggerData
-  - Trigger
+  - [TriggerDesc](../T/TriggerDesc.md)
+  - [TriggerData](../T/TriggerData.md)
+  - [Trigger](../T/Trigger.md)
   - TM_Result
-  - TM_FailureData
+  - [TM_FailureData](../T/TM_FailureData.md)
 - Called from (representative examples):
   - [ExecBRDeleteTriggers](ExecBRDeleteTriggers.md)
   - [ExecDeletePrologue](ExecDeletePrologue.md)

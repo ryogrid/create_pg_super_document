@@ -25,8 +25,8 @@ The function includes an assertion to verify that the input data is properly nul
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert (for data validation)
-  - resetStringInfo (referenced in related context)
-  - appendStringInfoVA (referenced in related context)
+  - [resetStringInfo](../r/resetStringInfo.md) (referenced in related context)
+  - [appendStringInfoVA](../a/appendStringInfoVA.md) (referenced in related context)
 - Called from (representative examples):
   - [logicalrep_read_tuple](../l/logicalrep_read_tuple.md) (src/backend/replication/logical/proto.c:914)
 

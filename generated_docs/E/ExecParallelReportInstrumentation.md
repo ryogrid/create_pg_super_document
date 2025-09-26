@@ -33,7 +33,7 @@ The function uses a planstate_tree_walker to recursively process all nodes in th
 - Types used:
   - [PlanState](../P/PlanState.md)
   - [SharedExecutorInstrumentation](../S/SharedExecutorInstrumentation.md)
-  - Instrumentation
+  - [Instrumentation](../I/Instrumentation.md)
 - Called from:
   - [ParallelQueryMain](../P/ParallelQueryMain.md)
   - [ExecParallelReportInstrumentation](ExecParallelReportInstrumentation.md) (recursive self-call via planstate_tree_walker)

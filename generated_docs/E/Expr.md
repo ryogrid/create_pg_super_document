@@ -32,11 +32,11 @@ Since Expr contains only the NodeTag field, it is primarily a formality for docu
 
 - Called from (representative examples):
   - This is an abstract base class, so it is not directly referenced but inherited by numerous expression node types such as:
-    - Var (variable references)
-    - Const (constant values)
-    - OpExpr (operator expressions)
-    - FuncExpr (function calls)
-    - BoolExpr (boolean expressions)
+    - [Var](../V/Var.md) (variable references)
+    - [Const](../C/Const.md) (constant values)
+    - [OpExpr](../O/OpExpr.md) (operator expressions)
+    - [FuncExpr](../F/FuncExpr.md) (function calls)
+    - [BoolExpr](../B/BoolExpr.md) (boolean expressions)
     - And many other expression node types
 
 ## Notes and Other Information

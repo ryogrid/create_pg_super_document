@@ -23,10 +23,10 @@ For local buffers, it checks the LocalRefCount array which tracks pin counts for
 ## Dependencies
 - Functions called/Symbols referenced:
   - BufferIsLocal
-  - GetPrivateRefCount
+  - [GetPrivateRefCount](../G/GetPrivateRefCount.md)
 - Called from (representative examples):
-  - GetVictimBuffer
-  - LockBufferForCleanup
+  - [GetVictimBuffer](../G/GetVictimBuffer.md)
+  - [LockBufferForCleanup](../L/LockBufferForCleanup.md)
   - BUFFER_LOCK_EXCLUSIVE
 
 ## Notes and Other Information

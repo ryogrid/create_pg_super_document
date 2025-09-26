@@ -22,8 +22,8 @@ This function is typically used by other WAL management routines to determine wh
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire
-  - LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - XLogCtl (global control structure)
   - ControlFileLock
   - LW_SHARED (lock mode constant)

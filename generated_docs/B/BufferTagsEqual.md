@@ -28,7 +28,7 @@ This function is heavily used in buffer management operations where precise bloc
   - [ReadRecentBuffer](../R/ReadRecentBuffer.md)
   - [InvalidateBuffer](../I/InvalidateBuffer.md)
   - [InvalidateVictimBuffer](../I/InvalidateVictimBuffer.md)
-  - LocalBufferAlloc
+  - [LocalBufferAlloc](../L/LocalBufferAlloc.md)
 
 ## Notes and Other Information
 - This is an inline function for performance optimization in frequent buffer operations

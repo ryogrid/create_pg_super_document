@@ -28,9 +28,9 @@ A key optimization is implemented where most authentication messages are immedia
 ## Dependencies
 - Functions called/Symbols referenced:
   - CHECK_FOR_INTERRUPTS (check for query cancellation)
-  - pq_beginmessage (start building a protocol message)
+  - [pq_beginmessage](../p/pq_beginmessage.md) (start building a protocol message)
   - [pq_sendint32](../p/pq_sendint32.md) (send 32-bit integer in network byte order)
-  - pq_sendbytes (send raw bytes)
+  - [pq_sendbytes](../p/pq_sendbytes.md) (send raw bytes)
   - [pq_endmessage](../p/pq_endmessage.md) (finalize message construction)
   - pq_flush (immediately send buffered data to client)
 - Constants used:

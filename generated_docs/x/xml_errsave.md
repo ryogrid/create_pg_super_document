@@ -26,13 +26,13 @@ This function is particularly useful for operations where transaction abort clea
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PgXmlErrorContext (structure)
+  - [PgXmlErrorContext](../P/PgXmlErrorContext.md) (structure)
   - ERRCXT_MAGIC (validation constant)
   - errsave (PostgreSQL soft error system)
-  - errdetail_internal (PostgreSQL error reporting)
+  - [errdetail_internal](../e/errdetail_internal.md) (PostgreSQL error reporting)
   - elog, errcode, errmsg_internal (PostgreSQL error system)
 - Called from (representative examples):
-  - xml_parse (multiple calls for different parsing scenarios)
+  - [xml_parse](xml_parse.md) (multiple calls for different parsing scenarios)
   - Referenced in PgXmlErrorContext structure
 
 ## Notes and Other Information

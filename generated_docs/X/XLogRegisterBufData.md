@@ -24,7 +24,7 @@ The function validates that the specified block_id corresponds to an active regi
 ## Dependencies
 - Functions called/Symbols referenced:
   - [registered_buffer](../r/registered_buffer.md) (struct type for tracking registered buffers)
-  - XLogRecData (struct type for data segments)
+  - [XLogRecData](XLogRecData.md) (struct type for data segments)
   - [errdetail_internal](../e/errdetail_internal.md) (for error reporting)
   - elog (for error logging)
   - Assert (for debug assertions)

@@ -21,10 +21,10 @@ This function provides a wrapper to detect the presence of window functions with
 ## Dependencies
 - Functions called/Symbols referenced:
   - [contain_windowfuncs](contain_windowfuncs.md)
-  - WindowFuncLists
+  - [WindowFuncLists](../W/WindowFuncLists.md)
 - Called from (representative examples):
   - [get_eclass_for_sort_expr](../g/get_eclass_for_sort_expr.md)
-  - WindowFuncLists
+  - [WindowFuncLists](../W/WindowFuncLists.md)
 
 ## Notes and Other Information
 - Window functions don't have level fields like aggregate functions, simplifying the detection process

@@ -35,14 +35,14 @@ The jsonpath expressions support the full SQL/JSON path language specification i
 - Functions called/Symbols referenced:
   - No direct symbol references (this is a pure data structure)
 - Called from (representative examples):
-  - jsonpath_out
-  - jsonpath_send  
-  - jspInit
-  - JsonPathExists
-  - JsonPathQuery
-  - JsonPathValue
-  - DatumGetJsonPathP
-  - DatumGetJsonPathPCopy
+  - [jsonpath_out](../j/jsonpath_out.md)
+  - [jsonpath_send](../j/jsonpath_send.md)  
+  - [jspInit](../j/jspInit.md)
+  - [JsonPathExists](JsonPathExists.md)
+  - [JsonPathQuery](JsonPathQuery.md)
+  - [JsonPathValue](JsonPathValue.md)
+  - [DatumGetJsonPathP](../D/DatumGetJsonPathP.md)
+  - [DatumGetJsonPathPCopy](../D/DatumGetJsonPathPCopy.md)
 
 ## Notes and Other Information
 - The JSONPATH_HDRSZ macro defines the header size as offsetof(JsonPath, data)

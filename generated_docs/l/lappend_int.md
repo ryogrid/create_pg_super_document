@@ -26,16 +26,16 @@ This function is widely used throughout PostgreSQL for building lists of integer
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsIntegerList (assertion check for integer list type)
-  - new_list (creates new list when input is NIL, with T_IntList type)
-  - new_tail_cell (adds new cell to existing list)
+  - [new_list](../n/new_list.md) (creates new list when input is NIL, with T_IntList type)
+  - [new_tail_cell](../n/new_tail_cell.md) (adds new cell to existing list)
   - llast_int (macro to access last integer element of list)
-  - check_list_invariants (debugging/validation function)
+  - [check_list_invariants](../c/check_list_invariants.md) (debugging/validation function)
 - Called from (representative examples):
-  - find_all_inheritors (inheritance hierarchy processing)
-  - CopyGetAttnums (COPY command attribute handling)
-  - ExecInitExprRec (expression initialization)
-  - list_union_int (integer list set operations)
-  - transformInsertStmt (INSERT statement processing)
+  - [find_all_inheritors](../f/find_all_inheritors.md) (inheritance hierarchy processing)
+  - [CopyGetAttnums](../C/CopyGetAttnums.md) (COPY command attribute handling)
+  - [ExecInitExprRec](../E/ExecInitExprRec.md) (expression initialization)
+  - [list_union_int](list_union_int.md) (integer list set operations)
+  - [transformInsertStmt](../t/transformInsertStmt.md) (INSERT statement processing)
 
 ## Notes and Other Information
 - Specialized for integer values only, part of PostgreSQL's typed list system

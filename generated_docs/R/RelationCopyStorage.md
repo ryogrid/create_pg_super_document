@@ -36,10 +36,10 @@ The function handles different relation persistence types:
 ## Dependencies
 - Functions called/Symbols referenced:
   - [smgr_bulk_start_smgr](../s/smgr_bulk_start_smgr.md)
-  - smgrnblocks
+  - [smgrnblocks](../s/smgrnblocks.md)
   - [smgr_bulk_get_buf](../s/smgr_bulk_get_buf.md)
-  - smgrread
-  - PageIsVerifiedExtended
+  - [smgrread](../s/smgrread.md)
+  - [PageIsVerifiedExtended](../P/PageIsVerifiedExtended.md)
   - relpathbackend
   - [smgr_bulk_write](../s/smgr_bulk_write.md)
   - [smgr_bulk_finish](../s/smgr_bulk_finish.md)

@@ -22,9 +22,9 @@ The `checksum_file` function is a static utility that computes checksums for fil
 ## Dependencies
 - Functions called/Symbols referenced:
   - `open` - System call for file opening
-  - `pg_malloc` - PostgreSQL memory allocation
+  - `[pg_malloc](../p/pg_malloc.md)` - PostgreSQL memory allocation
   - `read` - System call for reading data
-  - `pg_checksum_update` - Updates checksum with new data
+  - `[pg_checksum_update](../p/pg_checksum_update.md)` - Updates checksum with new data
   - [pg_free](../p/pg_free.md) - PostgreSQL memory deallocation  
   - `close` - System call for file closing
   - `CHECKSUM_TYPE_NONE` - Constant for no checksum type

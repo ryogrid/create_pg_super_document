@@ -21,13 +21,13 @@ The function combines RelationGetNamespace (to get the namespace OID) with get_n
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_namespace_name
+  - [get_namespace_name](../g/get_namespace_name.md)
   - RelationGetNamespace
 - Called from (representative examples):
-  - plperl_trigger_build_args (src/pl/plperl/plperl.c)
-  - PLy_trigger_build_args (src/pl/plpython/plpy_exec.c)
-  - pltcl_trigger_handler (src/pl/tcl/pltcl.c)
-  - plsample_trigger_handler (src/test/modules/plsample/plsample.c)
+  - [plperl_trigger_build_args](../p/plperl_trigger_build_args.md) (src/pl/plperl/plperl.c)
+  - [PLy_trigger_build_args](../P/PLy_trigger_build_args.md) (src/pl/plpython/plpy_exec.c)
+  - [pltcl_trigger_handler](../p/pltcl_trigger_handler.md) (src/pl/tcl/pltcl.c)
+  - [plsample_trigger_handler](../p/plsample_trigger_handler.md) (src/test/modules/plsample/plsample.c)
 
 ## Notes and Other Information
 - Returns a dynamically allocated string that must be freed by the caller

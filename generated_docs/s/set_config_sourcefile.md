@@ -23,16 +23,16 @@ This function is part of the internal GUC system infrastructure and is typically
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_option
+  - [find_option](../f/find_option.md)
   - [guc_strdup](../g/guc_strdup.md)
   - [guc_free](../g/guc_free.md)
-  - config_generic
+  - [config_generic](../c/config_generic.md)
   - DEBUG3, LOG constants
 - Called from (representative examples):
   - [define_custom_variable](../d/define_custom_variable.md)
   - [read_nondefault_variables](../r/read_nondefault_variables.md)
-  - RestoreGUCState
-  - GUCHashEntry
+  - [RestoreGUCState](../R/RestoreGUCState.md)
+  - [GUCHashEntry](../G/GUCHashEntry.md)
 
 ## Notes and Other Information
 - This is a static (internal) function within the GUC module

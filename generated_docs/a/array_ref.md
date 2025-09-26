@@ -40,10 +40,10 @@ It essentially converts the ArrayType pointer to a Datum and delegates all actua
   - [PointerGetDatum](../P/PointerGetDatum.md) (converts ArrayType* to Datum)
 - Called from:
   - [pg_get_functiondef](../p/pg_get_functiondef.md)
-  - TransformGUCArray
-  - GUCArrayAdd
-  - GUCArrayDelete
-  - GUCArrayReset
+  - [TransformGUCArray](../T/TransformGUCArray.md)
+  - [GUCArrayAdd](../G/GUCArrayAdd.md)
+  - [GUCArrayDelete](../G/GUCArrayDelete.md)
+  - [GUCArrayReset](../G/GUCArrayReset.md)
 
 ## Notes and Other Information
 - This is explicitly a backwards compatibility function, maintained to support existing code

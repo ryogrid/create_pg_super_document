@@ -23,7 +23,7 @@ The function delegates the actual validation logic to `check_slru_buffers()`, wh
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_slru_buffers
+  - [check_slru_buffers](check_slru_buffers.md)
   - GucSource (type)
 - Called from (representative examples):
   - PostgreSQL GUC system (referenced in guc_hooks.h)

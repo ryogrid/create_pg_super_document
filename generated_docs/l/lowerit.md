@@ -23,10 +23,10 @@ This implementation ensures consistent behavior across different systems and loc
 - Functions called/Symbols referenced:
   - (None - uses only built-in language constructs)
 - Called from (representative examples):
-  - rulesub (src/timezone/zic.c:1848)
-  - ciequal (src/timezone/zic.c:3616)
-  - itsabbr (src/timezone/zic.c:3625, 3633)
-  - ciprefix (src/timezone/zic.c:3645)
+  - [rulesub](../r/rulesub.md) (src/timezone/zic.c:1848)
+  - [ciequal](../c/ciequal.md) (src/timezone/zic.c:3616)
+  - [itsabbr](../i/itsabbr.md) (src/timezone/zic.c:3625, 3633)
+  - [ciprefix](../c/ciprefix.md) (src/timezone/zic.c:3645)
 
 ## Notes and Other Information
 - Returns the lowercase equivalent if the input is an uppercase ASCII letter (A-Z), otherwise returns the input character unchanged

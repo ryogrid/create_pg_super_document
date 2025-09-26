@@ -47,7 +47,7 @@ The function builds a processing pipeline by chaining together appropriate bbstr
   - [get_tablespace_mapping](../g/get_tablespace_mapping.md) (maps tablespace paths)
   - is_absolute_path (checks if path is absolute)
   - [progress_update_filename](../p/progress_update_filename.md) (updates progress reporting filename)
-  - strlcat (string concatenation function)
+  - [strlcat](../s/strlcat.md) (string concatenation function)
   - pg_log_error (error logging function)
   - pg_log_error_hint (error hint logging function)
   - pg_log_error_detail (error detail logging function)

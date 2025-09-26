@@ -36,32 +36,32 @@ The function coordinates with other components like  for page management and  fo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - smgr_bulk_start_rel
+  - [smgr_bulk_start_rel](../s/smgr_bulk_start_rel.md)
   - BTGetDeduplicateItems
-  - tuplesort_getindextuple
-  - palloc0
+  - [tuplesort_getindextuple](../t/tuplesort_getindextuple.md)
+  - [palloc0](../p/palloc0.md)
   - CurrentMemoryContext
-  - PrepareSortSupportFromIndexRel
-  - index_getattr
-  - ApplySortComparator
-  - ItemPointerCompare
-  - _bt_pagestate
-  - _bt_buildadd
-  - pgstat_progress_update_param
-  - pfree
-  - palloc
+  - [PrepareSortSupportFromIndexRel](../P/PrepareSortSupportFromIndexRel.md)
+  - [index_getattr](../i/index_getattr.md)
+  - [ApplySortComparator](../A/ApplySortComparator.md)
+  - [ItemPointerCompare](../I/ItemPointerCompare.md)
+  - [_bt_pagestate](_bt_pagestate.md)
+  - [_bt_buildadd](_bt_buildadd.md)
+  - [pgstat_progress_update_param](../p/pgstat_progress_update_param.md)
+  - [pfree](../p/pfree.md)
+  - [palloc](../p/palloc.md)
   - InvalidOffsetNumber
   - MAXALIGN_DOWN
   - BTMaxItemSize
-  - CopyIndexTuple
-  - _bt_dedup_start_pending
-  - _bt_keep_natts_fast
-  - _bt_dedup_save_htid
-  - _bt_sort_dedup_finish_pending
-  - _bt_uppershutdown
-  - smgr_bulk_finish
+  - [CopyIndexTuple](../C/CopyIndexTuple.md)
+  - [_bt_dedup_start_pending](_bt_dedup_start_pending.md)
+  - [_bt_keep_natts_fast](_bt_keep_natts_fast.md)
+  - [_bt_dedup_save_htid](_bt_dedup_save_htid.md)
+  - [_bt_sort_dedup_finish_pending](_bt_sort_dedup_finish_pending.md)
+  - [_bt_uppershutdown](_bt_uppershutdown.md)
+  - [smgr_bulk_finish](../s/smgr_bulk_finish.md)
 - Called from (representative examples):
-  - _bt_leafbuild
+  - [_bt_leafbuild](_bt_leafbuild.md)
 
 ## Notes and Other Information
 - This function is central to PostgreSQL's B-tree index creation process and handles the most performance-critical phase

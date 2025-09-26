@@ -22,7 +22,7 @@ This function marks the completion of a PostgreSQL base backup operation by call
   - [pgstat_progress_end_command](../p/pgstat_progress_end_command.md)
 - Called from (representative examples):
   - [perform_base_backup](../p/perform_base_backup.md)
-  - bbsink_cleanup
+  - [bbsink_cleanup](bbsink_cleanup.md)
 
 ## Notes and Other Information
 - This function should always be called when a base backup operation completes, regardless of success or failure

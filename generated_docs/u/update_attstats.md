@@ -28,7 +28,7 @@ The function handles both regular table statistics and inheritance tree statisti
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - [SearchSysCache3](../S/SearchSysCache3.md)
   - [CatalogOpenIndexes](../C/CatalogOpenIndexes.md)
   - [heap_modify_tuple](../h/heap_modify_tuple.md)

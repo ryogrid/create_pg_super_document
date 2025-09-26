@@ -27,8 +27,8 @@ The calculation is straightforward: multiply the logical page number by the numb
   - SlotsPerFSMPage
 - Called from (representative examples):
   - FSMAddress
-  - RecordAndGetPageWithFreeSpace
-  - fsm_search
+  - [RecordAndGetPageWithFreeSpace](../R/RecordAndGetPageWithFreeSpace.md)
+  - [fsm_search](fsm_search.md)
 
 ## Notes and Other Information
 - This is a static function internal to the freespace.c module

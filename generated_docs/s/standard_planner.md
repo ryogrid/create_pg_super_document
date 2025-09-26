@@ -35,7 +35,7 @@ The function implements sophisticated parallel planning logic, considering facto
 ## Dependencies
 - Functions called/Symbols referenced:
   - [subquery_planner](subquery_planner.md) (core recursive planning function)
-  - fetch_upper_rel (retrieve final relation)
+  - [fetch_upper_rel](../f/fetch_upper_rel.md) (retrieve final relation)
   - [get_cheapest_fractional_path](../g/get_cheapest_fractional_path.md) (path selection)
   - [create_plan](../c/create_plan.md) (path to plan conversion)
   - [ExecSupportsBackwardScan](../E/ExecSupportsBackwardScan.md) (scrollability check)

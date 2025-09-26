@@ -22,21 +22,21 @@ The  function determines the total number of blocks in a specified fork of a sto
 ## Dependencies
 - Functions called/Symbols referenced:
   - SMgrRelation (type)
-  - smgrnblocks_cached
+  - [smgrnblocks_cached](smgrnblocks_cached.md)
   - smgrsw (storage manager dispatch table)
   - InvalidBlockNumber
 - Called from (representative examples):
-  - gistBuildCallback
-  - visibilitymap_prepare_truncate
-  - vm_readbuf
-  - table_block_relation_size
-  - XLogPrefetcherNextBlock
-  - XLogReadBufferExtended
-  - RelationTruncate
-  - RelationCopyStorage
-  - ExtendBufferedRelTo
-  - RelationGetNumberOfBlocksInFork
-  - smgrtruncate
+  - [gistBuildCallback](../g/gistBuildCallback.md)
+  - [visibilitymap_prepare_truncate](../v/visibilitymap_prepare_truncate.md)
+  - [vm_readbuf](../v/vm_readbuf.md)
+  - [table_block_relation_size](../t/table_block_relation_size.md)
+  - [XLogPrefetcherNextBlock](../X/XLogPrefetcherNextBlock.md)
+  - [XLogReadBufferExtended](../X/XLogReadBufferExtended.md)
+  - [RelationTruncate](../R/RelationTruncate.md)
+  - [RelationCopyStorage](../R/RelationCopyStorage.md)
+  - [ExtendBufferedRelTo](../E/ExtendBufferedRelTo.md)
+  - [RelationGetNumberOfBlocksInFork](../R/RelationGetNumberOfBlocksInFork.md)
+  - [smgrtruncate](smgrtruncate.md)
 
 ## Notes and Other Information
 - The function uses a caching mechanism to avoid repeated system calls for the same relation

@@ -27,11 +27,11 @@ JsonTablePath is a simple node structure that encapsulates a named JSON path exp
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag
-  - Const (no direct references from this symbol)
+  - [Const](../C/Const.md) (no direct references from this symbol)
 - Called from (representative examples):
-  - makeJsonTablePathSpec
-  - makeJsonTablePath
-  - JsonTablePathScan
+  - [makeJsonTablePathSpec](../m/makeJsonTablePathSpec.md)
+  - [makeJsonTablePath](../m/makeJsonTablePath.md)
+  - [JsonTablePathScan](JsonTablePathScan.md)
 
 ## Notes and Other Information
 - Simple container structure for JSON path expressions within JSON_TABLE operations

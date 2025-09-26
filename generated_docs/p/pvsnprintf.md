@@ -44,7 +44,7 @@ The function is designed to be used in retry loops where the caller can realloca
 
 - Called from (representative examples):
   - [psprintf](psprintf.md): Dynamic string formatting function
-  - `appendStringInfoVA`: String buffer append function
+  - `[appendStringInfoVA](../a/appendStringInfoVA.md)`: String buffer append function
   - [archprintf](../a/archprintf.md): pg_dump archive formatting function
   - [ahprintf](../a/ahprintf.md): pg_dump archive header formatting function
   - [tarPrintf](../t/tarPrintf.md): pg_dump tar format printing function

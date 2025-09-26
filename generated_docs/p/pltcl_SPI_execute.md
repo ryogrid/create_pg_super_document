@@ -31,16 +31,16 @@ The function supports optional parameters for limiting result count and storing 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `SPI_execute`: Core SPI function for executing SQL queries
-  - `pltcl_process_SPI_result`: Processes and formats SPI execution results
-  - `pltcl_subtrans_begin`: Begins a subtransaction for error safety
-  - `pltcl_subtrans_commit`: Commits the subtransaction on success
-  - `pltcl_subtrans_abort`: Aborts subtransaction on error
+  - `[SPI_execute](../S/SPI_execute.md)`: Core SPI function for executing SQL queries
+  - `[pltcl_process_SPI_result](pltcl_process_SPI_result.md)`: Processes and formats SPI execution results
+  - `[pltcl_subtrans_begin](pltcl_subtrans_begin.md)`: Begins a subtransaction for error safety
+  - `[pltcl_subtrans_commit](pltcl_subtrans_commit.md)`: Commits the subtransaction on success
+  - `[pltcl_subtrans_abort](pltcl_subtrans_abort.md)`: Aborts subtransaction on error
   - `Tcl_GetIndexFromObj`: Parses command-line options
   - `Tcl_GetIntFromObj`: Converts Tcl object to integer
   - `Tcl_GetString`: Extracts string from Tcl object
 - Called from (representative examples):
-  - `pltcl_init_interp`: Registers this function as `spi_exec` command
+  - `[pltcl_init_interp](pltcl_init_interp.md)`: Registers this function as `spi_exec` command
 
 ## Notes and Other Information
 - The function is registered as the `spi_exec` command in PL/Tcl interpreters

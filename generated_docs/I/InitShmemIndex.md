@@ -29,9 +29,9 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - ShmemInitHash (creates the hash table)
-  - HASHCTL (hash table control structure)
+  - [HASHCTL](../H/HASHCTL.md) (hash table control structure)
   - SHMEM_INDEX_KEYSIZE (macro defining key size)
-  - ShmemIndexEnt (structure type for hash table entries)
+  - [ShmemIndexEnt](../S/ShmemIndexEnt.md) (structure type for hash table entries)
   - SHMEM_INDEX_SIZE (macro defining table size)
   - HASH_ELEM (hash table flag)
   - HASH_STRINGS (hash table flag)

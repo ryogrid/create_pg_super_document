@@ -25,7 +25,7 @@ The function is crucial for the adaptive planning system's cost-based decisions 
 - Functions called/Symbols referenced:
   - [PlannedStmt](../P/PlannedStmt.md) (for accessing individual statement plans)
   - CMD_UTILITY (to identify and skip utility statements)
-  - list_length (to count relations in range table)
+  - [list_length](../l/list_length.md) (to count relations in range table)
   - cpu_operator_cost (PostgreSQL cost parameter for CPU operations)
   - lfirst_node (list iteration macro)
 - Called from (representative examples):

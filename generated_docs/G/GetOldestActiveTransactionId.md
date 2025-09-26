@@ -30,7 +30,7 @@ This function takes no parameters and returns:
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RecoveryInProgress](../R/RecoveryInProgress.md)
-  - LWLockAcquire/LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease
   - XidFromFullTransactionId
   - TransactionIdIsNormal
   - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)

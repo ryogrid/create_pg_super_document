@@ -42,7 +42,7 @@ The `shortest` function implements shortest-preferred matching for DFA-based reg
   - [dfa_backref](../d/dfa_backref.md) (recursive calls for backref processing)
   - [lacon](../l/lacon.md) (lookahead/lookbehind processing)
   - LOFF (regex execution offset function)
-  - find, cfindloop (main search functions)
+  - [find](../f/find.md), cfindloop (main search functions)
 
 ## Notes and Other Information
 - Prioritizes finding the shortest valid match rather than the longest

@@ -25,7 +25,7 @@ The `dectoasc` function converts a decimal number to its ASCII string representa
   - [rsetnull](../r/rsetnull.md)
   - [risnull](../r/risnull.md)
   - [PGTYPESnumeric_new](../P/PGTYPESnumeric_new.md)
-  - PGTYPESnumeric_from_decimal
+  - [PGTYPESnumeric_from_decimal](../P/PGTYPESnumeric_from_decimal.md)
   - [PGTYPESnumeric_to_asc](../P/PGTYPESnumeric_to_asc.md)
   - [PGTYPESnumeric_free](../P/PGTYPESnumeric_free.md)
   - strlen

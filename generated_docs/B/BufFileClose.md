@@ -25,15 +25,15 @@ The function performs three main operations in sequence:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufFileFlush (flushes pending data before closing)
-  - FileClose (closes individual underlying files)
-  - pfree (frees allocated memory)
+  - [BufFileFlush](BufFileFlush.md) (flushes pending data before closing)
+  - [FileClose](../F/FileClose.md) (closes individual underlying files)
+  - [pfree](../p/pfree.md) (frees allocated memory)
 - Called from (representative examples):
-  - gistFreeBuildBuffers (GiST index building cleanup)
-  - ExecHashTableDestroy (hash table cleanup in executor)
-  - LogicalTapeSetClose (logical tape management)
-  - tuplestore_end (tuple store cleanup)
-  - stream_close_file (logical replication worker)
+  - [gistFreeBuildBuffers](../g/gistFreeBuildBuffers.md) (GiST index building cleanup)
+  - [ExecHashTableDestroy](../E/ExecHashTableDestroy.md) (hash table cleanup in executor)
+  - [LogicalTapeSetClose](../L/LogicalTapeSetClose.md) (logical tape management)
+  - [tuplestore_end](../t/tuplestore_end.md) (tuple store cleanup)
+  - [stream_close_file](../s/stream_close_file.md) (logical replication worker)
 
 ## Notes and Other Information
 - This function implicitly calls FileClose on all underlying files, similar to how fclose() works with standard file handles

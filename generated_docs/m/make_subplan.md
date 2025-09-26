@@ -37,7 +37,7 @@ Key operations include:
   - copyObject
   - [simplify_EXISTS_query](../s/simplify_EXISTS_query.md)
   - [subquery_planner](../s/subquery_planner.md)
-  - fetch_upper_rel
+  - [fetch_upper_rel](../f/fetch_upper_rel.md)
   - [get_cheapest_fractional_path](../g/get_cheapest_fractional_path.md)
   - [create_plan](../c/create_plan.md)
   - [build_subplan](../b/build_subplan.md)

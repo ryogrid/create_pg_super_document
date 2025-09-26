@@ -33,7 +33,7 @@ This function orchestrates the parsing of JSON array data by setting up a JSON l
   - [populate_array_element_end](populate_array_element_end.md) (element end callback)
   - [populate_array_scalar](populate_array_scalar.md) (scalar value callback)
   - [pg_parse_json_or_errsave](pg_parse_json_or_errsave.md) (JSON parser function)
-  - freeJsonLexContext (cleanup function)
+  - [freeJsonLexContext](../f/freeJsonLexContext.md) (cleanup function)
   - SOFT_ERROR_OCCURRED (error checking macro)
 - Called from (representative examples):
   - JsObjectFree

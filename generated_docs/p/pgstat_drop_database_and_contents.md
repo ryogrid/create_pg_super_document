@@ -21,17 +21,17 @@ The function handles cases where statistics entries cannot be immediately freed 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_release_db_entry_refs
-  - dshash_seq_init
-  - dshash_seq_next
-  - pgstat_drop_entry_internal
-  - dshash_seq_term
-  - pgstat_request_entry_refs_gc
+  - [pgstat_release_db_entry_refs](pgstat_release_db_entry_refs.md)
+  - [dshash_seq_init](../d/dshash_seq_init.md)
+  - [dshash_seq_next](../d/dshash_seq_next.md)
+  - [pgstat_drop_entry_internal](pgstat_drop_entry_internal.md)
+  - [dshash_seq_term](../d/dshash_seq_term.md)
+  - [pgstat_request_entry_refs_gc](pgstat_request_entry_refs_gc.md)
 - Types used:
-  - dshash_seq_status
-  - PgStatShared_HashEntry
+  - [dshash_seq_status](../d/dshash_seq_status.md)
+  - [PgStatShared_HashEntry](../P/PgStatShared_HashEntry.md)
 - Called from:
-  - pgstat_drop_entry
+  - [pgstat_drop_entry](pgstat_drop_entry.md)
 
 ## Notes and Other Information
 - This is a static function internal to pgstat_shmem.c

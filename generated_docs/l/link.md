@@ -29,7 +29,7 @@ This implementation ensures that PostgreSQL code can use the standard link() int
 ## Dependencies
 - Functions called/Symbols referenced:
   - `CreateHardLinkA`: Windows API function for creating hard links
-  - `_dosmaperr`: Function to map Windows error codes to errno values
+  - `[_dosmaperr](../d/_dosmaperr.md)`: Function to map Windows error codes to errno values
   - `GetLastError`: Windows API function to retrieve last error code
 - Called from (representative examples):
   - Various PostgreSQL components including file operations, memory management, hash tables, and timezone utilities

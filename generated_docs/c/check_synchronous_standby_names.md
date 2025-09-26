@@ -27,7 +27,7 @@ The function handles the complete parsing workflow: initializing the scanner, pa
   - syncrep_scanner_init (initialize the synchronous replication configuration scanner)
   - syncrep_yyparse (parse the synchronous replication configuration)
   - syncrep_scanner_finish (cleanup the scanner)
-  - GUC_check_errcode (set GUC error code)
+  - [GUC_check_errcode](../G/GUC_check_errcode.md) (set GUC error code)
   - GUC_check_errdetail (set detailed error message)
   - GUC_check_errmsg (set general error message)
   - [guc_malloc](../g/guc_malloc.md) (allocate memory using GUC's memory allocator)

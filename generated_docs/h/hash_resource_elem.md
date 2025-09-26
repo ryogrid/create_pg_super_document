@@ -27,15 +27,15 @@ The approach is deliberately lightweight since there are only a few resource kin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwnerDesc (struct type)
+  - [ResourceOwnerDesc](../R/ResourceOwnerDesc.md) (struct type)
   - SIZEOF_DATUM (macro)
-  - hash_combine64 (64-bit systems)
-  - murmurhash64 (64-bit systems)
+  - [hash_combine64](hash_combine64.md) (64-bit systems)
+  - [murmurhash64](../m/murmurhash64.md) (64-bit systems)
   - hash_combine (32-bit systems)
-  - murmurhash32 (32-bit systems)
+  - [murmurhash32](../m/murmurhash32.md) (32-bit systems)
 - Called from (representative examples):
-  - ResourceOwnerAddToHash
-  - ResourceOwnerForget
+  - [ResourceOwnerAddToHash](../R/ResourceOwnerAddToHash.md)
+  - [ResourceOwnerForget](../R/ResourceOwnerForget.md)
 
 ## Notes and Other Information
 - This is a static inline function, meaning it's only visible within the resowner.c compilation unit and is likely to be inlined by the compiler for performance

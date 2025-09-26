@@ -26,7 +26,7 @@ The function is typically used when a relation needs to be fully synchronized, s
   - [mdnblocks](mdnblocks.md)
   - [_mdfd_openseg](_mdfd_openseg.md)
   - [register_dirty_segment](../r/register_dirty_segment.md)
-  - FileClose
+  - [FileClose](../F/FileClose.md)
   - [_fdvec_resize](../f/_fdvec_resize.md)
 - Called from (representative examples):
   - Storage manager layer functions (via MD_H interface)

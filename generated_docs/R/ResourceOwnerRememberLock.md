@@ -26,11 +26,11 @@ The function operates in three states:
 ## Dependencies
 - Functions called/Symbols referenced:
   - MAX_RESOWNER_LOCKS (constant defining cache size limit)
-  - LOCALLOCK (structure representing backend's view of a lock)
-  - ResourceOwner (structure managing resource ownership)
+  - [LOCALLOCK](../L/LOCALLOCK.md) (structure representing backend's view of a lock)
+  - [ResourceOwner](ResourceOwner.md) (structure managing resource ownership)
 - Called from (representative examples):
-  - GrantLockLocal (in src/backend/storage/lmgr/lock.c:1713)
-  - LockReassignOwner (in src/backend/storage/lmgr/lock.c:2626)
+  - [GrantLockLocal](../G/GrantLockLocal.md) (in src/backend/storage/lmgr/lock.c:1713)
+  - [LockReassignOwner](../L/LockReassignOwner.md) (in src/backend/storage/lmgr/lock.c:2626)
 
 ## Notes and Other Information
 - The lossy cache design is a performance optimization to prevent expensive linear searches in ResourceOwnerForgetLock when many locks are held

@@ -33,7 +33,7 @@ Since LockRows doesn't modify the target list, it simply passes through the tlis
 
 ## Notes and Other Information
 - The function is static, indicating it's only used within the createplan.c module
-- LockRows operations don't project new columns, so target list requirements pass through unchanged
+- [LockRows](../L/LockRows.md) operations don't project new columns, so target list requirements pass through unchanged
 - Row marks (best_path->rowMarks) specify the type and strength of locks to be acquired
 - The epqParam (evaluation-time parameter) is used for handling concurrent updates in isolation
 - Essential for implementing PostgreSQL's row-level locking mechanisms

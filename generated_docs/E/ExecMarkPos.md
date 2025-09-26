@@ -39,7 +39,7 @@ The mark/restore capability is specifically designed for nodes that can produce 
   - [ExecSortMarkPos](ExecSortMarkPos.md) (sort node position marking)
   - [ExecResultMarkPos](ExecResultMarkPos.md) (result node position marking)
 - Called from (representative examples):
-  - ExecMergeJoin (merge join operations)
+  - [ExecMergeJoin](ExecMergeJoin.md) (merge join operations)
   - [ExecResultMarkPos](ExecResultMarkPos.md) (result node delegation)
 
 ## Notes and Other Information

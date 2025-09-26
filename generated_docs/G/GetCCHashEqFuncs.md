@@ -23,18 +23,18 @@ The `GetCCHashEqFuncs` function serves as a central dispatcher that maps Postgre
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `charhashfast`: Fast hash function for char/boolean types
-  - `chareqfast`: Fast equality function for char/boolean types
-  - `namehashfast`: Fast hash function for name type
-  - `nameeqfast`: Fast equality function for name type
-  - `int2hashfast`: Fast hash function for int2 type
-  - `int2eqfast`: Fast equality function for int2 type
-  - `int4hashfast`: Fast hash function for int4/OID types
-  - `int4eqfast`: Fast equality function for int4/OID types
-  - `texthashfast`: Fast hash function for text type
-  - `texteqfast`: Fast equality function for text type
+  - `[charhashfast](../c/charhashfast.md)`: Fast hash function for char/boolean types
+  - `[chareqfast](../c/chareqfast.md)`: Fast equality function for char/boolean types
+  - `[namehashfast](../n/namehashfast.md)`: Fast hash function for name type
+  - `[nameeqfast](../n/nameeqfast.md)`: Fast equality function for name type
+  - `[int2hashfast](../i/int2hashfast.md)`: Fast hash function for int2 type
+  - `[int2eqfast](../i/int2eqfast.md)`: Fast equality function for int2 type
+  - `[int4hashfast](../i/int4hashfast.md)`: Fast hash function for int4/OID types
+  - `[int4eqfast](../i/int4eqfast.md)`: Fast equality function for int4/OID types
+  - `[texthashfast](../t/texthashfast.md)`: Fast hash function for text type
+  - `[texteqfast](../t/texteqfast.md)`: Fast equality function for text type
   - [oidvectorhashfast](../o/oidvectorhashfast.md): Fast hash function for oidvector type
-  - `oidvectoreqfast`: Fast equality function for oidvector type
+  - `[oidvectoreqfast](../o/oidvectoreqfast.md)`: Fast equality function for oidvector type
 - Called from (representative examples):
   - [CatalogCacheInitializeCache](../C/CatalogCacheInitializeCache.md): Used during catalog cache initialization to set up type-specific functions
 

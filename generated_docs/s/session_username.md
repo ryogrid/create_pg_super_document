@@ -23,7 +23,7 @@ The function returns NULL if there's no active database connection.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQparameterStatus (libpq function to query server parameters)
+  - [PQparameterStatus](../P/PQparameterStatus.md) (libpq function to query server parameters)
   - [PQuser](../P/PQuser.md) (libpq function to get connection username)
   - pset.db (global psql database connection)
 - Called from (representative examples):

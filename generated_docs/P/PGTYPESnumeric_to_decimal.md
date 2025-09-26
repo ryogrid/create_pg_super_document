@@ -22,14 +22,14 @@ The function provides a bridge between PostgreSQL's internal numeric representat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - numeric (type)
+  - [numeric](../n/numeric.md) (type)
   - decimal (type)
   - DECSIZE (maximum decimal size constant)
   - PGTYPES_NUM_OVERFLOW (error constant)
 - Called from (representative examples):
-  - deccall3, deccvasc, deccvdbl, deccvint, deccvlong (in compatlib/informix.c)
-  - ecpg_get_data (in ecpglib/data.c)
-  - main (in test files for numeric operations)
+  - [deccall3](../d/deccall3.md), deccvasc, deccvdbl, deccvint, deccvlong (in compatlib/informix.c)
+  - [ecpg_get_data](../e/ecpg_get_data.md) (in ecpglib/data.c)
+  - [main](../m/main.md) (in test files for numeric operations)
 
 ## Notes and Other Information
 - Returns 0 on successful conversion, -1 on overflow error

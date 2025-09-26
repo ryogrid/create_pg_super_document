@@ -34,7 +34,7 @@ This is essential for maintaining consistency in logical replication by ensuring
   - [ReorderBufferXidHasBaseSnapshot](../R/ReorderBufferXidHasBaseSnapshot.md)
   - [SnapBuildBuildSnapshot](SnapBuildBuildSnapshot.md)
   - [SnapBuildSnapIncRefcount](SnapBuildSnapIncRefcount.md)
-  - ReorderBufferSetBaseSnapshot
+  - [ReorderBufferSetBaseSnapshot](../R/ReorderBufferSetBaseSnapshot.md)
 - Called from (representative examples):
   - [heap2_decode](../h/heap2_decode.md) (decode.c:426)
   - [heap_decode](../h/heap_decode.md) (decode.c:490, 502, 508, 514, 538, 543)

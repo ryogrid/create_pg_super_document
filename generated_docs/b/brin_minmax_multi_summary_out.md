@@ -34,12 +34,12 @@ This function follows the PostgreSQL function calling convention using `PG_FUNCT
   - [fmgr_info](../f/fmgr_info.md)
   - [brin_range_deserialize](brin_range_deserialize.md)
   - [OutputFunctionCall](../O/OutputFunctionCall.md)
-  - cstring_to_text_with_len
+  - [cstring_to_text_with_len](../c/cstring_to_text_with_len.md)
   - [accumArrayResult](../a/accumArrayResult.md)
   - [makeArrayResult](../m/makeArrayResult.md)
   - [OidOutputFunctionCall](../O/OidOutputFunctionCall.md)
   - FunctionCall1
-  - cstring_to_text
+  - [cstring_to_text](../c/cstring_to_text.md)
   - [DatumGetCString](../D/DatumGetCString.md)
   - PG_RETURN_CSTRING
 - Called from (representative examples):

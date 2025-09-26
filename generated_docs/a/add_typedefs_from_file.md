@@ -26,13 +26,13 @@ This functionality is typically triggered by the command-line option `-U filenam
   - `fopen`: Opens the specified file for reading
   - `fgets`: Reads lines from the file
   - `strcspn`: Used to find and remove trailing whitespace  
-  - `add_typename`: Registers each type name in the typename database
+  - `[add_typename](add_typename.md)`: Registers each type name in the typename database
   - `fclose`: Closes the file after processing
   - `fprintf`: Prints error message if file cannot be opened
   - `exit`: Terminates program on file open error
 
 - Called from:
-  - `set_option`: Called when processing the `-U` command-line option (KEY_FILE case)
+  - `[set_option](../s/set_option.md)`: Called when processing the `-U` command-line option (KEY_FILE case)
 
 ## Notes and Other Information
 - The function uses a fixed buffer size (BUFSIZ) to read lines from the file

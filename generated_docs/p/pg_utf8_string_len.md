@@ -23,9 +23,9 @@ Returns the character count on success, or -1 if any invalid UTF-8 sequences are
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_utf_mblen (determines byte length of UTF-8 character)
+  - [pg_utf_mblen](pg_utf_mblen.md) (determines byte length of UTF-8 character)
   - [pg_utf8_islegal](pg_utf8_islegal.md) (validates UTF-8 sequence legality)
-  - pg_saslprep_rc (return code enumeration)
+  - [pg_saslprep_rc](pg_saslprep_rc.md) (return code enumeration)
 - Called from (representative examples):
   - [pg_saslprep](pg_saslprep.md) (main SASL preparation function)
 

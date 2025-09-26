@@ -27,9 +27,9 @@ This function processes a list of parsed and rewritten query trees for a SQL fun
   - [pg_plan_query](../p/pg_plan_query.md)
   - makeNode
   - [CommandIsReadOnly](../C/CommandIsReadOnly.md)
-  - CreateCommandName
+  - [CreateCommandName](../C/CreateCommandName.md)
   - [palloc](../p/palloc.md)
-  - lappend
+  - [lappend](../l/lappend.md)
   - lfirst_node
 - Called from (representative examples):
   - [init_sql_fcache](init_sql_fcache.md)

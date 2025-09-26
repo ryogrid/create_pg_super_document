@@ -24,12 +24,12 @@ As this is a typedef for HTAB *, the actual structure members are those of Postg
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HTAB (PostgreSQL hash table infrastructure)
+  - [HTAB](../H/HTAB.md) (PostgreSQL hash table infrastructure)
 - Called from (representative examples):
-  - json_unique_check_init
-  - json_unique_check_key
-  - JsonUniqueParsingState (as member)
-  - JsonUniqueBuilderState (as member)
+  - [json_unique_check_init](../j/json_unique_check_init.md)
+  - [json_unique_check_key](../j/json_unique_check_key.md)
+  - [JsonUniqueParsingState](JsonUniqueParsingState.md) (as member)
+  - [JsonUniqueBuilderState](JsonUniqueBuilderState.md) (as member)
 
 ## Notes and Other Information
 - This is part of PostgreSQL's JSON processing optimization infrastructure

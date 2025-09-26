@@ -47,19 +47,19 @@ The function includes complex logic for determining safe decoding transaction ID
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CheckLogicalDecodingRequirements: Validates decoding prerequisites
+  - [CheckLogicalDecodingRequirements](CheckLogicalDecodingRequirements.md): Validates decoding prerequisites
   - SlotIsPhysical: Checks if slot is physical type
-  - IsTransactionState: Validates transaction state
-  - GetTopTransactionIdIfAny: Gets active transaction ID if any
-  - ReplicationSlotReserveWal: Reserves WAL for slot
-  - GetOldestSafeDecodingTransactionId: Calculates safe decoding xmin
-  - ReplicationSlotsComputeRequiredXmin: Updates global xmin requirements
-  - StartupDecodingContext: Common decoding context initialization
-  - startup_cb_wrapper: Output plugin startup callback wrapper
+  - [IsTransactionState](../I/IsTransactionState.md): Validates transaction state
+  - [GetTopTransactionIdIfAny](../G/GetTopTransactionIdIfAny.md): Gets active transaction ID if any
+  - [ReplicationSlotReserveWal](../R/ReplicationSlotReserveWal.md): Reserves WAL for slot
+  - [GetOldestSafeDecodingTransactionId](../G/GetOldestSafeDecodingTransactionId.md): Calculates safe decoding xmin
+  - [ReplicationSlotsComputeRequiredXmin](../R/ReplicationSlotsComputeRequiredXmin.md): Updates global xmin requirements
+  - [StartupDecodingContext](../S/StartupDecodingContext.md): Common decoding context initialization
+  - [startup_cb_wrapper](../s/startup_cb_wrapper.md): Output plugin startup callback wrapper
 
 - Called from (representative examples):
-  - create_logical_replication_slot: During SQL function slot creation
-  - CreateReplicationSlot: During WAL sender slot creation
+  - [create_logical_replication_slot](../c/create_logical_replication_slot.md): During SQL function slot creation
+  - [CreateReplicationSlot](CreateReplicationSlot.md): During WAL sender slot creation
 
 ## Notes and Other Information
 - Must be called within a memory context that outlives the decoding context

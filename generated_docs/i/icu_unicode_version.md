@@ -24,7 +24,7 @@ This conditional compilation approach allows the function to exist in all Postgr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `cstring_to_text()` (converts C string to PostgreSQL text type, when ICU enabled)
+  - `[cstring_to_text](../c/cstring_to_text.md)()` (converts C string to PostgreSQL text type, when ICU enabled)
   - `PG_RETURN_TEXT_P` (macro to return text value, when ICU enabled)
   - `PG_RETURN_NULL()` (macro to return NULL value, when ICU disabled)
   - `U_UNICODE_VERSION` (ICU constant with Unicode version, when ICU enabled)

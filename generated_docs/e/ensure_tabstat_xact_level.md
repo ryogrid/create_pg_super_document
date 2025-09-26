@@ -25,14 +25,14 @@ This lazy approach optimizes performance by only creating transaction tracking s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `GetCurrentTransactionNestLevel`: Returns the current transaction nesting depth
-  - `add_tabstat_xact_level`: Creates a new transaction state record
-  - `PgStat_TableStatus`: Main table statistics tracking structure
+  - `[GetCurrentTransactionNestLevel](../G/GetCurrentTransactionNestLevel.md)`: Returns the current transaction nesting depth
+  - `[add_tabstat_xact_level](../a/add_tabstat_xact_level.md)`: Creates a new transaction state record
+  - `[PgStat_TableStatus](../P/PgStat_TableStatus.md)`: Main table statistics tracking structure
 - Called from (representative examples):
-  - `pgstat_count_heap_insert`: When tracking row insertions
-  - `pgstat_count_heap_update`: When tracking row updates  
-  - `pgstat_count_heap_delete`: When tracking row deletions
-  - `pgstat_count_truncate`: When tracking table truncations
+  - `[pgstat_count_heap_insert](../p/pgstat_count_heap_insert.md)`: When tracking row insertions
+  - `[pgstat_count_heap_update](../p/pgstat_count_heap_update.md)`: When tracking row updates  
+  - `[pgstat_count_heap_delete](../p/pgstat_count_heap_delete.md)`: When tracking row deletions
+  - `[pgstat_count_truncate](../p/pgstat_count_truncate.md)`: When tracking table truncations
 
 ## Notes and Other Information
 - The function implements a critical optimization by using lazy initialization - transaction tracking overhead is only incurred when actually needed

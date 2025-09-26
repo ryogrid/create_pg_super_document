@@ -20,7 +20,7 @@ The `pg_localtime` function is PostgreSQL's timezone-aware version of the standa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - localsub
+  - [localsub](../l/localsub.md)
   - pg_time_t
   - [pg_tz](pg_tz.md)
   - [pg_tm](pg_tm.md)

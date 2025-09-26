@@ -26,8 +26,8 @@ The conversion process involves extracting all attributes from the input slot, c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slot_getallattrs
-  - ExecClearTuple
+  - [slot_getallattrs](../s/slot_getallattrs.md)
+  - [ExecClearTuple](../E/ExecClearTuple.md)
   - [ExecStoreVirtualTuple](../E/ExecStoreVirtualTuple.md)
   - [AttrMap](../A/AttrMap.md) (struct)
   - Assert

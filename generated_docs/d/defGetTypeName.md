@@ -29,7 +29,7 @@ An important design note: this function deliberately does not accept List argume
   - [DefElem](../D/DefElem.md) (structure type)
   - nodeTag (macro to get node type)
   - [TypeName](../T/TypeName.md) (structure type for type names)
-  - makeTypeNameFromNameList (function to create TypeName from name list)
+  - [makeTypeNameFromNameList](../m/makeTypeNameFromNameList.md) (function to create TypeName from name list)
   - list_make1 (function to create single-element list)
 - Called from (representative examples):
   - [DefineAggregate](../D/DefineAggregate.md) (aggregate definition commands)

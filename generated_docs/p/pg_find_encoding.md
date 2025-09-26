@@ -22,11 +22,11 @@ The function supports PostgreSQL's binary data encoding formats used primarily w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strcasecmp (for case-insensitive string comparison)
+  - [pg_strcasecmp](pg_strcasecmp.md) (for case-insensitive string comparison)
   - enclist (static array containing available encodings)
 - Called from (representative examples):
-  - binary_encode (to find encoding functions for encoding operations)
-  - binary_decode (to find decoding functions for decoding operations)
+  - [binary_encode](../b/binary_encode.md) (to find encoding functions for encoding operations)
+  - [binary_decode](../b/binary_decode.md) (to find decoding functions for decoding operations)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the encode.c file

@@ -29,7 +29,7 @@ This function is commonly used in iteration loops to safely traverse the list wi
   - [addItemsToLeaf](../a/addItemsToLeaf.md)
   - [leafRepackItems](../l/leafRepackItems.md)
   - [ReorderBufferIterTXNNext](../R/ReorderBufferIterTXNNext.md)
-  - pgstat_flush_pending_entries
+  - [pgstat_flush_pending_entries](../p/pgstat_flush_pending_entries.md)
   - [BumpReset](../B/BumpReset.md)
   - [GenerationReset](../G/GenerationReset.md)
   - [dlist_next_node](dlist_next_node.md)

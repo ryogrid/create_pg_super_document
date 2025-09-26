@@ -29,7 +29,7 @@ The function connects to the subscriber using the first database connection info
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_log_info
-  - connect_database
+  - [connect_database](connect_database.md)
   - [server_is_in_recovery](../s/server_is_in_recovery.md)
   - [disconnect_database](../d/disconnect_database.md)
   - [PQexec](../P/PQexec.md)

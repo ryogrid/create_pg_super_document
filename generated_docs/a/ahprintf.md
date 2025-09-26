@@ -22,7 +22,7 @@ The  function provides formatted text output functionality for PostgreSQL's pg_d
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_malloc
+  - [pg_malloc](../p/pg_malloc.md)
   - [pvsnprintf](../p/pvsnprintf.md)
   - [ahwrite](ahwrite.md)
 - Called from (representative examples):

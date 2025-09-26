@@ -28,7 +28,7 @@ The  structure serves as a tracking mechanism for tables and their associated TO
 - `ar_reloptions`: Copy of the AutoVacOpts structure containing table-specific autovacuum configuration options from the main table's reloptions
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AutoVacOpts (autovacuum options structure)
+  - [AutoVacOpts](../A/AutoVacOpts.md) (autovacuum options structure)
 - Called from (representative examples):
   - [do_autovacuum](../d/do_autovacuum.md)
   - [table_recheck_autovac](../t/table_recheck_autovac.md)

@@ -29,7 +29,7 @@ The function ensures error handling consistency with finite timestamp extraction
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_float8_infinity (returns positive or negative infinity values)
+  - [get_float8_infinity](../g/get_float8_infinity.md) (returns positive or negative infinity values)
   - Various DTK_* constants (time unit definitions)
   - UNITS, RESERV (unit type constants)
   - ereport, errcode, errmsg (error reporting functions)

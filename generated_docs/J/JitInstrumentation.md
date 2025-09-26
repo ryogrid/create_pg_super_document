@@ -44,8 +44,8 @@ JitInstrumentation serves as a comprehensive performance monitoring structure fo
 - Functions called/Symbols referenced:
   - [instr_time](../i/instr_time.md) (timing instrumentation type)
 - Called from (representative examples):
-  - ExplainPrintJITSummary
-  - ExplainPrintJIT
+  - [ExplainPrintJITSummary](../E/ExplainPrintJITSummary.md)
+  - [ExplainPrintJIT](../E/ExplainPrintJIT.md)
   - [ExecParallelRetrieveJitInstrumentation](../E/ExecParallelRetrieveJitInstrumentation.md)
   - [InstrJitAgg](../I/InstrJitAgg.md)
 

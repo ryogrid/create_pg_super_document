@@ -33,7 +33,7 @@ This specialized connection string is designed for the specific use case of pg_c
 - Functions called/Symbols referenced:
   - [CreateSubscriberOptions](../C/CreateSubscriberOptions.md) (structure type for subscriber configuration)
   - [appendConnStrItem](../a/appendConnStrItem.md) (helper function to build connection string items)
-  - createPQExpBuffer, destroyPQExpBuffer (buffer management)
+  - [createPQExpBuffer](../c/createPQExpBuffer.md), destroyPQExpBuffer (buffer management)
   - [pg_strdup](../p/pg_strdup.md) (string duplication)
   - progname (global variable with program name)
 - Called from (representative examples):

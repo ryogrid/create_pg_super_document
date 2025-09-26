@@ -23,7 +23,7 @@ The function uses  in the type lookup to maintain security contracts when writin
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LookupTypeNameExtended](../L/LookupTypeNameExtended.md)
-  - makeTypeNameFromNameList
+  - [makeTypeNameFromNameList](../m/makeTypeNameFromNameList.md)
   - [typeTypeId](../t/typeTypeId.md)
   - [typeTypeRelid](../t/typeTypeRelid.md)
   - [ReleaseSysCache](../R/ReleaseSysCache.md)

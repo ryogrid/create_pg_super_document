@@ -26,7 +26,7 @@ This approach allows for efficient cache invalidation without the overhead of co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationCloseSmgr
+  - [RelationCloseSmgr](RelationCloseSmgr.md)
 - Called from (representative examples):
   - [RelationFlushRelation](RelationFlushRelation.md)
 

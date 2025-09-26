@@ -25,16 +25,16 @@ The rejection mechanism helps optimize bulk read performance by avoiding the ove
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferDescriptorGetBuffer (to get buffer number from descriptor)
+  - [BufferDescriptorGetBuffer](../B/BufferDescriptorGetBuffer.md) (to get buffer number from descriptor)
 - Buffer access strategy types:
   - BAS_BULKREAD
 - Buffer management types:
-  - BufferAccessStrategy
-  - BufferDesc
+  - [BufferAccessStrategy](../B/BufferAccessStrategy.md)
+  - [BufferDesc](../B/BufferDesc.md)
   - InvalidBuffer
 - Called from:
-  - GetVictimBuffer
-  - ResourceOwnerForgetBufferIO
+  - [GetVictimBuffer](../G/GetVictimBuffer.md)
+  - [ResourceOwnerForgetBufferIO](../R/ResourceOwnerForgetBufferIO.md)
 
 ## Notes and Other Information
 - The function only operates on BAS_BULKREAD strategies, returning false immediately for other strategy types

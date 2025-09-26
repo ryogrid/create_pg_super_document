@@ -22,7 +22,7 @@ This function is typically used at the beginning of output functions for custom 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initStringInfo (implicit through StringInfo initialization)
+  - [initStringInfo](../i/initStringInfo.md) (implicit through StringInfo initialization)
   - appendStringInfoCharMacro (called 4 times to reserve length bytes)
 - Called from (representative examples):
   - [array_send](../a/array_send.md) (src/backend/utils/adt/arrayfuncs.c:1603)

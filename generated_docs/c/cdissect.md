@@ -38,8 +38,8 @@ The function follows strict rules for managing match data, ensuring that capture
   - [subset](../s/subset.md) (match recording function)
   - SHORTER, BACKR (flag constants)
 - Called from (representative examples):
-  - find (function at src/backend/regex/regexec.c:502)
-  - cfindloop (function at src/backend/regex/regexec.c:612)
+  - [find](../f/find.md) (function at src/backend/regex/regexec.c:502)
+  - [cfindloop](cfindloop.md) (function at src/backend/regex/regexec.c:612)
   - [ccondissect](ccondissect.md), crevcondissect, caltdissect, citerdissect, creviterdissect (recursive calls)
 
 ## Notes and Other Information

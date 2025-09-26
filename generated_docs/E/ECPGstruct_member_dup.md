@@ -30,8 +30,8 @@ The function ensures that all nested structures are properly duplicated rather t
   - [ECPGmake_array_type](ECPGmake_array_type.md)
   - [ECPGmake_simple_type](ECPGmake_simple_type.md)
   - [ECPGmake_struct_member](ECPGmake_struct_member.md)
-  - ECPGstruct_member (struct type)
-  - ECPGtype (struct type)
+  - [ECPGstruct_member](ECPGstruct_member.md) (struct type)
+  - [ECPGtype](ECPGtype.md) (struct type)
   - ECPGt_struct, ECPGt_union, ECPGt_array (enum values)
 
 - Called from (representative examples):

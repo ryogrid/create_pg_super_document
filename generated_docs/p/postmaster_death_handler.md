@@ -25,7 +25,7 @@ The handler is designed to be minimalistic and signal-safe, performing only the 
   - SIGNAL_ARGS (macro)
   - postmaster_possibly_dead (global variable set to true)
 - Called from (representative examples):
-  - PostmasterDeathSignalInit (registers this handler)
+  - [PostmasterDeathSignalInit](../P/PostmasterDeathSignalInit.md) (registers this handler)
 
 ## Notes and Other Information
 - This is a static function, meaning it has internal linkage within pmsignal.c

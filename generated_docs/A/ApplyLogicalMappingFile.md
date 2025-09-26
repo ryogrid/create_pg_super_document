@@ -31,16 +31,16 @@ The mappings contain both old and new relation locators and tuple identifiers, a
 ## Dependencies
 - Functions called/Symbols referenced:
   - sprintf
-  - OpenTransientFile
+  - [OpenTransientFile](../O/OpenTransientFile.md)
   - ereport/ERROR
   - [errcode_for_file_access](../e/errcode_for_file_access.md)
   - [errmsg](../e/errmsg.md)
   - memset
-  - pgstat_report_wait_start/pgstat_report_wait_end
+  - [pgstat_report_wait_start](../p/pgstat_report_wait_start.md)/pgstat_report_wait_end
   - read
   - [ItemPointerCopy](../I/ItemPointerCopy.md)
   - [hash_search](../h/hash_search.md)
-  - CloseTransientFile
+  - [CloseTransientFile](../C/CloseTransientFile.md)
 - Called from (representative examples):
   - [UpdateLogicalMappings](../U/UpdateLogicalMappings.md)
 

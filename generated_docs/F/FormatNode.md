@@ -40,14 +40,14 @@ This parsed representation allows efficient processing during formatting operati
   - NODE_TYPE_XXX constants
   - SUFFTYPE_XXX constants
 - Called from (representative examples):
-  - parse_format: Creates and populates FormatNode arrays
-  - DCH_to_char: Processes FormatNode array for date/time formatting
-  - DCH_from_char: Processes FormatNode array for date/time parsing
-  - NUM_processor: Processes FormatNode array for numeric formatting
-  - dump_node: Debug function to display FormatNode contents
+  - [parse_format](../p/parse_format.md): Creates and populates FormatNode arrays
+  - [DCH_to_char](../D/DCH_to_char.md): Processes FormatNode array for date/time formatting
+  - [DCH_from_char](../D/DCH_from_char.md): Processes FormatNode array for date/time parsing
+  - [NUM_processor](../N/NUM_processor.md): Processes FormatNode array for numeric formatting
+  - [dump_node](../d/dump_node.md): Debug function to display FormatNode contents
 
 ## Notes and Other Information
-- FormatNode arrays are typically allocated as  to accommodate the END node
+- [FormatNode](FormatNode.md) arrays are typically allocated as  to accommodate the END node
 - The structure is used extensively in PostgreSQL's formatting system for both input parsing and output generation
 - Caching mechanisms store parsed FormatNode arrays to avoid re-parsing frequently used format strings
 - The character array supports full multibyte character sequences, enabling international character support in format templates

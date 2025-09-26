@@ -28,14 +28,14 @@ This function takes no parameters and uses default connection options (atomic mo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SPI_connect_ext
+  - [SPI_connect_ext](SPI_connect_ext.md)
   
 - Called from (representative examples):
-  - refresh_by_match_merge (materialized view operations)
-  - ri_Check_Pk_Match (referential integrity checks)
-  - ri_restrict, RI_FKey_cascade_del, RI_FKey_cascade_upd (foreign key constraint handling)
-  - pg_get_ruledef_worker, pg_get_viewdef_worker (rule and view definition functions)
-  - plperl_trigger_handler, pltcl_trigger_handler (procedural language trigger handlers)
+  - [refresh_by_match_merge](../r/refresh_by_match_merge.md) (materialized view operations)
+  - [ri_Check_Pk_Match](../r/ri_Check_Pk_Match.md) (referential integrity checks)
+  - [ri_restrict](../r/ri_restrict.md), RI_FKey_cascade_del, RI_FKey_cascade_upd (foreign key constraint handling)
+  - [pg_get_ruledef_worker](../p/pg_get_ruledef_worker.md), pg_get_viewdef_worker (rule and view definition functions)
+  - [plperl_trigger_handler](../p/plperl_trigger_handler.md), pltcl_trigger_handler (procedural language trigger handlers)
   - Various XML processing functions (cursor_to_xml, query_to_xml_internal, etc.)
 
 ## Notes and Other Information

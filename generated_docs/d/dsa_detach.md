@@ -22,15 +22,15 @@ Importantly, this function only handles "detaching" (disconnecting from DSM segm
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dsm_detach
-  - pfree
+  - [dsm_detach](dsm_detach.md)
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - DetachSession
-  - TidStoreDetach
-  - TidStoreDestroy
-  - ExecParallelCleanup
-  - ParallelQueryMain
-  - pgstat_detach_shmem
+  - [DetachSession](../D/DetachSession.md)
+  - [TidStoreDetach](../T/TidStoreDetach.md)
+  - [TidStoreDestroy](../T/TidStoreDestroy.md)
+  - [ExecParallelCleanup](../E/ExecParallelCleanup.md)
+  - [ParallelQueryMain](../P/ParallelQueryMain.md)
+  - [pgstat_detach_shmem](../p/pgstat_detach_shmem.md)
 
 ## Notes and Other Information
 - The function detaches from all segments by iterating through the  array up to 

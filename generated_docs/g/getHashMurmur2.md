@@ -24,7 +24,7 @@ This function implements the Murmur2 hash algorithm, a non-cryptographic hash fu
   - MM2_MUL (constant) 
   - MM2_ROT (constant)
 - Called from (representative examples):
-  - evalStandardFunc
+  - [evalStandardFunc](../e/evalStandardFunc.md)
 
 ## Notes and Other Information
 - Based on Austin Appleby's MurmurHash2 from SMHasher project

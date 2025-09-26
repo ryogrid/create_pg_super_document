@@ -21,12 +21,12 @@ This function takes no parameters (uses PG_FUNCTION_ARGS macro but doesn't extra
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwnerCreate (resource owner creation)
-  - ResourceOwnerEnlarge (resource owner capacity management)  
-  - ResourceOwnerRemember (resource registration)
-  - ResourceOwnerRelease (resource cleanup in three phases)
-  - ResourceOwnerDelete (resource owner cleanup)
-  - CStringGetDatum (string to Datum conversion)
+  - [ResourceOwnerCreate](../R/ResourceOwnerCreate.md) (resource owner creation)
+  - [ResourceOwnerEnlarge](../R/ResourceOwnerEnlarge.md) (resource owner capacity management)  
+  - [ResourceOwnerRemember](../R/ResourceOwnerRemember.md) (resource registration)
+  - [ResourceOwnerRelease](../R/ResourceOwnerRelease.md) (resource cleanup in three phases)
+  - [ResourceOwnerDelete](../R/ResourceOwnerDelete.md) (resource owner cleanup)
+  - [CStringGetDatum](../C/CStringGetDatum.md) (string to Datum conversion)
   - string_desc (global resource descriptor for string resources)
   - PG_RETURN_VOID (return macro)
 - Called from (representative examples):

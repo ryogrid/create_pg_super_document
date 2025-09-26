@@ -36,7 +36,7 @@ The algorithm:
   - `const_one`: Predefined `NumericVar` constant representing value 1
 
 - Called from (representative examples):
-  - `numeric_ceil`: SQL-callable ceiling function wrapper
+  - `[numeric_ceil](../n/numeric_ceil.md)`: SQL-callable ceiling function wrapper
 
 ## Notes and Other Information
 - This is a static function internal to the numeric data type implementation

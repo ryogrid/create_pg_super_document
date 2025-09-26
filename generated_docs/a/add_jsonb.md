@@ -26,7 +26,7 @@ The add_jsonb function is a utility function that converts a PostgreSQL Datum va
 ## Dependencies
 - Functions called/Symbols referenced:
   - [json_categorize_type](../j/json_categorize_type.md)
-  - datum_to_jsonb_internal
+  - [datum_to_jsonb_internal](../d/datum_to_jsonb_internal.md)
   - [JsonbInState](../J/JsonbInState.md)
   - JsonTypeCategory
   - JSONTYPE_NULL

@@ -32,10 +32,10 @@ The function ensures that the returned mergeclauses maintain the required sequen
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_head
+  - [list_head](../l/list_head.md)
   - [lnext](../l/lnext.md)  
-  - PathKey
-  - EquivalenceClass
+  - [PathKey](../P/PathKey.md)
+  - [EquivalenceClass](../E/EquivalenceClass.md)
 - Called from (representative examples):
   - [generate_mergejoin_paths](../g/generate_mergejoin_paths.md) (src/backend/optimizer/path/joinpath.c:1619)
   - [generate_mergejoin_paths](../g/generate_mergejoin_paths.md) (src/backend/optimizer/path/joinpath.c:1662)

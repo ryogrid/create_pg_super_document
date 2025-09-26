@@ -30,14 +30,14 @@ JsonParseExpr represents the JSON() function which takes a string input and pars
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonValueExpr (input string expression)
-  - JsonOutput (output formatting specification)
+  - [JsonValueExpr](JsonValueExpr.md) (input string expression)
+  - [JsonOutput](JsonOutput.md) (output formatting specification)
   - ParseLoc (location tracking)
   - NodeTag (inherited node type system)
 - Called from (representative examples):
-  - transformExprRecurse (expression transformation)
-  - transformJsonParseExpr (specific JSON parse transformation)
-  - raw_expression_tree_walker_impl (parse tree walking)
+  - [transformExprRecurse](../t/transformExprRecurse.md) (expression transformation)
+  - [transformJsonParseExpr](../t/transformJsonParseExpr.md) (specific JSON parse transformation)
+  - [raw_expression_tree_walker_impl](../r/raw_expression_tree_walker_impl.md) (parse tree walking)
 
 ## Notes and Other Information
 - Implements the SQL/JSON JSON() function for parsing and validating JSON strings

@@ -21,7 +21,7 @@ This function implements the standard binary heap parent index calculation formu
 ## Dependencies
 - Functions called/Symbols referenced: None (basic arithmetic operation)
 - Called from (representative examples):
-  - ltsReleaseBlock (in src/backend/utils/sort/logtape.c)
+  - [ltsReleaseBlock](../l/ltsReleaseBlock.md) (in src/backend/utils/sort/logtape.c)
   - [binaryheap_build](../b/binaryheap_build.md) (in src/common/binaryheap.c)  
   - [sift_up](../s/sift_up.md) (in src/common/binaryheap.c)
 

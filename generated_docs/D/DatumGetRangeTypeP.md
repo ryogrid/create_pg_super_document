@@ -24,10 +24,10 @@ The function is defined as a static inline function in the header file, meaning 
 - Functions called/Symbols referenced:
   - PG_DETOAST_DATUM (macro for detoasting data)
 - Called from (representative examples):
-  - multirange_in (multirange input function)
-  - range_gist_consistent (GiST index consistency checking)
-  - spg_range_quad_choose (SP-GiST index operations)
-  - rangesel (range selectivity estimation)
+  - [multirange_in](../m/multirange_in.md) (multirange input function)
+  - [range_gist_consistent](../r/range_gist_consistent.md) (GiST index consistency checking)
+  - [spg_range_quad_choose](../s/spg_range_quad_choose.md) (SP-GiST index operations)
+  - [rangesel](../r/rangesel.md) (range selectivity estimation)
   - PG_GETARG_RANGE_P (macro for getting range arguments)
 
 ## Notes and Other Information

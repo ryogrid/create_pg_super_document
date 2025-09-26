@@ -30,11 +30,11 @@ This multi-platform approach ensures that sensitive data such as passwords, cryp
   - SecureZeroMemory (on WIN32 systems)
   - bzero_p (volatile function pointer to bzero2 on other systems)
 - Called from (representative examples):
-  - run_ssl_passphrase_command (src/backend/libpq/be-secure-common.c:68,80,90)
-  - pg_cryptohash_free (src/common/cryptohash.c:243)
-  - pg_hmac_free (src/common/hmac.c:295)
-  - freePGconn (src/interfaces/libpq/fe-connect.c:4665,4680)
-  - passwordFromFile (src/interfaces/libpq/fe-connect.c:7527,7554)
+  - [run_ssl_passphrase_command](../r/run_ssl_passphrase_command.md) (src/backend/libpq/be-secure-common.c:68,80,90)
+  - [pg_cryptohash_free](../p/pg_cryptohash_free.md) (src/common/cryptohash.c:243)
+  - [pg_hmac_free](../p/pg_hmac_free.md) (src/common/hmac.c:295)
+  - [freePGconn](../f/freePGconn.md) (src/interfaces/libpq/fe-connect.c:4665,4680)
+  - [passwordFromFile](../p/passwordFromFile.md) (src/interfaces/libpq/fe-connect.c:7527,7554)
 
 ## Notes and Other Information
 - The function is declared in src/include/port.h:428 and implemented as part of the PostgreSQL portability layer

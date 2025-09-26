@@ -23,10 +23,10 @@ This function implements the core connection lookup logic for the ECPG library. 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ecpg_pthreads_init](ecpg_pthreads_init.md) (ensures thread infrastructure is ready)
-  - `pthread_getspecific` (retrieves thread-specific connection)
+  - `[pthread_getspecific](../p/pthread_getspecific.md)` (retrieves thread-specific connection)
   - `strcmp` (string comparison for connection names)
 - Called from (representative examples):
-  - `ecpg_get_connection` (public connection retrieval interface)
+  - `[ecpg_get_connection](ecpg_get_connection.md)` (public connection retrieval interface)
   - [ECPGdisconnect](../E/ECPGdisconnect.md) (when disconnecting specific connections)
 
 ## Notes and Other Information

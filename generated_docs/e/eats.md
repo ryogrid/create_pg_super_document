@@ -28,8 +28,8 @@ The function name likely stands for "error at this source" or similar, reflectin
   - lineno_t (type)
 
 - Called from (representative examples):
-  - eat
-  - years_of_observations (multiple calls)
+  - [eat](eat.md)
+  - [years_of_observations](../y/years_of_observations.md) (multiple calls)
 
 ## Notes and Other Information
 - This function is static, meaning it's only accessible within src/timezone/zic.c

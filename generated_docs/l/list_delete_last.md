@@ -24,16 +24,16 @@ The efficiency advantage comes from the fact that removing the last element does
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_list_invariants: Validates list structure integrity
-  - list_length: Determines the number of elements in the list
-  - list_free: Deallocates the entire list when it becomes empty
-  - list_truncate: Removes elements from the end of the list
+  - [check_list_invariants](../c/check_list_invariants.md): Validates list structure integrity
+  - [list_length](list_length.md): Determines the number of elements in the list
+  - [list_free](list_free.md): Deallocates the entire list when it becomes empty
+  - [list_truncate](list_truncate.md): Removes elements from the end of the list
 - Called from (representative examples):
-  - CheckAttributeType: Type system validation
-  - LockViewRecurse: View locking operations
-  - agg_refill_hash_table: Aggregate function processing
-  - inline_function: Function inlining optimization
-  - transformOnConflictClause: UPSERT statement parsing
+  - [CheckAttributeType](../C/CheckAttributeType.md): Type system validation
+  - [LockViewRecurse](../L/LockViewRecurse.md): View locking operations
+  - [agg_refill_hash_table](../a/agg_refill_hash_table.md): Aggregate function processing
+  - [inline_function](../i/inline_function.md): Function inlining optimization
+  - [transformOnConflictClause](../t/transformOnConflictClause.md): UPSERT statement parsing
 
 ## Notes and Other Information
 - Returns NIL if the input list is empty (no error is raised)

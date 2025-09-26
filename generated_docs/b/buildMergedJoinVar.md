@@ -31,8 +31,8 @@ This function creates a unified expression for columns that appear in a JOIN USI
   - list_make2
 - Types referenced:
   - JoinType
-  - Var
-  - CoalesceExpr
+  - [Var](../V/Var.md)
+  - [CoalesceExpr](../C/CoalesceExpr.md)
 - Constants referenced:
   - JOIN_INNER, JOIN_LEFT, JOIN_RIGHT, JOIN_FULL
   - COERCION_IMPLICIT, COERCE_IMPLICIT_CAST

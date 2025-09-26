@@ -34,11 +34,11 @@ This function reads the contents of a specified WAL summary file identified by t
   - [BlockRefTableReaderGetBlocks](../B/BlockRefTableReaderGetBlocks.md) (gets modified block numbers)
   - BlockNumberIsValid (validates block numbers)
   - [DestroyBlockRefTableReader](../D/DestroyBlockRefTableReader.md) (cleanup)
-  - FileClose (closes file)
+  - [FileClose](../F/FileClose.md) (closes file)
   - Various Datum conversion functions (ObjectIdGetDatum, Int16GetDatum, Int64GetDatum, BoolGetDatum)
 - Data types/structures used:
-  - WalSummaryFile, WalSummaryIO (WAL summary file handling)
-  - BlockRefTableReader (block reference table reader)
+  - [WalSummaryFile](../W/WalSummaryFile.md), WalSummaryIO (WAL summary file handling)
+  - [BlockRefTableReader](../B/BlockRefTableReader.md) (block reference table reader)
   - [RelFileLocator](../R/RelFileLocator.md) (relation file locator)
   - [ForkNumber](../F/ForkNumber.md) (relation fork identifier)
   - MAX_BLOCKS_PER_CALL (constant for batch processing)
@@ -49,7 +49,7 @@ This function reads the contents of a specified WAL summary file identified by t
 - Validates timeline ID to ensure it's within valid range (1 to PG_INT32_MAX)
 - Uses batch processing with MAX_BLOCKS_PER_CALL to efficiently read block lists
 - Handles both individual modified blocks and limit blocks (truncation points)
-- Limit blocks are marked with a boolean flag to distinguish them from regular modified blocks
+- [Limit](../L/Limit.md) blocks are marked with a boolean flag to distinguish them from regular modified blocks
 - Includes interrupt checking for query cancellation during long operations
 - Performs proper resource cleanup by destroying the reader and closing files
 - The function provides detailed visibility into WAL summary file contents for backup and recovery operations

@@ -33,7 +33,7 @@ The function is designed to minimize overhead by pre-allocating only essential r
   - [EPQState](EPQState.md) (structure type)
   - [EState](EState.md) (structure type)
   - [Plan](../P/Plan.md) (structure type)
-  - TupleTableSlot (structure type)
+  - [TupleTableSlot](../T/TupleTableSlot.md) (structure type)
   - [palloc0](../p/palloc0.md)
   - NIL
 - Called from (representative examples):

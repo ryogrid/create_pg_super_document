@@ -26,7 +26,7 @@ The generated archive entry is placed in the SECTION_POST_DATA section, ensuring
   - fmtQualifiedDumpable
   - [ArchiveEntry](../A/ArchiveEntry.md)
   - ARCHIVE_OPTS (macro)
-  - createPQExpBuffer/destroyPQExpBuffer
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)/destroyPQExpBuffer
   - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
   - DUMP_COMPONENT_DATA (flag)
   - SECTION_POST_DATA (section constant)

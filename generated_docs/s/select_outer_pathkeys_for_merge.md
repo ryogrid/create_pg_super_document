@@ -40,9 +40,9 @@ Key optimization strategies:
   - [make_canonical_pathkey](../m/make_canonical_pathkey.md)
   - linitial_oid
   - [pathkey_is_redundant](../p/pathkey_is_redundant.md)
-  - EquivalenceClass
+  - [EquivalenceClass](../E/EquivalenceClass.md)
   - [EquivalenceMember](../E/EquivalenceMember.md)
-  - PathKey
+  - [PathKey](../P/PathKey.md)
   - BTLessStrategyNumber
 - Called from (representative examples):
   - [sort_inner_and_outer](sort_inner_and_outer.md) (src/backend/optimizer/path/joinpath.c:1379)

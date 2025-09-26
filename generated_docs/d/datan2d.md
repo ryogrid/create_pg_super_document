@@ -33,7 +33,7 @@ The implementation converts from radians to degrees using the same scaling appro
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT8: Extracts float8 arguments from function call (called twice)
   - isnan: Checks if either input is Not-a-Number
-  - get_float8_nan: Returns NaN value for float8
+  - [get_float8_nan](../g/get_float8_nan.md): Returns NaN value for float8
   - INIT_DEGREE_CONSTANTS: Initializes degree conversion constants including 
   - atan2: Standard C library two-argument arctangent function (returns radians)
   - isinf: Checks if result is infinite

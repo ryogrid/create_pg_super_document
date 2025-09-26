@@ -31,7 +31,7 @@ Key behaviors include:
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to create Path node)
-  - get_baserel_parampathinfo (to get parameter information)
+  - [get_baserel_parampathinfo](../g/get_baserel_parampathinfo.md) (to get parameter information)
   - [cost_valuesscan](cost_valuesscan.md) (to calculate execution costs)
 
 - Called from (representative examples):

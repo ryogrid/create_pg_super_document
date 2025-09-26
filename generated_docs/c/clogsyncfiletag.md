@@ -22,7 +22,7 @@ This function serves as a wrapper interface between PostgreSQL's file synchroniz
 - Functions called/Symbols referenced:
   - [SlruSyncFileTag](../S/SlruSyncFileTag.md)
   - XactCtl (global CLOG control structure)
-  - FileTag (structure type)
+  - [FileTag](../F/FileTag.md) (structure type)
 - Called from (representative examples):
   - sync.c file synchronization system (no direct references found in current analysis)
 

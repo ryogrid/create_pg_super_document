@@ -172,9 +172,9 @@ EState serves as the comprehensive execution context for PostgreSQL queries, mai
   - [PartitionDirectory](../P/PartitionDirectory.md) (struct type)
   - [ParamListInfo](../P/ParamListInfo.md) (struct type)
   - [ParamExecData](../P/ParamExecData.md) (struct type)
-  - QueryEnvironment (struct type)
+  - [QueryEnvironment](../Q/QueryEnvironment.md) (struct type)
   - [EPQState](EPQState.md) (struct type)
-  - dsa_area (struct type)
+  - [dsa_area](../d/dsa_area.md) (struct type)
   - [JitContext](../J/JitContext.md) (struct type)
   - [JitInstrumentation](../J/JitInstrumentation.md) (struct type)
 - Called from (representative examples):

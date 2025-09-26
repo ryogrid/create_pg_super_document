@@ -19,11 +19,11 @@ This static function iterates through the logical replication worker pool to cou
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockHeldByMe
+  - [LWLockHeldByMe](../L/LWLockHeldByMe.md)
   - [LogicalRepWorker](../L/LogicalRepWorker.md)
   - isParallelApplyWorker
 - Called from (representative examples):
-  - logicalrep_worker_launch
+  - [logicalrep_worker_launch](logicalrep_worker_launch.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the same source file

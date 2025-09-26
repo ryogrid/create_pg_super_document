@@ -32,15 +32,15 @@ This structure is primarily used during the preprocessing phase of grouping sets
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - List (for storing sortgroupref list)
+  - [List](../L/List.md) (for storing sortgroupref list)
   - NodeTag (node identification)
   - Cardinality (row count estimation type)
   - pg_node_attr (node attributes for copy/equal/read/jumble operations)
 - Called from (representative examples):
-  - preprocess_grouping_sets (creates and processes GroupingSetData nodes)
-  - reorder_grouping_sets (reorders and annotates grouping sets)
-  - consider_groupingsets_paths (uses grouping set data for path planning)
-  - get_number_of_groups (accesses numGroups estimates)
+  - [preprocess_grouping_sets](../p/preprocess_grouping_sets.md) (creates and processes GroupingSetData nodes)
+  - [reorder_grouping_sets](../r/reorder_grouping_sets.md) (reorders and annotates grouping sets)
+  - [consider_groupingsets_paths](../c/consider_groupingsets_paths.md) (uses grouping set data for path planning)
+  - [get_number_of_groups](../g/get_number_of_groups.md) (accesses numGroups estimates)
 
 ## Notes and Other Information
 - Part of the complex grouping sets infrastructure supporting ROLLUP, CUBE, and GROUPING SETS

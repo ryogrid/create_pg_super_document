@@ -25,7 +25,7 @@ This function implements a specialized tree walker that recursively examines Pos
   - expression_tree_walker
   - [contain_exec_param_walker](contain_exec_param_walker.md) (recursive calls)
 - Data types referenced:
-  - Param
+  - [Param](../P/Param.md)
   - PARAM_EXEC
 - Called from (representative examples):
   - [contain_exec_param](contain_exec_param.md)

@@ -36,7 +36,7 @@ This function generates a unique relfile number for database relations by combin
   - MAIN_FORKNUM, F_OK
 - Called from (representative examples):
   - [heap_create_with_catalog](../h/heap_create_with_catalog.md) (src/backend/catalog/heap.c:1249)
-  - index_create (src/backend/catalog/index.c:965)
+  - [index_create](../i/index_create.md) (src/backend/catalog/index.c:965)
   - [ATExecSetTableSpace](../A/ATExecSetTableSpace.md) (src/backend/commands/tablecmds.c:15290)
   - [RelationSetNewRelfilenumber](../R/RelationSetNewRelfilenumber.md) (src/backend/utils/cache/relcache.c:3783)
 

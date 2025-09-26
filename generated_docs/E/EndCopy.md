@@ -22,7 +22,7 @@ After handling the output destination, the function performs final cleanup by en
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ClosePipeToProgram](../C/ClosePipeToProgram.md) (closes program pipes with error checking)
-  - FreeFile (closes regular file handles)
+  - [FreeFile](../F/FreeFile.md) (closes regular file handles)
   - ereport (error reporting function)
   - [errcode_for_file_access](../e/errcode_for_file_access.md) (file access error codes)
   - [errmsg](../e/errmsg.md) (error message formatting)

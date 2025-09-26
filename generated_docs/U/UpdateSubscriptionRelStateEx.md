@@ -27,14 +27,14 @@ The function performs validation to ensure the subscription-relation mapping exi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LOCKTAG
+  - [LOCKTAG](../L/LOCKTAG.md)
   - [CheckRelationOidLockedByMe](../C/CheckRelationOidLockedByMe.md)
   - SET_LOCKTAG_OBJECT
   - [LockHeldByMe](../L/LockHeldByMe.md)
   - [LockSharedObject](../L/LockSharedObject.md)
   - SearchSysCacheCopy2
   - [CharGetDatum](../C/CharGetDatum.md)
-  - LSNGetDatum
+  - [LSNGetDatum](../L/LSNGetDatum.md)
   - [heap_modify_tuple](../h/heap_modify_tuple.md)
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
 - Called from (representative examples):

@@ -43,7 +43,7 @@ The data parameter represents the value to insert, but only the extra data beyon
   - [rbt_insert_fixup](rbt_insert_fixup.md) (rebalances tree after insertion)
 - Called from (representative examples):
   - [ginInsertBAEntry](../g/ginInsertBAEntry.md) (in ginbulk.c:166)
-  - rbt_populate (in test_rbtree.c:138, 150)
+  - [rbt_populate](rbt_populate.md) (in test_rbtree.c:138, 150)
 
 ## Notes and Other Information
 - This is a public API function for Red-Black Tree insertion

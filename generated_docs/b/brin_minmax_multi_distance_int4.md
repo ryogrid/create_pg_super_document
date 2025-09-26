@@ -30,7 +30,7 @@ The function is designed specifically for range boundaries where the first argum
 
 ## Notes and Other Information
 - The function assumes that a1 <= a2 (enforced by Assert)
-- Integer values are cast to double to prevent overflow and maintain precision
+- [Integer](../I/Integer.md) values are cast to double to prevent overflow and maintain precision
 - Returns distance as float8 for compatibility with BRIN distance function interface
 - Used internally by BRIN minmax-multi operator class for int4 data types
 - Part of the extensible operator class framework for BRIN indexes

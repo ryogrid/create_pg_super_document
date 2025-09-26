@@ -35,11 +35,11 @@ For SEMI and ANTI joins, the function ensures logical consistency by clamping th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_join_variables
-  - get_variable_numdistinct
+  - [get_join_variables](../g/get_join_variables.md)
+  - [get_variable_numdistinct](../g/get_variable_numdistinct.md)
   - [get_opcode](../g/get_opcode.md)
   - [get_attstatsslot](../g/get_attstatsslot.md)
-  - statistic_proc_security_check
+  - [statistic_proc_security_check](../s/statistic_proc_security_check.md)
   - [eqjoinsel_inner](eqjoinsel_inner.md)
   - [eqjoinsel_semi](eqjoinsel_semi.md)
   - [find_join_input_rel](../f/find_join_input_rel.md)

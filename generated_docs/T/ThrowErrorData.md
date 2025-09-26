@@ -19,7 +19,7 @@ ThrowErrorData provides a mechanism to re-report errors using information from a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ErrorData (structure type)
+  - [ErrorData](../E/ErrorData.md) (structure type)
   - [errstart](../e/errstart.md) (error reporting initiation)
   - [errfinish](../e/errfinish.md) (error reporting completion)
   - [pstrdup](../p/pstrdup.md) (string duplication)

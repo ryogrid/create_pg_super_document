@@ -29,15 +29,15 @@ The function ensures atomic operation by preventing concurrent slot synchronizat
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_ENSURE_ERROR_CLEANUP (error handling framework)
-  - slotsync_failure_callback (error cleanup callback)
-  - check_and_set_sync_info (validates state and sets sync flags)
+  - [slotsync_failure_callback](../s/slotsync_failure_callback.md) (error cleanup callback)
+  - [check_and_set_sync_info](../c/check_and_set_sync_info.md) (validates state and sets sync flags)
   - validate_remote_info (validates remote connection)
   - synchronize_slots (performs actual slot synchronization)
-  - ReplicationSlotCleanup (cleans up temporary slots)
-  - reset_syncing_flag (resets synchronization flags)
+  - [ReplicationSlotCleanup](../R/ReplicationSlotCleanup.md) (cleans up temporary slots)
+  - [reset_syncing_flag](../r/reset_syncing_flag.md) (resets synchronization flags)
   - PG_END_ENSURE_ERROR_CLEANUP (completes error handling block)
 - Called from (representative examples):
-  - pg_sync_replication_slots (SQL function interface)
+  - [pg_sync_replication_slots](../p/pg_sync_replication_slots.md) (SQL function interface)
 
 ## Notes and Other Information
 - Uses PostgreSQL's error cleanup framework to ensure proper resource management

@@ -25,7 +25,7 @@ The structure is designed to be compact and contains only the essential informat
 - `lockmode`: An integer value representing the type of lock being held (e.g., AccessShareLock, RowExclusiveLock, etc.)
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LOCKTAG
+  - [LOCKTAG](../L/LOCKTAG.md)
   - LOCKMODE
 - Called from (representative examples):
   - [AtPrepare_Locks](../A/AtPrepare_Locks.md)

@@ -31,7 +31,7 @@ This function follows PostgreSQL's trigger function interface:
   - [ri_CheckTrigger](../r/ri_CheckTrigger.md)
   - [ri_restrict](../r/ri_restrict.md)
   - RI_TRIGTYPE_DELETE (constant)
-  - TriggerData (type cast)
+  - [TriggerData](../T/TriggerData.md) (type cast)
 - Called from (representative examples):
   - No direct references found in the codebase analysis
 

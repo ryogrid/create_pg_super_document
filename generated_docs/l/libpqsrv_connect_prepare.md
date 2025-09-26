@@ -21,7 +21,7 @@ The reservation process also triggers closure of Virtual File Descriptors (VFDs)
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AcquireExternalFD
+  - [AcquireExternalFD](../A/AcquireExternalFD.md)
 - Called from (representative examples):
   - [libpqsrv_connect](libpqsrv_connect.md)
   - [libpqsrv_connect_params](libpqsrv_connect_params.md)

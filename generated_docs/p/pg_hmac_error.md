@@ -27,7 +27,7 @@ The pg_hmac_error function provides detailed error information for debugging and
 - Called from (representative examples):
   - [verify_client_proof](../v/verify_client_proof.md) (SCRAM authentication error handling)
   - [build_server_final_message](../b/build_server_final_message.md) (SCRAM authentication error handling)
-  - scram_SaltedPassword (SCRAM key derivation error handling)
+  - [scram_SaltedPassword](../s/scram_SaltedPassword.md) (SCRAM key derivation error handling)
   - [calculate_client_proof](../c/calculate_client_proof.md) (libpq SCRAM client error handling)
 
 ## Notes and Other Information

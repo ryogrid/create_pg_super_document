@@ -32,17 +32,17 @@ When a member is found, it creates and returns a new variable object with the ap
 - Functions called/Symbols referenced:
   - strpbrk (C library function for string parsing)
   - strcmp (C library function for string comparison)
-  - new_variable (creates new variable objects)
-  - ECPGmake_array_type (creates array type descriptors)
-  - ECPGmake_simple_type (creates simple type descriptors)
-  - ECPGmake_struct_type (creates struct/union type descriptors)
+  - [new_variable](../n/new_variable.md) (creates new variable objects)
+  - [ECPGmake_array_type](../E/ECPGmake_array_type.md) (creates array type descriptors)
+  - [ECPGmake_simple_type](../E/ECPGmake_simple_type.md) (creates simple type descriptors)
+  - [ECPGmake_struct_type](../E/ECPGmake_struct_type.md) (creates struct/union type descriptors)
   - mmfatal (error reporting function)
-  - ECPGstruct_member (struct member type)
+  - [ECPGstruct_member](../E/ECPGstruct_member.md) (struct member type)
   - ECPGt_array, ECPGt_struct, ECPGt_union (ECPG type constants)
   - PARSE_ERROR (error constant)
 
 - Called from (representative examples):
-  - find_struct (parent function for struct variable resolution)
+  - [find_struct](find_struct.md) (parent function for struct variable resolution)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the variable.c file

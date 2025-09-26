@@ -35,7 +35,7 @@ The function allocates memory efficiently by calculating the total space needed 
   - [get_typbyval](../g/get_typbyval.md)
   - [get_typlen](../g/get_typlen.md)
   - VARSIZE_ANY
-  - fetch_att
+  - [fetch_att](../f/fetch_att.md)
   - [PointerGetDatum](../P/PointerGetDatum.md)
   - MAXALIGN
 - Called from (representative examples):

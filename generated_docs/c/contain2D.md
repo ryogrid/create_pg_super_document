@@ -22,8 +22,8 @@ This static helper function tests for containment relationship in 2D space withi
 - Functions called/Symbols referenced:
   - [FPge](../F/FPge.md) (floating-point greater-than-or-equal comparison)
   - [FPle](../F/FPle.md) (floating-point less-than-or-equal comparison)
-  - Range (structure type)
-  - RangeBox (structure type)
+  - [Range](../R/Range.md) (structure type)
+  - [RangeBox](../R/RangeBox.md) (structure type)
 - Called from (representative examples):
   - [contain4D](contain4D.md)
 

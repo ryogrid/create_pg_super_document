@@ -23,14 +23,14 @@ The function uses lazy allocation for the I/O buffer, meaning the actual buffer 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (for memory allocation)
-  - LogicalTape (structure type)
-  - LogicalTapeSet (structure type)
+  - [palloc](../p/palloc.md) (for memory allocation)
+  - [LogicalTape](../L/LogicalTape.md) (structure type)
+  - [LogicalTapeSet](../L/LogicalTapeSet.md) (structure type)
   - MaxAllocSize (maximum allocation size constant)
 - Called from (representative examples):
-  - LogicalTapeCreate
-  - LogicalTapeImport
-  - LogicalTapeSet (during tape set initialization)
+  - [LogicalTapeCreate](../L/LogicalTapeCreate.md)
+  - [LogicalTapeImport](../L/LogicalTapeImport.md)
+  - [LogicalTapeSet](../L/LogicalTapeSet.md) (during tape set initialization)
 
 ## Notes and Other Information
 - The function is marked as , indicating it's internal to the logtape.c module

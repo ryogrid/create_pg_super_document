@@ -28,9 +28,9 @@ This categorization allows the FSM to store approximate free space information i
   - MaxFSMRequestSize (maximum free space request size constant)
   - FSM_CAT_STEP (step size for category calculation)
 - Called from (representative examples):
-  - RecordAndGetPageWithFreeSpace (src/backend/storage/freespace/freespace.c:157)
-  - RecordPageWithFreeSpace (src/backend/storage/freespace/freespace.c:196)
-  - XLogRecordPageWithFreeSpace (src/backend/storage/freespace/freespace.c:214)
+  - [RecordAndGetPageWithFreeSpace](../R/RecordAndGetPageWithFreeSpace.md) (src/backend/storage/freespace/freespace.c:157)
+  - [RecordPageWithFreeSpace](../R/RecordPageWithFreeSpace.md) (src/backend/storage/freespace/freespace.c:196)
+  - [XLogRecordPageWithFreeSpace](../X/XLogRecordPageWithFreeSpace.md) (src/backend/storage/freespace/freespace.c:214)
 
 ## Notes and Other Information
 - This is a static internal function, not exposed in the public API

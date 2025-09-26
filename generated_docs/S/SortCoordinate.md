@@ -24,7 +24,7 @@ This is a pointer type, so it points to the members of SortCoordinateData:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SortCoordinateData (the underlying structure)
+  - [SortCoordinateData](SortCoordinateData.md) (the underlying structure)
 - Called from (representative examples):
   - Various parallel sort coordination functions that need to pass coordination state
 

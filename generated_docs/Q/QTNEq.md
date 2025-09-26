@@ -23,10 +23,10 @@ The function first computes the intersection of the two nodes' signatures and ve
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - QTNode (structure type)
-  - QTNodeCompare (for detailed node comparison)
+  - [QTNode](QTNode.md) (structure type)
+  - [QTNodeCompare](QTNodeCompare.md) (for detailed node comparison)
 - Called from (representative examples):
-  - findeq (in tsquery_rewrite.c)
+  - [findeq](../f/findeq.md) (in tsquery_rewrite.c)
 
 ## Notes and Other Information
 - The function uses signature-based filtering as an optimization to avoid expensive structural comparisons when nodes are clearly different

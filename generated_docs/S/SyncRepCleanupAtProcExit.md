@@ -24,8 +24,8 @@ If the process is found to be in a synchronous replication queue, the function p
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dlist_node_is_detached](../d/dlist_node_is_detached.md) (checks if process is queued)
-  - LWLockAcquire (acquires SyncRepLock exclusively)
-  - LWLockRelease (releases SyncRepLock)
+  - [LWLockAcquire](../L/LWLockAcquire.md) (acquires SyncRepLock exclusively)
+  - [LWLockRelease](../L/LWLockRelease.md) (releases SyncRepLock)
   - [dlist_delete_thoroughly](../d/dlist_delete_thoroughly.md) (removes and reinitializes list node)
 - Called from (representative examples):
   - [ProcKill](../P/ProcKill.md) (during process termination)

@@ -25,12 +25,12 @@ The function first checks if a hash table exists and if the join relation list h
   - [hash_search](../h/hash_search.md) (performs hash table lookup)
   - HASH_FIND (hash operation flag)
   - [bms_equal](../b/bms_equal.md) (compares two Relids bitmapsets)
-  - list_length (gets length of join_rel_list)
+  - [list_length](../l/list_length.md) (gets length of join_rel_list)
 - Called from (representative examples):
   - [get_matching_part_pairs](../g/get_matching_part_pairs.md)
-  - build_join_rel
+  - [build_join_rel](../b/build_join_rel.md)
   - build_child_join_rel
-  - examine_variable
+  - [examine_variable](../e/examine_variable.md)
   - [find_join_input_rel](find_join_input_rel.md)
 
 ## Notes and Other Information
@@ -38,5 +38,5 @@ The function first checks if a hash table exists and if the join relation list h
 - The threshold of 32 entries is arbitrary and known only within this function
 - Uses hashkey variable optimization to avoid register pressure during compilation
 - Returns NULL if no matching join relation is found
-- Hash table is built lazily only when needed
+- [Hash](../H/Hash.md) table is built lazily only when needed
 - Located in src/backend/optimizer/util/relnode.c:527-588

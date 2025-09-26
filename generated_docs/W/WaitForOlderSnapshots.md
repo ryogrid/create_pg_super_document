@@ -31,12 +31,12 @@ The function also implements dynamic rechecking - if a transaction goes idle or 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentVirtualXIDs
+  - [GetCurrentVirtualXIDs](../G/GetCurrentVirtualXIDs.md)
   - VirtualTransactionIdIsValid
   - VirtualTransactionIdEquals
   - SetInvalidVirtualTransactionId
-  - ProcNumberGetProc
-  - VirtualXactLock
+  - [ProcNumberGetProc](../P/ProcNumberGetProc.md)
+  - [VirtualXactLock](../V/VirtualXactLock.md)
   - [pgstat_progress_update_param](../p/pgstat_progress_update_param.md)
 - Called from (representative examples):
   - [DefineIndex](../D/DefineIndex.md)

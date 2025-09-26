@@ -23,13 +23,13 @@ Streaming mode allows PostgreSQL to send large transactions in smaller chunks, r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_sendbyte (write single byte to message buffer)
-  - pq_sendint32 (write 32-bit integer to message buffer)
+  - [pq_sendbyte](../p/pq_sendbyte.md) (write single byte to message buffer)
+  - [pq_sendint32](../p/pq_sendint32.md) (write 32-bit integer to message buffer)
   - LOGICAL_REP_MSG_STREAM_START (message type constant)
   - TransactionIdIsValid (assertion to validate transaction ID)
   - Assert (debug assertion macro)
 - Called from:
-  - pgoutput_stream_start (pgoutput plugin stream start handler)
+  - [pgoutput_stream_start](../p/pgoutput_stream_start.md) (pgoutput plugin stream start handler)
 
 ## Notes and Other Information
 - This is a public function in the logical replication protocol API

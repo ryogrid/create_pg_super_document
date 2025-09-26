@@ -25,7 +25,7 @@ The `pg_class_aclcheck_ext` function is an extended version of table-level privi
   - [pg_class_aclmask_ext](pg_class_aclmask_ext.md)
   - ACLMASK_ANY
   - ACLCHECK_NO_PRIV
-  - AclResult
+  - [AclResult](../A/AclResult.md)
 - Called from (representative examples):
   - [pg_class_aclcheck](pg_class_aclcheck.md)
   - [has_table_privilege_name_id](../h/has_table_privilege_name_id.md)

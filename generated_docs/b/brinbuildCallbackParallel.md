@@ -54,6 +54,6 @@ The function handles range transitions by:
 - Handles the complexity of parallel sequential scans that may process blocks out of order
 - Does not generate placeholder tuples for empty ranges - left to the leader process
 - Uses shared tuplesort for coordination between parallel workers and leader
-- Range boundary detection accounts for potential block wraparound in parallel scans
+- [Range](../R/Range.md) boundary detection accounts for potential block wraparound in parallel scans
 - The leader process is responsible for merging worker results and filling empty ranges
 - Debug logging helps track range completion during parallel builds

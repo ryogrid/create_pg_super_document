@@ -33,16 +33,16 @@ The generic WAL logging system allows extensions and core PostgreSQL code to cre
   - PGIOAlignedBlock
   - MAX_GENERIC_XLOG_PAGES
   - PageData
-  - writeFragment
-  - computeRegionDelta
-  - computeDelta
+  - [writeFragment](../w/writeFragment.md)
+  - [computeRegionDelta](../c/computeRegionDelta.md)
+  - [computeDelta](../c/computeDelta.md)
   - [applyPageRedo](../a/applyPageRedo.md)
 - Called from (representative examples):
-  - GenericXLogStart
-  - GenericXLogRegisterBuffer
+  - [GenericXLogStart](GenericXLogStart.md)
+  - [GenericXLogRegisterBuffer](GenericXLogRegisterBuffer.md)
   - [GenericXLogFinish](GenericXLogFinish.md)
   - [GenericXLogAbort](GenericXLogAbort.md)
-  - computeDelta
+  - [computeDelta](../c/computeDelta.md)
 
 ## Notes and Other Information
 - The structure must be allocated at an I/O aligned address for proper disk I/O performance

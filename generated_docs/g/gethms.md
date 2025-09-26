@@ -39,15 +39,15 @@ The function uses sophisticated sscanf pattern matching to handle all valid form
   - sscanf (standard C parsing function)
   - [warning](../w/warning.md) (warning message function) 
   - [error](../e/error.md) (error reporting function)
-  - oadd (overflow-safe addition function)
+  - [oadd](../o/oadd.md) (overflow-safe addition function)
   - MINSPERHOUR, SECSPERMIN, SECSPERHOUR, HOURSPERDAY (time constants)
   - ZIC_MAX, PG_INT32_MAX (overflow protection constants)
   - zic_t (timezone time type)
 - Called from (representative examples):
   - [getsave](getsave.md) (for parsing timezone offsets)
-  - inzsub (for zone definition parsing)
-  - getleapdatetime (for leap second time parsing)
-  - rulesub (for rule time parsing)
+  - [inzsub](../i/inzsub.md) (for zone definition parsing)
+  - [getleapdatetime](getleapdatetime.md) (for leap second time parsing)
+  - [rulesub](../r/rulesub.md) (for rule time parsing)
 
 ## Notes and Other Information
 - This is a static function with internal linkage in src/timezone/zic.c

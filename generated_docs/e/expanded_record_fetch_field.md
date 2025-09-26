@@ -46,7 +46,7 @@ The function is designed as the "slow path" complement to the inline expanded_re
 - Macros used:
   - unlikely (for performance optimization)
 - Called from (representative examples):
-  - expanded_record_get_field (inline function in header)
+  - [expanded_record_get_field](expanded_record_get_field.md) (inline function in header)
 
 ## Notes and Other Information
 - This function handles the "slow path" for field access when optimizations cannot be applied

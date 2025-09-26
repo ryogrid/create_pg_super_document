@@ -30,15 +30,15 @@ JsonArrayQueryConstructor is a parse tree node that represents a JSON_ARRAY() co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonOutput
-  - JsonFormat
+  - [JsonOutput](JsonOutput.md)
+  - [JsonFormat](JsonFormat.md)
   - ParseLoc
 - Called from (representative examples):
-  - exprLocation
+  - [exprLocation](../e/exprLocation.md)
   - LIST_WALK
-  - raw_expression_tree_walker_impl
-  - transformExprRecurse
-  - transformJsonArrayQueryConstructor
+  - [raw_expression_tree_walker_impl](../r/raw_expression_tree_walker_impl.md)
+  - [transformExprRecurse](../t/transformExprRecurse.md)
+  - [transformJsonArrayQueryConstructor](../t/transformJsonArrayQueryConstructor.md)
 
 ## Notes and Other Information
 - This is part of PostgreSQL's implementation of the SQL/JSON standard

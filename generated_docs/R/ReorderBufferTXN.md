@@ -244,7 +244,7 @@ ReorderBufferTXN is the central data structure representing a transaction within
   - [dlist_head](../d/dlist_head.md)
   - [HTAB](../H/HTAB.md)
   - [pairingheap_node](../p/pairingheap_node.md)
-  - SharedInvalidationMessage
+  - [SharedInvalidationMessage](../S/SharedInvalidationMessage.md)
 - Called from (representative examples):
   - [ReorderBufferGetTXN](ReorderBufferGetTXN.md)
   - [ReorderBufferCommit](ReorderBufferCommit.md)

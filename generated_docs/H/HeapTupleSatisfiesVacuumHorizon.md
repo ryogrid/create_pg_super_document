@@ -47,7 +47,7 @@ The function returns detailed HTSV_Result values and sets *dead_after to enable 
   - HeapTupleHeaderGetUpdateXid
   - [HeapTupleGetUpdateXid](HeapTupleGetUpdateXid.md)
   - [TransactionIdIsCurrentTransactionId](../T/TransactionIdIsCurrentTransactionId.md)
-  - TransactionIdIsInProgress
+  - [TransactionIdIsInProgress](../T/TransactionIdIsInProgress.md)
   - [TransactionIdDidCommit](../T/TransactionIdDidCommit.md)
   - [MultiXactIdIsRunning](../M/MultiXactIdIsRunning.md)
   - [SetHintBits](../S/SetHintBits.md)
@@ -64,6 +64,6 @@ The function returns HTSV_Result values indicating specific vacuum states:
 - HEAPTUPLE_INSERT_IN_PROGRESS: Tuple insertion is still in progress
 - HEAPTUPLE_DELETE_IN_PROGRESS: Tuple deletion/update is still in progress
 
-The dead_after parameter is crucial for vacuum optimization - when set, it indicates the specific transaction ID that determined the tuple's death. Callers can compare this against various horizons (oldest running transaction, etc.) to make precise vacuum decisions.
+The dead_after parameter is crucial for vacuum optimization - [when](../w/when.md) set, it indicates the specific transaction ID that determined the tuple's death. Callers can compare this against various horizons (oldest running transaction, etc.) to make precise vacuum decisions.
 
 The function includes comprehensive hint bit management to optimize future tuple visibility checks, carefully balancing performance with correctness. Special handling for MultiXact scenarios ensures proper behavior in complex locking situations where multiple transactions may have interacted with the same tuple.

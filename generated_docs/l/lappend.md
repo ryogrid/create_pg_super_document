@@ -24,10 +24,10 @@ When the input list is NIL, the function creates a new list with a single elemen
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsPointerList (assertion check for list type)
-  - new_list (creates new list when input is NIL)
-  - new_tail_cell (adds new cell to existing list)
+  - [new_list](../n/new_list.md) (creates new list when input is NIL)
+  - [new_tail_cell](../n/new_tail_cell.md) (adds new cell to existing list)
   - llast (macro to access last element of list)
-  - check_list_invariants (debugging/validation function)
+  - [check_list_invariants](../c/check_list_invariants.md) (debugging/validation function)
 
 ## Notes and Other Information
 - This is one of the core list manipulation functions in PostgreSQL's node system

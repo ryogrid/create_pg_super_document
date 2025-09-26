@@ -28,10 +28,10 @@ The function handles memory allocation failures gracefully by returning appropri
 - Functions called/Symbols referenced:
   - strdup
   - [libpq_gettext](../l/libpq_gettext.md)
-  - initPQExpBuffer
+  - [initPQExpBuffer](../i/initPQExpBuffer.md)
   - [pqBuildErrorMessage3](../p/pqBuildErrorMessage3.md)
   - PQExpBufferDataBroken
-  - termPQExpBuffer
+  - [termPQExpBuffer](../t/termPQExpBuffer.md)
 - Types referenced:
   - PGVerbosity
   - PGContextVisibility

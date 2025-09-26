@@ -24,14 +24,14 @@ Once a buffer is completely emptied (blocksCount == 0), it is removed from the l
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextSwitchTo
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - linitial
-  - lcons
-  - gistProcessEmptyingQueue
-  - list_delete_first
+  - [lcons](../l/lcons.md)
+  - [gistProcessEmptyingQueue](gistProcessEmptyingQueue.md)
+  - [list_delete_first](../l/list_delete_first.md)
   - elog
 - Called from (representative examples):
-  - gistbuild
+  - [gistbuild](gistbuild.md)
 
 ## Notes and Other Information
 - Called at the end of index build to ensure all buffered tuples are flushed to the index

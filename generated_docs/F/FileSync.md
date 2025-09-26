@@ -22,17 +22,17 @@ FileSync performs a synchronous write operation on a virtual file descriptor, en
 ## Dependencies
 - Functions called/Symbols referenced:
   - FileIsValid: Validates the virtual file descriptor
-  - FileAccess: Ensures the file is accessible and handles VFD management
-  - pgstat_report_wait_start: Reports the start of a wait event for monitoring
-  - pg_fsync: PostgreSQL's fsync wrapper that performs the actual sync operation
-  - pgstat_report_wait_end: Reports the end of the wait event
+  - [FileAccess](FileAccess.md): Ensures the file is accessible and handles VFD management
+  - [pgstat_report_wait_start](../p/pgstat_report_wait_start.md): Reports the start of a wait event for monitoring
+  - [pg_fsync](../p/pg_fsync.md): PostgreSQL's fsync wrapper that performs the actual sync operation
+  - [pgstat_report_wait_end](../p/pgstat_report_wait_end.md): Reports the end of the wait event
   - DO_DB: Debug logging macro
 - Called from (representative examples):
-  - logical_end_heap_rewrite: During heap rewrite completion
-  - bbsink_server_end_archive: At the end of base backup archiving
-  - mdimmedsync: For immediate synchronization in the MD storage manager
-  - register_dirty_segment: When registering dirty segments for sync
-  - mdsyncfiletag: During tagged file synchronization operations
+  - [logical_end_heap_rewrite](../l/logical_end_heap_rewrite.md): During heap rewrite completion
+  - [bbsink_server_end_archive](../b/bbsink_server_end_archive.md): At the end of base backup archiving
+  - [mdimmedsync](../m/mdimmedsync.md): For immediate synchronization in the MD storage manager
+  - [register_dirty_segment](../r/register_dirty_segment.md): When registering dirty segments for sync
+  - [mdsyncfiletag](../m/mdsyncfiletag.md): During tagged file synchronization operations
 
 ## Notes and Other Information
 - Returns 0 on success, or a negative error code on failure

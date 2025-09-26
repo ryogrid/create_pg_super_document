@@ -33,9 +33,9 @@ This information helps database administrators and developers understand the WAL
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExplainIndentText](../E/ExplainIndentText.md)
-  - appendStringInfoString
-  - appendStringInfo
-  - appendStringInfoChar
+  - [appendStringInfoString](../a/appendStringInfoString.md)
+  - [appendStringInfo](../a/appendStringInfo.md)
+  - [appendStringInfoChar](../a/appendStringInfoChar.md)
   - [ExplainPropertyInteger](../E/ExplainPropertyInteger.md)
   - [ExplainPropertyUInteger](../E/ExplainPropertyUInteger.md)
   - UINT64_FORMAT

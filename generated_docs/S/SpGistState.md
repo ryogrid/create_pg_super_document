@@ -48,18 +48,18 @@ The structure is designed to support SP-GiST's sophisticated approach to space p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - spgConfigOut (operator class configuration)
-  - SpGistTypeDesc (type descriptors)
-  - Relation (index relation)
-  - TupleDesc (tuple descriptors)
+  - [spgConfigOut](../s/spgConfigOut.md) (operator class configuration)
+  - [SpGistTypeDesc](SpGistTypeDesc.md) (type descriptors)
+  - [Relation](../R/Relation.md) (index relation)
+  - [TupleDesc](../T/TupleDesc.md) (tuple descriptors)
   - TransactionId (transaction management)
 
 - Called from (representative examples):
-  - initSpGistState (spgutils.c:340)
-  - spgdoinsert (spgdoinsert.c:1914)
-  - spginsert (spginsert.c:189)
-  - spgFormLeafTuple (spgutils.c:863)
-  - doPickSplit (spgdoinsert.c:677)
+  - [initSpGistState](../i/initSpGistState.md) (spgutils.c:340)
+  - [spgdoinsert](../s/spgdoinsert.md) (spgdoinsert.c:1914)
+  - [spginsert](../s/spginsert.md) (spginsert.c:189)
+  - [spgFormLeafTuple](../s/spgFormLeafTuple.md) (spgutils.c:863)
+  - [doPickSplit](../d/doPickSplit.md) (spgdoinsert.c:677)
 
 ## Notes and Other Information
 - Central to all SP-GiST operations, used in both insertion and search code paths

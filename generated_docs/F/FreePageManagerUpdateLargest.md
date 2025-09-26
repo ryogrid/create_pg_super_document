@@ -23,9 +23,9 @@ When called, it recomputes the actual largest contiguous page run by calling  an
 ## Dependencies
 - Functions called/Symbols referenced:
   - [FreePageManager](FreePageManager.md) (struct type)
-  - FreePageManagerLargestContiguous
+  - [FreePageManagerLargestContiguous](FreePageManagerLargestContiguous.md)
 - Called from (representative examples):
-  - FreePageManagerGet
+  - [FreePageManagerGet](FreePageManagerGet.md)
   - [FreePageManagerPut](FreePageManagerPut.md)
 
 ## Notes and Other Information

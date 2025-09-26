@@ -33,15 +33,15 @@ The implementation includes several validation checks to ensure the view is prop
   - TupleDescAttr
   - NameStr
   - elog
-  - list_length
+  - [list_length](../l/list_length.md)
   - linitial
   - [get_tle_by_resno](../g/get_tle_by_resno.md)
   - IsA
   - IS_SPECIAL_VARNO
   - rt_fetch
-  - table_open
+  - [table_open](../t/table_open.md)
   - [currtid_internal](currtid_internal.md)
-  - table_close
+  - [table_close](../t/table_close.md)
 - Called from (representative examples):
   - [currtid_internal](currtid_internal.md)
 

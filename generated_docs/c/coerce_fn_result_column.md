@@ -34,9 +34,9 @@ The function respects query semantics by avoiding modifications to columns refer
 - Functions called/Symbols referenced:
   - [coerce_to_target_type](coerce_to_target_type.md) (performs the actual type coercion)
   - [assign_expr_collations](../a/assign_expr_collations.md) (assigns collation information)
-  - makeVarFromTargetEntry (creates Var nodes referencing target entries)
+  - [makeVarFromTargetEntry](../m/makeVarFromTargetEntry.md) (creates Var nodes referencing target entries)
   - [makeTargetEntry](../m/makeTargetEntry.md) (creates new TargetEntry nodes)
-  - exprType (determines expression types)
+  - [exprType](../e/exprType.md) (determines expression types)
 - Called from (representative examples):
   - [check_sql_fn_retval](check_sql_fn_retval.md) (during return type validation)
 

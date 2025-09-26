@@ -33,16 +33,16 @@ The Float node, like other value nodes (Integer, String, BitString), can be stor
   - NodeTag (for node type identification)
 
 - Called from (representative examples):
-  - makeFloat (creates Float nodes)
-  - _outFloat (serializes Float nodes)
-  - _readA_Const (reads Float nodes during deserialization)
-  - defGetInt64 (extracts integer values from Float nodes)
-  - typenameTypeMod (uses Float nodes for type modifiers)
-  - oidparse (parses OID values from Float nodes)
+  - [makeFloat](../m/makeFloat.md) (creates Float nodes)
+  - [_outFloat](../o/_outFloat.md) (serializes Float nodes)
+  - [_readA_Const](../r/_readA_Const.md) (reads Float nodes during deserialization)
+  - [defGetInt64](../d/defGetInt64.md) (extracts integer values from Float nodes)
+  - [typenameTypeMod](../t/typenameTypeMod.md) (uses Float nodes for type modifiers)
+  - [oidparse](../o/oidparse.md) (parses OID values from Float nodes)
 
 ## Notes and Other Information
-- Float nodes use string representation internally to avoid precision loss during conversion to NUMERIC
-- Integer values too large for 'int' type are automatically lexed as Float nodes instead of Integer nodes
+- [Float](Float.md) nodes use string representation internally to avoid precision loss during conversion to NUMERIC
+- [Integer](../I/Integer.md) values too large for 'int' type are automatically lexed as Float nodes instead of Integer nodes
 - The `floatVal()` macro (defined in value.h:80) provides convenient access to the fval field
 - Includes `pg_node_attr(special_read_write)` attribute for special serialization handling
 - Memory for the fval string is managed through PostgreSQL's memory context system

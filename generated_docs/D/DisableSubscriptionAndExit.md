@@ -35,13 +35,13 @@ This function takes no parameters.
   - [pgstat_report_subscription_error](../p/pgstat_report_subscription_error.md) (statistics reporting)
   - [am_tablesync_worker](../a/am_tablesync_worker.md) (worker type checking)
   - [StartTransactionCommand](../S/StartTransactionCommand.md) (transaction management)
-  - GetTransactionSnapshot (snapshot management)
-  - PushActiveSnapshot (snapshot management)
+  - [GetTransactionSnapshot](../G/GetTransactionSnapshot.md) (snapshot management)
+  - [PushActiveSnapshot](../P/PushActiveSnapshot.md) (snapshot management)
   - [DisableSubscription](DisableSubscription.md) (subscription management)
-  - PopActiveSnapshot (snapshot management)
+  - [PopActiveSnapshot](../P/PopActiveSnapshot.md) (snapshot management)
   - [CommitTransactionCommand](../C/CommitTransactionCommand.md) (transaction management)
   - [am_leader_apply_worker](../a/am_leader_apply_worker.md) (worker type checking)
-  - ApplyLauncherForgetWorkerStartTime (worker tracking cleanup)
+  - [ApplyLauncherForgetWorkerStartTime](../A/ApplyLauncherForgetWorkerStartTime.md) (worker tracking cleanup)
   - [proc_exit](../p/proc_exit.md) (process termination)
 
 - Called from:

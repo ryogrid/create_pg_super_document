@@ -36,7 +36,7 @@ The function integrates with Valgrind memory debugging tools and handles allocat
   - [BackendStartup](../B/BackendStartup.md)
   - [StartAutovacuumWorker](../S/StartAutovacuumWorker.md)
   - [assign_backendlist_entry](../a/assign_backendlist_entry.md)
-  - pg_clean_ascii
+  - [pg_clean_ascii](pg_clean_ascii.md)
 
 ## Notes and Other Information
 - The function operates on the `CurrentMemoryContext` global variable

@@ -32,7 +32,7 @@ The function creates a tuple descriptor with three columns and processes each le
   - SRF_PERCALL_SETUP - Setup for each SRF call
   - ARRPTR - Get pointer to WordEntry array
   - STRPTR - Get pointer to string data
-  - cstring_to_text_with_len - Convert C string to PostgreSQL text
+  - [cstring_to_text_with_len](../c/cstring_to_text_with_len.md) - Convert C string to PostgreSQL text
   - _POSVECPTR - Get position vector pointer
   - WEP_GETPOS - Extract position from position-weight value
   - WEP_GETWEIGHT - Extract weight from position-weight value

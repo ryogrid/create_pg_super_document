@@ -30,7 +30,7 @@ This promotion logic is crucial for maintaining type consistency in SQL operatio
   - [get_element_type](get_element_type.md)
   - OidIsValid
 - Called from (representative examples):
-  - exprType
+  - [exprType](../e/exprType.md)
   - [build_subplan](../b/build_subplan.md)
 
 ## Notes and Other Information

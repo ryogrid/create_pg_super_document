@@ -24,14 +24,14 @@ The function includes an assertion to verify that temporary tablespaces have bee
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `TempTablespacesAreSet` - Verifies that temporary tablespaces are configured
+  - `[TempTablespacesAreSet](../T/TempTablespacesAreSet.md)` - Verifies that temporary tablespaces are configured
 
 - Global variables accessed:
   - `tempTableSpaces` - Array of configured temporary tablespace OIDs  
   - `numTempTableSpaces` - Count of configured temporary tablespaces
 
 - Called from (representative examples):
-  - `FileSetInit` (src/backend/storage/file/fileset.c:63)
+  - `[FileSetInit](../F/FileSetInit.md)` (src/backend/storage/file/fileset.c:63)
 
 ## Notes and Other Information
 - The function includes an assertion that temporary tablespaces are set, making it unsuitable for use when configuration is optional

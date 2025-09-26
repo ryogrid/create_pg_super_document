@@ -41,7 +41,7 @@ The algorithm ensures optimal update paths while providing flexibility for diffe
 - Called from (representative examples):
   - [identify_update_path](../i/identify_update_path.md)
   - [find_install_path](find_install_path.md)
-  - pg_extension_update_paths
+  - [pg_extension_update_paths](../p/pg_extension_update_paths.md)
 
 ## Notes and Other Information
 - Classic Dijkstra's algorithm implementation adapted for extension version graphs

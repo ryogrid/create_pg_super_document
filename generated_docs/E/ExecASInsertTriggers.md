@@ -29,10 +29,10 @@ The actual trigger execution is handled later by the after-trigger subsystem, wh
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AfterTriggerSaveEvent (queues the trigger event for deferred execution)
+  - [AfterTriggerSaveEvent](../A/AfterTriggerSaveEvent.md) (queues the trigger event for deferred execution)
 - Data structures used:
-  - TriggerDesc (trigger descriptor from relinfo)
-  - TransitionCaptureState (for transition table support)
+  - [TriggerDesc](../T/TriggerDesc.md) (trigger descriptor from relinfo)
+  - [TransitionCaptureState](../T/TransitionCaptureState.md) (for transition table support)
 - Constants used:
   - TRIGGER_EVENT_INSERT (event type identifier)
 - Called from (representative examples):

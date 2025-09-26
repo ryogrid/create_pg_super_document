@@ -25,14 +25,14 @@ When extension is needed, the function creates a new zeroed CLOG page and genera
   - TransactionIdEquals
   - [TransactionIdToPage](../T/TransactionIdToPage.md)
   - [SimpleLruGetBankLock](../S/SimpleLruGetBankLock.md)
-  - LWLockAcquire
+  - [LWLockAcquire](../L/LWLockAcquire.md)
   - [ZeroCLOGPage](../Z/ZeroCLOGPage.md)
-  - LWLockRelease
+  - [LWLockRelease](../L/LWLockRelease.md)
 - Global variables accessed:
   - FirstNormalTransactionId
   - XactCtl
 - Called from:
-  - GetNewTransactionId (src/backend/access/transam/varsup.c:204)
+  - [GetNewTransactionId](../G/GetNewTransactionId.md) (src/backend/access/transam/varsup.c:204)
 
 ## Notes and Other Information
 - Called while holding XidGenLock, so must be very fast in the common case

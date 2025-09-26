@@ -86,7 +86,7 @@ The implementation uses compile-time conditionals to select the most efficient p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwner
+  - [ResourceOwner](../R/ResourceOwner.md)
   - [WaitEvent](WaitEvent.md)
   - [Latch](../L/Latch.md)
   - WAIT_USE_EPOLL
@@ -99,9 +99,9 @@ The implementation uses compile-time conditionals to select the most efficient p
   - [FreeWaitEventSet](../F/FreeWaitEventSet.md)
   - [AddWaitEventToSet](../A/AddWaitEventToSet.md)
   - [ModifyWaitEvent](../M/ModifyWaitEvent.md)
-  - WaitEventSetWait
-  - WaitEventSetWaitBlock
-  - GetNumRegisteredWaitEvents
+  - [WaitEventSetWait](WaitEventSetWait.md)
+  - [WaitEventSetWaitBlock](WaitEventSetWaitBlock.md)
+  - [GetNumRegisteredWaitEvents](../G/GetNumRegisteredWaitEvents.md)
   - [SysLoggerMain](../S/SysLoggerMain.md)
   - pq_putmessage_noblock
 

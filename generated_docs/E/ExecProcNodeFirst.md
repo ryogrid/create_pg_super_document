@@ -26,9 +26,9 @@ After performing these checks, the function updates the node's ExecProcNode poin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth (stack overflow prevention)
+  - [check_stack_depth](../c/check_stack_depth.md) (stack overflow prevention)
   - [ExecProcNodeInstr](ExecProcNodeInstr.md) (instrumentation wrapper function)
-  - ExecProcNode (execution procedure field)
+  - [ExecProcNode](ExecProcNode.md) (execution procedure field)
 - Called from (representative examples):
   - [ExecSetExecProcNode](ExecSetExecProcNode.md) (sets this as initial wrapper)
 

@@ -37,7 +37,7 @@ This enumeration serves as an index into case mapping arrays and as a parameter 
 - Functions called/Symbols referenced:
   - NCaseKind (used as array size specifier)
 - Called from (representative examples):
-  - convert_case (uses CaseKind as parameter and for character-level case determination)
+  - [convert_case](../c/convert_case.md) (uses CaseKind as parameter and for character-level case determination)
   - Used in pg_case_map struct definition for simplemap array indexing
 
 ## Notes and Other Information

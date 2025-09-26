@@ -34,7 +34,7 @@ The function supports all standard POSIX character classes: alnum, alpha, blank,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_ctype_get_cache (retrieve cached locale-aware character sets)
+  - [pg_ctype_get_cache](../p/pg_ctype_get_cache.md) (retrieve cached locale-aware character sets)
   - getcvec (allocate new character vector)
   - addrange (add character range to cvec)
   - addchr (add individual character to cvec)
@@ -45,7 +45,7 @@ The function supports all standard POSIX character classes: alnum, alpha, blank,
 - Called from (representative examples):
   - [charclass](charclass.md) (in regcomp.c:1503)
   - [charclasscomplement](charclasscomplement.md) (in regcomp.c:1532)
-  - wordchrs (in regcomp.c:2007)
+  - [wordchrs](../w/wordchrs.md) (in regcomp.c:2007)
 
 ## Notes and Other Information
 - Returns either cached cvecs (for locale-dependent classes) or transient cvecs (for hard-wired classes)

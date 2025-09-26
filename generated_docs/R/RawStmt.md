@@ -32,12 +32,12 @@ RawStmt acts as the top-level wrapper for raw parse trees produced by the SQL pa
 - Functions called/Symbols referenced:
   - ParseLoc
 - Called from (representative examples):
-  - parse_analyze_fixedparams
-  - parse_analyze_varparams
-  - transformTopLevelStmt
-  - exec_simple_query
-  - exec_parse_message
-  - CreateCachedPlan
+  - [parse_analyze_fixedparams](../p/parse_analyze_fixedparams.md)
+  - [parse_analyze_varparams](../p/parse_analyze_varparams.md)
+  - [transformTopLevelStmt](../t/transformTopLevelStmt.md)
+  - [exec_simple_query](../e/exec_simple_query.md)
+  - [exec_parse_message](../e/exec_parse_message.md)
+  - [CreateCachedPlan](../C/CreateCachedPlan.md)
 
 ## Notes and Other Information
 - Essential for multi-statement strings where precise statement boundaries need to be tracked

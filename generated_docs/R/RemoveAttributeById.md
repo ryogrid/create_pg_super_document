@@ -23,7 +23,7 @@ This function implements the guts of ALTER TABLE DROP COLUMN by actually marking
 - Functions called/Symbols referenced:
   - [relation_open](../r/relation_open.md)
   - SearchSysCacheCopy2
-  - namestrcpy
+  - [namestrcpy](../n/namestrcpy.md)
   - [heap_modify_tuple](../h/heap_modify_tuple.md)
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - [RemoveStatistics](RemoveStatistics.md)

@@ -19,7 +19,7 @@ This function is part of the TupleTableSlotOps implementation for MinimalTupleTa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MinimalTupleTableSlot (type cast)
+  - [MinimalTupleTableSlot](../M/MinimalTupleTableSlot.md) (type cast)
 - Called from (representative examples):
   - [slot_deform_heap_tuple](../s/slot_deform_heap_tuple.md)
 

@@ -23,9 +23,9 @@ This is a pointer type, so it points to SetOpStatePerGroupData which contains:
 - Functions called/Symbols referenced:
   - [SetOpStatePerGroupData](SetOpStatePerGroupData.md)
 - Called from (representative examples):
-  - initialize_counts
-  - advance_counts
-  - set_output_count
+  - [initialize_counts](../i/initialize_counts.md)
+  - [advance_counts](../a/advance_counts.md)
+  - [set_output_count](../s/set_output_count.md)
   - [setop_retrieve_direct](../s/setop_retrieve_direct.md)
   - [setop_fill_hash_table](../s/setop_fill_hash_table.md)
 

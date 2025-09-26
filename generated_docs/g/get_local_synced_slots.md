@@ -21,10 +21,10 @@ None - this is a parameter-less function that returns a List pointer.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire
-  - LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - SlotIsLogical
-  - lappend
+  - [lappend](../l/lappend.md)
 - Called from:
   - [drop_local_obsolete_slots](../d/drop_local_obsolete_slots.md)
 

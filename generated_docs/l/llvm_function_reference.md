@@ -48,8 +48,8 @@ The function implements caching by checking if the function already exists in th
   - TypePGFunction (PostgreSQL function type)
 
 - Called from (representative examples):
-  - llvm_compile_expr (in llvmjit_expr.c)
-  - BuildV1Call (in llvmjit_expr.c)
+  - [llvm_compile_expr](llvm_compile_expr.md) (in llvmjit_expr.c)
+  - [BuildV1Call](../B/BuildV1Call.md) (in llvmjit_expr.c)
 
 ## Notes and Other Information
 - Located in src/backend/jit/llvm/llvmjit.c:573-635

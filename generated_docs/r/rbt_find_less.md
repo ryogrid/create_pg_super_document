@@ -27,7 +27,7 @@ This function performs a specialized search to find the node with the largest va
   - RBTNIL (constant representing tree leaf/null)
   - comparator (function pointer from tree structure for comparing nodes)
 - Called from (representative examples):
-  - testfindltgt (test module function for verifying less-than search functionality)
+  - [testfindltgt](../t/testfindltgt.md) (test module function for verifying less-than search functionality)
 
 ## Notes and Other Information
 - Returns the matching RBTNode pointer on success, or NULL if no qualifying match is found

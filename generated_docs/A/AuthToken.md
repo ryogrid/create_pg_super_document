@@ -37,7 +37,7 @@ AuthToken serves as the fundamental building block for parsing PostgreSQL authen
   - [tokenize_expand_file](../t/tokenize_expand_file.md)
   - [tokenize_auth_file](../t/tokenize_auth_file.md)
   - [check_role](../c/check_role.md)
-  - check_db
+  - [check_db](../c/check_db.md)
   - [parse_hba_line](../p/parse_hba_line.md)
   - [parse_ident_line](../p/parse_ident_line.md)
   - [check_ident_usermap](../c/check_ident_usermap.md)

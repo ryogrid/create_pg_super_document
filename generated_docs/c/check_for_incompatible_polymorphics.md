@@ -28,7 +28,7 @@ The function dynamically constructs the list of problematic functions based on t
 ## Dependencies
 - Functions called/Symbols referenced:
   - [prep_status](../p/prep_status.md) - Updates status display for the validation operation
-  - initPQExpBuffer - Initializes dynamic string buffer for building function list
+  - [initPQExpBuffer](../i/initPQExpBuffer.md) - Initializes dynamic string buffer for building function list
   - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md) - Appends strings to the dynamic buffer
   - GET_MAJOR_VERSION - Extracts major version number from cluster version
   - [connectToServer](connectToServer.md) - Establishes connections to each database in the cluster
@@ -40,7 +40,7 @@ The function dynamically constructs the list of problematic functions based on t
   - [pg_log](../p/pg_log.md) - Logs messages at specified severity level
   - [pg_fatal](../p/pg_fatal.md) - Terminates upgrade process with fatal error message
   - [check_ok](check_ok.md) - Marks validation as successful when no issues are found
-  - termPQExpBuffer - Cleans up dynamic string buffer
+  - [termPQExpBuffer](../t/termPQExpBuffer.md) - Cleans up dynamic string buffer
 - Called from (representative examples):
   - [check_and_dump_old_cluster](check_and_dump_old_cluster.md) - Part of old cluster validation sequence
 

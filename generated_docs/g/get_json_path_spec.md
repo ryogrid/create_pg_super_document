@@ -28,11 +28,11 @@ This design allows the function to handle both simple constant JSON paths (like 
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (macro to check node type)
-  - get_const_expr (decompiles constant expressions)
-  - get_rule_expr (decompiles general expressions)
+  - [get_const_expr](get_const_expr.md) (decompiles constant expressions)
+  - [get_rule_expr](get_rule_expr.md) (decompiles general expressions)
 - Called from (representative examples):
-  - get_rule_expr (general expression decompilation)
-  - get_json_table_columns (JSON table column decompilation)
+  - [get_rule_expr](get_rule_expr.md) (general expression decompilation)
+  - [get_json_table_columns](get_json_table_columns.md) (JSON table column decompilation)
 
 ## Notes and Other Information
 - This is a static function local to ruleutils.c, part of the internal rule decompilation infrastructure

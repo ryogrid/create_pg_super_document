@@ -27,7 +27,7 @@ The function enforces security by requiring superuser privileges for system trig
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - [ScanKeyInit](../S/ScanKeyInit.md)
   - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - RelationGetRelid
@@ -37,7 +37,7 @@ The function enforces security by requiring superuser privileges for system trig
   - [systable_getnext](../s/systable_getnext.md)
   - GETSTRUCT
   - OidIsValid
-  - superuser
+  - [superuser](../s/superuser.md)
   - [heap_copytuple](../h/heap_copytuple.md)
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - [heap_freetuple](../h/heap_freetuple.md)
@@ -45,7 +45,7 @@ The function enforces security by requiring superuser privileges for system trig
   - [RelationGetPartitionDesc](../R/RelationGetPartitionDesc.md)
   - [relation_open](../r/relation_open.md)
   - [EnableDisableTrigger](EnableDisableTrigger.md) (recursive call)
-  - table_close
+  - [table_close](../t/table_close.md)
   - InvokeObjectPostAlterHook
   - [systable_endscan](../s/systable_endscan.md)
   - [CacheInvalidateRelcache](../C/CacheInvalidateRelcache.md)

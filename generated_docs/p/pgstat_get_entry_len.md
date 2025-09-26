@@ -24,9 +24,9 @@ This function retrieves the length of the shared data portion of a statistics en
   - [pgstat_get_kind_info](pgstat_get_kind_info.md) (function to get kind-specific information)
 - Called from (representative examples):
   - [pgstat_write_statsfile](pgstat_write_statsfile.md) in pgstat.c
-  - pgstat_read_statsfile in pgstat.c
-  - pgstat_reinit_entry in pgstat_shmem.c
-  - shared_stat_reset_contents in pgstat_shmem.c
+  - [pgstat_read_statsfile](pgstat_read_statsfile.md) in pgstat.c
+  - [pgstat_reinit_entry](pgstat_reinit_entry.md) in pgstat_shmem.c
+  - [shared_stat_reset_contents](../s/shared_stat_reset_contents.md) in pgstat_shmem.c
 
 ## Notes and Other Information
 - The function returns the size in bytes of the shared data portion only

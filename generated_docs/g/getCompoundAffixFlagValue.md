@@ -33,8 +33,8 @@ The function efficiently handles multiple flag formats and returns 0 immediately
   - bsearch: Standard C library binary search function
   - [cmpcmdflag](../c/cmpcmdflag.md): Comparison function for CompoundAffixFlag structures
 - Called from (representative examples):
-  - NIImportOOAffixes: Process OpenOffice-style affix configurations
-  - makeCompoundFlags: Generate compound flags for word formation
+  - [NIImportOOAffixes](../N/NIImportOOAffixes.md): Process OpenOffice-style affix configurations
+  - [makeCompoundFlags](../m/makeCompoundFlags.md): Generate compound flags for word formation
 
 ## Notes and Other Information
 - Returns 0 if no compound affix flags are configured (nCompoundAffixFlag == 0)

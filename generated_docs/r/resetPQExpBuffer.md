@@ -25,7 +25,7 @@ This function is essential for buffer reuse and recovery from error conditions, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initPQExpBuffer
+  - [initPQExpBuffer](../i/initPQExpBuffer.md)
 - Called from (representative examples):
   - [prepare_heap_command](../p/prepare_heap_command.md) (pg_amcheck)
   - [StreamLogicalLog](../S/StreamLogicalLog.md) (pg_recvlogical)

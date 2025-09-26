@@ -30,7 +30,7 @@ Each shared structure maintains a reference count that is atomically decremented
   - [TBMSharedIteratorState](../T/TBMSharedIteratorState.md) (struct type)
   - [PTEntryArray](../P/PTEntryArray.md) (struct type)
   - [PTIterationArray](../P/PTIterationArray.md) (struct type)
-  - dsa_area (struct type)
+  - [dsa_area](../d/dsa_area.md) (struct type)
   - dsa_pointer (type)
 - Called from (representative examples):
   - [ExecBitmapHeapReInitializeDSM](../E/ExecBitmapHeapReInitializeDSM.md)

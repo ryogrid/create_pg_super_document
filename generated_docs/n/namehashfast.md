@@ -19,11 +19,11 @@ This function generates hash values for PostgreSQL `name` data types within the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `DatumGetName`: Extracts Name pointer from Datum
-  - `hash_any`: Standard PostgreSQL hash function for arbitrary byte sequences
+  - `[DatumGetName](../D/DatumGetName.md)`: Extracts Name pointer from Datum
+  - `[hash_any](../h/hash_any.md)`: Standard PostgreSQL hash function for arbitrary byte sequences
   - `strlen`: Standard C library function to determine string length
 - Called from (representative examples):
-  - `GetCCHashEqFuncs`: Function that retrieves hash and equality functions for catalog cache
+  - `[GetCCHashEqFuncs](../G/GetCCHashEqFuncs.md)`: Function that retrieves hash and equality functions for catalog cache
 
 ## Notes and Other Information
 - Uses `hash_any` with dynamic string length rather than fixed `NAMEDATALEN`

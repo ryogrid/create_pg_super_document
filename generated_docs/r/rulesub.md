@@ -32,17 +32,17 @@ All parsed information is stored in the provided rule structure for later use in
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - byword (to lookup month names, year keywords, weekday names)
-  - ecpyalloc (to allocate temporary string copies for parsing)
-  - lowerit (to normalize case for time suffix parsing)
-  - gethms (to parse hour:minute:second time specifications)
-  - error (for reporting parsing errors)
+  - [byword](../b/byword.md) (to lookup month names, year keywords, weekday names)
+  - [ecpyalloc](../e/ecpyalloc.md) (to allocate temporary string copies for parsing)
+  - [lowerit](../l/lowerit.md) (to normalize case for time suffix parsing)
+  - [gethms](../g/gethms.md) (to parse hour:minute:second time specifications)
+  - [error](../e/error.md) (for reporting parsing errors)
   - free (to deallocate temporary strings)
   - sscanf, strlen, strchr (standard string processing functions)
   - fprintf, exit (for fatal error handling)
 - Called from (representative examples):
-  - inrule (when processing Rule lines)
-  - inzsub (when processing Zone continuation lines)
+  - [inrule](../i/inrule.md) (when processing Rule lines)
+  - [inzsub](../i/inzsub.md) (when processing Zone continuation lines)
 
 ## Notes and Other Information
 - This function handles the most complex parsing in the timezone compiler, dealing with various date/time specification formats

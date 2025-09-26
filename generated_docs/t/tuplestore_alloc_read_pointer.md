@@ -27,16 +27,16 @@ The read pointer array is dynamically resized if necessary, doubling in size whe
 - Functions called/Symbols referenced:
   - elog (error logging function)
   - ERROR (error level constant)
-  - repalloc (memory reallocation function)
+  - [repalloc](../r/repalloc.md) (memory reallocation function)
   - TSS_INMEM (tuplestore status constant)
 - Data structures used:
-  - Tuplestorestate (main tuplestore state structure)
+  - [Tuplestorestate](../T/Tuplestorestate.md) (main tuplestore state structure)
   - TSReadPointer (read pointer structure)
 - Called from:
-  - ExecInitCteScan (CTE scan node initialization)
-  - ExecMaterial (material node execution)
-  - ExecInitNamedTuplestoreScan (named tuplestore scan initialization)
-  - begin_partition (window aggregation partitioning - multiple calls for different pointers)
+  - [ExecInitCteScan](../E/ExecInitCteScan.md) (CTE scan node initialization)
+  - [ExecMaterial](../E/ExecMaterial.md) (material node execution)
+  - [ExecInitNamedTuplestoreScan](../E/ExecInitNamedTuplestoreScan.md) (named tuplestore scan initialization)
+  - [begin_partition](../b/begin_partition.md) (window aggregation partitioning - multiple calls for different pointers)
 
 ## Notes and Other Information
 - Returns the index of the newly allocated read pointer

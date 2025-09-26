@@ -28,9 +28,9 @@ The function handles the complex logic of merging potentially overlapping page r
 ## Dependencies
 - Functions called/Symbols referenced:
   - [_brin_parallel_heapscan](_brin_parallel_heapscan.md) (wait for worker completion)
-  - tuplesort_performsort (sort collected tuples)
+  - [tuplesort_performsort](../t/tuplesort_performsort.md) (sort collected tuples)
   - [tuplesort_getbrintuple](../t/tuplesort_getbrintuple.md) (retrieve sorted tuples)
-  - tuplesort_end (cleanup sort state)
+  - [tuplesort_end](../t/tuplesort_end.md) (cleanup sort state)
   - [brin_new_memtuple](brin_new_memtuple.md) (create memory tuple)
   - [brin_deform_tuple](brin_deform_tuple.md) (convert tuple to memory format)
   - [brin_form_tuple](brin_form_tuple.md) (convert memory tuple to disk format)

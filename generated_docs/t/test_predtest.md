@@ -27,9 +27,9 @@ The function then compares the empirical and theoretical results, issuing warnin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - text_to_cstring
-  - SPI_connect, SPI_prepare, SPI_execute_plan, SPI_finish
-  - SPI_getbinval, SPI_plan_get_cached_plan
+  - [text_to_cstring](text_to_cstring.md)
+  - [SPI_connect](../S/SPI_connect.md), SPI_prepare, SPI_execute_plan, SPI_finish
+  - [SPI_getbinval](../S/SPI_getbinval.md), SPI_plan_get_cached_plan
   - [make_ands_implicit](../m/make_ands_implicit.md)
   - [predicate_implied_by](../p/predicate_implied_by.md)
   - [predicate_refuted_by](../p/predicate_refuted_by.md)

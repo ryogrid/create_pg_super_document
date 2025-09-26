@@ -25,7 +25,7 @@ The function leverages the centralized object property system through  to mainta
   - [get_object_property_data](get_object_property_data.md)
   - ObjectPropertyType (struct)
 - Called from (representative examples):
-  - pg_identify_object
+  - [pg_identify_object](../p/pg_identify_object.md)
   - [AlterObjectRename_internal](../A/AlterObjectRename_internal.md)
   - [AlterObjectNamespace_oid](../A/AlterObjectNamespace_oid.md)
   - [AlterObjectNamespace_internal](../A/AlterObjectNamespace_internal.md)

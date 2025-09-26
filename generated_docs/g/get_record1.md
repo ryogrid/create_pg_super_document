@@ -31,7 +31,7 @@ This function showcases the complex parameter passing required for ECPG cursor f
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ECPGdo](../E/ECPGdo.md) (ECPG runtime function for SQL execution)
-  - ECPGget_var (ECPG runtime function to retrieve variable addresses)
+  - [ECPGget_var](../E/ECPGget_var.md) (ECPG runtime function to retrieve variable addresses)
   - [MYTYPE](../M/MYTYPE.md) (custom data type structure)
   - [MYNULLTYPE](../M/MYNULLTYPE.md) (custom null indicator structure)
   - [mytype](../m/mytype.md) (structure type reference)

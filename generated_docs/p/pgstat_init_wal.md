@@ -21,7 +21,7 @@ The function is called during PostgreSQL's statistics system initialization to e
 - Functions called/Symbols referenced:
   - No function calls (simple assignment operation)
 - Called from (representative examples):
-  - pgstat_initialize
+  - [pgstat_initialize](pgstat_initialize.md)
 
 ## Notes and Other Information
 - Essential for proper WAL statistics tracking initialization

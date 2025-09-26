@@ -20,21 +20,21 @@ This function is a simpler variant of generate_relation_name() that unconditiona
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - GETSTRUCT
   - NameStr
-  - get_namespace_name_or_temp
-  - quote_qualified_identifier
-  - ReleaseSysCache
+  - [get_namespace_name_or_temp](get_namespace_name_or_temp.md)
+  - [quote_qualified_identifier](../q/quote_qualified_identifier.md)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - elog
 - Called from (representative examples):
-  - pg_get_triggerdef_worker
-  - pg_get_indexdef_worker
-  - pg_get_constraintdef_worker
-  - pg_get_serial_sequence
-  - make_ruledef
-  - NameHashEntry structure usage
+  - [pg_get_triggerdef_worker](../p/pg_get_triggerdef_worker.md)
+  - [pg_get_indexdef_worker](../p/pg_get_indexdef_worker.md)
+  - [pg_get_constraintdef_worker](../p/pg_get_constraintdef_worker.md)
+  - [pg_get_serial_sequence](../p/pg_get_serial_sequence.md)
+  - [make_ruledef](../m/make_ruledef.md)
+  - [NameHashEntry](../N/NameHashEntry.md) structure usage
 
 ## Notes and Other Information
 - This is a static function local to ruleutils.c

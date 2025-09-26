@@ -30,11 +30,11 @@ The function includes a platform limitation check that prevents `sub_` from bein
   - Assert (runtime assertion for INT_MIN check)
   - [pg_atomic_fetch_sub_u32_impl](pg_atomic_fetch_sub_u32_impl.md) (platform-specific implementation)
 - Called from (representative examples):
-  - LWLockDequeueSelf (src/backend/storage/lmgr/lwlock.c:1154)
-  - LWLockAcquire (src/backend/storage/lmgr/lwlock.c:1301)
-  - LWLockAcquireOrWait (src/backend/storage/lmgr/lwlock.c:1463)
-  - LWLockWaitForVar (src/backend/storage/lmgr/lwlock.c:1681)
-  - pgstat_release_entry_ref (src/backend/utils/activity/pgstat_shmem.c:571)
+  - [LWLockDequeueSelf](../L/LWLockDequeueSelf.md) (src/backend/storage/lmgr/lwlock.c:1154)
+  - [LWLockAcquire](../L/LWLockAcquire.md) (src/backend/storage/lmgr/lwlock.c:1301)
+  - [LWLockAcquireOrWait](../L/LWLockAcquireOrWait.md) (src/backend/storage/lmgr/lwlock.c:1463)
+  - [LWLockWaitForVar](../L/LWLockWaitForVar.md) (src/backend/storage/lmgr/lwlock.c:1681)
+  - [pgstat_release_entry_ref](pgstat_release_entry_ref.md) (src/backend/utils/activity/pgstat_shmem.c:571)
 
 ## Notes and Other Information
 - Returns the value that was stored before the subtraction operation

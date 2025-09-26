@@ -38,7 +38,7 @@ Key responsibilities include:
   - outerPlan
   - [list_nth](../l/list_nth.md)
   - [table_slot_create](../t/table_slot_create.md)
-  - ExecAssignExprContext
+  - [ExecAssignExprContext](ExecAssignExprContext.md)
   - [ExecBuildUpdateProjection](ExecBuildUpdateProjection.md)
 - Called from (representative examples):
   - [ExecCrossPartitionUpdate](ExecCrossPartitionUpdate.md)

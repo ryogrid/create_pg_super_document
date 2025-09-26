@@ -34,5 +34,5 @@ The `numeric_int2` function converts a PostgreSQL `Numeric` type to a 16-bit sig
 - Throws `ERRCODE_FEATURE_NOT_SUPPORTED` error for NaN and infinity inputs
 - Throws `ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE` error when the numeric value exceeds smallint range
 - Uses intermediate 64-bit integer conversion to ensure precision during range checking
-- Range validation uses `PG_INT16_MIN` and `PG_INT16_MAX` constants for boundary checking
+- [Range](../R/Range.md) validation uses `PG_INT16_MIN` and `PG_INT16_MAX` constants for boundary checking
 - Part of PostgreSQL's numeric type conversion system in `src/backend/utils/adt/numeric.c`

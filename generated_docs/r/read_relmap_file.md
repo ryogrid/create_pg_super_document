@@ -25,9 +25,9 @@ The function manages concurrent access by acquiring RelationMappingLock unless t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire/LWLockRelease (locking primitives)
-  - OpenTransientFile/CloseTransientFile (file operations)
-  - pgstat_report_wait_start/pgstat_report_wait_end (wait event reporting)
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease (locking primitives)
+  - [OpenTransientFile](../O/OpenTransientFile.md)/CloseTransientFile (file operations)
+  - [pgstat_report_wait_start](../p/pgstat_report_wait_start.md)/pgstat_report_wait_end (wait event reporting)
   - INIT_CRC32C/COMP_CRC32C/FIN_CRC32C/EQ_CRC32C (CRC calculation and verification)
   - ereport/errmsg (error reporting)
   - RELMAPPER_FILENAME constant

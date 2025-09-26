@@ -26,10 +26,10 @@ The function uses snprintf to safely format the filename, ensuring it does not e
   - snprintf (standard library function for safe string formatting)
   - MAXPGPATH (PostgreSQL constant defining maximum path length)
 - Called from (representative examples):
-  - MakeNewFileSetSegment (when creating new file segments)
-  - BufFileOpenFileSet (when opening existing file segments)
-  - BufFileDeleteFileSet (when deleting file segments)
-  - BufFileTruncateFileSet (when truncating file segments)
+  - [MakeNewFileSetSegment](../M/MakeNewFileSetSegment.md) (when creating new file segments)
+  - [BufFileOpenFileSet](../B/BufFileOpenFileSet.md) (when opening existing file segments)
+  - [BufFileDeleteFileSet](../B/BufFileDeleteFileSet.md) (when deleting file segments)
+  - [BufFileTruncateFileSet](../B/BufFileTruncateFileSet.md) (when truncating file segments)
 
 ## Notes and Other Information
 - This is a static function internal to buffile.c, not exposed to external modules

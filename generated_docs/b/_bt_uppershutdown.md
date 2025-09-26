@@ -43,18 +43,18 @@ The function ensures that all pages are properly written out and that the tree s
   - BTreeTupleGetNAtts
   - IndexRelationGetNumberOfKeyAttributes
   - P_LEFTMOST
-  - BTreeTupleSetDownLink
-  - _bt_buildadd
-  - pfree
-  - _bt_slideleft
-  - _bt_blwritepage
-  - smgr_bulk_get_buf
-  - _bt_initmetapage
+  - [BTreeTupleSetDownLink](../B/BTreeTupleSetDownLink.md)
+  - [_bt_buildadd](_bt_buildadd.md)
+  - [pfree](../p/pfree.md)
+  - [_bt_slideleft](_bt_slideleft.md)
+  - [_bt_blwritepage](_bt_blwritepage.md)
+  - [smgr_bulk_get_buf](../s/smgr_bulk_get_buf.md)
+  - [_bt_initmetapage](_bt_initmetapage.md)
   - BTP_ROOT
   - P_NONE
   - BTREE_METAPAGE
 - Called from (representative examples):
-  - _bt_load
+  - [_bt_load](_bt_load.md)
 
 ## Notes and Other Information
 - This function marks the transition point where the index becomes valid and usable

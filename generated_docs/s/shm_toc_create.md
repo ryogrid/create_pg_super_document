@@ -32,13 +32,13 @@ The implementation ensures that the starting allocation address is buffer-aligne
 - Functions called/Symbols referenced:
   - SpinLockInit (for thread-safe TOC access)
   - BUFFERALIGN_DOWN (for memory alignment calculations)
-  - shm_toc (return type and internal structure)
+  - [shm_toc](shm_toc.md) (return type and internal structure)
 
 - Called from (representative examples):
-  - GetSessionDsmHandle (src/backend/access/common/session.c:112)
-  - InitializeParallelDSM (src/backend/access/transam/parallel.c:325, 332)
-  - pa_setup_dsm (src/backend/replication/logical/applyparallelworker.c:361)
-  - setup_dynamic_shared_memory (src/test/modules/test_shm_mq/setup.c:132)
+  - [GetSessionDsmHandle](../G/GetSessionDsmHandle.md) (src/backend/access/common/session.c:112)
+  - [InitializeParallelDSM](../I/InitializeParallelDSM.md) (src/backend/access/transam/parallel.c:325, 332)
+  - [pa_setup_dsm](../p/pa_setup_dsm.md) (src/backend/replication/logical/applyparallelworker.c:361)
+  - [setup_dynamic_shared_memory](setup_dynamic_shared_memory.md) (src/test/modules/test_shm_mq/setup.c:132)
 
 ## Notes and Other Information
 - The function assumes that the provided nbytes is larger than the minimum size required for the shm_toc structure header

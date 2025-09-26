@@ -31,8 +31,8 @@ The function includes special handling for tuple descriptors during transactions
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelationHasReferenceCountZero
-  - RelationCloseSmgr
-  - pgstat_unlink_relation
+  - [RelationCloseSmgr](RelationCloseSmgr.md)
+  - [pgstat_unlink_relation](../p/pgstat_unlink_relation.md)
   - [RememberToFreeTupleDescAtEOX](RememberToFreeTupleDescAtEOX.md)
   - [FreeTupleDesc](../F/FreeTupleDesc.md)
   - [FreeTriggerDesc](../F/FreeTriggerDesc.md)

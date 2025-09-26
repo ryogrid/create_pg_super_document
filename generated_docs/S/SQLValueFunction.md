@@ -56,20 +56,20 @@ The structure stores the result type and typmod to avoid requiring each function
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SQLValueFunctionOp (enum)
+  - [SQLValueFunctionOp](SQLValueFunctionOp.md) (enum)
   - ParseLoc
-  - Expr (base type)
+  - [Expr](../E/Expr.md) (base type)
   - Oid
 
 - Called from (representative examples):
-  - transformSQLValueFunction (parse_expr.c:2302)
-  - ExecInitExprRec (execExpr.c:2249)
-  - ExecEvalSQLValueFunction (execExprInterp.c:2642)
-  - exprType (nodeFuncs.c:216)
-  - get_rule_expr (ruleutils.c:9708)
+  - [transformSQLValueFunction](../t/transformSQLValueFunction.md) (parse_expr.c:2302)
+  - [ExecInitExprRec](../E/ExecInitExprRec.md) (execExpr.c:2249)
+  - [ExecEvalSQLValueFunction](../E/ExecEvalSQLValueFunction.md) (execExprInterp.c:2642)
+  - [exprType](../e/exprType.md) (nodeFuncs.c:216)
+  - [get_rule_expr](../g/get_rule_expr.md) (ruleutils.c:9708)
 
 ## Notes and Other Information
-- SQLValueFunction is part of PostgreSQL's expression node hierarchy, inheriting from the base Expr type
+- [SQLValueFunction](SQLValueFunction.md) is part of PostgreSQL's expression node hierarchy, inheriting from the base Expr type
 - The pg_node_attr(query_jumble_ignore) annotation on the type field helps optimize query plan caching since the type is fully determined by the operation
 - These functions are classified as stable, meaning they return consistent results within a single statement but may vary between statements
 - All supported functions return non-collating datatypes, eliminating the need for collation handling

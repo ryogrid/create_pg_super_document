@@ -22,7 +22,7 @@ This function processes ACL (Access Control List) user names by extracting them 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [resetPQExpBuffer](../r/resetPQExpBuffer.md)
-  - appendPQExpBufferChar
+  - [appendPQExpBufferChar](../a/appendPQExpBufferChar.md)
 - Called from (representative examples):
   - [parseAclItem](../p/parseAclItem.md) (src/bin/pg_dump/dumputils.c:436, 448)
 

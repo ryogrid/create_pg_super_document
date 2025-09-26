@@ -25,15 +25,15 @@ The size calculation is done using PostgreSQL's safe arithmetic functions (add_s
 - Functions called/Symbols referenced:
   - InvalidSnapshot (constant for validation)
   - SNAPSHOT_MVCC (snapshot type constant)
-  - SerializedSnapshotData (structure type for serialized snapshots)
-  - add_size (safe size addition function)
-  - mul_size (safe size multiplication function)
+  - [SerializedSnapshotData](../S/SerializedSnapshotData.md) (structure type for serialized snapshots)
+  - [add_size](../a/add_size.md) (safe size addition function)
+  - [mul_size](../m/mul_size.md) (safe size multiplication function)
   - Assert (assertion macro)
 - Called from (representative examples):
-  - index_parallelscan_estimate (in index parallel scan operations)
-  - index_parallelscan_initialize (in index parallel scan initialization)
-  - table_parallelscan_estimate (in table parallel scan operations)
-  - InitializeParallelDSM (in parallel DSM initialization, multiple locations)
+  - [index_parallelscan_estimate](../i/index_parallelscan_estimate.md) (in index parallel scan operations)
+  - [index_parallelscan_initialize](../i/index_parallelscan_initialize.md) (in index parallel scan initialization)
+  - [table_parallelscan_estimate](../t/table_parallelscan_estimate.md) (in table parallel scan operations)
+  - [InitializeParallelDSM](../I/InitializeParallelDSM.md) (in parallel DSM initialization, multiple locations)
 
 ## Notes and Other Information
 - The function only handles SNAPSHOT_MVCC type snapshots

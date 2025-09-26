@@ -24,13 +24,13 @@ The function performs a systematic scan of the pg_init_privs table using the obj
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open (opens pg_init_privs relation)
+  - [table_open](../t/table_open.md) (opens pg_init_privs relation)
   - [ScanKeyInit](../S/ScanKeyInit.md) (initializes scan keys for catalog search)
   - [systable_beginscan](../s/systable_beginscan.md) (begins system catalog scan)
   - [systable_getnext](../s/systable_getnext.md) (gets next tuple from scan)
   - [CatalogTupleDelete](../C/CatalogTupleDelete.md) (deletes catalog tuple)
   - [systable_endscan](../s/systable_endscan.md) (ends catalog scan)
-  - table_close (closes relation)
+  - [table_close](../t/table_close.md) (closes relation)
   - [SysScanDesc](../S/SysScanDesc.md) (scan descriptor type)
 - Called from:
   - [deleteOneObject](../d/deleteOneObject.md) (main object deletion function)

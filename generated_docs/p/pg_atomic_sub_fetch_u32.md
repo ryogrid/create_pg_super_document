@@ -33,8 +33,8 @@ The function serves as a high-level wrapper around the platform-specific impleme
   - [parallel_vacuum_process_unsafe_indexes](parallel_vacuum_process_unsafe_indexes.md)
   - [tbm_free_shared_area](../t/tbm_free_shared_area.md)
   - [pa_decr_and_wait_stream_block](pa_decr_and_wait_stream_block.md)
-  - LWLockRelease
-  - pgstat_drop_entry_internal
+  - [LWLockRelease](../L/LWLockRelease.md)
+  - [pgstat_drop_entry_internal](pgstat_drop_entry_internal.md)
 
 ## Notes and Other Information
 - The function enforces 4-byte alignment for the pointer parameter through AssertPointerAlignment

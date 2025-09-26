@@ -54,8 +54,8 @@ The structure handles both regular window functions and plain aggregates used as
 ## Dependencies
 - Functions called/Symbols referenced:
   - [WindowFuncExprState](WindowFuncExprState.md)
-  - WindowFunc
-  - WindowObject
+  - [WindowFunc](WindowFunc.md)
+  - [WindowObject](WindowObject.md)
 - Called from (representative examples):
   - [ExecInitWindowAgg](../E/ExecInitWindowAgg.md)
   - [WindowStatePerFunc](WindowStatePerFunc.md) (typedef)

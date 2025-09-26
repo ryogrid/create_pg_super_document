@@ -29,11 +29,11 @@ BlockRefTableSerializedEntry represents the standardized on-disk format used for
 ## Dependencies
 - Functions called/Symbols referenced: None (structure definition only)
 - Used by:
-  - WriteBlockRefTable (multiple references for serialization operations)
-  - BlockRefTableReaderNextRelation (multiple references for deserialization)
-  - BlockRefTableWriteEntry (for writing serialized entries)
-  - BlockRefTableComparator (for comparing serialized entries)
-  - BlockRefTableFileTerminate (for finalizing serialized files)
+  - [WriteBlockRefTable](../W/WriteBlockRefTable.md) (multiple references for serialization operations)
+  - [BlockRefTableReaderNextRelation](BlockRefTableReaderNextRelation.md) (multiple references for deserialization)
+  - [BlockRefTableWriteEntry](BlockRefTableWriteEntry.md) (for writing serialized entries)
+  - [BlockRefTableComparator](BlockRefTableComparator.md) (for comparing serialized entries)
+  - [BlockRefTableFileTerminate](BlockRefTableFileTerminate.md) (for finalizing serialized files)
 
 ## Notes and Other Information
 - Defined in src/common/blkreftable.c:155-161 with documentation at lines 152-154

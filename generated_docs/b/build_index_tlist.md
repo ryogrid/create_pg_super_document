@@ -31,11 +31,11 @@ The function ensures consistency by validating that the number of expression col
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_head (gets first element of index expressions list)
+  - [list_head](../l/list_head.md) (gets first element of index expressions list)
   - [lnext](../l/lnext.md) (advances to next list element)
   - [SystemAttributeDefinition](../S/SystemAttributeDefinition.md) (gets system attribute information for negative indexkeys)
   - TupleDescAttr (accesses heap relation attribute information)
-  - makeVar (creates Var nodes for simple columns)
+  - [makeVar](../m/makeVar.md) (creates Var nodes for simple columns)
   - [makeTargetEntry](../m/makeTargetEntry.md) (creates target list entries)
   - [IndexOptInfo](../I/IndexOptInfo.md) (index optimization information structure)
 

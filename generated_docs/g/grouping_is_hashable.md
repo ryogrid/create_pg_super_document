@@ -25,7 +25,7 @@ This check is crucial for the query planner to decide between different grouping
 ## Dependencies
 - Functions called/Symbols referenced:
   - lfirst (for list iteration)
-  - SortGroupClause (structure type)
+  - [SortGroupClause](../S/SortGroupClause.md) (structure type)
   - [PathTarget](../P/PathTarget.md) (referenced in function context)
 - Called from (representative examples):
   - [create_grouping_paths](../c/create_grouping_paths.md) (src/backend/optimizer/plan/planner.c:3889)
@@ -40,6 +40,6 @@ This check is crucial for the query planner to decide between different grouping
 - This is a prerequisite check for enabling hash-based grouping algorithms
 - The parser automatically sets the hashable flag based on data type hash function availability
 - Used by the query planner to choose between sort-based and hash-based grouping strategies
-- Hash-based grouping is often more efficient for large datasets when applicable
+- [Hash](../H/Hash.md)-based grouping is often more efficient for large datasets when applicable
 - Critical for ensuring correct execution plan generation for GROUP BY operations
 - Located in src/backend/optimizer/util/tlist.c:560-590

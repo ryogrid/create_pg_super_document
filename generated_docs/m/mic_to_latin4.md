@@ -41,5 +41,5 @@ The function serves as a wrapper around the lower-level `mic2latin` conversion r
 - Latin-4 (ISO 8859-4) is designed to cover languages like Estonian, Latvian, Lithuanian, Greenlandic, and Sami
 - The function returns the number of bytes converted as an integer
 - MULE Internal Code is an internal encoding format used by PostgreSQL for handling multibyte character sets
-- Error handling behavior depends on the `noError` parameter - when true, invalid characters may be silently skipped or replaced
+- Error handling behavior depends on the `noError` parameter - [when](../w/when.md) true, invalid characters may be silently skipped or replaced
 - The conversion uses the `LC_ISO8859_4` locale specification to ensure proper character mapping

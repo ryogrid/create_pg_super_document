@@ -25,15 +25,15 @@ The `mdzeroextend` function extends a relation by adding multiple blocks filled 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _mdfd_getseg (to get or create appropriate segments)
-  - FileFallocate (for efficient large extensions using posix_fallocate)
-  - FileZero (for zero-writing smaller extensions)
-  - register_dirty_segment (to register for fsync if needed)
-  - mdnblocks (for assertion checking in debug builds)
+  - [_mdfd_getseg](_mdfd_getseg.md) (to get or create appropriate segments)
+  - [FileFallocate](../F/FileFallocate.md) (for efficient large extensions using posix_fallocate)
+  - [FileZero](../F/FileZero.md) (for zero-writing smaller extensions)
+  - [register_dirty_segment](../r/register_dirty_segment.md) (to register for fsync if needed)
+  - [mdnblocks](mdnblocks.md) (for assertion checking in debug builds)
   - relpath (for error message generation)
   - SmgrIsTemp (to check if relation is temporary)
   - ereport (for error reporting)
-  - FilePathName (for error message generation)
+  - [FilePathName](../F/FilePathName.md) (for error message generation)
 
 - Called from (representative examples):
   - Storage manager layer (via function pointer in smgr interface)

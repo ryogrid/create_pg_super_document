@@ -21,13 +21,13 @@ This static function is the core implementation for capturing call stack backtra
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ErrorData (struct type for error information)
+  - [ErrorData](../E/ErrorData.md) (struct type for error information)
   - lengthof (macro for array length calculation)
-  - initStringInfo (string buffer initialization)
-  - appendStringInfo (formatted string append)
-  - appendStringInfoString (string append)
-  - backtrace (system function for stack capture - when HAVE_BACKTRACE_SYMBOLS defined)
-  - backtrace_symbols (system function for symbol resolution - when HAVE_BACKTRACE_SYMBOLS defined)
+  - [initStringInfo](../i/initStringInfo.md) (string buffer initialization)
+  - [appendStringInfo](../a/appendStringInfo.md) (formatted string append)
+  - [appendStringInfoString](../a/appendStringInfoString.md) (string append)
+  - backtrace (system function for stack capture - [when](../w/when.md) HAVE_BACKTRACE_SYMBOLS defined)
+  - backtrace_symbols (system function for symbol resolution - [when](../w/when.md) HAVE_BACKTRACE_SYMBOLS defined)
 - Called from (representative examples):
   - [errfinish](../e/errfinish.md) (error finalization function)
   - [errbacktrace](../e/errbacktrace.md) (public backtrace interface)

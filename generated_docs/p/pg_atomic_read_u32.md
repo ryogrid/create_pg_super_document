@@ -25,11 +25,11 @@ The function includes pointer alignment verification to ensure the atomic variab
   - AssertPointerAlignment (for 4-byte alignment verification)
   - [pg_atomic_read_u32_impl](pg_atomic_read_u32_impl.md) (platform-specific implementation)
 - Called from (representative examples):
-  - TransactionGroupUpdateXidStatus (transaction processing)
+  - [TransactionGroupUpdateXidStatus](../T/TransactionGroupUpdateXidStatus.md) (transaction processing)
   - [ReadRecentBuffer](../R/ReadRecentBuffer.md) (buffer management)
-  - PinBuffer (buffer pinning operations)
-  - LWLockAttemptLock (lightweight lock operations)
-  - pgstat_acquire_entry_ref (statistics entry management)
+  - [PinBuffer](../P/PinBuffer.md) (buffer pinning operations)
+  - [LWLockAttemptLock](../L/LWLockAttemptLock.md) (lightweight lock operations)
+  - [pgstat_acquire_entry_ref](pgstat_acquire_entry_ref.md) (statistics entry management)
 
 ## Notes and Other Information
 - No barrier semantics are provided, meaning this operation does not enforce memory ordering

@@ -25,7 +25,7 @@ Like other optimized popcount functions, this becomes a function pointer when TR
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_popcount_masked_slow
+  - [pg_popcount_masked_slow](pg_popcount_masked_slow.md)
   - bits8 (type reference)
 - Called from (representative examples):
   - [pg_popcount_masked](pg_popcount_masked.md) (inline function in pg_bitutils.h)

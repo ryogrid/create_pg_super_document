@@ -41,12 +41,12 @@ This design allows PostgreSQL to provide a unified hash interface regardless of 
 - Functions called/Symbols referenced:
   - `pg_cryptohash_type` (enum defining supported hash algorithms)
   - `pg_cryptohash_errno` (enum defining error states)
-  - `pg_md5_ctx` (MD5 context structure)
-  - `pg_sha1_ctx` (SHA-1 context structure)
-  - `pg_sha224_ctx` (SHA-224 context structure)
-  - `pg_sha256_ctx` (SHA-256 context structure)
-  - `pg_sha384_ctx` (SHA-384 context structure)
-  - `pg_sha512_ctx` (SHA-512 context structure)
+  - `[pg_md5_ctx](pg_md5_ctx.md)` (MD5 context structure)
+  - `[pg_sha1_ctx](pg_sha1_ctx.md)` (SHA-1 context structure)
+  - `[pg_sha224_ctx](pg_sha224_ctx.md)` (SHA-224 context structure)
+  - `[pg_sha256_ctx](pg_sha256_ctx.md)` (SHA-256 context structure)
+  - `[pg_sha384_ctx](pg_sha384_ctx.md)` (SHA-384 context structure)
+  - `[pg_sha512_ctx](pg_sha512_ctx.md)` (SHA-512 context structure)
 
 - Called from (representative examples):
   - [pg_cryptohash_create](pg_cryptohash_create.md) (allocates and initializes context)

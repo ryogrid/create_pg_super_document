@@ -46,9 +46,9 @@ The function performs extensive error checking and provides helpful error messag
   - [parse_analyze_fixedparams](../p/parse_analyze_fixedparams.md)
   - IsA (type checking macros)
   - elog, ereport (error reporting)
-  - makeDefElem, makeString (option creation)
+  - [makeDefElem](../m/makeDefElem.md), makeString (option creation)
   - [view_query_is_auto_updatable](../v/view_query_is_auto_updatable.md)
-  - list_head, lnext, lfirst_node (list manipulation)
+  - [list_head](../l/list_head.md), lnext, lfirst_node (list manipulation)
   - [pstrdup](../p/pstrdup.md), strVal (string utilities)
   - copyObject
   - [isQueryUsingTempRelation](../i/isQueryUsingTempRelation.md)

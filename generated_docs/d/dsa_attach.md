@@ -23,14 +23,14 @@ Upon successful DSM attachment, it calls attach_internal() to set up the DSA str
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dsm_attach](dsm_attach.md)
-  - attach_internal
-  - dsm_segment_address
-  - on_dsm_detach
+  - [attach_internal](../a/attach_internal.md)
+  - [dsm_segment_address](dsm_segment_address.md)
+  - [on_dsm_detach](../o/on_dsm_detach.md)
   - [dsa_on_dsm_detach_release_in_place](dsa_on_dsm_detach_release_in_place.md)
 - Called from (representative examples):
   - [TidStoreAttach](../T/TidStoreAttach.md)
-  - logicalrep_launcher_attach_dshmem
-  - init_dsm_registry
+  - [logicalrep_launcher_attach_dshmem](../l/logicalrep_launcher_attach_dshmem.md)
+  - [init_dsm_registry](../i/init_dsm_registry.md)
 
 ## Notes and Other Information
 - Only works with areas created using dsa_create(), not dsa_create_in_place()

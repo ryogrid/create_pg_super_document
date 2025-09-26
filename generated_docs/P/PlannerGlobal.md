@@ -112,14 +112,14 @@ PlannerGlobal serves as the central repository for state information that must b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParamListInfo (for boundParams)
-  - PartitionDirectory (for partition_directory)
+  - [ParamListInfo](ParamListInfo.md) (for boundParams)
+  - [PartitionDirectory](PartitionDirectory.md) (for partition_directory)
   - NodeTag, List, Bitmapset, Index (standard PostgreSQL types)
 - Called from (representative examples):
-  - standard_planner (main planner entry point)
-  - subquery_planner (subquery planning)
-  - expression_planner_with_deps (expression planning)
-  - set_plan_references (plan reference fixing)
+  - [standard_planner](../s/standard_planner.md) (main planner entry point)
+  - [subquery_planner](../s/subquery_planner.md) (subquery planning)
+  - [expression_planner_with_deps](../e/expression_planner_with_deps.md) (expression planning)
+  - [set_plan_references](../s/set_plan_references.md) (plan reference fixing)
 
 ## Notes and Other Information
 - Central coordination point for all global planner state, ensuring consistency across complex multi-level planning operations

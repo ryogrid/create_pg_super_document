@@ -23,7 +23,7 @@ The function includes assertions to verify these preconditions: it checks that n
 - Functions called/Symbols referenced:
   - [rinfo_is_constant_true](../r/rinfo_is_constant_true.md) (Line 479) - to verify no constant TRUE clauses
   - lfirst_node macro - for safe list iteration
-  - lappend - to build the result list
+  - [lappend](../l/lappend.md) - to build the result list
   - NIL - PostgreSQL's empty list constant
 - Called from (representative examples):
   - [create_join_plan](../c/create_join_plan.md) (src/backend/optimizer/plan/createplan.c:1128)

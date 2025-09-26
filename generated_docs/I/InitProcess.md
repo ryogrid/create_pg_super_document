@@ -30,10 +30,10 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - Process type detection: AmAutoVacuumWorkerProcess, AmSpecialWorkerProcess, AmBackgroundWorkerProcess, AmWalSenderProcess
-  - List operations: dlist_is_empty, dlist_pop_head_node, dlist_node_init
+  - [List](../L/List.md) operations: dlist_is_empty, dlist_pop_head_node, dlist_node_init
   - Locking: SpinLockAcquire/SpinLockRelease (ProcStructLock)
   - Process management: GetNumberFromPGProc, MarkPostmasterChildActive, set_spins_per_delay
-  - Latch operations: OwnLatch, SwitchToSharedLatch
+  - [Latch](../L/Latch.md) operations: OwnLatch, SwitchToSharedLatch
   - Semaphore operations: PGSemaphoreReset
   - Cleanup registration: on_shmem_exit (with ProcKill)
   - Subsystem initialization: InitLWLockAccess, InitDeadLockChecking
@@ -43,12 +43,12 @@ This function takes no parameters.
   - MyProc (current process PGPROC)
   - MyProcNumber (current process number)
 - Called from:
-  - BootstrapModeMain (bootstrap process)
-  - AutoVacWorkerMain (autovacuum worker)
-  - BackgroundWorkerMain (background worker)
-  - ReplSlotSyncWorkerMain (slot sync worker)
-  - BackendMain (regular backend)
-  - PostgresSingleUserMain (single-user mode)
+  - [BootstrapModeMain](../B/BootstrapModeMain.md) (bootstrap process)
+  - [AutoVacWorkerMain](../A/AutoVacWorkerMain.md) (autovacuum worker)
+  - [BackgroundWorkerMain](../B/BackgroundWorkerMain.md) (background worker)
+  - [ReplSlotSyncWorkerMain](../R/ReplSlotSyncWorkerMain.md) (slot sync worker)
+  - [BackendMain](../B/BackendMain.md) (regular backend)
+  - [PostgresSingleUserMain](../P/PostgresSingleUserMain.md) (single-user mode)
 
 ## Notes and Other Information
 - Must be called after ProcGlobal has been initialized by InitProcGlobal

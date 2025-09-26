@@ -31,15 +31,15 @@ This approach ensures that PostgreSQL only uses hardware acceleration when it's 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `pqsignal` - PostgreSQL signal handler setup function
-  - `illegal_instruction_handler` - Custom SIGILL handler for trap recovery
+  - `[pqsignal](pqsignal.md)` - PostgreSQL signal handler setup function
+  - `[illegal_instruction_handler](../i/illegal_instruction_handler.md)` - Custom SIGILL handler for trap recovery
   - `sigsetjmp` - Establishes jump point for exception handling
-  - `pg_comp_crc32c_armv8` - ARMv8 hardware CRC function being tested
-  - `pg_comp_crc32c_sb8` - Software CRC implementation for comparison
+  - `[pg_comp_crc32c_armv8](pg_comp_crc32c_armv8.md)` - ARMv8 hardware CRC function being tested
+  - `[pg_comp_crc32c_sb8](pg_comp_crc32c_sb8.md)` - Software CRC implementation for comparison
   - `SIG_DFL` - Default signal handler restoration
   - `elog` - PostgreSQL logging function (backend builds only)
 - Called from (representative examples):
-  - `pg_comp_crc32c_choose` - Uses this for runtime implementation selection
+  - `[pg_comp_crc32c_choose](pg_comp_crc32c_choose.md)` - Uses this for runtime implementation selection
 
 ## Notes and Other Information
 - This is a static function, only visible within pg_crc32c_armv8_choose.c

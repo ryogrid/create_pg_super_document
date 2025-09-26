@@ -31,7 +31,7 @@ The function handles several types of heap operations:
 - Functions called/Symbols referenced:
   - XLogRecGetInfo
   - XLogRecGetXid
-  - ReorderBufferProcessXid
+  - [ReorderBufferProcessXid](../R/ReorderBufferProcessXid.md)
   - [SnapBuildCurrentState](../S/SnapBuildCurrentState.md)
   - [SnapBuildProcessChange](../S/SnapBuildProcessChange.md)
   - [DecodeInsert](../D/DecodeInsert.md)

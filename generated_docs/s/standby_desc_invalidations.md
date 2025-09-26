@@ -38,9 +38,9 @@ Additionally, it handles relation cache initialization file invalidations, which
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SharedInvalidationMessage (struct type)
-  - appendStringInfo
-  - appendStringInfoString
+  - [SharedInvalidationMessage](../S/SharedInvalidationMessage.md) (struct type)
+  - [appendStringInfo](../a/appendStringInfo.md)
+  - [appendStringInfoString](../a/appendStringInfoString.md)
   - SHAREDINVALCATALOG_ID
   - SHAREDINVALRELCACHE_ID
   - SHAREDINVALSMGR_ID

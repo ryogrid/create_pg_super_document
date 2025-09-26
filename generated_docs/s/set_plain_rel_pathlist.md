@@ -39,7 +39,7 @@ The generated paths are added to the relation's pathlist, where the query optimi
 - The function always creates a sequential scan path as a fallback option
 - Parallel paths are only generated when the relation is marked as consider_parallel and has no required outer parameters
 - LATERAL references can create parameterization requirements that affect path generation
-- Join clauses cannot be pushed down into sequential scan quals, but parameterization due to LATERAL refs is supported
+- [Join](../J/Join.md) clauses cannot be pushed down into sequential scan quals, but parameterization due to LATERAL refs is supported
 - The function represents the core access path generation for regular tables, excluding specialized relation types
 - Generated paths will be costed and compared during the path selection phase
 - TID scans are considered for relations that might be accessed via tuple ID equality conditions

@@ -23,7 +23,7 @@ The function is designed to support gradual migration of code from manual buffer
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - read_stream_get_block
+  - [read_stream_get_block](read_stream_get_block.md)
 - Called from (representative examples):
   - (No current callers - transitional interface)
 

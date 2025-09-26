@@ -25,9 +25,9 @@ The function is essential for properly parsing EUC-JP text streams by identifyin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_euc_mblen (generic EUC multibyte length calculation function)
+  - [pg_euc_mblen](pg_euc_mblen.md) (generic EUC multibyte length calculation function)
 - Called from (representative examples):
-  - pg_encoding_set_invalid (character encoding setup function)
+  - [pg_encoding_set_invalid](pg_encoding_set_invalid.md) (character encoding setup function)
 
 ## Notes and Other Information
 - This is a static function, limiting its scope to the wchar.c compilation unit

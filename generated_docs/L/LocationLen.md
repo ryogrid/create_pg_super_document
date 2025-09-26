@@ -29,8 +29,8 @@ The structure is used to build an array of constant locations that can later be 
   - Used within JumbleState structure
   - Allocated using palloc/repalloc functions
 - Called from (representative examples):
-  - RecordConstLocation function in queryjumblefuncs.c:212-214
-  - JumbleState.clocations array allocation in queryjumblefuncs.c:117-118
+  - [RecordConstLocation](../R/RecordConstLocation.md) function in queryjumblefuncs.c:212-214
+  - [JumbleState](../J/JumbleState.md).clocations array allocation in queryjumblefuncs.c:117-118
 
 ## Notes and Other Information
 - This structure is primarily used as elements in the clocations array within JumbleState

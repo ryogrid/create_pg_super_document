@@ -30,13 +30,13 @@ Each logical replication callback wrapper function creates a local instance of t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LogicalDecodingContext (struct type for ctx member)
+  - [LogicalDecodingContext](LogicalDecodingContext.md) (struct type for ctx member)
   - XLogRecPtr (type for report_location member)
 - Called from (representative examples):
-  - output_plugin_error_callback (uses this structure for error context)
-  - begin_cb_wrapper (creates and populates instance)
-  - commit_cb_wrapper (creates and populates instance)
-  - change_cb_wrapper (creates and populates instance)
+  - [output_plugin_error_callback](../o/output_plugin_error_callback.md) (uses this structure for error context)
+  - [begin_cb_wrapper](../b/begin_cb_wrapper.md) (creates and populates instance)
+  - [commit_cb_wrapper](../c/commit_cb_wrapper.md) (creates and populates instance)
+  - [change_cb_wrapper](../c/change_cb_wrapper.md) (creates and populates instance)
   - All other logical replication callback wrappers
 
 ## Notes and Other Information

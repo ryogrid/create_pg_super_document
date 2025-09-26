@@ -131,14 +131,14 @@ join_cur_level				      write_location: Current scan direction (forward or backw
 - Functions called/Symbols referenced:
   - ScanDirection (enum type)
   - OffsetNumber (type)
-  - IndexTuple (type)
+  - [IndexTuple](../I/IndexTuple.md) (type)
   - BlockNumber (type)
   - Page (type)
 - Called from (representative examples):
-  - _bt_readpage (src/backend/access/nbtree/nbtsearch.c:1568)
-  - _bt_advance_array_keys (src/backend/access/nbtree/nbtutils.c:1789)
-  - _bt_checkkeys (src/backend/access/nbtree/nbtutils.c:3508)
-  - _bt_checkkeys_look_ahead (src/backend/access/nbtree/nbtutils.c:4072)
+  - [_bt_readpage](../b/_bt_readpage.md) (src/backend/access/nbtree/nbtsearch.c:1568)
+  - [_bt_advance_array_keys](../b/_bt_advance_array_keys.md) (src/backend/access/nbtree/nbtutils.c:1789)
+  - [_bt_checkkeys](../b/_bt_checkkeys.md) (src/backend/access/nbtree/nbtutils.c:3508)
+  - [_bt_checkkeys_look_ahead](../b/_bt_checkkeys_look_ahead.md) (src/backend/access/nbtree/nbtutils.c:4072)
 
 ## Notes and Other Information
 This structure is particularly important for array key scans where look-ahead optimizations can significantly improve performance. The separation between input, output, and bidirectional parameters reflects the careful design to support complex scanning scenarios while maintaining clean interfaces between the page reading and key checking phases of B-tree traversal.

@@ -35,7 +35,7 @@ The reindexing process involves:
 ## Dependencies
 - Functions called/Symbols referenced:
   - [IndexGetRelation](../I/IndexGetRelation.md): Gets heap relation OID from index OID
-  - table_open/try_table_open: Opens the parent heap relation
+  - [table_open](../t/table_open.md)/try_table_open: Opens the parent heap relation
   - [index_open](../i/index_open.md)/try_index_open: Opens the target index relation
   - [SetUserIdAndSecContext](../S/SetUserIdAndSecContext.md): Manages security context for index functions
   - [CheckRelationTableSpaceMove](../C/CheckRelationTableSpaceMove.md): Validates tablespace move operations

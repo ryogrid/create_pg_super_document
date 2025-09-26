@@ -31,14 +31,14 @@ The output format is: `leftop [::cast] OPERATOR(schema.op) rightop [::cast]` whe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (system cache lookup for operator)
-  - get_namespace_name (namespace name resolution)
-  - quote_identifier (identifier quoting)
-  - add_cast_to (type casting utility)
-  - appendStringInfo/appendStringInfoString (string buffer operations)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup for operator)
+  - [get_namespace_name](get_namespace_name.md) (namespace name resolution)
+  - [quote_identifier](../q/quote_identifier.md) (identifier quoting)
+  - [add_cast_to](../a/add_cast_to.md) (type casting utility)
+  - [appendStringInfo](../a/appendStringInfo.md)/appendStringInfoString (string buffer operations)
 - Called from (representative examples):
-  - refresh_by_match_merge (materialized view refresh operations)
-  - ri_GenerateQual (referential integrity constraint generation)
+  - [refresh_by_match_merge](../r/refresh_by_match_merge.md) (materialized view refresh operations)
+  - [ri_GenerateQual](../r/ri_GenerateQual.md) (referential integrity constraint generation)
 
 ## Notes and Other Information
 - Only supports binary operators (asserts oprkind == `b`)

@@ -24,11 +24,11 @@ The function is designed to provide reliable, predictable behavior for ASCII cha
 - Functions called/Symbols referenced:
   - (None - uses only basic arithmetic operations)
 - Called from (representative examples):
-  - pg_wc_tolower (in regex processing)
-  - asc_tolower (in formatting functions)
-  - asc_initcap (in formatting functions) 
-  - seq_search_ascii (in formatting functions)
-  - SB_lower_char (in LIKE pattern matching)
+  - [pg_wc_tolower](pg_wc_tolower.md) (in regex processing)
+  - [asc_tolower](../a/asc_tolower.md) (in formatting functions)
+  - [asc_initcap](../a/asc_initcap.md) (in formatting functions) 
+  - [seq_search_ascii](../s/seq_search_ascii.md) (in formatting functions)
+  - [SB_lower_char](../S/SB_lower_char.md) (in LIKE pattern matching)
 
 ## Notes and Other Information
 - This function operates only on ASCII characters (0-127) and is locale-independent

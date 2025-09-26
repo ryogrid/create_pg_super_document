@@ -30,13 +30,13 @@ This information is later used by `DeadLockReport` to generate comprehensive err
 - Functions called/Symbols referenced:
   - [PGPROC](../P/PGPROC.md) (struct type)
   - LOCKMODE (type)
-  - LOCK (struct type)
+  - [LOCK](../L/LOCK.md) (struct type)
   - DEADLOCK_INFO (struct type)
   - deadlockDetails (global array)
   - nDeadlockDetails (global variable)
 
 - Called from (representative examples):
-  - ProcSleep (src/backend/storage/lmgr/proc.c:1160)
+  - [ProcSleep](../P/ProcSleep.md) (src/backend/storage/lmgr/proc.c:1160)
 
 ## Notes and Other Information
 - This function handles the simple case of two-process deadlocks, which are the most common type

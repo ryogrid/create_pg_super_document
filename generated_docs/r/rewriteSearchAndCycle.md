@@ -45,7 +45,7 @@ The rewriting process involves:
   - [make_path_rowexpr](../m/make_path_rowexpr.md) (to create row expressions for path tracking)
   - [make_path_initial_array](../m/make_path_initial_array.md) (to create initial path arrays)
   - [make_path_cat_expr](../m/make_path_cat_expr.md) (to create path concatenation expressions)
-  - makeVar, makeTargetEntry, makeFuncExpr (AST construction functions)
+  - [makeVar](../m/makeVar.md), makeTargetEntry, makeFuncExpr (AST construction functions)
   - Various list manipulation functions (lappend, list_make1, etc.)
 - Called from:
   - [fireRIRrules](../f/fireRIRrules.md) (in rewriteHandler.c at line 2000)

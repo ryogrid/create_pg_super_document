@@ -21,7 +21,7 @@ This function implements the writing mechanism for Zstd-compressed files by comp
 - Functions called/Symbols referenced:
   - [CompressFileHandle](../C/CompressFileHandle.md) (struct type)
   - [ZstdCompressorState](ZstdCompressorState.md) (struct type)
-  - pg_malloc0 (memory allocation)
+  - [pg_malloc0](../p/pg_malloc0.md) (memory allocation)
   - [_ZstdCStreamParams](_ZstdCStreamParams.md) (Zstd stream parameter setup)
   - ZSTD_compressStream2() (Zstd library function)
   - ZSTD_isError() (Zstd library function)

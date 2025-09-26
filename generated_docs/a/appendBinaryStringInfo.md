@@ -21,19 +21,19 @@ The function includes an assertion to ensure the StringInfo parameter is valid, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - enlargeStringInfo
+  - [enlargeStringInfo](../e/enlargeStringInfo.md)
   - memcpy (standard C library function)
   - Assert (debug assertion macro)
 - Called from (representative examples):
-  - appendStringInfoString
-  - HandleParallelMessages
-  - XLogInsertRecord
-  - CopySendData
-  - pq_sendbytes
-  - datum_to_json_internal
-  - JsonbToCStringWorker
-  - range_recv
-  - bytea_string_agg_transfn
+  - [appendStringInfoString](appendStringInfoString.md)
+  - [HandleParallelMessages](../H/HandleParallelMessages.md)
+  - [XLogInsertRecord](../X/XLogInsertRecord.md)
+  - [CopySendData](../C/CopySendData.md)
+  - [pq_sendbytes](../p/pq_sendbytes.md)
+  - [datum_to_json_internal](../d/datum_to_json_internal.md)
+  - [JsonbToCStringWorker](../J/JsonbToCStringWorker.md)
+  - [range_recv](../r/range_recv.md)
+  - [bytea_string_agg_transfn](../b/bytea_string_agg_transfn.md)
   - Many other functions across PostgreSQL subsystems
 
 ## Notes and Other Information

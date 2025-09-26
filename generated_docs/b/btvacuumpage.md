@@ -35,7 +35,7 @@ The function implements a sophisticated backtracking mechanism to ensure that pa
   - [_bt_checkpage](_bt_checkpage.md)
   - BTPageGetOpaque
   - [BTPageIsRecyclable](../B/BTPageIsRecyclable.md)
-  - RecordFreeIndexPage
+  - [RecordFreeIndexPage](../R/RecordFreeIndexPage.md)
   - [_bt_upgradelockbufcleanup](_bt_upgradelockbufcleanup.md)
   - [btreevacuumposting](btreevacuumposting.md)
   - [_bt_delitems_vacuum](_bt_delitems_vacuum.md)

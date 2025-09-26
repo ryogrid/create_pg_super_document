@@ -26,7 +26,7 @@ The function iterates through all allocated file descriptors and processes those
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FreeDesc (to free file descriptors on abort)
+  - [FreeDesc](../F/FreeDesc.md) (to free file descriptors on abort)
   - SubTransactionId (type used for subtransaction identification)
 - Called from (representative examples):
   - [CommitSubTransaction](../C/CommitSubTransaction.md) (in src/backend/access/transam/xact.c:5133)

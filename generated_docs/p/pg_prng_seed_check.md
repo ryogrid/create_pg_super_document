@@ -21,11 +21,11 @@ The function checks if both state components (`s0` and `s1`) are zero, and if so
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_prng_state (struct type)
+  - [pg_prng_state](pg_prng_state.md) (struct type)
   - UINT64CONST (macro)
   - unlikely (macro)
 - Called from (representative examples):
-  - pg_prng_seed
+  - [pg_prng_seed](pg_prng_seed.md)
   - pg_prng_strong_seed (macro)
 
 ## Notes and Other Information

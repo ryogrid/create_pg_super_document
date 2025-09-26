@@ -28,15 +28,15 @@ _conv is extensively used throughout the _fmt function to format various timesta
 ## Dependencies
 - Functions called/Symbols referenced:
   - sprintf (standard C library function for string formatting)
-  - _add (adds the formatted string to the output buffer)
+  - [_add](../a/_add.md) (adds the formatted string to the output buffer)
   - INT_STRLEN_MAXIMUM (macro defining maximum string length for an integer)
 - Called from (representative examples):
-  - _fmt (for formatting day numbers %d, %e)
-  - _fmt (for formatting month numbers %m)
-  - _fmt (for formatting hours %H, %I, %k, %l)
-  - _fmt (for formatting minutes %M, seconds %S)
-  - _fmt (for formatting week numbers %U, %W, %V)
-  - _fmt (for formatting timezone offsets %z)
+  - [_fmt](../f/_fmt.md) (for formatting day numbers %d, %e)
+  - [_fmt](../f/_fmt.md) (for formatting month numbers %m)
+  - [_fmt](../f/_fmt.md) (for formatting hours %H, %I, %k, %l)
+  - [_fmt](../f/_fmt.md) (for formatting minutes %M, seconds %S)
+  - [_fmt](../f/_fmt.md) (for formatting week numbers %U, %W, %V)
+  - [_fmt](../f/_fmt.md) (for formatting timezone offsets %z)
 
 ## Notes and Other Information
 - Uses a fixed-size buffer sized to handle the maximum possible integer string length

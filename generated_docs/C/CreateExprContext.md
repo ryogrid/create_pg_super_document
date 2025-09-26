@@ -30,9 +30,9 @@ The function delegates all initialization work to CreateExprContextInternal() wi
 
 - Called from (representative examples):
   - [ExecuteCallStmt](../E/ExecuteCallStmt.md)
-  - MakePerTupleExprContext  
-  - ExecAssignExprContext
-  - ExecInitMergeJoin
+  - [MakePerTupleExprContext](../M/MakePerTupleExprContext.md)  
+  - [ExecAssignExprContext](../E/ExecAssignExprContext.md)
+  - [ExecInitMergeJoin](../E/ExecInitMergeJoin.md)
   - [ExecInitSubPlan](../E/ExecInitSubPlan.md)
   - do_text_output_oneline
 

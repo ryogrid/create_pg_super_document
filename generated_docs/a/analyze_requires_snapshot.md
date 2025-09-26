@@ -25,7 +25,7 @@ The function maintains a separate entry point from stmt_requires_parse_analysis(
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RawStmt (structure access)
+  - [RawStmt](../R/RawStmt.md) (structure access)
   - [stmt_requires_parse_analysis](../s/stmt_requires_parse_analysis.md) (delegation for decision logic)
 
 - Called from (representative examples):

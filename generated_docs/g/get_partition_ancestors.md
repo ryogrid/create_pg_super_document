@@ -21,12 +21,12 @@ The function assumes that each relation in the hierarchy has precisely one paren
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open (to access InheritsRelationId catalog)
+  - [table_open](../t/table_open.md) (to access InheritsRelationId catalog)
   - [get_partition_ancestors_worker](get_partition_ancestors_worker.md) (performs the recursive ancestor lookup)
-  - table_close (to release catalog lock)
+  - [table_close](../t/table_close.md) (to release catalog lock)
 
 - Called from (representative examples):
-  - index_concurrently_swap
+  - [index_concurrently_swap](../i/index_concurrently_swap.md)
   - [getIdentitySequence](getIdentitySequence.md)
   - [filter_partitions](../f/filter_partitions.md)
   - [ExecGetAncestorResultRels](../E/ExecGetAncestorResultRels.md)

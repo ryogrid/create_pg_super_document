@@ -29,7 +29,7 @@ This function is the core recursive engine for converting PostgreSQL arrays to P
   - [PLyDatumToOb](PLyDatumToOb.md) (type structure)
   - bits8 (type definition)
   - [PLyList_FromArray_recurse](PLyList_FromArray_recurse.md) (recursive self-call)
-  - fetch_att (extracts datum value from data buffer)
+  - [fetch_att](../f/fetch_att.md) (extracts datum value from data buffer)
   - att_addlength_pointer (advances pointer by attribute length)
   - att_align_nominal (aligns pointer to proper boundary)
 - Called from:

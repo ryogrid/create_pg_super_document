@@ -36,10 +36,10 @@ Key features:
   - shmat (attach shared memory segment)
   - shmdt (detach shared memory segment)  
   - shmctl (control shared memory operations, used for IPC_STAT and IPC_RMID)
-  - MemoryContextAlloc (allocate cache for identifier)
-  - errcode_for_dynamic_shared_memory (error code helper)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md) (allocate cache for identifier)
+  - [errcode_for_dynamic_shared_memory](../e/errcode_for_dynamic_shared_memory.md) (error code helper)
 - Called from:
-  - dsm_impl_op (when dynamic_shared_memory_type is DSM_IMPL_SYSV)
+  - [dsm_impl_op](dsm_impl_op.md) (when dynamic_shared_memory_type is DSM_IMPL_SYSV)
 
 ## Notes and Other Information
 - System V shared memory has typically lower default allocation limits than POSIX

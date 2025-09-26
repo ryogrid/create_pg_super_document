@@ -35,7 +35,7 @@ On success, the function returns true and optionally stores the parsed value. On
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - strtoint
+  - [strtoint](../s/strtoint.md)
   - isspace
   - pg_log_error
   - errno (global variable)

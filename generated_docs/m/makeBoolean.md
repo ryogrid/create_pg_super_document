@@ -20,7 +20,7 @@ The Boolean node type is specifically designed to represent boolean literals (TR
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (macro for node allocation and initialization)
-  - Boolean (struct type definition)
+  - [Boolean](../B/Boolean.md) (struct type definition)
 - Called from (representative examples):
   - [sequence_options](../s/sequence_options.md) (in sequence.c)
   - [buildDefItem](../b/buildDefItem.md) (in tsearchcmds.c, multiple locations)

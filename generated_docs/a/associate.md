@@ -35,7 +35,7 @@ No parameters - operates on global data structures:
 - Functions called/Symbols referenced:
   - qsort (standard C library sorting function)
   - [rcomp](../r/rcomp.md) (comparison function for sorting rules)
-  - eat (error reporting context function)
+  - [eat](../e/eat.md) (error reporting context function)
   - [warning](../w/warning.md) (warning message function)
   - [getsave](../g/getsave.md) (time offset parsing function)
   - EXIT_FAILURE (standard exit code constant)

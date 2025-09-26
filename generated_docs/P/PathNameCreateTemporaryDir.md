@@ -20,12 +20,12 @@ PathNameCreateTemporaryDir implements a two-level directory creation strategy fo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MakePGDirectory
+  - [MakePGDirectory](../M/MakePGDirectory.md)
   - ereport
-  - errcode_for_file_access
-  - errmsg
+  - [errcode_for_file_access](../e/errcode_for_file_access.md)
+  - [errmsg](../e/errmsg.md)
 - Called from (representative examples):
-  - FileSetCreate
+  - [FileSetCreate](../F/FileSetCreate.md)
 
 ## Notes and Other Information
 This function is part of PostgreSQL's temporary file management infrastructure in src/backend/storage/file/fd.c. It's designed for creating the hierarchical temporary directory structure needed for operations like parallel query execution and large sorts. The function emphasizes robustness by handling missing parent directories and race conditions between concurrent processes. Top-level temporary directories should follow the PG_TEMP_FILE_PREFIX naming convention for automatic cleanup, while subdirectories don't require specific prefixes. The function returns void and uses PostgreSQL's error reporting mechanism for failure cases.

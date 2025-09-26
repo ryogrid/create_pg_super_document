@@ -25,7 +25,7 @@ The pg_euccn2wchar_with_len function converts a buffer of EUC-CN encoded bytes i
   - SS3 (0x8f - single shift 3 prefix)
   - IS_HIGHBIT_SET (macro to check if high bit is set)
 - Called from (representative examples):
-  - pg_encoding_set_invalid (via function pointer assignment)
+  - [pg_encoding_set_invalid](pg_encoding_set_invalid.md) (via function pointer assignment)
 
 ## Notes and Other Information
 - Returns the number of wide characters produced in the output buffer

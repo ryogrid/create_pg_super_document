@@ -35,7 +35,7 @@ The function implements a two-phase configuration reading strategy to handle the
   - [guc_free](../g/guc_free.md)
   - [SetConfigOption](SetConfigOption.md)
   - ProcessConfigFile
-  - find_option
+  - [find_option](../f/find_option.md)
   - [SetDataDir](SetDataDir.md)
   - [pg_timezone_abbrev_initialize](../p/pg_timezone_abbrev_initialize.md)
   - CONFIG_FILENAME, HBA_FILENAME, IDENT_FILENAME (constants)

@@ -26,8 +26,8 @@ The function outputs errors in a format compatible with the "cc" compiler to ena
   - vfprintf
 
 - Called from (representative examples):
-  - error  
-  - warning
+  - [error](../e/error.md)  
+  - [warning](../w/warning.md)
 
 ## Notes and Other Information
 - This function is static, meaning it's only accessible within src/timezone/zic.c

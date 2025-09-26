@@ -28,16 +28,16 @@ When the role list exceeds ROLES_LIST_BLOOM_THRESHOLD, the function automaticall
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bloom_filter (data structure)
-  - bloom_lacks_element
-  - list_member_oid  
-  - bloom_create
-  - bloom_add_element
-  - lappend_oid
+  - [bloom_filter](../b/bloom_filter.md) (data structure)
+  - [bloom_lacks_element](../b/bloom_lacks_element.md)
+  - [list_member_oid](../l/list_member_oid.md)  
+  - [bloom_create](../b/bloom_create.md)
+  - [bloom_add_element](../b/bloom_add_element.md)
+  - [lappend_oid](../l/lappend_oid.md)
   - foreach_oid
   - ROLES_LIST_BLOOM_THRESHOLD (constant)
 - Called from:
-  - roles_is_member_of
+  - [roles_is_member_of](roles_is_member_of.md)
 
 ## Notes and Other Information
 - The function is marked as  for performance optimization

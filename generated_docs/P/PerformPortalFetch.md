@@ -31,10 +31,10 @@ The actual row fetching is delegated to PortalRunFetch, which handles the comple
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetPortalByName
+  - [GetPortalByName](../G/GetPortalByName.md)
   - PortalIsValid
   - [PortalRunFetch](PortalRunFetch.md)
-  - SetQueryCompletion
+  - [SetQueryCompletion](../S/SetQueryCompletion.md)
   - None_Receiver
 - Called from (representative examples):
   - [standard_ProcessUtility](../s/standard_ProcessUtility.md)

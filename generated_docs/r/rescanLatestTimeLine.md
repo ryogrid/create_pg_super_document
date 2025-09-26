@@ -29,7 +29,7 @@ The function performs several validation steps:
 - Functions called/Symbols referenced:
   - [findNewestTimeLine](../f/findNewestTimeLine.md)
   - [readTimeLineHistory](readTimeLineHistory.md)
-  - TimeLineHistoryEntry
+  - [TimeLineHistoryEntry](../T/TimeLineHistoryEntry.md)
   - [list_free_deep](../l/list_free_deep.md)
   - [restoreTimeLineHistoryFiles](restoreTimeLineHistoryFiles.md)
 - Called from (representative examples):

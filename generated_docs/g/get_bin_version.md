@@ -26,7 +26,7 @@ The  function determines the PostgreSQL version of the binaries in a cluster's b
   - fgets
   - [pclose](../p/pclose.md)
   - [pg_fatal](../p/pg_fatal.md)
-  - wait_result_to_str
+  - [wait_result_to_str](../w/wait_result_to_str.md)
   - sscanf
 - Called from (representative examples):
   - [check_bin_dir](../c/check_bin_dir.md)

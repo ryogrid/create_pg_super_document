@@ -28,7 +28,7 @@ This function is part of PostgreSQL's process lifecycle management, ensuring tha
   - [ProcArrayRemove](../P/ProcArrayRemove.md)
   - InvalidTransactionId (constant)
 - Called from (representative examples):
-  - InitProcessPhase2 (registered as exit callback)
+  - [InitProcessPhase2](../I/InitProcessPhase2.md) (registered as exit callback)
 
 ## Notes and Other Information
 - This is a static function, only accessible within proc.c

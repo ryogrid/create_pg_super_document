@@ -21,9 +21,9 @@ The function returns the number of display columns that would be occupied by the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_euc_dsplen
+  - [pg_euc_dsplen](pg_euc_dsplen.md)
 - Called from (representative examples):
-  - pg_encoding_set_invalid
+  - [pg_encoding_set_invalid](pg_encoding_set_invalid.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it has internal linkage and is only accessible within the same translation unit (wchar.c)

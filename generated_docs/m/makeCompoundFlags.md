@@ -21,11 +21,11 @@ This function retrieves the compound word flags associated with a specific affix
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert (parameter validation)
-  - getCompoundAffixFlagValue (retrieves all flags for the affix)
+  - [getCompoundAffixFlagValue](../g/getCompoundAffixFlagValue.md) (retrieves all flags for the affix)
   - FF_COMPOUNDFLAGMASK (mask constant for compound flags)
-  - SPNode (related to spell-checking node structure)
+  - [SPNode](../S/SPNode.md) (related to spell-checking node structure)
 - Called from (representative examples):
-  - mkSPNode (spell-checking node creation, called twice)
+  - [mkSPNode](mkSPNode.md) (spell-checking node creation, called twice)
 
 ## Notes and Other Information
 - Returns uint32 value containing only compound-related flags

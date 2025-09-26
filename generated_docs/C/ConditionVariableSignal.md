@@ -23,13 +23,13 @@ The signaling mechanism follows a FIFO (First-In-First-Out) ordering, ensuring f
 - Functions called/Symbols referenced:
   - SpinLockAcquire
   - SpinLockRelease  
-  - proclist_is_empty
+  - [proclist_is_empty](../p/proclist_is_empty.md)
   - proclist_pop_head_node
-  - SetLatch
+  - [SetLatch](../S/SetLatch.md)
 - Called from (representative examples):
-  - _brin_parallel_scan_and_build
-  - _bt_parallel_release
-  - _bt_parallel_scan_and_sort
+  - [_brin_parallel_scan_and_build](../b/_brin_parallel_scan_and_build.md)
+  - [_bt_parallel_release](../b/_bt_parallel_release.md)
+  - [_bt_parallel_scan_and_sort](../b/_bt_parallel_scan_and_sort.md)
 
 ## Notes and Other Information
 - The function may not actually wake up a real process even if it removes an entry from the queue, as the entry might only be a sentinel

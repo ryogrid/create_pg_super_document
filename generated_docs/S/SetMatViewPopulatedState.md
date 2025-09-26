@@ -24,15 +24,15 @@ The function requires that the caller holds an appropriate lock on the relation 
 ## Dependencies
 - Functions called/Symbols referenced:
   - RELKIND_MATVIEW (constant for materialized view relation kind)
-  - table_open (opens system catalog relation)
+  - [table_open](../t/table_open.md) (opens system catalog relation)
   - SearchSysCacheCopy1 (retrieves tuple from system cache)
   - RelationGetRelid (gets OID from relation)
   - GETSTRUCT (macro to access tuple data)
   - Form_pg_class (structure type for pg_class tuples)
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md) (updates system catalog tuple)
   - [heap_freetuple](../h/heap_freetuple.md) (frees heap tuple memory)
-  - table_close (closes system catalog relation)
-  - CommandCounterIncrement (advances command counter)
+  - [table_close](../t/table_close.md) (closes system catalog relation)
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md) (advances command counter)
 
 - Called from (representative examples):
   - [intorel_startup](../i/intorel_startup.md) (when creating materialized views via CREATE TABLE AS)

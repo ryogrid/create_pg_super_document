@@ -45,7 +45,7 @@ This function systematically cleans up all resources associated with a transacti
   - [ReorderBufferCleanupTXN](ReorderBufferCleanupTXN.md) (recursive call)
   - [ReorderBufferChangeSize](ReorderBufferChangeSize.md)
   - [ReorderBufferReturnChange](ReorderBufferReturnChange.md)
-  - ReorderBufferChangeMemoryUpdate
+  - [ReorderBufferChangeMemoryUpdate](ReorderBufferChangeMemoryUpdate.md)
   - [SnapBuildSnapDecRefcount](../S/SnapBuildSnapDecRefcount.md)
   - [dlist_delete](../d/dlist_delete.md)
   - rbtxn_is_streamed

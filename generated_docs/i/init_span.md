@@ -30,8 +30,8 @@ The function handles special cases for different span types: block-of-spans (whi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dsa_get_address
-  - LWLockHeldByMe
+  - [dsa_get_address](../d/dsa_get_address.md)
+  - [LWLockHeldByMe](../L/LWLockHeldByMe.md)
   - DSA_SCLASS_LOCK
   - DsaPointerIsValid
   - DsaAreaPoolToDsaPointer
@@ -43,8 +43,8 @@ The function handles special cases for different span types: block-of-spans (whi
   - DSA_SPAN_NOTHING_FREE
   - InvalidDsaPointer
 - Called from (representative examples):
-  - dsa_allocate_extended
-  - ensure_active_superblock
+  - [dsa_allocate_extended](../d/dsa_allocate_extended.md)
+  - [ensure_active_superblock](../e/ensure_active_superblock.md)
 
 ## Notes and Other Information
 - This is a static internal function used for DSA span management

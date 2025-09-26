@@ -25,7 +25,7 @@ The function follows a two-step process: first reading the length of the compres
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReadInt](../R/ReadInt.md) (reads the block length from archive)
-  - pg_malloc (allocates memory for larger buffers)
+  - [pg_malloc](../p/pg_malloc.md) (allocates memory for larger buffers)
   - [_ReadBuf](../R/_ReadBuf.md) (reads the actual data block from archive)
 - Called from (representative examples):
   - lclTocEntry (function pointer assignment at line 92)

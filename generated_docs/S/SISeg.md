@@ -42,7 +42,7 @@ The per-backend state tracking includes both a sparse array (procState) indexed 
 - Functions called/Symbols referenced:
   - [slock_t](../s/slock_t.md)
   - MAXNUMMESSAGES
-  - SharedInvalidationMessage
+  - [SharedInvalidationMessage](SharedInvalidationMessage.md)
   - [ProcState](../P/ProcState.md)
   - FLEXIBLE_ARRAY_MEMBER
 - Called from (representative examples):
@@ -50,9 +50,9 @@ The per-backend state tracking includes both a sparse array (procState) indexed 
   - [SharedInvalBackendInit](SharedInvalBackendInit.md)
   - [CleanupInvalidationState](../C/CleanupInvalidationState.md)
   - [SIInsertDataEntries](SIInsertDataEntries.md)
-  - SIGetDataEntries
-  - SICleanupQueue
-  - SIResetAll
+  - [SIGetDataEntries](SIGetDataEntries.md)
+  - [SICleanupQueue](SICleanupQueue.md)
+  - [SIResetAll](SIResetAll.md)
 
 ## Notes and Other Information
 - This structure resides in shared memory and must be accessed with appropriate locking protocols

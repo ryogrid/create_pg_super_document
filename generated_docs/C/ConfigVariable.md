@@ -40,13 +40,13 @@ The structure supports a linked list implementation through the next pointer, al
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ConfigVariable (self-reference for linked list structure)
+  - [ConfigVariable](ConfigVariable.md) (self-reference for linked list structure)
 - Called from (representative examples):
-  - parse_extension_control_file
-  - write_auto_conf_file
-  - replace_auto_config_value
-  - AlterSystemSetConfigFile
-  - GUCHashEntry (uses ConfigVariable members)
+  - [parse_extension_control_file](../p/parse_extension_control_file.md)
+  - [write_auto_conf_file](../w/write_auto_conf_file.md)
+  - [replace_auto_config_value](../r/replace_auto_config_value.md)
+  - [AlterSystemSetConfigFile](../A/AlterSystemSetConfigFile.md)
+  - [GUCHashEntry](../G/GUCHashEntry.md) (uses ConfigVariable members)
 
 ## Notes and Other Information
 - This structure is dual-purpose: it carries both successful configuration entries and error reports

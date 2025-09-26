@@ -36,7 +36,7 @@ The function is designed to be called frequently during index operations, hence 
   - fetchatt (attribute extraction function)
   - [IndexInfoFindDataOffset](../I/IndexInfoFindDataOffset.md) (offset calculation function)
   - [nocache_index_getattr](../n/nocache_index_getattr.md) (fallback extraction function)
-  - att_isnull (null bitmap check function)
+  - [att_isnull](../a/att_isnull.md) (null bitmap check function)
   - [IndexTupleData](../I/IndexTupleData.md) (struct type)
   - bits8 (type)
 - Called from (representative examples):

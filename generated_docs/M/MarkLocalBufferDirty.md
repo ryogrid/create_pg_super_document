@@ -20,13 +20,13 @@ The function performs several safety checks including ensuring the buffer is ind
 ## Dependencies
 - Functions called/Symbols referenced:
   - BufferIsLocal
-  - GetLocalBufferDescriptor
-  - pg_atomic_read_u32
-  - pg_atomic_unlocked_write_u32
+  - [GetLocalBufferDescriptor](../G/GetLocalBufferDescriptor.md)
+  - [pg_atomic_read_u32](../p/pg_atomic_read_u32.md)
+  - [pg_atomic_unlocked_write_u32](../p/pg_atomic_unlocked_write_u32.md)
 - Called from (representative examples):
-  - MarkBufferDirty
-  - MarkBufferDirtyHint
-  - ResourceOwnerForgetBufferIO
+  - [MarkBufferDirty](MarkBufferDirty.md)
+  - [MarkBufferDirtyHint](MarkBufferDirtyHint.md)
+  - [ResourceOwnerForgetBufferIO](../R/ResourceOwnerForgetBufferIO.md)
 
 ## Notes and Other Information
 - Uses Assert() to verify the buffer is local and has positive reference count

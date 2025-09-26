@@ -50,14 +50,14 @@ The function maintains the invariant that upper-level references (levelsup > 0) 
 - Functions called/Symbols referenced:
   - IsA (macro for type checking)
   - elog (for error reporting)
-  - lappend (for adding nodes to the output list)
+  - [lappend](../l/lappend.md) (for adding nodes to the output list)
   - expression_tree_walker (for recursing into child nodes)
 - Constants used:
   - PVC_INCLUDE_AGGREGATES, PVC_RECURSE_AGGREGATES
   - PVC_INCLUDE_WINDOWFUNCS, PVC_RECURSE_WINDOWFUNCS
   - PVC_INCLUDE_PLACEHOLDERS, PVC_RECURSE_PLACEHOLDERS
 - [Node](../N/Node.md) types handled:
-  - Var, Aggref, GroupingFunc, WindowFunc, PlaceHolderVar
+  - [Var](../V/Var.md), Aggref, GroupingFunc, WindowFunc, PlaceHolderVar
 - Data structures used:
   - pull_var_clause_context
 - Called from:
@@ -69,8 +69,8 @@ The function maintains the invariant that upper-level references (levelsup > 0) 
 - The function never returns true (always continues or delegates to expression_tree_walker)
 - Enforces strict validation that no upper-level references should be present
 - Uses lappend to build the result list, maintaining order of discovery
-- GroupingFunc nodes are treated as a special case of aggregate functions
-- WindowFunc handling is unique in not having level validation since WindowFuncs lack a levelsup field
+- [GroupingFunc](../G/GroupingFunc.md) nodes are treated as a special case of aggregate functions
+- [WindowFunc](../W/WindowFunc.md) handling is unique in not having level validation since WindowFuncs lack a levelsup field
 - When INCLUDE flags are used, the function stops recursing into that node type
 - When RECURSE flags are used, traversal continues to find Vars within the node's arguments
 - The "fall through" pattern allows RECURSE flags to continue to the general expression_tree_walker call

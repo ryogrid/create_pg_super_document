@@ -28,13 +28,13 @@ This approach is essential for handling complex subqueries that cannot be merged
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Path (base structure)
-  - Path (for subpath)
+  - [Path](../P/Path.md) (base structure)
+  - [Path](../P/Path.md) (for subpath)
 - Called from (representative examples):
-  - create_subqueryscan_path (creates SubqueryScanPath instances)
-  - create_subqueryscan_plan (converts SubqueryScanPath to execution plan)
-  - cost_subqueryscan (calculates execution costs)
-  - reparameterize_path (handles parameter changes)
+  - [create_subqueryscan_path](../c/create_subqueryscan_path.md) (creates SubqueryScanPath instances)
+  - [create_subqueryscan_plan](../c/create_subqueryscan_plan.md) (converts SubqueryScanPath to execution plan)
+  - [cost_subqueryscan](../c/cost_subqueryscan.md) (calculates execution costs)
+  - [reparameterize_path](../r/reparameterize_path.md) (handles parameter changes)
 
 ## Notes and Other Information
 - Used only for subqueries that cannot be flattened into the main query

@@ -30,12 +30,12 @@ This validation is performed in the context of an active table scan, which provi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TableScanDesc (table scan descriptor structure)
+  - [TableScanDesc](../T/TableScanDesc.md) (table scan descriptor structure)
   - ItemPointer (tuple identifier type)
-  - table_tuple_get_latest_tid (referenced in comments as example usage)
+  - [table_tuple_get_latest_tid](table_tuple_get_latest_tid.md) (referenced in comments as example usage)
   - rs_rd->rd_tableam->tuple_tid_valid (table access method function pointer)
 - Called from (representative examples):
-  - TidListEval (src/backend/executor/nodeTidscan.c:186, 228)
+  - [TidListEval](../T/TidListEval.md) (src/backend/executor/nodeTidscan.c:186, 228)
 
 ## Notes and Other Information
 - This is an inline function defined in the tableam.h header file

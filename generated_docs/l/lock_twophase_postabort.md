@@ -26,7 +26,7 @@ The function is called during the post-abort phase of two-phase commit processin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lock_twophase_postcommit
+  - [lock_twophase_postcommit](lock_twophase_postcommit.md)
 - Called from (representative examples):
   - LockHashPartitionLockByProc (via function pointer registration)
 

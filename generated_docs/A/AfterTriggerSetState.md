@@ -41,7 +41,7 @@ Key behaviors:
   - [fetch_search_path](../f/fetch_search_path.md), list_make1_oid (search path handling)
   - [systable_beginscan](../s/systable_beginscan.md), systable_getnext (catalog scanning)
   - [afterTriggerMarkEvents](../a/afterTriggerMarkEvents.md), afterTriggerInvokeEvents (trigger firing)
-  - PushActiveSnapshot, PopActiveSnapshot (snapshot management)
+  - [PushActiveSnapshot](../P/PushActiveSnapshot.md), PopActiveSnapshot (snapshot management)
   - [IsSubTransaction](../I/IsSubTransaction.md) (transaction state checking)
 - Called from:
   - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (src/backend/tcop/utility.c:939)

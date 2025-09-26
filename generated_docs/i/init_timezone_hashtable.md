@@ -18,7 +18,7 @@ This function takes no parameters and returns a boolean indicating success or fa
 ## Dependencies
 - Functions called/Symbols referenced:
   - [hash_create](../h/hash_create.md) (creates the hashtable with specified configuration)
-  - HASHCTL (hashtable control structure)
+  - [HASHCTL](../H/HASHCTL.md) (hashtable control structure)
   - pg_tz_cache (timezone cache entry structure type)
   - TZ_STRLEN_MAX (maximum timezone string length constant)
   - HASH_ELEM (hashtable flag for custom element size)

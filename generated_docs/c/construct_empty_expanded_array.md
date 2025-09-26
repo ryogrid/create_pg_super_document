@@ -28,7 +28,7 @@ The function first creates a regular empty array using construct_empty_array, th
 - Functions called/Symbols referenced:
   - [construct_empty_array](construct_empty_array.md)
   - [expand_array](../e/expand_array.md)
-  - DatumGetEOHP
+  - [DatumGetEOHP](../D/DatumGetEOHP.md)
   - ExpandedArrayHeader (type)
   - [ArrayMetaState](../A/ArrayMetaState.md) (type)
 - Called from (representative examples):

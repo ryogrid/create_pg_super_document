@@ -26,7 +26,7 @@ This function allows restarting an active index scan with new search parameters 
 - Functions called/Symbols referenced:
   - SCAN_CHECKS (macro for scan descriptor validation)
   - CHECK_SCAN_PROCEDURE (macro to verify amrescan procedure exists)  
-  - table_index_fetch_reset (reset heap tuple fetching resources)
+  - [table_index_fetch_reset](../t/table_index_fetch_reset.md) (reset heap tuple fetching resources)
   - ScanKey (scan key structure type)
   - [IndexScanDesc](../I/IndexScanDesc.md) (scan descriptor structure type)
 - Called from (representative examples):

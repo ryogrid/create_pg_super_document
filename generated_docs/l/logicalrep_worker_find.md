@@ -27,15 +27,15 @@ The function operates under the assumption that the caller holds the LogicalRepW
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockHeldByMe (for assertion checking)
+  - [LWLockHeldByMe](../L/LWLockHeldByMe.md) (for assertion checking)
   - isParallelApplyWorker (to exclude parallel workers)
 - Called from:
-  - logicalrep_worker_stop
-  - logicalrep_worker_wakeup
-  - ApplyLauncherMain
-  - wait_for_relation_state_change
-  - wait_for_worker_state_change
-  - tablesync_start_time_mapping
+  - [logicalrep_worker_stop](logicalrep_worker_stop.md)
+  - [logicalrep_worker_wakeup](logicalrep_worker_wakeup.md)
+  - [ApplyLauncherMain](../A/ApplyLauncherMain.md)
+  - [wait_for_relation_state_change](../w/wait_for_relation_state_change.md)
+  - [wait_for_worker_state_change](../w/wait_for_worker_state_change.md)
+  - [tablesync_start_time_mapping](../t/tablesync_start_time_mapping.md)
 
 ## Notes and Other Information
 - Must be called while holding LogicalRepWorkerLock (enforced by assertion)

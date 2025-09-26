@@ -29,8 +29,8 @@ The function is implemented as a wrapper around `pg_atomic_fetch_and_u32_impl`, 
   - AssertPointerAlignment (alignment check)
   - [pg_atomic_fetch_and_u32_impl](pg_atomic_fetch_and_u32_impl.md) (platform-specific implementation)
 - Called from (representative examples):
-  - LWLockWaitListUnlock (src/backend/storage/lmgr/lwlock.c:913)
-  - LWLockDequeueSelf (src/backend/storage/lmgr/lwlock.c:1107)
+  - [LWLockWaitListUnlock](../L/LWLockWaitListUnlock.md) (src/backend/storage/lmgr/lwlock.c:913)
+  - [LWLockDequeueSelf](../L/LWLockDequeueSelf.md) (src/backend/storage/lmgr/lwlock.c:1107)
   - [test_atomic_uint32](../t/test_atomic_uint32.md) (src/test/regress/regress.c:793-796)
 
 ## Notes and Other Information

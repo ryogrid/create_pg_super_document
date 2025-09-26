@@ -27,13 +27,13 @@ The scan is configured with SO_TYPE_TIDRANGESCAN and SO_ALLOW_PAGEMODE flags to 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TableScanDesc (return type)
+  - [TableScanDesc](../T/TableScanDesc.md) (return type)
   - SO_TYPE_TIDRANGESCAN (scan flag)
   - SO_ALLOW_PAGEMODE (scan flag)
   - rel->rd_tableam->scan_begin (table access method function)
   - rel->rd_tableam->scan_set_tidrange (table access method function)
 - Called from (representative examples):
-  - TidRangeNext
+  - [TidRangeNext](../T/TidRangeNext.md)
 
 ## Notes and Other Information
 - This is an inline function defined in the table access method header

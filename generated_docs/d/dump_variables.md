@@ -35,7 +35,7 @@ Swap:        8388608           0     8388608: Memory deallocation for list nodes
 
 ## Notes and Other Information
 - The function processes the list in reverse order through tail recursion - this ensures proper code generation order
-- The  parameter allows selective memory management - when non-zero, list nodes are freed after processing
+- The  parameter allows selective memory management - [when](../w/when.md) non-zero, list nodes are freed after processing
 - Uses a hardcoded string "0" as a parameter to , likely for default initialization
 - The recursive approach naturally handles empty lists (base case: )
 - Both the main variable and its indicator variable are processed in each call

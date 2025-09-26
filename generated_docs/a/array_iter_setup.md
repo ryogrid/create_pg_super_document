@@ -31,15 +31,15 @@ The function ensures all iterator fields are properly initialized to prevent com
   - ARR_DATA_PTR
   - ARR_NULLBITMAP
 - Called from (representative examples):
-  - array_out
-  - array_send
-  - array_map
-  - array_eq
-  - array_cmp
-  - hash_array
-  - hash_array_extended
-  - array_contain_compare
-  - array_unnest_fctx
+  - [array_out](array_out.md)
+  - [array_send](array_send.md)
+  - [array_map](array_map.md)
+  - [array_eq](array_eq.md)
+  - [array_cmp](array_cmp.md)
+  - [hash_array](../h/hash_array.md)
+  - [hash_array_extended](../h/hash_array_extended.md)
+  - [array_contain_compare](array_contain_compare.md)
+  - [array_unnest_fctx](array_unnest_fctx.md)
 
 ## Notes and Other Information
 - This is an inline function defined in arrayaccess.h for performance

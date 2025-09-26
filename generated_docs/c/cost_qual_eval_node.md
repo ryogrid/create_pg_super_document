@@ -28,7 +28,7 @@ This function is particularly useful in contexts where expressions are processed
 - Functions called/Symbols referenced:
   - [cost_qual_eval_walker](cost_qual_eval_walker.md)
   - cost_qual_eval_context (struct)
-  - QualCost (struct)
+  - [QualCost](../Q/QualCost.md) (struct)
 - Called from (representative examples):
   - [cost_functionscan](cost_functionscan.md)
   - [cost_tablefuncscan](cost_tablefuncscan.md)

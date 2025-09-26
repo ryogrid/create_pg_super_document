@@ -24,8 +24,8 @@ The function provides a clean abstraction layer, allowing callers to work with J
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecFindJunkAttributeInTlist: Performs the actual search within the target list
-  - JunkFilter: Input structure type containing target list
+  - [ExecFindJunkAttributeInTlist](ExecFindJunkAttributeInTlist.md): Performs the actual search within the target list
+  - [JunkFilter](../J/JunkFilter.md): Input structure type containing target list
 - Called from (representative examples):
   - Various executor functions that need to access system attributes or internal columns
 

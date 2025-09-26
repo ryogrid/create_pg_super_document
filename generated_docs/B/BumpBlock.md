@@ -32,18 +32,18 @@ The block maintains pointers to track the free space region (between freeptr and
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_node (for linked list functionality)
-  - BumpContext (back-reference in debug builds)
+  - [dlist_node](../d/dlist_node.md) (for linked list functionality)
+  - [BumpContext](BumpContext.md) (back-reference in debug builds)
 - Called from (representative examples):
-  - BumpContextCreate
-  - BumpReset  
-  - BumpAlloc
-  - BumpAllocLarge
-  - BumpAllocFromNewBlock
-  - BumpBlockInit
-  - BumpBlockFree
-  - BumpStats
-  - BumpCheck
+  - [BumpContextCreate](BumpContextCreate.md)
+  - [BumpReset](BumpReset.md)  
+  - [BumpAlloc](BumpAlloc.md)
+  - [BumpAllocLarge](BumpAllocLarge.md)
+  - [BumpAllocFromNewBlock](BumpAllocFromNewBlock.md)
+  - [BumpBlockInit](BumpBlockInit.md)
+  - [BumpBlockFree](BumpBlockFree.md)
+  - [BumpStats](BumpStats.md)
+  - [BumpCheck](BumpCheck.md)
 
 ## Notes and Other Information
 - Blocks are obtained from the system via malloc() and their size is determined by the BumpContext's block sizing parameters

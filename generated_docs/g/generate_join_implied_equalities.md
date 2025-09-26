@@ -46,7 +46,7 @@ The function maintains efficiency by checking for existing clauses before genera
 - Called from (representative examples):
   - [check_index_predicates](../c/check_index_predicates.md) (src/backend/optimizer/path/indxpath.c:3311)
   - build_joinrel_restrictlist (src/backend/optimizer/util/relnode.c:1324)
-  - get_baserel_parampathinfo (src/backend/optimizer/util/relnode.c:1602)
+  - [get_baserel_parampathinfo](get_baserel_parampathinfo.md) (src/backend/optimizer/util/relnode.c:1602)
 
 ## Notes and Other Information
 - Handles special case of appendrel children by using top_parent_relids for EC matching

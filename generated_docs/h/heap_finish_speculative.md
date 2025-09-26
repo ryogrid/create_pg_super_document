@@ -38,7 +38,7 @@ This operation is critical for UPSERT functionality where speculative insertions
   - ItemIdIsNormal
   - [PageGetItem](../P/PageGetItem.md)
   - HeapTupleHeaderIsSpeculative
-  - MarkBufferDirty
+  - [MarkBufferDirty](../M/MarkBufferDirty.md)
   - RelationNeedsWAL
   - [XLogBeginInsert](../X/XLogBeginInsert.md)
   - [XLogSetRecordFlags](../X/XLogSetRecordFlags.md)

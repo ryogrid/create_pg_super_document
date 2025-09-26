@@ -22,10 +22,10 @@ The function validates that the number of fields is between ZONEC_MINFIELDS (3) 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - error (for error reporting)
-  - inzsub (to process zone continuation details with iscont=true)
+  - [error](../e/error.md) (for error reporting)
+  - [inzsub](inzsub.md) (to process zone continuation details with iscont=true)
 - Called from (representative examples):
-  - infile (main input processing function)
+  - [infile](infile.md) (main input processing function)
 
 ## Notes and Other Information
 - Returns false on validation errors, true on success

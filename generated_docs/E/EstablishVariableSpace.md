@@ -20,7 +20,7 @@ This function is the central initialization point for psql's configuration varia
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CreateVariableSpace](../C/CreateVariableSpace.md) (creates the variable storage system)
-  - SetVariableHooks (registers hooks for each variable)
+  - [SetVariableHooks](../S/SetVariableHooks.md) (registers hooks for each variable)
   - [bool_substitute_hook](../b/bool_substitute_hook.md) (default substitute hook for boolean variables)
   - [autocommit_hook](../a/autocommit_hook.md), on_error_stop_hook, quiet_hook, singleline_hook, singlestep_hook
   - [fetch_count_substitute_hook](../f/fetch_count_substitute_hook.md), fetch_count_hook
@@ -41,9 +41,9 @@ This function is the central initialization point for psql's configuration varia
 - This is a static function defined in src/bin/psql/startup.c
 - Called early in psql startup to establish the complete configuration system
 - Registers hooks for all major psql configuration variables including:
-  - Boolean settings (AUTOCOMMIT, ON_ERROR_STOP, QUIET, etc.)
-  - Numeric settings (FETCH_COUNT, HISTSIZE, IGNOREEOF)
-  - String settings (HISTFILE, ECHO, COMP_KEYWORD_CASE, HISTCONTROL)
+  - [Boolean](../B/Boolean.md) settings (AUTOCOMMIT, ON_ERROR_STOP, QUIET, etc.)
+  - [Numeric](../N/Numeric.md) settings (FETCH_COUNT, HISTSIZE, IGNOREEOF)
+  - [String](../S/String.md) settings (HISTFILE, ECHO, COMP_KEYWORD_CASE, HISTCONTROL)
   - Prompt settings (PROMPT1, PROMPT2, PROMPT3)
   - Display settings (VERBOSITY, SHOW_CONTEXT, HIDE_TOAST_COMPRESSION, HIDE_TABLEAM)
 - Each SetVariableHooks call associates a variable name with substitute and validation hook functions

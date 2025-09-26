@@ -34,7 +34,7 @@ The function manages state through the LexizeData structure and can recursively 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RemoveHead (removes processed tokens from work queue)
+  - [RemoveHead](../R/RemoveHead.md) (removes processed tokens from work queue)
   - [lookup_ts_dictionary_cache](../l/lookup_ts_dictionary_cache.md) (retrieves dictionary cache entries)
   - FunctionCall4 (calls dictionary lexize functions)
   - [setNewTmpRes](../s/setNewTmpRes.md) (stores temporary results during multi-word processing)

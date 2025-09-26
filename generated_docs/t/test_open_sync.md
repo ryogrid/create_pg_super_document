@@ -25,7 +25,7 @@ The function handles direct I/O through the open_direct function and provides ap
   - printf
   - fflush  
   - [open_direct](../o/open_direct.md)
-  - pg_pwrite
+  - [pg_pwrite](../p/pg_pwrite.md)
   - close
   - [die](../d/die.md)
 - Macros used:

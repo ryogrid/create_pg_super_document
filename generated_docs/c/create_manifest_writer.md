@@ -28,13 +28,13 @@ The function performs several initialization tasks:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - manifest_writer (structure type)
-  - pg_malloc (memory allocation)
-  - pg_checksum_init (checksum initialization)
+  - [manifest_writer](../m/manifest_writer.md) (structure type)
+  - [pg_malloc](../p/pg_malloc.md) (memory allocation)
+  - [pg_checksum_init](../p/pg_checksum_init.md) (checksum initialization)
   - CHECKSUM_TYPE_SHA256 (checksum algorithm constant)
   - UINT64_FORMAT (format specifier for uint64)
 - Called from (representative examples):
-  - main (in src/bin/pg_combinebackup/pg_combinebackup.c:333)
+  - [main](../m/main.md) (in src/bin/pg_combinebackup/pg_combinebackup.c:333)
 
 ## Notes and Other Information
 - The manifest writer structure maintains state for incremental building of the JSON manifest

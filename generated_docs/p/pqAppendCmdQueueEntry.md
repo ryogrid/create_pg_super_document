@@ -26,7 +26,7 @@ The function maintains the integrity of the command queue as a linked list by pr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqPipelineProcessQueue
+  - [pqPipelineProcessQueue](pqPipelineProcessQueue.md)
   - Assert (debugging macro)
   - PQ_PIPELINE_OFF, PQ_PIPELINE_ON, PQ_PIPELINE_ABORTED (pipeline status constants)
   - PGASYNC_IDLE, PGASYNC_BUSY, PGASYNC_PIPELINE_IDLE (async status constants)

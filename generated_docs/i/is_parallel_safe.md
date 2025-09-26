@@ -32,7 +32,7 @@ The function also handles parameter safety by building a list of 'safe' paramete
   - [list_concat](../l/list_concat.md)
   - PROPARALLEL_SAFE
   - PROPARALLEL_RESTRICTED
-  - SubPlan
+  - [SubPlan](../S/SubPlan.md)
 - Called from (representative examples):
   - [set_rel_consider_parallel](../s/set_rel_consider_parallel.md)
   - [query_planner](../q/query_planner.md)

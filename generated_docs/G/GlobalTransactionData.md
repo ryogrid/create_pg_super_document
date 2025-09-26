@@ -62,7 +62,7 @@ The structure maintains critical WAL logging information through start and end L
 - `gid[GIDSIZE]`: Character array storing the Global Identifier assigned to this prepared transaction
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GlobalTransaction (typedef pointer)
+  - [GlobalTransaction](GlobalTransaction.md) (typedef pointer)
   - ProcNumber (process identification type)
   - GIDSIZE (constant defining GID string size)
 - Called from (representative examples):

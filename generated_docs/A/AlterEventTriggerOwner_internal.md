@@ -25,7 +25,7 @@ This function performs the actual work of changing an event trigger's owner. It 
   - Form_pg_event_trigger (catalog form structure)
   - [object_ownercheck](../o/object_ownercheck.md) (permission validation)
   - [aclcheck_error](../a/aclcheck_error.md) (access control error reporting)
-  - superuser_arg (superuser privilege check)
+  - [superuser_arg](../s/superuser_arg.md) (superuser privilege check)
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md) (catalog tuple modification)
   - [changeDependencyOnOwner](../c/changeDependencyOnOwner.md) (dependency system update)
   - InvokeObjectPostAlterHook (post-alter event notification)

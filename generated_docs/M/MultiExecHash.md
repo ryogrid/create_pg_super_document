@@ -25,10 +25,10 @@ The function intentionally returns NULL rather than the hash table directly, as 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [HashState](../H/HashState.md) (parameter type)
-  - InstrStartNode (instrumentation start)
+  - [InstrStartNode](../I/InstrStartNode.md) (instrumentation start)
   - [MultiExecParallelHash](MultiExecParallelHash.md) (parallel execution path)
   - [MultiExecPrivateHash](MultiExecPrivateHash.md) (single-backend execution path)  
-  - InstrStopNode (instrumentation end)
+  - [InstrStopNode](../I/InstrStopNode.md) (instrumentation end)
 - Called from (representative examples):
   - [MultiExecProcNode](MultiExecProcNode.md) (main executor dispatch)
   - NODEHASH_H (header declaration)

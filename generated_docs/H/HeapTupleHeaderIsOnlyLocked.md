@@ -29,7 +29,7 @@ The function follows the same visibility rules established elsewhere in the heap
   - [HeapTupleGetUpdateXid](HeapTupleGetUpdateXid.md)
   - TransactionIdIsValid
   - [TransactionIdIsCurrentTransactionId](../T/TransactionIdIsCurrentTransactionId.md)
-  - TransactionIdIsInProgress
+  - [TransactionIdIsInProgress](../T/TransactionIdIsInProgress.md)
   - [TransactionIdDidCommit](../T/TransactionIdDidCommit.md)
   - HEAP_XMAX_INVALID (macro)
   - HEAP_XMAX_LOCK_ONLY (macro)

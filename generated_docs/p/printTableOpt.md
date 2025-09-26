@@ -87,7 +87,7 @@ The printTableOpt structure serves as the central configuration hub for all tabl
   - [PageOutput](../P/PageOutput.md) (src/fe_utils/print.c:3089)
   - [printTableInit](printTableInit.md) (src/fe_utils/print.c:3172)
   - [get_line_style](../g/get_line_style.md) (src/fe_utils/print.c:3677)
-  - refresh_utf8format (src/fe_utils/print.c:3691)
+  - [refresh_utf8format](../r/refresh_utf8format.md) (src/fe_utils/print.c:3691)
   - [printTableContent](printTableContent.md) (src/include/fe_utils/print.h:165)
   - [printQueryOpt](printQueryOpt.md) (src/include/fe_utils/print.h:185)
 

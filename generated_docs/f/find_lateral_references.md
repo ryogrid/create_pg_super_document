@@ -30,7 +30,7 @@ The design choice to process only parent baserels (not their appendrel children)
   - [extract_lateral_references](../e/extract_lateral_references.md)
   - RELOPT_BASEREL (constant)
 - Data structures used:
-  - RelOptInfo
+  - [RelOptInfo](../R/RelOptInfo.md)
   - Index (for RTI iteration)
 - Called from (representative examples):
   - [query_planner](../q/query_planner.md)

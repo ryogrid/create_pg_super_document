@@ -45,17 +45,17 @@ The function includes sophisticated error handling for various slot states inclu
 ## Dependencies
 - Functions called/Symbols referenced:
   - SlotIsPhysical: Validates slot is logical type
-  - RecoveryInProgress: Checks if server is in recovery mode
-  - IsSyncingReplicationSlots: Checks if slot synchronization is active
-  - StartupDecodingContext: Common decoding context initialization
-  - startup_cb_wrapper: Output plugin startup callback wrapper
-  - ReplicationSlotMarkDirty/ReplicationSlotSave: Slot persistence operations
-  - SnapBuildSetTwoPhaseAt: Configures two-phase snapshot building
+  - [RecoveryInProgress](../R/RecoveryInProgress.md): Checks if server is in recovery mode
+  - [IsSyncingReplicationSlots](../I/IsSyncingReplicationSlots.md): Checks if slot synchronization is active
+  - [StartupDecodingContext](../S/StartupDecodingContext.md): Common decoding context initialization
+  - [startup_cb_wrapper](../s/startup_cb_wrapper.md): Output plugin startup callback wrapper
+  - [ReplicationSlotMarkDirty](../R/ReplicationSlotMarkDirty.md)/ReplicationSlotSave: Slot persistence operations
+  - [SnapBuildSetTwoPhaseAt](../S/SnapBuildSetTwoPhaseAt.md): Configures two-phase snapshot building
 
 - Called from (representative examples):
-  - pg_logical_slot_get_changes_guts: During SQL function change retrieval
-  - StartLogicalReplication: During WAL sender logical replication startup
-  - LogicalSlotAdvanceAndCheckSnapState: During slot position advancement
+  - [pg_logical_slot_get_changes_guts](../p/pg_logical_slot_get_changes_guts.md): During SQL function change retrieval
+  - [StartLogicalReplication](../S/StartLogicalReplication.md): During WAL sender logical replication startup
+  - [LogicalSlotAdvanceAndCheckSnapState](../L/LogicalSlotAdvanceAndCheckSnapState.md): During slot position advancement
 
 ## Notes and Other Information
 - Handles graceful LSN adjustment when requested position is behind confirmed_flush

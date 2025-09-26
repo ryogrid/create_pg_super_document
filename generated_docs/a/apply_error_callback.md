@@ -33,7 +33,7 @@ This rich error context is crucial for debugging logical replication issues, esp
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - logicalrep_message_type (converts message type enum to string)
+  - [logicalrep_message_type](../l/logicalrep_message_type.md) (converts message type enum to string)
   - TransactionIdIsValid (checks if transaction ID is valid)
   - XLogRecPtrIsInvalid (checks if LSN is invalid)
   - errcontext (PostgreSQL error context reporting function)

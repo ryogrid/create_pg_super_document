@@ -38,10 +38,10 @@ The `array_get_element` function is a core array access routine that retrieves a
   - `DatumGetArrayTypeP`: Converts datum to ArrayType pointer
   - `ARR_NDIM`, `ARR_DIMS`, `ARR_LBOUND`: Array metadata accessors
   - `ARR_DATA_PTR`, `ARR_NULLBITMAP`: Array data accessors
-  - `ArrayGetOffset`: Calculates linear offset from subscripts
-  - `array_get_isnull`: Checks if specific element is NULL
-  - `array_seek`: Seeks to element position in array data
-  - `ArrayCast`: Casts array element data to Datum
+  - `[ArrayGetOffset](../A/ArrayGetOffset.md)`: Calculates linear offset from subscripts
+  - `[array_get_isnull](array_get_isnull.md)`: Checks if specific element is NULL
+  - `[array_seek](array_seek.md)`: Seeks to element position in array data
+  - `[ArrayCast](../A/ArrayCast.md)`: Casts array element data to Datum
 - Called from (representative examples):
   - [array_ref](array_ref.md): Array reference operations
   - [array_subscript_fetch](array_subscript_fetch.md): Array subscripting operations

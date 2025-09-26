@@ -31,7 +31,7 @@ The function handles over 40 different ALTER TABLE subcommand types, covering co
   - CStringGetTextDatum (to convert C strings to PostgreSQL text datums)
   - OidIsValid (to validate object IDs)
   - [getObjectDescription](getObjectDescription.md) (to generate object descriptions)
-  - tuplestore_putvalues (to store result tuples)
+  - [tuplestore_putvalues](../t/tuplestore_putvalues.md) (to store result tuples)
 - Enum values referenced (ALTER TABLE subcommand types):
   - AT_AddColumn, AT_DropColumn, AT_AlterColumnType
   - AT_AddConstraint, AT_DropConstraint, AT_ValidateConstraint
@@ -40,8 +40,8 @@ The function handles over 40 different ALTER TABLE subcommand types, covering co
   - AT_AddIdentity, AT_SetIdentity, AT_DropIdentity
   - Many others covering all ALTER TABLE operations
 - Data structures referenced:
-  - CollectedCommand, CollectedATSubcmd, AlterTableCmd
-  - ReturnSetInfo, ObjectAddress
+  - [CollectedCommand](../C/CollectedCommand.md), CollectedATSubcmd, AlterTableCmd
+  - [ReturnSetInfo](../R/ReturnSetInfo.md), ObjectAddress
 - Called from:
   - No direct callers found (likely used as a SQL-callable function in tests)
 

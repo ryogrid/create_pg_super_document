@@ -34,10 +34,10 @@ Key operations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_checksum_init
-  - pg_checksum_update
+  - [pg_checksum_init](../p/pg_checksum_init.md)
+  - [pg_checksum_update](../p/pg_checksum_update.md)
   - [_tarWriteHeader](../t/_tarWriteHeader.md)
-  - bbsink_archive_contents
+  - [bbsink_archive_contents](../b/bbsink_archive_contents.md)
   - [_tarWritePadding](../t/_tarWritePadding.md)
   - [AddFileToBackupManifest](../A/AddFileToBackupManifest.md)
 - Called from (representative examples):

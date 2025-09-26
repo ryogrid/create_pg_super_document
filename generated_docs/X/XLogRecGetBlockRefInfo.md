@@ -36,7 +36,7 @@ The function is commonly used by WAL analysis tools like pg_waldump and pg_walin
   - XLogRecGetBlock (gets block reference data)
   - XLogRecBlockImageApply (checks if block image should be applied)
   - Various BKPIMAGE_* compression constants
-  - appendStringInfo, appendStringInfoChar, appendStringInfoString (string buffer operations)
+  - [appendStringInfo](../a/appendStringInfo.md), appendStringInfoChar, appendStringInfoString (string buffer operations)
 - Called from (representative examples):
   - [XLogDumpDisplayRecord](XLogDumpDisplayRecord.md) (pg_waldump utility)
   - pg_walinspect extension functions

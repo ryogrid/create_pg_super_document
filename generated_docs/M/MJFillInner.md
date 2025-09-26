@@ -24,17 +24,17 @@ The function sets up the expression context with the null outer tuple slot and t
 - Functions called/Symbols referenced:
   - [MergeJoinState](MergeJoinState.md) (data structure)
   - ResetExprContext (resets expression evaluation context)
-  - ExecQual (evaluates qualification expressions)
+  - [ExecQual](../E/ExecQual.md) (evaluates qualification expressions)
   - MJ_printf (debug logging macro)
-  - ExecProject (performs tuple projection)
+  - [ExecProject](../E/ExecProject.md) (performs tuple projection)
   - InstrCountFiltered2 (instrumentation for filtered tuples)
 - Called from (representative examples):
-  - ExecMergeJoin (main merge join execution function, called at multiple points during right outer join processing)
+  - [ExecMergeJoin](../E/ExecMergeJoin.md) (main merge join execution function, called at multiple points during right outer join processing)
 
 ## Notes and Other Information
 - This function is part of the merge join executor's handling of outer join semantics
 - It's specifically used for right outer joins to ensure all inner tuples are included in the result
 - The function only returns a tuple if the non-join quals are satisfied, otherwise it returns NULL
 - Debug output is conditionally compiled based on MJ_printf macro
-- Instrumentation is included to track filtered tuples for performance monitoring
+- [Instrumentation](../I/Instrumentation.md) is included to track filtered tuples for performance monitoring
 - The function uses the pre-allocated null outer tuple slot for efficiency

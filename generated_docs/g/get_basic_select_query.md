@@ -30,12 +30,12 @@ The function handles various SQL features including:
   - [get_simple_values_rte](get_simple_values_rte.md) (check for simple VALUES pattern)
   - [get_values_def](get_values_def.md) (generate VALUES clause)
   - [get_target_list](get_target_list.md) (generate SELECT target list)
-  - get_from_clause (generate FROM clause)
-  - get_rule_expr (generate WHERE/HAVING expressions)
+  - [get_from_clause](get_from_clause.md) (generate FROM clause)
+  - [get_rule_expr](get_rule_expr.md) (generate WHERE/HAVING expressions)
   - [get_rule_sortgroupclause](get_rule_sortgroupclause.md) (generate GROUP BY/DISTINCT ON items)
   - [get_rule_groupingset](get_rule_groupingset.md) (generate grouping sets)
   - [get_rule_windowclause](get_rule_windowclause.md) (generate WINDOW clause)
-  - appendContextKeyword (format SQL keywords with proper spacing)
+  - [appendContextKeyword](../a/appendContextKeyword.md) (format SQL keywords with proper spacing)
 - Called from (representative examples):
   - [get_select_query_def](get_select_query_def.md) (src/backend/utils/adt/ruleutils.c:5728)
 

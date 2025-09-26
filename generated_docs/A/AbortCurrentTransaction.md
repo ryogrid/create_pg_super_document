@@ -25,7 +25,7 @@ This wrapper is essential for PostgreSQL's robust error handling and recovery me
 - Functions called/Symbols referenced:
   - [AbortCurrentTransactionInternal](AbortCurrentTransactionInternal.md)
 - Called from (representative examples):
-  - _SPI_commit (SPI error handling)
+  - [_SPI_commit](../S/_SPI_commit.md) (SPI error handling)
   - [_SPI_rollback](../S/_SPI_rollback.md) (SPI transaction rollback)
   - [PostgresMain](../P/PostgresMain.md) (main query processing error recovery)
   - [pa_stream_abort](../p/pa_stream_abort.md) (logical replication error handling)

@@ -42,12 +42,12 @@ The parser maintains arrays of these structures sorted alphabetically by abbrevi
   - zone (member reference)
   
 - Called from (representative examples):
-  - `ConvertTimeZoneAbbrevs` (datetime.c:4873, 4886, 4912)
-  - `validateTzEntry` (tzparser.c:52)
-  - `splitTzLine` (tzparser.c:98)
-  - `addToArray` (tzparser.c:188, 189, 191, 206, 252, 257, 259)
-  - `ParseTzFile` (tzparser.c:277, 284)
-  - `load_tzoffsets` (tzparser.c:452, 467)
+  - `[ConvertTimeZoneAbbrevs](../C/ConvertTimeZoneAbbrevs.md)` (datetime.c:4873, 4886, 4912)
+  - `[validateTzEntry](../v/validateTzEntry.md)` (tzparser.c:52)
+  - `[splitTzLine](../s/splitTzLine.md)` (tzparser.c:98)
+  - `[addToArray](../a/addToArray.md)` (tzparser.c:188, 189, 191, 206, 252, 257, 259)
+  - `[ParseTzFile](../P/ParseTzFile.md)` (tzparser.c:277, 284)
+  - `[load_tzoffsets](../l/load_tzoffsets.md)` (tzparser.c:452, 467)
 
 ## Notes and Other Information
 - The structure is exported from tzparser.h because it is needed by datetime.c for timezone abbreviation processing

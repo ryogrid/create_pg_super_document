@@ -21,7 +21,7 @@ The function uses a state-tracking approach with the wasalnum variable to determ
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pnstrdup](../p/pnstrdup.md)
-  - pg_ascii_tolower
+  - [pg_ascii_tolower](../p/pg_ascii_tolower.md)
   - [pg_ascii_toupper](../p/pg_ascii_toupper.md)
 - Called from (representative examples):
   - [str_initcap](../s/str_initcap.md)

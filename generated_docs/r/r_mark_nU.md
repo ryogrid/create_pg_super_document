@@ -21,11 +21,11 @@ This function is part of the Turkish language stemming implementation that speci
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_check_vowel_harmony (validates Turkish vowel harmony rules)
-  - find_among_b (Snowball library function for backwards pattern matching)
+  - [r_check_vowel_harmony](r_check_vowel_harmony.md) (validates Turkish vowel harmony rules)
+  - [find_among_b](../f/find_among_b.md) (Snowball library function for backwards pattern matching)
   - a_2 (array of 4 'nU' suffix patterns with vowel harmony variants)
 - Called from (representative examples):
-  - r_stem_noun_suffixes
+  - [r_stem_noun_suffixes](r_stem_noun_suffixes.md)
 
 ## Notes and Other Information
 - Returns 1 on successful 'nU' suffix identification and marking, 0 on failure

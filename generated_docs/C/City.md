@@ -32,13 +32,13 @@ The structure serves as a mapping and tracking mechanism that allows different c
 - Functions called/Symbols referenced:
   - None (this is a simple data structure with no direct symbol dependencies)
 - Called from (representative examples):
-  - cx (cycle crossover algorithm)
-  - ox1 (order crossover algorithm variant 1)
-  - ox2 (order crossover algorithm variant 2) 
-  - px (position crossover algorithm)
-  - init_tour (tour initialization function)
-  - alloc_city_table (allocates arrays of City structures)
-  - free_city_table (deallocates City structure arrays)
+  - [cx](../c/cx.md) (cycle crossover algorithm)
+  - [ox1](../o/ox1.md) (order crossover algorithm variant 1)
+  - [ox2](../o/ox2.md) (order crossover algorithm variant 2) 
+  - [px](../p/px.md) (position crossover algorithm)
+  - [init_tour](../i/init_tour.md) (tour initialization function)
+  - [alloc_city_table](../a/alloc_city_table.md) (allocates arrays of City structures)
+  - [free_city_table](../f/free_city_table.md) (deallocates City structure arrays)
 
 ## Notes and Other Information
 - The City structure is used across multiple different crossover algorithms in GEQO, making it a versatile data structure for genetic operations

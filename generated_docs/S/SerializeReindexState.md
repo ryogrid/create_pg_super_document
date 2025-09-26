@@ -27,7 +27,7 @@ The function populates a SerializedReindexState structure with:
 ## Dependencies
 - Functions called/Symbols referenced:
   - SerializedReindexState (structure type)
-  - list_length (list utility function)
+  - [list_length](../l/list_length.md) (list utility function)
   - lfirst_oid (list cell access macro)
   - currentlyReindexedHeap (global variable)
   - currentlyReindexedIndex (global variable)

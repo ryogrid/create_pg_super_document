@@ -31,9 +31,9 @@ For data items, it calls ecpg_store_input to convert and format the input data, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ecpg_find_desc
-  - ecpg_alloc, ecpg_free
-  - ecpg_store_input
+  - [ecpg_find_desc](../e/ecpg_find_desc.md)
+  - [ecpg_alloc](../e/ecpg_alloc.md), ecpg_free
+  - [ecpg_store_input](../e/ecpg_store_input.md)
   - [set_desc_attr](../s/set_desc_attr.md), set_int_item
   - [ecpg_raise](../e/ecpg_raise.md)
   - [descriptor](../d/descriptor.md), descriptor_item (struct types)

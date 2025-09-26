@@ -17,9 +17,9 @@ This function determines the display width of a character in the ISO8859-1 (Lati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_ascii_dsplen (delegated function for actual display length calculation)
+  - [pg_ascii_dsplen](pg_ascii_dsplen.md) (delegated function for actual display length calculation)
 - Called from (representative examples):
-  - pg_encoding_set_invalid (multiple references for various encoding configurations)
+  - [pg_encoding_set_invalid](pg_encoding_set_invalid.md) (multiple references for various encoding configurations)
 
 ## Notes and Other Information
 - Returns the same values as pg_ascii_dsplen: 0 for null, -1 for control characters, 1 for printable characters

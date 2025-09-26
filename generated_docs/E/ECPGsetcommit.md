@@ -23,10 +23,10 @@ This function manages the autocommit setting for ECPG database connections. When
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `ecpg_get_connection` (retrieves connection structure)
+  - `[ecpg_get_connection](../e/ecpg_get_connection.md)` (retrieves connection structure)
   - [ecpg_init](../e/ecpg_init.md) (initializes connection context)
   - [ecpg_log](../e/ecpg_log.md) (logs operation details)
-  - `PQtransactionStatus` (checks current transaction state)
+  - `[PQtransactionStatus](../P/PQtransactionStatus.md)` (checks current transaction state)
   - [PQexec](../P/PQexec.md) (executes SQL commands)
   - [ecpg_check_PQresult](../e/ecpg_check_PQresult.md) (validates command results)
   - [PQclear](../P/PQclear.md) (frees result structures)

@@ -25,11 +25,11 @@ The structure maintains the state needed to determine probabilistically whether 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_prng_state (for random number generation)
+  - [pg_prng_state](../p/pg_prng_state.md) (for random number generation)
   - BlockNumber (PostgreSQL block identifier type)
 - Called from (representative examples):
-  - block_sampling_read_stream_next (src/backend/commands/analyze.c:1119)
-  - acquire_sample_rows (src/backend/commands/analyze.c:1170)
+  - [block_sampling_read_stream_next](../b/block_sampling_read_stream_next.md) (src/backend/commands/analyze.c:1119)
+  - [acquire_sample_rows](../a/acquire_sample_rows.md) (src/backend/commands/analyze.c:1170)
 
 ## Notes and Other Information
 - Used as the basis for the BlockSampler pointer type (typedef BlockSamplerData *BlockSampler)

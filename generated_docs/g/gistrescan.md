@@ -34,7 +34,7 @@ The function creates a pairing heap-based priority queue for organizing search i
   - IndexRelationGetNumberOfKeyAttributes
   - [CreateTemplateTupleDesc](../C/CreateTemplateTupleDesc.md)
   - [TupleDescInitEntry](../T/TupleDescInitEntry.md)
-  - pairingheap_allocate
+  - [pairingheap_allocate](../p/pairingheap_allocate.md)
   - [pairingheap_GISTSearchItem_cmp](../p/pairingheap_GISTSearchItem_cmp.md)
   - [fmgr_info_copy](../f/fmgr_info_copy.md)
   - [get_func_rettype](get_func_rettype.md)

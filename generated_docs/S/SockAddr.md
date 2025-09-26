@@ -31,7 +31,7 @@ This abstraction allows PostgreSQL to handle different types of network addresse
   - [check_network_data](../c/check_network_data.md) (HBA processing)
   - [check_ip](../c/check_ip.md) (HBA IP checking)
   - [Port](../P/Port.md) structure (connection handling)
-  - pg_conn structure (libpq connection management)
+  - [pg_conn](../p/pg_conn.md) structure (libpq connection management)
   - [PgBackendStatus](../P/PgBackendStatus.md) (backend status tracking)
 
 ## Notes and Other Information

@@ -42,7 +42,7 @@ This structure serves as the central repository for WAL-related statistics in Po
   - uint64 (used for wal_bytes)
   - TimestampTz (used for timestamp field)
 - Called from (representative examples):
-  - pgstat_report_wal
+  - [pgstat_report_wal](../p/pgstat_report_wal.md)
   - PG_STAT_GET_WAL_COLS
   - [PgStatShared_Wal](PgStatShared_Wal.md)
   - [PgStat_Snapshot](PgStat_Snapshot.md)

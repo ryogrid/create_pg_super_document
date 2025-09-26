@@ -26,14 +26,14 @@ The function includes deadlock detection logic because deadlocks can occur when 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetStandbyLimitTime
-  - GetCurrentTimestamp
-  - SendRecoveryConflictWithBufferPin
-  - ProcWaitForSignal  
-  - enable_timeouts
-  - disable_all_timeouts
+  - [GetStandbyLimitTime](../G/GetStandbyLimitTime.md)
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
+  - [SendRecoveryConflictWithBufferPin](../S/SendRecoveryConflictWithBufferPin.md)
+  - [ProcWaitForSignal](../P/ProcWaitForSignal.md)  
+  - [enable_timeouts](../e/enable_timeouts.md)
+  - [disable_all_timeouts](../d/disable_all_timeouts.md)
 - Called from (representative examples):
-  - LockBufferForCleanup (src/backend/storage/buffer/bufmgr.c:5316)
+  - [LockBufferForCleanup](../L/LockBufferForCleanup.md) (src/backend/storage/buffer/bufmgr.c:5316)
 
 ## Notes and Other Information
 - Only operates when InHotStandby is true

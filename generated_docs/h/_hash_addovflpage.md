@@ -31,7 +31,7 @@ The function is designed to handle concurrent access safely and includes compreh
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LockBuffer](../L/LockBuffer.md)/BUFFER_LOCK_EXCLUSIVE/BUFFER_LOCK_UNLOCK (buffer locking)
-  - _hash_checkpage (page validation)
+  - [_hash_checkpage](_hash_checkpage.md) (page validation)
   - HashPageGetOpaque/HashPageGetMeta/HashPageGetBitmap (page access)
   - [_hash_getbuf](_hash_getbuf.md)/_hash_getinitbuf/_hash_getnewbuf (buffer management)
   - [_hash_relbuf](_hash_relbuf.md) (buffer release)

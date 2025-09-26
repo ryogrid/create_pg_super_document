@@ -40,18 +40,18 @@ The function includes comprehensive error handling and returns standard POSIX re
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_set_regex_collation
-  - zapallsubs  
-  - find
-  - cfind
-  - freedfa
+  - [pg_set_regex_collation](pg_set_regex_collation.md)
+  - [zapallsubs](../z/zapallsubs.md)  
+  - [find](../f/find.md)
+  - [cfind](../c/cfind.md)
+  - [freedfa](../f/freedfa.md)
   - MALLOC/FREE (memory management macros)
 - Called from (representative examples):
-  - regexec_auth_token (in src/backend/libpq/hba.c:358)
-  - CheckAffix (in src/backend/tsearch/spell.c:2148)
-  - RE_wchar_execute (in src/backend/utils/adt/regexp.c:289)
-  - replace_text_regexp (in src/backend/utils/adt/varlena.c:4254)
-  - test_re_execute (in src/test/modules/test_regex/test_regex.c:221)
+  - [regexec_auth_token](../r/regexec_auth_token.md) (in src/backend/libpq/hba.c:358)
+  - [CheckAffix](../C/CheckAffix.md) (in src/backend/tsearch/spell.c:2148)
+  - [RE_wchar_execute](../R/RE_wchar_execute.md) (in src/backend/utils/adt/regexp.c:289)
+  - [replace_text_regexp](../r/replace_text_regexp.md) (in src/backend/utils/adt/varlena.c:4254)
+  - [test_re_execute](../t/test_re_execute.md) (in src/test/modules/test_regex/test_regex.c:221)
 
 ## Notes and Other Information
 - Returns REG_OKAY (0) on successful match, REG_NOMATCH if no match found, or other REG_* error codes

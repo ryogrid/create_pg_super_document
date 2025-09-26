@@ -29,13 +29,13 @@ No parameters (void function)
 - Functions called/Symbols referenced:
   - pairingheap_is_empty
   - pairingheap_container
-  - pairingheap_first
+  - [pairingheap_first](../p/pairingheap_first.md)
   - [SnapshotData](SnapshotData.md)
   - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
 - Called from (representative examples):
   - [InvalidateCatalogSnapshot](../I/InvalidateCatalogSnapshot.md)
-  - PopActiveSnapshot
-  - UnregisterSnapshotNoOwner
+  - [PopActiveSnapshot](../P/PopActiveSnapshot.md)
+  - [UnregisterSnapshotNoOwner](../U/UnregisterSnapshotNoOwner.md)
   - [AtSubAbort_Snapshot](../A/AtSubAbort_Snapshot.md)
   - [AtEOXact_Snapshot](../A/AtEOXact_Snapshot.md)
 

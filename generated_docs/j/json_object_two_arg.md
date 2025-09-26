@@ -26,7 +26,7 @@ The `json_object_two_arg` function is a PostgreSQL SQL function that creates JSO
   - [deconstruct_array_builtin](../d/deconstruct_array_builtin.md)
   - TextDatumGetCString
   - [escape_json](../e/escape_json.md)
-  - cstring_to_text_with_len
+  - [cstring_to_text_with_len](../c/cstring_to_text_with_len.md)
   - PG_RETURN_TEXT_P
 - Called from (representative examples):
   - No direct references found (likely called via SQL interface)

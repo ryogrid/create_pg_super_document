@@ -24,8 +24,8 @@ This function serves as an option parser for any relation type that uses the sta
 - Functions called/Symbols referenced:
   - relopt_kind (enum type)
   - relopt_parse_elt (struct type)
-  - StdRdOptions (struct type)
-  - AutoVacOpts (struct type)
+  - [StdRdOptions](../S/StdRdOptions.md) (struct type)
+  - [AutoVacOpts](../A/AutoVacOpts.md) (struct type)
   - RELOPT_TYPE_INT, RELOPT_TYPE_BOOL, RELOPT_TYPE_REAL, RELOPT_TYPE_ENUM (enum values)
   - [build_reloptions](../b/build_reloptions.md) (function)
   - lengthof (macro)

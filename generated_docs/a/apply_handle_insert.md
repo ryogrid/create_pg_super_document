@@ -31,10 +31,10 @@ The function includes comprehensive error handling and ensures proper cleanup of
   - is_skipping_changes
   - [handle_streamed_transaction](../h/handle_streamed_transaction.md)
   - [begin_replication_step](../b/begin_replication_step.md)
-  - logicalrep_read_insert
-  - logicalrep_rel_open
+  - [logicalrep_read_insert](../l/logicalrep_read_insert.md)
+  - [logicalrep_rel_open](../l/logicalrep_rel_open.md)
   - [should_apply_changes_for_rel](../s/should_apply_changes_for_rel.md)
-  - logicalrep_rel_close
+  - [logicalrep_rel_close](../l/logicalrep_rel_close.md)
   - [SwitchToUntrustedUser](../S/SwitchToUntrustedUser.md)
   - [create_edata_for_relation](../c/create_edata_for_relation.md)
   - [ExecInitExtraTupleSlot](../E/ExecInitExtraTupleSlot.md)
@@ -50,8 +50,8 @@ The function includes comprehensive error handling and ensures proper cleanup of
   - [end_replication_step](../e/end_replication_step.md)
   - [LogicalRepRelMapEntry](../L/LogicalRepRelMapEntry.md) (data structure)
   - [LogicalRepTupleData](../L/LogicalRepTupleData.md) (data structure)
-  - UserContext (data structure)
-  - ApplyExecutionData (data structure)
+  - [UserContext](../U/UserContext.md) (data structure)
+  - [ApplyExecutionData](../A/ApplyExecutionData.md) (data structure)
   - LOGICAL_REP_MSG_INSERT (constant)
   - CMD_INSERT (constant)
 - Called from (representative examples):

@@ -32,8 +32,8 @@ The function handles edge cases like bogus LSN requests and provides detailed lo
   - [pg_atomic_read_membarrier_u64](../p/pg_atomic_read_membarrier_u64.md) (reads current insert result atomically)
   - SpinLockAcquire/SpinLockRelease (protects insert position access)
   - [XLogBytePosToEndRecPtr](../X/XLogBytePosToEndRecPtr.md) (converts byte position to record pointer)
-  - LWLockWaitForVar (waits for insertion progress on individual locks)
-  - pg_atomic_monotonic_advance_u64 (updates global insert result)
+  - [LWLockWaitForVar](../L/LWLockWaitForVar.md) (waits for insertion progress on individual locks)
+  - [pg_atomic_monotonic_advance_u64](../p/pg_atomic_monotonic_advance_u64.md) (updates global insert result)
   - NUM_XLOGINSERT_LOCKS (number of WAL insertion locks to check)
 - Called from (representative examples):
   - RefreshXLogWriteResult

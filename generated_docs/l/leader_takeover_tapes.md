@@ -30,16 +30,16 @@ This design allows the leader to seamlessly continue with the merge phase of ext
 ## Dependencies
 - Functions called/Symbols referenced:
   - LEADER (macro to check if this is the leader process)
-  - inittapestate (initializes tape state structures)
-  - LogicalTapeSetCreate (creates a logical tape set)
-  - LogicalTapeImport (imports worker tapes into the tapeset)
-  - Tuplesortstate (the main sort state structure)
-  - Sharedsort (shared state between parallel processes)
-  - LogicalTape (individual tape structure)
+  - [inittapestate](../i/inittapestate.md) (initializes tape state structures)
+  - [LogicalTapeSetCreate](../L/LogicalTapeSetCreate.md) (creates a logical tape set)
+  - [LogicalTapeImport](../L/LogicalTapeImport.md) (imports worker tapes into the tapeset)
+  - [Tuplesortstate](../T/Tuplesortstate.md) (the main sort state structure)
+  - [Sharedsort](../S/Sharedsort.md) (shared state between parallel processes)
+  - [LogicalTape](../L/LogicalTape.md) (individual tape structure)
   - TSS_BUILDRUNS (status indicating run building phase)
 
 - Called from (representative examples):
-  - tuplesort_performsort (main sorting function)
+  - [tuplesort_performsort](../t/tuplesort_performsort.md) (main sorting function)
 
 ## Notes and Other Information
 - This function is only called by the leader process in parallel tuplesort operations

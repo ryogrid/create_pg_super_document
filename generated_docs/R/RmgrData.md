@@ -37,16 +37,16 @@ RmgrData serves as the method table for resource managers in PostgreSQL's WAL sy
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogReaderState (used in rm_redo and rm_desc)
+  - [XLogReaderState](../X/XLogReaderState.md) (used in rm_redo and rm_desc)
   - StringInfo (used in rm_desc)
-  - LogicalDecodingContext (used in rm_decode)
-  - XLogRecordBuffer (used in rm_decode)
+  - [LogicalDecodingContext](../L/LogicalDecodingContext.md) (used in rm_decode)
+  - [XLogRecordBuffer](../X/XLogRecordBuffer.md) (used in rm_decode)
 - Called from (representative examples):
-  - RegisterCustomRmgr
-  - xlog_outdesc
-  - verifyBackupPageConsistency
-  - LogicalDecodingProcessRecord
-  - RmgrIdExists
+  - [RegisterCustomRmgr](RegisterCustomRmgr.md)
+  - [xlog_outdesc](../x/xlog_outdesc.md)
+  - [verifyBackupPageConsistency](../v/verifyBackupPageConsistency.md)
+  - [LogicalDecodingProcessRecord](../L/LogicalDecodingProcessRecord.md)
+  - [RmgrIdExists](RmgrIdExists.md)
 
 ## Notes and Other Information
 - This structure enables the extensible resource manager architecture in PostgreSQL, allowing different storage components to plug into the WAL system

@@ -35,9 +35,9 @@ Match tag format uses 2 bytes for offset ≤ 4095 and length ≤ 17, with an opt
 - Functions called/Symbols referenced:
   - No external function dependencies (uses only standard C library functions)
 - Called from:
-  - pglz_decompress_datum (TOAST decompression wrapper)
-  - pglz_decompress_datum_slice (partial TOAST decompression)
-  - RestoreBlockImage (WAL record decompression)
+  - [pglz_decompress_datum](pglz_decompress_datum.md) (TOAST decompression wrapper)
+  - [pglz_decompress_datum_slice](pglz_decompress_datum_slice.md) (partial TOAST decompression)
+  - [RestoreBlockImage](../R/RestoreBlockImage.md) (WAL record decompression)
 
 ## Notes and Other Information
 - Returns number of bytes decompressed on success, -1 on corruption/error

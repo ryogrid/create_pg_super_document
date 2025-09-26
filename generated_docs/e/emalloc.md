@@ -20,13 +20,13 @@ The `emalloc` function is a safe wrapper around the standard library `malloc()` 
 ## Dependencies
 - Functions called/Symbols referenced:
   - malloc (standard library memory allocation function)
-  - memcheck (validation function for allocation results)
+  - [memcheck](../m/memcheck.md) (validation function for allocation results)
 - Called from (representative examples):
-  - relname
-  - itsdir
-  - writezone
-  - outzone
-  - getfields
+  - [relname](../r/relname.md)
+  - [itsdir](../i/itsdir.md)
+  - [writezone](../w/writezone.md)
+  - [outzone](../o/outzone.md)
+  - [getfields](../g/getfields.md)
 
 ## Notes and Other Information
 - This is a static function, accessible only within the src/timezone/zic.c file

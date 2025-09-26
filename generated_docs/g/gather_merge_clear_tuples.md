@@ -26,7 +26,7 @@ The function is critical for memory management during rescans and cleanup operat
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pfree](../p/pfree.md)
-  - ExecClearTuple
+  - [ExecClearTuple](../E/ExecClearTuple.md)
 - Called from (representative examples):
   - [ExecReScanGatherMerge](../E/ExecReScanGatherMerge.md)
   - [gather_merge_getnext](gather_merge_getnext.md)

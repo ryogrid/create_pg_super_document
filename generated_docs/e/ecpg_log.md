@@ -21,19 +21,19 @@ ecpg_log is the central logging function for ECPG debug output. It supports prin
 ## Dependencies
 - Functions called/Symbols referenced:
   - ECPGget_sqlca
-  - ecpg_gettext
+  - [ecpg_gettext](ecpg_gettext.md)
   - malloc
   - [pthread_mutex_lock](../p/pthread_mutex_lock.md)
   - [pthread_mutex_unlock](../p/pthread_mutex_unlock.md)
   - vfprintf
 - Called from (representative examples):
   - [ecpg_finish](ecpg_finish.md), ECPGsetcommit, ECPGnoticeReceiver in connect.c
-  - ecpg_get_data in data.c
+  - [ecpg_get_data](ecpg_get_data.md) in data.c
   - [ECPGget_desc_header](../E/ECPGget_desc_header.md), ECPGget_desc in descriptor.c
   - [ecpg_raise](ecpg_raise.md), ecpg_check_PQresult in error.c
-  - ecpg_execute, ecpg_process_output in execute.c
+  - [ecpg_execute](ecpg_execute.md), ecpg_process_output in execute.c
   - [ECPGtrans](../E/ECPGtrans.md), ECPGdebug in misc.c
-  - prepare_common, ecpg_auto_prepare in prepare.c
+  - [prepare_common](../p/prepare_common.md), ecpg_auto_prepare in prepare.c
   - [ecpg_build_compat_sqlda](ecpg_build_compat_sqlda.md), ecpg_set_compat_sqlda in sqlda.c
 
 ## Notes and Other Information

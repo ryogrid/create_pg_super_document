@@ -24,7 +24,7 @@ The `lseg_invsl` function is a utility function that calculates the inverse slop
 
 - Called from (representative examples):
   - [lseg_perp](lseg_perp.md): Checks if two line segments are perpendicular
-  - PATH_CLOSED: Used in path geometric operations
+  - [PATH_CLOSED](../P/PATH_CLOSED.md): Used in path geometric operations
 
 ## Notes and Other Information
 - This is a static inline function, meaning it's only accessible within the same source file and is optimized for performance

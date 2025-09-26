@@ -22,10 +22,10 @@ This function builds the effective reference (eref) column name list for a relat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_head (list manipulation)
-  - list_length (list manipulation) 
+  - [list_head](../l/list_head.md) (list manipulation)
+  - [list_length](../l/list_length.md) (list manipulation) 
   - [lnext](../l/lnext.md) (list traversal)
-  - lappend (list building)
+  - [lappend](../l/lappend.md) (list building)
   - [makeString](../m/makeString.md) (string creation)
   - [pstrdup](../p/pstrdup.md) (string duplication)
   - ereport (error reporting)

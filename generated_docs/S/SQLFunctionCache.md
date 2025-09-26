@@ -68,7 +68,7 @@ The cache has a limited lifespan tied to the current transaction/subtransaction 
 - Functions called/Symbols referenced:
   - SQLFunctionParseInfoPtr
   - [ParamListInfo](../P/ParamListInfo.md)  
-  - Tuplestorestate
+  - [Tuplestorestate](../T/Tuplestorestate.md)
   - [JunkFilter](../J/JunkFilter.md)
   - [List](../L/List.md)
   - [MemoryContext](../M/MemoryContext.md)

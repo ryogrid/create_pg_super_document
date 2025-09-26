@@ -26,8 +26,8 @@ This function serves as a specialized wrapper around ExplainProperty for handlin
   - [pfree](../p/pfree.md) (PostgreSQL's memory deallocation function)
 - Called from (representative examples):
   - [ExplainOnePlan](ExplainOnePlan.md) (for planning and execution times)
-  - ExplainPrintJIT (for JIT compilation timing statistics)
-  - ExplainPrintSerialize (for serialization times)
+  - [ExplainPrintJIT](ExplainPrintJIT.md) (for JIT compilation timing statistics)
+  - [ExplainPrintSerialize](ExplainPrintSerialize.md) (for serialization times)
   - [report_triggers](../r/report_triggers.md) (for trigger execution times)
   - [ExplainNode](ExplainNode.md) (for costs, selectivity, and timing information)
   - [show_instrumentation_count](../s/show_instrumentation_count.md) (for average values)

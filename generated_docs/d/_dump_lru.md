@@ -30,8 +30,8 @@ This function takes no parameters.
   - snprintf (string formatting)
   - strlen (string length function)
 - Called from (representative examples):
-  - Delete (VFD management function)
-  - Insert (VFD management function)
+  - [Delete](../D/Delete.md) (VFD management function)
+  - [Insert](../I/Insert.md) (VFD management function)
 
 ## Notes and Other Information
 - Static function, only accessible within the fd.c source file

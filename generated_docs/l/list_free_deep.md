@@ -27,7 +27,7 @@ This is the appropriate function to use when the list owns all the objects it po
   - IsPointerList
   - [list_free_private](list_free_private.md)
 - Called from (representative examples):
-  - gistbufferinginserttuples
+  - [gistbufferinginserttuples](../g/gistbufferinginserttuples.md)
   - [CreateDatabaseUsingWalLog](../C/CreateDatabaseUsingWalLog.md)
   - [CloseTableList](../C/CloseTableList.md)
   - [RelationDestroyRelation](../R/RelationDestroyRelation.md)

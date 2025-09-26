@@ -21,7 +21,7 @@ This function implements the SQL SIN function for PostgreSQL, computing the sine
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT8
   - isnan
-  - get_float8_nan
+  - [get_float8_nan](../g/get_float8_nan.md)
   - sin (standard C library function)
   - isinf (called twice)
   - ereport

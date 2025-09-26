@@ -23,10 +23,10 @@ This function provides constant-time access to the root element of the binary he
   - Assert (debugging assertion macro)
 - Called from (representative examples):
   - [gather_merge_getnext](../g/gather_merge_getnext.md) (in src/backend/executor/nodeGatherMerge.c)
-  - ExecMergeAppend (in src/backend/executor/nodeMergeAppend.c)
+  - [ExecMergeAppend](../E/ExecMergeAppend.md) (in src/backend/executor/nodeMergeAppend.c)
   - [pgarch_readyXlog](../p/pgarch_readyXlog.md) (in src/backend/postmaster/pgarch.c)
   - [ReorderBufferIterTXNNext](../R/ReorderBufferIterTXNNext.md) (in src/backend/replication/logical/reorderbuffer.c)
-  - BufferSync (in src/backend/storage/buffer/bufmgr.c)
+  - [BufferSync](../B/BufferSync.md) (in src/backend/storage/buffer/bufmgr.c)
 
 ## Notes and Other Information
 - Always executes in O(1) constant time regardless of heap size

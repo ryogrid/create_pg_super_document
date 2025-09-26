@@ -44,7 +44,7 @@ The final result includes the rule's specified time offset and the current UTC o
   - SECSPERDAY, DAYSPERWEEK (time conversion constants)
   - mon_lengths (array containing days in each month for leap/non-leap years)
 - Called from (representative examples):
-  - tzparse
+  - [tzparse](tzparse.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the timezone parsing subsystem

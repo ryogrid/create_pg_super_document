@@ -27,8 +27,8 @@ An important design consideration is that this function does not handle the deal
   - [RBTree](../R/RBTree.md) (tree structure type)
   - [RBTNode](../R/RBTNode.md) (node structure type)
 - Called from (representative examples):
-  - testfindltgt (test function)
-  - testdelete (test function)
+  - [testfindltgt](../t/testfindltgt.md) (test function)
+  - [testdelete](../t/testdelete.md) (test function)
 
 ## Notes and Other Information
 - This is the main public API function for node deletion in Red-Black trees

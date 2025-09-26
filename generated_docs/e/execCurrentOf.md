@@ -34,13 +34,13 @@ The function validates that the cursor exists, is a SELECT query, is not a held 
 - Functions called/Symbols referenced:
   - [fetch_cursor_param_value](../f/fetch_cursor_param_value.md) (for parameterized cursor names)
   - [get_rel_name](../g/get_rel_name.md) (for error messages)
-  - GetPortalByName (to locate the cursor portal)
+  - [GetPortalByName](../G/GetPortalByName.md) (to locate the cursor portal)
   - PortalIsValid (cursor validation)
   - [search_plan_tree](../s/search_plan_tree.md) (to find scan nodes in non-FOR-UPDATE cases)
   - [ItemPointerIsValid](../I/ItemPointerIsValid.md) (TID validation)
-  - slot_getsysattr (to extract TID from tuple slots)
+  - [slot_getsysattr](../s/slot_getsysattr.md) (to extract TID from tuple slots)
 - Called from (representative examples):
-  - TidListEval (in nodeTidscan.c for TID scan execution)
+  - [TidListEval](../T/TidListEval.md) (in nodeTidscan.c for TID scan execution)
 
 ## Notes and Other Information
 The function returns true if a row was successfully identified, false if the cursor is valid for the table but not currently scanning a row of that table (legal in inheritance scenarios). It raises errors for invalid cursors, non-SELECT queries, held cursors, or cursors not positioned on rows. The implementation carefully handles both indexed-only scans (where TID comes from xs_heaptid) and regular scans (where TID is extracted from the tuple's system attributes).

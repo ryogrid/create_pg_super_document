@@ -35,7 +35,7 @@ The validation is essential for maintaining data consistency in logical replicat
   - [ExecSimpleRelationInsert](../E/ExecSimpleRelationInsert.md): Replica identity validation for INSERT operations
   - [ExecSimpleRelationUpdate](../E/ExecSimpleRelationUpdate.md): Replica identity validation for UPDATE operations  
   - [ExecSimpleRelationDelete](../E/ExecSimpleRelationDelete.md): Replica identity validation for DELETE operations
-  - exec_rt_fetch: Through executor header inclusion
+  - [exec_rt_fetch](../e/exec_rt_fetch.md): Through executor header inclusion
 
 ## Notes and Other Information
 - Only validates UPDATE and DELETE commands - INSERT operations are always allowed

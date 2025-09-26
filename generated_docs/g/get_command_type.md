@@ -23,7 +23,7 @@ The function is designed to help developers and testers understand what type of 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_POINTER (to extract the CollectedCommand pointer)
-  - cstring_to_text (to convert C string to PostgreSQL text type)
+  - [cstring_to_text](../c/cstring_to_text.md) (to convert C string to PostgreSQL text type)
   - PG_RETURN_TEXT_P (to return the text result)
 - Enum values referenced:
   - SCT_Simple

@@ -24,14 +24,14 @@ This function is part of PostgreSQL's local buffer management system, which hand
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - UnpinLocalBufferNoOwner
-  - ResourceOwnerForgetBuffer
+  - [UnpinLocalBufferNoOwner](UnpinLocalBufferNoOwner.md)
+  - [ResourceOwnerForgetBuffer](../R/ResourceOwnerForgetBuffer.md)
   - CurrentResourceOwner (global variable)
 - Called from (representative examples):
-  - ReleaseAndReadBuffer
-  - ReleaseBuffer
-  - ExtendBufferedRelLocal
-  - ResourceOwnerForgetBufferIO
+  - [ReleaseAndReadBuffer](../R/ReleaseAndReadBuffer.md)
+  - [ReleaseBuffer](../R/ReleaseBuffer.md)
+  - [ExtendBufferedRelLocal](../E/ExtendBufferedRelLocal.md)
+  - [ResourceOwnerForgetBufferIO](../R/ResourceOwnerForgetBufferIO.md)
 
 ## Notes and Other Information
 - This function is specifically for local buffers, not shared buffers

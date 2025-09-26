@@ -25,15 +25,15 @@ The actual transactional behavior is implemented by delegating to `create_drop_t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_get_entry_ref
-  - pgstat_get_kind_info
-  - pgstat_reset
-  - create_drop_transactional_internal
-  - PgStat_Kind (type)
+  - [pgstat_get_entry_ref](pgstat_get_entry_ref.md)
+  - [pgstat_get_kind_info](pgstat_get_kind_info.md)
+  - [pgstat_reset](pgstat_reset.md)
+  - [create_drop_transactional_internal](../c/create_drop_transactional_internal.md)
+  - [PgStat_Kind](../P/PgStat_Kind.md) (type)
 - Called from (representative examples):
-  - pgstat_create_function
-  - pgstat_create_relation
-  - pgstat_create_subscription
+  - [pgstat_create_function](pgstat_create_function.md)
+  - [pgstat_create_relation](pgstat_create_relation.md)
+  - [pgstat_create_subscription](pgstat_create_subscription.md)
 
 ## Notes and Other Information
 - Located in src/backend/utils/activity/pgstat_xact.c:357-378

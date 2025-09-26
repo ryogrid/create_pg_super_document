@@ -32,7 +32,7 @@ RegisteredSnapshots is a pairing heap that maintains all registered snapshots or
   - pairingheap_is_singular (checks if RegisteredSnapshots heap has exactly one element)
   - RegisteredSnapshots (static pairing heap containing registered snapshots)
 - Called from (representative examples):
-  - CopyFrom (to optimize copy operations based on snapshot activity)
+  - [CopyFrom](../C/CopyFrom.md) (to optimize copy operations based on snapshot activity)
 
 ## Notes and Other Information
 - Primarily used as a heuristic for performance optimizations rather than correctness decisions

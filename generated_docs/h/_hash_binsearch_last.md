@@ -25,7 +25,7 @@ The algorithm uses binary search but with a slightly different approach than the
   - OffsetNumberIsValid
   - [PageGetItem](../P/PageGetItem.md)
   - [PageGetItemId](../P/PageGetItemId.md)
-  - _hash_get_indextuple_hashkey
+  - [_hash_get_indextuple_hashkey](_hash_get_indextuple_hashkey.md)
 - Called from (representative examples):
   - [_hash_readpage](_hash_readpage.md)
 

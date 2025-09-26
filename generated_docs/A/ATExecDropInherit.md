@@ -22,10 +22,10 @@ ATExecDropInherit implements the core logic for the ALTER TABLE NO INHERIT SQL c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_openrv
+  - [table_openrv](../t/table_openrv.md)
   - [RemoveInheritance](../R/RemoveInheritance.md)
   - ObjectAddressSet
-  - table_close
+  - [table_close](../t/table_close.md)
 - Called from (representative examples):
   - [ATExecCmd](ATExecCmd.md)
   - child_dependency_type

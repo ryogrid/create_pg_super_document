@@ -33,7 +33,7 @@ XLogReaderState *XLogReaderAllocate(int wal_segment_size, const char *waldir, XL
   - [StartReplication](../S/StartReplication.md) 
   - [XLogInsertRecord](XLogInsertRecord.md)
   - [main](../m/main.md) (pg_waldump utility)
-  - StartupDecodingContext
+  - [StartupDecodingContext](../S/StartupDecodingContext.md)
   - [SummarizeWAL](../S/SummarizeWAL.md)
 
 ## Notes and Other Information

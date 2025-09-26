@@ -24,7 +24,7 @@ The function operates on two buffers: first, it inserts the tuple data into the 
 - Functions called/Symbols referenced:
   - [xl_hash_insert](../x/xl_hash_insert.md) (WAL record structure)
   - XLogRecGetData (extracts record data)
-  - XLogReadBufferForRedo (reads buffers for redo operations)
+  - [XLogReadBufferForRedo](../X/XLogReadBufferForRedo.md) (reads buffers for redo operations)
   - [XLogRecGetBlockData](../X/XLogRecGetBlockData.md) (gets block data from record)
   - BLK_NEEDS_REDO (indicates block needs redo)
   - PageAddItem (adds tuple to page)

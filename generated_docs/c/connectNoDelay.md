@@ -22,7 +22,7 @@ The function uses the setsockopt() system call to set the TCP_NODELAY option on 
 ## Dependencies
 - Functions called/Symbols referenced:
   - setsockopt (system call)
-  - libpq_append_conn_error
+  - [libpq_append_conn_error](../l/libpq_append_conn_error.md)
   - SOCK_STRERROR
   - SOCK_ERRNO
 - Called from (representative examples):

@@ -25,8 +25,8 @@ When cached descriptors cannot be used, the function falls back to calling Relat
 ## Dependencies
 - Functions called/Symbols referenced:
   - likely (compiler hint)
-  - ActiveSnapshotSet
-  - GetActiveSnapshot
+  - [ActiveSnapshotSet](../A/ActiveSnapshotSet.md)
+  - [GetActiveSnapshot](../G/GetActiveSnapshot.md)
   - [XidInMVCCSnapshot](../X/XidInMVCCSnapshot.md)
   - [RelationBuildPartitionDesc](RelationBuildPartitionDesc.md)
   - [PartitionDesc](../P/PartitionDesc.md) (return type)

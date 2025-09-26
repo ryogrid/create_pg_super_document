@@ -20,7 +20,7 @@ This function serves as a memory allocator callback for the red-black tree imple
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc](../p/palloc.md)
-  - GetMemoryChunkSpace
+  - [GetMemoryChunkSpace](../G/GetMemoryChunkSpace.md)
   - DEF_NENTRY (constant)
   - [BuildAccumulator](../B/BuildAccumulator.md) (struct)
   - [GinEntryAccumulator](../G/GinEntryAccumulator.md) (struct)

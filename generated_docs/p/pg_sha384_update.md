@@ -28,12 +28,12 @@ The function can be called multiple times to process data incrementally, automat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `pg_sha512_update` - Core hash update function that handles all block processing logic
+  - `[pg_sha512_update](pg_sha512_update.md)` - Core hash update function that handles all block processing logic
 - Referenced types:
-  - `pg_sha384_ctx` - SHA-384 specific context structure type
-  - `pg_sha512_ctx` - SHA-512 context structure type (used for casting)
+  - `[pg_sha384_ctx](pg_sha384_ctx.md)` - SHA-384 specific context structure type
+  - `[pg_sha512_ctx](pg_sha512_ctx.md)` - SHA-512 context structure type (used for casting)
 - Called from (representative examples):
-  - `pg_cryptohash_update` - Generic cryptographic hash update wrapper
+  - `[pg_cryptohash_update](pg_cryptohash_update.md)` - Generic cryptographic hash update wrapper
 
 ## Notes and Other Information
 - This function demonstrates an efficient implementation pattern where related algorithms share common processing code

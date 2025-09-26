@@ -46,7 +46,7 @@ The function ensures NFA connectivity is maintained even when the complement set
   - [nonword](../n/nonword.md) (src/backend/regex/regcomp.c:1468)
   - [charclasscomplement](charclasscomplement.md) (src/backend/regex/regcomp.c:1544)
   - [cbracket](cbracket.md) (src/backend/regex/regcomp.c:1752)
-  - processlacon (src/backend/regex/regcomp.c:2058, 2076)
+  - [processlacon](../p/processlacon.md) (src/backend/regex/regcomp.c:2058, 2076)
 
 ## Notes and Other Information
 - The function includes special handling for RAINBOW arcs to prevent NFA disconnection

@@ -21,8 +21,8 @@ Important limitations include that not every transaction has an assigned XID (re
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire
-  - LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - ProcArrayLock (global lock)
   - procArray (global variable)
   - ProcGlobal (global variable)

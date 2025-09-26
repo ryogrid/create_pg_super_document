@@ -30,7 +30,7 @@ The function performs a direct array lookup using the commandTag as an index int
   - [SPI_cursor_open_internal](../S/SPI_cursor_open_internal.md) (src/backend/executor/spi.c:1608)
   - [_SPI_execute_plan](../S/_SPI_execute_plan.md) (src/backend/executor/spi.c:2566)
   - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (src/backend/tcop/utility.c:578, 580, 582)
-  - CopyQueryCompletion (src/include/tcop/cmdtag.h:53)
+  - [CopyQueryCompletion](../C/CopyQueryCompletion.md) (src/include/tcop/cmdtag.h:53)
 
 ## Notes and Other Information
 - The tag_behavior array is initialized using the PG_CMDTAG macro with data from cmdtaglist.h

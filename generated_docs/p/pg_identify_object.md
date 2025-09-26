@@ -30,19 +30,19 @@ The return value is a tuple with four elements:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_call_result_type
-  - is_objectclass_supported
-  - get_catalog_object_by_oid
-  - get_object_attnum_oid
-  - get_object_attnum_namespace
-  - get_object_namensp_unique
-  - get_object_attnum_name
-  - heap_getattr
-  - getObjectTypeDescription
-  - getObjectIdentity
-  - quote_identifier
-  - get_namespace_name
-  - heap_form_tuple
+  - [get_call_result_type](../g/get_call_result_type.md)
+  - [is_objectclass_supported](../i/is_objectclass_supported.md)
+  - [get_catalog_object_by_oid](../g/get_catalog_object_by_oid.md)
+  - [get_object_attnum_oid](../g/get_object_attnum_oid.md)
+  - [get_object_attnum_namespace](../g/get_object_attnum_namespace.md)
+  - [get_object_namensp_unique](../g/get_object_namensp_unique.md)
+  - [get_object_attnum_name](../g/get_object_attnum_name.md)
+  - [heap_getattr](../h/heap_getattr.md)
+  - [getObjectTypeDescription](../g/getObjectTypeDescription.md)
+  - [getObjectIdentity](../g/getObjectIdentity.md)
+  - [quote_identifier](../q/quote_identifier.md)
+  - [get_namespace_name](../g/get_namespace_name.md)
+  - [heap_form_tuple](../h/heap_form_tuple.md)
 - Called from (representative examples):
   - No direct callers found (SQL-callable function)
 

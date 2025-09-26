@@ -29,8 +29,8 @@ RBTreeIterator provides a stateful mechanism for traversing red-black trees in P
   - [rbt_right_left_iterator](../r/rbt_right_left_iterator.md) (descending traversal setup)  
   - [rbt_begin_iterate](../r/rbt_begin_iterate.md) (iterator initialization)
   - [rbt_iterate](../r/rbt_iterate.md) (iteration step execution)
-  - testleftright (test module usage)
-  - testrightleft (test module usage)
+  - [testleftright](../t/testleftright.md) (test module usage)
+  - [testrightleft](../t/testrightleft.md) (test module usage)
 
 ## Notes and Other Information
 - [RBTreeIterator](RBTreeIterator.md) must be treated as an opaque structure by callers despite being declared in the header for stack allocation

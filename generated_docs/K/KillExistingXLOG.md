@@ -28,14 +28,14 @@ This function takes no parameters and operates directly on the filesystem in the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - opendir, readdir, closedir (POSIX directory operations)
+  - [opendir](../o/opendir.md), readdir, closedir (POSIX directory operations)
   - [IsXLogFileName](../I/IsXLogFileName.md) (checks if filename matches WAL segment pattern)
   - [IsPartialXLogFileName](../I/IsPartialXLogFileName.md) (checks if filename matches partial WAL segment pattern)
   - snprintf (formats the full file path)
   - unlink (POSIX function to delete files)
   - XLOGDIR (constant for WAL directory path)
   - MAXPGPATH (constant for maximum PostgreSQL path length)
-  - DIR, dirent (POSIX directory structures)
+  - [DIR](../D/DIR.md), dirent (POSIX directory structures)
 
 - Called from:
   - [main](../m/main.md) (in pg_resetwal.c at line 495)

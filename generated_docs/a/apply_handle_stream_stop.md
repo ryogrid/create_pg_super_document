@@ -30,7 +30,7 @@ The function includes sophisticated locking mechanisms to coordinate between lea
   - [get_transaction_apply_action](../g/get_transaction_apply_action.md)
   - [stream_stop_internal](../s/stream_stop_internal.md)
   - [pa_lock_stream](../p/pa_lock_stream.md)
-  - pa_send_data
+  - [pa_send_data](../p/pa_send_data.md)
   - [pa_set_stream_apply_worker](../p/pa_set_stream_apply_worker.md)
   - [pa_switch_to_partial_serialize](../p/pa_switch_to_partial_serialize.md)
   - [stream_write_change](../s/stream_write_change.md)

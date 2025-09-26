@@ -35,7 +35,7 @@ This comprehensive attribute copying ensures that function declarations maintain
 - Called from (representative examples):
   - [llvm_pg_func](llvm_pg_func.md) (in llvmjit.c)
   - [slot_compile_deform](../s/slot_compile_deform.md) (in llvmjit_deform.c)
-  - llvm_compile_expr (in llvmjit_expr.c)
+  - [llvm_compile_expr](llvm_compile_expr.md) (in llvmjit_expr.c)
 
 ## Notes and Other Information
 - Located in src/backend/jit/llvm/llvmjit.c:549-572

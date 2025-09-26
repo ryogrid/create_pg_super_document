@@ -36,17 +36,17 @@ The function is essential for PostgreSQL's ability to safely drop relations and 
 - Functions called/Symbols referenced:
   - [pg_atomic_read_u32](../p/pg_atomic_read_u32.md)
   - [UnlockBufHdr](../U/UnlockBufHdr.md)
-  - LockBufHdr
+  - [LockBufHdr](../L/LockBufHdr.md)
   - [BufTableHashCode](../B/BufTableHashCode.md)
   - [BufMappingPartitionLock](../B/BufMappingPartitionLock.md)
   - [BufferTagsEqual](../B/BufferTagsEqual.md)
   - BUF_STATE_GET_REFCOUNT
   - [GetPrivateRefCount](../G/GetPrivateRefCount.md)
   - [BufferDescriptorGetBuffer](../B/BufferDescriptorGetBuffer.md)
-  - WaitIO
+  - [WaitIO](../W/WaitIO.md)
   - [ClearBufferTag](../C/ClearBufferTag.md)
   - [BufTableDelete](../B/BufTableDelete.md)
-  - StrategyFreeBuffer
+  - [StrategyFreeBuffer](../S/StrategyFreeBuffer.md)
 - Constants used:
   - BM_LOCKED
   - LW_EXCLUSIVE

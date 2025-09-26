@@ -28,10 +28,10 @@ SharedHashInfo facilitates the collection and aggregation of hash operation perf
   - FLEXIBLE_ARRAY_MEMBER (for variable-length array implementation)
 - Called from (representative examples):
   - [show_hash_info](../s/show_hash_info.md) (for displaying aggregated hash information in EXPLAIN ANALYZE)
-  - ExecHashEstimate (for estimating shared memory requirements)
-  - ExecHashInitializeDSM (for initializing shared memory structures)
-  - ExecHashInitializeWorker (for worker initialization)
-  - ExecHashRetrieveInstrumentation (for collecting metrics from workers)
+  - [ExecHashEstimate](../E/ExecHashEstimate.md) (for estimating shared memory requirements)
+  - [ExecHashInitializeDSM](../E/ExecHashInitializeDSM.md) (for initializing shared memory structures)
+  - [ExecHashInitializeWorker](../E/ExecHashInitializeWorker.md) (for worker initialization)
+  - [ExecHashRetrieveInstrumentation](../E/ExecHashRetrieveInstrumentation.md) (for collecting metrics from workers)
 
 ## Notes and Other Information
 - Critical component of PostgreSQL's parallel hash join implementation

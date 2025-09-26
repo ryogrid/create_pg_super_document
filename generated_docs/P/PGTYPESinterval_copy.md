@@ -22,7 +22,7 @@ The copy operation is a direct field-by-field assignment, making it an efficient
 - Functions called/Symbols referenced:
   - interval (data type)
 - Called from (representative examples):
-  - ecpg_get_data (ECPG data retrieval operations)
+  - [ecpg_get_data](../e/ecpg_get_data.md) (ECPG data retrieval operations)
   - [main](../m/main.md) (in test programs dt_test.c and dt_test2.c)
   - Client applications needing to duplicate interval values
 

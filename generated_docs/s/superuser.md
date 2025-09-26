@@ -21,17 +21,17 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `superuser_arg`: The core function that performs the actual superuser check
-  - `GetUserId()`: Implicitly called by `superuser_arg` to get the current user OID
+  - `[superuser_arg](superuser_arg.md)`: The core function that performs the actual superuser check
+  - `[GetUserId](../G/GetUserId.md)()`: Implicitly called by `superuser_arg` to get the current user OID
 
 - Called from (representative examples):
-  - `pg_nextoid`: System function operations
-  - `CreateFunction`: Function creation commands  
-  - `CreateRole`: Role management commands
-  - `AlterRole`: Role modification commands
-  - `CreateTableSpace`: Tablespace operations
-  - `InitPostgres`: Database initialization
-  - `standard_ProcessUtility`: Utility command processing
+  - `[pg_nextoid](../p/pg_nextoid.md)`: System function operations
+  - `[CreateFunction](../C/CreateFunction.md)`: Function creation commands  
+  - `[CreateRole](../C/CreateRole.md)`: Role management commands
+  - `[AlterRole](../A/AlterRole.md)`: Role modification commands
+  - `[CreateTableSpace](../C/CreateTableSpace.md)`: Tablespace operations
+  - `[InitPostgres](../I/InitPostgres.md)`: Database initialization
+  - `[standard_ProcessUtility](standard_ProcessUtility.md)`: Utility command processing
   - Various DDL commands and administrative functions
 
 ## Notes and Other Information

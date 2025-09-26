@@ -24,7 +24,7 @@ After this function returns, the caller can be confident that the slot contains 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferHeapTupleTableSlot (cast to access slot-specific fields)
+  - [BufferHeapTupleTableSlot](../B/BufferHeapTupleTableSlot.md) (cast to access slot-specific fields)
   - TTS_EMPTY (assertion check to ensure slot is not empty)
   - [tts_buffer_heap_materialize](tts_buffer_heap_materialize.md) (materializes virtual tuples when needed)
 

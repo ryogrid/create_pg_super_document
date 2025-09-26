@@ -23,7 +23,7 @@ This static function performs equality comparison between two JsonbValue scalar 
 - Functions called/Symbols referenced:
   - [lengthCompareJsonbStringValue](../l/lengthCompareJsonbStringValue.md) (for string comparison)
   - DirectFunctionCall2 (for calling numeric_eq)
-  - numeric_eq (for numeric equality comparison)
+  - [numeric_eq](../n/numeric_eq.md) (for numeric equality comparison)
   - [PointerGetDatum](../P/PointerGetDatum.md) (for datum conversion)
   - [DatumGetBool](../D/DatumGetBool.md) (for boolean result conversion)
 - Called from (representative examples):

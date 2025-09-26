@@ -30,7 +30,7 @@ This function is the standard blocking interface used throughout PostgreSQL for 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [XLogReleasePreviousRecord](XLogReleasePreviousRecord.md) (releases previous record)
-  - XLogReaderHasQueuedRecordOrError (checks if records are queued)  
+  - [XLogReaderHasQueuedRecordOrError](XLogReaderHasQueuedRecordOrError.md) (checks if records are queued)  
   - [XLogReadAhead](XLogReadAhead.md) (performs read-ahead operations)
   - [XLogNextRecord](XLogNextRecord.md) (gets next record from queue)
   - Assert (debugging assertion macro)
@@ -43,7 +43,7 @@ This function is the standard blocking interface used throughout PostgreSQL for 
   - [XLogFindNextRecord](XLogFindNextRecord.md)
   - [SummarizeWAL](../S/SummarizeWAL.md)
   - [DecodingContextFindStartpoint](../D/DecodingContextFindStartpoint.md)
-  - LogicalReplicationSlotHasPendingWal
+  - [LogicalReplicationSlotHasPendingWal](../L/LogicalReplicationSlotHasPendingWal.md)
   - [XLogSendLogical](XLogSendLogical.md)
   - [extractPageMap](../e/extractPageMap.md)
   - pg_waldump main function

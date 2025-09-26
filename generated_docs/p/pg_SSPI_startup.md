@@ -33,8 +33,8 @@ The function provides flexibility in authentication protocols while maintaining 
 - Functions called/Symbols referenced:
   -  - Memory allocation for credentials handle and target principal string
   -  - Windows SSPI function to obtain authentication credentials
-  -  - String formatting to construct service principal name
-  -  - String length calculation for memory allocation
+  -  - [String](../S/String.md) formatting to construct service principal name
+  -  - [String](../S/String.md) length calculation for memory allocation
   -  - Error reporting for SSPI failures
   -  - Handles the actual authentication token exchange
   -  - Connection error reporting

@@ -22,14 +22,14 @@ The function extracts type information from the tuple header, decomposes the tup
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth: Stack overflow protection for recursive calls
+  - [check_stack_depth](../c/check_stack_depth.md): Stack overflow protection for recursive calls
   - HeapTupleHeaderGetTypeId: Extracts type OID from tuple header
   - HeapTupleHeaderGetTypMod: Extracts type modifier from tuple header
   - [lookup_rowtype_tupdesc](../l/lookup_rowtype_tupdesc.md): Retrieves tuple descriptor for the record type
   - [heap_deform_tuple](../h/heap_deform_tuple.md): Extracts individual column values from tuple
   - [pq_begintypsend](../p/pq_begintypsend.md): Initializes binary output buffer
   - [pq_sendint32](../p/pq_sendint32.md): Sends 32-bit integers to binary buffer
-  - pq_sendbytes: Sends byte data to binary buffer
+  - [pq_sendbytes](../p/pq_sendbytes.md): Sends byte data to binary buffer
   - [pq_endtypsend](../p/pq_endtypsend.md): Finalizes binary output buffer
   - [getTypeBinaryOutputInfo](../g/getTypeBinaryOutputInfo.md): Gets binary output function info for column types
   - [SendFunctionCall](../S/SendFunctionCall.md): Calls type-specific binary send functions

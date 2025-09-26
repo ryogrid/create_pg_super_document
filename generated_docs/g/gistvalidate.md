@@ -33,7 +33,7 @@ For each support function (GIST_CONSISTENT_PROC through GIST_SORTSUPPORT_PROC), 
   -  - Validate support function signatures
   -  - Validate options support function signature
   -  - Validate operator signatures
-  -  - Group operators and functions by datatype combinations
+  -  - [Group](../G/Group.md) operators and functions by datatype combinations
   -  - Verify btree compatibility for ORDER BY operators
   -  - Look up distance procedures for ORDER BY operators
   -  - Get operator return type

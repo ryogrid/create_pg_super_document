@@ -30,12 +30,12 @@ This function is part of PostgreSQL's WAL record description infrastructure, use
   - XLogRecGetData
   - XLogRecGetInfo
   - XLR_INFO_MASK
-  - appendStringInfo
+  - [appendStringInfo](../a/appendStringInfo.md)
   - [standby_desc_running_xacts](standby_desc_running_xacts.md)
   - [standby_desc_invalidations](standby_desc_invalidations.md)
-  - xl_standby_locks (struct type)
-  - xl_running_xacts (struct type)
-  - xl_invalidations (struct type)
+  - [xl_standby_locks](../x/xl_standby_locks.md) (struct type)
+  - [xl_running_xacts](../x/xl_running_xacts.md) (struct type)
+  - [xl_invalidations](../x/xl_invalidations.md) (struct type)
 - Called from (representative examples):
   - WAL record description infrastructure (referenced in standbydefs.h)
 

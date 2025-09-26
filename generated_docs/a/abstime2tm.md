@@ -35,7 +35,7 @@ Error handling includes setting errno to PGTYPES_TS_BAD_TIMESTAMP when time conv
 ## Dependencies
 - Functions called/Symbols referenced:
   - localtime, gmtime (standard C library time conversion functions)
-  - strlcpy (secure string copy function)
+  - [strlcpy](../s/strlcpy.md) (secure string copy function)
   - Constants: PGTYPES_TS_BAD_TIMESTAMP, MAXTZLEN, SECS_PER_HOUR
   - Platform-specific: TIMEZONE_GLOBAL, TZNAME_GLOBAL (when HAVE_INT_TIMEZONE is defined)
   - AbsoluteTime (PostgreSQL's absolute time type)

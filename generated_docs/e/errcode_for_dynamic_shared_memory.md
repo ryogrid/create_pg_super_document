@@ -24,17 +24,17 @@ This centralized error mapping approach ensures that applications and error hand
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - errcode (PostgreSQL error code macro)
-  - errcode_for_file_access  
+  - [errcode](errcode.md) (PostgreSQL error code macro)
+  - [errcode_for_file_access](errcode_for_file_access.md)  
   - ERRCODE_OUT_OF_MEMORY
   - errno (global system variable)
 - Called from (representative examples):
-  - dsm_impl_posix (multiple locations)
-  - dsm_impl_sysv (multiple locations)
-  - dsm_impl_windows (multiple locations)
-  - dsm_impl_mmap (multiple locations)
-  - dsm_impl_pin_segment
-  - dsm_impl_unpin_segment
+  - [dsm_impl_posix](../d/dsm_impl_posix.md) (multiple locations)
+  - [dsm_impl_sysv](../d/dsm_impl_sysv.md) (multiple locations)
+  - [dsm_impl_windows](../d/dsm_impl_windows.md) (multiple locations)
+  - [dsm_impl_mmap](../d/dsm_impl_mmap.md) (multiple locations)
+  - [dsm_impl_pin_segment](../d/dsm_impl_pin_segment.md)
+  - [dsm_impl_unpin_segment](../d/dsm_impl_unpin_segment.md)
 
 ## Notes and Other Information
 - Used by all DSM implementation functions for consistent error reporting

@@ -27,8 +27,8 @@ The `PGTYPESnumeric_new` function serves as the primary constructor for creating
   - [deccall2](../d/deccall2.md) (in Informix compatibility layer)
   - [deccall3](../d/deccall3.md) (in Informix compatibility layer)
   - [deccvdbl](../d/deccvdbl.md) (decimal conversion functions)
-  - ecpg_get_data (ECPG data retrieval)
-  - ecpg_store_input (ECPG input processing)
+  - [ecpg_get_data](../e/ecpg_get_data.md) (ECPG data retrieval)
+  - [ecpg_store_input](../e/ecpg_store_input.md) (ECPG input processing)
   - Various test programs
 
 ## Notes and Other Information

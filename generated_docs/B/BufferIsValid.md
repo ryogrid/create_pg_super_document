@@ -32,6 +32,6 @@ The actual validity check simply compares the buffer number against InvalidBuffe
 
 ## Notes and Other Information
 - This function was historically equivalent to BufferIsPinned but was changed to avoid masking logic errors
-- Range checks were moved to assertions to reduce overhead in production builds
+- [Range](../R/Range.md) checks were moved to assertions to reduce overhead in production builds
 - The function supports both positive buffer numbers (shared buffers) and negative buffer numbers (local buffers)
 - InvalidBuffer is used as the sentinel value to indicate an invalid buffer

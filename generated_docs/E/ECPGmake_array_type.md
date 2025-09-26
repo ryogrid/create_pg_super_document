@@ -25,11 +25,11 @@ The function is part of the ECPG type system that handles arrays of various data
 - Functions called/Symbols referenced:
   - [ECPGmake_simple_type](ECPGmake_simple_type.md)
   - ECPGt_array (enum value)
-  - ECPGtype (struct type)
+  - [ECPGtype](ECPGtype.md) (struct type)
 
 - Called from (representative examples):
   - [ECPGstruct_member_dup](ECPGstruct_member_dup.md)
-  - find_struct_member
+  - [find_struct_member](../f/find_struct_member.md)
   - [find_variable](../f/find_variable.md)
 
 ## Notes and Other Information

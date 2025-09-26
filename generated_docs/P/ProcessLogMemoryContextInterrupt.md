@@ -26,7 +26,7 @@ This function is responsible for actually performing memory context logging afte
   - MyProcPid (global variable)
   - TopMemoryContext (global variable)
 - Called from (representative examples):
-  - ProcessInterrupts
+  - [ProcessInterrupts](ProcessInterrupts.md)
   - [HandleMainLoopInterrupts](../H/HandleMainLoopInterrupts.md)
   - [HandleAutoVacLauncherInterrupts](../H/HandleAutoVacLauncherInterrupts.md)
   - [HandleCheckpointerInterrupts](../H/HandleCheckpointerInterrupts.md)

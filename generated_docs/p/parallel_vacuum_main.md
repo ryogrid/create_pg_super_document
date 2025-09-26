@@ -50,19 +50,19 @@ Key responsibilities include:
 ## Dependencies
 - Functions called/Symbols referenced:
   - [shm_toc_lookup](../s/shm_toc_lookup.md)
-  - table_open
+  - [table_open](../t/table_open.md)
   - [vac_open_indexes](../v/vac_open_indexes.md)
   - [TidStoreAttach](../T/TidStoreAttach.md)
   - [VacuumUpdateCosts](../V/VacuumUpdateCosts.md)
-  - GetAccessStrategyWithSize
+  - [GetAccessStrategyWithSize](../G/GetAccessStrategyWithSize.md)
   - [parallel_vacuum_error_callback](parallel_vacuum_error_callback.md)
   - [InstrStartParallelQuery](../I/InstrStartParallelQuery.md)
   - [parallel_vacuum_process_safe_indexes](parallel_vacuum_process_safe_indexes.md)
   - [InstrEndParallelQuery](../I/InstrEndParallelQuery.md)
   - [TidStoreDetach](../T/TidStoreDetach.md)
   - [vac_close_indexes](../v/vac_close_indexes.md)
-  - table_close
-  - FreeAccessStrategy
+  - [table_close](../t/table_close.md)
+  - [FreeAccessStrategy](../F/FreeAccessStrategy.md)
 - Called from (representative examples):
   - Background worker process entry point (via parallel worker infrastructure)
 

@@ -25,13 +25,13 @@ Key safety features include bounds checking to ensure the activity pointer falls
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PgBackendStatus (backend status structure type)
-  - ascii_safe_strlcpy (safe ASCII-only string copying)
+  - [PgBackendStatus](../P/PgBackendStatus.md) (backend status structure type)
+  - [ascii_safe_strlcpy](../a/ascii_safe_strlcpy.md) (safe ASCII-only string copying)
   - BackendActivityBuffer (global shared memory activity buffer)
   - BackendActivityBufferSize (size of activity buffer)
   - pgstat_track_activity_query_size (configuration for query string size)
 - Called from:
-  - LogChildExit (postmaster crash logging)
+  - [LogChildExit](../L/LogChildExit.md) (postmaster crash logging)
 
 ## Notes and Other Information
 - **Postmaster-only function**: Specifically designed for postmaster use during crash reporting

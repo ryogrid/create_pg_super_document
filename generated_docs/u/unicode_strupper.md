@@ -25,10 +25,10 @@ The function handles proper Unicode case conversion according to Unicode standar
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - convert_case (performs the actual case conversion)
+  - [convert_case](../c/convert_case.md) (performs the actual case conversion)
   - ssize_t (POSIX type for signed size values)
 - Called from (representative examples):
-  - str_toupper (in src/backend/utils/adt/formatting.c)
+  - [str_toupper](../s/str_toupper.md) (in src/backend/utils/adt/formatting.c)
 
 ## Notes and Other Information
 - This is a convenience wrapper that simplifies uppercase conversion by pre-setting the case kind

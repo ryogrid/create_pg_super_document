@@ -27,18 +27,18 @@ The function also implements deadlock detection by sending signals to conflictin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetStandbyLimitTime
-  - GetCurrentTimestamp  
-  - GetLockConflicts
-  - ResolveRecoveryConflictWithVirtualXIDs
-  - ProcWaitForSignal
-  - SignalVirtualTransaction
-  - enable_timeouts
-  - disable_all_timeouts
-  - pg_atomic_read_u64
-  - pg_atomic_write_u64
+  - [GetStandbyLimitTime](../G/GetStandbyLimitTime.md)
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)  
+  - [GetLockConflicts](../G/GetLockConflicts.md)
+  - [ResolveRecoveryConflictWithVirtualXIDs](ResolveRecoveryConflictWithVirtualXIDs.md)
+  - [ProcWaitForSignal](../P/ProcWaitForSignal.md)
+  - [SignalVirtualTransaction](../S/SignalVirtualTransaction.md)
+  - [enable_timeouts](../e/enable_timeouts.md)
+  - [disable_all_timeouts](../d/disable_all_timeouts.md)
+  - [pg_atomic_read_u64](../p/pg_atomic_read_u64.md)
+  - [pg_atomic_write_u64](../p/pg_atomic_write_u64.md)
 - Called from (representative examples):
-  - ProcSleep (src/backend/storage/lmgr/proc.c:1324)
+  - [ProcSleep](../P/ProcSleep.md) (src/backend/storage/lmgr/proc.c:1324)
 
 ## Notes and Other Information
 - Only operates when InHotStandby is true

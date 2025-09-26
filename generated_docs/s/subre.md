@@ -43,12 +43,12 @@ Each subre structure represents a specific operation or construct in the regular
   - REG_ETOOBIG (regex too complex error)
   - REG_ESPACE (out of memory error)
 - Data structures used:
-  - subre (sub-regular expression structure)
-  - state (NFA state structure)
-  - cnfa (compiled NFA structure)
+  - [subre](subre.md) (sub-regular expression structure)
+  - [state](state.md) (NFA state structure)
+  - [cnfa](../c/cnfa.md) (compiled NFA structure)
 - Called from (representative examples):
-  - parse functions throughout regcomp.c
-  - newlacon function (regcomp.c:2397-2409)
+  - [parse](../p/parse.md) functions throughout regcomp.c
+  - [newlacon](../n/newlacon.md) function (regcomp.c:2397-2409)
   - Various ARCV macro expansions
 
 ## Notes and Other Information

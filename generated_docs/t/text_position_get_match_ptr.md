@@ -20,10 +20,10 @@ This is a simple accessor function that retrieves the pointer to the last succes
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TextPositionState (structure accessed)
+  - [TextPositionState](../T/TextPositionState.md) (structure accessed)
 - Called from (representative examples):
   - [replace_text](../r/replace_text.md)
-  - split_part
+  - [split_part](../s/split_part.md)
   - [split_text](../s/split_text.md)
 
 ## Notes and Other Information

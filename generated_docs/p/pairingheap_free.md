@@ -21,8 +21,8 @@ The function uses PostgreSQL's memory management system via `pfree` to release t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree (PostgreSQL memory deallocation function)
-  - pairingheap (structure type)
+  - [pfree](pfree.md) (PostgreSQL memory deallocation function)
+  - [pairingheap](pairingheap.md) (structure type)
 - Called from (representative examples):
   - Currently no direct references found in the analyzed codebase
 

@@ -24,10 +24,10 @@ The function opens the shared dependency relation with exclusive row lock, then 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - [shdepChangeDep](../s/shdepChangeDep.md)
   - [shdepDropDependency](../s/shdepDropDependency.md)  
-  - table_close
+  - [table_close](../t/table_close.md)
   - SHARED_DEPENDENCY_TABLESPACE
   - SHARED_DEPENDENCY_INVALID
 - Called from (representative examples):

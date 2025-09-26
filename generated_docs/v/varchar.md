@@ -34,7 +34,7 @@ The function optimizes for the common case where no truncation is needed by retu
   - `VARDATA_ANY`: Gets pointer to variable-length data
   - [pg_mbcharcliplen](../p/pg_mbcharcliplen.md): Clips string preserving multibyte boundaries
   - `ereport`: Reports errors with proper error codes
-  - `cstring_to_text_with_len`: Converts C string to text with specified length
+  - `[cstring_to_text_with_len](../c/cstring_to_text_with_len.md)`: Converts C string to text with specified length
   - `PG_RETURN_VARCHAR_P`: Returns VARCHAR result
   - `VARHDRSZ`: Variable header size constant
 

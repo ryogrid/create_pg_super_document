@@ -24,13 +24,13 @@ The implementation uses a sequential scan through the hash table, which includes
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_seq_init
-  - hash_seq_search
-  - hash_seq_term
-  - LogicalRepRelMapEntry (struct type)
-  - HASH_SEQ_STATUS (struct type)
+  - [hash_seq_init](../h/hash_seq_init.md)
+  - [hash_seq_search](../h/hash_seq_search.md)
+  - [hash_seq_term](../h/hash_seq_term.md)
+  - [LogicalRepRelMapEntry](../L/LogicalRepRelMapEntry.md) (struct type)
+  - [HASH_SEQ_STATUS](../H/HASH_SEQ_STATUS.md) (struct type)
 - Called from (representative examples):
-  - logicalrep_relmap_init (registered as callback)
+  - [logicalrep_relmap_init](logicalrep_relmap_init.md) (registered as callback)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the relation.c file

@@ -20,7 +20,7 @@ CreateAccessMethod processes a CREATE ACCESS METHOD statement by inserting a new
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - superuser: Checks if current user has superuser privileges
+  - [superuser](../s/superuser.md): Checks if current user has superuser privileges
   - GetSysCacheOid1: Looks up existing access method by name
   - [lookup_am_handler_func](../l/lookup_am_handler_func.md): Validates and retrieves handler function OID
   - [GetNewOidWithIndex](../G/GetNewOidWithIndex.md): Generates new OID for the access method

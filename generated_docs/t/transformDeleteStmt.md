@@ -30,7 +30,7 @@ The function carefully manages namespace visibility, ensuring that subqueries in
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DeleteStmt, ParseNamespaceItem (structure types)
+  - [DeleteStmt](../D/DeleteStmt.md), ParseNamespaceItem (structure types)
   - CMD_DELETE (command type constant)
   - [transformWithClause](transformWithClause.md) (CTE processing)
   - [setTargetTable](../s/setTargetTable.md) (target relation setup with ACL_DELETE permission)

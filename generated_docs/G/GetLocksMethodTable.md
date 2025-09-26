@@ -29,8 +29,8 @@ This function provides a safe way to access lock method information, ensuring th
   - lengthof (macro to get array length)
   - Assert (assertion macro)
 - Called from (representative examples):
-  - DeadLockCheck (src/backend/storage/lmgr/deadlock.c:269)
-  - FindLockCycleRecurseMember (src/backend/storage/lmgr/deadlock.c:556)
+  - [DeadLockCheck](../D/DeadLockCheck.md) (src/backend/storage/lmgr/deadlock.c:269)
+  - [FindLockCycleRecurseMember](../F/FindLockCycleRecurseMember.md) (src/backend/storage/lmgr/deadlock.c:556)
 
 ## Notes and Other Information
 - The function includes an assertion to validate that the lock method ID is within the valid range (0 < lockmethodid < lengthof(LockMethods))

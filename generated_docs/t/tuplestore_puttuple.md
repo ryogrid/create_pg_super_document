@@ -31,15 +31,15 @@ Like other tuplestore put functions, it maintains specific read pointer behavior
 ## Dependencies
 - Functions called/Symbols referenced:
   - COPYTUP (macro for copying tuples)
-  - tuplestore_puttuple_common
+  - [tuplestore_puttuple_common](tuplestore_puttuple_common.md)
 - Types used:
-  - Tuplestorestate
+  - [Tuplestorestate](../T/Tuplestorestate.md)
   - HeapTuple
 - Called from (representative examples):
-  - ExecMakeTableFunctionResult (execSRF.c)
-  - libpqrcv_processTuples (libpqwalreceiver.c)
-  - fill_hba_line (hbafuncs.c)
-  - plperl_return_next_internal (plperl.c)
+  - [ExecMakeTableFunctionResult](../E/ExecMakeTableFunctionResult.md) (execSRF.c)
+  - [libpqrcv_processTuples](../l/libpqrcv_processTuples.md) (libpqwalreceiver.c)
+  - [fill_hba_line](../f/fill_hba_line.md) (hbafuncs.c)
+  - [plperl_return_next_internal](../p/plperl_return_next_internal.md) (plperl.c)
 
 ## Notes and Other Information
 - Considered somewhat deprecated in favor of tuplestore_puttupleslot for new code

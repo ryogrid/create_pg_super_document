@@ -28,7 +28,7 @@ The function includes an assertion to ensure it is only called with non-pivot tu
   - [BTreeTupleGetNPosting](BTreeTupleGetNPosting.md)
   - [BTreeTupleGetPostingN](BTreeTupleGetPostingN.md)
 - Called from (representative examples):
-  - _bt_bottomupdel_finish_pending
+  - [_bt_bottomupdel_finish_pending](../b/_bt_bottomupdel_finish_pending.md)
   - [_bt_swap_posting](../b/_bt_swap_posting.md)
   - [_bt_compare](../b/_bt_compare.md)
   - [_bt_truncate](../b/_bt_truncate.md)

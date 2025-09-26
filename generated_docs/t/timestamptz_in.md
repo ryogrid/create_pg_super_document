@@ -27,7 +27,7 @@ The `timestamptz_in` function is the input function for the timestamptz data typ
   - PG_GETARG_INT32
   - [ParseDateTime](../P/ParseDateTime.md)
   - [DecodeDateTime](../D/DecodeDateTime.md)
-  - DateTimeParseError
+  - [DateTimeParseError](../D/DateTimeParseError.md)
   - [tm2timestamp](tm2timestamp.md)
   - [SetEpochTimestamp](../S/SetEpochTimestamp.md)
   - [AdjustTimestampForTypmod](../A/AdjustTimestampForTypmod.md)
@@ -41,7 +41,7 @@ The `timestamptz_in` function is the input function for the timestamptz data typ
   - TimestampTz
   - fsec_t
   - [pg_tm](../p/pg_tm.md)
-  - DateTimeErrorExtra
+  - [DateTimeErrorExtra](../D/DateTimeErrorExtra.md)
 - Constants referenced:
   - MAXDATEFIELDS
   - MAXDATELEN

@@ -34,6 +34,6 @@ This trigger function is typically used in scenarios where the text search confi
 - The second argument must be a regconfig column name rather than a literal configuration name
 - Part of PostgreSQL's automatic tsvector maintenance system for full-text search
 - The  parameter passed to the main function indicates that configuration lookup should be by column ID
-- Trigger arguments follow a specific pattern: tsvector_column, regconfig_column, text_column1, [text_column2, ...]
+- [Trigger](../T/Trigger.md) arguments follow a specific pattern: tsvector_column, regconfig_column, text_column1, [text_column2, ...]
 - The regconfig column should contain valid text search configuration OIDs
 - Automatically called when INSERT or UPDATE operations occur on the table where this trigger is installed

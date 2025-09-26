@@ -30,7 +30,7 @@ The  function is a static utility function in the PostgreSQL WAL (Write-Ahead Lo
   - [pfree](../p/pfree.md)
 - Called from (representative examples):
   - [log_invalid_page](../l/log_invalid_page.md)
-  - XLogCheckInvalidPages
+  - [XLogCheckInvalidPages](../X/XLogCheckInvalidPages.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the xlogutils.c compilation unit

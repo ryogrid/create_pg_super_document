@@ -22,11 +22,11 @@ The function accepts a generic RBTNode pointer and deallocates the memory using 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RBTNode (generic Red-Black Tree node type)
-  - pfree (PostgreSQL memory deallocation function)
-  - RBTree (referenced in broader context)
+  - [RBTNode](../R/RBTNode.md) (generic Red-Black Tree node type)
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation function)
+  - [RBTree](../R/RBTree.md) (referenced in broader context)
 - Called from (representative examples):
-  - create_int_rbtree (used as deallocator function in tree creation)
+  - [create_int_rbtree](../c/create_int_rbtree.md) (used as deallocator function in tree creation)
 
 ## Notes and Other Information
 - This is a static function used only within the test_rbtree module

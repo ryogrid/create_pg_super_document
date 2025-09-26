@@ -32,7 +32,7 @@ This function takes no parameters.
   - wal_level (GUC variable)
 
 - Called from (representative examples):
-  - CheckLogicalDecodingRequirements
+  - [CheckLogicalDecodingRequirements](CheckLogicalDecodingRequirements.md)
   - [pg_create_physical_replication_slot](../p/pg_create_physical_replication_slot.md)
   - [pg_drop_replication_slot](../p/pg_drop_replication_slot.md)
   - [copy_replication_slot](../c/copy_replication_slot.md)

@@ -35,10 +35,10 @@ This two-pass approach ensures optimal amortized performance for pairing heap op
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - merge (for pairwise heap merging)
+  - [merge](merge.md) (for pairwise heap merging)
 - Called from (representative examples):
-  - pairingheap_remove_first
-  - pairingheap_remove
+  - [pairingheap_remove_first](../p/pairingheap_remove_first.md)
+  - [pairingheap_remove](../p/pairingheap_remove.md)
 
 ## Notes and Other Information
 - This is a static (internal) function, not exposed in the public API

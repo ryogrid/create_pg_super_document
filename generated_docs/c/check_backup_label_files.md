@@ -29,14 +29,14 @@ The function enforces strict rules about backup chain structure: the first backu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeStringInfo (create expandable string buffer)
+  - [makeStringInfo](../m/makeStringInfo.md) (create expandable string buffer)
   - pg_log_debug (debug logging)
   - open (file opening)
   - [slurp_file](../s/slurp_file.md) (read entire file into buffer)
   - close (file closing)
   - [parse_backup_label](../p/parse_backup_label.md) (parse backup_label file contents)
-  - resetStringInfo (reset string buffer)
-  - destroyStringInfo (free string buffer memory)
+  - [resetStringInfo](../r/resetStringInfo.md) (reset string buffer)
+  - [destroyStringInfo](../d/destroyStringInfo.md) (free string buffer memory)
 - Called from (representative examples):
   - [main](../m/main.md) (backup processing workflow)
 

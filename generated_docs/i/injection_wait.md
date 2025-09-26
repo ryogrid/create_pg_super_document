@@ -21,7 +21,7 @@ The `injection_wait` function provides a sophisticated synchronization mechanism
   - [injection_init_shmem](injection_init_shmem.md)
   - [injection_point_allowed](injection_point_allowed.md)
   - [WaitEventInjectionPointNew](../W/WaitEventInjectionPointNew.md)
-  - strlcpy
+  - [strlcpy](../s/strlcpy.md)
   - [ConditionVariablePrepareToSleep](../C/ConditionVariablePrepareToSleep.md)
   - [ConditionVariableSleep](../C/ConditionVariableSleep.md)
   - [ConditionVariableCancelSleep](../C/ConditionVariableCancelSleep.md)

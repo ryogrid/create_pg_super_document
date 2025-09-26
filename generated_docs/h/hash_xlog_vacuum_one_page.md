@@ -30,16 +30,16 @@ Hot standby conflict resolution is important because removing DEAD tuples can co
   - XLogRecGetData
   - [XLogRecGetBlockTag](../X/XLogRecGetBlockTag.md)
   - [ResolveRecoveryConflictWithSnapshot](../R/ResolveRecoveryConflictWithSnapshot.md)
-  - XLogReadBufferForRedoExtended
+  - [XLogReadBufferForRedoExtended](../X/XLogReadBufferForRedoExtended.md)
   - [BufferGetPage](../B/BufferGetPage.md)
   - [PageIndexMultiDelete](../P/PageIndexMultiDelete.md)
   - HashPageGetOpaque
   - HashPageGetMeta
   - [PageSetLSN](../P/PageSetLSN.md)
-  - MarkBufferDirty
+  - [MarkBufferDirty](../M/MarkBufferDirty.md)
   - [BufferIsValid](../B/BufferIsValid.md)
   - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
-  - XLogReadBufferForRedo
+  - [XLogReadBufferForRedo](../X/XLogReadBufferForRedo.md)
 - Types referenced:
   - [xl_hash_vacuum_one_page](../x/xl_hash_vacuum_one_page.md)
   - XLogRedoAction

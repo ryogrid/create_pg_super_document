@@ -20,17 +20,17 @@ DatumGetTimestamp is an inline function that extracts a Timestamp value from a D
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetInt64
+  - [DatumGetInt64](DatumGetInt64.md)
   - Timestamp (type cast)
 - Called from (representative examples):
-  - JsonEncodeDateTime
-  - executeDateTimeMethod
-  - compareDatetime
-  - convert_timevalue_to_scalar
-  - timestamp_fastcmp
-  - in_range_timestamp_interval
-  - generate_series_timestamp
-  - map_sql_value_to_xml_value
+  - [JsonEncodeDateTime](../J/JsonEncodeDateTime.md)
+  - [executeDateTimeMethod](../e/executeDateTimeMethod.md)
+  - [compareDatetime](../c/compareDatetime.md)
+  - [convert_timevalue_to_scalar](../c/convert_timevalue_to_scalar.md)
+  - [timestamp_fastcmp](../t/timestamp_fastcmp.md)
+  - [in_range_timestamp_interval](../i/in_range_timestamp_interval.md)
+  - [generate_series_timestamp](../g/generate_series_timestamp.md)
+  - [map_sql_value_to_xml_value](../m/map_sql_value_to_xml_value.md)
   - PG_GETARG_TIMESTAMP (macro)
 
 ## Notes and Other Information

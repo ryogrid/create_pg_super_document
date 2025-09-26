@@ -28,14 +28,14 @@ The function returns the first matching Node pointer found, or NULL if no matchi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_jointree_node_for_rel (recursive)
+  - [find_jointree_node_for_rel](find_jointree_node_for_rel.md) (recursive)
   - nodeTag
-  - RangeTblRef
-  - FromExpr 
-  - JoinExpr
+  - [RangeTblRef](../R/RangeTblRef.md)
+  - [FromExpr](../F/FromExpr.md) 
+  - [JoinExpr](../J/JoinExpr.md)
 - Called from (representative examples):
-  - get_relids_for_join
-  - find_jointree_node_for_rel (recursive calls)
+  - [get_relids_for_join](../g/get_relids_for_join.md)
+  - [find_jointree_node_for_rel](find_jointree_node_for_rel.md) (recursive calls)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the prepjointree.c file

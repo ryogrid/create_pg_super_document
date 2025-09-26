@@ -31,9 +31,9 @@ Function calls are essential in compiled code for invoking both user-defined fun
   - fn (parameter reference)
 - Called from (representative examples):
   - [slot_compile_deform](../s/slot_compile_deform.md) (in llvmjit_deform.c)
-  - llvm_compile_expr (extensively in llvmjit_expr.c)
-  - BuildV1Call
-  - build_EvalXFuncInt
+  - [llvm_compile_expr](llvm_compile_expr.md) (extensively in llvmjit_expr.c)
+  - [BuildV1Call](../B/BuildV1Call.md)
+  - [build_EvalXFuncInt](../b/build_EvalXFuncInt.md)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's JIT compilation infrastructure

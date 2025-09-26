@@ -23,9 +23,9 @@ The function implements SJIS display width logic:
 ## Dependencies
 - Functions called/Symbols referenced:
   - IS_HIGHBIT_SET (macro to check if high bit is set)
-  - pg_ascii_dsplen (handles ASCII character display width)
+  - [pg_ascii_dsplen](pg_ascii_dsplen.md) (handles ASCII character display width)
 - Called from (representative examples):
-  - pg_encoding_set_invalid
+  - [pg_encoding_set_invalid](pg_encoding_set_invalid.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the multibyte character handling subsystem

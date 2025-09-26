@@ -40,8 +40,8 @@ This batching approach helps reduce the overhead of individual flush operations 
   - [WritebackContextInit](WritebackContextInit.md) (for context initialization)
   - [ScheduleBufferTagForWriteback](../S/ScheduleBufferTagForWriteback.md) (for adding requests to context)
   - [IssuePendingWritebacks](../I/IssuePendingWritebacks.md) (for processing pending requests)
-  - BufferSync (for buffer synchronization operations)
-  - BgBufferSync (for background buffer sync)
+  - [BufferSync](../B/BufferSync.md) (for buffer synchronization operations)
+  - [BgBufferSync](../B/BgBufferSync.md) (for background buffer sync)
 
 ## Notes and Other Information
 - Forward declared in bufmgr.h for use across buffer management modules

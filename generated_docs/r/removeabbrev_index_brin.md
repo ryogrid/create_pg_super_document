@@ -24,7 +24,7 @@ The function iterates through each SortTuple in the provided array, extracts the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Tuplesortstate (sort state management structure)
+  - [Tuplesortstate](../T/Tuplesortstate.md) (sort state management structure)
   - SortTuple (generic sort tuple structure)
   - [BrinSortTuple](../B/BrinSortTuple.md) (BRIN-specific tuple structure)
 - Called from (representative examples):

@@ -32,8 +32,8 @@ The function assumes that lateral reference checks have been performed upstream 
   - [bms_overlap](../b/bms_overlap.md) (bitmap overlap test)
 - Called from (representative examples):
   - [has_indexed_join_quals](../h/has_indexed_join_quals.md)
-  - get_baserel_parampathinfo
-  - get_joinrel_parampathinfo
+  - [get_baserel_parampathinfo](../g/get_baserel_parampathinfo.md)
+  - [get_joinrel_parampathinfo](../g/get_joinrel_parampathinfo.md)
   - make_simple_restrictinfo
 
 ## Notes and Other Information

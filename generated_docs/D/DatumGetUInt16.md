@@ -24,7 +24,7 @@ The function is declared as static inline, meaning it will be inlined by the com
 - Functions called/Symbols referenced: None (simple cast operation)
 - Called from (representative examples):
   - PG_GETARG_UINT16 (function argument extraction macro)
-  - gintuple_get_attrnum (GIN index utility function)
+  - [gintuple_get_attrnum](../g/gintuple_get_attrnum.md) (GIN index utility function)
 
 ## Notes and Other Information
 - This is a low-level utility function for type conversion

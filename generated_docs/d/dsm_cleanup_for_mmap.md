@@ -19,16 +19,16 @@ This function is specifically designed for the mmap implementation of dynamic sh
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AllocateDir
-  - ReadDir
-  - FreeDir
+  - [AllocateDir](../A/AllocateDir.md)
+  - [ReadDir](../R/ReadDir.md)
+  - [FreeDir](../F/FreeDir.md)
   - unlink
   - snprintf
   - elog
   - ereport
-  - errcode_for_file_access
+  - [errcode_for_file_access](../e/errcode_for_file_access.md)
 - Called from (representative examples):
-  - dsm_postmaster_startup
+  - [dsm_postmaster_startup](dsm_postmaster_startup.md)
 
 ## Notes and Other Information
 - This is a static function, only visible within the dsm.c compilation unit

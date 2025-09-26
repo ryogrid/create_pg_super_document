@@ -21,16 +21,16 @@ BufFileTruncateFileSet performs a comprehensive truncation operation on a filese
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FileSetSegmentName
-  - FileClose
-  - FileSetDelete
-  - FileTruncate
-  - FilePathName
+  - [FileSetSegmentName](../F/FileSetSegmentName.md)
+  - [FileClose](../F/FileClose.md)
+  - [FileSetDelete](../F/FileSetDelete.md)
+  - [FileTruncate](../F/FileTruncate.md)
+  - [FilePathName](../F/FilePathName.md)
   - MAX_PHYSICAL_FILESIZE (constant)
   - WAIT_EVENT_BUFFILE_TRUNCATE
   - ereport/ERROR
 - Called from (representative examples):
-  - stream_abort_internal (src/backend/replication/logical/worker.c:1795)
+  - [stream_abort_internal](../s/stream_abort_internal.md) (src/backend/replication/logical/worker.c:1795)
 
 ## Notes and Other Information
 - Only works with fileset-based BufFiles created by BufFileCreateFileSet

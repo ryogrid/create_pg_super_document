@@ -24,13 +24,13 @@ The snapshot building process progresses through several states before reaching 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SnapBuildCurrentState: Returns the current state of the snapshot builder
+  - [SnapBuildCurrentState](../S/SnapBuildCurrentState.md): Returns the current state of the snapshot builder
   - SNAPBUILD_CONSISTENT: Constant representing the consistent snapshot state
-  - LogicalDecodingContext: Structure containing the snapshot builder
+  - [LogicalDecodingContext](../L/LogicalDecodingContext.md): Structure containing the snapshot builder
 
 - Called from (representative examples):
-  - DecodingContextFindStartpoint: During startpoint location determination
-  - LogicalSlotAdvanceAndCheckSnapState: When advancing slot position and checking snapshot state
+  - [DecodingContextFindStartpoint](DecodingContextFindStartpoint.md): During startpoint location determination
+  - [LogicalSlotAdvanceAndCheckSnapState](../L/LogicalSlotAdvanceAndCheckSnapState.md): When advancing slot position and checking snapshot state
 
 ## Notes and Other Information
 - Simple boolean function with straightforward semantics

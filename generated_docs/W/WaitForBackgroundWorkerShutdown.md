@@ -25,7 +25,7 @@ Like its startup counterpart, this function implements a safety mechanism to det
   - [ResetLatch](../R/ResetLatch.md)
   - [BgwHandleStatus](../B/BgwHandleStatus.md) enum values (BGWH_STOPPED, BGWH_POSTMASTER_DIED)
 - Called from (representative examples):
-  - WaitForParallelWorkersToExit
+  - [WaitForParallelWorkersToExit](WaitForParallelWorkersToExit.md)
 
 ## Notes and Other Information
 - Waits for shutdown regardless of initial worker state (not started, running, etc.)

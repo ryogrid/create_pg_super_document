@@ -27,17 +27,17 @@ The function is crucial for PostgreSQL's psql client and other display component
 - Functions called/Symbols referenced:
   - (None - uses only character value comparisons)
 - Called from (representative examples):
-  - pg_euc_dsplen
-  - pg_eucjp_dsplen  
-  - pg_euccn_dsplen
-  - pg_euctw_dsplen
-  - pg_latin1_dsplen
-  - pg_sjis_dsplen
-  - pg_big5_dsplen
-  - pg_gbk_dsplen
-  - pg_uhc_dsplen
-  - pg_gb18030_dsplen
-  - pg_encoding_set_invalid
+  - [pg_euc_dsplen](pg_euc_dsplen.md)
+  - [pg_eucjp_dsplen](pg_eucjp_dsplen.md)  
+  - [pg_euccn_dsplen](pg_euccn_dsplen.md)
+  - [pg_euctw_dsplen](pg_euctw_dsplen.md)
+  - [pg_latin1_dsplen](pg_latin1_dsplen.md)
+  - [pg_sjis_dsplen](pg_sjis_dsplen.md)
+  - [pg_big5_dsplen](pg_big5_dsplen.md)
+  - [pg_gbk_dsplen](pg_gbk_dsplen.md)
+  - [pg_uhc_dsplen](pg_uhc_dsplen.md)
+  - [pg_gb18030_dsplen](pg_gb18030_dsplen.md)
+  - [pg_encoding_set_invalid](pg_encoding_set_invalid.md)
 
 ## Notes and Other Information
 - This is a static function internal to the wchar.c module

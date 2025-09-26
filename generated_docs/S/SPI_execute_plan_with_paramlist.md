@@ -25,9 +25,9 @@ The function creates an SPIExecuteOptions structure internally and delegates to 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _SPI_begin_call (establishes SPI execution context)
+  - [_SPI_begin_call](_SPI_begin_call.md) (establishes SPI execution context)
   - [_SPI_execute_plan](_SPI_execute_plan.md) (performs the actual plan execution with options)
-  - _SPI_end_call (cleanup SPI execution context)
+  - [_SPI_end_call](_SPI_end_call.md) (cleanup SPI execution context)
   - [SPIPlanPtr](SPIPlanPtr.md) (prepared plan type)
   - [ParamListInfo](../P/ParamListInfo.md) (parameter list structure type)
   - [SPIExecuteOptions](SPIExecuteOptions.md) (execution options structure)

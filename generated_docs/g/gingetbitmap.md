@@ -31,7 +31,7 @@ The function handles concurrent access considerations by ensuring the pending li
   - ItemPointerSetMin
   - [scanGetItem](../s/scanGetItem.md)
   - ItemPointerIsLossyPage
-  - tbm_add_page
+  - [tbm_add_page](../t/tbm_add_page.md)
   - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)
   - [tbm_add_tuples](../t/tbm_add_tuples.md)
 - Called from (representative examples):

@@ -42,21 +42,21 @@ The function generates a complete timezone state structure with transition times
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getqzname, getzname (for parsing timezone names)
-  - getoffset (for parsing timezone offsets)
-  - getrule (for parsing transition rules)
-  - transtime (for calculating actual transition times)
-  - init_ttinfo (for initializing timezone type information)
-  - increment_overflow_time (for safe time arithmetic)
+  - [getqzname](../g/getqzname.md), getzname (for parsing timezone names)
+  - [getoffset](../g/getoffset.md) (for parsing timezone offsets)
+  - [getrule](../g/getrule.md) (for parsing transition rules)
+  - [transtime](transtime.md) (for calculating actual transition times)
+  - [init_ttinfo](../i/init_ttinfo.md) (for initializing timezone type information)
+  - [increment_overflow_time](../i/increment_overflow_time.md) (for safe time arithmetic)
   - isleap (for leap year calculations)
   - EPOCH_YEAR, YEARSPERREPEAT, TZ_MAX_TIMES, SECSPERHOUR, SECSPERDAY (constants)
   - TZDEFRULESTRING (default transition rules)
 - Called from (representative examples):
-  - pg_load_tz (from initdb)
-  - tzloadbody
-  - gmtload
-  - pg_tzset
-  - pg_tz
+  - [pg_load_tz](../p/pg_load_tz.md) (from initdb)
+  - [tzloadbody](tzloadbody.md)
+  - [gmtload](../g/gmtload.md)
+  - [pg_tzset](../p/pg_tzset.md)
+  - [pg_tz](../p/pg_tz.md)
 
 ## Notes and Other Information
 - Returns true on successful parsing, false on any error

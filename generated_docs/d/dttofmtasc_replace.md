@@ -35,7 +35,7 @@ The function operates recursively for composite format specifiers (like %D which
   - strftime (system function for locale-aware formatting)
   - [SetEpochTimestamp](../S/SetEpochTimestamp.md) (gets epoch timestamp for calculations)
   - Various PGTYPES_TYPE_* constants (formatting type specifiers)
-  - String arrays: pgtypes_date_weekdays_short, days, months, pgtypes_date_months
+  - [String](../S/String.md) arrays: pgtypes_date_weekdays_short, days, months, pgtypes_date_months
 - Called from (representative examples):
   - Self-recursively for composite format specifiers (%D, %r, %R, %T)
   - [PGTYPEStimestamp_fmt_asc](../P/PGTYPEStimestamp_fmt_asc.md) (main timestamp formatting function)

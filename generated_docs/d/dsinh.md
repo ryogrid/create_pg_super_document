@@ -22,7 +22,7 @@ The  function implements the hyperbolic sine mathematical function (sinh) for Po
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT8: Extracts float8 argument from function call
   - sinh: Standard C library hyperbolic sine function
-  - get_float8_infinity: Returns positive infinity for float8 type
+  - [get_float8_infinity](../g/get_float8_infinity.md): Returns positive infinity for float8 type
 - Called from: No direct references found in the codebase
 
 ## Notes and Other Information

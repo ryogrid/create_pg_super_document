@@ -32,7 +32,7 @@ The function uses binary search to efficiently check whether individual values a
 - Functions called/Symbols referenced:
   - [AssertArrayOrder](AssertArrayOrder.md)
   - [FunctionCall2Coll](../F/FunctionCall2Coll.md)
-  - bsearch_arg
+  - [bsearch_arg](../b/bsearch_arg.md)
   - [compare_values](../c/compare_values.md)
 - Data structures referenced:
   - [Ranges](../R/Ranges.md)

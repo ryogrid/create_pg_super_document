@@ -32,7 +32,7 @@ The function differentiates between complete portal execution and fetch operatio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetPortalByName (locate portal by name)
+  - [GetPortalByName](../G/GetPortalByName.md) (locate portal by name)
   - PortalIsValid (validate portal existence)
   - [IsTransactionStmtList](../I/IsTransactionStmtList.md) (detect transaction control statements)
   - [PortalRun](../P/PortalRun.md) (execute the portal)

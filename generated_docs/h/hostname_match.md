@@ -28,9 +28,9 @@ For suffix matching, the function calculates the lengths of both strings and ens
 ## Dependencies
 - Functions called/Symbols referenced:
   - strlen (standard C library function)
-  - pg_strcasecmp (PostgreSQL's case-insensitive string comparison)
+  - [pg_strcasecmp](../p/pg_strcasecmp.md) (PostgreSQL's case-insensitive string comparison)
 - Called from (representative examples):
-  - check_hostname (in hba.c)
+  - [check_hostname](../c/check_hostname.md) (in hba.c)
 
 ## Notes and Other Information
 - Supports domain suffix matching when pattern starts with '.' (e.g., ".example.com" matches "host.example.com")

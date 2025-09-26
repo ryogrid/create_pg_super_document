@@ -29,13 +29,13 @@ LOCALPREDICATELOCK is an optimization structure that maintains a local, per-tran
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PREDICATELOCKTARGETTAG
+  - [PREDICATELOCKTARGETTAG](../P/PREDICATELOCKTARGETTAG.md)
 - Called from (representative examples):
-  - CreateLocalPredicateLockHash
-  - PredicateLockExists
-  - CheckAndPromotePredicateLockRequest
-  - DecrementParentLocks
-  - PredicateLockAcquire
+  - [CreateLocalPredicateLockHash](../C/CreateLocalPredicateLockHash.md)
+  - [PredicateLockExists](../P/PredicateLockExists.md)
+  - [CheckAndPromotePredicateLockRequest](../C/CheckAndPromotePredicateLockRequest.md)
+  - [DecrementParentLocks](../D/DecrementParentLocks.md)
+  - [PredicateLockAcquire](../P/PredicateLockAcquire.md)
 
 ## Notes and Other Information
 - Strictly an optimization structure - not required for correctness

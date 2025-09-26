@@ -45,7 +45,7 @@ This is a typedef, not a struct, so it has no members. However, the underlying t
   -  - WAL control structures
   -  - Logical replication slots
   -  - Shared memory message queues
-  -  - Hash table segments
+  -  - [Hash](../H/Hash.md) table segments
   -  - Synchronization barriers
   - All PostgreSQL shared memory data structures requiring synchronization
 

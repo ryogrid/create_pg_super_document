@@ -20,9 +20,9 @@ The  function creates an archive entry that contains a SQL command to set the cl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_encoding_to_char (converts encoding ID to string name)
+  - [pg_encoding_to_char](../p/pg_encoding_to_char.md) (converts encoding ID to string name)
   - pg_log_info (logs the encoding being saved)
-  - createPQExpBuffer/appendPQExpBufferStr/destroyPQExpBuffer (string buffer management)
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)/appendPQExpBufferStr/destroyPQExpBuffer (string buffer management)
   - appendStringLiteralAH (safely quotes the encoding name as SQL literal)
   - [createDumpId](../c/createDumpId.md) (generates unique dump ID)
   - [ArchiveEntry](../A/ArchiveEntry.md) (creates archive entry with SQL command)

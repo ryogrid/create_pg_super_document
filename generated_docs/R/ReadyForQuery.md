@@ -23,7 +23,7 @@ In PostgreSQL protocol version 3.0 and later, the ReadyForQuery message includes
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_beginmessage (starts building a protocol message)
+  - [pq_beginmessage](../p/pq_beginmessage.md) (starts building a protocol message)
   - [pq_sendbyte](../p/pq_sendbyte.md) (adds a byte to the message)
   - [pq_endmessage](../p/pq_endmessage.md) (finalizes the protocol message)
   - pq_flush (flushes output buffer to reduce network packets)

@@ -25,9 +25,9 @@ The function is registered as a callback in the PostgreSQL statistics infrastruc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_lock_entry
-  - pgstat_unlock_entry
-  - PgStat_EntryRef
+  - [pgstat_lock_entry](pgstat_lock_entry.md)
+  - [pgstat_unlock_entry](pgstat_unlock_entry.md)
+  - [PgStat_EntryRef](../P/PgStat_EntryRef.md)
   - [PgStatShared_Database](../P/PgStatShared_Database.md)
   - [PgStat_StatDBEntry](../P/PgStat_StatDBEntry.md)
 - Called from (representative examples):

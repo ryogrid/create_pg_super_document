@@ -22,13 +22,13 @@ The function works as the counterpart to jsonb_in_array_start, completing the br
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pushJsonbValue (pushes parsing tokens onto the state stack)
+  - [pushJsonbValue](../p/pushJsonbValue.md) (pushes parsing tokens onto the state stack)
   - WJB_END_ARRAY (token constant indicating array end)
   - JSON_SUCCESS (return value indicating successful parsing)
-  - JsonbInState (parsing state structure)
+  - [JsonbInState](../J/JsonbInState.md) (parsing state structure)
 - Called from (representative examples):
-  - jsonb_from_cstring (main JSONB input function)
-  - datum_to_jsonb_internal (internal conversion function)
+  - [jsonb_from_cstring](jsonb_from_cstring.md) (main JSONB input function)
+  - [datum_to_jsonb_internal](../d/datum_to_jsonb_internal.md) (internal conversion function)
 
 ## Notes and Other Information
 - This is a static function internal to the jsonb.c module

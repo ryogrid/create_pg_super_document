@@ -21,7 +21,7 @@ The function first checks if the backend is actively listening on any channels b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - set_ps_display: Updates process status display
+  - [set_ps_display](../s/set_ps_display.md): Updates process status display
   - [StartTransactionCommand](../S/StartTransactionCommand.md): Initiates transaction for safe queue reading
   - [asyncQueueReadAllNotifications](../a/asyncQueueReadAllNotifications.md): Core function that reads and processes notifications
   - [CommitTransactionCommand](../C/CommitTransactionCommand.md): Commits the transaction after processing

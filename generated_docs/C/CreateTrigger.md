@@ -35,7 +35,7 @@ CreateTrigger is a simplified interface for creating triggers that delegates to 
 - Functions called/Symbols referenced:
   - [CreateTriggerFiringOn](CreateTriggerFiringOn.md)
   - TRIGGER_FIRES_ON_ORIGIN
-  - CreateTrigStmt
+  - [CreateTrigStmt](CreateTrigStmt.md)
 - Called from (representative examples):
   - [index_constraint_create](../i/index_constraint_create.md)
   - [CreateFKCheckTrigger](CreateFKCheckTrigger.md)

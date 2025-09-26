@@ -19,26 +19,26 @@ void ShowUsage(const char *title)
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getrusage (system call to get current resource usage)
-  - gettimeofday (system call to get current time)
-  - StringInfoData (string buffer structure)
-  - initStringInfo (initialize string buffer)
-  - appendStringInfo (format and append to string buffer)
-  - appendStringInfoString (append string to buffer)
+  - [getrusage](../g/getrusage.md) (system call to get current resource usage)
+  - [gettimeofday](../g/gettimeofday.md) (system call to get current time)
+  - [StringInfoData](StringInfoData.md) (string buffer structure)
+  - [initStringInfo](../i/initStringInfo.md) (initialize string buffer)
+  - [appendStringInfo](../a/appendStringInfo.md) (format and append to string buffer)
+  - [appendStringInfoString](../a/appendStringInfoString.md) (append string to buffer)
   - ereport (PostgreSQL logging function)
-  - errmsg_internal (internal error message formatting)
-  - errdetail_internal (internal error detail formatting)
-  - pfree (PostgreSQL memory deallocation)
+  - [errmsg_internal](../e/errmsg_internal.md) (internal error message formatting)
+  - [errdetail_internal](../e/errdetail_internal.md) (internal error detail formatting)
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation)
   - RUSAGE_SELF (constant for current process resource usage)
   - Save_r and Save_t (global baseline variables)
 
 - Called from (representative examples):
-  - btbuild (B-tree index building)
-  - _bt_leafbuild (B-tree leaf page building)
-  - _SPI_pquery (SPI query processing)
-  - pg_parse_query (query parsing)
-  - exec_simple_query (simple query execution)
-  - PortalRun (portal execution)
+  - [btbuild](../b/btbuild.md) (B-tree index building)
+  - [_bt_leafbuild](../b/_bt_leafbuild.md) (B-tree leaf page building)
+  - [_SPI_pquery](_SPI_pquery.md) (SPI query processing)
+  - [pg_parse_query](../p/pg_parse_query.md) (query parsing)
+  - [exec_simple_query](../e/exec_simple_query.md) (simple query execution)
+  - [PortalRun](../P/PortalRun.md) (portal execution)
 
 ## Notes and Other Information
 - Requires a prior call to `ResetUsage` to establish the measurement baseline

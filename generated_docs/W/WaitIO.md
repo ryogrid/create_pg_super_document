@@ -28,19 +28,19 @@ The function uses spinlock protection when checking the buffer state to ensure c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferDesc
-  - BufferDescriptorGetIOCV
+  - [BufferDesc](../B/BufferDesc.md)
+  - [BufferDescriptorGetIOCV](../B/BufferDescriptorGetIOCV.md)
   - ConditionVariable
-  - ConditionVariablePrepareToSleep
-  - LockBufHdr
-  - UnlockBufHdr
+  - [ConditionVariablePrepareToSleep](../C/ConditionVariablePrepareToSleep.md)
+  - [LockBufHdr](../L/LockBufHdr.md)
+  - [UnlockBufHdr](../U/UnlockBufHdr.md)
   - BM_IO_IN_PROGRESS
-  - ConditionVariableSleep
-  - ConditionVariableCancelSleep
+  - [ConditionVariableSleep](../C/ConditionVariableSleep.md)
+  - [ConditionVariableCancelSleep](../C/ConditionVariableCancelSleep.md)
 - Called from (representative examples):
   - BufferIsPinned
-  - InvalidateBuffer
-  - StartBufferIO
+  - [InvalidateBuffer](../I/InvalidateBuffer.md)
+  - [StartBufferIO](../S/StartBufferIO.md)
 
 ## Notes and Other Information
 - This function is static and only used internally within the buffer manager

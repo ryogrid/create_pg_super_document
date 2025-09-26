@@ -28,7 +28,7 @@ The optimization criteria are identical to Append nodes: there must be exactly o
 ## Dependencies
 - Functions called/Symbols referenced:
   - [set_plan_refs](set_plan_refs.md) (recursive processing)
-  - list_length
+  - [list_length](../l/list_length.md)
   - linitial
   - [clean_up_removed_plan_level](../c/clean_up_removed_plan_level.md)
   - [set_dummy_tlist_references](set_dummy_tlist_references.md)
@@ -44,7 +44,7 @@ The optimization criteria are identical to Append nodes: there must be exactly o
 - Returns Plan* instead of void, enabling plan node elimination optimization
 - This is a static function within setrefs.c for internal plan reference adjustment
 - Shares nearly identical structure and logic with set_append_references, differing only in the specific plan type processed
-- MergeAppend nodes maintain sorted output by merging pre-sorted child plan results
+- [MergeAppend](../M/MergeAppend.md) nodes maintain sorted output by merging pre-sorted child plan results
 - Like Append nodes, MergeAppend nodes don't evaluate target lists or quals directly
 - The parallel awareness check ensures correct behavior in parallel execution contexts
 - Partition pruning information (part_prune_info) is handled identically to Append nodes

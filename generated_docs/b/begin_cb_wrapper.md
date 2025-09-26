@@ -22,14 +22,14 @@ The function is part of the ReorderBuffer callback infrastructure, which process
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReorderBufferTXN
-  - ReorderBuffer
-  - LogicalDecodingContext
-  - LogicalErrorCallbackState
-  - output_plugin_error_callback
-  - callback
+  - [ReorderBufferTXN](../R/ReorderBufferTXN.md)
+  - [ReorderBuffer](../R/ReorderBuffer.md)
+  - [LogicalDecodingContext](../L/LogicalDecodingContext.md)
+  - [LogicalErrorCallbackState](../L/LogicalErrorCallbackState.md)
+  - [output_plugin_error_callback](../o/output_plugin_error_callback.md)
+  - [callback](../c/callback.md)
 - Called from (representative examples):
-  - StartupDecodingContext
+  - [StartupDecodingContext](../S/StartupDecodingContext.md)
 
 ## Notes and Other Information
 - The function asserts that fast_forward mode is disabled during transaction processing

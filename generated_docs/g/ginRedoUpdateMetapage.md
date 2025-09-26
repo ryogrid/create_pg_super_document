@@ -32,16 +32,16 @@ The function ensures data consistency during recovery by properly setting LSNs a
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData
-  - XLogInitBufferForRedo
+  - [XLogInitBufferForRedo](../X/XLogInitBufferForRedo.md)
   - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)
   - [GinInitMetabuffer](../G/GinInitMetabuffer.md)
   - GinPageGetMeta
-  - XLogReadBufferForRedo
+  - [XLogReadBufferForRedo](../X/XLogReadBufferForRedo.md)
   - [XLogRecGetBlockData](../X/XLogRecGetBlockData.md)
   - PageAddItem
   - GinPageGetOpaque
   - [PageSetLSN](../P/PageSetLSN.md)
-  - MarkBufferDirty
+  - [MarkBufferDirty](../M/MarkBufferDirty.md)
   - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
 
 - Called from:

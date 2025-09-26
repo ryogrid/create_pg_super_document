@@ -30,16 +30,16 @@ This function is fundamental to PostgreSQL's geometric data type parsing infrast
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `single_decode`: Used twice to parse the x and y coordinate values
+  - `[single_decode](../s/single_decode.md)`: Used twice to parse the x and y coordinate values
   - `LDELIM`: Left delimiter constant (opening parenthesis)
   - `DELIM`: Coordinate separator delimiter (comma)
   - `RDELIM`: Right delimiter constant (closing parenthesis) 
   - `ereturn`: Error return macro for soft error handling
   - `isspace`: Standard library function for whitespace detection
 - Called from (representative examples):
-  - `point_in`: For parsing point input strings like "(1.0,2.0)"
-  - `path_decode`: For parsing individual coordinate pairs within path strings
-  - `circle_in`: For parsing circle center coordinates
+  - `[point_in](point_in.md)`: For parsing point input strings like "(1.0,2.0)"
+  - `[path_decode](path_decode.md)`: For parsing individual coordinate pairs within path strings
+  - `[circle_in](../c/circle_in.md)`: For parsing circle center coordinates
 
 ## Notes and Other Information
 - This is a static function, only accessible within the geo_ops.c file

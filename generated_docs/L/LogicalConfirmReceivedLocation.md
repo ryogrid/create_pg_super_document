@@ -24,19 +24,19 @@ The function implements a two-phase protocol for xmin updates: first writing the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReplicationSlotMarkDirty
-  - ReplicationSlotSave
-  - ReplicationSlotsComputeRequiredXmin
-  - ReplicationSlotsComputeRequiredLSN
+  - [ReplicationSlotMarkDirty](../R/ReplicationSlotMarkDirty.md)
+  - [ReplicationSlotSave](../R/ReplicationSlotSave.md)
+  - [ReplicationSlotsComputeRequiredXmin](../R/ReplicationSlotsComputeRequiredXmin.md)
+  - [ReplicationSlotsComputeRequiredLSN](../R/ReplicationSlotsComputeRequiredLSN.md)
   - XLByteToSeg
   - INJECTION_POINT (when USE_INJECTION_POINTS enabled)
   - elog (DEBUG1 logging)
 - Called from (representative examples):
-  - LogicalIncreaseXminForSlot
-  - LogicalIncreaseRestartDecodingForSlot
-  - ProcessStandbyReplyMessage
-  - pg_logical_slot_get_changes_guts
-  - LogicalSlotAdvanceAndCheckSnapState
+  - [LogicalIncreaseXminForSlot](LogicalIncreaseXminForSlot.md)
+  - [LogicalIncreaseRestartDecodingForSlot](LogicalIncreaseRestartDecodingForSlot.md)
+  - [ProcessStandbyReplyMessage](../P/ProcessStandbyReplyMessage.md)
+  - [pg_logical_slot_get_changes_guts](../p/pg_logical_slot_get_changes_guts.md)
+  - [LogicalSlotAdvanceAndCheckSnapState](LogicalSlotAdvanceAndCheckSnapState.md)
 
 ## Notes and Other Information
 - Includes protection against moving confirmed_flush backwards to prevent data duplication

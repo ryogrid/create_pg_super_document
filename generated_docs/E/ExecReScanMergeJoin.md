@@ -28,11 +28,11 @@ The function implements an optimization where child plans are only rescanned whe
 ## Dependencies
 - Functions called/Symbols referenced:
   - outerPlanState/innerPlanState (to access child plan nodes)
-  - ExecClearTuple (to clear the marked tuple slot)
-  - ExecReScan (to rescan child plans when needed)
+  - [ExecClearTuple](ExecClearTuple.md) (to clear the marked tuple slot)
+  - [ExecReScan](ExecReScan.md) (to rescan child plans when needed)
   - EXEC_MJ_INITIALIZE_OUTER (initial state constant)
 - Called from (representative examples):
-  - ExecReScan (executor rescan dispatcher)
+  - [ExecReScan](ExecReScan.md) (executor rescan dispatcher)
 
 ## Notes and Other Information
 - Essential for supporting nested loops with merge join inner plans

@@ -31,11 +31,11 @@ The function includes safety assertions to verify the entry is properly initiali
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_atomic_read_u32
-  - pg_atomic_fetch_add_u32  
-  - dshash_release_lock
+  - [pg_atomic_read_u32](pg_atomic_read_u32.md)
+  - [pg_atomic_fetch_add_u32](pg_atomic_fetch_add_u32.md)  
+  - [dshash_release_lock](../d/dshash_release_lock.md)
 - Called from (representative examples):
-  - pgstat_get_entry_ref (multiple locations)
+  - [pgstat_get_entry_ref](pgstat_get_entry_ref.md) (multiple locations)
 
 ## Notes and Other Information
 - This is a static helper function, only accessible within the pgstat_shmem.c module

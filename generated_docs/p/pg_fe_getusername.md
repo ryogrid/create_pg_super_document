@@ -26,11 +26,11 @@ The function allocates memory for the returned username string using , making th
 ## Dependencies
 - Functions called/Symbols referenced:
   - GetUserName (Windows API for current user lookup)
-  - pg_get_user_name (Unix user ID to name conversion)
-  - libpq_append_error (error message formatting)
+  - [pg_get_user_name](pg_get_user_name.md) (Unix user ID to name conversion)
+  - [libpq_append_error](../l/libpq_append_error.md) (error message formatting)
   - strdup (string duplication/memory allocation)
 - Called from (representative examples):
-  - pg_fe_getauthname
+  - [pg_fe_getauthname](pg_fe_getauthname.md)
   - CONNECTION_FAILED (connection establishment)
 
 ## Notes and Other Information

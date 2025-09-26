@@ -31,11 +31,11 @@ The function carefully manages scan direction, handling special cases like rever
   - [tuplestore_ateof](../t/tuplestore_ateof.md): Check if tuplestore is at end of file
   - [tuplestore_advance](../t/tuplestore_advance.md): Advance tuplestore position
   - [tuplestore_gettupleslot](../t/tuplestore_gettupleslot.md): Retrieve tuple from tuplestore
-  - ExecProcNode: Execute the underlying CTE plan node
+  - [ExecProcNode](../E/ExecProcNode.md): Execute the underlying CTE plan node
   - TupIsNull: Check if tuple is null
-  - tuplestore_puttupleslot: Store tuple in tuplestore
-  - ExecCopySlot: Copy tuple from one slot to another
-  - ExecClearTuple: Clear tuple slot
+  - [tuplestore_puttupleslot](../t/tuplestore_puttupleslot.md): Store tuple in tuplestore
+  - [ExecCopySlot](../E/ExecCopySlot.md): Copy tuple from one slot to another
+  - [ExecClearTuple](../E/ExecClearTuple.md): Clear tuple slot
 - Called from (representative examples):
   - [ExecCteScan](../E/ExecCteScan.md): The main CTE scan execution function
 

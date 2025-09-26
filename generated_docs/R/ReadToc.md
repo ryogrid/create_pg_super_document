@@ -21,7 +21,7 @@ This function deserializes the Table of Contents from an archive file and builds
 - Functions called/Symbols referenced:
   - [TocEntry](../T/TocEntry.md), DumpId (struct types)
   - [ReadInt](ReadInt.md), ReadStr (archive reading functions)
-  - pg_malloc0, pg_malloc, pg_realloc (memory management)
+  - [pg_malloc0](../p/pg_malloc0.md), pg_malloc, pg_realloc (memory management)
   - pg_log_warning, pg_log_debug (logging functions)
   - [processEncodingEntry](../p/processEncodingEntry.md), processStdStringsEntry, processSearchPathEntry (special entry processors)
   - Version constants (K_VERS_1_3, K_VERS_1_5, etc.)

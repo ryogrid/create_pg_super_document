@@ -23,18 +23,18 @@ The function ensures complete cleanup of both working memory (handled by tupleso
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - tuplesort_free (internal resource cleanup function)
-  - MemoryContextDelete (PostgreSQL memory context deletion)
+  - [tuplesort_free](tuplesort_free.md) (internal resource cleanup function)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md) (PostgreSQL memory context deletion)
 
 - Called from (representative examples):
-  - _brin_parallel_merge (BRIN index parallel merge completion)
-  - gistbuild (GiST index build completion) 
-  - _h_spooldestroy (hash index spool cleanup)
-  - _bt_spooldestroy (B-tree index spool cleanup)
-  - ExecEndAgg (aggregate node cleanup)
-  - ExecEndSort (sort node cleanup)
-  - ExecEndIncrementalSort (incremental sort node cleanup)
-  - ordered_set_shutdown (ordered set aggregate cleanup)
+  - [_brin_parallel_merge](../b/_brin_parallel_merge.md) (BRIN index parallel merge completion)
+  - [gistbuild](../g/gistbuild.md) (GiST index build completion) 
+  - [_h_spooldestroy](../h/_h_spooldestroy.md) (hash index spool cleanup)
+  - [_bt_spooldestroy](../b/_bt_spooldestroy.md) (B-tree index spool cleanup)
+  - [ExecEndAgg](../E/ExecEndAgg.md) (aggregate node cleanup)
+  - [ExecEndSort](../E/ExecEndSort.md) (sort node cleanup)
+  - [ExecEndIncrementalSort](../E/ExecEndIncrementalSort.md) (incremental sort node cleanup)
+  - [ordered_set_shutdown](../o/ordered_set_shutdown.md) (ordered set aggregate cleanup)
 
 ## Notes and Other Information
 - This is the final function to call in the tuplesort lifecycle

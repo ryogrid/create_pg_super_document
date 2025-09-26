@@ -26,14 +26,14 @@ The function returns 0 on success and -1 on failure, following standard Unix con
 - Functions called/Symbols referenced:
   - [smgropen](../s/smgropen.md) (to get SMgrRelation for the file tag's relation)
   - [FilePathName](../F/FilePathName.md) (to get the path of an open file)
-  - strlcpy (for safe string copying)
+  - [strlcpy](../s/strlcpy.md) (for safe string copying)
   - [_mdfd_segpath](_mdfd_segpath.md) (to construct segment file path)
   - [pfree](../p/pfree.md) (to free allocated path string)
-  - PathNameOpenFile (to open file by path name)
+  - [PathNameOpenFile](../P/PathNameOpenFile.md) (to open file by path name)
   - [_mdfd_open_flags](_mdfd_open_flags.md) (to get appropriate file open flags)
   - [pgstat_prepare_io_time](../p/pgstat_prepare_io_time.md) (to prepare I/O timing measurement)
-  - FileSync (to perform the actual file sync operation)
-  - FileClose (to close temporarily opened file)
+  - [FileSync](../F/FileSync.md) (to perform the actual file sync operation)
+  - [FileClose](../F/FileClose.md) (to close temporarily opened file)
   - [pgstat_count_io_op_time](../p/pgstat_count_io_op_time.md) (to record I/O statistics)
 - Called from (representative examples):
   - Background writer and checkpointer processes

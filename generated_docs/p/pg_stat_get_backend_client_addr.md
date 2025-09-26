@@ -30,7 +30,7 @@ The function returns NULL if the backend doesn't exist, the user lacks permissio
 - Functions called/Symbols referenced:
   - [pgstat_get_beentry_by_proc_number](pgstat_get_beentry_by_proc_number.md)
   - HAS_PGSTAT_PERMISSIONS
-  - pg_getnameinfo_all
+  - [pg_getnameinfo_all](pg_getnameinfo_all.md)
   - [clean_ipv6_addr](../c/clean_ipv6_addr.md)
   - [inet_in](../i/inet_in.md)
   - DirectFunctionCall1

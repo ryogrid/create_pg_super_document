@@ -25,7 +25,7 @@ The function includes a note that callers may need to call _bt_checkpage() to va
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ConditionalLockBuffer
+  - [ConditionalLockBuffer](../C/ConditionalLockBuffer.md)
   - RelationUsesLocalBuffers
   - VALGRIND_MAKE_MEM_DEFINED
   - [BufferGetPage](../B/BufferGetPage.md)

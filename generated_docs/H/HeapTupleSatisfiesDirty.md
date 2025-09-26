@@ -43,7 +43,7 @@ Key behaviors include:
   - HeapTupleHeaderGetSpeculativeToken
   - [HeapTupleGetUpdateXid](HeapTupleGetUpdateXid.md)
   - [TransactionIdIsCurrentTransactionId](../T/TransactionIdIsCurrentTransactionId.md)
-  - TransactionIdIsInProgress
+  - [TransactionIdIsInProgress](../T/TransactionIdIsInProgress.md)
   - [TransactionIdDidCommit](../T/TransactionIdDidCommit.md)
   - [SetHintBits](../S/SetHintBits.md)
 - Called from (representative examples):

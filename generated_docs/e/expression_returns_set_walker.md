@@ -21,11 +21,11 @@ This static function implements the core logic for detecting set-returning expre
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (macro for node type checking)
-  - FuncExpr (function call expression node)
-  - OpExpr (operator expression node)
-  - Aggref (aggregate function reference node)
-  - GroupingFunc (grouping function node)
-  - WindowFunc (window function node)
+  - [FuncExpr](../F/FuncExpr.md) (function call expression node)
+  - [OpExpr](../O/OpExpr.md) (operator expression node)
+  - [Aggref](../A/Aggref.md) (aggregate function reference node)
+  - [GroupingFunc](../G/GroupingFunc.md) (grouping function node)
+  - [WindowFunc](../W/WindowFunc.md) (window function node)
   - expression_tree_walker (framework function for tree traversal)
 
 - Called from (representative examples):

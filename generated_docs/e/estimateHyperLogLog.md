@@ -25,14 +25,14 @@ The function first calculates the raw estimate using the formula E = αm² / Σ(
   - log (natural logarithm function)
   - POW_2_32 (constant: 2^32)
   - NEG_POW_2_32 (constant: -2^32)
-  - hyperLogLogState (structure type)
+  - [hyperLogLogState](../h/hyperLogLogState.md) (structure type)
 - Called from (representative examples):
-  - hashagg_spill_finish
-  - macaddr_abbrev_abort
-  - network_abbrev_abort
-  - numeric_abbrev_abort
-  - uuid_abbrev_abort
-  - varstr_abbrev_abort
+  - [hashagg_spill_finish](../h/hashagg_spill_finish.md)
+  - [macaddr_abbrev_abort](../m/macaddr_abbrev_abort.md)
+  - [network_abbrev_abort](../n/network_abbrev_abort.md)
+  - [numeric_abbrev_abort](../n/numeric_abbrev_abort.md)
+  - [uuid_abbrev_abort](../u/uuid_abbrev_abort.md)
+  - [varstr_abbrev_abort](../v/varstr_abbrev_abort.md)
 
 ## Notes and Other Information
 - Implements the complete HyperLogLog algorithm including both small and large range corrections

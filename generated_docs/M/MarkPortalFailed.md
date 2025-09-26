@@ -24,13 +24,13 @@ The function validates that the portal is not already in DONE state (since done 
   - PORTAL_DONE (constant for state validation)
   - PORTAL_FAILED (constant for setting failed state)
   - PointerIsValid (macro to check if cleanup function pointer is valid)
-  - cleanup (portal cleanup function pointer)
+  - [cleanup](../c/cleanup.md) (portal cleanup function pointer)
 - Called from (representative examples):
-  - PersistHoldablePortal (src/backend/commands/portalcmds.c:467)
-  - PortalStart (src/backend/tcop/pquery.c:592)
-  - PortalRun (src/backend/tcop/pquery.c:809)
-  - AtAbort_Portals (src/backend/utils/mmgr/portalmem.c:797, 820)
-  - AtSubAbort_Portals (src/backend/utils/mmgr/portalmem.c:1019, 1053)
+  - [PersistHoldablePortal](../P/PersistHoldablePortal.md) (src/backend/commands/portalcmds.c:467)
+  - [PortalStart](../P/PortalStart.md) (src/backend/tcop/pquery.c:592)
+  - [PortalRun](../P/PortalRun.md) (src/backend/tcop/pquery.c:809)
+  - [AtAbort_Portals](../A/AtAbort_Portals.md) (src/backend/utils/mmgr/portalmem.c:797, 820)
+  - [AtSubAbort_Portals](../A/AtSubAbort_Portals.md) (src/backend/utils/mmgr/portalmem.c:1019, 1053)
 
 ## Notes and Other Information
 - The function enforces that portals must never have their status set to PORTAL_FAILED directly - this function must always be used to ensure proper cleanup execution

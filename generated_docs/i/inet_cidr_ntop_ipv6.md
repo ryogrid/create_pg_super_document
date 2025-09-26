@@ -43,7 +43,7 @@ Key algorithmic features include finding the longest consecutive sequence of zer
 - Special case handling for zero-length networks (bits=0) outputs "::"
 - Zero compression algorithm finds longest consecutive zero sequence for :: notation
 - IPv4-mapped address detection for addresses like ::ffff:192.0.2.1
-- Complex logic handles various IPv6 formatting edge cases and optimizations
+- [Complex](../C/Complex.md) logic handles various IPv6 formatting edge cases and optimizations
 - Network byte order assumed for all input processing
 - Originally based on Paul Vixie's IPv4 version, adapted by Vadim Kogan (UCB) in June 2001
 - Function is static (internal linkage) within the inet_cidr_ntop.c module

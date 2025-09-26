@@ -26,15 +26,15 @@ The function also handles skew optimization parameters, which can improve perfor
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to create the Hash node)
-  - Hash (plan node structure)
+  - [Hash](../H/Hash.md) (plan node structure)
 - Called from (representative examples):
   - [create_hashjoin_plan](../c/create_hashjoin_plan.md) (in createplan.c:4878)
 
 ## Notes and Other Information
 - This is a static function within createplan.c, used internally by the plan creation subsystem
-- Hash nodes are always paired with HashJoin nodes, with the Hash node as the right child building the hash table from the inner relation
+- [Hash](../H/Hash.md) nodes are always paired with HashJoin nodes, with the Hash node as the right child building the hash table from the inner relation
 - The target list is copied from the input plan (lefttree) since the Hash node needs to pass through all columns needed by the parent HashJoin
 - The qual field is set to NIL because filtering is typically done at the HashJoin level, not in the Hash node
 - Skew optimization helps handle cases where certain hash key values are much more common than others, which can lead to uneven hash bucket distribution
 - The hash table built by this node must fit in work_mem, or PostgreSQL will use batch processing to handle larger datasets
-- Hash nodes are leaf nodes in the sense that they have no right child, but they process input from their left child
+- [Hash](../H/Hash.md) nodes are leaf nodes in the sense that they have no right child, but they process input from their left child

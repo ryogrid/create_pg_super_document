@@ -24,16 +24,16 @@ The function allocates a buffer if none is provided and uses a switch statement 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetDateADT, DatumGetTimeADT, DatumGetTimeTzADTP, DatumGetTimestamp, DatumGetTimestampTz
+  - [DatumGetDateADT](../D/DatumGetDateADT.md), DatumGetTimeADT, DatumGetTimeTzADTP, DatumGetTimestamp, DatumGetTimestampTz
   - DATE_NOT_FINITE, TIMESTAMP_NOT_FINITE
-  - j2date, time2tm, timetz2tm, timestamp2tm
-  - EncodeSpecialDate, EncodeSpecialTimestamp, EncodeDateOnly, EncodeTimeOnly, EncodeDateTime
+  - [j2date](../j/j2date.md), time2tm, timetz2tm, timestamp2tm
+  - [EncodeSpecialDate](../E/EncodeSpecialDate.md), EncodeSpecialTimestamp, EncodeDateOnly, EncodeTimeOnly, EncodeDateTime
   - USE_XSD_DATES, MAXDATELEN, POSTGRES_EPOCH_JDATE, USECS_PER_SEC
 - Called from (representative examples):
-  - datum_to_json_internal
-  - datum_to_jsonb_internal
-  - convertJsonbScalar
-  - executeItemOptUnwrapTarget
+  - [datum_to_json_internal](../d/datum_to_json_internal.md)
+  - [datum_to_jsonb_internal](../d/datum_to_jsonb_internal.md)
+  - [convertJsonbScalar](../c/convertJsonbScalar.md)
+  - [executeItemOptUnwrapTarget](../e/executeItemOptUnwrapTarget.md)
 
 ## Notes and Other Information
 The function ensures JSON compatibility by using XSD date format standards and handles PostgreSQL's special datetime values (infinity, -infinity). For timestamptz with custom timezone, it applies the offset before conversion and sets the tm_isdst flag to indicate timezone presence. Error handling is provided for out-of-range timestamps and unknown datetime type OIDs.

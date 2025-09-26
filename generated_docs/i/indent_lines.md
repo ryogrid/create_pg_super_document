@@ -23,11 +23,11 @@ This function is primarily used in pg_amcheck for formatting error messages and 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQExpBufferData](../P/PQExpBufferData.md) (data structure)
-  - initPQExpBuffer
+  - [initPQExpBuffer](initPQExpBuffer.md)
   - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
-  - appendPQExpBufferChar
+  - [appendPQExpBufferChar](../a/appendPQExpBufferChar.md)
   - [pstrdup](../p/pstrdup.md)
-  - termPQExpBuffer
+  - [termPQExpBuffer](../t/termPQExpBuffer.md)
 - Called from:
   - [verify_heap_slot_handler](../v/verify_heap_slot_handler.md) (at src/bin/pg_amcheck/pg_amcheck.c:1086)
   - [verify_btree_slot_handler](../v/verify_btree_slot_handler.md) (at src/bin/pg_amcheck/pg_amcheck.c:1155)

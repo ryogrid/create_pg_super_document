@@ -27,7 +27,7 @@ This function generates the body of a SQL CTE (Common Table Expression) that con
   - [appendPQExpBufferStr](appendPQExpBufferStr.md)
   - [appendPQExpBuffer](appendPQExpBuffer.md)
   - [appendStringLiteralConn](appendStringLiteralConn.md)
-  - appendPQExpBufferChar
+  - [appendPQExpBufferChar](appendPQExpBufferChar.md)
   - [PatternInfoArray](../P/PatternInfoArray.md)
   - [PatternInfo](../P/PatternInfo.md)
 - Called from (representative examples):

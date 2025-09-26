@@ -22,8 +22,8 @@ This function is part of PostgreSQL's geometric SP-GiST implementation for 2D sp
 - Functions called/Symbols referenced:
   - [FPgt](../F/FPgt.md) (floating-point greater-than comparison function, called twice)
 - Data types used:
-  - RangeBox
-  - Range
+  - [RangeBox](../R/RangeBox.md)
+  - [Range](../R/Range.md)
 - Called from (representative examples):
   - [right4D](../r/right4D.md)
   - [above4D](../a/above4D.md)

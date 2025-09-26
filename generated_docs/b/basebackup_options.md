@@ -51,7 +51,7 @@ The `basebackup_options` structure serves as a comprehensive configuration conta
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BaseBackupTargetHandle](../B/BaseBackupTargetHandle.md)
-  - backup_manifest_option
+  - [backup_manifest_option](backup_manifest_option.md)
   - [pg_compress_algorithm](../p/pg_compress_algorithm.md)
   - [pg_compress_specification](../p/pg_compress_specification.md)
   - pg_checksum_type

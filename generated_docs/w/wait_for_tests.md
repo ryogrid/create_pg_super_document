@@ -25,7 +25,7 @@ This function implements cross-platform process synchronization for PostgreSQL's
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_malloc (memory allocation)
+  - [pg_malloc](../p/pg_malloc.md) (memory allocation)
   - wait, WaitForMultipleObjects (platform-specific process waiting)
   - GetExitCodeProcess, CloseHandle (Windows process management)
   - INSTR_TIME_SET_CURRENT (timestamp recording)

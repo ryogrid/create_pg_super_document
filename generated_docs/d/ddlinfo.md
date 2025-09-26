@@ -29,7 +29,7 @@ This structure serves as a template for creating the four standard pgbench table
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQExpBufferData](../P/PQExpBufferData.md)
-  - initPQExpBuffer
+  - [initPQExpBuffer](../i/initPQExpBuffer.md)
   - lengthof
   - [printfPQExpBuffer](../p/printfPQExpBuffer.md)
   - SCALE_32BIT_THRESHOLD
@@ -37,7 +37,7 @@ This structure serves as a template for creating the four standard pgbench table
   - [PQescapeIdentifier](../P/PQescapeIdentifier.md)
   - [PQfreemem](../P/PQfreemem.md)
   - [executeStatement](../e/executeStatement.md)
-  - termPQExpBuffer
+  - [termPQExpBuffer](../t/termPQExpBuffer.md)
   - [createPartitions](../c/createPartitions.md)
 - Called from (representative examples):
   - DDLs array initialization

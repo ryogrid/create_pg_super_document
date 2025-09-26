@@ -33,10 +33,10 @@ ProcessStartupPacket handles the complex process of reading and interpreting Pos
   - [secure_open_gssapi](../s/secure_open_gssapi.md) (GSSAPI builds)
   - [pq_buffer_remaining_data](../p/pq_buffer_remaining_data.md)
   - [parse_bool](../p/parse_bool.md)
-  - pg_clean_ascii
+  - [pg_clean_ascii](../p/pg_clean_ascii.md)
   - [SendNegotiateProtocolVersion](../S/SendNegotiateProtocolVersion.md)
   - [pstrdup](../p/pstrdup.md)
-  - lappend
+  - [lappend](../l/lappend.md)
 - Called from (representative examples):
   - [BackendInitialize](../B/BackendInitialize.md)
   - [ProcessStartupPacket](ProcessStartupPacket.md) (recursive for SSL/GSSAPI negotiation)

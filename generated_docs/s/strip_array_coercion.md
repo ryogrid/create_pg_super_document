@@ -30,13 +30,13 @@ This preprocessing is crucial for accurate selectivity estimation because statis
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ArrayCoerceExpr
-  - RelabelType
+  - [ArrayCoerceExpr](../A/ArrayCoerceExpr.md)
+  - [RelabelType](../R/RelabelType.md)
   - CaseTestExpr
   - IsA (macro for node type checking)
 - Called from (representative examples):
-  - scalararraysel
-  - estimate_array_length
+  - [scalararraysel](scalararraysel.md)
+  - [estimate_array_length](../e/estimate_array_length.md)
 
 ## Notes and Other Information
 - Static function used internally within selfuncs.c for preprocessing array expressions

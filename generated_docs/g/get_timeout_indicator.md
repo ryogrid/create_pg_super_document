@@ -22,10 +22,10 @@ The function includes race condition protection by only resetting the indicator 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TimeoutId (timeout identifier type)
+  - [TimeoutId](../T/TimeoutId.md) (timeout identifier type)
 - Called from (representative examples):
-  - ProcessInterrupts (interrupt processing in postgres.c, called twice)
-  - DisableTimeoutParams (macro wrapper)
+  - [ProcessInterrupts](../P/ProcessInterrupts.md) (interrupt processing in postgres.c, called twice)
+  - [DisableTimeoutParams](../D/DisableTimeoutParams.md) (macro wrapper)
 
 ## Notes and Other Information
 - Provides race condition protection by only resetting indicators when they are currently true

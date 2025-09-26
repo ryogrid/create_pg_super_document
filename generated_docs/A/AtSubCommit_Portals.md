@@ -35,9 +35,9 @@ The function performs two main operations:
   - [ResourceOwnerNewParent](../R/ResourceOwnerNewParent.md)
 - Data types used:
   - SubTransactionId
-  - ResourceOwner
-  - HASH_SEQ_STATUS
-  - PortalHashEnt
+  - [ResourceOwner](../R/ResourceOwner.md)
+  - [HASH_SEQ_STATUS](../H/HASH_SEQ_STATUS.md)
+  - [PortalHashEnt](../P/PortalHashEnt.md)
   - [Portal](../P/Portal.md)
 - Called from:
   - [CommitSubTransaction](../C/CommitSubTransaction.md) (src/backend/access/transam/xact.c:5091)

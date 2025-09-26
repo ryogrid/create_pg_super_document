@@ -24,12 +24,12 @@ When  is false, the function simply returns the original string unchanged, as th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ecpg_alloc
+  - [ecpg_alloc](../e/ecpg_alloc.md)
   - [PQescapeString](../P/PQescapeString.md)
   - ESCAPE_STRING_SYNTAX
-  - ecpg_free
+  - [ecpg_free](../e/ecpg_free.md)
 - Called from (representative examples):
-  - ecpg_store_input (multiple locations)
+  - [ecpg_store_input](../e/ecpg_store_input.md) (multiple locations)
 
 ## Notes and Other Information
 - The function always uses E'' (escape string) syntax when characters were escaped to ensure compatibility regardless of the target database's standard_conforming_strings setting

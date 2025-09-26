@@ -19,7 +19,7 @@ This function processes a complete tar header block (512 bytes) that has been bu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - strlcpy
+  - [strlcpy](../s/strlcpy.md)
   - [read_tar_number](../r/read_tar_number.md)
   - [tarPaddingBytesRequired](../t/tarPaddingBytesRequired.md)
   - [bbstreamer_content](bbstreamer_content.md)

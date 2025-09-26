@@ -25,7 +25,7 @@ The function ensures that no error message queue connections remain active when 
   - ParallelApplyWorkerPool (global worker pool list)
   - [ParallelApplyWorkerInfo](../P/ParallelApplyWorkerInfo.md) (worker information structure)
 - Called from (representative examples):
-  - logicalrep_worker_detach
+  - [logicalrep_worker_detach](../l/logicalrep_worker_detach.md)
 
 ## Notes and Other Information
 - Function safely handles cases where error_mq_handle might be NULL

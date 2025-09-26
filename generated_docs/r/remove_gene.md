@@ -25,8 +25,8 @@ The removal process involves finding the gene in each edge list and replacing it
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Edge (type)
-  - Gene (type)
+  - [Edge](../E/Edge.md) (type)
+  - [Gene](../G/Gene.md) (type)
 - Called from (representative examples):
   - [gimme_tour](../g/gimme_tour.md)
 

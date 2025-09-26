@@ -72,7 +72,7 @@ This function performs a complete deep copy of a tuple descriptor, including all
   - [CreateTemplateTupleDesc](CreateTemplateTupleDesc.md)
   - [TupleConstr](../T/TupleConstr.md)
   - [AttrDefault](../A/AttrDefault.md)
-  - AttrMissing
+  - [AttrMissing](../A/AttrMissing.md)
   - [ConstrCheck](ConstrCheck.md)
   - [datumCopy](../d/datumCopy.md)
 - Called from (representative examples):

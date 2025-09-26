@@ -33,7 +33,7 @@ The estimation is only performed when both instrumentation is enabled and parall
   - shm_toc_estimate_chunk (estimates shared memory chunk space)
   - shm_toc_estimate_keys (estimates shared memory key space)
 - Called from (representative examples):
-  - ExecParallelEstimate (parallel execution space estimation dispatcher)
+  - [ExecParallelEstimate](ExecParallelEstimate.md) (parallel execution space estimation dispatcher)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's parallel query support infrastructure

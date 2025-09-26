@@ -26,7 +26,7 @@ The anyrange_out function serves as a text output function for the anyrange pseu
 - Located in src/backend/utils/adt/pseudotypes.c:210-222
 - Part of PostgreSQL's pseudotype system for handling polymorphic range types
 - The anyrange pseudotype allows functions to accept any range type (int4range, numrange, tsrange, daterange, etc.)
-- Range types represent intervals of values and are displayed in formats like [1,10) or (2023-01-01,2023-12-31]
+- [Range](../R/Range.md) types represent intervals of values and are displayed in formats like [1,10) or (2023-01-01,2023-12-31]
 - Text output functions convert internal range representations to human-readable string format for display
 - This pseudotype enables writing generic functions that can work with different range types without knowing their specific element types at compile time
 - Essential for polymorphic range operations and generic range-handling functions

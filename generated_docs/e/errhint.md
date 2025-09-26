@@ -22,7 +22,7 @@ The function manages memory context switching to ensure proper memory allocation
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ErrorData (struct type)
+  - [ErrorData](../E/ErrorData.md) (struct type)
   - CHECK_STACK_DEPTH (macro)
   - EVALUATE_MESSAGE (macro)
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)

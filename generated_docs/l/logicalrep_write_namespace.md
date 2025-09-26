@@ -22,14 +22,14 @@ The function handles error cases where the namespace lookup fails, which could i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_sendbyte (write single byte to message buffer)
-  - pq_sendstring (write null-terminated string to message buffer)
-  - get_namespace_name (look up namespace name from OID)
+  - [pq_sendbyte](../p/pq_sendbyte.md) (write single byte to message buffer)
+  - [pq_sendstring](../p/pq_sendstring.md) (write null-terminated string to message buffer)
+  - [get_namespace_name](../g/get_namespace_name.md) (look up namespace name from OID)
   - PG_CATALOG_NAMESPACE (constant for pg_catalog namespace OID)
   - elog (error logging and reporting)
 - Called from:
-  - logicalrep_write_rel (writes relation information including namespace)
-  - logicalrep_write_typ (writes type information including namespace)
+  - [logicalrep_write_rel](logicalrep_write_rel.md) (writes relation information including namespace)
+  - [logicalrep_write_typ](logicalrep_write_typ.md) (writes type information including namespace)
 
 ## Notes and Other Information
 - This is a static function used internally within logical replication protocol implementation

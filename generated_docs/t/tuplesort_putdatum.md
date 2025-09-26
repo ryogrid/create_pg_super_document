@@ -25,7 +25,7 @@ This function handles the insertion of individual Datum values into a sorting op
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - [datumCopy](../d/datumCopy.md)
   - [DatumGetPointer](../D/DatumGetPointer.md)
-  - tuplesort_puttuple_common
+  - [tuplesort_puttuple_common](tuplesort_puttuple_common.md)
 - Called from (representative examples):
   - [validate_index_callback](../v/validate_index_callback.md)
   - [ExecEvalAggOrderedTransDatum](../E/ExecEvalAggOrderedTransDatum.md)

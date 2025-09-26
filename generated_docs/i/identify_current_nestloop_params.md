@@ -22,7 +22,7 @@ When parameters are identified as suitable, they are removed from the root->curO
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - NestLoopParam
+  - [NestLoopParam](../N/NestLoopParam.md)
   - [bms_is_member](../b/bms_is_member.md)
   - foreach_delete_current
   - [bms_intersect](../b/bms_intersect.md)

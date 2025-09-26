@@ -23,7 +23,7 @@ The function handles the case where no non-null inputs were processed by returni
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PolyNumAggState` (polymorphic aggregate state structure)
-  - `Numeric` (PostgreSQL numeric type)
+  - `[Numeric](../N/Numeric.md)` (PostgreSQL numeric type)
   - `init_var` (variable initialization)
   - [int128_to_numericvar](../i/int128_to_numericvar.md) (128-bit to numeric conversion)
   - [make_result](../m/make_result.md) (result creation)

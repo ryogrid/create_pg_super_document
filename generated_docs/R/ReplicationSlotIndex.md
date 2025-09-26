@@ -23,11 +23,11 @@ ReplicationSlotIndex computes and returns the zero-based index of a given Replic
   - Assert macro for bounds checking
   - ReplicationSlotCtl global structure access
 - Called from (representative examples):
-  - pgstat_reset_replslot
-  - pgstat_report_replslot
-  - pgstat_create_replslot
-  - pgstat_acquire_replslot
-  - pgstat_drop_replslot
+  - [pgstat_reset_replslot](../p/pgstat_reset_replslot.md)
+  - [pgstat_report_replslot](../p/pgstat_report_replslot.md)
+  - [pgstat_create_replslot](../p/pgstat_create_replslot.md)
+  - [pgstat_acquire_replslot](../p/pgstat_acquire_replslot.md)
+  - [pgstat_drop_replslot](../p/pgstat_drop_replslot.md)
 
 ## Notes and Other Information
 - Performs bounds checking via assertion to ensure the slot pointer is valid

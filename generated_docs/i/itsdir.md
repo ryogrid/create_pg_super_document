@@ -27,7 +27,7 @@ The function handles edge cases like  errors (which can occur with very large fi
 - Functions called/Symbols referenced:
   - [stat](../s/stat.md) (POSIX system call for file information)
   - S_ISDIR (macro to test directory status, if available)
-  - emalloc (memory allocation function)
+  - [emalloc](../e/emalloc.md) (memory allocation function)
   - strlen, memcpy, strcpy, free (standard C library functions)
 - Called from:
   - [dolink](../d/dolink.md) (at line 1014 in src/timezone/zic.c)

@@ -33,13 +33,13 @@ The posting list overhead calculation () is important for the caller to make inf
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _bt_buildadd
-  - _bt_form_posting
+  - [_bt_buildadd](_bt_buildadd.md)
+  - [_bt_form_posting](_bt_form_posting.md)
   - IndexTupleSize
-  - BTreeTupleGetPostingOffset
-  - pfree
+  - [BTreeTupleGetPostingOffset](../B/BTreeTupleGetPostingOffset.md)
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - _bt_load
+  - [_bt_load](_bt_load.md)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's B-tree index deduplication infrastructure, which helps reduce index size by combining multiple heap TIDs that point to the same key value

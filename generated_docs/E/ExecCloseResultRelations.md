@@ -26,7 +26,7 @@ The function ensures that all result-related relations are properly closed to pr
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecCloseIndices](ExecCloseIndices.md) (closes indexes for result relations)
-  - table_close (closes individual relation descriptors with NoLock)
+  - [table_close](../t/table_close.md) (closes individual relation descriptors with NoLock)
 - Called from:
   - [ExecEndPlan](ExecEndPlan.md) (main execution cleanup)
   - [CopyFrom](../C/CopyFrom.md) (COPY command cleanup)

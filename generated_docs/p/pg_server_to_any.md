@@ -38,7 +38,7 @@ The function assumes the input string is valid in the database encoding and hand
 - Called from (representative examples):
   - [DoCopyTo](../D/DoCopyTo.md) (COPY command processing)
   - [CopyAttributeOutText](../C/CopyAttributeOutText.md)/CopyAttributeOutCSV (COPY output formatting)
-  - sqlchar_to_unicode (XML processing)
+  - [sqlchar_to_unicode](../s/sqlchar_to_unicode.md) (XML processing)
   - [PLyUnicode_FromStringAndSize](../P/PLyUnicode_FromStringAndSize.md) (Python interface)
 
 ## Notes and Other Information

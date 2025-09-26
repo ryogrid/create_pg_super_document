@@ -22,10 +22,10 @@ The `exec_command_password` function handles the `\password` backslash command i
 - Functions called/Symbols referenced:
   - `psql_scan_slash_option()` - Parses optional username parameter
   - [PSQLexec](../P/PSQLexec.md)() - Executes SQL query to get CURRENT_USER
-  - `simple_prompt_extended()` - Securely prompts for password input
-  - `PQchangePassword()` - libpq function to change user password
+  - `[simple_prompt_extended](../s/simple_prompt_extended.md)()` - Securely prompts for password input
+  - `[PQchangePassword](../P/PQchangePassword.md)()` - libpq function to change user password
   - [PQgetvalue](../P/PQgetvalue.md)(), `PQclear()` - libpq result handling functions
-  - `initPQExpBuffer()`, `printfPQExpBuffer()`, `termPQExpBuffer()` - Buffer management
+  - `[initPQExpBuffer](../i/initPQExpBuffer.md)()`, `printfPQExpBuffer()`, `termPQExpBuffer()` - Buffer management
   - [pg_strdup](../p/pg_strdup.md)(), `free()` - Memory management functions
   - `pg_log_error()`, `pg_log_info()` - Logging functions
   - [ignore_slash_options](../i/ignore_slash_options.md)() - Handles unused options when inactive

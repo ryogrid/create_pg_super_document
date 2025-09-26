@@ -27,7 +27,7 @@ The function allocates memory for the result string and is designed to be reusab
 - Functions called/Symbols referenced:
   - [palloc](../p/palloc.md) (PostgreSQL memory allocation)
   - [double_to_shortest_decimal_buf](../d/double_to_shortest_decimal_buf.md) (shortest decimal representation)
-  - pg_strfromd (PostgreSQL's snprintf-style double formatting)
+  - [pg_strfromd](../p/pg_strfromd.md) (PostgreSQL's snprintf-style double formatting)
   
 - Global variables used:
   - extra_float_digits (configuration parameter controlling output precision)
@@ -35,8 +35,8 @@ The function allocates memory for the result string and is designed to be reusab
 
 - Called from (representative examples):
   - [float8out](float8out.md) (main float8 output function)
-  - single_encode (geometric operations)
-  - pair_encode (geometric operations)  
+  - [single_encode](../s/single_encode.md) (geometric operations)
+  - [pair_encode](../p/pair_encode.md) (geometric operations)  
   - [line_out](../l/line_out.md) (line type output function)
 
 ## Notes and Other Information

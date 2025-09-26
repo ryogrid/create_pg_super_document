@@ -23,11 +23,11 @@ This function is used to serialize Integer nodes, which are part of PostgreSQL's
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendStringInfo (indirectly through format string expansion)
+  - [appendStringInfo](../a/appendStringInfo.md) (indirectly through format string expansion)
 - Types referenced:
-  - Integer
+  - [Integer](../I/Integer.md)
 - Called from (representative examples):
-  - outNode at src/backend/nodes/outfuncs.c:728
+  - [outNode](outNode.md) at src/backend/nodes/outfuncs.c:728
 
 ## Notes and Other Information
 - This is a static function, used only within the outfuncs.c compilation unit  

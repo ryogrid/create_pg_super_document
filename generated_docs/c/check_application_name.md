@@ -29,7 +29,7 @@ The cleaning process ensures that the application_name is safe for use in log fi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_clean_ascii
+  - [pg_clean_ascii](../p/pg_clean_ascii.md)
   - [guc_strdup](../g/guc_strdup.md)
   - [guc_free](../g/guc_free.md)
   - [pfree](../p/pfree.md)

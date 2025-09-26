@@ -38,9 +38,9 @@ For prefetching optimization, the function maintains two separate iterators - on
   - [BitmapAdjustPrefetchTarget](BitmapAdjustPrefetchTarget.md): Adjust prefetch distance target
   - [BitmapPrefetch](BitmapPrefetch.md): Issue prefetch requests for upcoming pages
   - [table_beginscan_bm](../t/table_beginscan_bm.md): Initialize bitmap table scan
-  - `table_scan_bitmap_next_block`: Position scanner at bitmap result block
-  - `table_scan_bitmap_next_tuple`: Fetch next tuple from current block
-  - `ExecQualAndReset`: Apply recheck conditions for lossy bitmap entries
+  - `[table_scan_bitmap_next_block](../t/table_scan_bitmap_next_block.md)`: Position scanner at bitmap result block
+  - `[table_scan_bitmap_next_tuple](../t/table_scan_bitmap_next_tuple.md)`: Fetch next tuple from current block
+  - `[ExecQualAndReset](../E/ExecQualAndReset.md)`: Apply recheck conditions for lossy bitmap entries
   - [BitmapDoneInitializingSharedState](BitmapDoneInitializingSharedState.md): Signal completion of shared state setup
 - Called from (representative examples):
   - [ExecBitmapHeapScan](../E/ExecBitmapHeapScan.md): Main execution function for BitmapHeapScan nodes

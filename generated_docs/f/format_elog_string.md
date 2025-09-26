@@ -24,7 +24,7 @@ The formatted message is allocated in the ErrorContext and returned as a string.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ErrorData (struct type)
+  - [ErrorData](../E/ErrorData.md) (struct type)
   - MemSet (macro/function)
   - PG_TEXTDOMAIN (macro)
   - EVALUATE_MESSAGE (macro)

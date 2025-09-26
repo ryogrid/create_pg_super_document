@@ -25,15 +25,15 @@ BEFORE STATEMENT triggers are not allowed to return values - if a trigger attemp
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - before_stmt_triggers_fired
+  - [before_stmt_triggers_fired](../b/before_stmt_triggers_fired.md)
   - [ExecGetAllUpdatedCols](ExecGetAllUpdatedCols.md)
   - [ExecCallTriggerFunc](ExecCallTriggerFunc.md)
   - [TriggerEnabled](../T/TriggerEnabled.md)
   - GetPerTupleMemoryContext
 - Data types referenced:
-  - TriggerDesc
-  - TriggerData
-  - Trigger
+  - [TriggerDesc](../T/TriggerDesc.md)
+  - [TriggerData](../T/TriggerData.md)
+  - [Trigger](../T/Trigger.md)
   - [Bitmapset](../B/Bitmapset.md)
   - TRIGGER_EVENT_UPDATE
   - TRIGGER_EVENT_BEFORE

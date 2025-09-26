@@ -28,9 +28,9 @@ The structure follows the standard Unix domain socket address format, containing
 - Functions called/Symbols referenced:
   - (This is a data structure definition with no function calls)
 - Called from (representative examples):
-  - `pg_getnameinfo_all` (src/common/ip.c:122)
-  - `getaddrinfo_unix` (src/common/ip.c:158, 186, 202, 218)
-  - `getnameinfo_unix` (src/common/ip.c:228)
+  - `[pg_getnameinfo_all](../p/pg_getnameinfo_all.md)` (src/common/ip.c:122)
+  - `[getaddrinfo_unix](../g/getaddrinfo_unix.md)` (src/common/ip.c:158, 186, 202, 218)
+  - `[getnameinfo_unix](../g/getnameinfo_unix.md)` (src/common/ip.c:228)
   - `UNIXSOCK_PATH_BUFLEN` macro (src/include/libpq/pqcomm.h:60)
 
 ## Notes and Other Information

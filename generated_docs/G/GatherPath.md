@@ -30,16 +30,16 @@ The GatherPath serves as a coordination point where results from multiple parall
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Path (base structure)
+  - [Path](../P/Path.md) (base structure)
 
 - Called from (representative examples):
-  - cost_gather (calculates execution cost)
-  - create_gather_plan (converts path to execution plan)
-  - create_gather_path (creates new GatherPath instances)
-  - apply_projection_to_path (applies projections to parallel paths)
+  - [cost_gather](../c/cost_gather.md) (calculates execution cost)
+  - [create_gather_plan](../c/create_gather_plan.md) (converts path to execution plan)
+  - [create_gather_path](../c/create_gather_path.md) (creates new GatherPath instances)
+  - [apply_projection_to_path](../a/apply_projection_to_path.md) (applies projections to parallel paths)
 
 ## Notes and Other Information
-- GatherPath is primarily used for parallel sequential scans and other parallelizable operations
+- [GatherPath](GatherPath.md) is primarily used for parallel sequential scans and other parallelizable operations
 - The single_copy flag is important for operations where having the leader participate would cause correctness issues
 - Cost estimation for GatherPath involves considering parallel startup costs, worker coordination overhead, and potential load balancing issues
 - The actual number of workers allocated may be less than num_workers based on system resources and configuration

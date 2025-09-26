@@ -21,18 +21,18 @@ This function processes a PostgreSQL text array datum containing relation option
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - deconstruct_array_builtin
+  - [deconstruct_array_builtin](../d/deconstruct_array_builtin.md)
   - DatumGetArrayTypeP
   - TextDatumGetCString
   - strchr
-  - quote_identifier
-  - simple_quote_literal
-  - appendStringInfoString
-  - appendStringInfo
-  - pfree
+  - [quote_identifier](../q/quote_identifier.md)
+  - [simple_quote_literal](../s/simple_quote_literal.md)
+  - [appendStringInfoString](../a/appendStringInfoString.md)
+  - [appendStringInfo](../a/appendStringInfo.md)
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - pg_get_indexdef_worker
-  - flatten_reloptions
+  - [pg_get_indexdef_worker](../p/pg_get_indexdef_worker.md)
+  - [flatten_reloptions](../f/flatten_reloptions.md)
 
 ## Notes and Other Information
 - This is a static function within ruleutils.c, primarily used for SQL object definition reconstruction

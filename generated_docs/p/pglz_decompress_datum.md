@@ -25,7 +25,7 @@ The function handles error conditions by checking the decompression result and r
   - VARDATA_COMPRESSED_GET_EXTSIZE (macro to get original uncompressed size)
   - VARHDRSZ (standard varlena header size)
   - [palloc](palloc.md) (PostgreSQL memory allocation)
-  - pglz_decompress (core PGLZ decompression function)
+  - [pglz_decompress](pglz_decompress.md) (core PGLZ decompression function)
   - VARHDRSZ_COMPRESSED (compressed varlena header size)
   - VARSIZE (macro to get varlena total size)
   - VARDATA (macro to get data portion of varlena)

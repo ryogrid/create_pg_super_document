@@ -27,7 +27,7 @@ The function reads the buffer for redo, updates the NSN, clears the follow-right
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogReadBufferForRedo (reads buffer for redo operation)
+  - [XLogReadBufferForRedo](../X/XLogReadBufferForRedo.md) (reads buffer for redo operation)
   - GistPageSetNSN (sets Next Sequence Number on the page)
   - GistClearFollowRight (clears the follow-right flag)
   - [BufferGetPage](../B/BufferGetPage.md), PageSetLSN, MarkBufferDirty, UnlockReleaseBuffer (buffer management)

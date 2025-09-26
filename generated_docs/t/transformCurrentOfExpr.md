@@ -24,13 +24,13 @@ The function includes a special optimization for PL/pgSQL: if the cursor name ma
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode
-  - makeString
+  - [makeString](../m/makeString.md)
   - list_make1
   - IsA (macro)
   - PARAM_EXTERN (enum constant)
   - REFCURSOROID (OID constant)
 - Called from (representative examples):
-  - transformExprRecurse
+  - [transformExprRecurse](transformExprRecurse.md)
 
 ## Notes and Other Information
 - Can only be used at the top level of UPDATE/DELETE statements (assertion check)

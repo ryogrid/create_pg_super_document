@@ -33,9 +33,9 @@ This function is part of the executor's replication infrastructure and serves as
   - [errdetail_relkind_not_supported](../e/errdetail_relkind_not_supported.md) (utility function for generating relation kind error details)
 - Called from (representative examples):
   - [CreateSubscription](CreateSubscription.md) (in subscription creation commands)
-  - logicalrep_rel_open (when opening relations for logical replication)
+  - [logicalrep_rel_open](../l/logicalrep_rel_open.md) (when opening relations for logical replication)
   - [apply_handle_tuple_routing](../a/apply_handle_tuple_routing.md) (during tuple routing in logical replication worker)
-  - exec_rt_fetch (in executor runtime fetch operations)
+  - [exec_rt_fetch](../e/exec_rt_fetch.md) (in executor runtime fetch operations)
 
 ## Notes and Other Information
 - The function only allows RELKIND_RELATION and RELKIND_PARTITIONED_TABLE as valid targets for logical replication

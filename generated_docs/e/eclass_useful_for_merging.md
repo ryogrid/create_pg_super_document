@@ -34,7 +34,7 @@ The function checks several conditions:
   - bms_is_empty (bitmap set emptiness check)
   - [bms_is_subset](../b/bms_is_subset.md) (bitmap set subset test)
   - [bms_overlap](../b/bms_overlap.md) (bitmap set overlap test)
-  - list_length (list length utility)
+  - [list_length](../l/list_length.md) (list length utility)
 - Called from (representative examples):
   - [pathkeys_useful_for_merging](../p/pathkeys_useful_for_merging.md) (src/backend/optimizer/path/pathkeys.c:2054)
 

@@ -23,7 +23,7 @@ This function provides a simple way to check if the currently executing process 
   - LogicalRepCtx->launcher_pid (shared memory field)
   - MyProcPid (current process PID global variable)
 - Called from (representative examples):
-  - ProcessInterrupts
+  - [ProcessInterrupts](../P/ProcessInterrupts.md)
 
 ## Notes and Other Information
 - Returns true only when called from within the logical replication launcher process

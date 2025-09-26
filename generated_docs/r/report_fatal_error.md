@@ -23,7 +23,7 @@ This function provides a standardized way to handle fatal errors in the pg_verif
 - Functions called/Symbols referenced:
   - va_start (from stdarg.h)
   - va_end (from stdarg.h) 
-  - pg_log_generic_v (PostgreSQL logging function)
+  - [pg_log_generic_v](../p/pg_log_generic_v.md) (PostgreSQL logging function)
   - gettext (internationalization function)
   - exit (standard library function)
 - Constants used:

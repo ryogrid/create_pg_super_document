@@ -23,7 +23,7 @@ ECPGnoticeReceiver serves as a notice processor callback for PostgreSQL connecti
   - [PQresultErrorField](../P/PQresultErrorField.md)
   - ECPGget_sqlca
   - [ecpg_log](../e/ecpg_log.md)
-  - ecpg_gettext
+  - [ecpg_gettext](../e/ecpg_gettext.md)
   - strncmp/strcmp/strlen
 - Called from (representative examples):
   - [ECPGconnect](ECPGconnect.md) (registered as notice receiver)

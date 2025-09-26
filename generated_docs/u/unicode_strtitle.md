@@ -27,7 +27,7 @@ The function uses a callback mechanism (wbnext) to identify word boundaries, whi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - convert_case (internal conversion function)
+  - [convert_case](../c/convert_case.md) (internal conversion function)
   - CaseTitle (enum value for titlecase conversion)
   - WordBoundaryNext (callback function type)
   - ssize_t (signed size type)

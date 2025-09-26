@@ -33,7 +33,7 @@ This static function constructs a Group plan node that performs grouping operati
 - Functions called/Symbols referenced:
   - makeNode (to create Group node)
 - Types referenced:
-  - Group (the grouping plan node structure)
+  - [Group](../G/Group.md) (the grouping plan node structure)
 - Called from (representative examples):
   - [create_group_plan](../c/create_group_plan.md)
 
@@ -43,5 +43,5 @@ This static function constructs a Group plan node that performs grouping operati
 - More memory-efficient than hash-based aggregation for large datasets when input is sorted
 - The right child plan node is always set to NULL as grouping is a unary operation
 - Often used in conjunction with Sort nodes to ensure proper input ordering
-- Group nodes perform streaming aggregation, processing one group at a time without building large intermediate data structures
+- [Group](../G/Group.md) nodes perform streaming aggregation, processing one group at a time without building large intermediate data structures
 - The grouping columns must match exactly between consecutive rows to be considered part of the same group

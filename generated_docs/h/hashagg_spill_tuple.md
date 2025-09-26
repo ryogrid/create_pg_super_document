@@ -30,14 +30,14 @@ Key operations performed:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slot_getsomeattrs
-  - ExecClearTuple
+  - [slot_getsomeattrs](../s/slot_getsomeattrs.md)
+  - [ExecClearTuple](../E/ExecClearTuple.md)
   - [bms_is_member](../b/bms_is_member.md)
   - [ExecStoreVirtualTuple](../E/ExecStoreVirtualTuple.md)
   - [ExecFetchSlotMinimalTuple](../E/ExecFetchSlotMinimalTuple.md)
-  - addHyperLogLog
+  - [addHyperLogLog](../a/addHyperLogLog.md)
   - [hash_bytes_uint32](hash_bytes_uint32.md)
-  - LogicalTapeWrite
+  - [LogicalTapeWrite](../L/LogicalTapeWrite.md)
   - [pfree](../p/pfree.md)
 - Called from (representative examples):
   - [lookup_hash_entries](../l/lookup_hash_entries.md)
@@ -45,7 +45,7 @@ Key operations performed:
 
 ## Notes and Other Information
 - The function implements column pruning optimization by only spilling needed attributes when `all_cols_needed` is false
-- Hash values are rehashed using `hash_bytes_uint32` before adding to HyperLogLog to improve cardinality estimates
+- [Hash](../H/Hash.md) values are rehashed using `hash_bytes_uint32` before adding to HyperLogLog to improve cardinality estimates
 - Both the original hash value and tuple data are written to tape for later retrieval
 - The function returns the total number of bytes written, which is used for memory accounting
 - Partition selection uses bitwise operations with pre-calculated mask and shift values for efficiency

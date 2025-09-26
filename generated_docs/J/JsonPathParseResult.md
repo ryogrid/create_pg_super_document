@@ -24,9 +24,9 @@ JsonPathParseResult serves as the primary container for the output of the JSON p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonPathParseItem (for the expr member)
+  - [JsonPathParseItem](JsonPathParseItem.md) (for the expr member)
 - Called from (representative examples):
-  - jsonPathFromCstring
+  - [jsonPathFromCstring](../j/jsonPathFromCstring.md)
   - YY_DECL (lexer/parser functions)
 
 ## Notes and Other Information

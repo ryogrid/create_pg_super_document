@@ -20,7 +20,7 @@ The `ecpg_result_by_descriptor` function provides a convenient way to access the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ecpg_find_desc
+  - [ecpg_find_desc](ecpg_find_desc.md)
   - [descriptor](../d/descriptor.md) (structure access)
 - Called from (representative examples):
   - [ECPGget_desc_header](../E/ECPGget_desc_header.md)

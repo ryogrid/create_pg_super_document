@@ -24,7 +24,7 @@ CheckPointStmt is a simple parse node representing the CHECKPOINT SQL statement.
 - Functions called/Symbols referenced:
   - None (only contains NodeTag)
 - Called from (representative examples):
-  - PlannedStmtRequiresSnapshot
+  - [PlannedStmtRequiresSnapshot](../P/PlannedStmtRequiresSnapshot.md)
 
 ## Notes and Other Information
 - Represents the simplest possible SQL statement structure with only a NodeTag

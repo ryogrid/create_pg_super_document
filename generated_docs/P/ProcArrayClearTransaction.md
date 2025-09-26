@@ -22,8 +22,8 @@ The function clears the XID, virtual XID, xmin, and subtransaction information f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire
-  - LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - InvalidTransactionId
   - InvalidLocalTransactionId
   - PROC_VACUUM_STATE_MASK

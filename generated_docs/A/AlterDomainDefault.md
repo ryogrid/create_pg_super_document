@@ -30,9 +30,9 @@ The function handles special cases like NULL defaults (treated as DROP DEFAULT) 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `makeTypeNameFromNameList` (name resolution)
+  - `[makeTypeNameFromNameList](../m/makeTypeNameFromNameList.md)` (name resolution)
   - [typenameTypeId](../t/typenameTypeId.md) (type OID lookup)
-  - `table_open` (catalog access)
+  - `[table_open](../t/table_open.md)` (catalog access)
   - `SearchSysCacheCopy1` (domain tuple lookup)
   - [checkDomainOwner](../c/checkDomainOwner.md) (permission validation)
   - [make_parsestate](../m/make_parsestate.md) (expression parsing setup)

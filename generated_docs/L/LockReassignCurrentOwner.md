@@ -20,13 +20,13 @@ This function transfers ownership of locks from the current resource owner to it
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwnerGetParent: Retrieves the parent resource owner
-  - hash_seq_init: Initializes sequential hash table scanning
-  - hash_seq_search: Gets next entry during hash table traversal
-  - LockReassignOwner: Performs the actual lock ownership reassignment
+  - [ResourceOwnerGetParent](../R/ResourceOwnerGetParent.md): Retrieves the parent resource owner
+  - [hash_seq_init](../h/hash_seq_init.md): Initializes sequential hash table scanning
+  - [hash_seq_search](../h/hash_seq_search.md): Gets next entry during hash table traversal
+  - [LockReassignOwner](LockReassignOwner.md): Performs the actual lock ownership reassignment
   - Assert: Debug assertion macro
 - Called from (representative examples):
-  - ResourceOwnerReleaseInternal: Called during resource owner cleanup operations
+  - [ResourceOwnerReleaseInternal](../R/ResourceOwnerReleaseInternal.md): Called during resource owner cleanup operations
   - LockHashPartitionLockByProc: Referenced in lock management header
 
 ## Notes and Other Information
@@ -35,4 +35,4 @@ This function transfers ownership of locks from the current resource owner to it
 - The function asserts that the current resource owner has a parent, as lock reassignment to NULL would be invalid
 - Commonly used during subtransaction abort/commit to transfer locks to the parent transaction context
 - The optimization of accepting a pre-computed lock array is particularly beneficial for operations like pg_dump that may hold many locks
-- Hash table scanning mode provides complete coverage but is more expensive when many locks are present
+- [Hash](../H/Hash.md) table scanning mode provides complete coverage but is more expensive when many locks are present

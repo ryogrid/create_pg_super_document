@@ -36,7 +36,7 @@ This design follows PostgreSQL's principle that users should have appropriate ta
   - ACL_TRUNCATE
   - ACL_SELECT
   - ACL_INSERT
-  - AclResult
+  - [AclResult](../A/AclResult.md)
   - AclMode
 - Called from (representative examples):
   - [RangeVarCallbackForLockTable](../R/RangeVarCallbackForLockTable.md)

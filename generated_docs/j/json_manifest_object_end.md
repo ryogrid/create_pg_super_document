@@ -19,9 +19,9 @@ This callback function is invoked whenever the JSON parser encounters the end of
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - json_manifest_finalize_file
-  - json_manifest_finalize_wal_range  
-  - json_manifest_parse_failure
+  - [json_manifest_finalize_file](json_manifest_finalize_file.md)
+  - [json_manifest_finalize_wal_range](json_manifest_finalize_wal_range.md)  
+  - [json_manifest_parse_failure](json_manifest_parse_failure.md)
   - JsonManifestParseState (struct)
   - JM_EXPECT_TOPLEVEL_END (enum value)
   - JM_EXPECT_EOF (enum value)
@@ -31,8 +31,8 @@ This callback function is invoked whenever the JSON parser encounters the end of
   - JM_EXPECT_WAL_RANGES_NEXT (enum value)
   - JSON_SUCCESS (return value)
 - Called from (representative examples):
-  - json_parse_manifest_incremental_init
-  - json_parse_manifest
+  - [json_parse_manifest_incremental_init](json_parse_manifest_incremental_init.md)
+  - [json_parse_manifest](json_parse_manifest.md)
 
 ## Notes and Other Information
 - This is a static callback function used specifically within the manifest parsing infrastructure

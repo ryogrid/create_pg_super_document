@@ -31,18 +31,18 @@ The function ensures data consistency by WAL-logging the truncation before perfo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationGetSmgr
-  - smgrnblocks
+  - [RelationGetSmgr](RelationGetSmgr.md)
+  - [smgrnblocks](../s/smgrnblocks.md)
   - [smgrexists](../s/smgrexists.md)
-  - FreeSpaceMapPrepareTruncateRel
+  - [FreeSpaceMapPrepareTruncateRel](../F/FreeSpaceMapPrepareTruncateRel.md)
   - [visibilitymap_prepare_truncate](../v/visibilitymap_prepare_truncate.md)
   - [RelationPreTruncate](RelationPreTruncate.md)
   - [XLogBeginInsert](../X/XLogBeginInsert.md)
   - [XLogRegisterData](../X/XLogRegisterData.md)
   - [XLogInsert](../X/XLogInsert.md)
   - [XLogFlush](../X/XLogFlush.md)
-  - smgrtruncate2
-  - FreeSpaceMapVacuumRange
+  - [smgrtruncate2](../s/smgrtruncate2.md)
+  - [FreeSpaceMapVacuumRange](../F/FreeSpaceMapVacuumRange.md)
 - Called from (representative examples):
   - [heapam_relation_nontransactional_truncate](../h/heapam_relation_nontransactional_truncate.md)
   - [lazy_truncate_heap](../l/lazy_truncate_heap.md)

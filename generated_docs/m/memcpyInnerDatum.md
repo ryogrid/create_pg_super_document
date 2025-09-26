@@ -24,7 +24,7 @@ For pass-by-value types, it copies the Datum value itself (which contains the ac
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SpGistTypeDesc (type descriptor structure)
+  - [SpGistTypeDesc](../S/SpGistTypeDesc.md) (type descriptor structure)
   - VARSIZE_ANY (macro for getting variable-length type size)
   - [DatumGetPointer](../D/DatumGetPointer.md) (macro to extract pointer from datum)
   - memcpy (standard memory copy function)

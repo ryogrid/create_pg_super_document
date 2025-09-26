@@ -28,16 +28,16 @@ This implementation is part of PostgreSQL's portability layer (src/port/), provi
 - Functions called/Symbols referenced:
   - No external function calls (implements basic string copying using pointer arithmetic)
 - Called from (representative examples):
-  - ParseCommitRecord (src/backend/access/rmgrdesc/xactdesc.c:119)
-  - SimpleLruInit (src/backend/access/transam/slru.c:347)
-  - XLogRestorePoint (src/backend/access/transam/xlog.c:8100)
-  - DefineRelation (src/backend/commands/tablecmds.c:725)
-  - WalReceiverMain (src/backend/replication/walreceiver.c:251)
-  - process_postgres_switches (src/backend/tcop/postgres.c:4031)
-  - hash_create (src/backend/utils/hash/dynahash.c:467)
-  - InitPostgres (src/backend/utils/init/postinit.c:1106)
-  - PQcancel (src/interfaces/libpq/fe-cancel.c:477)
-  - join_path_components (src/port/path.c:289)
+  - [ParseCommitRecord](../P/ParseCommitRecord.md) (src/backend/access/rmgrdesc/xactdesc.c:119)
+  - [SimpleLruInit](../S/SimpleLruInit.md) (src/backend/access/transam/slru.c:347)
+  - [XLogRestorePoint](../X/XLogRestorePoint.md) (src/backend/access/transam/xlog.c:8100)
+  - [DefineRelation](../D/DefineRelation.md) (src/backend/commands/tablecmds.c:725)
+  - [WalReceiverMain](../W/WalReceiverMain.md) (src/backend/replication/walreceiver.c:251)
+  - [process_postgres_switches](../p/process_postgres_switches.md) (src/backend/tcop/postgres.c:4031)
+  - [hash_create](../h/hash_create.md) (src/backend/utils/hash/dynahash.c:467)
+  - [InitPostgres](../I/InitPostgres.md) (src/backend/utils/init/postinit.c:1106)
+  - [PQcancel](../P/PQcancel.md) (src/interfaces/libpq/fe-cancel.c:477)
+  - [join_path_components](../j/join_path_components.md) (src/port/path.c:289)
 
 ## Notes and Other Information
 - **Return Value**: Returns the length of the source string (strlen(src)). If the return value is >= siz, truncation occurred.

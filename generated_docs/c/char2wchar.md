@@ -46,7 +46,7 @@ For non-Windows platforms, the function creates a temporary null-terminated copy
 - Called from (representative examples):
   - [t_isdigit](../t/t_isdigit.md), t_isspace, t_isalpha, t_isalnum, t_isprint (text search locale functions)
   - [lowerstr_with_len](../l/lowerstr_with_len.md) (src/backend/tsearch/ts_locale.c:293)
-  - TParserInit (src/backend/tsearch/wparser_def.c:317)
+  - [TParserInit](../T/TParserInit.md) (src/backend/tsearch/wparser_def.c:317)
   - [str_tolower](../s/str_tolower.md), str_toupper, str_initcap (formatting functions)
 
 ## Notes and Other Information

@@ -39,7 +39,7 @@ The function must run after getFuncs() because it relies on function lookup capa
   - [getRoleName](getRoleName.md)
   - [selectDumpableType](../s/selectDumpableType.md)
   - [getDomainConstraints](getDomainConstraints.md)
-  - pg_malloc
+  - [pg_malloc](../p/pg_malloc.md)
   - [pg_strdup](../p/pg_strdup.md)
 - Called from (representative examples):
   - [getSchemaData](getSchemaData.md)

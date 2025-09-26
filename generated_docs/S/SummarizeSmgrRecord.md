@@ -28,7 +28,7 @@ The function specifically excludes Free Space Map (FSM) fork operations since FS
 - Functions called/Symbols referenced:
   - XLogRecGetInfo: Extract record type information from WAL record
   - XLogRecGetData: Get the payload data from the WAL record
-  - BlockRefTableSetLimitBlock: Set limit blocks for affected relation forks
+  - [BlockRefTableSetLimitBlock](../B/BlockRefTableSetLimitBlock.md): Set limit blocks for affected relation forks
   - MAIN_FORKNUM/VISIBILITYMAP_FORKNUM: Fork type identifiers
   - FSM_FORKNUM: Free Space Map fork identifier (excluded from processing)
 - Called from (representative examples):

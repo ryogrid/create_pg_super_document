@@ -31,10 +31,10 @@ Like its read counterpart, the function implements intelligent blocking behavior
   - be_gssapi_write: GSS-API encrypted write operation (when GSS is enabled)
   - [secure_raw_write](secure_raw_write.md): Raw socket write for unencrypted connections
   - [ModifyWaitEvent](../M/ModifyWaitEvent.md): Updates wait event configuration for socket monitoring
-  - WaitEventSetWait: Blocks until socket becomes ready or other events occur
+  - [WaitEventSetWait](../W/WaitEventSetWait.md): Blocks until socket becomes ready or other events occur
   - [ResetLatch](../R/ResetLatch.md): Clears the process latch after interrupt processing
 - Called from (representative examples):
-  - internal_flush_buffer: Main packet transmission buffer management
+  - [internal_flush_buffer](../i/internal_flush_buffer.md): Main packet transmission buffer management
   - [ProcessStartupPacket](../P/ProcessStartupPacket.md): Initial connection handshake data transmission
 
 ## Notes and Other Information

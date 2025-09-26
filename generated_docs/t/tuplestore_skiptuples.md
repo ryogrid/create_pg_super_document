@@ -25,7 +25,7 @@ The function includes careful handling of edge cases like backward reading from 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - tuplestore_gettuple
+  - [tuplestore_gettuple](tuplestore_gettuple.md)
   - [pfree](../p/pfree.md) (for memory cleanup)
   - CHECK_FOR_INTERRUPTS (for query cancellation)
 - Types referenced:

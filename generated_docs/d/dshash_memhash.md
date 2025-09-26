@@ -21,7 +21,7 @@ dshash_memhash serves as a wrapper function around PostgreSQL's tag_hash functio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - tag_hash (PostgreSQL's internal hashing function)
+  - [tag_hash](../t/tag_hash.md) (PostgreSQL's internal hashing function)
 - Called from (representative examples):
   - [shared_record_table_hash](../s/shared_record_table_hash.md) (in src/backend/utils/cache/typcache.c:270)
 

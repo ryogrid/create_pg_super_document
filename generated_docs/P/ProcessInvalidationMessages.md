@@ -27,7 +27,7 @@ The function uses the ProcessMessageSubGroup macro to iterate through each messa
   - RelCacheMsgs (relation cache message subgroup identifier)
 - Types referenced:
   - [InvalidationMsgsGroup](../I/InvalidationMsgsGroup.md)
-  - SharedInvalidationMessage
+  - [SharedInvalidationMessage](../S/SharedInvalidationMessage.md)
 - Called from:
   - [AtEOXact_Inval](../A/AtEOXact_Inval.md) (during transaction end processing)
   - [AtEOSubXact_Inval](../A/AtEOSubXact_Inval.md) (during subtransaction end processing)

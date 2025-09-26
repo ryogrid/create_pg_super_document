@@ -36,7 +36,7 @@ This function takes no specific parameters (uses PG_FUNCTION_ARGS macro for Post
   - [gistcanreturn](gistcanreturn.md) (index-only scan support)
   - [gistcostestimate](gistcostestimate.md) (cost estimation)
   - [gistoptions](gistoptions.md) (index options handling)
-  - gistproperty (property queries)
+  - [gistproperty](gistproperty.md) (property queries)
   - [gistvalidate](gistvalidate.md) (validation function)
   - [gistadjustmembers](gistadjustmembers.md) (operator class adjustment)
   - [gistbeginscan](gistbeginscan.md) (scan initialization)

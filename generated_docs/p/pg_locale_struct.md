@@ -316,7 +316,7 @@ Text creation and manipulation
   - locale_t (from system locale headers)
   - UCollator (from ICU library when USE_ICU is defined)
 - Called from (representative examples):
-  - pg_locale_t typedef definition
+  - [pg_locale_t](pg_locale_t.md) typedef definition
   - default_locale global variable
   - Various locale manipulation functions
 

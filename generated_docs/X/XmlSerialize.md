@@ -36,7 +36,7 @@ XmlSerialize represents the parsed form of the XMLSERIALIZE function call in SQL
   - ParseLoc (type for tracking source location)
 - Called from (representative examples):
   - [transformExprRecurse](../t/transformExprRecurse.md) (processes expressions during parse analysis)
-  - transformXmlSerialize (transforms XMLSERIALIZE into executable form)
+  - [transformXmlSerialize](../t/transformXmlSerialize.md) (transforms XMLSERIALIZE into executable form)
   - [exprLocation](../e/exprLocation.md) (determines expression source location)
   - [raw_expression_tree_walker_impl](../r/raw_expression_tree_walker_impl.md) (traverses raw expression trees)
 

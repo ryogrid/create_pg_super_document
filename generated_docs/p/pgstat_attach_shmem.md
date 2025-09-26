@@ -21,12 +21,12 @@ This function connects a backend process to the statistics shared memory structu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dsa_attach_in_place: Attaches to existing DSA in shared memory
-  - dsa_pin_mapping: Pins the DSA mapping to prevent automatic cleanup
-  - dshash_attach: Attaches to existing shared hash table
-  - MemoryContextSwitchTo: Switches to TopMemoryContext for persistent allocation
+  - [dsa_attach_in_place](../d/dsa_attach_in_place.md): Attaches to existing DSA in shared memory
+  - [dsa_pin_mapping](../d/dsa_pin_mapping.md): Pins the DSA mapping to prevent automatic cleanup
+  - [dshash_attach](../d/dshash_attach.md): Attaches to existing shared hash table
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md): Switches to TopMemoryContext for persistent allocation
 - Called from (representative examples):
-  - pgstat_initialize: Called during backend statistics initialization
+  - [pgstat_initialize](pgstat_initialize.md): Called during backend statistics initialization
 
 ## Notes and Other Information
 - Must be called after pgStatLocal.shmem has been set up (contains assertion check)

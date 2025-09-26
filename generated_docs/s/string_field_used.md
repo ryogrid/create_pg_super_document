@@ -23,8 +23,8 @@ This function is essential for memory management within the GUC system. Before f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - config_string (struct type for string configuration variables)
-  - GucStack (struct type for configuration stack entries)
+  - [config_string](../c/config_string.md) (struct type for string configuration variables)
+  - [GucStack](../G/GucStack.md) (struct type for configuration stack entries)
 
 - Called from (representative examples):
   - [set_string_field](set_string_field.md)

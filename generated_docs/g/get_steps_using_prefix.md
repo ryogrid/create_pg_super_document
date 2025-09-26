@@ -41,7 +41,7 @@ When the prefix is empty (single partition key case), it directly generates a si
   - [get_steps_using_prefix_recurse](get_steps_using_prefix_recurse.md)
   - list_make1
   - list_make1_oid
-  - list_head
+  - [list_head](../l/list_head.md)
 - Called from:
   - [gen_prune_steps_from_opexps](gen_prune_steps_from_opexps.md) (multiple locations)
 

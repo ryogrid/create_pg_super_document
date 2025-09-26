@@ -19,7 +19,7 @@ WALInsertLockAcquire implements a smart lock acquisition strategy for WAL insert
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire
+  - [LWLockAcquire](../L/LWLockAcquire.md)
   - NUM_XLOGINSERT_LOCKS (constant)
   - MyProcNumber (global variable)
   - MyLockNo (global variable)

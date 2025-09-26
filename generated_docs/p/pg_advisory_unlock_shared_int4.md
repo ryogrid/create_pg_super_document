@@ -25,7 +25,7 @@ This function releases a session-scoped shared advisory lock identified by a pai
   - [LockRelease](../L/LockRelease.md) (to release the shared lock)
   - PG_RETURN_BOOL (to return boolean result)
 - Types used:
-  - LOCKTAG (lock identifier structure)
+  - [LOCKTAG](../L/LOCKTAG.md) (lock identifier structure)
   - ShareLock (lock mode constant)
 - Called from (representative examples):
   - SQL function calls via pg_proc catalog entry

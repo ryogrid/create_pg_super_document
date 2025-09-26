@@ -26,7 +26,7 @@ The function is essential for building GIN index entries during JSONB processing
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GinEntries (struct type)
+  - [GinEntries](../G/GinEntries.md) (struct type)
   - [repalloc](../r/repalloc.md) (memory reallocation function)
   - [palloc](../p/palloc.md) (memory allocation function)
 - Called from (representative examples):

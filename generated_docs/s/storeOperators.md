@@ -25,10 +25,10 @@ This function persists operator family members to the pg_amop catalog table, whi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - [OpFamilyMember](../O/OpFamilyMember.md) (type)
   - SearchSysCacheExists4
-  - Int16GetDatum
+  - [Int16GetDatum](../I/Int16GetDatum.md)
   - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - ereport
   - [errcode](../e/errcode.md)
@@ -49,7 +49,7 @@ This function persists operator family members to the pg_amop catalog table, whi
   - DEPENDENCY_INTERNAL
   - [typeDepNeeded](../t/typeDepNeeded.md)
   - InvokeObjectPostCreateHook
-  - table_close
+  - [table_close](../t/table_close.md)
 - Called from (representative examples):
   - [DefineOpClass](../D/DefineOpClass.md)
   - [AlterOpFamilyAdd](../A/AlterOpFamilyAdd.md)

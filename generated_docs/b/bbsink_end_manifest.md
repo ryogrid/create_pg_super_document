@@ -31,13 +31,13 @@ The function is called after all manifest content has been processed through bbs
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbsink (struct type)
+  - [bbsink](bbsink.md) (struct type)
   - Assert (assertion macro)
   - sink->bbs_ops->end_manifest (callback function)
 
 - Called from (representative examples):
-  - SendBackupManifest
-  - bbsink_forward_end_manifest
+  - [SendBackupManifest](../S/SendBackupManifest.md)
+  - [bbsink_forward_end_manifest](bbsink_forward_end_manifest.md)
 
 ## Notes and Other Information  
 - This is an inline function defined in the header file for performance

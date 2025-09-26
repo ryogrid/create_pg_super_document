@@ -18,8 +18,8 @@ This function initializes the shared memory segment used for coordinating parall
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - shm_toc_allocate
-  - shm_toc_insert
+  - [shm_toc_allocate](../s/shm_toc_allocate.md)
+  - [shm_toc_insert](../s/shm_toc_insert.md)
   - [FdwRoutine](../F/FdwRoutine.md).InitializeDSMForeignScan (if available)
 - Called from (representative examples):
   - [ExecParallelInitializeDSM](ExecParallelInitializeDSM.md)

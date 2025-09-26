@@ -30,13 +30,13 @@ The function processes arrays of offset numbers for each operation type and appl
 - Functions called/Symbols referenced:
   - XLogRecGetData
   - [fillFakeState](../f/fillFakeState.md)
-  - XLogReadBufferForRedo
+  - [XLogReadBufferForRedo](../X/XLogReadBufferForRedo.md)
   - [spgPageIndexMultiDelete](spgPageIndexMultiDelete.md)
   - [PageGetItemId](../P/PageGetItemId.md)
   - [PageGetItem](../P/PageGetItem.md)
   - SGLT_SET_NEXTOFFSET
   - [PageSetLSN](../P/PageSetLSN.md)
-  - MarkBufferDirty
+  - [MarkBufferDirty](../M/MarkBufferDirty.md)
   - [BufferGetPage](../B/BufferGetPage.md)
   - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
 - Called from:

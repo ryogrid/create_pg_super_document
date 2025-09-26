@@ -27,7 +27,7 @@ FillPortalStore is a specialized function used to execute queries and store thei
   - [SetTuplestoreDestReceiverParams](../S/SetTuplestoreDestReceiverParams.md)
   - [PortalRunMulti](../P/PortalRunMulti.md)
   - [PortalRunUtility](../P/PortalRunUtility.md)
-  - CopyQueryCompletion
+  - [CopyQueryCompletion](../C/CopyQueryCompletion.md)
 - Called from (representative examples):
   - [PortalRun](../P/PortalRun.md)
   - [PortalRunFetch](../P/PortalRunFetch.md)

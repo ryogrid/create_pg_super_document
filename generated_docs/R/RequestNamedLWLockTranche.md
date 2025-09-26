@@ -28,12 +28,12 @@ Key behaviors include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - NamedLWLockTrancheRequest (struct type)
-  - MemoryContextAlloc (memory allocation)
-  - pg_nextpower2_32 (memory allocation utility)
-  - repalloc (memory reallocation)
+  - [NamedLWLockTrancheRequest](../N/NamedLWLockTrancheRequest.md) (struct type)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md) (memory allocation)
+  - [pg_nextpower2_32](../p/pg_nextpower2_32.md) (memory allocation utility)
+  - [repalloc](../r/repalloc.md) (memory reallocation)
   - NAMEDATALEN (constant for name length limit)
-  - strlcpy (string copy function)
+  - [strlcpy](../s/strlcpy.md) (string copy function)
 - Called from (representative examples):
   - Extensions loaded via shared_preload_libraries during shmem_request_hook
 

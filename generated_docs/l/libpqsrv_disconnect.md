@@ -21,7 +21,7 @@ The design philosophy follows the principle that if a connection was never succe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReleaseExternalFD
+  - [ReleaseExternalFD](../R/ReleaseExternalFD.md)
   - [PQfinish](../P/PQfinish.md)
 - Called from (representative examples):
   - No direct references found in the analyzed codebase

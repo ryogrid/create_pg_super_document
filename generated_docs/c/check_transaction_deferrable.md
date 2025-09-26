@@ -29,7 +29,7 @@ These restrictions ensure that the deferrable property is set at the appropriate
 ## Dependencies
 - Functions called/Symbols referenced:
   - [IsSubTransaction](../I/IsSubTransaction.md)
-  - GUC_check_errcode
+  - [GUC_check_errcode](../G/GUC_check_errcode.md)
   - GUC_check_errmsg
   - GucSource (enum type)
 - Called from (representative examples):

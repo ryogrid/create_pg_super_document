@@ -29,13 +29,13 @@ The function handles all three categories of buffer usage (shared, local, and te
 ## Dependencies
 - Functions called/Symbols referenced:
   - INSTR_TIME_ACCUM_DIFF (macro for computing and accumulating timing differences)
-  - BufferUsage (struct type definition)
+  - [BufferUsage](BufferUsage.md) (struct type definition)
 - Called from (representative examples):
   - [heap_vacuum_rel](../h/heap_vacuum_rel.md)
   - [standard_ExplainOneQuery](../s/standard_ExplainOneQuery.md)
   - [serializeAnalyzeReceive](../s/serializeAnalyzeReceive.md)
   - [ExplainExecuteQuery](../E/ExplainExecuteQuery.md)
-  - InstrStopNode
+  - [InstrStopNode](../I/InstrStopNode.md)
   - [InstrEndParallelQuery](../I/InstrEndParallelQuery.md)
 
 ## Notes and Other Information

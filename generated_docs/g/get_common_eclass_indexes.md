@@ -26,7 +26,7 @@ The function includes an optimization: when the second relation set contains onl
   - [get_eclass_indexes_for_relids](get_eclass_indexes_for_relids.md) (helper function to get EC indexes for relation sets)
   - [bms_get_singleton_member](../b/bms_get_singleton_member.md) (bitmap set singleton detection and extraction)
   - [bms_int_members](../b/bms_int_members.md) (bitmap set intersection operation)
-  - RelOptInfo (structure accessed for eclass_indexes field)
+  - [RelOptInfo](../R/RelOptInfo.md) (structure accessed for eclass_indexes field)
 - Called from (representative examples):
   - [generate_join_implied_equalities](generate_join_implied_equalities.md) (src/backend/optimizer/path/equivclass.c:1425)
   - [have_relevant_eclass_joinclause](../h/have_relevant_eclass_joinclause.md) (src/backend/optimizer/path/equivclass.c:3103)

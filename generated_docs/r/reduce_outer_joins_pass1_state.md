@@ -29,11 +29,11 @@ The first pass analyzes the join tree structure to collect information about whi
 ## Dependencies
 - Functions called/Symbols referenced:
   - Relids (PostgreSQL's bitmap set type for relation IDs)
-  - List (PostgreSQL's list data structure)
+  - [List](../L/List.md) (PostgreSQL's list data structure)
 - Called from (representative examples):
-  - reduce_outer_joins
-  - reduce_outer_joins_pass1
-  - reduce_outer_joins_pass2
+  - [reduce_outer_joins](reduce_outer_joins.md)
+  - [reduce_outer_joins_pass1](reduce_outer_joins_pass1.md)
+  - [reduce_outer_joins_pass2](reduce_outer_joins_pass2.md)
 
 ## Notes and Other Information
 This structure is part of a two-pass algorithm for outer join reduction. The first pass (using this structure) is a bottom-up traversal that collects information about the join tree structure. The second pass uses this collected information to make optimization decisions. The sub_states list enables the algorithm to maintain hierarchical state information that mirrors the structure of the join tree itself.

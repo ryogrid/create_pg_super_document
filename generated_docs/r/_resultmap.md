@@ -37,8 +37,8 @@ When a test is run, the system can look up the appropriate expected result file 
   - Referenced as part of self-referential pointer in `next` member
 
 - Used by:
-  - `load_resultmap`: Function that populates the linked list by parsing the resultmap file
-  - `get_expectfile`: Function that searches through the list to find appropriate expected result files
+  - `[load_resultmap](../l/load_resultmap.md)`: Function that populates the linked list by parsing the resultmap file
+  - `[get_expectfile](../g/get_expectfile.md)`: Function that searches through the list to find appropriate expected result files
   - Global variable `resultmap`: Head pointer to the linked list of `_resultmap` entries
 
 ## Notes and Other Information

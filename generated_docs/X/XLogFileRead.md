@@ -32,9 +32,9 @@ The function updates various state variables to track the source of data and set
   - [XLogFileName](XLogFileName.md)
   - [RestoreArchivedFile](../R/RestoreArchivedFile.md)
   - [KeepFileRestoredFromArchive](../K/KeepFileRestoredFromArchive.md)
-  - XLogFilePath
-  - BasicOpenFile
-  - set_ps_display
+  - [XLogFilePath](XLogFilePath.md)
+  - [BasicOpenFile](../B/BasicOpenFile.md)
+  - [set_ps_display](../s/set_ps_display.md)
   - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
   - [IsInstallXLogFileSegmentActive](../I/IsInstallXLogFileSegmentActive.md)
 - Called from (representative examples):

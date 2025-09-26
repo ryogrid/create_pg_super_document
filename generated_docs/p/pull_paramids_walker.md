@@ -22,7 +22,7 @@ This function follows the standard walker function pattern in PostgreSQL, return
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Param (type check and cast)
+  - [Param](../P/Param.md) (type check and cast)
   - [bms_add_member](../b/bms_add_member.md)
   - expression_tree_walker
   - [pull_paramids_walker](pull_paramids_walker.md) (recursive call)

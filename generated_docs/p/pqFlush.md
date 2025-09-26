@@ -34,7 +34,7 @@ The function includes debug support by flushing the debug output stream when tra
   - [PQgetResult](../P/PQgetResult.md)
   - [PQputCopyData](../P/PQputCopyData.md)
   - [PQputCopyEnd](../P/PQputCopyEnd.md)
-  - PQexitPipelineMode
+  - [PQexitPipelineMode](../P/PQexitPipelineMode.md)
   - [pqPipelineSyncInternal](pqPipelineSyncInternal.md)
   - [PQsetnonblocking](../P/PQsetnonblocking.md)
   - [PQflush](../P/PQflush.md)

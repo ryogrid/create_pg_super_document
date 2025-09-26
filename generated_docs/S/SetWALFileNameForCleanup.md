@@ -28,7 +28,7 @@ This function takes no parameters and operates on several global variables:
   - [TrimExtension](../T/TrimExtension.md) (custom function to remove file extensions)
   - [IsXLogFileName](../I/IsXLogFileName.md) (PostgreSQL function to validate WAL filenames)  
   - [IsPartialXLogFileName](../I/IsPartialXLogFileName.md) (PostgreSQL function to validate partial WAL filenames)
-  - IsBackupHistoryFileName (PostgreSQL function to validate backup history filenames)
+  - [IsBackupHistoryFileName](../I/IsBackupHistoryFileName.md) (PostgreSQL function to validate backup history filenames)
   - [XLogFileNameById](../X/XLogFileNameById.md) (PostgreSQL function to construct WAL filename from components)
   - sscanf (standard library function for parsing formatted strings)
   - strcpy (standard library function for string copying)

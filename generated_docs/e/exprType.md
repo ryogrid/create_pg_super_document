@@ -34,14 +34,14 @@ For complex expressions like subqueries, the function recursively determines typ
 - Functions called/Symbols referenced:
   - nodeTag (to determine expression node type)
   - linitial_node (for accessing first target entry in subqueries)
-  - get_promoted_array_type (for array sublink type promotion)
-  - format_type_be (for error reporting)
-  - exprType (recursive calls for nested expressions)
+  - [get_promoted_array_type](../g/get_promoted_array_type.md) (for array sublink type promotion)
+  - [format_type_be](../f/format_type_be.md) (for error reporting)
+  - [exprType](exprType.md) (recursive calls for nested expressions)
   
 - Called from (representative examples):
   - Expression planning and optimization functions
   - Type checking and coercion functions
-  - Query transformation utilities
+  - [Query](../Q/Query.md) transformation utilities
 
 ## Notes and Other Information
 - Returns InvalidOid for NULL input expressions

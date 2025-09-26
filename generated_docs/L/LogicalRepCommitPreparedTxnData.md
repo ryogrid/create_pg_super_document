@@ -35,7 +35,7 @@ This structure contains the essential metadata required for committing prepared 
   - TransactionId
   - GIDSIZE
 - Used by functions:
-  - logicalrep_read_commit_prepared
+  - [logicalrep_read_commit_prepared](../l/logicalrep_read_commit_prepared.md)
   - [apply_handle_commit_prepared](../a/apply_handle_commit_prepared.md)
 
 ## Notes and Other Information

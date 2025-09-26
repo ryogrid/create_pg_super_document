@@ -24,7 +24,7 @@ This is a utility function that calculates the memory address of per-buffer data
   - [ReadStream](../R/ReadStream.md) (structure type)
 - Called from (representative examples):
   - [read_stream_look_ahead](../r/read_stream_look_ahead.md)
-  - read_stream_next_buffer
+  - [read_stream_next_buffer](../r/read_stream_next_buffer.md)
 
 ## Notes and Other Information
 - This is a static inline function for performance, as it's a simple pointer calculation used frequently

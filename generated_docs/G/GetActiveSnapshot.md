@@ -22,16 +22,16 @@ GetActiveSnapshot provides access to the currently active snapshot by returning 
 - Functions called/Symbols referenced:
   - None (accesses global ActiveSnapshot variable directly)
 - Called from (representative examples):
-  - spgvacuumscan
-  - InitializeParallelDSM
-  - BeginCopyTo
-  - ExecCreateTableAs
-  - ExplainOnePlan
-  - standard_ExecutorStart
-  - standard_ExecutorRun
-  - _SPI_execute_plan
-  - ProcessQuery
-  - PortalStart
+  - [spgvacuumscan](../s/spgvacuumscan.md)
+  - [InitializeParallelDSM](../I/InitializeParallelDSM.md)
+  - [BeginCopyTo](../B/BeginCopyTo.md)
+  - [ExecCreateTableAs](../E/ExecCreateTableAs.md)
+  - [ExplainOnePlan](../E/ExplainOnePlan.md)
+  - [standard_ExecutorStart](../s/standard_ExecutorStart.md)
+  - [standard_ExecutorRun](../s/standard_ExecutorRun.md)
+  - [_SPI_execute_plan](../S/_SPI_execute_plan.md)
+  - [ProcessQuery](../P/ProcessQuery.md)
+  - [PortalStart](../P/PortalStart.md)
 
 ## Notes and Other Information
 - Returns a direct pointer to the snapshot structure, not a copy

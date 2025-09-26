@@ -53,7 +53,7 @@ This function takes no parameters but returns a pointer to a static struct lconv
   - [free_struct_lconv](../f/free_struct_lconv.md)
   - setlocale
   - [struct_lconv_is_valid](../s/struct_lconv_is_valid.md)
-  - pg_get_encoding_from_locale
+  - [pg_get_encoding_from_locale](../p/pg_get_encoding_from_locale.md)
   - [db_encoding_convert](../d/db_encoding_convert.md)
   - PG_TRY/PG_CATCH/PG_END_TRY
   - PG_SQL_ASCII

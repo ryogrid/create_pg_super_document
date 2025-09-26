@@ -17,11 +17,11 @@ The function builds a command string that includes the backend executable path, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initPQExpBuffer
+  - [initPQExpBuffer](../i/initPQExpBuffer.md)
   - [printfPQExpBuffer](../p/printfPQExpBuffer.md)
   - [appendShellString](../a/appendShellString.md)
   - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
-  - termPQExpBuffer
+  - [termPQExpBuffer](termPQExpBuffer.md)
   - system
 - Called from (representative examples):
   - Used in initdb.c around lines 1158 and 1183 during configuration validation

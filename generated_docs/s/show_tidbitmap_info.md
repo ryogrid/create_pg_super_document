@@ -25,9 +25,9 @@ For exact pages, the bitmap can identify specific tuples within the page. For lo
 - Functions called/Symbols referenced:
   - [ExplainPropertyInteger](../E/ExplainPropertyInteger.md)
   - [ExplainIndentText](../E/ExplainIndentText.md)
-  - appendStringInfoString
-  - appendStringInfo
-  - appendStringInfoChar
+  - [appendStringInfoString](../a/appendStringInfoString.md)
+  - [appendStringInfo](../a/appendStringInfo.md)
+  - [appendStringInfoChar](../a/appendStringInfoChar.md)
   - EXPLAIN_FORMAT_TEXT
 - Called from (representative examples):
   - [ExplainNode](../E/ExplainNode.md)

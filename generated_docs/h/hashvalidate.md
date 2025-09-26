@@ -48,5 +48,5 @@ The function reports validation errors as INFO messages and returns false if any
 ## Notes and Other Information
 - The validation covers the entire operator family, so some checks are redundant when validating multiple operator classes in the same family, but this duplication is accepted to keep the amvalidate API simple.
 - The function expects hash operator families to be complete with all cross-type operators for built-in types.
-- Hash access method only supports equality operators (strategy number 1) and does not support ORDER BY operations.
+- [Hash](../H/Hash.md) access method only supports equality operators (strategy number 1) and does not support ORDER BY operations.
 - Located in src/backend/access/hash/hashvalidate.c:47-274.

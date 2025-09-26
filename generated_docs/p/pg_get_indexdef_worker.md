@@ -39,10 +39,10 @@ The implementation follows a systematic approach: it first retrieves catalog inf
   - [GetIndexAmRoutine](../G/GetIndexAmRoutine.md) (access method information)
   - [deparse_expression_pretty](../d/deparse_expression_pretty.md) (expression formatting)
   - [get_attname](../g/get_attname.md), get_atttypetypmodcoll (attribute information)
-  - generate_relation_name, generate_qualified_relation_name (relation naming)
+  - [generate_relation_name](../g/generate_relation_name.md), generate_qualified_relation_name (relation naming)
   - [quote_identifier](../q/quote_identifier.md) (identifier quoting)
-  - get_opclass_name, generate_collation_name (index option formatting)
-  - flatten_reloptions, get_reloptions (option handling)
+  - [get_opclass_name](../g/get_opclass_name.md), generate_collation_name (index option formatting)
+  - [flatten_reloptions](../f/flatten_reloptions.md), get_reloptions (option handling)
 - Called from (representative examples):
   - [pg_get_indexdef](pg_get_indexdef.md) (public interface for complete index definitions)
   - [pg_get_indexdef_columns](pg_get_indexdef_columns.md) (key columns only)

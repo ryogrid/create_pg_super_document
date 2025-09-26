@@ -35,7 +35,7 @@ The `BrinInsertState` structure being cleaned up contains:
   - [brinRevmapTerminate](brinRevmapTerminate.md)() (terminates revmap access structure)
   - [pfree](../p/pfree.md)() (frees the insertion state structure)
   - [BrinInsertState](../B/BrinInsertState.md) (structure type)
-  - `IndexInfo` (structure type)
+  - `[IndexInfo](../I/IndexInfo.md)` (structure type)
 
 - Called from (representative examples):
   - PostgreSQL index access method infrastructure (via `brinhandler()`)

@@ -32,14 +32,14 @@ The caller does not know yet if the page will be rightmost, so offset P_FIRSTKEY
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IndexTupleData
-  - BTreeTupleSetNAtts
+  - [IndexTupleData](../I/IndexTupleData.md)
+  - [BTreeTupleSetNAtts](../B/BTreeTupleSetNAtts.md)
   - PageAddItem
   - Item
   - InvalidOffsetNumber
   - elog
 - Called from (representative examples):
-  - _bt_buildadd
+  - [_bt_buildadd](_bt_buildadd.md)
 
 ## Notes and Other Information
 - This is a static function used internally within nbtsort.c during index construction

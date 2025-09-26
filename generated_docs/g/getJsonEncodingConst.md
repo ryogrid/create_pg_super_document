@@ -22,11 +22,11 @@ The function creates a Name-type constant node that can be used in JSON-related 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc](../p/palloc.md) (memory allocation)
-  - namestrcpy (copy string to Name structure)  
+  - [namestrcpy](../n/namestrcpy.md) (copy string to Name structure)  
   - [makeConst](../m/makeConst.md) (create Const node)
   - [NameGetDatum](../N/NameGetDatum.md) (convert Name to Datum)
   - elog (error logging)
-  - JsonFormat (input structure type)
+  - [JsonFormat](../J/JsonFormat.md) (input structure type)
   - JsonEncoding (enumeration type)
   - Name, NameData (name data types)
   - JS_FORMAT_DEFAULT, JS_ENC_DEFAULT, JS_ENC_UTF8, JS_ENC_UTF16, JS_ENC_UTF32 (enumeration constants)

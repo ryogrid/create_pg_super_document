@@ -33,8 +33,8 @@ HeadlineJsonState serves as a state container for the JSON headline generation p
 ## Dependencies
 - Functions called/Symbols referenced:
   - [HeadlineParsedText](HeadlineParsedText.md)
-  - TSConfigCacheEntry
-  - TSParserCacheEntry
+  - [TSConfigCacheEntry](../T/TSConfigCacheEntry.md)
+  - [TSParserCacheEntry](../T/TSParserCacheEntry.md)
   - TSQuery
 - Called from (representative examples):
   - [ts_headline_jsonb_byid_opt](../t/ts_headline_jsonb_byid_opt.md)

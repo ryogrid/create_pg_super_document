@@ -22,7 +22,7 @@ This function serves as a comparator for qsort_arg operations on arrays of WordE
 ## Dependencies
 - Functions called/Symbols referenced:
   - [tsCompareString](../t/tsCompareString.md) (PostgreSQL's text search string comparison function)
-  - WordEntry (structure type representing a word entry)
+  - [WordEntry](../W/WordEntry.md) (structure type representing a word entry)
 - Called from (representative examples):
   - [uniqueentry](../u/uniqueentry.md) (for sorting entries before removing duplicates)
   - [tsvectorrecv](../t/tsvectorrecv.md) (during binary tsvector deserialization)

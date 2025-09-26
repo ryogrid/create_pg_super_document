@@ -19,9 +19,9 @@ This function recursively traverses bitmap scan plan trees and sets the 'isshare
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BitmapAnd (plan node type for bitmap AND operations)
-  - BitmapOr (plan node type for bitmap OR operations)  
-  - BitmapIndexScan (plan node type for bitmap index scans)
+  - [BitmapAnd](../B/BitmapAnd.md) (plan node type for bitmap AND operations)
+  - [BitmapOr](../B/BitmapOr.md) (plan node type for bitmap OR operations)  
+  - [BitmapIndexScan](../B/BitmapIndexScan.md) (plan node type for bitmap index scans)
   - nodeTag (to get the node type for error reporting)
   - linitial (to get the first element from plan lists)
   - [bitmap_subplan_mark_shared](bitmap_subplan_mark_shared.md) (recursive self-calls)

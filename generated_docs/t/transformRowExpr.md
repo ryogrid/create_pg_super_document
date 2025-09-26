@@ -31,17 +31,17 @@ The function is essential for handling composite value construction in SQL, enab
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (creates new RowExpr node)
-  - transformExpressionList (transforms list of field expressions)
-  - list_length (gets number of elements in list)
-  - makeString (creates string nodes for column names)
-  - pstrdup (duplicates strings in appropriate memory context)
+  - [transformExpressionList](transformExpressionList.md) (transforms list of field expressions)
+  - [list_length](../l/list_length.md) (gets number of elements in list)
+  - [makeString](../m/makeString.md) (creates string nodes for column names)
+  - [pstrdup](../p/pstrdup.md) (duplicates strings in appropriate memory context)
   - snprintf (formats column names)
   - ereport/ERROR (error reporting)
-  - parser_errposition (reports error location)
+  - [parser_errposition](../p/parser_errposition.md) (reports error location)
 
 - Called from (representative examples):
-  - transformExprRecurse (main expression transformation dispatcher)
-  - transformMultiAssignRef (handles multi-column assignment references)
+  - [transformExprRecurse](transformExprRecurse.md) (main expression transformation dispatcher)
+  - [transformMultiAssignRef](transformMultiAssignRef.md) (handles multi-column assignment references)
 
 ## Notes and Other Information
 - ROW expressions create anonymous composite types with generated field names (f1, f2, f3, etc.)

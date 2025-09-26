@@ -36,7 +36,7 @@ The function first checks if a hash table () exists for fast lookups. If present
 - Called from (representative examples):
   - [ExecFindPartition](ExecFindPartition.md)
   - [ExecModifyTable](ExecModifyTable.md)
-  - exec_rt_fetch
+  - [exec_rt_fetch](../e/exec_rt_fetch.md)
 
 ## Notes and Other Information
 - The function uses a hybrid approach for performance: hash table lookup for many relations, linear search for few relations

@@ -18,7 +18,7 @@ ExecCheck is used to evaluate check constraints in PostgreSQL. The function take
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecEvalExprSwitchContext
+  - [ExecEvalExprSwitchContext](ExecEvalExprSwitchContext.md)
   - [DatumGetBool](../D/DatumGetBool.md)
   - Assert
   - EEO_FLAG_IS_QUAL
@@ -28,7 +28,7 @@ ExecCheck is used to evaluate check constraints in PostgreSQL. The function take
   - [ExecPartitionCheck](ExecPartitionCheck.md)
   - [check_default_partition_contents](../c/check_default_partition_contents.md)
   - [domain_check_input](../d/domain_check_input.md)
-  - ExecQualAndReset
+  - [ExecQualAndReset](ExecQualAndReset.md)
 
 ## Notes and Other Information
 - Returns true immediately if state is NULL (no constraint to check)

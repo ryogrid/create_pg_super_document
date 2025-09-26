@@ -35,7 +35,7 @@ This function is essential for the incremental building of serialized GUC data, 
   - elog (PostgreSQL logging function)
   - va_start, va_end (variable argument handling)
 - Called from (representative examples):
-  - serialize_variable (multiple call sites)
+  - [serialize_variable](../s/serialize_variable.md) (multiple call sites)
 
 ## Notes and Other Information
 - Uses va_list for variable argument processing with vsnprintf

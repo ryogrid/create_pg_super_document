@@ -33,7 +33,7 @@ This design allows the spell checker to efficiently handle deletion patterns alo
   - [palloc0](../p/palloc0.md)
   - cpalloc
   - ANHRDSZ (AffixNode header size constant)
-  - AffixNode
+  - [AffixNode](../A/AffixNode.md)
   - [AffixNodeData](../A/AffixNodeData.md)
   - AFFIX
 - Called from (representative examples):

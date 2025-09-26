@@ -20,12 +20,12 @@ This static function is responsible for recreating two-phase commit state files 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TwoPhaseFilePath](../T/TwoPhaseFilePath.md)
-  - OpenTransientFile
+  - [OpenTransientFile](../O/OpenTransientFile.md)
   - write
-  - pg_fsync
-  - CloseTransientFile
+  - [pg_fsync](../p/pg_fsync.md)
+  - [CloseTransientFile](../C/CloseTransientFile.md)
   - INIT_CRC32C/COMP_CRC32C/FIN_CRC32C (CRC computation macros)
-  - pgstat_report_wait_start/pgstat_report_wait_end
+  - [pgstat_report_wait_start](../p/pgstat_report_wait_start.md)/pgstat_report_wait_end
 - Called from (representative examples):
   - [CheckPointTwoPhase](../C/CheckPointTwoPhase.md)
 

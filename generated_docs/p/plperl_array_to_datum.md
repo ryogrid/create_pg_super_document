@@ -33,7 +33,7 @@ The function handles edge cases like empty arrays by constructing zero-dimension
   - [_sv_to_datum_finfo](../s/_sv_to_datum_finfo.md) (sets up conversion function info)
   - [array_to_datum_internal](../a/array_to_datum_internal.md) (performs recursive array processing)
   - [construct_empty_array](../c/construct_empty_array.md) (creates zero-dimensional arrays)
-  - makeMdArrayResult (constructs final multidimensional array datum)
+  - [makeMdArrayResult](../m/makeMdArrayResult.md) (constructs final multidimensional array datum)
   - MAXDIM (maximum dimensions constant)
   - [ArrayBuildState](../A/ArrayBuildState.md) (array construction state type)
 - Called from (representative examples):

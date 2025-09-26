@@ -24,15 +24,15 @@ This is a foundational utility function used throughout the rule decompilation p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - deparse_context (context structure for rule decompilation)
+  - [deparse_context](../d/deparse_context.md) (context structure for rule decompilation)
   - deparse_namespace (namespace structure containing RTE information)
   - linitial (macro to get first element of a list)
   - [list_nth](../l/list_nth.md) (function to get nth element of a list)
-  - list_length (function to get length of a list)
+  - [list_length](../l/list_length.md) (function to get length of a list)
 - Called from (representative examples):
   - [get_select_query_def](get_select_query_def.md) (at line 5819)
-  - get_from_clause_item (at line 12309)
-  - get_rte_alias (at line 12329)
+  - [get_from_clause_item](get_from_clause_item.md) (at line 12309)
+  - [get_rte_alias](get_rte_alias.md) (at line 12329)
 
 ## Notes and Other Information
 - This is a static function, only accessible within ruleutils.c

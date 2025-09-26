@@ -32,7 +32,7 @@ The function assumes that MJEvalOuterValues and MJEvalInnerValues have already b
   - [MemoryContextSwitchTo](MemoryContextSwitchTo.md)
   - [ApplySortComparator](../A/ApplySortComparator.md)
 - Called from:
-  - ExecMergeJoin (multiple call sites)
+  - [ExecMergeJoin](../E/ExecMergeJoin.md) (multiple call sites)
 
 ## Notes and Other Information
 - Returns 0 if outer == inner (all merge conditions succeed), >0 if outer > inner, <0 if outer < inner

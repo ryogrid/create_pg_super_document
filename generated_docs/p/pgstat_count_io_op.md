@@ -28,7 +28,7 @@ This is the most commonly used interface for tracking individual IO operations i
 - Called from (representative examples):
   - [PinBufferForBlock](../P/PinBufferForBlock.md)
   - [GetVictimBuffer](../G/GetVictimBuffer.md)
-  - GetLocalVictimBuffer
+  - [GetLocalVictimBuffer](../G/GetLocalVictimBuffer.md)
 
 ## Notes and Other Information
 - This function is purely a convenience wrapper that always increments the count by exactly 1

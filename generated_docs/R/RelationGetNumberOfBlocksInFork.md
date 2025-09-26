@@ -23,8 +23,8 @@ RelationGetNumberOfBlocksInFork provides a unified interface for determining the
   - RELKIND_HAS_TABLE_AM
   - [table_relation_size](../t/table_relation_size.md)
   - RELKIND_HAS_STORAGE
-  - smgrnblocks
-  - RelationGetSmgr
+  - [smgrnblocks](../s/smgrnblocks.md)
+  - [RelationGetSmgr](RelationGetSmgr.md)
 - Called from (representative examples):
   - [_hash_getnewbuf](../h/_hash_getnewbuf.md)
   - [_hash_init](../h/_hash_init.md)

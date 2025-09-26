@@ -20,7 +20,7 @@ This function constructs and sends a CopyOutResponse message as part of the Post
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_beginmessage
+  - [pq_beginmessage](../p/pq_beginmessage.md)
   - PqMsg_CopyOutResponse
   - [pq_sendbyte](../p/pq_sendbyte.md)
   - [pq_sendint16](../p/pq_sendint16.md)

@@ -22,7 +22,7 @@ The callback is designed to gather a complete inventory of all tuples currently 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - itemptr_encode
+  - [itemptr_encode](../i/itemptr_encode.md)
   - [Int64GetDatum](../I/Int64GetDatum.md)
   - [tuplesort_putdatum](../t/tuplesort_putdatum.md)
   - ValidateIndexState

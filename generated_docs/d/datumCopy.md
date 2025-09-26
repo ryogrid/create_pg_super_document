@@ -31,9 +31,9 @@ The function is particularly important when copying datums out of transient memo
 - Functions called/Symbols referenced:
   - [DatumGetPointer](../D/DatumGetPointer.md)
   - VARATT_IS_EXTERNAL_EXPANDED
-  - DatumGetEOHP
-  - EOH_get_flat_size
-  - EOH_flatten_into
+  - [DatumGetEOHP](../D/DatumGetEOHP.md)
+  - [EOH_get_flat_size](../E/EOH_get_flat_size.md)
+  - [EOH_flatten_into](../E/EOH_flatten_into.md)
   - VARSIZE_ANY
   - [datumGetSize](datumGetSize.md)
   - [palloc](../p/palloc.md)

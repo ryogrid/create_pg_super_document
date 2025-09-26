@@ -21,9 +21,9 @@ The function is used in subplan execution contexts where detecting completely NU
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slot_attisnull (to check individual attribute NULL status)
+  - [slot_attisnull](slot_attisnull.md) (to check individual attribute NULL status)
 - Types used:
-  - TupleTableSlot
+  - [TupleTableSlot](../T/TupleTableSlot.md)
 - Called from (representative examples):
   - [ExecHashSubPlan](../E/ExecHashSubPlan.md) (for NULL tuple detection in subplan execution)
 

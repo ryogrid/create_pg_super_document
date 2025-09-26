@@ -33,14 +33,14 @@ The function validates the input directory name to prevent empty or blank-only n
 ## Dependencies
 - Functions called/Symbols referenced:
   - [AbsoluteConfigLocation](../A/AbsoluteConfigLocation.md)
-  - AllocateDir
-  - ReadDir
-  - FreeDir
+  - [AllocateDir](../A/AllocateDir.md)
+  - [ReadDir](../R/ReadDir.md)
+  - [FreeDir](../F/FreeDir.md)
   - [join_path_components](../j/join_path_components.md)
   - [canonicalize_path](../c/canonicalize_path.md)
   - [get_dirent_type](../g/get_dirent_type.md)
   - qsort
-  - pg_qsort_strcmp
+  - [pg_qsort_strcmp](../p/pg_qsort_strcmp.md)
   - [palloc](../p/palloc.md)/repalloc/pstrdup
   - ereport/errcode/errmsg
 - Called from (representative examples):

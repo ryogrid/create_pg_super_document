@@ -41,11 +41,11 @@ The same hashtable entry cannot simultaneously serve both exact and lossy purpos
 - Called from (representative examples):
   - [tbm_create_pagetable](../t/tbm_create_pagetable.md)
   - [tbm_add_tuples](../t/tbm_add_tuples.md)
-  - tbm_union_page
-  - tbm_intersect_page
+  - [tbm_union_page](../t/tbm_union_page.md)
+  - [tbm_intersect_page](../t/tbm_intersect_page.md)
   - [tbm_iterate](../t/tbm_iterate.md)
   - [tbm_find_pageentry](../t/tbm_find_pageentry.md)
-  - tbm_get_pageentry
+  - [tbm_get_pageentry](../t/tbm_get_pageentry.md)
 
 ## Notes and Other Information
 - The structure is designed to optimize memory usage while maintaining query performance through its dual-mode operation

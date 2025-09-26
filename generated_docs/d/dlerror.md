@@ -22,7 +22,7 @@ This function takes no parameters and returns:
 - Functions called/Symbols referenced:
   - Uses static variable `last_dyn_error` (defined at src/port/win32dlopen.c:18)
 - Called from (representative examples):
-  - `internal_load_library` at src/backend/utils/fmgr/dfmgr.c:242
+  - `[internal_load_library](../i/internal_load_library.md)` at src/backend/utils/fmgr/dfmgr.c:242
 
 ## Notes and Other Information
 - This is a Windows-specific implementation that provides POSIX `dlerror()` compatibility

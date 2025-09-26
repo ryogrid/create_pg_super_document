@@ -39,15 +39,15 @@ The function maintains bug-compatibility with older implementations by convertin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth
+  - [check_stack_depth](../c/check_stack_depth.md)
   - CHECK_FOR_INTERRUPTS
   - chkcond (callback)
-  - TS_phrase_execute
+  - [TS_phrase_execute](TS_phrase_execute.md)
   - elog
 - Called from (representative examples):
-  - TS_execute
-  - TS_execute_ternary
-  - TS_execute_recurse (recursive calls)
+  - [TS_execute](TS_execute.md)
+  - [TS_execute_ternary](TS_execute_ternary.md)
+  - [TS_execute_recurse](TS_execute_recurse.md) (recursive calls)
 
 ## Notes and Other Information
 - Operates as a position-agnostic evaluation engine until phrase operators are reached

@@ -30,17 +30,17 @@ The output format is "(column1, column2, ...) = (value1, value2, ...)" with prop
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RelationGetPartitionKey](../R/RelationGetPartitionKey.md)
-  - get_partition_natts
+  - [get_partition_natts](../g/get_partition_natts.md)
   - [check_enable_rls](../c/check_enable_rls.md)
   - [pg_class_aclcheck](../p/pg_class_aclcheck.md)
-  - get_partition_col_attnum
+  - [get_partition_col_attnum](../g/get_partition_col_attnum.md)
   - [pg_attribute_aclcheck](../p/pg_attribute_aclcheck.md)
   - [pg_get_partkeydef_columns](../p/pg_get_partkeydef_columns.md)
   - [getTypeOutputInfo](../g/getTypeOutputInfo.md)
-  - get_partition_col_typid
+  - [get_partition_col_typid](../g/get_partition_col_typid.md)
   - [OidOutputFunctionCall](../O/OidOutputFunctionCall.md)
   - [pg_mbcliplen](../p/pg_mbcliplen.md)
-  - appendBinaryStringInfo
+  - [appendBinaryStringInfo](../a/appendBinaryStringInfo.md)
 - Called from (representative examples):
   - [ExecFindPartition](ExecFindPartition.md) (when generating error messages for partition routing failures)
 

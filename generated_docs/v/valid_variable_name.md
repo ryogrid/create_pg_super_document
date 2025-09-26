@@ -26,8 +26,8 @@ The function is designed to be consistent with variable name character definitio
   - strchr (standard C library function)
 - Called from (representative examples):
   - [lookupCreateVariable](../l/lookupCreateVariable.md)
-  - SetVariable (in psql)
-  - SetVariableHooks (in psql)
+  - [SetVariable](../S/SetVariable.md) (in psql)
+  - [SetVariableHooks](../S/SetVariableHooks.md) (in psql)
 
 ## Notes and Other Information
 - The function explicitly disallows zero-length names

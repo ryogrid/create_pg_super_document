@@ -32,8 +32,8 @@ The function processes input character by character, detecting the encoding type
   - SS3: Single Shift 3 character set selector (JIS X 0212)  
   - IS_HIGHBIT_SET: Macro to test if high bit is set (JIS X 0208 detection)
 - Called from (representative examples):
-  - pg_eucjp2wchar_with_len
-  - pg_euckr2wchar_with_len
+  - [pg_eucjp2wchar_with_len](pg_eucjp2wchar_with_len.md)
+  - [pg_euckr2wchar_with_len](pg_euckr2wchar_with_len.md)
 
 ## Notes and Other Information
 - This is a static function internal to the wchar.c module

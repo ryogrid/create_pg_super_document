@@ -42,8 +42,8 @@ The function handles security carefully by checking the original authenticated u
   - GETSTRUCT
   - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - [GetAuthenticatedUserId](../G/GetAuthenticatedUserId.md)
-  - superuser_arg
-  - GUC_check_errcode
+  - [superuser_arg](../s/superuser_arg.md)
+  - [GUC_check_errcode](../G/GUC_check_errcode.md)
   - [guc_malloc](../g/guc_malloc.md)
 - Called from (representative examples):
   - GUC system when processing SET SESSION AUTHORIZATION commands

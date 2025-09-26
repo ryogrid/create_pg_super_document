@@ -29,7 +29,7 @@ The function supports waiting for latch signals, socket readiness (readable/writ
 - Functions called/Symbols referenced:
   - [CreateWaitEventSet](../C/CreateWaitEventSet.md)
   - [AddWaitEventToSet](../A/AddWaitEventToSet.md)
-  - WaitEventSetWait
+  - [WaitEventSetWait](WaitEventSetWait.md)
   - [FreeWaitEventSet](../F/FreeWaitEventSet.md)
   - WL_TIMEOUT, WL_LATCH_SET, WL_POSTMASTER_DEATH, WL_EXIT_ON_PM_DEATH, WL_SOCKET_MASK constants
 - Called from (representative examples):

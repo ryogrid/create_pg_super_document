@@ -32,10 +32,10 @@ The hidden flag provides a mechanism to accept certain values for backward compa
 - Functions called/Symbols referenced:
   - GucSource (referenced in nearby code sections)
 - Called from (representative examples):
-  - config_enum_lookup_by_value
-  - config_enum_lookup_by_name
-  - config_enum_get_options
-  - DefineCustomEnumVariable
+  - [config_enum_lookup_by_value](config_enum_lookup_by_value.md)
+  - [config_enum_lookup_by_name](config_enum_lookup_by_name.md)
+  - [config_enum_get_options](config_enum_get_options.md)
+  - [DefineCustomEnumVariable](../D/DefineCustomEnumVariable.md)
   - Various enum configuration tables in guc_tables.c
 
 ## Notes and Other Information

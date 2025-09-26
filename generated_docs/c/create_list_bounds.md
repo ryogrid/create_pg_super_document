@@ -44,7 +44,7 @@ The function first counts non-null datums, creates a unified PartitionListValue 
   - foreach
   - PARTITION_STRATEGY_LIST
   - [PartitionListValue](../P/PartitionListValue.md)
-  - PartitionBoundInfoData
+  - [PartitionBoundInfoData](../P/PartitionBoundInfoData.md)
 - Called from (representative examples):
   - [partition_bounds_create](../p/partition_bounds_create.md) (src/backend/partitioning/partbounds.c:332)
 

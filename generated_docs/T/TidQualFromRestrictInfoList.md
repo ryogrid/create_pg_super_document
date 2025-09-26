@@ -30,7 +30,7 @@ The function's recursive nature allows it to handle arbitrarily nested boolean e
 ## Dependencies
 - Functions called/Symbols referenced:
   - [restriction_is_or_clause](../r/restriction_is_or_clause.md)
-  - BoolExpr (node type)
+  - [BoolExpr](../B/BoolExpr.md) (node type)
   - [is_andclause](../i/is_andclause.md)
   - [TidQualFromRestrictInfoList](TidQualFromRestrictInfoList.md) (recursive self-call)
   - [RestrictInfoIsTidQual](../R/RestrictInfoIsTidQual.md)

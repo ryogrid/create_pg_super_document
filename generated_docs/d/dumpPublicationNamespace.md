@@ -26,7 +26,7 @@ The function skips operation in data-only dumps since schema membership is a str
   - [psprintf](../p/psprintf.md) - formats strings safely
   - [fmtId](../f/fmtId.md) - formats identifiers safely for SQL output
   - [ArchiveEntry](../A/ArchiveEntry.md) - creates an archive entry for the dump
-  - createPQExpBuffer/destroyPQExpBuffer - manages query buffers
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)/destroyPQExpBuffer - manages query buffers
   - [appendPQExpBuffer](../a/appendPQExpBuffer.md) - builds SQL statements
 - Called from (representative examples):
   - [dumpDumpableObject](dumpDumpableObject.md) - [main](../m/main.md) dispatcher for dumping various object types

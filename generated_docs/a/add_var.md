@@ -36,8 +36,8 @@ The function implements the mathematical rules for signed number addition:
   - NUMERIC_NEG (negative sign constant)
 - Called from (representative examples):
   - [numeric_add_opt_error](../n/numeric_add_opt_error.md)
-  - generate_series_step_numeric
-  - width_bucket_numeric
+  - [generate_series_step_numeric](../g/generate_series_step_numeric.md)
+  - [width_bucket_numeric](../w/width_bucket_numeric.md)
   - [numeric_inc](../n/numeric_inc.md)
   - [div_mod_var](../d/div_mod_var.md)
   - [sqrt_var](../s/sqrt_var.md)

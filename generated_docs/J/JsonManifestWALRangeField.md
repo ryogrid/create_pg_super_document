@@ -30,8 +30,8 @@ The enum serves as a state indicator in the JSON parsing state machine, allowing
 - Functions called/Symbols referenced: None (this is an enum definition)
 - Used by:
   - JsonManifestParseState struct (as the `wal_range_field` member)
-  - json_manifest_object_field_start function (for field identification)
-  - json_manifest_scalar function (for value assignment)
+  - [json_manifest_object_field_start](../j/json_manifest_object_field_start.md) function (for field identification)
+  - [json_manifest_scalar](../j/json_manifest_scalar.md) function (for value assignment)
 
 ## Usage Context
 The enum is used within the JSON manifest parsing logic in the following way:

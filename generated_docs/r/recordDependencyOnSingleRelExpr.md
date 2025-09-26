@@ -47,7 +47,7 @@ Key features:
   - list_make1
 - Called from (representative examples):
   - [StorePartitionKey](../S/StorePartitionKey.md) (for partition key expressions)
-  - index_create (for index expressions)
+  - [index_create](../i/index_create.md) (for index expressions)
   - [StoreAttrDefault](../S/StoreAttrDefault.md) (for column default expressions)
   - [CreateConstraintEntry](../C/CreateConstraintEntry.md) (for constraint expressions)
 

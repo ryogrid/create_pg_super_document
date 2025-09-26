@@ -57,14 +57,14 @@ The hash table uses open addressing and grows dynamically when utilization reach
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwner (typedef for ResourceOwnerData*)
-  - ResourceElem (resource storage elements)
-  - LOCALLOCK (lock management structure)
+  - [ResourceOwner](ResourceOwner.md) (typedef for ResourceOwnerData*)
+  - [ResourceElem](ResourceElem.md) (resource storage elements)
+  - [LOCALLOCK](../L/LOCALLOCK.md) (lock management structure)
   - RESOWNER_ARRAY_SIZE (constant: 32)
   - MAX_RESOWNER_LOCKS (constant: 15)
 - Called from (representative examples):
-  - ResourceOwnerCreate (for creating new instances)
-  - LOCALLOCKOWNER (as part of lock ownership tracking)
+  - [ResourceOwnerCreate](ResourceOwnerCreate.md) (for creating new instances)
+  - [LOCALLOCKOWNER](../L/LOCALLOCKOWNER.md) (as part of lock ownership tracking)
 
 ## Notes and Other Information
 - The dual storage approach (array + hash table) optimizes for common cases where few resources are held while supporting scenarios with many resources

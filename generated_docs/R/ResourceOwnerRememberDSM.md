@@ -21,12 +21,12 @@ This function is a simple wrapper around the generic ResourceOwnerRemember() fun
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwnerRemember
-  - PointerGetDatum
+  - [ResourceOwnerRemember](ResourceOwnerRemember.md)
+  - [PointerGetDatum](../P/PointerGetDatum.md)
   - dsm_resowner_desc (static resource owner descriptor)
 - Called from (representative examples):
-  - dsm_unpin_mapping
-  - dsm_create_descriptor
+  - [dsm_unpin_mapping](../d/dsm_unpin_mapping.md)
+  - [dsm_create_descriptor](../d/dsm_create_descriptor.md)
 
 ## Notes and Other Information
 - This is a static inline function, so it's only visible within the dsm.c compilation unit

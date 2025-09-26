@@ -41,7 +41,7 @@ The function processes each page range by:
   - [brin_copy_tuple](brin_copy_tuple.md): Creates a copy of a BRIN tuple
   - [check_null_keys](../c/check_null_keys.md): Validates IS NULL/IS NOT NULL scan conditions  
   - [index_getprocinfo](../i/index_getprocinfo.md): Gets consistent support procedure for attribute
-  - tbm_add_page: Adds page to TID bitmap
+  - [tbm_add_page](../t/tbm_add_page.md): Adds page to TID bitmap
   - pgstat_count_index_scan: Updates index scan statistics
 - Called from (representative examples):
   - [brinhandler](brinhandler.md): BRIN access method handler registration

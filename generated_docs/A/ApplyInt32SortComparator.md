@@ -28,7 +28,7 @@ This comparator is specifically optimized for 32-bit integer data types, providi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SortSupport (struct type)
+  - [SortSupport](../S/SortSupport.md) (struct type)
   - [DatumGetInt32](../D/DatumGetInt32.md) (conversion macro/function)
   - INVERT_COMPARE_RESULT (macro)
 - Called from (representative examples):

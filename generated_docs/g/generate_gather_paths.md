@@ -31,14 +31,14 @@ The function handles row count estimation by scaling the partial path rows by th
   - [create_gather_path](../c/create_gather_path.md)
   - [add_path](../a/add_path.md)
   - [create_gather_merge_path](../c/create_gather_merge_path.md)
-  - GatherMergePath (type)
+  - [GatherMergePath](../G/GatherMergePath.md) (type)
 - Called from (representative examples):
   - [generate_useful_gather_paths](generate_useful_gather_paths.md)
 
 ## Notes and Other Information
 - Must be called after all partial paths are created to avoid dangling references
-- Gather paths always produce unsorted output, so only the cheapest partial path is used for simple Gather
-- GatherMerge paths preserve ordering and are created for each partial path with non-NIL pathkeys
+- [Gather](../G/Gather.md) paths always produce unsorted output, so only the cheapest partial path is used for simple Gather
+- [GatherMerge](../G/GatherMerge.md) paths preserve ordering and are created for each partial path with non-NIL pathkeys
 - Row count scaling accounts for parallel workers: subpath_rows × parallel_workers
 - The override_rows parameter is essential for operations like partial grouping where the base relation estimate is inadequate
 - Requires existing partial_pathlist to be non-empty to generate any paths

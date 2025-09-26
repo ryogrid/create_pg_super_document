@@ -38,7 +38,7 @@ The function maintains the same block_id management and validation as XLogRegist
 - Functions called/Symbols referenced:
   - RelFileLocatorEquals: Validates against duplicate block registration
   - [registered_buffer](../r/registered_buffer.md): Buffer registration structure type
-  - XLogRecData: Data chain structure for block-associated data  
+  - [XLogRecData](XLogRecData.md): Data chain structure for block-associated data  
 - Called from (representative examples):
   - [XLogSaveBufferForHint](XLogSaveBufferForHint.md): Hint bit logging for buffer pages
   - [log_newpage](../l/log_newpage.md): Single page initialization logging

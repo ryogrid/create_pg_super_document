@@ -23,7 +23,7 @@ The dcosh function is a PostgreSQL wrapper around the standard C library cosh() 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT8: Extracts float8 argument from function call context
-  - get_float8_infinity: Returns positive infinity representation
+  - [get_float8_infinity](../g/get_float8_infinity.md): Returns positive infinity representation
   - [float_underflow_error](../f/float_underflow_error.md): Handles underflow error conditions
 - Called from (representative examples):
   - No direct references found in the codebase

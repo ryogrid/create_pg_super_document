@@ -33,7 +33,7 @@ The function supports both addition and subtraction of intervals from the base d
   - [date2timestamp](../d/date2timestamp.md) - Converts date to timestamp
   - `DirectFunctionCall5` - Direct function call mechanism
   - [in_range_timestamp_interval](in_range_timestamp_interval.md) - Timestamp interval range function
-  - `TimestampGetDatum`, `IntervalPGetDatum`, `BoolGetDatum` - Datum conversion functions
+  - `[TimestampGetDatum](../T/TimestampGetDatum.md)`, `IntervalPGetDatum`, `BoolGetDatum` - Datum conversion functions
   - `DateADT`, `Interval`, `Timestamp` - Data type definitions
 - Called from (representative examples):
   - No direct references found in the codebase

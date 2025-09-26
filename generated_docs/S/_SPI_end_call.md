@@ -24,15 +24,15 @@ The function is designed to always succeed and currently has no failure cases, w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _SPI_procmem: Switches back to the procedure memory context
+  - [_SPI_procmem](_SPI_procmem.md): Switches back to the procedure memory context
   - InvalidSubTransactionId: Constant used to mark the Executor context as no longer in use
-  - MemoryContextReset: Frees all memory allocated in the Executor context
+  - [MemoryContextReset](../M/MemoryContextReset.md): Frees all memory allocated in the Executor context
 - Called from (representative examples):
-  - SPI_execute: Main SPI execution function
-  - SPI_execute_plan: Executes prepared SPI plans
-  - SPI_prepare_extended: Prepares extended SPI statements
-  - SPI_cursor_open_internal: Opens SPI cursors
-  - _SPI_cursor_operation: Performs cursor operations
+  - [SPI_execute](SPI_execute.md): Main SPI execution function
+  - [SPI_execute_plan](SPI_execute_plan.md): Executes prepared SPI plans
+  - [SPI_prepare_extended](SPI_prepare_extended.md): Prepares extended SPI statements
+  - [SPI_cursor_open_internal](SPI_cursor_open_internal.md): Opens SPI cursors
+  - [_SPI_cursor_operation](_SPI_cursor_operation.md): Performs cursor operations
 
 ## Notes and Other Information
 - This is a static function internal to the SPI implementation, not part of the public SPI API

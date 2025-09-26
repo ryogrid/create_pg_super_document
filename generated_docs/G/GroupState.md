@@ -284,7 +284,7 @@ v_str ESTAB   0      0                                               *:633275472
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ScanState](../S/ScanState.md) (base executor state structure)
-  - ExprState (compiled expression state for equality comparisons)
+  - [ExprState](../E/ExprState.md) (compiled expression state for equality comparisons)
 - Called from (representative examples):
   - [ExecGroup](../E/ExecGroup.md) (src/backend/executor/nodeGroup.c:38, 160)
   - [ExecInitGroup](../E/ExecInitGroup.md) (src/backend/executor/nodeGroup.c:163, 172)

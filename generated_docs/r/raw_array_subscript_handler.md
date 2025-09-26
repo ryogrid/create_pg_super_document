@@ -34,7 +34,7 @@ The returned `SubscriptRoutines` structure contains:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `SubscriptRoutines` (structure type)
+  - `[SubscriptRoutines](../S/SubscriptRoutines.md)` (structure type)
   - [array_subscript_transform](../a/array_subscript_transform.md) (transform function)
   - [array_exec_setup](../a/array_exec_setup.md) (execution setup function)
 - Called from (representative examples):

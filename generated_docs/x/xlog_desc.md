@@ -28,7 +28,7 @@ The function uses a switch-like structure based on the record's info field to de
   - [get_wal_level_string](../g/get_wal_level_string.md) (converts WAL level to string)
   - EpochFromFullTransactionId, XidFromFullTransactionId (transaction ID utilities)
   - [timestamptz_to_str](../t/timestamptz_to_str.md) (timestamp formatting)
-  - appendStringInfo, appendStringInfoString (string buffer operations)
+  - [appendStringInfo](../a/appendStringInfo.md), appendStringInfoString (string buffer operations)
 - Called from (representative examples):
   - Resource manager framework via rmgrlist.h registration
   - WAL record debugging and analysis tools

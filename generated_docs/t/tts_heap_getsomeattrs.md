@@ -21,7 +21,7 @@ This function implements the getsomeattrs callback for heap tuple table slots wi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HeapTupleTableSlot (cast target type)
+  - [HeapTupleTableSlot](../H/HeapTupleTableSlot.md) (cast target type)
   - TTS_EMPTY (macro to check if slot is empty)
   - [slot_deform_heap_tuple](../s/slot_deform_heap_tuple.md) (function that performs the actual attribute extraction)
 - Called from (representative examples):

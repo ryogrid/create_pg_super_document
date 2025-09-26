@@ -35,7 +35,7 @@ The function is marked as static inline, indicating it's an internal utility fun
   - [wipe_mem](../w/wipe_mem.md) - clears memory content (when CLOBBER_FREED_MEMORY is defined)
   - free - system call to release memory
 - Called from:
-  - [GenerationReset](GenerationReset.md) - when resetting the memory context
+  - [GenerationReset](GenerationReset.md) - [when](../w/when.md) resetting the memory context
   - [GenerationFree](GenerationFree.md) - during memory deallocation operations
 
 ## Notes and Other Information

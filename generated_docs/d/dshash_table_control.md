@@ -45,7 +45,7 @@ The dshash_table_control struct is the central control structure for PostgreSQL'
   - dsa_pointer
 - Called from (representative examples):
   - [dshash_table](dshash_table.md) (contains pointer to control structure)
-  - dshash_create
+  - [dshash_create](dshash_create.md)
 
 ## Notes and Other Information
 - The structure is designed for multi-process shared access through dynamic shared memory

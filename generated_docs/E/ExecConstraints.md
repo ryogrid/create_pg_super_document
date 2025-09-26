@@ -22,7 +22,7 @@ ExecConstraints is the primary function for enforcing traditional table constrai
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slot_attisnull
+  - [slot_attisnull](../s/slot_attisnull.md)
   - [build_attrmap_by_name_if_req](../b/build_attrmap_by_name_if_req.md)
   - [execute_attr_map_slot](../e/execute_attr_map_slot.md)
   - [MakeTupleTableSlot](../M/MakeTupleTableSlot.md)

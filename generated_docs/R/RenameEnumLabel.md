@@ -32,10 +32,10 @@ The function uses the system cache to efficiently retrieve all existing enum val
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LockDatabaseObject](../L/LockDatabaseObject.md): Acquires exclusive lock on the enum type
-  - table_open: Opens the pg_enum relation for modification
+  - [table_open](../t/table_open.md): Opens the pg_enum relation for modification
   - SearchSysCacheList1: Retrieves all enum values for the given type
   - [heap_copytuple](../h/heap_copytuple.md): Creates a writable copy of the tuple
-  - namestrcpy: Copies the new name into the tuple structure
+  - [namestrcpy](../n/namestrcpy.md): Copies the new name into the tuple structure
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md): Updates the tuple in the pg_enum catalog
   - [heap_freetuple](../h/heap_freetuple.md): Frees the temporary tuple memory
   - [ReleaseCatCacheList](ReleaseCatCacheList.md): Releases the system cache list

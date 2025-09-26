@@ -27,16 +27,16 @@ This function is the main entry point for creating SCRAM authentication secrets 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - scram_SaltedPassword
-  - scram_ClientKey  
-  - scram_H
-  - scram_ServerKey
-  - pg_b64_encode
-  - pg_b64_enc_len
+  - [scram_SaltedPassword](scram_SaltedPassword.md)
+  - [scram_ClientKey](scram_ClientKey.md)  
+  - [scram_H](scram_H.md)
+  - [scram_ServerKey](scram_ServerKey.md)
+  - [pg_b64_encode](../p/pg_b64_encode.md)
+  - [pg_b64_enc_len](../p/pg_b64_enc_len.md)
   - malloc/palloc (build-dependent)
 - Called from (representative examples):
-  - pg_be_scram_build_secret
-  - pg_fe_scram_build_secret
+  - [pg_be_scram_build_secret](../p/pg_be_scram_build_secret.md)
+  - [pg_fe_scram_build_secret](../p/pg_fe_scram_build_secret.md)
 
 ## Notes and Other Information
 - Returns allocated string on success, NULL on failure

@@ -18,7 +18,7 @@ The `injection_points_run` function provides a direct mechanism to execute injec
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - text_to_cstring
+  - [text_to_cstring](../t/text_to_cstring.md)
   - INJECTION_POINT
   - PG_RETURN_VOID
 - Called from (representative examples):

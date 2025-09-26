@@ -31,14 +31,14 @@ This capability is particularly important for cases like "EXPLAIN CREATE TABLE A
 - Functions called/Symbols referenced:
   - nodeTag (to identify statement type)
   - castNode (to safely cast nodes to Query type)
-  - UtilityContainsQuery (recursive calls for nested utilities)
+  - [UtilityContainsQuery](UtilityContainsQuery.md) (recursive calls for nested utilities)
   - Statement types: DeclareCursorStmt, ExplainStmt, CreateTableAsStmt
   - CMD_UTILITY constant
 
 - Called from:
-  - extract_query_dependencies_walker (for dependency analysis)
-  - AcquireExecutorLocks, AcquirePlannerLocks (for lock management)
-  - UtilityContainsQuery (recursive calls)
+  - [extract_query_dependencies_walker](../e/extract_query_dependencies_walker.md) (for dependency analysis)
+  - [AcquireExecutorLocks](../A/AcquireExecutorLocks.md), AcquirePlannerLocks (for lock management)
+  - [UtilityContainsQuery](UtilityContainsQuery.md) (recursive calls)
   - COMMAND_IS_NOT_READ_ONLY macro
 
 ## Notes and Other Information

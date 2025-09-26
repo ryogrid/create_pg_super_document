@@ -47,7 +47,7 @@ The implementation considers all indexes returned by , including those not yet r
   - [pub_collist_contains_invalid_column](../p/pub_collist_contains_invalid_column.md)
   - [GetParentedForeignKeyRefs](../G/GetParentedForeignKeyRefs.md)
   - [ExecUpdateLockMode](../E/ExecUpdateLockMode.md)
-  - logicalrep_rel_mark_updatable
+  - [logicalrep_rel_mark_updatable](../l/logicalrep_rel_mark_updatable.md)
 
 ## Notes and Other Information
 - Requires at least RowExclusiveLock on the target relation to ensure deadlock-free index access

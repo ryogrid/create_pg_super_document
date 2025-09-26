@@ -34,7 +34,7 @@ The function supports up to 4 optional arguments via pset.ctv_args:
   - [avlInit](../a/avlInit.md), avlFree, avlMergeValue, avlCollectFields
   - [PQresultStatus](PQresultStatus.md), PQnfields, PQntuples, PQgetisnull, PQgetvalue
   - [indexOfColumn](../i/indexOfColumn.md), rankSort, printCrosstab
-  - pg_malloc, pg_free, pg_log_error
+  - [pg_malloc](../p/pg_malloc.md), pg_free, pg_log_error
 - Called from (representative examples):
   - [PrintQueryResult](PrintQueryResult.md) (src/bin/psql/common.c:1022)
 

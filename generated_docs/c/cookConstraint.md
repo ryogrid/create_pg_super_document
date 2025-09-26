@@ -30,7 +30,7 @@ The function is part of PostgreSQL's constraint validation system and ensures th
   - [transformExpr](../t/transformExpr.md): Converts raw parse tree to executable expression with CHECK_CONSTRAINT context
   - [coerce_to_boolean](coerce_to_boolean.md): Ensures the expression returns a boolean value
   - [assign_expr_collations](../a/assign_expr_collations.md): Resolves collation assignments in the expression
-  - list_length: Checks the number of relations in the range table
+  - [list_length](../l/list_length.md): Checks the number of relations in the range table
   - ereport: Reports errors for invalid column references
 
 - Called from (representative examples):
@@ -40,7 +40,7 @@ The function is part of PostgreSQL's constraint validation system and ensures th
 - This is a static function used internally within heap.c for constraint processing
 - The function enforces that CHECK constraints can only reference columns from the target table
 - The range table validation (p_rtable length check) prevents references to external relations
-- Boolean coercion ensures that CHECK constraints properly evaluate to true/false values
+- [Boolean](../B/Boolean.md) coercion ensures that CHECK constraints properly evaluate to true/false values
 - Collation handling ensures string comparisons work correctly within the constraint
 - The comment mentions that some validation may be "dead code" due to historical changes in query processing
 - CHECK constraints are fundamental to PostgreSQL's data integrity enforcement system

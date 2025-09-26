@@ -18,15 +18,15 @@ This function handles the replay of page content movement during hash index sque
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData
-  - XLogReadBufferForRedoExtended
-  - XLogReadBufferForRedo
+  - [XLogReadBufferForRedoExtended](../X/XLogReadBufferForRedoExtended.md)
+  - [XLogReadBufferForRedo](../X/XLogReadBufferForRedo.md)
   - [XLogRecGetBlockData](../X/XLogRecGetBlockData.md)
   - [BufferGetPage](../B/BufferGetPage.md)
   - IndexTupleSize
   - PageAddItem
   - [PageIndexMultiDelete](../P/PageIndexMultiDelete.md)
   - [PageSetLSN](../P/PageSetLSN.md)
-  - MarkBufferDirty
+  - [MarkBufferDirty](../M/MarkBufferDirty.md)
   - [BufferIsValid](../B/BufferIsValid.md)
   - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
   - [xl_hash_move_page_contents](../x/xl_hash_move_page_contents.md)

@@ -25,7 +25,7 @@ The function checks if a boolean partition key column has such a boolean restric
 - Functions called/Symbols referenced:
   - IsBuiltinBooleanOpfamily
   - [matches_boolean_partition_clause](../m/matches_boolean_partition_clause.md)
-  - PartitionScheme (type)
+  - [PartitionScheme](../P/PartitionScheme.md) (type)
 - Called from (representative examples):
   - [build_partition_pathkeys](../b/build_partition_pathkeys.md)
 

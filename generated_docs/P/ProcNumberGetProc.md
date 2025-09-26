@@ -22,11 +22,11 @@ The function includes important safety considerations: the returned PGPROC point
   - GetPGProcByNumber
   - ProcGlobal (global variable access)
 - Called from (representative examples):
-  - checkTempNamespaceStatus
-  - WaitForOlderSnapshots
-  - LogRecoveryConflict
-  - WaitForLockersMultiple
-  - VirtualXactLock
+  - [checkTempNamespaceStatus](../c/checkTempNamespaceStatus.md)
+  - [WaitForOlderSnapshots](../W/WaitForOlderSnapshots.md)
+  - [LogRecoveryConflict](../L/LogRecoveryConflict.md)
+  - [WaitForLockersMultiple](../W/WaitForLockersMultiple.md)
+  - [VirtualXactLock](../V/VirtualXactLock.md)
 
 ## Notes and Other Information
 - Returns NULL if the process number is out of bounds or if the backend is not active (pid == 0)

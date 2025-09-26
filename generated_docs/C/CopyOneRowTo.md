@@ -22,7 +22,7 @@ CopyOneRowTo processes individual tuples during COPY TO operations by extracting
 - Functions called/Symbols referenced:
   - [MemoryContextReset](../M/MemoryContextReset.md)
   - [CopySendInt16](CopySendInt16.md)
-  - slot_getallattrs
+  - [slot_getallattrs](../s/slot_getallattrs.md)
   - [CopySendChar](CopySendChar.md)
   - [CopySendString](CopySendString.md)
   - [CopySendInt32](CopySendInt32.md)

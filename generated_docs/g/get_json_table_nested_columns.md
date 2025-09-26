@@ -33,14 +33,14 @@ The function formats the output with proper SQL syntax, including comma separati
 - Functions called/Symbols referenced:
   - IsA (macro for type checking)
   - castNode (macro for safe type casting)
-  - appendStringInfoChar
-  - appendContextKeyword
-  - get_const_expr
-  - quote_identifier
-  - get_json_table_columns
-  - get_json_table_nested_columns (recursive call)
+  - [appendStringInfoChar](../a/appendStringInfoChar.md)
+  - [appendContextKeyword](../a/appendContextKeyword.md)
+  - [get_const_expr](get_const_expr.md)
+  - [quote_identifier](../q/quote_identifier.md)
+  - [get_json_table_columns](get_json_table_columns.md)
+  - [get_json_table_nested_columns](get_json_table_nested_columns.md) (recursive call)
 - Called from (representative examples):
-  - get_json_table_columns
+  - [get_json_table_columns](get_json_table_columns.md)
 
 ## Notes and Other Information
 - This is a static function used internally by the rule deparsing system

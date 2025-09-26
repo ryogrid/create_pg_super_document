@@ -37,10 +37,10 @@ The structure supports both creating new languages and replacing existing ones t
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (for type identification)
-  - List (for storing qualified function names)
+  - [List](../L/List.md) (for storing qualified function names)
 - Called from (representative examples):
-  - CreateProceduralLanguage (command execution)
-  - ProcessUtilitySlow (utility command processing)
+  - [CreateProceduralLanguage](CreateProceduralLanguage.md) (command execution)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (utility command processing)
 
 ## Notes and Other Information
 - This structure is part of the parse tree node hierarchy and follows PostgreSQL's standard node conventions

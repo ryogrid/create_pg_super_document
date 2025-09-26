@@ -25,13 +25,13 @@ The function uses binary search through precompiled Unicode tables to efficientl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - mbbisearch (for binary search in Unicode tables)
-  - mbinterval (structure type for Unicode ranges)
+  - [mbbisearch](../m/mbbisearch.md) (for binary search in Unicode tables)
+  - [mbinterval](../m/mbinterval.md) (structure type for Unicode ranges)
 - Includes Unicode tables:
   - common/unicode_nonspacing_table.h
   - common/unicode_east_asian_fw_table.h
 - Called from:
-  - pg_utf_dsplen
+  - [pg_utf_dsplen](../p/pg_utf_dsplen.md)
 
 ## Notes and Other Information
 - Assumes wchar_t characters are encoded in ISO 10646

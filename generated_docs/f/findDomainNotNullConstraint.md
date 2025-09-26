@@ -20,12 +20,12 @@ This function searches the pg_constraint catalog to locate a validated NOT NULL 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - [ScanKeyInit](../S/ScanKeyInit.md)
   - [systable_beginscan](../s/systable_beginscan.md)
   - [systable_getnext](../s/systable_getnext.md)
   - [systable_endscan](../s/systable_endscan.md)
-  - table_close
+  - [table_close](../t/table_close.md)
   - [heap_copytuple](../h/heap_copytuple.md)
   - HeapTupleIsValid
   - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)

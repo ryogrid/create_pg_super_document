@@ -28,12 +28,12 @@ The function follows PostgreSQL's standard pattern for catalog lookups:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open (opens pg_extension catalog)
+  - [table_open](../t/table_open.md) (opens pg_extension catalog)
   - [ScanKeyInit](../S/ScanKeyInit.md) (initializes search key)
   - [systable_beginscan](../s/systable_beginscan.md) (starts catalog scan)
   - [systable_getnext](../s/systable_getnext.md) (retrieves next tuple)
   - [systable_endscan](../s/systable_endscan.md) (ends catalog scan)
-  - table_close (closes catalog relation)
+  - [table_close](../t/table_close.md) (closes catalog relation)
   - [CStringGetDatum](../C/CStringGetDatum.md) (converts C string to Datum)
   - Form_pg_extension (cast to extension tuple structure)
   - ereport (error reporting)
@@ -41,7 +41,7 @@ The function follows PostgreSQL's standard pattern for catalog lookups:
 - Called from (representative examples):
   - [CreateExtension](../C/CreateExtension.md) (during extension creation)
   - [get_required_extension](get_required_extension.md) (dependency resolution)
-  - AlterExtensionNamespace (namespace changes)
+  - [AlterExtensionNamespace](../A/AlterExtensionNamespace.md) (namespace changes)
   - [get_object_address_unqualified](get_object_address_unqualified.md) (object addressing)
   - [binary_upgrade_create_empty_extension](../b/binary_upgrade_create_empty_extension.md) (pg_upgrade support)
 

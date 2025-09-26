@@ -34,11 +34,11 @@ The structure reuses CreateOpClassItem nodes to represent the items being added 
 - Functions called/Symbols referenced:
   - (Uses CreateOpClassItem nodes in items list)
 - Called from (representative examples):
-  - EventTriggerCollectAlterOpFam
-  - AlterOpFamily
-  - AlterOpFamilyAdd
-  - AlterOpFamilyDrop
-  - ProcessUtilitySlow
+  - [EventTriggerCollectAlterOpFam](../E/EventTriggerCollectAlterOpFam.md)
+  - [AlterOpFamily](AlterOpFamily.md)
+  - [AlterOpFamilyAdd](AlterOpFamilyAdd.md)
+  - [AlterOpFamilyDrop](AlterOpFamilyDrop.md)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md)
 
 ## Notes and Other Information
 - The same structure handles both ADD and DROP variants of ALTER OPERATOR FAMILY

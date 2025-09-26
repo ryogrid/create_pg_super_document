@@ -17,7 +17,7 @@ ExecReScanWorkTableScan implements the rescan functionality for WorkTableScan pl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecClearTuple (clears cached tuple from result slot)
+  - [ExecClearTuple](ExecClearTuple.md) (clears cached tuple from result slot)
   - [ExecScanReScan](ExecScanReScan.md) (generic scan rescan functionality)
   - [tuplestore_rescan](../t/tuplestore_rescan.md) (resets tuplestore position to beginning)
 - Types used:

@@ -22,17 +22,17 @@ ActiveSnapshotSet is a simple utility function that determines whether an active
 - Functions called/Symbols referenced:
   - None (directly checks global ActiveSnapshot variable)
 - Called from (representative examples):
-  - index_concurrently_build
-  - find_inheritance_children_extended
-  - ReindexMultipleInternal
-  - vacuum
-  - postquel_start
-  - _SPI_execute_plan
-  - RelationGetPartitionDesc
-  - pg_plan_query
-  - PortalRunUtility
-  - EnsurePortalSnapshotExists
-  - RevalidateCachedQuery
+  - [index_concurrently_build](../i/index_concurrently_build.md)
+  - [find_inheritance_children_extended](../f/find_inheritance_children_extended.md)
+  - [ReindexMultipleInternal](../R/ReindexMultipleInternal.md)
+  - [vacuum](../v/vacuum.md)
+  - [postquel_start](../p/postquel_start.md)
+  - [_SPI_execute_plan](../S/_SPI_execute_plan.md)
+  - [RelationGetPartitionDesc](../R/RelationGetPartitionDesc.md)
+  - [pg_plan_query](../p/pg_plan_query.md)
+  - [PortalRunUtility](../P/PortalRunUtility.md)
+  - [EnsurePortalSnapshotExists](../E/EnsurePortalSnapshotExists.md)
+  - [RevalidateCachedQuery](../R/RevalidateCachedQuery.md)
 
 ## Notes and Other Information
 - Simple boolean check function for active snapshot existence

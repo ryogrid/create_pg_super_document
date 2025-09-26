@@ -34,16 +34,16 @@ The lock hierarchy follows this pattern:
   - GET_PREDICATELOCKTARGETTAG_RELATION
   - GET_PREDICATELOCKTARGETTAG_PAGE
 - Called from (representative examples):
-  - SerialControl
-  - CoarserLockCovers
-  - CheckAndPromotePredicateLockRequest
-  - DecrementParentLocks
-  - PredicateLockPageSplit
+  - [SerialControl](../S/SerialControl.md)
+  - [CoarserLockCovers](../C/CoarserLockCovers.md)
+  - [CheckAndPromotePredicateLockRequest](../C/CheckAndPromotePredicateLockRequest.md)
+  - [DecrementParentLocks](../D/DecrementParentLocks.md)
+  - [PredicateLockPageSplit](../P/PredicateLockPageSplit.md)
 
 ## Notes and Other Information
 - Static function, only accessible within predicate.c
 - Returns true if a parent exists and sets the parent parameter, false if no parent exists
-- Relation-level locks are the coarsest granularity and have no parent
+- [Relation](../R/Relation.md)-level locks are the coarsest granularity and have no parent
 - Essential for lock escalation and promotion in the predicate locking system
 - Uses assertion to ensure all valid lock types are handled
 - Part of PostgreSQL's serializable snapshot isolation implementation

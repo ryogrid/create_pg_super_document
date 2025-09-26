@@ -34,10 +34,10 @@ The function uses a callback-based approach for actual I/O operations, making it
   - memcpy (standard library function)
   - Assert (debugging assertion macro)
 - Called from (representative examples):
-  - WriteBlockRefTable
-  - BlockRefTableWriteEntry
-  - BlockRefTableFileTerminate
-  - CreateBlockRefTableWriter
+  - [WriteBlockRefTable](../W/WriteBlockRefTable.md)
+  - [BlockRefTableWriteEntry](BlockRefTableWriteEntry.md)
+  - [BlockRefTableFileTerminate](BlockRefTableFileTerminate.md)
+  - [CreateBlockRefTableWriter](../C/CreateBlockRefTableWriter.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the blkreftable.c compilation unit

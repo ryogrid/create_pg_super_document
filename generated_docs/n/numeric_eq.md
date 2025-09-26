@@ -25,12 +25,12 @@ The equality test is performed by calling the comprehensive `cmp_numerics` funct
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_NUMERIC (extracts Numeric arguments from function call)
-  - cmp_numerics (performs the actual numeric comparison)
+  - [cmp_numerics](../c/cmp_numerics.md) (performs the actual numeric comparison)
   - PG_FREE_IF_COPY (frees copied numeric values if necessary)
   - PG_RETURN_BOOL (returns boolean result)
-  - Numeric (PostgreSQL numeric data type)
+  - [Numeric](../N/Numeric.md) (PostgreSQL numeric data type)
 - Called from (representative examples):
-  - equalsJsonbScalarValue (JSON-B scalar value equality testing)
+  - [equalsJsonbScalarValue](../e/equalsJsonbScalarValue.md) (JSON-B scalar value equality testing)
 
 ## Notes and Other Information
 - Implements the `=` operator for PostgreSQL numeric data type

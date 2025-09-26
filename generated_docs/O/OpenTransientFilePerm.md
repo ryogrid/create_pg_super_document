@@ -25,14 +25,14 @@ Unlike AllocateFile which uses stdio buffering, this function provides direct ac
 ## Dependencies
 - Functions called/Symbols referenced:
   - DO_DB (debug logging macro)
-  - reserveAllocatedDesc (reserves an allocated descriptor slot)
-  - ReleaseLruFiles (closes least-recently-used files to free FDs)
-  - BasicOpenFilePerm (performs the actual file opening with permission handling)
-  - GetCurrentSubTransactionId (tracks which subtransaction opened the file)
+  - [reserveAllocatedDesc](../r/reserveAllocatedDesc.md) (reserves an allocated descriptor slot)
+  - [ReleaseLruFiles](../R/ReleaseLruFiles.md) (closes least-recently-used files to free FDs)
+  - [BasicOpenFilePerm](../B/BasicOpenFilePerm.md) (performs the actual file opening with permission handling)
+  - [GetCurrentSubTransactionId](../G/GetCurrentSubTransactionId.md) (tracks which subtransaction opened the file)
   - mode_t (POSIX file permission type)
 - Called from (representative examples):
-  - be_lo_export (be-fsstubs.c:510)
-  - OpenTransientFile (fd.c:2632)
+  - [be_lo_export](../b/be_lo_export.md) (be-fsstubs.c:510)
+  - [OpenTransientFile](OpenTransientFile.md) (fd.c:2632)
 
 ## Notes and Other Information
 - Returns a raw file descriptor (int) rather than a FILE* pointer, providing unbuffered access

@@ -23,13 +23,13 @@ This transactional approach prevents orphaned statistics entries that could occu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_create_transactional
+  - [pgstat_create_transactional](pgstat_create_transactional.md)
   - PGSTAT_KIND_RELATION (constant)
   - RelationGetRelid (macro)
   - InvalidOid (constant)
   - MyDatabaseId (global variable)
 - Called from (representative examples):
-  - heap_create (during table creation)
+  - [heap_create](../h/heap_create.md) (during table creation)
 
 ## Notes and Other Information
 - This function is typically called during DDL operations that create new relations (tables, indexes, etc.)

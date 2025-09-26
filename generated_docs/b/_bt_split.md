@@ -50,7 +50,7 @@ The function ensures atomicity through critical sections and handles complex sce
   - [_bt_allocbuf](_bt_allocbuf.md) (to allocate new right page)
   - [_bt_truncate](_bt_truncate.md) (for suffix truncation on leaf pages)
   - [_bt_pgaddtup](_bt_pgaddtup.md) (to add tuples to pages)
-  - PageGetTempPage, PageRestoreTempPage (for temporary page management)
+  - [PageGetTempPage](../P/PageGetTempPage.md), PageRestoreTempPage (for temporary page management)
   - [XLogBeginInsert](../X/XLogBeginInsert.md), XLogRegisterBuffer, XLogInsert (for WAL logging)
   - Various page and buffer management functions
 - Called from (representative examples):

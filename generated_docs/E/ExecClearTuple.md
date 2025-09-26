@@ -22,18 +22,18 @@ This function is essential for memory management and slot reuse in the executor 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TupleTableSlot (struct type)
+  - [TupleTableSlot](../T/TupleTableSlot.md) (struct type)
   - tts_ops->clear (function pointer)
 - Called from (representative examples):
-  - execute_attr_map_slot
-  - heap_getnextslot
-  - CopyMultiInsertBufferFlush
-  - ExecScanFetch
-  - ExecResetTupleTable
-  - process_ordered_aggregate_multi
-  - BitmapHeapNext
-  - ExecProject
-  - tuplesort_gettupleslot
+  - [execute_attr_map_slot](../e/execute_attr_map_slot.md)
+  - [heap_getnextslot](../h/heap_getnextslot.md)
+  - [CopyMultiInsertBufferFlush](../C/CopyMultiInsertBufferFlush.md)
+  - [ExecScanFetch](ExecScanFetch.md)
+  - [ExecResetTupleTable](ExecResetTupleTable.md)
+  - [process_ordered_aggregate_multi](../p/process_ordered_aggregate_multi.md)
+  - [BitmapHeapNext](../B/BitmapHeapNext.md)
+  - [ExecProject](ExecProject.md)
+  - [tuplesort_gettupleslot](../t/tuplesort_gettupleslot.md)
 
 ## Notes and Other Information
 - Always returns the same slot pointer that was passed in, allowing for convenient chaining of operations

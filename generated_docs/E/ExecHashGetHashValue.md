@@ -33,21 +33,21 @@ The function operates in different contexts depending on the outer_tuple flag: f
 ## Dependencies
 - Functions called/Symbols referenced:
   - ResetExprContext
-  - pg_rotate_left32
-  - ExecEvalExpr
-  - DatumGetUInt32
-  - FunctionCall1Coll
+  - [pg_rotate_left32](../p/pg_rotate_left32.md)
+  - [ExecEvalExpr](ExecEvalExpr.md)
+  - [DatumGetUInt32](../D/DatumGetUInt32.md)
+  - [FunctionCall1Coll](../F/FunctionCall1Coll.md)
 - Called from (representative examples):
-  - MultiExecPrivateHash
-  - MultiExecParallelHash
-  - ExecHashJoinOuterGetTuple
-  - ExecParallelHashJoinOuterGetTuple
-  - ExecParallelHashJoinPartitionOuter
+  - [MultiExecPrivateHash](../M/MultiExecPrivateHash.md)
+  - [MultiExecParallelHash](../M/MultiExecParallelHash.md)
+  - [ExecHashJoinOuterGetTuple](ExecHashJoinOuterGetTuple.md)
+  - [ExecParallelHashJoinOuterGetTuple](ExecParallelHashJoinOuterGetTuple.md)
+  - [ExecParallelHashJoinPartitionOuter](ExecParallelHashJoinPartitionOuter.md)
 
 ## Notes and Other Information
 - Returns false if a null attribute is encountered in strict mode without keep_nulls, indicating the tuple should be rejected
 - Uses pg_rotate_left32 and XOR to combine hash values from multiple key expressions for better distribution
-- Hash functions are selected based on whether processing inner or outer tuples
+- [Hash](../H/Hash.md) functions are selected based on whether processing inner or outer tuples
 - Memory context management prevents memory leaks during repeated hash computations
 - Supports both strict and non-strict join operators, though currently all hashjoinable operators are strict
 - Null values in non-strict contexts contribute zero to the hash combination

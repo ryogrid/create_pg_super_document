@@ -37,21 +37,21 @@ The output is always considered unordered since tuples are retrieved in physical
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Path (base path structure)
-  - IndexPath (for individual index scans)
-  - BitmapAndPath (for AND combinations)
-  - BitmapOrPath (for OR combinations)
+  - [Path](../P/Path.md) (base path structure)
+  - [IndexPath](../I/IndexPath.md) (for individual index scans)
+  - [BitmapAndPath](BitmapAndPath.md) (for AND combinations)
+  - [BitmapOrPath](BitmapOrPath.md) (for OR combinations)
 
 - Called from (representative examples):
-  - create_bitmap_heap_path (path creation)
-  - create_index_paths (during path generation)
-  - create_bitmap_scan_plan (plan creation)
-  - bitmap_scan_cost_est (cost estimation)
-  - reparameterize_path (path reparameterization)
+  - [create_bitmap_heap_path](../c/create_bitmap_heap_path.md) (path creation)
+  - [create_index_paths](../c/create_index_paths.md) (during path generation)
+  - [create_bitmap_scan_plan](../c/create_bitmap_scan_plan.md) (plan creation)
+  - [bitmap_scan_cost_est](../b/bitmap_scan_cost_est.md) (cost estimation)
+  - [reparameterize_path](../r/reparameterize_path.md) (path reparameterization)
 
 ## Notes and Other Information
 - The same IndexPath node can represent both regular IndexScan and BitmapIndexScan usage
-- IndexPath costs always represent regular/index-only scan costs; BitmapIndexScan costs are computed separately using indextotalcost and indexselectivity
+- [IndexPath](../I/IndexPath.md) costs always represent regular/index-only scan costs; BitmapIndexScan costs are computed separately using indextotalcost and indexselectivity
 - Output ordering is always considered lost due to physical heap order retrieval
 - Particularly effective for queries with complex WHERE clauses involving multiple indexes
 - The bitmap approach reduces random I/O by clustering heap accesses

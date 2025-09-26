@@ -31,9 +31,9 @@ The implementation includes special handling for NULL records (returns NULL), dr
 ## Dependencies
 - Functions called/Symbols referenced:
   - VARATT_IS_EXTERNAL_EXPANDED: Macro to detect expanded record format
-  - DatumGetEOHP: Extracts expanded object header pointer
-  - expanded_record_get_tupdesc: Gets tuple descriptor from expanded record
-  - expanded_record_get_field: Extracts field from expanded record
+  - [DatumGetEOHP](../D/DatumGetEOHP.md): Extracts expanded object header pointer
+  - [expanded_record_get_tupdesc](../e/expanded_record_get_tupdesc.md): Gets tuple descriptor from expanded record
+  - [expanded_record_get_field](../e/expanded_record_get_field.md): Extracts field from expanded record
   - DatumGetHeapTupleHeader: Converts Datum to HeapTupleHeader
   - HeapTupleHeaderGetTypeId: Extracts type OID from tuple header
   - HeapTupleHeaderGetTypMod: Extracts type modifier from tuple header

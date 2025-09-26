@@ -230,9 +230,9 @@ Some fields are mirrored in dense arrays within ProcGlobal for performance optim
   - [XidCache](../X/XidCache.md) (for subtransaction caching)
   - Various lock and latch types (LOCK, PROCLOCK, LWLock, etc.)
 - Called from (representative examples):
-  - InitProcess (process initialization)
+  - [InitProcess](../I/InitProcess.md) (process initialization)
   - [ProcArrayAdd](ProcArrayAdd.md) (adding to process array)
-  - ProcSleep (lock waiting)
+  - [ProcSleep](ProcSleep.md) (lock waiting)
   - [GetSnapshotData](../G/GetSnapshotData.md) (transaction visibility)
   - [DeadLockCheck](../D/DeadLockCheck.md) (deadlock detection)
 
@@ -243,5 +243,5 @@ Some fields are mirrored in dense arrays within ProcGlobal for performance optim
 - Prepared transactions have special PGPROC entries with pid=0
 - The structure supports both regular backends and various types of background worker processes
 - Fast-path locking provides optimization for frequently-accessed relation locks
-- Group processing mechanisms (group XID clearing, group clog updates) reduce contention for high-throughput workloads
+- [Group](../G/Group.md) processing mechanisms (group XID clearing, group clog updates) reduce contention for high-throughput workloads
 - Lock groups allow parallel workers to share lock state for improved concurrency

@@ -22,8 +22,8 @@ This static function implements the core logic for changing a foreign data wrapp
 ## Dependencies
 - Functions called/Symbols referenced:
   - Form_pg_foreign_data_wrapper (structure for catalog tuple data)
-  - superuser (checks if current user is superuser)
-  - superuser_arg (checks if specified user is superuser)
+  - [superuser](../s/superuser.md) (checks if current user is superuser)
+  - [superuser_arg](../s/superuser_arg.md) (checks if specified user is superuser)
   - [heap_getattr](../h/heap_getattr.md) (retrieves attribute value from tuple)
   - [aclnewowner](../a/aclnewowner.md) (updates ACL ownership)
   - DatumGetAclP (converts Datum to ACL pointer)

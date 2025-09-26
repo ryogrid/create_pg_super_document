@@ -31,7 +31,7 @@ This careful verification prevents data loss during shutdown by ensuring the cli
 - Functions called/Symbols referenced:
   - XLogRecPtrIsInvalid
   - pq_is_send_pending
-  - SetQueryCompletion
+  - [SetQueryCompletion](../S/SetQueryCompletion.md)
   - [EndCommand](../E/EndCommand.md)
   - pq_flush
   - [proc_exit](../p/proc_exit.md)

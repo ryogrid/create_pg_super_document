@@ -34,8 +34,8 @@ The structure is designed for efficient memory management and fast lookups durin
 - Functions called/Symbols referenced:
   - Oid (PostgreSQL object identifier type)
 - Called from (representative examples):
-  - lookup_ts_config_cache (in TSConfigCacheEntry.map field)
-  - LexizeExec (for token processing)
+  - [lookup_ts_config_cache](../l/lookup_ts_config_cache.md) (in TSConfigCacheEntry.map field)
+  - [LexizeExec](LexizeExec.md) (for token processing)
 
 ## Notes and Other Information
 - Used as an array within TSConfigCacheEntry to represent the complete mapping from token types to dictionary lists

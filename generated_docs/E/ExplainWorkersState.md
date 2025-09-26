@@ -32,14 +32,14 @@ The structure supports a "set-aside" buffering mechanism where output for each w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - StringInfoData (PostgreSQL string buffer type)
+  - [StringInfoData](../S/StringInfoData.md) (PostgreSQL string buffer type)
   - StringInfo (pointer to StringInfoData)
 
 - Called from (representative examples):
-  - ExplainCreateWorkersState (creates and initializes the structure)
-  - ExplainOpenWorker (switches output to a specific worker buffer)
-  - ExplainCloseWorker (saves worker state and switches back to main buffer)
-  - ExplainFlushWorkersState (merges all worker outputs into main output)
+  - [ExplainCreateWorkersState](ExplainCreateWorkersState.md) (creates and initializes the structure)
+  - [ExplainOpenWorker](ExplainOpenWorker.md) (switches output to a specific worker buffer)
+  - [ExplainCloseWorker](ExplainCloseWorker.md) (saves worker state and switches back to main buffer)
+  - [ExplainFlushWorkersState](ExplainFlushWorkersState.md) (merges all worker outputs into main output)
 
 ## Notes and Other Information
 - This structure is only allocated and used when explaining parallel query plans (when num_workers > 0)

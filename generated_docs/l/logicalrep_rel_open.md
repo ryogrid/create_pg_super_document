@@ -24,30 +24,30 @@ Key responsibilities include ensuring no relation reference leaks, handling rela
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - logicalrep_relmap_init: Initializes the logical replication relation map if not already done
-  - hash_search: Searches for existing entries in the relation map hash table
-  - try_table_open: Attempts to open a table by OID, returning NULL if it fails
-  - table_open: Opens a table by OID with the assumption it exists
-  - table_close: Closes a previously opened table relation
-  - free_attrmap: Deallocates attribute mapping structures
-  - make_attrmap: Creates new attribute mapping structures
+  - [logicalrep_relmap_init](logicalrep_relmap_init.md): Initializes the logical replication relation map if not already done
+  - [hash_search](../h/hash_search.md): Searches for existing entries in the relation map hash table
+  - [try_table_open](../t/try_table_open.md): Attempts to open a table by OID, returning NULL if it fails
+  - [table_open](../t/table_open.md): Opens a table by OID with the assumption it exists
+  - [table_close](../t/table_close.md): Closes a previously opened table relation
+  - [free_attrmap](../f/free_attrmap.md): Deallocates attribute mapping structures
+  - [make_attrmap](../m/make_attrmap.md): Creates new attribute mapping structures
   - RangeVarGetRelid: Resolves relation name to OID
-  - makeRangeVar: Creates a RangeVar structure from namespace and relation names
-  - CheckSubscriptionRelkind: Validates that the relation kind is supported for subscriptions
-  - logicalrep_rel_att_by_name: Finds remote attribute number by name
-  - logicalrep_report_missing_attrs: Reports errors for missing local attributes
-  - logicalrep_rel_mark_updatable: Determines if relation supports UPDATE/DELETE operations
-  - FindLogicalRepLocalIndex: Finds appropriate local index for replication operations
-  - GetSubscriptionRelState: Retrieves current subscription relation state
-  - bms_add_range: Adds range of members to bitmap set
-  - bms_del_member: Removes member from bitmap set
-  - bms_free: Deallocates bitmap set
+  - [makeRangeVar](../m/makeRangeVar.md): Creates a RangeVar structure from namespace and relation names
+  - [CheckSubscriptionRelkind](../C/CheckSubscriptionRelkind.md): Validates that the relation kind is supported for subscriptions
+  - [logicalrep_rel_att_by_name](logicalrep_rel_att_by_name.md): Finds remote attribute number by name
+  - [logicalrep_report_missing_attrs](logicalrep_report_missing_attrs.md): Reports errors for missing local attributes
+  - [logicalrep_rel_mark_updatable](logicalrep_rel_mark_updatable.md): Determines if relation supports UPDATE/DELETE operations
+  - [FindLogicalRepLocalIndex](../F/FindLogicalRepLocalIndex.md): Finds appropriate local index for replication operations
+  - [GetSubscriptionRelState](../G/GetSubscriptionRelState.md): Retrieves current subscription relation state
+  - [bms_add_range](../b/bms_add_range.md): Adds range of members to bitmap set
+  - [bms_del_member](../b/bms_del_member.md): Removes member from bitmap set
+  - [bms_free](../b/bms_free.md): Deallocates bitmap set
 - Called from (representative examples):
-  - copy_table: Initial table synchronization operations
-  - apply_handle_insert: Processing INSERT operations from logical replication stream
-  - apply_handle_update: Processing UPDATE operations from logical replication stream
-  - apply_handle_delete: Processing DELETE operations from logical replication stream
-  - apply_handle_truncate: Processing TRUNCATE operations from logical replication stream
+  - [copy_table](../c/copy_table.md): Initial table synchronization operations
+  - [apply_handle_insert](../a/apply_handle_insert.md): Processing INSERT operations from logical replication stream
+  - [apply_handle_update](../a/apply_handle_update.md): Processing UPDATE operations from logical replication stream
+  - [apply_handle_delete](../a/apply_handle_delete.md): Processing DELETE operations from logical replication stream
+  - [apply_handle_truncate](../a/apply_handle_truncate.md): Processing TRUNCATE operations from logical replication stream
 
 ## Notes and Other Information
 - This function is critical for logical replication performance as it manages relation cache entries
@@ -57,4 +57,4 @@ Key responsibilities include ensuring no relation reference leaks, handling rela
 - Memory management is handled carefully with proper context switching for persistent allocations
 - Supports both regular tables and partitioned tables through the same interface
 - The attribute mapping built by this function is essential for translating between local and remote tuple formats
-- Relation state management integrates with the subscription system to track synchronization progress
+- [Relation](../R/Relation.md) state management integrates with the subscription system to track synchronization progress

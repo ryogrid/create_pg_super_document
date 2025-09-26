@@ -28,7 +28,7 @@ The behavior is:
 - Functions called/Symbols referenced:
   - memchr (standard C library function)
 - Called from (representative examples):
-  - pg_encoding_set_invalid (used for multiple Latin-based encodings)
+  - [pg_encoding_set_invalid](pg_encoding_set_invalid.md) (used for multiple Latin-based encodings)
 
 ## Notes and Other Information
 - Returns the number of valid bytes from the beginning of the string (up to the first null byte or end of buffer)

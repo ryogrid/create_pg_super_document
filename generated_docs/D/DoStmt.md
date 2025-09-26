@@ -26,8 +26,8 @@ DoStmt represents the parsed form of a DO statement, which allows execution of a
 - Functions called/Symbols referenced:
   - (None directly referenced)
 - Called from (representative examples):
-  - ExecuteDoStmt (src/backend/commands/functioncmds.c:2066)
-  - standard_ProcessUtility (src/backend/tcop/utility.c:707)
+  - [ExecuteDoStmt](../E/ExecuteDoStmt.md) (src/backend/commands/functioncmds.c:2066)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (src/backend/tcop/utility.c:707)
 
 ## Notes and Other Information
 The DO statement allows execution of procedural language code without creating a persistent function. DoStmt is processed during utility command execution and is converted to an InlineCodeBlock structure for actual execution. This provides a convenient way to run one-time procedural code blocks in languages like PL/pgSQL, PL/Python, etc.

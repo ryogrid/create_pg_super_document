@@ -26,8 +26,8 @@ The function assumes that all supported data types are pass-by-reference, meanin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - namein (input function for name type)
-  - byteain (input function for bytea type)
+  - [namein](../n/namein.md) (input function for name type)
+  - [byteain](../b/byteain.md) (input function for bytea type)
   - DirectFunctionCall1 (function call infrastructure)
   - [CStringGetDatum](../C/CStringGetDatum.md) (C string to Datum conversion)
   - CStringGetTextDatum (C string to text Datum conversion)

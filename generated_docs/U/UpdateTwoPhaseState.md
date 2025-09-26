@@ -24,7 +24,7 @@ This function is critical for managing the progression of two-phase commit suppo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - SearchSysCacheCopy1
   - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - HeapTupleIsValid
@@ -33,7 +33,7 @@ This function is critical for managing the progression of two-phase commit suppo
   - RelationGetDescr
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - [heap_freetuple](../h/heap_freetuple.md)
-  - table_close
+  - [table_close](../t/table_close.md)
   - Constants: LOGICALREP_TWOPHASE_STATE_DISABLED, LOGICALREP_TWOPHASE_STATE_PENDING, LOGICALREP_TWOPHASE_STATE_ENABLED
 - Called from (representative examples):
   - [CreateSubscription](../C/CreateSubscription.md)

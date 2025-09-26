@@ -33,7 +33,7 @@ The function implements sophisticated logic to handle both initial streaming (sn
   - [ReorderBufferCopySnap](ReorderBufferCopySnap.md) (snapshot copying and management)
   - [ReorderBufferFreeSnap](ReorderBufferFreeSnap.md) (snapshot cleanup)
   - [ReorderBufferProcessTXN](ReorderBufferProcessTXN.md) (actual change processing and output)
-  - UpdateDecodingStats (statistics maintenance)
+  - [UpdateDecodingStats](../U/UpdateDecodingStats.md) (statistics maintenance)
   - rbtxn_is_toptxn/rbtxn_is_streamed (transaction state checks)
 - Called from (representative examples):
   - [ReorderBufferCheckMemoryLimit](ReorderBufferCheckMemoryLimit.md) (when choosing streaming over spilling)

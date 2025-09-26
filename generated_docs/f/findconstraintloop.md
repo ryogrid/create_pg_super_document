@@ -91,12 +91,12 @@ The function employs an optimization where states proven not to be part of any c
   - STACK_TOO_DEEP (macro to check recursion depth)
   - NERR (error reporting macro)
   - REG_ETOOBIG (error code for overly complex regex)
-  - breakconstraintloop (function to break detected loops)
-  - isconstraintarc (checks if an arc is a constraint arc)
-  - findconstraintloop (recursive self-call)
+  - [breakconstraintloop](../b/breakconstraintloop.md) (function to break detected loops)
+  - [isconstraintarc](../i/isconstraintarc.md) (checks if an arc is a constraint arc)
+  - [findconstraintloop](findconstraintloop.md) (recursive self-call)
 - Called from (representative examples):
-  - fixconstraintloops (main constraint loop fixing function)
-  - findconstraintloop (recursive self-calls)
+  - [fixconstraintloops](fixconstraintloops.md) (main constraint loop fixing function)
+  - [findconstraintloop](findconstraintloop.md) (recursive self-calls)
 
 ## Notes and Other Information
 - This is a recursive function with potential for deep recursion in complex NFAs

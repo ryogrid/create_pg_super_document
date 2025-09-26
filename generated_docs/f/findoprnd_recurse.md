@@ -24,9 +24,9 @@ The findoprnd_recurse function performs a recursive traversal of a tsquery struc
 ## Dependencies
 - Functions called/Symbols referenced:
   - QueryItem (tsquery node structure)
-  - check_stack_depth (recursion depth protection)
+  - [check_stack_depth](../c/check_stack_depth.md) (recursion depth protection)
   - QI_VAL, QI_VALSTOP, QI_OPR (QueryItem type constants)
-  - QueryOperator (operator-specific structure)
+  - [QueryOperator](../Q/QueryOperator.md) (operator-specific structure)
   - OP_NOT, OP_AND, OP_OR, OP_PHRASE (operator type constants)
   - elog (error reporting function)
 - Called from (representative examples):

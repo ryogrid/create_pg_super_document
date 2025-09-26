@@ -26,8 +26,8 @@ This function performs a binary search in the Red-Black Tree to locate a node th
   - RBTNIL (constant representing tree leaf/null)
   - comparator (function pointer from tree structure for comparing nodes)
 - Called from (representative examples):
-  - testfind (test module function for verifying search functionality)
-  - testdelete (test module function that searches before deletion)
+  - [testfind](../t/testfind.md) (test module function for verifying search functionality)
+  - [testdelete](../t/testdelete.md) (test module function that searches before deletion)
 
 ## Notes and Other Information
 - Returns the matching RBTNode pointer on success, or NULL if no match is found

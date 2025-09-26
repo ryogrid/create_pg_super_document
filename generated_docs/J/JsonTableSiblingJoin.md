@@ -26,13 +26,13 @@ JsonTableSiblingJoin extends JsonTablePlan to implement a join strategy for comb
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonTablePlan
+  - [JsonTablePlan](JsonTablePlan.md)
 - Called from (representative examples):
-  - makeJsonTableSiblingJoin
-  - JsonTableInitPlan
-  - JsonTablePlanNextRow
-  - JsonTableResetNestedPlan
-  - get_json_table_nested_columns
+  - [makeJsonTableSiblingJoin](../m/makeJsonTableSiblingJoin.md)
+  - [JsonTableInitPlan](JsonTableInitPlan.md)
+  - [JsonTablePlanNextRow](JsonTablePlanNextRow.md)
+  - [JsonTableResetNestedPlan](JsonTableResetNestedPlan.md)
+  - [get_json_table_nested_columns](../g/get_json_table_nested_columns.md)
 
 ## Notes and Other Information
 - Concrete implementation of the abstract JsonTablePlan base class

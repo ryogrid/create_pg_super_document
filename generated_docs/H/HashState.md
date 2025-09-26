@@ -53,15 +53,15 @@ HashState represents the runtime state for Hash executor nodes in PostgreSQL. It
   - [HashJoinTable](HashJoinTable.md)
   - [SharedHashInfo](../S/SharedHashInfo.md)
   - [HashInstrumentation](HashInstrumentation.md)
-  - ParallelHashJoinState
+  - [ParallelHashJoinState](../P/ParallelHashJoinState.md)
 - Called from (representative examples):
   - [MultiExecHash](../M/MultiExecHash.md)
   - [ExecInitHash](../E/ExecInitHash.md)
-  - ExecEndHash
+  - [ExecEndHash](../E/ExecEndHash.md)
   - [ExecHashJoinImpl](../E/ExecHashJoinImpl.md)
 
 ## Notes and Other Information
 - The structure is specifically designed to handle both sequential and parallel hash operations
 - In parallel hash joins, only the leader process maintains shared_info, while workers have this field as NULL
-- Hash instrumentation can use either local or shared memory depending on the execution context
+- [Hash](Hash.md) instrumentation can use either local or shared memory depending on the execution context
 - The structure is central to PostgreSQL's hash join implementation and performance monitoring

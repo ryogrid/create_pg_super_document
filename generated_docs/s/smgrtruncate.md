@@ -26,8 +26,8 @@ The  function provides a backward-compatible interface for truncating multiple f
 - Functions called/Symbols referenced:
   - SMgrRelation (type)
   - MAX_FORKNUM (constant)
-  - smgrnblocks
-  - smgrtruncate2
+  - [smgrnblocks](smgrnblocks.md)
+  - [smgrtruncate2](smgrtruncate2.md)
 - Called from (representative examples):
   - SmgrIsTemp
 

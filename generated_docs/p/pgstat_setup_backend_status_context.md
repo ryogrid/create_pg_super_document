@@ -26,7 +26,7 @@ This function takes no parameters.
   - ALLOCSET_SMALL_SIZES
 - Called from (representative examples):
   - NumBackendStatSlots
-  - pgstat_read_current_status
+  - [pgstat_read_current_status](pgstat_read_current_status.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the backend_status.c file

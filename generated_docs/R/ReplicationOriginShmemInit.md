@@ -34,7 +34,7 @@ The function gracefully handles the case where max_replication_slots is 0 by ret
   - [ShmemInitStruct](../S/ShmemInitStruct.md): Allocates or attaches to named shared memory segment
   - [ReplicationOriginShmemSize](ReplicationOriginShmemSize.md): Calculates required memory size
   - `MemSet`: Zeros out memory (used only during first initialization)
-  - `LWLockInitialize`: Initializes lightweight locks for each replication state
+  - `[LWLockInitialize](../L/LWLockInitialize.md)`: Initializes lightweight locks for each replication state
   - [ConditionVariableInit](../C/ConditionVariableInit.md): Initializes condition variables for coordination
   - `max_replication_slots`: Global configuration parameter
   - `LWTRANCHE_REPLICATION_ORIGIN_STATE`: Tranche ID constant for lock management

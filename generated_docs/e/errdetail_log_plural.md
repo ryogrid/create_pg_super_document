@@ -26,13 +26,13 @@ The function manages memory context switching to ensure proper memory allocation
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ErrorData (struct type)
+  - [ErrorData](../E/ErrorData.md) (struct type)
   - CHECK_STACK_DEPTH (macro)
   - EVALUATE_MESSAGE_PLURAL (macro)
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
 - Called from (representative examples):
   - [LogRecoveryConflict](../L/LogRecoveryConflict.md) (in standby.c)
-  - ProcSleep (in proc.c, multiple locations)
+  - [ProcSleep](../P/ProcSleep.md) (in proc.c, multiple locations)
 
 ## Notes and Other Information
 - Returns 0 as the return value does not matter for this function

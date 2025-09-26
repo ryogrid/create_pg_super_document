@@ -27,7 +27,7 @@ Special handling is provided for the numeric type, which requires deconstructing
 - Functions called/Symbols referenced:
   - [PQnfields](../P/PQnfields.md) (get number of fields)
   - [sqlda_dynamic_type](sqlda_dynamic_type.md) (map PostgreSQL types to ECPG types)
-  - PQftype (get field type)
+  - [PQftype](../P/PQftype.md) (get field type)
   - [ecpg_sqlda_align_add_size](../e/ecpg_sqlda_align_add_size.md) (alignment calculations)
   - [PQgetisnull](../P/PQgetisnull.md) (check for NULL values)
   - [PQgetvalue](../P/PQgetvalue.md) (get field value as string)

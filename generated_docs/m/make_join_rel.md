@@ -29,7 +29,7 @@ The function can return NULL if the attempted join is not valid, which commonly 
   - [join_is_legal](../j/join_is_legal.md)
   - [add_outer_joins_to_relids](../a/add_outer_joins_to_relids.md)
   - [init_dummy_sjinfo](../i/init_dummy_sjinfo.md)
-  - build_join_rel
+  - [build_join_rel](../b/build_join_rel.md)
   - [is_dummy_rel](../i/is_dummy_rel.md)
   - [populate_joinrel_with_paths](../p/populate_joinrel_with_paths.md)
   - [bms_free](../b/bms_free.md)

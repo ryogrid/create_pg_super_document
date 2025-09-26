@@ -25,12 +25,12 @@ The `do_lo_import` function implements the PostgreSQL \lo_import command functio
   - [lo_import](../l/lo_import.md) (libpq large object import function)
   - pg_log_info (error logging)
   - [fail_lo_xact](../f/fail_lo_xact.md) (transaction rollback)
-  - pg_malloc_extended (memory allocation)
+  - [pg_malloc_extended](../p/pg_malloc_extended.md) (memory allocation)
   - [PQescapeStringConn](../P/PQescapeStringConn.md) (SQL string escaping)
   - [PSQLexec](../P/PSQLexec.md) (SQL execution)
   - [finish_lo_xact](../f/finish_lo_xact.md) (transaction commit)
   - [print_lo_result](../p/print_lo_result.md) (result output)
-  - SetVariable (psql variable setting)
+  - [SetVariable](../S/SetVariable.md) (psql variable setting)
 - Called from (representative examples):
   - [exec_command_lo](../e/exec_command_lo.md) (psql command execution)
 

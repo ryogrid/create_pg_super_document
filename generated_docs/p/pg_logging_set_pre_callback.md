@@ -20,9 +20,9 @@ This function allows registration of a callback that will be invoked before each
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - log_pre_callback (global variable assignment)
+  - [log_pre_callback](../l/log_pre_callback.md) (global variable assignment)
 - Called from (representative examples):
-  - main (src/bin/psql/startup.c:134)
+  - [main](../m/main.md) (src/bin/psql/startup.c:134)
 
 ## Notes and Other Information
 - This is part of PostgreSQL's common logging infrastructure used across multiple components

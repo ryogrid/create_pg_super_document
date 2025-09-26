@@ -17,7 +17,7 @@ This function handles the replay of a hash index split operation during PostgreS
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogReadBufferForRedo
+  - [XLogReadBufferForRedo](../X/XLogReadBufferForRedo.md)
   - BLK_RESTORED
   - elog
   - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)

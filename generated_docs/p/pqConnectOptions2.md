@@ -81,22 +81,22 @@ The function returns true on success and false on failure, setting appropriate e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - count_comma_separated_elems
-  - parse_comma_separated_list
-  - pg_fe_getauthname
-  - passwordFromFile
-  - pqGetHomeDirectory
-  - sslVerifyProtocolVersion
-  - sslVerifyProtocolRange
-  - libpq_prng_init
-  - pg_prng_uint64_range
-  - pg_encoding_to_char
-  - pg_get_encoding_from_locale
+  - [count_comma_separated_elems](../c/count_comma_separated_elems.md)
+  - [parse_comma_separated_list](parse_comma_separated_list.md)
+  - [pg_fe_getauthname](pg_fe_getauthname.md)
+  - [passwordFromFile](passwordFromFile.md)
+  - [pqGetHomeDirectory](pqGetHomeDirectory.md)
+  - [sslVerifyProtocolVersion](../s/sslVerifyProtocolVersion.md)
+  - [sslVerifyProtocolRange](../s/sslVerifyProtocolRange.md)
+  - [libpq_prng_init](../l/libpq_prng_init.md)
+  - [pg_prng_uint64_range](pg_prng_uint64_range.md)
+  - [pg_encoding_to_char](pg_encoding_to_char.md)
+  - [pg_get_encoding_from_locale](pg_get_encoding_from_locale.md)
 - Called from (representative examples):
-  - PQconnectStartParams
-  - PQconnectStart  
-  - PQsetdbLogin
-  - PQcancelCreate
+  - [PQconnectStartParams](../P/PQconnectStartParams.md)
+  - [PQconnectStart](../P/PQconnectStart.md)  
+  - [PQsetdbLogin](../P/PQsetdbLogin.md)
+  - [PQcancelCreate](../P/PQcancelCreate.md)
 
 ## Notes and Other Information
 - The function allocates memory for pg_conn_host structures based on the number of hosts specified

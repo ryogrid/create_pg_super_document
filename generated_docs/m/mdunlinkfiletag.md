@@ -23,7 +23,7 @@ Unlike other file tag operations, this function specifically uses MAIN_FORKNUM a
 ## Dependencies
 - Functions called/Symbols referenced:
   - relpathperm (to construct the permanent relation file path)
-  - strlcpy (for safe string copying into the output buffer)
+  - [strlcpy](../s/strlcpy.md) (for safe string copying into the output buffer)
   - [pfree](../p/pfree.md) (to free the allocated path string)
   - unlink (standard system call to remove the file)
 - Called from (representative examples):

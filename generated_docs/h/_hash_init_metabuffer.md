@@ -25,7 +25,7 @@ This function sets up the metadata page for a hash index, which is the control s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _hash_get_totalbuckets
+  - [_hash_get_totalbuckets](_hash_get_totalbuckets.md)
   - [_hash_spareindex](_hash_spareindex.md)
   - [_hash_pageinit](_hash_pageinit.md)
   - [BufferGetPage](../B/BufferGetPage.md)

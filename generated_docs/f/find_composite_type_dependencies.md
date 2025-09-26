@@ -27,8 +27,8 @@ The function includes stack depth checking to prevent infinite recursion and use
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth
-  - table_open
+  - [check_stack_depth](../c/check_stack_depth.md)
+  - [table_open](../t/table_open.md)
   - [ScanKeyInit](../S/ScanKeyInit.md)
   - [systable_beginscan](../s/systable_beginscan.md)
   - [systable_getnext](../s/systable_getnext.md)

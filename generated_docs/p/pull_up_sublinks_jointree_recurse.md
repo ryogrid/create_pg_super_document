@@ -37,12 +37,12 @@ The function ensures that pulled-up SubLinks are placed correctly in the join tr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth
+  - [check_stack_depth](../c/check_stack_depth.md)
   - [pull_up_sublinks_qual_recurse](pull_up_sublinks_qual_recurse.md)
   - [makeFromExpr](../m/makeFromExpr.md)
   - [bms_make_singleton](../b/bms_make_singleton.md), bms_join, bms_union, bms_add_member
   - [palloc](palloc.md), memcpy
-  - lappend, lfirst
+  - [lappend](../l/lappend.md), lfirst
   - IsA macro
   - elog, nodeTag
   - JOIN_INNER, JOIN_LEFT, JOIN_RIGHT, JOIN_FULL constants

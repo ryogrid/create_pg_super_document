@@ -29,8 +29,8 @@ By keeping instrumentation in a separate wrapper function, PostgreSQL avoids any
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - InstrStartNode (begin instrumentation timing)
-  - InstrStopNode (end instrumentation timing and record tuple count)
+  - [InstrStartNode](../I/InstrStartNode.md) (begin instrumentation timing)
+  - [InstrStopNode](../I/InstrStopNode.md) (end instrumentation timing and record tuple count)
   - TupIsNull (check if result tuple is null)
 - Called from (representative examples):
   - [ExecProcNodeFirst](ExecProcNodeFirst.md) (when instrumentation is enabled)

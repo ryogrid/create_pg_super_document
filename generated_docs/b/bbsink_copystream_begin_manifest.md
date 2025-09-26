@@ -17,7 +17,7 @@ This function initiates the backup manifest transmission by sending a CopyData p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_beginmessage
+  - [pq_beginmessage](../p/pq_beginmessage.md)
   - [pq_sendbyte](../p/pq_sendbyte.md)  
   - [pq_endmessage](../p/pq_endmessage.md)
   - PqMsg_CopyData

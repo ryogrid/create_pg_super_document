@@ -26,15 +26,15 @@ If the relation is not found and missing_ok is false, it throws an error. If mis
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - GETSTRUCT
-  - appendStringInfoString
-  - ReleaseSysCache
+  - [appendStringInfoString](../a/appendStringInfoString.md)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - Form_pg_class
   - Various RELKIND constants (RELKIND_RELATION, RELKIND_INDEX, etc.)
 - Called from (representative examples):
-  - getObjectTypeDescription
+  - [getObjectTypeDescription](getObjectTypeDescription.md)
   - object_type_map
 
 ## Notes and Other Information

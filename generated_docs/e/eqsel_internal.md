@@ -33,7 +33,7 @@ The function also supports negation logic for inequality operators by first comp
 - Functions called/Symbols referenced:
   - PG_GET_COLLATION
   - [get_negator](../g/get_negator.md)
-  - get_restriction_variable
+  - [get_restriction_variable](../g/get_restriction_variable.md)
   - [var_eq_const](../v/var_eq_const.md)
   - [var_eq_non_const](../v/var_eq_non_const.md)
   - ReleaseVariableStats

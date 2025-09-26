@@ -26,9 +26,9 @@ Unlike coerceToInt, this function does not need overflow checking when convertin
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_log_error (error logging function)
-  - valueTypeName (returns string name of value type)
+  - [valueTypeName](../v/valueTypeName.md) (returns string name of value type)
 - Called from (representative examples):
-  - evalStandardFunc (multiple locations for floating-point mathematical operations)
+  - [evalStandardFunc](../e/evalStandardFunc.md) (multiple locations for floating-point mathematical operations)
 
 ## Notes and Other Information
 - This is a static function within pgbench.c, used internally for expression evaluation

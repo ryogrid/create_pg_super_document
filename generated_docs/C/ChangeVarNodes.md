@@ -28,7 +28,7 @@ The function can handle both bare expression trees and complete Query structures
 - Functions called/Symbols referenced:
   - [ChangeVarNodes_walker](ChangeVarNodes_walker.md)
   - query_tree_walker
-  - RowMarkClause
+  - [RowMarkClause](../R/RowMarkClause.md)
   - ChangeVarNodes_context (structure)
   - IsA (macro for node type checking)
 - Called from (representative examples):

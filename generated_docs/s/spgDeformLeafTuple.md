@@ -34,7 +34,7 @@ The function includes special handling for the trivial case where there's only a
   -  - structure defining leaf tuple layout
 - Called from (representative examples):
   -  - during node splitting operations to extract values
-  -  - when retrieving tuples during index scans
+  -  - [when](../w/when.md) retrieving tuples during index scans
 
 ## Notes and Other Information
 - The caller must allocate sufficient storage for output arrays (INDEX_MAX_KEYS entries recommended)

@@ -30,7 +30,7 @@ This function takes no parameters.
   - MainLWLockArray: Used to locate the counter stored just before the array
   - ShmemLock: Spinlock protecting the shared counter
 - Called from:
-  - InitializeLWLocks: During named tranche initialization
+  - [InitializeLWLocks](../I/InitializeLWLocks.md): During named tranche initialization
   - Various test modules: test_dsa, test_dsm_registry, test_radixtree, test_slru, test_tidstore
   - Extensions needing dynamic tranche allocation
 

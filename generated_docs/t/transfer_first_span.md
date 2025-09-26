@@ -27,11 +27,11 @@ The function safely removes the first span from the source fullness class and in
 ## Dependencies
 - Functions called/Symbols referenced:
   - DsaPointerIsValid
-  - dsa_get_address
+  - [dsa_get_address](../d/dsa_get_address.md)
   - InvalidDsaPointer
 - Called from (representative examples):
-  - alloc_object
-  - ensure_active_superblock
+  - [alloc_object](../a/alloc_object.md)
+  - [ensure_active_superblock](../e/ensure_active_superblock.md)
 
 ## Notes and Other Information
 - This is a static internal function used for DSA span management

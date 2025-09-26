@@ -28,7 +28,7 @@ The function returns false immediately if any key attribute is NULL in either tu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slot_getattr (retrieves attribute values from tuple slots)
+  - [slot_getattr](../s/slot_getattr.md) (retrieves attribute values from tuple slots)
   - [datum_image_eq](../d/datum_image_eq.md) (performs bytewise comparison for PK attributes)
   - [ri_AttributesEqual](ri_AttributesEqual.md) (performs semantic equality comparison for FK attributes)
   - RIAttType (gets attribute type information)

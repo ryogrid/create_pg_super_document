@@ -21,7 +21,7 @@ This static function is part of the buffer manipulation utilities used by conver
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - enlargeStringInfo (to ensure buffer capacity)
+  - [enlargeStringInfo](../e/enlargeStringInfo.md) (to ensure buffer capacity)
 - Called from (representative examples):
   - [appendToBuffer](../a/appendToBuffer.md)
   - [padBufferToInt](../p/padBufferToInt.md)

@@ -23,7 +23,7 @@ The design assumes that footers are typically composed of individually translate
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_malloc0 (PostgreSQL memory allocation)
+  - [pg_malloc0](pg_malloc0.md) (PostgreSQL memory allocation)
   - [pg_strdup](pg_strdup.md) (PostgreSQL string duplication)
   - [printTableFooter](printTableFooter.md) (structure type)
 - Called from (representative examples):

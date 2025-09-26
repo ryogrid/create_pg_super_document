@@ -25,11 +25,11 @@ The function preserves all the behavioral characteristics of , including base co
 - Functions called/Symbols referenced:
   - strtol (standard C library function)
 - Called from (representative examples):
-  - DecodeDateTime (src/backend/utils/adt/datetime.c:1034, 1188)
-  - DecodeTimeOnly (src/backend/utils/adt/datetime.c:2017)
-  - DecodeTimeCommon (src/backend/utils/adt/datetime.c:2606, 2637)
-  - nodeTokenType (src/backend/nodes/read.c:271)
-  - option_parse_int (src/fe_utils/option_utils.c:58)
+  - [DecodeDateTime](../D/DecodeDateTime.md) (src/backend/utils/adt/datetime.c:1034, 1188)
+  - [DecodeTimeOnly](../D/DecodeTimeOnly.md) (src/backend/utils/adt/datetime.c:2017)
+  - [DecodeTimeCommon](../D/DecodeTimeCommon.md) (src/backend/utils/adt/datetime.c:2606, 2637)
+  - [nodeTokenType](../n/nodeTokenType.md) (src/backend/nodes/read.c:271)
+  - [option_parse_int](../o/option_parse_int.md) (src/fe_utils/option_utils.c:58)
 
 ## Notes and Other Information
 - The function is extensively used in date/time parsing routines throughout PostgreSQL

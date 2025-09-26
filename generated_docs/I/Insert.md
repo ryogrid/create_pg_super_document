@@ -26,13 +26,13 @@ The function uses a circular doubly-linked list where VfdCache[0] serves as the 
   - VfdCache (global array of virtual file descriptors)
   - DO_DB (debug macro for logging)
   - elog (error/log reporting)
-  - _dump_lru (debug function to dump LRU state)
+  - [_dump_lru](../d/_dump_lru.md) (debug function to dump LRU state)
 
 - Called from (representative examples):
   - AllocateDesc (when allocating a new file descriptor)
-  - LruInsert (as part of LRU insertion process)
-  - FileAccess (when accessing a file)
-  - PathNameOpenFilePerm (when opening a file with permissions)
+  - [LruInsert](../L/LruInsert.md) (as part of LRU insertion process)
+  - [FileAccess](../F/FileAccess.md) (when accessing a file)
+  - [PathNameOpenFilePerm](../P/PathNameOpenFilePerm.md) (when opening a file with permissions)
 
 ## Notes and Other Information
 - This is a static function internal to the file descriptor management module

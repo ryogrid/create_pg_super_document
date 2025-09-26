@@ -25,7 +25,7 @@ This function is responsible for inserting procedure entries into the pg_amproc 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - SearchSysCacheExists4
   - ereport
   - [format_type_be](../f/format_type_be.md)
@@ -37,7 +37,7 @@ This function is responsible for inserting procedure entries into the pg_amproc 
   - [recordDependencyOn](../r/recordDependencyOn.md)
   - [typeDepNeeded](../t/typeDepNeeded.md)
   - InvokeObjectPostCreateHook
-  - table_close
+  - [table_close](../t/table_close.md)
 - Called from (representative examples):
   - [DefineOpClass](../D/DefineOpClass.md) (src/backend/commands/opclasscmds.c:711)
   - [AlterOpFamilyAdd](../A/AlterOpFamilyAdd.md) (src/backend/commands/opclasscmds.c:1018)

@@ -20,7 +20,7 @@ CheckPointBuffers serves as the main entry point for flushing dirty buffers duri
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferSync
+  - [BufferSync](../B/BufferSync.md)
 - Called from (representative examples):
   - [CheckPointGuts](CheckPointGuts.md)
 

@@ -25,10 +25,10 @@ This function takes no parameters.
   - IsUnderPostmaster (macro to check if running under postmaster)
   - AmCheckpointerProcess (check if current process is checkpointer)
   - AllocSetContextCreate (create memory allocation context)
-  - MemoryContextAllowInCriticalSection (allow memory allocation in critical sections)
+  - [MemoryContextAllowInCriticalSection](../M/MemoryContextAllowInCriticalSection.md) (allow memory allocation in critical sections)
   - [hash_create](../h/hash_create.md) (create hash table)
-  - HASHCTL (hash table control structure)
-  - FileTag (key type for hash table)
+  - [HASHCTL](../H/HASHCTL.md) (hash table control structure)
+  - [FileTag](../F/FileTag.md) (key type for hash table)
   - PendingFsyncEntry (value type for hash table)
 - Called from (representative examples):
   - [BaseInit](../B/BaseInit.md) (initialization function in postinit.c:671)

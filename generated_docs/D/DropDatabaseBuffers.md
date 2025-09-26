@@ -23,7 +23,7 @@ The implementation performs an unlocked precheck on each buffer's database OID f
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetBufferDescriptor](../G/GetBufferDescriptor.md)
-  - LockBufHdr  
+  - [LockBufHdr](../L/LockBufHdr.md)  
   - [InvalidateBuffer](../I/InvalidateBuffer.md)
   - [UnlockBufHdr](../U/UnlockBufHdr.md)
 - Types used:

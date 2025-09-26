@@ -32,9 +32,9 @@ This function is particularly important for systems that need to verify page ava
 - Functions called/Symbols referenced:
   - [pgstat_count_slru_page_exists](../p/pgstat_count_slru_page_exists.md)
   - [SlruFileName](SlruFileName.md)
-  - OpenTransientFile
+  - [OpenTransientFile](../O/OpenTransientFile.md)
   - lseek
-  - CloseTransientFile
+  - [CloseTransientFile](../C/CloseTransientFile.md)
   - [SlruReportIOError](SlruReportIOError.md)
   - SLRU_PAGES_PER_SEGMENT
   - PG_BINARY

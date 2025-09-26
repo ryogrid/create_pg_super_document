@@ -22,19 +22,19 @@ The function performs several validation steps: first checking if the path exist
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DIR (Windows directory structure type)
+  - [DIR](../D/DIR.md) (Windows directory structure type)
   - malloc (memory allocation)
   - DT_UNKNOWN (directory entry type constant)
-  - dirent (directory entry structure)
+  - [dirent](../d/dirent.md) (directory entry structure)
 
 - Called from (representative examples):
-  - AllocateDir (src/backend/storage/file/fd.c:2858)
-  - CleanupPriorWALFiles (src/bin/pg_archivecleanup/pg_archivecleanup.c:98)
-  - scan_directory (src/bin/pg_checksums/pg_checksums.c:308)
-  - process_directory_recursively (src/bin/pg_combinebackup/pg_combinebackup.c:932)
-  - sync_pgdata (src/common/file_utils.c:149)
-  - walkdir (src/common/file_utils.c:278)
-  - pgfnames (src/common/pgfnames.c:45)
+  - [AllocateDir](../A/AllocateDir.md) (src/backend/storage/file/fd.c:2858)
+  - [CleanupPriorWALFiles](../C/CleanupPriorWALFiles.md) (src/bin/pg_archivecleanup/pg_archivecleanup.c:98)
+  - [scan_directory](../s/scan_directory.md) (src/bin/pg_checksums/pg_checksums.c:308)
+  - [process_directory_recursively](../p/process_directory_recursively.md) (src/bin/pg_combinebackup/pg_combinebackup.c:932)
+  - [sync_pgdata](../s/sync_pgdata.md) (src/common/file_utils.c:149)
+  - [walkdir](../w/walkdir.md) (src/common/file_utils.c:278)
+  - [pgfnames](../p/pgfnames.md) (src/common/pgfnames.c:45)
 
 ## Notes and Other Information
 - This is a Windows-specific implementation that provides POSIX compatibility

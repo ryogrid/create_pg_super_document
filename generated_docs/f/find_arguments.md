@@ -27,15 +27,15 @@ The function parses the format string character by character, identifying conver
 - Functions called/Symbols referenced:
   - PrintfArgValue (struct type)
   - PG_NL_ARGMAX (constant defining maximum number of positional arguments)
-  - PrintfArgType (enum type)
+  - [PrintfArgType](../P/PrintfArgType.md) (enum type)
   - ATYPE_* constants (ATYPE_INT, ATYPE_LONG, ATYPE_LONGLONG, ATYPE_DOUBLE, ATYPE_CHARPTR, ATYPE_NONE)
   - va_arg (standard C macro for extracting variable arguments)
   - strchr (standard C library function)
   - Max (PostgreSQL macro for maximum value)
 
 - Called from (representative examples):
-  - dopr (main printf formatting function)
-  - flushbuffer (output buffer management function)
+  - [dopr](../d/dopr.md) (main printf formatting function)
+  - [flushbuffer](flushbuffer.md) (output buffer management function)
 
 ## Notes and Other Information
 - Returns true if the format string is valid and arguments are successfully extracted, false otherwise

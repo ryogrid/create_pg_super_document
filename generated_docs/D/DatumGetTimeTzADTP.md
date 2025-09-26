@@ -22,12 +22,12 @@ The function is defined as a static inline function in the header file, meaning 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetPointer (underlying pointer extraction mechanism)
+  - [DatumGetPointer](DatumGetPointer.md) (underlying pointer extraction mechanism)
   - TimeTzADT (target structure type)
 - Called from (representative examples):
-  - JsonEncodeDateTime (JSON encoding of time-with-timezone values)
-  - executeDateTimeMethod (JSON path execution for time-with-timezone operations)
-  - convert_timevalue_to_scalar (statistics estimation for time-with-timezone values)
+  - [JsonEncodeDateTime](../J/JsonEncodeDateTime.md) (JSON encoding of time-with-timezone values)
+  - [executeDateTimeMethod](../e/executeDateTimeMethod.md) (JSON path execution for time-with-timezone operations)
+  - [convert_timevalue_to_scalar](../c/convert_timevalue_to_scalar.md) (statistics estimation for time-with-timezone values)
   - PG_GETARG_TIMETZADT_P (function argument extraction macro)
 
 ## Notes and Other Information

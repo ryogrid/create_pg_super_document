@@ -28,7 +28,7 @@ The function only operates when statistics tracking is enabled (pgstat_track_cou
   - MyDatabaseId (global variable)
   - pgstat_track_counts (global variable)
 - Called from (representative examples):
-  - ReportTemporaryFileUsage (in src/backend/storage/file/fd.c:1527)
+  - [ReportTemporaryFileUsage](../R/ReportTemporaryFileUsage.md) (in src/backend/storage/file/fd.c:1527)
 
 ## Notes and Other Information
 - Only operates when pgstat_track_counts is enabled

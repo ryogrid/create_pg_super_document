@@ -38,7 +38,7 @@ The function preserves the original argument list when no changes are needed and
   - [reorder_function_arguments](../r/reorder_function_arguments.md)
   - [add_function_defaults](../a/add_function_defaults.md)
   - [recheck_cast_function_args](../r/recheck_cast_function_args.md)
-  - NamedArgExpr
+  - [NamedArgExpr](../N/NamedArgExpr.md)
 - Called from (representative examples):
   - [simplify_function](../s/simplify_function.md)
   - [eval_const_expressions_mutator](eval_const_expressions_mutator.md)

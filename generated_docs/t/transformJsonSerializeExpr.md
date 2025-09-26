@@ -32,7 +32,7 @@ The transformJsonSerializeExpr function handles the transformation of JSON_SERIA
   - JS_ENC_DEFAULT
   - JSCTOR_JSON_SERIALIZE
   - TYPCATEGORY_STRING
-  - JsonReturning
+  - [JsonReturning](../J/JsonReturning.md)
 - Called from (representative examples):
   - [transformExprRecurse](transformExprRecurse.md)
 

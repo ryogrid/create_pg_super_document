@@ -26,9 +26,9 @@ Like ExtendMultiXactOffset, this function is called while holding MultiXactGenLo
   - [MXOffsetToFlagsBitShift](../M/MXOffsetToFlagsBitShift.md)
   - [MXOffsetToMemberPage](../M/MXOffsetToMemberPage.md)
   - [SimpleLruGetBankLock](../S/SimpleLruGetBankLock.md)
-  - LWLockAcquire
+  - [LWLockAcquire](../L/LWLockAcquire.md)
   - [ZeroMultiXactMemberPage](../Z/ZeroMultiXactMemberPage.md)
-  - LWLockRelease
+  - [LWLockRelease](../L/LWLockRelease.md)
   - MAX_MEMBERS_IN_LAST_MEMBERS_PAGE
   - MaxMultiXactOffset
   - MULTIXACT_MEMBERS_PER_PAGE

@@ -31,10 +31,10 @@ The structure uses a flexible array member, allowing it to accommodate any numbe
 - Functions called/Symbols referenced:
   - WordEntryPos (position/weight data type)
 - Used by (representative examples):
-  - calc_rank_and (AND ranking calculations)
-  - tsvector_unnest (extracting individual elements)
-  - tsvector_filter (filtering by position/weight)
-  - checkclass_str (classification checking)
+  - [calc_rank_and](../c/calc_rank_and.md) (AND ranking calculations)
+  - [tsvector_unnest](../t/tsvector_unnest.md) (extracting individual elements)
+  - [tsvector_filter](../t/tsvector_filter.md) (filtering by position/weight)
+  - [checkclass_str](../c/checkclass_str.md) (classification checking)
 
 ## Notes and Other Information
 - The flexible array member allows for variable-length position vectors without wasting space

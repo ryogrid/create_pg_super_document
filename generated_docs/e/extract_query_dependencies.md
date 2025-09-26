@@ -32,7 +32,7 @@ The function uses a clever hack where  is repurposed to collect row security fla
 - Functions called/Symbols referenced:
   - MemSet
   - [extract_query_dependencies_walker](extract_query_dependencies_walker.md)
-  - PlannerGlobal (type)
+  - [PlannerGlobal](../P/PlannerGlobal.md) (type)
   - [PlannerInfo](../P/PlannerInfo.md) (type)
   - T_PlannerGlobal
   - T_PlannerInfo

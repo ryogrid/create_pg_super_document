@@ -22,12 +22,12 @@ The function creates a local copy of instrumentation data to avoid modifying the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - InstrJitAgg (aggregates JIT instrumentation statistics)
-  - ExplainPrintJIT (formats and prints JIT statistics)
-  - JitInstrumentation (struct for JIT metrics)
+  - [InstrJitAgg](../I/InstrJitAgg.md) (aggregates JIT instrumentation statistics)
+  - [ExplainPrintJIT](ExplainPrintJIT.md) (formats and prints JIT statistics)
+  - [JitInstrumentation](../J/JitInstrumentation.md) (struct for JIT metrics)
   - PGJIT_PERFORM (flag indicating JIT was performed)
 - Called from (representative examples):
-  - ExplainOnePlan (main EXPLAIN plan processing function)
+  - [ExplainOnePlan](ExplainOnePlan.md) (main EXPLAIN plan processing function)
 
 ## Notes and Other Information
 - Returns early if JIT was not performed (PGJIT_PERFORM flag not set)

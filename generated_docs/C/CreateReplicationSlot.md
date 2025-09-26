@@ -31,8 +31,8 @@ This function creates a new replication slot based on the command parameters. Fo
   - [ReplicationSlotReserveWal](../R/ReplicationSlotReserveWal.md) - Reserve WAL for physical slots
   - [ReplicationSlotMarkDirty](../R/ReplicationSlotMarkDirty.md) - Mark slot as needing persistence
   - [ReplicationSlotSave](../R/ReplicationSlotSave.md) - Save persistent slot to disk
-  - CheckLogicalDecodingRequirements - Validate logical decoding setup
-  - CreateInitDecodingContext - [Initialize](../I/Initialize.md) logical decoding context
+  - [CheckLogicalDecodingRequirements](CheckLogicalDecodingRequirements.md) - Validate logical decoding setup
+  - [CreateInitDecodingContext](CreateInitDecodingContext.md) - [Initialize](../I/Initialize.md) logical decoding context
   - [DecodingContextFindStartpoint](../D/DecodingContextFindStartpoint.md) - Build initial snapshot and find start point
   - [SnapBuildExportSnapshot](../S/SnapBuildExportSnapshot.md) - Export snapshot for logical slots
   - [SnapBuildInitialSnapshot](../S/SnapBuildInitialSnapshot.md) - Create initial snapshot

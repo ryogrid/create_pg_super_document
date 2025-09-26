@@ -20,11 +20,11 @@ ExecReScanSetOp prepares a SetOp execution node for re-execution by resetting it
 ## Dependencies
 - Functions called/Symbols referenced:
   - outerPlanState (macro to access outer plan state)
-  - ExecClearTuple (clears the result tuple slot)
+  - [ExecClearTuple](ExecClearTuple.md) (clears the result tuple slot)
   - ResetTupleHashIterator (resets hash table iterator for re-iteration)
   - [heap_freetuple](../h/heap_freetuple.md) (frees cached tuple memory)
   - [MemoryContextReset](../M/MemoryContextReset.md) (resets hashtable memory context)
-  - ResetTupleHashTable (clears and reinitializes hash table)
+  - [ResetTupleHashTable](../R/ResetTupleHashTable.md) (clears and reinitializes hash table)
   - [ExecReScan](ExecReScan.md) (recursively rescans the outer subplan)
 - Called from (representative examples):
   - [ExecReScan](ExecReScan.md) (from src/backend/executor/execAmi.c:289)

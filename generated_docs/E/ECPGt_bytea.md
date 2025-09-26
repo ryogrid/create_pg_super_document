@@ -41,10 +41,10 @@ As an enumeration constant, ECPGt_bytea has no parameters or member variables. I
 ## Dependencies
 - Functions called/Symbols referenced: None (enumeration constant)
 - Used by (representative examples):
-  - ecpg_get_data (src/interfaces/ecpg/ecpglib/data.c:521)
+  - [ecpg_get_data](../e/ecpg_get_data.md) (src/interfaces/ecpg/ecpglib/data.c:521)
   - [set_desc_attr](../s/set_desc_attr.md) (src/interfaces/ecpg/ecpglib/descriptor.c:587)
-  - ecpg_store_input (src/interfaces/ecpg/ecpglib/execute.c:820)
-  - ecpg_build_params (src/interfaces/ecpg/ecpglib/execute.c:1398)
+  - [ecpg_store_input](../e/ecpg_store_input.md) (src/interfaces/ecpg/ecpglib/execute.c:820)
+  - [ecpg_build_params](../e/ecpg_build_params.md) (src/interfaces/ecpg/ecpglib/execute.c:1398)
   - IS_SIMPLE_TYPE (src/interfaces/ecpg/include/ecpgtype.h:92)
   - [get_type](../g/get_type.md) (src/interfaces/ecpg/preproc/type.c:178)
 

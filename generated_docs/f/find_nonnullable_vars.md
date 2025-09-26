@@ -24,7 +24,7 @@ The function returns variable information as a multibitmapset (List of Bitmapset
   - [find_nonnullable_vars_walker](find_nonnullable_vars_walker.md)
 - Called from (representative examples):
   - [reduce_outer_joins_pass2](../r/reduce_outer_joins_pass2.md)
-  - WindowFuncLists
+  - [WindowFuncLists](../W/WindowFuncLists.md)
 
 ## Notes and Other Information
 - The function is designed to err on the side of conservatism in its analysis

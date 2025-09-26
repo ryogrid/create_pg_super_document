@@ -22,9 +22,9 @@ This function serves as an error reporting callback during backup manifest parsi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initStringInfo
-  - appendStringInfoVA
-  - enlargeStringInfo
+  - [initStringInfo](../i/initStringInfo.md)
+  - [appendStringInfoVA](../a/appendStringInfoVA.md)
+  - [enlargeStringInfo](../e/enlargeStringInfo.md)
   - ereport
   - [errmsg_internal](../e/errmsg_internal.md)
 - Called from (representative examples):

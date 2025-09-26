@@ -31,7 +31,7 @@ FunctionScan nodes are commonly used for queries involving functions like `gener
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to allocate FunctionScan node)
-  - FunctionScan (node type)
+  - [FunctionScan](../F/FunctionScan.md) (node type)
 - Called from (representative examples):
   - [create_functionscan_plan](../c/create_functionscan_plan.md)
 

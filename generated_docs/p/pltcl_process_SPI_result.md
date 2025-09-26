@@ -26,17 +26,17 @@ The function supports two modes of operation: simple variable setting (when no l
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pltcl_set_tuple_values
-  - SPI_result_code_string
-  - SPI_freetuptable
+  - [pltcl_set_tuple_values](pltcl_set_tuple_values.md)
+  - [SPI_result_code_string](../S/SPI_result_code_string.md)
+  - [SPI_freetuptable](../S/SPI_freetuptable.md)
   - Tcl_SetObjResult
   - Tcl_NewWideIntObj
   - Tcl_NewIntObj
   - Tcl_AppendResult
   - Tcl_EvalObjEx
 - Called from (representative examples):
-  - pltcl_SPI_execute (referenced indirectly through TclExceptionNameMap)
-  - pltcl_SPI_execute_plan (referenced indirectly through TclExceptionNameMap)
+  - [pltcl_SPI_execute](pltcl_SPI_execute.md) (referenced indirectly through TclExceptionNameMap)
+  - [pltcl_SPI_execute_plan](pltcl_SPI_execute_plan.md) (referenced indirectly through TclExceptionNameMap)
 
 ## Notes and Other Information
 - Shared code between pltcl_SPI_execute and pltcl_SPI_execute_plan functions

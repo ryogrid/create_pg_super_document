@@ -42,7 +42,7 @@ If any partition on one side matches multiple partitions on the other side, the 
   - [merge_range_bounds](../m/merge_range_bounds.md)
 - Data types used:
   - [PartitionBoundInfo](../P/PartitionBoundInfo.md)
-  - RelOptInfo
+  - [RelOptInfo](../R/RelOptInfo.md)
   - JoinType
   - [FmgrInfo](../F/FmgrInfo.md)
 - Constants used:
@@ -54,7 +54,7 @@ If any partition on one side matches multiple partitions on the other side, the 
 
 ## Notes and Other Information
 - Currently called only from try_partitionwise_join() for specific join types
-- Hash partitioning is not supported for partitioned joins due to complexity
+- [Hash](../H/Hash.md) partitioning is not supported for partitioned joins due to complexity
 - Both relations must use the same partitioning strategy
 - Returns NULL if partitioned join is not feasible
 - Output partition lists contain matching pairs at corresponding positions

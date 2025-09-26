@@ -25,7 +25,7 @@ The `array_dims` function examines a PostgreSQL array and returns a text string 
   - `AARR_LBOUND` - macro to get lower bounds from array header
   - `AnyArrayType` - generic array type structure
   - `MAXDIM` - maximum allowed array dimensions constant
-  - `cstring_to_text` - function to convert C string to PostgreSQL text type
+  - `[cstring_to_text](../c/cstring_to_text.md)` - function to convert C string to PostgreSQL text type
   - `PG_RETURN_TEXT_P` - macro to return text result
   - `PG_RETURN_NULL` - macro to return NULL value
 - Called from (representative examples):

@@ -25,7 +25,7 @@ This static function evaluates whether a statistics object contains all the expr
 - Functions called/Symbols referenced:
   - [stat_find_expression](stat_find_expression.md)
   - [bms_add_member](../b/bms_add_member.md)
-  - StatisticExtInfo
+  - [StatisticExtInfo](../S/StatisticExtInfo.md)
 - Called from (representative examples):
   - [choose_best_statistics](../c/choose_best_statistics.md)
   - [statext_mcv_clauselist_selectivity](statext_mcv_clauselist_selectivity.md)

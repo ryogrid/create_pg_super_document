@@ -28,7 +28,7 @@ This function implements the less-than comparison operator (`<`) for the UUID da
 - Called from (representative examples):
   - SQL queries using `<` operator
   - B-tree index operations
-  - Sort operations
+  - [Sort](../S/Sort.md) operations
 
 ## Notes and Other Information
 This function follows PostgreSQL's standard pattern for implementing SQL operators as C functions. It uses PostgreSQL's function call convention with `PG_FUNCTION_ARGS` and the associated macros for argument extraction and return value handling. The comparison semantics are purely lexicographic based on the binary UUID representation.

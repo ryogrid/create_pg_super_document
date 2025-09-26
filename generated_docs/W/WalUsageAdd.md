@@ -28,7 +28,7 @@ This function focuses specifically on WAL activity that can be meaningfully meas
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WalUsage (struct type definition)
+  - [WalUsage](WalUsage.md) (struct type definition)
 - Called from (representative examples):
   - [InstrAggNode](../I/InstrAggNode.md)
   - [InstrAccumParallelQuery](../I/InstrAccumParallelQuery.md)
@@ -38,5 +38,5 @@ This function focuses specifically on WAL activity that can be meaningfully meas
 - The function performs simple accumulation without any validation or overflow checking
 - All WalUsage counters are designed to be monotonically increasing and never reset to zero
 - The function is crucial for PostgreSQL's query execution instrumentation, particularly for EXPLAIN output and pg_stat_statements
-- WalUsage tracking is separate from general WAL statistics and focuses on per-query measurable activity
+- [WalUsage](WalUsage.md) tracking is separate from general WAL statistics and focuses on per-query measurable activity
 - Located in src/backend/executor/instrument.c:278-285

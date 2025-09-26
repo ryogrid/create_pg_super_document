@@ -36,8 +36,8 @@ The initialization is straightforward but crucial - it ensures thread-safe acces
   - [ReplicationSlotsShmemInit](../R/ReplicationSlotsShmemInit.md)
   - [WalRcvShmemInit](../W/WalRcvShmemInit.md)
   - [WalSndShmemInit](../W/WalSndShmemInit.md)
-  - InitBufferPool
-  - BarrierInit
+  - [InitBufferPool](../I/InitBufferPool.md)
+  - [BarrierInit](../B/BarrierInit.md)
   - [ProcSignalShmemInit](../P/ProcSignalShmemInit.md)
 
 ## Notes and Other Information

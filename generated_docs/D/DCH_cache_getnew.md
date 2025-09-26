@@ -26,15 +26,15 @@ The function ensures cache counter overflow protection by calling DCH_prevent_co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DCH_prevent_counter_overflow (counter overflow protection)
-  - DCHCacheEntry (structure type)
+  - [DCH_prevent_counter_overflow](DCH_prevent_counter_overflow.md) (counter overflow protection)
+  - [DCHCacheEntry](DCHCacheEntry.md) (structure type)
   - DCH_CACHE_ENTRIES (maximum cache size constant)  
-  - MemoryContextAllocZero (memory allocation)
+  - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md) (memory allocation)
   - TopMemoryContext (persistent memory context)
-  - strlcpy (safe string copying)
+  - [strlcpy](../s/strlcpy.md) (safe string copying)
   - DCH_CACHE_SIZE (maximum format string length constant)
 - Called from:
-  - DCH_cache_fetch
+  - [DCH_cache_fetch](DCH_cache_fetch.md)
 
 ## Notes and Other Information
 - Uses aggressive aging strategy where every access increments the global DCHCounter

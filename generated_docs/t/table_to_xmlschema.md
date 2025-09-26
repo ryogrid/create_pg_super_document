@@ -24,10 +24,10 @@ This function is a PostgreSQL built-in function that creates an XML Schema Defin
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_BOOL
-  - text_to_cstring
-  - table_open
+  - [text_to_cstring](text_to_cstring.md)
+  - [table_open](table_open.md)
   - [map_sql_table_to_xmlschema](../m/map_sql_table_to_xmlschema.md)
-  - table_close
+  - [table_close](table_close.md)
   - [cstring_to_xmltype](../c/cstring_to_xmltype.md)
   - PG_RETURN_XML_P
 - Called from:

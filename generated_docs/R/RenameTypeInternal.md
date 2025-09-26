@@ -26,13 +26,13 @@ The function updates the pg_type catalog entry and recursively handles the renam
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open, table_close
+  - [table_open](../t/table_open.md), table_close
   - SearchSysCacheCopy1
   - GetSysCacheOid2
   - [CStringGetDatum](../C/CStringGetDatum.md), ObjectIdGetDatum
   - [get_typisdefined](../g/get_typisdefined.md)
   - [moveArrayTypeName](../m/moveArrayTypeName.md)
-  - namestrcpy
+  - [namestrcpy](../n/namestrcpy.md)
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - InvokeObjectPostAlterHook
   - [heap_freetuple](../h/heap_freetuple.md)

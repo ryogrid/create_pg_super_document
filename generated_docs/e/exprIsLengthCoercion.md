@@ -30,15 +30,15 @@ This distinction is important for the type system because length coercions prese
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (macro for node type checking)
-  - list_length (to count function arguments)
+  - [list_length](../l/list_length.md) (to count function arguments)
   - lsecond (to access second list element)
-  - DatumGetInt32 (to extract integer value from Const node)
+  - [DatumGetInt32](../D/DatumGetInt32.md) (to extract integer value from Const node)
   - COERCE_EXPLICIT_CAST, COERCE_IMPLICIT_CAST (coercion format constants)
 
 - Called from (representative examples):
-  - exprTypmod (to detect length-coercion functions for typmod extraction)
-  - get_func_expr (in rule decompilation for proper formatting)
-  - QTW_EXAMINE_SORTGROUP (query tree walker examination)
+  - [exprTypmod](exprTypmod.md) (to detect length-coercion functions for typmod extraction)
+  - [get_func_expr](../g/get_func_expr.md) (in rule decompilation for proper formatting)
+  - [QTW_EXAMINE_SORTGROUP](../Q/QTW_EXAMINE_SORTGROUP.md) (query tree walker examination)
 
 ## Notes and Other Information
 - Returns false for NULL input expressions

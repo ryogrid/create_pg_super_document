@@ -27,9 +27,9 @@ The function constructs the output string by:
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_VARLENA_P
-  - initStringInfo
-  - appendStringInfo
-  - appendStringInfoChar
+  - [initStringInfo](../i/initStringInfo.md)
+  - [appendStringInfo](../a/appendStringInfo.md)
+  - [appendStringInfoChar](../a/appendStringInfoChar.md)
   - U64FromFullTransactionId
   - PG_RETURN_CSTRING
   - UINT64_FORMAT

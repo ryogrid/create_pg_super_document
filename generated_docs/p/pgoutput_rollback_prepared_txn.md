@@ -28,7 +28,7 @@ This function is a callback handler for the ROLLBACK PREPARED operation in Postg
 - Functions called/Symbols referenced:
   - [OutputPluginUpdateProgress](../O/OutputPluginUpdateProgress.md)
   - [OutputPluginPrepareWrite](../O/OutputPluginPrepareWrite.md)
-  - logicalrep_write_rollback_prepared
+  - [logicalrep_write_rollback_prepared](../l/logicalrep_write_rollback_prepared.md)
   - [OutputPluginWrite](../O/OutputPluginWrite.md)
   - [LogicalDecodingContext](../L/LogicalDecodingContext.md) (type)
   - [ReorderBufferTXN](../R/ReorderBufferTXN.md) (type)

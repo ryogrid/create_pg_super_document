@@ -27,7 +27,7 @@ This function takes no parameters.
 - Functions called/Symbols referenced:
   - getenv: Standard library function to read environment variables
   - [SetConfigOption](../S/SetConfigOption.md): Sets GUC parameter values with specified context and source
-  - get_stack_depth_rlimit: Retrieves system stack size limit
+  - [get_stack_depth_rlimit](../g/get_stack_depth_rlimit.md): Retrieves system stack size limit
   - snprintf: Formats numeric values as strings
   - PGC_POSTMASTER: Configuration context constant
   - PGC_S_ENV_VAR, PGC_S_DYNAMIC_DEFAULT: Configuration source constants

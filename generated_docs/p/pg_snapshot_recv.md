@@ -35,7 +35,7 @@ The function performs extensive validation to ensure data integrity:
   - PG_GETARG_POINTER
   - [pq_getmsgint](pq_getmsgint.md)
   - [pq_getmsgint64](pq_getmsgint64.md)
-  - FullTransactionIdFromU64
+  - [FullTransactionIdFromU64](../F/FullTransactionIdFromU64.md)
   - FullTransactionIdIsValid
   - FullTransactionIdPrecedes
   - FullTransactionIdEquals

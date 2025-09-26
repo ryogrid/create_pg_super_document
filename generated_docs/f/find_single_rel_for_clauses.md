@@ -37,7 +37,7 @@ The function is essential for the extended statistics subsystem, as extended sta
   - bms_is_empty
   - [bms_get_singleton_member](../b/bms_get_singleton_member.md)
   - [find_base_rel](find_base_rel.md)
-  - BoolExpr
+  - [BoolExpr](../B/BoolExpr.md)
 - Called from (representative examples):
   - [clauselist_selectivity_ext](../c/clauselist_selectivity_ext.md)
   - [clauselist_selectivity_or](../c/clauselist_selectivity_or.md)

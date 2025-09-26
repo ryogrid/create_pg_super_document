@@ -21,7 +21,7 @@ The function simply returns the value of the err_occurred flag from the error co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PgXmlErrorContext (structure type)
+  - [PgXmlErrorContext](../P/PgXmlErrorContext.md) (structure type)
 
 - Called from (representative examples):
   - PG_RETURN_XML_P (macro in xml.h)

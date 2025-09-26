@@ -42,7 +42,7 @@ Key features include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_malloc
+  - [pg_malloc](../p/pg_malloc.md)
   - [PQmblenBounded](../P/PQmblenBounded.md)
   - [strip_quotes](strip_quotes.md)
 - Called from (representative examples):

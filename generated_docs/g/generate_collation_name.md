@@ -23,16 +23,16 @@ The function returns a newly allocated string containing the appropriately forma
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (system cache lookup for collation information)
-  - CollationIsVisible (visibility check based on search path)
-  - get_namespace_name_or_temp (namespace name resolution when needed)
-  - quote_qualified_identifier (proper quoting of names)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup for collation information)
+  - [CollationIsVisible](../C/CollationIsVisible.md) (visibility check based on search path)
+  - [get_namespace_name_or_temp](get_namespace_name_or_temp.md) (namespace name resolution when needed)
+  - [quote_qualified_identifier](../q/quote_qualified_identifier.md) (proper quoting of names)
 - Called from (representative examples):
-  - pg_get_indexdef_worker (index definition formatting)
-  - pg_get_partkeydef_worker (partition key definition formatting)
-  - get_rule_expr (expression decompilation)
-  - get_const_collation (constant collation formatting)
-  - pg_collation_for (collation information function)
+  - [pg_get_indexdef_worker](../p/pg_get_indexdef_worker.md) (index definition formatting)
+  - [pg_get_partkeydef_worker](../p/pg_get_partkeydef_worker.md) (partition key definition formatting)
+  - [get_rule_expr](get_rule_expr.md) (expression decompilation)
+  - [get_const_collation](get_const_collation.md) (constant collation formatting)
+  - [pg_collation_for](../p/pg_collation_for.md) (collation information function)
 
 ## Notes and Other Information
 - Only schema-qualifies when collation is not visible in current search path

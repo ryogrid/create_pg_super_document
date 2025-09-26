@@ -33,7 +33,7 @@ The recursive nature handles complex partition hierarchies where a partition can
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth (guards against infinite recursion)
+  - [check_stack_depth](../c/check_stack_depth.md) (guards against infinite recursion)
   - copyObject (creates copies for caching and return)
   - [get_partition_parent](get_partition_parent.md) (finds parent relation OID)
   - [relation_open](../r/relation_open.md) (opens parent relation)

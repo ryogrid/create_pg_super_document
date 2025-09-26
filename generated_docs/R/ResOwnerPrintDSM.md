@@ -19,8 +19,8 @@ This function serves as a debug print callback in PostgreSQL's resource manageme
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dsm_segment (type cast from Datum)
-  - dsm_segment_handle (to get the segment's unique handle)
+  - [dsm_segment](../d/dsm_segment.md) (type cast from Datum)
+  - [dsm_segment_handle](../d/dsm_segment_handle.md) (to get the segment's unique handle)
   - [psprintf](../p/psprintf.md) (for formatted string creation)
 - Called from (representative examples):
   - Registered as callback in ResourceOwner system (referenced in dsm resource owner descriptor at line 155)

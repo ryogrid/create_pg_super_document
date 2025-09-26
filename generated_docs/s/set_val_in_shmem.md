@@ -21,9 +21,9 @@ The function takes a single integer argument from SQL and stores it in the share
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `tdr_attach_shmem` - Ensures DSM segment is attached
-  - `LWLockAcquire` - Acquires exclusive lock for safe writing
-  - `LWLockRelease` - Releases the lock after operation
+  - `[tdr_attach_shmem](../t/tdr_attach_shmem.md)` - Ensures DSM segment is attached
+  - `[LWLockAcquire](../L/LWLockAcquire.md)` - Acquires exclusive lock for safe writing
+  - `[LWLockRelease](../L/LWLockRelease.md)` - Releases the lock after operation
   - `PG_GETARG_INT32` - Retrieves the integer argument from SQL call
   - `PG_RETURN_VOID` - Returns void to SQL caller
   - `PG_FUNCTION_INFO_V1` - Declares function as SQL-callable

@@ -37,7 +37,7 @@ This structure contains metadata for rolling back prepared transactions in logic
   - TransactionId
   - GIDSIZE
 - Used by functions:
-  - logicalrep_read_rollback_prepared
+  - [logicalrep_read_rollback_prepared](../l/logicalrep_read_rollback_prepared.md)
   - [apply_handle_rollback_prepared](../a/apply_handle_rollback_prepared.md)
 
 ## Notes and Other Information

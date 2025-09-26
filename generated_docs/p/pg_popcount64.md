@@ -21,7 +21,7 @@ The function is part of PostgreSQL's bit manipulation utilities and is used thro
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_popcount64_slow
+  - [pg_popcount64_slow](pg_popcount64_slow.md)
 - Called from (representative examples):
   - bmw_popcount (via function pointer in bitmapset operations)
   - TRY_POPCNT_FAST macro (when runtime optimization is enabled)

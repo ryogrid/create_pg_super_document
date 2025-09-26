@@ -33,7 +33,7 @@ The function delegates cost calculation to , which accounts for the reduced I/O 
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (creates new Path node)
-  - get_baserel_parampathinfo (handles parameterization)
+  - [get_baserel_parampathinfo](../g/get_baserel_parampathinfo.md) (handles parameterization)
   - [cost_samplescan](cost_samplescan.md) (calculates sampling costs)
   - T_SampleScan (pathtype constant)
   - NIL (empty list constant)

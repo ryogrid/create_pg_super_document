@@ -27,7 +27,7 @@ This function performs a system catalog lookup to find the OID of a relation (ta
   - Anum_pg_class_oid
 - Called from (representative examples):
   - [heap_create_with_catalog](../h/heap_create_with_catalog.md)
-  - index_create
+  - [index_create](../i/index_create.md)
   - [RangeVarGetRelidExtended](../R/RangeVarGetRelidExtended.md)
   - [RangeVarGetAndCheckCreationNamespace](../R/RangeVarGetAndCheckCreationNamespace.md)
   - [cluster](../c/cluster.md)

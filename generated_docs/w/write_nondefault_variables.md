@@ -32,8 +32,8 @@ The function uses the global guc_nondef_list, which maintains a doubly-linked li
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AllocateFile
-  - FreeFile
+  - [AllocateFile](../A/AllocateFile.md)
+  - [FreeFile](../F/FreeFile.md)
   - dlist_foreach
   - dlist_container
   - [write_one_nondefault_variable](write_one_nondefault_variable.md)

@@ -24,15 +24,15 @@ For local buffers (those that belong to the current backend), the function alway
 - Functions called/Symbols referenced:
   - BufferIsPinned
   - BufferIsLocal  
-  - GetBufferDescriptor
-  - LWLockConditionalAcquire
-  - BufferDescriptorGetContentLock
+  - [GetBufferDescriptor](../G/GetBufferDescriptor.md)
+  - [LWLockConditionalAcquire](../L/LWLockConditionalAcquire.md)
+  - [BufferDescriptorGetContentLock](../B/BufferDescriptorGetContentLock.md)
 - Called from (representative examples):
-  - GinNewBuffer
-  - gistNewBuffer
-  - RelationGetBufferForTuple
-  - _bt_conditionallockbuf
-  - ConditionalLockBufferForCleanup
+  - [GinNewBuffer](../G/GinNewBuffer.md)
+  - [gistNewBuffer](../g/gistNewBuffer.md)
+  - [RelationGetBufferForTuple](../R/RelationGetBufferForTuple.md)
+  - [_bt_conditionallockbuf](../b/_bt_conditionallockbuf.md)
+  - [ConditionalLockBufferForCleanup](ConditionalLockBufferForCleanup.md)
 
 ## Notes and Other Information
 - The function asserts that the buffer is pinned before attempting to lock it

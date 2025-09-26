@@ -32,7 +32,7 @@ The function operates within the event trigger collection framework and respects
   - [palloc](../p/palloc.md)
   - memcpy
   - copyObject
-  - lappend
+  - [lappend](../l/lappend.md)
 - Called from (representative examples):
   - [MakeConfigurationMapping](../M/MakeConfigurationMapping.md) (src/backend/commands/tsearchcmds.c:1484)
   - [DropConfigurationMapping](../D/DropConfigurationMapping.md) (src/backend/commands/tsearchcmds.c:1552)

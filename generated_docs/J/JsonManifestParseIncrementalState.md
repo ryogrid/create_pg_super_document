@@ -28,27 +28,27 @@ The structure is created by `json_parse_manifest_incremental_init()`, used with 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonLexContext
-  - JsonSemAction
-  - pg_cryptohash_ctx
-  - json_manifest_object_start
-  - json_manifest_object_end
-  - json_manifest_array_start
-  - json_manifest_array_end
-  - json_manifest_object_field_start
-  - json_manifest_scalar
+  - [JsonLexContext](JsonLexContext.md)
+  - [JsonSemAction](JsonSemAction.md)
+  - [pg_cryptohash_ctx](../p/pg_cryptohash_ctx.md)
+  - [json_manifest_object_start](../j/json_manifest_object_start.md)
+  - [json_manifest_object_end](../j/json_manifest_object_end.md)
+  - [json_manifest_array_start](../j/json_manifest_array_start.md)
+  - [json_manifest_array_end](../j/json_manifest_array_end.md)
+  - [json_manifest_object_field_start](../j/json_manifest_object_field_start.md)
+  - [json_manifest_scalar](../j/json_manifest_scalar.md)
   - JsonParseErrorType
-  - JsonTokenType
-  - verify_manifest_checksum
-  - json_manifest_parse_failure
+  - [JsonTokenType](JsonTokenType.md)
+  - [verify_manifest_checksum](../v/verify_manifest_checksum.md)
+  - [json_manifest_parse_failure](../j/json_manifest_parse_failure.md)
 
 - Called from (representative examples):
-  - json_parse_manifest_incremental_init (src/common/parse_manifest.c:131)
-  - json_parse_manifest_incremental_shutdown (src/common/parse_manifest.c:169)
-  - json_parse_manifest_incremental_chunk (src/common/parse_manifest.c:185)
-  - IncrementalBackupInfo (src/backend/backup/basebackup_incremental.c:127)
-  - load_backup_manifest (src/bin/pg_combinebackup/load_manifest.c:176)
-  - parse_manifest_file (src/bin/pg_verifybackup/pg_verifybackup.c:453)
+  - [json_parse_manifest_incremental_init](../j/json_parse_manifest_incremental_init.md) (src/common/parse_manifest.c:131)
+  - [json_parse_manifest_incremental_shutdown](../j/json_parse_manifest_incremental_shutdown.md) (src/common/parse_manifest.c:169)
+  - [json_parse_manifest_incremental_chunk](../j/json_parse_manifest_incremental_chunk.md) (src/common/parse_manifest.c:185)
+  - [IncrementalBackupInfo](../I/IncrementalBackupInfo.md) (src/backend/backup/basebackup_incremental.c:127)
+  - [load_backup_manifest](../l/load_backup_manifest.md) (src/bin/pg_combinebackup/load_manifest.c:176)
+  - [parse_manifest_file](../p/parse_manifest_file.md) (src/bin/pg_verifybackup/pg_verifybackup.c:453)
 
 ## Notes and Other Information
 - The typedef declaration appears in parse_manifest.h (line 23) while the actual struct definition is in parse_manifest.c (lines 95-100)

@@ -29,15 +29,15 @@ The calculated count is stored in setopstate->numOutput for use by the tuple emi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SetOpState (execution state structure)
-  - SetOpStatePerGroup (per-group counting structure)
-  - SetOp (plan node structure)
+  - [SetOpState](../S/SetOpState.md) (execution state structure)
+  - [SetOpStatePerGroup](../S/SetOpStatePerGroup.md) (per-group counting structure)
+  - [SetOp](../S/SetOp.md) (plan node structure)
   - SETOPCMD_INTERSECT, SETOPCMD_INTERSECT_ALL (command constants)
   - SETOPCMD_EXCEPT, SETOPCMD_EXCEPT_ALL (command constants)
   - elog (error logging function)
 - Called from (representative examples):
-  - setop_retrieve_direct
-  - setop_retrieve_hash_table
+  - [setop_retrieve_direct](setop_retrieve_direct.md)
+  - [setop_retrieve_hash_table](setop_retrieve_hash_table.md)
 
 ## Notes and Other Information
 - Implements SQL92 set operation semantics precisely

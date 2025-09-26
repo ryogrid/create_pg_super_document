@@ -21,12 +21,12 @@ This function performs cleanup when a backend process is shutting down, detachin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_release_all_entry_refs: Releases all references to statistics entries
-  - dshash_detach: Detaches from shared hash table
-  - dsa_detach: Detaches from dynamic shared area
-  - dsa_release_in_place: Manually releases DSA reference count
+  - [pgstat_release_all_entry_refs](pgstat_release_all_entry_refs.md): Releases all references to statistics entries
+  - [dshash_detach](../d/dshash_detach.md): Detaches from shared hash table
+  - [dsa_detach](../d/dsa_detach.md): Detaches from dynamic shared area
+  - [dsa_release_in_place](../d/dsa_release_in_place.md): Manually releases DSA reference count
 - Called from (representative examples):
-  - pgstat_shutdown_hook: Called during backend shutdown process
+  - [pgstat_shutdown_hook](pgstat_shutdown_hook.md): Called during backend shutdown process
 
 ## Notes and Other Information
 - Contains assertion to ensure DSA is attached before attempting detach

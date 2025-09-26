@@ -35,8 +35,8 @@ The function includes robust input validation and handles fractional values inte
   - memory_unit_conversion_table: Global table for memory unit conversions
   - time_unit_conversion_table: Global table for time unit conversions
 - Called from (representative examples):
-  - parse_int: Integer parameter parsing in src/backend/utils/misc/guc.c:2921
-  - parse_real: Real number parameter parsing in src/backend/utils/misc/guc.c:2994
+  - [parse_int](../p/parse_int.md): Integer parameter parsing in src/backend/utils/misc/guc.c:2921
+  - [parse_real](../p/parse_real.md): Real number parameter parsing in src/backend/utils/misc/guc.c:2994
 
 ## Notes and Other Information
 - Static function, only accessible within guc.c

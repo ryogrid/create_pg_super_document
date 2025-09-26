@@ -33,13 +33,13 @@ The function updates the actions array to indicate what type of revocation shoul
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_popcount32
-  - plan_recursive_revoke
+  - [pg_popcount32](pg_popcount32.md)
+  - [plan_recursive_revoke](plan_recursive_revoke.md)
   - GETSTRUCT
 - Types used:
-  - RevokeRoleGrantAction
-  - CatCList
-  - GrantRoleOptions
+  - [RevokeRoleGrantAction](../R/RevokeRoleGrantAction.md)
+  - [CatCList](../C/CatCList.md)
+  - [GrantRoleOptions](../G/GrantRoleOptions.md)
   - DropBehavior
   - Form_pg_auth_members
 - Constants:
@@ -49,7 +49,7 @@ The function updates the actions array to indicate what type of revocation shoul
   - RRG_REMOVE_INHERIT_OPTION
   - RRG_REMOVE_SET_OPTION
 - Called from:
-  - DelRoleMems
+  - [DelRoleMems](../D/DelRoleMems.md)
 
 ## Notes and Other Information
 - The function asserts that at most one option bit is set in popt->specified, as the current syntax doesn't support revoking multiple options simultaneously

@@ -24,7 +24,7 @@ The cleanup process involves:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReleaseBuffer
+  - [ReleaseBuffer](../R/ReleaseBuffer.md)
   - [pfree](../p/pfree.md)
 - Types referenced:
   - [BrinRevmap](../B/BrinRevmap.md)

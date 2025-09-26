@@ -42,7 +42,7 @@ The function calculates the string length and advances the cursor accordingly. I
 ## Notes and Other Information
 - This is a static function, only accessible within fe-trace.c
 - The function assumes the string is properly null-terminated in the message buffer
-- String output is always enclosed in double quotes for clear delimitation in trace logs
+- [String](../S/String.md) output is always enclosed in double quotes for clear delimitation in trace logs
 - The suppress feature is important for security when tracing messages containing sensitive data
 - Cursor advancement calculation accounts for the formatting characters (space and quotes) when not suppressed
 - The function has void return type, unlike the integer output functions which return the parsed value

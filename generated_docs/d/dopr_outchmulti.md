@@ -30,18 +30,18 @@ This function is particularly important for padding operations where many spaces
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dopr_outch
-  - flushbuffer
+  - [dopr_outch](dopr_outch.md)
+  - [flushbuffer](../f/flushbuffer.md)
   - memset (system library)
   - PrintfTarget (structure)
 - Called from:
-  - fmtstr
-  - fmtint
-  - fmtchar
-  - fmtfloat
-  - leading_pad
-  - trailing_pad
-  - flushbuffer
+  - [fmtstr](../f/fmtstr.md)
+  - [fmtint](../f/fmtint.md)
+  - [fmtchar](../f/fmtchar.md)
+  - [fmtfloat](../f/fmtfloat.md)
+  - [leading_pad](../l/leading_pad.md)
+  - [trailing_pad](../t/trailing_pad.md)
+  - [flushbuffer](../f/flushbuffer.md)
 
 ## Notes and Other Information
 - Provides significant performance improvement for padding operations compared to repeated dopr_outch() calls

@@ -40,6 +40,6 @@ The function stops building pathkeys when it encounters a partition key that can
 ## Notes and Other Information
 - Currently only supports simple base relations (not joins or subqueries)
 - Assumes NULL partitions are listed last in the PartitionDesc
-- Boolean partition keys receive special treatment and may be skipped if they represent constant conditions
+- [Boolean](../B/Boolean.md) partition keys receive special treatment and may be skipped if they represent constant conditions
 - Part of PostgreSQL's partition-wise join and append optimization system
 - The returned pathkeys can be used to determine if an ordered append operation is beneficial

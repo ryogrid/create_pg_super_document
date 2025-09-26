@@ -31,7 +31,7 @@ This function takes no parameters but modifies global state:
 - Functions called/Symbols referenced:
   - [connectToServer](../c/connectToServer.md)
   - [executeQueryOrDie](../e/executeQueryOrDie.md)
-  - pg_malloc
+  - [pg_malloc](../p/pg_malloc.md)
   - [pg_strdup](../p/pg_strdup.md)
   - [PQfnumber](../P/PQfnumber.md)
   - [PQgetvalue](../P/PQgetvalue.md)

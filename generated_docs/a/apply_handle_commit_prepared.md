@@ -24,7 +24,7 @@ Note that if the transaction was prepared in a parallel apply worker, no additio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - logicalrep_read_commit_prepared
+  - [logicalrep_read_commit_prepared](../l/logicalrep_read_commit_prepared.md)
   - [set_apply_error_context_xact](../s/set_apply_error_context_xact.md)
   - [TwoPhaseTransactionGid](../T/TwoPhaseTransactionGid.md)
   - [begin_replication_step](../b/begin_replication_step.md)

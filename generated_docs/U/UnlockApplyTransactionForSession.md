@@ -25,10 +25,10 @@ This function is part of PostgreSQL's logical replication locking mechanism. It 
 ## Dependencies
 - Functions called/Symbols referenced:
   - SET_LOCKTAG_APPLY_TRANSACTION (macro to construct the lock tag)
-  - LockRelease (releases the actual lock)
+  - [LockRelease](../L/LockRelease.md) (releases the actual lock)
 - Called from (representative examples):
-  - pa_unlock_stream (parallel apply worker stream unlocking)
-  - pa_unlock_transaction (parallel apply worker transaction unlocking)
+  - [pa_unlock_stream](../p/pa_unlock_stream.md) (parallel apply worker stream unlocking)
+  - [pa_unlock_transaction](../p/pa_unlock_transaction.md) (parallel apply worker transaction unlocking)
 
 ## Notes and Other Information
 - This function is specifically designed for logical replication's parallel apply workers

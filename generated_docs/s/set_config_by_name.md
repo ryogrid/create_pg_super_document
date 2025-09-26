@@ -34,11 +34,11 @@ Key behaviors:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - set_config_option
+  - [set_config_option](set_config_option.md)
   - [GetConfigOptionByName](../G/GetConfigOptionByName.md)
   - TextDatumGetCString
-  - cstring_to_text
-  - superuser
+  - [cstring_to_text](../c/cstring_to_text.md)
+  - [superuser](superuser.md)
 - Called from (representative examples):
   - Available as SQL function set_config() but no direct C references found
 

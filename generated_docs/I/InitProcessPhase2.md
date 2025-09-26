@@ -31,13 +31,13 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ProcArrayAdd (adds process to shared process array)
-  - on_shmem_exit (registers exit handler)
-  - RemoveProcFromArray (cleanup function for process exit)
+  - [ProcArrayAdd](../P/ProcArrayAdd.md) (adds process to shared process array)
+  - [on_shmem_exit](../o/on_shmem_exit.md) (registers exit handler)
+  - [RemoveProcFromArray](../R/RemoveProcFromArray.md) (cleanup function for process exit)
 - Global variables:
   - MyProc (current process PGPROC, must be non-NULL)
 - Called from:
-  - InitPostgres (during backend startup sequence)
+  - [InitPostgres](InitPostgres.md) (during backend startup sequence)
 
 ## Notes and Other Information
 - Must be called after InitProcess has successfully created and initialized MyProc

@@ -69,18 +69,18 @@ The singlerow flag optimizes for unique joins where only one tuple is expected p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Plan (inherited base structure)
-  - List (for param_exprs)
+  - [Plan](../P/Plan.md) (inherited base structure)
+  - [List](../L/List.md) (for param_exprs)
   - Oid (for operators and collations)
-  - Bitmapset (for keyparamids)
+  - [Bitmapset](../B/Bitmapset.md) (for keyparamids)
 
 - Called from (representative examples):
-  - show_memoize_info (commands/explain.c:3350)
-  - ExecInitNode (executor/execProcnode.c:331)
-  - ExecMemoize (executor/nodeMemoize.c:724)
-  - ExecInitMemoize (executor/nodeMemoize.c:952)
-  - create_memoize_plan (optimizer/plan/createplan.c:1669)
-  - make_memoize (optimizer/plan/createplan.c:6573)
+  - [show_memoize_info](../s/show_memoize_info.md) (commands/explain.c:3350)
+  - [ExecInitNode](../E/ExecInitNode.md) (executor/execProcnode.c:331)
+  - [ExecMemoize](../E/ExecMemoize.md) (executor/nodeMemoize.c:724)
+  - [ExecInitMemoize](../E/ExecInitMemoize.md) (executor/nodeMemoize.c:952)
+  - [create_memoize_plan](../c/create_memoize_plan.md) (optimizer/plan/createplan.c:1669)
+  - [make_memoize](../m/make_memoize.md) (optimizer/plan/createplan.c:6573)
 
 ## Notes and Other Information
 - Introduced in PostgreSQL 14 as a performance optimization for parameterized queries

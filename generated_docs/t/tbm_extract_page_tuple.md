@@ -21,7 +21,7 @@ This static inline function processes a single page entry from a TIDBitmap to ex
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PagetableEntry](../P/PagetableEntry.md) (structure type)
-  - TBMIterateResult (structure type)
+  - [TBMIterateResult](../T/TBMIterateResult.md) (structure type)
   - WORDS_PER_PAGE (constant)
   - bitmapword (type)
   - BITS_PER_BITMAPWORD (constant)

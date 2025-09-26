@@ -37,9 +37,9 @@ This hierarchical design allows PostgreSQL administrators to configure logging g
 - Functions called/Symbols referenced:
   - None (this is an enum definition)
 - Called from (representative examples):
-  - GetCommandLogLevel (src/backend/tcop/utility.c:3249)
-  - CreateCommandTag (src/backend/tcop/utility.c:3246)
-  - CreateCommandName (src/include/tcop/utility.h:108)
+  - [GetCommandLogLevel](../G/GetCommandLogLevel.md) (src/backend/tcop/utility.c:3249)
+  - [CreateCommandTag](../C/CreateCommandTag.md) (src/backend/tcop/utility.c:3246)
+  - [CreateCommandName](../C/CreateCommandName.md) (src/include/tcop/utility.h:108)
 
 ## Notes and Other Information
 - The enum is defined in src/include/tcop/tcopprot.h:35-41, making it accessible throughout the PostgreSQL codebase

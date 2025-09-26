@@ -34,7 +34,7 @@ The caller is responsible for ensuring that the imported snapshot comes from a s
   - [GetSerializableTransactionSnapshotInt](../G/GetSerializableTransactionSnapshotInt.md) (main implementation for setting up serializable context)
   - [VirtualTransactionId](../V/VirtualTransactionId.md) (type for virtual transaction identifier)
 - Called from (representative examples):
-  - SetTransactionSnapshot (in src/backend/utils/time/snapmgr.c:553)
+  - [SetTransactionSnapshot](SetTransactionSnapshot.md) (in src/backend/utils/time/snapmgr.c:553)
 
 ## Notes and Other Information
 - Cannot be used by SERIALIZABLE READ ONLY DEFERRABLE transactions - will throw an error since these transactions need to wait for safe snapshots

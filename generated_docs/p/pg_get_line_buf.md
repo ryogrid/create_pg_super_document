@@ -24,17 +24,17 @@ The function returns a boolean indicating success or failure, making error handl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - resetStringInfo
-  - pg_get_line_append
+  - [resetStringInfo](../r/resetStringInfo.md)
+  - [pg_get_line_append](pg_get_line_append.md)
 
 - Called from (representative examples):
-  - tsearch_readline (src/backend/tsearch/ts_locale.c:173)
-  - readfile (src/bin/initdb/initdb.c:690)
-  - read_quoted_string (src/bin/pg_dump/filter.c:241)
-  - filter_read_item (src/bin/pg_dump/filter.c:398)
-  - SortTocFromFile (src/bin/pg_dump/pg_backup_archiver.c:1565)
-  - ecpg_filter_source (src/interfaces/ecpg/test/pg_regress_ecpg.c:55)
-  - ecpg_filter_stderr (src/interfaces/ecpg/test/pg_regress_ecpg.c:114)
+  - [tsearch_readline](../t/tsearch_readline.md) (src/backend/tsearch/ts_locale.c:173)
+  - [readfile](../r/readfile.md) (src/bin/initdb/initdb.c:690)
+  - [read_quoted_string](../r/read_quoted_string.md) (src/bin/pg_dump/filter.c:241)
+  - [filter_read_item](../f/filter_read_item.md) (src/bin/pg_dump/filter.c:398)
+  - [SortTocFromFile](../S/SortTocFromFile.md) (src/bin/pg_dump/pg_backup_archiver.c:1565)
+  - [ecpg_filter_source](../e/ecpg_filter_source.md) (src/interfaces/ecpg/test/pg_regress_ecpg.c:55)
+  - [ecpg_filter_stderr](../e/ecpg_filter_stderr.md) (src/interfaces/ecpg/test/pg_regress_ecpg.c:114)
 
 ## Notes and Other Information
 - Returns true if a line was successfully collected (including non-newline-terminated lines at EOF)

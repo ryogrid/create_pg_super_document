@@ -23,8 +23,8 @@ The function acquires locks to prevent concurrent truncation and reads shared me
 ## Dependencies
 - Functions called/Symbols referenced:
   - [find_multixact_start](../f/find_multixact_start.md)
-  - LWLockAcquire
-  - LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - ereport
   - [errmsg_internal](../e/errmsg_internal.md)
   - [errmsg](../e/errmsg.md)

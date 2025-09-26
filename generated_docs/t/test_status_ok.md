@@ -21,11 +21,11 @@ The function is part of the pg_regress test driver's TAP output generation syste
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - test_status_print
+  - [test_status_print](test_status_print.md)
   - success_count (global variable)
 - Called from (representative examples):
   - Test execution functions in the regression test framework
-  - run_single_test (when a test passes)
+  - [run_single_test](../r/run_single_test.md) (when a test passes)
 
 ## Notes and Other Information
 - This function automatically increments the global success_count variable to maintain accurate statistics

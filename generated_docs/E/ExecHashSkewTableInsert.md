@@ -32,14 +32,14 @@ The function matches the behavior of the current-batch case in ExecHashTableInse
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecFetchSlotMinimalTuple (extracts compact tuple representation)
-  - MemoryContextAlloc (allocates memory for HashJoinTuple)
+  - [ExecFetchSlotMinimalTuple](ExecFetchSlotMinimalTuple.md) (extracts compact tuple representation)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md) (allocates memory for HashJoinTuple)
   - HeapTupleHeaderClearMatch (clears match flags in tuple header)
-  - ExecHashRemoveNextSkewBucket (removes skew buckets when space limit exceeded)
-  - ExecHashIncreaseNumBatches (increases batching when total space limit exceeded)
-  - heap_free_minimal_tuple (frees temporary tuple if needed)
+  - [ExecHashRemoveNextSkewBucket](ExecHashRemoveNextSkewBucket.md) (removes skew buckets when space limit exceeded)
+  - [ExecHashIncreaseNumBatches](ExecHashIncreaseNumBatches.md) (increases batching when total space limit exceeded)
+  - [heap_free_minimal_tuple](../h/heap_free_minimal_tuple.md) (frees temporary tuple if needed)
 - Called from:
-  - MultiExecPrivateHash (during hash table population phase)
+  - [MultiExecPrivateHash](../M/MultiExecPrivateHash.md) (during hash table population phase)
 
 ## Notes and Other Information
 - Inserts tuples at the front of the skew bucket's linked list for LIFO access pattern

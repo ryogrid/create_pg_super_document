@@ -28,9 +28,9 @@ The structure uses relative offsets rather than absolute pointers to ensure port
   - None (this is a data structure)
 - Used by:
   - [shm_toc](shm_toc.md) (as array member toc_entry)
-  - shm_toc_allocate
-  - shm_toc_freespace  
-  - shm_toc_insert
+  - [shm_toc_allocate](shm_toc_allocate.md)
+  - [shm_toc_freespace](shm_toc_freespace.md)  
+  - [shm_toc_insert](shm_toc_insert.md)
   - [shm_toc_estimate](shm_toc_estimate.md)
 
 ## Notes and Other Information

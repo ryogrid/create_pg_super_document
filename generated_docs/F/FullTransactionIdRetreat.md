@@ -29,8 +29,8 @@ The function handles two types of special transaction IDs:
   - XidFromFullTransactionId
   - FirstNormalTransactionId
 - Called from (representative examples):
-  - StartupXLOG
-  - ExpireAllKnownAssignedTransactionIds
+  - [StartupXLOG](../S/StartupXLOG.md)
+  - [ExpireAllKnownAssignedTransactionIds](../E/ExpireAllKnownAssignedTransactionIds.md)
 
 ## Notes and Other Information
 - This is a static inline function for performance

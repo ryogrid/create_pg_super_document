@@ -26,7 +26,7 @@ This function checks the current state of the WAL receiver by examining the shar
   - WALRCV_STARTING
   - WALRCV_STARTUP_TIMEOUT
   - WALRCV_STOPPED
-  - ConditionVariableBroadcast
+  - [ConditionVariableBroadcast](../C/ConditionVariableBroadcast.md)
 - Called from (representative examples):
   - [StartupRequestWalReceiverRestart](../S/StartupRequestWalReceiverRestart.md)
   - [ShutdownWalRcv](../S/ShutdownWalRcv.md)

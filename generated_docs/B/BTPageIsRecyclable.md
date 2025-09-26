@@ -29,7 +29,7 @@ The function performs visibility checks using the global visibility map to deter
   - [GlobalVisCheckRemovableFullXid](../G/GlobalVisCheckRemovableFullXid.md)
   - [PageIsNew](../P/PageIsNew.md) (in assertions)
   - BTPageOpaque (type)
-  - FullTransactionId (type)
+  - [FullTransactionId](../F/FullTransactionId.md) (type)
 - Called from (representative examples):
   - [_bt_allocbuf](../b/_bt_allocbuf.md)
   - [btvacuumpage](../b/btvacuumpage.md)

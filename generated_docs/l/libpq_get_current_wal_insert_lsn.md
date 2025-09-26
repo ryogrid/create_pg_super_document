@@ -37,7 +37,7 @@ The LSN format is parsed using sscanf with the pattern '%X/%X' to extract the he
   - [rewind_source](../r/rewind_source.md)
   - libpq_source
   - XLogRecPtr
-  - PGconn
+  - [PGconn](../P/PGconn.md)
 - Called from:
   - Used as function pointer in init_libpq_source (set at line 95)
 

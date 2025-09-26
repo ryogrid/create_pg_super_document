@@ -20,11 +20,11 @@ nodeToString is one of the main externally visible entry points for converting P
   - [nodeToStringInternal](nodeToStringInternal.md)
 - Called from (representative examples):
   - [StoreRelCheck](../S/StoreRelCheck.md) (src/backend/catalog/heap.c:2143)
-  - UpdateIndexRelation (src/backend/catalog/index.c:604)
+  - [UpdateIndexRelation](../U/UpdateIndexRelation.md) (src/backend/catalog/index.c:604)
   - [ProcedureCreate](../P/ProcedureCreate.md) (src/backend/catalog/pg_proc.c:332)
   - [CreatePolicy](../C/CreatePolicy.md) (src/backend/commands/policy.c:701)
   - [CreateTriggerFiringOn](../C/CreateTriggerFiringOn.md) (src/backend/commands/trigger.c:671)
-  - ExecSerializePlan (src/backend/executor/execParallel.c:216)
+  - [ExecSerializePlan](../E/ExecSerializePlan.md) (src/backend/executor/execParallel.c:216)
   - [InsertRule](../I/InsertRule.md) (src/backend/rewrite/rewriteDefine.c:60)
 
 ## Notes and Other Information

@@ -26,7 +26,7 @@ If the input is not a writable expanded array (it could be a flat array, read-on
 - Functions called/Symbols referenced:
   - VARATT_IS_EXTERNAL_EXPANDED_RW
   - [DatumGetPointer](DatumGetPointer.md)
-  - DatumGetEOHP
+  - [DatumGetEOHP](DatumGetEOHP.md)
   - [expand_array](../e/expand_array.md)
   - CurrentMemoryContext
 - Called from (representative examples):

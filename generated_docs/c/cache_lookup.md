@@ -26,7 +26,7 @@ The function handles the complexity of hash table management, including dealing 
   - memoize_insert (inserts/finds entries in hash table)
   - [dlist_move_tail](../d/dlist_move_tail.md) (moves existing entry to end of LRU list)
   - [palloc](../p/palloc.md) (allocates memory for new key)
-  - ExecCopySlotMinimalTuple (copies scan parameters as minimal tuple)
+  - [ExecCopySlotMinimalTuple](../E/ExecCopySlotMinimalTuple.md) (copies scan parameters as minimal tuple)
   - [dlist_push_tail](../d/dlist_push_tail.md) (adds new entry to end of LRU list)
   - [cache_reduce_memory](cache_reduce_memory.md) (evicts entries if over memory limit)
   - memoize_lookup (re-finds entry after hash table reorganization)

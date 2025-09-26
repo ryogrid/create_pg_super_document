@@ -27,7 +27,7 @@ This is distinct from !(predicate_implied_by) though similar in technique. The f
 ## Dependencies
 - Functions called/Symbols referenced:
   - [predicate_refuted_by_recurse](predicate_refuted_by_recurse.md)
-  - list_length
+  - [list_length](../l/list_length.md)
   - linitial
 - Called from (representative examples):
   - [relation_excluded_by_constraints](../r/relation_excluded_by_constraints.md) (constraint-based table exclusion)

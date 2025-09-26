@@ -26,12 +26,12 @@ This function serves as a bridge between libpq query results and PostgreSQL's in
   - [PQnfields](../P/PQnfields.md)/PQntuples: libpq functions to get result dimensions
   - [PQfname](../P/PQfname.md): libpq function to get column names from results
   - [PQgetisnull](../P/PQgetisnull.md)/PQgetvalue: libpq functions to extract field values and NULL status
-  - tuplestore_begin_heap: PostgreSQL function to create a new tuplestore
+  - [tuplestore_begin_heap](../t/tuplestore_begin_heap.md): PostgreSQL function to create a new tuplestore
   - [CreateTemplateTupleDesc](../C/CreateTemplateTupleDesc.md): PostgreSQL function to create tuple descriptor template
   - [TupleDescInitEntry](../T/TupleDescInitEntry.md): PostgreSQL function to initialize tuple descriptor attributes
   - [TupleDescGetAttInMetadata](../T/TupleDescGetAttInMetadata.md): PostgreSQL function to build metadata for tuple conversion
   - [BuildTupleFromCStrings](../B/BuildTupleFromCStrings.md): PostgreSQL function to construct tuples from C string arrays
-  - tuplestore_puttuple: PostgreSQL function to add tuples to tuplestore
+  - [tuplestore_puttuple](../t/tuplestore_puttuple.md): PostgreSQL function to add tuples to tuplestore
   - AllocSetContextCreate/MemoryContextSwitchTo: PostgreSQL memory management functions
   - [ProcessWalRcvInterrupts](../P/ProcessWalRcvInterrupts.md): WAL receiver interrupt processing function
 - Called from (representative examples):

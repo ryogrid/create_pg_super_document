@@ -32,7 +32,7 @@ The function returns a palloc'd string that represents the range in standard Pos
   - RANGE_HAS_UBOUND (macro for checking upper bound existence)
   - RANGE_UB_INC (macro for upper bound inclusive flag)
   - [pstrdup](../p/pstrdup.md) (PostgreSQL string duplication function)
-  - initStringInfo, appendStringInfoChar, appendStringInfoString (string building functions)
+  - [initStringInfo](../i/initStringInfo.md), appendStringInfoChar, appendStringInfoString (string building functions)
 - Called from (representative examples):
   - [range_out](range_out.md)
 

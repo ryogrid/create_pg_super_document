@@ -26,15 +26,15 @@ The function only outputs clauses when they differ from defaults, keeping the de
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendStringInfoString (appends string to StringInfo buffer)
-  - appendStringInfo (appends formatted string to StringInfo buffer)
+  - [appendStringInfoString](../a/appendStringInfoString.md) (appends string to StringInfo buffer)
+  - [appendStringInfo](../a/appendStringInfo.md) (appends formatted string to StringInfo buffer)
   - JS_FORMAT_DEFAULT (enum value for default format type)
   - JS_FORMAT_JSONB (enum value for JSONB format type)
   - JS_ENC_DEFAULT (enum value for default encoding)
   - JS_ENC_UTF16, JS_ENC_UTF32 (enum values for UTF16/UTF32 encodings)
 - Called from (representative examples):
-  - get_rule_expr (general expression decompilation)
-  - get_json_returning (JSON returning clause decompilation)
+  - [get_rule_expr](get_rule_expr.md) (general expression decompilation)
+  - [get_json_returning](get_json_returning.md) (JSON returning clause decompilation)
 
 ## Notes and Other Information
 - This is a static function local to ruleutils.c, part of the internal decompilation infrastructure

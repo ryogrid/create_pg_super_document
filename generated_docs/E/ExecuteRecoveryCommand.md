@@ -31,11 +31,11 @@ Error handling distinguishes between normal command failures and signal-based te
   - [GetOldestRestartPoint](../G/GetOldestRestartPoint.md): Retrieves the oldest restart point for cutoff calculations
   - XLByteToSeg: Converts WAL position to segment number
   - [XLogFileName](../X/XLogFileName.md): Generates filename from timeline and segment for placeholder substitution
-  - replace_percent_placeholders: Substitutes placeholders in command string with actual values
-  - pgstat_report_wait_start/pgstat_report_wait_end: Wait event reporting for statistics
+  - [replace_percent_placeholders](../r/replace_percent_placeholders.md): Substitutes placeholders in command string with actual values
+  - [pgstat_report_wait_start](../p/pgstat_report_wait_start.md)/pgstat_report_wait_end: Wait event reporting for statistics
   - system: Executes the constructed shell command
-  - wait_result_is_any_signal: Detects if command terminated due to signal
-  - wait_result_to_str: Converts wait result to human-readable string
+  - [wait_result_is_any_signal](../w/wait_result_is_any_signal.md): Detects if command terminated due to signal
+  - [wait_result_to_str](../w/wait_result_to_str.md): Converts wait result to human-readable string
 - Called from (representative examples):
   - [CleanupAfterArchiveRecovery](../C/CleanupAfterArchiveRecovery.md): Executes archive_cleanup_command after recovery completion
   - [CreateRestartPoint](../C/CreateRestartPoint.md): Executes cleanup commands during restart point creation

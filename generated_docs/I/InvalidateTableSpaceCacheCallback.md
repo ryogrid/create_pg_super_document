@@ -30,7 +30,7 @@ The function iterates through all entries in the TableSpaceCacheHash hash table,
   - [pfree](../p/pfree.md): Free allocated memory for options
   - elog: Log error if hash table corruption is detected
 - Data structures used:
-  - HASH_SEQ_STATUS: Hash table sequential scan status
+  - [HASH_SEQ_STATUS](../H/HASH_SEQ_STATUS.md): Hash table sequential scan status
   - TableSpaceCacheEntry: Cache entry structure
   - TableSpaceCacheHash: Global hash table for tablespace cache
 - Called from:

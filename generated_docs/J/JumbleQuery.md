@@ -20,11 +20,11 @@ JumbleQuery processes a parsed SQL query (Query node) to generate a unique ident
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsQueryIdEnabled (checks if query ID generation is enabled)
+  - [IsQueryIdEnabled](../I/IsQueryIdEnabled.md) (checks if query ID generation is enabled)
   - [_jumbleNode](../j/_jumbleNode.md) (recursively processes query tree nodes)
   - [hash_any_extended](../h/hash_any_extended.md) (computes hash from jumbled data)
   - [DatumGetUInt64](../D/DatumGetUInt64.md) (converts hash result to uint64)
-  - JumbleState, JUMBLE_SIZE, LocationLen (data structures and constants)
+  - [JumbleState](JumbleState.md), JUMBLE_SIZE, LocationLen (data structures and constants)
 - Called from (representative examples):
   - [ExplainQuery](../E/ExplainQuery.md) (for EXPLAIN statement processing)
   - [parse_analyze_fixedparams](../p/parse_analyze_fixedparams.md), parse_analyze_varparams, parse_analyze_withcb (during query analysis)

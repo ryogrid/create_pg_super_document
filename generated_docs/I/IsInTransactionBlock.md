@@ -33,7 +33,7 @@ Unlike PreventInTransactionBlock, this function does not force a post-statement 
   - TBLOCK_DEFAULT
   - TBLOCK_STARTED
 - Called from (representative examples):
-  - vacuum (src/backend/commands/vacuum.c:506)
+  - [vacuum](../v/vacuum.md) (src/backend/commands/vacuum.c:506)
 
 ## Notes and Other Information
 - Returns true under the same conditions that would cause PreventInTransactionBlock to throw an error

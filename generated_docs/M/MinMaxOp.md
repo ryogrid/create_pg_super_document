@@ -43,13 +43,13 @@ These operations are commonly used in SQL for finding the maximum or minimum val
 - Functions called/Symbols referenced:
   - (No direct references from this enum)
 - Called from (representative examples):
-  - MinMaxExpr struct (uses MinMaxOp as op field)
+  - [MinMaxExpr](MinMaxExpr.md) struct (uses MinMaxOp as op field)
   - [ExecEvalMinMax](../E/ExecEvalMinMax.md) function
-  - ExprEvalStep struct
+  - [ExprEvalStep](../E/ExprEvalStep.md) struct
 
 ## Notes and Other Information
 - Used as the op field in MinMaxExpr structures to specify the min/max operation type
-- MinMaxExpr handles type coercion and collation for comparing arguments of potentially different but compatible types
+- [MinMaxExpr](MinMaxExpr.md) handles type coercion and collation for comparing arguments of potentially different but compatible types
 - The corresponding MinMaxExpr structure includes fields for result type (minmaxtype), collation information (minmaxcollid, inputcollid), and the argument list
 - Essential for implementing SQL GREATEST and LEAST functions which find extreme values within a single row
 - Different from aggregate MIN/MAX functions which operate across multiple rows

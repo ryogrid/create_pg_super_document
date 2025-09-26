@@ -23,8 +23,8 @@ The function operates on the GEQO private data structure stored within the plann
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GeqoPrivateData (struct type)
-  - pg_prng_fseed (PostgreSQL's pseudo-random number generator seed function)
+  - [GeqoPrivateData](../G/GeqoPrivateData.md) (struct type)
+  - [pg_prng_fseed](../p/pg_prng_fseed.md) (PostgreSQL's pseudo-random number generator seed function)
 - Called from (representative examples):
   - [geqo](geqo.md) (main GEQO entry point in geqo_main.c:106)
 

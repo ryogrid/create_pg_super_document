@@ -30,7 +30,7 @@ The function pre-allocates the hash size for efficiency and includes stack depth
 ## Dependencies
 - Functions called/Symbols referenced:
   - dTHX (Perl threading context macro)
-  - check_stack_depth
+  - [check_stack_depth](../c/check_stack_depth.md)
   - [heap_getattr](../h/heap_getattr.md)
   - [hv_store_string](../h/hv_store_string.md)
   - [type_is_rowtype](../t/type_is_rowtype.md)

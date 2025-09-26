@@ -71,9 +71,9 @@ The  function is a high-level constructor for RangeType objects that performs bo
   - RangeIsEmpty
   - LOCAL_FCINFO
   - InitFunctionCallInfoData
-  - RangeTypePGetDatum
+  - [RangeTypePGetDatum](../R/RangeTypePGetDatum.md)
   - FunctionCallInvoke
-  - DatumGetRangeTypeP
+  - [DatumGetRangeTypeP](../D/DatumGetRangeTypeP.md)
 - Called from (representative examples):
   - [range_in](../r/range_in.md)
   - [range_recv](../r/range_recv.md)

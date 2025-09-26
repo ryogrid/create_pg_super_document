@@ -30,13 +30,13 @@ The isRedo parameter indicates whether this creation is being performed as part 
 - Called from (representative examples):
   - [heapam_relation_set_new_filelocator](../h/heapam_relation_set_new_filelocator.md) (heap access method operations)
   - [heapam_relation_copy_data](../h/heapam_relation_copy_data.md) (heap data copying)
-  - XLogReadBufferExtended (WAL replay buffer operations)
+  - [XLogReadBufferExtended](../X/XLogReadBufferExtended.md) (WAL replay buffer operations)
   - [index_build](../i/index_build.md) (index construction)
   - [RelationCreateStorage](../R/RelationCreateStorage.md) (relation storage creation)
   - [smgr_redo](smgr_redo.md) (storage manager WAL replay)
   - [fill_seq_with_data](../f/fill_seq_with_data.md) (sequence data initialization)
   - [ExtendBufferedRelTo](../E/ExtendBufferedRelTo.md) (buffer extension operations)
-  - CreateAndCopyRelationData (relation data copying)
+  - [CreateAndCopyRelationData](../C/CreateAndCopyRelationData.md) (relation data copying)
 
 ## Notes and Other Information
 - Essential function for relation creation in PostgreSQL's storage layer

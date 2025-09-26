@@ -26,16 +26,16 @@ For tuples belonging to future batches, the function saves them to temporary fil
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecFetchSlotMinimalTuple
-  - ExecHashGetBucketAndBatch
-  - dense_alloc
+  - [ExecFetchSlotMinimalTuple](ExecFetchSlotMinimalTuple.md)
+  - [ExecHashGetBucketAndBatch](ExecHashGetBucketAndBatch.md)
+  - [dense_alloc](../d/dense_alloc.md)
   - HeapTupleHeaderClearMatch
-  - ExecHashIncreaseNumBatches
-  - ExecHashJoinSaveTuple
-  - heap_free_minimal_tuple
+  - [ExecHashIncreaseNumBatches](ExecHashIncreaseNumBatches.md)
+  - [ExecHashJoinSaveTuple](ExecHashJoinSaveTuple.md)
+  - [heap_free_minimal_tuple](../h/heap_free_minimal_tuple.md)
 - Called from (representative examples):
-  - MultiExecPrivateHash
-  - ExecHashJoinNewBatch
+  - [MultiExecPrivateHash](../M/MultiExecPrivateHash.md)
+  - [ExecHashJoinNewBatch](ExecHashJoinNewBatch.md)
 
 ## Notes and Other Information
 - The function always clears the tuple-matched flag on insertion, which is safe even when reloading tuples from batch files

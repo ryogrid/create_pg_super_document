@@ -22,12 +22,12 @@ The function is designed to provide a consistent interface for obtaining a user-
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_get_user_home_dir
-  - strlcpy
+  - [pg_get_user_home_dir](../p/pg_get_user_home_dir.md)
+  - [strlcpy](../s/strlcpy.md)
 - Called from (representative examples):
-  - expand_tilde
-  - initializeInput
-  - process_psqlrc
+  - [expand_tilde](../e/expand_tilde.md)
+  - [initializeInput](../i/initializeInput.md)
+  - [process_psqlrc](../p/process_psqlrc.md)
 
 ## Notes and Other Information
 - Returns true on success, false on failure

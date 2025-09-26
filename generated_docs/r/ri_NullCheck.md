@@ -27,7 +27,7 @@ The function is essential for implementing proper foreign key semantics where pa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slot_attisnull
+  - [slot_attisnull](../s/slot_attisnull.md)
   - [RI_ConstraintInfo](../R/RI_ConstraintInfo.md) (structure access)
   - RI_KEYS_ALL_NULL (return constant)
   - RI_KEYS_NONE_NULL (return constant) 

@@ -26,18 +26,18 @@ The sorting is applied only to commutative operators (AND, OR) where operand ord
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth (stack overflow protection)
-  - QTNSort (recursive self-call)
+  - [check_stack_depth](../c/check_stack_depth.md) (stack overflow protection)
+  - [QTNSort](QTNSort.md) (recursive self-call)
   - qsort (standard library sorting function)
-  - cmpQTN (QTNode pointer comparison function)
+  - [cmpQTN](../c/cmpQTN.md) (QTNode pointer comparison function)
 - Data types and constants used:
-  - QTNode
+  - [QTNode](QTNode.md)
   - QI_OPR (operator query item type)
   - OP_PHRASE (phrase operator constant)
 - Called from (representative examples):
-  - findeq
-  - tsquery_rewrite_query
-  - tsquery_rewrite
+  - [findeq](../f/findeq.md)
+  - [tsquery_rewrite_query](../t/tsquery_rewrite_query.md)
+  - [tsquery_rewrite](../t/tsquery_rewrite.md)
 
 ## Notes and Other Information
 - Only processes operator nodes (QI_OPR); returns immediately for value nodes

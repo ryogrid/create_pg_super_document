@@ -22,7 +22,7 @@ The function uses lazy initialization with caching - it only queries the system 
 ## Dependencies
 - Functions called/Symbols referenced:
   - GetACP (Windows API function to get current ANSI code page)
-  - pg_codepage_to_encoding (PostgreSQL function to convert Windows code page to PostgreSQL encoding)
+  - [pg_codepage_to_encoding](../p/pg_codepage_to_encoding.md) (PostgreSQL function to convert Windows code page to PostgreSQL encoding)
 - Called from (representative examples):
   - [write_eventlog](../w/write_eventlog.md)
 

@@ -27,10 +27,10 @@ This function performs essential validation checks before creating a PRIMARY KEY
 ## Dependencies
 - Functions called/Symbols referenced:
   - [relationHasPrimaryKey](../r/relationHasPrimaryKey.md): Checks if the relation already has a primary key
-  - IndexInfo: Structure containing index metadata
-  - IndexStmt: Structure representing index creation statement
+  - [IndexInfo](../I/IndexInfo.md): Structure containing index metadata
+  - [IndexStmt](../I/IndexStmt.md): Structure representing index creation statement
   - [SearchSysCache2](../S/SearchSysCache2.md): Searches system cache for attribute information
-  - Int16GetDatum: Converts integer to PostgreSQL Datum format
+  - [Int16GetDatum](../I/Int16GetDatum.md): Converts integer to PostgreSQL Datum format
   - RelationGetRelationName: Gets relation name for error messages
   - RelationGetRelid: Gets relation OID
   - HeapTupleIsValid: Validates heap tuple

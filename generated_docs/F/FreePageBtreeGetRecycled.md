@@ -32,9 +32,9 @@ The function assumes the recycle list is not empty (asserted) and ensures proper
   - relptr_store
   - fpm_pointer_is_page_aligned
 - Called from (representative examples):
-  - FreePageBtreeCleanup
-  - FreePageBtreeSplitPage
-  - FreePageManagerPutInternal
+  - [FreePageBtreeCleanup](FreePageBtreeCleanup.md)
+  - [FreePageBtreeSplitPage](FreePageBtreeSplitPage.md)
+  - [FreePageManagerPutInternal](FreePageManagerPutInternal.md)
 
 ## Notes and Other Information
 - Assumes the recycle list contains at least one page (asserted with victim != NULL)

@@ -25,11 +25,11 @@ The function opens the file in read-write mode with binary flags, performs the f
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SlruFileName](SlruFileName.md) (constructs the SLRU file name)
-  - OpenTransientFile (opens the file for syncing)
-  - pgstat_report_wait_start (reports wait event start)
-  - pg_fsync (performs the actual file sync)
-  - pgstat_report_wait_end (reports wait event end)
-  - CloseTransientFile (closes the opened file)
+  - [OpenTransientFile](../O/OpenTransientFile.md) (opens the file for syncing)
+  - [pgstat_report_wait_start](../p/pgstat_report_wait_start.md) (reports wait event start)
+  - [pg_fsync](../p/pg_fsync.md) (performs the actual file sync)
+  - [pgstat_report_wait_end](../p/pgstat_report_wait_end.md) (reports wait event end)
+  - [CloseTransientFile](../C/CloseTransientFile.md) (closes the opened file)
   - PG_BINARY (file open mode flag)
 - Called from (representative examples):
   - [clogsyncfiletag](../c/clogsyncfiletag.md) (CLOG sync handler)

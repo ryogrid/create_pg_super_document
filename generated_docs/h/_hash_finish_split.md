@@ -38,7 +38,7 @@ The function handles the case where a split operation was interrupted (e.g., due
   - [_hash_get_newblock_from_oldbucket](_hash_get_newblock_from_oldbucket.md) (gets the new bucket's block number)
   - [_hash_getbuf](_hash_getbuf.md) (reads bucket pages)
   - [hash_search](hash_search.md) (inserts TIDs into the tracking hash table)
-  - ConditionalLockBufferForCleanup (attempts to acquire cleanup locks)
+  - [ConditionalLockBufferForCleanup](../C/ConditionalLockBufferForCleanup.md) (attempts to acquire cleanup locks)
   - [_hash_splitbucket](_hash_splitbucket.md) (performs the actual split operation)
   - [_hash_dropbuf](_hash_dropbuf.md) (releases buffer)
   - [hash_destroy](hash_destroy.md) (cleans up the TID hash table)

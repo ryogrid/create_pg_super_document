@@ -32,7 +32,7 @@ The function performs a series of LLVM structure field accesses:
 - Functions called/Symbols referenced:
   - [l_struct_gep](l_struct_gep.md) (called 3 times for structure field access)
 - Called from (representative examples):
-  - llvm_compile_expr (in src/backend/jit/llvm/llvmjit_expr.c at lines 1364, 1415, 2495)
+  - [llvm_compile_expr](llvm_compile_expr.md) (in src/backend/jit/llvm/llvmjit_expr.c at lines 1364, 1415, 2495)
   - [l_funcnull](l_funcnull.md)
 
 ## Notes and Other Information

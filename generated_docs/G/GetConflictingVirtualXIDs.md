@@ -26,14 +26,14 @@ The conflict detection logic is based on transaction snapshot horizons - transac
 ## Dependencies
 - Functions called/Symbols referenced:
   - malloc
-  - LWLockAcquire/LWLockRelease
-  - TransactionIdFollows
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease
+  - [TransactionIdFollows](../T/TransactionIdFollows.md)
   - GET_VXID_FROM_PGPROC
   - VirtualTransactionIdIsValid
   - UINT32_ACCESS_ONCE
 - Called from (representative examples):
-  - ResolveRecoveryConflictWithSnapshot (in storage/ipc/standby.c)
-  - ResolveRecoveryConflictWithTablespace (in storage/ipc/standby.c)
+  - [ResolveRecoveryConflictWithSnapshot](../R/ResolveRecoveryConflictWithSnapshot.md) (in storage/ipc/standby.c)
+  - [ResolveRecoveryConflictWithTablespace](../R/ResolveRecoveryConflictWithTablespace.md) (in storage/ipc/standby.c)
 
 ## Notes and Other Information
 - Uses static allocation with malloc instead of palloc for performance reasons during recovery

@@ -54,19 +54,19 @@ For set-returning functions, the structure manages a tuplestore along with its a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FunctionCallInfo
-  - TriggerData  
-  - pltcl_proc_desc
-  - AttInMetadata
-  - ReturnSetInfo
-  - Tuplestorestate
-  - ResourceOwner
+  - [FunctionCallInfo](../F/FunctionCallInfo.md)
+  - [TriggerData](../T/TriggerData.md)  
+  - [pltcl_proc_desc](pltcl_proc_desc.md)
+  - [AttInMetadata](../A/AttInMetadata.md)
+  - [ReturnSetInfo](../R/ReturnSetInfo.md)
+  - [Tuplestorestate](../T/Tuplestorestate.md)
+  - [ResourceOwner](../R/ResourceOwner.md)
 - Called from (representative examples):
-  - pltcl_handler
-  - pltcl_func_handler
-  - pltcl_trigger_handler
-  - pltcl_event_trigger_handler
-  - pltcl_init_tuple_store
+  - [pltcl_handler](pltcl_handler.md)
+  - [pltcl_func_handler](pltcl_func_handler.md)
+  - [pltcl_trigger_handler](pltcl_trigger_handler.md)
+  - [pltcl_event_trigger_handler](pltcl_event_trigger_handler.md)
+  - [pltcl_init_tuple_store](pltcl_init_tuple_store.md)
 
 ## Notes and Other Information
 The structure is designed to be initialized with memset to zeros, ensuring all pointer fields start as NULL. The global variable `pltcl_current_call_state` provides access to the current call state for Tcl command implementations that need to access execution context.

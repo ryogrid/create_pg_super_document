@@ -37,10 +37,10 @@ The structure supports the IF NOT EXISTS clause through the if_not_exists boolea
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (for type identification)
-  - List (PostgreSQL's list data structure)
+  - [List](../L/List.md) (PostgreSQL's list data structure)
 - Called from (representative examples):
-  - CreateForeignServer (src/backend/commands/foreigncmds.c:849)
-  - ProcessUtilitySlow (src/backend/tcop/utility.c:1595)
+  - [CreateForeignServer](CreateForeignServer.md) (src/backend/commands/foreigncmds.c:849)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (src/backend/tcop/utility.c:1595)
 
 ## Notes and Other Information
 - This structure is defined in src/include/nodes/parsenodes.h in the foreign server statements section

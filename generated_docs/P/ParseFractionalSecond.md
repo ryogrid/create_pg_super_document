@@ -22,12 +22,12 @@ This function is essential for handling sub-second precision in PostgreSQL's tim
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParseFraction (to parse the fractional part as double)
+  - [ParseFraction](ParseFraction.md) (to parse the fractional part as double)
   - fsec_t (PostgreSQL's fractional seconds type)
   - rint (rounding function)
 - Called from (representative examples):
-  - DecodeTimeCommon
-  - DecodeNumber
+  - [DecodeTimeCommon](../D/DecodeTimeCommon.md)
+  - [DecodeNumber](../D/DecodeNumber.md)
 
 ## Notes and Other Information
 - Returns 0 on success, or error code from ParseFraction on failure

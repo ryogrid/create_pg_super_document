@@ -78,8 +78,8 @@ The config_generic structure serves as the common foundation for all PostgreSQL 
   - config_group (enum for variable groupings)
   - config_type (enum for variable data types)
   - GucSource (enum for value sources)
-  - GucStack (stack structure for transaction handling)
-  - dlist_node, slist_node (list node structures)
+  - [GucStack](../G/GucStack.md) (stack structure for transaction handling)
+  - [dlist_node](../d/dlist_node.md), slist_node (list node structures)
 - Used by:
   - All specific config variable types (config_bool, config_int, config_real, config_string, config_enum)
   - Extensive usage throughout the GUC system for variable management, validation, and reporting

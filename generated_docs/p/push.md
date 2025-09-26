@@ -32,18 +32,18 @@ The function returns 1 on success (which occurs unless the destination is the po
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - freearc
-  - newstate
+  - [freearc](../f/freearc.md)
+  - [newstate](../n/newstate.md)
   - NISERR
-  - copyouts
-  - cparc
+  - [copyouts](../c/copyouts.md)
+  - [cparc](../c/cparc.md)
   - combine
-  - newarc
-  - moveouts
+  - [newarc](../n/newarc.md)
+  - [moveouts](../m/moveouts.md)
   - INCOMPATIBLE, SATISFIED, COMPATIBLE, REPLACEARC (enum values)
   - NOTREACHED
 - Called from:
-  - pushfwd
+  - [pushfwd](pushfwd.md)
 
 ## Notes and Other Information
 - The function handles multiple scenarios when combining constraints with outgoing arcs: INCOMPATIBLE (destroys arc), SATISFIED (no action), COMPATIBLE (creates intermediate state), and REPLACEARC (replaces arc color)

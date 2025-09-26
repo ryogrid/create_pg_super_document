@@ -25,9 +25,9 @@ The search algorithm is identical to the internal page version but operates on l
   - FREE_PAGE_LEAF_MAGIC (magic number validation)
   - FPM_ITEMS_PER_LEAF_PAGE (page capacity constant)
 - Called from:
-  - FreePageBtreeRemovePage
-  - FreePageBtreeSearch
-  - FreePageManagerPutInternal
+  - [FreePageBtreeRemovePage](FreePageBtreeRemovePage.md)
+  - [FreePageBtreeSearch](FreePageBtreeSearch.md)
+  - [FreePageManagerPutInternal](FreePageManagerPutInternal.md)
 
 ## Notes and Other Information
 - Implements the same O(log n) binary search algorithm as the internal page version

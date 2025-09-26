@@ -20,8 +20,8 @@ This function is essential for proper UTF-16 processing, allowing the system to 
 ## Dependencies
 - Functions called/Symbols referenced: None (simple arithmetic comparison)
 - Called from (representative examples):
-  - str_udeescape (src/backend/parser/parser.c:443, 482)
-  - unistr (src/backend/utils/adt/varlena.c:6556, 6591, 6626)
+  - [str_udeescape](../s/str_udeescape.md) (src/backend/parser/parser.c:443, 482)
+  - [unistr](../u/unistr.md) (src/backend/utils/adt/varlena.c:6556, 6591, 6626)
 
 ## Notes and Other Information
 - Defined as a static inline function for optimal performance

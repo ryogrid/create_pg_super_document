@@ -36,7 +36,7 @@ The function uses PostgreSQL's exception handling mechanism (PG_TRY/PG_CATCH) to
   - [PLy_function_save_args](PLy_function_save_args.md)/PLy_function_restore_args
   - [PLy_output_convert](PLy_output_convert.md)/PLy_output_setup_record
   - SRF_* macros for set-returning function management
-  - SPI_finish for database connection cleanup
+  - [SPI_finish](../S/SPI_finish.md) for database connection cleanup
   - PyIter_Next, PyObject_GetIter for Python iteration
 - Called from (representative examples):
   - [plpython3_call_handler](../p/plpython3_call_handler.md) (main function handler)

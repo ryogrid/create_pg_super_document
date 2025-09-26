@@ -24,9 +24,9 @@ The implementation is optimized for performance, using a simple while loop that 
 - Functions called/Symbols referenced:
   - (None - uses only basic StringInfo structure members)
 - Called from (representative examples):
-  - appendContextKeyword (for formatting SQL output)
-  - get_target_list (for target list formatting)
-  - get_from_clause (for FROM clause formatting)
+  - [appendContextKeyword](../a/appendContextKeyword.md) (for formatting SQL output)
+  - [get_target_list](../g/get_target_list.md) (for target list formatting)
+  - [get_from_clause](../g/get_from_clause.md) (for FROM clause formatting)
 
 ## Notes and Other Information
 - This is a static function within ruleutils.c, primarily used for SQL formatting

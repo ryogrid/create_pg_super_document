@@ -24,14 +24,14 @@ The function is designed to be safe for use in error cleanup paths, as it does n
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FileSetPath: Constructs the directory path for the fileset within a specific tablespace
-  - PathNameDeleteTemporaryDir: Removes the entire directory tree at the specified path
+  - [FileSetPath](FileSetPath.md): Constructs the directory path for the fileset within a specific tablespace
+  - [PathNameDeleteTemporaryDir](../P/PathNameDeleteTemporaryDir.md): Removes the entire directory tree at the specified path
   - MAXPGPATH: Maximum path length constant
 
 - Called from (representative examples):
-  - logicalrep_worker_onexit: Used in logical replication worker cleanup during process exit
-  - SharedFileSetDeleteAll: Used to clean up shared filesets
-  - SharedFileSetOnDetach: Used when detaching from shared memory segments
+  - [logicalrep_worker_onexit](../l/logicalrep_worker_onexit.md): Used in logical replication worker cleanup during process exit
+  - [SharedFileSetDeleteAll](../S/SharedFileSetDeleteAll.md): Used to clean up shared filesets
+  - [SharedFileSetOnDetach](../S/SharedFileSetOnDetach.md): Used when detaching from shared memory segments
 
 ## Notes and Other Information
 - Removes entire directory trees, not just individual files
@@ -43,4 +43,4 @@ The function is designed to be safe for use in error cleanup paths, as it does n
 - The function assumes the FileSet structure is valid and properly initialized
 - Directory removal is recursive, eliminating all files and subdirectories
 - Used primarily during process termination, error cleanup, and resource deallocation scenarios
-- Complements FileSetDelete for complete resource management - FileSetDelete handles individual files while FileSetDeleteAll handles bulk cleanup
+- Complements FileSetDelete for complete resource management - [FileSetDelete](FileSetDelete.md) handles individual files while FileSetDeleteAll handles bulk cleanup

@@ -23,7 +23,7 @@ This function searches for a configuration parameter's ACL entry in the pg_param
 - Functions called/Symbols referenced:
   - [convert_GUC_name_for_parameter_acl](../c/convert_GUC_name_for_parameter_acl.md)
   - GetSysCacheOid1
-  - cstring_to_text
+  - [cstring_to_text](../c/cstring_to_text.md)
 - Called from (representative examples):
   - [objectNamesToOids](../o/objectNamesToOids.md)
   - [get_object_address_unqualified](../g/get_object_address_unqualified.md)

@@ -23,7 +23,7 @@ This function is deliberately simple and focuses solely on generating the closin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendStringInfo
+  - [appendStringInfo](../a/appendStringInfo.md)
 - Called from (representative examples):
   - [cursor_to_xml](../c/cursor_to_xml.md)
   - [query_to_xml_internal](../q/query_to_xml_internal.md)  

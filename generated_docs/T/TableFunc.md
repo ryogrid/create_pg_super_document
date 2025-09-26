@@ -89,7 +89,7 @@ Many fields are marked with pg_node_attr(query_jumble_ignore) to exclude them fr
   - [addRangeTableEntryForTableFunc](../a/addRangeTableEntryForTableFunc.md) (RTE creation)
   - [ExecInitTableFuncScan](../E/ExecInitTableFuncScan.md) (execution initialization)
   - [create_tablefuncscan_plan](../c/create_tablefuncscan_plan.md) (plan creation)
-  - get_tablefunc (rule decompilation)
+  - [get_tablefunc](../g/get_tablefunc.md) (rule decompilation)
 
 ## Notes and Other Information
 - Central to PostgreSQL's structured document processing capabilities

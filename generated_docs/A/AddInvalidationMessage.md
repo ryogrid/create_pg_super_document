@@ -31,7 +31,7 @@ The function handles two scenarios for memory management:
   - [repalloc](../r/repalloc.md) (for array expansion)
 - Data structures used:
   - [InvalidationMsgsGroup](../I/InvalidationMsgsGroup.md)
-  - SharedInvalidationMessage
+  - [SharedInvalidationMessage](../S/SharedInvalidationMessage.md)
   - [InvalMessageArray](../I/InvalMessageArray.md)
 - Called from:
   - [AddCatcacheInvalidationMessage](AddCatcacheInvalidationMessage.md)

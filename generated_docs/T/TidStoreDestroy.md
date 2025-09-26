@@ -21,7 +21,7 @@ TidStoreDestroy completely destroys a TidStore object and releases all memory as
 - Functions called/Symbols referenced:
   - TidStoreIsShared (macro)
   - shared_ts_free (radix tree generated function)
-  - dsa_detach 
+  - [dsa_detach](../d/dsa_detach.md) 
   - local_ts_free (radix tree generated function)
   - [MemoryContextDelete](../M/MemoryContextDelete.md)
   - [pfree](../p/pfree.md)

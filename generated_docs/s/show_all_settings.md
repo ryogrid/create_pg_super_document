@@ -32,8 +32,8 @@ Internal state variables:
 - Functions called/Symbols referenced:
   - SRF_IS_FIRSTCALL, SRF_FIRSTCALL_INIT, SRF_PERCALL_SETUP
   - [CreateTemplateTupleDesc](../C/CreateTemplateTupleDesc.md), TupleDescInitEntry, TupleDescGetAttInMetadata
-  - get_guc_variables
-  - ConfigOptionIsVisible
+  - [get_guc_variables](../g/get_guc_variables.md)
+  - [ConfigOptionIsVisible](../C/ConfigOptionIsVisible.md)
   - [GetConfigOptionValues](../G/GetConfigOptionValues.md)
   - [BuildTupleFromCStrings](../B/BuildTupleFromCStrings.md), HeapTupleGetDatum
   - SRF_RETURN_NEXT, SRF_RETURN_DONE

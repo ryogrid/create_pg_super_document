@@ -19,7 +19,7 @@ This callback function implements the reset functionality for archiver statistic
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PgStatShared_Archiver
+  - [PgStatShared_Archiver](../P/PgStatShared_Archiver.md)
   - [pgstat_copy_changecounted_stats](pgstat_copy_changecounted_stats.md)
 - Called from (representative examples):
   - SH_DECLARE (via statistics framework callback mechanism)

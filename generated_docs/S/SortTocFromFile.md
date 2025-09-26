@@ -20,10 +20,10 @@ This function processes a TOC file that contains a list of dump IDs specifying t
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RestoreOptions](../R/RestoreOptions.md)
-  - pg_malloc0
+  - [pg_malloc0](../p/pg_malloc0.md)
   - PG_BINARY_R
   - fopen
-  - pg_get_line_buf
+  - [pg_get_line_buf](../p/pg_get_line_buf.md)
   - DumpId
   - [TocEntry](../T/TocEntry.md)
   - pg_log_warning

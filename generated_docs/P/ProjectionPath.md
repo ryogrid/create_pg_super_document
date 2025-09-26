@@ -30,15 +30,15 @@ The path is used throughout the planning process to represent computed columns, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Path (inherited base structure)
+  - [Path](Path.md) (inherited base structure)
 - Called from (representative examples):
-  - create_projection_path (path creation)
-  - create_projection_plan (plan generation)
-  - is_dummy_rel (optimization checks)
-  - mark_async_capable_plan (async execution planning)
+  - [create_projection_path](../c/create_projection_path.md) (path creation)
+  - [create_projection_plan](../c/create_projection_plan.md) (plan generation)
+  - [is_dummy_rel](../i/is_dummy_rel.md) (optimization checks)
+  - [mark_async_capable_plan](../m/mark_async_capable_plan.md) (async execution planning)
 
 ## Notes and Other Information
-- ProjectionPath extends the base Path structure to add projection-specific information
+- [ProjectionPath](ProjectionPath.md) extends the base Path structure to add projection-specific information
 - The dummypp optimization is crucial for performance as it can eliminate unnecessary plan nodes when projection can be done \for free\ by the input node
 - Used extensively in SELECT statement processing where column selection, computed expressions, and function calls need to be evaluated
 - The planner's cost model accounts for whether a Result node will actually be needed when estimating ProjectionPath costs

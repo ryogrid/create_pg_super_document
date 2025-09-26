@@ -26,19 +26,19 @@ The function includes comprehensive error handling for file operations including
   - [CreateDestReceiver](../C/CreateDestReceiver.md)
   - [CreateTemplateTupleDesc](../C/CreateTemplateTupleDesc.md)
   - [TupleDescInitBuiltinEntry](../T/TupleDescInitBuiltinEntry.md)
-  - TLHistoryFileName
-  - TLHistoryFilePath
-  - pq_beginmessage
+  - [TLHistoryFileName](../T/TLHistoryFileName.md)
+  - [TLHistoryFilePath](../T/TLHistoryFilePath.md)
+  - [pq_beginmessage](../p/pq_beginmessage.md)
   - [pq_sendint16](../p/pq_sendint16.md)
   - [pq_sendint32](../p/pq_sendint32.md)
-  - pq_sendbytes
-  - OpenTransientFile
+  - [pq_sendbytes](../p/pq_sendbytes.md)
+  - [OpenTransientFile](../O/OpenTransientFile.md)
   - lseek
   - read
-  - CloseTransientFile
+  - [CloseTransientFile](../C/CloseTransientFile.md)
   - [pq_endmessage](../p/pq_endmessage.md)
-  - pgstat_report_wait_start
-  - pgstat_report_wait_end
+  - [pgstat_report_wait_start](../p/pgstat_report_wait_start.md)
+  - [pgstat_report_wait_end](../p/pgstat_report_wait_end.md)
   - DestRemoteSimple
   - PqMsg_DataRow
   - PG_BINARY

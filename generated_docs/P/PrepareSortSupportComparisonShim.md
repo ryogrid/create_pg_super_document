@@ -28,17 +28,17 @@ This approach provides significant performance benefits by avoiding the overhead
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SortSupport (type)
-  - SortShimExtra (type)
-  - MemoryContextAlloc
+  - [SortSupport](../S/SortSupport.md) (type)
+  - [SortShimExtra](../S/SortShimExtra.md) (type)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
   - SizeForSortShimExtra
-  - fmgr_info_cxt
+  - [fmgr_info_cxt](../f/fmgr_info_cxt.md)
   - InitFunctionCallInfoData
-  - comparison_shim
+  - [comparison_shim](../c/comparison_shim.md)
 - Called from:
-  - MJExamineQuals (at src/backend/executor/nodeMergejoin.c:262)
-  - FinishSortSupportFunction (at src/backend/utils/sort/sortsupport.c:122)
-  - ApplySortAbbrevFullComparator (at src/include/utils/sortsupport.h:385)
+  - [MJExamineQuals](../M/MJExamineQuals.md) (at src/backend/executor/nodeMergejoin.c:262)
+  - [FinishSortSupportFunction](../F/FinishSortSupportFunction.md) (at src/backend/utils/sort/sortsupport.c:122)
+  - [ApplySortAbbrevFullComparator](../A/ApplySortAbbrevFullComparator.md) (at src/include/utils/sortsupport.h:385)
 
 ## Notes and Other Information
 - This function enables backward compatibility with older comparison functions that don't natively support SortSupport

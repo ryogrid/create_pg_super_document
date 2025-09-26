@@ -40,18 +40,18 @@ The `config_enum` structure handles enumerated configuration parameters in Postg
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - config_generic
-  - config_enum_entry
+  - [config_generic](config_generic.md)
+  - [config_enum_entry](config_enum_entry.md)
   - config_bool
-  - config_int
-  - config_real
-  - config_string
+  - [config_int](config_int.md)
+  - [config_real](config_real.md)
+  - [config_string](config_string.md)
 - Called from (representative examples):
-  - config_enum_lookup_by_value
-  - config_enum_lookup_by_name
-  - config_enum_get_options
-  - DefineCustomEnumVariable
-  - call_enum_check_hook
+  - [config_enum_lookup_by_value](config_enum_lookup_by_value.md)
+  - [config_enum_lookup_by_name](config_enum_lookup_by_name.md)
+  - [config_enum_get_options](config_enum_get_options.md)
+  - [DefineCustomEnumVariable](../D/DefineCustomEnumVariable.md)
+  - [call_enum_check_hook](call_enum_check_hook.md)
 
 ## Notes and Other Information
 - Provides type-safe enumerated values with user-friendly string names and efficient integer storage

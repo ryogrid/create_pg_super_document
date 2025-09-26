@@ -21,7 +21,7 @@ The `stdump` function is the recursive implementation core of the `dumpst` funct
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `subre`
+  - `[subre](subre.md)`
   - `stid`
   - `LONGER`
   - `SHORTER` 

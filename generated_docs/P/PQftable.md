@@ -18,7 +18,7 @@ PQftable retrieves the OID (Object Identifier) of the table that contains the sp
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_field_number: Validates that field_num is within valid range
+  - [check_field_number](../c/check_field_number.md): Validates that field_num is within valid range
   - InvalidOid: Constant representing an invalid OID value
 - Called from (representative examples):
   - Client applications querying metadata about result columns

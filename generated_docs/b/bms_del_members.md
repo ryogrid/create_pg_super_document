@@ -32,7 +32,7 @@ The function uses bitwise operations to efficiently remove bits, applying the bi
   - [check_index_predicates](../c/check_index_predicates.md) (index predicate analysis)
   - [get_join_domain_min_rels](../g/get_join_domain_min_rels.md) (join domain relation calculation)
   - [finalize_plan](../f/finalize_plan.md) (plan finalization)
-  - build_join_rel (join relation construction)
+  - [build_join_rel](build_join_rel.md) (join relation construction)
 
 ## Notes and Other Information
 - Returns NULL if 'a' is NULL or if the result becomes empty after deletion

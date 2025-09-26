@@ -29,7 +29,7 @@ The function handles two main types of CLOG operations:
   - `XLR_INFO_MASK`: Mask used to extract operation type from info byte
   - `CLOG_ZEROPAGE`: Constant identifying zero page operations
   - `CLOG_TRUNCATE`: Constant identifying truncate operations
-  - `appendStringInfo`: Function to append formatted text to the StringInfo buffer
+  - `[appendStringInfo](../a/appendStringInfo.md)`: Function to append formatted text to the StringInfo buffer
   - [xl_clog_truncate](../x/xl_clog_truncate.md): Structure type for truncate operation data
 - Called from (representative examples):
   - WAL description infrastructure (referenced from CLOG resource manager)

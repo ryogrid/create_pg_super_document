@@ -27,13 +27,13 @@ The function also handles parameterized nested loops where outer tuple values ar
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecProcNode: Gets next tuple from outer/inner plan
-  - ExecQual: Evaluates join and other qualification expressions  
-  - ExecProject: Projects result tuple using projection info
+  - [ExecProcNode](ExecProcNode.md): Gets next tuple from outer/inner plan
+  - [ExecQual](ExecQual.md): Evaluates join and other qualification expressions  
+  - [ExecProject](ExecProject.md): Projects result tuple using projection info
   - [ExecReScan](ExecReScan.md): Rescans inner plan when starting with new outer tuple
   - ResetExprContext: Resets per-tuple expression evaluation memory
   - TupIsNull: Checks if tuple slot is null
-  - slot_getattr: Extracts attribute value from tuple slot
+  - [slot_getattr](../s/slot_getattr.md): Extracts attribute value from tuple slot
   - [bms_add_member](../b/bms_add_member.md): Adds parameter to changed parameter bitmap
   - InstrCountFiltered1/InstrCountFiltered2: Updates instrumentation counters
 - Called from (representative examples):

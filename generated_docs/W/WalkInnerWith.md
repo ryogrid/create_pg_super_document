@@ -38,11 +38,11 @@ The function maintains the innerwiths list in CteState to track which CTEs are v
   - [lcons](../l/lcons.md) (list manipulation)
   - [makeDependencyGraphWalker](../m/makeDependencyGraphWalker.md) (recursive dependency analysis) 
   - raw_expression_tree_walker (generic AST traversal)
-  - list_delete_first (list manipulation)
-  - list_head (list access)
-  - lappend (list manipulation)
+  - [list_delete_first](../l/list_delete_first.md) (list manipulation)
+  - [list_head](../l/list_head.md) (list access)
+  - [lappend](../l/lappend.md) (list manipulation)
   - CommonTableExpr (CTE structure)
-  - WithClause (WITH clause structure)
+  - [WithClause](WithClause.md) (WITH clause structure)
   - [CteState](../C/CteState.md) (dependency tracking state)
 
 - Called from:

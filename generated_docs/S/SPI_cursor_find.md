@@ -20,7 +20,7 @@ This function provides a straightforward way to retrieve the Portal associated w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetPortalByName (internal portal lookup function)
+  - [GetPortalByName](../G/GetPortalByName.md) (internal portal lookup function)
 - Called from (representative examples):
   - [cursor_to_xml](../c/cursor_to_xml.md) (XML generation functions)
   - [cursor_to_xmlschema](../c/cursor_to_xmlschema.md) (XML schema functions)

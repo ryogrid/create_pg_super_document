@@ -36,7 +36,7 @@ The function uses a sophisticated bit-shifting calculation to determine the divi
   - [numeric_to_cstring](../n/numeric_to_cstring.md): Converts Numeric to C string
   - [numeric_truncated_divide](../n/numeric_truncated_divide.md): Performs truncated division
   - [psprintf](psprintf.md): PostgreSQL sprintf function
-  - cstring_to_text: Converts C string to PostgreSQL text
+  - [cstring_to_text](../c/cstring_to_text.md): Converts C string to PostgreSQL text
   - PG_RETURN_TEXT_P: Returns text result from function
 - Called from (representative examples):
   - No direct references found (likely called via SQL)

@@ -21,13 +21,13 @@ fsync_parent_path(const char *fname)
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - strlcpy
-  - get_parent_directory
-  - fsync_fname_ext
+  - [strlcpy](../s/strlcpy.md)
+  - [get_parent_directory](../g/get_parent_directory.md)
+  - [fsync_fname_ext](fsync_fname_ext.md)
 - Called from (representative examples):
   - AllocateDesc
   - [durable_rename](../d/durable_rename.md)
-  - durable_unlink
+  - [durable_unlink](../d/durable_unlink.md)
 
 ## Notes and Other Information
 This is a static function in the backend storage subsystem, indicating it's an internal implementation detail for file durability operations. There's also a public version in src/common/file_utils.c with a simpler interface (without elevel parameter) that's used by client-side utilities like pg_basebackup. The function is essential for ensuring that filesystem metadata operations survive system crashes, particularly important for database consistency during file operations like creating new database files or renaming existing ones.

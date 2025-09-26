@@ -25,8 +25,8 @@ This function constructs and sends a replication protocol feedback message ('r' 
   - [get_flush_position](../g/get_flush_position.md)
   - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
   - [TimestampDifferenceExceeds](../T/TimestampDifferenceExceeds.md)
-  - makeStringInfo
-  - resetStringInfo
+  - [makeStringInfo](../m/makeStringInfo.md)
+  - [resetStringInfo](../r/resetStringInfo.md)
   - [pq_sendbyte](../p/pq_sendbyte.md)
   - [pq_sendint64](../p/pq_sendint64.md)
   - walrcv_send

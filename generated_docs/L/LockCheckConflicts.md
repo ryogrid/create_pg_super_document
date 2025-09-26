@@ -39,8 +39,8 @@ The function uses efficient bitmask operations and iterates through the list of 
   - dlist_container (list container extraction)
 - Called from (representative examples):
   - [LockAcquireExtended](LockAcquireExtended.md)
-  - ProcSleep
-  - ProcLockWakeup
+  - [ProcSleep](../P/ProcSleep.md)
+  - [ProcLockWakeup](../P/ProcLockWakeup.md)
 
 ## Notes and Other Information
 - Returns true if there is a conflict, false if the lock can be granted

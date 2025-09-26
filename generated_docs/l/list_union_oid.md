@@ -26,7 +26,7 @@ The function includes assertions to verify that both input lists contain only OI
   - [list_copy](list_copy.md) (copy first list)
   - [list_member_oid](list_member_oid.md) (check membership)
   - lfirst_oid (extract OID values)
-  - lappend_oid (append OID values)
+  - [lappend_oid](lappend_oid.md) (append OID values)
   - [check_list_invariants](../c/check_list_invariants.md) (validation)
 - Called from (representative examples):
   - forfive (pg_list.h:648)

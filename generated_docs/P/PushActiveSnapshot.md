@@ -26,24 +26,24 @@ This is the standard interface used throughout PostgreSQL code when pushing snap
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentTransactionNestLevel
-  - PushActiveSnapshotWithLevel
+  - [GetCurrentTransactionNestLevel](../G/GetCurrentTransactionNestLevel.md)
+  - [PushActiveSnapshotWithLevel](PushActiveSnapshotWithLevel.md)
 - Called from (representative examples):
-  - ParallelWorkerMain
-  - RemoveTempRelationsCallback
-  - cluster_multiple_rels
-  - EventTriggerOnLogin
-  - execute_sql_string
-  - ExecuteCallStmt
-  - DefineIndex
-  - ReindexMultipleInternal
-  - PersistHoldablePortal
-  - PreCommit_on_commit_actions
-  - ATExecDetachPartition
-  - AfterTriggerFireDeferred
-  - vacuum operations
+  - [ParallelWorkerMain](ParallelWorkerMain.md)
+  - [RemoveTempRelationsCallback](../R/RemoveTempRelationsCallback.md)
+  - [cluster_multiple_rels](../c/cluster_multiple_rels.md)
+  - [EventTriggerOnLogin](../E/EventTriggerOnLogin.md)
+  - [execute_sql_string](../e/execute_sql_string.md)
+  - [ExecuteCallStmt](../E/ExecuteCallStmt.md)
+  - [DefineIndex](../D/DefineIndex.md)
+  - [ReindexMultipleInternal](../R/ReindexMultipleInternal.md)
+  - [PersistHoldablePortal](PersistHoldablePortal.md)
+  - [PreCommit_on_commit_actions](PreCommit_on_commit_actions.md)
+  - [ATExecDetachPartition](../A/ATExecDetachPartition.md)
+  - [AfterTriggerFireDeferred](../A/AfterTriggerFireDeferred.md)
+  - [vacuum](../v/vacuum.md) operations
   - SPI operations
-  - Portal operations
+  - [Portal](Portal.md) operations
   - Many other locations throughout PostgreSQL
 
 ## Notes and Other Information

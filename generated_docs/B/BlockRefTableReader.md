@@ -38,15 +38,15 @@ The `BlockRefTableReader` is used to process block reference table files increme
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BlockRefTableBuffer
+  - [BlockRefTableBuffer](BlockRefTableBuffer.md)
   - MAX_ENTRIES_PER_CHUNK
 - Called from (representative examples):
-  - CreateBlockRefTableReader
-  - BlockRefTableReaderNextRelation
-  - BlockRefTableReaderGetBlocks
-  - DestroyBlockRefTableReader
-  - PrepareForIncrementalBackup
-  - pg_wal_summary_contents
+  - [CreateBlockRefTableReader](../C/CreateBlockRefTableReader.md)
+  - [BlockRefTableReaderNextRelation](BlockRefTableReaderNextRelation.md)
+  - [BlockRefTableReaderGetBlocks](BlockRefTableReaderGetBlocks.md)
+  - [DestroyBlockRefTableReader](../D/DestroyBlockRefTableReader.md)
+  - [PrepareForIncrementalBackup](../P/PrepareForIncrementalBackup.md)
+  - [pg_wal_summary_contents](../p/pg_wal_summary_contents.md)
 
 ## Notes and Other Information
 - The reader processes chunks atomically - a chunk is either completely read or not read at all

@@ -27,7 +27,7 @@ The function checks if the outer tuple slot contains a valid tuple and prints ei
   - MJ_debugtup (debug macro to print tuple contents)
   - printf (standard C library function for formatted output)
 - Called from (representative examples):
-  - ExecMergeTupleDump (general tuple dumping function that calls this for outer tuple display)
+  - [ExecMergeTupleDump](ExecMergeTupleDump.md) (general tuple dumping function that calls this for outer tuple display)
 
 ## Notes and Other Information
 - This is a debug-only function typically compiled conditionally based on debug build settings

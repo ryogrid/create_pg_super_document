@@ -23,7 +23,7 @@ The function performs constraint validation before the update and ensures all ca
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CatalogIndexState
+  - [CatalogIndexState](CatalogIndexState.md)
   - TU_UpdateIndexes
   - TU_All
   - [CatalogTupleCheckConstraints](CatalogTupleCheckConstraints.md)
@@ -37,7 +37,7 @@ The function performs constraint validation before the update and ensures all ca
   - [ExecGrant_Relation](../E/ExecGrant_Relation.md)
   - [RemoveAttributeById](../R/RemoveAttributeById.md)
   - [RelationClearMissing](../R/RelationClearMissing.md)
-  - index_concurrently_swap
+  - [index_concurrently_swap](../i/index_concurrently_swap.md)
   - [AggregateCreate](../A/AggregateCreate.md)
   - [StoreAttrDefault](../S/StoreAttrDefault.md)
   - [AlterConstraintNamespaces](../A/AlterConstraintNamespaces.md)

@@ -19,12 +19,12 @@ This function performs cleanup of dynamic shared memory segments that may have b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dsm_impl_op (with DSM_OP_ATTACH, DSM_OP_DETACH, DSM_OP_DESTROY)
-  - dsm_control_segment_sane
-  - is_main_region_dsm_handle
+  - [dsm_impl_op](dsm_impl_op.md) (with DSM_OP_ATTACH, DSM_OP_DETACH, DSM_OP_DESTROY)
+  - [dsm_control_segment_sane](dsm_control_segment_sane.md)
+  - [is_main_region_dsm_handle](../i/is_main_region_dsm_handle.md)
   - elog
 - Called from (representative examples):
-  - PGSharedMemoryCreate
+  - [PGSharedMemoryCreate](../P/PGSharedMemoryCreate.md)
 
 ## Notes and Other Information
 - Gracefully handles cases where the old control segment no longer exists (e.g., after system reboot)

@@ -32,7 +32,7 @@ The function includes special logic to prevent specifying the database's default
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PrepareTempTablespaces](../P/PrepareTempTablespaces.md)
-  - GetNextTempTableSpace
+  - [GetNextTempTableSpace](GetNextTempTableSpace.md)
   - [get_tablespace_oid](../g/get_tablespace_oid.md)
   - RELPERSISTENCE_TEMP (constant)
 - Called from (representative examples):

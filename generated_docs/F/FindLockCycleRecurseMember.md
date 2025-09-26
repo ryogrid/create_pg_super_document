@@ -28,7 +28,7 @@ For relation extension locks, the function immediately returns false as these lo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetLocksMethodTable
+  - [GetLocksMethodTable](../G/GetLocksMethodTable.md)
   - dlist_foreach
   - dlist_container
   - dclist_foreach

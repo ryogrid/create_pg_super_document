@@ -33,7 +33,7 @@ The implementation guarantees that it will never throw `elog(ERROR)`, making it 
   - [datum_image_hash](../d/datum_image_hash.md) (src/backend/utils/adt/datum.c:344,346,355,368)
   - [json_unique_hash](../j/json_unique_hash.md) (src/backend/utils/adt/json.c:896)
   - [string_hash](../s/string_hash.md) (src/common/hashfn.c:670)
-  - tag_hash (src/common/hashfn.c:679)
+  - [tag_hash](../t/tag_hash.md) (src/common/hashfn.c:679)
   - [hash_any](hash_any.md) (src/include/common/hashfn.h:33)
 
 ## Notes and Other Information

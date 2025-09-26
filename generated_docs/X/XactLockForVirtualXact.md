@@ -25,17 +25,17 @@ The function includes an optimization: if max_prepared_xacts is 0 (two-phase com
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TwoPhaseGetXidByVirtualXID
+  - [TwoPhaseGetXidByVirtualXID](../T/TwoPhaseGetXidByVirtualXID.md)
   - SET_LOCKTAG_TRANSACTION
-  - LockAcquire
-  - LockRelease
-  - VirtualTransactionId (type)
+  - [LockAcquire](../L/LockAcquire.md)
+  - [LockRelease](../L/LockRelease.md)
+  - [VirtualTransactionId](../V/VirtualTransactionId.md) (type)
   - LockAcquireResult (type)
-  - LOCKTAG (type)
+  - [LOCKTAG](../L/LOCKTAG.md) (type)
   - ShareLock
   - LOCKACQUIRE_NOT_AVAIL
 - Called from (representative examples):
-  - VirtualXactLock (multiple call sites)
+  - [VirtualXactLock](../V/VirtualXactLock.md) (multiple call sites)
 
 ## Notes and Other Information
 - Static function, only used internally within lock.c

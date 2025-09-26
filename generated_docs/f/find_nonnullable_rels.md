@@ -29,7 +29,7 @@ This function differs from `find_nonnullable_vars()` in that it focuses on entir
 - Called from (representative examples):
   - [make_outerjoininfo](../m/make_outerjoininfo.md)
   - [reduce_outer_joins_pass2](../r/reduce_outer_joins_pass2.md)
-  - WindowFuncLists
+  - [WindowFuncLists](../W/WindowFuncLists.md)
 
 ## Notes and Other Information
 - Returns a Relids bitmapset containing the OIDs of relations that are forced to be nonnullable

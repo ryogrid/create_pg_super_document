@@ -24,7 +24,7 @@ The function enforces that ExecutorFinish was previously called (except for EXPL
 - Functions called/Symbols referenced:
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - [ExecEndPlan](../E/ExecEndPlan.md)
-  - UnregisterSnapshot
+  - [UnregisterSnapshot](../U/UnregisterSnapshot.md)
   - [FreeExecutorState](../F/FreeExecutorState.md)
 - Called from (representative examples):
   - [ExecutorEnd](../E/ExecutorEnd.md)

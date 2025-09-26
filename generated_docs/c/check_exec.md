@@ -26,9 +26,9 @@ The function uses pipe_read_line() to capture the executable's version output an
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - validate_exec
+  - [validate_exec](../v/validate_exec.md)
   - [pipe_read_line](../p/pipe_read_line.md)
-  - pg_strip_crlf
+  - [pg_strip_crlf](../p/pg_strip_crlf.md)
   - [pg_free](../p/pg_free.md)
   - snprintf
   - strcmp

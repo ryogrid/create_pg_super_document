@@ -31,7 +31,7 @@ The function includes comprehensive error handling, reporting syntax errors when
   - [oidin](../o/oidin.md) (input function for OID type)
   - DirectFunctionCall1 (function manager interface)
   - [DatumGetObjectId](../D/DatumGetObjectId.md) (macro to extract OID from Datum)
-  - Float (node type)
+  - [Float](../F/Float.md) (node type)
   - [CStringGetDatum](../C/CStringGetDatum.md) (conversion function)
 - Called from (representative examples):
   - [createdb](../c/createdb.md) (database creation command)

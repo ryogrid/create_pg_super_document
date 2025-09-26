@@ -20,7 +20,7 @@ ProcSendSignal provides a mechanism to signal a specific backend process by sett
   - [SetLatch](../S/SetLatch.md)
   - ProcNumber (type reference)
 - Called from (representative examples):
-  - UnpinBufferNoOwner
+  - [UnpinBufferNoOwner](../U/UnpinBufferNoOwner.md)
   - [ReleasePredicateLocks](../R/ReleasePredicateLocks.md)
 
 ## Notes and Other Information

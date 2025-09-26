@@ -27,7 +27,7 @@ The function determines whether to create objects or arrays by attempting to par
 ## Dependencies
 - Functions called/Symbols referenced:
   - TextDatumGetCString
-  - strtoint
+  - [strtoint](../s/strtoint.md)
   - [pushJsonbValue](pushJsonbValue.md)
   - [push_null_elements](push_null_elements.md)
   - [palloc0](palloc0.md)

@@ -23,7 +23,7 @@ This behavior is convenient for callers that want to act as though dropped attri
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache2](SearchSysCache2.md)
-  - Int16GetDatum
+  - [Int16GetDatum](../I/Int16GetDatum.md)
   - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - HeapTupleIsValid
   - GETSTRUCT

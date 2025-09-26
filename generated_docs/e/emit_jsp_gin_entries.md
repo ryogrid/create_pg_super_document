@@ -25,7 +25,7 @@ The function modifies the node tree in-place by replacing entry datums with thei
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth (prevents stack overflow during deep recursion)
+  - [check_stack_depth](../c/check_stack_depth.md) (prevents stack overflow during deep recursion)
   - [add_gin_entry](../a/add_gin_entry.md) (registers a GIN entry and returns its index)
   - [emit_jsp_gin_entries](emit_jsp_gin_entries.md) (recursive self-calls for tree traversal)
 - Called from (representative examples):

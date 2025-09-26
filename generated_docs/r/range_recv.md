@@ -22,14 +22,14 @@ This function processes binary data received over the wire (typically from clien
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth: Stack overflow protection for recursive calls
+  - [check_stack_depth](../c/check_stack_depth.md): Stack overflow protection for recursive calls
   - [get_range_io_data](../g/get_range_io_data.md): Retrieves I/O function cache data for the range type
   - [pq_getmsgbyte](../p/pq_getmsgbyte.md): Reads a single byte from the message buffer
   - [pq_getmsgint](../p/pq_getmsgint.md): Reads a 4-byte integer from the message buffer
   - [pq_getmsgbytes](../p/pq_getmsgbytes.md): Reads a specified number of bytes from the message buffer
   - [pq_getmsgend](../p/pq_getmsgend.md): Validates that all message data has been consumed
-  - initStringInfo: Initializes a StringInfo buffer
-  - appendBinaryStringInfo: Appends binary data to a StringInfo buffer
+  - [initStringInfo](../i/initStringInfo.md): Initializes a StringInfo buffer
+  - [appendBinaryStringInfo](../a/appendBinaryStringInfo.md): Appends binary data to a StringInfo buffer
   - [ReceiveFunctionCall](../R/ReceiveFunctionCall.md): Calls the element type's receive function
   - [pfree](../p/pfree.md): Frees allocated memory
   - [make_range](../m/make_range.md): Constructs and canonicalizes the final RangeType structure

@@ -29,15 +29,15 @@ The hash computation process involves:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecStoreMinimalTuple
-  - pg_rotate_left32
-  - slot_getattr
-  - FunctionCall1Coll
-  - DatumGetUInt32
-  - murmurhash32
+  - [ExecStoreMinimalTuple](../E/ExecStoreMinimalTuple.md)
+  - [pg_rotate_left32](../p/pg_rotate_left32.md)
+  - [slot_getattr](../s/slot_getattr.md)
+  - [FunctionCall1Coll](../F/FunctionCall1Coll.md)
+  - [DatumGetUInt32](../D/DatumGetUInt32.md)
+  - [murmurhash32](../m/murmurhash32.md)
 - Called from (representative examples):
-  - LookupTupleHashEntry (execGrouping.c:319)
-  - TupleHashTableHash (execGrouping.c:347)
+  - [LookupTupleHashEntry](../L/LookupTupleHashEntry.md) (execGrouping.c:319)
+  - [TupleHashTableHash](TupleHashTableHash.md) (execGrouping.c:347)
   - SH_HASH_KEY macro (execGrouping.c:39)
 
 ## Notes and Other Information

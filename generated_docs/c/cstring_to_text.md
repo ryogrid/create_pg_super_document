@@ -26,7 +26,7 @@ This function is part of PostgreSQL's conversion routines exported for use by C 
   -  - calculates the length of the input C string
 
 - Called from (representative examples):
-  -  - text input function
+  -  - [text](../t/text.md) input function
   -  - JSON input processing
   -  - XML input processing
   -  - identifier quoting function

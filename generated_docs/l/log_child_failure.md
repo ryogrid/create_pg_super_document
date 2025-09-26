@@ -23,7 +23,7 @@ This function provides comprehensive error reporting for failed test processes i
   - WIFEXITED, WEXITSTATUS (process exit status checking)
   - WIFSIGNALED, WTERMSIG (signal termination checking)
   - diag (diagnostic message output)
-  - pg_strsignal (signal name/description lookup on Unix/Linux)
+  - [pg_strsignal](../p/pg_strsignal.md) (signal name/description lookup on Unix/Linux)
 - Called from (representative examples):
   - Used in MAX_PARALLEL_TESTS context (src/test/regress/pg_regress.c:1812)
   - [run_single_test](../r/run_single_test.md) (src/test/regress/pg_regress.c:1892)

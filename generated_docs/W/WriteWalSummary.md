@@ -25,7 +25,7 @@ This comprehensive error checking ensures data integrity for WAL summary files, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WalSummaryIO (structure type)
+  - [WalSummaryIO](WalSummaryIO.md) (structure type)
   - [FileWrite](../F/FileWrite.md) (PostgreSQL file I/O function)
   - [FilePathName](../F/FilePathName.md) (PostgreSQL file utility function)
   - ereport (PostgreSQL error reporting function)

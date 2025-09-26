@@ -28,7 +28,7 @@ The function performs type validation through the type cache, ensuring the speci
   - [assign_record_type_identifier](../a/assign_record_type_identifier.md)
   - AllocSetContextCreate
   - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
-  - EOH_init_header
+  - [EOH_init_header](../E/EOH_init_header.md)
   - [MemoryContextRegisterResetCallback](../M/MemoryContextRegisterResetCallback.md)
   - ReleaseTupleDesc
 - Called from:

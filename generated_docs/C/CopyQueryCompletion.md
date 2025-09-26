@@ -22,20 +22,20 @@ The function is defined as a static inline function in the header file, allowing
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - QueryCompletion (structure type)
-  - InitializeQueryCompletion
-  - GetCommandTagName
+  - [QueryCompletion](../Q/QueryCompletion.md) (structure type)
+  - [InitializeQueryCompletion](../I/InitializeQueryCompletion.md)
+  - [GetCommandTagName](../G/GetCommandTagName.md)
   - CommandTag (enum type)
-  - GetCommandTagNameAndLen
-  - command_tag_display_rowcount
-  - command_tag_event_trigger_ok
-  - command_tag_table_rewrite_ok
-  - GetCommandTagEnum
-  - BuildQueryCompletionString
+  - [GetCommandTagNameAndLen](../G/GetCommandTagNameAndLen.md)
+  - [command_tag_display_rowcount](../c/command_tag_display_rowcount.md)
+  - [command_tag_event_trigger_ok](../c/command_tag_event_trigger_ok.md)
+  - [command_tag_table_rewrite_ok](../c/command_tag_table_rewrite_ok.md)
+  - [GetCommandTagEnum](../G/GetCommandTagEnum.md)
+  - [BuildQueryCompletionString](../B/BuildQueryCompletionString.md)
 - Called from (representative examples):
-  - PortalRun
-  - FillPortalStore
-  - PortalRunMulti
+  - [PortalRun](../P/PortalRun.md)
+  - [FillPortalStore](../F/FillPortalStore.md)
+  - [PortalRunMulti](../P/PortalRunMulti.md)
 
 ## Notes and Other Information
 - This is a static inline function defined in src/include/tcop/cmdtag.h

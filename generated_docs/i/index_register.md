@@ -37,10 +37,10 @@ The function creates a deep copy of the IndexInfo structure and stores it in a s
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (switches memory contexts)
   - ALLOCSET_DEFAULT_SIZES (default memory context configuration)
   - IndexList (linked list structure for storing index registrations)
-  - IndexInfo (structure containing index specification)
+  - [IndexInfo](../I/IndexInfo.md) (structure containing index specification)
 
 - Called from:
-  - index_create (during index creation in catalog layer)
+  - [index_create](index_create.md) (during index creation in catalog layer)
 
 ## Notes and Other Information
 - Uses a special 'BootstrapNoGC' memory context to prevent premature garbage collection

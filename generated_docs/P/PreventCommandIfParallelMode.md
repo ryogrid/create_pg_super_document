@@ -19,7 +19,7 @@ The function ensures consistency in error message wording across the PostgreSQL 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsInParallelMode (function to check if currently in parallel mode)
+  - [IsInParallelMode](../I/IsInParallelMode.md) (function to check if currently in parallel mode)
   - ereport (error reporting mechanism)
   - [errcode](../e/errcode.md), errmsg (error handling macros)
 - Called from (representative examples):

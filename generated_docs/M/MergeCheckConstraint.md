@@ -26,12 +26,12 @@ The inheritance count tracking is crucial for PostgreSQL's constraint management
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CookedConstraint (constraint structure type)
+  - [CookedConstraint](../C/CookedConstraint.md) (constraint structure type)
   - CONSTR_CHECK (constraint type enumeration)
   - [equal](../e/equal.md) (expression comparison function)
   - palloc0_object (memory allocation macro)
   - [pstrdup](../p/pstrdup.md) (string duplication function)
-  - lappend (list append function)
+  - [lappend](../l/lappend.md) (list append function)
   - ereport (error reporting function)
 - Called from (representative examples):
   - [MergeAttributes](MergeAttributes.md) (main attribute merging function during inheritance)

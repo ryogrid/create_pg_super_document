@@ -37,8 +37,8 @@ The function implements an LRU-like optimization by moving frequently accessed c
   - [CatalogCacheComputeHashValue](../C/CatalogCacheComputeHashValue.md)
   - [CatalogCacheCompareTuple](../C/CatalogCacheCompareTuple.md)
   - [SearchCatCacheMiss](SearchCatCacheMiss.md)
-  - ResourceOwnerEnlarge
-  - ResourceOwnerRememberCatCacheRef
+  - [ResourceOwnerEnlarge](../R/ResourceOwnerEnlarge.md)
+  - [ResourceOwnerRememberCatCacheRef](../R/ResourceOwnerRememberCatCacheRef.md)
   - [dlist_move_head](../d/dlist_move_head.md)
   - HASH_INDEX
 - Called from (representative examples):

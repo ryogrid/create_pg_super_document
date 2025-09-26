@@ -20,11 +20,11 @@ This function is part of the SPI (Server Programming Interface) API that allows 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _SPI_begin_call (to start SPI call context)
+  - [_SPI_begin_call](_SPI_begin_call.md) (to start SPI call context)
   - [_SPI_find_ENR_by_name](_SPI_find_ENR_by_name.md) (to check for duplicate names)
   - [create_queryEnv](../c/create_queryEnv.md) (to create query environment if needed)
   - [register_ENR](../r/register_ENR.md) (to actually register the relation)
-  - _SPI_end_call (to end SPI call context)
+  - [_SPI_end_call](_SPI_end_call.md) (to end SPI call context)
 - Called from (representative examples):
   - [SPI_register_trigger_data](SPI_register_trigger_data.md)
 

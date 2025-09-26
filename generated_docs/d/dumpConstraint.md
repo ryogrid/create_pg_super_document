@@ -45,7 +45,7 @@ The function also handles special cases like binary upgrades, foreign tables, pa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - createPQExpBuffer
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)
   - [findObjectByDumpId](../f/findObjectByDumpId.md)
   - [binary_upgrade_set_pg_class_oids](../b/binary_upgrade_set_pg_class_oids.md)
   - fmtQualifiedDumpable

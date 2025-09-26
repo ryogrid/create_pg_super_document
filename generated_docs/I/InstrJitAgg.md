@@ -28,7 +28,7 @@ This aggregation capability is particularly important in parallel query executio
   - [JitInstrumentation](../J/JitInstrumentation.md) (struct type)
   - INSTR_TIME_ADD (macro for timing accumulation)
 - Called from (representative examples):
-  - ExplainPrintJITSummary (src/backend/commands/explain.c:997, 1001)
+  - [ExplainPrintJITSummary](../E/ExplainPrintJITSummary.md) (src/backend/commands/explain.c:997, 1001)
   - [ExecParallelRetrieveJitInstrumentation](../E/ExecParallelRetrieveJitInstrumentation.md) (src/backend/executor/execParallel.c:1110)
 
 ## Notes and Other Information

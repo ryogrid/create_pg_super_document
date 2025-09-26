@@ -29,7 +29,7 @@ Non-deterministic collations can treat different strings as equivalent (for exam
   - [ReleaseSysCache](../R/ReleaseSysCache.md) (releases cache reference)
   - elog (logs error if collation not found)
 - Called from (representative examples):
-  - index_create (checking if collation supports certain index types)
+  - [index_create](../i/index_create.md) (checking if collation supports certain index types)
   - [match_pattern_prefix](../m/match_pattern_prefix.md) (determining if pattern matching optimizations are safe)
   - [ri_restrict](../r/ri_restrict.md) (foreign key constraint checking)
   - [RI_FKey_cascade_del](../R/RI_FKey_cascade_del.md) (foreign key cascade deletion)

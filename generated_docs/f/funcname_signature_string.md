@@ -26,19 +26,19 @@ The function handles both positional and named arguments, properly formatting na
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initStringInfo
-  - appendStringInfo
-  - appendStringInfoString
-  - appendStringInfoChar
-  - list_length
-  - list_head
+  - [initStringInfo](../i/initStringInfo.md)
+  - [appendStringInfo](../a/appendStringInfo.md)
+  - [appendStringInfoString](../a/appendStringInfoString.md)
+  - [appendStringInfoChar](../a/appendStringInfoChar.md)
+  - [list_length](../l/list_length.md)
+  - [list_head](../l/list_head.md)
   - [lnext](../l/lnext.md)
   - lfirst
   - [format_type_be](format_type_be.md)
 - Called from (representative examples):
   - [func_signature_string](func_signature_string.md)
   - [IsThereFunctionInNamespace](../I/IsThereFunctionInNamespace.md)
-  - FuncDetailCode (referenced from header)
+  - [FuncDetailCode](../F/FuncDetailCode.md) (referenced from header)
 
 ## Notes and Other Information
 - Returns a palloc'd string buffer that should be freed by the caller when no longer needed

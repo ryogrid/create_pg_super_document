@@ -29,13 +29,13 @@ The function supports two output formats controlled by the  parameter:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_database_name
-  - get_namespace_name
-  - map_sql_identifier_to_xml_name
-  - map_multipart_sql_identifier_to_xml_name
-  - get_rel_name
+  - [get_database_name](../g/get_database_name.md)
+  - [get_namespace_name](../g/get_namespace_name.md)
+  - [map_sql_identifier_to_xml_name](map_sql_identifier_to_xml_name.md)
+  - [map_multipart_sql_identifier_to_xml_name](map_multipart_sql_identifier_to_xml_name.md)
+  - [get_rel_name](../g/get_rel_name.md)
 - Called from (representative examples):
-  - schema_to_xmlschema_internal
+  - [schema_to_xmlschema_internal](../s/schema_to_xmlschema_internal.md)
 
 ## Notes and Other Information
 - The function is static and only used internally within the xml.c module

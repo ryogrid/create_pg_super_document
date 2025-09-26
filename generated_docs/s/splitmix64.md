@@ -29,7 +29,7 @@ This generator is particularly well-suited for seeding other generators because 
 - Functions called/Symbols referenced:
   - None (uses only arithmetic and bitwise operations with constants)
 - Called from (representative examples):
-  - pg_prng_seed (called twice to initialize both s0 and s1 components of the xoroshiro128** state)
+  - [pg_prng_seed](../p/pg_prng_seed.md) (called twice to initialize both s0 and s1 components of the xoroshiro128** state)
 
 ## Notes and Other Information
 - This is a static function, accessible only within the pg_prng.c compilation unit

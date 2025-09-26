@@ -23,13 +23,13 @@ The function sets up a dummy OpExpr structure that will be used to represent eac
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PredIterInfo](../P/PredIterInfo.md) (parameter type)
-  - ScalarArrayOpExpr (clause type being processed)
+  - [ScalarArrayOpExpr](../S/ScalarArrayOpExpr.md) (clause type being processed)
   - ArrayExprIterState (state structure for iteration)
   - ArrayExpr (array expression type)
   - [palloc](../p/palloc.md) (memory allocation)
   - [list_copy](../l/list_copy.md) (list copying function)
   - lsecond (list access function)
-  - list_head (list head access function)
+  - [list_head](../l/list_head.md) (list head access function)
 - Called from (representative examples):
   - iterate_end (src/backend/optimizer/util/predtest.c:95)
   - [predicate_classify](../p/predicate_classify.md) (src/backend/optimizer/util/predtest.c:892)

@@ -34,20 +34,20 @@ The function uses a binary heap as the core data structure to efficiently mainta
 - Functions called/Symbols referenced:
   - castNode
   - CHECK_FOR_INTERRUPTS
-  - ExecClearTuple
-  - ExecFindMatchingSubPlans
-  - bms_next_member
-  - ExecProcNode
+  - [ExecClearTuple](ExecClearTuple.md)
+  - [ExecFindMatchingSubPlans](ExecFindMatchingSubPlans.md)
+  - [bms_next_member](../b/bms_next_member.md)
+  - [ExecProcNode](ExecProcNode.md)
   - TupIsNull
-  - binaryheap_add_unordered
-  - binaryheap_build
-  - binaryheap_first
-  - binaryheap_replace_first
-  - binaryheap_remove_first
+  - [binaryheap_add_unordered](../b/binaryheap_add_unordered.md)
+  - [binaryheap_build](../b/binaryheap_build.md)
+  - [binaryheap_first](../b/binaryheap_first.md)
+  - [binaryheap_replace_first](../b/binaryheap_replace_first.md)
+  - [binaryheap_remove_first](../b/binaryheap_remove_first.md)
   - binaryheap_empty
-  - DatumGetInt32
+  - [DatumGetInt32](../D/DatumGetInt32.md)
 - Called from (representative examples):
-  - ExecInitMergeAppend (sets this as the ExecProcNode function)
+  - [ExecInitMergeAppend](ExecInitMergeAppend.md) (sets this as the ExecProcNode function)
   - PostgreSQL executor framework (via function pointer)
 
 ## Notes and Other Information

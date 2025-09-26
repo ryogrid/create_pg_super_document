@@ -29,7 +29,7 @@ This structure represents the actual "Numeric" data type as seen by PostgreSQL's
   - NumericChoice (union of numeric storage formats)
 - Called from (representative examples):
   - NUMERIC_MIN_SIG_DIGITS (minimum significant digits constant)
-  - Numeric (type alias for NumericData pointer)
+  - [Numeric](Numeric.md) (type alias for NumericData pointer)
 
 ## Notes and Other Information
 - This is the complete, top-level structure for all PostgreSQL numeric values

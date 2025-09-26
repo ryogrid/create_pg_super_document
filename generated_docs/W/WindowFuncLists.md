@@ -34,20 +34,20 @@ The structure is populated by the `find_window_functions()` function, which walk
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_window_functions (primary constructor function)
-  - find_window_functions_walker (internal tree walker)
-  - contain_window_function (detection utility)
-  - WindowFunc (the node type being organized)
-  - List (PostgreSQL's generic list structure)
+  - [find_window_functions](../f/find_window_functions.md) (primary constructor function)
+  - [find_window_functions_walker](../f/find_window_functions_walker.md) (internal tree walker)
+  - [contain_window_function](../c/contain_window_function.md) (detection utility)
+  - [WindowFunc](WindowFunc.md) (the node type being organized)
+  - [List](../L/List.md) (PostgreSQL's generic list structure)
   - Index (PostgreSQL's index type)
 
 - Called from (representative examples):
   - standard_qp_extra (in planner.c)
-  - grouping_planner (in planner.c) 
-  - create_window_paths (window path generation)
-  - create_one_window_path (individual window path creation)
-  - optimize_window_clauses (window optimization)
-  - select_active_windows (window selection logic)
+  - [grouping_planner](../g/grouping_planner.md) (in planner.c) 
+  - [create_window_paths](../c/create_window_paths.md) (window path generation)
+  - [create_one_window_path](../c/create_one_window_path.md) (individual window path creation)
+  - [optimize_window_clauses](../o/optimize_window_clauses.md) (window optimization)
+  - [select_active_windows](../s/select_active_windows.md) (window selection logic)
 
 ## Notes and Other Information
 - The structure is dynamically allocated using palloc() and the windowFuncs array is zero-initialized with palloc0()

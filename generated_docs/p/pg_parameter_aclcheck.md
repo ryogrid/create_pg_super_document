@@ -25,12 +25,12 @@ This function serves as an exported routine for checking access privileges to Po
   - [pg_parameter_aclmask](pg_parameter_aclmask.md)
   - ACLMASK_ANY
   - ACLCHECK_NO_PRIV
-  - AclResult
+  - [AclResult](../A/AclResult.md)
 - Called from (representative examples):
   - [has_param_priv_byname](../h/has_param_priv_byname.md)
   - [set_config_with_handle](../s/set_config_with_handle.md)
   - [AlterSystemSetConfigFile](../A/AlterSystemSetConfigFile.md)
-  - validate_option_array_item
+  - [validate_option_array_item](../v/validate_option_array_item.md)
 
 ## Notes and Other Information
 - Located in src/backend/catalog/aclchk.c:4121-4132

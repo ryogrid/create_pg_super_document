@@ -34,11 +34,11 @@ The operation involves managing dependency records in pg_depend, handling initia
 - Functions called/Symbols referenced:
   - ObjectType (enumeration defining object types)
   - NodeTag (from node system)
-  - Node (generic parse tree node)
+  - [Node](../N/Node.md) (generic parse tree node)
 - Called from (representative examples):
-  - ExecAlterExtensionContentsStmt (main execution function)
-  - ExecAlterExtensionContentsRecurse (recursive helper function)
-  - ProcessUtilitySlow (utility command processor)
+  - [ExecAlterExtensionContentsStmt](../E/ExecAlterExtensionContentsStmt.md) (main execution function)
+  - [ExecAlterExtensionContentsRecurse](../E/ExecAlterExtensionContentsRecurse.md) (recursive helper function)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (utility command processor)
 
 ## Notes and Other Information
 - Certain object types cannot be added to extensions (databases, other extensions, indexes, publications, roles, statistics, subscriptions, tablespaces)

@@ -28,7 +28,7 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsBootstrapProcessingMode (checks if in bootstrap mode)
-  - set_config_option (sets the configuration parameter)
+  - [set_config_option](../s/set_config_option.md) (sets the configuration parameter)
   - GUC_SAFE_SEARCH_PATH (constant defining the safe search path)
   - PGC_USERSET, PGC_S_SESSION (parameter classification constants)
   - GUC_ACTION_SAVE (action type for transactional setting)

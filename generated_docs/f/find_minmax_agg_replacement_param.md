@@ -25,7 +25,7 @@ This optimization is particularly effective for queries like "SELECT MIN(column)
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MinMaxAggInfo (structure type)
+  - [MinMaxAggInfo](../M/MinMaxAggInfo.md) (structure type)
   - [equal](../e/equal.md) (comparison function)
   - linitial (list access function)
 - Called from (representative examples):

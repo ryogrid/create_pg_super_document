@@ -30,7 +30,7 @@ This function serves as a variable resolver in the jsonpath execution engine. It
   - [palloc](../p/palloc.md) (allocates memory for result)
   - [JsonItemFromDatum](../J/JsonItemFromDatum.md) (converts Datum to JsonbValue)
 - Data types used:
-  - JsonPathVariable (structure holding variable information)
+  - [JsonPathVariable](../J/JsonPathVariable.md) (structure holding variable information)
   - [List](../L/List.md), ListCell (PostgreSQL list structures)
   - [JsonbValue](../J/JsonbValue.md) (JSON value representation)
   - jbvNull (null JSON value type)

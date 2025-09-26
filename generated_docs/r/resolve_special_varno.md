@@ -36,7 +36,7 @@ The recursion continues until either a non-Var node is encountered or a regular 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth (recursion safety)
+  - [check_stack_depth](../c/check_stack_depth.md) (recursion safety)
   - [list_nth](../l/list_nth.md) (namespace access)
   - [get_tle_by_resno](../g/get_tle_by_resno.md) (target list entry retrieval)
   - [bms_union](../b/bms_union.md) (bitmap set operations for appendparents)
@@ -44,7 +44,7 @@ The recursion continues until either a non-Var node is encountered or a regular 
   - [resolve_special_varno](resolve_special_varno.md) (recursive self-call)
 - Called from (representative examples):
   - [get_variable](../g/get_variable.md)
-  - get_agg_expr_helper
+  - [get_agg_expr_helper](../g/get_agg_expr_helper.md)
   - [resolve_special_varno](resolve_special_varno.md) (recursive calls)
 
 ## Notes and Other Information

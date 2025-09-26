@@ -29,15 +29,15 @@ This is an enum constant with no parameters or members.
 ## Dependencies
 - Functions called/Symbols referenced: None (enum constant)
 - Called from (representative examples):
-  - extra_field_used (src/backend/utils/misc/guc.c:773)
-  - set_stack_value (src/backend/utils/misc/guc.c:835)
-  - discard_stack_value (src/backend/utils/misc/guc.c:855)
-  - build_guc_variables (src/backend/utils/misc/guc.c:962)
-  - DefineCustomEnumVariable (src/backend/utils/misc/guc.c:5267)
-  - GetConfigOptionValues (src/backend/utils/misc/guc_funcs.c:728)
+  - [extra_field_used](../e/extra_field_used.md) (src/backend/utils/misc/guc.c:773)
+  - [set_stack_value](../s/set_stack_value.md) (src/backend/utils/misc/guc.c:835)
+  - [discard_stack_value](../d/discard_stack_value.md) (src/backend/utils/misc/guc.c:855)
+  - [build_guc_variables](../b/build_guc_variables.md) (src/backend/utils/misc/guc.c:962)
+  - [DefineCustomEnumVariable](../D/DefineCustomEnumVariable.md) (src/backend/utils/misc/guc.c:5267)
+  - [GetConfigOptionValues](../G/GetConfigOptionValues.md) (src/backend/utils/misc/guc_funcs.c:728)
 
 ## Notes and Other Information
-- PGC_ENUM is used extensively throughout the GUC system for type checking and value validation
+- [PGC_ENUM](PGC_ENUM.md) is used extensively throughout the GUC system for type checking and value validation
 - When defining custom enum variables, developers use DefineCustomEnumVariable() which specifically handles PGC_ENUM type parameters  
 - The enum type provides better error messages to users when invalid values are provided, as it can suggest valid alternatives from the predefined list
 - This type is part of the core GUC type system that enables PostgreSQL's extensive configuration capabilities

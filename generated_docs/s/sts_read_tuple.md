@@ -33,14 +33,14 @@ This internal function reads a single tuple from the shared tuplestore file asso
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SharedTuplestoreAccessor, SharedTuplestoreChunk (structure types)
+  - [SharedTuplestoreAccessor](../S/SharedTuplestoreAccessor.md), SharedTuplestoreChunk (structure types)
   - MinimalTuple (tuple type)
-  - BufFileReadExact (function to read exact bytes from buffer file)
+  - [BufFileReadExact](../B/BufFileReadExact.md) (function to read exact bytes from buffer file)
   - [MemoryContextAlloc](../M/MemoryContextAlloc.md) (memory allocation function)
   - STS_CHUNK_PAGES, STS_CHUNK_HEADER_SIZE (constants)
   - [errdetail_internal](../e/errdetail_internal.md) (error reporting function)
 - Called from (representative examples):
-  - sts_parallel_scan_next (in sharedtuplestore.c:505)
+  - [sts_parallel_scan_next](sts_parallel_scan_next.md) (in sharedtuplestore.c:505)
 
 ## Notes and Other Information
 - This is a static (internal) function, not part of the public API

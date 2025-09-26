@@ -49,7 +49,7 @@ This function is the core mechanism for creating constraint entries in PostgreSQ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - namestrcpy
+  - [namestrcpy](../n/namestrcpy.md)
   - [GetNewOidWithIndex](../G/GetNewOidWithIndex.md)
   - [construct_array_builtin](../c/construct_array_builtin.md)
   - [heap_form_tuple](../h/heap_form_tuple.md)

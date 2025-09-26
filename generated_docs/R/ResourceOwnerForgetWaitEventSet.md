@@ -21,11 +21,11 @@ This function serves as a convenience wrapper around ResourceOwnerForget, specif
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwnerForget
-  - PointerGetDatum
+  - [ResourceOwnerForget](ResourceOwnerForget.md)
+  - [PointerGetDatum](../P/PointerGetDatum.md)
   - wait_event_set_resowner_desc (descriptor)
 - Called from (representative examples):
-  - FreeWaitEventSet
+  - [FreeWaitEventSet](../F/FreeWaitEventSet.md)
 
 ## Notes and Other Information
 - This is a static inline function located in src/backend/storage/ipc/latch.c

@@ -28,7 +28,7 @@ The function implements intelligent prefixing logic: it uses table prefixes when
 ## Dependencies
 - Functions called/Symbols referenced:
   - [show_qual](show_qual.md)
-  - SubqueryScan (type check via IsA macro)
+  - [SubqueryScan](../S/SubqueryScan.md) (type check via IsA macro)
 - Called from (representative examples):
   - [ExplainNode](../E/ExplainNode.md) (multiple scan node types)
 

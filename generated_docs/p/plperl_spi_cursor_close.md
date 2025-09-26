@@ -40,5 +40,5 @@ Unlike the automatic closure that occurs in plperl_spi_fetchrow when no more row
 - Essential for proper resource management in functions that open multiple cursors
 - Should be called when finished with a cursor to prevent resource leaks
 - Closing a cursor that has already been automatically closed is harmless
-- No error handling beyond SPI usage validation - cursor not found is silently ignored
+- No error handling beyond SPI usage validation - [cursor](../c/cursor.md) not found is silently ignored
 - Complementary to the automatic cleanup performed in plperl_spi_fetchrow

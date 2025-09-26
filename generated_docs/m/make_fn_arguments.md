@@ -29,7 +29,7 @@ The function handles both regular expressions and NamedArgExpr nodes specially -
 ## Dependencies
 - Functions called/Symbols referenced:
   - [coerce_type](../c/coerce_type.md)
-  - NamedArgExpr (struct)
+  - [NamedArgExpr](../N/NamedArgExpr.md) (struct)
   - COERCION_IMPLICIT (constant)
   - COERCE_IMPLICIT_CAST (constant)
 - Called from (representative examples):

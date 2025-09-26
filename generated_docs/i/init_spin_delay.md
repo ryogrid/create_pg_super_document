@@ -24,7 +24,7 @@ The `init_spin_delay` function initializes a SpinDelayStatus structure by resett
 - Functions called/Symbols referenced:
   - SpinDelayStatus (structure type)
 - Called from (representative examples):
-  - s_lock function in s_lock.c
+  - [s_lock](../s/s_lock.md) function in s_lock.c
   - init_local_spin_delay macro
 
 ## Notes and Other Information

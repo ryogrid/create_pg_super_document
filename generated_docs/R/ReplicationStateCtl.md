@@ -26,11 +26,11 @@ The tranche_id field is used for lock management, specifically for organizing th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReplicationState (the individual replication state structure)
+  - [ReplicationState](ReplicationState.md) (the individual replication state structure)
   - FLEXIBLE_ARRAY_MEMBER (macro for flexible array declaration)
 - Called from (representative examples):
-  - ReplicationOriginShmemSize
-  - ReplicationOriginShmemInit
+  - [ReplicationOriginShmemSize](ReplicationOriginShmemSize.md)
+  - [ReplicationOriginShmemInit](ReplicationOriginShmemInit.md)
 
 ## Notes and Other Information
 - This structure is allocated once during shared memory initialization

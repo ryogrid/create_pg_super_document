@@ -21,15 +21,15 @@ PathNameOpenFile serves as a simplified interface to PathNameOpenFilePerm by aut
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PathNameOpenFilePerm
+  - [PathNameOpenFilePerm](PathNameOpenFilePerm.md)
   - pg_file_create_mode (global variable)
 - Called from (representative examples):
-  - logical_rewrite_log_mapping
-  - bbsink_server_begin_archive
-  - OpenWalSummaryFile
-  - ReorderBufferRestoreChanges
-  - mdcreate
-  - mdopenfork
+  - [logical_rewrite_log_mapping](../l/logical_rewrite_log_mapping.md)
+  - [bbsink_server_begin_archive](../b/bbsink_server_begin_archive.md)
+  - [OpenWalSummaryFile](../O/OpenWalSummaryFile.md)
+  - [ReorderBufferRestoreChanges](../R/ReorderBufferRestoreChanges.md)
+  - [mdcreate](../m/mdcreate.md)
+  - [mdopenfork](../m/mdopenfork.md)
 
 ## Notes and Other Information
 This function is part of PostgreSQL's file descriptor management system located in src/backend/storage/file/fd.c. It provides a cleaner API for the common case where default file permissions are acceptable, reducing code duplication throughout the PostgreSQL codebase. The return type 'File' is PostgreSQL's internal file descriptor type used for managing virtual file descriptors.

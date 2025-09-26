@@ -22,10 +22,10 @@ This function provides a fast path for comparing oidvector values in the catalog
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - oidvectoreq (PostgreSQL's standard oidvector equality function)
+  - [oidvectoreq](oidvectoreq.md) (PostgreSQL's standard oidvector equality function)
   - DirectFunctionCall2 (direct function call without collation)
 - Called from (representative examples):
-  - GetCCHashEqFuncs (assigned as fast equality function for OIDVECTOROID)
+  - [GetCCHashEqFuncs](../G/GetCCHashEqFuncs.md) (assigned as fast equality function for OIDVECTOROID)
 
 ## Notes and Other Information
 - This function is static and only used within catcache.c

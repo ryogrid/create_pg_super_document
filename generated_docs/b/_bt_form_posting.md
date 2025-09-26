@@ -32,19 +32,19 @@ The function performs careful size calculations and memory allocation, ensuring 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BTreeTupleIsPosting
-  - BTreeTupleGetPostingOffset
+  - [BTreeTupleIsPosting](../B/BTreeTupleIsPosting.md)
+  - [BTreeTupleGetPostingOffset](../B/BTreeTupleGetPostingOffset.md)
   - IndexTupleSize
-  - BTreeTupleIsPivot
-  - palloc0
-  - BTreeTupleSetPosting
-  - BTreeTupleGetPosting
-  - _bt_posting_valid
-  - ItemPointerCopy
-  - ItemPointerIsValid
+  - [BTreeTupleIsPivot](../B/BTreeTupleIsPivot.md)
+  - [palloc0](../p/palloc0.md)
+  - [BTreeTupleSetPosting](../B/BTreeTupleSetPosting.md)
+  - [BTreeTupleGetPosting](../B/BTreeTupleGetPosting.md)
+  - [_bt_posting_valid](_bt_posting_valid.md)
+  - [ItemPointerCopy](../I/ItemPointerCopy.md)
+  - [ItemPointerIsValid](../I/ItemPointerIsValid.md)
 - Called from:
-  - _bt_dedup_finish_pending
-  - _bt_sort_dedup_finish_pending
+  - [_bt_dedup_finish_pending](_bt_dedup_finish_pending.md)
+  - [_bt_sort_dedup_finish_pending](_bt_sort_dedup_finish_pending.md)
 
 ## Notes and Other Information
 - This is a non-static function in the nbtdedup.c module, making it available to other parts of the B-tree system

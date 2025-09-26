@@ -31,7 +31,7 @@ This function takes no parameters.
 - Called from (representative examples):
   - [plperl_spi_rollback](../p/plperl_spi_rollback.md) (from PL/Perl)
   - [PLy_rollback](../P/PLy_rollback.md) (from PL/Python)
-  - pltcl_rollback (from PL/Tcl)
+  - [pltcl_rollback](../p/pltcl_rollback.md) (from PL/Tcl)
 
 ## Notes and Other Information
 - This function can only be called outside of atomic SPI contexts (when SPI_OPT_NONATOMIC is used)

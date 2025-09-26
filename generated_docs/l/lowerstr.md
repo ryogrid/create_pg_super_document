@@ -30,7 +30,7 @@ The underlying implementation (lowerstr_with_len) uses different strategies base
   - [dsimple_init](../d/dsimple_init.md)
   - [dsynonym_init](../d/dsynonym_init.md)
   - [lowerstr_ctx](lowerstr_ctx.md)
-  - NIImportAffixes
+  - [NIImportAffixes](../N/NIImportAffixes.md)
 
 ## Notes and Other Information
 - Returns a newly palloc'd string that must be freed by the caller

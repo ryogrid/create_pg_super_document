@@ -30,19 +30,19 @@ This function takes no parameters as it operates on global state and predefined 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AllocateFile: Opens the statistics file for reading
+  - [AllocateFile](../A/AllocateFile.md): Opens the statistics file for reading
   - read_chunk_s/read_chunk: Reads structured data from the file
-  - pgstat_reset_after_failure: Called when file reading fails
-  - dshash_find_or_insert: Inserts statistics entries into shared hash table
-  - dshash_release_lock: Releases locks on hash table entries
-  - pgstat_init_entry: Initializes a new statistics entry
-  - pgstat_get_kind_info: Gets metadata for statistics entry types
-  - pgstat_get_entry_len/pgstat_get_entry_data: Accesses entry size and data
-  - FreeFile: Closes the file handle
+  - [pgstat_reset_after_failure](pgstat_reset_after_failure.md): Called when file reading fails
+  - [dshash_find_or_insert](../d/dshash_find_or_insert.md): Inserts statistics entries into shared hash table
+  - [dshash_release_lock](../d/dshash_release_lock.md): Releases locks on hash table entries
+  - [pgstat_init_entry](pgstat_init_entry.md): Initializes a new statistics entry
+  - [pgstat_get_kind_info](pgstat_get_kind_info.md): Gets metadata for statistics entry types
+  - [pgstat_get_entry_len](pgstat_get_entry_len.md)/pgstat_get_entry_data: Accesses entry size and data
+  - [FreeFile](../F/FreeFile.md): Closes the file handle
   - unlink: Removes the statistics file after successful reading
 
 - Called from (representative examples):
-  - pgstat_restore_stats: Main function that orchestrates statistics restoration
+  - [pgstat_restore_stats](pgstat_restore_stats.md): Main function that orchestrates statistics restoration
 
 ## Notes and Other Information
 - This function must only be called from a single process accessing shared stats (no locking required)

@@ -22,7 +22,7 @@ The `hashfloat8` function computes hash values for double-precision floating-poi
   - PG_GETARG_FLOAT8
   - PG_RETURN_UINT32
   - isnan
-  - get_float8_nan
+  - [get_float8_nan](../g/get_float8_nan.md)
   - [hash_any](hash_any.md)
 - Called from (representative examples):
   - [tablesample_init](../t/tablesample_init.md) (at src/backend/executor/nodeSamplescan.c:270)

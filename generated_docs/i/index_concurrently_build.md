@@ -26,17 +26,17 @@ The function operates under security restrictions and manages GUC variable chang
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open (to open the heap relation)
-  - GetUserIdAndSecContext/SetUserIdAndSecContext (for user context management)
-  - NewGUCNestLevel/AtEOXact_GUC (for GUC variable management)
-  - RestrictSearchPath (for security restrictions)
-  - index_open (to open the index relation)
-  - BuildIndexInfo (to reconstruct IndexInfo structure)
-  - index_build (to perform the actual index building)
-  - index_close (for cleanup)
-  - index_set_state_flags (to mark index as ready)
+  - [table_open](../t/table_open.md) (to open the heap relation)
+  - [GetUserIdAndSecContext](../G/GetUserIdAndSecContext.md)/SetUserIdAndSecContext (for user context management)
+  - [NewGUCNestLevel](../N/NewGUCNestLevel.md)/AtEOXact_GUC (for GUC variable management)
+  - [RestrictSearchPath](../R/RestrictSearchPath.md) (for security restrictions)
+  - [index_open](index_open.md) (to open the index relation)
+  - [BuildIndexInfo](../B/BuildIndexInfo.md) (to reconstruct IndexInfo structure)
+  - [index_build](index_build.md) (to perform the actual index building)
+  - [index_close](index_close.md) (for cleanup)
+  - [index_set_state_flags](index_set_state_flags.md) (to mark index as ready)
 - Called from (representative examples):
-  - DefineIndex (during concurrent index creation)
+  - [DefineIndex](../D/DefineIndex.md) (during concurrent index creation)
 
 ## Notes and Other Information
 - This is a void function that does not return a value

@@ -35,7 +35,7 @@ This function takes no parameters but relies on global variables:
   - [PGSharedMemoryDetach](PGSharedMemoryDetach.md) (for Cygwin cleanup)
   - shmget (system call to get shared memory segment)
   - [PGSharedMemoryAttach](PGSharedMemoryAttach.md) (performs actual attachment)
-  - dsm_set_control_handle (sets up dynamic shared memory control)
+  - [dsm_set_control_handle](../d/dsm_set_control_handle.md) (sets up dynamic shared memory control)
   - elog (error logging)
 - Called from:
   - [SubPostmasterMain](../S/SubPostmasterMain.md)

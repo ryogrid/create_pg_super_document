@@ -52,7 +52,7 @@ This function is essential for bridging the gap between the optimizer's abstract
   - [get_tle_by_resno](../g/get_tle_by_resno.md) (to find targetlist entries by result number)
   - [find_ec_member_matching_expr](../f/find_ec_member_matching_expr.md) (to match equivalence class members to expressions)
   - [find_computable_ec_member](../f/find_computable_ec_member.md) (to find computable equivalence class members)
-  - is_projection_capable_plan (to check if plan can perform projections)
+  - [is_projection_capable_plan](../i/is_projection_capable_plan.md) (to check if plan can perform projections)
   - [inject_projection_plan](../i/inject_projection_plan.md) (to add Result node for projection)
   - [get_opfamily_member](../g/get_opfamily_member.md) (to resolve sort operators)
   - [makeTargetEntry](../m/makeTargetEntry.md) (to create resjunk targetlist entries)

@@ -23,14 +23,14 @@ The function handles partial reads by looping until the entire requested length 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BlockRefTableReader (structure)
-  - BlockRefTableBuffer (structure)
+  - [BlockRefTableReader](BlockRefTableReader.md) (structure)
+  - [BlockRefTableBuffer](BlockRefTableBuffer.md) (structure)
   - memcpy
   - COMP_CRC32C
   - Min
   - BUFSIZE (constant)
 - Called from (representative examples):
-  - BlockRefTableWriter
+  - [BlockRefTableWriter](BlockRefTableWriter.md)
   - [CreateBlockRefTableReader](../C/CreateBlockRefTableReader.md)
   - [BlockRefTableReaderNextRelation](BlockRefTableReaderNextRelation.md)
   - [BlockRefTableReaderGetBlocks](BlockRefTableReaderGetBlocks.md)

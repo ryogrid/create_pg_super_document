@@ -21,11 +21,11 @@ The function performs a direct update to the pg_class system catalog using prope
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open (opens the pg_class catalog with proper locking)
+  - [table_open](../t/table_open.md) (opens the pg_class catalog with proper locking)
   - SearchSysCacheCopy1 (searches system cache for the relation tuple)
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md) (updates the tuple in the catalog)
   - [heap_freetuple](../h/heap_freetuple.md) (frees the heap tuple memory)
-  - table_close (closes the catalog relation)
+  - [table_close](../t/table_close.md) (closes the catalog relation)
   - Form_pg_class (structure type for pg_class tuples)
 - Called from (representative examples):
   - [finish_heap_swap](../f/finish_heap_swap.md) (in cluster.c:1612, called after completing a table rewrite operation)

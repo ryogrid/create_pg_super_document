@@ -42,17 +42,17 @@ The conversion process works by using the AttrMap to determine how to map each o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AttrMap (attribute mapping structure)
-  - TupleDesc (tuple descriptor type)
+  - [AttrMap](../A/AttrMap.md) (attribute mapping structure)
+  - [TupleDesc](TupleDesc.md) (tuple descriptor type)
   - Datum (PostgreSQL data value type)
 
 - Called from (representative examples):
-  - convert_tuples_by_position (creates conversion maps based on column position)
-  - convert_tuples_by_name (creates conversion maps based on column names)
-  - execute_attr_map_tuple (performs actual tuple conversion using the map)
-  - ExecFindPartition (partition routing)
-  - AfterTriggerExecute (trigger execution)
-  - CopyFrom (COPY command processing)
+  - [convert_tuples_by_position](../c/convert_tuples_by_position.md) (creates conversion maps based on column position)
+  - [convert_tuples_by_name](../c/convert_tuples_by_name.md) (creates conversion maps based on column names)
+  - [execute_attr_map_tuple](../e/execute_attr_map_tuple.md) (performs actual tuple conversion using the map)
+  - [ExecFindPartition](../E/ExecFindPartition.md) (partition routing)
+  - [AfterTriggerExecute](../A/AfterTriggerExecute.md) (trigger execution)
+  - [CopyFrom](../C/CopyFrom.md) (COPY command processing)
 
 ## Notes and Other Information
 - The conversion map is allocated in the caller's memory context and both input tuple descriptors must remain valid for the lifetime of the map

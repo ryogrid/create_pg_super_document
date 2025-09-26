@@ -28,7 +28,7 @@ This function performs a specialized optimization for rightmost pages in B-tree 
   - PageHeader (for page header access)
   - [ItemIdData](../I/ItemIdData.md) (for size calculation when adjusting pd_lower)
 - Called from (representative examples):
-  - _bt_uppershutdown
+  - [_bt_uppershutdown](_bt_uppershutdown.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the nbtsort.c compilation unit

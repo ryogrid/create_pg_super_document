@@ -31,14 +31,14 @@ The function returns standard qsort comparison values:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ItemPointerGetBlockNumber
-  - ItemPointerGetOffsetNumber
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)
+  - [ItemPointerGetOffsetNumber](../I/ItemPointerGetOffsetNumber.md)
 - Types used:
-  - ItemPointerData
+  - [ItemPointerData](../I/ItemPointerData.md)
   - BlockNumber  
   - OffsetNumber
 - Called from:
-  - TidListEval (used with qsort and qunique functions)
+  - [TidListEval](../T/TidListEval.md) (used with qsort and qunique functions)
 
 ## Notes and Other Information
 - This is a static function, only accessible within nodeTidscan.c

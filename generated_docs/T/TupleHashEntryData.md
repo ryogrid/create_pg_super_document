@@ -34,7 +34,7 @@ This structure is particularly important in aggregation operations where multipl
 - Functions called/Symbols referenced:
   - MinimalTuple (tuple representation)
 - Called from (representative examples):
-  - BuildTupleHashTableExt (src/backend/executor/execGrouping.c:166)
+  - [BuildTupleHashTableExt](../B/BuildTupleHashTableExt.md) (src/backend/executor/execGrouping.c:166)
   - [LookupTupleHashEntry_internal](../L/LookupTupleHashEntry_internal.md) (src/backend/executor/execGrouping.c:497)
   - [hash_agg_entry_size](../h/hash_agg_entry_size.md) (src/backend/executor/nodeAgg.c:1716)
   - [setop_fill_hash_table](../s/setop_fill_hash_table.md) (src/backend/executor/nodeSetOp.c:367)
@@ -44,6 +44,6 @@ This structure is particularly important in aggregation operations where multipl
 - Used as SH_ELEMENT_TYPE in the underlying hash table implementation, indicating it serves as the element type for the specialized hash table
 - The firstTuple field uses MinimalTuple format for memory efficiency in hash storage scenarios
 - The additional field provides flexibility for different use cases: in aggregation it points to aggregate state, in set operations it may be NULL or point to duplicate tracking information
-- Hash value caching significantly improves performance during hash table resizing and repeated lookups
+- [Hash](../H/Hash.md) value caching significantly improves performance during hash table resizing and repeated lookups
 - Status field management is crucial for proper hash table entry lifecycle and memory management
 - Memory layout is optimized for cache efficiency during hash table traversals

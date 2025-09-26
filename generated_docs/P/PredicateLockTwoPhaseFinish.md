@@ -24,18 +24,18 @@ The function conservatively assumes that the prepared transaction performed writ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_search: Searches SerializableXidHash for the transaction
-  - LWLockAcquire/LWLockRelease: Manages SerializableXactHashLock for safe hash access
-  - ReleasePredicateLocks: Releases all predicate locks and handles conflicts
+  - [hash_search](../h/hash_search.md): Searches SerializableXidHash for the transaction
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease: Manages SerializableXactHashLock for safe hash access
+  - [ReleasePredicateLocks](../R/ReleasePredicateLocks.md): Releases all predicate locks and handles conflicts
   - HASH_FIND: Hash search operation type for lookup
   - LW_SHARED: Lock mode for shared access to hash table
 - Called from (representative examples):
-  - FinishPreparedTransaction: During completion of prepared transactions
+  - [FinishPreparedTransaction](../F/FinishPreparedTransaction.md): During completion of prepared transactions
 
 ## Notes and Other Information
 - Returns early if the transaction ID is not found in SerializableXidHash (not a serializable transaction)
 - Uses shared lock on SerializableXactHashLock since it only needs to read the hash table
 - Conservatively sets MyXactDidWrite = true to ensure proper conflict handling regardless of actual write status
 - The temporary setting of MySerializableXact allows ReleasePredicateLocks to operate on the correct transaction context
-- This function handles both commit and abort cases - ReleasePredicateLocks handles the different behaviors based on the isCommit parameter
+- This function handles both commit and abort cases - [ReleasePredicateLocks](../R/ReleasePredicateLocks.md) handles the different behaviors based on the isCommit parameter
 - Critical for maintaining serializable isolation guarantees across two-phase commit boundaries

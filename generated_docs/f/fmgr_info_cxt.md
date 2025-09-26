@@ -30,7 +30,7 @@ Like fmgr_info, this function is a wrapper around fmgr_info_cxt_security, but it
   - [CatalogCacheInitializeCache](../C/CatalogCacheInitializeCache.md) (during catalog cache setup)
   - [array_in](../a/array_in.md), array_out, array_recv, array_send (for array type I/O functions)
   - Various procedural language handlers (plperl, plpython, pltcl)
-  - Sort support and comparison function setup
+  - [Sort](../S/Sort.md) support and comparison function setup
   - BRIN index strategy functions
 
 ## Notes and Other Information

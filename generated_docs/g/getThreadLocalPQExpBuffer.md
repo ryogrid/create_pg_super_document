@@ -36,7 +36,7 @@ This function takes no parameters (void).
   - TlsGetValue (Windows API - for retrieving thread-local values)
   - TlsSetValue (Windows API - for setting thread-local values)
   - [resetPQExpBuffer](../r/resetPQExpBuffer.md) (PostgreSQL libpq function)
-  - createPQExpBuffer (PostgreSQL libpq function)
+  - [createPQExpBuffer](../c/createPQExpBuffer.md) (PostgreSQL libpq function)
 
 - Called from (representative examples):
   - [ParallelBackupStart](../P/ParallelBackupStart.md) (in src/bin/pg_dump/parallel.c:921)

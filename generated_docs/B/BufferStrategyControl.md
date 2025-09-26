@@ -56,13 +56,13 @@ All access to this structure must be protected by the buffer_strategy_lock spinl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slock_t (spinlock type)
-  - pg_atomic_uint32 (atomic integer type)
+  - [slock_t](../s/slock_t.md) (spinlock type)
+  - [pg_atomic_uint32](../p/pg_atomic_uint32.md) (atomic integer type)
   - uint32 (standard integer type)
 
 - Called from (representative examples):
-  - StrategyShmemSize (calculates shared memory requirements)
-  - StrategyInitialize (initializes the structure in shared memory)
+  - [StrategyShmemSize](../S/StrategyShmemSize.md) (calculates shared memory requirements)
+  - [StrategyInitialize](../S/StrategyInitialize.md) (initializes the structure in shared memory)
 
 ## Notes and Other Information
 - This structure is allocated in shared memory using ShmemInitStruct with the name "Buffer Strategy Status"

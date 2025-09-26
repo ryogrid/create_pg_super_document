@@ -40,7 +40,7 @@ If no support function is available, the function falls back to PostgreSQL's his
 - Functions called/Symbols referenced:
   - [get_func_support](../g/get_func_support.md)
   - OidFunctionCall1
-  - SupportRequestSelectivity
+  - [SupportRequestSelectivity](../S/SupportRequestSelectivity.md)
   - JoinType
   - [SpecialJoinInfo](../S/SpecialJoinInfo.md)
   - RegProcedure

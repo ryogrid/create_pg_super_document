@@ -28,13 +28,13 @@ The function builds a primary_conninfo string by iterating through the connectio
   - [PQserverVersion](../P/PQserverVersion.md)
   - [PQconninfo](../P/PQconninfo.md)
   - [PQconninfoFree](../P/PQconninfoFree.md)
-  - createPQExpBuffer
-  - initPQExpBuffer
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)
+  - [initPQExpBuffer](../i/initPQExpBuffer.md)
   - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
-  - appendPQExpBufferChar
+  - [appendPQExpBufferChar](../a/appendPQExpBufferChar.md)
   - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
   - [appendConnStrVal](../a/appendConnStrVal.md)
-  - termPQExpBuffer
+  - [termPQExpBuffer](../t/termPQExpBuffer.md)
   - PQExpBufferDataBroken
   - PQExpBufferBroken
   - [escape_quotes](../e/escape_quotes.md)

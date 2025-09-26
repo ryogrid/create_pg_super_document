@@ -28,7 +28,7 @@ The function is part of PostgreSQL's index tuple interface routines and provides
 - Called from (representative examples):
   - [index_truncate_tuple](index_truncate_tuple.md) (src/backend/access/common/indextuple.c:597)
   - [GinFormTuple](../G/GinFormTuple.md) (src/backend/access/gin/ginentrypage.c:68)
-  - gistFormTuple (src/backend/access/gist/gistutil.c:582)
+  - [gistFormTuple](../g/gistFormTuple.md) (src/backend/access/gist/gistutil.c:582)
   - [hashbuildCallback](../h/hashbuildCallback.md) (src/backend/access/hash/hash.c:234)
   - [hashinsert](../h/hashinsert.md) (src/backend/access/hash/hash.c:268)
   - [btinsert](../b/btinsert.md) (src/backend/access/nbtree/nbtree.c:192)

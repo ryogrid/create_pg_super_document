@@ -22,9 +22,9 @@ The function provides flexibility in error handling through the missing_ok param
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_option
+  - [find_option](../f/find_option.md)
 - Data structures used:
-  - config_generic
+  - [config_generic](../c/config_generic.md)
 - Called from (representative examples):
   - [PostmasterMain](../P/PostmasterMain.md)
   - [pg_get_functiondef](../p/pg_get_functiondef.md)

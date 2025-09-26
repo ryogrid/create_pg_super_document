@@ -31,7 +31,7 @@ The function enforces strict non-NULL semantics - neither the argument nor the r
   - elog (for error reporting)
 - Called from (representative examples):
   - [Generic_Text_IC_like](../G/Generic_Text_IC_like.md)
-  - texthashfast
+  - [texthashfast](../t/texthashfast.md)
   - [libpqrcv_create_slot](../l/libpqrcv_create_slot.md)
   - DirectFunctionCall1 (macro wrapper)
 

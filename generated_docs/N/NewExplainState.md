@@ -20,9 +20,9 @@ NewExplainState is a constructor function that allocates and initializes an Expl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExplainState (struct type)
+  - [ExplainState](../E/ExplainState.md) (struct type)
   - [palloc0](../p/palloc0.md)
-  - makeStringInfo
+  - [makeStringInfo](../m/makeStringInfo.md)
 - Called from (representative examples):
   - [ExplainQuery](../E/ExplainQuery.md)
 

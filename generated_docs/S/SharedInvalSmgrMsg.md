@@ -28,11 +28,11 @@ The structure supports invalidation of both regular relations and temporary rela
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelFileLocator (structure for identifying relation files)
+  - [RelFileLocator](../R/RelFileLocator.md) (structure for identifying relation files)
   - int8, uint16 (PostgreSQL integer types)
   - SHAREDINVALSMGR_ID (constant defined as -3)
 - Called from (representative examples):
-  - SharedInvalidationMessage (union containing this structure)
+  - [SharedInvalidationMessage](SharedInvalidationMessage.md) (union containing this structure)
   - Storage manager invalidation functions in the sinval subsystem
 
 ## Notes and Other Information

@@ -25,16 +25,16 @@ The mapping process involves attaching to the DSM segment using its handle, calc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dsm_attach
-  - dsm_segment_address
+  - [dsm_attach](../d/dsm_attach.md)
+  - [dsm_segment_address](../d/dsm_segment_address.md)
   - elog
 - Called from (representative examples):
-  - dsa_free
-  - dsa_get_address
-  - dsa_dump
-  - destroy_superblock
-  - get_best_segment
-  - make_new_segment
+  - [dsa_free](../d/dsa_free.md)
+  - [dsa_get_address](../d/dsa_get_address.md)
+  - [dsa_dump](../d/dsa_dump.md)
+  - [destroy_superblock](../d/destroy_superblock.md)
+  - [get_best_segment](get_best_segment.md)
+  - [make_new_segment](../m/make_new_segment.md)
 
 ## Notes and Other Information
 The function handles resource ownership temporarily switching to the area's resource owner during DSM attachment to ensure proper cleanup. It maintains the invariant that mapped segments are never freed, as indicated by the final assertion. The lazy mapping approach optimizes memory usage by only mapping segments that are actually accessed by each backend process.

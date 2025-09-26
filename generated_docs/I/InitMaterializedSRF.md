@@ -33,10 +33,10 @@ The function includes comprehensive error handling to ensure that set-returning 
   - [CreateTupleDescCopy](../C/CreateTupleDescCopy.md)
   - [get_call_result_type](../g/get_call_result_type.md)
   - [BlessTupleDesc](../B/BlessTupleDesc.md)
-  - tuplestore_begin_heap
+  - [tuplestore_begin_heap](../t/tuplestore_begin_heap.md)
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
 - Types referenced:
-  - ReturnSetInfo
+  - [ReturnSetInfo](../R/ReturnSetInfo.md)
   - TuplestoreState
   - bits32
   - [FunctionCallInfo](../F/FunctionCallInfo.md)

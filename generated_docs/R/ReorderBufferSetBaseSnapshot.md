@@ -26,18 +26,18 @@ Once the base snapshot is established, the transaction is added to the reorder b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReorderBufferTXNByXid
+  - [ReorderBufferTXNByXid](ReorderBufferTXNByXid.md)
   - rbtxn_is_known_subxact
-  - dlist_push_tail
-  - AssertTXNLsnOrder
+  - [dlist_push_tail](../d/dlist_push_tail.md)
+  - [AssertTXNLsnOrder](../A/AssertTXNLsnOrder.md)
 - Called from (representative examples):
-  - SnapBuildProcessChange
-  - SnapBuildCommitTxn
+  - [SnapBuildProcessChange](../S/SnapBuildProcessChange.md)
+  - [SnapBuildCommitTxn](../S/SnapBuildCommitTxn.md)
 
 ## Notes and Other Information
 - The function asserts that the provided snapshot is not NULL
 - Subtransactions are automatically redirected to their top-level transaction
 - The function ensures that no transaction already has a base snapshot set (asserts txn->base_snapshot == NULL)
 - The transaction is added to rb->txns_by_base_snapshot_lsn list to maintain LSN ordering
-- AssertTXNLsnOrder is called to verify the ordering invariants are maintained
+- [AssertTXNLsnOrder](../A/AssertTXNLsnOrder.md) is called to verify the ordering invariants are maintained
 - The base snapshot LSN is stored alongside the snapshot for future reference

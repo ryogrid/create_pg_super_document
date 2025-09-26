@@ -35,14 +35,14 @@ This function takes no parameters.
   - dlist_foreach
   - dlist_container
   - [shm_mq_receive](../s/shm_mq_receive.md)
-  - initStringInfo
-  - appendBinaryStringInfo
+  - [initStringInfo](../i/initStringInfo.md)
+  - [appendBinaryStringInfo](../a/appendBinaryStringInfo.md)
   - [HandleParallelMessage](HandleParallelMessage.md)
   - [pfree](../p/pfree.md)
   - ereport
 
 - Called from (representative examples):
-  - ProcessInterrupts
+  - [ProcessInterrupts](../P/ProcessInterrupts.md)
   - IsParallelWorker (referenced in header)
 
 ## Notes and Other Information

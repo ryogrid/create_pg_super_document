@@ -32,13 +32,13 @@ The linked list structure allows for efficient addition and removal of callbacks
 - Functions called/Symbols referenced:
   - ResourceReleaseCallback (function pointer type: `void (*)(ResourceReleasePhase, bool, bool, void*)`)
 - Called from (representative examples):
-  - ResourceOwnerReleaseInternal (during callback invocation)
-  - RegisterResourceReleaseCallback (for adding new callbacks)
-  - UnregisterResourceReleaseCallback (for removing callbacks)
+  - [ResourceOwnerReleaseInternal](ResourceOwnerReleaseInternal.md) (during callback invocation)
+  - [RegisterResourceReleaseCallback](RegisterResourceReleaseCallback.md) (for adding new callbacks)
+  - [UnregisterResourceReleaseCallback](../U/UnregisterResourceReleaseCallback.md) (for removing callbacks)
 
 ## Notes and Other Information
 - ResourceReleaseCallback signature: `void (*ResourceReleaseCallback)(ResourceReleasePhase phase, bool isCommit, bool isTopLevel, void *arg)`
-- ResourceReleasePhase has three values: RESOURCE_RELEASE_BEFORE_LOCKS, RESOURCE_RELEASE_LOCKS, RESOURCE_RELEASE_AFTER_LOCKS
+- [ResourceReleasePhase](ResourceReleasePhase.md) has three values: RESOURCE_RELEASE_BEFORE_LOCKS, RESOURCE_RELEASE_LOCKS, RESOURCE_RELEASE_AFTER_LOCKS
 - Callbacks are invoked during resource cleanup phases to give modules control over their cleanup ordering
 - The linked list approach provides O(1) insertion but O(n) removal, suitable for the typical use pattern
 - Callback functions must not fail as they are called during cleanup operations (post-commit or post-abort)

@@ -32,8 +32,8 @@ CreateAmStmt is a parse tree node that captures the components of a CREATE ACCES
   - AMTYPE_INDEX, AMTYPE_TABLE (access method type constants)
   - NodeTag (for type identification)
 - Called from (representative examples):
-  - CreateAccessMethod (in src/backend/commands/amcmds.c:43)
-  - ProcessUtilitySlow (in src/backend/tcop/utility.c:1839)
+  - [CreateAccessMethod](CreateAccessMethod.md) (in src/backend/commands/amcmds.c:43)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (in src/backend/tcop/utility.c:1839)
 
 ## Notes and Other Information
 - Part of PostgreSQL's extensible access method system

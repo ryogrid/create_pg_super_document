@@ -33,12 +33,12 @@ The buffer is used throughout the JSONB GIN extraction process, collecting entri
   - Datum (PostgreSQL's generic data type)
   - Memory allocation functions (palloc, repalloc)
 - Called from (representative examples):
-  - init_gin_entries (initialization)
-  - add_gin_entry (adding entries)
-  - gin_extract_jsonb (main extraction function)
-  - gin_extract_jsonb_path (path-based extraction)
-  - emit_jsp_gin_entries (JSON path query processing)
-  - extract_jsp_query (query extraction)
+  - [init_gin_entries](../i/init_gin_entries.md) (initialization)
+  - [add_gin_entry](../a/add_gin_entry.md) (adding entries)
+  - [gin_extract_jsonb](../g/gin_extract_jsonb.md) (main extraction function)
+  - [gin_extract_jsonb_path](../g/gin_extract_jsonb_path.md) (path-based extraction)
+  - [emit_jsp_gin_entries](../e/emit_jsp_gin_entries.md) (JSON path query processing)
+  - [extract_jsp_query](../e/extract_jsp_query.md) (query extraction)
 
 ## Notes and Other Information
 - Initial allocation can be specified during initialization, with 0 meaning no pre-allocation

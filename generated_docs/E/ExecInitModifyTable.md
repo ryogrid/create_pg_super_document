@@ -44,14 +44,14 @@ The function performs several key initialization phases:
   - [ExecBuildProjectionInfo](ExecBuildProjectionInfo.md)
   - [ExecBuildUpdateProjection](ExecBuildUpdateProjection.md)
   - [ExecInitQual](ExecInitQual.md)
-  - ExecFindJunkAttributeInTlist
+  - [ExecFindJunkAttributeInTlist](ExecFindJunkAttributeInTlist.md)
   - [CheckValidResultRel](../C/CheckValidResultRel.md)
   - [ExecInitMerge](ExecInitMerge.md)
 - Data structures used:
   - [ModifyTableState](../M/ModifyTableState.md)
   - [ResultRelInfo](../R/ResultRelInfo.md)
   - [OnConflictSetState](../O/OnConflictSetState.md)
-  - PlanRowMark
+  - [PlanRowMark](../P/PlanRowMark.md)
   - [ExecRowMark](ExecRowMark.md)
   - [ExecAuxRowMark](ExecAuxRowMark.md)
 - Called from:

@@ -32,7 +32,7 @@ Like its counterpart function, it includes an early optimization check for the e
   - find_dependent_phvs_context (context structure for walker)
   - [bms_make_singleton](../b/bms_make_singleton.md) (creates singleton bitmap set)
   - [find_dependent_phvs_walker](find_dependent_phvs_walker.md) (performs actual PHV dependency checking)
-  - get_relids_in_jointree (extracts relation IDs from jointree fragment)
+  - [get_relids_in_jointree](../g/get_relids_in_jointree.md) (extracts relation IDs from jointree fragment)
   - [bms_next_member](../b/bms_next_member.md) (iterates through bitmap set members)
   - rt_fetch (retrieves range table entry by ID)
   - range_table_entry_walker (traverses RTE structure)

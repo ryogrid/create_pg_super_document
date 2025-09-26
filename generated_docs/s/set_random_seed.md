@@ -24,7 +24,7 @@ This function sets up the random seed for pgbench's pseudo-random number generat
   - [pg_strong_random](../p/pg_strong_random.md) (for strong random seeding)
   - pg_log_error_detail (for detailed error messages)
   - pg_log_info (for logging seed information)
-  - pg_prng_seed (for initializing the base random sequence)
+  - [pg_prng_seed](../p/pg_prng_seed.md) (for initializing the base random sequence)
 - Called from (representative examples):
   - [main](../m/main.md) (in pgbench.c at lines 6770 and 6989)
 

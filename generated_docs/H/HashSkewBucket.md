@@ -28,12 +28,12 @@ The design focuses on optimizing for the outer relation's distribution because: 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HashJoinTuple (for storing the linked list of matching tuples)
+  - [HashJoinTuple](HashJoinTuple.md) (for storing the linked list of matching tuples)
 - Called from (representative examples):
-  - ExecChooseHashTableSize (for memory size calculations)
-  - ExecHashBuildSkewHash (for constructing and populating skew buckets)
-  - ExecHashRemoveNextSkewBucket (for removing processed buckets)
-  - ExecHashTableResetMatchFlags (for resetting match status)
+  - [ExecChooseHashTableSize](../E/ExecChooseHashTableSize.md) (for memory size calculations)
+  - [ExecHashBuildSkewHash](../E/ExecHashBuildSkewHash.md) (for constructing and populating skew buckets)
+  - [ExecHashRemoveNextSkewBucket](../E/ExecHashRemoveNextSkewBucket.md) (for removing processed buckets)
+  - [ExecHashTableResetMatchFlags](../E/ExecHashTableResetMatchFlags.md) (for resetting match status)
   - SKEW_BUCKET_OVERHEAD (macro for calculating memory overhead)
   - HashJoinTableData (container structure managing collections of skew buckets)
 

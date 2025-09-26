@@ -23,7 +23,7 @@ This function provides an extended interface for retrieving PostgreSQL rewrite r
 - Functions called/Symbols referenced:
   - [pg_get_ruledef_worker](pg_get_ruledef_worker.md) - Core worker function that generates the rule definition
   - `GET_PRETTY_FLAGS` - Macro to convert boolean to appropriate formatting flags
-  - `string_to_text` - Converts C string to PostgreSQL text type
+  - `[string_to_text](../s/string_to_text.md)` - Converts C string to PostgreSQL text type
   - `PG_RETURN_TEXT_P` - Macro for returning text result
 - Called from (representative examples):
   - No direct callers found in the analyzed codebase (likely called via SQL function interface)

@@ -25,7 +25,7 @@ The calculated size is cached in the expanded array header for future calls, mak
 ## Dependencies
 - Functions called/Symbols referenced:
   - ARR_SIZE
-  - ArrayGetNItems
+  - [ArrayGetNItems](../A/ArrayGetNItems.md)
   - att_addlength_datum
   - att_align_nominal
   - AllocSizeIsValid

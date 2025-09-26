@@ -36,7 +36,7 @@ Key characteristics:
   - [systable_beginscan](../s/systable_beginscan.md)/systable_endscan/systable_getnext
   - [heap_getattr](../h/heap_getattr.md)
   - DatumGetArrayTypeP
-  - ProcessGUCArray
+  - [ProcessGUCArray](../P/ProcessGUCArray.md)
   - PGC_SUSET (privilege level)
   - GUC_ACTION_SET (action type)
 - Called from (representative examples):

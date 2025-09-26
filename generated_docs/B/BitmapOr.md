@@ -32,10 +32,10 @@ The node supports parallel execution through the isshared flag, allowing multipl
 - Functions called/Symbols referenced:
   - (No direct symbol references from this struct)
 - Called from (representative examples):
-  - ExecInitBitmapOr
-  - MultiExecBitmapOr
-  - make_bitmap_or
-  - bitmap_subplan_mark_shared
+  - [ExecInitBitmapOr](../E/ExecInitBitmapOr.md)
+  - [MultiExecBitmapOr](../M/MultiExecBitmapOr.md)
+  - [make_bitmap_or](../m/make_bitmap_or.md)
+  - [bitmap_subplan_mark_shared](../b/bitmap_subplan_mark_shared.md)
 
 ## Notes and Other Information
 - Part of PostgreSQL's bitmap index scan optimization strategy

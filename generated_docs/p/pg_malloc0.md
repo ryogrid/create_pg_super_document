@@ -22,17 +22,17 @@ This function is the PostgreSQL equivalent of the standard C library calloc(1, s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_malloc_internal (with MCXT_ALLOC_ZERO flag)
+  - [pg_malloc_internal](pg_malloc_internal.md) (with MCXT_ALLOC_ZERO flag)
 - Called from (representative examples):
-  - compile_database_list (pg_amcheck)
-  - StartLogStreamer (pg_basebackup)
-  - GetConnection (streamutil)
-  - load_backup_manifest (pg_combinebackup)
-  - AllocateCompressor (compress_io)
-  - NewRestoreOptions (pg_backup_archiver)
-  - setup_connection (pg_dump)
-  - parallel_exec_prog (pg_upgrade)
-  - printTableInit (fe_utils)
+  - [compile_database_list](../c/compile_database_list.md) (pg_amcheck)
+  - [StartLogStreamer](../S/StartLogStreamer.md) (pg_basebackup)
+  - [GetConnection](../G/GetConnection.md) (streamutil)
+  - [load_backup_manifest](../l/load_backup_manifest.md) (pg_combinebackup)
+  - [AllocateCompressor](../A/AllocateCompressor.md) (compress_io)
+  - [NewRestoreOptions](../N/NewRestoreOptions.md) (pg_backup_archiver)
+  - [setup_connection](../s/setup_connection.md) (pg_dump)
+  - [parallel_exec_prog](parallel_exec_prog.md) (pg_upgrade)
+  - [printTableInit](printTableInit.md) (fe_utils)
 
 ## Notes and Other Information
 - Provides zero-initialized memory, equivalent to calloc(1, size) but with PostgreSQL's error handling

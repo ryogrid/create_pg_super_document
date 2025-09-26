@@ -32,12 +32,12 @@ Key behaviors:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_pwritev: Underlying vectored positional write function
-  - compute_remaining_iovec: Helper to calculate remaining data after partial writes
+  - [pg_pwritev](pg_pwritev.md): Underlying vectored positional write function
+  - [compute_remaining_iovec](../c/compute_remaining_iovec.md): Helper to calculate remaining data after partial writes
   - PG_IOV_MAX: Maximum number of iovec entries that can be safely handled
-  - iovec: Standard vectored I/O structure
+  - [iovec](../i/iovec.md): Standard vectored I/O structure
 - Called from (representative examples):
-  - pg_pwrite_zeros: Uses this function for writing zero-filled blocks
+  - [pg_pwrite_zeros](pg_pwrite_zeros.md): Uses this function for writing zero-filled blocks
 
 ## Notes and Other Information
 - The function validates that iovcnt does not exceed PG_IOV_MAX to ensure safe stack allocation

@@ -26,7 +26,7 @@ The function intentionally uses a non-durable rename operation to avoid extra I/
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `StatusFilePath`: Constructs file paths for status files (both `.ready` and `.done`)
+  - `[StatusFilePath](../S/StatusFilePath.md)`: Constructs file paths for status files (both `.ready` and `.done`)
   - `rename`: Standard C library function for file renaming
   - `ereport`: PostgreSQL error reporting mechanism (for warning on rename failure)
   - [errcode_for_file_access](../e/errcode_for_file_access.md): Provides appropriate error code for file operations

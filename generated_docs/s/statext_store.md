@@ -69,8 +69,8 @@ The function implements a "delete-then-insert" strategy rather than update-or-in
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MVNDistinct](../M/MVNDistinct.md), MVDependencies, MCVList (statistics data structures)
-  - statext_ndistinct_serialize, statext_dependencies_serialize, statext_mcv_serialize (serialization functions)
-  - table_open, table_close (catalog access)
+  - [statext_ndistinct_serialize](statext_ndistinct_serialize.md), statext_dependencies_serialize, statext_mcv_serialize (serialization functions)
+  - [table_open](../t/table_open.md), table_close (catalog access)
   - [RemoveStatisticsDataById](../R/RemoveStatisticsDataById.md) (existing data cleanup)
   - [heap_form_tuple](../h/heap_form_tuple.md), heap_freetuple (tuple management)
   - [CatalogTupleInsert](../C/CatalogTupleInsert.md) (catalog insertion)

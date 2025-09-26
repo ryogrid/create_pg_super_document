@@ -26,7 +26,7 @@ The function extracts the relation OID from the relation structure and determine
   - RelationGetRelid (macro)
   - [RegisterRelcacheInvalidation](../R/RegisterRelcacheInvalidation.md)
 - Called from (representative examples):
-  - index_create
+  - [index_create](../i/index_create.md)
   - [index_drop](../i/index_drop.md)
   - [SetRelationNumChecks](../S/SetRelationNumChecks.md)
   - [RemoveTriggerById](../R/RemoveTriggerById.md)

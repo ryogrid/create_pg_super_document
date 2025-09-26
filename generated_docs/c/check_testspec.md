@@ -29,7 +29,7 @@ The function serves as a critical validation phase that ensures the test specifi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_malloc (memory allocation)
+  - [pg_malloc](../p/pg_malloc.md) (memory allocation)
   - qsort (sorting step array)
   - [step_qsort_cmp](../s/step_qsort_cmp.md) (comparison function for sorting steps)
   - bsearch (binary search for step lookup)

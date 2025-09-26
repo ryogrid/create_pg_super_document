@@ -35,7 +35,7 @@ MemoryContextCallback is a structure that implements a callback mechanism for me
   - Self-referential (next pointer to same struct type)
 - Called from (representative examples):
   - [MemoryContextRegisterResetCallback](MemoryContextRegisterResetCallback.md) (callback registration)
-  - MemoryContextCallResetCallbacks (callback execution)
+  - [MemoryContextCallResetCallbacks](MemoryContextCallResetCallbacks.md) (callback execution)
   - [pgoutput_startup](../p/pgoutput_startup.md) (replication system usage)
   - Various subsystems for cleanup operations
 

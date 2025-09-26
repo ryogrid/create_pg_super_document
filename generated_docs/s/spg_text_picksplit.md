@@ -27,7 +27,7 @@ This function implements the core partitioning logic for SP-GiST (Space-Partitio
   - [formTextDatum](../f/formTextDatum.md) (creates text datum from raw data)
   - [cmpNodePtr](../c/cmpNodePtr.md) (comparator for sorting node pointers)
   - qsort (standard library sorting function)
-  - Int16GetDatum (converts int16 to Datum)
+  - [Int16GetDatum](../I/Int16GetDatum.md) (converts int16 to Datum)
 - Called from (representative examples):
   - SP-GiST framework during index splits (no direct references found)
 

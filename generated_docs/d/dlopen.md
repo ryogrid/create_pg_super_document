@@ -22,9 +22,9 @@ The `dlopen` function is PostgreSQL's Windows implementation of the standard POS
 - Functions called/Symbols referenced:
   - `SetErrorMode()` (Windows API)
   - `LoadLibrary()` (Windows API)
-  - `set_dl_error` at Line 88
+  - `[set_dl_error](../s/set_dl_error.md)` at Line 88
 - Called from (representative examples):
-  - `internal_load_library` at src/backend/utils/fmgr/dfmgr.c:239
+  - `[internal_load_library](../i/internal_load_library.md)` at src/backend/utils/fmgr/dfmgr.c:239
 
 ## Notes and Other Information
 - This is a Windows-specific implementation that provides POSIX `dlopen()` compatibility

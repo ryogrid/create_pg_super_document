@@ -29,13 +29,13 @@ The function is particularly useful in parallel query execution and other scenar
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwnerEnlarge (ensures resource tracking capacity)
-  - PathNameOpenFile (performs actual file opening)
-  - RegisterTemporaryFile (registers for automatic cleanup)
+  - [ResourceOwnerEnlarge](../R/ResourceOwnerEnlarge.md) (ensures resource tracking capacity)
+  - [PathNameOpenFile](PathNameOpenFile.md) (performs actual file opening)
+  - [RegisterTemporaryFile](../R/RegisterTemporaryFile.md) (registers for automatic cleanup)
   - PG_BINARY (binary file mode constant)
 
 - Called from (representative examples):
-  - FileSetOpen (opens shared temp files in filesets)
+  - [FileSetOpen](../F/FileSetOpen.md) (opens shared temp files in filesets)
 
 ## Notes and Other Information
 - The function specifically does NOT raise an error if the file doesn't exist (ENOENT), returning an invalid file handle instead

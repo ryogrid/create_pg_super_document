@@ -23,7 +23,7 @@ This static function implements lexicographic ordering comparison for JsonbValue
 - Functions called/Symbols referenced:
   - [varstr_cmp](../v/varstr_cmp.md) (for string comparison with collation)
   - DirectFunctionCall2 (for calling numeric_cmp)
-  - numeric_cmp (for numeric comparison)
+  - [numeric_cmp](../n/numeric_cmp.md) (for numeric comparison)
   - [PointerGetDatum](../P/PointerGetDatum.md) (for datum conversion)
   - [DatumGetInt32](../D/DatumGetInt32.md) (for integer result conversion)
   - DEFAULT_COLLATION_OID (collation constant)

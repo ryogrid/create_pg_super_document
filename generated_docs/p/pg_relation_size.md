@@ -26,7 +26,7 @@ The function handles different relation forks (main data, free space map, visibi
 - Functions called/Symbols referenced:
   - [try_relation_open](../t/try_relation_open.md)
   - [calculate_relation_size](../c/calculate_relation_size.md)
-  - text_to_cstring
+  - [text_to_cstring](../t/text_to_cstring.md)
   - [forkname_to_number](../f/forkname_to_number.md)
   - [relation_close](../r/relation_close.md)
   - PG_GETARG_OID
@@ -40,7 +40,7 @@ The function handles different relation forks (main data, free space map, visibi
 - Functions called/Symbols referenced:
   - [try_relation_open](../t/try_relation_open.md)
   - [calculate_relation_size](../c/calculate_relation_size.md)
-  - text_to_cstring
+  - [text_to_cstring](../t/text_to_cstring.md)
   - [forkname_to_number](../f/forkname_to_number.md)
   - [relation_close](../r/relation_close.md)
   - PG_GETARG_OID

@@ -27,9 +27,9 @@ The function includes special handling for infinite dates using DATE_NOT_FINITE 
   - RangeTypeGetOid
   - [range_deserialize](../r/range_deserialize.md)
   - DATE_NOT_FINITE
-  - DatumGetDateADT
+  - [DatumGetDateADT](../D/DatumGetDateADT.md)
   - IS_VALID_DATE
-  - DateADTGetDatum
+  - [DateADTGetDatum](../D/DateADTGetDatum.md)
   - [range_serialize](../r/range_serialize.md)
   - PG_RETURN_RANGE_P
   - ereturn (for error handling)

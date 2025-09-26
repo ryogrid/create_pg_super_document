@@ -26,7 +26,7 @@ The function operates in two main phases: state initialization (first call) wher
   - [JsonbInState](../J/JsonbInState.md), JsonbAggState, JsonbIterator, Jsonb
   - [AggCheckCallContext](../A/AggCheckCallContext.md), MemoryContextSwitchTo
   - [pushJsonbValue](../p/pushJsonbValue.md), JsonbIteratorInit, JsonbIteratorNext
-  - datum_to_jsonb_internal, JsonbValueToJsonb
+  - [datum_to_jsonb_internal](../d/datum_to_jsonb_internal.md), JsonbValueToJsonb
   - [get_fn_expr_argtype](../g/get_fn_expr_argtype.md), json_categorize_type
   - WJB_BEGIN_OBJECT, WJB_KEY, WJB_VALUE, WJB_END_ARRAY, etc.
 - Called from (representative examples):

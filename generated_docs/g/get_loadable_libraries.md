@@ -19,7 +19,7 @@ This function systematically collects library names from all databases in the ol
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_malloc (memory allocation)
+  - [pg_malloc](../p/pg_malloc.md) (memory allocation)
   - [connectToServer](../c/connectToServer.md) (database connection)
   - [executeQueryOrDie](../e/executeQueryOrDie.md) (SQL query execution)
   - [count_old_cluster_logical_slots](../c/count_old_cluster_logical_slots.md) (logical slot counting)

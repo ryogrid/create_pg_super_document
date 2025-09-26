@@ -43,5 +43,5 @@ This function is essential for monitoring replication performance and providing 
 - The latestWalEndTime is only updated when walEnd advances beyond the current latestWalEnd
 - Debug logging includes both apply delay and transfer latency metrics when available
 - Apply delay may not be available in all circumstances (returned as -1)
-- String duplication is necessary because timestamptz_to_str returns a static buffer
+- [String](../S/String.md) duplication is necessary because timestamptz_to_str returns a static buffer
 - This function is called for each message received from the primary during active replication

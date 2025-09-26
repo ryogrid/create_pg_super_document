@@ -29,10 +29,10 @@ The function examines the opclass (operator class) associated with the specified
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_index_column_opclass
-  - get_opclass_opfamily_and_input_type
+  - [get_index_column_opclass](get_index_column_opclass.md)
+  - [get_opclass_opfamily_and_input_type](get_opclass_opfamily_and_input_type.md)
   - SearchSysCacheExists4
-  - Int16GetDatum
+  - [Int16GetDatum](../I/Int16GetDatum.md)
 - Constants used:
   - AMPROP_DISTANCE_ORDERABLE
   - AMPROP_RETURNABLE
@@ -40,7 +40,7 @@ The function examines the opclass (operator class) associated with the specified
   - GIST_FETCH_PROC
   - GIST_COMPRESS_PROC
 - Called from:
-  - gisthandler (as part of the GiST access method interface)
+  - [gisthandler](gisthandler.md) (as part of the GiST access method interface)
 
 ## Notes and Other Information
 - Only handles column-level inquiries (attno > 0); returns false for index-level queries

@@ -31,15 +31,15 @@ The function validates parameters, normalizes tablespace settings, and delegates
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RelationBuildLocalRelation](../R/RelationBuildLocalRelation.md) (builds in-memory relation structure)
-  - table_relation_set_new_filelocator (creates table storage)
+  - [table_relation_set_new_filelocator](../t/table_relation_set_new_filelocator.md) (creates table storage)
   - [RelationCreateStorage](../R/RelationCreateStorage.md) (creates generic storage)
   - [recordDependencyOnTablespace](../r/recordDependencyOnTablespace.md) (records tablespace dependencies)
-  - pgstat_create_relation (initializes statistics)
+  - [pgstat_create_relation](../p/pgstat_create_relation.md) (initializes statistics)
   - [IsCatalogNamespace](../I/IsCatalogNamespace.md), IsToastNamespace (namespace validation)
   - [get_namespace_name](../g/get_namespace_name.md) (error reporting)
 - Called from (representative examples):
   - [heap_create_with_catalog](heap_create_with_catalog.md) (in src/backend/catalog/heap.c:1296)
-  - index_create (in src/backend/catalog/index.c:974)
+  - [index_create](../i/index_create.md) (in src/backend/catalog/index.c:974)
 
 ## Notes and Other Information
 - The function requires a valid relid to be provided by the caller (API change from earlier versions)

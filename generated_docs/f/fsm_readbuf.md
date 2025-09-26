@@ -29,22 +29,22 @@ The function employs a careful locking strategy for page initialization to avoid
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fsm_logical_to_physical
-  - RelationGetSmgr
-  - smgrexists
-  - smgrnblocks
-  - fsm_extend
-  - ReadBufferExtended
-  - PageIsNew
-  - PageInit
-  - LockBuffer
-  - BufferGetPage
+  - [fsm_logical_to_physical](fsm_logical_to_physical.md)
+  - [RelationGetSmgr](../R/RelationGetSmgr.md)
+  - [smgrexists](../s/smgrexists.md)
+  - [smgrnblocks](../s/smgrnblocks.md)
+  - [fsm_extend](fsm_extend.md)
+  - [ReadBufferExtended](../R/ReadBufferExtended.md)
+  - [PageIsNew](../P/PageIsNew.md)
+  - [PageInit](../P/PageInit.md)
+  - [LockBuffer](../L/LockBuffer.md)
+  - [BufferGetPage](../B/BufferGetPage.md)
 - Called from (representative examples):
-  - GetRecordedFreeSpace
-  - FreeSpaceMapPrepareTruncateRel
-  - fsm_set_and_search
-  - fsm_search
-  - fsm_vacuum_page
+  - [GetRecordedFreeSpace](../G/GetRecordedFreeSpace.md)
+  - [FreeSpaceMapPrepareTruncateRel](../F/FreeSpaceMapPrepareTruncateRel.md)
+  - [fsm_set_and_search](fsm_set_and_search.md)
+  - [fsm_search](fsm_search.md)
+  - [fsm_vacuum_page](fsm_vacuum_page.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the freespace.c file

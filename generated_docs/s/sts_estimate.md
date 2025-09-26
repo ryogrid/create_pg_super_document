@@ -22,9 +22,9 @@ This function is typically used during parallel query planning to determine how 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SharedTuplestore (struct type)
-  - SharedTuplestoreParticipant (struct type)
-  - SharedTuplestoreAccessor (struct type)
+  - [SharedTuplestore](../S/SharedTuplestore.md) (struct type)
+  - [SharedTuplestoreParticipant](../S/SharedTuplestoreParticipant.md) (struct type)
+  - [SharedTuplestoreAccessor](../S/SharedTuplestoreAccessor.md) (struct type)
 - Called from (representative examples):
   - ParallelHashJoinBatchOuter
   - EstimateParallelHashJoinBatch

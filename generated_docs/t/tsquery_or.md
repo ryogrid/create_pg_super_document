@@ -26,10 +26,10 @@ The `tsquery_or` function is a PostgreSQL built-in function that performs a logi
   - `PG_RETURN_TSQUERY` - Returns TSQuery result
   - [join_tsqueries](../j/join_tsqueries.md) - Helper function to combine queries with operator
   - [QTN2QT](../Q/QTN2QT.md) - Converts query tree node back to TSQuery format
-  - `QTNFree` - Frees query tree node memory
+  - `[QTNFree](../Q/QTNFree.md)` - Frees query tree node memory
   - `OP_OR` - OR operator constant
   - `TSQuery` - Text search query data type
-  - `QTNode` - [Query](../Q/Query.md) tree node structure
+  - `[QTNode](../Q/QTNode.md)` - [Query](../Q/Query.md) tree node structure
 
 - Called from (representative examples):
   - No direct callers found in the analyzed codebase (likely called via SQL operator |)

@@ -25,8 +25,8 @@ The algorithm works by building the permutation incrementally: for each position
 ## Dependencies
 - Functions called/Symbols referenced:
   - [geqo_randint](../g/geqo_randint.md) (generates random integers within specified range)
-  - Gene (type representing individual elements in genetic algorithm)
-  - City (related type used in GEQO context)
+  - [Gene](../G/Gene.md) (type representing individual elements in genetic algorithm)
+  - [City](../C/City.md) (related type used in GEQO context)
 - Called from (representative examples):
   - [random_init_pool](../r/random_init_pool.md) (initializes population pool with random tours)
 

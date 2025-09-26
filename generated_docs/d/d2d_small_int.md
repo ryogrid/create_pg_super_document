@@ -32,9 +32,9 @@ The function handles the edge case properly by using the IEEE mantissa directly 
 - Functions called/Symbols referenced:
   - DOUBLE_BIAS: IEEE 754 double exponent bias constant (1023)
   - DOUBLE_MANTISSA_BITS: Number of mantissa bits in IEEE 754 double (52)
-  - floating_decimal_64: Output structure type
+  - [floating_decimal_64](../f/floating_decimal_64.md): Output structure type
 - Called from (representative examples):
-  - double_to_shortest_decimal_bufn
+  - [double_to_shortest_decimal_bufn](double_to_shortest_decimal_bufn.md)
 
 ## Notes and Other Information
 - The function is marked as `static inline` for performance optimization

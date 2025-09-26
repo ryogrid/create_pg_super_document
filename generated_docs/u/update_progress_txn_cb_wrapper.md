@@ -35,11 +35,11 @@ Key responsibilities include:
   - [ReorderBuffer](../R/ReorderBuffer.md)
   - [ReorderBufferTXN](../R/ReorderBufferTXN.md)
   - [LogicalDecodingContext](../L/LogicalDecodingContext.md)
-  - LogicalErrorCallbackState
-  - output_plugin_error_callback
+  - [LogicalErrorCallbackState](../L/LogicalErrorCallbackState.md)
+  - [output_plugin_error_callback](../o/output_plugin_error_callback.md)
   - [OutputPluginUpdateProgress](../O/OutputPluginUpdateProgress.md)
 - Called from (representative examples):
-  - StartupDecodingContext
+  - [StartupDecodingContext](../S/StartupDecodingContext.md)
 
 ## Notes and Other Information
 - This function is used for progress tracking rather than data output

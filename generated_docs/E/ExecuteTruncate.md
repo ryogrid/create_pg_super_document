@@ -34,13 +34,13 @@ The function supports PostgreSQL's inheritance hierarchy by recursively processi
 - Functions called/Symbols referenced:
   - [RangeVarGetRelidExtended](../R/RangeVarGetRelidExtended.md)
   - [RangeVarCallbackForTruncate](../R/RangeVarCallbackForTruncate.md)
-  - table_open
+  - [table_open](../t/table_open.md)
   - [truncate_check_activity](../t/truncate_check_activity.md)
   - RelationIsLogicallyLogged
   - [find_all_inheritors](../f/find_all_inheritors.md)
   - [truncate_check_rel](../t/truncate_check_rel.md)
   - [ExecuteTruncateGuts](ExecuteTruncateGuts.md)
-  - table_close
+  - [table_close](../t/table_close.md)
 - Called from (representative examples):
   - [standard_ProcessUtility](../s/standard_ProcessUtility.md)
 

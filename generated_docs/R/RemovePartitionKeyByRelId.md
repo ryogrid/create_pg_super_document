@@ -21,13 +21,13 @@ The function performs minimal error checking - if the partition key entry is not
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - elog
   - [CatalogTupleDelete](../C/CatalogTupleDelete.md)
   - [ReleaseSysCache](ReleaseSysCache.md)
-  - table_close
+  - [table_close](../t/table_close.md)
   - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
 - Called from (representative examples):
   - [heap_drop_with_catalog](../h/heap_drop_with_catalog.md)

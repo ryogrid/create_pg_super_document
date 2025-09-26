@@ -27,15 +27,15 @@ LWLockWaitListUnlock is the counterpart to LWLockWaitListLock, responsible for r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_atomic_fetch_and_u32 (atomic fetch-and operation to clear the lock flag)
+  - [pg_atomic_fetch_and_u32](../p/pg_atomic_fetch_and_u32.md) (atomic fetch-and operation to clear the lock flag)
   - LW_FLAG_LOCKED (bit flag indicating wait list lock status)
   - PG_USED_FOR_ASSERTS_ONLY (macro indicating variable is only used in assertions)
   - Assert (assertion macro for validation)
 
 - Called from (representative examples):
-  - LWLockQueueSelf (after adding process to wait queue)
-  - LWLockDequeueSelf (after removing process from wait queue)  
-  - LWLockUpdateVar (after updating lock variables)
+  - [LWLockQueueSelf](LWLockQueueSelf.md) (after adding process to wait queue)
+  - [LWLockDequeueSelf](LWLockDequeueSelf.md) (after removing process from wait queue)  
+  - [LWLockUpdateVar](LWLockUpdateVar.md) (after updating lock variables)
 
 ## Notes and Other Information
 - **Paired operation**: Always used in conjunction with LWLockWaitListLock to ensure proper wait list synchronization

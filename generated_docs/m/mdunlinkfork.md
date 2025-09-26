@@ -23,16 +23,16 @@ The `mdunlinkfork` function is responsible for completely removing a relation fo
 ## Dependencies
 - Functions called/Symbols referenced:
   - relpath (to construct file paths)
-  - do_truncate (to truncate file segments)
-  - register_forget_request (to cancel pending sync requests)
-  - register_unlink_segment (to schedule deferred unlink operations)
+  - [do_truncate](../d/do_truncate.md) (to truncate file segments)
+  - [register_forget_request](../r/register_forget_request.md) (to cancel pending sync requests)
+  - [register_unlink_segment](../r/register_unlink_segment.md) (to schedule deferred unlink operations)
   - unlink (to remove files from filesystem)
   - RelFileLocatorBackendIsTemp (to check if relation is temporary)
   - ereport (for error logging)
-  - palloc/pfree (for memory management)
+  - [palloc](../p/palloc.md)/pfree (for memory management)
 
 - Called from (representative examples):
-  - mdunlink (the main entry point for relation unlinking)
+  - [mdunlink](mdunlink.md) (the main entry point for relation unlinking)
 
 ## Notes and Other Information
 - This is a static function only accessible within md.c

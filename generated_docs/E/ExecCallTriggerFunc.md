@@ -42,7 +42,7 @@ Key safety features include protection against uninitialized transition table in
   - InitFunctionCallInfoData (function call preparation)
   - FunctionCallInvoke (actual function execution)
   - [pgstat_init_function_usage](../p/pgstat_init_function_usage.md) / pgstat_end_function_usage (statistics)
-  - InstrStartNode / InstrStopNode (instrumentation)
+  - [InstrStartNode](../I/InstrStartNode.md) / InstrStopNode (instrumentation)
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (memory management)
 - Macros used:
   - TRIGGER_FIRED_BY_INSERT/UPDATE/DELETE (event type checking)
@@ -59,5 +59,5 @@ Key safety features include protection against uninitialized transition table in
 - Enforces trigger protocol by checking that functions don't return NULL with isnull flag set
 - Memory allocated during trigger execution is automatically cleaned up per tuple cycle
 - Function lookup results are cached in finfo array to improve performance for repeated calls
-- Instrumentation data helps with query performance analysis in EXPLAIN ANALYZE
+- [Instrumentation](../I/Instrumentation.md) data helps with query performance analysis in EXPLAIN ANALYZE
 - The function is static, indicating it's an internal implementation detail of the trigger system

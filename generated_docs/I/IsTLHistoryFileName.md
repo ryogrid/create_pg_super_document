@@ -29,9 +29,9 @@ This validation is essential for file processing operations that need to disting
   - strspn (C standard library function for character span validation)
   - strcmp (C standard library function for string comparison)
 - Called from (representative examples):
-  - XLogArchiveNotify (archives WAL files and timeline history files)
-  - perform_base_backup (handles timeline history during base backup)
-  - ready_file_comparator (sorts files for archival processing)
+  - [XLogArchiveNotify](../X/XLogArchiveNotify.md) (archives WAL files and timeline history files)
+  - [perform_base_backup](../p/perform_base_backup.md) (handles timeline history during base backup)
+  - [ready_file_comparator](../r/ready_file_comparator.md) (sorts files for archival processing)
 
 ## Notes and Other Information
 - This is an inline function defined in the header for performance optimization since it's used in file processing loops

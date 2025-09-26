@@ -24,8 +24,8 @@ This function serves as the core table-to-XML conversion mechanism in PostgreSQL
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initStringInfo
-  - appendStringInfo
+  - [initStringInfo](../i/initStringInfo.md)
+  - [appendStringInfo](../a/appendStringInfo.md)
   - [regclassout](../r/regclassout.md)
   - DirectFunctionCall1
   - [DatumGetCString](../D/DatumGetCString.md)

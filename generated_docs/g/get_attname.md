@@ -23,7 +23,7 @@ This function performs a system cache lookup to retrieve the attribute name (col
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache2](../S/SearchSysCache2.md) - performs the system cache lookup using ATTNUM cache
-  - Int16GetDatum - converts attribute number to Datum format
+  - [Int16GetDatum](../I/Int16GetDatum.md) - converts attribute number to Datum format
   - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) - converts relation OID to Datum format
   - HeapTupleIsValid - checks if the cache lookup returned a valid tuple
   - GETSTRUCT - extracts the Form_pg_attribute structure from the heap tuple

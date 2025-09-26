@@ -26,7 +26,7 @@ The `convertToJsonb` function is the primary converter that transforms in-memory
   - JEntry (structure type)
   - Jsonb (structure type)  
   - jbvBinary (enum value)
-  - initStringInfo
+  - [initStringInfo](../i/initStringInfo.md)
   - [reserveFromBuffer](../r/reserveFromBuffer.md)
   - [convertJsonbValue](convertJsonbValue.md)
   - SET_VARSIZE

@@ -25,7 +25,7 @@ Both target lists must have the same length and corresponding entries must have 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_length (implicit via Assert)
+  - [list_length](../l/list_length.md) (implicit via Assert)
   - forboth (macro for iterating over two lists simultaneously)
   - Assert (debugging assertion macro)
   - [TargetEntry](../T/TargetEntry.md) (struct type)

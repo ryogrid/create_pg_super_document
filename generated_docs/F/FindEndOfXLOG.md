@@ -31,12 +31,12 @@ This function takes no parameters and operates on:
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLByteToSeg (converts byte position to segment number)
-  - opendir, readdir, closedir (POSIX directory operations)
+  - [opendir](../o/opendir.md), readdir, closedir (POSIX directory operations)
   - [IsXLogFileName](../I/IsXLogFileName.md) (checks if filename is a WAL segment)
   - [IsPartialXLogFileName](../I/IsPartialXLogFileName.md) (checks if filename is a partial WAL segment)
   - [XLogFromFileName](../X/XLogFromFileName.md) (extracts timeline and segment number from filename)
   - XLOGDIR (constant for WAL directory path)
-  - DIR, dirent (POSIX directory structures)
+  - [DIR](../D/DIR.md), dirent (POSIX directory structures)
   - TimeLineID, XLogSegNo (PostgreSQL WAL types)
 
 - Called from:

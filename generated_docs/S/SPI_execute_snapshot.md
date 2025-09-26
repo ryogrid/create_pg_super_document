@@ -32,10 +32,10 @@ The function validates the plan and parameters, converts parameters to the inter
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _SPI_begin_call
+  - [_SPI_begin_call](_SPI_begin_call.md)
   - [_SPI_convert_params](_SPI_convert_params.md)
   - [_SPI_execute_plan](_SPI_execute_plan.md)
-  - _SPI_end_call
+  - [_SPI_end_call](_SPI_end_call.md)
   - [SPIPlanPtr](SPIPlanPtr.md)
   - [SPIExecuteOptions](SPIExecuteOptions.md)
   - _SPI_PLAN_MAGIC

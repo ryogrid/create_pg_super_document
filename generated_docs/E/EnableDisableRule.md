@@ -24,7 +24,7 @@ This function modifies the firing behavior of a PostgreSQL rewrite rule by updat
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelationGetRelid
-  - table_open
+  - [table_open](../t/table_open.md)
   - SearchSysCacheCopy2
   - HeapTupleIsValid
   - ereport/errcode/errmsg
@@ -39,7 +39,7 @@ This function modifies the firing behavior of a PostgreSQL rewrite rule by updat
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - InvokeObjectPostAlterHook
   - [heap_freetuple](../h/heap_freetuple.md)
-  - table_close
+  - [table_close](../t/table_close.md)
   - [CacheInvalidateRelcache](../C/CacheInvalidateRelcache.md)
 - Called from (representative examples):
   - [ATExecEnableDisableRule](../A/ATExecEnableDisableRule.md)

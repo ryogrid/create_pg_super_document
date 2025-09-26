@@ -22,10 +22,10 @@ The function is essential for operations that need to find the earliest transact
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TransactionIdPrecedes
+  - [TransactionIdPrecedes](TransactionIdPrecedes.md)
 - Called from (representative examples):
-  - ComputeXidHorizons (multiple calls for calculating transaction visibility horizons)
-  - GetSnapshotData (for snapshot computation)
+  - [ComputeXidHorizons](../C/ComputeXidHorizons.md) (multiple calls for calculating transaction visibility horizons)
+  - [GetSnapshotData](../G/GetSnapshotData.md) (for snapshot computation)
 
 ## Notes and Other Information
 - This is an inline function defined in the transaction management header file

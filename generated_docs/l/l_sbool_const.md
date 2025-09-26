@@ -23,8 +23,8 @@ This utility function creates LLVM constant boolean values specifically designed
   - LLVMConstInt (LLVM C API function)
   - TypeStorageBool (global LLVM type reference)
 - Called from (representative examples):
-  - llvm_compile_expr (extensively used throughout src/backend/jit/llvm/llvmjit_expr.c)
-  - BuildV1Call (src/backend/jit/llvm/llvmjit_expr.c:2724)
+  - [llvm_compile_expr](llvm_compile_expr.md) (extensively used throughout src/backend/jit/llvm/llvmjit_expr.c)
+  - [BuildV1Call](../B/BuildV1Call.md) (src/backend/jit/llvm/llvmjit_expr.c:2724)
 
 ## Notes and Other Information
 - Specifically designed for storage contexts, distinguishing it from boolean values used in conditional logic

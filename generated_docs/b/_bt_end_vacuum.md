@@ -27,8 +27,8 @@ This design allows the caller to use PG_TRY blocks around the start_vacuum opera
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire (with BtreeVacuumLock)
-  - LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md) (with BtreeVacuumLock)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - [BTOneVacInfo](../B/BTOneVacInfo.md) (structure access)
 - Called from (representative examples):
   - [btbulkdelete](btbulkdelete.md)

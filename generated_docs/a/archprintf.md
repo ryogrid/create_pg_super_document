@@ -25,7 +25,7 @@ The implementation preserves the original `errno` value and uses `pvsnprintf` fo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_malloc
+  - [pg_malloc](../p/pg_malloc.md)
   - [pvsnprintf](../p/pvsnprintf.md)
   - [WriteData](../W/WriteData.md)
   - free (standard C library function)

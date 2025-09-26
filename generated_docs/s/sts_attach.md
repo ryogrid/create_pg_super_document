@@ -26,9 +26,9 @@ This function is commonly used in parallel query execution where one process (ty
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SharedTuplestore (struct type)
+  - [SharedTuplestore](../S/SharedTuplestore.md) (struct type)
   - SharedFileSet (struct type)
-  - SharedTuplestoreAccessor (struct type)
+  - [SharedTuplestoreAccessor](../S/SharedTuplestoreAccessor.md) (struct type)
 - Called from (representative examples):
   - [ExecParallelHashRepartitionRest](../E/ExecParallelHashRepartitionRest.md)
   - [ExecParallelHashEnsureBatchAccessors](../E/ExecParallelHashEnsureBatchAccessors.md)

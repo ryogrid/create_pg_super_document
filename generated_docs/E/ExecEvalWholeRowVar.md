@@ -37,14 +37,14 @@ The function maintains performance optimizations while ensuring type safety and 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecFilterJunk
+  - [ExecFilterJunk](ExecFilterJunk.md)
   - [lookup_rowtype_tupdesc_domain](../l/lookup_rowtype_tupdesc_domain.md)
   - [CreateTupleDescCopy](../C/CreateTupleDescCopy.md)
   - ReleaseTupleDesc
-  - exec_rt_fetch
+  - [exec_rt_fetch](../e/exec_rt_fetch.md)
   - [ExecTypeSetColNames](ExecTypeSetColNames.md)
   - [BlessTupleDesc](../B/BlessTupleDesc.md)
-  - slot_getallattrs
+  - [slot_getallattrs](../s/slot_getallattrs.md)
   - [toast_build_flattened_tuple](../t/toast_build_flattened_tuple.md)
   - HeapTupleHeaderSetTypeId
   - HeapTupleHeaderSetTypMod

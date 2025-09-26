@@ -32,8 +32,8 @@ The function is widely used throughout PostgreSQL's executor, optimizer, and uti
   - elog (error logging and reporting)
   - Form_pg_type (type catalog structure)
 - Called from (representative examples):
-  - EstimateParamExecSpace (parallel execution parameter estimation)
-  - SerializeParamExecParams (parameter serialization)
+  - [EstimateParamExecSpace](../E/EstimateParamExecSpace.md) (parallel execution parameter estimation)
+  - [SerializeParamExecParams](../S/SerializeParamExecParams.md) (parameter serialization)
   - [init_sql_fcache](../i/init_sql_fcache.md) (SQL function cache initialization)
   - [ExecInitAgg](../E/ExecInitAgg.md) (aggregate node initialization)
   - [build_pertrans_for_aggref](../b/build_pertrans_for_aggref.md) (aggregate transition setup)

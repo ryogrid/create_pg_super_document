@@ -43,8 +43,8 @@ The structure supports different backend operating modes, including send-only ba
   - [SharedInvalBackendInit](../S/SharedInvalBackendInit.md)
   - [CleanupInvalidationState](../C/CleanupInvalidationState.md)
   - [SIInsertDataEntries](../S/SIInsertDataEntries.md)
-  - SIGetDataEntries
-  - SICleanupQueue
+  - [SIGetDataEntries](../S/SIGetDataEntries.md)
+  - [SICleanupQueue](../S/SICleanupQueue.md)
 
 ## Notes and Other Information
 - The procPid field serves as both identification and activity indicator; zero values mark inactive entries

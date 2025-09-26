@@ -32,13 +32,13 @@ The function assumes the transition function strictness was already validated du
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - tuplesort_performsort
+  - [tuplesort_performsort](../t/tuplesort_performsort.md)
   - [tuplesort_getdatum](../t/tuplesort_getdatum.md)  
   - [MemoryContextReset](../M/MemoryContextReset.md)
   - [FunctionCall2Coll](../F/FunctionCall2Coll.md)
   - [advance_transition_function](../a/advance_transition_function.md)
   - [datumCopy](../d/datumCopy.md)
-  - tuplesort_end
+  - [tuplesort_end](../t/tuplesort_end.md)
 - Data types used:
   - [AggState](../A/AggState.md)
   - [AggStatePerTrans](../A/AggStatePerTrans.md)

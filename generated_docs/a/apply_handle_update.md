@@ -33,8 +33,8 @@ The function includes early exit conditions for skipped changes or streamed tran
   - is_skipping_changes
   - [handle_streamed_transaction](../h/handle_streamed_transaction.md)
   - [begin_replication_step](../b/begin_replication_step.md)
-  - logicalrep_read_update
-  - logicalrep_rel_open
+  - [logicalrep_read_update](../l/logicalrep_read_update.md)
+  - [logicalrep_rel_open](../l/logicalrep_rel_open.md)
   - [should_apply_changes_for_rel](../s/should_apply_changes_for_rel.md)
   - [check_relation_updatable](../c/check_relation_updatable.md)
   - [SwitchToUntrustedUser](../S/SwitchToUntrustedUser.md)
@@ -45,7 +45,7 @@ The function includes early exit conditions for skipped changes or streamed tran
   - [apply_handle_update_internal](apply_handle_update_internal.md)
   - [finish_edata](../f/finish_edata.md)
   - [RestoreUserContext](../R/RestoreUserContext.md)
-  - logicalrep_rel_close
+  - [logicalrep_rel_close](../l/logicalrep_rel_close.md)
   - [end_replication_step](../e/end_replication_step.md)
 - Called from (representative examples):
   - [apply_dispatch](apply_dispatch.md)

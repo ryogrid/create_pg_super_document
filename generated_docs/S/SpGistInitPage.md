@@ -22,7 +22,7 @@ The function ensures that the page has the proper SP-GiST page identification an
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PageInit
+  - [PageInit](../P/PageInit.md)
   - SpGistPageGetOpaque
   - [SpGistPageOpaqueData](SpGistPageOpaqueData.md) (struct)
   - SPGIST_PAGE_ID (constant)

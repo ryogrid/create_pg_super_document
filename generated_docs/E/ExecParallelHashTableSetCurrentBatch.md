@@ -34,11 +34,11 @@ The function ensures that all parallel workers can consistently access the same 
   - InvalidDsaPointer (constant)
   - dsa_pointer_atomic (type)
   - [HashJoinTable](../H/HashJoinTable.md) (type)
-  - HashMemoryChunk (type)
+  - [HashMemoryChunk](../H/HashMemoryChunk.md) (type)
 - Called from:
   - [MultiExecParallelHash](../M/MultiExecParallelHash.md)
   - [ExecParallelHashIncreaseNumBatches](ExecParallelHashIncreaseNumBatches.md)
-  - ExecParallelHashIncreaseNumBuckets
+  - [ExecParallelHashIncreaseNumBuckets](ExecParallelHashIncreaseNumBuckets.md)
   - [ExecParallelHashJoinNewBatch](ExecParallelHashJoinNewBatch.md)
 
 ## Notes and Other Information

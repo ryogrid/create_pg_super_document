@@ -21,12 +21,12 @@ This function performs a case-insensitive directory scan to locate a file matchi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AllocateDir (allocates directory descriptor)
-  - ReadDirExtended (reads directory entries with error logging)
+  - [AllocateDir](../A/AllocateDir.md) (allocates directory descriptor)
+  - [ReadDirExtended](../R/ReadDirExtended.md) (reads directory entries with error logging)
   - [pg_strncasecmp](../p/pg_strncasecmp.md) (case-insensitive string comparison)
-  - strlcpy (safe string copying)
-  - FreeDir (frees directory descriptor)
-  - DIR (directory structure type)
+  - [strlcpy](strlcpy.md) (safe string copying)
+  - [FreeDir](../F/FreeDir.md) (frees directory descriptor)
+  - [DIR](../D/DIR.md) (directory structure type)
   - [dirent](../d/dirent.md) (directory entry structure)
 - Called from (representative examples):
   - [pg_open_tzfile](../p/pg_open_tzfile.md) (in src/timezone/pgtz.c:126)

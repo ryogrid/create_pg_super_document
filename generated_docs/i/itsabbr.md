@@ -22,9 +22,9 @@ The matching algorithm allows for gaps in the word - it doesn't require consecut
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lowerit (src/timezone/zic.c:3625, 3633)
+  - [lowerit](../l/lowerit.md) (src/timezone/zic.c:3625, 3633)
 - Called from (representative examples):
-  - byword (src/timezone/zic.c:3702)
+  - [byword](../b/byword.md) (src/timezone/zic.c:3702)
 
 ## Notes and Other Information
 - Returns `true` if the abbreviation matches the word's initial characters in order, `false` otherwise

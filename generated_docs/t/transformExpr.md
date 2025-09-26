@@ -31,7 +31,7 @@ transformExpr(ParseState *pstate, Node *expr, ParseExprKind exprKind)
   - [transformWhereClause](transformWhereClause.md) (for WHERE clause expressions)  
   - [transformTargetEntry](transformTargetEntry.md) (for SELECT list expressions)
   - [transformReturnStmt](transformReturnStmt.md) (for RETURN statement expressions)
-  - transformFuncCall (for function call expressions)
+  - [transformFuncCall](transformFuncCall.md) (for function call expressions)
 
 ## Notes and Other Information
 - The function implements a save-and-restore pattern for the expression kind in ParseState, ensuring proper nesting of expression contexts

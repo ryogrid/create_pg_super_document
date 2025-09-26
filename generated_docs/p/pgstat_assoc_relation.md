@@ -23,7 +23,7 @@ The function operates under strict preconditions: the relation must have statist
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_prep_relation_pending
+  - [pgstat_prep_relation_pending](pgstat_prep_relation_pending.md)
   - RelationGetRelid (macro)
 - Called from (representative examples):
   - pgstat_should_count_relation (via inline check)

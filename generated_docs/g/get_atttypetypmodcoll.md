@@ -26,7 +26,7 @@ This function performs a single system cache lookup to retrieve three related pi
 - Functions called/Symbols referenced:
   - [SearchSysCache2](../S/SearchSysCache2.md) - performs the system cache lookup using ATTNUM cache
   - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) - converts relation OID to Datum format
-  - Int16GetDatum - converts attribute number to Datum format
+  - [Int16GetDatum](../I/Int16GetDatum.md) - converts attribute number to Datum format
   - HeapTupleIsValid - checks if the cache lookup returned a valid tuple
   - GETSTRUCT - extracts the Form_pg_attribute structure from the heap tuple
   - [ReleaseSysCache](../R/ReleaseSysCache.md) - releases the system cache entry

@@ -27,8 +27,8 @@ This function handles node extraction for the jsonb_path_ops GIN operator class,
   - [JsonbHashScalarValue](../J/JsonbHashScalarValue.md)
   - [make_jsp_entry_node](../m/make_jsp_entry_node.md)
   - [UInt32GetDatum](../U/UInt32GetDatum.md)
-  - lappend
-  - JsonPathGinContext
+  - [lappend](../l/lappend.md)
+  - [JsonPathGinContext](../J/JsonPathGinContext.md)
   - JsonPathGinPath
 - Called from (representative examples):
   - [extract_jsp_query](../e/extract_jsp_query.md)

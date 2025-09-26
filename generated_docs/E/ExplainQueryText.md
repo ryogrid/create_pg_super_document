@@ -24,7 +24,7 @@ The function assumes that the ExplainState has been properly initialized with ou
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExplainPropertyText (formats and adds text property to output)
+  - [ExplainPropertyText](ExplainPropertyText.md) (formats and adds text property to output)
 - Called from (representative examples):
   - Currently no direct callers found in the codebase (utility function for manual use)
 

@@ -23,17 +23,17 @@ TwoPhaseGetXidByVirtualXID searches through prepared transactions to find one th
 ## Dependencies
 - Functions called/Symbols referenced:
   - VirtualTransactionIdIsValid (to validate input VXID)
-  - LWLockAcquire/LWLockRelease (for shared lock on TwoPhaseStateLock)
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease (for shared lock on TwoPhaseStateLock)
   - GetPGProcByNumber (to get process information)
   - GET_VXID_FROM_PGPROC (macro to extract VXID from process)
   - VirtualTransactionIdEquals (to compare VXIDs)
 - Data structures accessed:
   - TwoPhaseState (global two-phase commit state)
-  - GlobalTransaction (transaction structure)
+  - [GlobalTransaction](../G/GlobalTransaction.md) (transaction structure)
   - [PGPROC](../P/PGPROC.md) (process information)
   - [VirtualTransactionId](../V/VirtualTransactionId.md) (virtual transaction ID structure)
 - Called from:
-  - XactLockForVirtualXact (in lock manager)
+  - [XactLockForVirtualXact](../X/XactLockForVirtualXact.md) (in lock manager)
 
 ## Notes and Other Information
 - Only finds prepared transactions created since the last startup, not recovered ones

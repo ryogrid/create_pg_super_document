@@ -28,14 +28,14 @@ The function performs several key operations:
 - Functions called/Symbols referenced:
   - [get_call_result_type](../g/get_call_result_type.md)
   - [CreateTupleDescCopy](../C/CreateTupleDescCopy.md)
-  - tuplestore_begin_heap
+  - [tuplestore_begin_heap](../t/tuplestore_begin_heap.md)
   - AllocSetContextCreate
   - [plperl_build_tuple_result](plperl_build_tuple_result.md)
   - [domain_check](../d/domain_check.md)
   - [HeapTupleGetDatum](../H/HeapTupleGetDatum.md)
-  - tuplestore_puttuple
+  - [tuplestore_puttuple](../t/tuplestore_puttuple.md)
   - [plperl_sv_to_datum](plperl_sv_to_datum.md)
-  - tuplestore_putvalues
+  - [tuplestore_putvalues](../t/tuplestore_putvalues.md)
   - [MemoryContextReset](../M/MemoryContextReset.md)
 - Called from (representative examples):
   - [plperl_func_handler](plperl_func_handler.md) (src/pl/plperl/plperl.c:2477)

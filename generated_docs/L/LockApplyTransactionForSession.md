@@ -25,7 +25,7 @@ This function acquires a session-level lock specifically for logical replication
   - SET_LOCKTAG_APPLY_TRANSACTION
   - [LockAcquire](LockAcquire.md)
 - Types used:
-  - LOCKTAG
+  - [LOCKTAG](LOCKTAG.md)
   - TransactionId
 - Global variables used:
   - MyDatabaseId

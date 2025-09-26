@@ -27,21 +27,21 @@ None (static function with no parameters)
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwnerEnlarge: Ensures resource owner can track additional buffer
-  - GetLocalBufferDescriptor: Converts buffer ID to BufferDesc pointer
-  - pg_atomic_read_u32/pg_atomic_unlocked_write_u32: Atomic state operations
-  - PinLocalBuffer: Pins the selected victim buffer
+  - [ResourceOwnerEnlarge](../R/ResourceOwnerEnlarge.md): Ensures resource owner can track additional buffer
+  - [GetLocalBufferDescriptor](GetLocalBufferDescriptor.md): Converts buffer ID to BufferDesc pointer
+  - [pg_atomic_read_u32](../p/pg_atomic_read_u32.md)/pg_atomic_unlocked_write_u32: Atomic state operations
+  - [PinLocalBuffer](../P/PinLocalBuffer.md): Pins the selected victim buffer
   - LocalBufHdrGetBlock: Gets/sets the buffer's data page pointer
-  - GetLocalBufferStorage: Allocates physical storage for buffer
-  - smgropen: Opens storage manager relation for dirty page write-out
-  - PageSetChecksumInplace: Calculates and sets page checksum before writing
-  - smgrwrite: Performs actual disk write of dirty page
-  - hash_search: Removes old buffer tag from hash table
-  - ClearBufferTag/BufferDescriptorGetBuffer: Buffer tag and descriptor utilities
+  - [GetLocalBufferStorage](GetLocalBufferStorage.md): Allocates physical storage for buffer
+  - [smgropen](../s/smgropen.md): Opens storage manager relation for dirty page write-out
+  - [PageSetChecksumInplace](../P/PageSetChecksumInplace.md): Calculates and sets page checksum before writing
+  - [smgrwrite](../s/smgrwrite.md): Performs actual disk write of dirty page
+  - [hash_search](../h/hash_search.md): Removes old buffer tag from hash table
+  - [ClearBufferTag](../C/ClearBufferTag.md)/BufferDescriptorGetBuffer: Buffer tag and descriptor utilities
   - Various I/O statistics functions (pgstat_prepare_io_time, pgstat_count_io_op_time, etc.)
 - Called from (representative examples):
-  - LocalBufferAlloc: Uses this to get victim when allocating new local buffer
-  - ExtendBufferedRelLocal: Uses this when extending buffered relations locally
+  - [LocalBufferAlloc](../L/LocalBufferAlloc.md): Uses this to get victim when allocating new local buffer
+  - [ExtendBufferedRelLocal](../E/ExtendBufferedRelLocal.md): Uses this when extending buffered relations locally
 
 ## Notes and Other Information
 - Implements clock sweep replacement algorithm with usage count-based aging

@@ -24,7 +24,7 @@ This function handles the initialization of a single aggregate function within t
   - [AggStatePerTrans](../A/AggStatePerTrans.md) (struct type)
   - [AggState](../A/AggState.md) (struct type)
   - [AggStatePerGroup](../A/AggStatePerGroup.md) (struct type)
-  - tuplesort_end
+  - [tuplesort_end](../t/tuplesort_end.md)
   - [tuplesort_begin_datum](../t/tuplesort_begin_datum.md)
   - [tuplesort_begin_heap](../t/tuplesort_begin_heap.md)
   - TUPLESORT_NONE

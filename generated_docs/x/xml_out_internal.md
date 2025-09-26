@@ -21,16 +21,16 @@ This static function performs the core logic for converting PostgreSQL's interna
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - text_to_cstring
-  - parse_xml_decl
-  - print_xml_decl
-  - initStringInfo
-  - appendStringInfoString
+  - [text_to_cstring](../t/text_to_cstring.md)
+  - [parse_xml_decl](../p/parse_xml_decl.md)
+  - [print_xml_decl](../p/print_xml_decl.md)
+  - [initStringInfo](../i/initStringInfo.md)
+  - [appendStringInfoString](../a/appendStringInfoString.md)
   - [pfree](../p/pfree.md)
   - ereport
   - [errcode](../e/errcode.md)
   - [errmsg_internal](../e/errmsg_internal.md)
-  - errdetail_for_xml_code
+  - [errdetail_for_xml_code](../e/errdetail_for_xml_code.md)
 - Called from (representative examples):
   - [xml_out](xml_out.md)
   - [xml_send](xml_send.md)

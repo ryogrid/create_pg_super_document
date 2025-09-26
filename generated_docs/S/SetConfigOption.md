@@ -24,7 +24,7 @@ This is the recommended interface for external code that needs to set GUC parame
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - set_config_option
+  - [set_config_option](../s/set_config_option.md)
   - GucContext, GucSource enums
   - GUC_ACTION_SET
 - Called from (representative examples):

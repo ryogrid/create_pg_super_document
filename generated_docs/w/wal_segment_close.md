@@ -28,7 +28,7 @@ This is the counterpart to wal_segment_open and is called automatically by the X
   - [XlogReadTwoPhaseData](../X/XlogReadTwoPhaseData.md)
   - [InitWalRecovery](../I/InitWalRecovery.md)
   - [SummarizeWAL](../S/SummarizeWAL.md)
-  - LogicalReplicationSlotHasPendingWal
+  - [LogicalReplicationSlotHasPendingWal](../L/LogicalReplicationSlotHasPendingWal.md)
   - [LogicalSlotAdvanceAndCheckSnapState](../L/LogicalSlotAdvanceAndCheckSnapState.md)
   - [pg_logical_slot_get_changes_guts](../p/pg_logical_slot_get_changes_guts.md)
   - [create_logical_replication_slot](../c/create_logical_replication_slot.md)

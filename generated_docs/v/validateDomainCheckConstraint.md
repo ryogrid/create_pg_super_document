@@ -28,7 +28,7 @@ The validation process uses the PostgreSQL executor infrastructure to evaluate t
   - [ExecPrepareExpr](../E/ExecPrepareExpr.md) (prepare expression for execution)
   - [get_rels_with_domain](../g/get_rels_with_domain.md) (find relations using the domain)
   - [table_beginscan](../t/table_beginscan.md)/table_scan_getnextslot/table_endscan (table scanning)
-  - ExecEvalExprSwitchContext (evaluate constraint expression)
+  - [ExecEvalExprSwitchContext](../E/ExecEvalExprSwitchContext.md) (evaluate constraint expression)
   - [ExecDropSingleTupleTableSlot](../E/ExecDropSingleTupleTableSlot.md) (cleanup tuple slot)
   - [FreeExecutorState](../F/FreeExecutorState.md) (cleanup execution state)
 - Called from:

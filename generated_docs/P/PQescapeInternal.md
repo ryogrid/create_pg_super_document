@@ -31,7 +31,7 @@ The function includes comprehensive multibyte character validation to prevent se
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - strnlen
+  - [strnlen](../s/strnlen.md)
   - pqClearConnErrorState
   - IS_HIGHBIT_SET
   - [pg_encoding_mblen_or_incomplete](../p/pg_encoding_mblen_or_incomplete.md)

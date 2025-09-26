@@ -25,9 +25,9 @@ The function calculates the number of characters currently in the buffer by comp
   - PrintfTarget (struct type used throughout the printf implementation)
 - Called from (representative examples):
   - [pg_vfprintf](../p/pg_vfprintf.md)
-  - dostr
-  - dopr_outch
-  - dopr_outchmulti
+  - [dostr](../d/dostr.md)
+  - [dopr_outch](../d/dopr_outch.md)
+  - [dopr_outchmulti](../d/dopr_outchmulti.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within src/port/snprintf.c

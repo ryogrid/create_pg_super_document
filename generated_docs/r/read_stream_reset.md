@@ -22,12 +22,12 @@ The function is particularly useful for scenarios where a scan needs to be resta
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - read_stream_next_buffer
-  - ReleaseBuffer
+  - [read_stream_next_buffer](read_stream_next_buffer.md)
+  - [ReleaseBuffer](../R/ReleaseBuffer.md)
 - Called from (representative examples):
-  - heap_fetch_next_buffer
-  - heap_rescan
-  - read_stream_end
+  - [heap_fetch_next_buffer](../h/heap_fetch_next_buffer.md)
+  - [heap_rescan](../h/heap_rescan.md)
+  - [read_stream_end](read_stream_end.md)
 
 ## Notes and Other Information
 - Releases all pinned buffers that haven't been consumed by the caller

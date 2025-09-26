@@ -77,8 +77,8 @@ The function constructs ColumnDef nodes from the target list entries, handling t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeColumnDef
-  - exprType, exprTypmod, exprCollation
+  - [makeColumnDef](../m/makeColumnDef.md)
+  - [exprType](../e/exprType.md), exprTypmod, exprCollation
   - [type_is_collatable](../t/type_is_collatable.md)
   - [RangeVarGetAndCheckCreationNamespace](../R/RangeVarGetAndCheckCreationNamespace.md)
   - [relation_open](../r/relation_open.md), relation_close
@@ -90,7 +90,7 @@ The function constructs ColumnDef nodes from the target list entries, handling t
   - [DefineRelation](DefineRelation.md)
   - ObjectAddressSet
   - [recordDependencyOnCurrentExtension](../r/recordDependencyOnCurrentExtension.md)
-  - CommandCounterIncrement
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md)
 
 - Called from:
   - [DefineView](DefineView.md)

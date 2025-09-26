@@ -25,16 +25,16 @@ This function is part of PostgreSQL's file descriptor management system that tra
   - DO_DB (debug logging macro)
   - AllocateDesc (descriptor structure type)
   - AllocateDescFile (enum value for file descriptor type)
-  - FreeDesc (function to free a descriptor)
+  - [FreeDesc](FreeDesc.md) (function to free a descriptor)
   - fclose (standard C library function)
   - elog (PostgreSQL logging function)
 - Called from (representative examples):
-  - readTimeLineHistory
-  - do_pg_backup_stop
-  - EndCopyFrom
-  - parse_extension_control_file
-  - pgstat_write_statsfile
-  - load_relcache_init_file
+  - [readTimeLineHistory](../r/readTimeLineHistory.md)
+  - [do_pg_backup_stop](../d/do_pg_backup_stop.md)
+  - [EndCopyFrom](../E/EndCopyFrom.md)
+  - [parse_extension_control_file](../p/parse_extension_control_file.md)
+  - [pgstat_write_statsfile](../p/pgstat_write_statsfile.md)
+  - [load_relcache_init_file](../l/load_relcache_init_file.md)
 
 ## Notes and Other Information
 - The function does not check fclose's return value - it is the caller's responsibility to handle close errors

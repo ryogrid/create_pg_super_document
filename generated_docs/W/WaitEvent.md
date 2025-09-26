@@ -41,7 +41,7 @@ This mechanism supports PostgreSQL's asynchronous I/O operations, background wor
   - Various WL_* event type constants
 
 - Called from (representative examples):
-  - WaitEventSetWait (main event waiting function)
+  - [WaitEventSetWait](WaitEventSetWait.md) (main event waiting function)
   - [WaitLatch](WaitLatch.md) (latch-specific waiting)
   - [WaitLatchOrSocket](WaitLatchOrSocket.md) (combined latch and socket waiting)
   - [ServerLoop](../S/ServerLoop.md) (postmaster main loop)

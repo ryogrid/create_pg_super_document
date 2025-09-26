@@ -27,7 +27,7 @@ This function completes the set of comparison operators for record types by prov
   - : Performs the comprehensive record comparison and returns comparison result (-1, 0, +1)
 - Called from (representative examples):
   - Used by PostgreSQL's type system for <= operations on record types
-  - Range queries and BETWEEN clauses involving record types
+  - [Range](../R/Range.md) queries and BETWEEN clauses involving record types
 
 ## Notes and Other Information
 - Combines the functionality of both  and  by accepting both less-than and equal results from 

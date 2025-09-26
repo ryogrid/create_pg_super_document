@@ -57,13 +57,13 @@ The structure supports both simple boolean flags and more complex options like p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - do_truncate (member reference)
+  - [do_truncate](../d/do_truncate.md) (member reference)
 - Called from (representative examples):
-  - VacObjFilter (function parameters in src/bin/scripts/vacuumdb.c:66, 73, 80)
-  - main (variable declaration in src/bin/scripts/vacuumdb.c:146)
-  - vacuum_one_database (parameter in src/bin/scripts/vacuumdb.c:476)
-  - vacuum_all_databases (parameter in src/bin/scripts/vacuumdb.c:910)
-  - prepare_vacuum_command (parameter in src/bin/scripts/vacuumdb.c:977)
+  - [VacObjFilter](../V/VacObjFilter.md) (function parameters in src/bin/scripts/vacuumdb.c:66, 73, 80)
+  - [main](../m/main.md) (variable declaration in src/bin/scripts/vacuumdb.c:146)
+  - [vacuum_one_database](vacuum_one_database.md) (parameter in src/bin/scripts/vacuumdb.c:476)
+  - [vacuum_all_databases](vacuum_all_databases.md) (parameter in src/bin/scripts/vacuumdb.c:910)
+  - [prepare_vacuum_command](../p/prepare_vacuum_command.md) (parameter in src/bin/scripts/vacuumdb.c:977)
 
 ## Notes and Other Information
 - The structure is typically initialized with memset to zero out all fields, then specific defaults are set (parallel_workers = -1, do_truncate = true, process_main = true)

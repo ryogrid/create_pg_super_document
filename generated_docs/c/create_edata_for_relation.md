@@ -33,7 +33,7 @@ The function is specifically designed for logical replication workers and ensure
   - makeNode
   - RelationGetRelid
   - [addRTEPermissionInfo](../a/addRTEPermissionInfo.md)
-  - ExecInitRangeTable
+  - [ExecInitRangeTable](../E/ExecInitRangeTable.md)
   - [InitResultRelInfo](../I/InitResultRelInfo.md)
   - [GetCurrentCommandId](../G/GetCurrentCommandId.md)
   - [AfterTriggerBeginQuery](../A/AfterTriggerBeginQuery.md)

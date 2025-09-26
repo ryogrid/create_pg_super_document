@@ -28,19 +28,19 @@ The returned data structure contains arrays of PREDICATELOCKTARGETTAG and SERIAL
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PredicateLockData
-  - HASH_SEQ_STATUS
-  - PREDICATELOCK
+  - [PredicateLockData](../P/PredicateLockData.md)
+  - [HASH_SEQ_STATUS](../H/HASH_SEQ_STATUS.md)
+  - [PREDICATELOCK](../P/PREDICATELOCK.md)
   - NUM_PREDICATELOCK_PARTITIONS
   - PredicateLockHashPartitionLockByIndex
   - LW_SHARED
-  - hash_get_num_entries
-  - hash_seq_init
-  - hash_seq_search
-  - PREDICATELOCKTARGETTAG
-  - SERIALIZABLEXACT
+  - [hash_get_num_entries](../h/hash_get_num_entries.md)
+  - [hash_seq_init](../h/hash_seq_init.md)
+  - [hash_seq_search](../h/hash_seq_search.md)
+  - [PREDICATELOCKTARGETTAG](../P/PREDICATELOCKTARGETTAG.md)
+  - [SERIALIZABLEXACT](../S/SERIALIZABLEXACT.md)
 - Called from (representative examples):
-  - pg_lock_status (system view function)
+  - [pg_lock_status](../p/pg_lock_status.md) (system view function)
   - InvalidSerializableXact
 
 ## Notes and Other Information

@@ -32,7 +32,7 @@ The function is designed to be called sparingly in set-returning functions due t
 - Functions called/Symbols referenced:
   - [internal_get_result_type](../i/internal_get_result_type.md)
   - [FunctionCallInfo](../F/FunctionCallInfo.md) (structure)
-  - ReturnSetInfo (structure)
+  - [ReturnSetInfo](../R/ReturnSetInfo.md) (structure)
   - TypeFuncClass (return type)
 - Called from (representative examples):
   - [pg_last_committed_xact](../p/pg_last_committed_xact.md)

@@ -33,7 +33,7 @@ This static function performs bulk summarization of BRIN index ranges by scannin
   - [summarize_range](../s/summarize_range.md)
   - [brin_memtuple_initialize](brin_memtuple_initialize.md)
   - [terminate_brin_buildstate](../t/terminate_brin_buildstate.md)
-  - ReleaseBuffer
+  - [ReleaseBuffer](../R/ReleaseBuffer.md)
 - Constants referenced:
   - BRIN_ALL_BLOCKRANGES
   - BUFFER_LOCK_SHARE
@@ -43,7 +43,7 @@ This static function performs bulk summarization of BRIN index ranges by scannin
 - Types referenced:
   - [BrinRevmap](../B/BrinRevmap.md)
   - [BrinBuildState](../B/BrinBuildState.md)
-  - IndexInfo
+  - [IndexInfo](../I/IndexInfo.md)
   - [BrinTuple](../B/BrinTuple.md)
   - BlockNumber
   - OffsetNumber

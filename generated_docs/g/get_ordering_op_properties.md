@@ -33,14 +33,14 @@ The function only considers btree access method operators with BTLessStrategyNum
   - BTLessStrategyNumber
   - BTGreaterStrategyNumber
   - Form_pg_amop
-  - CatCList
+  - [CatCList](../C/CatCList.md)
 - Called from (representative examples):
   - [make_pathkey_from_sortop](../m/make_pathkey_from_sortop.md)
   - [build_expression_pathkey](../b/build_expression_pathkey.md)
   - [get_relation_info](get_relation_info.md)
   - [transformWindowDefinitions](../t/transformWindowDefinitions.md)
   - [get_equality_op_for_ordering_op](get_equality_op_for_ordering_op.md)
-  - PrepareSortSupportFromOrderingOp
+  - [PrepareSortSupportFromOrderingOp](../P/PrepareSortSupportFromOrderingOp.md)
 
 ## Notes and Other Information
 - Returns true if successful, false if no matching pg_amop entry exists

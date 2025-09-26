@@ -31,7 +31,7 @@ This function is specifically designed for "ordinary" window function arguments 
 ## Dependencies
 - Functions called/Symbols referenced:
   - WindowObjectIsValid
-  - ExecEvalExpr
+  - [ExecEvalExpr](../E/ExecEvalExpr.md)
   - [list_nth](../l/list_nth.md)
 - Called from (representative examples):
   - [window_ntile](../w/window_ntile.md)

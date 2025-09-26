@@ -40,7 +40,7 @@ This function must be called in the leader process before parallel workers are l
   - [_brin_begin_parallel](../b/_brin_begin_parallel.md)
   - [_bt_begin_parallel](../b/_bt_begin_parallel.md)  
   - [ExecSeqScanInitializeDSM](../E/ExecSeqScanInitializeDSM.md)
-  - table_scan_getnextslot_tidrange
+  - [table_scan_getnextslot_tidrange](table_scan_getnextslot_tidrange.md)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's parallel query execution framework

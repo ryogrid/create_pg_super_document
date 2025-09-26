@@ -24,7 +24,7 @@ The function assumes the attribute map has already been validated and is non-NUL
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TupleConversionMap (struct)
+  - [TupleConversionMap](../T/TupleConversionMap.md) (struct)
   - [AttrMap](../A/AttrMap.md) (struct)
   - [palloc](../p/palloc.md)
   - Assert

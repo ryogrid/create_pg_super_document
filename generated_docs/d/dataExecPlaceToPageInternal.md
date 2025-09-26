@@ -31,7 +31,7 @@ The function is designed to be called after dataBeginPlaceToPageInternal has con
   - GinDataPageGetPostingItem
   - PostingItemSetBlockNumber
   - [GinDataPageAddPostingItem](../G/GinDataPageAddPostingItem.md)
-  - MarkBufferDirty
+  - [MarkBufferDirty](../M/MarkBufferDirty.md)
   - RelationNeedsWAL
   - [XLogRegisterBuffer](../X/XLogRegisterBuffer.md)
   - [XLogRegisterBufData](../X/XLogRegisterBufData.md)

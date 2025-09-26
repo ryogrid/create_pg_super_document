@@ -54,7 +54,7 @@ The function builds a series of evaluation steps that:
   - fmgr_info_set_expr
   - InitFunctionCallInfoData
   - SizeForFunctionCallInfo
-  - lappend_int
+  - [lappend_int](../l/lappend_int.md)
   - lfirst_int
   - [ExecReadyExpr](ExecReadyExpr.md)
   - EEOP_INNER_FETCHSOME
@@ -65,8 +65,8 @@ The function builds a series of evaluation steps that:
   - EEOP_QUAL
   - EEOP_DONE
 - Called from (representative examples):
-  - execTuplesMatchPrepare
-  - BuildTupleHashTableExt
+  - [execTuplesMatchPrepare](../e/execTuplesMatchPrepare.md)
+  - [BuildTupleHashTableExt](../B/BuildTupleHashTableExt.md)
   - [ExecInitSubPlan](ExecInitSubPlan.md)
 
 ## Notes and Other Information

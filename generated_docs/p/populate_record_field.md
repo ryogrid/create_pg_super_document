@@ -37,7 +37,7 @@ This function serves as the central dispatcher for converting JSON/JSONB values 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth
+  - [check_stack_depth](../c/check_stack_depth.md)
   - [prepare_column_cache](prepare_column_cache.md)
   - JsValueIsNull
   - JsValueIsString

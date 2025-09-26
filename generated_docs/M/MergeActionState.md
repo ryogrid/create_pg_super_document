@@ -32,9 +32,9 @@ The structure contains references to the associated parser node, projection info
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag
-  - MergeAction
+  - [MergeAction](MergeAction.md)
   - [ProjectionInfo](../P/ProjectionInfo.md)
-  - ExprState
+  - [ExprState](../E/ExprState.md)
 - Called from (representative examples):
   - [ExecMergeMatched](../E/ExecMergeMatched.md)
   - [ExecMergeNotMatched](../E/ExecMergeNotMatched.md)

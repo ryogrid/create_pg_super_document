@@ -26,8 +26,8 @@ Parameter status messages are used by PostgreSQL to communicate important server
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pqGets](../p/pqGets.md)
-  - initPQExpBuffer
-  - termPQExpBuffer
+  - [initPQExpBuffer](../i/initPQExpBuffer.md)
+  - [termPQExpBuffer](../t/termPQExpBuffer.md)
   - [pqSaveParameterStatus](../p/pqSaveParameterStatus.md)
 - Called from (representative examples):
   - [pqParseInput3](../p/pqParseInput3.md)

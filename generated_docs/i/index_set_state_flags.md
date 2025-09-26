@@ -27,8 +27,8 @@ The function ensures proper state transitions through assertions and clears rela
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
-  - table_close
+  - [table_open](../t/table_open.md)
+  - [table_close](../t/table_close.md)
   - SearchSysCacheCopy1
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - HeapTupleIsValid
@@ -37,7 +37,7 @@ The function ensures proper state transitions through assertions and clears rela
   - IndexStateFlagsAction
 - Called from (representative examples):
   - [DefineIndex](../D/DefineIndex.md)
-  - index_concurrently_build
+  - [index_concurrently_build](index_concurrently_build.md)
   - [index_concurrently_set_dead](index_concurrently_set_dead.md)
   - [index_drop](index_drop.md)
 

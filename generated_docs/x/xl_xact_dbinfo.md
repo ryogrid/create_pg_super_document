@@ -33,10 +33,10 @@ The database ID (dbId) corresponds to MyDatabaseId, which identifies the specifi
 - Functions called/Symbols referenced:
   - Oid (standard PostgreSQL object ID type)
 - Called from (representative examples):
-  - ParseCommitRecord (extracts database info from commit records)
-  - ParseAbortRecord (extracts database info from abort records)
-  - XactLogCommitRecord (includes database info in commit records)
-  - XactLogAbortRecord (includes database info in abort records)
+  - [ParseCommitRecord](../P/ParseCommitRecord.md) (extracts database info from commit records)
+  - [ParseAbortRecord](../P/ParseAbortRecord.md) (extracts database info from abort records)
+  - [XactLogCommitRecord](../X/XactLogCommitRecord.md) (includes database info in commit records)
+  - [XactLogAbortRecord](../X/XactLogAbortRecord.md) (includes database info in abort records)
 
 ## Notes and Other Information
 - Located in src/include/access/xact.h:255-259

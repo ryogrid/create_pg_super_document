@@ -24,17 +24,17 @@ The function is specifically designed for short-lived file operations, such as r
 ## Dependencies
 - Functions called/Symbols referenced:
   - DO_DB (debug logging macro)
-  - reserveAllocatedDesc (reserves an allocated descriptor slot)
-  - ReleaseLruFiles (closes least-recently-used files to free FDs)
+  - [reserveAllocatedDesc](../r/reserveAllocatedDesc.md) (reserves an allocated descriptor slot)
+  - [ReleaseLruFiles](../R/ReleaseLruFiles.md) (closes least-recently-used files to free FDs)
   - fopen (standard C library file opening function)
-  - GetCurrentSubTransactionId (tracks which subtransaction opened the file)
-  - ReleaseLruFile (releases a single LRU file when retrying after EMFILE/ENFILE)
+  - [GetCurrentSubTransactionId](../G/GetCurrentSubTransactionId.md) (tracks which subtransaction opened the file)
+  - [ReleaseLruFile](../R/ReleaseLruFile.md) (releases a single LRU file when retrying after EMFILE/ENFILE)
 - Called from (representative examples):
-  - readTimeLineHistory (timeline.c:105)
-  - BeginCopyFrom (copyfrom.c:1731)
-  - parse_extension_control_file (extension.c:493)
-  - open_auth_file (hba.c:617)
-  - load_relcache_init_file (relcache.c:6095)
+  - [readTimeLineHistory](../r/readTimeLineHistory.md) (timeline.c:105)
+  - [BeginCopyFrom](../B/BeginCopyFrom.md) (copyfrom.c:1731)
+  - [parse_extension_control_file](../p/parse_extension_control_file.md) (extension.c:493)
+  - [open_auth_file](../o/open_auth_file.md) (hba.c:617)
+  - [load_relcache_init_file](../l/load_relcache_init_file.md) (relcache.c:6095)
 
 ## Notes and Other Information
 - This should be the only direct call to fopen() in the PostgreSQL backend

@@ -28,14 +28,14 @@ The prefix tree implementation enables PostgreSQL's spell checker to quickly nav
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AffixNodeData (struct for storing node data and affix references)
+  - [AffixNodeData](AffixNodeData.md) (struct for storing node data and affix references)
   - FLEXIBLE_ARRAY_MEMBER (macro for flexible array implementation)
 - Called from (representative examples):
-  - mkANode (creates and builds AffixNode tree structures)
-  - FindAffixes (traverses AffixNode tree for affix lookup)
-  - mkVoidAffix (creates special void AffixNode entries)
-  - NormalizeSubWord (uses AffixNode for word normalization)
-  - NISortDictionary (processes AffixNode structures during sorting)
+  - [mkANode](../m/mkANode.md) (creates and builds AffixNode tree structures)
+  - [FindAffixes](../F/FindAffixes.md) (traverses AffixNode tree for affix lookup)
+  - [mkVoidAffix](../m/mkVoidAffix.md) (creates special void AffixNode entries)
+  - [NormalizeSubWord](../N/NormalizeSubWord.md) (uses AffixNode for word normalization)
+  - [NISortDictionary](../N/NISortDictionary.md) (processes AffixNode structures during sorting)
 
 ## Notes and Other Information
 - Part of PostgreSQL's Ispell dictionary implementation located in src/include/tsearch/dicts/spell.h:138-143

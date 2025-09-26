@@ -31,7 +31,7 @@ It's crucial to note that not all pg_class entries have associated pg_type OIDs,
 
 - Called from (representative examples):
   - [ExecAlterExtensionContentsRecurse](../E/ExecAlterExtensionContentsRecurse.md)
-  - makeWholeRowVar
+  - [makeWholeRowVar](../m/makeWholeRowVar.md)
   - [serialize_expr_stats](../s/serialize_expr_stats.md)
 
 ## Notes and Other Information

@@ -27,7 +27,7 @@ The structure allows plugins to specify whether they want binary or textual outp
 - Functions called/Symbols referenced:
   - OutputPluginOutputType
 - Called from (representative examples):
-  - startup_cb_wrapper (src/backend/replication/logical/logical.c:793)
+  - [startup_cb_wrapper](../s/startup_cb_wrapper.md) (src/backend/replication/logical/logical.c:793)
   - [pgoutput_startup](../p/pgoutput_startup.md) (src/backend/replication/pgoutput/pgoutput.c:434)
   - [LogicalDecodingContext](../L/LogicalDecodingContext.md) (src/include/replication/logical.h:54)
 

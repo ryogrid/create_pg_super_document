@@ -19,19 +19,19 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getrusage (system call to get resource usage)
-  - gettimeofday (system call to get current time)
+  - [getrusage](../g/getrusage.md) (system call to get resource usage)
+  - [gettimeofday](../g/gettimeofday.md) (system call to get current time)
   - RUSAGE_SELF (constant for current process resource usage)
   - Save_r (global variable to store resource usage baseline)
   - Save_t (global variable to store time baseline)
 
 - Called from (representative examples):
-  - btbuild (B-tree index building)
-  - _bt_leafbuild (B-tree leaf page building)
-  - _SPI_pquery (SPI query processing)
-  - pg_parse_query (query parsing)
-  - exec_simple_query (simple query execution)
-  - PortalRun (portal execution)
+  - [btbuild](../b/btbuild.md) (B-tree index building)
+  - [_bt_leafbuild](../b/_bt_leafbuild.md) (B-tree leaf page building)
+  - [_SPI_pquery](../S/_SPI_pquery.md) (SPI query processing)
+  - [pg_parse_query](../p/pg_parse_query.md) (query parsing)
+  - [exec_simple_query](../e/exec_simple_query.md) (simple query execution)
+  - [PortalRun](../P/PortalRun.md) (portal execution)
 
 ## Notes and Other Information
 - Part of PostgreSQL's performance monitoring infrastructure

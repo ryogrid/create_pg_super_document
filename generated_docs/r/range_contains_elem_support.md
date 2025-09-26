@@ -22,8 +22,8 @@ The function examines the function call expression and attempts to find a simpli
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `SupportRequestSimplify` (struct type for planner optimization requests)
-  - `FuncExpr` (expression node representing function calls)
+  - `[SupportRequestSimplify](../S/SupportRequestSimplify.md)` (struct type for planner optimization requests)
+  - `[FuncExpr](../F/FuncExpr.md)` (expression node representing function calls)
   - `lsecond` (macro to get second element from a list)
   - [find_simplified_clause](../f/find_simplified_clause.md) (function to find simplified expression alternatives)
 - Called from:

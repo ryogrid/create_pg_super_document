@@ -24,23 +24,23 @@ The function safely handles the case where a timeout is already disabled (it's n
 ## Dependencies
 - Functions called/Symbols referenced:
   - disable_alarm
-  - find_active_timeout
-  - remove_timeout_index
-  - GetCurrentTimestamp
-  - schedule_alarm
+  - [find_active_timeout](../f/find_active_timeout.md)
+  - [remove_timeout_index](../r/remove_timeout_index.md)
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
+  - [schedule_alarm](../s/schedule_alarm.md)
 - Called from (representative examples):
-  - CommitTransaction
-  - PrepareTransaction
-  - AbortTransaction
-  - disable_startup_progress_timeout
-  - ProcSleep
-  - BackendInitialize
-  - assign_transaction_timeout
-  - PostgresMain
-  - enable_statement_timeout
-  - disable_statement_timeout
-  - PerformAuthentication
-  - DisableTimeoutParams
+  - [CommitTransaction](../C/CommitTransaction.md)
+  - [PrepareTransaction](../P/PrepareTransaction.md)
+  - [AbortTransaction](../A/AbortTransaction.md)
+  - [disable_startup_progress_timeout](disable_startup_progress_timeout.md)
+  - [ProcSleep](../P/ProcSleep.md)
+  - [BackendInitialize](../B/BackendInitialize.md)
+  - [assign_transaction_timeout](../a/assign_transaction_timeout.md)
+  - [PostgresMain](../P/PostgresMain.md)
+  - [enable_statement_timeout](../e/enable_statement_timeout.md)
+  - [disable_statement_timeout](disable_statement_timeout.md)
+  - [PerformAuthentication](../P/PerformAuthentication.md)
+  - [DisableTimeoutParams](../D/DisableTimeoutParams.md)
 
 ## Notes and Other Information
 - Safe to call on timeouts that are already disabled - not considered an error condition

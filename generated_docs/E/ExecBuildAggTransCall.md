@@ -43,7 +43,7 @@ The function determines the execution context (hash or regular aggregate context
 - Functions called/Symbols referenced:
   - [ExprEvalPushStep](ExprEvalPushStep.md)
   - [AggState](../A/AggState.md)
-  - ExprEvalStep
+  - [ExprEvalStep](ExprEvalStep.md)
   - [FunctionCallInfo](../F/FunctionCallInfo.md)
   - [AggStatePerTrans](../A/AggStatePerTrans.md)
   - EEOP_AGG_PLAIN_PERGROUP_NULLCHECK

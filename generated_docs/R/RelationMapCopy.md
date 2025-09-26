@@ -27,7 +27,7 @@ The function operates under RelationMappingLock to ensure atomicity and prevent 
   - [RelMapFile](RelMapFile.md) (structure for holding mapping data)
   - [read_relmap_file](../r/read_relmap_file.md) (reads mapping from source location)
   - [write_relmap_file](../w/write_relmap_file.md) (writes mapping to destination with WAL logging)
-  - LWLockAcquire/LWLockRelease (RelationMappingLock for concurrency control)
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease (RelationMappingLock for concurrency control)
 - Called from (representative examples):
   - [CreateDatabaseUsingWalLog](../C/CreateDatabaseUsingWalLog.md) (dbcommands.c:169)
 

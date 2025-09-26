@@ -25,7 +25,7 @@ This function completes the custom variable definition process by integrating th
   - [InitializeOneGUCOption](../I/InitializeOneGUCOption.md)
   - [add_guc_variable](../a/add_guc_variable.md)
   - [RemoveGUCFromLists](../R/RemoveGUCFromLists.md)
-  - set_config_option_ext
+  - [set_config_option_ext](../s/set_config_option_ext.md)
   - [reapply_stacked_values](../r/reapply_stacked_values.md)
   - [set_config_sourcefile](../s/set_config_sourcefile.md)
   - [set_string_field](../s/set_string_field.md)

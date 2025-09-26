@@ -56,15 +56,15 @@ The structure supports configuration of memory management (custom allocators, me
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HASHHDR
+  - [HASHHDR](HASHHDR.md)
 - Called from (representative examples):
-  - hash_create
-  - hash_get_shared_size
-  - init_missing_cache
-  - gistInitParentMap
-  - InitBufTable
+  - [hash_create](../h/hash_create.md)
+  - [hash_get_shared_size](../h/hash_get_shared_size.md)
+  - [init_missing_cache](../i/init_missing_cache.md)
+  - [gistInitParentMap](../g/gistInitParentMap.md)
+  - [InitBufTable](../I/InitBufTable.md)
   - ShmemInitHash
-  - InitLocks
+  - [InitLocks](../I/InitLocks.md)
 
 ## Notes and Other Information
 - Only fields corresponding to set hash_flags need to be initialized

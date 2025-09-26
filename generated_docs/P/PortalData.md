@@ -110,17 +110,17 @@ PortalData is the core data structure that represents a query execution context 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwner
+  - [ResourceOwner](../R/ResourceOwner.md)
   - [Portal](Portal.md) (for cleanup function pointer)
   - SubTransactionId
   - CommandTag
-  - QueryCompletion
-  - CachedPlan
+  - [QueryCompletion](../Q/QueryCompletion.md)
+  - [CachedPlan](../C/CachedPlan.md)
   - [ParamListInfo](ParamListInfo.md)
-  - QueryEnvironment
+  - [QueryEnvironment](../Q/QueryEnvironment.md)
   - PortalStrategy
   - [PortalStatus](PortalStatus.md)
-  - QueryDesc
+  - [QueryDesc](../Q/QueryDesc.md)
   - TuplestoreState
 - Called from (representative examples):
   - [Portal](Portal.md) typedef (as the underlying structure)

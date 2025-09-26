@@ -29,10 +29,10 @@ SubXactInfo serves as a metadata record for subtransactions in logical replicati
   - TransactionId
   - off_t (standard POSIX type)
 - Called from (representative examples):
-  - ApplySubXactData
-  - subxact_info_write
-  - subxact_info_read
-  - subxact_info_add
+  - [ApplySubXactData](../A/ApplySubXactData.md)
+  - [subxact_info_write](../s/subxact_info_write.md)
+  - [subxact_info_read](../s/subxact_info_read.md)
+  - [subxact_info_add](../s/subxact_info_add.md)
 
 ## Notes and Other Information
 This structure is part of the logical replication worker's memory management strategy for handling large transactions with multiple subtransactions. It works in conjunction with PostgreSQL's buffer file system to efficiently manage temporary storage of subtransaction data. The structure is primarily used in subtransaction management functions that handle reading, writing, and adding subtransaction information to the temporary file storage system.

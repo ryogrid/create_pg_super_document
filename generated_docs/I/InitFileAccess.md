@@ -30,7 +30,7 @@ This function takes no parameters.
   - MemSet
   - VFD_CLOSED (constant)
 - Called from (representative examples):
-  - BaseInit
+  - [BaseInit](../B/BaseInit.md)
 
 ## Notes and Other Information
 - Must be called exactly once per backend process - enforced by Assert(SizeVfdCache == 0)

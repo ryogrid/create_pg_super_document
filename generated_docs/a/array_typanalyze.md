@@ -26,7 +26,7 @@ The function stores all necessary type information in an ArrayAnalyzeExtraData s
   - [get_base_element_type](../g/get_base_element_type.md)
   - [lookup_type_cache](../l/lookup_type_cache.md)
   - [compute_array_stats](../c/compute_array_stats.md)
-  - VacAttrStats
+  - [VacAttrStats](../V/VacAttrStats.md)
   - ArrayAnalyzeExtraData
 - Called from (representative examples):
   - Referenced in pg_type.h catalog definitions

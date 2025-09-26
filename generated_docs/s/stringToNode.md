@@ -29,7 +29,7 @@ This function is widely used throughout the PostgreSQL codebase for deserializin
   - [TupleDescGetDefault](../T/TupleDescGetDefault.md)
   - [AddRelationNewConstraints](../A/AddRelationNewConstraints.md)
   - [MergeWithExistingConstraint](../M/MergeWithExistingConstraint.md)
-  - index_concurrently_create_copy
+  - [index_concurrently_create_copy](../i/index_concurrently_create_copy.md)
   - [ProcedureCreate](../P/ProcedureCreate.md)
   - [RelationBuildRowSecurity](../R/RelationBuildRowSecurity.md)
   - [ATExecValidateConstraint](../A/ATExecValidateConstraint.md)

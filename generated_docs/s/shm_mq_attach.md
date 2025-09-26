@@ -30,7 +30,7 @@ Key initialization performed:
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc](../p/palloc.md) (memory allocation)
-  - on_dsm_detach (cleanup registration)
+  - [on_dsm_detach](../o/on_dsm_detach.md) (cleanup registration)
   - [shm_mq_detach_callback](shm_mq_detach_callback.md) (cleanup callback)
 - Called from (representative examples):
   - [InitializeParallelDSM](../I/InitializeParallelDSM.md) (parallel query setup)

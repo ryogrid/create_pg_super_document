@@ -38,7 +38,7 @@ Key optimizations include:
 - Functions called/Symbols referenced:
   - HeapTupleNoNulls, HeapTupleHasVarWidth, HeapTupleHasNulls (tuple property checks)
   - TupleDescAttr (access tuple descriptor attributes)
-  - att_isnull (check null bitmap)
+  - [att_isnull](../a/att_isnull.md) (check null bitmap)
   - fetchatt (extract final attribute value)
   - att_align_nominal, att_align_pointer (handle data alignment)
   - att_addlength_pointer (calculate variable-length attribute sizes)

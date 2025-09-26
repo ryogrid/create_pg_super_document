@@ -29,9 +29,9 @@ This detection is crucial for optimization decisions, particularly in parallel r
 ## Dependencies
 - Functions called/Symbols referenced:
   - [fmtQualifiedId](../f/fmtQualifiedId.md) (formats schema-qualified table names for comparison)
-  - createPQExpBuffer (creates buffer for string building)
+  - [createPQExpBuffer](../c/createPQExpBuffer.md) (creates buffer for string building)
   - [appendPQExpBuffer](../a/appendPQExpBuffer.md) (appends formatted text to buffer)
-  - destroyPQExpBuffer (cleans up buffer memory)
+  - [destroyPQExpBuffer](../d/destroyPQExpBuffer.md) (cleans up buffer memory)
   - strncmp (string comparison function)
 - Called from (representative examples):
   - [restore_toc_entry](../r/restore_toc_entry.md) (to determine if TRUNCATE optimization is safe)

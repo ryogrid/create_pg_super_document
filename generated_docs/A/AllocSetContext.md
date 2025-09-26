@@ -41,7 +41,7 @@ AllocSetContext is the core data structure implementing PostgreSQL's allocation 
 - Functions called/Symbols referenced:
   - [MemoryContextData](../M/MemoryContextData.md) (base memory context structure)
   - [AllocBlock](AllocBlock.md) (memory block pointer type)
-  - MemoryChunk (individual memory chunk structure)
+  - [MemoryChunk](../M/MemoryChunk.md) (individual memory chunk structure)
   - ALLOCSET_NUM_FREELISTS (constant defining number of free lists)
 - Called from (representative examples):
   - [AllocSetContextCreateInternal](AllocSetContextCreateInternal.md) (creates and initializes new allocation contexts)

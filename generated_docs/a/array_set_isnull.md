@@ -25,7 +25,7 @@ The implementation calculates the appropriate byte position and creates a bitmas
 - Functions called/Symbols referenced:
   - bits8 (data type for bitmap representation)
 - Called from (representative examples):
-  - array_set_element
+  - [array_set_element](array_set_element.md)
 
 ## Notes and Other Information
 - The function assumes the nullbitmap parameter is not NULL and will crash if passed a NULL bitmap

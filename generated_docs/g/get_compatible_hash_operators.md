@@ -32,7 +32,7 @@ If the input operator is already single-type (left and right types are the same)
   - [get_opfamily_member](get_opfamily_member.md)
   - HTEqualStrategyNumber
   - Form_pg_amop
-  - CatCList
+  - [CatCList](../C/CatCList.md)
 - Called from (representative examples):
   - [ExecInitSubPlan](../E/ExecInitSubPlan.md)
   - [create_unique_plan](../c/create_unique_plan.md)

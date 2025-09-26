@@ -38,8 +38,8 @@ Since ParamListInfo is a typedef pointer to ParamListInfoData, the actual member
   - ParamFetchHook
   - ParamCompileHook
   - ParserSetupHook
-  - Param
-  - ExprState
+  - [Param](Param.md)
+  - [ExprState](../E/ExprState.md)
 
 - Called from (representative examples):
   - [ExecuteQuery](../E/ExecuteQuery.md) (prepared statements)

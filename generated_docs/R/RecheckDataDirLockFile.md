@@ -24,8 +24,8 @@ This function performs a safety check by reading the data directory lock file an
   - close
   - getpid
   - atol
-  - pgstat_report_wait_start
-  - pgstat_report_wait_end
+  - [pgstat_report_wait_start](../p/pgstat_report_wait_start.md)
+  - [pgstat_report_wait_end](../p/pgstat_report_wait_end.md)
   - DIRECTORY_LOCK_FILE (constant)
   - PG_BINARY (constant)
 - Called from (representative examples):

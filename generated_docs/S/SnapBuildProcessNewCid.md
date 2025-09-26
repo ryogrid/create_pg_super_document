@@ -32,9 +32,9 @@ The CommandId tracking is essential for maintaining MVCC (Multi-Version Concurre
   - CommandId (data type)
   - [xl_heap_new_cid](../x/xl_heap_new_cid.md) (struct type)
   - [ReorderBufferXidSetCatalogChanges](../R/ReorderBufferXidSetCatalogChanges.md)
-  - ReorderBufferAddNewTupleCids
+  - [ReorderBufferAddNewTupleCids](../R/ReorderBufferAddNewTupleCids.md)
   - InvalidCommandId (constant)
-  - ReorderBufferAddNewCommandId
+  - [ReorderBufferAddNewCommandId](../R/ReorderBufferAddNewCommandId.md)
 - Called from (representative examples):
   - [heap2_decode](../h/heap2_decode.md) (decode.c:436)
 

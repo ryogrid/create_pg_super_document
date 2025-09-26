@@ -30,7 +30,7 @@ The careful design ensures that each signal flag is processed exactly once - the
   - PMSignalReason (enum type for signal reasons)
   - PMSignalState (global shared memory structure)
 - Called from (representative examples):
-  - process_pm_pmsignal (postmaster signal processing - multiple calls for different reasons)
+  - [process_pm_pmsignal](../p/process_pm_pmsignal.md) (postmaster signal processing - multiple calls for different reasons)
 
 ## Notes and Other Information
 - This is a public function intended to be called only by the postmaster process

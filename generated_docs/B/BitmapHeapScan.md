@@ -26,17 +26,17 @@ The node maintains a copy of the qualification conditions from the input index s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Scan (base structure)
+  - [Scan](../S/Scan.md) (base structure)
 - Called from (representative examples):
-  - ExplainNode (for EXPLAIN output formatting)
-  - ExecInitNode (executor initialization)
-  - ExecInitBitmapHeapScan (node-specific initialization)
-  - create_bitmap_scan_plan (plan creation)
-  - make_bitmap_heapscan (plan node construction)
-  - create_indexscan_plan (alternative plan creation path)
+  - [ExplainNode](../E/ExplainNode.md) (for EXPLAIN output formatting)
+  - [ExecInitNode](../E/ExecInitNode.md) (executor initialization)
+  - [ExecInitBitmapHeapScan](../E/ExecInitBitmapHeapScan.md) (node-specific initialization)
+  - [create_bitmap_scan_plan](../c/create_bitmap_scan_plan.md) (plan creation)
+  - [make_bitmap_heapscan](../m/make_bitmap_heapscan.md) (plan node construction)
+  - [create_indexscan_plan](../c/create_indexscan_plan.md) (alternative plan creation path)
 
 ## Notes and Other Information
-- BitmapHeapScan works in conjunction with BitmapIndexScan and potentially BitmapAnd/BitmapOr nodes to implement efficient multi-index access patterns
+- [BitmapHeapScan](BitmapHeapScan.md) works in conjunction with BitmapIndexScan and potentially BitmapAnd/BitmapOr nodes to implement efficient multi-index access patterns
 - The bitmap can be exact (indicating specific tuple locations) or lossy (indicating pages that may contain matches), requiring different handling strategies
 - This scan type is most effective when the bitmap indicates a moderate number of scattered pages, avoiding the overhead of random I/O that would occur with nested loop joins
 - The bitmapqualorig field is essential for maintaining query correctness when bitmap information is incomplete or approximate

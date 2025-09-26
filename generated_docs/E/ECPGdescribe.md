@@ -24,16 +24,16 @@ This function implements the SQL DESCRIBE statement functionality for ECPG. It r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ecpg_get_connection: Retrieves connection object by name
+  - [ecpg_get_connection](../e/ecpg_get_connection.md): Retrieves connection object by name
   - [ecpg_find_prepared_statement](../e/ecpg_find_prepared_statement.md): Finds prepared statement by name
-  - ecpg_find_desc: Finds descriptor by name
+  - [ecpg_find_desc](../e/ecpg_find_desc.md): Finds descriptor by name
   - [PQdescribePrepared](../P/PQdescribePrepared.md): PostgreSQL function to get prepared statement metadata
   - [ecpg_check_PQresult](../e/ecpg_check_PQresult.md): Checks PostgreSQL result for errors
   - [ecpg_build_compat_sqlda](../e/ecpg_build_compat_sqlda.md): Builds Informix-compatible SQLDA structure
   - [ecpg_build_native_sqlda](../e/ecpg_build_native_sqlda.md): Builds native PostgreSQL SQLDA structure
   - [PQclear](../P/PQclear.md): Frees PostgreSQL result structures
   - [ecpg_raise](../e/ecpg_raise.md): Raises ECPG errors with appropriate error codes
-  - ecpg_gettext: Internationalization function for error messages
+  - [ecpg_gettext](../e/ecpg_gettext.md): Internationalization function for error messages
   - INFORMIX_MODE: Macro to check compatibility mode
   - Various ECPG error constants and SQL state codes
 

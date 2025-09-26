@@ -34,7 +34,7 @@ The uniqueness determination is based on the pathkeys and the number of key colu
 
 ## Notes and Other Information
 - This is a static function, only accessible within the createplan.c compilation unit
-- Unique nodes are non-projecting, meaning they preserve the exact structure of their input tuples
+- [Unique](../U/Unique.md) nodes are non-projecting, meaning they preserve the exact structure of their input tuples
 - The CP_LABEL_TLIST flag is automatically added to ensure proper column labeling for uniqueness operations
 - The  field from the path determines how many leading columns from the pathkeys are used for uniqueness
 - This function handles upper-level uniqueness operations, distinct from base relation uniqueness constraints

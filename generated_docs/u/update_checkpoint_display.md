@@ -24,7 +24,7 @@ The function constructs descriptive messages that indicate the type of operation
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - set_ps_display
+  - [set_ps_display](../s/set_ps_display.md)
   - CHECKPOINT_END_OF_RECOVERY (constant)
   - CHECKPOINT_IS_SHUTDOWN (constant)
 - Called from (representative examples):

@@ -38,7 +38,7 @@ If the funcname matches a valid, non-dropped column in the tuple descriptor, the
   - [get_expr_result_tupdesc](../g/get_expr_result_tupdesc.md)
   - TupleDescAttr
   - makeNode
-  - FieldSelect (struct)
+  - [FieldSelect](../F/FieldSelect.md) (struct)
   - [ParseNamespaceItem](ParseNamespaceItem.md) (struct)
   - InvalidAttrNumber (constant)
 - Called from (representative examples):

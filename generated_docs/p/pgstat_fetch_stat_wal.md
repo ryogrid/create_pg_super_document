@@ -19,7 +19,7 @@ The function follows the standard PostgreSQL statistics pattern of taking a snap
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_snapshot_fixed
+  - [pgstat_snapshot_fixed](pgstat_snapshot_fixed.md)
   - PGSTAT_KIND_WAL
 - Called from (representative examples):
   - PG_STAT_GET_WAL_COLS

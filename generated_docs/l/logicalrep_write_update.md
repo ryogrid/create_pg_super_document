@@ -36,16 +36,16 @@ The function respects the table's replica identity setting to determine what old
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_sendbyte (sends single byte to output stream)
-  - pq_sendint32 (sends 4-byte integer to output stream)  
+  - [pq_sendbyte](../p/pq_sendbyte.md) (sends single byte to output stream)
+  - [pq_sendint32](../p/pq_sendint32.md) (sends 4-byte integer to output stream)  
   - RelationGetRelid (gets relation OID)
   - TransactionIdIsValid (validates transaction ID)
-  - logicalrep_write_tuple (writes tuple data to stream)
+  - [logicalrep_write_tuple](logicalrep_write_tuple.md) (writes tuple data to stream)
 - Constants used:
   - LOGICAL_REP_MSG_UPDATE (message type identifier)
   - REPLICA_IDENTITY_DEFAULT, REPLICA_IDENTITY_FULL, REPLICA_IDENTITY_INDEX (replica identity modes)
 - Called from (representative examples):
-  - pgoutput_change (in pgoutput logical decoding plugin)
+  - [pgoutput_change](../p/pgoutput_change.md) (in pgoutput logical decoding plugin)
 
 ## Notes and Other Information
 - Asserts that the relation has a valid replica identity setting (DEFAULT, FULL, or INDEX)

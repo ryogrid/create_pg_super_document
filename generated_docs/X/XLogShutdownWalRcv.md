@@ -23,8 +23,8 @@ The function combines WAL receiver shutdown with the cleanup of associated state
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ShutdownWalRcv](../S/ShutdownWalRcv.md)
-  - LWLockAcquire
-  - LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - XLogCtl (global control structure)
   - ControlFileLock
   - LW_EXCLUSIVE (lock mode constant)

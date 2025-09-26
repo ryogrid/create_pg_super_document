@@ -71,22 +71,22 @@ The structure accommodates different XML operations through the op field, with s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XmlExprOp (enum)
-  - XmlOptionType (enum)
+  - [XmlExprOp](XmlExprOp.md) (enum)
+  - [XmlOptionType](XmlOptionType.md) (enum)
   - ParseLoc
-  - Expr (base type)
-  - List
+  - [Expr](../E/Expr.md) (base type)
+  - [List](../L/List.md)
   - Oid
 
 - Called from (representative examples):
-  - transformXmlExpr (parse_expr.c:2355, 2357, 2361)
-  - transformXmlSerialize (parse_expr.c:2487, 2491)
-  - ExecInitExprRec (execExpr.c:2260)
-  - ExecEvalXmlExpr (execExprInterp.c:3888)
-  - get_rule_expr (ruleutils.c:9769)
+  - [transformXmlExpr](../t/transformXmlExpr.md) (parse_expr.c:2355, 2357, 2361)
+  - [transformXmlSerialize](../t/transformXmlSerialize.md) (parse_expr.c:2487, 2491)
+  - [ExecInitExprRec](../E/ExecInitExprRec.md) (execExpr.c:2260)
+  - [ExecEvalXmlExpr](../E/ExecEvalXmlExpr.md) (execExprInterp.c:3888)
+  - [get_rule_expr](../g/get_rule_expr.md) (ruleutils.c:9769)
 
 ## Notes and Other Information
-- XmlExpr is part of PostgreSQL's expression node hierarchy, inheriting from the base Expr type
+- [XmlExpr](XmlExpr.md) is part of PostgreSQL's expression node hierarchy, inheriting from the base Expr type
 - Multiple fields are marked with pg_node_attr(query_jumble_ignore) to optimize query plan caching by excluding display-only information from query fingerprinting
 - The type and typmod fields are used primarily for display purposes and do not necessarily represent the true result type, which is determined by the XmlExprOp
 - named_args and arg_names work as parallel lists to represent XML attribute specifications

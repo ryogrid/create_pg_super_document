@@ -26,10 +26,10 @@ An important limitation is that the difference between max and min must not over
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_prng_state (PostgreSQL PRNG state type)
-  - pg_prng_uint64_range (PostgreSQL PRNG range function)
+  - [pg_prng_state](../p/pg_prng_state.md) (PostgreSQL PRNG state type)
+  - [pg_prng_uint64_range](../p/pg_prng_uint64_range.md) (PostgreSQL PRNG range function)
 - Called from (representative examples):
-  - evalStandardFunc (at src/bin/pgbench/pgbench.c:2678)
+  - [evalStandardFunc](../e/evalStandardFunc.md) (at src/bin/pgbench/pgbench.c:2678)
   - [chooseScript](../c/chooseScript.md) (at src/bin/pgbench/pgbench.c:3055)
 
 ## Notes and Other Information

@@ -35,7 +35,7 @@ The design allows for efficient traversal of bucket chains while also providing 
   - BlockNumber
 - Called from (representative examples):
   - [_hash_pageinit](../h/_hash_pageinit.md)
-  - _hash_checkpage
+  - [_hash_checkpage](../h/_hash_checkpage.md)
   - HashPageOpaque
   - HashMaxItemSize
   - HashGetMaxBitmapSize

@@ -25,18 +25,18 @@ The caching strategy assumes that distinct timezone settings never have the same
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentTransactionStartTimestamp (gets the base timestamp)
-  - timestamp2tm (performs the actual timestamp to broken-down time conversion)
-  - pg_tm (PostgreSQL's broken-down time structure)
+  - [GetCurrentTransactionStartTimestamp](GetCurrentTransactionStartTimestamp.md) (gets the base timestamp)
+  - [timestamp2tm](../t/timestamp2tm.md) (performs the actual timestamp to broken-down time conversion)
+  - [pg_tm](../p/pg_tm.md) (PostgreSQL's broken-down time structure)
   - fsec_t (fractional seconds type)
-  - pg_tz (timezone structure)
+  - [pg_tz](../p/pg_tz.md) (timezone structure)
   - session_timezone (global session timezone setting)
 - Called from (representative examples):
-  - GetSQLCurrentTime (SQL CURRENT_TIME function)
-  - GetSQLLocalTime (SQL LOCALTIME function)  
-  - GetCurrentDateTime (simplified wrapper function)
-  - DecodeDateTime (datetime parsing for "now" references)
-  - DecodeTimeOnly (time parsing with current date context)
+  - [GetSQLCurrentTime](GetSQLCurrentTime.md) (SQL CURRENT_TIME function)
+  - [GetSQLLocalTime](GetSQLLocalTime.md) (SQL LOCALTIME function)  
+  - [GetCurrentDateTime](GetCurrentDateTime.md) (simplified wrapper function)
+  - [DecodeDateTime](../D/DecodeDateTime.md) (datetime parsing for "now" references)
+  - [DecodeTimeOnly](../D/DecodeTimeOnly.md) (time parsing with current date context)
 
 ## Notes and Other Information
 - Implements transaction-consistent time semantics where "now()" returns the same value throughout a transaction

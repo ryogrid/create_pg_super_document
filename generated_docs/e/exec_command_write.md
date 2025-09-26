@@ -28,7 +28,7 @@ This function handles the execution of the \w command in psql, which writes the 
   - popen/pclose: Opens and closes pipe processes
   - fopen/fclose: Opens and closes regular files
   - [SetShellResultVariables](../S/SetShellResultVariables.md): Sets result variables for pipe commands
-  - wait_result_to_str: Converts process exit codes to strings
+  - [wait_result_to_str](../w/wait_result_to_str.md): Converts process exit codes to strings
   - [ignore_slash_filepipe](../i/ignore_slash_filepipe.md): Skips parsing when in inactive branch
 - Called from (representative examples):
   - [exec_command](exec_command.md): Main command dispatcher in psql

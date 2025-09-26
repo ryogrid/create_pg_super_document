@@ -25,9 +25,9 @@ When the function encounters an ordinary arc (color < ncolors), it increments th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `check_stack_depth` (stack overflow protection)
+  - `[check_stack_depth](../c/check_stack_depth.md)` (stack overflow protection)
   - [cnfa](../c/cnfa.md) (compiled NFA structure)
-  - `carc` (compiled arc structure)
+  - `[carc](../c/carc.md)` (compiled arc structure)
   - `COLORLESS` (sentinel value for arc termination)
   - [regex_arc_t](../r/regex_arc_t.md) (output arc structure)
   - [traverse_lacons](traverse_lacons.md) (recursive self-call)

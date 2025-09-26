@@ -23,18 +23,18 @@ The function prevents nested ALTER EXTENSION operations using the global creatin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open/systable_beginscan: Accesses pg_extension catalog
-  - heap_getattr: Retrieves current extension version
-  - text_to_cstring: Converts version datum to string
-  - object_ownercheck: Verifies ownership of extension
-  - read_extension_control_file: Reads extension control file
-  - errorConflictingDefElem: Reports conflicting statement options
-  - check_valid_version_name: Validates version name format
-  - identify_update_path: Determines sequence of update scripts
-  - ApplyExtensionUpdates: Executes the actual update process
+  - [table_open](../t/table_open.md)/systable_beginscan: Accesses pg_extension catalog
+  - [heap_getattr](../h/heap_getattr.md): Retrieves current extension version
+  - [text_to_cstring](../t/text_to_cstring.md): Converts version datum to string
+  - [object_ownercheck](../o/object_ownercheck.md): Verifies ownership of extension
+  - [read_extension_control_file](../r/read_extension_control_file.md): Reads extension control file
+  - [errorConflictingDefElem](../e/errorConflictingDefElem.md): Reports conflicting statement options
+  - [check_valid_version_name](../c/check_valid_version_name.md): Validates version name format
+  - [identify_update_path](../i/identify_update_path.md): Determines sequence of update scripts
+  - [ApplyExtensionUpdates](../A/ApplyExtensionUpdates.md): Executes the actual update process
   - ObjectAddressSet: Creates return address object
 - Called from (representative examples):
-  - ProcessUtilitySlow: Main utility command dispatcher for ALTER EXTENSION
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md): Main utility command dispatcher for ALTER EXTENSION
 
 ## Notes and Other Information
 - Uses global creating_extension flag to prevent nested extension operations

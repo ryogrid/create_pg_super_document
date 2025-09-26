@@ -24,13 +24,13 @@ The function performs several critical tasks: validates syntax constraints (e.g.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth
+  - [check_stack_depth](../c/check_stack_depth.md)
   - CHECK_FOR_INTERRUPTS
-  - appendStringInfoChar
+  - [appendStringInfoChar](../a/appendStringInfoChar.md)
   - [alignStringInfoInt](../a/alignStringInfoInt.md)
   - [reserveSpaceForItemPointer](../r/reserveSpaceForItemPointer.md)
-  - appendBinaryStringInfo
-  - appendStringInfoSpaces
+  - [appendBinaryStringInfo](../a/appendBinaryStringInfo.md)
+  - [appendStringInfoSpaces](../a/appendStringInfoSpaces.md)
   - ereturn
   - elog
   - VARSIZE

@@ -31,7 +31,7 @@ The function manages complex coordination including cost-based vacuum delay shar
   - [ReinitializeParallelDSM](../R/ReinitializeParallelDSM.md)
   - [ReinitializeParallelWorkers](../R/ReinitializeParallelWorkers.md)
   - [LaunchParallelWorkers](../L/LaunchParallelWorkers.md)
-  - WaitForParallelWorkersToFinish
+  - [WaitForParallelWorkersToFinish](../W/WaitForParallelWorkersToFinish.md)
   - [InstrAccumParallelQuery](../I/InstrAccumParallelQuery.md)
   - [parallel_vacuum_process_unsafe_indexes](parallel_vacuum_process_unsafe_indexes.md)
   - [parallel_vacuum_process_safe_indexes](parallel_vacuum_process_safe_indexes.md)

@@ -23,7 +23,7 @@ This is a simple but critical function in the GUC lifecycle - it takes the valid
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SyncRepConfigData (cast to this type)
+  - [SyncRepConfigData](../S/SyncRepConfigData.md) (cast to this type)
 - Called from (representative examples):
   - GUC system (referenced in guc_hooks.h)
 

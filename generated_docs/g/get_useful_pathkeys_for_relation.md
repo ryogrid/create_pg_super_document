@@ -29,8 +29,8 @@ When parallel execution is involved, the function can enforce parallel-safe requ
 - Functions called/Symbols referenced:
   - [relation_can_be_sorted_early](../r/relation_can_be_sorted_early.md)
   - [list_copy_head](../l/list_copy_head.md)
-  - PathKey (type)
-  - EquivalenceClass (type)
+  - [PathKey](../P/PathKey.md) (type)
+  - [EquivalenceClass](../E/EquivalenceClass.md) (type)
 - Called from (representative examples):
   - [generate_useful_gather_paths](generate_useful_gather_paths.md)
 

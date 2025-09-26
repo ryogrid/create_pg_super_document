@@ -24,10 +24,10 @@ Each test case follows a similar pattern: reset the environment, prepare SQL sta
 - Functions called/Symbols referenced:
   - [reset](../r/reset.md) (resets test environment and variables)
   - [printResult](../p/printResult.md) (displays test case results)
-  - ECPGprepare (prepares SQL statements)
+  - [ECPGprepare](../E/ECPGprepare.md) (prepares SQL statements)
   - [ECPGdo](../E/ECPGdo.md) (executes SQL commands)
   - [ECPGdeallocate](../E/ECPGdeallocate.md) (deallocates prepared statements)
-  - ECPGprepared_statement (references prepared statements)
+  - [ECPGprepared_statement](../E/ECPGprepared_statement.md) (references prepared statements)
   - [ECPGallocate_desc](../E/ECPGallocate_desc.md) (allocates SQL descriptors)
   - [ECPGdeallocate_desc](../E/ECPGdeallocate_desc.md) (deallocates SQL descriptors)
   - [ECPGdescribe](../E/ECPGdescribe.md) (describes prepared statements)

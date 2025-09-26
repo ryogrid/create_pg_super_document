@@ -24,8 +24,8 @@ The  function is a constructor function that creates and initializes a  node. Th
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (PostgreSQL node allocation macro)
-  - JsonValueExpr (node type structure)
-  - JsonFormat (format specification structure)
+  - [JsonValueExpr](../J/JsonValueExpr.md) (node type structure)
+  - [JsonFormat](../J/JsonFormat.md) (format specification structure)
 - Called from (representative examples):
   - [eval_const_expressions_mutator](../e/eval_const_expressions_mutator.md) (optimizer/util/clauses.c:2934)
   - [transformJsonArrayQueryConstructor](../t/transformJsonArrayQueryConstructor.md) (parser/parse_expr.c:3785)

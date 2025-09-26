@@ -34,7 +34,7 @@ The function extracts a 64-bit integer from the input buffer using `pq_getmsgint
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's type system binary I/O interface
-- Range validation ensures timestamps are within PostgreSQL's supported range (4713 BC to 294276 AD)
+- [Range](../R/Range.md) validation ensures timestamps are within PostgreSQL's supported range (4713 BC to 294276 AD)
 - Special handling for non-finite timestamp values (infinity, -infinity)
 - Type modifier adjustment handles precision constraints for fractional seconds
 - Located in src/backend/utils/adt/timestamp.c:258-290

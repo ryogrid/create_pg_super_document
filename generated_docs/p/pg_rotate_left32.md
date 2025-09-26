@@ -23,8 +23,8 @@ pg_rotate_left32 implements a circular left bit shift operation on a 32-bit unsi
 - Functions called/Symbols referenced:
   - No external function calls (uses only bitwise operations)
 - Called from (representative examples):
-  - TupleHashTableHash_internal (tuple hashing in executor grouping)
-  - ExecHashGetHashValue (hash value calculation in hash joins)
+  - [TupleHashTableHash_internal](../T/TupleHashTableHash_internal.md) (tuple hashing in executor grouping)
+  - [ExecHashGetHashValue](../E/ExecHashGetHashValue.md) (hash value calculation in hash joins)
   - [MemoizeHash_hash](../M/MemoizeHash_hash.md) (memoization hash function)
   - [JsonbHashScalarValue](../J/JsonbHashScalarValue.md) (JSONB scalar value hashing)
   - [hash_multirange](../h/hash_multirange.md) (multirange type hashing)

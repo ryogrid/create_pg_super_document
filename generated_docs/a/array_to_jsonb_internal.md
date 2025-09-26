@@ -33,15 +33,15 @@ The function handles arrays of any number of dimensions and any supported Postgr
   - ARR_ELEMTYPE
   - ARR_NDIM
   - ARR_DIMS
-  - ArrayGetNItems
-  - pushJsonbValue
-  - get_typlenbyvalalign
-  - json_categorize_type
-  - deconstruct_array
-  - array_dim_to_jsonb
-  - pfree
+  - [ArrayGetNItems](../A/ArrayGetNItems.md)
+  - [pushJsonbValue](../p/pushJsonbValue.md)
+  - [get_typlenbyvalalign](../g/get_typlenbyvalalign.md)
+  - [json_categorize_type](../j/json_categorize_type.md)
+  - [deconstruct_array](../d/deconstruct_array.md)
+  - [array_dim_to_jsonb](array_dim_to_jsonb.md)
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - datum_to_jsonb_internal
+  - [datum_to_jsonb_internal](../d/datum_to_jsonb_internal.md)
 
 ## Notes and Other Information
 - This is a static function used internally within jsonb.c for array conversion

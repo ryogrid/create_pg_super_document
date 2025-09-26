@@ -27,10 +27,10 @@ This function serves as an extended PostgreSQL SQL function entry point for retr
   - PG_GETARG_BOOL
   - GET_PRETTY_FLAGS
   - [makeRangeVarFromNameList](../m/makeRangeVarFromNameList.md)
-  - textToQualifiedNameList
+  - [textToQualifiedNameList](../t/textToQualifiedNameList.md)
   - RangeVarGetRelid
   - [pg_get_viewdef_worker](pg_get_viewdef_worker.md)
-  - string_to_text
+  - [string_to_text](../s/string_to_text.md)
   - PG_RETURN_TEXT_P
   - WRAP_COLUMN_DEFAULT
 - Called from (representative examples):

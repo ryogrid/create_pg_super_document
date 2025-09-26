@@ -35,7 +35,7 @@ The calculated space will be used to store synchronization information between p
   - shm_toc_estimate_keys (for registering table-of-contents key needs)
   - [ParallelAppendState](../P/ParallelAppendState.md) (the structure type being sized)
 - Called from (representative examples):
-  - ExecParallelEstimate (main parallel execution estimator dispatcher)
+  - [ExecParallelEstimate](ExecParallelEstimate.md) (main parallel execution estimator dispatcher)
 
 ## Notes and Other Information
 - The function calculates space for a ParallelAppendState which includes a boolean array sized according to the number of subplans

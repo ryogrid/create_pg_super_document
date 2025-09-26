@@ -37,7 +37,7 @@ A key design consideration is permission handling: the function avoids marking t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_length
+  - [list_length](../l/list_length.md)
   - [ExpandAllTables](ExpandAllTables.md)
   - [refnameNamespaceItem](../r/refnameNamespaceItem.md)
   - strVal

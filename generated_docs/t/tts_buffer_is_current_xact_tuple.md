@@ -17,7 +17,7 @@ tts_buffer_is_current_xact_tuple checks if a tuple stored in a buffer-backed hea
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferHeapTupleTableSlot (cast target type)
+  - [BufferHeapTupleTableSlot](../B/BufferHeapTupleTableSlot.md) (cast target type)
   - TTS_EMPTY (slot state check macro)
   - HeapTupleHeaderGetRawXmin (transaction ID extraction function)
   - [TransactionIdIsCurrentTransactionId](../T/TransactionIdIsCurrentTransactionId.md) (transaction comparison function)

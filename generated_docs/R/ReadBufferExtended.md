@@ -27,7 +27,7 @@ Different read modes serve distinct purposes: normal mode for standard data acce
 - Functions called/Symbols referenced:
   - RELATION_IS_OTHER_TEMP: Security check for temporary table access
   - [ReadBuffer_common](ReadBuffer_common.md): Core buffer reading implementation
-  - RelationGetSmgr: Gets storage manager handle for relation
+  - [RelationGetSmgr](RelationGetSmgr.md): Gets storage manager handle for relation
 - Called from (representative examples):
   - [ReadBuffer](ReadBuffer.md): Simplified buffer reading interface
   - [brin_vacuum_scan](../b/brin_vacuum_scan.md): BRIN index vacuum operations
@@ -35,7 +35,7 @@ Different read modes serve distinct purposes: normal mode for standard data acce
   - [hashbulkdelete](../h/hashbulkdelete.md): Hash index bulk deletion
   - [lazy_scan_heap](../l/lazy_scan_heap.md): Heap vacuum scanning
   - [vm_readbuf](../v/vm_readbuf.md): Visibility map buffer reading
-  - fsm_readbuf: Free space map buffer reading
+  - [fsm_readbuf](../f/fsm_readbuf.md): Free space map buffer reading
 
 ## Notes and Other Information
 - Marked as inline for performance in frequently called code paths

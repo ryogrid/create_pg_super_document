@@ -36,15 +36,15 @@ The round-robin distribution ensures that resources are evenly distributed acros
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (PostgreSQL memory allocation)
-  - dlist_node_init (initialize doubly-linked list node)
-  - ResourceOwnerEnlarge (ensure ResourceOwner capacity)
-  - ResourceOwnerRemember (register resource with owner)
-  - dlist_push_tail (add to end of resource list)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation)
+  - [dlist_node_init](../d/dlist_node_init.md) (initialize doubly-linked list node)
+  - [ResourceOwnerEnlarge](ResourceOwnerEnlarge.md) (ensure ResourceOwner capacity)
+  - [ResourceOwnerRemember](ResourceOwnerRemember.md) (register resource with owner)
+  - [dlist_push_tail](../d/dlist_push_tail.md) (add to end of resource list)
   - elog (logging function)
-  - PointerGetDatum (convert pointer to Datum)
+  - [PointerGetDatum](../P/PointerGetDatum.md) (convert pointer to Datum)
 - Called from (representative examples):
-  - test_resowner_many (main test function)
+  - [test_resowner_many](../t/test_resowner_many.md) (main test function)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the test_resowner_many.c file

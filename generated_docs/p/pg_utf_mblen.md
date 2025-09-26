@@ -30,12 +30,12 @@ For invalid or unsupported leading bytes, the function conservatively returns 1,
 - Functions called/Symbols referenced:
   - (None - uses only bitwise operations)
 - Called from (representative examples):
-  - unicode_assigned
-  - unicode_normalize_func
-  - UtfToLocal
-  - pg_unicode_to_server
-  - pg_wchar2utf_with_len
-  - pg_saslprep
+  - [unicode_assigned](../u/unicode_assigned.md)
+  - [unicode_normalize_func](../u/unicode_normalize_func.md)
+  - [UtfToLocal](../U/UtfToLocal.md)
+  - [pg_unicode_to_server](pg_unicode_to_server.md)
+  - [pg_wchar2utf_with_len](pg_wchar2utf_with_len.md)
+  - [pg_saslprep](pg_saslprep.md)
   - STRIDE_LENGTH
 
 ## Notes and Other Information

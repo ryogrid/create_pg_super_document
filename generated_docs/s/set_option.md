@@ -33,14 +33,14 @@ The function expects arguments to start with "-" (which it skips) and uses the g
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pro (global parameter configuration table)
+  - [pro](../p/pro.md) (global parameter configuration table)
   - [eqin](../e/eqin.md) (prefix matching function)
   - [errx](../e/errx.md) (error reporting and exit)
   - atof (string to float conversion)
   - atoi (string to integer conversion)
   - isdigit (character classification)
   - [add_typename](../a/add_typename.md) (adds custom type names)
-  - add_typedefs_from_file (loads type definitions from file)
+  - [add_typedefs_from_file](../a/add_typedefs_from_file.md) (loads type definitions from file)
   - printf (standard output)
   - exit (program termination)
   - Various constants: PRO_SPECIAL, PRO_BOOL, PRO_INT, IGN, CLI, STDIN, KEY, KEY_FILE, VERSION, OFF, INDENT_VERSION
@@ -52,8 +52,8 @@ The function expects arguments to start with "-" (which it skips) and uses the g
 - The function modifies global state variables pointed to by the parameter configuration table entries
 - Error messages include the `option_source` context (e.g., "Command line", profile file name)
 - The VERSION special parameter causes immediate program termination with exit(0)
-- Boolean parameters use the p_special field to determine ON/OFF state
-- Integer parameters require digit validation before conversion
+- [Boolean](../B/Boolean.md) parameters use the p_special field to determine ON/OFF state
+- [Integer](../I/Integer.md) parameters require digit validation before conversion
 - The function handles both short options and options with embedded values
 - Special handling for ps.case_indent as a float value that cannot be table-driven
 - Comprehensive error checking with descriptive error messages for debugging

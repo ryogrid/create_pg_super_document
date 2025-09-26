@@ -22,13 +22,13 @@ The function serves as a thin wrapper around the table access method's implement
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IndexFetchTableData (structure type)
+  - [IndexFetchTableData](../I/IndexFetchTableData.md) (structure type)
   - rd_tableam->index_fetch_reset (table access method function pointer)
 - Called from (representative examples):
-  - index_rescan (src/backend/access/index/indexam.c:364)
-  - index_restrpos (src/backend/access/index/indexam.c:441)
-  - index_parallelrescan (src/backend/access/index/indexam.c:528)
-  - index_getnext_tid (src/backend/access/index/indexam.c:601)
+  - [index_rescan](../i/index_rescan.md) (src/backend/access/index/indexam.c:364)
+  - [index_restrpos](../i/index_restrpos.md) (src/backend/access/index/indexam.c:441)
+  - [index_parallelrescan](../i/index_parallelrescan.md) (src/backend/access/index/indexam.c:528)
+  - [index_getnext_tid](../i/index_getnext_tid.md) (src/backend/access/index/indexam.c:601)
 
 ## Notes and Other Information
 - This is an inline function defined in the tableam.h header file

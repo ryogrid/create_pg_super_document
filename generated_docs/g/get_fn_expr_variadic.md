@@ -24,7 +24,7 @@ The function only works with FuncExpr nodes, as other expression types (operator
 - Functions called/Symbols referenced:
   - IsA (macro)
 - Expression node types referenced:
-  - FuncExpr
+  - [FuncExpr](../F/FuncExpr.md)
 - Called from (representative examples):
   - [count_nulls](../c/count_nulls.md)
   - [concat_internal](../c/concat_internal.md)

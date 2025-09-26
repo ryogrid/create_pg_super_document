@@ -28,7 +28,7 @@ The function handles security by switching to the table owner's userid and restr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - [index_open](../i/index_open.md)
   - [index_close](../i/index_close.md)
   - [BuildIndexInfo](../B/BuildIndexInfo.md)
@@ -37,8 +37,8 @@ The function handles security by switching to the table owner's userid and restr
   - [table_index_validate_scan](../t/table_index_validate_scan.md)
   - [index_insert_cleanup](../i/index_insert_cleanup.md)
   - [tuplesort_begin_datum](../t/tuplesort_begin_datum.md)
-  - tuplesort_performsort
-  - tuplesort_end
+  - [tuplesort_performsort](../t/tuplesort_performsort.md)
+  - [tuplesort_end](../t/tuplesort_end.md)
   - [GetUserIdAndSecContext](../G/GetUserIdAndSecContext.md)
   - [SetUserIdAndSecContext](../S/SetUserIdAndSecContext.md)
   - [pgstat_progress_update_multi_param](../p/pgstat_progress_update_multi_param.md)

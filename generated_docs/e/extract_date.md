@@ -31,13 +31,13 @@ The function uses PostgreSQL's internal date conversion functions and follows SQ
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_TEXT_PP`, `PG_GETARG_DATEADT` - Argument extraction macros
-  - [downcase_truncate_identifier](../d/downcase_truncate_identifier.md) - String processing for unit names
+  - [downcase_truncate_identifier](../d/downcase_truncate_identifier.md) - [String](../S/String.md) processing for unit names
   - [DecodeUnits](../D/DecodeUnits.md), `DecodeSpecial` - Unit parsing functions
   - [j2date](../j/j2date.md) - Julian to Gregorian date conversion
   - [date2isoweek](../d/date2isoweek.md), `date2isoyear` - ISO week/year calculations
-  - `j2day` - Julian to day-of-week conversion
+  - `[j2day](../j/j2day.md)` - Julian to day-of-week conversion
   - [date2j](../d/date2j.md) - Gregorian to Julian date conversion
-  - [int64_to_numeric](../i/int64_to_numeric.md) - Numeric result conversion
+  - [int64_to_numeric](../i/int64_to_numeric.md) - [Numeric](../N/Numeric.md) result conversion
   - `DATE_NOT_FINITE`, `DATE_IS_NOBEGIN` - Infinite date checks
   - Various `DTK_*` constants for date/time field types
   - `POSTGRES_EPOCH_JDATE`, `UNIX_EPOCH_JDATE`, `SECS_PER_DAY` - Epoch constants

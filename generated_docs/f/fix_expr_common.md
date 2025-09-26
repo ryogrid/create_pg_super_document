@@ -31,11 +31,11 @@ The function assumes it's safe to update opcode information in-place and may mod
 ## Dependencies
 - Functions called/Symbols referenced:
   - [record_plan_function_dependency](../r/record_plan_function_dependency.md) (tracks function dependencies)
-  - set_opfuncid (resolves operator function OIDs)
-  - set_sa_opfuncid (resolves scalar array operator function OIDs)
-  - lappend_oid (adds OIDs to relation list)
+  - [set_opfuncid](../s/set_opfuncid.md) (resolves operator function OIDs)
+  - [set_sa_opfuncid](../s/set_sa_opfuncid.md) (resolves scalar array operator function OIDs)
+  - [lappend_oid](../l/lappend_oid.md) (adds OIDs to relation list)
   - [DatumGetObjectId](../D/DatumGetObjectId.md) (extracts OID from Datum)
-  - lappend_int (adds integers to list)
+  - [lappend_int](../l/lappend_int.md) (adds integers to list)
   - lfirst_int (extracts integer from list cell)
   - [equal](../e/equal.md) (compares expression lists)
   - ISREGCLASSCONST (macro to check regclass constants)

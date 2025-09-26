@@ -19,23 +19,23 @@ This function implements a spinlock-style mechanism to acquire exclusive access 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferDesc (structure type)
+  - [BufferDesc](../B/BufferDesc.md) (structure type)
   - SpinDelayStatus (type for delay management)
   - BufferIsLocal (checks if buffer is local)
-  - BufferDescriptorGetBuffer (gets buffer number from descriptor)
+  - [BufferDescriptorGetBuffer](../B/BufferDescriptorGetBuffer.md) (gets buffer number from descriptor)
   - init_local_spin_delay (initializes delay mechanism)
-  - pg_atomic_fetch_or_u32 (atomic OR operation)
+  - [pg_atomic_fetch_or_u32](../p/pg_atomic_fetch_or_u32.md) (atomic OR operation)
   - BM_LOCKED (buffer state flag)
-  - perform_spin_delay (executes delay)
-  - finish_spin_delay (cleans up delay state)
+  - [perform_spin_delay](../p/perform_spin_delay.md) (executes delay)
+  - [finish_spin_delay](../f/finish_spin_delay.md) (cleans up delay state)
 - Called from (representative examples):
-  - ReadRecentBuffer
-  - BufferAlloc
-  - InvalidateBuffer
-  - GetVictimBuffer
-  - BufferSync
-  - FlushBuffer
-  - LockBufferForCleanup
+  - [ReadRecentBuffer](../R/ReadRecentBuffer.md)
+  - [BufferAlloc](../B/BufferAlloc.md)
+  - [InvalidateBuffer](../I/InvalidateBuffer.md)
+  - [GetVictimBuffer](../G/GetVictimBuffer.md)
+  - [BufferSync](../B/BufferSync.md)
+  - [FlushBuffer](../F/FlushBuffer.md)
+  - [LockBufferForCleanup](LockBufferForCleanup.md)
 
 ## Notes and Other Information
 - Only works on shared buffers (asserts that buffer is not local)

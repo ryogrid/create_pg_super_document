@@ -31,7 +31,7 @@ The function operates only on non-fixed hash tables and uses the hash table's cu
 - Data structures referenced:
   - [HTAB](../H/HTAB.md) (hash table structure)
   - [HASHHDR](../H/HASHHDR.md) (hash table header)
-  - HASHELEMENT (hash element structure)
+  - [HASHELEMENT](../H/HASHELEMENT.md) (hash element structure)
 - Called from (representative examples):
   - [get_hash_entry](../g/get_hash_entry.md)
   - [hash_create](../h/hash_create.md)

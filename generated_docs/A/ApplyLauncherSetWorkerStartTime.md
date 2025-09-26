@@ -24,12 +24,12 @@ This timing information is crucial for preventing excessive worker restarts and 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - logicalrep_launcher_attach_dshmem
-  - dshash_find_or_insert
-  - dshash_release_lock
-  - LauncherLastStartTimesEntry
+  - [logicalrep_launcher_attach_dshmem](../l/logicalrep_launcher_attach_dshmem.md)
+  - [dshash_find_or_insert](../d/dshash_find_or_insert.md)
+  - [dshash_release_lock](../d/dshash_release_lock.md)
+  - [LauncherLastStartTimesEntry](../L/LauncherLastStartTimesEntry.md)
 - Called from:
-  - ApplyLauncherMain
+  - [ApplyLauncherMain](ApplyLauncherMain.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the launcher module

@@ -36,7 +36,7 @@ Returns:
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc](../p/palloc.md)
-  - LWLockAcquire/LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease
   - GET_VXID_FROM_PGPROC
   - VirtualTransactionIdIsValid
 - Called from (representative examples):

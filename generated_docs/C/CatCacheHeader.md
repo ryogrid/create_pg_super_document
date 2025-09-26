@@ -25,14 +25,14 @@ The ch_ntup field provides a quick way to monitor the total memory usage and cac
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slist_head (singly-linked list infrastructure from lib/ilist.h)
-  - CatCache (individual cache instances linked through this header)
+  - [slist_head](../s/slist_head.md) (singly-linked list infrastructure from lib/ilist.h)
+  - [CatCache](CatCache.md) (individual cache instances linked through this header)
 
 - Called from (representative examples):
-  - InitCatCache (cache initialization adds new caches to the global list)
-  - ResetCatalogCaches (system-wide cache reset operations)
-  - ResetCatalogCachesExt (extended cache reset with debugging)
-  - CatalogCacheFlushCatalog (cache invalidation operations)
+  - [InitCatCache](../I/InitCatCache.md) (cache initialization adds new caches to the global list)
+  - [ResetCatalogCaches](../R/ResetCatalogCaches.md) (system-wide cache reset operations)
+  - [ResetCatalogCachesExt](../R/ResetCatalogCachesExt.md) (extended cache reset with debugging)
+  - [CatalogCacheFlushCatalog](CatalogCacheFlushCatalog.md) (cache invalidation operations)
 
 ## Notes and Other Information
 - There is typically only one global CatCacheHeader instance per PostgreSQL backend process

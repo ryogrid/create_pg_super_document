@@ -21,17 +21,17 @@ initialize_peragg is a comprehensive initialization function for window aggregat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1, ReleaseSysCache
-  - contain_volatile_functions, contain_subplans
-  - object_aclcheck, aclcheck_error
-  - resolve_aggregate_transtype
-  - build_aggregate_transfn_expr, build_aggregate_finalfn_expr
-  - fmgr_info, fmgr_info_set_expr
-  - get_typlenbyval
-  - GetAggInitVal
+  - [SearchSysCache1](../S/SearchSysCache1.md), ReleaseSysCache
+  - [contain_volatile_functions](../c/contain_volatile_functions.md), contain_subplans
+  - [object_aclcheck](../o/object_aclcheck.md), aclcheck_error
+  - [resolve_aggregate_transtype](../r/resolve_aggregate_transtype.md)
+  - [build_aggregate_transfn_expr](../b/build_aggregate_transfn_expr.md), build_aggregate_finalfn_expr
+  - [fmgr_info](../f/fmgr_info.md), fmgr_info_set_expr
+  - [get_typlenbyval](../g/get_typlenbyval.md)
+  - [GetAggInitVal](../G/GetAggInitVal.md)
   - AllocSetContextCreate
 - Called from (representative examples):
-  - ExecInitWindowAgg (during window aggregate node initialization)
+  - [ExecInitWindowAgg](../E/ExecInitWindowAgg.md) (during window aggregate node initialization)
 
 ## Notes and Other Information
 - Almost identical to nodeAgg.c implementation except DISTINCT is not supported for window functions

@@ -21,8 +21,8 @@ This function transfers accumulated I/O statistics from the local backend's pend
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLock](../L/LWLock.md)
-  - PgStat_BktypeIO  
-  - LWLockConditionalAcquire
+  - [PgStat_BktypeIO](../P/PgStat_BktypeIO.md)  
+  - [LWLockConditionalAcquire](../L/LWLockConditionalAcquire.md)
   - IOOBJECT_NUM_TYPES
   - IOCONTEXT_NUM_TYPES
   - IOOP_NUM_TYPES
@@ -33,9 +33,9 @@ This function transfers accumulated I/O statistics from the local backend's pend
   - [WalSndWaitForWal](../W/WalSndWaitForWal.md)
   - [WalSndLoop](../W/WalSndLoop.md)
   - [pgstat_report_stat](pgstat_report_stat.md)
-  - pgstat_report_vacuum
-  - pgstat_report_analyze
-  - pgstat_report_wal
+  - [pgstat_report_vacuum](pgstat_report_vacuum.md)
+  - [pgstat_report_analyze](pgstat_report_analyze.md)
+  - [pgstat_report_wal](pgstat_report_wal.md)
 
 ## Notes and Other Information
 - Returns false if no stats were recorded or if the flush was successful

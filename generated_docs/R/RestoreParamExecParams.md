@@ -31,10 +31,10 @@ This restoration process is essential for maintaining data consistency and enabl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - datumRestore
-  - ParamExecData (struct)
+  - [datumRestore](../d/datumRestore.md)
+  - [ParamExecData](../P/ParamExecData.md) (struct)
 - Called from:
-  - ParallelQueryMain
+  - [ParallelQueryMain](../P/ParallelQueryMain.md)
 
 ## Notes and Other Information
 - The function assumes the serialized data follows the exact format created by SerializeParamExecParams

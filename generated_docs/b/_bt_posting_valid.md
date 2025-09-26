@@ -36,9 +36,9 @@ This function is critical for maintaining B-tree index integrity and is used ext
   - [BTreeTupleGetPostingN](../B/BTreeTupleGetPostingN.md)
   - [ItemPointerCompare](../I/ItemPointerCompare.md)
 - Called from (representative examples):
-  - _bt_bottomupdel_finish_pending
-  - _bt_form_posting
-  - _bt_update_posting
+  - [_bt_bottomupdel_finish_pending](_bt_bottomupdel_finish_pending.md)
+  - [_bt_form_posting](_bt_form_posting.md)
+  - [_bt_update_posting](_bt_update_posting.md)
   - [_bt_swap_posting](_bt_swap_posting.md)
 
 ## Notes and Other Information

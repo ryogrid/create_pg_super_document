@@ -22,12 +22,12 @@ This function provides a safe mechanism to set integer values during PostgreSQL'
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FormatNode (struct type)
+  - [FormatNode](../F/FormatNode.md) (struct type)
   - ereturn (PostgreSQL error handling macro)
 - Called from (representative examples):
   - DCH_ZONED (formatting.c:1058)
-  - from_char_parse_int_len (formatting.c:2543)
-  - DCH_from_char (multiple locations: 3543, 3555, 3722, 3733, 3744, 3755, 3771, 3783, 3855, 3905)
+  - [from_char_parse_int_len](from_char_parse_int_len.md) (formatting.c:2543)
+  - [DCH_from_char](../D/DCH_from_char.md) (multiple locations: 3543, 3555, 3722, 3733, 3744, 3755, 3771, 3783, 3855, 3905)
 
 ## Notes and Other Information
 - Returns true on success, false on failure when using soft error handling

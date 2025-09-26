@@ -22,8 +22,8 @@ This implementation ensures that pg_lsn values can be used efficiently in hash i
   - [hashint8](../h/hashint8.md) (delegates the actual hash computation)
 - Called from (representative examples):
   - PostgreSQL's hash index operations when indexing pg_lsn columns
-  - Hash-based join operations involving pg_lsn values
-  - Hash table operations in query execution
+  - [Hash](../H/Hash.md)-based join operations involving pg_lsn values
+  - [Hash](../H/Hash.md) table operations in query execution
 
 ## Notes and Other Information
 - Directly delegates to hashint8 for the actual hash computation

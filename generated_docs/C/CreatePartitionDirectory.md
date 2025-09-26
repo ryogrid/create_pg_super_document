@@ -28,7 +28,7 @@ The partition directory is particularly useful in scenarios where multiple parti
   - [hash_create](../h/hash_create.md)
   - [PartitionDirectoryData](../P/PartitionDirectoryData.md) (structure type)
   - [PartitionDirectoryEntry](../P/PartitionDirectoryEntry.md) (hash table entry type)
-  - HASHCTL (hash table control structure)
+  - [HASHCTL](../H/HASHCTL.md) (hash table control structure)
   - HASH_ELEM, HASH_BLOBS, HASH_CONTEXT (hash table flags)
 
 - Called from:
@@ -41,4 +41,4 @@ The partition directory is particularly useful in scenarios where multiple parti
 - Memory context switching ensures all allocations are done in the specified context
 - The hash table uses OID as the key and PartitionDirectoryEntry as the entry type
 - The directory maintains the omit_detached setting for consistent behavior across lookups
-- Hash table flags include HASH_ELEM (for fixed-size elements), HASH_BLOBS (for simple key comparison), and HASH_CONTEXT (for memory context allocation)
+- [Hash](../H/Hash.md) table flags include HASH_ELEM (for fixed-size elements), HASH_BLOBS (for simple key comparison), and HASH_CONTEXT (for memory context allocation)

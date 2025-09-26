@@ -29,7 +29,7 @@ The function follows the same error handling and memory management patterns as _
   - [CreateCommandTag](../C/CreateCommandTag.md)
   - [_SPI_error_callback](_SPI_error_callback.md)
   - lfirst_node
-  - lappend
+  - [lappend](../l/lappend.md)
 - Called from (representative examples):
   - [SPI_execute](SPI_execute.md)
   - [SPI_execute_extended](SPI_execute_extended.md)

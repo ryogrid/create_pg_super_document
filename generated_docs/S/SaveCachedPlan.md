@@ -24,7 +24,7 @@ The function is designed to be error-free (except for caller errors) since it's 
 - Functions called/Symbols referenced:
   - CACHEDPLANSOURCE_MAGIC
   - [ReleaseGenericPlan](../R/ReleaseGenericPlan.md)
-  - MemoryContextSetParent
+  - [MemoryContextSetParent](../M/MemoryContextSetParent.md)
   - [dlist_push_tail](../d/dlist_push_tail.md)
   - CacheMemoryContext
   - saved_plan_list
@@ -32,7 +32,7 @@ The function is designed to be error-free (except for caller errors) since it's 
 - Called from (representative examples):
   - [StorePreparedStatement](StorePreparedStatement.md) (src/backend/commands/prepare.c:420)
   - [SPI_keepplan](SPI_keepplan.md) (src/backend/executor/spi.c:996)
-  - _SPI_save_plan (src/backend/executor/spi.c:3270)
+  - [_SPI_save_plan](_SPI_save_plan.md) (src/backend/executor/spi.c:3270)
   - [exec_parse_message](../e/exec_parse_message.md) (src/backend/tcop/postgres.c:1579)
 
 ## Notes and Other Information

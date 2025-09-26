@@ -25,7 +25,7 @@ The function iterates through the state's outgoing arc chain (`outs`) and checks
   - struct state (data structure)
   - EMPTY (arc type constant)
 - Called from (representative examples):
-  - fixempties (in regc_nfa.c:2217)
+  - [fixempties](../f/fixempties.md) (in regc_nfa.c:2217)
 
 ## Notes and Other Information
 - This is a static function internal to the regex NFA construction module

@@ -34,11 +34,11 @@ The structure is used with the XLOG_SMGR_TRUNCATE WAL record type and is process
 - Functions called/Symbols referenced:
   - (None - this is a data structure)
 - Called from (representative examples):
-  - RelationTruncate (creates and logs the WAL record during relation truncation)
-  - smgr_redo (processes the WAL record during recovery)
-  - smgr_desc (describes the record for debugging)
-  - XLogPrefetcherNextBlock (prefetches during WAL replay)
-  - SummarizeSmgrRecord (summarizes the record for WAL summarization)
+  - [RelationTruncate](../R/RelationTruncate.md) (creates and logs the WAL record during relation truncation)
+  - [smgr_redo](../s/smgr_redo.md) (processes the WAL record during recovery)
+  - [smgr_desc](../s/smgr_desc.md) (describes the record for debugging)
+  - [XLogPrefetcherNextBlock](../X/XLogPrefetcherNextBlock.md) (prefetches during WAL replay)
+  - [SummarizeSmgrRecord](../S/SummarizeSmgrRecord.md) (summarizes the record for WAL summarization)
 
 ## Notes and Other Information
 - This structure is part of the storage manager (SMGR) WAL resource manager

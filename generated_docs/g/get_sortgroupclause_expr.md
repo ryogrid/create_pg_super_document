@@ -19,7 +19,7 @@ This function builds upon get_sortgroupclause_tle() to extract the actual expres
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_sortgroupclause_tle](get_sortgroupclause_tle.md)
-  - SortGroupClause (structure type)
+  - [SortGroupClause](../S/SortGroupClause.md) (structure type)
 - Called from (representative examples):
   - [make_pathkeys_for_sortclauses_extended](../m/make_pathkeys_for_sortclauses_extended.md)
   - [get_sortgrouplist_exprs](get_sortgrouplist_exprs.md)

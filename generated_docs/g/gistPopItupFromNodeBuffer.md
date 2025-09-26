@@ -25,13 +25,13 @@ When a page becomes empty after tuple removal, the function automatically fetche
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - gistLoadNodeBuffer
+  - [gistLoadNodeBuffer](gistLoadNodeBuffer.md)
   - [gistGetItupFromPage](gistGetItupFromPage.md)
   - PAGE_IS_EMPTY
   - [ReadTempFileBlock](../R/ReadTempFileBlock.md)
   - [gistBuffersReleaseBlock](gistBuffersReleaseBlock.md)
 - Called from (representative examples):
-  - gistProcessEmptyingQueue
+  - [gistProcessEmptyingQueue](gistProcessEmptyingQueue.md)
   - [gistRelocateBuildBuffersOnSplit](gistRelocateBuildBuffersOnSplit.md)
 
 ## Notes and Other Information

@@ -36,7 +36,7 @@ The function handles both ALL and non-ALL variants of INTERSECT and EXCEPT opera
   - [recurse_set_operations](../r/recurse_set_operations.md)
   - [build_setop_child_paths](../b/build_setop_child_paths.md)
   - [generate_append_tlist](generate_append_tlist.md)
-  - fetch_upper_rel
+  - [fetch_upper_rel](../f/fetch_upper_rel.md)
   - create_pathtarget
   - [create_append_path](../c/create_append_path.md)
   - [generate_setop_grouplist](generate_setop_grouplist.md)
@@ -52,4 +52,4 @@ The function handles both ALL and non-ALL variants of INTERSECT and EXCEPT opera
 - For EXCEPT operations, the left input order is mandatory; for INTERSECT, input order is optimized based on size
 - Row estimates are conservative worst-case calculations: non-ALL cases estimate one output row per group, ALL cases use relevant relation size
 - The generated target list includes a special flag column that must appear as a variable (not constant) to avoid confusion in later planning phases
-- Hash vs. sort strategy selection considers factors like data size, available memory, and cost estimates
+- [Hash](../H/Hash.md) vs. sort strategy selection considers factors like data size, available memory, and cost estimates

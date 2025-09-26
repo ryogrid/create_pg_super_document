@@ -130,7 +130,7 @@ The function handles edge cases like all-null columns, mixed null/non-null scena
 - Functions called/Symbols referenced:
   - [palloc](../p/palloc.md) (memory allocation)
   - [index_getattr](../i/index_getattr.md) (extract column values from tuples)
-  - gistdentryinit (initialize GIST entries)
+  - [gistdentryinit](gistdentryinit.md) (initialize GIST entries)
   - [gistSplitHalf](gistSplitHalf.md) (fallback even split)
   - [gistUserPicksplit](gistUserPicksplit.md) (user-defined splitting with optimization)
   - [gistunionsubkey](gistunionsubkey.md) (union key computation)

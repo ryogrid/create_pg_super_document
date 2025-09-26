@@ -22,7 +22,7 @@ This function processes the current input tuple by looking it up in hash tables 
 - Functions called/Symbols referenced:
   - [select_current_set](../s/select_current_set.md)
   - [prepare_hash_slot](../p/prepare_hash_slot.md)
-  - LookupTupleHashEntry
+  - [LookupTupleHashEntry](../L/LookupTupleHashEntry.md)
   - [initialize_hash_entry](../i/initialize_hash_entry.md)
   - [hashagg_spill_init](../h/hashagg_spill_init.md)
   - [hashagg_spill_tuple](../h/hashagg_spill_tuple.md)

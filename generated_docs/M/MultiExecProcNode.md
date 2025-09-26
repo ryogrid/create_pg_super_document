@@ -34,7 +34,7 @@ The function performs parameter change detection via chgParam and automatically 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth (stack overflow prevention)
+  - [check_stack_depth](../c/check_stack_depth.md) (stack overflow prevention)
   - CHECK_FOR_INTERRUPTS (interrupt handling macro)
   - [ExecReScan](../E/ExecReScan.md) (parameter change handling)
   - nodeTag (node type identification)

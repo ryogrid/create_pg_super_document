@@ -26,8 +26,8 @@ This function is particularly useful when the caller already has both the databa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LockRelId
-  - LOCKTAG
+  - [LockRelId](LockRelId.md)
+  - [LOCKTAG](LOCKTAG.md)
   - [LOCALLOCK](LOCALLOCK.md)
   - LockAcquireResult
   - SET_LOCKTAG_RELATION

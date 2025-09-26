@@ -23,20 +23,20 @@ This function removes a complete page from the btree by first traversing up the 
   - fpm_segment_base
   - relptr_access
   - relptr_store
-  - FreePageBtreeRecycle
+  - [FreePageBtreeRecycle](FreePageBtreeRecycle.md)
   - fmp_pointer_to_page
-  - FreePageBtreeFirstKey
-  - FreePageBtreeSearchLeaf
-  - FreePageBtreeSearchInternal
+  - [FreePageBtreeFirstKey](FreePageBtreeFirstKey.md)
+  - [FreePageBtreeSearchLeaf](FreePageBtreeSearchLeaf.md)
+  - [FreePageBtreeSearchInternal](FreePageBtreeSearchInternal.md)
   - memmove
-  - FreePageBtreeAdjustAncestorKeys
-  - FreePageBtreeConsolidate
+  - [FreePageBtreeAdjustAncestorKeys](FreePageBtreeAdjustAncestorKeys.md)
+  - [FreePageBtreeConsolidate](FreePageBtreeConsolidate.md)
   - FREE_PAGE_LEAF_MAGIC
-  - FreePageBtreeLeafKey
-  - FreePageBtreeInternalKey
+  - [FreePageBtreeLeafKey](FreePageBtreeLeafKey.md)
+  - [FreePageBtreeInternalKey](FreePageBtreeInternalKey.md)
 - Called from (representative examples):
-  - FreePageBtreeConsolidate
-  - FreePageBtreeRemove
+  - [FreePageBtreeConsolidate](FreePageBtreeConsolidate.md)
+  - [FreePageBtreeRemove](FreePageBtreeRemove.md)
 
 ## Notes and Other Information
 - Uses a loop to recursively remove parent pages that become empty (nused == 1)

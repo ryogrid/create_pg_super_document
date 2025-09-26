@@ -36,8 +36,8 @@ The optimization is particularly effective for expressions like:
 - Functions called/Symbols referenced:
   - [makeBoolConst](../m/makeBoolConst.md)
   - [is_andclause](../i/is_andclause.md)
-  - BoolExpr
-  - list_union
+  - [BoolExpr](../B/BoolExpr.md)
+  - [list_union](../l/list_union.md)
   - [list_member](../l/list_member.md)
   - [equal](../e/equal.md)
   - [make_orclause](../m/make_orclause.md)

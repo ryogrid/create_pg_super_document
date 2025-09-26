@@ -20,13 +20,13 @@ This function is the counterpart to ResourceOwnerRememberDSM(), providing a simp
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwnerForget
-  - PointerGetDatum
+  - [ResourceOwnerForget](ResourceOwnerForget.md)
+  - [PointerGetDatum](../P/PointerGetDatum.md)
   - dsm_resowner_desc (static resource owner descriptor)
 - Called from (representative examples):
-  - dsm_create
-  - dsm_detach
-  - dsm_pin_mapping
+  - [dsm_create](../d/dsm_create.md)
+  - [dsm_detach](../d/dsm_detach.md)
+  - [dsm_pin_mapping](../d/dsm_pin_mapping.md)
 
 ## Notes and Other Information
 - This is a static inline function, so it's only visible within the dsm.c compilation unit

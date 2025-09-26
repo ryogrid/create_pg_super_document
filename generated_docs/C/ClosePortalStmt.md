@@ -27,8 +27,8 @@ The ClosePortalStmt structure is a parse tree node that encapsulates the informa
 - Functions called/Symbols referenced:
   - NodeTag (parse node type identifier)
 - Called from (representative examples):
-  - standard_ProcessUtility (utility.c:695)
-  - CreateCommandTag (utility.c:2453)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (utility.c:695)
+  - [CreateCommandTag](CreateCommandTag.md) (utility.c:2453)
 
 ## Notes and Other Information
 ClosePortalStmt is processed by the utility command execution system. Cursors are automatically closed at the end of transactions, but explicit closure with CLOSE statements can free resources earlier. The portal management system handles the actual cursor cleanup when this statement is executed. CLOSE ALL is particularly useful for cleaning up multiple cursors at once.

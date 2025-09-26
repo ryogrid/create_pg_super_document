@@ -46,7 +46,7 @@ This function performs a crucial optimization by rearranging the GROUP BY clause
   - lfirst_int, list_copy, list_member_ptr
   - [equal](../e/equal.md) (node comparison)
   - OidIsValid
-  - SortGroupClause node handling
+  - [SortGroupClause](../S/SortGroupClause.md) node handling
 - Called from:
   - [grouping_planner](../g/grouping_planner.md)
   - standard_qp_extra  

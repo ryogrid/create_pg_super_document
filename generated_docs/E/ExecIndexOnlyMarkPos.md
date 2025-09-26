@@ -28,7 +28,7 @@ For normal (non-EPQ) operations, the function simply delegates to the lower-leve
   - [IndexOnlyScanState](../I/IndexOnlyScanState.md)
   - [EState](EState.md)
   - [EPQState](EPQState.md)
-  - Scan
+  - [Scan](../S/Scan.md)
 - Called from (representative examples):
   - [ExecMarkPos](ExecMarkPos.md)
 

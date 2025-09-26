@@ -27,7 +27,7 @@ The function returns 0 (InvalidSerCommitSeqNo) if the transaction doesn't exist 
 ## Dependencies
 - Functions called/Symbols referenced:
   - TransactionIdIsValid
-  - LWLockAcquire/LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease
   - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
   - [TransactionIdFollows](../T/TransactionIdFollows.md)
   - [SimpleLruReadPage_ReadOnly](SimpleLruReadPage_ReadOnly.md)

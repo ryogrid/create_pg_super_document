@@ -33,10 +33,10 @@ The function supports test mode (PGC_S_TEST) where it reports issues as notices 
   - [IsTransactionState](../I/IsTransactionState.md)
   - [SearchSysCache1](../S/SearchSysCache1.md)
   - [GetSessionUserId](../G/GetSessionUserId.md)
-  - member_can_set_role
+  - [member_can_set_role](../m/member_can_set_role.md)
   - [guc_malloc](../g/guc_malloc.md)
   - GUC_check_errmsg
-  - GUC_check_errcode
+  - [GUC_check_errcode](../G/GUC_check_errcode.md)
 - Called from (representative examples):
   - [check_hba](check_hba.md) (in authentication context)
   - [check_ident_usermap](check_ident_usermap.md) (in identity mapping)

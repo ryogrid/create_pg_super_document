@@ -29,7 +29,7 @@ The function initializes all output arrays to NULL/true, then populates them bas
   - [NextCopyFromRawFields](NextCopyFromRawFields.md): Reads raw field strings from input for text/CSV mode
   - MemSet: Initializes arrays to default values
   - [InputFunctionCallSafe](../I/InputFunctionCallSafe.md): Safely converts string input to typed Datum values
-  - ExecEvalExpr: Evaluates default expressions for missing columns
+  - [ExecEvalExpr](../E/ExecEvalExpr.md): Evaluates default expressions for missing columns
   - [CopyGetInt16](../C/CopyGetInt16.md): Reads 16-bit integers from binary input
   - [CopyReadBinaryData](../C/CopyReadBinaryData.md): Reads raw binary data from input stream
   - [CopyReadBinaryAttribute](../C/CopyReadBinaryAttribute.md): Reads and converts binary attribute data

@@ -33,7 +33,7 @@ The function uses a bitmask approach where each bit represents one of the four q
   - [spgInnerConsistentIn](spgInnerConsistentIn.md)/spgInnerConsistentOut
   - [Point](../P/Point.md), BOX
   - [DatumGetPointP](../D/DatumGetPointP.md), DatumGetBoxP
-  - get_float8_infinity
+  - [get_float8_infinity](../g/get_float8_infinity.md)
   - [getQuadrant](../g/getQuadrant.md), getQuadrantArea
   - [box_copy](../b/box_copy.md), box_contain_pt
   - [spg_key_orderbys_distances](spg_key_orderbys_distances.md)

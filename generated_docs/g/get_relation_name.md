@@ -20,14 +20,14 @@ This function serves as a wrapper around the lower-level get_rel_name() function
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_rel_name
+  - [get_rel_name](get_rel_name.md)
   - elog
 - Called from (representative examples):
-  - pg_get_indexdef_worker
-  - pg_get_statisticsobj_worker
-  - pg_get_constraintdef_worker
-  - get_rte_alias
-  - NameHashEntry structure usage
+  - [pg_get_indexdef_worker](../p/pg_get_indexdef_worker.md)
+  - [pg_get_statisticsobj_worker](../p/pg_get_statisticsobj_worker.md)
+  - [pg_get_constraintdef_worker](../p/pg_get_constraintdef_worker.md)
+  - [get_rte_alias](get_rte_alias.md)
+  - [NameHashEntry](../N/NameHashEntry.md) structure usage
 
 ## Notes and Other Information
 - This is a static function local to ruleutils.c

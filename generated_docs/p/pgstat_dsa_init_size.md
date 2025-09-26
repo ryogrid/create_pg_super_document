@@ -20,11 +20,11 @@ This function calculates the initial size allocation for the dynamic shared memo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dsa_minimum_size: Validates that the allocated size meets minimum DSA requirements
+  - [dsa_minimum_size](../d/dsa_minimum_size.md): Validates that the allocated size meets minimum DSA requirements
   - MAXALIGN: Ensures proper memory alignment
 - Called from (representative examples):
-  - StatsShmemSize: Uses this size in total shared memory calculation
-  - StatsShmemInit: Uses this size for DSA initialization
+  - [StatsShmemSize](../S/StatsShmemSize.md): Uses this size in total shared memory calculation
+  - [StatsShmemInit](../S/StatsShmemInit.md): Uses this size for DSA initialization
 
 ## Notes and Other Information
 - Fixed allocation size of 256KB (256 * 1024 bytes) provides good balance between memory usage and performance

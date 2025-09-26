@@ -41,6 +41,6 @@ The function includes important validation:
   - NFD (Canonical Decomposition)
   - NFKC (Compatibility Decomposition, followed by Canonical Composition)
   - NFKD (Compatibility Decomposition)
-- String comparison is case-insensitive using `pg_strcasecmp()`
+- [String](../S/String.md) comparison is case-insensitive using `pg_strcasecmp()`
 - Raises `ERRCODE_SYNTAX_ERROR` for encoding issues and `ERRCODE_INVALID_PARAMETER_VALUE` for invalid form strings
 - This function is part of PostgreSQL\s Unicode text processing support

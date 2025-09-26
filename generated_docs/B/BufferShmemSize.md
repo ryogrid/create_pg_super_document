@@ -33,18 +33,18 @@ This function takes no parameters and returns a Size value representing the tota
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - add_size (safe addition for memory calculations)
-  - mul_size (safe multiplication for memory calculations) 
-  - StrategyShmemSize (buffer strategy memory calculation)
+  - [add_size](../a/add_size.md) (safe addition for memory calculations)
+  - [mul_size](../m/mul_size.md) (safe multiplication for memory calculations) 
+  - [StrategyShmemSize](../S/StrategyShmemSize.md) (buffer strategy memory calculation)
   - BufferDescPadded (buffer descriptor structure)
   - ConditionVariableMinimallyPadded (condition variable structure)
-  - CkptSortItem (checkpoint sort item structure)
+  - [CkptSortItem](../C/CkptSortItem.md) (checkpoint sort item structure)
   - PG_CACHE_LINE_SIZE (cacheline alignment constant)
   - PG_IO_ALIGN_SIZE (I/O alignment constant)
   - BLCKSZ (block size constant)
   - NBuffers (global buffer count)
 - Called from (representative examples):
-  - CalculateShmemSize (main shared memory calculation)
+  - [CalculateShmemSize](../C/CalculateShmemSize.md) (main shared memory calculation)
 
 ## Notes and Other Information
 - This function must be called before InitBufferPool to ensure sufficient shared memory is allocated

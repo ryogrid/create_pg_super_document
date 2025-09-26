@@ -45,11 +45,11 @@ After filtering suitable clauses, the function passes them to `rel_is_distinct_f
   - RINFO_IS_PUSHED_DOWN (macro to test if clause is pushed down)
   - [clause_sides_match_join](../c/clause_sides_match_join.md) (validates clause structure for join relations)
   - [rel_is_distinct_for](../r/rel_is_distinct_for.md) (performs final distinctness analysis)
-  - lappend (appends to PostgreSQL list)
+  - [lappend](../l/lappend.md) (appends to PostgreSQL list)
 - Data structures used:
   - [RestrictInfo](../R/RestrictInfo.md)
   - [PlannerInfo](../P/PlannerInfo.md)  
-  - RelOptInfo
+  - [RelOptInfo](../R/RelOptInfo.md)
   - JoinType
   - Relids
 - Called from:

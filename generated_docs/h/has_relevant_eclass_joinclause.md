@@ -26,10 +26,10 @@ The function examines equivalence classes that mention the given relation and ch
   - [get_eclass_indexes_for_relids](../g/get_eclass_indexes_for_relids.md)
   - [bms_next_member](../b/bms_next_member.md)
   - [list_nth](../l/list_nth.md)
-  - list_length
+  - [list_length](../l/list_length.md)
   - [bms_is_subset](../b/bms_is_subset.md)
 - Called from (representative examples):
-  - build_join_rel
+  - [build_join_rel](../b/build_join_rel.md)
 
 ## Notes and Other Information
 - Single-relation variant of have_relevant_eclass_joinclause

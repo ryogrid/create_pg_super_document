@@ -23,7 +23,7 @@ The function first validates that the Var is indeed from an outer level, then ca
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Param (node structure)
+  - [Param](../P/Param.md) (node structure)
   - [assign_param_for_var](../a/assign_param_for_var.md) (to get parameter ID)
   - makeNode (node creation)
   - PARAM_EXEC (parameter type constant)

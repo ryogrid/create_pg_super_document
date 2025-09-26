@@ -24,7 +24,7 @@ This function constructs a Path node specifically for work table scan operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode
-  - get_baserel_parampathinfo
+  - [get_baserel_parampathinfo](../g/get_baserel_parampathinfo.md)
   - [cost_ctescan](cost_ctescan.md)
 - Called from (representative examples):
   - [set_worktable_pathlist](../s/set_worktable_pathlist.md)

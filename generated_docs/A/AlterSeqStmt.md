@@ -30,12 +30,12 @@ AlterSeqStmt is a parse tree node structure that encapsulates information needed
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RangeVar (for sequence name specification)
+  - [RangeVar](../R/RangeVar.md) (for sequence name specification)
 - Called from (representative examples):
-  - AlterSequence
-  - generateSerialExtraStmts
-  - transformAlterTableStmt
-  - ProcessUtilitySlow
+  - [AlterSequence](AlterSequence.md)
+  - [generateSerialExtraStmts](../g/generateSerialExtraStmts.md)
+  - [transformAlterTableStmt](../t/transformAlterTableStmt.md)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md)
 
 ## Notes and Other Information
 - Part of PostgreSQL parse tree node hierarchy, inheriting from Node via NodeTag

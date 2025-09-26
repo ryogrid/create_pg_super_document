@@ -23,8 +23,8 @@ json_count_array_elements provides a specialized function for determining the nu
 - Functions called/Symbols referenced:
   - [lex_expect](../l/lex_expect.md) (for array start/end token validation)
   - [lex_peek](../l/lex_peek.md) (for token lookahead)
-  - parse_array_element (for processing individual array elements)
-  - json_lex (for advancing through tokens)
+  - [parse_array_element](../p/parse_array_element.md) (for processing individual array elements)
+  - [json_lex](json_lex.md) (for advancing through tokens)
   - nullSemAction (global semantic action structure for element parsing)
 - Called from (representative examples):
   - [get_array_start](../g/get_array_start.md) (src/backend/utils/adt/jsonfuncs.c:1311)

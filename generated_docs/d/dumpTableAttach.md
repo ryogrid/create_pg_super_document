@@ -29,7 +29,7 @@ The function handles the complete workflow: preparing the query (if not already 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - createPQExpBuffer
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)
   - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
   - [ExecuteSqlStatement](../E/ExecuteSqlStatement.md)
   - [printfPQExpBuffer](../p/printfPQExpBuffer.md)
@@ -39,13 +39,13 @@ The function handles the complete workflow: preparing the query (if not already 
   - fmtQualifiedDumpable
   - [ArchiveEntry](../A/ArchiveEntry.md)
   - [PQclear](../P/PQclear.md)
-  - destroyPQExpBuffer
+  - [destroyPQExpBuffer](destroyPQExpBuffer.md)
 - Types referenced:
   - [Archive](../A/Archive.md)
   - [TableAttachInfo](../T/TableAttachInfo.md)
   - DumpOptions
   - PQExpBuffer
-  - PGresult
+  - [PGresult](../P/PGresult.md)
 - Called from:
   - [dumpDumpableObject](dumpDumpableObject.md)
 

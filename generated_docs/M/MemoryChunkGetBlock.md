@@ -21,7 +21,7 @@ The function is essential for memory management operations that need to access t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryChunk (structure type)
+  - [MemoryChunk](MemoryChunk.md) (structure type)
   - HdrMaskIsExternal (helper macro/function for debug validation)
   - HdrMaskBlockOffset (helper macro/function to extract block offset)
 - Called from (representative examples):

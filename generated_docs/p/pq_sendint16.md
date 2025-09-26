@@ -20,7 +20,7 @@ static inline void pq_sendint16(StringInfo buf, uint16 i)
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - enlargeStringInfo
+  - [enlargeStringInfo](../e/enlargeStringInfo.md)
   - [pq_writeint16](pq_writeint16.md)
 - Called from (representative examples):
   - [printsimple_startup](printsimple_startup.md)

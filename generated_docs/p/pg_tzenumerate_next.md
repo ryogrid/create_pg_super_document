@@ -23,17 +23,17 @@ The function maintains traversal state in the pg_tzenum structure, tracking the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_tzenum (enumeration state structure)
+  - [pg_tzenum](pg_tzenum.md) (enumeration state structure)
   - [dirent](../d/dirent.md) (directory entry structure)
-  - ReadDir (read directory entries)
-  - FreeDir (close directory descriptors)
+  - [ReadDir](../R/ReadDir.md) (read directory entries)
+  - [FreeDir](../F/FreeDir.md) (close directory descriptors)
   - [get_dirent_type](../g/get_dirent_type.md) (determine if entry is file or directory)
   - PGFILETYPE_DIR (constant for directory type)
   - MAX_TZDIR_DEPTH (maximum directory nesting depth)
-  - AllocateDir (open directory for reading)
-  - tzload (load timezone data from file)
+  - [AllocateDir](../A/AllocateDir.md) (open directory for reading)
+  - [tzload](../t/tzload.md) (load timezone data from file)
   - [pg_tz_acceptable](pg_tz_acceptable.md) (validate timezone for PostgreSQL use)
-  - strlcpy (safe string copying)
+  - [strlcpy](../s/strlcpy.md) (safe string copying)
 - Called from (representative examples):
   - [pg_timezone_names](pg_timezone_names.md) (in datetime.c for timezone enumeration loops)
 

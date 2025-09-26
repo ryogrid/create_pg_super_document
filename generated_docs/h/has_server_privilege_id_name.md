@@ -24,7 +24,7 @@ The `has_server_privilege_id_name` function is a PostgreSQL built-in function th
   - [convert_server_name](../c/convert_server_name.md)
   - [convert_server_priv_string](../c/convert_server_priv_string.md)
   - [object_aclcheck](../o/object_aclcheck.md)
-  - AclResult
+  - [AclResult](../A/AclResult.md)
 - Called from (representative examples):
   - No direct references found (likely called via SQL function interface)
 

@@ -22,10 +22,10 @@ On little-endian systems, the function simply copies the 16 bytes directly from 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_md5_ctx (MD5 context structure type)
+  - [pg_md5_ctx](../p/pg_md5_ctx.md) (MD5 context structure type)
   - memmove (standard library function for memory copying)
 - Called from (representative examples):
-  - pg_md5_final
+  - [pg_md5_final](../p/pg_md5_final.md)
 
 ## Notes and Other Information
 - This function is static and only used internally within the MD5 implementation

@@ -28,7 +28,7 @@ The algorithm uses int64 arithmetic for intermediate calculations, then validate
   - ereturn (error handling macro)
   - MaxArraySize (system constant)
 - Called from (representative examples):
-  - ArrayGetNItems
+  - [ArrayGetNItems](ArrayGetNItems.md)
   - AARR_LBOUND (array header macro)
 
 ## Notes and Other Information

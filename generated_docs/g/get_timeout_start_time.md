@@ -21,11 +21,11 @@ The function returns a TimestampTz value representing the absolute time when the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TimeoutId (timeout identifier type)
+  - [TimeoutId](../T/TimeoutId.md) (timeout identifier type)
   - TimestampTz (timestamp with timezone type)
 - Called from (representative examples):
-  - ProcSleep (process sleep/wait operations, called twice)
-  - DisableTimeoutParams (macro wrapper)
+  - [ProcSleep](../P/ProcSleep.md) (process sleep/wait operations, called twice)
+  - [DisableTimeoutParams](../D/DisableTimeoutParams.md) (macro wrapper)
 
 ## Notes and Other Information
 - Returns 0 if the timeout has never been activated in the current process

@@ -43,7 +43,7 @@ The function also tracks whether any unqualified INSTEAD rules are found (which 
   - copyObject
   - [CopyAndAddInvertedQual](../C/CopyAndAddInvertedQual.md)
   - [rewriteRuleAction](../r/rewriteRuleAction.md)
-  - lappend
+  - [lappend](../l/lappend.md)
   - [RewriteRule](../R/RewriteRule.md) (struct)
   - QuerySource (enum)
   - CmdType (enum)

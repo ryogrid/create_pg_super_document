@@ -26,7 +26,7 @@ This function is the non-blocking variant of LockRelation. It attempts to acquir
   - [MarkLockClear](../M/MarkLockClear.md) (marks the local lock state as clear)
 - Types referenced:
   - [Relation](../R/Relation.md) (relation descriptor structure)
-  - LOCKTAG (lock tag structure)
+  - [LOCKTAG](../L/LOCKTAG.md) (lock tag structure)
   - [LOCALLOCK](../L/LOCALLOCK.md) (local lock information)
   - LockAcquireResult (result of lock acquisition)
   - LOCKMODE (enumeration of lock modes)

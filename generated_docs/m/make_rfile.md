@@ -23,7 +23,7 @@ This function serves as the foundation for both full backup files and incrementa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_malloc0
+  - [pg_malloc0](../p/pg_malloc0.md)
   - [pstrdup](../p/pstrdup.md)
   - open
   - [pg_free](../p/pg_free.md)

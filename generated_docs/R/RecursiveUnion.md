@@ -40,10 +40,10 @@ For UNION (not UNION ALL) recursive queries, the node also performs duplicate el
 - Functions called/Symbols referenced:
   - (No direct symbol references from this struct)
 - Called from (representative examples):
-  - ExecInitRecursiveUnion
-  - create_recursiveunion_plan
-  - build_hash_table
-  - find_recursive_union
+  - [ExecInitRecursiveUnion](../E/ExecInitRecursiveUnion.md)
+  - [create_recursiveunion_plan](../c/create_recursiveunion_plan.md)
+  - [build_hash_table](../b/build_hash_table.md)
+  - [find_recursive_union](../f/find_recursive_union.md)
 
 ## Notes and Other Information
 - Essential for implementing SQL WITH RECURSIVE functionality

@@ -36,7 +36,7 @@ When processing relcache init file invalidation for a specific database, the fun
   - [RelationCacheInitFilePostInvalidate](../R/RelationCacheInitFilePostInvalidate.md)
 - Called from (representative examples):
   - [xact_redo_commit](../x/xact_redo_commit.md)
-  - standby_redo
+  - [standby_redo](../s/standby_redo.md)
 
 ## Notes and Other Information
 - Only processes messages if nmsgs > 0, returning early for empty message sets

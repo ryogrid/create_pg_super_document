@@ -33,21 +33,21 @@ This btree serves as the primary data structure for tracking and allocating free
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FreePageBtreeHeader (common page header structure)
-  - FreePageBtreeInternalKey (internal node key structure)
-  - FreePageBtreeLeafKey (leaf node key structure)
+  - [FreePageBtreeHeader](FreePageBtreeHeader.md) (common page header structure)
+  - [FreePageBtreeInternalKey](FreePageBtreeInternalKey.md) (internal node key structure)
+  - [FreePageBtreeLeafKey](FreePageBtreeLeafKey.md) (leaf node key structure)
   - FPM_ITEMS_PER_INTERNAL_PAGE (internal page capacity constant)
   - FPM_ITEMS_PER_LEAF_PAGE (leaf page capacity constant)
 
 - Called from (representative examples):
-  - FreePageBtreeSearch (btree search operations)
-  - FreePageBtreeInsertInternal (internal key insertion)
-  - FreePageBtreeInsertLeaf (leaf key insertion)
-  - FreePageBtreeRemove (key removal operations)
-  - FreePageBtreeSplitPage (page splitting during growth)
-  - FreePageBtreeConsolidate (btree balancing operations)
-  - FreePageManagerPutInternal (deallocation operations)
-  - FreePageManagerDumpBtree (debugging and inspection)
+  - [FreePageBtreeSearch](FreePageBtreeSearch.md) (btree search operations)
+  - [FreePageBtreeInsertInternal](FreePageBtreeInsertInternal.md) (internal key insertion)
+  - [FreePageBtreeInsertLeaf](FreePageBtreeInsertLeaf.md) (leaf key insertion)
+  - [FreePageBtreeRemove](FreePageBtreeRemove.md) (key removal operations)
+  - [FreePageBtreeSplitPage](FreePageBtreeSplitPage.md) (page splitting during growth)
+  - [FreePageBtreeConsolidate](FreePageBtreeConsolidate.md) (btree balancing operations)
+  - [FreePageManagerPutInternal](FreePageManagerPutInternal.md) (deallocation operations)
+  - [FreePageManagerDumpBtree](FreePageManagerDumpBtree.md) (debugging and inspection)
 
 ## Notes and Other Information
 - Serves dual purpose as both internal and leaf btree pages through union design

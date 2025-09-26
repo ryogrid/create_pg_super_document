@@ -31,12 +31,12 @@ The function respects the enableFsync setting and returns early if fsync operati
   - lseek 
   - mmap/msync/munmap (Unix)
   - posix_fadvise (POSIX)
-  - data_sync_elevel
+  - [data_sync_elevel](../d/data_sync_elevel.md)
   - ereport
-  - errcode_for_file_access
+  - [errcode_for_file_access](../e/errcode_for_file_access.md)
 - Called from (representative examples):
-  - FileWriteback
-  - pre_sync_fname
+  - [FileWriteback](../F/FileWriteback.md)
+  - [pre_sync_fname](pre_sync_fname.md)
 
 ## Notes and Other Information
 - Does nothing if enableFsync is disabled

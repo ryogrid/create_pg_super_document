@@ -43,13 +43,13 @@ For non-integer types, the function delegates to `defGetString` to convert the v
   - [ProcessCopyOptions](../P/ProcessCopyOptions.md) (src/backend/commands/copy.c:510)
   - [createdb](../c/createdb.md) (src/backend/commands/dbcommands.c:935)
   - [ExplainQuery](../E/ExplainQuery.md) (src/backend/commands/explain.c:201)
-  - ExecVacuum (src/backend/commands/vacuum.c:189)
+  - [ExecVacuum](../E/ExecVacuum.md) (src/backend/commands/vacuum.c:189)
 
 ## Notes and Other Information
-- Unique among defGet functions in having a default value (true) when no argument is provided
+- [Unique](../U/Unique.md) among defGet functions in having a default value (true) when no argument is provided
 - Accepts multiple string representations of boolean values, matching PostgreSQL's opt_boolean_or_string grammar production
 - Performs case-insensitive string matching for string-based boolean values
 - Only accepts integer values 0 and 1; other integers cause an error
 - The function is located in src/backend/commands/define.c:107-161
 - Widely used across PostgreSQL's DDL commands for processing boolean options
-- String comparisons use pg_strcasecmp for consistent case-insensitive matching
+- [String](../S/String.md) comparisons use pg_strcasecmp for consistent case-insensitive matching

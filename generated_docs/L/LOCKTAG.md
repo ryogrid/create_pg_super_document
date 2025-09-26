@@ -32,15 +32,15 @@ The design allows a single hash table in shared memory to store locks of differe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LockTagType (enum)
+  - [LockTagType](LockTagType.md) (enum)
   - LOCKMETHODID
 - Called from (representative examples):
-  - LockAcquire
-  - LockRelease
-  - SetupLockInTable
-  - LockHeldByMe
-  - GetLockConflicts
-  - LockTagHashCode
+  - [LockAcquire](LockAcquire.md)
+  - [LockRelease](LockRelease.md)
+  - [SetupLockInTable](../S/SetupLockInTable.md)
+  - [LockHeldByMe](LockHeldByMe.md)
+  - [GetLockConflicts](../G/GetLockConflicts.md)
+  - [LockTagHashCode](LockTagHashCode.md)
 
 ## Notes and Other Information
 - Deliberately sized to exactly 16 bytes with no padding for efficient hashing and memory usage

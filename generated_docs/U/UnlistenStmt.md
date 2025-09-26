@@ -26,8 +26,8 @@ UnlistenStmt is a parse node that represents the UNLISTEN statement in PostgreSQ
 - Functions called/Symbols referenced:
   - NodeTag (for type identification)
 - Called from (representative examples):
-  - standard_ProcessUtility (processes the statement via Async_Unlisten or Async_UnlistenAll in src/backend/tcop/utility.c:830)
-  - PlannedStmtRequiresSnapshot (for snapshot requirement checking in src/backend/tcop/pquery.c:1748)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (processes the statement via Async_Unlisten or Async_UnlistenAll in src/backend/tcop/utility.c:830)
+  - [PlannedStmtRequiresSnapshot](../P/PlannedStmtRequiresSnapshot.md) (for snapshot requirement checking in src/backend/tcop/pquery.c:1748)
 
 ## Notes and Other Information
 - The statement is parsed in gram.y with two rules: `UNLISTEN ColId` for specific channels and `UNLISTEN '*'` for all channels

@@ -30,19 +30,19 @@ The function distinguishes between timezone-aware (CURRENT_TIME, CURRENT_TIMESTA
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - anytime_typmod_check (validates precision for TIME types)
-  - anytimestamp_typmod_check (validates precision for TIMESTAMP types)
+  - [anytime_typmod_check](../a/anytime_typmod_check.md) (validates precision for TIME types)
+  - [anytimestamp_typmod_check](../a/anytimestamp_typmod_check.md) (validates precision for TIMESTAMP types)
   - SVFOP_* constants (operation type identifiers for each SQL value function)
   - Type OIDs: DATEOID, TIMEOID, TIMETZOID, TIMESTAMPOID, TIMESTAMPTZOID, NAMEOID
 
 - Called from (representative examples):
-  - transformExprRecurse (main expression transformation dispatcher)
+  - [transformExprRecurse](transformExprRecurse.md) (main expression transformation dispatcher)
 
 ## Notes and Other Information
 - Unlike most transformation functions, this function modifies the input node in-place rather than creating a new node
 - Time and timestamp functions support optional precision specifiers (0-6 digits for fractional seconds)
 - The function handles both timezone-aware (with TZ suffix) and local variants of time functions
-- Session information functions (CURRENT_USER, etc.) all return NAME type, which is a fixed-length string type in PostgreSQL
+- [Session](../S/Session.md) information functions (CURRENT_USER, etc.) all return NAME type, which is a fixed-length string type in PostgreSQL
 - Type modifier validation ensures precision values are within acceptable ranges for temporal types
 - The function does not require access to the parse state, making it purely type-assignment focused
 - CURRENT_CATALOG and CURRENT_SCHEMA return the current database and schema names respectively

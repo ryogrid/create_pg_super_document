@@ -35,11 +35,11 @@ The function supports both concurrent and standard reindexing modes, automatical
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PopActiveSnapshot
+  - [PopActiveSnapshot](../P/PopActiveSnapshot.md)
   - [CommitTransactionCommand](../C/CommitTransactionCommand.md)
   - [StartTransactionCommand](../S/StartTransactionCommand.md)
-  - PushActiveSnapshot
-  - GetTransactionSnapshot
+  - [PushActiveSnapshot](../P/PushActiveSnapshot.md)
+  - [GetTransactionSnapshot](../G/GetTransactionSnapshot.md)
   - SearchSysCacheExists1
   - [object_aclcheck](../o/object_aclcheck.md)
   - [get_rel_relkind](../g/get_rel_relkind.md)

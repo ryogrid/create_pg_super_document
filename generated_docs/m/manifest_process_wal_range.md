@@ -26,7 +26,7 @@ This function serves as a callback during backup manifest parsing, specifically 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc](../p/palloc.md)
-  - lappend
+  - [lappend](../l/lappend.md)
 - Called from (representative examples):
   - [IncrementalBackupInfo](../I/IncrementalBackupInfo.md) (as callback in manifest parsing)
 

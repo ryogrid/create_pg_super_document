@@ -25,8 +25,8 @@ The function sets up the node type and argument count but leaves the actual argu
 - Functions called/Symbols referenced:
   - [palloc](../p/palloc.md) (PostgreSQL memory allocation function)
   - offsetof (C macro for calculating structure member offset)
-  - JsonPathGinNodeType (enum type for different node types)
-  - JsonPathGinNode (the main node structure type)
+  - [JsonPathGinNodeType](../J/JsonPathGinNodeType.md) (enum type for different node types)
+  - [JsonPathGinNode](../J/JsonPathGinNode.md) (the main node structure type)
 
 - Called from:
   - [make_jsp_expr_node_args](make_jsp_expr_node_args.md) (creates expression nodes with argument initialization)

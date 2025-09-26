@@ -26,14 +26,14 @@ The optimization is based on the principle that certain GUCs are guaranteed to h
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - config_generic (struct type)
+  - [config_generic](config_generic.md) (struct type)
   - PGC_POSTMASTER (enum constant)
   - PGC_INTERNAL (enum constant)  
   - PGC_S_DEFAULT (enum constant)
 - Called from (representative examples):
-  - estimate_variable_size
-  - serialize_variable
-  - RestoreGUCState
+  - [estimate_variable_size](../e/estimate_variable_size.md)
+  - [serialize_variable](../s/serialize_variable.md)
+  - [RestoreGUCState](../R/RestoreGUCState.md)
 
 ## Notes and Other Information
 - The same test logic works for both leader and worker sides, but may select different sets of GUCs on each side

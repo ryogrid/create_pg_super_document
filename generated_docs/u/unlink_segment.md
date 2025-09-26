@@ -27,12 +27,12 @@ The function maintains the integrity of the doubly-linked list by ensuring all p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_segment_by_index
+  - [get_segment_by_index](../g/get_segment_by_index.md)
   - get_segment_index
   - DSA_SEGMENT_INDEX_NONE (constant)
 - Called from (representative examples):
-  - destroy_superblock
-  - rebin_segment
+  - [destroy_superblock](../d/destroy_superblock.md)
+  - [rebin_segment](../r/rebin_segment.md)
 
 ## Notes and Other Information
 - This is a static (internal) function used for segment bin management

@@ -22,7 +22,7 @@ The function is typically registered as a callback using PostgreSQL's expression
 ## Dependencies
 - Functions called/Symbols referenced:
   - castNode (for type-safe casting to SetExprState)
-  - ExecClearTuple (to clear the function result slot)
+  - [ExecClearTuple](../E/ExecClearTuple.md) (to clear the function result slot)
   - [tuplestore_end](../t/tuplestore_end.md) (to release the tuplestore)
   - [DatumGetPointer](../D/DatumGetPointer.md) (to extract pointer from Datum)
 - Called from (representative examples):

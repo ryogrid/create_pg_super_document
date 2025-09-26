@@ -22,8 +22,8 @@ This function implements the main allocation logic for the bump memory allocator
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BumpContext (cast context to bump-specific type)
-  - BumpBlock (memory block structure)
+  - [BumpContext](BumpContext.md) (cast context to bump-specific type)
+  - [BumpBlock](BumpBlock.md) (memory block structure)
   - BumpIsValid (validates the context structure)
   - MAXALIGN (aligns chunk size to platform requirements)
   - MEMORY_CONTEXT_CHECKING (conditional compilation for debugging)

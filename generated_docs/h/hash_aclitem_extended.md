@@ -30,7 +30,7 @@ Like its simpler counterpart, it uses an additive hash approach, summing the thr
   - AclItem (structure type)
 - Called from (representative examples):
   - Advanced hash operations requiring seeded hash functions
-  - Hash joins and other database operations needing extended hash support
+  - [Hash](../H/Hash.md) joins and other database operations needing extended hash support
 
 ## Notes and Other Information
 - Extends the basic hash_aclitem function with seed support and 64-bit output

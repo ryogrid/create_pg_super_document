@@ -30,22 +30,22 @@ Timeline history entries are typically organized in lists where each entry repre
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - readTimeLineHistory
-  - existsTimeLineHistory
-  - findNewestTimeLine
-  - writeTimeLineHistory
-  - writeTimeLineHistoryFile
-  - restoreTimeLineHistoryFiles
-  - tliInHistory
-  - tliOfPointInHistory
-  - tliSwitchPoint
+  - [readTimeLineHistory](../r/readTimeLineHistory.md)
+  - [existsTimeLineHistory](../e/existsTimeLineHistory.md)
+  - [findNewestTimeLine](../f/findNewestTimeLine.md)
+  - [writeTimeLineHistory](../w/writeTimeLineHistory.md)
+  - [writeTimeLineHistoryFile](../w/writeTimeLineHistoryFile.md)
+  - [restoreTimeLineHistoryFiles](../r/restoreTimeLineHistoryFiles.md)
+  - [tliInHistory](../t/tliInHistory.md)
+  - [tliOfPointInHistory](../t/tliOfPointInHistory.md)
+  - [tliSwitchPoint](../t/tliSwitchPoint.md)
 
 - Called from (representative examples):
-  - readTimeLineHistory (creates and populates entries from timeline history files)
-  - rescanLatestTimeLine (uses entries to determine latest timeline state)
-  - PrepareForIncrementalBackup (processes timeline history for backup operations)
-  - rewind_parseTimeLineHistory (parses timeline entries in pg_rewind utility)
-  - findCommonAncestorTimeline (compares timeline entries to find common ancestors)
+  - [readTimeLineHistory](../r/readTimeLineHistory.md) (creates and populates entries from timeline history files)
+  - [rescanLatestTimeLine](../r/rescanLatestTimeLine.md) (uses entries to determine latest timeline state)
+  - [PrepareForIncrementalBackup](../P/PrepareForIncrementalBackup.md) (processes timeline history for backup operations)
+  - [rewind_parseTimeLineHistory](../r/rewind_parseTimeLineHistory.md) (parses timeline entries in pg_rewind utility)
+  - [findCommonAncestorTimeline](../f/findCommonAncestorTimeline.md) (compares timeline entries to find common ancestors)
 
 ## Notes and Other Information
 - Timeline 1 (the original timeline) does not have a history file, so special handling creates a single entry with begin=end=InvalidXLogRecPtr

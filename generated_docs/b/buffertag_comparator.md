@@ -29,7 +29,7 @@ The function returns -1 if ba < bb, 0 if ba == bb, and 1 if ba > bb, following s
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BufTagGetRelFileLocator](../B/BufTagGetRelFileLocator.md)
-  - rlocator_comparator
+  - [rlocator_comparator](../r/rlocator_comparator.md)
   - [BufTagGetForkNum](../B/BufTagGetForkNum.md)
   - BufferTag (type)
 - Called from (representative examples):

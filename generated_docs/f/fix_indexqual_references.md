@@ -35,7 +35,7 @@ The function processes each IndexClause in the index path, iterating through the
   - [fix_indexqual_clause](fix_indexqual_clause.md)
   - [IndexPath](../I/IndexPath.md) (struct type)
   - [IndexOptInfo](../I/IndexOptInfo.md) (struct type)  
-  - IndexClause (struct type)
+  - [IndexClause](../I/IndexClause.md) (struct type)
 - Called from (representative examples):
   - [create_indexscan_plan](../c/create_indexscan_plan.md)
 

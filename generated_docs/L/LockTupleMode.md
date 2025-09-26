@@ -39,7 +39,7 @@ The tuple locking system allows PostgreSQL to implement fine-grained concurrency
   - [heap_lock_tuple](../h/heap_lock_tuple.md) (src/backend/access/heap/heapam.c:4534)
   - [heap_update](../h/heap_update.md) (src/backend/access/heap/heapam.c:3202)
   - [ExecLockRows](../E/ExecLockRows.md) (src/backend/executor/nodeLockRows.c:83)
-  - table_tuple_lock (src/include/access/tableam.h:1582)
+  - [table_tuple_lock](../t/table_tuple_lock.md) (src/include/access/tableam.h:1582)
   - [heapam_tuple_update](../h/heapam_tuple_update.md) (src/backend/access/heap/heapam_handler.c:318)
 
 ## Notes and Other Information

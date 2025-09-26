@@ -26,14 +26,14 @@ The function takes an expression state (containing the compiled evaluation funct
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - state->evalfunc (the compiled expression evaluation function)
+  - [state](../s/state.md)->evalfunc (the compiled expression evaluation function)
 - Called from (representative examples):
-  - StoreAttrDefault (for column default expressions)
-  - NextCopyFrom (during COPY operations)
-  - ATRewriteTable (during ALTER TABLE operations)
-  - ExecMakeTableFunctionResult (for table functions)
-  - finalize_aggregate (in aggregate processing)
-  - ExecHashGetHashValue (for hash computations)
+  - [StoreAttrDefault](../S/StoreAttrDefault.md) (for column default expressions)
+  - [NextCopyFrom](../N/NextCopyFrom.md) (during COPY operations)
+  - [ATRewriteTable](../A/ATRewriteTable.md) (during ALTER TABLE operations)
+  - [ExecMakeTableFunctionResult](ExecMakeTableFunctionResult.md) (for table functions)
+  - [finalize_aggregate](../f/finalize_aggregate.md) (in aggregate processing)
+  - [ExecHashGetHashValue](ExecHashGetHashValue.md) (for hash computations)
   - Various expression evaluation contexts throughout the executor
 
 ## Notes and Other Information

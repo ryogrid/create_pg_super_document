@@ -24,18 +24,18 @@ WorkTableScan is a specialized scan node used in PostgreSQL's recursive CTE impl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Scan (base structure)
+  - [Scan](../S/Scan.md) (base structure)
 - Called from (representative examples):
-  - ExecInitNode (plan node initialization dispatcher)
-  - ExecWorkTableScan (main execution function)
-  - ExecInitWorkTableScan (initialization function)
-  - create_worktablescan_plan (plan creation)
-  - make_worktablescan (plan node construction)
-  - set_plan_refs (plan reference setting)
-  - ExecReScanWorkTableScan (rescan functionality)
+  - [ExecInitNode](../E/ExecInitNode.md) (plan node initialization dispatcher)
+  - [ExecWorkTableScan](../E/ExecWorkTableScan.md) (main execution function)
+  - [ExecInitWorkTableScan](../E/ExecInitWorkTableScan.md) (initialization function)
+  - [create_worktablescan_plan](../c/create_worktablescan_plan.md) (plan creation)
+  - [make_worktablescan](../m/make_worktablescan.md) (plan node construction)
+  - [set_plan_refs](../s/set_plan_refs.md) (plan reference setting)
+  - [ExecReScanWorkTableScan](../E/ExecReScanWorkTableScan.md) (rescan functionality)
 
 ## Notes and Other Information
-- WorkTableScan nodes are created specifically for recursive CTE processing
+- [WorkTableScan](WorkTableScan.md) nodes are created specifically for recursive CTE processing
 - The working table is implemented as a tuplestore managed by the parent RecursiveUnion node
 - Initialization is deferred until execution time due to timing dependencies with ancestor nodes
 - The scan produces unordered results as work tables contain computed intermediate data

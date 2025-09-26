@@ -24,14 +24,14 @@ This structure is generated automatically from Unicode data files and is used in
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - UnicodeNormalizationQC (enum type referenced in quickcheck field)
+  - [UnicodeNormalizationQC](../U/UnicodeNormalizationQC.md) (enum type referenced in quickcheck field)
   - UNICODE_NORM_QC_MAYBE (constant used in static initializations)
 
 - Called from (representative examples):
-  - unicode_normalize function (src/common/unicode_norm.c:542)
-  - qc_is_allowed function (src/common/unicode_norm.c:576)
+  - [unicode_normalize](../u/unicode_normalize.md) function (src/common/unicode_norm.c:542)
+  - [qc_is_allowed](../q/qc_is_allowed.md) function (src/common/unicode_norm.c:576)
   - pg_unicode_norminfo structures
-  - NFC_QC_hash_func lookup operations
+  - [NFC_QC_hash_func](../N/NFC_QC_hash_func.md) lookup operations
 
 ## Notes and Other Information
 - Generated automatically by src/common/unicode/generate-unicode_normprops_table.pl

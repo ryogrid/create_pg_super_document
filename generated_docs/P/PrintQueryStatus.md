@@ -34,7 +34,7 @@ Key features:
   - fprintf/fputs (output functions)
   - fflush (flushes output stream)
   - snprintf (formats OID string)
-  - SetVariable (sets psql variable)
+  - [SetVariable](../S/SetVariable.md) (sets psql variable)
 - Constants referenced:
   - PGRES_TUPLES_OK (result status for SELECT-like queries)
   - PRINT_HTML (HTML output format constant)

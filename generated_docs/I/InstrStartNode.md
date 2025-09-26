@@ -22,14 +22,14 @@ InstrStartNode is called at the beginning of plan node execution to establish ba
   - pgWalUsage (global WAL usage counter)
   - elog (error logging)
 - Called from (representative examples):
-  - ExecCallTriggerFunc
-  - AfterTriggerExecute
-  - ExecAsyncRequest
-  - standard_ExecutorRun
-  - ExecProcNodeInstr
-  - MultiExecBitmapAnd
-  - MultiExecBitmapIndexScan
-  - MultiExecHash
+  - [ExecCallTriggerFunc](../E/ExecCallTriggerFunc.md)
+  - [AfterTriggerExecute](../A/AfterTriggerExecute.md)
+  - [ExecAsyncRequest](../E/ExecAsyncRequest.md)
+  - [standard_ExecutorRun](../s/standard_ExecutorRun.md)
+  - [ExecProcNodeInstr](../E/ExecProcNodeInstr.md)
+  - [MultiExecBitmapAnd](../M/MultiExecBitmapAnd.md)
+  - [MultiExecBitmapIndexScan](../M/MultiExecBitmapIndexScan.md)
+  - [MultiExecHash](../M/MultiExecHash.md)
 
 ## Notes and Other Information
 The function uses lazy time setting (INSTR_TIME_SET_CURRENT_LAZY) which only captures time if timing instrumentation is actually needed, providing performance optimization. The safety check for double-entry helps detect instrumentation bugs during development. Buffer and WAL usage snapshots are taken directly from global counters, allowing for accurate delta calculations when the node execution completes.

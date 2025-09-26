@@ -41,13 +41,13 @@ This optimization reduces the number of Append/MergeAppend nodes in the final pl
 - Functions called/Symbols referenced:
   - list_make1
   - linitial
-  - list_delete_first
+  - [list_delete_first](../l/list_delete_first.md)
   - IsA
   - [equal](../e/equal.md)
   - [lcons](../l/lcons.md)
   - [recurse_set_operations](../r/recurse_set_operations.md)
-  - lappend
-  - lappend_int
+  - [lappend](../l/lappend.md)
+  - [lappend_int](../l/lappend_int.md)
 - Called from (representative examples):
   - [generate_union_paths](../g/generate_union_paths.md)
 

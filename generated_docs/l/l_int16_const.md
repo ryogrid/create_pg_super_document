@@ -28,7 +28,7 @@ This is part of PostgreSQL's JIT compilation infrastructure and is primarily use
   - int16 (PostgreSQL type alias for signed 16-bit integer)
 - Called from (representative examples):
   - [slot_compile_deform](../s/slot_compile_deform.md) (in llvmjit_deform.c, used extensively for tuple slot deformation operations)
-  - llvm_compile_expr (in llvmjit_expr.c, used for expression compilation)
+  - [llvm_compile_expr](llvm_compile_expr.md) (in llvmjit_expr.c, used for expression compilation)
 
 ## Notes and Other Information
 - This is a header-only inline function defined in src/include/jit/llvmjit_emit.h

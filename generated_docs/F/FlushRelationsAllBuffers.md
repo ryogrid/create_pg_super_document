@@ -28,18 +28,18 @@ The optimization strategy switches between linear search (O(n*m) where n=buffers
   - [palloc](../p/palloc.md)
   - RelFileLocatorBackendIsTemp
   - qsort
-  - rlocator_comparator
+  - [rlocator_comparator](../r/rlocator_comparator.md)
   - [GetBufferDescriptor](../G/GetBufferDescriptor.md)
   - [BufTagMatchesRelFileLocator](../B/BufTagMatchesRelFileLocator.md)
   - [BufTagGetRelFileLocator](../B/BufTagGetRelFileLocator.md)
   - bsearch
   - [ReservePrivateRefCountEntry](../R/ReservePrivateRefCountEntry.md)
-  - ResourceOwnerEnlarge
-  - LockBufHdr
-  - PinBuffer_Locked
+  - [ResourceOwnerEnlarge](../R/ResourceOwnerEnlarge.md)
+  - [LockBufHdr](../L/LockBufHdr.md)
+  - [PinBuffer_Locked](../P/PinBuffer_Locked.md)
   - [BufferDescriptorGetContentLock](../B/BufferDescriptorGetContentLock.md)
   - [FlushBuffer](FlushBuffer.md)
-  - UnpinBuffer
+  - [UnpinBuffer](../U/UnpinBuffer.md)
   - [UnlockBufHdr](../U/UnlockBufHdr.md)
   - [pfree](../p/pfree.md)
 - Constants used:

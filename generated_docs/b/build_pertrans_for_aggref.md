@@ -59,7 +59,7 @@ The function carefully handles various aggregate scenarios including partial agg
   - InitFunctionCallInfoData, SizeForFunctionCallInfo
   - [get_typlenbyval](../g/get_typlenbyval.md), get_opcode, get_sortgroupclause_tle
   - [ExecTypeFromTL](../E/ExecTypeFromTL.md), ExecInitExtraTupleSlot
-  - execTuplesMatchPrepare, exprCollation
+  - [execTuplesMatchPrepare](../e/execTuplesMatchPrepare.md), exprCollation
 - Types used:
   - [AggStatePerTrans](../A/AggStatePerTrans.md), AggState, EState, Aggref
   - [FunctionCallInfo](../F/FunctionCallInfo.md), SortGroupClause, TargetEntry, Tuplesortstate

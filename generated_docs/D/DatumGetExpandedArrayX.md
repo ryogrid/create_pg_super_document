@@ -23,9 +23,9 @@ The function is designed for scenarios where the caller maintains a cache of arr
 ## Dependencies
 - Functions called/Symbols referenced:
   - VARATT_IS_EXTERNAL_EXPANDED_RW (checks if Datum is writable expanded array)
-  - DatumGetEOHP (extracts expanded object header pointer)
-  - expand_array (converts regular array to expanded form)
-  - DatumGetPointer (extracts pointer from Datum)
+  - [DatumGetEOHP](DatumGetEOHP.md) (extracts expanded object header pointer)
+  - [expand_array](../e/expand_array.md) (converts regular array to expanded form)
+  - [DatumGetPointer](DatumGetPointer.md) (extracts pointer from Datum)
 - Called from (representative examples):
   - PG_GETARG_EXPANDED_ARRAYX (macro for function argument processing)
   - AARR_LBOUND (array lower bound access macro)

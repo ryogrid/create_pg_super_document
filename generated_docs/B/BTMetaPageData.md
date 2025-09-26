@@ -54,11 +54,11 @@ The structure also includes versioning information to support backward compatibi
   - [_bt_insertonpg](../b/_bt_insertonpg.md)
   - [_bt_finish_split](../b/_bt_finish_split.md)
   - [_bt_newlevel](../b/_bt_newlevel.md)
-  - _bt_initmetapage
-  - _bt_upgrademetapage
-  - _bt_getmeta
-  - _bt_vacuum_needs_cleanup
-  - _bt_set_cleanup_info
+  - [_bt_initmetapage](../b/_bt_initmetapage.md)
+  - [_bt_upgrademetapage](../b/_bt_upgrademetapage.md)
+  - [_bt_getmeta](../b/_bt_getmeta.md)
+  - [_bt_vacuum_needs_cleanup](../b/_bt_vacuum_needs_cleanup.md)
+  - [_bt_set_cleanup_info](../b/_bt_set_cleanup_info.md)
   - [_bt_getroot](../b/_bt_getroot.md)
   - [_bt_gettrueroot](../b/_bt_gettrueroot.md)
   - [_bt_getrootheight](../b/_bt_getrootheight.md)

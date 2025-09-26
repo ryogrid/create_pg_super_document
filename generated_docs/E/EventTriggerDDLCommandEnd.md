@@ -27,10 +27,10 @@ The function follows the pattern: safety checks, setup eligible triggers, make c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - EventTriggerData (struct for trigger context)
+  - [EventTriggerData](EventTriggerData.md) (struct for trigger context)
   - [EventTriggerCommonSetup](EventTriggerCommonSetup.md) (identifies applicable triggers)
   - EVT_DDLCommandEnd (event type constant)
-  - CommandCounterIncrement (ensures visibility)
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md) (ensures visibility)
   - [EventTriggerInvoke](EventTriggerInvoke.md) (executes the triggers)
   - [list_free](../l/list_free.md) (memory cleanup)
 - Called from (representative examples):

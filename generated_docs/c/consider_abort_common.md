@@ -33,10 +33,10 @@ This adaptive approach ensures that the system automatically falls back to stand
 ## Dependencies
 - Functions called/Symbols referenced:
   - `TSS_INITIAL`: Tuplesort state constant indicating initial memory-based sorting phase
-  - `Tuplesortstate`: The main sort state structure
+  - `[Tuplesortstate](../T/Tuplesortstate.md)`: The main sort state structure
 
 - Called from (representative examples):
-  - `tuplesort_puttuple_common` (src/backend/utils/sort/tuplesort.c:1211)
+  - `[tuplesort_puttuple_common](../t/tuplesort_puttuple_common.md)` (src/backend/utils/sort/tuplesort.c:1211)
   - Referenced in `LEADER` context (src/backend/utils/sort/tuplesort.c:458)
 
 ## Notes and Other Information

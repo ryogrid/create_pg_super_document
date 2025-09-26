@@ -23,18 +23,18 @@ The function carefully manages memory and string conversion to avoid potential i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pstrdup
-  - utf_u2e
+  - [pstrdup](../p/pstrdup.md)
+  - [utf_u2e](../u/utf_u2e.md)
   - Tcl_GetStringResult
   - Tcl_GetVar
   - ereport
-  - errcode
-  - errmsg
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
   - errcontext
 - Called from (representative examples):
-  - pltcl_func_handler
-  - pltcl_trigger_handler
-  - pltcl_event_trigger_handler
+  - [pltcl_func_handler](../p/pltcl_func_handler.md)
+  - [pltcl_trigger_handler](../p/pltcl_trigger_handler.md)
+  - [pltcl_event_trigger_handler](../p/pltcl_event_trigger_handler.md)
 
 ## Notes and Other Information
 - Should only be used to report errors from Tcl_EvalObjEx() or similar Tcl evaluation functions

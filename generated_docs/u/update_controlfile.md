@@ -33,17 +33,17 @@ The function uses different file handling strategies: BasicOpenFile in the backe
   - INIT_CRC32C, COMP_CRC32C, FIN_CRC32C (CRC calculation macros)
   - memset, memcpy (memory operations)
   - snprintf (path construction)
-  - BasicOpenFile/open (file opening)
+  - [BasicOpenFile](../B/BasicOpenFile.md)/open (file opening)
   - write (file writing)
-  - pg_fsync/fsync (file synchronization)
+  - [pg_fsync](../p/pg_fsync.md)/fsync (file synchronization)
   - close (file closing)
-  - pgstat_report_wait_start/pgstat_report_wait_end (backend wait events)
+  - [pgstat_report_wait_start](../p/pgstat_report_wait_start.md)/pgstat_report_wait_end (backend wait events)
   - ereport/pg_fatal (error reporting)
 - Called from (representative examples):
-  - UpdateControlFile
-  - modify_subscriber_sysid
-  - RewriteControlFile
-  - perform_rewind
+  - [UpdateControlFile](../U/UpdateControlFile.md)
+  - [modify_subscriber_sysid](../m/modify_subscriber_sysid.md)
+  - [RewriteControlFile](../R/RewriteControlFile.md)
+  - [perform_rewind](../p/perform_rewind.md)
 
 ## Notes and Other Information
 - Caller must properly lock ControlFileLock when calling from backend to prevent concurrent modifications

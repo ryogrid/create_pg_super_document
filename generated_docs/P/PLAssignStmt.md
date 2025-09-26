@@ -35,14 +35,14 @@ The transformation process handles type coercion using COERCION_PLPGSQL rules (r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SelectStmt (for the assignment value expression)
+  - [SelectStmt](../S/SelectStmt.md) (for the assignment value expression)
   - ParseLoc (for location tracking)
   - NodeTag (inherited node type system)
-  - List (for indirection handling)
+  - [List](../L/List.md) (for indirection handling)
 - Called from (representative examples):
-  - transformStmt (general statement transformation)
-  - transformPLAssignStmt (specific PL/pgSQL assignment transformation)
-  - raw_expression_tree_walker_impl (for node traversal)
+  - [transformStmt](../t/transformStmt.md) (general statement transformation)
+  - [transformPLAssignStmt](../t/transformPLAssignStmt.md) (specific PL/pgSQL assignment transformation)
+  - [raw_expression_tree_walker_impl](../r/raw_expression_tree_walker_impl.md) (for node traversal)
 
 ## Notes and Other Information
 - Only valid within PL/pgSQL function bodies, not in regular SQL

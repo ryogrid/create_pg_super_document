@@ -22,12 +22,12 @@ The function is typically called when adding new memory blocks to the list (sett
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pthread_setspecific
+  - [pthread_setspecific](../p/pthread_setspecific.md)
   - auto_mem_key (static variable)
 - Called from (representative examples):
-  - ecpg_add_mem (line 126)
-  - ECPGfree_auto_mem (line 146) 
-  - ecpg_clear_auto_mem (line 165)
+  - [ecpg_add_mem](../e/ecpg_add_mem.md) (line 126)
+  - [ECPGfree_auto_mem](../E/ECPGfree_auto_mem.md) (line 146) 
+  - [ecpg_clear_auto_mem](../e/ecpg_clear_auto_mem.md) (line 165)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the memory.c file

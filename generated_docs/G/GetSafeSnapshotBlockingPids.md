@@ -30,17 +30,17 @@ This function is primarily used for monitoring and debugging serializable isolat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_iter
-  - SERIALIZABLEXACT
+  - [dlist_iter](../d/dlist_iter.md)
+  - [SERIALIZABLEXACT](../S/SERIALIZABLEXACT.md)
   - LW_SHARED
   - dlist_foreach
   - dlist_container
   - SxactIsDeferrableWaiting
-  - RWConflict
-  - RWConflictData
+  - [RWConflict](../R/RWConflict.md)
+  - [RWConflictData](../R/RWConflictData.md)
 - Called from (representative examples):
-  - pg_safe_snapshot_blocking_pids (system function)
-  - pg_isolation_test_session_is_blocked (testing framework)
+  - [pg_safe_snapshot_blocking_pids](../p/pg_safe_snapshot_blocking_pids.md) (system function)
+  - [pg_isolation_test_session_is_blocked](../p/pg_isolation_test_session_is_blocked.md) (testing framework)
   - InvalidSerializableXact
 
 ## Notes and Other Information

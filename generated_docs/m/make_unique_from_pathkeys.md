@@ -28,9 +28,9 @@ This static function constructs a Unique plan node using pathkeys to determine w
   - [get_opfamily_member](../g/get_opfamily_member.md) (to find equality operator for pathkey's operator family)
   - elog (for error reporting)
 - Types referenced:
-  - Unique (the uniqueness filtering plan node structure)
-  - PathKey (structure representing sort/group ordering)
-  - EquivalenceClass (class of equivalent expressions for ordering)
+  - [Unique](../U/Unique.md) (the uniqueness filtering plan node structure)
+  - [PathKey](../P/PathKey.md) (structure representing sort/group ordering)
+  - [EquivalenceClass](../E/EquivalenceClass.md) (class of equivalent expressions for ordering)
   - [EquivalenceMember](../E/EquivalenceMember.md) (member expression within an equivalence class)
   - [TargetEntry](../T/TargetEntry.md) (structure representing output columns)
 - Called from (representative examples):

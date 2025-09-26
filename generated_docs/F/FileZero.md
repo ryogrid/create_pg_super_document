@@ -23,15 +23,15 @@ FileZero efficiently zeros out a contiguous region of a file by writing zero byt
 ## Dependencies
 - Functions called/Symbols referenced:
   - FileIsValid: Validates the virtual file descriptor
-  - FileAccess: Ensures the file is accessible and handles VFD management
-  - pgstat_report_wait_start: Reports the start of a wait event for monitoring
-  - pg_pwrite_zeros: PostgreSQL's optimized function for writing zeros at a specific offset
-  - pgstat_report_wait_end: Reports the end of the wait event
+  - [FileAccess](FileAccess.md): Ensures the file is accessible and handles VFD management
+  - [pgstat_report_wait_start](../p/pgstat_report_wait_start.md): Reports the start of a wait event for monitoring
+  - [pg_pwrite_zeros](../p/pg_pwrite_zeros.md): PostgreSQL's optimized function for writing zeros at a specific offset
+  - [pgstat_report_wait_end](../p/pgstat_report_wait_end.md): Reports the end of the wait event
   - DO_DB: Debug logging macro
   - INT64_FORMAT: Macro for formatting 64-bit integers in log messages
 - Called from (representative examples):
-  - FileFallocate: Used as a fallback when fallocate() is not available
-  - mdzeroextend: During zero-extension of MD storage files
+  - [FileFallocate](FileFallocate.md): Used as a fallback when fallocate() is not available
+  - [mdzeroextend](../m/mdzeroextend.md): During zero-extension of MD storage files
 
 ## Notes and Other Information
 - Returns 0 on success, -1 on failure with errno set appropriately

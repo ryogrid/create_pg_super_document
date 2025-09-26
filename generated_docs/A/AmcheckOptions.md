@@ -104,5 +104,5 @@ The AmcheckOptions structure serves as the central configuration object for pg_a
 - Supports both heap table and btree index checking with specialized options for each
 - Includes optimization flags (excludetbl, excludeidx, excludensp) to avoid unnecessary pattern matching
 - The allrel flag provides a quick check for whether inclusion patterns are active
-- Range checking for heap tables is supported through startblock and endblock members
+- [Range](../R/Range.md) checking for heap tables is supported through startblock and endblock members
 - Extension management capabilities allow automatic installation of required extensions

@@ -27,7 +27,7 @@ The operation is atomic and doesn't require locking because:
   - [PROC_HDR](../P/PROC_HDR.md) (structure type)
 
 - Called from (representative examples):
-  - LockBufferForCleanup
+  - [LockBufferForCleanup](../L/LockBufferForCleanup.md)
 
 ## Notes and Other Information
 - Used specifically for recovery conflict processing during Hot Standby

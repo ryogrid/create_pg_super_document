@@ -24,11 +24,11 @@ The function uses a combination of lightweight locks and condition variables to 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchNamedReplicationSlot](../S/SearchNamedReplicationSlot.md)
-  - LWLockAcquire/LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease
   - [ConditionVariablePrepareToSleep](../C/ConditionVariablePrepareToSleep.md)/ConditionVariableSleep/ConditionVariableCancelSleep/ConditionVariableBroadcast
   - SpinLockAcquire/SpinLockRelease
   - SlotIsLogical
-  - pgstat_acquire_replslot
+  - [pgstat_acquire_replslot](../p/pgstat_acquire_replslot.md)
 - Called from (representative examples):
   - [StartReplication](../S/StartReplication.md)
   - [StartLogicalReplication](../S/StartLogicalReplication.md)

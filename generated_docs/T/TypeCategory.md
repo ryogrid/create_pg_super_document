@@ -40,16 +40,16 @@ Type categories help PostgreSQL determine which types can be implicitly converte
 - Must never return TYPCATEGORY_INVALID (enforced by Assert)
 - Categories include:
   - TYPCATEGORY_ARRAY ('A') - Array types
-  - TYPCATEGORY_BOOLEAN ('B') - Boolean type
+  - TYPCATEGORY_BOOLEAN ('B') - [Boolean](../B/Boolean.md) type
   - TYPCATEGORY_COMPOSITE ('C') - Composite/record types
   - TYPCATEGORY_DATETIME ('D') - Date/time types
   - TYPCATEGORY_ENUM ('E') - Enumerated types
   - TYPCATEGORY_GEOMETRIC ('G') - Geometric types
   - TYPCATEGORY_NETWORK ('I') - Network address types
-  - TYPCATEGORY_NUMERIC ('N') - Numeric types
+  - TYPCATEGORY_NUMERIC ('N') - [Numeric](../N/Numeric.md) types
   - TYPCATEGORY_PSEUDOTYPE ('P') - Pseudotypes
-  - TYPCATEGORY_RANGE ('R') - Range types
-  - TYPCATEGORY_STRING ('S') - String types
+  - TYPCATEGORY_RANGE ('R') - [Range](../R/Range.md) types
+  - TYPCATEGORY_STRING ('S') - [String](../S/String.md) types
   - TYPCATEGORY_TIMESPAN ('T') - Time interval types
   - TYPCATEGORY_USER ('U') - User-defined types
   - TYPCATEGORY_BITSTRING ('V') - Bit string types

@@ -39,7 +39,7 @@ PartitionDispatchData represents the routing information needed for a single par
   - FLEXIBLE_ARRAY_MEMBER
 - Called from (representative examples):
   - [ExecInitPartitionDispatchInfo](../E/ExecInitPartitionDispatchInfo.md)
-  - PartitionDispatch (typedef usage)
+  - [PartitionDispatch](PartitionDispatch.md) (typedef usage)
 
 ## Notes and Other Information
 The structure uses a flexible array member for the indexes array, allowing it to be sized according to the number of partitions at allocation time. The indexes array serves as an indirection mechanism, mapping local partition numbers to global indexes in the parent PartitionTupleRouting structure's arrays. This design enables efficient partition lookup while maintaining a clean separation between dispatch information for individual tables and the overall routing context.

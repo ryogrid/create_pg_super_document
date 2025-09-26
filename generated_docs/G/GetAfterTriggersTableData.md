@@ -25,14 +25,14 @@ The function operates within the current query depth context and ensures proper 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc0](../p/palloc0.md)
-  - lappend
+  - [lappend](../l/lappend.md)
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - lfirst (macro)
   - foreach (macro)
 - Called from (representative examples):
   - [MakeTransitionCaptureState](../M/MakeTransitionCaptureState.md)
-  - before_stmt_triggers_fired
-  - cancel_prior_stmt_triggers
+  - [before_stmt_triggers_fired](../b/before_stmt_triggers_fired.md)
+  - [cancel_prior_stmt_triggers](../c/cancel_prior_stmt_triggers.md)
   - [AfterTriggersTableData](../A/AfterTriggersTableData.md) (within trigger.c)
 
 ## Notes and Other Information

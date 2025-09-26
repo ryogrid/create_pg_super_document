@@ -18,7 +18,7 @@ This function provides a robust mechanism for canceling ongoing PostgreSQL opera
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PGcancelConn
+  - [PGcancelConn](../P/PGcancelConn.md)
   - [PQcancelCreate](../P/PQcancelCreate.md)
   - PG_TRY
   - [PQcancelStart](../P/PQcancelStart.md)

@@ -23,8 +23,8 @@ The function handles various PostgreSQL transaction states:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQtransactionStatus
-  - PQstatus  
+  - [PQtransactionStatus](../P/PQtransactionStatus.md)
+  - [PQstatus](../P/PQstatus.md)  
   - pg_log_error
 - Types referenced:
   - PGTransactionStatusType

@@ -27,7 +27,7 @@ The deletion process maintains proper locking semantics, keeping locks until tra
 - Functions called/Symbols referenced:
   - VARATT_IS_EXTERNAL_ONDISK
   - VARATT_EXTERNAL_GET_POINTER
-  - table_open
+  - [table_open](table_open.md)
   - [toast_open_indexes](toast_open_indexes.md)
   - [toast_close_indexes](toast_close_indexes.md)
   - [ScanKeyInit](../S/ScanKeyInit.md)

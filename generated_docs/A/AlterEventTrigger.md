@@ -26,7 +26,7 @@ The function supports different enabling modes including completely disabled, en
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open (to open the pg_event_trigger relation)
+  - [table_open](../t/table_open.md) (to open the pg_event_trigger relation)
   - SearchSysCacheCopy1 (to find the event trigger by name)
   - [CStringGetDatum](../C/CStringGetDatum.md) (to convert trigger name to Datum)
   - HeapTupleIsValid (to validate the found tuple)
@@ -35,11 +35,11 @@ The function supports different enabling modes including completely disabled, en
   - [GetUserId](../G/GetUserId.md) (to get current user ID)
   - [aclcheck_error](../a/aclcheck_error.md) (to report permission errors)
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md) (to update the catalog tuple)
-  - namestrcmp (to compare event type names)
+  - [namestrcmp](../n/namestrcmp.md) (to compare event type names)
   - [SetDatabaseHasLoginEventTriggers](../S/SetDatabaseHasLoginEventTriggers.md) (to set database flag for login triggers)
   - InvokeObjectPostAlterHook (to invoke post-alter hooks)
   - [heap_freetuple](../h/heap_freetuple.md) (to free tuple memory)
-  - table_close (to close the relation)
+  - [table_close](../t/table_close.md) (to close the relation)
 - Called from (representative examples):
   - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (main utility command processor)
 

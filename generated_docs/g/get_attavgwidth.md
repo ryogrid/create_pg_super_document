@@ -23,7 +23,7 @@ This function looks up the average width of values stored in a specific column b
   - get_attavgwidth_hook (function pointer)
   - [SearchSysCache3](../S/SearchSysCache3.md)
   - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
-  - Int16GetDatum
+  - [Int16GetDatum](../I/Int16GetDatum.md)
   - [BoolGetDatum](../B/BoolGetDatum.md)
   - HeapTupleIsValid
   - GETSTRUCT

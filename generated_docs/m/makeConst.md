@@ -31,7 +31,7 @@ The function performs important normalization by ensuring variable-length (varle
   - makeNode (macro for node allocation)
   - PG_DETOAST_DATUM (macro for detoasting varlena values)
   - [PointerGetDatum](../P/PointerGetDatum.md) (macro for converting pointer to Datum)
-  - Const (node type being created)
+  - [Const](../C/Const.md) (node type being created)
 - Called from (representative examples):
   - [makeNullConst](makeNullConst.md) (same file)
   - [makeBoolConst](makeBoolConst.md) (same file)

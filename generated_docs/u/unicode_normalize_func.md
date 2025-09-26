@@ -20,13 +20,13 @@ The `unicode_normalize_func` function performs Unicode normalization on input te
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - text_to_cstring
+  - [text_to_cstring](../t/text_to_cstring.md)
   - [unicode_norm_form_from_string](unicode_norm_form_from_string.md)
   - [pg_mbstrlen_with_len](../p/pg_mbstrlen_with_len.md)
   - [utf8_to_unicode](utf8_to_unicode.md)
-  - pg_utf_mblen
-  - unicode_normalize
-  - unicode_to_utf8
+  - [pg_utf_mblen](../p/pg_utf_mblen.md)
+  - [unicode_normalize](unicode_normalize.md)
+  - [unicode_to_utf8](unicode_to_utf8.md)
   - [palloc](../p/palloc.md)
   - SET_VARSIZE
   - PG_RETURN_TEXT_P

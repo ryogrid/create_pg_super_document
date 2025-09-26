@@ -29,19 +29,19 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ShmemInitStruct (shared memory allocation)
+  - [ShmemInitStruct](../S/ShmemInitStruct.md) (shared memory allocation)
   - TYPEALIGN (memory alignment)
-  - GetBufferDescriptor (buffer access)
-  - ClearBufferTag (buffer tag initialization)
-  - pg_atomic_init_u32 (atomic variable initialization)
-  - LWLockInitialize (lock initialization)
-  - BufferDescriptorGetContentLock (lock access)
-  - ConditionVariableInit (condition variable setup)
-  - BufferDescriptorGetIOCV (condition variable access)
-  - StrategyInitialize (buffer strategy setup)
-  - WritebackContextInit (writeback initialization)
+  - [GetBufferDescriptor](../G/GetBufferDescriptor.md) (buffer access)
+  - [ClearBufferTag](../C/ClearBufferTag.md) (buffer tag initialization)
+  - [pg_atomic_init_u32](../p/pg_atomic_init_u32.md) (atomic variable initialization)
+  - [LWLockInitialize](../L/LWLockInitialize.md) (lock initialization)
+  - [BufferDescriptorGetContentLock](../B/BufferDescriptorGetContentLock.md) (lock access)
+  - [ConditionVariableInit](../C/ConditionVariableInit.md) (condition variable setup)
+  - [BufferDescriptorGetIOCV](../B/BufferDescriptorGetIOCV.md) (condition variable access)
+  - [StrategyInitialize](../S/StrategyInitialize.md) (buffer strategy setup)
+  - [WritebackContextInit](../W/WritebackContextInit.md) (writeback initialization)
 - Called from (representative examples):
-  - CreateOrAttachShmemStructs (main initialization path)
+  - [CreateOrAttachShmemStructs](../C/CreateOrAttachShmemStructs.md) (main initialization path)
 
 ## Notes and Other Information
 - This function is called exactly once during PostgreSQL startup, either in the postmaster process or in a standalone backend

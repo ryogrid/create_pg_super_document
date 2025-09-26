@@ -30,17 +30,17 @@ The function handles both shorthand (simple) and full (searched) CASE syntax by 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CaseExpr, CaseWhen, CaseTestExpr (struct types for CASE expressions)
-  - A_Const (struct type for constant values)
-  - transformExprRecurse (recursively transforms expression nodes)
-  - coerce_to_common_type, coerce_to_boolean (type coercion functions)
-  - assign_expr_collations (assigns collations to expressions)
-  - makeSimpleA_Expr (creates simple A_Expr nodes for equality)
-  - select_common_type (determines common type from expression list)
-  - exprType, exprTypmod, exprCollation, exprLocation (expression metadata functions)
+  - [CaseExpr](../C/CaseExpr.md), CaseWhen, CaseTestExpr (struct types for CASE expressions)
+  - [A_Const](../A/A_Const.md) (struct type for constant values)
+  - [transformExprRecurse](transformExprRecurse.md) (recursively transforms expression nodes)
+  - [coerce_to_common_type](../c/coerce_to_common_type.md), coerce_to_boolean (type coercion functions)
+  - [assign_expr_collations](../a/assign_expr_collations.md) (assigns collations to expressions)
+  - [makeSimpleA_Expr](../m/makeSimpleA_Expr.md) (creates simple A_Expr nodes for equality)
+  - [select_common_type](../s/select_common_type.md) (determines common type from expression list)
+  - [exprType](../e/exprType.md), exprTypmod, exprCollation, exprLocation (expression metadata functions)
   - AEXPR_OP (A_Expr operation type constant)
 - Called from:
-  - transformExprRecurse (main expression transformation dispatcher)
+  - [transformExprRecurse](transformExprRecurse.md) (main expression transformation dispatcher)
 
 ## Notes and Other Information
 - This function is part of the SQL parser's expression transformation pipeline

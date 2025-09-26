@@ -26,9 +26,9 @@ The function accepts two types of signal reasons:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CancelDBBackends (with InvalidOid, reason, false parameters)
+  - [CancelDBBackends](../C/CancelDBBackends.md) (with InvalidOid, reason, false parameters)
 - Called from (representative examples):
-  - ResolveRecoveryConflictWithBufferPin (multiple calls at lines 805, 845, 861)
+  - [ResolveRecoveryConflictWithBufferPin](../R/ResolveRecoveryConflictWithBufferPin.md) (multiple calls at lines 805, 845, 861)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the same source file

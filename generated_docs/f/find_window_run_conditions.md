@@ -40,7 +40,7 @@ This function implements an optimization for window functions by detecting cases
   - [get_opfamily_member](../g/get_opfamily_member.md) (operator family lookup)
   - makeNode (node creation)
   - copyObject (node copying)
-  - lappend (list append)
+  - [lappend](../l/lappend.md) (list append)
   - [bms_add_member](../b/bms_add_member.md) (bitmapset manipulation)
 - Called from (representative examples):
   - [check_and_push_window_quals](../c/check_and_push_window_quals.md)

@@ -19,8 +19,8 @@ This function implements the CREATE USER MAPPING SQL command by creating a new e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
-  - get_rolespec_oid
+  - [table_open](../t/table_open.md)
+  - [get_rolespec_oid](../g/get_rolespec_oid.md)
   - [GetForeignServerByName](../G/GetForeignServerByName.md)
   - [user_mapping_ddl_aclcheck](../u/user_mapping_ddl_aclcheck.md)
   - GetSysCacheOid2

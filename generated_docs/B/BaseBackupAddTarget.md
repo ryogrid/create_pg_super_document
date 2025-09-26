@@ -27,11 +27,11 @@ The function first ensures the target list is initialized, then searches for an 
 - Functions called/Symbols referenced:
   - [initialize_target_list](../i/initialize_target_list.md)
   - [BaseBackupTargetType](BaseBackupTargetType.md) (struct)
-  - bbsink (type)
+  - [bbsink](../b/bbsink.md) (type)
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - [palloc](../p/palloc.md)
   - [pstrdup](../p/pstrdup.md)
-  - lappend
+  - [lappend](../l/lappend.md)
 
 - Called from (representative examples):
   - No direct callers found (intended for extension use)

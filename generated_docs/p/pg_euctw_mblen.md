@@ -30,7 +30,7 @@ The function serves as a utility for parsing EUC-TW streams by providing the cha
   - SS3 (Single Shift 3 control character constant)
   - IS_HIGHBIT_SET (macro to check if high bit is set in byte)
 - Called from (representative examples):
-  - pg_encoding_set_invalid (indirectly through encoding function tables)
+  - [pg_encoding_set_invalid](pg_encoding_set_invalid.md) (indirectly through encoding function tables)
 
 ## Notes and Other Information
 - Returns an integer representing the number of bytes in the character (1, 2, 3, or 4)

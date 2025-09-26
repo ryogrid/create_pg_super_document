@@ -29,9 +29,9 @@ The function deliberately avoids calling pfree() on the data structures because 
 - Functions called/Symbols referenced:
   - No function calls (only resets global variables)
 - Called from (representative examples):
-  - CommitTransaction: During transaction commit cleanup
-  - PrepareTransaction: During two-phase commit preparation
-  - AbortTransaction: During transaction abort cleanup
+  - [CommitTransaction](../C/CommitTransaction.md): During transaction commit cleanup
+  - [PrepareTransaction](../P/PrepareTransaction.md): During two-phase commit preparation
+  - [AbortTransaction](AbortTransaction.md): During transaction abort cleanup
 
 ## Notes and Other Information
 - Part of PostgreSQL's transaction cleanup infrastructure

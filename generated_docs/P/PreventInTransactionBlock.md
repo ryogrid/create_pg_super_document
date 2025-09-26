@@ -42,7 +42,7 @@ The function validates that the statement is not executing within a transaction 
   - [DiscardAll](../D/DiscardAll.md) (DISCARD ALL command)
   - [ExecReindex](../E/ExecReindex.md) (REINDEX commands)
   - [CreateSubscription](../C/CreateSubscription.md), DropSubscription (subscription management)
-  - vacuum (VACUUM command)
+  - [vacuum](../v/vacuum.md) (VACUUM command)
   - Various replication commands
   - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (multiple statement types)
 

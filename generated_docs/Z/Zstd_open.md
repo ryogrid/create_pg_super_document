@@ -32,7 +32,7 @@ The function uses PostgreSQL's extended malloc with specific flags to avoid thro
 - Functions called/Symbols referenced:
   - [ZstdCompressorState](ZstdCompressorState.md)
   - [CompressFileHandle](../C/CompressFileHandle.md)
-  - pg_malloc_extended
+  - [pg_malloc_extended](../p/pg_malloc_extended.md)
   - MCXT_ALLOC_NO_OOM
   - MCXT_ALLOC_ZERO
   - fdopen

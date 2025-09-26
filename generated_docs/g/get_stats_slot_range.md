@@ -30,12 +30,12 @@ This function examines all values in a statistics slot (AttStatsSlot) to determi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AttStatsSlot
+  - [AttStatsSlot](../A/AttStatsSlot.md)
   - [fmgr_info](../f/fmgr_info.md)
   - [FunctionCall2Coll](../F/FunctionCall2Coll.md)
   - [datumCopy](../d/datumCopy.md)
 - Called from (representative examples):
-  - get_variable_range
+  - [get_variable_range](get_variable_range.md)
 
 ## Notes and Other Information
 This is a static helper function specifically designed for range estimation in PostgreSQL's query planner. It uses the function manager (fmgr) system to call comparison operators dynamically, allowing it to work with any orderable data type. The function optimizes by caching the comparison function in the FmgrInfo structure to avoid repeated lookups. Memory management is handled carefully by copying found extreme values to prevent issues with temporary or freed memory.

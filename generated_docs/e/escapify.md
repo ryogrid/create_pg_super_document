@@ -30,7 +30,7 @@ The function handles special characters as follows:
 - Functions called/Symbols referenced:
   - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
   - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
-  - appendPQExpBufferChar
+  - [appendPQExpBufferChar](../a/appendPQExpBufferChar.md)
 - Called from (representative examples):
   - [test_gb18030_page_multiple](../t/test_gb18030_page_multiple.md)
   - [test_gb18030_json](../t/test_gb18030_json.md)

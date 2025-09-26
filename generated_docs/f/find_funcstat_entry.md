@@ -22,9 +22,9 @@ The function operates by calling  with the function kind, current database ID, a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_fetch_pending_entry
+  - [pgstat_fetch_pending_entry](../p/pgstat_fetch_pending_entry.md)
   - PGSTAT_KIND_FUNCTION
-  - PgStat_EntryRef
+  - [PgStat_EntryRef](../P/PgStat_EntryRef.md)
   - MyDatabaseId
 - Called from (representative examples):
   - PG_STAT_GET_XACT_FUNCENTRY_FLOAT8_MS

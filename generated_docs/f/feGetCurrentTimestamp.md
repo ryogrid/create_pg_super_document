@@ -19,7 +19,7 @@ This function provides a frontend implementation of timestamp retrieval since cl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - gettimeofday
+  - [gettimeofday](../g/gettimeofday.md)
   - SECS_PER_DAY
   - UNIX_EPOCH_JDATE
   - POSTGRES_EPOCH_JDATE

@@ -25,7 +25,7 @@ This function serves as the PostgreSQL SQL function entry point for converting a
 - Functions called/Symbols referenced:
   - PG_GETARG_NAME
   - PG_GETARG_BOOL
-  - text_to_cstring
+  - [text_to_cstring](../t/text_to_cstring.md)
   - [schema_to_xmlschema_internal](schema_to_xmlschema_internal.md)
   - [stringinfo_to_xmltype](stringinfo_to_xmltype.md)
   - PG_RETURN_XML_P

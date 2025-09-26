@@ -23,11 +23,11 @@ The function prioritizes active snapshots over registered snapshots when they ha
 - Functions called/Symbols referenced:
   - pairingheap_is_empty
   - pairingheap_container
-  - SnapshotData
-  - pairingheap_first
+  - [SnapshotData](../S/SnapshotData.md)
+  - [pairingheap_first](../p/pairingheap_first.md)
   - XLogRecPtrIsInvalid
 - Called from (representative examples):
-  - init_toast_snapshot
+  - [init_toast_snapshot](../i/init_toast_snapshot.md)
   - IsMVCCSnapshot
 
 ## Notes and Other Information

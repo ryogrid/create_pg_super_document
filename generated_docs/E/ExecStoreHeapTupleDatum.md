@@ -24,7 +24,7 @@ The function creates a temporary HeapTupleData structure to hold the tuple metad
 - Functions called/Symbols referenced:
   - DatumGetHeapTupleHeader
   - HeapTupleHeaderGetDatumLength  
-  - ExecClearTuple
+  - [ExecClearTuple](ExecClearTuple.md)
   - [heap_deform_tuple](../h/heap_deform_tuple.md)
   - [ExecStoreVirtualTuple](ExecStoreVirtualTuple.md)
 - Called from (representative examples):

@@ -31,9 +31,9 @@ This is part of PostgreSQL's security framework that allows administrators to co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - superuser_arg
+  - [superuser_arg](../s/superuser_arg.md)
   - [convert_GUC_name_for_parameter_acl](../c/convert_GUC_name_for_parameter_acl.md)
-  - cstring_to_text
+  - [cstring_to_text](../c/cstring_to_text.md)
   - [SearchSysCache1](../S/SearchSysCache1.md)
   - [SysCacheGetAttr](../S/SysCacheGetAttr.md)
   - [acldefault](../a/acldefault.md)

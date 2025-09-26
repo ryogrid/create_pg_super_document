@@ -25,12 +25,12 @@ The function employs several key techniques:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SortSupport (structure type)
+  - [SortSupport](../S/SortSupport.md) (structure type)
   - uuid_sortsupport_state (structure type) 
   - [pg_uuid_t](../p/pg_uuid_t.md) (UUID structure type)
   - [DatumGetUUIDP](../D/DatumGetUUIDP.md) (conversion macro)
   - SIZEOF_DATUM (platform-specific size macro)
-  - addHyperLogLog (cardinality estimation function)
+  - [addHyperLogLog](../a/addHyperLogLog.md) (cardinality estimation function)
   - [hash_uint32](../h/hash_uint32.md) (hash function)
   - [DatumGetUInt32](../D/DatumGetUInt32.md) (conversion macro)
   - DatumBigEndianToNative (endian conversion macro)

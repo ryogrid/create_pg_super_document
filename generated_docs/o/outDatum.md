@@ -30,9 +30,9 @@ The output format is consistent:  where length is the total size in bytes, follo
   - [datumGetSize](../d/datumGetSize.md)
   - [DatumGetPointer](../D/DatumGetPointer.md)  
   - PointerIsValid
-  - appendStringInfo
-  - appendStringInfoChar
-  - appendStringInfoString
+  - [appendStringInfo](../a/appendStringInfo.md)
+  - [appendStringInfoChar](../a/appendStringInfoChar.md)
+  - [appendStringInfoString](../a/appendStringInfoString.md)
 - Called from (representative examples):
   - [_outConst](_outConst.md)
 

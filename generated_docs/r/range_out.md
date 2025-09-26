@@ -20,7 +20,7 @@ This function converts a RangeType value from its internal binary representation
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth: Stack overflow protection for recursive calls
+  - [check_stack_depth](../c/check_stack_depth.md): Stack overflow protection for recursive calls
   - [get_range_io_data](../g/get_range_io_data.md): Retrieves I/O function cache data for the range type
   - RangeTypeGetOid: Extracts the OID from the range type
   - [range_deserialize](range_deserialize.md): Extracts boundary information from the range

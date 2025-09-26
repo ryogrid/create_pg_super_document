@@ -24,10 +24,10 @@ The function retrieves instrumentation data from the tuplesort state and updates
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - tuplesort_get_stats (retrieves instrumentation data from sort state)
-  - IncrementalSortGroupInfo (structure type for accumulating group statistics)
-  - Tuplesortstate (tuplesort state structure)
-  - TuplesortInstrumentation (structure for sort instrumentation data)
+  - [tuplesort_get_stats](../t/tuplesort_get_stats.md) (retrieves instrumentation data from sort state)
+  - [IncrementalSortGroupInfo](../I/IncrementalSortGroupInfo.md) (structure type for accumulating group statistics)
+  - [Tuplesortstate](../T/Tuplesortstate.md) (tuplesort state structure)
+  - [TuplesortInstrumentation](../T/TuplesortInstrumentation.md) (structure for sort instrumentation data)
   - SORT_SPACE_TYPE_DISK (enum value for disk-based sorting)
   - SORT_SPACE_TYPE_MEMORY (enum value for memory-based sorting)
 - Called from (representative examples):

@@ -29,12 +29,12 @@ Regis serves as the top-level container for a compiled regular expression patter
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RegisNode (linked list nodes containing pattern data)
+  - [RegisNode](RegisNode.md) (linked list nodes containing pattern data)
 - Called from (representative examples):
-  - RS_compile (compiles string patterns into Regis structures)
-  - RS_free (releases memory allocated for Regis structures)
-  - RS_execute (executes pattern matching against input strings)
-  - aff_struct (used in spell.h for affix processing in ISpell)
+  - [RS_compile](RS_compile.md) (compiles string patterns into Regis structures)
+  - [RS_free](RS_free.md) (releases memory allocated for Regis structures)
+  - [RS_execute](RS_execute.md) (executes pattern matching against input strings)
+  - [aff_struct](../a/aff_struct.md) (used in spell.h for affix processing in ISpell)
 
 ## Notes and Other Information
 - Part of PostgreSQL's text search infrastructure, specifically the ISpell dictionary implementation

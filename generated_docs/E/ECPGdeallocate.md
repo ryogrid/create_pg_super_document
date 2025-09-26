@@ -22,7 +22,7 @@ struct connection *con;
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ecpg_get_connection (retrieve connection by name)
+  - [ecpg_get_connection](../e/ecpg_get_connection.md) (retrieve connection by name)
   - [ecpg_init](../e/ecpg_init.md) (initialize connection state)
   - [ecpg_find_prepared_statement](../e/ecpg_find_prepared_statement.md) (locate statement in connection's statement list)
   - [deallocate_one](../d/deallocate_one.md) (perform actual deallocation)

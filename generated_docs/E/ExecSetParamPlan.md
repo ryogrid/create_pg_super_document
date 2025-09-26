@@ -30,19 +30,19 @@ The function includes comprehensive error checking for unsupported sublink types
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecProcNode (to execute the subplan)
+  - [ExecProcNode](ExecProcNode.md) (to execute the subplan)
   - TupIsNull (to check for end of results)
-  - initArrayResultAny, accumArrayResultAny, makeArrayResultAny (for array handling)
-  - ExecCopySlotHeapTuple (to copy tuple data)
+  - [initArrayResultAny](../i/initArrayResultAny.md), accumArrayResultAny, makeArrayResultAny (for array handling)
+  - [ExecCopySlotHeapTuple](ExecCopySlotHeapTuple.md) (to copy tuple data)
   - [heap_getattr](../h/heap_getattr.md), heap_freetuple (for heap tuple operations)
-  - slot_getattr (for slot attribute access)
+  - [slot_getattr](../s/slot_getattr.md) (for slot attribute access)
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (for memory context management)
   - linitial_int, lfirst_int (for list operations)
 - Types used:
   - [SubPlanState](../S/SubPlanState.md), SubPlan, PlanState, EState
   - [SubLinkType](../S/SubLinkType.md), ScanDirection, ExprContext
   - [ParamExecData](../P/ParamExecData.md), ArrayBuildStateAny
-  - TupleTableSlot, TupleDesc
+  - [TupleTableSlot](../T/TupleTableSlot.md), TupleDesc
 - Called from (representative examples):
   - [ExecEvalParamExec](ExecEvalParamExec.md) (when parameter value is needed)
   - [ExecSetParamPlanMulti](ExecSetParamPlanMulti.md) (for multi-parameter execution)

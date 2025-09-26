@@ -28,8 +28,8 @@ The  function serves as a callback for the TS_execute function during text searc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - QueryRepresentation: Structure containing operand data and query information
-  - QueryRepresentationOperand: Structure holding operand existence and position data
+  - [QueryRepresentation](../Q/QueryRepresentation.md): Structure containing operand data and query information
+  - [QueryRepresentationOperand](../Q/QueryRepresentationOperand.md): Structure holding operand existence and position data
   - QR_GET_OPERAND_DATA: Macro to retrieve operand data from QueryRepresentation
   - TS_NO: Return value indicating the operand does not exist in the document
   - TS_YES: Return value indicating the operand exists in the document

@@ -30,7 +30,7 @@ The algorithm uses PostgreSQL's global pseudo-random number generator () for ran
   - ARR_NDIM, ARR_DIMS, ARR_LBOUND
   - [construct_empty_array](../c/construct_empty_array.md)
   - [deconstruct_array](../d/deconstruct_array.md)
-  - pg_prng_uint64_range
+  - [pg_prng_uint64_range](../p/pg_prng_uint64_range.md)
   - [construct_md_array](../c/construct_md_array.md)
   - [pfree](../p/pfree.md)
 - Called from (representative examples):

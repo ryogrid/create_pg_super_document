@@ -22,11 +22,11 @@ The function reads the binary data in the same order it was written: first the 4
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_getmsgint (extract 32-bit integer from message buffer)
-  - pq_getmsgbyte (extract single byte from message buffer)
+  - [pq_getmsgint](../p/pq_getmsgint.md) (extract 32-bit integer from message buffer)
+  - [pq_getmsgbyte](../p/pq_getmsgbyte.md) (extract single byte from message buffer)
   - Assert (debug assertion macro)
 - Called from:
-  - apply_handle_stream_start (logical replication worker stream start handler)
+  - [apply_handle_stream_start](../a/apply_handle_stream_start.md) (logical replication worker stream start handler)
 
 ## Notes and Other Information
 - This is a public function in the logical replication protocol API

@@ -36,7 +36,7 @@ The function handles special cases such as empty queries (returns false) and ALL
   - [DatumGetPointer](../D/DatumGetPointer.md): Converts Datum to pointer
   - `ISSIGNKEY`: Checks if entry contains signature data
   - `ISALLTRUE`: Checks if signature has all bits set
-  - `TS_execute`: Executes tsquery matching with callback functions
+  - `[TS_execute](../T/TS_execute.md)`: Executes tsquery matching with callback functions
   - `GETQUERY`: Extracts query tree from TSQuery
   - [checkcondition_bit](../c/checkcondition_bit.md): Callback for signature-based matching
   - [checkcondition_arr](../c/checkcondition_arr.md): Callback for array-based matching

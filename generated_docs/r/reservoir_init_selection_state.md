@@ -25,13 +25,13 @@ Since reservoir sampling in PostgreSQL doesn't need to return repeatable results
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - sampler_random_init_state (initializes random number generator with seed)
-  - pg_prng_uint32 (generates random seed from global PRNG)
-  - sampler_random_fract (generates uniform random fraction)
+  - [sampler_random_init_state](../s/sampler_random_init_state.md) (initializes random number generator with seed)
+  - [pg_prng_uint32](../p/pg_prng_uint32.md) (generates random seed from global PRNG)
+  - [sampler_random_fract](../s/sampler_random_fract.md) (generates uniform random fraction)
   - exp, log (mathematical functions for W calculation)
-  - ReservoirStateData structure members (W, randstate)
+  - [ReservoirStateData](../R/ReservoirStateData.md) structure members (W, randstate)
 - Called from (representative examples):
-  - acquire_sample_rows (in src/backend/commands/analyze.c:1194)
+  - [acquire_sample_rows](../a/acquire_sample_rows.md) (in src/backend/commands/analyze.c:1194)
 
 ## Notes and Other Information
 - Implements initialization for Vitter's Algorithm Z, which is more efficient than Algorithm R for large datasets

@@ -22,7 +22,7 @@ PGEventRegister is used as the event information structure when the libpq event 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PGconn (PostgreSQL connection structure)
+  - [PGconn](PGconn.md) (PostgreSQL connection structure)
 - Called from (representative examples):
   - [PQregisterEventProc](PQregisterEventProc.md) (creates and passes this structure to event callbacks)
 

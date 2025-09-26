@@ -29,7 +29,7 @@ The `box_cn` function is a static helper function that computes the center point
   - [box_distance](box_distance.md): Function to calculate distance between box centers
   - [box_center](box_center.md): Function that returns the center point of a box
   - [box_interpt_lseg](box_interpt_lseg.md): Box-line segment intersection function
-  - `PATH_CLOSED`: Path operations
+  - `[PATH_CLOSED](../P/PATH_CLOSED.md)`: Path operations
 
 ## Notes and Other Information
 - This function is a static helper located in `src/backend/utils/adt/geo_ops.c:872-882`

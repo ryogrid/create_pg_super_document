@@ -26,10 +26,10 @@ Unlike regular SET commands that affect only the current session, ALTER SYSTEM c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - VariableSetStmt (embedded structure for SET/RESET details)
+  - [VariableSetStmt](../V/VariableSetStmt.md) (embedded structure for SET/RESET details)
 - Called from (representative examples):
-  - AlterSystemSetConfigFile (execution function in guc.c)
-  - standard_ProcessUtility (utility command processing)
+  - [AlterSystemSetConfigFile](AlterSystemSetConfigFile.md) (execution function in guc.c)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (utility command processing)
   - EmitWarningsOnPlaceholders (warning system)
 
 ## Notes and Other Information

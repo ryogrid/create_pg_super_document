@@ -30,15 +30,15 @@ To avoid indefinite blocking, the function uses WaitLatch with a timeout, checki
 ## Dependencies
 - Functions called/Symbols referenced:
   - CHECK_FOR_INTERRUPTS
-  - LWLockAcquire
-  - LWLockRelease  
-  - GetBackgroundWorkerPid
-  - logicalrep_worker_cleanup
-  - WaitLatch
-  - ResetLatch
-  - SetLatch
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)  
+  - [GetBackgroundWorkerPid](../G/GetBackgroundWorkerPid.md)
+  - [logicalrep_worker_cleanup](../l/logicalrep_worker_cleanup.md)
+  - [WaitLatch](WaitLatch.md)
+  - [ResetLatch](../R/ResetLatch.md)
+  - [SetLatch](../S/SetLatch.md)
 - Called from:
-  - logicalrep_worker_launch
+  - [logicalrep_worker_launch](../l/logicalrep_worker_launch.md)
 
 ## Notes and Other Information
 - Uses a 10ms polling timeout since worker attachment typically doesn't trigger latch notifications

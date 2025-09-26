@@ -24,7 +24,7 @@ The deallocation follows a careful order to ensure all memory is properly releas
 - Functions called/Symbols referenced:
   - [free_attrmap](free_attrmap.md) (frees the attribute mapping component)
   - [pfree](../p/pfree.md) (PostgreSQL's memory deallocation function, used multiple times)
-  - TupleConversionMap (the structure type being deallocated)
+  - [TupleConversionMap](../T/TupleConversionMap.md) (the structure type being deallocated)
 - Called from (representative examples):
   - [acquire_inherited_sample_rows](../a/acquire_inherited_sample_rows.md) (src/backend/commands/analyze.c:1562)
   - [tstoreShutdownReceiver](../t/tstoreShutdownReceiver.md) (src/backend/executor/tstoreReceiver.c:218)

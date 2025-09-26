@@ -24,7 +24,7 @@ This is a utility function that wraps LLVM's  function to create 64-bit signed i
   - LLVMConstInt (LLVM C API function)
   - LLVMInt64TypeInContext (LLVM C API function)
 - Called from (representative examples):
-  - BuildV1Call (src/backend/jit/llvm/llvmjit_expr.c:2739, 2743)
+  - [BuildV1Call](../B/BuildV1Call.md) (src/backend/jit/llvm/llvmjit_expr.c:2739, 2743)
 
 ## Notes and Other Information
 - This function is part of the LLVM JIT emission utilities defined in llvmjit_emit.h

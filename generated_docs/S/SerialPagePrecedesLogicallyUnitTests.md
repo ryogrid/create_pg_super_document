@@ -29,11 +29,11 @@ This function takes no parameters but uses several local variables:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `SerialPagePrecedesLogically`
+  - `[SerialPagePrecedesLogically](SerialPagePrecedesLogically.md)`
   - `SERIAL_ENTRIESPERPAGE`
   - `SLRU_PAGES_PER_SEGMENT`
 - Called from (representative examples):
-  - `SerialInit`
+  - `[SerialInit](SerialInit.md)`
 
 ## Notes and Other Information
 - Only compiled and executed when USE_ASSERT_CHECKING is enabled

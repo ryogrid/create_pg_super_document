@@ -49,9 +49,9 @@ Unlike traditional inheritance, partitioned tables don't need RTEs for the paren
   - [expand_single_inheritance_child](expand_single_inheritance_child.md)
   - [build_simple_rel](../b/build_simple_rel.md)
   - [translate_col_privs](../t/translate_col_privs.md)
-  - try_table_open
+  - [try_table_open](../t/try_table_open.md)
   - [expand_planner_arrays](expand_planner_arrays.md)
-  - check_stack_depth
+  - [check_stack_depth](../c/check_stack_depth.md)
 - Called from (representative examples):
   - [expand_inherited_rtentry](expand_inherited_rtentry.md)
   - [expand_partitioned_rtentry](expand_partitioned_rtentry.md) (recursive)

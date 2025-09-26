@@ -30,7 +30,7 @@ The deferred execution ensures that foreign key constraints are added after all 
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (creates new node structures)
-  - lappend (appends to lists)
+  - [lappend](../l/lappend.md) (appends to lists)
   - CreateStmtContext, Constraint, AlterTableStmt, AlterTableCmd (data structures)
   - AT_AddConstraint, OBJECT_TABLE (command type constants)
 - Called from (representative examples):

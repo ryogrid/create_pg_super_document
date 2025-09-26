@@ -29,9 +29,9 @@ The function assumes that both ShmemLock (for synchronization) and ShmemSegHdr (
 - Called from (representative examples):
   - [ShmemBackendArrayAllocation](ShmemBackendArrayAllocation.md)
   - [ShmemInitStruct](ShmemInitStruct.md)
-  - CreateLWLocks
+  - [CreateLWLocks](../C/CreateLWLocks.md)
   - [InitPredicateLocks](../I/InitPredicateLocks.md)
-  - InitProcGlobal
+  - [InitProcGlobal](../I/InitProcGlobal.md)
 
 ## Notes and Other Information
 - Always throws ERROR on allocation failure - use ShmemAllocNoError if you need to handle failures gracefully

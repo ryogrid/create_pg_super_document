@@ -27,18 +27,18 @@ Key operations include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - manifest_writer (structure type)
+  - [manifest_writer](../m/manifest_writer.md) (structure type)
   - open (file opening system call)
   - PG_BINARY (binary file mode flag)
   - ssize_t (signed size type)
   - write (file writing system call)
-  - pg_checksum_update (checksum updating)
-  - resetStringInfo (buffer clearing)
+  - [pg_checksum_update](../p/pg_checksum_update.md) (checksum updating)
+  - [resetStringInfo](../r/resetStringInfo.md) (buffer clearing)
 - Called from (representative examples):
-  - add_file_to_manifest (in src/bin/pg_combinebackup/write_manifest.c:117)
-  - add_file_to_manifest (in src/bin/pg_combinebackup/write_manifest.c:135)
-  - finalize_manifest (in src/bin/pg_combinebackup/write_manifest.c:168)
-  - finalize_manifest (in src/bin/pg_combinebackup/write_manifest.c:183)
+  - [add_file_to_manifest](../a/add_file_to_manifest.md) (in src/bin/pg_combinebackup/write_manifest.c:117)
+  - [add_file_to_manifest](../a/add_file_to_manifest.md) (in src/bin/pg_combinebackup/write_manifest.c:135)
+  - [finalize_manifest](finalize_manifest.md) (in src/bin/pg_combinebackup/write_manifest.c:168)
+  - [finalize_manifest](finalize_manifest.md) (in src/bin/pg_combinebackup/write_manifest.c:183)
 
 ## Notes and Other Information
 - This is a static function, only callable within the write_manifest.c file

@@ -31,12 +31,12 @@ The statement can optionally use IF EXISTS semantics through the missing_ok flag
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (parse tree infrastructure)
-  - List (PostgreSQL list structure)
-  - Node (base parse tree node type)
+  - [List](../L/List.md) (PostgreSQL list structure)
+  - [Node](../N/Node.md) (base parse tree node type)
 
 - Called from (representative examples):
-  - AlterStatistics (main ALTER STATISTICS command handler)
-  - ProcessUtilitySlow (utility command dispatcher)
+  - [AlterStatistics](AlterStatistics.md) (main ALTER STATISTICS command handler)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (utility command dispatcher)
 
 ## Notes and Other Information
 - Used primarily for changing statistics target values on extended statistics objects

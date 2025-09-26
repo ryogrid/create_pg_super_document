@@ -41,7 +41,7 @@ The structure serves multiple purposes: it provides a standardized way to repres
 - Functions called/Symbols referenced:
   - (This structure doesn't directly call functions but is used by connection-related functions)
 - Called from (representative examples):
-  - PQconndefaults
+  - [PQconndefaults](PQconndefaults.md)
   - [PQconninfoParse](PQconninfoParse.md)
   - [PQconninfo](PQconninfo.md)
   - [PQconninfoFree](PQconninfoFree.md)

@@ -26,7 +26,7 @@ The function acts as a dispatcher, extracting the ForeignScanState from the asyn
   - [FdwRoutine](../F/FdwRoutine.md) (structure)
   - ForeignAsyncNotify (FDW callback function)
 - Called from (representative examples):
-  - ExecAsyncNotify (in execAsync.c)
+  - [ExecAsyncNotify](ExecAsyncNotify.md) (in execAsync.c)
 
 ## Notes and Other Information
 - The function contains an assertion ensuring the FDW's ForeignAsyncNotify callback is not NULL, indicating proper async capability validation

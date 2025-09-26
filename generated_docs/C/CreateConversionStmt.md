@@ -34,11 +34,11 @@ The conversion can be marked as default, meaning it will be automatically used w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - List (PostgreSQL's list data structure)
+  - [List](../L/List.md) (PostgreSQL's list data structure)
   
 - Called from (representative examples):
-  - CreateConversionCommand (main execution function in conversioncmds.c:32)
-  - ProcessUtilitySlow (utility command processor in utility.c:1716)
+  - [CreateConversionCommand](CreateConversionCommand.md) (main execution function in conversioncmds.c:32)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (utility command processor in utility.c:1716)
 
 ## Notes and Other Information
 - The conversion function must have a specific signature: (src_encoding int4, dest_encoding int4, src cstring, dest internal, len int4, noError bool) returns void

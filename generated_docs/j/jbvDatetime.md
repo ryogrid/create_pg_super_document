@@ -38,18 +38,18 @@ The hexadecimal value 0x20 places jbvDatetime in a distinct range from other typ
 - Functions called/Symbols referenced:
   - Part of jbvType enum in jsonb.h
 - Called from (representative examples):
-  - ExecGetJsonValueItemString (src/backend/executor/execExprInterp.c:4509)
-  - JsonbTypeName (src/backend/utils/adt/jsonb.c:198)
-  - compareJsonbContainers (src/backend/utils/adt/jsonb_util.c:259)
-  - convertJsonbScalar (src/backend/utils/adt/jsonb_util.c:1852)
-  - executeItemOptUnwrapTarget (src/backend/utils/adt/jsonpath_exec.c:1631)
-  - executeDateTimeMethod (src/backend/utils/adt/jsonpath_exec.c:2787)
-  - JsonItemFromDatum (src/backend/utils/adt/jsonpath_exec.c:3086)
-  - compareItems (src/backend/utils/adt/jsonpath_exec.c:3382)
+  - [ExecGetJsonValueItemString](../E/ExecGetJsonValueItemString.md) (src/backend/executor/execExprInterp.c:4509)
+  - [JsonbTypeName](../J/JsonbTypeName.md) (src/backend/utils/adt/jsonb.c:198)
+  - [compareJsonbContainers](../c/compareJsonbContainers.md) (src/backend/utils/adt/jsonb_util.c:259)
+  - [convertJsonbScalar](../c/convertJsonbScalar.md) (src/backend/utils/adt/jsonb_util.c:1852)
+  - [executeItemOptUnwrapTarget](../e/executeItemOptUnwrapTarget.md) (src/backend/utils/adt/jsonpath_exec.c:1631)
+  - [executeDateTimeMethod](../e/executeDateTimeMethod.md) (src/backend/utils/adt/jsonpath_exec.c:2787)
+  - [JsonItemFromDatum](../J/JsonItemFromDatum.md) (src/backend/utils/adt/jsonpath_exec.c:3086)
+  - [compareItems](../c/compareItems.md) (src/backend/utils/adt/jsonpath_exec.c:3382)
   - IsAJsonbScalar (src/include/utils/jsonb.h:299)
 
 ## Notes and Other Information
-- jbvDatetime enables PostgreSQL to handle datetime operations within JSON path expressions while maintaining JSON format compatibility
+- [jbvDatetime](jbvDatetime.md) enables PostgreSQL to handle datetime operations within JSON path expressions while maintaining JSON format compatibility
 - The virtual type approach allows PostgreSQL to extend JSON functionality beyond standard JSON types without breaking JSON standards
 - When processed through jsonb output functions, jbvDatetime values are automatically converted to their string representation
 - This type is particularly important for JSON path operations that involve datetime functions and comparisons

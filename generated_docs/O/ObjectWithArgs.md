@@ -36,12 +36,12 @@ The args_unspecified flag handles cases where SQL syntax allows parameter lists 
 - Functions called/Symbols referenced:
   - (No direct references from this symbol)
 - Called from (representative examples):
-  - objectNamesToOids
-  - get_object_address  
-  - pg_get_object_address
-  - RemoveObjects
-  - LookupFuncWithArgs
-  - LookupOperWithArgs
+  - [objectNamesToOids](../o/objectNamesToOids.md)
+  - [get_object_address](../g/get_object_address.md)  
+  - [pg_get_object_address](../p/pg_get_object_address.md)
+  - [RemoveObjects](../R/RemoveObjects.md)
+  - [LookupFuncWithArgs](../L/LookupFuncWithArgs.md)
+  - [LookupOperWithArgs](../L/LookupOperWithArgs.md)
 
 ## Notes and Other Information
 - Part of PostgreSQL's parse tree node system, inheriting from the standard Node structure

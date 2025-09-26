@@ -30,7 +30,7 @@ The `box_ar` function is a static helper function that computes the area of a BO
   - [box_le](box_le.md): Box less-than-or-equal comparison function
   - [box_ge](box_ge.md): Box greater-than-or-equal comparison function
   - [box_area](box_area.md): Public function that returns box area
-  - `PATH_CLOSED`: Path operations
+  - `[PATH_CLOSED](../P/PATH_CLOSED.md)`: Path operations
 
 ## Notes and Other Information
 - This function is a static helper located in `src/backend/utils/adt/geo_ops.c:863-871`

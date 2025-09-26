@@ -48,7 +48,7 @@ Special handling is implemented for expressions containing "varno 0" (introduced
   - [pull_varnos](../p/pull_varnos.md)
   - foreach_current_index
   - DEFAULT_NUM_DISTINCT
-  - PathKey
+  - [PathKey](../P/PathKey.md)
   - [EquivalenceMember](../E/EquivalenceMember.md)
 - Called from (representative examples):
   - [create_incremental_sort_path](create_incremental_sort_path.md)

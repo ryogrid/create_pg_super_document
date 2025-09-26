@@ -41,7 +41,7 @@ The checkpointer uses these requests to manage pending sync operations that need
 ## Dependencies
 - Functions called/Symbols referenced:
   - SyncRequestType
-  - FileTag
+  - [FileTag](../F/FileTag.md)
 - Used by:
   - [CheckpointerShmemStruct](CheckpointerShmemStruct.md) (as array element)
   - [ForwardSyncRequest](../F/ForwardSyncRequest.md)

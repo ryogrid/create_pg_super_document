@@ -21,9 +21,9 @@ The function checks if the pending statistics entry has an associated relation r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_unlink_relation
-  - PgStat_EntryRef (data structure)
-  - PgStat_TableStatus (data structure)
+  - [pgstat_unlink_relation](pgstat_unlink_relation.md)
+  - [PgStat_EntryRef](../P/PgStat_EntryRef.md) (data structure)
+  - [PgStat_TableStatus](../P/PgStat_TableStatus.md) (data structure)
 - Called from (representative examples):
   - Statistics hash table management system (SH_DECLARE in pgstat.c)
 

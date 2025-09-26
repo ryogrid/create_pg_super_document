@@ -18,7 +18,7 @@ This function provides a non-error variant of get_sortgroupref_clause(). It sear
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SortGroupClause (structure type)
+  - [SortGroupClause](../S/SortGroupClause.md) (structure type)
   - Index (type alias)
 - Called from (representative examples):
   - [group_keys_reorder_by_pathkeys](group_keys_reorder_by_pathkeys.md)

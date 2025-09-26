@@ -30,11 +30,11 @@ A critical requirement is that the exit condition must be tested between calling
   - Checkpointer signal handling
   - [ReplicationSlotAcquire](../R/ReplicationSlotAcquire.md)
   - [InvalidatePossiblyObsoleteSlot](../I/InvalidatePossiblyObsoleteSlot.md)
-  - WaitForStandbyConfirmation
+  - [WaitForStandbyConfirmation](../W/WaitForStandbyConfirmation.md)
   - [ShutdownWalRcv](../S/ShutdownWalRcv.md)
   - [WalSndWait](../W/WalSndWait.md)
-  - WaitIO
-  - BarrierArriveAndWait
+  - [WaitIO](../W/WaitIO.md)
+  - [BarrierArriveAndWait](../B/BarrierArriveAndWait.md)
   - [ConditionVariableTimedSleep](ConditionVariableTimedSleep.md)
   - [injection_wait](../i/injection_wait.md)
 

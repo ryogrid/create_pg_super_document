@@ -27,16 +27,16 @@ The function handles both fresh initialization and reattachment scenarios, and i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PMSignalData (shared memory structure type)
-  - ShmemInitStruct (shared memory initialization function)
-  - PMSignalShmemSize (gets required memory size)
+  - [PMSignalData](PMSignalData.md) (shared memory structure type)
+  - [ShmemInitStruct](../S/ShmemInitStruct.md) (shared memory initialization function)
+  - [PMSignalShmemSize](PMSignalShmemSize.md) (gets required memory size)
   - MemSet (memory initialization function)
   - unvolatize (macro for type casting)
-  - MaxLivePostmasterChildren (gets max child process count)
-  - MemoryContextAllocZero (memory allocation function)
-  - pfree (memory deallocation function)
+  - [MaxLivePostmasterChildren](../M/MaxLivePostmasterChildren.md) (gets max child process count)
+  - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md) (memory allocation function)
+  - [pfree](../p/pfree.md) (memory deallocation function)
 - Called from (representative examples):
-  - CreateOrAttachShmemStructs (during shared memory setup)
+  - [CreateOrAttachShmemStructs](../C/CreateOrAttachShmemStructs.md) (during shared memory setup)
 
 ## Notes and Other Information
 - This is a public initialization function called during PostgreSQL startup

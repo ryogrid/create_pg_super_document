@@ -23,10 +23,10 @@ The function reads the server's protocol version, then reads a list of unsupport
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pqGetInt](pqGetInt.md)
-  - initPQExpBuffer
+  - [initPQExpBuffer](../i/initPQExpBuffer.md)
   - [pqGets](pqGets.md)
-  - termPQExpBuffer
-  - appendPQExpBufferChar
+  - [termPQExpBuffer](../t/termPQExpBuffer.md)
+  - [appendPQExpBufferChar](../a/appendPQExpBufferChar.md)
   - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
   - [libpq_append_conn_error](../l/libpq_append_conn_error.md)
   - PG_PROTOCOL_MAJOR

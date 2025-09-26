@@ -32,7 +32,7 @@ varstr_cmp(const char *arg1, int len1, const char *arg2, int len2, Oid collid)
 - Called from (representative examples):
   - [text_cmp](../t/text_cmp.md)
   - [bpcharcmp](../b/bpcharcmp.md)
-  - namecmp
+  - [namecmp](../n/namecmp.md)
   - Various text comparison operators
 
 ## Notes and Other Information

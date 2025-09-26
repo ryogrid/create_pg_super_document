@@ -21,12 +21,12 @@ This callback function is invoked when the JSON parser encounters scalar values 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - json_manifest_finalize_version
-  - json_manifest_finalize_system_identifier
-  - json_manifest_parse_failure
-  - pfree
+  - [json_manifest_finalize_version](json_manifest_finalize_version.md)
+  - [json_manifest_finalize_system_identifier](json_manifest_finalize_system_identifier.md)
+  - [json_manifest_parse_failure](json_manifest_parse_failure.md)
+  - [pfree](../p/pfree.md)
   - JsonManifestParseState (struct)
-  - JsonTokenType (enum)
+  - [JsonTokenType](../J/JsonTokenType.md) (enum)
   - JM_EXPECT_VERSION_VALUE (enum value)
   - JM_EXPECT_SYSTEM_IDENTIFIER_VALUE (enum value)
   - JM_EXPECT_TOPLEVEL_FIELD (enum value)
@@ -40,8 +40,8 @@ This callback function is invoked when the JSON parser encounters scalar values 
   - JMWRF_TIMELINE, JMWRF_START_LSN, JMWRF_END_LSN (WAL range field enum values)
   - JSON_SUCCESS (return value)
 - Called from (representative examples):
-  - json_parse_manifest_incremental_init
-  - json_parse_manifest
+  - [json_parse_manifest_incremental_init](json_parse_manifest_incremental_init.md)
+  - [json_parse_manifest](json_parse_manifest.md)
 
 ## Notes and Other Information
 - This is a static callback function used specifically within the manifest parsing infrastructure

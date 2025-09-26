@@ -26,7 +26,7 @@ The function operates at the global level (root->glob) to ensure it doesn't inte
 - Functions called/Symbols referenced:
   - makeNode (for creating PlaceHolderVar)
   - [PlaceHolderVar](../P/PlaceHolderVar.md) (node type)
-  - PlaceHolderInfo (related structure)
+  - [PlaceHolderInfo](../P/PlaceHolderInfo.md) (related structure)
 - Called from (representative examples):
   - [pullup_replace_vars_callback](../p/pullup_replace_vars_callback.md) (in prepjointree.c)
   - [add_nullingrels_if_needed](../a/add_nullingrels_if_needed.md) (in var.c)

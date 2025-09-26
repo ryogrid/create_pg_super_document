@@ -29,11 +29,11 @@ This function processes spilled partitions from hash aggregation by converting e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - estimateHyperLogLog
-  - freeHyperLogLog
-  - LogicalTapeRewindForRead
+  - [estimateHyperLogLog](../e/estimateHyperLogLog.md)
+  - [freeHyperLogLog](../f/freeHyperLogLog.md)
+  - [LogicalTapeRewindForRead](../L/LogicalTapeRewindForRead.md)
   - [hashagg_batch_new](hashagg_batch_new.md)
-  - lappend
+  - [lappend](../l/lappend.md)
   - [pfree](../p/pfree.md)
 - Types used:
   - [AggState](../A/AggState.md)

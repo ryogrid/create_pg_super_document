@@ -70,8 +70,8 @@ The xl_xact_parsed_commit structure is a deconstructed representation of the xl_
   - TimestampTz (data type)
   - TransactionId (data type)
   - [RelFileLocator](../R/RelFileLocator.md) (data type)
-  - xl_xact_stats_item (structure)
-  - SharedInvalidationMessage (data type)
+  - [xl_xact_stats_item](xl_xact_stats_item.md) (structure)
+  - [SharedInvalidationMessage](../S/SharedInvalidationMessage.md) (data type)
   - GIDSIZE (constant)
   - XLogRecPtr (data type)
 - Called from (representative examples):

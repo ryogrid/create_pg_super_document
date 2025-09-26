@@ -23,8 +23,8 @@ This function is designed to fetch the existing slice value from an array before
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExprEvalStep (struct)
-  - SubscriptingRefState (struct)  
+  - [ExprEvalStep](../E/ExprEvalStep.md) (struct)
+  - [SubscriptingRefState](../S/SubscriptingRefState.md) (struct)  
   - [ArraySubWorkspace](../A/ArraySubWorkspace.md) (struct)
   - [array_get_slice](array_get_slice.md)
 - Called from (representative examples):

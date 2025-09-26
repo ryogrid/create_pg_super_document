@@ -33,10 +33,10 @@ Key features:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth (prevent stack overflow in recursive calls)
+  - [check_stack_depth](../c/check_stack_depth.md) (prevent stack overflow in recursive calls)
   - rt_fetch (retrieve range table entry by index)
   - [get_query_def](get_query_def.md) (generate SQL for subqueries)
-  - appendContextKeyword (format keywords with proper indentation)
+  - [appendContextKeyword](../a/appendContextKeyword.md) (format keywords with proper indentation)
   - nodeTag (get node type for error checking)
 - Called from (representative examples):
   - [get_select_query_def](get_select_query_def.md) (src/backend/utils/adt/ruleutils.c:5722)

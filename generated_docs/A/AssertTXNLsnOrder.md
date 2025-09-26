@@ -27,9 +27,9 @@ This function performs comprehensive validation of LSN ordering and transaction 
   - [LogicalDecodingContext](../L/LogicalDecodingContext.md) (accessed through rb->private_data)
 - Called from (representative examples):
   - [ReorderBufferTXNByXid](../R/ReorderBufferTXNByXid.md) (after adding new top-level transactions)
-  - ReorderBufferAssignChild (after modifying transaction relationships)
-  - ReorderBufferSetBaseSnapshot (after setting base snapshots)
-  - ReorderBufferGetOldestTXN (during transaction processing)
+  - [ReorderBufferAssignChild](../R/ReorderBufferAssignChild.md) (after modifying transaction relationships)
+  - [ReorderBufferSetBaseSnapshot](../R/ReorderBufferSetBaseSnapshot.md) (after setting base snapshots)
+  - [ReorderBufferGetOldestTXN](../R/ReorderBufferGetOldestTXN.md) (during transaction processing)
 
 ## Notes and Other Information
 - Only compiled and executed in debug builds (USE_ASSERT_CHECKING must be defined)

@@ -23,9 +23,9 @@ The function constructs a SELECT statement where each column is represented as "
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - createPQExpBuffer
+  - [createPQExpBuffer](createPQExpBuffer.md)
   - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)  
-  - appendPQExpBufferChar
+  - [appendPQExpBufferChar](../a/appendPQExpBufferChar.md)
   - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
   - OidIsValid
   - [findCollationByOid](../f/findCollationByOid.md)

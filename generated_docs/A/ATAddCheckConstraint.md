@@ -39,7 +39,7 @@ For inheritance hierarchies, the function recursively descends one level at a ti
   - [find_inheritance_children](../f/find_inheritance_children.md)
   - [CheckAlterTableIsSafe](../C/CheckAlterTableIsSafe.md)
   - [ATGetQueueEntry](ATGetQueueEntry.md)
-  - CommandCounterIncrement
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md)
   - ObjectAddressSet
 - Called from (representative examples):
   - [ATExecAddConstraint](ATExecAddConstraint.md)

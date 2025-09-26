@@ -25,7 +25,7 @@ The function carefully avoids closing the root partitioned table (index 0 in par
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_close
+  - [table_close](../t/table_close.md)
   - [ExecDropSingleTupleTableSlot](ExecDropSingleTupleTableSlot.md)
   - [ExecCloseIndices](ExecCloseIndices.md)
 - Called from (representative examples):

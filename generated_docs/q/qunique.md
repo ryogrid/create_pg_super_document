@@ -30,7 +30,7 @@ The function uses a two-pointer technique where 'i' scans through all elements a
   - memcpy (for moving array elements)
 - Called from (representative examples):
   - [_bt_deadblocks](../b/_bt_deadblocks.md)
-  - TidListEval
+  - [TidListEval](../T/TidListEval.md)
   - [aclmembers](../a/aclmembers.md)
   - [gtsvector_compress](../g/gtsvector_compress.md)
   - [tsq_mcontains](../t/tsq_mcontains.md)

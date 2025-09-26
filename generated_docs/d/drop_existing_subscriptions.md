@@ -30,7 +30,7 @@ The function is designed to handle the scenario where a standby server being con
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - createPQExpBuffer
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)
   - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
   - pg_log_info
   - [PQexec](../P/PQexec.md)
@@ -38,7 +38,7 @@ The function is designed to handle the scenario where a standby server being con
   - [PQresultErrorMessage](../P/PQresultErrorMessage.md)
   - [disconnect_database](disconnect_database.md)
   - [PQclear](../P/PQclear.md)
-  - destroyPQExpBuffer
+  - [destroyPQExpBuffer](destroyPQExpBuffer.md)
 - Called from (representative examples):
   - [check_and_drop_existing_subscriptions](../c/check_and_drop_existing_subscriptions.md)
 

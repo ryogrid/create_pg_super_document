@@ -23,7 +23,7 @@ The  function performs a comprehensive release of resources for all SMgrRelation
   - [hash_seq_init](../h/hash_seq_init.md) (initializes hash table iteration)
   - [hash_seq_search](../h/hash_seq_search.md) (iterates through hash table entries)
   - [smgrrelease](smgrrelease.md) (releases resources for individual relations)
-  - HASH_SEQ_STATUS (hash table iteration state structure)
+  - [HASH_SEQ_STATUS](../H/HASH_SEQ_STATUS.md) (hash table iteration state structure)
   - SMgrRelationHash (global hash table of relations)
 - Called from (representative examples):
   - [ProcessBarrierSmgrRelease](../P/ProcessBarrierSmgrRelease.md)

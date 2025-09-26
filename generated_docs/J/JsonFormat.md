@@ -51,21 +51,21 @@ This structure is commonly used in JSON functions like JSON_QUERY, JSON_VALUE, a
   - NodeTag
 
 - Called from (representative examples):
-  - makeJsonFormat (makefuncs.c:896)
-  - makeJsonValueExpr (makefuncs.c:911)
-  - makeJsonIsPredicate (makefuncs.c:958)
-  - transformJsonParseArg (parse_expr.c:4040)
-  - transformJsonFuncExpr (parse_expr.c:4309)
-  - get_json_format (ruleutils.c:11297)
+  - [makeJsonFormat](../m/makeJsonFormat.md) (makefuncs.c:896)
+  - [makeJsonValueExpr](../m/makeJsonValueExpr.md) (makefuncs.c:911)
+  - [makeJsonIsPredicate](../m/makeJsonIsPredicate.md) (makefuncs.c:958)
+  - [transformJsonParseArg](../t/transformJsonParseArg.md) (parse_expr.c:4040)
+  - [transformJsonFuncExpr](../t/transformJsonFuncExpr.md) (parse_expr.c:4309)
+  - [get_json_format](../g/get_json_format.md) (ruleutils.c:11297)
 
 ## Notes and Other Information
-- JsonFormat is a standalone node type, not inheriting from the Expr hierarchy
+- [JsonFormat](JsonFormat.md) is a standalone node type, not inheriting from the Expr hierarchy
 - The structure is used in conjunction with various JSON-related expression nodes like JsonValueExpr, JsonIsPredicate, and JsonExpr
 - JS_FORMAT_DEFAULT indicates that no explicit format was specified in the SQL
 - JS_FORMAT_JSON specifies explicit JSON text output with optional encoding
 - JS_FORMAT_JSONB is used internally for RETURNING jsonb operations
 - JS_ENC_DEFAULT allows the system to choose appropriate encoding
 - The encoding field is primarily relevant for JSON text output, not for JSONB format
-- JsonFormat nodes are created by parser functions and used throughout the JSON expression processing pipeline
+- [JsonFormat](JsonFormat.md) nodes are created by parser functions and used throughout the JSON expression processing pipeline
 - The structure supports SQL standard JSON syntax for format and encoding specifications
 - Used extensively in SQL/JSON path expressions and JSON constructor functions

@@ -23,7 +23,7 @@ CleanQuerytext takes a potentially multi-statement SQL source string and confine
 ## Dependencies
 - Functions called/Symbols referenced:
   - [scanner_isspace](../s/scanner_isspace.md) (used for whitespace detection matching lexer behavior)
-  - JumbleState (referenced in context)
+  - [JumbleState](../J/JumbleState.md) (referenced in context)
 - Called from (representative examples):
   - COMPUTE_QUERY_ID_REGRESS (macro in queryjumble.h)
 

@@ -33,11 +33,11 @@ The verification process includes multiple validation checkpoints:
 ## Dependencies
 - Functions called/Symbols referenced:
   - open
-  - pg_checksum_init
+  - [pg_checksum_init](../p/pg_checksum_init.md)
   - read
-  - pg_checksum_update
+  - [pg_checksum_update](../p/pg_checksum_update.md)
   - close
-  - pg_checksum_final
+  - [pg_checksum_final](../p/pg_checksum_final.md)
   - memcmp
   - [progress_report](../p/progress_report.md)
   - [report_backup_error](../r/report_backup_error.md)

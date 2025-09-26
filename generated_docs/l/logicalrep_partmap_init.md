@@ -24,15 +24,15 @@ The hash table is configured to use partition OIDs as keys and stores LogicalRep
   - AllocSetContextCreate
   - [hash_create](../h/hash_create.md)
   - [CacheRegisterRelcacheCallback](../C/CacheRegisterRelcacheCallback.md)
-  - logicalrep_partmap_invalidate_cb
+  - [logicalrep_partmap_invalidate_cb](logicalrep_partmap_invalidate_cb.md)
 - Types referenced:
-  - HASHCTL
+  - [HASHCTL](../H/HASHCTL.md)
   - [LogicalRepPartMapEntry](../L/LogicalRepPartMapEntry.md)
 - Global variables:
   - LogicalRepPartMapContext
   - LogicalRepPartMap  
   - CacheMemoryContext
-- Hash flags used:
+- [Hash](../H/Hash.md) flags used:
   - HASH_ELEM
   - HASH_BLOBS
   - HASH_CONTEXT

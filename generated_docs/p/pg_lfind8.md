@@ -28,7 +28,7 @@ The implementation first processes elements in chunks using vectorized operation
   - [vector8_load](../v/vector8_load.md) (loads data into vector register)
   - [vector8_has](../v/vector8_has.md) (checks if vector contains the target value)
 - Called from (representative examples):
-  - test_lfind8_internal (in test modules)
+  - [test_lfind8_internal](../t/test_lfind8_internal.md) (in test modules)
 
 ## Notes and Other Information
 - The function is declared as  for performance optimization

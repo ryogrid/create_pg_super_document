@@ -21,13 +21,13 @@ This function implements a simple bitwise check to distinguish between main regi
 - Functions called/Symbols referenced:
   - dsm_handle (parameter type)
 - Called from (representative examples):
-  - dsm_cleanup_using_control_segment
-  - dsm_postmaster_shutdown  
+  - [dsm_cleanup_using_control_segment](../d/dsm_cleanup_using_control_segment.md)
+  - [dsm_postmaster_shutdown](../d/dsm_postmaster_shutdown.md)  
   - [dsm_create](../d/dsm_create.md)
   - [dsm_attach](../d/dsm_attach.md)
   - [dsm_detach](../d/dsm_detach.md)
-  - dsm_pin_segment
-  - dsm_unpin_segment
+  - [dsm_pin_segment](../d/dsm_pin_segment.md)
+  - [dsm_unpin_segment](../d/dsm_unpin_segment.md)
 
 ## Notes and Other Information
 This function is marked as static inline for performance optimization since it is called frequently throughout the DSM subsystem. The bitwise check (handle & 1) is a very fast operation that allows PostgreSQL to quickly determine the type of DSM handle without additional lookups or data structures. The main region concept is central to PostgreSQL's dynamic shared memory architecture, where main regions serve as the primary coordination point for shared memory management.

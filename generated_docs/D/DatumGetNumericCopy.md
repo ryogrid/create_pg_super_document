@@ -21,7 +21,7 @@ This function serves as a conversion utility in PostgreSQL's function manager (f
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_DETOAST_DATUM_COPY (macro for handling TOAST decompression with copying)
-  - Numeric (data type)
+  - [Numeric](../N/Numeric.md) (data type)
 - Called from (representative examples):
   - [jsonb_numeric](../j/jsonb_numeric.md)
   - PG_GETARG_NUMERIC_COPY

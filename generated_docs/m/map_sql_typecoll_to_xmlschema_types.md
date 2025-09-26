@@ -25,14 +25,14 @@ The function operates in three phases:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_append_unique_oid (PostgreSQL list utility for maintaining unique OIDs)
-  - getBaseType (PostgreSQL function to resolve domain base types)
-  - map_sql_type_to_xmlschema_type (converts individual types to XML Schema)
+  - [list_append_unique_oid](../l/list_append_unique_oid.md) (PostgreSQL list utility for maintaining unique OIDs)
+  - [getBaseType](../g/getBaseType.md) (PostgreSQL function to resolve domain base types)
+  - [map_sql_type_to_xmlschema_type](map_sql_type_to_xmlschema_type.md) (converts individual types to XML Schema)
   - TupleDescAttr (PostgreSQL macro to access tuple descriptor attributes)
 - Called from (representative examples):
-  - schema_to_xmlschema_internal
-  - database_to_xmlschema_internal
-  - map_sql_table_to_xmlschema
+  - [schema_to_xmlschema_internal](../s/schema_to_xmlschema_internal.md)
+  - [database_to_xmlschema_internal](../d/database_to_xmlschema_internal.md)
+  - [map_sql_table_to_xmlschema](map_sql_table_to_xmlschema.md)
 
 ## Notes and Other Information
 - Handles dropped columns by skipping them (checks att->attisdropped)

@@ -20,11 +20,11 @@ This inline function serves as a wrapper to finalize and close a previously open
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbsink (structure type)
+  - [bbsink](bbsink.md) (structure type)
   - Assert (assertion macro)
 - Called from (representative examples):
-  - perform_base_backup
-  - bbsink_forward_end_archive
+  - [perform_base_backup](../p/perform_base_backup.md)
+  - [bbsink_forward_end_archive](bbsink_forward_end_archive.md)
 
 ## Notes and Other Information
 - This is an inline function defined in the header file for performance optimization

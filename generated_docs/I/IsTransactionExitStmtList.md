@@ -23,7 +23,7 @@ The function performs a two-step validation:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_length (to check list size)
+  - [list_length](../l/list_length.md) (to check list size)
   - linitial_node (to extract first PlannedStmt from list)
   - [PlannedStmt](../P/PlannedStmt.md) (structure type for planned statements)
   - CMD_UTILITY (command type constant)

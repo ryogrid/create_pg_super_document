@@ -29,7 +29,7 @@ The function uses the `rank_up()` utility function to determine when the rank sh
   - [WinGetCurrentPosition](../W/WinGetCurrentPosition.md)
   - PG_RETURN_INT64
   - [rank_context](../r/rank_context.md) (struct)
-  - WindowObject (type)
+  - [WindowObject](../W/WindowObject.md) (type)
 - Called from (representative examples):
   - This is a PostgreSQL built-in function called directly from SQL queries
 

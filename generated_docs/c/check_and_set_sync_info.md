@@ -38,7 +38,7 @@ The function prevents race conditions between multiple sync attempts and ensures
   - syncing_slots (module-level flag)
 - Called from (representative examples):
   - [ReplSlotSyncWorkerMain](../R/ReplSlotSyncWorkerMain.md) (in src/backend/replication/logical/slotsync.c:1401)
-  - SyncReplicationSlots (in src/backend/replication/logical/slotsync.c:1729)
+  - [SyncReplicationSlots](../S/SyncReplicationSlots.md) (in src/backend/replication/logical/slotsync.c:1729)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only visible within the slotsync.c compilation unit

@@ -37,9 +37,9 @@ For string extraction, the function supports both wide character conversion (usi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - cstring_to_text
+  - [cstring_to_text](../c/cstring_to_text.md)
   - [pg_wchar2mb_with_len](../p/pg_wchar2mb_with_len.md)
-  - cstring_to_text_with_len
+  - [cstring_to_text_with_len](../c/cstring_to_text_with_len.md)
   - [text_substr](../t/text_substr.md)
   - DirectFunctionCall3
   - [construct_md_array](../c/construct_md_array.md)

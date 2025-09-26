@@ -39,7 +39,7 @@ The function manages transaction counting for bulk operations by counting semico
   - [fmtId](../f/fmtId.md) (identifier quoting)
   - [IssueCommandPerBlob](../I/IssueCommandPerBlob.md), IssueACLPerBlob (special BLOB handling)
   - [_getObjectDescription](../g/_getObjectDescription.md) (object description generation)
-  - initPQExpBuffer, termPQExpBuffer (buffer management)
+  - [initPQExpBuffer](../i/initPQExpBuffer.md), termPQExpBuffer (buffer management)
   - [_printTableAccessMethodNoStorage](_printTableAccessMethodNoStorage.md) (partitioned table handling)
   - [_tocEntryIsACL](../t/_tocEntryIsACL.md) (ACL entry detection)
 - Called from:

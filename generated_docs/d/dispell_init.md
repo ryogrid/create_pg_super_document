@@ -32,7 +32,7 @@ The function ensures that both dictionary and affix files are provided (as they 
   - [NISortAffixes](../N/NISortAffixes.md): Sorts affix rules for optimal lookup  
   - [NIFinishBuild](../N/NIFinishBuild.md): Finalizes the NIspell object after loading
   - [NIImportDictionary](../N/NIImportDictionary.md): Loads dictionary data from file
-  - `NIImportAffixes`: Loads affix rules from file
+  - `[NIImportAffixes](../N/NIImportAffixes.md)`: Loads affix rules from file
   - [get_tsearch_config_filename](../g/get_tsearch_config_filename.md): Resolves configuration file paths
   - [defGetString](defGetString.md): Extracts string values from DefElem structures
   - [readstoplist](../r/readstoplist.md): Loads stopword list from file

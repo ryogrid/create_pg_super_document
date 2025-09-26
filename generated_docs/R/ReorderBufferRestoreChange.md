@@ -29,7 +29,7 @@ The function performs type-specific deserialization based on the change action, 
   - [MemoryContextAlloc](../M/MemoryContextAlloc.md) (general memory allocation)
   - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md) (zeroed memory allocation)
   - [dlist_push_tail](../d/dlist_push_tail.md) (list management)
-  - ReorderBufferChangeMemoryUpdate (memory accounting)
+  - [ReorderBufferChangeMemoryUpdate](ReorderBufferChangeMemoryUpdate.md) (memory accounting)
   - [ReorderBufferChangeSize](ReorderBufferChangeSize.md) (size calculation)
   - Various REORDER_BUFFER_CHANGE_* constants
 - Called from (representative examples):

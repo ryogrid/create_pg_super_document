@@ -24,14 +24,14 @@ The function works in conjunction with other GUC error reporting macros (GUC_che
 - Functions called/Symbols referenced:
   - GUC_check_errcode_value (global variable)
 - Called from (representative examples):
-  - check_transaction_read_only
-  - check_transaction_isolation  
-  - check_transaction_deferrable
-  - check_client_encoding
-  - check_session_authorization
-  - check_role
-  - check_default_with_oids
-  - check_synchronous_standby_names
+  - [check_transaction_read_only](../c/check_transaction_read_only.md)
+  - [check_transaction_isolation](../c/check_transaction_isolation.md)  
+  - [check_transaction_deferrable](../c/check_transaction_deferrable.md)
+  - [check_client_encoding](../c/check_client_encoding.md)
+  - [check_session_authorization](../c/check_session_authorization.md)
+  - [check_role](../c/check_role.md)
+  - [check_default_with_oids](../c/check_default_with_oids.md)
+  - [check_synchronous_standby_names](../c/check_synchronous_standby_names.md)
 
 ## Notes and Other Information
 - Simple assignment function that stores the error code in GUC_check_errcode_value global variable

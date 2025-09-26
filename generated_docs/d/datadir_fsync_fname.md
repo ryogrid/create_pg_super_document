@@ -33,9 +33,9 @@ Key characteristics:
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport_startup_progress: Report progress during startup synchronization
-  - fsync_fname_ext: Extended fsync function with configurable error handling
+  - [fsync_fname_ext](../f/fsync_fname_ext.md): Extended fsync function with configurable error handling
 - Called from (representative examples):
-  - SyncDataDirectory: During the main fsync phase of data directory synchronization
+  - [SyncDataDirectory](../S/SyncDataDirectory.md): During the main fsync phase of data directory synchronization
 
 ## Notes and Other Information
 - Works in conjunction with pre_sync_fname to implement a two-phase sync strategy

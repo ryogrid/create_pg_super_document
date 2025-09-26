@@ -27,12 +27,12 @@ The function is designed to handle permission checks and locking carefully. It t
 - Functions called/Symbols referenced:
   - AmAutoVacuumWorkerProcess
   - [RangeVarGetRelidExtended](../R/RangeVarGetRelidExtended.md)
-  - vacuum_is_permitted_for_relation
+  - [vacuum_is_permitted_for_relation](../v/vacuum_is_permitted_for_relation.md)
   - [makeVacuumRelation](../m/makeVacuumRelation.md)
   - [find_all_inheritors](../f/find_all_inheritors.md)
   - [UnlockRelationOid](../U/UnlockRelationOid.md)
 - Called from (representative examples):
-  - vacuum (src/backend/commands/vacuum.c:539)
+  - [vacuum](../v/vacuum.md) (src/backend/commands/vacuum.c:539)
 
 ## Notes and Other Information
 - Only processes relations when OID is not already provided (autovacuum supplies OIDs)

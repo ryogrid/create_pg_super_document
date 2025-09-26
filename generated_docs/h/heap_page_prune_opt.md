@@ -33,7 +33,7 @@ When conditions are met, it attempts to acquire an exclusive buffer cleanup lock
   - RelationGetTargetPageFreeSpace
   - [PageIsFull](../P/PageIsFull.md)
   - [PageGetHeapFreeSpace](../P/PageGetHeapFreeSpace.md)
-  - ConditionalLockBufferForCleanup
+  - [ConditionalLockBufferForCleanup](../C/ConditionalLockBufferForCleanup.md)
   - [heap_page_prune_and_freeze](heap_page_prune_and_freeze.md)
   - [pgstat_update_heap_dead_tuples](../p/pgstat_update_heap_dead_tuples.md)
   - [LockBuffer](../L/LockBuffer.md)

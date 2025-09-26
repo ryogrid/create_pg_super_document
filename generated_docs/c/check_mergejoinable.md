@@ -33,9 +33,9 @@ If all conditions are met, the function populates the mergeopfamilies field of t
   - [op_mergejoinable](../o/op_mergejoinable.md) (determines if operator supports merge joins)
   - [contain_volatile_functions](contain_volatile_functions.md) (checks for volatile function calls)
   - [get_mergejoin_opfamilies](../g/get_mergejoin_opfamilies.md) (retrieves relevant operator families)
-  - exprType (determines expression data type)
+  - [exprType](../e/exprType.md) (determines expression data type)
   - linitial (gets first list element)
-  - OpExpr (operator expression node type)
+  - [OpExpr](../O/OpExpr.md) (operator expression node type)
 - Called from:
   - [distribute_qual_to_rels](../d/distribute_qual_to_rels.md) (during initial clause distribution)
   - [process_implied_equality](../p/process_implied_equality.md) (when processing equivalence class implications)

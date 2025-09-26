@@ -31,13 +31,13 @@ The extension lock mechanism prevents race conditions where this function might 
 - Functions called/Symbols referenced:
   - [BufferGetPage](../B/BufferGetPage.md) (to access the page from buffer)
   - [PageIsNew](../P/PageIsNew.md) (to check if page is uninitialized)
-  - LockRelationForExtension/UnlockRelationForExtension (for extension lock coordination)
+  - [LockRelationForExtension](../L/LockRelationForExtension.md)/UnlockRelationForExtension (for extension lock coordination)
   - [LockBuffer](../L/LockBuffer.md) (for buffer locking during initialization)
   - [brin_initialize_empty_new_buffer](brin_initialize_empty_new_buffer.md) (to initialize new pages)
   - BRIN_IS_META_PAGE (to check for meta pages)
   - BRIN_IS_REVMAP_PAGE (to check for revmap pages)
   - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md) (to get the page's block number)
-  - RecordPageWithFreeSpace (to update FSM)
+  - [RecordPageWithFreeSpace](../R/RecordPageWithFreeSpace.md) (to update FSM)
   - [br_page_get_freespace](br_page_get_freespace.md) (to calculate available free space)
   - ShareLock, BUFFER_LOCK_EXCLUSIVE, BUFFER_LOCK_UNLOCK (lock constants)
 - Called from:

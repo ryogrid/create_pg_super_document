@@ -17,7 +17,7 @@ This function extracts a MinimalTuple from a MinimalTupleTableSlot and converts 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MinimalTupleTableSlot (struct type cast)
+  - [MinimalTupleTableSlot](../M/MinimalTupleTableSlot.md) (struct type cast)
   - [tts_minimal_materialize](tts_minimal_materialize.md)
   - [heap_tuple_from_minimal_tuple](../h/heap_tuple_from_minimal_tuple.md)
   - MinimalTuple (type reference)

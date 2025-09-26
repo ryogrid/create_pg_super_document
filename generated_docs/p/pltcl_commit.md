@@ -24,12 +24,12 @@ pltcl_commit provides a way for PL/Tcl functions to commit the current transacti
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SPI_commit
-  - CopyErrorData
-  - FlushErrorState
-  - pltcl_construct_errorCode
-  - FreeErrorData
-  - MemoryContextSwitchTo
+  - [SPI_commit](../S/SPI_commit.md)
+  - [CopyErrorData](../C/CopyErrorData.md)
+  - [FlushErrorState](../F/FlushErrorState.md)
+  - [pltcl_construct_errorCode](pltcl_construct_errorCode.md)
+  - [FreeErrorData](../F/FreeErrorData.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - UTF_E2U (encoding conversion)
   - Tcl_SetObjResult
   - Tcl_NewStringObj

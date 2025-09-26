@@ -27,7 +27,7 @@ The function uses ProcessMessageSubGroupMulti macro to pass arrays of messages f
   - RelCacheMsgs (relation cache message subgroup identifier)
 - Types referenced:
   - [InvalidationMsgsGroup](../I/InvalidationMsgsGroup.md)
-  - SharedInvalidationMessage
+  - [SharedInvalidationMessage](../S/SharedInvalidationMessage.md)
 - Called from:
   - [AtEOXact_Inval](../A/AtEOXact_Inval.md) (during transaction end processing for efficient message transmission)
 

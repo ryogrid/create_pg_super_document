@@ -57,7 +57,7 @@ The function distinguishes between different base node contexts:
 - Functions called/Symbols referenced:
   - makeNode (CaseTestExpr)
   - for_each_cell
-  - lappend
+  - [lappend](../l/lappend.md)
   - IsA (A_Indices, A_Star, String)
   - [transformAssignmentSubscripts](transformAssignmentSubscripts.md)
   - [getBaseTypeAndTypmod](../g/getBaseTypeAndTypmod.md)
@@ -70,7 +70,7 @@ The function distinguishes between different base node contexts:
   - [lnext](../l/lnext.md)
   - [coerce_to_domain](../c/coerce_to_domain.md)
   - [coerce_to_target_type](../c/coerce_to_target_type.md)
-  - exprType
+  - [exprType](../e/exprType.md)
   - [format_type_be](../f/format_type_be.md)
   - Constants: InvalidAttrNumber, COERCION_IMPLICIT, COERCE_IMPLICIT_CAST
 - Called from:

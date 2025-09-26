@@ -31,7 +31,7 @@ The `dcotd` function implements the cotangent function for degree-based input in
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT8 (argument retrieval)
   - isnan, isinf (special value checks)
-  - get_float8_nan (NaN handling)
+  - [get_float8_nan](../g/get_float8_nan.md) (NaN handling)
   - INIT_DEGREE_CONSTANTS (initialization)
   - [cosd_q1](../c/cosd_q1.md), sind_q1 (first quadrant cosine and sine calculations)
   - cot_45 (global constant for cotangent of 45°)

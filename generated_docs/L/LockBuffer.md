@@ -25,7 +25,7 @@ This function provides the primary interface for acquiring and releasing content
   - BufferIsLocal
   - [GetBufferDescriptor](../G/GetBufferDescriptor.md)
   - [BufferDescriptorGetContentLock](../B/BufferDescriptorGetContentLock.md)
-  - LWLockRelease, LWLockAcquire
+  - [LWLockRelease](LWLockRelease.md), LWLockAcquire
   - Lock mode constants (BUFFER_LOCK_UNLOCK, BUFFER_LOCK_SHARE, BUFFER_LOCK_EXCLUSIVE)
   - LW_SHARED, LW_EXCLUSIVE
 - Called from (representative examples):

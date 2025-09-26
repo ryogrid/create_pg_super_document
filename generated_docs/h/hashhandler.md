@@ -28,7 +28,7 @@ The function sets up all the operational parameters for hash indexes, including 
   - [hashbulkdelete](hashbulkdelete.md)
   - [hashvacuumcleanup](hashvacuumcleanup.md)
   - [hashcostestimate](hashcostestimate.md)
-  - hashoptions
+  - [hashoptions](hashoptions.md)
   - [hashvalidate](hashvalidate.md)
   - [hashadjustmembers](hashadjustmembers.md)
   - [hashbeginscan](hashbeginscan.md)
@@ -45,5 +45,5 @@ The function sets up all the operational parameters for hash indexes, including 
 - Sets amcanmulticol = false, restricting hash indexes to single-column keys
 - Sets ampredlocks = true, enabling predicate locking for serializable isolation
 - The function configures hash indexes as non-clusterable and non-parallel for building
-- Hash indexes use INT4OID as their key type
+- [Hash](../H/Hash.md) indexes use INT4OID as their key type
 - Returns the configured IndexAmRoutine via PG_RETURN_POINTER macro

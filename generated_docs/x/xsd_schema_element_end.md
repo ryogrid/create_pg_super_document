@@ -22,7 +22,7 @@ The function is intentionally simple and focused, performing only the specific t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendStringInfoString
+  - [appendStringInfoString](../a/appendStringInfoString.md)
 - Called from (representative examples):
   - [schema_to_xmlschema_internal](../s/schema_to_xmlschema_internal.md)
   - [database_to_xmlschema_internal](../d/database_to_xmlschema_internal.md)

@@ -23,10 +23,10 @@ This function provides functionality for the psql \\drg metacommand, which displ
 - Functions called/Symbols referenced:
   - [PQExpBufferData](../P/PQExpBufferData.md) (PostgreSQL's expandable string buffer structure)
   - [printQueryOpt](../p/printQueryOpt.md) (print formatting options structure)
-  - initPQExpBuffer (initialize buffer)
+  - [initPQExpBuffer](../i/initPQExpBuffer.md) (initialize buffer)
   - [printfPQExpBuffer](../p/printfPQExpBuffer.md) (formatted append to buffer)
   - [validateSQLNamePattern](../v/validateSQLNamePattern.md) (validate and append SQL name patterns)
-  - termPQExpBuffer (cleanup buffer)
+  - [termPQExpBuffer](../t/termPQExpBuffer.md) (cleanup buffer)
   - [PSQLexec](../P/PSQLexec.md) (execute SQL query)
   - [printQuery](../p/printQuery.md) (display query results)
 - Called from (representative examples):

@@ -30,7 +30,7 @@ The function iterates through all nodes using the  macro and validates the consi
   -  - allocates memory for the label array
 - Called from (representative examples):
   -  - during insertion operations to access node labels
-  -  - when initializing consistency checking for inner nodes
+  -  - [when](../w/when.md) initializing consistency checking for inner nodes
 
 ## Notes and Other Information
 - Enforces strict consistency: either all node labels are NULL or none are NULL

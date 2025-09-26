@@ -24,7 +24,7 @@ The function performs the privilege check by first resolving the username to a r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_role_oid_or_public: Converts username to role OID
+  - [get_role_oid_or_public](../g/get_role_oid_or_public.md): Converts username to role OID
   - [convert_column_priv_string](../c/convert_column_priv_string.md): Converts text privilege specification to AclMode
   - [column_privilege_check](../c/column_privilege_check.md): Performs the actual privilege verification
   - PG_GETARG_NAME: Extracts Name argument from function call

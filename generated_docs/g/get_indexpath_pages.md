@@ -25,8 +25,8 @@ The function uses a recursive approach to handle nested bitmap operations, ensur
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BitmapAndPath (struct type)
-  - BitmapOrPath (struct type) 
+  - [BitmapAndPath](../B/BitmapAndPath.md) (struct type)
+  - [BitmapOrPath](../B/BitmapOrPath.md) (struct type) 
   - [IndexPath](../I/IndexPath.md) (struct type)
   - nodeTag (function)
   - [get_indexpath_pages](get_indexpath_pages.md) (recursive self-call)

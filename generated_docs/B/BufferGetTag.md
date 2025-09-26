@@ -34,7 +34,7 @@ BufferGetTag is a comprehensive buffer metadata extraction function that retriev
   - [XLogRegisterBuffer](../X/XLogRegisterBuffer.md)
   - [XLogSaveBufferForHint](../X/XLogSaveBufferForHint.md)
   - [log_newpage_buffer](../l/log_newpage_buffer.md)
-  - fsm_search_avail
+  - [fsm_search_avail](../f/fsm_search_avail.md)
 
 ## Notes and Other Information
 - Requires the buffer to be pinned before calling (enforced by assertion)

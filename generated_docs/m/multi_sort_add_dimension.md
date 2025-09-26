@@ -24,9 +24,9 @@ This function initializes a single dimension of a multi-dimensional sort operati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PrepareSortSupportFromOrderingOp
+  - [PrepareSortSupportFromOrderingOp](../P/PrepareSortSupportFromOrderingOp.md)
   - MultiSortSupport (type)
-  - SortSupport (type)
+  - [SortSupport](../S/SortSupport.md) (type)
 - Called from (representative examples):
   - [dependency_degree](../d/dependency_degree.md) (src/backend/statistics/dependencies.c:275)
   - [build_mss](../b/build_mss.md) (src/backend/statistics/mcv.c:366)

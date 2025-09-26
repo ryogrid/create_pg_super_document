@@ -19,7 +19,7 @@ This function checks whether a PostgreSQL locale is deterministic. A determinist
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_locale_t (data type used in function signature and parameter)
+  - [pg_locale_t](pg_locale_t.md) (data type used in function signature and parameter)
 - Called from (representative examples):
   - [hashtext](../h/hashtext.md) (at line 283)
   - [hashtextextended](../h/hashtextextended.md) (at line 339)

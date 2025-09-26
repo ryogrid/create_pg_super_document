@@ -28,7 +28,7 @@ The function returns true if a visible tuple was found, false otherwise. Multipl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `table_index_fetch_tuple` (retrieves heap tuple from TID)
+  - `[table_index_fetch_tuple](../t/table_index_fetch_tuple.md)` (retrieves heap tuple from TID)
   - `pgstat_count_heap_fetch` (updates heap access statistics)
   - [IndexScanDesc](../I/IndexScanDesc.md) (scan descriptor type)
 - Called from (representative examples):

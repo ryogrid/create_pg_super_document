@@ -26,7 +26,7 @@ Similar to the compressor, this function only compiles when USE_LZ4 is defined a
   - [bbstreamer_ops](bbstreamer_ops.md) (operations table)
   - LZ4F_createDecompressionContext
   - [palloc0](../p/palloc0.md)
-  - initStringInfo
+  - [initStringInfo](../i/initStringInfo.md)
 - Called from (representative examples):
   - Backup restoration utilities (when decompressing LZ4 backup streams)
 

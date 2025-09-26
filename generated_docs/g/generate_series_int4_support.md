@@ -27,14 +27,14 @@ The `generate_series_int4_support` function serves as a planner support function
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `SupportRequestRows` - Structure for row estimation support requests
+  - `[SupportRequestRows](../S/SupportRequestRows.md)` - Structure for row estimation support requests
   - [is_funcclause](../i/is_funcclause.md) - Check if the node is a function call expression
   - [estimate_expression_value](../e/estimate_expression_value.md) - Estimate the value of an expression
   - `linitial` - Get the first element from a list
   - `lsecond` - Get the second element from a list
   - `lthird` - Get the third element from a list
   - [DatumGetInt32](../D/DatumGetInt32.md) - Extract int32 value from a Datum
-  - `FuncExpr` - Function expression node structure
+  - `[FuncExpr](../F/FuncExpr.md)` - Function expression node structure
 - Called from (representative examples):
   - No direct references found (called by query planner via support function infrastructure)
 

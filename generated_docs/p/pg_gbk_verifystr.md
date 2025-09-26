@@ -31,9 +31,9 @@ This function is crucial for maintaining data integrity when handling Simplified
 ## Dependencies
 - Functions called/Symbols referenced:
   - IS_HIGHBIT_SET (macro to check if the high bit is set in a byte)
-  - pg_gbk_verifychar (function to verify individual GBK characters)
+  - [pg_gbk_verifychar](pg_gbk_verifychar.md) (function to verify individual GBK characters)
 - Called from (representative examples):
-  - pg_encoding_set_invalid (in encoding validation routines)
+  - [pg_encoding_set_invalid](pg_encoding_set_invalid.md) (in encoding validation routines)
 
 ## Notes and Other Information
 - Returns the number of valid bytes processed before encountering an invalid character, null terminator, or reaching the buffer end

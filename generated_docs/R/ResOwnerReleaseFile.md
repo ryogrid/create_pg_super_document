@@ -24,10 +24,10 @@ This function serves as a resource release callback for PostgreSQL's ResourceOwn
   - File (typedef for int file descriptor)
   - Vfd (virtual file descriptor structure)
   - FileIsValid (validates file descriptor)
-  - FileClose (closes the file)
+  - [FileClose](../F/FileClose.md) (closes the file)
   - VfdCache (global array of virtual file descriptors)
 - Called from (representative examples):
-  - ResourceOwner cleanup mechanisms
+  - [ResourceOwner](ResourceOwner.md) cleanup mechanisms
   - Registered as ReleaseResource callback in file_resowner_desc
 
 ## Notes and Other Information

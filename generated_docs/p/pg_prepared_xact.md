@@ -32,7 +32,7 @@ pg_prepared_xact is a Set-Returning Function (SRF) that implements the pg_prepar
   - [heap_form_tuple](../h/heap_form_tuple.md), HeapTupleGetDatum (tuple creation)
 - Data structures accessed:
   - [FuncCallContext](../F/FuncCallContext.md) (SRF context)
-  - GlobalTransaction (transaction data)
+  - [GlobalTransaction](../G/GlobalTransaction.md) (transaction data)
   - [PGPROC](../P/PGPROC.md) (process information)
 - Called from:
   - SQL queries on pg_prepared_xacts system view

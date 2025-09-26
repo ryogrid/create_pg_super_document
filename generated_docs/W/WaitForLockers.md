@@ -24,7 +24,7 @@ The function works by obtaining the current list of lock holders that conflict w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LOCKTAG (data structure)
+  - [LOCKTAG](../L/LOCKTAG.md) (data structure)
   - [WaitForLockersMultiple](WaitForLockersMultiple.md) (core waiting logic)
   - list_make1 (create single-element list)
   - [list_free](../l/list_free.md) (cleanup list)

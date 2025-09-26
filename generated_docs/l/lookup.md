@@ -27,7 +27,7 @@ The structure is typically used in arrays to create lookup tables for various ca
 ## Dependencies
 - Functions called/Symbols referenced:
   - [word](../w/word.md)
-  - byword
+  - [byword](../b/byword.md)
   - LC_RULE, LC_ZONE, LC_LINK, LC_LEAP, LC_EXPIRES (rule type constants)
   - TM_JANUARY through TM_DECEMBER (month constants)
   - TM_SUNDAY through TM_SATURDAY (day constants)
@@ -35,12 +35,12 @@ The structure is typically used in arrays to create lookup tables for various ca
   - MONSPERYEAR, DAYSPERNYER, DAYSPERLYER (calendar constants)
 
 - Called from (representative examples):
-  - byword (lookup function)
+  - [byword](../b/byword.md) (lookup function)
   - [infile](../i/infile.md) (file parsing)
-  - getleapdatetime
-  - inleap
-  - rulesub
-  - ciprefix
+  - [getleapdatetime](../g/getleapdatetime.md)
+  - [inleap](../i/inleap.md)
+  - [rulesub](../r/rulesub.md)
+  - [ciprefix](../c/ciprefix.md)
 
 ## Notes and Other Information
 - Used to create static lookup tables for timezone rule parsing

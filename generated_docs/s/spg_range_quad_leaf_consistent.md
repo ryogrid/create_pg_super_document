@@ -36,7 +36,7 @@ All comparisons are exact (no recheck required), and the function returns true o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetRangeTypeP
+  - [DatumGetRangeTypeP](../D/DatumGetRangeTypeP.md)
   - [range_get_typcache](../r/range_get_typcache.md)
   - RangeTypeGetOid
   - [range_before_internal](../r/range_before_internal.md)

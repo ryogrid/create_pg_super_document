@@ -24,7 +24,7 @@ The  function is a PostgreSQL system function that determines if a user has spec
 - Functions called/Symbols referenced:
   - [convert_role_priv_string](../c/convert_role_priv_string.md)
   - [pg_role_aclcheck](pg_role_aclcheck.md)
-  - AclResult
+  - [AclResult](../A/AclResult.md)
 - Called from (representative examples):
   - No direct callers found (likely called via SQL function interface)
 

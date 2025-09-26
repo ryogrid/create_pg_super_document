@@ -31,7 +31,7 @@ This static function performs the core accumulation logic for numeric aggregate 
   -  - Switch memory contexts
 - Called from (representative examples):
   -  - Standard numeric accumulation function
-  -  - Numeric average accumulation
+  -  - [Numeric](../N/Numeric.md) average accumulation
   -  - 16-bit integer accumulation
   -  - 32-bit integer accumulation
   -  - 64-bit integer accumulation

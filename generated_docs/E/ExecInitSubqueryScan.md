@@ -23,7 +23,7 @@ ExecInitSubqueryScan is responsible for the complete initialization of a subquer
 - Functions called/Symbols referenced:
   - makeNode (creates new SubqueryScanState structure)
   - [ExecSubqueryScan](ExecSubqueryScan.md) (sets as the execution function)
-  - ExecAssignExprContext (creates expression evaluation context)
+  - [ExecAssignExprContext](ExecAssignExprContext.md) (creates expression evaluation context)
   - [ExecInitNode](ExecInitNode.md) (recursively initializes the subplan)
   - [ExecInitScanTupleSlot](ExecInitScanTupleSlot.md) (initializes scan tuple slot)
   - [ExecGetResultType](ExecGetResultType.md) (gets result tuple descriptor from subplan)

@@ -25,8 +25,8 @@ The function uses a comprehensive switch statement to handle all supported ECPG 
   - ECPGt_char, ECPGt_string, ECPGt_unsigned_char, ECPGt_short, ECPGt_unsigned_short, ECPGt_int, ECPGt_unsigned_int, ECPGt_long, ECPGt_unsigned_long, ECPGt_long_long, ECPGt_unsigned_long_long, ECPGt_float, ECPGt_double, ECPGt_bool, ECPGt_varchar, ECPGt_bytea, ECPGt_char_variable, ECPGt_decimal, ECPGt_numeric, ECPGt_date, ECPGt_timestamp, ECPGt_interval, ECPGt_const (enumeration values)
   - abort() (standard library function)
 - Called from (representative examples):
-  - ecpg_get_data (in data.c:297, 945)
-  - ecpg_store_input (in execute.c:1067)
+  - [ecpg_get_data](ecpg_get_data.md) (in data.c:297, 945)
+  - [ecpg_store_input](ecpg_store_input.md) (in execute.c:1067)
   - [ECPGdump_a_simple](../E/ECPGdump_a_simple.md) (in type.c:553)
 
 ## Notes and Other Information

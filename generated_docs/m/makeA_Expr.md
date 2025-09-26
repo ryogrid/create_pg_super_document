@@ -26,8 +26,8 @@ The makeA_Expr function is a constructor utility that allocates and initializes 
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (for A_Expr node allocation)
-  - A_Expr (struct type)
-  - A_Expr_Kind (enum type)
+  - [A_Expr](../A/A_Expr.md) (struct type)
+  - [A_Expr_Kind](../A/A_Expr_Kind.md) (enum type)
 - Called from (representative examples):
   - Parser functions in gram.y
   - Expression transformation utilities

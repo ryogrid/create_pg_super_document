@@ -34,10 +34,10 @@ Key behaviors include:
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to create GatherPath node)
-  - get_baserel_parampathinfo (to get parameter information)
+  - [get_baserel_parampathinfo](../g/get_baserel_parampathinfo.md) (to get parameter information)
   - [cost_gather](cost_gather.md) (to calculate execution costs)
   - [PathTarget](../P/PathTarget.md) (target column specification)
-  - GatherPath (the path node structure)
+  - [GatherPath](../G/GatherPath.md) (the path node structure)
 
 - Called from (representative examples):
   - [generate_gather_paths](../g/generate_gather_paths.md) (in allpaths.c:3077)

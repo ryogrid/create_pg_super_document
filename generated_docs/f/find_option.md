@@ -29,21 +29,21 @@ The function supports PostgreSQL's extensible configuration system by allowing c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `hash_search` - Searches the GUC hash table using HASH_FIND
-  - `guc_name_compare` - Compares GUC names (case-insensitive)
-  - `assignable_custom_variable_name` - Validates custom variable name format
-  - `add_placeholder_variable` - Creates placeholder for custom variables
+  - `[hash_search](../h/hash_search.md)` - Searches the GUC hash table using HASH_FIND
+  - `[guc_name_compare](../g/guc_name_compare.md)` - Compares GUC names (case-insensitive)
+  - `[assignable_custom_variable_name](../a/assignable_custom_variable_name.md)` - Validates custom variable name format
+  - `[add_placeholder_variable](../a/add_placeholder_variable.md)` - Creates placeholder for custom variables
   - `ereport` - Reports configuration parameter errors
 - Data structures used:
-  - `GUCHashEntry` - Hash table entry containing GUC variable pointer
-  - `config_generic` - Base configuration structure for all GUC types
+  - `[GUCHashEntry](../G/GUCHashEntry.md)` - [Hash](../H/Hash.md) table entry containing GUC variable pointer
+  - `[config_generic](../c/config_generic.md)` - Base configuration structure for all GUC types
   - `map_old_guc_names` - Array mapping obsolete names to current names
 - Called from (representative examples):
-  - `set_config_with_handle` - Sets configuration parameter values
-  - `GetConfigOption` - Retrieves current parameter values
-  - `GetConfigOptionFlags` - Gets parameter flags and metadata
-  - `SelectConfigFiles` - Configuration file processing
-  - `GUCArrayAdd`/`GUCArrayDelete` - Array parameter manipulation
+  - `[set_config_with_handle](../s/set_config_with_handle.md)` - Sets configuration parameter values
+  - `[GetConfigOption](../G/GetConfigOption.md)` - Retrieves current parameter values
+  - `[GetConfigOptionFlags](../G/GetConfigOptionFlags.md)` - Gets parameter flags and metadata
+  - `[SelectConfigFiles](../S/SelectConfigFiles.md)` - Configuration file processing
+  - `[GUCArrayAdd](../G/GUCArrayAdd.md)`/`GUCArrayDelete` - Array parameter manipulation
 
 ## Notes and Other Information
 - The function is recursive when handling obsolete parameter names - it calls itself with the current name

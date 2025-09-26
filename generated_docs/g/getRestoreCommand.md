@@ -27,18 +27,18 @@ The function only executes if restore_wal is enabled. The retrieved restore_comm
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_other_exec
-  - find_my_exec  
-  - strlcpy
+  - [find_other_exec](../f/find_other_exec.md)
+  - [find_my_exec](../f/find_my_exec.md)  
+  - [strlcpy](../s/strlcpy.md)
   - [pg_fatal](../p/pg_fatal.md)
-  - createPQExpBuffer
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)
   - [appendShellString](../a/appendShellString.md)
   - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
   - [pipe_read_line](../p/pipe_read_line.md)
-  - pg_strip_crlf
+  - [pg_strip_crlf](../p/pg_strip_crlf.md)
   - strcmp
   - pg_log_debug
-  - destroyPQExpBuffer
+  - [destroyPQExpBuffer](../d/destroyPQExpBuffer.md)
 - Called from (representative examples):
   - [main](../m/main.md) (pg_rewind.c)
 

@@ -35,8 +35,8 @@ SyncRepConfigData represents the parsed and validated configuration for synchron
   - FLEXIBLE_ARRAY_MEMBER
 - Called from (representative examples):
   - SyncStandbysDefined
-  - check_synchronous_standby_names
-  - assign_synchronous_standby_names
+  - [check_synchronous_standby_names](../c/check_synchronous_standby_names.md)
+  - [assign_synchronous_standby_names](../a/assign_synchronous_standby_names.md)
 
 ## Notes and Other Information
 - This struct must maintain a flat memory layout to be compatible with PostgreSQL's GUC (Grand Unified Configuration) system

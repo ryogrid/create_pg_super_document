@@ -26,10 +26,10 @@ The function handles parameter validation, type conversion, and ensures proper S
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _SPI_begin_call (establishes SPI execution context)
+  - [_SPI_begin_call](_SPI_begin_call.md) (establishes SPI execution context)
   - [_SPI_convert_params](_SPI_convert_params.md) (converts parameter values to internal format)
   - [_SPI_execute_plan](_SPI_execute_plan.md) (performs the actual plan execution)
-  - _SPI_end_call (cleanup SPI execution context)
+  - [_SPI_end_call](_SPI_end_call.md) (cleanup SPI execution context)
   - [SPIPlanPtr](SPIPlanPtr.md) (prepared plan type)
   - [SPIExecuteOptions](SPIExecuteOptions.md) (execution options structure)
 - Called from (representative examples):

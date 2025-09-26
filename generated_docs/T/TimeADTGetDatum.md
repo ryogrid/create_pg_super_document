@@ -21,12 +21,12 @@ The function is defined as a static inline function in the header file, meaning 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Int64GetDatum (underlying conversion mechanism)
+  - [Int64GetDatum](../I/Int64GetDatum.md) (underlying conversion mechanism)
   - TimeADT (source type for conversion)
 - Called from (representative examples):
-  - ExecEvalSQLValueFunction (SQL function execution)
-  - parse_datetime (date/time parsing operations)
-  - executeDateTimeMethod (JSON path execution for time operations)
+  - [ExecEvalSQLValueFunction](../E/ExecEvalSQLValueFunction.md) (SQL function execution)
+  - [parse_datetime](../p/parse_datetime.md) (date/time parsing operations)
+  - [executeDateTimeMethod](../e/executeDateTimeMethod.md) (JSON path execution for time operations)
   - PG_RETURN_TIMEADT (function return value macro)
 
 ## Notes and Other Information

@@ -32,7 +32,7 @@ For each non-dropped attribute in the parent relation, the function:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - RelationGetDescr
   - TupleDescAttr
   - NameStr
@@ -43,7 +43,7 @@ For each non-dropped attribute in the parent relation, the function:
   - RelationGetRelationName
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - [heap_freetuple](../h/heap_freetuple.md)
-  - table_close
+  - [table_close](../t/table_close.md)
 - Called from (representative examples):
   - [CreateInheritance](../C/CreateInheritance.md)
   - child_dependency_type

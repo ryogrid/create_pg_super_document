@@ -44,7 +44,7 @@ The function performs these operations:
   - [ExtendBufferedRel](../E/ExtendBufferedRel.md)
   - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)
   - [BufferGetPage](../B/BufferGetPage.md)
-  - PageInit
+  - [PageInit](../P/PageInit.md)
   - [PageGetSpecialPointer](../P/PageGetSpecialPointer.md)
   - HeapTupleHeaderSetXmin
   - HeapTupleHeaderSetXminFrozen

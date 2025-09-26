@@ -22,7 +22,7 @@ This function performs a generalized test to determine if a given operand (from 
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (macro for node type checking)
-  - list_head (list traversal function)
+  - [list_head](../l/list_head.md) (list traversal function)
   - [lnext](../l/lnext.md) (list navigation function) 
   - [equal](../e/equal.md) (deep equality comparison for expression trees)
   - elog (error logging function)
@@ -36,7 +36,7 @@ This function performs a generalized test to determine if a given operand (from 
 ## Notes and Other Information
 - The function is exported for use in selfuncs.c for selectivity estimation
 - Collations are not checked by this function; the caller must verify collation compatibility separately
-- RelabelType nodes are automatically stripped to handle binary-compatible operator cases
+- [RelabelType](../R/RelabelType.md) nodes are automatically stripped to handle binary-compatible operator cases
 - For expression indexes, the function searches through the index's expression list to find the matching expression
 - Returns false if no match is found, true if the operand matches the specified index column
 - Critical for determining index usability during query planning and optimization

@@ -33,10 +33,10 @@ The has_version boolean field explicitly tracks whether a version was specified 
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (for type identification)
-  - List (PostgreSQL's list data structure)
+  - [List](../L/List.md) (PostgreSQL's list data structure)
 - Called from (representative examples):
-  - AlterForeignServer (src/backend/commands/foreigncmds.c:985)
-  - ProcessUtilitySlow (src/backend/tcop/utility.c:1599)
+  - [AlterForeignServer](AlterForeignServer.md) (src/backend/commands/foreigncmds.c:985)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (src/backend/tcop/utility.c:1599)
 
 ## Notes and Other Information
 - This structure is defined in src/include/nodes/parsenodes.h following CreateForeignServerStmt

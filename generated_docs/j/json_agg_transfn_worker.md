@@ -23,7 +23,7 @@ This function serves as the workhorse for JSON aggregation operations, implement
   - [AggCheckCallContext](../A/AggCheckCallContext.md) (to validate aggregate execution context)
   - [get_fn_expr_argtype](../g/get_fn_expr_argtype.md) (to determine input data type)
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (for memory management in aggregate context)
-  - makeStringInfo (to create the JSON array buffer)
+  - [makeStringInfo](../m/makeStringInfo.md) (to create the JSON array buffer)
   - [json_categorize_type](json_categorize_type.md) (to categorize input type for JSON conversion)
   - [datum_to_json_internal](../d/datum_to_json_internal.md) (to convert individual values to JSON)
 - Called from:

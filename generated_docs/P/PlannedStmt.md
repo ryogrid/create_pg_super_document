@@ -112,7 +112,7 @@ The structure includes execution metadata such as whether the statement returns 
   - [ProcessQuery](ProcessQuery.md) (tcop/pquery.c:136)
   - [PortalStart](PortalStart.md) (tcop/pquery.c:495,547,569)
   - [InitPlan](../I/InitPlan.md) (executor/execMain.c:829)
-  - ExecSerializePlan (executor/execParallel.c:147,174)
+  - [ExecSerializePlan](../E/ExecSerializePlan.md) (executor/execParallel.c:147,174)
 
 ## Notes and Other Information
 - [PlannedStmt](PlannedStmt.md) nodes do not support the equal() function, as there is currently no need for equality comparison of execution plans

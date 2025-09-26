@@ -24,7 +24,7 @@ The function's primary responsibility is to format the resolved expression node 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_rule_expr (for recursive expression formatting)
+  - [get_rule_expr](get_rule_expr.md) (for recursive expression formatting)
 - Called from (representative examples):
   - [get_variable](get_variable.md) (via resolve_special_varno callback mechanism)
 

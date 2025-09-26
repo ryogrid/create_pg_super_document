@@ -24,12 +24,12 @@ This function is typically used in domain constraint checking code paths where s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - errdatatype
-  - err_generic_string
+  - [errdatatype](errdatatype.md)
+  - [err_generic_string](err_generic_string.md)
   - PG_DIAG_CONSTRAINT_NAME (error diagnostic field constant)
 - Called from (representative examples):
-  - ExecEvalConstraintCheck
-  - domain_check_input
+  - [ExecEvalConstraintCheck](../E/ExecEvalConstraintCheck.md)
+  - [domain_check_input](../d/domain_check_input.md)
 
 ## Notes and Other Information
 - The function always returns 0, as the return value is not meaningful

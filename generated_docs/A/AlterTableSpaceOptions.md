@@ -17,7 +17,7 @@ This function implements the ALTER TABLESPACE ... SET/RESET option functionality
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open: Opens pg_tablespace relation with RowExclusiveLock
+  - [table_open](../t/table_open.md): Opens pg_tablespace relation with RowExclusiveLock
   - [ScanKeyInit](../S/ScanKeyInit.md): Initializes scan key for catalog lookup
   - [table_beginscan_catalog](../t/table_beginscan_catalog.md): Begins catalog table scan
   - [heap_getnext](../h/heap_getnext.md): Retrieves next heap tuple from scan
@@ -31,7 +31,7 @@ This function implements the ALTER TABLESPACE ... SET/RESET option functionality
   - InvokeObjectPostAlterHook: Triggers post-alter event hooks
   - [heap_freetuple](../h/heap_freetuple.md): Frees allocated heap tuple memory
   - [table_endscan](../t/table_endscan.md): Ends table scan
-  - table_close: Closes relation
+  - [table_close](../t/table_close.md): Closes relation
 
 - Called from (representative examples):
   - [standard_ProcessUtility](../s/standard_ProcessUtility.md): Main utility command processing handler

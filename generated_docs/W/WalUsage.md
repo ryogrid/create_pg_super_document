@@ -30,12 +30,12 @@ The struct is designed to measure WAL activity that is directly attributable to 
 - Functions called/Symbols referenced:
   - None (simple data structure)
 - Called from (representative examples):
-  - WalUsageAdd
-  - WalUsageAccumDiff
-  - InstrEndParallelQuery
-  - InstrAccumParallelQuery
-  - show_wal_usage (EXPLAIN output)
-  - pgstat_flush_wal
+  - [WalUsageAdd](WalUsageAdd.md)
+  - [WalUsageAccumDiff](WalUsageAccumDiff.md)
+  - [InstrEndParallelQuery](../I/InstrEndParallelQuery.md)
+  - [InstrAccumParallelQuery](../I/InstrAccumParallelQuery.md)
+  - [show_wal_usage](../s/show_wal_usage.md) (EXPLAIN output)
+  - [pgstat_flush_wal](../p/pgstat_flush_wal.md)
   - parallel vacuum operations
   - parallel index building
 

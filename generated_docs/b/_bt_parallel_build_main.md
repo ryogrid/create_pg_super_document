@@ -33,11 +33,11 @@ The function handles both unique and non-unique index builds, setting up seconda
 - Functions called/Symbols referenced:
   - [shm_toc_lookup](../s/shm_toc_lookup.md)
   - [pgstat_report_activity](../p/pgstat_report_activity.md)
-  - table_open/index_open
+  - [table_open](../t/table_open.md)/index_open
   - [tuplesort_attach_shared](../t/tuplesort_attach_shared.md)
   - [InstrStartParallelQuery](../I/InstrStartParallelQuery.md)/InstrEndParallelQuery
   - [_bt_parallel_scan_and_sort](_bt_parallel_scan_and_sort.md)
-  - table_close/index_close
+  - [table_close](../t/table_close.md)/index_close
 - Called from (representative examples):
   - Parallel worker processes launched during B-tree index creation
 

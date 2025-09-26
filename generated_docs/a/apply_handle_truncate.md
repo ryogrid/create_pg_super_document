@@ -33,7 +33,7 @@ The function includes comprehensive handling of edge cases such as temporary tab
   - [handle_streamed_transaction](../h/handle_streamed_transaction.md)  
   - [begin_replication_step](../b/begin_replication_step.md)
   - [logicalrep_read_truncate](../l/logicalrep_read_truncate.md)
-  - logicalrep_rel_open
+  - [logicalrep_rel_open](../l/logicalrep_rel_open.md)
   - [should_apply_changes_for_rel](../s/should_apply_changes_for_rel.md)
   - [TargetPrivilegesCheck](../T/TargetPrivilegesCheck.md)
   - [find_all_inheritors](../f/find_all_inheritors.md)

@@ -25,11 +25,11 @@ The function implements a security model requiring explicit pg_write_server_file
 - Functions called/Symbols referenced:
   - [palloc0](../p/palloc0.md)
   - [StartTransactionCommand](../S/StartTransactionCommand.md)/CommitTransactionCommand  
-  - has_privs_of_role
+  - [has_privs_of_role](../h/has_privs_of_role.md)
   - [GetUserId](../G/GetUserId.md)
   - is_absolute_path
-  - pg_check_dir
-  - MakePGDirectory
+  - [pg_check_dir](../p/pg_check_dir.md)
+  - [MakePGDirectory](../M/MakePGDirectory.md)
   - ereport
   - bbsink_server_ops
 - Called from (representative examples):

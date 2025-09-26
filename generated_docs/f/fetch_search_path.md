@@ -26,7 +26,7 @@ A notable side effect is that this function may trigger a CommandCounterIncremen
   - [AccessTempTableNamespace](../A/AccessTempTableNamespace.md)
   - [list_copy](../l/list_copy.md)
   - linitial_oid
-  - list_delete_first
+  - [list_delete_first](../l/list_delete_first.md)
 - Called from (representative examples):
   - [CreateExtensionInternal](../C/CreateExtensionInternal.md)
   - [ObjectsInPublicationToOids](../O/ObjectsInPublicationToOids.md)

@@ -42,7 +42,7 @@ The function performs several safety checks to ensure semantic correctness, avoi
   - [expression_returns_set](../e/expression_returns_set.md) (checks if expression returns multiple rows)
   - [contain_volatile_functions](../c/contain_volatile_functions.md) (checks for functions with side effects)
   - [makeNullConst](../m/makeNullConst.md) (creates NULL constant with specified type)
-  - exprTypmod (gets type modifier of expression)
+  - [exprTypmod](../e/exprTypmod.md) (gets type modifier of expression)
   - [exprCollation](../e/exprCollation.md) (gets collation of expression)
 - Called from (representative examples):
   - pushdown_safe_type

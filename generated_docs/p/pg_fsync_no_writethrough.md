@@ -23,8 +23,8 @@ When enableFsync is disabled, the function immediately returns 0 without perform
   - enableFsync (global configuration variable)
   - EINTR (signal interruption errno value)
 - Called from (representative examples):
-  - pg_fsync (as the default synchronization method)
-  - issue_xlog_fsync
+  - [pg_fsync](pg_fsync.md) (as the default synchronization method)
+  - [issue_xlog_fsync](../i/issue_xlog_fsync.md)
   - PG_O_DIRECT (header reference)
 
 ## Notes and Other Information

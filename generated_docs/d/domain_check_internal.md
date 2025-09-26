@@ -30,13 +30,13 @@ The function supports both hard error (exception throwing) and soft error (error
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DomainIOData (data structure)
-  - domain_state_setup
-  - domain_check_input
+  - [DomainIOData](../D/DomainIOData.md) (data structure)
+  - [domain_state_setup](domain_state_setup.md)
+  - [domain_check_input](domain_check_input.md)
   - SOFT_ERROR_OCCURRED
 - Called from (representative examples):
-  - domain_check
-  - domain_check_safe
+  - [domain_check](domain_check.md)
+  - [domain_check_safe](domain_check_safe.md)
 
 ## Notes and Other Information
 - This is a static internal function not exposed outside domains.c

@@ -25,7 +25,7 @@ The function uses a simple linear search algorithm, comparing each variable's na
   - allvariables (global variable list)
 
 - Called from (representative examples):
-  - find_variable (main variable resolution function)
+  - [find_variable](find_variable.md) (main variable resolution function)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the variable.c file

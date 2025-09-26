@@ -29,18 +29,18 @@ The function uses heuristics that work well in practice because it only needs to
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PageGetItemId
-  - PageGetItem
-  - BTreeTupleIsPosting
+  - [PageGetItemId](../P/PageGetItemId.md)
+  - [PageGetItem](../P/PageGetItem.md)
+  - [BTreeTupleIsPosting](../B/BTreeTupleIsPosting.md)
   - ItemIdGetLength
-  - BTreeTupleGetNPosting
-  - _bt_posting_valid
-  - BTreeTupleGetHeapTID
-  - BTreeTupleGetPostingN
-  - BTreeTupleGetMaxHeapTID
-  - ItemPointerGetBlockNumber
+  - [BTreeTupleGetNPosting](../B/BTreeTupleGetNPosting.md)
+  - [_bt_posting_valid](_bt_posting_valid.md)
+  - [BTreeTupleGetHeapTID](../B/BTreeTupleGetHeapTID.md)
+  - [BTreeTupleGetPostingN](../B/BTreeTupleGetPostingN.md)
+  - [BTreeTupleGetMaxHeapTID](../B/BTreeTupleGetMaxHeapTID.md)
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)
 - Called from:
-  - _bt_bottomupdel_pass
+  - [_bt_bottomupdel_pass](_bt_bottomupdel_pass.md)
 
 ## Notes and Other Information
 - This is a static function within the nbtdedup.c module, part of PostgreSQL's B-tree deduplication system

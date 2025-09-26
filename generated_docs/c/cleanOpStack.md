@@ -24,8 +24,8 @@ The cleanOpStack function implements operator precedence handling in tsquery par
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TSQueryParserState (parser state structure)
-  - OperatorElement (stack element structure)
+  - [TSQueryParserState](../T/TSQueryParserState.md) (parser state structure)
+  - [OperatorElement](../O/OperatorElement.md) (stack element structure)
   - OP_PRIORITY (macro for operator precedence)
   - OP_NOT (NOT operator constant)
   - [pushOperator](../p/pushOperator.md) (function to output operators in postfix form)

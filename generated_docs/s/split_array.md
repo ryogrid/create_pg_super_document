@@ -20,7 +20,7 @@ This function implements the recursive logic for transforming multi-dimensional 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth
+  - [check_stack_depth](../c/check_stack_depth.md)
   - [make_array_ref](../m/make_array_ref.md)
   - [split_array](split_array.md) (recursive call)
   - newRV_noinc

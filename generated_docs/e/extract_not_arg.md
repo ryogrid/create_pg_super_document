@@ -27,8 +27,8 @@ The function is essential for predicate testing logic where the optimizer needs 
 - Functions called/Symbols referenced:
   - IsA (for node type checking)
   - linitial (for accessing first list element)
-  - BoolExpr (boolean expression node type)
-  - BooleanTest (boolean test node type)  
+  - [BoolExpr](../B/BoolExpr.md) (boolean expression node type)
+  - [BooleanTest](../B/BooleanTest.md) (boolean test node type)  
   - NOT_EXPR (boolean NOT operation type)
   - IS_NOT_TRUE, IS_FALSE, IS_UNKNOWN (boolean test types)
 - Called from (representative examples):

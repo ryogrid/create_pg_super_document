@@ -26,11 +26,11 @@ CompositeTypeStmt is a parse tree node that represents CREATE TYPE statements us
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RangeVar
+  - [RangeVar](../R/RangeVar.md)
   - NodeTag
-  - List (containing ColumnDef nodes)
+  - [List](../L/List.md) (containing ColumnDef nodes)
 - Called from (representative examples):
-  - ProcessUtilitySlow
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md)
 
 ## Notes and Other Information
 - Composite types can be used as column types in tables, function parameters, and return types

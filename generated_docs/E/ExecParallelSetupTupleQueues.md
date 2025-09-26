@@ -39,9 +39,9 @@ The function ensures that parallel workers have a reliable mechanism to stream r
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc](../p/palloc.md) (memory allocation)
-  - shm_toc_allocate (allocate shared memory space)
+  - [shm_toc_allocate](../s/shm_toc_allocate.md) (allocate shared memory space)
   - [shm_toc_lookup](../s/shm_toc_lookup.md) (find existing shared memory space)
-  - shm_toc_insert (register shared memory space)
+  - [shm_toc_insert](../s/shm_toc_insert.md) (register shared memory space)
   - [shm_mq_create](../s/shm_mq_create.md) (create message queue)
   - [shm_mq_set_receiver](../s/shm_mq_set_receiver.md) (set queue receiver process)
   - [shm_mq_attach](../s/shm_mq_attach.md) (attach to queue for communication)

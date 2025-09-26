@@ -24,11 +24,11 @@ None - uses configuration determined by other CLOG functions
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CLOGShmemBuffers (to get buffer count)
-  - SimpleLruShmemSize (generic SLRU memory calculator)
+  - [CLOGShmemBuffers](CLOGShmemBuffers.md) (to get buffer count)
+  - [SimpleLruShmemSize](../S/SimpleLruShmemSize.md) (generic SLRU memory calculator)
   - CLOG_LSNS_PER_PAGE (constant defining LSN entries per page)
 - Called from:
-  - CalculateShmemSize (during startup shared memory planning)
+  - [CalculateShmemSize](CalculateShmemSize.md) (during startup shared memory planning)
 
 ## Notes and Other Information
 - Returns Size type (typically size_t) representing bytes of shared memory needed

@@ -33,12 +33,12 @@ RegisNode is the fundamental building block for PostgreSQL's fast regex subset i
 - Functions called/Symbols referenced:
   - FLEXIBLE_ARRAY_MEMBER (for variable-length data storage)
 - Called from (representative examples):
-  - RS_isRegis (regex pattern detection)
-  - newRegisNode (node creation)
-  - RS_compile (pattern compilation)
-  - RS_free (memory cleanup)
-  - RS_execute (pattern matching execution)
-  - Regis (parent structure that contains RegisNode)
+  - [RS_isRegis](RS_isRegis.md) (regex pattern detection)
+  - [newRegisNode](../n/newRegisNode.md) (node creation)
+  - [RS_compile](RS_compile.md) (pattern compilation)
+  - [RS_free](RS_free.md) (memory cleanup)
+  - [RS_execute](RS_execute.md) (pattern matching execution)
+  - [Regis](Regis.md) (parent structure that contains RegisNode)
 
 ## Notes and Other Information
 - The structure uses bitfields for memory efficiency, packing type and length information into a single 32-bit word

@@ -29,14 +29,14 @@ The function includes logic to avoid redundant FORMAT specifications: it only ca
 ## Dependencies
 - Functions called/Symbols referenced:
   - OidIsValid (macro to check if OID is valid)
-  - appendStringInfo (appends formatted text to StringInfo buffer)
-  - format_type_with_typemod (formats type name with type modifiers)
-  - get_json_format (handles FORMAT and ENCODING clause decompilation)
+  - [appendStringInfo](../a/appendStringInfo.md) (appends formatted text to StringInfo buffer)
+  - [format_type_with_typemod](../f/format_type_with_typemod.md) (formats type name with type modifiers)
+  - [get_json_format](get_json_format.md) (handles FORMAT and ENCODING clause decompilation)
   - JSONBOID (OID constant for JSONB type)
   - JS_FORMAT_JSON, JS_FORMAT_JSONB (enum values for JSON format types)
 - Called from (representative examples):
-  - get_rule_expr (general expression decompilation)
-  - get_json_constructor_options (JSON constructor options decompilation)
+  - [get_rule_expr](get_rule_expr.md) (general expression decompilation)
+  - [get_json_constructor_options](get_json_constructor_options.md) (JSON constructor options decompilation)
 
 ## Notes and Other Information
 - This is a static function local to ruleutils.c, part of the internal decompilation infrastructure

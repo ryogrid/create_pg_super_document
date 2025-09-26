@@ -21,7 +21,7 @@ The  function is a PostgreSQL C function designed for use in regression testing 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - superuser: Checks if current user has superuser privileges
+  - [superuser](../s/superuser.md): Checks if current user has superuser privileges
   - kill: System call used to check process existence (with signal 0)
   - CHECK_FOR_INTERRUPTS: Macro to handle PostgreSQL interrupts during polling loop
   - [pg_usleep](../p/pg_usleep.md): PostgreSQL's microsecond sleep function (sleeps for 50ms)

@@ -22,7 +22,7 @@ The `binaryheap_reset` function efficiently clears all data from a binary heap w
   - [binaryheap](binaryheap.md) (struct type)
 - Called from (representative examples):
   - [gather_merge_init](../g/gather_merge_init.md)
-  - ExecReScanMergeAppend
+  - [ExecReScanMergeAppend](../E/ExecReScanMergeAppend.md)
   - [pgarch_readyXlog](../p/pgarch_readyXlog.md)
 
 ## Notes and Other Information

@@ -33,13 +33,13 @@ This context is used within PostgreSQL's unified cryptographic hash interface ()
   - MD5_BUFLEN (constant defining buffer size)
   - uint32, uint8, uint64 (standard integer types)
 - Called from (representative examples):
-  - pg_cryptohash_ctx (used as union member for unified hash interface)
-  - pg_md5_init (initializes the context)
-  - pg_md5_update (updates context with new data)
-  - pg_md5_final (finalizes hash computation)
-  - md5_calc (internal MD5 calculation functions)
-  - md5_pad (internal MD5 padding functions)
-  - md5_result (internal MD5 result functions)
+  - [pg_cryptohash_ctx](pg_cryptohash_ctx.md) (used as union member for unified hash interface)
+  - [pg_md5_init](pg_md5_init.md) (initializes the context)
+  - [pg_md5_update](pg_md5_update.md) (updates context with new data)
+  - [pg_md5_final](pg_md5_final.md) (finalizes hash computation)
+  - [md5_calc](../m/md5_calc.md) (internal MD5 calculation functions)
+  - [md5_pad](../m/md5_pad.md) (internal MD5 padding functions)
+  - [md5_result](../m/md5_result.md) (internal MD5 result functions)
 
 ## Notes and Other Information
 - This structure is part of PostgreSQL's fallback MD5 implementation, used when system-provided cryptographic libraries are not available or suitable

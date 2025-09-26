@@ -21,7 +21,7 @@ This function sets up a hash table that serves as a cache for compiled PL/Python
 ## Dependencies
 - Functions called/Symbols referenced:
   - [hash_create](../h/hash_create.md) (PostgreSQL hash table creation function)
-  - HASHCTL (hash table control structure)
+  - [HASHCTL](../H/HASHCTL.md) (hash table control structure)
   - [PLyProcedureKey](../P/PLyProcedureKey.md) (key structure for procedure cache)
   - [PLyProcedureEntry](../P/PLyProcedureEntry.md) (entry structure for cached procedures)
   - HASH_ELEM (hash table flag for element-based hashing)

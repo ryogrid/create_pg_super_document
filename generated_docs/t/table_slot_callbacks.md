@@ -26,7 +26,7 @@ The function centralizes the knowledge of which slot type is appropriate for eac
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TupleTableSlotOps (structure type)
+  - [TupleTableSlotOps](../T/TupleTableSlotOps.md) (structure type)
   - TTSOpsHeapTuple (global variable)
   - TTSOpsVirtual (global variable)
   - RELKIND_FOREIGN_TABLE (constant)

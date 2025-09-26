@@ -28,7 +28,7 @@ Anonymous windows (those with NULL names) are deliberately ignored since they ap
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendContextKeyword (for formatted keyword output with indentation)
+  - [appendContextKeyword](../a/appendContextKeyword.md) (for formatted keyword output with indentation)
   - [quote_identifier](../q/quote_identifier.md) (for proper SQL identifier quoting)  
   - [get_rule_windowspec](get_rule_windowspec.md) (to format individual window specifications)
 - Called from (representative examples):

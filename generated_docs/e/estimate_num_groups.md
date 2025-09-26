@@ -37,12 +37,12 @@ The function includes advanced features like multivariate statistics support and
 ## Dependencies
 - Functions called/Symbols referenced:
   - [clamp_row_est](../c/clamp_row_est.md): Ensures row estimates stay within reasonable bounds
-  - examine_variable: Extracts statistics for variables and expressions
+  - [examine_variable](examine_variable.md): Extracts statistics for variables and expressions
   - [add_unique_group_var](../a/add_unique_group_var.md): Maintains deduplicated list of grouping variables
   - [expression_returns_set_rows](expression_returns_set_rows.md): Handles set-returning functions in GROUP BY
   - [pull_var_clause](../p/pull_var_clause.md): Extracts variables from complex expressions
   - [contain_volatile_functions](../c/contain_volatile_functions.md): Detects expressions with unpredictable results
-  - estimate_multivariate_ndistinct: Uses extended statistics for correlated variables
+  - [estimate_multivariate_ndistinct](estimate_multivariate_ndistinct.md): Uses extended statistics for correlated variables
   - EstimationInfo/SELFLAG_USED_DEFAULT: Tracks when default estimates are used
 - Called from (representative examples):
   - [get_number_of_groups](../g/get_number_of_groups.md): Primary interface for GROUP BY cardinality estimation

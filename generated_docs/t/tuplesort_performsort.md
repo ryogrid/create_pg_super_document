@@ -34,21 +34,21 @@ The function also initializes scan state variables (`current`, `eof_reached`, `m
 - Functions called/Symbols referenced:
   - `SERIAL`: Macro to check if this is a serial sort operation
   - `WORKER`: Macro to check if this is a parallel worker
-  - `tuplesort_sort_memtuples`: Performs in-memory quicksort
-  - `inittapes`: Initializes tape infrastructure for external sorting
-  - `dumptuples`: Writes tuples from memory to tape
-  - `worker_nomergeruns`: Handles worker completion without merging
-  - `leader_takeover_tapes`: Leader process takes control of worker tapes
-  - `mergeruns`: Performs multi-way merge of sorted runs
-  - `sort_bounded_heap`: Converts heap to sorted array for bounded sorts
-  - `pg_rusage_show`: Displays resource usage for debugging
+  - `[tuplesort_sort_memtuples](tuplesort_sort_memtuples.md)`: Performs in-memory quicksort
+  - `[inittapes](../i/inittapes.md)`: Initializes tape infrastructure for external sorting
+  - `[dumptuples](../d/dumptuples.md)`: Writes tuples from memory to tape
+  - `[worker_nomergeruns](../w/worker_nomergeruns.md)`: Handles worker completion without merging
+  - `[leader_takeover_tapes](../l/leader_takeover_tapes.md)`: Leader process takes control of worker tapes
+  - `[mergeruns](../m/mergeruns.md)`: Performs multi-way merge of sorted runs
+  - `[sort_bounded_heap](../s/sort_bounded_heap.md)`: Converts heap to sorted array for bounded sorts
+  - `[pg_rusage_show](../p/pg_rusage_show.md)`: Displays resource usage for debugging
 
 - Called from (representative examples):
-  - `_brin_parallel_merge` (src/backend/access/brin/brin.c:2624)
-  - `gistbuild` (src/backend/access/gist/gistbuild.c:281) 
-  - `_bt_leafbuild` (src/backend/access/nbtree/nbtsort.c:551, 556)
-  - `ExecSort` (src/backend/executor/nodeSort.c:160)
-  - `ExecIncrementalSort` (src/backend/executor/nodeIncrementalSort.c:696, 777, 817, 931)
+  - `[_brin_parallel_merge](../b/_brin_parallel_merge.md)` (src/backend/access/brin/brin.c:2624)
+  - `[gistbuild](../g/gistbuild.md)` (src/backend/access/gist/gistbuild.c:281) 
+  - `[_bt_leafbuild](../b/_bt_leafbuild.md)` (src/backend/access/nbtree/nbtsort.c:551, 556)
+  - `[ExecSort](../E/ExecSort.md)` (src/backend/executor/nodeSort.c:160)
+  - `[ExecIncrementalSort](../E/ExecIncrementalSort.md)` (src/backend/executor/nodeIncrementalSort.c:696, 777, 817, 931)
   - Various aggregate functions in `orderedsetaggs.c`
 
 ## Notes and Other Information

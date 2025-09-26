@@ -40,8 +40,8 @@ This function handles the execution of AFTER ROW UPDATE triggers and transition 
   - [ExecGetTriggerOldSlot](ExecGetTriggerOldSlot.md)
   - [GetTupleForTrigger](../G/GetTupleForTrigger.md)
   - [ExecForceStoreHeapTuple](ExecForceStoreHeapTuple.md)
-  - ExecClearTuple
-  - AfterTriggerSaveEvent
+  - [ExecClearTuple](ExecClearTuple.md)
+  - [AfterTriggerSaveEvent](../A/AfterTriggerSaveEvent.md)
   - [ExecGetAllUpdatedCols](ExecGetAllUpdatedCols.md)
   - [ItemPointerIsValid](../I/ItemPointerIsValid.md)
 - Called from (representative examples):

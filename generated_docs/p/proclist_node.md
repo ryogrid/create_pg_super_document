@@ -30,13 +30,13 @@ The  structure implements a doubly-linked list node for managing PostgreSQL proc
 - Functions called/Symbols referenced:
   - ProcNumber (typedef used for next/prev fields)
 - Called from (representative examples):
-  - PGPROC (contains proclist_node members)
-  - proclist_is_empty
-  - proclist_node_get
-  - proclist_push_head_offset
-  - proclist_push_tail_offset
-  - proclist_delete_offset
-  - proclist_contains_offset
+  - [PGPROC](../P/PGPROC.md) (contains proclist_node members)
+  - [proclist_is_empty](proclist_is_empty.md)
+  - [proclist_node_get](proclist_node_get.md)
+  - [proclist_push_head_offset](proclist_push_head_offset.md)
+  - [proclist_push_tail_offset](proclist_push_tail_offset.md)
+  - [proclist_delete_offset](proclist_delete_offset.md)
+  - [proclist_contains_offset](proclist_contains_offset.md)
 
 ## Notes and Other Information
 - This structure is designed for use in shared memory contexts where traditional pointer-based linked lists would be problematic

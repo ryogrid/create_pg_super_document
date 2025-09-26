@@ -25,8 +25,8 @@ This separation is crucial for PostgreSQL's transaction handling, as it allows t
 - Functions called/Symbols referenced:
   - [raw_parser](../r/raw_parser.md)
   - RAW_PARSE_DEFAULT
-  - ResetUsage
-  - ShowUsage
+  - [ResetUsage](../R/ResetUsage.md)
+  - [ShowUsage](../S/ShowUsage.md)
   - copyObject (debugging)
   - [equal](../e/equal.md) (debugging)
   - [nodeToStringWithLocations](../n/nodeToStringWithLocations.md) (debugging)

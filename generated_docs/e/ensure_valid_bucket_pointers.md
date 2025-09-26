@@ -23,17 +23,17 @@ This synchronization mechanism allows multiple backends to safely access the sam
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dsa_get_address (retrieves current address of shared bucket array)
+  - [dsa_get_address](../d/dsa_get_address.md) (retrieves current address of shared bucket array)
 - Types used:
-  - dshash_table
-  - dshash_table_item (referenced in source but not used directly)
+  - [dshash_table](../d/dshash_table.md)
+  - [dshash_table_item](../d/dshash_table_item.md) (referenced in source but not used directly)
 - Called from (representative examples):
-  - dshash_destroy
-  - dshash_find
-  - dshash_find_or_insert
-  - dshash_delete_key
-  - dshash_seq_next
-  - dshash_dump
+  - [dshash_destroy](../d/dshash_destroy.md)
+  - [dshash_find](../d/dshash_find.md)
+  - [dshash_find_or_insert](../d/dshash_find_or_insert.md)
+  - [dshash_delete_key](../d/dshash_delete_key.md)
+  - [dshash_seq_next](../d/dshash_seq_next.md)
+  - [dshash_dump](../d/dshash_dump.md)
   - BUCKET_FOR_HASH (macro)
 
 ## Notes and Other Information

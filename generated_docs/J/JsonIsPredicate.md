@@ -36,20 +36,20 @@ The predicate is commonly used in conditional expressions, WHERE clauses, and CH
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonFormat
+  - [JsonFormat](JsonFormat.md)
   - JsonValueType
   - ParseLoc
-  - Node
+  - [Node](../N/Node.md)
 
 - Called from (representative examples):
-  - ExecInitExprRec
-  - ExecEvalJsonIsPredicate
-  - makeJsonIsPredicate
-  - transformJsonIsPredicate
-  - transformExprRecurse
-  - get_rule_expr
-  - exprLocation
-  - raw_expression_tree_walker_impl
+  - [ExecInitExprRec](../E/ExecInitExprRec.md)
+  - [ExecEvalJsonIsPredicate](../E/ExecEvalJsonIsPredicate.md)
+  - [makeJsonIsPredicate](../m/makeJsonIsPredicate.md)
+  - [transformJsonIsPredicate](../t/transformJsonIsPredicate.md)
+  - [transformExprRecurse](../t/transformExprRecurse.md)
+  - [get_rule_expr](../g/get_rule_expr.md)
+  - [exprLocation](../e/exprLocation.md)
+  - [raw_expression_tree_walker_impl](../r/raw_expression_tree_walker_impl.md)
 
 ## Notes and Other Information
 - Supports various JSON item type validations beyond basic JSON validity

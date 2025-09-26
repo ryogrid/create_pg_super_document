@@ -32,15 +32,15 @@ The function uses a callback mechanism (chkcond) to test individual query operan
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth
+  - [check_stack_depth](../c/check_stack_depth.md)
   - palloc0_object
   - list_make1
   - [list_concat](../l/list_concat.md)
-  - lappend
-  - TS_phrase_execute
+  - [lappend](../l/lappend.md)
+  - [TS_phrase_execute](TS_phrase_execute.md)
   - TS_phrase_output
 - Called from (representative examples):
-  - TS_execute_locations
+  - [TS_execute_locations](TS_execute_locations.md)
   - [TS_execute_locations_recurse](TS_execute_locations_recurse.md) (recursive calls)
 
 ## Notes and Other Information

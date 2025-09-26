@@ -25,14 +25,14 @@ This function takes no parameters.
   - ErrorContext (global memory context)
 
 - Called from (representative examples):
-  - _SPI_commit
+  - [_SPI_commit](../S/_SPI_commit.md)
   - [_SPI_rollback](../S/_SPI_rollback.md)
   - [PostgresMain](../P/PostgresMain.md)
   - [BackgroundWriterMain](../B/BackgroundWriterMain.md)
   - [CheckpointerMain](../C/CheckpointerMain.md)
   - [plperl_spi_exec](../p/plperl_spi_exec.md)
   - [PLy_output](../P/PLy_output.md)
-  - pltcl_elog
+  - [pltcl_elog](../p/pltcl_elog.md)
 
 ## Notes and Other Information
 - Must be called by error handlers when done processing errors, or immediately after CopyErrorData if further error-prone operations are planned

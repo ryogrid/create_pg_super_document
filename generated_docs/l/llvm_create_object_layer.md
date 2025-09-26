@@ -35,7 +35,7 @@ The function is a callback used by LLVM's JIT stack creation process and is esse
   - LLVMOrcRTDyldObjectLinkingLayerRegisterJITEventListener (conditional)
   - USE_LLVM_BACKPORT_SECTION_MEMORY_MANAGER (compile-time flag)
 - Called from (representative examples):
-  - llvm_create_jit_instance (as object layer creation callback)
+  - [llvm_create_jit_instance](llvm_create_jit_instance.md) (as object layer creation callback)
 
 ## Notes and Other Information
 - This is a static function local to llvmjit.c

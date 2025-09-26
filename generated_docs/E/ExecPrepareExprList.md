@@ -20,7 +20,7 @@ ExecPrepareExprList is a utility function that iterates through a list of expres
 - Functions called/Symbols referenced:
   - [ExecPrepareExpr](ExecPrepareExpr.md)
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
-  - lappend
+  - [lappend](../l/lappend.md)
   - lfirst
   - foreach
 - Called from (representative examples):
@@ -28,7 +28,7 @@ ExecPrepareExprList is a utility function that iterates through a list of expres
   - [EvaluateParams](EvaluateParams.md)  
   - [FormPartitionKeyDatum](../F/FormPartitionKeyDatum.md)
   - [make_build_data](../m/make_build_data.md)
-  - ExecProcNode
+  - [ExecProcNode](ExecProcNode.md)
 
 ## Notes and Other Information
 - The function performs memory context switching to ensure list cell nodes are allocated in the correct context (estate's query context)

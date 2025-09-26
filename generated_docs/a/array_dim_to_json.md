@@ -30,13 +30,13 @@ array_dim_to_json is a recursive function that handles the conversion of Postgre
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - datum_to_json_internal (for converting individual array elements)
-  - array_dim_to_json (recursive call for inner dimensions)
-  - appendStringInfoChar, appendStringInfoString (for building JSON string)
+  - [datum_to_json_internal](../d/datum_to_json_internal.md) (for converting individual array elements)
+  - [array_dim_to_json](array_dim_to_json.md) (recursive call for inner dimensions)
+  - [appendStringInfoChar](appendStringInfoChar.md), appendStringInfoString (for building JSON string)
   - JsonTypeCategory (enumeration type)
 - Called from (representative examples):
-  - array_to_json_internal
-  - array_dim_to_json (recursive calls)
+  - [array_to_json_internal](array_to_json_internal.md)
+  - [array_dim_to_json](array_dim_to_json.md) (recursive calls)
 
 ## Notes and Other Information
 The function uses a recursive approach where each call handles one dimension level. Line feeds are only used for the outermost dimension when use_line_feeds is true - inner dimensions always use compact formatting without line feeds. The valcount parameter is incremented only when processing the innermost dimension elements, ensuring proper traversal through the flattened array values.

@@ -23,7 +23,7 @@ This function is part of PostgreSQL's fmgr (function manager) interface macros f
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DatumGetPointer](DatumGetPointer.md)
-  - macaddr
+  - [macaddr](../m/macaddr.md)
 - Called from (representative examples):
   - [macaddr_fast_cmp](../m/macaddr_fast_cmp.md)
   - [macaddr_abbrev_convert](../m/macaddr_abbrev_convert.md)
@@ -32,7 +32,7 @@ This function is part of PostgreSQL's fmgr (function manager) interface macros f
 
 ## Notes and Other Information
 - This is an inline function defined in src/include/utils/inet.h for performance
-- macaddr is a fixed-length datatype, so no detoasting is required
+- [macaddr](../m/macaddr.md) is a fixed-length datatype, so no detoasting is required
 - Used for MAC address comparison operations and data conversion
 - Part of the PostgreSQL function manager interface for type conversion
 - Much simpler than inet conversion functions due to fixed-length nature of MAC addresses

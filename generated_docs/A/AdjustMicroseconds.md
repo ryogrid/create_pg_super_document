@@ -24,12 +24,12 @@ This function is critical for accurate time interval calculations, ensuring that
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - int64_multiply_add (for safe integer arithmetic with overflow checking)
-  - AdjustFractMicroseconds (for handling the fractional component)
-  - pg_itm_in (structure type)
+  - [int64_multiply_add](../i/int64_multiply_add.md) (for safe integer arithmetic with overflow checking)
+  - [AdjustFractMicroseconds](AdjustFractMicroseconds.md) (for handling the fractional component)
+  - [pg_itm_in](../p/pg_itm_in.md) (structure type)
 - Called from (representative examples):
-  - DecodeInterval (extensively for various time unit processing)
-  - DecodeISO8601Interval (for ISO 8601 interval parsing with microsecond precision)
+  - [DecodeInterval](../D/DecodeInterval.md) (extensively for various time unit processing)
+  - [DecodeISO8601Interval](../D/DecodeISO8601Interval.md) (for ISO 8601 interval parsing with microsecond precision)
 
 ## Notes and Other Information
 - Returns true on success, false if any overflow occurs during processing

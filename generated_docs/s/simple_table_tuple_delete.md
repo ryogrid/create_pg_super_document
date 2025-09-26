@@ -21,16 +21,16 @@ This function serves as a convenience wrapper around table_tuple_delete, designe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_tuple_delete
+  - [table_tuple_delete](../t/table_tuple_delete.md)
   - [GetCurrentCommandId](../G/GetCurrentCommandId.md)
   - InvalidSnapshot
   - elog
   - TM_Result (return type enum)
-  - TM_FailureData
+  - [TM_FailureData](../T/TM_FailureData.md)
   - TM_SelfModified, TM_Ok, TM_Updated, TM_Deleted (result constants)
 - Called from (representative examples):
   - [ExecSimpleRelationDelete](../E/ExecSimpleRelationDelete.md) (logical replication)
-  - table_scan_sample_next_tuple (sampling operations)
+  - [table_scan_sample_next_tuple](../t/table_scan_sample_next_tuple.md) (sampling operations)
 
 ## Notes and Other Information
 - Designed for use cases where concurrent tuple modifications should not occur

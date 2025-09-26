@@ -30,15 +30,15 @@ The structure supports filtering based on session replication roles and command 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - EventCacheLookup (function that retrieves lists of these items)
+  - [EventCacheLookup](EventCacheLookup.md) (function that retrieves lists of these items)
   - EventTriggerEvent (enum defining event types)
 - Called from (representative examples):
-  - filter_event_trigger (filters items based on replication role and tags)
-  - EventTriggerCommonSetup (processes items to build trigger execution lists)
-  - BuildEventTriggerCache (creates and populates items from pg_event_trigger catalog)
+  - [filter_event_trigger](../f/filter_event_trigger.md) (filters items based on replication role and tags)
+  - [EventTriggerCommonSetup](EventTriggerCommonSetup.md) (processes items to build trigger execution lists)
+  - [BuildEventTriggerCache](../B/BuildEventTriggerCache.md) (creates and populates items from pg_event_trigger catalog)
 
 ## Notes and Other Information
-- EventTriggerCacheItem instances are allocated in the EventTriggerCacheContext memory context and persist until the cache is rebuilt
+- [EventTriggerCacheItem](EventTriggerCacheItem.md) instances are allocated in the EventTriggerCacheContext memory context and persist until the cache is rebuilt
 - The cache is invalidated and rebuilt when changes occur to the pg_event_trigger catalog
 - The tagset field uses PostgreSQL's efficient bitmapset data structure to store command tag membership information
 - Items are stored in lists within EventTriggerCacheEntry structures, which are keyed by EventTriggerEvent in the main cache hash table

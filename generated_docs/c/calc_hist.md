@@ -33,6 +33,6 @@ The algorithm processes histogram boundaries and calculates probability contribu
 - Returns a palloc'd array of (n+1) float entries, with array[k] = probability of k distinct elements
 - Assumes histogram values are theoretically integers but handles potential floating-point roundoff errors
 - Uses uniform distribution assumption within histogram intervals: 1/((b-a+1)*(nhist-1)) per value
-- Edge values (histogram boundaries) receive additional probability weight of 0.5/interval_length
+- [Edge](../E/Edge.md) values (histogram boundaries) receive additional probability weight of 0.5/interval_length
 - Each interval between histogram values contributes frac = 1.0/(nhist-1) total probability
 - Handles cases where k does not appear as an exact histogram boundary by using interval-based calculation

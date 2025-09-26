@@ -22,9 +22,9 @@ The preservation of existing counters is important because truncation doesn't ne
 ## Dependencies
 - Functions called/Symbols referenced:
   - `pgstat_should_count_relation` - Determines if statistics should be collected for this relation
-  - `PgStat_TableStatus` - Structure type for maintaining table-level statistics
-  - `ensure_tabstat_xact_level` - Ensures transaction-level statistics tracking is initialized
-  - `save_truncdrop_counters` - Preserves current statistics counters before reset
+  - `[PgStat_TableStatus](../P/PgStat_TableStatus.md)` - Structure type for maintaining table-level statistics
+  - `[ensure_tabstat_xact_level](../e/ensure_tabstat_xact_level.md)` - Ensures transaction-level statistics tracking is initialized
+  - `[save_truncdrop_counters](../s/save_truncdrop_counters.md)` - Preserves current statistics counters before reset
 
 - Called from (representative examples):
   - [RefreshMatViewByOid](../R/RefreshMatViewByOid.md) - When refreshing materialized views

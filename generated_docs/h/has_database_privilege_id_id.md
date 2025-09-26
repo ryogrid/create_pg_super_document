@@ -23,7 +23,7 @@ This SQL-callable function determines whether a user (specified by role OID) has
 - Functions called/Symbols referenced:
   - [convert_database_priv_string](../c/convert_database_priv_string.md): Converts privilege string to AclMode bitmask
   - [object_aclcheck_ext](../o/object_aclcheck_ext.md): Extended privilege check that can detect missing objects
-  - AclResult: Enum type for access control results
+  - [AclResult](../A/AclResult.md): Enum type for access control results
 - Called from (representative examples):
   - This function is typically called from SQL queries using the has_database_privilege() function
 

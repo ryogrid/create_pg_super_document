@@ -69,15 +69,15 @@ The structure also supports both local and shared memory contexts for parallel q
   - TBMIteratingState
   - [PagetableEntry](../P/PagetableEntry.md)
   - dsa_pointer
-  - dsa_area
+  - [dsa_area](../d/dsa_area.md)
 - Called from (representative examples):
   - [index_getbitmap](../i/index_getbitmap.md) (from various index access methods)
   - [MultiExecBitmapAnd](../M/MultiExecBitmapAnd.md)
   - [MultiExecBitmapOr](../M/MultiExecBitmapOr.md)
   - [BitmapHeapNext](../B/BitmapHeapNext.md)
   - [tbm_create](../t/tbm_create.md)
-  - tbm_union
-  - tbm_intersect
+  - [tbm_union](../t/tbm_union.md)
+  - [tbm_intersect](../t/tbm_intersect.md)
 
 ## Notes and Other Information
 - [TIDBitmap](TIDBitmap.md) is central to PostgreSQL's bitmap index scan optimization, enabling efficient processing of queries involving multiple indexes

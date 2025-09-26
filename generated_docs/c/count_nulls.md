@@ -36,7 +36,7 @@ The function returns a boolean indicating success (true) or failure (false). On 
   - PG_GETARG_ARRAYTYPE_P
   - ARR_NDIM
   - ARR_DIMS
-  - ArrayGetNItems
+  - [ArrayGetNItems](../A/ArrayGetNItems.md)
   - ARR_NULLBITMAP
 - Called from (representative examples):
   - [pg_num_nulls](../p/pg_num_nulls.md)

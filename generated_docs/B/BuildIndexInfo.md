@@ -38,8 +38,8 @@ The resulting IndexInfo structure is designed to be long-lived and reused across
   - [brinsummarize](../b/brinsummarize.md)
   - [_brin_parallel_scan_and_build](../b/_brin_parallel_scan_and_build.md)
   - [_bt_parallel_scan_and_sort](../b/_bt_parallel_scan_and_sort.md)
-  - index_concurrently_create_copy
-  - index_concurrently_build
+  - [index_concurrently_create_copy](../i/index_concurrently_create_copy.md)
+  - [index_concurrently_build](../i/index_concurrently_build.md)
   - [validate_index](../v/validate_index.md)
   - [reindex_index](../r/reindex_index.md)
   - [DefineIndex](../D/DefineIndex.md)

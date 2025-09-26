@@ -41,11 +41,11 @@ The function is designed to be called by higher-level deletion routines rather t
   - rel->rd_tableam->tuple_delete (table access method function pointer)
 - Types referenced:
   - CommandId
-  - TM_FailureData
+  - [TM_FailureData](../T/TM_FailureData.md)
   - TM_Result
 - Called from (representative examples):
-  - simple_table_tuple_delete (in src/backend/access/table/tableam.c:296)
-  - ExecDeleteAct (in src/backend/executor/nodeModifyTable.c:1374)
+  - [simple_table_tuple_delete](../s/simple_table_tuple_delete.md) (in src/backend/access/table/tableam.c:296)
+  - [ExecDeleteAct](../E/ExecDeleteAct.md) (in src/backend/executor/nodeModifyTable.c:1374)
 
 ## Notes and Other Information
 - Do not call this function directly unless prepared to handle concurrent-update conditions; use simple_table_tuple_delete instead

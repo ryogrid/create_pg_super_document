@@ -21,11 +21,11 @@ This function serves as a wrapper around PostgreSQL's pseudo-random number gener
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_prng_seed
-  - pg_prng_state (type)
+  - [pg_prng_seed](../p/pg_prng_seed.md)
+  - [pg_prng_state](../p/pg_prng_state.md) (type)
 - Called from (representative examples):
-  - BlockSampler_Init
-  - reservoir_init_selection_state
+  - [BlockSampler_Init](../B/BlockSampler_Init.md)
+  - [reservoir_init_selection_state](../r/reservoir_init_selection_state.md)
   - [anl_random_fract](../a/anl_random_fract.md)
   - [anl_init_selection_state](../a/anl_init_selection_state.md)
 

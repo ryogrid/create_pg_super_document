@@ -34,14 +34,14 @@ Join selectivity is used for conditions like "table1.column op table2.column" wh
 
 - Called from (representative examples):
   - [join_selectivity](../j/join_selectivity.md) (core join selectivity estimation)
-  - scalararraysel (scalar array selectivity estimation)
+  - [scalararraysel](../s/scalararraysel.md) (scalar array selectivity estimation)
 
 ## Notes and Other Information
 - This function is part of the lsyscache.c module which provides cached access to system catalog information
 - The function returns InvalidOid (0) if the operator doesn't exist or has no defined join selectivity function
-- Join selectivity functions typically return a value between 0.0 and 1.0 representing the fraction of the cartesian product expected to satisfy the join condition
+- [Join](../J/Join.md) selectivity functions typically return a value between 0.0 and 1.0 representing the fraction of the cartesian product expected to satisfy the join condition
 - The oprjoin field in pg_operator stores the OID of the join selectivity estimation function
 - Common join selectivity functions include eqjoinsel (equality joins), neqjoinsel (inequality joins), scalarltjoinsel (less than joins), etc.
 - This function is crucial for cost-based query optimization, particularly for choosing optimal join orders in multi-table queries
-- Join selectivity estimation is more complex than restriction selectivity as it involves relationships between multiple tables
+- [Join](../J/Join.md) selectivity estimation is more complex than restriction selectivity as it involves relationships between multiple tables
 - If no specific join selectivity function is provided, PostgreSQL uses default estimation methods based on the operator type and available statistics

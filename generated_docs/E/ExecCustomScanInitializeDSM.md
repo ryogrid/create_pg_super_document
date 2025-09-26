@@ -23,8 +23,8 @@ ExecCustomScanInitializeDSM is responsible for setting up the shared memory coor
   - [CustomScanState](../C/CustomScanState.md) (structure type)
   - [ParallelContext](../P/ParallelContext.md) (structure type)
   - [CustomExecMethods](../C/CustomExecMethods.md) (structure type)
-  - shm_toc_allocate (shared memory TOC allocation function)
-  - shm_toc_insert (shared memory TOC insertion function)
+  - [shm_toc_allocate](../s/shm_toc_allocate.md) (shared memory TOC allocation function)
+  - [shm_toc_insert](../s/shm_toc_insert.md) (shared memory TOC insertion function)
 - Called from (representative examples):
   - [ExecParallelInitializeDSM](ExecParallelInitializeDSM.md) (general parallel execution DSM initializer)
 

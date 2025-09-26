@@ -40,4 +40,4 @@ Key aspects of the implementation:
 - Uses CP_EXACT_TLIST flag when creating the subplan to ensure projection is pushed down to worker processes
 - The special execution parameter assigned is used for coordinating parallel execution between leader and workers
 - Single-copy mode allows certain operations to be performed by only one worker to avoid duplicate work
-- Gather nodes cannot preserve ordering of their input - for ordered parallel execution, GatherMerge should be used instead
+- [Gather](../G/Gather.md) nodes cannot preserve ordering of their input - for ordered parallel execution, GatherMerge should be used instead

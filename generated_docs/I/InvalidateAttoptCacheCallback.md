@@ -23,17 +23,17 @@ The function iterates through all entries in the global AttoptCacheHash using ha
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_seq_init - Initialize sequential hash table scan
-  - hash_seq_search - Get next entry in hash table scan
-  - pfree - Free dynamically allocated memory
-  - hash_search (HASH_REMOVE) - Remove entry from hash table
+  - [hash_seq_init](../h/hash_seq_init.md) - [Initialize](Initialize.md) sequential hash table scan
+  - [hash_seq_search](../h/hash_seq_search.md) - Get next entry in hash table scan
+  - [pfree](../p/pfree.md) - Free dynamically allocated memory
+  - [hash_search](../h/hash_search.md) (HASH_REMOVE) - Remove entry from hash table
   - elog - Log error messages
 - Data structures used:
-  - HASH_SEQ_STATUS - Hash table sequential scan status
+  - [HASH_SEQ_STATUS](../H/HASH_SEQ_STATUS.md) - [Hash](../H/Hash.md) table sequential scan status
   - AttoptCacheEntry - Cache entry structure
   - AttoptCacheHash - Global attribute options cache hash table
 - Called from:
-  - InitializeAttoptCache - Registered as syscache callback
+  - [InitializeAttoptCache](InitializeAttoptCache.md) - Registered as syscache callback
 
 ## Notes and Other Information
 - Registered as a callback for ATTNUM system cache invalidations

@@ -49,12 +49,12 @@ When `MEMORY_CONTEXT_CHECKING` is enabled, the structure includes an additional 
   - `MemoryContextMethodID` (enumeration for context types)
 
 - **Used extensively by memory contexts:**
-  - `AllocSetAlloc`, `AllocSetFree`, `AllocSetRealloc` (AllocSet context)
-  - `GenerationAlloc`, `GenerationFree`, `GenerationRealloc` (Generation context)
-  - `SlabAlloc`, `SlabFree`, `SlabRealloc` (Slab context)
-  - `BumpAllocLarge`, `BumpAllocChunkFromBlock` (Bump context)
-  - `AlignedAllocFree`, `AlignedAllocRealloc` (Aligned allocation)
-  - `MemoryContextAllocAligned` (Generic aligned allocation)
+  - `[AllocSetAlloc](../A/AllocSetAlloc.md)`, `AllocSetFree`, `AllocSetRealloc` (AllocSet context)
+  - `[GenerationAlloc](../G/GenerationAlloc.md)`, `GenerationFree`, `GenerationRealloc` (Generation context)
+  - `[SlabAlloc](../S/SlabAlloc.md)`, `SlabFree`, `SlabRealloc` (Slab context)
+  - `[BumpAllocLarge](../B/BumpAllocLarge.md)`, `BumpAllocChunkFromBlock` (Bump context)
+  - `[AlignedAllocFree](../A/AlignedAllocFree.md)`, `AlignedAllocRealloc` (Aligned allocation)
+  - `[MemoryContextAllocAligned](MemoryContextAllocAligned.md)` (Generic aligned allocation)
 
 ## Notes and Other Information
 - **Alignment requirements**: Both chunk and block pointers must be MAXALIGN'd for the bit-sharing scheme to work
@@ -67,8 +67,8 @@ When `MEMORY_CONTEXT_CHECKING` is enabled, the structure includes an additional 
 **Key macros for manipulation:**
 - `PointerGetMemoryChunk(p)`: Convert allocated pointer back to MemoryChunk header
 - `MemoryChunkGetPointer(c)`: Convert MemoryChunk header to user-visible pointer
-- `MemoryChunkSetHdrMask()`: Initialize normal chunk with block reference and value
-- `MemoryChunkSetHdrMaskExternal()`: Mark chunk as externally managed
-- `MemoryChunkIsExternal()`: Test if chunk is externally managed
-- `MemoryChunkGetValue()`: Extract the 30-bit context-specific value
-- `MemoryChunkGetBlock()`: Get pointer to containing block
+- `[MemoryChunkSetHdrMask](MemoryChunkSetHdrMask.md)()`: Initialize normal chunk with block reference and value
+- `[MemoryChunkSetHdrMaskExternal](MemoryChunkSetHdrMaskExternal.md)()`: Mark chunk as externally managed
+- `[MemoryChunkIsExternal](MemoryChunkIsExternal.md)()`: Test if chunk is externally managed
+- `[MemoryChunkGetValue](MemoryChunkGetValue.md)()`: Extract the 30-bit context-specific value
+- `[MemoryChunkGetBlock](MemoryChunkGetBlock.md)()`: Get pointer to containing block

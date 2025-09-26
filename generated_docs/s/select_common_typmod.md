@@ -22,8 +22,8 @@ This function computes a common type modifier for expressions that have already 
 ## Dependencies
 - Functions called/Symbols referenced:
   - lfirst (list iteration macro)
-  - exprType (to get expression type)
-  - exprTypmod (to get expression type modifier)
+  - [exprType](../e/exprType.md) (to get expression type)
+  - [exprTypmod](../e/exprTypmod.md) (to get expression type modifier)
 
 - Called from (representative examples):
   - [transformSetOperationTree](../t/transformSetOperationTree.md) (set operations like UNION)

@@ -28,14 +28,14 @@ Special attention is paid to interrupt handling - interrupts are held during the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockConflictsWithVar (core conflict detection)
-  - LWLockQueueSelf/LWLockDequeueSelf (wait queue management)
-  - pg_atomic_fetch_or_u32 (setting release flag)
-  - LWLockReportWaitStart/LWLockReportWaitEnd (wait reporting)
-  - PGSemaphoreLock/PGSemaphoreUnlock (process synchronization)
+  - [LWLockConflictsWithVar](LWLockConflictsWithVar.md) (core conflict detection)
+  - [LWLockQueueSelf](LWLockQueueSelf.md)/LWLockDequeueSelf (wait queue management)
+  - [pg_atomic_fetch_or_u32](../p/pg_atomic_fetch_or_u32.md) (setting release flag)
+  - [LWLockReportWaitStart](LWLockReportWaitStart.md)/LWLockReportWaitEnd (wait reporting)
+  - [PGSemaphoreLock](../P/PGSemaphoreLock.md)/PGSemaphoreUnlock (process synchronization)
   - HOLD_INTERRUPTS/RESUME_INTERRUPTS (interrupt management)
 - Called from (representative examples):
-  - WaitXLogInsertionsToFinish (WAL insertion coordination)
+  - [WaitXLogInsertionsToFinish](../W/WaitXLogInsertionsToFinish.md) (WAL insertion coordination)
 
 ## Notes and Other Information
 - Ignores shared lock holders - treats shared locks as 'free' for waiting purposes

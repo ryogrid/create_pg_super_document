@@ -99,13 +99,13 @@ ExprState represents the compiled, executable form of an expression in PostgreSQ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExprEvalStep (evaluation instruction structure)
-  - ParamListInfo (external parameter management)
-  - ErrorSaveContext (soft error handling framework)
+  - [ExprEvalStep](ExprEvalStep.md) (evaluation instruction structure)
+  - [ParamListInfo](../P/ParamListInfo.md) (external parameter management)
+  - [ErrorSaveContext](ErrorSaveContext.md) (soft error handling framework)
 - Called from (representative examples):
-  - ExecInitExpr (expression initialization)
-  - ExecEvalExpr (expression evaluation)
-  - ExecBuildProjectionInfo (projection setup)
+  - [ExecInitExpr](ExecInitExpr.md) (expression initialization)
+  - [ExecEvalExpr](ExecEvalExpr.md) (expression evaluation)
+  - [ExecBuildProjectionInfo](ExecBuildProjectionInfo.md) (projection setup)
 
 ## Notes and Other Information
 - The structure is designed for high-performance expression evaluation with minimal runtime overhead

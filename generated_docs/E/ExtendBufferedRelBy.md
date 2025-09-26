@@ -35,7 +35,7 @@ The function can work with either a Relation object (bmr.rel) or directly with a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationGetSmgr
+  - [RelationGetSmgr](../R/RelationGetSmgr.md)
   - [ExtendBufferedRelCommon](ExtendBufferedRelCommon.md)
   - [BufferManagerRelation](../B/BufferManagerRelation.md)
   - [BufferAccessStrategy](../B/BufferAccessStrategy.md)

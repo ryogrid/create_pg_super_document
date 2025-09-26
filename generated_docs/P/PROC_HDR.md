@@ -92,10 +92,10 @@ The structure also manages process lifecycle through multiple free lists organiz
   - [pg_atomic_uint32](../p/pg_atomic_uint32.md) (atomic integer for group processing chains)
   - [Latch](../L/Latch.md) (process signaling mechanism)
 - Called from (representative examples):
-  - InitProcGlobal (global process system initialization)
-  - ProcGlobalShmemSize (shared memory size calculation)
+  - [InitProcGlobal](../I/InitProcGlobal.md) (global process system initialization)
+  - [ProcGlobalShmemSize](ProcGlobalShmemSize.md) (shared memory size calculation)
   - [ProcArrayGroupClearXid](ProcArrayGroupClearXid.md) (group transaction clearing)
-  - TransactionGroupUpdateXidStatus (group transaction status updates)
+  - [TransactionGroupUpdateXidStatus](../T/TransactionGroupUpdateXidStatus.md) (group transaction status updates)
 
 ## Notes and Other Information
 - Dense array access requires holding either ProcArrayLock or XidGenLock to prevent race conditions with pgxactoff changes
@@ -103,6 +103,6 @@ The structure also manages process lifecycle through multiple free lists organiz
 - Mirrored values in both PGPROC and dense arrays must be maintained coherently
 - The dual-representation design optimizes for two access patterns: single-backend checks (use PGPROC fields) and multi-backend scans (use dense arrays)
 - Free process lists are segregated by process type to enable specialized allocation policies
-- Group processing features (procArrayGroupFirst, clogGroupFirst) provide optimizations for high-throughput transaction processing
+- [Group](../G/Group.md) processing features (procArrayGroupFirst, clogGroupFirst) provide optimizations for high-throughput transaction processing
 - The structure supports efficient process lifecycle management from allocation through deallocation
 - Critical for PostgreSQL's MVCC (Multi-Version Concurrency Control) implementation through transaction visibility management

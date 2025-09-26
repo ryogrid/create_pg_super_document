@@ -20,7 +20,7 @@ This function serves as a wrapper around PostgreSQL's  function, specifically de
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_char_to_encoding
+  - [pg_char_to_encoding](../p/pg_char_to_encoding.md)
   - ereport
   - [errcode](../e/errcode.md)
   - [errmsg](../e/errmsg.md)

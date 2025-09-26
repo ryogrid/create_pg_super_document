@@ -38,19 +38,19 @@ The subplan field stores the execution plan for the subquery itself, intentional
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Scan (base structure)
-  - SubqueryScanStatus (enumeration for optimization status)
+  - [Scan](Scan.md) (base structure)
+  - [SubqueryScanStatus](SubqueryScanStatus.md) (enumeration for optimization status)
 - Called from (representative examples):
-  - ExplainNode (for EXPLAIN output)
-  - ExecInitNode (executor initialization)
-  - ExecInitSubqueryScan (node-specific initialization)
-  - create_subqueryscan_plan (plan creation)
-  - make_subqueryscan (plan node construction)
-  - trivial_subqueryscan (optimization analysis)
-  - set_subqueryscan_references (reference setting)
+  - [ExplainNode](../E/ExplainNode.md) (for EXPLAIN output)
+  - [ExecInitNode](../E/ExecInitNode.md) (executor initialization)
+  - [ExecInitSubqueryScan](../E/ExecInitSubqueryScan.md) (node-specific initialization)
+  - [create_subqueryscan_plan](../c/create_subqueryscan_plan.md) (plan creation)
+  - [make_subqueryscan](../m/make_subqueryscan.md) (plan node construction)
+  - [trivial_subqueryscan](../t/trivial_subqueryscan.md) (optimization analysis)
+  - [set_subqueryscan_references](../s/set_subqueryscan_references.md) (reference setting)
 
 ## Notes and Other Information
-- SubqueryScan nodes are created when subqueries appear in FROM clauses (table subqueries) or when CTEs (Common Table Expressions) are scanned
+- [SubqueryScan](SubqueryScan.md) nodes are created when subqueries appear in FROM clauses (table subqueries) or when CTEs (Common Table Expressions) are scanned
 - The separate subplan field maintains proper Query context isolation during plan tree traversal
 - Optimization opportunities exist for trivial subquery scans where the subquery might be eliminated or flattened
 - Supports backward scanning depending on the capabilities of the underlying subplan

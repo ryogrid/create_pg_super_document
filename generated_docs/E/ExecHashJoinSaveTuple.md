@@ -22,13 +22,13 @@ This function is responsible for spilling tuples to disk when they cannot be pro
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufFileCreateTemp
-  - BufFileWrite
+  - [BufFileCreateTemp](../B/BufFileCreateTemp.md)
+  - [BufFileWrite](../B/BufFileWrite.md)
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
 - Called from (representative examples):
-  - ExecHashIncreaseNumBatches
-  - ExecHashTableInsert
-  - ExecHashRemoveNextSkewBucket
+  - [ExecHashIncreaseNumBatches](ExecHashIncreaseNumBatches.md)
+  - [ExecHashTableInsert](ExecHashTableInsert.md)
+  - [ExecHashRemoveNextSkewBucket](ExecHashRemoveNextSkewBucket.md)
   - [ExecHashJoinImpl](ExecHashJoinImpl.md)
 
 ## Notes and Other Information

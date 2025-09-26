@@ -112,7 +112,7 @@ Key operations include:
   - [get_user_default_acl](../g/get_user_default_acl.md): Gets default ACL for the function
   - [record_object_address_dependencies](../r/record_object_address_dependencies.md): Records all object dependencies
   - OidFunctionCall1: Calls language validator function
-  - CommandCounterIncrement: Makes new tuple visible to validator
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md): Makes new tuple visible to validator
 
 - Called from (representative examples):
   - [CreateFunction](../C/CreateFunction.md): Main entry point for CREATE FUNCTION command

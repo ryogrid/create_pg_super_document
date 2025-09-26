@@ -19,12 +19,12 @@ This function serves as a read-only accessor for existing pending statistics ent
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_get_entry_ref
-  - PgStat_Kind
-  - PgStat_EntryRef
+  - [pgstat_get_entry_ref](pgstat_get_entry_ref.md)
+  - [PgStat_Kind](../P/PgStat_Kind.md)
+  - [PgStat_EntryRef](../P/PgStat_EntryRef.md)
 - Called from (representative examples):
-  - find_funcstat_entry (src/backend/utils/activity/pgstat_function.c:227)
-  - find_tabstat_entry (src/backend/utils/activity/pgstat_relation.c:494, 497)
+  - [find_funcstat_entry](../f/find_funcstat_entry.md) (src/backend/utils/activity/pgstat_function.c:227)
+  - [find_tabstat_entry](../f/find_tabstat_entry.md) (src/backend/utils/activity/pgstat_relation.c:494, 497)
 
 ## Notes and Other Information
 - Returns NULL if no entry exists or if the entry has no pending data

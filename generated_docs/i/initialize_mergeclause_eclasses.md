@@ -26,7 +26,7 @@ Note that this function is called before EquivalenceClass merging is complete, s
 ## Dependencies
 - Functions called/Symbols referenced:
   - [op_input_types](../o/op_input_types.md)
-  - OpExpr (struct type)
+  - [OpExpr](../O/OpExpr.md) (struct type)
   - [get_eclass_for_sort_expr](../g/get_eclass_for_sort_expr.md)
   - [get_leftop](../g/get_leftop.md)
   - [get_rightop](../g/get_rightop.md)

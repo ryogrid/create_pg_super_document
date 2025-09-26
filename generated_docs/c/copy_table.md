@@ -41,14 +41,14 @@ The function is designed to handle various table types (regular tables, views, p
 ## Dependencies
 - Functions called/Symbols referenced:
   - [fetch_remote_table_info](../f/fetch_remote_table_info.md) (retrieves publisher table metadata)
-  - logicalrep_relmap_update (updates relation mapping)
-  - logicalrep_rel_open, logicalrep_rel_close (manages relation mapping lifecycle)
+  - [logicalrep_relmap_update](../l/logicalrep_relmap_update.md) (updates relation mapping)
+  - [logicalrep_rel_open](../l/logicalrep_rel_open.md), logicalrep_rel_close (manages relation mapping lifecycle)
   - [make_copy_attnamelist](../m/make_copy_attnamelist.md) (creates column name list for COPY)
   - [copy_read_data](copy_read_data.md) (data source callback for COPY FROM)
   - [BeginCopyFrom](../B/BeginCopyFrom.md), CopyFrom (PostgreSQL COPY infrastructure)
   - walrcv_exec (executes COPY command on publisher)
   - [make_parsestate](../m/make_parsestate.md) (creates parser state for COPY)
-  - quote_qualified_identifier, quote_identifier (SQL identifier quoting)
+  - [quote_qualified_identifier](../q/quote_qualified_identifier.md), quote_identifier (SQL identifier quoting)
   - Various PostgreSQL utility functions for string manipulation and memory management
 
 - Called from (representative examples):

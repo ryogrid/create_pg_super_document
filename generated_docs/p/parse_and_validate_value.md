@@ -225,18 +225,18 @@ Each validation path includes comprehensive error reporting with appropriate err
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - config_generic, config_bool, config_int, config_real, config_string, config_enum (struct types)
+  - [config_generic](../c/config_generic.md), config_bool, config_int, config_real, config_string, config_enum (struct types)
   - config_var_val (union type)
-  - parse_bool, parse_int, parse_real (parsing functions)
-  - config_enum_lookup_by_name, config_enum_get_options (enum handling)
-  - call_bool_check_hook, call_int_check_hook, call_real_check_hook, call_string_check_hook, call_enum_check_hook (validation hooks)
-  - guc_strdup, guc_free (memory management)
-  - get_config_unit_name (unit formatting)
-  - truncate_identifier (identifier processing)
+  - [parse_bool](parse_bool.md), parse_int, parse_real (parsing functions)
+  - [config_enum_lookup_by_name](../c/config_enum_lookup_by_name.md), config_enum_get_options (enum handling)
+  - [call_bool_check_hook](../c/call_bool_check_hook.md), call_int_check_hook, call_real_check_hook, call_string_check_hook, call_enum_check_hook (validation hooks)
+  - [guc_strdup](../g/guc_strdup.md), guc_free (memory management)
+  - [get_config_unit_name](../g/get_config_unit_name.md) (unit formatting)
+  - [truncate_identifier](../t/truncate_identifier.md) (identifier processing)
   - ereport, errcode, errmsg, errhint (error reporting)
 - Called from (representative examples):
-  - AlterSystemSetConfigFile
-  - set_config_option (via newval parameter)
+  - [AlterSystemSetConfigFile](../A/AlterSystemSetConfigFile.md)
+  - [set_config_option](../s/set_config_option.md) (via newval parameter)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the guc.c module
@@ -244,5 +244,5 @@ Each validation path includes comprehensive error reporting with appropriate err
 - Provides detailed error messages with hints for invalid values, especially for enum types
 - Memory management is handled carefully - allocated strings are freed on validation failure
 - The function integrates tightly with PostgreSQL's check hook system for extensible validation
-- Range validation for numeric types includes proper unit formatting in error messages
+- [Range](../R/Range.md) validation for numeric types includes proper unit formatting in error messages
 - Essential component of PostgreSQL's configuration management infrastructure

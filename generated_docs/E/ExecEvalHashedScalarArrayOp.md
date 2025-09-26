@@ -29,14 +29,14 @@ Special handling is provided for:
 ## Dependencies
 - Functions called/Symbols referenced:
   - DatumGetArrayTypeP
-  - ArrayGetNItems
+  - [ArrayGetNItems](../A/ArrayGetNItems.md)
   - [get_typlenbyvalalign](../g/get_typlenbyvalalign.md)
   - saophash_create
   - saophash_insert
   - saophash_lookup
   - [fmgr_info](../f/fmgr_info.md)
   - InitFunctionCallInfoData
-  - fetch_att
+  - [fetch_att](../f/fetch_att.md)
   - att_addlength_pointer
 - Called from (representative examples):
   - [ExecInterpExpr](ExecInterpExpr.md)
@@ -44,7 +44,7 @@ Special handling is provided for:
 
 ## Notes and Other Information
 - Only supports OR semantics (ANY), unlike the general ExecEvalScalarArrayOp
-- Hash table is allocated in ecxt_per_query_memory context for reuse across multiple evaluations
+- [Hash](../H/Hash.md) table is allocated in ecxt_per_query_memory context for reuse across multiple evaluations
 - Function assumes the array constant is not null (assertion check)
 - Duplicate array values don't affect correctness but may result in slightly oversized hash tables
 - The hash table stores only non-null array elements; null handling is done separately through the has_nulls flag

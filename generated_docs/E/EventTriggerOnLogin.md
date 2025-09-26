@@ -29,11 +29,11 @@ The function balances performance optimization (avoiding unnecessary work on sub
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - EventTriggerData (struct for trigger context)
+  - [EventTriggerData](EventTriggerData.md) (struct for trigger context)
   - [StartTransactionCommand](../S/StartTransactionCommand.md) (begin transaction)
   - [EventTriggerCommonSetup](EventTriggerCommonSetup.md) (identifies applicable triggers, called twice)
   - EVT_Login (event type constant)
-  - GetTransactionSnapshot/PushActiveSnapshot/PopActiveSnapshot (snapshot management)
+  - [GetTransactionSnapshot](../G/GetTransactionSnapshot.md)/PushActiveSnapshot/PopActiveSnapshot (snapshot management)
   - [EventTriggerInvoke](EventTriggerInvoke.md) (executes the triggers)
   - [ConditionalLockSharedObject](../C/ConditionalLockSharedObject.md) (non-blocking lock acquisition)
   - AccessExclusiveLock (lock type for database metadata)

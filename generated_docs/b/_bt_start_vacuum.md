@@ -28,8 +28,8 @@ The caller must guarantee that  will eventually be called to prevent permanent r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire (with BtreeVacuumLock)
-  - LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md) (with BtreeVacuumLock)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - RelationGetRelationName
   - elog
 - Called from (representative examples):

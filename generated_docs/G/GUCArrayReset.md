@@ -21,17 +21,17 @@ The function iterates through each entry in the array, extracts the parameter na
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - superuser
+  - [superuser](../s/superuser.md)
   - ARR_DIMS
-  - array_ref
+  - [array_ref](../a/array_ref.md)
   - TextDatumGetCString
-  - validate_option_array_item
-  - array_set
-  - construct_array_builtin
+  - [validate_option_array_item](../v/validate_option_array_item.md)
+  - [array_set](../a/array_set.md)
+  - [construct_array_builtin](../c/construct_array_builtin.md)
   - strchr
-  - pfree
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - AlterSetting
+  - [AlterSetting](../A/AlterSetting.md)
   - EmitWarningsOnPlaceholders
 
 ## Notes and Other Information

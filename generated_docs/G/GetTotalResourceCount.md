@@ -22,9 +22,9 @@ The function performs the calculation: `nremembered - nforgotten - nreleased` fo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ManyTestResourceKind (struct type)
+  - [ManyTestResourceKind](../M/ManyTestResourceKind.md) (struct type)
 - Called from (representative examples):
-  - test_resowner_many (at lines 279, 290, 291)
+  - [test_resowner_many](../t/test_resowner_many.md) (at lines 279, 290, 291)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the test_resowner_many.c file

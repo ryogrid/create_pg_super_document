@@ -22,7 +22,7 @@ The `textregexreplace_noopt` function implements a simplified version of Postgre
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_TEXT_PP`: Extracts text arguments with potential detoasting
-  - `replace_text_regexp`: Core function that performs the actual regex replacement
+  - `[replace_text_regexp](../r/replace_text_regexp.md)`: Core function that performs the actual regex replacement
   - `PG_RETURN_TEXT_P`: Returns a text value from the function
   - `PG_GET_COLLATION`: Gets collation information for the operation
   - `REG_ADVANCED`: Flag for advanced regular expression features

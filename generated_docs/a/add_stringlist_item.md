@@ -20,8 +20,8 @@ This function implements a simple linked list append operation for string lists.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _stringlist (structure type for list nodes)
-  - pg_malloc (PostgreSQL memory allocation)
+  - [_stringlist](../s/_stringlist.md) (structure type for list nodes)
+  - [pg_malloc](../p/pg_malloc.md) (PostgreSQL memory allocation)
   - [pg_strdup](../p/pg_strdup.md) (PostgreSQL string duplication)
 - Called from (representative examples):
   - [main](../m/main.md) (in src/bin/initdb/initdb.c:3262, 3263)

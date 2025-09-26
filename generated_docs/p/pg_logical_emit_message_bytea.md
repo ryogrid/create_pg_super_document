@@ -34,7 +34,7 @@ The function is implemented by extracting the parameters and calling `LogLogical
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_BOOL
-  - text_to_cstring
+  - [text_to_cstring](../t/text_to_cstring.md)
   - PG_GETARG_BYTEA_PP
   - [LogLogicalMessage](../L/LogLogicalMessage.md)
   - PG_RETURN_LSN

@@ -32,7 +32,7 @@ JoinState serves as the base structure for all join execution state nodes in Pos
 - Functions called/Symbols referenced:
   - [PlanState](../P/PlanState.md) (inherited base structure)
   - JoinType (enum for join types)
-  - ExprState (for join qualification expressions)
+  - [ExprState](../E/ExprState.md) (for join qualification expressions)
 - Called from (representative examples):
   - [NestLoopState](../N/NestLoopState.md) (inherits from JoinState)
   - [MergeJoinState](../M/MergeJoinState.md) (inherits from JoinState)
@@ -41,5 +41,5 @@ JoinState serves as the base structure for all join execution state nodes in Pos
 ## Notes and Other Information
 - This is an abstract base structure - actual join execution uses specific subclasses like NestLoopState, MergeJoinState, or HashJoinState
 - The single_match optimization is particularly useful for semi-joins and anti-joins where only the existence of a match matters
-- Join qualifications in joinqual are evaluated separately from the base plan qualifications in ps.qual
+- [Join](Join.md) qualifications in joinqual are evaluated separately from the base plan qualifications in ps.qual
 - The structure is defined in src/include/nodes/execnodes.h at lines 2086-2093

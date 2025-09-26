@@ -35,7 +35,7 @@ The function is recursive and handles different behaviors for inheritance childr
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ATSimplePermissions](ATSimplePermissions.md)
-  - check_stack_depth
+  - [check_stack_depth](../c/check_stack_depth.md)
   - [new_object_addresses](../n/new_object_addresses.md)
   - [SearchSysCacheAttName](../S/SearchSysCacheAttName.md)
   - [SearchSysCacheCopyAttName](../S/SearchSysCacheCopyAttName.md)
@@ -43,7 +43,7 @@ The function is recursive and handles different behaviors for inheritance childr
   - [find_inheritance_children](../f/find_inheritance_children.md)
   - [CheckAlterTableIsSafe](../C/CheckAlterTableIsSafe.md)
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
-  - CommandCounterIncrement
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md)
   - [add_exact_object_address](../a/add_exact_object_address.md)
   - [performMultipleDeletions](../p/performMultipleDeletions.md)
   - [free_object_addresses](../f/free_object_addresses.md)

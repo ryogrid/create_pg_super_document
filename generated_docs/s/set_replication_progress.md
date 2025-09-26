@@ -23,7 +23,7 @@ The function performs careful validation to ensure exactly one subscription reco
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - createPQExpBuffer
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)
   - [PQescapeLiteral](../P/PQescapeLiteral.md)
   - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
   - [PQexec](../P/PQexec.md)
@@ -39,7 +39,7 @@ The function performs careful validation to ensure exactly one subscription reco
   - [disconnect_database](../d/disconnect_database.md)
   - [PQfreemem](../P/PQfreemem.md)
   - [pg_free](../p/pg_free.md)
-  - destroyPQExpBuffer
+  - [destroyPQExpBuffer](../d/destroyPQExpBuffer.md)
   - [psprintf](../p/psprintf.md)
   - strtoul
 - Called from (representative examples):

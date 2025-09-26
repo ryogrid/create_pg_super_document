@@ -32,10 +32,10 @@ Key aspects:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - createPQExpBuffer
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)
   - [fmtId](../f/fmtId.md)
   - [dumpComment](dumpComment.md)
-  - destroyPQExpBuffer
+  - [destroyPQExpBuffer](destroyPQExpBuffer.md)
 - Called from (representative examples):
   - [dumpTableSchema](dumpTableSchema.md)
   - [dumpConstraint](dumpConstraint.md)

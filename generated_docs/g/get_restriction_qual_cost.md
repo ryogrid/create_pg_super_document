@@ -33,7 +33,7 @@ This function is designed for scan types that evaluate all qualifications "the h
 - Functions called/Symbols referenced:
   - [cost_qual_eval](../c/cost_qual_eval.md)
   - [ParamPathInfo](../P/ParamPathInfo.md) (struct)
-  - QualCost (struct)
+  - [QualCost](../Q/QualCost.md) (struct)
 - Called from (representative examples):
   - [cost_seqscan](../c/cost_seqscan.md)
   - [cost_samplescan](../c/cost_samplescan.md)

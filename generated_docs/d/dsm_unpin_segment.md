@@ -28,17 +28,17 @@ The destruction process includes calling dsm_impl_op with DSM_OP_DESTROY and, fo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire/LWLockRelease (with DynamicSharedMemoryControlLock)
-  - is_main_region_dsm_handle
-  - dsm_impl_unpin_segment
-  - dsm_impl_op (with DSM_OP_DESTROY)
-  - FreePageManagerPut
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease (with DynamicSharedMemoryControlLock)
+  - [is_main_region_dsm_handle](../i/is_main_region_dsm_handle.md)
+  - [dsm_impl_unpin_segment](dsm_impl_unpin_segment.md)
+  - [dsm_impl_op](dsm_impl_op.md) (with DSM_OP_DESTROY)
+  - [FreePageManagerPut](../F/FreePageManagerPut.md)
   - dsm_handle, dsm_segment, FreePageManager (types)
   - dsm_control (global control structure)
   - INVALID_CONTROL_SLOT constant
 - Called from (representative examples):
-  - dsa_release_in_place (src/backend/utils/mmgr/dsa.c:622)  
-  - destroy_superblock (src/backend/utils/mmgr/dsa.c:1877)
+  - [dsa_release_in_place](dsa_release_in_place.md) (src/backend/utils/mmgr/dsa.c:622)  
+  - [destroy_superblock](destroy_superblock.md) (src/backend/utils/mmgr/dsa.c:1877)
 
 ## Notes and Other Information
 - Must only be called on segments that were previously pinned (will ERROR otherwise)

@@ -34,7 +34,7 @@ The function ensures the WAL record is eventually synced to disk by using XLogSe
   - MinSizeOfXactRunningXacts
   - SUBXIDS_IN_ARRAY
 - Called from (representative examples):
-  - LogStandbySnapshot
+  - [LogStandbySnapshot](LogStandbySnapshot.md)
 
 ## Notes and Other Information
 - The function uses the xl_running_xacts structure which is similar to but separate from RunningTransactionsData to maintain a contiguous memory layout for WAL records

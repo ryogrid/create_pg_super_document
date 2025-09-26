@@ -45,8 +45,8 @@ This function implements a sophisticated selectivity estimation algorithm using 
   - [clause_selectivity_ext](../c/clause_selectivity_ext.md)
   - [clauselist_selectivity_ext](../c/clauselist_selectivity_ext.md)
   - [mcv_clause_selectivity_or](../m/mcv_clause_selectivity_or.md)
-  - mcv_clauselist_selectivity
-  - mcv_combine_selectivities
+  - [mcv_clauselist_selectivity](../m/mcv_clauselist_selectivity.md)
+  - [mcv_combine_selectivities](../m/mcv_combine_selectivities.md)
   - CLAMP_PROBABILITY
 - Called from (representative examples):
   - [statext_clauselist_selectivity](statext_clauselist_selectivity.md)

@@ -30,8 +30,8 @@ For indexes that support ordering operations (amcanorderbyop), the function buil
   - lfirst
   - [bms_equal](../b/bms_equal.md)
   - [match_clause_to_ordering_op](match_clause_to_ordering_op.md)
-  - lappend
-  - lappend_int
+  - [lappend](../l/lappend.md)
+  - [lappend_int](../l/lappend_int.md)
 - Called from (representative examples):
   - [build_index_paths](../b/build_index_paths.md)
 

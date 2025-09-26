@@ -26,8 +26,8 @@ This function is typically called when it's necessary to ensure all buffered dat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - socket_set_nonblocking (to set socket to blocking mode)
-  - internal_flush (to perform the actual buffer flush)
+  - [socket_set_nonblocking](socket_set_nonblocking.md) (to set socket to blocking mode)
+  - [internal_flush](../i/internal_flush.md) (to perform the actual buffer flush)
 - Called from (representative examples):
   - Used internally within pqcomm.c module for controlled flushing operations
 

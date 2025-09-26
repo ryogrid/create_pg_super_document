@@ -20,22 +20,22 @@ This function processes a list of PartitionRangeDatum structures representing th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeStringInfo
+  - [makeStringInfo](../m/makeStringInfo.md)
   - memset
-  - appendStringInfoChar
-  - appendStringInfoString
+  - [appendStringInfoChar](../a/appendStringInfoChar.md)
+  - [appendStringInfoString](../a/appendStringInfoString.md)
   - lfirst_node
   - castNode
-  - get_const_expr
+  - [get_const_expr](get_const_expr.md)
 - Structures/Types referenced:
-  - deparse_context
-  - PartitionRangeDatum
+  - [deparse_context](../d/deparse_context.md)
+  - [PartitionRangeDatum](../P/PartitionRangeDatum.md)
   - PARTITION_RANGE_DATUM_MINVALUE
   - PARTITION_RANGE_DATUM_MAXVALUE
-  - Const
+  - [Const](../C/Const.md)
 - Called from (representative examples):
-  - check_new_partition_bound (in partbounds.c)
-  - get_rule_expr
+  - [check_new_partition_bound](../c/check_new_partition_bound.md) (in partbounds.c)
+  - [get_rule_expr](get_rule_expr.md)
 
 ## Notes and Other Information
 - This is a non-static function, making it available to other modules that need to format partition bounds

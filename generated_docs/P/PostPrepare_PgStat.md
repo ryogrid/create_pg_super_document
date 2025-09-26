@@ -27,13 +27,13 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PgStat_SubXactStatus (structure type)
-  - PostPrepare_PgStat_Relations
-  - pgstat_clear_snapshot
+  - [PgStat_SubXactStatus](PgStat_SubXactStatus.md) (structure type)
+  - [PostPrepare_PgStat_Relations](PostPrepare_PgStat_Relations.md)
+  - [pgstat_clear_snapshot](../p/pgstat_clear_snapshot.md)
   - pgStatXactStack (global variable)
 
 - Called from (representative examples):
-  - PrepareTransaction (src/backend/access/transam/xact.c:2675)
+  - [PrepareTransaction](PrepareTransaction.md) (src/backend/access/transam/xact.c:2675)
 
 ## Notes and Other Information
 - This function is specifically designed for two-phase commit scenarios

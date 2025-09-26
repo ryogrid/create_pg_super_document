@@ -35,7 +35,7 @@ The enum supports both non-streaming and streaming transaction workflows, with d
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ApplyErrorCallbackArg
+  - [ApplyErrorCallbackArg](../A/ApplyErrorCallbackArg.md)
   - [WalReceiverConn](../W/WalReceiverConn.md)
   - [Subscription](../S/Subscription.md)
 - Called from (representative examples):

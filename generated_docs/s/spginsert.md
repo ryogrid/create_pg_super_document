@@ -37,7 +37,7 @@ This function handles the insertion of individual tuples into an SP-GiST index d
   - [MemoryContextReset](../M/MemoryContextReset.md)
   - [SpGistUpdateMetaPage](../S/SpGistUpdateMetaPage.md)
   - [MemoryContextDelete](../M/MemoryContextDelete.md)
-  - SpGistState
+  - [SpGistState](../S/SpGistState.md)
 - Called from (representative examples):
   - [spghandler](spghandler.md)
 

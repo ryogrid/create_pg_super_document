@@ -27,7 +27,7 @@ This function creates a shallow copy of a tuple descriptor, copying the basic at
   - [getSpGistTupleDesc](../g/getSpGistTupleDesc.md)
   - [PersistHoldablePortal](../P/PersistHoldablePortal.md)
   - [ExecEvalWholeRowVar](../E/ExecEvalWholeRowVar.md)
-  - BuildTupleHashTableExt
+  - [BuildTupleHashTableExt](../B/BuildTupleHashTableExt.md)
   - [ExecPrepareTuplestoreResult](../E/ExecPrepareTuplestoreResult.md)
   - [RelationBuildLocalRelation](../R/RelationBuildLocalRelation.md)
   - [assign_record_type_typmod](../a/assign_record_type_typmod.md)

@@ -33,7 +33,7 @@ The function is essential for backup and recovery operations where external tool
   - XLByteToSeg: Converts LSN to WAL segment number
   - [GetWALInsertionTimeLine](../G/GetWALInsertionTimeLine.md): Gets the current WAL timeline ID
   - [XLogFileName](../X/XLogFileName.md): Constructs the WAL filename from timeline and segment
-  - cstring_to_text: Converts C string to PostgreSQL text type
+  - [cstring_to_text](../c/cstring_to_text.md): Converts C string to PostgreSQL text type
   - PG_RETURN_TEXT_P: Returns PostgreSQL text value
 - Types used:
   - XLogSegNo: WAL segment number type

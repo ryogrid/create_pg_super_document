@@ -22,7 +22,7 @@ The returned pointer is directly from the relation cache (relcache), meaning it 
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert (macro)
-  - list_length
+  - [list_length](../l/list_length.md)
   - linitial
   - elog
   - [RewriteRule](../R/RewriteRule.md) (struct)

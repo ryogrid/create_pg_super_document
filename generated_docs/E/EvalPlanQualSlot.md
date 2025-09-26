@@ -31,7 +31,7 @@ This function provides access to tuple slots used during EPQ testing, which is p
   - [ExecDelete](ExecDelete.md)
   - [ExecUpdate](ExecUpdate.md)
   - [ExecMergeMatched](ExecMergeMatched.md)
-  - ExecGetJunkAttribute
+  - [ExecGetJunkAttribute](ExecGetJunkAttribute.md)
 
 ## Notes and Other Information
 - Only requires EvalPlanQualInit() to have been called; EvalPlanQualBegin() is not necessary

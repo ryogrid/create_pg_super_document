@@ -28,7 +28,7 @@ The conversion is done in-place, meaning the destination buffer can be the same 
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport (for error reporting)
-  - pg_encoding_to_char (for error message formatting)
+  - [pg_encoding_to_char](pg_encoding_to_char.md) (for error message formatting)
 - Called from (representative examples):
   - [encode_to_ascii](../e/encode_to_ascii.md) (src/backend/utils/adt/ascii.c:106)
 

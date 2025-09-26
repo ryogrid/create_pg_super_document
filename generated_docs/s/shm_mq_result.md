@@ -28,16 +28,16 @@ The enum serves as a status indicator for all major shm_mq operations, allowing 
 
 ## Dependencies
 - Functions that return this type:
-  - `shm_mq_send`: Send a message to the queue
-  - `shm_mq_sendv`: Send a vectored message to the queue  
-  - `shm_mq_receive`: Receive a message from the queue
-  - `shm_mq_wait_for_attach`: Wait for counterparty to attach
+  - `[shm_mq_send](shm_mq_send.md)`: Send a message to the queue
+  - `[shm_mq_sendv](shm_mq_sendv.md)`: Send a vectored message to the queue  
+  - `[shm_mq_receive](shm_mq_receive.md)`: Receive a message from the queue
+  - `[shm_mq_wait_for_attach](shm_mq_wait_for_attach.md)`: Wait for counterparty to attach
 - Used extensively by callers (representative examples):
-  - `TupleQueueReaderNext`: Reading tuples in parallel execution
-  - `HandleParallelMessages`: Processing parallel worker messages
-  - `mq_putmessage`: libpq message queue operations
-  - `LogicalParallelApplyLoop`: Logical replication parallel apply
-  - `pa_send_data`: Parallel apply worker data transmission
+  - `[TupleQueueReaderNext](../T/TupleQueueReaderNext.md)`: Reading tuples in parallel execution
+  - `[HandleParallelMessages](../H/HandleParallelMessages.md)`: Processing parallel worker messages
+  - `[mq_putmessage](../m/mq_putmessage.md)`: libpq message queue operations
+  - `[LogicalParallelApplyLoop](../L/LogicalParallelApplyLoop.md)`: Logical replication parallel apply
+  - `[pa_send_data](../p/pa_send_data.md)`: Parallel apply worker data transmission
 
 ## Notes and Other Information
 - The enum is designed to support both blocking and non-blocking operation modes, with `SHM_MQ_WOULD_BLOCK` being particularly important for non-blocking operations

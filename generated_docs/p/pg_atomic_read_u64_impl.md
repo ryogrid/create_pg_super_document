@@ -24,7 +24,7 @@ This function implements the platform-specific atomic read operation for 64-bit 
   - [pg_atomic_uint64](pg_atomic_uint64.md) (the atomic 64-bit integer type)
 - Called from (representative examples):
   - [pg_atomic_read_u64](pg_atomic_read_u64.md) (public interface wrapper)
-  - pg_atomic_monotonic_advance_u64 (for atomic advance operations)
+  - [pg_atomic_monotonic_advance_u64](pg_atomic_monotonic_advance_u64.md) (for atomic advance operations)
 
 ## Notes and Other Information
 - This implementation assumes the platform guarantees atomic 64-bit aligned reads

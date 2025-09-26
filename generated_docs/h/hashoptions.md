@@ -22,14 +22,14 @@ The function uses PostgreSQL's standard relation options framework, defining a p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - build_reloptions
+  - [build_reloptions](../b/build_reloptions.md)
   - relopt_parse_elt (structure type)
   - RELOPT_TYPE_INT (constant)
   - RELOPT_KIND_HASH (constant)
-  - HashOptions (structure type)
+  - [HashOptions](../H/HashOptions.md) (structure type)
   - lengthof (macro)
 - Called from (representative examples):
-  - hashhandler
+  - [hashhandler](hashhandler.md)
   - HASHNProcs (function pointer array)
 
 ## Notes and Other Information

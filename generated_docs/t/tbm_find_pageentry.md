@@ -29,7 +29,7 @@ The function handles different bitmap states: when the bitmap contains only a si
   - TBM_ONE_PAGE
   - BlockNumber
 - Called from (representative examples):
-  - tbm_intersect_page (src/backend/nodes/tidbitmap.c:616, 648)
+  - [tbm_intersect_page](tbm_intersect_page.md) (src/backend/nodes/tidbitmap.c:616, 648)
   - [TBMSharedIterator](../T/TBMSharedIterator.md) (src/backend/nodes/tidbitmap.c:232)
 
 ## Notes and Other Information

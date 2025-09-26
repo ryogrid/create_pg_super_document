@@ -40,7 +40,7 @@ This feature is essential for maintaining data integrity when views are used as 
 - Functions called/Symbols referenced:
   - (None - this is an enumeration type)
 - Called from (representative examples):
-  - ViewStmt (src/include/nodes/parsenodes.h:3748)
+  - [ViewStmt](ViewStmt.md) (src/include/nodes/parsenodes.h:3748)
 
 ## Notes and Other Information
 - Implements the SQL standard WITH CHECK OPTION clause for CREATE VIEW statements

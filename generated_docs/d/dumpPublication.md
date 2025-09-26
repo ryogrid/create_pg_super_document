@@ -37,7 +37,7 @@ The function dynamically builds the publish parameter list based on the boolean 
 ## Dependencies
 - Functions called/Symbols referenced:
   - `DumpOptions` (data structure)
-  - `createPQExpBuffer`, `appendPQExpBuffer` series (query building)
+  - `[createPQExpBuffer](../c/createPQExpBuffer.md)`, `appendPQExpBuffer` series (query building)
   - [fmtId](../f/fmtId.md) (identifier formatting)
   - [ArchiveEntry](../A/ArchiveEntry.md) (archive entry creation)
   - [dumpComment](dumpComment.md), `dumpSecLabel` (auxiliary object dumping)

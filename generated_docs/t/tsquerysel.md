@@ -37,7 +37,7 @@ This function is essential for the PostgreSQL query planner to make cost-based d
 - Data structures used:
   - TSQuery: Text search query structure
   - Form_pg_statistic: PostgreSQL column statistics structure
-  - AttStatsSlot: Statistics slot containing values and frequencies
+  - [AttStatsSlot](../A/AttStatsSlot.md): Statistics slot containing values and frequencies
 - Constants used:
   - STATISTIC_KIND_MCELEM: Statistics type for most-common-elements
   - ATTSTATSSLOT_VALUES/ATTSTATSSLOT_NUMBERS: Flags for statistics retrieval

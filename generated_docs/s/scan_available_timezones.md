@@ -936,12 +936,12 @@ The function modifies the  buffer during traversal but restores it to its origin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgfnames: Get list of files in directory
+  - [pgfnames](../p/pgfnames.md): Get list of files in directory
   - S_ISDIR: Check if path is directory
   - [score_timezone](score_timezone.md): Calculate match score for timezone file
   - [zone_name_pref](../z/zone_name_pref.md): Get timezone name preference ranking
-  - strlcpy: Safe string copy
-  - pgfnames_cleanup: Clean up file list
+  - [strlcpy](strlcpy.md): Safe string copy
+  - [pgfnames_cleanup](../p/pgfnames_cleanup.md): Clean up file list
   - TZ_STRLEN_MAX: Maximum timezone string length constant
 - Called from:
   - [identify_system_timezone](../i/identify_system_timezone.md): Main timezone identification function

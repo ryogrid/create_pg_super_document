@@ -31,12 +31,12 @@ The `make_row_comparison_op` function handles row comparison operations where tw
   - [bms_int_members](../b/bms_int_members.md)
   - [bms_next_member](../b/bms_next_member.md)
   - [makeBoolExpr](makeBoolExpr.md)
-  - lappend_oid
+  - [lappend_oid](../l/lappend_oid.md)
   - makeNode
 - Called from (representative examples):
   - [transformAExprOp](../t/transformAExprOp.md)
-  - transformAExprIn
-  - transformSubLink
+  - [transformAExprIn](../t/transformAExprIn.md)
+  - [transformSubLink](../t/transformSubLink.md)
 
 ## Notes and Other Information
 - Returns different node types based on the operation: single OpExpr for single columns, BoolExpr (AND/OR) for equality/inequality, or RowCompareExpr for ordering comparisons

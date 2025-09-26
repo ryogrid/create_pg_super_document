@@ -32,10 +32,10 @@ The function implements several sophisticated features:
   - va_copy
   - in_note (global static bool)
   - logfile (global static FILE*)
-  - TAPtype enum values
+  - [TAPtype](../T/TAPtype.md) enum values
 - Called from (representative examples):
-  - emit_tap_output
-  - bail_out (via emit_tap_output)
+  - [emit_tap_output](emit_tap_output.md)
+  - [bail_out](../b/bail_out.md) (via emit_tap_output)
 
 ## Notes and Other Information
 - Uses pg_attribute_printf(2, 0) attribute indicating format string is 2nd parameter and no variadic args

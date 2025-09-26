@@ -24,14 +24,14 @@ This is a convenience function that table access methods can use directly rather
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - smgrnblocks
-  - RelationGetSmgr
+  - [smgrnblocks](../s/smgrnblocks.md)
+  - [RelationGetSmgr](../R/RelationGetSmgr.md)
   - InvalidForkNumber
   - MAX_FORKNUM
   - BLCKSZ
 - Called from (representative examples):
   - [SampleHeapTupleVisible](../S/SampleHeapTupleVisible.md)
-  - table_scan_sample_next_tuple
+  - [table_scan_sample_next_tuple](table_scan_sample_next_tuple.md)
 
 ## Notes and Other Information
 - Returns size in bytes, not blocks

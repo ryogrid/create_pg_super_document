@@ -31,7 +31,7 @@ This function is typically called when a set-returning function has finished gen
   - [shutdown_MultiFuncCall](../s/shutdown_MultiFuncCall.md)
 - Types referenced:
   - [FuncCallContext](../F/FuncCallContext.md)
-  - ReturnSetInfo
+  - [ReturnSetInfo](../R/ReturnSetInfo.md)
 - Called from (representative examples):
   - SRF_RETURN_DONE (macro)
   - Set-returning functions when they complete their result generation

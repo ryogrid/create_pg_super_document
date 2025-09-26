@@ -25,7 +25,7 @@ This function handles the \getenv backslash command which takes two arguments: a
 - Functions called/Symbols referenced:
   - psql_scan_slash_option
   - getenv
-  - SetVariable
+  - [SetVariable](../S/SetVariable.md)
   - [ignore_slash_options](../i/ignore_slash_options.md)
   - pg_log_error
 - Called from (representative examples):

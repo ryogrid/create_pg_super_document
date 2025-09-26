@@ -23,10 +23,10 @@ The function sets up a wait event set, allows each async subplan to register its
 - Functions called/Symbols referenced:
   - [CreateWaitEventSet](../C/CreateWaitEventSet.md)
   - [AddWaitEventToSet](../A/AddWaitEventToSet.md)  
-  - ExecAsyncConfigureWait
-  - GetNumRegisteredWaitEvents
-  - WaitEventSetWait
-  - ExecAsyncNotify
+  - [ExecAsyncConfigureWait](ExecAsyncConfigureWait.md)
+  - [GetNumRegisteredWaitEvents](../G/GetNumRegisteredWaitEvents.md)
+  - [WaitEventSetWait](../W/WaitEventSetWait.md)
+  - [ExecAsyncNotify](ExecAsyncNotify.md)
   - [FreeWaitEventSet](../F/FreeWaitEventSet.md)
   - [bms_next_member](../b/bms_next_member.md)
   - [ResetLatch](../R/ResetLatch.md)

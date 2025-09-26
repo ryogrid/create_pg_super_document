@@ -20,12 +20,12 @@ This static function retrieves the human-readable name string for a custom wait 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire
+  - [LWLockAcquire](../L/LWLockAcquire.md)
   - [hash_search](../h/hash_search.md)
-  - LWLockRelease
+  - [LWLockRelease](../L/LWLockRelease.md)
   - elog
 - Data structures used:
-  - WaitEventCustomEntryByInfo
+  - [WaitEventCustomEntryByInfo](../W/WaitEventCustomEntryByInfo.md)
   - WaitEventCustomHashByInfo
   - WaitEventCustomLock
 - Constants used:

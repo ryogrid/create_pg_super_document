@@ -31,18 +31,18 @@ The propagation continues until it reaches the root or encounters a node that do
 ## Dependencies
 - Functions called/Symbols referenced:
   - `NonLeafNodesPerPage`: Constant defining number of non-leaf nodes
-  - `PageGetContents`: Extracts page contents as FSMPage structure
+  - `[PageGetContents](../P/PageGetContents.md)`: Extracts page contents as FSMPage structure
   - `FSMPage`: Type representing Free Space Map page data
   - `LeafNodesPerPage`: Constant defining number of leaf nodes per page
   - `parentof`: Macro to calculate parent node index
   - `leftchild`: Macro to calculate left child node index
   - `NodesPerPage`: Total number of nodes per page
-  - `fsm_rebuild_page`: Function to rebuild corrupted FSM page
+  - `[fsm_rebuild_page](fsm_rebuild_page.md)`: Function to rebuild corrupted FSM page
 - Called from (representative examples):
-  - `XLogRecordPageWithFreeSpace`: Records free space changes in WAL
-  - `fsm_set_and_search`: Sets value and searches for available space
-  - `fsm_search`: Part of free space search operations
-  - `fsm_vacuum_page`: Updates free space during vacuum operations
+  - `[XLogRecordPageWithFreeSpace](../X/XLogRecordPageWithFreeSpace.md)`: Records free space changes in WAL
+  - `[fsm_set_and_search](fsm_set_and_search.md)`: Sets value and searches for available space
+  - `[fsm_search](fsm_search.md)`: Part of free space search operations
+  - `[fsm_vacuum_page](fsm_vacuum_page.md)`: Updates free space during vacuum operations
 
 ## Notes and Other Information
 - The caller must hold an exclusive lock on the page before calling this function

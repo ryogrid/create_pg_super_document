@@ -23,8 +23,8 @@ This function prepares a hash slot by transferring only the needed grouping colu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slot_getsomeattrs
-  - ExecClearTuple
+  - [slot_getsomeattrs](../s/slot_getsomeattrs.md)
+  - [ExecClearTuple](../E/ExecClearTuple.md)
   - [ExecStoreVirtualTuple](../E/ExecStoreVirtualTuple.md)
 - Called from (representative examples):
   - [lookup_hash_entries](../l/lookup_hash_entries.md)

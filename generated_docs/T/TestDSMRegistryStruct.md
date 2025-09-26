@@ -28,11 +28,11 @@ The test module uses this structure to demonstrate proper initialization, attach
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLock (from storage/lwlock.h)
+  - [LWLock](../L/LWLock.md) (from storage/lwlock.h)
 
 - Called from (representative examples):
-  - tdr_init_shmem (initialization function that sets up the structure in shared memory)
-  - tdr_attach_shmem (attachment function that retrieves the structure from DSM registry)
+  - [tdr_init_shmem](../t/tdr_init_shmem.md) (initialization function that sets up the structure in shared memory)
+  - [tdr_attach_shmem](../t/tdr_attach_shmem.md) (attachment function that retrieves the structure from DSM registry)
 
 ## Notes and Other Information
 - This structure is exclusively used for testing purposes within src/test/modules/test_dsm_registry/

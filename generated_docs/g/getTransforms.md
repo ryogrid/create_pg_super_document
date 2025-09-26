@@ -25,12 +25,12 @@ For each transform found, it creates a  structure containing the type OID, langu
 - Functions called/Symbols referenced:
   - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
   - TransformInfo
-  - pg_malloc
+  - [pg_malloc](../p/pg_malloc.md)
   - atooid
   - [AssignDumpId](../A/AssignDumpId.md)
   - [findTypeByOid](../f/findTypeByOid.md)
   - [get_language_name](get_language_name.md)
-  - initPQExpBuffer
+  - [initPQExpBuffer](../i/initPQExpBuffer.md)
   - [selectDumpableObject](../s/selectDumpableObject.md)
 - Called from (representative examples):
   - [getSchemaData](getSchemaData.md)

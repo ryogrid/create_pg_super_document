@@ -24,10 +24,10 @@ PgStatShared_IO implements shared memory storage for PostgreSQL's comprehensive 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLock
+  - [LWLock](../L/LWLock.md)
   - BACKEND_NUM_TYPES
-  - PgStat_IO
-  - PgStat_BktypeIO
+  - [PgStat_IO](PgStat_IO.md)
+  - [PgStat_BktypeIO](PgStat_BktypeIO.md)
   - PgStat_Counter
   - TimestampTz
 - Called from (representative examples):

@@ -25,13 +25,13 @@ This internal function encapsulates the common logic for deserializing PREPARE m
   - [pq_getmsgint64](../p/pq_getmsgint64.md)
   - [pq_getmsgint](../p/pq_getmsgint.md)
   - [pq_getmsgstring](../p/pq_getmsgstring.md)
-  - strlcpy
+  - [strlcpy](../s/strlcpy.md)
   - elog
   - InvalidXLogRecPtr
   - InvalidTransactionId
   - [LogicalRepPreparedTxnData](../L/LogicalRepPreparedTxnData.md)
 - Called from (representative examples):
-  - logicalrep_read_prepare
+  - [logicalrep_read_prepare](logicalrep_read_prepare.md)
   - [logicalrep_read_stream_prepare](logicalrep_read_stream_prepare.md)
 
 ## Notes and Other Information

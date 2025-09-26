@@ -20,18 +20,18 @@ This function initializes a B-tree metapage structure by setting up the metadata
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _bt_pageinit
+  - [_bt_pageinit](_bt_pageinit.md)
   - BTPageGetMeta
   - BTPageGetOpaque
   - BTREE_MAGIC
   - BTREE_VERSION
   - BTP_META
-  - BTMetaPageData
+  - [BTMetaPageData](../B/BTMetaPageData.md)
   - BTPageOpaque
   - PageHeader
 - Called from (representative examples):
-  - btbuildempty
-  - _bt_uppershutdown
+  - [btbuildempty](btbuildempty.md)
+  - [_bt_uppershutdown](_bt_uppershutdown.md)
 
 ## Notes and Other Information
 - The metapage is critical for B-tree functionality as it contains the entry point (root page) for tree traversal

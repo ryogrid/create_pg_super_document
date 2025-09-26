@@ -26,7 +26,7 @@ This initialization is essential for the SP-GiST geometric indexing algorithm, w
 - Functions called/Symbols referenced:
   - RectBox (4D rectangular box structure)
   - [palloc](../p/palloc.md) (PostgreSQL memory allocation function)
-  - get_float8_infinity (PostgreSQL function to get positive infinity value)
+  - [get_float8_infinity](../g/get_float8_infinity.md) (PostgreSQL function to get positive infinity value)
 - Called from (representative examples):
   - [spg_box_quad_inner_consistent](../s/spg_box_quad_inner_consistent.md)
 

@@ -27,15 +27,15 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CommitTsShmemBuffers
-  - SetConfigOption
-  - CommitTsPagePrecedes
-  - SimpleLruInit
-  - SlruPagePrecedesUnitTests
-  - ShmemInitStruct
+  - [CommitTsShmemBuffers](CommitTsShmemBuffers.md)
+  - [SetConfigOption](../S/SetConfigOption.md)
+  - [CommitTsPagePrecedes](CommitTsPagePrecedes.md)
+  - [SimpleLruInit](../S/SimpleLruInit.md)
+  - [SlruPagePrecedesUnitTests](../S/SlruPagePrecedesUnitTests.md)
+  - [ShmemInitStruct](../S/ShmemInitStruct.md)
   - TIMESTAMP_NOBEGIN
 - Called from (representative examples):
-  - CreateOrAttachShmemStructs
+  - [CreateOrAttachShmemStructs](CreateOrAttachShmemStructs.md)
 
 ## Notes and Other Information
 - This function is called once during PostgreSQL startup by the postmaster or standalone backend

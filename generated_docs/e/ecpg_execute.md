@@ -27,17 +27,17 @@ The function handles parameter passing, logging, error checking, and cleanup. It
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ecpg_log: Logs execution details for debugging
-  - PQexecPrepared: Executes prepared statements
-  - PQexec: Executes simple SQL commands
-  - PQexecParams: Executes parameterized SQL commands
-  - ecpg_register_prepared_stmt: Registers prepared statements
-  - ecpg_free_params: Cleans up parameter memory
-  - ecpg_check_PQresult: Validates execution results
+  - [ecpg_log](ecpg_log.md): Logs execution details for debugging
+  - [PQexecPrepared](../P/PQexecPrepared.md): Executes prepared statements
+  - [PQexec](../P/PQexec.md): Executes simple SQL commands
+  - [PQexecParams](../P/PQexecParams.md): Executes parameterized SQL commands
+  - [ecpg_register_prepared_stmt](ecpg_register_prepared_stmt.md): Registers prepared statements
+  - [ecpg_free_params](ecpg_free_params.md): Cleans up parameter memory
+  - [ecpg_check_PQresult](ecpg_check_PQresult.md): Validates execution results
   - ECPGst_execute: Statement type constant for prepared execution
   - ECPGst_prepare: Statement type constant for PREPARE commands
 - Called from (representative examples):
-  - ecpg_do: Main ECPG statement processing function
+  - [ecpg_do](ecpg_do.md): Main ECPG statement processing function
 
 ## Notes and Other Information
 - Returns true on successful execution, false on failure

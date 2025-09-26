@@ -20,7 +20,7 @@ The function handles backward compatibility issues, such as fixing missing BLOB 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [repoint_table_dependencies](../r/repoint_table_dependencies.md)
-  - pg_malloc
+  - [pg_malloc](../p/pg_malloc.md)
   - [identify_locking_dependencies](../i/identify_locking_dependencies.md)
   - [TocEntry](../T/TocEntry.md)
   - DumpId

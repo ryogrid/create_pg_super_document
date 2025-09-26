@@ -30,7 +30,7 @@ TriggerTransition represents the syntactic structure for naming transition rows 
 - Functions called/Symbols referenced:
   - (No direct symbol references)
 - Called from (representative examples):
-  - CreateTriggerFiringOn
+  - [CreateTriggerFiringOn](../C/CreateTriggerFiringOn.md)
 
 ## Notes and Other Information
 - Currently only transition tables are supported in the actual implementation, specifically for AFTER triggers

@@ -24,10 +24,10 @@ The function iterates through both the copied group clauses and the targetlist i
 ## Dependencies
 - Functions called/Symbols referenced:
   - copyObject
-  - list_head
+  - [list_head](../l/list_head.md)
   - [lnext](../l/lnext.md)
-  - SetOperationStmt (structure type)
-  - SortGroupClause (structure type)
+  - [SetOperationStmt](../S/SetOperationStmt.md) (structure type)
+  - [SortGroupClause](../S/SortGroupClause.md) (structure type)
 - Called from:
   - [generate_recursion_path](generate_recursion_path.md)
   - [generate_union_paths](generate_union_paths.md)

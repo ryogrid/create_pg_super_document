@@ -40,7 +40,7 @@ The key difference from  is that this function includes additional parameter cla
   - [clamp_row_est](../c/clamp_row_est.md)
   - JOIN_INNER
 - Called from (representative examples):
-  - get_baserel_parampathinfo
+  - [get_baserel_parampathinfo](get_baserel_parampathinfo.md)
 
 ## Notes and Other Information
 - Must be called after  has been applied to the relation

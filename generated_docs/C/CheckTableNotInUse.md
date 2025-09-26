@@ -28,7 +28,7 @@ The function is designed to "err on the side of paranoia" to prevent data corrup
 - Functions called/Symbols referenced:
   - RelationGetRelationName (gets the relation name for error messages)
   - RelationGetRelid (gets the relation OID)
-  - AfterTriggerPendingOnRel (checks for pending AFTER trigger events)
+  - [AfterTriggerPendingOnRel](../A/AfterTriggerPendingOnRel.md) (checks for pending AFTER trigger events)
   - ereport (reports errors with appropriate error codes)
   - RELKIND_INDEX, RELKIND_PARTITIONED_INDEX (relation kind constants)
 - Called from (representative examples):

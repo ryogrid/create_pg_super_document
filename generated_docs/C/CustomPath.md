@@ -37,13 +37,13 @@ This extensibility mechanism is used by various PostgreSQL extensions for specia
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Path (base structure)
-  - CustomPathMethods (method callbacks)
-  - List (for child paths and private data)
+  - [Path](../P/Path.md) (base structure)
+  - [CustomPathMethods](CustomPathMethods.md) (method callbacks)
+  - [List](../L/List.md) (for child paths and private data)
 - Called from (representative examples):
-  - create_customscan_plan (converts CustomPath to execution plan)
-  - ExecSupportsMarkRestore (checks execution capabilities)
-  - is_projection_capable_path (determines projection capabilities)
+  - [create_customscan_plan](../c/create_customscan_plan.md) (converts CustomPath to execution plan)
+  - [ExecSupportsMarkRestore](../E/ExecSupportsMarkRestore.md) (checks execution capabilities)
+  - [is_projection_capable_path](../i/is_projection_capable_path.md) (determines projection capabilities)
 
 ## Notes and Other Information
 - Part of PostgreSQL's extensibility API for custom scan providers

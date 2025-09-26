@@ -21,7 +21,7 @@ The function iterates through all placeholders and checks if the evaluation can 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PlaceHolderInfo (struct type for placeholder information)
+  - [PlaceHolderInfo](../P/PlaceHolderInfo.md) (struct type for placeholder information)
   - [bms_get_singleton_member](../b/bms_get_singleton_member.md) (checks if a bitmap has exactly one member)
   - [bms_nonempty_difference](../b/bms_nonempty_difference.md) (checks for non-empty set difference)
   - [find_base_rel](../f/find_base_rel.md) (finds base relation by relation number)
@@ -31,7 +31,7 @@ The function iterates through all placeholders and checks if the evaluation can 
 
 ## Notes and Other Information
 - This function must be executed after fix_placeholder_input_needed_levels but before join relations are formed
-- Join removal can occur between placeholder level fixing and this operation, which is why they must be separate steps
+- [Join](../J/Join.md) removal can occur between placeholder level fixing and this operation, which is why they must be separate steps
 - The function includes an assertion that phnullingrels should be empty for scan-level computations, as values haven't been nulled by outer joins yet
 - The function copies the PlaceHolderVar when adding it to the target list for safety
 - Target list cost and width fields are updated later in the planning process

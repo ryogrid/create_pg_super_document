@@ -29,7 +29,7 @@ Error handling is provided through _dosmaperr() which maps Windows error codes t
 ## Dependencies
 - Functions called/Symbols referenced:
   - GetFileInformationByHandle (Windows API)
-  - _dosmaperr (error mapping function)
+  - [_dosmaperr](../d/_dosmaperr.md) (error mapping function)
   - [filetime_to_time](filetime_to_time.md) (timestamp conversion)
   - [fileattr_to_unixmode](fileattr_to_unixmode.md) (permission conversion)
   - GetLastError (Windows API)
@@ -41,7 +41,7 @@ Error handling is provided through _dosmaperr() which maps Windows error codes t
 - Functions called/Symbols referenced:
   - [filetime_to_time](filetime_to_time.md)
   - [fileattr_to_unixmode](fileattr_to_unixmode.md)  
-  - _dosmaperr
+  - [_dosmaperr](../d/_dosmaperr.md)
 - Called from (representative examples):
   - [_pglstat64](../p/_pglstat64.md)
   - [_pgfstat64](../p/_pgfstat64.md)

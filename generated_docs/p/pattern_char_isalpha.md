@@ -30,7 +30,7 @@ The function is designed to work correctly across different PostgreSQL configura
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_locale_t (type)
+  - [pg_locale_t](pg_locale_t.md) (type)
   - IS_HIGHBIT_SET (macro)
   - COLLPROVIDER_LIBC (constant)
   - isalpha_l (function)

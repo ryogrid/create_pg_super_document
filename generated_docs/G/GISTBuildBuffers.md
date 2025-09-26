@@ -76,18 +76,18 @@ GISTBuildBuffers implements a sophisticated buffering system for efficient GiST 
 - `rootlevel`: Integer representing the level of the current root node (height of index tree - 1)
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufFile
+  - [BufFile](../B/BufFile.md)
   - [HTAB](../H/HTAB.md)
   - GISTNodeBuffer
 - Called from (representative examples):
   - [gistProcessItup](../g/gistProcessItup.md)
-  - gistbufferinginserttuples
-  - gistProcessEmptyingQueue
-  - gistEmptyAllBuffers
-  - gistInitBuildBuffers
-  - gistGetNodeBuffer
-  - gistAllocateNewPageBuffer
-  - gistLoadNodeBuffer
+  - [gistbufferinginserttuples](../g/gistbufferinginserttuples.md)
+  - [gistProcessEmptyingQueue](../g/gistProcessEmptyingQueue.md)
+  - [gistEmptyAllBuffers](../g/gistEmptyAllBuffers.md)
+  - [gistInitBuildBuffers](../g/gistInitBuildBuffers.md)
+  - [gistGetNodeBuffer](../g/gistGetNodeBuffer.md)
+  - [gistAllocateNewPageBuffer](../g/gistAllocateNewPageBuffer.md)
+  - [gistLoadNodeBuffer](../g/gistLoadNodeBuffer.md)
   - [gistUnloadNodeBuffer](../g/gistUnloadNodeBuffer.md)
   - [gistPushItupToNodeBuffer](../g/gistPushItupToNodeBuffer.md)
   - [gistPopItupFromNodeBuffer](../g/gistPopItupFromNodeBuffer.md)

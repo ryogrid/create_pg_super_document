@@ -37,16 +37,16 @@ The function includes sophisticated temporary file management, automatically tra
 ## Dependencies
 - Functions called/Symbols referenced:
   - FileIsValid: Validates the file descriptor
-  - FileAccess: Ensures file is accessible and opens if needed
-  - pgstat_report_wait_start: Reports start of wait event for monitoring
-  - pgstat_report_wait_end: Reports end of wait event
-  - pg_pwritev: Platform-specific vectored write function
-  - pg_usleep: Windows-specific sleep function for retry handling
-  - _dosmaperr: Windows error mapping function
+  - [FileAccess](FileAccess.md): Ensures file is accessible and opens if needed
+  - [pgstat_report_wait_start](../p/pgstat_report_wait_start.md): Reports start of wait event for monitoring
+  - [pgstat_report_wait_end](../p/pgstat_report_wait_end.md): Reports end of wait event
+  - [pg_pwritev](../p/pg_pwritev.md): Platform-specific vectored write function
+  - [pg_usleep](../p/pg_usleep.md): Windows-specific sleep function for retry handling
+  - [_dosmaperr](../d/_dosmaperr.md): Windows error mapping function
   - FD_TEMP_FILE_LIMIT: Flag indicating temporary file with size limits
 - Called from (representative examples):
-  - mdwritev: Magnetic disk storage manager vectored write operations
-  - FileWrite: Single buffer write operation (wrapper function)
+  - [mdwritev](../m/mdwritev.md): Magnetic disk storage manager vectored write operations
+  - [FileWrite](FileWrite.md): Single buffer write operation (wrapper function)
 
 ## Notes and Other Information
 - Enforces PostgreSQL's temp_file_limit configuration parameter for temporary files

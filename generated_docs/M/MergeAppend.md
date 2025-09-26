@@ -40,12 +40,12 @@ This node is particularly useful in partitioned table queries where each partiti
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PartitionPruneInfo
+  - [PartitionPruneInfo](../P/PartitionPruneInfo.md)
 - Called from (representative examples):
-  - ExecInitMergeAppend
-  - create_merge_append_plan
-  - set_mergeappend_references
-  - show_merge_append_keys
+  - [ExecInitMergeAppend](../E/ExecInitMergeAppend.md)
+  - [create_merge_append_plan](../c/create_merge_append_plan.md)
+  - [set_mergeappend_references](../s/set_mergeappend_references.md)
+  - [show_merge_append_keys](../s/show_merge_append_keys.md)
 
 ## Notes and Other Information
 - The MergeAppend node assumes all child plans produce results in the same sort order

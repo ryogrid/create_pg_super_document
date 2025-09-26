@@ -25,12 +25,12 @@ The search ignores the validity status during the binary search phase since even
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ProcArrayStruct
+  - [ProcArrayStruct](../P/ProcArrayStruct.md)
   - pg_read_barrier
-  - TransactionIdPrecedes
+  - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
 - Called from (representative examples):
-  - KnownAssignedXidExists
-  - KnownAssignedXidsRemove
+  - [KnownAssignedXidExists](KnownAssignedXidExists.md)
+  - [KnownAssignedXidsRemove](KnownAssignedXidsRemove.md)
 
 ## Notes and Other Information
 - Caller must hold ProcArrayLock in shared mode for search-only operations or exclusive mode for remove operations

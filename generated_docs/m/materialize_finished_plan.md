@@ -26,7 +26,7 @@ The function includes what the code calls a "horrid kluge" - moving initPlans up
   - [make_material](make_material.md)
   - [SS_compute_initplan_cost](../S/SS_compute_initplan_cost.md)
   - [cost_material](../c/cost_material.md)
-  - Memoize (related type)
+  - [Memoize](../M/Memoize.md) (related type)
 - Called from (representative examples):
   - [standard_planner](../s/standard_planner.md)
   - [build_subplan](../b/build_subplan.md)

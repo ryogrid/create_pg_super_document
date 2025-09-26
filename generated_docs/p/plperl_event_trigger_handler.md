@@ -21,14 +21,14 @@ This function serves as the main entry point for executing PL/Perl event trigger
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SPI_connect: Establishes connection to SPI manager
+  - [SPI_connect](../S/SPI_connect.md): Establishes connection to SPI manager
   - [compile_plperl_function](../c/compile_plperl_function.md): Compiles or retrieves cached function descriptor
   - increment_prodesc_refcount: Increments reference count for function descriptor
   - [plperl_exec_callback](plperl_exec_callback.md): Error callback function for PL/Perl execution
   - [activate_interpreter](../a/activate_interpreter.md): Activates the appropriate Perl interpreter
   - [plperl_event_trigger_build_args](plperl_event_trigger_build_args.md): Builds argument structure for event trigger
   - [plperl_call_perl_event_trigger_func](plperl_call_perl_event_trigger_func.md): Calls the actual Perl event trigger function
-  - SPI_finish: Cleans up SPI connection
+  - [SPI_finish](../S/SPI_finish.md): Cleans up SPI connection
   - [SvREFCNT_dec_current](../S/SvREFCNT_dec_current.md): Decrements Perl scalar reference count
 - Called from:
   - [plperl_call_handler](plperl_call_handler.md): Main PL/Perl function dispatcher

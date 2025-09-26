@@ -45,7 +45,7 @@ The function works in conjunction with hash_object_field_start to complete the f
 - This is a static function, only accessible within jsonfuncs.c
 - Field names exceeding NAMEDATALEN are silently ignored to maintain exact equality semantics
 - Duplicate field names result in the last value overriding previous ones
-- Complex JSON structures (arrays/objects) are stored as raw JSON text strings
+- [Complex](../C/Complex.md) JSON structures (arrays/objects) are stored as raw JSON text strings
 - Scalar values are stored directly from the saved_scalar field
 - The function includes an assertion to validate null consistency between isnull parameter and token type
 - Memory allocation for string values uses palloc() and includes proper null termination

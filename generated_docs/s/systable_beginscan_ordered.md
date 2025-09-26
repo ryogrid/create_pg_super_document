@@ -33,7 +33,7 @@ The function includes special handling for system index access policies (IgnoreS
   - [palloc](../p/palloc.md) (memory allocation)
   - [table_slot_create](../t/table_slot_create.md) (tuple slot creation)
   - [GetCatalogSnapshot](../G/GetCatalogSnapshot.md) (snapshot acquisition)
-  - RegisterSnapshot (snapshot registration)
+  - [RegisterSnapshot](../R/RegisterSnapshot.md) (snapshot registration)
   - IndexRelationGetNumberOfAttributes (index introspection)
   - [index_beginscan](../i/index_beginscan.md) (index scan initialization)
   - [index_rescan](../i/index_rescan.md) (index scan parameter setup)

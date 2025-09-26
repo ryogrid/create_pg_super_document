@@ -32,7 +32,7 @@ The function is implemented as an inline wrapper around the platform-specific im
   - [pg_atomic_uint64](pg_atomic_uint64.md) (type)
   - `PG_HAVE_ATOMIC_U64_SIMULATION` (macro)
 - Called from (representative examples):
-  - `pg_atomic_monotonic_advance_u64` (src/include/port/atomics.h:597)
+  - `[pg_atomic_monotonic_advance_u64](pg_atomic_monotonic_advance_u64.md)` (src/include/port/atomics.h:597)
   - `dsa_pointer_atomic_compare_exchange` (src/include/utils/dsa.h:68)
   - [test_atomic_uint64](../t/test_atomic_uint64.md) (src/test/regress/regress.c:820)
 

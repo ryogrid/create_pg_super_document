@@ -22,7 +22,7 @@ The function requires determining the object's owner to properly process the ACL
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open/table_close
+  - [table_open](../t/table_open.md)/table_close
   - [ScanKeyInit](../S/ScanKeyInit.md)
   - [systable_beginscan](../s/systable_beginscan.md)/systable_endscan/systable_getnext
   - [heap_getattr](../h/heap_getattr.md)
@@ -43,7 +43,7 @@ The function requires determining the object's owner to properly process the ACL
   - [heap_modify_tuple](../h/heap_modify_tuple.md)
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - [updateInitAclDependencies](../u/updateInitAclDependencies.md)
-  - CommandCounterIncrement
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md)
 - Called from (representative examples):
   - [shdepDropOwned](../s/shdepDropOwned.md)
 

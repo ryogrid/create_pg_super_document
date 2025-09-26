@@ -34,7 +34,7 @@ RoleSpec is a parse tree node that represents role specifications in SQL stateme
   - [CreateRole](../C/CreateRole.md)
   - [DropRole](../D/DropRole.md)
   - [roleSpecsToIds](../r/roleSpecsToIds.md)
-  - get_rolespec_oid
+  - [get_rolespec_oid](../g/get_rolespec_oid.md)
   - [AddRoleMems](../A/AddRoleMems.md)
   - [DelRoleMems](../D/DelRoleMems.md)
   - [CreateUserMapping](../C/CreateUserMapping.md)

@@ -39,21 +39,21 @@ The approach is generic and works with any boolean-returning predicate operator,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - statistic_proc_security_check
-  - get_attstatsslot
+  - [statistic_proc_security_check](../s/statistic_proc_security_check.md)
+  - [get_attstatsslot](../g/get_attstatsslot.md)
   - InitFunctionCallInfoData
   - FunctionCallInvoke
-  - free_attstatsslot
+  - [free_attstatsslot](../f/free_attstatsslot.md)
   - STATISTIC_KIND_HISTOGRAM
   - ATTSTATSSLOT_VALUES
 - Called from (representative examples):
-  - generic_restriction_selectivity
-  - patternsel_common
+  - [generic_restriction_selectivity](../g/generic_restriction_selectivity.md)
+  - [patternsel_common](../p/patternsel_common.md)
 
 ## Notes and Other Information
 - Returns -1 if no histogram exists or histogram is smaller than min_hist_size
 - Typical parameter values: min_hist_size=10, n_skip=1
-- Result excludes most-common-values and null entries - caller must combine with other statistics
+- [Result](../R/Result.md) excludes most-common-values and null entries - caller must combine with other statistics
 - Uses manual function invocation to handle potential NULL results gracefully
 - Outlier skipping helps improve representativeness by removing extreme values
 - Security check ensures operator function is safe to execute with column statistics

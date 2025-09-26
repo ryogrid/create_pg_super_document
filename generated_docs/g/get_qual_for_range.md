@@ -34,7 +34,7 @@ The function optimizes cases where prefixes of bounds are equal, and handles MIN
   - [make_partition_op_expr](../m/make_partition_op_expr.md)
   - [fix_opfuncids](../f/fix_opfuncids.md)
   - [ExecInitExpr](../E/ExecInitExpr.md)
-  - ExecEvalExprSwitchContext
+  - [ExecEvalExprSwitchContext](../E/ExecEvalExprSwitchContext.md)
   - [FreeExecutorState](../F/FreeExecutorState.md)
   - [makeBoolExpr](../m/makeBoolExpr.md)
   - [makeBoolConst](../m/makeBoolConst.md)

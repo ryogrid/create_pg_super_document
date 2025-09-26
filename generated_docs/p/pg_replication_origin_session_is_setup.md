@@ -19,7 +19,7 @@ This function serves as a PostgreSQL SQL function wrapper for checking replicati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `replorigin_check_prerequisites` - Validates prerequisites with `check_slots=false` and `recoveryOK=false`
+  - `[replorigin_check_prerequisites](../r/replorigin_check_prerequisites.md)` - Validates prerequisites with `check_slots=false` and `recoveryOK=false`
   - `InvalidRepOriginId` - Constant used to compare against the current session origin
   - `replorigin_session_origin` - Global variable that stores the current session's origin ID
   - `PG_RETURN_BOOL` - Returns boolean result to PostgreSQL function call framework

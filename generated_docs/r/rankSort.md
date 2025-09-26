@@ -23,7 +23,7 @@ The function creates a temporary mapping array (hmap) that stores pairs of [rank
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_malloc (memory allocation for temporary mapping array)
+  - [pg_malloc](../p/pg_malloc.md) (memory allocation for temporary mapping array)
   - qsort (standard library sorting function)
   - [rankCompare](rankCompare.md) (custom comparison function for sorting rank pairs)
   - [pg_free](../p/pg_free.md) (memory deallocation)

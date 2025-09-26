@@ -24,7 +24,7 @@ The function follows a depth-first traversal pattern, ensuring that all nested j
 - Functions called/Symbols referenced:
   - [find_placeholders_recurse](find_placeholders_recurse.md) (recursive self-calls for child nodes)
   - [find_placeholders_in_expr](find_placeholders_in_expr.md) (for processing qualification expressions)
-  - RangeTblRef, FromExpr, JoinExpr (join tree node types)
+  - [RangeTblRef](../R/RangeTblRef.md), FromExpr, JoinExpr (join tree node types)
   - nodeTag (for error reporting on unrecognized node types)
 - Called from (representative examples):
   - [find_placeholders_in_jointree](find_placeholders_in_jointree.md) (initial call)
@@ -33,9 +33,9 @@ The function follows a depth-first traversal pattern, ensuring that all nested j
 ## Notes and Other Information
 - Static function, only accessible within placeholder.c
 - Handles NULL jtnode gracefully by returning immediately
-- RangeTblRef nodes require no processing as they have no embedded qualifications
-- FromExpr nodes process fromlist children first, then top-level quals (WHERE clauses)
-- JoinExpr nodes process left and right arguments first, then join quals
+- [RangeTblRef](../R/RangeTblRef.md) nodes require no processing as they have no embedded qualifications
+- [FromExpr](../F/FromExpr.md) nodes process fromlist children first, then top-level quals (WHERE clauses)
+- [JoinExpr](../J/JoinExpr.md) nodes process left and right arguments first, then join quals
 - Throws ERROR for unrecognized node types to catch programming errors
 - Implements depth-first traversal to ensure complete coverage of join tree
 - Critical component of the placeholder discovery phase during query planning

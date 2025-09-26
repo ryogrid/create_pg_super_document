@@ -33,7 +33,7 @@ The child process will start execution in SubPostmasterMain() which reads the pa
   - [fork_process](../f/fork_process.md) (Unix: for forking)
   - execv (Unix: to execute new process)
   - CreateProcess (Windows: to create new process)
-  - AllocateFile/FreeFile (Unix: for temp file I/O)
+  - [AllocateFile](../A/AllocateFile.md)/FreeFile (Unix: for temp file I/O)
   - CreateFileMapping/MapViewOfFile (Windows: for shared memory)
 - Called from (representative examples):
   - [postmaster_child_launch](../p/postmaster_child_launch.md) (when EXEC_BACKEND is defined)

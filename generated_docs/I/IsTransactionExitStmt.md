@@ -20,7 +20,7 @@ This function checks if a parse tree node represents one of the transaction exit
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TransactionStmt (struct type)
+  - [TransactionStmt](../T/TransactionStmt.md) (struct type)
   - TRANS_STMT_COMMIT
   - TRANS_STMT_PREPARE
   - TRANS_STMT_ROLLBACK

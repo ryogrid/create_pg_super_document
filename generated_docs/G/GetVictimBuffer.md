@@ -24,18 +24,18 @@ The function operates in a loop (with 'again' label) to handle cases where a sel
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReservePrivateRefCountEntry](../R/ReservePrivateRefCountEntry.md)
-  - ResourceOwnerEnlarge
-  - StrategyGetBuffer
+  - [ResourceOwnerEnlarge](../R/ResourceOwnerEnlarge.md)
+  - [StrategyGetBuffer](../S/StrategyGetBuffer.md)
   - [BufferDescriptorGetBuffer](../B/BufferDescriptorGetBuffer.md)
-  - PinBuffer_Locked
-  - CheckBufferIsPinnedOnce
+  - [PinBuffer_Locked](../P/PinBuffer_Locked.md)
+  - [CheckBufferIsPinnedOnce](../C/CheckBufferIsPinnedOnce.md)
   - [BufferDescriptorGetContentLock](../B/BufferDescriptorGetContentLock.md)
-  - LWLockConditionalAcquire
-  - UnpinBuffer
-  - LockBufHdr/UnlockBufHdr
+  - [LWLockConditionalAcquire](../L/LWLockConditionalAcquire.md)
+  - [UnpinBuffer](../U/UnpinBuffer.md)
+  - [LockBufHdr](../L/LockBufHdr.md)/UnlockBufHdr
   - BufferGetLSN
   - [XLogNeedsFlush](../X/XLogNeedsFlush.md)
-  - StrategyRejectBuffer
+  - [StrategyRejectBuffer](../S/StrategyRejectBuffer.md)
   - [FlushBuffer](../F/FlushBuffer.md)
   - [ScheduleBufferTagForWriteback](../S/ScheduleBufferTagForWriteback.md)
   - [pgstat_count_io_op](../p/pgstat_count_io_op.md)

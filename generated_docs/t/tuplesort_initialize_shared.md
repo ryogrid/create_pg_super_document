@@ -22,9 +22,9 @@ This function sets up the shared memory structures required for parallel tuple s
 ## Dependencies
 - Functions called/Symbols referenced:
   - SpinLockInit
-  - SharedFileSetInit
-  - dsm_segment
-  - Sharedsort
+  - [SharedFileSetInit](../S/SharedFileSetInit.md)
+  - [dsm_segment](../d/dsm_segment.md)
+  - [Sharedsort](../S/Sharedsort.md)
 - Called from (representative examples):
   - [_brin_begin_parallel](../b/_brin_begin_parallel.md)
   - [_bt_begin_parallel](../b/_bt_begin_parallel.md)

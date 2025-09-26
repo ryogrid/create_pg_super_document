@@ -29,8 +29,8 @@ The function handles RelabelType nodes by unwrapping them to access the underlyi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ForeignKeyOptInfo (struct type)
-  - EquivalenceClass (struct type)  
+  - [ForeignKeyOptInfo](../F/ForeignKeyOptInfo.md) (struct type)
+  - [EquivalenceClass](../E/EquivalenceClass.md) (struct type)  
   - [EquivalenceMember](../E/EquivalenceMember.md) (struct type)
   - [bms_intersect](../b/bms_intersect.md)
   - [bms_next_member](../b/bms_next_member.md)
@@ -38,7 +38,7 @@ The function handles RelabelType nodes by unwrapping them to access the underlyi
   - [get_mergejoin_opfamilies](../g/get_mergejoin_opfamilies.md)
   - [equal](../e/equal.md)
   - IS_SIMPLE_REL (macro)
-  - RelabelType (node type)
+  - [RelabelType](../R/RelabelType.md) (node type)
 - Called from (representative examples):
   - [match_foreign_keys_to_quals](match_foreign_keys_to_quals.md)
   - Referenced in paths.h header

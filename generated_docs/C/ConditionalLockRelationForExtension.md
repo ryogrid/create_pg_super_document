@@ -28,10 +28,10 @@ The function creates the same type of lock tag used by LockRelationForExtension 
 ## Dependencies
 - Functions called/Symbols referenced:
   - SET_LOCKTAG_RELATION_EXTEND (macro to set up lock tag for relation extension)
-  - LockAcquire (core lock acquisition function with dontWait=true)
+  - [LockAcquire](../L/LockAcquire.md) (core lock acquisition function with dontWait=true)
   - LOCKACQUIRE_NOT_AVAIL (constant for comparing lock acquisition result)
 - Called from (representative examples):
-  - XLTW_Oper (transaction lock wait operations)
+  - [XLTW_Oper](../X/XLTW_Oper.md) (transaction lock wait operations)
 
 ## Notes and Other Information
 - This is the non-blocking counterpart to LockRelationForExtension

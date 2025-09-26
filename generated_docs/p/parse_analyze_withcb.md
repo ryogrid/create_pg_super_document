@@ -38,7 +38,7 @@ This approach is particularly useful for extensions, procedural languages, or ot
 - Functions called/Symbols referenced:
   - [make_parsestate](../m/make_parsestate.md): Creates parse state structure
   - [transformTopLevelStmt](../t/transformTopLevelStmt.md): Performs the main statement transformation
-  - IsQueryIdEnabled: Checks if query ID generation is enabled
+  - [IsQueryIdEnabled](../I/IsQueryIdEnabled.md): Checks if query ID generation is enabled
   - [JumbleQuery](../J/JumbleQuery.md): Generates query ID for statistics
   - [free_parsestate](../f/free_parsestate.md): Cleanup parse state structure
   - [pgstat_report_query_id](pgstat_report_query_id.md): Reports query ID for statistics collection

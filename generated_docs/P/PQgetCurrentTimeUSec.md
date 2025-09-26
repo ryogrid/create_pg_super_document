@@ -19,7 +19,7 @@ This function wraps the system's gettimeofday() function to provide a consistent
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - gettimeofday (system call)
+  - [gettimeofday](../g/gettimeofday.md) (system call)
   - pg_usec_time_t (time type)
 - Called from (representative examples):
   - [wait_until_connected](../w/wait_until_connected.md) (src/bin/psql/command.c:3889)

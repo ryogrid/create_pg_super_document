@@ -27,17 +27,17 @@ This function performs the recovery replay of transaction commit operations duri
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TransactionIdLatest](../T/TransactionIdLatest.md)
-  - AdvanceNextFullTransactionIdPastXid
+  - [AdvanceNextFullTransactionIdPastXid](../A/AdvanceNextFullTransactionIdPastXid.md)
   - [TransactionTreeSetCommitTsData](../T/TransactionTreeSetCommitTsData.md)
   - [TransactionIdCommitTree](../T/TransactionIdCommitTree.md)
   - [RecordKnownAssignedTransactionIds](../R/RecordKnownAssignedTransactionIds.md)
   - [TransactionIdAsyncCommitTree](../T/TransactionIdAsyncCommitTree.md)
-  - ExpireTreeKnownAssignedTransactionIds
+  - [ExpireTreeKnownAssignedTransactionIds](../E/ExpireTreeKnownAssignedTransactionIds.md)
   - [ProcessCommittedInvalidationMessages](../P/ProcessCommittedInvalidationMessages.md)
-  - StandbyReleaseLockTree
+  - [StandbyReleaseLockTree](../S/StandbyReleaseLockTree.md)
   - [replorigin_advance](../r/replorigin_advance.md)
   - [DropRelationFiles](../D/DropRelationFiles.md)
-  - pgstat_execute_transactional_drops
+  - [pgstat_execute_transactional_drops](../p/pgstat_execute_transactional_drops.md)
   - [XLogFlush](../X/XLogFlush.md)
   - [XLogRequestWalReceiverReply](../X/XLogRequestWalReceiverReply.md)
 - Called from (representative examples):

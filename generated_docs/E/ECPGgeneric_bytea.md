@@ -28,12 +28,12 @@ Unlike ECPGgeneric_varchar which handles character data, this structure is speci
 - Functions called/Symbols referenced:
   - FLEXIBLE_ARRAY_MEMBER (macro for flexible array declaration)
 - Called from (representative examples):
-  - ecpg_get_data (src/interfaces/ecpg/ecpglib/data.c:523-524)
-  - set_desc_attr (src/interfaces/ecpg/ecpglib/descriptor.c:592-593)
-  - ecpg_store_input (src/interfaces/ecpg/ecpglib/execute.c:822-823)
-  - ecpg_build_params (src/interfaces/ecpg/ecpglib/execute.c:1400)
-  - ECPGset_noind_null (src/interfaces/ecpg/ecpglib/misc.c:327)
-  - ECPGis_noind_null (src/interfaces/ecpg/ecpglib/misc.c:401)
+  - [ecpg_get_data](../e/ecpg_get_data.md) (src/interfaces/ecpg/ecpglib/data.c:523-524)
+  - [set_desc_attr](../s/set_desc_attr.md) (src/interfaces/ecpg/ecpglib/descriptor.c:592-593)
+  - [ecpg_store_input](../e/ecpg_store_input.md) (src/interfaces/ecpg/ecpglib/execute.c:822-823)
+  - [ecpg_build_params](../e/ecpg_build_params.md) (src/interfaces/ecpg/ecpglib/execute.c:1400)
+  - [ECPGset_noind_null](ECPGset_noind_null.md) (src/interfaces/ecpg/ecpglib/misc.c:327)
+  - [ECPGis_noind_null](ECPGis_noind_null.md) (src/interfaces/ecpg/ecpglib/misc.c:401)
 
 ## Notes and Other Information
 - This structure is specifically designed for binary data, unlike ECPGgeneric_varchar which is for character strings

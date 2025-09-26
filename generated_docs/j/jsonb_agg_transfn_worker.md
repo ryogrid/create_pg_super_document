@@ -29,7 +29,7 @@ The  function serves as the core implementation for JSONB array aggregation tran
   -  - Convert datum to JSONB
   -  - Convert JsonbValue to final JSONB
   - ,  - JSONB iteration functions
-  - ,  - Numeric value copying
+  - ,  - [Numeric](../N/Numeric.md) value copying
   - Memory context functions: 
   - Constants: , , , , , , , 
 - Called from:

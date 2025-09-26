@@ -32,11 +32,11 @@ The resource descriptor is populated with callback functions that will be invoke
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReleaseManyTestResource (assigned as callback)
-  - PrintManyTest (assigned as debug print callback)
-  - dlist_init (initializes doubly-linked list)
+  - [ReleaseManyTestResource](../R/ReleaseManyTestResource.md) (assigned as callback)
+  - [PrintManyTest](../P/PrintManyTest.md) (assigned as debug print callback)
+  - [dlist_init](../d/dlist_init.md) (initializes doubly-linked list)
 - Called from (representative examples):
-  - test_resowner_many (main test function)
+  - [test_resowner_many](../t/test_resowner_many.md) (main test function)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the test_resowner_many.c file

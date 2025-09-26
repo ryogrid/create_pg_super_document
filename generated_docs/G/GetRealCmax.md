@@ -25,7 +25,7 @@ This function takes a combo command ID and returns the original cmax value by pe
   - Assert (for bounds checking)
   - CommandId (type definition)
 - Called from (representative examples):
-  - HeapTupleHeaderGetCmax
+  - [HeapTupleHeaderGetCmax](../H/HeapTupleHeaderGetCmax.md)
   - CCID_ARRAY_SIZE (indirectly through array bounds checking)
 
 ## Notes and Other Information

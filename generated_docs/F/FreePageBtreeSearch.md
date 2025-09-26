@@ -25,11 +25,11 @@ The function handles both exact matches and insertion scenarios. For exact match
 - Functions called/Symbols referenced:
   - fpm_segment_base
   - relptr_access
-  - FreePageBtreeSearchInternal
-  - FreePageBtreeSearchLeaf
+  - [FreePageBtreeSearchInternal](FreePageBtreeSearchInternal.md)
+  - [FreePageBtreeSearchLeaf](FreePageBtreeSearchLeaf.md)
 - Called from:
-  - FreePageManagerGetInternal
-  - FreePageManagerPutInternal
+  - [FreePageManagerGetInternal](FreePageManagerGetInternal.md)
+  - [FreePageManagerPutInternal](FreePageManagerPutInternal.md)
 
 ## Notes and Other Information
 - The function calculates split_pages to indicate how many additional btree pages would be needed for insertion

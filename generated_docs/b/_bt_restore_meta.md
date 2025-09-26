@@ -24,7 +24,7 @@ The restoration process includes validation checks to ensure the data integrity 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogInitBufferForRedo
+  - [XLogInitBufferForRedo](../X/XLogInitBufferForRedo.md)
   - [XLogRecGetBlockData](../X/XLogRecGetBlockData.md)
   - [_bt_pageinit](_bt_pageinit.md)
   - BTPageGetMeta
@@ -33,7 +33,7 @@ The restoration process includes validation checks to ensure the data integrity 
   - [BufferGetPageSize](../B/BufferGetPageSize.md)
   - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)
   - [PageSetLSN](../P/PageSetLSN.md)
-  - MarkBufferDirty
+  - [MarkBufferDirty](../M/MarkBufferDirty.md)
   - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
 - Data types used:
   - [BTMetaPageData](../B/BTMetaPageData.md)

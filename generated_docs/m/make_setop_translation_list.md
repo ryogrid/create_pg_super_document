@@ -31,10 +31,10 @@ This translation mechanism is essential for PostgreSQL's append relation optimiz
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_length
+  - [list_length](../l/list_length.md)
   - [palloc0](../p/palloc0.md)
-  - makeVarFromTargetEntry
-  - lappend
+  - [makeVarFromTargetEntry](makeVarFromTargetEntry.md)
+  - [lappend](../l/lappend.md)
   - lfirst (macro for list traversal)
 - Called from (representative examples):
   - [pull_up_union_leaf_queries](../p/pull_up_union_leaf_queries.md)

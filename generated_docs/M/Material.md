@@ -28,17 +28,17 @@ This node is automatically inserted by the planner when it determines that a sub
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Plan (inherited base structure)
+  - [Plan](../P/Plan.md) (inherited base structure)
 
 - Called from (representative examples):
-  - ExecInitNode (executor/execProcnode.c:316)
-  - ExecInitMaterial (executor/nodeMaterial.c:164)
-  - ExecInitMergeJoin (executor/nodeMergejoin.c:1514)
-  - create_material_plan (optimizer/plan/createplan.c:1641)
-  - make_material (optimizer/plan/createplan.c:6508)
+  - [ExecInitNode](../E/ExecInitNode.md) (executor/execProcnode.c:316)
+  - [ExecInitMaterial](../E/ExecInitMaterial.md) (executor/nodeMaterial.c:164)
+  - [ExecInitMergeJoin](../E/ExecInitMergeJoin.md) (executor/nodeMergejoin.c:1514)
+  - [create_material_plan](../c/create_material_plan.md) (optimizer/plan/createplan.c:1641)
+  - [make_material](../m/make_material.md) (optimizer/plan/createplan.c:6508)
 
 ## Notes and Other Information
-- Material nodes are often inserted automatically by the query planner rather than being explicitly requested
+- [Material](Material.md) nodes are often inserted automatically by the query planner rather than being explicitly requested
 - The node uses PostgreSQL's tuplestore facility to cache data, which can spill to disk for large datasets
 - Commonly used as input to merge joins where the inner relation needs to support mark/restore operations
 - Essential for operations requiring backward scanning or multiple iterations over the same dataset

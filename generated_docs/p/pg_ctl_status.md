@@ -28,7 +28,7 @@ On any failure, the function logs detailed error information including the origi
   - WIFEXITED, WEXITSTATUS (POSIX macros for checking normal exit status)
   - WIFSIGNALED, WTERMSIG (POSIX macros for checking signal termination)
   - pg_log_error, pg_log_error_detail (PostgreSQL logging functions)
-  - pg_strsignal (PostgreSQL utility for signal name resolution, Unix-like systems only)
+  - [pg_strsignal](pg_strsignal.md) (PostgreSQL utility for signal name resolution, Unix-like systems only)
   - exit (standard library function for program termination)
 
 - Called from (representative examples):

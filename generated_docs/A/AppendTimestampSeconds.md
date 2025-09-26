@@ -28,12 +28,12 @@ This function serves as an abstraction layer that encapsulates timestamp-specifi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AppendSeconds (core formatting function)
+  - [AppendSeconds](AppendSeconds.md) (core formatting function)
   - MAX_TIMESTAMP_PRECISION (constant defining maximum precision)
-  - pg_tm (PostgreSQL time structure)
+  - [pg_tm](../p/pg_tm.md) (PostgreSQL time structure)
   - fsec_t (fractional seconds type)
 - Called from (representative examples):
-  - EncodeDateTime (multiple locations for various timestamp formats)
+  - [EncodeDateTime](../E/EncodeDateTime.md) (multiple locations for various timestamp formats)
 
 ## Notes and Other Information
 - This is a thin wrapper around AppendSeconds with timestamp-optimized defaults

@@ -22,7 +22,7 @@ The function is used when the system determines that the current visibility boun
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ComputeXidHorizons
+  - [ComputeXidHorizons](../C/ComputeXidHorizons.md)
 - Types used:
   - [ComputeXidHorizonsResult](../C/ComputeXidHorizonsResult.md)
 - Called from:
@@ -31,7 +31,7 @@ The function is used when the system determines that the current visibility boun
 ## Notes and Other Information
 - This is a static function, only visible within procarray.c
 - Very simple wrapper function that delegates all work to ComputeXidHorizons()
-- ComputeXidHorizons() updates the global visibility states as a side effect
+- [ComputeXidHorizons](../C/ComputeXidHorizons.md)() updates the global visibility states as a side effect
 - The horizons variable is local and not used after ComputeXidHorizons() returns
 - Part of the global visibility infrastructure for maintaining MVCC correctness
 - Called when heuristics determine that boundary updates would be beneficial

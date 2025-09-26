@@ -65,10 +65,10 @@ The Aggref structure is a comprehensive representation of aggregate function cal
   - AggSplit
   - ParseLoc
 - Called from (representative examples):
-  - find_expr_references_walker (dependency analysis)
-  - ExecInitExprRec (expression initialization)
-  - ExecInitAgg (aggregate node initialization)
-  - transformAggregateCall (parser aggregate processing)
+  - [find_expr_references_walker](../f/find_expr_references_walker.md) (dependency analysis)
+  - [ExecInitExprRec](../E/ExecInitExprRec.md) (expression initialization)
+  - [ExecInitAgg](../E/ExecInitAgg.md) (aggregate node initialization)
+  - [transformAggregateCall](../t/transformAggregateCall.md) (parser aggregate processing)
   - Various optimizer functions for aggregate planning and optimization
 
 ## Notes and Other Information

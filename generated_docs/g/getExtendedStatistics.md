@@ -23,7 +23,7 @@ The getExtendedStatistics function queries the pg_statistic_ext system catalog t
   - [StatsExtInfo](../S/StatsExtInfo.md) (structure type)
   - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
   - PGRES_TUPLES_OK (constant)
-  - pg_malloc
+  - [pg_malloc](../p/pg_malloc.md)
   - DO_STATSEXT (enum value)
   - atooid
   - [AssignDumpId](../A/AssignDumpId.md)

@@ -30,10 +30,10 @@ The implementation handles endianness differences: on little-endian systems it d
   - Se, Sf, Sg, Sh (shift constants for round 2)
   - Si, Sj, Sk, Sl (shift constants for round 3)
   - Sm, Sn, So, Sp (shift constants for round 4)
-  - pg_md5_ctx (MD5 context structure type)
+  - [pg_md5_ctx](../p/pg_md5_ctx.md) (MD5 context structure type)
 - Called from (representative examples):
-  - md5_pad
-  - pg_md5_update
+  - [md5_pad](md5_pad.md)
+  - [pg_md5_update](../p/pg_md5_update.md)
 
 ## Notes and Other Information
 - This function is static and only used internally within the MD5 implementation

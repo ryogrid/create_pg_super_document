@@ -19,7 +19,7 @@ The create_fullpage_directory function is responsible for setting up a directory
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_check_dir (function to check directory status and accessibility)
+  - [pg_check_dir](../p/pg_check_dir.md) (function to check directory status and accessibility)
   - [pg_mkdir_p](../p/pg_mkdir_p.md) (function to create directory with parent directories as needed)
   - pg_dir_create_mode (global variable defining directory creation permissions)
   - [pg_fatal](../p/pg_fatal.md) (function to report fatal errors and exit)

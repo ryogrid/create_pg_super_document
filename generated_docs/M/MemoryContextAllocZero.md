@@ -32,8 +32,8 @@ Like MemoryContextAlloc, this function integrates with Valgrind memory debugging
   - [index_form_tuple_context](../i/index_form_tuple_context.md)
   - [InitializeSession](../I/InitializeSession.md)
   - [PushTransaction](../P/PushTransaction.md)
-  - CreatePortal
-  - ResourceOwnerCreate
+  - [CreatePortal](../C/CreatePortal.md)
+  - [ResourceOwnerCreate](../R/ResourceOwnerCreate.md)
   - array manipulation functions
   - relation cache operations
   - replication buffer operations

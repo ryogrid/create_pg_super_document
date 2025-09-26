@@ -21,7 +21,7 @@ This function prepares the argument structure passed to Perl event trigger funct
 ## Dependencies
 - Functions called/Symbols referenced:
   - newHV (Perl API function to create new hash)
-  - EventTriggerData (PostgreSQL event trigger data structure)
+  - [EventTriggerData](../E/EventTriggerData.md) (PostgreSQL event trigger data structure)
   - [hv_store_string](../h/hv_store_string.md) (utility function to store string values in Perl hash)
   - [cstr2sv](../c/cstr2sv.md) (conversion function from C string to Perl scalar)
   - [GetCommandTagName](../G/GetCommandTagName.md) (PostgreSQL function to get command tag name)

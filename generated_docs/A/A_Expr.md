@@ -60,12 +60,12 @@ The structure supports both unary operations (with lexpr or rexpr NULL) and bina
   - [transformAExprOp](../t/transformAExprOp.md)
   - [transformAExprOpAny](../t/transformAExprOpAny.md)
   - [transformAExprOpAll](../t/transformAExprOpAll.md)
-  - transformAExprDistinct
-  - transformAExprNullIf
-  - transformAExprIn
-  - transformAExprBetween
-  - makeA_Expr
-  - makeSimpleA_Expr
+  - [transformAExprDistinct](../t/transformAExprDistinct.md)
+  - [transformAExprNullIf](../t/transformAExprNullIf.md)
+  - [transformAExprIn](../t/transformAExprIn.md)
+  - [transformAExprBetween](../t/transformAExprBetween.md)
+  - [makeA_Expr](../m/makeA_Expr.md)
+  - [makeSimpleA_Expr](../m/makeSimpleA_Expr.md)
 
 ## Notes and Other Information
 - [A_Expr](A_Expr.md) nodes are created by the parser and transformed during semantic analysis

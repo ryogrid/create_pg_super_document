@@ -25,17 +25,17 @@ This function prepares the visibility map for truncation to match a new heap siz
   - HEAPBLK_TO_MAPBYTE
   - HEAPBLK_TO_OFFSET
   - [smgrexists](../s/smgrexists.md)
-  - RelationGetSmgr
+  - [RelationGetSmgr](../R/RelationGetSmgr.md)
   - [vm_readbuf](vm_readbuf.md)
   - [PageGetContents](../P/PageGetContents.md)
   - [LockBuffer](../L/LockBuffer.md)
   - MemSet
-  - MarkBufferDirty
+  - [MarkBufferDirty](../M/MarkBufferDirty.md)
   - RelationNeedsWAL
   - XLogHintBitIsNeeded
   - [log_newpage_buffer](../l/log_newpage_buffer.md)
   - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
-  - smgrnblocks
+  - [smgrnblocks](../s/smgrnblocks.md)
   - VISIBILITYMAP_FORKNUM
   - MAPSIZE
 - Called from (representative examples):

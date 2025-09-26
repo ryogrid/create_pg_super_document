@@ -23,12 +23,12 @@ The function ensures type safety by converting the argument to a boolean-compati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - transformExprRecurse
-  - coerce_to_boolean
+  - [transformExprRecurse](transformExprRecurse.md)
+  - [coerce_to_boolean](../c/coerce_to_boolean.md)
   - elog
   - IS_TRUE, IS_NOT_TRUE, IS_FALSE, IS_NOT_FALSE, IS_UNKNOWN, IS_NOT_UNKNOWN (enum constants)
 - Called from (representative examples):
-  - transformExprRecurse
+  - [transformExprRecurse](transformExprRecurse.md)
 
 ## Notes and Other Information
 - Supports all six standard SQL Boolean test operations

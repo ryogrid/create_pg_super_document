@@ -39,7 +39,7 @@ This static function implements the recursive logic for inserting RestrictInfo n
 ## Dependencies
 - Functions called/Symbols referenced:
   - [is_orclause](../i/is_orclause.md)
-  - BoolExpr
+  - [BoolExpr](../B/BoolExpr.md)
   - [make_sub_restrictinfos](make_sub_restrictinfos.md) (recursive call)
   - [make_restrictinfo_internal](make_restrictinfo_internal.md)
   - [make_orclause](make_orclause.md)

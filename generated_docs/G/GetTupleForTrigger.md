@@ -41,8 +41,8 @@ The function implements comprehensive error handling for different tuple states 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_tuple_lock
-  - table_tuple_fetch_row_version
+  - [table_tuple_lock](../t/table_tuple_lock.md)
+  - [table_tuple_fetch_row_version](../t/table_tuple_fetch_row_version.md)
   - [EvalPlanQual](../E/EvalPlanQual.md)
   - IsolationUsesXactSnapshot
   - TupIsNull

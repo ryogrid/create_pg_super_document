@@ -30,9 +30,9 @@ This function takes no parameters and operates on global recovery state variable
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReachedEndOfBackup](../R/ReachedEndOfBackup.md)
-  - XLogCheckInvalidPages
+  - [XLogCheckInvalidPages](../X/XLogCheckInvalidPages.md)
   - [CheckTablespaceDirectory](CheckTablespaceDirectory.md)
-  - SendPostmasterSignal
+  - [SendPostmasterSignal](../S/SendPostmasterSignal.md)
   - XLogRecPtrIsInvalid
   - ereport/elog
 - Called from:

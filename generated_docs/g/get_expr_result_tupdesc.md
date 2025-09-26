@@ -32,7 +32,7 @@ The function includes the same warning as `get_expr_result_type` about being cau
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_expr_result_type](get_expr_result_type.md)
-  - exprType
+  - [exprType](../e/exprType.md)
   - [format_type_be](../f/format_type_be.md)
   - ereport
   - TYPEFUNC_COMPOSITE

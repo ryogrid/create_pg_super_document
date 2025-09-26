@@ -24,7 +24,7 @@ The  function performs a complete deep copy of chromosome data from one chromoso
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Chromosome (struct type)
+  - [Chromosome](../C/Chromosome.md) (struct type)
 - Called from (representative examples):
   - [spread_chromo](../s/spread_chromo.md)
   - [geqo_selection](geqo_selection.md)

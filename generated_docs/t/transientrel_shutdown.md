@@ -18,8 +18,8 @@ This function serves as the shutdown callback for a DestReceiver that handles wr
 ## Dependencies
 - Functions called/Symbols referenced:
   - [FreeBulkInsertState](../F/FreeBulkInsertState.md)
-  - table_finish_bulk_insert
-  - table_close
+  - [table_finish_bulk_insert](table_finish_bulk_insert.md)
+  - [table_close](table_close.md)
 - Called from (representative examples):
   - [CreateTransientRelDestReceiver](../C/CreateTransientRelDestReceiver.md) (callback assignment)
 

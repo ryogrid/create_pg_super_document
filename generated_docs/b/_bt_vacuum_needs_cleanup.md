@@ -17,17 +17,17 @@ This function is called by btvacuumcleanup when btbulkdelete was never invoked b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _bt_getbuf
-  - BufferGetPage
+  - [_bt_getbuf](_bt_getbuf.md)
+  - [BufferGetPage](../B/BufferGetPage.md)
   - BTPageGetMeta
-  - _bt_relbuf
+  - [_bt_relbuf](_bt_relbuf.md)
   - RelationGetNumberOfBlocks
   - BTREE_METAPAGE
   - BT_READ
   - BTREE_NOVAC_VERSION
-  - BTMetaPageData
+  - [BTMetaPageData](../B/BTMetaPageData.md)
 - Called from (representative examples):
-  - btvacuumcleanup
+  - [btvacuumcleanup](btvacuumcleanup.md)
 
 ## Notes and Other Information
 - Deliberately avoids cached metapage data to ensure current information

@@ -34,13 +34,13 @@ This structure is responsible for managing the reconstruction of TOAST data duri
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_head
-  - varlena
+  - [dlist_head](../d/dlist_head.md)
+  - [varlena](../v/varlena.md)
 - Called from (representative examples):
-  - ReorderBufferToastInitHash
-  - ReorderBufferToastAppendChunk
-  - ReorderBufferToastReplace
-  - ReorderBufferToastReset
+  - [ReorderBufferToastInitHash](ReorderBufferToastInitHash.md)
+  - [ReorderBufferToastAppendChunk](ReorderBufferToastAppendChunk.md)
+  - [ReorderBufferToastReplace](ReorderBufferToastReplace.md)
+  - [ReorderBufferToastReset](ReorderBufferToastReset.md)
 
 ## Notes and Other Information
 - Essential for handling large attribute values that exceed the inline storage threshold in logical replication

@@ -38,11 +38,11 @@ The decision between full and incremental backup is based on several factors:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IncrementalBackupInfo (struct used in context)
+  - [IncrementalBackupInfo](../I/IncrementalBackupInfo.md) (struct used in context)
 
 - Called from (representative examples):
-  - GetFileBackupMethod (returns this enum type)
-  - sendDir (in basebackup.c, uses the enum values for backup logic)
+  - [GetFileBackupMethod](../G/GetFileBackupMethod.md) (returns this enum type)
+  - [sendDir](../s/sendDir.md) (in basebackup.c, uses the enum values for backup logic)
 
 ## Notes and Other Information
 - The enum is defined in 

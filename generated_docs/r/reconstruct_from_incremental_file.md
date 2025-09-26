@@ -54,11 +54,11 @@ The reconstruction process handles both incremental and full files in the backup
   - [copy_file](../c/copy_file.md)
   - [write_reconstructed_file](../w/write_reconstructed_file.md)
   - [debug_reconstruction](../d/debug_reconstruction.md)
-  - pg_checksum_init
-  - pg_checksum_final
+  - [pg_checksum_init](../p/pg_checksum_init.md)
+  - [pg_checksum_final](../p/pg_checksum_final.md)
   - manifest_files_lookup
 - Called from (representative examples):
-  - process_directory_recursively
+  - [process_directory_recursively](../p/process_directory_recursively.md)
 
 ## Notes and Other Information
 The function implements sophisticated optimization logic, including the ability to perform full file copies when no blocks from later incrementals are needed. It handles zero-filled blocks that may not be present in any backup due to PostgreSQL's WAL-based incremental backup strategy. The function also includes comprehensive error handling for cases where the backup chain is incomplete or inconsistent.

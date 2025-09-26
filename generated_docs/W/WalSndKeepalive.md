@@ -21,7 +21,7 @@ WalSndKeepalive constructs and sends a keepalive message to the standby server a
 ## Dependencies
 - Functions called/Symbols referenced:
   - elog (with DEBUG2 level)
-  - resetStringInfo
+  - [resetStringInfo](../r/resetStringInfo.md)
   - [pq_sendbyte](../p/pq_sendbyte.md)
   - XLogRecPtrIsInvalid
   - [pq_sendint64](../p/pq_sendint64.md)

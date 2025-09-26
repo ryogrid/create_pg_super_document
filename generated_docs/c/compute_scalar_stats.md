@@ -25,7 +25,7 @@ The `compute_scalar_stats` function performs the most sophisticated statistical 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PrepareSortSupportFromOrderingOp
+  - [PrepareSortSupportFromOrderingOp](../P/PrepareSortSupportFromOrderingOp.md)
   - [vacuum_delay_point](../v/vacuum_delay_point.md)
   - VARSIZE_ANY, DatumGetPointer, DatumGetCString
   - [toast_raw_datum_size](../t/toast_raw_datum_size.md), PG_DETOAST_DATUM

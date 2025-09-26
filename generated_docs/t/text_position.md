@@ -29,7 +29,7 @@ The  function is the internal implementation that performs the actual substring 
   -  - Gets the size of variable-length data excluding header
 - Called from (representative examples):
   -  - SQL POSITION() function wrapper
-  -  - Variable string processing
+  -  - [Variable](../V/Variable.md) string processing
 
 ## Notes and Other Information
 - Returns 1-based position consistent with SQL standard (not 0-based like C)

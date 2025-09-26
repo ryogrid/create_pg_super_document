@@ -30,24 +30,24 @@ The function initializes the tuple store on the first call, manages memory conte
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pltcl_call_state (PL/Tcl call state structure)
-  - FunctionCallInfo (PostgreSQL function call info)
-  - pltcl_proc_desc (PL/Tcl procedure descriptor)
-  - ResourceOwner (PostgreSQL resource management)
-  - BeginInternalSubTransaction (PostgreSQL subtransaction management)
+  - [pltcl_call_state](pltcl_call_state.md) (PL/Tcl call state structure)
+  - [FunctionCallInfo](../F/FunctionCallInfo.md) (PostgreSQL function call info)
+  - [pltcl_proc_desc](pltcl_proc_desc.md) (PL/Tcl procedure descriptor)
+  - [ResourceOwner](../R/ResourceOwner.md) (PostgreSQL resource management)
+  - [BeginInternalSubTransaction](../B/BeginInternalSubTransaction.md) (PostgreSQL subtransaction management)
   - PG_TRY/PG_CATCH/PG_END_TRY (PostgreSQL exception handling macros)
-  - pltcl_init_tuple_store (initializes tuple storage)
+  - [pltcl_init_tuple_store](pltcl_init_tuple_store.md) (initializes tuple storage)
   - Tcl_Size (Tcl type definition)
-  - pltcl_build_tuple_result (constructs tuple from Tcl values)
-  - tuplestore_puttuple (stores tuple in tuplestore)
-  - InputFunctionCall (converts text to PostgreSQL datum)
-  - utf_u2e (UTF-8 encoding conversion)
-  - tuplestore_putvalues (stores values in tuplestore)
-  - pltcl_subtrans_commit (commits subtransaction)
-  - pltcl_subtrans_abort (aborts subtransaction)
+  - [pltcl_build_tuple_result](pltcl_build_tuple_result.md) (constructs tuple from Tcl values)
+  - [tuplestore_puttuple](../t/tuplestore_puttuple.md) (stores tuple in tuplestore)
+  - [InputFunctionCall](../I/InputFunctionCall.md) (converts text to PostgreSQL datum)
+  - [utf_u2e](../u/utf_u2e.md) (UTF-8 encoding conversion)
+  - [tuplestore_putvalues](../t/tuplestore_putvalues.md) (stores values in tuplestore)
+  - [pltcl_subtrans_commit](pltcl_subtrans_commit.md) (commits subtransaction)
+  - [pltcl_subtrans_abort](pltcl_subtrans_abort.md) (aborts subtransaction)
 - Called from (representative examples):
   - TclExceptionNameMap (registered as Tcl command)
-  - pltcl_init_interp (command registration)
+  - [pltcl_init_interp](pltcl_init_interp.md) (command registration)
 
 ## Notes and Other Information
 - Returns TCL_ERROR for invalid usage or processing errors

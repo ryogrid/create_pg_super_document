@@ -24,16 +24,16 @@ The core logic involves a loop that examines each node type and either processes
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_typ_typrelid (retrieves type relation ID for tuple types)
-  - get_attname (gets attribute name from relation and attribute number)
-  - quote_identifier (properly quotes field names)
-  - printSubscripts (handles array subscript printing)
+  - [get_typ_typrelid](../g/get_typ_typrelid.md) (retrieves type relation ID for tuple types)
+  - [get_attname](../g/get_attname.md) (gets attribute name from relation and attribute number)
+  - [quote_identifier](../q/quote_identifier.md) (properly quotes field names)
+  - [printSubscripts](printSubscripts.md) (handles array subscript printing)
   - linitial_int (gets first integer from list)
 - Called from (representative examples):
-  - get_insert_query_def
-  - get_update_query_targetlist_def
-  - get_merge_query_def
-  - get_rule_expr
+  - [get_insert_query_def](../g/get_insert_query_def.md)
+  - [get_update_query_targetlist_def](../g/get_update_query_targetlist_def.md)
+  - [get_merge_query_def](../g/get_merge_query_def.md)
+  - [get_rule_expr](../g/get_rule_expr.md)
 
 ## Notes and Other Information
 - Only processes FieldStore nodes with exactly one target field, as expected in stored rules

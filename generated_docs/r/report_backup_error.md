@@ -27,7 +27,7 @@ This centralized error reporting approach ensures consistent error message forma
 - Functions called/Symbols referenced:
   - va_start
   - va_end
-  - pg_log_generic_v
+  - [pg_log_generic_v](../p/pg_log_generic_v.md)
   - gettext
   - exit
   - PG_LOG_ERROR (constant)

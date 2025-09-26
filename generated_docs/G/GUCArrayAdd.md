@@ -30,17 +30,17 @@ The function handles the special case where the input array is NULL by creating 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - validate_option_array_item (validate parameter name and value)
-  - find_option (locate and normalize GUC parameter names)
-  - psprintf (format "name=value" string)
+  - [validate_option_array_item](../v/validate_option_array_item.md) (validate parameter name and value)
+  - [find_option](../f/find_option.md) (locate and normalize GUC parameter names)
+  - [psprintf](../p/psprintf.md) (format "name=value" string)
   - CStringGetTextDatum (convert C string to PostgreSQL text datum)
-  - array_ref (extract existing array elements)
-  - array_set (update array element at specific position)
-  - construct_array_builtin (create new single-element array)
+  - [array_ref](../a/array_ref.md) (extract existing array elements)
+  - [array_set](../a/array_set.md) (update array element at specific position)
+  - [construct_array_builtin](../c/construct_array_builtin.md) (create new single-element array)
   - ARR_ELEMTYPE/ARR_NDIM/ARR_LBOUND/ARR_DIMS (array metadata macros)
 - Called from (representative examples):
-  - AlterSetting (src/backend/catalog/pg_db_role_setting.c:118,144)
-  - update_proconfig_value (src/backend/commands/functioncmds.c:660)
+  - [AlterSetting](../A/AlterSetting.md) (src/backend/catalog/pg_db_role_setting.c:118,144)
+  - [update_proconfig_value](../u/update_proconfig_value.md) (src/backend/commands/functioncmds.c:660)
 
 ## Notes and Other Information
 - Returns a new ArrayType - the original array is not modified in place

@@ -19,13 +19,13 @@ This function tracks tuple insertion operations for statistical purposes by incr
 ## Dependencies
 - Functions called/Symbols referenced:
   - pgstat_should_count_relation
-  - ensure_tabstat_xact_level
+  - [ensure_tabstat_xact_level](../e/ensure_tabstat_xact_level.md)
   - PgStat_Counter
-  - PgStat_TableStatus
+  - [PgStat_TableStatus](../P/PgStat_TableStatus.md)
 - Called from (representative examples):
-  - heap_insert
-  - heap_multi_insert
-  - RefreshMatViewByOid
+  - [heap_insert](../h/heap_insert.md)
+  - [heap_multi_insert](../h/heap_multi_insert.md)
+  - [RefreshMatViewByOid](../R/RefreshMatViewByOid.md)
   - pgstat_count_buffer_hit
 
 ## Notes and Other Information

@@ -34,13 +34,13 @@ This design ensures that the MergeAppend node can be efficiently reused within t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_overlap (checks if two bitmapsets have common members)
-  - bms_free (deallocates a bitmapset)
-  - UpdateChangedParamSet (propagates parameter changes to child nodes)
-  - ExecReScan (rescans individual subplans)
-  - binaryheap_reset (clears the binary heap)
+  - [bms_overlap](../b/bms_overlap.md) (checks if two bitmapsets have common members)
+  - [bms_free](../b/bms_free.md) (deallocates a bitmapset)
+  - [UpdateChangedParamSet](../U/UpdateChangedParamSet.md) (propagates parameter changes to child nodes)
+  - [ExecReScan](ExecReScan.md) (rescans individual subplans)
+  - [binaryheap_reset](../b/binaryheap_reset.md) (clears the binary heap)
 - Called from (representative examples):
-  - ExecReScan (main executor rescan dispatcher)
+  - [ExecReScan](ExecReScan.md) (main executor rescan dispatcher)
 
 ## Notes and Other Information
 - The function is part of the standard PostgreSQL executor node lifecycle and rescan protocol

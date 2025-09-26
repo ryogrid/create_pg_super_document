@@ -38,7 +38,7 @@ The use of copyObject() ensures that the original A_Indirection node is not modi
 - Functions called/Symbols referenced:
   - copyObject
   - [list_truncate](../l/list_truncate.md)
-  - list_length
+  - [list_length](../l/list_length.md)
   - [transformExpr](../t/transformExpr.md)
   - [ExpandRowReference](ExpandRowReference.md)
 - Called from (representative examples):

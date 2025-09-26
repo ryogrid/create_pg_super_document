@@ -29,7 +29,7 @@ This function allocates memory for an edge table that is used in the ERX crossov
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc](../p/palloc.md) (memory allocation function)
-  - Edge (data structure type)
+  - [Edge](../E/Edge.md) (data structure type)
 - Called from (representative examples):
   - [geqo](../g/geqo.md) (main genetic algorithm function)
 

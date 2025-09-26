@@ -32,13 +32,13 @@ The function handles several critical aspects of parallel execution including: s
   - [ExecutorFinish](../E/ExecutorFinish.md)
   - [ExecutorEnd](../E/ExecutorEnd.md)
   - [dsa_get_address](../d/dsa_get_address.md)
-  - RestoreParamExecParams
+  - [RestoreParamExecParams](../R/RestoreParamExecParams.md)
   - [ExecParallelInitializeWorker](../E/ExecParallelInitializeWorker.md)
   - [ExecSetTupleBound](../E/ExecSetTupleBound.md)
   - [InstrStartParallelQuery](../I/InstrStartParallelQuery.md)
   - [InstrEndParallelQuery](../I/InstrEndParallelQuery.md)
   - [ExecParallelReportInstrumentation](../E/ExecParallelReportInstrumentation.md)
-  - dsa_detach
+  - [dsa_detach](../d/dsa_detach.md)
   - [FreeQueryDesc](../F/FreeQueryDesc.md)
   - DsaPointerIsValid
 - Constants used:
@@ -55,13 +55,13 @@ The function handles several critical aspects of parallel execution including: s
   - ParallelWorkerNumber
 - Types used:
   - [FixedParallelExecutorState](../F/FixedParallelExecutorState.md)
-  - BufferUsage
-  - WalUsage
-  - DestReceiver
-  - QueryDesc
+  - [BufferUsage](../B/BufferUsage.md)
+  - [WalUsage](../W/WalUsage.md)
+  - [DestReceiver](../D/DestReceiver.md)
+  - [QueryDesc](../Q/QueryDesc.md)
   - [SharedExecutorInstrumentation](../S/SharedExecutorInstrumentation.md)
   - [SharedJitInstrumentation](../S/SharedJitInstrumentation.md)
-  - dsa_area
+  - [dsa_area](../d/dsa_area.md)
   - [ParallelWorkerContext](ParallelWorkerContext.md)
 
 ## Notes and Other Information

@@ -42,10 +42,10 @@ The function properly handles both column-based and expression-based partition k
   - [buildoidvector](../b/buildoidvector.md)
   - [nodeToString](../n/nodeToString.md)
   - CStringGetTextDatum
-  - table_open
+  - [table_open](../t/table_open.md)
   - [heap_form_tuple](../h/heap_form_tuple.md)
   - [CatalogTupleInsert](../C/CatalogTupleInsert.md)
-  - table_close
+  - [table_close](../t/table_close.md)
   - [new_object_addresses](../n/new_object_addresses.md)
   - ObjectAddressSet
   - ObjectAddressSubSet

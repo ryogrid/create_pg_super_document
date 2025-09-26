@@ -30,11 +30,11 @@ When relocating, the function handles the memory context hierarchy carefully:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextSetParent
+  - [MemoryContextSetParent](../M/MemoryContextSetParent.md)
   - CACHEDPLANSOURCE_MAGIC
   - CACHEDPLAN_MAGIC
 - Called from (representative examples):
-  - _SPI_make_plan_non_temp
+  - [_SPI_make_plan_non_temp](../S/_SPI_make_plan_non_temp.md)
 
 ## Notes and Other Information
 - Function validates that the plan is in a state that allows context changes (complete, unsaved, non-oneshot)

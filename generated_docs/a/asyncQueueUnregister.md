@@ -33,8 +33,8 @@ This function takes no parameters.
   - QUEUE_BACKEND_DBOID  
   - QUEUE_FIRST_LISTENER
   - QUEUE_NEXT_LISTENER
-  - LWLockAcquire
-  - LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - InvalidPid
   - InvalidOid
   - INVALID_PROC_NUMBER

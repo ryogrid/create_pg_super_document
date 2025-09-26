@@ -32,9 +32,9 @@ The function carefully handles Windows path conventions and service-specific req
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - createPQExpBuffer
-  - find_my_exec
-  - find_other_exec
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)
+  - [find_my_exec](../f/find_my_exec.md)
+  - [find_other_exec](../f/find_other_exec.md)
   - [write_stderr](../w/write_stderr.md)
   - [make_native_path](../m/make_native_path.md)
   - [make_absolute_path](../m/make_absolute_path.md)

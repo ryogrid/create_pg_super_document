@@ -21,14 +21,14 @@ This internal function creates a REORDER_BUFFER_CHANGE_INVALIDATION change entry
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReorderBufferGetChange
-  - ReorderBufferQueueChange
-  - palloc
+  - [ReorderBufferGetChange](ReorderBufferGetChange.md)
+  - [ReorderBufferQueueChange](ReorderBufferQueueChange.md)
+  - [palloc](../p/palloc.md)
   - memcpy
   - REORDER_BUFFER_CHANGE_INVALIDATION
 - Called from (representative examples):
-  - ReorderBufferAddInvalidations
-  - ReorderBufferAddDistributedInvalidations
+  - [ReorderBufferAddInvalidations](ReorderBufferAddInvalidations.md)
+  - [ReorderBufferAddDistributedInvalidations](ReorderBufferAddDistributedInvalidations.md)
 
 ## Notes and Other Information
 - This is a static (internal) function not exposed outside the reorderbuffer.c file

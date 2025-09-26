@@ -25,7 +25,7 @@ This is the fundamental logging function that implements PostgreSQL's common log
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_log_level, pg_log_part (enum types)
-  - log_pre_callback, log_locus_callback (global callback functions)
+  - [log_pre_callback](../l/log_pre_callback.md), log_locus_callback (global callback functions)
   - PG_LOG_FLAG_TERSE (logging flag for terse mode)
   - ANSI_ESCAPE_FMT, ANSI_ESCAPE_RESET (ANSI color formatting)
   - UINT64_FORMAT (format macro for 64-bit integers)
@@ -34,10 +34,10 @@ This is the fundamental logging function that implements PostgreSQL's common log
   - vsnprintf, pg_malloc_extended, MCXT_ALLOC_NO_OOM
   - vfprintf, fprintf, fflush
 - Called from (representative examples):
-  - pg_log_generic (src/common/logging.c:211)
-  - report_manifest_error (src/bin/pg_combinebackup/load_manifest.c:233)
-  - warn_or_exit_horribly (src/bin/pg_dump/pg_backup_archiver.c:1914)
-  - walsummary_error_callback (src/bin/pg_walsummary/pg_walsummary.c:236)
+  - [pg_log_generic](pg_log_generic.md) (src/common/logging.c:211)
+  - [report_manifest_error](../r/report_manifest_error.md) (src/bin/pg_combinebackup/load_manifest.c:233)
+  - [warn_or_exit_horribly](../w/warn_or_exit_horribly.md) (src/bin/pg_dump/pg_backup_archiver.c:1914)
+  - [walsummary_error_callback](../w/walsummary_error_callback.md) (src/bin/pg_walsummary/pg_walsummary.c:236)
 
 ## Notes and Other Information
 - This function is the backbone of PostgreSQL's logging system and is used across all major components

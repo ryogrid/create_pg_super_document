@@ -33,7 +33,7 @@ The function follows PostgreSQL's overflow checking guidelines: if overflow occu
   - [array_append](../a/array_append.md) (array append operations)
   - Various array manipulation functions
   - Date/time calculation functions
-  - String manipulation functions (lpad, rpad, repeat, translate)
+  - [String](../S/String.md) manipulation functions (lpad, rpad, repeat, translate)
 
 ## Notes and Other Information
 - This is a static inline function defined in src/include/common/int.h for performance

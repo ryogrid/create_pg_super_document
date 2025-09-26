@@ -36,7 +36,7 @@ The function is commonly used in path parsing operations where you need to split
   - [substitute_libpath_macro](../s/substitute_libpath_macro.md) (in src/backend/utils/fmgr/dfmgr.c)
   - [find_in_dynamic_libpath](find_in_dynamic_libpath.md) (in src/backend/utils/fmgr/dfmgr.c)
   - [load_libraries](../l/load_libraries.md) (in src/backend/utils/init/miscinit.c)
-  - find_my_exec (in src/common/exec.c)
+  - [find_my_exec](find_my_exec.md) (in src/common/exec.c)
 
 ## Notes and Other Information
 - Returns NULL if no directory separator is found in the path

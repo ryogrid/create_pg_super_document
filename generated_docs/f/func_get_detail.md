@@ -65,7 +65,7 @@ The function supports advanced PostgreSQL features including variadic functions,
 - Called from (representative examples):
   - [ParseFuncOrColumn](../P/ParseFuncOrColumn.md) (from parse_func.c:266)
   - [lookup_agg_function](../l/lookup_agg_function.md) (from pg_aggregate.c:848)
-  - generate_function_name (from ruleutils.c:12993)
+  - [generate_function_name](../g/generate_function_name.md) (from ruleutils.c:12993)
 
 ## Notes and Other Information
 - Returns FuncDetailCode indicating the type of resolution (normal, aggregate, window, procedure, coercion, etc.)

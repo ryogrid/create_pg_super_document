@@ -28,13 +28,13 @@ The space calculation accounts for variable-length data types and ensures accura
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_next_member
-  - list_nth_oid  
-  - add_size
-  - get_typlenbyval
-  - datumEstimateSpace
+  - [bms_next_member](../b/bms_next_member.md)
+  - [list_nth_oid](../l/list_nth_oid.md)  
+  - [add_size](../a/add_size.md)
+  - [get_typlenbyval](../g/get_typlenbyval.md)
+  - [datumEstimateSpace](../d/datumEstimateSpace.md)
 - Called from:
-  - SerializeParamExecParams
+  - [SerializeParamExecParams](../S/SerializeParamExecParams.md)
 
 ## Notes and Other Information
 - The function assumes by-value semantics for parameters without valid type OIDs, consistent with other parameter handling code

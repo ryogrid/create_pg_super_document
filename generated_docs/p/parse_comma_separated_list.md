@@ -23,7 +23,7 @@ This function provides a stateful iterator for parsing comma-separated lists. It
   - malloc (for allocating memory for the element copy)
   - memcpy (for copying the element data)
 - Called from (representative examples):
-  - pqConnectOptions2 (multiple calls for parsing hostaddr, host, port, and other connection parameter lists)
+  - [pqConnectOptions2](pqConnectOptions2.md) (multiple calls for parsing hostaddr, host, port, and other connection parameter lists)
 
 ## Notes and Other Information
 - Returns a malloc'd copy of the next element, or NULL on out of memory

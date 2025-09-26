@@ -46,10 +46,10 @@ The function respects context settings to determine whether unsafe optimizations
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth, nodeTag, copyObject
+  - [check_stack_depth](../c/check_stack_depth.md), nodeTag, copyObject
   - Parameter handling: ParamListInfo, ParamExternData, get_typlenbyval, datumCopy, makeConst
   - Function processing: expand_function_arguments, simplify_function, set_opfuncid
-  - Boolean logic: simplify_or_arguments, simplify_and_arguments, negate_clause, make_andclause, make_orclause
+  - [Boolean](../B/Boolean.md) logic: simplify_or_arguments, simplify_and_arguments, negate_clause, make_andclause, make_orclause
   - Expression evaluation: ece_evaluate_expr, ece_function_is_safe, ece_all_arguments_const
   - Type handling: applyRelabelType, getTypeOutputInfo, getTypeInputInfo
   - Many specialized helper functions for different expression types

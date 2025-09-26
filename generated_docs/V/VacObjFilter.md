@@ -66,8 +66,8 @@ The global variable `objfilter` of type VacObjFilter is used throughout the vacu
   - Used in conjunction with `check_objfilter` function for validation
   - Referenced in command-line option parsing in `main` function
 - Called from (representative examples):
-  - main function during option parsing (lines 173, 176, 197, 201, 216, 291)
-  - check_objfilter function for validation
+  - [main](../m/main.md) function during option parsing (lines 173, 176, 197, 201, 216, 291)
+  - [check_objfilter](../c/check_objfilter.md) function for validation
 
 ## Notes and Other Information
 - The enum is defined as a bitwise flag system, allowing multiple filters to be combined using the OR operator (|)

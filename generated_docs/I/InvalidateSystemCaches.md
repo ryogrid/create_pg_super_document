@@ -33,7 +33,7 @@ This comprehensive invalidation ensures that no stale cache entries remain when 
   - [AcceptInvalidationMessages](../A/AcceptInvalidationMessages.md)
   - [ParallelWorkerMain](../P/ParallelWorkerMain.md)
   - [pg_logical_slot_get_changes_guts](../p/pg_logical_slot_get_changes_guts.md)
-  - LogicalReplicationSlotHasPendingWal
+  - [LogicalReplicationSlotHasPendingWal](../L/LogicalReplicationSlotHasPendingWal.md)
   - [LogicalSlotAdvanceAndCheckSnapState](../L/LogicalSlotAdvanceAndCheckSnapState.md)
 
 ## Notes and Other Information

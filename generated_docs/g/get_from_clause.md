@@ -34,19 +34,19 @@ The function maintains proper SQL syntax while providing readable formatting thr
   - lfirst (list access macro)
   - IsA (type checking macro)
   - rt_fetch (range table access function)
-  - appendContextKeyword
-  - appendStringInfoString, appendBinaryStringInfo
-  - get_from_clause_item (processes individual FROM items)
+  - [appendContextKeyword](../a/appendContextKeyword.md)
+  - [appendStringInfoString](../a/appendStringInfoString.md), appendBinaryStringInfo
+  - [get_from_clause_item](get_from_clause_item.md) (processes individual FROM items)
   - PRETTY_INDENT (formatting macro)
   - PRETTYINDENT_STD, PRETTYINDENT_VAR (indentation constants)
-  - initStringInfo, pfree (string buffer management)
-  - removeStringInfoSpaces
+  - [initStringInfo](../i/initStringInfo.md), pfree (string buffer management)
+  - [removeStringInfoSpaces](../r/removeStringInfoSpaces.md)
   - strrchr, strlen (standard C string functions)
 - Called from (representative examples):
-  - get_basic_select_query
-  - get_update_query_def  
-  - get_delete_query_def
-  - get_merge_query_def
+  - [get_basic_select_query](get_basic_select_query.md)
+  - [get_update_query_def](get_update_query_def.md)  
+  - [get_delete_query_def](get_delete_query_def.md)
+  - [get_merge_query_def](get_merge_query_def.md)
 
 ## Notes and Other Information
 - This is a static function used internally by the rule deparsing system

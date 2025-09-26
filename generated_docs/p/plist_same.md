@@ -34,7 +34,7 @@ The algorithm works by:
   - [point_eq_point](point_eq_point.md) (point equality comparison function)
 - Called from (representative examples):
   - [poly_same](poly_same.md) (polygon equality comparison)
-  - PATH_CLOSED (path operations)
+  - [PATH_CLOSED](../P/PATH_CLOSED.md) (path operations)
 
 ## Notes and Other Information
 - This is a static function, only accessible within geo_ops.c

@@ -54,10 +54,10 @@ The function returns:
 ## Dependencies
 - Functions called/Symbols referenced:
   - DatumGetNumericAbbrev (extracts abbreviated numeric value from Datum)
-  - SortSupport (sort support infrastructure type)
+  - [SortSupport](../S/SortSupport.md) (sort support infrastructure type)
   - NUMERIC_ABBREV_BITS (abbreviation bit manipulation constant)
 - Called from (representative examples):
-  - numeric_sortsupport (registers this function as the abbreviation comparator)
+  - [numeric_sortsupport](numeric_sortsupport.md) (registers this function as the abbreviation comparator)
   - NUMERIC_CAN_BE_SHORT (part of abbreviation decision logic)
 
 ## Notes and Other Information

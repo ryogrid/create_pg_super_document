@@ -26,8 +26,8 @@ The function includes safety checks and will raise an ERROR if it cannot find a 
   - [ReplicationSlotName](../R/ReplicationSlotName.md)
   - elog
 - Types referenced:
-  - PgStat_HashKey
-  - PgStatShared_Common
+  - [PgStat_HashKey](../P/PgStat_HashKey.md)
+  - [PgStatShared_Common](../P/PgStatShared_Common.md)
   - [NameData](../N/NameData.md)
 - Called from (representative examples):
   - Statistics hash table operations (via SH_DECLARE macro in pgstat.c:317)

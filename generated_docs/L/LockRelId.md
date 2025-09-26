@@ -28,14 +28,14 @@ The structure is declared in  but logically belongs to the lock manager (). It's
 - Functions called/Symbols referenced:
   - Oid (typedef)
 - Called from (representative examples):
-  - relation_close
-  - index_close
-  - index_drop
-  - DefineIndex
-  - LockRelationId
-  - UnlockRelationId
-  - LockRelationIdForSession
-  - UnlockRelationIdForSession
+  - [relation_close](../r/relation_close.md)
+  - [index_close](../i/index_close.md)
+  - [index_drop](../i/index_drop.md)
+  - [DefineIndex](../D/DefineIndex.md)
+  - [LockRelationId](LockRelationId.md)
+  - [UnlockRelationId](../U/UnlockRelationId.md)
+  - [LockRelationIdForSession](LockRelationIdForSession.md)
+  - [UnlockRelationIdForSession](../U/UnlockRelationIdForSession.md)
 
 ## Notes and Other Information
 - This structure is fundamental to PostgreSQL's locking system and is used whenever a relation-level lock needs to be acquired or released

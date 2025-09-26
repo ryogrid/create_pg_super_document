@@ -26,16 +26,16 @@ The function validates that the timeout system has been properly initialized and
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TimeoutId: Timeout identifier type
+  - [TimeoutId](../T/TimeoutId.md): Timeout identifier type
   - USER_TIMEOUT: Constant marking start of user-defined timeout range
   - MAX_TIMEOUTS: Maximum number of concurrent timeouts supported
   - Assert: Debugging assertion macro
   - ereport: PostgreSQL error reporting function
 - Called from (representative examples):
-  - StartupXLOG: Transaction log startup process
-  - StartupProcessMain: Database startup process 
-  - BackendInitialize: Backend process initialization
-  - InitPostgres: Database connection initialization
+  - [StartupXLOG](../S/StartupXLOG.md): Transaction log startup process
+  - [StartupProcessMain](../S/StartupProcessMain.md): Database startup process 
+  - [BackendInitialize](../B/BackendInitialize.md): Backend process initialization
+  - [InitPostgres](../I/InitPostgres.md): Database connection initialization
 
 ## Notes and Other Information
 - Requires InitializeTimeouts() to be called first (checked via assertion)

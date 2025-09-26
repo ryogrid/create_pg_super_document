@@ -24,16 +24,16 @@ The function includes comprehensive error handling for memory allocation failure
 ## Dependencies
 - Functions called/Symbols referenced:
   - ECPGget_sqlca
-  - ecpg_init_sqlca
-  - ecpg_raise
+  - [ecpg_init_sqlca](../e/ecpg_init_sqlca.md)
+  - [ecpg_raise](../e/ecpg_raise.md)
   - calloc
-  - ECPGfree_auto_mem
+  - [ECPGfree_auto_mem](ECPGfree_auto_mem.md)
   - strncpy
   - snprintf
   - strlen
 - Called from (representative examples):
-  - ECPG_informix_set_var (Informix compatibility)
-  - varchar_1 (test functions)
+  - [ECPG_informix_set_var](ECPG_informix_set_var.md) (Informix compatibility)
+  - [varchar_1](../v/varchar_1.md) (test functions)
   - Generated ECPG code for variable management
 
 ## Notes and Other Information

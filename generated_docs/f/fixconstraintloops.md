@@ -29,13 +29,13 @@ The algorithm restarts the search after each loop is found and broken, ensuring 
 ## Dependencies
 - Functions called/Symbols referenced:
   - NISERR (error checking macro)
-  - isconstraintarc (checks if an arc is a constraint arc)
-  - freearc (frees an arc structure)
-  - dropstate (removes a state from the NFA)
-  - findconstraintloop (detects constraint loops starting from a given state)
-  - dumpnfa (debug output function)
+  - [isconstraintarc](../i/isconstraintarc.md) (checks if an arc is a constraint arc)
+  - [freearc](freearc.md) (frees an arc structure)
+  - [dropstate](../d/dropstate.md) (removes a state from the NFA)
+  - [findconstraintloop](findconstraintloop.md) (detects constraint loops starting from a given state)
+  - [dumpnfa](../d/dumpnfa.md) (debug output function)
 - Called from (representative examples):
-  - optimize (main NFA optimization function)
+  - [optimize](../o/optimize.md) (main NFA optimization function)
 
 ## Notes and Other Information
 - This function is essential for preventing infinite loops in regex compilation

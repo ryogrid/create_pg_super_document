@@ -36,7 +36,7 @@ The function is primarily used in hash-based subplan execution to determine if t
 - Functions called/Symbols referenced:
   - [MemoryContextReset](../M/MemoryContextReset.md) (clears temporary evaluation context)
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (switches to evaluation context)
-  - slot_getattr (extracts column values from tuple slots)
+  - [slot_getattr](../s/slot_getattr.md) (extracts column values from tuple slots)
   - [FunctionCall2Coll](../F/FunctionCall2Coll.md) (invokes type-specific equality function with collation)
   - [DatumGetBool](../D/DatumGetBool.md) (converts function result to boolean)
 - Called from (representative examples):

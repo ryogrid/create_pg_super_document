@@ -28,8 +28,8 @@ After setting up the basic state, it calls `tuplesort_begin_batch` to initialize
   - `AllocSetContextCreate` - Creates memory contexts for sort operations
   - [tuplesort_begin_batch](tuplesort_begin_batch.md) - Initializes batch-specific state
   - [worker_get_identifier](../w/worker_get_identifier.md) - Gets worker ID for parallel sorts
-  - `pg_rusage_init` - Initializes resource usage tracking (if TRACE_SORT enabled)
-  - `TUPLESORT_RANDOMACCESS` - Sort option constant
+  - `[pg_rusage_init](../p/pg_rusage_init.md)` - Initializes resource usage tracking (if TRACE_SORT enabled)
+  - `TUPLESORT_RANDOMACCESS` - [Sort](../S/Sort.md) option constant
   - `INITIAL_MEMTUPSIZE` - Initial memory tuple array size
 - Called from (representative examples):
   - [tuplesort_begin_heap](tuplesort_begin_heap.md) - For heap tuple sorting

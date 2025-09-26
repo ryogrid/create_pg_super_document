@@ -37,7 +37,7 @@ The function is optimized for the specific case of AccessExclusiveLocks, which c
 - Functions called/Symbols referenced:
   - ,  - Lock table partition management
   -  - Count total PROCLOCKs in the hash table
-  - ,  - Hash table iteration
+  - ,  - [Hash](../H/Hash.md) table iteration
   -  - Memory allocation for result array
   -  - Access individual lock partitions
   -  - Lock mode bit manipulation

@@ -29,7 +29,7 @@ The smgrprefetch function is a storage manager interface for initiating asynchro
 - Called from (representative examples):
   - [PrefetchSharedBuffer](../P/PrefetchSharedBuffer.md) (shared buffer prefetching)
   - [StartReadBuffersImpl](../S/StartReadBuffersImpl.md) (read buffer initialization)
-  - PrefetchLocalBuffer (local buffer prefetching)
+  - [PrefetchLocalBuffer](../P/PrefetchLocalBuffer.md) (local buffer prefetching)
 
 ## Notes and Other Information
 - Returns false during recovery if the target file doesn't exist (e.g., dropped by later WAL record)

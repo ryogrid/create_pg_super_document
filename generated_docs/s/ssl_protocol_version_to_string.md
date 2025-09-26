@@ -34,7 +34,7 @@ The function handles all supported TLS protocol versions and provides a fallback
 - Returns string constants, so the returned pointer should not be freed by the caller
 - Provides graceful handling of invalid input by returning "(unrecognized)"
 - Used primarily for logging and debugging TLS connection establishment
-- String representations follow standard TLS version naming conventions
+- [String](../S/String.md) representations follow standard TLS version naming conventions
 - Part of the comprehensive TLS configuration and status reporting system
 - Complements ssl_protocol_version_to_openssl() for complete protocol version handling
 - Essential for administrators to understand which TLS protocols are being negotiated and used

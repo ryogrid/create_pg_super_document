@@ -21,10 +21,10 @@ The function creates a BufFile that is not read-only by default and is not assoc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeBufFileCommon (common BufFile initialization)
-  - palloc (memory allocation for the files array)
+  - [makeBufFileCommon](makeBufFileCommon.md) (common BufFile initialization)
+  - [palloc](../p/palloc.md) (memory allocation for the files array)
 - Called from (representative examples):
-  - BufFileCreateTemp
+  - [BufFileCreateTemp](../B/BufFileCreateTemp.md)
 
 ## Notes and Other Information
 - This is a static function internal to buffile.c, not exposed to external modules

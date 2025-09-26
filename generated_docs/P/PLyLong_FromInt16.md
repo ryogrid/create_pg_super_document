@@ -23,7 +23,7 @@ The conversion is direct and handles the type promotion from the smaller 16-bit 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetInt16: Extracts the 16-bit integer value from the PostgreSQL Datum
+  - [DatumGetInt16](../D/DatumGetInt16.md): Extracts the 16-bit integer value from the PostgreSQL Datum
   - PyLong_FromLong: Python C API function to create a Python long object from a C long integer
 - Called from (representative examples):
   - [PLy_input_setup_func](PLy_input_setup_func.md): Sets up input conversion functions for various PostgreSQL data types

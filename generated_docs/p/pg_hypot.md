@@ -40,9 +40,9 @@ This function implements a numerically stable algorithm to compute the hypotenus
 ## Dependencies
 - Functions called/Symbols referenced:
   - isinf (checks for infinity)
-  - get_float8_infinity (returns floating-point infinity)
+  - [get_float8_infinity](../g/get_float8_infinity.md) (returns floating-point infinity)
   - isnan (checks for NaN)
-  - get_float8_nan (returns floating-point NaN)
+  - [get_float8_nan](../g/get_float8_nan.md) (returns floating-point NaN)
   - [float_overflow_error](../f/float_overflow_error.md) (handles overflow errors)
   - [float_underflow_error](../f/float_underflow_error.md) (handles underflow errors)
 - Called from (representative examples):

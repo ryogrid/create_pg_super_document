@@ -34,8 +34,8 @@ The function distinguishes between startup costs (paid once) and per-tuple costs
 ## Dependencies
 - Functions called/Symbols referenced:
   - [add_function_cost](../a/add_function_cost.md)
-  - set_opfuncid
-  - set_sa_opfuncid
+  - [set_opfuncid](../s/set_opfuncid.md)
+  - [set_sa_opfuncid](../s/set_sa_opfuncid.md)
   - [estimate_array_length](../e/estimate_array_length.md)
   - [cost_qual_eval_node](cost_qual_eval_node.md)
   - [getTypeInputInfo](../g/getTypeInputInfo.md)

@@ -46,18 +46,18 @@ The function serves as a wrapper around the table access method's tuple_lock imp
   - rel->rd_tableam->tuple_lock (table access method function pointer)
 - Types referenced:
   - CommandId
-  - LockTupleMode
+  - [LockTupleMode](../L/LockTupleMode.md)
   - LockWaitPolicy
-  - TM_FailureData
+  - [TM_FailureData](../T/TM_FailureData.md)
 - Called from (representative examples):
-  - GetTupleForTrigger (in src/backend/commands/trigger.c:3400)
-  - RelationFindReplTupleByIndex (in src/backend/executor/execReplication.c:253)
-  - RelationFindReplTupleSeq (in src/backend/executor/execReplication.c:437)
-  - ExecLockRows (in src/backend/executor/nodeLockRows.c:185)
-  - ExecDelete (in src/backend/executor/nodeModifyTable.c:1589)
-  - ExecUpdate (in src/backend/executor/nodeModifyTable.c:2426)
-  - ExecOnConflictUpdate (in src/backend/executor/nodeModifyTable.c:2580)
-  - ExecMergeMatched (in src/backend/executor/nodeModifyTable.c:3210)
+  - [GetTupleForTrigger](../G/GetTupleForTrigger.md) (in src/backend/commands/trigger.c:3400)
+  - [RelationFindReplTupleByIndex](../R/RelationFindReplTupleByIndex.md) (in src/backend/executor/execReplication.c:253)
+  - [RelationFindReplTupleSeq](../R/RelationFindReplTupleSeq.md) (in src/backend/executor/execReplication.c:437)
+  - [ExecLockRows](../E/ExecLockRows.md) (in src/backend/executor/nodeLockRows.c:185)
+  - [ExecDelete](../E/ExecDelete.md) (in src/backend/executor/nodeModifyTable.c:1589)
+  - [ExecUpdate](../E/ExecUpdate.md) (in src/backend/executor/nodeModifyTable.c:2426)
+  - [ExecOnConflictUpdate](../E/ExecOnConflictUpdate.md) (in src/backend/executor/nodeModifyTable.c:2580)
+  - [ExecMergeMatched](../E/ExecMergeMatched.md) (in src/backend/executor/nodeModifyTable.c:3210)
 
 ## Notes and Other Information
 - Return values include TM_Ok (success), TM_Invisible, TM_SelfModified, TM_Updated, TM_Deleted, and TM_WouldBlock

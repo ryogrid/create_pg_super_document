@@ -30,7 +30,7 @@ The algorithm works by:
 ## Dependencies
 - Functions called/Symbols referenced:
   - [date2j](date2j.md) (converts date to Julian day number)
-  - j2day (converts Julian day to day of week)
+  - [j2day](../j/j2day.md) (converts Julian day to day of week)
 - Called from (representative examples):
   - [extract_date](../e/extract_date.md)
   - [timestamp_trunc](../t/timestamp_trunc.md)
@@ -42,5 +42,5 @@ The algorithm works by:
 - The function returns an integer representing the week number (1-53)
 - Implements ISO 8601 week numbering standard where weeks start on Monday
 - The first week of the year is the one containing the first Thursday
-- Edge case handling ensures correct week numbers for dates at year boundaries
+- [Edge](../E/Edge.md) case handling ensures correct week numbers for dates at year boundaries
 - Used internally by various timestamp and date extraction functions in PostgreSQL

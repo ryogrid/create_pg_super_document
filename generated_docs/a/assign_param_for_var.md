@@ -23,11 +23,11 @@ The function navigates up the planner hierarchy to find the appropriate query le
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PlannerParamItem (structure creation)
+  - [PlannerParamItem](../P/PlannerParamItem.md) (structure creation)
   - [bms_equal](../b/bms_equal.md) (bitmap set equality comparison)
   - copyObject (deep copy of the Var node)
   - makeNode (node creation)
-  - lappend_oid (append OID to list)
+  - [lappend_oid](../l/lappend_oid.md) (append OID to list)
 - Called from (representative examples):
   - [replace_outer_var](../r/replace_outer_var.md)
 

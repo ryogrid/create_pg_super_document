@@ -34,7 +34,7 @@ This type of vowel insertion is crucial in Turkish morphology for maintaining sy
   - g_vowel (general vowel group)
 
 - Called from (representative examples):
-  - r_mark_possessives (possessive suffix marking function)
+  - [r_mark_possessives](r_mark_possessives.md) (possessive suffix marking function)
 
 ## Notes and Other Information
 - Returns 1 if the optional 'U' vowel pattern is valid, 0 otherwise

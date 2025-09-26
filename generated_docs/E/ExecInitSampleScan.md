@@ -24,8 +24,8 @@ ExecInitSampleScan is the initialization function for sample scan executor nodes
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode
-  - ExecAssignExprContext
-  - ExecOpenScanRelation
+  - [ExecAssignExprContext](ExecAssignExprContext.md)
+  - [ExecOpenScanRelation](ExecOpenScanRelation.md)
   - [ExecInitScanTupleSlot](ExecInitScanTupleSlot.md)
   - [ExecInitResultTypeTL](ExecInitResultTypeTL.md)
   - [ExecAssignScanProjectionInfo](ExecAssignScanProjectionInfo.md)

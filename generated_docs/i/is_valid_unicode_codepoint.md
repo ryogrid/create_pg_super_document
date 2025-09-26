@@ -23,10 +23,10 @@ The validation follows the Unicode standard which defines the valid code point r
 ## Dependencies
 - Functions called/Symbols referenced: None (simple arithmetic comparison)
 - Called from (representative examples):
-  - check_unicode_value (src/backend/parser/parser.c:344)
-  - unistr (src/backend/utils/adt/varlena.c:6538, 6573, 6608)
-  - pg_unicode_to_server (src/backend/utils/mb/mbutils.c:874)
-  - pg_unicode_to_server_noerror (src/backend/utils/mb/mbutils.c:934)
+  - [check_unicode_value](../c/check_unicode_value.md) (src/backend/parser/parser.c:344)
+  - [unistr](../u/unistr.md) (src/backend/utils/adt/varlena.c:6538, 6573, 6608)
+  - [pg_unicode_to_server](../p/pg_unicode_to_server.md) (src/backend/utils/mb/mbutils.c:874)
+  - [pg_unicode_to_server_noerror](../p/pg_unicode_to_server_noerror.md) (src/backend/utils/mb/mbutils.c:934)
 
 ## Notes and Other Information
 - Defined as a static inline function for performance efficiency

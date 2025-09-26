@@ -31,14 +31,14 @@ The structure centralizes reindex configuration, allowing various reindex functi
 - Functions called/Symbols referenced:
   - bits32
 - Called from (representative examples):
-  - reindex_index
-  - reindex_relation
-  - finish_heap_swap
-  - ExecReindex
-  - ReindexIndex
-  - ReindexTable
-  - ReindexMultipleTables
-  - ReindexPartitions
+  - [reindex_index](../r/reindex_index.md)
+  - [reindex_relation](../r/reindex_relation.md)
+  - [finish_heap_swap](../f/finish_heap_swap.md)
+  - [ExecReindex](../E/ExecReindex.md)
+  - [ReindexIndex](ReindexIndex.md)
+  - [ReindexTable](ReindexTable.md)
+  - [ReindexMultipleTables](ReindexMultipleTables.md)
+  - [ReindexPartitions](ReindexPartitions.md)
   - ReindexRelationConcurrently
 
 ## Notes and Other Information

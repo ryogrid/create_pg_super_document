@@ -20,8 +20,8 @@ This function returns the time when the last WAL (Write-Ahead Log) segment switc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire (with WALWriteLock, LW_SHARED)
-  - LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md) (with WALWriteLock, LW_SHARED)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - XLogCtl (global control structure access)
 - Called from (representative examples):
   - [CheckArchiveTimeout](../C/CheckArchiveTimeout.md) (in checkpointer.c:645)

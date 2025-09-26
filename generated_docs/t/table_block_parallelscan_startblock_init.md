@@ -48,7 +48,7 @@ The function uses a retry mechanism when dealing with synchronized scans - it re
   - [ParallelBlockTableScanDesc](../P/ParallelBlockTableScanDesc.md) (struct type)
 - Called from (representative examples):
   - [heap_scan_stream_read_next_parallel](../h/heap_scan_stream_read_next_parallel.md)
-  - table_scan_sample_next_tuple
+  - [table_scan_sample_next_tuple](table_scan_sample_next_tuple.md)
 
 ## Notes and Other Information
 - Uses a static assertion to ensure BlockNumber width is compatible with pg_nextpower2_32

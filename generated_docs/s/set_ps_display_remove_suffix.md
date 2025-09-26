@@ -29,12 +29,12 @@ This function is typically called when a PostgreSQL process finishes a temporary
 ## Dependencies
 - Functions called/Symbols referenced:
   - [update_ps_display_precheck](../u/update_ps_display_precheck.md) (prerequisite validation)
-  - flush_ps_display (applies the title change to the system)
+  - [flush_ps_display](../f/flush_ps_display.md) (applies the title change to the system)
   - strlen (string length calculation for assertion)
   - Assert (debugging assertion macro)
 - Called from (representative examples):
   - [SyncRepWaitForLSN](../S/SyncRepWaitForLSN.md) (src/backend/replication/syncrep.c:362)
-  - LockBufferForCleanup (src/backend/storage/buffer/bufmgr.c:5257)
+  - [LockBufferForCleanup](../L/LockBufferForCleanup.md) (src/backend/storage/buffer/bufmgr.c:5257)
   - [ResolveRecoveryConflictWithVirtualXIDs](../R/ResolveRecoveryConflictWithVirtualXIDs.md) (src/backend/storage/ipc/standby.c:453)
   - [WaitOnLock](../W/WaitOnLock.md) (src/backend/storage/lmgr/lock.c:1881, 1891)
 

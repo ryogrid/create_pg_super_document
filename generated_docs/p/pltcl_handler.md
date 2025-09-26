@@ -22,12 +22,12 @@ The function establishes a call state context that tracks the current execution 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pltcl_call_state (call state structure)
+  - [pltcl_call_state](pltcl_call_state.md) (call state structure)
   - PG_TRY/PG_FINALLY/PG_END_TRY (exception handling macros)
   - CALLED_AS_TRIGGER (macro to detect trigger calls)
   - CALLED_AS_EVENT_TRIGGER (macro to detect event trigger calls)
   - [pltcl_trigger_handler](pltcl_trigger_handler.md) (trigger execution handler)
-  - pltcl_event_trigger_handler (event trigger execution handler)
+  - [pltcl_event_trigger_handler](pltcl_event_trigger_handler.md) (event trigger execution handler)
   - [pltcl_func_handler](pltcl_func_handler.md) (function execution handler)
   - [MemoryContextDelete](../M/MemoryContextDelete.md) (memory management)
 - Called from (representative examples):

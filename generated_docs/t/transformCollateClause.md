@@ -22,7 +22,7 @@ The `transformCollateClause` function processes explicit COLLATE clauses in SQL 
 - Functions called/Symbols referenced:
   - makeNode
   - [transformExprRecurse](transformExprRecurse.md)
-  - exprType
+  - [exprType](../e/exprType.md)
   - [type_is_collatable](type_is_collatable.md)
   - [LookupCollation](../L/LookupCollation.md)
   - [format_type_be](../f/format_type_be.md)

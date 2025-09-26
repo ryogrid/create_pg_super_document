@@ -22,10 +22,10 @@ This internal function formats and appends a function's return type specificatio
 - Functions called/Symbols referenced:
   - Form_pg_proc
   - [print_function_arguments](print_function_arguments.md)
-  - resetStringInfo
-  - appendBinaryStringInfo
+  - [resetStringInfo](../r/resetStringInfo.md)
+  - [appendBinaryStringInfo](../a/appendBinaryStringInfo.md)
 - Called from (representative examples):
-  - NameHashEntry
+  - [NameHashEntry](../N/NameHashEntry.md)
   - [pg_get_functiondef](pg_get_functiondef.md)
   - [pg_get_function_result](pg_get_function_result.md)
 

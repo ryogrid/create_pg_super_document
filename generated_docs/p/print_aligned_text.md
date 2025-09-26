@@ -25,12 +25,12 @@ This is the most sophisticated table formatting function in PostgreSQL's printin
   - [_print_horizontal_line](_print_horizontal_line.md) (draws horizontal border lines)
   - [pg_wcssize](pg_wcssize.md) (calculates display width of wide character strings)
   - [pg_wcsformat](pg_wcsformat.md) (formats wide character strings for display)
-  - strlen_max_width (calculates byte length up to a display width limit)
+  - [strlen_max_width](../s/strlen_max_width.md) (calculates byte length up to a display width limit)
   - [print_aligned_vertical](print_aligned_vertical.md) (alternative vertical layout for wide tables)
   - [PageOutput](../P/PageOutput.md) (initiates pager for large output)
   - [IsPagerNeeded](../I/IsPagerNeeded.md) (determines if pager is required)
   - [footers_with_default](../f/footers_with_default.md) (gets table footers with defaults)
-  - pg_malloc0/pg_malloc (memory allocation functions)
+  - [pg_malloc0](pg_malloc0.md)/pg_malloc (memory allocation functions)
   - Various PRINT_RULE_* and PRINT_LINE_WRAP_* constants for formatting states
 - Called from (representative examples):
   - [printTable](printTable.md) (main table printing dispatcher function)

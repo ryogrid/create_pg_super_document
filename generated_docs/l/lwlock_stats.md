@@ -34,17 +34,17 @@ The structure provides insight into lock usage patterns, contention levels, and 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lwlock_stats_key (embedded structure for lock identification)
+  - [lwlock_stats_key](lwlock_stats_key.md) (embedded structure for lock identification)
 - Called from (representative examples):
   - LOG_LWDEBUG
-  - init_lwlock_stats
-  - print_lwlock_stats
-  - get_lwlock_stats_entry
-  - LWLockWaitListLock
-  - LWLockDequeueSelf
-  - LWLockAcquire
-  - LWLockAcquireOrWait
-  - LWLockWaitForVar
+  - [init_lwlock_stats](../i/init_lwlock_stats.md)
+  - [print_lwlock_stats](../p/print_lwlock_stats.md)
+  - [get_lwlock_stats_entry](../g/get_lwlock_stats_entry.md)
+  - [LWLockWaitListLock](../L/LWLockWaitListLock.md)
+  - [LWLockDequeueSelf](../L/LWLockDequeueSelf.md)
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockAcquireOrWait](../L/LWLockAcquireOrWait.md)
+  - [LWLockWaitForVar](../L/LWLockWaitForVar.md)
 
 ## Notes and Other Information
 - This structure is central to PostgreSQL's lock performance monitoring system

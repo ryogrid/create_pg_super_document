@@ -24,8 +24,8 @@ This function takes a HeapTuple and prepares it for sorting by creating a comple
   - [heap_copytuple](../h/heap_copytuple.md)
   - [heap_getattr](../h/heap_getattr.md)
   - TupleSortUseBumpTupleCxt
-  - GetMemoryChunkSpace
-  - tuplesort_puttuple_common
+  - [GetMemoryChunkSpace](../G/GetMemoryChunkSpace.md)
+  - [tuplesort_puttuple_common](tuplesort_puttuple_common.md)
 - Called from (representative examples):
   - [heapam_relation_copy_for_cluster](../h/heapam_relation_copy_for_cluster.md)
 

@@ -25,7 +25,7 @@ The function allocates memory in the event trigger context, creates a CollectedC
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CollectedCommand (struct type)
+  - [CollectedCommand](../C/CollectedCommand.md) (struct type)
   - SCT_Simple (command type constant)
   - copyObject (for deep copying the parse tree)
   - [palloc](../p/palloc.md), lappend (memory and list management)

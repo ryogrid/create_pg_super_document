@@ -28,10 +28,10 @@ The function is designed to parse option strings that might contain embedded spa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initStringInfo (for initializing temporary string buffer)
-  - resetStringInfo (for clearing string buffer between arguments)
+  - [initStringInfo](../i/initStringInfo.md) (for initializing temporary string buffer)
+  - [resetStringInfo](../r/resetStringInfo.md) (for clearing string buffer between arguments)
   - isspace (for whitespace detection)
-  - appendStringInfoChar (for building argument strings)
+  - [appendStringInfoChar](../a/appendStringInfoChar.md) (for building argument strings)
   - [pstrdup](pstrdup.md) (for creating permanent copies of arguments)
   - [pfree](pfree.md) (for cleaning up temporary storage)
 - Called from:

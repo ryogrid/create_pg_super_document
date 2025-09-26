@@ -25,11 +25,11 @@ This function is crucial for table formatting operations where text needs to be 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQdsplen (calculates display width of a character)
-  - PQmblen (calculates byte length of a multibyte character)
+  - [PQdsplen](../P/PQdsplen.md) (calculates display width of a character)
+  - [PQmblen](../P/PQmblen.md) (calculates byte length of a multibyte character)
 - Called from (representative examples):
-  - print_aligned_text (src/fe_utils/print.c:1086)
-  - print_aligned_vertical (src/fe_utils/print.c:1662, 1736)
+  - [print_aligned_text](../p/print_aligned_text.md) (src/fe_utils/print.c:1086)
+  - [print_aligned_vertical](../p/print_aligned_vertical.md) (src/fe_utils/print.c:1662, 1736)
 
 ## Notes and Other Information
 - Function is declared static, making it internal to the print.c compilation unit

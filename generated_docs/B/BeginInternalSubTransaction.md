@@ -48,7 +48,7 @@ Unlike regular subtransactions, internal subtransactions are allowed during para
   - [ReorderBufferImmediateInvalidation](../R/ReorderBufferImmediateInvalidation.md) (logical replication)
   - plperl_spi_* functions (PL/Perl SPI operations)
   - [PLy_spi_subtransaction_begin](../P/PLy_spi_subtransaction_begin.md) (PL/Python)
-  - pltcl_subtrans_begin (PL/Tcl)
+  - [pltcl_subtrans_begin](../p/pltcl_subtrans_begin.md) (PL/Tcl)
 
 ## Notes and Other Information
 - Automatically manages ExitOnAnyError flag to ensure FATAL exit on internal errors, preventing transaction state corruption

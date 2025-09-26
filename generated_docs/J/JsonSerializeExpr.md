@@ -26,13 +26,13 @@ JsonSerializeExpr is a parse tree node that represents a JSON_SERIALIZE() functi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonValueExpr
-  - JsonOutput
+  - [JsonValueExpr](JsonValueExpr.md)
+  - [JsonOutput](JsonOutput.md)
   - ParseLoc
 - Called from (representative examples):
-  - raw_expression_tree_walker_impl
-  - transformExprRecurse
-  - transformJsonSerializeExpr
+  - [raw_expression_tree_walker_impl](../r/raw_expression_tree_walker_impl.md)
+  - [transformExprRecurse](../t/transformExprRecurse.md)
+  - [transformJsonSerializeExpr](../t/transformJsonSerializeExpr.md)
 
 ## Notes and Other Information
 - This is part of PostgreSQL's implementation of the SQL/JSON standard

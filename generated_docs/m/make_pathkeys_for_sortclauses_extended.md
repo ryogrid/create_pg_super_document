@@ -29,8 +29,8 @@ The function maintains canonical form by eliminating redundant ordering keys and
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SortGroupClause (struct type)
-  - PathKey (struct type)
+  - [SortGroupClause](../S/SortGroupClause.md) (struct type)
+  - [PathKey](../P/PathKey.md) (struct type)
   - [get_sortgroupclause_expr](../g/get_sortgroupclause_expr.md)
   - [make_pathkey_from_sortop](make_pathkey_from_sortop.md)
   - [pathkey_is_redundant](../p/pathkey_is_redundant.md)

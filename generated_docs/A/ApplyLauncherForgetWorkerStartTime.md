@@ -23,15 +23,15 @@ This cleanup mechanism is essential for subscription lifecycle management and al
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - logicalrep_launcher_attach_dshmem
-  - dshash_delete_key
+  - [logicalrep_launcher_attach_dshmem](../l/logicalrep_launcher_attach_dshmem.md)
+  - [dshash_delete_key](../d/dshash_delete_key.md)
 - Called from:
-  - DropSubscription
-  - tablesync_start_time_mapping  
-  - apply_worker_exit
-  - maybe_reread_subscription
-  - InitializeLogRepWorker
-  - DisableSubscriptionAndExit
+  - [DropSubscription](../D/DropSubscription.md)
+  - [tablesync_start_time_mapping](../t/tablesync_start_time_mapping.md)  
+  - [apply_worker_exit](../a/apply_worker_exit.md)
+  - [maybe_reread_subscription](../m/maybe_reread_subscription.md)
+  - [InitializeLogRepWorker](../I/InitializeLogRepWorker.md)
+  - [DisableSubscriptionAndExit](../D/DisableSubscriptionAndExit.md)
 
 ## Notes and Other Information
 - This is a public function (not static) and is exported in logicallauncher.h

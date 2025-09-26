@@ -21,7 +21,7 @@ This function performs essential initialization for the isolation testing framew
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - strlcpy
+  - [strlcpy](../s/strlcpy.md)
   - [add_stringlist_item](../a/add_stringlist_item.md)
 - Called from (representative examples):
   - [main](../m/main.md)

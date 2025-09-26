@@ -30,7 +30,7 @@ The function creates a FileTag to identify the specific segment and uses Registe
   - [RegisterSyncRequest](../R/RegisterSyncRequest.md)
   - SYNC_UNLINK_REQUEST
 - Called from (representative examples):
-  - mdunlinkfork
+  - [mdunlinkfork](../m/mdunlinkfork.md)
 
 ## Notes and Other Information
 - Static function, only called from within the md.c file

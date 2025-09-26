@@ -21,14 +21,14 @@ The function also resets the message length counter (md5_n) and buffer index (md
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_md5_ctx (MD5 context structure type)
+  - [pg_md5_ctx](pg_md5_ctx.md) (MD5 context structure type)
   - MD5_A0 (initial value constant for state variable A: 0x67452301)
   - MD5_B0 (initial value constant for state variable B: 0xefcdab89)
   - MD5_C0 (initial value constant for state variable C: 0x98badcfe)
   - MD5_D0 (initial value constant for state variable D: 0x10325476)
   - memset (standard library function for memory initialization)
 - Called from (representative examples):
-  - pg_cryptohash_init
+  - [pg_cryptohash_init](pg_cryptohash_init.md)
 
 ## Notes and Other Information
 - This is a public function (non-static) and part of PostgreSQL's external MD5 API

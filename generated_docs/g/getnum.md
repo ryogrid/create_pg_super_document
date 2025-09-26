@@ -25,8 +25,8 @@ This static function parses numeric values from timezone strings while performin
 - Functions called/Symbols referenced:
   - is_digit (macro/function for digit checking)
 - Called from (representative examples):
-  - getsecs
-  - getrule
+  - [getsecs](getsecs.md)
+  - [getrule](getrule.md)
 
 ## Notes and Other Information
 - Returns NULL if the input pointer is NULL, if no digit is found at the current position, or if the number is outside the specified range

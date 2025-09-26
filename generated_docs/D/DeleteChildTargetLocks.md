@@ -24,9 +24,9 @@ This optimization is crucial for performance, preventing the accumulation of red
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire
-  - LWLockRelease
-  - IsInParallelMode
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
+  - [IsInParallelMode](../I/IsInParallelMode.md)
   - dlist_foreach_modify
   - dlist_container
   - TargetTagIsCoveredBy

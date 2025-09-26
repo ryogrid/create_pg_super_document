@@ -26,13 +26,13 @@ The function expects pre-allocated arrays of correct size and uses a state struc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth (stack overflow protection)  
-  - fillQT (recursive self-call)
+  - [check_stack_depth](../c/check_stack_depth.md) (stack overflow protection)  
+  - [fillQT](fillQT.md) (recursive self-call)
   - memcpy (memory copying)
   - Assert (debugging assertion)
   - QTN2QTState, QTNode, QueryOperand, QueryOperator, QueryItem, QI_VAL, QI_OPR (data types and constants)
 - Called from (representative examples):
-  - QTN2QT (in tsquery_util.c)
+  - [QTN2QT](../Q/QTN2QT.md) (in tsquery_util.c)
 
 ## Notes and Other Information
 - Static function (internal to tsquery_util.c)

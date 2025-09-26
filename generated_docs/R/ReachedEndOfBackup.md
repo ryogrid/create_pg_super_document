@@ -28,7 +28,7 @@ This function is critical for ensuring that recovery from base backups completes
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - UpdateControlFile (persists control file changes to disk)
+  - [UpdateControlFile](../U/UpdateControlFile.md) (persists control file changes to disk)
   - InvalidXLogRecPtr (constant used to reset backup start/end points)
 - Called from (representative examples):
   - [CheckRecoveryConsistency](../C/CheckRecoveryConsistency.md) (when processing end-of-backup records during recovery)

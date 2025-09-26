@@ -29,7 +29,7 @@ A key additional responsibility of this function is tracking the timestamp of th
   - [SetLatestXTime](../S/SetLatestXTime.md): Updates the latest transaction time tracker
   - [ParseCommitRecord](../P/ParseCommitRecord.md): Parses commit record details for prepared transactions
   - [ParseAbortRecord](../P/ParseAbortRecord.md): Parses abort record details for prepared transactions
-  - strlcpy: Safe string copy function
+  - [strlcpy](../s/strlcpy.md): Safe string copy function
   - [timestamptz_to_str](../t/timestamptz_to_str.md): Converts timestamp to string for logging
 - Constants used:
   - XLR_INFO_MASK: Mask for info field bits
@@ -47,7 +47,7 @@ A key additional responsibility of this function is tracking the timestamp of th
   - [xl_xact_commit](../x/xl_xact_commit.md): Structure for commit records
   - [xl_xact_abort](../x/xl_xact_abort.md): Structure for abort records
   - [xl_xact_parsed_commit](../x/xl_xact_parsed_commit.md): Parsed commit record structure
-  - xl_xact_parsed_abort: Parsed abort record structure
+  - [xl_xact_parsed_abort](../x/xl_xact_parsed_abort.md): Parsed abort record structure
 - Global variables accessed:
   - ArchiveRecoveryRequested: Indicates if archive recovery is active
   - recoveryTarget: Current recovery target type

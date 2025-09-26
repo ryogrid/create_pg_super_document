@@ -21,7 +21,7 @@ This function is used in testing scenarios to clean up injection points that are
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `text_to_cstring`
+  - `[text_to_cstring](../t/text_to_cstring.md)`
   - [InjectionPointDetach](../I/InjectionPointDetach.md)
   - [list_delete](../l/list_delete.md)
   - [makeString](../m/makeString.md)

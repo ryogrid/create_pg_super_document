@@ -36,12 +36,12 @@ The function carefully handles character vs. byte positioning, using helper func
   - VARDATA_ANY (macro for accessing text data)
   - VARSIZE_ANY_EXHDR (macro for getting text size excluding header)
   - memchr (C library function for finding characters)
-  - appendBinaryStringInfo (append binary data to StringInfo)
-  - appendStringInfoChar (append single character to StringInfo)
-  - charlen_to_bytelen (convert character length to byte length)
+  - [appendBinaryStringInfo](appendBinaryStringInfo.md) (append binary data to StringInfo)
+  - [appendStringInfoChar](appendStringInfoChar.md) (append single character to StringInfo)
+  - [charlen_to_bytelen](../c/charlen_to_bytelen.md) (convert character length to byte length)
   - regmatch_t (POSIX regex match structure)
 - Called from (representative examples):
-  - replace_text_regexp
+  - [replace_text_regexp](../r/replace_text_regexp.md)
 
 ## Notes and Other Information
 - This is a static function internal to varlena.c, specifically designed for regexp replacement operations

@@ -23,10 +23,10 @@ The returned hash table is used by visibility checking functions to determine wh
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HistoricSnapshotActive (assertion check)
+  - [HistoricSnapshotActive](HistoricSnapshotActive.md) (assertion check)
   - Assert (assertion macro)
 - Called from (representative examples):
-  - HeapTupleSatisfiesHistoricMVCC (in heap visibility checks, multiple locations)
+  - [HeapTupleSatisfiesHistoricMVCC](HeapTupleSatisfiesHistoricMVCC.md) (in heap visibility checks, multiple locations)
 
 ## Notes and Other Information
 - The function must only be called when HistoricSnapshotActive() returns true

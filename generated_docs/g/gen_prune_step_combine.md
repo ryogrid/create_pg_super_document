@@ -32,7 +32,7 @@ The newly created step is added to the context's steps list and returned for use
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (for PartitionPruneStepCombine allocation)
-  - lappend (to add step to context->steps list)
+  - [lappend](../l/lappend.md) (to add step to context->steps list)
 - Called from (representative examples):
   - [gen_partprune_steps_internal](gen_partprune_steps_internal.md) (partprune.c:1081, 1098, 1297)
 

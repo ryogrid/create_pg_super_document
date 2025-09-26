@@ -28,7 +28,7 @@ Like other locking functions in this family, it calls AcceptInvalidationMessages
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LOCKTAG (data structure for lock identification)
+  - [LOCKTAG](LOCKTAG.md) (data structure for lock identification)
   - SET_LOCKTAG_OBJECT (macro to initialize object lock tag with InvalidOid for database)
   - [LockAcquire](LockAcquire.md) (core lock acquisition function)
   - [AcceptInvalidationMessages](../A/AcceptInvalidationMessages.md) (system cache invalidation handling)

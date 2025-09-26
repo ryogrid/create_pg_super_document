@@ -24,7 +24,7 @@ The  function searches through a relation's attributes to find the attribute num
 - Functions called/Symbols referenced:
   - RelationGetNumberOfAttributes
   - TupleDescAttr
-  - namestrcmp
+  - [namestrcmp](../n/namestrcmp.md)
   - [specialAttNum](../s/specialAttNum.md)
   - InvalidAttrNumber
 - Called from (representative examples):

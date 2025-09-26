@@ -31,7 +31,7 @@ This is a simpler operation compared to reorder_function_arguments since it does
 ## Dependencies
 - Functions called/Symbols referenced:
   - [fetch_function_defaults](../f/fetch_function_defaults.md)
-  - list_delete_first_n
+  - [list_delete_first_n](../l/list_delete_first_n.md)
   - [list_concat_copy](../l/list_concat_copy.md)
 - Called from (representative examples):
   - [expand_function_arguments](../e/expand_function_arguments.md)

@@ -25,7 +25,7 @@ This is a crucial part of the adaptive abbreviated key optimization system in Po
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Tuplesortstate (sort state management structure)
+  - [Tuplesortstate](../T/Tuplesortstate.md) (sort state management structure)
   - SortTuple (generic sort tuple structure)
   - [PointerGetDatum](../P/PointerGetDatum.md) (macro to convert pointer to Datum)
 - Called from (representative examples):

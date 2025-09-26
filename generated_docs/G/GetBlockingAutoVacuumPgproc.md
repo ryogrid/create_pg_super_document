@@ -22,7 +22,7 @@ This function takes no parameters.
   - [PGPROC](../P/PGPROC.md) (struct type)
   - blocking_autovacuum_proc (global variable)
 - Called from (representative examples):
-  - ProcSleep
+  - [ProcSleep](../P/ProcSleep.md)
   - LockHashPartitionLockByProc
 
 ## Notes and Other Information

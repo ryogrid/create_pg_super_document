@@ -34,7 +34,7 @@ This function looks up an operator in the pg_amop system catalog to determine if
 
 ## Notes and Other Information
 - Specifically searches for ordering operators (AMOP_ORDER) rather than search operators (AMOP_SEARCH)
-- Sort families define the collation and ordering behavior for operators, crucial for sorting operations
+- [Sort](../S/Sort.md) families define the collation and ordering behavior for operators, crucial for sorting operations
 - Returns InvalidOid when the operator is not found as an ordering operator in the family
 - The amopsortfamily field may be InvalidOid even for valid ordering operators if no specific sort family is defined
 - Used primarily in query optimization for ORDER BY clause processing and index scan ordering

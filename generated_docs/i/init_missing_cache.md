@@ -19,13 +19,13 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `HASHCTL`: Structure type for hash table control parameters
+  - `[HASHCTL](../H/HASHCTL.md)`: Structure type for hash table control parameters
   - `missing_cache_key`: Structure type used for cache keys and entries
   - [missing_hash](../m/missing_hash.md): Custom hash function for cache keys
   - [missing_match](../m/missing_match.md): Custom comparison function for cache keys
   - [hash_create](../h/hash_create.md): PostgreSQL function to create hash tables
   - `TopMemoryContext`: Long-lived memory context for persistent storage
-  - Hash table flags: `HASH_ELEM`, `HASH_CONTEXT`, `HASH_FUNCTION`, `HASH_COMPARE`
+  - [Hash](../H/Hash.md) table flags: `HASH_ELEM`, `HASH_CONTEXT`, `HASH_FUNCTION`, `HASH_COMPARE`
 - Called from (representative examples):
   - [getmissingattr](../g/getmissingattr.md): Calls this function to initialize the cache when first needed
 

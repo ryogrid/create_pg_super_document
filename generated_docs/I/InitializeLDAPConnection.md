@@ -32,9 +32,9 @@ The function constructs proper LDAP URIs from the configuration, sets the LDAP p
   - ldap_unbind (cleans up LDAP connection on errors)
   - ldap_err2string (converts LDAP error codes to strings)
   - ldap_memfree (frees OpenLDAP-allocated memory)
-  - initStringInfo (initializes PostgreSQL string buffer)
-  - appendStringInfoString (appends strings to buffer)
-  - appendBinaryStringInfo (appends binary data to buffer)
+  - [initStringInfo](../i/initStringInfo.md) (initializes PostgreSQL string buffer)
+  - [appendStringInfoString](../a/appendStringInfoString.md) (appends strings to buffer)
+  - [appendBinaryStringInfo](../a/appendBinaryStringInfo.md) (appends binary data to buffer)
   - [errdetail_for_ldap](../e/errdetail_for_ldap.md) (provides detailed LDAP error information)
 - Called from (representative examples):
   - [CheckLDAPAuth](../C/CheckLDAPAuth.md) (referenced in auth.c:2489)

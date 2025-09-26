@@ -24,7 +24,7 @@ The function includes compile-time assertions to ensure proper size alignment be
 ## Dependencies
 - Functions called/Symbols referenced:
   - StaticAssertDecl (compile-time assertion)
-  - s_init_lock_sema (semaphore initialization when spinlocks unavailable)
+  - [s_init_lock_sema](../s/s_init_lock_sema.md) (semaphore initialization when spinlocks unavailable)
   - SpinLockInit (spinlock initialization when spinlocks available)
   - [pg_atomic_uint64](pg_atomic_uint64.md) (atomic structure type)
   - [slock_t](../s/slock_t.md) (spinlock type)

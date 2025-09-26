@@ -42,8 +42,8 @@ The enum values control the formatting behavior in the emit_tap_output functions
   - Used by emit_tap_output_v function at src/test/regress/pg_regress.c:152
 
 - Called from (representative examples):
-  - emit_tap_output function at src/test/regress/pg_regress.c:330
-  - emit_tap_output_v function at src/test/regress/pg_regress.c:340
+  - [emit_tap_output](../e/emit_tap_output.md) function at src/test/regress/pg_regress.c:330
+  - [emit_tap_output_v](../e/emit_tap_output_v.md) function at src/test/regress/pg_regress.c:340
 
 ## Notes and Other Information
 - This enum is specific to PostgreSQL's regression testing framework and implements TAP (Test Anything Protocol) compliance

@@ -30,7 +30,7 @@ The function performs several key operations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockHeldByMeInMode (assertion check for lock held)
+  - [LWLockHeldByMeInMode](../L/LWLockHeldByMeInMode.md) (assertion check for lock held)
   - [SimpleLruGetBankLock](SimpleLruGetBankLock.md) (bank lock acquisition)
   - [SlruSelectLRUPage](SlruSelectLRUPage.md) (LRU page selection)
   - [SlruRecentlyUsed](SlruRecentlyUsed.md) (mark page as recently used)
@@ -43,9 +43,9 @@ The function performs several key operations:
   - [ZeroCommitTsPage](../Z/ZeroCommitTsPage.md)
   - [ZeroMultiXactOffsetPage](../Z/ZeroMultiXactOffsetPage.md)
   - [ZeroMultiXactMemberPage](../Z/ZeroMultiXactMemberPage.md)
-  - ZeroSUBTRANSPage
+  - [ZeroSUBTRANSPage](../Z/ZeroSUBTRANSPage.md)
   - [asyncQueueAddEntries](../a/asyncQueueAddEntries.md)
-  - SerialAdd
+  - [SerialAdd](SerialAdd.md)
 
 ## Notes and Other Information
 - The bank lock must be held in exclusive mode before calling this function

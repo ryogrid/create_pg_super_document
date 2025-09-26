@@ -25,7 +25,7 @@ This function is typically called when the predicate testing operation is comple
   - ArrayConstIterState (state structure)
   - [pfree](../p/pfree.md) (memory deallocation function)
   - [list_free](../l/list_free.md) (list deallocation function)
-  - OpExpr (operator expression structure)
+  - [OpExpr](../O/OpExpr.md) (operator expression structure)
 - Called from (representative examples):
   - iterate_end (src/backend/optimizer/util/predtest.c:94)
   - [predicate_classify](../p/predicate_classify.md) (src/backend/optimizer/util/predtest.c:884)

@@ -28,7 +28,7 @@ NameData is PostgreSQL's fundamental structure for storing database object ident
   - NAMEDATALEN (defined as 64 in pg_config_manual.h)
 - Called from (representative examples):
   - All PostgreSQL catalog tables (pg_class, pg_attribute, pg_proc, pg_namespace, etc.)
-  - namerecv (input function for Name type)
+  - [namerecv](../n/namerecv.md) (input function for Name type)
   - [NameGetDatum](NameGetDatum.md) (conversion to PostgreSQL Datum type)
   - [CatCacheCopyKeys](../C/CatCacheCopyKeys.md) (catalog cache key copying)
   - [ReplicationSlotPersistentData](../R/ReplicationSlotPersistentData.md) (replication slot names)

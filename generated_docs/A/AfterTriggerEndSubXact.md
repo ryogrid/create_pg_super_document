@@ -42,7 +42,7 @@ The function operates differently based on the commit/abort status:
   - SetConstraintState
   - [AfterTriggerEvent](AfterTriggerEvent.md)
   - [AfterTriggerEventChunk](AfterTriggerEventChunk.md)
-  - AfterTriggerShared
+  - [AfterTriggerShared](AfterTriggerShared.md)
   - CommandId
 - Constants:
   - AFTER_TRIGGER_DONE

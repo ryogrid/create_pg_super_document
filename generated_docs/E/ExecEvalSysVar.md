@@ -20,7 +20,7 @@ This function is part of PostgreSQL expression evaluation infrastructure and spe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slot_getsysattr
+  - [slot_getsysattr](../s/slot_getsysattr.md)
   - elog
 - Called from (representative examples):
   - [ExecInterpExpr](ExecInterpExpr.md)

@@ -31,12 +31,12 @@ Width estimates are clamped using `clamp_width_est` to prevent integer overflow 
   - [cost_qual_eval_node](../c/cost_qual_eval_node.md)
   - [get_relation_data_width](../g/get_relation_data_width.md)
   - [clamp_width_est](../c/clamp_width_est.md)
-  - exprType
-  - exprTypmod
+  - [exprType](../e/exprType.md)
+  - [exprTypmod](../e/exprTypmod.md)
 - Types used:
   - [PlaceHolderVar](../P/PlaceHolderVar.md)
-  - PlaceHolderInfo
-  - QualCost
+  - [PlaceHolderInfo](../P/PlaceHolderInfo.md)
+  - [QualCost](../Q/QualCost.md)
   - [PathTarget](../P/PathTarget.md)
 - Constants used:
   - SizeofHeapTupleHeader

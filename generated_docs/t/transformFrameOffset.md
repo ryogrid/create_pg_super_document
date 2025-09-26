@@ -37,7 +37,7 @@ The function also validates that the offset expression contains no variables, en
 - Functions called/Symbols referenced:
   - [transformExpr](transformExpr.md)
   - [coerce_to_specific_type](../c/coerce_to_specific_type.md)
-  - exprType
+  - [exprType](../e/exprType.md)
   - SearchSysCacheList2
   - [can_coerce_type](../c/can_coerce_type.md)
   - [ReleaseCatCacheList](../R/ReleaseCatCacheList.md)

@@ -24,16 +24,16 @@ If all validations pass, it calls  to actually record the leap second informatio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - error (for reporting parsing errors)
-  - getleapdatetime (to parse and validate the leap second datetime)
-  - byword (to lookup and validate the rolling/stationary field)
-  - leapadd (to actually add the leap second to the timezone data)
+  - [error](../e/error.md) (for reporting parsing errors)
+  - [getleapdatetime](../g/getleapdatetime.md) (to parse and validate the leap second datetime)
+  - [byword](../b/byword.md) (to lookup and validate the rolling/stationary field)
+  - [leapadd](../l/leapadd.md) (to actually add the leap second to the timezone data)
   - LEAP_FIELDS (constant defining expected number of fields)
   - LP_ROLL, LP_CORR (field index constants)
   - zic_t (time type used for leap second timestamps)
-  - lookup (struct type for field lookups)
+  - [lookup](../l/lookup.md) (struct type for field lookups)
 - Called from (representative examples):
-  - infile (main file parsing function)
+  - [infile](infile.md) (main file parsing function)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's timezone data compilation system, not the runtime timezone handling

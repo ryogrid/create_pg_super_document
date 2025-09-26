@@ -25,8 +25,8 @@ The function provides a convenient and safe way to open table relations while en
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - relation_open
-  - validate_relation_kind
+  - [relation_open](../r/relation_open.md)
+  - [validate_relation_kind](../v/validate_relation_kind.md)
 - Called from (representative examples):
   - Various BRIN index operations
   - Table manipulation functions across the codebase

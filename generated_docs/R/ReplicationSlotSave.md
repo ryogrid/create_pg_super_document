@@ -24,9 +24,9 @@ This is a critical function for ensuring replication slot durability - without p
 - Functions called/Symbols referenced:
   - [SaveSlotToPath](../S/SaveSlotToPath.md)
 - Called from (representative examples):
-  - CreateInitDecodingContext
-  - CreateDecodingContext
-  - LogicalConfirmReceivedLocation
+  - [CreateInitDecodingContext](../C/CreateInitDecodingContext.md)
+  - [CreateDecodingContext](../C/CreateDecodingContext.md)
+  - [LogicalConfirmReceivedLocation](../L/LogicalConfirmReceivedLocation.md)
   - [ReplicationSlotAlter](ReplicationSlotAlter.md)
   - [ReplicationSlotPersist](ReplicationSlotPersist.md)
   - [CreateReplicationSlot](../C/CreateReplicationSlot.md)

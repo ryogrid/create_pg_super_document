@@ -37,7 +37,7 @@ This enum value works in conjunction with JSON_SEM_SCALAR_INIT to handle scalar 
   - None (enum constant)
 - Called from (representative examples):
   - IS_NT (macro usage in parsing logic)
-  - pg_parse_json_incremental (main parsing function for semantic action processing)
+  - [pg_parse_json_incremental](../p/pg_parse_json_incremental.md) (main parsing function for semantic action processing)
 
 ## Notes and Other Information
 - Part of the JsonParserSem enum starting at value 64

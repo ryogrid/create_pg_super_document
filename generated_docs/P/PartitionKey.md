@@ -32,7 +32,7 @@ Type information is comprehensively stored for each partition key attribute, inc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PartitionKeyData (underlying structure)
+  - [PartitionKeyData](PartitionKeyData.md) (underlying structure)
   - PartitionStrategy (partitioning strategy enum)
   - AttrNumber (attribute number type)
   - [List](../L/List.md) (PostgreSQL list type)

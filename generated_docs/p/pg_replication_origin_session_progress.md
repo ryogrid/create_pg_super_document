@@ -25,7 +25,7 @@ The function performs prerequisite checks to ensure that replication origins are
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_BOOL
-  - replorigin_check_prerequisites  
+  - [replorigin_check_prerequisites](../r/replorigin_check_prerequisites.md)  
   - [replorigin_session_get_progress](../r/replorigin_session_get_progress.md)
   - PG_RETURN_LSN
 - Called from (representative examples):

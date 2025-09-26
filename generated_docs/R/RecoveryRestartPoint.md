@@ -25,7 +25,7 @@ The function implements a critical safety check by refusing to create restart po
   - [XLogHaveInvalidPages](../X/XLogHaveInvalidPages.md)
   - elog (DEBUG2 level)
   - SpinLockAcquire/SpinLockRelease
-  - CheckPoint (structure)
+  - [CheckPoint](../C/CheckPoint.md) (structure)
 - Called from (representative examples):
   - [xlog_redo](../x/xlog_redo.md) (when processing XLOG_CHECKPOINT_SHUTDOWN and XLOG_CHECKPOINT_ONLINE records)
 

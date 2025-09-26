@@ -26,13 +26,13 @@ The function performs several checks: first ensuring the connection is valid and
   - PGASYNC_IDLE (async status check)
   - PQTRANS_ACTIVE (PGTransactionStatusType enum value)
 - Called from (representative examples):
-  - DisconnectDatabase (pg_dump utilities)
-  - getTransactionStatus (pgbench)
-  - SendQuery (psql)
-  - start_lo_xact (psql large object operations)
-  - ECPGsetcommit (ECPG interface)
-  - ecpg_autostart_transaction (ECPG)
-  - ECPGtransactionStatus (ECPG)
+  - [DisconnectDatabase](../D/DisconnectDatabase.md) (pg_dump utilities)
+  - [getTransactionStatus](../g/getTransactionStatus.md) (pgbench)
+  - [SendQuery](../S/SendQuery.md) (psql)
+  - [start_lo_xact](../s/start_lo_xact.md) (psql large object operations)
+  - [ECPGsetcommit](../E/ECPGsetcommit.md) (ECPG interface)
+  - [ecpg_autostart_transaction](../e/ecpg_autostart_transaction.md) (ECPG)
+  - [ECPGtransactionStatus](../E/ECPGtransactionStatus.md) (ECPG)
 
 ## Notes and Other Information
 - Returns PQTRANS_UNKNOWN if connection is NULL or not in CONNECTION_OK state

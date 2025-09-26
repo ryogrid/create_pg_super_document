@@ -44,15 +44,15 @@ The node works by:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Plan (base structure)
+  - [Plan](../P/Plan.md) (base structure)
   - AttrNumber
   - Oid
 - Called from (representative examples):
-  - ExecInitUnique
-  - ExecUnique
-  - create_upper_unique_plan
-  - make_unique_from_sortclauses
-  - make_unique_from_pathkeys
+  - [ExecInitUnique](../E/ExecInitUnique.md)
+  - [ExecUnique](../E/ExecUnique.md)
+  - [create_upper_unique_plan](../c/create_upper_unique_plan.md)
+  - [make_unique_from_sortclauses](../m/make_unique_from_sortclauses.md)
+  - [make_unique_from_pathkeys](../m/make_unique_from_pathkeys.md)
 
 ## Notes and Other Information
 - The Unique node assumes its input is already sorted on the uniqueness columns

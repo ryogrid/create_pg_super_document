@@ -46,7 +46,7 @@ The function works for various container types including arrays, and is designed
 - Functions called/Symbols referenced:
   - [transformContainerType](transformContainerType.md)() (resolves domain types)
   - [getSubscriptingRoutines](../g/getSubscriptingRoutines.md)() (gets type-specific subscripting support functions)
-  - SubscriptingRef (result node type)
+  - [SubscriptingRef](../S/SubscriptingRef.md) (result node type)
   - [A_Indices](../A/A_Indices.md) (subscript specification structure)
   - makeNode() (creates new SubscriptingRef node)
   - ereport()/errcode() (error reporting)

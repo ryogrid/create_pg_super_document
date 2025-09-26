@@ -30,7 +30,7 @@ DSMRegistryEntry structures are stored in a distributed hash table managed by th
 - Functions called/Symbols referenced:
   - dsm_handle
 - Called from (representative examples):
-  - GetNamedDSMSegment
+  - [GetNamedDSMSegment](../G/GetNamedDSMSegment.md)
 
 ## Notes and Other Information
 - The 64-byte name field limits segment names to 63 characters to ensure null termination

@@ -24,8 +24,8 @@ This is the core function for converting PostgreSQL expression node trees back i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initStringInfo
-  - get_rule_expr
+  - [initStringInfo](../i/initStringInfo.md)
+  - [get_rule_expr](../g/get_rule_expr.md)
   - WRAP_COLUMN_DEFAULT (constant)
 - Called from (representative examples):
   - [deparse_expression](deparse_expression.md) (src/backend/utils/adt/ruleutils.c:3602)

@@ -27,8 +27,8 @@ The function uses simple structure assignment (*toPointer = *fromPointer) which 
 - Called from (representative examples):
   - [heap_lock_tuple](../h/heap_lock_tuple.md)
   - [heapam_tuple_insert](../h/heapam_tuple_insert.md)
-  - _bt_form_posting
-  - AfterTriggerSaveEvent
+  - [_bt_form_posting](../b/_bt_form_posting.md)
+  - [AfterTriggerSaveEvent](../A/AfterTriggerSaveEvent.md)
   - [TidRangeEval](../T/TidRangeEval.md)
 
 ## Notes and Other Information

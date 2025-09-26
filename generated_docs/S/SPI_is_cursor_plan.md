@@ -28,10 +28,10 @@ The function does not force revalidation of the cached plan, as invalidation typ
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SPIPlanPtr](SPIPlanPtr.md) (typedef for struct _SPI_plan *)
-  - CachedPlanSource (struct representing cached plan information)
+  - [CachedPlanSource](../C/CachedPlanSource.md) (struct representing cached plan information)
   - _SPI_PLAN_MAGIC (validation constant)
   - SPI_ERROR_ARGUMENT (error code)
-  - list_length (list utility function)
+  - [list_length](../l/list_length.md) (list utility function)
   - linitial (list utility function)
 - Called from (representative examples):
   - [SPI_cursor_open_internal](SPI_cursor_open_internal.md) (internal cursor opening function)

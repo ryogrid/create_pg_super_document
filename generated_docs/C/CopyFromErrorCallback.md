@@ -33,7 +33,7 @@ For text format operations, it uses CopyLimitPrintoutLength to ensure error mess
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CopyFromState (struct type)
+  - [CopyFromState](CopyFromState.md) (struct type)
   - errcontext (error reporting function)
   - CopyLimitPrintoutLength (utility function for limiting output length)
   - [pfree](../p/pfree.md) (memory deallocation function)

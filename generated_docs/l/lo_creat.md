@@ -21,7 +21,7 @@ The lo_creat function creates a new large object in the PostgreSQL database. It 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lo_initialize](lo_initialize.md)
-  - PQfn
+  - [PQfn](../P/PQfn.md)
   - PQArgBlock
   - PGRES_COMMAND_OK
   - InvalidOid

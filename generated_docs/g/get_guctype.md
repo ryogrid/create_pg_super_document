@@ -30,10 +30,10 @@ The query uses case-insensitive comparison to match GUC variable names, making i
 - Functions called/Symbols referenced:
   - [PQExpBufferData](../P/PQExpBufferData.md) (structure for building SQL queries)
   - [escape_string](../e/escape_string.md) (for SQL injection protection)
-  - initPQExpBuffer (initialize query buffer)
+  - [initPQExpBuffer](../i/initPQExpBuffer.md) (initialize query buffer)
   - [appendPQExpBuffer](../a/appendPQExpBuffer.md) (build SQL query)
   - [exec_query](../e/exec_query.md) (execute the query safely)
-  - termPQExpBuffer (cleanup query buffer)
+  - [termPQExpBuffer](../t/termPQExpBuffer.md) (cleanup query buffer)
   - PGRES_TUPLES_OK (constant for successful query result)
   - [PQntuples](../P/PQntuples.md) (check number of result rows)
   - [pg_strdup](../p/pg_strdup.md) (duplicate result string)

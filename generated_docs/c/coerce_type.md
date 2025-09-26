@@ -50,7 +50,7 @@ The function assumes the caller has already verified the coercion is possible vi
   - [type_is_collatable](../t/type_is_collatable.md)
 - Called from (representative examples):
   - [coerce_to_target_type](coerce_to_target_type.md)
-  - transformArrayExpr
+  - [transformArrayExpr](../t/transformArrayExpr.md)
   - [make_fn_arguments](../m/make_fn_arguments.md)
   - [coerce_to_common_type](coerce_to_common_type.md)
   - [buildMergedJoinVar](../b/buildMergedJoinVar.md)

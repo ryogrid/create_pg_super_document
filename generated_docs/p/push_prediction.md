@@ -20,11 +20,11 @@ The `push_prediction` function is used in JSON parsing to implement a predictive
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonParserStack (struct type)
-  - td_entry (struct type)
+  - [JsonParserStack](../J/JsonParserStack.md) (struct type)
+  - [td_entry](../t/td_entry.md) (struct type)
 - Called from (representative examples):
-  - pg_parse_json_incremental (at src/common/jsonapi.c:682)
-  - pg_parse_json_incremental (at src/common/jsonapi.c:714)
+  - [pg_parse_json_incremental](pg_parse_json_incremental.md) (at src/common/jsonapi.c:682)
+  - [pg_parse_json_incremental](pg_parse_json_incremental.md) (at src/common/jsonapi.c:714)
 
 ## Notes and Other Information
 - This is a static inline function for performance optimization

@@ -22,13 +22,13 @@ The function opens the policy catalog table (`pg_policy`) with an `AccessShareLo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `table_open`: Opens the pg_policy catalog table
+  - `[table_open](../t/table_open.md)`: Opens the pg_policy catalog table
   - [ScanKeyInit](../S/ScanKeyInit.md): Initializes the scan key for catalog search
   - [systable_beginscan](../s/systable_beginscan.md): Begins the system catalog scan
   - [systable_getnext](../s/systable_getnext.md): Retrieves the next tuple from the scan
   - `HeapTupleIsValid`: Checks if the retrieved tuple is valid
   - [systable_endscan](../s/systable_endscan.md): Ends the system catalog scan
-  - `table_close`: Closes the catalog table
+  - `[table_close](../t/table_close.md)`: Closes the catalog table
   - `RelationGetRelid`: Gets the OID of the relation
   - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md): Converts OID to Datum format
 - Called from (representative examples):

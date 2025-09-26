@@ -28,8 +28,8 @@ This approach ensures compatibility across different C standard library implemen
   - INFINITY (C99 macro, conditionally used)
   - HUGE_VAL (C standard library constant)
 - Called from (representative examples):
-  - check_special_value (in ECPG library)
-  - float8in_internal (in backend float parsing)
+  - [check_special_value](../c/check_special_value.md) (in ECPG library)
+  - [float8in_internal](../f/float8in_internal.md) (in backend float parsing)
   - Various mathematical and geometric functions throughout PostgreSQL
 
 ## Notes and Other Information

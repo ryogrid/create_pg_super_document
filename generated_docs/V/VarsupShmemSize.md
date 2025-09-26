@@ -19,9 +19,9 @@ VarsupShmemSize is a simple utility function that returns the memory size needed
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TransamVariablesData
+  - [TransamVariablesData](../T/TransamVariablesData.md)
 - Called from (representative examples):
-  - CalculateShmemSize
+  - [CalculateShmemSize](../C/CalculateShmemSize.md)
 
 ## Notes and Other Information
 - This function is part of the transaction variable support (varsup) subsystem

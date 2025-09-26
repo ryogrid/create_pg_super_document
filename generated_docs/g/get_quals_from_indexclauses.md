@@ -19,7 +19,7 @@ This utility function processes a list of IndexClause structures and extracts al
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IndexClause
+  - [IndexClause](../I/IndexClause.md)
   - Cost
 - Called from (representative examples):
   - [genericcostestimate](genericcostestimate.md)

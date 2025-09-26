@@ -43,7 +43,7 @@ This function is essential when partition bounds have been merged, as it establi
   - [bms_singleton_member](../b/bms_singleton_member.md)
   - [find_base_rel](../f/find_base_rel.md)
   - [find_join_rel](../f/find_join_rel.md)
-  - lappend
+  - [lappend](../l/lappend.md)
   - IS_SIMPLE_REL
   - Assert
 - Called from (representative examples):

@@ -38,7 +38,7 @@ The function intelligently handles the daylight saving time context, selecting a
   - sprintf (for format string substitution)
   - strcpy, memcpy (for string copying)
   - strlen (for string length calculation)
-  - is_alpha (to check if abbreviation is alphabetic)
+  - [is_alpha](../i/is_alpha.md) (to check if abbreviation is alphabetic)
   - memmove (for string manipulation when adding quotes)
 - Called from (representative examples):
   - [stringzone](../s/stringzone.md) (in src/timezone/zic.c:2900, 2910)

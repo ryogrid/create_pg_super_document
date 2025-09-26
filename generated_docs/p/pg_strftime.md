@@ -25,17 +25,17 @@ The function performs bounds checking to ensure the output doesn't exceed the bu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _fmt (core formatting function)
-  - pg_tm (timestamp structure type)
+  - [_fmt](../f/_fmt.md) (core formatting function)
+  - [pg_tm](pg_tm.md) (timestamp structure type)
   - IN_NONE (warning enumeration value)
   - EOVERFLOW (error code for buffer overflow)
   - ERANGE (error code for range error)
 - Called from (representative examples):
-  - str_time (in xlog.c)
-  - build_backup_content (in xlogbackup.c)  
-  - AddFileToBackupManifest (in backup_manifest.c)
-  - timeofday (in timestamp.c)
-  - get_formatted_log_time (in elog.c)
+  - [str_time](../s/str_time.md) (in xlog.c)
+  - [build_backup_content](../b/build_backup_content.md) (in xlogbackup.c)  
+  - [AddFileToBackupManifest](../A/AddFileToBackupManifest.md) (in backup_manifest.c)
+  - [timeofday](../t/timeofday.md) (in timestamp.c)
+  - [get_formatted_log_time](../g/get_formatted_log_time.md) (in elog.c)
 
 ## Notes and Other Information
 - Returns 0 on error (buffer overflow or range error) and sets errno appropriately

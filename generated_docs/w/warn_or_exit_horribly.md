@@ -24,7 +24,7 @@ The  function serves as the central error handling mechanism for the PostgreSQL 
 - Functions called/Symbols referenced:
   - STAGE_NONE, STAGE_INITIALIZING, STAGE_PROCESSING, STAGE_FINALIZING
   - pg_log_info
-  - pg_log_generic_v
+  - [pg_log_generic_v](../p/pg_log_generic_v.md)
   - PG_LOG_ERROR, PG_LOG_PRIMARY
   - [exit_nicely](../e/exit_nicely.md)
 - Called from (representative examples):

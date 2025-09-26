@@ -20,15 +20,15 @@ This function resets the statistics counters for a named replication slot. It fi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire (with ReplicationSlotControlLock, LW_SHARED)
-  - SearchNamedReplicationSlot
+  - [LWLockAcquire](../L/LWLockAcquire.md) (with ReplicationSlotControlLock, LW_SHARED)
+  - [SearchNamedReplicationSlot](../S/SearchNamedReplicationSlot.md)
   - SlotIsLogical
-  - pgstat_reset (with PGSTAT_KIND_REPLSLOT)
-  - ReplicationSlotIndex
-  - LWLockRelease
+  - [pgstat_reset](pgstat_reset.md) (with PGSTAT_KIND_REPLSLOT)
+  - [ReplicationSlotIndex](../R/ReplicationSlotIndex.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - ereport (for error handling)
 - Called from (representative examples):
-  - pg_stat_reset_replication_slot
+  - [pg_stat_reset_replication_slot](pg_stat_reset_replication_slot.md)
 
 ## Notes and Other Information
 - Only logical replication slots have their statistics reset; physical slots are skipped

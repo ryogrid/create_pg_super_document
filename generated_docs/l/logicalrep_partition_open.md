@@ -35,7 +35,7 @@ The function first checks for an existing cached entry and updates the local rel
   - [bms_copy](../b/bms_copy.md)
   - [make_attrmap](../m/make_attrmap.md)
   - memcpy
-  - logicalrep_rel_mark_updatable
+  - [logicalrep_rel_mark_updatable](logicalrep_rel_mark_updatable.md)
   - [FindLogicalRepLocalIndex](../F/FindLogicalRepLocalIndex.md)
 - Types referenced:
   - [LogicalRepRelMapEntry](../L/LogicalRepRelMapEntry.md)
@@ -44,7 +44,7 @@ The function first checks for an existing cached entry and updates the local rel
   - [AttrMap](../A/AttrMap.md)
   - [MemoryContext](../M/MemoryContext.md)
   - AttrNumber
-- Hash operation flags:
+- [Hash](../H/Hash.md) operation flags:
   - HASH_ENTER
 - Called from (representative examples):
   - [apply_handle_tuple_routing](../a/apply_handle_tuple_routing.md)

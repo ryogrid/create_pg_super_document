@@ -17,7 +17,7 @@ This function validates an encoding name string to determine if it represents a 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_char_to_encoding (converts encoding name string to internal encoding ID)
+  - [pg_char_to_encoding](pg_char_to_encoding.md) (converts encoding name string to internal encoding ID)
   - PG_VALID_BE_ENCODING (macro for validating backend/server encodings)
 - Called from (representative examples):
   - [createdb](../c/createdb.md) (src/backend/commands/dbcommands.c:883, 893)

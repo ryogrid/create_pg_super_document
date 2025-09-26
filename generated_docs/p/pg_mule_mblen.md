@@ -31,10 +31,10 @@ This function is essential for properly parsing MULE-encoded text, allowing othe
   - IS_LC2 (macro to test for LC2 character type)
   - IS_LCPRV2 (macro to test for LCPRV2 character type)
 - Called from:
-  - mic2latin (MULE to Latin conversion)
-  - mic2latin_with_table (MULE to Latin conversion with table lookup)
-  - pg_mule_verifychar (MULE character validation)
-  - pg_encoding_set_invalid (as part of encoding function table setup)
+  - [mic2latin](../m/mic2latin.md) (MULE to Latin conversion)
+  - [mic2latin_with_table](../m/mic2latin_with_table.md) (MULE to Latin conversion with table lookup)
+  - [pg_mule_verifychar](pg_mule_verifychar.md) (MULE character validation)
+  - [pg_encoding_set_invalid](pg_encoding_set_invalid.md) (as part of encoding function table setup)
 
 ## Notes and Other Information
 - This is a public function (exported for direct use by conv.c)

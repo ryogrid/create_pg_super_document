@@ -20,11 +20,11 @@ SendNegotiateProtocolVersion constructs and sends a NegotiateProtocolVersion mes
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_beginmessage
+  - [pq_beginmessage](../p/pq_beginmessage.md)
   - [pq_sendint32](../p/pq_sendint32.md)
   - [pq_sendstring](../p/pq_sendstring.md)
   - [pq_endmessage](../p/pq_endmessage.md)
-  - list_length
+  - [list_length](../l/list_length.md)
   - lfirst
 - Called from (representative examples):
   - [ProcessStartupPacket](../P/ProcessStartupPacket.md)

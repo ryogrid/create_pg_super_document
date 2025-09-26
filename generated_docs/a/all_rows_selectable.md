@@ -29,18 +29,18 @@ The function handles complex scenarios like partitioned tables where it must wal
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_base_rel_noerr (relation lookup without error)
+  - [find_base_rel_noerr](../f/find_base_rel_noerr.md) (relation lookup without error)
   - planner_rt_fetch (range table entry retrieval)
-  - getRTEPermissionInfo (permission information lookup)
-  - bms_next_member (bitmap set iteration)
-  - bms_add_member (bitmap set manipulation)
-  - pg_class_aclcheck (table-level permission checking)
-  - pg_attribute_aclcheck (column-level permission checking)
-  - pg_attribute_aclcheck_all (all-columns permission checking)
+  - [getRTEPermissionInfo](../g/getRTEPermissionInfo.md) (permission information lookup)
+  - [bms_next_member](../b/bms_next_member.md) (bitmap set iteration)
+  - [bms_add_member](../b/bms_add_member.md) (bitmap set manipulation)
+  - [pg_class_aclcheck](../p/pg_class_aclcheck.md) (table-level permission checking)
+  - [pg_attribute_aclcheck](../p/pg_attribute_aclcheck.md) (column-level permission checking)
+  - [pg_attribute_aclcheck_all](../p/pg_attribute_aclcheck_all.md) (all-columns permission checking)
 - Called from (representative examples):
-  - examine_variable (main variable examination function)
-  - examine_simple_variable (simple variable examination)
-  - statext_is_compatible_clause (extended statistics compatibility checking)
+  - [examine_variable](../e/examine_variable.md) (main variable examination function)
+  - [examine_simple_variable](../e/examine_simple_variable.md) (simple variable examination)
+  - [statext_is_compatible_clause](../s/statext_is_compatible_clause.md) (extended statistics compatibility checking)
 
 ## Notes and Other Information
 - Returns false if any security qualifiers (securityQuals) are present, indicating restricted access due to security barriers or RLS policies

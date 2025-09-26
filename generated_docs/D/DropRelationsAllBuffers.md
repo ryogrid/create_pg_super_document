@@ -21,18 +21,18 @@ DropRelationsAllBuffers efficiently removes all cached pages for multiple relati
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelFileLocatorBackendIsTemp
-  - DropRelationAllLocalBuffers
-  - smgrnblocks_cached
+  - [DropRelationAllLocalBuffers](DropRelationAllLocalBuffers.md)
+  - [smgrnblocks_cached](../s/smgrnblocks_cached.md)
   - [smgrexists](../s/smgrexists.md)
   - BlockNumberIsValid
   - [FindAndDropRelationBuffers](../F/FindAndDropRelationBuffers.md)
   - qsort
-  - rlocator_comparator
+  - [rlocator_comparator](../r/rlocator_comparator.md)
   - [GetBufferDescriptor](../G/GetBufferDescriptor.md)
   - [BufTagMatchesRelFileLocator](../B/BufTagMatchesRelFileLocator.md)
   - [BufTagGetRelFileLocator](../B/BufTagGetRelFileLocator.md)
   - bsearch
-  - LockBufHdr
+  - [LockBufHdr](../L/LockBufHdr.md)
   - [InvalidateBuffer](../I/InvalidateBuffer.md)
   - [UnlockBufHdr](../U/UnlockBufHdr.md)
   - BUF_DROP_FULL_SCAN_THRESHOLD (constant)

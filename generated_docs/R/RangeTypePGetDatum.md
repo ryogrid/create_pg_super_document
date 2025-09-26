@@ -20,12 +20,12 @@ This function is essential for returning range type values from PostgreSQL funct
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PointerGetDatum (implicit macro for converting pointer to Datum)
+  - [PointerGetDatum](../P/PointerGetDatum.md) (implicit macro for converting pointer to Datum)
 - Called from (representative examples):
-  - multirange_out (multirange output function)
-  - make_range (range construction function)
-  - spg_range_quad_choose (SP-GiST index operations)
-  - range_gist_fallback_split (GiST index splitting)
+  - [multirange_out](../m/multirange_out.md) (multirange output function)
+  - [make_range](../m/make_range.md) (range construction function)
+  - [spg_range_quad_choose](../s/spg_range_quad_choose.md) (SP-GiST index operations)
+  - [range_gist_fallback_split](../r/range_gist_fallback_split.md) (GiST index splitting)
   - PG_RETURN_RANGE_P (macro for returning range values)
 
 ## Notes and Other Information

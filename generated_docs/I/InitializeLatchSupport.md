@@ -40,17 +40,17 @@ This function takes no parameters.
   - fcntl (system call)
   - close (system call)
   - elog
-  - ReleaseExternalFD
-  - ReserveExternalFD
-  - pqsignal
-  - latch_sigurg_handler
+  - [ReleaseExternalFD](../R/ReleaseExternalFD.md)
+  - [ReserveExternalFD](../R/ReserveExternalFD.md)
+  - [pqsignal](../p/pqsignal.md)
+  - [latch_sigurg_handler](../l/latch_sigurg_handler.md)
   - signalfd (system call, Linux)
   - sigaddset
   - sigemptyset
 - Called from (representative examples):
-  - PostmasterMain
-  - InitPostmasterChild
-  - InitStandaloneProcess
+  - [PostmasterMain](../P/PostmasterMain.md)
+  - [InitPostmasterChild](InitPostmasterChild.md)
+  - [InitStandaloneProcess](InitStandaloneProcess.md)
 
 ## Notes and Other Information
 - Located in src/backend/storage/ipc/latch.c:232-345

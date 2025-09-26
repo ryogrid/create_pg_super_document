@@ -22,7 +22,7 @@ This function provides a convenient wrapper for assigning integer values to pgbe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - setIntValue
+  - [setIntValue](../s/setIntValue.md)
   - [putVariableValue](putVariableValue.md)
   - [Variables](../V/Variables.md) (type)
   - PgBenchValue (type)

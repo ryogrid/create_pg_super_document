@@ -22,11 +22,11 @@ The function is designed for scenarios where code needs to work with arrays with
 ## Dependencies
 - Functions called/Symbols referenced:
   - VARATT_IS_EXTERNAL_EXPANDED (checks if Datum is expanded array of any type)
-  - DatumGetEOHP (extracts expanded object header pointer)
+  - [DatumGetEOHP](DatumGetEOHP.md) (extracts expanded object header pointer)
   - PG_DETOAST_DATUM (detoasts regular varlena arrays)
-  - DatumGetPointer (extracts pointer from Datum)
+  - [DatumGetPointer](DatumGetPointer.md) (extracts pointer from Datum)
 - Called from (representative examples):
-  - array_map (array mapping operations)
+  - [array_map](../a/array_map.md) (array mapping operations)
   - PG_GETARG_ANY_ARRAY_P (macro for function argument processing)
   - AARR_LBOUND (array lower bound access macro)
 

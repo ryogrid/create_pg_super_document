@@ -25,11 +25,11 @@ The implementation carefully manages the backend's state tracking, including mes
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire/LWLockRelease (for SInvalReadLock synchronization)
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease (for SInvalReadLock synchronization)
   - SpinLockAcquire/SpinLockRelease (for msgnumLock protection)
-  - SharedInvalidationMessage (message structure type)
-  - SISeg (shared invalidation segment structure)
-  - ProcState (per-process state tracking)
+  - [SharedInvalidationMessage](SharedInvalidationMessage.md) (message structure type)
+  - [SISeg](SISeg.md) (shared invalidation segment structure)
+  - [ProcState](../P/ProcState.md) (per-process state tracking)
   - MAXNUMMESSAGES (circular buffer size constant)
   - LW_SHARED (lock mode constant)
 - Called from (representative examples):

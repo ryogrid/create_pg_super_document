@@ -20,20 +20,20 @@ The `ecpg_register_prepared_stmt` function creates and registers a new prepared 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ecpg_find_prepared_statement
-  - deallocate_one
-  - ecpg_alloc
-  - ecpg_free
-  - ecpg_strdup
+  - [ecpg_find_prepared_statement](ecpg_find_prepared_statement.md)
+  - [deallocate_one](../d/deallocate_one.md)
+  - [ecpg_alloc](ecpg_alloc.md)
+  - [ecpg_free](ecpg_free.md)
+  - [ecpg_strdup](ecpg_strdup.md)
   - memset
 - Structures used:
-  - statement
-  - prepared_statement
-  - connection
+  - [statement](../s/statement.md)
+  - [prepared_statement](../p/prepared_statement.md)
+  - [connection](../c/connection.md)
 - Constants used:
   - ECPG_COMPAT_PGSQL
 - Called from (representative examples):
-  - ecpg_execute
+  - [ecpg_execute](ecpg_execute.md)
 
 ## Notes and Other Information
 - Returns true on success, false on failure

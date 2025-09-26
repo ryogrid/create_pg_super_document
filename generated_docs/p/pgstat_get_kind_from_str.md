@@ -17,16 +17,16 @@ This utility function performs a case-insensitive lookup to convert a string rep
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strcasecmp
+  - [pg_strcasecmp](pg_strcasecmp.md)
   - ereport
-  - errcode
-  - errmsg
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
   - PGSTAT_KIND_FIRST_VALID
   - PGSTAT_KIND_LAST
   - PGSTAT_KIND_DATABASE
   - pgstat_kind_infos (global array)
 - Called from (representative examples):
-  - pg_stat_have_stats (src/backend/utils/adt/pgstatfuncs.c:2031)
+  - [pg_stat_have_stats](pg_stat_have_stats.md) (src/backend/utils/adt/pgstatfuncs.c:2031)
 
 ## Notes and Other Information
 - Performs case-insensitive string matching using pg_strcasecmp

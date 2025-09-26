@@ -26,11 +26,11 @@ The W field represents a key parameter in the reservoir sampling algorithm that 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_prng_state (for random number generation)
+  - [pg_prng_state](../p/pg_prng_state.md) (for random number generation)
   - double (for statistical calculations)
 - Called from (representative examples):
-  - acquire_sample_rows (src/backend/commands/analyze.c:1171)
-  - sampler_random_fract (src/backend/utils/misc/sampling.c:262)
+  - [acquire_sample_rows](../a/acquire_sample_rows.md) (src/backend/commands/analyze.c:1171)
+  - [sampler_random_fract](../s/sampler_random_fract.md) (src/backend/utils/misc/sampling.c:262)
 
 ## Notes and Other Information
 - Used as the basis for the ReservoirState pointer type (typedef ReservoirStateData *ReservoirState)

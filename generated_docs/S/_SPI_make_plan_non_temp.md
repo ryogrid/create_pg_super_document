@@ -24,17 +24,17 @@ The process involves creating a dedicated memory context, copying the plan struc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SPIPlanPtr: Type definition for SPI plan pointers
+  - [SPIPlanPtr](SPIPlanPtr.md): Type definition for SPI plan pointers
   - _SPI_PLAN_MAGIC: Magic number used for plan validation
   - AllocSetContextCreate: Creates the new memory context for the plan
   - ALLOCSET_SMALL_SIZES: Memory context size parameters
-  - _SPI_plan: The actual SPIPlan structure type
-  - CachedPlanSource: Structure representing cached execution plans
-  - CachedPlanSetParentContext: Function to reparent cached plan sources
+  - [_SPI_plan](_SPI_plan.md): The actual SPIPlan structure type
+  - [CachedPlanSource](../C/CachedPlanSource.md): Structure representing cached execution plans
+  - [CachedPlanSetParentContext](../C/CachedPlanSetParentContext.md): Function to reparent cached plan sources
 - Called from (representative examples):
-  - SPI_prepare_cursor: When preparing cursor statements
-  - SPI_prepare_extended: When preparing extended statements
-  - SPI_prepare_params: When preparing parameterized statements
+  - [SPI_prepare_cursor](SPI_prepare_cursor.md): When preparing cursor statements
+  - [SPI_prepare_extended](SPI_prepare_extended.md): When preparing extended statements
+  - [SPI_prepare_params](SPI_prepare_params.md): When preparing parameterized statements
 
 ## Notes and Other Information
 - This is a static function internal to the SPI implementation, not part of the public SPI API

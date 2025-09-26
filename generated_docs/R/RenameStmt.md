@@ -40,15 +40,15 @@ RenameStmt is a parse tree node that encapsulates all the information needed to 
 ## Dependencies
 - Functions called/Symbols referenced:
   - ObjectType (enumeration for object types)
-  - RangeVar (structure for table/relation references)
+  - [RangeVar](RangeVar.md) (structure for table/relation references)
   - DropBehavior (enumeration for CASCADE/RESTRICT behavior)
   - NodeTag (standard parse node identification)
 - Called from (representative examples):
-  - ExecRenameStmt (main execution function)
-  - standard_ProcessUtility (utility command processing)
-  - renameatt (attribute/column renaming)
-  - RenameConstraint (constraint renaming)
-  - RenameRelation (table/relation renaming)
+  - [ExecRenameStmt](../E/ExecRenameStmt.md) (main execution function)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (utility command processing)
+  - [renameatt](../r/renameatt.md) (attribute/column renaming)
+  - [RenameConstraint](RenameConstraint.md) (constraint renaming)
+  - [RenameRelation](RenameRelation.md) (table/relation renaming)
 
 ## Notes and Other Information
 The RenameStmt structure is used throughout PostgreSQL's DDL processing pipeline, from parsing through execution. It supports a wide variety of rename operations and includes safety features like missing_ok to handle IF EXISTS clauses and behavior settings to control dependency handling during renames.

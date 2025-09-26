@@ -31,16 +31,16 @@ This structure is fundamental to PostgreSQL's incremental backup system, where W
   - XLogRecPtr (WAL record pointer type from access/xlogdefs.h)
   - TimeLineID (Timeline identifier type from access/xlogdefs.h)
 - Called from (representative examples):
-  - PrepareForIncrementalBackup
-  - GetWalSummaries
-  - FilterWalSummaries
-  - WalSummariesAreComplete
-  - OpenWalSummaryFile
-  - RemoveWalSummaryIfOlderThan
-  - pg_available_wal_summaries
-  - pg_wal_summary_contents
-  - GetOldestUnsummarizedLSN
-  - MaybeRemoveOldWalSummaries
+  - [PrepareForIncrementalBackup](../P/PrepareForIncrementalBackup.md)
+  - [GetWalSummaries](../G/GetWalSummaries.md)
+  - [FilterWalSummaries](../F/FilterWalSummaries.md)
+  - [WalSummariesAreComplete](WalSummariesAreComplete.md)
+  - [OpenWalSummaryFile](../O/OpenWalSummaryFile.md)
+  - [RemoveWalSummaryIfOlderThan](../R/RemoveWalSummaryIfOlderThan.md)
+  - [pg_available_wal_summaries](../p/pg_available_wal_summaries.md)
+  - [pg_wal_summary_contents](../p/pg_wal_summary_contents.md)
+  - [GetOldestUnsummarizedLSN](../G/GetOldestUnsummarizedLSN.md)
+  - [MaybeRemoveOldWalSummaries](../M/MaybeRemoveOldWalSummaries.md)
 
 ## Notes and Other Information
 - Essential component of PostgreSQL's incremental backup infrastructure

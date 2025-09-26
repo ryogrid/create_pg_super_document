@@ -30,7 +30,7 @@ The function is optimized for spatial indexing operations in PostgreSQL's SP-GiS
   - [Point](../P/Point.md) (data structure)
   - [BOX](../B/BOX.md) (data structure)  
   - isnan (NaN checking function)
-  - get_float8_nan (NaN value generator)
+  - [get_float8_nan](../g/get_float8_nan.md) (NaN value generator)
   - HYPOT (hypotenuse calculation macro)
 - Called from (representative examples):
   - [spg_key_orderbys_distances](../s/spg_key_orderbys_distances.md)

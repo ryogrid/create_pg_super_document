@@ -22,9 +22,9 @@ This function is essential for timezone parsing where string matching needs to b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lowerit (src/timezone/zic.c:3616)
+  - [lowerit](../l/lowerit.md) (src/timezone/zic.c:3616)
 - Called from (representative examples):
-  - byword (src/timezone/zic.c:3680)
+  - [byword](../b/byword.md) (src/timezone/zic.c:3680)
 
 ## Notes and Other Information
 - Returns `true` if both strings are equal when compared case-insensitively, `false` otherwise

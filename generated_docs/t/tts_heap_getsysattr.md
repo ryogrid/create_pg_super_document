@@ -22,7 +22,7 @@ This function implements the getsysattr callback for heap tuple table slots with
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HeapTupleTableSlot (cast target type)
+  - [HeapTupleTableSlot](../H/HeapTupleTableSlot.md) (cast target type)
   - TTS_EMPTY (macro to check if slot is empty)
   - [heap_getsysattr](../h/heap_getsysattr.md) (function that retrieves system attributes from heap tuples)
 - Called from (representative examples):

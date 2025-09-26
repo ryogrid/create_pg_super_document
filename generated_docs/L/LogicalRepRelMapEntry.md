@@ -55,11 +55,11 @@ The entry includes validation mechanisms to ensure that cached information remai
   - [LogicalRepRelation](LogicalRepRelation.md)
   - [AttrMap](../A/AttrMap.md)
 - Called from (representative examples):
-  - logicalrep_relmap_init
-  - logicalrep_relmap_update
-  - logicalrep_rel_open
-  - logicalrep_rel_close
-  - logicalrep_rel_mark_updatable
+  - [logicalrep_relmap_init](../l/logicalrep_relmap_init.md)
+  - [logicalrep_relmap_update](../l/logicalrep_relmap_update.md)
+  - [logicalrep_rel_open](../l/logicalrep_rel_open.md)
+  - [logicalrep_rel_close](../l/logicalrep_rel_close.md)
+  - [logicalrep_rel_mark_updatable](../l/logicalrep_rel_mark_updatable.md)
   - [apply_handle_insert](../a/apply_handle_insert.md)
   - [apply_handle_update](../a/apply_handle_update.md)
   - [apply_handle_delete](../a/apply_handle_delete.md)

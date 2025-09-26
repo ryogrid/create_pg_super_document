@@ -24,7 +24,7 @@ The function works by delegating the actual tree traversal to `pull_paramids_wal
   - [pull_paramids_walker](pull_paramids_walker.md)
 - Called from (representative examples):
   - [create_memoize_plan](../c/create_memoize_plan.md)
-  - WindowFuncLists
+  - [WindowFuncLists](../W/WindowFuncLists.md)
 
 ## Notes and Other Information
 - Returns a Bitmapset containing the paramids, or NULL if no parameters are found

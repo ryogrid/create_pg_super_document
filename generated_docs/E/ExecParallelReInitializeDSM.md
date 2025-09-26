@@ -32,7 +32,7 @@ The function uses planstate_tree_walker to recursively traverse the entire plan 
   - [ExecAppendReInitializeDSM](ExecAppendReInitializeDSM.md)
   - [ExecCustomScanReInitializeDSM](ExecCustomScanReInitializeDSM.md)
   - [ExecBitmapHeapReInitializeDSM](ExecBitmapHeapReInitializeDSM.md)
-  - ExecHashJoinReInitializeDSM
+  - [ExecHashJoinReInitializeDSM](ExecHashJoinReInitializeDSM.md)
   - planstate_tree_walker
 - Called from (representative examples):
   - [ExecParallelReinitialize](ExecParallelReinitialize.md)

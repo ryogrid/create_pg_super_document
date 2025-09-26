@@ -35,7 +35,7 @@ The function performs atomic operations on the pg_policy system catalog and main
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md) (catalog updates)
   - [deleteSharedDependencyRecordsFor](../d/deleteSharedDependencyRecordsFor.md), recordSharedDependencyOn (dependency management)
   - InvokeObjectPostAlterHook (event hooks)
-  - CommandCounterIncrement, CacheInvalidateRelcacheByTuple (cache management)
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md), CacheInvalidateRelcacheByTuple (cache management)
 - Called from:
   - [shdepDropOwned](../s/shdepDropOwned.md) (when dropping owned objects during role cleanup)
 

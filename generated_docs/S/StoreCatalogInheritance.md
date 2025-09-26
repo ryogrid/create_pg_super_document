@@ -28,8 +28,8 @@ Historical note: Earlier versions of PostgreSQL maintained both direct and indir
 ## Dependencies
 - Functions called/Symbols referenced:
   - [StoreCatalogInheritance1](StoreCatalogInheritance1.md)
-  - table_open
-  - table_close
+  - [table_open](../t/table_open.md)
+  - [table_close](../t/table_close.md)
   - lfirst_oid
   - Assert
   - OidIsValid

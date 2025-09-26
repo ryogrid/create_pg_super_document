@@ -23,17 +23,17 @@ The function is designed for maximum performance and is typically used when the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SortSupport (sort support framework structure)
+  - [SortSupport](../S/SortSupport.md) (sort support framework structure)
   - SIZEOF_DATUM (size of a Datum value, referenced in source context)
 
 - Called from (representative examples):
-  - gist_point_sortsupport (GiST indexing for point data)
-  - macaddr_sortsupport (MAC address sorting)
-  - network_sortsupport (network address sorting)
-  - uuid_sortsupport (UUID sorting)
-  - varstr_sortsupport (variable-length string sorting)
-  - tuplesort_sort_memtuples (in-memory tuple sorting)
-  - ApplySortAbbrevFullComparator (abbreviated key comparison)
+  - [gist_point_sortsupport](../g/gist_point_sortsupport.md) (GiST indexing for point data)
+  - [macaddr_sortsupport](../m/macaddr_sortsupport.md) (MAC address sorting)
+  - [network_sortsupport](../n/network_sortsupport.md) (network address sorting)
+  - [uuid_sortsupport](../u/uuid_sortsupport.md) (UUID sorting)
+  - [varstr_sortsupport](../v/varstr_sortsupport.md) (variable-length string sorting)
+  - [tuplesort_sort_memtuples](../t/tuplesort_sort_memtuples.md) (in-memory tuple sorting)
+  - [ApplySortAbbrevFullComparator](../A/ApplySortAbbrevFullComparator.md) (abbreviated key comparison)
 
 ## Notes and Other Information
 - This function treats Datum values as unsigned integers for comparison

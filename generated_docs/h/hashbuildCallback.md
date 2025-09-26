@@ -28,7 +28,7 @@ The function maintains a count of processed tuples in the build state for progre
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _hash_convert_tuple
+  - [_hash_convert_tuple](_hash_convert_tuple.md)
   - [_h_spool](_h_spool.md)
   - [index_form_tuple](../i/index_form_tuple.md)
   - RelationGetDescr

@@ -20,7 +20,7 @@ This function creates a new entry in the pg_parameter_acl catalog for the specif
   - [check_GUC_name_for_parameter_acl](../c/check_GUC_name_for_parameter_acl.md)
   - [convert_GUC_name_for_parameter_acl](../c/convert_GUC_name_for_parameter_acl.md)
   - [GetNewOidWithIndex](../G/GetNewOidWithIndex.md)
-  - cstring_to_text
+  - [cstring_to_text](../c/cstring_to_text.md)
   - [heap_form_tuple](../h/heap_form_tuple.md)
   - [CatalogTupleInsert](../C/CatalogTupleInsert.md)
   - [heap_freetuple](../h/heap_freetuple.md)

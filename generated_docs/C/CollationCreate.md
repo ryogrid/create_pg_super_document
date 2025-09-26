@@ -52,9 +52,9 @@ CollationCreate is the core function responsible for creating new collation obje
   - [recordDependencyOnCurrentExtension](../r/recordDependencyOnCurrentExtension.md)
   - InvokeObjectPostCreateHook
   - [heap_freetuple](../h/heap_freetuple.md)
-  - namestrcpy
+  - [namestrcpy](../n/namestrcpy.md)
   - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md)
-  - pg_encoding_to_char
+  - [pg_encoding_to_char](../p/pg_encoding_to_char.md)
 - Called from (representative examples):
   - [DefineCollation](../D/DefineCollation.md)
   - [pg_import_system_collations](../p/pg_import_system_collations.md)

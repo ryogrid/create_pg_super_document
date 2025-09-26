@@ -34,7 +34,7 @@ The function is essential for timezone compiler operations where output director
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `ecpyalloc`: Safe memory allocation and string copying function
+  - `[ecpyalloc](../e/ecpyalloc.md)`: Safe memory allocation and string copying function
   - `mkdir`: System call to create directories with MKDIR_UMASK permissions
   - [itsdir](../i/itsdir.md): Check if a path is an existing directory
   - [error](../e/error.md): Error reporting function

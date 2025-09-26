@@ -30,7 +30,7 @@ The function serves as a high-level interface that combines graph construction a
   - [errcode](../e/errcode.md)
   - [errmsg](../e/errmsg.md)
 - Called from (representative examples):
-  - ExecAlterExtensionStmt
+  - [ExecAlterExtensionStmt](../E/ExecAlterExtensionStmt.md)
 
 ## Notes and Other Information
 - Static function only used within extension.c module

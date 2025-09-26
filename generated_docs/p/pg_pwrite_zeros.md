@@ -36,16 +36,16 @@ Key behaviors:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_pwritev_with_retry: Underlying vectored write function with retry logic
+  - [pg_pwritev_with_retry](pg_pwritev_with_retry.md): Underlying vectored write function with retry logic
   - PGIOAlignedBlock: Properly aligned buffer type for I/O operations
   - unconstify: Macro to cast away const qualifier from static buffer
   - PG_IOV_MAX: Maximum number of iovec entries per system call
   - BLCKSZ: PostgreSQL block size constant
-  - iovec: Standard vectored I/O structure
+  - [iovec](../i/iovec.md): Standard vectored I/O structure
 - Called from (representative examples):
-  - XLogFileInitInternal: Initializes transaction log files with zeros
-  - FileZero: Generic file zeroing interface
-  - dir_open_for_write: WAL backup utility file initialization
+  - [XLogFileInitInternal](../X/XLogFileInitInternal.md): Initializes transaction log files with zeros
+  - [FileZero](../F/FileZero.md): Generic file zeroing interface
+  - [dir_open_for_write](../d/dir_open_for_write.md): WAL backup utility file initialization
 
 ## Notes and Other Information
 - The static zero buffer is shared across all calls to this function, making it thread-safe since it's read-only

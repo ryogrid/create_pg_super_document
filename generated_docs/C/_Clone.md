@@ -25,7 +25,7 @@ Importantly, the function intentionally does not clone TOC-entry-local state, al
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lclContext](../l/lclContext.md) (local context structure type)
-  - pg_malloc (PostgreSQL memory allocation function)
+  - [pg_malloc](../p/pg_malloc.md) (PostgreSQL memory allocation function)
   - memcpy (standard C library memory copy function)
 - Called from (representative examples):
   - [InitArchiveFmt_Custom](../I/InitArchiveFmt_Custom.md) (custom format initialization)

@@ -29,7 +29,7 @@ The `make_ctescan` function is a factory function that constructs a CteScan plan
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to allocate CteScan node)
-  - CteScan (node type)
+  - [CteScan](../C/CteScan.md) (node type)
 - Called from (representative examples):
   - [create_ctescan_plan](../c/create_ctescan_plan.md)
 
@@ -38,5 +38,5 @@ The `make_ctescan` function is a factory function that constructs a CteScan plan
 - The function follows PostgreSQL's pattern of setting lefttree and righttree to NULL for leaf scan nodes
 - CTEs can be either materialized (stored temporarily) or inlined depending on the planner's cost-based decisions
 - The ctePlanId and cteParam work together to uniquely identify and access the correct materialized CTE data
-- CteScan nodes are essential for implementing recursive CTEs and for optimizing queries with multiple CTE references
+- [CteScan](../C/CteScan.md) nodes are essential for implementing recursive CTEs and for optimizing queries with multiple CTE references
 - Part of PostgreSQL's query planner infrastructure that handles WITH clause functionality and CTE materialization

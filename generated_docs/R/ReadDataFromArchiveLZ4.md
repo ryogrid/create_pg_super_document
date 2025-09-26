@@ -25,7 +25,7 @@ This function implements the decompression logic for LZ4-compressed archive data
   - LZ4F_freeDecompressionContext
   - LZ4F_isError
   - LZ4F_getErrorName
-  - pg_malloc0
+  - [pg_malloc0](../p/pg_malloc0.md)
   - [pg_free](../p/pg_free.md)
   - [ahwrite](../a/ahwrite.md)
   - [pg_fatal](../p/pg_fatal.md)

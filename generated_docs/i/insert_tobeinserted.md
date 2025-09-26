@@ -23,10 +23,10 @@ This function performs string manipulation to replace placeholders in SQL comman
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ecpg_alloc
-  - ecpg_free
+  - [ecpg_alloc](../e/ecpg_alloc.md)
+  - [ecpg_free](../e/ecpg_free.md)
 - Called from:
-  - ecpg_build_params (multiple locations)
+  - [ecpg_build_params](../e/ecpg_build_params.md) (multiple locations)
 
 ## Notes and Other Information
 - Returns true on successful replacement, false on memory allocation failure

@@ -35,10 +35,10 @@ This comprehensive function analyzes any PostgreSQL expression node to determine
   - [ComputePartitionAttrs](../C/ComputePartitionAttrs.md) (partition key analysis)
   - [ExecTypeFromTLInternal](../E/ExecTypeFromTLInternal.md) (executor type handling)
   - [build_pertrans_for_aggref](../b/build_pertrans_for_aggref.md) (aggregate processing)
-  - makeVarFromTargetEntry (variable creation)
+  - [makeVarFromTargetEntry](../m/makeVarFromTargetEntry.md) (variable creation)
   - [canonicalize_ec_expression](../c/canonicalize_ec_expression.md) (equivalence class processing)
   - [assign_collations_walker](../a/assign_collations_walker.md) (collation assignment)
-  - transformCaseExpr (CASE expression transformation)
+  - [transformCaseExpr](../t/transformCaseExpr.md) (CASE expression transformation)
   - Self-recursive calls for nested expressions
 
 ## Notes and Other Information

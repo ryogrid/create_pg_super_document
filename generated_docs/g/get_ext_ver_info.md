@@ -31,7 +31,7 @@ The function uses a linear search through the version list, which the comments a
   - strcmp (string comparison for version name lookup)
   - [palloc](../p/palloc.md) (memory allocation for new ExtensionVersionInfo)
   - [pstrdup](../p/pstrdup.md) (duplicate version name string)
-  - lappend (append new version info to list)
+  - [lappend](../l/lappend.md) (append new version info to list)
   - lfirst (access list cell contents)
 - Called from:
   - [get_ext_ver_list](get_ext_ver_list.md) (multiple calls for building version graph)

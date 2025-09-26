@@ -40,7 +40,7 @@ Key features include:
   - ResetExprContext
   - [gather_merge_getnext](../g/gather_merge_getnext.md)
   - TupIsNull
-  - ExecProject
+  - [ExecProject](ExecProject.md)
 - Called from:
   - [ExecInitGatherMerge](ExecInitGatherMerge.md) (set as the ExecProcNode function pointer)
 

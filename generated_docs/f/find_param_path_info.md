@@ -23,11 +23,11 @@ The function is used by the various get_*_parampathinfo functions to avoid creat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_equal
+  - [bms_equal](../b/bms_equal.md)
 - Called from (representative examples):
-  - get_baserel_parampathinfo
-  - get_joinrel_parampathinfo
-  - get_appendrel_parampathinfo
+  - [get_baserel_parampathinfo](../g/get_baserel_parampathinfo.md)
+  - [get_joinrel_parampathinfo](../g/get_joinrel_parampathinfo.md)
+  - [get_appendrel_parampathinfo](../g/get_appendrel_parampathinfo.md)
   - REPARAMETERIZE_CHILD_PATH_LIST
 
 ## Notes and Other Information

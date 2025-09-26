@@ -30,14 +30,14 @@ This function manages a process-local cache of injection point callbacks that ha
 - Functions called/Symbols referenced:
   - [hash_create](../h/hash_create.md): Creates the hash table on first use
   - [hash_search](../h/hash_search.md): Searches/inserts entries in the hash table with HASH_ENTER flag
-  - strlcpy: Copies the injection point name
+  - [strlcpy](../s/strlcpy.md): Copies the injection point name
   - memcpy: Copies private data buffer
 - Called from (representative examples):
   - [injection_point_cache_load](injection_point_cache_load.md): Loads injection points from shared memory into cache
 
 ## Notes and Other Information
 - The function is static (internal to injection_point.c)
-- Hash table is created with HASH_ELEM | HASH_STRINGS | HASH_CONTEXT flags
+- [Hash](../H/Hash.md) table is created with HASH_ELEM | HASH_STRINGS | HASH_CONTEXT flags
 - Uses Assert(\!found) to ensure no duplicate entries are added
 - Cache is stored in TopMemoryContext to persist across transactions
 - Maximum number of injection points is limited by MAX_INJECTION_POINTS constant

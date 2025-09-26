@@ -50,7 +50,7 @@ The function caches its result in the relation's cheapest_unique_path field sinc
 - Results are cached in rel->cheapest_unique_path to avoid redundant computation
 - Memory allocation is carefully managed to handle GEQO planning contexts appropriately
 - The function can return NULL if uniqueness cannot be achieved with available methods
-- Hash-based uniqueness is abandoned if the estimated memory requirement exceeds hash_memory_limit
+- [Hash](../H/Hash.md)-based uniqueness is abandoned if the estimated memory requirement exceeds hash_memory_limit
 - The choice between sort and hash methods is made based on cost comparison when both are available
 - For subqueries, the function leverages translate_sub_tlist to map expressions to subquery output columns
 - The pathkeys of the result depend on the uniqueness method chosen (preserved for NOOP, cleared otherwise)

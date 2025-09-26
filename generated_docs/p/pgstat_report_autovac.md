@@ -19,11 +19,11 @@ This function is called from the autovacuum process to report the startup of an 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_get_entry_ref_locked
+  - [pgstat_get_entry_ref_locked](pgstat_get_entry_ref_locked.md)
   - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
-  - pgstat_unlock_entry
+  - [pgstat_unlock_entry](pgstat_unlock_entry.md)
   - PGSTAT_KIND_DATABASE
-  - PgStat_EntryRef
+  - [PgStat_EntryRef](../P/PgStat_EntryRef.md)
   - [PgStatShared_Database](../P/PgStatShared_Database.md)
 - Called from (representative examples):
   - [AutoVacWorkerMain](../A/AutoVacWorkerMain.md) (in src/backend/postmaster/autovacuum.c:1549)

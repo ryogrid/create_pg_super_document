@@ -21,10 +21,10 @@ ECPGtrans is a core ECPG function that handles transaction control operations. I
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ecpg_get_connection
+  - [ecpg_get_connection](../e/ecpg_get_connection.md)
   - [ecpg_init](../e/ecpg_init.md)
   - [ecpg_log](../e/ecpg_log.md)
-  - PQtransactionStatus
+  - [PQtransactionStatus](../P/PQtransactionStatus.md)
   - PQTRANS_IDLE
   - [PQexec](../P/PQexec.md)
   - [ecpg_check_PQresult](../e/ecpg_check_PQresult.md)

@@ -47,7 +47,7 @@ The function handles several special cases:
   - PG_INT16_MAX (array dimension limit)
   - MemSet (memory clearing)
   - NAMEDATALEN (name length constant)
-  - namestrcpy (name copying utility)
+  - [namestrcpy](../n/namestrcpy.md) (name copying utility)
   - InvalidCompressionMethod (compression default)
 - Called from (representative examples):
   - [BuildDescFromLists](../B/BuildDescFromLists.md) (tuple descriptor construction)

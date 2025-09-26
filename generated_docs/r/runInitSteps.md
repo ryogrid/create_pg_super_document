@@ -32,7 +32,7 @@ Each operation is timed and the results are accumulated in a statistics buffer. 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQExpBufferData](../P/PQExpBufferData.md) (buffer structure for statistics)
-  - initPQExpBuffer (initialize statistics buffer)
+  - [initPQExpBuffer](../i/initPQExpBuffer.md) (initialize statistics buffer)
   - doConnect (establish database connection)
   - [setup_cancel_handler](../s/setup_cancel_handler.md) (set up signal handling)
   - [SetCancelConn](../S/SetCancelConn.md) (associate connection with cancel handler)
@@ -48,7 +48,7 @@ Each operation is timed and the results are accumulated in a statistics buffer. 
   - PG_TIME_GET_DOUBLE (convert timestamp to double)
   - [ResetCancelConn](../R/ResetCancelConn.md) (reset cancel connection)
   - [PQfinish](../P/PQfinish.md) (close database connection)
-  - termPQExpBuffer (cleanup statistics buffer)
+  - [termPQExpBuffer](../t/termPQExpBuffer.md) (cleanup statistics buffer)
 - Called from (representative examples):
   - [main](../m/main.md) (during pgbench initialization mode)
 

@@ -22,7 +22,7 @@ The function also performs cleanup for distance-ordered scans by freeing previou
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MemoryContextReset](../M/MemoryContextReset.md)
-  - pairingheap_allocate
+  - [pairingheap_allocate](../p/pairingheap_allocate.md)
   - [pairingheap_SpGistSearchItem_cmp](../p/pairingheap_SpGistSearchItem_cmp.md)
   - [spgAddStartItem](../s/spgAddStartItem.md)
   - [pfree](../p/pfree.md) (indirectly)

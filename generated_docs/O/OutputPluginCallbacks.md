@@ -78,7 +78,7 @@ Output plugins populate this structure during their initialization (_PG_output_p
 - Functions called/Symbols referenced:
   - Various LogicalDecode*CB callback type definitions
 - Called from (representative examples):
-  - LoadOutputPlugin (src/backend/replication/logical/logical.c:752)
+  - [LoadOutputPlugin](../L/LoadOutputPlugin.md) (src/backend/replication/logical/logical.c:752)
   - [_PG_output_plugin_init](../P/_PG_output_plugin_init.md) (src/backend/replication/pgoutput/pgoutput.c:254)
   - [LogicalDecodingContext](../L/LogicalDecodingContext.md) (src/include/replication/logical.h:53)
 

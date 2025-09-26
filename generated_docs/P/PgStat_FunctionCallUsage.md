@@ -35,14 +35,14 @@ The fs pointer links to the function's entry in the statistics hash table, and w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PgStat_FunctionCounts
-  - instr_time
+  - [PgStat_FunctionCounts](PgStat_FunctionCounts.md)
+  - [instr_time](../i/instr_time.md)
 - Called from (representative examples):
-  - pgstat_init_function_usage (initialize function call tracking)
-  - pgstat_end_function_usage (finalize function call tracking)
-  - ExecEvalFuncExprFusage (expression evaluation with function usage tracking)
-  - ExecuteCallStmt (CALL statement execution)
-  - ExecCallTriggerFunc (trigger function execution)
+  - [pgstat_init_function_usage](../p/pgstat_init_function_usage.md) (initialize function call tracking)
+  - [pgstat_end_function_usage](../p/pgstat_end_function_usage.md) (finalize function call tracking)
+  - [ExecEvalFuncExprFusage](../E/ExecEvalFuncExprFusage.md) (expression evaluation with function usage tracking)
+  - [ExecuteCallStmt](../E/ExecuteCallStmt.md) (CALL statement execution)
+  - [ExecCallTriggerFunc](../E/ExecCallTriggerFunc.md) (trigger function execution)
 
 ## Notes and Other Information
 - Used for precise timing measurement during function execution

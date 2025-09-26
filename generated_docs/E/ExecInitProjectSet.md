@@ -30,7 +30,7 @@ The function includes specialized logic for detecting and properly initializing 
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode
-  - ExecAssignExprContext
+  - [ExecAssignExprContext](ExecAssignExprContext.md)
   - [ExecInitNode](ExecInitNode.md)
   - [ExecInitResultTupleSlotTL](ExecInitResultTupleSlotTL.md)
   - [ExecInitFunctionResultSet](ExecInitFunctionResultSet.md)

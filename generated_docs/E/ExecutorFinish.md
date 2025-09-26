@@ -26,7 +26,7 @@ The function is a critical part of the executor lifecycle: ExecutorStart → Exe
 ## Dependencies
 - Functions called/Symbols referenced:
   - [standard_ExecutorFinish](../s/standard_ExecutorFinish.md) (default implementation when no hook is present)
-  - QueryDesc (parameter structure)
+  - [QueryDesc](../Q/QueryDesc.md) (parameter structure)
 - Called from (representative examples):
   - [EndCopyTo](EndCopyTo.md) (src/backend/commands/copyto.c:731)
   - [ExecCreateTableAs](ExecCreateTableAs.md) (src/backend/commands/createas.c:334)

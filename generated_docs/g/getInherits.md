@@ -24,7 +24,7 @@ The getInherits function queries the pg_inherits system catalog to retrieve all 
   - [InhInfo](../I/InhInfo.md) (structure type)
   - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
   - PGRES_TUPLES_OK (constant)
-  - pg_malloc
+  - [pg_malloc](../p/pg_malloc.md)
   - atooid
 - Called from (representative examples):
   - [getSchemaData](getSchemaData.md)

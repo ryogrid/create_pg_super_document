@@ -33,8 +33,8 @@ For COPY operations, the function delegates to getCopyResult to handle COPY_IN, 
   - [pqSaveErrorResult](../p/pqSaveErrorResult.md)
   - [pqPrepareAsyncResult](../p/pqPrepareAsyncResult.md)
   - [pqSaveWriteError](../p/pqSaveWriteError.md)
-  - pqPipelineProcessQueue
-  - pqCommandQueueAdvance
+  - [pqPipelineProcessQueue](../p/pqPipelineProcessQueue.md)
+  - [pqCommandQueueAdvance](../p/pqCommandQueueAdvance.md)
   - [getCopyResult](../g/getCopyResult.md)
   - [PQfireResultCreateEvents](PQfireResultCreateEvents.md)
 - Called from (representative examples):

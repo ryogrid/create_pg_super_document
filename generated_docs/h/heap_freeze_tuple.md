@@ -33,7 +33,7 @@ The function returns a boolean indicating whether the tuple was actually frozen.
   - HeapTupleHeader
   - TransactionId
   - [HeapTupleFreeze](../H/HeapTupleFreeze.md)
-  - VacuumCutoffs
+  - [VacuumCutoffs](../V/VacuumCutoffs.md)
   - [HeapPageFreeze](../H/HeapPageFreeze.md)
 - Called from (representative examples):
   - [rewrite_heap_tuple](../r/rewrite_heap_tuple.md)

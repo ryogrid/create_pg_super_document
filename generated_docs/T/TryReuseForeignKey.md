@@ -27,7 +27,7 @@ The function performs validation on the conpfeqop array to ensure it's properly 
   - [SysCacheGetAttrNotNull](../S/SysCacheGetAttrNotNull.md)
   - DatumGetArrayTypeP
   - ARR_DIMS, ARR_NDIM, ARR_HASNULL, ARR_ELEMTYPE, ARR_DATA_PTR
-  - lappend_oid
+  - [lappend_oid](../l/lappend_oid.md)
   - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - CONSTR_FOREIGN
 - Called from:

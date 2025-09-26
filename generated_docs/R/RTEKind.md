@@ -39,7 +39,7 @@ RTEKind is used to classify range table entries (RTEs) in PostgreSQL's query tre
   - [_outRangeTblEntry](../o/_outRangeTblEntry.md) (src/backend/nodes/outfuncs.c:502)
   - [_readRangeTblEntry](../r/_readRangeTblEntry.md) (src/backend/nodes/readfuncs.c:353)
   - [RangeTblEntry](RangeTblEntry.md) (src/include/nodes/parsenodes.h:1054)
-  - RelOptInfo (src/include/nodes/pathnodes.h:916)
+  - [RelOptInfo](RelOptInfo.md) (src/include/nodes/pathnodes.h:916)
 
 ## Notes and Other Information
 - [RTEKind](RTEKind.md) is fundamental to PostgreSQL's query processing architecture

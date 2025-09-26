@@ -36,7 +36,7 @@ The function assumes the caller has already opened any required indexes and is r
   - [ExecARInsertTriggers](ExecARInsertTriggers.md): Executes AFTER ROW INSERT triggers
 - Called from (representative examples):
   - [apply_handle_insert_internal](../a/apply_handle_insert_internal.md): Logical replication worker for processing INSERT operations
-  - exec_rt_fetch: Through executor header inclusion
+  - [exec_rt_fetch](../e/exec_rt_fetch.md): Through executor header inclusion
 
 ## Notes and Other Information
 - Currently limited to regular table relations (RELKIND_RELATION)

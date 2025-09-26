@@ -35,8 +35,8 @@ The algorithm uses a geometric series formula to estimate subtree sizes and appl
 ## Dependencies
 - Functions called/Symbols referenced:
   - [calculatePagesPerBuffer](../c/calculatePagesPerBuffer.md)
-  - gistInitBuildBuffers
-  - gistGetMaxLevel
+  - [gistInitBuildBuffers](gistInitBuildBuffers.md)
+  - [gistGetMaxLevel](gistGetMaxLevel.md)
   - [gistInitParentMap](gistInitParentMap.md)
   - TupleDescAttr
   - MAXALIGN

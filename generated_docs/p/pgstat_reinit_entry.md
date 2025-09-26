@@ -28,12 +28,12 @@ This approach allows efficient reuse of hash table slots and DSA memory chunks w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dsa_get_address
-  - pg_atomic_fetch_add_u32
-  - pgstat_get_entry_data
-  - pgstat_get_entry_len
+  - [dsa_get_address](../d/dsa_get_address.md)
+  - [pg_atomic_fetch_add_u32](pg_atomic_fetch_add_u32.md)
+  - [pgstat_get_entry_data](pgstat_get_entry_data.md)
+  - [pgstat_get_entry_len](pgstat_get_entry_len.md)
 - Called from (representative examples):
-  - pgstat_get_entry_ref
+  - [pgstat_get_entry_ref](pgstat_get_entry_ref.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the pgstat_shmem.c module

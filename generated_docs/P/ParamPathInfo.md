@@ -46,8 +46,8 @@ The ppi_serials field contains rinfo_serial numbers for quals enforced by the pa
   - [cost_seqscan](../c/cost_seqscan.md) (src/backend/optimizer/path/costsize.c:285)
   - [cost_bitmap_heap_scan](../c/cost_bitmap_heap_scan.md) (src/backend/optimizer/path/costsize.c:1014)
   - [get_restriction_qual_cost](../g/get_restriction_qual_cost.md) (src/backend/optimizer/path/costsize.c:4966)
-  - get_baserel_parampathinfo (src/backend/optimizer/util/relnode.c:1560-1670)
-  - get_joinrel_parampathinfo (src/backend/optimizer/util/relnode.c:1678-1867)
+  - [get_baserel_parampathinfo](../g/get_baserel_parampathinfo.md) (src/backend/optimizer/util/relnode.c:1560-1670)
+  - [get_joinrel_parampathinfo](../g/get_joinrel_parampathinfo.md) (src/backend/optimizer/util/relnode.c:1678-1867)
 
 ## Notes and Other Information
 - Ensures consistent rowcount estimates across all paths with the same parameterization

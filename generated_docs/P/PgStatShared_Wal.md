@@ -31,7 +31,7 @@ The structure uses an LWLock to ensure thread-safe access in PostgreSQL's multi-
   - [LWLock](../L/LWLock.md)
   - [PgStat_WalStats](PgStat_WalStats.md)
 - Called from (representative examples):
-  - pgstat_flush_wal
+  - [pgstat_flush_wal](../p/pgstat_flush_wal.md)
   - [pgstat_wal_reset_all_cb](../p/pgstat_wal_reset_all_cb.md)
   - [pgstat_wal_snapshot_cb](../p/pgstat_wal_snapshot_cb.md)
   - [PgStat_ShmemControl](PgStat_ShmemControl.md) (as a member)

@@ -23,7 +23,7 @@ The function parses the input text as a qualified name (potentially schema.relat
 ## Dependencies
 - Functions called/Symbols referenced:
   - [makeRangeVarFromNameList](../m/makeRangeVarFromNameList.md)
-  - textToQualifiedNameList  
+  - [textToQualifiedNameList](textToQualifiedNameList.md)  
   - RangeVarGetRelid
   - PG_RETURN_OID
 - Types used:

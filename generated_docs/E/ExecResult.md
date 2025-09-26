@@ -30,12 +30,12 @@ The function uses projection to transform input tuples or generate output tuples
 - Functions called/Symbols referenced:
   - castNode (for casting PlanState to ResultState)
   - CHECK_FOR_INTERRUPTS (interrupt handling macro)
-  - ExecQual (for evaluating qualification expressions)
+  - [ExecQual](ExecQual.md) (for evaluating qualification expressions)
   - ResetExprContext (to reset per-tuple memory context)
   - outerPlanState (to get the outer plan state)
-  - ExecProcNode (to execute the outer plan)
+  - [ExecProcNode](ExecProcNode.md) (to execute the outer plan)
   - TupIsNull (to check if tuple is null)
-  - ExecProject (to perform projection and generate result tuples)
+  - [ExecProject](ExecProject.md) (to perform projection and generate result tuples)
 - Called from:
   - [ExecInitResult](ExecInitResult.md) (sets this as the execution function during initialization)
 

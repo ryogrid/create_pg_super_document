@@ -30,7 +30,7 @@ The function creates a branching structure in the NFA (Non-deterministic Finite 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - subre: Creates new sub-regular expression nodes
+  - [subre](../s/subre.md): Creates new sub-regular expression nodes
   - [newstate](../n/newstate.md): Creates new NFA states
   - EMPTYARC: Creates empty transitions between states
   - [parsebranch](parsebranch.md): Parses individual branches of the alternation

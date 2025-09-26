@@ -32,7 +32,7 @@ The function essentially bridges the gap between the parsed ALTER TABLE statemen
 - Functions called/Symbols referenced:
   - [RangeVarGetRelidExtended](../R/RangeVarGetRelidExtended.md) (general relation lookup function with extended options)
   - [RangeVarCallbackForAlterRelation](../R/RangeVarCallbackForAlterRelation.md) (specialized callback for ALTER TABLE relation validation)
-  - AlterTableStmt (structure type for parsed ALTER TABLE statements)
+  - [AlterTableStmt](AlterTableStmt.md) (structure type for parsed ALTER TABLE statements)
   - RVR_MISSING_OK (flag constant for handling missing relations)
 - Called from (representative examples):
   - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (in utility.c:1300, during utility command processing for ALTER TABLE statements)

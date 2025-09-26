@@ -26,7 +26,7 @@ This is particularly useful for outer joins, bitmap heap scans with no matching 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecClearTuple (clears existing slot contents)
+  - [ExecClearTuple](ExecClearTuple.md) (clears existing slot contents)
   - MemSet (macro for setting memory to zero)
   - [ExecStoreVirtualTuple](ExecStoreVirtualTuple.md) (marks slot as containing valid virtual tuple)
 - Called from (representative examples):

@@ -40,16 +40,16 @@ The function returns true if processing is complete (with or without an update),
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecUpdateLockMode](ExecUpdateLockMode.md)
-  - table_tuple_lock
-  - slot_getsysattr
+  - [table_tuple_lock](../t/table_tuple_lock.md)
+  - [slot_getsysattr](../s/slot_getsysattr.md)
   - [DatumGetTransactionId](../D/DatumGetTransactionId.md)
   - [TransactionIdIsCurrentTransactionId](../T/TransactionIdIsCurrentTransactionId.md)
   - [ItemPointerIndicatesMovedPartitions](../I/ItemPointerIndicatesMovedPartitions.md)
-  - ExecClearTuple
+  - [ExecClearTuple](ExecClearTuple.md)
   - [ExecCheckTupleVisible](ExecCheckTupleVisible.md)
-  - ExecQual
+  - [ExecQual](ExecQual.md)
   - [ExecWithCheckOptions](ExecWithCheckOptions.md)
-  - ExecProject
+  - [ExecProject](ExecProject.md)
   - [ExecUpdate](ExecUpdate.md)
   - InstrCountFiltered1
   - IsolationUsesXactSnapshot

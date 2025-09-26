@@ -25,22 +25,22 @@ For hot standby scenarios, the function includes additional logic to handle reco
 ## Dependencies
 - Functions called/Symbols referenced:
   - BufferIsPinned
-  - CheckBufferIsPinnedOnce
+  - [CheckBufferIsPinnedOnce](../C/CheckBufferIsPinnedOnce.md)
   - BufferIsLocal
-  - GetBufferDescriptor
-  - LockBuffer
-  - LockBufHdr/UnlockBufHdr
+  - [GetBufferDescriptor](../G/GetBufferDescriptor.md)
+  - [LockBuffer](LockBuffer.md)
+  - [LockBufHdr](LockBufHdr.md)/UnlockBufHdr
   - BUF_STATE_GET_REFCOUNT
-  - LogRecoveryConflict
-  - SetStartupBufferPinWaitBufId
-  - ResolveRecoveryConflictWithBufferPin
-  - ProcWaitForSignal
+  - [LogRecoveryConflict](LogRecoveryConflict.md)
+  - [SetStartupBufferPinWaitBufId](../S/SetStartupBufferPinWaitBufId.md)
+  - [ResolveRecoveryConflictWithBufferPin](../R/ResolveRecoveryConflictWithBufferPin.md)
+  - [ProcWaitForSignal](../P/ProcWaitForSignal.md)
 - Called from (representative examples):
-  - ginVacuumPostingTree
-  - hashbulkdelete
-  - lazy_scan_heap
-  - _bt_upgradelockbufcleanup
-  - ZeroAndLockBuffer
+  - [ginVacuumPostingTree](../g/ginVacuumPostingTree.md)
+  - [hashbulkdelete](../h/hashbulkdelete.md)
+  - [lazy_scan_heap](../l/lazy_scan_heap.md)
+  - [_bt_upgradelockbufcleanup](../b/_bt_upgradelockbufcleanup.md)
+  - [ZeroAndLockBuffer](../Z/ZeroAndLockBuffer.md)
 
 ## Notes and Other Information
 - Requires the buffer to be pinned exactly once by the calling backend before invocation

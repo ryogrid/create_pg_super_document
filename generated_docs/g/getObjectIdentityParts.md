@@ -45,14 +45,14 @@ The dual return mechanism allows for both display purposes (the string) and prog
   - [get_subscription_name](get_subscription_name.md) (subscription name lookup)
   - [getPublicationSchemaInfo](getPublicationSchemaInfo.md) (publication schema information)
   - [quote_identifier](../q/quote_identifier.md) (identifier quoting)
-  - quote_qualified_identifier (qualified identifier quoting)
+  - [quote_qualified_identifier](../q/quote_qualified_identifier.md) (qualified identifier quoting)
   - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup)
   - [get_catalog_object_by_oid](get_catalog_object_by_oid.md) (catalog object retrieval)
   - Various catalog form structures (Form_pg_*)
 
 - Called from (representative examples):
   - [getObjectIdentity](getObjectIdentity.md) (simplified interface wrapper)
-  - pg_identify_object_as_address (SQL function for address-based identification)
+  - [pg_identify_object_as_address](../p/pg_identify_object_as_address.md) (SQL function for address-based identification)
   - [EventTriggerSQLDropAddObject](../E/EventTriggerSQLDropAddObject.md) (event trigger system)
   - ObjectAddressSet (object address utility)
 

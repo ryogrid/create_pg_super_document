@@ -41,7 +41,7 @@ To avoid roundoff errors, the function multiplies by count before dividing. It a
   - [floor_var](../f/floor_var.md)
   - [free_var](../f/free_var.md)
 - Called from (representative examples):
-  - width_bucket_numeric
+  - [width_bucket_numeric](../w/width_bucket_numeric.md)
 
 ## Notes and Other Information
 - This is a static function internal to the numeric.c module

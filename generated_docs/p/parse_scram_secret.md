@@ -41,8 +41,8 @@ On successful parsing, all extracted values are returned via output parameters. 
   - strtok
   - strcmp
   - strtol
-  - pg_b64_dec_len
-  - pg_b64_decode
+  - [pg_b64_dec_len](pg_b64_dec_len.md)
+  - [pg_b64_decode](pg_b64_decode.md)
   - [palloc](palloc.md)
   - memcpy
   - PG_SHA256

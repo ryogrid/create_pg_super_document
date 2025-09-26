@@ -21,7 +21,7 @@ The function serves as a safe accessor for the tuple field of HeapTupleTableSlot
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HeapTupleTableSlot (cast target type)
+  - [HeapTupleTableSlot](../H/HeapTupleTableSlot.md) (cast target type)
   - TTS_EMPTY (macro for checking empty slots)
   - [tts_heap_materialize](tts_heap_materialize.md) (materializes tuple if needed)
 - Called from (representative examples):

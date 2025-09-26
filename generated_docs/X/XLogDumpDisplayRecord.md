@@ -29,8 +29,8 @@ This function produces the main output format for pg_waldump, displaying detaile
   - XLogRecGetTotalLen
   - XLogRecGetXid
   - [XLogRecGetBlockRefInfo](XLogRecGetBlockRefInfo.md)
-  - initStringInfo
-  - resetStringInfo
+  - [initStringInfo](../i/initStringInfo.md)
+  - [resetStringInfo](../r/resetStringInfo.md)
   - [pfree](../p/pfree.md)
   - [RmgrDescData](../R/RmgrDescData.md) (type)
   - [XLogDumpConfig](XLogDumpConfig.md) (type)

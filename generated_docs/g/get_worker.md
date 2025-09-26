@@ -41,7 +41,7 @@ The  function serves as the core implementation for all JSON getter functions in
   - [get_array_element_start](get_array_element_start.md)
   - [get_array_element_end](get_array_element_end.md)
   - pg_parse_json_or_ereport
-  - freeJsonLexContext
+  - [freeJsonLexContext](../f/freeJsonLexContext.md)
 - Called from (representative examples):
   - [json_object_field](../j/json_object_field.md)
   - [json_object_field_text](../j/json_object_field_text.md)

@@ -41,7 +41,7 @@ PgStat_Kind categorizes different types of statistics that PostgreSQL collects a
   - [pgstat_fetch_entry](../p/pgstat_fetch_entry.md)
   - [pgstat_get_kind_info](../p/pgstat_get_kind_info.md)
   - [pgstat_build_snapshot](../p/pgstat_build_snapshot.md)
-  - pgstat_init_entry
+  - [pgstat_init_entry](../p/pgstat_init_entry.md)
 
 ## Notes and Other Information
 - The enumeration includes helper macros: PGSTAT_KIND_FIRST_VALID, PGSTAT_KIND_LAST, and PGSTAT_NUM_KINDS

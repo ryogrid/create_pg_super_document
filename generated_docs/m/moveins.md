@@ -49,7 +49,7 @@ The function includes optimization logic via BULK_ARC_OP_USE_SORT() to determine
   - [arc](../a/arc.md) (struct type)
 - Called from (representative examples):
   - [pull](../p/pull.md) (src/backend/regex/regc_nfa.c:1801)
-  - fixempties (src/backend/regex/regc_nfa.c:2106)
+  - [fixempties](../f/fixempties.md) (src/backend/regex/regc_nfa.c:2106)
   - [parsebranch](../p/parsebranch.md) (src/backend/regex/regcomp.c:806)
   - ARCV (src/backend/regex/regcomp.c:1204)
   - REDUCE (src/backend/regex/regcomp.c:1619, 1640)

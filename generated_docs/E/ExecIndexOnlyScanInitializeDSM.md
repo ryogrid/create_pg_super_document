@@ -28,9 +28,9 @@ The function performs several key operations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - shm_toc_allocate
+  - [shm_toc_allocate](../s/shm_toc_allocate.md)
   - [index_parallelscan_initialize](../i/index_parallelscan_initialize.md)  
-  - shm_toc_insert
+  - [shm_toc_insert](../s/shm_toc_insert.md)
   - [index_beginscan_parallel](../i/index_beginscan_parallel.md)
   - [index_rescan](../i/index_rescan.md)
 - Types used:

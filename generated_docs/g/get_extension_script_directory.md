@@ -39,7 +39,7 @@ This flexible approach allows extensions to store their script files in custom l
 - This is a static function, meaning it's only accessible within the src/backend/commands/extension.c file
 - The function allocates memory using palloc or pstrdup, which is automatically freed when the current memory context is destroyed
 - Uses MAXPGPATH constant to ensure the path buffer is sufficiently large for PostgreSQL path names
-- The directory parameter in the control file is optional - when omitted, extensions use the standard extension directory
+- The directory parameter in the control file is optional - [when](../w/when.md) omitted, extensions use the standard extension directory
 - Supports both absolute and relative paths, providing flexibility in extension deployment
 - my_exec_path is a global variable containing the path to the PostgreSQL executable used as a reference for path resolution
 - The control parameter should not be NULL, as the function accesses its directory member without validation

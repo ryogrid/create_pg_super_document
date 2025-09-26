@@ -28,7 +28,7 @@ The function uses PostgreSQL's efficient `pg_popcount` function to count set bit
   - [bloom_filter](bloom_filter.md): The filter structure type
 
 - Called from (representative examples):
-  - `create_and_test_bloom`: Test module validation and performance analysis
+  - `[create_and_test_bloom](../c/create_and_test_bloom.md)`: Test module validation and performance analysis
 
 ## Notes and Other Information
 - Return value approaches 0.5 under optimal loading conditions regardless of available memory

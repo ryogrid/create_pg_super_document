@@ -21,7 +21,7 @@ The function accesses the current error data context and returns the internal po
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ErrorData (struct type)
+  - [ErrorData](../E/ErrorData.md) (struct type)
   - CHECK_STACK_DEPTH (macro)
 - Called from (representative examples):
   - [function_parse_error_transpose](../f/function_parse_error_transpose.md)

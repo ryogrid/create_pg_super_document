@@ -31,15 +31,15 @@ The function is designed to be recursive, allowing it to drill down through mult
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache3 (for pg_statistic lookup)
-  - all_rows_selectable (security permission checking)
-  - bms_make_singleton (bitmap set operations)
-  - find_base_rel (relation lookup)
-  - get_tle_by_resno (target list entry retrieval)
-  - targetIsInSortList (DISTINCT clause analysis)
-  - examine_simple_variable (recursive self-call)
+  - [SearchSysCache3](../S/SearchSysCache3.md) (for pg_statistic lookup)
+  - [all_rows_selectable](../a/all_rows_selectable.md) (security permission checking)
+  - [bms_make_singleton](../b/bms_make_singleton.md) (bitmap set operations)
+  - [find_base_rel](../f/find_base_rel.md) (relation lookup)
+  - [get_tle_by_resno](../g/get_tle_by_resno.md) (target list entry retrieval)
+  - [targetIsInSortList](../t/targetIsInSortList.md) (DISTINCT clause analysis)
+  - [examine_simple_variable](examine_simple_variable.md) (recursive self-call)
 - Called from (representative examples):
-  - examine_variable (main entry point for variable statistics examination)
+  - [examine_variable](examine_variable.md) (main entry point for variable statistics examination)
 
 ## Notes and Other Information
 - The function respects security barriers and row-level security policies when determining whether to expose statistical information

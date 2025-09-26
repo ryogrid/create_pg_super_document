@@ -23,7 +23,7 @@ This function handles the complex process of adding or modifying token-to-dictio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AlterTSConfigurationStmt
+  - [AlterTSConfigurationStmt](../A/AlterTSConfigurationStmt.md)
   - Form_pg_ts_config
   - [getTokenTypes](../g/getTokenTypes.md)
   - TSTokenTypeItem
@@ -32,7 +32,7 @@ This function handles the complex process of adding or modifying token-to-dictio
   - [get_ts_dict_oid](../g/get_ts_dict_oid.md)
   - [CatalogOpenIndexes](../C/CatalogOpenIndexes.md), CatalogCloseIndexes
   - [MakeSingleTupleTableSlot](MakeSingleTupleTableSlot.md), ExecDropSingleTupleTableSlot
-  - ExecClearTuple, ExecStoreVirtualTuple
+  - [ExecClearTuple](../E/ExecClearTuple.md), ExecStoreVirtualTuple
   - [CatalogTuplesMultiInsertWithInfo](../C/CatalogTuplesMultiInsertWithInfo.md)
   - [EventTriggerCollectAlterTSConfig](../E/EventTriggerCollectAlterTSConfig.md)
 - Called from (representative examples):

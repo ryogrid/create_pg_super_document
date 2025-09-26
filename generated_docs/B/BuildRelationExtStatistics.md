@@ -34,7 +34,7 @@ The function operates in a temporary memory context to manage memory efficiently
   - [lookup_var_attr_stats](../l/lookup_var_attr_stats.md)
   - [statext_compute_stattarget](../s/statext_compute_stattarget.md)
   - [make_build_data](../m/make_build_data.md)
-  - statext_ndistinct_build
+  - [statext_ndistinct_build](../s/statext_ndistinct_build.md)
   - [statext_dependencies_build](../s/statext_dependencies_build.md)
   - [statext_mcv_build](../s/statext_mcv_build.md)
   - [compute_expr_stats](../c/compute_expr_stats.md)

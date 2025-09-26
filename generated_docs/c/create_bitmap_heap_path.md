@@ -39,7 +39,7 @@ The function initializes all the standard Path fields and calls cost_bitmap_heap
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (creates new BitmapHeapPath node)
-  - get_baserel_parampathinfo (gets parameterization info)
+  - [get_baserel_parampathinfo](../g/get_baserel_parampathinfo.md) (gets parameterization info)
   - [cost_bitmap_heap_scan](cost_bitmap_heap_scan.md) (calculates execution costs)
 - Called from (representative examples):
   - [create_partial_bitmap_paths](create_partial_bitmap_paths.md) (for parallel bitmap scans)

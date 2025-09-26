@@ -30,14 +30,14 @@ The function handles memory context switching to ensure hash computations occur 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextSwitchTo
-  - TupleHashTableHash_internal
-  - LookupTupleHashEntry_internal
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [TupleHashTableHash_internal](../T/TupleHashTableHash_internal.md)
+  - [LookupTupleHashEntry_internal](LookupTupleHashEntry_internal.md)
 - Called from (representative examples):
-  - lookup_hash_entries (nodeAgg.c:2119)
-  - ExecRecursiveUnion (nodeRecursiveunion.c:97, 144)
-  - setop_fill_hash_table (nodeSetOp.c:383, 404)
-  - buildSubPlanHash (nodeSubplan.c:632, 637)
+  - [lookup_hash_entries](../l/lookup_hash_entries.md) (nodeAgg.c:2119)
+  - [ExecRecursiveUnion](../E/ExecRecursiveUnion.md) (nodeRecursiveunion.c:97, 144)
+  - [setop_fill_hash_table](../s/setop_fill_hash_table.md) (nodeSetOp.c:383, 404)
+  - [buildSubPlanHash](../b/buildSubPlanHash.md) (nodeSubplan.c:632, 637)
 
 ## Notes and Other Information
 - Always switches to hashtable->tempcxt for hash function execution to ensure proper memory management

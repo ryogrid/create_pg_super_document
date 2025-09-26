@@ -26,7 +26,7 @@ For named composite types (non-RECORD types), the function consults the type cac
   - [assign_record_type_identifier](../a/assign_record_type_identifier.md)
   - AllocSetContextCreate
   - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
-  - EOH_init_header
+  - [EOH_init_header](../E/EOH_init_header.md)
   - [MemoryContextRegisterResetCallback](../M/MemoryContextRegisterResetCallback.md)
   - [CreateTupleDescCopy](../C/CreateTupleDescCopy.md)
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)

@@ -42,7 +42,7 @@ The function distinguishes between row marks that require actual tuple locking v
 
 ## Notes and Other Information
 - The function asserts that EXEC_FLAG_MARK is not set as LockRows nodes do not support mark/restore
-- LockRows nodes do not perform projections, so ps_ProjInfo is set to NULL
+- [LockRows](../L/LockRows.md) nodes do not perform projections, so ps_ProjInfo is set to NULL
 - Row marks are categorized into locking marks (added to lr_arowMarks) and non-locking marks (passed to EPQ)
 - Parent row marks are ignored at runtime as they are only used during planning
 - The node reuses result slot operations from its outer subplan for efficiency

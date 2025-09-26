@@ -23,7 +23,7 @@ This function serves as a wrapper around SlruSyncFileTag specifically for multix
 - Functions called/Symbols referenced:
   - [SlruSyncFileTag](../S/SlruSyncFileTag.md)
   - MultiXactOffsetCtl
-  - FileTag (type)
+  - [FileTag](../F/FileTag.md) (type)
 - Called from:
   - Referenced by SizeOfMultiXactTruncate in src/include/access/multixact.h
 

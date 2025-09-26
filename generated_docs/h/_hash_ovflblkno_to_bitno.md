@@ -28,7 +28,7 @@ The function includes validation to ensure the provided block number corresponds
 ## Dependencies
 - Functions called/Symbols referenced:
   - HashMetaPage (metadata structure)
-  - _hash_get_totalbuckets (calculates total bucket count for a split level)
+  - [_hash_get_totalbuckets](_hash_get_totalbuckets.md) (calculates total bucket count for a split level)
   - ereport/errcode/errmsg (error reporting)
 - Called from (representative examples):
   - [_hash_freeovflpage](_hash_freeovflpage.md) (when freeing overflow pages)

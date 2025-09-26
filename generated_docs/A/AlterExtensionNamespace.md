@@ -24,18 +24,18 @@ The function iterates through all objects that depend on the extension (via pg_d
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_extension_oid: Resolves extension name to OID
-  - LookupCreationNamespace: Resolves target schema name to OID
-  - object_ownercheck: Verifies ownership of extension
-  - object_aclcheck: Checks creation permissions in target schema
-  - getExtensionOfObject: Checks for dependency loops
-  - table_open/systable_beginscan: Accesses pg_extension and pg_depend catalogs
-  - read_extension_control_file: Reads extension control file for no_relocate list
-  - AlterObjectNamespace_oid: Moves individual objects to new schema
-  - changeDependencyFor: Updates schema dependency for extension
+  - [get_extension_oid](../g/get_extension_oid.md): Resolves extension name to OID
+  - [LookupCreationNamespace](../L/LookupCreationNamespace.md): Resolves target schema name to OID
+  - [object_ownercheck](../o/object_ownercheck.md): Verifies ownership of extension
+  - [object_aclcheck](../o/object_aclcheck.md): Checks creation permissions in target schema
+  - [getExtensionOfObject](../g/getExtensionOfObject.md): Checks for dependency loops
+  - [table_open](../t/table_open.md)/systable_beginscan: Accesses pg_extension and pg_depend catalogs
+  - [read_extension_control_file](../r/read_extension_control_file.md): Reads extension control file for no_relocate list
+  - [AlterObjectNamespace_oid](AlterObjectNamespace_oid.md): Moves individual objects to new schema
+  - [changeDependencyFor](../c/changeDependencyFor.md): Updates schema dependency for extension
   - InvokeObjectPostAlterHook: Triggers post-alter hooks
 - Called from (representative examples):
-  - ExecAlterObjectSchemaStmt: Main entry point for ALTER ... SET SCHEMA commands
+  - [ExecAlterObjectSchemaStmt](../E/ExecAlterObjectSchemaStmt.md): Main entry point for ALTER ... SET SCHEMA commands
 
 ## Notes and Other Information
 - Requires extension to be marked as relocatable in its control file

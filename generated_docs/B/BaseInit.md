@@ -25,12 +25,12 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DebugFileOpen](../D/DebugFileOpen.md)
-  - InitFileAccess
+  - [InitFileAccess](../I/InitFileAccess.md)
   - [pgstat_initialize](../p/pgstat_initialize.md)
   - [InitSync](../I/InitSync.md)
   - [smgrinit](../s/smgrinit.md)
   - [InitBufferPoolAccess](../I/InitBufferPoolAccess.md)
-  - InitTemporaryFileAccess
+  - [InitTemporaryFileAccess](../I/InitTemporaryFileAccess.md)
   - [InitXLogInsert](../I/InitXLogInsert.md)
   - [ReplicationSlotInitialize](../R/ReplicationSlotInitialize.md)
 - Called from (representative examples):

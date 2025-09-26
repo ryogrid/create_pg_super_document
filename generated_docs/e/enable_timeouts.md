@@ -24,21 +24,21 @@ The function processes each timeout in the array according to its specified type
 ## Dependencies
 - Functions called/Symbols referenced:
   - disable_alarm
-  - GetCurrentTimestamp
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
   - TimestampTzPlusMilliseconds
-  - enable_timeout
-  - schedule_alarm
+  - [enable_timeout](enable_timeout.md)
+  - [schedule_alarm](../s/schedule_alarm.md)
 - Types referenced:
   - EnableTimeoutParams
-  - TimeoutId
+  - [TimeoutId](../T/TimeoutId.md)
   - TMPARAM_AFTER
   - TMPARAM_AT
   - TMPARAM_EVERY
 - Called from (representative examples):
-  - ResolveRecoveryConflictWithLock
-  - ResolveRecoveryConflictWithBufferPin
-  - ProcSleep
-  - DisableTimeoutParams
+  - [ResolveRecoveryConflictWithLock](../R/ResolveRecoveryConflictWithLock.md)
+  - [ResolveRecoveryConflictWithBufferPin](../R/ResolveRecoveryConflictWithBufferPin.md)
+  - [ProcSleep](../P/ProcSleep.md)
+  - [DisableTimeoutParams](../D/DisableTimeoutParams.md)
 
 ## Notes and Other Information
 - Optimizes performance by calling GetCurrentTimestamp() and setitimer() only once regardless of the number of timeouts

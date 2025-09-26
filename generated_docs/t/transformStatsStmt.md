@@ -41,7 +41,7 @@ The function includes the same race condition safety measures as transformIndexS
   - [transformExpr](transformExpr.md)
   - [assign_expr_collations](../a/assign_expr_collations.md)
   - [free_parsestate](../f/free_parsestate.md)
-  - table_close
+  - [table_close](table_close.md)
 - Called from (representative examples):
   - [ATPostAlterTypeParse](../A/ATPostAlterTypeParse.md)
   - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md)

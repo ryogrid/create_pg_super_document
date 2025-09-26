@@ -23,16 +23,16 @@ The fast path is optimized for scenarios where all data is already cached (behav
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - read_stream_get_block
-  - StartReadBuffer
-  - WaitReadBuffers
-  - read_stream_look_ahead
-  - get_per_buffer_data
-  - wipe_mem (debug builds)
+  - [read_stream_get_block](read_stream_get_block.md)
+  - [StartReadBuffer](../S/StartReadBuffer.md)
+  - [WaitReadBuffers](../W/WaitReadBuffers.md)
+  - [read_stream_look_ahead](read_stream_look_ahead.md)
+  - [get_per_buffer_data](../g/get_per_buffer_data.md)
+  - [wipe_mem](../w/wipe_mem.md) (debug builds)
 - Called from (representative examples):
-  - heap_fetch_next_buffer
-  - heapam_scan_analyze_next_block
-  - read_stream_reset
+  - [heap_fetch_next_buffer](../h/heap_fetch_next_buffer.md)
+  - [heapam_scan_analyze_next_block](../h/heapam_scan_analyze_next_block.md)
+  - [read_stream_reset](read_stream_reset.md)
 
 ## Notes and Other Information
 - Features a fast path optimization for all-cached sequential scans that bypasses queue management

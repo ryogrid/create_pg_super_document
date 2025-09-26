@@ -41,13 +41,13 @@ The function supports batching for FDWs that can handle multiple rows efficientl
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecPrepareTupleRouting](ExecPrepareTupleRouting.md) (partition routing)
-  - ExecMaterializeSlot (tuple materialization)
+  - [ExecMaterializeSlot](ExecMaterializeSlot.md) (tuple materialization)
   - [ExecBRInsertTriggers](ExecBRInsertTriggers.md)/ExecIRInsertTriggers/ExecARInsertTriggers (trigger handling)
   - [ExecComputeStoredGenerated](ExecComputeStoredGenerated.md) (generated columns)
   - [ExecBatchInsert](ExecBatchInsert.md) (FDW batch processing)
   - [ExecCheckIndexConstraints](ExecCheckIndexConstraints.md) (conflict detection)
   - [ExecOnConflictUpdate](ExecOnConflictUpdate.md) (ON CONFLICT DO UPDATE)
-  - table_tuple_insert/table_tuple_insert_speculative (heap insertion)
+  - [table_tuple_insert](../t/table_tuple_insert.md)/table_tuple_insert_speculative (heap insertion)
   - [ExecInsertIndexTuples](ExecInsertIndexTuples.md) (index maintenance)
   - [ExecProcessReturning](ExecProcessReturning.md) (RETURNING clause processing)
 - Called from (representative examples):

@@ -26,7 +26,7 @@ RenameDatabase performs a complete database rename operation with comprehensive 
   - [get_database_oid](../g/get_database_oid.md): Looks up database OID by name
   - [CountOtherDBBackends](../C/CountOtherDBBackends.md): Counts active connections to the database
   - [SearchSysCacheLockedCopy1](../S/SearchSysCacheLockedCopy1.md): Retrieves and locks database catalog tuple
-  - namestrcpy: Copies the new name into the database tuple
+  - [namestrcpy](../n/namestrcpy.md): Copies the new name into the database tuple
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md): Updates the database catalog entry
   - InvokeObjectPostAlterHook: Triggers post-alter event hooks
 - Called from (representative examples):

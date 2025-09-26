@@ -51,12 +51,12 @@ The state struct is the central data structure for timezone handling in PostgreS
   - TZ_MAX_TIMES, TZ_MAX_TYPES, TZ_MAX_CHARS, TZ_MAX_LEAPS (timezone constants)
   - TZ_STRLEN_MAX (timezone string length constant)
 - Called from (representative examples):
-  - tzload (timezone data loading)
-  - tzparse (timezone parsing)
-  - gmtload (GMT timezone loading)
-  - localsub (local time calculations)
-  - timesub (time calculations)
-  - leapcorr (leap second corrections)
+  - [tzload](../t/tzload.md) (timezone data loading)
+  - [tzparse](../t/tzparse.md) (timezone parsing)
+  - [gmtload](../g/gmtload.md) (GMT timezone loading)
+  - [localsub](../l/localsub.md) (local time calculations)
+  - [timesub](../t/timesub.md) (time calculations)
+  - [leapcorr](../l/leapcorr.md) (leap second corrections)
 
 ## Notes and Other Information
 This structure represents the complete timezone database information for a single timezone. The arrays are sized according to maximum limits defined by the timezone library. The goback and goahead flags control extrapolation behavior when converting times outside the range of stored transition data. The defaulttype field is used for early times or when no transitions are defined, and is typically zero for recent timezone database releases.

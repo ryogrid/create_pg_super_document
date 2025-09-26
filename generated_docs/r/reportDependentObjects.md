@@ -40,8 +40,8 @@ reportDependentObjects serves as both a validation and reporting function in Pos
 - Functions called/Symbols referenced:
   - [getObjectDescription](../g/getObjectDescription.md)
   - [message_level_is_interesting](../m/message_level_is_interesting.md)
-  - initStringInfo
-  - appendStringInfo/appendStringInfoChar
+  - [initStringInfo](../i/initStringInfo.md)
+  - [appendStringInfo](../a/appendStringInfo.md)/appendStringInfoChar
   - ereport/errmsg/errdetail/errhint
   - [errmsg_plural](../e/errmsg_plural.md)/errmsg_internal
   - ngettext

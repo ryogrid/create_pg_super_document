@@ -34,14 +34,14 @@ ImportForeignSchemaStmt is a parse tree node that stores the parsed representati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ImportForeignSchemaType
+  - [ImportForeignSchemaType](ImportForeignSchemaType.md)
   - NodeTag
-  - List
-  - RangeVar (referenced indirectly through table_list)
+  - [List](../L/List.md)
+  - [RangeVar](../R/RangeVar.md) (referenced indirectly through table_list)
 - Called from (representative examples):
-  - ImportForeignSchema (src/backend/commands/foreigncmds.c:1495)
-  - IsImportableForeignTable (src/backend/foreign/foreign.c:483)
-  - ProcessUtilitySlow (src/backend/tcop/utility.c:1617)
+  - [ImportForeignSchema](ImportForeignSchema.md) (src/backend/commands/foreigncmds.c:1495)
+  - [IsImportableForeignTable](IsImportableForeignTable.md) (src/backend/foreign/foreign.c:483)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (src/backend/tcop/utility.c:1617)
 
 ## Notes and Other Information
 - This structure is part of the PostgreSQL parser node hierarchy and inherits from the Node structure via NodeTag

@@ -23,18 +23,18 @@ The function supports various types of expression nodes including function calls
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - exprType
+  - [exprType](../e/exprType.md)
   - [list_nth](../l/list_nth.md)
-  - list_length
+  - [list_length](../l/list_length.md)
   - [get_base_element_type](get_base_element_type.md)
   - IsA (macro)
 - Expression node types referenced:
-  - FuncExpr
-  - OpExpr
+  - [FuncExpr](../F/FuncExpr.md)
+  - [OpExpr](../O/OpExpr.md)
   - DistinctExpr
-  - ScalarArrayOpExpr
+  - [ScalarArrayOpExpr](../S/ScalarArrayOpExpr.md)
   - NullIfExpr
-  - WindowFunc
+  - [WindowFunc](../W/WindowFunc.md)
 - Called from (representative examples):
   - [prepare_sql_fn_parse_info](../p/prepare_sql_fn_parse_info.md)
   - [get_fn_expr_argtype](get_fn_expr_argtype.md)

@@ -29,7 +29,7 @@ The function also manages event trigger collection and post-creation hooks when 
   - [publication_add_schema](../p/publication_add_schema.md)
   - [EventTriggerCollectSimpleCommand](../E/EventTriggerCollectSimpleCommand.md)
   - InvokeObjectPostCreateHook
-  - AlterPublicationStmt (structure type)
+  - [AlterPublicationStmt](../A/AlterPublicationStmt.md) (structure type)
 - Called from (representative examples):
   - [CreatePublication](../C/CreatePublication.md)
   - [AlterPublicationSchemas](../A/AlterPublicationSchemas.md)

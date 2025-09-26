@@ -31,7 +31,7 @@ This information is primarily used for window function optimization, where knowl
 ## Dependencies
 - Functions called/Symbols referenced: None (enum definition)
 - Used by:
-  - SupportRequestWFuncMonotonic struct (as monotonic member)
+  - [SupportRequestWFuncMonotonic](../S/SupportRequestWFuncMonotonic.md) struct (as monotonic member)
   - Various window function support functions (row_number, dense_rank, etc.)
   - [Query](../Q/Query.md) planner optimization logic in allpaths.c
   - [int8inc_support](../i/int8inc_support.md) function for increment operations

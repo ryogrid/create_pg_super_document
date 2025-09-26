@@ -35,7 +35,7 @@ The function accumulates all matching OIDs in the provided oids list, allowing d
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - createPQExpBuffer, resetPQExpBuffer, destroyPQExpBuffer (query buffer management)
+  - [createPQExpBuffer](../c/createPQExpBuffer.md), resetPQExpBuffer, destroyPQExpBuffer (query buffer management)
   - processSQL    ePattern (pattern matching and SQL generation)
   - [GetConnection](../G/GetConnection.md) (database connection retrieval)
   - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md) (query execution)

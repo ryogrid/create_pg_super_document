@@ -28,7 +28,7 @@ The function supports three specific B-tree options:
 - Functions called/Symbols referenced:
   - [build_reloptions](build_reloptions.md)
   - relopt_parse_elt (structure)
-  - BTOptions (structure)
+  - [BTOptions](../B/BTOptions.md) (structure)
   - RELOPT_TYPE_INT, RELOPT_TYPE_REAL, RELOPT_TYPE_BOOL (constants)
   - RELOPT_KIND_BTREE (constant)
   - lengthof (macro)

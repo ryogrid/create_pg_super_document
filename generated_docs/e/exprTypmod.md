@@ -31,23 +31,23 @@ The function implements a conservative approach: when there's any ambiguity abou
 ## Dependencies
 - Functions called/Symbols referenced:
   - nodeTag (to determine expression node type)
-  - exprIsLengthCoercion (to detect length-coercion functions)
-  - exprTypmod (recursive calls for nested expressions)
-  - exprType (for type checking in complex expressions)
+  - [exprIsLengthCoercion](exprIsLengthCoercion.md) (to detect length-coercion functions)
+  - [exprTypmod](exprTypmod.md) (recursive calls for nested expressions)
+  - [exprType](exprType.md) (for type checking in complex expressions)
   - linitial, linitial_node (for accessing list elements)
   - lfirst, lfirst_node (for list iteration)
   - for_each_from (for iterating from specific list positions)
 
 - Called from (representative examples):
   - Type coercion and checking functions (coerce_type_typmod, select_common_typmod)
-  - Query planning and optimization (set_rel_width, get_expr_width)
+  - [Query](../Q/Query.md) planning and optimization (set_rel_width, get_expr_width)
   - Tuple descriptor construction (ConstructTupleDescriptor, ExecTypeFromTLInternal)
   - Parser functions for expressions and target lists
 
 ## Notes and Other Information
 - Returns -1 for NULL input expressions or when typmod cannot be determined
 - For length-coercion functions, uses  to extract the coerced typmod
-- Complex expressions (CASE, COALESCE, ARRAY, MIN/MAX) require all alternatives to agree on typmod
+- [Complex](../C/Complex.md) expressions (CASE, COALESCE, ARRAY, MIN/MAX) require all alternatives to agree on typmod
 - For subqueries, array vs. non-array distinction doesn't affect typmod handling
 - Type modifiers are crucial for proper type coercion and storage decisions
 - The function is widely used throughout PostgreSQL's type system, particularly in query planning and execution

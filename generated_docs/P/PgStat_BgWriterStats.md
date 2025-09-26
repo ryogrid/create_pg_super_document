@@ -31,11 +31,11 @@ PgStat_BgWriterStats maintains statistics for PostgreSQL's background writer pro
   - PgStat_Counter
   - TimestampTz
 - Called from (representative examples):
-  - pgstat_report_bgwriter
-  - pgstat_bgwriter_snapshot_cb
+  - [pgstat_report_bgwriter](../p/pgstat_report_bgwriter.md)
+  - [pgstat_bgwriter_snapshot_cb](../p/pgstat_bgwriter_snapshot_cb.md)
   - pgstat_count_buffer_hit
-  - PgStatShared_BgWriter
-  - PgStat_Snapshot
+  - [PgStatShared_BgWriter](PgStatShared_BgWriter.md)
+  - [PgStat_Snapshot](PgStat_Snapshot.md)
 
 ## Notes and Other Information
 The background writer statistics are essential for tuning PostgreSQL's memory management and I/O performance. High values in maxwritten_clean may indicate that the background writer is being overly aggressive and should be throttled, while low values in buf_written_clean relative to checkpoint activity might suggest the background writer could be more active. The buf_alloc counter provides insight into overall buffer pool turnover and memory pressure. These statistics are accessible through PostgreSQL's statistics views and are crucial for database performance monitoring and tuning.

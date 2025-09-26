@@ -41,7 +41,7 @@ The function internally uses PQexecStart to prepare the connection, PQsendQueryP
   - [PQexecFinish](PQexecFinish.md)
 - Called from (representative examples):
   - [libpq_fetch_file](../l/libpq_fetch_file.md)
-  - ecpg_execute
+  - [ecpg_execute](../e/ecpg_execute.md)
   - [main](../m/main.md) (testlibpq3.c)
   - [main](../m/main.md) (isolationtester.c)
 

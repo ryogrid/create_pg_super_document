@@ -22,16 +22,16 @@ The splitting operation is essential for maintaining btree properties while acco
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FreePageBtreeGetRecycled
+  - [FreePageBtreeGetRecycled](FreePageBtreeGetRecycled.md)
   - relptr_copy
-  - FreePageBtreeUpdateParentPointers
+  - [FreePageBtreeUpdateParentPointers](FreePageBtreeUpdateParentPointers.md)
   - fpm_segment_base
   - FREE_PAGE_LEAF_MAGIC (magic number constants)
   - FREE_PAGE_INTERNAL_MAGIC
-  - FreePageBtreeLeafKey (data structure types)
-  - FreePageBtreeInternalKey
+  - [FreePageBtreeLeafKey](FreePageBtreeLeafKey.md) (data structure types)
+  - [FreePageBtreeInternalKey](FreePageBtreeInternalKey.md)
 - Called from:
-  - FreePageManagerPutInternal
+  - [FreePageManagerPutInternal](FreePageManagerPutInternal.md)
 
 ## Notes and Other Information
 - Splits pages roughly in half to maintain balanced tree structure

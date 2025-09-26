@@ -22,8 +22,8 @@ This function performs the essential initialization of a bump memory block after
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BumpContext (context structure type)
-  - BumpBlock (block structure type)
+  - [BumpContext](BumpContext.md) (context structure type)
+  - [BumpBlock](BumpBlock.md) (block structure type)
   - MEMORY_CONTEXT_CHECKING (conditional compilation for debugging features)
   - Bump_BLOCKHDRSZ (size of block header constant)
   - VALGRIND_MAKE_MEM_NOACCESS (Valgrind integration for memory debugging)

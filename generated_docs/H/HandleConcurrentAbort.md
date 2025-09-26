@@ -22,7 +22,7 @@ This function takes no parameters and operates on global state.
 ## Dependencies
 - Functions called/Symbols referenced:
   - TransactionIdIsValid (implied via CheckXidAlive validation)
-  - TransactionIdIsInProgress
+  - [TransactionIdIsInProgress](../T/TransactionIdIsInProgress.md)
   - [TransactionIdDidCommit](../T/TransactionIdDidCommit.md)
   - ereport (for error reporting)
 - Called from (representative examples):

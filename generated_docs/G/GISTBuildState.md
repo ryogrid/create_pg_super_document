@@ -63,7 +63,7 @@ GISTBuildState serves as the central context structure for GiST index building o
   - [GistBuildMode](GistBuildMode.md)
   - [GISTBuildBuffers](GISTBuildBuffers.md)
   - [HTAB](../H/HTAB.md)
-  - Tuplesortstate
+  - [Tuplesortstate](../T/Tuplesortstate.md)
   - [BulkWriteState](../B/BulkWriteState.md)
 - Called from (representative examples):
   - [gistbuild](../g/gistbuild.md)

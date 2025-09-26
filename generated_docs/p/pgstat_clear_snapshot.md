@@ -31,8 +31,8 @@ This function is automatically invoked during transaction commit or abort to ens
   - [pgstat_get_stat_snapshot_timestamp](pgstat_get_stat_snapshot_timestamp.md)
   - [pgstat_snapshot_fixed](pgstat_snapshot_fixed.md)
   - [pgstat_prep_snapshot](pgstat_prep_snapshot.md)
-  - AtEOXact_PgStat
-  - PostPrepare_PgStat
+  - [AtEOXact_PgStat](../A/AtEOXact_PgStat.md)
+  - [PostPrepare_PgStat](../P/PostPrepare_PgStat.md)
   - [pg_stat_clear_snapshot](pg_stat_clear_snapshot.md)
 
 ## Notes and Other Information

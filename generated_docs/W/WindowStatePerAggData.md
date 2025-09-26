@@ -100,7 +100,7 @@ The structure supports both regular aggregation (using transition and final func
   - [initValue](../i/initValue.md)
 - Called from (representative examples):
   - [ExecInitWindowAgg](../E/ExecInitWindowAgg.md)
-  - ExecReScanWindowAgg
+  - [ExecReScanWindowAgg](../E/ExecReScanWindowAgg.md)
   - [WindowStatePerAgg](WindowStatePerAgg.md) (typedef)
 
 ## Notes and Other Information

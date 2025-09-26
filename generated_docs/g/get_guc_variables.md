@@ -34,8 +34,8 @@ The returned array is useful for operations that need to process all GUC variabl
   -  - Comparison function for sorting GUC variables
 - Data structures used:
   -  - Base structure for all GUC variables
-  -  - Hash table entry structure
-  -  - Hash table sequential scan status
+  -  - [Hash](../H/Hash.md) table entry structure
+  -  - [Hash](../H/Hash.md) table sequential scan status
 - Called from (representative examples):
   -  - Shows all GUC configuration settings
   -  - SQL function to display all settings

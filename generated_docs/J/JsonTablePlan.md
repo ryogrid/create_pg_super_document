@@ -25,11 +25,11 @@ JsonTablePlan serves as an abstract base class for various JSON_TABLE plan types
 - Functions called/Symbols referenced:
   - NodeTag (no direct references from this symbol)
 - Called from (representative examples):
-  - generateJsonTablePathName
-  - transformJsonTableColumns
-  - transformJsonTableColumn
-  - makeJsonTablePathScan
-  - makeJsonTableSiblingJoin
+  - [generateJsonTablePathName](../g/generateJsonTablePathName.md)
+  - [transformJsonTableColumns](../t/transformJsonTableColumns.md)
+  - [transformJsonTableColumn](../t/transformJsonTableColumn.md)
+  - [makeJsonTablePathScan](../m/makeJsonTablePathScan.md)
+  - [makeJsonTableSiblingJoin](../m/makeJsonTableSiblingJoin.md)
 
 ## Notes and Other Information
 - Abstract base class - not instantiated directly

@@ -33,13 +33,13 @@ The abbreviation scheme uses bit packing to store:
 - Functions called/Symbols referenced:
   - PG_INT64_MAX (maximum 64-bit integer constant)
   - NUMERIC_POS (positive sign constant)
-  - addHyperLogLog (cardinality estimation function)
-  - hash_uint32 (32-bit hash function for cardinality estimation)
-  - DatumGetUInt32 (extracts uint32 from Datum)
+  - [addHyperLogLog](../a/addHyperLogLog.md) (cardinality estimation function)
+  - [hash_uint32](../h/hash_uint32.md) (32-bit hash function for cardinality estimation)
+  - [DatumGetUInt32](../D/DatumGetUInt32.md) (extracts uint32 from Datum)
   - NumericAbbrevGetDatum (converts abbreviation to Datum)
   - NUMERIC_ABBREV_BITS (abbreviation bit manipulation)
 - Called from (representative examples):
-  - numeric_abbrev_convert (main abbreviation conversion entry point)
+  - [numeric_abbrev_convert](numeric_abbrev_convert.md) (main abbreviation conversion entry point)
   - NUMERIC_CAN_BE_SHORT (abbreviation feasibility checking)
 
 ## Notes and Other Information

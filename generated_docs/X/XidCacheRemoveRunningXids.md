@@ -31,7 +31,7 @@ The removal process maintains consistency in the global process array while ensu
 ## Dependencies
 - Functions called/Symbols referenced:
   - TransactionIdEquals (for XID comparison)
-  - LWLockAcquire/LWLockRelease (for exclusive process array locking)
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease (for exclusive process array locking)
   - pg_write_barrier (for memory ordering)
   - [MaintainLatestCompletedXid](../M/MaintainLatestCompletedXid.md) (for global completion tracking)
   - elog (for warning messages)

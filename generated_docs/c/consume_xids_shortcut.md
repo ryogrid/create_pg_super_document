@@ -19,10 +19,10 @@ This internal function implements a performance optimization for bulk XID consum
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire (acquires exclusive lock on XidGenLock)
+  - [LWLockAcquire](../L/LWLockAcquire.md) (acquires exclusive lock on XidGenLock)
   - TransamVariables (global structure containing nextXid)
   - [XidSkip](../X/XidSkip.md) (calculates safe skip distance)
-  - LWLockRelease (releases the XidGenLock)
+  - [LWLockRelease](../L/LWLockRelease.md) (releases the XidGenLock)
   - XidGenLock (lightweight lock protecting transaction ID generation)
   - LW_EXCLUSIVE (lock mode for exclusive access)
 - Called from:

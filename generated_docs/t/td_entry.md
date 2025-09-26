@@ -29,8 +29,8 @@ The parser table uses td_entry structures to map combinations of non-terminal an
   - None (structure definition)
 - Called from (representative examples):
   - TD_ENTRY (macro for creating table entries)
-  - push_prediction (function that uses td_entry for parser predictions)
-  - pg_parse_json_incremental (main parsing function that accesses the parser table)
+  - [push_prediction](../p/push_prediction.md) (function that uses td_entry for parser predictions)
+  - [pg_parse_json_incremental](../p/pg_parse_json_incremental.md) (main parsing function that accesses the parser table)
 
 ## Notes and Other Information
 - Used in conjunction with the TD_ENTRY macro which simplifies creation of table entries by automatically calculating string length

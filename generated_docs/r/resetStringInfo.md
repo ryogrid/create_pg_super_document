@@ -22,14 +22,14 @@ The  function clears the content of a StringInfo structure without deallocating 
 - Functions called/Symbols referenced:
   - Assert (debugging assertion)
 - Called from (representative examples):
-  - CopyReadLine
-  - CopyReadAttributesText  
-  - CopySendEndOfRow
-  - pq_getmessage
-  - pq_beginmessage_reuse
-  - WalSndPrepareWrite
-  - initStringInfo
-  - json_lex
+  - [CopyReadLine](../C/CopyReadLine.md)
+  - [CopyReadAttributesText](../C/CopyReadAttributesText.md)  
+  - [CopySendEndOfRow](../C/CopySendEndOfRow.md)
+  - [pq_getmessage](../p/pq_getmessage.md)
+  - [pq_beginmessage_reuse](../p/pq_beginmessage_reuse.md)
+  - [WalSndPrepareWrite](../W/WalSndPrepareWrite.md)
+  - [initStringInfo](../i/initStringInfo.md)
+  - [json_lex](../j/json_lex.md)
 
 ## Notes and Other Information
 - This function is located at src/common/stringinfo.c:78-96

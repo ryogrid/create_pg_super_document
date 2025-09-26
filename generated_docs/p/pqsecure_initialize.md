@@ -21,7 +21,7 @@ pqsecure_initialize is an internal function that serves as a wrapper for SSL con
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgtls_init
+  - [pgtls_init](pgtls_init.md)
   - USE_SSL (conditional compilation flag)
   - PostgresPollingStatusType
 - Called from (representative examples):

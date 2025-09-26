@@ -21,9 +21,9 @@ This function retrieves the wait event type string for a backend process identif
 - Functions called/Symbols referenced:
   - [pgstat_get_beentry_by_proc_number](pgstat_get_beentry_by_proc_number.md)
   - HAS_PGSTAT_PERMISSIONS
-  - BackendPidGetProc
+  - [BackendPidGetProc](../B/BackendPidGetProc.md)
   - [pgstat_get_wait_event_type](pgstat_get_wait_event_type.md)
-  - cstring_to_text
+  - [cstring_to_text](../c/cstring_to_text.md)
   - PG_RETURN_TEXT_P
 - Data types used:
   - [PgBackendStatus](../P/PgBackendStatus.md)

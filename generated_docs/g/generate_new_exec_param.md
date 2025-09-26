@@ -24,10 +24,10 @@ The created parameter has its location set to -1, indicating it is not associate
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Param
+  - [Param](../P/Param.md)
   - makeNode
   - PARAM_EXEC
-  - lappend_oid
+  - [lappend_oid](../l/lappend_oid.md)
 - Called from (representative examples):
   - [build_subplan](../b/build_subplan.md)
   - [generate_subquery_params](generate_subquery_params.md)

@@ -38,7 +38,7 @@ The calculation uses safe arithmetic functions (mul_size, add_size) to prevent i
   - NamedLWLockTrancheRequestArray
 - Called from:
   - [CalculateShmemSize](../C/CalculateShmemSize.md) (src/backend/storage/ipc/ipci.c:133)
-  - CreateLWLocks (src/backend/storage/lmgr/lwlock.c:457)
+  - [CreateLWLocks](../C/CreateLWLocks.md) (src/backend/storage/lmgr/lwlock.c:457)
   - [LWLockMode](LWLockMode.md) (src/include/storage/lwlock.h:139)
 
 ## Notes and Other Information
@@ -50,6 +50,6 @@ The calculation uses safe arithmetic functions (mul_size, add_size) to prevent i
   - Main LWLock array (fixed + named tranche locks)
   - Dynamic allocation counter with alignment padding
   - Named tranche metadata structures
-  - String storage for all tranche names
+  - [String](../S/String.md) storage for all tranche names
 - Called during shared memory initialization to determine total memory pool requirements
 - Critical function for proper shared memory segment sizing during PostgreSQL startup

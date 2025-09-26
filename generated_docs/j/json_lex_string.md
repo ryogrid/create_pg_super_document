@@ -33,10 +33,10 @@ The function supports both complete and incremental parsing modes. In incrementa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonLexContext (parameter type)
+  - [JsonLexContext](../J/JsonLexContext.md) (parameter type)
   - Various JSON error codes and parsing state management
 - Called from (representative examples):
-  - json_lex (main lexical analysis function)
+  - [json_lex](json_lex.md) (main lexical analysis function)
   - TD_ENTRY (used in parser table for string token processing)
 
 ## Notes and Other Information

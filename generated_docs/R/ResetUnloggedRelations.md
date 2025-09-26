@@ -32,14 +32,14 @@ It uses a temporary memory context to prevent memory leaks during the operation 
 ## Dependencies
 - Functions called/Symbols referenced:
   - `AllocSetContextCreate`: Creates temporary memory context
-  - `begin_startup_progress_phase`: Initiates progress reporting
-  - `ResetUnloggedRelationsInTablespaceDir`: Processes individual tablespace directories
-  - `AllocateDir`/`ReadDir`/`FreeDir`: Directory traversal functions
-  - `MemoryContextSwitchTo`/`MemoryContextDelete`: Memory management
+  - `[begin_startup_progress_phase](../b/begin_startup_progress_phase.md)`: Initiates progress reporting
+  - `[ResetUnloggedRelationsInTablespaceDir](ResetUnloggedRelationsInTablespaceDir.md)`: Processes individual tablespace directories
+  - `[AllocateDir](../A/AllocateDir.md)`/`ReadDir`/`FreeDir`: Directory traversal functions
+  - `[MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)`/`MemoryContextDelete`: Memory management
   - `elogog`: Debug logging
 
 - Called from:
-  - `StartupXLOG`: During database recovery process (lines 5725, 5874)
+  - `[StartupXLOG](../S/StartupXLOG.md)`: During database recovery process (lines 5725, 5874)
 
 ## Notes and Other Information
 - This function is critical for PostgreSQL's crash recovery mechanism

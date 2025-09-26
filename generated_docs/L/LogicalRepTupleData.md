@@ -32,9 +32,9 @@ The colvalues array contains the actual data for each column in StringInfo forma
 - Functions called/Symbols referenced:
   - [StringInfoData](../S/StringInfoData.md) (data structure)
 - Called from (representative examples):
-  - logicalrep_read_insert
-  - logicalrep_read_update  
-  - logicalrep_read_delete
+  - [logicalrep_read_insert](../l/logicalrep_read_insert.md)
+  - [logicalrep_read_update](../l/logicalrep_read_update.md)  
+  - [logicalrep_read_delete](../l/logicalrep_read_delete.md)
   - [logicalrep_read_tuple](../l/logicalrep_read_tuple.md)
   - [apply_handle_insert](../a/apply_handle_insert.md)
   - [apply_handle_update](../a/apply_handle_update.md)

@@ -26,13 +26,13 @@ This function is a key component in PostgreSQL's cost-based query optimization, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - examine_variable
-  - var_eq_const
+  - [examine_variable](../e/examine_variable.md)
+  - [var_eq_const](../v/var_eq_const.md)
   - ReleaseVariableStats
-  - VariableStatData
+  - [VariableStatData](../V/VariableStatData.md)
 - Called from (representative examples):
-  - clause_selectivity_ext
-  - GenericCosts
+  - [clause_selectivity_ext](../c/clause_selectivity_ext.md)
+  - [GenericCosts](../G/GenericCosts.md)
 
 ## Notes and Other Information
 - Returns a default selectivity of 0.5 when no statistical data is available

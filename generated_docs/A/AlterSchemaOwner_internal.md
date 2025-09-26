@@ -33,7 +33,7 @@ Key behaviors include:
 ## Dependencies
 - Functions called/Symbols referenced:
   - [object_ownercheck](../o/object_ownercheck.md) (validates current user owns the schema)
-  - check_can_set_role (ensures user can become the target role)
+  - [check_can_set_role](../c/check_can_set_role.md) (ensures user can become the target role)
   - [object_aclcheck](../o/object_aclcheck.md) (verifies CREATE privilege on database)
   - [SysCacheGetAttr](../S/SysCacheGetAttr.md) (retrieves current ACL from catalog tuple)
   - [aclnewowner](../a/aclnewowner.md) (computes new ACL with updated ownership)
@@ -48,7 +48,7 @@ Key behaviors include:
 ## Notes and Other Information
 - Static function providing the core implementation for both public ownership change interfaces
 - Includes early return optimization when new owner equals current owner (useful for dump restoration)
-- Unique security model requiring CREATE privilege from current user rather than target owner
+- [Unique](../U/Unique.md) security model requiring CREATE privilege from current user rather than target owner
 - Handles ACL updates only when existing ACL is non-null, preserving NULL ACL semantics
 - Updates both the ownership field and corresponding shared dependencies atomically
 - Uses heap_modify_tuple pattern for safe catalog updates with proper tuple replacement

@@ -38,7 +38,7 @@ This structure is widely used across PostgreSQL's backup and restore subsystem, 
   - PG_COMPRESSION_OPTION_LONG_DISTANCE
 
 - Called from (representative examples):
-  - parse_compress_specification
+  - [parse_compress_specification](parse_compress_specification.md)
   - [validate_compress_specification](../v/validate_compress_specification.md)
   - [bbsink_gzip_new](../b/bbsink_gzip_new.md)
   - [bbsink_lz4_new](../b/bbsink_lz4_new.md)

@@ -25,8 +25,8 @@ The key difference from the commit case is in handling truncated relations: if a
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pgstat_prep_relation_pending](pgstat_prep_relation_pending.md)
-  - TwoPhasePgStatRecord (data structure)
-  - PgStat_TableStatus (data structure)
+  - [TwoPhasePgStatRecord](../T/TwoPhasePgStatRecord.md) (data structure)
+  - [PgStat_TableStatus](../P/PgStat_TableStatus.md) (data structure)
 - Called from (representative examples):
   - Two-phase commit recovery system (referenced in pgstat.h)
 

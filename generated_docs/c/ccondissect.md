@@ -32,7 +32,7 @@ The function includes proper cleanup of match data using zaptreesubs() when back
 - Functions called/Symbols referenced:
   - struct vars, struct subre, struct dfa, chr (core regex data structures)
   - [cnfa](cnfa.md) (compiled NFA structure)
-  - getsubdfa (function to obtain DFA for subexpression)
+  - [getsubdfa](../g/getsubdfa.md) (function to obtain DFA for subexpression)
   - [longest](../l/longest.md) (function to find longest match)
   - [cdissect](cdissect.md) (recursive dissection function)
   - [zaptreesubs](../z/zaptreesubs.md) (function to clear match data)

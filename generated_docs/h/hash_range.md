@@ -23,7 +23,7 @@ The function handles empty ranges and ranges with missing bounds appropriately, 
 - Functions called/Symbols referenced:
   - PG_GETARG_RANGE_P (extracts range from function arguments)
   - RangeBound (structure representing range boundaries)  
-  - check_stack_depth (prevents stack overflow in recursive cases)
+  - [check_stack_depth](../c/check_stack_depth.md) (prevents stack overflow in recursive cases)
   - [range_get_typcache](../r/range_get_typcache.md) (retrieves type cache information)
   - RangeTypeGetOid (gets range type OID)
   - [range_deserialize](../r/range_deserialize.md) (deserializes range into components)

@@ -32,10 +32,10 @@ Any unsupported sequence type will cause an error.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [nextval_internal](../n/nextval_internal.md): Core function to get next sequence value
-  - Int16GetDatum: Convert int16 to Datum
+  - [Int16GetDatum](../I/Int16GetDatum.md): Convert int16 to Datum
   - [Int32GetDatum](../I/Int32GetDatum.md): Convert int32 to Datum (implicitly used)
   - [Int64GetDatum](../I/Int64GetDatum.md): Convert int64 to Datum
-  - ExprEvalStep: Structure containing evaluation step details
+  - [ExprEvalStep](ExprEvalStep.md): Structure containing evaluation step details
 - Called from (representative examples):
   - [ExecInterpExpr](ExecInterpExpr.md): Main expression interpreter loop
   - [FunctionReturningBool](../F/FunctionReturningBool.md): JIT compilation type definitions

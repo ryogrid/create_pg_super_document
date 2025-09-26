@@ -26,15 +26,15 @@ For aborts: Applies the attempted actions to the top-level statistics as dead tu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - save_truncdrop_counters (saves counters before truncate/drop operations)
-  - restore_truncdrop_counters (restores counters after aborted truncate/drop)
-  - pgstat_get_xact_stack_level (gets transaction stack level for relinking)
+  - [save_truncdrop_counters](../s/save_truncdrop_counters.md) (saves counters before truncate/drop operations)
+  - [restore_truncdrop_counters](../r/restore_truncdrop_counters.md) (restores counters after aborted truncate/drop)
+  - [pgstat_get_xact_stack_level](../p/pgstat_get_xact_stack_level.md) (gets transaction stack level for relinking)
   - [pfree](../p/pfree.md) (memory deallocation)
-  - PgStat_SubXactStatus (subtransaction status structure)
-  - PgStat_TableXactStatus (transaction-level table statistics)
-  - PgStat_TableStatus (base table statistics structure)
+  - [PgStat_SubXactStatus](../P/PgStat_SubXactStatus.md) (subtransaction status structure)
+  - [PgStat_TableXactStatus](../P/PgStat_TableXactStatus.md) (transaction-level table statistics)
+  - [PgStat_TableStatus](../P/PgStat_TableStatus.md) (base table statistics structure)
 - Called from (representative examples):
-  - AtEOSubXact_PgStat (main end-of-subtransaction statistics handler)
+  - [AtEOSubXact_PgStat](AtEOSubXact_PgStat.md) (main end-of-subtransaction statistics handler)
 
 ## Notes and Other Information
 - Handles complex transaction nesting scenarios with proper counter propagation

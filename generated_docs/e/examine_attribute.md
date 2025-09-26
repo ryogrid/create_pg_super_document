@@ -32,11 +32,11 @@ For expression indexes, the function uses the expression tree's type information
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - VacAttrStats (structure allocation)
+  - [VacAttrStats](../V/VacAttrStats.md) (structure allocation)
   - [SearchSysCache2](../S/SearchSysCache2.md), SearchSysCacheCopy1 (system catalog lookups)
   - [SysCacheGetAttr](../S/SysCacheGetAttr.md) (attribute retrieval)
-  - DatumGetInt16, Int16GetDatum (data conversion)
-  - exprType, exprTypmod, exprCollation (expression type analysis)
+  - [DatumGetInt16](../D/DatumGetInt16.md), Int16GetDatum (data conversion)
+  - [exprType](exprType.md), exprTypmod, exprCollation (expression type analysis)
   - [std_typanalyze](../s/std_typanalyze.md) (default type analysis)
   - OidFunctionCall1 (type-specific analysis function calls)
   - [heap_freetuple](../h/heap_freetuple.md) (memory cleanup)

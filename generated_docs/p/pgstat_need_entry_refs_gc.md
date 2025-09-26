@@ -28,7 +28,7 @@ The function first verifies that the entry reference hash table exists, then rea
   -  - Shared memory GC request counter
 
 - Called from (representative examples):
-  -  - Hash table declaration macro that may reference this function
+  -  - [Hash](../H/Hash.md) table declaration macro that may reference this function
   -  - When getting entry references, checks if GC is needed
 
 ## Notes and Other Information

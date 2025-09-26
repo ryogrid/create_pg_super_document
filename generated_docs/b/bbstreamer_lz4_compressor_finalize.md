@@ -26,7 +26,7 @@ The function handles buffer management by forwarding existing compressed data if
   - LZ4F_compressEnd
   - [bbstreamer_content](bbstreamer_content.md)
   - [bbstreamer_finalize](bbstreamer_finalize.md)
-  - enlargeStringInfo
+  - [enlargeStringInfo](../e/enlargeStringInfo.md)
 - Called from (representative examples):
   - [bbstreamer](bbstreamer.md) operation table (via function pointer)
 

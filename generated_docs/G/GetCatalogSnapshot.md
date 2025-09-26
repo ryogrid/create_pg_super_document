@@ -22,7 +22,7 @@ This dual behavior is essential for logical decoding functionality, as it allows
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HistoricSnapshotActive
+  - [HistoricSnapshotActive](../H/HistoricSnapshotActive.md)
   - [GetNonHistoricCatalogSnapshot](GetNonHistoricCatalogSnapshot.md)
   - HistoricSnapshot
 - Called from (representative examples):

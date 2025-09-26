@@ -30,7 +30,7 @@ The function expects the WAL record to contain full-page images rather than incr
 - Functions called/Symbols referenced:
   - XLogRecGetData
   - [ginRedoClearIncompleteSplit](ginRedoClearIncompleteSplit.md)
-  - XLogReadBufferForRedo
+  - [XLogReadBufferForRedo](../X/XLogReadBufferForRedo.md)
   - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
   - elog
 

@@ -36,9 +36,9 @@ The function handles different behavior depending on whether the backup is taken
   - [XLogRegisterData](../X/XLogRegisterData.md)
   - [XLogInsert](../X/XLogInsert.md)
   - [RequestXLogSwitch](../R/RequestXLogSwitch.md)
-  - BackupHistoryFilePath
+  - [BackupHistoryFilePath](../B/BackupHistoryFilePath.md)
   - [build_backup_content](../b/build_backup_content.md)
-  - CleanupBackupHistory
+  - [CleanupBackupHistory](../C/CleanupBackupHistory.md)
   - XLogArchivingActive/XLogArchivingAlways
   - [XLogArchiveIsBusy](../X/XLogArchiveIsBusy.md)
 - Called from:

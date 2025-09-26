@@ -65,16 +65,16 @@ The hash table can operate in multiple modes:
 ## Dependencies
 - Functions called/Symbols referenced:
   - HashJoinTableData (underlying struct definition)
-  - HashJoinTupleData (tuple storage format)
-  - HashSkewBucket (skew optimization buckets)
-  - BufFile (temporary file management)
+  - [HashJoinTupleData](HashJoinTupleData.md) (tuple storage format)
+  - [HashSkewBucket](HashSkewBucket.md) (skew optimization buckets)
+  - [BufFile](../B/BufFile.md) (temporary file management)
   - [FmgrInfo](../F/FmgrInfo.md) (function manager info)
   - [MemoryContext](../M/MemoryContext.md) (memory management)
-  - ParallelHashJoinState (parallel execution state)
+  - [ParallelHashJoinState](../P/ParallelHashJoinState.md) (parallel execution state)
 - Called from (representative examples):
-  - ExecHashTableCreate
-  - ExecHashTableDestroy
-  - ExecHashTableInsert
+  - [ExecHashTableCreate](../E/ExecHashTableCreate.md)
+  - [ExecHashTableDestroy](../E/ExecHashTableDestroy.md)
+  - [ExecHashTableInsert](../E/ExecHashTableInsert.md)
   - [ExecScanHashBucket](../E/ExecScanHashBucket.md)
   - [ExecHashJoinImpl](../E/ExecHashJoinImpl.md)
 

@@ -31,9 +31,9 @@ Memory management is carefully handled using temporary memory contexts to ensure
 - Functions called/Symbols referenced:
   - [ElementsState](../E/ElementsState.md) (state structure)
   - JSON_SUCCESS (return value constant)
-  - cstring_to_text_with_len (text conversion)
+  - [cstring_to_text_with_len](../c/cstring_to_text_with_len.md) (text conversion)
   - [heap_form_tuple](../h/heap_form_tuple.md) (tuple creation)
-  - tuplestore_puttuple (tuple storage)
+  - [tuplestore_puttuple](../t/tuplestore_puttuple.md) (tuple storage)
   - [MemoryContextReset](../M/MemoryContextReset.md) (memory management)
   - JsonParseErrorType (return type)
 

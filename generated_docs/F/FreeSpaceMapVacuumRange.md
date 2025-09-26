@@ -27,12 +27,12 @@ This targeted approach is particularly useful during operations like:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fsm_vacuum_page (recursively updates FSM pages within the specified range)
+  - [fsm_vacuum_page](../f/fsm_vacuum_page.md) (recursively updates FSM pages within the specified range)
 - Called from (representative examples):
-  - terminate_brin_buildstate (src/backend/access/brin/brin.c:1724)
-  - lazy_scan_heap (src/backend/access/heap/vacuumlazy.c:903, 1018, 1059)
-  - RelationTruncate (src/backend/catalog/storage.c:438)
-  - brin_doupdate (src/backend/access/brin/brin_pageops.c:140, 161, 214, 312)
+  - [terminate_brin_buildstate](../t/terminate_brin_buildstate.md) (src/backend/access/brin/brin.c:1724)
+  - [lazy_scan_heap](../l/lazy_scan_heap.md) (src/backend/access/heap/vacuumlazy.c:903, 1018, 1059)
+  - [RelationTruncate](../R/RelationTruncate.md) (src/backend/catalog/storage.c:438)
+  - [brin_doupdate](../b/brin_doupdate.md) (src/backend/access/brin/brin_pageops.c:140, 161, 214, 312)
 
 ## Notes and Other Information
 - Only performs updates if end > start, avoiding unnecessary work for empty ranges

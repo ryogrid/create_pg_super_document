@@ -43,13 +43,13 @@ The function is designed to handle both bulk delete operations (with callback) a
 - Functions called/Symbols referenced:
   - AllocSetContextCreate
   - [_bt_pendingfsm_init](_bt_pendingfsm_init.md)
-  - LockRelationForExtension / UnlockRelationForExtension  
+  - [LockRelationForExtension](../L/LockRelationForExtension.md) / UnlockRelationForExtension  
   - RelationGetNumberOfBlocks
   - [pgstat_progress_update_param](../p/pgstat_progress_update_param.md)
   - [btvacuumpage](btvacuumpage.md)
   - [MemoryContextDelete](../M/MemoryContextDelete.md)
   - [_bt_pendingfsm_finalize](_bt_pendingfsm_finalize.md)
-  - IndexFreeSpaceMapVacuum
+  - [IndexFreeSpaceMapVacuum](../I/IndexFreeSpaceMapVacuum.md)
 - Types used:
   - [IndexVacuumInfo](../I/IndexVacuumInfo.md)
   - [IndexBulkDeleteResult](../I/IndexBulkDeleteResult.md)

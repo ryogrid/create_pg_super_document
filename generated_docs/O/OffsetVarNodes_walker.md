@@ -35,10 +35,10 @@ This function implements a recursive tree walker that adjusts relation identifie
 - Handles query nesting by tracking sublevels_up in the context
 - Includes assertions to ensure it doesn't encounter unexpected planner auxiliary nodes
 - Processes different node types with specific logic for each:
-  - Var: adjusts varno, varnullingrels, and varnosyn
+  - [Var](../V/Var.md): adjusts varno, varnullingrels, and varnosyn
   - [CurrentOfExpr](../C/CurrentOfExpr.md): adjusts cvarno at top level only
-  - RangeTblRef: adjusts rtindex at top level only  
-  - JoinExpr: adjusts rtindex if present
+  - [RangeTblRef](../R/RangeTblRef.md): adjusts rtindex at top level only  
+  - [JoinExpr](../J/JoinExpr.md): adjusts rtindex if present
   - [PlaceHolderVar](../P/PlaceHolderVar.md): adjusts phrels and phnullingrels
   - [AppendRelInfo](../A/AppendRelInfo.md): adjusts parent_relid and child_relid
 - Used during query rewriting when combining range tables or adjusting variable references

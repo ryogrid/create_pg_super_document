@@ -20,8 +20,8 @@ The low surrogates occupy the range 0xDC00 to 0xDFFF and must always follow a co
 ## Dependencies
 - Functions called/Symbols referenced: None (simple arithmetic comparison)
 - Called from (representative examples):
-  - str_udeescape (src/backend/parser/parser.c:432, 440, 471, 479)
-  - unistr (src/backend/utils/adt/varlena.c:6545, 6553, 6580, 6588, 6615, 6623)
+  - [str_udeescape](../s/str_udeescape.md) (src/backend/parser/parser.c:432, 440, 471, 479)
+  - [unistr](../u/unistr.md) (src/backend/utils/adt/varlena.c:6545, 6553, 6580, 6588, 6615, 6623)
 
 ## Notes and Other Information
 - Defined as a static inline function for performance optimization

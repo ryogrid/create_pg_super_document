@@ -24,8 +24,8 @@ This function is a helper utility that constructs a binary expression node in th
 ## Dependencies
 - Functions called/Symbols referenced:
   - [make_jsp_expr_node](make_jsp_expr_node.md)
-  - JsonPathGinNodeType
-  - JsonPathGinNode
+  - [JsonPathGinNodeType](../J/JsonPathGinNodeType.md)
+  - [JsonPathGinNode](../J/JsonPathGinNode.md)
 - Called from (representative examples):
   - [jsonb_ops__extract_nodes](../j/jsonb_ops__extract_nodes.md)
   - [extract_jsp_bool_expr](../e/extract_jsp_bool_expr.md)

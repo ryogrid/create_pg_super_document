@@ -29,10 +29,10 @@ The specific NetBSD/MIPS exclusion addresses a historical bug where the `NAN` ma
   - NAN (C99 macro, conditionally used)
   - Platform detection macros (__NetBSD__, __mips__)
 - Called from (representative examples):
-  - check_special_value (in ECPG library)
-  - float8in_internal (in backend float parsing)
+  - [check_special_value](../c/check_special_value.md) (in ECPG library)
+  - [float8in_internal](../f/float8in_internal.md) (in backend float parsing)
   - Various mathematical functions (dpow, dacos, dasin, etc.)
-  - Hash functions for floating-point types
+  - [Hash](../H/Hash.md) functions for floating-point types
   - Statistical accumulator functions
 
 ## Notes and Other Information

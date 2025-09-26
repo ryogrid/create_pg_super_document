@@ -31,13 +31,13 @@ Located in , this implementation is conditionally compiled and used only on syst
 - Functions called/Symbols referenced:
   - (None - uses only basic pointer arithmetic and dereferencing)
 - Called from (representative examples):
-  - parse_xml_decl (src/backend/utils/adt/xml.c:1471)
-  - pnstrdup (src/backend/utils/mmgr/mcxt.c:1710, src/common/fe_memutils.c:157)
-  - pg_encoding_mblen_bounded (src/common/wchar.c:2169)
-  - PQescapeStringInternal (src/interfaces/libpq/fe-exec.c:4078)
-  - PQescapeInternal (src/interfaces/libpq/fe-exec.c:4221)
-  - PQmblenBounded (src/interfaces/libpq/fe-misc.c:1244)
-  - fmtstr (src/port/snprintf.c:975)
+  - [parse_xml_decl](../p/parse_xml_decl.md) (src/backend/utils/adt/xml.c:1471)
+  - [pnstrdup](../p/pnstrdup.md) (src/backend/utils/mmgr/mcxt.c:1710, src/common/fe_memutils.c:157)
+  - [pg_encoding_mblen_bounded](../p/pg_encoding_mblen_bounded.md) (src/common/wchar.c:2169)
+  - [PQescapeStringInternal](../P/PQescapeStringInternal.md) (src/interfaces/libpq/fe-exec.c:4078)
+  - [PQescapeInternal](../P/PQescapeInternal.md) (src/interfaces/libpq/fe-exec.c:4221)
+  - [PQmblenBounded](../P/PQmblenBounded.md) (src/interfaces/libpq/fe-misc.c:1244)
+  - [fmtstr](../f/fmtstr.md) (src/port/snprintf.c:975)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's portability layer, ensuring consistent behavior across different operating systems

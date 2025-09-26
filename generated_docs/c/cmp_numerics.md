@@ -38,10 +38,10 @@ For normal numeric values, it delegates to `cmp_var_common` which performs the a
   - `NUMERIC_WEIGHT` (gets weight/scale)
   - `NUMERIC_SIGN` (gets sign)
 - Called from:
-  - `numeric_cmp` (main comparison function)
-  - `numeric_eq`, `numeric_ne`, `numeric_gt`, `numeric_ge`, `numeric_lt`, `numeric_le` (comparison operators)
+  - `[numeric_cmp](../n/numeric_cmp.md)` (main comparison function)
+  - `[numeric_eq](../n/numeric_eq.md)`, `numeric_ne`, `numeric_gt`, `numeric_ge`, `numeric_lt`, `numeric_le` (comparison operators)
   - [numeric_smaller](../n/numeric_smaller.md), `numeric_larger` (min/max functions)
-  - `width_bucket_numeric` (bucketing function)
+  - `[width_bucket_numeric](../w/width_bucket_numeric.md)` (bucketing function)
   - [numeric_fast_cmp](../n/numeric_fast_cmp.md) (optimized comparison)
 
 ## Notes and Other Information

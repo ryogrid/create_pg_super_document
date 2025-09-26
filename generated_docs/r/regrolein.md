@@ -31,7 +31,7 @@ The function includes comprehensive error handling for invalid names, non-existe
   - IsBootstrapProcessingMode (checks if in bootstrap mode)
   - [stringToQualifiedNameList](../s/stringToQualifiedNameList.md) (parses input string to name list)
   - ereturn (error return with context support)
-  - get_role_oid (looks up role OID by name)
+  - [get_role_oid](../g/get_role_oid.md) (looks up role OID by name)
 - Called from (representative examples):
   - [to_regrole](../t/to_regrole.md) (conversion function)
 

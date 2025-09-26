@@ -30,6 +30,6 @@ The `date_recv` function is responsible for converting date values from PostgreS
 ## Notes and Other Information
 - This function is part of PostgreSQL's binary I/O system for the date data type
 - Special infinite date values (positive and negative infinity) are accepted without range validation
-- Range validation uses the same limits as the text input function date_in()
+- [Range](../R/Range.md) validation uses the same limits as the text input function date_in()
 - Returns ERRCODE_DATETIME_VALUE_OUT_OF_RANGE error for invalid dates
 - The function follows PostgreSQL's standard function calling conventions using PG_FUNCTION_ARGS

@@ -33,7 +33,7 @@ Key characteristics of the created path:
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (creates new Path node)
-  - get_baserel_parampathinfo (handles parameterization)
+  - [get_baserel_parampathinfo](../g/get_baserel_parampathinfo.md) (handles parameterization)
   - [cost_seqscan](cost_seqscan.md) (calculates scan costs)
   - T_SeqScan (pathtype constant)
   - NIL (empty list constant)

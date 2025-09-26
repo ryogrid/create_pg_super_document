@@ -32,7 +32,7 @@ The function first counts live attributes to write the tuple header, then proces
   - TupleDescAttr: Accesses attribute information from tuple descriptor
   - [column_in_column_list](../c/column_in_column_list.md): Checks if a column should be included
   - [pq_sendint16](../p/pq_sendint16.md): Writes the count of live attributes
-  - slot_getallattrs: Extracts all attribute values from the tuple slot
+  - [slot_getallattrs](../s/slot_getallattrs.md): Extracts all attribute values from the tuple slot
   - [SearchSysCache1](../S/SearchSysCache1.md): Looks up type information for each column
   - [OidSendFunctionCall](../O/OidSendFunctionCall.md): Calls binary output function for types
   - [OidOutputFunctionCall](../O/OidOutputFunctionCall.md): Calls text output function for types
@@ -42,8 +42,8 @@ The function first counts live attributes to write the tuple header, then proces
 
 - Called from (representative examples):
   - [logicalrep_write_insert](logicalrep_write_insert.md): For INSERT operations
-  - logicalrep_write_update: For UPDATE operations (old and new tuples)
-  - logicalrep_write_delete: For DELETE operations
+  - [logicalrep_write_update](logicalrep_write_update.md): For UPDATE operations (old and new tuples)
+  - [logicalrep_write_delete](logicalrep_write_delete.md): For DELETE operations
 
 ## Notes and Other Information
 - Static function, only accessible within the logical replication protocol module

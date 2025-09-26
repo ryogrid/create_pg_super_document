@@ -27,7 +27,7 @@ Like cost_bitmap_and_node, this function treats the BitmapOrPath as a pseudo-Pat
 ## Dependencies
 - Functions called/Symbols referenced:
   - [cost_bitmap_tree_node](cost_bitmap_tree_node.md) (to get cost/selectivity from child nodes)
-  - list_head (to check for first element in list)
+  - [list_head](../l/list_head.md) (to check for first element in list)
   - [IndexPath](../I/IndexPath.md) (struct type for optimization check)
   - Min (macro to clamp selectivity)
   - cpu_operator_cost (global cost parameter)

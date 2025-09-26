@@ -22,7 +22,7 @@ The function extracts parser function specifications from the parameters list, v
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - superuser: Checks if current user has superuser privileges
+  - [superuser](../s/superuser.md): Checks if current user has superuser privileges
   - [QualifiedNameGetCreationNamespace](../Q/QualifiedNameGetCreationNamespace.md): Resolves namespace and extracts parser name
   - [GetNewOidWithIndex](../G/GetNewOidWithIndex.md): Generates new OID for the parser
   - [get_ts_parser_func](../g/get_ts_parser_func.md): Validates and retrieves function OIDs for parser methods

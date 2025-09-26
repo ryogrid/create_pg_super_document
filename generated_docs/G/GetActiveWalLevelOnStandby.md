@@ -21,7 +21,7 @@ This function returns the WAL level stored in the control file, which represents
 - Functions called/Symbols referenced:
   - ControlFile (global variable access)
 - Called from (representative examples):
-  - CheckLogicalDecodingRequirements
+  - [CheckLogicalDecodingRequirements](../C/CheckLogicalDecodingRequirements.md)
   - [WALAvailability](../W/WALAvailability.md) (header reference)
 
 ## Notes and Other Information

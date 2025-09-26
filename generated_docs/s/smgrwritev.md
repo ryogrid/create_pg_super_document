@@ -29,7 +29,7 @@ The smgrwritev function is a storage manager interface for performing vectorized
   - smgrsw[].smgr_writev (storage manager implementation function)
   - SMgrRelation (relation structure)
 - Called from (representative examples):
-  - smgrwrite (single block write wrapper function)
+  - [smgrwrite](smgrwrite.md) (single block write wrapper function)
 
 ## Notes and Other Information
 - Only for updating existing blocks, not for relation extension (use smgrextend for that)

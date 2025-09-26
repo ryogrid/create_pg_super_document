@@ -33,14 +33,14 @@ The function maintains the relationship between parent and child equivalence mem
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_head
+  - [list_head](../l/list_head.md)
   - lfirst_node (TargetEntry, PathKey)
   - linitial
   - [add_eq_member](add_eq_member.md)
   - [lnext](../l/lnext.md)
-  - exprType
+  - [exprType](../e/exprType.md)
   - [bms_add_range](../b/bms_add_range.md)
-  - list_length
+  - [list_length](../l/list_length.md)
 - Called from (representative examples):
   - [build_setop_child_paths](../b/build_setop_child_paths.md)
 

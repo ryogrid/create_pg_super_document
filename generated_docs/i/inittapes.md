@@ -32,13 +32,13 @@ This static function transitions a tuplesort operation from in-memory sorting to
   - LEADER/WORKER (macros for checking parallel sort process roles)
   - [tuplesort_merge_order](../t/tuplesort_merge_order.md) (calculates optimal merge order based on available memory)
   - MINORDER (constant defining minimum merge order for simple cases)
-  - inittapestate (initializes internal tape state structures)
-  - LogicalTapeSetCreate (creates the underlying tape set for file I/O)
-  - selectnewtape (selects the initial output tape for run building)
+  - [inittapestate](inittapestate.md) (initializes internal tape state structures)
+  - [LogicalTapeSetCreate](../L/LogicalTapeSetCreate.md) (creates the underlying tape set for file I/O)
+  - [selectnewtape](../s/selectnewtape.md) (selects the initial output tape for run building)
   - TSS_BUILDRUNS (status constant indicating run building phase)
 - Called from (representative examples):
-  - tuplesort_puttuple_common (when memory limit is exceeded during tuple insertion)
-  - tuplesort_performsort (during sort execution planning)
+  - [tuplesort_puttuple_common](../t/tuplesort_puttuple_common.md) (when memory limit is exceeded during tuple insertion)
+  - [tuplesort_performsort](../t/tuplesort_performsort.md) (during sort execution planning)
 
 ## Notes and Other Information
 - This function is only called when in-memory sorting is determined to be impossible

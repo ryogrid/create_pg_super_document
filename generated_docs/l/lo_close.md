@@ -21,7 +21,7 @@ The `lo_close` function closes a previously opened large object file descriptor,
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lo_initialize](lo_initialize.md)
-  - PQfn
+  - [PQfn](../P/PQfn.md)
   - [PQresultStatus](../P/PQresultStatus.md)
   - [PQclear](../P/PQclear.md)
 - Called from (representative examples):

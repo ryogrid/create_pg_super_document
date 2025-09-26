@@ -24,15 +24,15 @@ TimeZoneAbbrevTable serves as a container for time zone abbreviation data in Pos
   - datetkn (structure type for storing individual timezone abbreviation data)
 
 - Called from (representative examples):
-  - assign_timezone_abbreviations (src/backend/commands/variable.c:523)
-  - ConvertTimeZoneAbbrevs (src/backend/utils/adt/datetime.c:4875,4880,4907)
-  - InstallTimeZoneAbbrevs (src/backend/utils/adt/datetime.c:4957)
-  - FetchDynamicTimeZone (src/backend/utils/adt/datetime.c:4970)
-  - ParseTzFile (src/backend/utils/misc/tzparser.c:446)
-  - load_tzoffsets (src/backend/utils/misc/tzparser.c:449)
+  - [assign_timezone_abbreviations](../a/assign_timezone_abbreviations.md) (src/backend/commands/variable.c:523)
+  - [ConvertTimeZoneAbbrevs](../C/ConvertTimeZoneAbbrevs.md) (src/backend/utils/adt/datetime.c:4875,4880,4907)
+  - [InstallTimeZoneAbbrevs](../I/InstallTimeZoneAbbrevs.md) (src/backend/utils/adt/datetime.c:4957)
+  - [FetchDynamicTimeZone](../F/FetchDynamicTimeZone.md) (src/backend/utils/adt/datetime.c:4970)
+  - [ParseTzFile](../P/ParseTzFile.md) (src/backend/utils/misc/tzparser.c:446)
+  - [load_tzoffsets](../l/load_tzoffsets.md) (src/backend/utils/misc/tzparser.c:449)
 
 ## Notes and Other Information
 - The structure uses a flexible array member pattern, allowing the actual size to vary based on the number of abbreviations stored
-- DynamicZoneAbbrev structures may follow the main abbrevs[] array in memory, providing extensibility for dynamic timezone data
+- [DynamicZoneAbbrev](../D/DynamicZoneAbbrev.md) structures may follow the main abbrevs[] array in memory, providing extensibility for dynamic timezone data
 - This is a core component of PostgreSQL's timezone abbreviation handling system, used throughout the datetime processing subsystem
 - The design prioritizes memory efficiency and lookup performance for timezone abbreviation resolution

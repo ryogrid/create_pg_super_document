@@ -41,7 +41,7 @@ Additionally, the function performs page maintenance by clearing the VACUUM cycl
   - IndexTupleSize
   - [PageIndexMultiDelete](../P/PageIndexMultiDelete.md)
   - BTPageGetOpaque
-  - MarkBufferDirty
+  - [MarkBufferDirty](../M/MarkBufferDirty.md)
   - [XLogBeginInsert](../X/XLogBeginInsert.md)
   - [XLogRegisterBuffer](../X/XLogRegisterBuffer.md)
   - [XLogRegisterData](../X/XLogRegisterData.md)

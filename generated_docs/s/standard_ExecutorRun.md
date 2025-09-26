@@ -33,12 +33,12 @@ The function supports various scan directions and respects tuple count limits wh
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetActiveSnapshot (validates snapshot consistency)
-  - InstrStartNode/InstrStopNode (execution instrumentation)
+  - [GetActiveSnapshot](../G/GetActiveSnapshot.md) (validates snapshot consistency)
+  - [InstrStartNode](../I/InstrStartNode.md)/InstrStopNode (execution instrumentation)
   - ScanDirectionIsNoMovement (direction validation)
   - [ExecutePlan](../E/ExecutePlan.md) (core plan execution engine)
   - CmdType (command type enumeration)
-  - DestReceiver (destination receiver interface)
+  - [DestReceiver](../D/DestReceiver.md) (destination receiver interface)
   - CMD_SELECT (SELECT command type constant)
 - Called from (representative examples):
   - [ExecutorRun](../E/ExecutorRun.md) (src/backend/executor/execMain.c:306)
@@ -48,7 +48,7 @@ The function supports various scan directions and respects tuple count limits wh
 - Memory context switching ensures execution occurs in the per-query context for proper resource management
 - Destination receiver is only activated for operations that produce output tuples (SELECT or RETURNING clauses)
 - Execution statistics are maintained at both per-call (es_processed) and cumulative (es_total_processed) levels
-- Instrumentation support allows for detailed performance monitoring when enabled
+- [Instrumentation](../I/Instrumentation.md) support allows for detailed performance monitoring when enabled
 - The function handles both tuple-producing and non-tuple-producing operations appropriately
 - Proper cleanup ensures destination receivers are shut down even if execution fails
 - Located at src/backend/executor/execMain.c:310-399

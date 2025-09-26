@@ -35,7 +35,7 @@ Key operations include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth
+  - [check_stack_depth](../c/check_stack_depth.md)
   - [heap_copytuple](../h/heap_copytuple.md)
   - [heap_freetuple](../h/heap_freetuple.md)
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
@@ -45,8 +45,8 @@ Key operations include:
   - [systable_getnext](../s/systable_getnext.md)
   - [list_append_unique_oid](../l/list_append_unique_oid.md)
   - [get_rel_relkind](../g/get_rel_relkind.md)
-  - table_open
-  - table_close
+  - [table_open](../t/table_open.md)
+  - [table_close](../t/table_close.md)
   - [ATExecAlterConstrRecurse](ATExecAlterConstrRecurse.md) (recursive self-call)
 - Called from (representative examples):
   - [ATExecAlterConstraint](ATExecAlterConstraint.md) (main constraint alteration function)

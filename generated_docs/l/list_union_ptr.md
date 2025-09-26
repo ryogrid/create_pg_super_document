@@ -28,11 +28,11 @@ The performance characteristics are similar to list_union() (O(n*m) complexity),
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsPointerList: Validates that both input lists are pointer lists (called twice)
-  - list_copy: Creates a copy of list1 as the starting point for the result
-  - list_member_ptr: Checks if a pointer from list2 already exists in the result list using pointer comparison
-  - lappend: Adds unique elements from list2 to the result list
+  - [list_copy](list_copy.md): Creates a copy of list1 as the starting point for the result
+  - [list_member_ptr](list_member_ptr.md): Checks if a pointer from list2 already exists in the result list using pointer comparison
+  - [lappend](lappend.md): Adds unique elements from list2 to the result list
   - lfirst: Extracts the data pointer from list cells during iteration
-  - check_list_invariants: Validates the final result list structure
+  - [check_list_invariants](../c/check_list_invariants.md): Validates the final result list structure
 - Called from (representative examples):
   - Limited usage found in codebase - primarily available through foreach macros
 

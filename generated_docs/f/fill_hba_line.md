@@ -30,14 +30,14 @@ The  function constructs a complete row for the pg_hba_file_rules system view, w
 - Functions called/Symbols referenced:
   - [Int32GetDatum](../I/Int32GetDatum.md), CStringGetTextDatum, PointerGetDatum
   - [strlist_to_textarray](../s/strlist_to_textarray.md)
-  - pg_getnameinfo_all
+  - [pg_getnameinfo_all](../p/pg_getnameinfo_all.md)
   - [clean_ipv6_addr](../c/clean_ipv6_addr.md)
   - [hba_authname](../h/hba_authname.md)
   - [get_hba_options](../g/get_hba_options.md)
   - [heap_form_tuple](../h/heap_form_tuple.md)
-  - tuplestore_puttuple
+  - [tuplestore_puttuple](../t/tuplestore_puttuple.md)
 - Types referenced:
-  - Tuplestorestate, TupleDesc, HbaLine, AuthToken
+  - [Tuplestorestate](../T/Tuplestorestate.md), TupleDesc, HbaLine, AuthToken
   - NUM_PG_HBA_FILE_RULES_ATTS
   - Connection type enums (ctLocal, ctHost, ctHostSSL, etc.)
   - IP comparison method enums (ipCmpMask, ipCmpAll, etc.)

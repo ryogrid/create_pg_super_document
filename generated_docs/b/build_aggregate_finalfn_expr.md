@@ -35,12 +35,12 @@ The function handles both simple final functions (that only take the state) and 
 - Functions called/Symbols referenced:
   - list_make1
   - [make_agg_arg](../m/make_agg_arg.md)
-  - lappend
-  - makeFuncExpr
+  - [lappend](../l/lappend.md)
+  - [makeFuncExpr](../m/makeFuncExpr.md)
   - COERCE_EXPLICIT_CALL
 - Called from (representative examples):
   - [ExecInitAgg](../E/ExecInitAgg.md)
-  - initialize_peragg
+  - [initialize_peragg](../i/initialize_peragg.md)
 
 ## Notes and Other Information
 - The first argument is always the aggregate state, additional arguments match input types

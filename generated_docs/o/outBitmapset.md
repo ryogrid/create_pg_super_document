@@ -24,13 +24,13 @@ The serialized format is designed to be efficiently parsed back into a Bitmapset
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendStringInfoChar (for outputting parentheses and type indicator)
+  - [appendStringInfoChar](../a/appendStringInfoChar.md) (for outputting parentheses and type indicator)
   - [bms_next_member](../b/bms_next_member.md) (utility function for iterating through bitmapset members)
-  - appendStringInfo (for formatted output of integer members)
+  - [appendStringInfo](../a/appendStringInfo.md) (for formatted output of integer members)
 
 - Called from (representative examples):
   - WRITE_BITMAPSET_FIELD (macro in outfuncs.c:104)
-  - outNode (main node output dispatcher in outfuncs.c:738)
+  - [outNode](outNode.md) (main node output dispatcher in outfuncs.c:738)
   - [bmsToString](../b/bmsToString.md) (utility function in outfuncs.c:814)
 
 ## Notes and Other Information

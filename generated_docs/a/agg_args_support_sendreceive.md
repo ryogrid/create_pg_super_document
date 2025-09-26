@@ -26,9 +26,9 @@ By-value types are automatically considered supported since they don't require s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `Aggref` (struct type)
+  - `[Aggref](../A/Aggref.md)` (struct type)
   - `Form_pg_type` (struct type for pg_type catalog entries)
-  - `exprType()` (extracts type from expression nodes)
+  - `[exprType](../e/exprType.md)()` (extracts type from expression nodes)
   - [SearchSysCache1](../S/SearchSysCache1.md)() (catalog cache lookup)
   - `HeapTupleIsValid()` (validates tuple)
   - `GETSTRUCT()` (extracts struct from heap tuple)

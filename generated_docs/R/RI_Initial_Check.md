@@ -44,7 +44,7 @@ WHERE pk.key IS NULL AND (fk.key IS NOT NULL [AND/OR ...])
   - [quoteRelationName](../q/quoteRelationName.md)
   - RIAttName, RIAttType, RIAttCollation
   - [ri_GenerateQual](../r/ri_GenerateQual.md), ri_GenerateQualCollation
-  - SPI_connect, SPI_prepare, SPI_execute_snapshot, SPI_finish
+  - [SPI_connect](../S/SPI_connect.md), SPI_prepare, SPI_execute_snapshot, SPI_finish
   - [MakeSingleTupleTableSlot](../M/MakeSingleTupleTableSlot.md), ExecDropSingleTupleTableSlot
   - [ri_ReportViolation](../r/ri_ReportViolation.md)
   - [ri_NullCheck](../r/ri_NullCheck.md)

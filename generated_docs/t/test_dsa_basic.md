@@ -17,13 +17,13 @@ This function serves as a comprehensive test for the DSA subsystem in PostgreSQL
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockNewTrancheId: Creates a new lightweight lock tranche identifier
-  - LWLockRegisterTranche: Registers the tranche with a descriptive name
+  - [LWLockNewTrancheId](../L/LWLockNewTrancheId.md): Creates a new lightweight lock tranche identifier
+  - [LWLockRegisterTranche](../L/LWLockRegisterTranche.md): Registers the tranche with a descriptive name
   - dsa_create: Creates a new DSA area
   - dsa_allocate: Allocates memory blocks within the DSA
   - [dsa_get_address](../d/dsa_get_address.md): Translates DSA pointers to virtual addresses
   - [dsa_free](../d/dsa_free.md): Frees allocated memory blocks
-  - dsa_detach: Detaches from and cleans up the DSA area
+  - [dsa_detach](../d/dsa_detach.md): Detaches from and cleans up the DSA area
   - PG_RETURN_VOID: PostgreSQL macro for returning void from functions
 - Called from (representative examples):
   - No direct callers found in the codebase (test function)

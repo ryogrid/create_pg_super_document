@@ -22,8 +22,8 @@ The function uses PostgreSQL's latch-based waiting mechanism to efficiently wait
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReleaseExternalFD
-  - PQstatus
+  - [ReleaseExternalFD](../R/ReleaseExternalFD.md)
+  - [PQstatus](../P/PQstatus.md)
   - [PQsocket](../P/PQsocket.md)
   - [PQconnectPoll](../P/PQconnectPoll.md)
   - [PQfinish](../P/PQfinish.md)

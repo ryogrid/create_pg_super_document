@@ -28,7 +28,7 @@ The data is stored in a global list (explicit_subtransactions) and is managed au
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MemoryContext](../M/MemoryContext.md) (PostgreSQL memory management system)
-  - ResourceOwner (PostgreSQL resource tracking system)
+  - [ResourceOwner](../R/ResourceOwner.md) (PostgreSQL resource tracking system)
 - Called from (representative examples):
   - [PLy_abort_open_subtransactions](PLy_abort_open_subtransactions.md)
   - [PLy_subtransaction_enter](PLy_subtransaction_enter.md)

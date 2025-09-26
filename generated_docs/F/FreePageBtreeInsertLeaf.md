@@ -26,9 +26,9 @@ This function performs insertion of a new free page span into a leaf node of the
   - memmove
   - FREE_PAGE_LEAF_MAGIC
   - FPM_ITEMS_PER_LEAF_PAGE
-  - FreePageBtreeLeafKey
+  - [FreePageBtreeLeafKey](FreePageBtreeLeafKey.md)
 - Called from (representative examples):
-  - FreePageManagerPutInternal
+  - [FreePageManagerPutInternal](FreePageManagerPutInternal.md)
 
 ## Notes and Other Information
 - Function includes assertions to validate that the target page has the correct leaf magic number

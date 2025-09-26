@@ -21,15 +21,15 @@ This function implements the core tuple retrieval logic for TID range scans. On 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TidRangeEval](TidRangeEval.md)
-  - table_beginscan_tidrange
-  - table_rescan_tidrange
-  - table_scan_getnextslot_tidrange
-  - ExecClearTuple
+  - [table_beginscan_tidrange](../t/table_beginscan_tidrange.md)
+  - [table_rescan_tidrange](../t/table_rescan_tidrange.md)
+  - [table_scan_getnextslot_tidrange](../t/table_scan_getnextslot_tidrange.md)
+  - [ExecClearTuple](../E/ExecClearTuple.md)
 - Data structures used:
   - [TableScanDesc](TableScanDesc.md)
   - [EState](../E/EState.md)
   - ScanDirection
-  - TupleTableSlot
+  - [TupleTableSlot](TupleTableSlot.md)
 - Called from:
   - [ExecTidRangeScan](../E/ExecTidRangeScan.md)
 

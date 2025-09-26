@@ -21,8 +21,8 @@ The function ensures that range bound values are properly formatted for output w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initStringInfo (PostgreSQL string building initialization)
-  - appendStringInfoChar (append single character to string buffer)
+  - [initStringInfo](../i/initStringInfo.md) (PostgreSQL string building initialization)
+  - [appendStringInfoChar](../a/appendStringInfoChar.md) (append single character to string buffer)
   - isspace (standard C library function for whitespace detection)
 - Called from (representative examples):
   - [range_deparse](range_deparse.md) (called twice for lower and upper bounds)

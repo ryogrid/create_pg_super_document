@@ -24,7 +24,7 @@ The function uses an inlineable design to minimize function call overhead during
 - Functions called/Symbols referenced:
   - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)
   - [ItemPointerGetOffsetNumber](../I/ItemPointerGetOffsetNumber.md)
-  - TM_IndexDelete (structure type)
+  - [TM_IndexDelete](../T/TM_IndexDelete.md) (structure type)
 - Called from (representative examples):
   - [index_delete_sort](index_delete_sort.md)
 

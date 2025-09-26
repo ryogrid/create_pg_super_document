@@ -27,7 +27,7 @@ The streamer uses LZ4 frame format with a maximum 256KB block size and honors th
   - [bbstreamer_ops](bbstreamer_ops.md) (operations table)
   - LZ4F_createCompressionContext
   - [palloc0](../p/palloc0.md)
-  - initStringInfo
+  - [initStringInfo](../i/initStringInfo.md)
 - Called from (representative examples):
   - [CreateBackupStreamer](../C/CreateBackupStreamer.md) (src/bin/pg_basebackup/pg_basebackup.c:1204)
 

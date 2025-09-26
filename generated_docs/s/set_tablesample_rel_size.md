@@ -25,7 +25,7 @@ The function assumes that only a SampleScan path will be considered for the samp
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TableSampleClause](../T/TableSampleClause.md) (struct type for sampling clause)
-  - TsmRoutine (struct type for table sampling method routines)
+  - [TsmRoutine](../T/TsmRoutine.md) (struct type for table sampling method routines)
   - [check_index_predicates](../c/check_index_predicates.md) (checks partial index applicability)
   - [GetTsmRoutine](../G/GetTsmRoutine.md) (retrieves table sampling method routines)
   - [set_baserel_size_estimates](set_baserel_size_estimates.md) (finalizes relation size estimates)

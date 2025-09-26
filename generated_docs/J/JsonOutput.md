@@ -26,16 +26,16 @@ JsonOutput is a parse tree node that represents the output specification for JSO
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TypeName
-  - JsonReturning
+  - [TypeName](../T/TypeName.md)
+  - [JsonReturning](JsonReturning.md)
 - Called from (representative examples):
-  - raw_expression_tree_walker_impl
-  - transformJsonOutput
-  - transformJsonConstructorOutput
-  - transformJsonReturning
-  - transformJsonParseExpr
-  - transformJsonScalarExpr
-  - transformJsonTableColumn
+  - [raw_expression_tree_walker_impl](../r/raw_expression_tree_walker_impl.md)
+  - [transformJsonOutput](../t/transformJsonOutput.md)
+  - [transformJsonConstructorOutput](../t/transformJsonConstructorOutput.md)
+  - [transformJsonReturning](../t/transformJsonReturning.md)
+  - [transformJsonParseExpr](../t/transformJsonParseExpr.md)
+  - [transformJsonScalarExpr](../t/transformJsonScalarExpr.md)
+  - [transformJsonTableColumn](../t/transformJsonTableColumn.md)
 
 ## Notes and Other Information
 - Part of PostgreSQL's SQL/JSON support framework introduced for JSON processing capabilities

@@ -24,7 +24,7 @@ This function is part of the internal GUC infrastructure that manages additional
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - config_generic (structure type)
+  - [config_generic](../c/config_generic.md) (structure type)
   - [extra_field_used](../e/extra_field_used.md) (checks if old value is still referenced)
   - [guc_free](../g/guc_free.md) (frees memory allocated for old extra data)
 - Called from (representative examples):

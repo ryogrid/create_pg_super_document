@@ -27,11 +27,11 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _SPI_commit (internal implementation with chain parameter set to false)
+  - [_SPI_commit](_SPI_commit.md) (internal implementation with chain parameter set to false)
 - Called from (representative examples):
   - [plperl_spi_commit](../p/plperl_spi_commit.md) (from PL/Perl)
   - [PLy_commit](../P/PLy_commit.md) (from PL/Python)
-  - pltcl_commit (from PL/Tcl)
+  - [pltcl_commit](../p/pltcl_commit.md) (from PL/Tcl)
 
 ## Notes and Other Information
 - This function can only be called outside of atomic SPI contexts (when SPI_OPT_NONATOMIC is used)

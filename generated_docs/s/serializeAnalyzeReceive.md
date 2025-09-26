@@ -19,10 +19,10 @@ This function serves as the receive callback for EXPLAIN (SERIALIZE) operations,
 ## Dependencies
 - Functions called/Symbols referenced:
   - [serialize_prepare_info](serialize_prepare_info.md) (function info preparation)
-  - slot_getallattrs (tuple deconstruction)
-  - pq_beginmessage_reuse (protocol message preparation)
+  - [slot_getallattrs](slot_getallattrs.md) (tuple deconstruction)
+  - [pq_beginmessage_reuse](../p/pq_beginmessage_reuse.md) (protocol message preparation)
   - [pq_sendint16](../p/pq_sendint16.md), pq_sendint32 (protocol data sending)
-  - pq_sendcountedtext, pq_sendbytes (protocol content sending)
+  - [pq_sendcountedtext](../p/pq_sendcountedtext.md), pq_sendbytes (protocol content sending)
   - [OutputFunctionCall](../O/OutputFunctionCall.md), SendFunctionCall (type output functions)
   - INSTR_TIME_SET_CURRENT, INSTR_TIME_ACCUM_DIFF (timing instrumentation)
   - [BufferUsageAccumDiff](../B/BufferUsageAccumDiff.md) (buffer usage tracking)

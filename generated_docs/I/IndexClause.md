@@ -41,20 +41,20 @@ The indexquals list contains RestrictInfos for directly-usable index conditions.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RestrictInfo (referenced structure)
-  - List (PostgreSQL list structure)
+  - [RestrictInfo](../R/RestrictInfo.md) (referenced structure)
+  - [List](../L/List.md) (PostgreSQL list structure)
   - NodeTag (node type identification)
   - AttrNumber (attribute number type)
 
 - Called from (representative examples):
-  - build_index_paths (path generation)
-  - match_clause_to_index (clause matching)
-  - create_bitmap_subplan (bitmap scan planning)
-  - get_quals_from_indexclauses (selectivity estimation)
-  - btcostestimate (B-tree cost estimation)
+  - [build_index_paths](../b/build_index_paths.md) (path generation)
+  - [match_clause_to_index](../m/match_clause_to_index.md) (clause matching)
+  - [create_bitmap_subplan](../c/create_bitmap_subplan.md) (bitmap scan planning)
+  - [get_quals_from_indexclauses](../g/get_quals_from_indexclauses.md) (selectivity estimation)
+  - [btcostestimate](../b/btcostestimate.md) (B-tree cost estimation)
 
 ## Notes and Other Information
-- IndexClause lists in IndexPath must be ordered by index column (indexcol values in nondecreasing sequence)
+- [IndexClause](IndexClause.md) lists in IndexPath must be ordered by index column (indexcol values in nondecreasing sequence)
 - Multiple clauses for the same index column can appear in any order
 - The structure supports complex multi-column operations through the indexcols field for RowCompareExpr
 - Transformation of conditions into indexable forms is handled by planner support functions

@@ -37,16 +37,16 @@ Return values indicate the outcome: +1 for successful application, 0 for validat
 ## Dependencies
 - Functions called/Symbols referenced:
   - GucContext, GucSource, GucAction (enum types)
-  - GetUserId (current user identification)
-  - set_config_with_handle (actual implementation)
+  - [GetUserId](../G/GetUserId.md) (current user identification)
+  - [set_config_with_handle](set_config_with_handle.md) (actual implementation)
   - BOOTSTRAP_SUPERUSERID (superuser constant)
   - PGC_S_INTERACTIVE, PGC_S_CLIENT (source constants)
 - Called from (representative examples):
-  - SetConfigOption (public wrapper)
-  - ExecSetVariableStmt (SQL SET command handling)
-  - ProcessGUCArray (array parameter processing)
-  - set_config_by_name (function-based interface)
-  - RestrictSearchPath (search path manipulation)
+  - [SetConfigOption](../S/SetConfigOption.md) (public wrapper)
+  - [ExecSetVariableStmt](../E/ExecSetVariableStmt.md) (SQL SET command handling)
+  - [ProcessGUCArray](../P/ProcessGUCArray.md) (array parameter processing)
+  - [set_config_by_name](set_config_by_name.md) (function-based interface)
+  - [RestrictSearchPath](../R/RestrictSearchPath.md) (search path manipulation)
 
 ## Notes and Other Information
 - Implements privilege-based access control for configuration changes

@@ -30,7 +30,7 @@ This function is designed to be called throughout the manifest generation proces
   - Assert (for input validation)
   - [pg_cryptohash_update](../p/pg_cryptohash_update.md)
   - [pg_cryptohash_error](../p/pg_cryptohash_error.md)
-  - BufFileWrite
+  - [BufFileWrite](../B/BufFileWrite.md)
 - Called from (representative examples):
   - AppendToManifest (src/backend/backup/backup_manifest.c:44)
   - [AddFileToBackupManifest](AddFileToBackupManifest.md) (src/backend/backup/backup_manifest.c:201)

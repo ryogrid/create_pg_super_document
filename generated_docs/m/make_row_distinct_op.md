@@ -27,11 +27,11 @@ The `make_row_distinct_op` function handles row-level DISTINCT FROM operations b
   - [makeBoolExpr](makeBoolExpr.md)
   - list_make2
   - [makeBoolConst](makeBoolConst.md)
-  - list_length
+  - [list_length](../l/list_length.md)
   - forboth
   - [parser_errposition](../p/parser_errposition.md)
 - Called from (representative examples):
-  - transformAExprDistinct
+  - [transformAExprDistinct](../t/transformAExprDistinct.md)
 
 ## Notes and Other Information
 - Combines individual DISTINCT comparisons using OR logic - any distinct pair makes the entire row distinct

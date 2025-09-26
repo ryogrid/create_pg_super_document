@@ -28,7 +28,7 @@ The implementation is platform-aware, using different PostgreSQL utility functio
   - SIZEOF_LONG (compile-time size of long type)
 - Called from (representative examples):
   - [hash_choose_num_partitions](../h/hash_choose_num_partitions.md)
-  - ExecHashTableCreate
+  - [ExecHashTableCreate](../E/ExecHashTableCreate.md)
   - [hash_create](../h/hash_create.md)
   - [next_pow2_long](../n/next_pow2_long.md)
   - [next_pow2_int](../n/next_pow2_int.md)

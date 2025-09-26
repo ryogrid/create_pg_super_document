@@ -31,10 +31,10 @@ The wait-free approach prevents deadlocks that could occur if workers blocked wa
 - Functions called/Symbols referenced:
   - [HashJoinState](../H/HashJoinState.md) (struct type)
   - [HashJoinTable](../H/HashJoinTable.md) (struct type)
-  - ParallelHashJoinBatch (struct type)
+  - [ParallelHashJoinBatch](../P/ParallelHashJoinBatch.md) (struct type)
   - PHJ_BATCH_PROBE (barrier phase constant)
-  - BarrierPhase (barrier state query function)
-  - BarrierArriveAndDetachExceptLast (barrier coordination function)
+  - [BarrierPhase](../B/BarrierPhase.md) (barrier state query function)
+  - [BarrierArriveAndDetachExceptLast](../B/BarrierArriveAndDetachExceptLast.md) (barrier coordination function)
   - [sts_end_parallel_scan](../s/sts_end_parallel_scan.md) (shared tuple store cleanup)
   - dsa_pointer_atomic (dynamic shared memory type)
   - PHJ_BATCH_SCAN (barrier phase constant)

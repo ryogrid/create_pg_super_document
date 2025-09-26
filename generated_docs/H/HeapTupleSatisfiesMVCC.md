@@ -38,8 +38,8 @@ The function carefully handles various tuple states including locked-only tuples
   - HeapTupleHeaderGetXvac
   - HeapTupleHeaderGetRawXmin
   - HeapTupleHeaderGetRawXmax
-  - HeapTupleHeaderGetCmin
-  - HeapTupleHeaderGetCmax
+  - [HeapTupleHeaderGetCmin](HeapTupleHeaderGetCmin.md)
+  - [HeapTupleHeaderGetCmax](HeapTupleHeaderGetCmax.md)
   - [HeapTupleGetUpdateXid](HeapTupleGetUpdateXid.md)
   - [TransactionIdIsCurrentTransactionId](../T/TransactionIdIsCurrentTransactionId.md)
   - [TransactionIdDidCommit](../T/TransactionIdDidCommit.md)

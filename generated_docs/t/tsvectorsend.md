@@ -30,7 +30,7 @@ The function uses PostgreSQL's pq_send* family of functions to construct a binar
   - [pq_begintypsend](../p/pq_begintypsend.md): Initialize binary send buffer
   - [pq_sendint32](../p/pq_sendint32.md): Send 32-bit integer in binary format
   - [pq_sendint16](../p/pq_sendint16.md): Send 16-bit integer in binary format
-  - pq_sendtext: Send text data in binary format
+  - [pq_sendtext](../p/pq_sendtext.md): Send text data in binary format
   - [pq_sendbyte](../p/pq_sendbyte.md): Send single byte
   - [pq_endtypsend](../p/pq_endtypsend.md): Finalize binary send buffer
   - PG_RETURN_BYTEA_P: Return binary data result

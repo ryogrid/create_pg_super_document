@@ -22,7 +22,7 @@ SlruSelectLRUPage is a critical function that implements the page replacement al
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SimpleLruGetBankLock](SimpleLruGetBankLock.md)
-  - LWLockHeldByMe  
+  - [LWLockHeldByMe](../L/LWLockHeldByMe.md)  
   - [pg_atomic_read_u64](../p/pg_atomic_read_u64.md)
   - [SimpleLruWaitIO](SimpleLruWaitIO.md)
   - [SlruInternalWritePage](SlruInternalWritePage.md)

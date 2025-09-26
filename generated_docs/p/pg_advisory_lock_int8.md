@@ -24,7 +24,7 @@ The function returns VOID after successfully acquiring the lock.
   - [LockAcquire](../L/LockAcquire.md) (core lock acquisition function)
   - PG_RETURN_VOID (returns void result)
 - Referenced types:
-  - LOCKTAG (lock identifier structure)
+  - [LOCKTAG](../L/LOCKTAG.md) (lock identifier structure)
   - ExclusiveLock (lock mode constant)
 - Called from:
   - [delay_execution_planner](../d/delay_execution_planner.md) (in test modules for execution control)

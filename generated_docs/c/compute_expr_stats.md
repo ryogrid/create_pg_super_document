@@ -32,13 +32,13 @@ This function evaluates expressions on a sample of table rows and computes detai
   - [ExecPrepareExpr](../E/ExecPrepareExpr.md)
   - [MakeSingleTupleTableSlot](../M/MakeSingleTupleTableSlot.md)
   - [ExecStoreHeapTuple](../E/ExecStoreHeapTuple.md)
-  - ExecEvalExprSwitchContext
+  - [ExecEvalExprSwitchContext](../E/ExecEvalExprSwitchContext.md)
   - ResetExprContext
   - [ExecDropSingleTupleTableSlot](../E/ExecDropSingleTupleTableSlot.md)
   - [FreeExecutorState](../F/FreeExecutorState.md)
   - AllocSetContextCreate
   - [datumCopy](../d/datumCopy.md)
-  - get_attribute_options
+  - [get_attribute_options](../g/get_attribute_options.md)
   - [expr_fetch_func](../e/expr_fetch_func.md)
   - [MemoryContextReset](../M/MemoryContextReset.md)
   - [MemoryContextDelete](../M/MemoryContextDelete.md)

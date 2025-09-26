@@ -25,7 +25,7 @@ The prompt format includes the question followed by the localized yes/no options
 ## Dependencies
 - Functions called/Symbols referenced:
   - snprintf
-  - simple_prompt
+  - [simple_prompt](../s/simple_prompt.md)
   - strcmp
   - free
   - printf

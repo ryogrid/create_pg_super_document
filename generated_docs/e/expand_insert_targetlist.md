@@ -40,7 +40,7 @@ After processing all table attributes, any remaining resjunk (auxiliary) entries
   - [eval_const_expressions](eval_const_expressions.md)
   - [makeTargetEntry](../m/makeTargetEntry.md)
   - [flatCopyTargetEntry](../f/flatCopyTargetEntry.md)
-  - list_head
+  - [list_head](../l/list_head.md)
   - [lnext](../l/lnext.md)
 - Called from (representative examples):
   - [preprocess_targetlist](../p/preprocess_targetlist.md) (src/backend/optimizer/prep/preptlist.c:107, 153)

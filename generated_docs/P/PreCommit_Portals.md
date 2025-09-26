@@ -28,8 +28,8 @@ The function also enforces constraints such as preventing PREPARE TRANSACTION wh
   - [hash_seq_search](../h/hash_seq_search.md)
   - [hash_seq_term](../h/hash_seq_term.md)
   - [HoldPortal](../H/HoldPortal.md)
-  - PortalDrop
-  - UnregisterSnapshotFromOwner
+  - [PortalDrop](PortalDrop.md)
+  - [UnregisterSnapshotFromOwner](../U/UnregisterSnapshotFromOwner.md)
   - PORTAL_ACTIVE
   - PORTAL_READY
   - CURSOR_OPT_HOLD

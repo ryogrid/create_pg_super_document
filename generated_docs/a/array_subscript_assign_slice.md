@@ -21,8 +21,8 @@ This function is responsible for executing array slice assignment operations wit
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExprEvalStep (struct)
-  - SubscriptingRefState (struct)
+  - [ExprEvalStep](../E/ExprEvalStep.md) (struct)
+  - [SubscriptingRefState](../S/SubscriptingRefState.md) (struct)
   - [ArraySubWorkspace](../A/ArraySubWorkspace.md) (struct)  
   - [construct_empty_array](../c/construct_empty_array.md)
   - [array_set_slice](array_set_slice.md)

@@ -75,12 +75,12 @@ The cutoffs are carefully calculated based on current system state, active trans
   - MultiXactId (multixact identifier type)
 
 - Called from (representative examples):
-  - vacuum_get_cutoffs (src/backend/commands/vacuum.c:1084)
-  - heap_prepare_freeze_tuple (src/backend/access/heap/heapam.c:7010)
-  - heap_freeze_tuple (src/backend/access/heap/heapam.c:7388)
-  - heap_tuple_should_freeze (src/backend/access/heap/heapam.c:7843)
-  - heap_page_prune_and_freeze (src/backend/access/heap/pruneheap.c:353)
-  - FreezeMultiXactId (src/backend/access/heap/heapam.c:6660)
+  - [vacuum_get_cutoffs](../v/vacuum_get_cutoffs.md) (src/backend/commands/vacuum.c:1084)
+  - [heap_prepare_freeze_tuple](../h/heap_prepare_freeze_tuple.md) (src/backend/access/heap/heapam.c:7010)
+  - [heap_freeze_tuple](../h/heap_freeze_tuple.md) (src/backend/access/heap/heapam.c:7388)
+  - [heap_tuple_should_freeze](../h/heap_tuple_should_freeze.md) (src/backend/access/heap/heapam.c:7843)
+  - [heap_page_prune_and_freeze](../h/heap_page_prune_and_freeze.md) (src/backend/access/heap/pruneheap.c:353)
+  - [FreezeMultiXactId](../F/FreezeMultiXactId.md) (src/backend/access/heap/heapam.c:6660)
 
 ## Notes and Other Information
 - Structure is immutable once established to ensure consistent VACUUM behavior

@@ -22,14 +22,14 @@ The function handles different internal representations of TIDBitmaps. If the so
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - tbm_union_page
+  - [tbm_union_page](tbm_union_page.md)
   - pagetable_start_iterate  
   - pagetable_iterate
   - TBM_ONE_PAGE (constant)
   - TBM_HASH (constant)
-  - PagetableEntry (type)
+  - [PagetableEntry](../P/PagetableEntry.md) (type)
 - Called from (representative examples):
-  - MultiExecBitmapOr (in src/backend/executor/nodeBitmapOr.c:170)
+  - [MultiExecBitmapOr](../M/MultiExecBitmapOr.md) (in src/backend/executor/nodeBitmapOr.c:170)
 
 ## Notes and Other Information
 - The function asserts that the target bitmap is not currently being iterated over

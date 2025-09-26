@@ -26,15 +26,15 @@ This function is part of the table access method interface and provides better m
 - Functions called/Symbols referenced:
   - [heapgettup_pagemode](heapgettup_pagemode.md)
   - [heapgettup](heapgettup.md)
-  - ExecClearTuple
+  - [ExecClearTuple](../E/ExecClearTuple.md)
   - pgstat_count_heap_getnext
   - [ExecStoreBufferHeapTuple](../E/ExecStoreBufferHeapTuple.md)
 - Data structures used:
   - [HeapScanDesc](../H/HeapScanDesc.md)
   - [TableScanDesc](../T/TableScanDesc.md)
   - ScanDirection
-  - TupleTableSlot
-- Scan flags:
+  - [TupleTableSlot](../T/TupleTableSlot.md)
+- [Scan](../S/Scan.md) flags:
   - SO_ALLOW_PAGEMODE
 - Called from (representative examples):
   - [SampleHeapTupleVisible](../S/SampleHeapTupleVisible.md)

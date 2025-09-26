@@ -28,7 +28,7 @@ The function implements an optimization by caching the elapsed time/segments val
   - [RecoveryInProgress](../R/RecoveryInProgress.md)
   - [GetXLogReplayRecPtr](../G/GetXLogReplayRecPtr.md)
   - [GetInsertRecPtr](../G/GetInsertRecPtr.md)
-  - gettimeofday
+  - [gettimeofday](../g/gettimeofday.md)
 - Called from (representative examples):
   - [CheckpointWriteDelay](../C/CheckpointWriteDelay.md)
 

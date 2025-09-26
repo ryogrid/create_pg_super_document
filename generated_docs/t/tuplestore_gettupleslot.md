@@ -26,10 +26,10 @@ The function internally calls `tuplestore_gettuple` to retrieve the actual tuple
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - tuplestore_gettuple
+  - [tuplestore_gettuple](tuplestore_gettuple.md)
   - [heap_copy_minimal_tuple](../h/heap_copy_minimal_tuple.md)
   - [ExecStoreMinimalTuple](../E/ExecStoreMinimalTuple.md)
-  - ExecClearTuple
+  - [ExecClearTuple](../E/ExecClearTuple.md)
 - Called from (representative examples):
   - [ExecMaterial](../E/ExecMaterial.md)
   - [FunctionNext](../F/FunctionNext.md)

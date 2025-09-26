@@ -31,17 +31,17 @@ A key design feature is the use of a local page buffer to avoid transiently corr
 - Functions called/Symbols referenced:
   - XLogRecGetInfo
   - XLogRecGetData
-  - XLogInitBufferForRedo
+  - [XLogInitBufferForRedo](../X/XLogInitBufferForRedo.md)
   - [BufferGetPage](../B/BufferGetPage.md)
   - [BufferGetPageSize](../B/BufferGetPageSize.md)
   - [palloc](../p/palloc.md)
-  - PageInit
+  - [PageInit](../P/PageInit.md)
   - [PageGetSpecialPointer](../P/PageGetSpecialPointer.md)
   - XLogRecGetDataLen
   - PageAddItem
   - [PageSetLSN](../P/PageSetLSN.md)
   - memcpy
-  - MarkBufferDirty
+  - [MarkBufferDirty](../M/MarkBufferDirty.md)
   - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
   - [pfree](../p/pfree.md)
 - Called from:

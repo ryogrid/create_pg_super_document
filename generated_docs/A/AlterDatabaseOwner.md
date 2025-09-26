@@ -33,13 +33,13 @@ The function ensures proper privilege checking and maintains referential integri
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - [ScanKeyInit](../S/ScanKeyInit.md)
   - [systable_beginscan](../s/systable_beginscan.md)
   - [systable_getnext](../s/systable_getnext.md)
   - [object_ownercheck](../o/object_ownercheck.md)
   - [aclcheck_error](../a/aclcheck_error.md)
-  - check_can_set_role
+  - [check_can_set_role](../c/check_can_set_role.md)
   - [have_createdb_privilege](../h/have_createdb_privilege.md)
   - [LockTuple](../L/LockTuple.md)/UnlockTuple
   - [heap_getattr](../h/heap_getattr.md)

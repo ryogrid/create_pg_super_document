@@ -38,7 +38,7 @@ For Vars, it validates that the referenced relation (varno) is in curOuterRels. 
   - [equal](../e/equal.md): Tests structural equality between parameter values
   - makeNode: Creates new NestLoopParam nodes
   - copyObject: Creates deep copies of Var and PlaceHolderVar expressions
-  - lappend: Adds new NestLoopParam entries to the curOuterParams list
+  - [lappend](../l/lappend.md): Adds new NestLoopParam entries to the curOuterParams list
   - elog: Reports errors for invalid parameter types or non-LATERAL references
 
 - Called from (representative examples):

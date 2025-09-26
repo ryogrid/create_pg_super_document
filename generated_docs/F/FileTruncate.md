@@ -22,15 +22,15 @@ FileTruncate reduces the size of a file to the specified offset by using Postgre
 ## Dependencies
 - Functions called/Symbols referenced:
   - FileIsValid: Validates the virtual file descriptor
-  - FileAccess: Ensures the file is accessible and handles VFD management
-  - pgstat_report_wait_start: Reports the start of a wait event for monitoring
-  - pg_ftruncate: PostgreSQL's ftruncate wrapper that performs the actual truncation
-  - pgstat_report_wait_end: Reports the end of the wait event
+  - [FileAccess](FileAccess.md): Ensures the file is accessible and handles VFD management
+  - [pgstat_report_wait_start](../p/pgstat_report_wait_start.md): Reports the start of a wait event for monitoring
+  - [pg_ftruncate](../p/pg_ftruncate.md): PostgreSQL's ftruncate wrapper that performs the actual truncation
+  - [pgstat_report_wait_end](../p/pgstat_report_wait_end.md): Reports the end of the wait event
   - DO_DB: Debug logging macro
   - FD_TEMP_FILE_LIMIT: Flag indicating the file is a temporary file with size tracking
 - Called from (representative examples):
-  - BufFileTruncateFileSet: When truncating buffered file sets
-  - mdtruncate: In MD storage manager for relation truncation operations
+  - [BufFileTruncateFileSet](../B/BufFileTruncateFileSet.md): When truncating buffered file sets
+  - [mdtruncate](../m/mdtruncate.md): In MD storage manager for relation truncation operations
 
 ## Notes and Other Information
 - Returns 0 on success, or the error code from pg_ftruncate() on failure

@@ -33,16 +33,16 @@ The function includes an assertion to verify that all tablespaces have been proc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbsink (struct type)
+  - [bbsink](bbsink.md) (struct type)
   - XLogRecPtr (WAL position type)
   - TimeLineID (timeline identifier type)
   - Assert (assertion macro)
-  - list_length (list utility function)
+  - [list_length](../l/list_length.md) (list utility function)
   - sink->bbs_ops->end_backup (callback function)
 
 - Called from (representative examples):
-  - perform_base_backup
-  - bbsink_forward_end_backup
+  - [perform_base_backup](../p/perform_base_backup.md)
+  - [bbsink_forward_end_backup](bbsink_forward_end_backup.md)
 
 ## Notes and Other Information
 - This is an inline function defined in the header file for performance

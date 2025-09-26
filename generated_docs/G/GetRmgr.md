@@ -20,17 +20,17 @@ This function provides a safe way to access resource manager data from the RmgrT
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RmgrIdExists (for validation check)
-  - RmgrNotFound (error handling for invalid IDs)
+  - [RmgrIdExists](../R/RmgrIdExists.md) (for validation check)
+  - [RmgrNotFound](../R/RmgrNotFound.md) (error handling for invalid IDs)
   - RmgrTable (global resource manager table accessed via array indexing)
 - Additional references found in context:
-  - GetLastSegSwitchData, RequestXLogSwitch, GetOldestRestartPoint, XLogRecGetBlockRefInfo
+  - [GetLastSegSwitchData](GetLastSegSwitchData.md), RequestXLogSwitch, GetOldestRestartPoint, XLogRecGetBlockRefInfo
 - Called from (representative examples):
   - PG_GET_RESOURCE_MANAGERS_COLS (in src/backend/access/transam/rmgr.c)
-  - check_wal_consistency_checking (in src/backend/access/transam/xlog.c)
-  - ApplyWalRecord (in src/backend/access/transam/xlogrecovery.c)
-  - xlog_outdesc (in src/backend/access/transam/xlogrecovery.c)
-  - LogicalDecodingProcessRecord (in src/backend/replication/logical/decode.c)
+  - [check_wal_consistency_checking](../c/check_wal_consistency_checking.md) (in src/backend/access/transam/xlog.c)
+  - [ApplyWalRecord](../A/ApplyWalRecord.md) (in src/backend/access/transam/xlogrecovery.c)
+  - [xlog_outdesc](../x/xlog_outdesc.md) (in src/backend/access/transam/xlogrecovery.c)
+  - [LogicalDecodingProcessRecord](../L/LogicalDecodingProcessRecord.md) (in src/backend/replication/logical/decode.c)
 
 ## Notes and Other Information
 The function uses the `unlikely` macro around the validation check, indicating that invalid resource manager IDs are expected to be rare in normal operation. This optimization hint helps the compiler generate more efficient code by predicting that the validation will usually succeed. The function is widely used throughout WAL processing, recovery, and logical decoding operations where resource manager information is needed.

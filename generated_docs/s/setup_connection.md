@@ -32,11 +32,11 @@ The function handles both single-process and parallel dump scenarios, with speci
   - [PQsetClientEncoding](../P/PQsetClientEncoding.md) (set client character encoding)
   - [PQclientEncoding](../P/PQclientEncoding.md) (get current client encoding)
   - [setFmtEncoding](setFmtEncoding.md) (set encoding for formatting functions)
-  - PQparameterStatus (get server parameter value)
+  - [PQparameterStatus](../P/PQparameterStatus.md) (get server parameter value)
   - [fmtId](../f/fmtId.md) (format identifier with proper quoting)
   - [set_restrict_relation_kind](set_restrict_relation_kind.md) (restrict access to relation types)
   - [get_synchronized_snapshot](../g/get_synchronized_snapshot.md) (obtain synchronized snapshot for parallel dumps)
-  - pg_malloc0 (allocate zero-initialized memory)
+  - [pg_malloc0](../p/pg_malloc0.md) (allocate zero-initialized memory)
   - [pg_strdup](../p/pg_strdup.md) (duplicate string)
 - Called from (representative examples):
   - [main](../m/main.md) (primary setup for main dump process)

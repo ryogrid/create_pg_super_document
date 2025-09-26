@@ -25,10 +25,10 @@ The output format uses parentheses to group related items, with comma separation
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PathKey (structure type)
-  - EquivalenceClass (structure type)  
+  - [PathKey](../P/PathKey.md) (structure type)
+  - [EquivalenceClass](../E/EquivalenceClass.md) (structure type)  
   - [EquivalenceMember](../E/EquivalenceMember.md) (structure type)
-  - print_expr (function to print individual expressions)
+  - [print_expr](print_expr.md) (function to print individual expressions)
   - [lnext](../l/lnext.md) (list navigation function)
 - Called from (representative examples):
   - nodeDisplay (via print.h header inclusion)

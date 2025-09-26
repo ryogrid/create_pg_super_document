@@ -29,7 +29,7 @@ Each transaction ID added to this list represents a transaction that has made ca
   - DEBUG1 (logging level constant)
   - TransactionIdIsValid (validation macro)
 - Called from (representative examples):
-  - SnapBuildCommitTxn (snapbuild.c:1135, 1149, 1162, 1170, 1176)
+  - [SnapBuildCommitTxn](SnapBuildCommitTxn.md) (snapbuild.c:1135, 1149, 1162, 1170, 1176)
 
 ## Notes and Other Information
 - Function is declared static, indicating internal use within snapbuild.c

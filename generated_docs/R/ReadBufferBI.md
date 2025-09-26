@@ -35,7 +35,7 @@ The function includes assertions to ensure LOCK variants are only used for relat
   - [ReadBufferExtended](ReadBufferExtended.md)
   - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)
   - [IncrBufferRefCount](../I/IncrBufferRefCount.md)
-  - ReleaseBuffer
+  - [ReleaseBuffer](ReleaseBuffer.md)
 - Constants/Types referenced:
   - MAIN_FORKNUM
   - InvalidBuffer

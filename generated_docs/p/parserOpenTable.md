@@ -24,7 +24,7 @@ This function is a parser-specific wrapper around table_openrv_extended() that e
 ## Dependencies
 - Functions called/Symbols referenced:
   - [setup_parser_errposition_callback](../s/setup_parser_errposition_callback.md) (error position tracking)
-  - table_openrv_extended (actual table opening)
+  - [table_openrv_extended](../t/table_openrv_extended.md) (actual table opening)
   - [cancel_parser_errposition_callback](../c/cancel_parser_errposition_callback.md) (cleanup error tracking)
   - [isFutureCTE](../i/isFutureCTE.md) (forward CTE reference detection)
   - ereport (error reporting)

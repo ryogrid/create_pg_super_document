@@ -40,15 +40,15 @@ The constructed SQL query uses multiple CTEs:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initPQExpBuffer
+  - [initPQExpBuffer](../i/initPQExpBuffer.md)
   - [append_rel_pattern_raw_cte](../a/append_rel_pattern_raw_cte.md)
   - [append_rel_pattern_filtered_cte](../a/append_rel_pattern_filtered_cte.md)
   - [executeQuery](../e/executeQuery.md)
   - [PQgetisnull](../P/PQgetisnull.md)
   - atooid
-  - pg_malloc0
+  - [pg_malloc0](../p/pg_malloc0.md)
   - [simple_ptr_list_append](../s/simple_ptr_list_append.md)
-  - termPQExpBuffer
+  - [termPQExpBuffer](../t/termPQExpBuffer.md)
   - [disconnectDatabase](../d/disconnectDatabase.md)
 - Called from:
   - [main](../m/main.md) (src/bin/pg_amcheck/pg_amcheck.c:634)
@@ -56,7 +56,7 @@ The constructed SQL query uses multiple CTEs:
 ## Notes and Other Information
 - This function is specific to the  utility and operates within a single database context
 - The function excludes temporary relations (relpersistence != 't') as they belong to other sessions
-- Complex logic handles the interaction between --allrel mode and specific inclusion patterns to avoid duplicate selection of dependent objects
+- [Complex](../C/Complex.md) logic handles the interaction between --allrel mode and specific inclusion patterns to avoid duplicate selection of dependent objects
 - Error handling includes detailed query logging when SQL execution fails
 - The function supports progress tracking by calculating expected block counts for heap table range checking
 - Results are deduplicated using UNION operations to handle cases where relations match multiple patterns or appear in multiple CTEs

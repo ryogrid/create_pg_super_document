@@ -33,7 +33,7 @@ The implementation includes robust error handling, iteration counting, minimum r
   - popen, pclose (pager process management)
   - [PSQLexecWatch](../P/PSQLexecWatch.md) (executes the query with watch-specific handling)
   - [pg_usleep](../p/pg_usleep.md) (Windows sleep implementation)
-  - pg_malloc, pg_free (PostgreSQL memory management)
+  - [pg_malloc](../p/pg_malloc.md), pg_free (PostgreSQL memory management)
 - Called from (representative examples):
   - [exec_command_watch](../e/exec_command_watch.md) (handles \watch command parsing and delegation)
 

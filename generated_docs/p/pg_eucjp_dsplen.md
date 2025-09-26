@@ -29,9 +29,9 @@ This function is crucial for proper text layout and formatting when working with
   - SS2 (Single Shift 2 constant for half-width katakana)
   - SS3 (Single Shift 3 constant for supplementary characters)
   - IS_HIGHBIT_SET (macro to check if high bit is set)
-  - pg_ascii_dsplen (function for ASCII display length calculation)
+  - [pg_ascii_dsplen](pg_ascii_dsplen.md) (function for ASCII display length calculation)
 - Called from (representative examples):
-  - pg_encoding_set_invalid (character encoding setup function)
+  - [pg_encoding_set_invalid](pg_encoding_set_invalid.md) (character encoding setup function)
 
 ## Notes and Other Information
 - This is a static function, limiting its scope to the wchar.c compilation unit

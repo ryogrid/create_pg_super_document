@@ -24,15 +24,15 @@ This function serves as the central coordination point for event trigger executi
 ## Dependencies
 - Functions called/Symbols referenced:
   - EventTriggerEvent (event type enumeration)
-  - EventTriggerData (trigger execution context structure)
+  - [EventTriggerData](EventTriggerData.md) (trigger execution context structure)
   - CommandTag (command identification type)
   - [EventTriggerGetTag](EventTriggerGetTag.md) (command tag determination)
   - [EventCacheLookup](EventCacheLookup.md) (trigger cache retrieval)
   - [filter_event_trigger](../f/filter_event_trigger.md) (trigger filtering logic)
-  - EventTriggerCacheItem (cached trigger information)
+  - [EventTriggerCacheItem](EventTriggerCacheItem.md) (cached trigger information)
   - [command_tag_event_trigger_ok](../c/command_tag_event_trigger_ok.md) (command tag validation for DDL events)
   - [command_tag_table_rewrite_ok](../c/command_tag_table_rewrite_ok.md) (command tag validation for table rewrite events)
-  - lappend_oid (list building utility)
+  - [lappend_oid](../l/lappend_oid.md) (list building utility)
 - Called from (representative examples):
   - [EventTriggerDDLCommandStart](EventTriggerDDLCommandStart.md)
   - [EventTriggerDDLCommandEnd](EventTriggerDDLCommandEnd.md)

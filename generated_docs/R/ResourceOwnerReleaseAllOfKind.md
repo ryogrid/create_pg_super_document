@@ -25,7 +25,7 @@ To prevent corruption during the scanning process, the function temporarily sets
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwnerDesc (resource type descriptor structure)
+  - [ResourceOwnerDesc](ResourceOwnerDesc.md) (resource type descriptor structure)
   - ReleaseResource (callback function via kind descriptor for releasing specific resource types)
 - Called from (representative examples):
   - [ReleaseAllPlanCacheRefsInOwner](ReleaseAllPlanCacheRefsInOwner.md) (releases plan cache references)

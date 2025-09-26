@@ -19,7 +19,7 @@ This static function serves as a support routine for the has_type_privilege fami
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - text_to_cstring: Converts PostgreSQL text to C string
+  - [text_to_cstring](../t/text_to_cstring.md): Converts PostgreSQL text to C string
   - DirectFunctionCall1: Calls PostgreSQL internal function directly
   - [regtypein](../r/regtypein.md): PostgreSQL function that converts type name string to OID
   - [CStringGetDatum](../C/CStringGetDatum.md): Converts C string to PostgreSQL Datum

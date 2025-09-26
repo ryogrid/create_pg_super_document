@@ -26,18 +26,18 @@ This function takes no parameters and operates on several global variables:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DIR (directory stream type)
+  - [DIR](../D/DIR.md) (directory stream type)
   - struct dirent (directory entry structure)
-  - opendir (open directory stream)
-  - readdir (read directory entries)
-  - strlcpy (safe string copy)
+  - [opendir](../o/opendir.md) (open directory stream)
+  - [readdir](../r/readdir.md) (read directory entries)
+  - [strlcpy](../s/strlcpy.md) (safe string copy)
   - [TrimExtension](../T/TrimExtension.md) (custom function to remove file extensions)
   - [IsXLogFileName](../I/IsXLogFileName.md) (PostgreSQL function to validate WAL filenames)
   - [IsPartialXLogFileName](../I/IsPartialXLogFileName.md) (PostgreSQL function to validate partial WAL filenames)
-  - IsBackupHistoryFileName (PostgreSQL function to validate backup history filenames)
+  - [IsBackupHistoryFileName](../I/IsBackupHistoryFileName.md) (PostgreSQL function to validate backup history filenames)
   - pg_log_debug (PostgreSQL logging function)
   - unlink (remove file)
-  - closedir (close directory stream)
+  - [closedir](../c/closedir.md) (close directory stream)
   - [pg_fatal](../p/pg_fatal.md) (PostgreSQL fatal error logging)
 - Called from (representative examples):
   - [main](../m/main.md) (in src/bin/pg_archivecleanup/pg_archivecleanup.c:393)

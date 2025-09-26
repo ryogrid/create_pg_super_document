@@ -23,19 +23,19 @@ The function first reads the 4-byte message length in network byte order, valida
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - resetStringInfo
-  - pq_getbytes
+  - [resetStringInfo](../r/resetStringInfo.md)
+  - [pq_getbytes](pq_getbytes.md)
   - pg_ntoh32
-  - enlargeStringInfo
-  - pq_discardbytes
+  - [enlargeStringInfo](../e/enlargeStringInfo.md)
+  - [pq_discardbytes](pq_discardbytes.md)
   - COMMERROR (error reporting)
   - PG_TRY/PG_CATCH/PG_RE_THROW (exception handling)
 - Called from (representative examples):
-  - SocketBackend (main message processing loop)
-  - CopyGetData (COPY command data handling)
-  - CheckSASLAuth (SASL authentication)
-  - recv_password_packet (password authentication)
-  - ProcessRepliesIfAny (replication feedback)
+  - [SocketBackend](../S/SocketBackend.md) (main message processing loop)
+  - [CopyGetData](../C/CopyGetData.md) (COPY command data handling)
+  - [CheckSASLAuth](../C/CheckSASLAuth.md) (SASL authentication)
+  - [recv_password_packet](../r/recv_password_packet.md) (password authentication)
+  - [ProcessRepliesIfAny](../P/ProcessRepliesIfAny.md) (replication feedback)
 
 ## Notes and Other Information
 - Requires PqCommReadingMsg flag to be true before calling

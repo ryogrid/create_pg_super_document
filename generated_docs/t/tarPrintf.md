@@ -21,7 +21,7 @@ This function implements a printf-like interface for writing formatted text data
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_malloc (memory allocation)
+  - [pg_malloc](../p/pg_malloc.md) (memory allocation)
   - [pvsnprintf](../p/pvsnprintf.md) (PostgreSQL variant of vsnprintf for safe formatting)
   - [tarWrite](tarWrite.md) (writes data to TAR member)
   - [TAR_MEMBER](../T/TAR_MEMBER.md) (struct type)

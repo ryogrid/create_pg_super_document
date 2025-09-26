@@ -22,17 +22,17 @@ Due to struct equivalence, this function can also be used for DistinctExpr and N
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_opcode
+  - [get_opcode](../g/get_opcode.md)
   - InvalidOid (constant)
 - Called from (representative examples):
-  - fix_opfuncids_walker
-  - check_functions_in_node
-  - check_and_push_window_quals
-  - cost_qual_eval_walker
-  - process_equivalence
-  - match_opclause_to_indexcol
-  - fix_expr_common
-  - eval_const_expressions_mutator
+  - [fix_opfuncids_walker](../f/fix_opfuncids_walker.md)
+  - [check_functions_in_node](../c/check_functions_in_node.md)
+  - [check_and_push_window_quals](../c/check_and_push_window_quals.md)
+  - [cost_qual_eval_walker](../c/cost_qual_eval_walker.md)
+  - [process_equivalence](../p/process_equivalence.md)
+  - [match_opclause_to_indexcol](../m/match_opclause_to_indexcol.md)
+  - [fix_expr_common](../f/fix_expr_common.md)
+  - [eval_const_expressions_mutator](../e/eval_const_expressions_mutator.md)
 
 ## Notes and Other Information
 - Can be used for DistinctExpr and NullIfExpr nodes due to struct equivalence

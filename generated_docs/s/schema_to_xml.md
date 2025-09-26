@@ -33,7 +33,7 @@ This is the simpler version that does not include XML schema definitions, in con
 - Functions called/Symbols referenced:
   - PG_GETARG_NAME
   - PG_GETARG_BOOL
-  - text_to_cstring
+  - [text_to_cstring](../t/text_to_cstring.md)
   - [LookupExplicitNamespace](../L/LookupExplicitNamespace.md)
   - [stringinfo_to_xmltype](stringinfo_to_xmltype.md)
   - [schema_to_xml_internal](schema_to_xml_internal.md)

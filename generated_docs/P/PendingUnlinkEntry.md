@@ -30,7 +30,7 @@ The structure is used within the sync.c module as part of the broader synchroniz
 - `*candidate)`: A boolean flag indicating whether the deletion request has been canceled and should not be executed
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FileTag (structure for file identification)
+  - [FileTag](../F/FileTag.md) (structure for file identification)
   - CycleCtr (typedef for cycle counter)
   - [HTAB](../H/HTAB.md) (hash table infrastructure)
 - Called from (representative examples):

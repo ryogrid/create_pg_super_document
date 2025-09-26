@@ -36,7 +36,7 @@ All transformations create explicit equality operations that can be processed by
 ## Dependencies
 - Functions called/Symbols referenced:
   - [match_index_to_operand](match_index_to_operand.md)
-  - make_opclause
+  - [make_opclause](make_opclause.md)
   - [makeBoolConst](makeBoolConst.md)
   - [is_notclause](../i/is_notclause.md)
   - [get_notclausearg](../g/get_notclausearg.md)

@@ -38,8 +38,8 @@ The function processes different cases:
   - forboth (macro)
 - Data structures used:
   - grouping_sets_data
-  - RollupData
-  - GroupingSetData
+  - [RollupData](../R/RollupData.md)
+  - [GroupingSetData](../G/GroupingSetData.md)
 - Called from:
   - standard_qp_extra
   - [create_ordinary_grouping_paths](../c/create_ordinary_grouping_paths.md)

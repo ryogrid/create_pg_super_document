@@ -29,12 +29,12 @@ The function respects PostgreSQL's type coercion hierarchy and provides detailed
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - exprType
+  - [exprType](../e/exprType.md)
   - [exprLocation](../e/exprLocation.md)  
   - OidIsValid
   - [coerce_to_specific_type](coerce_to_specific_type.md)
   - [getJsonEncodingConst](../g/getJsonEncodingConst.md)
-  - makeFuncExpr
+  - [makeFuncExpr](../m/makeFuncExpr.md)
   - list_make2
   - [coerce_to_target_type](coerce_to_target_type.md)
   - ereport (for error reporting)

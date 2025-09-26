@@ -28,7 +28,7 @@ Unlike changeDependenciesOf, this function uses DependReferenceIndexId for effic
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - [isObjectPinned](../i/isObjectPinned.md)
   - ereport
   - [getObjectDescription](../g/getObjectDescription.md)
@@ -41,12 +41,12 @@ Unlike changeDependenciesOf, this function uses DependReferenceIndexId for effic
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - [heap_freetuple](../h/heap_freetuple.md)
   - [systable_endscan](../s/systable_endscan.md)
-  - table_close
+  - [table_close](../t/table_close.md)
   - [SysScanDesc](../S/SysScanDesc.md)
   - Form_pg_depend
 
 - Called from (representative examples):
-  - index_concurrently_swap (src/backend/catalog/index.c:1789,1792)
+  - [index_concurrently_swap](../i/index_concurrently_swap.md) (src/backend/catalog/index.c:1789,1792)
 
 ## Notes and Other Information
 - Explicitly prevents operations on pinned old objects, raising a descriptive error about system object dependencies

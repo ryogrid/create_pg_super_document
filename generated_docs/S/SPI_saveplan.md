@@ -20,9 +20,9 @@ SPI_saveplan creates a persistent copy of an existing SPI execution plan by copy
 ## Dependencies
 - Functions called/Symbols referenced:
   - _SPI_PLAN_MAGIC
-  - _SPI_begin_call
-  - _SPI_save_plan
-  - _SPI_end_call
+  - [_SPI_begin_call](_SPI_begin_call.md)
+  - [_SPI_save_plan](_SPI_save_plan.md)
+  - [_SPI_end_call](_SPI_end_call.md)
   - SPI_ERROR_ARGUMENT
 - Called from (representative examples):
   - Functions using SPI_OPT_NONATOMIC option

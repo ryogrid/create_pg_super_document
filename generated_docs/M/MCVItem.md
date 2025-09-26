@@ -38,7 +38,7 @@ This information is crucial for improving selectivity estimates when multiple co
   - [statext_mcv_build](../s/statext_mcv_build.md) (constructs MCV lists containing MCVItems)
   - [statext_mcv_serialize](../s/statext_mcv_serialize.md) (serializes MCVItems for storage)
   - [statext_mcv_deserialize](../s/statext_mcv_deserialize.md) (deserializes MCVItems from storage)
-  - mcv_get_match_bitmap (matches MCVItems against query predicates)
+  - [mcv_get_match_bitmap](../m/mcv_get_match_bitmap.md) (matches MCVItems against query predicates)
   - [pg_stats_ext_mcvlist_items](../p/pg_stats_ext_mcvlist_items.md) (exposes MCVItems through system views)
   - [MCVList](MCVList.md) (container structure that holds arrays of MCVItems)
 

@@ -22,7 +22,7 @@ error_duplicate_filter_variable is a simple static helper function that provides
   - ereport() - PostgreSQL's error reporting function
   - ERRCODE_SYNTAX_ERROR - [error](error.md) code constant for syntax errors
 - Called from (representative examples):
-  - [CreateEventTrigger](../C/CreateEventTrigger.md)() - when duplicate filter variables are detected in WHEN clauses
+  - [CreateEventTrigger](../C/CreateEventTrigger.md)() - [when](../w/when.md) duplicate filter variables are detected in WHEN clauses
 
 ## Notes and Other Information
 - This is a static function only accessible within event_trigger.c

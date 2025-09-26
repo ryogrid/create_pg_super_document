@@ -29,12 +29,12 @@ Key responsibilities include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WaitForParallelWorkersToFinish: Wait for all worker processes to complete
+  - [WaitForParallelWorkersToFinish](../W/WaitForParallelWorkersToFinish.md): Wait for all worker processes to complete
   - [InstrAccumParallelQuery](../I/InstrAccumParallelQuery.md): Accumulate performance statistics from worker processes
   - IsMVCCSnapshot: Check if snapshot is MVCC type (used in concurrent builds)
-  - UnregisterSnapshot: Release MVCC snapshot reference
-  - DestroyParallelContext: Clean up parallel context and shared memory
-  - ExitParallelMode: Exit PostgreSQL's parallel execution mode
+  - [UnregisterSnapshot](../U/UnregisterSnapshot.md): Release MVCC snapshot reference
+  - [DestroyParallelContext](../D/DestroyParallelContext.md): Clean up parallel context and shared memory
+  - [ExitParallelMode](../E/ExitParallelMode.md): Exit PostgreSQL's parallel execution mode
 - Called from (representative examples):
   - [btbuild](btbuild.md): Main B-tree build function when completing parallel build
   - [_bt_begin_parallel](_bt_begin_parallel.md): Fallback cleanup when parallel setup fails

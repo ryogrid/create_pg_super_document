@@ -19,8 +19,8 @@ ECPGtransactionStatus is a wrapper function that provides access to PostgreSQL t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ecpg_get_connection
-  - PQtransactionStatus
+  - [ecpg_get_connection](../e/ecpg_get_connection.md)
+  - [PQtransactionStatus](../P/PQtransactionStatus.md)
   - PQTRANS_UNKNOWN
 - Called from (representative examples):
   - Referenced in ecpglib.h header file

@@ -30,7 +30,7 @@ The function places snapshot invalidation messages into the relcache subgroup fo
   - VALGRIND_MAKE_MEM_DEFINED (for memory debugging support)
 - Types referenced:
   - [InvalidationMsgsGroup](../I/InvalidationMsgsGroup.md)
-  - SharedInvalidationMessage
+  - [SharedInvalidationMessage](../S/SharedInvalidationMessage.md)
   - SHAREDINVALSNAPSHOT_ID (constant for snapshot invalidation type)
   - RelCacheMsgs (message subgroup identifier)
 - Called from:

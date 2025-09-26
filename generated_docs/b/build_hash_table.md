@@ -35,13 +35,13 @@ The hash table is stored in the perhash structure corresponding to the given gro
   - [AggStatePerHash](../A/AggStatePerHash.md)
   - AGG_HASHED
   - AGG_MIXED
-  - AggStatePerGroupData
-  - BuildTupleHashTableExt
+  - [AggStatePerGroupData](../A/AggStatePerGroupData.md)
+  - [BuildTupleHashTableExt](../B/BuildTupleHashTableExt.md)
   - DO_AGGSPLIT_SKIPFINAL
 - Called from (representative examples):
   - [build_hash_tables](build_hash_tables.md)
   - [ExecMemoize](../E/ExecMemoize.md)
-  - ExecInitRecursiveUnion
+  - [ExecInitRecursiveUnion](../E/ExecInitRecursiveUnion.md)
   - [ExecInitSetOp](../E/ExecInitSetOp.md)
 
 ## Notes and Other Information

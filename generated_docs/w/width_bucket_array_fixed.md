@@ -33,10 +33,10 @@ The binary search maintains the invariant that all values in [0, left) are less 
   - LOCAL_FCINFO
   - ARR_DATA_PTR
   - InitFunctionCallInfoData
-  - ArrayGetNItems
+  - [ArrayGetNItems](../A/ArrayGetNItems.md)
   - ARR_NDIM
   - ARR_DIMS
-  - fetch_att
+  - [fetch_att](../f/fetch_att.md)
   - FunctionCallInvoke
   - [DatumGetInt32](../D/DatumGetInt32.md)
 - Called from:

@@ -18,9 +18,9 @@ This utility function creates a new temporary table name by combining a base tem
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initStringInfo
-  - appendStringInfoString  
-  - appendStringInfo
+  - [initStringInfo](../i/initStringInfo.md)
+  - [appendStringInfoString](../a/appendStringInfoString.md)  
+  - [appendStringInfo](../a/appendStringInfo.md)
 - Called from (representative examples):
   - [refresh_by_match_merge](../r/refresh_by_match_merge.md)
 

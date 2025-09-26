@@ -32,7 +32,7 @@ The function uses  to efficiently copy the entire structure contents, ensuring t
   - [ECPGget_desc](../E/ECPGget_desc.md)
   - [ecpg_init](ecpg_init.md)
   - ECPGget_sqlca
-  - ECPGset_var
+  - [ECPGset_var](../E/ECPGset_var.md)
 
 ## Notes and Other Information
 - This is a core utility function in the ECPG library used to ensure consistent SQLCA initialization

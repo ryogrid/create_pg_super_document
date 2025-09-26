@@ -23,7 +23,7 @@ This is the complementary cleanup function to json_parse_manifest_incremental_in
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pfree](../p/pfree.md)
-  - freeJsonLexContext
+  - [freeJsonLexContext](../f/freeJsonLexContext.md)
 - Called from (representative examples):
   - [FinalizeIncrementalManifest](../F/FinalizeIncrementalManifest.md) (src/backend/backup/basebackup_incremental.c:245)
   - [load_backup_manifest](../l/load_backup_manifest.md) (src/bin/pg_combinebackup/load_manifest.c:211)

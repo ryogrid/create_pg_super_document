@@ -24,10 +24,10 @@ The `copy_file_blocks` function implements a straightforward block-by-block file
 ## Dependencies
 - Functions called/Symbols referenced:
   - `open` - System call for file opening
-  - `pg_malloc` - PostgreSQL memory allocation
+  - `[pg_malloc](../p/pg_malloc.md)` - PostgreSQL memory allocation
   - `read` - System call for reading data
   - `write` - System call for writing data
-  - `pg_checksum_update` - Updates checksum with copied data
+  - `[pg_checksum_update](../p/pg_checksum_update.md)` - Updates checksum with copied data
   - [pg_free](../p/pg_free.md) - PostgreSQL memory deallocation
   - `close` - System call for file closing
   - `pg_file_create_mode` - File creation permissions

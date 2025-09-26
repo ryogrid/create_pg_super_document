@@ -29,8 +29,8 @@ This function is the counterpart to FullTransactionIdRetreat and handles the sam
   - XidFromFullTransactionId
   - FirstNormalTransactionId
 - Called from (representative examples):
-  - GetNewTransactionId
-  - GetSnapshotData
+  - [GetNewTransactionId](../G/GetNewTransactionId.md)
+  - [GetSnapshotData](../G/GetSnapshotData.md)
 
 ## Notes and Other Information
 - This is a static inline function for performance

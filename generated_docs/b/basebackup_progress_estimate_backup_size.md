@@ -25,7 +25,7 @@ This function is a simple progress reporting utility used during PostgreSQL base
   - PROGRESS_BASEBACKUP_PHASE_ESTIMATE_BACKUP_SIZE (phase constant)
 - Called from (representative examples):
   - [perform_base_backup](../p/perform_base_backup.md)
-  - bbsink_cleanup
+  - [bbsink_cleanup](bbsink_cleanup.md)
 
 ## Notes and Other Information
 - This is part of PostgreSQL's progress tracking infrastructure for base backup operations

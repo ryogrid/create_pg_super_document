@@ -19,8 +19,8 @@ This function constructs and executes a SQL query to find all tables, materializ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initStringInfo
-  - appendStringInfo
+  - [initStringInfo](../i/initStringInfo.md)
+  - [appendStringInfo](../a/appendStringInfo.md)
   - RELKIND_RELATION
   - RELKIND_MATVIEW
   - RELKIND_VIEW

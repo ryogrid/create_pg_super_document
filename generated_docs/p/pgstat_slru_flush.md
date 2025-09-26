@@ -29,19 +29,19 @@ The function uses a macro `SLRU_ACC(fld)` to accumulate each statistic field: `s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `LWLockAcquire`: Acquires exclusive lock on shared SLRU statistics (blocking)
-  - `LWLockConditionalAcquire`: Attempts to acquire exclusive lock non-blocking
-  - `LWLockRelease`: Releases the acquired lock
+  - `[LWLockAcquire](../L/LWLockAcquire.md)`: Acquires exclusive lock on shared SLRU statistics (blocking)
+  - `[LWLockConditionalAcquire](../L/LWLockConditionalAcquire.md)`: Attempts to acquire exclusive lock non-blocking
+  - `[LWLockRelease](../L/LWLockRelease.md)`: Releases the acquired lock
   - `MemSet`: Clears the pending statistics array
-  - `PgStatShared_SLRU`: Shared memory structure containing SLRU statistics
-  - `PgStat_SLRUStats`: Individual SLRU statistics structure
+  - `[PgStatShared_SLRU](../P/PgStatShared_SLRU.md)`: Shared memory structure containing SLRU statistics
+  - `[PgStat_SLRUStats](../P/PgStat_SLRUStats.md)`: Individual SLRU statistics structure
   - `SLRU_NUM_ELEMENTS`: Constant defining number of SLRU elements
   - `have_slrustats`: Global flag indicating if there are pending statistics
   - `pending_SLRUStats`: Local array of pending SLRU statistics
   - `pgStatLocal.shmem->slru`: Reference to shared SLRU statistics structure
 
 - Called from (representative examples):
-  - `pgstat_report_stat`: Main statistics reporting function that flushes various types of statistics
+  - `[pgstat_report_stat](pgstat_report_stat.md)`: Main statistics reporting function that flushes various types of statistics
 
 ## Notes and Other Information
 - The function handles memory synchronization between local process statistics and shared memory statistics used by the PostgreSQL statistics collector

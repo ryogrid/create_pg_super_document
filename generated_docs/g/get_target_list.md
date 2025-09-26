@@ -31,12 +31,12 @@ The function uses a temporary buffer to format each target entry before deciding
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_variable](get_variable.md) (get text for Var nodes with proper whole-row handling)
-  - get_rule_expr (get text for general expression nodes)
+  - [get_rule_expr](get_rule_expr.md) (get text for general expression nodes)
   - [quote_identifier](../q/quote_identifier.md) (properly quote SQL identifiers)
-  - resetStringInfo (clear temporary string buffer)
-  - removeStringInfoSpaces (formatting utility)
-  - appendContextKeyword (add keywords with proper indentation)
-  - appendBinaryStringInfo (append formatted text to output buffer)
+  - [resetStringInfo](../r/resetStringInfo.md) (clear temporary string buffer)
+  - [removeStringInfoSpaces](../r/removeStringInfoSpaces.md) (formatting utility)
+  - [appendContextKeyword](../a/appendContextKeyword.md) (add keywords with proper indentation)
+  - [appendBinaryStringInfo](../a/appendBinaryStringInfo.md) (append formatted text to output buffer)
 - Called from (representative examples):
   - [get_basic_select_query](get_basic_select_query.md) (src/backend/utils/adt/ruleutils.c:5960)
   - [get_insert_query_def](get_insert_query_def.md) (src/backend/utils/adt/ruleutils.c:6853)

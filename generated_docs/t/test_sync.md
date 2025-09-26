@@ -30,8 +30,8 @@ Each test writes XLOG_BLCKSZ-sized blocks (typically 8KB) and measures performan
   - fflush
   - [open_direct](../o/open_direct.md)
   - open
-  - pg_pwrite
-  - fdatasync
+  - [pg_pwrite](../p/pg_pwrite.md)
+  - [fdatasync](../f/fdatasync.md)
   - fsync
   - [pg_fsync_writethrough](../p/pg_fsync_writethrough.md)
   - close

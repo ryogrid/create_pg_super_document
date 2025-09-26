@@ -22,7 +22,7 @@ ExecInitExtraTupleSlot is designed for creating additional tuple slots beyond th
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecAllocTableSlot](ExecAllocTableSlot.md): Creates and adds the tuple slot to the tuple table
-  - TupleTableSlotOps: Structure defining slot operations
+  - [TupleTableSlotOps](../T/TupleTableSlotOps.md): Structure defining slot operations
 - Called from (representative examples):
   - [ExecInitNullTupleSlot](ExecInitNullTupleSlot.md): Creating null tuple slots
   - [ExecGetTriggerOldSlot](ExecGetTriggerOldSlot.md): Trigger handling for old row values

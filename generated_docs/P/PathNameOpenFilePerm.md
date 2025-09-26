@@ -22,15 +22,15 @@ PathNameOpenFilePerm is the primary function for opening files within PostgreSQL
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AllocateVfd
-  - ReleaseLruFiles  
-  - BasicOpenFilePerm
-  - FreeVfd
-  - Insert
+  - [AllocateVfd](../A/AllocateVfd.md)
+  - [ReleaseLruFiles](../R/ReleaseLruFiles.md)  
+  - [BasicOpenFilePerm](../B/BasicOpenFilePerm.md)
+  - [FreeVfd](../F/FreeVfd.md)
+  - [Insert](../I/Insert.md)
   - strdup
   - ereport
 - Called from (representative examples):
-  - PathNameOpenFile
+  - [PathNameOpenFile](PathNameOpenFile.md)
 
 ## Notes and Other Information
 This function is central to PostgreSQL's file management architecture, located in src/backend/storage/file/fd.c. It implements a virtual file descriptor system that allows PostgreSQL to manage more files than the kernel limit permits by caching and reusing kernel FDs. The function ensures proper error handling and cleanup, including freeing allocated memory on failure. All descriptors are implicitly marked O_CLOEXEC for security. The saved flags are adjusted (removing O_CREAT, O_TRUNC, O_EXCL) to allow safe re-opening of the file later.

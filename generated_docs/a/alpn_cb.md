@@ -40,7 +40,7 @@ The function uses OpenSSL's  helper function to find a mutually supported protoc
   - SSL_TLSEXT_ERR_ALERT_FATAL (OpenSSL fatal error return code)
   - SSL_TLSEXT_ERR_NOACK (OpenSSL no acknowledgment return code)
 - Called from (representative examples):
-  - be_tls_open_server (registered as ALPN callback)
+  - [be_tls_open_server](../b/be_tls_open_server.md) (registered as ALPN callback)
 
 ## Notes and Other Information
 - This callback implements RFC 7301 (Application-Layer Protocol Negotiation for TLS)

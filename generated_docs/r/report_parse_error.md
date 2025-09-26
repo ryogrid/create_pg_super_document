@@ -34,11 +34,11 @@ The function assumes that  and  have been properly set to identify the current t
   - JSON_SUCCESS (return value for unreachable code path)
 
 - Called from (representative examples):
-  - lex_expect (src/common/jsonapi.c:255)
-  - pg_parse_json_incremental (src/common/jsonapi.c:991)
-  - parse_scalar (src/common/jsonapi.c:1019)
-  - parse_object_field (src/common/jsonapi.c:1068)
-  - parse_object (src/common/jsonapi.c:1166)
+  - [lex_expect](../l/lex_expect.md) (src/common/jsonapi.c:255)
+  - [pg_parse_json_incremental](../p/pg_parse_json_incremental.md) (src/common/jsonapi.c:991)
+  - [parse_scalar](../p/parse_scalar.md) (src/common/jsonapi.c:1019)
+  - [parse_object_field](../p/parse_object_field.md) (src/common/jsonapi.c:1068)
+  - [parse_object](../p/parse_object.md) (src/common/jsonapi.c:1166)
 
 ## Notes and Other Information
 - The function is declared static, meaning it's only accessible within the jsonapi.c file

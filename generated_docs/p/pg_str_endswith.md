@@ -26,8 +26,8 @@ The function uses pointer arithmetic to position at the correct starting point i
   - strlen (standard C library function)
   - strcmp (standard C library function)
 - Called from (representative examples):
-  - StartupReplicationSlots (src/backend/replication/slot.c:1918)
-  - decide_file_action (src/bin/pg_rewind/filemap.c:786)
+  - [StartupReplicationSlots](../S/StartupReplicationSlots.md) (src/backend/replication/slot.c:1918)
+  - [decide_file_action](../d/decide_file_action.md) (src/bin/pg_rewind/filemap.c:786)
 
 ## Notes and Other Information
 - Returns  immediately if the suffix is longer than the main string, providing an efficient early exit

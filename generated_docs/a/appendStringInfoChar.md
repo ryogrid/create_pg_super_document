@@ -20,7 +20,7 @@ The function performs manual buffer management by checking if there's sufficient
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - enlargeStringInfo
+  - [enlargeStringInfo](../e/enlargeStringInfo.md)
 - Called from (representative examples):
   - Not directly referenced by other symbols in the indexed codebase
 

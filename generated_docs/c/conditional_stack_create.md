@@ -20,7 +20,7 @@ This function allocates and initializes a new conditional stack structure used b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_malloc (memory allocation function)
+  - [pg_malloc](../p/pg_malloc.md) (memory allocation function)
   - [ConditionalStackData](../C/ConditionalStackData.md) (structure type being allocated)
 - Called from (representative examples):
   - [CheckConditional](../C/CheckConditional.md) (in pgbench)

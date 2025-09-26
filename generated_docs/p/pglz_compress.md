@@ -32,20 +32,20 @@ The algorithm uses adaptive hash table sizing (512 to 8192 entries) and implemen
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PGLZ_Strategy (strategy configuration structure)
+  - [PGLZ_Strategy](../P/PGLZ_Strategy.md) (strategy configuration structure)
   - PGLZ_MAX_MATCH (maximum match length constant)
-  - pglz_find_match (pattern matching function)
+  - [pglz_find_match](pglz_find_match.md) (pattern matching function)
   - pglz_out_tag (macro to output match tags)
   - pglz_out_literal (macro to output literal bytes)
   - pglz_hist_add (macro to add entries to history table)
 - Called from:
-  - pglz_compress_datum (TOAST compression wrapper)
-  - XLogCompressBackupBlock (WAL compression)
+  - [pglz_compress_datum](pglz_compress_datum.md) (TOAST compression wrapper)
+  - [XLogCompressBackupBlock](../X/XLogCompressBackupBlock.md) (WAL compression)
 
 ## Notes and Other Information
 - Returns compressed size on success, -1 on failure/incompressible data
 - Uses control bytes where each bit indicates literal (0) or match (1) for next 8 items
-- Hash table size automatically selected based on input size for optimal performance
+- [Hash](../H/Hash.md) table size automatically selected based on input size for optimal performance
 - Implements early failure detection for pre-compressed or random data
 - Strategy parameters control match quality, minimum compression ratios, and size limits
 - Critical component of PostgreSQL's TOAST (The Oversized-Attribute Storage Technique) system

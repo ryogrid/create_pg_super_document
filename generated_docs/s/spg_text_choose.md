@@ -39,7 +39,7 @@ The function's output determines whether to match an existing node, split a tupl
   - [commonPrefix](../c/commonPrefix.md) (helper function)
   - [searchChar](searchChar.md) (helper function)
   - [formTextDatum](../f/formTextDatum.md) (helper function)
-  - Int16GetDatum (macro)
+  - [Int16GetDatum](../I/Int16GetDatum.md) (macro)
   - spgSplitTuple, spgMatchNode, spgAddNode (constants)
   - [palloc](../p/palloc.md) (memory allocation)
   - PG_RETURN_VOID (macro)

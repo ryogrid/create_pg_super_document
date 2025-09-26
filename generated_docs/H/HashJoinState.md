@@ -61,8 +61,8 @@ The state machine progresses through different phases: building the hash table f
   - [JoinState](../J/JoinState.md) (base join execution state)
   - [HashJoinTable](HashJoinTable.md) (hash table structure)
   - [HashJoinTuple](HashJoinTuple.md) (individual hash table entries)
-  - ExprState (expression evaluation state)
-  - TupleTableSlot (tuple storage and manipulation)
+  - [ExprState](../E/ExprState.md) (expression evaluation state)
+  - [TupleTableSlot](../T/TupleTableSlot.md) (tuple storage and manipulation)
 - Called from (representative examples):
   - [ExecHashJoinImpl](../E/ExecHashJoinImpl.md)
   - [ExecInitHashJoin](../E/ExecInitHashJoin.md)
@@ -72,7 +72,7 @@ The state machine progresses through different phases: building the hash table f
 
 ## Notes and Other Information
 - The structure inherits from JoinState, making it compatible with generic join processing functions
-- Hash join execution follows a state machine pattern with states like HJ_BUILD_HASHTABLE, HJ_NEED_NEW_OUTER, HJ_SCAN_BUCKET
+- [Hash](Hash.md) join execution follows a state machine pattern with states like HJ_BUILD_HASHTABLE, HJ_NEED_NEW_OUTER, HJ_SCAN_BUCKET
 - Supports both regular and parallel hash join execution through the same interface
 - The various tuple slots enable efficient handling of different join types without unnecessary tuple copying
 - Skew optimization uses separate tracking (hj_CurSkewBucketNo) to handle highly skewed data distributions

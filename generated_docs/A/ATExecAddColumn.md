@@ -40,13 +40,13 @@ The function includes an optimization to avoid full table rewrites when possible
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth
+  - [check_stack_depth](../c/check_stack_depth.md)
   - [ATSimplePermissions](ATSimplePermissions.md)
   - [SearchSysCacheCopyAttName](../S/SearchSysCacheCopyAttName.md)
   - [typenameTypeIdAndMod](../t/typenameTypeIdAndMod.md)
   - [GetColumnDefCollation](../G/GetColumnDefCollation.md)
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
-  - CommandCounterIncrement
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md)
   - [check_for_column_name_collision](../c/check_for_column_name_collision.md)
   - [ATParseTransformCmd](ATParseTransformCmd.md)
   - [BuildDescForRelation](../B/BuildDescForRelation.md)

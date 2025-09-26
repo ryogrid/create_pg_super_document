@@ -43,8 +43,8 @@ AggStatePerAgg is a pointer type that references per-aggregate information struc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AggStatePerAggData
-  - Aggref
+  - [AggStatePerAggData](AggStatePerAggData.md)
+  - [Aggref](Aggref.md)
   - [FmgrInfo](../F/FmgrInfo.md)
   - [List](../L/List.md)
 - Called from (representative examples):

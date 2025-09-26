@@ -25,8 +25,8 @@ The algorithm maintains state for both the current mode candidate and the last p
   - [AggCheckCallContext](../A/AggCheckCallContext.md): Validates aggregate calling context
   - [get_opcode](../g/get_opcode.md): Retrieves procedure OID for equality operator
   - [fmgr_info_cxt](../f/fmgr_info_cxt.md): Initializes function call information
-  - `tuplesort_performsort`: Completes the sorting operation
-  - `tuplesort_rescan`: Resets tuple sort for reading
+  - `[tuplesort_performsort](../t/tuplesort_performsort.md)`: Completes the sorting operation
+  - `[tuplesort_rescan](../t/tuplesort_rescan.md)`: Resets tuple sort for reading
   - [tuplesort_getdatum](../t/tuplesort_getdatum.md): Retrieves next datum from sorted data
   - [FunctionCall2Coll](../F/FunctionCall2Coll.md): Calls equality function with collation
   - `PG_GET_COLLATION`: Gets collation from function call info

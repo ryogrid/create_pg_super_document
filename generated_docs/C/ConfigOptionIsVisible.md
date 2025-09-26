@@ -23,16 +23,16 @@ The function serves as a security gate for sensitive configuration parameters th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - has_privs_of_role (to check if current user has privileges of a specific role)
-  - GetUserId (implicitly called through has_privs_of_role to get current user ID)
+  - [has_privs_of_role](../h/has_privs_of_role.md) (to check if current user has privileges of a specific role)
+  - [GetUserId](../G/GetUserId.md) (implicitly called through has_privs_of_role to get current user ID)
   - GUC_SUPERUSER_ONLY (flag constant identifying restricted parameters)
   - ROLE_PG_READ_ALL_SETTINGS (predefined role OID for configuration access)
-  - config_generic (structure type for GUC parameters)
+  - [config_generic](../c/config_generic.md) (structure type for GUC parameters)
 - Called from (representative examples):
-  - ShowAllGUCConfig (to filter visible parameters in SHOW ALL)
-  - GetConfigOptionByName (to check access before returning parameter values)
-  - show_all_settings (in pg_settings system view)
-  - get_explain_guc_options (for EXPLAIN command parameter display)
+  - [ShowAllGUCConfig](../S/ShowAllGUCConfig.md) (to filter visible parameters in SHOW ALL)
+  - [GetConfigOptionByName](../G/GetConfigOptionByName.md) (to check access before returning parameter values)
+  - [show_all_settings](../s/show_all_settings.md) (in pg_settings system view)
+  - [get_explain_guc_options](../g/get_explain_guc_options.md) (for EXPLAIN command parameter display)
 
 ## Notes and Other Information
 - This function is central to PostgreSQL security model for configuration parameter access

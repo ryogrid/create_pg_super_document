@@ -31,8 +31,8 @@ The function serves as a gate-keeper and setup routine, ensuring that the subseq
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ATTypedTableRecursion](ATTypedTableRecursion.md)
-  - AlterTableCmd (struct)
-  - AlterTableUtilityContext (struct)
+  - [AlterTableCmd](AlterTableCmd.md) (struct)
+  - [AlterTableUtilityContext](AlterTableUtilityContext.md) (struct)
   - RELKIND_COMPOSITE_TYPE (constant)
 - Called from (representative examples):
   - [ATPrepCmd](ATPrepCmd.md)

@@ -22,7 +22,7 @@ The function switches the communication method from the default socket-based app
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - on_dsm_detach
+  - [on_dsm_detach](../o/on_dsm_detach.md)
   - [pq_cleanup_redirect_to_shm_mq](pq_cleanup_redirect_to_shm_mq.md)
   - PqCommMqMethods
   - DestRemote

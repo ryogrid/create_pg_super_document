@@ -19,9 +19,9 @@ This function determines if a role has the BYPASSRLS privilege, which allows the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - superuser_arg
+  - [superuser_arg](../s/superuser_arg.md)
   - Form_pg_authid
-  - Acl
+  - [Acl](../A/Acl.md)
 - Called from (representative examples):
   - [CreateRole](../C/CreateRole.md)
   - [AlterRole](../A/AlterRole.md)

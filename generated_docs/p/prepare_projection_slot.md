@@ -23,7 +23,7 @@ This function modifies a tuple slot in preparation for result projection based o
 - Functions called/Symbols referenced:
   - TTS_EMPTY
   - [ExecStoreAllNullTuple](../E/ExecStoreAllNullTuple.md)
-  - slot_getsomeattrs
+  - [slot_getsomeattrs](../s/slot_getsomeattrs.md)
   - linitial_int
   - lfirst_int
   - [bms_is_member](../b/bms_is_member.md)

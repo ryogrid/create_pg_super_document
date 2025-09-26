@@ -27,7 +27,7 @@ This function takes no parameters and returns void.
 - Functions called/Symbols referenced:
   - [get_encoding_name_for_icu](../g/get_encoding_name_for_icu.md) (maps PostgreSQL encoding to ICU encoding name)
   - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md) (gets current database encoding)
-  - pg_encoding_to_char (converts encoding ID to string for error messages)
+  - [pg_encoding_to_char](../p/pg_encoding_to_char.md) (converts encoding ID to string for error messages)
   - ucnv_open (ICU function to create converter)
   - u_errorName (ICU function to get error name string)
 - Called from (representative examples):

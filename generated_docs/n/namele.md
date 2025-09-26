@@ -21,7 +21,7 @@ Datum namele(PG_FUNCTION_ARGS)
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_NAME` - Macro to extract Name arguments
-  - `namecmp` - Core name comparison function
+  - `[namecmp](namecmp.md)` - Core name comparison function
   - `PG_GET_COLLATION` - Macro to get current collation
   - `PG_RETURN_BOOL` - Macro to return boolean result
 - Called from (representative examples):

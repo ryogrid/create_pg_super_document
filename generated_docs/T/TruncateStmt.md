@@ -34,8 +34,8 @@ TRUNCATE operations require special privileges and have various restrictions, su
 - Functions called/Symbols referenced:
   - DropBehavior
 - Called from (representative examples):
-  - ExecuteTruncate
-  - standard_ProcessUtility
+  - [ExecuteTruncate](../E/ExecuteTruncate.md)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md)
 
 ## Notes and Other Information
 - TRUNCATE is much faster than DELETE because it doesn't scan table rows or generate individual row delete log entries

@@ -22,7 +22,7 @@ This utility function is used internally by the xact description functions to ap
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendStringInfo
+  - [appendStringInfo](../a/appendStringInfo.md)
   - relpathperm
   - [pfree](../p/pfree.md)
   - MAIN_FORKNUM

@@ -26,8 +26,8 @@ This function is useful in scenarios where the existence of a table is uncertain
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - try_relation_open
-  - validate_relation_kind
+  - [try_relation_open](try_relation_open.md)
+  - [validate_relation_kind](../v/validate_relation_kind.md)
 - Called from (representative examples):
   - Functions that need to check table existence conditionally
   - Operations that should continue gracefully if a table is missing

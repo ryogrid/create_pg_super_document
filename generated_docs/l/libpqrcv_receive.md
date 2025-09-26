@@ -29,7 +29,7 @@ The function implements a two-step approach: first attempting to receive data di
   - [PQsocket](../P/PQsocket.md) (to get socket descriptor for waiting)
   - [libpqrcv_PQgetResult](libpqrcv_PQgetResult.md) (to get command results on stream end)
   - [PQresultStatus](../P/PQresultStatus.md) (to check result status)
-  - PQstatus (to check connection status)
+  - [PQstatus](../P/PQstatus.md) (to check connection status)
   - [PQclear](../P/PQclear.md) (to clean up result objects)
   - [pchomp](../p/pchomp.md) (to format error messages)
 - Used by:

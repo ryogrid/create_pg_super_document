@@ -21,9 +21,9 @@ This function implements the core recursive directory traversal logic for Postgr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - opendir (directory operations)
-  - readdir (directory entry reading) 
-  - closedir (directory cleanup)
+  - [opendir](../o/opendir.md) (directory operations)
+  - [readdir](readdir.md) (directory entry reading) 
+  - [closedir](../c/closedir.md) (directory cleanup)
   - lstat (file status information)
   - readlink (symlink target reading)
   - S_ISREG, S_ISDIR, S_ISLNK (file type macros)

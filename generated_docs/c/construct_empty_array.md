@@ -26,7 +26,7 @@ The resulting array has ndim set to 0, dataoffset set to 0 (indicating no null b
 - Called from (representative examples):
   - [construct_md_array](construct_md_array.md)
   - [construct_empty_expanded_array](construct_empty_expanded_array.md)
-  - pg_identify_object_as_address
+  - [pg_identify_object_as_address](../p/pg_identify_object_as_address.md)
   - [pg_event_trigger_dropped_objects](../p/pg_event_trigger_dropped_objects.md)
   - [transformGenericOptions](../t/transformGenericOptions.md)
   - [ExecEvalArrayExpr](../E/ExecEvalArrayExpr.md)
@@ -35,7 +35,7 @@ The resulting array has ndim set to 0, dataoffset set to 0 (indicating no null b
   - [array_recv](../a/array_recv.md)
   - [array_get_slice](../a/array_get_slice.md)
   - [array_map](../a/array_map.md)
-  - makeArrayResultArr
+  - [makeArrayResultArr](../m/makeArrayResultArr.md)
   - [array_fill_internal](../a/array_fill_internal.md)
   - [array_replace_internal](../a/array_replace_internal.md)
   - [array_subscript_assign](../a/array_subscript_assign.md)

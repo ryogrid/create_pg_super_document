@@ -29,12 +29,12 @@ The function includes an assertion to ensure it's only called in a backend that 
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert (for precondition checking)
-  - GetComboCommandId (to recreate combo CIDs)
+  - [GetComboCommandId](../G/GetComboCommandId.md) (to recreate combo CIDs)
   - elog (for error reporting)
-  - ComboCidKeyData (structure type)
+  - [ComboCidKeyData](../C/ComboCidKeyData.md) (structure type)
   - CommandId (type definition)
 - Called from (representative examples):
-  - ParallelWorkerMain (during parallel worker initialization)
+  - [ParallelWorkerMain](../P/ParallelWorkerMain.md) (during parallel worker initialization)
   - COMBOCID_H (header file inclusion)
 
 ## Notes and Other Information

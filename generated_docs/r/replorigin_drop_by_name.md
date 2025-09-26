@@ -31,11 +31,11 @@ The function must be called within a valid transaction context and maintains pro
 ## Dependencies
 - Functions called/Symbols referenced:
   - [IsTransactionState](../I/IsTransactionState.md): Verifies the function is called within a transaction
-  - `replorigin_by_name`: Resolves the origin name to its internal ID
+  - `[replorigin_by_name](replorigin_by_name.md)`: Resolves the origin name to its internal ID
   - [LockSharedObject](../L/LockSharedObject.md): Acquires exclusive lock on the origin
-  - `replorigin_state_clear`: Clears replication state for the origin
+  - `[replorigin_state_clear](replorigin_state_clear.md)`: Clears replication state for the origin
   - [CatalogTupleDelete](../C/CatalogTupleDelete.md): Removes the catalog entry
-  - `CommandCounterIncrement`: Makes changes visible within the transaction
+  - `[CommandCounterIncrement](../C/CommandCounterIncrement.md)`: Makes changes visible within the transaction
 - Called from (representative examples):
   - [DropSubscription](../D/DropSubscription.md): When dropping logical replication subscriptions
   - [pg_replication_origin_drop](../p/pg_replication_origin_drop.md): SQL function wrapper for dropping origins

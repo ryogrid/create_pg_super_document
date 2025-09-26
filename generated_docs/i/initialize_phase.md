@@ -21,10 +21,10 @@ This function manages phase transitions in multi-phase aggregate operations, par
 ## Dependencies
 - Functions called/Symbols referenced:
   - [AggState](../A/AggState.md) (struct type)
-  - tuplesort_end
-  - tuplesort_performsort
+  - [tuplesort_end](../t/tuplesort_end.md)
+  - [tuplesort_performsort](../t/tuplesort_performsort.md)
   - [tuplesort_begin_heap](../t/tuplesort_begin_heap.md)
-  - Sort (struct type)
+  - [Sort](../S/Sort.md) (struct type)
   - outerPlanState
   - [ExecGetResultType](../E/ExecGetResultType.md)
   - TUPLESORT_NONE

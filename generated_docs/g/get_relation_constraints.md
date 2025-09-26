@@ -42,8 +42,8 @@ All constraint expressions undergo the same preprocessing as qual clauses in  to
   - [ChangeVarNodes](../C/ChangeVarNodes.md)
   - [list_concat](../l/list_concat.md)
   - [make_ands_implicit](../m/make_ands_implicit.md)
-  - NullTest
-  - makeVar
+  - [NullTest](../N/NullTest.md)
+  - [makeVar](../m/makeVar.md)
   - [set_baserel_partition_constraint](../s/set_baserel_partition_constraint.md)
 - Called from (representative examples):
   - [relation_excluded_by_constraints](../r/relation_excluded_by_constraints.md)

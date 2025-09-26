@@ -29,9 +29,9 @@ This function is fundamental to the GEQO system as it sets up the data structure
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc](../p/palloc.md) (PostgreSQL memory allocation function)
-  - Pool (struct type for genetic algorithm pool)
-  - Chromosome (struct type for individual solutions)
-  - Gene (type for genetic algorithm genes)
+  - [Pool](../P/Pool.md) (struct type for genetic algorithm pool)
+  - [Chromosome](../C/Chromosome.md) (struct type for individual solutions)
+  - [Gene](../G/Gene.md) (type for genetic algorithm genes)
 - Called from (representative examples):
   - [geqo](../g/geqo.md) (main GEQO optimization function)
 

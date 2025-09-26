@@ -32,14 +32,14 @@ The function properly handles parameter passing for correlated subqueries, memor
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initArrayResultAny/accumArrayResultAny/makeArrayResultAny (array building for ARRAY_SUBLINK)
-  - ExecEvalExprSwitchContext (parameter evaluation with context switching)
+  - [initArrayResultAny](../i/initArrayResultAny.md)/accumArrayResultAny/makeArrayResultAny (array building for ARRAY_SUBLINK)
+  - [ExecEvalExprSwitchContext](ExecEvalExprSwitchContext.md) (parameter evaluation with context switching)
   - [ExecReScan](ExecReScan.md) (resetting subplan for re-execution)
-  - ExecProcNode (fetching tuples from subplan)
-  - ExecCopySlotHeapTuple (copying tuples for pass-by-ref data)
+  - [ExecProcNode](ExecProcNode.md) (fetching tuples from subplan)
+  - [ExecCopySlotHeapTuple](ExecCopySlotHeapTuple.md) (copying tuples for pass-by-ref data)
   - [heap_getattr](../h/heap_getattr.md) (extracting column values from tuples)
   - [heap_freetuple](../h/heap_freetuple.md) (freeing copied tuples)
-  - slot_getattr (extracting values from tuple slots)
+  - [slot_getattr](../s/slot_getattr.md) (extracting values from tuple slots)
   - [ParamExecData](../P/ParamExecData.md) (parameter execution data structure)
 - Called from (representative examples):
   - [ExecSubPlan](ExecSubPlan.md) (in nodeSubplan.c:89)

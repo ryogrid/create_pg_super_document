@@ -34,16 +34,16 @@ The function sets the magic number that identifies this as an expanded object he
   - VARTAG_EXPANDED_RW
   - VARTAG_EXPANDED_RO
 - Types referenced:
-  - ExpandedObjectHeader
-  - ExpandedObjectMethods
-  - varatt_expanded
-  - MemoryContext
+  - [ExpandedObjectHeader](ExpandedObjectHeader.md)
+  - [ExpandedObjectMethods](ExpandedObjectMethods.md)
+  - [varatt_expanded](../v/varatt_expanded.md)
+  - [MemoryContext](../M/MemoryContext.md)
 - Called from (representative examples):
-  - expand_array
-  - make_expanded_record_from_typeid
-  - make_expanded_record_from_tupdesc
-  - make_expanded_record_from_exprecord
-  - make_expanded_record_from_datum
+  - [expand_array](../e/expand_array.md)
+  - [make_expanded_record_from_typeid](../m/make_expanded_record_from_typeid.md)
+  - [make_expanded_record_from_tupdesc](../m/make_expanded_record_from_tupdesc.md)
+  - [make_expanded_record_from_exprecord](../m/make_expanded_record_from_exprecord.md)
+  - [make_expanded_record_from_datum](../m/make_expanded_record_from_datum.md)
 
 ## Notes and Other Information
 - The function creates two TOAST pointers: one for read-write access (VARTAG_EXPANDED_RW) and one for read-only access (VARTAG_EXPANDED_RO)

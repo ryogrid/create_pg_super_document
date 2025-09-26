@@ -39,12 +39,12 @@ Key operational aspects:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open/try_table_open: Opens the target relation
+  - [table_open](../t/table_open.md)/try_table_open: Opens the target relation
   - [RelationGetIndexList](../R/RelationGetIndexList.md): Retrieves list of all indexes for the relation
   - [SetReindexPending](../S/SetReindexPending.md): Marks indexes as pending rebuild
   - [RemoveReindexPending](../R/RemoveReindexPending.md): Removes indexes from pending rebuild list
   - [reindex_index](reindex_index.md): Performs individual index reconstruction
-  - CommandCounterIncrement: Ensures transaction visibility
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md): Ensures transaction visibility
   - [IsToastNamespace](../I/IsToastNamespace.md): Checks if index belongs to toast table
   - [get_index_isvalid](../g/get_index_isvalid.md): Validates index state
   - [ReindexIsProcessingIndex](../R/ReindexIsProcessingIndex.md): Checks if index is currently being processed

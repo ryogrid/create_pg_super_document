@@ -30,16 +30,16 @@ The path leverages the fact that if multiple input streams are already sorted on
 - Functions called/Symbols referenced:
   - Cardinality
 - Called from (representative examples):
-  - ExecSupportsMarkRestore
-  - accumulate_append_subpath
-  - get_singleton_append_subpath
-  - create_plan_recurse
-  - create_merge_append_plan
-  - create_merge_append_path
-  - get_param_path_clause_serials
+  - [ExecSupportsMarkRestore](../E/ExecSupportsMarkRestore.md)
+  - [accumulate_append_subpath](../a/accumulate_append_subpath.md)
+  - [get_singleton_append_subpath](../g/get_singleton_append_subpath.md)
+  - [create_plan_recurse](../c/create_plan_recurse.md)
+  - [create_merge_append_plan](../c/create_merge_append_plan.md)
+  - [create_merge_append_path](../c/create_merge_append_path.md)
+  - [get_param_path_clause_serials](../g/get_param_path_clause_serials.md)
 
 ## Notes and Other Information
-- MergeAppend is more efficient than Append + Sort when input paths are already sorted
+- [MergeAppend](MergeAppend.md) is more efficient than Append + Sort when input paths are already sorted
 - The planner automatically inserts Sort nodes for subpaths that are not adequately ordered
 - Cost calculation considers whether subpaths need additional sorting
 - If there is only one subpath with matching parallel awareness, the MergeAppend becomes a no-op and may be eliminated

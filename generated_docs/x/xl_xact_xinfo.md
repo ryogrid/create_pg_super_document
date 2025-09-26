@@ -43,10 +43,10 @@ The xinfo field uses a 32-bit integer to provide alignment benefits, even though
 - Functions called/Symbols referenced:
   - uint32 (standard type)
 - Called from (representative examples):
-  - ParseCommitRecord (parses xinfo flags from WAL records)
-  - ParseAbortRecord (parses xinfo flags from abort records)
-  - XactLogCommitRecord (creates commit records with xinfo)
-  - XactLogAbortRecord (creates abort records with xinfo)
+  - [ParseCommitRecord](../P/ParseCommitRecord.md) (parses xinfo flags from WAL records)
+  - [ParseAbortRecord](../P/ParseAbortRecord.md) (parses xinfo flags from abort records)
+  - [XactLogCommitRecord](../X/XactLogCommitRecord.md) (creates commit records with xinfo)
+  - [XactLogAbortRecord](../X/XactLogAbortRecord.md) (creates abort records with xinfo)
 
 ## Notes and Other Information
 - Located in src/include/access/xact.h:244-253

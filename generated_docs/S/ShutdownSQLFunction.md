@@ -28,9 +28,9 @@ ShutdownSQLFunction is a critical cleanup callback function in PostgreSQL's SQL 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DatumGetPointer](../D/DatumGetPointer.md)
-  - PushActiveSnapshot
+  - [PushActiveSnapshot](../P/PushActiveSnapshot.md)
   - [postquel_end](../p/postquel_end.md)
-  - PopActiveSnapshot
+  - [PopActiveSnapshot](../P/PopActiveSnapshot.md)
   - [tuplestore_end](../t/tuplestore_end.md)
 - Called from (representative examples):
   - [fmgr_sql](../f/fmgr_sql.md) (during function execution setup and cleanup)

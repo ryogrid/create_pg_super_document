@@ -29,9 +29,9 @@ The function supports two reporting modes: terminating processes that own invali
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initStringInfo
-  - appendStringInfo
-  - appendStringInfoString
+  - [initStringInfo](../i/initStringInfo.md)
+  - [appendStringInfo](../a/appendStringInfo.md)
+  - [appendStringInfoString](../a/appendStringInfoString.md)
   - ngettext
   - LSN_FORMAT_ARGS
   - ereport

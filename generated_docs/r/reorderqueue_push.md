@@ -24,10 +24,10 @@ The function allocates memory for the ReorderTuple and copies the heap tuple fro
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecCopySlotHeapTuple
+  - [ExecCopySlotHeapTuple](../E/ExecCopySlotHeapTuple.md)
   - [palloc](../p/palloc.md)
   - [datumCopy](../d/datumCopy.md)
-  - pairingheap_add
+  - [pairingheap_add](../p/pairingheap_add.md)
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
 - Called from (representative examples):
   - [IndexNextWithReorder](../I/IndexNextWithReorder.md)

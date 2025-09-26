@@ -19,10 +19,10 @@ The `injection_points_attach` function provides the primary interface for creati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - text_to_cstring
+  - [text_to_cstring](../t/text_to_cstring.md)
   - [InjectionPointAttach](../I/InjectionPointAttach.md)
   - [makeString](../m/makeString.md)
-  - lappend
+  - [lappend](../l/lappend.md)
   - [pstrdup](../p/pstrdup.md)
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - PG_RETURN_VOID

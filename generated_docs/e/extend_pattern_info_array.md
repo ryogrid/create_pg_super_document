@@ -26,7 +26,7 @@ The function handles memory management safely by using pg_realloc, which will te
 - Functions called/Symbols referenced:
   - [PatternInfoArray](../P/PatternInfoArray.md) (struct type)
   - [PatternInfo](../P/PatternInfo.md) (struct type)
-  - pg_realloc
+  - [pg_realloc](../p/pg_realloc.md)
   - memset
 - Called from:
   - [append_database_pattern](../a/append_database_pattern.md) (at src/bin/pg_amcheck/pg_amcheck.c:1360)

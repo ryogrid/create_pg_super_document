@@ -19,11 +19,11 @@ This function constructs command-line connection parameters that can be used wit
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - createPQExpBuffer
+  - [createPQExpBuffer](createPQExpBuffer.md)
   - [resetPQExpBuffer](../r/resetPQExpBuffer.md)
   - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
   - [appendShellString](../a/appendShellString.md)
-  - appendPQExpBufferChar
+  - [appendPQExpBufferChar](../a/appendPQExpBufferChar.md)
   - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
 - Called from (representative examples):
   - [generate_old_dump](../g/generate_old_dump.md)

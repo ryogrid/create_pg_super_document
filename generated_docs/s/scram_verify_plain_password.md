@@ -34,11 +34,11 @@ This function is critical for supporting mixed authentication modes where users 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [parse_scram_secret](../p/parse_scram_secret.md)
-  - pg_b64_dec_len
-  - pg_b64_decode
+  - [pg_b64_dec_len](../p/pg_b64_dec_len.md)
+  - [pg_b64_decode](../p/pg_b64_decode.md)
   - [pg_saslprep](../p/pg_saslprep.md)
-  - scram_SaltedPassword
-  - scram_ServerKey
+  - [scram_SaltedPassword](scram_SaltedPassword.md)
+  - [scram_ServerKey](scram_ServerKey.md)
   - [palloc](../p/palloc.md)
   - [pfree](../p/pfree.md)
   - memcmp

@@ -45,7 +45,7 @@ BeginCopyTo performs comprehensive setup for COPY TO operations by creating a Co
   - [pgstat_progress_start_command](../p/pgstat_progress_start_command.md)
 - Called from (representative examples):
   - [DoCopy](../D/DoCopy.md)
-  - test_copy_to_callback
+  - [test_copy_to_callback](../t/test_copy_to_callback.md)
 
 ## Notes and Other Information
 The function performs extensive validation on relation types, rejecting views, materialized views, foreign tables, sequences, and partitioned tables with helpful error messages suggesting alternatives. It handles encoding conversion setup and creates appropriate output destinations based on the parameters. The function integrates with PostgreSQL's progress reporting system and properly manages memory contexts to avoid leaks. When dealing with RLS-enabled relations, it automatically converts simple relation copies to query-based copies to allow proper security clause application.

@@ -30,7 +30,7 @@ This function is responsible for opening a new file within a TAR archive for wri
   - [tar_write_padding_data](tar_write_padding_data.md) (padding data writer)
   - deflateInit2, deflateParams (zlib compression functions)
   - lseek, write (file I/O system calls)
-  - pg_malloc0, pg_malloc, pg_free, pg_strdup (PostgreSQL memory functions)
+  - [pg_malloc0](../p/pg_malloc0.md), pg_malloc, pg_free, pg_strdup (PostgreSQL memory functions)
   - Various constants: PG_COMPRESSION_GZIP, PG_COMPRESSION_NONE, TAR_BLOCK_SIZE, etc.
 - Called from:
   - [CreateWalDirectoryMethod](../C/CreateWalDirectoryMethod.md) (as function pointer assignment)

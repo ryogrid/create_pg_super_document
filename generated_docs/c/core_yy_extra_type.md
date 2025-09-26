@@ -86,7 +86,7 @@ The structure manages various aspects of SQL tokenization including buffer manag
 - `saw_non_ascii`: State variable tracking non-ASCII characters in literals
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ScanKeywordList
+  - [ScanKeywordList](../S/ScanKeywordList.md)
   - YYLTYPE
 - Called from (representative examples):
   - [base_yy_extra_type](../b/base_yy_extra_type.md)

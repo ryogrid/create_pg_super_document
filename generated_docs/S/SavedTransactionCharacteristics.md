@@ -30,11 +30,11 @@ The structure works in conjunction with SaveTransactionCharacteristics() and Res
 - Functions called/Symbols referenced:
   - (None - this is a data structure)
 - Called from (representative examples):
-  - SaveTransactionCharacteristics
-  - RestoreTransactionCharacteristics
-  - CommitTransactionCommandInternal
-  - _SPI_commit
-  - _SPI_rollback
+  - [SaveTransactionCharacteristics](SaveTransactionCharacteristics.md)
+  - [RestoreTransactionCharacteristics](../R/RestoreTransactionCharacteristics.md)
+  - [CommitTransactionCommandInternal](../C/CommitTransactionCommandInternal.md)
+  - [_SPI_commit](_SPI_commit.md)
+  - [_SPI_rollback](_SPI_rollback.md)
 
 ## Notes and Other Information
 - Located in src/include/access/xact.h:152-157

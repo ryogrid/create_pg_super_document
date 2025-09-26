@@ -22,7 +22,7 @@ This static helper function extends the 2D containment test to 4D space for rect
 - Functions called/Symbols referenced:
   - [contain2D](contain2D.md) (called twice for X and Y dimensions)
   - RectBox (structure type)
-  - RangeBox (structure type)
+  - [RangeBox](../R/RangeBox.md) (structure type)
 - Called from (representative examples):
   - [spg_box_quad_inner_consistent](../s/spg_box_quad_inner_consistent.md)
 

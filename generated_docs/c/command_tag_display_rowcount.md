@@ -26,7 +26,7 @@ The function performs a direct lookup into the tag_behavior array to retrieve th
   - tag_behavior (static array of CommandTagBehavior structs)
 - Called from (representative examples):
   - [BuildQueryCompletionString](../B/BuildQueryCompletionString.md) (src/backend/tcop/cmdtag.c:146)
-  - CopyQueryCompletion (src/include/tcop/cmdtag.h:55)
+  - [CopyQueryCompletion](../C/CopyQueryCompletion.md) (src/include/tcop/cmdtag.h:55)
 
 ## Notes and Other Information
 - Returns true for DML commands that typically process multiple rows: SELECT, INSERT, UPDATE, DELETE, COPY, FETCH, MOVE, MERGE

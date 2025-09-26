@@ -28,16 +28,16 @@ The serialization process involves writing array header information (dimensions,
   - AARR_DIMS
   - AARR_LBOUND
   - AARR_HASNULL
-  - ArrayGetNItems
+  - [ArrayGetNItems](../A/ArrayGetNItems.md)
   - [get_type_io_data](../g/get_type_io_data.md)
   - IOFunc_send
   - [fmgr_info_cxt](../f/fmgr_info_cxt.md)
   - [pq_begintypsend](../p/pq_begintypsend.md)
   - [pq_sendint32](../p/pq_sendint32.md)
-  - array_iter_setup
-  - array_iter_next
+  - [array_iter_setup](array_iter_setup.md)
+  - [array_iter_next](array_iter_next.md)
   - [SendFunctionCall](../S/SendFunctionCall.md)
-  - pq_sendbytes
+  - [pq_sendbytes](../p/pq_sendbytes.md)
   - [pq_endtypsend](../p/pq_endtypsend.md)
   - VARSIZE
   - VARDATA

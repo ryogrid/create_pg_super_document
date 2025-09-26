@@ -37,7 +37,7 @@ This function displays the specific grouping keys for individual grouping sets w
   - [deparse_expression](../d/deparse_expression.md): Converts expression nodes to readable string representation
   - `lfirst`: List traversal macro for accessing list elements
   - `lfirst_int`: List traversal macro for integer elements
-  - `lappend`: Appends elements to lists
+  - `[lappend](../l/lappend.md)`: Appends elements to lists
   - `elog`: Error logging function for missing target entries
   - Constants: `AGG_HASHED`, `AGG_MIXED`, `EXPLAIN_FORMAT_TEXT`, `NIL`
 - Called from (representative examples):

@@ -29,20 +29,20 @@ The caller must pre-initialize the SortSupport structure by zeroing it and setti
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SortSupport (type)
-  - get_ordering_op_properties
+  - [SortSupport](../S/SortSupport.md) (type)
+  - [get_ordering_op_properties](../g/get_ordering_op_properties.md)
   - BTGreaterStrategyNumber
-  - FinishSortSupportFunction
+  - [FinishSortSupportFunction](../F/FinishSortSupportFunction.md)
 - Called from:
-  - compute_scalar_stats (at src/backend/commands/analyze.c:2397)
-  - ExecInitGatherMerge (at src/backend/executor/nodeGatherMerge.c:165)
-  - ExecInitIndexScan (at src/backend/executor/nodeIndexscan.c:1030)
-  - ExecInitMergeAppend (at src/backend/executor/nodeMergeAppend.c:182)
-  - multi_sort_add_dimension (at src/backend/statistics/extended_stats.c:860)
-  - statext_mcv_serialize (at src/backend/statistics/mcv.c:693)
-  - tuplesort_begin_heap (at src/backend/utils/sort/tuplesortvariants.c:225)
-  - tuplesort_begin_datum (at src/backend/utils/sort/tuplesortvariants.c:647)
-  - ApplySortAbbrevFullComparator (at src/include/utils/sortsupport.h:386)
+  - [compute_scalar_stats](../c/compute_scalar_stats.md) (at src/backend/commands/analyze.c:2397)
+  - [ExecInitGatherMerge](../E/ExecInitGatherMerge.md) (at src/backend/executor/nodeGatherMerge.c:165)
+  - [ExecInitIndexScan](../E/ExecInitIndexScan.md) (at src/backend/executor/nodeIndexscan.c:1030)
+  - [ExecInitMergeAppend](../E/ExecInitMergeAppend.md) (at src/backend/executor/nodeMergeAppend.c:182)
+  - [multi_sort_add_dimension](../m/multi_sort_add_dimension.md) (at src/backend/statistics/extended_stats.c:860)
+  - [statext_mcv_serialize](../s/statext_mcv_serialize.md) (at src/backend/statistics/mcv.c:693)
+  - [tuplesort_begin_heap](../t/tuplesort_begin_heap.md) (at src/backend/utils/sort/tuplesortvariants.c:225)
+  - [tuplesort_begin_datum](../t/tuplesort_begin_datum.md) (at src/backend/utils/sort/tuplesortvariants.c:647)
+  - [ApplySortAbbrevFullComparator](../A/ApplySortAbbrevFullComparator.md) (at src/include/utils/sortsupport.h:386)
 
 ## Notes and Other Information
 - This is a public function, part of PostgreSQL's sort support API

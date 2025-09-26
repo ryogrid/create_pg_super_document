@@ -32,7 +32,7 @@ JsonAggState serves as the accumulator state for PostgreSQL's JSON aggregation f
 ## Dependencies
 - Functions called/Symbols referenced:
   - JsonTypeCategory
-  - JsonUniqueBuilderState
+  - [JsonUniqueBuilderState](JsonUniqueBuilderState.md)
   - StringInfo
   - Oid
 - Called from (representative examples):

@@ -33,17 +33,17 @@ The function handles the transition between posting list tuples and standard tup
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BTreeTupleGetNPosting
-  - _bt_posting_valid
-  - BTreeTupleGetPostingOffset
-  - palloc0
-  - BTreeTupleSetPosting
-  - BTreeTupleGetPosting
-  - BTreeTupleGetPostingN
-  - ItemPointerIsValid
+  - [BTreeTupleGetNPosting](../B/BTreeTupleGetNPosting.md)
+  - [_bt_posting_valid](_bt_posting_valid.md)
+  - [BTreeTupleGetPostingOffset](../B/BTreeTupleGetPostingOffset.md)
+  - [palloc0](../p/palloc0.md)
+  - [BTreeTupleSetPosting](../B/BTreeTupleSetPosting.md)
+  - [BTreeTupleGetPosting](../B/BTreeTupleGetPosting.md)
+  - [BTreeTupleGetPostingN](../B/BTreeTupleGetPostingN.md)
+  - [ItemPointerIsValid](../I/ItemPointerIsValid.md)
 - Called from:
-  - _bt_delitems_update
-  - btree_xlog_updates
+  - [_bt_delitems_update](_bt_delitems_update.md)
+  - [btree_xlog_updates](btree_xlog_updates.md)
 
 ## Notes and Other Information
 - This is a non-static function in the nbtdedup.c module, available to other B-tree components

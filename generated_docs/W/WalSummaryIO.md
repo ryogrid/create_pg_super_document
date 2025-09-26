@@ -28,11 +28,11 @@ The structure acts as a callback argument for I/O operations, allowing functions
 - Functions called/Symbols referenced:
   - File (PostgreSQL file descriptor type from storage/fd.h)
 - Called from (representative examples):
-  - PrepareForIncrementalBackup
-  - ReadWalSummary
-  - WriteWalSummary
-  - pg_wal_summary_contents
-  - SummarizeWAL
+  - [PrepareForIncrementalBackup](../P/PrepareForIncrementalBackup.md)
+  - [ReadWalSummary](../R/ReadWalSummary.md)
+  - [WriteWalSummary](WriteWalSummary.md)
+  - [pg_wal_summary_contents](../p/pg_wal_summary_contents.md)
+  - [SummarizeWAL](../S/SummarizeWAL.md)
 
 ## Notes and Other Information
 - Used as a callback argument structure for WAL summary I/O operations

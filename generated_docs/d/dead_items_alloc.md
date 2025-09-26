@@ -21,7 +21,7 @@ This function handles the allocation of data structures needed to track dead tup
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - VacDeadItemsInfo
+  - [VacDeadItemsInfo](../V/VacDeadItemsInfo.md)
   - AmAutoVacuumWorkerProcess
   - RelationUsesLocalBuffers
   - [parallel_vacuum_init](../p/parallel_vacuum_init.md)

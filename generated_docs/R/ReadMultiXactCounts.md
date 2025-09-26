@@ -23,8 +23,8 @@ The counts are calculated by taking the difference between the next and oldest v
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire
-  - LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - MultiXactGenLock
   - MultiXactState (shared memory structure)
   - LW_SHARED

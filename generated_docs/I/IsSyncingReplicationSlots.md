@@ -26,9 +26,9 @@ This function takes no parameters.
 - Functions called/Symbols referenced:
   - syncing_slots (static variable)
 - Called from (representative examples):
-  - CreateDecodingContext
-  - ReplicationSlotCreate
-  - GetStandbyFlushRecPtr
+  - [CreateDecodingContext](../C/CreateDecodingContext.md)
+  - [ReplicationSlotCreate](../R/ReplicationSlotCreate.md)
+  - [GetStandbyFlushRecPtr](../G/GetStandbyFlushRecPtr.md)
 
 ## Notes and Other Information
 - This function can be called by both slot sync workers and backend processes executing the  SQL function

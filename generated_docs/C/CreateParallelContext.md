@@ -23,7 +23,7 @@ The parallel context tracks the library and function name that workers will exec
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsInParallelMode (validates parallel mode is active)
+  - [IsInParallelMode](../I/IsInParallelMode.md) (validates parallel mode is active)
   - [GetCurrentSubTransactionId](../G/GetCurrentSubTransactionId.md) (tracks transaction context)
   - shm_toc_initialize_estimator (initializes shared memory estimator)
   - [dlist_push_head](../d/dlist_push_head.md) (adds context to global list)

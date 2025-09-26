@@ -30,7 +30,7 @@ The function distinguishes itself from PSQLexec() by being designed for user-fac
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQtransactionStatus
+  - [PQtransactionStatus](../P/PQtransactionStatus.md)
   - [command_no_begin](../c/command_no_begin.md)
   - [PQexec](../P/PQexec.md)
   - [DescribeQuery](../D/DescribeQuery.md)

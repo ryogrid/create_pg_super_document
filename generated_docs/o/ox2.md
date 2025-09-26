@@ -33,8 +33,8 @@ The algorithm works in several phases:
 ## Dependencies
 - Functions called/Symbols referenced:
   - [geqo_randint](../g/geqo_randint.md) (for random number generation)
-  - Gene (typedef for int representing a city/relation)
-  - City (struct with used and select_list fields)
+  - [Gene](../G/Gene.md) (typedef for int representing a city/relation)
+  - [City](../C/City.md) (struct with used and select_list fields)
 - Called from (representative examples):
   - [geqo](../g/geqo.md) (main genetic algorithm function in geqo_main.c:216)
 

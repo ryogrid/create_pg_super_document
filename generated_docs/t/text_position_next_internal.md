@@ -27,7 +27,7 @@ The  function is the low-level implementation of the Boyer-Moore-Horspool string
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TextPositionState structure fields (haystack, needle, lengths, skip table)
+  - [TextPositionState](../T/TextPositionState.md) structure fields (haystack, needle, lengths, skip table)
 - Called from (representative examples):
   -  - High-level search iteration with multibyte handling
 

@@ -26,7 +26,7 @@ The function is similar to expand_vacuum_rel but is specifically designed for cl
   - [cluster_is_permitted_for_relation](../c/cluster_is_permitted_for_relation.md)
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - [palloc](../p/palloc.md)
-  - lappend
+  - [lappend](../l/lappend.md)
 - Called from (representative examples):
   - [cluster](../c/cluster.md)
 

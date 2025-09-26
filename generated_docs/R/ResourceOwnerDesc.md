@@ -43,7 +43,7 @@ The structure defines when and how resources should be released during transacti
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceReleasePhase
+  - [ResourceReleasePhase](ResourceReleasePhase.md)
   - ResourceReleasePriority
   - Datum (for resource values)
 - Called from (representative examples):
@@ -52,7 +52,7 @@ The structure defines when and how resources should be released during transacti
   - Test modules for resource owner functionality
 
 ## Notes and Other Information
-- ResourceOwnerDesc instances are typically defined as static const structures by subsystems that manage resources
+- [ResourceOwnerDesc](ResourceOwnerDesc.md) instances are typically defined as static const structures by subsystems that manage resources
 - The callbacks must be safe to call during error recovery and transaction abort scenarios
 - Extensions can define custom resource types by providing their own ResourceOwnerDesc
 - The priority system allows fine-grained control over resource release ordering, which is critical for avoiding circular dependencies during cleanup

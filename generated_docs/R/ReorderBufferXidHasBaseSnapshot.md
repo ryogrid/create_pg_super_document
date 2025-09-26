@@ -23,7 +23,7 @@ This function determines whether a given transaction has already been assigned a
 - Called from (representative examples):
   - [SnapBuildProcessChange](../S/SnapBuildProcessChange.md)
   - [SnapBuildDistributeSnapshotAndInval](../S/SnapBuildDistributeSnapshotAndInval.md)
-  - SnapBuildCommitTxn
+  - [SnapBuildCommitTxn](../S/SnapBuildCommitTxn.md)
 
 ## Notes and Other Information
 - Returns false if the transaction is not found in the reorder buffer

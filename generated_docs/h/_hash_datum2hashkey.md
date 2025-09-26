@@ -28,7 +28,7 @@ The function extracts the hash function information from the index relation's me
   - [DatumGetUInt32](../D/DatumGetUInt32.md) (extracts uint32 result from function call)
 - Called from (representative examples):
   - [_hash_first](_hash_first.md) (in hashsearch.c at line 340)
-  - _hash_convert_tuple (in hashutil.c at line 331)
+  - [_hash_convert_tuple](_hash_convert_tuple.md) (in hashutil.c at line 331)
 
 ## Notes and Other Information
 - Currently assumes single-attribute indexes (XXX comment indicates this limitation)

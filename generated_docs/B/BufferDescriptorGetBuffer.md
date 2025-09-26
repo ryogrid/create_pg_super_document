@@ -26,10 +26,10 @@ This inline function performs the inverse operation of converting a buffer ID to
   - [InvalidateBuffer](../I/InvalidateBuffer.md)
   - [GetVictimBuffer](../G/GetVictimBuffer.md)
   - [ExtendBufferedRelShared](../E/ExtendBufferedRelShared.md)
-  - PinBuffer
-  - UnpinBuffer
-  - StartBufferIO
-  - TerminateBufferIO
+  - [PinBuffer](../P/PinBuffer.md)
+  - [UnpinBuffer](../U/UnpinBuffer.md)
+  - [StartBufferIO](../S/StartBufferIO.md)
+  - [TerminateBufferIO](../T/TerminateBufferIO.md)
 
 ## Notes and Other Information
 - This is an inline function for performance optimization, avoiding function call overhead

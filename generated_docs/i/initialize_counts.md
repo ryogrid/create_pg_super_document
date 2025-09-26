@@ -22,10 +22,10 @@ The function is implemented as a static inline function for performance, as it's
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SetOpStatePerGroup (typedef structure)
+  - [SetOpStatePerGroup](../S/SetOpStatePerGroup.md) (typedef structure)
 - Called from (representative examples):
-  - setop_retrieve_direct
-  - setop_fill_hash_table
+  - [setop_retrieve_direct](../s/setop_retrieve_direct.md)
+  - [setop_fill_hash_table](../s/setop_fill_hash_table.md)
 
 ## Notes and Other Information
 - This function is part of the SetOp executor node implementation in PostgreSQL

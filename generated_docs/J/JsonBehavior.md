@@ -37,21 +37,21 @@ The structure includes an expression that will be evaluated when the specified b
 - Functions called/Symbols referenced:
   - JsonBehaviorType
   - ParseLoc
-  - Node
+  - [Node](../N/Node.md)
 
 - Called from (representative examples):
-  - GetJsonBehaviorValueString
-  - makeJsonValueExpr
-  - makeJsonBehavior
-  - transformJsonBehavior
-  - ValidJsonBehaviorDefaultExpr
-  - get_json_behavior
-  - exprType
-  - exprTypmod
-  - exprCollation
-  - exprSetCollation
-  - exprLocation
-  - raw_expression_tree_walker_impl
+  - [GetJsonBehaviorValueString](../G/GetJsonBehaviorValueString.md)
+  - [makeJsonValueExpr](../m/makeJsonValueExpr.md)
+  - [makeJsonBehavior](../m/makeJsonBehavior.md)
+  - [transformJsonBehavior](../t/transformJsonBehavior.md)
+  - [ValidJsonBehaviorDefaultExpr](../V/ValidJsonBehaviorDefaultExpr.md)
+  - [get_json_behavior](../g/get_json_behavior.md)
+  - [exprType](../e/exprType.md)
+  - [exprTypmod](../e/exprTypmod.md)
+  - [exprCollation](../e/exprCollation.md)
+  - [exprSetCollation](../e/exprSetCollation.md)
+  - [exprLocation](../e/exprLocation.md)
+  - [raw_expression_tree_walker_impl](../r/raw_expression_tree_walker_impl.md)
 
 ## Notes and Other Information
 - Essential component for implementing SQL/JSON standard compliance in error handling

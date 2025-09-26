@@ -36,15 +36,15 @@ The function handles all six Boolean test types: IS TRUE, IS NOT TRUE, IS FALSE,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - examine_variable
-  - get_attstatsslot
-  - free_attstatsslot
-  - clause_selectivity
+  - [examine_variable](../e/examine_variable.md)
+  - [get_attstatsslot](../g/get_attstatsslot.md)
+  - [free_attstatsslot](../f/free_attstatsslot.md)
+  - [clause_selectivity](../c/clause_selectivity.md)
   - ReleaseVariableStats
   - CLAMP_PROBABILITY
 - Called from (representative examples):
-  - clause_selectivity_ext
-  - GenericCosts
+  - [clause_selectivity_ext](../c/clause_selectivity_ext.md)
+  - [GenericCosts](../G/GenericCosts.md)
 
 ## Notes and Other Information
 - Handles SQL's three-valued Boolean logic (TRUE, FALSE, NULL/UNKNOWN) correctly

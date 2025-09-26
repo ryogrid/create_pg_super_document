@@ -20,14 +20,14 @@ This function iterates through the local lock hash table and releases all sessio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_seq_init: Initializes sequential hash table scanning
-  - hash_seq_search: Gets next entry during hash table traversal  
+  - [hash_seq_init](../h/hash_seq_init.md): Initializes sequential hash table scanning
+  - [hash_seq_search](../h/hash_seq_search.md): Gets next entry during hash table traversal  
   - LOCALLOCK_LOCKMETHOD: Macro to extract lock method from LOCALLOCK
-  - ReleaseLockIfHeld: Releases a specific lock if it is held
+  - [ReleaseLockIfHeld](../R/ReleaseLockIfHeld.md): Releases a specific lock if it is held
   - lengthof: Macro to get array length
   - elog: Error logging function
 - Called from (representative examples):
-  - pg_advisory_unlock_all: Used to unlock all advisory locks
+  - [pg_advisory_unlock_all](../p/pg_advisory_unlock_all.md): Used to unlock all advisory locks
   - LockHashPartitionLockByProc: Referenced in lock management header
 
 ## Notes and Other Information

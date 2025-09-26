@@ -33,12 +33,12 @@ The function uses PostgreSQL's set-returning function (SRF) infrastructure to re
   - [hash_seq_search](../h/hash_seq_search.md)
   - CStringGetTextDatum
   - [BoolGetDatum](../B/BoolGetDatum.md)
-  - TimestampTzGetDatum
-  - tuplestore_putvalues
+  - [TimestampTzGetDatum](../T/TimestampTzGetDatum.md)
+  - [tuplestore_putvalues](../t/tuplestore_putvalues.md)
 - Data types used:
-  - ReturnSetInfo
-  - HASH_SEQ_STATUS
-  - PortalHashEnt
+  - [ReturnSetInfo](../R/ReturnSetInfo.md)
+  - [HASH_SEQ_STATUS](../H/HASH_SEQ_STATUS.md)
+  - [PortalHashEnt](../P/PortalHashEnt.md)
   - [Portal](../P/Portal.md)
   - Datum
 - Constants used:

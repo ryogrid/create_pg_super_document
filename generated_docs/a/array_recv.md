@@ -25,8 +25,8 @@ The function processes the binary stream by reading array metadata (dimensions, 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pq_getmsgint](../p/pq_getmsgint.md)
-  - ArrayGetNItems
-  - ArrayCheckBounds
+  - [ArrayGetNItems](../A/ArrayGetNItems.md)
+  - [ArrayCheckBounds](../A/ArrayCheckBounds.md)
   - [get_type_io_data](../g/get_type_io_data.md)
   - IOFunc_receive
   - [fmgr_info_cxt](../f/fmgr_info_cxt.md)

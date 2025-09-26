@@ -24,7 +24,7 @@ If the validation fails, the function provides detailed error messages to help a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_stack_depth_rlimit
+  - [get_stack_depth_rlimit](../g/get_stack_depth_rlimit.md)
   - GUC_check_errdetail
   - GUC_check_errhint
   - STACK_DEPTH_SLOP

@@ -29,7 +29,7 @@ This function is widely used throughout PostgreSQL for creating working copies o
 - Called from (representative examples):
   - [list_concat](list_concat.md)
   - [list_concat_copy](list_concat_copy.md)  
-  - list_union
+  - [list_union](list_union.md)
   - [list_difference](list_difference.md)
   - [copyObjectImpl](../c/copyObjectImpl.md)
   - [get_foreign_key_join_selectivity](../g/get_foreign_key_join_selectivity.md)

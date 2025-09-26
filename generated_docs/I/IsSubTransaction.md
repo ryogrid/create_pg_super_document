@@ -27,12 +27,12 @@ This function takes no parameters and returns a boolean value indicating whether
 - Called from (representative examples):
   - [PreventInTransactionBlock](../P/PreventInTransactionBlock.md)
   - [CheckTransactionBlock](../C/CheckTransactionBlock.md)
-  - _SPI_commit
+  - [_SPI_commit](../S/_SPI_commit.md)
   - [_SPI_rollback](../S/_SPI_rollback.md)
   - [SPI_inside_nonatomic_context](../S/SPI_inside_nonatomic_context.md)
   - [AfterTriggerSetState](../A/AfterTriggerSetState.md)
   - [ExportSnapshot](../E/ExportSnapshot.md)
-  - ImportSnapshot
+  - [ImportSnapshot](ImportSnapshot.md)
 
 ## Notes and Other Information
 The function uses a threshold of nestingLevel >= 2 to determine subtransaction status, where level 1 is the top-level transaction. This simple check is used throughout PostgreSQL to enforce different behaviors for subtransactions, such as preventing certain operations that are only allowed at the top-level transaction or enabling subtransaction-specific functionality like savepoint management. The function is particularly important for SPI operations and transaction property validation.

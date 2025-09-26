@@ -23,7 +23,7 @@ The function ensures atomicity and consistency by using RelationMappingLock to p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire/LWLockRelease (exclusive locking)
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease (exclusive locking)
   - [load_relmap_file](../l/load_relmap_file.md) (re-read current mappings from disk)
   - memcpy (copy mapping structures)
   - [merge_map_updates](../m/merge_map_updates.md) (apply updates to mapping data)

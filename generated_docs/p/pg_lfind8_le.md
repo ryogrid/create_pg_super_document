@@ -27,7 +27,7 @@ The implementation uses a hybrid approach: first processing elements in vectoriz
   - [vector8_load](../v/vector8_load.md) (loads data into vector register)
   - [vector8_has_le](../v/vector8_has_le.md) (checks if vector contains any value less than or equal to key)
 - Called from (representative examples):
-  - test_lfind8_le_internal (in test modules)
+  - [test_lfind8_le_internal](../t/test_lfind8_le_internal.md) (in test modules)
 
 ## Notes and Other Information
 - The function is declared as `static inline` for performance optimization

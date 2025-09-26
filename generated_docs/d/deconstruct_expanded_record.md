@@ -28,7 +28,7 @@ After completion, the function sets the ER_FLAG_DVALUES_VALID flag to indicate t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - expanded_record_get_tupdesc
+  - [expanded_record_get_tupdesc](../e/expanded_record_get_tupdesc.md)
   - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
   - [heap_deform_tuple](../h/heap_deform_tuple.md)
   - memset (for null initialization)

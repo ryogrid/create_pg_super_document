@@ -37,7 +37,7 @@ The bufferedTuples and bufferedBytes counters start at zero and will track the t
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CopyMultiInsertInfo](CopyMultiInsertInfo.md) (struct type)
-  - CopyFromState (struct type)
+  - [CopyFromState](CopyFromState.md) (struct type)
   - CommandId (type alias)
   - NIL (empty list constant)
   - [CopyMultiInsertInfoSetupBuffer](CopyMultiInsertInfoSetupBuffer.md) (buffer setup function)

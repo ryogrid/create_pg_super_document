@@ -46,7 +46,7 @@ This function is commonly used in sort operation planning where the planner need
 
 ## Notes and Other Information
 - Returns NULL if no matching member is found
-- RelabelType stripping enables matching of binary-compatible expressions that may have different exposed types
+- [RelabelType](../R/RelabelType.md) stripping enables matching of binary-compatible expressions that may have different exposed types
 - Child members must have relids that are a subset of the provided relids parameter to be considered
 - Constant members are automatically excluded from consideration as they're not useful for sorting operations
 - The function is essential for sort optimization, allowing the planner to reuse existing EquivalenceClass relationships

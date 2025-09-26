@@ -20,7 +20,7 @@ The  function performs runtime detection to select the optimal dynamic shared me
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_prng_seed (PostgreSQL pseudo-random number generator seed function)
+  - [pg_prng_seed](../p/pg_prng_seed.md) (PostgreSQL pseudo-random number generator seed function)
   - [pg_prng_uint32](../p/pg_prng_uint32.md) (PostgreSQL pseudo-random number generator for 32-bit values)
   - getpid (system call to get process ID)
   - time (system call to get current time)

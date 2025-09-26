@@ -28,15 +28,15 @@ The function first updates scan flags based on the provided parameters if  is tr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReleaseBuffer
+  - [ReleaseBuffer](../R/ReleaseBuffer.md)
   - IsMVCCSnapshot
-  - read_stream_reset
+  - [read_stream_reset](../r/read_stream_reset.md)
   - [initscan](../i/initscan.md)
 - Data structures used:
   - [HeapScanDesc](../H/HeapScanDesc.md)
   - [TableScanDesc](../T/TableScanDesc.md)
   - ScanKey
-- Scan flags:
+- [Scan](../S/Scan.md) flags:
   - SO_ALLOW_STRAT
   - SO_ALLOW_SYNC
   - SO_ALLOW_PAGEMODE

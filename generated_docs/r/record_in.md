@@ -25,7 +25,7 @@ The function performs comprehensive validation of the input string format, ensur
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth: Stack overflow protection for recursive calls
+  - [check_stack_depth](../c/check_stack_depth.md): Stack overflow protection for recursive calls
   - [lookup_rowtype_tupdesc](../l/lookup_rowtype_tupdesc.md): Retrieves tuple descriptor for the record type
   - [MemoryContextAlloc](../M/MemoryContextAlloc.md): Memory allocation in function context
   - [getTypeInputInfo](../g/getTypeInputInfo.md): Gets input function info for column types

@@ -32,7 +32,7 @@ The structure is used as an entry in the LogicalRepPartMap hash table, which pro
   - Oid (PostgreSQL object identifier type)
 
 - Called from (representative examples):
-  - logicalrep_partmap_invalidate_cb (partition map invalidation callback)
+  - [logicalrep_partmap_invalidate_cb](../l/logicalrep_partmap_invalidate_cb.md) (partition map invalidation callback)
   - [logicalrep_partmap_reset_relmap](../l/logicalrep_partmap_reset_relmap.md) (partition map reset function)
   - [logicalrep_partmap_init](../l/logicalrep_partmap_init.md) (partition map initialization)
   - [logicalrep_partition_open](../l/logicalrep_partition_open.md) (partition opening function)

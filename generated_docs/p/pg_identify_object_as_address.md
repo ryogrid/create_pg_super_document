@@ -30,12 +30,12 @@ This structured format is particularly useful for programmatic manipulation of o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_call_result_type
-  - getObjectTypeDescription
-  - getObjectIdentityParts
-  - strlist_to_textarray
-  - construct_empty_array
-  - heap_form_tuple
+  - [get_call_result_type](../g/get_call_result_type.md)
+  - [getObjectTypeDescription](../g/getObjectTypeDescription.md)
+  - [getObjectIdentityParts](../g/getObjectIdentityParts.md)
+  - [strlist_to_textarray](../s/strlist_to_textarray.md)
+  - [construct_empty_array](../c/construct_empty_array.md)
+  - [heap_form_tuple](../h/heap_form_tuple.md)
 - Called from (representative examples):
   - No direct callers found (SQL-callable function)
 

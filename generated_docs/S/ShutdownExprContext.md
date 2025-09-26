@@ -22,12 +22,12 @@ The isCommit parameter controls whether callbacks are actually executed or just 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExprContext_CB (callback structure type)
+  - [ExprContext_CB](../E/ExprContext_CB.md) (callback structure type)
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (memory context switching)
   - [pfree](../p/pfree.md) (memory deallocation)
 - Called from (representative examples):
-  - FreeExprContext (during context destruction)
-  - ReScanExprContext (during context reset/rescan)
+  - [FreeExprContext](../F/FreeExprContext.md) (during context destruction)
+  - [ReScanExprContext](../R/ReScanExprContext.md) (during context reset/rescan)
 
 ## Notes and Other Information
 This function is declared static, making it internal to execUtils.c. The reverse execution order (LIFO) is crucial for proper resource cleanup, as components registered later often depend on components registered earlier. The memory context switching ensures cleanup robustness even with poorly written callbacks that leak memory.

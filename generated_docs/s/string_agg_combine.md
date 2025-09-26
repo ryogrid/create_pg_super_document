@@ -34,7 +34,7 @@ The function is critical for PostgreSQL's parallel aggregation infrastructure, a
 - Functions called/Symbols referenced:
   - [AggCheckCallContext](../A/AggCheckCallContext.md) (validates aggregate execution context)
   - [makeStringAggState](../m/makeStringAggState.md) (creates new StringInfo state in aggregate context)
-  - appendBinaryStringInfo (appends binary data to StringInfo buffer)
+  - [appendBinaryStringInfo](../a/appendBinaryStringInfo.md) (appends binary data to StringInfo buffer)
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (changes memory allocation context)
   - PG_ARGISNULL, PG_GETARG_POINTER (PostgreSQL argument macros)
 

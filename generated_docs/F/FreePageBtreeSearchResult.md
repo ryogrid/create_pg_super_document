@@ -30,13 +30,13 @@ The search result indicates either an exact match position or the insertion poin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FreePageBtree
+  - [FreePageBtree](FreePageBtree.md)
   - Size (PostgreSQL size type)
 
 - Called from (representative examples):
-  - FreePageBtreeSearch
-  - FreePageManagerGetInternal  
-  - FreePageManagerPutInternal
+  - [FreePageBtreeSearch](FreePageBtreeSearch.md)
+  - [FreePageManagerGetInternal](FreePageManagerGetInternal.md)  
+  - [FreePageManagerPutInternal](FreePageManagerPutInternal.md)
 
 ## Notes and Other Information
 - This structure is used internally by the free page manager's B-tree implementation in src/backend/utils/mmgr/freepage.c

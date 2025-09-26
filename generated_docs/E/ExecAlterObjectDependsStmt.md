@@ -23,7 +23,7 @@ This function handles SQL statements that establish or remove dependency relatio
   - [get_object_address_rv](../g/get_object_address_rv.md) (resolve object with relation support)
   - [get_object_address](../g/get_object_address.md) (resolve extension object)
   - [check_object_ownership](../c/check_object_ownership.md) (verify user can modify the object)
-  - table_close (release relation locks)
+  - [table_close](../t/table_close.md) (release relation locks)
   - [deleteDependencyRecordsForSpecific](../d/deleteDependencyRecordsForSpecific.md) (remove specific dependency records)
   - [getAutoExtensionsOfObject](../g/getAutoExtensionsOfObject.md) (get existing auto-extension dependencies)
   - [list_member_oid](../l/list_member_oid.md) (check for duplicate dependencies)

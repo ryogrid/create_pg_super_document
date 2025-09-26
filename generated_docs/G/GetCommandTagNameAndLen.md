@@ -30,7 +30,7 @@ The function sets the output parameter *len to the namelen field from the Comman
   - [BuildQueryCompletionString](../B/BuildQueryCompletionString.md) (src/backend/tcop/cmdtag.c:126)
   - [exec_simple_query](../e/exec_simple_query.md) (src/backend/tcop/postgres.c:1124)
   - [exec_execute_message](../e/exec_execute_message.md) (src/backend/tcop/postgres.c:2178)
-  - CopyQueryCompletion (src/include/tcop/cmdtag.h:54)
+  - [CopyQueryCompletion](../C/CopyQueryCompletion.md) (src/include/tcop/cmdtag.h:54)
 
 ## Notes and Other Information
 - The returned length excludes the null terminator (consistent with strlen() behavior)

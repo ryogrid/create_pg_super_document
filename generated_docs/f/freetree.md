@@ -23,7 +23,7 @@ The function includes safety checks for NULL pointers and stack overflow protect
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth (stack overflow protection)
+  - [check_stack_depth](../c/check_stack_depth.md) (stack overflow protection)
   - [freetree](freetree.md) (recursive self-call for subtrees)
   - [pfree](../p/pfree.md) (PostgreSQL memory deallocation)
 - Called from (representative examples):

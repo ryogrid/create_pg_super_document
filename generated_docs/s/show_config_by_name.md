@@ -24,7 +24,7 @@ The function follows PostgreSQL's standard function calling convention using the
 - Functions called/Symbols referenced:
   - TextDatumGetCString
   - [GetConfigOptionByName](../G/GetConfigOptionByName.md)
-  - cstring_to_text
+  - [cstring_to_text](../c/cstring_to_text.md)
   - PG_RETURN_TEXT_P
 - Called from (representative examples):
   - SQL queries using the function (no direct C references found)

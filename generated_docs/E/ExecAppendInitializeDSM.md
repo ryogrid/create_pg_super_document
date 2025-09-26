@@ -22,9 +22,9 @@ The function is part of PostgreSQL's parallel query execution framework, specifi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - shm_toc_allocate
-  - LWLockInitialize
-  - shm_toc_insert
+  - [shm_toc_allocate](../s/shm_toc_allocate.md)
+  - [LWLockInitialize](../L/LWLockInitialize.md)
+  - [shm_toc_insert](../s/shm_toc_insert.md)
   - [choose_next_subplan_for_leader](../c/choose_next_subplan_for_leader.md)
 - Called from (representative examples):
   - [ExecParallelInitializeDSM](ExecParallelInitializeDSM.md)

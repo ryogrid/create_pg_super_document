@@ -51,16 +51,16 @@ Key design features:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_result (the underlying struct type)
-  - PGresAttDesc (column attribute descriptors)
+  - [pg_result](../p/pg_result.md) (the underlying struct type)
+  - [PGresAttDesc](PGresAttDesc.md) (column attribute descriptors)
   - PGresAttValue (individual field values)
   - ExecStatusType (result status enumeration)
 - Called from (representative examples):
-  - PQexec, PQexecParams - Execute queries and return results
-  - PQgetResult - Retrieve results from asynchronous queries
-  - PQclear - Free PGresult memory
-  - PQntuples, PQnfields - Access result dimensions
-  - PQgetvalue - Extract individual field values
+  - [PQexec](PQexec.md), PQexecParams - Execute queries and return results
+  - [PQgetResult](PQgetResult.md) - Retrieve results from asynchronous queries
+  - [PQclear](PQclear.md) - Free PGresult memory
+  - [PQntuples](PQntuples.md), PQnfields - Access result dimensions
+  - [PQgetvalue](PQgetvalue.md) - Extract individual field values
 
 ## Notes and Other Information
 - Each PGresult represents exactly one SQL command's result

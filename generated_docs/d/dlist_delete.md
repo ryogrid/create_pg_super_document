@@ -28,10 +28,10 @@ This effectively removes the node from the chain while maintaining list integrit
   - [dlist_node](dlist_node.md) (data structure)
 - Called from (representative examples):
   - [leafRepackItems](../l/leafRepackItems.md) (src/backend/access/gin/gindatapage.c:1671, 1716, 1717)
-  - DestroyParallelContext (src/backend/access/transam/parallel.c:956)
+  - [DestroyParallelContext](../D/DestroyParallelContext.md) (src/backend/access/transam/parallel.c:956)
   - [XLogPrefetcherAddFilter](../X/XLogPrefetcherAddFilter.md) (src/backend/access/transam/xlogprefetcher.c:883)
   - [CleanupBackgroundWorker](../C/CleanupBackgroundWorker.md) (src/backend/postmaster/postmaster.c:2755)
-  - ReorderBufferAssignChild (src/backend/replication/logical/reorderbuffer.c:1120)
+  - [ReorderBufferAssignChild](../R/ReorderBufferAssignChild.md) (src/backend/replication/logical/reorderbuffer.c:1120)
   - [LockAcquireExtended](../L/LockAcquireExtended.md) (src/backend/storage/lmgr/lock.c:1105, 1106)
   - [ReleasePredXact](../R/ReleasePredXact.md) (src/backend/storage/lmgr/predicate.c:600)
   - [CatCacheRemoveCTup](../C/CatCacheRemoveCTup.md) (src/backend/utils/cache/catcache.c:546)

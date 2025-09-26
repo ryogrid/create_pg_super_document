@@ -18,9 +18,9 @@ This function performs a recursive pre-scan of a join tree to identify problemat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RangeTblRef
-  - FromExpr  
-  - JoinExpr
+  - [RangeTblRef](../R/RangeTblRef.md)
+  - [FromExpr](../F/FromExpr.md)  
+  - [JoinExpr](../J/JoinExpr.md)
   - rt_fetch
   - [list_nth](../l/list_nth.md)
   - nodeTag

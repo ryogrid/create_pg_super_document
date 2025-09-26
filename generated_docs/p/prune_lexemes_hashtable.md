@@ -22,7 +22,7 @@ This function implements the pruning phase of the Lossy Counting algorithm used 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [HTAB](../H/HTAB.md)
-  - HASH_SEQ_STATUS
+  - [HASH_SEQ_STATUS](../H/HASH_SEQ_STATUS.md)
   - [TrackItem](../T/TrackItem.md)
   - [hash_seq_init](../h/hash_seq_init.md)
   - [hash_seq_search](../h/hash_seq_search.md)

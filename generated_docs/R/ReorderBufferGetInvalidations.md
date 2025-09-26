@@ -33,7 +33,7 @@ The function performs a simple lookup operation:
   - [ReorderBufferTXNByXid](ReorderBufferTXNByXid.md)
   - [ReorderBuffer](ReorderBuffer.md)
   - [ReorderBufferTXN](ReorderBufferTXN.md)
-  - SharedInvalidationMessage
+  - [SharedInvalidationMessage](../S/SharedInvalidationMessage.md)
 - Called from (representative examples):
   - [SnapBuildDistributeSnapshotAndInval](../S/SnapBuildDistributeSnapshotAndInval.md)
 

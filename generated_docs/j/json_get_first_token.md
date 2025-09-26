@@ -27,7 +27,7 @@ This is particularly useful for JSON type checking operations, conditional proce
   - [JsonLexContext](../J/JsonLexContext.md) (lexical context structure for JSON parsing)
   - JsonParseErrorType (enum for JSON parsing error types)
   - [makeJsonLexContext](../m/makeJsonLexContext.md) (function to initialize JSON lexical context)
-  - json_lex (function to perform lexical analysis of JSON)
+  - [json_lex](json_lex.md) (function to perform lexical analysis of JSON)
   - JSON_SUCCESS (success return code)
   - [json_errsave_error](json_errsave_error.md) (function to report JSON parsing errors)
   - JSON_TOKEN_INVALID (token type for invalid JSON)

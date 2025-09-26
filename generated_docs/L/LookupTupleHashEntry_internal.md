@@ -27,13 +27,13 @@ This function serves as the internal implementation for both  and  functions. It
   - [TupleHashTable](../T/TupleHashTable.md)
   - [TupleHashEntryData](../T/TupleHashEntryData.md)
   - MinimalTuple
-  - ExecCopySlotMinimalTuple
+  - [ExecCopySlotMinimalTuple](../E/ExecCopySlotMinimalTuple.md)
   - tuplehash_insert_hash (via macro)
   - tuplehash_lookup_hash (via macro)
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
 - Called from (representative examples):
-  - LookupTupleHashEntry
-  - LookupTupleHashEntryHash
+  - [LookupTupleHashEntry](LookupTupleHashEntry.md)
+  - [LookupTupleHashEntryHash](LookupTupleHashEntryHash.md)
 
 ## Notes and Other Information
 - This is a static inline function for performance optimization

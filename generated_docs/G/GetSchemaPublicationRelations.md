@@ -20,7 +20,7 @@ The function performs a catalog scan on the pg_class relation, filtering by sche
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open: Opens the pg_class system catalog relation
+  - [table_open](../t/table_open.md): Opens the pg_class system catalog relation
   - [table_beginscan_catalog](../t/table_beginscan_catalog.md): Begins a catalog scan with specified scan keys
   - [heap_getnext](../h/heap_getnext.md): Retrieves the next tuple from the scan
   - [is_publishable_class](../i/is_publishable_class.md): Checks if a relation class is publishable for logical replication
@@ -28,7 +28,7 @@ The function performs a catalog scan on the pg_class relation, filtering by sche
   - [GetPubPartitionOptionRelations](GetPubPartitionOptionRelations.md): Recursively gets partition relations based on publication options
   - [list_concat_unique_oid](../l/list_concat_unique_oid.md): Concatenates lists while avoiding duplicates
   - [table_endscan](../t/table_endscan.md): Ends the table scan
-  - table_close: Closes the relation
+  - [table_close](../t/table_close.md): Closes the relation
 - Called from (representative examples):
   - [publication_add_schema](../p/publication_add_schema.md): Adds relations when schema is added to publication
   - [GetAllSchemaPublicationRelations](GetAllSchemaPublicationRelations.md): Gets relations for all schemas in publications

@@ -26,7 +26,7 @@ The function handles cross-type comparisons by setting up appropriate comparison
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_length, list_head, lnext (list operations)
+  - [list_length](../l/list_length.md), list_head, lnext (list operations)
   - [bms_is_member](../b/bms_is_member.md) (bitmap set operations)  
   - [partkey_datum_from_expr](partkey_datum_from_expr.md)
   - [fmgr_info_copy](../f/fmgr_info_copy.md), fmgr_info_cxt (function manager operations)

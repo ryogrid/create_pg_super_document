@@ -35,20 +35,20 @@ Restores unlogged relations to their initial state through a three-phase process
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `parse_filename_for_nontemp_relation`: Parses relation filenames to extract components
-  - `hash_create`/`hash_search`/`hash_destroy`: Hash table operations for RelFileNumber tracking
-  - `AllocateDir`/`ReadDir`/`FreeDir`: Directory traversal operations
-  - `copy_file`: File copying operation for init-to-main fork copying
-  - `fsync_fname`: File synchronization for durability
+  - `[parse_filename_for_nontemp_relation](../p/parse_filename_for_nontemp_relation.md)`: Parses relation filenames to extract components
+  - `[hash_create](../h/hash_create.md)`/`hash_search`/`hash_destroy`: Hash table operations for RelFileNumber tracking
+  - `[AllocateDir](../A/AllocateDir.md)`/`ReadDir`/`FreeDir`: Directory traversal operations
+  - `[copy_file](../c/copy_file.md)`: File copying operation for init-to-main fork copying
+  - `[fsync_fname](../f/fsync_fname.md)`: File synchronization for durability
   - `unlink`: File deletion during cleanup
   - `ereport`/`elog`: Error reporting and debug logging
 
 - Data structures:
   - `unlogged_relation_entry`: Hash table entry containing RelFileNumber as key
-  - `HTAB`: Hash table for tracking relations with init forks
+  - `[HTAB](../H/HTAB.md)`: Hash table for tracking relations with init forks
 
 - Called from:
-  - `ResetUnloggedRelationsInTablespaceDir`: For each database directory (line 151)
+  - `[ResetUnloggedRelationsInTablespaceDir](ResetUnloggedRelationsInTablespaceDir.md)`: For each database directory (line 151)
 
 ## Notes and Other Information
 - This is a static function, internal to the reinit.c module

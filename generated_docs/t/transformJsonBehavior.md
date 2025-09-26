@@ -32,7 +32,7 @@ The function performs runtime coercion using json_populate_type() for NULL, json
   - [GetJsonBehaviorConst](../G/GetJsonBehaviorConst.md)
   - [contain_var_clause](../c/contain_var_clause.md)
   - [expression_returns_set](../e/expression_returns_set.md)
-  - exprType
+  - [exprType](../e/exprType.md)
   - [getBaseType](../g/getBaseType.md)
   - [TypeCategory](../T/TypeCategory.md)
   - [coerce_to_target_type](../c/coerce_to_target_type.md)

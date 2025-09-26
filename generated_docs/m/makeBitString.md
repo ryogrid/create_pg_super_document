@@ -22,7 +22,7 @@ The caller is responsible for ensuring that the str parameter is a palloc'd (Pos
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (macro for node allocation and initialization)
-  - BitString (struct type definition)
+  - [BitString](../B/BitString.md) (struct type definition)
 - Called from (representative examples):
   - [nodeRead](../n/nodeRead.md) (in read.c for deserialization)
   - Referenced in strVal macro (in value.h header)

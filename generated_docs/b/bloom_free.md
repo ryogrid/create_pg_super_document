@@ -25,8 +25,8 @@ This function provides proper cleanup for Bloom filter resources and should be c
   - [bloom_filter](bloom_filter.md): The filter structure type
 
 - Called from (representative examples):
-  - `roles_is_member_of`: ACL role membership checking cleanup
-  - `create_and_test_bloom`: Test module cleanup
+  - `[roles_is_member_of](../r/roles_is_member_of.md)`: ACL role membership checking cleanup
+  - `[create_and_test_bloom](../c/create_and_test_bloom.md)`: Test module cleanup
 
 ## Notes and Other Information
 - Simple wrapper around pfree() since bloom_create allocates filter and bitset as single memory block

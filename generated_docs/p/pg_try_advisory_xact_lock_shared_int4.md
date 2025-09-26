@@ -25,7 +25,7 @@ This function implements the PostgreSQL advisory locking mechanism for transacti
   - [LockAcquire](../L/LockAcquire.md) (to attempt lock acquisition with ShareLock mode, transaction-scoped)
   - PG_RETURN_BOOL (to return boolean result)
 - Types used:
-  - LOCKTAG (lock identifier structure)
+  - [LOCKTAG](../L/LOCKTAG.md) (lock identifier structure)
   - LockAcquireResult (result status enumeration)  
   - ShareLock (lock mode constant)
   - LOCKACQUIRE_NOT_AVAIL (failure status constant)

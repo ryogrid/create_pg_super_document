@@ -36,7 +36,7 @@ This function implements the core tuple redistribution algorithm for hash bucket
   - [PageGetItem](../P/PageGetItem.md)
   - [hash_search](hash_search.md)
   - [_hash_hashkey2bucket](_hash_hashkey2bucket.md)
-  - _hash_get_indextuple_hashkey
+  - [_hash_get_indextuple_hashkey](_hash_get_indextuple_hashkey.md)
   - [CopyIndexTuple](../C/CopyIndexTuple.md)
   - IndexTupleSize
   - [PageGetFreeSpaceForMultipleTuples](../P/PageGetFreeSpaceForMultipleTuples.md)

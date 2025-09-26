@@ -28,13 +28,13 @@ The function includes safety assertions to ensure it's not called on fixed-amoun
 - Functions called/Symbols referenced:
   - [pgstat_get_kind_info](pgstat_get_kind_info.md) (retrieves metadata about the statistics kind)
   - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md) (obtains current time for reset timestamp)
-  - pgstat_reset_entry (performs the actual statistics entry reset)
+  - [pgstat_reset_entry](pgstat_reset_entry.md) (performs the actual statistics entry reset)
   - [pgstat_reset_database_timestamp](pgstat_reset_database_timestamp.md) (updates database-level reset timestamp)
 - Called from (representative examples):
   - [pg_stat_reset_single_table_counters](pg_stat_reset_single_table_counters.md) (SQL function for table statistics reset)
   - [pg_stat_reset_single_function_counters](pg_stat_reset_single_function_counters.md) (SQL function for function statistics reset)
   - [pg_stat_reset_subscription_stats](pg_stat_reset_subscription_stats.md) (SQL function for subscription statistics reset)
-  - pgstat_reset_replslot (replication slot statistics reset)
+  - [pgstat_reset_replslot](pgstat_reset_replslot.md) (replication slot statistics reset)
 
 ## Notes and Other Information
 - Permission checking is handled through the normal PostgreSQL GRANT system rather than within this function

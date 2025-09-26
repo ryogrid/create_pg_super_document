@@ -26,7 +26,7 @@ This function implements the core logic for JSON object expansion operations on 
   - pg_parse_json_or_ereport (parse JSON with error handling)
   - [each_array_start](each_array_start.md), each_scalar, each_object_field_start, each_object_field_end (callback functions)
   - AllocSetContextCreate, MemoryContextDelete (memory management)
-  - freeJsonLexContext (cleanup lexical context)
+  - [freeJsonLexContext](../f/freeJsonLexContext.md) (cleanup lexical context)
 - Called from (representative examples):
   - [json_each](../j/json_each.md) (with as_text=false)
   - [json_each_text](../j/json_each_text.md) (with as_text=true)

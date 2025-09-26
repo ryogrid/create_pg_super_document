@@ -34,7 +34,7 @@ The returned `BrinInsertState` structure contains:
   - [brin_build_desc](../b/brin_build_desc.md)() (creates BRIN descriptor)
   - [brinRevmapInitialize](../b/brinRevmapInitialize.md)() (initializes revmap access)
   - [BrinInsertState](../B/BrinInsertState.md) (structure type)
-  - `IndexInfo` (structure type)
+  - `[IndexInfo](../I/IndexInfo.md)` (structure type)
 
 - Called from (representative examples):
   - [brininsert](../b/brininsert.md)() (when insertion state is not already initialized)

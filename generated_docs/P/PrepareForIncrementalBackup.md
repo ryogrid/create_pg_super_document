@@ -39,10 +39,10 @@ The function ensures that the incremental backup will be consistent and complete
   - [WaitForWalSummarization](../W/WaitForWalSummarization.md): Ensures WAL summarization is caught up
   - [GetWalSummaries](../G/GetWalSummaries.md), FilterWalSummaries: Retrieves and filters WAL summary files
   - [WalSummariesAreComplete](../W/WalSummariesAreComplete.md): Validates completeness of WAL summaries
-  - CreateEmptyBlockRefTable: Initializes block reference table
+  - [CreateEmptyBlockRefTable](../C/CreateEmptyBlockRefTable.md): Initializes block reference table
   - [OpenWalSummaryFile](../O/OpenWalSummaryFile.md), CreateBlockRefTableReader: Reads WAL summary files
   - [BlockRefTableReaderNextRelation](../B/BlockRefTableReaderNextRelation.md), BlockRefTableReaderGetBlocks: Parses summary data
-  - BlockRefTableSetLimitBlock, BlockRefTableMarkBlockModified: Builds block reference table
+  - [BlockRefTableSetLimitBlock](../B/BlockRefTableSetLimitBlock.md), BlockRefTableMarkBlockModified: Builds block reference table
 - Types referenced:
   - [IncrementalBackupInfo](../I/IncrementalBackupInfo.md), BackupState, TimeLineHistoryEntry
   - [backup_wal_range](../b/backup_wal_range.md), WalSummaryFile, WalSummaryIO, BlockRefTableReader

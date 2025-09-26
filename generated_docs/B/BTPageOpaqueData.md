@@ -39,7 +39,7 @@ The structure is essential for recovery when searches navigate to wrong pages du
   - BTCycleId (typedef for vacuum cycle tracking)
   - BlockNumber (for page references)
 - Called from (representative examples):
-  - _bt_singleval_fillfactor
+  - [_bt_singleval_fillfactor](../b/_bt_singleval_fillfactor.md)
   - [_bt_checkpage](../b/_bt_checkpage.md)
   - [_bt_pageinit](../b/_bt_pageinit.md)
   - [_bt_findsplitloc](../b/_bt_findsplitloc.md)

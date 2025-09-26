@@ -39,7 +39,7 @@ This function is crucial for processing timezone rule definitions where save tim
   - zic_t (timezone time type)
 - Called from (representative examples):
   - [associate](../a/associate.md) (for parsing zone save times)
-  - inrule (for parsing rule save times)
+  - [inrule](../i/inrule.md) (for parsing rule save times)
 
 ## Notes and Other Information
 - This is a static function with internal linkage in src/timezone/zic.c

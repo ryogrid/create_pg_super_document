@@ -28,7 +28,7 @@ When LF or CR characters are encountered, they are silently omitted from the out
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendPQExpBufferChar (appends individual characters)
+  - [appendPQExpBufferChar](appendPQExpBufferChar.md) (appends individual characters)
   - [appendPQExpBufferStr](appendPQExpBufferStr.md) (appends string segments)
   - strspn (checks for safe character optimization)
   - strlen (determines string length for optimization check)

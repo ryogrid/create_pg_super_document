@@ -23,7 +23,7 @@ Like SetCancelConn, this function uses critical sections on Windows platforms to
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQfreeCancel](../P/PQfreeCancel.md)
-  - PGcancel (type)
+  - [PGcancel](../P/PGcancel.md) (type)
 - Called from (representative examples):
   - [runInitSteps](../r/runInitSteps.md) (pgbench)
   - [do_connect](../d/do_connect.md) (psql)

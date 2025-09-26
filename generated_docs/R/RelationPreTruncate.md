@@ -27,7 +27,7 @@ This is particularly important for access methods that implement custom truncati
 ## Dependencies
 - Functions called/Symbols referenced:
   - [hash_search](../h/hash_search.md)
-  - RelationGetSmgr
+  - [RelationGetSmgr](RelationGetSmgr.md)
   - [PendingRelSync](../P/PendingRelSync.md) (struct type)
   - HASH_FIND (constant)
 - Called from (representative examples):

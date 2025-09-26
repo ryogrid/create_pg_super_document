@@ -38,14 +38,14 @@ The structure supports several types of alterations: adding new token mappings (
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AlterTSConfigType (enum defining the types of configuration alterations)
+  - [AlterTSConfigType](AlterTSConfigType.md) (enum defining the types of configuration alterations)
   - NodeTag (for parse node identification)
-  - List (PostgreSQL's generic list structure)
+  - [List](../L/List.md) (PostgreSQL's generic list structure)
 
 - Called from (representative examples):
-  - AlterTSConfiguration (executes the ALTER TEXT SEARCH CONFIGURATION command)
-  - ProcessUtilitySlow (utility command processing dispatcher)  
-  - EventTriggerCollectAlterTSConfig (event trigger support for configuration changes)
+  - [AlterTSConfiguration](AlterTSConfiguration.md) (executes the ALTER TEXT SEARCH CONFIGURATION command)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (utility command processing dispatcher)  
+  - [EventTriggerCollectAlterTSConfig](../E/EventTriggerCollectAlterTSConfig.md) (event trigger support for configuration changes)
 
 ## Notes and Other Information
 - Text search configurations are central to PostgreSQL's full-text search system, determining how parsed tokens are processed by dictionaries

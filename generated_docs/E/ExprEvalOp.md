@@ -43,7 +43,7 @@ The enumeration values represent different operation types:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExprEvalStep (used as opcode discriminator)
+  - [ExprEvalStep](ExprEvalStep.md) (used as opcode discriminator)
   - dispatch_table (jump table in execExprInterp.c)
 
 - Called from (representative examples):
@@ -53,7 +53,7 @@ The enumeration values represent different operation types:
   - [ExecReadyInterpretedExpr](ExecReadyInterpretedExpr.md) (src/backend/executor/execExprInterp.c:278, 279, 327)
   - [ExecInitInterpreter](ExecInitInterpreter.md) (src/backend/executor/execExprInterp.c:2403, 2421)
   - [ExecEvalStepOp](ExecEvalStepOp.md) (src/backend/executor/execExprInterp.c:2440)
-  - llvm_compile_expr (src/backend/jit/llvm/llvmjit_expr.c:274)
+  - [llvm_compile_expr](../l/llvm_compile_expr.md) (src/backend/jit/llvm/llvmjit_expr.c:274)
 
 ## Notes and Other Information
 - **Critical Ordering**: The order of enum entries must be kept in sync with the dispatch_table[] array in execExprInterp.c:ExecInterpExpr(). This synchronization is enforced by a static assertion.

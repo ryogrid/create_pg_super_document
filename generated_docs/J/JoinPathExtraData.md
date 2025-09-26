@@ -32,7 +32,7 @@ JoinPathExtraData serves as a container for essential information needed during 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SpecialJoinInfo](../S/SpecialJoinInfo.md)
-  - SemiAntiJoinFactors
+  - [SemiAntiJoinFactors](../S/SemiAntiJoinFactors.md)
 - Called from (representative examples):
   - [add_paths_to_joinrel](../a/add_paths_to_joinrel.md)
   - [try_nestloop_path](../t/try_nestloop_path.md)

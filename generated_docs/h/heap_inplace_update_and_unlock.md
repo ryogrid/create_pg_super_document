@@ -38,7 +38,7 @@ Critical constraints:
   - [ItemPointerEquals](../I/ItemPointerEquals.md)
   - START_CRIT_SECTION/END_CRIT_SECTION
   - memcpy
-  - MarkBufferDirty
+  - [MarkBufferDirty](../M/MarkBufferDirty.md)
   - RelationNeedsWAL
   - [ItemPointerGetOffsetNumber](../I/ItemPointerGetOffsetNumber.md)
   - [XLogBeginInsert](../X/XLogBeginInsert.md)

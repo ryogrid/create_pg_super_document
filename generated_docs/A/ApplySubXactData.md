@@ -28,7 +28,7 @@ ApplySubXactData serves as a container for managing subtransaction metadata duri
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SubXactInfo
+  - [SubXactInfo](../S/SubXactInfo.md)
   - TransactionId
   - uint32
 - Called from (representative examples):

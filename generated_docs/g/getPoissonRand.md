@@ -22,7 +22,7 @@ This function implements a random number generator that produces values approxim
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_prng_double](../p/pg_prng_double.md)
-  - pg_prng_state (type)
+  - [pg_prng_state](../p/pg_prng_state.md) (type)
 - Called from (representative examples):
   - [advanceConnectionState](../a/advanceConnectionState.md)
 

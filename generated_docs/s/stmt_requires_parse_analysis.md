@@ -31,7 +31,7 @@ The function categorizes statements into three groups:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RawStmt (structure access for statement extraction)
+  - [RawStmt](../R/RawStmt.md) (structure access for statement extraction)
   - nodeTag (node type identification)
 
 - Called from (representative examples):

@@ -24,7 +24,7 @@ This function implements the most sophisticated function lookup mechanism in Pos
   - [LookupFuncNameInternal](LookupFuncNameInternal.md)  
   - [LookupTypeNameOid](LookupTypeNameOid.md)
   - [get_func_prokind](../g/get_func_prokind.md)
-  - list_length
+  - [list_length](../l/list_length.md)
   - lfirst_node
   - [func_signature_string](../f/func_signature_string.md)
   - [NameListToString](../N/NameListToString.md)

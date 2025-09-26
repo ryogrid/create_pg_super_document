@@ -28,9 +28,9 @@ The function follows Windows API conventions for dynamic buffer allocation - it 
   - GetLastError (Windows API)
   - LocalAlloc (Windows API) 
   - LocalFree (Windows API)
-  - log_error (PostgreSQL logging function)
+  - [log_error](../l/log_error.md) (PostgreSQL logging function)
 - Called from (representative examples):
-  - AddUserToTokenDacl
+  - [AddUserToTokenDacl](../A/AddUserToTokenDacl.md)
 
 ## Notes and Other Information
 - This is a Windows-specific function that is only compiled on Windows platforms

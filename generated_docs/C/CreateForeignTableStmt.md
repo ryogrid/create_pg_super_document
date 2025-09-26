@@ -28,13 +28,13 @@ The base CreateStmt contains standard table definition elements like column defi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreateStmt (base structure for table creation)
-  - List (PostgreSQL's list data structure)
+  - [CreateStmt](CreateStmt.md) (base structure for table creation)
+  - [List](../L/List.md) (PostgreSQL's list data structure)
 - Called from (representative examples):
-  - CreateForeignTable (src/backend/commands/foreigncmds.c:1415)
-  - ImportForeignSchema (src/backend/commands/foreigncmds.c:1562, 1569)
-  - transformCreateStmt (src/backend/parser/parse_utilcmd.c:227)
-  - ProcessUtilitySlow (src/backend/tcop/utility.c:1195, 1197)
+  - [CreateForeignTable](CreateForeignTable.md) (src/backend/commands/foreigncmds.c:1415)
+  - [ImportForeignSchema](../I/ImportForeignSchema.md) (src/backend/commands/foreigncmds.c:1562, 1569)
+  - [transformCreateStmt](../t/transformCreateStmt.md) (src/backend/parser/parse_utilcmd.c:227)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (src/backend/tcop/utility.c:1195, 1197)
 
 ## Notes and Other Information
 - This structure is defined in src/include/nodes/parsenodes.h in the foreign table statements section

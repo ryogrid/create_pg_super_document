@@ -33,8 +33,8 @@ The sorted arrangement improves performance during frequent operations like snap
 ## Dependencies
 - Functions called/Symbols referenced:
   - GetNumberFromPGProc
-  - LWLockAcquire
-  - LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - ereport
   - memmove
   - [ProcArrayStruct](ProcArrayStruct.md)
@@ -42,7 +42,7 @@ The sorted arrangement improves performance during frequent operations like snap
   - NUM_AUXILIARY_PROCS
 
 - Called from (representative examples):
-  - InitProcessPhase2
+  - [InitProcessPhase2](../I/InitProcessPhase2.md)
   - [MarkAsPrepared](../M/MarkAsPrepared.md)
 
 ## Notes and Other Information

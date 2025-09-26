@@ -25,11 +25,11 @@ The `attribute_reloptions` function is a specialized option parser for PostgreSQ
   - relopt_parse_elt (structure)
   - RELOPT_TYPE_REAL (constant)
   - RELOPT_KIND_ATTRIBUTE (constant)
-  - AttributeOpts (structure)
+  - [AttributeOpts](../A/AttributeOpts.md) (structure)
   - lengthof (macro)
 - Called from (representative examples):
   - [ATExecSetOptions](../A/ATExecSetOptions.md)
-  - get_attribute_options
+  - [get_attribute_options](../g/get_attribute_options.md)
 
 ## Notes and Other Information
 - The n_distinct option allows manual specification of the estimated number of distinct values in a column, overriding automatic statistics

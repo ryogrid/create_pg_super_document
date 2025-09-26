@@ -35,9 +35,9 @@ The enum provides four compression options ranging from no compression to modern
   - (This is an enum definition with no direct dependencies)
 
 - Called from (representative examples):
-  - parse_compress_algorithm
-  - get_compress_algorithm_name
-  - parse_compress_specification
+  - [parse_compress_algorithm](parse_compress_algorithm.md)
+  - [get_compress_algorithm_name](../g/get_compress_algorithm_name.md)
+  - [parse_compress_specification](parse_compress_specification.md)
   - [pg_compress_specification](pg_compress_specification.md) (as a member type)
   - Various backup and compression modules
 

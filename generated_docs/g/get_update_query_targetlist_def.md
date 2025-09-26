@@ -37,13 +37,13 @@ Key processing steps:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_head, lnext
+  - [list_head](../l/list_head.md), lnext
   - [strip_implicit_coercions](../s/strip_implicit_coercions.md)
   - [count_nonjunk_tlist_entries](../c/count_nonjunk_tlist_entries.md)
   - [quote_identifier](../q/quote_identifier.md)
   - [get_attname](get_attname.md)
-  - processIndirection
-  - get_rule_expr
+  - [processIndirection](../p/processIndirection.md)
+  - [get_rule_expr](get_rule_expr.md)
 - Called from:
   - [get_insert_query_def](get_insert_query_def.md)
   - [get_update_query_def](get_update_query_def.md)

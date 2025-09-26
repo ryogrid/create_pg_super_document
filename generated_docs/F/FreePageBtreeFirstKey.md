@@ -24,10 +24,10 @@ This is a critical primitive operation used throughout B-tree navigation algorit
   - FREE_PAGE_LEAF_MAGIC (constant)
   - FREE_PAGE_INTERNAL_MAGIC (constant)
 - Called from (representative examples):
-  - FreePageBtreeFindLeftSibling
-  - FreePageBtreeFindRightSibling
-  - FreePageBtreeRemovePage
-  - FreePageManagerPutInternal
+  - [FreePageBtreeFindLeftSibling](FreePageBtreeFindLeftSibling.md)
+  - [FreePageBtreeFindRightSibling](FreePageBtreeFindRightSibling.md)
+  - [FreePageBtreeRemovePage](FreePageBtreeRemovePage.md)
+  - [FreePageManagerPutInternal](FreePageManagerPutInternal.md)
 
 ## Notes and Other Information
 - Asserts that the page contains at least one key (nused > 0)

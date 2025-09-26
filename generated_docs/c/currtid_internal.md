@@ -34,12 +34,12 @@ The implementation uses a snapshot-based approach to ensure consistent reads and
   - [currtid_for_view](currtid_for_view.md)
   - [get_namespace_name](../g/get_namespace_name.md)
   - [ItemPointerCopy](../I/ItemPointerCopy.md)
-  - GetLatestSnapshot
-  - RegisterSnapshot
+  - [GetLatestSnapshot](../G/GetLatestSnapshot.md)
+  - [RegisterSnapshot](../R/RegisterSnapshot.md)
   - [table_beginscan_tid](../t/table_beginscan_tid.md)
   - [table_tuple_get_latest_tid](../t/table_tuple_get_latest_tid.md)
   - [table_endscan](../t/table_endscan.md)
-  - UnregisterSnapshot
+  - [UnregisterSnapshot](../U/UnregisterSnapshot.md)
 - Called from (representative examples):
   - [currtid_for_view](currtid_for_view.md)
   - [currtid_byrelname](currtid_byrelname.md)

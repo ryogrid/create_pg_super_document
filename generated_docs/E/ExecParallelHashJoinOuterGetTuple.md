@@ -40,12 +40,12 @@ The function includes an important coordination mechanism - it sets the outer_eo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecProcNode: Executes outer plan node (single-batch only)
+  - [ExecProcNode](ExecProcNode.md): Executes outer plan node (single-batch only)
   - TupIsNull: Checks if tuple slot is empty
-  - ExecHashGetHashValue: Computes hash value for tuples (single-batch only)
-  - sts_parallel_scan_next: Gets next tuple from shared tuple store (multi-batch)
+  - [ExecHashGetHashValue](ExecHashGetHashValue.md): Computes hash value for tuples (single-batch only)
+  - [sts_parallel_scan_next](../s/sts_parallel_scan_next.md): Gets next tuple from shared tuple store (multi-batch)
   - [ExecForceStoreMinimalTuple](ExecForceStoreMinimalTuple.md): Converts minimal tuple to slot format
-  - ExecClearTuple: Clears tuple slot when no more tuples
+  - [ExecClearTuple](ExecClearTuple.md): Clears tuple slot when no more tuples
   - HJ_FILL_OUTER: Macro to check if this is an outer join
 
 - Called from:

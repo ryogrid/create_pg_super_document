@@ -23,7 +23,7 @@ The function expects the bytes in network byte order (big-endian) and reads them
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `macaddr8`: The target data structure for storing the parsed address
+  - `[macaddr8](macaddr8.md)`: The target data structure for storing the parsed address
   - [pq_getmsgbyte](../p/pq_getmsgbyte.md): PostgreSQL function for reading bytes from protocol messages (called 6-8 times)
   - `PG_RETURN_MACADDR8_P`: PostgreSQL macro for returning macaddr8 values
   - [palloc0](../p/palloc0.md): PostgreSQL memory allocation function (zero-initialized)

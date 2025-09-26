@@ -32,7 +32,7 @@ This conversion is essential for maintaining compatibility with shell scripting 
   - WTERMSIG (macro to extract terminating signal number)
 
 - Called from (representative examples):
-  - SetShellResultVariables
+  - [SetShellResultVariables](../S/SetShellResultVariables.md)
 
 ## Notes and Other Information
 - Returns exit codes in the conventional shell range of 0-255 for normal operation

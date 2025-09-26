@@ -21,10 +21,10 @@ The function provides the decoding counterpart to logicalrep_write_namespace, en
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_getmsgstring (extract string value from message buffer)
+  - [pq_getmsgstring](../p/pq_getmsgstring.md) (extract string value from message buffer)
 - Called from:
-  - logicalrep_read_rel (reads relation information including namespace)
-  - logicalrep_read_typ (reads type information including namespace)
+  - [logicalrep_read_rel](logicalrep_read_rel.md) (reads relation information including namespace)
+  - [logicalrep_read_typ](logicalrep_read_typ.md) (reads type information including namespace)
 
 ## Notes and Other Information
 - This is a static function used internally within logical replication protocol implementation

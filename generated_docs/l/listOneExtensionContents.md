@@ -29,10 +29,10 @@ The query workflow:
 - Functions called/Symbols referenced:
   - [PQExpBufferData](../P/PQExpBufferData.md) (data structure)
   - [printQueryOpt](../p/printQueryOpt.md) (data structure)
-  - initPQExpBuffer
+  - [initPQExpBuffer](../i/initPQExpBuffer.md)
   - [printfPQExpBuffer](../p/printfPQExpBuffer.md)
   - [PSQLexec](../P/PSQLexec.md)
-  - termPQExpBuffer
+  - [termPQExpBuffer](../t/termPQExpBuffer.md)
   - [printQuery](../p/printQuery.md)
 - Called from (representative examples):
   - [listExtensionContents](listExtensionContents.md) (in src/bin/psql/describe.c:6103)

@@ -25,10 +25,10 @@ Safety is ensured through careful usage constraints: the function can only be us
 ## Dependencies
 - Functions called/Symbols referenced:
   - XidFromFullTransactionId
-  - AssertTransactionIdInAllowableRange
+  - [AssertTransactionIdInAllowableRange](../A/AssertTransactionIdInAllowableRange.md)
   - U64FromFullTransactionId
-  - FullTransactionIdFromU64
-  - FullTransactionId (type)
+  - [FullTransactionIdFromU64](FullTransactionIdFromU64.md)
+  - [FullTransactionId](FullTransactionId.md) (type)
 - Called from (representative examples):
   - xc_slow_answer_inc
   - [MaintainLatestCompletedXid](../M/MaintainLatestCompletedXid.md)

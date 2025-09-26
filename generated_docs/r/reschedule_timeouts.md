@@ -27,11 +27,11 @@ This function is particularly important during transaction abort and error recov
 ## Dependencies
 - Functions called/Symbols referenced:
   - disable_alarm: Disables alarm system temporarily for safety
-  - GetCurrentTimestamp: Gets current system timestamp for scheduling
-  - schedule_alarm: Schedules the next SIGALRM interrupt
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md): Gets current system timestamp for scheduling
+  - [schedule_alarm](../s/schedule_alarm.md): Schedules the next SIGALRM interrupt
 - Called from (representative examples):
-  - AbortTransaction: Transaction abort cleanup
-  - AbortSubTransaction: Subtransaction abort cleanup
+  - [AbortTransaction](../A/AbortTransaction.md): Transaction abort cleanup
+  - [AbortSubTransaction](../A/AbortSubTransaction.md): Subtransaction abort cleanup
 
 ## Notes and Other Information
 - Designed specifically for error recovery scenarios where SIGALRM handling was interrupted

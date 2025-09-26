@@ -26,14 +26,14 @@ The function performs comprehensive privilege checking for PostgreSQL namespaces
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - superuser_arg
+  - [superuser_arg](../s/superuser_arg.md)
   - [isTempNamespace](../i/isTempNamespace.md)  
   - [object_aclcheck_ext](../o/object_aclcheck_ext.md)
   - [SearchSysCache1](../S/SearchSysCache1.md)
   - [acldefault](../a/acldefault.md)
   - DatumGetAclP
   - [aclmask](../a/aclmask.md)
-  - has_privs_of_role
+  - [has_privs_of_role](../h/has_privs_of_role.md)
 - Called from (representative examples):
   - InternalDefaultACL
   - [object_aclmask_ext](../o/object_aclmask_ext.md)

@@ -23,7 +23,7 @@ This callback function handles error conditions that occur during WAL summary pr
 ## Dependencies
 - Functions called/Symbols referenced:
   - va_start (variadic argument initialization)
-  - pg_log_generic_v (PostgreSQL logging function with variadic arguments)
+  - [pg_log_generic_v](../p/pg_log_generic_v.md) (PostgreSQL logging function with variadic arguments)
   - va_end (variadic argument cleanup)
   - exit (program termination)
   - PG_LOG_ERROR (error log level constant)

@@ -26,22 +26,22 @@ The function performs extensive validation, checking that the column names exist
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TupleDescGetAttInMetadata
-  - utf_u2e
-  - SPI_fnumber
-  - BuildTupleFromCStrings
-  - domain_check
-  - HeapTupleGetDatum
+  - [TupleDescGetAttInMetadata](../T/TupleDescGetAttInMetadata.md)
+  - [utf_u2e](../u/utf_u2e.md)
+  - [SPI_fnumber](../S/SPI_fnumber.md)
+  - [BuildTupleFromCStrings](../B/BuildTupleFromCStrings.md)
+  - [domain_check](../d/domain_check.md)
+  - [HeapTupleGetDatum](../H/HeapTupleGetDatum.md)
   - RelationGetDescr
   - TupleDescAttr
-  - palloc0
+  - [palloc0](palloc0.md)
   - ereport
   - elog
   - strcmp
 - Called from (representative examples):
-  - pltcl_func_handler
-  - pltcl_trigger_handler
-  - pltcl_returnnext
+  - [pltcl_func_handler](pltcl_func_handler.md)
+  - [pltcl_trigger_handler](pltcl_trigger_handler.md)
+  - [pltcl_returnnext](pltcl_returnnext.md)
 
 ## Notes and Other Information
 - The function explicitly leaks memory as noted in the comments, since cleanup is impractical due to datatype input functions also potentially leaking

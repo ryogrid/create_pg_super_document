@@ -20,7 +20,7 @@ This function provides access to LocalPgBackendStatus entries using a 1-based ar
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_read_current_status
+  - [pgstat_read_current_status](pgstat_read_current_status.md)
 - Called from (representative examples):
   - PG_STAT_GET_PROGRESS_COLS
   - PG_STAT_GET_ACTIVITY_COLS

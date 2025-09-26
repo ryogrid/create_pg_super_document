@@ -30,14 +30,14 @@ This function is typically used when applying stored configuration settings that
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TransformGUCArray (parse array into name/value lists)
+  - [TransformGUCArray](../T/TransformGUCArray.md) (parse array into name/value lists)
   - forboth (macro for iterating parallel lists)
-  - set_config_option (apply individual GUC setting)
-  - pfree (free individual name/value strings)
-  - list_free (free list structures)
+  - [set_config_option](../s/set_config_option.md) (apply individual GUC setting)
+  - [pfree](../p/pfree.md) (free individual name/value strings)
+  - [list_free](../l/list_free.md) (free list structures)
 - Called from (representative examples):
-  - ApplySetting (src/backend/catalog/pg_db_role_setting.c:256)
-  - ProcedureCreate (src/backend/catalog/pg_proc.c:696)
+  - [ApplySetting](../A/ApplySetting.md) (src/backend/catalog/pg_db_role_setting.c:256)
+  - [ProcedureCreate](ProcedureCreate.md) (src/backend/catalog/pg_proc.c:696)
 
 ## Notes and Other Information
 - The array parameter must be non-NULL and contain TEXT elements

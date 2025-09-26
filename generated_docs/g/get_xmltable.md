@@ -29,18 +29,18 @@ The function carefully reconstructs the complete XMLTABLE syntax including prope
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendStringInfoString/appendStringInfoChar/appendStringInfo (for buffer operations)
-  - get_rule_expr (for expression deparsing)
-  - quote_identifier (for identifier quoting)
-  - format_type_with_typemod (for type formatting)
+  - [appendStringInfoString](../a/appendStringInfoString.md)/appendStringInfoChar/appendStringInfo (for buffer operations)
+  - [get_rule_expr](get_rule_expr.md) (for expression deparsing)
+  - [quote_identifier](../q/quote_identifier.md) (for identifier quoting)
+  - [format_type_with_typemod](../f/format_type_with_typemod.md) (for type formatting)
   - forboth/forfive (for parallel list iteration)
   - lfirst/lfirst_node/lfirst_oid/lfirst_int (for list element access)
-  - bms_is_member (for bitmap set membership testing)
+  - [bms_is_member](../b/bms_is_member.md) (for bitmap set membership testing)
   - strVal (for string value extraction)
 - Types referenced:
-  - TableFunc, String, Node
+  - [TableFunc](../T/TableFunc.md), String, Node
 - Called from:
-  - get_tablefunc (for XMLTABLE-specific table function processing)
+  - [get_tablefunc](get_tablefunc.md) (for XMLTABLE-specific table function processing)
 
 ## Notes and Other Information
 - This is a static function within ruleutils.c used exclusively for rule deparsing operations

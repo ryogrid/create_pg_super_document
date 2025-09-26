@@ -22,8 +22,8 @@ readRecoverySignalFile is a static function that scans for PostgreSQL recovery s
   - IsBootstrapProcessingMode (checks if in bootstrap mode)
   - [stat](../s/stat.md) (checks file existence)
   - unlink (removes recovery.done file)
-  - BasicOpenFilePerm (opens signal files)
-  - pg_fsync (synchronizes signal files to disk)
+  - [BasicOpenFilePerm](../B/BasicOpenFilePerm.md) (opens signal files)
+  - [pg_fsync](../p/pg_fsync.md) (synchronizes signal files to disk)
   - close (closes file descriptors)
   - RECOVERY_COMMAND_FILE, STANDBY_SIGNAL_FILE, RECOVERY_SIGNAL_FILE (file path constants)
 - Called from (representative examples):

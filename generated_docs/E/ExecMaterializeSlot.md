@@ -22,20 +22,20 @@ The function delegates to the slot's type-specific materialize operation through
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TupleTableSlot (struct type)
+  - [TupleTableSlot](../T/TupleTableSlot.md) (struct type)
   - tts_ops->materialize (function pointer)
 - Called from (representative examples):
-  - CopyFrom
-  - ExecBRUpdateTriggersNew
-  - EvalPlanQual
-  - RelationFindReplTupleByIndex
-  - ExecForceStoreHeapTuple
-  - ExecForceStoreMinimalTuple
-  - ExecComputeStoredGenerated
-  - ExecInsert
-  - ExecDelete
-  - ExecUpdatePrologue
-  - ExecUpdateAct
+  - [CopyFrom](../C/CopyFrom.md)
+  - [ExecBRUpdateTriggersNew](ExecBRUpdateTriggersNew.md)
+  - [EvalPlanQual](EvalPlanQual.md)
+  - [RelationFindReplTupleByIndex](../R/RelationFindReplTupleByIndex.md)
+  - [ExecForceStoreHeapTuple](ExecForceStoreHeapTuple.md)
+  - [ExecForceStoreMinimalTuple](ExecForceStoreMinimalTuple.md)
+  - [ExecComputeStoredGenerated](ExecComputeStoredGenerated.md)
+  - [ExecInsert](ExecInsert.md)
+  - [ExecDelete](ExecDelete.md)
+  - [ExecUpdatePrologue](ExecUpdatePrologue.md)
+  - [ExecUpdateAct](ExecUpdateAct.md)
 
 ## Notes and Other Information
 - Critical for preparing tuples for disk storage operations like heap_insert

@@ -36,7 +36,7 @@ The `manifest_wal_range` structure represents a contiguous range of WAL (Write-A
 - Called from (representative examples):
   - [combinebackup_per_wal_range_cb](../c/combinebackup_per_wal_range_cb.md) (src/bin/pg_combinebackup/load_manifest.c:298)
   - [verifybackup_per_wal_range_cb](../v/verifybackup_per_wal_range_cb.md) (src/bin/pg_verifybackup/pg_verifybackup.c:582)
-  - finalize_manifest (src/bin/pg_combinebackup/write_manifest.c:143)
+  - [finalize_manifest](../f/finalize_manifest.md) (src/bin/pg_combinebackup/write_manifest.c:143)
   - [parse_required_wal](../p/parse_required_wal.md) (src/bin/pg_verifybackup/pg_verifybackup.c:956)
 
 ## Notes and Other Information

@@ -21,7 +21,7 @@ The function uses PostgreSQL's File API for reading and includes proper error ha
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WalSummaryIO (structure type)
+  - [WalSummaryIO](../W/WalSummaryIO.md) (structure type)
   - [FileRead](../F/FileRead.md) (PostgreSQL file I/O function)
   - [FilePathName](../F/FilePathName.md) (PostgreSQL file utility function)
   - ereport (PostgreSQL error reporting function)

@@ -30,7 +30,7 @@ This function creates a WorkTableScan plan node for accessing the working table 
   - [replace_nestloop_params](../r/replace_nestloop_params.md)
   - [make_worktablescan](../m/make_worktablescan.md)
   - [copy_generic_path_info](copy_generic_path_info.md)
-  - WorkTableScan (return type)
+  - [WorkTableScan](../W/WorkTableScan.md) (return type)
   - RTE_CTE (constant)
 - Called from (representative examples):
   - [create_scan_plan](create_scan_plan.md)

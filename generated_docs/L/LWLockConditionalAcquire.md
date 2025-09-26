@@ -31,25 +31,25 @@ This function is particularly useful in deadlock avoidance scenarios, optimistic
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAttemptLock
+  - [LWLockAttemptLock](LWLockAttemptLock.md)
   - HOLD_INTERRUPTS (on success)
   - RESUME_INTERRUPTS (on failure)
   - PRINT_LWDEBUG, LOG_LWDEBUG (debug builds)
   - TRACE_POSTGRESQL_LWLOCK_CONDACQUIRE* (tracing enabled)
   - T_NAME (tracing enabled)
 - Called from (representative examples):
-  - ss_report_location
-  - TransactionIdSetPageStatus
-  - SimpleLruWaitIO
-  - XLogNeedsFlush
-  - GetVictimBuffer
-  - ConditionalLockBuffer
-  - ProcArrayEndTransaction
-  - pgstat_flush_io
-  - pgstat_lock_entry
-  - pgstat_lock_entry_shared
-  - pgstat_slru_flush
-  - pgstat_flush_wal
+  - [ss_report_location](../s/ss_report_location.md)
+  - [TransactionIdSetPageStatus](../T/TransactionIdSetPageStatus.md)
+  - [SimpleLruWaitIO](../S/SimpleLruWaitIO.md)
+  - [XLogNeedsFlush](../X/XLogNeedsFlush.md)
+  - [GetVictimBuffer](../G/GetVictimBuffer.md)
+  - [ConditionalLockBuffer](../C/ConditionalLockBuffer.md)
+  - [ProcArrayEndTransaction](../P/ProcArrayEndTransaction.md)
+  - [pgstat_flush_io](../p/pgstat_flush_io.md)
+  - [pgstat_lock_entry](../p/pgstat_lock_entry.md)
+  - [pgstat_lock_entry_shared](../p/pgstat_lock_entry_shared.md)
+  - [pgstat_slru_flush](../p/pgstat_slru_flush.md)
+  - [pgstat_flush_wal](../p/pgstat_flush_wal.md)
 
 ## Notes and Other Information
 - No queuing or sleeping occurs - the function returns immediately regardless of lock availability

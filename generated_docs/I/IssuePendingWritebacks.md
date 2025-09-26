@@ -33,10 +33,10 @@ The function iterates through sorted pending writebacks, looks ahead to find con
   - RelFileLocatorEquals
   - [BufTagGetForkNum](../B/BufTagGetForkNum.md)
   - [smgropen](../s/smgropen.md)
-  - smgrwriteback
+  - [smgrwriteback](../s/smgrwriteback.md)
   - [pgstat_count_io_op_time](../p/pgstat_count_io_op_time.md)
 - Called from (representative examples):
-  - BufferSync
+  - [BufferSync](../B/BufferSync.md)
   - [ScheduleBufferTagForWriteback](../S/ScheduleBufferTagForWriteback.md)
   - [ResourceOwnerForgetBufferIO](../R/ResourceOwnerForgetBufferIO.md)
 

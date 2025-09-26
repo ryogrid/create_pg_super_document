@@ -26,7 +26,7 @@ The  function performs controlled deallocation of an NFA state that must have no
 - Called from (representative examples):
   - [dropstate](../d/dropstate.md) (in regc_nfa.c)
   - [deltraverse](../d/deltraverse.md) (in regc_nfa.c)
-  - breakconstraintloop (in regc_nfa.c)
+  - [breakconstraintloop](../b/breakconstraintloop.md) (in regc_nfa.c)
   - [cbracket](../c/cbracket.md) (in regcomp.c)
 
 ## Notes and Other Information

@@ -39,7 +39,7 @@ The function handles special cases including multi-row INSERT VALUES, ON CONFLIC
   - [view_has_instead_trigger](../v/view_has_instead_trigger.md)
   - [error_view_not_updatable](../e/error_view_not_updatable.md)
   - [rewriteTargetView](../r/rewriteTargetView.md)
-  - table_open/table_close
+  - [table_open](../t/table_open.md)/table_close
   - rt_fetch
   - copyObject
   - [list_concat](../l/list_concat.md)/lcons/lappend

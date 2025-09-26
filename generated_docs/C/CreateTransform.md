@@ -40,7 +40,7 @@ The function supports optional FROM SQL and TO SQL transform functions, allowing
   - [LookupFuncWithArgs](../L/LookupFuncWithArgs.md)
   - [SearchSysCache1](../S/SearchSysCache1.md)/SearchSysCache2
   - [check_transform_function](../c/check_transform_function.md)
-  - table_open
+  - [table_open](../t/table_open.md)
   - [heap_modify_tuple](../h/heap_modify_tuple.md)
   - [CatalogTupleUpdate](CatalogTupleUpdate.md)
   - [GetNewOidWithIndex](../G/GetNewOidWithIndex.md)

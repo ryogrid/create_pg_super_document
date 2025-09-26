@@ -29,12 +29,12 @@ The function includes an assertion to ensure it's not called on an empty heap, a
 ## Dependencies
 - Functions called/Symbols referenced:
   - pairingheap_is_empty
-  - merge_children
+  - [merge_children](../m/merge_children.md)
 - Called from (representative examples):
-  - getNextGISTSearchItem
-  - spgGetNextQueueItem  
-  - reorderqueue_pop
-  - pairingheap_remove
+  - [getNextGISTSearchItem](../g/getNextGISTSearchItem.md)
+  - [spgGetNextQueueItem](../s/spgGetNextQueueItem.md)  
+  - [reorderqueue_pop](../r/reorderqueue_pop.md)
+  - [pairingheap_remove](pairingheap_remove.md)
 
 ## Notes and Other Information
 - The caller must ensure the heap is not empty before calling this function

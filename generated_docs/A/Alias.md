@@ -29,7 +29,7 @@ The aliasname field stores the primary alias for the relation and is never schem
 - Functions called/Symbols referenced:
   - NodeTag (node system)
   - [List](../L/List.md) (PostgreSQL list structure)
-  - String nodes (for column names)
+  - [String](../S/String.md) nodes (for column names)
 
 - Called from (representative examples):
   - [makeAlias](../m/makeAlias.md) (creation function)

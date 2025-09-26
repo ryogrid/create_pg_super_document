@@ -25,21 +25,21 @@ The implementation includes safeguards against excessive run creation and provid
 ## Dependencies
 - Functions called/Symbols referenced:
   - LACKMEM (memory pressure check macro)
-  - selectnewtape
-  - tuplesort_sort_memtuples
+  - [selectnewtape](../s/selectnewtape.md)
+  - [tuplesort_sort_memtuples](../t/tuplesort_sort_memtuples.md)
   - WRITETUP
   - [MemoryContextReset](../M/MemoryContextReset.md)
   - FREEMEM
   - [markrunend](../m/markrunend.md)
-  - pg_rusage_show (for tracing)
+  - [pg_rusage_show](../p/pg_rusage_show.md) (for tracing)
 - Types referenced:
-  - Tuplesortstate
+  - [Tuplesortstate](../T/Tuplesortstate.md)
   - SortTuple
   - TSS_BUILDRUNS
 - Called from (representative examples):
-  - tuplesort_puttuple_common
-  - tuplesort_performsort
-  - tuplestore_puttuple_common
+  - [tuplesort_puttuple_common](../t/tuplesort_puttuple_common.md)
+  - [tuplesort_performsort](../t/tuplesort_performsort.md)
+  - [tuplestore_puttuple_common](../t/tuplestore_puttuple_common.md)
 
 ## Notes and Other Information
 - Only operates when sort state is TSS_BUILDRUNS

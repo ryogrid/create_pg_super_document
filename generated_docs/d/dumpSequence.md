@@ -30,7 +30,7 @@ The  function generates SQL CREATE SEQUENCE statements for PostgreSQL sequences.
   - [ArchiveEntry](../A/ArchiveEntry.md)
   - [dumpComment](dumpComment.md)
   - [dumpSecLabel](dumpSecLabel.md)
-  - createPQExpBuffer/resetPQExpBuffer/destroyPQExpBuffer
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)/resetPQExpBuffer/destroyPQExpBuffer
 - Called from (representative examples):
   - [dumpTable](dumpTable.md)
 

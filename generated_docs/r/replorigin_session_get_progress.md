@@ -29,7 +29,7 @@ The optional flush parameter allows callers to ensure that all changes up to the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire/LWLockRelease (with LW_SHARED mode)
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease (with LW_SHARED mode)
   - [XLogFlush](../X/XLogFlush.md)
   - InvalidXLogRecPtr (for validation)
 - Called from (representative examples):

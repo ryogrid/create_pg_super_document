@@ -26,8 +26,8 @@ The function differentiates between tuples that have combo CIDs (inserted and de
   - [xl_heap_new_cid](../x/xl_heap_new_cid.md) (WAL record structure)
   - [GetTopTransactionId](../G/GetTopTransactionId.md)
   - [ItemPointerIsValid](../I/ItemPointerIsValid.md)
-  - HeapTupleHeaderGetCmin
-  - HeapTupleHeaderGetCmax
+  - [HeapTupleHeaderGetCmin](../H/HeapTupleHeaderGetCmin.md)
+  - [HeapTupleHeaderGetCmax](../H/HeapTupleHeaderGetCmax.md)
   - HeapTupleHeaderGetRawCommandId
   - HeapTupleHeaderXminInvalid
   - [XLogBeginInsert](../X/XLogBeginInsert.md)

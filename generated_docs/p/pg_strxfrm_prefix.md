@@ -45,7 +45,7 @@ LC_ALL=: Locale information specifying the collation provider and rules to use
   - PGLOCALE_SUPPORT_ERROR
   - COLLPROVIDER_ICU
   - COLLPROVIDER_LIBC
-  - pg_locale_t
+  - [pg_locale_t](pg_locale_t.md)
 - Called from (representative examples):
   - [varstr_abbrev_convert](../v/varstr_abbrev_convert.md)
 

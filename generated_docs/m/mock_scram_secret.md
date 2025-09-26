@@ -31,8 +31,8 @@ The function generates deterministic salt based on the username using the cluste
 ## Dependencies
 - Functions called/Symbols referenced:
   - [scram_mock_salt](../s/scram_mock_salt.md)
-  - pg_b64_enc_len
-  - pg_b64_encode
+  - [pg_b64_enc_len](../p/pg_b64_enc_len.md)
+  - [pg_b64_encode](../p/pg_b64_encode.md)
   - [palloc](../p/palloc.md)
   - memset
   - elog

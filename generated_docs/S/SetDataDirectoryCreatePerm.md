@@ -26,9 +26,9 @@ This function configures PostgreSQL's file and directory creation permissions by
   - PG_FILE_MODE_OWNER (constant for owner-only file permissions)
   - PG_MODE_MASK_OWNER (umask for owner-only permissions)
 - Called from (representative examples):
-  - checkDataDir (src/backend/utils/init/miscinit.c:420)
-  - main (src/bin/initdb/initdb.c:3343)
-  - GetDataDirectoryCreatePerm (src/common/file_perm.c:80)
+  - [checkDataDir](../c/checkDataDir.md) (src/backend/utils/init/miscinit.c:420)
+  - [main](../m/main.md) (src/bin/initdb/initdb.c:3343)
+  - [GetDataDirectoryCreatePerm](../G/GetDataDirectoryCreatePerm.md) (src/common/file_perm.c:80)
 
 ## Notes and Other Information
 - The function modifies global variables pg_dir_create_mode, pg_file_create_mode, and pg_mode_mask

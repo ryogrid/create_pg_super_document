@@ -20,17 +20,17 @@ The  function is a convenience function that creates a new StringInfo object by 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (memory allocation)
-  - initStringInfo (initialization)
+  - [palloc](../p/palloc.md) (memory allocation)
+  - [initStringInfo](../i/initStringInfo.md) (initialization)
 - Called from (representative examples):
-  - build_backup_content
-  - pg_backup_start  
-  - perform_base_backup
-  - DoCopyTo
-  - NewExplainState
-  - array_to_json
-  - jsonb_send
-  - makeStringAggState
+  - [build_backup_content](../b/build_backup_content.md)
+  - [pg_backup_start](../p/pg_backup_start.md)  
+  - [perform_base_backup](../p/perform_base_backup.md)
+  - [DoCopyTo](../D/DoCopyTo.md)
+  - [NewExplainState](../N/NewExplainState.md)
+  - [array_to_json](../a/array_to_json.md)
+  - [jsonb_send](../j/jsonb_send.md)
+  - [makeStringAggState](makeStringAggState.md)
 
 ## Notes and Other Information
 - This function is located at src/common/stringinfo.c:41-58

@@ -33,7 +33,7 @@ This function must be called before any SHA-512 update or finalize operations. T
   - PG_SHA512_DIGEST_LENGTH (64 bytes)
   - PG_SHA512_BLOCK_LENGTH (128 bytes)
 - Called from (representative examples):
-  - pg_cryptohash_init
+  - [pg_cryptohash_init](pg_cryptohash_init.md)
 
 ## Notes and Other Information
 - Safe to call with NULL context pointer - function will return without error

@@ -20,13 +20,13 @@ This function is part of the tuplestore machinery specialized for handling HeapT
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Tuplestorestate
+  - [Tuplestorestate](../T/Tuplestorestate.md)
   - MinimalTuple
   - [minimal_tuple_from_heap_tuple](../m/minimal_tuple_from_heap_tuple.md)
-  - GetMemoryChunkSpace
+  - [GetMemoryChunkSpace](../G/GetMemoryChunkSpace.md)
   - USEMEM (memory accounting macro)
 - Called from (representative examples):
-  - tuplestore_begin_heap
+  - [tuplestore_begin_heap](../t/tuplestore_begin_heap.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the tuplestore.c module

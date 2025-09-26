@@ -32,8 +32,8 @@ SendProcSignal is the primary function for sending inter-process signals within 
   - NumProcSignalSlots (variable)
 - Called from (representative examples):
   - [SignalBackends](SignalBackends.md)
-  - SignalVirtualTransaction
-  - CancelDBBackends
+  - [SignalVirtualTransaction](SignalVirtualTransaction.md)
+  - [CancelDBBackends](../C/CancelDBBackends.md)
   - [WalSndInitStopping](../W/WalSndInitStopping.md)
   - [ParallelWorkerShutdown](../P/ParallelWorkerShutdown.md)
 

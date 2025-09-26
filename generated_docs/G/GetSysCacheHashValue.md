@@ -38,6 +38,6 @@ GetSysCacheHashValue calculates the hash value for a hypothetical tuple in a sys
 
 ## Notes and Other Information
 - The function performs bounds checking on cacheId and validates that the cache exists
-- Hash values are exposed in cache invalidation operations, making this function necessary for external cache management
+- [Hash](../H/Hash.md) values are exposed in cache invalidation operations, making this function necessary for external cache management
 - The function is a thin wrapper around GetCatCacheHashValue, providing the syscache interface layer
 - Located in src/backend/utils/cache/syscache.c:662-678

@@ -24,14 +24,14 @@ The function allows flexible target types - SQL standard supports CHAR and VARCH
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode
-  - coerce_to_specific_type
-  - transformExprRecurse
-  - typenameTypeIdAndMod
-  - coerce_to_target_type
-  - format_type_be
+  - [coerce_to_specific_type](../c/coerce_to_specific_type.md)
+  - [transformExprRecurse](transformExprRecurse.md)
+  - [typenameTypeIdAndMod](typenameTypeIdAndMod.md)
+  - [coerce_to_target_type](../c/coerce_to_target_type.md)
+  - [format_type_be](../f/format_type_be.md)
   - ereport
 - Called from (representative examples):
-  - transformExprRecurse
+  - [transformExprRecurse](transformExprRecurse.md)
 
 ## Notes and Other Information
 - Creates XmlExpr with IS_XMLSERIALIZE operation type

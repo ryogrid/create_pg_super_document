@@ -22,8 +22,8 @@ RecordConstLocation maintains a record of where constants appear in the original
 ## Dependencies
 - Functions called/Symbols referenced:
   - [repalloc](../r/repalloc.md) (reallocates memory when buffer needs expansion)
-  - LocationLen (structure type for storing location and length information)
-  - JumbleState (state structure containing location tracking arrays)
+  - [LocationLen](../L/LocationLen.md) (structure type for storing location and length information)
+  - [JumbleState](../J/JumbleState.md) (state structure containing location tracking arrays)
 - Called from (representative examples):
   - JUMBLE_LOCATION (macro for recording locations during jumbling)
 

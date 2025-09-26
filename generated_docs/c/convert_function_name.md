@@ -19,7 +19,7 @@ This is a static helper function used by the has_function_privilege family of fu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - text_to_cstring(): Converts PostgreSQL text type to C string
+  - [text_to_cstring](../t/text_to_cstring.md)(): Converts PostgreSQL text type to C string
   - DirectFunctionCall1(): Calls a PostgreSQL function with one argument
   - [regprocedurein](../r/regprocedurein.md)(): PostgreSQL input function that converts string to regprocedure
   - [DatumGetObjectId](../D/DatumGetObjectId.md)(): Extracts OID from a Datum

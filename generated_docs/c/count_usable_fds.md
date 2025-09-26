@@ -29,16 +29,16 @@ The function respects system limits by checking RLIMIT_NOFILE when available and
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc
-  - repalloc
-  - pfree
+  - [palloc](../p/palloc.md)
+  - [repalloc](../r/repalloc.md)
+  - [pfree](../p/pfree.md)
   - dup
   - close
   - getrlimit (when HAVE_GETRLIMIT is defined)
   - ereport
   - elog
 - Called from (representative examples):
-  - set_max_safe_fds
+  - [set_max_safe_fds](../s/set_max_safe_fds.md)
 
 ## Notes and Other Information
 - Assumes stderr (FD 2) is available for duplication - closing stderr would break this function

@@ -21,15 +21,15 @@ The function name suggests "error-checked copy allocation," reflecting its role 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - memcheck
+  - [memcheck](../m/memcheck.md)
   - strdup (implicit via memcheck)
 
 - Called from (representative examples):
-  - inrule (multiple calls)
-  - inzsub (multiple calls) 
-  - inlink (multiple calls)
-  - rulesub (multiple calls)
-  - mkdirs
+  - [inrule](../i/inrule.md) (multiple calls)
+  - [inzsub](../i/inzsub.md) (multiple calls) 
+  - [inlink](../i/inlink.md) (multiple calls)
+  - [rulesub](../r/rulesub.md) (multiple calls)
+  - [mkdirs](../m/mkdirs.md)
 
 ## Notes and Other Information
 - This function is static, meaning it's only accessible within the src/timezone/zic.c file

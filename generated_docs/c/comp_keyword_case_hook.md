@@ -18,7 +18,7 @@ This function serves as a validation hook for the COMP_KEYWORD_CASE psql variabl
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_strcasecmp](../p/pg_strcasecmp.md) (for case-insensitive string comparison)
-  - PsqlVarEnumError (for error reporting on invalid values)
+  - [PsqlVarEnumError](../P/PsqlVarEnumError.md) (for error reporting on invalid values)
   - PSQL_COMP_CASE_PRESERVE_UPPER (enum constant)
   - PSQL_COMP_CASE_PRESERVE_LOWER (enum constant)
   - PSQL_COMP_CASE_UPPER (enum constant)

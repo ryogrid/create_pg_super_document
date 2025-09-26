@@ -22,13 +22,13 @@ The function uses guc_name_compare() for name comparison, which implements a cus
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - guc_name_compare (for case-insensitive name comparison)
-  - ShowAllGUCConfig (to display all GUC variables)
-  - ShowGUCConfigOption (to display a specific GUC variable)
-  - DestReceiver (type for output destination)
+  - [guc_name_compare](../g/guc_name_compare.md) (for case-insensitive name comparison)
+  - [ShowAllGUCConfig](../S/ShowAllGUCConfig.md) (to display all GUC variables)
+  - [ShowGUCConfigOption](../S/ShowGUCConfigOption.md) (to display a specific GUC variable)
+  - [DestReceiver](../D/DestReceiver.md) (type for output destination)
 - Called from (representative examples):
-  - exec_replication_command (in replication context)
-  - standard_ProcessUtility (during utility command processing)
+  - [exec_replication_command](../e/exec_replication_command.md) (in replication context)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (during utility command processing)
 
 ## Notes and Other Information
 - This function is the primary interface between the SQL SHOW command and the GUC system

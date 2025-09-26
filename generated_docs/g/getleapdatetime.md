@@ -32,15 +32,15 @@ The  function processes leap second date and time information from input fields 
 ## Dependencies
 - Functions called/Symbols referenced:
   - sscanf (parsing numeric fields)
-  - error (error reporting)
+  - [error](../e/error.md) (error reporting)
   - isleap (leap year checking)
-  - oadd (overflow-safe addition)
-  - byword (lookup table search)
-  - gethms (time parsing)
-  - tadd (time addition)
+  - [oadd](../o/oadd.md) (overflow-safe addition)
+  - [byword](../b/byword.md) (lookup table search)
+  - [gethms](gethms.md) (time parsing)
+  - [tadd](../t/tadd.md) (time addition)
 - Called from (representative examples):
-  - inleap (processes leap second lines)
-  - inexpires (processes leap expiration lines)
+  - [inleap](../i/inleap.md) (processes leap second lines)
+  - [inexpires](../i/inexpires.md) (processes leap expiration lines)
 
 ## Notes and Other Information
 - Returns -1 on validation errors, otherwise returns computed zic_t timestamp

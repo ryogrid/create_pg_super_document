@@ -27,14 +27,14 @@ AfterTriggersQueryData represents the trigger state for a single query execution
 ## Dependencies
 - Functions called/Symbols referenced:
   - [AfterTriggerEventList](AfterTriggerEventList.md) (for events storage)
-  - Tuplestorestate (for FDW tuple storage)
+  - [Tuplestorestate](../T/Tuplestorestate.md) (for FDW tuple storage)
 - Called from (representative examples):
   - [AfterTriggersData](AfterTriggersData.md) (query_stack field)
   - [GetAfterTriggersTableData](../G/GetAfterTriggersTableData.md)
   - [AfterTriggerEndQuery](AfterTriggerEndQuery.md)
   - [AfterTriggerFreeQuery](AfterTriggerFreeQuery.md)
   - [AfterTriggerEnlargeQueryState](AfterTriggerEnlargeQueryState.md)
-  - cancel_prior_stmt_triggers
+  - [cancel_prior_stmt_triggers](../c/cancel_prior_stmt_triggers.md)
 
 ## Notes and Other Information
 This structure is allocated as part of a dynamic array in AfterTriggersData to support arbitrary nesting depths of query execution. The FDW tuplestore integration is essential for handling triggers on foreign tables, where the actual tuple data may need to be preserved across the network for proper trigger execution. The per-table tracking through the tables list enables efficient management of table-specific trigger optimization and state, particularly important for bulk operations affecting multiple tables.

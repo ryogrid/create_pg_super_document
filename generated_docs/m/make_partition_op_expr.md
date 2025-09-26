@@ -28,11 +28,11 @@ This function constructs appropriate expression nodes for partition constraint o
   - type_is_array
   - [get_array_type](../g/get_array_type.md)
   - [get_opcode](../g/get_opcode.md)
-  - make_opclause
+  - [make_opclause](make_opclause.md)
   - [makeBoolExpr](makeBoolExpr.md)
   - list_make2
   - ArrayExpr
-  - ScalarArrayOpExpr
+  - [ScalarArrayOpExpr](../S/ScalarArrayOpExpr.md)
   - PARTITION_STRATEGY_LIST
   - PARTITION_STRATEGY_RANGE
   - PARTITION_STRATEGY_HASH
@@ -49,7 +49,7 @@ This function constructs appropriate expression nodes for partition constraint o
 - Handles type coercion automatically when partition key type differs from operator class type
 - For list partitioning with multiple values, creates optimized ScalarArrayOpExpr when possible
 - Falls back to OR'd equality expressions for list partitioning with array types or single values
-- Range partitioning always produces simple comparison expressions
-- Hash partitioning support is explicitly disabled with Assert(false)
+- [Range](../R/Range.md) partitioning always produces simple comparison expressions
+- [Hash](../H/Hash.md) partitioning support is explicitly disabled with Assert(false)
 - Applies proper collation settings from the partition key metadata
 - Returns NULL only in error cases or unsupported scenarios

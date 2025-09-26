@@ -26,14 +26,14 @@ The GEQO algorithm uses this private data structure to maintain state consistenc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - List (PostgreSQL's list data structure)
-  - pg_prng_state (PostgreSQL's PRNG state structure)
+  - [List](../L/List.md) (PostgreSQL's list data structure)
+  - [pg_prng_state](../p/pg_prng_state.md) (PostgreSQL's PRNG state structure)
 - Called from (representative examples):
-  - geqo (main GEQO entry point function)
-  - geqo_set_seed (initializes the random state)
-  - geqo_rand (accesses random state for generating random numbers)
-  - geqo_randint (accesses random state for generating random integers)
-  - gimme_tree (uses the structure for tree construction)
+  - [geqo](../g/geqo.md) (main GEQO entry point function)
+  - [geqo_set_seed](../g/geqo_set_seed.md) (initializes the random state)
+  - [geqo_rand](../g/geqo_rand.md) (accesses random state for generating random numbers)
+  - [geqo_randint](../g/geqo_randint.md) (accesses random state for generating random integers)
+  - [gimme_tree](../g/gimme_tree.md) (uses the structure for tree construction)
 
 ## Notes and Other Information
 - The structure is allocated on the stack in the geqo() function and its address is stored in root->join_search_private for access by other GEQO functions

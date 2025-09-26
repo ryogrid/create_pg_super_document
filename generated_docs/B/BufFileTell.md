@@ -21,14 +21,14 @@ BufFileTell retrieves the current position within a BufFile structure by returni
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufFile (structure type)
+  - [BufFile](BufFile.md) (structure type)
 - Called from (representative examples):
-  - ensure_last_message (src/backend/replication/logical/worker.c:1988)
-  - apply_spooled_messages (src/backend/replication/logical/worker.c:2088)
-  - subxact_info_add (src/backend/replication/logical/worker.c:4187)
-  - tuplestore_select_read_pointer (src/backend/utils/sort/tuplestore.c:500)
-  - tuplestore_puttuple_common (src/backend/utils/sort/tuplestore.c:847)
-  - tuplestore_gettuple (src/backend/utils/sort/tuplestore.c:965)
+  - [ensure_last_message](../e/ensure_last_message.md) (src/backend/replication/logical/worker.c:1988)
+  - [apply_spooled_messages](../a/apply_spooled_messages.md) (src/backend/replication/logical/worker.c:2088)
+  - [subxact_info_add](../s/subxact_info_add.md) (src/backend/replication/logical/worker.c:4187)
+  - [tuplestore_select_read_pointer](../t/tuplestore_select_read_pointer.md) (src/backend/utils/sort/tuplestore.c:500)
+  - [tuplestore_puttuple_common](../t/tuplestore_puttuple_common.md) (src/backend/utils/sort/tuplestore.c:847)
+  - [tuplestore_gettuple](../t/tuplestore_gettuple.md) (src/backend/utils/sort/tuplestore.c:965)
 
 ## Notes and Other Information
 - The function is straightforward and performs no validation - it assumes the BufFile pointer is valid

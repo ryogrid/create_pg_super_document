@@ -27,8 +27,8 @@ SERIALIZABLEXIDTAG is a simple tag structure used as a key in hash tables that t
   - [RegisterPredicateLockingXid](../R/RegisterPredicateLockingXid.md) (registering transaction for predicate locking)
   - [ReleaseOneSerializableXact](../R/ReleaseOneSerializableXact.md) (releasing serializable transaction resources)
   - [CheckForSerializableConflictOut](../C/CheckForSerializableConflictOut.md) (checking for serialization conflicts)
-  - PredicateLockTwoPhaseFinish (two-phase commit predicate lock handling)
-  - predicatelock_twophase_recover (recovery of two-phase predicate locks)
+  - [PredicateLockTwoPhaseFinish](../P/PredicateLockTwoPhaseFinish.md) (two-phase commit predicate lock handling)
+  - [predicatelock_twophase_recover](../p/predicatelock_twophase_recover.md) (recovery of two-phase predicate locks)
   - [SERIALIZABLEXID](SERIALIZABLEXID.md) (related data structure)
 
 ## Notes and Other Information

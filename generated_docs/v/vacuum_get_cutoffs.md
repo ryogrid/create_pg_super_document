@@ -27,7 +27,7 @@ The function considers various age parameters and system limits to balance perfo
 - Functions called/Symbols referenced:
   - [GetOldestNonRemovableTransactionId](../G/GetOldestNonRemovableTransactionId.md)
   - [GetOldestMultiXactId](../G/GetOldestMultiXactId.md)
-  - ReadNextTransactionId
+  - [ReadNextTransactionId](../R/ReadNextTransactionId.md)
   - [ReadNextMultiXactId](../R/ReadNextMultiXactId.md)
   - [MultiXactMemberFreezeThreshold](../M/MultiXactMemberFreezeThreshold.md)
   - TransactionIdIsNormal

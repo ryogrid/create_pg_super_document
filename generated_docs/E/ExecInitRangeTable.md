@@ -30,13 +30,13 @@ The lazy initialization approach for relation opening helps optimize query start
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_length
-  - palloc0
+  - [list_length](../l/list_length.md)
+  - [palloc0](../p/palloc0.md)
 - Called from (representative examples):
-  - CopyFrom
-  - InitPlan
-  - create_edata_for_relation
-  - create_estate_for_relation
+  - [CopyFrom](../C/CopyFrom.md)
+  - [InitPlan](../I/InitPlan.md)
+  - [create_edata_for_relation](../c/create_edata_for_relation.md)
+  - [create_estate_for_relation](../c/create_estate_for_relation.md)
 
 ## Notes and Other Information
 - This function is typically called during query initialization before execution begins

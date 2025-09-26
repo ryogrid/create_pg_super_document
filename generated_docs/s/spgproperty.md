@@ -45,7 +45,7 @@ Currently, SP-GiST distance-ordered scans require a distance operator in the opc
   - AMPROP_DISTANCE_ORDERABLE
   - AMOP_ORDER
   - IndexAMProperty
-  - CatCList
+  - [CatCList](../C/CatCList.md)
   - Form_pg_amop
 - Called from (representative examples):
   - [spghandler](spghandler.md) (SP-GiST access method handler)

@@ -36,13 +36,13 @@ The function handles both regular transaction locks (tied to CurrentResourceOwne
   - EligibleForRelationFastPath
   - [FastPathUnGrantRelationLock](../F/FastPathUnGrantRelationLock.md)
   - LockHashPartitionLock
-  - ResourceOwnerForgetLock
+  - [ResourceOwnerForgetLock](../R/ResourceOwnerForgetLock.md)
   - [UnGrantLock](../U/UnGrantLock.md)
   - [CleanUpLock](../C/CleanUpLock.md)
   - [RemoveLocalLock](../R/RemoveLocalLock.md)
   - LOCK_PRINT/PROCLOCK_PRINT (debug macros)
   - LOCKBIT_ON (macro)
-  - LWLockAcquire/LWLockRelease
+  - [LWLockAcquire](LWLockAcquire.md)/LWLockRelease
 - Called from (representative examples):
   - [UnlockRelationId](../U/UnlockRelationId.md)
   - [UnlockRelationOid](../U/UnlockRelationOid.md)

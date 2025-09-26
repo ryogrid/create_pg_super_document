@@ -23,9 +23,9 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - StrategyControl (global buffer strategy control structure)
-  - BufferDesc (buffer descriptor structure)
+  - [BufferDesc](../B/BufferDesc.md) (buffer descriptor structure)
 - Called from (representative examples):
-  - ResourceOwnerForgetBufferIO
+  - [ResourceOwnerForgetBufferIO](../R/ResourceOwnerForgetBufferIO.md)
 
 ## Notes and Other Information
 - The function is lockless for performance but provides no guarantees about buffer availability by the time the caller acts

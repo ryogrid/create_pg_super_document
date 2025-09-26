@@ -25,7 +25,7 @@ The function uses a large switch statement to classify each formatting token by 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FormatNode (structure type)
+  - [FormatNode](../F/FormatNode.md) (structure type)
   - NODE_TYPE_END (constant)
   - NODE_TYPE_ACTION (constant)
   - Multiple DCH format constants (DCH_YYYY, DCH_MM, DCH_DD, DCH_HH, etc.)
@@ -33,8 +33,8 @@ The function uses a large switch statement to classify each formatting token by 
   - DCH_TIMED (flag constant)
   - DCH_ZONED (flag constant)
 - Called from:
-  - datetime_format_has_tz
-  - do_to_timestamp
+  - [datetime_format_has_tz](../d/datetime_format_has_tz.md)
+  - [do_to_timestamp](../d/do_to_timestamp.md)
 
 ## Notes and Other Information
 - The function ignores DCH_FX (fill mode) tokens as they don't contribute to component type classification

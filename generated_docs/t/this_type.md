@@ -34,7 +34,7 @@ struct this_type
 - Functions called/Symbols referenced:
   - ECPGttype (enumeration type used for type_enum member)
 - Called from (representative examples):
-  - typedefs (referenced in src/interfaces/ecpg/preproc/type.h)
+  - [typedefs](typedefs.md) (referenced in src/interfaces/ecpg/preproc/type.h)
 
 ## Notes and Other Information
 - This structure is a fundamental component of ECPG's type system located in 

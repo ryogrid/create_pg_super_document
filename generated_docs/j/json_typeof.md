@@ -22,9 +22,9 @@ This function implements the SQL function json_typeof(json) -> text, which analy
 - Functions called/Symbols referenced:
   - PG_GETARG_TEXT_PP
   - [makeJsonLexContext](../m/makeJsonLexContext.md)
-  - json_lex
+  - [json_lex](json_lex.md)
   - [json_errsave_error](json_errsave_error.md)
-  - cstring_to_text
+  - [cstring_to_text](../c/cstring_to_text.md)
   - PG_RETURN_TEXT_P
   - elog
 - Data types referenced:
@@ -45,7 +45,7 @@ This function implements the SQL function json_typeof(json) -> text, which analy
 - Returns one of six possible type strings: "object", "array", "string", "number", "boolean", or "null"
 - Uses single-token lexing for optimal performance rather than full parsing
 - Assumes input has already been validated, so it doesn't expect malformed JSON tokens
-- Boolean values (both true and false) are unified under the "boolean" type string
+- [Boolean](../B/Boolean.md) values (both true and false) are unified under the "boolean" type string
 - The function follows PostgreSQL's standard function interface using PG_FUNCTION_ARGS and Datum return type
 - Error handling includes proper PostgreSQL error reporting for unexpected token types
 - Part of PostgreSQL's JSON function library for SQL-level JSON manipulation

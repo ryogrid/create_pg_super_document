@@ -22,12 +22,12 @@ This function determines which dimension of a multi-dimensional MCV statistic co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_member_index
-  - exprCollation
-  - bms_num_members
-  - equal
+  - [bms_member_index](../b/bms_member_index.md)
+  - [exprCollation](../e/exprCollation.md)
+  - [bms_num_members](../b/bms_num_members.md)
+  - [equal](../e/equal.md)
 - Called from (representative examples):
-  - mcv_get_match_bitmap (multiple calls)
+  - [mcv_get_match_bitmap](mcv_get_match_bitmap.md) (multiple calls)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the mcv.c file

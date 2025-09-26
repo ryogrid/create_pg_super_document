@@ -27,7 +27,7 @@ The complete tuple is then added to the tuplesort object using , and the row cou
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ordered_set_startup](ordered_set_startup.md)
-  - ExecClearTuple
+  - [ExecClearTuple](../E/ExecClearTuple.md)
   - [ExecStoreVirtualTuple](../E/ExecStoreVirtualTuple.md)
   - [tuplesort_puttupleslot](../t/tuplesort_puttupleslot.md)
   - PG_ARGISNULL

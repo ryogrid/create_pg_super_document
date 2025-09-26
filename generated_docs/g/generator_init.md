@@ -26,7 +26,7 @@ This function creates and initializes a CombinationGenerator structure that pre-
   - [generate_combinations](generate_combinations.md) (populates the combinations)
   - Assert (debugging assertion macro)
 - Called from (representative examples):
-  - statext_ndistinct_build
+  - [statext_ndistinct_build](../s/statext_ndistinct_build.md)
 
 ## Notes and Other Information
 - The function is declared as static, limiting scope to mvdistinct.c

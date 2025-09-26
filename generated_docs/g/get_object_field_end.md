@@ -20,7 +20,7 @@ The `get_object_field_end` function is a semantic action callback used during JS
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetState](../G/GetState.md)
-  - cstring_to_text_with_len
+  - [cstring_to_text_with_len](../c/cstring_to_text_with_len.md)
   - JSON_SUCCESS
   - JsonParseErrorType
 - Called from (representative examples):

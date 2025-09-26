@@ -23,7 +23,7 @@ This function is part of PostgreSQL's geometric SP-GiST (Space-Partitioned Gener
   - [contained2D](contained2D.md) (called twice, once for X dimension and once for Y dimension)
 - Data types used:
   - RectBox
-  - RangeBox
+  - [RangeBox](../R/RangeBox.md)
 - Called from (representative examples):
   - [spg_box_quad_inner_consistent](../s/spg_box_quad_inner_consistent.md)
 

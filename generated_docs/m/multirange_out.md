@@ -33,7 +33,7 @@ The function deserializes the multirange into its constituent ranges, then itera
   - IOFunc_output
   - [multirange_deserialize](multirange_deserialize.md)
   - [OutputFunctionCall](../O/OutputFunctionCall.md)
-  - RangeTypePGetDatum
+  - [RangeTypePGetDatum](../R/RangeTypePGetDatum.md)
   - PG_RETURN_CSTRING
 - Called from:
   - [anymultirange_out](../a/anymultirange_out.md) (src/backend/utils/adt/pseudotypes.c:238)

@@ -27,11 +27,11 @@ The function also passes information about updated columns and transition captur
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AfterTriggerSaveEvent
+  - [AfterTriggerSaveEvent](../A/AfterTriggerSaveEvent.md)
   - [ExecGetAllUpdatedCols](ExecGetAllUpdatedCols.md)
 - Data types referenced:
-  - TransitionCaptureState
-  - TriggerDesc
+  - [TransitionCaptureState](../T/TransitionCaptureState.md)
+  - [TriggerDesc](../T/TriggerDesc.md)
   - TRIGGER_EVENT_UPDATE
 - Called from (representative examples):
   - [fireASTriggers](../f/fireASTriggers.md) (in nodeModifyTable.c)

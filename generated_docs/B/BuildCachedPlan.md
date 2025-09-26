@@ -28,9 +28,9 @@ The function performs several critical operations: validates the query tree (rev
 - Functions called/Symbols referenced:
   - [RevalidateCachedQuery](../R/RevalidateCachedQuery.md) (for query tree validation)
   - copyObject (for deep copying query structures)
-  - ActiveSnapshotSet, PushActiveSnapshot, PopActiveSnapshot (snapshot management)
+  - [ActiveSnapshotSet](../A/ActiveSnapshotSet.md), PushActiveSnapshot, PopActiveSnapshot (snapshot management)
   - [analyze_requires_snapshot](../a/analyze_requires_snapshot.md) (to determine if snapshot is needed)
-  - GetTransactionSnapshot (for snapshot acquisition)
+  - [GetTransactionSnapshot](../G/GetTransactionSnapshot.md) (for snapshot acquisition)
   - [pg_plan_queries](../p/pg_plan_queries.md) (core PostgreSQL planner interface)
   - AllocSetContextCreate (memory context creation)
   - MemoryContextCopyAndSetIdentifier (memory context naming)

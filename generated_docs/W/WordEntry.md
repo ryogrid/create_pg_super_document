@@ -36,15 +36,15 @@ This compact representation is crucial for memory efficiency in text search oper
 - Functions called/Symbols referenced:
   - None (struct definition only)
 - Used by (representative examples):
-  - tsvectorin (parsing text search vectors)
-  - tsvectorout (converting to text representation)
-  - tsvector_concat (combining search vectors)
-  - calc_rank_and/calc_rank_or (ranking calculations)
-  - gin_extract_tsvector (GIN indexing)
+  - [tsvectorin](../t/tsvectorin.md) (parsing text search vectors)
+  - [tsvectorout](../t/tsvectorout.md) (converting to text representation)
+  - [tsvector_concat](../t/tsvector_concat.md) (combining search vectors)
+  - [calc_rank_and](../c/calc_rank_and.md)/calc_rank_or (ranking calculations)
+  - [gin_extract_tsvector](../g/gin_extract_tsvector.md) (GIN indexing)
 
 ## Notes and Other Information
 - The bit field packing allows efficient storage while maintaining fast access to metadata
 - Maximum word length is constrained by the 11-bit len field (MAXSTRLEN = 2047 bytes)
 - Maximum total data size is limited by the 20-bit pos field (MAXSTRPOS = 1048575 bytes)
-- WordEntry arrays are typically sorted by word string for binary search operations
+- [WordEntry](WordEntry.md) arrays are typically sorted by word string for binary search operations
 - Position data (when haspos=1) follows the word string in the data area

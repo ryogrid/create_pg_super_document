@@ -80,13 +80,13 @@ ExprContext serves as the runtime environment for expression evaluation in Postg
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParamExecData (executor parameter data structure)
-  - ParamListInfo (parameter list management)
-  - ExprContext_CB (cleanup callback structure)
+  - [ParamExecData](../P/ParamExecData.md) (executor parameter data structure)
+  - [ParamListInfo](../P/ParamListInfo.md) (parameter list management)
+  - [ExprContext_CB](ExprContext_CB.md) (cleanup callback structure)
 - Called from (representative examples):
-  - ExecEvalExpr (expression evaluation entry point)
+  - [ExecEvalExpr](ExecEvalExpr.md) (expression evaluation entry point)
   - ExecInitExprContext (context initialization)
-  - ExecProject (tuple projection operations)
+  - [ExecProject](ExecProject.md) (tuple projection operations)
 
 ## Notes and Other Information
 - CurrentMemoryContext should be set to ecxt_per_tuple_memory before calling ExecEvalExpr()

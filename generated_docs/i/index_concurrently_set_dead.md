@@ -26,12 +26,12 @@ This function is specifically designed for concurrent operations where the index
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - [index_open](index_open.md)
   - [TransferPredicateLocksToHeapRelation](../T/TransferPredicateLocksToHeapRelation.md)
   - [index_set_state_flags](index_set_state_flags.md)
   - [CacheInvalidateRelcache](../C/CacheInvalidateRelcache.md)
-  - table_close
+  - [table_close](../t/table_close.md)
   - [index_close](index_close.md)
   - ShareUpdateExclusiveLock
   - INDEX_DROP_SET_DEAD

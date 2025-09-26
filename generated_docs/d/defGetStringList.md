@@ -32,7 +32,7 @@ This strict validation makes the function suitable for DDL parameters that speci
   - T_List (node type constant)
   - lfirst (macro to get current list element)
   - IsA (macro to check node type)
-  - String (node type for string literals)
+  - [String](../S/String.md) (node type for string literals)
   - [Node](../N/Node.md) (base node type)
 - Called from (representative examples):
   - Functions declared in defrem.h

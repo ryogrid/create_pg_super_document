@@ -31,14 +31,14 @@ Special INFORMIX compatibility features:
 - Functions called/Symbols referenced:
   - ARRAY_TYPE (enum)
   - COMPAT_MODE (enum)
-  - ECPG_ARRAY_NONE (enum constant)
+  - [ECPG_ARRAY_NONE](../E/ECPG_ARRAY_NONE.md) (enum constant)
   - INFORMIX_MODE (macro/function)
-  - array_delimiter (function)
-  - array_boundary (function)
+  - [array_delimiter](../a/array_delimiter.md) (function)
+  - [array_boundary](../a/array_boundary.md) (function)
   - ECPG_IS_ARRAY (macro)
   - isdigit (standard library function)
 - Called from (representative examples):
-  - ecpg_get_data (multiple locations)
+  - [ecpg_get_data](../e/ecpg_get_data.md) (multiple locations)
 
 ## Notes and Other Information
 - This is a static function, only accessible within data.c

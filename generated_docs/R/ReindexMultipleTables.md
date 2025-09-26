@@ -34,11 +34,11 @@ This function orchestrates bulk reindexing operations across multiple tables wit
 - Functions called/Symbols referenced:
   - [get_namespace_oid](../g/get_namespace_oid.md)
   - [object_ownercheck](../o/object_ownercheck.md)
-  - has_privs_of_role
+  - [has_privs_of_role](../h/has_privs_of_role.md)
   - [aclcheck_error](../a/aclcheck_error.md)
   - [get_database_name](../g/get_database_name.md)
   - AllocSetContextCreate
-  - table_open/table_close
+  - [table_open](../t/table_open.md)/table_close
   - [table_beginscan_catalog](../t/table_beginscan_catalog.md)
   - [heap_getnext](../h/heap_getnext.md)
   - [IsCatalogRelationOid](../I/IsCatalogRelationOid.md)

@@ -27,17 +27,17 @@ The function uses optimized macros (WALSTAT_ACC and WALSTAT_ACC_INSTR_TIME) to e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PgStatShared_Wal
-  - WalUsage
-  - pgstat_have_pending_wal
-  - WalUsageAccumDiff
-  - LWLockConditionalAcquire
-  - LWLockAcquire
-  - LWLockRelease
+  - [PgStatShared_Wal](../P/PgStatShared_Wal.md)
+  - [WalUsage](../W/WalUsage.md)
+  - [pgstat_have_pending_wal](pgstat_have_pending_wal.md)
+  - [WalUsageAccumDiff](../W/WalUsageAccumDiff.md)
+  - [LWLockConditionalAcquire](../L/LWLockConditionalAcquire.md)
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - MemSet
 - Called from (representative examples):
-  - pgstat_report_stat
-  - pgstat_report_wal
+  - [pgstat_report_stat](pgstat_report_stat.md)
+  - [pgstat_report_wal](pgstat_report_wal.md)
 
 ## Notes and Other Information
 - Returns false on successful completion or when no pending statistics exist

@@ -99,14 +99,14 @@ This enumeration is used throughout the expression evaluation system to identify
   - Used in PgBenchExpr struct for function expressions
   - Referenced by expression evaluation functions
 - Called from (representative examples):
-  - isLazyFunc() in pgbench.c:2125
-  - evalLazyFunc() in pgbench.c:2133
-  - evalStandardFunc() in pgbench.c:2250
-  - evalFunc() in pgbench.c:2822
+  - [isLazyFunc](../i/isLazyFunc.md)() in pgbench.c:2125
+  - [evalLazyFunc](../e/evalLazyFunc.md)() in pgbench.c:2133
+  - [evalStandardFunc](../e/evalStandardFunc.md)() in pgbench.c:2250
+  - [evalFunc](../e/evalFunc.md)() in pgbench.c:2822
 
 ## Notes and Other Information
 - The enumeration supports both eager and lazy evaluation functions, with some functions like CASE and logical operators supporting short-circuit evaluation
 - Random functions support various statistical distributions important for realistic benchmark workloads
-- Hash functions provide data distribution capabilities for partitioning and load balancing scenarios  
+- [Hash](../H/Hash.md) functions provide data distribution capabilities for partitioning and load balancing scenarios  
 - The function set is designed to support complex benchmark scenarios including mathematical computations, data generation, and conditional logic
 - Type coercion and validation rules vary by function and are implemented in the evaluation functions

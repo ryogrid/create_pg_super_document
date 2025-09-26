@@ -40,13 +40,13 @@ The function includes special handling for backups started during recovery mode,
   - [do_pg_abort_backup](do_pg_abort_backup.md)
   - [RequestXLogSwitch](../R/RequestXLogSwitch.md)
   - [RequestCheckpoint](../R/RequestCheckpoint.md)
-  - AllocateDir
-  - ReadDir
+  - [AllocateDir](../A/AllocateDir.md)
+  - [ReadDir](../R/ReadDir.md)
   - [get_dirent_type](../g/get_dirent_type.md)
   - readlink
-  - FreeDir
-  - BackupState
-  - tablespaceinfo
+  - [FreeDir](../F/FreeDir.md)
+  - [BackupState](../B/BackupState.md)
+  - [tablespaceinfo](../t/tablespaceinfo.md)
   - CHECKPOINT_FORCE
   - CHECKPOINT_WAIT
   - CHECKPOINT_IMMEDIATE

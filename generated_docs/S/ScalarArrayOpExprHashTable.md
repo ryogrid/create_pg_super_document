@@ -32,7 +32,7 @@ The structure serves as the private_data context passed to hash table operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - saophash_hash (the underlying hash table type from simplehash.h)
-  - ExprEvalStep (parent expression step structure)
+  - [ExprEvalStep](../E/ExprEvalStep.md) (parent expression step structure)
   - [FmgrInfo](../F/FmgrInfo.md) (PostgreSQL function manager info)
   - [FunctionCallInfoBaseData](../F/FunctionCallInfoBaseData.md) (function call argument and result data)
 - Called from (representative examples):
@@ -44,6 +44,6 @@ The structure serves as the private_data context passed to hash table operations
 - Memory for this structure is allocated in the per-query memory context to persist across multiple evaluations
 - The hash table is populated with ScalarArrayOpExprHashEntry elements during first evaluation
 - Only supports OR semantics (IN/NOT IN clauses), unlike the general scalar array operation which supports AND semantics
-- Hash table construction excludes NULL values - these are handled separately in the evaluation logic
+- [Hash](../H/Hash.md) table construction excludes NULL values - these are handled separately in the evaluation logic
 - The structure integrates PostgreSQL's type-specific hash and comparison functions with the generic hash table implementation
 - Performance optimization that can provide substantial speedup for large constant arrays in WHERE clauses

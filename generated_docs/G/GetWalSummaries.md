@@ -23,13 +23,13 @@ The function implements filename parsing logic that extracts timeline ID, start 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AllocateDir
-  - ReadDir
-  - FreeDir
+  - [AllocateDir](../A/AllocateDir.md)
+  - [ReadDir](../R/ReadDir.md)
+  - [FreeDir](../F/FreeDir.md)
   - [IsWalSummaryFilename](../I/IsWalSummaryFilename.md)
   - XLogRecPtrIsInvalid
   - [palloc](../p/palloc.md)
-  - lappend
+  - [lappend](../l/lappend.md)
 - Called from (representative examples):
   - [PrepareForIncrementalBackup](../P/PrepareForIncrementalBackup.md)
   - [pg_available_wal_summaries](../p/pg_available_wal_summaries.md)

@@ -31,7 +31,7 @@ In parallel mode, the function is more restrictive and prevents any command that
   - [get_rel_namespace](../g/get_rel_namespace.md)
   - [PreventCommandIfReadOnly](../P/PreventCommandIfReadOnly.md)
   - [PreventCommandIfParallelMode](../P/PreventCommandIfParallelMode.md)
-  - CreateCommandName
+  - [CreateCommandName](../C/CreateCommandName.md)
   - lfirst_node
 - Called from (representative examples):
   - [standard_ExecutorStart](../s/standard_ExecutorStart.md)

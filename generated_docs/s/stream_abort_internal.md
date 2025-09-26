@@ -38,9 +38,9 @@ The function uses reverse iteration when scanning subtransactions for efficiency
   - [end_replication_step](../e/end_replication_step.md)
   - [CommitTransactionCommand](../C/CommitTransactionCommand.md)
   - [changes_filename](../c/changes_filename.md)
-  - BufFileOpenFileSet
-  - BufFileTruncateFileSet
-  - BufFileClose
+  - [BufFileOpenFileSet](../B/BufFileOpenFileSet.md)
+  - [BufFileTruncateFileSet](../B/BufFileTruncateFileSet.md)
+  - [BufFileClose](../B/BufFileClose.md)
   - [subxact_info_write](subxact_info_write.md)
 - Called from:
   - [apply_handle_stream_abort](../a/apply_handle_stream_abort.md)

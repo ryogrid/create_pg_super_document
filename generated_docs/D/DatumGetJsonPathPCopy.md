@@ -26,7 +26,7 @@ Unlike DatumGetJsonPathP, this function guarantees that the returned JsonPath st
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_DETOAST_DATUM_COPY (macro for detoasting and copying PostgreSQL data)
-  - JsonPath (structure type definition)
+  - [JsonPath](../J/JsonPath.md) (structure type definition)
 - Called from (representative examples):
   - PG_GETARG_JSONPATH_P_COPY (macro wrapper in src/include/utils/jsonpath.h:47)
 

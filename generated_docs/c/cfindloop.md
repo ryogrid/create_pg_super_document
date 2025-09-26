@@ -26,16 +26,16 @@ The `cfindloop` function implements the heart of the complex regex matching algo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - shortest
-  - longest
-  - cdissect
+  - [shortest](../s/shortest.md)
+  - [longest](../l/longest.md)
+  - [cdissect](cdissect.md)
   - LOFF
   - MDEBUG
   - ISERR
   - OFF
   - ERR
 - Called from (representative examples):
-  - cfind
+  - [cfind](cfind.md)
 
 ## Notes and Other Information
 - Implements nested loops: outer loop finds match ranges, inner loop tests positions

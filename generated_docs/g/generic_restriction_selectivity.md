@@ -36,15 +36,15 @@ The function assumes the operator is strict and immutable/stable, and treats the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_restriction_variable
-  - mcv_selectivity
-  - histogram_selectivity
-  - get_opcode
-  - fmgr_info
+  - [get_restriction_variable](get_restriction_variable.md)
+  - [mcv_selectivity](../m/mcv_selectivity.md)
+  - [histogram_selectivity](../h/histogram_selectivity.md)
+  - [get_opcode](get_opcode.md)
+  - [fmgr_info](../f/fmgr_info.md)
   - ReleaseVariableStats
   - CLAMP_PROBABILITY
 - Called from (representative examples):
-  - matchingsel
+  - [matchingsel](../m/matchingsel.md)
   - Various operator selectivity functions as generic fallback
 
 ## Notes and Other Information

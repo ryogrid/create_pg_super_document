@@ -27,8 +27,8 @@ The partitioning strategy uses hash bits to distribute tuples evenly across part
 - Functions called/Symbols referenced:
   - [hash_choose_num_partitions](hash_choose_num_partitions.md)
   - [palloc0](../p/palloc0.md)
-  - LogicalTapeCreate
-  - initHyperLogLog
+  - [LogicalTapeCreate](../L/LogicalTapeCreate.md)
+  - [initHyperLogLog](../i/initHyperLogLog.md)
   - HASHAGG_HLL_BIT_WIDTH
 - Called from (representative examples):
   - [hash_agg_enter_spill_mode](hash_agg_enter_spill_mode.md)

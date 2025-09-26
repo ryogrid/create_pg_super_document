@@ -29,20 +29,20 @@ The function uses a state machine approach, examining the current character to d
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - resetStringInfo (partial token buffer management)
+  - [resetStringInfo](../r/resetStringInfo.md) (partial token buffer management)
   - appendStringInfoCharMacro (partial token building)
-  - appendBinaryStringInfo (bulk partial token addition)
-  - json_lex_string (string token parsing)
-  - json_lex_number (number token parsing)
+  - [appendBinaryStringInfo](../a/appendBinaryStringInfo.md) (bulk partial token addition)
+  - [json_lex_string](json_lex_string.md) (string token parsing)
+  - [json_lex_number](json_lex_number.md) (number token parsing)
   - JSON_ALPHANUMERIC_CHAR (character classification macro)
   - JSON token type constants
   - memcmp (literal token comparison)
 
 - Called from (representative examples):
-  - pg_parse_json (main parsing entry point)
-  - pg_parse_json_incremental (incremental parsing)
-  - parse_scalar, parse_object_field, parse_object, parse_array (recursive parser components)
-  - lex_expect (token validation)
+  - [pg_parse_json](../p/pg_parse_json.md) (main parsing entry point)
+  - [pg_parse_json_incremental](../p/pg_parse_json_incremental.md) (incremental parsing)
+  - [parse_scalar](../p/parse_scalar.md), parse_object_field, parse_object, parse_array (recursive parser components)
+  - [lex_expect](../l/lex_expect.md) (token validation)
 
 ## Notes and Other Information
 - Supports both complete and incremental JSON parsing modes

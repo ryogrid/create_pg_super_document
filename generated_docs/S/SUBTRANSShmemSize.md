@@ -20,10 +20,10 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SimpleLruShmemSize
-  - SUBTRANSShmemBuffers
+  - [SimpleLruShmemSize](SimpleLruShmemSize.md)
+  - [SUBTRANSShmemBuffers](SUBTRANSShmemBuffers.md)
 - Called from (representative examples):
-  - CalculateShmemSize
+  - [CalculateShmemSize](../C/CalculateShmemSize.md)
 
 ## Notes and Other Information
 - Part of the SUBTRANS subsystem that manages subtransaction commit status

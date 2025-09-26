@@ -25,13 +25,13 @@ The function iterates through each schema in the search path, converts valid sch
 - Functions called/Symbols referenced:
   - [fetch_search_path](../f/fetch_search_path.md): Retrieves the current search path, with boolean parameter controlling inclusion of implicit schemas
   - PG_GETARG_BOOL: Macro to extract boolean argument from function call
-  - list_length: Gets the length of the search path list
+  - [list_length](../l/list_length.md): Gets the length of the search path list
   - [palloc](../p/palloc.md): Allocates memory for the names array
   - lfirst_oid: Gets the OID from each list cell during iteration
   - [get_namespace_name](../g/get_namespace_name.md): Converts namespace OID to its name string
   - [CStringGetDatum](../C/CStringGetDatum.md): Converts C string to PostgreSQL Datum
   - DirectFunctionCall1: Directly calls a PostgreSQL function with one argument
-  - namein: Input function for the name data type
+  - [namein](../n/namein.md): Input function for the name data type
   - [list_free](../l/list_free.md): Frees the search path list memory
   - [construct_array_builtin](construct_array_builtin.md): Creates a PostgreSQL array from the collected names
   - PG_RETURN_POINTER: Macro to return a pointer (array) from a PostgreSQL function

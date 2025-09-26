@@ -50,23 +50,23 @@ The function handles several complex scenarios:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AfterTriggerEnlargeQueryState (ensures adequate query depth storage)
-  - GetAfterTriggersTransitionTable (manages transition table creation)
-  - TransitionTableAddTuple (adds tuples to transition tables)
-  - cancel_prior_stmt_triggers (cancels previous statement-level triggers)
-  - execute_attr_map_slot (converts tuples between partition formats)
-  - ExecGetTriggerOldSlot/ExecGetTriggerNewSlot (gets trigger tuple slots)
-  - TriggerEnabled (checks if trigger should fire)
-  - RI_FKey_trigger_type (identifies foreign key trigger types)
-  - afterTriggerAddEvent (adds event to trigger queue)
+  - [AfterTriggerEnlargeQueryState](AfterTriggerEnlargeQueryState.md) (ensures adequate query depth storage)
+  - [GetAfterTriggersTransitionTable](../G/GetAfterTriggersTransitionTable.md) (manages transition table creation)
+  - [TransitionTableAddTuple](../T/TransitionTableAddTuple.md) (adds tuples to transition tables)
+  - [cancel_prior_stmt_triggers](../c/cancel_prior_stmt_triggers.md) (cancels previous statement-level triggers)
+  - [execute_attr_map_slot](../e/execute_attr_map_slot.md) (converts tuples between partition formats)
+  - [ExecGetTriggerOldSlot](../E/ExecGetTriggerOldSlot.md)/ExecGetTriggerNewSlot (gets trigger tuple slots)
+  - [TriggerEnabled](../T/TriggerEnabled.md) (checks if trigger should fire)
+  - [RI_FKey_trigger_type](../R/RI_FKey_trigger_type.md) (identifies foreign key trigger types)
+  - [afterTriggerAddEvent](../a/afterTriggerAddEvent.md) (adds event to trigger queue)
 - Called from (representative examples):
-  - ExecASInsertTriggers (for INSERT statement-level triggers)
-  - ExecARInsertTriggers (for INSERT row-level triggers)
-  - ExecASDeleteTriggers (for DELETE statement-level triggers)
-  - ExecARDeleteTriggers (for DELETE row-level triggers)
-  - ExecASUpdateTriggers (for UPDATE statement-level triggers)
-  - ExecARUpdateTriggers (for UPDATE row-level triggers)
-  - ExecASTruncateTriggers (for TRUNCATE triggers)
+  - [ExecASInsertTriggers](../E/ExecASInsertTriggers.md) (for INSERT statement-level triggers)
+  - [ExecARInsertTriggers](../E/ExecARInsertTriggers.md) (for INSERT row-level triggers)
+  - [ExecASDeleteTriggers](../E/ExecASDeleteTriggers.md) (for DELETE statement-level triggers)
+  - [ExecARDeleteTriggers](../E/ExecARDeleteTriggers.md) (for DELETE row-level triggers)
+  - [ExecASUpdateTriggers](../E/ExecASUpdateTriggers.md) (for UPDATE statement-level triggers)
+  - [ExecARUpdateTriggers](../E/ExecARUpdateTriggers.md) (for UPDATE row-level triggers)
+  - [ExecASTruncateTriggers](../E/ExecASTruncateTriggers.md) (for TRUNCATE triggers)
 
 ## Notes and Other Information
 - The function is called even when no triggers exist for an event if transition tables need to be built for statement-level triggers

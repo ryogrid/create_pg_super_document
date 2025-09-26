@@ -31,19 +31,19 @@ LWLockWaitListLock is a specialized synchronization function that protects the w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_atomic_fetch_or_u32 (atomic fetch-and-or operation)
-  - pg_atomic_read_u32 (atomic read operation)  
+  - [pg_atomic_fetch_or_u32](../p/pg_atomic_fetch_or_u32.md) (atomic fetch-and-or operation)
+  - [pg_atomic_read_u32](../p/pg_atomic_read_u32.md) (atomic read operation)  
   - LW_FLAG_LOCKED (bit flag indicating wait list lock status)
   - SpinDelayStatus (structure for managing spin delay behavior)
   - init_local_spin_delay, perform_spin_delay, finish_spin_delay (spin delay management functions)
-  - get_lwlock_stats_entry (statistics collection, if LWLOCK_STATS enabled)
-  - lwlock_stats (statistics structure, if LWLOCK_STATS enabled)
+  - [get_lwlock_stats_entry](../g/get_lwlock_stats_entry.md) (statistics collection, if LWLOCK_STATS enabled)
+  - [lwlock_stats](../l/lwlock_stats.md) (statistics structure, if LWLOCK_STATS enabled)
 
 - Called from (representative examples):
-  - LWLockWakeup (waking up waiting processes)
-  - LWLockQueueSelf (adding current process to wait queue)
-  - LWLockDequeueSelf (removing current process from wait queue)
-  - LWLockUpdateVar (updating lock variables atomically)
+  - [LWLockWakeup](LWLockWakeup.md) (waking up waiting processes)
+  - [LWLockQueueSelf](LWLockQueueSelf.md) (adding current process to wait queue)
+  - [LWLockDequeueSelf](LWLockDequeueSelf.md) (removing current process from wait queue)
+  - [LWLockUpdateVar](LWLockUpdateVar.md) (updating lock variables atomically)
 
 ## Notes and Other Information
 - **Critical timing requirement**: Comments emphasize that the mutex should be held for only very short periods to maintain system performance

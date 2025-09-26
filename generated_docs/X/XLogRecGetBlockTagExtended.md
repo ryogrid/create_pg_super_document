@@ -37,7 +37,7 @@ XLogRecGetBlockTagExtended provides comprehensive access to block reference info
   - [XLogRecGetBlockTag](XLogRecGetBlockTag.md)
   - [xlog_block_info](../x/xlog_block_info.md)
   - [verifyBackupPageConsistency](../v/verifyBackupPageConsistency.md)
-  - XLogReadBufferForRedoExtended
+  - [XLogReadBufferForRedoExtended](XLogReadBufferForRedoExtended.md)
 
 ## Notes and Other Information
 - Returns true if the block reference exists, false otherwise (no error thrown)

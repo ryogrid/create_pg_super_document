@@ -37,15 +37,15 @@ The actual tuple data is stored immediately after the HashJoinTupleData header i
 ## Dependencies
 - Functions called/Symbols referenced:
   - dsa_pointer (for parallel hash join support)
-  - HashJoinTupleData (self-reference for linked list structure)
+  - [HashJoinTupleData](HashJoinTupleData.md) (self-reference for linked list structure)
 - Called from (representative examples):
   - HJTUPLE_OVERHEAD (macro that calculates overhead size)
   - HashJoinTableData (container structure that manages collections of these tuples)
-  - HashJoinTuple (typedef alias for pointer to this structure)
+  - [HashJoinTuple](HashJoinTuple.md) (typedef alias for pointer to this structure)
 
 ## Notes and Other Information
 - The tuple data following the header is stored in MinimalTuple format to minimize memory overhead
 - Memory alignment on MAXALIGN boundary ensures efficient access on different architectures  
 - The union design allows the same structure to work efficiently in both serial and parallel execution contexts
-- Hash values are pre-computed and stored to avoid recalculation during bucket operations and join matching
+- [Hash](Hash.md) values are pre-computed and stored to avoid recalculation during bucket operations and join matching
 - This structure is allocated in the HashTableContext memory context for proper resource management during query execution

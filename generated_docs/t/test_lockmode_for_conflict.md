@@ -36,7 +36,7 @@ The "hypothetical" nature of the status parameter allows the function to work un
 - Functions called/Symbols referenced:
   - [get_mxact_status_for_lock](../g/get_mxact_status_for_lock.md)
   - [TransactionIdIsCurrentTransactionId](../T/TransactionIdIsCurrentTransactionId.md)
-  - TransactionIdIsInProgress
+  - [TransactionIdIsInProgress](../T/TransactionIdIsInProgress.md)
   - [TransactionIdDidAbort](../T/TransactionIdDidAbort.md)
   - [TransactionIdDidCommit](../T/TransactionIdDidCommit.md)
   - [DoLockModesConflict](../D/DoLockModesConflict.md)

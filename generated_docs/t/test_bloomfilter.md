@@ -26,14 +26,14 @@ For each test iteration, it calls `create_and_test_bloom` to perform the actual 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - create_and_test_bloom (performs the actual Bloom filter testing)
+  - [create_and_test_bloom](../c/create_and_test_bloom.md) (performs the actual Bloom filter testing)
   - PG_GETARG_INT32 (extracts integer arguments from PostgreSQL function call)
   - PG_GETARG_INT64 (extracts 64-bit integer arguments)
   - PG_RETURN_VOID (returns void result to PostgreSQL)
   - elog (error and debug logging)
 - Called from (representative examples):
   - SQL queries calling the test_bloomfilter() function
-  - create_and_test_bloom (appears to be a circular reference in the output, but this is likely the PG_FUNCTION_INFO_V1 macro registration)
+  - [create_and_test_bloom](../c/create_and_test_bloom.md) (appears to be a circular reference in the output, but this is likely the PG_FUNCTION_INFO_V1 macro registration)
 
 ## Notes and Other Information
 - This is a PostgreSQL extension function that can be called from SQL as `SELECT test_bloomfilter(power, nelements, seed, tests)`

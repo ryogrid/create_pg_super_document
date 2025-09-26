@@ -23,11 +23,11 @@ This approach is more efficient when the type identity is already established, a
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (for TypeName allocation)
-  - TypeName (struct type)
+  - [TypeName](../T/TypeName.md) (struct type)
 - Called from (representative examples):
-  - makeColumnDef
-  - generateSerialExtraStmts
-  - transformAlterTableStmt
+  - [makeColumnDef](makeColumnDef.md)
+  - [generateSerialExtraStmts](../g/generateSerialExtraStmts.md)
+  - [transformAlterTableStmt](../t/transformAlterTableStmt.md)
 
 ## Notes and Other Information
 - Sets location to -1 (unknown source location)

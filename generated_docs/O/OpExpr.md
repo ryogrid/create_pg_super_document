@@ -60,19 +60,19 @@ The node supports PostgreSQL's operator resolution system, where operators are l
 - Functions called/Symbols referenced:
   - ParseLoc
 - Called from (representative examples):
-  - make_opclause (creates OpExpr nodes)
-  - make_op (operator resolution and creation)
-  - ExecInitExprRec (expression initialization)
-  - clauselist_selectivity_ext (selectivity estimation)
-  - match_clause_to_indexcol (index usage analysis)
-  - eval_const_expressions_mutator (constant folding)
-  - get_rule_expr (query deparsing)
-  - CommuteOpExpr (operator commutation)
+  - [make_opclause](../m/make_opclause.md) (creates OpExpr nodes)
+  - [make_op](../m/make_op.md) (operator resolution and creation)
+  - [ExecInitExprRec](../E/ExecInitExprRec.md) (expression initialization)
+  - [clauselist_selectivity_ext](../c/clauselist_selectivity_ext.md) (selectivity estimation)
+  - [match_clause_to_indexcol](../m/match_clause_to_indexcol.md) (index usage analysis)
+  - [eval_const_expressions_mutator](../e/eval_const_expressions_mutator.md) (constant folding)
+  - [get_rule_expr](../g/get_rule_expr.md) (query deparsing)
+  - [CommuteOpExpr](../C/CommuteOpExpr.md) (operator commutation)
 
 ## Notes and Other Information
 - Semantically equivalent to function calls but uses operator syntax (e.g., `a + b` vs `add(a, b)`)
 - Supports both prefix (unary) and infix (binary) operator notation
 - The equal() function has special handling for zero opfuncid values during planning phases
-- Query jumbling ignores several fields (opfuncid, opresulttype, etc.) to ensure plan cache effectiveness
+- [Query](../Q/Query.md) jumbling ignores several fields (opfuncid, opresulttype, etc.) to ensure plan cache effectiveness
 - Critical for index usage analysis, join condition evaluation, and WHERE clause processing
 - Extensively used throughout the optimizer for selectivity estimation, predicate analysis, and plan optimization

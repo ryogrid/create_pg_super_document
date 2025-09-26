@@ -46,7 +46,7 @@ This function performs an important query optimization by eliminating redundant 
   - [get_sortgroupclause_tle](../g/get_sortgroupclause_tle.md)
   - [get_primary_key_attnos](../g/get_primary_key_attnos.md)
   - [bms_add_member](../b/bms_add_member.md), bms_membership, bms_subset_compare, bms_difference, bms_is_member
-  - SortGroupClause node handling
+  - [SortGroupClause](../S/SortGroupClause.md) node handling
   - FirstLowInvalidHeapAttributeNumber constant
 - Called from:
   - [grouping_planner](../g/grouping_planner.md)

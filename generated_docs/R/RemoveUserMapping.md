@@ -19,7 +19,7 @@ This function implements the DROP USER MAPPING SQL command by removing an entry 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_rolespec_oid
+  - [get_rolespec_oid](../g/get_rolespec_oid.md)
   - [GetForeignServerByName](../G/GetForeignServerByName.md)
   - GetSysCacheOid2
   - MappingUserName

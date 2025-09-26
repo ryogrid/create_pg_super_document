@@ -40,7 +40,7 @@ The cleanup process includes removing the identity flag from pg_attribute and de
   - [find_inheritance_children](../f/find_inheritance_children.md)
   - [getIdentitySequence](../g/getIdentitySequence.md)
   - [deleteDependencyRecordsForClass](../d/deleteDependencyRecordsForClass.md)
-  - CommandCounterIncrement
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md)
   - [performDeletion](../p/performDeletion.md)
   - [ATExecDropIdentity](ATExecDropIdentity.md) (recursive call)
 - Called from (representative examples):

@@ -28,7 +28,7 @@ This function serves as a fallback mechanism for loading DH parameters when the 
   - PEM_read_bio_DHparams (OpenSSL function to read DH parameters from BIO)
   - BIO_free (OpenSSL function to free BIO structure)
 - Called from (representative examples):
-  - initialize_dh (src/backend/libpq/be-secure-openssl.c:1384)
+  - [initialize_dh](../i/initialize_dh.md) (src/backend/libpq/be-secure-openssl.c:1384)
 
 ## Notes and Other Information
 - Returns NULL if memory BIO creation fails or DH parameter reading fails

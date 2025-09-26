@@ -29,7 +29,7 @@ Common use cases include query optimization scenarios where reordering operands 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - OpExpr (the operator expression type being manipulated)
+  - [OpExpr](../O/OpExpr.md) (the operator expression type being manipulated)
   - [is_opclause](../i/is_opclause.md) (validates the clause is an operator expression)
   - [get_commutator](../g/get_commutator.md) (finds the commutator operator for the current operator)
   - lsecond (accesses the second element in the argument list)

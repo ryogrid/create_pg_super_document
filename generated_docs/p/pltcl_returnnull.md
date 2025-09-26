@@ -28,14 +28,14 @@ The function validates that it's being called in the correct context (not from a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FunctionCallInfo (PostgreSQL type)
+  - [FunctionCallInfo](../F/FunctionCallInfo.md) (PostgreSQL type)
   - pltcl_current_call_state (global state variable)
   - Tcl_WrongNumArgs (Tcl library function)
   - Tcl_SetObjResult (Tcl library function)
   - Tcl_NewStringObj (Tcl library function)
 - Called from (representative examples):
   - TclExceptionNameMap (registered as Tcl command)
-  - pltcl_init_interp (command registration)
+  - [pltcl_init_interp](pltcl_init_interp.md) (command registration)
 
 ## Notes and Other Information
 - Returns TCL_ERROR if called with arguments or in invalid context

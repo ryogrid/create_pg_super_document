@@ -27,7 +27,7 @@ ExecutorRun handles various execution scenarios, from simple tuple retrieval to 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [standard_ExecutorRun](../s/standard_ExecutorRun.md) (default implementation when no hook is present)
-  - QueryDesc (parameter structure)
+  - [QueryDesc](../Q/QueryDesc.md) (parameter structure)
   - ScanDirection (enumerated type for scan direction)
 - Called from (representative examples):
   - [DoCopyTo](../D/DoCopyTo.md) (src/backend/commands/copyto.c:883)

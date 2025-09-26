@@ -21,7 +21,7 @@ json_errsave_error serves as the central error reporting mechanism for PostgreSQ
 - Functions called/Symbols referenced:
   - errsave
   - [errdetail_internal](../e/errdetail_internal.md)
-  - json_errdetail
+  - [json_errdetail](json_errdetail.md)
   - [report_json_context](../r/report_json_context.md)
   - SOFT_ERROR_OCCURRED
   - JSON_UNICODE_HIGH_ESCAPE

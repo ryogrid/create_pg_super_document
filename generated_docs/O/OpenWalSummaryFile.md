@@ -23,7 +23,7 @@ The constructed filename follows the pattern: `XLOGDIR/summaries/TTTTTTTTSSSSSSS
 ## Dependencies
 - Functions called/Symbols referenced:
   - snprintf
-  - PathNameOpenFile
+  - [PathNameOpenFile](../P/PathNameOpenFile.md)
   - LSN_FORMAT_ARGS
   - ereport
   - [errcode_for_file_access](../e/errcode_for_file_access.md)

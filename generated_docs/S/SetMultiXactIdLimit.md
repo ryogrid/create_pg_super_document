@@ -32,12 +32,12 @@ The function also handles offset vacuum limits separately and can trigger autova
 ## Dependencies
 - Functions called/Symbols referenced:
   - MultiXactIdIsValid
-  - LWLockAcquire
-  - LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - ereport
   - [SetOffsetVacuumLimit](SetOffsetVacuumLimit.md)
   - [MultiXactIdPrecedes](../M/MultiXactIdPrecedes.md)
-  - SendPostmasterSignal
+  - [SendPostmasterSignal](SendPostmasterSignal.md)
   - [IsTransactionState](../I/IsTransactionState.md)
   - [get_database_name](../g/get_database_name.md)
   - [errmsg_plural](../e/errmsg_plural.md)

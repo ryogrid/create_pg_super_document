@@ -29,11 +29,11 @@ This function serves as a critical bridge between Windows' codepage system and P
 ## Dependencies
 - Functions called/Symbols referenced:
   - sprintf (for string formatting)
-  - pg_strcasecmp (case-insensitive string comparison)
+  - [pg_strcasecmp](pg_strcasecmp.md) (case-insensitive string comparison)
   - ereport (for warning messages)
   - encoding_match_list (lookup table for encoding mappings)
 - Called from (representative examples):
-  - GetACPEncoding
+  - [GetACPEncoding](../G/GetACPEncoding.md)
 
 ## Notes and Other Information
 - Returns PostgreSQL encoding identifier (integer) on success, -1 on failure

@@ -30,12 +30,12 @@ The function provides comprehensive coverage of all major Red-Black Tree operati
 - Functions called/Symbols referenced:
   - PG_GETARG_INT32: Extracts the integer argument from PostgreSQL function call
   - MaxAllocSize: PostgreSQL constant used for memory allocation bounds checking
-  - testleftright: Tests left-to-right tree traversal
-  - testrightleft: Tests right-to-left tree traversal  
-  - testfind: Tests basic node search functionality
-  - testfindltgt: Tests range search operations (less than/greater than)
-  - testleftmost: Tests leftmost node retrieval
-  - testdelete: Tests node deletion operations
+  - [testleftright](testleftright.md): Tests left-to-right tree traversal
+  - [testrightleft](testrightleft.md): Tests right-to-left tree traversal  
+  - [testfind](testfind.md): Tests basic node search functionality
+  - [testfindltgt](testfindltgt.md): Tests range search operations (less than/greater than)
+  - [testleftmost](testleftmost.md): Tests leftmost node retrieval
+  - [testdelete](testdelete.md): Tests node deletion operations
   - elog: Reports parameter validation errors with ERROR level
   - PG_RETURN_VOID: Returns void result to PostgreSQL
 - Called from (representative examples):

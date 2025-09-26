@@ -25,7 +25,7 @@ The function computes the total size by adding:
 - Functions called/Symbols referenced:
   - SerializedReindexState (structure type)
   - [mul_size](../m/mul_size.md) (utility function for safe size multiplication)
-  - list_length (list utility function)
+  - [list_length](../l/list_length.md) (list utility function)
   - pendingReindexedIndexes (global list variable)
 - Called from (representative examples):
   - [InitializeParallelDSM](../I/InitializeParallelDSM.md)

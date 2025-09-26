@@ -20,12 +20,12 @@ This utility function manages the accumulation of invalidation messages into a d
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc
-  - repalloc
+  - [palloc](../p/palloc.md)
+  - [repalloc](../r/repalloc.md)
   - memcpy
 - Called from (representative examples):
-  - ReorderBufferAddInvalidations
-  - ReorderBufferAddDistributedInvalidations
+  - [ReorderBufferAddInvalidations](ReorderBufferAddInvalidations.md)
+  - [ReorderBufferAddDistributedInvalidations](ReorderBufferAddDistributedInvalidations.md)
 
 ## Notes and Other Information
 - This is a static (internal) function not exposed outside the reorderbuffer.c file

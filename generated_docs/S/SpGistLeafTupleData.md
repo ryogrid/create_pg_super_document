@@ -41,7 +41,7 @@ SpGistLeafTupleData defines the on-disk format for leaf tuples in SP-GiST indexe
   - [spgRedoAddLeaf](../s/spgRedoAddLeaf.md)
   - [spgRedoMoveLeafs](../s/spgRedoMoveLeafs.md)
   - [spgRedoPickSplit](../s/spgRedoPickSplit.md)
-  - SpGistLeafTuple
+  - [SpGistLeafTuple](SpGistLeafTuple.md)
   - SGLTHDRSZ
 
 ## Notes and Other Information

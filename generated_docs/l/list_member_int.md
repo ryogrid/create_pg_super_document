@@ -30,7 +30,7 @@ This function is optimized for integer comparison and should only be used with l
 - Called from (representative examples):
   - [CopyGetAttnums](../C/CopyGetAttnums.md) - Used in COPY command processing
   - [BeginCopyFrom](../B/BeginCopyFrom.md)/BeginCopyTo - Used in COPY operations
-  - ExecRelationIsTargetRelation - Used in executor utilities
+  - [ExecRelationIsTargetRelation](../E/ExecRelationIsTargetRelation.md) - Used in executor utilities
   - [list_union_int](list_union_int.md) - Used when creating union of integer lists
   - [list_intersection_int](list_intersection_int.md) - Used when computing intersection of integer lists
   - [reorder_grouping_sets](../r/reorder_grouping_sets.md) - Used in query planning for grouping sets

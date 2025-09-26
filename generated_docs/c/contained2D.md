@@ -22,8 +22,8 @@ This static helper function tests for the reverse containment relationship in 2D
 - Functions called/Symbols referenced:
   - [FPle](../F/FPle.md) (floating-point less-than-or-equal comparison, used twice)
   - [FPge](../F/FPge.md) (floating-point greater-than-or-equal comparison, used twice)
-  - Range (structure type)
-  - RangeBox (structure type)
+  - [Range](../R/Range.md) (structure type)
+  - [RangeBox](../R/RangeBox.md) (structure type)
 - Called from (representative examples):
   - [contained4D](contained4D.md)
 

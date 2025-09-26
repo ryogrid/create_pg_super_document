@@ -32,7 +32,7 @@ The function generates three consecutive bbstreamer_content calls to properly re
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - strlcpy
+  - [strlcpy](../s/strlcpy.md)
   - [bbstreamer_content](bbstreamer_content.md)
   - bbstreamer_member (struct type)
   - pg_file_create_mode (constant)

@@ -26,10 +26,10 @@ The operation maintains the integrity of the doubly-linked list structure that o
 ## Dependencies
 - Functions called/Symbols referenced:
   - DsaPointerIsValid
-  - dsa_get_address
+  - [dsa_get_address](../d/dsa_get_address.md)
 - Called from (representative examples):
-  - dsa_free
-  - destroy_superblock
+  - [dsa_free](../d/dsa_free.md)
+  - [destroy_superblock](../d/destroy_superblock.md)
 
 ## Notes and Other Information
 This is a pure list manipulation function that does not involve any locking - callers must ensure appropriate synchronization. The function assumes the span is currently linked into a list and does not perform validation of the list structure. It's typically called as part of span lifecycle management when spans are moved between fullness classes or destroyed entirely.

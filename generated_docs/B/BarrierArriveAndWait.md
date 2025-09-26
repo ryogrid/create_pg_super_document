@@ -32,18 +32,18 @@ Key behaviors:
 ## Dependencies
 - Functions called/Symbols referenced:
   - SpinLockAcquire/SpinLockRelease
-  - ConditionVariableBroadcast
-  - ConditionVariablePrepareToSleep
-  - ConditionVariableSleep
-  - ConditionVariableCancelSleep
-  - Barrier (struct type)
+  - [ConditionVariableBroadcast](../C/ConditionVariableBroadcast.md)
+  - [ConditionVariablePrepareToSleep](../C/ConditionVariablePrepareToSleep.md)
+  - [ConditionVariableSleep](../C/ConditionVariableSleep.md)
+  - [ConditionVariableCancelSleep](../C/ConditionVariableCancelSleep.md)
+  - [Barrier](Barrier.md) (struct type)
 - Called from (representative examples):
-  - MultiExecParallelHash
-  - ExecHashTableCreate
-  - ExecParallelHashIncreaseNumBatches
-  - ExecParallelHashIncreaseNumBuckets
-  - ExecHashJoinImpl
-  - ExecParallelHashJoinNewBatch
+  - [MultiExecParallelHash](../M/MultiExecParallelHash.md)
+  - [ExecHashTableCreate](../E/ExecHashTableCreate.md)
+  - [ExecParallelHashIncreaseNumBatches](../E/ExecParallelHashIncreaseNumBatches.md)
+  - [ExecParallelHashIncreaseNumBuckets](../E/ExecParallelHashIncreaseNumBuckets.md)
+  - [ExecHashJoinImpl](../E/ExecHashJoinImpl.md)
+  - [ExecParallelHashJoinNewBatch](../E/ExecParallelHashJoinNewBatch.md)
 
 ## Notes and Other Information
 - The caller must be attached to the barrier before calling this function

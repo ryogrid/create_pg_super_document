@@ -24,8 +24,8 @@ This function creates a complete data structure that PL/Perl trigger functions r
   - [hv_store_string](../h/hv_store_string.md)
   - [plperl_hash_from_tuple](plperl_hash_from_tuple.md)
   - newRV_noinc
-  - SPI_getrelname
-  - SPI_getnspname
+  - [SPI_getrelname](../S/SPI_getrelname.md)
+  - [SPI_getnspname](../S/SPI_getnspname.md)
   - TRIGGER_FIRED_BY_INSERT/UPDATE/DELETE/TRUNCATE
   - TRIGGER_FIRED_FOR_ROW/STATEMENT
   - TRIGGER_FIRED_BEFORE/AFTER/INSTEAD

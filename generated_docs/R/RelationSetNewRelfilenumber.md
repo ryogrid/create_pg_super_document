@@ -232,11 +232,11 @@ Special handling exists for mapped relations where pg_class.relfilenode doesn't 
   - [SearchSysCacheLockedCopy1](../S/SearchSysCacheLockedCopy1.md)
   - [RelationDropStorage](RelationDropStorage.md)
   - [RelationCreateStorage](RelationCreateStorage.md)
-  - table_relation_set_new_filelocator
+  - [table_relation_set_new_filelocator](../t/table_relation_set_new_filelocator.md)
   - [RelationMapUpdateMap](RelationMapUpdateMap.md)
   - [CacheInvalidateRelcache](../C/CacheInvalidateRelcache.md)
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
-  - CommandCounterIncrement
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md)
   - [RelationAssumeNewRelfilelocator](RelationAssumeNewRelfilelocator.md)
   - [GetCurrentTransactionId](../G/GetCurrentTransactionId.md)
   - [heap_freetuple](../h/heap_freetuple.md)

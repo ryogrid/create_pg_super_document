@@ -32,7 +32,7 @@ Owner privileges are handled specially - owners implicitly have all grant option
 ## Dependencies
 - Functions called/Symbols referenced:
   - [check_acl](../c/check_acl.md)
-  - has_privs_of_role
+  - [has_privs_of_role](../h/has_privs_of_role.md)
   - ACL_NUM
   - ACL_DAT
   - ACLITEM_ALL_GOPTION_BITS

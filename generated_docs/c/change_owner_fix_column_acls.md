@@ -24,7 +24,7 @@ The function uses a system catalog scan to iterate through all attributes of the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open, table_close
+  - [table_open](../t/table_open.md), table_close
   - [ScanKeyInit](../S/ScanKeyInit.md), systable_beginscan, systable_getnext, systable_endscan
   - [heap_getattr](../h/heap_getattr.md), heap_modify_tuple, heap_freetuple
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)

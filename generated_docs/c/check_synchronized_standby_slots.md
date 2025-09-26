@@ -26,7 +26,7 @@ This function serves as a GUC (Grand Unified Configuration) check hook for the s
   - [pstrdup](../p/pstrdup.md) (for creating modifiable copy)
   - [list_free](../l/list_free.md) (for cleaning up parsed list)
   - [guc_malloc](../g/guc_malloc.md) (for allocating GUC extra data)
-  - list_length (for getting slot count)
+  - [list_length](../l/list_length.md) (for getting slot count)
   - strcpy/strlen (for string operations)
   - [pfree](../p/pfree.md) (for memory cleanup)
   - foreach_ptr (macro for list iteration)

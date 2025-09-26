@@ -28,7 +28,7 @@ This function takes no parameters and operates on the global TwoPhaseState.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ProcessTwoPhaseBuffer](../P/ProcessTwoPhaseBuffer.md)
-  - LWLockAcquire/LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease
   - [pfree](../p/pfree.md)
 - Called from:
   - [StartupXLOG](StartupXLOG.md)

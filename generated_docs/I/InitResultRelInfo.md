@@ -31,7 +31,7 @@ InitResultRelInfo performs comprehensive initialization of a ResultRelInfo struc
   - MemSet
   - [IsInplaceUpdateRelation](IsInplaceUpdateRelation.md)
   - [CopyTriggerDesc](../C/CopyTriggerDesc.md)
-  - InstrAlloc
+  - [InstrAlloc](InstrAlloc.md)
   - [GetFdwRoutineForRelation](../G/GetFdwRoutineForRelation.md)
   - Various MERGE and RELKIND constants
 - Called from (representative examples):

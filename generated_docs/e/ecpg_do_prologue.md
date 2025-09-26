@@ -42,19 +42,19 @@ The function processes complex variable argument lists containing type informati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ecpg_pthreads_init: Initializes threading support
-  - ecpg_get_connection: Retrieves database connection
-  - ecpg_init: Initializes connection state
-  - ecpg_alloc: Allocates memory with error handling
+  - [ecpg_pthreads_init](ecpg_pthreads_init.md): Initializes threading support
+  - [ecpg_get_connection](ecpg_get_connection.md): Retrieves database connection
+  - [ecpg_init](ecpg_init.md): Initializes connection state
+  - [ecpg_alloc](ecpg_alloc.md): Allocates memory with error handling
   - uselocale/setlocale: Manages numeric locale for database communication
-  - ecpg_auto_prepare: Handles automatic statement preparation
-  - ecpg_prepared: Retrieves prepared statement text
-  - ecpg_strdup: Duplicates strings with error handling
-  - ecpg_clear_auto_mem: Initializes automatic memory management
-  - ecpg_do_epilogue: Cleanup function called on errors
-  - ecpg_raise: Error reporting function
+  - [ecpg_auto_prepare](ecpg_auto_prepare.md): Handles automatic statement preparation
+  - [ecpg_prepared](ecpg_prepared.md): Retrieves prepared statement text
+  - [ecpg_strdup](ecpg_strdup.md): Duplicates strings with error handling
+  - [ecpg_clear_auto_mem](ecpg_clear_auto_mem.md): Initializes automatic memory management
+  - [ecpg_do_epilogue](ecpg_do_epilogue.md): Cleanup function called on errors
+  - [ecpg_raise](ecpg_raise.md): Error reporting function
 - Called from (representative examples):
-  - ecpg_do: Main ECPG statement execution entry point
+  - [ecpg_do](ecpg_do.md): Main ECPG statement execution entry point
 
 ## Notes and Other Information
 - Returns true on successful initialization, false on any failure

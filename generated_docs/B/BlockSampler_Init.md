@@ -28,11 +28,11 @@ The function initializes all necessary state variables and sets up the random nu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - sampler_random_init_state (initializes the random number generator state)
+  - [sampler_random_init_state](../s/sampler_random_init_state.md) (initializes the random number generator state)
   - Min (macro to find minimum value)
-  - BlockSamplerData structure members (N, n, t, m, randstate)
+  - [BlockSamplerData](BlockSamplerData.md) structure members (N, n, t, m, randstate)
 - Called from (representative examples):
-  - acquire_sample_rows (in src/backend/commands/analyze.c:1187)
+  - [acquire_sample_rows](../a/acquire_sample_rows.md) (in src/backend/commands/analyze.c:1187)
 
 ## Notes and Other Information
 - The function implements Knuth's Algorithm S, which is simpler than Vitter's algorithm since the total population size is known

@@ -25,16 +25,16 @@ When multiple prefix matches are found, the function returns NULL to indicate am
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ciprefix (case-insensitive prefix comparison)
-  - ciequal (case-insensitive equality comparison)
-  - itsabbr (checks if word is abbreviation of lookup entry)
-  - warning (displays warning messages)
-  - lookup (struct type for table entries)
+  - [ciprefix](../c/ciprefix.md) (case-insensitive prefix comparison)
+  - [ciequal](../c/ciequal.md) (case-insensitive equality comparison)
+  - [itsabbr](../i/itsabbr.md) (checks if word is abbreviation of lookup entry)
+  - [warning](../w/warning.md) (displays warning messages)
+  - [lookup](../l/lookup.md) (struct type for table entries)
 - Called from (representative examples):
-  - infile
-  - getleapdatetime
-  - inleap
-  - rulesub
+  - [infile](../i/infile.md)
+  - [getleapdatetime](../g/getleapdatetime.md)
+  - [inleap](../i/inleap.md)
+  - [rulesub](../r/rulesub.md)
 
 ## Notes and Other Information
 - Returns NULL for invalid input (NULL word or table)

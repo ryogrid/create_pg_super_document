@@ -24,7 +24,7 @@ The design ensures that the RelationData member comes first, allowing the struct
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationData (embedded struct)
+  - [RelationData](../R/RelationData.md) (embedded struct)
   - FormData_pg_class (embedded struct)
 - Called from (representative examples):
   - [CreateFakeRelcacheEntry](../C/CreateFakeRelcacheEntry.md) (returns pointer to this struct)

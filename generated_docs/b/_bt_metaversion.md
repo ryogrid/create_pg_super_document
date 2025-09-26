@@ -35,7 +35,7 @@ The function is essential for ensuring that index operations use the correct alg
 ## Dependencies
 - Functions called/Symbols referenced:
   - [_bt_getbuf](_bt_getbuf.md): Acquires buffer for metadata page
-  - _bt_getmeta: Gets metadata from metapage  
+  - [_bt_getmeta](_bt_getmeta.md): Gets metadata from metapage  
   - [_bt_relbuf](_bt_relbuf.md): Releases buffer
   - [MemoryContextAlloc](../M/MemoryContextAlloc.md): Allocates memory for caching metadata
   - [BTMetaPageData](../B/BTMetaPageData.md): Metadata structure type

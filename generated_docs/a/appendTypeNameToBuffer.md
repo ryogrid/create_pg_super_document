@@ -25,11 +25,11 @@ This function is designed to work even with TypeNames that don't correspond to a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_head
+  - [list_head](../l/list_head.md)
   - lfirst
   - strVal
-  - appendStringInfoChar
-  - appendStringInfoString
+  - [appendStringInfoChar](appendStringInfoChar.md)
+  - [appendStringInfoString](appendStringInfoString.md)
   - [format_type_be](../f/format_type_be.md)
 - Called from (representative examples):
   - [TypeNameToString](../T/TypeNameToString.md)

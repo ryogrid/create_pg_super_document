@@ -37,7 +37,7 @@ The  function transforms a numeric string to conform to locale-specific formatti
   - strlen (standard C library function)
   - [pg_strdup](../p/pg_strdup.md)
   - [additional_numeric_locale_len](../a/additional_numeric_locale_len.md)
-  - pg_malloc
+  - [pg_malloc](../p/pg_malloc.md)
   - [integer_digits](../i/integer_digits.md)
   - strcpy (standard C library function)
   - Assert (macro)

@@ -25,11 +25,11 @@ The function uses PostgreSQL's set-returning function (SRF) infrastructure to re
 - Functions called/Symbols referenced:
   - [convert_and_check_filename](../c/convert_and_check_filename.md) (validates and converts directory path)
   - [InitMaterializedSRF](../I/InitMaterializedSRF.md) (initializes set-returning function infrastructure)
-  - AllocateDir (opens directory for reading)
-  - ReadDir (reads directory entries)
-  - tuplestore_putvalues (adds result rows to output)
-  - FreeDir (closes directory handle)
-  - ReturnSetInfo, DIR, dirent (data structures)
+  - [AllocateDir](../A/AllocateDir.md) (opens directory for reading)
+  - [ReadDir](../R/ReadDir.md) (reads directory entries)
+  - [tuplestore_putvalues](../t/tuplestore_putvalues.md) (adds result rows to output)
+  - [FreeDir](../F/FreeDir.md) (closes directory handle)
+  - [ReturnSetInfo](../R/ReturnSetInfo.md), DIR, dirent (data structures)
   - MAT_SRF_USE_EXPECTED_DESC (SRF configuration constant)
 - Called from (representative examples):
   - [pg_ls_dir_1arg](pg_ls_dir_1arg.md) (wrapper function with fewer parameters)

@@ -36,7 +36,7 @@ The function maintains scan state in hjstate->hj_CurTuple to support resuming th
   - INVALID_SKEW_BUCKET_NO (constant)
   - [ExecStoreMinimalTuple](ExecStoreMinimalTuple.md) (tuple storage function)
   - HJTUPLE_MINTUPLE (tuple extraction macro)
-  - ExecQualAndReset (clause evaluation function)
+  - [ExecQualAndReset](ExecQualAndReset.md) (clause evaluation function)
 - Called from (representative examples):
   - [ExecHashJoinImpl](ExecHashJoinImpl.md)
 

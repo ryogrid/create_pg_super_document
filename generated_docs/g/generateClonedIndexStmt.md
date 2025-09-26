@@ -36,7 +36,7 @@ This function creates a complete IndexStmt that recreates an existing index on a
   - [get_opclass](get_opclass.md)
   - [get_attoptions](get_attoptions.md)
   - [untransformRelOptions](../u/untransformRelOptions.md)
-  - exprType
+  - [exprType](../e/exprType.md)
   - [ReleaseSysCache](../R/ReleaseSysCache.md)
 - Called from (representative examples):
   - [DefineIndex](../D/DefineIndex.md)

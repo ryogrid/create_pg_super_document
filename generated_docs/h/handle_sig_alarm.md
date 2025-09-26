@@ -24,12 +24,12 @@ This function serves as the core signal handler for PostgreSQL's timeout managem
   - [SetLatch](../S/SetLatch.md) (process latch signaling) 
   - disable_alarm/schedule_alarm (alarm management)
   - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md) (current time retrieval)
-  - remove_timeout_index (timeout queue management)
+  - [remove_timeout_index](../r/remove_timeout_index.md) (timeout queue management)
   - TimestampTzPlusMilliseconds (time arithmetic)
-  - enable_timeout (timeout rescheduling)
-  - timeout_params (timeout configuration structure)
+  - [enable_timeout](../e/enable_timeout.md) (timeout rescheduling)
+  - [timeout_params](../t/timeout_params.md) (timeout configuration structure)
 - Called from (representative examples):
-  - InitializeTimeouts (at line 493 for signal handler registration)
+  - [InitializeTimeouts](../I/InitializeTimeouts.md) (at line 493 for signal handler registration)
 
 ## Notes and Other Information
 - Always sets MyLatch to wake up any processes waiting on the process latch

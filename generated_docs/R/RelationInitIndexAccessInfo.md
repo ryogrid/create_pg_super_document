@@ -29,7 +29,7 @@ This function performs complete initialization of index access method support da
   - [RelationGetIndexAttOptions](RelationGetIndexAttOptions.md)
   - Form_pg_am, Form_pg_index, oidvector, int2vector, RegProcedure
 - Called from:
-  - index_create
+  - [index_create](../i/index_create.md)
   - [RelationBuildDesc](RelationBuildDesc.md)
 
 ## Notes and Other Information

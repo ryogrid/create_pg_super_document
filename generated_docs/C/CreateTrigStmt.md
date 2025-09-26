@@ -53,13 +53,13 @@ CreateTrigStmt is a parse tree node that captures all components of a CREATE TRI
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (for creating the node)
-  - RangeVar (for table references)
+  - [RangeVar](../R/RangeVar.md) (for table references)
   - TRIGGER_TYPE_* constants (for timing and events)
-  - TriggerTransition (for transition table specifications)
+  - [TriggerTransition](../T/TriggerTransition.md) (for transition table specifications)
 - Called from (representative examples):
-  - CreateTrigger (in src/backend/commands/trigger.c:159)
-  - CreateTriggerFiringOn (in src/backend/commands/trigger.c:176)
-  - ProcessUtilitySlow (utility command processing)
+  - [CreateTrigger](CreateTrigger.md) (in src/backend/commands/trigger.c:159)
+  - [CreateTriggerFiringOn](CreateTriggerFiringOn.md) (in src/backend/commands/trigger.c:176)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (utility command processing)
 
 ## Notes and Other Information
 - Part of PostgreSQL's trigger system for automated response to data changes
@@ -67,5 +67,5 @@ CreateTrigStmt is a parse tree node that captures all components of a CREATE TRI
 - The timing and events fields use bitmasks defined in catalog/pg_trigger.h
 - Row-level triggers execute once per affected row, statement-level triggers execute once per statement
 - INSTEAD OF triggers are only supported on views
-- Constraint triggers support deferral mechanisms for transaction-end constraint checking
+- [Constraint](Constraint.md) triggers support deferral mechanisms for transaction-end constraint checking
 - Processed by CreateTrigger and related functions in src/backend/commands/trigger.c

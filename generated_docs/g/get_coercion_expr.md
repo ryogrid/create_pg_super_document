@@ -25,19 +25,19 @@ This function creates string representations of type coercion expressions, which
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_const_expr
-  - get_rule_expr_paren
-  - format_type_with_typemod
+  - [get_const_expr](get_const_expr.md)
+  - [get_rule_expr_paren](get_rule_expr_paren.md)
+  - [format_type_with_typemod](../f/format_type_with_typemod.md)
   - PRETTY_PAREN (formatting macro)
-  - appendStringInfo functions
+  - [appendStringInfo](../a/appendStringInfo.md) functions
 - Types referenced:
-  - Node
-  - deparse_context
-  - Const
+  - [Node](../N/Node.md)
+  - [deparse_context](../d/deparse_context.md)
+  - [Const](../C/Const.md)
   - Oid, int32
 - Called from (representative examples):
-  - get_rule_expr
-  - get_func_expr
+  - [get_rule_expr](get_rule_expr.md)
+  - [get_func_expr](get_func_expr.md)
 
 ## Notes and Other Information
 The function includes sophisticated logic to avoid redundant type casting for constants that already have the correct type. It considers the interaction between parse_coerce.c's behavior and constant folding, ensuring that length coercion functions applied to constants are handled appropriately. The comment explains that collation information for constants would appear above the coercion node rather than below it, affecting how collation clauses are handled in the output. The function standardizes on PostgreSQL's '::' cast notation rather than SQL standard CAST() syntax for consistency with PostgreSQL conventions.

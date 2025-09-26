@@ -41,7 +41,7 @@ The function builds evaluation steps that:
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode
-  - list_length
+  - [list_length](../l/list_length.md)
   - TupleDescAttr
   - [ExecComputeSlotInfo](ExecComputeSlotInfo.md)
   - [ExprEvalPushStep](ExprEvalPushStep.md)
@@ -53,7 +53,7 @@ The function builds evaluation steps that:
   - fmgr_info_set_expr
   - InitFunctionCallInfoData
   - SizeForFunctionCallInfo
-  - lappend_int
+  - [lappend_int](../l/lappend_int.md)
   - lfirst_int
   - [ExecReadyExpr](ExecReadyExpr.md)
   - EEOP_INNER_FETCHSOME

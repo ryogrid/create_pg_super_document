@@ -35,7 +35,7 @@ Starting from PostgreSQL 8.0, the function modifies the original list structure 
   - [find_expr_references_walker](../f/find_expr_references_walker.md): Expression dependency analysis
   - [ExplainNode](../E/ExplainNode.md): Query plan explanation functionality
   - [sort_inner_and_outer](../s/sort_inner_and_outer.md): Join path optimization
-  - `transformCaseExpr`: CASE expression parsing
+  - `[transformCaseExpr](../t/transformCaseExpr.md)`: CASE expression parsing
   - [RewriteQuery](../R/RewriteQuery.md): Query rewrite operations
   - Multiple other optimizer and parser functions
 

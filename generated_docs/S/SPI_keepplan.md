@@ -20,8 +20,8 @@ SPI_keepplan extends the lifetime of an SPI execution plan beyond the current pr
 ## Dependencies
 - Functions called/Symbols referenced:
   - _SPI_PLAN_MAGIC
-  - MemoryContextSetParent
-  - CachedPlanSource
+  - [MemoryContextSetParent](../M/MemoryContextSetParent.md)
+  - [CachedPlanSource](../C/CachedPlanSource.md)
   - [SaveCachedPlan](SaveCachedPlan.md)
   - SPI_ERROR_ARGUMENT
 - Called from (representative examples):
@@ -30,7 +30,7 @@ SPI_keepplan extends the lifetime of an SPI execution plan beyond the current pr
   - [pg_get_viewdef_worker](../p/pg_get_viewdef_worker.md) (view definition utilities)
   - [plperl_spi_prepare](../p/plperl_spi_prepare.md) (PL/Perl language handler)
   - [PLy_spi_prepare](../P/PLy_spi_prepare.md) (PL/Python language handler)
-  - pltcl_SPI_prepare (PL/Tcl language handler)
+  - [pltcl_SPI_prepare](../p/pltcl_SPI_prepare.md) (PL/Tcl language handler)
   - [ttdummy](../t/ttdummy.md) (test regression function)
 
 ## Notes and Other Information

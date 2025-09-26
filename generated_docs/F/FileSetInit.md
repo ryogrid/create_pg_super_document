@@ -34,16 +34,16 @@ This API is designed for scenarios where temporary files need to:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PrepareTempTablespaces: Prepares the temporary tablespace configuration
-  - GetTempTablespaces: Retrieves the list of configured temporary tablespaces
+  - [PrepareTempTablespaces](../P/PrepareTempTablespaces.md): Prepares the temporary tablespace configuration
+  - [GetTempTablespaces](../G/GetTempTablespaces.md): Retrieves the list of configured temporary tablespaces
   - lengthof: Macro to get array length
   - MyProcPid: Current process ID
   - MyDatabaseTableSpace: Default tablespace OID for current database
   - InvalidOid: Constant representing invalid OID
 
 - Called from (representative examples):
-  - stream_start_internal: Used in logical replication worker
-  - SharedFileSetInit: Used to initialize shared filesets
+  - [stream_start_internal](../s/stream_start_internal.md): Used in logical replication worker
+  - [SharedFileSetInit](../S/SharedFileSetInit.md): Used to initialize shared filesets
 
 ## Notes and Other Information
 - Uses a static counter to ensure unique numbering within each process

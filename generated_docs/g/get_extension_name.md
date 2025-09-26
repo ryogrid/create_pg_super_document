@@ -28,12 +28,12 @@ Unlike get_extension_oid, this function does not have a missing_ok parameter and
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open (opens pg_extension catalog)
+  - [table_open](../t/table_open.md) (opens pg_extension catalog)
   - [ScanKeyInit](../S/ScanKeyInit.md) (initializes search key)  
   - [systable_beginscan](../s/systable_beginscan.md) (starts catalog scan)
   - [systable_getnext](../s/systable_getnext.md) (retrieves next tuple)
   - [systable_endscan](../s/systable_endscan.md) (ends catalog scan)
-  - table_close (closes catalog relation)
+  - [table_close](../t/table_close.md) (closes catalog relation)
   - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) (converts OID to Datum)
   - Form_pg_extension (cast to extension tuple structure)
   - [pstrdup](../p/pstrdup.md) (duplicate string with palloc)
@@ -45,7 +45,7 @@ Unlike get_extension_oid, this function does not have a missing_ok parameter and
   - [recordDependencyOnCurrentExtension](../r/recordDependencyOnCurrentExtension.md) (dependency tracking)
   - [checkMembershipInCurrentExtension](../c/checkMembershipInCurrentExtension.md) (membership validation)
   - [RemoveExtensionById](../R/RemoveExtensionById.md) (extension removal)
-  - AlterExtensionNamespace (namespace operations)
+  - [AlterExtensionNamespace](../A/AlterExtensionNamespace.md) (namespace operations)
 
 ## Notes and Other Information
 - Returns a palloc'd string that must be freed by the caller when no longer needed

@@ -34,8 +34,8 @@ This is the primary workhorse function for LZ4 decompression in PostgreSQL's pg_
   - memcpy (standard C library memory copying function)
   - memmove (standard C library overlapping memory move function)
   - memset (standard C library memory initialization function)
-  - pg_malloc (PostgreSQL memory allocation function)
-  - pg_realloc (PostgreSQL memory reallocation function)
+  - [pg_malloc](../p/pg_malloc.md) (PostgreSQL memory allocation function)
+  - [pg_realloc](../p/pg_realloc.md) (PostgreSQL memory reallocation function)
   - [pg_free](../p/pg_free.md) (PostgreSQL memory deallocation function)
   - pg_log_error (PostgreSQL logging function)
 - Types referenced:

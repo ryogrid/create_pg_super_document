@@ -43,7 +43,7 @@ The function handles the complete lifecycle of test preparation and launch, retu
   - [main](../m/main.md) (primary test execution loop)
 - Data types used:
   - PID_TYPE (process identifier type)
-  - _stringlist (string list structure)
+  - [_stringlist](../s/_stringlist.md) (string list structure)
   - [StringInfoData](../S/StringInfoData.md) (PostgreSQL string buffer)
 
 ## Notes and Other Information

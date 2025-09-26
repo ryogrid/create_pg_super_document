@@ -28,9 +28,9 @@ This function is a core component of PostgreSQL's hot standby locking mechanism.
   - [RecoveryLockXidEntry](../R/RecoveryLockXidEntry.md)
   - [RecoveryLockEntry](../R/RecoveryLockEntry.md)
   - [xl_standby_lock](../x/xl_standby_lock.md)
-  - LOCKTAG
+  - [LOCKTAG](../L/LOCKTAG.md)
 - Called from (representative examples):
-  - standby_redo (src/backend/storage/ipc/standby.c:1176)
+  - [standby_redo](../s/standby_redo.md) (src/backend/storage/ipc/standby.c:1176)
   - [lock_twophase_standby_recover](../l/lock_twophase_standby_recover.md) (src/backend/storage/lmgr/lock.c:4374)
 
 ## Notes and Other Information
@@ -38,5 +38,5 @@ This function is a core component of PostgreSQL's hot standby locking mechanism.
 - Uses session locks rather than normal locks to avoid needing ResourceOwners
 - Performs deduplication to handle checkpoint re-reporting of existing locks
 - Skips processing for invalid, committed, or aborted transactions
-- Hash table entries link locks to their original transaction IDs for efficient cleanup
+- [Hash](../H/Hash.md) table entries link locks to their original transaction IDs for efficient cleanup
 - Part of the recovery locking infrastructure that prevents query conflicts in hot standby mode

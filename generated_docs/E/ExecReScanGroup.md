@@ -30,7 +30,7 @@ The function includes an optimization where it only rescans the child node if no
   - [GroupState](../G/GroupState.md) (node parameter type)
   - [PlanState](../P/PlanState.md) (child plan reference)
   - outerPlanState (child plan access macro)
-  - ExecClearTuple (tuple slot cleanup)
+  - [ExecClearTuple](ExecClearTuple.md) (tuple slot cleanup)
   - [ExecReScan](ExecReScan.md) (recursive child rescan)
 - Called from (representative examples):
   - [ExecReScan](ExecReScan.md) (during plan node rescan operations)

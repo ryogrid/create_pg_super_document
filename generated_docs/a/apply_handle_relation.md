@@ -23,7 +23,7 @@ The function first checks if this message is part of a streaming transaction and
 - Functions called/Symbols referenced:
   - [handle_streamed_transaction](../h/handle_streamed_transaction.md) (streaming transaction management)
   - [logicalrep_read_rel](../l/logicalrep_read_rel.md) (parses relation data from message)
-  - logicalrep_relmap_update (updates relation mapping cache)
+  - [logicalrep_relmap_update](../l/logicalrep_relmap_update.md) (updates relation mapping cache)
   - [logicalrep_partmap_reset_relmap](../l/logicalrep_partmap_reset_relmap.md) (resets partition mapping entries)
   - LOGICAL_REP_MSG_RELATION (message type constant)
 - Called from (representative examples):

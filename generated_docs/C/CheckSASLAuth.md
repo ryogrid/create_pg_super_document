@@ -34,7 +34,7 @@ The function uses the provided SASL mechanism implementation (mech) to handle me
   - [sendAuthRequest](../s/sendAuthRequest.md) (sends authentication requests to client)
   - [pq_startmsgread](../p/pq_startmsgread.md) (initiates message reading from client)
   - [pq_getbyte](../p/pq_getbyte.md) (reads message type byte)
-  - pq_getmessage (reads SASL message payload)
+  - [pq_getmessage](../p/pq_getmessage.md) (reads SASL message payload)
   - [pq_getmsgrawstring](../p/pq_getmsgrawstring.md) (extracts mechanism name from initial response)
   - [pq_getmsgint](../p/pq_getmsgint.md) (reads integer values from messages)
   - [pq_getmsgbytes](../p/pq_getmsgbytes.md) (extracts byte arrays from messages)

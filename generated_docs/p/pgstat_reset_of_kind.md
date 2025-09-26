@@ -28,7 +28,7 @@ The function captures the current timestamp to mark when the reset operation occ
   - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
   - [pgstat_reset_entries_of_kind](pgstat_reset_entries_of_kind.md)
   - [PgStat_Kind](../P/PgStat_Kind.md) (enum type)
-  - PgStat_KindInfo (struct type)
+  - [PgStat_KindInfo](../P/PgStat_KindInfo.md) (struct type)
 - Called from (representative examples):
   - [pg_stat_reset_shared](pg_stat_reset_shared.md)
   - [pg_stat_reset_slru](pg_stat_reset_slru.md)

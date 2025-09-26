@@ -27,10 +27,10 @@ This information is valuable for monitoring system performance and understanding
 ## Dependencies
 - Functions called/Symbols referenced:
   - SET_LOCKTAG_RELATION_EXTEND (macro to set up lock tag for relation extension)
-  - LockWaiterCount (core function to count waiters for a specific lock tag)
+  - [LockWaiterCount](../L/LockWaiterCount.md) (core function to count waiters for a specific lock tag)
 - Called from (representative examples):
   - MAX_BUFFERS_TO_EXTEND_BY (heap input/output operations for buffer extension decisions)
-  - XLTW_Oper (transaction lock wait operations)
+  - [XLTW_Oper](../X/XLTW_Oper.md) (transaction lock wait operations)
 
 ## Notes and Other Information
 - Used primarily for performance monitoring and debugging lock contention issues

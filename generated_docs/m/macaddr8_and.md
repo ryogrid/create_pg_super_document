@@ -27,7 +27,7 @@ The function allocates memory for a new macaddr8 result and performs the AND ope
   - PG_GETARG_MACADDR8_P (macro for extracting macaddr8 arguments)
   - [palloc0](../p/palloc0.md) (PostgreSQL memory allocation function)
   - PG_RETURN_MACADDR8_P (macro for returning macaddr8 result)
-  - macaddr8 (data structure type)
+  - [macaddr8](macaddr8.md) (data structure type)
 - Called from (representative examples):
   - SQL operators and functions that require bitwise AND on MAC addresses
 

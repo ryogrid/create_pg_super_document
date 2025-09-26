@@ -19,13 +19,13 @@ This function is called when a new replication slot is created to set up its sta
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockHeldByMeInMode (with ReplicationSlotAllocationLock, LW_EXCLUSIVE)
-  - pgstat_get_entry_ref_locked (with PGSTAT_KIND_REPLSLOT)
-  - ReplicationSlotIndex
+  - [LWLockHeldByMeInMode](../L/LWLockHeldByMeInMode.md) (with ReplicationSlotAllocationLock, LW_EXCLUSIVE)
+  - [pgstat_get_entry_ref_locked](pgstat_get_entry_ref_locked.md) (with PGSTAT_KIND_REPLSLOT)
+  - [ReplicationSlotIndex](../R/ReplicationSlotIndex.md)
   - memset (to clear statistics)
-  - pgstat_unlock_entry
+  - [pgstat_unlock_entry](pgstat_unlock_entry.md)
 - Called from (representative examples):
-  - ReplicationSlotCreate
+  - [ReplicationSlotCreate](../R/ReplicationSlotCreate.md)
 
 ## Notes and Other Information
 - Must be called with ReplicationSlotAllocationLock already held exclusively

@@ -36,7 +36,7 @@ The function returns a tuple with 16 columns:
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetLockStatusData](../G/GetLockStatusData.md) (retrieves current lock information)
-  - GetPredicateLockStatusData (retrieves predicate lock information)
+  - [GetPredicateLockStatusData](../G/GetPredicateLockStatusData.md) (retrieves predicate lock information)
   - [VXIDGetDatum](../V/VXIDGetDatum.md) (formats virtual transaction IDs)
   - [GetLockmodeName](../G/GetLockmodeName.md) (converts lock mode to string)
   - [CreateTemplateTupleDesc](../C/CreateTemplateTupleDesc.md) (creates tuple descriptor)

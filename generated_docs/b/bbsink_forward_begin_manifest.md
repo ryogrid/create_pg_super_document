@@ -21,8 +21,8 @@ The manifest in PostgreSQL's backup system contains metadata about the backup, i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbsink_begin_manifest
-  - bbsink (type reference)
+  - [bbsink_begin_manifest](bbsink_begin_manifest.md)
+  - [bbsink](bbsink.md) (type reference)
 - Called from (representative examples):
   - [bbsink_server_begin_manifest](bbsink_server_begin_manifest.md) (src/backend/backup/basebackup_server.c:246)
 

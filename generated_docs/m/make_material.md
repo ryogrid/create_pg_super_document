@@ -22,7 +22,7 @@ The Material node acts as a buffer between its child and parent plans, allowing 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Material (struct type, created with makeNode())
+  - [Material](../M/Material.md) (struct type, created with makeNode())
 - Called from (representative examples):
   - [create_material_plan](../c/create_material_plan.md)
   - [create_mergejoin_plan](../c/create_mergejoin_plan.md)
@@ -33,5 +33,5 @@ The Material node acts as a buffer between its child and parent plans, allowing 
 - The Material node has no right child (righttree is set to NULL)
 - No qualification conditions are applied (qual is set to NIL)
 - The target list is directly copied from the child plan
-- Material nodes are often used in scenarios where rescanning is required
+- [Material](../M/Material.md) nodes are often used in scenarios where rescanning is required
 - Located in src/backend/optimizer/plan/createplan.c at lines 6506-6527

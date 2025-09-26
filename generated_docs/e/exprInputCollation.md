@@ -21,14 +21,14 @@ This function extracts the input collation OID from expression nodes that can in
 - Functions called/Symbols referenced:
   - nodeTag (macro to get node type)
   - Expression node types with inputcollid fields:
-    - Aggref (aggregate function reference)
-    - WindowFunc (window function)
-    - FuncExpr (function call expression)
-    - OpExpr (operator expression)
+    - [Aggref](../A/Aggref.md) (aggregate function reference)
+    - [WindowFunc](../W/WindowFunc.md) (window function)
+    - [FuncExpr](../F/FuncExpr.md) (function call expression)
+    - [OpExpr](../O/OpExpr.md) (operator expression)
     - DistinctExpr (IS DISTINCT FROM expression)
     - NullIfExpr (NULLIF expression)
-    - ScalarArrayOpExpr (scalar-array operator expression)
-    - MinMaxExpr (GREATEST/LEAST expression)
+    - [ScalarArrayOpExpr](../S/ScalarArrayOpExpr.md) (scalar-array operator expression)
+    - [MinMaxExpr](../M/MinMaxExpr.md) (GREATEST/LEAST expression)
   - InvalidOid (constant for invalid OID)
 
 - Called from (representative examples):

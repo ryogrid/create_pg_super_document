@@ -42,11 +42,11 @@ For unique indexes, the function manages two separate tuplesort states - one for
   - [table_beginscan_parallel](../t/table_beginscan_parallel.md)
   - [table_index_build_scan](../t/table_index_build_scan.md)
   - [_bt_build_callback](_bt_build_callback.md)
-  - tuplesort_performsort
+  - [tuplesort_performsort](../t/tuplesort_performsort.md)
   - [pgstat_progress_update_param](../p/pgstat_progress_update_param.md)
   - SpinLockAcquire/SpinLockRelease
-  - ConditionVariableSignal
-  - tuplesort_end
+  - [ConditionVariableSignal](../C/ConditionVariableSignal.md)
+  - [tuplesort_end](../t/tuplesort_end.md)
 - Called from (representative examples):
   - [_bt_parallel_build_main](_bt_parallel_build_main.md)
   - [_bt_leader_participate_as_worker](_bt_leader_participate_as_worker.md)

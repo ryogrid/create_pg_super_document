@@ -31,19 +31,19 @@ The structure follows PostgreSQL's standard node structure pattern by including 
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag
-  - Node
+  - [Node](../N/Node.md)
   - CommandTag
 - Called from (representative examples):
-  - EventTriggerCommonSetup
-  - EventTriggerDDLCommandStart
-  - EventTriggerDDLCommandEnd
-  - EventTriggerSQLDrop
-  - EventTriggerOnLogin
-  - EventTriggerTableRewrite
-  - EventTriggerInvoke
+  - [EventTriggerCommonSetup](EventTriggerCommonSetup.md)
+  - [EventTriggerDDLCommandStart](EventTriggerDDLCommandStart.md)
+  - [EventTriggerDDLCommandEnd](EventTriggerDDLCommandEnd.md)
+  - [EventTriggerSQLDrop](EventTriggerSQLDrop.md)
+  - [EventTriggerOnLogin](EventTriggerOnLogin.md)
+  - [EventTriggerTableRewrite](EventTriggerTableRewrite.md)
+  - [EventTriggerInvoke](EventTriggerInvoke.md)
   - CALLED_AS_EVENT_TRIGGER (macro)
-  - plperl_event_trigger_build_args
-  - pltcl_event_trigger_handler
+  - [plperl_event_trigger_build_args](../p/plperl_event_trigger_build_args.md)
+  - [pltcl_event_trigger_handler](../p/pltcl_event_trigger_handler.md)
 
 ## Notes and Other Information
 - This structure is primarily used in the event trigger system implemented in src/backend/commands/event_trigger.c

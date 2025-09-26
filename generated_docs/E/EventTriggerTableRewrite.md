@@ -30,13 +30,13 @@ The function provides essential context information about the table being rewrit
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - EventTriggerData (struct for trigger context)
+  - [EventTriggerData](EventTriggerData.md) (struct for trigger context)
   - [EventTriggerCommonSetup](EventTriggerCommonSetup.md) (identifies applicable triggers)
   - EVT_TableRewrite (event type constant)
   - PG_TRY/PG_FINALLY/PG_END_TRY (exception handling)
   - [EventTriggerInvoke](EventTriggerInvoke.md) (executes the triggers)
   - [list_free](../l/list_free.md) (memory cleanup)
-  - CommandCounterIncrement (ensures visibility)
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md) (ensures visibility)
 - Called from (representative examples):
   - [ATRewriteTables](../A/ATRewriteTables.md) (table rewrite processing in ALTER TABLE)
 

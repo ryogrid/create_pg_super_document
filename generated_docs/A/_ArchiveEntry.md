@@ -27,7 +27,7 @@ The data state is set to either:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_malloc0 (memory allocation)
+  - [pg_malloc0](../p/pg_malloc0.md) (memory allocation)
   - lclTocEntry (local TOC entry structure type)
   - K_OFFSET_POS_NOT_SET, K_OFFSET_NO_DATA (offset state constants)
 

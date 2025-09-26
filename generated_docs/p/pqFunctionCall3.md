@@ -45,7 +45,7 @@ The function uses a state machine approach to process incoming messages, handlin
   - PQ_PIPELINE_OFF (pipeline status)
   - VALID_LONG_MESSAGE_TYPE (message validation macro)
 - Called from (representative examples):
-  - PQfn (in src/interfaces/libpq/fe-exec.c)
+  - [PQfn](../P/PQfn.md) (in src/interfaces/libpq/fe-exec.c)
 
 ## Notes and Other Information
 - Returns a PGresult pointer containing the function result or error information

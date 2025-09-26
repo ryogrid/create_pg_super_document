@@ -38,7 +38,7 @@ The function is designed to be lightweight and non-blocking, making it suitable 
 - Functions called/Symbols referenced:
   - [RecoveryInProgress](../R/RecoveryInProgress.md)
   - XLogRecPtrIsInvalid
-  - LWLockConditionalAcquire
+  - [LWLockConditionalAcquire](../L/LWLockConditionalAcquire.md)
   - RefreshXLogWriteResult
 - Called from (representative examples):
   - [SetHintBits](../S/SetHintBits.md)

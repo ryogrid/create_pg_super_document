@@ -18,8 +18,8 @@ SearchSysCacheLocked1 is a specialized function that combines SearchSysCache1() 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CatCache
-  - LOCKTAG
+  - [CatCache](../C/CatCache.md)
+  - [LOCKTAG](../L/LOCKTAG.md)
   - [ItemPointerSetInvalid](../I/ItemPointerSetInvalid.md)
   - InplaceUpdateTupleLock
   - [ItemPointerIsValid](../I/ItemPointerIsValid.md)

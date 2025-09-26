@@ -25,7 +25,7 @@ OPT_NULLS is part of an enumeration that defines the available command-line opti
   - Used within pltcl_SPI_execute_plan function
   - Compared against optIndex variable in switch statement
 - Called from (representative examples):
-  - pltcl_SPI_execute_plan (case statement at line 2733)
+  - [pltcl_SPI_execute_plan](../p/pltcl_SPI_execute_plan.md) (case statement at line 2733)
 
 ## Notes and Other Information
 - The OPT_NULLS option corresponds to the `-nulls` string in the options array

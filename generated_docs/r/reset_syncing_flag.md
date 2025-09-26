@@ -28,8 +28,8 @@ This function takes no parameters.
   - syncing_slots (process-local synchronization flag)
   
 - Called from (representative examples):
-  - slotsync_failure_callback (src/backend/replication/logical/slotsync.c:1715)
-  - SyncReplicationSlots (src/backend/replication/logical/slotsync.c:1739)
+  - [slotsync_failure_callback](../s/slotsync_failure_callback.md) (src/backend/replication/logical/slotsync.c:1715)
+  - [SyncReplicationSlots](../S/SyncReplicationSlots.md) (src/backend/replication/logical/slotsync.c:1739)
 
 ## Notes and Other Information
 - This function is static and only accessible within the slotsync.c file

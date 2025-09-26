@@ -29,13 +29,13 @@ The CommentStmt structure is a parse tree node that encapsulates all information
 ## Dependencies
 - Functions called/Symbols referenced:
   - ObjectType (enum for database object types)
-  - Node (base parse tree node type)
+  - [Node](../N/Node.md) (base parse tree node type)
   - NodeTag (parse node type identifier)
 - Called from (representative examples):
-  - CommentObject (comment.c:40)
-  - standard_ProcessUtility (utility.c:1041)
-  - ProcessUtilitySlow (utility.c:1805)
-  - ATExecCmd (tablecmds.c:5343)
+  - [CommentObject](CommentObject.md) (comment.c:40)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (utility.c:1041)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (utility.c:1805)
+  - [ATExecCmd](../A/ATExecCmd.md) (tablecmds.c:5343)
 
 ## Notes and Other Information
 CommentStmt is processed by the utility command execution system and ultimately handled by CommentObject() function. The structure supports commenting on a wide variety of PostgreSQL objects including tables, columns, constraints, functions, operators, types, and many others. Comment operations are transactional and will be rolled back if the containing transaction fails.

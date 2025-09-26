@@ -28,8 +28,8 @@ If any row-level trigger uses transition tables, the function immediately return
 - Functions called/Symbols referenced:
   - TRIGGER_FOR_ROW (macro to check if trigger is row-level)
 - Data structures used:
-  - TriggerDesc (trigger descriptor structure)
-  - Trigger (individual trigger structure)
+  - [TriggerDesc](../T/TriggerDesc.md) (trigger descriptor structure)
+  - [Trigger](../T/Trigger.md) (individual trigger structure)
 - Called from (representative examples):
   - [ATExecAddInherit](../A/ATExecAddInherit.md) (when adding inheritance relationship)
   - [ATExecAttachPartition](../A/ATExecAttachPartition.md) (when attaching a partition)

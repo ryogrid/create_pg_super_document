@@ -22,7 +22,7 @@ This function provides a comparison mechanism for SortItem objects when sorting 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ApplySortComparator](../A/ApplySortComparator.md)
-  - SortSupport (type)
+  - [SortSupport](../S/SortSupport.md) (type)
   - [SortItem](../S/SortItem.md) (type)
 - Called from (representative examples):
   - [build_column_frequencies](../b/build_column_frequencies.md)

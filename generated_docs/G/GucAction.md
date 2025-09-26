@@ -35,16 +35,16 @@ This enumeration is primarily used by the GUC (Grand Unified Configuration) syst
 
 ## Dependencies
 - Functions that use GucAction:
-  - set_config_option (src/backend/utils/misc/guc.c:3347)
-  - set_config_option_ext (src/backend/utils/misc/guc.c:3387)
-  - set_config_with_handle (src/backend/utils/misc/guc.c:3411)
-  - push_old_value (src/backend/utils/misc/guc.c:2136)
-  - ProcessGUCArray (src/backend/utils/misc/guc.c:6465)
-  - ExecSetVariableStmt (src/backend/utils/misc/guc_funcs.c:45)
-  - fmgr_security_definer (src/backend/utils/fmgr/fmgr.c:719)
+  - [set_config_option](../s/set_config_option.md) (src/backend/utils/misc/guc.c:3347)
+  - [set_config_option_ext](../s/set_config_option_ext.md) (src/backend/utils/misc/guc.c:3387)
+  - [set_config_with_handle](../s/set_config_with_handle.md) (src/backend/utils/misc/guc.c:3411)
+  - [push_old_value](../p/push_old_value.md) (src/backend/utils/misc/guc.c:2136)
+  - [ProcessGUCArray](../P/ProcessGUCArray.md) (src/backend/utils/misc/guc.c:6465)
+  - [ExecSetVariableStmt](../E/ExecSetVariableStmt.md) (src/backend/utils/misc/guc_funcs.c:45)
+  - [fmgr_security_definer](../f/fmgr_security_definer.md) (src/backend/utils/fmgr/fmgr.c:719)
 
 - Used in structures:
-  - GUCHashEntry (src/backend/utils/misc/guc.c:244)
+  - [GUCHashEntry](GUCHashEntry.md) (src/backend/utils/misc/guc.c:244)
 
 ## Notes and Other Information
 - This enumeration is defined in src/include/utils/guc.h and is fundamental to PostgreSQL's configuration management system

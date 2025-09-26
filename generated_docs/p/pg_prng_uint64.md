@@ -21,14 +21,14 @@ The implementation uses the xoroshiro128** algorithm, which is a high-quality, f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_prng_state (struct type)
-  - xoroshiro128ss (internal PRNG algorithm implementation)
+  - [pg_prng_state](pg_prng_state.md) (struct type)
+  - [xoroshiro128ss](../x/xoroshiro128ss.md) (internal PRNG algorithm implementation)
 - Called from (representative examples):
-  - initRandomState (pgbench)
-  - permute (pgbench)
+  - [initRandomState](../i/initRandomState.md) (pgbench)
+  - [permute](permute.md) (pgbench)
   - pg_prng_strong_seed (macro)
-  - test_random (test modules)
-  - main (testint128 tool)
+  - [test_random](../t/test_random.md) (test modules)
+  - [main](../m/main.md) (testint128 tool)
 
 ## Notes and Other Information
 - Returns values uniformly distributed across the complete uint64 range [0, 2^64-1]

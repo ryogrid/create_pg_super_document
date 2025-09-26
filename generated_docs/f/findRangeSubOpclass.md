@@ -37,7 +37,7 @@ The validation ensures that the operator class can handle the subtype's data, ei
   - AlterTypeRecurseParams: As part of recursive type alteration operations
 
 ## Notes and Other Information
-- Range types require B-tree operator classes because they need total ordering for proper range semantics
+- [Range](../R/Range.md) types require B-tree operator classes because they need total ordering for proper range semantics
 - The function accepts binary compatible types, allowing flexibility in operator class selection
 - When no default operator class exists, the error message provides helpful guidance to users about defining operator classes
 - The validation prevents runtime errors that could occur if incompatible operator classes were used

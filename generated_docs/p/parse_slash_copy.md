@@ -20,7 +20,7 @@ This function parses the complex syntax of psql's \copy command, which supports 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_malloc0, pg_strdup (PostgreSQL memory allocation)
+  - [pg_malloc0](pg_malloc0.md), pg_strdup (PostgreSQL memory allocation)
   - [strtokx](../s/strtokx.md) (PostgreSQL tokenizer)
   - [pg_strcasecmp](pg_strcasecmp.md) (PostgreSQL string comparison)
   - [xstrcat](../x/xstrcat.md) (local utility function)

@@ -27,15 +27,15 @@ This function is essential for MVCC visibility determinations and tuple modifica
 - Functions called/Symbols referenced:
   - HeapTupleHeaderGetRawCommandId: Gets the raw command ID from the tuple header
   - HeapTupleHeaderGetUpdateXid: Gets the transaction ID that last updated the tuple
-  - TransactionIdIsCurrentTransactionId: Validates that the update transaction is current
-  - GetRealCmax: Resolves combo command ID to actual maximum command ID
+  - [TransactionIdIsCurrentTransactionId](../T/TransactionIdIsCurrentTransactionId.md): Validates that the update transaction is current
+  - [GetRealCmax](../G/GetRealCmax.md): Resolves combo command ID to actual maximum command ID
 - Called from (representative examples):
-  - heap_delete: During tuple deletion operations
-  - heap_update: During tuple update operations  
-  - heap_lock_tuple: During tuple locking operations
-  - HeapTupleSatisfiesUpdate: Visibility checking for updates
-  - HeapTupleSatisfiesMVCC: MVCC visibility determination
-  - log_heap_new_cid: For WAL logging purposes
+  - [heap_delete](../h/heap_delete.md): During tuple deletion operations
+  - [heap_update](../h/heap_update.md): During tuple update operations  
+  - [heap_lock_tuple](../h/heap_lock_tuple.md): During tuple locking operations
+  - [HeapTupleSatisfiesUpdate](HeapTupleSatisfiesUpdate.md): Visibility checking for updates
+  - [HeapTupleSatisfiesMVCC](HeapTupleSatisfiesMVCC.md): MVCC visibility determination
+  - [log_heap_new_cid](../l/log_heap_new_cid.md): For WAL logging purposes
 
 ## Notes and Other Information
 - Only valid to call from within the transaction that last modified the tuple

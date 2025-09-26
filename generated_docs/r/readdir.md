@@ -22,19 +22,19 @@ The function ensures proper errno handling to match POSIX semantics, setting err
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DIR (struct)
-  - _dosmaperr
+  - [DIR](../D/DIR.md) (struct)
+  - [_dosmaperr](../d/_dosmaperr.md)
   - DT_LNK
   - DT_DIR  
   - DT_REG
 - Called from (representative examples):
-  - ReadDirExtended
-  - CleanupPriorWALFiles
-  - FindStreamingStart
-  - scan_directory
-  - process_directory_recursively
-  - pgfnames
-  - rmtree
+  - [ReadDirExtended](../R/ReadDirExtended.md)
+  - [CleanupPriorWALFiles](../C/CleanupPriorWALFiles.md)
+  - [FindStreamingStart](../F/FindStreamingStart.md)
+  - [scan_directory](../s/scan_directory.md)
+  - [process_directory_recursively](../p/process_directory_recursively.md)
+  - [pgfnames](../p/pgfnames.md)
+  - [rmtree](rmtree.md)
 
 ## Notes and Other Information
 This is a Windows-specific implementation that bridges POSIX directory reading semantics with Windows file system APIs. The function correctly handles reparse points by checking the ReparseTag field first, as reparse points are also reported as directories by Windows. File type detection maps Windows file attributes to standard POSIX dirent d_type values (DT_REG for regular files, DT_DIR for directories, DT_LNK for symbolic links). The function is extensively used throughout PostgreSQL for directory traversal operations including WAL management, backup processes, cleanup operations, and general file system utilities. Error handling follows POSIX conventions with errno set to 0 for end-of-directory and appropriate error codes for actual failures.

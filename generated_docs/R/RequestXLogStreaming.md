@@ -27,8 +27,8 @@ This function initiates WAL (Write-Ahead Log) streaming by configuring and start
 - Functions called/Symbols referenced:
   - XLogSegmentOffset (to align to segment boundaries)
   - SpinLockAcquire/SpinLockRelease (for mutex protection)
-  - strlcpy (for string copying)
-  - SendPostmasterSignal (to start walreceiver process)
+  - [strlcpy](../s/strlcpy.md) (for string copying)
+  - [SendPostmasterSignal](../S/SendPostmasterSignal.md) (to start walreceiver process)
   - [SetLatch](../S/SetLatch.md) (to wake up existing receiver)
 - Called from (representative examples):
   - [WaitForWALToBecomeAvailable](../W/WaitForWALToBecomeAvailable.md) (during recovery)

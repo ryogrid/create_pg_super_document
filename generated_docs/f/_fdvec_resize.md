@@ -30,7 +30,7 @@ A key design decision is that the function never shrinks allocated arrays to avo
   - [MdfdVec](../M/MdfdVec.md) (segment descriptor structure)
 - Called from (representative examples):
   - [mdcreate](../m/mdcreate.md) (src/backend/storage/smgr/md.c:236)
-  - mdopenfork (src/backend/storage/smgr/md.c:666)
+  - [mdopenfork](../m/mdopenfork.md) (src/backend/storage/smgr/md.c:666)
   - [mdclose](../m/mdclose.md) (src/backend/storage/smgr/md.c:705)
   - [mdtruncate](../m/mdtruncate.md) (src/backend/storage/smgr/md.c:1204)
   - [_mdfd_openseg](../m/_mdfd_openseg.md) (src/backend/storage/smgr/md.c:1574)

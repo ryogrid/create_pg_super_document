@@ -45,7 +45,7 @@ The function supports both NULL handling and soft error reporting through the Er
   - [populate_record](populate_record.md)
   - [HeapTupleHeaderGetDatum](../H/HeapTupleHeaderGetDatum.md)
   - JsObjectFree
-  - domain_check_safe
+  - [domain_check_safe](../d/domain_check_safe.md)
   - SOFT_ERROR_OCCURRED
 - Called from (representative examples):
   - [populate_record_field](populate_record_field.md)

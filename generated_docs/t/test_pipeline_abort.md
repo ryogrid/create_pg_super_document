@@ -37,9 +37,9 @@ The function verifies that aborted pipeline operations return PGRES_PIPELINE_ABO
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQexec](../P/PQexec.md) (multiple calls for setup and verification)
-  - PQenterPipelineMode/PQexitPipelineMode (pipeline mode control)
+  - [PQenterPipelineMode](../P/PQenterPipelineMode.md)/PQexitPipelineMode (pipeline mode control)
   - [PQsendQueryParams](../P/PQsendQueryParams.md) (sending parameterized queries)
-  - PQpipelineSync (pipeline synchronization)
+  - [PQpipelineSync](../P/PQpipelineSync.md) (pipeline synchronization)
   - [PQgetResult](../P/PQgetResult.md) (retrieving results)
   - [PQpipelineStatus](../P/PQpipelineStatus.md) (checking pipeline state)
   - [PQsetSingleRowMode](../P/PQsetSingleRowMode.md) (enabling single-row mode)

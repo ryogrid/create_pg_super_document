@@ -20,13 +20,13 @@ The  function is a utility function within PostgreSQL's magnetic disk storage ma
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_truncate
+  - [pg_truncate](../p/pg_truncate.md)
   - ereport (for warning logging)
-  - errcode_for_file_access (for error code handling)
-  - errmsg (for error message formatting)
+  - [errcode_for_file_access](../e/errcode_for_file_access.md) (for error code handling)
+  - [errmsg](../e/errmsg.md) (for error message formatting)
 
 - Called from (representative examples):
-  - mdunlinkfork (multiple times during fork cleanup operations)
+  - [mdunlinkfork](../m/mdunlinkfork.md) (multiple times during fork cleanup operations)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the md.c file

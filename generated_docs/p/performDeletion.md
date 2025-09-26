@@ -38,14 +38,14 @@ The function supports both CASCADE behavior (delete dependent objects) and RESTR
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - [AcquireDeletionLock](../A/AcquireDeletionLock.md)
   - [new_object_addresses](../n/new_object_addresses.md)
   - [findDependentObjects](../f/findDependentObjects.md)
   - [reportDependentObjects](../r/reportDependentObjects.md)
   - [deleteObjectsInList](../d/deleteObjectsInList.md)
   - [free_object_addresses](../f/free_object_addresses.md)
-  - table_close
+  - [table_close](../t/table_close.md)
 - Data structures used:
   - [ObjectAddress](../O/ObjectAddress.md)
   - ObjectAddresses

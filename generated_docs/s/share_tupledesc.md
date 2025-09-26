@@ -27,7 +27,7 @@ The  function creates a copy of a tuple descriptor in shared memory managed by a
   - TupleDescSize (calculates the size needed for the tuple descriptor)
   - [TupleDescCopy](../T/TupleDescCopy.md) (copies tuple descriptor data)
 - Data structures used:
-  - dsa_area
+  - [dsa_area](../d/dsa_area.md)
   - dsa_pointer
   - [TupleDesc](../T/TupleDesc.md)
 - Called from (representative examples):

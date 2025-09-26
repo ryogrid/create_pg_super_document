@@ -31,12 +31,12 @@ This implementation is part of PostgreSQL's portability layer, allowing consiste
 ## Dependencies
 - Functions called/Symbols referenced:
   - timeval (structure type)
-  - getrusage (function that populates this structure)
+  - [getrusage](../g/getrusage.md) (function that populates this structure)
 - Called from (representative examples):
-  - get_stack_depth_rlimit (in src/backend/tcop/postgres.c:5076)
-  - ShowUsage (in src/backend/tcop/postgres.c:5093)
-  - PGRUsage (used as member in src/include/utils/pg_rusage.h:25)
-  - getrusage (in src/port/win32getrusage.c - multiple locations)
+  - [get_stack_depth_rlimit](../g/get_stack_depth_rlimit.md) (in src/backend/tcop/postgres.c:5076)
+  - [ShowUsage](../S/ShowUsage.md) (in src/backend/tcop/postgres.c:5093)
+  - [PGRUsage](../P/PGRUsage.md) (used as member in src/include/utils/pg_rusage.h:25)
+  - [getrusage](../g/getrusage.md) (in src/port/win32getrusage.c - multiple locations)
 
 ## Notes and Other Information
 - This is a Windows-specific implementation found in 

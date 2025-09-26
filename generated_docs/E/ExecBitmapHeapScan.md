@@ -26,7 +26,7 @@ The function represents the core of bitmap heap scan execution, coordinating bet
 - Data types referenced:
   - [BitmapHeapScanState](../B/BitmapHeapScanState.md)
   - [PlanState](../P/PlanState.md)
-  - TupleTableSlot
+  - [TupleTableSlot](../T/TupleTableSlot.md)
 - Called from:
   - [ExecInitBitmapHeapScan](ExecInitBitmapHeapScan.md) (src/backend/executor/nodeBitmapHeapscan.c:705)
 

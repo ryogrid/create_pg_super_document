@@ -30,13 +30,13 @@ The underlying AggStatePerHashData structure contains:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AggStatePerHashData
+  - [AggStatePerHashData](AggStatePerHashData.md)
   - [TupleHashTable](../T/TupleHashTable.md)
   - TupleHashIterator
-  - TupleTableSlot
+  - [TupleTableSlot](../T/TupleTableSlot.md)
   - [FmgrInfo](../F/FmgrInfo.md)
   - AttrNumber
-  - Agg
+  - [Agg](Agg.md)
 - Called from (representative examples):
   - [prepare_hash_slot](../p/prepare_hash_slot.md)
   - [build_hash_tables](../b/build_hash_tables.md)

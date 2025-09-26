@@ -31,11 +31,11 @@ The function is implemented as a wrapper around `pg_atomic_compare_exchange_u32_
   - AssertPointerAlignment (alignment checks for both ptr and expected)
   - [pg_atomic_compare_exchange_u32_impl](pg_atomic_compare_exchange_u32_impl.md) (platform-specific implementation)
 - Called from (representative examples):
-  - TransactionGroupUpdateXidStatus (src/backend/access/transam/clog.c:518)
-  - MarkBufferDirty (src/backend/storage/buffer/bufmgr.c:2552)
-  - PinBuffer (src/backend/storage/buffer/bufmgr.c:2686)
-  - UnpinBufferNoOwner (src/backend/storage/buffer/bufmgr.c:2849)
-  - LWLockAttemptLock (src/backend/storage/lmgr/lwlock.c:829)
+  - [TransactionGroupUpdateXidStatus](../T/TransactionGroupUpdateXidStatus.md) (src/backend/access/transam/clog.c:518)
+  - [MarkBufferDirty](../M/MarkBufferDirty.md) (src/backend/storage/buffer/bufmgr.c:2552)
+  - [PinBuffer](../P/PinBuffer.md) (src/backend/storage/buffer/bufmgr.c:2686)
+  - [UnpinBufferNoOwner](../U/UnpinBufferNoOwner.md) (src/backend/storage/buffer/bufmgr.c:2849)
+  - [LWLockAttemptLock](../L/LWLockAttemptLock.md) (src/backend/storage/lmgr/lwlock.c:829)
 
 ## Notes and Other Information
 - Returns true if the exchange occurred, false if the comparison failed

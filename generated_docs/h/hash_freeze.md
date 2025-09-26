@@ -24,7 +24,7 @@ The hash_freeze function marks a hash table as frozen, preventing any future ins
   - [HTAB](../H/HTAB.md) (structure access)
   - elog (for error reporting)
 - Called from (representative examples):
-  - HASH_SEQ_STATUS (referenced in header file)
+  - [HASH_SEQ_STATUS](../H/HASH_SEQ_STATUS.md) (referenced in header file)
 
 ## Notes and Other Information
 - Cannot freeze shared hash tables - will throw an ERROR

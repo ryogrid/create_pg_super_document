@@ -29,20 +29,20 @@ The isCommit and isTopLevel parameters provide context to resource release callb
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwnerReleaseInternal (performs the actual recursive release work)
-  - ResourceReleasePhase (enumeration of release phases)
+  - [ResourceOwnerReleaseInternal](ResourceOwnerReleaseInternal.md) (performs the actual recursive release work)
+  - [ResourceReleasePhase](ResourceReleasePhase.md) (enumeration of release phases)
 - Called from (representative examples):
-  - CommitTransaction, AbortTransaction (transaction completion)
-  - CommitSubTransaction, AbortSubTransaction (subtransaction completion)
-  - PrepareTransaction (two-phase commit preparation)
-  - PortalDrop (portal cleanup)
-  - WalSndResourceCleanup (WAL sender cleanup)
-  - ReleaseAuxProcessResources (auxiliary process cleanup)
+  - [CommitTransaction](../C/CommitTransaction.md), AbortTransaction (transaction completion)
+  - [CommitSubTransaction](../C/CommitSubTransaction.md), AbortSubTransaction (subtransaction completion)
+  - [PrepareTransaction](../P/PrepareTransaction.md) (two-phase commit preparation)
+  - [PortalDrop](../P/PortalDrop.md) (portal cleanup)
+  - [WalSndResourceCleanup](../W/WalSndResourceCleanup.md) (WAL sender cleanup)
+  - [ReleaseAuxProcessResources](ReleaseAuxProcessResources.md) (auxiliary process cleanup)
 
 ## Notes and Other Information
 - Typically called three times with different phases to complete full resource cleanup
 - After calling this function, no new resources can be remembered in the ResourceOwner
-- ResourceOwnerForget cannot be called on previously remembered resources after release starts
+- [ResourceOwnerForget](ResourceOwnerForget.md) cannot be called on previously remembered resources after release starts
 - The multi-phase design allows transaction code to perform operations between cleanup phases
 - Includes optional statistics collection for performance monitoring when RESOWNER_STATS is enabled
 - Critical for PostgreSQL's error recovery and transaction management systems

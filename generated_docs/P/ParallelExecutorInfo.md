@@ -52,30 +52,30 @@ The structure is allocated in the leader process and remains active throughout t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParallelContext
-  - BufferUsage  
-  - WalUsage
-  - SharedExecutorInstrumentation
-  - SharedJitInstrumentation
-  - dsa_area
+  - [ParallelContext](ParallelContext.md)
+  - [BufferUsage](../B/BufferUsage.md)  
+  - [WalUsage](../W/WalUsage.md)
+  - [SharedExecutorInstrumentation](../S/SharedExecutorInstrumentation.md)
+  - [SharedJitInstrumentation](../S/SharedJitInstrumentation.md)
+  - [dsa_area](../d/dsa_area.md)
   - dsa_pointer
-  - shm_mq_handle
-  - TupleQueueReader
+  - [shm_mq_handle](../s/shm_mq_handle.md)
+  - [TupleQueueReader](../T/TupleQueueReader.md)
 - Called from (representative examples):
-  - ExecInitParallelPlan
-  - ExecParallelSetupTupleQueues
-  - ExecParallelCreateReaders
-  - ExecParallelReinitialize
-  - ExecParallelFinish
-  - ExecParallelCleanup
-  - GatherState
-  - GatherMergeState
+  - [ExecInitParallelPlan](../E/ExecInitParallelPlan.md)
+  - [ExecParallelSetupTupleQueues](../E/ExecParallelSetupTupleQueues.md)
+  - [ExecParallelCreateReaders](../E/ExecParallelCreateReaders.md)
+  - [ExecParallelReinitialize](../E/ExecParallelReinitialize.md)
+  - [ExecParallelFinish](../E/ExecParallelFinish.md)
+  - [ExecParallelCleanup](../E/ExecParallelCleanup.md)
+  - [GatherState](../G/GatherState.md)
+  - [GatherMergeState](../G/GatherMergeState.md)
 
 ## Notes and Other Information
 - The structure is allocated using palloc0() in the leader process memory context during ExecInitParallelPlan()
 - The tqueue and reader arrays are dynamically sized based on pcxt->nworkers_launched
 - Worker processes do not directly access this structure; they communicate through the shared memory segments it references
 - The structure supports both regular parallel execution (Gather nodes) and sorted parallel execution (GatherMerge nodes)
-- Instrumentation and JIT instrumentation are optional features that can be enabled/disabled based on execution parameters
+- [Instrumentation](../I/Instrumentation.md) and JIT instrumentation are optional features that can be enabled/disabled based on execution parameters
 - The DSA area allows for dynamic allocation of shared memory structures that persist across the parallel execution lifecycle
 - Resource usage tracking (buffer_usage, wal_usage) provides visibility into worker process resource consumption for monitoring and optimization

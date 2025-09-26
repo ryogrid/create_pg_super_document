@@ -30,7 +30,7 @@ The output is appended to the provided StringInfo buffer, allowing for efficient
 - Functions called/Symbols referenced:
   - XLogRecGetData
   - XLogRecGetInfo
-  - appendStringInfo
+  - [appendStringInfo](../a/appendStringInfo.md)
   - LSN_FORMAT_ARGS
 - Constants used:
   - XLR_INFO_MASK

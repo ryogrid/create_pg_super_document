@@ -32,7 +32,7 @@ The output is wrapped in a "Triggers" group for structured formats (JSON, XML, Y
   - [ExplainOpenGroup](ExplainOpenGroup.md)
   - [ExplainCloseGroup](ExplainCloseGroup.md)  
   - [report_triggers](../r/report_triggers.md)
-  - list_length
+  - [list_length](../l/list_length.md)
   - lfirst
 - Called from (representative examples):
   - [ExplainOnePlan](ExplainOnePlan.md)
@@ -41,6 +41,6 @@ The output is wrapped in a "Triggers" group for structured formats (JSON, XML, Y
 - This function is only called during EXPLAIN ANALYZE operations when triggers have actually been executed
 - The show_relname flag is set when multiple relations are involved, ensuring clear attribution of trigger statistics to specific tables
 - The function handles all three types of result relations that can have triggers in PostgreSQL's execution system
-- Trigger statistics include timing information, number of calls, and potentially other execution metrics depending on the instrumentation level
+- [Trigger](../T/Trigger.md) statistics include timing information, number of calls, and potentially other execution metrics depending on the instrumentation level
 - The function assumes that trigger instrumentation was enabled during query execution to collect meaningful statistics
 - Empty result lists are handled gracefully - the function will output an empty triggers section if no triggers were executed

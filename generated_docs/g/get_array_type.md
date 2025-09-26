@@ -30,11 +30,11 @@ The function uses the system cache (syscache) for efficient lookups, which provi
   - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
 - Called from (representative examples):
   - [get_promoted_array_type](get_promoted_array_type.md)
-  - transformArrayExpr
+  - [transformArrayExpr](../t/transformArrayExpr.md)
   - [ParseFuncOrColumn](../P/ParseFuncOrColumn.md)
   - [make_scalar_array_op](../m/make_scalar_array_op.md)
   - [LookupTypeNameExtended](../L/LookupTypeNameExtended.md)
-  - initArrayResultAny
+  - [initArrayResultAny](../i/initArrayResultAny.md)
 
 ## Notes and Other Information
 - Returns  if no array type can be found for the given base type

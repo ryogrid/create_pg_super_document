@@ -24,15 +24,15 @@ The error reporting includes both a standard error message indicating the role n
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsReservedName
+  - [IsReservedName](../I/IsReservedName.md)
   - ereport
-  - errcode
-  - errmsg
-  - errdetail_internal
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
+  - [errdetail_internal](../e/errdetail_internal.md)
   - ROLESPEC_CSTRING (enum value)
 - Called from (representative examples):
-  - AlterRole (in src/backend/commands/user.c)
-  - AlterRoleSet (in src/backend/commands/user.c)
+  - [AlterRole](../A/AlterRole.md) (in src/backend/commands/user.c)
+  - [AlterRoleSet](../A/AlterRoleSet.md) (in src/backend/commands/user.c)
 
 ## Notes and Other Information
 - Function is designed to be safe with NULL inputs - no error thrown if role is NULL

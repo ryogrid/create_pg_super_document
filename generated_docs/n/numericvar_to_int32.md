@@ -26,7 +26,7 @@ This function performs a safe conversion from PostgreSQL's internal numeric repr
   - PG_INT32_MAX
 - Called from (representative examples):
   - NUMERIC_CAN_BE_SHORT
-  - width_bucket_numeric
+  - [width_bucket_numeric](../w/width_bucket_numeric.md)
   - [numeric_int4_opt_error](numeric_int4_opt_error.md)
 
 ## Notes and Other Information

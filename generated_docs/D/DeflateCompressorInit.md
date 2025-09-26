@@ -22,8 +22,8 @@ The function allocates a GzipCompressorState structure to maintain gzip-specific
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_malloc0 (for allocating zeroed memory)
-  - pg_malloc (for memory allocation)
+  - [pg_malloc0](../p/pg_malloc0.md) (for allocating zeroed memory)
+  - [pg_malloc](../p/pg_malloc.md) (for memory allocation)
   - deflateInit (zlib function to initialize deflate stream)
   - [pg_fatal](../p/pg_fatal.md) (for fatal error reporting)
 - Types referenced:

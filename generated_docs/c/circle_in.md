@@ -27,8 +27,8 @@ The parser handles various delimiter combinations, whitespace, and parenthesis n
 - Functions called/Symbols referenced:
   - PG_GETARG_CSTRING (retrieves input string argument)
   - [palloc](../p/palloc.md) (allocates memory for CIRCLE structure)
-  - pair_decode (parses center point coordinates)
-  - single_decode (parses radius value)
+  - [pair_decode](../p/pair_decode.md) (parses center point coordinates)
+  - [single_decode](../s/single_decode.md) (parses radius value)
   - ereturn (error return with context support)
   - PG_RETURN_CIRCLE_P (returns the parsed circle)
 - Constants referenced:

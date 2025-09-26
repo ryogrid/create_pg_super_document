@@ -36,15 +36,15 @@ This binary format is platform-independent and suitable for network transmission
 - Functions called/Symbols referenced:
   - PG_GETARG_MULTIRANGE_P
   - MultirangeTypeGetOid
-  - makeStringInfo
+  - [makeStringInfo](makeStringInfo.md)
   - [get_multirange_io_data](../g/get_multirange_io_data.md)
   - IOFunc_send
   - [pq_begintypsend](../p/pq_begintypsend.md)
   - [pq_sendint32](../p/pq_sendint32.md)
   - [multirange_deserialize](multirange_deserialize.md)
-  - RangeTypePGetDatum
+  - [RangeTypePGetDatum](../R/RangeTypePGetDatum.md)
   - [SendFunctionCall](../S/SendFunctionCall.md)
-  - pq_sendbytes
+  - [pq_sendbytes](../p/pq_sendbytes.md)
   - [pq_endtypsend](../p/pq_endtypsend.md)
   - PG_RETURN_BYTEA_P
 - Called from:

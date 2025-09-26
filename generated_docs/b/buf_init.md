@@ -22,11 +22,11 @@ The function uses makeStringInfo() to create a new StringInfo buffer and appendB
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeStringInfo
-  - appendBinaryStringInfo
+  - [makeStringInfo](../m/makeStringInfo.md)
+  - [appendBinaryStringInfo](../a/appendBinaryStringInfo.md)
   - PG_SNAPSHOT_SIZE (macro)
   - [pg_snapshot](../p/pg_snapshot.md) (type)
-  - FullTransactionId (type)
+  - [FullTransactionId](../F/FullTransactionId.md) (type)
 - Called from (representative examples):
   - [parse_snapshot](../p/parse_snapshot.md)
 

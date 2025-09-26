@@ -35,8 +35,8 @@ The function bypasses the normal relcache and heap scan infrastructure since it'
   - [RelationMapOidToFilenumberForDatabase](../R/RelationMapOidToFilenumberForDatabase.md): Maps relation OID to file number for specific database
   - [LockRelationId](../L/LockRelationId.md)/UnlockRelationId: Acquires and releases relation locks
   - [smgropen](../s/smgropen.md)/smgrclose/smgrnblocks: Storage manager operations for file access
-  - GetAccessStrategy: Obtains buffer access strategy for bulk operations
-  - GetLatestSnapshot: Gets snapshot that sees all committed transactions
+  - [GetAccessStrategy](../G/GetAccessStrategy.md): Obtains buffer access strategy for bulk operations
+  - [GetLatestSnapshot](../G/GetLatestSnapshot.md): Gets snapshot that sees all committed transactions
   - [ReadBufferWithoutRelcache](../R/ReadBufferWithoutRelcache.md): Reads buffer without using relation cache
   - [ScanSourceDatabasePgClassPage](ScanSourceDatabasePgClassPage.md): Processes individual pages of pg_class
   - [PageIsNew](../P/PageIsNew.md)/PageIsEmpty: Checks page state

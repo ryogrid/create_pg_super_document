@@ -22,8 +22,8 @@ The function operates by examining the trigger descriptor of the relation and ch
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AfterTriggerSaveEvent
-  - TriggerDesc (struct)
+  - [AfterTriggerSaveEvent](../A/AfterTriggerSaveEvent.md)
+  - [TriggerDesc](../T/TriggerDesc.md) (struct)
   - TRIGGER_EVENT_TRUNCATE (constant)
 - Called from (representative examples):
   - [ExecuteTruncateGuts](ExecuteTruncateGuts.md)

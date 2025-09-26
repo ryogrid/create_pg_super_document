@@ -28,7 +28,7 @@ The P_TSQ_WEB flag enables parsing of web search syntax such as quoted phrases f
   - TSQuery (return type)
   - OP_PHRASE (phrase operator constant for quoted terms)
   - [parse_tsquery](../p/parse_tsquery.md) (core parsing function)
-  - text_to_cstring (text conversion utility)
+  - [text_to_cstring](../t/text_to_cstring.md) (text conversion utility)
   - [pushval_morph](../p/pushval_morph.md) (morphological processing callback)
   - P_TSQ_WEB (web search parsing flag constant)
   - PG_RETURN_TSQUERY (PostgreSQL return macro)

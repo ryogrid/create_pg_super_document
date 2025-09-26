@@ -31,17 +31,17 @@ The structure captures the state of a tuple that has been modified or deleted by
 ## Dependencies
 - Functions called/Symbols referenced:
   - CommandId (type definition)
-  - ItemPointerData (embedded structure)  
+  - [ItemPointerData](../I/ItemPointerData.md) (embedded structure)  
   - TransactionId (type definition)
 - Called from (representative examples):
-  - heap_delete
-  - heap_update  
-  - heap_lock_tuple
-  - heapam_tuple_delete
-  - heapam_tuple_update
-  - heapam_tuple_lock
-  - ExecOnConflictUpdate
-  - RelationFindReplTupleByIndex
+  - [heap_delete](../h/heap_delete.md)
+  - [heap_update](../h/heap_update.md)  
+  - [heap_lock_tuple](../h/heap_lock_tuple.md)
+  - [heapam_tuple_delete](../h/heapam_tuple_delete.md)
+  - [heapam_tuple_update](../h/heapam_tuple_update.md)
+  - [heapam_tuple_lock](../h/heapam_tuple_lock.md)
+  - [ExecOnConflictUpdate](../E/ExecOnConflictUpdate.md)
+  - [RelationFindReplTupleByIndex](../R/RelationFindReplTupleByIndex.md)
 
 ## Notes and Other Information
 - This structure is central to PostgreSQL's MVCC (Multi-Version Concurrency Control) implementation

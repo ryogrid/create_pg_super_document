@@ -27,8 +27,8 @@ The simplicity of this structure - containing only a single pointer - reflects i
 - Functions called/Symbols referenced:
   - [ExpandedObjectHeader](../E/ExpandedObjectHeader.md)
 - Called from (representative examples):
-  - DatumGetEOHP
-  - EOH_init_header
+  - [DatumGetEOHP](../D/DatumGetEOHP.md)
+  - [EOH_init_header](../E/EOH_init_header.md)
   - EXPANDED_POINTER_SIZE (size calculation)
   - VARTAG_SIZE (TOAST tag size calculation)
 

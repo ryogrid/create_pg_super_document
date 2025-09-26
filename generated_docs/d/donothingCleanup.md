@@ -17,7 +17,7 @@ This function is part of PostgreSQL's destination receiver infrastructure and se
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DestReceiver (type reference)
+  - [DestReceiver](../D/DestReceiver.md) (type reference)
 - Called from (representative examples):
   - donothingDR (static DestReceiver struct for DestNone)
   - debugtupDR (static DestReceiver struct for DestDebug)

@@ -29,7 +29,7 @@ The function handles the complex lifecycle of SRFs by maintaining state about wh
   - [ExecProjectSRF](ExecProjectSRF.md)
   - ResetExprContext  
   - [MemoryContextReset](../M/MemoryContextReset.md)
-  - ExecProcNode
+  - [ExecProcNode](ExecProcNode.md)
   - TupIsNull
   - outerPlanState
 - Called from (representative examples):

@@ -33,7 +33,7 @@ The function is a lightweight wrapper that performs early validation checks and 
 - Called from (representative examples):
   - [_hash_alloc_buckets](../h/_hash_alloc_buckets.md) (Hash index bucket allocation)
   - [FlushRelationBuffers](../F/FlushRelationBuffers.md) (Relation buffer flushing)
-  - GetLocalVictimBuffer (Local buffer management)
+  - [GetLocalVictimBuffer](../G/GetLocalVictimBuffer.md) (Local buffer management)
   - [smgr_bulk_flush](../s/smgr_bulk_flush.md) (Bulk storage manager flush operations)
 
 ## Notes and Other Information

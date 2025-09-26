@@ -23,7 +23,7 @@ This node type is fundamental in PostgreSQL's query processing, serving as a con
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (macro for node allocation)  
-  - FromExpr (node type being created)
+  - [FromExpr](../F/FromExpr.md) (node type being created)
   - [List](../L/List.md) (PostgreSQL's generic list type)
   - [Node](../N/Node.md) (base node type)
 - Called from (representative examples):
@@ -35,7 +35,7 @@ This node type is fundamental in PostgreSQL's query processing, serving as a con
   - [remove_useless_results_recurse](../r/remove_useless_results_recurse.md) (optimizer)
 
 ## Notes and Other Information
-- FromExpr nodes are central to representing SQL FROM clauses with associated WHERE conditions
+- [FromExpr](../F/FromExpr.md) nodes are central to representing SQL FROM clauses with associated WHERE conditions
 - The `fromlist` can contain various node types including RangeTblRef, JoinExpr, and other FromExpr nodes
 - The `quals` field typically contains AND/OR expressions that filter the Cartesian product of the relations in `fromlist`
 - Used extensively throughout the parser for different statement types (SELECT, UPDATE, DELETE, MERGE)

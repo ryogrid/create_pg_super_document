@@ -21,7 +21,7 @@ AlterDatabase handles various ALTER DATABASE operations by parsing statement opt
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AlterDatabaseStmt: Statement structure containing alter database parameters
+  - [AlterDatabaseStmt](AlterDatabaseStmt.md): Statement structure containing alter database parameters
   - [DefElem](../D/DefElem.md): Definition element structure for parsing individual options
   - [errorConflictingDefElem](../e/errorConflictingDefElem.md): Reports errors for duplicate options
   - [PreventInTransactionBlock](../P/PreventInTransactionBlock.md): Prevents certain operations within transaction blocks

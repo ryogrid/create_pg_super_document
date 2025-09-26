@@ -20,9 +20,9 @@ The pg_euckr_mblen function is a wrapper around the generic EUC (Extended Unix C
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_euc_mblen
+  - [pg_euc_mblen](pg_euc_mblen.md)
 - Called from (representative examples):
-  - pg_encoding_set_invalid (via function pointer assignment)
+  - [pg_encoding_set_invalid](pg_encoding_set_invalid.md) (via function pointer assignment)
 
 ## Notes and Other Information
 - This is a static function, meaning it has internal linkage and is only visible within the wchar.c compilation unit

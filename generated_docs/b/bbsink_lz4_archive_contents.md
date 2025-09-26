@@ -26,7 +26,7 @@ The compression is streaming, meaning input data may be compressed across multip
   - LZ4F_compressUpdate (LZ4 library function)
   - LZ4F_isError (LZ4 library function)
   - LZ4F_getErrorName (LZ4 library function)
-  - bbsink_archive_contents (calls next sink in chain)
+  - [bbsink_archive_contents](bbsink_archive_contents.md) (calls next sink in chain)
   - elog (error logging)
 - Called from (representative examples):
   - Referenced through bbsink_lz4_ops function pointer table

@@ -21,10 +21,10 @@ This helper function is used in the PostgreSQL query optimizer to unwrap single-
 - Functions called/Symbols referenced:
   - Assert (assertion macro)
   - IsA (type checking macro)
-  - list_length (list utility function)
+  - [list_length](../l/list_length.md) (list utility function)
   - linitial (list utility function to get first element)
-  - AppendPath (struct type)
-  - MergeAppendPath (struct type)
+  - [AppendPath](../A/AppendPath.md) (struct type)
+  - [MergeAppendPath](../M/MergeAppendPath.md) (struct type)
 - Called from (representative examples):
   - pushdown_safe_type
   - [generate_orderedappend_paths](generate_orderedappend_paths.md)

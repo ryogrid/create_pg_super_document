@@ -24,7 +24,7 @@ The  function generates SQL CREATE TRIGGER statements and associated ALTER TRIGG
   - [fmtId](../f/fmtId.md)
   - fmtQualifiedDumpable
   - [append_depends_on_extension](../a/append_depends_on_extension.md)
-  - createPQExpBuffer/resetPQExpBuffer/destroyPQExpBuffer
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)/resetPQExpBuffer/destroyPQExpBuffer
   - [psprintf](../p/psprintf.md)
   - [ArchiveEntry](../A/ArchiveEntry.md)
   - [dumpComment](dumpComment.md)

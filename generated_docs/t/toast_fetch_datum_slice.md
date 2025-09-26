@@ -31,9 +31,9 @@ The function handles boundary conditions gracefully, adjusting slice parameters 
   - VARATT_EXTERNAL_GET_EXTSIZE
   - SET_VARSIZE_COMPRESSED
   - SET_VARSIZE
-  - table_open
+  - [table_open](table_open.md)
   - [table_relation_fetch_toast_slice](table_relation_fetch_toast_slice.md)
-  - table_close
+  - [table_close](table_close.md)
   - [palloc](../p/palloc.md)
   - elog
   - Assert

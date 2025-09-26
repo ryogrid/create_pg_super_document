@@ -23,7 +23,7 @@ The tuplestore is stored in the global afterTriggers structure, indexed by the c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - tuplestore_begin_heap
+  - [tuplestore_begin_heap](../t/tuplestore_begin_heap.md)
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - CurTransactionContext
   - CurrentResourceOwner
@@ -32,7 +32,7 @@ The tuplestore is stored in the global afterTriggers structure, indexed by the c
   - afterTriggers (global structure)
 - Called from (representative examples):
   - [AfterTriggerExecute](../A/AfterTriggerExecute.md)
-  - AfterTriggerSaveEvent
+  - [AfterTriggerSaveEvent](../A/AfterTriggerSaveEvent.md)
 
 ## Notes and Other Information
 - The function is static and used internally within the trigger system

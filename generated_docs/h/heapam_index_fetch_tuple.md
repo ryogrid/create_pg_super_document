@@ -29,7 +29,7 @@ This function is the core implementation of tuple fetching for heap tables withi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReleaseAndReadBuffer (buffer management)
+  - [ReleaseAndReadBuffer](../R/ReleaseAndReadBuffer.md) (buffer management)
   - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md) (extract block number from TID)
   - [heap_page_prune_opt](heap_page_prune_opt.md) (page pruning optimization)
   - [LockBuffer](../L/LockBuffer.md) (buffer locking for concurrency control)

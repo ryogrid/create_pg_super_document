@@ -34,7 +34,7 @@ SimpleStringList implements a singly-linked list specifically designed for manag
   - [_restoreOptions](../r/_restoreOptions.md) (in pg_dump/pg_restore)
   - [OidOptions](../O/OidOptions.md) (in pg_dump)
   - ReindexType (in reindexdb)
-  - VacObjFilter (in vacuumdb)
+  - [VacObjFilter](../V/VacObjFilter.md) (in vacuumdb)
   - [verifier_context](../v/verifier_context.md) (in pg_verifybackup)
 
 ## Notes and Other Information

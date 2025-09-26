@@ -29,7 +29,7 @@ The function handles memory management by freeing any previously materialized tu
 ## Dependencies
 - Functions called/Symbols referenced:
   - [heap_freetuple](../h/heap_freetuple.md)
-  - ReleaseBuffer
+  - [ReleaseBuffer](../R/ReleaseBuffer.md)
   - [IncrBufferRefCount](../I/IncrBufferRefCount.md)
   - TTS_SHOULDFREE (macro)
   - [BufferIsValid](../B/BufferIsValid.md) (macro)

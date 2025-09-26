@@ -21,14 +21,14 @@ The calculation accounts for proper memory alignment using MAXALIGN to ensure ef
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufTableShmemSize (calculates buffer lookup hashtable size)
-  - add_size (safely adds size calculations)
+  - [BufTableShmemSize](../B/BufTableShmemSize.md) (calculates buffer lookup hashtable size)
+  - [add_size](../a/add_size.md) (safely adds size calculations)
   - NBuffers (global variable for number of buffers)
   - NUM_BUFFER_PARTITIONS (constant for buffer partitions)
-  - BufferStrategyControl (control structure type)
+  - [BufferStrategyControl](../B/BufferStrategyControl.md) (control structure type)
   - MAXALIGN (memory alignment macro)
 - Called from (representative examples):
-  - BufferShmemSize (src/backend/storage/buffer/buf_init.c:174)
+  - [BufferShmemSize](../B/BufferShmemSize.md) (src/backend/storage/buffer/buf_init.c:174)
 
 ## Notes and Other Information
 - The buffer lookup hashtable size is determined here for historical reasons, even though it's not strictly part of the replacement strategy

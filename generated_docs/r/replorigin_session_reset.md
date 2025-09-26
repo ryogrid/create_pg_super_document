@@ -29,8 +29,8 @@ The function ensures proper cleanup and allows other processes to acquire the sa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire/LWLockRelease (ReplicationOriginLock)
-  - ConditionVariableBroadcast
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease (ReplicationOriginLock)
+  - [ConditionVariableBroadcast](../C/ConditionVariableBroadcast.md)
   - ereport
 - Called from (representative examples):
   - [pg_replication_origin_session_reset](../p/pg_replication_origin_session_reset.md)

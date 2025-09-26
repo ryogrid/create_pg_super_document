@@ -20,13 +20,13 @@ DropRole implements the DROP ROLE, DROP USER, and DROP GROUP SQL statements by r
 ## Dependencies
 - Functions called/Symbols referenced:
   - [have_createrole_privilege](../h/have_createrole_privilege.md)
-  - table_open
+  - [table_open](../t/table_open.md)
   - [SearchSysCache1](../S/SearchSysCache1.md)
   - [GetUserId](../G/GetUserId.md)
   - [GetOuterUserId](../G/GetOuterUserId.md)
   - [GetSessionUserId](../G/GetSessionUserId.md)
-  - superuser
-  - is_admin_of_role
+  - [superuser](../s/superuser.md)
+  - [is_admin_of_role](../i/is_admin_of_role.md)
   - InvokeObjectDropHook
   - [LockSharedObject](../L/LockSharedObject.md)
   - [systable_beginscan](../s/systable_beginscan.md)

@@ -35,14 +35,14 @@ The function carefully manages memory by creating copies of the upper_nullingrel
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_copy
-  - bms_add_member
-  - get_nullingrels_recurse (recursive)
+  - [bms_copy](../b/bms_copy.md)
+  - [bms_add_member](../b/bms_add_member.md)
+  - [get_nullingrels_recurse](get_nullingrels_recurse.md) (recursive)
   - nodeTag
   - JOIN_INNER, JOIN_LEFT, JOIN_SEMI, JOIN_ANTI, JOIN_FULL, JOIN_RIGHT
 - Called from (representative examples):
-  - get_nullingrels
-  - get_nullingrels_recurse (recursive calls)
+  - [get_nullingrels](get_nullingrels.md)
+  - [get_nullingrels_recurse](get_nullingrels_recurse.md) (recursive calls)
 
 ## Notes and Other Information
 - This is a static function accessible only within prepjointree.c

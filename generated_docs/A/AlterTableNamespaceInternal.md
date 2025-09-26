@@ -32,13 +32,13 @@ The function ensures atomicity by tracking all moved objects in the objsMoved pa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - [AlterRelationNamespaceInternal](AlterRelationNamespaceInternal.md)
   - [AlterTypeNamespaceInternal](AlterTypeNamespaceInternal.md)
   - [AlterIndexNamespaces](AlterIndexNamespaces.md)
   - [AlterSeqNamespaces](AlterSeqNamespaces.md)
   - [AlterConstraintNamespaces](AlterConstraintNamespaces.md)
-  - table_close
+  - [table_close](../t/table_close.md)
 
 - Called from (representative examples):
   - [AlterTableNamespace](AlterTableNamespace.md) (high-level ALTER TABLE SET SCHEMA handler)

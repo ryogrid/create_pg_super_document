@@ -27,19 +27,19 @@ This function takes no parameters but uses local variables:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_seq_init: Initialize hash table iteration
-  - hash_seq_search: Iterate through hash table entries  
-  - ActiveSnapshotSet: Check if active snapshots exist
-  - PopActiveSnapshot: Remove active snapshot from stack
+  - [hash_seq_init](../h/hash_seq_init.md): Initialize hash table iteration
+  - [hash_seq_search](../h/hash_seq_search.md): Iterate through hash table entries  
+  - [ActiveSnapshotSet](../A/ActiveSnapshotSet.md): Check if active snapshots exist
+  - [PopActiveSnapshot](../P/PopActiveSnapshot.md): Remove active snapshot from stack
   - elog: Error logging function
 - Data structures referenced:
-  - HASH_SEQ_STATUS: Hash table iteration status
-  - PortalHashEnt: Hash table entry for portals
+  - [HASH_SEQ_STATUS](../H/HASH_SEQ_STATUS.md): Hash table iteration status
+  - [PortalHashEnt](../P/PortalHashEnt.md): Hash table entry for portals
   - PortalHashTable: Global hash table of all portals
-  - Portal: Portal data structure
+  - [Portal](../P/Portal.md): Portal data structure
 - Called from:
-  - _SPI_commit: SPI commit operation (after HoldPinnedPortals)
-  - _SPI_rollback: SPI rollback operation (after HoldPinnedPortals)
+  - [_SPI_commit](../S/_SPI_commit.md): SPI commit operation (after HoldPinnedPortals)
+  - [_SPI_rollback](../S/_SPI_rollback.md): SPI rollback operation (after HoldPinnedPortals)
 
 ## Notes and Other Information
 - This function must be called separately from HoldPinnedPortals and only after steps that are likely to fail have completed

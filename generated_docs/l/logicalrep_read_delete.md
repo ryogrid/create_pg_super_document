@@ -26,14 +26,14 @@ The DELETE message format includes:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_getmsgint (reads 4-byte integer from message)
-  - pq_getmsgbyte (reads single byte from message)
-  - logicalrep_read_tuple (reads tuple data from stream)
+  - [pq_getmsgint](../p/pq_getmsgint.md) (reads 4-byte integer from message)
+  - [pq_getmsgbyte](../p/pq_getmsgbyte.md) (reads single byte from message)
+  - [logicalrep_read_tuple](logicalrep_read_tuple.md) (reads tuple data from stream)
 - Data types used:
   - LogicalRepRelId (relation identifier type)
-  - LogicalRepTupleData (tuple data structure)
+  - [LogicalRepTupleData](../L/LogicalRepTupleData.md) (tuple data structure)
 - Called from (representative examples):
-  - apply_handle_delete (in logical replication worker)
+  - [apply_handle_delete](../a/apply_handle_delete.md) (in logical replication worker)
 
 ## Notes and Other Information
 - Validates that the action byte is either 'K' (key-only) or 'O' (full tuple) and throws an ERROR for any other value

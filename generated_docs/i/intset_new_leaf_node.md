@@ -20,7 +20,7 @@ The `intset_new_leaf_node` function creates a new leaf node for the IntegerSet's
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MemoryContextAlloc](../M/MemoryContextAlloc.md): Memory allocation in specific context
-  - `GetMemoryChunkSpace`: Function to get allocated memory size
+  - `[GetMemoryChunkSpace](../G/GetMemoryChunkSpace.md)`: Function to get allocated memory size
   - [intset_leaf_node](intset_leaf_node.md): Structure type for leaf nodes
 - Called from (representative examples):
   - [intset_flush_buffered_values](intset_flush_buffered_values.md): Used when creating new leaf nodes to store buffered values

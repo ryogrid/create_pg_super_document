@@ -30,12 +30,12 @@ The implementation anticipates that affected workloads will require several dedu
 ## Dependencies
 - Functions called/Symbols referenced:
   - IndexRelationGetNumberOfKeyAttributes
-  - PageGetItemId
-  - PageGetItem
-  - PageGetMaxOffsetNumber
-  - _bt_keep_natts_fast
+  - [PageGetItemId](../P/PageGetItemId.md)
+  - [PageGetItem](../P/PageGetItem.md)
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md)
+  - [_bt_keep_natts_fast](_bt_keep_natts_fast.md)
 - Called from:
-  - _bt_dedup_pass
+  - [_bt_dedup_pass](_bt_dedup_pass.md)
 
 ## Notes and Other Information
 - This is a static function within the nbtdedup.c module, part of PostgreSQL's B-tree deduplication system

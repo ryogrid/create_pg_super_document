@@ -32,14 +32,14 @@ The function ensures that the EXPLAIN output is properly structured and syntacti
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExplainXMLTag](ExplainXMLTag.md) (for XML format closing tags)
-  - appendStringInfoChar (for JSON format closing brackets)
-  - appendStringInfoSpaces (for proper JSON indentation)
-  - list_delete_first (for managing the grouping stack in JSON and YAML formats)
+  - [appendStringInfoChar](../a/appendStringInfoChar.md) (for JSON format closing brackets)
+  - [appendStringInfoSpaces](../a/appendStringInfoSpaces.md) (for proper JSON indentation)
+  - [list_delete_first](../l/list_delete_first.md) (for managing the grouping stack in JSON and YAML formats)
 - Called from (representative examples):
   - [ExplainOnePlan](ExplainOnePlan.md)
   - [ExplainPrintSettings](ExplainPrintSettings.md)
   - [ExplainPrintTriggers](ExplainPrintTriggers.md)
-  - ExplainPrintJIT
+  - [ExplainPrintJIT](ExplainPrintJIT.md)
   - [ExplainNode](ExplainNode.md)
   - [show_grouping_sets](../s/show_grouping_sets.md)
   - [show_modifytable_info](../s/show_modifytable_info.md)

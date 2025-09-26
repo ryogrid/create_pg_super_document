@@ -29,10 +29,10 @@ The output includes:
 ## Dependencies
 - Functions called/Symbols referenced:
   - DSA_AREA_LOCK
-  - LWLockAcquire
-  - LWLockRelease
-  - check_for_freed_segments_locked
-  - get_segment_by_index
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
+  - [check_for_freed_segments_locked](../c/check_for_freed_segments_locked.md)
+  - [get_segment_by_index](../g/get_segment_by_index.md)
   - fpm_largest
   - DSA_SCLASS_LOCK
   - DsaPointerIsValid

@@ -48,21 +48,21 @@ The structure includes query jumble ignore attributes on type and collation fiel
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MinMaxOp (enum)
+  - [MinMaxOp](MinMaxOp.md) (enum)
   - ParseLoc
-  - Expr (base type)
-  - List
+  - [Expr](../E/Expr.md) (base type)
+  - [List](../L/List.md)
   - Oid
 
 - Called from (representative examples):
-  - transformMinMaxExpr (parse_expr.c:2263, 2265)
-  - ExecInitExprRec (execExpr.c:2186)
-  - exprType (nodeFuncs.c:213)
-  - cost_qual_eval_walker (costsize.c:4880)
-  - get_rule_expr (ruleutils.c:9690)
+  - [transformMinMaxExpr](../t/transformMinMaxExpr.md) (parse_expr.c:2263, 2265)
+  - [ExecInitExprRec](../E/ExecInitExprRec.md) (execExpr.c:2186)
+  - [exprType](../e/exprType.md) (nodeFuncs.c:213)
+  - [cost_qual_eval_walker](../c/cost_qual_eval_walker.md) (costsize.c:4880)
+  - [get_rule_expr](../g/get_rule_expr.md) (ruleutils.c:9690)
 
 ## Notes and Other Information
-- MinMaxExpr is part of PostgreSQL's expression node hierarchy, inheriting from the base Expr type
+- [MinMaxExpr](MinMaxExpr.md) is part of PostgreSQL's expression node hierarchy, inheriting from the base Expr type
 - The pg_node_attr(query_jumble_ignore) annotations help optimize query plan caching by excluding type and collation information from query fingerprinting
 - GREATEST and LEAST functions are SQL standard functions commonly used for value comparison and selection
 - The separation of result collation (minmaxcollid) and input collation (inputcollid) enables proper handling of collation rules during comparison operations

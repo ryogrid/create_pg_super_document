@@ -31,9 +31,9 @@ This record type is processed by the tablespace resource manager (RM_TBLSPC_ID) 
   - FLEXIBLE_ARRAY_MEMBER
 
 - Called from (representative examples):
-  - CreateTableSpace (src/backend/commands/tablespace.c:361, 367)
-  - tblspc_redo (src/backend/commands/tablespace.c:1520)
-  - tblspc_desc (src/backend/access/rmgrdesc/tblspcdesc.c:28)
+  - [CreateTableSpace](../C/CreateTableSpace.md) (src/backend/commands/tablespace.c:361, 367)
+  - [tblspc_redo](../t/tblspc_redo.md) (src/backend/commands/tablespace.c:1520)
+  - [tblspc_desc](../t/tblspc_desc.md) (src/backend/access/rmgrdesc/tblspcdesc.c:28)
 
 ## Notes and Other Information
 - This structure is part of PostgreSQL's WAL logging system and is critical for crash recovery and replication

@@ -22,17 +22,17 @@ The function normalizes obsolete GUC parameter names to their modern spellings u
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - validate_option_array_item
-  - find_option  
+  - [validate_option_array_item](../v/validate_option_array_item.md)
+  - [find_option](../f/find_option.md)  
   - ARR_DIMS
-  - array_ref
+  - [array_ref](../a/array_ref.md)
   - TextDatumGetCString
-  - array_set
-  - construct_array_builtin
-  - config_generic
+  - [array_set](../a/array_set.md)
+  - [construct_array_builtin](../c/construct_array_builtin.md)
+  - [config_generic](../c/config_generic.md)
 - Called from (representative examples):
-  - AlterSetting
-  - update_proconfig_value
+  - [AlterSetting](../A/AlterSetting.md)
+  - [update_proconfig_value](../u/update_proconfig_value.md)
   - EmitWarningsOnPlaceholders
 
 ## Notes and Other Information

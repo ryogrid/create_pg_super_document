@@ -48,10 +48,10 @@ The function is designed to work with hostile search paths by fully qualifying a
   -  - Buffer data structure
   -  - [Initialize](../I/Initialize.md) buffer
   -  - Clean up buffer
-  -  - Append formatted data to buffer
-  -  - Append string to buffer
-  -  - Append character to buffer
-  -  - Append escaped string literal
+  -  - [Append](../A/Append.md) formatted data to buffer
+  -  - [Append](../A/Append.md) string to buffer
+  -  - [Append](../A/Append.md) character to buffer
+  -  - [Append](../A/Append.md) escaped string literal
   -  - Get client encoding
   -  - Get server version
 

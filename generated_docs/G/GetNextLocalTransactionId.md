@@ -27,8 +27,8 @@ The sequential allocation of local transaction IDs across successive processes u
   - LocalTransactionId (transaction ID type)
   - nextLocalTransactionId (backend-local counter variable)
 - Called from (representative examples):
-  - StartTransaction (xact.c:2112) - when beginning new transactions
-  - InitRecoveryTransactionEnvironment (standby.c:140) - during recovery setup
+  - [StartTransaction](../S/StartTransaction.md) (xact.c:2112) - [when](../w/when.md) beginning new transactions
+  - [InitRecoveryTransactionEnvironment](../I/InitRecoveryTransactionEnvironment.md) (standby.c:140) - during recovery setup
 
 ## Notes and Other Information
 - Uses a backend-local counter (nextLocalTransactionId) to avoid shared memory contention

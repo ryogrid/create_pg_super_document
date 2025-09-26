@@ -35,7 +35,7 @@ The function handles VARIADIC ANY aggregates correctly by allowing more actual a
   - [enforce_generic_type_consistency](../e/enforce_generic_type_consistency.md)() (resolves polymorphic types)
   - [pfree](../p/pfree.md)() (memory cleanup)
 - Called from (representative examples):
-  - `initialize_peragg` (in nodeWindowAgg.c)
+  - `[initialize_peragg](../i/initialize_peragg.md)` (in nodeWindowAgg.c)
   - [preprocess_aggref](../p/preprocess_aggref.md) (in prepagg.c)
 
 ## Notes and Other Information

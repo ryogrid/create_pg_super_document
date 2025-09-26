@@ -22,8 +22,8 @@ The function updates the pg_class.relam field for the relation and manages the d
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
-  - table_close
+  - [table_open](../t/table_open.md)
+  - [table_close](../t/table_close.md)
   - SearchSysCacheCopy1
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - [heap_freetuple](../h/heap_freetuple.md)
@@ -31,7 +31,7 @@ The function updates the pg_class.relam field for the relation and manages the d
   - [recordDependencyOn](../r/recordDependencyOn.md)
   - [deleteDependencyRecordsForClass](../d/deleteDependencyRecordsForClass.md)
   - [changeDependencyFor](../c/changeDependencyFor.md)
-  - CommandCounterIncrement
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md)
   - InvokeObjectPostAlterHook
   - RelationGetRelid
 - Called from (representative examples):

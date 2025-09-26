@@ -22,12 +22,12 @@ This function recursively traverses down expression trees to remove implicit typ
 - Functions called/Symbols referenced:
   - IsA (macro for type checking)
   - linitial (macro for accessing first list element)
-  - FuncExpr (function call expression node)
-  - RelabelType (type relabeling node)
-  - CoerceViaIO (I/O-based coercion node)
-  - ArrayCoerceExpr (array coercion expression)
-  - ConvertRowtypeExpr (row type conversion expression)
-  - CoerceToDomain (domain coercion node)
+  - [FuncExpr](../F/FuncExpr.md) (function call expression node)
+  - [RelabelType](../R/RelabelType.md) (type relabeling node)
+  - [CoerceViaIO](../C/CoerceViaIO.md) (I/O-based coercion node)
+  - [ArrayCoerceExpr](../A/ArrayCoerceExpr.md) (array coercion expression)
+  - [ConvertRowtypeExpr](../C/ConvertRowtypeExpr.md) (row type conversion expression)
+  - [CoerceToDomain](../C/CoerceToDomain.md) (domain coercion node)
   - COERCE_IMPLICIT_CAST (coercion format constant)
 
 - Called from (representative examples):
@@ -35,7 +35,7 @@ This function recursively traverses down expression trees to remove implicit typ
   - [findTargetlistEntrySQL99](../f/findTargetlistEntrySQL99.md) (SQL99 target list parsing)
   - [AcquireRewriteLocks](../A/AcquireRewriteLocks.md) (query rewriting)
   - [get_update_query_targetlist_def](../g/get_update_query_targetlist_def.md) (rule utilities)
-  - get_rule_expr (rule expression formatting)
+  - [get_rule_expr](../g/get_rule_expr.md) (rule expression formatting)
 
 ## Notes and Other Information
 - The function does not modify the input expression tree, making it safe to use in contexts where the original structure must be preserved

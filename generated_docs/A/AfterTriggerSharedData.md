@@ -34,12 +34,12 @@ This structure contains data that can be shared among multiple after-trigger eve
 - Functions called/Symbols referenced:
   - TriggerEvent (enumeration from trigger.h)
   - CommandId (PostgreSQL command identifier type)
-  - AfterTriggersTableData (transition table structure)
-  - Bitmapset (PostgreSQL bitmap utility type)
+  - [AfterTriggersTableData](AfterTriggersTableData.md) (transition table structure)
+  - [Bitmapset](../B/Bitmapset.md) (PostgreSQL bitmap utility type)
 - Called from (representative examples):
-  - AfterTriggerShared (typedef pointer)
-  - afterTriggerAddEvent
-  - AfterTriggerSaveEvent
+  - [AfterTriggerShared](AfterTriggerShared.md) (typedef pointer)
+  - [afterTriggerAddEvent](../a/afterTriggerAddEvent.md)
+  - [AfterTriggerSaveEvent](AfterTriggerSaveEvent.md)
 
 ## Notes and Other Information
 - Central to PostgreSQL's memory optimization strategy for after-trigger processing

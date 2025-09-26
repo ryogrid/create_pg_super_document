@@ -33,7 +33,7 @@ The function includes validation of phnullingrels between the input PlaceHolderV
   - [bms_equal](../b/bms_equal.md)
   - [bmsToString](../b/bmsToString.md)
   - elog
-  - makeVarFromTargetEntry
+  - [makeVarFromTargetEntry](../m/makeVarFromTargetEntry.md)
 - Data types used:
   - [PlaceHolderVar](../P/PlaceHolderVar.md)
   - [indexed_tlist](../i/indexed_tlist.md)

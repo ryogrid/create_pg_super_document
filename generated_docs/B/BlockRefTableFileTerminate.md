@@ -26,14 +26,14 @@ The function carefully handles the CRC calculation by creating a copy of the cur
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BlockRefTableSerializedEntry (structure type for sentinel entry)
+  - [BlockRefTableSerializedEntry](BlockRefTableSerializedEntry.md) (structure type for sentinel entry)
   - pg_crc32c (CRC32C data type)
-  - BlockRefTableWrite (function to write data with CRC update)
+  - [BlockRefTableWrite](BlockRefTableWrite.md) (function to write data with CRC update)
   - FIN_CRC32C (macro to finalize CRC calculation)
-  - BlockRefTableFlush (function to flush remaining buffer data)
+  - [BlockRefTableFlush](BlockRefTableFlush.md) (function to flush remaining buffer data)
 - Called from (representative examples):
-  - WriteBlockRefTable
-  - DestroyBlockRefTableWriter
+  - [WriteBlockRefTable](../W/WriteBlockRefTable.md)
+  - [DestroyBlockRefTableWriter](../D/DestroyBlockRefTableWriter.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the blkreftable.c compilation unit

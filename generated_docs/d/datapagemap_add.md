@@ -18,7 +18,7 @@ This function sets the bit corresponding to a specific block number in the datap
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_realloc (for expanding the bitmap when needed)
+  - [pg_realloc](../p/pg_realloc.md) (for expanding the bitmap when needed)
   - memset (for zeroing newly allocated bitmap regions)
 - Called from (representative examples):
   - [process_target_wal_block_change](../p/process_target_wal_block_change.md) (in filemap.c:399)

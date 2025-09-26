@@ -36,7 +36,7 @@ It maintains a match bitmap () to track which MCV items have been matched by pre
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - mcv_get_match_bitmap
+  - [mcv_get_match_bitmap](mcv_get_match_bitmap.md)
   - [palloc0](../p/palloc0.md)
   - [pfree](../p/pfree.md)
   - list_make1

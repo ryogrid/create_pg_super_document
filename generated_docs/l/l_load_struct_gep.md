@@ -30,7 +30,7 @@ The function automatically determines the correct type for the load operation by
   - LLVMStructGetTypeAtIndex: LLVM API to get the type of the struct member
 - Called from (representative examples):
   - [slot_compile_deform](../s/slot_compile_deform.md) (extensively in llvmjit_deform.c)
-  - llvm_compile_expr (extensively in llvmjit_expr.c)
+  - [llvm_compile_expr](llvm_compile_expr.md) (extensively in llvmjit_expr.c)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's JIT compilation infrastructure

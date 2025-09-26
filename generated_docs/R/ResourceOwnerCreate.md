@@ -22,14 +22,14 @@ All ResourceOwner objects are allocated in TopMemoryContext to ensure they persi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextAllocZero (for allocating the ResourceOwner structure)
-  - ResourceOwnerData (the structure type being allocated)
+  - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md) (for allocating the ResourceOwner structure)
+  - [ResourceOwnerData](ResourceOwnerData.md) (the structure type being allocated)
 - Called from (representative examples):
-  - AtStart_ResourceOwner (transaction start)
-  - AtSubStart_ResourceOwner (subtransaction start)  
-  - CreatePortal (portal creation)
-  - perform_base_backup (backup operations)
-  - CreateAuxProcessResourceOwner (auxiliary process setup)
+  - [AtStart_ResourceOwner](../A/AtStart_ResourceOwner.md) (transaction start)
+  - [AtSubStart_ResourceOwner](../A/AtSubStart_ResourceOwner.md) (subtransaction start)  
+  - [CreatePortal](../C/CreatePortal.md) (portal creation)
+  - [perform_base_backup](../p/perform_base_backup.md) (backup operations)
+  - [CreateAuxProcessResourceOwner](../C/CreateAuxProcessResourceOwner.md) (auxiliary process setup)
 
 ## Notes and Other Information
 - The function always allocates in TopMemoryContext to ensure ResourceOwner objects persist independently of other memory contexts

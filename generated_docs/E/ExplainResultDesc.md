@@ -22,14 +22,14 @@ The function iterates through all format options in the statement (not breaking 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExplainStmt (struct type)
+  - [ExplainStmt](ExplainStmt.md) (struct type)
   - [DefElem](../D/DefElem.md) (struct type)
   - [defGetString](../d/defGetString.md)
   - [CreateTemplateTupleDesc](../C/CreateTemplateTupleDesc.md)
   - [TupleDescInitEntry](../T/TupleDescInitEntry.md)
 - Called from (representative examples):
   - [ExplainQuery](ExplainQuery.md)
-  - UtilityTupleDescriptor
+  - [UtilityTupleDescriptor](../U/UtilityTupleDescriptor.md)
 
 ## Notes and Other Information
 - Always creates a single-column result with column name 'QUERY PLAN'

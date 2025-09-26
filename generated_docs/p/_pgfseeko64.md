@@ -27,7 +27,7 @@ This wrapper ensures consistent and reliable behavior across different device ty
 ## Dependencies
 - Functions called/Symbols referenced:
   - pgoff_t (typedef for 64-bit offset)
-  - pgwin32_get_file_type (Windows file type detection function)
+  - [pgwin32_get_file_type](pgwin32_get_file_type.md) (Windows file type detection function)
   - _fseeki64 (Microsoft's 64-bit fseek implementation)
   - _get_osfhandle (convert C runtime file descriptor to Windows handle)
   - _fileno (get file descriptor from FILE pointer)

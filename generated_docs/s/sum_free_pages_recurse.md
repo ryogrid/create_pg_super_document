@@ -31,15 +31,15 @@ Note that this function counts B-tree structure pages, not the actual free pages
 - Functions called/Symbols referenced:
   - fpm_segment_base (gets base address for relative pointer access)
   - relptr_access (accesses child nodes via relative pointers)
-  - sum_free_pages_recurse (recursive self-call)
+  - [sum_free_pages_recurse](sum_free_pages_recurse.md) (recursive self-call)
 - Types/Constants referenced:
-  - FreePageManager
-  - FreePageBtree
+  - [FreePageManager](../F/FreePageManager.md)
+  - [FreePageBtree](../F/FreePageBtree.md)
   - FREE_PAGE_INTERNAL_MAGIC
   - FREE_PAGE_LEAF_MAGIC
 - Called from:
-  - sum_free_pages (main entry point)
-  - sum_free_pages_recurse (recursive calls)
+  - [sum_free_pages](sum_free_pages.md) (main entry point)
+  - [sum_free_pages_recurse](sum_free_pages_recurse.md) (recursive calls)
 
 ## Notes and Other Information
 - This is a static function used internally within the free page manager

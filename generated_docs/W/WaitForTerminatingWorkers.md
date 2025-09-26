@@ -29,7 +29,7 @@ After a worker is detected as terminated on either platform, the function update
   - wait (Unix: waits for child process termination)
   - WaitForMultipleObjects (Windows: waits for multiple thread handles)
   - CloseHandle (Windows: closes thread handles)
-  - pg_malloc (allocates memory for handle array)
+  - [pg_malloc](../p/pg_malloc.md) (allocates memory for handle array)
   - WORKER_IS_RUNNING (macro to check worker status)
 - Called from (representative examples):
   - [write_stderr](../w/write_stderr.md) (error handling context)

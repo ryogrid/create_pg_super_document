@@ -31,7 +31,7 @@ The function also handles lossy index scans by rechecking index qualifiers when 
   - VM_ALL_VISIBLE: Checks if all tuples on a heap page are visible
   - [index_fetch_heap](../i/index_fetch_heap.md): Fetches the actual heap tuple for visibility checking
   - [StoreIndexTuple](../S/StoreIndexTuple.md): Stores index tuple data into the scan slot
-  - ExecQualAndReset: Rechecks index qualifiers for lossy scans
+  - [ExecQualAndReset](../E/ExecQualAndReset.md): Rechecks index qualifiers for lossy scans
   - [PredicateLockPage](../P/PredicateLockPage.md): Acquires predicate locks for serializable isolation
 - Called from (representative examples):
   - [ExecIndexOnlyScan](../E/ExecIndexOnlyScan.md): Main execution function for index-only scan nodes

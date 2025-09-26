@@ -19,16 +19,16 @@ If no suitable page is found through FSM recycling, the function falls back to e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetFreeIndexPage
+  - [GetFreeIndexPage](../G/GetFreeIndexPage.md)
   - SpGistBlockIsFixed
   - [ReadBuffer](../R/ReadBuffer.md)
-  - ConditionalLockBuffer
+  - [ConditionalLockBuffer](../C/ConditionalLockBuffer.md)
   - [BufferGetPage](../B/BufferGetPage.md)
   - [PageIsNew](../P/PageIsNew.md)
   - SpGistPageIsDeleted
   - [PageIsEmpty](../P/PageIsEmpty.md)
   - [LockBuffer](../L/LockBuffer.md)
-  - ReleaseBuffer
+  - [ReleaseBuffer](../R/ReleaseBuffer.md)
   - [ExtendBufferedRel](../E/ExtendBufferedRel.md)
   - BMR_REL
 - Called from (representative examples):

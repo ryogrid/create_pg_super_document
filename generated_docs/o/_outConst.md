@@ -43,7 +43,7 @@ This function follows PostgreSQL's standard node output conventions using the WR
   - WRITE_BOOL_FIELD
   - WRITE_LOCATION_FIELD
   - [outDatum](outDatum.md)
-  - appendStringInfoString
+  - [appendStringInfoString](../a/appendStringInfoString.md)
 - Called from (representative examples):
   - (Part of node output dispatch system - called indirectly through nodeToString mechanisms)
 

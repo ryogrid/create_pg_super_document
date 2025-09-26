@@ -30,8 +30,8 @@ None - this is a parameter-less function that returns a computed value.
   - FPM_PAGE_SIZE
 - Called from (representative examples):
   - [ExecInitParallelPlan](../E/ExecInitParallelPlan.md) (in execParallel.c)
-  - pgstat_dsa_init_size (in pgstat_shmem.c)
-  - create_internal (in dsa.c)
+  - [pgstat_dsa_init_size](../p/pgstat_dsa_init_size.md) (in pgstat_shmem.c)
+  - [create_internal](../c/create_internal.md) (in dsa.c)
 
 ## Notes and Other Information
 - Uses MAXALIGN to ensure proper structure alignment in memory

@@ -24,8 +24,8 @@ This function is part of PostgreSQL's timezone compilation utility (zic) and ens
 - Functions called/Symbols referenced:
   - (None - uses only built-in language constructs)
 - Called from (representative examples):
-  - doabbr (src/timezone/zic.c:2661)
-  - newabbr (src/timezone/zic.c:3921)
+  - [doabbr](../d/doabbr.md) (src/timezone/zic.c:2661)
+  - [newabbr](../n/newabbr.md) (src/timezone/zic.c:3921)
 
 ## Notes and Other Information
 - Returns  if the character is an ASCII letter (A-Z or a-z),  otherwise

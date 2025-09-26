@@ -38,11 +38,11 @@ The function implements various safety checks and early exit conditions for unsu
 - Functions called/Symbols referenced:
   - [StartTransactionCommand](../S/StartTransactionCommand.md)
   - [CommitTransactionCommand](../C/CommitTransactionCommand.md)
-  - PushActiveSnapshot
-  - PopActiveSnapshot
-  - GetTransactionSnapshot
-  - vacuum_open_relation
-  - vacuum_is_permitted_for_relation
+  - [PushActiveSnapshot](../P/PushActiveSnapshot.md)
+  - [PopActiveSnapshot](../P/PopActiveSnapshot.md)
+  - [GetTransactionSnapshot](../G/GetTransactionSnapshot.md)
+  - [vacuum_open_relation](vacuum_open_relation.md)
+  - [vacuum_is_permitted_for_relation](vacuum_is_permitted_for_relation.md)
   - [relation_close](../r/relation_close.md)
   - [LockRelationIdForSession](../L/LockRelationIdForSession.md)
   - [UnlockRelationIdForSession](../U/UnlockRelationIdForSession.md)
@@ -52,9 +52,9 @@ The function implements various safety checks and early exit conditions for unsu
   - [RestrictSearchPath](../R/RestrictSearchPath.md)
   - [AtEOXact_GUC](../A/AtEOXact_GUC.md)
   - [cluster_rel](../c/cluster_rel.md)
-  - table_relation_vacuum
+  - [table_relation_vacuum](../t/table_relation_vacuum.md)
 - Called from (representative examples):
-  - vacuum (main vacuum entry point)
+  - [vacuum](vacuum.md) (main vacuum entry point)
   - [vacuum_rel](vacuum_rel.md) (recursive call for TOAST tables)
 
 ## Notes and Other Information

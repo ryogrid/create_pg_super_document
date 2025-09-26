@@ -43,11 +43,11 @@ The function handles sophisticated scheduling logic, determining which pass each
   - [transformAlterTableStmt](../t/transformAlterTableStmt.md)
   - RelationGetRelid
   - [ProcessUtilityForAlterTable](../P/ProcessUtilityForAlterTable.md)
-  - CommandCounterIncrement
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md)
   - lfirst_node
   - [ATPrepSetNotNull](ATPrepSetNotNull.md)
   - castNode
-  - lappend
+  - [lappend](../l/lappend.md)
   - [list_concat](../l/list_concat.md)
 - Called from:
   - [ATPrepCmd](ATPrepCmd.md)

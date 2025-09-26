@@ -31,7 +31,7 @@ The conversion process involves:
 - Functions called/Symbols referenced:
   - [PLySequence_ToArray_recurse](PLySequence_ToArray_recurse.md) (recursive traversal helper)
   - [construct_empty_array](../c/construct_empty_array.md) (creates empty array for zero elements)
-  - makeMdArrayResult (constructs final multi-dimensional array)
+  - [makeMdArrayResult](../m/makeMdArrayResult.md) (constructs final multi-dimensional array)
   - PySequence_Check (Python API validation)
   - PySequence_Length (Python API length retrieval)
 - Called from (representative examples):

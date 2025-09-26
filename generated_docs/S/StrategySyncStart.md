@@ -29,12 +29,12 @@ The function also provides two important statistics if the caller requests them:
 - Functions called/Symbols referenced:
   - SpinLockAcquire
   - SpinLockRelease
-  - pg_atomic_read_u32
-  - pg_atomic_exchange_u32
+  - [pg_atomic_read_u32](../p/pg_atomic_read_u32.md)
+  - [pg_atomic_exchange_u32](../p/pg_atomic_exchange_u32.md)
   - StrategyControl (global buffer strategy control structure)
 - Called from (representative examples):
-  - BgBufferSync
-  - ResourceOwnerForgetBufferIO
+  - [BgBufferSync](../B/BgBufferSync.md)
+  - [ResourceOwnerForgetBufferIO](../R/ResourceOwnerForgetBufferIO.md)
 
 ## Notes and Other Information
 - Uses spinlock protection to ensure atomic reading of nextVictimBuffer and completePasses

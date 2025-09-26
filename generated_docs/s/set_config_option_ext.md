@@ -32,14 +32,14 @@ The function is a thin wrapper around set_config_with_handle, passing through al
 ## Dependencies
 - Functions called/Symbols referenced:
   - GucContext, GucSource, GucAction (enum types)
-  - set_config_with_handle (core implementation function)
+  - [set_config_with_handle](set_config_with_handle.md) (core implementation function)
   - Oid (PostgreSQL object identifier type)
 - Called from (representative examples):
-  - reapply_stacked_values (restoring previous settings)
-  - read_nondefault_variables (loading saved configurations)
-  - RestoreGUCState (state restoration after parallel operations)
-  - define_custom_variable (custom parameter registration)
-  - InitializeWalConsistencyChecking (WAL consistency setup)
+  - [reapply_stacked_values](../r/reapply_stacked_values.md) (restoring previous settings)
+  - [read_nondefault_variables](../r/read_nondefault_variables.md) (loading saved configurations)
+  - [RestoreGUCState](../R/RestoreGUCState.md) (state restoration after parallel operations)
+  - [define_custom_variable](../d/define_custom_variable.md) (custom parameter registration)
+  - [InitializeWalConsistencyChecking](../I/InitializeWalConsistencyChecking.md) (WAL consistency setup)
 
 ## Notes and Other Information
 - Provides explicit control over role attribution for configuration changes

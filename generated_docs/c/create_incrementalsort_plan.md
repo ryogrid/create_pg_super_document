@@ -36,8 +36,8 @@ The function follows the same pattern as , including the CP_SMALL_TLIST optimiza
 
 ## Notes and Other Information
 - This is a static function, only accessible within the createplan.c compilation unit
-- IncrementalSort leverages the  field from the path to determine how many leading columns are already sorted
+- [IncrementalSort](../I/IncrementalSort.md) leverages the  field from the path to determine how many leading columns are already sorted
 - The optimization is particularly effective for ORDER BY clauses where the input is already sorted on a subset of the ordering columns
 - Like regular Sort nodes, IncrementalSort nodes don't perform projection and pass through target list requirements
 - The function uses the same CP_SMALL_TLIST optimization as create_sort_plan to minimize memory usage
-- IncrementalSort was introduced as a performance enhancement to reduce sorting overhead in scenarios with partial pre-sorting
+- [IncrementalSort](../I/IncrementalSort.md) was introduced as a performance enhancement to reduce sorting overhead in scenarios with partial pre-sorting

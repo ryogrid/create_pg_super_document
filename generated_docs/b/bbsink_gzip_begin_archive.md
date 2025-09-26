@@ -32,7 +32,7 @@ The function uses deflateInit2() instead of deflateInit() to explicitly request 
   - deflateInit2 (zlib compression initialization)
   - ereport/errcode/errmsg (error reporting)
   - [psprintf](../p/psprintf.md) (formatted string creation)
-  - bbsink_begin_archive (forwards to next sink)
+  - [bbsink_begin_archive](bbsink_begin_archive.md) (forwards to next sink)
   - [pfree](../p/pfree.md) (memory deallocation)
   - Assert (assertion checking)
   - [gzip_palloc](../g/gzip_palloc.md)/gzip_pfree (custom memory allocation functions)

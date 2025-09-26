@@ -35,7 +35,7 @@ Key operations performed:
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SimpleLruGetBankLock](SimpleLruGetBankLock.md) (get bank lock for page)
-  - LWLockHeldByMeInMode (assert lock is held)
+  - [LWLockHeldByMeInMode](../L/LWLockHeldByMeInMode.md) (assert lock is held)
   - [SlruSelectLRUPage](SlruSelectLRUPage.md) (find page or select victim slot)
   - [SimpleLruWaitIO](SimpleLruWaitIO.md) (wait for I/O completion)
   - [SlruRecentlyUsed](SlruRecentlyUsed.md) (update LRU information)
@@ -50,7 +50,7 @@ Key operations performed:
   - [GetMultiXactIdMembers](../G/GetMultiXactIdMembers.md)
   - [SubTransSetParent](SubTransSetParent.md)
   - [asyncQueueAddEntries](../a/asyncQueueAddEntries.md)
-  - SerialAdd
+  - [SerialAdd](SerialAdd.md)
   - [SimpleLruReadPage_ReadOnly](SimpleLruReadPage_ReadOnly.md)
 
 ## Notes and Other Information

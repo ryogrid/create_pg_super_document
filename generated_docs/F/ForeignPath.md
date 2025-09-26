@@ -32,13 +32,13 @@ The structure accommodates complex scenarios like foreign joins where restrictin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Path (base structure)
-  - List (for restrictinfo and private data)
+  - [Path](../P/Path.md) (base structure)
+  - [List](../L/List.md) (for restrictinfo and private data)
 - Called from (representative examples):
-  - create_foreignscan_path (creates ForeignPath for base table scans)
-  - create_foreign_join_path (creates ForeignPath for foreign joins)
-  - create_foreign_upper_path (creates ForeignPath for upper-level operations)
-  - create_foreignscan_plan (converts ForeignPath to execution plan)
+  - [create_foreignscan_path](../c/create_foreignscan_path.md) (creates ForeignPath for base table scans)
+  - [create_foreign_join_path](../c/create_foreign_join_path.md) (creates ForeignPath for foreign joins)
+  - [create_foreign_upper_path](../c/create_foreign_upper_path.md) (creates ForeignPath for upper-level operations)
+  - [create_foreignscan_plan](../c/create_foreignscan_plan.md) (converts ForeignPath to execution plan)
 
 ## Notes and Other Information
 - Never called directly from core PostgreSQL - only by FDW implementations

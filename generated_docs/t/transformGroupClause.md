@@ -35,7 +35,7 @@ This function processes GROUP BY clauses and window PARTITION BY clauses, handli
   - [bms_add_member](../b/bms_add_member.md)
   - [exprLocation](../e/exprLocation.md)
   - list_make1_int
-  - GroupingSet (struct type)
+  - [GroupingSet](../G/GroupingSet.md) (struct type)
   - [ParseExprKind](../P/ParseExprKind.md) (enum type)
   - GROUPING_SET_EMPTY, GROUPING_SET_SIMPLE, GROUPING_SET_SETS, GROUPING_SET_CUBE, GROUPING_SET_ROLLUP (enum values)
 - Called from (representative examples):

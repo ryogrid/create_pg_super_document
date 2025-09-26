@@ -23,7 +23,7 @@ Unlike the text output function which formats the address as a colon-separated s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `macaddr8`: The input data structure containing the MAC address bytes
+  - `[macaddr8](macaddr8.md)`: The input data structure containing the MAC address bytes
   - `PG_GETARG_MACADDR8_P`: PostgreSQL macro for extracting macaddr8 arguments
   - [pq_begintypsend](../p/pq_begintypsend.md): PostgreSQL function to initialize binary output buffer
   - [pq_sendbyte](../p/pq_sendbyte.md): PostgreSQL function to write a byte to the output buffer (called 8 times)

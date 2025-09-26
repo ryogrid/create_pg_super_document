@@ -28,7 +28,7 @@ The  function is a PostgreSQL backend function that opens a large object (LO) fo
   - [newLOfd](../n/newLOfd.md)
   - [inv_open](../i/inv_open.md)
   - [GetCurrentSubTransactionId](../G/GetCurrentSubTransactionId.md)
-  - RegisterSnapshotOnOwner
+  - [RegisterSnapshotOnOwner](../R/RegisterSnapshotOnOwner.md)
 - Called from (representative examples):
   - No direct references found (likely called via PostgreSQL function call mechanism)
 

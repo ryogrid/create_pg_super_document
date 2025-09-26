@@ -21,7 +21,7 @@ This static function is responsible for generating and reporting syntax errors t
 ## Dependencies
 - Functions called/Symbols referenced:
   - errsave
-  - TSVectorParseState
+  - [TSVectorParseState](../T/TSVectorParseState.md)
   - ERRCODE_SYNTAX_ERROR
 - Called from (representative examples):
   - PRSSYNTAXERROR macro (src/backend/utils/adt/tsvector_parser.c:139)

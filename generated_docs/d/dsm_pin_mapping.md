@@ -22,13 +22,13 @@ This is particularly useful when a DSM segment needs to be shared across multipl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwnerForgetDSM
-  - dsm_segment (structure type)
+  - [ResourceOwnerForgetDSM](../R/ResourceOwnerForgetDSM.md)
+  - [dsm_segment](dsm_segment.md) (structure type)
 - Called from (representative examples):
-  - GetSessionDsmHandle (src/backend/access/common/session.c:139)
-  - AttachSession (src/backend/access/common/session.c:187)
-  - GetNamedDSMSegment (src/backend/storage/ipc/dsm_registry.c:165, 190)
-  - dsa_pin_mapping (src/backend/utils/mmgr/dsa.c:645)
+  - [GetSessionDsmHandle](../G/GetSessionDsmHandle.md) (src/backend/access/common/session.c:139)
+  - [AttachSession](../A/AttachSession.md) (src/backend/access/common/session.c:187)
+  - [GetNamedDSMSegment](../G/GetNamedDSMSegment.md) (src/backend/storage/ipc/dsm_registry.c:165, 190)
+  - [dsa_pin_mapping](dsa_pin_mapping.md) (src/backend/utils/mmgr/dsa.c:645)
 
 ## Notes and Other Information
 - This function only acts if the segment currently has a resource owner (seg->resowner != NULL)

@@ -22,13 +22,13 @@ This function handles the complete cleanup of a cached prepared statement entry.
 ## Dependencies
 - Functions called/Symbols referenced:
   - stmtCacheEntry (struct type)
-  - prepared_statement (struct type)
-  - ecpg_get_connection
-  - ecpg_find_prepared_statement
-  - deallocate_one
-  - ecpg_free
+  - [prepared_statement](../p/prepared_statement.md) (struct type)
+  - [ecpg_get_connection](ecpg_get_connection.md)
+  - [ecpg_find_prepared_statement](ecpg_find_prepared_statement.md)
+  - [deallocate_one](../d/deallocate_one.md)
+  - [ecpg_free](ecpg_free.md)
 - Called from (representative examples):
-  - AddStmtToCache
+  - [AddStmtToCache](../A/AddStmtToCache.md)
 
 ## Notes and Other Information
 - Returns the entry number on success, or negative error code on failure

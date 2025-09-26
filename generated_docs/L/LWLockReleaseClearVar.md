@@ -24,10 +24,10 @@ The function is commonly used in PostgreSQL's WAL (Write-Ahead Logging) subsyste
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_atomic_exchange_u64: Atomically sets the variable value with full barrier semantics
-  - LWLockRelease: Releases the specified LWLock
+  - [pg_atomic_exchange_u64](../p/pg_atomic_exchange_u64.md): Atomically sets the variable value with full barrier semantics
+  - [LWLockRelease](LWLockRelease.md): Releases the specified LWLock
 - Called from (representative examples):
-  - WALInsertLockRelease: Used twice in WAL insertion lock management
+  - [WALInsertLockRelease](../W/WALInsertLockRelease.md): Used twice in WAL insertion lock management
 
 ## Notes and Other Information
 - The pg_atomic_exchange_u64 operation provides a full memory barrier, guaranteeing that the variable update is visible to other processes before the lock is released

@@ -29,7 +29,7 @@ This function takes no parameters.
   - [dlist_is_empty](dlist_is_empty.md) (checks if segment list is empty)
   - dlist_head_element (gets first segment from list)
   - [dsm_detach](dsm_detach.md) (detaches individual segments)
-  - dsm_impl_op (platform-specific detach operations for control segment)
+  - [dsm_impl_op](dsm_impl_op.md) (platform-specific detach operations for control segment)
 - Called from (representative examples):
   - [postmaster_child_launch](../p/postmaster_child_launch.md) (child process initialization)
 

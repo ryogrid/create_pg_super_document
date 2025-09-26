@@ -38,7 +38,7 @@ For absolute positioning, the function optimizes by choosing whether to rewind a
   - [PortalRunSelect](../P/PortalRunSelect.md)
   - [Portal](../P/Portal.md) structure and its fields (strategy, portalPos, atStart, atEnd)
   - [FetchDirection](../F/FetchDirection.md) enum values
-  - DestReceiver and DestNone
+  - [DestReceiver](DestReceiver.md) and DestNone
   - [Portal](../P/Portal.md) strategy constants (PORTAL_ONE_SELECT, PORTAL_ONE_RETURNING, etc.)
 - Called from (representative examples):
   - [PortalRunFetch](../P/PortalRunFetch.md)

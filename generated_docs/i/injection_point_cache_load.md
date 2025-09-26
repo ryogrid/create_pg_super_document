@@ -23,7 +23,7 @@ This function loads injection point callbacks from external libraries into the l
 ## Dependencies
 - Functions called/Symbols referenced:
   - snprintf: Constructs the full library path
-  - pg_file_exists: Checks if the library file exists on disk
+  - [pg_file_exists](../p/pg_file_exists.md): Checks if the library file exists on disk
   - [load_external_function](../l/load_external_function.md): Dynamically loads the callback function from the library
   - elog: Reports errors if library or function cannot be found
   - [injection_point_cache_add](injection_point_cache_add.md): Adds the loaded callback to the local cache

@@ -26,7 +26,7 @@ The function is typically registered in the system catalogs and can be invoked t
   - PG_GETARG_MACADDR8_P (macro for extracting macaddr8 arguments)
   - [macaddr8_cmp_internal](macaddr8_cmp_internal.md) (performs actual comparison)
   - PG_RETURN_INT32 (macro for returning int32 result)
-  - macaddr8 (structure type)
+  - [macaddr8](macaddr8.md) (structure type)
 - Called from (representative examples):
   - SQL comparison operations
   - B-tree index operations

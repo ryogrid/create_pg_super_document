@@ -22,10 +22,10 @@ HOT updates are optimizations where the updated tuple fits on the same page with
 ## Dependencies
 - Functions called/Symbols referenced:
   - pgstat_should_count_relation
-  - ensure_tabstat_xact_level
-  - PgStat_TableStatus
+  - [ensure_tabstat_xact_level](../e/ensure_tabstat_xact_level.md)
+  - [PgStat_TableStatus](../P/PgStat_TableStatus.md)
 - Called from (representative examples):
-  - heap_update
+  - [heap_update](../h/heap_update.md)
   - pgstat_count_buffer_hit
 
 ## Notes and Other Information

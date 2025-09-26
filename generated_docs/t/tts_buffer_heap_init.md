@@ -25,5 +25,5 @@ This function serves as the initialization routine for BufferHeapTupleTableSlot 
 - This is a static function internal to execTuples.c
 - Part of the TupleTableSlotOps implementation for BufferHeapTupleTableSlot
 - The empty implementation suggests that BufferHeapTupleTableSlot requires no special initialization beyond its inheritance from HeapTupleTableSlot
-- BufferHeapTupleTableSlot is designed for heap tuples that are stored in shared buffer pages
+- [BufferHeapTupleTableSlot](../B/BufferHeapTupleTableSlot.md) is designed for heap tuples that are stored in shared buffer pages
 - The actual buffer management occurs in other operations like store and release functions

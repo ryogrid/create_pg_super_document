@@ -24,7 +24,7 @@ Each boundary object is assigned a unique dump ID and given a descriptive name f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_malloc
+  - [pg_malloc](../p/pg_malloc.md)
   - [AssignDumpId](../A/AssignDumpId.md)
   - [pg_strdup](../p/pg_strdup.md)
 - Constants used:

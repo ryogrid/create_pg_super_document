@@ -43,7 +43,7 @@ This function parses individual function attribute definition elements and categ
 ## Dependencies
 - Functions called/Symbols referenced:
   - [errorConflictingDefElem](../e/errorConflictingDefElem.md): Reports duplicate attribute errors with location
-  - lappend: Appends SET configuration items to list
+  - [lappend](../l/lappend.md): Appends SET configuration items to list
   - [parser_errposition](../p/parser_errposition.md): Provides error position information
 - Called from (representative examples):
   - [compute_function_attributes](compute_function_attributes.md): Function attribute processing during creation

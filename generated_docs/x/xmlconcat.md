@@ -34,10 +34,10 @@ For standalone attributes:
   - [xmltype](xmltype.md)
   - [DatumGetXmlP](../D/DatumGetXmlP.md)
   - VARSIZE
-  - text_to_cstring
-  - parse_xml_decl
-  - print_xml_decl
-  - appendBinaryStringInfo
+  - [text_to_cstring](../t/text_to_cstring.md)
+  - [parse_xml_decl](../p/parse_xml_decl.md)
+  - [print_xml_decl](../p/print_xml_decl.md)
+  - [appendBinaryStringInfo](../a/appendBinaryStringInfo.md)
   - [stringinfo_to_xmltype](../s/stringinfo_to_xmltype.md)
   - NO_XML_SUPPORT (fallback when libxml not available)
 - Called from (representative examples):

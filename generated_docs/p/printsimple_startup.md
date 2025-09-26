@@ -24,7 +24,7 @@ The function iterates through each attribute in the tuple descriptor and sends t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_beginmessage
+  - [pq_beginmessage](pq_beginmessage.md)
   - [pq_sendint16](pq_sendint16.md)
   - [pq_sendstring](pq_sendstring.md)
   - [pq_sendint32](pq_sendint32.md)
@@ -32,7 +32,7 @@ The function iterates through each attribute in the tuple descriptor and sends t
   - TupleDescAttr
   - NameStr
   - PqMsg_RowDescription
-  - DestReceiver
+  - [DestReceiver](../D/DestReceiver.md)
 - Called from (representative examples):
   - [donothingCleanup](../d/donothingCleanup.md) (referenced in dest.c)
 

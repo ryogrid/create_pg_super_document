@@ -28,14 +28,14 @@ The `arrive` parameter controls whether the detaching process is also considered
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Barrier (struct type)
-  - ConditionVariableBroadcast
+  - [Barrier](Barrier.md) (struct type)
+  - [ConditionVariableBroadcast](../C/ConditionVariableBroadcast.md)
   - SpinLockAcquire (implicitly through barrier->mutex)
   - SpinLockRelease (implicitly through barrier->mutex)
   - Assert (macro)
 - Called from (representative examples):
-  - BarrierArriveAndDetach
-  - BarrierDetach
+  - [BarrierArriveAndDetach](BarrierArriveAndDetach.md)
+  - [BarrierDetach](BarrierDetach.md)
 
 ## Notes and Other Information
 - This is a static inline function, meaning it's only visible within the barrier.c file and optimized for inlining

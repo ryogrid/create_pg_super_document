@@ -23,15 +23,15 @@ FileFallocate provides efficient space allocation for files by attempting to use
 ## Dependencies
 - Functions called/Symbols referenced:
   - FileIsValid: Validates the virtual file descriptor
-  - FileAccess: Ensures the file is accessible and handles VFD management
-  - pgstat_report_wait_start: Reports the start of a wait event for monitoring
+  - [FileAccess](FileAccess.md): Ensures the file is accessible and handles VFD management
+  - [pgstat_report_wait_start](../p/pgstat_report_wait_start.md): Reports the start of a wait event for monitoring
   - posix_fallocate: POSIX system call for efficient space allocation (when available)
-  - pgstat_report_wait_end: Reports the end of the wait event
-  - FileZero: Fallback function for zero-filling when fallocate is unavailable
+  - [pgstat_report_wait_end](../p/pgstat_report_wait_end.md): Reports the end of the wait event
+  - [FileZero](FileZero.md): Fallback function for zero-filling when fallocate is unavailable
   - DO_DB: Debug logging macro
   - INT64_FORMAT: Macro for formatting 64-bit integers in log messages
 - Called from (representative examples):
-  - mdzeroextend: During zero-extension of MD storage files to optimize space allocation
+  - [mdzeroextend](../m/mdzeroextend.md): During zero-extension of MD storage files to optimize space allocation
 
 ## Notes and Other Information
 - Returns 0 on success, -1 on failure with errno set appropriately

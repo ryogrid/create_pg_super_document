@@ -42,10 +42,10 @@ The structure supports both leaf and internal pages at different tree levels, wi
 - Called from (representative examples):
   - [_bt_blwritepage](../b/_bt_blwritepage.md)
   - [_bt_pagestate](../b/_bt_pagestate.md)
-  - _bt_buildadd
-  - _bt_sort_dedup_finish_pending
-  - _bt_uppershutdown
-  - _bt_load
+  - [_bt_buildadd](../b/_bt_buildadd.md)
+  - [_bt_sort_dedup_finish_pending](../b/_bt_sort_dedup_finish_pending.md)
+  - [_bt_uppershutdown](../b/_bt_uppershutdown.md)
+  - [_bt_load](../b/_bt_load.md)
 
 ## Notes and Other Information
 BTPageState forms a linked list structure representing the active page being built at each level of the B-tree, with btps_next pointing toward parent levels. The structure is essential for bottom-up B-tree construction where leaf pages are built first, followed by internal pages as the tree grows upward. The btps_full threshold helps optimize page utilization by determining when to close a page and start a new one. The workspace buffer (btps_buf) allows pages to be constructed in memory before being written to storage, supporting efficient bulk loading operations.

@@ -23,12 +23,12 @@ The caller must ensure that no other backend will attempt to access the hash tab
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert (validates DSHASH_MAGIC)
-  - ensure_valid_bucket_pointers
+  - [ensure_valid_bucket_pointers](../e/ensure_valid_bucket_pointers.md)
   - NUM_BUCKETS
   - DsaPointerIsValid
-  - dsa_get_address
-  - dsa_free
-  - pfree
+  - [dsa_get_address](dsa_get_address.md)
+  - [dsa_free](dsa_free.md)
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
   - No direct references found in current codebase (likely called during cleanup or shutdown sequences)
 

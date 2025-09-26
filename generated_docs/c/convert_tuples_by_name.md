@@ -26,7 +26,7 @@ The function acts as a convenience wrapper that first calls  to create the attri
   - [build_attrmap_by_name_if_req](../b/build_attrmap_by_name_if_req.md)
   - [convert_tuples_by_name_attrmap](convert_tuples_by_name_attrmap.md)
   - [AttrMap](../A/AttrMap.md) (struct)
-  - TupleConversionMap (struct)
+  - [TupleConversionMap](../T/TupleConversionMap.md) (struct)
 - Called from (representative examples):
   - [acquire_inherited_sample_rows](../a/acquire_inherited_sample_rows.md)
   - [ExecEvalConvertRowtype](../E/ExecEvalConvertRowtype.md)

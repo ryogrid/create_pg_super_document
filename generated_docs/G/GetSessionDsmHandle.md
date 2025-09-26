@@ -30,7 +30,7 @@ This function takes no parameters and returns:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dsm_segment_handle
+  - [dsm_segment_handle](../d/dsm_segment_handle.md)
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - shm_toc_initialize_estimator
   - shm_toc_estimate_keys
@@ -38,13 +38,13 @@ This function takes no parameters and returns:
   - [SharedRecordTypmodRegistryEstimate](../S/SharedRecordTypmodRegistryEstimate.md)
   - [shm_toc_estimate](../s/shm_toc_estimate.md)
   - [dsm_create](../d/dsm_create.md)
-  - shm_toc_create
-  - dsm_segment_address
-  - shm_toc_allocate
+  - [shm_toc_create](../s/shm_toc_create.md)
+  - [dsm_segment_address](../d/dsm_segment_address.md)
+  - [shm_toc_allocate](../s/shm_toc_allocate.md)
   - dsa_create_in_place
-  - shm_toc_insert
+  - [shm_toc_insert](../s/shm_toc_insert.md)
   - [SharedRecordTypmodRegistryInit](../S/SharedRecordTypmodRegistryInit.md)
-  - dsm_pin_mapping
+  - [dsm_pin_mapping](../d/dsm_pin_mapping.md)
   - [dsa_pin_mapping](../d/dsa_pin_mapping.md)
 - Called from (representative examples):
   - [InitializeParallelDSM](../I/InitializeParallelDSM.md) (in src/backend/access/transam/parallel.c:251)

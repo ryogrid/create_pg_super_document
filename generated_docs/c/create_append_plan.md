@@ -35,9 +35,9 @@ The `create_append_plan` function builds an Append execution plan that concatena
   - [replace_nestloop_params](../r/replace_nestloop_params.md)
   - [make_partition_pruneinfo](../m/make_partition_pruneinfo.md)
   - [inject_projection_plan](../i/inject_projection_plan.md)
-  - Append (type)
-  - AppendPath (type)
-  - PartitionPruneInfo (type)
+  - [Append](../A/Append.md) (type)
+  - [AppendPath](../A/AppendPath.md) (type)
+  - [PartitionPruneInfo](../P/PartitionPruneInfo.md) (type)
 - Called from (representative examples):
   - [create_plan_recurse](create_plan_recurse.md)
 

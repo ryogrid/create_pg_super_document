@@ -22,12 +22,12 @@ This function is typically called during transaction completion (commit or abort
 ## Dependencies
 - Functions called/Symbols referenced:
   - TransactionIdIsValid
-  - KnownAssignedXidsRemove
-  - KnownAssignedXidsCompress
+  - [KnownAssignedXidsRemove](KnownAssignedXidsRemove.md)
+  - [KnownAssignedXidsCompress](KnownAssignedXidsCompress.md)
   - KAX_TRANSACTION_END
 - Called from (representative examples):
-  - ProcArrayApplyXidAssignment
-  - ExpireTreeKnownAssignedTransactionIds
+  - [ProcArrayApplyXidAssignment](../P/ProcArrayApplyXidAssignment.md)
+  - [ExpireTreeKnownAssignedTransactionIds](../E/ExpireTreeKnownAssignedTransactionIds.md)
 
 ## Notes and Other Information
 - Caller must hold ProcArrayLock in exclusive mode

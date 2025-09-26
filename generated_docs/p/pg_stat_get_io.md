@@ -34,7 +34,7 @@ The function uses a set-returning function (SRF) pattern to generate multiple ro
   - [pgstat_get_io_op_index](pgstat_get_io_op_index.md) (get column index for operation)
   - [pgstat_get_io_time_index](pgstat_get_io_time_index.md) (get column index for timing)
   - [pg_stat_us_to_ms](pg_stat_us_to_ms.md) (convert microseconds to milliseconds)
-  - tuplestore_putvalues (add row to result set)
+  - [tuplestore_putvalues](../t/tuplestore_putvalues.md) (add row to result set)
 - Called from (representative examples):
   - SQL queries on pg_stat_io system view
 

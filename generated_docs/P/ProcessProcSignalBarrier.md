@@ -37,7 +37,7 @@ This function takes no parameters and operates on global state.
   - [pg_rightmost_one_pos32](../p/pg_rightmost_one_pos32.md) (bit manipulation utility)
   - [ProcessBarrierSmgrRelease](ProcessBarrierSmgrRelease.md) (storage manager barrier handler)
   - [ResetProcSignalBarrierBits](../R/ResetProcSignalBarrierBits.md) (barrier bit reset function)
-  - ConditionVariableBroadcast (condition variable signaling)
+  - [ConditionVariableBroadcast](../C/ConditionVariableBroadcast.md) (condition variable signaling)
   - BARRIER_CLEAR_BIT (macro for clearing barrier bits)
 - Exception handling:
   - PG_TRY, PG_CATCH, PG_END_TRY, PG_RE_THROW (PostgreSQL exception framework)
@@ -52,8 +52,8 @@ This function takes no parameters and operates on global state.
   - [HandleAutoVacLauncherInterrupts](../H/HandleAutoVacLauncherInterrupts.md) (autovacuum launcher)
   - [HandleCheckpointerInterrupts](../H/HandleCheckpointerInterrupts.md) (checkpointer process)
   - [HandleMainLoopInterrupts](../H/HandleMainLoopInterrupts.md) (main loop interrupt handling)
-  - ProcessInterrupts (general interrupt processing)
-  - BufferSync (buffer synchronization)
+  - [ProcessInterrupts](ProcessInterrupts.md) (general interrupt processing)
+  - [BufferSync](../B/BufferSync.md) (buffer synchronization)
 
 ## Notes and Other Information
 - Must be called periodically by any backend participating in ProcSignal signaling

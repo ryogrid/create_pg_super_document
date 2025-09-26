@@ -27,7 +27,7 @@ This function recursively traverses the dependency tree of a DumpableObject to i
 - Functions called/Symbols referenced:
   - [TocIDRequired](../T/TocIDRequired.md)
   - [findObjectByDumpId](findObjectByDumpId.md)
-  - pg_realloc
+  - [pg_realloc](../p/pg_realloc.md)
   - [findDumpableDependencies](findDumpableDependencies.md) (recursive call)
 - Types used:
   - DumpableObject

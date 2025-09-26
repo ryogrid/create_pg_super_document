@@ -31,7 +31,7 @@ The function processes each attribute by:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slot_getattr: Extracts attribute values from the tuple slot
+  - [slot_getattr](../s/slot_getattr.md): Extracts attribute values from the tuple slot
   - [getTypeOutputInfo](../g/getTypeOutputInfo.md): Retrieves the output function OID for a given data type
   - [OidOutputFunctionCall](../O/OidOutputFunctionCall.md): Calls the appropriate output function to convert attribute values to strings
   - [printatt](../p/printatt.md): Formats and displays attribute information to standard output

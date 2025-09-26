@@ -23,7 +23,7 @@ This function shows the nominal target relation for ModifyTable operations (INSE
 - Functions called/Symbols referenced:
   - [ExplainTargetRel](ExplainTargetRel.md)
   - [ModifyTable](../M/ModifyTable.md) (struct)
-  - ExplainState (struct)
+  - [ExplainState](ExplainState.md) (struct)
 - Called from (representative examples):
   - [ExplainNode](ExplainNode.md)
 

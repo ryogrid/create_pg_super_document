@@ -19,12 +19,12 @@ The `JsonbValueAsText` function converts a JsonbValue structure to a PostgreSQL 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - cstring_to_text_with_len
-  - cstring_to_text
+  - [cstring_to_text_with_len](../c/cstring_to_text_with_len.md)
+  - [cstring_to_text](../c/cstring_to_text.md)
   - DirectFunctionCall1
   - [numeric_out](../n/numeric_out.md)
   - [DatumGetCString](../D/DatumGetCString.md)
-  - initStringInfo
+  - [initStringInfo](../i/initStringInfo.md)
   - [JsonbToCString](JsonbToCString.md)
   - elog
 - Types used:
@@ -43,8 +43,8 @@ The `JsonbValueAsText` function converts a JsonbValue structure to a PostgreSQL 
 ## Notes and Other Information
 - This is a static function within jsonfuncs.c, not exposed externally
 - Returns NULL for jbvNull type values
-- Boolean values are converted to literal "true" or "false" strings
-- Numeric values are converted using PostgreSQL's numeric output function
+- [Boolean](../B/Boolean.md) values are converted to literal "true" or "false" strings
+- [Numeric](../N/Numeric.md) values are converted using PostgreSQL's numeric output function
 - Binary JSONB values are converted to their JSON string representation
 - The function will throw an ERROR for unrecognized JSONB types
 - Memory management for the returned text value is handled by PostgreSQL's memory context system

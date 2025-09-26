@@ -24,7 +24,7 @@ The function includes safety assertions to ensure it is only called during start
 ## Dependencies
 - Functions called/Symbols referenced:
   - AmStartupProcess (process identification function)
-  - FullTransactionIdFromAllowableAt (transaction ID reconstruction function)
+  - [FullTransactionIdFromAllowableAt](../F/FullTransactionIdFromAllowableAt.md) (transaction ID reconstruction function)
   - XLogRecGetXid (function to extract 32-bit XID from record)
   - TransamVariables->nextXid (global transaction state)
 - Called from (representative examples):

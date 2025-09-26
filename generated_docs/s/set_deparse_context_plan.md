@@ -21,7 +21,7 @@ This function specializes a deparse context created by deparse_context_for_plan_
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_length (for assertion checking)
+  - [list_length](../l/list_length.md) (for assertion checking)
   - linitial (to get first namespace entry)
   - [set_deparse_plan](set_deparse_plan.md) (to configure the plan-specific information)
 - Called from (representative examples):

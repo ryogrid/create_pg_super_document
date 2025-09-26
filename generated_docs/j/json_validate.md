@@ -29,12 +29,12 @@ This function serves as PostgreSQL's primary JSON validation mechanism, performi
   - [json_unique_object_end](json_unique_object_end.md)
   - [pg_parse_json](../p/pg_parse_json.md)
   - [json_errsave_error](json_errsave_error.md)
-  - freeJsonLexContext
+  - [freeJsonLexContext](../f/freeJsonLexContext.md)
   - ereport
 - Data types referenced:
   - [JsonLexContext](../J/JsonLexContext.md)
   - [JsonSemAction](../J/JsonSemAction.md)
-  - JsonUniqueParsingState
+  - [JsonUniqueParsingState](../J/JsonUniqueParsingState.md)
   - JsonParseErrorType
   - JSON_SUCCESS
 - Called from (representative examples):

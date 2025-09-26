@@ -26,7 +26,7 @@ TheSubstitute serves as a critical data structure in the thesaurus dictionary fu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TSDictionaryCacheEntry
+  - [TSDictionaryCacheEntry](TSDictionaryCacheEntry.md)
   - [TheLexeme](TheLexeme.md)
   - [TheSubstitute](TheSubstitute.md) (self-reference)
 - Called from (representative examples):

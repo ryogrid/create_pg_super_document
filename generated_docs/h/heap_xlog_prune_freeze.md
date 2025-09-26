@@ -32,7 +32,7 @@ The function is designed to work with or without full-page images and ensures pr
 - Functions called/Symbols referenced:
   - XLogRecGetData
   - [XLogRecGetBlockTag](../X/XLogRecGetBlockTag.md)
-  - XLogReadBufferForRedoExtended
+  - [XLogReadBufferForRedoExtended](../X/XLogReadBufferForRedoExtended.md)
   - [XLogRecGetBlockData](../X/XLogRecGetBlockData.md)
   - [ResolveRecoveryConflictWithSnapshot](../R/ResolveRecoveryConflictWithSnapshot.md)
   - [heap_xlog_deserialize_prune_and_freeze](heap_xlog_deserialize_prune_and_freeze.md)
@@ -42,9 +42,9 @@ The function is designed to work with or without full-page images and ensures pr
   - [PageGetItem](../P/PageGetItem.md)
   - [PageSetLSN](../P/PageSetLSN.md)
   - [PageGetHeapFreeSpace](../P/PageGetHeapFreeSpace.md)
-  - MarkBufferDirty
+  - [MarkBufferDirty](../M/MarkBufferDirty.md)
   - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
-  - XLogRecordPageWithFreeSpace
+  - [XLogRecordPageWithFreeSpace](../X/XLogRecordPageWithFreeSpace.md)
   - [xl_heap_prune](../x/xl_heap_prune.md) (WAL record structure)
   - [xlhp_freeze_plan](../x/xlhp_freeze_plan.md)
   - [HeapTupleFreeze](../H/HeapTupleFreeze.md)

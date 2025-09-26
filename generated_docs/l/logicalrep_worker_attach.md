@@ -28,15 +28,15 @@ The attachment process involves:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire (LogicalRepWorkerLock, LW_EXCLUSIVE)
-  - LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md) (LogicalRepWorkerLock, LW_EXCLUSIVE)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - Assert
   - ereport/ERROR
-  - before_shmem_exit
-  - logicalrep_worker_onexit
+  - [before_shmem_exit](../b/before_shmem_exit.md)
+  - [logicalrep_worker_onexit](logicalrep_worker_onexit.md)
 - Called from (representative examples):
-  - ParallelApplyWorkerMain (src/backend/replication/logical/applyparallelworker.c:914)
-  - SetupApplyOrSyncWorker (src/backend/replication/logical/worker.c:4694)
+  - [ParallelApplyWorkerMain](../P/ParallelApplyWorkerMain.md) (src/backend/replication/logical/applyparallelworker.c:914)
+  - [SetupApplyOrSyncWorker](../S/SetupApplyOrSyncWorker.md) (src/backend/replication/logical/worker.c:4694)
 
 ## Notes and Other Information
 - The function uses exclusive locking (LogicalRepWorkerLock) to ensure thread-safe access to shared worker state

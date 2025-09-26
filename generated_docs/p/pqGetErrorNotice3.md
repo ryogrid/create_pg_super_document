@@ -24,19 +24,19 @@ The function handles pipeline mode by setting the pipeline status to aborted whe
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pqClearAsyncResult](pqClearAsyncResult.md)
-  - initPQExpBuffer
+  - [initPQExpBuffer](../i/initPQExpBuffer.md)
   - [PQmakeEmptyPGresult](../P/PQmakeEmptyPGresult.md)
   - [pqGetc](pqGetc.md)
   - [pqGets](pqGets.md)
   - [pqSaveMessageField](pqSaveMessageField.md)
-  - strlcpy
+  - [strlcpy](../s/strlcpy.md)
   - [pqResultStrdup](pqResultStrdup.md)
   - [resetPQExpBuffer](../r/resetPQExpBuffer.md)
   - [pqBuildErrorMessage3](pqBuildErrorMessage3.md)
   - [pqSetResultError](pqSetResultError.md)
   - PQExpBufferDataBroken
   - [libpq_gettext](../l/libpq_gettext.md)
-  - termPQExpBuffer
+  - [termPQExpBuffer](../t/termPQExpBuffer.md)
 - Called from (representative examples):
   - [pqParseInput3](pqParseInput3.md)
   - [getCopyDataMessage](../g/getCopyDataMessage.md)

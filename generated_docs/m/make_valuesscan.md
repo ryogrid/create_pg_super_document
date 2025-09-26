@@ -29,7 +29,7 @@ This scan type is commonly used for queries that provide literal data inline, ta
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to allocate ValuesScan node)
-  - ValuesScan (node type)
+  - [ValuesScan](../V/ValuesScan.md) (node type)
 - Called from (representative examples):
   - [create_valuesscan_plan](../c/create_valuesscan_plan.md)
 

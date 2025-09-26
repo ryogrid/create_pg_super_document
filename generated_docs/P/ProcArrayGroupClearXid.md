@@ -28,12 +28,12 @@ The function uses atomic operations to maintain a lock-free linked list of proce
   - [pg_atomic_write_u32](../p/pg_atomic_write_u32.md)
   - [pg_atomic_compare_exchange_u32](../p/pg_atomic_compare_exchange_u32.md)
   - [pg_atomic_exchange_u32](../p/pg_atomic_exchange_u32.md)
-  - pgstat_report_wait_start
-  - pgstat_report_wait_end
+  - [pgstat_report_wait_start](../p/pgstat_report_wait_start.md)
+  - [pgstat_report_wait_end](../p/pgstat_report_wait_end.md)
   - [PGSemaphoreLock](PGSemaphoreLock.md)
   - [PGSemaphoreUnlock](PGSemaphoreUnlock.md)
-  - LWLockAcquire
-  - LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - [ProcArrayEndTransactionInternal](ProcArrayEndTransactionInternal.md)
   - pg_write_barrier
 - Called from (representative examples):

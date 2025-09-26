@@ -24,23 +24,23 @@ After detachment, the function nullifies the parallel state reference, effective
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BarrierPhase
-  - BarrierArriveAndDetach
+  - [BarrierPhase](../B/BarrierPhase.md)
+  - [BarrierArriveAndDetach](../B/BarrierArriveAndDetach.md)
   - [sts_end_write](../s/sts_end_write.md)
   - [sts_end_parallel_scan](../s/sts_end_parallel_scan.md)
   - DsaPointerIsValid
   - [dsa_free](../d/dsa_free.md)
 - Data types used:
   - [HashJoinTable](../H/HashJoinTable.md)
-  - ParallelHashJoinState
+  - [ParallelHashJoinState](../P/ParallelHashJoinState.md)
 - Phase constants:
   - PHJ_BUILD_RUN
   - PHJ_BUILD_FREE
 - Special values:
   - InvalidDsaPointer
 - Called from (representative examples):
-  - ExecShutdownHashJoin
-  - ExecHashJoinReInitializeDSM
+  - [ExecShutdownHashJoin](ExecShutdownHashJoin.md)
+  - [ExecHashJoinReInitializeDSM](ExecHashJoinReInitializeDSM.md)
 
 ## Notes and Other Information
 - Only operates when parallel state exists and is in PHJ_BUILD_RUN phase

@@ -32,18 +32,18 @@ The function handles two main scenarios:
 ## Dependencies
 - Functions called/Symbols referenced:
   - `TransactionIdIsValid`
-  - `TransactionIdPrecedes`
-  - `TransactionIdFollows`
+  - `[TransactionIdPrecedes](../T/TransactionIdPrecedes.md)`
+  - `[TransactionIdFollows](../T/TransactionIdFollows.md)`
   - `SerialPage`
   - `SerialNextPage`
-  - `SerialPagePrecedesLogically`
+  - `[SerialPagePrecedesLogically](SerialPagePrecedesLogically.md)`
   - `SerialValue`
-  - `SimpleLruGetBankLock`
-  - `SimpleLruZeroPage`
-  - `SimpleLruReadPage`
-  - `LWLockAcquire`/`LWLockRelease`
+  - `[SimpleLruGetBankLock](SimpleLruGetBankLock.md)`
+  - `[SimpleLruZeroPage](SimpleLruZeroPage.md)`
+  - `[SimpleLruReadPage](SimpleLruReadPage.md)`
+  - `[LWLockAcquire](../L/LWLockAcquire.md)`/`LWLockRelease`
 - Called from (representative examples):
-  - `SummarizeOldestCommittedSxact`
+  - `[SummarizeOldestCommittedSxact](SummarizeOldestCommittedSxact.md)`
 
 ## Notes and Other Information
 - Critical for maintaining serializable isolation level guarantees in PostgreSQL

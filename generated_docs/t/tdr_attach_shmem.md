@@ -21,13 +21,13 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `GetNamedDSMSegment` - Obtains or creates the named DSM segment
-  - `LWLockRegisterTranche` - Registers the lock tranche with the system
-  - `tdr_init_shmem` - Initialization callback for new segments
-  - `TestDSMRegistryStruct` - The structure type for the shared memory segment
+  - `[GetNamedDSMSegment](../G/GetNamedDSMSegment.md)` - Obtains or creates the named DSM segment
+  - `[LWLockRegisterTranche](../L/LWLockRegisterTranche.md)` - Registers the lock tranche with the system
+  - `[tdr_init_shmem](tdr_init_shmem.md)` - Initialization callback for new segments
+  - `[TestDSMRegistryStruct](../T/TestDSMRegistryStruct.md)` - The structure type for the shared memory segment
 - Called from (representative examples):
-  - `set_val_in_shmem` - Before setting values in shared memory
-  - `get_val_in_shmem` - Before reading values from shared memory
+  - `[set_val_in_shmem](../s/set_val_in_shmem.md)` - Before setting values in shared memory
+  - `[get_val_in_shmem](../g/get_val_in_shmem.md)` - Before reading values from shared memory
 
 ## Notes and Other Information
 - This is a static function, accessible only within the same compilation unit

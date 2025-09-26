@@ -29,7 +29,7 @@ The key innovation is that WAL senders prepare to sleep on condition variables b
 - Functions called/Symbols referenced:
   - [ModifyWaitEvent](../M/ModifyWaitEvent.md) (modifies wait event set configuration)
   - [ConditionVariablePrepareToSleep](../C/ConditionVariablePrepareToSleep.md) (prepares to sleep on condition variable)
-  - WaitEventSetWait (waits for events with timeout)
+  - [WaitEventSetWait](WaitEventSetWait.md) (waits for events with timeout)
   - [ConditionVariableCancelSleep](../C/ConditionVariableCancelSleep.md) (cancels condition variable sleep preparation)
   - [proc_exit](../p/proc_exit.md) (exits process on postmaster death)
 - Called from (representative examples):

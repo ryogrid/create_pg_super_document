@@ -17,7 +17,7 @@ freeGinBtreeStack is a cleanup utility function that traverses and deallocates a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReleaseBuffer (buffer deallocation)
+  - [ReleaseBuffer](../R/ReleaseBuffer.md) (buffer deallocation)
   - [pfree](../p/pfree.md) (memory deallocation)
   - InvalidBuffer (buffer validity check constant)
 - Called from (representative examples):

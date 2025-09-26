@@ -20,7 +20,7 @@ This function implements the core logic for detecting SubLink nodes within expre
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SubLink (node type check)
+  - [SubLink](../S/SubLink.md) (node type check)
   - expression_tree_walker (recursive traversal)
   - [checkExprHasSubLink_walker](checkExprHasSubLink_walker.md) (recursive self-call)
 - Called from (representative examples):

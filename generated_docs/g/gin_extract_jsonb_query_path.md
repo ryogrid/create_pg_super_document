@@ -43,7 +43,7 @@ The function handles different query strategies appropriately: containment queri
 - Search modes:
   - GIN_SEARCH_MODE_ALL
 - Types:
-  - JsonPath
+  - [JsonPath](../J/JsonPath.md)
   - Datum
   - Pointer
 - Called from: GIN index access method during query planning

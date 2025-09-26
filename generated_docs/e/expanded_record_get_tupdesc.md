@@ -23,16 +23,16 @@ The tuple descriptor describes the structure of the composite type represented b
 ## Dependencies
 - Functions called/Symbols referenced:
   - likely (branch prediction macro)
-  - expanded_record_fetch_tupdesc
+  - [expanded_record_fetch_tupdesc](expanded_record_fetch_tupdesc.md)
   - ExpandedRecordHeader
 - Called from (representative examples):
-  - ExecEvalFieldSelect
-  - make_expanded_record_from_exprecord
-  - ER_get_flat_size
-  - ER_flatten_into
-  - deconstruct_expanded_record
-  - expanded_record_lookup_field
-  - build_dummy_expanded_header
+  - [ExecEvalFieldSelect](../E/ExecEvalFieldSelect.md)
+  - [make_expanded_record_from_exprecord](../m/make_expanded_record_from_exprecord.md)
+  - [ER_get_flat_size](../E/ER_get_flat_size.md)
+  - [ER_flatten_into](../E/ER_flatten_into.md)
+  - [deconstruct_expanded_record](../d/deconstruct_expanded_record.md)
+  - [expanded_record_lookup_field](expanded_record_lookup_field.md)
+  - [build_dummy_expanded_header](../b/build_dummy_expanded_header.md)
 
 ## Notes and Other Information
 - This is an inline function for maximum performance in hot code paths

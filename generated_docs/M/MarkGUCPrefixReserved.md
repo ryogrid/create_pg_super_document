@@ -25,9 +25,9 @@ Extensions typically call this function after defining all their custom GUC vari
   - [hash_seq_search](../h/hash_seq_search.md)
   - [hash_search](../h/hash_search.md)
   - [RemoveGUCFromLists](../R/RemoveGUCFromLists.md)
-  - GUCHashEntry
-  - config_generic
-  - HASH_SEQ_STATUS
+  - [GUCHashEntry](../G/GUCHashEntry.md)
+  - [config_generic](../c/config_generic.md)
+  - [HASH_SEQ_STATUS](../H/HASH_SEQ_STATUS.md)
   - GUC_CUSTOM_PLACEHOLDER
   - GUC_QUALIFIER_SEPARATOR
   - HASH_REMOVE

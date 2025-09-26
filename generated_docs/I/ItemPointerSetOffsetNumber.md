@@ -25,7 +25,7 @@ The function provides direct access to the ip_posid field of the ItemPointerData
 - Functions called/Symbols referenced:
   - PointerIsValid (assertion validation)
 - Called from (representative examples):
-  - gistFormTuple
+  - [gistFormTuple](../g/gistFormTuple.md)
   - [heap_hot_search_buffer](../h/heap_hot_search_buffer.md)
   - [heap_xlog_insert](../h/heap_xlog_insert.md)
   - GinItemPointerSetOffsetNumber

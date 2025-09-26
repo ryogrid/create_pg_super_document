@@ -23,7 +23,7 @@ This function is a crucial component of pg_upgrade that gathers comprehensive re
 - Functions called/Symbols referenced:
   - [connectToServer](../c/connectToServer.md)
   - [executeQueryOrDie](../e/executeQueryOrDie.md)
-  - pg_malloc
+  - [pg_malloc](../p/pg_malloc.md)
   - [pg_strdup](../p/pg_strdup.md)
   - atooid
   - [PQfnumber](../P/PQfnumber.md)

@@ -30,22 +30,22 @@ VariableSpace is a typedef, so it doesn't have member variables directly. Howeve
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _variable (underlying struct type)
+  - [_variable](../v/_variable.md) (underlying struct type)
   - VariableSubstituteHook (typedef for value transformation)
   - VariableAssignHook (typedef for value validation)
 - Called from (representative examples):
-  - CreateVariableSpace (creates new space)
-  - GetVariable (retrieves variable values)
-  - SetVariable (assigns variable values)
-  - PrintVariables (displays all variables)
-  - SetVariableHooks (configures hook functions)
-  - DeleteVariable (removes variables)
-  - _psqlSettings (main psql settings structure)
+  - [CreateVariableSpace](../C/CreateVariableSpace.md) (creates new space)
+  - [GetVariable](../G/GetVariable.md) (retrieves variable values)
+  - [SetVariable](../S/SetVariable.md) (assigns variable values)
+  - [PrintVariables](../P/PrintVariables.md) (displays all variables)
+  - [SetVariableHooks](../S/SetVariableHooks.md) (configures hook functions)
+  - [DeleteVariable](../D/DeleteVariable.md) (removes variables)
+  - [_psqlSettings](../p/_psqlSettings.md) (main psql settings structure)
 
 ## Notes and Other Information
 - Used in psql's main settings structure (_psqlSettings.vars) to store shell variables like AUTOCOMMIT, PROMPT1, etc.
 - The sentinel node design simplifies list manipulation operations by eliminating special cases for empty lists
-- Variables can be logically unset (value == NULL) while preserving their hook functions
+- [Variables](Variables.md) can be logically unset (value == NULL) while preserving their hook functions
 - The linked list implementation provides O(n) access time but is sufficient for the typically small number of psql variables
 - Memory allocated for VariableSpace and its variables should be cleaned up when the psql session ends
 - Located in src/bin/psql/variables.h:72 as a typedef definition

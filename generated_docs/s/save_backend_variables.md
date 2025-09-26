@@ -35,7 +35,7 @@ This serialization is essential because EXEC_BACKEND child processes do not inhe
   - [write_inheritable_socket](../w/write_inheritable_socket.md) (socket inheritance handling)
   - [write_duplicated_handle](../w/write_duplicated_handle.md) (Windows handle duplication)  
   - [pgwin32_create_signal_listener](../p/pgwin32_create_signal_listener.md) (Windows signal handling)
-  - strlcpy (safe string copying)
+  - [strlcpy](strlcpy.md) (safe string copying)
   - memcpy/memset (memory operations)
   - Various global variables (DataDir, MyCancelKey, SharedMemory pointers, etc.)
 - Called from (representative examples):

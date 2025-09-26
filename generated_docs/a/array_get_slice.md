@@ -43,7 +43,7 @@ The `array_get_slice` function creates a new array containing a specified slice 
   - [construct_empty_array](../c/construct_empty_array.md): Creates empty array for invalid slices
   - [mda_get_range](../m/mda_get_range.md): Calculates span dimensions from bounds
   - [array_slice_size](array_slice_size.md): Calculates required memory for slice data
-  - `ArrayGetNItems`: Calculates total number of items
+  - `[ArrayGetNItems](../A/ArrayGetNItems.md)`: Calculates total number of items
   - `ARR_OVERHEAD_WITHNULLS`, `ARR_OVERHEAD_NONULLS`: Array header size calculations
   - [array_extract_slice](array_extract_slice.md): Extracts actual slice data into new array
   - `SET_VARSIZE`: Sets variable-length header size

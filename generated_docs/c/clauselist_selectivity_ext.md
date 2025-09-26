@@ -54,7 +54,7 @@ The algorithm significantly improves selectivity estimation accuracy compared to
   - [is_pseudo_constant_clause_relids](../i/is_pseudo_constant_clause_relids.md)
   - [is_pseudo_constant_clause](../i/is_pseudo_constant_clause.md)
   - [get_oprrest](../g/get_oprrest.md)
-  - nulltestsel
+  - [nulltestsel](../n/nulltestsel.md)
   - [NumRelids](../N/NumRelids.md)
   - RTE_RELATION
   - DEFAULT_INEQ_SEL
@@ -69,7 +69,7 @@ The algorithm significantly improves selectivity estimation accuracy compared to
 ## Notes and Other Information
 This function represents the heart of PostgreSQL's selectivity estimation engine and is critical for accurate cost-based query optimization. Key implementation notes:
 
-- Range query optimization uses the insight that for "x > a AND x < b", the selectivity is the overlap of ranges rather than their product
+- [Range](../R/Range.md) query optimization uses the insight that for "x > a AND x < b", the selectivity is the overlap of ranges rather than their product
 - Extended statistics integration allows capturing real-world column correlations that independence assumptions miss
 - The algorithm maintains a range query list (rqlist) to track and pair comparison operators
 - Handles edge cases like pseudoconstant clauses, default selectivity punting, and numerical precision issues

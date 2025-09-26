@@ -38,7 +38,7 @@ RBTNode serves as the base structure for all nodes in PostgreSQL's red-black tre
   - [rbt_rotate_left](../r/rbt_rotate_left.md) (tree rotation)
   - [rbt_rotate_right](../r/rbt_rotate_right.md) (tree rotation)
   - [GinEntryAccumulator](../G/GinEntryAccumulator.md) (GIN index usage)
-  - IntRBTreeNode (test module usage)
+  - [IntRBTreeNode](../I/IntRBTreeNode.md) (test module usage)
 
 ## Notes and Other Information
 - [RBTNode](RBTNode.md) must be treated as an opaque structure by callers - direct manipulation of its fields should be avoided

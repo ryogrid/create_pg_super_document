@@ -20,7 +20,7 @@ This function is responsible for cleaning up statistics tracking data when a dat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_drop_transactional
+  - [pgstat_drop_transactional](pgstat_drop_transactional.md)
   - PGSTAT_KIND_DATABASE
 - Called from (representative examples):
   - [dropdb](../d/dropdb.md) (in src/backend/commands/dbcommands.c:1777)

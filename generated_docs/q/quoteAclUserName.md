@@ -30,7 +30,7 @@ When double quotes are present in the role name itself, they are escaped by doub
 ## Dependencies
 - Functions called/Symbols referenced:
   - isalnum (for checking alphanumeric characters)
-  - appendPQExpBufferChar (for adding characters to the output buffer)
+  - [appendPQExpBufferChar](../a/appendPQExpBufferChar.md) (for adding characters to the output buffer)
 
 - Called from (representative examples):
   - [getNamespaces](../g/getNamespaces.md) (in pg_dump.c, multiple times for building namespace ACL queries)

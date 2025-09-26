@@ -21,20 +21,20 @@ AtEOSubXact_PgStat_DroppedStats is the subtransaction counterpart to AtEOXact_Pg
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dclist_count
-  - pgstat_get_xact_stack_level
+  - [dclist_count](../d/dclist_count.md)
+  - [pgstat_get_xact_stack_level](../p/pgstat_get_xact_stack_level.md)
   - dclist_foreach_modify
   - dclist_container
-  - dclist_delete_from
-  - dclist_push_tail
-  - pgstat_drop_entry
-  - pgstat_request_entry_refs_gc
-  - pfree
-  - PgStat_PendingDroppedStatsItem (struct type)
-  - xl_xact_stats_item (struct type)
-  - dlist_mutable_iter (struct type)
+  - [dclist_delete_from](../d/dclist_delete_from.md)
+  - [dclist_push_tail](../d/dclist_push_tail.md)
+  - [pgstat_drop_entry](../p/pgstat_drop_entry.md)
+  - [pgstat_request_entry_refs_gc](../p/pgstat_request_entry_refs_gc.md)
+  - [pfree](../p/pfree.md)
+  - [PgStat_PendingDroppedStatsItem](../P/PgStat_PendingDroppedStatsItem.md) (struct type)
+  - [xl_xact_stats_item](../x/xl_xact_stats_item.md) (struct type)
+  - [dlist_mutable_iter](../d/dlist_mutable_iter.md) (struct type)
 - Called from (representative examples):
-  - AtEOSubXact_PgStat (src/backend/utils/activity/pgstat_xact.c:125)
+  - [AtEOSubXact_PgStat](AtEOSubXact_PgStat.md) (src/backend/utils/activity/pgstat_xact.c:125)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the pgstat_xact.c file

@@ -27,8 +27,8 @@ This function creates and initializes a new BTPageState structure that manages t
   - BTREE_NONLEAF_FILLFACTOR (fill factor constant for internal pages)
   - BTGetTargetPageFreeSpace (to calculate leaf page fill threshold)
 - Called from (representative examples):
-  - _bt_buildadd
-  - _bt_load
+  - [_bt_buildadd](_bt_buildadd.md)
+  - [_bt_load](_bt_load.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the nbtsort.c compilation unit

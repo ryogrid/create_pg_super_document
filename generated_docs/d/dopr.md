@@ -28,15 +28,15 @@ The function includes extensive formatting control support, including field widt
 ## Dependencies
 - Functions called/Symbols referenced:
   - strchrnul
-  - dostr
-  - find_arguments
-  - fmtint
-  - fmtchar
-  - fmtstr
-  - fmtptr
-  - fmtfloat
+  - [dostr](dostr.md)
+  - [find_arguments](../f/find_arguments.md)
+  - [fmtint](../f/fmtint.md)
+  - [fmtchar](../f/fmtchar.md)
+  - [fmtstr](../f/fmtstr.md)
+  - [fmtptr](../f/fmtptr.md)
+  - [fmtfloat](../f/fmtfloat.md)
   - strerror_r
-  - dopr_outch
+  - [dopr_outch](dopr_outch.md)
 - Called from (representative examples):
   - [pg_vsnprintf](../p/pg_vsnprintf.md)
   - [pg_vsprintf](../p/pg_vsprintf.md)

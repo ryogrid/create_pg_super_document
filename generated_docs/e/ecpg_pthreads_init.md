@@ -23,9 +23,9 @@ This function takes no parameters.
   - [ecpg_actual_connection_init](ecpg_actual_connection_init.md) (initialization callback function)
 - Called from (representative examples):
   - [ecpg_get_connection_nr](ecpg_get_connection_nr.md) (to ensure key is initialized before use)
-  - `ecpg_get_connection` (connection management)
+  - `[ecpg_get_connection](ecpg_get_connection.md)` (connection management)
   - [ECPGconnect](../E/ECPGconnect.md) (when establishing new connections)
-  - `ecpg_do_prologue` (before SQL execution)
+  - `[ecpg_do_prologue](ecpg_do_prologue.md)` (before SQL execution)
 
 ## Notes and Other Information
 - This is a public function (no static qualifier) that can be called from multiple ECPG library modules

@@ -18,8 +18,8 @@ This function creates a new basebackup sink wrapper that adds progress tracking 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbsink (structure type)
-  - bbsink_ops (operations structure)
+  - [bbsink](bbsink.md) (structure type)
+  - [bbsink_ops](bbsink_ops.md) (operations structure)
   - [palloc0](../p/palloc0.md) (memory allocation)
   - [pgstat_progress_start_command](../p/pgstat_progress_start_command.md) (progress reporting)
   - [pgstat_progress_update_param](../p/pgstat_progress_update_param.md) (progress parameter update)
@@ -27,7 +27,7 @@ This function creates a new basebackup sink wrapper that adds progress tracking 
   - PROGRESS_BASEBACKUP_BACKUP_TOTAL (progress parameter constant)
 - Called from (representative examples):
   - [SendBaseBackup](../S/SendBaseBackup.md) (in basebackup.c)
-  - bbsink_cleanup (referenced in basebackup_sink.h)
+  - [bbsink_cleanup](bbsink_cleanup.md) (referenced in basebackup_sink.h)
 
 ## Notes and Other Information
 - The function uses palloc0 to allocate zero-initialized memory for the sink structure

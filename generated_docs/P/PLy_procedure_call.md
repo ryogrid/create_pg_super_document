@@ -27,7 +27,7 @@ This function is the core execution engine for PL/Python procedures. It sets up 
   - [PLy_abort_open_subtransactions](PLy_abort_open_subtransactions.md)
   - PLy_elog
   - PG_TRY/PG_FINALLY/PG_END_TRY
-  - list_length
+  - [list_length](../l/list_length.md)
 - Called from (representative examples):
   - [PLy_exec_function](PLy_exec_function.md)
   - [PLy_exec_trigger](PLy_exec_trigger.md)

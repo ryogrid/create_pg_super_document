@@ -101,20 +101,20 @@ innermost_caseval			      write_location: The DIR pointer to be closed, which sh
   - DO_DB (debug logging macro)
   - AllocateDesc (descriptor structure type)
   - AllocateDescDir (enum value for directory descriptor type)
-  - FreeDesc (function to free a descriptor)
-  - closedir (system call to close directory)
+  - [FreeDesc](FreeDesc.md) (function to free a descriptor)
+  - [closedir](../c/closedir.md) (system call to close directory)
   - elog (PostgreSQL logging function)
 - Called from (representative examples):
-  - SlruScanDirectory
-  - XLogGetOldestSegno
-  - RemoveOldXlogFiles
-  - perform_base_backup
-  - sendDir
-  - movedb
-  - copydir
-  - RemovePgTempFiles
-  - SyncDataDirectory
-  - pg_ls_dir
+  - [SlruScanDirectory](../S/SlruScanDirectory.md)
+  - [XLogGetOldestSegno](../X/XLogGetOldestSegno.md)
+  - [RemoveOldXlogFiles](../R/RemoveOldXlogFiles.md)
+  - [perform_base_backup](../p/perform_base_backup.md)
+  - [sendDir](../s/sendDir.md)
+  - [movedb](../m/movedb.md)
+  - [copydir](../c/copydir.md)
+  - [RemovePgTempFiles](../R/RemovePgTempFiles.md)
+  - [SyncDataDirectory](../S/SyncDataDirectory.md)
+  - [pg_ls_dir](../p/pg_ls_dir.md)
 
 ## Notes and Other Information
 - Returns closedir's return value (with errno set if it's not 0) when successful

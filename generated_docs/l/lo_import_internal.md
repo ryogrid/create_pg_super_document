@@ -26,13 +26,13 @@ The function performs several key operations:
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PreventCommandIfReadOnly](../P/PreventCommandIfReadOnly.md)
-  - text_to_cstring_buffer
-  - OpenTransientFile
+  - [text_to_cstring_buffer](../t/text_to_cstring_buffer.md)
+  - [OpenTransientFile](../O/OpenTransientFile.md)
   - [inv_create](../i/inv_create.md)
   - [inv_open](../i/inv_open.md)
   - [inv_write](../i/inv_write.md)
   - [inv_close](../i/inv_close.md)
-  - CloseTransientFile
+  - [CloseTransientFile](../C/CloseTransientFile.md)
 - Called from (representative examples):
   - [be_lo_import](../b/be_lo_import.md)
   - [be_lo_import_with_oid](../b/be_lo_import_with_oid.md)

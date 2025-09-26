@@ -24,9 +24,9 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetTransactionSnapshot
-  - PushActiveSnapshot
-  - PopActiveSnapshot
+  - [GetTransactionSnapshot](../G/GetTransactionSnapshot.md)
+  - [PushActiveSnapshot](../P/PushActiveSnapshot.md)
+  - [PopActiveSnapshot](../P/PopActiveSnapshot.md)
   - [GetLockMethodLocalHash](../G/GetLockMethodLocalHash.md)
   - [hash_seq_init](../h/hash_seq_init.md)
   - [hash_seq_search](../h/hash_seq_search.md)
@@ -36,9 +36,9 @@ This function takes no parameters.
   - [AssertPendingSyncConsistency](AssertPendingSyncConsistency.md)
   - [repalloc](../r/repalloc.md)
 - Data structures used:
-  - HASH_SEQ_STATUS
+  - [HASH_SEQ_STATUS](../H/HASH_SEQ_STATUS.md)
   - [LOCALLOCK](../L/LOCALLOCK.md)
-  - RelIdCacheEnt
+  - [RelIdCacheEnt](../R/RelIdCacheEnt.md)
   - LOCKTAG_RELATION
 - Called from:
   - [smgrDoPendingSyncs](../s/smgrDoPendingSyncs.md) (in storage.c)

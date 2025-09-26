@@ -26,11 +26,11 @@ The function implements an array-based lookup system with a linear search, which
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GenericXLogState (struct type for the state parameter)
+  - [GenericXLogState](GenericXLogState.md) (struct type for the state parameter)
   - PageData (struct type for individual page tracking)
   - MAX_GENERIC_XLOG_PAGES (constant defining maximum concurrent registrations)
   - BufferIsInvalid (macro to check for invalid buffer identifiers)
-  - BufferGetPage (function to retrieve page data from buffer)
+  - [BufferGetPage](../B/BufferGetPage.md) (function to retrieve page data from buffer)
   - BLCKSZ (constant for PostgreSQL block/page size)
   - Page (typedef for page pointer)
   - memcpy (standard library function for memory copying)

@@ -22,7 +22,7 @@ This function implements the conversion from ISO 8601 week date format to Julian
 ## Dependencies
 - Functions called/Symbols referenced:
   - [date2j](../d/date2j.md) (converts Gregorian date to Julian day number)
-  - j2day (converts Julian day to day-of-week number)
+  - [j2day](../j/j2day.md) (converts Julian day to day-of-week number)
 - Called from (representative examples):
   - [do_to_timestamp](../d/do_to_timestamp.md) (in formatting.c:4908)
   - [isoweek2date](isoweek2date.md) (in timestamp.c:5138)

@@ -28,15 +28,15 @@ The node uses two key identifiers: ctePlanId references the SubPlan that compute
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Scan (base structure)
+  - [Scan](../S/Scan.md) (base structure)
   
 - Called from (representative examples):
-  - ExecInitCteScan (executor initialization)
-  - create_ctescan_plan (plan creation)
-  - make_ctescan (plan node construction)
-  - set_plan_refs (plan reference setting)
-  - finalize_plan (plan finalization)
-  - set_deparse_plan (plan deparsing for rule utilities)
+  - [ExecInitCteScan](../E/ExecInitCteScan.md) (executor initialization)
+  - [create_ctescan_plan](../c/create_ctescan_plan.md) (plan creation)
+  - [make_ctescan](../m/make_ctescan.md) (plan node construction)
+  - [set_plan_refs](../s/set_plan_refs.md) (plan reference setting)
+  - [finalize_plan](../f/finalize_plan.md) (plan finalization)
+  - [set_deparse_plan](../s/set_deparse_plan.md) (plan deparsing for rule utilities)
 
 ## Notes and Other Information
 - Essential for implementing SQL WITH clauses and Common Table Expressions

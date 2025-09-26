@@ -32,16 +32,16 @@ The function ensures consistent ordering by sorting child OIDs and implements pr
   - [has_subclass](../h/has_subclass.md)
   - [systable_beginscan](../s/systable_beginscan.md)
   - [systable_getnext](../s/systable_getnext.md)
-  - ActiveSnapshotSet
+  - [ActiveSnapshotSet](../A/ActiveSnapshotSet.md)
   - HeapTupleHeaderGetXmin
-  - GetActiveSnapshot
+  - [GetActiveSnapshot](../G/GetActiveSnapshot.md)
   - [XidInMVCCSnapshot](../X/XidInMVCCSnapshot.md)
   - [TransactionIdFollows](../T/TransactionIdFollows.md)
   - qsort (with oid_cmp)
   - [LockRelationOid](../L/LockRelationOid.md)
   - SearchSysCacheExists1
   - [UnlockRelationOid](../U/UnlockRelationOid.md)
-  - lappend_oid
+  - [lappend_oid](../l/lappend_oid.md)
   - [repalloc](../r/repalloc.md)
 - Called from (representative examples):
   - [find_inheritance_children](find_inheritance_children.md) (src/backend/catalog/pg_inherits.c:60)

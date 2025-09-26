@@ -26,7 +26,7 @@ This function combines two range tables by appending the source range table entr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_length (to calculate offset)
+  - [list_length](../l/list_length.md) (to calculate offset)
   - [list_concat](../l/list_concat.md) (to merge lists)
   - lfirst_node (to access RangeTblEntry nodes)
   - foreach (list iteration macro)

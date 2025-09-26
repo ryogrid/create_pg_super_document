@@ -31,8 +31,8 @@ This function takes no parameters and operates on global state:
   - SetConstraintState (referenced but not called directly)
 - Called from:
   - [MakeTransitionCaptureState](../M/MakeTransitionCaptureState.md) (src/backend/commands/trigger.c:5020)
-  - AfterTriggerSaveEvent (src/backend/commands/trigger.c:6177)  
-  - before_stmt_triggers_fired (src/backend/commands/trigger.c:6556)
+  - [AfterTriggerSaveEvent](AfterTriggerSaveEvent.md) (src/backend/commands/trigger.c:6177)  
+  - [before_stmt_triggers_fired](../b/before_stmt_triggers_fired.md) (src/backend/commands/trigger.c:6556)
 
 ## Notes and Other Information
 - Memory allocation occurs in TopTransactionContext to ensure proper cleanup

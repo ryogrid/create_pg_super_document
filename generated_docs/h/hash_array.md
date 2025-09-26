@@ -49,7 +49,7 @@ The hash algorithm provides good distribution properties for arrays up to 2^27 e
 - Uses type cache to avoid repeated hash function lookups, improving performance for index operations
 - NULL elements are assigned hash value 0 for consistent behavior
 - Special handling for RECORD types by creating fake type cache entries
-- Hash algorithm provides good distribution for arrays with up to 134 million elements (2^27)
+- [Hash](../H/Hash.md) algorithm provides good distribution for arrays with up to 134 million elements (2^27)
 - Multiplicative constant 31 is chosen for good hash distribution properties
 - Handles toasted arrays properly by freeing detoasted copies to prevent memory leaks
 - The hash result incorporates all array elements but not array metadata (dimensions, bounds)

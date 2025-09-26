@@ -22,12 +22,12 @@ This function retrieves the user's home directory and stores it in the provided 
 - Functions called/Symbols referenced:
   - getenv (Unix: get HOME environment variable)
   - geteuid (Unix: get effective user ID)
-  - pg_get_user_home_dir (Unix: fallback home directory lookup)
-  - strlcpy (Unix: safe string copy)
+  - [pg_get_user_home_dir](pg_get_user_home_dir.md) (Unix: fallback home directory lookup)
+  - [strlcpy](../s/strlcpy.md) (Unix: safe string copy)
   - SHGetFolderPath (Windows: get application data folder)
   - snprintf (Windows: format path string)
 - Called from (representative examples):
-  - pqConnectOptions2
+  - [pqConnectOptions2](pqConnectOptions2.md)
   - [parseServiceInfo](parseServiceInfo.md)
   - [initialize_SSL](../i/initialize_SSL.md)
 

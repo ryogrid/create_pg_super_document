@@ -28,9 +28,9 @@ The error reporting is designed to be helpful for system administrators by inclu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgtls_verify_peer_name_matches_certificate_guts (SSL library-specific verification implementation)
+  - [pgtls_verify_peer_name_matches_certificate_guts](pgtls_verify_peer_name_matches_certificate_guts.md) (SSL library-specific verification implementation)
   - [libpq_ngettext](../l/libpq_ngettext.md) (PostgreSQL internationalization function)
-  - appendPQExpBufferChar (libpq error message formatting)
+  - [appendPQExpBufferChar](../a/appendPQExpBufferChar.md) (libpq error message formatting)
   - [libpq_append_conn_error](../l/libpq_append_conn_error.md) (libpq error handling)
   - strcmp (C standard library)
   - free (C standard library)

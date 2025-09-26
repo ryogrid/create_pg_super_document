@@ -23,8 +23,8 @@ ExecInitTidScan performs comprehensive initialization of a TID scan node for exe
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to create TidScanState structure)
-  - ExecAssignExprContext (to create expression context)
-  - ExecOpenScanRelation (to open the target relation)
+  - [ExecAssignExprContext](ExecAssignExprContext.md) (to create expression context)
+  - [ExecOpenScanRelation](ExecOpenScanRelation.md) (to open the target relation)
   - [ExecInitScanTupleSlot](ExecInitScanTupleSlot.md) (to initialize scan tuple slot)
   - RelationGetDescr (to get relation tuple descriptor)
   - [table_slot_callbacks](../t/table_slot_callbacks.md) (to get table-specific slot callbacks)

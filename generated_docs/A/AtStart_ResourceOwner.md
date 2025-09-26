@@ -27,7 +27,7 @@ This ensures proper resource tracking and cleanup when the transaction ends, eit
 ## Dependencies
 - Functions called/Symbols referenced:
   - TransactionState (at line 1222)
-  - ResourceOwnerCreate (at line 1232)
+  - [ResourceOwnerCreate](../R/ResourceOwnerCreate.md) (at line 1232)
   - CurrentTransactionState (global variable)
 - Called from (representative examples):
   - [StartTransaction](../S/StartTransaction.md) (src/backend/access/transam/xact.c:2105)

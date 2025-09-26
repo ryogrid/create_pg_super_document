@@ -28,8 +28,8 @@ The goal is to have new scans start close to where existing scans are currently 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire
-  - LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - [ss_search](ss_search.md) (internal function)
   - SyncScanLock (lock identifier)
 - Called from (representative examples):

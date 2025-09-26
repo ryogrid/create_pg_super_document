@@ -25,16 +25,16 @@ The growth algorithm follows the pattern: new_size = old_size + (old_size >> 1) 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WORK_AROUND_QTBUG_53071
-  - memory_exhausted
-  - size_product  
-  - erealloc
+  - [WORK_AROUND_QTBUG_53071](../W/WORK_AROUND_QTBUG_53071.md)
+  - [memory_exhausted](../m/memory_exhausted.md)
+  - [size_product](../s/size_product.md)  
+  - [erealloc](../e/erealloc.md)
 
 - Called from (representative examples):
-  - inrule
-  - inzsub
-  - inlink
-  - addtt
+  - [inrule](../i/inrule.md)
+  - [inzsub](../i/inzsub.md)
+  - [inlink](../i/inlink.md)
+  - [addtt](../a/addtt.md)
 
 ## Notes and Other Information
 - This function is static, meaning it's only accessible within src/timezone/zic.c

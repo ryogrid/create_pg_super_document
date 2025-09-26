@@ -22,12 +22,12 @@ The  function converts an array of Point structures into a properly formatted st
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initStringInfo
-  - appendStringInfoChar
-  - pair_encode
+  - [initStringInfo](../i/initStringInfo.md)
+  - [appendStringInfoChar](../a/appendStringInfoChar.md)
+  - [pair_encode](pair_encode.md)
   - [Point](../P/Point.md) (struct)
   - path_delim (enum)
-  - PATH_CLOSED, PATH_OPEN, PATH_NONE (enum values)
+  - [PATH_CLOSED](../P/PATH_CLOSED.md), PATH_OPEN, PATH_NONE (enum values)
   - LDELIM, RDELIM, LDELIM_EP, RDELIM_EP, DELIM (delimiter constants)
 - Called from (representative examples):
   - [box_out](../b/box_out.md)

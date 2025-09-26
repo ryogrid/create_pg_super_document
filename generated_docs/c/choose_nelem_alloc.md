@@ -20,7 +20,7 @@ choose_nelem_alloc calculates the optimal number of hash table elements to alloc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HASHELEMENT
+  - [HASHELEMENT](../H/HASHELEMENT.md)
 - Called from (representative examples):
   - [init_htab](../i/init_htab.md)
   - [hash_estimate_size](../h/hash_estimate_size.md)

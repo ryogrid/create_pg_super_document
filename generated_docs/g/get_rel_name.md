@@ -37,7 +37,7 @@ This function retrieves the name of a PostgreSQL relation from the system catalo
   - [DefineRelation](../D/DefineRelation.md)
   - [ExecCheckPermissions](../E/ExecCheckPermissions.md)
   - [do_autovacuum](../d/do_autovacuum.md)
-  - get_relation_name
+  - [get_relation_name](get_relation_name.md)
   - [SysCacheGetAttrNotNull](../S/SysCacheGetAttrNotNull.md)
 
 ## Notes and Other Information

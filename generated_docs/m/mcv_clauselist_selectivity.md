@@ -31,10 +31,10 @@ This function determines which MCV items match every clause in an ANDed list and
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - StatisticExtInfo, JoinType, SpecialJoinInfo, MCVList
-  - statext_mcv_load, mcv_get_match_bitmap
+  - [StatisticExtInfo](../S/StatisticExtInfo.md), JoinType, SpecialJoinInfo, MCVList
+  - [statext_mcv_load](../s/statext_mcv_load.md), mcv_get_match_bitmap
 - Called from (representative examples):
-  - statext_mcv_clauselist_selectivity
+  - [statext_mcv_clauselist_selectivity](../s/statext_mcv_clauselist_selectivity.md)
 
 ## Notes and Other Information
 - This function processes clauses with implicit AND logic (all clauses must match)

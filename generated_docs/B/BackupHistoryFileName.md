@@ -29,7 +29,7 @@ This function generates a standardized filename for backup history files, which 
 - Constants used:
   - MAXFNAMELEN (maximum filename length)
 - Called from (representative examples):
-  - do_pg_backup_stop (in src/backend/access/transam/xlog.c)
+  - [do_pg_backup_stop](../d/do_pg_backup_stop.md) (in src/backend/access/transam/xlog.c)
 
 ## Notes and Other Information
 The generated filename follows the format:  where high and low represent the segment number split across XLogId boundaries, and offset represents the position within the segment. This naming convention ensures that backup history files are uniquely identifiable and can be sorted chronologically.

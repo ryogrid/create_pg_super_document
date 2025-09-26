@@ -22,13 +22,13 @@ The function converts the slot number to the corresponding leaf node index by ad
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `PageGetContents`: Extracts page contents as FSMPage structure
+  - `[PageGetContents](../P/PageGetContents.md)`: Extracts page contents as FSMPage structure
   - `FSMPage`: Type representing Free Space Map page data
   - `LeafNodesPerPage`: Constant defining number of leaf nodes per page
   - `NonLeafNodesPerPage`: Constant defining number of non-leaf nodes (used to calculate leaf node offset)
 - Called from (representative examples):
-  - `GetRecordedFreeSpace`: Retrieves recorded free space information
-  - `fsm_vacuum_page`: Reads current free space values during vacuum operations
+  - `[GetRecordedFreeSpace](../G/GetRecordedFreeSpace.md)`: Retrieves recorded free space information
+  - `[fsm_vacuum_page](fsm_vacuum_page.md)`: Reads current free space values during vacuum operations
 
 ## Notes and Other Information
 - This is a read-only function that doesn't require page locking due to single-byte atomic access

@@ -30,7 +30,7 @@ The function handles both empty and populated records appropriately - copying ex
   - [deconstruct_expanded_record](../d/deconstruct_expanded_record.md)
   - VARATT_IS_EXTERNAL
   - [domain_check](../d/domain_check.md)
-  - ExpandedRecordGetRODatum
+  - [ExpandedRecordGetRODatum](../E/ExpandedRecordGetRODatum.md)
   - [MemoryContextReset](../M/MemoryContextReset.md)
 - Called from (representative examples):
   - [expanded_record_set_field_internal](../e/expanded_record_set_field_internal.md)

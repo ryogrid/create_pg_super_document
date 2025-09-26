@@ -35,9 +35,9 @@ This function is essential for debugging heap algorithms, verifying heap propert
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pairingheap_dump_recurse (for recursive tree traversal)
-  - pstrdup (for empty heap string duplication)
-  - initStringInfo (for buffer initialization)
+  - [pairingheap_dump_recurse](pairingheap_dump_recurse.md) (for recursive tree traversal)
+  - [pstrdup](pstrdup.md) (for empty heap string duplication)
+  - [initStringInfo](../i/initStringInfo.md) (for buffer initialization)
 - Called from (representative examples):
   - No direct callers found (likely used in debugging contexts)
 

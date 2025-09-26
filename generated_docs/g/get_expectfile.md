@@ -22,7 +22,7 @@ This function enables PostgreSQL's regression testing framework to use different
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _resultmap (struct type)
+  - [_resultmap](../r/_resultmap.md) (struct type)
   - [test](../t/test.md) (struct member access)
 - Called from (representative examples):
   - [results_differ](../r/results_differ.md)

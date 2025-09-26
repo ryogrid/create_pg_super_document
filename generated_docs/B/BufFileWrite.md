@@ -30,16 +30,16 @@ The write process is entirely buffered - data is copied to the internal buffer a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufFileDumpBuffer (internal function to flush buffer contents to disk)
+  - [BufFileDumpBuffer](BufFileDumpBuffer.md) (internal function to flush buffer contents to disk)
 - Called from (representative examples):
-  - WriteTempFileBlock (GIST index building operations)
-  - AppendStringToManifest (backup manifest creation)
-  - ExecHashJoinSaveTuple (hash join tuple spooling)
-  - subxact_info_write (logical replication subtransaction state)
-  - stream_write_change (logical replication streaming)
-  - ltsWriteBlock (log tape system for sorting)
-  - sts_flush_chunk (shared tuplestore chunk writing)
-  - writetup_heap (tuplestore heap writing)
+  - [WriteTempFileBlock](../W/WriteTempFileBlock.md) (GIST index building operations)
+  - [AppendStringToManifest](../A/AppendStringToManifest.md) (backup manifest creation)
+  - [ExecHashJoinSaveTuple](../E/ExecHashJoinSaveTuple.md) (hash join tuple spooling)
+  - [subxact_info_write](../s/subxact_info_write.md) (logical replication subtransaction state)
+  - [stream_write_change](../s/stream_write_change.md) (logical replication streaming)
+  - [ltsWriteBlock](../l/ltsWriteBlock.md) (log tape system for sorting)
+  - [sts_flush_chunk](../s/sts_flush_chunk.md) (shared tuplestore chunk writing)
+  - [writetup_heap](../w/writetup_heap.md) (tuplestore heap writing)
 
 ## Notes and Other Information
 - Asserts that the file is not read-only before proceeding with write operations

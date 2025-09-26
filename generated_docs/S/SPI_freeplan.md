@@ -20,7 +20,7 @@ SPI_freeplan completely deallocates an SPI execution plan and all its associated
 ## Dependencies
 - Functions called/Symbols referenced:
   - _SPI_PLAN_MAGIC
-  - CachedPlanSource
+  - [CachedPlanSource](../C/CachedPlanSource.md)
   - [DropCachedPlan](../D/DropCachedPlan.md)
   - [MemoryContextDelete](../M/MemoryContextDelete.md)
   - SPI_ERROR_ARGUMENT

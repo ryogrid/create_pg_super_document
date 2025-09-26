@@ -29,7 +29,7 @@ The structure represents a WAL record of type `XLOG_REPLORIGIN_DROP` and contain
 - Called from (representative examples):
   - [replorigin_desc](../r/replorigin_desc.md) (WAL record description function)
   - [replorigin_redo](../r/replorigin_redo.md) (WAL record replay function)
-  - replorigin_state_clear (clears replication state during drop operation)
+  - [replorigin_state_clear](../r/replorigin_state_clear.md) (clears replication state during drop operation)
 
 ## Notes and Other Information
 - This structure is part of PostgreSQL's logical replication infrastructure for managing replication origins

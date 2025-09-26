@@ -34,7 +34,7 @@ The function ensures referential integrity is maintained during detachment and h
   - [RelationGetPartitionDesc](../R/RelationGetPartitionDesc.md)
   - [get_default_oid_from_partdesc](../g/get_default_oid_from_partdesc.md)
   - [LockRelationOid](../L/LockRelationOid.md)
-  - table_openrv
+  - [table_openrv](../t/table_openrv.md)
   - [RemoveInheritance](../R/RemoveInheritance.md)
   - [MarkInheritDetached](../M/MarkInheritDetached.md)
   - [ATDetachCheckNoForeignKeyRefs](ATDetachCheckNoForeignKeyRefs.md)

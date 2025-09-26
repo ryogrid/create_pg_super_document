@@ -34,11 +34,11 @@ The function maintains execution state and coordinates between the plan tree exe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - EnterParallelMode/ExitParallelMode (parallel execution control)
+  - [EnterParallelMode](EnterParallelMode.md)/ExitParallelMode (parallel execution control)
   - ResetPerTupleExprContext (expression context cleanup per tuple)
-  - ExecProcNode (retrieves next tuple from plan tree)
+  - [ExecProcNode](ExecProcNode.md) (retrieves next tuple from plan tree)
   - TupIsNull (checks for null tuple indicating end of data)
-  - ExecFilterJunk (removes junk attributes from tuples)
+  - [ExecFilterJunk](ExecFilterJunk.md) (removes junk attributes from tuples)
   - [ExecShutdownNode](ExecShutdownNode.md) (releases resources when backward scanning not needed)
   - Various constants: CMD_SELECT, EXEC_FLAG_BACKWARD
 - Called from:

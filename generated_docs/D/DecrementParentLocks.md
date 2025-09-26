@@ -19,11 +19,11 @@ The function walks up the lock hierarchy starting from the given target tag, fin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetParentPredicateLockTag
+  - [GetParentPredicateLockTag](../G/GetParentPredicateLockTag.md)
   - PredicateLockTargetTagHashCode
   - [hash_search_with_hash_value](../h/hash_search_with_hash_value.md)
   - [PREDICATELOCKTARGETTAG](../P/PREDICATELOCKTARGETTAG.md) (struct)
-  - LOCALPREDICATELOCK (struct)
+  - [LOCALPREDICATELOCK](../L/LOCALPREDICATELOCK.md) (struct)
   - HASH_FIND, HASH_REMOVE (constants)
 - Called from (representative examples):
   - [DeleteChildTargetLocks](DeleteChildTargetLocks.md)

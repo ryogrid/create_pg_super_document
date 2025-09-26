@@ -25,7 +25,7 @@ The function constructs human-readable tags combining table and column names for
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - createPQExpBuffer
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)
   - [pg_strdup](../p/pg_strdup.md)
   - fmtQualifiedDumpable
   - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
@@ -33,7 +33,7 @@ The function constructs human-readable tags combining table and column names for
   - [psprintf](../p/psprintf.md)
   - [ArchiveEntry](../A/ArchiveEntry.md)
   - free
-  - destroyPQExpBuffer
+  - [destroyPQExpBuffer](destroyPQExpBuffer.md)
 - Types referenced:
   - [Archive](../A/Archive.md)
   - [AttrDefInfo](../A/AttrDefInfo.md)

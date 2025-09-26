@@ -21,7 +21,7 @@ This function is specifically designed to support SSPI authentication configurat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_realloc
+  - [pg_realloc](../p/pg_realloc.md)
 - Called from (representative examples):
   - CW (macro or function, called twice)
 

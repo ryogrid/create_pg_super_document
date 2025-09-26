@@ -26,13 +26,13 @@ The function automatically restarts the scan if new referenced relations are dis
 ## Dependencies
 - Functions called/Symbols referenced:
   - [list_copy](../l/list_copy.md)
-  - table_open
+  - [table_open](../t/table_open.md)
   - [systable_beginscan](../s/systable_beginscan.md)
   - [systable_getnext](../s/systable_getnext.md)
   - [systable_endscan](../s/systable_endscan.md)
-  - table_close
+  - [table_close](../t/table_close.md)
   - [list_member_oid](../l/list_member_oid.md)
-  - lappend_oid
+  - [lappend_oid](../l/lappend_oid.md)
   - [list_append_unique_oid](../l/list_append_unique_oid.md)
   - [list_free](../l/list_free.md)
   - [list_sort](../l/list_sort.md)

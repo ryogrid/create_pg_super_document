@@ -24,16 +24,16 @@ The perfect hash approach in the backend provides optimal performance for databa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_unicode_decompinfo (backend only)
+  - [pg_unicode_decompinfo](../p/pg_unicode_decompinfo.md) (backend only)
   - pg_hton32 (backend only)
   - bsearch (frontend only)
-  - conv_compare (frontend only)
+  - [conv_compare](../c/conv_compare.md) (frontend only)
   - lengthof (frontend only)
-  - pg_unicode_decomposition (structure type)
+  - [pg_unicode_decomposition](../p/pg_unicode_decomposition.md) (structure type)
 - Called from (representative examples):
-  - get_canonical_class
-  - get_decomposed_size
-  - decompose_code
+  - [get_canonical_class](get_canonical_class.md)
+  - [get_decomposed_size](get_decomposed_size.md)
+  - [decompose_code](../d/decompose_code.md)
 
 ## Notes and Other Information
 - This is a static function, accessible only within unicode_norm.c

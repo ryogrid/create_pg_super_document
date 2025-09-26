@@ -35,13 +35,13 @@ BlockRefTableBuffer serves as a specialized I/O buffer for reading and writing b
   - BUFSIZE (constant defining the buffer size)
   - pg_crc32c (CRC data type for checksum calculation)
 - Used by:
-  - BlockRefTableReader (for reading operations)
-  - BlockRefTableWriter (multiple references for writing operations)  
-  - WriteBlockRefTable (for serialization operations)
-  - BlockRefTableFlush (for flushing buffered data)
-  - BlockRefTableRead (for reading buffered data)
-  - BlockRefTableWrite (for writing buffered data)
-  - BlockRefTableFileTerminate (for finalizing file operations)
+  - [BlockRefTableReader](BlockRefTableReader.md) (for reading operations)
+  - [BlockRefTableWriter](BlockRefTableWriter.md) (multiple references for writing operations)  
+  - [WriteBlockRefTable](../W/WriteBlockRefTable.md) (for serialization operations)
+  - [BlockRefTableFlush](BlockRefTableFlush.md) (for flushing buffered data)
+  - [BlockRefTableRead](BlockRefTableRead.md) (for reading buffered data)
+  - [BlockRefTableWrite](BlockRefTableWrite.md) (for writing buffered data)
+  - [BlockRefTableFileTerminate](BlockRefTableFileTerminate.md) (for finalizing file operations)
 
 ## Notes and Other Information
 - Defined in src/common/blkreftable.c:171-179 with documentation at lines 168-170

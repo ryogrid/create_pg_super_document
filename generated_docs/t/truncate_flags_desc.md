@@ -22,8 +22,8 @@ This function is specifically used when describing heap truncate WAL records, he
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendStringInfoString
-  - appendStringInfoChar
+  - [appendStringInfoString](../a/appendStringInfoString.md)
+  - [appendStringInfoChar](../a/appendStringInfoChar.md)
   - XLH_TRUNCATE_CASCADE (flag constant)
   - XLH_TRUNCATE_RESTART_SEQS (flag constant)
 - Called from:

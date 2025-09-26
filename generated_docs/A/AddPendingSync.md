@@ -22,7 +22,7 @@ AddPendingSync is a static function that manages deferred synchronization of rel
   - [hash_create](../h/hash_create.md)
   - [hash_search](../h/hash_search.md)
   - [PendingRelSync](../P/PendingRelSync.md)
-  - HASHCTL
+  - [HASHCTL](../H/HASHCTL.md)
   - HASH_ELEM
   - HASH_BLOBS
   - HASH_CONTEXT

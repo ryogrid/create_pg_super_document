@@ -33,7 +33,7 @@ The function is designed to be replaceable by plugins via join search hooks, ena
   - [generate_useful_gather_paths](../g/generate_useful_gather_paths.md): Creates parallel execution paths with Gather nodes
   - [set_cheapest](set_cheapest.md): Identifies and saves the lowest-cost paths
   - [bms_equal](../b/bms_equal.md): Bitmap set equality comparison
-  - pprint: Debug output function (when OPTIMIZER_DEBUG enabled)
+  - [pprint](../p/pprint.md): Debug output function (when OPTIMIZER_DEBUG enabled)
 - Called from (representative examples):
   - [make_rel_from_joinlist](../m/make_rel_from_joinlist.md): When standard join search is selected over GEQO
 

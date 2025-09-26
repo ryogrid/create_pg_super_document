@@ -28,7 +28,7 @@ _hash_getbuf_with_strategy(Relation rel, BlockNumber blkno,
 - Functions called/Symbols referenced:
   - [ReadBufferExtended](../R/ReadBufferExtended.md) (buffer management)
   - [LockBuffer](../L/LockBuffer.md) (buffer locking)
-  - _hash_checkpage (page validation)
+  - [_hash_checkpage](_hash_checkpage.md) (page validation)
   - MAIN_FORKNUM (fork number constant)
   - RBM_NORMAL (read buffer mode)
   - HASH_NOLOCK (no-lock constant)

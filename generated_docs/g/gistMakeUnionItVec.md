@@ -28,7 +28,7 @@ The function handles several edge cases: if all values in a column are NULL, the
   - [GISTENTRY](../G/GISTENTRY.md) (individual GIST entry type)
   - GEVHDRSZ (GistEntryVector header size constant)
   - [index_getattr](../i/index_getattr.md) (extracts attribute value from IndexTuple)
-  - gistdentryinit (initializes a GIST entry)
+  - [gistdentryinit](gistdentryinit.md) (initializes a GIST entry)
   - [FunctionCall2Coll](../F/FunctionCall2Coll.md) (calls a function with collation support)
   - [palloc](../p/palloc.md) (PostgreSQL memory allocation)
 - Called from (representative examples):

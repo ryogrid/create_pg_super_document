@@ -23,7 +23,7 @@ This static function extends the visibility map fork to ensure it contains at le
 - Functions called/Symbols referenced:
   - [ExtendBufferedRelTo](../E/ExtendBufferedRelTo.md)
   - [CacheInvalidateSmgr](../C/CacheInvalidateSmgr.md)
-  - RelationGetSmgr
+  - [RelationGetSmgr](../R/RelationGetSmgr.md)
   - BMR_REL
   - VISIBILITYMAP_FORKNUM
   - EB_CREATE_FORK_IF_NEEDED

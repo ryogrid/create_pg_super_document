@@ -45,7 +45,7 @@ lazy_scan_new_or_empty provides specialized handling for new and empty heap page
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PageIsNew](../P/PageIsNew.md) / PageIsEmpty (page state detection)
-  - GetRecordedFreeSpace / RecordPageWithFreeSpace (FSM management)
+  - [GetRecordedFreeSpace](../G/GetRecordedFreeSpace.md) / RecordPageWithFreeSpace (FSM management)
   - [PageIsAllVisible](../P/PageIsAllVisible.md) / PageSetAllVisible (visibility state management)
   - [visibilitymap_set](../v/visibilitymap_set.md) (visibility map updates)
   - [log_newpage_buffer](log_newpage_buffer.md) (WAL logging)

@@ -34,11 +34,11 @@ This structure is created during the parsing phase of a CREATE TRANSFORM stateme
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TypeName
-  - ObjectWithArgs
+  - [TypeName](../T/TypeName.md)
+  - [ObjectWithArgs](../O/ObjectWithArgs.md)
 - Called from (representative examples):
-  - CreateTransform (command execution function)
-  - ProcessUtilitySlow (utility command dispatcher)
+  - [CreateTransform](CreateTransform.md) (command execution function)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (utility command dispatcher)
 
 ## Notes and Other Information
 - Part of the SQL DDL (Data Definition Language) parse node hierarchy

@@ -31,42 +31,42 @@ The function also handles security considerations by checking whether the curren
 ## Dependencies
 - Functions called/Symbols referenced:
   - MemSet
-  - exprType
-  - exprTypmod
+  - [exprType](exprType.md)
+  - [exprTypmod](exprTypmod.md)
   - IsA
-  - find_base_rel
-  - find_join_rel
-  - has_unique_index
-  - examine_simple_variable
-  - pull_varnos
-  - bms_difference
+  - [find_base_rel](../f/find_base_rel.md)
+  - [find_join_rel](../f/find_join_rel.md)
+  - [has_unique_index](../h/has_unique_index.md)
+  - [examine_simple_variable](examine_simple_variable.md)
+  - [pull_varnos](../p/pull_varnos.md)
+  - [bms_difference](../b/bms_difference.md)
   - bms_is_empty
-  - bms_get_singleton_member
-  - bms_is_member
-  - bms_overlap
-  - bms_free
-  - remove_nulling_relids
-  - list_head
-  - lnext
-  - equal
-  - SearchSysCache3
+  - [bms_get_singleton_member](../b/bms_get_singleton_member.md)
+  - [bms_is_member](../b/bms_is_member.md)
+  - [bms_overlap](../b/bms_overlap.md)
+  - [bms_free](../b/bms_free.md)
+  - [remove_nulling_relids](../r/remove_nulling_relids.md)
+  - [list_head](../l/list_head.md)
+  - [lnext](../l/lnext.md)
+  - [equal](equal.md)
+  - [SearchSysCache3](../S/SearchSysCache3.md)
   - HeapTupleIsValid
-  - ReleaseSysCache
-  - all_rows_selectable
-  - statext_expressions_load
-  - ReleaseDummy
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
+  - [all_rows_selectable](../a/all_rows_selectable.md)
+  - [statext_expressions_load](../s/statext_expressions_load.md)
+  - [ReleaseDummy](../R/ReleaseDummy.md)
   - planner_rt_fetch
 - Called from (representative examples):
-  - get_restriction_variable
-  - get_join_variables
-  - boolvarsel
-  - booltestsel
-  - nulltestsel
-  - estimate_array_length
-  - mergejoinscansel
-  - estimate_num_groups
-  - estimate_hash_bucket_stats
-  - scalararraysel_containment
+  - [get_restriction_variable](../g/get_restriction_variable.md)
+  - [get_join_variables](../g/get_join_variables.md)
+  - [boolvarsel](../b/boolvarsel.md)
+  - [booltestsel](../b/booltestsel.md)
+  - [nulltestsel](../n/nulltestsel.md)
+  - [estimate_array_length](estimate_array_length.md)
+  - [mergejoinscansel](../m/mergejoinscansel.md)
+  - [estimate_num_groups](estimate_num_groups.md)
+  - [estimate_hash_bucket_stats](estimate_hash_bucket_stats.md)
+  - [scalararraysel_containment](../s/scalararraysel_containment.md)
 
 ## Notes and Other Information
 - The function initializes vardata with MemSet to ensure no dangling pointers are returned

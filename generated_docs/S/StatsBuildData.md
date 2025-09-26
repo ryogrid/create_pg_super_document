@@ -31,7 +31,7 @@ StatsBuildData serves as a central data container that provides a unified repres
 - `**nulls`: Pointer to a two-dimensional boolean array where nulls[i][j] indicates if the j-th row's value for the i-th attribute is NULL
 ## Dependencies
 - Functions called/Symbols referenced:
-  - VacAttrStats (referenced for per-attribute statistics metadata)
+  - [VacAttrStats](../V/VacAttrStats.md) (referenced for per-attribute statistics metadata)
 - Called from (representative examples):
   - DependencyGenerator (src/backend/statistics/dependencies.c:73)
   - [dependency_degree](../d/dependency_degree.md) (src/backend/statistics/dependencies.c:221)
@@ -41,7 +41,7 @@ StatsBuildData serves as a central data container that provides a unified repres
   - [make_build_data](../m/make_build_data.md) (src/backend/statistics/extended_stats.c:2456, 2471, 2486, 2487)
   - [statext_mcv_build](../s/statext_mcv_build.md) (src/backend/statistics/mcv.c:180)
   - [build_mss](../b/build_mss.md) (src/backend/statistics/mcv.c:347)
-  - statext_ndistinct_build (src/backend/statistics/mvdistinct.c:88)
+  - [statext_ndistinct_build](../s/statext_ndistinct_build.md) (src/backend/statistics/mvdistinct.c:88)
   - [ndistinct_for_combination](../n/ndistinct_for_combination.md) (src/backend/statistics/mvdistinct.c:425)
 
 ## Notes and Other Information

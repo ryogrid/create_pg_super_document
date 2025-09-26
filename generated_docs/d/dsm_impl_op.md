@@ -36,16 +36,16 @@ This design allows PostgreSQL to support multiple shared memory implementations 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dsm_impl_posix (conditional on USE_DSM_POSIX)
-  - dsm_impl_sysv (conditional on USE_DSM_SYSV) 
-  - dsm_impl_windows (conditional on USE_DSM_WINDOWS)
-  - dsm_impl_mmap (conditional on USE_DSM_MMAP)
+  - [dsm_impl_posix](dsm_impl_posix.md) (conditional on USE_DSM_POSIX)
+  - [dsm_impl_sysv](dsm_impl_sysv.md) (conditional on USE_DSM_SYSV) 
+  - [dsm_impl_windows](dsm_impl_windows.md) (conditional on USE_DSM_WINDOWS)
+  - [dsm_impl_mmap](dsm_impl_mmap.md) (conditional on USE_DSM_MMAP)
 - Called from (representative examples):
-  - dsm_create
-  - dsm_attach
-  - dsm_detach
-  - dsm_backend_startup
-  - dsm_postmaster_startup
+  - [dsm_create](dsm_create.md)
+  - [dsm_attach](dsm_attach.md)
+  - [dsm_detach](dsm_detach.md)
+  - [dsm_backend_startup](dsm_backend_startup.md)
+  - [dsm_postmaster_startup](dsm_postmaster_startup.md)
 
 ## Notes and Other Information
 - Returns true on success, false on failure

@@ -24,11 +24,11 @@ The function uses PostgreSQL's List data structure and associated macros (foreac
 ## Dependencies
 - Functions called/Symbols referenced:
   - [make_jsp_expr_node](make_jsp_expr_node.md) (creates the base expression node structure)
-  - list_length (PostgreSQL function to get List length)
+  - [list_length](../l/list_length.md) (PostgreSQL function to get List length)
   - foreach (PostgreSQL macro for List iteration)
   - lfirst (PostgreSQL macro to extract List cell content)
-  - JsonPathGinNodeType (enum for node types)
-  - JsonPathGinNode (main node structure)
+  - [JsonPathGinNodeType](../J/JsonPathGinNodeType.md) (enum for node types)
+  - [JsonPathGinNode](../J/JsonPathGinNode.md) (main node structure)
   - [List](../L/List.md) and ListCell (PostgreSQL List data structures)
 
 - Called from:

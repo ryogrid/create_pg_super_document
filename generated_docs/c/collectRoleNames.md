@@ -21,7 +21,7 @@ This function initializes the global role name cache used by `getRoleName()` for
 - Functions called/Symbols referenced:
   - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
   - [PQntuples](../P/PQntuples.md)/PQgetvalue
-  - pg_malloc
+  - [pg_malloc](../p/pg_malloc.md)
   - atooid
   - [pg_strdup](../p/pg_strdup.md)
   - [PQclear](../P/PQclear.md)

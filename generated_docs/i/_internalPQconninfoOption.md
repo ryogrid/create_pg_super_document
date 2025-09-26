@@ -52,10 +52,10 @@ The structure serves as the foundation for connection parameter management, supp
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQconninfoOption](../P/PQconninfoOption.md) (public counterpart structure)
-  - PGconn (connection structure where values are stored)
+  - [PGconn](../P/PGconn.md) (connection structure where values are stored)
 - Called from (representative examples):
   - Connection parameter processing functions
-  - PQconndefaults() and related functions
+  - [PQconndefaults](../P/PQconndefaults.md)() and related functions
 
 ## Notes and Other Information
 - Critical synchronization requirement: The first 7 fields must remain identical to PQconninfoOption in libpq-fe.h

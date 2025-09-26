@@ -22,7 +22,7 @@ The function is commonly used in publication-related operations where changes to
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_length: Gets the number of elements in the relation OID list
+  - [list_length](../l/list_length.md): Gets the number of elements in the relation OID list
   - [CacheInvalidateRelcacheByRelid](../C/CacheInvalidateRelcacheByRelid.md): Invalidates cache for individual relations
   - [CacheInvalidateRelcacheAll](../C/CacheInvalidateRelcacheAll.md): Performs a complete relation cache reset
   - MAX_RELCACHE_INVAL_MSGS: Threshold constant determining when to use full cache reset

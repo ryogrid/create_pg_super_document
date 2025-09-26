@@ -30,7 +30,7 @@ The function operates within PostgreSQL's aggregate framework and ensures proper
 ## Dependencies
 - Functions called/Symbols referenced:
   - [AggCheckCallContext](../A/AggCheckCallContext.md)
-  - makeStringInfo
+  - [makeStringInfo](../m/makeStringInfo.md)
   - [json_unique_builder_init](json_unique_builder_init.md)
   - [get_fn_expr_argtype](../g/get_fn_expr_argtype.md)
   - [json_categorize_type](json_categorize_type.md)

@@ -33,17 +33,17 @@ String nodes are extensively used throughout PostgreSQL's parsing and analysis s
   - NodeTag (for node type identification)
 
 - Called from (representative examples):
-  - makeString (creates String nodes)
-  - _outString (serializes String nodes)
-  - _readA_Const (reads String nodes during deserialization)
-  - transformRangeTableFunc (uses String nodes in table function parsing)
-  - FigureColnameInternal (uses String nodes for column name resolution)
-  - get_rule_expr (uses String nodes in rule expression formatting)
-  - typenameTypeMod (uses String nodes for type modifiers)
+  - [makeString](../m/makeString.md) (creates String nodes)
+  - [_outString](../o/_outString.md) (serializes String nodes)
+  - [_readA_Const](../r/_readA_Const.md) (reads String nodes during deserialization)
+  - [transformRangeTableFunc](../t/transformRangeTableFunc.md) (uses String nodes in table function parsing)
+  - [FigureColnameInternal](../F/FigureColnameInternal.md) (uses String nodes for column name resolution)
+  - [get_rule_expr](../g/get_rule_expr.md) (uses String nodes in rule expression formatting)
+  - [typenameTypeMod](../t/typenameTypeMod.md) (uses String nodes for type modifiers)
 
 ## Notes and Other Information
 - The String node includes the `pg_node_attr(special_read_write)` attribute for special serialization handling
-- String nodes can be stored in List structures, unlike plain char* values
+- [String](String.md) nodes can be stored in List structures, unlike plain char* values
 - The `strVal()` macro (defined in value.h:82,87) provides convenient access to the sval field
 - Memory for the sval string is managed through PostgreSQL's memory context system
 - Widely used throughout the parser for representing identifiers, string literals, and various textual constructs

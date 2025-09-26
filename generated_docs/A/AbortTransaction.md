@@ -38,12 +38,12 @@ This function takes no parameters but operates on:
 ## Dependencies
 - Functions called/Symbols referenced:
   - [AtAbort_Memory](AtAbort_Memory.md)/AtAbort_ResourceOwner (emergency memory/resource cleanup)
-  - LWLockReleaseAll (release all lightweight locks immediately)
+  - [LWLockReleaseAll](../L/LWLockReleaseAll.md) (release all lightweight locks immediately)
   - [RecordTransactionAbort](../R/RecordTransactionAbort.md) (record abort in WAL, except for parallel workers)
   - [SetUserIdAndSecContext](../S/SetUserIdAndSecContext.md) (restore user ID and security context)
   - AtEOXact_* functions (end-of-transaction cleanup for various subsystems)
   - AtAbort_* functions (abort-specific cleanup routines)
-  - ResourceOwnerRelease (systematic resource cleanup)
+  - [ResourceOwnerRelease](../R/ResourceOwnerRelease.md) (systematic resource cleanup)
   - [ProcArrayEndTransaction](../P/ProcArrayEndTransaction.md) (remove from process array)
 
 - Called from (representative examples):

@@ -33,10 +33,10 @@ Key features include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - tuplesort_method_name: Gets human-readable name for sort methods
-  - tuplesort_space_type_name: Gets human-readable name for space types
-  - appendStringInfoSpaces: Adds indentation spaces to output buffer
-  - appendStringInfo/appendStringInfoString: Appends formatted text to output buffer
+  - [tuplesort_method_name](../t/tuplesort_method_name.md): Gets human-readable name for sort methods
+  - [tuplesort_space_type_name](../t/tuplesort_space_type_name.md): Gets human-readable name for space types
+  - [appendStringInfoSpaces](../a/appendStringInfoSpaces.md): Adds indentation spaces to output buffer
+  - [appendStringInfo](../a/appendStringInfo.md)/appendStringInfoString: Appends formatted text to output buffer
   - [ExplainOpenGroup](../E/ExplainOpenGroup.md)/ExplainCloseGroup: Creates structured output groups
   - [ExplainPropertyInteger](../E/ExplainPropertyInteger.md)/ExplainPropertyList: Adds properties to structured output
   - unconstify: Removes const qualifier for list operations

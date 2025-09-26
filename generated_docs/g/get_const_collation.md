@@ -29,11 +29,11 @@ This approach ensures that only non-default collations are explicitly shown in t
 ## Dependencies
 - Functions called/Symbols referenced:
   - OidIsValid (macro to check if OID is valid)
-  - get_typcollation (retrieves default collation for a data type)
-  - appendStringInfo (appends formatted text to StringInfo buffer)
-  - generate_collation_name (converts collation OID to collation name)
+  - [get_typcollation](get_typcollation.md) (retrieves default collation for a data type)
+  - [appendStringInfo](../a/appendStringInfo.md) (appends formatted text to StringInfo buffer)
+  - [generate_collation_name](generate_collation_name.md) (converts collation OID to collation name)
 - Called from (representative examples):
-  - get_const_expr (main constant expression decompilation function)
+  - [get_const_expr](get_const_expr.md) (main constant expression decompilation function)
 
 ## Notes and Other Information
 - This is a static function local to ruleutils.c, indicating it's an internal implementation detail

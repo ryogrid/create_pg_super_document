@@ -31,14 +31,14 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationMapInitializePhase2
+  - [RelationMapInitializePhase2](RelationMapInitializePhase2.md)
   - IsBootstrapProcessingMode
-  - MemoryContextSwitchTo
-  - load_relcache_init_file
-  - formrdesc
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [load_relcache_init_file](../l/load_relcache_init_file.md)
+  - [formrdesc](../f/formrdesc.md)
   - CacheMemoryContext
 - Called from (representative examples):
-  - InitPostgres (main caller during backend initialization)
+  - [InitPostgres](../I/InitPostgres.md) (main caller during backend initialization)
 
 ## Notes and Other Information
 - Skips initialization entirely during bootstrap mode since shared catalogs don't exist yet

@@ -23,14 +23,14 @@ The function internally calls attach_internal() with the provided memory locatio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - attach_internal
-  - on_dsm_detach
+  - [attach_internal](../a/attach_internal.md)
+  - [on_dsm_detach](../o/on_dsm_detach.md)
   - [dsa_on_dsm_detach_release_in_place](dsa_on_dsm_detach_release_in_place.md)
   - DSA_HANDLE_INVALID
 - Called from (representative examples):
   - [AttachSession](../A/AttachSession.md) (src/backend/access/common/session.c:174)
   - [ParallelQueryMain](../P/ParallelQueryMain.md) (src/backend/executor/execParallel.c:1434)
-  - pgstat_attach_shmem (src/backend/utils/activity/pgstat_shmem.c:227)
+  - [pgstat_attach_shmem](../p/pgstat_attach_shmem.md) (src/backend/utils/activity/pgstat_shmem.c:227)
 
 ## Notes and Other Information
 - The caller must somehow know the exact memory location that was used when the area was created

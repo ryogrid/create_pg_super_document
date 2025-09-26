@@ -22,7 +22,7 @@ The function requires the slot to be materialized (contain an actual HeapTuple) 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HeapTupleTableSlot (cast target type)
+  - [HeapTupleTableSlot](../H/HeapTupleTableSlot.md) (cast target type)
   - TTS_EMPTY (macro for checking empty slots)
   - HeapTupleHeaderGetRawXmin (extracts xmin from tuple header)
   - [TransactionIdIsCurrentTransactionId](../T/TransactionIdIsCurrentTransactionId.md) (checks if xmin belongs to current transaction)

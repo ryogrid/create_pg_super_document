@@ -32,8 +32,8 @@ This is particularly useful during recovery when dealing with timeline switches,
   - [readTimeLineHistory](../r/readTimeLineHistory.md)
   - [XLogFileRead](XLogFileRead.md)
   - XLByteToSeg
-  - XLogFilePath
-  - TimeLineHistoryEntry
+  - [XLogFilePath](XLogFilePath.md)
+  - [TimeLineHistoryEntry](../T/TimeLineHistoryEntry.md)
 - Called from (representative examples):
   - [WaitForWALToBecomeAvailable](../W/WaitForWALToBecomeAvailable.md)
 

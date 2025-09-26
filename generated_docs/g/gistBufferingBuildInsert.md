@@ -31,7 +31,7 @@ The buffering approach groups tuples by their target locations in the index tree
 ## Dependencies
 - Functions called/Symbols referenced:
   - [gistProcessItup](gistProcessItup.md)
-  - gistProcessEmptyingQueue
+  - [gistProcessEmptyingQueue](gistProcessEmptyingQueue.md)
 - Called from (representative examples):
   - [gistBuildCallback](gistBuildCallback.md)
 

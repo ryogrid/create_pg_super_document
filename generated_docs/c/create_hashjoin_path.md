@@ -40,7 +40,7 @@ This function constructs a HashPath node representing a hash join execution plan
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode
-  - get_joinrel_parampathinfo
+  - [get_joinrel_parampathinfo](../g/get_joinrel_parampathinfo.md)
   - [final_cost_hashjoin](../f/final_cost_hashjoin.md)
 - Called from (representative examples):
   - [try_hashjoin_path](../t/try_hashjoin_path.md)

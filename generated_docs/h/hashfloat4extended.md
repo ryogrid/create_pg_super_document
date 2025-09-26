@@ -25,7 +25,7 @@ The `hashfloat4extended` function is the extended version of `hashfloat4` that s
   - PG_GETARG_INT64
   - PG_RETURN_UINT64
   - isnan
-  - get_float8_nan
+  - [get_float8_nan](../g/get_float8_nan.md)
   - [hash_any_extended](hash_any_extended.md)
 - Called from (representative examples):
   - No direct references found in the codebase

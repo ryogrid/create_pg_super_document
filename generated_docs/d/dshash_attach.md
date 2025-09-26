@@ -25,14 +25,14 @@ The bucket pointers and size information are initially set to safe defaults (NUL
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc
-  - dsa_get_address
+  - [palloc](../p/palloc.md)
+  - [dsa_get_address](dsa_get_address.md)
   - Assert (validates DSHASH_MAGIC)
 - Called from (representative examples):
-  - logicalrep_launcher_attach_dshmem
-  - init_dsm_registry
-  - pgstat_attach_shmem
-  - SharedRecordTypmodRegistryAttach
+  - [logicalrep_launcher_attach_dshmem](../l/logicalrep_launcher_attach_dshmem.md)
+  - [init_dsm_registry](../i/init_dsm_registry.md)
+  - [pgstat_attach_shmem](../p/pgstat_attach_shmem.md)
+  - [SharedRecordTypmodRegistryAttach](../S/SharedRecordTypmodRegistryAttach.md)
 
 ## Notes and Other Information
 - The function validates that the control structure has the correct magic number (DSHASH_MAGIC)

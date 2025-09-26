@@ -57,7 +57,7 @@ If the constraints are equivalent, the function:
   - [deleteDependencyRecordsFor](../d/deleteDependencyRecordsFor.md)/deleteDependencyRecordsForSpecific: Remove dependency records
   - [performDeletion](../p/performDeletion.md)/performMultipleDeletions: Delete redundant triggers and constraints
   - [get_rel_relkind](../g/get_rel_relkind.md): Check if referenced table is partitioned
-  - CommandCounterIncrement: Make catalog changes visible
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md): Make catalog changes visible
 
 - Called from:
   - [CloneFkReferencing](../C/CloneFkReferencing.md): During partition FK constraint cloning process

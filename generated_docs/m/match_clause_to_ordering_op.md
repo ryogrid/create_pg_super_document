@@ -38,7 +38,7 @@ The function validates collation compatibility, checks for proper operand struct
   - [get_commutator](../g/get_commutator.md)
   - [get_op_opfamily_sortfamily](../g/get_op_opfamily_sortfamily.md)
   - list_make2
-  - OpExpr (structure)
+  - [OpExpr](../O/OpExpr.md) (structure)
   - [IndexOptInfo](../I/IndexOptInfo.md) (structure)
 - Called from (representative examples):
   - ec_member_matches_arg

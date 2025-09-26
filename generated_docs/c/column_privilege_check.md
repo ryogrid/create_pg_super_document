@@ -26,7 +26,7 @@ The function specifically handles cases where columns or tables might be dropped
 - Functions called/Symbols referenced:
   - [pg_attribute_aclcheck_ext](../p/pg_attribute_aclcheck_ext.md): Checks column-level access control permissions
   - [pg_class_aclcheck_ext](../p/pg_class_aclcheck_ext.md): Checks table-level access control permissions
-  - AclResult: Enumeration type for access control results
+  - [AclResult](../A/AclResult.md): Enumeration type for access control results
   - InvalidAttrNumber: Constant representing an invalid attribute number
 - Called from (representative examples):
   - [has_column_privilege_name_name_name](../h/has_column_privilege_name_name_name.md)

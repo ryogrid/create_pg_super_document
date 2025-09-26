@@ -27,7 +27,7 @@ The function examines the marked tuple slot in the merge join state and prints e
   - MJ_debugtup (debug macro to print tuple contents)
   - printf (standard C library function for formatted output)
 - Called from (representative examples):
-  - ExecMergeTupleDump (general tuple dumping function that calls this for marked tuple display)
+  - [ExecMergeTupleDump](ExecMergeTupleDump.md) (general tuple dumping function that calls this for marked tuple display)
 
 ## Notes and Other Information
 - This is a debug-only function typically compiled conditionally based on debug build settings

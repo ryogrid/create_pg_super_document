@@ -21,7 +21,7 @@ None - this function takes no parameters and operates on the global sqlca state.
 - Functions called/Symbols referenced:
   - ECPGget_sqlca (to retrieve current sqlca structure)
   - [ecpg_log](../e/ecpg_log.md) (for logging memory errors)
-  - ecpg_gettext (for internationalized error message formatting)
+  - [ecpg_gettext](../e/ecpg_gettext.md) (for internationalized error message formatting)
   - fprintf (to output to stderr)
 - Called from (representative examples):
   - No direct references found (likely called by user application code)

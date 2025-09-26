@@ -33,7 +33,7 @@ The compilation process creates evaluation steps for each qualification expressi
   - [ExecInitExprRec](ExecInitExprRec.md) (recursively compiles each qualification expression)
   - [ExprEvalPushStep](ExprEvalPushStep.md) (adds evaluation steps)
   - [ExecReadyExpr](ExecReadyExpr.md) (finalizes expression for execution)
-  - lappend_int (builds jump target adjustment list)
+  - [lappend_int](../l/lappend_int.md) (builds jump target adjustment list)
   - foreach_ptr, foreach_int (list iteration macros)
   - EEOP_QUAL, EEOP_DONE (opcode constants)
   - EEO_FLAG_IS_QUAL (marks expression for qualification use)

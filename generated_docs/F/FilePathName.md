@@ -27,8 +27,8 @@ The returned string points to an internal buffer that remains valid until the fi
 - Called from (representative examples):
   - [PrepareForIncrementalBackup](../P/PrepareForIncrementalBackup.md) (incremental backup operations)
   - [bbsink_server_archive_contents](../b/bbsink_server_archive_contents.md) (backup sink operations)
-  - BufFileLoadBuffer (buffered file I/O operations)
-  - mdextend (magnetic disk storage manager operations)
+  - [BufFileLoadBuffer](../B/BufFileLoadBuffer.md) (buffered file I/O operations)
+  - [mdextend](../m/mdextend.md) (magnetic disk storage manager operations)
   - [mdreadv](../m/mdreadv.md)/mdwritev (storage manager read/write operations)
 
 ## Notes and Other Information

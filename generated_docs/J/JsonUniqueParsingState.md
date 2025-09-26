@@ -32,14 +32,14 @@ The structure coordinates between the JSON lexer for token processing, the hash 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonLexContext (JSON lexical analyzer)
-  - JsonUniqueCheckState (hash table for key checking)
-  - JsonUniqueStackEntry (stack for nested object tracking)
+  - [JsonLexContext](JsonLexContext.md) (JSON lexical analyzer)
+  - [JsonUniqueCheckState](JsonUniqueCheckState.md) (hash table for key checking)
+  - [JsonUniqueStackEntry](JsonUniqueStackEntry.md) (stack for nested object tracking)
 - Called from (representative examples):
-  - json_unique_object_start (when entering new JSON objects)
-  - json_unique_object_end (when exiting JSON objects)
-  - json_unique_object_field_start (when processing object fields)
-  - json_validate (main JSON validation entry point)
+  - [json_unique_object_start](../j/json_unique_object_start.md) (when entering new JSON objects)
+  - [json_unique_object_end](../j/json_unique_object_end.md) (when exiting JSON objects)
+  - [json_unique_object_field_start](../j/json_unique_object_field_start.md) (when processing object fields)
+  - [json_validate](../j/json_validate.md) (main JSON validation entry point)
 
 ## Notes and Other Information
 - Central control structure that coordinates all aspects of JSON key uniqueness validation

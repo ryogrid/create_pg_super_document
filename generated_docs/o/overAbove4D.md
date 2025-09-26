@@ -24,7 +24,7 @@ This function is used in spatial indexing operations to optimize geometric queri
 - Functions called/Symbols referenced:
   - [overHigher2D](overHigher2D.md)
   - RectBox (type)
-  - RangeBox (type)
+  - [RangeBox](../R/RangeBox.md) (type)
 - Called from (representative examples):
   - [spg_box_quad_inner_consistent](../s/spg_box_quad_inner_consistent.md)
 

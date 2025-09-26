@@ -29,7 +29,7 @@ If an invalid value is provided, the function calls PsqlVarEnumError to display 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_strcasecmp](../p/pg_strcasecmp.md)
-  - PsqlVarEnumError
+  - [PsqlVarEnumError](../P/PsqlVarEnumError.md)
   - PSQL_ECHO_QUERIES
   - PSQL_ECHO_ERRORS
   - PSQL_ECHO_ALL

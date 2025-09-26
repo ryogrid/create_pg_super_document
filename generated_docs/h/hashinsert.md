@@ -30,7 +30,7 @@ Unlike unique indexes, hash indexes don't enforce uniqueness constraints, so the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _hash_convert_tuple
+  - [_hash_convert_tuple](_hash_convert_tuple.md)
   - [index_form_tuple](../i/index_form_tuple.md)
   - RelationGetDescr
   - [_hash_doinsert](_hash_doinsert.md)
@@ -44,4 +44,4 @@ Unlike unique indexes, hash indexes don't enforce uniqueness constraints, so the
 - Silently fails (returns false) if tuple cannot be converted to a valid hash key
 - Properly manages memory by freeing the temporary IndexTuple after insertion
 - The function signature matches the standard IndexAmRoutine->aminsert interface
-- Hash indexes support only single-column keys, reflected in the single-element arrays used internally
+- [Hash](../H/Hash.md) indexes support only single-column keys, reflected in the single-element arrays used internally

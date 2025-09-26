@@ -29,7 +29,7 @@ The  function performs safe multiplication of two Size values (typically size_t)
 - Called from (representative examples):
   - [BTreeShmemSize](../B/BTreeShmemSize.md) (B-tree shared memory size calculation)
   - [XLOGShmemSize](../X/XLOGShmemSize.md) (transaction log shared memory sizing)
-  - BufferShmemSize (buffer pool shared memory sizing)
+  - [BufferShmemSize](../B/BufferShmemSize.md) (buffer pool shared memory sizing)
   - [hash_estimate_size](../h/hash_estimate_size.md) (hash table size estimation)
   - [tuplesort_estimate_shared](../t/tuplesort_estimate_shared.md) (tuple sorting shared memory estimation)
   - [ExecInitParallelPlan](../E/ExecInitParallelPlan.md) (parallel execution plan initialization)

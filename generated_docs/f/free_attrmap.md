@@ -27,7 +27,7 @@ The `free_attrmap` function is the complementary cleanup function to `make_attrm
   - [free_conversion_map](free_conversion_map.md)
   - [DefineIndex](../D/DefineIndex.md)
   - [MergeAttributes](../M/MergeAttributes.md)
-  - `logicalrep_relmap_free_entry`
+  - `[logicalrep_relmap_free_entry](../l/logicalrep_relmap_free_entry.md)`
   - [get_rel_sync_entry](../g/get_rel_sync_entry.md)
 
 ## Notes and Other Information

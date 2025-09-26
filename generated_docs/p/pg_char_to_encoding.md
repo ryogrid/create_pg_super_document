@@ -23,18 +23,18 @@ The search algorithm uses binary search for efficient lookup in the sorted encod
 ## Dependencies
 - Functions called/Symbols referenced:
   - lengthof (macro to get array length)
-  - clean_encoding_name (normalizes encoding name)
+  - [clean_encoding_name](../c/clean_encoding_name.md) (normalizes encoding name)
   - strcmp (standard C library string comparison)
 - Data structures:
   - pg_encname_tbl (static table of encoding names and IDs)
-  - pg_encname (structure containing name and encoding pairs)
+  - [pg_encname](pg_encname.md) (structure containing name and encoding pairs)
 - Constants:
   - NAMEDATALEN (maximum length for names)
 - Called from (representative examples):
-  - CreateConversionCommand
-  - ProcessCopyOptions
-  - pg_convert
-  - PQenv2encoding
+  - [CreateConversionCommand](../C/CreateConversionCommand.md)
+  - [ProcessCopyOptions](../P/ProcessCopyOptions.md)
+  - [pg_convert](pg_convert.md)
+  - [PQenv2encoding](../P/PQenv2encoding.md)
 
 ## Notes and Other Information
 - Returns -1 for NULL input, empty strings, or names longer than NAMEDATALEN

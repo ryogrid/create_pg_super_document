@@ -21,7 +21,7 @@ The function is designed primarily for auxiliary processes that need to clean up
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwnerRelease
+  - [ResourceOwnerRelease](ResourceOwnerRelease.md)
   - RESOURCE_RELEASE_BEFORE_LOCKS (enum constant)
   - RESOURCE_RELEASE_LOCKS (enum constant) 
   - RESOURCE_RELEASE_AFTER_LOCKS (enum constant)

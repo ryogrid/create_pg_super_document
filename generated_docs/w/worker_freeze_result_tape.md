@@ -19,16 +19,16 @@ This function is called by worker processes after they have completed their sort
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LogicalTapeFreeze
+  - [LogicalTapeFreeze](../L/LogicalTapeFreeze.md)
   - SpinLockAcquire
   - SpinLockRelease
   - [pfree](../p/pfree.md)
   - WORKER (macro)
-  - Tuplesortstate
-  - Sharedsort
-  - TapeShare
+  - [Tuplesortstate](../T/Tuplesortstate.md)
+  - [Sharedsort](../S/Sharedsort.md)
+  - [TapeShare](../T/TapeShare.md)
 - Called from (representative examples):
-  - mergeruns
+  - [mergeruns](../m/mergeruns.md)
   - [worker_nomergeruns](worker_nomergeruns.md)
 
 ## Notes and Other Information

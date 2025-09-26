@@ -22,7 +22,7 @@ This function provides a Windows-compatible implementation of the POSIX pthread_
 - Functions called/Symbols referenced:
   - GetCurrentThreadId (Windows API)
 - Called from (representative examples):
-  - pq_threadidcallback (in src/interfaces/libpq/fe-secure-openssl.c:732)
+  - [pq_threadidcallback](pq_threadidcallback.md) (in src/interfaces/libpq/fe-secure-openssl.c:732)
 
 ## Notes and Other Information
 - This is a Windows-specific implementation located in pthread-win32.c

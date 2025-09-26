@@ -28,7 +28,7 @@ This function performs a system catalog lookup to extract key information about 
   - [ReleaseSysCache](../R/ReleaseSysCache.md) (cache cleanup)
   - Form_pg_opclass (catalog tuple structure)
 - Called from (representative examples):
-  - gistproperty (GiST index property checking)
+  - [gistproperty](gistproperty.md) (GiST index property checking)
   - [spgproperty](../s/spgproperty.md) (SP-GiST index property checking)  
   - [DefineIndex](../D/DefineIndex.md) (index definition processing)
 

@@ -27,8 +27,8 @@ This function converts a numeric value to its string representation. It creates 
   - [numeric](../n/numeric.md) (type definition)
 - Called from (representative examples):
   - [dectoasc](../d/dectoasc.md) (Informix compatibility function)
-  - ecpg_store_input (ECPG input processing)
-  - PGTYPESnumeric_to_long (numeric conversion)
+  - [ecpg_store_input](../e/ecpg_store_input.md) (ECPG input processing)
+  - [PGTYPESnumeric_to_long](PGTYPESnumeric_to_long.md) (numeric conversion)
   - Various test functions
 
 ## Notes and Other Information

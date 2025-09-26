@@ -49,19 +49,19 @@ The structure also supports "one-shot" plans optimized for single execution, whe
 ## Dependencies
 - Functions called/Symbols referenced:
   - RawParseMode (enum type for parsing modes)
-  - List (PostgreSQL list data structure)
-  - MemoryContext (PostgreSQL memory management)
+  - [List](../L/List.md) (PostgreSQL list data structure)
+  - [MemoryContext](../M/MemoryContext.md) (PostgreSQL memory management)
   - Oid (PostgreSQL object identifier type)
   - ParserSetupHook (function pointer type)
-  - CachedPlanSource (plancache system structures)
+  - [CachedPlanSource](../C/CachedPlanSource.md) (plancache system structures)
 
 - Called from (representative examples):
-  - SPI_execute (query execution functions)
-  - SPI_prepare_extended (plan preparation functions)
-  - SPI_cursor_open_with_args (cursor operations)
-  - _SPI_make_plan_non_temp (plan state management)
-  - _SPI_save_plan (plan persistence functions)
-  - SPIPlanPtr (public typedef pointer)
+  - [SPI_execute](SPI_execute.md) (query execution functions)
+  - [SPI_prepare_extended](SPI_prepare_extended.md) (plan preparation functions)
+  - [SPI_cursor_open_with_args](SPI_cursor_open_with_args.md) (cursor operations)
+  - [_SPI_make_plan_non_temp](_SPI_make_plan_non_temp.md) (plan state management)
+  - [_SPI_save_plan](_SPI_save_plan.md) (plan persistence functions)
+  - [SPIPlanPtr](SPIPlanPtr.md) (public typedef pointer)
 
 ## Notes and Other Information
 - The structure is opaque to standard SPI users, who interact with it through the SPIPlanPtr typedef

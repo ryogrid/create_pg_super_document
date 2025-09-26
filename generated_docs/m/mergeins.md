@@ -36,7 +36,7 @@ The function includes interrupt checking to allow for cancellation of long-runni
   - [createarc](../c/createarc.md)
   - NOTREACHED
 - Called from (representative examples):
-  - fixempties
+  - [fixempties](../f/fixempties.md)
 
 ## Notes and Other Information
 - The function is designed to handle non-unique source arcs and will eliminate duplicates during processing

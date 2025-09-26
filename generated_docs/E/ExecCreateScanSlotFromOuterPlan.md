@@ -28,18 +28,18 @@ This approach ensures that the scan slot is properly configured to handle tuples
 ## Dependencies
 - Functions called/Symbols referenced:
   - outerPlanState
-  - ExecGetResultType
-  - ExecInitScanTupleSlot
-  - TupleTableSlotOps (struct type)
-  - ScanState (struct type)
+  - [ExecGetResultType](ExecGetResultType.md)
+  - [ExecInitScanTupleSlot](ExecInitScanTupleSlot.md)
+  - [TupleTableSlotOps](../T/TupleTableSlotOps.md) (struct type)
+  - [ScanState](../S/ScanState.md) (struct type)
 - Called from (representative examples):
-  - ExecInitAgg
-  - ExecInitGroup
-  - ExecInitIncrementalSort
-  - ExecInitMaterial
-  - ExecInitMemoize
-  - ExecInitSort
-  - ExecInitWindowAgg
+  - [ExecInitAgg](ExecInitAgg.md)
+  - [ExecInitGroup](ExecInitGroup.md)
+  - [ExecInitIncrementalSort](ExecInitIncrementalSort.md)
+  - [ExecInitMaterial](ExecInitMaterial.md)
+  - [ExecInitMemoize](ExecInitMemoize.md)
+  - [ExecInitSort](ExecInitSort.md)
+  - [ExecInitWindowAgg](ExecInitWindowAgg.md)
 
 ## Notes and Other Information
 - This function is essential for nodes that process tuples from child plans and need their scan slots to match the child's output format

@@ -18,13 +18,13 @@ This function serves as the receive callback for a DestReceiver that handles wri
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_tuple_insert
+  - [table_tuple_insert](table_tuple_insert.md)
 - Called from (representative examples):
   - [CreateTransientRelDestReceiver](../C/CreateTransientRelDestReceiver.md) (callback assignment)
 
 ## Notes and Other Information
 - Returns true to indicate successful tuple processing to the executor
-- The input slot type doesn't need to exactly match the target relation's tuple descriptor - table_tuple_insert handles type conversion
+- The input slot type doesn't need to exactly match the target relation's tuple descriptor - [table_tuple_insert](table_tuple_insert.md) handles type conversion
 - Skips index maintenance since transient relations are newly created and have no indexes
 - Uses bulk insert state and frozen/FSM-skipping options configured in transientrel_startup for optimal performance
 - Part of the materialized view refresh infrastructure where transient relations serve as temporary storage

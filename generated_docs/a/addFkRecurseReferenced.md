@@ -55,12 +55,12 @@ Key responsibilities include attribute mapping for partitions (since column orde
   - [CheckRelationLockedByMe](../C/CheckRelationLockedByMe.md)
   - [createForeignKeyActionTriggers](../c/createForeignKeyActionTriggers.md)
   - [RelationGetPartitionDesc](../R/RelationGetPartitionDesc.md)
-  - table_open
+  - [table_open](../t/table_open.md)
   - [build_attrmap_by_name_if_req](../b/build_attrmap_by_name_if_req.md)
   - [index_get_partition](../i/index_get_partition.md)
   - [addFkConstraint](addFkConstraint.md)
   - [addFkRecurseReferenced](addFkRecurseReferenced.md) (recursive call)
-  - table_close
+  - [table_close](../t/table_close.md)
   - [free_attrmap](../f/free_attrmap.md)
   - RelationGetDescr
 - Called from (representative examples):

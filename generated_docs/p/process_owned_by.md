@@ -30,7 +30,7 @@ The function supports two dependency types: DEPENDENCY_AUTO for regular sequence
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_length
+  - [list_length](../l/list_length.md)
   - strVal
   - linitial
   - [list_copy_head](../l/list_copy_head.md)

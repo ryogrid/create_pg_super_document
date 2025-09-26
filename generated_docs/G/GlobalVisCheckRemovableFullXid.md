@@ -25,7 +25,7 @@ The function is typically used in scenarios where you have a specific relation c
   - [GlobalVisTestFor](GlobalVisTestFor.md)
   - [GlobalVisTestIsRemovableFullXid](GlobalVisTestIsRemovableFullXid.md)
   - [GlobalVisState](GlobalVisState.md) (type)
-  - FullTransactionId (type)
+  - [FullTransactionId](../F/FullTransactionId.md) (type)
 - Called from (representative examples):
   - [gistPageRecyclable](../g/gistPageRecyclable.md)
   - [_bt_pendingfsm_finalize](../b/_bt_pendingfsm_finalize.md)

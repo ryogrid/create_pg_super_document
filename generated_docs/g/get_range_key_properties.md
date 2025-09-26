@@ -28,7 +28,7 @@ The function manages the partexprs_item iterator to advance through expression-b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeVar
+  - [makeVar](../m/makeVar.md)
   - copyObject
   - [lnext](../l/lnext.md)
   - castNode

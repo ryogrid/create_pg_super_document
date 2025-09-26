@@ -30,7 +30,7 @@ This static function performs comprehensive name-to-OID resolution for all Postg
   - RangeVarGetRelid
   - [get_database_oid](../g/get_database_oid.md)
   - [typenameTypeId](../t/typenameTypeId.md)
-  - makeTypeNameFromNameList
+  - [makeTypeNameFromNameList](../m/makeTypeNameFromNameList.md)
   - [LookupFuncWithArgs](../L/LookupFuncWithArgs.md)
   - [get_language_oid](../g/get_language_oid.md)
   - [oidparse](oidparse.md)
@@ -41,8 +41,8 @@ This static function performs comprehensive name-to-OID resolution for all Postg
   - [get_foreign_server_oid](../g/get_foreign_server_oid.md)
   - [ParameterAclLookup](../P/ParameterAclLookup.md)
   - [ParameterAclCreate](../P/ParameterAclCreate.md)
-  - CommandCounterIncrement
-  - lappend_oid
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md)
+  - [lappend_oid](../l/lappend_oid.md)
   - strVal
   - lfirst
   - ereport
@@ -50,7 +50,7 @@ This static function performs comprehensive name-to-OID resolution for all Postg
 - Types and structures:
   - ObjectType
   - [RangeVar](../R/RangeVar.md)
-  - ObjectWithArgs
+  - [ObjectWithArgs](../O/ObjectWithArgs.md)
 - Constants used:
   - All OBJECT_* type constants
   - NoLock

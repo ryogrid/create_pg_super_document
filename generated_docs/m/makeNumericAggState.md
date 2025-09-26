@@ -28,7 +28,7 @@ This static function creates a properly initialized NumericAggState structure wi
   -  - Structure type for aggregate state
 - Called from (representative examples):
   -  - Standard numeric accumulation function
-  -  - Numeric average accumulation function  
+  -  - [Numeric](../N/Numeric.md) average accumulation function  
   -  - Polymorphic numeric aggregate state creation
   -  - 64-bit integer accumulation function
 

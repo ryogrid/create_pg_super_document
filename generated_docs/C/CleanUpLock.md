@@ -45,7 +45,7 @@ The function assumes the appropriate partition lock is held and maintains that s
   - [hash_search_with_hash_value](../h/hash_search_with_hash_value.md) (hash table operations)
   - LOCK_PRINT (debugging macro)
   - [dlist_is_empty](../d/dlist_is_empty.md) (list checking)
-  - ProcLockWakeup (process awakening)
+  - [ProcLockWakeup](../P/ProcLockWakeup.md) (process awakening)
   - HASH_REMOVE (hash operation constant)
 - Called from (representative examples):
   - [LockRelease](../L/LockRelease.md)

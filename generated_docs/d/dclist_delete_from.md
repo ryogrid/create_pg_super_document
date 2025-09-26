@@ -28,7 +28,7 @@ The function delegates the actual node removal to the underlying dlist_delete_fr
   - [logical_heap_rewrite_flush_mappings](../l/logical_heap_rewrite_flush_mappings.md) (src/backend/access/heap/rewriteheap.c:866)
   - [mXactCachePut](../m/mXactCachePut.md) (src/backend/access/transam/multixact.c:1735)
   - [ReorderBufferCleanupTXN](../R/ReorderBufferCleanupTXN.md) (src/backend/replication/logical/reorderbuffer.c:1625)
-  - AtEOXact_PgStat_DroppedStats (src/backend/utils/activity/pgstat_xact.c:100)
+  - [AtEOXact_PgStat_DroppedStats](../A/AtEOXact_PgStat_DroppedStats.md) (src/backend/utils/activity/pgstat_xact.c:100)
   - [InvalidateConstraintCacheCallBack](../I/InvalidateConstraintCacheCallBack.md) (src/backend/utils/adt/ri_triggers.c:2259)
   - [SlabReset](../S/SlabReset.md) (src/backend/utils/mmgr/slab.c:449)
 

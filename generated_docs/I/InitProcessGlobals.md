@@ -32,7 +32,7 @@ This function takes no parameters.
   - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
   - [timestamptz_to_time_t](../t/timestamptz_to_time_t.md)
   - pg_prng_strong_seed
-  - pg_prng_seed
+  - [pg_prng_seed](../p/pg_prng_seed.md)
   - [pg_prng_uint32](../p/pg_prng_uint32.md)
   - srandom (Unix only)
 - Called from (representative examples):

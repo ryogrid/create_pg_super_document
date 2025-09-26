@@ -30,7 +30,7 @@ This function takes no parameters.
 - Functions called/Symbols referenced:
   - AllocSetContextCreate (to create both TopMemoryContext and ErrorContext)
   - ALLOCSET_DEFAULT_SIZES (default sizing parameters for TopMemoryContext)
-  - MemoryContextAllowInCriticalSection (to enable ErrorContext allocations during critical sections)
+  - [MemoryContextAllowInCriticalSection](MemoryContextAllowInCriticalSection.md) (to enable ErrorContext allocations during critical sections)
 - Called from (representative examples):
   - [main](../m/main.md) (during PostgreSQL startup in src/backend/main/main.c)
   - AllocHugeSizeIsValid (referenced in header file)

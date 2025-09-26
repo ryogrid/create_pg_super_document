@@ -24,12 +24,12 @@ The function opens the pg_database relation, performs a scan to find the tuple m
 - Functions called/Symbols referenced:
   - [ScanKeyInit](../S/ScanKeyInit.md) (for setting up scan key)
   - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) (for converting database OID to datum)
-  - table_open (for opening pg_database relation)
+  - [table_open](../t/table_open.md) (for opening pg_database relation)
   - [systable_beginscan](../s/systable_beginscan.md) (for starting system catalog scan)
   - [systable_getnext](../s/systable_getnext.md) (for getting next tuple from scan)
   - [heap_copytuple](../h/heap_copytuple.md) (for copying tuple before releasing buffer)
   - [systable_endscan](../s/systable_endscan.md) (for ending scan)
-  - table_close (for closing relation)
+  - [table_close](../t/table_close.md) (for closing relation)
 - Called from:
   - [InitPostgres](../I/InitPostgres.md) (src/backend/utils/init/postinit.c:1088)
 

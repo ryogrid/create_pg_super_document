@@ -28,9 +28,9 @@ GetCurrentSubTransactionId is a simple accessor function that returns the subtra
   - [CopyFrom](../C/CopyFrom.md) (src/backend/commands/copyfrom.c:746-747)
   - [ExecuteTruncateGuts](../E/ExecuteTruncateGuts.md) (src/backend/commands/tablecmds.c:2072)
   - [register_on_commit_action](../r/register_on_commit_action.md) (src/backend/commands/tablecmds.c:17539)
-  - SPI_connect_ext (src/backend/executor/spi.c:140)
-  - AllocateFile (src/backend/storage/file/fd.c:2604)
-  - CreatePortal (src/backend/utils/mmgr/portalmem.c:211)
+  - [SPI_connect_ext](../S/SPI_connect_ext.md) (src/backend/executor/spi.c:140)
+  - [AllocateFile](../A/AllocateFile.md) (src/backend/storage/file/fd.c:2604)
+  - [CreatePortal](../C/CreatePortal.md) (src/backend/utils/mmgr/portalmem.c:211)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's subtransaction management system

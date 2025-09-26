@@ -35,10 +35,10 @@ The structure is designed to be serializable and includes magic number validatio
   - STATS_NDISTINCT_TYPE_BASIC (type constant)
 
 - Called from (representative examples):
-  - statext_ndistinct_build (builds MVNDistinct statistics)
-  - statext_ndistinct_serialize (serializes structure for storage)
-  - statext_ndistinct_deserialize (deserializes from storage)
-  - estimate_multivariate_ndistinct (uses for query optimization)
+  - [statext_ndistinct_build](../s/statext_ndistinct_build.md) (builds MVNDistinct statistics)
+  - [statext_ndistinct_serialize](../s/statext_ndistinct_serialize.md) (serializes structure for storage)
+  - [statext_ndistinct_deserialize](../s/statext_ndistinct_deserialize.md) (deserializes from storage)
+  - [estimate_multivariate_ndistinct](../e/estimate_multivariate_ndistinct.md) (uses for query optimization)
   - [BuildRelationExtStatistics](../B/BuildRelationExtStatistics.md) (part of statistics collection)
 
 ## Notes and Other Information

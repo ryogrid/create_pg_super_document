@@ -21,7 +21,7 @@ get_trigger_oid provides a convenient interface for finding triggers by name wit
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - [ScanKeyInit](../S/ScanKeyInit.md)
   - [systable_beginscan](../s/systable_beginscan.md)/systable_getnext
   - [get_rel_name](get_rel_name.md)

@@ -24,14 +24,14 @@ The function follows PostgreSQL's standard function call convention using  and r
 - Functions called/Symbols referenced:
   - PG_GETARG_NUMERIC - Extract numeric argument from function call
   - NUMERIC_IS_SPECIAL - Check for special values (NaN, infinity)
-  - duplicate_numeric - Create copy of special numeric values
-  - init_var_from_num - Convert Numeric to NumericVar representation
-  - ceil_var - Perform ceiling operation on NumericVar
-  - make_result - Convert NumericVar back to Numeric
-  - free_var - Clean up NumericVar memory
+  - [duplicate_numeric](../d/duplicate_numeric.md) - Create copy of special numeric values
+  - [init_var_from_num](../i/init_var_from_num.md) - Convert Numeric to NumericVar representation
+  - [ceil_var](../c/ceil_var.md) - Perform ceiling operation on NumericVar
+  - [make_result](../m/make_result.md) - Convert NumericVar back to Numeric
+  - [free_var](../f/free_var.md) - Clean up NumericVar memory
   - PG_RETURN_NUMERIC - Return Numeric datum result
 - Called from (representative examples):
-  - executeItemOptUnwrapTarget (in jsonpath execution)
+  - [executeItemOptUnwrapTarget](../e/executeItemOptUnwrapTarget.md) (in jsonpath execution)
 
 ## Notes and Other Information
 - Located in src/backend/utils/adt/numeric.c:1645-1672

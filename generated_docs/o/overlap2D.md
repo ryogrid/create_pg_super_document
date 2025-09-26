@@ -22,8 +22,8 @@ This is a static helper function used in PostgreSQL spatial indexing (SP-GiST) f
 - Functions called/Symbols referenced:
   - [FPge](../F/FPge.md) (floating-point greater-than-or-equal comparison)
   - [FPle](../F/FPle.md) (floating-point less-than-or-equal comparison)
-  - Range (structure type)
-  - RangeBox (structure type)
+  - [Range](../R/Range.md) (structure type)
+  - [RangeBox](../R/RangeBox.md) (structure type)
 - Called from (representative examples):
   - [overlap4D](overlap4D.md)
 

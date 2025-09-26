@@ -29,14 +29,14 @@ The implementation includes bounds checking to ensure the behavior type is valid
 - Functions called/Symbols referenced:
   - lengthof (macro to get array length)
   - elog (error logging function) 
-  - appendStringInfoString (appends string to buffer)
-  - appendStringInfo (formatted string append to buffer)
-  - get_rule_expr (processes default expressions for JSON_BEHAVIOR_DEFAULT)
+  - [appendStringInfoString](../a/appendStringInfoString.md) (appends string to buffer)
+  - [appendStringInfo](../a/appendStringInfo.md) (formatted string append to buffer)
+  - [get_rule_expr](get_rule_expr.md) (processes default expressions for JSON_BEHAVIOR_DEFAULT)
   - JSON_BEHAVIOR_DEFAULT (enum value for default behavior type)
-  - JsonBehavior (structure type for JSON behaviors)
+  - [JsonBehavior](../J/JsonBehavior.md) (structure type for JSON behaviors)
 - Called from (representative examples):
-  - get_json_expr_options (for JSON expression option formatting)
-  - get_json_table (for JSON table function formatting)
+  - [get_json_expr_options](get_json_expr_options.md) (for JSON expression option formatting)
+  - [get_json_table](get_json_table.md) (for JSON table function formatting)
 
 ## Notes and Other Information
 - This is a static function within ruleutils.c, specifically for SQL/JSON functionality

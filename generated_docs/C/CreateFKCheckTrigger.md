@@ -33,7 +33,7 @@ The created trigger inherits deferability settings from the foreign key constrai
   - makeNode
   - SystemFuncName
   - [CreateTrigger](CreateTrigger.md)
-  - CommandCounterIncrement
+  - [CommandCounterIncrement](CommandCounterIncrement.md)
   - TRIGGER_TYPE_INSERT
   - TRIGGER_TYPE_UPDATE
   - TRIGGER_TYPE_AFTER

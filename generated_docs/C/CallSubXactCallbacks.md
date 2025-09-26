@@ -24,7 +24,7 @@ This internal function traverses the linked list of registered subtransaction ca
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SubXactEvent (enumeration type)
+  - [SubXactEvent](../S/SubXactEvent.md) (enumeration type)
   - SubTransactionId (type definition)
   - [SubXactCallbackItem](../S/SubXactCallbackItem.md) (structure type)
   - SubXact_callbacks (global callback list head)

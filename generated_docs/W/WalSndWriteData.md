@@ -24,7 +24,7 @@ The function handles network I/O carefully, checking for interrupts, attempting 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - resetStringInfo (clears temporary buffer)
+  - [resetStringInfo](../r/resetStringInfo.md) (clears temporary buffer)
   - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md) (gets current timestamp for protocol)
   - [pq_sendint64](../p/pq_sendint64.md) (formats timestamp data)
   - pq_putmessage_noblock (sends CopyData message)

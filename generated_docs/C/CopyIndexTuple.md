@@ -36,8 +36,8 @@ The function determines the exact size of the source tuple using , allocates the
   - [_bt_insert_parent](../b/_bt_insert_parent.md)
   - [_bt_newlevel](../b/_bt_newlevel.md)
   - [_bt_pagedel](../b/_bt_pagedel.md)
-  - _bt_buildadd
-  - _bt_load
+  - [_bt_buildadd](../b/_bt_buildadd.md)
+  - [_bt_load](../b/_bt_load.md)
   - [btree_xlog_insert](../b/btree_xlog_insert.md)
   - [btree_xlog_split](../b/btree_xlog_split.md)
 

@@ -18,14 +18,14 @@ The err_generic_string function provides a low-level interface for setting speci
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ErrorData (structure type)
+  - [ErrorData](../E/ErrorData.md) (structure type)
   - CHECK_STACK_DEPTH (macro for stack validation)
   - [set_errdata_field](../s/set_errdata_field.md) (helper function for field assignment)
   - PG_DIAG_SCHEMA_NAME, PG_DIAG_TABLE_NAME, PG_DIAG_COLUMN_NAME, PG_DIAG_DATATYPE_NAME, PG_DIAG_CONSTRAINT_NAME (diagnostic field constants)
   - elog (for error reporting on unsupported fields)
 - Called from (representative examples):
-  - errdatatype (in domains.c)
-  - errdomainconstraint (in domains.c)
+  - [errdatatype](errdatatype.md) (in domains.c)
+  - [errdomainconstraint](errdomainconstraint.md) (in domains.c)
   - [errtable](errtable.md) (in relcache.c)
   - [errtablecolname](errtablecolname.md) (in relcache.c)
   - [errtableconstraint](errtableconstraint.md) (in relcache.c)

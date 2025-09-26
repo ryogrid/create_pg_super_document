@@ -19,8 +19,8 @@ The function is safe to use as long as the transaction has not yet reached COMMI
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReadNextFullTransactionId
-  - FullTransactionIdFromAllowableAt
+  - [ReadNextFullTransactionId](../R/ReadNextFullTransactionId.md)
+  - [FullTransactionIdFromAllowableAt](../F/FullTransactionIdFromAllowableAt.md)
 - Called from (representative examples):
   - [TwoPhaseFilePath](../T/TwoPhaseFilePath.md)
 

@@ -27,7 +27,7 @@ This function is part of PostgreSQL's text search functionality infrastructure, 
 - Called from (representative examples):
   - PG_RETURN_TSQUERY (macro in src/include/tsearch/ts_type.h:270)
   - [ts_match_tt](../t/ts_match_tt.md) (in src/backend/utils/adt/tsvector_op.c:2257)
-  - ts_match_tq (in src/backend/utils/adt/tsvector_op.c:2277)
+  - [ts_match_tq](../t/ts_match_tq.md) (in src/backend/utils/adt/tsvector_op.c:2277)
 
 ## Notes and Other Information
 - This is a static inline function defined in a header file, meaning it's expanded at compile time for performance

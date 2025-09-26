@@ -34,14 +34,14 @@ This function is crucial for PostgreSQL's virtual file descriptor system, which 
   - elog (error/log reporting function)
   - VfdCache (global virtual file descriptor cache array)
   - FileIsNotOpen (macro to check if file is currently closed)
-  - ReleaseLruFiles (function to close excess LRU files)
-  - BasicOpenFilePerm (low-level file opening function)
-  - Insert (function to insert file into LRU list)
+  - [ReleaseLruFiles](../R/ReleaseLruFiles.md) (function to close excess LRU files)
+  - [BasicOpenFilePerm](../B/BasicOpenFilePerm.md) (low-level file opening function)
+  - [Insert](../I/Insert.md) (function to insert file into LRU list)
   - nfile (global counter of open files)
 
 - Called from (representative examples):
   - AllocateDesc (when allocating a new file descriptor)
-  - FileAccess (when accessing a file that may need reopening)
+  - [FileAccess](../F/FileAccess.md) (when accessing a file that may need reopening)
 
 ## Notes and Other Information
 - Returns 0 on success, -1 on re-open failure (with errno set by BasicOpenFilePerm)

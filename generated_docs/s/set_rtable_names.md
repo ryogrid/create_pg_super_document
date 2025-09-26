@@ -19,9 +19,9 @@ This function fills in the rtable_names list within a deparse_namespace structur
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HASHCTL
+  - [HASHCTL](../H/HASHCTL.md)
   - [HTAB](../H/HTAB.md)
-  - NameHashEntry
+  - [NameHashEntry](../N/NameHashEntry.md)
   - [hash_create](../h/hash_create.md)
   - [hash_search](../h/hash_search.md)
   - [hash_destroy](../h/hash_destroy.md)

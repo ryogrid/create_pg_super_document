@@ -54,8 +54,8 @@ For incremental backups, the function outputs the exact list of blocks that need
   - OidIsValid, RelFileNumberIsValid: Parameter validation
   - backup_file_lookup: Checks if file existed in prior backup
   - [GetIncrementalFilePath](GetIncrementalFilePath.md): Gets incremental file path for lookups
-  - BlockRefTableGetEntry: Looks up change information for relation
-  - BlockRefTableEntryGetBlocks: Gets list of modified blocks
+  - [BlockRefTableGetEntry](../B/BlockRefTableGetEntry.md): Looks up change information for relation
+  - [BlockRefTableEntryGetBlocks](../B/BlockRefTableEntryGetBlocks.md): Gets list of modified blocks
   - qsort, compare_block_numbers: Sorts block numbers
   - BlockNumberIsValid: Validates limit block
 - Constants referenced:

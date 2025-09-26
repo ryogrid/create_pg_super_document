@@ -45,7 +45,7 @@ The function is designed to be retry-safe, meaning callers are expected to retry
   - [brin_start_evacuating_page](../b/brin_start_evacuating_page.md)
   - [brin_evacuate_page](../b/brin_evacuate_page.md)
   - [brin_page_init](../b/brin_page_init.md)
-  - MarkBufferDirty
+  - [MarkBufferDirty](../M/MarkBufferDirty.md)
   - RelationNeedsWAL
   - [XLogBeginInsert](../X/XLogBeginInsert.md)
   - [XLogRegisterData](../X/XLogRegisterData.md)

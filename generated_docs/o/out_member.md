@@ -22,8 +22,8 @@ The function handles all known MultiXact status values and provides a fallback "
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendStringInfo
-  - appendStringInfoString
+  - [appendStringInfo](../a/appendStringInfo.md)
+  - [appendStringInfoString](../a/appendStringInfoString.md)
   - [MultiXactMember](../M/MultiXactMember.md) (struct)
   - MultiXactStatusForKeyShare
   - MultiXactStatusForShare

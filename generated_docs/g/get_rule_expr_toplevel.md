@@ -28,13 +28,13 @@ For all other node types, it simply delegates to the standard  function.
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (macro for type checking)
-  - get_variable
-  - get_rule_expr
+  - [get_variable](get_variable.md)
+  - [get_rule_expr](get_rule_expr.md)
 
 - Called from (representative examples):
-  - get_values_def
-  - get_rule_expr (for RowExpr handling)
-  - get_rule_list_toplevel
+  - [get_values_def](get_values_def.md)
+  - [get_rule_expr](get_rule_expr.md) (for RowExpr handling)
+  - [get_rule_list_toplevel](get_rule_list_toplevel.md)
 
 ## Notes and Other Information
 - Prevents unwanted "*" expansion in contexts where whole-row references need explicit handling

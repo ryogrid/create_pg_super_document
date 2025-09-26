@@ -21,12 +21,12 @@ The wrapper ensures that if an error occurs during plugin shutdown, administrato
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LogicalDecodingContext
-  - LogicalErrorCallbackState  
-  - output_plugin_error_callback
-  - callback
+  - [LogicalDecodingContext](../L/LogicalDecodingContext.md)
+  - [LogicalErrorCallbackState](../L/LogicalErrorCallbackState.md)  
+  - [output_plugin_error_callback](../o/output_plugin_error_callback.md)
+  - [callback](../c/callback.md)
 - Called from (representative examples):
-  - FreeDecodingContext
+  - [FreeDecodingContext](../F/FreeDecodingContext.md)
 
 ## Notes and Other Information
 - The function asserts that fast_forward mode is disabled during shutdown

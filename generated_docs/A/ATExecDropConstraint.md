@@ -30,13 +30,13 @@ This function implements constraint deletion for ALTER TABLE operations. Unlike 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ATSimplePermissions](ATSimplePermissions.md) (permission checking)
-  - table_open/table_close (relation access)
+  - [table_open](../t/table_open.md)/table_close (relation access)
   - [systable_beginscan](../s/systable_beginscan.md)/systable_endscan (catalog scanning)
   - [CheckAlterTableIsSafe](../C/CheckAlterTableIsSafe.md) (safety validation)
   - [performDeletion](../p/performDeletion.md) (dependency-based deletion)
   - [find_inheritance_children](../f/find_inheritance_children.md) (inheritance hierarchy)
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md) (catalog updates)
-  - CommandCounterIncrement (visibility control)
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md) (visibility control)
   - [heap_copytuple](../h/heap_copytuple.md)/heap_freetuple (tuple management)
 - Called from (representative examples):
   - [ATExecCmd](ATExecCmd.md) (main ALTER TABLE executor)

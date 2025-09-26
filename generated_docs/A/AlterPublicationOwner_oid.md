@@ -22,12 +22,12 @@ This function is particularly useful in scenarios where the publication OID is a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - SearchSysCacheCopy1
   - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - [AlterPublicationOwner_internal](AlterPublicationOwner_internal.md)
   - [heap_freetuple](../h/heap_freetuple.md)
-  - table_close
+  - [table_close](../t/table_close.md)
 - Called from (representative examples):
   - [shdepReassignOwned_Owner](../s/shdepReassignOwned_Owner.md)
 

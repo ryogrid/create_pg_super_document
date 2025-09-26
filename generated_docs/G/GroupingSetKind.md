@@ -33,7 +33,7 @@ GroupingSetKind classifies the various types of grouping sets that can appear in
 - Called from (representative examples):
   - [makeGroupingSet](../m/makeGroupingSet.md) (src/backend/nodes/makefuncs.c:864)
   - MAKEFUNC_H (src/include/nodes/makefuncs.h:108)
-  - GroupingSet (src/include/nodes/parsenodes.h:1509)
+  - [GroupingSet](GroupingSet.md) (src/include/nodes/parsenodes.h:1509)
 
 ## Notes and Other Information
 - [GroupingSetKind](GroupingSetKind.md) is essential for implementing SQL:1999 GROUP BY extensions

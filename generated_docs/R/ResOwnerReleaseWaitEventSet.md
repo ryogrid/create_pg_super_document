@@ -29,9 +29,9 @@ The function operates on the following WaitEventSet fields:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `DatumGetPointer` (macro for extracting pointer from Datum)
-  - `WaitEventSet` (type/structure)
-  - `FreeWaitEventSet` (function to deallocate WaitEventSet)
+  - `[DatumGetPointer](../D/DatumGetPointer.md)` (macro for extracting pointer from Datum)
+  - `[WaitEventSet](../W/WaitEventSet.md)` (type/structure)
+  - `[FreeWaitEventSet](../F/FreeWaitEventSet.md)` (function to deallocate WaitEventSet)
   - `Assert` (debugging assertion macro)
 
 - Called from (representative examples):

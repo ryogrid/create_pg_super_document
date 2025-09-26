@@ -25,7 +25,7 @@ The function's logic ensures that catalog scans always see sufficiently recent d
   - [RelationHasSysCache](../R/RelationHasSysCache.md)
   - [InvalidateCatalogSnapshot](../I/InvalidateCatalogSnapshot.md)
   - [GetSnapshotData](GetSnapshotData.md)
-  - pairingheap_add
+  - [pairingheap_add](../p/pairingheap_add.md)
 - Called from (representative examples):
   - [ScanPgRelation](../S/ScanPgRelation.md)
   - [GetCatalogSnapshot](GetCatalogSnapshot.md)

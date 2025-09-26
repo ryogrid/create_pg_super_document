@@ -38,7 +38,7 @@ The function ensures proper locking to prevent concurrent modifications and hand
   - [RelationMapCopy](../R/RelationMapCopy.md): Copies relation mapping file between databases
   - [ScanSourceDatabasePgClass](../S/ScanSourceDatabasePgClass.md): Scans pg_class to get list of relations to copy
   - [LockRelationId](../L/LockRelationId.md)/UnlockRelationId: Acquires and releases relation locks
-  - CreateAndCopyRelationData: Copies actual relation data between locators
+  - [CreateAndCopyRelationData](CreateAndCopyRelationData.md): Copies actual relation data between locators
   - [list_free_deep](../l/list_free_deep.md): Frees allocated list memory
 - Called from (representative examples):
   - [createdb](../c/createdb.md): Main database creation function in dbcommands.c

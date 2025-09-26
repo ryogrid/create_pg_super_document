@@ -27,13 +27,13 @@ The function performs three main operations:
 ## Dependencies
 - Functions called/Symbols referenced:
   - SpinLockInit
-  - FileSetInit
-  - on_dsm_detach
-  - SharedFileSetOnDetach
-  - PointerGetDatum
+  - [FileSetInit](../F/FileSetInit.md)
+  - [on_dsm_detach](../o/on_dsm_detach.md)
+  - [SharedFileSetOnDetach](SharedFileSetOnDetach.md)
+  - [PointerGetDatum](../P/PointerGetDatum.md)
 - Called from (representative examples):
-  - ExecHashJoinInitializeDSM (Hash join parallel execution setup)
-  - tuplesort_initialize_shared (Shared tuplesort initialization)
+  - [ExecHashJoinInitializeDSM](../E/ExecHashJoinInitializeDSM.md) (Hash join parallel execution setup)
+  - [tuplesort_initialize_shared](../t/tuplesort_initialize_shared.md) (Shared tuplesort initialization)
 
 ## Notes and Other Information
 - The function is designed for parallel query execution where multiple worker processes need to share temporary files

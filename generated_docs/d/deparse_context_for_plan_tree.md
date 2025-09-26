@@ -21,7 +21,7 @@ This function creates a deparse context optimized for Plan tree deparsing by usi
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc0](../p/palloc0.md) (for deparse_namespace allocation)
-  - list_length (for determining table count)
+  - [list_length](../l/list_length.md) (for determining table count)
   - lfirst_node (for iterating append relations)
   - [set_simple_column_names](../s/set_simple_column_names.md)
   - [AppendRelInfo](../A/AppendRelInfo.md) (structure type)

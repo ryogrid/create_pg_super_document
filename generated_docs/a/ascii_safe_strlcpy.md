@@ -28,7 +28,7 @@ The function is specifically designed to not trigger ereport(ERROR) since it may
   - None (self-contained implementation)
 - Called from:
   - [BackgroundWorkerStateChange](../B/BackgroundWorkerStateChange.md) (in bgworker.c, multiple calls)
-  - pgstat_get_crashed_backend_activity (in backend_status.c)
+  - [pgstat_get_crashed_backend_activity](../p/pgstat_get_crashed_backend_activity.md) (in backend_status.c)
 
 ## Notes and Other Information
 - Must not trigger ereport(ERROR) as it is called in postmaster context

@@ -29,12 +29,12 @@ This function retrieves the next tuple from a completed sorting operation and pl
   - [tuplesort_gettuple_common](tuplesort_gettuple_common.md)
   - [heap_copy_minimal_tuple](../h/heap_copy_minimal_tuple.md)
   - [ExecStoreMinimalTuple](../E/ExecStoreMinimalTuple.md)
-  - ExecClearTuple
+  - [ExecClearTuple](../E/ExecClearTuple.md)
 - Called from (representative examples):
   - [fetch_input_tuple](../f/fetch_input_tuple.md)
   - [process_ordered_aggregate_multi](../p/process_ordered_aggregate_multi.md)
-  - switchToPresortedPrefixMode
-  - ExecIncrementalSort
+  - [switchToPresortedPrefixMode](../s/switchToPresortedPrefixMode.md)
+  - [ExecIncrementalSort](../E/ExecIncrementalSort.md)
   - [ExecSort](../E/ExecSort.md)
   - [hypothetical_rank_common](../h/hypothetical_rank_common.md)
 

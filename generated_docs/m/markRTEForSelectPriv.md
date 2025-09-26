@@ -35,8 +35,8 @@ When dealing with relation RTEs, the function updates the `RTEPermissionInfo` st
   - ACL_SELECT
   - FirstLowInvalidHeapAttributeNumber
   - InvalidAttrNumber
-  - JoinExpr
-  - RangeTblRef
+  - [JoinExpr](../J/JoinExpr.md)
+  - [RangeTblRef](../R/RangeTblRef.md)
 - Called from (representative examples):
   - [markVarForSelectPriv](markVarForSelectPriv.md)
   - [markRTEForSelectPriv](markRTEForSelectPriv.md) (recursive calls)

@@ -23,14 +23,14 @@ The function is designed for data types that can be represented as or converted 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetInt64 (macro to extract int64 value from Datum)
-  - SortSupport (sort support framework structure)
+  - [DatumGetInt64](../D/DatumGetInt64.md) (macro to extract int64 value from Datum)
+  - [SortSupport](../S/SortSupport.md) (sort support framework structure)
 
 - Called from (representative examples):
-  - btint8sortsupport (B-tree support for int8/bigint sorting)
-  - timestamp_sortsupport (timestamp sorting support)
-  - tuplesort_sort_memtuples (in-memory tuple sorting)
-  - ApplySortAbbrevFullComparator (abbreviated key comparison)
+  - [btint8sortsupport](../b/btint8sortsupport.md) (B-tree support for int8/bigint sorting)
+  - [timestamp_sortsupport](../t/timestamp_sortsupport.md) (timestamp sorting support)
+  - [tuplesort_sort_memtuples](../t/tuplesort_sort_memtuples.md) (in-memory tuple sorting)
+  - [ApplySortAbbrevFullComparator](../A/ApplySortAbbrevFullComparator.md) (abbreviated key comparison)
 
 ## Notes and Other Information
 - Specifically designed for signed 64-bit integer comparisons

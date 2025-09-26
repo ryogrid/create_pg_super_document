@@ -28,10 +28,10 @@ The function appends results to the provided lists, allowing multiple calls to a
   - [find_indexpath_quals](find_indexpath_quals.md) (recursive calls)
   - [list_concat](../l/list_concat.md)
   - nodeTag
-  - BitmapAndPath
-  - BitmapOrPath
+  - [BitmapAndPath](../B/BitmapAndPath.md)
+  - [BitmapOrPath](../B/BitmapOrPath.md)
   - [IndexPath](../I/IndexPath.md)
-  - IndexClause
+  - [IndexClause](../I/IndexClause.md)
 - Called from (representative examples):
   - [classify_index_clause_usage](../c/classify_index_clause_usage.md)
   - [find_indexpath_quals](find_indexpath_quals.md) (recursive self-calls)

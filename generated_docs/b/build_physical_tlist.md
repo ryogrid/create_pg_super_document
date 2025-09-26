@@ -29,11 +29,11 @@ For different RTE kinds:
 ## Dependencies
 - Functions called/Symbols referenced:
   - planner_rt_fetch (retrieves range table entry by index)
-  - table_open/table_close (relation access functions)
+  - [table_open](../t/table_open.md)/table_close (relation access functions)
   - RelationGetNumberOfAttributes (gets attribute count)
-  - makeVar (creates Var nodes for table columns)
+  - [makeVar](../m/makeVar.md) (creates Var nodes for table columns)
   - [makeTargetEntry](../m/makeTargetEntry.md) (creates target list entries)
-  - makeVarFromTargetEntry (creates Var from subquery target entry)
+  - [makeVarFromTargetEntry](../m/makeVarFromTargetEntry.md) (creates Var from subquery target entry)
   - [expandRTE](../e/expandRTE.md) (expands range table entry to column list)
   - TupleDescAttr (accesses tuple descriptor attributes)
   - RTE_RELATION, RTE_SUBQUERY, RTE_FUNCTION, etc. (range table entry kinds)

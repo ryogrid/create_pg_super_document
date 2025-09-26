@@ -36,16 +36,16 @@ The function ensures that no portal remains in an inconsistent state that could 
 - Functions called/Symbols referenced:
   - [hash_seq_init](../h/hash_seq_init.md)
   - [hash_seq_search](../h/hash_seq_search.md)
-  - MarkPortalFailed
+  - [MarkPortalFailed](../M/MarkPortalFailed.md)
   - [ResourceOwnerNewParent](../R/ResourceOwnerNewParent.md)
   - PointerIsValid
   - [PortalReleaseCachedPlan](../P/PortalReleaseCachedPlan.md)
   - [MemoryContextDeleteChildren](../M/MemoryContextDeleteChildren.md)
 - Data types/Constants used:
   - SubTransactionId
-  - ResourceOwner
-  - HASH_SEQ_STATUS
-  - PortalHashEnt
+  - [ResourceOwner](../R/ResourceOwner.md)
+  - [HASH_SEQ_STATUS](../H/HASH_SEQ_STATUS.md)
+  - [PortalHashEnt](../P/PortalHashEnt.md)
   - [Portal](../P/Portal.md)
   - PORTAL_ACTIVE
   - PORTAL_FAILED

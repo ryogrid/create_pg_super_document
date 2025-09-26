@@ -54,7 +54,7 @@ The handle optimizes performance by batching shared memory updates (writing data
 ## Dependencies
 - Functions called/Symbols referenced:
   - [shm_mq](shm_mq.md)
-  - dsm_segment
+  - [dsm_segment](../d/dsm_segment.md)
   - [BackgroundWorkerHandle](../B/BackgroundWorkerHandle.md)
   - [MemoryContext](../M/MemoryContext.md)
 - Called from (representative examples):

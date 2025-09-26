@@ -31,10 +31,10 @@ When a line of code is provided, the function displays the problematic line and 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQExpBufferData](../P/PQExpBufferData.md): Buffer structure for building formatted strings
-  - initPQExpBuffer: Initializes the string buffer
+  - [initPQExpBuffer](../i/initPQExpBuffer.md): Initializes the string buffer
   - [printfPQExpBuffer](../p/printfPQExpBuffer.md): Formats the primary error message
   - [appendPQExpBuffer](../a/appendPQExpBuffer.md): Appends additional error context
-  - termPQExpBuffer: Cleans up the buffer resources
+  - [termPQExpBuffer](../t/termPQExpBuffer.md): Cleans up the buffer resources
   - pg_log_error: Outputs the formatted error message
   - fprintf: Outputs the problematic line and error marker to stderr
   - exit: Terminates the program with error code 1

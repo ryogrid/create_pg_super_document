@@ -24,17 +24,17 @@ The function uses fsm_set_and_search for the combined update and search operatio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fsm_space_avail_to_cat
-  - fsm_space_needed_to_cat
+  - [fsm_space_avail_to_cat](../f/fsm_space_avail_to_cat.md)
+  - [fsm_space_needed_to_cat](../f/fsm_space_needed_to_cat.md)
   - FSMAddress
-  - fsm_get_location
-  - fsm_set_and_search
-  - fsm_get_heap_blk
-  - fsm_does_block_exist
-  - fsm_search
+  - [fsm_get_location](../f/fsm_get_location.md)
+  - [fsm_set_and_search](../f/fsm_set_and_search.md)
+  - [fsm_get_heap_blk](../f/fsm_get_heap_blk.md)
+  - [fsm_does_block_exist](../f/fsm_does_block_exist.md)
+  - [fsm_search](../f/fsm_search.md)
 - Called from (representative examples):
-  - brin_getinsertbuffer
-  - RelationGetBufferForTuple
+  - [brin_getinsertbuffer](../b/brin_getinsertbuffer.md)
+  - [RelationGetBufferForTuple](RelationGetBufferForTuple.md)
 
 ## Notes and Other Information
 - Provides better performance than separate RecordPageWithFreeSpace + GetPageWithFreeSpace calls

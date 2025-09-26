@@ -32,9 +32,9 @@ After reconnection, the function resets session state tracking variables (curren
   - [PQExpBufferData](../P/PQExpBufferData.md) (buffer data structure)
   - [RestoreOptions](../R/RestoreOptions.md) (restore configuration structure)
   - [ahprintf](../a/ahprintf.md) (archive output function)
-  - initPQExpBuffer (buffer initialization)
+  - [initPQExpBuffer](../i/initPQExpBuffer.md) (buffer initialization)
   - [appendPsqlMetaConnect](../a/appendPsqlMetaConnect.md) (psql connection command generation)
-  - termPQExpBuffer (buffer cleanup)
+  - [termPQExpBuffer](../t/termPQExpBuffer.md) (buffer cleanup)
   - free (memory deallocation)
   - [_doSetFixedOutputState](../d/_doSetFixedOutputState.md) (session state re-establishment)
 - Called from (representative examples):

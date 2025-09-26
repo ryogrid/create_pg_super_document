@@ -23,7 +23,7 @@ This function is the counterpart to logicalrep_write_truncate, responsible for p
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pq_getmsgint](../p/pq_getmsgint.md)
-  - lappend_oid
+  - [lappend_oid](lappend_oid.md)
   - TRUNCATE_CASCADE
   - TRUNCATE_RESTART_SEQS
 - Called from (representative examples):

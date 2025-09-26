@@ -30,17 +30,17 @@ The structure supports advanced publication features including row-level filteri
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RangeVar (structure representing table references with optional schema qualification)
+  - [RangeVar](../R/RangeVar.md) (structure representing table references with optional schema qualification)
   - NodeTag (for parse node identification)
-  - Node (base node type for expression trees)
-  - List (PostgreSQL's generic list structure)
+  - [Node](../N/Node.md) (base node type for expression trees)
+  - [List](../L/List.md) (PostgreSQL's generic list structure)
 
 - Called from (representative examples):
-  - OpenTableList (used during publication table processing)
-  - PublicationObjSpec (referenced in publication object specifications)
+  - [OpenTableList](../O/OpenTableList.md) (used during publication table processing)
+  - [PublicationObjSpec](PublicationObjSpec.md) (referenced in publication object specifications)
 
 ## Notes and Other Information
-- PublicationTable is used within CREATE PUBLICATION and ALTER PUBLICATION statements to specify which tables to include
+- [PublicationTable](PublicationTable.md) is used within CREATE PUBLICATION and ALTER PUBLICATION statements to specify which tables to include
 - The WHERE clause, if present, must be a valid boolean expression that can be evaluated for each row
 - Row filtering is applied on the publisher side before data is sent to subscribers, reducing network traffic and storage requirements
 - Column filtering allows selective replication of columns, which is useful for security (excluding sensitive columns) or optimization (excluding large columns not needed by subscribers)

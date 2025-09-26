@@ -27,7 +27,7 @@ The function outputs concise but comprehensive information that helps with debug
 ## Dependencies
 - Functions called/Symbols referenced:
   - [gistxlogDelete](../g/gistxlogDelete.md) (struct type)
-  - appendStringInfo (StringInfo formatting function)
+  - [appendStringInfo](../a/appendStringInfo.md) (StringInfo formatting function)
 - Called from (representative examples):
   - [gist_desc](../g/gist_desc.md) (when processing XLOG_GIST_DELETE records)
 

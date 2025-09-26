@@ -32,9 +32,9 @@ The function includes important platform-specific behavior: on Windows, unlike t
   - ssize_t (type)
   - pread (POSIX function)
   - preadv (POSIX function, if available)
-  - pg_pread (PostgreSQL wrapper function)
+  - [pg_pread](pg_pread.md) (PostgreSQL wrapper function)
 - Called from:
-  - FileReadV
+  - [FileReadV](../F/FileReadV.md)
 
 ## Notes and Other Information
 - The function is marked as static inline for performance

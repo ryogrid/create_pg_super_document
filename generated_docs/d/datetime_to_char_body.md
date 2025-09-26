@@ -26,11 +26,11 @@ The actual formatting work is delegated to `DCH_to_char()`, which handles the co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - text_to_cstring
-  - parse_format
-  - DCH_cache_fetch
+  - [text_to_cstring](../t/text_to_cstring.md)
+  - [parse_format](../p/parse_format.md)
+  - [DCH_cache_fetch](../D/DCH_cache_fetch.md)
   - [DCH_to_char](../D/DCH_to_char.md)
-  - cstring_to_text
+  - [cstring_to_text](../c/cstring_to_text.md)
   - [palloc](../p/palloc.md)/pfree (memory management)
 - Called from (representative examples):
   - [timestamp_to_char](../t/timestamp_to_char.md)

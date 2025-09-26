@@ -26,10 +26,10 @@ The function operates by:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - strlcpy
+  - [strlcpy](../s/strlcpy.md)
   - MAX_DESCRIPTOR_NAMELEN
   - ECPGt_descriptor
-  - ECPGtype
+  - [ECPGtype](../E/ECPGtype.md)
 - Called from (representative examples):
   - Used in ecpg.trailer for handling descriptor variables in SQL statements
   - Referenced in ECPG grammar processing

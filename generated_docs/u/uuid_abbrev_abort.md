@@ -25,9 +25,9 @@ The function implements a two-threshold system:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SortSupport (structure type)
+  - [SortSupport](../S/SortSupport.md) (structure type)
   - uuid_sortsupport_state (structure type)
-  - estimateHyperLogLog (cardinality estimation function)
+  - [estimateHyperLogLog](../e/estimateHyperLogLog.md) (cardinality estimation function)
   - TRACE_SORT (conditional compilation macro)
   - INT64_FORMAT (printf format macro)
 - Called from (representative examples):

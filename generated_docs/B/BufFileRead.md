@@ -26,7 +26,7 @@ The function is part of PostgreSQL's legacy BufFile interface, maintained for co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufFileReadCommon (the underlying implementation with exact=false, eofOK=false)
+  - [BufFileReadCommon](BufFileReadCommon.md) (the underlying implementation with exact=false, eofOK=false)
 - Called from (representative examples):
   - Currently no direct callers found in the codebase (legacy interface)
 

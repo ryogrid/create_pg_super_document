@@ -32,16 +32,16 @@ The function handles both regular and temporary tables appropriately, placing te
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open: Opens the original relation
+  - [table_open](../t/table_open.md): Opens the original relation
   - RelationGetDescr: Gets the table's tuple descriptor
   - [SearchSysCache1](../S/SearchSysCache1.md): Looks up relation information in system cache
   - [SysCacheGetAttr](../S/SysCacheGetAttr.md): Retrieves relation options from cache
   - [LookupCreationNamespace](../L/LookupCreationNamespace.md): Finds appropriate namespace for temporary tables
   - RelationGetNamespace: Gets the namespace of the original relation
   - [heap_create_with_catalog](../h/heap_create_with_catalog.md): Creates the new table with catalog entries
-  - CommandCounterIncrement: Makes new catalog entries visible
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md): Makes new catalog entries visible
   - [NewHeapCreateToastTable](../N/NewHeapCreateToastTable.md): Creates TOAST table if needed
-  - table_close: Closes the original relation
+  - [table_close](../t/table_close.md): Closes the original relation
 - Called from (representative examples):
   - [rebuild_relation](../r/rebuild_relation.md): Part of clustering operation
   - [RefreshMatViewByOid](../R/RefreshMatViewByOid.md): Materialized view refresh

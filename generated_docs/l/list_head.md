@@ -23,13 +23,13 @@ The function operates on PostgreSQL's internal List data structure, which stores
 ## Dependencies
 - Functions called/Symbols referenced: None (simple array access)
 - Called from (representative examples):
-  - SendRowDescriptionMessage (src/backend/access/common/printtup.c:171)
-  - ConstructTupleDescriptor (src/backend/catalog/index.c:289-290)
-  - FormIndexDatum (src/backend/catalog/index.c:2720)
-  - NameListToString (src/backend/catalog/namespace.c:3605)
-  - do_analyze_rel (src/backend/commands/analyze.c:452)
-  - create_mergejoin_plan (src/backend/optimizer/plan/createplan.c:4590-4591)
-  - transformUpdateTargetList (src/backend/parser/analyze.c:2501)
+  - [SendRowDescriptionMessage](../S/SendRowDescriptionMessage.md) (src/backend/access/common/printtup.c:171)
+  - [ConstructTupleDescriptor](../C/ConstructTupleDescriptor.md) (src/backend/catalog/index.c:289-290)
+  - [FormIndexDatum](../F/FormIndexDatum.md) (src/backend/catalog/index.c:2720)
+  - [NameListToString](../N/NameListToString.md) (src/backend/catalog/namespace.c:3605)
+  - [do_analyze_rel](../d/do_analyze_rel.md) (src/backend/commands/analyze.c:452)
+  - [create_mergejoin_plan](../c/create_mergejoin_plan.md) (src/backend/optimizer/plan/createplan.c:4590-4591)
+  - [transformUpdateTargetList](../t/transformUpdateTargetList.md) (src/backend/parser/analyze.c:2501)
 
 ## Notes and Other Information
 - This function is marked as static inline for performance optimization due to its frequent usage

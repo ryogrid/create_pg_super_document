@@ -32,7 +32,7 @@ The function is implemented as a static inline function for performance reasons,
   - [addItemsToLeaf](../a/addItemsToLeaf.md) (src/backend/access/gin/gindatapage.c:1485)
   - [leafRepackItems](../l/leafRepackItems.md) (src/backend/access/gin/gindatapage.c:1597, 1716)
   - [ReorderBufferIterTXNNext](../R/ReorderBufferIterTXNNext.md) (src/backend/replication/logical/reorderbuffer.c:1440)
-  - pgstat_flush_pending_entries (src/backend/utils/activity/pgstat.c:1219)
+  - [pgstat_flush_pending_entries](../p/pgstat_flush_pending_entries.md) (src/backend/utils/activity/pgstat.c:1219)
   - [dclist_next_node](dclist_next_node.md) (src/include/lib/ilist.h:871)
 
 ## Notes and Other Information

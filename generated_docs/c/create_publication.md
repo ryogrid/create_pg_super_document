@@ -24,7 +24,7 @@ The function uses proper SQL escaping for both identifiers and literals when con
 - Functions called/Symbols referenced:
   - [PQescapeIdentifier](../P/PQescapeIdentifier.md)
   - [PQescapeLiteral](../P/PQescapeLiteral.md)
-  - createPQExpBuffer
+  - [createPQExpBuffer](createPQExpBuffer.md)
   - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
   - [PQexec](../P/PQexec.md)
   - [PQresultStatus](../P/PQresultStatus.md)
@@ -38,7 +38,7 @@ The function uses proper SQL escaping for both identifiers and literals when con
   - pg_log_error_hint
   - [disconnect_database](../d/disconnect_database.md)
   - [PQfreemem](../P/PQfreemem.md)
-  - destroyPQExpBuffer
+  - [destroyPQExpBuffer](../d/destroyPQExpBuffer.md)
 - Called from (representative examples):
   - [setup_publisher](../s/setup_publisher.md)
 

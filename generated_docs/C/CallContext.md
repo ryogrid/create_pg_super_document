@@ -28,19 +28,19 @@ CallContext is a minimal structure used to pass execution context information to
 - Functions called/Symbols referenced:
   - (None directly referenced)
 - Called from (representative examples):
-  - ExecuteCallStmt (src/backend/commands/functioncmds.c:2197, 2213)
-  - plperl_func_handler (src/pl/plperl/plperl.c:2412, 2413)
-  - plpython3_call_handler (src/pl/plpython/plpy_main.c:201, 202)
-  - pltcl_func_handler (src/pl/tcl/pltcl.c:809, 810)
+  - [ExecuteCallStmt](../E/ExecuteCallStmt.md) (src/backend/commands/functioncmds.c:2197, 2213)
+  - [plperl_func_handler](../p/plperl_func_handler.md) (src/pl/plperl/plperl.c:2412, 2413)
+  - [plpython3_call_handler](../p/plpython3_call_handler.md) (src/pl/plpython/plpy_main.c:201, 202)
+  - [pltcl_func_handler](../p/pltcl_func_handler.md) (src/pl/tcl/pltcl.c:809, 810)
 
 ## Dependencies
 - Functions called/Symbols referenced:
   - (None directly referenced)
 - Called from (representative examples):
-  - ExecuteCallStmt (src/backend/commands/functioncmds.c:2197, 2213)
-  - plperl_func_handler (src/pl/plperl/plperl.c:2412, 2413)
-  - plpython3_call_handler (src/pl/plpython/plpy_main.c:201, 202)
-  - pltcl_func_handler (src/pl/tcl/pltcl.c:809, 810)
+  - [ExecuteCallStmt](../E/ExecuteCallStmt.md) (src/backend/commands/functioncmds.c:2197, 2213)
+  - [plperl_func_handler](../p/plperl_func_handler.md) (src/pl/plperl/plperl.c:2412, 2413)
+  - [plpython3_call_handler](../p/plpython3_call_handler.md) (src/pl/plpython/plpy_main.c:201, 202)
+  - [pltcl_func_handler](../p/pltcl_func_handler.md) (src/pl/tcl/pltcl.c:809, 810)
 
 ## Notes and Other Information
 CallContext is created by ExecuteCallStmt and passed to procedural language handlers to indicate the execution environment. When atomic is true, the procedure cannot perform transaction control operations (like COMMIT or ROLLBACK). When false, the procedure can control transactions. This distinction is important for procedures that need to perform complex transaction management versus those that should execute as part of the current transaction.

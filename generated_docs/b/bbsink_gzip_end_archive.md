@@ -30,7 +30,7 @@ This ensures that the gzip stream is properly terminated and all compressed data
 - Functions called/Symbols referenced:
   - deflate (zlib compression function with Z_FINISH)
   - elog (error logging)
-  - bbsink_archive_contents (forwards final compressed data to next sink)
+  - [bbsink_archive_contents](bbsink_archive_contents.md) (forwards final compressed data to next sink)
   - [bbsink_forward_end_archive](bbsink_forward_end_archive.md) (notifies sink chain of archive completion)
   - Assert (assertion checking)
 - Called from (representative examples):

@@ -29,21 +29,21 @@ The function optimizes for seeks within the current buffer by simply adjusting t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FileSize (to determine file size for SEEK_END operations)
-  - FilePathName (for error reporting)
-  - BufFileFlush (to ensure buffer consistency when repositioning)
+  - [FileSize](../F/FileSize.md) (to determine file size for SEEK_END operations)
+  - [FilePathName](../F/FilePathName.md) (for error reporting)
+  - [BufFileFlush](BufFileFlush.md) (to ensure buffer consistency when repositioning)
   - MAX_PHYSICAL_FILESIZE (constant defining segment size limit)
 - Called from (representative examples):
-  - SendBackupManifest (backup operations seeking within manifest)
-  - ExecHashJoinNewBatch (hash join batch processing)
-  - ensure_last_message (logical replication message handling)
-  - stream_open_file (logical replication streaming)
-  - BufFileSeekBlock (block-level seeking wrapper)
-  - tuplestore_select_read_pointer (tuplestore pointer selection)
-  - tuplestore_puttuple_common (tuplestore writing operations)
-  - tuplestore_gettuple (tuplestore reading operations)
-  - tuplestore_rescan (tuplestore rescanning)
-  - tuplestore_copy_read_pointer (tuplestore pointer copying)
+  - [SendBackupManifest](../S/SendBackupManifest.md) (backup operations seeking within manifest)
+  - [ExecHashJoinNewBatch](../E/ExecHashJoinNewBatch.md) (hash join batch processing)
+  - [ensure_last_message](../e/ensure_last_message.md) (logical replication message handling)
+  - [stream_open_file](../s/stream_open_file.md) (logical replication streaming)
+  - [BufFileSeekBlock](BufFileSeekBlock.md) (block-level seeking wrapper)
+  - [tuplestore_select_read_pointer](../t/tuplestore_select_read_pointer.md) (tuplestore pointer selection)
+  - [tuplestore_puttuple_common](../t/tuplestore_puttuple_common.md) (tuplestore writing operations)
+  - [tuplestore_gettuple](../t/tuplestore_gettuple.md) (tuplestore reading operations)
+  - [tuplestore_rescan](../t/tuplestore_rescan.md) (tuplestore rescanning)
+  - [tuplestore_copy_read_pointer](../t/tuplestore_copy_read_pointer.md) (tuplestore pointer copying)
 
 ## Notes and Other Information
 - Returns 0 on success, EOF on failure (without moving the logical position)

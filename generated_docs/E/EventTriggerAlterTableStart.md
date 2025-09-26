@@ -21,7 +21,7 @@ The function establishes a parent-child relationship by linking the new command 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CollectedCommand (struct type)
+  - [CollectedCommand](../C/CollectedCommand.md) (struct type)
   - SCT_AlterTable (command type constant)  
   - copyObject (for deep copying the parse tree)
   - [palloc](../p/palloc.md) (memory allocation)

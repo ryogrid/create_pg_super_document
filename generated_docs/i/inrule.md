@@ -22,13 +22,13 @@ The function validates that the rule name doesn't start with whitespace, control
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - error (for error reporting)
-  - getsave (to parse save time and DST flag)
-  - rulesub (to process temporal rule data)
-  - ecpyalloc (to allocate and copy strings)
-  - growalloc (to grow the rules array)
+  - [error](../e/error.md) (for error reporting)
+  - [getsave](../g/getsave.md) (to parse save time and DST flag)
+  - [rulesub](../r/rulesub.md) (to process temporal rule data)
+  - [ecpyalloc](../e/ecpyalloc.md) (to allocate and copy strings)
+  - [growalloc](../g/growalloc.md) (to grow the rules array)
 - Called from (representative examples):
-  - infile (main input processing function)
+  - [infile](infile.md) (main input processing function)
 
 ## Notes and Other Information
 - Uses field indices RF_NAME, RF_SAVE, RF_LOYEAR, RF_HIYEAR, RF_COMMAND, RF_MONTH, RF_DAY, RF_TOD, RF_ABBRVAR to access specific rule components

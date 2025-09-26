@@ -27,7 +27,7 @@ This function writes a specified number of zero bytes to a TAR file to provide n
   - XLOG_BLCKSZ (XLOG block size constant)
 - Called from:
   - [tar_open_for_write](tar_open_for_write.md) (for initial file padding)
-  - tar_close (for final file padding)
+  - [tar_close](tar_close.md) (for final file padding)
 
 ## Notes and Other Information
 - Returns true on success, false if any write operation fails

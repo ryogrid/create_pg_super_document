@@ -35,18 +35,18 @@ The NODE structure enables recursive traversal and modification of query trees, 
 - Functions called/Symbols referenced:
   - QueryItem (referenced as pointer type for valnode member)
 - Called from (representative examples):
-  - maketree (creates NODE instances from QueryItem arrays)
-  - plaintree (converts NODE trees back to flat QueryItem arrays)
-  - freetree (recursively frees NODE tree structures)
-  - clean_NOT_intree (performs NOT cleanup operations on NODE trees)
-  - clean_stopword_intree (removes stopwords from NODE trees)
-  - calcstrlen (calculates string length requirements during tree processing)
+  - [maketree](../m/maketree.md) (creates NODE instances from QueryItem arrays)
+  - [plaintree](../p/plaintree.md) (converts NODE trees back to flat QueryItem arrays)
+  - [freetree](../f/freetree.md) (recursively frees NODE tree structures)
+  - [clean_NOT_intree](../c/clean_NOT_intree.md) (performs NOT cleanup operations on NODE trees)
+  - [clean_stopword_intree](../c/clean_stopword_intree.md) (removes stopwords from NODE trees)
+  - [calcstrlen](../c/calcstrlen.md) (calculates string length requirements during tree processing)
   - cleanq_tstopwords (main cleanup function that orchestrates tree operations)
 
 ## Notes and Other Information
-- NODE is a local typedef defined specifically in tsquery_cleanup.c and is not exposed in any header files
+- [NODE](NODE.md) is a local typedef defined specifically in tsquery_cleanup.c and is not exposed in any header files
 - The structure is designed for temporary use during query cleanup operations and is not part of the persistent storage format
 - Memory management for NODE structures is handled through PostgreSQL's palloc/pfree system
 - The binary tree representation allows for efficient recursive algorithms to process complex query structures
-- NODE trees are created from flat QueryItem arrays and then converted back to flat format after cleanup operations are complete
+- [NODE](NODE.md) trees are created from flat QueryItem arrays and then converted back to flat format after cleanup operations are complete
 - Stack overflow protection is implemented in functions that recursively process NODE trees (via check_stack_depth())

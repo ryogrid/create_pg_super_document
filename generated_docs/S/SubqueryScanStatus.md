@@ -28,7 +28,7 @@ A SubqueryScan is considered trivial when it doesn't add any meaningful processi
 ## Dependencies
 - Functions called/Symbols referenced: None (enum definition)
 - Used by:
-  - SubqueryScan struct (as scanstatus member)
+  - [SubqueryScan](SubqueryScan.md) struct (as scanstatus member)
   - [trivial_subqueryscan](../t/trivial_subqueryscan.md)() function in setrefs.c
 
 ## Notes and Other Information

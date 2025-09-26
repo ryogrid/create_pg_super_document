@@ -42,10 +42,10 @@ Key implementation details:
   - UnmapViewOfFile (unmap file mapping from address space)
   - CloseHandle (close Windows handles)
   - VirtualQuery (query virtual memory information for size)
-  - _dosmaperr (map Windows error codes to errno)
-  - errcode_for_dynamic_shared_memory (error code helper)
+  - [_dosmaperr](_dosmaperr.md) (map Windows error codes to errno)
+  - [errcode_for_dynamic_shared_memory](../e/errcode_for_dynamic_shared_memory.md) (error code helper)
 - Called from:
-  - dsm_impl_op (when dynamic_shared_memory_type is DSM_IMPL_WINDOWS)
+  - [dsm_impl_op](dsm_impl_op.md) (when dynamic_shared_memory_type is DSM_IMPL_WINDOWS)
 
 ## Notes and Other Information
 - Uses SEGMENT_NAME_PREFIX for consistent naming with other Windows shared memory

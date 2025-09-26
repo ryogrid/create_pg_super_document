@@ -29,9 +29,9 @@ The function processes control files in reverse order (latest backup first) and 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ControlFileData (PostgreSQL control file structure)
+  - [ControlFileData](../C/ControlFileData.md) (PostgreSQL control file structure)
   - pg_log_debug (debug logging)
-  - get_controlfile_by_exact_path (control file reading utility)
+  - [get_controlfile_by_exact_path](../g/get_controlfile_by_exact_path.md) (control file reading utility)
   - PG_CONTROL_VERSION (expected control file version constant)
   - pg_log_warning (warning message logging)
   - pg_log_warning_hint (warning hint message logging)

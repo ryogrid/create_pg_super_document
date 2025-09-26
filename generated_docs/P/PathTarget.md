@@ -49,7 +49,7 @@ The structure also tracks cost information for evaluating expressions, estimated
 - Functions called/Symbols referenced:
   - NodeTag (for type identification)
   - [List](../L/List.md) (PostgreSQL's list structure)
-  - QualCost (for cost estimation)
+  - [QualCost](../Q/QualCost.md) (for cost estimation)
   - Index (for sortgrouprefs array)
   - VolatileFunctionStatus (volatile function indicator)
 

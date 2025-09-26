@@ -21,7 +21,7 @@ This function constructs a BitmapAnd plan node, which is used to combine multipl
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to allocate BitmapAnd node)
-  - BitmapAnd (struct type)
+  - [BitmapAnd](../B/BitmapAnd.md) (struct type)
 - Called from (representative examples):
   - [create_bitmap_subplan](../c/create_bitmap_subplan.md)
 
@@ -29,6 +29,6 @@ This function constructs a BitmapAnd plan node, which is used to combine multipl
 - The function is static, meaning it's only accessible within the createplan.c file
 - Unlike other plan nodes, BitmapAnd has no targetlist or qual since it only manipulates bitmaps, not actual tuple data
 - The lefttree and righttree are set to NULL because child plans are stored in the bitmapplans list instead
-- BitmapAnd nodes are typically followed by BitmapHeapScan nodes that use the resulting bitmap to efficiently fetch the actual tuples
+- [BitmapAnd](../B/BitmapAnd.md) nodes are typically followed by BitmapHeapScan nodes that use the resulting bitmap to efficiently fetch the actual tuples
 - This node type is crucial for PostgreSQL's bitmap index scan optimization, allowing efficient execution of queries with multiple WHERE conditions that can each use different indexes
 - The resulting bitmap represents the intersection of all input bitmaps, containing only rows that satisfy all the combined index conditions

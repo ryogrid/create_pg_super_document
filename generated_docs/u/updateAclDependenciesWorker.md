@@ -33,8 +33,8 @@ The function optimizes updates by only processing roles that have actually chang
 ## Dependencies
 - Functions called/Symbols referenced:
   - [getOidListDiff](../g/getOidListDiff.md)
-  - table_open
-  - table_close
+  - [table_open](../t/table_open.md)
+  - [table_close](../t/table_close.md)
   - [shdepAddDependency](../s/shdepAddDependency.md)
   - [shdepDropDependency](../s/shdepDropDependency.md)
   - [IsPinnedObject](../I/IsPinnedObject.md)

@@ -25,12 +25,12 @@ The function first increments the total lock count, then searches through existi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwnerRememberLock
+  - [ResourceOwnerRememberLock](../R/ResourceOwnerRememberLock.md)
   - [CheckAndSetLockHeld](../C/CheckAndSetLockHeld.md)
 - Data structures used:
   - [LOCALLOCK](../L/LOCALLOCK.md)
   - [LOCALLOCKOWNER](../L/LOCALLOCKOWNER.md)
-  - ResourceOwner
+  - [ResourceOwner](../R/ResourceOwner.md)
 - Called from (representative examples):
   - [LockAcquireExtended](../L/LockAcquireExtended.md)
   - [GrantAwaitedLock](GrantAwaitedLock.md)

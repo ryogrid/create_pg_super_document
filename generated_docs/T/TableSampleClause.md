@@ -42,7 +42,7 @@ The tsmhandler field references a tablesample method handler function (like SYST
   - [cost_samplescan](../c/cost_samplescan.md)
   - [set_tablesample_rel_size](../s/set_tablesample_rel_size.md)
   - [show_tablesample](../s/show_tablesample.md)
-  - get_tablesample_def
+  - [get_tablesample_def](../g/get_tablesample_def.md)
 
 ## Notes and Other Information
 - Appears as a subnode of RangeTblEntry after query transformation

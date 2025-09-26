@@ -22,7 +22,7 @@ The function constructs a DROP PUBLICATION SQL statement with proper identifier 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - createPQExpBuffer
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)
   - [PQescapeIdentifier](../P/PQescapeIdentifier.md)
   - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
   - pg_log_info
@@ -33,7 +33,7 @@ The function constructs a DROP PUBLICATION SQL statement with proper identifier 
   - [PQresultErrorMessage](../P/PQresultErrorMessage.md)
   - [PQclear](../P/PQclear.md)
   - [PQfreemem](../P/PQfreemem.md)
-  - destroyPQExpBuffer
+  - [destroyPQExpBuffer](destroyPQExpBuffer.md)
 - Called from (representative examples):
   - [cleanup_objects_atexit](../c/cleanup_objects_atexit.md)
   - [setup_subscriber](../s/setup_subscriber.md)

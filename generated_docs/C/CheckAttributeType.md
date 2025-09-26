@@ -21,7 +21,7 @@ The function includes sophisticated recursive containment detection to prevent s
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_typtype](../g/get_typtype.md) (determines type category)
-  - check_stack_depth (prevents stack overflow in recursion)
+  - [check_stack_depth](../c/check_stack_depth.md) (prevents stack overflow in recursion)
   - [getBaseType](../g/getBaseType.md) (gets base type for domains)
   - [get_typ_typrelid](../g/get_typ_typrelid.md) (gets relation OID for composite types)
   - [relation_open](../r/relation_open.md), relation_close (access composite type definitions)

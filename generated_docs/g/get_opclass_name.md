@@ -26,15 +26,15 @@ The function performs a system catalog lookup to retrieve operator class informa
 ## Dependencies
 - Functions called/Symbols referenced:
   - Form_pg_opclass (system catalog form)
-  - GetDefaultOpClass (determines default operator class for data type)
-  - OpclassIsVisible (checks operator class visibility)
-  - quote_identifier (properly quotes identifiers)
-  - get_namespace_name_or_temp (retrieves namespace name)
+  - [GetDefaultOpClass](../G/GetDefaultOpClass.md) (determines default operator class for data type)
+  - [OpclassIsVisible](../O/OpclassIsVisible.md) (checks operator class visibility)
+  - [quote_identifier](../q/quote_identifier.md) (properly quotes identifiers)
+  - [get_namespace_name_or_temp](get_namespace_name_or_temp.md) (retrieves namespace name)
 - Called from (representative examples):
-  - pg_get_indexdef_worker
-  - pg_get_partkeydef_worker
-  - get_rule_expr
-  - generate_opclass_name
+  - [pg_get_indexdef_worker](../p/pg_get_indexdef_worker.md)
+  - [pg_get_partkeydef_worker](../p/pg_get_partkeydef_worker.md)
+  - [get_rule_expr](get_rule_expr.md)
+  - [generate_opclass_name](generate_opclass_name.md)
 
 ## Notes and Other Information
 - Output is suppressed when the opclass is the default for the actual_datatype to keep SQL output clean

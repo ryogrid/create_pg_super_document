@@ -25,9 +25,9 @@ The function includes comprehensive error handling with a custom error context c
   - [_SPI_error_callback](_SPI_error_callback.md)
   - _SPI_PLAN_MAGIC (for integrity verification)
   - [SPICallbackArg](SPICallbackArg.md) (for error context)
-  - CachedPlanSource
-  - CachedPlan
-  - list_length, linitial (list operations)
+  - [CachedPlanSource](../C/CachedPlanSource.md)
+  - [CachedPlan](../C/CachedPlan.md)
+  - [list_length](../l/list_length.md), linitial (list operations)
 - Called from (representative examples):
   - [test_predtest](../t/test_predtest.md) (testing module)
   - Primarily used by PL/pgSQL internally

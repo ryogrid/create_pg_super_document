@@ -23,7 +23,7 @@ PQconnectdb is a high-level convenience function that creates a complete databas
   - [pqConnectDBComplete](../p/pqConnectDBComplete.md)
   - CONNECTION_BAD (connection status constant)
 - Called from (representative examples):
-  - connect_database (pg_createsubscriber.c)
+  - [connect_database](../c/connect_database.md) (pg_createsubscriber.c)
   - [main](../m/main.md) (pg_rewind.c)
   - [get_db_conn](../g/get_db_conn.md) (pg_upgrade server.c)
   - Various test programs and examples

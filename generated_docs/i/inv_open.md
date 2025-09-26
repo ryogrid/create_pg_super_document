@@ -24,7 +24,7 @@ The function supports different access modes through flags and handles memory al
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetActiveSnapshot
+  - [GetActiveSnapshot](../G/GetActiveSnapshot.md)
   - [myLargeObjectExists](../m/myLargeObjectExists.md)  
   - [pg_largeobject_aclcheck_snapshot](../p/pg_largeobject_aclcheck_snapshot.md)
   - [MemoryContextAlloc](../M/MemoryContextAlloc.md)

@@ -29,7 +29,7 @@ Row marks are essential for:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RowMarkClause (structure type used in the search)
+  - [RowMarkClause](../R/RowMarkClause.md) (structure type used in the search)
   - Standard PostgreSQL list iteration macros (foreach, lfirst)
 - Called from (representative examples):
   - [applyLockingClause](../a/applyLockingClause.md) (query analysis for locking clauses)

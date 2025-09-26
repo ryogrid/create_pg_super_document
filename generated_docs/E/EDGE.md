@@ -31,7 +31,7 @@ The structure includes workspace fields (pred and link) that are used by the top
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PGPROC](../P/PGPROC.md)
-  - LOCK
+  - [LOCK](../L/LOCK.md)
 - Called from (representative examples):
   - DEADLOCK_INFO
   - [InitDeadLockChecking](../I/InitDeadLockChecking.md)

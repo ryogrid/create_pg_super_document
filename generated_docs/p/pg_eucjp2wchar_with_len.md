@@ -23,9 +23,9 @@ The function is part of PostgreSQL's character encoding conversion infrastructur
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_euc2wchar_with_len (generic EUC to wide character conversion function)
+  - [pg_euc2wchar_with_len](pg_euc2wchar_with_len.md) (generic EUC to wide character conversion function)
 - Called from (representative examples):
-  - pg_encoding_set_invalid (character encoding setup function)
+  - [pg_encoding_set_invalid](pg_encoding_set_invalid.md) (character encoding setup function)
 
 ## Notes and Other Information
 - This is a static function, indicating it's only used within the wchar.c compilation unit

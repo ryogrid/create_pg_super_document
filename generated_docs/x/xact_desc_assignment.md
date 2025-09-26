@@ -21,9 +21,9 @@ This function formats subtransaction assignment record information from WAL (Wri
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - xl_xact_assignment (struct type)
-  - appendStringInfoString (for adding the "subxacts:" label)
-  - appendStringInfo (for formatting each subtransaction ID)
+  - [xl_xact_assignment](xl_xact_assignment.md) (struct type)
+  - [appendStringInfoString](../a/appendStringInfoString.md) (for adding the "subxacts:" label)
+  - [appendStringInfo](../a/appendStringInfo.md) (for formatting each subtransaction ID)
 - Called from (representative examples):
   - [xact_desc](xact_desc.md) (src/backend/access/rmgrdesc/xactdesc.c:474)
 

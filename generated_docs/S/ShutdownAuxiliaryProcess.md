@@ -20,9 +20,9 @@ This function is registered as a before-shutdown callback during auxiliary proce
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockReleaseAll
+  - [LWLockReleaseAll](../L/LWLockReleaseAll.md)
   - [ConditionVariableCancelSleep](../C/ConditionVariableCancelSleep.md)
-  - pgstat_report_wait_end
+  - [pgstat_report_wait_end](../p/pgstat_report_wait_end.md)
 
 - Called from:
   - Registered as callback via before_shmem_exit() in AuxiliaryProcessMainCommon

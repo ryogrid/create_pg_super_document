@@ -26,7 +26,7 @@ The comparison is performed using two utility macros:
 - Functions called/Symbols referenced:
   - hibits (macro for extracting high-order bits)
   - lobits (macro for extracting low-order bits)
-  - macaddr8 (structure type)
+  - [macaddr8](macaddr8.md) (structure type)
 - Called from (representative examples):
   - [macaddr8_cmp](macaddr8_cmp.md)
   - [macaddr8_lt](macaddr8_lt.md)

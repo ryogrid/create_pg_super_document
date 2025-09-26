@@ -26,7 +26,7 @@ The function follows PostgreSQL's function calling convention using the PG_FUNCT
   - [GetUserNameFromId](../G/GetUserNameFromId.md): Converts user OID to username string
   - [CStringGetDatum](../C/CStringGetDatum.md): Converts C string to PostgreSQL Datum
   - DirectFunctionCall1: Directly calls a PostgreSQL function with one argument
-  - namein: Input function for the name data type
+  - [namein](../n/namein.md): Input function for the name data type
   - PG_RETURN_DATUM: Macro to return a Datum from a PostgreSQL function
 
 - Called from (representative examples):

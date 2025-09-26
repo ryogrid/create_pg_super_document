@@ -42,15 +42,15 @@ The function is particularly important for handling composite-returning function
 ## Dependencies
 - Functions called/Symbols referenced:
   - TupleDescAttr (macro for accessing attribute information)
-  - makeVar (creating Var nodes with proper type information)
+  - [makeVar](../m/makeVar.md) (creating Var nodes with proper type information)
   - [makeString](../m/makeString.md) (creating string nodes for column names)
   - [makeNullConst](../m/makeNullConst.md) (creating NULL constants for dropped columns)
-  - list_nth_cell, lnext (list navigation functions)
+  - [list_nth_cell](../l/list_nth_cell.md), lnext (list navigation functions)
   - [pstrdup](../p/pstrdup.md) (string duplication)
 - Data structures used:
   - [TupleDesc](../T/TupleDesc.md), Form_pg_attribute (tuple descriptor structures)
   - [Alias](../A/Alias.md) (alias information)
-  - Var (variable reference nodes)
+  - [Var](../V/Var.md) (variable reference nodes)
 - Called from:
   - [expandRelation](expandRelation.md) (for regular table relations)
   - [expandRTE](expandRTE.md) (for composite function returns)

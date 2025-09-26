@@ -29,18 +29,18 @@ This function takes no meaningful parameters (uses PG_FUNCTION_ARGS macro for Po
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwnerCreate
-  - ResourceOwnerEnlarge  
-  - CStringGetDatum
-  - ResourceOwnerRemember
-  - ResourceOwnerRelease
-  - ResourceOwnerForget
+  - [ResourceOwnerCreate](../R/ResourceOwnerCreate.md)
+  - [ResourceOwnerEnlarge](../R/ResourceOwnerEnlarge.md)  
+  - [CStringGetDatum](../C/CStringGetDatum.md)
+  - [ResourceOwnerRemember](../R/ResourceOwnerRemember.md)
+  - [ResourceOwnerRelease](../R/ResourceOwnerRelease.md)
+  - [ResourceOwnerForget](../R/ResourceOwnerForget.md)
   - PG_RETURN_VOID
   - RESOURCE_RELEASE_BEFORE_LOCKS (constant)
   - string_desc (static resource descriptor)
 
 - Called from (representative examples):
-  - test_resowner_remember_between_phases
+  - [test_resowner_remember_between_phases](test_resowner_remember_between_phases.md)
 
 ## Notes and Other Information
 - This is part of the test_resowner PostgreSQL extension's test suite

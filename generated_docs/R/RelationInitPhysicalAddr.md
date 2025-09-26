@@ -23,7 +23,7 @@ The function includes special handling for logical decoding scenarios where hist
 ## Dependencies
 - Functions called/Symbols referenced:
   - RELKIND_HAS_STORAGE (macro to check if relation kind has storage)
-  - HistoricSnapshotActive (check if using historic snapshot)
+  - [HistoricSnapshotActive](../H/HistoricSnapshotActive.md) (check if using historic snapshot)
   - RelationIsAccessibleInLogicalDecoding (check logical decoding accessibility)
   - [IsTransactionState](../I/IsTransactionState.md) (check transaction state)
   - [ScanPgRelation](../S/ScanPgRelation.md) (scan pg_class for current tuple)

@@ -28,7 +28,7 @@ This function is part of PostgreSQL's type system infrastructure, allowing AclIt
   - AclItem (structure type)
 - Called from (representative examples):
   - SQL equality operations on aclitem values
-  - Hash table lookups requiring equality checks
+  - [Hash](../H/Hash.md) table lookups requiring equality checks
 
 ## Notes and Other Information
 - This is a PostgreSQL system function accessible via SQL as the = operator for aclitem types

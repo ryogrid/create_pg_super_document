@@ -22,7 +22,7 @@ The function includes stack depth checking to prevent stack overflow from overly
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth (prevents stack overflow during deep recursion)
+  - [check_stack_depth](check_stack_depth.md) (prevents stack overflow during deep recursion)
   - nodeTag (determines the type of the node being copied)
   - copyfuncs.switch.c (auto-generated switch cases for all node types)
   - [list_copy_deep](../l/list_copy_deep.md) (for deep copying of generic lists)

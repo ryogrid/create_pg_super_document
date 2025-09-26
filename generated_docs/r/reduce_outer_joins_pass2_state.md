@@ -27,11 +27,11 @@ The structure distinguishes between fully reduced outer joins (converted to inne
 ## Dependencies
 - Functions called/Symbols referenced:
   - Relids (PostgreSQL's bitmap set type for relation IDs)
-  - List (PostgreSQL's list data structure)
+  - [List](../L/List.md) (PostgreSQL's list data structure)
 - Called from (representative examples):
-  - reduce_outer_joins
-  - reduce_outer_joins_pass2
-  - report_reduced_full_join
+  - [reduce_outer_joins](reduce_outer_joins.md)
+  - [reduce_outer_joins_pass2](reduce_outer_joins_pass2.md)
+  - [report_reduced_full_join](report_reduced_full_join.md)
 
 ## Notes and Other Information
 This structure is the complement to reduce_outer_joins_pass1_state, working together in a two-pass optimization algorithm. The tracking of partial reductions is particularly important for full outer joins, which may have asymmetric null-rejecting conditions that allow reduction to left or right outer joins but not complete elimination. The information collected here is used to update the query tree structure with the optimized join types.

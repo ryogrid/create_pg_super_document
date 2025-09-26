@@ -23,9 +23,9 @@ The function performs the installation under ControlFileLock protection to preve
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogFilePath
-  - LWLockAcquire/LWLockRelease
-  - durable_unlink
+  - [XLogFilePath](../X/XLogFilePath.md)
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease
+  - [durable_unlink](../d/durable_unlink.md)
   - [stat](../s/stat.md)
   - access
   - [durable_rename](../d/durable_rename.md)

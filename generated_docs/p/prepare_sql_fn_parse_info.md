@@ -26,7 +26,7 @@ This function creates and initializes a SQLFunctionParseInfo structure that cont
 - Functions called/Symbols referenced:
   - SQLFunctionParseInfoPtr
   - Form_pg_proc
-  - SQLFunctionParseInfo
+  - [SQLFunctionParseInfo](../S/SQLFunctionParseInfo.md)
   - IsPolymorphicType
   - [get_call_expr_argtype](../g/get_call_expr_argtype.md)
   - [SysCacheGetAttr](../S/SysCacheGetAttr.md)

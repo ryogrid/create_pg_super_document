@@ -28,7 +28,7 @@ This function takes no parameters.
   - [list_free_deep](../l/list_free_deep.md) (free entire list and its contents)
   - [list_cell_number](../l/list_cell_number.md) (get position of cell in list)
   - [list_nth](../l/list_nth.md) (get nth element of list)
-  - list_delete_first_n (remove first n elements from list)
+  - [list_delete_first_n](../l/list_delete_first_n.md) (remove first n elements from list)
 - Called from (representative examples):
   - [CreateCheckPoint](../C/CreateCheckPoint.md) (main checkpoint creation function in xlog.c:7288)
 

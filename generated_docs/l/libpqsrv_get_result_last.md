@@ -22,7 +22,7 @@ This function emulates PQexec()'s behavior by continuously calling libpqsrv_get_
   - [libpqsrv_get_result](libpqsrv_get_result.md)
   - [PQclear](../P/PQclear.md)
   - [PQresultStatus](../P/PQresultStatus.md)
-  - PQstatus
+  - [PQstatus](../P/PQstatus.md)
   - PGRES_COPY_IN
   - PGRES_COPY_OUT
   - PGRES_COPY_BOTH

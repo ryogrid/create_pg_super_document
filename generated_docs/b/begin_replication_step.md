@@ -31,8 +31,8 @@ The function is designed to be idempotent within a transaction - if called multi
   - [IsTransactionState](../I/IsTransactionState.md) (checks if already in transaction)
   - [StartTransactionCommand](../S/StartTransactionCommand.md) (initiates new transaction)
   - [maybe_reread_subscription](../m/maybe_reread_subscription.md) (refreshes subscription config)
-  - GetTransactionSnapshot (obtains current snapshot)
-  - PushActiveSnapshot (activates snapshot)
+  - [GetTransactionSnapshot](../G/GetTransactionSnapshot.md) (obtains current snapshot)
+  - [PushActiveSnapshot](../P/PushActiveSnapshot.md) (activates snapshot)
   - ApplyMessageContext (memory context for replication messages)
 - Called from (representative examples):
   - [apply_handle_insert](../a/apply_handle_insert.md) (INSERT operation processing)

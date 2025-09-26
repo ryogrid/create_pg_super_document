@@ -20,13 +20,13 @@ The `size_product` function performs safe multiplication of two size_t values, s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - memory_exhausted (for handling overflow conditions)
+  - [memory_exhausted](../m/memory_exhausted.md) (for handling overflow conditions)
   - SIZE_MAX (standard constant representing maximum value for size_t)
   - _ (gettext macro for internationalization)
 - Called from (representative examples):
-  - growalloc
-  - writezone
-  - getfields
+  - [growalloc](../g/growalloc.md)
+  - [writezone](../w/writezone.md)
+  - [getfields](../g/getfields.md)
 
 ## Notes and Other Information
 - This is a static function, accessible only within the src/timezone/zic.c file

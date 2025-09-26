@@ -40,7 +40,7 @@ The function ensures proper linking between trigger events and their shared meta
 
 - Called from (representative examples):
   - [afterTriggerMarkEvents](afterTriggerMarkEvents.md) (marks events for execution)
-  - AfterTriggerSaveEvent (saves events during trigger processing)
+  - [AfterTriggerSaveEvent](../A/AfterTriggerSaveEvent.md) (saves events during trigger processing)
 
 ## Notes and Other Information
 - The function is static and only used within the trigger system implementation

@@ -31,7 +31,7 @@ The function provides intelligent handling of different string types, including 
   - ECPGt_unsigned_char
   - ECPGt_string
   - ECPGt_varchar
-  - ECPGgeneric_varchar
+  - [ECPGgeneric_varchar](../E/ECPGgeneric_varchar.md)
   - strncpy
   - memcpy
   - strlen

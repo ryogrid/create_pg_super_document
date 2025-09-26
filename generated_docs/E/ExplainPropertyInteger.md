@@ -28,7 +28,7 @@ This function serves as a specialized wrapper around ExplainProperty for handlin
   - [ExplainProperty](ExplainProperty.md) (generic property explanation function)
 - Called from (representative examples):
   - [ExplainPrintPlan](ExplainPrintPlan.md) (for plan execution times)
-  - ExplainPrintJIT (for JIT compilation statistics)
+  - [ExplainPrintJIT](ExplainPrintJIT.md) (for JIT compilation statistics)
   - [ExplainNode](ExplainNode.md) (for various node statistics like loops, rows)
   - [show_sort_info](../s/show_sort_info.md) (for sort statistics)
   - [show_hash_info](../s/show_hash_info.md) (for hash table statistics)

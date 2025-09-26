@@ -36,18 +36,18 @@ The function handles several edge cases including concurrent extensions, existin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IOContextForStrategy
+  - [IOContextForStrategy](../I/IOContextForStrategy.md)
   - [LimitAdditionalPins](../L/LimitAdditionalPins.md)
   - [GetVictimBuffer](../G/GetVictimBuffer.md)
   - BufHdrGetBlock/GetBufferDescriptor
   - MemSet
-  - LockRelationForExtension/UnlockRelationForExtension
-  - smgrnblocks/smgrzeroextend
+  - [LockRelationForExtension](../L/LockRelationForExtension.md)/UnlockRelationForExtension
+  - [smgrnblocks](../s/smgrnblocks.md)/smgrzeroextend
   - [BufTableInsert](../B/BufTableInsert.md)/BufTableHashCode
   - [BufferDescriptorGetContentLock](../B/BufferDescriptorGetContentLock.md)
-  - PinBuffer/UnpinBuffer
-  - StartBufferIO/TerminateBufferIO
-  - StrategyFreeBuffer
+  - [PinBuffer](../P/PinBuffer.md)/UnpinBuffer
+  - [StartBufferIO](../S/StartBufferIO.md)/TerminateBufferIO
+  - [StrategyFreeBuffer](../S/StrategyFreeBuffer.md)
   - [pgstat_count_io_op_time](../p/pgstat_count_io_op_time.md)
   - [PageIsNew](../P/PageIsNew.md)
 - Called from (representative examples):

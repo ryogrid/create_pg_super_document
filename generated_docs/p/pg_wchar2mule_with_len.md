@@ -36,7 +36,7 @@ The conversion uses bit shifting and masking operations to extract the original 
   - IS_LCPRV2_B_RANGE (macro to test for LCPRV2_B range)
   - LCPRV1_A, LCPRV1_B, LCPRV2_A, LCPRV2_B (constants for private use prefixes)
 - Called from:
-  - pg_encoding_set_invalid (as part of encoding function table setup)
+  - [pg_encoding_set_invalid](pg_encoding_set_invalid.md) (as part of encoding function table setup)
 
 ## Notes and Other Information
 - Returns the number of bytes produced in the output MULE sequence

@@ -44,8 +44,8 @@ Internal variables:
   - [clean_NOT](../c/clean_NOT.md): Remove/clean NOT operations from query
   - [palloc](../p/palloc.md): Allocate memory for buffer and INFIX structure
   - [pfree](../p/pfree.md): Free allocated memory
-  - cstring_to_text: Convert C string to PostgreSQL text
-  - cstring_to_text_with_len: Convert C string with specific length to text
+  - [cstring_to_text](../c/cstring_to_text.md): Convert C string to PostgreSQL text
+  - [cstring_to_text_with_len](../c/cstring_to_text_with_len.md): Convert C string with specific length to text
   - [infix](../i/infix.md): Convert query tree to infix notation
   - SET_VARSIZE: Set variable-length data size
   - PG_FREE_IF_COPY: Free input if it's a copy

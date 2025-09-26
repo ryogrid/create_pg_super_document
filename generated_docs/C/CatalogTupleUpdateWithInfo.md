@@ -24,7 +24,7 @@ Like other catalog functions with "WithInfo" suffix, this function is designed f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CatalogIndexState
+  - [CatalogIndexState](CatalogIndexState.md)
   - TU_UpdateIndexes
   - TU_All
   - [CatalogTupleCheckConstraints](CatalogTupleCheckConstraints.md)

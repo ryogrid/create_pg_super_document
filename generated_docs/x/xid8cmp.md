@@ -21,7 +21,7 @@ The xid8cmp function provides a comprehensive comparison mechanism for PostgreSQ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FullTransactionId (type)
+  - [FullTransactionId](../F/FullTransactionId.md) (type)
   - PG_GETARG_FULLTRANSACTIONID (macro for argument extraction)
   - FullTransactionIdFollows (ordering comparison function)
   - FullTransactionIdEquals (equality comparison function)

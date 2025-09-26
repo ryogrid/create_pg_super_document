@@ -27,7 +27,7 @@ The function is designed to be called as a final cleanup step when a LOCALLOCK i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwnerForgetLock
+  - [ResourceOwnerForgetLock](ResourceOwnerForgetLock.md)
   - FastPathStrongLockHashPartition
   - [hash_search](../h/hash_search.md)
   - [CheckAndSetLockHeld](../C/CheckAndSetLockHeld.md)

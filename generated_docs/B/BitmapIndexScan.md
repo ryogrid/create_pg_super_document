@@ -32,17 +32,17 @@ Unlike regular IndexScan nodes, BitmapIndexScan does not store a direction flag 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Scan (base structure)
+  - [Scan](../S/Scan.md) (base structure)
 - Called from (representative examples):
-  - ExplainNode (for EXPLAIN output)
-  - ExecInitNode (executor initialization)
-  - MultiExecBitmapIndexScan (execution function)
-  - ExecInitBitmapIndexScan (initialization)
-  - make_bitmap_indexscan (plan creation)
-  - bitmap_subplan_mark_shared (parallel query planning)
+  - [ExplainNode](../E/ExplainNode.md) (for EXPLAIN output)
+  - [ExecInitNode](../E/ExecInitNode.md) (executor initialization)
+  - [MultiExecBitmapIndexScan](../M/MultiExecBitmapIndexScan.md) (execution function)
+  - [ExecInitBitmapIndexScan](../E/ExecInitBitmapIndexScan.md) (initialization)
+  - [make_bitmap_indexscan](../m/make_bitmap_indexscan.md) (plan creation)
+  - [bitmap_subplan_mark_shared](../b/bitmap_subplan_mark_shared.md) (parallel query planning)
 
 ## Notes and Other Information
-- BitmapIndexScan nodes work in conjunction with BitmapHeapScan to implement PostgreSQL's bitmap scan strategy
+- [BitmapIndexScan](BitmapIndexScan.md) nodes work in conjunction with BitmapHeapScan to implement PostgreSQL's bitmap scan strategy
 - The bitmap produced can be combined with other bitmaps using BitmapAnd/BitmapOr operations
 - This scan type is particularly efficient when multiple indexes need to be consulted or when the selectivity of the index condition results in scattered heap page accesses
 - The isshared flag enables parallel execution by allowing multiple worker processes to contribute to a shared bitmap structure

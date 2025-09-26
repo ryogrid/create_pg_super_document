@@ -28,15 +28,15 @@ The edge recombination crossover is designed to preserve adjacency information f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Gene (typedef for int, representing a relation identifier)
+  - [Gene](../G/Gene.md) (typedef for int, representing a relation identifier)
 - Called from (representative examples):
-  - alloc_edge_table (allocates arrays of Edge structures)
-  - gimme_edge_table (creates and initializes edge table)
-  - gimme_edge (retrieves edge information)
-  - gimme_tour (constructs tour using edge information)
-  - remove_gene (removes genes from edge lists)
-  - gimme_gene (selects genes based on edge information)
-  - print_edge_table (debugging function to print edge table)
+  - [alloc_edge_table](../a/alloc_edge_table.md) (allocates arrays of Edge structures)
+  - [gimme_edge_table](../g/gimme_edge_table.md) (creates and initializes edge table)
+  - [gimme_edge](../g/gimme_edge.md) (retrieves edge information)
+  - [gimme_tour](../g/gimme_tour.md) (constructs tour using edge information)
+  - [remove_gene](../r/remove_gene.md) (removes genes from edge lists)
+  - [gimme_gene](../g/gimme_gene.md) (selects genes based on edge information)
+  - [print_edge_table](../p/print_edge_table.md) (debugging function to print edge table)
 
 ## Notes and Other Information
 - The Edge structure is specifically designed for the ERX algorithm implementation in GEQO

@@ -23,18 +23,18 @@ The `ECPGprepare` function is the primary entry point for preparing SQL statemen
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ecpg_get_connection
-  - ecpg_init
-  - ecpg_find_prepared_statement
-  - deallocate_one
-  - prepare_common
+  - [ecpg_get_connection](../e/ecpg_get_connection.md)
+  - [ecpg_init](../e/ecpg_init.md)
+  - [ecpg_find_prepared_statement](../e/ecpg_find_prepared_statement.md)
+  - [deallocate_one](../d/deallocate_one.md)
+  - [prepare_common](../p/prepare_common.md)
 - Structures used:
-  - connection
-  - prepared_statement
+  - [connection](../c/connection.md)
+  - [prepared_statement](../p/prepared_statement.md)
 - Constants used:
   - ECPG_COMPAT_PGSQL
 - Called from (representative examples):
-  - ecpg_auto_prepare
+  - [ecpg_auto_prepare](../e/ecpg_auto_prepare.md)
   - Various test functions and user applications
 
 ## Notes and Other Information

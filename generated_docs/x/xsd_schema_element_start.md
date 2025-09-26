@@ -28,8 +28,8 @@ This is a building block used by higher-level functions that generate complete X
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendStringInfoString
-  - appendStringInfo
+  - [appendStringInfoString](../a/appendStringInfoString.md)
+  - [appendStringInfo](../a/appendStringInfo.md)
   - strlen
   - NAMESPACE_XSD (constant for XSD namespace URI)
 - Called from (representative examples):

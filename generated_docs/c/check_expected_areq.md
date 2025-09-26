@@ -43,7 +43,7 @@ The function implements multiple security checks: SSL certificate validation whe
   - AUTH_REQ_MAX
   - CHAR_BIT
 - Called from:
-  - pg_fe_sendauth
+  - [pg_fe_sendauth](../p/pg_fe_sendauth.md)
 
 ## Notes and Other Information
 - Contains compile-time assertion to ensure AUTH_REQ_MAX fits within the allowed_auth_methods bitmask

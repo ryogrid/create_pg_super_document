@@ -27,14 +27,14 @@ The function uses non-blocking mode with select() to interleave sending commands
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQenterPipelineMode/PQexitPipelineMode (pipeline mode control)
+  - [PQenterPipelineMode](../P/PQenterPipelineMode.md)/PQexitPipelineMode (pipeline mode control)
   - [PQsendQueryParams](../P/PQsendQueryParams.md) (sending SQL commands)
   - [PQsendPrepare](../P/PQsendPrepare.md) (preparing statements)
   - [PQsendQueryPrepared](../P/PQsendQueryPrepared.md) (executing prepared statements)
   - [PQsetnonblocking](../P/PQsetnonblocking.md) (enabling non-blocking I/O)
   - [PQsocket](../P/PQsocket.md)/select/FD_SET/FD_ZERO (socket-level I/O management)
   - [PQconsumeInput](../P/PQconsumeInput.md)/PQisBusy/PQgetResult (result processing)
-  - PQpipelineSync (pipeline synchronization)
+  - [PQpipelineSync](../P/PQpipelineSync.md) (pipeline synchronization)
   - [PQflush](../P/PQflush.md) (forcing output buffer flush)
   - PipelineInsertStep enum and BI_* constants (state machine states)
   - MAXINTLEN/MAXINT8LEN (parameter formatting constants)

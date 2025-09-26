@@ -35,12 +35,12 @@ ApplyErrorCallbackArg serves as a context container for error reporting during l
 ## Dependencies
 - Functions called/Symbols referenced:
   - LogicalRepMsgType
-  - LogicalRepRelMapEntry
+  - [LogicalRepRelMapEntry](../L/LogicalRepRelMapEntry.md)
   - TransactionId
   - XLogRecPtr
 - Called from (representative examples):
-  - TransApplyAction
-  - apply_error_callback
+  - [TransApplyAction](../T/TransApplyAction.md)
+  - [apply_error_callback](../a/apply_error_callback.md)
 
 ## Notes and Other Information
 This structure is primarily used in error callback functions to provide detailed context when logical replication operations fail. The remote node information fields help identify the source of the problematic data, making it easier to debug replication issues. The structure supports partial initialization where some fields may be invalid (-1 for remote_attnum, 0 for command) depending on the context of the error.

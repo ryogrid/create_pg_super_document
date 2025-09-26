@@ -31,8 +31,8 @@ This function converts a single row from an SPI result set into XML format. It h
   - [xmldata_root_element_start](../x/xmldata_root_element_start.md)
   - [xmldata_root_element_end](../x/xmldata_root_element_end.md)
   - [SPI_fname](SPI_fname.md)
-  - SPI_getbinval
-  - SPI_gettypeid
+  - [SPI_getbinval](SPI_getbinval.md)
+  - [SPI_gettypeid](SPI_gettypeid.md)
   - [map_sql_value_to_xml_value](../m/map_sql_value_to_xml_value.md)
 - Called from (representative examples):
   - [cursor_to_xml](../c/cursor_to_xml.md)

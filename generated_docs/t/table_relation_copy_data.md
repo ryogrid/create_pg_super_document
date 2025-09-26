@@ -25,7 +25,7 @@ The new storage location may not have any associated storage files before this f
 - Functions called/Symbols referenced:
   - rel->rd_tableam->relation_copy_data (table access method implementation)
 - Called from (representative examples):
-  - ATExecSetTableSpace (during ALTER TABLE ... SET TABLESPACE operations)
+  - [ATExecSetTableSpace](../A/ATExecSetTableSpace.md) (during ALTER TABLE ... SET TABLESPACE operations)
 
 ## Notes and Other Information
 - This is a low-level operation used primarily for administrative tasks

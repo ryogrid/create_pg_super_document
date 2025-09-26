@@ -22,7 +22,7 @@ This function provides a formatted timestamp string representing when the curren
 - Functions called/Symbols referenced:
   - pg_time_t (timestamp type)
   - FORMATTED_TS_LEN (buffer size constant)
-  - pg_strftime (PostgreSQL's strftime implementation)
+  - [pg_strftime](../p/pg_strftime.md) (PostgreSQL's strftime implementation)
   - [pg_localtime](../p/pg_localtime.md) (PostgreSQL's localtime implementation)
   - MyStartTime (global variable for backend start time)
   - log_timezone (global timezone setting)

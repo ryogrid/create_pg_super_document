@@ -20,7 +20,7 @@ QTNClearFlags traverses a QTNode tree recursively and clears the specified flag 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth (prevents stack overflow during recursion)
+  - [check_stack_depth](../c/check_stack_depth.md) (prevents stack overflow during recursion)
   - QI_VAL (query item type constant for leaf nodes)
   - [QTNClearFlags](QTNClearFlags.md) (recursive self-call for child nodes)
 - Called from (representative examples):

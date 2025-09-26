@@ -28,9 +28,9 @@ This function performs insertion of a new key-child pair into an internal node o
   - relptr_store
   - FREE_PAGE_INTERNAL_MAGIC
   - FPM_ITEMS_PER_INTERNAL_PAGE
-  - FreePageBtreeInternalKey
+  - [FreePageBtreeInternalKey](FreePageBtreeInternalKey.md)
 - Called from (representative examples):
-  - FreePageManagerPutInternal
+  - [FreePageManagerPutInternal](FreePageManagerPutInternal.md)
 
 ## Notes and Other Information
 - Function includes assertions to validate that the target page has the correct internal magic number

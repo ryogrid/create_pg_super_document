@@ -30,7 +30,7 @@ This function is essential for setting up the context needed to process INSERT c
 - Functions called/Symbols referenced:
   - [populate_typ_list](../p/populate_typ_list.md)
   - [closerel](../c/closerel.md) 
-  - table_openrv
+  - [table_openrv](../t/table_openrv.md)
   - [makeRangeVar](../m/makeRangeVar.md)
   - RelationGetNumberOfAttributes
   - [AllocateAttribute](../A/AllocateAttribute.md)

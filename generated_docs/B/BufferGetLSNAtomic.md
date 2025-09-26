@@ -25,7 +25,7 @@ BufferGetLSNAtomic provides a thread-safe way to retrieve the LSN of a buffer pa
   - [PageGetLSN](../P/PageGetLSN.md)
   - BufferIsPinned (assertion only)
   - [GetBufferDescriptor](../G/GetBufferDescriptor.md)
-  - LockBufHdr
+  - [LockBufHdr](../L/LockBufHdr.md)
   - [UnlockBufHdr](../U/UnlockBufHdr.md)
   - [BufferDesc](BufferDesc.md) (type)
 - Called from (representative examples):

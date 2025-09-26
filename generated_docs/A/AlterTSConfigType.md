@@ -40,7 +40,7 @@ This enumeration defines the different types of modifications that can be made t
 - Functions called/Symbols referenced:
   - (None - this is an enum definition)
 - Called from (representative examples):
-  - AlterTSConfigurationStmt (as the 'kind' field)
+  - [AlterTSConfigurationStmt](AlterTSConfigurationStmt.md) (as the 'kind' field)
   - Parser grammar rules in gram.y for ALTER TEXT SEARCH CONFIGURATION statements
 
 ## Notes and Other Information

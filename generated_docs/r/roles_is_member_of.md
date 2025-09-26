@@ -35,24 +35,24 @@ The recursion type controls which grants are followed:
 ## Dependencies
 - Functions called/Symbols referenced:
   - RoleRecurseType (enum)
-  - bloom_filter (data structure)
-  - roles_list_append
+  - [bloom_filter](../b/bloom_filter.md) (data structure)
+  - [roles_list_append](roles_list_append.md)
   - SearchSysCacheList1
   - Form_pg_auth_members
-  - bloom_free
+  - [bloom_free](../b/bloom_free.md)
   - list_make1_oid
-  - list_copy
-  - list_free
+  - [list_copy](../l/list_copy.md)
+  - [list_free](../l/list_free.md)
   - PointerIsValid
   - ReleaseSysCacheList
 - Called from:
-  - has_privs_of_role
-  - member_can_set_role
-  - is_member_of_role
-  - is_member_of_role_nosuper
-  - is_admin_of_role
-  - select_best_admin
-  - select_best_grantor
+  - [has_privs_of_role](../h/has_privs_of_role.md)
+  - [member_can_set_role](../m/member_can_set_role.md)
+  - [is_member_of_role](../i/is_member_of_role.md)
+  - [is_member_of_role_nosuper](../i/is_member_of_role_nosuper.md)
+  - [is_admin_of_role](../i/is_admin_of_role.md)
+  - [select_best_admin](../s/select_best_admin.md)
+  - [select_best_grantor](../s/select_best_grantor.md)
 
 ## Notes and Other Information
 - Results are cached globally and only valid until the next call to this function

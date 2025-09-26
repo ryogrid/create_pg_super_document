@@ -21,14 +21,14 @@ The function uses a coarse-grained invalidation approach - any catalog change in
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pairingheap_remove
+  - [pairingheap_remove](../p/pairingheap_remove.md)
   - [SnapshotResetXmin](../S/SnapshotResetXmin.md)
 - Called from (representative examples):
   - [heap_inplace_lock](../h/heap_inplace_lock.md)
   - [CopyFrom](../C/CopyFrom.md)
   - [InvalidateSystemCachesExtended](InvalidateSystemCachesExtended.md)
   - [LocalExecuteInvalidationMessage](../L/LocalExecuteInvalidationMessage.md)
-  - GetTransactionSnapshot
+  - [GetTransactionSnapshot](../G/GetTransactionSnapshot.md)
   - [GetNonHistoricCatalogSnapshot](../G/GetNonHistoricCatalogSnapshot.md)
   - [InvalidateCatalogSnapshotConditionally](InvalidateCatalogSnapshotConditionally.md)
   - [AtEOXact_Snapshot](../A/AtEOXact_Snapshot.md)

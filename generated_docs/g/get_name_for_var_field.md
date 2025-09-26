@@ -52,7 +52,7 @@ The function maintains proper namespace context throughout recursive calls and h
   - GetCTETargetList (CTE target list access)
   - [get_name_for_var_field](get_name_for_var_field.md) (recursive self-calls)
 - Called from (representative examples):
-  - get_rule_expr (for FieldSelect expressions)
+  - [get_rule_expr](get_rule_expr.md) (for FieldSelect expressions)
   - [get_name_for_var_field](get_name_for_var_field.md) (recursive calls)
 
 ## Notes and Other Information

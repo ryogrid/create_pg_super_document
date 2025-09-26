@@ -28,14 +28,14 @@ This function takes standard PostgreSQL function arguments but does not use any 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `test_empty`: Tests radix tree operations on an empty tree
-  - `test_basic`: Tests basic radix tree operations (insert, lookup, delete, iterate) for specific node classes
-  - `test_random`: Performs randomized stress testing of radix tree operations
+  - `[test_empty](test_empty.md)`: Tests radix tree operations on an empty tree
+  - `[test_basic](test_basic.md)`: Tests basic radix tree operations (insert, lookup, delete, iterate) for specific node classes
+  - `[test_random](test_random.md)`: Performs randomized stress testing of radix tree operations
   - `lengthof`: Macro to get the length of the `rt_node_class_tests` array
   - `BITS_PER_BYTE`: Constant for calculating maximum shift value
   - `PG_RETURN_VOID`: PostgreSQL macro to return void from a function
 - Called from (representative examples):
-  - `rt_num_entries`: Used as a PostgreSQL function accessible via SQL
+  - `[rt_num_entries](../r/rt_num_entries.md)`: Used as a PostgreSQL function accessible via SQL
 
 ## Notes and Other Information
 - This is a test module specifically designed for validating the adaptive radix tree implementation in PostgreSQL

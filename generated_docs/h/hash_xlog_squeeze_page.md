@@ -18,8 +18,8 @@ This function handles the replay of a complete hash index squeeze operation duri
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData
-  - XLogReadBufferForRedoExtended
-  - XLogReadBufferForRedo
+  - [XLogReadBufferForRedoExtended](../X/XLogReadBufferForRedoExtended.md)
+  - [XLogReadBufferForRedo](../X/XLogReadBufferForRedo.md)
   - [XLogRecGetBlockData](../X/XLogRecGetBlockData.md)
   - XLogRecHasBlockRef
   - [BufferGetPage](../B/BufferGetPage.md)
@@ -31,7 +31,7 @@ This function handles the replay of a complete hash index squeeze operation duri
   - HashPageGetMeta
   - [_hash_pageinit](_hash_pageinit.md)
   - [PageSetLSN](../P/PageSetLSN.md)
-  - MarkBufferDirty
+  - [MarkBufferDirty](../M/MarkBufferDirty.md)
   - [BufferIsValid](../B/BufferIsValid.md)
   - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
   - CLRBIT

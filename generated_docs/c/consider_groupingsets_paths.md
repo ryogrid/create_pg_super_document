@@ -45,7 +45,7 @@ Key optimizations include:
 - Functions called/Symbols referenced:
   - [get_hash_memory_limit](../g/get_hash_memory_limit.md)
   - [pathkeys_contained_in](../p/pathkeys_contained_in.md)
-  - estimate_hashagg_tablesize
+  - [estimate_hashagg_tablesize](../e/estimate_hashagg_tablesize.md)
   - [preprocess_groupclause](../p/preprocess_groupclause.md)
   - [remap_to_groupclause_idx](../r/remap_to_groupclause_idx.md)
   - [DiscreteKnapsack](../D/DiscreteKnapsack.md)

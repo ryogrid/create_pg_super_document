@@ -48,7 +48,7 @@ The structure is divided into several functional areas: memory management, SQL d
 ## Dependencies
 - Functions called/Symbols referenced:
   - [slist_head](../s/slist_head.md) (PostgreSQL singly-linked list header)
-  - CollectedCommand (command collection structure from deparse_utility.h)
+  - [CollectedCommand](../C/CollectedCommand.md) (command collection structure from deparse_utility.h)
   - [MemoryContext](../M/MemoryContext.md) (PostgreSQL memory management)
   - [List](../L/List.md) (PostgreSQL list type)
   - Oid (PostgreSQL object identifier type)

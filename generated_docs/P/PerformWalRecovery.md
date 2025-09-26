@@ -41,7 +41,7 @@ This function takes no parameters as it operates on global recovery state.
   - [recoveryApplyDelay](../r/recoveryApplyDelay.md)
   - [recoveryPausesHere](../r/recoveryPausesHere.md)
   - [RmgrStartup](../R/RmgrStartup.md)/RmgrCleanup
-  - SendPostmasterSignal
+  - [SendPostmasterSignal](../S/SendPostmasterSignal.md)
   - [SetRecoveryPause](../S/SetRecoveryPause.md)
 - Called from:
   - [StartupXLOG](../S/StartupXLOG.md) (src/backend/access/transam/xlog.c:5803)

@@ -47,7 +47,7 @@ The function performs several key operations:
   - [make_fn_arguments](../m/make_fn_arguments.md) (for argument type casting)
   - [check_srf_call_placement](../c/check_srf_call_placement.md) (for set-returning function validation)
 - Called from (representative examples):
-  - transformFuncCall (from parse_expr.c:1474)
+  - [transformFuncCall](../t/transformFuncCall.md) (from parse_expr.c:1474)
   - [transformIndirection](../t/transformIndirection.md) (from parse_expr.c:480)
   - [transformCallStmt](../t/transformCallStmt.md) (from analyze.c:3112)
 

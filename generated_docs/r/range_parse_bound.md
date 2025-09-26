@@ -32,8 +32,8 @@ The parsing continues until reaching a range delimiter (comma for bound separati
 ## Dependencies
 - Functions called/Symbols referenced:
   - [StringInfoData](../S/StringInfoData.md) (string buffer structure)
-  - `initStringInfo` (initialize string buffer)
-  - `appendStringInfoChar` (append character to string buffer)
+  - `[initStringInfo](../i/initStringInfo.md)` (initialize string buffer)
+  - `[appendStringInfoChar](../a/appendStringInfoChar.md)` (append character to string buffer)
   - `ereturn` (error return macro for controlled error contexts)
 - Called from:
   - [range_parse](range_parse.md) (src/backend/utils/adt/rangetypes.c:2373) - for lower bound parsing

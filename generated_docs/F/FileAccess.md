@@ -33,20 +33,20 @@ If the file is already open and is the most recently used (at the head of the LR
   - File (type definition for virtual file descriptor)
   - DO_DB (debug logging macro)
   - FileIsNotOpen (macro to check if file is not open)
-  - LruInsert (function to insert file at head of LRU ring)
-  - Delete (function to remove file from LRU ring)
-  - Insert (function to insert file at head of LRU ring)
+  - [LruInsert](../L/LruInsert.md) (function to insert file at head of LRU ring)
+  - [Delete](../D/Delete.md) (function to remove file from LRU ring)
+  - [Insert](../I/Insert.md) (function to insert file at head of LRU ring)
 - Called from (representative examples):
   - AllocateDesc
-  - FilePrefetch
-  - FileWriteback
-  - FileReadV
-  - FileWriteV
-  - FileSync
-  - FileZero
-  - FileFallocate
-  - FileSize
-  - FileTruncate
+  - [FilePrefetch](FilePrefetch.md)
+  - [FileWriteback](FileWriteback.md)
+  - [FileReadV](FileReadV.md)
+  - [FileWriteV](FileWriteV.md)
+  - [FileSync](FileSync.md)
+  - [FileZero](FileZero.md)
+  - [FileFallocate](FileFallocate.md)
+  - [FileSize](FileSize.md)
+  - [FileTruncate](FileTruncate.md)
 
 ## Notes and Other Information
 - This is a static function internal to fd.c, not exposed in the public API

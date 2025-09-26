@@ -49,16 +49,16 @@ The execution process involves:
 - Functions called/Symbols referenced:
   - makeNode (for creating ArrayCoerceExpr instances)
   - CaseTestExpr (used within elemexpr to represent source elements)
-  - get_element_type (to determine source element type)
-  - ExecEvalArrayCoerce (executor function)
+  - [get_element_type](../g/get_element_type.md) (to determine source element type)
+  - [ExecEvalArrayCoerce](../E/ExecEvalArrayCoerce.md) (executor function)
   - Array manipulation functions
 - Called from (representative examples):
-  - coerce_to_target_type (when COERCION_PATH_ARRAYCOERCE is needed)
-  - ExecInitExprRec (during execution plan initialization)
-  - eval_const_expressions_mutator (during constant folding)
+  - [coerce_to_target_type](../c/coerce_to_target_type.md) (when COERCION_PATH_ARRAYCOERCE is needed)
+  - [ExecInitExprRec](../E/ExecInitExprRec.md) (during execution plan initialization)
+  - [eval_const_expressions_mutator](../e/eval_const_expressions_mutator.md) (during constant folding)
 
 ## Notes and Other Information
-- ArrayCoerceExpr is used when PostgreSQL determines COERCION_PATH_ARRAYCOERCE is the appropriate conversion method
+- [ArrayCoerceExpr](ArrayCoerceExpr.md) is used when PostgreSQL determines COERCION_PATH_ARRAYCOERCE is the appropriate conversion method
 - The elemexpr cannot contain nested CaseExpr or ArrayCoerceExpr nodes due to CaseTestExpr usage constraints
 - Even for "no-op" coercions, the array header's element type OID must be updated
 - The coercion preserves array dimensions and element ordering

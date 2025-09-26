@@ -30,13 +30,13 @@ This function serves as a callback handler for scalar values during JSON to JSON
   - JSONB builder constants: WJB_BEGIN_ARRAY, WJB_ELEM, WJB_END_ARRAY, WJB_VALUE
 - Called from (representative examples):
   - [jsonb_from_cstring](jsonb_from_cstring.md) (as part of JSON parsing callbacks)
-  - datum_to_jsonb_internal (for internal JSONB conversion)
+  - [datum_to_jsonb_internal](../d/datum_to_jsonb_internal.md) (for internal JSONB conversion)
 
 ## Notes and Other Information
 - This is a static function used internally within the JSONB parsing mechanism
 - Returns JsonParseErrorType to indicate success (JSON_SUCCESS) or failure (JSON_SEM_ACTION_FAILED)
 - Special handling for standalone scalar values: they are wrapped in an array with rawScalar=true to maintain JSONB's requirement that top-level values be containers
 - Uses safe input functions with error context support for robust error handling
-- Numeric values are processed through PostgreSQL's numeric input function for proper type conversion
-- String length validation is performed to ensure compatibility with JSONB constraints
+- [Numeric](../N/Numeric.md) values are processed through PostgreSQL's numeric input function for proper type conversion
+- [String](../S/String.md) length validation is performed to ensure compatibility with JSONB constraints
 - The function properly integrates scalar values into existing array or object contexts during parsing

@@ -27,13 +27,13 @@ The transformation process involves:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BoolExpr (struct type for boolean expressions)
+  - [BoolExpr](../B/BoolExpr.md) (struct type for boolean expressions)
   - AND_EXPR, OR_EXPR, NOT_EXPR (boolean operation type constants)
-  - transformExprRecurse (recursively transforms expression nodes)
-  - coerce_to_boolean (coerces expressions to boolean type)
-  - makeBoolExpr (creates new BoolExpr nodes)
+  - [transformExprRecurse](transformExprRecurse.md) (recursively transforms expression nodes)
+  - [coerce_to_boolean](../c/coerce_to_boolean.md) (coerces expressions to boolean type)
+  - [makeBoolExpr](../m/makeBoolExpr.md) (creates new BoolExpr nodes)
 - Called from:
-  - transformExprRecurse (main expression transformation dispatcher)
+  - [transformExprRecurse](transformExprRecurse.md) (main expression transformation dispatcher)
 
 ## Notes and Other Information
 - This function is part of the SQL parser's expression transformation pipeline

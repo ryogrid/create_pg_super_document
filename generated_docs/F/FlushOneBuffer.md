@@ -27,15 +27,15 @@ This function is designed for use cases where the caller has already established
 ## Dependencies
 - Functions called/Symbols referenced:
   - BufferIsLocal, BufferIsPinned
-  - GetBufferDescriptor
-  - LWLockHeldByMe
-  - BufferDescriptorGetContentLock
-  - FlushBuffer
+  - [GetBufferDescriptor](../G/GetBufferDescriptor.md)
+  - [LWLockHeldByMe](../L/LWLockHeldByMe.md)
+  - [BufferDescriptorGetContentLock](../B/BufferDescriptorGetContentLock.md)
+  - [FlushBuffer](FlushBuffer.md)
   - IOOBJECT_RELATION, IOCONTEXT_NORMAL constants
 - Called from (representative examples):
-  - hash_xlog_init_meta_page
-  - hash_xlog_init_bitmap_page
-  - XLogReadBufferForRedoExtended
+  - [hash_xlog_init_meta_page](../h/hash_xlog_init_meta_page.md)
+  - [hash_xlog_init_bitmap_page](../h/hash_xlog_init_bitmap_page.md)
+  - [XLogReadBufferForRedoExtended](../X/XLogReadBufferForRedoExtended.md)
 
 ## Notes and Other Information
 - Currently only supports shared buffers, not local buffers (though no fundamental reason prevents local buffer support)

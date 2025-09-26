@@ -36,7 +36,7 @@ This function is part of PostgreSQL's text search parser interface and is typica
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TParserInit (internal parser initialization function)
+  - [TParserInit](../T/TParserInit.md) (internal parser initialization function)
   - PG_GETARG_POINTER (PostgreSQL argument extraction macro)
   - PG_GETARG_INT32 (PostgreSQL argument extraction macro)
   - PG_RETURN_POINTER (PostgreSQL return value macro)

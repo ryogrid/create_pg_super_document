@@ -38,7 +38,7 @@ The function uses a singly-linked list to track tuple tables within each SPI con
   - [ts_stat_sql](../t/ts_stat_sql.md) (text search statistics)
   - [plperl_spi_execute_fetch_result](../p/plperl_spi_execute_fetch_result.md) (Perl procedural language)
   - [PLy_spi_execute_fetch_result](../P/PLy_spi_execute_fetch_result.md) (Python procedural language)
-  - pltcl_process_SPI_result (Tcl procedural language)
+  - [pltcl_process_SPI_result](../p/pltcl_process_SPI_result.md) (Tcl procedural language)
 
 ## Notes and Other Information
 - The function gracefully handles NULL pointers by returning immediately without error.

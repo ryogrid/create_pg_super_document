@@ -24,11 +24,11 @@ This function is used internally within PostgreSQL's XML processing code to crea
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (PostgreSQL memory allocation function)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation function)
   - memcpy (standard C memory copy function)
 
 - Called from (representative examples):
-  - parse_xml_decl (multiple calls for parsing XML declarations)
+  - [parse_xml_decl](../p/parse_xml_decl.md) (multiple calls for parsing XML declarations)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the xml.c file

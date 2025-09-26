@@ -41,7 +41,7 @@ The function is particularly important for distinguishing between transactions t
   - [test_lockmode_for_conflict](../t/test_lockmode_for_conflict.md)
   - [heap_lock_updated_tuple_rec](../h/heap_lock_updated_tuple_rec.md)
   - [DoesMultiXactIdConflict](../D/DoesMultiXactIdConflict.md)
-  - TransactionIdIsInProgress
+  - [TransactionIdIsInProgress](TransactionIdIsInProgress.md)
 
 ## Notes and Other Information
 - Assumes the transaction identifier is valid and exists in the commit log (clog)

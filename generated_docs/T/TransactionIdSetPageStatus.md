@@ -38,11 +38,11 @@ The group update optimization is particularly beneficial in high-concurrency sce
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SimpleLruGetBankLock](../S/SimpleLruGetBankLock.md)
-  - LWLockConditionalAcquire
+  - [LWLockConditionalAcquire](../L/LWLockConditionalAcquire.md)
   - [TransactionIdSetPageStatusInternal](TransactionIdSetPageStatusInternal.md)
-  - TransactionGroupUpdateXidStatus
-  - LWLockAcquire
-  - LWLockRelease
+  - [TransactionGroupUpdateXidStatus](TransactionGroupUpdateXidStatus.md)
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - XactCtl
   - THRESHOLD_SUBTRANS_CLOG_OPT
   - PGPROC_MAX_CACHED_SUBXIDS

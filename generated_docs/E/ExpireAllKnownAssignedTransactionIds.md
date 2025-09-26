@@ -19,13 +19,13 @@ This function performs a complete cleanup of the KnownAssignedXids tracking stru
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire (for ProcArrayLock exclusive access)
-  - KnownAssignedXidsRemovePreceding (removes all entries by passing InvalidTransactionId)
+  - [LWLockAcquire](../L/LWLockAcquire.md) (for ProcArrayLock exclusive access)
+  - [KnownAssignedXidsRemovePreceding](../K/KnownAssignedXidsRemovePreceding.md) (removes all entries by passing InvalidTransactionId)
   - FullTransactionIdIsValid (validates nextXid before manipulation)
-  - FullTransactionIdRetreat (decrements nextXid to get latestCompletedXid)
-  - LWLockRelease (releases ProcArrayLock)
+  - [FullTransactionIdRetreat](../F/FullTransactionIdRetreat.md) (decrements nextXid to get latestCompletedXid)
+  - [LWLockRelease](../L/LWLockRelease.md) (releases ProcArrayLock)
 - Called from (representative examples):
-  - ShutdownRecoveryTransactionEnvironment (during recovery shutdown)
+  - [ShutdownRecoveryTransactionEnvironment](../S/ShutdownRecoveryTransactionEnvironment.md) (during recovery shutdown)
 
 ## Notes and Other Information
 - This function effectively treats all previously in-progress transactions as aborted

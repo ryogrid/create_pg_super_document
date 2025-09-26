@@ -30,14 +30,14 @@ This function is typically called from within PostgreSQL's event loop when the o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - InstrStartNode: Starts performance instrumentation for the notification handling
+  - [InstrStartNode](../I/InstrStartNode.md): Starts performance instrumentation for the notification handling
   - nodeTag: Determines the executor node type for proper dispatching
-  - ExecAsyncForeignScanNotify: Handles notifications for foreign scan nodes
-  - ExecAsyncResponse: Processes the asynchronous response after notification
-  - InstrStopNode: Stops performance instrumentation and records tuple statistics
+  - [ExecAsyncForeignScanNotify](ExecAsyncForeignScanNotify.md): Handles notifications for foreign scan nodes
+  - [ExecAsyncResponse](ExecAsyncResponse.md): Processes the asynchronous response after notification
+  - [InstrStopNode](../I/InstrStopNode.md): Stops performance instrumentation and records tuple statistics
   - TupIsNull: Checks if the result tuple is null for instrumentation purposes
 - Called from (representative examples):
-  - ExecAppendAsyncEventWait: When processing events in Append node async execution
+  - [ExecAppendAsyncEventWait](ExecAppendAsyncEventWait.md): When processing events in Append node async execution
 
 ## Notes and Other Information
 - Currently only supports T_ForeignScanState nodes; other node types will trigger an error

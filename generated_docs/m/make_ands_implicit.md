@@ -28,14 +28,14 @@ This function is crucial for query optimization as it normalizes different repre
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Checks if an expression is an AND boolean expression
-  -  - Boolean expression node type for casting
+  -  - [Boolean](../B/Boolean.md) expression node type for casting
   -  - Macro for node type checking
   -  - Extracts boolean value from a Datum
   -  - Creates a single-element list
 - Called from (representative examples):
   -  - Index creation command processing
   -  - [Query](../Q/Query.md) planner expression preprocessing
-  -  - Constraint extraction for optimization
+  -  - [Constraint](../C/Constraint.md) extraction for optimization
   -  - Index predicate processing
 
 ## Notes and Other Information

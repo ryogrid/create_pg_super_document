@@ -22,7 +22,7 @@ The `pg_class_aclcheck` function is an exported routine that verifies whether a 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_class_aclcheck_ext](pg_class_aclcheck_ext.md)
-  - AclResult
+  - [AclResult](../A/AclResult.md)
 - Called from (representative examples):
   - [BuildIndexValueDescription](../B/BuildIndexValueDescription.md)
   - [cluster_is_permitted_for_relation](../c/cluster_is_permitted_for_relation.md)
@@ -31,7 +31,7 @@ The `pg_class_aclcheck` function is an exported routine that verifies whether a 
   - [nextval_internal](../n/nextval_internal.md)
   - [truncate_check_perms](../t/truncate_check_perms.md)
   - [CreateTriggerFiringOn](../C/CreateTriggerFiringOn.md)
-  - vacuum_is_permitted_for_relation
+  - [vacuum_is_permitted_for_relation](../v/vacuum_is_permitted_for_relation.md)
   - [has_table_privilege_name_name](../h/has_table_privilege_name_name.md)
   - [has_sequence_privilege_name_name](../h/has_sequence_privilege_name_name.md)
   - [has_any_column_privilege_name_name](../h/has_any_column_privilege_name_name.md)

@@ -42,16 +42,16 @@ The structure bridges the gap between abstract query expressions and concrete st
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Node (expression tree node)
-  - RelOptInfo (relation optimization info)
+  - [Node](../N/Node.md) (expression tree node)
+  - [RelOptInfo](../R/RelOptInfo.md) (relation optimization info)
   - HeapTuple (tuple from system catalogs)
   - Oid (object identifier type)
 
 - Called from (representative examples):
-  - examine_variable
-  - examine_simple_variable  
-  - get_restriction_variable
-  - get_join_variables
+  - [examine_variable](../e/examine_variable.md)
+  - [examine_simple_variable](../e/examine_simple_variable.md)  
+  - [get_restriction_variable](../g/get_restriction_variable.md)
+  - [get_join_variables](../g/get_join_variables.md)
   - Various selectivity estimation functions (eqsel_internal, scalarineqsel, etc.)
 
 ## Notes and Other Information

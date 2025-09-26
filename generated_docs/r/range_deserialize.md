@@ -28,7 +28,7 @@ This function extracts the internal components of a serialized RangeType object,
   - RangeTypeGetOid
   - VARSIZE
   - RANGE_HAS_LBOUND, RANGE_HAS_UBOUND
-  - fetch_att
+  - [fetch_att](../f/fetch_att.md)
   - att_addlength_pointer
   - att_align_pointer
   - RANGE_EMPTY, RANGE_LB_INF, RANGE_LB_INC, RANGE_UB_INF, RANGE_UB_INC

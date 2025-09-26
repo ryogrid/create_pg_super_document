@@ -30,13 +30,13 @@ This approach separates adjacent inputs and distributes values uniformly across 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_prng_state (PRNG state structure)
-  - pg_prng_seed (initialize PRNG with seed)
+  - [pg_prng_state](pg_prng_state.md) (PRNG state structure)
+  - [pg_prng_seed](pg_prng_seed.md) (initialize PRNG with seed)
   - [pg_leftmost_one_pos64](pg_leftmost_one_pos64.md) (find leftmost bit position)
-  - pg_prng_uint64 (generate random 64-bit values)
-  - pg_prng_uint64_range (generate random value in range)
+  - [pg_prng_uint64](pg_prng_uint64.md) (generate random 64-bit values)
+  - [pg_prng_uint64_range](pg_prng_uint64_range.md) (generate random value in range)
 - Called from (representative examples):
-  - evalStandardFunc
+  - [evalStandardFunc](../e/evalStandardFunc.md)
 
 ## Notes and Other Information
 - **NOT CRYPTOGRAPHICALLY SECURE** - designed for performance in benchmarking contexts

@@ -51,7 +51,7 @@ The design philosophy emphasizes space efficiency while maintaining the necessar
   - [nocache_index_getattr](../n/nocache_index_getattr.md) (src/backend/access/common/indextuple.c:273)
   - [index_deform_tuple](../i/index_deform_tuple.md) (src/backend/access/common/indextuple.c:463)
   - [_bt_pgaddtup](../b/_bt_pgaddtup.md) (src/backend/access/nbtree/nbtinsert.c:2636)
-  - _bt_sortaddtup (src/backend/access/nbtree/nbtsort.c:720)
+  - [_bt_sortaddtup](../b/_bt_sortaddtup.md) (src/backend/access/nbtree/nbtsort.c:720)
   - [gistjoinvector](../g/gistjoinvector.md) (src/backend/access/gist/gistutil.c:125)
 
 ## Notes and Other Information

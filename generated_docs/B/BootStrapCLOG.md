@@ -31,7 +31,7 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SimpleLruGetBankLock](../S/SimpleLruGetBankLock.md) (obtains lock for SLRU bank)
-  - LWLockAcquire/LWLockRelease (lock management)
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease (lock management)
   - [ZeroCLOGPage](../Z/ZeroCLOGPage.md) (creates and zeros a CLOG page)
   - [SimpleLruWritePage](../S/SimpleLruWritePage.md) (writes page to disk)
 - Types referenced:

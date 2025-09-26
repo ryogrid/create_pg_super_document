@@ -47,7 +47,7 @@ Range restrictions cannot be used in combination with synchronized scanning (`al
   - table_rel->rd_tableam->index_build_range_scan (delegates to table AM implementation)
 - Types referenced:
   - [Relation](../R/Relation.md)
-  - IndexInfo  
+  - [IndexInfo](../I/IndexInfo.md)  
   - BlockNumber
   - IndexBuildCallback
   - [TableScanDesc](../T/TableScanDesc.md)

@@ -26,7 +26,7 @@ The  function promotes a PostgreSQL date to a timestamp with time zone, incorpor
   - TIMESTAMP_NOBEGIN: Sets result to negative infinity timestamp
   - TIMESTAMP_NOEND: Sets result to positive infinity timestamp
   - [j2date](../j/j2date.md): Converts Julian day to year/month/day components
-  - DetermineTimeZoneOffset: Calculates timezone offset for given time and zone
+  - [DetermineTimeZoneOffset](../D/DetermineTimeZoneOffset.md): Calculates timezone offset for given time and zone
   - TIMESTAMP_END_JULIAN: Upper boundary constant for timestamp range
   - POSTGRES_EPOCH_JDATE: PostgreSQL epoch reference date
   - USECS_PER_DAY: Microseconds per day conversion constant

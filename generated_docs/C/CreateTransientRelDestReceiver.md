@@ -30,7 +30,7 @@ This receiver is specifically designed for the materialized view refresh workflo
   - [transientrel_shutdown](../t/transientrel_shutdown.md) (callback function for receiver cleanup)
   - [transientrel_destroy](../t/transientrel_destroy.md) (callback function for receiver destruction)
   - DestTransientRel (destination type constant for transient relations)
-  - DestReceiver (base interface type for destination receivers)
+  - [DestReceiver](../D/DestReceiver.md) (base interface type for destination receivers)
 
 - Called from (representative examples):
   - [RefreshMatViewByOid](../R/RefreshMatViewByOid.md) (main materialized view refresh function)

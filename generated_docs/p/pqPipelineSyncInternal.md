@@ -41,8 +41,8 @@ The function performs several key operations:
   - [libpq_append_conn_error](../l/libpq_append_conn_error.md)
   - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
 - Called from:
-  - PQpipelineSync (fe-exec.c:3274)
-  - PQsendPipelineSync (fe-exec.c:3284)
+  - [PQpipelineSync](../P/PQpipelineSync.md) (fe-exec.c:3274)
+  - [PQsendPipelineSync](../P/PQsendPipelineSync.md) (fe-exec.c:3284)
 
 ## Notes and Other Information
 - This is an internal static function not exposed in the public libpq API

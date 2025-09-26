@@ -23,14 +23,14 @@ This function performs a simplified index fetch operation to verify tuple existe
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_slot_create](table_slot_create.md)
-  - table_index_fetch_begin
-  - table_index_fetch_tuple
-  - table_index_fetch_end
+  - [table_index_fetch_begin](table_index_fetch_begin.md)
+  - [table_index_fetch_tuple](table_index_fetch_tuple.md)
+  - [table_index_fetch_end](table_index_fetch_end.md)
   - [ExecDropSingleTupleTableSlot](../E/ExecDropSingleTupleTableSlot.md)
   - [IndexFetchTableData](../I/IndexFetchTableData.md)
 - Called from (representative examples):
   - [_bt_check_unique](../b/_bt_check_unique.md) (B-tree uniqueness checking)
-  - table_index_fetch_tuple (inline helper in tableam.h)
+  - [table_index_fetch_tuple](table_index_fetch_tuple.md) (inline helper in tableam.h)
 
 ## Notes and Other Information
 - Designed for performance efficiency in uniqueness checking scenarios where full tuple data is not needed

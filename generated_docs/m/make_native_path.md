@@ -26,7 +26,7 @@ The function is designed to address a specific Windows limitation where CMD.EXE'
   - [shell_archive_file](../s/shell_archive_file.md)
   - [main](main.md) (in initdb)
   - [pgwin32_CommandLine](../p/pgwin32_CommandLine.md)
-  - BuildRestoreCommand
+  - [BuildRestoreCommand](../B/BuildRestoreCommand.md)
 
 ## Notes and Other Information
 - This function only operates on Windows platforms (WIN32 build)

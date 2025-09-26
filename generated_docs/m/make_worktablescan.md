@@ -27,7 +27,7 @@ This function constructs a WorkTableScan plan node, which is specifically design
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to allocate WorkTableScan node)
-  - WorkTableScan (struct type)
+  - [WorkTableScan](../W/WorkTableScan.md) (struct type)
 - Called from (representative examples):
   - [create_worktablescan_plan](../c/create_worktablescan_plan.md)
 

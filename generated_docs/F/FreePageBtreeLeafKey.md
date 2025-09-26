@@ -32,14 +32,14 @@ The structure is designed to be compact, containing only the essential informati
 
 - Called from (representative examples):
   - FPM_ITEMS_PER_LEAF_PAGE (capacity calculation macro)
-  - FreePageBtree (union member in btree page structure)
-  - FreePageBtreeConsolidate (btree maintenance and merging operations)
-  - FreePageBtreeInsertLeaf (insertion into leaf pages)
-  - FreePageBtreeRemove (removal of free spans)
-  - FreePageBtreeRemovePage (page removal operations)
-  - FreePageBtreeSplitPage (page splitting during insertion)
-  - FreePageManagerGetInternal (allocation operations)
-  - FreePageManagerPutInternal (deallocation operations)
+  - [FreePageBtree](FreePageBtree.md) (union member in btree page structure)
+  - [FreePageBtreeConsolidate](FreePageBtreeConsolidate.md) (btree maintenance and merging operations)
+  - [FreePageBtreeInsertLeaf](FreePageBtreeInsertLeaf.md) (insertion into leaf pages)
+  - [FreePageBtreeRemove](FreePageBtreeRemove.md) (removal of free spans)
+  - [FreePageBtreeRemovePage](FreePageBtreeRemovePage.md) (page removal operations)
+  - [FreePageBtreeSplitPage](FreePageBtreeSplitPage.md) (page splitting during insertion)
+  - [FreePageManagerGetInternal](FreePageManagerGetInternal.md) (allocation operations)
+  - [FreePageManagerPutInternal](FreePageManagerPutInternal.md) (deallocation operations)
 
 ## Notes and Other Information
 - Contains the actual free span data rather than just navigation information

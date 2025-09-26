@@ -19,17 +19,17 @@ The pg_file_exists function determines if a file exists at the specified absolut
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - stat (system call)
+  - [stat](../s/stat.md) (system call)
   - S_ISDIR (macro)
   - Assert
   - ereport
-  - errcode_for_file_access
-  - errmsg
+  - [errcode_for_file_access](../e/errcode_for_file_access.md)
+  - [errmsg](../e/errmsg.md)
 - Called from (representative examples):
-  - provider_init
-  - expand_dynamic_library_name
-  - find_in_dynamic_libpath
-  - injection_point_cache_load
+  - [provider_init](provider_init.md)
+  - [expand_dynamic_library_name](../e/expand_dynamic_library_name.md)
+  - [find_in_dynamic_libpath](../f/find_in_dynamic_libpath.md)
+  - [injection_point_cache_load](../i/injection_point_cache_load.md)
 
 ## Notes and Other Information
 - Returns true if the path exists and is not a directory

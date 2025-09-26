@@ -23,15 +23,15 @@ dshash_seq_init prepares a dshash_seq_status structure for sequential scanning t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dshash_table (hash table structure)
-  - dshash_seq_status (scan status structure)
+  - [dshash_table](dshash_table.md) (hash table structure)
+  - [dshash_seq_status](dshash_seq_status.md) (scan status structure)
   - InvalidDsaPointer (DSA pointer constant)
 - Called from (representative examples):
-  - pgstat_build_snapshot (src/backend/utils/activity/pgstat.c:999)
-  - pgstat_write_statsfile (src/backend/utils/activity/pgstat.c:1390)
-  - pgstat_drop_database_and_contents (src/backend/utils/activity/pgstat_shmem.c:887)
-  - pgstat_drop_all_entries (src/backend/utils/activity/pgstat_shmem.c:977)
-  - pgstat_reset_matching_entries (src/backend/utils/activity/pgstat_shmem.c:1036)
+  - [pgstat_build_snapshot](../p/pgstat_build_snapshot.md) (src/backend/utils/activity/pgstat.c:999)
+  - [pgstat_write_statsfile](../p/pgstat_write_statsfile.md) (src/backend/utils/activity/pgstat.c:1390)
+  - [pgstat_drop_database_and_contents](../p/pgstat_drop_database_and_contents.md) (src/backend/utils/activity/pgstat_shmem.c:887)
+  - [pgstat_drop_all_entries](../p/pgstat_drop_all_entries.md) (src/backend/utils/activity/pgstat_shmem.c:977)
+  - [pgstat_reset_matching_entries](../p/pgstat_reset_matching_entries.md) (src/backend/utils/activity/pgstat_shmem.c:1036)
 
 ## Notes and Other Information
 - This function must be paired with dshash_seq_term() to properly terminate the scan

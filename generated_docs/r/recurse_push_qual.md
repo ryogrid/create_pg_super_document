@@ -43,8 +43,8 @@ The recursive approach ensures that every component subquery within complex nest
   - elog
   - nodeTag
 - Types referenced:
-  - RangeTblRef
-  - SetOperationStmt
+  - [RangeTblRef](../R/RangeTblRef.md)
+  - [SetOperationStmt](../S/SetOperationStmt.md)
   - [RangeTblEntry](../R/RangeTblEntry.md)
   - [Query](../Q/Query.md)
 - Called from (representative examples):

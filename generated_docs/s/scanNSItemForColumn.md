@@ -33,7 +33,7 @@ This function performs column name resolution within a specific namespace item (
   - EXPR_KIND_GENERATED_COLUMN
   - EXPR_KIND_MERGE_WHEN
   - [ParseNamespaceColumn](../P/ParseNamespaceColumn.md)
-  - makeVar
+  - [makeVar](../m/makeVar.md)
   - [SystemAttributeDefinition](../S/SystemAttributeDefinition.md)
   - [markNullableIfNeeded](../m/markNullableIfNeeded.md)
   - [markVarForSelectPriv](../m/markVarForSelectPriv.md)

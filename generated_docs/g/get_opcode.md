@@ -26,7 +26,7 @@ This function performs a system catalog lookup to find the implementation functi
   - Form_pg_operator (catalog tuple structure)
   - InvalidOid (null OID constant)
 - Called from (representative examples):
-  - set_opfuncid (operator function ID setting)
+  - [set_opfuncid](../s/set_opfuncid.md) (operator function ID setting)
   - [op_strict](../o/op_strict.md) (operator strictness checking)
   - [op_volatile](../o/op_volatile.md) (operator volatility checking)
   - [cost_qual_eval_walker](../c/cost_qual_eval_walker.md) (query cost evaluation)

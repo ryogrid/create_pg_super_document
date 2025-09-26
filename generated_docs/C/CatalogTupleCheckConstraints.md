@@ -27,7 +27,7 @@ This function serves as a defensive programming measure and debugging aid, using
   - HeapTupleHasNulls (checks if tuple contains any NULL values)
   - RelationGetDescr (gets tuple descriptor)
   - TupleDescAttr (gets attribute descriptor)
-  - att_isnull (checks if specific attribute is NULL)
+  - [att_isnull](../a/att_isnull.md) (checks if specific attribute is NULL)
 - Called from (representative examples):
   - [CatalogTupleInsert](CatalogTupleInsert.md)
   - [CatalogTupleInsertWithInfo](CatalogTupleInsertWithInfo.md)

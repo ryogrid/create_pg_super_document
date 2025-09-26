@@ -30,11 +30,11 @@ The stack grows and shrinks dynamically as the JSON traversal encounters nested 
 - Functions called/Symbols referenced:
   - (This struct is primarily used as a data container)
 - Called from (representative examples):
-  - gin_extract_jsonb_path (primary usage context)
+  - [gin_extract_jsonb_path](../g/gin_extract_jsonb_path.md) (primary usage context)
 
 ## Notes and Other Information
 - The stack is implemented as a simple linked list with dynamic allocation using palloc() for new levels
 - The root level typically starts with hash = 0 and parent = NULL
 - Stack levels are pushed for WJB_BEGIN_ARRAY and WJB_BEGIN_OBJECT tokens, and popped for corresponding WJB_END_* tokens
-- Hash values are propagated from parent to child levels to ensure complete path context is preserved
+- [Hash](../H/Hash.md) values are propagated from parent to child levels to ensure complete path context is preserved
 - Memory management follows PostgreSQL conventions with pfree() calls when popping stack levels

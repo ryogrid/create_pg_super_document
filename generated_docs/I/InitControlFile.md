@@ -17,20 +17,20 @@ InitControlFile is a static function that initializes the shared memory buffer C
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strong_random
+  - [pg_strong_random](../p/pg_strong_random.md)
   - memset
   - memcpy
   - ereport
-  - errcode
-  - errmsg
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
   - MOCK_AUTH_NONCE_LEN
-  - ControlFileData
+  - [ControlFileData](../C/ControlFileData.md)
   - DB_SHUTDOWNED
   - FirstNormalUnloggedLSN
   - PANIC
 - Called from (representative examples):
   - RefreshXLogWriteResult
-  - BootStrapXLOG
+  - [BootStrapXLOG](../B/BootStrapXLOG.md)
 
 ## Notes and Other Information
 - The function sets the database state to DB_SHUTDOWNED initially

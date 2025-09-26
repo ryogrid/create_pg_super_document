@@ -416,8 +416,8 @@ v_str ESTAB   0      0                                               *:633275472
   - [HashAggSpill](../H/HashAggSpill.md)
   - [LogicalTapeSet](../L/LogicalTapeSet.md)
   - [SharedAggInfo](../S/SharedAggInfo.md)
-  - Tuplesortstate
-  - ExprContext
+  - [Tuplesortstate](../T/Tuplesortstate.md)
+  - [ExprContext](../E/ExprContext.md)
 - Called from (representative examples):
   - [ExecAgg](../E/ExecAgg.md)
   - [ExecInitAgg](../E/ExecInitAgg.md)

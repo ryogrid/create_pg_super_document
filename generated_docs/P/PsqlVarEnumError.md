@@ -24,13 +24,13 @@ The `PsqlVarEnumError` function serves as a centralized error reporting mechanis
 - Functions called/Symbols referenced:
   - pg_log_error (implicitly via macro/function call)
 - Called from (representative examples):
-  - echo_hook
-  - echo_hidden_hook  
-  - on_error_rollback_hook
-  - comp_keyword_case_hook
-  - histcontrol_hook
-  - verbosity_hook
-  - show_context_hook
+  - [echo_hook](../e/echo_hook.md)
+  - [echo_hidden_hook](../e/echo_hidden_hook.md)  
+  - [on_error_rollback_hook](../o/on_error_rollback_hook.md)
+  - [comp_keyword_case_hook](../c/comp_keyword_case_hook.md)
+  - [histcontrol_hook](../h/histcontrol_hook.md)
+  - [verbosity_hook](../v/verbosity_hook.md)
+  - [show_context_hook](../s/show_context_hook.md)
 
 ## Notes and Other Information
 - This function exists primarily to standardize error message wording across psql

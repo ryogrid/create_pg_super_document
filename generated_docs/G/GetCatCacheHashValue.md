@@ -34,7 +34,7 @@ The function performs lazy initialization of the cache's tuple descriptor if nee
   - [CatalogCacheComputeHashValue](../C/CatalogCacheComputeHashValue.md)
 - Called from (representative examples):
   - [GetSysCacheHashValue](GetSysCacheHashValue.md)
-  - CatCacheHeader
+  - [CatCacheHeader](../C/CatCacheHeader.md)
 
 ## Notes and Other Information
 - Exposed as part of the public catalog cache API specifically for cache invalidation operations

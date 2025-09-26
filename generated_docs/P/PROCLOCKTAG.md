@@ -35,15 +35,15 @@ The structure is fundamental to PostgreSQL's multi-process locking system, as it
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LOCK
-  - PGPROC
+  - [LOCK](../L/LOCK.md)
+  - [PGPROC](PGPROC.md)
 - Called from (representative examples):
-  - SetupLockInTable
-  - LockRelease
-  - ProcLockHashCode
-  - FastPathGetRelationLockEntry
-  - LockRefindAndRelease
-  - PostPrepare_Locks
+  - [SetupLockInTable](../S/SetupLockInTable.md)
+  - [LockRelease](../L/LockRelease.md)
+  - [ProcLockHashCode](ProcLockHashCode.md)
+  - [FastPathGetRelationLockEntry](../F/FastPathGetRelationLockEntry.md)
+  - [LockRefindAndRelease](../L/LockRefindAndRelease.md)
+  - [PostPrepare_Locks](PostPrepare_Locks.md)
 
 ## Notes and Other Information
 - Designed to contain no padding for efficient memory usage and hashing

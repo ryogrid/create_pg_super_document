@@ -25,14 +25,14 @@ Unlike the original Arge et al. paper which suggests stopping after processing 1
 ## Dependencies
 - Functions called/Symbols referenced:
   - linitial
-  - list_delete_first
-  - gistUnloadNodeBuffers
-  - gistPopItupFromNodeBuffer
-  - gistProcessItup
-  - MemoryContextReset
+  - [list_delete_first](../l/list_delete_first.md)
+  - [gistUnloadNodeBuffers](gistUnloadNodeBuffers.md)
+  - [gistPopItupFromNodeBuffer](gistPopItupFromNodeBuffer.md)
+  - [gistProcessItup](gistProcessItup.md)
+  - [MemoryContextReset](../M/MemoryContextReset.md)
 - Called from (representative examples):
-  - gistBufferingBuildInsert
-  - gistEmptyAllBuffers
+  - [gistBufferingBuildInsert](gistBufferingBuildInsert.md)
+  - [gistEmptyAllBuffers](gistEmptyAllBuffers.md)
 
 ## Notes and Other Information
 - Implements cascading buffer emptying where emptying one buffer can trigger emptying of others

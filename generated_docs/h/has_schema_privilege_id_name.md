@@ -26,7 +26,7 @@ Unlike other variants in this family, this function does not handle missing sche
   - [object_aclcheck](../o/object_aclcheck.md)
   - PG_GETARG_OID
   - PG_GETARG_TEXT_PP
-  - AclResult (type)
+  - [AclResult](../A/AclResult.md) (type)
 - Called from (representative examples):
   - No direct references found in codebase
 

@@ -30,8 +30,8 @@ The function creates the hash table with an initial size of 128 buckets and tran
   - TBM_ONE_PAGE (enum value)
   - [PagetableEntry](../P/PagetableEntry.md) (struct type)
 - Called from (representative examples):
-  - tbm_get_pageentry
-  - tbm_mark_page_lossy
+  - [tbm_get_pageentry](tbm_get_pageentry.md)
+  - [tbm_mark_page_lossy](tbm_mark_page_lossy.md)
 
 ## Notes and Other Information
 - This is a static (internal) function, not part of the public TID bitmap API

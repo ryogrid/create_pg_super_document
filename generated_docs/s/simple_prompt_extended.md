@@ -32,18 +32,18 @@ The function includes special handling for Windows console code page issues and 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PromptInterruptContext (struct type)
+  - [PromptInterruptContext](../P/PromptInterruptContext.md) (struct type)
   - fopen
-  - pg_get_line
-  - pg_strip_crlf
-  - pg_strdup
+  - [pg_get_line](../p/pg_get_line.md)
+  - [pg_strip_crlf](../p/pg_strip_crlf.md)
+  - [pg_strdup](../p/pg_strdup.md)
   - tcgetattr/tcsetattr (Unix)
   - GetConsoleMode/SetConsoleMode (Windows)
 - Called from (representative examples):
-  - simple_prompt (src/common/sprompt.c:40)
-  - exec_command_password (src/bin/psql/command.c:2159, 2161)
-  - exec_command_prompt (src/bin/psql/command.c:2241)
-  - prompt_for_password (src/bin/psql/command.c:3346, 3352)
+  - [simple_prompt](simple_prompt.md) (src/common/sprompt.c:40)
+  - [exec_command_password](../e/exec_command_password.md) (src/bin/psql/command.c:2159, 2161)
+  - [exec_command_prompt](../e/exec_command_prompt.md) (src/bin/psql/command.c:2241)
+  - [prompt_for_password](../p/prompt_for_password.md) (src/bin/psql/command.c:3346, 3352)
 
 ## Notes and Other Information
 - The returned string is malloc'd and caller is responsible for freeing it

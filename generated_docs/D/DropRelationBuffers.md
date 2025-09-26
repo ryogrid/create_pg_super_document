@@ -23,19 +23,19 @@ DropRelationBuffers is a critical buffer management function that forcibly remov
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelFileLocatorBackendIsTemp
-  - DropRelationLocalBuffers
-  - smgrnblocks_cached
+  - [DropRelationLocalBuffers](DropRelationLocalBuffers.md)
+  - [smgrnblocks_cached](../s/smgrnblocks_cached.md)
   - BlockNumberIsValid
   - [FindAndDropRelationBuffers](../F/FindAndDropRelationBuffers.md)
   - [GetBufferDescriptor](../G/GetBufferDescriptor.md)
   - [BufTagMatchesRelFileLocator](../B/BufTagMatchesRelFileLocator.md)
-  - LockBufHdr
+  - [LockBufHdr](../L/LockBufHdr.md)
   - [BufTagGetForkNum](../B/BufTagGetForkNum.md)
   - [InvalidateBuffer](../I/InvalidateBuffer.md)
   - [UnlockBufHdr](../U/UnlockBufHdr.md)
   - BUF_DROP_FULL_SCAN_THRESHOLD (constant)
 - Called from (representative examples):
-  - smgrtruncate2
+  - [smgrtruncate2](../s/smgrtruncate2.md)
 
 ## Notes and Other Information
 - **NON-ROLLBACK-ABLE**: Dirty pages are dropped without being written to disk

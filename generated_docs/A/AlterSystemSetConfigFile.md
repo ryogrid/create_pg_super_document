@@ -31,31 +31,31 @@ Key features include:
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExtractSetVariableArgs](../E/ExtractSetVariableArgs.md)
-  - superuser
+  - [superuser](../s/superuser.md)
   - [pg_parameter_aclcheck](../p/pg_parameter_aclcheck.md)
   - [GetUserId](../G/GetUserId.md)
-  - find_option
-  - parse_and_validate_value
+  - [find_option](../f/find_option.md)
+  - [parse_and_validate_value](../p/parse_and_validate_value.md)
   - [valid_custom_variable_name](../v/valid_custom_variable_name.md)
   - [assignable_custom_variable_name](../a/assignable_custom_variable_name.md)
-  - LWLockAcquire
-  - LWLockRelease
-  - AllocateFile
-  - FreeFile
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
+  - [AllocateFile](AllocateFile.md)
+  - [FreeFile](../F/FreeFile.md)
   - ParseConfigFp
   - [replace_auto_config_value](../r/replace_auto_config_value.md)
   - [write_auto_conf_file](../w/write_auto_conf_file.md)
   - InvokeObjectPostAlterHookArgStr
-  - BasicOpenFile
+  - [BasicOpenFile](../B/BasicOpenFile.md)
   - [durable_rename](../d/durable_rename.md)
   - FreeConfigVariables
   - [guc_free](../g/guc_free.md)
 - Data structures used:
-  - AlterSystemStmt
-  - ConfigVariable
-  - config_generic
+  - [AlterSystemStmt](AlterSystemStmt.md)
+  - [ConfigVariable](../C/ConfigVariable.md)
+  - [config_generic](../c/config_generic.md)
   - config_var_val
-  - AclResult
+  - [AclResult](AclResult.md)
 - Constants referenced:
   - VAR_SET_VALUE, VAR_SET_DEFAULT, VAR_RESET, VAR_RESET_ALL
   - PGC_INTERNAL, PGC_STRING, PGC_S_FILE

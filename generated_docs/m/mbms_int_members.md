@@ -23,15 +23,15 @@ The function first truncates List a to match the length of List b (since any ele
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_truncate
+  - [list_truncate](../l/list_truncate.md)
   - forboth
-  - bms_int_members
+  - [bms_int_members](../b/bms_int_members.md)
 - Called from (representative examples):
-  - find_nonnullable_vars_walker
+  - [find_nonnullable_vars_walker](../f/find_nonnullable_vars_walker.md)
 
 ## Notes and Other Information
 - The operation modifies List a in-place and returns the modified List
-- List a is truncated to match the length of List b before processing
+- [List](../L/List.md) a is truncated to match the length of List b before processing
 - The forboth macro processes corresponding elements from both lists
 - Elements in List a beyond the length of List b are automatically removed
 - This is used in PostgreSQL's query optimizer for analyzing variable nullability constraints

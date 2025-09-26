@@ -23,11 +23,11 @@ The lock prevents race conditions that could cause datfrozenxid or datminmxid to
 ## Dependencies
 - Functions called/Symbols referenced:
   - SET_LOCKTAG_DATABASE_FROZEN_IDS (macro to set up lock tag for database frozen ID operations)
-  - LockAcquire (core lock acquisition function)
+  - [LockAcquire](LockAcquire.md) (core lock acquisition function)
   - MyDatabaseId (global variable containing the current database OID)
 - Called from (representative examples):
-  - vac_update_datfrozenxid (vacuum function that updates database frozen transaction IDs)
-  - XLTW_Oper (transaction lock wait operations)
+  - [vac_update_datfrozenxid](../v/vac_update_datfrozenxid.md) (vacuum function that updates database frozen transaction IDs)
+  - [XLTW_Oper](../X/XLTW_Oper.md) (transaction lock wait operations)
 
 ## Notes and Other Information
 - Uses LOCKTAG_DATABASE_FROZEN_IDS lock tag type, which is specific to database-level frozen ID operations

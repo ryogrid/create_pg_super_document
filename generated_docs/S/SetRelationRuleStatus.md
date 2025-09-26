@@ -24,7 +24,7 @@ The function requires the caller to hold an appropriate lock on the relation bei
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - SearchSysCacheCopy1
   - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - HeapTupleIsValid
@@ -33,7 +33,7 @@ The function requires the caller to hold an appropriate lock on the relation bei
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - [CacheInvalidateRelcacheByTuple](../C/CacheInvalidateRelcacheByTuple.md)
   - [heap_freetuple](../h/heap_freetuple.md)
-  - table_close
+  - [table_close](../t/table_close.md)
 - Types used:
   - Form_pg_class
   - [Relation](../R/Relation.md)

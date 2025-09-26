@@ -21,8 +21,8 @@ This function reads a quoted string from filter input that can span across multi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendPQExpBufferChar
-  - pg_get_line_buf
+  - [appendPQExpBufferChar](../a/appendPQExpBufferChar.md)
+  - [pg_get_line_buf](../p/pg_get_line_buf.md)
   - [pg_log_filter_error](../p/pg_log_filter_error.md)
   - [exit_nicely](../e/exit_nicely.md) (via fstate function pointer)
   - FilterStateData (struct type)

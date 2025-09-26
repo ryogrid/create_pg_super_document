@@ -28,19 +28,19 @@ The function is designed to be safe to call even when workers haven't finished c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_delete
-  - TerminateBackgroundWorker
-  - shm_mq_detach
-  - dsm_detach
+  - [dlist_delete](../d/dlist_delete.md)
+  - [TerminateBackgroundWorker](../T/TerminateBackgroundWorker.md)
+  - [shm_mq_detach](../s/shm_mq_detach.md)
+  - [dsm_detach](../d/dsm_detach.md)
   - HOLD_INTERRUPTS/RESUME_INTERRUPTS
-  - WaitForParallelWorkersToExit
-  - pfree
+  - [WaitForParallelWorkersToExit](../W/WaitForParallelWorkersToExit.md)
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - _brin_end_parallel
-  - _bt_end_parallel
-  - ExecParallelCleanup
-  - AtEOXact_Parallel
-  - parallel_vacuum_end
+  - [_brin_end_parallel](../b/_brin_end_parallel.md)
+  - [_bt_end_parallel](../b/_bt_end_parallel.md)
+  - [ExecParallelCleanup](../E/ExecParallelCleanup.md)
+  - [AtEOXact_Parallel](../A/AtEOXact_Parallel.md)
+  - [parallel_vacuum_end](../p/parallel_vacuum_end.md)
 
 ## Notes and Other Information
 - Safe to call even when WaitForParallelWorkersToFinish hasn't been called first

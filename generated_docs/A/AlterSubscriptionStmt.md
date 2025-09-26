@@ -41,13 +41,13 @@ The structure is designed to handle all ALTER SUBSCRIPTION variants using a sing
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AlterSubscriptionType (enum defining the type of subscription alteration)
+  - [AlterSubscriptionType](AlterSubscriptionType.md) (enum defining the type of subscription alteration)
   - NodeTag (standard parse tree node identifier)
-  - List (PostgreSQL's generic list structure)
-  - DefElem (definition element for options)
+  - [List](../L/List.md) (PostgreSQL's generic list structure)
+  - [DefElem](../D/DefElem.md) (definition element for options)
 - Called from (representative examples):
-  - AlterSubscription (in subscriptioncmds.c for statement execution)
-  - ProcessUtilitySlow (in utility.c for statement processing)
+  - [AlterSubscription](AlterSubscription.md) (in subscriptioncmds.c for statement execution)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (in utility.c for statement processing)
 
 ## Notes and Other Information
 - Different ALTER SUBSCRIPTION operations use different combinations of the structure fields:
@@ -61,7 +61,7 @@ The structure is designed to handle all ALTER SUBSCRIPTION variants using a sing
   - SKIP: uses options to specify LSN or transaction details to skip
 - ALTER SUBSCRIPTION requires ownership of the subscription or superuser privileges
 - Connection string changes take effect on the next connection attempt
-- Publication changes may require REFRESH PUBLICATION to synchronize table lists
+- [Publication](../P/Publication.md) changes may require REFRESH PUBLICATION to synchronize table lists
 - The REFRESH operation can be used to handle schema changes in subscribed tables
 - SKIP operations are typically used for error recovery when replication encounters problematic transactions
 - Some operations may require the subscription to be disabled before execution

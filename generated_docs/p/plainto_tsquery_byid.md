@@ -26,7 +26,7 @@ The function uses the P_TSQ_PLAIN flag during parsing, which instructs the parse
   - [MorphOpaque](../M/MorphOpaque.md) (data structure for morphological operations)
   - OP_AND (operator constant)
   - [parse_tsquery](parse_tsquery.md) (core parsing function)
-  - text_to_cstring (text conversion utility)
+  - [text_to_cstring](../t/text_to_cstring.md) (text conversion utility)
   - [pushval_morph](pushval_morph.md) (morphological processing callback)
   - P_TSQ_PLAIN (parsing flag constant)
 - Called from (representative examples):

@@ -26,13 +26,13 @@ This is a static (internal) function primarily called by other BufFile operation
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufFileDumpBuffer (internal function that performs the actual buffer writing)
+  - [BufFileDumpBuffer](BufFileDumpBuffer.md) (internal function that performs the actual buffer writing)
 - Called from (representative examples):
-  - BufFile constructor/initialization functions
-  - BufFileExportFileSet (when exporting file sets)
-  - BufFileClose (ensuring data is written before closing)
-  - BufFileReadCommon (ensuring writes are flushed before reading)
-  - BufFileSeek (ensuring buffer consistency before seeking)
+  - [BufFile](BufFile.md) constructor/initialization functions
+  - [BufFileExportFileSet](BufFileExportFileSet.md) (when exporting file sets)
+  - [BufFileClose](BufFileClose.md) (ensuring data is written before closing)
+  - [BufFileReadCommon](BufFileReadCommon.md) (ensuring writes are flushed before reading)
+  - [BufFileSeek](BufFileSeek.md) (ensuring buffer consistency before seeking)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only callable from within the same source file (buffile.c)

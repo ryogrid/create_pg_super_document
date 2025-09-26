@@ -21,8 +21,8 @@ The cleanup process involves three key steps: releasing any active buffer that m
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReleaseBuffer
-  - FreeAccessStrategy
+  - [ReleaseBuffer](../R/ReleaseBuffer.md)
+  - [FreeAccessStrategy](FreeAccessStrategy.md)
   - [pfree](../p/pfree.md)
   - InvalidBuffer (for comparison)
 - Called from (representative examples):

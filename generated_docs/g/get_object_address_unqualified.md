@@ -31,7 +31,7 @@ The supported object types include access methods, databases, extensions, tables
   - [get_database_oid](get_database_oid.md) (for databases)
   - [get_extension_oid](get_extension_oid.md) (for extensions)
   - [get_tablespace_oid](get_tablespace_oid.md) (for tablespaces)
-  - get_role_oid (for roles)
+  - [get_role_oid](get_role_oid.md) (for roles)
   - [get_namespace_oid](get_namespace_oid.md) (for schemas)
   - [get_language_oid](get_language_oid.md) (for languages)
   - [get_foreign_data_wrapper_oid](get_foreign_data_wrapper_oid.md) (for foreign data wrappers)

@@ -33,7 +33,7 @@ This approach ensures that identical variables from the outer relation share the
   - makeNode: Creates new Param and NestLoopParam nodes
   - [generate_new_exec_param](../g/generate_new_exec_param.md): Allocates a new execution parameter slot with proper type information
   - copyObject: Creates a deep copy of the Var for storage in the NestLoopParam
-  - lappend: Adds the new NestLoopParam to the curOuterParams list
+  - [lappend](../l/lappend.md): Adds the new NestLoopParam to the curOuterParams list
 
 - Called from (representative examples):
   - [replace_nestloop_params_mutator](replace_nestloop_params_mutator.md): Used during plan tree creation to parameterize variables in nested loop contexts

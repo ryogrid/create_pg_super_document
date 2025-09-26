@@ -24,10 +24,10 @@ The structure is part of PostgreSQL's relation management system and works in co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LockRelId
+  - [LockRelId](LockRelId.md)
 - Called from (representative examples):
   - LockInfo (typedef)
-  - RelationData (embedded as a member)
+  - [RelationData](../R/RelationData.md) (embedded as a member)
 
 ## Notes and Other Information
 - This structure is currently minimal, containing only the LockRelId, but its design allows for future expansion with additional lock-related fields

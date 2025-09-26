@@ -30,7 +30,7 @@ The function first validates that the database is in recovery mode, then uses Ge
   - RECOVERY_NOT_PAUSED: Constant for normal (not paused) state
   - RECOVERY_PAUSE_REQUESTED: Constant for pause requested but not yet active
   - RECOVERY_PAUSED: Constant for active pause state
-  - cstring_to_text: Converts C string to PostgreSQL text type
+  - [cstring_to_text](../c/cstring_to_text.md): Converts C string to PostgreSQL text type
   - PG_RETURN_TEXT_P: Returns PostgreSQL text value
 
 ## Notes and Other Information

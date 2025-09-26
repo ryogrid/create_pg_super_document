@@ -32,14 +32,14 @@ When ereport itself fails (which is rare), the function catches the PostgreSQL e
   - Tcl_GetIndexFromObj
   - Tcl_SetObjResult
   - ereport
-  - CopyErrorData
-  - FlushErrorState
-  - pltcl_construct_errorCode
-  - FreeErrorData
+  - [CopyErrorData](../C/CopyErrorData.md)
+  - [FlushErrorState](../F/FlushErrorState.md)
+  - [pltcl_construct_errorCode](pltcl_construct_errorCode.md)
+  - [FreeErrorData](../F/FreeErrorData.md)
   - UTF_U2E
   - UTF_E2U
 - Called from (representative examples):
-  - pltcl_init_interp (registers the command)
+  - [pltcl_init_interp](pltcl_init_interp.md) (registers the command)
 
 ## Notes and Other Information
 - Maps Tcl log priority strings to PostgreSQL log levels using static arrays for efficient lookup

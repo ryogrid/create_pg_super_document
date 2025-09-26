@@ -22,7 +22,7 @@ This callback ensures that consumers of replication slot statistics can determin
 
 ## Dependencies
 - Types referenced:
-  - PgStatShared_Common
+  - [PgStatShared_Common](../P/PgStatShared_Common.md)
   - [PgStatShared_ReplSlot](../P/PgStatShared_ReplSlot.md)
   - TimestampTz
 - Called from (representative examples):

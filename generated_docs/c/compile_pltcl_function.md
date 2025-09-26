@@ -28,23 +28,23 @@ For different function types (regular functions, triggers, event triggers), it h
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
-  - hash_search
+  - [SearchSysCache1](../S/SearchSysCache1.md)
+  - [hash_search](../h/hash_search.md)
   - HeapTupleHeaderGetRawXmin
-  - ItemPointerEquals
+  - [ItemPointerEquals](../I/ItemPointerEquals.md)
   - AllocSetContextCreate
-  - pltcl_fetch_interp
-  - fmgr_info_cxt
-  - getTypeIOParam
-  - type_is_rowtype
-  - SysCacheGetAttrNotNull
+  - [pltcl_fetch_interp](../p/pltcl_fetch_interp.md)
+  - [fmgr_info_cxt](../f/fmgr_info_cxt.md)
+  - [getTypeIOParam](../g/getTypeIOParam.md)
+  - [type_is_rowtype](../t/type_is_rowtype.md)
+  - [SysCacheGetAttrNotNull](../S/SysCacheGetAttrNotNull.md)
   - TextDatumGetCString
   - Tcl_EvalEx
-  - MemoryContextDelete
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
 - Called from (representative examples):
-  - pltcl_func_handler
-  - pltcl_trigger_handler
-  - pltcl_event_trigger_handler
+  - [pltcl_func_handler](../p/pltcl_func_handler.md)
+  - [pltcl_trigger_handler](../p/pltcl_trigger_handler.md)
+  - [pltcl_event_trigger_handler](../p/pltcl_event_trigger_handler.md)
 
 ## Notes and Other Information
 - Uses hash table caching with procedure OID, trigger relation OID, and user ID as composite key

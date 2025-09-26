@@ -31,7 +31,7 @@ The function can return different results indicating whether the lock was freshl
 - Functions called/Symbols referenced:
   - [LockAcquireExtended](LockAcquireExtended.md) (the actual implementation with extended parameters)
 - Data structures used:
-  - LOCKTAG (lock identifier structure)
+  - [LOCKTAG](LOCKTAG.md) (lock identifier structure)
   - LockAcquireResult (return value enum)
 - Called from (representative examples):
   - [LockRelationIdForSession](LockRelationIdForSession.md) (relation locking)

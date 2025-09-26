@@ -45,18 +45,18 @@ ForeignScan is the plan node used to access data from foreign tables via the For
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Scan (base structure)
+  - [Scan](../S/Scan.md) (base structure)
   - CmdType (operation enumeration)
-  - List, Bitmapset (container types)
+  - [List](../L/List.md), Bitmapset (container types)
 - Called from (representative examples):
-  - ExecInitNode (plan node initialization dispatcher)
-  - ExecForeignScan (main execution function)
-  - ExecInitForeignScan (initialization function)
-  - create_foreignscan_plan (plan creation)
-  - make_foreignscan (plan node construction)
-  - set_foreignscan_references (plan reference fixing)
-  - ExecReScanForeignScan (rescan functionality)
-  - show_foreignscan_info (EXPLAIN output)
+  - [ExecInitNode](../E/ExecInitNode.md) (plan node initialization dispatcher)
+  - [ExecForeignScan](../E/ExecForeignScan.md) (main execution function)
+  - [ExecInitForeignScan](../E/ExecInitForeignScan.md) (initialization function)
+  - [create_foreignscan_plan](../c/create_foreignscan_plan.md) (plan creation)
+  - [make_foreignscan](../m/make_foreignscan.md) (plan node construction)
+  - [set_foreignscan_references](../s/set_foreignscan_references.md) (plan reference fixing)
+  - [ExecReScanForeignScan](../E/ExecReScanForeignScan.md) (rescan functionality)
+  - [show_foreignscan_info](../s/show_foreignscan_info.md) (EXPLAIN output)
 
 ## Notes and Other Information
 - Supports both simple foreign table scans and complex foreign joins
@@ -64,7 +64,7 @@ ForeignScan is the plan node used to access data from foreign tables via the For
 - The fdw_exprs and fdw_private fields are under complete FDW control
 - fdw_scan_tlist is required for foreign joins since no system rowtype exists
 - Supports parallel execution through FDW-specific coordination mechanisms
-- EvalPlanQual support through fdw_recheck_quals for consistent reads
+- [EvalPlanQual](../E/EvalPlanQual.md) support through fdw_recheck_quals for consistent reads
 - Security context can be switched using checkAsUser field
 - When operation is not CMD_SELECT, the node performs direct remote modifications
 - fs_relids vs fs_base_relids distinction important for join planning and execution

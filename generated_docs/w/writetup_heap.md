@@ -30,7 +30,7 @@ The function operates by:
 ## Dependencies
 - Functions called/Symbols referenced:
   - TuplesortstateGetPublic
-  - LogicalTapeWrite
+  - [LogicalTapeWrite](../L/LogicalTapeWrite.md)
 - Data structures used:
   - TuplesortPublic
   - MinimalTuple
@@ -41,7 +41,7 @@ The function operates by:
   - TUPLESORT_RANDOMACCESS
 - Called from (representative examples):
   - [tuplesort_begin_heap](../t/tuplesort_begin_heap.md)
-  - tuplestore_begin_heap
+  - [tuplestore_begin_heap](../t/tuplestore_begin_heap.md)
 
 ## Notes and Other Information
 - This is a static function specific to heap tuple sorting operations

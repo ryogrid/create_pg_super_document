@@ -32,7 +32,7 @@ The function first handles the edge case where either the range or multirange is
   - [multirange_range_overlaps_bsearch_comparison](../m/multirange_range_overlaps_bsearch_comparison.md) - Comparison function for the binary search
   - `RangeBound` - Structure for representing range boundaries
 - Called from (representative examples):
-  - Range overlap operations in SQL queries
+  - [Range](../R/Range.md) overlap operations in SQL queries
   - Other multirange manipulation functions
 
 ## Notes and Other Information

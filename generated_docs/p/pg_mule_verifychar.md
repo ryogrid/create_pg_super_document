@@ -25,11 +25,11 @@ The function ensures that multi-byte MULE characters follow the proper encoding 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_mule_mblen
+  - [pg_mule_mblen](pg_mule_mblen.md)
   - IS_HIGHBIT_SET
 - Called from (representative examples):
-  - pg_mule_verifystr
-  - pg_encoding_set_invalid
+  - [pg_mule_verifystr](pg_mule_verifystr.md)
+  - [pg_encoding_set_invalid](pg_encoding_set_invalid.md)
 
 ## Notes and Other Information
 - Returns the length of the valid multi-byte character if successful, or -1 if invalid

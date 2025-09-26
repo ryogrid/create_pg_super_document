@@ -43,10 +43,10 @@ When successful, the function returns parallel lists of parameter expressions an
   - [lookup_type_cache](../l/lookup_type_cache.md)
   - [list_free](../l/list_free.md)
   - [list_member](../l/list_member.md)
-  - lappend_oid
+  - [lappend_oid](../l/lappend_oid.md)
   - linitial
   - lsecond
-  - exprType
+  - [exprType](../e/exprType.md)
   - OidIsValid
   - TYPECACHE_HASH_PROC
   - TYPECACHE_EQ_OPR

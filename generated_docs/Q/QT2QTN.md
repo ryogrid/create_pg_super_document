@@ -27,20 +27,20 @@ For operators, the function recursively processes child nodes and combines their
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0 (memory allocation)
-  - check_stack_depth (stack overflow protection)
-  - QT2QTN (recursive self-call)
+  - [palloc0](../p/palloc0.md) (memory allocation)
+  - [check_stack_depth](../c/check_stack_depth.md) (stack overflow protection)
+  - [QT2QTN](QT2QTN.md) (recursive self-call)
 - Data types used:
   - QueryItem
-  - QTNode
+  - [QTNode](QTNode.md)
   - QI_OPR (query item type constant)
   - OP_NOT (operator type constant)
 - Called from (representative examples):
-  - join_tsqueries
-  - tsquery_not
-  - CompareTSQ
-  - tsquery_rewrite_query
-  - tsquery_rewrite
+  - [join_tsqueries](../j/join_tsqueries.md)
+  - [tsquery_not](../t/tsquery_not.md)
+  - [CompareTSQ](../C/CompareTSQ.md)
+  - [tsquery_rewrite_query](../t/tsquery_rewrite_query.md)
+  - [tsquery_rewrite](../t/tsquery_rewrite.md)
 
 ## Notes and Other Information
 - The function includes stack depth checking to prevent stack overflow during deep recursion

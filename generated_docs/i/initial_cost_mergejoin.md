@@ -55,7 +55,7 @@ The function protects against zero row counts and uses clamp_row_est to ensure r
   - [JoinCostWorkspace](../J/JoinCostWorkspace.md)
   - JoinType
   - [JoinPathExtraData](../J/JoinPathExtraData.md)
-  - PathKey
+  - [PathKey](../P/PathKey.md)
   - [MergeScanSelCache](../M/MergeScanSelCache.md)
   - Cost
   - JOIN_FULL, JOIN_LEFT, JOIN_ANTI, JOIN_RIGHT, JOIN_RIGHT_ANTI
@@ -66,7 +66,7 @@ The function protects against zero row counts and uses clamp_row_est to ensure r
 ## Notes and Other Information
 - This is the first phase of a two-phase merge join costing process
 - Uses cached selectivity results from mergejoinscansel() to avoid expensive recomputation
-- Sort keys should be NIL when the respective source path is already properly ordered
+- [Sort](../S/Sort.md) keys should be NIL when the respective source path is already properly ordered
 - CPU costs and detailed join qualification analysis are deferred to final_cost_mergejoin
 - Selectivity estimates are readjusted after rounding to maintain accuracy with small input sizes
 - The function assumes cost_sort is efficient enough for use in preliminary estimation

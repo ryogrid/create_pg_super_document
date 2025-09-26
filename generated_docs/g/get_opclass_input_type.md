@@ -36,7 +36,7 @@ This function is essential for index operations, type validation, and ensuring c
   - [findRangeSubOpclass](../f/findRangeSubOpclass.md) (src/backend/commands/typecmds.c:2295)
   - [build_replindex_scan_key](../b/build_replindex_scan_key.md) (src/backend/executor/execReplication.c:133)
   - [infer_collation_opclass_match](../i/infer_collation_opclass_match.md) (src/backend/optimizer/util/plancat.c:999)
-  - get_rule_expr (src/backend/utils/adt/ruleutils.c:10112)
+  - [get_rule_expr](get_rule_expr.md) (src/backend/utils/adt/ruleutils.c:10112)
   - [lookup_type_cache](../l/lookup_type_cache.md) (src/backend/utils/cache/typcache.c:489, 530)
   - [load_rangetype_info](../l/load_rangetype_info.md) (src/backend/utils/cache/typcache.c:944)
 

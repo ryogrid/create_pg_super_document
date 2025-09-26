@@ -32,7 +32,7 @@ This design avoids code duplication by reusing all the complex calendar arithmet
   - [interval_um_internal](../i/interval_um_internal.md) (interval negation)
   - [timestamp_pl_interval](timestamp_pl_interval.md) (delegated addition with negated interval)
   - DirectFunctionCall2 (direct function call mechanism)
-  - TimestampGetDatum, PointerGetDatum (datum conversion)
+  - [TimestampGetDatum](../T/TimestampGetDatum.md), PointerGetDatum (datum conversion)
 - Called from:
   - [date_mi_interval](../d/date_mi_interval.md) (src/backend/utils/adt/date.c:1274)
   - [in_range_timestamp_interval](../i/in_range_timestamp_interval.md) (src/backend/utils/adt/timestamp.c:3861)

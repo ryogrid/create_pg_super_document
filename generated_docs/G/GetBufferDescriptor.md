@@ -22,12 +22,12 @@ This inline function provides efficient access to buffer descriptors by converti
   - [BufferDesc](../B/BufferDesc.md) (structure type for buffer descriptors)
   - BufferDescriptors (global array containing buffer descriptor entries)
 - Called from (representative examples):
-  - InitBufferPool
+  - [InitBufferPool](../I/InitBufferPool.md)
   - [ReadRecentBuffer](../R/ReadRecentBuffer.md)
   - [ZeroAndLockBuffer](../Z/ZeroAndLockBuffer.md)
   - [BufferAlloc](../B/BufferAlloc.md)
-  - MarkBufferDirty
-  - ReleaseBuffer
+  - [MarkBufferDirty](../M/MarkBufferDirty.md)
+  - [ReleaseBuffer](../R/ReleaseBuffer.md)
   - [LockBuffer](../L/LockBuffer.md)
   - And many other buffer management functions
 

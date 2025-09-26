@@ -39,7 +39,7 @@ For TOAST pointer datums, this returns the size of the pointer datum itself, not
   - [datumIsEqual](datumIsEqual.md)
   - [datumEstimateSpace](datumEstimateSpace.md)
   - [datumSerialize](datumSerialize.md)
-  - writetup_datum
+  - [writetup_datum](../w/writetup_datum.md)
 
 ## Notes and Other Information
 - The function includes comprehensive error checking for invalid datum pointers

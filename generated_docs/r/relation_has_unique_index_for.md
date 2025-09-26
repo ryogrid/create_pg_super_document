@@ -28,9 +28,9 @@ The function accepts conditions in two formats: RestrictInfo nodes (for join-der
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_length
+  - [list_length](../l/list_length.md)
   - bms_is_empty
-  - lappend
+  - [lappend](../l/lappend.md)
   - [list_member_oid](../l/list_member_oid.md)
   - [get_rightop](../g/get_rightop.md)
   - [get_leftop](../g/get_leftop.md)

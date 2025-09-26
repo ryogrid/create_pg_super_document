@@ -38,4 +38,4 @@ When called, the function adds the invalidation message to the CurrentCmdInvalid
 - The function assumes transInvalInfo is properly initialized (transaction is active)
 - Invalidation messages are organized by transaction and command boundaries for proper rollback semantics
 - The cacheId parameter corresponds to specific catalog caches (pg_class, pg_attribute, etc.)
-- Hash values enable efficient lookup and invalidation of specific cache entries rather than wholesale cache clearing
+- [Hash](../H/Hash.md) values enable efficient lookup and invalidation of specific cache entries rather than wholesale cache clearing

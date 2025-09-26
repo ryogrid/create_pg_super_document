@@ -22,15 +22,15 @@ The function allocates memory for the parser structure and sets up the input str
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0 (zero-initialized memory allocation)
-  - pg_database_encoding_max_length (get max character length for database encoding)
-  - pg_mb2wchar_with_len (convert multibyte to wide chars for C locale)
-  - char2wchar (convert multibyte to wide chars for other locales)
-  - newTParserPosition (create initial parser position)
+  - [palloc0](../p/palloc0.md) (zero-initialized memory allocation)
+  - [pg_database_encoding_max_length](../p/pg_database_encoding_max_length.md) (get max character length for database encoding)
+  - [pg_mb2wchar_with_len](../p/pg_mb2wchar_with_len.md) (convert multibyte to wide chars for C locale)
+  - [char2wchar](../c/char2wchar.md) (convert multibyte to wide chars for other locales)
+  - [newTParserPosition](../n/newTParserPosition.md) (create initial parser position)
   - TPS_Base (initial parser state constant)
 
 - Called from (representative examples):
-  - prsd_start (text search parser start function)
+  - [prsd_start](../p/prsd_start.md) (text search parser start function)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the wparser_def.c module

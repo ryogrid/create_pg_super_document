@@ -36,7 +36,7 @@ The function handles both regular index tuples and posting list tuples (used in 
   - [BTreeTupleGetNPosting](../B/BTreeTupleGetNPosting.md): Gets number of TIDs in posting list
   - [BTreeTupleGetPostingN](../B/BTreeTupleGetPostingN.md): Gets specific TID from posting list
   - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md): Extracts block number from TID
-  - `_bt_blk_cmp`: Comparison function for binary search of blocks
+  - `[_bt_blk_cmp](_bt_blk_cmp.md)`: Comparison function for binary search of blocks
 - Called from (representative examples):
   - [_bt_delete_or_dedup_one_page](_bt_delete_or_dedup_one_page.md): As the first deletion strategy
 

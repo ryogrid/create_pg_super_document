@@ -18,7 +18,7 @@ InstrUpdateTupleCount is a simple utility function that updates only the tuple c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Instrumentation (structure type)
+  - [Instrumentation](Instrumentation.md) (structure type)
 - Called from (representative examples):
   - No references found in current codebase
 

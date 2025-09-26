@@ -28,19 +28,19 @@ The function performs several operations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TimeoutId (data type)
+  - [TimeoutId](../T/TimeoutId.md) (data type)
   - TimestampTz (data type)
-  - find_active_timeout
-  - remove_timeout_index
-  - timeout_params
-  - insert_timeout
+  - [find_active_timeout](../f/find_active_timeout.md)
+  - [remove_timeout_index](../r/remove_timeout_index.md)
+  - [timeout_params](../t/timeout_params.md)
+  - [insert_timeout](../i/insert_timeout.md)
   - Assert (for debugging assertions)
 - Called from (representative examples):
-  - handle_sig_alarm
-  - enable_timeout_after
-  - enable_timeout_every
-  - enable_timeout_at
-  - enable_timeouts
+  - [handle_sig_alarm](../h/handle_sig_alarm.md)
+  - [enable_timeout_after](enable_timeout_after.md)
+  - [enable_timeout_every](enable_timeout_every.md)
+  - [enable_timeout_at](enable_timeout_at.md)
+  - [enable_timeouts](enable_timeouts.md)
 
 ## Notes and Other Information
 - This is a static function internal to the timeout.c module

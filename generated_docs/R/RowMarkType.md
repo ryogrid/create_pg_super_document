@@ -36,7 +36,7 @@ For non-lockable relations or when unique row identification is needed (during U
 - Functions called/Symbols referenced:
   - RowMarkRequiresRowShareLock() macro
 - Used by:
-  - PlanRowMark struct (as markType member)
+  - [PlanRowMark](../P/PlanRowMark.md) struct (as markType member)
   - [ExecRowMark](../E/ExecRowMark.md) struct (as markType member)
   - Various planner and executor functions
   - Foreign Data Wrapper (FDW) interfaces

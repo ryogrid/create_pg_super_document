@@ -20,12 +20,12 @@ The function also includes a compatibility fix for pre-PostgreSQL 11 versions by
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReadBuffer](../R/ReadBuffer.md)
-  - ConditionalLockBuffer
+  - [ConditionalLockBuffer](../C/ConditionalLockBuffer.md)
   - [BufferGetPage](../B/BufferGetPage.md)
   - SpGistPageGetMeta
-  - MarkBufferDirty
+  - [MarkBufferDirty](../M/MarkBufferDirty.md)
   - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
-  - ReleaseBuffer
+  - [ReleaseBuffer](../R/ReleaseBuffer.md)
 - Called from (representative examples):
   - [spgbuild](../s/spgbuild.md)
   - [spginsert](../s/spginsert.md)

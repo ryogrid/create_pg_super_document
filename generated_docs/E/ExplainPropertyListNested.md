@@ -28,12 +28,12 @@ This function is specifically designed for cases where list data needs to be rep
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExplainState (struct type)
+  - [ExplainState](ExplainState.md) (struct type)
   - EXPLAIN_FORMAT_TEXT, EXPLAIN_FORMAT_XML, EXPLAIN_FORMAT_JSON, EXPLAIN_FORMAT_YAML (enum values)
   - [ExplainPropertyList](ExplainPropertyList.md)
   - [ExplainJSONLineEnding](ExplainJSONLineEnding.md)
   - [ExplainYAMLLineStarting](ExplainYAMLLineStarting.md)
-  - appendStringInfoSpaces, appendStringInfoString, appendStringInfoChar
+  - [appendStringInfoSpaces](../a/appendStringInfoSpaces.md), appendStringInfoString, appendStringInfoChar
   - [escape_json](../e/escape_json.md), escape_yaml
   - lfirst (PostgreSQL list macro)
 - Called from (representative examples):

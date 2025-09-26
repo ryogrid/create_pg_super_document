@@ -23,7 +23,7 @@ When the linkname is an absolute path (starts with '/'), the function first conv
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - emalloc (memory allocation function)
+  - [emalloc](../e/emalloc.md) (memory allocation function)
   - strlen (standard C library function)
   - strcpy (standard C library function)
   - memcpy (standard C library function)

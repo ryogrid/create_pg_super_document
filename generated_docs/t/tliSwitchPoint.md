@@ -30,7 +30,7 @@ This function is crucial for determining branch points during timeline switches 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TimeLineHistoryEntry (structure access)
+  - [TimeLineHistoryEntry](../T/TimeLineHistoryEntry.md) (structure access)
 - Called from (representative examples):
   - [InitWalRecovery](../I/InitWalRecovery.md) (src/backend/access/transam/xlogrecovery.c:847)
   - [XLogReadDetermineTimeline](../X/XLogReadDetermineTimeline.md) (src/backend/access/transam/xlogutils.c:801)

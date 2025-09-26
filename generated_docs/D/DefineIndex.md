@@ -54,8 +54,8 @@ For concurrent builds, the function implements a multi-phase process:
   - [ComputeIndexAttrs](../C/ComputeIndexAttrs.md)
   - [GetIndexAmRoutine](../G/GetIndexAmRoutine.md)
   - [WaitForOlderSnapshots](../W/WaitForOlderSnapshots.md)
-  - index_create
-  - index_concurrently_build
+  - [index_create](../i/index_create.md)
+  - [index_concurrently_build](../i/index_concurrently_build.md)
   - [validate_index](../v/validate_index.md)
   - [CreateComments](../C/CreateComments.md)
   - [find_all_inheritors](../f/find_all_inheritors.md)

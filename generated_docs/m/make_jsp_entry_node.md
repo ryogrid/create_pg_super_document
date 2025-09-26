@@ -24,7 +24,7 @@ This is a fundamental building block in the JSONB GIN indexing system, used to c
 - Functions called/Symbols referenced:
   - [palloc](../p/palloc.md) (PostgreSQL memory allocation function)
   - offsetof (C macro to calculate structure member offset)
-  - JsonPathGinNode (GIN node structure type)
+  - [JsonPathGinNode](../J/JsonPathGinNode.md) (GIN node structure type)
   - JSP_GIN_ENTRY (constant defining the entry node type)
 
 - Called from:

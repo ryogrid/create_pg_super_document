@@ -28,11 +28,11 @@ The function operates on the child plan's target list (tlist) to determine and d
   - [lcons](../l/lcons.md) (adds plan to ancestors list)
   - [show_sort_group_keys](show_sort_group_keys.md) (displays the actual grouping keys)
   - outerPlanState (gets the child plan state)
-  - list_delete_first (removes plan from ancestors list)
+  - [list_delete_first](../l/list_delete_first.md) (removes plan from ancestors list)
 - Types referenced:
   - [GroupState](../G/GroupState.md) (execution state for Group nodes)
-  - ExplainState (state for EXPLAIN operations)
-  - Group (Group plan node type)
+  - [ExplainState](../E/ExplainState.md) (state for EXPLAIN operations)
+  - [Group](../G/Group.md) (Group plan node type)
 - Called from (representative examples):
   - [ExplainNode](../E/ExplainNode.md) (main function for explaining plan nodes)
 

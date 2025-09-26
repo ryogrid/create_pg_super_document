@@ -32,7 +32,7 @@ The function ensures proper buffer management, applies vacuum delay points for t
   - [vacuumLeafRoot](../v/vacuumLeafRoot.md)
   - [vacuumLeafPage](../v/vacuumLeafPage.md)
   - [vacuumRedirectAndPlaceholder](../v/vacuumRedirectAndPlaceholder.md)
-  - RecordFreeIndexPage
+  - [RecordFreeIndexPage](../R/RecordFreeIndexPage.md)
   - [SpGistSetLastUsedPage](../S/SpGistSetLastUsedPage.md)
   - [PageIsNew](../P/PageIsNew.md)/PageIsEmpty
   - SpGistPageIsLeaf/SpGistBlockIsRoot

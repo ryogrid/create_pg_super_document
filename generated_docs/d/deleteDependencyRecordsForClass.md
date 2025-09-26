@@ -29,14 +29,14 @@ Each matching record is deleted from the catalog, and the function returns a cou
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - [ScanKeyInit](../S/ScanKeyInit.md)
   - [systable_beginscan](../s/systable_beginscan.md)
   - [systable_getnext](../s/systable_getnext.md)
   - GETSTRUCT
   - [CatalogTupleDelete](../C/CatalogTupleDelete.md)
   - [systable_endscan](../s/systable_endscan.md)
-  - table_close
+  - [table_close](../t/table_close.md)
   - [SysScanDesc](../S/SysScanDesc.md)
   - Form_pg_depend
 

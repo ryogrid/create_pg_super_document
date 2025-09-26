@@ -23,7 +23,7 @@ This function acquires an exclusive advisory lock that is automatically scoped t
 - Functions called/Symbols referenced:
   - SET_LOCKTAG_INT32: Macro to initialize the lock tag with two 32-bit integers
   - [LockAcquire](../L/LockAcquire.md): Core lock acquisition function with ExclusiveLock mode
-  - LOCKTAG: Lock identifier structure
+  - [LOCKTAG](../L/LOCKTAG.md): Lock identifier structure
   - ExclusiveLock: Lock mode constant for exclusive access
   - PG_RETURN_VOID: Macro to return void from a PostgreSQL function
 - Called from (representative examples):

@@ -23,7 +23,7 @@ Unlike pg_replication_origin_xact_setup, this function does not require a replic
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - replorigin_check_prerequisites
+  - [replorigin_check_prerequisites](../r/replorigin_check_prerequisites.md)
   - PG_RETURN_VOID
 - Called from (representative examples):
   - No direct references found (likely called via SQL function interface)

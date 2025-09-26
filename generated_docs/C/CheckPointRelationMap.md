@@ -28,8 +28,8 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire (acquiring RelationMappingLock in LW_SHARED mode)
-  - LWLockRelease (releasing RelationMappingLock)
+  - [LWLockAcquire](../L/LWLockAcquire.md) (acquiring RelationMappingLock in LW_SHARED mode)
+  - [LWLockRelease](../L/LWLockRelease.md) (releasing RelationMappingLock)
   - LW_SHARED (lock mode constant)
 - Synchronizes with:
   - [write_relmap_file](../w/write_relmap_file.md) (ensures any ongoing map file writes complete with fsync)

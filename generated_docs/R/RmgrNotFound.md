@@ -24,7 +24,7 @@ The function uses ereport() to emit an ERROR level message, which will abort the
   - [errmsg](../e/errmsg.md)
   - [errhint](../e/errhint.md)
 - Called from (representative examples):
-  - GetRmgr
+  - [GetRmgr](../G/GetRmgr.md)
 
 ## Notes and Other Information
 - Located in src/backend/access/transam/rmgr.c:91-106

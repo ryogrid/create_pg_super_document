@@ -25,9 +25,9 @@ The function searches through the process array to find the backend with the mat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SignalVirtualTransaction
+  - [SignalVirtualTransaction](../S/SignalVirtualTransaction.md)
 - Called from (representative examples):
-  - ResolveRecoveryConflictWithVirtualXIDs (in storage/ipc/standby.c)
+  - [ResolveRecoveryConflictWithVirtualXIDs](../R/ResolveRecoveryConflictWithVirtualXIDs.md) (in storage/ipc/standby.c)
 
 ## Notes and Other Information
 - This is a thin wrapper around SignalVirtualTransaction with conflictPending set to true

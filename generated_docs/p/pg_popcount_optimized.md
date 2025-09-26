@@ -22,7 +22,7 @@ The function is designed to be part of PostgreSQL's runtime-optimizable bit mani
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_popcount_slow
+  - [pg_popcount_slow](pg_popcount_slow.md)
 - Called from (representative examples):
   - [pg_popcount](pg_popcount.md) (inline function in pg_bitutils.h)
   - [choose_popcount_functions](../c/choose_popcount_functions.md) (during function pointer initialization)

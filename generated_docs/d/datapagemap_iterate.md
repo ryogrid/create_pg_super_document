@@ -17,7 +17,7 @@ This function creates a new iterator object that can be used to sequentially tra
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_malloc (for allocating the iterator structure)
+  - [pg_malloc](../p/pg_malloc.md) (for allocating the iterator structure)
 - Called from (representative examples):
   - [datapagemap_print](datapagemap_print.md) (in datapagemap.c:122)
   - [calculate_totals](../c/calculate_totals.md) (in filemap.c:530)

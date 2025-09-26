@@ -26,7 +26,7 @@ This function establishes the complete exception handling framework for PL/Pytho
   - [PLy_create_exception](PLy_create_exception.md)
   - [hash_create](../h/hash_create.md)
   - [PLy_generate_spi_exceptions](PLy_generate_spi_exceptions.md)
-  - HASHCTL (PostgreSQL hash table control structure)
+  - [HASHCTL](../H/HASHCTL.md) (PostgreSQL hash table control structure)
   - [PLyExceptionEntry](PLyExceptionEntry.md) (exception entry structure)
   - HASH_ELEM, HASH_BLOBS (hash table flags)
   - PLy_exc_module (exception module definition)

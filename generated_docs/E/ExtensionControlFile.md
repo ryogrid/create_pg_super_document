@@ -46,7 +46,7 @@ The ExtensionControlFile structure serves as the in-memory representation of a p
 ## Dependencies
 - Functions called/Symbols referenced:
   - comment (member field)
-  - superuser (member field)
+  - [superuser](../s/superuser.md) (member field)
 - Called from (representative examples):
   - [read_extension_control_file](../r/read_extension_control_file.md)
   - [parse_extension_control_file](../p/parse_extension_control_file.md)

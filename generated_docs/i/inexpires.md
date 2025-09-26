@@ -24,12 +24,12 @@ The expiration information is stored in the global variable  and is used to dete
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - error (for reporting parsing errors)
-  - getleapdatetime (to parse and validate the expiration datetime, with true flag indicating expires context)
+  - [error](../e/error.md) (for reporting parsing errors)
+  - [getleapdatetime](../g/getleapdatetime.md) (to parse and validate the expiration datetime, with true flag indicating expires context)
   - EXPIRES_FIELDS (constant defining expected number of fields)
   - leapexpires (global variable storing the expiration timestamp)
 - Called from (representative examples):
-  - infile (main file parsing function)
+  - [infile](infile.md) (main file parsing function)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's timezone data compilation system, not the runtime timezone handling

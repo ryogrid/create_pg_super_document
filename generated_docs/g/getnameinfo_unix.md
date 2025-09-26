@@ -31,9 +31,9 @@ The implementation handles both regular Unix sockets and abstract namespace sock
 ## Dependencies
 - Functions called/Symbols referenced:
   - snprintf (formatted string output)
-  - sockaddr_un (Unix socket address structure)
+  - [sockaddr_un](../s/sockaddr_un.md) (Unix socket address structure)
 - Called from:
-  - pg_getnameinfo_all (when address family is AF_UNIX)
+  - [pg_getnameinfo_all](../p/pg_getnameinfo_all.md) (when address family is AF_UNIX)
 
 ## Notes and Other Information
 - Static function, only accessible within src/common/ip.c

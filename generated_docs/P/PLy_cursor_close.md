@@ -22,7 +22,7 @@ When closing an active cursor, the function validates that the associated portal
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetPortalByName
+  - [GetPortalByName](../G/GetPortalByName.md)
   - PortalIsValid
   - [PLy_exception_set](PLy_exception_set.md)
   - [UnpinPortal](../U/UnpinPortal.md)

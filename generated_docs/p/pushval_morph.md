@@ -24,10 +24,10 @@ This function implements the core logic for morphological analysis during TSQuer
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TSQueryParserState
+  - [TSQueryParserState](../T/TSQueryParserState.md)
   - ParsedText
   - [MorphOpaque](../M/MorphOpaque.md)
-  - ParsedWord
+  - [ParsedWord](../P/ParsedWord.md)
   - [parsetext](parsetext.md)
   - [pushStop](pushStop.md)
   - [pushOperator](pushOperator.md)

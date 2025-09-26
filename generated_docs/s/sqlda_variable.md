@@ -28,7 +28,7 @@ The function performs the following operations:
 - Functions called/Symbols referenced:
   - [mm_alloc](../m/mm_alloc.md) (memory allocation function)
   - [mm_strdup](../m/mm_strdup.md) (string duplication function)
-  - ECPGtype
+  - [ECPGtype](../E/ECPGtype.md)
   - ECPGt_sqlda
   - [element](../e/element.md)
 - Called from (representative examples):

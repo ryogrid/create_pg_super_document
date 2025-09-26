@@ -30,9 +30,9 @@ This is a convenience function that abstracts the two-step process of determinin
   - [table_slot_callbacks](table_slot_callbacks.md) (to determine appropriate slot operations)
   - [MakeSingleTupleTableSlot](../M/MakeSingleTupleTableSlot.md) (to create the actual slot)
   - RelationGetDescr (macro to get relation's tuple descriptor)
-  - lappend (to add slot to registration list)
-  - TupleTableSlotOps (structure type)
-  - TupleTableSlot (structure type)
+  - [lappend](../l/lappend.md) (to add slot to registration list)
+  - [TupleTableSlotOps](../T/TupleTableSlotOps.md) (structure type)
+  - [TupleTableSlot](../T/TupleTableSlot.md) (structure type)
 
 - Called from (representative examples):
   - [systable_beginscan](../s/systable_beginscan.md)

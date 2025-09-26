@@ -27,8 +27,8 @@ This scanning approach is designed to be resilient against index corruption and 
   - RelationGetNumberOfBlocks: Retrieves the total number of blocks in the index relation
   - [ReadBufferExtended](../R/ReadBufferExtended.md): Reads index blocks with specified access strategy and options
   - [brin_page_cleanup](brin_page_cleanup.md): Performs cleanup operations on individual BRIN index pages
-  - ReleaseBuffer: Releases buffer locks after processing each page
-  - FreeSpaceMapVacuum: Updates and repairs the Free Space Map for the entire index
+  - [ReleaseBuffer](../R/ReleaseBuffer.md): Releases buffer locks after processing each page
+  - [FreeSpaceMapVacuum](../F/FreeSpaceMapVacuum.md): Updates and repairs the Free Space Map for the entire index
   - CHECK_FOR_INTERRUPTS: Allows cancellation during long-running operations
   - MAIN_FORKNUM, RBM_NORMAL: Constants for fork identification and buffer read mode
 

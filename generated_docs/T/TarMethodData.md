@@ -40,9 +40,9 @@ TarMethodData is a concrete implementation of the WAL writing method for tar arc
   - [tar_write_compressed_data](../t/tar_write_compressed_data.md) (uses TarMethodData for compressed writes)
   - [tar_write](../t/tar_write.md) (writes data using TarMethodData)
   - [tar_open_for_write](../t/tar_open_for_write.md) (creates new files within TarMethodData archive)
-  - tar_sync (synchronizes TarMethodData to disk)
-  - tar_close (closes files within TarMethodData)
-  - tar_finish (finalizes TarMethodData archive)
+  - [tar_sync](../t/tar_sync.md) (synchronizes TarMethodData to disk)
+  - [tar_close](../t/tar_close.md) (closes files within TarMethodData)
+  - [tar_finish](../t/tar_finish.md) (finalizes TarMethodData archive)
   - [tar_free](../t/tar_free.md) (deallocates TarMethodData)
   - [CreateWalTarMethod](../C/CreateWalTarMethod.md) (instantiates TarMethodData)
 

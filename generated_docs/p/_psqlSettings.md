@@ -148,7 +148,7 @@ The structure is divided into several logical groups: database connection manage
 - Functions called/Symbols referenced:
   - [printQueryOpt](printQueryOpt.md) (print formatting options structure)
   - [trivalue](../t/trivalue.md) (three-state enumeration type)
-  - VariableSpace (shell variable storage system)
+  - [VariableSpace](../V/VariableSpace.md) (shell variable storage system)
   - PSQL_ECHO (command echo enumeration)
   - PSQL_ECHO_HIDDEN (hidden command echo enumeration) 
   - PSQL_ERROR_ROLLBACK (error rollback behavior enumeration)

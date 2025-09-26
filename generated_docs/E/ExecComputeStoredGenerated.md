@@ -38,12 +38,12 @@ Key behaviors:
   - GetPerTupleExprContext
   - [ExecInitStoredGenerated](ExecInitStoredGenerated.md)  
   - GetPerTupleMemoryContext
-  - slot_getallattrs
-  - ExecEvalExpr
+  - [slot_getallattrs](../s/slot_getallattrs.md)
+  - [ExecEvalExpr](ExecEvalExpr.md)
   - [datumCopy](../d/datumCopy.md)
-  - ExecClearTuple
+  - [ExecClearTuple](ExecClearTuple.md)
   - [ExecStoreVirtualTuple](ExecStoreVirtualTuple.md)
-  - ExecMaterializeSlot
+  - [ExecMaterializeSlot](ExecMaterializeSlot.md)
 - Called from (representative examples):
   - [CopyFrom](../C/CopyFrom.md)
   - [ExecSimpleRelationInsert](ExecSimpleRelationInsert.md)

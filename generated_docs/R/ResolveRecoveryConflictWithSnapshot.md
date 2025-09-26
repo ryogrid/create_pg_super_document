@@ -29,7 +29,7 @@ For logical replication scenarios involving catalog relations, the function also
 - Functions called/Symbols referenced:
   - TransactionIdIsValid
   - TransactionIdIsNormal
-  - GetConflictingVirtualXIDs
+  - [GetConflictingVirtualXIDs](../G/GetConflictingVirtualXIDs.md)
   - [ResolveRecoveryConflictWithVirtualXIDs](ResolveRecoveryConflictWithVirtualXIDs.md)
   - [InvalidateObsoleteReplicationSlots](../I/InvalidateObsoleteReplicationSlots.md)
   - PROCSIG_RECOVERY_CONFLICT_SNAPSHOT

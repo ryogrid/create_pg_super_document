@@ -35,11 +35,11 @@ The function works by processing a pattern string where '1' characters represent
   - [intset_iterate_next](../i/intset_iterate_next.md)
   - [intset_memory_usage](../i/intset_memory_usage.md)
   - AllocSetContextCreate
-  - MemoryContextSetIdentifier
+  - [MemoryContextSetIdentifier](../M/MemoryContextSetIdentifier.md)
   - [MemoryContextDelete](../M/MemoryContextDelete.md)
   - [MemoryContextStats](../M/MemoryContextStats.md)
   - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
-  - pg_prng_uint64_range
+  - [pg_prng_uint64_range](../p/pg_prng_uint64_range.md)
   - UINT64_FORMAT
 - Called from (representative examples):
   - [test_integerset](test_integerset.md) (main test entry point)

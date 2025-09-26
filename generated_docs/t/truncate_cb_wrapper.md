@@ -30,10 +30,10 @@ Like other callback wrappers, it establishes proper error context, manages outpu
   - [ReorderBufferTXN](../R/ReorderBufferTXN.md)
   - [ReorderBufferChange](../R/ReorderBufferChange.md)
   - [LogicalDecodingContext](../L/LogicalDecodingContext.md)
-  - LogicalErrorCallbackState
-  - output_plugin_error_callback
+  - [LogicalErrorCallbackState](../L/LogicalErrorCallbackState.md)
+  - [output_plugin_error_callback](../o/output_plugin_error_callback.md)
 - Called from (representative examples):
-  - StartupDecodingContext
+  - [StartupDecodingContext](../S/StartupDecodingContext.md)
 
 ## Notes and Other Information
 - This function is only called when `ctx->fast_forward` is false, ensuring it's not used during fast-forward mode

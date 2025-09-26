@@ -26,8 +26,8 @@ This function serves as the final step in the B-tree page creation process durin
   - [smgr_bulk_write](../s/smgr_bulk_write.md) (to perform the actual write operation)
   - [BTPageState](../B/BTPageState.md) (referenced in context)
 - Called from (representative examples):
-  - _bt_buildadd
-  - _bt_uppershutdown
+  - [_bt_buildadd](_bt_buildadd.md)
+  - [_bt_uppershutdown](_bt_uppershutdown.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the nbtsort.c compilation unit

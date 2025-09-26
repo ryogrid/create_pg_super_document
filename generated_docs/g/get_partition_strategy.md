@@ -25,9 +25,9 @@ The function serves as an accessor method to encapsulate access to the Partition
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PartitionKey (struct type)
+  - [PartitionKey](../P/PartitionKey.md) (struct type)
 - Called from (representative examples):
-  - transformPartitionBound
+  - [transformPartitionBound](../t/transformPartitionBound.md)
 
 ## Notes and Other Information
 - This is a static inline function defined in partcache.h for efficient access

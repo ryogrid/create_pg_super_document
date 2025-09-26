@@ -29,8 +29,8 @@ The shouldFree parameter indicates memory ownership - false means the slot owns 
   - slot->tts_ops->copy_minimal_tuple
 - Called from (representative examples):
   - [hashagg_spill_tuple](../h/hashagg_spill_tuple.md)
-  - ExecHashTableInsert
-  - ExecParallelHashTableInsert
+  - [ExecHashTableInsert](ExecHashTableInsert.md)
+  - [ExecParallelHashTableInsert](ExecParallelHashTableInsert.md)
   - [ExecHashJoinImpl](ExecHashJoinImpl.md)
   - [tqueueReceiveSlot](../t/tqueueReceiveSlot.md)
 

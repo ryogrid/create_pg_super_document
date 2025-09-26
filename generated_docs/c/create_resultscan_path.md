@@ -24,7 +24,7 @@ This function constructs a Path node specifically for result scan operations on 
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode
-  - get_baserel_parampathinfo
+  - [get_baserel_parampathinfo](../g/get_baserel_parampathinfo.md)
   - [cost_resultscan](cost_resultscan.md)
 - Called from (representative examples):
   - [set_result_pathlist](../s/set_result_pathlist.md)

@@ -29,7 +29,7 @@ The  function serves as the primary entry point for JSON_EXISTS operations in Po
   - [DatumGetJsonbP](../D/DatumGetJsonbP.md)
   - jperIsError
   - jperOk (enum value)
-  - JsonPath (type)
+  - [JsonPath](JsonPath.md) (type)
   - [JsonPathExecResult](JsonPathExecResult.md) (type)
 - Called from (representative examples):
   - [ExecEvalJsonExprPath](../E/ExecEvalJsonExprPath.md)

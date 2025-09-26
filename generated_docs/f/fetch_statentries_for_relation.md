@@ -29,13 +29,13 @@ This function performs a catalog scan of pg_statistic_ext to find all extended s
   - [SysCacheGetAttrNotNull](../S/SysCacheGetAttrNotNull.md)
   - [get_namespace_name](../g/get_namespace_name.md)
   - [bms_add_member](../b/bms_add_member.md)
-  - DatumGetInt16
+  - [DatumGetInt16](../D/DatumGetInt16.md)
   - DatumGetArrayTypeP
   - TextDatumGetCString
   - [stringToNode](../s/stringToNode.md)
   - [eval_const_expressions](../e/eval_const_expressions.md)
   - [fix_opfuncids](fix_opfuncids.md)
-  - lappend_int
+  - [lappend_int](../l/lappend_int.md)
   - [palloc0](../p/palloc0.md)
   - [pstrdup](../p/pstrdup.md)
 - Called from:

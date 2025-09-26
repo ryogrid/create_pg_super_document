@@ -28,12 +28,12 @@ JsonScalarExpr is a parse tree node that represents a JSON_SCALAR() function cal
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonOutput
+  - [JsonOutput](JsonOutput.md)
   - ParseLoc
 - Called from (representative examples):
-  - raw_expression_tree_walker_impl
-  - transformExprRecurse
-  - transformJsonScalarExpr
+  - [raw_expression_tree_walker_impl](../r/raw_expression_tree_walker_impl.md)
+  - [transformExprRecurse](../t/transformExprRecurse.md)
+  - [transformJsonScalarExpr](../t/transformJsonScalarExpr.md)
 
 ## Notes and Other Information
 - This is part of PostgreSQL's implementation of the SQL/JSON standard

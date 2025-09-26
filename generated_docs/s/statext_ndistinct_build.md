@@ -29,15 +29,15 @@ The resulting structure contains:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - num_combinations: Calculates total number of attribute combinations
-  - generator_init: Initializes combination generator
-  - generator_next: Gets next attribute combination
-  - generator_free: Frees combination generator resources
-  - ndistinct_for_combination: Computes ndistinct estimate for specific combination
+  - [num_combinations](../n/num_combinations.md): Calculates total number of attribute combinations
+  - [generator_init](../g/generator_init.md): Initializes combination generator
+  - [generator_next](../g/generator_next.md): Gets next attribute combination
+  - [generator_free](../g/generator_free.md): Frees combination generator resources
+  - [ndistinct_for_combination](../n/ndistinct_for_combination.md): Computes ndistinct estimate for specific combination
   - AttributeNumberIsValid: Validates attribute numbers
-  - palloc: PostgreSQL memory allocation
+  - [palloc](../p/palloc.md): PostgreSQL memory allocation
 - Called from (representative examples):
-  - BuildRelationExtStatistics: Main extended statistics building function
+  - [BuildRelationExtStatistics](../B/BuildRelationExtStatistics.md): Main extended statistics building function
 
 ## Notes and Other Information
 - Only generates combinations of 2 or more attributes (k >= 2)

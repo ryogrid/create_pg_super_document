@@ -25,8 +25,8 @@ The function uses ceiling division to ensure that any fractional space requireme
   - FSM_CAT_STEP
 - Called from (representative examples):
   - FSMAddress
-  - GetPageWithFreeSpace
-  - RecordAndGetPageWithFreeSpace
+  - [GetPageWithFreeSpace](../G/GetPageWithFreeSpace.md)
+  - [RecordAndGetPageWithFreeSpace](../R/RecordAndGetPageWithFreeSpace.md)
 
 ## Notes and Other Information
 - The function implements ceiling division using the formula: (needed + FSM_CAT_STEP - 1) / FSM_CAT_STEP

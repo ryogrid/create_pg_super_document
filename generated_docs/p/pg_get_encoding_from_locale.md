@@ -41,19 +41,19 @@ The function operates through several key phases:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strcasecmp (case-insensitive string comparison)
+  - [pg_strcasecmp](pg_strcasecmp.md) (case-insensitive string comparison)
   - setlocale (locale manipulation)
   - strdup (string duplication)
   - nl_langinfo (Unix codeset information)
-  - win32_langinfo (Windows codepage extraction)
+  - [win32_langinfo](../w/win32_langinfo.md) (Windows codepage extraction)
   - encoding_match_list (encoding lookup table)
   - ereport/fprintf (error reporting)
   - PG_SQL_ASCII, PG_UTF8 (PostgreSQL encoding constants)
 - Called from (representative examples):
-  - check_encoding_locale_matches
-  - setup_locale_encoding  
-  - pg_bind_textdomain_codeset
-  - pqConnectOptions2
+  - [check_encoding_locale_matches](../c/check_encoding_locale_matches.md)
+  - [setup_locale_encoding](../s/setup_locale_encoding.md)  
+  - [pg_bind_textdomain_codeset](pg_bind_textdomain_codeset.md)
+  - [pqConnectOptions2](pqConnectOptions2.md)
 
 ## Notes and Other Information
 - Returns PG_SQL_ASCII for C/POSIX locales, which callers should treat as compatible with any encoding

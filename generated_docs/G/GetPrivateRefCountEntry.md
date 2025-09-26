@@ -30,13 +30,13 @@ When do_move is true and the entry is found in the hash table, the function opti
   - HASH_FIND
   - HASH_REMOVE
   - [ReservePrivateRefCountEntry](../R/ReservePrivateRefCountEntry.md)
-  - PrivateRefCountEntry (struct type)
+  - [PrivateRefCountEntry](../P/PrivateRefCountEntry.md) (struct type)
   - REFCOUNT_ARRAY_ENTRIES (macro)
 - Called from (representative examples):
   - [GetPrivateRefCount](GetPrivateRefCount.md)
-  - PinBuffer
-  - PinBuffer_Locked
-  - UnpinBufferNoOwner
+  - [PinBuffer](../P/PinBuffer.md)
+  - [PinBuffer_Locked](../P/PinBuffer_Locked.md)
+  - [UnpinBufferNoOwner](../U/UnpinBufferNoOwner.md)
   - [IncrBufferRefCount](../I/IncrBufferRefCount.md)
 
 ## Notes and Other Information

@@ -22,13 +22,13 @@ The function iterates through a predefined array of DDL statements and executes 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQExpBufferData](../P/PQExpBufferData.md) (buffer structure for query building)
-  - initPQExpBuffer (initialize query buffer)
+  - [initPQExpBuffer](initPQExpBuffer.md) (initialize query buffer)
   - lengthof (macro to get array length)
   - [resetPQExpBuffer](../r/resetPQExpBuffer.md) (reset query buffer)
   - [PQescapeIdentifier](../P/PQescapeIdentifier.md) (escape tablespace identifier)
   - [PQfreemem](../P/PQfreemem.md) (free PostgreSQL allocated memory)
   - [executeStatement](../e/executeStatement.md) (execute SQL statement)
-  - termPQExpBuffer (cleanup query buffer)
+  - [termPQExpBuffer](../t/termPQExpBuffer.md) (cleanup query buffer)
 - Called from (representative examples):
   - [runInitSteps](../r/runInitSteps.md)
 

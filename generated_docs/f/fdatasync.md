@@ -25,7 +25,7 @@ The function handles Windows-specific error mapping and provides proper POSIX-co
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Convert C runtime file descriptor to Windows HANDLE
-  -  - Initialize NT DLL function pointers
+  -  - [Initialize](../I/Initialize.md) NT DLL function pointers
   -  - Windows NT API for selective buffer flushing
   -  - Flag constant for data-only sync
   -  - Convert NT status to DOS error code

@@ -26,7 +26,7 @@ The `forget_invalid_pages_db` function performs a wholesale cleanup of invalid p
   - elog
   - [pfree](../p/pfree.md)
   - [hash_search](../h/hash_search.md)
-  - HASH_SEQ_STATUS
+  - [HASH_SEQ_STATUS](../H/HASH_SEQ_STATUS.md)
   - [xl_invalid_page](../x/xl_invalid_page.md)
 - Called from (representative examples):
   - [XLogDropDatabase](../X/XLogDropDatabase.md)

@@ -28,8 +28,8 @@ This forwarding pattern allows for composition of different backup sink behavior
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbsink_manifest_contents
-  - bbsink (structure type)
+  - [bbsink_manifest_contents](bbsink_manifest_contents.md)
+  - [bbsink](bbsink.md) (structure type)
 - Called from (representative examples):
   - [bbsink_server_manifest_contents](bbsink_server_manifest_contents.md)
   - [bbsink_throttle_manifest_contents](bbsink_throttle_manifest_contents.md)

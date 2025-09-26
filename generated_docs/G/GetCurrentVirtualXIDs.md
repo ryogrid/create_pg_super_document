@@ -30,14 +30,14 @@ The filtering mechanism allows for sophisticated control over which VXIDs are re
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc
-  - LWLockAcquire/LWLockRelease
-  - TransactionIdPrecedesOrEquals
+  - [palloc](../p/palloc.md)
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease
+  - [TransactionIdPrecedesOrEquals](../T/TransactionIdPrecedesOrEquals.md)
   - GET_VXID_FROM_PGPROC
   - VirtualTransactionIdIsValid
   - UINT32_ACCESS_ONCE
 - Called from (representative examples):
-  - WaitForOlderSnapshots (in commands/indexcmds.c)
+  - [WaitForOlderSnapshots](../W/WaitForOlderSnapshots.md) (in commands/indexcmds.c)
 
 ## Notes and Other Information
 - The function allocates memory using palloc() - caller is responsible for freeing

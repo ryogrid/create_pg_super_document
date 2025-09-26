@@ -21,9 +21,9 @@ The function works by first calling TwoPhaseGetGXact to locate the global transa
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TwoPhaseGetGXact](TwoPhaseGetGXact.md)
-  - GlobalTransaction
+  - [GlobalTransaction](../G/GlobalTransaction.md)
   - GetPGProcByNumber
-  - FullTransactionId
+  - [FullTransactionId](../F/FullTransactionId.md)
 - Called from (representative examples):
   - [PostPrepare_Locks](../P/PostPrepare_Locks.md)
   - [lock_twophase_recover](../l/lock_twophase_recover.md)  

@@ -28,8 +28,8 @@ The function returns an int64 value, though the actual maximum value is currentl
   - [TransactionIdSetTreeStatus](TransactionIdSetTreeStatus.md)
   - [set_status_by_pages](../s/set_status_by_pages.md)
   - [TransactionIdSetPageStatusInternal](TransactionIdSetPageStatusInternal.md)
-  - TransactionIdSetStatusBit
-  - TransactionIdGetStatus
+  - [TransactionIdSetStatusBit](TransactionIdSetStatusBit.md)
+  - [TransactionIdGetStatus](TransactionIdGetStatus.md)
   - [StartupCLOG](../S/StartupCLOG.md)
   - [TrimCLOG](TrimCLOG.md)
   - [ExtendCLOG](../E/ExtendCLOG.md)

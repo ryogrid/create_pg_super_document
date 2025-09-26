@@ -36,13 +36,13 @@ SetOpPath represents the execution path for set operations in PostgreSQL, specif
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SetOpCmd
+  - [SetOpCmd](SetOpCmd.md)
   - SetOpStrategy
   - Cardinality
 - Called from (representative examples):
-  - create_setop_plan
-  - create_setop_path
-  - create_plan_recurse
+  - [create_setop_plan](../c/create_setop_plan.md)
+  - [create_setop_path](../c/create_setop_path.md)
+  - [create_plan_recurse](../c/create_plan_recurse.md)
 
 ## Notes and Other Information
 - Set operations require careful handling of duplicate elimination and row source tracking

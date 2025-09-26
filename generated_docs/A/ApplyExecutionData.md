@@ -33,19 +33,19 @@ ApplyExecutionData serves as a centralized container for execution context durin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - EState
-  - LogicalRepRelMapEntry
-  - ResultRelInfo
-  - ModifyTableState
-  - PartitionTupleRouting
+  - [EState](../E/EState.md)
+  - [LogicalRepRelMapEntry](../L/LogicalRepRelMapEntry.md)
+  - [ResultRelInfo](../R/ResultRelInfo.md)
+  - [ModifyTableState](../M/ModifyTableState.md)
+  - [PartitionTupleRouting](../P/PartitionTupleRouting.md)
 - Called from (representative examples):
-  - handle_streamed_transaction
-  - create_edata_for_relation
-  - finish_edata
-  - apply_handle_insert
-  - apply_handle_update
-  - apply_handle_delete
-  - apply_handle_tuple_routing
+  - [handle_streamed_transaction](../h/handle_streamed_transaction.md)
+  - [create_edata_for_relation](../c/create_edata_for_relation.md)
+  - [finish_edata](../f/finish_edata.md)
+  - [apply_handle_insert](../a/apply_handle_insert.md)
+  - [apply_handle_update](../a/apply_handle_update.md)
+  - [apply_handle_delete](../a/apply_handle_delete.md)
+  - [apply_handle_tuple_routing](../a/apply_handle_tuple_routing.md)
 
 ## Notes and Other Information
 This structure is primarily used in the logical replication worker process (worker.c) and is crucial for maintaining state consistency during replication operations. The partition-specific fields (mtstate and proute) are only utilized when the target relation is partitioned, allowing the system to efficiently route tuples to the correct partition during apply operations.

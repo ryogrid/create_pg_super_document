@@ -24,12 +24,12 @@ This function is essential to PostgreSQL's geometric data type output infrastruc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `float8out_internal`: Core function for converting float8 values to strings (called twice)
-  - `appendStringInfo`: Function to append formatted string to StringInfo buffer
-  - `pfree`: Memory management function to free temporary strings (called twice)
+  - `[float8out_internal](../f/float8out_internal.md)`: Core function for converting float8 values to strings (called twice)
+  - `[appendStringInfo](../a/appendStringInfo.md)`: Function to append formatted string to StringInfo buffer
+  - `[pfree](pfree.md)`: Memory management function to free temporary strings (called twice)
 - Called from (representative examples):
-  - `path_encode`: For formatting individual coordinate pairs within path output
-  - `circle_out`: For formatting circle center coordinates in output
+  - `[path_encode](path_encode.md)`: For formatting individual coordinate pairs within path output
+  - `[circle_out](../c/circle_out.md)`: For formatting circle center coordinates in output
   - Used in PATH_CLOSED context for formatting path coordinates
 
 ## Notes and Other Information

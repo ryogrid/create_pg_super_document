@@ -23,20 +23,20 @@ The function carefully manages errno to distinguish between end-of-directory (er
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - readdir (system call)
+  - [readdir](../r/readdir.md) (system call)
   - ereport (PostgreSQL error reporting)
-  - errcode_for_file_access (PostgreSQL error code function)
-  - DIR (system type)
-  - dirent (system structure)
+  - [errcode_for_file_access](../e/errcode_for_file_access.md) (PostgreSQL error code function)
+  - [DIR](../D/DIR.md) (system type)
+  - [dirent](../d/dirent.md) (system structure)
 - Called from (representative examples):
-  - ReadDir
-  - ReorderBufferCleanupSerializedTXNs
-  - RemovePgTempFiles
-  - RemovePgTempFilesInDir
-  - SyncDataDirectory
-  - walkdir
-  - RelationCacheInitFileRemove
-  - DeleteAllExportedSnapshotFiles
+  - [ReadDir](ReadDir.md)
+  - [ReorderBufferCleanupSerializedTXNs](ReorderBufferCleanupSerializedTXNs.md)
+  - [RemovePgTempFiles](RemovePgTempFiles.md)
+  - [RemovePgTempFilesInDir](RemovePgTempFilesInDir.md)
+  - [SyncDataDirectory](../S/SyncDataDirectory.md)
+  - [walkdir](../w/walkdir.md)
+  - [RelationCacheInitFileRemove](RelationCacheInitFileRemove.md)
+  - [DeleteAllExportedSnapshotFiles](../D/DeleteAllExportedSnapshotFiles.md)
 
 ## Notes and Other Information
 - Returns NULL on error or end of directory

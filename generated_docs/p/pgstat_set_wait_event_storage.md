@@ -23,7 +23,7 @@ This function establishes the storage location for wait event reporting by setti
 - Global variables modified:
   - my_wait_event_info
 - Called from (representative examples):
-  - InitProcess (in proc.c:453)
+  - [InitProcess](../I/InitProcess.md) (in proc.c:453)
   - [InitAuxiliaryProcess](../I/InitAuxiliaryProcess.md) (in proc.c:620)
 
 ## Notes and Other Information

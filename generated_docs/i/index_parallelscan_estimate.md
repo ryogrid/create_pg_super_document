@@ -26,7 +26,7 @@ The calculation includes the base parallel scan descriptor, estimated snapshot s
 - Functions called/Symbols referenced:
   - RELATION_CHECKS (validation macro for relation)
   - [ParallelIndexScanDescData](../P/ParallelIndexScanDescData.md) (parallel scan descriptor structure)
-  - EstimateSnapshotSpace (estimates memory needed for snapshot data)
+  - [EstimateSnapshotSpace](../E/EstimateSnapshotSpace.md) (estimates memory needed for snapshot data)
   - [add_size](../a/add_size.md) (safe size addition utility)
   - MAXALIGN (memory alignment macro)
   - amestimateparallelscan (access method-specific estimation routine)

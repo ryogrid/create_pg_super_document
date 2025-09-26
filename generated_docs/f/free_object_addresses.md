@@ -30,7 +30,7 @@ This function performs proper memory deallocation for an ObjectAddresses structu
   - [performMultipleDeletions](../p/performMultipleDeletions.md)  
   - [recordDependencyOnExpr](../r/recordDependencyOnExpr.md)
   - [heap_create_with_catalog](../h/heap_create_with_catalog.md)
-  - index_create
+  - [index_create](../i/index_create.md)
   - [AggregateCreate](../A/AggregateCreate.md)
   - [CreateConstraintEntry](../C/CreateConstraintEntry.md)
   - [ProcedureCreate](../P/ProcedureCreate.md)

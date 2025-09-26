@@ -26,11 +26,11 @@ Since CopySnapshot allocates the snapshot structure and its XID arrays in a sing
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree (memory deallocation)
+  - [pfree](../p/pfree.md) (memory deallocation)
 - Called from (representative examples):
-  - PopActiveSnapshot
-  - UnregisterSnapshotNoOwner  
-  - AtSubAbort_Snapshot
+  - [PopActiveSnapshot](../P/PopActiveSnapshot.md)
+  - [UnregisterSnapshotNoOwner](../U/UnregisterSnapshotNoOwner.md)  
+  - [AtSubAbort_Snapshot](../A/AtSubAbort_Snapshot.md)
 
 ## Notes and Other Information
 - This is a static function in snapmgr.c, not exposed as a public API

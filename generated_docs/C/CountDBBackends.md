@@ -23,13 +23,13 @@ This function is particularly important in standby servers during recovery, wher
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ProcArrayStruct (procArray global variable)
-  - LWLockAcquire/LWLockRelease (for ProcArrayLock in LW_SHARED mode)
-  - PGPROC (process structure)
+  - [ProcArrayStruct](../P/ProcArrayStruct.md) (procArray global variable)
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease (for ProcArrayLock in LW_SHARED mode)
+  - [PGPROC](../P/PGPROC.md) (process structure)
   - OidIsValid (macro to check if OID is valid)
 
 - Called from (representative examples):
-  - ResolveRecoveryConflictWithDatabase (in src/backend/storage/ipc/standby.c:581)
+  - [ResolveRecoveryConflictWithDatabase](../R/ResolveRecoveryConflictWithDatabase.md) (in src/backend/storage/ipc/standby.c:581)
 
 ## Notes and Other Information
 - This function properly acquires ProcArrayLock, making it safe for use in critical operations

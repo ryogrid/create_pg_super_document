@@ -27,7 +27,7 @@ This function is typically used during text search parsing to clean up processed
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RemoveHead (removes and moves lexemes from towork to waste)
+  - [RemoveHead](../R/RemoveHead.md) (removes and moves lexemes from towork to waste)
 - Called from (representative examples):
   - [LexizeExec](../L/LexizeExec.md) (at lines 319, 324 in ts_parse.c)
 
@@ -35,4 +35,4 @@ This function is typically used during text search parsing to clean up processed
 - This is a static function, only accessible within the ts_parse.c compilation unit
 - The function ensures proper queue management during lexeme processing
 - The curSub pointer is updated to maintain continuity in processing after the move operation
-- RemoveHead() is responsible for the actual transfer mechanism from towork to waste
+- [RemoveHead](../R/RemoveHead.md)() is responsible for the actual transfer mechanism from towork to waste

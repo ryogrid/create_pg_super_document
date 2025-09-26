@@ -49,7 +49,7 @@ This function is crucial for PostgreSQL's virtual file descriptor system, which 
 
 - Called from (representative examples):
   - AllocateDesc (when allocating new file descriptors)
-  - PathNameOpenFilePerm (when opening files with specific permissions)
+  - [PathNameOpenFilePerm](../P/PathNameOpenFilePerm.md) (when opening files with specific permissions)
 
 ## Notes and Other Information
 - Returns a File index that can be used to access the allocated VFD slot

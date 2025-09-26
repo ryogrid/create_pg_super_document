@@ -37,15 +37,15 @@ The statement supports various options such as WITH GRANT OPTION for delegating 
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (parse tree node identification)
-  - List (PostgreSQL list data structure)
-  - RoleSpec (role specification structure)
+  - [List](../L/List.md) (PostgreSQL list data structure)
+  - [RoleSpec](../R/RoleSpec.md) (role specification structure)
   - DropBehavior (enumeration for drop behavior)
-  - AccessPriv (privilege specification structure)
+  - [AccessPriv](../A/AccessPriv.md) (privilege specification structure)
 
 - Called from (representative examples):
-  - GrantRole
-  - standard_ProcessUtility
-  - CreateCommandTag
+  - [GrantRole](GrantRole.md)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md)
+  - [CreateCommandTag](../C/CreateCommandTag.md)
 
 ## Notes and Other Information
 - Due to SQL grammar ambiguity, granted_roles uses AccessPriv structures but column specifications are not allowed

@@ -31,10 +31,10 @@ The partition pruning system uses these steps to build a logical representation 
   - NodeTag (PostgreSQL's node type system)
   
 - Called from (representative examples):
-  - get_matching_partitions (src/backend/partitioning/partprune.c:845)
-  - gen_partprune_steps_internal (src/backend/partitioning/partprune.c:1066)
-  - gen_prune_step_op (src/backend/partitioning/partprune.c:1335)
-  - gen_prune_step_combine (src/backend/partitioning/partprune.c:1358)
+  - [get_matching_partitions](../g/get_matching_partitions.md) (src/backend/partitioning/partprune.c:845)
+  - [gen_partprune_steps_internal](../g/gen_partprune_steps_internal.md) (src/backend/partitioning/partprune.c:1066)
+  - [gen_prune_step_op](../g/gen_prune_step_op.md) (src/backend/partitioning/partprune.c:1335)
+  - [gen_prune_step_combine](../g/gen_prune_step_combine.md) (src/backend/partitioning/partprune.c:1358)
 
 ## Notes and Other Information
 - This is marked as an abstract type with pg_node_attr(abstract, no_equal, no_query_jumble), indicating it should not be instantiated directly

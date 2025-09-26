@@ -22,7 +22,7 @@ This function handles the special processing required for ENCODING entries in th
 - Functions called/Symbols referenced:
   - [TocEntry](../T/TocEntry.md) (struct type)
   - [pg_strdup](pg_strdup.md) (string duplication)
-  - pg_char_to_encoding (encoding name to ID conversion)
+  - [pg_char_to_encoding](pg_char_to_encoding.md) (encoding name to ID conversion)
   - [setFmtEncoding](../s/setFmtEncoding.md) (format-specific encoding configuration)
   - [pg_fatal](pg_fatal.md) (error handling)
 - Called from (representative examples):

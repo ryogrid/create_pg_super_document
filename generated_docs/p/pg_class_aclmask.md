@@ -31,7 +31,7 @@ The function is part of PostgreSQL's access control system and is used throughou
 - Called from (representative examples):
   - [pg_aclmask](pg_aclmask.md)
   - [ExecCheckOneRelPerms](../E/ExecCheckOneRelPerms.md)
-  - AclResult
+  - [AclResult](../A/AclResult.md)
 
 ## Notes and Other Information
 - This is an exported routine specifically designed for external use when checking table privileges

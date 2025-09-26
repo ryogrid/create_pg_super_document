@@ -25,10 +25,10 @@ Once the column definitions are prepared, it delegates to  for the actual relati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_head
-  - makeColumnDef
-  - exprType
-  - exprTypmod
+  - [list_head](../l/list_head.md)
+  - [makeColumnDef](../m/makeColumnDef.md)
+  - [exprType](../e/exprType.md)
+  - [exprTypmod](../e/exprTypmod.md)
   - [exprCollation](../e/exprCollation.md)
   - [type_is_collatable](../t/type_is_collatable.md)
   - [create_ctas_internal](create_ctas_internal.md)

@@ -25,11 +25,11 @@ The function operates by iterating through each list element, converting non-nul
   - TYPALIGN_INT: Type alignment constant for integer alignment
   - [MemoryContextDelete](../M/MemoryContextDelete.md): Cleans up temporary memory context
   - CStringGetTextDatum: Converts C-string to PostgreSQL TEXT datum
-  - list_length: Gets the length of a PostgreSQL List
+  - [list_length](../l/list_length.md): Gets the length of a PostgreSQL List
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md): Switches memory contexts
 
 - Called from (representative examples):
-  - pg_identify_object_as_address: Object identification system
+  - [pg_identify_object_as_address](../p/pg_identify_object_as_address.md): Object identification system
   - [pg_event_trigger_dropped_objects](../p/pg_event_trigger_dropped_objects.md): Event trigger handling for dropped objects
   - [fill_hba_line](../f/fill_hba_line.md): Host-based authentication configuration processing
 

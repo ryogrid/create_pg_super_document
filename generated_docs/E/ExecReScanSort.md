@@ -27,11 +27,11 @@ This optimization allows Sort nodes to avoid expensive re-sorting operations whe
 ## Dependencies
 - Functions called/Symbols referenced:
   - outerPlanState (macro to get outer plan state)
-  - ExecClearTuple (clears result tuple slot)
-  - tuplesort_end (terminates tuplesort state)
+  - [ExecClearTuple](ExecClearTuple.md) (clears result tuple slot)
+  - [tuplesort_end](../t/tuplesort_end.md) (terminates tuplesort state)
   - [ExecReScan](ExecReScan.md) (rescans outer plan if needed)
-  - tuplesort_rescan (rewinds tuplesort to beginning)
-  - Tuplesortstate (tuplesort state structure)
+  - [tuplesort_rescan](../t/tuplesort_rescan.md) (rewinds tuplesort to beginning)
+  - [Tuplesortstate](../T/Tuplesortstate.md) (tuplesort state structure)
 - Called from (representative examples):
   - [ExecReScan](ExecReScan.md) (generic rescan dispatcher)
 

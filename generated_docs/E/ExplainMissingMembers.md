@@ -22,7 +22,7 @@ This function displays information about runtime partition pruning in Append and
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExplainPropertyInteger](ExplainPropertyInteger.md)
-  - ExplainState (struct)
+  - [ExplainState](ExplainState.md) (struct)
   - EXPLAIN_FORMAT_TEXT (constant)
 - Called from (representative examples):
   - [ExplainNode](ExplainNode.md) (for Append and MergeAppend nodes)

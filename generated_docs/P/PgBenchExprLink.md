@@ -22,9 +22,9 @@ PgBenchExprLink implements a singly-linked list data structure to organize seque
 - Functions called/Symbols referenced:
   - [PgBenchExpr](PgBenchExpr.md) (struct)
 - Called from (representative examples):
-  - evalLazyFunc
-  - evalStandardFunc
-  - evalFunc
+  - [evalLazyFunc](../e/evalLazyFunc.md)
+  - [evalStandardFunc](../e/evalStandardFunc.md)
+  - [evalFunc](../e/evalFunc.md)
   - [PgBenchExpr](PgBenchExpr.md) (in function.args member)
   - [PgBenchExprList](PgBenchExprList.md) (in head/tail members)
 

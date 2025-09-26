@@ -33,10 +33,10 @@ The search mechanism supports flexible key handling, including a special case fo
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchCatCacheInternal](SearchCatCacheInternal.md)
-  - CatCache (structure type)
+  - [CatCache](../C/CatCache.md) (structure type)
 - Called from (representative examples):
   - [SearchSysCache](SearchSysCache.md)
-  - CatCacheHeader
+  - [CatCacheHeader](../C/CatCacheHeader.md)
 
 ## Notes and Other Information
 - The function is a wrapper around SearchCatCacheInternal, passing along the cache's configured number of keys

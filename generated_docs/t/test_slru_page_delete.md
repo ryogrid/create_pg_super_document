@@ -22,7 +22,7 @@ Like other SLRU operations, this function works at the segment level rather than
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_INT64`: Extracts the int64 argument from function call
-  - `FileTag`: Structure for identifying file segments
+  - `[FileTag](../F/FileTag.md)`: Structure for identifying file segments
   - `SLRU_PAGES_PER_SEGMENT`: Constant defining pages per segment
   - [SlruDeleteSegment](../S/SlruDeleteSegment.md): Deletes the specified segment
   - `TestSlruCtl`: The test SLRU control structure

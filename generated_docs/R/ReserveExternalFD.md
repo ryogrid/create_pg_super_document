@@ -24,15 +24,15 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReleaseLruFiles
+  - [ReleaseLruFiles](ReleaseLruFiles.md)
 - Called from (representative examples):
-  - XLogWrite (WAL writing operations)
-  - AcquireExternalFD
-  - InitializeLatchSupport
-  - dsm_impl_posix
-  - InitPostmasterDeathWatchHandle
-  - restore_backend_variables
-  - BackendInitialize
+  - [XLogWrite](../X/XLogWrite.md) (WAL writing operations)
+  - [AcquireExternalFD](../A/AcquireExternalFD.md)
+  - [InitializeLatchSupport](../I/InitializeLatchSupport.md)
+  - [dsm_impl_posix](../d/dsm_impl_posix.md)
+  - [InitPostmasterDeathWatchHandle](../I/InitPostmasterDeathWatchHandle.md)
+  - [restore_backend_variables](../r/restore_backend_variables.md)
+  - [BackendInitialize](../B/BackendInitialize.md)
 
 ## Notes and Other Information
 - Should only be used for critical operations where FD reservation failure would be fatal

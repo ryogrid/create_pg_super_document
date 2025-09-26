@@ -27,7 +27,7 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [XLogInsertAllowed](XLogInsertAllowed.md): Checks if WAL insertion is permitted
-  - XLogRecData: Referenced in assertions for state validation
+  - [XLogRecData](XLogRecData.md): Referenced in assertions for state validation
 - Called from (representative examples):
   - [heap_insert](../h/heap_insert.md): For heap tuple insertion WAL records
   - [heap_update](../h/heap_update.md): For heap tuple update WAL records

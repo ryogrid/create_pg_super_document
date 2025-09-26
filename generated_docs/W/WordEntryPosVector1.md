@@ -34,8 +34,8 @@ The structure is particularly useful in ranking calculations where individual po
 - Functions called/Symbols referenced:
   - WordEntryPos (position/weight data type)
 - Used by (representative examples):
-  - calc_rank_and (AND ranking calculations with single positions)
-  - calc_rank_or (OR ranking calculations with single positions)
+  - [calc_rank_and](../c/calc_rank_and.md) (AND ranking calculations with single positions)
+  - [calc_rank_or](../c/calc_rank_or.md) (OR ranking calculations with single positions)
 
 ## Notes and Other Information
 - This is a specialized optimization for the common single-position case

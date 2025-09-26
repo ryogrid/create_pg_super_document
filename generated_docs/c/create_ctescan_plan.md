@@ -32,8 +32,8 @@ This function creates a CteScan plan node for executing a CTE scan operation. It
   - [copy_generic_path_info](copy_generic_path_info.md)
   - [list_nth_int](../l/list_nth_int.md)
   - linitial_int
-  - CteScan (return type)
-  - SubPlan
+  - [CteScan](../C/CteScan.md) (return type)
+  - [SubPlan](../S/SubPlan.md)
   - CommonTableExpr
   - RTE_CTE (constant)
 - Called from (representative examples):

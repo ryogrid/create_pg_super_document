@@ -19,7 +19,7 @@ This function provides a simple interface to close the currently active streamin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufFileClose
+  - [BufFileClose](../B/BufFileClose.md)
 - Called from (representative examples):
   - [apply_handle_stream_prepare](../a/apply_handle_stream_prepare.md)
   - [stream_stop_internal](stream_stop_internal.md)

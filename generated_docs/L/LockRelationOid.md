@@ -26,7 +26,7 @@ The function handles recursive locking scenarios where code might act on tables 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LOCKTAG
+  - [LOCKTAG](LOCKTAG.md)
   - [LOCALLOCK](LOCALLOCK.md)  
   - LockAcquireResult
   - [SetLocktagRelationOid](../S/SetLocktagRelationOid.md)
@@ -39,7 +39,7 @@ The function handles recursive locking scenarios where code might act on tables 
   - [try_relation_open](../t/try_relation_open.md) (src/backend/access/common/relation.c:96)
   - [RangeVarGetRelidExtended](../R/RangeVarGetRelidExtended.md) (src/backend/catalog/namespace.c:592)
   - [heap_create_with_catalog](../h/heap_create_with_catalog.md) (src/backend/catalog/heap.c:1258)
-  - index_create (src/backend/catalog/index.c:1061)
+  - [index_create](../i/index_create.md) (src/backend/catalog/index.c:1061)
 
 ## Notes and Other Information
 - Should generally be used before attempting to open a relation's relcache entry

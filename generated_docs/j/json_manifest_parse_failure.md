@@ -22,23 +22,23 @@ This function is designed to handle fairly low-level parsing failures that typic
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonManifestParseContext (struct type)
+  - [JsonManifestParseContext](../J/JsonManifestParseContext.md) (struct type)
   - context->error_cb (callback function pointer)
 
 - Called from (representative examples):
-  - json_parse_manifest_incremental_chunk
-  - json_parse_manifest
-  - json_manifest_object_start
-  - json_manifest_object_end
-  - json_manifest_array_start
-  - json_manifest_array_end
-  - json_manifest_object_field_start
-  - json_manifest_scalar
-  - json_manifest_finalize_version
-  - json_manifest_finalize_system_identifier
-  - json_manifest_finalize_file
-  - json_manifest_finalize_wal_range
-  - verify_manifest_checksum
+  - [json_parse_manifest_incremental_chunk](json_parse_manifest_incremental_chunk.md)
+  - [json_parse_manifest](json_parse_manifest.md)
+  - [json_manifest_object_start](json_manifest_object_start.md)
+  - [json_manifest_object_end](json_manifest_object_end.md)
+  - [json_manifest_array_start](json_manifest_array_start.md)
+  - [json_manifest_array_end](json_manifest_array_end.md)
+  - [json_manifest_object_field_start](json_manifest_object_field_start.md)
+  - [json_manifest_scalar](json_manifest_scalar.md)
+  - [json_manifest_finalize_version](json_manifest_finalize_version.md)
+  - [json_manifest_finalize_system_identifier](json_manifest_finalize_system_identifier.md)
+  - [json_manifest_finalize_file](json_manifest_finalize_file.md)
+  - [json_manifest_finalize_wal_range](json_manifest_finalize_wal_range.md)
+  - [verify_manifest_checksum](../v/verify_manifest_checksum.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only visible within the parse_manifest.c compilation unit

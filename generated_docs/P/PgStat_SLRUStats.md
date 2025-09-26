@@ -39,7 +39,7 @@ PgStat_SLRUStats maintains performance statistics for PostgreSQL's SLRU (Simple 
   - TimestampTz (timestamp data type)
 - Called from (representative examples):
   - [pgstat_count_slru_truncate](../p/pgstat_count_slru_truncate.md) (SLRU truncation statistics)
-  - pgstat_slru_flush (SLRU flush operation statistics)
+  - [pgstat_slru_flush](../p/pgstat_slru_flush.md) (SLRU flush operation statistics)
   - [pgstat_slru_snapshot_cb](../p/pgstat_slru_snapshot_cb.md) (statistics snapshot callback)
   - [pgstat_reset_slru_counter_internal](../p/pgstat_reset_slru_counter_internal.md) (statistics reset function)
   - PG_STAT_GET_SLRU_COLS (SQL interface macro)

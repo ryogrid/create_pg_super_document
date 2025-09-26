@@ -21,8 +21,8 @@ This is particularly useful in scenarios where the same configuration option nee
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_option
-  - config_generic
+  - [find_option](../f/find_option.md)
+  - [config_generic](../c/config_generic.md)
   - GUC_CUSTOM_PLACEHOLDER
 - Called from (representative examples):
   - [fmgr_security_definer](../f/fmgr_security_definer.md)

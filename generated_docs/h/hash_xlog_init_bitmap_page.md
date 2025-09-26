@@ -24,14 +24,14 @@ The function performs two main operations: first, it initializes the bitmap page
 - Functions called/Symbols referenced:
   - [xl_hash_init_bitmap_page](../x/xl_hash_init_bitmap_page.md) (WAL record structure)
   - XLogRecGetData (extracts record data)
-  - XLogInitBufferForRedo (initializes buffer for recovery)
+  - [XLogInitBufferForRedo](../X/XLogInitBufferForRedo.md) (initializes buffer for recovery)
   - [_hash_initbitmapbuffer](_hash_initbitmapbuffer.md) (initializes bitmap page buffer)
   - [XLogRecGetBlockTag](../X/XLogRecGetBlockTag.md) (gets block information)
-  - XLogReadBufferForRedo (reads metapage buffer for redo)
+  - [XLogReadBufferForRedo](../X/XLogReadBufferForRedo.md) (reads metapage buffer for redo)
   - HashPageGetMeta (gets metapage metadata)
   - BLK_NEEDS_REDO (indicates block needs redo)
   - INIT_FORKNUM (fork number constant)
-  - FlushOneBuffer (flushes buffer to disk)
+  - [FlushOneBuffer](../F/FlushOneBuffer.md) (flushes buffer to disk)
 - Called from:
   - [hash_redo](hash_redo.md) (main hash WAL replay function)
 

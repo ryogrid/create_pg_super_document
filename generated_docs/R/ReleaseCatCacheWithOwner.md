@@ -23,7 +23,7 @@ The function includes safety checks to ensure the provided tuple is actually a v
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwnerForgetCatCacheRef
+  - [ResourceOwnerForgetCatCacheRef](ResourceOwnerForgetCatCacheRef.md)
   - [CatCacheRemoveCTup](../C/CatCacheRemoveCTup.md)
   - CT_MAGIC (magic number constant)
   - offsetof (standard C macro)

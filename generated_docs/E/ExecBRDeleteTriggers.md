@@ -39,7 +39,7 @@ The function delegates all actual trigger processing to ExecBRDeleteTriggersNew,
 - Data types referenced:
   - [EPQState](EPQState.md)
   - TM_Result
-  - TM_FailureData
+  - [TM_FailureData](../T/TM_FailureData.md)
 - Called from (representative examples):
   - [ExecSimpleRelationDelete](ExecSimpleRelationDelete.md)
 

@@ -31,7 +31,7 @@ To avoid deadlocks during multi-table operations, each relation is processed in 
 - Functions called/Symbols referenced:
   - [defGetBoolean](../d/defGetBoolean.md)
   - [RangeVarGetRelidExtended](../R/RangeVarGetRelidExtended.md)
-  - table_open/table_close
+  - [table_open](../t/table_open.md)/table_close
   - [get_index_isclustered](../g/get_index_isclustered.md)
   - [get_relname_relid](../g/get_relname_relid.md)
   - [cluster_rel](cluster_rel.md)

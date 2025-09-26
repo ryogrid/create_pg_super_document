@@ -293,12 +293,12 @@ Text creation and manipulation
 - Functions called/Symbols referenced:
   - AllocSetContextCreate
   - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
-  - MemoryContextSetIdentifier
+  - [MemoryContextSetIdentifier](../M/MemoryContextSetIdentifier.md)
   - [string_hash](../s/string_hash.md)
   - [string_compare](../s/string_compare.md)
-  - uint32_hash
-  - tag_hash
-  - strlcpy
+  - [uint32_hash](../u/uint32_hash.md)
+  - [tag_hash](../t/tag_hash.md)
+  - [strlcpy](../s/strlcpy.md)
   - [DynaHashAlloc](../D/DynaHashAlloc.md)
   - [hdefault](hdefault.md)
   - [next_pow2_int](../n/next_pow2_int.md)
@@ -309,7 +309,7 @@ Text creation and manipulation
   - [InitBufferPoolAccess](../I/InitBufferPoolAccess.md)
   - [RelationCacheInitialize](../R/RelationCacheInitialize.md)  
   - [lookup_type_cache](../l/lookup_type_cache.md)
-  - InitLocks
+  - [InitLocks](../I/InitLocks.md)
   - [ReorderBufferAllocate](../R/ReorderBufferAllocate.md)
 
 ## Notes and Other Information

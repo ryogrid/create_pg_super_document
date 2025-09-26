@@ -39,14 +39,14 @@ The dependency analysis phase passes the complete objects list as pendingObjects
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - [new_object_addresses](../n/new_object_addresses.md)
   - [AcquireDeletionLock](../A/AcquireDeletionLock.md)
   - [findDependentObjects](../f/findDependentObjects.md)
   - [reportDependentObjects](../r/reportDependentObjects.md)
   - [deleteObjectsInList](../d/deleteObjectsInList.md)
   - [free_object_addresses](../f/free_object_addresses.md)
-  - table_close
+  - [table_close](../t/table_close.md)
 - Data structures used:
   - ObjectAddresses
   - [ObjectAddress](../O/ObjectAddress.md)

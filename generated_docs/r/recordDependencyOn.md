@@ -29,7 +29,7 @@ This function provides a simple interface for recording a dependency relationshi
 - Called from (representative examples):
   - [SetDefaultACL](../S/SetDefaultACL.md)
   - [AddNewAttributeTuples](../A/AddNewAttributeTuples.md)
-  - index_create
+  - [index_create](../i/index_create.md)
   - [CollationCreate](../C/CollationCreate.md)
   - [ConversionCreate](../C/ConversionCreate.md)
   - [recordDependencyOnCurrentExtension](recordDependencyOnCurrentExtension.md)

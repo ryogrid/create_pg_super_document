@@ -46,27 +46,27 @@ The structure supports all trigger timing (BEFORE, AFTER, INSTEAD OF) and events
 - Functions called/Symbols referenced:
   - NodeTag
   - TriggerEvent
-  - Relation
+  - [Relation](../R/Relation.md)
   - HeapTuple
-  - Trigger
-  - TupleTableSlot
-  - Tuplestorestate
-  - Bitmapset
+  - [Trigger](Trigger.md)
+  - [TupleTableSlot](TupleTableSlot.md)
+  - [Tuplestorestate](Tuplestorestate.md)
+  - [Bitmapset](../B/Bitmapset.md)
 
 - Called from (representative examples):
-  - ExecCallTriggerFunc
-  - ExecBSInsertTriggers
-  - ExecBRInsertTriggers
-  - ExecIRInsertTriggers
-  - ExecBSDeleteTriggers
-  - ExecBRDeleteTriggersNew
-  - ExecIRDeleteTriggers
-  - ExecBSUpdateTriggers
-  - ExecBRUpdateTriggersNew
-  - ExecIRUpdateTriggers
-  - AfterTriggerExecute
-  - RI_FKey_check_ins
-  - RI_FKey_check_upd
+  - [ExecCallTriggerFunc](../E/ExecCallTriggerFunc.md)
+  - [ExecBSInsertTriggers](../E/ExecBSInsertTriggers.md)
+  - [ExecBRInsertTriggers](../E/ExecBRInsertTriggers.md)
+  - [ExecIRInsertTriggers](../E/ExecIRInsertTriggers.md)
+  - [ExecBSDeleteTriggers](../E/ExecBSDeleteTriggers.md)
+  - [ExecBRDeleteTriggersNew](../E/ExecBRDeleteTriggersNew.md)
+  - [ExecIRDeleteTriggers](../E/ExecIRDeleteTriggers.md)
+  - [ExecBSUpdateTriggers](../E/ExecBSUpdateTriggers.md)
+  - [ExecBRUpdateTriggersNew](../E/ExecBRUpdateTriggersNew.md)
+  - [ExecIRUpdateTriggers](../E/ExecIRUpdateTriggers.md)
+  - [AfterTriggerExecute](../A/AfterTriggerExecute.md)
+  - [RI_FKey_check_ins](../R/RI_FKey_check_ins.md)
+  - [RI_FKey_check_upd](../R/RI_FKey_check_upd.md)
   - Various procedural language trigger handlers (plperl, plpython, pltcl)
 
 ## Notes and Other Information

@@ -17,15 +17,15 @@ This function handles the complete deletion of a pending statistics entry from t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_get_kind_info
-  - pfree
-  - dlist_delete
-  - PgStat_Kind
-  - PgStat_KindInfo
-  - PgStat_EntryRef
+  - [pgstat_get_kind_info](pgstat_get_kind_info.md)
+  - [pfree](pfree.md)
+  - [dlist_delete](../d/dlist_delete.md)
+  - [PgStat_Kind](../P/PgStat_Kind.md)
+  - [PgStat_KindInfo](../P/PgStat_KindInfo.md)
+  - [PgStat_EntryRef](../P/PgStat_EntryRef.md)
 - Called from (representative examples):
-  - pgstat_flush_pending_entries (src/backend/utils/activity/pgstat.c:1225)
-  - pgstat_release_entry_ref (src/backend/utils/activity/pgstat_shmem.c:556)
+  - [pgstat_flush_pending_entries](pgstat_flush_pending_entries.md) (src/backend/utils/activity/pgstat.c:1225)
+  - [pgstat_release_entry_ref](pgstat_release_entry_ref.md) (src/backend/utils/activity/pgstat_shmem.c:556)
 
 ## Notes and Other Information
 - Requires that pending_data is not NULL (enforced by assertion)

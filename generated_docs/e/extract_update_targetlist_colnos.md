@@ -25,10 +25,10 @@ The function is also used for INSERT ... ON CONFLICT ... UPDATE statements, thou
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lappend_int
+  - [lappend_int](../l/lappend_int.md)
 - Called from (representative examples):
   - [preprocess_targetlist](../p/preprocess_targetlist.md) (src/backend/optimizer/prep/preptlist.c:109, 158)
-  - make_modifytable (src/backend/optimizer/plan/createplan.c:7091)
+  - [make_modifytable](../m/make_modifytable.md) (src/backend/optimizer/plan/createplan.c:7091)
 
 ## Notes and Other Information
 This function is located in src/backend/optimizer/prep/preptlist.c:348-381. It's a utility function that handles the conversion between two different numbering conventions used in PostgreSQL: the parser/rewriter convention (using actual column numbers) and the planner/executor convention (using sequential numbers). The returned list of column numbers is essential for the executor to know which table columns to update.

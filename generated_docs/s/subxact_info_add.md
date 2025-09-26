@@ -21,9 +21,9 @@ This function manages the dynamic tracking of subtransactions during logical rep
 - Functions called/Symbols referenced:
   - [palloc](../p/palloc.md)
   - [repalloc](../r/repalloc.md)
-  - BufFileTell
+  - [BufFileTell](../B/BufFileTell.md)
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
-  - SubXactInfo
+  - [SubXactInfo](../S/SubXactInfo.md)
   - LogicalStreamingContext
   - stream_xid (global variable)
   - stream_fd (global variable)

@@ -24,14 +24,14 @@ This function is essential for priority queue operations where you need to exami
 ## Dependencies
 - Functions called/Symbols referenced:
   - pairingheap_is_empty (checks if heap is empty)
-  - pairingheap (heap structure type)
-  - pairingheap_node (node structure type)
+  - [pairingheap](pairingheap.md) (heap structure type)
+  - [pairingheap_node](pairingheap_node.md) (node structure type)
   - Assert (debugging assertion macro)
 - Called from (representative examples):
-  - IndexNextWithReorder (index scanning with reordering)
-  - ReorderBufferLargestTXN (logical replication transaction management)
-  - GetOldestSnapshot (transaction snapshot management)
-  - SnapshotResetXmin (snapshot transaction ID management)
+  - [IndexNextWithReorder](../I/IndexNextWithReorder.md) (index scanning with reordering)
+  - [ReorderBufferLargestTXN](../R/ReorderBufferLargestTXN.md) (logical replication transaction management)
+  - [GetOldestSnapshot](../G/GetOldestSnapshot.md) (transaction snapshot management)
+  - [SnapshotResetXmin](../S/SnapshotResetXmin.md) (snapshot transaction ID management)
 
 ## Notes and Other Information
 - Provides O(1) access time to the root element, a key advantage of heap data structures

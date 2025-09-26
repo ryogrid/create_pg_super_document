@@ -27,8 +27,8 @@ The function performs several validation steps:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AllocateFile
-  - FreeFile
+  - [AllocateFile](../A/AllocateFile.md)
+  - [FreeFile](../F/FreeFile.md)
   - strtol
   - snprintf
   - fscanf

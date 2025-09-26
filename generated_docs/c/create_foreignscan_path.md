@@ -39,7 +39,7 @@ This function constructs a ForeignPath node specifically for foreign table scan 
 - Functions called/Symbols referenced:
   - makeNode
   - IS_SIMPLE_REL
-  - get_baserel_parampathinfo
+  - [get_baserel_parampathinfo](../g/get_baserel_parampathinfo.md)
 - Called from (representative examples):
   - Foreign Data Wrapper implementations (external to core PostgreSQL)
 

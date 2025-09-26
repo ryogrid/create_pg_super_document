@@ -25,7 +25,7 @@ This function iterates through all blocks of a relation's visibility map to coun
   - [vm_readbuf](vm_readbuf.md)
   - [PageGetContents](../P/PageGetContents.md)
   - [pg_popcount_masked](../p/pg_popcount_masked.md)
-  - ReleaseBuffer
+  - [ReleaseBuffer](../R/ReleaseBuffer.md)
   - VISIBLE_MASK8
   - FROZEN_MASK8
   - MAPSIZE

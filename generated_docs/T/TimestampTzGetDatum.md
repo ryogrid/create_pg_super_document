@@ -19,28 +19,28 @@ TimestampTzGetDatum is an inline function that converts a TimestampTz value into
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Int64GetDatum
+  - [Int64GetDatum](../I/Int64GetDatum.md)
   - TimestampTz (parameter type)
 - Called from (representative examples):
-  - pg_last_committed_xact
-  - pg_xact_commit_timestamp_origin
-  - pg_prepared_xact
+  - [pg_last_committed_xact](../p/pg_last_committed_xact.md)
+  - [pg_xact_commit_timestamp_origin](../p/pg_xact_commit_timestamp_origin.md)
+  - [pg_prepared_xact](../p/pg_prepared_xact.md)
   - PG_STAT_GET_RECOVERY_PREFETCH_COLS
-  - pg_prepared_statement
-  - ExecEvalSQLValueFunction
+  - [pg_prepared_statement](../p/pg_prepared_statement.md)
+  - [ExecEvalSQLValueFunction](../E/ExecEvalSQLValueFunction.md)
   - PG_STAT_GET_SUBSCRIPTION_COLS
   - PG_GET_REPLICATION_SLOTS_COLS
-  - pg_stat_get_wal_receiver
+  - [pg_stat_get_wal_receiver](../p/pg_stat_get_wal_receiver.md)
   - PG_STAT_GET_WAL_SENDERS_COLS
-  - parse_datetime
-  - pg_stat_file
-  - pg_ls_dir_files
-  - executeDateTimeMethod
+  - [parse_datetime](../p/parse_datetime.md)
+  - [pg_stat_file](../p/pg_stat_file.md)
+  - [pg_ls_dir_files](../p/pg_ls_dir_files.md)
+  - [executeDateTimeMethod](../e/executeDateTimeMethod.md)
   - PG_STAT_GET_ACTIVITY_COLS
-  - pg_stat_get_archiver
-  - generate_series_timestamptz_internal
-  - pg_control_system
-  - pg_control_checkpoint
+  - [pg_stat_get_archiver](../p/pg_stat_get_archiver.md)
+  - [generate_series_timestamptz_internal](../g/generate_series_timestamptz_internal.md)
+  - [pg_control_system](../p/pg_control_system.md)
+  - [pg_control_checkpoint](../p/pg_control_checkpoint.md)
   - PG_RETURN_TIMESTAMPTZ (macro)
 
 ## Notes and Other Information

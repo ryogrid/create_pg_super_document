@@ -29,7 +29,7 @@ This two-phase approach (declare first, build later) is necessary because indexe
 - `*il_next`: Pointer to the next IndexList node in the linked list
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IndexInfo (structure for index metadata)
+  - [IndexInfo](IndexInfo.md) (structure for index metadata)
   - struct _IndexList (self-reference for linked list)
 - Called from (representative examples):
   - [index_register](../i/index_register.md) (creates new IndexList nodes at line 921)

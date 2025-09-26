@@ -23,9 +23,9 @@ The function opens the relation with an AccessShareLock, retrieves the replica i
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_OID (to extract the relation OID parameter)
-  - table_open (to open the relation with AccessShareLock)
+  - [table_open](../t/table_open.md) (to open the relation with AccessShareLock)
   - [RelationGetReplicaIndex](../R/RelationGetReplicaIndex.md) (core function that retrieves the replica identity index)
-  - table_close (to close the relation and release the lock)
+  - [table_close](../t/table_close.md) (to close the relation and release the lock)
   - OidIsValid (to check if the returned OID is valid)
   - PG_RETURN_OID (to return the index OID)
   - PG_RETURN_NULL (to return NULL when no index exists)

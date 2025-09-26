@@ -26,7 +26,7 @@ For SELECT operations, it calls the FDW's ExplainForeignScan routine. For modifi
   - ExplainDirectModify (FDW callback function)
   - ExplainForeignScan (FDW callback function)
   - CMD_SELECT
-  - ForeignScan
+  - [ForeignScan](../F/ForeignScan.md)
 - Called from (representative examples):
   - [ExplainNode](../E/ExplainNode.md)
 

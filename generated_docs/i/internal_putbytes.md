@@ -28,13 +28,13 @@ The function uses PostgreSQL's global send buffer () and maintains buffer state 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - socket_set_nonblocking (to set socket to blocking mode)
-  - internal_flush (to flush the internal send buffer)
-  - internal_flush_buffer (to flush data directly without buffering)
+  - [socket_set_nonblocking](../s/socket_set_nonblocking.md) (to set socket to blocking mode)
+  - [internal_flush](internal_flush.md) (to flush the internal send buffer)
+  - [internal_flush_buffer](internal_flush_buffer.md) (to flush data directly without buffering)
   - memcpy (to copy data into the send buffer)
 - Called from (representative examples):
-  - socket_putmessage (main message sending function)
-  - pq_putmessage_v2 (version 2 protocol message sending)
+  - [socket_putmessage](../s/socket_putmessage.md) (main message sending function)
+  - [pq_putmessage_v2](../p/pq_putmessage_v2.md) (version 2 protocol message sending)
 
 ## Notes and Other Information
 - Function is marked as static inline for performance optimization

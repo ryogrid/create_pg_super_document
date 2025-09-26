@@ -30,7 +30,7 @@ The function includes assertions to verify that the WAL receiver is in a valid s
 - Functions called/Symbols referenced:
   - [XLogWalRcvFlush](../X/XLogWalRcvFlush.md)
   - SpinLockAcquire, SpinLockRelease
-  - ConditionVariableBroadcast
+  - [ConditionVariableBroadcast](../C/ConditionVariableBroadcast.md)
   - walrcv_disconnect
   - [WakeupRecovery](WakeupRecovery.md)
   - [DatumGetPointer](../D/DatumGetPointer.md)

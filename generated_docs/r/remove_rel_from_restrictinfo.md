@@ -36,7 +36,7 @@ The function is conservative about cleaning - it only touches clause_relids and 
   - [bms_del_member](../b/bms_del_member.md): Removes specific relation IDs from bitmap sets
   - [restriction_is_or_clause](restriction_is_or_clause.md): Checks if the RestrictInfo contains an OR clause
   - [is_orclause](../i/is_orclause.md), is_andclause: Node type checking functions for boolean expressions
-  - BoolExpr: Boolean expression node type for OR/AND clauses
+  - [BoolExpr](../B/BoolExpr.md): Boolean expression node type for OR/AND clauses
   - [remove_rel_from_restrictinfo](remove_rel_from_restrictinfo.md): Recursive calls for processing sub-clauses
 
 - Called from (representative examples):

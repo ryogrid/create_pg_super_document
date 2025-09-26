@@ -33,8 +33,8 @@ The function ensures that empty groups are represented consistently across all s
   - [ExplainXMLTag](ExplainXMLTag.md) (for XML self-closing tag generation)
   - [ExplainJSONLineEnding](ExplainJSONLineEnding.md) (for proper JSON line formatting)
   - [ExplainYAMLLineStarting](ExplainYAMLLineStarting.md) (for proper YAML line formatting)
-  - appendStringInfoSpaces (for indentation)
-  - appendStringInfoString (for string concatenation)
+  - [appendStringInfoSpaces](../a/appendStringInfoSpaces.md) (for indentation)
+  - [appendStringInfoString](../a/appendStringInfoString.md) (for string concatenation)
   - [escape_json](../e/escape_json.md) (for JSON string escaping)
   - [escape_yaml](../e/escape_yaml.md) (for YAML string escaping)
 - Called from (representative examples):

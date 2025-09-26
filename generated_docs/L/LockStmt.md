@@ -30,14 +30,14 @@ The statement can lock multiple tables in a single command and supports differen
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - List (PostgreSQL's list data structure)
-  - RangeVar (for table references)
+  - [List](List.md) (PostgreSQL's list data structure)
+  - [RangeVar](../R/RangeVar.md) (for table references)
   
 - Called from (representative examples):
-  - LockTableCommand (main execution function in lockcmds.c:41)
-  - PlannedStmtRequiresSnapshot (snapshot requirement check in pquery.c:1740)
-  - ClassifyUtilityCommandAsReadOnly (read-only classification in utility.c:343)
-  - standard_ProcessUtility (utility command processor in utility.c:934)
+  - [LockTableCommand](LockTableCommand.md) (main execution function in lockcmds.c:41)
+  - [PlannedStmtRequiresSnapshot](../P/PlannedStmtRequiresSnapshot.md) (snapshot requirement check in pquery.c:1740)
+  - [ClassifyUtilityCommandAsReadOnly](../C/ClassifyUtilityCommandAsReadOnly.md) (read-only classification in utility.c:343)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (utility command processor in utility.c:934)
 
 ## Notes and Other Information
 - The LOCK TABLE command is primarily used for explicit lock management in complex transactions

@@ -29,10 +29,10 @@ The function only takes action when the new method differs from the current one,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_report_wait_start
-  - pg_fsync
+  - [pgstat_report_wait_start](../p/pgstat_report_wait_start.md)
+  - [pg_fsync](../p/pg_fsync.md)
   - [XLogFileName](../X/XLogFileName.md)
-  - pgstat_report_wait_end
+  - [pgstat_report_wait_end](../p/pgstat_report_wait_end.md)
   - [get_sync_bit](../g/get_sync_bit.md)
   - [XLogFileClose](../X/XLogFileClose.md)
   - MAXFNAMELEN

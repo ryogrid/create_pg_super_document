@@ -27,14 +27,14 @@ All key values are allocated in the per-tuple memory context to ensure proper me
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecEvalExpr
+  - [ExecEvalExpr](ExecEvalExpr.md)
   - [PointerGetDatum](../P/PointerGetDatum.md)
   - PG_DETOAST_DATUM
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
 - Data types used:
   - [IndexRuntimeKeyInfo](../I/IndexRuntimeKeyInfo.md)
   - ScanKey
-  - ExprContext
+  - [ExprContext](ExprContext.md)
 - Constants used:
   - SK_ISNULL
 

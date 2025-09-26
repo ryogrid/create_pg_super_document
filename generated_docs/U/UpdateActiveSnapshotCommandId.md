@@ -21,16 +21,16 @@ UpdateActiveSnapshotCommandId updates the current command ID (curcid) of the act
 ## Dependencies
 - Functions called/Symbols referenced:
   - CommandId (type)
-  - GetCurrentCommandId
-  - IsInParallelMode
+  - [GetCurrentCommandId](../G/GetCurrentCommandId.md)
+  - [IsInParallelMode](../I/IsInParallelMode.md)
 - Called from (representative examples):
-  - BeginCopyTo
-  - ExecCreateTableAs
-  - ExplainOnePlan
-  - refresh_matview_datafill
-  - fmgr_sql
-  - _SPI_execute_plan
-  - PortalRunMulti
+  - [BeginCopyTo](../B/BeginCopyTo.md)
+  - [ExecCreateTableAs](../E/ExecCreateTableAs.md)
+  - [ExplainOnePlan](../E/ExplainOnePlan.md)
+  - [refresh_matview_datafill](../r/refresh_matview_datafill.md)
+  - [fmgr_sql](../f/fmgr_sql.md)
+  - [_SPI_execute_plan](../S/_SPI_execute_plan.md)
+  - [PortalRunMulti](../P/PortalRunMulti.md)
 
 ## Notes and Other Information
 - Requires the active snapshot to have exactly one active reference (active_count == 1)

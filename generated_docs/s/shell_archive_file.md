@@ -33,14 +33,14 @@ The function distinguishes between different types of failures: signal terminati
 - Functions called/Symbols referenced:
   - [pstrdup](../p/pstrdup.md) (memory allocation for path copy)
   - [make_native_path](../m/make_native_path.md) (path format conversion)
-  - replace_percent_placeholders (placeholder substitution)
+  - [replace_percent_placeholders](../r/replace_percent_placeholders.md) (placeholder substitution)
   - ereport/errmsg/errdetail (error reporting)
   - fflush (ensure output flushing)
-  - pgstat_report_wait_start/pgstat_report_wait_end (wait event tracking)
+  - [pgstat_report_wait_start](../p/pgstat_report_wait_start.md)/pgstat_report_wait_end (wait event tracking)
   - system (command execution)
-  - wait_result_is_any_signal (signal detection)
+  - [wait_result_is_any_signal](../w/wait_result_is_any_signal.md) (signal detection)
   - WIFEXITED, WIFSIGNALED, WEXITSTATUS, WTERMSIG (wait status macros)
-  - pg_strsignal (signal name resolution on Unix)
+  - [pg_strsignal](../p/pg_strsignal.md) (signal name resolution on Unix)
   - [pfree](../p/pfree.md) (memory cleanup)
   - elog (debug logging)
 - Called from (representative examples):

@@ -23,7 +23,7 @@ This function implements the less-than-or-equal-to comparison operator (<=) for 
   - PG_RETURN_BOOL: Returns boolean result to PostgreSQL
 - Called from (representative examples):
   - SQL queries using <= operator on smallint columns
-  - Range and boundary condition checks in queries
+  - [Range](../R/Range.md) and boundary condition checks in queries
 
 ## Notes and Other Information
 - Located in src/backend/utils/adt/int.c:477-485

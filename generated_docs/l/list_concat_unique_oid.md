@@ -25,7 +25,7 @@ The function modifies and returns the first list parameter, making it the concat
 - Functions called/Symbols referenced:
   - IsOidList
   - [list_member_oid](list_member_oid.md)
-  - lappend_oid
+  - [lappend_oid](lappend_oid.md)
   - lfirst_oid
   - [check_list_invariants](../c/check_list_invariants.md)
 - Called from (representative examples):

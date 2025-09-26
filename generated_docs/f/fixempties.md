@@ -29,21 +29,21 @@ The algorithm is designed to avoid O(N³) complexity by only considering origina
 ## Dependencies
 - Functions called/Symbols referenced:
   - NISERR
-  - moveins
-  - dropstate
-  - moveouts  
+  - [moveins](../m/moveins.md)
+  - [dropstate](../d/dropstate.md)
+  - [moveouts](../m/moveouts.md)  
   - MALLOC
   - NERR
   - REG_ESPACE
   - FREE
-  - hasnonemptyout
-  - emptyreachable
-  - mergeins
-  - freearc
-  - dumpnfa
+  - [hasnonemptyout](../h/hasnonemptyout.md)
+  - [emptyreachable](../e/emptyreachable.md)
+  - [mergeins](../m/mergeins.md)
+  - [freearc](freearc.md)
+  - [dumpnfa](../d/dumpnfa.md)
   - EMPTY (arc type constant)
 - Called from:
-  - optimize
+  - [optimize](../o/optimize.md)
   - REPLACEARC
 
 ## Notes and Other Information

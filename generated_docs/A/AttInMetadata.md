@@ -44,7 +44,7 @@ The structure contains a complete TupleDesc along with pre-computed arrays of in
   - [BuildTupleFromCStrings](../B/BuildTupleFromCStrings.md)
   - [FuncCallContext](../F/FuncCallContext.md) (as a member)
   - [show_all_settings](../s/show_all_settings.md)
-  - pltcl_build_tuple_result
+  - [pltcl_build_tuple_result](../p/pltcl_build_tuple_result.md)
   - [libpqrcv_processTuples](../l/libpqrcv_processTuples.md)
 
 ## Notes and Other Information

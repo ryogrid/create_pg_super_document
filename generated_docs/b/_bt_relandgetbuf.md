@@ -27,7 +27,7 @@ The function handles the special case where obuf is InvalidBuffer, in which case
   - BlockNumberIsValid (validates the target block number)
   - [BufferIsValid](../B/BufferIsValid.md) (checks if old buffer is valid)
   - [_bt_unlockbuf](_bt_unlockbuf.md) (releases lock on old buffer)
-  - ReleaseAndReadBuffer (core buffer manager function for release+read)
+  - [ReleaseAndReadBuffer](../R/ReleaseAndReadBuffer.md) (core buffer manager function for release+read)
   - [_bt_lockbuf](_bt_lockbuf.md) (applies appropriate lock to new buffer)
   - [_bt_checkpage](_bt_checkpage.md) (performs sanity checks on the new page)
 - Called from (representative examples):

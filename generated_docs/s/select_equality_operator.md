@@ -27,7 +27,7 @@ The function iterates through each operator family in the EquivalenceClass and a
   - [get_opfamily_member](../g/get_opfamily_member.md) (to find operators within operator families)
   - [get_opcode](../g/get_opcode.md) (to get the function implementing the operator)
   - [get_func_leakproof](../g/get_func_leakproof.md) (to check if the function is leakproof)
-  - EquivalenceClass (struct type for equivalence class representation)
+  - [EquivalenceClass](../E/EquivalenceClass.md) (struct type for equivalence class representation)
 - Called from (representative examples):
   - [generate_base_implied_equalities_const](../g/generate_base_implied_equalities_const.md)
   - [generate_base_implied_equalities_no_const](../g/generate_base_implied_equalities_no_const.md)

@@ -22,21 +22,21 @@ SyncOneBuffer is the core function for processing individual buffers during sync
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetBufferDescriptor
-  - ReservePrivateRefCountEntry
-  - ResourceOwnerEnlarge
-  - LockBufHdr
-  - UnlockBufHdr
+  - [GetBufferDescriptor](../G/GetBufferDescriptor.md)
+  - [ReservePrivateRefCountEntry](../R/ReservePrivateRefCountEntry.md)
+  - [ResourceOwnerEnlarge](../R/ResourceOwnerEnlarge.md)
+  - [LockBufHdr](../L/LockBufHdr.md)
+  - [UnlockBufHdr](../U/UnlockBufHdr.md)
   - BUF_STATE_GET_REFCOUNT
   - BUF_STATE_GET_USAGECOUNT
-  - PinBuffer_Locked
-  - BufferDescriptorGetContentLock
-  - FlushBuffer
-  - UnpinBuffer
-  - ScheduleBufferTagForWriteback
+  - [PinBuffer_Locked](../P/PinBuffer_Locked.md)
+  - [BufferDescriptorGetContentLock](../B/BufferDescriptorGetContentLock.md)
+  - [FlushBuffer](../F/FlushBuffer.md)
+  - [UnpinBuffer](../U/UnpinBuffer.md)
+  - [ScheduleBufferTagForWriteback](ScheduleBufferTagForWriteback.md)
 - Called from (representative examples):
-  - BufferSync
-  - BgBufferSync
+  - [BufferSync](../B/BufferSync.md)
+  - [BgBufferSync](../B/BgBufferSync.md)
   - BufferIsPinned
 
 ## Notes and Other Information

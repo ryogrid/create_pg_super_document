@@ -30,12 +30,12 @@ The recovery process carefully handles cases where the heap file may have been d
   - XLogRecGetData: Extract xl_heap_visible structure from WAL record
   - [XLogRecGetBlockTag](../X/XLogRecGetBlockTag.md): Get relation and block information
   - [ResolveRecoveryConflictWithSnapshot](../R/ResolveRecoveryConflictWithSnapshot.md): Handle Hot Standby conflicts
-  - XLogReadBufferForRedo: Read heap page for redo
+  - [XLogReadBufferForRedo](../X/XLogReadBufferForRedo.md): Read heap page for redo
   - [PageSetAllVisible](../P/PageSetAllVisible.md): Set page-level visibility bit
   - XLogHintBitIsNeeded: Check if LSN update is required
   - [PageGetFreeSpace](../P/PageGetFreeSpace.md): Calculate free space for FSM update
-  - XLogRecordPageWithFreeSpace: Update FSM with free space info
-  - XLogReadBufferForRedoExtended: Read visibility map page
+  - [XLogRecordPageWithFreeSpace](../X/XLogRecordPageWithFreeSpace.md): Update FSM with free space info
+  - [XLogReadBufferForRedoExtended](../X/XLogReadBufferForRedoExtended.md): Read visibility map page
   - [visibilitymap_pin](../v/visibilitymap_pin.md): Pin visibility map page
   - [visibilitymap_set](../v/visibilitymap_set.md): Update visibility map bits
   - [CreateFakeRelcacheEntry](../C/CreateFakeRelcacheEntry.md)/FreeFakeRelcacheEntry: Temporary relation cache handling

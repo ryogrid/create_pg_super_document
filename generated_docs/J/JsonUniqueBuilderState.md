@@ -28,14 +28,14 @@ The structure is optimized for JSON building scenarios where keys with NULL valu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonUniqueCheckState (hash table for key uniqueness checking)
-  - StringInfoData (PostgreSQL's extensible string buffer)
-  - MemoryContext (PostgreSQL's memory management system)
+  - [JsonUniqueCheckState](JsonUniqueCheckState.md) (hash table for key uniqueness checking)
+  - [StringInfoData](../S/StringInfoData.md) (PostgreSQL's extensible string buffer)
+  - [MemoryContext](../M/MemoryContext.md) (PostgreSQL's memory management system)
 - Called from (representative examples):
-  - json_unique_builder_init (initialization of builder state)
-  - json_unique_builder_get_throwawaybuf (retrieving temporary buffer)
-  - json_build_object_worker (main JSON object building function)
-  - JsonAggState (as a member in JSON aggregation contexts)
+  - [json_unique_builder_init](../j/json_unique_builder_init.md) (initialization of builder state)
+  - [json_unique_builder_get_throwawaybuf](../j/json_unique_builder_get_throwawaybuf.md) (retrieving temporary buffer)
+  - [json_build_object_worker](../j/json_build_object_worker.md) (main JSON object building function)
+  - [JsonAggState](JsonAggState.md) (as a member in JSON aggregation contexts)
 
 ## Notes and Other Information
 - Specialized for JSON construction scenarios rather than parsing of existing JSON text

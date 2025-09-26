@@ -22,7 +22,7 @@ The function creates an xl_restore_point structure containing the timestamp and 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
-  - strlcpy
+  - [strlcpy](../s/strlcpy.md)
   - [XLogBeginInsert](XLogBeginInsert.md)
   - [XLogRegisterData](XLogRegisterData.md)
   - [XLogInsert](XLogInsert.md)

@@ -26,7 +26,7 @@ The tuple store is configured based on the cursor options - enabling random acce
 ## Dependencies
 - Functions called/Symbols referenced:
   - AllocSetContextCreate
-  - tuplestore_begin_heap
+  - [tuplestore_begin_heap](../t/tuplestore_begin_heap.md)
   - [Portal](Portal.md) (type)
   - ALLOCSET_DEFAULT_SIZES
   - CURSOR_OPT_SCROLL

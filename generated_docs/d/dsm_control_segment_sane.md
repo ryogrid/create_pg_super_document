@@ -31,9 +31,9 @@ The function is intentionally conservative - it checks only what's necessary to 
   - [dsm_control_bytes_needed](dsm_control_bytes_needed.md)
   - PG_DYNSHMEM_CONTROL_MAGIC
 - Called from (representative examples):
-  - dsm_cleanup_using_control_segment
-  - dsm_postmaster_shutdown
-  - dsm_backend_startup
+  - [dsm_cleanup_using_control_segment](dsm_cleanup_using_control_segment.md)
+  - [dsm_postmaster_shutdown](dsm_postmaster_shutdown.md)
+  - [dsm_backend_startup](dsm_backend_startup.md)
 
 ## Notes and Other Information
 - Static function - internal to dsm.c implementation

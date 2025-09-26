@@ -19,7 +19,7 @@ This function extracts the single argument from a NOT clause. It assumes the inp
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BoolExpr (structure type)
+  - [BoolExpr](../B/BoolExpr.md) (structure type)
   - linitial (macro to get the first element of a list)
   - [Expr](../E/Expr.md) (return type)
 - Called from (representative examples):

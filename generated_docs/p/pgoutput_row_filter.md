@@ -36,11 +36,11 @@ This function implements sophisticated row filtering logic for logical replicati
   - ResetPerTupleExprContext
   - GetPerTupleExprContext
   - [pgoutput_row_filter_exec_expr](pgoutput_row_filter_exec_expr.md)
-  - slot_getallattrs
+  - [slot_getallattrs](../s/slot_getallattrs.md)
   - RelationGetDescr
   - TupleDescAttr
   - [MakeSingleTupleTableSlot](../M/MakeSingleTupleTableSlot.md)
-  - ExecClearTuple
+  - [ExecClearTuple](../E/ExecClearTuple.md)
   - [ExecStoreVirtualTuple](../E/ExecStoreVirtualTuple.md)
   - VARATT_IS_EXTERNAL_ONDISK
   - TTSOpsVirtual

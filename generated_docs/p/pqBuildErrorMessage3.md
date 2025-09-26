@@ -31,7 +31,7 @@ The function processes error fields in a specific order: severity, SQLSTATE (if 
   - [PQresultErrorField](../P/PQresultErrorField.md)
   - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
   - atoi
-  - appendPQExpBufferChar
+  - [appendPQExpBufferChar](../a/appendPQExpBufferChar.md)
   - reportErrorPosition
 - Called from (representative examples):
   - [PQresultVerboseErrorMessage](../P/PQresultVerboseErrorMessage.md)

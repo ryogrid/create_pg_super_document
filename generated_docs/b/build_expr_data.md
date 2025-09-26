@@ -23,7 +23,7 @@ This function creates and initializes the data structures needed to analyze expr
 - Functions called/Symbols referenced:
   - [AnlExprData](../A/AnlExprData.md)
   - [examine_expression](../e/examine_expression.md)
-  - list_length
+  - [list_length](../l/list_length.md)
   - [palloc0](../p/palloc0.md)
   - lfirst
 - Called from (representative examples):

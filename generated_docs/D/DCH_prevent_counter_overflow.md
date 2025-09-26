@@ -29,8 +29,8 @@ This function takes no parameters and operates on global cache state:
   - n_DCHCache (global variable)
   - INT_MAX (standard constant)
 - Called from:
-  - DCH_cache_getnew
-  - DCH_cache_search
+  - [DCH_cache_getnew](DCH_cache_getnew.md)
+  - [DCH_cache_search](DCH_cache_search.md)
 
 ## Notes and Other Information
 - The function is declared as `static inline` for performance optimization since it is called frequently

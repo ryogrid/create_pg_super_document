@@ -22,7 +22,7 @@ This function increases the storage capacity of an existing List when more space
 - Functions called/Symbols referenced:
   - Assert (assertion macro)
   - [pg_nextpower2_32](../p/pg_nextpower2_32.md) (calculates next power of 2)
-  - GetMemoryChunkContext (gets memory context of allocation)
+  - [GetMemoryChunkContext](../G/GetMemoryChunkContext.md) (gets memory context of allocation)
   - [MemoryContextAlloc](../M/MemoryContextAlloc.md) (allocates memory in specific context)
   - memcpy (copies memory)
   - [repalloc](../r/repalloc.md) (reallocates memory)
@@ -36,7 +36,7 @@ This function increases the storage capacity of an existing List when more space
 - Called from (representative examples):
   - [new_head_cell](../n/new_head_cell.md)
   - [new_tail_cell](../n/new_tail_cell.md)
-  - insert_new_cell
+  - [insert_new_cell](../i/insert_new_cell.md)
   - [list_concat](../l/list_concat.md)
 
 ## Notes and Other Information

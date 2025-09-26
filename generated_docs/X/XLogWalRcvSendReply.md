@@ -32,7 +32,7 @@ The function uses static variables to track the last reported positions and avoi
   - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
   - [WalRcvComputeNextWakeup](../W/WalRcvComputeNextWakeup.md)
   - [GetXLogReplayRecPtr](../G/GetXLogReplayRecPtr.md)
-  - resetStringInfo
+  - [resetStringInfo](../r/resetStringInfo.md)
   - [pq_sendbyte](../p/pq_sendbyte.md)
   - [pq_sendint64](../p/pq_sendint64.md)
   - walrcv_send

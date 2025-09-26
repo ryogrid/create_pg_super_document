@@ -23,9 +23,9 @@ The function is designed to be called repeatedly without overhead - it won't res
 ## Dependencies
 - Functions called/Symbols referenced:
   - [StartTransactionCommand](../S/StartTransactionCommand.md)
-  - enable_statement_timeout
-  - get_timeout_active
-  - enable_timeout_after
+  - [enable_statement_timeout](../e/enable_statement_timeout.md)
+  - [get_timeout_active](../g/get_timeout_active.md)
+  - [enable_timeout_after](../e/enable_timeout_after.md)
 - Called from (representative examples):
   - [exec_simple_query](../e/exec_simple_query.md)
   - [exec_parse_message](../e/exec_parse_message.md)

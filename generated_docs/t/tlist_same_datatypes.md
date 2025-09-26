@@ -26,9 +26,9 @@ Note that the function currently only compares base datatypes and does not consi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_head (to get the first element of colTypes list)
+  - [list_head](../l/list_head.md) (to get the first element of colTypes list)
   - [lnext](../l/lnext.md) (to advance through colTypes list)
-  - exprType (to get the datatype of an expression)
+  - [exprType](../e/exprType.md) (to get the datatype of an expression)
   - lfirst_oid (to extract Oid from list cell)
   - [TargetEntry](../T/TargetEntry.md) (struct type)
 - Called from (representative examples):

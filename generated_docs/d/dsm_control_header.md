@@ -28,13 +28,13 @@ The  structure serves as the header for PostgreSQL's DSM control segment, which 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dsm_control_item (the structure type used for the flexible array member)
+  - [dsm_control_item](dsm_control_item.md) (the structure type used for the flexible array member)
   - FLEXIBLE_ARRAY_MEMBER (macro for defining flexible array members)
   - PG_DYNSHMEM_CONTROL_MAGIC (magic number constant)
 - Called from (representative examples):
-  - dsm_cleanup_using_control_segment (accesses and processes the control header)
-  - dsm_control_segment_sane (validates the control header structure)
-  - dsm_control_bytes_needed (calculates size requirements including the header)
+  - [dsm_cleanup_using_control_segment](dsm_cleanup_using_control_segment.md) (accesses and processes the control header)
+  - [dsm_control_segment_sane](dsm_control_segment_sane.md) (validates the control header structure)
+  - [dsm_control_bytes_needed](dsm_control_bytes_needed.md) (calculates size requirements including the header)
 
 ## Notes and Other Information
 - This structure resides at the beginning of the DSM control segment, which is itself a shared memory segment visible to all PostgreSQL backends

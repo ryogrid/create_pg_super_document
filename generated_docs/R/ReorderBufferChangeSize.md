@@ -24,7 +24,7 @@ The function performs a switch statement on the change action type and adds the 
   - [ReorderBufferChange](ReorderBufferChange.md) (structure type)
   - [HeapTupleData](../H/HeapTupleData.md) (structure type)
   - [SnapshotData](../S/SnapshotData.md) (structure type) 
-  - SharedInvalidationMessage (structure type)
+  - [SharedInvalidationMessage](../S/SharedInvalidationMessage.md) (structure type)
   - REORDER_BUFFER_CHANGE_* constants (various change type enums)
 - Called from (representative examples):
   - [ReorderBufferReturnChange](ReorderBufferReturnChange.md)

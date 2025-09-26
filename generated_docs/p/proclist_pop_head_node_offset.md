@@ -20,7 +20,7 @@ This function combines list removal and process retrieval operations by removing
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - proclist_head (list header structure)
+  - [proclist_head](proclist_head.md) (list header structure)
   - [PGPROC](../P/PGPROC.md) (process structure type)
   - [proclist_is_empty](proclist_is_empty.md) (to verify list has elements)
   - GetPGProcByNumber (to convert process number to PGPROC pointer)

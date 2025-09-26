@@ -28,7 +28,7 @@ This function serves as a bridge between the optimized direct-threaded execution
   - [ExprEvalOp](ExprEvalOp.md) (enumeration type)
 - Called from (representative examples):
   - [CheckExprStillValid](../C/CheckExprStillValid.md) (at line 1949)
-  - llvm_compile_expr (in LLVM JIT compilation)
+  - [llvm_compile_expr](../l/llvm_compile_expr.md) (in LLVM JIT compilation)
 
 ## Notes and Other Information
 - Essential for debugging and introspection when direct threading is active

@@ -26,16 +26,16 @@ The union operation respects NULL semantics - the union of keys may be NULL if a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - gistDeCompressAtt
+  - [gistDeCompressAtt](gistDeCompressAtt.md)
   - IndexRelationGetNumberOfKeyAttributes
-  - gistMakeUnionKey
-  - gistKeyIsEQ
-  - gistFormTuple
+  - [gistMakeUnionKey](gistMakeUnionKey.md)
+  - [gistKeyIsEQ](gistKeyIsEQ.md)
+  - [gistFormTuple](gistFormTuple.md)
 - Called from (representative examples):
-  - gistdoinsert
-  - gistformdownlink
-  - gistProcessItup
-  - gistRelocateBuildBuffersOnSplit
+  - [gistdoinsert](gistdoinsert.md)
+  - [gistformdownlink](gistformdownlink.md)
+  - [gistProcessItup](gistProcessItup.md)
+  - [gistRelocateBuildBuffersOnSplit](gistRelocateBuildBuffersOnSplit.md)
 
 ## Notes and Other Information
 - Returns NULL if no adjustment is needed (optimization to avoid unnecessary tuple creation)

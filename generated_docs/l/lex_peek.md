@@ -26,9 +26,9 @@ The lex_peek function provides a simple way to examine the current token in the 
   - [pg_parse_json_incremental](../p/pg_parse_json_incremental.md)
   - [parse_scalar](../p/parse_scalar.md)
   - [parse_object_field](../p/parse_object_field.md)
-  - parse_object
-  - parse_array_element
-  - parse_array
+  - [parse_object](../p/parse_object.md)
+  - [parse_array_element](../p/parse_array_element.md)
+  - [parse_array](../p/parse_array.md)
 
 ## Notes and Other Information
 This function is crucial for implementing predictive parsing in the JSON parser. It allows the parser to examine upcoming tokens to make parsing decisions without consuming the token, which is essential for error recovery and proper JSON grammar implementation. The inline nature ensures minimal performance overhead for this frequently called operation.

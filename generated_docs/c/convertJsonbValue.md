@@ -26,7 +26,7 @@ The `convertJsonbValue` function is the central recursive workhorse of JSONB ser
 ## Dependencies
 - Functions called/Symbols referenced:
   - JEntry (structure type)
-  - check_stack_depth
+  - [check_stack_depth](check_stack_depth.md)
   - IsAJsonbScalar
   - [convertJsonbScalar](convertJsonbScalar.md)
   - jbvArray (enum value)

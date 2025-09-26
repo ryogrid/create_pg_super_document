@@ -48,9 +48,9 @@ The structure serves as an intermediate representation between the full in-memor
   - XLogRecPtr (WAL log position type)
   
 - Called from (representative examples):
-  - EstimateSnapshotSpace (calculates serialization space requirements)
-  - SerializeSnapshot (creates serialized representation)
-  - RestoreSnapshot (reconstructs snapshot from serialized data)
+  - [EstimateSnapshotSpace](../E/EstimateSnapshotSpace.md) (calculates serialization space requirements)
+  - [SerializeSnapshot](SerializeSnapshot.md) (creates serialized representation)
+  - [RestoreSnapshot](../R/RestoreSnapshot.md) (reconstructs snapshot from serialized data)
 
 ## Notes and Other Information
 - Only contains fields that need serialization - receiving backend reconstructs remaining fields

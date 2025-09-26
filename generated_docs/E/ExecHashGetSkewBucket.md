@@ -27,8 +27,8 @@ The function returns INVALID_SKEW_BUCKET_NO in two cases: when skew optimization
 - Functions called/Symbols referenced:
   - INVALID_SKEW_BUCKET_NO (constant returned when no bucket found)
 - Called from:
-  - MultiExecPrivateHash (during hash table population)
-  - ExecHashJoinImpl (during hash join probing)
+  - [MultiExecPrivateHash](../M/MultiExecPrivateHash.md) (during hash table population)
+  - [ExecHashJoinImpl](ExecHashJoinImpl.md) (during hash join probing)
   - Referenced in nodeHash.h header
 
 ## Notes and Other Information

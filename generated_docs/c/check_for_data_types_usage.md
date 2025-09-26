@@ -26,10 +26,10 @@ The checks are driven by a DataTypesUsageChecks structure array that defines the
 ## Dependencies
 - Functions called/Symbols referenced:
   - [prep_status](../p/prep_status.md)
-  - pg_malloc0
+  - [pg_malloc0](../p/pg_malloc0.md)
   - [connectToServer](connectToServer.md)
   - [executeQueryOrDie](../e/executeQueryOrDie.md)
-  - initPQExpBuffer
+  - [initPQExpBuffer](../i/initPQExpBuffer.md)
   - [pg_log](../p/pg_log.md)
   - fopen_priv
   - [PQfinish](../P/PQfinish.md)

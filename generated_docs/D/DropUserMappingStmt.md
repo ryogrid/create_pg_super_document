@@ -28,11 +28,11 @@ DropUserMappingStmt is a parse tree node that stores the parsed representation o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RoleSpec
+  - [RoleSpec](../R/RoleSpec.md)
   - NodeTag
 - Called from (representative examples):
-  - RemoveUserMapping (src/backend/commands/foreigncmds.c:1335)
-  - ProcessUtilitySlow (src/backend/tcop/utility.c:1611)
+  - [RemoveUserMapping](../R/RemoveUserMapping.md) (src/backend/commands/foreigncmds.c:1335)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (src/backend/tcop/utility.c:1611)
 
 ## Notes and Other Information
 - This structure is part of the PostgreSQL parser node hierarchy and inherits from the Node structure via NodeTag

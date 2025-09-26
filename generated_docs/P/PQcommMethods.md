@@ -38,7 +38,7 @@ Two main implementations exist:
 ## Dependencies
 - Functions called/Symbols referenced:
   - [socket_comm_reset](../s/socket_comm_reset.md)
-  - socket_flush
+  - [socket_flush](../s/socket_flush.md)
   - [socket_flush_if_writable](../s/socket_flush_if_writable.md)
   - [socket_is_send_pending](../s/socket_is_send_pending.md)
   - [socket_putmessage](../s/socket_putmessage.md)

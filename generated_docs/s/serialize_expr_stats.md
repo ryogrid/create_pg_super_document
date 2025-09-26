@@ -24,7 +24,7 @@ The function opens the pg_statistic system catalog to get the composite type inf
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open, get_rel_type_id, accumArrayResult, heap_form_tuple
+  - [table_open](../t/table_open.md), get_rel_type_id, accumArrayResult, heap_form_tuple
   - [construct_array_builtin](../c/construct_array_builtin.md), construct_array, heap_copy_tuple_as_datum
   - [makeArrayResult](../m/makeArrayResult.md), ObjectIdGetDatum, Int16GetDatum, Float4GetDatum
 - Called from (representative examples):

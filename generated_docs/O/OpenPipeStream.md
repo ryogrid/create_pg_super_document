@@ -24,18 +24,18 @@ The function manages file descriptor limits by releasing least-recently-used fil
 ## Dependencies
 - Functions called/Symbols referenced:
   - DO_DB (debug logging macro)
-  - reserveAllocatedDesc (reserves an allocated descriptor slot)
-  - ReleaseLruFiles (closes least-recently-used files to free FDs)
-  - pqsignal (PostgreSQL's signal handling function)
+  - [reserveAllocatedDesc](../r/reserveAllocatedDesc.md) (reserves an allocated descriptor slot)
+  - [ReleaseLruFiles](../R/ReleaseLruFiles.md) (closes least-recently-used files to free FDs)
+  - [pqsignal](../p/pqsignal.md) (PostgreSQL's signal handling function)
   - popen (standard C library pipe creation function)
-  - GetCurrentSubTransactionId (tracks which subtransaction opened the pipe)
-  - ReleaseLruFile (releases a single LRU file when retrying after EMFILE/ENFILE)
+  - [GetCurrentSubTransactionId](../G/GetCurrentSubTransactionId.md) (tracks which subtransaction opened the pipe)
+  - [ReleaseLruFile](../R/ReleaseLruFile.md) (releases a single LRU file when retrying after EMFILE/ENFILE)
   - SIGPIPE, SIG_DFL, SIG_IGN (signal handling constants)
 - Called from (representative examples):
-  - pg_import_system_collations (collationcmds.c:872)
-  - BeginCopyFrom (copyfrom.c:1719)
-  - BeginCopyTo (copyto.c:650)
-  - run_ssl_passphrase_command (be-secure-common.c:54)
+  - [pg_import_system_collations](../p/pg_import_system_collations.md) (collationcmds.c:872)
+  - [BeginCopyFrom](../B/BeginCopyFrom.md) (copyfrom.c:1719)
+  - [BeginCopyTo](../B/BeginCopyTo.md) (copyto.c:650)
+  - [run_ssl_passphrase_command](../r/run_ssl_passphrase_command.md) (be-secure-common.c:54)
 
 ## Notes and Other Information
 - This should be the primary interface for creating pipe streams in PostgreSQL, replacing direct popen() calls

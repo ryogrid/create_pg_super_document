@@ -45,7 +45,7 @@ The function performs extensive validation including parameter count matching, f
 - Functions called/Symbols referenced:
   - [pq_getmsgstring](../p/pq_getmsgstring.md) (extract string fields from protocol message)
   - [FetchPreparedStatement](../F/FetchPreparedStatement.md) (retrieve named prepared statement)
-  - CreatePortal (create new portal for execution)
+  - [CreatePortal](../C/CreatePortal.md) (create new portal for execution)
   - [GetCachedPlan](../G/GetCachedPlan.md) (obtain execution plan from cached plan source)
   - [PortalDefineQuery](../P/PortalDefineQuery.md) (associate query with portal)
   - [PortalStart](../P/PortalStart.md) (initialize portal for execution)

@@ -23,7 +23,7 @@ This design choice allows the optimizer to make more aggressive optimizations by
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_length (implicit via list operations)
+  - [list_length](../l/list_length.md) (implicit via list operations)
   - forboth (macro for iterating over two lists simultaneously)
   - [equal](../e/equal.md) (for comparing expression trees)
   - [TargetEntry](../T/TargetEntry.md) (struct type)

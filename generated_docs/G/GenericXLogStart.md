@@ -24,8 +24,8 @@ The memory allocation uses PG_IO_ALIGN_SIZE alignment to ensure optimal performa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GenericXLogState (struct type for the returned state object)
-  - palloc_aligned (PostgreSQL memory allocation function with alignment)
+  - [GenericXLogState](GenericXLogState.md) (struct type for the returned state object)
+  - [palloc_aligned](../p/palloc_aligned.md) (PostgreSQL memory allocation function with alignment)
   - PG_IO_ALIGN_SIZE (constant specifying required memory alignment)
   - RelationNeedsWAL (function to determine if relation requires WAL logging)
   - MAX_GENERIC_XLOG_PAGES (constant defining maximum trackable pages)

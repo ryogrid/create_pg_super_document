@@ -24,10 +24,10 @@ The function only creates the space - it does not initialize the data in the new
 - Functions called/Symbols referenced:
   - [enlarge_list](../e/enlarge_list.md) (expands the list's capacity when needed)
 - Called from (representative examples):
-  - lappend (appends a generic pointer value to the list)
-  - lappend_int (appends an integer value to the list)
-  - lappend_oid (appends an OID value to the list)
-  - lappend_xid (appends a transaction ID value to the list)
+  - [lappend](../l/lappend.md) (appends a generic pointer value to the list)
+  - [lappend_int](../l/lappend_int.md) (appends an integer value to the list)
+  - [lappend_oid](../l/lappend_oid.md) (appends an OID value to the list)
+  - [lappend_xid](../l/lappend_xid.md) (appends a transaction ID value to the list)
 
 ## Notes and Other Information
 - This is a static function, only accessible within src/backend/nodes/list.c

@@ -22,9 +22,9 @@ After successful synchronization, the function closes the file and resets the si
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FileSync
+  - [FileSync](../F/FileSync.md)
   - [FilePathName](../F/FilePathName.md)
-  - FileClose  
+  - [FileClose](../F/FileClose.md)  
   - ereport
   - [errcode_for_file_access](../e/errcode_for_file_access.md)
   - [errmsg](../e/errmsg.md)

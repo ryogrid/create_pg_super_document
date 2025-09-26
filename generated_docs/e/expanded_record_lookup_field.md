@@ -28,9 +28,9 @@ When a matching field is found, the function populates the ExpandedRecordFieldIn
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - expanded_record_get_tupdesc
+  - [expanded_record_get_tupdesc](expanded_record_get_tupdesc.md)
   - TupleDescAttr (macro)
-  - namestrcmp
+  - [namestrcmp](../n/namestrcmp.md)
   - [SystemAttributeByName](../S/SystemAttributeByName.md)
 - Types referenced:
   - ExpandedRecordHeader

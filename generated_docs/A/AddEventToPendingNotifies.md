@@ -23,10 +23,10 @@ The function assumes that pendingNotifies->events is already non-empty, which al
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_length (to check if hash table creation is needed)
+  - [list_length](../l/list_length.md) (to check if hash table creation is needed)
   - [hash_create](../h/hash_create.md) (to create the hash table)
   - [hash_search](../h/hash_search.md) (to add entries to the hash table)
-  - lappend (to add notification to the list)
+  - [lappend](../l/lappend.md) (to add notification to the list)
   - [notification_hash](../n/notification_hash.md) (hash function for notifications)
   - [notification_match](../n/notification_match.md) (comparison function for notifications)
 - Called from (representative examples):

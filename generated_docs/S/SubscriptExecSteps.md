@@ -36,9 +36,9 @@ The functions are designed to work with the SubscriptingRefState structure and i
   - ExecEvalBoolSubroutine (function pointer type for boolean-returning evaluation routines)
   - ExecEvalSubroutine (function pointer type for standard evaluation routines)
 - Called from (representative examples):
-  - ExecInitSubscriptingRef (expression initialization, sets up function pointers)
-  - array_exec_setup (array-specific implementation setup)
-  - jsonb_exec_setup (JSONB-specific implementation setup)
+  - [ExecInitSubscriptingRef](../E/ExecInitSubscriptingRef.md) (expression initialization, sets up function pointers)
+  - [array_exec_setup](../a/array_exec_setup.md) (array-specific implementation setup)
+  - [jsonb_exec_setup](../j/jsonb_exec_setup.md) (JSONB-specific implementation setup)
 
 ## Notes and Other Information
 - Provides a polymorphic interface for container subscripting operations

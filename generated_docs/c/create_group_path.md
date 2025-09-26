@@ -33,8 +33,8 @@ The function initializes the path structure, sets up grouping-specific fields, c
 - Functions called/Symbols referenced:
   - makeNode (creates GroupPath node)
   - [cost_group](cost_group.md) (calculates grouping operation costs)
-  - list_length (counts grouping columns)
-  - GroupPath (return type structure)
+  - [list_length](../l/list_length.md) (counts grouping columns)
+  - [GroupPath](../G/GroupPath.md) (return type structure)
   - [PathTarget](../P/PathTarget.md) (for target list evaluation)
 - Called from (representative examples):
   - [add_paths_to_grouping_rel](../a/add_paths_to_grouping_rel.md)

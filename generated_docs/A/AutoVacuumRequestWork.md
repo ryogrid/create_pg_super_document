@@ -32,8 +32,8 @@ The function returns success/failure status, allowing callers to handle cases wh
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire (AutovacuumLock, LW_EXCLUSIVE)
-  - LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md) (AutovacuumLock, LW_EXCLUSIVE)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - AutoVacuumShmem (shared memory structure)
   - NUM_WORKITEMS (maximum work items)
 - Called from (representative examples):

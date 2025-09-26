@@ -25,7 +25,7 @@ This static function parses a list of type name arguments and converts them to t
   - [TypeName](../T/TypeName.md) (type)
   - linitial
   - [typenameTypeId](../t/typenameTypeId.md)
-  - list_length
+  - [list_length](../l/list_length.md)
   - lsecond
   - ereport
   - [errcode](../e/errcode.md)

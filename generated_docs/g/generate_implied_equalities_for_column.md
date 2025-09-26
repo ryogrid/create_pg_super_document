@@ -30,7 +30,7 @@ The function uses a callback mechanism to allow callers to specify exactly which
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_childrel_parents
+  - [find_childrel_parents](../f/find_childrel_parents.md)
   - [bms_next_member](../b/bms_next_member.md)
   - [list_nth](../l/list_nth.md)
   - [bms_is_subset](../b/bms_is_subset.md)
@@ -38,7 +38,7 @@ The function uses a callback mechanism to allow callers to specify exactly which
   - [bms_overlap](../b/bms_overlap.md)
   - [select_equality_operator](../s/select_equality_operator.md)
   - [create_join_clause](../c/create_join_clause.md)
-  - lappend
+  - [lappend](../l/lappend.md)
 - Called from (representative examples):
   - [match_eclass_clauses_to_index](../m/match_eclass_clauses_to_index.md)
   - [create_tidscan_paths](../c/create_tidscan_paths.md)

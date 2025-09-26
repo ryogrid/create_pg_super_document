@@ -32,7 +32,7 @@ The estimation process considers the index relation descriptor, scan keys for fi
   - [ParallelContext](../P/ParallelContext.md)
   - [EState](EState.md)
 - Called from (representative examples):
-  - ExecParallelEstimate
+  - [ExecParallelEstimate](ExecParallelEstimate.md)
 
 ## Notes and Other Information
 - This function is essential for parallel query execution planning and shared memory allocation

@@ -25,12 +25,12 @@ The function follows a hierarchical approach: first checking for user-written co
   - [list_nth](../l/list_nth.md)
   - [get_attname](get_attname.md)
   - strVal (macro)
-  - list_length
+  - [list_length](../l/list_length.md)
   - elog
   - InvalidAttrNumber
   - RTE_RELATION
 - Called from (representative examples):
-  - print_expr
+  - [print_expr](../p/print_expr.md)
   - [check_ungrouped_columns_walker](../c/check_ungrouped_columns_walker.md)
   - [get_variable](get_variable.md)
   - [get_name_for_var_field](get_name_for_var_field.md)

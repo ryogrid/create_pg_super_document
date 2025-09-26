@@ -20,10 +20,10 @@ This function is responsible for cleaning up all resources associated with an ag
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsParallelWorker
-  - tuplesort_end
+  - [tuplesort_end](../t/tuplesort_end.md)
   - [hashagg_reset_spill_state](../h/hashagg_reset_spill_state.md)
   - [MemoryContextDelete](../M/MemoryContextDelete.md)
-  - ReScanExprContext
+  - [ReScanExprContext](../R/ReScanExprContext.md)
   - outerPlanState
   - [ExecEndNode](ExecEndNode.md)
 - Called from (representative examples):

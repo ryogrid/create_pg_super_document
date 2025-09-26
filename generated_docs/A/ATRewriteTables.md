@@ -205,9 +205,9 @@ The function operates in multiple distinct phases: first handling table rewrites
 ## Dependencies
 - Functions called/Symbols referenced:
   - RELKIND_HAS_STORAGE
-  - table_open
+  - [table_open](../t/table_open.md)
   - [find_composite_type_dependencies](../f/find_composite_type_dependencies.md)
-  - table_close
+  - [table_close](../t/table_close.md)
   - [IsSystemRelation](../I/IsSystemRelation.md)
   - RelationIsUsedAsCatalogTable
   - RELATION_IS_OTHER_TEMP
@@ -223,7 +223,7 @@ The function operates in multiple distinct phases: first handling table rewrites
   - [getOwnedSequences](../g/getOwnedSequences.md)
   - [validateForeignKeyConstraint](../v/validateForeignKeyConstraint.md)
   - [ProcessUtilityForAlterTable](../P/ProcessUtilityForAlterTable.md)
-  - CommandCounterIncrement
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md)
 - Called from:
   - [ATController](ATController.md)
 

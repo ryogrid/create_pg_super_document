@@ -23,7 +23,7 @@ This function is essential for preventing runtime errors and ensuring reliable s
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQserverVersion](../P/PQserverVersion.md)
-  - PQparameterStatus
+  - [PQparameterStatus](../P/PQparameterStatus.md)
 - Called from (representative examples):
   - [BaseBackup](../B/BaseBackup.md)
   - [StreamLog](../S/StreamLog.md)  

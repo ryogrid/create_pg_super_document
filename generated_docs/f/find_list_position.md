@@ -25,7 +25,7 @@ The function is static and used internally within the index path optimization mo
 - Functions called/Symbols referenced:
   - [equal](../e/equal.md) (for deep equality comparison of nodes)
   - lfirst (list cell access macro)
-  - lappend (to add node to list if not found)
+  - [lappend](../l/lappend.md) (to add node to list if not found)
 - Called from (representative examples):
   - ec_member_matches_arg
   - [classify_index_clause_usage](../c/classify_index_clause_usage.md)

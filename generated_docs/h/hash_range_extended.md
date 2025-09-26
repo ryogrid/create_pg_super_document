@@ -25,7 +25,7 @@ The function handles empty ranges and ranges with missing bounds appropriately, 
 - Functions called/Symbols referenced:
   - PG_GETARG_RANGE_P
   - PG_GETARG_DATUM  
-  - check_stack_depth
+  - [check_stack_depth](../c/check_stack_depth.md)
   - [range_get_typcache](../r/range_get_typcache.md)
   - RangeTypeGetOid
   - [range_deserialize](../r/range_deserialize.md)

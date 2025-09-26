@@ -33,8 +33,8 @@ This more permissive approach enables better cost estimates and planning decisio
 - Called from (representative examples):
   - [clause_selectivity_ext](../c/clause_selectivity_ext.md) (clausesel.c:783)
   - [preprocess_limit](../p/preprocess_limit.md) (planner.c:2489, 2512)
-  - scalararraysel (selfuncs.c:1844, 1845)
-  - get_restriction_variable (selfuncs.c:4924, 4932)
+  - [scalararraysel](../s/scalararraysel.md) (selfuncs.c:1844, 1845)
+  - [get_restriction_variable](../g/get_restriction_variable.md) (selfuncs.c:4924, 4932)
 
 ## Notes and Other Information
 - Sets context.estimate = true to enable unsafe transformations not allowed in standard evaluation

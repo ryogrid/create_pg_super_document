@@ -22,17 +22,17 @@ The `elog_node_display` function is a logging utility that outputs PostgreSQL No
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - nodeToStringWithLocations: Converts the node to a string representation with location information
+  - [nodeToStringWithLocations](../n/nodeToStringWithLocations.md): Converts the node to a string representation with location information
   - pretty_format_node_dump: Applies pretty formatting when pretty=true
   - format_node_dump: Applies standard formatting when pretty=false
   - ereport: PostgreSQL's error/log reporting function
-  - errmsg_internal: Creates the main log message with the title
-  - errdetail_internal: Adds the formatted node content as detail
-  - pfree: Frees allocated memory
+  - [errmsg_internal](errmsg_internal.md): Creates the main log message with the title
+  - [errdetail_internal](errdetail_internal.md): Adds the formatted node content as detail
+  - [pfree](../p/pfree.md): Frees allocated memory
 
 - Called from (representative examples):
-  - pg_rewrite_query: Used during query rewriting phase for debugging
-  - pg_plan_query: Used during query planning phase for debugging
+  - [pg_rewrite_query](../p/pg_rewrite_query.md): Used during query rewriting phase for debugging
+  - [pg_plan_query](../p/pg_plan_query.md): Used during query planning phase for debugging
   - nodeDisplay: Header declaration and macro usage
 
 ## Notes and Other Information

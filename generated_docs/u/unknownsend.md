@@ -24,7 +24,7 @@ This function complements `unknownrecv` as part of PostgreSQL's binary protocol 
 - Functions called/Symbols referenced:
   - PG_GETARG_CSTRING (macro for extracting C string argument)
   - [pq_begintypsend](../p/pq_begintypsend.md) (function to initialize binary output buffer)
-  - pq_sendtext (function to append text data to binary buffer)
+  - [pq_sendtext](../p/pq_sendtext.md) (function to append text data to binary buffer)
   - strlen (standard C function to get string length)
   - [pq_endtypsend](../p/pq_endtypsend.md) (function to finalize binary output buffer)
   - PG_RETURN_BYTEA_P (macro for returning binary data)

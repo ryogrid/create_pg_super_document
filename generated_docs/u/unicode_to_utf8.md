@@ -26,12 +26,12 @@ The function directly writes the UTF-8 bytes to the provided buffer and assumes 
 ## Dependencies
 - Functions called/Symbols referenced: None (bitwise operations and arithmetic)
 - Called from (representative examples):
-  - unicode_normalize_func (src/backend/utils/adt/varlena.c:6379, 6389)
-  - pg_unicode_to_server (src/backend/utils/mb/mbutils.c:891, 905)
-  - pg_unicode_to_server_noerror (src/backend/utils/mb/mbutils.c:949, 959)
-  - pg_saslprep (src/common/saslprep.c:1210, 1225)
-  - convert_case (src/common/unicode_case.c:179)
-  - pg_wchar2utf_with_len (src/common/wchar.c:515)
+  - [unicode_normalize_func](unicode_normalize_func.md) (src/backend/utils/adt/varlena.c:6379, 6389)
+  - [pg_unicode_to_server](../p/pg_unicode_to_server.md) (src/backend/utils/mb/mbutils.c:891, 905)
+  - [pg_unicode_to_server_noerror](../p/pg_unicode_to_server_noerror.md) (src/backend/utils/mb/mbutils.c:949, 959)
+  - [pg_saslprep](../p/pg_saslprep.md) (src/common/saslprep.c:1210, 1225)
+  - [convert_case](../c/convert_case.md) (src/common/unicode_case.c:179)
+  - [pg_wchar2utf_with_len](../p/pg_wchar2utf_with_len.md) (src/common/wchar.c:515)
 
 ## Notes and Other Information
 - Defined as a static inline function for performance optimization

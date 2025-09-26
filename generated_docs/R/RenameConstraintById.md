@@ -23,7 +23,7 @@ The function updates the constraint name in-place and triggers post-alter hooks 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - SearchSysCacheCopy1  
   - HeapTupleIsValid
   - elog
@@ -33,11 +33,11 @@ The function updates the constraint name in-place and triggers post-alter hooks 
   - ereport
   - [get_rel_name](../g/get_rel_name.md)
   - [format_type_be](../f/format_type_be.md)
-  - namestrcpy
+  - [namestrcpy](../n/namestrcpy.md)
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - InvokeObjectPostAlterHook
   - [heap_freetuple](../h/heap_freetuple.md)
-  - table_close
+  - [table_close](../t/table_close.md)
 - Called from (representative examples):
   - [rename_constraint_internal](../r/rename_constraint_internal.md) (tablecmds.c:4001)
   - [RenameRelationInternal](RenameRelationInternal.md) (tablecmds.c:4215)

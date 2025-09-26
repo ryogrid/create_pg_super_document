@@ -26,11 +26,11 @@ When the attribute is not found, the function raises an ERROR rather than return
   - HeapTupleHeaderGetTypeId (get tuple type OID)
   - HeapTupleHeaderGetTypMod (get tuple type modifier)
   - [lookup_rowtype_tupdesc](../l/lookup_rowtype_tupdesc.md) (get tuple descriptor)
-  - namestrcmp (compare attribute names)
+  - [namestrcmp](../n/namestrcmp.md) (compare attribute names)
   - [heap_getattr](../h/heap_getattr.md) (extract attribute value)
   - ReleaseTupleDesc (release tuple descriptor)
 - Called from (representative examples):
-  - exec_rt_fetch (runtime tuple access)
+  - [exec_rt_fetch](../e/exec_rt_fetch.md) (runtime tuple access)
   - [overpaid](../o/overpaid.md) (regression test function)
   - [c_overpaid](../c/c_overpaid.md) (tutorial example function)
 

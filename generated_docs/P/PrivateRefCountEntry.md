@@ -30,17 +30,17 @@ The private reference count system works alongside the shared buffer management 
   - int32 (type)
 
 - Called from (representative examples):
-  - ReservePrivateRefCountEntry
-  - NewPrivateRefCountEntry
-  - GetPrivateRefCountEntry
-  - GetPrivateRefCount
-  - ForgetPrivateRefCountEntry
-  - PinBuffer
-  - PinBuffer_Locked
-  - UnpinBufferNoOwner
-  - InitBufferPoolAccess
-  - CheckForBufferLeaks
-  - IncrBufferRefCount
+  - [ReservePrivateRefCountEntry](../R/ReservePrivateRefCountEntry.md)
+  - [NewPrivateRefCountEntry](../N/NewPrivateRefCountEntry.md)
+  - [GetPrivateRefCountEntry](../G/GetPrivateRefCountEntry.md)
+  - [GetPrivateRefCount](../G/GetPrivateRefCount.md)
+  - [ForgetPrivateRefCountEntry](../F/ForgetPrivateRefCountEntry.md)
+  - [PinBuffer](PinBuffer.md)
+  - [PinBuffer_Locked](PinBuffer_Locked.md)
+  - [UnpinBufferNoOwner](../U/UnpinBufferNoOwner.md)
+  - [InitBufferPoolAccess](../I/InitBufferPoolAccess.md)
+  - [CheckForBufferLeaks](../C/CheckForBufferLeaks.md)
+  - [IncrBufferRefCount](../I/IncrBufferRefCount.md)
 
 ## Notes and Other Information
 - This structure is used in arrays to maintain private reference counts for multiple buffers per backend

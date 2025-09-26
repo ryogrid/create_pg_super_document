@@ -23,11 +23,11 @@ This function serves as an adapter between SQL descriptor items and the ECPG par
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ecpg_alloc
+  - [ecpg_alloc](../e/ecpg_alloc.md)
   - ECPGt_char
-  - ecpg_store_input
+  - [ecpg_store_input](../e/ecpg_store_input.md)
 - Called from:
-  - ecpg_build_params
+  - [ecpg_build_params](../e/ecpg_build_params.md)
 
 ## Notes and Other Information
 - Returns true on successful conversion, false on allocation or processing failure

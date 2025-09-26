@@ -31,11 +31,11 @@ The function is essential for maintaining serializable isolation during index ma
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockHeldByMeInMode
+  - [LWLockHeldByMeInMode](../L/LWLockHeldByMeInMode.md)
   - PredicateLockTargetTagHashCode
   - PredicateLockHashPartitionLock
-  - RemoveScratchTarget
-  - LWLockAcquire
+  - [RemoveScratchTarget](../R/RemoveScratchTarget.md)
+  - [LWLockAcquire](../L/LWLockAcquire.md)
   - [hash_search_with_hash_value](../h/hash_search_with_hash_value.md)
   - [dlist_init](../d/dlist_init.md)
   - dlist_foreach_modify

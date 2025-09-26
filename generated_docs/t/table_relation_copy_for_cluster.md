@@ -45,7 +45,7 @@ During the copy process, the function collects important statistics about tuple 
   - TransactionId (transaction management type)
   - MultiXactId (multixact management type)
 - Called from (representative examples):
-  - copy_table_data (during cluster operations)
+  - [copy_table_data](../c/copy_table_data.md) (during cluster operations)
 
 ## Notes and Other Information
 - This is the primary mechanism for CLUSTER and VACUUM FULL data reorganization

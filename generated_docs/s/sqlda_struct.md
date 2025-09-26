@@ -38,8 +38,8 @@ This structure enables dynamic SQL operations where the schema or parameter stru
   - [sqlvar_struct](sqlvar_struct.md)
 - Called from (representative examples):
   - [ECPGdescribe](../E/ECPGdescribe.md)
-  - ecpg_build_params
-  - ecpg_process_output
+  - [ecpg_build_params](../e/ecpg_build_params.md)
+  - [ecpg_process_output](../e/ecpg_process_output.md)
   - [sqlda_native_empty_size](sqlda_native_empty_size.md)
   - [ecpg_set_compat_sqlda](../e/ecpg_set_compat_sqlda.md)
   - [ecpg_build_native_sqlda](../e/ecpg_build_native_sqlda.md)

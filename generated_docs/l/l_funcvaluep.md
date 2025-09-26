@@ -29,7 +29,7 @@ The function performs the same initial navigation as l_funcnullp but accesses th
 - Functions called/Symbols referenced:
   - [l_struct_gep](l_struct_gep.md) (called 3 times for structure field access)
 - Called from (representative examples):
-  - llvm_compile_expr (in src/backend/jit/llvm/llvmjit_expr.c at lines 1361, 1413, 1611, 2492)
+  - [llvm_compile_expr](llvm_compile_expr.md) (in src/backend/jit/llvm/llvmjit_expr.c at lines 1361, 1413, 1611, 2492)
   - [l_funcvalue](l_funcvalue.md)
 
 ## Notes and Other Information

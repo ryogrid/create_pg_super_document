@@ -24,13 +24,13 @@ This function creates a comprehensive XML representation of a PostgreSQL databas
 - Functions called/Symbols referenced:
   - [get_database_name](../g/get_database_name.md)
   - [map_sql_identifier_to_xml_name](../m/map_sql_identifier_to_xml_name.md)
-  - makeStringInfo
+  - [makeStringInfo](../m/makeStringInfo.md)
   - [xmldata_root_element_start](../x/xmldata_root_element_start.md)
-  - SPI_connect
+  - [SPI_connect](../S/SPI_connect.md)
   - [database_get_xml_visible_schemas](database_get_xml_visible_schemas.md)
   - [schema_to_xml_internal](../s/schema_to_xml_internal.md)
-  - appendBinaryStringInfo
-  - SPI_finish
+  - [appendBinaryStringInfo](../a/appendBinaryStringInfo.md)
+  - [SPI_finish](../S/SPI_finish.md)
   - [xmldata_root_element_end](../x/xmldata_root_element_end.md)
 - Called from (representative examples):
   - [database_to_xml](database_to_xml.md)

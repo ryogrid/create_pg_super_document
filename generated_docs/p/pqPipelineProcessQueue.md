@@ -23,10 +23,10 @@ The function first checks if the connection is in a state where it can process t
 ## Dependencies
 - Functions called/Symbols referenced:
   - pqClearConnErrorState
-  - pqClearAsyncResult
-  - PQmakeEmptyPGresult
-  - libpq_append_conn_error
-  - pqSaveErrorResult
+  - [pqClearAsyncResult](pqClearAsyncResult.md)
+  - [PQmakeEmptyPGresult](../P/PQmakeEmptyPGresult.md)
+  - [libpq_append_conn_error](../l/libpq_append_conn_error.md)
+  - [pqSaveErrorResult](pqSaveErrorResult.md)
   - PGASYNC_COPY_IN, PGASYNC_COPY_OUT, PGASYNC_COPY_BOTH
   - PGASYNC_READY, PGASYNC_READY_MORE, PGASYNC_BUSY
   - PGASYNC_IDLE, PGASYNC_PIPELINE_IDLE
@@ -35,8 +35,8 @@ The function first checks if the connection is in a state where it can process t
   - PGRES_PIPELINE_ABORTED
 
 - Called from (representative examples):
-  - pqAppendCmdQueueEntry (fe-exec.c)
-  - PQgetResult (fe-exec.c)
+  - [pqAppendCmdQueueEntry](pqAppendCmdQueueEntry.md) (fe-exec.c)
+  - [PQgetResult](../P/PQgetResult.md) (fe-exec.c)
 
 ## Notes and Other Information
 - Only processes when connection is idle or in pipeline-idle state

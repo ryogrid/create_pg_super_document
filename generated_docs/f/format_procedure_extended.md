@@ -39,10 +39,10 @@ The function supports two primary formatting flags:
   - `IsBootstrapProcessingMode`: Bootstrap mode check (not supported)
   - [FunctionIsVisible](../F/FunctionIsVisible.md): Determines if procedure is visible in current search path
   - [get_namespace_name](../g/get_namespace_name.md): Retrieves schema name for qualification
-  - `quote_qualified_identifier`: Properly quotes schema-qualified identifiers
+  - `[quote_qualified_identifier](../q/quote_qualified_identifier.md)`: Properly quotes schema-qualified identifiers
   - [format_type_be](format_type_be.md): Formats argument types
   - [format_type_be_qualified](format_type_be_qualified.md): Formats argument types with schema qualification
-  - `initStringInfo`: String buffer initialization
+  - `[initStringInfo](../i/initStringInfo.md)`: String buffer initialization
   - [ReleaseSysCache](../R/ReleaseSysCache.md): System catalog cache cleanup
 - Called from (representative examples):
   - [format_procedure](format_procedure.md): Simple procedure formatting wrapper

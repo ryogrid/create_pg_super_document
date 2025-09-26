@@ -22,8 +22,8 @@ The function enforces strict buffer sharing requirements through assertions, ens
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbsink_archive_contents
-  - bbsink (type reference)
+  - [bbsink_archive_contents](bbsink_archive_contents.md)
+  - [bbsink](bbsink.md) (type reference)
 - Called from (representative examples):
   - [bbsink_progress_archive_contents](bbsink_progress_archive_contents.md) (src/backend/backup/basebackup_progress.c:164)
   - [bbsink_server_archive_contents](bbsink_server_archive_contents.md) (src/backend/backup/basebackup_server.c:187)

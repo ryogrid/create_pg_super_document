@@ -36,12 +36,12 @@ The function includes sophisticated memory management, automatically cleaning up
   - [dclist_init](../d/dclist_init.md) (for wait queue initialization)
   - MemSet (for memory initialization)
 - Data structures used:
-  - LOCK, PROCLOCK, PROCLOCKTAG (core lock structures)
+  - [LOCK](../L/LOCK.md), PROCLOCK, PROCLOCKTAG (core lock structures)
   - LockMethodLockHash, LockMethodProcLockHash (shared hash tables)
 - Called from (representative examples):
   - [LockAcquireExtended](../L/LockAcquireExtended.md) (main lock acquisition path)
   - [FastPathTransferRelationLocks](../F/FastPathTransferRelationLocks.md) (fast-path to shared table transfer)
-  - VirtualXactLock (virtual transaction locking)
+  - [VirtualXactLock](../V/VirtualXactLock.md) (virtual transaction locking)
 
 ## Notes and Other Information
 - Returns NULL on memory allocation failure, allowing callers to handle resource exhaustion gracefully

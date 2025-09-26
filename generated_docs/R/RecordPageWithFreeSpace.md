@@ -23,17 +23,17 @@ An important characteristic of this function is that when the new spaceAvail val
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fsm_space_avail_to_cat
+  - [fsm_space_avail_to_cat](../f/fsm_space_avail_to_cat.md)
   - FSMAddress
-  - fsm_get_location
-  - fsm_set_and_search
+  - [fsm_get_location](../f/fsm_get_location.md)
+  - [fsm_set_and_search](../f/fsm_set_and_search.md)
 - Called from (representative examples):
-  - terminate_brin_buildstate
-  - brin_doupdate
-  - brin_doinsert
-  - RelationGetBufferForTuple
-  - lazy_scan_heap
-  - RecordFreeIndexPage
+  - [terminate_brin_buildstate](../t/terminate_brin_buildstate.md)
+  - [brin_doupdate](../b/brin_doupdate.md)
+  - [brin_doinsert](../b/brin_doinsert.md)
+  - [RelationGetBufferForTuple](RelationGetBufferForTuple.md)
+  - [lazy_scan_heap](../l/lazy_scan_heap.md)
+  - [RecordFreeIndexPage](RecordFreeIndexPage.md)
 
 ## Notes and Other Information
 - Updates may not be immediately visible to searchers if spaceAvail increased

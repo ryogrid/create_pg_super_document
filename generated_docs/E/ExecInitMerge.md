@@ -95,7 +95,7 @@ The function handles complex scenarios involving inheritance and partitioning, e
 - Functions called/Symbols referenced:
   - [ExecInitMergeTupleSlots](ExecInitMergeTupleSlots.md)
   - [ExecInitQual](ExecInitQual.md)
-  - ExecAssignExprContext
+  - [ExecAssignExprContext](ExecAssignExprContext.md)
   - [ExecCheckPlanOutput](ExecCheckPlanOutput.md)
   - [ExecBuildProjectionInfo](ExecBuildProjectionInfo.md)
   - [ExecBuildUpdateProjection](ExecBuildUpdateProjection.md)

@@ -40,13 +40,13 @@ The function is essential in PostgreSQL's query processing pipeline, taking quer
 ## Dependencies
 - Functions called/Symbols referenced:
   - [planner](planner.md)
-  - ActiveSnapshotSet
-  - ResetUsage
-  - ShowUsage
+  - [ActiveSnapshotSet](../A/ActiveSnapshotSet.md)
+  - [ResetUsage](../R/ResetUsage.md)
+  - [ShowUsage](../S/ShowUsage.md)
   - copyObject
   - [nodeToStringWithLocations](../n/nodeToStringWithLocations.md)
   - [stringToNodeWithLocations](../s/stringToNodeWithLocations.md)
-  - elog_node_display
+  - [elog_node_display](../e/elog_node_display.md)
   - TRACE_POSTGRESQL_QUERY_PLAN_START
   - TRACE_POSTGRESQL_QUERY_PLAN_DONE
 - Called from (representative examples):

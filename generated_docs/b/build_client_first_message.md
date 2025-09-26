@@ -23,9 +23,9 @@ The message format follows the SCRAM specification with a GS2 header for channel
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_strong_random](../p/pg_strong_random.md) (for secure nonce generation)
-  - pg_b64_encode (for base64 encoding the nonce)
+  - [pg_b64_encode](../p/pg_b64_encode.md) (for base64 encoding the nonce)
   - malloc (for memory allocation)
-  - initPQExpBuffer/appendPQExpBuffer* (for message construction)
+  - [initPQExpBuffer](../i/initPQExpBuffer.md)/appendPQExpBuffer* (for message construction)
   - [libpq_append_conn_error](../l/libpq_append_conn_error.md) (for error reporting)
 - Called from:
   - [scram_exchange](../s/scram_exchange.md) (main SCRAM authentication handler)

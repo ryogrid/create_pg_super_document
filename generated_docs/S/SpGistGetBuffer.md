@@ -30,8 +30,8 @@ The function sets the isNew output parameter to indicate whether the returned pa
   - [allocNewBuffer](../a/allocNewBuffer.md)
   - SpGistBlockIsFixed
   - [ReadBuffer](../R/ReadBuffer.md)
-  - ConditionalLockBuffer
-  - ReleaseBuffer
+  - [ConditionalLockBuffer](../C/ConditionalLockBuffer.md)
+  - [ReleaseBuffer](../R/ReleaseBuffer.md)
   - [BufferGetPage](../B/BufferGetPage.md)
   - [PageIsNew](../P/PageIsNew.md)
   - SpGistPageIsDeleted

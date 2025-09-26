@@ -38,9 +38,9 @@ The function also handles special logic for JSONB types and can discover explici
   - COERCION_EXPLICIT and COERCION_PATH_FUNC (coercion type constants)
 - Called from (representative examples):
   - [ExecInitExprRec](../E/ExecInitExprRec.md) (expression initialization in executor)
-  - array_to_json_internal (array to JSON conversion)
-  - composite_to_json (composite type to JSON conversion)
-  - add_json, add_jsonb (JSON value addition functions)
+  - [array_to_json_internal](../a/array_to_json_internal.md) (array to JSON conversion)
+  - [composite_to_json](../c/composite_to_json.md) (composite type to JSON conversion)
+  - [add_json](../a/add_json.md), add_jsonb (JSON value addition functions)
   - [to_json](../t/to_json.md), to_jsonb (main JSON conversion functions)
   - Various JSON aggregation functions
 

@@ -32,8 +32,8 @@ Access to this structure is protected by CommitTsLock, though in some specific c
   - TransactionId (type)
   - [CommitTimestampEntry](CommitTimestampEntry.md) (struct)
 - Called from (representative examples):
-  - CommitTsShmemSize (function - for memory allocation sizing)
-  - CommitTsShmemInit (function - for shared memory initialization)
+  - [CommitTsShmemSize](CommitTsShmemSize.md) (function - for memory allocation sizing)
+  - [CommitTsShmemInit](CommitTsShmemInit.md) (function - for shared memory initialization)
 
 ## Notes and Other Information
 - Protected by CommitTsLock for thread-safe access across multiple backend processes

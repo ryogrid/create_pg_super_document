@@ -21,12 +21,12 @@ SHA256_Transform is the heart of the SHA-256 algorithm, implementing the 64-roun
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_sha256_ctx (context structure type)
+  - [pg_sha256_ctx](../p/pg_sha256_ctx.md) (context structure type)
   - ROUND256_0_TO_15 (macro for rounds 0-15)
   - ROUND256 (macro for rounds 16-63)
 - Called from (representative examples):
-  - pg_sha256_update (in src/common/sha2.c)
-  - SHA256_Last (in src/common/sha2.c)
+  - [pg_sha256_update](../p/pg_sha256_update.md) (in src/common/sha2.c)
+  - [SHA256_Last](SHA256_Last.md) (in src/common/sha2.c)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the same source file

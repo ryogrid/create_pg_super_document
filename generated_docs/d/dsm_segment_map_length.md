@@ -22,7 +22,7 @@ The function serves as a simple accessor to the mapped_size field of the dsm_seg
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert (assertion macro)
-  - dsm_segment (structure type)
+  - [dsm_segment](dsm_segment.md) (structure type)
   - Size (type definition)
 - Called from (representative examples):
   - DSM_CREATE_NULL_IF_MAXSEGMENTS (macro in header file)

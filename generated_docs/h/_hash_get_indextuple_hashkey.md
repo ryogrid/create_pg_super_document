@@ -26,14 +26,14 @@ This "crude but very very cheaply" approach (as noted in the source comment) byp
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IndexInfoFindDataOffset
+  - [IndexInfoFindDataOffset](../I/IndexInfoFindDataOffset.md)
 - Called from (representative examples):
-  - hashbucketcleanup
-  - _hash_doinsert
-  - _hash_pgaddtup
-  - _hash_splitbucket
-  - _hash_load_qualified_items
-  - _h_indexbuild
+  - [hashbucketcleanup](hashbucketcleanup.md)
+  - [_hash_doinsert](_hash_doinsert.md)
+  - [_hash_pgaddtup](_hash_pgaddtup.md)
+  - [_hash_splitbucket](_hash_splitbucket.md)
+  - [_hash_load_qualified_items](_hash_load_qualified_items.md)
+  - [_h_indexbuild](_h_indexbuild.md)
 
 ## Notes and Other Information
 This function is fundamental to hash index operations and is called frequently during searches, insertions, deletions, and maintenance operations. Its optimized implementation reflects the critical performance requirements of hash index operations. The function assumes the standard hash index tuple format where the hash key is stored as the first 4 bytes of the tuple data area.

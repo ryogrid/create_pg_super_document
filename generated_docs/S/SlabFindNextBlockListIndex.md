@@ -24,7 +24,7 @@ The function returns 0 if no blocks with free space are found, indicating that a
   - [SlabContext](SlabContext.md) (struct type)
   - SLAB_BLOCKLIST_COUNT (constant)
   - [dlist_is_empty](../d/dlist_is_empty.md) (function to check if doubly-linked list is empty)
-  - MemoryChunk (struct type)
+  - [MemoryChunk](../M/MemoryChunk.md) (struct type)
 - Called from (representative examples):
   - [SlabAlloc](SlabAlloc.md)
   - [SlabFree](SlabFree.md)

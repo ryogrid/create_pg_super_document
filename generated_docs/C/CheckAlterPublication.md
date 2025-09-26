@@ -24,7 +24,7 @@ This internal validation function performs comprehensive checks before allowing 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - superuser (privilege checking)
+  - [superuser](../s/superuser.md) (privilege checking)
   - ereport (error reporting)
   - GETSTRUCT (tuple data extraction)
   - NameStr (name string extraction)

@@ -25,10 +25,10 @@ This function creates a RangeTblEntry for Ephemeral Named Relations, which are t
 - Functions called/Symbols referenced:
   - makeNode (for RangeTblEntry creation)
   - [get_visible_ENR](../g/get_visible_ENR.md) (to retrieve ENR metadata from query environment)
-  - ENRMetadataGetTupDesc (to get tuple descriptor from ENR metadata)
+  - [ENRMetadataGetTupDesc](../E/ENRMetadataGetTupDesc.md) (to get tuple descriptor from ENR metadata)
   - [makeAlias](../m/makeAlias.md) (for alias creation)
   - [buildRelationAliases](../b/buildRelationAliases.md) (for column alias resolution)
-  - lappend_oid, lappend_int (for column type management)
+  - [lappend_oid](../l/lappend_oid.md), lappend_int (for column type management)
   - [buildNSItemFromTupleDesc](../b/buildNSItemFromTupleDesc.md) (for ParseNamespaceItem construction)
   - TupleDescAttr (for accessing tuple descriptor attributes)
 - Called from (representative examples):

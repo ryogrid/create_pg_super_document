@@ -33,7 +33,7 @@ The implementation uses PostgreSQL's tsearch_readline facility to read the file 
   - [palloc](../p/palloc.md)/repalloc (PostgreSQL memory allocation)
   - [pfree](../p/pfree.md) (PostgreSQL memory deallocation)
   - qsort (standard sorting function)
-  - pg_qsort_strcmp (PostgreSQL string comparison for qsort)
+  - [pg_qsort_strcmp](../p/pg_qsort_strcmp.md) (PostgreSQL string comparison for qsort)
 - Called from (representative examples):
   - [dsnowball_init](../d/dsnowball_init.md) (Snowball dictionary initialization)
   - [dispell_init](../d/dispell_init.md) (Ispell dictionary initialization)

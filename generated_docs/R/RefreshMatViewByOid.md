@@ -30,7 +30,7 @@ Key validation steps include verifying the relation is a materialized view, chec
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open, table_close (relation access functions)
+  - [table_open](../t/table_open.md), table_close (relation access functions)
   - [GetUserIdAndSecContext](../G/GetUserIdAndSecContext.md), SetUserIdAndSecContext (security context management)
   - [NewGUCNestLevel](../N/NewGUCNestLevel.md), RestrictSearchPath (GUC and search path management)
   - RelationIsPopulated (checks if materialized view is populated)

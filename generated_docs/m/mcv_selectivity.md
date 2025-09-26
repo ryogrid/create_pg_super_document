@@ -34,19 +34,19 @@ The function supports both `VAR OP CONST` and `CONST OP VAR` forms based on the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - statistic_proc_security_check
-  - get_attstatsslot
+  - [statistic_proc_security_check](../s/statistic_proc_security_check.md)
+  - [get_attstatsslot](../g/get_attstatsslot.md)
   - InitFunctionCallInfoData
   - FunctionCallInvoke
-  - free_attstatsslot
+  - [free_attstatsslot](../f/free_attstatsslot.md)
   - STATISTIC_KIND_MCV
   - ATTSTATSSLOT_VALUES
   - ATTSTATSSLOT_NUMBERS
 - Called from (representative examples):
-  - scalarineqsel
-  - generic_restriction_selectivity
-  - patternsel_common
-  - networksel
+  - [scalarineqsel](../s/scalarineqsel.md)
+  - [generic_restriction_selectivity](../g/generic_restriction_selectivity.md)
+  - [patternsel_common](../p/patternsel_common.md)
+  - [networksel](../n/networksel.md)
 
 ## Notes and Other Information
 - Returns 0.0 for both selectivity and sumcommon if no MCV list is available

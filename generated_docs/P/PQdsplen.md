@@ -26,7 +26,7 @@ This function provides a wrapper around pg_encoding_dsplen() to determine how ma
   - [pg_wcswidth](../p/pg_wcswidth.md) (src/fe_utils/mbprint.c:190)
   - [pg_wcssize](../p/pg_wcssize.md) (src/fe_utils/mbprint.c:226)
   - [pg_wcsformat](../p/pg_wcsformat.md) (src/fe_utils/mbprint.c:307)
-  - strlen_max_width (src/fe_utils/print.c:3754)
+  - [strlen_max_width](../s/strlen_max_width.md) (src/fe_utils/print.c:3754)
 
 ## Notes and Other Information
 - Returns the display width in character cells, not bytes or logical characters

@@ -23,7 +23,7 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called:
-  - `disable_timeout` (timeout management function)
+  - `[disable_timeout](disable_timeout.md)` (timeout management function)
 
 - Constants referenced:
   - `STARTUP_PROGRESS_TIMEOUT` (timeout identifier)

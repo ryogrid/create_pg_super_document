@@ -33,8 +33,8 @@ This function takes no parameters as it is a void function designed for testing 
   - [ECPGdebug](../E/ECPGdebug.md): Enables ECPG debugging output
   - [ECPGconnect](../E/ECPGconnect.md): Establishes database connection
   - [ECPGdo](../E/ECPGdo.md): Executes SQL statements
-  - ECPGprepare: Prepares SQL statements
-  - ECPGprepared_statement: References prepared statements
+  - [ECPGprepare](../E/ECPGprepare.md): Prepares SQL statements
+  - [ECPGprepared_statement](../E/ECPGprepared_statement.md): References prepared statements
   - [ECPGdisconnect](../E/ECPGdisconnect.md): Closes database connection
   - [sqlprint](../s/sqlprint.md): Prints SQL error/warning messages
   - printf: Standard C library function for output

@@ -26,12 +26,12 @@ This function implements the main page allocation logic for the Free Page Manage
   - relptr_access
   - relptr_copy
   - relptr_is_null
-  - FreePagePushSpanLeader
-  - FreePageBtreeSearch
-  - FreePageBtreeRemove
+  - [FreePagePushSpanLeader](FreePagePushSpanLeader.md)
+  - [FreePageBtreeSearch](FreePageBtreeSearch.md)
+  - [FreePageBtreeRemove](FreePageBtreeRemove.md)
   - [FreePageBtreeAdjustAncestorKeys](FreePageBtreeAdjustAncestorKeys.md)
 - Called from (representative examples):
-  - FreePageManagerGet
+  - [FreePageManagerGet](FreePageManagerGet.md)
   - [FreePageManagerPutInternal](FreePageManagerPutInternal.md) (internal use for span consolidation)
 
 ## Notes and Other Information

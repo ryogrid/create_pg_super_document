@@ -29,9 +29,9 @@ The implementation is marked as pg_attribute_always_inline to ensure it gets inl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExprEvalStep (structure access)
+  - [ExprEvalStep](ExprEvalStep.md) (structure access)
   - [CheckOpSlotCompatibility](../C/CheckOpSlotCompatibility.md)
-  - slot_getattr
+  - [slot_getattr](../s/slot_getattr.md)
 - Called from (representative examples):
   - [ExecJustInnerVar](ExecJustInnerVar.md)
   - [ExecJustOuterVar](ExecJustOuterVar.md)  

@@ -25,12 +25,12 @@ The conversion process involves parsing the timezone specification, determining 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - text_to_cstring_buffer (timezone string extraction)
+  - [text_to_cstring_buffer](text_to_cstring_buffer.md) (timezone string extraction)
   - [DecodeTimezoneName](../D/DecodeTimezoneName.md) (timezone specification parsing)
   - [dt2local](../d/dt2local.md) (timestamp offset application for fixed/dynamic offsets)
   - [timestamp2tm](timestamp2tm.md) (timestamp to broken-down time conversion)
   - [DetermineTimeZoneAbbrevOffset](../D/DetermineTimeZoneAbbrevOffset.md) (dynamic abbreviation offset resolution)
-  - DetermineTimeZoneOffset (full timezone offset determination)
+  - [DetermineTimeZoneOffset](../D/DetermineTimeZoneOffset.md) (full timezone offset determination)
   - [tm2timestamp](tm2timestamp.md) (broken-down time to timestamp conversion)
 - Constants/Types referenced:
   - TZNAME_FIXED_OFFSET, TZNAME_DYNTZ (timezone type indicators)

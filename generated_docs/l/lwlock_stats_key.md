@@ -28,9 +28,9 @@ This key structure is essential for the lock monitoring and performance analysis
 - Functions called/Symbols referenced:
   - (No direct symbol references)
 - Called from (representative examples):
-  - lwlock_stats (structure that uses this as a key)
-  - init_lwlock_stats
-  - get_lwlock_stats_entry
+  - [lwlock_stats](lwlock_stats.md) (structure that uses this as a key)
+  - [init_lwlock_stats](../i/init_lwlock_stats.md)
+  - [get_lwlock_stats_entry](../g/get_lwlock_stats_entry.md)
 
 ## Notes and Other Information
 - This structure is used as a key in hash tables or similar data structures for lock statistics

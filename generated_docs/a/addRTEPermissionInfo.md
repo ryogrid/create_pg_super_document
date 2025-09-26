@@ -21,8 +21,8 @@ RTEPermissionInfo *addRTEPermissionInfo(List **rteperminfos, RangeTblEntry *rte)
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode
-  - lappend
-  - list_length
+  - [lappend](../l/lappend.md)
+  - [list_length](../l/list_length.md)
   - OidIsValid (via Assert)
 - Data structures used:
   - [RTEPermissionInfo](../R/RTEPermissionInfo.md)

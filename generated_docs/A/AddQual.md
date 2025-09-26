@@ -34,7 +34,7 @@ The function is primarily used during rule processing where additional condition
 ## Dependencies
 - Functions called/Symbols referenced:
   - CMD_UTILITY (command type constant)
-  - NotifyStmt (utility statement type)
+  - [NotifyStmt](../N/NotifyStmt.md) (utility statement type)
   - copyObject (deep copy function for parse tree nodes)
   - [make_and_qual](../m/make_and_qual.md) (creates AND combination of qualifiers)
   - [contain_aggs_of_level](../c/contain_aggs_of_level.md) (checks for aggregate functions)

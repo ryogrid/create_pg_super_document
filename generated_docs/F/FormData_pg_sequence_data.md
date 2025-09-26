@@ -30,10 +30,10 @@ The structure is essential for sequence operations like nextval(), currval(), an
 - Functions called/Symbols referenced:
   - None (this is a pure data structure)
 - Called from (representative examples):
-  - DefineSequence (used to initialize sequence data during sequence creation)
-  - nextval_internal (accessed via Form_pg_sequence_data pointer for sequence value generation)
-  - do_setval (used when setting sequence values explicitly)
-  - seq_redo (used during WAL replay for sequence operations)
+  - [DefineSequence](../D/DefineSequence.md) (used to initialize sequence data during sequence creation)
+  - [nextval_internal](../n/nextval_internal.md) (accessed via Form_pg_sequence_data pointer for sequence value generation)
+  - [do_setval](../d/do_setval.md) (used when setting sequence values explicitly)
+  - [seq_redo](../s/seq_redo.md) (used during WAL replay for sequence operations)
 
 ## Notes and Other Information
 - This structure corresponds to the three columns defined by SEQ_COL_LASTVAL, SEQ_COL_LOG, and SEQ_COL_CALLED constants

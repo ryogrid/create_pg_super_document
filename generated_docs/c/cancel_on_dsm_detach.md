@@ -25,16 +25,16 @@ This functionality is important for scenarios where a callback registration need
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dsm_segment (structure type)
-  - slist_mutable_iter (iterator type)
+  - [dsm_segment](../d/dsm_segment.md) (structure type)
+  - [slist_mutable_iter](../s/slist_mutable_iter.md) (iterator type)
   - slist_foreach_modify (linked list iteration macro)
-  - dsm_segment_detach_callback (structure type)
+  - [dsm_segment_detach_callback](../d/dsm_segment_detach_callback.md) (structure type)
   - slist_container (macro to get container from list node)
-  - slist_delete_current (list modification function)
-  - pfree (memory deallocation function)
+  - [slist_delete_current](../s/slist_delete_current.md) (list modification function)
+  - [pfree](../p/pfree.md) (memory deallocation function)
 - Called from (representative examples):
-  - shm_mq_detach
-  - test_shm_mq_setup
+  - [shm_mq_detach](../s/shm_mq_detach.md)
+  - [test_shm_mq_setup](../t/test_shm_mq_setup.md)
 
 ## Notes and Other Information
 - Both the function pointer and argument must match exactly for a callback to be removed

@@ -52,7 +52,7 @@ As an enum value, RLS_ENABLED has no parameters or members, but it is used as a 
   -  (src/backend/utils/misc/rls.c:166)
 
 ## Notes and Other Information
-- RLS_ENABLED is part of PostgreSQL's Row Level Security feature introduced to provide fine-grained access control at the row level
+- [RLS_ENABLED](RLS_ENABLED.md) is part of PostgreSQL's Row Level Security feature introduced to provide fine-grained access control at the row level
 - When  parameter is true in , RLS_ENABLED may be returned even when  GUC is disabled, allowing callers to test RLS applicability without triggering errors
 - The return of RLS_ENABLED requires query plan cache invalidation because RLS policies are sensitive to the current user context and security settings
 - This value is critical for maintaining data security in multi-tenant applications and environments where different users should see different subsets of table data

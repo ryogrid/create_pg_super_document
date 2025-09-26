@@ -36,15 +36,15 @@ Key features include:
 ## Dependencies
 - Functions called/Symbols referenced:
   - JsonParseErrorType (parameter type)
-  - JsonLexContext (parameter type)
-  - resetStringInfo (StringInfo management)
-  - makeStringInfo (StringInfo creation)
-  - appendStringInfo (error message formatting)
-  - GetDatabaseEncodingName (backend-only encoding information)
+  - [JsonLexContext](../J/JsonLexContext.md) (parameter type)
+  - [resetStringInfo](../r/resetStringInfo.md) (StringInfo management)
+  - [makeStringInfo](../m/makeStringInfo.md) (StringInfo creation)
+  - [appendStringInfo](../a/appendStringInfo.md) (error message formatting)
+  - [GetDatabaseEncodingName](../G/GetDatabaseEncodingName.md) (backend-only encoding information)
 - Called from (representative examples):
-  - json_errsave_error (backend JSON functions error handling)
-  - json_parse_manifest_incremental_chunk (manifest parsing)
-  - json_parse_manifest (complete manifest parsing)
+  - [json_errsave_error](json_errsave_error.md) (backend JSON functions error handling)
+  - [json_parse_manifest_incremental_chunk](json_parse_manifest_incremental_chunk.md) (manifest parsing)
+  - [json_parse_manifest](json_parse_manifest.md) (complete manifest parsing)
   - Various test functions for JSON parser validation
 
 ## Notes and Other Information

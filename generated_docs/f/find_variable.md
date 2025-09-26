@@ -21,8 +21,8 @@ The function will terminate the program with a fatal error if the requested vari
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_struct: Handles struct/union member lookup
-  - find_simple: Performs simple variable name lookup
+  - [find_struct](find_struct.md): Handles struct/union member lookup
+  - [find_simple](find_simple.md): Performs simple variable name lookup
   - [new_variable](../n/new_variable.md): Creates new variable structures for complex expressions
   - [ECPGmake_array_type](../E/ECPGmake_array_type.md): Creates array type structures
   - [ECPGmake_struct_type](../E/ECPGmake_struct_type.md): Creates struct/union type structures
@@ -33,7 +33,7 @@ The function will terminate the program with a fatal error if the requested vari
   - [output_get_descr](../o/output_get_descr.md): During descriptor output generation
   - [output_set_descr](../o/output_set_descr.md): During descriptor setting operations
   - [ECPGdump_a_type](../E/ECPGdump_a_type.md): When dumping type information
-  - find_struct: For recursive struct member lookup
+  - [find_struct](find_struct.md): For recursive struct member lookup
 
 ## Notes and Other Information
 - The function modifies the input string temporarily during parsing but restores it

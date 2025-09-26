@@ -24,8 +24,8 @@ The function handles various zstd-specific configuration options including compr
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc0](../p/palloc0.md)
-  - initStringInfo
-  - enlargeStringInfo
+  - [initStringInfo](../i/initStringInfo.md)
+  - [enlargeStringInfo](../e/enlargeStringInfo.md)
   - ZSTD_createCCtx
   - ZSTD_CCtx_setParameter
   - ZSTD_DStreamOutSize

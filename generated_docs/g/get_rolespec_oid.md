@@ -31,26 +31,26 @@ This design enforces that PUBLIC must be handled separately by calling code, pre
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RoleSpec (parser node type for role specifications)
+  - [RoleSpec](../R/RoleSpec.md) (parser node type for role specifications)
   - ROLESPEC_CSTRING (enum value for string role names)
   - ROLESPEC_CURRENT_ROLE (enum value for CURRENT_ROLE keyword)
   - ROLESPEC_CURRENT_USER (enum value for CURRENT_USER keyword) 
   - ROLESPEC_SESSION_USER (enum value for SESSION_USER keyword)
   - ROLESPEC_PUBLIC (enum value for PUBLIC keyword)
-  - get_role_oid (role name to OID conversion)
-  - GetUserId (returns current user OID)
-  - GetSessionUserId (returns session user OID)
+  - [get_role_oid](get_role_oid.md) (role name to OID conversion)
+  - [GetUserId](../G/GetUserId.md) (returns current user OID)
+  - [GetSessionUserId](../G/GetSessionUserId.md) (returns session user OID)
   - Assert (assertion macro)
   - ereport/elog (error reporting functions)
 - Called from (representative examples):
-  - ExecuteGrantStmt (GRANT/REVOKE statement execution)
-  - ExecAlterDefaultPrivilegesStmt (ALTER DEFAULT PRIVILEGES)
-  - ExecAlterOwnerStmt (ALTER OWNER commands)
-  - CreateUserMapping (foreign server user mappings)
-  - policy_role_list_to_array (row-level security policies)
-  - CreateSchemaCommand (schema creation)
-  - GrantRole (role granting)
-  - roleSpecsToIds (batch role specification conversion)
+  - [ExecuteGrantStmt](../E/ExecuteGrantStmt.md) (GRANT/REVOKE statement execution)
+  - [ExecAlterDefaultPrivilegesStmt](../E/ExecAlterDefaultPrivilegesStmt.md) (ALTER DEFAULT PRIVILEGES)
+  - [ExecAlterOwnerStmt](../E/ExecAlterOwnerStmt.md) (ALTER OWNER commands)
+  - [CreateUserMapping](../C/CreateUserMapping.md) (foreign server user mappings)
+  - [policy_role_list_to_array](../p/policy_role_list_to_array.md) (row-level security policies)
+  - [CreateSchemaCommand](../C/CreateSchemaCommand.md) (schema creation)
+  - [GrantRole](../G/GrantRole.md) (role granting)
+  - [roleSpecsToIds](../r/roleSpecsToIds.md) (batch role specification conversion)
 
 ## Notes and Other Information
 - PUBLIC is explicitly rejected with an error message "role \"public\" does not exist"

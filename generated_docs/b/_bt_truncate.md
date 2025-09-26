@@ -42,7 +42,7 @@ The algorithm determines the minimum number of attributes needed by calling _bt_
   - IndexRelationGetNumberOfAttributes
 - Called from (representative examples):
   - [_bt_split](_bt_split.md)
-  - _bt_buildadd
+  - [_bt_buildadd](_bt_buildadd.md)
 
 ## Notes and Other Information
 This function is critical for B-tree space efficiency and performance. Truncated pivot tuples reduce internal page size, allowing for higher fanout and better cache utilization. The function must carefully maintain Lehman & Yao invariants for concurrent B-tree operations, ensuring that pivot values serve as proper separators between left and right pages. The heap TID tiebreaker mechanism handles cases where key attributes alone cannot provide sufficient discrimination between split points.

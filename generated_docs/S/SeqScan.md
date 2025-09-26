@@ -24,14 +24,14 @@ Sequential scans are the most straightforward scan method but can be expensive f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Scan (inherited base structure)
+  - [Scan](Scan.md) (inherited base structure)
 
 - Called from (representative examples):
-  - ExecInitSeqScan (executor initialization)
-  - create_seqscan_plan (planner function to create sequential scan plans)
-  - make_seqscan (utility function to construct SeqScan nodes)
-  - set_plan_refs (plan reference setting)
-  - ExecInitNode (general node initialization)
+  - [ExecInitSeqScan](../E/ExecInitSeqScan.md) (executor initialization)
+  - [create_seqscan_plan](../c/create_seqscan_plan.md) (planner function to create sequential scan plans)
+  - [make_seqscan](../m/make_seqscan.md) (utility function to construct SeqScan nodes)
+  - [set_plan_refs](../s/set_plan_refs.md) (plan reference setting)
+  - [ExecInitNode](../E/ExecInitNode.md) (general node initialization)
 
 ## Notes and Other Information
 - This is the simplest and most basic scan type in PostgreSQL

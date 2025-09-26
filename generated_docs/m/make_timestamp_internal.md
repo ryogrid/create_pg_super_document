@@ -32,7 +32,7 @@ It handles negative years by treating them as BC (Before Christ) dates and conve
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ValidateDate
+  - [ValidateDate](../V/ValidateDate.md)
   - IS_VALID_JULIAN
   - [date2j](../d/date2j.md)
   - [float_time_overflows](../f/float_time_overflows.md)

@@ -31,18 +31,18 @@ This function takes no parameters but initializes several key components:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `SerialPagePrecedesLogically`
-  - `SimpleLruInit`
-  - `SerialPagePrecedesLogicallyUnitTests`
-  - `SlruPagePrecedesUnitTests`
-  - `ShmemInitStruct`
-  - `LWLockAcquire`/`LWLockRelease`
+  - `[SerialPagePrecedesLogically](SerialPagePrecedesLogically.md)`
+  - `[SimpleLruInit](SimpleLruInit.md)`
+  - `[SerialPagePrecedesLogicallyUnitTests](SerialPagePrecedesLogicallyUnitTests.md)`
+  - `[SlruPagePrecedesUnitTests](SlruPagePrecedesUnitTests.md)`
+  - `[ShmemInitStruct](ShmemInitStruct.md)`
+  - `[LWLockAcquire](../L/LWLockAcquire.md)`/`LWLockRelease`
   - `LWTRANCHE_SERIAL_BUFFER`
   - `LWTRANCHE_SERIAL_SLRU`
   - `SYNC_HANDLER_NONE`
   - `SERIAL_ENTRIESPERPAGE`
 - Called from (representative examples):
-  - `InitPredicateLocks`
+  - `[InitPredicateLocks](../I/InitPredicateLocks.md)`
 
 ## Notes and Other Information
 - Called during PostgreSQL startup to initialize the serializable isolation subsystem

@@ -35,19 +35,19 @@ The function must be called with elements in sequential order (index 0, 1, 2, et
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fetch_att
+  - [fetch_att](../f/fetch_att.md)
   - att_addlength_pointer
   - att_align_nominal
 - Called from (representative examples):
-  - array_out
-  - array_send
-  - array_map
-  - array_eq
-  - array_cmp
-  - hash_array
-  - hash_array_extended
-  - array_contain_compare
-  - array_unnest_fctx
+  - [array_out](array_out.md)
+  - [array_send](array_send.md)
+  - [array_map](array_map.md)
+  - [array_eq](array_eq.md)
+  - [array_cmp](array_cmp.md)
+  - [hash_array](../h/hash_array.md)
+  - [hash_array_extended](../h/hash_array_extended.md)
+  - [array_contain_compare](array_contain_compare.md)
+  - [array_unnest_fctx](array_unnest_fctx.md)
 
 ## Notes and Other Information
 - This is an inline function defined in arrayaccess.h for performance
@@ -55,5 +55,5 @@ The function must be called with elements in sequential order (index 0, 1, 2, et
 - The bitmask starts at 1 and shifts left for each element, wrapping every 8 elements (0x100)
 - For expanded arrays without null information (isnullptr is NULL), all elements are assumed non-NULL
 - The function automatically handles memory alignment requirements for different data types
-- Variable-length elements require proper length calculation using att_addlength_pointer
+- [Variable](../V/Variable.md)-length elements require proper length calculation using att_addlength_pointer
 - The caller is responsible for providing the correct element index and type information

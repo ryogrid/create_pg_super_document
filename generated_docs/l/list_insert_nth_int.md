@@ -25,7 +25,7 @@ Like its generic counterpart, this function has O(n) time complexity proportiona
 - Functions called/Symbols referenced:
   - `list_make1_int`: Creates a new single-element integer list (used for NIL case)
   - `IsIntegerList`: Validates that the list contains integer elements
-  - `insert_new_cell`: Internal helper function to create and position a new list cell
+  - `[insert_new_cell](../i/insert_new_cell.md)`: Internal helper function to create and position a new list cell
   - `lfirst_int`: Macro to access the integer value of a list cell
   - [check_list_invariants](../c/check_list_invariants.md): Debug function to verify list structural integrity
 

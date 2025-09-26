@@ -29,7 +29,7 @@ The function ensures proper cleanup during both successful subtransaction commit
 - Functions called/Symbols referenced:
   - [dlist_is_empty](../d/dlist_is_empty.md)
   - dlist_head_element
-  - DestroyParallelContext
+  - [DestroyParallelContext](../D/DestroyParallelContext.md)
   - elog
 
 - Called from (representative examples):

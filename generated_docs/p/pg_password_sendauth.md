@@ -38,7 +38,7 @@ For MD5 authentication, the function performs double MD5 hashing: first hashing 
   - MD5_PASSWD_LEN
   - PqMsg_PasswordMessage
 - Called from:
-  - pg_fe_sendauth
+  - [pg_fe_sendauth](pg_fe_sendauth.md)
 
 ## Notes and Other Information
 - For MD5 authentication, allocates space for two MD5 hashes (2 * (MD5_PASSWD_LEN + 1) bytes)

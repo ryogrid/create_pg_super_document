@@ -28,21 +28,21 @@ This is a fundamental function used throughout PostgreSQL's role and permission 
 ## Dependencies
 - Functions called/Symbols referenced:
   - GetSysCacheOid1 (system catalog cache lookup function)
-  - CStringGetDatum (converts C string to PostgreSQL Datum)
+  - [CStringGetDatum](../C/CStringGetDatum.md) (converts C string to PostgreSQL Datum)
   - OidIsValid (macro to check if OID is valid)
   - ereport (PostgreSQL error reporting function)
   - ERRCODE_UNDEFINED_OBJECT (error code constant)
 - Called from (representative examples):
-  - get_object_address_unqualified (object address resolution)
-  - createdb (database creation)
-  - CreateRole (role creation)
-  - GrantRole (role granting)
-  - is_member (HBA membership checking)
-  - check_hba (HBA authentication)
-  - aclparse (ACL parsing)
+  - [get_object_address_unqualified](get_object_address_unqualified.md) (object address resolution)
+  - [createdb](../c/createdb.md) (database creation)
+  - [CreateRole](../C/CreateRole.md) (role creation)
+  - [GrantRole](../G/GrantRole.md) (role granting)
+  - [is_member](../i/is_member.md) (HBA membership checking)
+  - [check_hba](../c/check_hba.md) (HBA authentication)
+  - [aclparse](../a/aclparse.md) (ACL parsing)
   - pg_has_role_* functions (role checking functions)
-  - get_role_oid_or_public (extended role lookup)
-  - get_rolespec_oid (rolespec conversion)
+  - [get_role_oid_or_public](get_role_oid_or_public.md) (extended role lookup)
+  - [get_rolespec_oid](get_rolespec_oid.md) (rolespec conversion)
 
 ## Notes and Other Information
 - Uses the AUTHNAME system cache for efficient role name lookups

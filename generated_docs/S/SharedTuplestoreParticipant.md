@@ -28,13 +28,13 @@ SharedTuplestoreParticipant maintains the state for each participant in a shared
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLock (lightweight lock structure for inter-process synchronization)
+  - [LWLock](../L/LWLock.md) (lightweight lock structure for inter-process synchronization)
 
 - Called from (representative examples):
-  - SharedTuplestore (main structure that contains arrays of participants)
-  - sts_estimate (function that estimates memory requirements based on participant count)
-  - sts_puttuple (function that uses participant state during tuple writing)
-  - sts_parallel_scan_next (function that manages participant state during parallel scanning)
+  - [SharedTuplestore](SharedTuplestore.md) (main structure that contains arrays of participants)
+  - [sts_estimate](../s/sts_estimate.md) (function that estimates memory requirements based on participant count)
+  - [sts_puttuple](../s/sts_puttuple.md) (function that uses participant state during tuple writing)
+  - [sts_parallel_scan_next](../s/sts_parallel_scan_next.md) (function that manages participant state during parallel scanning)
 
 ## Notes and Other Information
 - Each participant in a shared tuple store operation has its own instance of this structure

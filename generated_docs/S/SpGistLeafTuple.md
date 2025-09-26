@@ -26,15 +26,15 @@ The underlying SpGistLeafTupleData structure contains:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SpGistLeafTupleData (underlying structure)
-  - ItemPointerData (for heap tuple references)
+  - [SpGistLeafTupleData](SpGistLeafTupleData.md) (underlying structure)
+  - [ItemPointerData](../I/ItemPointerData.md) (for heap tuple references)
 
 - Called from (representative examples):
-  - addLeafTuple (spgdoinsert.c:203)
-  - spgFormLeafTuple (spgutils.c:866)
-  - spgDeformLeafTuple (spgutils.c:1107)
-  - vacuumLeafPage (spgvacuum.c:149)
-  - spgLeafTest (spgscan.c:517)
+  - [addLeafTuple](../a/addLeafTuple.md) (spgdoinsert.c:203)
+  - [spgFormLeafTuple](../s/spgFormLeafTuple.md) (spgutils.c:866)
+  - [spgDeformLeafTuple](../s/spgDeformLeafTuple.md) (spgutils.c:1107)
+  - [vacuumLeafPage](../v/vacuumLeafPage.md) (spgvacuum.c:149)
+  - [spgLeafTest](../s/spgLeafTest.md) (spgscan.c:517)
 
 ## Notes and Other Information
 - The size field is intentionally wider than needed for on-disk storage to support temporary large datums during tuple formation

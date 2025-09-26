@@ -36,7 +36,7 @@ Advanced features validation:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_compress_algorithm_name
+  - [get_compress_algorithm_name](../g/get_compress_algorithm_name.md)
   - [psprintf](../p/psprintf.md)
   - PG_COMPRESSION_GZIP
   - PG_COMPRESSION_LZ4

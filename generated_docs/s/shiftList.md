@@ -36,7 +36,7 @@ This function is responsible for removing processed pages from GIN's pending lis
   - [XLogRegisterBuffer](../X/XLogRegisterBuffer.md)
   - [XLogRegisterData](../X/XLogRegisterData.md)
   - [XLogInsert](../X/XLogInsert.md)
-  - RecordFreeIndexPage
+  - [RecordFreeIndexPage](../R/RecordFreeIndexPage.md)
 - Called from (representative examples):
   - [ginInsertCleanup](../g/ginInsertCleanup.md)
 

@@ -32,14 +32,14 @@ The Quick Check properties can return:
 ## Dependencies
 - Functions called/Symbols referenced:
   - UnicodeNormalizationForm (normalization form enumeration)
-  - UnicodeNormalizationQC (Quick Check result enumeration)
-  - pg_unicode_normprops (normalization properties structure)
+  - [UnicodeNormalizationQC](../U/UnicodeNormalizationQC.md) (Quick Check result enumeration)
+  - [pg_unicode_normprops](../p/pg_unicode_normprops.md) (normalization properties structure)
   - UNICODE_NFC, UNICODE_NFKC (normalization form constants)
-  - qc_hash_lookup (hash table lookup function)
+  - [qc_hash_lookup](qc_hash_lookup.md) (hash table lookup function)
   - UnicodeNormInfo_NFC_QC, UnicodeNormInfo_NFKC_QC (Quick Check tables)
   - UNICODE_NORM_QC_YES (default Quick Check result)
 - Called from (representative examples):
-  - unicode_is_normalized_quickcheck
+  - [unicode_is_normalized_quickcheck](../u/unicode_is_normalized_quickcheck.md)
 
 ## Notes and Other Information
 - Returns `UnicodeNormalizationQC` enumeration value

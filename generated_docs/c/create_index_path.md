@@ -51,7 +51,7 @@ The function delegates cost calculation to , which considers factors like index 
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (creates new IndexPath node)
-  - get_baserel_parampathinfo (handles parameterization)
+  - [get_baserel_parampathinfo](../g/get_baserel_parampathinfo.md) (handles parameterization)
   - [cost_index](cost_index.md) (calculates index scan costs)
   - [IndexOptInfo](../I/IndexOptInfo.md), ScanDirection, IndexPath (types)
   - T_IndexScan, T_IndexOnlyScan (pathtype constants)

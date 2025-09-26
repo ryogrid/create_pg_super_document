@@ -22,13 +22,13 @@ This function converts string-based token type names into structured TSTokenType
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lookup_ts_parser_cache](../l/lookup_ts_parser_cache.md)
-  - TSParserCacheEntry
+  - [TSParserCacheEntry](../T/TSParserCacheEntry.md)
   - LexDescr
   - OidFunctionCall1
-  - String
+  - [String](../S/String.md)
   - [tstoken_list_member](../t/tstoken_list_member.md)
   - TSTokenTypeItem
-  - list_length, lfirst_node, lappend, palloc0, pstrdup, strVal
+  - [list_length](../l/list_length.md), lfirst_node, lappend, palloc0, pstrdup, strVal
 - Called from (representative examples):
   - [MakeConfigurationMapping](../M/MakeConfigurationMapping.md)
   - [DropConfigurationMapping](../D/DropConfigurationMapping.md)

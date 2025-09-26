@@ -42,9 +42,9 @@ The pg_enc enumeration serves as the central registry for all character encoding
 - Functions called/Symbols referenced:
   - None (this is a type definition)
 - Called from (representative examples):
-  - pg_encname
+  - [pg_encname](pg_encname.md)
   - [pg_enc2name](pg_enc2name.md)
-  - encoding_match
+  - [encoding_match](../e/encoding_match.md)
   - [stemmer_module](../s/stemmer_module.md)
   - [xml_out_internal](../x/xml_out_internal.md)
 

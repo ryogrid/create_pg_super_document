@@ -29,16 +29,16 @@ The function automatically invokes the per-file callback for each file entry fou
 - Functions called/Symbols referenced:
   - [makeJsonLexContextCstringLen](../m/makeJsonLexContextCstringLen.md)
   - [json_manifest_object_start](json_manifest_object_start.md)
-  - json_manifest_object_end
-  - json_manifest_array_start
-  - json_manifest_array_end
-  - json_manifest_object_field_start
-  - json_manifest_scalar
+  - [json_manifest_object_end](json_manifest_object_end.md)
+  - [json_manifest_array_start](json_manifest_array_start.md)
+  - [json_manifest_array_end](json_manifest_array_end.md)
+  - [json_manifest_object_field_start](json_manifest_object_field_start.md)
+  - [json_manifest_scalar](json_manifest_scalar.md)
   - [pg_parse_json](../p/pg_parse_json.md)
-  - json_manifest_parse_failure
-  - json_errdetail
-  - verify_manifest_checksum
-  - freeJsonLexContext
+  - [json_manifest_parse_failure](json_manifest_parse_failure.md)
+  - [json_errdetail](json_errdetail.md)
+  - [verify_manifest_checksum](../v/verify_manifest_checksum.md)
+  - [freeJsonLexContext](../f/freeJsonLexContext.md)
   - JSON_SUCCESS
   - JM_EXPECT_TOPLEVEL_START
   - JM_EXPECT_EOF

@@ -29,16 +29,16 @@ This design pattern ensures that all specific shared statistics structures (PgSt
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLock (lightweight lock type)
+  - [LWLock](../L/LWLock.md) (lightweight lock type)
 - Called from (representative examples):
-  - pgstat_init_entry (statistics entry initialization)
-  - pgstat_acquire_entry_ref (entry reference acquisition)
-  - pgstat_get_entry_ref (entry reference lookup)
-  - pgstat_build_snapshot (snapshot building)
-  - pgstat_get_entry_data (data access helper)
-  - PgStatShared_Database (database statistics structure)
-  - PgStatShared_Relation (relation statistics structure)
-  - PgStatShared_Function (function statistics structure)
+  - [pgstat_init_entry](../p/pgstat_init_entry.md) (statistics entry initialization)
+  - [pgstat_acquire_entry_ref](../p/pgstat_acquire_entry_ref.md) (entry reference acquisition)
+  - [pgstat_get_entry_ref](../p/pgstat_get_entry_ref.md) (entry reference lookup)
+  - [pgstat_build_snapshot](../p/pgstat_build_snapshot.md) (snapshot building)
+  - [pgstat_get_entry_data](../p/pgstat_get_entry_data.md) (data access helper)
+  - [PgStatShared_Database](PgStatShared_Database.md) (database statistics structure)
+  - [PgStatShared_Relation](PgStatShared_Relation.md) (relation statistics structure)
+  - [PgStatShared_Function](PgStatShared_Function.md) (function statistics structure)
 
 ## Notes and Other Information
 - This structure must be the first field in all PgStatShared_* structures to maintain binary compatibility and enable generic access patterns

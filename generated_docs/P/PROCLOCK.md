@@ -36,7 +36,7 @@ The PROCLOCK structure is stored in a shared memory hash table and enables the l
 - `procLink`: Doubly-linked list node for chaining this proclock in the associated PGPROC's list of proclocks
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PROCLOCKTAG
+  - [PROCLOCKTAG](PROCLOCKTAG.md)
   - [PGPROC](PGPROC.md)
   - LOCKMASK
   - [dlist_node](../d/dlist_node.md)

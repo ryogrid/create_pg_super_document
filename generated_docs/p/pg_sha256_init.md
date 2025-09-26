@@ -20,14 +20,14 @@ pg_sha256_init is the initialization function for SHA-256 hashing in PostgreSQL.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_sha256_ctx (context structure type)
+  - [pg_sha256_ctx](pg_sha256_ctx.md) (context structure type)
   - PG_SHA256_DIGEST_LENGTH (constant for digest length)
   - PG_SHA256_BLOCK_LENGTH (constant for block length)
   - sha256_initial_hash_value (initial hash constants)
   - memcpy (standard library function)
   - memset (standard library function)
 - Called from (representative examples):
-  - pg_cryptohash_init (in src/common/cryptohash.c)
+  - [pg_cryptohash_init](pg_cryptohash_init.md) (in src/common/cryptohash.c)
 
 ## Notes and Other Information
 - This function performs null pointer validation before initialization

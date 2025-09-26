@@ -27,7 +27,7 @@ This function is essential for maintaining consistency in READ COMMITTED isolati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecQualAndReset
+  - [ExecQualAndReset](../E/ExecQualAndReset.md)
 - Called from (representative examples):
   - ReorderTuple (nodeIndexscan.c:61)
   - [ExecIndexScan](../E/ExecIndexScan.md) (nodeIndexscan.c:532, 536)

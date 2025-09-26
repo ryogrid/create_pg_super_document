@@ -97,13 +97,13 @@ The process uses a hibernation mechanism to reduce CPU usage when there's little
   - [AuxiliaryProcessMainCommon](../A/AuxiliaryProcessMainCommon.md)
   - [XLogBackgroundFlush](../X/XLogBackgroundFlush.md)
   - [SetWalWriterSleeping](../S/SetWalWriterSleeping.md)
-  - pgstat_report_wal
+  - [pgstat_report_wal](../p/pgstat_report_wal.md)
   - [HandleMainLoopInterrupts](../H/HandleMainLoopInterrupts.md)
   - [WaitLatch](WaitLatch.md)
   - [pqsignal](../p/pqsignal.md) (for signal handler setup)
   - AllocSetContextCreate
   - [EmitErrorReport](../E/EmitErrorReport.md)
-  - LWLockReleaseAll
+  - [LWLockReleaseAll](../L/LWLockReleaseAll.md)
   - [ConditionVariableCancelSleep](../C/ConditionVariableCancelSleep.md)
   - [UnlockBuffers](../U/UnlockBuffers.md)
   - [ReleaseAuxProcessResources](../R/ReleaseAuxProcessResources.md)

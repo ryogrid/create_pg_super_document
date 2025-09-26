@@ -32,14 +32,14 @@ The resulting lists maintain correspondence by position, making it easy to apply
 ## Dependencies
 - Functions called/Symbols referenced:
   - ARR_ELEMTYPE/ARR_NDIM/ARR_LBOUND/ARR_DIMS (array metadata macros)
-  - array_ref (extract individual array elements)
+  - [array_ref](../a/array_ref.md) (extract individual array elements)
   - TextDatumGetCString (convert text datum to C string)
-  - ParseLongOption (parse "name=value" strings)
-  - lappend (append to linked lists)
-  - pfree (free allocated memory)
+  - [ParseLongOption](../P/ParseLongOption.md) (parse "name=value" strings)
+  - [lappend](../l/lappend.md) (append to linked lists)
+  - [pfree](../p/pfree.md) (free allocated memory)
 - Called from (representative examples):
-  - fmgr_security_definer (src/backend/utils/fmgr/fmgr.c:679)
-  - ProcessGUCArray (src/backend/utils/misc/guc.c:6472)
+  - [fmgr_security_definer](../f/fmgr_security_definer.md) (src/backend/utils/fmgr/fmgr.c:679)
+  - [ProcessGUCArray](../P/ProcessGUCArray.md) (src/backend/utils/misc/guc.c:6472)
 
 ## Notes and Other Information
 - The function expects arrays with 1-based lower bounds (ARR_LBOUND(array)[0] == 1)

@@ -26,7 +26,7 @@ Key features include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - createPQExpBuffer
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)
   - [resetPQExpBuffer](../r/resetPQExpBuffer.md)
   - [printfPQExpBuffer](printfPQExpBuffer.md)
   - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)

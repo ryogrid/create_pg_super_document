@@ -25,11 +25,11 @@ The name field serves as both the hash key for lookup operations and the base na
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - deparse_context (used in conjunction with deparsing operations)
+  - [deparse_context](../d/deparse_context.md) (used in conjunction with deparsing operations)
   - NAMEDATALEN (PostgreSQL constant defining maximum identifier length)
 
 - Called from (representative examples):
-  - set_rtable_names (primary user for name collision detection and resolution)
+  - [set_rtable_names](../s/set_rtable_names.md) (primary user for name collision detection and resolution)
 
 ## Notes and Other Information
 - This structure is specifically designed for PostgreSQL's hash table implementation requirements

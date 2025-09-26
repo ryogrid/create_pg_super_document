@@ -204,7 +204,7 @@ write_data_to_archive_lz4_doc.md: A null-terminated string containing the path t
   - [stat](../s/stat.md) (POSIX system call for getting file status)
   - S_ISDIR (POSIX macro for testing if a file mode represents a directory)
 - Called from (representative examples):
-  - TAPtype (used in TAP test type detection)
+  - [TAPtype](../T/TAPtype.md) (used in TAP test type detection)
   - [open_result_files](../o/open_result_files.md) (used to verify result directories exist before opening files)
   - [regression_main](../r/regression_main.md) (used to check for various test directories during setup)
 

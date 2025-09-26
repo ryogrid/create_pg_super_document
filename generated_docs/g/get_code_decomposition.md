@@ -29,10 +29,10 @@ The function returns a pointer to the decomposition sequence and sets the `dec_s
   - DECOMPOSITION_IS_INLINE (macro)
   - DECOMPOSITION_SIZE (macro)  
   - UnicodeDecomp_codepoints (global array)
-  - pg_unicode_decomposition (structure type)
+  - [pg_unicode_decomposition](../p/pg_unicode_decomposition.md) (structure type)
 - Called from (representative examples):
-  - get_decomposed_size
-  - decompose_code
+  - [get_decomposed_size](get_decomposed_size.md)
+  - [decompose_code](../d/decompose_code.md)
 
 ## Notes and Other Information
 - This is a static function, accessible only within unicode_norm.c

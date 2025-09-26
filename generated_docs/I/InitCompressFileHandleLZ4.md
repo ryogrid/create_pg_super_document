@@ -42,7 +42,7 @@ The function creates a complete abstraction layer that allows the rest of the pg
   - [LZ4Stream_eof](../L/LZ4Stream_eof.md) (assigned as eof_func)
   - [LZ4Stream_close](../L/LZ4Stream_close.md) (assigned as close_func)
   - [LZ4Stream_get_error](../L/LZ4Stream_get_error.md) (assigned as get_error_func)
-  - pg_malloc0 (for state allocation)
+  - [pg_malloc0](../p/pg_malloc0.md) (for state allocation)
 - Called from (representative examples):
   - [InitCompressFileHandle](InitCompressFileHandle.md) (in compress_io.c)
 

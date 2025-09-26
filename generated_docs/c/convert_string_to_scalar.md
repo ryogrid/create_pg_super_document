@@ -38,9 +38,9 @@ This function performs the core work of  for character-string data types. It con
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - convert_one_string_to_scalar (called 3 times for each string conversion)
+  - [convert_one_string_to_scalar](convert_one_string_to_scalar.md) (called 3 times for each string conversion)
 - Called from (representative examples):
-  - convert_to_scalar
+  - [convert_to_scalar](convert_to_scalar.md)
 
 ## Notes and Other Information
 - The function is static, indicating it's an internal implementation detail of the selfuncs.c module

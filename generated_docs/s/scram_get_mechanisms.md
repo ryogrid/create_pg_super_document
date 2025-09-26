@@ -25,8 +25,8 @@ The function supports:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendStringInfoString
-  - appendStringInfoChar
+  - [appendStringInfoString](../a/appendStringInfoString.md)
+  - [appendStringInfoChar](../a/appendStringInfoChar.md)
   - SCRAM_SHA_256_PLUS_NAME
   - SCRAM_SHA_256_NAME
   - USE_SSL (preprocessor macro)

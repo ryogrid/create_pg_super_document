@@ -45,29 +45,29 @@ The context maintains partition metadata, comparison functions, memory managemen
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PartitionBoundInfo
-  - FmgrInfo
-  - MemoryContext
-  - PlanState
-  - ExprContext
-  - ExprState
+  - [PartitionBoundInfo](PartitionBoundInfo.md)
+  - [FmgrInfo](../F/FmgrInfo.md)
+  - [MemoryContext](../M/MemoryContext.md)
+  - [PlanState](PlanState.md)
+  - [ExprContext](../E/ExprContext.md)
+  - [ExprState](../E/ExprState.md)
   - Oid
 
 - Called from (representative examples):
-  - InitPartitionPruneContext (src/backend/executor/execPartition.c:2097)
-  - prune_append_rel_partitions (src/backend/partitioning/partprune.c:755)
-  - get_matching_partitions (src/backend/partitioning/partprune.c:817)
-  - get_matching_hash_bounds (src/backend/partitioning/partprune.c:2663)
-  - get_matching_list_bounds (src/backend/partitioning/partprune.c:2740)
-  - get_matching_range_bounds (src/backend/partitioning/partprune.c:2951)
-  - perform_pruning_base_step (src/backend/partitioning/partprune.c:3416)
-  - perform_pruning_combine_step (src/backend/partitioning/partprune.c:3564)
+  - [InitPartitionPruneContext](../I/InitPartitionPruneContext.md) (src/backend/executor/execPartition.c:2097)
+  - [prune_append_rel_partitions](../p/prune_append_rel_partitions.md) (src/backend/partitioning/partprune.c:755)
+  - [get_matching_partitions](../g/get_matching_partitions.md) (src/backend/partitioning/partprune.c:817)
+  - [get_matching_hash_bounds](../g/get_matching_hash_bounds.md) (src/backend/partitioning/partprune.c:2663)
+  - [get_matching_list_bounds](../g/get_matching_list_bounds.md) (src/backend/partitioning/partprune.c:2740)
+  - [get_matching_range_bounds](../g/get_matching_range_bounds.md) (src/backend/partitioning/partprune.c:2951)
+  - [perform_pruning_base_step](../p/perform_pruning_base_step.md) (src/backend/partitioning/partprune.c:3416)
+  - [perform_pruning_combine_step](../p/perform_pruning_combine_step.md) (src/backend/partitioning/partprune.c:3564)
 
 ## Notes and Other Information
 - The structure is designed to work with the PruneCxtStateIdx enumeration that indexes into the exprstates array
 - Memory management is handled through the ppccontext member to ensure proper cleanup
 - The planstate member distinguishes between planner-time (NULL) and execution-time (non-NULL) usage
-- FmgrInfo arrays (partsupfunc, stepcmpfuncs) provide cached function call information for performance
+- [FmgrInfo](../F/FmgrInfo.md) arrays (partsupfunc, stepcmpfuncs) provide cached function call information for performance
 - Used extensively in both the executor (execPartition.c) and partition pruning logic (partprune.c)
 - Essential component of PostgreSQL's declarative partitioning performance optimization
 - Supports complex partition pruning scenarios including multi-column partition keys and nested Boolean expressions

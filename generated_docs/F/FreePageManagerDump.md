@@ -30,8 +30,8 @@ The function constructs the output using PostgreSQL's StringInfo buffer mechanis
 ## Dependencies
 - Functions called/Symbols referenced:
   - fpm_segment_base
-  - FreePageSpanLeader (struct type)
-  - FreePageBtree (struct type)
+  - [FreePageSpanLeader](FreePageSpanLeader.md) (struct type)
+  - [FreePageBtree](FreePageBtree.md) (struct type)
   - relptr_access
   - [FreePageManagerDumpBtree](FreePageManagerDumpBtree.md)
   - [FreePageManagerDumpSpans](FreePageManagerDumpSpans.md)

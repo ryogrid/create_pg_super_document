@@ -35,10 +35,10 @@ The function ensures the basebackup_options structure is properly initialized wi
   - [defGetBoolean](../d/defGetBoolean.md)  
   - [defGetInt64](../d/defGetInt64.md)
   - [parse_bool](parse_bool.md)
-  - parse_compress_algorithm
-  - parse_compress_specification
+  - [parse_compress_algorithm](parse_compress_algorithm.md)
+  - [parse_compress_specification](parse_compress_specification.md)
   - [validate_compress_specification](../v/validate_compress_specification.md)
-  - pg_checksum_parse_type
+  - [pg_checksum_parse_type](pg_checksum_parse_type.md)
   - [BaseBackupGetTargetHandle](../B/BaseBackupGetTargetHandle.md)
 - Called from (representative examples):
   - [SendBaseBackup](../S/SendBaseBackup.md)

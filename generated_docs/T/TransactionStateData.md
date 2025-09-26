@@ -65,11 +65,11 @@ TransactionStateData serves as the comprehensive state container for PostgreSQL'
 - `*parent`: Back-reference to parent transaction state for nested transactions
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FullTransactionId
+  - [FullTransactionId](../F/FullTransactionId.md)
   - SubTransactionId
   - TransState
   - TBlockState
-  - ResourceOwner
+  - [ResourceOwner](../R/ResourceOwner.md)
 - Called from (representative examples):
   - TransactionState (typedef)
   - SerializedTransactionStateHeaderSize

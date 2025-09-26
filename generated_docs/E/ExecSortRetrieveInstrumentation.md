@@ -31,7 +31,7 @@ This ensures that instrumentation data remains available for analysis and report
   - [palloc](../p/palloc.md) (allocates private memory)
   - memcpy (copies memory contents)
   - [SharedSortInfo](../S/SharedSortInfo.md) (shared sort information structure)
-  - TuplesortInstrumentation (instrumentation data structure)
+  - [TuplesortInstrumentation](../T/TuplesortInstrumentation.md) (instrumentation data structure)
 - Called from (representative examples):
   - [ExecParallelRetrieveInstrumentation](ExecParallelRetrieveInstrumentation.md) (parallel execution instrumentation collector)
 

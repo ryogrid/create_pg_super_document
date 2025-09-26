@@ -26,11 +26,11 @@ The restart point is typically set during snapshot serialization and restoration
 - Functions called/Symbols referenced:
   - (None - this is a simple assignment function)
 - Data structures used:
-  - ReorderBuffer
+  - [ReorderBuffer](ReorderBuffer.md)
   - XLogRecPtr
 - Called from (representative examples):
-  - SnapBuildSerialize (at src/backend/replication/logical/snapbuild.c:1895)
-  - SnapBuildRestore (at src/backend/replication/logical/snapbuild.c:2059)
+  - [SnapBuildSerialize](../S/SnapBuildSerialize.md) (at src/backend/replication/logical/snapbuild.c:1895)
+  - [SnapBuildRestore](../S/SnapBuildRestore.md) (at src/backend/replication/logical/snapbuild.c:2059)
 
 ## Notes and Other Information
 - This is a straightforward setter function with no validation or side effects

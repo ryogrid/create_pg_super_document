@@ -31,12 +31,12 @@ The function maintains the parent-child relationship between triggers by using t
   - HeapTupleIsValid
   - [systable_getnext](../s/systable_getnext.md)
   - GETSTRUCT
-  - table_open
+  - [table_open](../t/table_open.md)
   - [renametrig_internal](renametrig_internal.md)
   - [RelationGetPartitionDesc](../R/RelationGetPartitionDesc.md)
   - [renametrig_partition](renametrig_partition.md) (recursive call)
   - NameStr
-  - table_close
+  - [table_close](../t/table_close.md)
   - [systable_endscan](../s/systable_endscan.md)
 - Called from (representative examples):
   - [renametrig](renametrig.md)

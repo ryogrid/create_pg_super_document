@@ -26,12 +26,12 @@ This function acquires a lock on a relation that is already open. It creates a L
   - [MarkLockClear](../M/MarkLockClear.md) (marks the local lock state as clear)
 - Types referenced:
   - [Relation](../R/Relation.md) (relation descriptor structure)
-  - LOCKTAG (lock tag structure)
+  - [LOCKTAG](LOCKTAG.md) (lock tag structure)
   - [LOCALLOCK](LOCALLOCK.md) (local lock information)
   - LockAcquireResult (result of lock acquisition)
   - LOCKMODE (enumeration of lock modes)
 - Called from (representative examples):
-  - index_create (in index.c:999)
+  - [index_create](../i/index_create.md) (in index.c:999)
 
 ## Notes and Other Information
 - This is specifically for adding locks to already-open relations - never use with relation_open(foo, NoLock)

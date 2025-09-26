@@ -22,7 +22,7 @@ This function provides the core functionality for listing files in PostgreSQL's 
 ## Dependencies
 - Functions called/Symbols referenced:
   - SearchSysCacheExists1 (validates tablespace existence)
-  - TempTablespacePath (constructs temporary directory path)
+  - [TempTablespacePath](../T/TempTablespacePath.md) (constructs temporary directory path)
   - [pg_ls_dir_files](pg_ls_dir_files.md) (performs the actual directory listing)
   - [FunctionCallInfo](../F/FunctionCallInfo.md) (parameter structure type)
 - Called from (representative examples):

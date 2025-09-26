@@ -29,7 +29,7 @@ The function includes validation to ensure the requested attribute number is val
   - slot->tts_ops->getsomeattrs (virtual function call to slot-specific implementation)
   - Assert, elog, unlikely (PostgreSQL utility macros/functions)
 - Called from (representative examples):
-  - slot_getsomeattrs (inline wrapper function)
+  - [slot_getsomeattrs](slot_getsomeattrs.md) (inline wrapper function)
   - JIT compiled code paths
 
 ## Notes and Other Information

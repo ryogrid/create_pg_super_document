@@ -24,12 +24,12 @@ This design choice reflects the typical usage pattern in external sorting operat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree (for memory deallocation)
-  - LogicalTape (structure type)
+  - [pfree](../p/pfree.md) (for memory deallocation)
+  - [LogicalTape](LogicalTape.md) (structure type)
 - Called from (representative examples):
-  - tuplesort_gettuple_common
-  - mergeruns
-  - agg_refill_hash_table
+  - [tuplesort_gettuple_common](../t/tuplesort_gettuple_common.md)
+  - [mergeruns](../m/mergeruns.md)
+  - [agg_refill_hash_table](../a/agg_refill_hash_table.md)
 
 ## Notes and Other Information
 - Does not return disk blocks to the free list - caller must ensure tape is fully read first

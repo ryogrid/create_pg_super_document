@@ -20,18 +20,18 @@ This function recognizes and deparses PostgreSQL built-in functions that have sp
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_rule_expr
-  - get_rule_expr_paren
+  - [get_rule_expr](get_rule_expr.md)
+  - [get_rule_expr_paren](get_rule_expr_paren.md)
   - TextDatumGetCString
-  - appendStringInfo functions
+  - [appendStringInfo](../a/appendStringInfo.md) functions
   - linitial, lsecond, lthird, lfourth (list access macros)
 - Types referenced:
-  - FuncExpr
-  - deparse_context
-  - Const
+  - [FuncExpr](../F/FuncExpr.md)
+  - [deparse_context](../d/deparse_context.md)
+  - [Const](../C/Const.md)
   - Various F_* function OID constants
 - Called from (representative examples):
-  - get_func_expr
+  - [get_func_expr](get_func_expr.md)
 
 ## Notes and Other Information
 This function is crucial for maintaining SQL standard compliance when deparsing query trees. Without it, special syntax functions would appear as regular function calls (e.g., 'extract(text, timestamp)' instead of 'EXTRACT(text FROM timestamp)'). The function covers a comprehensive set of SQL standard functions including temporal functions (timezone, extract), string functions (substring, overlay, trim, position), normalization functions, and XML functions. Each case carefully preserves the exact SQL syntax including proper keyword placement, parentheses, and argument ordering to ensure the output is valid SQL.

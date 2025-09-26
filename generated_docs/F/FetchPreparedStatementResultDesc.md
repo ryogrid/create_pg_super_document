@@ -23,7 +23,7 @@ FetchPreparedStatementResultDesc extracts and returns the result tuple descripto
   - [CreateTupleDescCopy](../C/CreateTupleDescCopy.md) (creates a copy of the tuple descriptor)
   - Assert (for debugging validation)
 - Called from (representative examples):
-  - UtilityTupleDescriptor
+  - [UtilityTupleDescriptor](../U/UtilityTupleDescriptor.md)
 
 ## Notes and Other Information
 - Assumes prepared statements have fixed result descriptors (stmt->plansource->fixed_result must be true)

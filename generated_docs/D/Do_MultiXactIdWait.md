@@ -44,7 +44,7 @@ The function handles pre-upgrade tuples as a special case and supports both cond
   - [TransactionIdIsCurrentTransactionId](../T/TransactionIdIsCurrentTransactionId.md)
   - [DoLockModesConflict](DoLockModesConflict.md)
   - LOCKMODE_from_mxstatus
-  - TransactionIdIsInProgress
+  - [TransactionIdIsInProgress](../T/TransactionIdIsInProgress.md)
   - [ConditionalXactLockTableWait](../C/ConditionalXactLockTableWait.md)
   - [XactLockTableWait](../X/XactLockTableWait.md)
 - Called from (representative examples):

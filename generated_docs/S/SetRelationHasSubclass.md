@@ -30,8 +30,8 @@ The SI invalidation is crucial because query plans cache information about inher
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CheckRelationOidLockedByMe](../C/CheckRelationOidLockedByMe.md)
-  - table_open
-  - table_close
+  - [table_open](../t/table_open.md)
+  - [table_close](../t/table_close.md)
   - SearchSysCacheCopy1
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - [CacheInvalidateRelcacheByTuple](../C/CacheInvalidateRelcacheByTuple.md)
@@ -39,7 +39,7 @@ The SI invalidation is crucial because query plans cache information about inher
   - Form_pg_class (structure type)
 - Called from (representative examples):
   - [StoreCatalogInheritance1](StoreCatalogInheritance1.md)
-  - index_create
+  - [index_create](../i/index_create.md)
   - [IndexSetParentIndex](../I/IndexSetParentIndex.md)
 
 ## Notes and Other Information

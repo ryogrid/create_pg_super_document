@@ -42,5 +42,5 @@ The optimization works by using index scans to directly fetch the minimum or max
 - Must be called after  since it relies on 
 - Called just before  since it clones planner state for path generation  
 - Creates PARAM_EXEC slots for each aggregate even if the optimization isn't ultimately used
-- MinMaxAggPath nodes are currently never parallel-safe
+- [MinMaxAggPath](../M/MinMaxAggPath.md) nodes are currently never parallel-safe
 - The optimization is most effective for queries like  where  has suitable indexes

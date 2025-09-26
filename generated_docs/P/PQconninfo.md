@@ -29,11 +29,11 @@ This is particularly useful for debugging connection issues, logging actual conn
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initPQExpBuffer
+  - [initPQExpBuffer](../i/initPQExpBuffer.md)
   - PQExpBufferDataBroken
   - [conninfo_init](../c/conninfo_init.md)
   - [conninfo_storeval](../c/conninfo_storeval.md)
-  - termPQExpBuffer
+  - [termPQExpBuffer](../t/termPQExpBuffer.md)
 - Called from (representative examples):
   - [libpqrcv_get_conninfo](../l/libpqrcv_get_conninfo.md)
   - [do_connect](../d/do_connect.md) (psql)

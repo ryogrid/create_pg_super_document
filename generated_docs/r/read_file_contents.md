@@ -17,8 +17,8 @@ This utility function reads the complete contents of an open file descriptor int
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_malloc
-  - pg_realloc
+  - [pg_malloc](../p/pg_malloc.md)
+  - [pg_realloc](../p/pg_realloc.md)
   - fread (standard C library)
   - BUFSIZ (standard C constant)
 - Called from:

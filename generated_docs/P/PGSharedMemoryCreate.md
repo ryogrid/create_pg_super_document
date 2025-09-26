@@ -30,7 +30,7 @@ The function initializes a PGShmemHeader structure with metadata including creat
   - [SetConfigOption](../S/SetConfigOption.md)
   - [InternalIpcMemoryCreate](../I/InternalIpcMemoryCreate.md)
   - [PGSharedMemoryAttach](PGSharedMemoryAttach.md)
-  - dsm_cleanup_using_control_segment
+  - [dsm_cleanup_using_control_segment](../d/dsm_cleanup_using_control_segment.md)
   - [stat](../s/stat.md)
   - shmget
   - shmctl

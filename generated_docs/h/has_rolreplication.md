@@ -20,7 +20,7 @@ This function determines if a given role has replication privileges in PostgreSQ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - superuser_arg (checks if role is a superuser)
+  - [superuser_arg](../s/superuser_arg.md) (checks if role is a superuser)
   - Form_pg_authid (structure representing pg_authid catalog entries)
   - [SearchSysCache1](../S/SearchSysCache1.md), HeapTupleIsValid, ReleaseSysCache (system catalog access functions)
   - AUTHOID, ObjectIdGetDatum, GETSTRUCT (catalog access macros)

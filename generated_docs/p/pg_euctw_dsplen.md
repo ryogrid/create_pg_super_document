@@ -29,9 +29,9 @@ The function is essential for text layout operations such as column alignment, t
   - SS2 (Single Shift 2 control character constant)
   - SS3 (Single Shift 3 control character constant)
   - IS_HIGHBIT_SET (macro to check if high bit is set in byte)
-  - pg_ascii_dsplen (function to determine ASCII character display width)
+  - [pg_ascii_dsplen](pg_ascii_dsplen.md) (function to determine ASCII character display width)
 - Called from (representative examples):
-  - pg_encoding_set_invalid (indirectly through encoding function tables)
+  - [pg_encoding_set_invalid](pg_encoding_set_invalid.md) (indirectly through encoding function tables)
 
 ## Notes and Other Information
 - Returns an integer representing the number of display columns occupied (typically 1 or 2)

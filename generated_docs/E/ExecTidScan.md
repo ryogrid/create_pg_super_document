@@ -22,8 +22,8 @@ ExecTidScan is the main execution function for TID scan nodes in PostgreSQL's ex
 - Functions called/Symbols referenced:
   - castNode (to cast PlanState to TidScanState)
   - [ExecScan](ExecScan.md) (generic scan execution function)
-  - TidNext (TID-specific tuple fetching function)
-  - TidRecheck (TID-specific tuple recheck function)
+  - [TidNext](../T/TidNext.md) (TID-specific tuple fetching function)
+  - [TidRecheck](../T/TidRecheck.md) (TID-specific tuple recheck function)
 - Called from (representative examples):
   - [ExecInitTidScan](ExecInitTidScan.md) (during TID scan node initialization)
 

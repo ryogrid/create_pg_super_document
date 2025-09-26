@@ -45,7 +45,7 @@ Like other internal subtransaction functions, it does not require CommitTransact
   - plperl_spi_* functions (PL/Perl error handling)
   - [PLy_abort_open_subtransactions](../P/PLy_abort_open_subtransactions.md) (PL/Python cleanup)
   - [PLy_spi_subtransaction_abort](../P/PLy_spi_subtransaction_abort.md) (PL/Python)
-  - pltcl_subtrans_abort (PL/Tcl)
+  - [pltcl_subtrans_abort](../p/pltcl_subtrans_abort.md) (PL/Tcl)
 
 ## Notes and Other Information
 - Must not be used with CommitTransactionCommand/StartTransactionCommand - handles subtransaction lifecycle directly

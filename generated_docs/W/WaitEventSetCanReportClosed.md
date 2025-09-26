@@ -32,7 +32,7 @@ The function uses preprocessor conditionals to check for the following condition
   - WAIT_USE_KQUEUE (compile-time macro)
   - POLLRDHUP (compile-time macro, when available)
 - Called from (representative examples):
-  - check_client_connection_check_interval
+  - [check_client_connection_check_interval](../c/check_client_connection_check_interval.md)
 
 ## Notes and Other Information
 - Returns true if WL_SOCKET_CLOSED events can be reported, false otherwise

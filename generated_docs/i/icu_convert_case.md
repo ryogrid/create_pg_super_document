@@ -27,7 +27,7 @@ The function provides robust error handling and memory management, ensuring that
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_locale_t (type)
+  - [pg_locale_t](../p/pg_locale_t.md) (type)
   - [palloc](../p/palloc.md)
   - [pfree](../p/pfree.md)
   - ereport

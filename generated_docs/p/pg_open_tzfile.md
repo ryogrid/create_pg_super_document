@@ -29,13 +29,13 @@ The function optionally returns the canonical name of the timezone through the c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - strlcpy (for safe string copying)
+  - [strlcpy](../s/strlcpy.md) (for safe string copying)
   - [pg_TZDIR](pg_TZDIR.md) (to get timezone directory path)
   - open (system call to open the file)
   - TZ_STRLEN_MAX (constant defining maximum timezone name length)
   - PG_BINARY (flag for binary file access)
 - Called from (representative examples):
-  - tzloadbody (in src/timezone/localtime.c)
+  - [tzloadbody](../t/tzloadbody.md) (in src/timezone/localtime.c)
   - [pg_tz](pg_tz.md) (referenced in src/timezone/pgtz.h)
 
 ## Notes and Other Information

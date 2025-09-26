@@ -53,7 +53,7 @@ The function includes comprehensive error handling using parser error position c
 
 ## Notes and Other Information
 - The function implements PostgreSQL's "natural" type inference for uncast constants
-- String literals and NULL are initially typed as UNKNOWN to allow flexible type coercion later
+- [String](../S/String.md) literals and NULL are initially typed as UNKNOWN to allow flexible type coercion later
 - The function includes special logic for handling integers that might fit in different-sized integer types
 - Error position callbacks ensure that type conversion errors report the correct location in the source SQL
 - The function preserves the original source location from the A_Const node in the resulting Const node

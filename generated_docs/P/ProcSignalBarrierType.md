@@ -32,10 +32,10 @@ Currently, only one barrier type is defined:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - EmitProcSignalBarrier
-  - ProcessProcSignalBarrier  
-  - ProcessBarrierSmgrRelease
-  - smgrreleaseall
+  - [EmitProcSignalBarrier](../E/EmitProcSignalBarrier.md)
+  - [ProcessProcSignalBarrier](ProcessProcSignalBarrier.md)  
+  - [ProcessBarrierSmgrRelease](ProcessBarrierSmgrRelease.md)
+  - [smgrreleaseall](../s/smgrreleaseall.md)
 
 - Called from (representative examples):
   - Database drop operations (src/backend/commands/dbcommands.c:1837)
@@ -48,6 +48,6 @@ Currently, only one barrier type is defined:
 - The barrier mechanism is expensive and should only be used for operations that genuinely require system-wide coordination
 - Each barrier type is processed by a corresponding function in `ProcessProcSignalBarrier()` via a switch statement
 - The SMGRRELEASE barrier is particularly important for file system operations where exclusive access is needed
-- Barrier processing functions should normally return true, but may return false if the barrier cannot be absorbed at the current time, causing retry attempts
+- [Barrier](../B/Barrier.md) processing functions should normally return true, but may return false if the barrier cannot be absorbed at the current time, causing retry attempts
 - The barrier system uses atomic operations and full memory barriers to ensure proper ordering and consistency across processes
 - Error handling during barrier processing includes PG_TRY/PG_CATCH blocks to ensure partial processing doesn't leave the system in an inconsistent state

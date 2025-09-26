@@ -299,8 +299,8 @@ Text creation and manipulation
   - [_hash_getcachedmetap](_hash_getcachedmetap.md)
   - BUCKET_TO_BLKNO
   - [ReadBufferExtended](../R/ReadBufferExtended.md)
-  - LockBufferForCleanup
-  - _hash_checkpage
+  - [LockBufferForCleanup](../L/LockBufferForCleanup.md)
+  - [_hash_checkpage](_hash_checkpage.md)
   - HashPageGetOpaque
   - H_BUCKET_BEING_SPLIT
   - H_NEEDS_SPLIT_CLEANUP

@@ -22,7 +22,7 @@ This function deallocates the memory used by a CombinationGenerator structure, i
   - [CombinationGenerator](../C/CombinationGenerator.md) (structure type)
   - [pfree](../p/pfree.md) (PostgreSQL memory deallocation function)
 - Called from (representative examples):
-  - statext_ndistinct_build
+  - [statext_ndistinct_build](../s/statext_ndistinct_build.md)
 
 ## Notes and Other Information
 - The function is declared as static, limiting scope to mvdistinct.c

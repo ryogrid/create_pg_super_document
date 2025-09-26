@@ -23,10 +23,10 @@ The function is intentionally simple, focusing solely on leak detection rather t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CheckForLocalBufferLeaks (internal function for detecting buffer reference leaks)
+  - [CheckForLocalBufferLeaks](../C/CheckForLocalBufferLeaks.md) (internal function for detecting buffer reference leaks)
 - Called from (representative examples):
-  - AtEOXact_Buffers (main buffer cleanup function)
-  - ResourceOwnerForgetBufferIO (resource cleanup context)
+  - [AtEOXact_Buffers](AtEOXact_Buffers.md) (main buffer cleanup function)
+  - [ResourceOwnerForgetBufferIO](../R/ResourceOwnerForgetBufferIO.md) (resource cleanup context)
 
 ## Notes and Other Information
 - The function is only meaningful in debug builds where USE_ASSERT_CHECKING is defined, as CheckForLocalBufferLeaks() performs its checks only in assertion-enabled builds

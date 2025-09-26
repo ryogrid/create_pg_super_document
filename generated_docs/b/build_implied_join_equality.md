@@ -42,7 +42,7 @@ Unlike process_implied_equality(), this function does not perform constant foldi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - make_opclause (creates operator expression node)
+  - [make_opclause](../m/make_opclause.md) (creates operator expression node)
   - copyObject (performs deep copying of expression trees)
   - [make_restrictinfo](../m/make_restrictinfo.md) (constructs RestrictInfo wrapper)
   - [check_mergejoinable](../c/check_mergejoinable.md) (analyzes merge join suitability)

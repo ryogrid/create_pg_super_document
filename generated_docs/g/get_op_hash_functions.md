@@ -31,8 +31,8 @@ The function searches through all hash opfamilies that contain the given operato
   - HTEqualStrategyNumber
   - HASHSTANDARD_PROC
 - Called from (representative examples):
-  - execTuplesHashPrepare
-  - ExecHashTableCreate
+  - [execTuplesHashPrepare](../e/execTuplesHashPrepare.md)
+  - [ExecHashTableCreate](../E/ExecHashTableCreate.md)
   - [ExecInitMemoize](../E/ExecInitMemoize.md)
   - [ExecInitSubPlan](../E/ExecInitSubPlan.md)
   - [convert_saop_to_hashed_saop_walker](../c/convert_saop_to_hashed_saop_walker.md)

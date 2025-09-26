@@ -31,13 +31,13 @@ AlterOwnerStmt represents SQL statements that transfer ownership of database obj
 ## Dependencies
 - Functions called/Symbols referenced:
   - ObjectType (enumeration for database object types)
-  - RangeVar (structure for table/relation references)
-  - RoleSpec (structure for role specification)
+  - [RangeVar](../R/RangeVar.md) (structure for table/relation references)
+  - [RoleSpec](../R/RoleSpec.md) (structure for role specification)
   - NodeTag (standard parse node identification)
 - Called from (representative examples):
-  - ExecAlterOwnerStmt (main execution function)
-  - standard_ProcessUtility (utility command processing)
-  - ProcessUtilitySlow (utility command processing)
+  - [ExecAlterOwnerStmt](../E/ExecAlterOwnerStmt.md) (main execution function)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (utility command processing)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (utility command processing)
 
 ## Notes and Other Information
 Ownership changes in PostgreSQL have significant security implications, as the new owner gains full privileges over the object. The operation requires appropriate permissions - typically only superusers or the current owner can transfer ownership. The RoleSpec allows for flexible role specification, supporting both explicit role names and special constructs like CURRENT_USER or SESSION_USER. This statement is commonly used in database migration scripts and administrative operations.

@@ -25,13 +25,13 @@ The function includes safety assertions to ensure proper alignment (8-byte align
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_atomic_sub_fetch_u64_impl
+  - [pg_atomic_sub_fetch_u64_impl](pg_atomic_sub_fetch_u64_impl.md)
   - AssertPointerAlignment
   - Assert
   - PG_HAVE_ATOMIC_U64_SIMULATION (conditional compilation)
   - PG_INT64_MIN (for validation)
 - Called from (representative examples):
-  - test_atomic_uint64
+  - [test_atomic_uint64](../t/test_atomic_uint64.md)
 
 ## Notes and Other Information
 - The function requires 8-byte alignment of the target pointer when not using simulation mode

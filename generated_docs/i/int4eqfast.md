@@ -23,9 +23,9 @@ The function is used specifically by the catalog cache system (catcache) to effi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetInt32 (macro for extracting int32 from Datum)
+  - [DatumGetInt32](../D/DatumGetInt32.md) (macro for extracting int32 from Datum)
 - Called from (representative examples):
-  - GetCCHashEqFuncs (assigned as fast equality function for INT4OID and various REG* types)
+  - [GetCCHashEqFuncs](../G/GetCCHashEqFuncs.md) (assigned as fast equality function for INT4OID and various REG* types)
 
 ## Notes and Other Information
 - This function is static and only used within catcache.c

@@ -25,8 +25,8 @@ The function includes multiple safety assertions to prevent deletion of critical
 ## Dependencies
 - Functions called/Symbols referenced:
   - MemoryContextIsValid
-  - MemoryContextCallResetCallbacks
-  - MemoryContextSetParent
+  - [MemoryContextCallResetCallbacks](MemoryContextCallResetCallbacks.md)
+  - [MemoryContextSetParent](MemoryContextSetParent.md)
   - ident (context member)
   - VALGRIND_DESTROY_MEMPOOL
 - Called from (representative examples):

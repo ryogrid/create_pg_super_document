@@ -41,7 +41,7 @@ The parsing process:
   - ereturn (soft error return)
   - [palloc](palloc.md) (memory allocation)
   - SET_VARSIZE (sets variable-length type size)
-  - path_decode (parses path coordinates)
+  - [path_decode](path_decode.md) (parses path coordinates)
   - PG_RETURN_PATH_P (returns PATH result)
   - isspace (character classification)
   - strrchr (string search)

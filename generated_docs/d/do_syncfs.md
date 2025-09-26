@@ -22,12 +22,12 @@ The function includes progress reporting and error handling, logging any failure
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport_startup_progress
-  - OpenTransientFile
-  - CloseTransientFile
+  - [OpenTransientFile](../O/OpenTransientFile.md)
+  - [CloseTransientFile](../C/CloseTransientFile.md)
   - syncfs (system call)
   - ereport
 - Called from (representative examples):
-  - SyncDataDirectory
+  - [SyncDataDirectory](../S/SyncDataDirectory.md)
   - [sync_pgdata](../s/sync_pgdata.md)
   - [sync_dir_recurse](../s/sync_dir_recurse.md)
 

@@ -23,7 +23,7 @@ This function adds constraints to domain types, supporting CHECK and NOT NULL co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeTypeNameFromNameList
+  - [makeTypeNameFromNameList](../m/makeTypeNameFromNameList.md)
   - [typenameTypeId](../t/typenameTypeId.md)
   - SearchSysCacheCopy1
   - [checkDomainOwner](../c/checkDomainOwner.md)

@@ -33,14 +33,14 @@ This abstraction allows the complex JSON path parsing and processing code to be 
   - JsonPathGinExtractNodesFunc (function pointer type)
   - JsonPathGinPath (path representation)
   - JsonPathItem (JSON path item)
-  - JsonbValue (JSONB scalar value)
-  - List (PostgreSQL list type)
+  - [JsonbValue](JsonbValue.md) (JSONB scalar value)
+  - [List](../L/List.md) (PostgreSQL list type)
 - Called from (representative examples):
-  - extract_jsp_query (main query extraction entry point)
-  - extract_jsp_bool_expr (boolean expression processing)
-  - extract_jsp_path_expr (path expression processing)
-  - jsonb_ops__extract_nodes (jsonb_ops implementation)
-  - jsonb_path_ops__extract_nodes (jsonb_path_ops implementation)
+  - [extract_jsp_query](../e/extract_jsp_query.md) (main query extraction entry point)
+  - [extract_jsp_bool_expr](../e/extract_jsp_bool_expr.md) (boolean expression processing)
+  - [extract_jsp_path_expr](../e/extract_jsp_path_expr.md) (path expression processing)
+  - [jsonb_ops__extract_nodes](../j/jsonb_ops__extract_nodes.md) (jsonb_ops implementation)
+  - [jsonb_path_ops__extract_nodes](../j/jsonb_path_ops__extract_nodes.md) (jsonb_path_ops implementation)
 
 ## Notes and Other Information
 - Implements the strategy design pattern to abstract different indexing approaches

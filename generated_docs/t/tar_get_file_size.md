@@ -24,9 +24,9 @@ The function follows the WalWriteMethod interface pattern but provides no actual
 ## Dependencies
 - Functions called/Symbols referenced:
   - clear_error
-  - WalWriteMethod (structure type)
+  - [WalWriteMethod](../W/WalWriteMethod.md) (structure type)
 - Called from (representative examples):
-  - CreateWalDirectoryMethod (function pointer assignment)
+  - [CreateWalDirectoryMethod](../C/CreateWalDirectoryMethod.md) (function pointer assignment)
 
 ## Notes and Other Information
 - This function is marked as static, meaning it's only accessible within the walmethods.c file

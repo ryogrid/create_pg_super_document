@@ -38,18 +38,18 @@ The node is used during query planning and execution to determine which action t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MergeMatchKind (enum for match conditions)
+  - [MergeMatchKind](MergeMatchKind.md) (enum for match conditions)
   - CmdType (enum for command types)
   - OverridingKind (enum for OVERRIDING clause options)
   - NodeTag (base node identification)
-  - List (PostgreSQL list structure)
+  - [List](../L/List.md) (PostgreSQL list structure)
   
 - Called from (representative examples):
-  - ExecInitMerge (merge execution initialization)
-  - transformMergeStmt (parser transformation of MERGE statements)
-  - transform_MERGE_to_join (optimizer transformation to join)
-  - get_merge_query_def (rule decompilation for MERGE queries)
-  - rewriteTargetView (rewrite system for updateable views)
+  - [ExecInitMerge](../E/ExecInitMerge.md) (merge execution initialization)
+  - [transformMergeStmt](../t/transformMergeStmt.md) (parser transformation of MERGE statements)
+  - [transform_MERGE_to_join](../t/transform_MERGE_to_join.md) (optimizer transformation to join)
+  - [get_merge_query_def](../g/get_merge_query_def.md) (rule decompilation for MERGE queries)
+  - [rewriteTargetView](../r/rewriteTargetView.md) (rewrite system for updateable views)
 
 ## Notes and Other Information
 - Essential component of PostgreSQL's MERGE statement implementation introduced for SQL standard compliance

@@ -36,13 +36,13 @@ The output format is: `(column1 type1, column2 type2 COLLATE collation, ...)`
 - Functions called/Symbols referenced:
   - forfour (macro for iterating over four lists simultaneously)
   - lfirst_oid, lfirst_int (list access macros)
-  - quote_identifier
-  - format_type_with_typemod
-  - get_typcollation
-  - generate_collation_name
-  - appendStringInfo, appendStringInfoChar, appendStringInfoString
+  - [quote_identifier](../q/quote_identifier.md)
+  - [format_type_with_typemod](../f/format_type_with_typemod.md)
+  - [get_typcollation](get_typcollation.md)
+  - [generate_collation_name](generate_collation_name.md)
+  - [appendStringInfo](../a/appendStringInfo.md), appendStringInfoChar, appendStringInfoString
 - Called from (representative examples):
-  - get_from_clause_item (for function RTEs with column definitions)
+  - [get_from_clause_item](get_from_clause_item.md) (for function RTEs with column definitions)
 
 ## Notes and Other Information
 - Critical for reconstructing ROWS FROM() syntax and function column definitions

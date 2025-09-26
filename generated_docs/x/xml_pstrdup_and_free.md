@@ -31,11 +31,11 @@ The use of PG_FINALLY ensures that the xmlChar string is always freed, preventin
   - PG_TRY (PostgreSQL exception handling macro)
   - PG_FINALLY (PostgreSQL exception handling macro)
   - PG_END_TRY (PostgreSQL exception handling macro)
-  - pstrdup (PostgreSQL string duplication function)
+  - [pstrdup](../p/pstrdup.md) (PostgreSQL string duplication function)
   - xmlFree (libxml memory deallocation function)
 
 - Called from (representative examples):
-  - XmlTableGetValue (multiple calls for XML table value extraction)
+  - [XmlTableGetValue](../X/XmlTableGetValue.md) (multiple calls for XML table value extraction)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the xml.c file

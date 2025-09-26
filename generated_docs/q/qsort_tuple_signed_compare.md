@@ -27,7 +27,7 @@ The function is marked with `pg_attribute_always_inline` to ensure compiler inli
   - [ApplySignedSortComparator](../A/ApplySignedSortComparator.md) - Performs the actual signed comparison of datum values
   - `[state](../s/state.md)->base.comparetup_tiebreak` - Fallback function for comparing additional sort keys
   - `SortTuple` - Structure representing a tuple being sorted
-  - `Tuplesortstate` - State structure containing sort configuration
+  - `[Tuplesortstate](../T/Tuplesortstate.md)` - State structure containing sort configuration
 - Called from (representative examples):
   - Used as an inline comparator in specialized sorting routines (no direct references found)
 

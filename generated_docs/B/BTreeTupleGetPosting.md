@@ -21,8 +21,8 @@ This function calculates and returns a pointer to the beginning of the heap TID 
 - Called from (representative examples):
   - [_bt_dedup_start_pending](../b/_bt_dedup_start_pending.md)
   - [_bt_dedup_save_htid](../b/_bt_dedup_save_htid.md)
-  - _bt_form_posting
-  - _bt_update_posting
+  - [_bt_form_posting](../b/_bt_form_posting.md)
+  - [_bt_update_posting](../b/_bt_update_posting.md)
   - [btreevacuumposting](../b/btreevacuumposting.md)
   - [BTreeTupleGetPostingN](BTreeTupleGetPostingN.md)
   - [BTreeTupleGetHeapTID](BTreeTupleGetHeapTID.md)

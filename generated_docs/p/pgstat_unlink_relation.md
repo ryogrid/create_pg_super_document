@@ -25,9 +25,9 @@ This is a critical cleanup function that prevents dangling pointers and ensures 
 - Functions called/Symbols referenced:
   - None (this is a simple cleanup function)
 - Called from (representative examples):
-  - pgstat_init_relation (when disabling statistics)
-  - RelationDestroyRelation (during relation cleanup)
-  - pgstat_relation_delete_pending_cb (during statistics entry cleanup)
+  - [pgstat_init_relation](pgstat_init_relation.md) (when disabling statistics)
+  - [RelationDestroyRelation](../R/RelationDestroyRelation.md) (during relation cleanup)
+  - [pgstat_relation_delete_pending_cb](pgstat_relation_delete_pending_cb.md) (during statistics entry cleanup)
 
 ## Notes and Other Information
 - This function is safe to call multiple times or on relations that have no statistics association

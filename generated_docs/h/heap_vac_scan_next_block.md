@@ -32,7 +32,7 @@ The function optimizes vacuum performance by balancing I/O efficiency (avoiding 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [find_next_unskippable_block](../f/find_next_unskippable_block.md) (identifies next required block)
-  - ReleaseBuffer (buffer management)
+  - [ReleaseBuffer](../R/ReleaseBuffer.md) (buffer management)
   - SKIP_PAGES_THRESHOLD (skip optimization threshold)
 
 - Called from (representative examples):

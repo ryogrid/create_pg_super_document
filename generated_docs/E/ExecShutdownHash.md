@@ -28,12 +28,12 @@ After ensuring storage is available, the function calls ExecHashAccumInstrumenta
 ## Dependencies
 - Functions called/Symbols referenced:
   - palloc0_object
-  - ExecHashAccumInstrumentation
+  - [ExecHashAccumInstrumentation](ExecHashAccumInstrumentation.md)
 - Types used:
-  - HashState
-  - HashInstrumentation
+  - [HashState](../H/HashState.md)
+  - [HashInstrumentation](../H/HashInstrumentation.md)
 - Called from (representative examples):
-  - ExecShutdownNode_walker
+  - [ExecShutdownNode_walker](ExecShutdownNode_walker.md)
 
 ## Notes and Other Information
 - The function only allocates local storage if instrumentation is enabled (node->ps.instrument is not NULL) and no instrumentation area exists yet

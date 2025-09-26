@@ -28,7 +28,7 @@ If the named slot is not found, the function returns -1 to indicate failure, all
 - Types referenced:
   - [ReplicationSlot](../R/ReplicationSlot.md)
 - Called from (representative examples):
-  - pgstat_fetch_replslot (src/backend/utils/activity/pgstat_replslot.c:177)
+  - [pgstat_fetch_replslot](../p/pgstat_fetch_replslot.md) (src/backend/utils/activity/pgstat_replslot.c:177)
   - [pgstat_replslot_from_serialized_name_cb](../p/pgstat_replslot_from_serialized_name_cb.md) (src/backend/utils/activity/pgstat_replslot.c:204)
 
 ## Notes and Other Information

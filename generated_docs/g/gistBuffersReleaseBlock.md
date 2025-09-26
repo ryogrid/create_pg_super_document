@@ -25,7 +25,7 @@ The freed blocks are stored in a simple array structure and will be reused in LI
   - [GISTBuildBuffers](../G/GISTBuildBuffers.md) (structure access)
   - [repalloc](../r/repalloc.md) (for growing the free blocks array)
 - Called from (representative examples):
-  - gistLoadNodeBuffer
+  - [gistLoadNodeBuffer](gistLoadNodeBuffer.md)
   - [gistPopItupFromNodeBuffer](gistPopItupFromNodeBuffer.md)
 
 ## Notes and Other Information

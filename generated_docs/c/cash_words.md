@@ -24,7 +24,7 @@ This function converts a Cash value into a human-readable English text represent
   - [num_word](../n/num_word.md): Converts numeric values to English words
   - INT64CONST: Macro for 64-bit integer constants
   - [pg_toupper](../p/pg_toupper.md): Converts character to uppercase
-  - cstring_to_text: Converts C string to PostgreSQL text type
+  - [cstring_to_text](cstring_to_text.md): Converts C string to PostgreSQL text type
   - PG_RETURN_TEXT_P: Returns text result
   - Cash: Cash data type for internal variables
   - strcat, strcpy: Standard C string manipulation functions

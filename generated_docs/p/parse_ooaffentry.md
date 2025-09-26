@@ -44,7 +44,7 @@ The function handles incomplete lines gracefully, setting unfound fields to empt
   - PAE_WAIT_MASK
   - elog
 - Called from (representative examples):
-  - NIImportOOAffixes
+  - [NIImportOOAffixes](../N/NIImportOOAffixes.md)
 
 ## Notes and Other Information
 - Returns the number of fields successfully parsed (0-5)

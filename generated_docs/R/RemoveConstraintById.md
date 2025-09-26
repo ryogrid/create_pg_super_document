@@ -25,7 +25,7 @@ The function ensures proper locking semantics by holding AccessExclusiveLock on 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - elog
@@ -36,7 +36,7 @@ The function ensures proper locking semantics by holding AccessExclusiveLock on 
   - [heap_freetuple](../h/heap_freetuple.md)
   - [CatalogTupleDelete](../C/CatalogTupleDelete.md)
   - [ReleaseSysCache](ReleaseSysCache.md)
-  - table_close
+  - [table_close](../t/table_close.md)
 - Called from (representative examples):
   - [doDeletion](../d/doDeletion.md) (dependency.c:1396)
 

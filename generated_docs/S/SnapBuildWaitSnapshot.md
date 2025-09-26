@@ -36,21 +36,21 @@ During recovery, the function cannot force generation of new WAL records, so it 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TransactionIdIsCurrentTransactionId
-  - TransactionIdFollows  
-  - XactLockTableWait
-  - RecoveryInProgress
-  - LogStandbySnapshot
+  - [TransactionIdIsCurrentTransactionId](../T/TransactionIdIsCurrentTransactionId.md)
+  - [TransactionIdFollows](../T/TransactionIdFollows.md)  
+  - [XactLockTableWait](../X/XactLockTableWait.md)
+  - [RecoveryInProgress](../R/RecoveryInProgress.md)
+  - [LogStandbySnapshot](../L/LogStandbySnapshot.md)
   - XLTW_None (wait mode constant)
 - Called from (representative examples):
-  - SnapBuildFindSnapshot (multiple times during state transitions)
+  - [SnapBuildFindSnapshot](SnapBuildFindSnapshot.md) (multiple times during state transitions)
 
 ## Notes and Other Information
 - Static function used internally within the snapshot building subsystem
 - The waiting mechanism is essential for ensuring snapshot consistency during logical replication initialization
 - Uses transaction locking rather than polling for efficiency
 - The ERROR condition for waiting on self should never occur in normal operation - indicates a logic error
-- LogStandbySnapshot() call helps reduce delays in snapshot building progress
+- [LogStandbySnapshot](../L/LogStandbySnapshot.md)() call helps reduce delays in snapshot building progress
 - Critical for the incremental snapshot building algorithm used in logical replication
 - The function ensures that snapshot building doesn't proceed until it's safe to do so
 - Part of the broader mechanism that ensures logical replication starts from a truly consistent point

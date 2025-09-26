@@ -32,9 +32,9 @@ The function handles memory context allocation failures gracefully and includes 
   - PointerGetMemoryChunk
   - [MemoryChunkGetValue](../M/MemoryChunkGetValue.md)
   - [MemoryChunkGetBlock](../M/MemoryChunkGetBlock.md)
-  - GetMemoryChunkSpace
+  - [GetMemoryChunkSpace](../G/GetMemoryChunkSpace.md)
   - PallocAlignedExtraBytes
-  - GetMemoryChunkContext
+  - [GetMemoryChunkContext](../G/GetMemoryChunkContext.md)
   - [MemoryContextAllocAligned](../M/MemoryContextAllocAligned.md)
   - [MemoryContextAllocationFailure](../M/MemoryContextAllocationFailure.md)
   - VALGRIND_MAKE_MEM_DEFINED

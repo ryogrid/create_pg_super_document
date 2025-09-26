@@ -22,8 +22,8 @@ WAL file recycling and preallocation help improve performance by reusing existin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire
-  - LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - XLogCtl (global control structure)
   - ControlFileLock
   - LW_EXCLUSIVE (lock mode constant)

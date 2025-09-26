@@ -27,7 +27,7 @@ The function handles the complete syntax for table publication including optiona
   - [fmtId](../f/fmtId.md) - formats identifiers safely for SQL output
   - fmtQualifiedDumpable - formats qualified table names for dump output
   - [ArchiveEntry](../A/ArchiveEntry.md) - creates an archive entry for the dump
-  - createPQExpBuffer/destroyPQExpBuffer - manages query buffers
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)/destroyPQExpBuffer - manages query buffers
   - [appendPQExpBuffer](../a/appendPQExpBuffer.md)/appendPQExpBufferStr - builds SQL statements
 - Called from (representative examples):
   - [dumpDumpableObject](dumpDumpableObject.md) - [main](../m/main.md) dispatcher for dumping various object types

@@ -27,7 +27,7 @@ The function is designed to work within PostgreSQL's  operation framework, assum
   - [pg_strtok](../p/pg_strtok.md)
   - [nodeTokenType](nodeTokenType.md)
   - [parseNodeString](../p/parseNodeString.md)
-  - lappend_int, lappend_oid, lappend_xid
+  - [lappend_int](../l/lappend_int.md), lappend_oid, lappend_xid
   - [bms_add_member](../b/bms_add_member.md)
   - [makeInteger](../m/makeInteger.md), makeFloat, makeBoolean, makeString, makeBitString
   - [debackslash](../d/debackslash.md)

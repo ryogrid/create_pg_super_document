@@ -22,16 +22,16 @@ The `evalLazyFunc` function provides lazy evaluation semantics for pgbench funct
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `isLazyFunc` (validation)
-  - `evaluateExpr` (expression evaluation)
-  - `coerceToBool` (type conversion)
-  - `valueTruth` (truth value determination)
-  - `setNullValue`, `setBoolValue` (result setting)
+  - `[isLazyFunc](../i/isLazyFunc.md)` (validation)
+  - `[evaluateExpr](evaluateExpr.md)` (expression evaluation)
+  - `[coerceToBool](../c/coerceToBool.md)` (type conversion)
+  - `[valueTruth](../v/valueTruth.md)` (truth value determination)
+  - `[setNullValue](../s/setNullValue.md)`, `setBoolValue` (result setting)
   - `PGBENCH_AND`, `PGBENCH_OR`, `PGBENCH_CASE` (enum constants)
   - `PGBT_NULL` (type constant)
 - Called from (representative examples):
-  - `evalFunc`
-  - `evalLazyFunc` (recursive calls for nested CASE expressions)
+  - `[evalFunc](evalFunc.md)`
+  - `[evalLazyFunc](evalLazyFunc.md)` (recursive calls for nested CASE expressions)
 
 ## Notes and Other Information
 - This is a static function with internal linkage, only accessible within pgbench.c

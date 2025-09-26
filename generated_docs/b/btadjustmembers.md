@@ -38,7 +38,7 @@ This approach optimizes dependency management while avoiding the creation of inc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CommandCounterIncrement
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md)
   - [get_opclass_input_type](../g/get_opclass_input_type.md)
   - [list_concat_copy](../l/list_concat_copy.md)
   - [opclass_for_family_datatype](../o/opclass_for_family_datatype.md)

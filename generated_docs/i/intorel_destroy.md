@@ -20,7 +20,7 @@ This function serves as the destruction callback for DR_intorel destination rece
   - [pfree](../p/pfree.md)
 - Called from (representative examples):
   - [CreateIntoRelDestReceiver](../C/CreateIntoRelDestReceiver.md) (sets as callback)
-  - DestReceiver cleanup sequences
+  - [DestReceiver](../D/DestReceiver.md) cleanup sequences
 
 ## Notes and Other Information
 This is the final step in the DR_intorel lifecycle, called only after all tuple processing and shutdown operations have completed. The function assumes that intorel_shutdown has already been called to handle operational cleanup like closing relations and freeing bulk insertion state. The simplicity of this function reflects PostgreSQL's clean separation between operational cleanup (shutdown) and memory management (destroy) phases in the DestReceiver interface.

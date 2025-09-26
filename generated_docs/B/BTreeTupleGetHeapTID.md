@@ -35,7 +35,7 @@ The function is critical for B-tree operations that need to uniquely identify tu
   - [BTreeTupleIsPosting](BTreeTupleIsPosting.md)
   - [BTreeTupleGetPosting](BTreeTupleGetPosting.md)
 - Called from (representative examples):
-  - _bt_bottomupdel_finish_pending
+  - [_bt_bottomupdel_finish_pending](../b/_bt_bottomupdel_finish_pending.md)
   - [_bt_compare](../b/_bt_compare.md)
   - [_bt_truncate](../b/_bt_truncate.md)
   - [_bt_mkscankey](../b/_bt_mkscankey.md)

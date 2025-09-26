@@ -31,7 +31,7 @@ This function is responsible for processing leaf tuples during SP-GiST index sca
   - [ItemPointerIsValid](../I/ItemPointerIsValid.md)
   - [spgLeafTest](spgLeafTest.md)
   - SGLT_GET_NEXTOFFSET
-  - SpGistLeafTuple
+  - [SpGistLeafTuple](../S/SpGistLeafTuple.md)
   - SpGistDeadTuple
 - Called from (representative examples):
   - [spgWalk](spgWalk.md)

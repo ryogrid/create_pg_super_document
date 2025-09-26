@@ -24,11 +24,11 @@ This function ensures type safety by asserting that the provided list is actuall
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (for type checking to ensure list is OidList)
-  - list_nth_cell (to get the cell at position n)
+  - [list_nth_cell](list_nth_cell.md) (to get the cell at position n)
   - lfirst_oid (to extract the OID value from the cell)
 - Called from (representative examples):
   - [interpret_AS_clause](../i/interpret_AS_clause.md) (function parameter processing)
-  - EstimateParamExecSpace (parallel execution parameter estimation)
+  - [EstimateParamExecSpace](../E/EstimateParamExecSpace.md) (parallel execution parameter estimation)
   - [expand_indexqual_rowcompare](../e/expand_indexqual_rowcompare.md) (index qualification expansion)
   - [get_rte_attribute_is_dropped](../g/get_rte_attribute_is_dropped.md) (relation attribute checking)
   - [rewriteSearchAndCycle](../r/rewriteSearchAndCycle.md) (search/cycle rewriting logic)

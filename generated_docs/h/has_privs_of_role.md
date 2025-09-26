@@ -28,19 +28,19 @@ This is distinct from member_can_set_role(), which checks SET ROLE capability ra
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - superuser_arg
-  - roles_is_member_of
-  - list_member_oid
+  - [superuser_arg](../s/superuser_arg.md)
+  - [roles_is_member_of](../r/roles_is_member_of.md)
+  - [list_member_oid](../l/list_member_oid.md)
   - ROLERECURSE_PRIVS (constant)
 - Called from (representative examples):
-  - ExecAlterDefaultPrivilegesStmt
-  - pg_class_aclmask_ext
-  - pg_namespace_aclmask_ext
-  - object_ownercheck
-  - DoCopy
-  - check_role_grantor
-  - aclmask
-  - pg_role_aclcheck
+  - [ExecAlterDefaultPrivilegesStmt](../E/ExecAlterDefaultPrivilegesStmt.md)
+  - [pg_class_aclmask_ext](../p/pg_class_aclmask_ext.md)
+  - [pg_namespace_aclmask_ext](../p/pg_namespace_aclmask_ext.md)
+  - [object_ownercheck](../o/object_ownercheck.md)
+  - [DoCopy](../D/DoCopy.md)
+  - [check_role_grantor](../c/check_role_grantor.md)
+  - [aclmask](../a/aclmask.md)
+  - [pg_role_aclcheck](../p/pg_role_aclcheck.md)
 
 ## Notes and Other Information
 - Only considers inherited grants, not SET grants or direct memberships without inheritance

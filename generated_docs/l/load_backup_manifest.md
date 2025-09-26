@@ -23,7 +23,7 @@ The function handles both small manifests (loaded entirely into memory) and larg
 - Functions called/Symbols referenced:
   - open, fstat, read, close (system calls)
   - manifest_files_create
-  - pg_malloc0, pg_malloc, pfree
+  - [pg_malloc0](../p/pg_malloc0.md), pg_malloc, pfree
   - [json_parse_manifest](../j/json_parse_manifest.md)
   - [json_parse_manifest_incremental_init](../j/json_parse_manifest_incremental_init.md)
   - [json_parse_manifest_incremental_chunk](../j/json_parse_manifest_incremental_chunk.md)  

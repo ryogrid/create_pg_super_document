@@ -33,10 +33,10 @@ During recovery, this information is used to properly reconstruct the transactio
   - FLEXIBLE_ARRAY_MEMBER
   - TransactionId (type)
 - Called from (representative examples):
-  - ParseCommitRecord (extracts subtransaction info from commit records)
-  - ParseAbortRecord (extracts subtransaction info from abort records)
-  - XactLogCommitRecord (includes subtransaction info in commit records)
-  - XactLogAbortRecord (includes subtransaction info in abort records)
+  - [ParseCommitRecord](../P/ParseCommitRecord.md) (extracts subtransaction info from commit records)
+  - [ParseAbortRecord](../P/ParseAbortRecord.md) (extracts subtransaction info from abort records)
+  - [XactLogCommitRecord](../X/XactLogCommitRecord.md) (includes subtransaction info in commit records)
+  - [XactLogAbortRecord](../X/XactLogAbortRecord.md) (includes subtransaction info in abort records)
   - MinSizeOfXactSubxacts (macro for calculating minimum size)
 
 ## Notes and Other Information

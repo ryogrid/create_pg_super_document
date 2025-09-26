@@ -17,20 +17,20 @@ This internal function is responsible for processing all pending statistics entr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_is_empty
-  - dlist_head_node
+  - [dlist_is_empty](../d/dlist_is_empty.md)
+  - [dlist_head_node](../d/dlist_head_node.md)
   - dlist_container
-  - dlist_has_next
-  - dlist_next_node
-  - pgstat_get_kind_info
-  - pgstat_delete_pending_entry
-  - PgStat_EntryRef
-  - PgStat_HashKey
-  - PgStat_Kind
-  - PgStat_KindInfo
-  - dlist_node
+  - [dlist_has_next](../d/dlist_has_next.md)
+  - [dlist_next_node](../d/dlist_next_node.md)
+  - [pgstat_get_kind_info](pgstat_get_kind_info.md)
+  - [pgstat_delete_pending_entry](pgstat_delete_pending_entry.md)
+  - [PgStat_EntryRef](../P/PgStat_EntryRef.md)
+  - [PgStat_HashKey](../P/PgStat_HashKey.md)
+  - [PgStat_Kind](../P/PgStat_Kind.md)
+  - [PgStat_KindInfo](../P/PgStat_KindInfo.md)
+  - [dlist_node](../d/dlist_node.md)
 - Called from (representative examples):
-  - pgstat_report_stat (src/backend/utils/activity/pgstat.c:654)
+  - [pgstat_report_stat](pgstat_report_stat.md) (src/backend/utils/activity/pgstat.c:654)
 
 ## Notes and Other Information
 - Returns true if there are still pending entries that could not be flushed, false if all entries were successfully flushed

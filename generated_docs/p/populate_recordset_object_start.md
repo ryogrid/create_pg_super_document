@@ -26,7 +26,7 @@ The function implements different behaviors based on the lexical nesting level:
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PopulateRecordsetState](../P/PopulateRecordsetState.md) (struct type)
-  - HASHCTL (struct type)
+  - [HASHCTL](../H/HASHCTL.md) (struct type)
   - JSON_SUCCESS (return value constant)
   - NAMEDATALEN (constant for hash key size)
   - [JsonHashEntry](../J/JsonHashEntry.md) (struct type for hash table entries)

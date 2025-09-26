@@ -31,9 +31,9 @@ The function is more flexible than ExecFindJunkAttribute since it doesn't requir
 - Functions called/Symbols referenced:
   - InvalidAttrNumber: Constant returned when attribute is not found
 - Called from (representative examples):
-  - ExecFindJunkAttribute: Higher-level wrapper function using JunkFilter
-  - ExecBuildAuxRowMark: For setting up row marking during execution
-  - ExecInitModifyTable: During modify table node initialization
+  - [ExecFindJunkAttribute](ExecFindJunkAttribute.md): Higher-level wrapper function using JunkFilter
+  - [ExecBuildAuxRowMark](ExecBuildAuxRowMark.md): For setting up row marking during execution
+  - [ExecInitModifyTable](ExecInitModifyTable.md): During modify table node initialization
 
 ## Notes and Other Information
 - Returns InvalidAttrNumber if the specified attribute is not found or is not marked as junk

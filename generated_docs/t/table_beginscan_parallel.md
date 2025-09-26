@@ -22,7 +22,7 @@ This function creates a TableScanDesc for parallel scanning by coordinating with
 - Functions called/Symbols referenced:
   - RelationGetRelid
   - [RestoreSnapshot](../R/RestoreSnapshot.md)  
-  - RegisterSnapshot
+  - [RegisterSnapshot](../R/RegisterSnapshot.md)
   - SO_TYPE_SEQSCAN
   - SO_ALLOW_STRAT
   - SO_ALLOW_SYNC

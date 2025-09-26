@@ -34,7 +34,7 @@ The function handles the case where the requested statistics data may not exist 
   - Form_pg_statistic_ext_data
   - [SearchSysCache2](../S/SearchSysCache2.md)
   - [statext_is_kind_built](../s/statext_is_kind_built.md)
-  - StatisticExtInfo
+  - [StatisticExtInfo](../S/StatisticExtInfo.md)
   - [bms_copy](../b/bms_copy.md)
   - STATS_EXT_NDISTINCT
   - STATS_EXT_DEPENDENCIES

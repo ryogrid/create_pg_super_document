@@ -26,9 +26,9 @@ The function is designed to support the planner's optimization decisions, partic
 - Functions called/Symbols referenced:
   - SearchSysCacheList1
   - ReleaseSysCacheList
-  - lappend_oid
+  - [lappend_oid](../l/lappend_oid.md)
   - Form_pg_amop
-  - CatCList
+  - [CatCList](../C/CatCList.md)
 - Called from (representative examples):
   - [match_eclasses_to_foreign_key_col](../m/match_eclasses_to_foreign_key_col.md)
   - [make_pathkey_from_sortinfo](../m/make_pathkey_from_sortinfo.md)

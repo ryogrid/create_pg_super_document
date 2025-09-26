@@ -30,12 +30,12 @@ This mechanism enables database administrators to customize the environment for 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RoleSpec (for role specification)
-  - VariableSetStmt (for the SET/RESET command details)
+  - [RoleSpec](../R/RoleSpec.md) (for role specification)
+  - [VariableSetStmt](../V/VariableSetStmt.md) (for the SET/RESET command details)
   - NodeTag (for type identification)
 - Called from (representative examples):
-  - AlterRoleSet (role configuration command execution)
-  - standard_ProcessUtility (utility command processing)
+  - [AlterRoleSet](AlterRoleSet.md) (role configuration command execution)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (utility command processing)
 
 ## Notes and Other Information
 - This structure handles both SET and RESET operations through the embedded VariableSetStmt

@@ -23,7 +23,7 @@ The function accepts text input (which is converted to a C string) and uses Dire
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - text_to_cstring (converts text input to C string)
+  - [text_to_cstring](text_to_cstring.md) (converts text input to C string)
   - [ErrorSaveContext](../E/ErrorSaveContext.md) (error handling context structure)
   - [regrolein](../r/regrolein.md) (underlying role name to OID conversion function)
   - [DirectInputFunctionCallSafe](../D/DirectInputFunctionCallSafe.md) (safe function call with error catching)

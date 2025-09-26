@@ -39,7 +39,7 @@ This function takes no parameters but operates on several global variables:
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_log_info (for logging cleanup actions)
-  - rmtree (for recursive directory removal)
+  - [rmtree](../r/rmtree.md) (for recursive directory removal)
   - pg_log_error (for error logging when removal fails)
 - Called from (representative examples):
   - [main](../m/main.md) (in initdb.c via atexit registration)

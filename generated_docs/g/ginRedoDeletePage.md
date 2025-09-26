@@ -34,7 +34,7 @@ Key functionality:
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData
-  - XLogReadBufferForRedo
+  - [XLogReadBufferForRedo](../X/XLogReadBufferForRedo.md)
   - [BufferGetPage](../B/BufferGetPage.md)
   - GinPageIsData
   - GinPageGetOpaque
@@ -43,7 +43,7 @@ Key functionality:
   - GinPageIsLeaf
   - [GinPageDeletePostingItem](../G/GinPageDeletePostingItem.md)
   - [PageSetLSN](../P/PageSetLSN.md)
-  - MarkBufferDirty
+  - [MarkBufferDirty](../M/MarkBufferDirty.md)
   - [BufferIsValid](../B/BufferIsValid.md)
   - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
 

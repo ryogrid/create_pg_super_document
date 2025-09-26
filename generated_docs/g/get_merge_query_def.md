@@ -39,15 +39,15 @@ Key processing aspects:
   - [get_with_clause](get_with_clause.md)
   - rt_fetch
   - only_marker
-  - generate_relation_name
-  - get_rte_alias
-  - get_from_clause
-  - appendContextKeyword
-  - get_rule_expr
+  - [generate_relation_name](generate_relation_name.md)
+  - [get_rte_alias](get_rte_alias.md)
+  - [get_from_clause](get_from_clause.md)
+  - [appendContextKeyword](../a/appendContextKeyword.md)
+  - [get_rule_expr](get_rule_expr.md)
   - [quote_identifier](../q/quote_identifier.md)
   - [get_attname](get_attname.md)
-  - processIndirection
-  - get_rule_list_toplevel
+  - [processIndirection](../p/processIndirection.md)
+  - [get_rule_list_toplevel](get_rule_list_toplevel.md)
   - [get_update_query_targetlist_def](get_update_query_targetlist_def.md)
   - [get_target_list](get_target_list.md)
 - Called from:

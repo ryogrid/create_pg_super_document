@@ -20,13 +20,13 @@ ExecReScanWindowAgg reinitializes a WindowAgg executor node for re-execution. Th
 ## Dependencies
 - Functions called/Symbols referenced:
   - outerPlanState
-  - release_partition
-  - ExecClearTuple
+  - [release_partition](../r/release_partition.md)
+  - [ExecClearTuple](ExecClearTuple.md)
   - MemSet
-  - ExecReScan
+  - [ExecReScan](ExecReScan.md)
   - WINDOWAGG_RUN (status constant)
 - Called from (representative examples):
-  - ExecReScan (general executor rescan mechanism)
+  - [ExecReScan](ExecReScan.md) (general executor rescan mechanism)
 
 ## Notes and Other Information
 - This function is part of the standard PostgreSQL executor node rescan protocol

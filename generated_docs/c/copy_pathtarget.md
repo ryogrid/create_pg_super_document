@@ -25,7 +25,7 @@ The shallow copy approach means that while the PathTarget structure itself and i
   - makeNode (node creation)
   - memcpy (memory copy)
   - [list_copy](../l/list_copy.md) (list shallow copy)
-  - list_length (list utility)
+  - [list_length](../l/list_length.md) (list utility)
   - [palloc](../p/palloc.md) (memory allocation)
 - Called from (representative examples):
   - [create_one_window_path](create_one_window_path.md)

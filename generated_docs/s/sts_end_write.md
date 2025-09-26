@@ -22,15 +22,15 @@ This function ensures that all written data is properly persisted and that the p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SharedTuplestoreAccessor (struct type)
+  - [SharedTuplestoreAccessor](../S/SharedTuplestoreAccessor.md) (struct type)
   - [sts_flush_chunk](sts_flush_chunk.md)
-  - BufFileClose
+  - [BufFileClose](../B/BufFileClose.md)
   - [write_chunk](../w/write_chunk.md) (accessor field)
 - Called from (representative examples):
   - [MultiExecParallelHash](../M/MultiExecParallelHash.md)
   - [ExecParallelHashCloseBatchAccessors](../E/ExecParallelHashCloseBatchAccessors.md)
   - [ExecHashTableDetach](../E/ExecHashTableDetach.md)
-  - ExecParallelHashJoinPartitionOuter
+  - [ExecParallelHashJoinPartitionOuter](../E/ExecParallelHashJoinPartitionOuter.md)
   - SHARED_TUPLESTORE_SINGLE_PASS
 
 ## Notes and Other Information

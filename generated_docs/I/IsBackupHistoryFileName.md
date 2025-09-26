@@ -32,9 +32,9 @@ This function validates whether a filename follows the expected backup history f
   - XLOG_FNAME_LEN (constant used twice for length validation)
   - Standard C library functions: strlen, strspn, strcmp
 - Called from (representative examples):
-  - CleanupBackupHistory (in src/backend/access/transam/xlog.c)
-  - CleanupPriorWALFiles (in src/bin/pg_archivecleanup/pg_archivecleanup.c)
-  - SetWALFileNameForCleanup (in src/bin/pg_archivecleanup/pg_archivecleanup.c)
+  - [CleanupBackupHistory](../C/CleanupBackupHistory.md) (in src/backend/access/transam/xlog.c)
+  - [CleanupPriorWALFiles](../C/CleanupPriorWALFiles.md) (in src/bin/pg_archivecleanup/pg_archivecleanup.c)
+  - [SetWALFileNameForCleanup](../S/SetWALFileNameForCleanup.md) (in src/bin/pg_archivecleanup/pg_archivecleanup.c)
 
 ## Notes and Other Information
 The function implements a three-step validation: first ensuring the filename is longer than XLOG_FNAME_LEN, then verifying the prefix contains only hexadecimal digits for the expected length, and finally confirming it ends with '.backup'. This approach efficiently filters out non-backup-history files while ensuring proper format compliance. The function is commonly used in WAL cleanup and archival utilities.

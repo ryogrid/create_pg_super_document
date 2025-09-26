@@ -23,7 +23,7 @@ This function is primarily used for SSPI (Security Support Provider Interface) a
 ## Dependencies
 - Functions called/Symbols referenced:
   - bail (for error handling)
-  - pg_malloc (for memory allocation)
+  - [pg_malloc](../p/pg_malloc.md) (for memory allocation)
 - Called from (representative examples):
   - [config_sspi_auth](config_sspi_auth.md)
 

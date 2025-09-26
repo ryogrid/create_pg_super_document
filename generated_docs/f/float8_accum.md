@@ -64,7 +64,7 @@ The algorithm includes comprehensive error handling for overflow conditions and 
   - isinf (check for infinite values)
   - isnan (check for NaN values)
   - [float_overflow_error](float_overflow_error.md) (PostgreSQL error handling)
-  - get_float8_nan (get NaN float8 value)
+  - [get_float8_nan](../g/get_float8_nan.md) (get NaN float8 value)
   - [AggCheckCallContext](../A/AggCheckCallContext.md) (check if called in aggregate context)
   - Float8GetDatumFast (convert float8 to Datum)
   - [construct_array](../c/construct_array.md) (create new ArrayType)

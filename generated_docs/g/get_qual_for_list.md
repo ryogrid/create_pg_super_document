@@ -23,7 +23,7 @@ The constraint generation includes special logic for single-column list partitio
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RelationGetPartitionKey](../R/RelationGetPartitionKey.md)
-  - makeVar
+  - [makeVar](../m/makeVar.md)
   - copyObject
   - [RelationGetPartitionDesc](../R/RelationGetPartitionDesc.md)
   - partition_bound_accepts_nulls

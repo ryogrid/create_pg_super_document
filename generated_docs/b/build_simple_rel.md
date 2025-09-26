@@ -41,7 +41,7 @@ Key responsibilities include:
   - RELOPT_BASEREL, RELOPT_OTHER_MEMBER_REL (relation optimization kinds)
   - RTE_RELATION, RTE_SUBQUERY, RTE_FUNCTION, etc. (range table entry types)
 - Data structures used:
-  - RelOptInfo, RangeTblEntry, RTEPermissionInfo, AppendRelInfo
+  - [RelOptInfo](../R/RelOptInfo.md), RangeTblEntry, RTEPermissionInfo, AppendRelInfo
 - Called from (representative examples):
   - [add_base_rels_to_query](../a/add_base_rels_to_query.md) (src/backend/optimizer/plan/initsplan.c:165)
   - [query_planner](../q/query_planner.md) (src/backend/optimizer/plan/planmain.c:107)

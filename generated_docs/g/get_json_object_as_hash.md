@@ -38,7 +38,7 @@ Key behaviors:
   - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md)
   - [pg_parse_json_or_errsave](../p/pg_parse_json_or_errsave.md)
   - [hash_destroy](../h/hash_destroy.md)
-  - freeJsonLexContext
+  - [freeJsonLexContext](../f/freeJsonLexContext.md)
   - [hash_array_start](../h/hash_array_start.md)
   - [hash_scalar](../h/hash_scalar.md)
   - [hash_object_field_start](../h/hash_object_field_start.md)

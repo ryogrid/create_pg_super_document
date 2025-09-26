@@ -130,15 +130,15 @@ The structure contains statistical slots (STATISTIC_NUM_SLOTS) that can hold dif
   - STATISTIC_NUM_SLOTS (maximum statistics slots)
   - AnalyzeAttrComputeStatsFunc (function pointer type)
   - float4 (PostgreSQL float type)
-  - MemoryContext (memory management)
+  - [MemoryContext](../M/MemoryContext.md) (memory management)
 
 - Called from (representative examples):
-  - do_analyze_rel (src/backend/commands/analyze.c:292)
-  - compute_index_stats (src/backend/commands/analyze.c:928)
-  - examine_attribute (src/backend/commands/analyze.c:1007)
-  - std_typanalyze (src/backend/commands/analyze.c:1845)
-  - array_typanalyze (src/backend/utils/adt/array_typanalyze.c:100)
-  - ts_typanalyze (src/backend/tsearch/ts_typanalyze.c:60)
+  - [do_analyze_rel](../d/do_analyze_rel.md) (src/backend/commands/analyze.c:292)
+  - [compute_index_stats](../c/compute_index_stats.md) (src/backend/commands/analyze.c:928)
+  - [examine_attribute](../e/examine_attribute.md) (src/backend/commands/analyze.c:1007)
+  - [std_typanalyze](../s/std_typanalyze.md) (src/backend/commands/analyze.c:1845)
+  - [array_typanalyze](../a/array_typanalyze.md) (src/backend/utils/adt/array_typanalyze.c:100)
+  - [ts_typanalyze](../t/ts_typanalyze.md) (src/backend/tsearch/ts_typanalyze.c:60)
 
 ## Notes and Other Information
 - The structure lifecycle spans the entire ANALYZE operation for a single column

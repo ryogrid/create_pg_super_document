@@ -25,12 +25,12 @@ As a typedef pointer, SortSupport itself has no direct parameters, but it points
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SortSupportData
+  - [SortSupportData](SortSupportData.md)
 - Used by (representative examples):
-  - ApplySortComparator
-  - ApplySortAbbrevFullComparator
-  - PrepareSortSupportComparisonShim
-  - PrepareSortSupportFromOrderingOp
+  - [ApplySortComparator](../A/ApplySortComparator.md)
+  - [ApplySortAbbrevFullComparator](../A/ApplySortAbbrevFullComparator.md)
+  - [PrepareSortSupportComparisonShim](../P/PrepareSortSupportComparisonShim.md)
+  - [PrepareSortSupportFromOrderingOp](../P/PrepareSortSupportFromOrderingOp.md)
   - Various btree opclass sort support functions
 
 ## Notes and Other Information

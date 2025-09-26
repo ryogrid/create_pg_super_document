@@ -32,9 +32,9 @@ The structure contains the essential information needed to identify which databa
 - Functions called/Symbols referenced:
   - FLEXIBLE_ARRAY_MEMBER (for variable-length data field)
 - Called from (representative examples):
-  - write_relmap_file (creates WAL records using this structure)
-  - relmap_redo (processes WAL records of this type during recovery)
-  - relmap_desc (describes WAL records for debugging/logging)
+  - [write_relmap_file](../w/write_relmap_file.md) (creates WAL records using this structure)
+  - [relmap_redo](../r/relmap_redo.md) (processes WAL records of this type during recovery)
+  - [relmap_desc](../r/relmap_desc.md) (describes WAL records for debugging/logging)
   - MinSizeOfRelmapUpdate (macro that calculates minimum size)
 
 ## Notes and Other Information

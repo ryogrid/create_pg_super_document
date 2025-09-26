@@ -28,7 +28,7 @@ This function performs a simple but critical check to determine if an object nam
   - [RenameRole](../R/RenameRole.md) (src/backend/commands/user.c:1383, 1390)
   - [RenameTableSpace](../R/RenameTableSpace.md) (src/backend/commands/tablespace.c:967)
   - [pg_replication_origin_create](../p/pg_replication_origin_create.md) (src/backend/replication/logical/origin.c:1282)
-  - check_rolespec_name (src/backend/utils/adt/acl.c:5586)
+  - [check_rolespec_name](../c/check_rolespec_name.md) (src/backend/utils/adt/acl.c:5586)
 
 ## Notes and Other Information
 - The function uses direct character array indexing for performance optimization

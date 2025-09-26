@@ -28,7 +28,7 @@ The function includes a performance note indicating that the linear search might
 - Functions called/Symbols referenced:
   -  - [List](../L/List.md) iteration macro
   -  - [List](../L/List.md) access macro to get the current element
-  -  - String comparison function
+  -  - [String](../S/String.md) comparison function
 
 - Called from:
   -  (src/backend/commands/async.c:1141) - To avoid duplicate channel registrations

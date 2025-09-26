@@ -20,9 +20,9 @@ The pg_euccn_dsplen function calculates how many display columns a character seq
 ## Dependencies
 - Functions called/Symbols referenced:
   - IS_HIGHBIT_SET (macro to test if the high bit of a byte is set)
-  - pg_ascii_dsplen (function to handle ASCII character display width)
+  - [pg_ascii_dsplen](pg_ascii_dsplen.md) (function to handle ASCII character display width)
 - Called from (representative examples):
-  - pg_encoding_set_invalid (via function pointer assignment)
+  - [pg_encoding_set_invalid](pg_encoding_set_invalid.md) (via function pointer assignment)
 
 ## Notes and Other Information
 - This is a static function with internal linkage, only visible within the wchar.c compilation unit

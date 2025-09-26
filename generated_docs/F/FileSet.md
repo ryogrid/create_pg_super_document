@@ -36,14 +36,14 @@ Each FileSet is uniquely identified by the combination of creator_pid and number
   - pid_t
   - Oid (Object Identifier type)
 - Called from (representative examples):
-  - FileSetInit
-  - FileSetCreate
-  - FileSetOpen
-  - FileSetDelete
-  - FileSetDeleteAll
-  - BufFileCreateFileSet
-  - BufFileOpenFileSet
-  - BufFileDeleteFileSet
+  - [FileSetInit](FileSetInit.md)
+  - [FileSetCreate](FileSetCreate.md)
+  - [FileSetOpen](FileSetOpen.md)
+  - [FileSetDelete](FileSetDelete.md)
+  - [FileSetDeleteAll](FileSetDeleteAll.md)
+  - [BufFileCreateFileSet](../B/BufFileCreateFileSet.md)
+  - [BufFileOpenFileSet](../B/BufFileOpenFileSet.md)
+  - [BufFileDeleteFileSet](../B/BufFileDeleteFileSet.md)
   - [LogicalRepWorker](../L/LogicalRepWorker.md) (in replication workers)
   - [ParallelApplyWorkerShared](../P/ParallelApplyWorkerShared.md) (in parallel apply workers)
 

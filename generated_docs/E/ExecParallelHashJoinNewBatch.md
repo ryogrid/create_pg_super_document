@@ -23,17 +23,17 @@ The function implements a round-robin search strategy starting from different po
 - Functions called/Symbols referenced:
   - [ExecHashTableDetachBatch](ExecHashTableDetachBatch.md)
   - [pg_atomic_fetch_add_u32](../p/pg_atomic_fetch_add_u32.md)
-  - BarrierAttach
-  - BarrierArriveAndWait
+  - [BarrierAttach](../B/BarrierAttach.md)
+  - [BarrierArriveAndWait](../B/BarrierArriveAndWait.md)
   - [ExecParallelHashTableAlloc](ExecParallelHashTableAlloc.md)
   - [ExecParallelHashTableSetCurrentBatch](ExecParallelHashTableSetCurrentBatch.md)
   - [sts_begin_parallel_scan](../s/sts_begin_parallel_scan.md)
-  - sts_parallel_scan_next
+  - [sts_parallel_scan_next](../s/sts_parallel_scan_next.md)
   - [ExecForceStoreMinimalTuple](ExecForceStoreMinimalTuple.md)
-  - ExecParallelHashTableInsertCurrentBatch
+  - [ExecParallelHashTableInsertCurrentBatch](ExecParallelHashTableInsertCurrentBatch.md)
   - [sts_end_parallel_scan](../s/sts_end_parallel_scan.md)
-  - BarrierDetach
-  - BarrierPhase
+  - [BarrierDetach](../B/BarrierDetach.md)
+  - [BarrierPhase](../B/BarrierPhase.md)
 - Called from (representative examples):
   - [ExecHashJoinImpl](ExecHashJoinImpl.md)
 

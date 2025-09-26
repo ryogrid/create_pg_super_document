@@ -38,7 +38,7 @@ This function determines the optimal placement for a single don't-care tuple by 
   - [GistSplitVector](../G/GistSplitVector.md) (structure type)
   - [GISTENTRY](../G/GISTENTRY.md) (structure type)
   - INDEX_MAX_KEYS (constant for maximum index keys)
-  - gistDeCompressAtt (decompresses tuple attributes)
+  - [gistDeCompressAtt](../g/gistDeCompressAtt.md) (decompresses tuple attributes)
   - gistentryinit (initializes GISTENTRY structures)
   - [gistpenalty](../g/gistpenalty.md) (computes penalty for adding tuple to union)
 - Called from:

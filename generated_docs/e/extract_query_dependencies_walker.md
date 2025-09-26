@@ -28,14 +28,14 @@ The walker uses standard PostgreSQL tree traversal patterns, returning false to 
   - Assert
   - [PlaceHolderVar](../P/PlaceHolderVar.md)
   - CMD_UTILITY
-  - CallStmt
+  - [CallStmt](../C/CallStmt.md)
   - [extract_query_dependencies_walker](extract_query_dependencies_walker.md) (recursive)
-  - UtilityContainsQuery
+  - [UtilityContainsQuery](../U/UtilityContainsQuery.md)
   - RTE_RELATION
   - RTE_SUBQUERY  
   - RTE_NAMEDTUPLESTORE
   - OidIsValid
-  - lappend_oid
+  - [lappend_oid](../l/lappend_oid.md)
   - query_tree_walker
   - [fix_expr_common](../f/fix_expr_common.md)
   - expression_tree_walker

@@ -28,14 +28,14 @@ The function adds all DISTINCT ON expressions to the target list (as resjunk ite
 - Functions called/Symbols referenced:
   - [findTargetlistEntrySQL92](../f/findTargetlistEntrySQL92.md): Locates or creates a target list entry for an expression
   - [assignSortGroupRef](../a/assignSortGroupRef.md): Assigns a sort group reference number to a target entry
-  - lappend_int: Appends an integer value to a list
+  - [lappend_int](../l/lappend_int.md): Appends an integer value to a list
   - [list_member_int](../l/list_member_int.md): Checks if an integer value is present in a list
   - [get_matching_location](../g/get_matching_location.md): Gets the parse location of a matching expression for error reporting
   - copyObject: Creates a deep copy of a PostgreSQL node structure
   - [get_sortgroupref_tle](../g/get_sortgroupref_tle.md): Retrieves target entry by sort group reference
   - [targetIsInSortList](targetIsInSortList.md): Checks if a target is already in the sort list
   - [addTargetToGroupList](../a/addTargetToGroupList.md): Adds a target entry to the group list using default semantics
-  - SortGroupClause: Structure representing sort/group operations
+  - [SortGroupClause](../S/SortGroupClause.md): Structure representing sort/group operations
   - EXPR_KIND_DISTINCT_ON: Expression kind constant for DISTINCT ON contexts
 - Called from (representative examples):
   - [transformSelectStmt](transformSelectStmt.md): Main SELECT statement transformation in analyzer

@@ -40,7 +40,7 @@ This function is a recursive tree walker that processes expression trees to fina
   - [flatten_join_alias_vars](flatten_join_alias_vars.md)
   - [equal](../e/equal.md)
   - [exprLocation](../e/exprLocation.md)
-  - lappend_int
+  - [lappend_int](../l/lappend_int.md)
   - query_tree_walker
   - expression_tree_walker
   - ereport (for error reporting)

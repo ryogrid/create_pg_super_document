@@ -24,11 +24,11 @@ The obfuscation is based on libpq's internal metadata about which connection par
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQconninfo](../P/PQconninfo.md) (retrieve connection options from active connection)
-  - `initPQExpBuffer` (initialize string buffer for output)
+  - `[initPQExpBuffer](../i/initPQExpBuffer.md)` (initialize string buffer for output)
   - [appendPQExpBuffer](../a/appendPQExpBuffer.md) (append formatted strings to buffer)
   - [PQconninfoFree](../P/PQconninfoFree.md) (free libpq-allocated connection info)
   - `PQExpBufferDataBroken` (check buffer state)
-  - `termPQExpBuffer` (clean up string buffer)
+  - `[termPQExpBuffer](../t/termPQExpBuffer.md)` (clean up string buffer)
   - [pstrdup](../p/pstrdup.md) (duplicate final string using PostgreSQL memory management)
   - `strchr` (check display characteristics of connection options)
 

@@ -23,18 +23,18 @@ The copying process includes comprehensive error handling, progress reporting th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogFilePath
-  - OpenTransientFile
+  - [XLogFilePath](XLogFilePath.md)
+  - [OpenTransientFile](../O/OpenTransientFile.md)
   - unlink
   - read
   - write
-  - pg_fsync
-  - CloseTransientFile
+  - [pg_fsync](../p/pg_fsync.md)
+  - [CloseTransientFile](../C/CloseTransientFile.md)
   - [InstallXLogFileSegment](../I/InstallXLogFileSegment.md)
-  - pgstat_report_wait_start/end
+  - [pgstat_report_wait_start](../p/pgstat_report_wait_start.md)/end
   - ereport
   - [errcode_for_file_access](../e/errcode_for_file_access.md)
-  - data_sync_elevel
+  - [data_sync_elevel](../d/data_sync_elevel.md)
 - Called from (representative examples):
   - [XLogInitNewTimeline](XLogInitNewTimeline.md) (src/backend/access/transam/xlog.c:5207)
 

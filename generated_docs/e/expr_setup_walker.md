@@ -300,7 +300,7 @@ Text creation and manipulation
 ## Dependencies
 - Functions called/Symbols referenced:
   - expression_tree_walker (standard PostgreSQL expression tree traversal infrastructure)
-  - lappend (list manipulation for collecting MULTIEXPR subplans)
+  - [lappend](../l/lappend.md) (list manipulation for collecting MULTIEXPR subplans)
   - Max (macro for tracking maximum attribute numbers)
   - IsA (node type checking macros)
 - Called from (representative examples):

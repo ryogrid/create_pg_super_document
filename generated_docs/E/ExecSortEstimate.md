@@ -31,10 +31,10 @@ If instrumentation is disabled or no workers are involved, the function returns 
   - [add_size](../a/add_size.md) (safely adds sizes, checking for overflow) 
   - shm_toc_estimate_chunk (estimates shared memory chunk size)
   - shm_toc_estimate_keys (estimates shared memory key requirements)
-  - TuplesortInstrumentation (instrumentation data structure)
+  - [TuplesortInstrumentation](../T/TuplesortInstrumentation.md) (instrumentation data structure)
   - [SharedSortInfo](../S/SharedSortInfo.md) (shared sort information structure)
 - Called from (representative examples):
-  - ExecParallelEstimate (parallel execution estimator)
+  - [ExecParallelEstimate](ExecParallelEstimate.md) (parallel execution estimator)
 
 ## Notes and Other Information
 - Only performs estimation if instrumentation is enabled (`node->ss.ps.instrument`) and workers are present (`pcxt->nworkers > 0`)

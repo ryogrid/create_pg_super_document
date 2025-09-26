@@ -28,7 +28,7 @@ The function acts as a wrapper around the platform-specific implementation , pro
 - Called from (representative examples):
   - [table_block_parallelscan_nextpage](../t/table_block_parallelscan_nextpage.md) (parallel table scanning)
   - [GetFakeLSNForUnloggedRel](../G/GetFakeLSNForUnloggedRel.md) (transaction log sequence number generation)
-  - pgstat_request_entry_refs_gc (statistics entry reference counting)
+  - [pgstat_request_entry_refs_gc](pgstat_request_entry_refs_gc.md) (statistics entry reference counting)
   - dsa_pointer_atomic_fetch_add (dynamic shared area pointer arithmetic)
   - [test_atomic_uint64](../t/test_atomic_uint64.md) (regression testing)
 

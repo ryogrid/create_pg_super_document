@@ -35,7 +35,7 @@ This function takes no parameters and operates on global state:
   -  (errno constant)
 
 - Called from (representative examples):
-  -  - when setting a latch to wake up waiting processes
+  -  - [when](../w/when.md) setting a latch to wake up waiting processes
   -  - from signal handler context
   -  - during latch position management
 

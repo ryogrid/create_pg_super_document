@@ -24,8 +24,8 @@ This mechanism is designed for debugging memory usage issues and is typically us
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BackendPidGetProc
-  - AuxiliaryPidGetProc  
+  - [BackendPidGetProc](../B/BackendPidGetProc.md)
+  - [AuxiliaryPidGetProc](../A/AuxiliaryPidGetProc.md)  
   - GetNumberFromPGProc
   - [SendProcSignal](../S/SendProcSignal.md)
   - PROCSIG_LOG_MEMORY_CONTEXT

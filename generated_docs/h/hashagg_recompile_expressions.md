@@ -32,7 +32,7 @@ The function supports both AGG_HASHED and AGG_MIXED strategies, selecting the ap
   - [AggStatePerPhase](../A/AggStatePerPhase.md)
   - AGG_HASHED
   - AGG_MIXED
-  - TupleTableSlotOps
+  - [TupleTableSlotOps](../T/TupleTableSlotOps.md)
   - [ExecBuildAggTrans](../E/ExecBuildAggTrans.md)
 - Called from (representative examples):
   - [hash_agg_enter_spill_mode](hash_agg_enter_spill_mode.md)

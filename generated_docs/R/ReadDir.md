@@ -99,21 +99,21 @@ innermost_caseval			      write_location: Directory stream pointer returned by A
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReadDirExtended
-  - DIR (system type)
-  - dirent (system structure)
+  - [ReadDirExtended](ReadDirExtended.md)
+  - [DIR](../D/DIR.md) (system type)
+  - [dirent](../d/dirent.md) (system structure)
 - Called from (representative examples):
-  - CheckPointLogicalRewriteHeap
-  - SlruScanDirectory  
-  - restoreTwoPhaseData
-  - XLogGetOldestSegno
-  - RemoveTempXlogFiles
-  - perform_base_backup
-  - sendDir
-  - copydir
-  - ResetUnloggedRelations
-  - db_dir_size
-  - pg_ls_dir
+  - [CheckPointLogicalRewriteHeap](../C/CheckPointLogicalRewriteHeap.md)
+  - [SlruScanDirectory](../S/SlruScanDirectory.md)  
+  - [restoreTwoPhaseData](../r/restoreTwoPhaseData.md)
+  - [XLogGetOldestSegno](../X/XLogGetOldestSegno.md)
+  - [RemoveTempXlogFiles](RemoveTempXlogFiles.md)
+  - [perform_base_backup](../p/perform_base_backup.md)
+  - [sendDir](../s/sendDir.md)
+  - [copydir](../c/copydir.md)
+  - [ResetUnloggedRelations](ResetUnloggedRelations.md)
+  - [db_dir_size](../d/db_dir_size.md)
+  - [pg_ls_dir](../p/pg_ls_dir.md)
 
 ## Notes and Other Information
 - Returns NULL when reaching end of directory or on error

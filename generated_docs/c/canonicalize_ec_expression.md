@@ -30,11 +30,11 @@ The function uses applyRelabelType to preserve const-flatness, which is crucial 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - exprType
+  - [exprType](../e/exprType.md)
   - [exprCollation](../e/exprCollation.md)
-  - exprTypmod
+  - [exprTypmod](../e/exprTypmod.md)
   - IsPolymorphicType
-  - applyRelabelType
+  - [applyRelabelType](../a/applyRelabelType.md)
 - Called from (representative examples):
   - [process_equivalence](../p/process_equivalence.md)
   - [get_eclass_for_sort_expr](../g/get_eclass_for_sort_expr.md)

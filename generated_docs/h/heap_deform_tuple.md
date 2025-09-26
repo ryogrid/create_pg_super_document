@@ -33,7 +33,7 @@ The function is significantly more efficient than repeated `heap_getattr` calls,
   - HeapTupleHasNulls
   - HeapTupleHeaderGetNatts
   - TupleDescAttr
-  - att_isnull
+  - [att_isnull](../a/att_isnull.md)
   - att_align_nominal
   - att_align_pointer
   - fetchatt

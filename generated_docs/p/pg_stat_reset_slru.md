@@ -23,7 +23,7 @@ The function accepts an optional text parameter that specifies which SLRU cache 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pgstat_reset_of_kind](pgstat_reset_of_kind.md) (to reset all SLRU statistics)
-  - text_to_cstring (to convert text parameter to C string)
+  - [text_to_cstring](../t/text_to_cstring.md) (to convert text parameter to C string)
   - [pgstat_reset_slru](pgstat_reset_slru.md) (to reset specific SLRU cache statistics)
   - PG_RETURN_VOID (to return from the function)
 - Constants used:

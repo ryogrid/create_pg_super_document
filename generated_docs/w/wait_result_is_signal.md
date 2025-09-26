@@ -32,8 +32,8 @@ This dual-mode detection is essential for reliable signal handling in environmen
   - WEXITSTATUS (macro to extract exit status code)
 
 - Called from (representative examples):
-  - RestoreArchivedFile
-  - ClosePipeFromProgram
+  - [RestoreArchivedFile](../R/RestoreArchivedFile.md)
+  - [ClosePipeFromProgram](../C/ClosePipeFromProgram.md)
 
 ## Notes and Other Information
 - The function is specifically designed for scenarios involving potential shell intermediaries

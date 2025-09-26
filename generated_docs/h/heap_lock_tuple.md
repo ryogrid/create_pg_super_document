@@ -53,7 +53,7 @@ Key operations include:
   - TM_Result (tuple manager result codes)
   - [LockTupleMode](../L/LockTupleMode.md) (lock mode enumeration)
   - LockWaitPolicy (wait policy enumeration)
-  - TM_FailureData (failure information structure)
+  - [TM_FailureData](../T/TM_FailureData.md) (failure information structure)
   - [MultiXactStatus](../M/MultiXactStatus.md) (MultiXact member status)
 - Called from (representative examples):
   - [heapam_tuple_lock](heapam_tuple_lock.md) (heap access method interface)
@@ -68,4 +68,4 @@ Key operations include:
 - Includes comprehensive WAL logging for crash recovery
 - Part of PostgreSQL's tuple manager providing MVCC concurrency control
 - Critical for implementing SQL-standard isolation levels and FOR SHARE/UPDATE clauses
-- Complex interaction with MultiXact system for handling multiple concurrent lockers
+- [Complex](../C/Complex.md) interaction with MultiXact system for handling multiple concurrent lockers

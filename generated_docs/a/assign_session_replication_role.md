@@ -36,7 +36,7 @@ When this setting changes, trigger firing decisions embedded in cached plans may
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResetPlanCache (invalidates all cached execution plans)
+  - [ResetPlanCache](../R/ResetPlanCache.md) (invalidates all cached execution plans)
   - SessionReplicationRole (global variable containing current replication role)
 - Called from (representative examples):
   - GUC system when session_replication_role parameter is modified
@@ -44,7 +44,7 @@ When this setting changes, trigger firing decisions embedded in cached plans may
 ## Notes and Other Information
 - This function is registered as an assign hook in the GUC (Grand Unified Configuration) system
 - The function exemplifies the PostgreSQL pattern of using GUC hooks to maintain system consistency when configuration changes
-- Plan cache invalidation is necessary because trigger firing decisions may be baked into cached execution plans
+- [Plan](../P/Plan.md) cache invalidation is necessary because trigger firing decisions may be baked into cached execution plans
 - The conditional check prevents unnecessary cache flushes when the parameter is set to its current value, which can happen during configuration reloading
 - This function is critical for maintaining correct trigger behavior in replication scenarios where different trigger firing rules may apply
 - The function is declared in guc_hooks.h, indicating its role as part of the configuration management infrastructure

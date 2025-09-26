@@ -35,14 +35,14 @@ The function implements a specific locking strategy during replay that differs f
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData
-  - XLogInitBufferForRedo
+  - [XLogInitBufferForRedo](../X/XLogInitBufferForRedo.md)
   - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)
   - [BufferGetPage](../B/BufferGetPage.md)
   - [GinInitMetabuffer](../G/GinInitMetabuffer.md)
   - GinPageGetMeta
   - [GinInitBuffer](../G/GinInitBuffer.md)
   - [PageSetLSN](../P/PageSetLSN.md)
-  - MarkBufferDirty
+  - [MarkBufferDirty](../M/MarkBufferDirty.md)
   - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
 
 - Called from:

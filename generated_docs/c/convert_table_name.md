@@ -22,7 +22,7 @@ The function performs name resolution without acquiring locks on the target rela
 ## Dependencies
 - Functions called/Symbols referenced:
   - [makeRangeVarFromNameList](../m/makeRangeVarFromNameList.md): Creates a RangeVar structure from a qualified name list
-  - textToQualifiedNameList: Parses text input into a qualified name list
+  - [textToQualifiedNameList](../t/textToQualifiedNameList.md): Parses text input into a qualified name list
   - RangeVarGetRelid: Resolves RangeVar to relation OID without locking
   - [RangeVar](../R/RangeVar.md): Structure type representing a relation reference
 - Called from (representative examples):

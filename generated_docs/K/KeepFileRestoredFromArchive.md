@@ -25,7 +25,7 @@ After successfully moving the file, the function creates appropriate archive sta
 ## Dependencies
 - Functions called/Symbols referenced:
   - rename: Renames files (Windows-specific temporary renaming)
-  - strlcpy: Safe string copying (non-Windows platforms)
+  - [strlcpy](../s/strlcpy.md): Safe string copying (non-Windows platforms)
   - unlink: Removes old files
   - [durable_rename](../d/durable_rename.md): Performs atomic file rename with fsync
   - [XLogArchiveForceDone](../X/XLogArchiveForceDone.md): Creates .done file when not in ALWAYS archive mode

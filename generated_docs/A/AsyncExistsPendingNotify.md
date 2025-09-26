@@ -32,7 +32,7 @@ When a hash table is available (indicating sufficient notification volume), it u
 ## Notes and Other Information
 - Returns false immediately if pendingNotifies is NULL (no pending notifications)
 - Uses adaptive lookup strategy based on presence of hash table in pendingNotifies structure
-- Hash table is typically created when notification volume exceeds a threshold
+- [Hash](../H/Hash.md) table is typically created when notification volume exceeds a threshold
 - Linear scan compares channel_len and payload_len before expensive memcmp operation
 - Memory comparison includes both channel and payload data plus 2 bytes for null terminators
 - Essential for preventing duplicate notifications within the same transaction

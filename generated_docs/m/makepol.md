@@ -24,12 +24,12 @@ The makepol function is the core parser for converting tsquery expressions into 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TSQueryParserState (parser state structure)
+  - [TSQueryParserState](../T/TSQueryParserState.md) (parser state structure)
   - PushFunction (callback function type)
-  - ts_tokentype (token type enumeration)
-  - OperatorElement (operator stack element)
+  - [ts_tokentype](../t/ts_tokentype.md) (token type enumeration)
+  - [OperatorElement](../O/OperatorElement.md) (operator stack element)
   - STACKDEPTH (maximum stack depth constant)
-  - check_stack_depth (stack overflow protection)
+  - [check_stack_depth](../c/check_stack_depth.md) (stack overflow protection)
   - [cleanOpStack](../c/cleanOpStack.md) (operator precedence handling)
   - [pushOpStack](../p/pushOpStack.md) (operator stack management)
   - PT_VAL, PT_OPR, PT_OPEN, PT_CLOSE, PT_END, PT_ERR (token type constants)

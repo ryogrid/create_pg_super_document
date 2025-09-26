@@ -26,9 +26,9 @@ This function provides a consistent way to create boolean values throughout the 
 - Functions called/Symbols referenced:
   - PGBT_BOOLEAN (enum constant for boolean value type)
 - Called from (representative examples):
-  - makeVariableValue (when creating boolean variable values)
-  - evalLazyFunc (for conditional expressions that result in boolean)
-  - evalStandardFunc (for comparison operations and logical functions)
+  - [makeVariableValue](../m/makeVariableValue.md) (when creating boolean variable values)
+  - [evalLazyFunc](../e/evalLazyFunc.md) (for conditional expressions that result in boolean)
+  - [evalStandardFunc](../e/evalStandardFunc.md) (for comparison operations and logical functions)
 
 ## Notes and Other Information
 - This is a static function within pgbench.c, used internally for expression evaluation

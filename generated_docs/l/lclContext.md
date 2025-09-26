@@ -43,7 +43,7 @@ This context is used throughout the custom archive implementation to track the c
 ## Notes and Other Information
 - The structure is allocated using pg_malloc0() during archive initialization, ensuring all fields start with zero values
 - The lastFilePos field is specifically noted in comments as being used only during reading operations
-- The hasSeek capability affects how file positioning is handled - when seeking is not available, some operations may be limited
+- The hasSeek capability affects how file positioning is handled - [when](../w/when.md) seeking is not available, some operations may be limited
 - This context is part of the private implementation details of the custom archive format and is not exposed to external callers
 - The structure is used across multiple archive backends (custom, directory, tar) as evidenced by the reference patterns
 - File positioning is critical for the custom format's ability to rewrite the Table of Contents (TOC) with data block offsets

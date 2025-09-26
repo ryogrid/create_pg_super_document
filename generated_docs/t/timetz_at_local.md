@@ -27,7 +27,7 @@ The function retrieves the session timezone name and passes it to `timetz_zone` 
   - [pg_get_timezone_name](../p/pg_get_timezone_name.md)
   - session_timezone
   - [PointerGetDatum](../P/PointerGetDatum.md)
-  - cstring_to_text
+  - [cstring_to_text](../c/cstring_to_text.md)
   - DirectFunctionCall2
   - [timetz_zone](timetz_zone.md)
 - Called from (representative examples):

@@ -48,7 +48,7 @@ The function prevents unprincipled deadlocks that could occur when multiple back
   - [XLogInsert](../X/XLogInsert.md)
   - HeapTupleHasExternal
   - [heap_toast_delete](heap_toast_delete.md)
-  - ReleaseBuffer
+  - [ReleaseBuffer](../R/ReleaseBuffer.md)
   - [pgstat_count_heap_delete](../p/pgstat_count_heap_delete.md)
 - Called from (representative examples):
   - [toast_delete_datum](../t/toast_delete_datum.md)

@@ -34,8 +34,8 @@ If an unknown or invalid TuplesortMethod value is passed, the function returns "
   - SORT_TYPE_EXTERNAL_SORT
   - SORT_TYPE_EXTERNAL_MERGE
 - Called from (representative examples):
-  - show_sort_info (in explain.c for EXPLAIN output)
-  - show_incremental_sort_group_info (in explain.c)
+  - [show_sort_info](../s/show_sort_info.md) (in explain.c for EXPLAIN output)
+  - [show_incremental_sort_group_info](../s/show_incremental_sort_group_info.md) (in explain.c)
 
 ## Notes and Other Information
 - Returns a const char pointer to static string literals, no memory management required

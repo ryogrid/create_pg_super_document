@@ -47,5 +47,5 @@ The function uses a comprehensive switch statement to handle all descriptor item
 - The string names follow SQL standard descriptor item naming conventions
 - Used primarily in error messages and debug output to provide human-readable descriptor item names
 - The function provides complete coverage of all ECPG descriptor types supported by the preprocessor
-- String constants are uppercase following SQL naming conventions
+- [String](../S/String.md) constants are uppercase following SQL naming conventions
 - Essential for mapping between internal representation and external SQL standards

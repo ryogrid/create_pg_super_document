@@ -33,7 +33,7 @@ The function ensures that attribute number mappings are consistent and handles t
 ## Dependencies
 - Functions called/Symbols referenced:
   - map_variable_attnos_context (struct)
-  - ConvertRowtypeExpr (node type)
+  - [ConvertRowtypeExpr](../C/ConvertRowtypeExpr.md) (node type)
   - COERCE_IMPLICIT_CAST (constant)
   - query_tree_mutator
   - expression_tree_mutator

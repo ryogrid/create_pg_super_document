@@ -32,7 +32,7 @@ This function creates a new SnapBuild structure which is the core component for 
   - ALLOCSET_DEFAULT_SIZES
   - SNAPBUILD_START
 - Called from (representative examples):
-  - StartupDecodingContext
+  - [StartupDecodingContext](../S/StartupDecodingContext.md)
 
 ## Notes and Other Information
 The function creates a dedicated memory context named "snapshot builder context" to ensure proper memory management. It initializes the committed transactions array with an arbitrary starting size of 128 entries and marks it as initially including all transactions. The catchange array for catalog changes is initially set to NULL. The builder is initialized in the START state, which is the beginning of the snapshot building state machine used in logical replication.

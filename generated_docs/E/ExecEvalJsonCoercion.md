@@ -31,7 +31,7 @@ This function performs type coercion for JSON expression results, converting JSO
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - domain_check_safe
+  - [domain_check_safe](../d/domain_check_safe.md)
   - DirectFunctionCall1 (bool_int4, jsonb_in)
   - [DatumGetBool](../D/DatumGetBool.md)
   - [CStringGetDatum](../C/CStringGetDatum.md)

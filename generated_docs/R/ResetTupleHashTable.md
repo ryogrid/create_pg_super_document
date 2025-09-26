@@ -21,11 +21,11 @@ This function efficiently clears all entries from a TupleHashTable while maintai
 - Functions called/Symbols referenced:
   - tuplehash_reset (underlying hash table reset implementation)
 - Called from (representative examples):
-  - build_hash_tables (in aggregate node operations)
-  - agg_refill_hash_table (during aggregate processing)
-  - ExecReScanRecursiveUnion (recursive union rescanning)
-  - ExecReScanSetOp (set operation rescanning)
-  - buildSubPlanHash (subplan hash operations)
+  - [build_hash_tables](../b/build_hash_tables.md) (in aggregate node operations)
+  - [agg_refill_hash_table](../a/agg_refill_hash_table.md) (during aggregate processing)
+  - [ExecReScanRecursiveUnion](../E/ExecReScanRecursiveUnion.md) (recursive union rescanning)
+  - [ExecReScanSetOp](../E/ExecReScanSetOp.md) (set operation rescanning)
+  - [buildSubPlanHash](../b/buildSubPlanHash.md) (subplan hash operations)
 
 ## Notes and Other Information
 - Only clears the hash table contents, not the table structure or metadata

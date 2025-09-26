@@ -25,7 +25,7 @@ This function creates the SQL statements needed to restore subscription table me
   - DumpOptions
   - SubscriptionInfo
   - [psprintf](../p/psprintf.md)
-  - createPQExpBuffer
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)
   - DUMP_COMPONENT_DEFINITION
   - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
   - appendStringLiteralAH
@@ -34,7 +34,7 @@ This function creates the SQL statements needed to restore subscription table me
   - ARCHIVE_OPTS
   - SECTION_POST_DATA
   - free
-  - destroyPQExpBuffer
+  - [destroyPQExpBuffer](destroyPQExpBuffer.md)
 - Called from (representative examples):
   - Binary upgrade dump process
 

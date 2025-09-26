@@ -32,7 +32,7 @@ The calculated size is stored in the IndexScanState's iss_PscanLen field for lat
   - shm_toc_estimate_chunk
   - shm_toc_estimate_keys
 - Called from (representative examples):
-  - ExecParallelEstimate (in execParallel.c:246)
+  - [ExecParallelEstimate](ExecParallelEstimate.md) (in execParallel.c:246)
 
 ## Notes and Other Information
 - This function is part of the parallel scan support framework introduced for parallel query execution

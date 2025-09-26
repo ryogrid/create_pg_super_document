@@ -32,7 +32,7 @@ The validation occurs after obtaining a lock on the target relation, ensuring th
   - RelationGetDescr
   - TupleDescAttr
   - IsA
-  - exprType
+  - [exprType](../e/exprType.md)
   - [format_type_be](../f/format_type_be.md)
   - ereport
 - Called from (representative examples):

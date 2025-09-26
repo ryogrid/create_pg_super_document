@@ -24,12 +24,12 @@ The generated cast uses fully-qualified type names (schema.typename) to ensure r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (system cache lookup for type information)
-  - get_namespace_name_or_temp (namespace name resolution)
-  - quote_identifier (identifier quoting for both schema and type names)
-  - appendStringInfo (string buffer operations)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup for type information)
+  - [get_namespace_name_or_temp](../g/get_namespace_name_or_temp.md) (namespace name resolution)
+  - [quote_identifier](../q/quote_identifier.md) (identifier quoting for both schema and type names)
+  - [appendStringInfo](appendStringInfo.md) (string buffer operations)
 - Called from (representative examples):
-  - generate_operator_clause (used when operand types need casting in operator expressions)
+  - [generate_operator_clause](../g/generate_operator_clause.md) (used when operand types need casting in operator expressions)
 
 ## Notes and Other Information
 - Intentionally avoids format_type_be() to prevent data truncation issues

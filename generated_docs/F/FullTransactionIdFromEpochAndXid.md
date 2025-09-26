@@ -23,12 +23,12 @@ The function performs a simple bit manipulation: it shifts the epoch left by 32 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FullTransactionId (struct type)
+  - [FullTransactionId](FullTransactionId.md) (struct type)
 - Called from (representative examples):
-  - GetNewTransactionId
-  - AdvanceNextFullTransactionIdPastXid
-  - BootStrapXLOG
-  - GistPageGetDeleteXid
+  - [GetNewTransactionId](../G/GetNewTransactionId.md)
+  - [AdvanceNextFullTransactionIdPastXid](../A/AdvanceNextFullTransactionIdPastXid.md)
+  - [BootStrapXLOG](../B/BootStrapXLOG.md)
+  - [GistPageGetDeleteXid](../G/GistPageGetDeleteXid.md)
   - InvalidFullTransactionId
   - FirstNormalFullTransactionId
 

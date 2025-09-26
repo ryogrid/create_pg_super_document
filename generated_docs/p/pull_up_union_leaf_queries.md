@@ -37,7 +37,7 @@ This is part of PostgreSQL's query optimization strategy for UNION ALL operation
 - Functions called/Symbols referenced:
   - makeNode (for creating AppendRelInfo and RangeTblRef)
   - [make_setop_translation_list](../m/make_setop_translation_list.md)
-  - lappend 
+  - [lappend](../l/lappend.md) 
   - [pull_up_subqueries_recurse](pull_up_subqueries_recurse.md)
   - IsA (macro for type checking)
   - nodeTag

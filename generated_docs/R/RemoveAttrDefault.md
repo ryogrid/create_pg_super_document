@@ -28,7 +28,7 @@ This function removes an attribute default entry from the pg_attrdef system cata
   - [systable_getnext](../s/systable_getnext.md): Retrieves next tuple from system table scan
   - [systable_endscan](../s/systable_endscan.md): Ends system table scan
   - [performDeletion](../p/performDeletion.md): Performs object deletion with dependency handling
-  - table_open/table_close: Opens and closes system catalog table
+  - [table_open](../t/table_open.md)/table_close: Opens and closes system catalog table
   - PERFORM_DELETION_INTERNAL: Flag for internal deletion operations
 
 - Called from (representative examples):

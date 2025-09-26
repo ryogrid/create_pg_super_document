@@ -20,7 +20,7 @@ This function is a type-checking utility that determines whether a given clause 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BoolExpr (structure type)
+  - [BoolExpr](../B/BoolExpr.md) (structure type)
   - OR_EXPR (enum value)
   - IsA (macro for type checking)
 - Called from (representative examples):

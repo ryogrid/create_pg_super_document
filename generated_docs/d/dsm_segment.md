@@ -36,15 +36,15 @@ The  structure represents the backend-local state for a dynamic shared memory se
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_node (for doubly-linked list functionality)
-  - ResourceOwner (for resource ownership tracking)
+  - [dlist_node](dlist_node.md) (for doubly-linked list functionality)
+  - [ResourceOwner](../R/ResourceOwner.md) (for resource ownership tracking)
   - dsm_handle (segment identifier type)
-  - slist_head (for singly-linked callback list)
+  - [slist_head](../s/slist_head.md) (for singly-linked callback list)
 - Called from (representative examples):
-  - dsm_create (creates and initializes new dsm_segment structures)
-  - dsm_attach (attaches to existing segments and creates dsm_segment structures)
-  - dsm_detach (processes and frees dsm_segment structures)
-  - dsm_backend_shutdown (cleans up all dsm_segment structures during backend shutdown)
+  - [dsm_create](dsm_create.md) (creates and initializes new dsm_segment structures)
+  - [dsm_attach](dsm_attach.md) (attaches to existing segments and creates dsm_segment structures)
+  - [dsm_detach](dsm_detach.md) (processes and frees dsm_segment structures)
+  - [dsm_backend_shutdown](dsm_backend_shutdown.md) (cleans up all dsm_segment structures during backend shutdown)
 
 ## Notes and Other Information
 - This structure is purely backend-local and is not shared between different PostgreSQL backend processes

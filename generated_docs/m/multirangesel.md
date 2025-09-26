@@ -31,13 +31,13 @@ The function performs several key steps:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_restriction_variable
+  - [get_restriction_variable](../g/get_restriction_variable.md)
   - [default_multirange_selectivity](../d/default_multirange_selectivity.md)
   - [get_commutator](../g/get_commutator.md)
   - [multirange_get_typcache](multirange_get_typcache.md)
   - [range_serialize](../r/range_serialize.md)
   - [make_multirange](make_multirange.md)
-  - DatumGetRangeTypeP
+  - [DatumGetRangeTypeP](../D/DatumGetRangeTypeP.md)
   - [DatumGetMultirangeTypeP](../D/DatumGetMultirangeTypeP.md)
   - [calc_multirangesel](../c/calc_multirangesel.md)
   - ReleaseVariableStats

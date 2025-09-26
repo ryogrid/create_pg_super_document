@@ -34,13 +34,13 @@ JsonPathVariable is a data structure that encapsulates external variables used i
 - Functions called/Symbols referenced:
   - PostgreSQL type system (Oid, Datum types)
 - Called from (representative examples):
-  - ExecInitJsonExpr
-  - GetJsonPathVar
-  - JsonTableInitOpaque
+  - [ExecInitJsonExpr](../E/ExecInitJsonExpr.md)
+  - [GetJsonPathVar](../G/GetJsonPathVar.md)
+  - [JsonTableInitOpaque](JsonTableInitOpaque.md)
 
 ## Notes and Other Information
 - Part of PostgreSQL's SQL/JSON implementation supporting parameterized JSON path queries
-- Variables are referenced in JSON path expressions using the $ syntax (e.g., $.keyname == )
+- [Variables](../V/Variables.md) are referenced in JSON path expressions using the $ syntax (e.g., $.keyname == )
 - The structure includes full PostgreSQL type information enabling proper type coercion and validation
 - Used extensively in JSON table functions and JSON query operations where dynamic values are needed
 - The namelen caching improves performance during variable name lookups in the JSON path executor

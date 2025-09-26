@@ -34,7 +34,7 @@ The function processes roles in two phases: first dumping role definitions, then
   - [appendStringLiteralConn](../a/appendStringLiteralConn.md) (safely append string literals to SQL)
   - [buildShSecLabels](../b/buildShSecLabels.md) (generate security label statements)
   - [dumpUserConfig](dumpUserConfig.md) (dump role-specific configuration parameters)
-  - createPQExpBuffer, destroyPQExpBuffer (manage query buffers)
+  - [createPQExpBuffer](../c/createPQExpBuffer.md), destroyPQExpBuffer (manage query buffers)
 - Called from:
   - [main](../m/main.md) (in src/bin/pg_dump/pg_dumpall.c as part of the cluster dump process)
 

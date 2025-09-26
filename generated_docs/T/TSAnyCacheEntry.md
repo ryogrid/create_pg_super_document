@@ -28,7 +28,7 @@ The structure implements a simple validity tracking mechanism where cache entrie
 - Functions called/Symbols referenced:
   - Oid (PostgreSQL object identifier type)
 - Called from (representative examples):
-  - InvalidateTSCacheCallBack (for cache invalidation operations)
+  - [InvalidateTSCacheCallBack](../I/InvalidateTSCacheCallBack.md) (for cache invalidation operations)
 
 ## Notes and Other Information
 - This structure must be the first member of all text search cache entry types to ensure proper memory layout for casting operations

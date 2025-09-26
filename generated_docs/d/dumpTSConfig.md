@@ -23,8 +23,8 @@ The function performs two main database queries: first to get the parser informa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - createPQExpBuffer
-  - destroyPQExpBuffer
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)
+  - [destroyPQExpBuffer](destroyPQExpBuffer.md)
   - [resetPQExpBuffer](../r/resetPQExpBuffer.md)
   - [pg_strdup](../p/pg_strdup.md)
   - [fmtId](../f/fmtId.md)

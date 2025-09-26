@@ -35,7 +35,7 @@ The function allocates memory for the returned string, which the caller must fre
   - [PQescapeIdentifier](../P/PQescapeIdentifier.md) (for SQL identifier escaping)
   - [PQfreemem](../P/PQfreemem.md) (to free libpq-allocated memory)
   - [appendShellStringNoError](../a/appendShellStringNoError.md) (for shell argument escaping)
-  - initPQExpBuffer (for buffer initialization)
+  - [initPQExpBuffer](../i/initPQExpBuffer.md) (for buffer initialization)
   - pg_log_error/pg_log_info (for error reporting)
 - Called from (representative examples):
   - Used as callback by flex lexer during variable substitution

@@ -38,8 +38,8 @@ This conditional compilation abstracts away the platform-specific details of flo
   - [width_bucket_array_float8](../w/width_bucket_array_float8.md)
   - [btfloat8fastcmp](../b/btfloat8fastcmp.md)
   - [float8_lerp](../f/float8_lerp.md)
-  - scalararraysel
-  - convert_numeric_to_scalar
+  - [scalararraysel](../s/scalararraysel.md)
+  - [convert_numeric_to_scalar](../c/convert_numeric_to_scalar.md)
   - PG_GETARG_FLOAT8
 
 ## Notes and Other Information

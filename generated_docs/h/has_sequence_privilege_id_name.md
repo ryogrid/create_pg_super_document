@@ -24,7 +24,7 @@ This function is a PostgreSQL built-in function that verifies whether a specific
   - [convert_sequence_priv_string](../c/convert_sequence_priv_string.md): Converts privilege text to AclMode bitmask
   - [convert_table_name](../c/convert_table_name.md): Converts sequence name text to OID
   - [get_rel_relkind](../g/get_rel_relkind.md): Gets relation kind to verify it's a sequence
-  - text_to_cstring: Converts text to C string for error messages
+  - [text_to_cstring](../t/text_to_cstring.md): Converts text to C string for error messages
   - [pg_class_aclcheck](../p/pg_class_aclcheck.md): Performs the actual privilege check
 - Called from (representative examples):
   - No direct references found (likely called via SQL function interface)

@@ -34,8 +34,8 @@ This function is extensively used throughout the Turkish stemmer, reflecting the
   - g_vowel (vowel group definition)
 
 - Called from (representative examples):
-  - r_mark_yU (possessive suffix)
-  - r_mark_yA (dative suffix)
+  - [r_mark_yU](r_mark_yU.md) (possessive suffix)
+  - [r_mark_yA](r_mark_yA.md) (dative suffix)
   - [r_mark_ylA](r_mark_ylA.md) (instrumental suffix)
   - [r_mark_yUm](r_mark_yUm.md) (first person suffix)
   - [r_mark_yUz](r_mark_yUz.md) (second person plural suffix)

@@ -18,9 +18,9 @@ This function manages the indentation and line formatting for YAML output in Pos
 ## Dependencies
 - Functions called/Symbols referenced:
   - linitial_int (list manipulation function)
-  - appendStringInfoChar (string buffer utility)
-  - appendStringInfoSpaces (string buffer spacing utility)
-  - ExplainState (struct type)
+  - [appendStringInfoChar](../a/appendStringInfoChar.md) (string buffer utility)
+  - [appendStringInfoSpaces](../a/appendStringInfoSpaces.md) (string buffer spacing utility)
+  - [ExplainState](ExplainState.md) (struct type)
   - EXPLAIN_FORMAT_YAML (format constant)
 - Called from (representative examples):
   - [ExplainPropertyList](ExplainPropertyList.md)

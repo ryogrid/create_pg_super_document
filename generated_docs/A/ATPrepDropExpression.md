@@ -26,7 +26,7 @@ The function implements two key safety checks: first, it rejects ONLY operations
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AlterTableCmd (structure)
+  - [AlterTableCmd](AlterTableCmd.md) (structure)
   - [find_inheritance_children](../f/find_inheritance_children.md)
   - [SearchSysCacheCopyAttName](../S/SearchSysCacheCopyAttName.md)
 - Called from (representative examples):

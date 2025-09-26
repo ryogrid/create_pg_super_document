@@ -29,11 +29,11 @@ Default privileges are particularly important in multi-user environments where c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - createPQExpBuffer
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)
   - [buildDefaultACLCommands](../b/buildDefaultACLCommands.md)
   - [ArchiveEntry](../A/ArchiveEntry.md)
   - [pg_fatal](../p/pg_fatal.md)
-  - destroyPQExpBuffer
+  - [destroyPQExpBuffer](destroyPQExpBuffer.md)
   - DEFACLOBJ_RELATION, DEFACLOBJ_SEQUENCE, DEFACLOBJ_FUNCTION, DEFACLOBJ_TYPE, DEFACLOBJ_NAMESPACE constants
 - Called from (representative examples):
   - [dumpDumpableObject](dumpDumpableObject.md)

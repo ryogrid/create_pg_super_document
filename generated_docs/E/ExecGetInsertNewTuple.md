@@ -32,8 +32,8 @@ Key behavioral notes:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecCopySlot
-  - ExecProject
+  - [ExecCopySlot](ExecCopySlot.md)
+  - [ExecProject](ExecProject.md)
 - Called from (representative examples):
   - [ExecModifyTable](ExecModifyTable.md)
 

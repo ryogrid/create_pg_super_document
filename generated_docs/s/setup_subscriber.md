@@ -20,7 +20,7 @@ This function is the final step in the pg_createsubscriber process that converts
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - connect_database (establishes connection to subscriber database)
+  - [connect_database](../c/connect_database.md) (establishes connection to subscriber database)
   - [check_and_drop_existing_subscriptions](../c/check_and_drop_existing_subscriptions.md) (removes pre-existing subscriptions)
   - [drop_publication](../d/drop_publication.md) (removes publications from subscriber)
   - [create_subscription](../c/create_subscription.md) (creates new logical replication subscription)

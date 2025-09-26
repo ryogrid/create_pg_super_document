@@ -20,7 +20,7 @@ InitBufTable creates and initializes the shared buffer lookup hashtable (SharedB
 ## Dependencies
 - Functions called/Symbols referenced:
   - ShmemInitHash
-  - HASHCTL
+  - [HASHCTL](../H/HASHCTL.md)
   - BufferTag
   - BufferLookupEnt
   - NUM_BUFFER_PARTITIONS
@@ -28,7 +28,7 @@ InitBufTable creates and initializes the shared buffer lookup hashtable (SharedB
   - HASH_BLOBS
   - HASH_PARTITION
 - Called from (representative examples):
-  - StrategyInitialize
+  - [StrategyInitialize](../S/StrategyInitialize.md)
   - [ResourceOwnerForgetBufferIO](../R/ResourceOwnerForgetBufferIO.md)
 
 ## Notes and Other Information

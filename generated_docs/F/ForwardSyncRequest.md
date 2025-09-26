@@ -25,9 +25,9 @@ The function also includes a nudging mechanism: when the queue becomes more than
   - AmCheckpointerProcess
   - CompactCheckpointerRequestQueue  
   - [SetLatch](../S/SetLatch.md)
-  - LWLockAcquire/LWLockRelease (CheckpointerCommLock)
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease (CheckpointerCommLock)
 - Types used:
-  - FileTag
+  - [FileTag](FileTag.md)
   - SyncRequestType
   - [CheckpointerRequest](../C/CheckpointerRequest.md)
 - Called from:

@@ -24,7 +24,7 @@ The function is primarily used by the interrupt processing system to detect lost
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ModifyWaitEvent](../M/ModifyWaitEvent.md)
-  - WaitEventSetWait
+  - [WaitEventSetWait](../W/WaitEventSetWait.md)
   - [ResetLatch](../R/ResetLatch.md)
   - FeBeWaitSet (global wait event set)
   - FeBeWaitSetSocketPos (socket position in wait set)
@@ -35,7 +35,7 @@ The function is primarily used by the interrupt processing system to detect lost
   - [WaitEvent](../W/WaitEvent.md) (event structure type)
   - lengthof (macro for array length)
 - Called from (representative examples):
-  - ProcessInterrupts (in postgres.c:3332)
+  - [ProcessInterrupts](../P/ProcessInterrupts.md) (in postgres.c:3332)
 
 ## Notes and Other Information
 - Uses a zero timeout (non-blocking) approach to check connection status immediately

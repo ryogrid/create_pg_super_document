@@ -23,17 +23,17 @@ This function checks if a constraint name is already being used on a specific ob
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - [ScanKeyInit](../S/ScanKeyInit.md)
   - [systable_beginscan](../s/systable_beginscan.md)
   - [systable_getnext](../s/systable_getnext.md)
   - [systable_endscan](../s/systable_endscan.md)
-  - table_close
+  - [table_close](../t/table_close.md)
   - HeapTupleIsValid
   - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - [CStringGetDatum](CStringGetDatum.md)
 - Called from (representative examples):
-  - index_create
+  - [index_create](../i/index_create.md)
   - [RenameConstraintById](../R/RenameConstraintById.md)
   - [ATExecAddConstraint](../A/ATExecAddConstraint.md)
   - [addFkConstraint](../a/addFkConstraint.md)

@@ -32,10 +32,10 @@ The function requires exclusive ProcArrayLock access (unlike the shared lock use
   - TransactionIdIsNormal (validates transaction ID format)
   - [TransactionIdPrecedesOrEquals](../T/TransactionIdPrecedesOrEquals.md) (checks xmin coverage)
   - UINT32_ACCESS_ONCE (atomic read of transaction ID)
-  - LWLockAcquire/LWLockRelease (ProcArrayLock with LW_EXCLUSIVE mode)
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease (ProcArrayLock with LW_EXCLUSIVE mode)
   - PROC_XMIN_FLAGS (status flag mask for xmin-related flags)
 - Called from (representative examples):
-  - SetTransactionSnapshot (snapshot restoration operations)
+  - [SetTransactionSnapshot](../S/SetTransactionSnapshot.md) (snapshot restoration operations)
 
 ## Notes and Other Information
 - Returns true if the restoration was successful, false if the source transaction is no longer valid

@@ -44,13 +44,13 @@ The function uses sophisticated numeric detection logic that considers digits, d
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQgetlength
-  - PQgetvalue
-  - PQmblenBounded
+  - [PQgetlength](../P/PQgetlength.md)
+  - [PQgetvalue](../P/PQgetvalue.md)
+  - [PQmblenBounded](../P/PQmblenBounded.md)
   - malloc
-  - libpq_gettext
+  - [libpq_gettext](../l/libpq_gettext.md)
 - Called from (representative examples):
-  - winsize (src/interfaces/libpq/fe-print.c:257)
+  - [winsize](../w/winsize.md) (src/interfaces/libpq/fe-print.c:257)
 
 ## Notes and Other Information
 - Returns  on memory allocation failure,  on success

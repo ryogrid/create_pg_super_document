@@ -43,5 +43,5 @@ This comprehensive approach ensures proper word boundary detection across all Un
 - More comprehensive than traditional alphanumeric tests
 - Includes Unicode mark characters, which is important for languages with combining characters
 - Includes connector punctuation like underscore (_) which is traditionally considered part of word characters
-- Join control characters are included for proper handling of complex scripts
+- [Join](../J/Join.md) control characters are included for proper handling of complex scripts
 - Used for regex word boundary detection and text processing operations

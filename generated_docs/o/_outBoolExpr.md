@@ -41,7 +41,7 @@ This approach provides more readable output compared to raw enum values, making 
   - WRITE_NODE_FIELD
   - WRITE_LOCATION_FIELD
   - [outToken](outToken.md)
-  - appendStringInfoString
+  - [appendStringInfoString](../a/appendStringInfoString.md)
   - AND_EXPR (enum value)
   - OR_EXPR (enum value)  
   - NOT_EXPR (enum value)

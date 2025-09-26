@@ -27,8 +27,8 @@ This function is critical for preventing memory leaks in the GEQO system, as gen
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pfree](../p/pfree.md) (PostgreSQL memory deallocation function)
-  - Pool (struct type for genetic algorithm pool)
-  - Chromosome (struct type for individual solutions)
+  - [Pool](../P/Pool.md) (struct type for genetic algorithm pool)
+  - [Chromosome](../C/Chromosome.md) (struct type for individual solutions)
 - Called from (representative examples):
   - [geqo](../g/geqo.md) (main GEQO optimization function for cleanup)
 

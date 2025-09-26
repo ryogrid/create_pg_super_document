@@ -32,7 +32,7 @@ There are three possible scenarios represented by this structure:
 - Called from (representative examples):
   - [XLogPrefetcherNextBlock](../X/XLogPrefetcherNextBlock.md) (in xlogprefetcher.c:652)
   - [PrefetchSharedBuffer](PrefetchSharedBuffer.md) (in bufmgr.c:552, 637)
-  - PrefetchLocalBuffer (in localbuf.c:72)
+  - [PrefetchLocalBuffer](PrefetchLocalBuffer.md) (in localbuf.c:72)
 
 ## Notes and Other Information
 - The recent_buffer field, when valid, provides an optimization opportunity but requires rechecking since the buffer is not pinned

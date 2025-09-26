@@ -33,11 +33,11 @@ All permission checking functions in PostgreSQL return AclResult values, making 
   - Used as return type by numerous ACL checking functions
 
 - Called from (representative examples):
-  - object_aclcheck
-  - pg_class_aclcheck  
-  - pg_attribute_aclcheck
-  - pg_parameter_aclcheck
-  - aclcheck_error
+  - [object_aclcheck](../o/object_aclcheck.md)
+  - [pg_class_aclcheck](../p/pg_class_aclcheck.md)  
+  - [pg_attribute_aclcheck](../p/pg_attribute_aclcheck.md)
+  - [pg_parameter_aclcheck](../p/pg_parameter_aclcheck.md)
+  - [aclcheck_error](../a/aclcheck_error.md)
   - has_table_privilege_*
   - has_database_privilege_*
 

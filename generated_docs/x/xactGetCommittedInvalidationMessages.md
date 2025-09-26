@@ -35,7 +35,7 @@ This ordering maintains consistency between original execution and replay scenar
   - NumMessagesInGroup
   - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
   - ProcessMessageSubGroupMulti
-  - SharedInvalidationMessage (type)
+  - [SharedInvalidationMessage](../S/SharedInvalidationMessage.md) (type)
 - Called from (representative examples):
   - [RecordTransactionCommit](../R/RecordTransactionCommit.md)
   - [StartPrepare](../S/StartPrepare.md)

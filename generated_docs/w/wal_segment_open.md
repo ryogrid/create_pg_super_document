@@ -28,14 +28,14 @@ Both error conditions result in ERROR-level reports that terminate the current o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogFilePath (constructs WAL segment file path)
-  - BasicOpenFile (PostgreSQL file opening routine)
+  - [XLogFilePath](../X/XLogFilePath.md) (constructs WAL segment file path)
+  - [BasicOpenFile](../B/BasicOpenFile.md) (PostgreSQL file opening routine)
   - PG_BINARY (binary file mode flag)
   - XLogSegNo (WAL segment number type)
 - Called from (representative examples):
   - [XlogReadTwoPhaseData](../X/XlogReadTwoPhaseData.md)
   - [SummarizeWAL](../S/SummarizeWAL.md)
-  - LogicalReplicationSlotHasPendingWal
+  - [LogicalReplicationSlotHasPendingWal](../L/LogicalReplicationSlotHasPendingWal.md)
   - [LogicalSlotAdvanceAndCheckSnapState](../L/LogicalSlotAdvanceAndCheckSnapState.md)
   - [pg_logical_slot_get_changes_guts](../p/pg_logical_slot_get_changes_guts.md)
   - [create_logical_replication_slot](../c/create_logical_replication_slot.md)

@@ -59,9 +59,9 @@ Key optimization features include:
 - Called from (representative examples):
   - [GetBulkInsertState](../G/GetBulkInsertState.md) (src/backend/access/heap/heapam.c:1975)
   - [BulkInsertState](BulkInsertState.md) (typedef in src/include/access/heapam.h:44)
-  - table_tuple_insert (src/include/access/tableam.h:1404)
-  - table_tuple_insert_speculative (src/include/access/tableam.h:1424)
-  - table_multi_insert (src/include/access/tableam.h:1459)
+  - [table_tuple_insert](../t/table_tuple_insert.md) (src/include/access/tableam.h:1404)
+  - [table_tuple_insert_speculative](../t/table_tuple_insert_speculative.md) (src/include/access/tableam.h:1424)
+  - [table_multi_insert](../t/table_multi_insert.md) (src/include/access/tableam.h:1459)
 
 ## Notes and Other Information
 - This structure is marked as private to heapam.c and hio.c, indicating it's an internal implementation detail not exposed to higher-level code

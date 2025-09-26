@@ -34,11 +34,11 @@ This function creates a persistent checkpoint of all active replication origin s
 ## Dependencies
 - Functions called/Symbols referenced:
   - `unlink`: Removes any existing temporary checkpoint file
-  - `OpenTransientFile`: Opens the temporary checkpoint file for writing
+  - `[OpenTransientFile](../O/OpenTransientFile.md)`: Opens the temporary checkpoint file for writing
   - `write`: Writes data to the checkpoint file
   - [XLogFlush](../X/XLogFlush.md): Ensures WAL data persistence before checkpointing local_lsn
-  - `LWLockAcquire/LWLockRelease`: Provides concurrency control
-  - `CloseTransientFile`: Closes the temporary file
+  - `[LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease`: Provides concurrency control
+  - `[CloseTransientFile](CloseTransientFile.md)`: Closes the temporary file
   - [durable_rename](../d/durable_rename.md): Atomically renames temporary file to permanent location
   - `INIT_CRC32C/COMP_CRC32C/FIN_CRC32C`: CRC calculation for integrity checking
 - Called from (representative examples):

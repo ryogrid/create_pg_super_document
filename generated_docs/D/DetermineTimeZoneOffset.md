@@ -22,15 +22,15 @@ This function acts as a simple wrapper around DetermineTimeZoneOffsetInternal, p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DetermineTimeZoneOffsetInternal (the actual implementation)
+  - [DetermineTimeZoneOffsetInternal](DetermineTimeZoneOffsetInternal.md) (the actual implementation)
   - pg_time_t (intermediate time representation type)
-  - pg_tm (PostgreSQL's tm structure)
-  - pg_tz (timezone definition type)
+  - [pg_tm](../p/pg_tm.md) (PostgreSQL's tm structure)
+  - [pg_tz](../p/pg_tz.md) (timezone definition type)
 - Called from (representative examples):
-  - DecodeDateTime (during datetime parsing with timezone)
-  - timestamptz_pl_interval_internal (timestamp arithmetic)
-  - timestamp_zone (timezone conversion operations)
-  - date2timestamptz_opt_overflow (date to timestamptz conversion)
+  - [DecodeDateTime](DecodeDateTime.md) (during datetime parsing with timezone)
+  - [timestamptz_pl_interval_internal](../t/timestamptz_pl_interval_internal.md) (timestamp arithmetic)
+  - [timestamp_zone](../t/timestamp_zone.md) (timezone conversion operations)
+  - [date2timestamptz_opt_overflow](../d/date2timestamptz_opt_overflow.md) (date to timestamptz conversion)
 
 ## Notes and Other Information
 - Returns GMT offset in seconds from UTC (positive for east of GMT, negative for west)

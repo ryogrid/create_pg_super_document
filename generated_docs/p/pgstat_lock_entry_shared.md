@@ -18,10 +18,10 @@ This function provides shared (read-only) locking for PostgreSQL statistics entr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockConditionalAcquire
-  - LWLockAcquire
+  - [LWLockConditionalAcquire](../L/LWLockConditionalAcquire.md)
+  - [LWLockAcquire](../L/LWLockAcquire.md)
 - Called from (representative examples):
-  - pgstat_fetch_entry
+  - [pgstat_fetch_entry](pgstat_fetch_entry.md)
 
 ## Notes and Other Information
 Separated from pgstat_lock_entry() as most callers need exclusive locks. The shared lock allows concurrent read access while preventing modifications. The function always returns true when nowait is false.

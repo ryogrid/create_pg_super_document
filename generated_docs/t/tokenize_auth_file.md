@@ -36,8 +36,8 @@ The function operates recursively when processing include directives, maintainin
 - Functions called/Symbols referenced:
   - [tokenize_error_callback](tokenize_error_callback.md)
   - AllocSetContextCreate
-  - pg_get_line_append
-  - pg_strip_crlf
+  - [pg_get_line_append](../p/pg_get_line_append.md)
+  - [pg_strip_crlf](../p/pg_strip_crlf.md)
   - [next_field_expand](../n/next_field_expand.md)
   - [tokenize_include_file](tokenize_include_file.md)
   - [GetConfFilesInDir](../G/GetConfFilesInDir.md)

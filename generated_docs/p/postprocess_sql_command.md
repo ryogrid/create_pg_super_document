@@ -17,7 +17,7 @@ This function performs final setup operations on a Command structure after the S
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - strlcpy
+  - [strlcpy](../s/strlcpy.md)
   - [pg_strdup](pg_strdup.md)  
   - [psprintf](psprintf.md)
   - [parseQuery](parseQuery.md)

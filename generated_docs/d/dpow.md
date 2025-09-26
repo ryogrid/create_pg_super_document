@@ -32,7 +32,7 @@ The function uses the standard C library pow() function but adds extensive Postg
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT8 (macro to extract float8 arguments)
   - isnan (standard C math library function to check for NaN)
-  - get_float8_nan (PostgreSQL function to get NaN value)
+  - [get_float8_nan](../g/get_float8_nan.md) (PostgreSQL function to get NaN value)
   - ereport (PostgreSQL error reporting function)
   - [errcode](../e/errcode.md) (PostgreSQL error code function) 
   - [errmsg](../e/errmsg.md) (PostgreSQL error message function)

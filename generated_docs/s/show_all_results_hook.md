@@ -23,7 +23,7 @@ This hook function is responsible for parsing and setting the show_all_results o
   - [ParseVariableBool](../P/ParseVariableBool.md) (utility function for parsing boolean variables)
   - pset.show_all_results (global variable to store the setting)
 - Called from (representative examples):
-  - SetVariableHooks registration in EstablishVariableSpace
+  - [SetVariableHooks](../S/SetVariableHooks.md) registration in EstablishVariableSpace
 
 ## Notes and Other Information
 - This function delegates the actual parsing and error handling to ParseVariableBool

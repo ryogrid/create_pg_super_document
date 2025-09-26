@@ -36,5 +36,5 @@ The resulting SortGroupClause has its tleSortGroupRef set to 0 initially since n
 - The tleSortGroupRef field is initialized to 0 and must be set later when the actual target list is available
 - The nulls_first field is set to false by default, which works whether or not a sort operator is available
 - This function is specifically designed for set operations and may not be suitable for other sorting contexts
-- Hash support determination is crucial for choosing between hash-based and sort-based set operation implementations
+- [Hash](../H/Hash.md) support determination is crucial for choosing between hash-based and sort-based set operation implementations
 - The function handles both regular data types and complex types like records, providing flexibility for various set operation scenarios

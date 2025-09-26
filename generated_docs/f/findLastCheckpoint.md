@@ -44,7 +44,7 @@ Additionally, the function tracks WAL filenames that should be preserved during 
   - [keepwal_add_entry](../k/keepwal_add_entry.md)
   - [XLogReaderFree](../X/XLogReaderFree.md)
   - [XLogRecord](../X/XLogRecord.md)
-  - CheckPoint
+  - [CheckPoint](../C/CheckPoint.md)
 - Called from (representative examples):
   - [main](../m/main.md) (in src/bin/pg_rewind/pg_rewind.c:461)
 

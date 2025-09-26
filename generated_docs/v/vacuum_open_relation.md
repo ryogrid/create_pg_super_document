@@ -33,14 +33,14 @@ The function handles race conditions gracefully - relations may disappear betwee
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - try_relation_open (safe relation opening)
-  - ConditionalLockRelationOid (non-blocking lock acquisition)
+  - [try_relation_open](../t/try_relation_open.md) (safe relation opening)
+  - [ConditionalLockRelationOid](../C/ConditionalLockRelationOid.md) (non-blocking lock acquisition)
   - AmAutoVacuumWorkerProcess (process type detection)
   - ereport (error/warning reporting)
   - ERRCODE_LOCK_NOT_AVAILABLE, ERRCODE_UNDEFINED_TABLE (error codes)
 - Called from (representative examples):
-  - vacuum_rel (main vacuum processing)
-  - analyze_rel (analysis processing)
+  - [vacuum_rel](vacuum_rel.md) (main vacuum processing)
+  - [analyze_rel](../a/analyze_rel.md) (analysis processing)
 
 ## Notes and Other Information
 - Returns opened Relation on success, NULL on failure

@@ -24,7 +24,7 @@ The function updates both the aggregation split mode and adjusts the result type
 ## Dependencies
 - Functions called/Symbols referenced:
   - AggSplit (enum type)
-  - Aggref (struct type)
+  - [Aggref](../A/Aggref.md) (struct type)
   - AGGSPLIT_SIMPLE (enum value)
   - DO_AGGSPLIT_SKIPFINAL (macro)
   - DO_AGGSPLIT_SERIALIZE (macro)

@@ -22,7 +22,7 @@ This function serves as a callback for the statistics computation infrastructure
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - VacAttrStatsP
+  - [VacAttrStatsP](../V/VacAttrStatsP.md)
   - [AnlExprData](../A/AnlExprData.md) (indirectly through the data structure)
 - Called from (representative examples):
   - [compute_expr_stats](../c/compute_expr_stats.md)

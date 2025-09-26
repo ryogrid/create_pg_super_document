@@ -58,7 +58,7 @@ index_build is a comprehensive function that manages the entire index building p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IndexInfo (structure type)
+  - [IndexInfo](../I/IndexInfo.md) (structure type)
   - [IndexBuildResult](../I/IndexBuildResult.md) (structure type)
   - RelationIsValid (function)
   - PointerIsValid (function)
@@ -76,13 +76,13 @@ index_build is a comprehensive function that manages the entire index building p
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md) (function)
   - [heap_freetuple](../h/heap_freetuple.md) (function)
   - [index_update_stats](index_update_stats.md) (function)
-  - CommandCounterIncrement (function)
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md) (function)
   - [IndexCheckExclusion](../I/IndexCheckExclusion.md) (function)
   - [AtEOXact_GUC](../A/AtEOXact_GUC.md) (function)
 - Called from (representative examples):
   - [build_indices](../b/build_indices.md)
-  - index_create
-  - index_concurrently_build
+  - [index_create](index_create.md)
+  - [index_concurrently_build](index_concurrently_build.md)
   - [reindex_index](../r/reindex_index.md)
 
 ## Notes and Other Information

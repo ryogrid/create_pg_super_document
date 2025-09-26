@@ -27,7 +27,7 @@ For histogram processing, the function uses decimation (sampling every k-th elem
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_join_variables
+  - [get_join_variables](../g/get_join_variables.md)
   - [networkjoinsel_inner](networkjoinsel_inner.md)
   - [networkjoinsel_semi](networkjoinsel_semi.md)
   - [get_commutator](../g/get_commutator.md)

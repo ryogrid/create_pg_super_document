@@ -30,7 +30,7 @@ The `tideq` function compares two ItemPointer structures for equality and return
   - PostgreSQL query executor when processing TID equality conditions in WHERE clauses
   - SQL operations involving TID comparisons (e.g., "WHERE ctid = '(0,1)'")
   - Index operations and constraint checking involving TID values
-  - Hash table lookups using TID values as keys
+  - [Hash](../H/Hash.md) table lookups using TID values as keys
 
 ## Notes and Other Information
 - The function returns true only when both the block number and offset number of both TIDs are identical

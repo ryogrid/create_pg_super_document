@@ -33,7 +33,7 @@ The function is careful to use PlaceHolderVars (PHVs) appropriately, particularl
   - [pullup_replace_vars_subquery](../p/pullup_replace_vars_subquery.md)
   - rt_fetch
   - nodeTag
-  - RangeTblRef, FromExpr, JoinExpr
+  - [RangeTblRef](../R/RangeTblRef.md), FromExpr, JoinExpr
   - Various RTE types (RTE_RELATION, RTE_SUBQUERY, RTE_FUNCTION, etc.)
   - [TableSampleClause](../T/TableSampleClause.md), TableFunc
   - JOIN_FULL

@@ -31,7 +31,7 @@ The function includes important safety checks to prevent mapping changes in unsu
   - [RelMapFile](RelMapFile.md) (structure type for mapping tables)
   - IsBootstrapProcessingMode (checks if in bootstrap mode)
   - [GetCurrentTransactionNestLevel](../G/GetCurrentTransactionNestLevel.md) (ensures not in subtransaction)
-  - IsInParallelMode (ensures not in parallel execution)
+  - [IsInParallelMode](../I/IsInParallelMode.md) (ensures not in parallel execution)
   - [apply_map_update](../a/apply_map_update.md) (applies the actual mapping change)
 - Called from (representative examples):
   - [swap_relation_files](../s/swap_relation_files.md) (cluster.c:1179, 1180)

@@ -38,7 +38,7 @@ The test demonstrates:
   - [PQsetnonblocking](../P/PQsetnonblocking.md) - Enable non-blocking mode
   - [PQexec](../P/PQexec.md) - Execute immediate SQL commands
   - [PQprepare](../P/PQprepare.md) - Prepare a statement
-  - PQenterPipelineMode - Enter pipeline mode
+  - [PQenterPipelineMode](../P/PQenterPipelineMode.md) - Enter pipeline mode
   - [PQisBusy](../P/PQisBusy.md) - Check if connection is busy
   - [PQgetResult](../P/PQgetResult.md) - Retrieve query results
   - [PQconsumeInput](../P/PQconsumeInput.md) - Read available input from server

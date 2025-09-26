@@ -23,7 +23,7 @@ DatumGetChar provides type conversion from PostgreSQL Datum format to a C char v
   - [fetch_remote_table_info](../f/fetch_remote_table_info.md) (src/backend/replication/logical/tablesync.c:865, 867)
   - [EnableDisableRule](../E/EnableDisableRule.md) (src/backend/rewrite/rewriteDefine.c:728)
   - [make_ruledef](../m/make_ruledef.md) (src/backend/utils/adt/ruleutils.c:5187)
-  - chareqfast (src/backend/utils/cache/catcache.c:193)
+  - [chareqfast](../c/chareqfast.md) (src/backend/utils/cache/catcache.c:193)
   - PG_GETARG_CHAR (src/include/fmgr.h:273)
 
 ## Notes and Other Information

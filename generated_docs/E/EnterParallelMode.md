@@ -24,12 +24,12 @@ This function takes no parameters.
   - TransactionState (type definition)
   - CurrentTransactionState (global transaction state variable)
 - Called from (representative examples):
-  - _brin_begin_parallel
-  - _bt_begin_parallel  
-  - ParallelWorkerMain
-  - CommitTransaction
-  - parallel_vacuum_init
-  - ExecutePlan
+  - [_brin_begin_parallel](../b/_brin_begin_parallel.md)
+  - [_bt_begin_parallel](../b/_bt_begin_parallel.md)  
+  - [ParallelWorkerMain](../P/ParallelWorkerMain.md)
+  - [CommitTransaction](../C/CommitTransaction.md)
+  - [parallel_vacuum_init](../p/parallel_vacuum_init.md)
+  - [ExecutePlan](ExecutePlan.md)
 
 ## Notes and Other Information
 - Located in src/backend/access/transam/xact.c:1044-1055

@@ -21,12 +21,12 @@ The function handles cases where the schema might not exist by checking for miss
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_role_oid_or_public
+  - [get_role_oid_or_public](../g/get_role_oid_or_public.md)
   - [convert_schema_priv_string](../c/convert_schema_priv_string.md)
   - [object_aclcheck_ext](../o/object_aclcheck_ext.md)
   - PG_GETARG_NAME
   - Name (type)
-  - AclResult (type)
+  - [AclResult](../A/AclResult.md) (type)
 - Called from (representative examples):
   - No direct references found in codebase
 

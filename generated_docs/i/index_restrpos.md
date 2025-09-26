@@ -24,7 +24,7 @@ The function performs validation to ensure the scan uses an MVCC snapshot, which
   - IsMVCCSnapshot (validates snapshot type)
   - SCAN_CHECKS (validation macro for scan descriptor)
   - CHECK_SCAN_PROCEDURE (validation macro for amrestrpos availability)
-  - table_index_fetch_reset (resets heap fetch resources)
+  - [table_index_fetch_reset](../t/table_index_fetch_reset.md) (resets heap fetch resources)
   - amrestrpos (access method-specific position restoration routine)
 - Called from (representative examples):
   - [ExecIndexRestrPos](../E/ExecIndexRestrPos.md)

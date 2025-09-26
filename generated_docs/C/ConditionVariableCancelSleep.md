@@ -43,17 +43,17 @@ The function is designed to be safe to call even when no sleep is pending, makin
   - [WalSummarizerMain](../W/WalSummarizerMain.md)
   - [WaitForWalSummarization](../W/WaitForWalSummarization.md)
   - [WalWriterMain](../W/WalWriterMain.md)
-  - replorigin_state_clear
+  - [replorigin_state_clear](../r/replorigin_state_clear.md)
   - [ReplicationSlotAcquire](../R/ReplicationSlotAcquire.md)
-  - WaitForStandbyConfirmation
+  - [WaitForStandbyConfirmation](../W/WaitForStandbyConfirmation.md)
   - [ShutdownWalRcv](../S/ShutdownWalRcv.md)
   - [WalSndErrorCleanup](../W/WalSndErrorCleanup.md)
   - [WalSndWait](../W/WalSndWait.md)
-  - WaitIO
-  - BarrierArriveAndWait
+  - [WaitIO](../W/WaitIO.md)
+  - [BarrierArriveAndWait](../B/BarrierArriveAndWait.md)
   - [WaitForProcSignalBarrier](../W/WaitForProcSignalBarrier.md)
   - [ConditionVariablePrepareToSleep](ConditionVariablePrepareToSleep.md)
-  - ConditionVariableBroadcast
+  - [ConditionVariableBroadcast](ConditionVariableBroadcast.md)
   - [ProcKill](../P/ProcKill.md)
   - [AuxiliaryProcKill](../A/AuxiliaryProcKill.md)
 

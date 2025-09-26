@@ -31,9 +31,9 @@ The structure is designed for efficient segment file management, allowing the st
   - BlockNumber (PostgreSQL block number type)
 - Called from (representative examples):
   - [mdcreate](../m/mdcreate.md)
-  - mdextend
-  - mdzeroextend
-  - mdopenfork
+  - [mdextend](../m/mdextend.md)
+  - [mdzeroextend](../m/mdzeroextend.md)
+  - [mdopenfork](../m/mdopenfork.md)
   - [mdclose](../m/mdclose.md)
   - [mdprefetch](../m/mdprefetch.md)
   - [mdreadv](../m/mdreadv.md)

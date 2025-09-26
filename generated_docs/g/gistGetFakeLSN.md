@@ -25,22 +25,22 @@ This function generates fake LSN values for GiST indexes that don't participate 
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelationIsPermanent
-  - GetXLogInsertRecPtr
+  - [GetXLogInsertRecPtr](../G/GetXLogInsertRecPtr.md)
   - RelationNeedsWAL
   - XLogRecPtrIsInvalid
-  - gistXLogAssignLSN
-  - GetFakeLSNForUnloggedRel
+  - [gistXLogAssignLSN](gistXLogAssignLSN.md)
+  - [GetFakeLSNForUnloggedRel](../G/GetFakeLSNForUnloggedRel.md)
 - Constants used:
   - RELPERSISTENCE_TEMP
   - RELPERSISTENCE_UNLOGGED
   - FirstNormalUnloggedLSN
   - InvalidXLogRecPtr
 - Called from:
-  - gistplacetopage (multiple calls for page placement operations)
-  - gistprunepage (for page pruning operations)
-  - gistvacuumscan (during vacuum scanning)
-  - gistvacuumpage (during vacuum page processing)
-  - gistdeletepage (for page deletion operations)
+  - [gistplacetopage](gistplacetopage.md) (multiple calls for page placement operations)
+  - [gistprunepage](gistprunepage.md) (for page pruning operations)
+  - [gistvacuumscan](gistvacuumscan.md) (during vacuum scanning)
+  - [gistvacuumpage](gistvacuumpage.md) (during vacuum page processing)
+  - [gistdeletepage](gistdeletepage.md) (for page deletion operations)
 
 ## Notes and Other Information
 - Uses static variables to maintain state between calls: counter for temporary relations and lastlsn for permanent relations

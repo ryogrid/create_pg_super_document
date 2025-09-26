@@ -28,11 +28,11 @@ The function is more complex than other event trigger functions due to the need 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - EventTriggerData (struct for trigger context)
+  - [EventTriggerData](EventTriggerData.md) (struct for trigger context)
   - [slist_is_empty](../s/slist_is_empty.md) (checks if SQLDropList is empty)
   - [EventTriggerCommonSetup](EventTriggerCommonSetup.md) (identifies applicable triggers)
   - EVT_SQLDrop (event type constant)
-  - CommandCounterIncrement (ensures visibility)
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md) (ensures visibility)
   - PG_TRY/PG_FINALLY/PG_END_TRY (exception handling)
   - [EventTriggerInvoke](EventTriggerInvoke.md) (executes the triggers)
   - [list_free](../l/list_free.md) (memory cleanup)

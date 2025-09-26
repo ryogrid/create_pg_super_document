@@ -21,7 +21,7 @@ The function extracts the type's remote OID and qualified name (namespace + type
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pq_getmsgint](../p/pq_getmsgint.md): Reads 32-bit integer (remote type OID) from the message
-  - logicalrep_read_namespace: Reads namespace information from the stream
+  - [logicalrep_read_namespace](logicalrep_read_namespace.md): Reads namespace information from the stream
   - [pq_getmsgstring](../p/pq_getmsgstring.md): Reads null-terminated string (type name) from the message
   - [pstrdup](../p/pstrdup.md): Duplicates strings into current memory context
   - [LogicalRepTyp](../L/LogicalRepTyp.md): Structure representing logical replication type information

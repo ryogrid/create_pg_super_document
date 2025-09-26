@@ -29,7 +29,7 @@ After locating the null terminator, the function updates the source pointer to p
 - Error constants:
   - ERROR
 - Called from:
-  - RestoreGUCState (multiple times for reading variable name, value, and source file)
+  - [RestoreGUCState](../R/RestoreGUCState.md) (multiple times for reading variable name, value, and source file)
 
 ## Notes and Other Information
 - This is a static function internal to the GUC deserialization system

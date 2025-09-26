@@ -37,12 +37,12 @@ This function is primarily used by PostgreSQL's EXPLAIN system to provide detail
 ## Dependencies
 - Functions called/Symbols referenced:
   - MemoryContextIsValid (validates the context)
-  - MemoryContextTraverseNext (traverses child contexts)
-  - MemoryContextCounters (statistics structure)
+  - [MemoryContextTraverseNext](MemoryContextTraverseNext.md) (traverses child contexts)
+  - [MemoryContextCounters](MemoryContextCounters.md) (statistics structure)
   - context->methods->stats (type-specific statistics gathering)
 - Called from (representative examples):
-  - standard_ExplainOneQuery (EXPLAIN command implementation)
-  - ExplainExecuteQuery (prepared statement execution with EXPLAIN)
+  - [standard_ExplainOneQuery](../s/standard_ExplainOneQuery.md) (EXPLAIN command implementation)
+  - [ExplainExecuteQuery](../E/ExplainExecuteQuery.md) (prepared statement execution with EXPLAIN)
 
 ## Notes and Other Information
 - The function returns void and fills the provided MemoryContextCounters structure with results

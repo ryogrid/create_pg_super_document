@@ -21,7 +21,7 @@ This function performs character conversion from ISO8859-1 (Latin-1) encoding to
 - Functions called/Symbols referenced:
   - (No external function calls - direct character copying)
 - Called from (representative examples):
-  - pg_encoding_set_invalid (multiple references for various encoding configurations)
+  - [pg_encoding_set_invalid](pg_encoding_set_invalid.md) (multiple references for various encoding configurations)
 
 ## Notes and Other Information
 - Returns the number of characters successfully converted

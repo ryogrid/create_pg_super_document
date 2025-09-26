@@ -40,8 +40,8 @@ This is particularly important for UPDATE operations where modifying a base colu
 ## Dependencies
 - Functions called/Symbols referenced:
   - planner_rt_fetch
-  - table_open
-  - table_close
+  - [table_open](../t/table_open.md)
+  - [table_close](../t/table_close.md)
   - RelationGetDescr
   - TupleDescAttr
   - [stringToNode](../s/stringToNode.md)

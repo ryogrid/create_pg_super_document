@@ -30,13 +30,13 @@ The structure supports both attribute modifications and membership operations th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RoleSpec (for role specification)
+  - [RoleSpec](../R/RoleSpec.md) (for role specification)
   - NodeTag (for type identification)
-  - List (for storing role options)
-  - DefElem (for individual option specifications)
+  - [List](../L/List.md) (for storing role options)
+  - [DefElem](../D/DefElem.md) (for individual option specifications)
 - Called from (representative examples):
-  - AlterRole (role alteration command execution)
-  - standard_ProcessUtility (utility command processing)
+  - [AlterRole](AlterRole.md) (role alteration command execution)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (utility command processing)
 
 ## Notes and Other Information
 - This structure handles multiple types of ALTER ROLE operations: attribute changes, membership additions, and membership removals

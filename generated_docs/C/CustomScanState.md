@@ -36,7 +36,7 @@ CustomScanState serves as the foundation for implementing custom scan methods in
   - [ScanState](../S/ScanState.md)
   - [List](../L/List.md)
   - [CustomExecMethods](CustomExecMethods.md)
-  - TupleTableSlotOps
+  - [TupleTableSlotOps](../T/TupleTableSlotOps.md)
 - Called from (representative examples):
   - [ExecCustomScan](../E/ExecCustomScan.md)
   - [ExecInitCustomScan](../E/ExecInitCustomScan.md)

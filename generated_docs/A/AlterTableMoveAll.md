@@ -25,7 +25,7 @@ The function operates in phases: first validating tablespace permissions and res
   - [get_tablespace_oid](../g/get_tablespace_oid.md): Resolves tablespace names to OIDs
   - [object_aclcheck](../o/object_aclcheck.md): Checks user permissions on tablespaces
   - [aclcheck_error](../a/aclcheck_error.md): Reports permission-related errors
-  - table_open/table_close: Opens and closes system catalogs
+  - [table_open](../t/table_open.md)/table_close: Opens and closes system catalogs
   - [table_beginscan_catalog](../t/table_beginscan_catalog.md): Starts catalog scan
   - [heap_getnext](../h/heap_getnext.md): Retrieves next tuple from scan
   - [IsCatalogNamespace](../I/IsCatalogNamespace.md): Checks if namespace is system catalog

@@ -37,7 +37,7 @@ The function ensures that CALL statements can handle complex parameter scenarios
   - [transformExpr](transformExpr.md), ParseFuncOrColumn, assign_expr_collations
   - [expand_function_arguments](../e/expand_function_arguments.md), SearchSysCache1, ReleaseSysCache
   - [SysCacheGetAttr](../S/SysCacheGetAttr.md), DatumGetArrayTypeP, copyObject
-  - lappend, lfirst, list_length, castNode, makeNode
+  - [lappend](../l/lappend.md), lfirst, list_length, castNode, makeNode
   - HeapTupleIsValid, ObjectIdGetDatum
 - Constants referenced:
   - EXPR_KIND_CALL_ARGUMENT, PROCOID, Anum_pg_proc_proargmodes

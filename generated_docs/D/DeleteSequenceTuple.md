@@ -21,14 +21,14 @@ The function operates on the SequenceRelationId catalog (pg_sequence) and uses t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open (on SequenceRelationId with RowExclusiveLock)
+  - [table_open](../t/table_open.md) (on SequenceRelationId with RowExclusiveLock)
   - [SearchSysCache1](../S/SearchSysCache1.md) (with SEQRELID cache)
   - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - HeapTupleIsValid
   - elog (ERROR level)
   - [CatalogTupleDelete](../C/CatalogTupleDelete.md)
   - [ReleaseSysCache](../R/ReleaseSysCache.md)
-  - table_close
+  - [table_close](../t/table_close.md)
 - Called from (representative examples):
   - [doDeletion](../d/doDeletion.md) (in dependency.c)
 

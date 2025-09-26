@@ -31,7 +31,7 @@ The function handles special cases including transaction abort (discards all pen
   - [hash_seq_search](../h/hash_seq_search.md)
   - [smgropen](smgropen.md)
   - [smgrexists](smgrexists.md)
-  - smgrnblocks
+  - [smgrnblocks](smgrnblocks.md)
   - [smgrdosyncall](smgrdosyncall.md)
   - [CreateFakeRelcacheEntry](../C/CreateFakeRelcacheEntry.md)
   - [log_newpage_range](../l/log_newpage_range.md)

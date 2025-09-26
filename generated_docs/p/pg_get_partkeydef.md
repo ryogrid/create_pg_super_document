@@ -27,7 +27,7 @@ This function serves as the SQL-accessible interface for inspecting partition ke
 - Functions called/Symbols referenced:
   - [pg_get_partkeydef_worker](pg_get_partkeydef_worker.md) (the underlying implementation)
   - PRETTYFLAG_INDENT (formatting flag)
-  - string_to_text (conversion function)
+  - [string_to_text](../s/string_to_text.md) (conversion function)
   - PG_RETURN_TEXT_P (result return macro)
 - Called from (representative examples):
   - No direct references found (likely called via SQL interface)

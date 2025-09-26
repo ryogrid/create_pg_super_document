@@ -29,7 +29,7 @@ The function follows PostgreSQL's multi-phase ALTER TABLE design where preparati
   - [object_aclcheck](../o/object_aclcheck.md): Checks user permissions on the tablespace
   - [aclcheck_error](../a/aclcheck_error.md): Reports permission-related errors
   - [AlteredTableInfo](AlteredTableInfo.md): Structure for storing table alteration information
-  - AclResult: Enumeration for access control results
+  - [AclResult](AclResult.md): Enumeration for access control results
   - ACL_CREATE: Permission constant for CREATE privilege
   - OBJECT_TABLESPACE: Object type constant for tablespaces
 

@@ -26,15 +26,15 @@ The function includes robust interrupt handling by retrying the sem_post() call 
   - elog (error reporting with FATAL level)
   - errno constant: EINTR
 - Called from (representative examples):
-  - TransactionGroupUpdateXidStatus (transaction status updates)
+  - [TransactionGroupUpdateXidStatus](../T/TransactionGroupUpdateXidStatus.md) (transaction status updates)
   - [IpcSemaphoreCreate](../I/IpcSemaphoreCreate.md) (IPC semaphore initialization)
   - [ProcArrayGroupClearXid](ProcArrayGroupClearXid.md) (process array management)
-  - LWLockWakeup (lightweight lock wakeup operations)
-  - LWLockDequeueSelf (lightweight lock queue management)
-  - LWLockAcquire (lightweight lock acquisition completion)
-  - LWLockAcquireOrWait (conditional lightweight lock operations)
-  - LWLockWaitForVar (lightweight lock variable operations)
-  - LWLockUpdateVar (lightweight lock variable updates)
+  - [LWLockWakeup](../L/LWLockWakeup.md) (lightweight lock wakeup operations)
+  - [LWLockDequeueSelf](../L/LWLockDequeueSelf.md) (lightweight lock queue management)
+  - [LWLockAcquire](../L/LWLockAcquire.md) (lightweight lock acquisition completion)
+  - [LWLockAcquireOrWait](../L/LWLockAcquireOrWait.md) (conditional lightweight lock operations)
+  - [LWLockWaitForVar](../L/LWLockWaitForVar.md) (lightweight lock variable operations)
+  - [LWLockUpdateVar](../L/LWLockUpdateVar.md) (lightweight lock variable updates)
   - [s_unlock_sema](../s/s_unlock_sema.md) (spinlock semaphore operations)
 
 ## Notes and Other Information

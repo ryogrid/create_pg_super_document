@@ -23,17 +23,17 @@ The function creates two types of resource descriptors with different release ph
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_INT32 (parameter extraction)
-  - ResourceOwnerCreate (resource owner creation)
-  - ResourceOwnerEnlarge (resource owner capacity management)
-  - ResourceOwnerRemember (resource registration)
-  - ResourceOwnerRelease (resource cleanup)
-  - ResourceOwnerDelete (resource owner cleanup)
-  - CStringGetDatum (string to Datum conversion)
-  - ReleaseString (custom resource release callback)
-  - PrintString (custom resource print callback)
+  - [ResourceOwnerCreate](../R/ResourceOwnerCreate.md) (resource owner creation)
+  - [ResourceOwnerEnlarge](../R/ResourceOwnerEnlarge.md) (resource owner capacity management)
+  - [ResourceOwnerRemember](../R/ResourceOwnerRemember.md) (resource registration)
+  - [ResourceOwnerRelease](../R/ResourceOwnerRelease.md) (resource cleanup)
+  - [ResourceOwnerDelete](../R/ResourceOwnerDelete.md) (resource owner cleanup)
+  - [CStringGetDatum](../C/CStringGetDatum.md) (string to Datum conversion)
+  - [ReleaseString](../R/ReleaseString.md) (custom resource release callback)
+  - [PrintString](../P/PrintString.md) (custom resource print callback)
   - elog (logging)
-  - palloc (memory allocation)
-  - psprintf (formatted string creation)
+  - [palloc](../p/palloc.md) (memory allocation)
+  - [psprintf](../p/psprintf.md) (formatted string creation)
 - Called from (representative examples):
   - SQL queries invoking this test function
 

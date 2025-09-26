@@ -26,8 +26,8 @@ The macro is defined within conditional compilation blocks that handle Windows-s
   - _pclose (Windows)
   - [pclose](pclose.md) (Unix standard library)
 - Called from (representative examples):
-  - FreeDesc (src/backend/storage/file/fd.c:2750)
-  - ClosePipeStream (src/backend/storage/file/fd.c:3006)
+  - [FreeDesc](../F/FreeDesc.md) (src/backend/storage/file/fd.c:2750)
+  - [ClosePipeStream](../C/ClosePipeStream.md) (src/backend/storage/file/fd.c:3006)
   - [pclose_check](pclose_check.md) (src/common/exec.c:415)
   - [CloseGOutput](../C/CloseGOutput.md) (src/bin/psql/common.c:116)
   - [ClosePager](../C/ClosePager.md) (src/fe_utils/print.c:3156)

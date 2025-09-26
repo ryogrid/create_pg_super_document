@@ -26,18 +26,18 @@ The function handles both forward and backward scan directions. For forward scan
   - [MaterialState](../M/MaterialState.md)
   - ScanDirection
   - ScanDirectionIsForward
-  - tuplestore_begin_heap
-  - tuplestore_set_eflags
-  - tuplestore_alloc_read_pointer
+  - [tuplestore_begin_heap](../t/tuplestore_begin_heap.md)
+  - [tuplestore_set_eflags](../t/tuplestore_set_eflags.md)
+  - [tuplestore_alloc_read_pointer](../t/tuplestore_alloc_read_pointer.md)
   - [tuplestore_ateof](../t/tuplestore_ateof.md)
   - [tuplestore_advance](../t/tuplestore_advance.md)
   - [tuplestore_gettupleslot](../t/tuplestore_gettupleslot.md)
-  - tuplestore_puttupleslot
+  - [tuplestore_puttupleslot](../t/tuplestore_puttupleslot.md)
   - outerPlanState
-  - ExecProcNode
+  - [ExecProcNode](ExecProcNode.md)
   - TupIsNull
-  - ExecCopySlot
-  - ExecClearTuple
+  - [ExecCopySlot](ExecCopySlot.md)
+  - [ExecClearTuple](ExecClearTuple.md)
 - Called from (representative examples):
   - [ExecInitMaterial](ExecInitMaterial.md)
 

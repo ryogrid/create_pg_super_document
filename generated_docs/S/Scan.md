@@ -28,17 +28,17 @@ The Scan structure extends the basic Plan node with scan-specific information, p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Plan (inherited base structure)
+  - [Plan](../P/Plan.md) (inherited base structure)
   - Index (type for scanrelid)
 
 - Called from (representative examples):
-  - SeqScan (sequential scan implementation)
-  - IndexScan (index scan implementation) 
-  - IndexOnlyScan (index-only scan implementation)
-  - SampleScan (sample scan implementation)
-  - BitmapHeapScan (bitmap heap scan implementation)
-  - ExecScanFetch (executor scan functions)
-  - create_indexscan_plan (planner functions)
+  - [SeqScan](SeqScan.md) (sequential scan implementation)
+  - [IndexScan](../I/IndexScan.md) (index scan implementation) 
+  - [IndexOnlyScan](../I/IndexOnlyScan.md) (index-only scan implementation)
+  - [SampleScan](SampleScan.md) (sample scan implementation)
+  - [BitmapHeapScan](../B/BitmapHeapScan.md) (bitmap heap scan implementation)
+  - [ExecScanFetch](../E/ExecScanFetch.md) (executor scan functions)
+  - [create_indexscan_plan](../c/create_indexscan_plan.md) (planner functions)
 
 ## Notes and Other Information
 - This is an abstract type marked with pg_node_attr(abstract), meaning it cannot be instantiated directly

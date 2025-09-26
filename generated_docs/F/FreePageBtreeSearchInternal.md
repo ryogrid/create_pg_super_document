@@ -25,12 +25,12 @@ The function is optimized for btree traversal operations where precise positioni
   - FREE_PAGE_INTERNAL_MAGIC (magic number validation)
   - FPM_ITEMS_PER_INTERNAL_PAGE (page capacity constant)
 - Called from:
-  - FreePageBtreeAdjustAncestorKeys
-  - FreePageBtreeFindLeftSibling
-  - FreePageBtreeFindRightSibling
-  - FreePageBtreeRemovePage
-  - FreePageBtreeSearch
-  - FreePageManagerPutInternal
+  - [FreePageBtreeAdjustAncestorKeys](FreePageBtreeAdjustAncestorKeys.md)
+  - [FreePageBtreeFindLeftSibling](FreePageBtreeFindLeftSibling.md)
+  - [FreePageBtreeFindRightSibling](FreePageBtreeFindRightSibling.md)
+  - [FreePageBtreeRemovePage](FreePageBtreeRemovePage.md)
+  - [FreePageBtreeSearch](FreePageBtreeSearch.md)
+  - [FreePageManagerPutInternal](FreePageManagerPutInternal.md)
 
 ## Notes and Other Information
 - Uses binary search algorithm for O(log n) time complexity

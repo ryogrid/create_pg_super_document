@@ -27,15 +27,15 @@ This mechanism is essential for extensions that create tables whose structure is
 - Functions called/Symbols referenced:
   - PG_GETARG_OID: Extracts table OID from function arguments
   - PG_GETARG_TEXT_PP: Extracts WHERE condition text from function arguments
-  - get_rel_name: Gets table name from OID
-  - getExtensionOfObject: Verifies table belongs to current extension
-  - table_open: Opens pg_extension catalog for modification
-  - systable_beginscan/systable_getnext: Scans for extension tuple
-  - heap_getattr: Retrieves extconfig and extcondition arrays
-  - construct_array_builtin: Creates new arrays when needed
-  - array_set: Modifies existing arrays
-  - heap_modify_tuple: Updates extension tuple
-  - CatalogTupleUpdate: Commits changes to catalog
+  - [get_rel_name](../g/get_rel_name.md): Gets table name from OID
+  - [getExtensionOfObject](../g/getExtensionOfObject.md): Verifies table belongs to current extension
+  - [table_open](../t/table_open.md): Opens pg_extension catalog for modification
+  - [systable_beginscan](../s/systable_beginscan.md)/systable_getnext: Scans for extension tuple
+  - [heap_getattr](../h/heap_getattr.md): Retrieves extconfig and extcondition arrays
+  - [construct_array_builtin](../c/construct_array_builtin.md): Creates new arrays when needed
+  - [array_set](../a/array_set.md): Modifies existing arrays
+  - [heap_modify_tuple](../h/heap_modify_tuple.md): Updates extension tuple
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md): Commits changes to catalog
 - Called from:
   - Extension SQL scripts via pg_extension_config_dump() function calls
 

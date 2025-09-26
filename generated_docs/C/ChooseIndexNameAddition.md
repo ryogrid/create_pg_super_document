@@ -23,7 +23,7 @@ The generated string serves as the column-specific portion of index names, helpi
 ## Dependencies
 - Functions called/Symbols referenced:
   - NAMEDATALEN (PostgreSQL's maximum name length constant)
-  - strlcpy (safe string copy function)
+  - [strlcpy](../s/strlcpy.md) (safe string copy function)
   - [pstrdup](../p/pstrdup.md) (PostgreSQL's string duplication function)
   - lfirst (list iteration macro)
   - foreach (list iteration macro)

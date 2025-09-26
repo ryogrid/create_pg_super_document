@@ -35,12 +35,12 @@ The function uses a streaming approach to handle potentially large manifest file
   - [pg_cryptohash_error](../p/pg_cryptohash_error.md)
   - [AppendStringToManifest](../A/AppendStringToManifest.md)
   - [hex_encode](../h/hex_encode.md)
-  - BufFileSeek
-  - BufFileReadExact
-  - BufFileClose
-  - bbsink_begin_manifest
-  - bbsink_manifest_contents
-  - bbsink_end_manifest
+  - [BufFileSeek](../B/BufFileSeek.md)
+  - [BufFileReadExact](../B/BufFileReadExact.md)
+  - [BufFileClose](../B/BufFileClose.md)
+  - [bbsink_begin_manifest](../b/bbsink_begin_manifest.md)
+  - [bbsink_manifest_contents](../b/bbsink_manifest_contents.md)
+  - [bbsink_end_manifest](../b/bbsink_end_manifest.md)
 - Called from (representative examples):
   - [perform_base_backup](../p/perform_base_backup.md) (src/backend/backup/basebackup.c:648)
 

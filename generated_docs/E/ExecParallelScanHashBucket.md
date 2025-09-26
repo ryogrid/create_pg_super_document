@@ -36,7 +36,7 @@ The scanning logic remains fundamentally the same: iterate through the hash chai
   - [ExecParallelHashFirstTuple](ExecParallelHashFirstTuple.md) (parallel bucket start)
   - [ExecStoreMinimalTuple](ExecStoreMinimalTuple.md) (tuple storage function)
   - HJTUPLE_MINTUPLE (tuple extraction macro)
-  - ExecQualAndReset (clause evaluation function)
+  - [ExecQualAndReset](ExecQualAndReset.md) (clause evaluation function)
 - Called from (representative examples):
   - [ExecHashJoinImpl](ExecHashJoinImpl.md)
 

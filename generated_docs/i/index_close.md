@@ -24,14 +24,14 @@ The function first extracts the lock relation ID from the relation structure, th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LockRelId (type)
+  - [LockRelId](../L/LockRelId.md) (type)
   - MAX_LOCKMODES (constant)
   - [RelationClose](../R/RelationClose.md)
   - [UnlockRelationId](../U/UnlockRelationId.md)
 - Called from (representative examples):
   - [toast_close_indexes](../t/toast_close_indexes.md)
   - [systable_endscan](../s/systable_endscan.md)
-  - index_create
+  - [index_create](index_create.md)
   - [ExecCloseIndices](../E/ExecCloseIndices.md)
   - [get_relation_info](../g/get_relation_info.md)
 

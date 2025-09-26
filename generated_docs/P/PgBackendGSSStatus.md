@@ -40,7 +40,7 @@ The structure tracks both authentication and encryption aspects of GSSAPI connec
   - [BackendStatusShmemSize](../B/BackendStatusShmemSize.md) (for shared memory sizing)
   - [CreateSharedBackendStatus](../C/CreateSharedBackendStatus.md) (for initialization)
   - [pgstat_bestart](../p/pgstat_bestart.md) (for populating GSS status)
-  - pgstat_read_current_status (for reading GSS information)
+  - [pgstat_read_current_status](../p/pgstat_read_current_status.md) (for reading GSS information)
   - [PgBackendStatus](PgBackendStatus.md) (as a member structure)
 
 ## Notes and Other Information

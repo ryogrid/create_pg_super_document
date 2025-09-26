@@ -34,7 +34,7 @@ The estimation formula is: (1.0 - nullfrac) / number_of_distinct_values, represe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_variable_numdistinct
+  - [get_variable_numdistinct](../g/get_variable_numdistinct.md)
   - [get_attstatsslot](../g/get_attstatsslot.md)
   - [free_attstatsslot](../f/free_attstatsslot.md)
   - CLAMP_PROBABILITY

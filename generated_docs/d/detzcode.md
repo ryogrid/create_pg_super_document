@@ -24,7 +24,7 @@ The function carefully handles the sign extension and ensures that the minimum r
 - Functions called/Symbols referenced:
   - TWOS_COMPLEMENT (macro for architecture detection)
 - Called from (representative examples):
-  - tzloadbody (multiple calls at lines 249, 250, 253, 254, 255, 256, 295, 334, 353, 354)
+  - [tzloadbody](../t/tzloadbody.md) (multiple calls at lines 249, 250, 253, 254, 255, 256, 295, 334, 353, 354)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the localtime.c compilation unit

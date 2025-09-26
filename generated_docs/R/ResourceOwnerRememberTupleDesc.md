@@ -22,7 +22,7 @@ This is a static inline convenience wrapper around the generic ResourceOwnerReme
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwnerRemember
+  - [ResourceOwnerRemember](ResourceOwnerRemember.md)
   - [PointerGetDatum](../P/PointerGetDatum.md) (implicit)
   - tupdesc_resowner_desc (resource descriptor)
 - Called from (representative examples):

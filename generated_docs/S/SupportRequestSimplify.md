@@ -34,16 +34,16 @@ The simplification process operates on FuncExpr nodes, even when the original pa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FuncExpr
+  - [FuncExpr](../F/FuncExpr.md)
   - NodeTag
-  - PlannerInfo
+  - [PlannerInfo](../P/PlannerInfo.md)
 
 - Called from (representative examples):
-  - simplify_function (src/backend/optimizer/util/clauses.c:4118)
-  - time_support (src/backend/utils/adt/date.c:1610)
-  - numeric_support (src/backend/utils/adt/numeric.c:1199)
-  - timestamp_support (src/backend/utils/adt/timestamp.c:330)
-  - varchar_support (src/backend/utils/adt/varchar.c:570)
+  - [simplify_function](../s/simplify_function.md) (src/backend/optimizer/util/clauses.c:4118)
+  - [time_support](../t/time_support.md) (src/backend/utils/adt/date.c:1610)
+  - [numeric_support](../n/numeric_support.md) (src/backend/utils/adt/numeric.c:1199)
+  - [timestamp_support](../t/timestamp_support.md) (src/backend/utils/adt/timestamp.c:330)
+  - [varchar_support](../v/varchar_support.md) (src/backend/utils/adt/varchar.c:570)
 
 ## Notes and Other Information
 - The result of simplification should be a semantically-equivalent transformed node tree, or NULL if no simplification is possible

@@ -21,17 +21,17 @@ This function provides a complete initialization setup for libxml2 operations th
 - Functions called/Symbols referenced:
   - [pg_xml_init_library](pg_xml_init_library.md) (basic libxml2 initialization)
   - [palloc](palloc.md) (PostgreSQL memory allocation)
-  - initStringInfo (string buffer initialization)
+  - [initStringInfo](../i/initStringInfo.md) (string buffer initialization)
   - xmlSetStructuredErrorFunc (libxml2 error handler setup)
-  - xml_errorHandler (PostgreSQL's custom error handler)
+  - [xml_errorHandler](../x/xml_errorHandler.md) (PostgreSQL's custom error handler)
   - xmlGetExternalEntityLoader (get current entity loader)
   - xmlSetExternalEntityLoader (set custom entity loader)
-  - xmlPgEntityLoader (PostgreSQL's secure entity loader)
+  - [xmlPgEntityLoader](../x/xmlPgEntityLoader.md) (PostgreSQL's secure entity loader)
   - ERRCXT_MAGIC (error context validation constant)
 - Called from (representative examples):
   - [xmltotext_with_options](../x/xmltotext_with_options.md) (XML to text conversion)
   - [xmlelement](../x/xmlelement.md) (XML element creation)
-  - xml_parse (XML parsing operations)
+  - [xml_parse](../x/xml_parse.md) (XML parsing operations)
   - [xpath_internal](../x/xpath_internal.md) (XPath evaluation)
 
 ## Notes and Other Information

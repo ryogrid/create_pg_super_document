@@ -24,10 +24,10 @@ Beyond the basic renaming, the function handles associated object renaming inclu
 - Functions called/Symbols referenced:
   - [relation_open](../r/relation_open.md)
   - RelationGetNamespace
-  - table_open/table_close
+  - [table_open](../t/table_open.md)/table_close
   - [SearchSysCacheLockedCopy1](../S/SearchSysCacheLockedCopy1.md)
   - [get_relname_relid](../g/get_relname_relid.md)
-  - namestrcpy
+  - [namestrcpy](../n/namestrcpy.md)
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - [UnlockTuple](../U/UnlockTuple.md)
   - InvokeObjectPostAlterHookArg

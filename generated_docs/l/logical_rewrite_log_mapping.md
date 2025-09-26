@@ -36,7 +36,7 @@ The mapping files are created in the pg_logical/mappings directory with a specif
   - [hash_search](../h/hash_search.md) (hash table operations)
   - [GetCurrentTransactionId](../G/GetCurrentTransactionId.md) (transaction system)
   - [dclist_init](../d/dclist_init.md), dclist_push_tail (doubly-linked list operations)
-  - PathNameOpenFile (file I/O)
+  - [PathNameOpenFile](../P/PathNameOpenFile.md) (file I/O)
   - [MemoryContextAlloc](../M/MemoryContextAlloc.md) (memory management)
   - [logical_heap_rewrite_flush_mappings](logical_heap_rewrite_flush_mappings.md) (mapping flush operations)
 - Called from (representative examples):

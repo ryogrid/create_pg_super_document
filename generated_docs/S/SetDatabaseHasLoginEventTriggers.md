@@ -22,15 +22,15 @@ This function takes no parameters and operates on the current database (MyDataba
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open (to open the pg_database relation)
+  - [table_open](../t/table_open.md) (to open the pg_database relation)
   - [LockSharedObject](../L/LockSharedObject.md) (to acquire exclusive lock preventing conflicts)
   - [SearchSysCacheLockedCopy1](SearchSysCacheLockedCopy1.md) (to find and lock the database tuple)
   - HeapTupleIsValid (to validate the found tuple)
   - GETSTRUCT (to extract the form structure from the tuple)
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md) (to update the catalog tuple)
-  - CommandCounterIncrement (to ensure visibility of changes)
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md) (to ensure visibility of changes)
   - [UnlockTuple](../U/UnlockTuple.md) (to release the tuple lock)
-  - table_close (to close the relation)
+  - [table_close](../t/table_close.md) (to close the relation)
   - [heap_freetuple](../h/heap_freetuple.md) (to free the tuple memory)
 - Called from (representative examples):
   - [insert_event_trigger_tuple](../i/insert_event_trigger_tuple.md)

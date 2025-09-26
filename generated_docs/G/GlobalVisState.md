@@ -31,7 +31,7 @@ PostgreSQL maintains four different instances of this structure optimized for di
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FullTransactionId
+  - [FullTransactionId](../F/FullTransactionId.md)
 
 - Called from (representative examples):
   - [GlobalVisTestFor](GlobalVisTestFor.md)

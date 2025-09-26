@@ -25,32 +25,32 @@ Portal creation involves setting up proper transaction and subtransaction tracki
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetPortalByName: Checks for existing portals with the same name
+  - [GetPortalByName](../G/GetPortalByName.md): Checks for existing portals with the same name
   - PortalIsValid: Validates portal objects
-  - PortalDrop: Removes existing portals when duplicates are allowed
-  - MemoryContextAllocZero: Allocates zero-initialized memory for portal structure
+  - [PortalDrop](../P/PortalDrop.md): Removes existing portals when duplicates are allowed
+  - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md): Allocates zero-initialized memory for portal structure
   - AllocSetContextCreate: Creates dedicated memory context for portal
-  - ResourceOwnerCreate: Establishes resource ownership for cleanup tracking
-  - GetCurrentSubTransactionId: Sets portal creation subtransaction ID
-  - GetCurrentTransactionNestLevel: Sets portal creation transaction nesting level
-  - GetCurrentStatementStartTimestamp: Records portal creation timestamp
+  - [ResourceOwnerCreate](../R/ResourceOwnerCreate.md): Establishes resource ownership for cleanup tracking
+  - [GetCurrentSubTransactionId](../G/GetCurrentSubTransactionId.md): Sets portal creation subtransaction ID
+  - [GetCurrentTransactionNestLevel](../G/GetCurrentTransactionNestLevel.md): Sets portal creation transaction nesting level
+  - [GetCurrentStatementStartTimestamp](../G/GetCurrentStatementStartTimestamp.md): Records portal creation timestamp
   - PortalHashTableInsert: Registers portal in global hash table
-  - MemoryContextSetIdentifier: Sets memory context debugging identifier
-  - PortalCleanup: Default cleanup function for portals
+  - [MemoryContextSetIdentifier](../M/MemoryContextSetIdentifier.md): Sets memory context debugging identifier
+  - [PortalCleanup](../P/PortalCleanup.md): Default cleanup function for portals
 
 - Called from:
-  - exec_bind_message: Extended query protocol portal binding
-  - exec_simple_query: Simple query protocol portal creation
-  - PerformCursorOpen: SQL cursor declaration
-  - SPI_cursor_open_internal: Server Programming Interface cursor operations
-  - CreateNewPortal: High-level portal creation wrapper
+  - [exec_bind_message](../e/exec_bind_message.md): Extended query protocol portal binding
+  - [exec_simple_query](../e/exec_simple_query.md): Simple query protocol portal creation
+  - [PerformCursorOpen](../P/PerformCursorOpen.md): SQL cursor declaration
+  - [SPI_cursor_open_internal](../S/SPI_cursor_open_internal.md): Server Programming Interface cursor operations
+  - [CreateNewPortal](CreateNewPortal.md): High-level portal creation wrapper
 
 ## Notes and Other Information
 - Always creates portal in TopPortalContext for proper memory lifecycle management
 - Establishes dedicated PortalContext as child context using ALLOCSET_SMALL_SIZES
 - Initializes portal with PORTAL_MULTI_QUERY strategy and CURSOR_OPT_NO_SCROLL options by default
-- Portal starts in PORTAL_NEW status with atStart=true and atEnd=true to prevent premature fetches
+- [Portal](../P/Portal.md) starts in PORTAL_NEW status with atStart=true and atEnd=true to prevent premature fetches
 - Creates resource owner as child of CurTransactionResourceOwner for proper cleanup tracking
 - Records creation timestamp and transaction identifiers for debugging and transaction management
-- Portal name validation ensures crashes are prevented from NULL pointer access
+- [Portal](../P/Portal.md) name validation ensures crashes are prevented from NULL pointer access
 - Duplicate handling provides flexible conflict resolution for different usage scenarios

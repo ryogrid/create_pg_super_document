@@ -23,10 +23,10 @@ This approach is computationally efficient as it requires only one call to the u
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - xoroshiro128ss: Core pseudo-random number generator that produces 64-bit random values
-  - pg_prng_state: State structure type for the PRNG
+  - [xoroshiro128ss](../x/xoroshiro128ss.md): Core pseudo-random number generator that produces 64-bit random values
+  - [pg_prng_state](pg_prng_state.md): State structure type for the PRNG
 - Called from (representative examples):
-  - gistchoose: GiST index algorithm that uses random boolean decisions for tie-breaking in tree construction
+  - [gistchoose](../g/gistchoose.md): GiST index algorithm that uses random boolean decisions for tie-breaking in tree construction
 
 ## Notes and Other Information
 - Provides exactly 50% probability for both true and false outcomes

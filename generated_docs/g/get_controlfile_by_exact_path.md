@@ -27,16 +27,16 @@ The retry logic is particularly important for frontend tools that may be reading
 ## Dependencies
 - Functions called/Symbols referenced:
   - palloc_object (for memory allocation)
-  - OpenTransientFile/CloseTransientFile (backend file operations)
+  - [OpenTransientFile](../O/OpenTransientFile.md)/CloseTransientFile (backend file operations)
   - open/close (frontend file operations)
   - read (system call for reading file data)
   - INIT_CRC32C, COMP_CRC32C, FIN_CRC32C, EQ_CRC32C (CRC calculation macros)
-  - pg_usleep (for retry delays in frontend)
+  - [pg_usleep](../p/pg_usleep.md) (for retry delays in frontend)
   - ereport/pg_fatal (error reporting)
 - Called from (representative examples):
-  - get_controlfile
-  - check_control_files
-  - verify_control_file
+  - [get_controlfile](get_controlfile.md)
+  - [check_control_files](../c/check_control_files.md)
+  - [verify_control_file](../v/verify_control_file.md)
 
 ## Notes and Other Information
 - Returns a palloc'd copy of control file data that must be freed by the caller

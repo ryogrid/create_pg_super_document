@@ -32,22 +32,22 @@ The process involves:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - InvalidateCatalogSnapshot
+  - [InvalidateCatalogSnapshot](../I/InvalidateCatalogSnapshot.md)
   - pairingheap_is_empty
-  - HistoricSnapshotActive
-  - GetSnapshotData
-  - GetMaxSnapshotXidCount
-  - GetMaxSnapshotSubxidCount
-  - ProcArrayInstallRestoredXmin
-  - ProcArrayInstallImportedXmin
+  - [HistoricSnapshotActive](../H/HistoricSnapshotActive.md)
+  - [GetSnapshotData](../G/GetSnapshotData.md)
+  - [GetMaxSnapshotXidCount](../G/GetMaxSnapshotXidCount.md)
+  - [GetMaxSnapshotSubxidCount](../G/GetMaxSnapshotSubxidCount.md)
+  - [ProcArrayInstallRestoredXmin](../P/ProcArrayInstallRestoredXmin.md)
+  - [ProcArrayInstallImportedXmin](../P/ProcArrayInstallImportedXmin.md)
   - IsolationUsesXactSnapshot
   - IsolationIsSerializable
-  - SetSerializableTransactionSnapshot
-  - CopySnapshot
-  - pairingheap_add
+  - [SetSerializableTransactionSnapshot](SetSerializableTransactionSnapshot.md)
+  - [CopySnapshot](../C/CopySnapshot.md)
+  - [pairingheap_add](../p/pairingheap_add.md)
 - Called from (representative examples):
-  - ImportSnapshot
-  - RestoreTransactionSnapshot
+  - [ImportSnapshot](../I/ImportSnapshot.md)
+  - [RestoreTransactionSnapshot](../R/RestoreTransactionSnapshot.md)
 
 ## Notes and Other Information
 - This is a static function in snapmgr.c, not exposed as a public API

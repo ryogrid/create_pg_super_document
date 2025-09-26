@@ -21,15 +21,15 @@ This function verifies that existing data in all tables using the specified doma
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_rels_with_domain](../g/get_rels_with_domain.md)
-  - RegisterSnapshot
-  - GetLatestSnapshot
+  - [RegisterSnapshot](../R/RegisterSnapshot.md)
+  - [GetLatestSnapshot](../G/GetLatestSnapshot.md)
   - [table_beginscan](../t/table_beginscan.md)
   - [table_slot_create](../t/table_slot_create.md)
   - [table_scan_getnextslot](../t/table_scan_getnextslot.md)
-  - slot_attisnull
+  - [slot_attisnull](../s/slot_attisnull.md)
   - [ExecDropSingleTupleTableSlot](../E/ExecDropSingleTupleTableSlot.md)
   - [table_endscan](../t/table_endscan.md)
-  - UnregisterSnapshot
+  - [UnregisterSnapshot](../U/UnregisterSnapshot.md)
   - TupleDescAttr
   - RelationGetRelationName
   - [errtablecol](../e/errtablecol.md)

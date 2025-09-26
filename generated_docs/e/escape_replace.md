@@ -21,7 +21,7 @@ The escape_replace function implements a straightforward approach to escaping SQ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendPQExpBufferChar
+  - [appendPQExpBufferChar](../a/appendPQExpBufferChar.md)
   - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
 - Called from (representative examples):
   - [escape_fmt_id](escape_fmt_id.md)

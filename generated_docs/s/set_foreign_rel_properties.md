@@ -24,7 +24,7 @@ The function handles three scenarios for user permission compatibility: (1) Both
   - OidIsValid (checks if an OID is valid)
   - [GetUserId](../G/GetUserId.md) (gets current user ID)
 - Called from (representative examples):
-  - build_join_rel
+  - [build_join_rel](../b/build_join_rel.md)
   - build_child_join_rel
 
 ## Notes and Other Information

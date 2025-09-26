@@ -34,9 +34,9 @@ BoolTestType supports all six meaningful combinations of boolean testing operati
 - Functions called/Symbols referenced:
   - None (this is an enumeration)
 - Called from (representative examples):
-  - booltestsel (selectivity estimation for boolean tests)
-  - BooleanTest struct (used as booltesttype field)
-  - GenericCosts (cost estimation structure)
+  - [booltestsel](../b/booltestsel.md) (selectivity estimation for boolean tests)
+  - [BooleanTest](BooleanTest.md) struct (used as booltesttype field)
+  - [GenericCosts](../G/GenericCosts.md) (cost estimation structure)
 
 ## Notes and Other Information
 - Implements complete three-valued boolean logic testing as required by SQL standard

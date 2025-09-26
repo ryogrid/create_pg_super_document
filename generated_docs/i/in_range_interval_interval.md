@@ -30,7 +30,7 @@ The function validates that the offset interval is non-negative per SQL specific
   - [interval_sign](interval_sign.md)
   - INTERVAL_IS_NOEND
   - INTERVAL_IS_NOBEGIN
-  - DatumGetIntervalP
+  - [DatumGetIntervalP](../D/DatumGetIntervalP.md)
   - DirectFunctionCall2
   - [interval_mi](interval_mi.md)
   - [interval_pl](interval_pl.md)

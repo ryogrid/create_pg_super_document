@@ -37,19 +37,19 @@ Key features include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - manifest_writer (structure type)
+  - [manifest_writer](../m/manifest_writer.md) (structure type)
   - pg_checksum_type (enum type)
-  - pg_encoding_verifymbstr (UTF-8 validation)
+  - [pg_encoding_verifymbstr](../p/pg_encoding_verifymbstr.md) (UTF-8 validation)
   - PG_UTF8 (encoding constant)
-  - escape_json (JSON string escaping)
-  - enlargeStringInfo (buffer management)
-  - hex_encode (binary to hex conversion)
+  - [escape_json](../e/escape_json.md) (JSON string escaping)
+  - [enlargeStringInfo](../e/enlargeStringInfo.md) (buffer management)
+  - [hex_encode](../h/hex_encode.md) (binary to hex conversion)
   - strftime (timestamp formatting)
-  - flush_manifest (buffer flushing)
-  - pg_checksum_type_name (checksum algorithm name)
+  - [flush_manifest](../f/flush_manifest.md) (buffer flushing)
+  - [pg_checksum_type_name](../p/pg_checksum_type_name.md) (checksum algorithm name)
 - Called from (representative examples):
-  - write_backup_label (in src/bin/pg_combinebackup/backup_label.c:188)
-  - process_directory_recursively (in src/bin/pg_combinebackup/pg_combinebackup.c:1134)
+  - [write_backup_label](../w/write_backup_label.md) (in src/bin/pg_combinebackup/backup_label.c:188)
+  - [process_directory_recursively](../p/process_directory_recursively.md) (in src/bin/pg_combinebackup/pg_combinebackup.c:1134)
 
 ## Notes and Other Information
 - The function automatically flushes the manifest buffer when it exceeds 128KB to manage memory usage

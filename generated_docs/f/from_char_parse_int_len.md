@@ -23,18 +23,18 @@ This function is a core component of PostgreSQL's date/time parsing infrastructu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - strspace_len (whitespace counting utility)
-  - strlcpy (safe string copying)
+  - [strspace_len](../s/strspace_len.md) (whitespace counting utility)
+  - [strlcpy](../s/strlcpy.md) (safe string copying)
   - strtol (string to long conversion)
   - S_FM (Fill Mode suffix check macro)
-  - is_next_separator (separator detection utility)
-  - from_char_set_int (safe integer assignment)
+  - [is_next_separator](../i/is_next_separator.md) (separator detection utility)
+  - [from_char_set_int](from_char_set_int.md) (safe integer assignment)
   - ereturn (PostgreSQL error handling macro)
   - DCH_MAX_ITEM_SIZ (maximum item size constant)
 - Called from (representative examples):
   - DCH_ZONED (formatting.c:1060)
-  - from_char_parse_int (formatting.c:2563)
-  - DCH_from_char (multiple locations: 3561, 3567, 3582, 3603, 3672, 3677, 3704, 3711, 3793, 3808)
+  - [from_char_parse_int](from_char_parse_int.md) (formatting.c:2563)
+  - [DCH_from_char](../D/DCH_from_char.md) (multiple locations: 3561, 3567, 3582, 3603, 3672, 3677, 3704, 3711, 3793, 3808)
 
 ## Notes and Other Information
 - Returns the number of characters consumed on success, -1 on error

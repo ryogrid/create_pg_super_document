@@ -22,8 +22,8 @@ This function processes TOC entries in an archive dump to build correct dependen
 - Functions called/Symbols referenced:
   - [findObjectByDumpId](../f/findObjectByDumpId.md)
   - [findDumpableDependencies](../f/findDumpableDependencies.md)
-  - pg_malloc
-  - pg_realloc
+  - [pg_malloc](../p/pg_malloc.md)
+  - [pg_realloc](../p/pg_realloc.md)
 - Types used:
   - [TocEntry](../T/TocEntry.md)
   - DumpableObject

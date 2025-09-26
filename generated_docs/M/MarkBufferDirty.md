@@ -21,17 +21,17 @@ The function implements a retry loop with atomic operations to handle concurrent
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferIsValid: Validates buffer identifier
+  - [BufferIsValid](../B/BufferIsValid.md): Validates buffer identifier
   - BufferIsLocal: Determines if buffer is a local buffer
-  - MarkLocalBufferDirty: Handles marking local buffers dirty
-  - GetBufferDescriptor: Gets descriptor for shared buffers
+  - [MarkLocalBufferDirty](MarkLocalBufferDirty.md): Handles marking local buffers dirty
+  - [GetBufferDescriptor](../G/GetBufferDescriptor.md): Gets descriptor for shared buffers
   - BufferIsPinned: Assertion to verify buffer is pinned
-  - LWLockHeldByMeInMode: Assertion to verify exclusive lock is held
-  - BufferDescriptorGetContentLock: Gets the content lock for the buffer
-  - pg_atomic_read_u32: Atomic read of buffer state
-  - WaitBufHdrUnlocked: Waits for buffer header to be unlocked
+  - [LWLockHeldByMeInMode](../L/LWLockHeldByMeInMode.md): Assertion to verify exclusive lock is held
+  - [BufferDescriptorGetContentLock](../B/BufferDescriptorGetContentLock.md): Gets the content lock for the buffer
+  - [pg_atomic_read_u32](../p/pg_atomic_read_u32.md): Atomic read of buffer state
+  - [WaitBufHdrUnlocked](../W/WaitBufHdrUnlocked.md): Waits for buffer header to be unlocked
   - BUF_STATE_GET_REFCOUNT: Extracts reference count from buffer state
-  - pg_atomic_compare_exchange_u32: Atomic compare-and-swap operation
+  - [pg_atomic_compare_exchange_u32](../p/pg_atomic_compare_exchange_u32.md): Atomic compare-and-swap operation
   - BM_DIRTY: Buffer state flag indicating dirty status
   - BM_JUST_DIRTIED: Buffer state flag for recent dirty marking
   - BM_LOCKED: Buffer state flag indicating locked status

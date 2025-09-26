@@ -27,11 +27,11 @@ The function performs several key operations: determines if explicit dimension b
   - AARR_NDIM
   - AARR_DIMS
   - AARR_LBOUND
-  - ArrayGetNItems
+  - [ArrayGetNItems](../A/ArrayGetNItems.md)
   - [get_type_io_data](../g/get_type_io_data.md)
   - [fmgr_info_cxt](../f/fmgr_info_cxt.md)
-  - array_iter_setup
-  - array_iter_next
+  - [array_iter_setup](array_iter_setup.md)
+  - [array_iter_next](array_iter_next.md)
   - [OutputFunctionCall](../O/OutputFunctionCall.md)
   - [scanner_isspace](../s/scanner_isspace.md)
   - [MemoryContextAlloc](../M/MemoryContextAlloc.md)

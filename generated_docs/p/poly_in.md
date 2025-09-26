@@ -29,7 +29,7 @@ The function uses PostgreSQLs error context system to provide detailed error mes
   - `ereturn`: Error return macro for soft error handling
   - [palloc0](palloc0.md): PostgreSQL memory allocation with zero initialization
   - `SET_VARSIZE`: Sets the variable-length structure size
-  - `path_decode`: Core parsing function that extracts coordinates
+  - `[path_decode](path_decode.md)`: Core parsing function that extracts coordinates
   - [make_bound_box](../m/make_bound_box.md): Calculates the polygons bounding box
   - `PG_RETURN_POLYGON_P`: Returns the polygon result
 - Called from (representative examples):

@@ -29,14 +29,14 @@ This function is typically called by the dependency system during DROP operation
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - Form_pg_proc
   - GETSTRUCT
   - [CatalogTupleDelete](../C/CatalogTupleDelete.md)
   - [ReleaseSysCache](ReleaseSysCache.md)
-  - table_close
+  - [table_close](../t/table_close.md)
   - [pgstat_drop_function](../p/pgstat_drop_function.md)
   - PROKIND_AGGREGATE
 - Called from (representative examples):

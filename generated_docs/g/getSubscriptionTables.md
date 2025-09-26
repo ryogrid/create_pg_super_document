@@ -25,7 +25,7 @@ This function queries the `pg_subscription_rel` system catalog to get informatio
   - [SubRelInfo](../S/SubRelInfo.md)
   - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
   - PGRES_TUPLES_OK
-  - pg_malloc
+  - [pg_malloc](../p/pg_malloc.md)
   - atooid
   - [findSubscriptionByOid](../f/findSubscriptionByOid.md)
   - [pg_fatal](../p/pg_fatal.md)

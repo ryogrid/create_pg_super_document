@@ -23,7 +23,7 @@ The function operates as part of a two-phase cleanup process (markst followed by
 - Functions called/Symbols referenced:
   - [markst](markst.md): Recursive self-call to process child nodes
   - `INUSE`: Flag indicating the node is actively used
-  - `subre`: Sub-regular expression structure type
+  - `[subre](../s/subre.md)`: Sub-regular expression structure type
 - Called from (representative examples):
   - `CNOERR`: Main compilation flow
   - [markst](markst.md): Recursive self-calls for tree traversal

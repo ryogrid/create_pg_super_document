@@ -23,9 +23,9 @@ The function is designed to be called in queue context, meaning it operates on i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pairingheap_add (adds node to pairing heap data structure)
+  - [pairingheap_add](../p/pairingheap_add.md) (adds node to pairing heap data structure)
   - SpGistScanOpaque (scan operation context structure)
-  - SpGistSearchItem (search item structure containing phNode member)
+  - [SpGistSearchItem](../S/SpGistSearchItem.md) (search item structure containing phNode member)
 - Called from (representative examples):
   - [spgAddStartItem](spgAddStartItem.md) (adds initial search items to queue)
   - [spgLeafTest](spgLeafTest.md) (adds leaf items during search traversal)

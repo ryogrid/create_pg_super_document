@@ -23,7 +23,7 @@ This function evaluates all TID comparison expressions stored in the TidRangeSca
   - [ItemPointerSet](../I/ItemPointerSet.md)
   - lfirst
   - [DatumGetPointer](../D/DatumGetPointer.md)
-  - ExecEvalExprSwitchContext
+  - [ExecEvalExprSwitchContext](../E/ExecEvalExprSwitchContext.md)
   - [ItemPointerCopy](../I/ItemPointerCopy.md)
   - [ItemPointerInc](../I/ItemPointerInc.md)
   - [ItemPointerDec](../I/ItemPointerDec.md)

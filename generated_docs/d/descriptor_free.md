@@ -28,10 +28,10 @@ The function ensures proper memory management by:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ecpg_free
+  - [ecpg_free](../e/ecpg_free.md)
   - [PQclear](../P/PQclear.md)
   - [descriptor](descriptor.md) (struct type)
-  - descriptor_item (struct type)
+  - [descriptor_item](descriptor_item.md) (struct type)
 - Called from (representative examples):
   - [ECPGdeallocate_desc](../E/ECPGdeallocate_desc.md)
   - [descriptor_deallocate_all](descriptor_deallocate_all.md)

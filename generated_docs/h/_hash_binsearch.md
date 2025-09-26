@@ -25,7 +25,7 @@ The algorithm maintains a loop invariant where the desired position is always be
   - OffsetNumberIsValid
   - [PageGetItem](../P/PageGetItem.md)
   - [PageGetItemId](../P/PageGetItemId.md)
-  - _hash_get_indextuple_hashkey
+  - [_hash_get_indextuple_hashkey](_hash_get_indextuple_hashkey.md)
 - Called from (representative examples):
   - [_hash_pgaddtup](_hash_pgaddtup.md)
   - [_hash_pgaddmultitup](_hash_pgaddmultitup.md)

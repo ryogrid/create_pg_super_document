@@ -41,21 +41,21 @@ Hash joins are particularly effective for large datasets where neither relation 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Join (inherited base structure)
-  - List (for various clause and key lists)
+  - [Join](../J/Join.md) (inherited base structure)
+  - [List](../L/List.md) (for various clause and key lists)
 
 - Called from (representative examples):
-  - ExplainNode (commands/explain.c:2188)
-  - ExecInitNode (executor/execProcnode.c:308)
-  - ExecInitHashJoin (executor/nodeHashjoin.c:710)
-  - create_hashjoin_plan (optimizer/plan/createplan.c:4750)
-  - make_hashjoin (optimizer/plan/createplan.c:5986)
+  - [ExplainNode](../E/ExplainNode.md) (commands/explain.c:2188)
+  - [ExecInitNode](../E/ExecInitNode.md) (executor/execProcnode.c:308)
+  - [ExecInitHashJoin](../E/ExecInitHashJoin.md) (executor/nodeHashjoin.c:710)
+  - [create_hashjoin_plan](../c/create_hashjoin_plan.md) (optimizer/plan/createplan.c:4750)
+  - [make_hashjoin](../m/make_hashjoin.md) (optimizer/plan/createplan.c:5986)
 
 ## Notes and Other Information
-- Hash joins require equality conditions and cannot handle inequality joins
+- [Hash](Hash.md) joins require equality conditions and cannot handle inequality joins
 - The inner relation is chosen as the smaller relation to minimize memory usage for the hash table
 - If the hash table doesn't fit in work_mem, PostgreSQL uses a batching strategy to process the join in multiple passes
-- Hash joins are often preferred by the query planner for large tables without useful indexes
+- [Hash](Hash.md) joins are often preferred by the query planner for large tables without useful indexes
 - The algorithm handles multiple join keys by creating composite hash values
 - Memory requirements can be significant for large inner relations, potentially affecting performance if spilling to disk occurs
-- Hash collisions are handled through chaining in the hash table implementation
+- [Hash](Hash.md) collisions are handled through chaining in the hash table implementation

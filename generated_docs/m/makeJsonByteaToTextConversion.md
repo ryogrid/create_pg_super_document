@@ -24,11 +24,11 @@ The function creates a two-argument function call where the first argument is th
 ## Dependencies
 - Functions called/Symbols referenced:
   - [getJsonEncodingConst](../g/getJsonEncodingConst.md) (to get encoding constant)
-  - makeFuncExpr (to create function expression node)
+  - [makeFuncExpr](makeFuncExpr.md) (to create function expression node)
   - list_make2 (to create argument list)
-  - JsonFormat (input parameter type)
-  - FuncExpr (created node type)  
-  - Const (for encoding argument)
+  - [JsonFormat](../J/JsonFormat.md) (input parameter type)
+  - [FuncExpr](../F/FuncExpr.md) (created node type)  
+  - [Const](../C/Const.md) (for encoding argument)
   - F_CONVERT_FROM (function OID constant)
   - TEXTOID (target type OID)
   - InvalidOid (for missing OID values)

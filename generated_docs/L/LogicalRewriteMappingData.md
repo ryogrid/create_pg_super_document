@@ -39,7 +39,7 @@ This mapping data is typically written to temporary files during the rewrite ope
   - [logical_heap_rewrite_flush_mappings](../l/logical_heap_rewrite_flush_mappings.md) (writing mappings to disk)
   - [logical_rewrite_log_mapping](../l/logical_rewrite_log_mapping.md) (logging mapping operations)
   - [logical_rewrite_heap_tuple](../l/logical_rewrite_heap_tuple.md) (tuple rewriting with mapping)
-  - heap_xlog_logical_rewrite (WAL replay of logical rewrites)
+  - [heap_xlog_logical_rewrite](../h/heap_xlog_logical_rewrite.md) (WAL replay of logical rewrites)
   - [ApplyLogicalMappingFile](../A/ApplyLogicalMappingFile.md) (applying mappings during logical replication)
 
 ## Notes and Other Information

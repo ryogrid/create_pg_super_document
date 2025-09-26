@@ -54,7 +54,7 @@ The algorithm maintains partition maps to track relationships and generates list
 - Data types used:
   - [PartitionBoundInfo](../P/PartitionBoundInfo.md)
   - [PartitionMap](../P/PartitionMap.md)
-  - RelOptInfo
+  - [RelOptInfo](../R/RelOptInfo.md)
   - JoinType
 - Constants used:
   - PARTITION_STRATEGY_LIST

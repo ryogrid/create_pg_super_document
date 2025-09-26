@@ -33,7 +33,7 @@ The function handles complex scenarios like:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `emalloc` (memory allocation wrapper)
+  - `[emalloc](../e/emalloc.md)` (memory allocation wrapper)
   - `INITIALIZE` (macro for variable initialization)
   - [updateminmax](../u/updateminmax.md) (updates minimum/maximum year ranges)
   - [stringzone](../s/stringzone.md) (generates POSIX timezone string representation)

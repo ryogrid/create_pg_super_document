@@ -41,14 +41,14 @@ The function returns either the SubPlan node itself (for regular subplans) or a 
   - makeNode
   - [get_first_col_type](../g/get_first_col_type.md)
   - [SS_process_sublinks](../S/SS_process_sublinks.md)
-  - lappend_int
-  - lappend
+  - [lappend_int](../l/lappend_int.md)
+  - [lappend](../l/lappend.md)
   - [generate_new_exec_param](../g/generate_new_exec_param.md)
   - list_make1_int
   - [generate_subquery_params](../g/generate_subquery_params.md)
   - [convert_testexpr](../c/convert_testexpr.md)
   - [list_copy](../l/list_copy.md)
-  - list_nth_cell
+  - [list_nth_cell](../l/list_nth_cell.md)
   - [makeNullConst](../m/makeNullConst.md)
   - [subplan_is_hashable](../s/subplan_is_hashable.md)
   - [testexpr_is_hashable](../t/testexpr_is_hashable.md)
@@ -63,7 +63,7 @@ The function returns either the SubPlan node itself (for regular subplans) or a 
 ## Notes and Other Information
 - The function handles five main sublink types with different execution strategies
 - InitPlans are preferred for uncorrelated subqueries as they execute only once
-- Hash tables are used for ANY sublinks when the subplan output and test expression are both hashable
+- [Hash](../H/Hash.md) tables are used for ANY sublinks when the subplan output and test expression are both hashable
 - Materialization is added to uncorrelated subplans to reduce repeated scan costs, unless the plan already materializes output
 - MULTIEXPR sublinks require special handling to set multiple PARAM_EXEC parameters
 - The function manages the global rewindPlanIDs bitmap to optimize subplan rewinding

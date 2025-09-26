@@ -38,7 +38,7 @@ The structure captures a snapshot of a particular process's involvement with a s
 - `fastpath`: Boolean indicating whether this lock was acquired via the fast-path mechanism
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LOCKTAG
+  - [LOCKTAG](LOCKTAG.md)
   - LOCKMASK
   - LOCKMODE
   - [VirtualTransactionId](../V/VirtualTransactionId.md)

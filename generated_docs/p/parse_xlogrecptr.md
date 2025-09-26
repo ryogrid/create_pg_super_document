@@ -32,8 +32,8 @@ The function is essential for parsing backup manifests that contain WAL (Write-A
   - XLogRecPtr (PostgreSQL type representing transaction log positions)
 
 - Called from (representative examples):
-  - json_manifest_finalize_wal_range (for parsing WAL range boundaries)
-  - JsonManifestParseIncrementalState (structure reference)
+  - [json_manifest_finalize_wal_range](../j/json_manifest_finalize_wal_range.md) (for parsing WAL range boundaries)
+  - [JsonManifestParseIncrementalState](../J/JsonManifestParseIncrementalState.md) (structure reference)
 
 ## Notes and Other Information
 - This is a static function, limiting its scope to the parse_manifest.c compilation unit

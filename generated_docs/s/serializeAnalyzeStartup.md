@@ -22,7 +22,7 @@ This function serves as the startup routine for the serialize analyze destinatio
 ## Dependencies
 - Functions called/Symbols referenced:
   - AllocSetContextCreate
-  - initStringInfo
+  - [initStringInfo](../i/initStringInfo.md)
   - memset
   - INSTR_TIME_SET_ZERO
   - EXPLAIN_SERIALIZE_TEXT

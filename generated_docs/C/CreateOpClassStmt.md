@@ -34,11 +34,11 @@ CreateOpClassStmt is a parse tree node structure that encapsulates information n
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TypeName (for data type specification)
+  - [TypeName](../T/TypeName.md) (for data type specification)
 - Called from (representative examples):
-  - EventTriggerCollectCreateOpClass
-  - DefineOpClass
-  - ProcessUtilitySlow
+  - [EventTriggerCollectCreateOpClass](../E/EventTriggerCollectCreateOpClass.md)
+  - [DefineOpClass](../D/DefineOpClass.md)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md)
   - DEFREM_H
   - CALLED_AS_EVENT_TRIGGER
 

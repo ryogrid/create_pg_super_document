@@ -25,7 +25,7 @@ RangeVar is PostgreSQL's standard way of representing relation references in par
 ## Dependencies
 - Functions called/Symbols referenced:
   - [makeRangeVar](makeRangeVar.md) (to create the initial RangeVar structure)
-  - list_length (to determine name components count)
+  - [list_length](../l/list_length.md) (to determine name components count)
   - strVal (to extract string values from list elements)
   - linitial/lsecond/lthird (to access list elements)
   - [NameListToString](../N/NameListToString.md) (for error message formatting)

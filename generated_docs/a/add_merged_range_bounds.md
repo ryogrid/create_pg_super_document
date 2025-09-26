@@ -39,7 +39,7 @@ This function adds the bounds of a newly merged partition to the accumulating li
   - llast
   - [PartitionRangeDatumKind](../P/PartitionRangeDatumKind.md)
   - [partition_rbound_cmp](../p/partition_rbound_cmp.md)
-  - lappend_int
+  - [lappend_int](../l/lappend_int.md)
 - Called from (representative examples):
   - [merge_range_bounds](../m/merge_range_bounds.md)
 

@@ -33,7 +33,7 @@ The function can operate in two modes controlled by the  parameter:
 - Functions called/Symbols referenced:
   - [has_matching_range](../h/has_matching_range.md)
   - [minmax_multi_get_strategy_procinfo](../m/minmax_multi_get_strategy_procinfo.md)
-  - bsearch_arg
+  - [bsearch_arg](../b/bsearch_arg.md)
   - [compare_values](../c/compare_values.md)
   - [FunctionCall2Coll](../F/FunctionCall2Coll.md)
   - [BrinDesc](../B/BrinDesc.md)

@@ -32,14 +32,14 @@ JsonTablePathScan extends JsonTablePlan to implement a specific strategy for sca
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonTablePlan
-  - JsonTablePath
+  - [JsonTablePlan](JsonTablePlan.md)
+  - [JsonTablePath](JsonTablePath.md)
 - Called from (representative examples):
-  - makeJsonTablePathScan
-  - JsonTableInitPlan
-  - JsonTableResetRowPattern
-  - JsonTablePlanNextRow
-  - get_json_table_nested_columns
+  - [makeJsonTablePathScan](../m/makeJsonTablePathScan.md)
+  - [JsonTableInitPlan](JsonTableInitPlan.md)
+  - [JsonTableResetRowPattern](JsonTableResetRowPattern.md)
+  - [JsonTablePlanNextRow](JsonTablePlanNextRow.md)
+  - [get_json_table_nested_columns](../g/get_json_table_nested_columns.md)
 
 ## Notes and Other Information
 - Concrete implementation of the abstract JsonTablePlan base class

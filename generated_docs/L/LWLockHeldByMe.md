@@ -25,12 +25,12 @@ The function iterates through the held_lwlocks array, which maintains a record o
   - held_lwlocks: Array containing information about currently held locks
 - Returns: boolean value indicating whether the lock is held by the current process
 - Called from (representative examples):
-  - SlruSelectLRUPage: SLRU buffer management
-  - TwoPhaseGetGXact: Two-phase commit processing
-  - dshash_dump: Dynamic shared hash table operations
-  - VacuumUpdateCosts: Autovacuum cost management
-  - CheckpointerSlotMapping: Checkpointer slot operations
-  - ProcArrayEndTransaction: Process array transaction management
+  - [SlruSelectLRUPage](../S/SlruSelectLRUPage.md): SLRU buffer management
+  - [TwoPhaseGetGXact](../T/TwoPhaseGetGXact.md): Two-phase commit processing
+  - [dshash_dump](../d/dshash_dump.md): Dynamic shared hash table operations
+  - [VacuumUpdateCosts](../V/VacuumUpdateCosts.md): Autovacuum cost management
+  - [CheckpointerSlotMapping](../C/CheckpointerSlotMapping.md): Checkpointer slot operations
+  - [ProcArrayEndTransaction](../P/ProcArrayEndTransaction.md): Process array transaction management
   - Various buffer management functions: UnpinBufferNoOwner, FlushOneBuffer, MarkBufferDirtyHint
 
 ## Notes and Other Information

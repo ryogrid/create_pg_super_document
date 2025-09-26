@@ -29,7 +29,7 @@ Key design considerations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationCloseSmgr
+  - [RelationCloseSmgr](RelationCloseSmgr.md)
   - [ScanPgRelation](../S/ScanPgRelation.md)
   - [RelationParseRelOptions](RelationParseRelOptions.md)
   - [heap_freetuple](../h/heap_freetuple.md)

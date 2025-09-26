@@ -28,24 +28,24 @@ During query optimization, when the number of relations exceeds the threshold fo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Chromosome
+  - [Chromosome](../C/Chromosome.md)
 - Called from (representative examples):
-  - geqo (main genetic algorithm function)
-  - avg_pool
-  - print_pool
-  - print_gen
-  - alloc_pool
-  - free_pool
-  - random_init_pool
-  - sort_pool
-  - spread_chromo
-  - geqo_selection
+  - [geqo](../g/geqo.md) (main genetic algorithm function)
+  - [avg_pool](../a/avg_pool.md)
+  - [print_pool](../p/print_pool.md)
+  - [print_gen](../p/print_gen.md)
+  - [alloc_pool](../a/alloc_pool.md)
+  - [free_pool](../f/free_pool.md)
+  - [random_init_pool](../r/random_init_pool.md)
+  - [sort_pool](../s/sort_pool.md)
+  - [spread_chromo](../s/spread_chromo.md)
+  - [geqo_selection](../g/geqo_selection.md)
 
 ## Notes and Other Information
 - The Pool structure is central to the genetic algorithm implementation in PostgreSQL's query optimizer
 - Pools are dynamically allocated and contain arrays of chromosomes that represent the current population
 - The  member determines how many chromosomes are active in the current generation
 - The  member ensures all chromosomes in the pool have consistent gene string lengths
-- Pool management functions handle allocation, initialization, sorting, and deallocation of chromosome populations
+- [Pool](Pool.md) management functions handle allocation, initialization, sorting, and deallocation of chromosome populations
 - The genetic algorithm typically maintains one or more pools and performs operations like selection and reproduction between them
-- Pool operations are essential for GEQO's ability to handle complex queries with many join relations efficiently
+- [Pool](Pool.md) operations are essential for GEQO's ability to handle complex queries with many join relations efficiently

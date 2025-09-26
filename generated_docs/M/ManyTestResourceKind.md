@@ -30,16 +30,16 @@ The structure serves as both a resource type descriptor and a tracking mechanism
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwnerDesc (embedded structure)
-  - dlist_head (for resource tracking list)
-  - dlist_node (used by associated ManyTestResource structure)
+  - [ResourceOwnerDesc](../R/ResourceOwnerDesc.md) (embedded structure)
+  - [dlist_head](../d/dlist_head.md) (for resource tracking list)
+  - [dlist_node](../d/dlist_node.md) (used by associated ManyTestResource structure)
 
 - Called from (representative examples):
-  - InitManyTestResourceKind (initialization function)
-  - RememberManyTestResources (resource registration)
-  - ForgetManyTestResources (resource deregistration)  
-  - GetTotalResourceCount (statistics gathering)
-  - test_resowner_many (main test function)
+  - [InitManyTestResourceKind](../I/InitManyTestResourceKind.md) (initialization function)
+  - [RememberManyTestResources](../R/RememberManyTestResources.md) (resource registration)
+  - [ForgetManyTestResources](../F/ForgetManyTestResources.md) (resource deregistration)  
+  - [GetTotalResourceCount](../G/GetTotalResourceCount.md) (statistics gathering)
+  - [test_resowner_many](../t/test_resowner_many.md) (main test function)
 
 ## Notes and Other Information
 This structure is part of PostgreSQL's testing infrastructure and is not used in production code. It demonstrates how to create custom resource types that integrate with PostgreSQL's ResourceOwner system. The counters provide verification that callback functions are invoked the correct number of times, while the linked list allows cross-checking that the right resources are being tracked. The structure is initialized using InitManyTestResourceKind() which sets up the ResourceOwnerDesc callbacks and initializes all counters to zero.

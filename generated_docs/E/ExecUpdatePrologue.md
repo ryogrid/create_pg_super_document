@@ -34,7 +34,7 @@ The function serves as a critical preparation phase that ensures all prerequisit
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecMaterializeSlot (ensures slot data is materialized)
+  - [ExecMaterializeSlot](ExecMaterializeSlot.md) (ensures slot data is materialized)
   - [ExecOpenIndices](ExecOpenIndices.md) (opens table indexes for index entry updates)
   - [ExecPendingInserts](ExecPendingInserts.md) (flushes pending bulk inserts)
   - [ExecBRUpdateTriggersNew](ExecBRUpdateTriggersNew.md) (executes BEFORE ROW UPDATE triggers)

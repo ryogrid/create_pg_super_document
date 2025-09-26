@@ -23,7 +23,7 @@ This function serves as a validation hook for the default_text_search_config GUC
   - [stringToQualifiedNameList](../s/stringToQualifiedNameList.md)
   - [get_ts_config_oid](../g/get_ts_config_oid.md)
   - [SearchSysCache1](../S/SearchSysCache1.md)
-  - quote_qualified_identifier
+  - [quote_qualified_identifier](../q/quote_qualified_identifier.md)
   - [get_namespace_name](../g/get_namespace_name.md)
   - [guc_free](../g/guc_free.md)
   - [guc_strdup](../g/guc_strdup.md)

@@ -28,7 +28,7 @@ The function also implements important boundary logic for checkpoint records (XL
 - Functions called/Symbols referenced:
   - XLogRecGetInfo: Extract record type information from WAL record
   - XLogRecGetData: Get the payload data from the WAL record
-  - CheckPoint: Checkpoint record structure for extracting WAL level
+  - [CheckPoint](../C/CheckPoint.md): Checkpoint record structure for extracting WAL level
   - [xl_parameter_change](../x/xl_parameter_change.md): Parameter change record structure
   - [xl_end_of_recovery](../x/xl_end_of_recovery.md): End of recovery record structure
   - WAL_LEVEL_MINIMAL: Constant representing minimal WAL level

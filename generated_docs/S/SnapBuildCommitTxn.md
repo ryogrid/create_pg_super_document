@@ -38,20 +38,20 @@ The function ensures that only transactions relevant to logical replication are 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TransactionIdPrecedes
-  - SnapBuildXidHasCatalogChanges
-  - SnapBuildAddCommittedTxn
+  - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
+  - [SnapBuildXidHasCatalogChanges](SnapBuildXidHasCatalogChanges.md)
+  - [SnapBuildAddCommittedTxn](SnapBuildAddCommittedTxn.md)
   - NormalTransactionIdFollows
-  - TransactionIdFollowsOrEquals
+  - [TransactionIdFollowsOrEquals](../T/TransactionIdFollowsOrEquals.md)
   - TransactionIdAdvance
-  - SnapBuildSnapDecRefcount
-  - SnapBuildBuildSnapshot
-  - ReorderBufferXidHasBaseSnapshot
-  - SnapBuildSnapIncRefcount
-  - ReorderBufferSetBaseSnapshot
-  - SnapBuildDistributeSnapshotAndInval
+  - [SnapBuildSnapDecRefcount](SnapBuildSnapDecRefcount.md)
+  - [SnapBuildBuildSnapshot](SnapBuildBuildSnapshot.md)
+  - [ReorderBufferXidHasBaseSnapshot](../R/ReorderBufferXidHasBaseSnapshot.md)
+  - [SnapBuildSnapIncRefcount](SnapBuildSnapIncRefcount.md)
+  - [ReorderBufferSetBaseSnapshot](../R/ReorderBufferSetBaseSnapshot.md)
+  - [SnapBuildDistributeSnapshotAndInval](SnapBuildDistributeSnapshotAndInval.md)
 - Called from (representative examples):
-  - DecodeCommit
+  - [DecodeCommit](../D/DecodeCommit.md)
 
 ## Notes and Other Information
 - Critical for maintaining snapshot consistency during logical replication setup

@@ -27,7 +27,7 @@ This function ensures no memory leaks occur when hash aggregation operations are
 - Functions called/Symbols referenced:
   - [pfree](../p/pfree.md)
   - [list_free_deep](../l/list_free_deep.md)
-  - LogicalTapeSetClose
+  - [LogicalTapeSetClose](../L/LogicalTapeSetClose.md)
 - Types used:
   - [AggState](../A/AggState.md)
   - [HashAggSpill](../H/HashAggSpill.md)

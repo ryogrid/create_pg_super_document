@@ -26,13 +26,13 @@ This function is essential for scenarios where temporary files need to survive a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FilePath: Constructs the complete file path for the given fileset and name
-  - PathNameOpenTemporaryFile: Opens the temporary file at the specified path with given mode
+  - [FilePath](FilePath.md): Constructs the complete file path for the given fileset and name
+  - [PathNameOpenTemporaryFile](../P/PathNameOpenTemporaryFile.md): Opens the temporary file at the specified path with given mode
   - MAXPGPATH: Maximum path length constant
   - File: PostgreSQL file descriptor type
 
 - Called from (representative examples):
-  - BufFileOpenFileSet: Used in buffered file I/O operations for accessing fileset files
+  - [BufFileOpenFileSet](../B/BufFileOpenFileSet.md): Used in buffered file I/O operations for accessing fileset files
 
 ## Notes and Other Information
 - The file must have been previously created using FileSetCreate within the same FileSet
@@ -41,5 +41,5 @@ This function is essential for scenarios where temporary files need to survive a
 - Returns a File descriptor compatible with PostgreSQL's file management system
 - Does not create the file if it doesn't exist - this is purely for opening existing files
 - The function assumes the file exists and the directory structure is already in place
-- No error handling for missing files is shown in this function - error handling is delegated to PathNameOpenTemporaryFile
+- No error handling for missing files is shown in this function - [error](../e/error.md) handling is delegated to PathNameOpenTemporaryFile
 - Essential for the FileSet's multi-access capability, allowing files to be closed and reopened as needed

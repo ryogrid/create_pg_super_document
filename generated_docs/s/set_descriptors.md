@@ -19,7 +19,7 @@ The `set_descriptors` function stores a descriptor structure in thread-local sto
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pthread_setspecific
+  - [pthread_setspecific](../p/pthread_setspecific.md)
   - [descriptor](../d/descriptor.md) (pthread key variable)
 - Called from (representative examples):
   - [ECPGdeallocate_desc](../E/ECPGdeallocate_desc.md)

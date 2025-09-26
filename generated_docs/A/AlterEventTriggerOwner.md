@@ -23,7 +23,7 @@ The function performs the standard pattern for PostgreSQL object ownership chang
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open (to open the pg_event_trigger relation)
+  - [table_open](../t/table_open.md) (to open the pg_event_trigger relation)
   - SearchSysCacheCopy1 (to find the event trigger by name)
   - [CStringGetDatum](../C/CStringGetDatum.md) (to convert trigger name to Datum)
   - HeapTupleIsValid (to validate the found tuple)
@@ -32,7 +32,7 @@ The function performs the standard pattern for PostgreSQL object ownership chang
   - [AlterEventTriggerOwner_internal](AlterEventTriggerOwner_internal.md) (to perform the actual ownership change)
   - ObjectAddressSet (to construct the return ObjectAddress)
   - [heap_freetuple](../h/heap_freetuple.md) (to free tuple memory)
-  - table_close (to close the relation)
+  - [table_close](../t/table_close.md) (to close the relation)
 - Called from (representative examples):
   - [ExecAlterOwnerStmt](../E/ExecAlterOwnerStmt.md) (main ALTER OWNER command processor)
 

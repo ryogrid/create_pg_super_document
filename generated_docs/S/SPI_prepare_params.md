@@ -25,10 +25,10 @@ SPI_prepare_params is an extended version of the basic SPI_prepare function that
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _SPI_begin_call
+  - [_SPI_begin_call](_SPI_begin_call.md)
   - [_SPI_prepare_plan](_SPI_prepare_plan.md)
-  - _SPI_make_plan_non_temp
-  - _SPI_end_call
+  - [_SPI_make_plan_non_temp](_SPI_make_plan_non_temp.md)
+  - [_SPI_end_call](_SPI_end_call.md)
   - _SPI_PLAN_MAGIC
   - RAW_PARSE_DEFAULT
   - SPI_ERROR_ARGUMENT

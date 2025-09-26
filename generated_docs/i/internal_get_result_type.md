@@ -40,7 +40,7 @@ The function handles the most complex scenarios in PostgreSQL's type system, inc
   - [resolve_polymorphic_tupdesc](../r/resolve_polymorphic_tupdesc.md)
   - [assign_record_type_typmod](../a/assign_record_type_typmod.md)
   - IsPolymorphicType
-  - exprType
+  - [exprType](../e/exprType.md)
   - [get_type_func_class](../g/get_type_func_class.md)
   - [lookup_rowtype_tupdesc_copy](../l/lookup_rowtype_tupdesc_copy.md)
   - [ReleaseSysCache](../R/ReleaseSysCache.md)

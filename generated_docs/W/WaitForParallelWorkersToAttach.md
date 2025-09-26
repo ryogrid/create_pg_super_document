@@ -27,15 +27,15 @@ The function is optional but recommended when the leader process needs to ensure
 ## Dependencies
 - Functions called/Symbols referenced:
   - CHECK_FOR_INTERRUPTS
-  - GetBackgroundWorkerPid
-  - shm_mq_get_queue
-  - shm_mq_get_sender
-  - WaitLatch
-  - ResetLatch
+  - [GetBackgroundWorkerPid](../G/GetBackgroundWorkerPid.md)
+  - [shm_mq_get_queue](../s/shm_mq_get_queue.md)
+  - [shm_mq_get_sender](../s/shm_mq_get_sender.md)
+  - [WaitLatch](WaitLatch.md)
+  - [ResetLatch](../R/ResetLatch.md)
   - ereport
 - Called from (representative examples):
-  - _brin_begin_parallel
-  - _bt_begin_parallel
+  - [_brin_begin_parallel](../b/_brin_begin_parallel.md)
+  - [_bt_begin_parallel](../b/_bt_begin_parallel.md)
 
 ## Notes and Other Information
 - Skip execution if no workers were launched (nworkers_launched == 0)

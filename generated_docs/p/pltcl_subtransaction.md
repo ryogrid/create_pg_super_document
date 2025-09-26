@@ -24,10 +24,10 @@ pltcl_subtransaction executes a Tcl code fragment within the safety of a Postgre
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BeginInternalSubTransaction
-  - RollbackAndReleaseCurrentSubTransaction
-  - ReleaseCurrentSubTransaction
-  - MemoryContextSwitchTo
+  - [BeginInternalSubTransaction](../B/BeginInternalSubTransaction.md)
+  - [RollbackAndReleaseCurrentSubTransaction](../R/RollbackAndReleaseCurrentSubTransaction.md)
+  - [ReleaseCurrentSubTransaction](../R/ReleaseCurrentSubTransaction.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - Tcl_EvalObjEx
   - Tcl_WrongNumArgs
 - Called from (representative examples):

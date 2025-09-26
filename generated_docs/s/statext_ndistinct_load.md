@@ -25,14 +25,14 @@ The function includes comprehensive error handling for missing statistics object
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache2: Searches system cache for statistics data
-  - SysCacheGetAttr: Retrieves specific attribute from cached tuple
-  - statext_ndistinct_deserialize: Converts binary data back to MVNDistinct structure
+  - [SearchSysCache2](../S/SearchSysCache2.md): Searches system cache for statistics data
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md): Retrieves specific attribute from cached tuple
+  - [statext_ndistinct_deserialize](statext_ndistinct_deserialize.md): Converts binary data back to MVNDistinct structure
   - DatumGetByteaPP: Converts Datum to bytea pointer
   - HeapTupleIsValid: Validates heap tuple
-  - ReleaseSysCache: Releases system cache reference
+  - [ReleaseSysCache](../R/ReleaseSysCache.md): Releases system cache reference
 - Called from (representative examples):
-  - estimate_multivariate_ndistinct: Uses loaded statistics for selectivity estimation
+  - [estimate_multivariate_ndistinct](../e/estimate_multivariate_ndistinct.md): Uses loaded statistics for selectivity estimation
 
 ## Notes and Other Information
 - Uses STATEXTDATASTXOID cache for efficient lookup of statistics data

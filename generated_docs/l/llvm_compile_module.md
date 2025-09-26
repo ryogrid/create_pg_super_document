@@ -37,7 +37,7 @@ The function includes comprehensive timing instrumentation for performance analy
   - PGJIT_OPT3 (optimization level flag)
   - PGJIT_INLINE (inlining flag)
   - [llvm_optimize_module](llvm_optimize_module.md) (optimization function)
-  - llvm_error_message (error handling)
+  - [llvm_error_message](llvm_error_message.md) (error handling)
   - [llvm_resolve_symbol](llvm_resolve_symbol.md) (symbol resolution)
   - INSTR_TIME_* macros (timing instrumentation)
   - [MemoryContextAlloc](../M/MemoryContextAlloc.md) (memory management)

@@ -22,19 +22,19 @@ This function is commonly used throughout PostgreSQL for opening files where the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BasicOpenFilePerm
+  - [BasicOpenFilePerm](BasicOpenFilePerm.md)
   - pg_file_create_mode (global variable for default file permissions)
 - Called from (representative examples):
-  - XLogFileInitInternal
-  - XLogFileInit  
-  - XLogFileOpen
-  - WriteControlFile
-  - ReadControlFile
-  - XLogFileRead
-  - wal_segment_open
-  - WalSndSegmentOpen
-  - AlterSystemSetConfigFile
-  - update_controlfile
+  - [XLogFileInitInternal](../X/XLogFileInitInternal.md)
+  - [XLogFileInit](../X/XLogFileInit.md)  
+  - [XLogFileOpen](../X/XLogFileOpen.md)
+  - [WriteControlFile](../W/WriteControlFile.md)
+  - [ReadControlFile](../R/ReadControlFile.md)
+  - [XLogFileRead](../X/XLogFileRead.md)
+  - [wal_segment_open](../w/wal_segment_open.md)
+  - [WalSndSegmentOpen](../W/WalSndSegmentOpen.md)
+  - [AlterSystemSetConfigFile](../A/AlterSystemSetConfigFile.md)
+  - [update_controlfile](../u/update_controlfile.md)
 
 ## Notes and Other Information
 - This is a thin wrapper around BasicOpenFilePerm for convenience

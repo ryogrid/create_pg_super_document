@@ -30,7 +30,7 @@ This function provides access to a mutable LLVM module that can be modified by a
   - llvm_generation (global generation counter)
 - Called from:
   - [slot_compile_deform](../s/slot_compile_deform.md) (tuple deforming compilation)
-  - llvm_compile_expr (expression compilation)
+  - [llvm_compile_expr](llvm_compile_expr.md) (expression compilation)
 
 ## Notes and Other Information
 - Requires being called within a fatal section (asserted by llvm_assert_in_fatal_section)

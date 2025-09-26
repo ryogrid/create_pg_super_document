@@ -23,9 +23,9 @@ This function determines if a RestrictInfo represents a clause of the form "CTID
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (type checking macro)
-  - ScalarArrayOpExpr (scalar array operation expression type)
+  - [ScalarArrayOpExpr](../S/ScalarArrayOpExpr.md) (scalar array operation expression type)
   - TIDEqualOperator (constant for TID equality operator)
-  - list_length (gets list length)
+  - [list_length](../l/list_length.md) (gets list length)
   - linitial (gets first list element)
   - lsecond (gets second list element)
   - [IsCTIDVar](IsCTIDVar.md) (checks if variable is CTID)

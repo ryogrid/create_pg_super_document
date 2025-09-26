@@ -19,12 +19,12 @@ AlterRoleSet handles the ALTER ROLE ... SET syntax that allows setting configura
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_rolespec_name
-  - get_rolespec_tuple
+  - [check_rolespec_name](../c/check_rolespec_name.md)
+  - [get_rolespec_tuple](../g/get_rolespec_tuple.md)
   - [shdepLockAndCheckObject](../s/shdepLockAndCheckObject.md)
-  - superuser
+  - [superuser](../s/superuser.md)
   - [have_createrole_privilege](../h/have_createrole_privilege.md)
-  - is_admin_of_role
+  - [is_admin_of_role](../i/is_admin_of_role.md)
   - [GetUserId](../G/GetUserId.md)
   - [get_database_oid](../g/get_database_oid.md)
   - [object_ownercheck](../o/object_ownercheck.md)

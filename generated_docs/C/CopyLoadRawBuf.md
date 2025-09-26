@@ -33,7 +33,7 @@ The function handles the critical transition from having data to reaching EOF by
   - [CopyGetData](CopyGetData.md)
   - [pgstat_progress_update_param](../p/pgstat_progress_update_param.md)
   - PROGRESS_COPY_BYTES_PROCESSED
-  - CopyFromState
+  - [CopyFromState](CopyFromState.md)
 - Called from (representative examples):
   - [CopyLoadInputBuf](CopyLoadInputBuf.md)
   - [CopyReadBinaryData](CopyReadBinaryData.md)

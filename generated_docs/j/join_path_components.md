@@ -23,7 +23,7 @@ The function is designed to be safe for in-place operations where the output buf
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - strlcpy
+  - [strlcpy](../s/strlcpy.md)
   - [skip_drive](../s/skip_drive.md)
   - snprintf, strlen (standard C library functions)
 - Called from (representative examples):
@@ -31,7 +31,7 @@ The function is designed to be safe for in-place operations where the output buf
   - [GetConfFilesInDir](../G/GetConfFilesInDir.md)
   - [main](../m/main.md) (in initdb)
   - [process_file](../p/process_file.md)
-  - find_my_exec
+  - [find_my_exec](../f/find_my_exec.md)
   - [make_relative_path](../m/make_relative_path.md)
 
 ## Notes and Other Information

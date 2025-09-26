@@ -33,23 +33,23 @@ The function includes safety checks to ensure proper error handling state manage
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PgXmlErrorContext (structure type)
+  - [PgXmlErrorContext](../P/PgXmlErrorContext.md) (structure type)
   - ERRCXT_MAGIC (magic number constant)
   - xmlStructuredErrorContext (libxml global variable, if HAVE_XMLSTRUCTUREDERRORCONTEXT is defined)
   - xmlGenericErrorContext (libxml global variable, fallback)
   - xmlSetStructuredErrorFunc (libxml function)
   - xmlSetExternalEntityLoader (libxml function)
   - elog (PostgreSQL logging function)
-  - pfree (PostgreSQL memory deallocation function)
+  - [pfree](pfree.md) (PostgreSQL memory deallocation function)
 
 - Called from (representative examples):
-  - xmltotext_with_options
-  - xmlelement
-  - xml_parse
-  - map_sql_value_to_xml_value
-  - xpath_internal
-  - XmlTableInitOpaque
-  - XmlTableDestroyOpaque
+  - [xmltotext_with_options](../x/xmltotext_with_options.md)
+  - [xmlelement](../x/xmlelement.md)
+  - [xml_parse](../x/xml_parse.md)
+  - [map_sql_value_to_xml_value](../m/map_sql_value_to_xml_value.md)
+  - [xpath_internal](../x/xpath_internal.md)
+  - [XmlTableInitOpaque](../X/XmlTableInitOpaque.md)
+  - [XmlTableDestroyOpaque](../X/XmlTableDestroyOpaque.md)
 
 ## Notes and Other Information
 - This function must be called to properly clean up after pg_xml_init(), typically in PG_TRY/PG_CATCH blocks

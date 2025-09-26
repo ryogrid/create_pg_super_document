@@ -30,12 +30,12 @@ The function uses CreateTemplateTupleDesc() to allocate the descriptor and Tuple
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - guc_name_compare (for case-insensitive name comparison)
-  - CreateTemplateTupleDesc (to create tuple descriptor structure)
-  - TupleDescInitEntry (to initialize individual column definitions)
-  - GetConfigOptionByName (to get canonical variable name and validate access)
+  - [guc_name_compare](../g/guc_name_compare.md) (for case-insensitive name comparison)
+  - [CreateTemplateTupleDesc](../C/CreateTemplateTupleDesc.md) (to create tuple descriptor structure)
+  - [TupleDescInitEntry](../T/TupleDescInitEntry.md) (to initialize individual column definitions)
+  - [GetConfigOptionByName](GetConfigOptionByName.md) (to get canonical variable name and validate access)
 - Called from (representative examples):
-  - UtilityTupleDescriptor (during utility command processing)
+  - [UtilityTupleDescriptor](../U/UtilityTupleDescriptor.md) (during utility command processing)
 
 ## Notes and Other Information
 - This function provides the schema definition that corresponds to the actual data returned by GetPGVariable()

@@ -20,11 +20,11 @@ This function performs optimized equality comparison between two PostgreSQL `nam
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `DatumGetName`: Extracts Name pointer from Datum (called twice)
+  - `[DatumGetName](../D/DatumGetName.md)`: Extracts Name pointer from Datum (called twice)
   - `NAMEDATALEN`: Maximum length constant for name data type
   - `strncmp`: Standard C library string comparison function
 - Called from (representative examples):
-  - `GetCCHashEqFuncs`: Function that retrieves hash and equality functions for catalog cache
+  - `[GetCCHashEqFuncs](../G/GetCCHashEqFuncs.md)`: Function that retrieves hash and equality functions for catalog cache
 
 ## Notes and Other Information
 - Uses bounded string comparison with `NAMEDATALEN` to prevent buffer overruns

@@ -23,7 +23,7 @@ This transition is crucial because it changes how subsequent memory operations w
 - Functions called/Symbols referenced:
   - `FREE`: Memory deallocation macro for unused nodes
   - `INUSE`: Flag indicating nodes to preserve
-  - `subre`: Sub-regular expression structure type
+  - `[subre](../s/subre.md)`: Sub-regular expression structure type
 - Called from (representative examples):
   - `CNOERR`: Main compilation flow after markst()
   - [freev](../f/freev.md): Variable cleanup during error handling

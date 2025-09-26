@@ -109,7 +109,7 @@ This function is the central workhorse for placing tuples onto GiST pages. It ha
   - GistBuildLSN (special LSN for index builds)
 - Called from:
   - [gistinserttuples](gistinserttuples.md) (at src/backend/access/gist/gist.c:1305)
-  - gistbufferinginserttuples (at src/backend/access/gist/gistbuild.c:1063)
+  - [gistbufferinginserttuples](gistbufferinginserttuples.md) (at src/backend/access/gist/gistbuild.c:1063)
 
 ## Notes and Other Information
 - Returns true if the page was split, false otherwise

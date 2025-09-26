@@ -27,12 +27,12 @@ The function ensures that all parallel resources are properly released and that 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WaitForParallelWorkersToFinish (wait for worker completion)
+  - [WaitForParallelWorkersToFinish](../W/WaitForParallelWorkersToFinish.md) (wait for worker completion)
   - [InstrAccumParallelQuery](../I/InstrAccumParallelQuery.md) (accumulate worker statistics)
   - IsMVCCSnapshot (check snapshot type)
-  - UnregisterSnapshot (cleanup MVCC snapshot)
-  - DestroyParallelContext (cleanup parallel context)
-  - ExitParallelMode (exit parallel execution mode)
+  - [UnregisterSnapshot](../U/UnregisterSnapshot.md) (cleanup MVCC snapshot)
+  - [DestroyParallelContext](../D/DestroyParallelContext.md) (cleanup parallel context)
+  - [ExitParallelMode](../E/ExitParallelMode.md) (exit parallel execution mode)
 - Called from (representative examples):
   - [brinbuild](brinbuild.md) (main BRIN index build function)
   - [_brin_begin_parallel](_brin_begin_parallel.md) (when parallel setup fails)

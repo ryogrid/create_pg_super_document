@@ -20,8 +20,8 @@ This function is responsible for starting the frontend copy-out operation by sen
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_length (to get number of attributes)
-  - pq_beginmessage (to start building the protocol message)
+  - [list_length](../l/list_length.md) (to get number of attributes)
+  - [pq_beginmessage](../p/pq_beginmessage.md) (to start building the protocol message)
   - [pq_sendbyte](../p/pq_sendbyte.md) (to send the overall format byte)
   - [pq_sendint16](../p/pq_sendint16.md) (to send column count and per-column formats)
   - [pq_endmessage](../p/pq_endmessage.md) (to finalize and send the message)

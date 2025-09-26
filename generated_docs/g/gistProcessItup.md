@@ -41,11 +41,11 @@ The function returns a boolean indicating whether buffer emptying should be paus
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - gistchoose
-  - gistgetadjusted
-  - gistbufferinginserttuples
+  - [gistchoose](gistchoose.md)
+  - [gistgetadjusted](gistgetadjusted.md)
+  - [gistbufferinginserttuples](gistbufferinginserttuples.md)
   - [gistMemorizeParent](gistMemorizeParent.md)
-  - gistGetNodeBuffer
+  - [gistGetNodeBuffer](gistGetNodeBuffer.md)
   - [gistPushItupToNodeBuffer](gistPushItupToNodeBuffer.md)
   - [ReadBuffer](../R/ReadBuffer.md)
   - [LockBuffer](../L/LockBuffer.md)
@@ -57,7 +57,7 @@ The function returns a boolean indicating whether buffer emptying should be paus
   - BUFFER_OVERFLOWED
 - Called from (representative examples):
   - [gistBufferingBuildInsert](gistBufferingBuildInsert.md)
-  - gistProcessEmptyingQueue
+  - [gistProcessEmptyingQueue](gistProcessEmptyingQueue.md)
 
 ## Notes and Other Information
 - The function includes CHECK_FOR_INTERRUPTS() to allow query cancellation during long operations

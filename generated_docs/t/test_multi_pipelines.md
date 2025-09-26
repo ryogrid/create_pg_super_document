@@ -32,15 +32,15 @@ The function performs the following test sequence:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQenterPipelineMode
+  - [PQenterPipelineMode](../P/PQenterPipelineMode.md)
   - [PQsendQueryParams](../P/PQsendQueryParams.md)
-  - PQpipelineSync
-  - PQsendPipelineSync
+  - [PQpipelineSync](../P/PQpipelineSync.md)
+  - [PQsendPipelineSync](../P/PQsendPipelineSync.md)
   - [PQgetResult](../P/PQgetResult.md)
   - [PQresultStatus](../P/PQresultStatus.md)
   - [PQresStatus](../P/PQresStatus.md)
   - [PQclear](../P/PQclear.md)
-  - PQexitPipelineMode
+  - [PQexitPipelineMode](../P/PQexitPipelineMode.md)
   - [PQpipelineStatus](../P/PQpipelineStatus.md)
   - [PQerrorMessage](../P/PQerrorMessage.md)
   - PGRES_TUPLES_OK

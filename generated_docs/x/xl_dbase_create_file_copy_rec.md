@@ -31,12 +31,12 @@ This record type is identified by the XLOG_DBASE_CREATE_FILE_COPY (0x00) record 
 ## Dependencies
 - Functions called/Symbols referenced: None (struct definition only)
 - Called from (representative examples):
-  - CreateDatabaseUsingFileCopy (dbcommands.c:615, 624)
-  - movedb (dbcommands.c:2165, 2174)
-  - dbase_redo (dbcommands.c:3279, 3280)
-  - dbase_desc (dbasedesc.c:29, 30)
-  - XLogPrefetcherNextBlock (xlogprefetcher.c:567, 568)
-  - SummarizeDbaseRecord (walsummarizer.c:1273, 1277)
+  - [CreateDatabaseUsingFileCopy](../C/CreateDatabaseUsingFileCopy.md) (dbcommands.c:615, 624)
+  - [movedb](../m/movedb.md) (dbcommands.c:2165, 2174)
+  - [dbase_redo](../d/dbase_redo.md) (dbcommands.c:3279, 3280)
+  - [dbase_desc](../d/dbase_desc.md) (dbasedesc.c:29, 30)
+  - [XLogPrefetcherNextBlock](../X/XLogPrefetcherNextBlock.md) (xlogprefetcher.c:567, 568)
+  - [SummarizeDbaseRecord](../S/SummarizeDbaseRecord.md) (walsummarizer.c:1273, 1277)
 
 ## Notes and Other Information
 - Part of the database resource manager XLOG system for create/drop database operations

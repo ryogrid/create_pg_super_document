@@ -20,7 +20,7 @@ FreeBackupManifest is a cleanup function that properly releases the cryptographi
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_cryptohash_free](../p/pg_cryptohash_free.md) (PostgreSQL cryptographic hash functions)
-  - backup_manifest_info (structure type)
+  - [backup_manifest_info](../b/backup_manifest_info.md) (structure type)
 - Called from (representative examples):
   - [perform_base_backup](../p/perform_base_backup.md) (src/backend/backup/basebackup.c:671)
 

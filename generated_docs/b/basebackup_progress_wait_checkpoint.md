@@ -22,7 +22,7 @@ This function is a simple progress reporting utility that updates the base backu
   - PROGRESS_BASEBACKUP_PHASE_WAIT_CHECKPOINT (checkpoint waiting phase constant)
 - Called from (representative examples):
   - [perform_base_backup](../p/perform_base_backup.md) (in basebackup.c at line 266)
-  - bbsink_cleanup (referenced in basebackup_sink.h at line 295)
+  - [bbsink_cleanup](bbsink_cleanup.md) (referenced in basebackup_sink.h at line 295)
 
 ## Notes and Other Information
 - This is a public function (not static) and can be called from other source files

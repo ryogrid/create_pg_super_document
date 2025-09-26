@@ -27,10 +27,10 @@ The error handling differentiates between two failure scenarios:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `pg_malloc` (PostgreSQL memory allocation wrapper)
-  - `find_other_exec` (core executable location function)
-  - `find_my_exec` (function to determine current executable path)
-  - `strlcpy` (safe string copy utility)
+  - `[pg_malloc](../p/pg_malloc.md)` (PostgreSQL memory allocation wrapper)
+  - `[find_other_exec](find_other_exec.md)` (core executable location function)
+  - `[find_my_exec](find_my_exec.md)` (function to determine current executable path)
+  - `[strlcpy](../s/strlcpy.md)` (safe string copy utility)
   - [write_stderr](../w/write_stderr.md) (error output function)
   - `MAXPGPATH` (maximum path length constant)
 

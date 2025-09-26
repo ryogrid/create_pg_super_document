@@ -30,6 +30,6 @@ This optimization avoids unnecessary work when the outer plan will be rescanned 
 
 ## Notes and Other Information
 - The rescan optimization based on chgParam is a common pattern across PostgreSQL executor nodes
-- LockRows nodes do not maintain their own state that needs resetting, only the outer subplan
+- [LockRows](../L/LockRows.md) nodes do not maintain their own state that needs resetting, only the outer subplan
 - The function follows the standard PostgreSQL executor rescan protocol
 - Function is located at src/backend/executor/nodeLockRows.c:394-404

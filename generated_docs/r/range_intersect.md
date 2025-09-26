@@ -31,7 +31,7 @@ The function follows PostgreSQL's standard function calling conventions using th
   - : Returns the result range value
 - Called from:
   - SQL queries using the  operator on range types
-  - Range intersection operations in user applications
+  - [Range](../R/Range.md) intersection operations in user applications
 
 ## Notes and Other Information
 - The function performs strict type checking to ensure both ranges are of the same type, throwing an ERROR if types don't match

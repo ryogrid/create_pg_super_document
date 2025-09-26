@@ -32,9 +32,9 @@ The binary tree is not perfect due to page header overhead, meaning some right-m
 - Called from (representative examples):
   - FSMPage (typedef pointer to FSMPageData)
   - NodesPerPage (calculation macro using FSMPageData structure)
-  - fsm_search_avail() (searches within FSM page structure)
-  - fsm_set_avail() (updates FSM page structure)
-  - fsm_get_avail() (retrieves values from FSM page structure)
+  - [fsm_search_avail](../f/fsm_search_avail.md)() (searches within FSM page structure)
+  - [fsm_set_avail](../f/fsm_set_avail.md)() (updates FSM page structure)
+  - [fsm_get_avail](../f/fsm_get_avail.md)() (retrieves values from FSM page structure)
 
 ## Notes and Other Information
 - [FSMPageData](FSMPageData.md) is the fundamental building block of PostgreSQL's scalable Free Space Map implementation introduced in version 8.4

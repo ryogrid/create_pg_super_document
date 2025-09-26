@@ -32,7 +32,7 @@ This approach ensures that JSONB "stickiness" is preserved - if any input to a J
   - [transformJsonOutput](transformJsonOutput.md)
   - OidIsValid
   - lfirst
-  - exprType
+  - [exprType](../e/exprType.md)
 - Called from (representative examples):
   - [transformJsonObjectConstructor](transformJsonObjectConstructor.md)
   - [transformJsonObjectAgg](transformJsonObjectAgg.md)  

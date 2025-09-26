@@ -23,21 +23,21 @@ Key safety features include: automatic detoasting of compressed/toasted values, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `pg_detoast_datum_packed` - detoasts compressed or out-of-line values
+  - `[pg_detoast_datum_packed](../p/pg_detoast_datum_packed.md)` - detoasts compressed or out-of-line values
   - `unconstify` - macro to cast away const qualifier
   - `VARSIZE_ANY_EXHDR` - macro to get data size excluding header
   - `VARDATA_ANY` - macro to get pointer to the actual data
-  - `pg_mbcliplen` - ensures encoding-safe truncation for multibyte characters
+  - `[pg_mbcliplen](../p/pg_mbcliplen.md)` - ensures encoding-safe truncation for multibyte characters
   - `memcpy` - standard C library function for memory copying
-  - `pfree` - PostgreSQL's memory deallocation function
+  - `[pfree](../p/pfree.md)` - PostgreSQL's memory deallocation function
 
 - Called from (representative examples):
-  - `lo_import_internal` - large object import operations
-  - `be_lo_export` - large object export operations
-  - `timetz_zone` - timezone conversion for time with timezone
-  - `parse_sane_timezone` - timezone parsing functions
-  - `timestamp_zone` - timestamp timezone conversion
-  - `timestamptz_zone` - timestamptz timezone conversion
+  - `[lo_import_internal](../l/lo_import_internal.md)` - large object import operations
+  - `[be_lo_export](../b/be_lo_export.md)` - large object export operations
+  - `[timetz_zone](timetz_zone.md)` - timezone conversion for time with timezone
+  - `[parse_sane_timezone](../p/parse_sane_timezone.md)` - timezone parsing functions
+  - `[timestamp_zone](timestamp_zone.md)` - timestamp timezone conversion
+  - `[timestamptz_zone](timestamptz_zone.md)` - timestamptz timezone conversion
 
 ## Notes and Other Information
 - Provides buffer overflow protection by respecting the `dst_len` parameter

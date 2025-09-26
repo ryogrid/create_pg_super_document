@@ -24,7 +24,7 @@ This function creates a backend-private TBMSharedIterator that connects to share
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dsa_area (type)
+  - [dsa_area](../d/dsa_area.md) (type)
   - dsa_pointer (type)
   - [TBMSharedIterator](../T/TBMSharedIterator.md) (struct type)
   - [TBMSharedIteratorState](../T/TBMSharedIteratorState.md) (struct type)

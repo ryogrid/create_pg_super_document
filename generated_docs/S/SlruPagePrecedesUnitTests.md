@@ -30,10 +30,10 @@ Note that this testing framework does not apply to all SLRU types - specifically
   - [SlruPagePrecedesTestOffset](SlruPagePrecedesTestOffset.md) (called three times with different offsets)
 - Called from (representative examples):
   - [CLOGShmemInit](../C/CLOGShmemInit.md) (CLOG initialization)
-  - CommitTsShmemInit (Commit timestamp initialization) 
+  - [CommitTsShmemInit](../C/CommitTsShmemInit.md) (Commit timestamp initialization) 
   - [MultiXactShmemInit](../M/MultiXactShmemInit.md) (MultiXact initialization)
-  - SUBTRANSShmemInit (Subtransaction initialization)
-  - SerialInit (Serializable snapshot initialization)
+  - [SUBTRANSShmemInit](SUBTRANSShmemInit.md) (Subtransaction initialization)
+  - [SerialInit](SerialInit.md) (Serializable snapshot initialization)
 
 ## Notes and Other Information
 - This is a public function used during PostgreSQL subsystem initialization

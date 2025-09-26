@@ -28,9 +28,9 @@ The function decrements the counter  with each character comparison. If characte
   - isupper (standard C library function for locale-aware uppercase detection)
   - tolower (standard C library function for locale-aware case conversion)
 - Called from (representative examples):
-  - Boolean value parsing (parse_bool_with_len)
+  - [Boolean](../B/Boolean.md) value parsing (parse_bool_with_len)
   - Floating point number parsing (float4in_internal, float8in_internal)
-  - Numeric input parsing (numeric_in)
+  - [Numeric](../N/Numeric.md) input parsing (numeric_in)
   - Date/time style checking (check_datestyle)
   - psql command processing and tab completion
   - Configuration parameter validation

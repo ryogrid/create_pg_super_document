@@ -26,7 +26,7 @@ A notable behavior is that this function ensures append_rel_array is allocated e
   - palloc0_array (for initial allocation of append_rel_array)
   - Assert (for parameter validation)
 - Data structures used:
-  - RelOptInfo
+  - [RelOptInfo](../R/RelOptInfo.md)
   - [RangeTblEntry](../R/RangeTblEntry.md)  
   - [AppendRelInfo](../A/AppendRelInfo.md)
 - Called from (representative examples):

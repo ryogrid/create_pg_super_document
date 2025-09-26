@@ -30,7 +30,7 @@ When given two points, the function internally converts them to the standard Ax 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [line_decode](line_decode.md): Parses equation format `{A,B,C}`
-  - `path_decode`: Parses point format `[(x1,y1),(x2,y2)]`
+  - `[path_decode](../p/path_decode.md)`: Parses point format `[(x1,y1),(x2,y2)]`
   - [point_eq_point](../p/point_eq_point.md): Checks if two points are identical
   - [line_construct](line_construct.md): Constructs line from point and slope
   - [lseg_sl](lseg_sl.md): Calculates slope of line segment

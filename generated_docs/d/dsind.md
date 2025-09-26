@@ -30,7 +30,7 @@ The `dsind` function implements the sine function for degree-based input in Post
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT8 (argument retrieval)
   - isnan, isinf (special value checks)
-  - get_float8_nan (NaN handling)
+  - [get_float8_nan](../g/get_float8_nan.md) (NaN handling)
   - INIT_DEGREE_CONSTANTS (initialization)
   - [sind_q1](../s/sind_q1.md) (first quadrant sine calculation)
   - [float_overflow_error](../f/float_overflow_error.md) (error reporting)

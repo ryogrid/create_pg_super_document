@@ -30,16 +30,16 @@ The node supports all six meaningful boolean test combinations defined by the SQ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BoolTestType (enum with six test type values)
+  - [BoolTestType](BoolTestType.md) (enum with six test type values)
   - ParseLoc (for location tracking)
-  - Expr (base expression structure)
+  - [Expr](../E/Expr.md) (base expression structure)
   
 - Called from (representative examples):
-  - ExecInitExprRec (executor initialization)
-  - transformBooleanTest (parser transformation)
-  - match_boolean_index_clause (index optimization)
-  - clause_selectivity_ext (optimizer selectivity estimation)
-  - get_rule_expr (rule decompilation)
+  - [ExecInitExprRec](../E/ExecInitExprRec.md) (executor initialization)
+  - [transformBooleanTest](../t/transformBooleanTest.md) (parser transformation)
+  - [match_boolean_index_clause](../m/match_boolean_index_clause.md) (index optimization)
+  - [clause_selectivity_ext](../c/clause_selectivity_ext.md) (optimizer selectivity estimation)
+  - [get_rule_expr](../g/get_rule_expr.md) (rule decompilation)
 
 ## Notes and Other Information
 - Essential for implementing SQL standard three-valued logic correctly

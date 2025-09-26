@@ -45,8 +45,8 @@ The function operates through several strategies:
   - [GetCTEForRTE](../G/GetCTEForRTE.md)
   - GetCTETargetList
   - [get_expr_result_tupdesc](../g/get_expr_result_tupdesc.md)
-  - exprType
-  - exprTypmod
+  - [exprType](exprType.md)
+  - [exprTypmod](exprTypmod.md)
   - [exprCollation](exprCollation.md)
   - [list_nth](../l/list_nth.md)
   - InvalidAttrNumber

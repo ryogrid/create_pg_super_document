@@ -31,7 +31,7 @@ The modification is performed in-place, which is acceptable because the same cha
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fix_opfuncids_walker (internal walker function)
+  - [fix_opfuncids_walker](fix_opfuncids_walker.md) (internal walker function)
 
 - Called from:
   - [expression_planner](../e/expression_planner.md) (src/backend/optimizer/plan/planner.c:6669, 6711)
@@ -46,7 +46,7 @@ The modification is performed in-place, which is acceptable because the same cha
 - Used during query planning phase to prepare operators for execution
 - Essential for converting parse-time operator representations to execution-time function calls
 - The walker function handles struct-equivalent node types (DistinctExpr, NullIfExpr) by casting to OpExpr
-- ScalarArrayOpExpr requires special handling via set_sa_opfuncid function
+- [ScalarArrayOpExpr](../S/ScalarArrayOpExpr.md) requires special handling via set_sa_opfuncid function
 - Safe to call multiple times on the same tree due to idempotent nature of the operation
 - Part of PostgreSQL's operator resolution and function lookup system
 - Located in src/backend/nodes/nodeFuncs.c:1831-1837

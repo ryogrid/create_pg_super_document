@@ -100,8 +100,8 @@ ParallelVacuumState serves as the central control structure for PostgreSQL's par
   - [PVShared](PVShared.md) (shared worker state)
   - [PVIndStats](PVIndStats.md) (per-index statistics)
   - [TidStore](../T/TidStore.md) (dead tuple storage)
-  - BufferUsage (buffer statistics)
-  - WalUsage (WAL statistics)
+  - [BufferUsage](../B/BufferUsage.md) (buffer statistics)
+  - [WalUsage](../W/WalUsage.md) (WAL statistics)
   - [BufferAccessStrategy](../B/BufferAccessStrategy.md) (I/O strategy)
   - PVIndVacStatus (vacuum status enum)
 - Called from (representative examples):

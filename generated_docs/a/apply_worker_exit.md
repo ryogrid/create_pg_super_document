@@ -22,7 +22,7 @@ None - This function takes no parameters.
 - Functions called/Symbols referenced:
   - [am_parallel_apply_worker](am_parallel_apply_worker.md)
   - [am_leader_apply_worker](am_leader_apply_worker.md)
-  - ApplyLauncherForgetWorkerStartTime
+  - [ApplyLauncherForgetWorkerStartTime](../A/ApplyLauncherForgetWorkerStartTime.md)
   - [proc_exit](../p/proc_exit.md)
 - Called from (representative examples):
   - [maybe_reread_subscription](../m/maybe_reread_subscription.md) (at lines 3921, 3956, 3974)

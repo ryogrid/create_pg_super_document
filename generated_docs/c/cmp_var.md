@@ -27,7 +27,7 @@ This is a convenience wrapper that simplifies the interface for comparing comple
 
 - Called from (representative examples):
   - NUMERIC_CAN_BE_SHORT: Numeric optimization checking
-  - generate_series_step_numeric: Series generation with numeric steps
+  - [generate_series_step_numeric](../g/generate_series_step_numeric.md): Series generation with numeric steps
   - [compute_bucket](compute_bucket.md): Bucketing operations for histograms
   - [in_range_numeric_numeric](../i/in_range_numeric_numeric.md): Range checking for numeric values
   - [numeric_power](../n/numeric_power.md): Power function calculations

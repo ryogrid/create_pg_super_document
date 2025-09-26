@@ -30,9 +30,9 @@ BTOptions encapsulates the configuration parameters that can be set for B-tree i
 - Functions called/Symbols referenced:
   - int32 (PostgreSQL type)
   - float8 (PostgreSQL type)
-  - bool (PostgreSQL type)
+  - [bool](../b/bool.md) (PostgreSQL type)
 - Called from (representative examples):
-  - btoptions (src/backend/access/nbtree/nbtutils.c:4566-4575)
+  - [btoptions](../b/btoptions.md) (src/backend/access/nbtree/nbtutils.c:4566-4575)
   - BTGetFillFactor (src/include/access/nbtree.h:1142)
   - BTGetDeduplicateItems (src/include/access/nbtree.h:1150)
 

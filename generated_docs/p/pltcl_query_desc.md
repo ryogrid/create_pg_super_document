@@ -36,13 +36,13 @@ The structure is typically stored in hash tables within interpreter descriptors,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SPIPlanPtr (at line 171) - PostgreSQL SPI plan pointer type
+  - [SPIPlanPtr](../S/SPIPlanPtr.md) (at line 171) - PostgreSQL SPI plan pointer type
   - Oid (PostgreSQL object identifier type)
-  - FmgrInfo (PostgreSQL function manager structure)
+  - [FmgrInfo](../F/FmgrInfo.md) (PostgreSQL function manager structure)
 - Called from (representative examples):
-  - pltcl_SPI_prepare (referenced at lines 2553, 2587)
-  - pltcl_SPI_execute_plan (referenced at line 2684)
-  - OPT_NULLS (referenced at line 2757)
+  - [pltcl_SPI_prepare](pltcl_SPI_prepare.md) (referenced at lines 2553, 2587)
+  - [pltcl_SPI_execute_plan](pltcl_SPI_execute_plan.md) (referenced at line 2684)
+  - [OPT_NULLS](../O/OPT_NULLS.md) (referenced at line 2757)
 
 ## Notes and Other Information
 - The 20-character limit for `qname` suggests query names should be concise identifiers

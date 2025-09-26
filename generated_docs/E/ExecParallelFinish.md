@@ -34,7 +34,7 @@ The function ensures proper resource cleanup and prevents resource leaks during 
   - [shm_mq_detach](../s/shm_mq_detach.md)
   - [pfree](../p/pfree.md)
   - [DestroyTupleQueueReader](../D/DestroyTupleQueueReader.md)
-  - WaitForParallelWorkersToFinish
+  - [WaitForParallelWorkersToFinish](../W/WaitForParallelWorkersToFinish.md)
   - [InstrAccumParallelQuery](../I/InstrAccumParallelQuery.md)
 - Called from (representative examples):
   - [ExecShutdownGatherWorkers](ExecShutdownGatherWorkers.md)

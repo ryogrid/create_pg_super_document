@@ -23,11 +23,11 @@ The function handles both Unix-style line endings ('\n') and Windows-style line 
 - Functions called/Symbols referenced:
   - strlen (standard C library function)
 - Called from (representative examples):
-  - run_ssl_passphrase_command (src/backend/libpq/be-secure-common.c:102)
-  - tokenize_auth_file (src/backend/libpq/hba.c:736)
-  - simple_prompt_extended (src/common/sprompt.c:152)
-  - passwordFromFile (src/interfaces/libpq/fe-connect.c:7511)
-  - get_su_pwd (src/bin/initdb/initdb.c:1688)
+  - [run_ssl_passphrase_command](../r/run_ssl_passphrase_command.md) (src/backend/libpq/be-secure-common.c:102)
+  - [tokenize_auth_file](../t/tokenize_auth_file.md) (src/backend/libpq/hba.c:736)
+  - [simple_prompt_extended](../s/simple_prompt_extended.md) (src/common/sprompt.c:152)
+  - [passwordFromFile](passwordFromFile.md) (src/interfaces/libpq/fe-connect.c:7511)
+  - [get_su_pwd](../g/get_su_pwd.md) (src/bin/initdb/initdb.c:1688)
 
 ## Notes and Other Information
 - Modifies the input string in-place rather than creating a copy

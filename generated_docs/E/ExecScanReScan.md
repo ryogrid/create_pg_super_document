@@ -22,7 +22,7 @@ The function handles two distinct scenarios for EPQ state management: simple sca
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecClearTuple (clears the scan tuple slot)
+  - [ExecClearTuple](ExecClearTuple.md) (clears the scan tuple slot)
   - [bms_next_member](../b/bms_next_member.md) (iterates through relation bitmap for multi-relation scans)
   - IsA (type checking macros for ForeignScan and CustomScan)
   - nodeTag (node type identification)
@@ -31,9 +31,9 @@ The function handles two distinct scenarios for EPQ state management: simple sca
   - [ScanState](../S/ScanState.md)
   - [EState](EState.md)
   - [EPQState](EPQState.md)
-  - Scan (plan node)
-  - ForeignScan
-  - CustomScan
+  - [Scan](../S/Scan.md) (plan node)
+  - [ForeignScan](../F/ForeignScan.md)
+  - [CustomScan](../C/CustomScan.md)
   - [Bitmapset](../B/Bitmapset.md)
 - Called from (representative examples):
   - [ExecReScanSeqScan](ExecReScanSeqScan.md) (sequential scan rescan)

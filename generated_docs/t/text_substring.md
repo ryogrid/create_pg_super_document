@@ -33,7 +33,7 @@ The function implements SQL99 compliance for substring operations, including pro
 - Functions called/Symbols referenced:
   - [pg_database_encoding_max_length](../p/pg_database_encoding_max_length.md)
   - [pg_add_s32_overflow](../p/pg_add_s32_overflow.md)
-  - cstring_to_text
+  - [cstring_to_text](../c/cstring_to_text.md)
   - DatumGetTextPSlice
   - [pg_mul_s32_overflow](../p/pg_mul_s32_overflow.md)
   - VARATT_IS_COMPRESSED

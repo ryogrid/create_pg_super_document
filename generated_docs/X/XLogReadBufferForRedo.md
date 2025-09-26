@@ -31,12 +31,12 @@ The returned buffer is always locked in exclusive mode, even when no replay is n
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogReadBufferForRedoExtended
+  - [XLogReadBufferForRedoExtended](XLogReadBufferForRedoExtended.md)
   - RBM_NORMAL (buffer read mode constant)
 - Called from (representative examples):
-  - heap_xlog_insert (src/backend/access/heap/heapam.c:9646)
-  - btree_xlog_insert (src/backend/access/nbtree/nbtxlog.c:179)
-  - gin_redo operations (src/backend/access/gin/ginxlog.c)
+  - [heap_xlog_insert](../h/heap_xlog_insert.md) (src/backend/access/heap/heapam.c:9646)
+  - [btree_xlog_insert](../b/btree_xlog_insert.md) (src/backend/access/nbtree/nbtxlog.c:179)
+  - [gin_redo](../g/gin_redo.md) operations (src/backend/access/gin/ginxlog.c)
   - Various index-specific redo functions across access methods
 
 ## Notes and Other Information

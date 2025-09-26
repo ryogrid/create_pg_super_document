@@ -48,19 +48,19 @@ For ordered-set aggregates, the function correctly handles the distinction betwe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `FuncExpr` (struct type for function call expressions)
+  - `[FuncExpr](../F/FuncExpr.md)` (struct type for function call expressions)
   - [make_agg_arg](../m/make_agg_arg.md)() (creates argument nodes for aggregates)
-  - `makeFuncExpr()` (creates function call expression nodes)
+  - `[makeFuncExpr](../m/makeFuncExpr.md)()` (creates function call expression nodes)
   - `COERCE_EXPLICIT_CALL` (constant for function coercion context)
   - `list_make1()`, `lappend()` (list manipulation)
   - `OidIsValid()` (OID validation)
 - Called from (representative examples):
   - [build_pertrans_for_aggref](build_pertrans_for_aggref.md) (in nodeAgg.c)
-  - `initialize_peragg` (in nodeWindowAgg.c)
+  - `[initialize_peragg](../i/initialize_peragg.md)` (in nodeWindowAgg.c)
 
 ## Notes and Other Information
 - The constructed expressions are used for type resolution only and are never executed
 - Can be used for both regular transition functions and combine functions in parallel aggregation
-- Inverse transition functions are optional - when invtransfn_oid is InvalidOid, no inverse expression is built
+- Inverse transition functions are optional - [when](../w/when.md) invtransfn_oid is InvalidOid, no inverse expression is built
 - For combine functions, inverse transition functions are not applicable (no inverse combine function exists)
 - Properly handles variadic aggregates by setting the funcvariadic flag on created FuncExpr nodes

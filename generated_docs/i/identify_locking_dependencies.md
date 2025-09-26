@@ -23,8 +23,8 @@ Most POST_DATA items are ALTER TABLE operations or equivalent commands that requ
   - [TocEntry](../T/TocEntry.md) (struct type)
   - DumpId (type)
   - SECTION_POST_DATA (constant)
-  - pg_malloc (memory allocation function)
-  - pg_realloc (memory reallocation function)
+  - [pg_malloc](../p/pg_malloc.md) (memory allocation function)
+  - [pg_realloc](../p/pg_realloc.md) (memory reallocation function)
   - strcmp (string comparison function)
   - free (memory deallocation function)
 - Called from (representative examples):

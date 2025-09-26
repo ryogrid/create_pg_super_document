@@ -38,10 +38,10 @@ Key categories of member variables in the underlying  struct:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_conn (the underlying struct type)
+  - [pg_conn](../p/pg_conn.md) (the underlying struct type)
 - Called from (representative examples):
   - All libpq API functions that operate on connections
-  - PQconnectdb, PQexec, PQfinish, etc.
+  - [PQconnectdb](PQconnectdb.md), PQexec, PQfinish, etc.
 
 ## Notes and Other Information
 - The contents of PGconn are deliberately hidden from applications to maintain API stability

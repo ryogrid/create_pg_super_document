@@ -21,17 +21,17 @@ This function handles the distribution of invalidation messages from committed t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReorderBufferTXNByXid
-  - MemoryContextSwitchTo
+  - [ReorderBufferTXNByXid](ReorderBufferTXNByXid.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - rbtxn_get_toptxn
   - rbtxn_distr_inval_overflowed
-  - ReorderBufferAccumulateInvalidations
-  - ReorderBufferQueueInvalidations
-  - pfree
+  - [ReorderBufferAccumulateInvalidations](ReorderBufferAccumulateInvalidations.md)
+  - [ReorderBufferQueueInvalidations](ReorderBufferQueueInvalidations.md)
+  - [pfree](../p/pfree.md)
   - MAX_DISTR_INVAL_MSG_PER_TXN
   - RBTXN_DISTR_INVAL_OVERFLOWED
 - Called from (representative examples):
-  - SnapBuildDistributeSnapshotAndInval
+  - [SnapBuildDistributeSnapshotAndInval](../S/SnapBuildDistributeSnapshotAndInval.md)
 
 ## Notes and Other Information
 - Implements overflow protection to prevent excessive memory usage from distributed invalidations

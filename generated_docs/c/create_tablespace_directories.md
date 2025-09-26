@@ -24,7 +24,7 @@ Permission validation ensures the target directory is accessible and properly se
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MakePGDirectory: Creates directories with proper PostgreSQL permissions
+  - [MakePGDirectory](../M/MakePGDirectory.md): Creates directories with proper PostgreSQL permissions
   - TABLESPACE_VERSION_DIRECTORY: Constant defining the version subdirectory name
   - S_ISDIR: System macro to verify directory status
   - [remove_tablespace_symlink](../r/remove_tablespace_symlink.md): Removes existing symlinks during recovery

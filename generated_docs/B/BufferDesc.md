@@ -43,11 +43,11 @@ The same structure is used for both shared and local buffers, though some fields
   - [LWLock](../L/LWLock.md) (for content locking)
 - Called from (representative examples):
   - [BufferAlloc](BufferAlloc.md) (for buffer allocation)
-  - PinBuffer (for buffer pinning operations)
-  - UnpinBuffer (for buffer unpinning)
+  - [PinBuffer](../P/PinBuffer.md) (for buffer pinning operations)
+  - [UnpinBuffer](../U/UnpinBuffer.md) (for buffer unpinning)
   - [FlushBuffer](../F/FlushBuffer.md) (for writing buffers to disk)
   - [GetBufferDescriptor](../G/GetBufferDescriptor.md) (for buffer access)
-  - StrategyGetBuffer (for buffer strategy operations)
+  - [StrategyGetBuffer](../S/StrategyGetBuffer.md) (for buffer strategy operations)
 
 ## Notes and Other Information
 - Buffer header lock (BM_LOCKED flag in state) must be held to examine or change tag, state, or wait_backend_pgprocno fields

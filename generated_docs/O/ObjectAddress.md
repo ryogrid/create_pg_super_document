@@ -41,7 +41,7 @@ The structure is extensively used throughout PostgreSQL's internal systems, part
   - [get_object_namespace](../g/get_object_namespace.md)
   - [getObjectDescription](../g/getObjectDescription.md)
   - [getObjectDescriptionOids](../g/getObjectDescriptionOids.md)
-  - getObjectTypeDescription
+  - [getObjectTypeDescription](../g/getObjectTypeDescription.md)
   - [getObjectIdentity](../g/getObjectIdentity.md)
   - [getObjectIdentityParts](../g/getObjectIdentityParts.md)
 

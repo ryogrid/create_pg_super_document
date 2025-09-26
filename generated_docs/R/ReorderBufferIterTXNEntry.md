@@ -35,7 +35,7 @@ This structure is a key component of PostgreSQL's logical replication system tha
   - [TXNEntryFile](../T/TXNEntryFile.md) (file management structure)
   - XLogSegNo (WAL segment number type)
 - Called from (representative examples):
-  - ReorderBufferIterTXNState (at src/backend/replication/logical/reorderbuffer.c:172)
+  - [ReorderBufferIterTXNState](ReorderBufferIterTXNState.md) (at src/backend/replication/logical/reorderbuffer.c:172)
   - [ReorderBufferIterTXNInit](ReorderBufferIterTXNInit.md) (at src/backend/replication/logical/reorderbuffer.c:1318)
   - [ReorderBufferIterTXNNext](ReorderBufferIterTXNNext.md) (at src/backend/replication/logical/reorderbuffer.c:1411)
 

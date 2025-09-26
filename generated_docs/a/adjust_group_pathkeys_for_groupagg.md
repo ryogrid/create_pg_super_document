@@ -33,9 +33,9 @@ The function ensures that aggregates with volatile functions perform independent
 ## Dependencies
 - Functions called/Symbols referenced:
   - [AggInfo](../A/AggInfo.md)
-  - Aggref
+  - [Aggref](../A/Aggref.md)
   - AGGKIND_IS_ORDERED_SET
-  - RelabelType
+  - [RelabelType](../R/RelabelType.md)
   - [make_pathkeys_for_sortclauses](../m/make_pathkeys_for_sortclauses.md)
   - [has_volatile_pathkey](../h/has_volatile_pathkey.md)
   - [compare_pathkeys](../c/compare_pathkeys.md)

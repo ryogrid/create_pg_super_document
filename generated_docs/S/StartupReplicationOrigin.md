@@ -20,14 +20,14 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - OpenTransientFile
+  - [OpenTransientFile](../O/OpenTransientFile.md)
   - read
-  - CloseTransientFile
+  - [CloseTransientFile](../C/CloseTransientFile.md)
   - INIT_CRC32C
   - COMP_CRC32C
   - FIN_CRC32C
   - ereport (PANIC/LOG levels)
-  - ReplicationStateOnDisk (struct)
+  - [ReplicationStateOnDisk](../R/ReplicationStateOnDisk.md) (struct)
   - REPLICATION_STATE_MAGIC
   - ERRCODE_DATA_CORRUPTED
 - Called from (representative examples):

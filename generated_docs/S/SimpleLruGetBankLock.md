@@ -31,12 +31,12 @@ The function calculates which bank a given page belongs to using a modulo operat
 
 - Called from (representative examples):
   - [TransactionIdSetPageStatus](../T/TransactionIdSetPageStatus.md) (clog.c:305)
-  - TransactionIdGetStatus (clog.c:755)
+  - [TransactionIdGetStatus](../T/TransactionIdGetStatus.md) (clog.c:755)
   - [RecordNewMultiXact](../R/RecordNewMultiXact.md) (multixact.c:925)
   - [SimpleLruZeroPage](SimpleLruZeroPage.md) (slru.c:380)
   - [SimpleLruReadPage](SimpleLruReadPage.md) (slru.c:506)
   - [SubTransSetParent](SubTransSetParent.md) (subtrans.c:96)
-  - SerialAdd (predicate.c:870)
+  - [SerialAdd](SerialAdd.md) (predicate.c:870)
 
 ## Notes and Other Information
 - This is a static inline function defined in slru.h header for performance optimization

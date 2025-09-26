@@ -36,16 +36,16 @@ The Windows implementation includes several safety measures:
   - _get_osfhandle (Windows only)
   - ReadFile (Windows only) 
   - GetLastError (Windows only)
-  - _dosmaperr (Windows only)
+  - [_dosmaperr](../d/_dosmaperr.md) (Windows only)
   - Min (Windows only)
   - pread (Unix systems, via macro)
 
 - Called from (representative examples):
-  - SlruPhysicalReadPage
-  - XLogPageRead  
-  - basebackup_read_file
-  - WALRead
-  - pg_preadv (fallback implementation)
+  - [SlruPhysicalReadPage](../S/SlruPhysicalReadPage.md)
+  - [XLogPageRead](../X/XLogPageRead.md)  
+  - [basebackup_read_file](../b/basebackup_read_file.md)
+  - [WALRead](../W/WALRead.md)
+  - [pg_preadv](pg_preadv.md) (fallback implementation)
   - reconstruct.c (pg_combinebackup)
   - xlogreader.c (WAL reading)
   - xlogrecovery.c (recovery operations)

@@ -31,18 +31,18 @@ This design pattern allows utility commands to leverage the existing tuple trans
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TupleTableSlot (referenced as member type)
-  - DestReceiver (referenced as member type)
+  - [TupleTableSlot](TupleTableSlot.md) (referenced as member type)
+  - [DestReceiver](../D/DestReceiver.md) (referenced as member type)
 - Called from (representative examples):
-  - begin_tup_output_tupdesc (initializes TupOutputState)
-  - do_tup_output (uses TupOutputState to send tuples)
-  - end_tup_output (cleans up TupOutputState)
-  - ExplainQuery (in EXPLAIN command implementation)
-  - ShowGUCConfigOption (in SHOW command implementation)
-  - ExecuteCallStmt (in function call execution)
+  - [begin_tup_output_tupdesc](../b/begin_tup_output_tupdesc.md) (initializes TupOutputState)
+  - [do_tup_output](../d/do_tup_output.md) (uses TupOutputState to send tuples)
+  - [end_tup_output](../e/end_tup_output.md) (cleans up TupOutputState)
+  - [ExplainQuery](../E/ExplainQuery.md) (in EXPLAIN command implementation)
+  - [ShowGUCConfigOption](../S/ShowGUCConfigOption.md) (in SHOW command implementation)
+  - [ExecuteCallStmt](../E/ExecuteCallStmt.md) (in function call execution)
 
 ## Notes and Other Information
-- TupOutputState is designed for utility commands that need simple tuple output functionality without the overhead of full executor node infrastructure.
+- [TupOutputState](TupOutputState.md) is designed for utility commands that need simple tuple output functionality without the overhead of full executor node infrastructure.
 - The structure follows PostgreSQL's pattern of combining related state into compact structures for efficient memory management.
 - Memory management is handled by the caller - the TupOutputState itself is allocated and freed by the begin_tup_output_tupdesc/end_tup_output function pair.
 - The slot member uses MakeSingleTupleTableSlot() for creation, optimized for single-tuple operations.

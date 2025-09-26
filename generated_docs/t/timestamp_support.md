@@ -23,7 +23,7 @@ The support function is part of PostgreSQL's extensible type system, allowing da
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SupportRequestSimplify
+  - [SupportRequestSimplify](../S/SupportRequestSimplify.md)
   - [TemporalSimplify](../T/TemporalSimplify.md)
   - MAX_TIMESTAMP_PRECISION
 - Called from (representative examples):

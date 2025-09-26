@@ -32,7 +32,7 @@ The function uses a simple switch statement to map access method OIDs to their c
 - Called from (representative examples):
   - [get_equal_strategy_number](get_equal_strategy_number.md)
   - [IsIndexUsableForReplicaIdentityFull](../I/IsIndexUsableForReplicaIdentityFull.md)
-  - exec_rt_fetch
+  - [exec_rt_fetch](../e/exec_rt_fetch.md)
 
 ## Notes and Other Information
 - Only B-tree (BTREE_AM_OID) and Hash (HASH_AM_OID) access methods are currently supported

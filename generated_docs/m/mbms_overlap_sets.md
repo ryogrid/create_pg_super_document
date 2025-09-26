@@ -24,11 +24,11 @@ The function iterates through both lists simultaneously using the forboth macro,
 ## Dependencies
 - Functions called/Symbols referenced:
   - forboth
-  - bms_overlap
-  - bms_add_member
+  - [bms_overlap](../b/bms_overlap.md)
+  - [bms_add_member](../b/bms_add_member.md)
   - foreach_current_index
 - Called from (representative examples):
-  - reduce_outer_joins_pass2
+  - [reduce_outer_joins_pass2](../r/reduce_outer_joins_pass2.md)
 
 ## Notes and Other Information
 - Returns a Bitmapset where each bit represents a list index with overlapping Bitmapsets

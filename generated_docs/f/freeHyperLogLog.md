@@ -22,10 +22,10 @@ The function includes an assertion to verify that the hashesArr pointer is not N
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert (for debugging assertion)
-  - pfree (PostgreSQL memory deallocation function)
-  - hyperLogLogState (structure type)
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation function)
+  - [hyperLogLogState](../h/hyperLogLogState.md) (structure type)
 - Called from (representative examples):
-  - hashagg_spill_finish
+  - [hashagg_spill_finish](../h/hashagg_spill_finish.md)
 
 ## Notes and Other Information
 - Only frees the hashesArr field, not the state structure itself

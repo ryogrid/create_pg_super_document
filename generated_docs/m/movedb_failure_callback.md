@@ -22,7 +22,7 @@ movedb_failure_callback serves as an error recovery mechanism for the movedb ope
 - Functions called/Symbols referenced:
   - movedb_failure_params: Structure containing destination database and tablespace OIDs
   - [GetDatabasePath](../G/GetDatabasePath.md): Constructs the destination directory path
-  - rmtree: Recursively removes the destination directory and all its contents
+  - [rmtree](../r/rmtree.md): Recursively removes the destination directory and all its contents
 - Called from (representative examples):
   - [movedb](movedb.md): Registered as error cleanup callback during database move operations
 

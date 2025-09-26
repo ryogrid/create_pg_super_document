@@ -31,8 +31,8 @@ The function returns NULL for unitless parameters, allowing callers to distingui
   - snprintf (standard library function)
   - elog (PostgreSQL logging function)
 - Called from (representative examples):
-  - parse_and_validate_value
-  - GetConfigOptionValues
+  - [parse_and_validate_value](../p/parse_and_validate_value.md)
+  - [GetConfigOptionValues](../G/GetConfigOptionValues.md)
   - EmitWarningsOnPlaceholders
 
 ## Notes and Other Information

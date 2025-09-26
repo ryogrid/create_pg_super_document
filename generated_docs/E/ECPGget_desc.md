@@ -34,8 +34,8 @@ The function operates by:
   - [PQntuples](../P/PQntuples.md), PQnfields, PQfname, PQfsize, PQfmod, PQftype, PQgetlength, PQgetisnull
   - [get_char_item](../g/get_char_item.md), get_int_item
   - [ecpg_dynamic_type](../e/ecpg_dynamic_type.md), ecpg_dynamic_type_DDT
-  - ecpg_store_result
-  - ecpg_auto_alloc
+  - [ecpg_store_result](../e/ecpg_store_result.md)
+  - [ecpg_auto_alloc](../e/ecpg_auto_alloc.md)
   - [ecpg_raise](../e/ecpg_raise.md), ecpg_log
 - Called from (representative examples):
   - ECPG test programs (sql-describe.c, sql-dyntest.c, sql-dynalloc.c)

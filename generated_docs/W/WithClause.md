@@ -33,16 +33,16 @@ The recursive flag applies to the entire WITH clause and enables different proce
 ## Dependencies
 - Functions called/Symbols referenced:
   - CommonTableExpr (individual CTE nodes)
-  - List (for CTE storage)
+  - [List](../L/List.md) (for CTE storage)
   - ParseLoc (for source location tracking)
 - Called from (representative examples):
-  - transformWithClause (parser/parse_cte.c)
-  - makeDependencyGraphWalker (parser/parse_cte.c)
-  - checkWellFormedRecursionWalker (parser/parse_cte.c)
-  - transformSetOperationStmt (parser/analyze.c)
+  - [transformWithClause](../t/transformWithClause.md) (parser/parse_cte.c)
+  - [makeDependencyGraphWalker](../m/makeDependencyGraphWalker.md) (parser/parse_cte.c)
+  - [checkWellFormedRecursionWalker](../c/checkWellFormedRecursionWalker.md) (parser/parse_cte.c)
+  - [transformSetOperationStmt](../t/transformSetOperationStmt.md) (parser/analyze.c)
 
 ## Notes and Other Information
-- WithClause is a parsing-phase structure that does not appear in the final Query representation
+- [WithClause](WithClause.md) is a parsing-phase structure that does not appear in the final Query representation
 - The recursive flag affects the entire WITH clause, not individual CTEs
 - Individual CommonTableExpr nodes from the ctes list are moved to Query.cteList during analysis
 - WITH RECURSIVE enables CTEs to reference each other and themselves for recursive queries

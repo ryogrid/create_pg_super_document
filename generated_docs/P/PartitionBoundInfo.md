@@ -27,7 +27,7 @@ For range partitioning, datums represent boundary points with minimal storage (u
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PartitionBoundInfoData (underlying structure)
+  - [PartitionBoundInfoData](PartitionBoundInfoData.md) (underlying structure)
   - PartitionStrategy (partitioning strategy enum)
   - Datum (PostgreSQL datum type)
   - [PartitionRangeDatumKind](PartitionRangeDatumKind.md) (range boundary type indicators)

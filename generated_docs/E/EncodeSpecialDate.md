@@ -28,7 +28,7 @@ The `EncodeSpecialDate` function handles the conversion of PostgreSQL's special 
   - elog: PostgreSQL error logging function
 - Called from (representative examples):
   - [date_out](../d/date_out.md): Date output function for text format conversion
-  - JsonEncodeDateTime: JSON encoding function for date/time values
+  - [JsonEncodeDateTime](../J/JsonEncodeDateTime.md): JSON encoding function for date/time values
   - PG_RETURN_TIMETZADT_P: Related time zone date handling
 
 ## Notes and Other Information

@@ -25,14 +25,14 @@ The function only considers level-zero variables (varlevelsup == 0) to ensure it
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - NullTest (node type checking)
-  - BooleanTest (node type checking)
+  - [NullTest](../N/NullTest.md) (node type checking)
+  - [BooleanTest](../B/BooleanTest.md) (node type checking)
   - IS_NULL (null test type)
   - IS_UNKNOWN (boolean test type)
 - Called from (representative examples):
   - [check_redundant_nullability_qual](../c/check_redundant_nullability_qual.md)
   - [find_forced_null_vars](find_forced_null_vars.md)
-  - WindowFuncLists
+  - [WindowFuncLists](../W/WindowFuncLists.md)
 
 ## Notes and Other Information
 - This function is more restrictive than find_forced_null_vars as it only handles single clauses

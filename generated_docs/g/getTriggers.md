@@ -32,14 +32,14 @@ The function also ensures that partition triggers are included when their enable
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TableInfo](../T/TableInfo.md), TriggerInfo (struct types)
-  - createPQExpBuffer, appendPQExpBufferChar, appendPQExpBuffer (query building)
+  - [createPQExpBuffer](../c/createPQExpBuffer.md), appendPQExpBufferChar, appendPQExpBuffer (query building)
   - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md) (query execution)
   - [PQntuples](../P/PQntuples.md), PQfnumber, PQgetvalue (libpq result processing)
-  - pg_malloc (memory allocation)
+  - [pg_malloc](../p/pg_malloc.md) (memory allocation)
   - atooid (OID conversion)
   - [AssignDumpId](../A/AssignDumpId.md) (dump ID assignment)
   - [pg_strdup](../p/pg_strdup.md) (string duplication)
-  - destroyPQExpBuffer (cleanup)
+  - [destroyPQExpBuffer](../d/destroyPQExpBuffer.md) (cleanup)
   - DUMP_COMPONENT_DEFINITION (dump component flag)
   - DO_TRIGGER (object type enum)
   - PGRES_TUPLES_OK (result status)

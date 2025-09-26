@@ -31,7 +31,7 @@ The function ensures that only top-level transactions receive further snapshots 
   - [dlist_insert_before](../d/dlist_insert_before.md) (inserts nodes into doubly-linked lists)
   - [ReorderBufferTXN](ReorderBufferTXN.md) (transaction structure type)
 - Called from (representative examples):
-  - ReorderBufferAssignChild
+  - [ReorderBufferAssignChild](ReorderBufferAssignChild.md)
   - [ReorderBufferStreamTXN](ReorderBufferStreamTXN.md)
   - IsInsertOrUpdate
 

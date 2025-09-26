@@ -28,7 +28,7 @@ This function takes no parameters and operates on globally available tokenizer s
 ## Dependencies
 - Functions called/Symbols referenced:
   - `READ_TEMP_LOCALS` - Macro that declares local variables `token` and `length` for parsing
-  - `check_stack_depth` - Guards against stack overflow from deeply nested expressions
+  - `[check_stack_depth](../c/check_stack_depth.md)` - Guards against stack overflow from deeply nested expressions
   - [pg_strtok](pg_strtok.md) - Tokenizer function to get the next token from the input string
   - `MATCH` - Macro for token comparison (defined locally)
   - `elog` - Error logging function (called when parsing fails)

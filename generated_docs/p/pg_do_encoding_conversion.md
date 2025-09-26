@@ -36,7 +36,7 @@ The function uses PostgreSQL's function call mechanism to invoke encoding-specif
   - [pg_verify_mbstr](pg_verify_mbstr.md) (validates multibyte string)
   - [IsTransactionState](../I/IsTransactionState.md) (checks transaction context)
   - [FindDefaultConversionProc](../F/FindDefaultConversionProc.md) (finds conversion function)
-  - pg_encoding_to_char (encoding name lookup)
+  - [pg_encoding_to_char](pg_encoding_to_char.md) (encoding name lookup)
   - [MemoryContextAllocHuge](../M/MemoryContextAllocHuge.md) (memory allocation)
   - OidFunctionCall6 (invokes conversion function)
   - [repalloc](../r/repalloc.md) (memory reallocation)
@@ -44,7 +44,7 @@ The function uses PostgreSQL's function call mechanism to invoke encoding-specif
   - [pg_convert](pg_convert.md) (SQL function wrapper)
   - [pg_any_to_server](pg_any_to_server.md) (server encoding conversion)
   - [pg_server_to_any](pg_server_to_any.md) (client encoding conversion)
-  - xml_parse (XML processing)
+  - [xml_parse](../x/xml_parse.md) (XML processing)
 
 ## Notes and Other Information
 - Must be called within a transaction context due to catalog access requirements

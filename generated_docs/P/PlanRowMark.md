@@ -44,16 +44,16 @@ The planner adds resjunk output columns to carry row identification information.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RowMarkType (enumeration of row marking strategies)
+  - [RowMarkType](../R/RowMarkType.md) (enumeration of row marking strategies)
   - LockClauseStrength (locking strength specifications)
   - LockWaitPolicy (wait policy for lock conflicts)
   - NodeTag (node type identification)
   - Index (range table indices)
 - Called from (representative examples):
-  - preprocess_rowmarks (planner preprocessing)
-  - ExecInitLockRows (executor initialization)
-  - ExecInitModifyTable (modify table executor setup)
-  - set_plan_references (plan reference resolution)
+  - [preprocess_rowmarks](../p/preprocess_rowmarks.md) (planner preprocessing)
+  - [ExecInitLockRows](../E/ExecInitLockRows.md) (executor initialization)
+  - [ExecInitModifyTable](../E/ExecInitModifyTable.md) (modify table executor setup)
+  - [set_plan_references](../s/set_plan_references.md) (plan reference resolution)
 
 ## Notes and Other Information
 - Initially all PlanRowMarks have rti == prti and isParent == false before inheritance processing

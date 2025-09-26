@@ -21,9 +21,9 @@ The function allocates memory for the enumeration state structure, determines th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_tzenum (structure type for enumeration state)
+  - [pg_tzenum](pg_tzenum.md) (structure type for enumeration state)
   - [pg_TZDIR](pg_TZDIR.md) (function to get timezone data directory path)
-  - AllocateDir (PostgreSQL directory allocation function)
+  - [AllocateDir](../A/AllocateDir.md) (PostgreSQL directory allocation function)
   - [palloc0](palloc0.md) (PostgreSQL memory allocation with zero initialization)
   - [pstrdup](pstrdup.md) (PostgreSQL string duplication)
   - ereport/ERROR (error reporting for directory access failures)

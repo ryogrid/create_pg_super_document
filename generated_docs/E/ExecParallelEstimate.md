@@ -28,23 +28,23 @@ The function operates as a tree walker, recursively processing all nodes in the 
 ## Dependencies
 - Functions called/Symbols referenced:
   - nodeTag
-  - ExecSeqScanEstimate
-  - ExecIndexScanEstimate  
-  - ExecIndexOnlyScanEstimate
-  - ExecForeignScanEstimate
-  - ExecAppendEstimate
-  - ExecCustomScanEstimate
-  - ExecBitmapHeapEstimate
-  - ExecHashJoinEstimate
-  - ExecHashEstimate
-  - ExecSortEstimate
-  - ExecIncrementalSortEstimate
-  - ExecAggEstimate
-  - ExecMemoizeEstimate
+  - [ExecSeqScanEstimate](ExecSeqScanEstimate.md)
+  - [ExecIndexScanEstimate](ExecIndexScanEstimate.md)  
+  - [ExecIndexOnlyScanEstimate](ExecIndexOnlyScanEstimate.md)
+  - [ExecForeignScanEstimate](ExecForeignScanEstimate.md)
+  - [ExecAppendEstimate](ExecAppendEstimate.md)
+  - [ExecCustomScanEstimate](ExecCustomScanEstimate.md)
+  - [ExecBitmapHeapEstimate](ExecBitmapHeapEstimate.md)
+  - [ExecHashJoinEstimate](ExecHashJoinEstimate.md)
+  - [ExecHashEstimate](ExecHashEstimate.md)
+  - [ExecSortEstimate](ExecSortEstimate.md)
+  - [ExecIncrementalSortEstimate](ExecIncrementalSortEstimate.md)
+  - [ExecAggEstimate](ExecAggEstimate.md)
+  - [ExecMemoizeEstimate](ExecMemoizeEstimate.md)
   - planstate_tree_walker
 - Called from:
-  - ExecInitParallelPlan
-  - ExecParallelEstimate (recursive)
+  - [ExecInitParallelPlan](ExecInitParallelPlan.md)
+  - [ExecParallelEstimate](ExecParallelEstimate.md) (recursive)
 
 ## Notes and Other Information
 - The function is designed to work with PostgreSQL's parallel query execution framework

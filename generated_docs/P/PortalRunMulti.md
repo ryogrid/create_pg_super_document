@@ -29,18 +29,18 @@ PortalRunMulti is the most comprehensive portal execution function, designed to 
 ## Dependencies
 - Functions called/Symbols referenced:
   - CHECK_FOR_INTERRUPTS
-  - ResetUsage
-  - GetTransactionSnapshot
-  - RegisterSnapshot
-  - PushCopiedSnapshot
-  - UpdateActiveSnapshotCommandId
+  - [ResetUsage](../R/ResetUsage.md)
+  - [GetTransactionSnapshot](../G/GetTransactionSnapshot.md)
+  - [RegisterSnapshot](../R/RegisterSnapshot.md)
+  - [PushCopiedSnapshot](PushCopiedSnapshot.md)
+  - [UpdateActiveSnapshotCommandId](../U/UpdateActiveSnapshotCommandId.md)
   - [ProcessQuery](ProcessQuery.md)
-  - ShowUsage
+  - [ShowUsage](../S/ShowUsage.md)
   - [PortalRunUtility](PortalRunUtility.md)
   - [MemoryContextDeleteChildren](../M/MemoryContextDeleteChildren.md)
-  - CommandCounterIncrement
-  - PopActiveSnapshot
-  - CopyQueryCompletion
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md)
+  - [PopActiveSnapshot](PopActiveSnapshot.md)
+  - [CopyQueryCompletion](../C/CopyQueryCompletion.md)
 - Called from (representative examples):
   - [PortalRun](PortalRun.md)
   - [FillPortalStore](../F/FillPortalStore.md)

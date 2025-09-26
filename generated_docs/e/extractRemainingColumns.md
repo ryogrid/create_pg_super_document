@@ -47,7 +47,7 @@ The function is designed to handle wide tables efficiently by using bitmapset op
   - [bms_add_member](../b/bms_add_member.md)
   - lfirst_int
   - [bms_is_member](../b/bms_is_member.md)
-  - lappend_int
+  - [lappend_int](../l/lappend_int.md)
   - [buildVarFromNSColumn](../b/buildVarFromNSColumn.md)
 - Called from (representative examples):
   - [transformFromClauseItem](../t/transformFromClauseItem.md) (multiple locations)

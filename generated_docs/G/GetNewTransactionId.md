@@ -25,19 +25,19 @@ The function implements a multi-layered protection system:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsInParallelMode
+  - [IsInParallelMode](../I/IsInParallelMode.md)
   - IsBootstrapProcessingMode
-  - RecoveryInProgress
+  - [RecoveryInProgress](../R/RecoveryInProgress.md)
   - XidFromFullTransactionId
-  - TransactionIdFollowsOrEquals
-  - ExtendCLOG
-  - ExtendCommitTs
-  - ExtendSUBTRANS
-  - FullTransactionIdAdvance
-  - SendPostmasterSignal
-  - get_database_name
+  - [TransactionIdFollowsOrEquals](../T/TransactionIdFollowsOrEquals.md)
+  - [ExtendCLOG](../E/ExtendCLOG.md)
+  - [ExtendCommitTs](../E/ExtendCommitTs.md)
+  - [ExtendSUBTRANS](../E/ExtendSUBTRANS.md)
+  - [FullTransactionIdAdvance](../F/FullTransactionIdAdvance.md)
+  - [SendPostmasterSignal](../S/SendPostmasterSignal.md)
+  - [get_database_name](../g/get_database_name.md)
 - Called from (representative examples):
-  - AssignTransactionId
+  - [AssignTransactionId](../A/AssignTransactionId.md)
 
 ## Notes and Other Information
 - Located in src/backend/access/transam/varsup.c:77-287

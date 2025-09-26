@@ -24,11 +24,11 @@ Like PredicateLockExists, this function may return false negatives due to the lo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetParentPredicateLockTag
-  - PredicateLockExists
+  - [GetParentPredicateLockTag](../G/GetParentPredicateLockTag.md)
+  - [PredicateLockExists](../P/PredicateLockExists.md)
 - Called from (representative examples):
-  - SerialControl
-  - PredicateLockAcquire
+  - [SerialControl](../S/SerialControl.md)
+  - [PredicateLockAcquire](../P/PredicateLockAcquire.md)
 
 ## Notes and Other Information
 - Static function, only accessible within predicate.c

@@ -33,14 +33,14 @@ SharedTuplestore serves as the central coordination structure for PostgreSQL sha
 ## Dependencies
 - Functions called/Symbols referenced:
   - NAMEDATALEN (constant defining maximum length for database object names)
-  - SharedTuplestoreParticipant (structure for per-participant state)
+  - [SharedTuplestoreParticipant](SharedTuplestoreParticipant.md) (structure for per-participant state)
   - FLEXIBLE_ARRAY_MEMBER (macro for flexible array member declaration)
 
 - Called from (representative examples):
-  - SharedTuplestoreAccessor (structure that provides access interface to tuple store)
-  - sts_estimate (function that calculates memory requirements)
-  - sts_initialize (function that initializes a new shared tuple store)
-  - sts_attach (function that attaches a process to existing tuple store)
+  - [SharedTuplestoreAccessor](SharedTuplestoreAccessor.md) (structure that provides access interface to tuple store)
+  - [sts_estimate](../s/sts_estimate.md) (function that calculates memory requirements)
+  - [sts_initialize](../s/sts_initialize.md) (function that initializes a new shared tuple store)
+  - [sts_attach](../s/sts_attach.md) (function that attaches a process to existing tuple store)
   - ParallelHashJoinBatchInner/Outer (hash join batch structures that use shared tuple stores)
   - SHARED_TUPLESTORE_SINGLE_PASS (flag constant for single-pass operation mode)
 

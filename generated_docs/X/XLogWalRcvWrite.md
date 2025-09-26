@@ -34,7 +34,7 @@ Key operations include:
   - XLByteToSeg
   - [XLogFileInit](XLogFileInit.md)
   - XLogSegmentOffset
-  - pg_pwrite
+  - [pg_pwrite](../p/pg_pwrite.md)
   - [XLogFileName](XLogFileName.md)
   - [pg_atomic_write_u64](../p/pg_atomic_write_u64.md)
 - Called from (representative examples):

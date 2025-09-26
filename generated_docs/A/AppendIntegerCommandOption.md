@@ -27,6 +27,6 @@ This function provides a convenient way to append command options that take inte
   - [BaseBackup](../B/BaseBackup.md) (multiple calls in pg_basebackup.c)
 
 ## Notes and Other Information
-- Integer values are appended directly without any escaping or quoting since they cannot contain special characters
+- [Integer](../I/Integer.md) values are appended directly without any escaping or quoting since they cannot contain special characters
 - Uses int32 type for consistency with PostgreSQL's integer handling
 - Part of the pg_basebackup utility's command construction infrastructure alongside AppendStringCommandOption and AppendPlainCommandOption

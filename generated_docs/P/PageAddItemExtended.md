@@ -29,13 +29,13 @@ PageAddItemExtended is the core function for adding items to PostgreSQL pages. I
 ## Dependencies
 - Functions called/Symbols referenced:
   - PageHeader (page header type)
-  - PageGetMaxOffsetNumber (gets highest used offset)
+  - [PageGetMaxOffsetNumber](PageGetMaxOffsetNumber.md) (gets highest used offset)
   - OffsetNumberNext (calculates next offset number)
   - OffsetNumberIsValid (validates offset numbers)
-  - PageGetItemId (retrieves line pointer)
+  - [PageGetItemId](PageGetItemId.md) (retrieves line pointer)
   - ItemIdIsUsed, ItemIdHasStorage (item status checks)
-  - PageHasFreeLinePointers (checks for available line pointers)
-  - PageClearHasFreeLinePointers (clears free pointer hint)
+  - [PageHasFreeLinePointers](PageHasFreeLinePointers.md) (checks for available line pointers)
+  - [PageClearHasFreeLinePointers](PageClearHasFreeLinePointers.md) (clears free pointer hint)
   - ItemIdSetNormal (sets line pointer values)
   - MAXALIGN (alignment macro)
   - VALGRIND_CHECK_MEM_IS_DEFINED (memory validation)

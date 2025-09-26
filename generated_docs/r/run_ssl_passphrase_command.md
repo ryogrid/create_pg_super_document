@@ -22,13 +22,13 @@ This function executes the external command specified by the `ssl_passphrase_com
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - replace_percent_placeholders
-  - OpenPipeStream
-  - ClosePipeStream
-  - explicit_bzero
-  - wait_result_to_str
+  - [replace_percent_placeholders](replace_percent_placeholders.md)
+  - [OpenPipeStream](../O/OpenPipeStream.md)
+  - [ClosePipeStream](../C/ClosePipeStream.md)
+  - [explicit_bzero](../e/explicit_bzero.md)
+  - [wait_result_to_str](../w/wait_result_to_str.md)
   - [errdetail_internal](../e/errdetail_internal.md)
-  - pg_strip_crlf
+  - [pg_strip_crlf](../p/pg_strip_crlf.md)
 - Called from (representative examples):
   - [ssl_external_passwd_cb](../s/ssl_external_passwd_cb.md)
 

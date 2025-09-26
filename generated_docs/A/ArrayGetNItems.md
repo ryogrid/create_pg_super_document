@@ -24,18 +24,18 @@ The function is widely used throughout PostgreSQL's array handling code for memo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ArrayGetNItemsSafe
+  - [ArrayGetNItemsSafe](ArrayGetNItemsSafe.md)
 - Called from (representative examples):
-  - ExecEvalArrayExpr
-  - ExecEvalScalarArrayOp  
-  - array_cat
-  - array_out
-  - array_recv
-  - array_send
-  - construct_md_array
-  - deconstruct_array
-  - array_eq
-  - array_cmp
+  - [ExecEvalArrayExpr](../E/ExecEvalArrayExpr.md)
+  - [ExecEvalScalarArrayOp](../E/ExecEvalScalarArrayOp.md)  
+  - [array_cat](../a/array_cat.md)
+  - [array_out](../a/array_out.md)
+  - [array_recv](../a/array_recv.md)
+  - [array_send](../a/array_send.md)
+  - [construct_md_array](../c/construct_md_array.md)
+  - [deconstruct_array](../d/deconstruct_array.md)
+  - [array_eq](../a/array_eq.md)
+  - [array_cmp](../a/array_cmp.md)
 
 ## Notes and Other Information
 - Wrapper around ArrayGetNItemsSafe that throws exceptions on overflow rather than returning errors

@@ -27,7 +27,7 @@ This core utility function handles the complex formatting of function arguments 
   - [SysCacheGetAttr](../S/SysCacheGetAttr.md)
   - TextDatumGetCString
   - [stringToNode](../s/stringToNode.md)
-  - list_head
+  - [list_head](../l/list_head.md)
   - PROKIND_AGGREGATE
   - Form_pg_aggregate
   - AGGKIND_IS_ORDERED_SET
@@ -37,7 +37,7 @@ This core utility function handles the complex formatting of function arguments 
   - [lnext](../l/lnext.md)
   - [deparse_expression](../d/deparse_expression.md)
 - Called from (representative examples):
-  - NameHashEntry
+  - [NameHashEntry](../N/NameHashEntry.md)
   - [pg_get_functiondef](pg_get_functiondef.md)
   - [pg_get_function_arguments](pg_get_function_arguments.md)
   - [pg_get_function_identity_arguments](pg_get_function_identity_arguments.md)

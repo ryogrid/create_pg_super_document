@@ -22,8 +22,8 @@ This static function constructs a FuncExpr that represents an array concatenatio
 - Functions called/Symbols referenced:
   - makeNode (to create ArrayExpr)
   - list_make1 (to create single-element list)
-  - makeFuncExpr (to create function call expression)
-  - makeVar (to create variable reference for existing path)
+  - [makeFuncExpr](makeFuncExpr.md) (to create function call expression)
+  - [makeVar](makeVar.md) (to create variable reference for existing path)
   - list_make2 (to create two-element argument list)
 - Called from:
   - [rewriteSearchAndCycle](../r/rewriteSearchAndCycle.md) (at lines 535 and 581)

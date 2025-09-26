@@ -35,11 +35,11 @@ Key characteristics:
 ## Dependencies
 - Functions called/Symbols referenced:
   - rmdir: System call to remove empty directories
-  - PathNameDeleteTemporaryFile: PostgreSQL function for file deletion with additional reporting
-  - errcode_for_file_access: Error code generation for file access errors
+  - [PathNameDeleteTemporaryFile](../P/PathNameDeleteTemporaryFile.md): PostgreSQL function for file deletion with additional reporting
+  - [errcode_for_file_access](../e/errcode_for_file_access.md): Error code generation for file access errors
   - ereport: Error reporting function
 - Called from (representative examples):
-  - PathNameDeleteTemporaryDir: During temporary directory cleanup operations
+  - [PathNameDeleteTemporaryDir](../P/PathNameDeleteTemporaryDir.md): During temporary directory cleanup operations
 
 ## Notes and Other Information
 - Part of PostgreSQL's temporary file and directory management system

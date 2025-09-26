@@ -35,7 +35,7 @@ This verification prevents data loss during binary upgrades by ensuring replicat
   - [ReplicationSlotAcquire](../R/ReplicationSlotAcquire.md)
   - SlotIsLogical
   - [GetFlushRecPtr](../G/GetFlushRecPtr.md)
-  - LogicalReplicationSlotHasPendingWal
+  - [LogicalReplicationSlotHasPendingWal](../L/LogicalReplicationSlotHasPendingWal.md)
   - [ReplicationSlotRelease](../R/ReplicationSlotRelease.md)
   - PG_RETURN_BOOL
 - Called from (representative examples):

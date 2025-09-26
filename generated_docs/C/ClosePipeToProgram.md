@@ -21,13 +21,13 @@ When the program fails, it provides both a user-friendly error message indicatin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ClosePipeStream (closes the pipe and returns exit status)
+  - [ClosePipeStream](ClosePipeStream.md) (closes the pipe and returns exit status)
   - ereport (error reporting function)
   - [errcode_for_file_access](../e/errcode_for_file_access.md) (error code for file access errors)
   - [errcode](../e/errcode.md) (generic error code function)
   - [errmsg](../e/errmsg.md) (error message formatting)
   - [errdetail_internal](../e/errdetail_internal.md) (internal error details)
-  - wait_result_to_str (converts wait status to string representation)
+  - [wait_result_to_str](../w/wait_result_to_str.md) (converts wait status to string representation)
 - Called from (representative examples):
   - DR_copy
   - [CopySendEndOfRow](CopySendEndOfRow.md)

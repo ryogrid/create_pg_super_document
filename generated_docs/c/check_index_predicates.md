@@ -32,7 +32,7 @@ The function constructs a comprehensive list of available clauses including rest
   - [list_copy](../l/list_copy.md)
   - [join_clause_is_movable_to](../j/join_clause_is_movable_to.md)
   - [bms_difference](../b/bms_difference.md)
-  - find_childrel_parents
+  - [find_childrel_parents](../f/find_childrel_parents.md)
   - [bms_del_members](../b/bms_del_members.md)
   - bms_is_empty
   - [list_concat](../l/list_concat.md)

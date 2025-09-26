@@ -26,7 +26,7 @@ The `view_reloptions` function is a specialized option parser for PostgreSQL vie
   - RELOPT_TYPE_BOOL (constant)
   - RELOPT_TYPE_ENUM (constant) 
   - RELOPT_KIND_VIEW (constant)
-  - ViewOptions (structure)
+  - [ViewOptions](../V/ViewOptions.md) (structure)
   - lengthof (macro)
 - Called from (representative examples):
   - [extractRelOptions](../e/extractRelOptions.md)

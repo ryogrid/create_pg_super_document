@@ -25,10 +25,10 @@ This function provides an O(1) method to add elements to a binary heap when the 
   - elog (backend error function)
 - Called from (representative examples):
   - [gather_merge_init](../g/gather_merge_init.md) (in src/backend/executor/nodeGatherMerge.c)
-  - ExecMergeAppend (in src/backend/executor/nodeMergeAppend.c)
+  - [ExecMergeAppend](../E/ExecMergeAppend.md) (in src/backend/executor/nodeMergeAppend.c)
   - [pgarch_readyXlog](../p/pgarch_readyXlog.md) (in src/backend/postmaster/pgarch.c)
   - [ReorderBufferIterTXNInit](../R/ReorderBufferIterTXNInit.md) (in src/backend/replication/logical/reorderbuffer.c)
-  - BufferSync (in src/backend/storage/buffer/bufmgr.c)
+  - [BufferSync](../B/BufferSync.md) (in src/backend/storage/buffer/bufmgr.c)
   - [TopoSort](../T/TopoSort.md) (in src/bin/pg_dump/pg_dump_sort.c)
 
 ## Notes and Other Information

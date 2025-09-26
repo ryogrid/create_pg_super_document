@@ -25,8 +25,8 @@ The function provides no memory barrier semantics and includes pointer alignment
 - Called from (representative examples):
   - [ZeroAndLockBuffer](../Z/ZeroAndLockBuffer.md) (buffer initialization)
   - [WaitReadBuffers](../W/WaitReadBuffers.md) (buffer read operations)
-  - LocalBufferAlloc (local buffer allocation)
-  - ExtendBufferedRelLocal (local buffer extension)
+  - [LocalBufferAlloc](../L/LocalBufferAlloc.md) (local buffer allocation)
+  - [ExtendBufferedRelLocal](../E/ExtendBufferedRelLocal.md) (local buffer extension)
   - [FlushRelationBuffers](../F/FlushRelationBuffers.md) (buffer flushing operations)
 
 ## Notes and Other Information

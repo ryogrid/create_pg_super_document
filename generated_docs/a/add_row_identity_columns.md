@@ -24,7 +24,7 @@ The function ensures that the executor has the necessary information to locate a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeVar: Creates Var nodes for ctid and wholerow variables
+  - [makeVar](../m/makeVar.md): Creates Var nodes for ctid and wholerow variables
   - [add_row_identity_var](add_row_identity_var.md): Registers the created row identity variables
   - [GetFdwRoutineForRelation](../G/GetFdwRoutineForRelation.md): Retrieves FDW routines for foreign tables
   - SelfItemPointerAttributeNumber: System attribute number for ctid

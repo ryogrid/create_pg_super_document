@@ -30,7 +30,7 @@ The function examines both incoming and outgoing foreign key relationships and e
 - Functions called/Symbols referenced:
   - RelationGetRelationName
   - [GetRelationPublications](../G/GetRelationPublications.md)
-  - table_open
+  - [table_open](../t/table_open.md)
   - [ScanKeyInit](../S/ScanKeyInit.md)
   - [systable_beginscan](../s/systable_beginscan.md)
   - [systable_getnext](../s/systable_getnext.md)
@@ -38,7 +38,7 @@ The function examines both incoming and outgoing foreign key relationships and e
   - RelationIsPermanent
   - [relation_close](../r/relation_close.md)
   - [systable_endscan](../s/systable_endscan.md)
-  - table_close
+  - [table_close](../t/table_close.md)
 
 - Called from (representative examples):
   - [ATPrepCmd](ATPrepCmd.md) (ALTER TABLE command preparation phase)

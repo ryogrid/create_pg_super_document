@@ -24,9 +24,9 @@ NamespaceCreate is the core function responsible for creating new namespaces (sc
 - Functions called/Symbols referenced:
   - SearchSysCacheExists1: Check for existing namespace with the same name
   - [get_user_default_acl](../g/get_user_default_acl.md): Retrieve default ACL for the schema owner (skipped for temp schemas)
-  - table_open: Open the pg_namespace catalog for modification
+  - [table_open](../t/table_open.md): Open the pg_namespace catalog for modification
   - [GetNewOidWithIndex](../G/GetNewOidWithIndex.md): Generate a unique OID for the new namespace
-  - namestrcpy: Copy the namespace name into a NameData structure
+  - [namestrcpy](../n/namestrcpy.md): Copy the namespace name into a NameData structure
   - [heap_form_tuple](../h/heap_form_tuple.md): Create the catalog tuple for insertion
   - [CatalogTupleInsert](../C/CatalogTupleInsert.md): Insert the new namespace tuple into pg_namespace
   - [recordDependencyOnOwner](../r/recordDependencyOnOwner.md): Record ownership dependency

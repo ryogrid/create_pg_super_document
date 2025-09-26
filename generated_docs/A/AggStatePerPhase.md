@@ -44,12 +44,12 @@ AggStatePerPhase manages the execution state for individual phases within Postgr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AggStatePerPhaseData
+  - [AggStatePerPhaseData](AggStatePerPhaseData.md)
   - AggStrategy
   - [Bitmapset](../B/Bitmapset.md)
-  - ExprState
-  - Agg
-  - Sort
+  - [ExprState](../E/ExprState.md)
+  - [Agg](Agg.md)
+  - [Sort](../S/Sort.md)
 - Called from (representative examples):
   - [ExecBuildAggTrans](../E/ExecBuildAggTrans.md)
   - [hashagg_recompile_expressions](../h/hashagg_recompile_expressions.md)

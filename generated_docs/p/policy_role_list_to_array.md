@@ -26,12 +26,12 @@ The function allocates memory for the result array and populates it with ObjectI
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_length (list utility function)
+  - [list_length](../l/list_length.md) (list utility function)
   - [palloc](palloc.md) (PostgreSQL memory allocation)
   - lfirst (list cell access macro)
   - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) (OID to Datum conversion)
   - ereport (error/warning reporting)
-  - get_rolespec_oid (role specification to OID resolution)
+  - [get_rolespec_oid](../g/get_rolespec_oid.md) (role specification to OID resolution)
   - ACL_ID_PUBLIC (public role constant)
   - ROLESPEC_PUBLIC (public role type constant)
 

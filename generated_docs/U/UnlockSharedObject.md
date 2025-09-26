@@ -25,7 +25,7 @@ This function releases a lock that was previously acquired on a shared database 
   - SET_LOCKTAG_OBJECT
   - [LockRelease](../L/LockRelease.md)
 - Types used:
-  - LOCKTAG
+  - [LOCKTAG](../L/LOCKTAG.md)
 - Called from (representative examples):
   - [get_object_address](../g/get_object_address.md)
   - [AddSubscriptionRelState](../A/AddSubscriptionRelState.md)

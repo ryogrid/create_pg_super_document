@@ -19,8 +19,8 @@ None - this function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PgStatShared_Archiver
-  - PgStat_ArchiverStats
+  - [PgStatShared_Archiver](../P/PgStatShared_Archiver.md)
+  - [PgStat_ArchiverStats](../P/PgStat_ArchiverStats.md)
   - [pgstat_copy_changecounted_stats](pgstat_copy_changecounted_stats.md)
   - LW_SHARED
 - Called from (representative examples):

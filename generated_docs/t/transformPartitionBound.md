@@ -24,9 +24,9 @@ The transformation process includes type checking, expression parsing, and ensur
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RelationGetPartitionKey](../R/RelationGetPartitionKey.md)
-  - get_partition_strategy
-  - get_partition_natts
-  - get_partition_exprs
+  - [get_partition_strategy](../g/get_partition_strategy.md)
+  - [get_partition_natts](../g/get_partition_natts.md)
+  - [get_partition_exprs](../g/get_partition_exprs.md)
   - copyObject
   - ereport
   - [errcode](../e/errcode.md)
@@ -36,22 +36,22 @@ The transformation process includes type checking, expression parsing, and ensur
   - [get_attname](../g/get_attname.md)
   - [deparse_expression](../d/deparse_expression.md)
   - [deparse_context_for](../d/deparse_context_for.md)
-  - get_partition_col_typid
-  - get_partition_col_typmod
-  - get_partition_col_collation
+  - [get_partition_col_typid](../g/get_partition_col_typid.md)
+  - [get_partition_col_typmod](../g/get_partition_col_typmod.md)
+  - [get_partition_col_collation](../g/get_partition_col_collation.md)
   - [transformPartitionBoundValue](transformPartitionBoundValue.md)
   - [transformPartitionRangeBounds](transformPartitionRangeBounds.md)
   - [equal](../e/equal.md)
-  - lappend
+  - [lappend](../l/lappend.md)
   - elog
 - Called from (representative examples):
   - [DefineRelation](../D/DefineRelation.md) (in src/backend/commands/tablecmds.c:1108)
   - [transformPartitionCmd](transformPartitionCmd.md) (in src/backend/parser/parse_utilcmd.c:3942)
 
 ## Notes and Other Information
-- Hash partitioning does not support default partitions and will generate an error if attempted
+- [Hash](../H/Hash.md) partitioning does not support default partitions and will generate an error if attempted
 - For list partitioning, duplicate values are automatically removed from the specification
-- Range partitioning requires exact match between the number of bounds and partition key attributes
+- [Range](../R/Range.md) partitioning requires exact match between the number of bounds and partition key attributes
 - The function preserves the original input by creating a copy using copyObject
 - Validates that modulus values for hash partitioning are positive and remainder values are less than modulus
 - For expression-based partitioning columns, uses deparse_expression to generate readable column names for error messages

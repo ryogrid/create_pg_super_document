@@ -25,12 +25,12 @@ The test ensures that the leftmost operation correctly traverses to the leftmost
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - create_int_rbtree: Creates a new integer Red-Black Tree
-  - rbt_leftmost: Returns the leftmost (minimum) node in the tree
-  - rbt_populate: Populates tree with consecutive natural numbers
+  - [create_int_rbtree](../c/create_int_rbtree.md): Creates a new integer Red-Black Tree
+  - [rbt_leftmost](../r/rbt_leftmost.md): Returns the leftmost (minimum) node in the tree
+  - [rbt_populate](../r/rbt_populate.md): Populates tree with consecutive natural numbers
   - elog: Reports test failures with ERROR level
 - Called from (representative examples):
-  - test_rb_tree: Main test function that orchestrates all Red-Black Tree tests
+  - [test_rb_tree](test_rb_tree.md): Main test function that orchestrates all Red-Black Tree tests
 
 ## Notes and Other Information
 - Uses IntRBTreeNode structure for test data with integer keys

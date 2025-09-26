@@ -103,7 +103,7 @@ This structure implements the complete in-memory representation of a replication
   - [LWLock](../L/LWLock.md) (for I/O coordination)
   - ConditionVariable (for process signaling)
 - Called from (representative examples):
-  - CreateDecodingContext
+  - [CreateDecodingContext](../C/CreateDecodingContext.md)
   - [ReplicationSlotCreate](ReplicationSlotCreate.md)
   - [ReplicationSlotAcquire](ReplicationSlotAcquire.md)
   - [ReplicationSlotRelease](ReplicationSlotRelease.md)

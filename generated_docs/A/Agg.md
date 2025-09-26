@@ -66,25 +66,25 @@ The Agg node is PostgreSQL's primary mechanism for implementing aggregate functi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Plan (base structure)
+  - [Plan](../P/Plan.md) (base structure)
   - AggStrategy (aggregation strategy enum)
   - AggSplit (aggregate splitting mode enum)
   - AttrNumber
   - Oid
-  - Bitmapset
-  - List
+  - [Bitmapset](../B/Bitmapset.md)
+  - [List](../L/List.md)
 
 - Called from (representative examples):
-  - ExecInitAgg (executor/nodeAgg.c:3173)
-  - create_agg_plan (optimizer/plan/createplan.c:2311)
-  - make_agg (optimizer/plan/createplan.c:6600)
-  - show_agg_keys (commands/explain.c:2610)
-  - create_groupingsets_plan (optimizer/plan/createplan.c:2395)
-  - agg_retrieve_direct (executor/nodeAgg.c:2196)
+  - [ExecInitAgg](../E/ExecInitAgg.md) (executor/nodeAgg.c:3173)
+  - [create_agg_plan](../c/create_agg_plan.md) (optimizer/plan/createplan.c:2311)
+  - [make_agg](../m/make_agg.md) (optimizer/plan/createplan.c:6600)
+  - [show_agg_keys](../s/show_agg_keys.md) (commands/explain.c:2610)
+  - [create_groupingsets_plan](../c/create_groupingsets_plan.md) (optimizer/plan/createplan.c:2395)
+  - [agg_retrieve_direct](../a/agg_retrieve_direct.md) (executor/nodeAgg.c:2196)
 
 ## Notes and Other Information
 - The Agg node can operate without any actual aggregate functions if they are optimized away by constant folding
-- Hash-based aggregation is generally more efficient for unsorted input, while sorted aggregation is preferred when input is already ordered
+- [Hash](../H/Hash.md)-based aggregation is generally more efficient for unsorted input, while sorted aggregation is preferred when input is already ordered
 - The node supports partial aggregation for parallel query execution where multiple workers perform initial aggregation before final combining
 - Grouping sets functionality allows for complex SQL features like ROLLUP, CUBE, and GROUPING SETS
 - Memory usage is carefully managed with work_mem limits, potentially spilling hash tables to disk when necessary

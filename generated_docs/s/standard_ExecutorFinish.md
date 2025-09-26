@@ -23,10 +23,10 @@ The function operates within the query's memory context and includes comprehensi
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
-  - InstrStartNode
+  - [InstrStartNode](../I/InstrStartNode.md)
   - [ExecPostprocessPlan](../E/ExecPostprocessPlan.md)
   - [AfterTriggerEndQuery](../A/AfterTriggerEndQuery.md)
-  - InstrStopNode
+  - [InstrStopNode](../I/InstrStopNode.md)
 - Called from (representative examples):
   - [ExecutorFinish](../E/ExecutorFinish.md)
 

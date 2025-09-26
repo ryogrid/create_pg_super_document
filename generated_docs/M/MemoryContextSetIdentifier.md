@@ -28,16 +28,16 @@ Setting the identifier to NULL will clear any existing identifier for the contex
   - MemoryContextIsValid (validation function)
   - ident (context member field)
 - Called from (representative examples):
-  - init_sql_fcache
-  - RE_compile_and_cache
-  - CreateCachedPlan
-  - CopyCachedPlan
-  - lookup_ts_dictionary_cache
-  - hash_create
-  - CreatePortal
-  - compile_plperl_function
-  - PLy_procedure_create
-  - compile_pltcl_function
+  - [init_sql_fcache](../i/init_sql_fcache.md)
+  - [RE_compile_and_cache](../R/RE_compile_and_cache.md)
+  - [CreateCachedPlan](../C/CreateCachedPlan.md)
+  - [CopyCachedPlan](../C/CopyCachedPlan.md)
+  - [lookup_ts_dictionary_cache](../l/lookup_ts_dictionary_cache.md)
+  - [hash_create](../h/hash_create.md)
+  - [CreatePortal](../C/CreatePortal.md)
+  - [compile_plperl_function](../c/compile_plperl_function.md)
+  - [PLy_procedure_create](../P/PLy_procedure_create.md)
+  - [compile_pltcl_function](../c/compile_pltcl_function.md)
 
 ## Notes and Other Information
 - The identifier string is optional and primarily used for debugging/monitoring

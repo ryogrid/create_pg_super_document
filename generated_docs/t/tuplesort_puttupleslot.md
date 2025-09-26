@@ -21,15 +21,15 @@ This function takes a tuple stored in a TupleTableSlot and prepares it for sorti
 ## Dependencies
 - Functions called/Symbols referenced:
   - TuplesortstateGetPublic
-  - ExecCopySlotMinimalTuple
+  - [ExecCopySlotMinimalTuple](../E/ExecCopySlotMinimalTuple.md)
   - [heap_getattr](../h/heap_getattr.md)
   - TupleSortUseBumpTupleCxt
-  - GetMemoryChunkSpace
-  - tuplesort_puttuple_common
+  - [GetMemoryChunkSpace](../G/GetMemoryChunkSpace.md)
+  - [tuplesort_puttuple_common](tuplesort_puttuple_common.md)
 - Called from (representative examples):
   - [ExecEvalAggOrderedTransTuple](../E/ExecEvalAggOrderedTransTuple.md)
   - [fetch_input_tuple](../f/fetch_input_tuple.md)
-  - ExecIncrementalSort
+  - [ExecIncrementalSort](../E/ExecIncrementalSort.md)
   - [ExecSort](../E/ExecSort.md)
   - [ordered_set_transition_multi](../o/ordered_set_transition_multi.md)
 

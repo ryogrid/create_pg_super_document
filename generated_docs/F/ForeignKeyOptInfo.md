@@ -76,14 +76,14 @@ The structure serves as a bridge between the foreign key constraint definition a
 ## Dependencies
 - Functions called/Symbols referenced:
   - INDEX_MAX_KEYS (constant for maximum key columns)
-  - EquivalenceClass (structure for equivalence classes)
-  - EquivalenceMember (structure for equivalence class members)
+  - [EquivalenceClass](../E/EquivalenceClass.md) (structure for equivalence classes)
+  - [EquivalenceMember](../E/EquivalenceMember.md) (structure for equivalence class members)
 
 - Called from (representative examples):
-  - get_foreign_key_join_selectivity (costsize.c:5558)
-  - match_eclasses_to_foreign_key_col (equivclass.c:2501)
-  - match_foreign_keys_to_quals (initsplan.c:3216)
-  - get_relation_foreign_keys (plancat.c:648, 663)
+  - [get_foreign_key_join_selectivity](../g/get_foreign_key_join_selectivity.md) (costsize.c:5558)
+  - [match_eclasses_to_foreign_key_col](../m/match_eclasses_to_foreign_key_col.md) (equivclass.c:2501)
+  - [match_foreign_keys_to_quals](../m/match_foreign_keys_to_quals.md) (initsplan.c:3216)
+  - [get_relation_foreign_keys](../g/get_relation_foreign_keys.md) (plancat.c:648, 663)
 
 ## Notes and Other Information
 - The structure uses fixed-size arrays limited by INDEX_MAX_KEYS, which is the maximum number of columns allowed in a foreign key constraint

@@ -25,12 +25,12 @@ The key difference from `is_member_of_role` is that superusers are not automatic
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `list_member_oid`: Searches for the target role in a list of roles
-  - `roles_is_member_of`: Recursively finds all roles that member belongs to
+  - `[list_member_oid](../l/list_member_oid.md)`: Searches for the target role in a list of roles
+  - `[roles_is_member_of](../r/roles_is_member_of.md)`: Recursively finds all roles that member belongs to
   - `ROLERECURSE_MEMBERS`: Constant controlling recursion behavior
 - Called from (representative examples):
-  - `AddRoleMems`: Role membership management in user commands
-  - `is_member`: HBA (Host-Based Authentication) membership checking
+  - `[AddRoleMems](../A/AddRoleMems.md)`: Role membership management in user commands
+  - `[is_member](is_member.md)`: HBA (Host-Based Authentication) membership checking
   - Various ACL-related functions for role validation
 
 ## Notes and Other Information

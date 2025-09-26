@@ -29,7 +29,7 @@ This function serves as the primary execution handler for PL/Python procedures a
   - [PLy_initialize](../P/PLy_initialize.md) (initialize PL/Python environment)
   - IsA (PostgreSQL type checking macro)
   - castNode (PostgreSQL type casting)
-  - SPI_connect_ext (establish SPI connection with options)
+  - [SPI_connect_ext](../S/SPI_connect_ext.md) (establish SPI connection with options)
   - elog (error logging)
   - [PLy_push_execution_context](../P/PLy_push_execution_context.md) (create execution context)
   - PG_TRY/PG_CATCH/PG_END_TRY (PostgreSQL exception handling)

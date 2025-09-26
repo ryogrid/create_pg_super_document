@@ -22,9 +22,9 @@ This function is primarily used for monitoring buffer strategy usage and for mak
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferAccessStrategy (type)
+  - [BufferAccessStrategy](../B/BufferAccessStrategy.md) (type)
 - Called from (representative examples):
-  - parallel_vacuum_init
+  - [parallel_vacuum_init](../p/parallel_vacuum_init.md)
   - RelationGetNumberOfBlocks
 
 ## Notes and Other Information

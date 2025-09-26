@@ -37,7 +37,7 @@ The function implements a field-based cache mechanism to optimize repeated looku
   - [FetchDynamicTimeZone](../F/FetchDynamicTimeZone.md) (dynamic timezone resolver)
   - datetkn (date token structure type)
   - [pg_tz](../p/pg_tz.md) (PostgreSQL timezone type)
-  - DateTimeErrorExtra (error information structure)
+  - [DateTimeErrorExtra](DateTimeErrorExtra.md) (error information structure)
   - TOKMAXLEN (maximum token length constant)
   - UNKNOWN_FIELD, DYNTZ (field type constants)
   - DTERR_BAD_ZONE_ABBREV (error constant)

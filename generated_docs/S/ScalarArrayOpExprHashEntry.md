@@ -38,6 +38,6 @@ The structure is used with PostgreSQL's simplehash.h hash table implementation, 
 ## Notes and Other Information
 - This structure is specifically designed for use with PostgreSQL's generic hash table implementation (lib/simplehash.h)
 - Only used in the EEOP_HASHED_SCALARARRAYOP execution path for optimized scalar-array operations
-- Hash table is built once per expression evaluation and reused for subsequent lookups within the same query execution
+- [Hash](../H/Hash.md) table is built once per expression evaluation and reused for subsequent lookups within the same query execution
 - The hash table excludes NULL values from the array - NULL handling is done separately in the evaluation logic
 - Memory for hash entries is allocated in the per-query memory context to persist across multiple evaluations of the same expression

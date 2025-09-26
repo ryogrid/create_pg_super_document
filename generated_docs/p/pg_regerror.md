@@ -39,7 +39,7 @@ The function uses a static table of error mappings (rerrs[]) that contains error
   - [RE_compile_and_cache](../R/RE_compile_and_cache.md)
   - [RE_wchar_execute](../R/RE_wchar_execute.md)
   - [regexp_fixed_prefix](../r/regexp_fixed_prefix.md)
-  - replace_text_regexp
+  - [replace_text_regexp](../r/replace_text_regexp.md)
   - [test_re_compile](../t/test_re_compile.md)
   - [test_re_execute](../t/test_re_execute.md)
 

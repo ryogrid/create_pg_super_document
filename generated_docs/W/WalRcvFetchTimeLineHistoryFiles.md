@@ -31,7 +31,7 @@ wtmp begins Sun Aug 20 19:22:10 2023: The ending timeline ID in the range to che
 - Functions called/Symbols referenced:
   - [existsTimeLineHistory](../e/existsTimeLineHistory.md)
   - walrcv_readtimelinehistoryfile
-  - TLHistoryFileName
+  - [TLHistoryFileName](../T/TLHistoryFileName.md)
   - [writeTimeLineHistoryFile](../w/writeTimeLineHistoryFile.md)
   - [XLogArchiveForceDone](../X/XLogArchiveForceDone.md), XLogArchiveNotify
   - ereport, errmsg, errmsg_internal

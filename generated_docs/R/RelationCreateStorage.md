@@ -29,7 +29,7 @@ RelationCreateStorage is responsible for creating the underlying disk file stora
   - [GetCurrentTransactionNestLevel](../G/GetCurrentTransactionNestLevel.md)
   - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
   - XLogIsNeeded
-  - IsInParallelMode
+  - [IsInParallelMode](../I/IsInParallelMode.md)
 - Called from (representative examples):
   - [heap_create](../h/heap_create.md)
   - [RelationSetNewRelfilenumber](RelationSetNewRelfilenumber.md)

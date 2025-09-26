@@ -31,7 +31,7 @@ The operation ensures that redirect cleanup during recovery maintains the same c
   - XLogRecGetData
   - [XLogRecGetBlockTag](../X/XLogRecGetBlockTag.md)
   - [ResolveRecoveryConflictWithSnapshot](../R/ResolveRecoveryConflictWithSnapshot.md)
-  - XLogReadBufferForRedo
+  - [XLogReadBufferForRedo](../X/XLogReadBufferForRedo.md)
   - SpGistPageGetOpaque
   - [PageGetItem](../P/PageGetItem.md)
   - [PageGetItemId](../P/PageGetItemId.md)
@@ -40,7 +40,7 @@ The operation ensures that redirect cleanup during recovery maintains the same c
   - [PageIndexMultiDelete](../P/PageIndexMultiDelete.md)
   - [BufferGetPage](../B/BufferGetPage.md)
   - [PageSetLSN](../P/PageSetLSN.md)
-  - MarkBufferDirty
+  - [MarkBufferDirty](../M/MarkBufferDirty.md)
   - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
 - Called from:
   - [spg_redo](spg_redo.md) (main SP-GiST redo dispatcher)

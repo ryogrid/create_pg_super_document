@@ -61,12 +61,12 @@ The Trigger struct is a fundamental data structure that encapsulates all metadat
 - Functions called/Symbols referenced:
   - Oid (PostgreSQL object identifier type)
 - Called from (representative examples):
-  - RelationBuildTriggers
-  - ExecBSInsertTriggers
-  - ExecBRInsertTriggers
-  - TriggerEnabled
-  - AfterTriggerSaveEvent
-  - ri_FetchConstraintInfo
+  - [RelationBuildTriggers](../R/RelationBuildTriggers.md)
+  - [ExecBSInsertTriggers](../E/ExecBSInsertTriggers.md)
+  - [ExecBRInsertTriggers](../E/ExecBRInsertTriggers.md)
+  - [TriggerEnabled](TriggerEnabled.md)
+  - [AfterTriggerSaveEvent](../A/AfterTriggerSaveEvent.md)
+  - [ri_FetchConstraintInfo](../r/ri_FetchConstraintInfo.md)
 
 ## Notes and Other Information
 This structure is intentionally separated from trigger.h to maintain clean header dependencies. The fields correspond directly to columns in the pg_trigger system catalog, making it easy to populate from catalog data. The structure supports PostgreSQL's comprehensive trigger system including row-level and statement-level triggers, constraint triggers, and transition tables for complex trigger logic. Memory management of string and array fields (tgname, tgargs, tgattr, etc.) must be handled carefully when copying or freeing Trigger instances.

@@ -38,7 +38,7 @@ This function is used in timezone processing to detect when timezone transitions
   - SECSPERREPEAT_BITS (constant: 34, ceiling of log2(SECSPERREPEAT))
   - SECSPERREPEAT (constant: approximately 400 years worth of seconds)
 - Called from (representative examples):
-  - tzloadbody (calls at lines 500, 508)
+  - [tzloadbody](../t/tzloadbody.md) (calls at lines 500, 508)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the localtime.c compilation unit

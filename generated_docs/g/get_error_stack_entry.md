@@ -24,7 +24,7 @@ The error stack mechanism allows PostgreSQL to handle errors that occur during e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ErrorData (struct type)
+  - [ErrorData](../E/ErrorData.md) (struct type)
   - ERRORDATA_STACK_SIZE (constant)
   - PANIC (error level constant)
   - memset (standard library function)

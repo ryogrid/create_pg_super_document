@@ -38,8 +38,8 @@ The cleanup process follows this sequence:
   - DsaPointerIsValid
   - [dsa_free](../d/dsa_free.md)
   - InvalidDsaPointer
-  - dsa_detach
-  - DestroyParallelContext
+  - [dsa_detach](../d/dsa_detach.md)
+  - [DestroyParallelContext](../D/DestroyParallelContext.md)
   - [pfree](../p/pfree.md)
 - Called from (representative examples):
   - [ExecShutdownGather](ExecShutdownGather.md)

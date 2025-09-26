@@ -21,7 +21,7 @@ This function creates and configures a hash table within the GiST build state th
 ## Dependencies
 - Functions called/Symbols referenced:
   - [hash_create](../h/hash_create.md)
-  - HASHCTL
+  - [HASHCTL](../H/HASHCTL.md)
   - ParentMapEntry
   - HASH_ELEM
   - HASH_BLOBS

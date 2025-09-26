@@ -31,13 +31,13 @@ This approach ensures that cleartext passwords never appear in server logs, pg_s
 ## Dependencies
 - Functions called/Symbols referenced:
   - PQencryptPasswordConn (client-side password encryption)
-  - PQescapeLiteral (SQL literal escaping for password)
-  - PQescapeIdentifier (SQL identifier escaping for username)
-  - PQexec (SQL statement execution)
-  - PQfreemem (memory management)
-  - initPQExpBuffer, printfPQExpBuffer, termPQExpBuffer (buffer management)
+  - [PQescapeLiteral](PQescapeLiteral.md) (SQL literal escaping for password)
+  - [PQescapeIdentifier](PQescapeIdentifier.md) (SQL identifier escaping for username)
+  - [PQexec](PQexec.md) (SQL statement execution)
+  - [PQfreemem](PQfreemem.md) (memory management)
+  - [initPQExpBuffer](../i/initPQExpBuffer.md), printfPQExpBuffer, termPQExpBuffer (buffer management)
 - Called from (representative examples):
-  - exec_command_password (psql password command implementation)
+  - [exec_command_password](../e/exec_command_password.md) (psql password command implementation)
 
 ## Notes and Other Information
 - Returns PGresult pointer that must be freed with PQclear() by caller

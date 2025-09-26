@@ -35,13 +35,13 @@ This function creates a specialized tuplesort state for cluster operations, whic
   - [CreateExecutorState](../C/CreateExecutorState.md)
   - [MakeSingleTupleTableSlot](../M/MakeSingleTupleTableSlot.md)
   - GetPerTupleExprContext
-  - removeabbrev_cluster
-  - comparetup_cluster
-  - comparetup_cluster_tiebreak
+  - [removeabbrev_cluster](../r/removeabbrev_cluster.md)
+  - [comparetup_cluster](../c/comparetup_cluster.md)
+  - [comparetup_cluster_tiebreak](../c/comparetup_cluster_tiebreak.md)
   - [writetup_cluster](../w/writetup_cluster.md)
   - [readtup_cluster](../r/readtup_cluster.md)
   - [freestate_cluster](../f/freestate_cluster.md)
-  - PrepareSortSupportFromIndexRel
+  - [PrepareSortSupportFromIndexRel](../P/PrepareSortSupportFromIndexRel.md)
 - Called from (representative examples):
   - [heapam_relation_copy_for_cluster](../h/heapam_relation_copy_for_cluster.md) (heapam_handler.c:731)
 

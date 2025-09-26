@@ -21,15 +21,15 @@ The function first calls PrepareTempTablespaces() to ensure temporary tablespace
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PrepareTempTablespaces (ensures temp tablespace setup)
-  - OpenTemporaryFile (creates the underlying temporary file)
-  - makeBufFile (wraps the File in a BufFile structure)
+  - [PrepareTempTablespaces](../P/PrepareTempTablespaces.md) (ensures temp tablespace setup)
+  - [OpenTemporaryFile](../O/OpenTemporaryFile.md) (creates the underlying temporary file)
+  - [makeBufFile](../m/makeBufFile.md) (wraps the File in a BufFile structure)
 - Called from (representative examples):
-  - gistInitBuildBuffers (GiST index building)
-  - InitializeBackupManifest (backup operations)
-  - ExecHashJoinSaveTuple (hash join execution)
-  - LogicalTapeSetCreate (sort operations)
-  - tuplestore_puttuple_common (tuple storage)
+  - [gistInitBuildBuffers](../g/gistInitBuildBuffers.md) (GiST index building)
+  - [InitializeBackupManifest](../I/InitializeBackupManifest.md) (backup operations)
+  - [ExecHashJoinSaveTuple](../E/ExecHashJoinSaveTuple.md) (hash join execution)
+  - [LogicalTapeSetCreate](../L/LogicalTapeSetCreate.md) (sort operations)
+  - [tuplestore_puttuple_common](../t/tuplestore_puttuple_common.md) (tuple storage)
 
 ## Notes and Other Information
 - This is a public function exported in buffile.h for use by other PostgreSQL modules

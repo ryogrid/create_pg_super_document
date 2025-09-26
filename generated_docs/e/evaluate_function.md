@@ -39,7 +39,7 @@ The function includes several safety checks to prevent simplification when inapp
   - Form_pg_proc (function catalog entry structure)
   - [makeNullConst](../m/makeNullConst.md) (creates NULL constant nodes)
   - PROVOLATILE_IMMUTABLE, PROVOLATILE_STABLE (volatility constants)
-  - FuncExpr (function expression node type)
+  - [FuncExpr](../F/FuncExpr.md) (function expression node type)
   - COERCE_EXPLICIT_CALL (coercion type constant)
   - [evaluate_expr](evaluate_expr.md) (actually evaluates the expression)
 - Called from:

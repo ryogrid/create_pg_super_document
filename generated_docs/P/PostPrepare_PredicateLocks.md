@@ -27,11 +27,11 @@ This approach allows the serializable transaction to remain visible for conflict
 ## Dependencies
 - Functions called/Symbols referenced:
   - SxactIsPrepared: Verifies the transaction is in prepared state
-  - hash_destroy: Destroys the LocalPredicateLockHash table
+  - [hash_destroy](../h/hash_destroy.md): Destroys the LocalPredicateLockHash table
   - INVALID_PROC_NUMBER: Constant for invalid process number
   - InvalidSerializableXact: Constant representing no serializable transaction
 - Called from (representative examples):
-  - PrepareTransaction: After successful transaction preparation
+  - [PrepareTransaction](PrepareTransaction.md): After successful transaction preparation
 
 ## Notes and Other Information
 - Only operates on serializable transactions (returns early if MySerializableXact is invalid)

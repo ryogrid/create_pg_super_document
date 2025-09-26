@@ -27,12 +27,12 @@ Note that this function does not account for open write buffers that may contain
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LogicalTapeSet (struct type)
+  - [LogicalTapeSet](LogicalTapeSet.md) (struct type)
 
 - Called from (representative examples):
-  - tuplesort_updatemax (in tuplesort.c:1005)
-  - tuplesort_free (in tuplesort.c:911)  
-  - hash_agg_update_metrics (in nodeAgg.c:1947)
+  - [tuplesort_updatemax](../t/tuplesort_updatemax.md) (in tuplesort.c:1005)
+  - [tuplesort_free](../t/tuplesort_free.md) (in tuplesort.c:911)  
+  - [hash_agg_update_metrics](../h/hash_agg_update_metrics.md) (in nodeAgg.c:1947)
 
 ## Notes and Other Information
 - The return value is in units of PostgreSQL blocks (BLCKSZ), not bytes

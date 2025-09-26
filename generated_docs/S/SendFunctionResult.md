@@ -23,15 +23,15 @@ SendFunctionResult is responsible for formatting and transmitting function call 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_beginmessage
+  - [pq_beginmessage](../p/pq_beginmessage.md)
   - PqMsg_FunctionCallResponse
   - [pq_sendint32](../p/pq_sendint32.md)
   - [getTypeOutputInfo](../g/getTypeOutputInfo.md)
   - [OidOutputFunctionCall](../O/OidOutputFunctionCall.md)
-  - pq_sendcountedtext
+  - [pq_sendcountedtext](../p/pq_sendcountedtext.md)
   - [getTypeBinaryOutputInfo](../g/getTypeBinaryOutputInfo.md)
   - [OidSendFunctionCall](../O/OidSendFunctionCall.md)
-  - pq_sendbytes
+  - [pq_sendbytes](../p/pq_sendbytes.md)
   - VARSIZE
   - VARDATA
   - [pq_endmessage](../p/pq_endmessage.md)

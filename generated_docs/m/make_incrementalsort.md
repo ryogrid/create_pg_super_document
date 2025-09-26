@@ -31,13 +31,13 @@ The IncrementalSort node extends the basic Sort functionality by tracking how ma
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to create the IncrementalSort node)
-  - IncrementalSort (plan node type)
+  - [IncrementalSort](../I/IncrementalSort.md) (plan node type)
 - Called from (representative examples):
   - [make_incrementalsort_from_pathkeys](make_incrementalsort_from_pathkeys.md) (src/backend/optimizer/plan/createplan.c:6403)
 
 ## Notes and Other Information
 - This is a static function within createplan.c, used internally by the planner
-- IncrementalSort is an optimization introduced in PostgreSQL 13 for handling partially sorted input
+- [IncrementalSort](../I/IncrementalSort.md) is an optimization introduced in PostgreSQL 13 for handling partially sorted input
 - The nPresortedCols parameter must be less than numCols and indicates how many leading columns are already in sorted order
 - The function accesses the Sort structure embedded within IncrementalSort via node->sort
 - Like make_sort, this function assumes the caller has prepared all sorting arrays correctly

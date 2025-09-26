@@ -27,7 +27,7 @@ The function allocates memory for the maximum possible compressed output size pl
   - [palloc](palloc.md) (PostgreSQL memory allocation)
   - PGLZ_MAX_OUTPUT (macro to calculate max compressed size)
   - VARHDRSZ_COMPRESSED (compressed varlena header size)
-  - pglz_compress (core PGLZ compression function)
+  - [pglz_compress](pglz_compress.md) (core PGLZ compression function)
   - VARDATA_ANY (macro to get data portion of varlena)
   - [pfree](pfree.md) (PostgreSQL memory deallocation)
   - SET_VARSIZE_COMPRESSED (macro to set compressed size header)

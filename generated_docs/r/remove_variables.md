@@ -27,12 +27,12 @@ This function is critical for maintaining proper scoping semantics and preventin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ECPGfree_type (frees ECPG type structures)
+  - [ECPGfree_type](../E/ECPGfree_type.md) (frees ECPG type structures)
   - free (C library function for memory deallocation)
   - allvariables (global variable list)
   - cur (global cursor list)
-  - cursor (cursor structure type)
-  - arguments (argument structure type)
+  - [cursor](../c/cursor.md) (cursor structure type)
+  - [arguments](../a/arguments.md) (argument structure type)
 
 - Called from (representative examples):
   - (No direct callers found in the current analysis, likely called during scope exit processing)

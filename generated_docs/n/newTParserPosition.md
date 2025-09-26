@@ -22,16 +22,16 @@ If a previous position is provided, the function copies all fields from the prev
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (memory allocation)
+  - [palloc](../p/palloc.md) (memory allocation)
   - memcpy (copying previous state)
   - memset (zero initialization)
-  - TParserPosition (structure type)
+  - [TParserPosition](../T/TParserPosition.md) (structure type)
 
 - Called from (representative examples):
-  - TParserInit
-  - TParserCopyInit
-  - p_isURLPath
-  - TParserGet
+  - [TParserInit](../T/TParserInit.md)
+  - [TParserCopyInit](../T/TParserCopyInit.md)
+  - [p_isURLPath](../p/p_isURLPath.md)
+  - [TParserGet](../T/TParserGet.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the wparser_def.c module

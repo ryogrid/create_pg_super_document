@@ -27,7 +27,7 @@ The magic constant 0xCCCCCCCCCCCCCCCD and the right shift by 2 bits are specific
   - [umulh](../u/umulh.md) (returns the high 64 bits of 128-bit multiplication)
 - Called from (representative examples):
   - [pow5Factor](../p/pow5Factor.md) (in src/common/d2s.c:81)
-  - d2d (in src/common/d2s.c:413)
+  - [d2d](d2d.md) (in src/common/d2s.c:413)
 
 ## Notes and Other Information
 - This function is part of the Ryu algorithm implementation for fast floating-point to string conversion

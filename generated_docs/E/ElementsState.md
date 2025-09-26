@@ -38,7 +38,7 @@ ElementsState serves as a context structure for PostgreSQL's JSON array elements
 ## Dependencies
 - Functions called/Symbols referenced:
   - [JsonLexContext](../J/JsonLexContext.md)
-  - Tuplestorestate
+  - [Tuplestorestate](../T/Tuplestorestate.md)
 - Called from (representative examples):
   - [elements_worker](../e/elements_worker.md)
   - [elements_array_element_start](../e/elements_array_element_start.md)

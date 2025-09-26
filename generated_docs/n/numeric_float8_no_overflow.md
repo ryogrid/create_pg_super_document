@@ -24,12 +24,12 @@ The `numeric_float8_no_overflow` function is an internal helper that converts a 
   - `NUMERIC_IS_SPECIAL`: Checks if the numeric value is special (NaN or infinity)
   - `NUMERIC_IS_PINF`: Checks for positive infinity
   - `NUMERIC_IS_NINF`: Checks for negative infinity
-  - `get_float8_nan`: Returns the IEEE 754 NaN value
+  - `[get_float8_nan](../g/get_float8_nan.md)`: Returns the IEEE 754 NaN value
   - [init_var_from_num](../i/init_var_from_num.md): Initializes a NumericVar from a Numeric value
   - [numericvar_to_double_no_overflow](numericvar_to_double_no_overflow.md): Converts NumericVar to double with overflow protection
   - `PG_RETURN_FLOAT8`: Returns the float8 result
 - Called from (representative examples):
-  - `convert_numeric_to_scalar`: Selectivity estimation functions
+  - `[convert_numeric_to_scalar](../c/convert_numeric_to_scalar.md)`: Selectivity estimation functions
   - `TextDatumGetCString`: Text conversion utilities
 
 ## Notes and Other Information

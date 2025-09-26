@@ -32,18 +32,18 @@ The function ensures that the selected buffer is returned with its header spinlo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetBufferFromRing
+  - [GetBufferFromRing](../G/GetBufferFromRing.md)
   - INT_ACCESS_ONCE
-  - SetLatch
-  - pg_atomic_fetch_add_u32
-  - GetBufferDescriptor
-  - LockBufHdr/UnlockBufHdr
+  - [SetLatch](SetLatch.md)
+  - [pg_atomic_fetch_add_u32](../p/pg_atomic_fetch_add_u32.md)
+  - [GetBufferDescriptor](../G/GetBufferDescriptor.md)
+  - [LockBufHdr](../L/LockBufHdr.md)/UnlockBufHdr
   - BUF_STATE_GET_REFCOUNT/BUF_STATE_GET_USAGECOUNT
-  - AddBufferToRing
-  - ClockSweepTick
+  - [AddBufferToRing](../A/AddBufferToRing.md)
+  - [ClockSweepTick](../C/ClockSweepTick.md)
 - Called from (representative examples):
-  - GetVictimBuffer
-  - ResourceOwnerForgetBufferIO
+  - [GetVictimBuffer](../G/GetVictimBuffer.md)
+  - [ResourceOwnerForgetBufferIO](../R/ResourceOwnerForgetBufferIO.md)
 
 ## Notes and Other Information
 - The function must return with the buffer header spinlock held to ensure atomicity

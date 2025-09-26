@@ -27,14 +27,14 @@ The function first checks for interrupts, then examines if an EPQ recheck is act
 ## Dependencies
 - Functions called/Symbols referenced:
   - CHECK_FOR_INTERRUPTS
-  - ExecClearTuple
+  - [ExecClearTuple](ExecClearTuple.md)
   - TupIsNull
   - [EvalPlanQualFetchRowMark](EvalPlanQualFetchRowMark.md)
 - Data structures used:
   - [ScanState](../S/ScanState.md)
   - [EPQState](EPQState.md)
-  - Scan
-  - TupleTableSlot
+  - [Scan](../S/Scan.md)
+  - [TupleTableSlot](../T/TupleTableSlot.md)
 - Called from:
   - [ExecScan](ExecScan.md) (main caller that orchestrates scan execution)
 

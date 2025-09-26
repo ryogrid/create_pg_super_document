@@ -26,7 +26,7 @@ Notably, the function does not destroy the DestReceiver itself, as that responsi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DestReceiver->rShutdown
+  - [DestReceiver](../D/DestReceiver.md)->rShutdown
   - [ExecDropSingleTupleTableSlot](../E/ExecDropSingleTupleTableSlot.md)
   - [pfree](../p/pfree.md)
 - Called from (representative examples):
@@ -36,8 +36,8 @@ Notably, the function does not destroy the DestReceiver itself, as that responsi
   - [ExecuteCallStmt](../E/ExecuteCallStmt.md) (functioncmds.c)
   - [IdentifySystem](../I/IdentifySystem.md) (walsender.c)
   - [CreateReplicationSlot](../C/CreateReplicationSlot.md) (walsender.c)
-  - ShowGUCConfigOption (guc_funcs.c)
-  - ShowAllGUCConfig (guc_funcs.c)
+  - [ShowGUCConfigOption](../S/ShowGUCConfigOption.md) (guc_funcs.c)
+  - [ShowAllGUCConfig](../S/ShowAllGUCConfig.md) (guc_funcs.c)
 
 ## Notes and Other Information
 - Should be called for every TupOutputState created with begin_tup_output_tupdesc to prevent resource leaks

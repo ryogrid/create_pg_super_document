@@ -24,8 +24,8 @@ Special handling is provided for binary upgrade scenarios and in-place tablespac
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - superuser: Checks if current user has superuser privileges
-  - get_rolespec_oid: Resolves role specification to OID
+  - [superuser](../s/superuser.md): Checks if current user has superuser privileges
+  - [get_rolespec_oid](../g/get_rolespec_oid.md): Resolves role specification to OID
   - [canonicalize_path](../c/canonicalize_path.md): Normalizes filesystem path
   - is_absolute_path: Validates path is absolute
   - [IsReservedName](../I/IsReservedName.md): Checks for reserved name patterns

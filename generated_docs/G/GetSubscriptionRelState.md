@@ -28,9 +28,9 @@ The function handles cases where the subscription-relation mapping doesn't exist
   - SUBREL_STATE_UNKNOWN
   - Form_pg_subscription_rel
   - [SysCacheGetAttr](../S/SysCacheGetAttr.md)
-  - DatumGetLSN
+  - [DatumGetLSN](../D/DatumGetLSN.md)
 - Called from (representative examples):
-  - logicalrep_rel_open
+  - [logicalrep_rel_open](../l/logicalrep_rel_open.md)
   - [wait_for_relation_state_change](../w/wait_for_relation_state_change.md)
   - [LogicalRepSyncTableStart](../L/LogicalRepSyncTableStart.md)
 

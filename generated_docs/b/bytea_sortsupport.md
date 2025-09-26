@@ -28,7 +28,7 @@ The function delegates the actual setup to varstr_sortsupport(), passing BYTEAOI
 - Called from (representative examples):
   - B-tree index creation and maintenance
   - ORDER BY clauses involving bytea columns
-  - Sort operations in query execution
+  - [Sort](../S/Sort.md) operations in query execution
 
 ## Notes and Other Information
 - Enables optimized sorting for bytea through PostgreSQL's SortSupport framework

@@ -30,8 +30,8 @@ This check serves as an early gate to prevent the postmaster from attempting to 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AllocateFile: Open file for reading with PostgreSQL's file management
-  - FreeFile: Close file opened with AllocateFile
+  - [AllocateFile](../A/AllocateFile.md): Open file for reading with PostgreSQL's file management
+  - [FreeFile](../F/FreeFile.md): Close file opened with AllocateFile
   - [write_stderr](../w/write_stderr.md): Output error message to standard error
   - [ExitPostmaster](../E/ExitPostmaster.md): Terminate postmaster process with specified exit code
   - PG_BINARY_R: Binary read mode constant for file operations

@@ -24,14 +24,14 @@ This function is essential for preventing relation cache reference leaks in logi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_close: PostgreSQL core function to close a table relation and release its lock
-  - LogicalRepRelMapEntry: Structure type representing the mapping between local and remote relations
+  - [table_close](../t/table_close.md): PostgreSQL core function to close a table relation and release its lock
+  - [LogicalRepRelMapEntry](../L/LogicalRepRelMapEntry.md): Structure type representing the mapping between local and remote relations
 - Called from (representative examples):
-  - copy_table: Table synchronization cleanup operations
-  - apply_handle_insert: Cleanup after processing INSERT operations
-  - apply_handle_update: Cleanup after processing UPDATE operations  
-  - apply_handle_delete: Cleanup after processing DELETE operations
-  - apply_handle_truncate: Cleanup after processing TRUNCATE operations
+  - [copy_table](../c/copy_table.md): Table synchronization cleanup operations
+  - [apply_handle_insert](../a/apply_handle_insert.md): Cleanup after processing INSERT operations
+  - [apply_handle_update](../a/apply_handle_update.md): Cleanup after processing UPDATE operations  
+  - [apply_handle_delete](../a/apply_handle_delete.md): Cleanup after processing DELETE operations
+  - [apply_handle_truncate](../a/apply_handle_truncate.md): Cleanup after processing TRUNCATE operations
 
 ## Notes and Other Information
 - This function should always be called to match every successful logicalrep_rel_open() call

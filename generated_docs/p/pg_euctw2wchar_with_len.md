@@ -33,7 +33,7 @@ The conversion preserves the multibyte structure by encoding different code sets
   - SS3 (Single Shift 3 control character constant)
   - IS_HIGHBIT_SET (macro to check if high bit is set in byte)
 - Called from (representative examples):
-  - pg_encoding_set_invalid (indirectly through encoding conversion tables)
+  - [pg_encoding_set_invalid](pg_encoding_set_invalid.md) (indirectly through encoding conversion tables)
 
 ## Notes and Other Information
 - Returns the number of wide characters produced (not including null terminator)

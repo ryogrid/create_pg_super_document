@@ -21,12 +21,12 @@ LogChildExit is a utility function that generates comprehensive log messages whe
 ## Dependencies
 - Functions called/Symbols referenced:
   - EXIT_STATUS_0
-  - pgstat_get_crashed_backend_activity
+  - [pgstat_get_crashed_backend_activity](../p/pgstat_get_crashed_backend_activity.md)
   - WIFEXITED
   - WEXITSTATUS
   - WIFSIGNALED
   - WTERMSIG
-  - pg_strsignal
+  - [pg_strsignal](../p/pg_strsignal.md)
   - ereport
   - [errmsg](../e/errmsg.md)
   - [errdetail](../e/errdetail.md)

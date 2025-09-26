@@ -28,13 +28,13 @@ The function uses PostgreSQL's memory chunk system (CHUNKHDRSZ) to account for m
 ## Dependencies
 - Functions called/Symbols referenced:
   - SizeofMinimalTupleHeader
-  - AggStatePerGroupData
+  - [AggStatePerGroupData](../A/AggStatePerGroupData.md)
   - CHUNKHDRSZ
   - [TupleHashEntryData](../T/TupleHashEntryData.md)
 - Called from (representative examples):
   - [ExecInitAgg](../E/ExecInitAgg.md)
   - [cost_agg](../c/cost_agg.md)
-  - estimate_hashagg_tablesize
+  - [estimate_hashagg_tablesize](../e/estimate_hashagg_tablesize.md)
 
 ## Notes and Other Information
 - This function is critical for memory planning in hash aggregation operations

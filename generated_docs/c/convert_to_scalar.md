@@ -42,14 +42,14 @@ The function processes three values simultaneously (value, lobound, hibound) bec
 
 ## Dependencies
 - Functions called:
-  - convert_numeric_to_scalar
-  - convert_string_datum
-  - convert_string_to_scalar
-  - convert_bytea_to_scalar
-  - convert_timevalue_to_scalar
-  - convert_network_to_scalar
+  - [convert_numeric_to_scalar](convert_numeric_to_scalar.md)
+  - [convert_string_datum](convert_string_datum.md)
+  - [convert_string_to_scalar](convert_string_to_scalar.md)
+  - [convert_bytea_to_scalar](convert_bytea_to_scalar.md)
+  - [convert_timevalue_to_scalar](convert_timevalue_to_scalar.md)
+  - [convert_network_to_scalar](convert_network_to_scalar.md)
 - Called from:
-  - ineq_histogram_selectivity (in selfuncs.c:1223)
+  - [ineq_histogram_selectivity](../i/ineq_histogram_selectivity.md) (in selfuncs.c:1223)
 
 ## Notes and Other Information
 - Returns true if conversion is successful, false if the data type is not supported

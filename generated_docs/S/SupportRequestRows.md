@@ -42,15 +42,15 @@ When a support function can provide an estimate, it stores the expected row coun
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag
-  - PlannerInfo
-  - Node
+  - [PlannerInfo](../P/PlannerInfo.md)
+  - [Node](../N/Node.md)
 
 - Called from (representative examples):
-  - get_function_rows (src/backend/optimizer/util/plancat.c:2165)
-  - array_unnest_support (src/backend/utils/adt/arrayfuncs.c:6338)
-  - generate_series_int4_support (src/backend/utils/adt/int.c:1590)
-  - generate_series_int8_support (src/backend/utils/adt/int8.c:1464)
-  - test_support_func (src/test/regress/regress.c:1070)
+  - [get_function_rows](../g/get_function_rows.md) (src/backend/optimizer/util/plancat.c:2165)
+  - [array_unnest_support](../a/array_unnest_support.md) (src/backend/utils/adt/arrayfuncs.c:6338)
+  - [generate_series_int4_support](../g/generate_series_int4_support.md) (src/backend/utils/adt/int.c:1590)
+  - [generate_series_int8_support](../g/generate_series_int8_support.md) (src/backend/utils/adt/int8.c:1464)
+  - [test_support_func](../t/test_support_func.md) (src/test/regress/regress.c:1070)
 
 ## Notes and Other Information
 - This mechanism applies specifically to set-returning functions (functions that can return multiple rows)

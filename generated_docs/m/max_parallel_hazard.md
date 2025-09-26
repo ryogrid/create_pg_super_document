@@ -34,7 +34,7 @@ The result is used by the planner to determine parallel execution feasibility an
   - [max_parallel_hazard_walker](max_parallel_hazard_walker.md): Performs the actual tree traversal and analysis
 - Called from (representative examples):
   - [standard_planner](../s/standard_planner.md) (at planner.c:357)
-  - `WindowFuncLists` (referenced in clauses.h:35)
+  - `[WindowFuncLists](../W/WindowFuncLists.md)` (referenced in clauses.h:35)
 
 ## Notes and Other Information
 - Returns a char value representing the most restrictive parallel hazard level found

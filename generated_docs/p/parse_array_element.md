@@ -31,15 +31,15 @@ This design enables the JSON parser to handle arbitrarily nested data structures
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lex_peek (token lookahead)
-  - parse_object (nested object parsing)
-  - parse_array (nested array parsing) 
-  - parse_scalar (scalar value parsing)
+  - [lex_peek](../l/lex_peek.md) (token lookahead)
+  - [parse_object](parse_object.md) (nested object parsing)
+  - [parse_array](parse_array.md) (nested array parsing) 
+  - [parse_scalar](parse_scalar.md) (scalar value parsing)
   - JSON token type constants (JSON_TOKEN_NULL, JSON_TOKEN_OBJECT_START, JSON_TOKEN_ARRAY_START)
 
 - Called from (representative examples):
-  - parse_array (array element processing)
-  - json_count_array_elements (array element counting)
+  - [parse_array](parse_array.md) (array element processing)
+  - [json_count_array_elements](../j/json_count_array_elements.md) (array element counting)
 
 ## Notes and Other Information
 - Supports all JSON value types as array elements, enabling full JSON specification compliance

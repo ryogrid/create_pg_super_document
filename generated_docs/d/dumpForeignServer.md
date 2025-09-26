@@ -28,7 +28,7 @@ The function operates as part of pg_dump's comprehensive database export process
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - createPQExpBuffer
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)
   - [pg_strdup](../p/pg_strdup.md) 
   - [fmtId](../f/fmtId.md)
   - [ExecuteSqlQueryForSingleRow](../E/ExecuteSqlQueryForSingleRow.md)
@@ -38,7 +38,7 @@ The function operates as part of pg_dump's comprehensive database export process
   - [dumpComment](dumpComment.md)
   - [dumpACL](dumpACL.md)
   - [dumpUserMappings](dumpUserMappings.md)
-  - destroyPQExpBuffer
+  - [destroyPQExpBuffer](destroyPQExpBuffer.md)
 - Called from (representative examples):
   - [dumpDumpableObject](dumpDumpableObject.md)
   - fmtQualifiedDumpable

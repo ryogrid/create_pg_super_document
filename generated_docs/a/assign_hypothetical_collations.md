@@ -72,7 +72,7 @@ The function processes arguments in three phases:
 
 ## Notes and Other Information
 - The merge_sort_collations flag works similarly to ordered-set aggregates (single non-variadic argument)
-- RelabelType injection is noted as "grotty" but necessary for proper collation enforcement during sorting
+- [RelabelType](../R/RelabelType.md) injection is noted as "grotty" but necessary for proper collation enforcement during sorting
 - The RelabelType approach avoids changing implicit collations to explicit ones during dump/reload
 - Examples of hypothetical-set aggregates include rank, dense_rank, percent_rank, and cume_dist functions
 - Collation conflicts between paired arguments are reported immediately rather than deferred

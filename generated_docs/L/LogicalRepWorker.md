@@ -101,10 +101,10 @@ LogicalRepWorker is a shared memory structure that tracks the state and configur
   - [FileSet](../F/FileSet.md)
   - pid_t
 - Called from (representative examples):
-  - logicalrep_worker_find
-  - logicalrep_worker_launch
-  - logicalrep_worker_stop_internal
-  - logicalrep_worker_detach
+  - [logicalrep_worker_find](../l/logicalrep_worker_find.md)
+  - [logicalrep_worker_launch](../l/logicalrep_worker_launch.md)
+  - [logicalrep_worker_stop_internal](../l/logicalrep_worker_stop_internal.md)
+  - [logicalrep_worker_detach](../l/logicalrep_worker_detach.md)
   - [ApplyLauncherShmemInit](../A/ApplyLauncherShmemInit.md)
 
 ## Notes and Other Information

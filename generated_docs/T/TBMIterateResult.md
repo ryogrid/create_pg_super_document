@@ -40,12 +40,12 @@ This design allows PostgreSQL to handle very large result sets by trading precis
   - OffsetNumber (type for tuple offsets within pages)
 
 - Called from (representative examples):
-  - tbm_iterate
-  - tbm_shared_iterate
-  - BitmapHeapNext
-  - heapam_scan_bitmap_next_block
-  - heapam_scan_bitmap_next_tuple
-  - BitmapPrefetch
+  - [tbm_iterate](../t/tbm_iterate.md)
+  - [tbm_shared_iterate](../t/tbm_shared_iterate.md)
+  - [BitmapHeapNext](../B/BitmapHeapNext.md)
+  - [heapam_scan_bitmap_next_block](../h/heapam_scan_bitmap_next_block.md)
+  - [heapam_scan_bitmap_next_tuple](../h/heapam_scan_bitmap_next_tuple.md)
+  - [BitmapPrefetch](../B/BitmapPrefetch.md)
 
 ## Notes and Other Information
 - This structure is central to PostgreSQL's bitmap heap scan execution, enabling efficient tuple retrieval during index scans

@@ -39,7 +39,7 @@ For complex path types like ProjectionPath, the function recursively checks the 
   - IsA (type checking)
   - [ExecSupportsMarkRestore](ExecSupportsMarkRestore.md) (recursive calls)
   - linitial (list access)
-  - list_length (list operations)
+  - [list_length](../l/list_length.md) (list operations)
 - Called from (representative examples):
   - [final_cost_mergejoin](../f/final_cost_mergejoin.md) (merge join costing)
   - Recursive self-calls for complex path analysis

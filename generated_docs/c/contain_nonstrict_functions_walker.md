@@ -22,7 +22,7 @@ This function implements a comprehensive tree walker that recursively examines P
 - Functions called/Symbols referenced:
   - IsA (macro for node type checking)
   - [getSubscriptingRoutines](../g/getSubscriptingRoutines.md)
-  - check_functions_in_node
+  - [check_functions_in_node](check_functions_in_node.md)
   - [contain_nonstrict_functions_checker](contain_nonstrict_functions_checker.md)
   - expression_tree_walker
 - Called from (representative examples):

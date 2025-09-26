@@ -26,8 +26,8 @@ The function leverages PostgreSQL's system cache (syscache) when available for i
 - Functions called/Symbols referenced:
   - [get_catalog_object_by_oid_extended](get_catalog_object_by_oid_extended.md) (with missing_ok=false)
 - Called from (representative examples):
-  - pg_identify_object
-  - getConstraintTypeDescription
+  - [pg_identify_object](../p/pg_identify_object.md)
+  - [getConstraintTypeDescription](getConstraintTypeDescription.md)
   - [getObjectIdentityParts](getObjectIdentityParts.md) (multiple calls)
   - [EventTriggerSQLDropAddObject](../E/EventTriggerSQLDropAddObject.md)
   - [pg_event_trigger_ddl_commands](../p/pg_event_trigger_ddl_commands.md)

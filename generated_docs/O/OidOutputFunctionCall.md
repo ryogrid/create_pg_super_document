@@ -37,7 +37,7 @@ The function is widely used throughout PostgreSQL for debugging, logging, error 
   - [logicalrep_write_tuple](../l/logicalrep_write_tuple.md)
   - [datum_to_json_internal](../d/datum_to_json_internal.md)
   - [ri_ReportViolation](../r/ri_ReportViolation.md)
-  - get_const_expr
+  - [get_const_expr](../g/get_const_expr.md)
 
 ## Notes and Other Information
 - Like OidInputFunctionCall, this function is slow and may leak memory, so use sparingly

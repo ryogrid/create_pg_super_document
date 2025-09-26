@@ -23,7 +23,7 @@ The function handles the case where longer-running transactions that were previo
 ## Dependencies
 - Functions called/Symbols referenced:
   - [FullXidRelativeTo](../F/FullXidRelativeTo.md)
-  - FullTransactionIdNewer
+  - [FullTransactionIdNewer](../F/FullTransactionIdNewer.md)
 - Global visibility state variables updated:
   - GlobalVisSharedRels
   - GlobalVisCatalogRels
@@ -33,7 +33,7 @@ The function handles the case where longer-running transactions that were previo
   - ComputeXidHorizonsResultLastXmin
   - RecentXmin
 - Called from:
-  - ComputeXidHorizons
+  - [ComputeXidHorizons](../C/ComputeXidHorizons.md)
   - xc_slow_answer_inc
 
 ## Notes and Other Information

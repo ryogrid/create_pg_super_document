@@ -25,7 +25,7 @@ GetRedoRecPtr retrieves the current Redo record pointer from PostgreSQL's shared
   - XLogCtl (global shared memory structure)
   - RedoRecPtr (local static variable)
 - Called from (representative examples):
-  - CheckPointLogicalRewriteHeap
+  - [CheckPointLogicalRewriteHeap](../C/CheckPointLogicalRewriteHeap.md)
   - [XLogWrite](../X/XLogWrite.md)
   - [XLogSaveBufferForHint](../X/XLogSaveBufferForHint.md)
   - [XLogPageRead](../X/XLogPageRead.md)

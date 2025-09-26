@@ -24,7 +24,7 @@ This function is a utility for managing dynamic arrays of variable names in Post
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_realloc (for resizing the variable names array)
+  - [pg_realloc](../p/pg_realloc.md) (for resizing the variable names array)
   - [psprintf](../p/psprintf.md) (for formatting the complete variable name string)
 - Called from (representative examples):
   - THING_NO_SHOW macro usage

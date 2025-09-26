@@ -41,4 +41,4 @@ The function follows PostgreSQL's error handling conventions, throwing a NUMERIC
 - Special handling for NaN and Infinity values prevents undefined behavior during conversion
 - Part of PostgreSQL's comprehensive type conversion system, located in src/backend/utils/adt/float.c
 - The function signature follows PostgreSQL's version-1 calling convention for built-in functions
-- Range validation uses the FLOAT8_FITS_IN_INT16 macro which likely checks against INT16_MIN and INT16_MAX boundaries
+- [Range](../R/Range.md) validation uses the FLOAT8_FITS_IN_INT16 macro which likely checks against INT16_MIN and INT16_MAX boundaries

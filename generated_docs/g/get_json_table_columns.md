@@ -33,21 +33,21 @@ The function properly formats SQL syntax including comma separation, proper quot
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendStringInfoChar, appendStringInfoString, appendStringInfo
-  - appendContextKeyword
+  - [appendStringInfoChar](../a/appendStringInfoChar.md), appendStringInfoString, appendStringInfo
+  - [appendContextKeyword](../a/appendContextKeyword.md)
   - PRETTY_INDENT, PRETTYINDENT_VAR (formatting macros)
   - forfour (macro for iterating over four parallel lists)
   - strVal, lfirst, lfirst_oid, lfirst_int (list manipulation macros)
   - castNode (safe type casting macro)
-  - quote_identifier
-  - format_type_with_typemod
-  - get_type_category_preferred
-  - get_json_path_spec
-  - get_json_expr_options
-  - get_json_table_nested_columns (for child scans)
+  - [quote_identifier](../q/quote_identifier.md)
+  - [format_type_with_typemod](../f/format_type_with_typemod.md)
+  - [get_type_category_preferred](get_type_category_preferred.md)
+  - [get_json_path_spec](get_json_path_spec.md)
+  - [get_json_expr_options](get_json_expr_options.md)
+  - [get_json_table_nested_columns](get_json_table_nested_columns.md) (for child scans)
 - Called from (representative examples):
-  - get_json_table_nested_columns
-  - get_json_table
+  - [get_json_table_nested_columns](get_json_table_nested_columns.md)
+  - [get_json_table](get_json_table.md)
 
 ## Notes and Other Information
 - This is a static function used internally by the rule deparsing system

@@ -23,11 +23,11 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SimpleLruAutotuneBuffers
+  - [SimpleLruAutotuneBuffers](../S/SimpleLruAutotuneBuffers.md)
   - SLRU_MAX_ALLOWED_BUFFERS
 - Called from (representative examples):
-  - CommitTsShmemSize
-  - CommitTsShmemInit
+  - [CommitTsShmemSize](CommitTsShmemSize.md)
+  - [CommitTsShmemInit](CommitTsShmemInit.md)
 
 ## Notes and Other Information
 - The function is static, indicating it's only used within the commit_ts.c module

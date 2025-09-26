@@ -19,8 +19,8 @@ ExecuteSimpleCommands is a sophisticated SQL parser and executor designed specif
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - createPQExpBuffer
-  - appendPQExpBufferChar
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)
+  - [appendPQExpBufferChar](../a/appendPQExpBufferChar.md)
   - [ExecuteSqlCommand](ExecuteSqlCommand.md)
   - [resetPQExpBuffer](../r/resetPQExpBuffer.md)
 - Constants referenced:

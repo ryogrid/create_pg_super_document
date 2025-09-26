@@ -21,13 +21,13 @@ This function manages the date mode setting during string-to-date/time conversio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FromCharDateMode (enum type)
-  - TmFromChar (struct type)
+  - [FromCharDateMode](../F/FromCharDateMode.md) (enum type)
+  - [TmFromChar](../T/TmFromChar.md) (struct type)
   - FROM_CHAR_DATE_NONE (constant)
   - ereturn (PostgreSQL error handling macro)
 - Called from (representative examples):
   - DCH_ZONED (formatting.c:1056)
-  - DCH_from_char (formatting.c:3527)
+  - [DCH_from_char](../D/DCH_from_char.md) (formatting.c:3527)
 
 ## Notes and Other Information
 - Returns true on success, false on failure when using soft error handling

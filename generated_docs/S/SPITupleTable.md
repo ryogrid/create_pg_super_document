@@ -50,10 +50,10 @@ The structure supports efficient memory management through its dedicated memory 
   - [spi_dest_startup](../s/spi_dest_startup.md)
   - [spi_printtup](../s/spi_printtup.md)
   - [_SPI_execute_plan](_SPI_execute_plan.md)
-  - _SPI_checktuples
+  - [_SPI_checktuples](_SPI_checktuples.md)
   - [plperl_spi_execute_fetch_result](../p/plperl_spi_execute_fetch_result.md)
   - [PLy_spi_execute_fetch_result](../P/PLy_spi_execute_fetch_result.md)
-  - pltcl_process_SPI_result
+  - [pltcl_process_SPI_result](../p/pltcl_process_SPI_result.md)
 
 ## Notes and Other Information
 - The distinction between public and private members is crucial for API stability and proper encapsulation

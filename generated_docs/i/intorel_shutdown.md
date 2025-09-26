@@ -18,8 +18,8 @@ This function serves as the shutdown callback for DR_intorel destination receive
 ## Dependencies
 - Functions called/Symbols referenced:
   - [FreeBulkInsertState](../F/FreeBulkInsertState.md)
-  - table_finish_bulk_insert
-  - table_close
+  - [table_finish_bulk_insert](../t/table_finish_bulk_insert.md)
+  - [table_close](../t/table_close.md)
 - Called from (representative examples):
   - [CreateIntoRelDestReceiver](../C/CreateIntoRelDestReceiver.md) (sets as callback)
   - Executor shutdown sequence

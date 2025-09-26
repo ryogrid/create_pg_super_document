@@ -34,8 +34,8 @@ The scan direction is particularly important for understanding query performance
 - Functions called/Symbols referenced:
   - [explain_get_index_name](../e/explain_get_index_name.md)
   - ScanDirectionIsBackward
-  - appendStringInfoString
-  - appendStringInfo
+  - [appendStringInfoString](../a/appendStringInfoString.md)
+  - [appendStringInfo](../a/appendStringInfo.md)
   - [quote_identifier](../q/quote_identifier.md)
   - [ExplainPropertyText](ExplainPropertyText.md)
   - BackwardScanDirection

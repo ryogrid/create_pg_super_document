@@ -28,7 +28,7 @@ The function clears the BTP_HALF_DEAD flag (if set) and sets both BTP_DELETED an
   - BTPageOpaque (type)
   - PageHeader (type)
   - [BTDeletedPageData](BTDeletedPageData.md) (type)
-  - FullTransactionId (type)
+  - [FullTransactionId](../F/FullTransactionId.md) (type)
   - BTP_HALF_DEAD, BTP_DELETED, BTP_HAS_FULLXID (flags)
   - SizeOfPageHeaderData (constant)
 - Called from (representative examples):

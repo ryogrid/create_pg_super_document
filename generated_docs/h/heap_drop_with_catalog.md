@@ -30,7 +30,7 @@ This function performs the comprehensive catalog cleanup required when dropping 
   - [RemovePartitionKeyByRelId](../R/RemovePartitionKeyByRelId.md)
   - [update_default_partition_oid](../u/update_default_partition_oid.md)
   - [RelationDropStorage](../R/RelationDropStorage.md)
-  - pgstat_drop_relation
+  - [pgstat_drop_relation](../p/pgstat_drop_relation.md)
   - [relation_close](../r/relation_close.md)
   - [RemoveSubscriptionRel](../R/RemoveSubscriptionRel.md)
   - [remove_on_commit_action](../r/remove_on_commit_action.md)

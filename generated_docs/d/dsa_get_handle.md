@@ -26,8 +26,8 @@ The handle represents the underlying DSM segment handle that contains the DSA co
 - Called from (representative examples):
   - [parallel_vacuum_init](../p/parallel_vacuum_init.md)
   - [parallel_vacuum_reset_dead_items](../p/parallel_vacuum_reset_dead_items.md)
-  - logicalrep_launcher_attach_dshmem
-  - init_dsm_registry
+  - [logicalrep_launcher_attach_dshmem](../l/logicalrep_launcher_attach_dshmem.md)
+  - [init_dsm_registry](../i/init_dsm_registry.md)
 
 ## Notes and Other Information
 - Cannot be called on areas created with dsa_create_in_place() as they have DSA_HANDLE_INVALID

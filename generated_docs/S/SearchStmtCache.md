@@ -19,11 +19,11 @@ This function implements the search mechanism for the ECPG prepared statement ca
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HashStmt
+  - [HashStmt](../H/HashStmt.md)
   - stmtCacheEntPerBucket (global variable)
   - stmtCacheEntries (global cache array)
 - Called from (representative examples):
-  - ecpg_auto_prepare
+  - [ecpg_auto_prepare](../e/ecpg_auto_prepare.md)
 
 ## Notes and Other Information
 - Returns 0 if the statement is not found (0th entry is never used)

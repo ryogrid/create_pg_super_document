@@ -22,7 +22,7 @@ The is_space function provides a locale-independent implementation for detecting
 - Functions called/Symbols referenced:
   - None (self-contained function)
 - Called from (representative examples):
-  - getfields (at lines 3729, 3747, 3748)
+  - [getfields](../g/getfields.md) (at lines 3729, 3747, 3748)
 
 ## Notes and Other Information
 - Returns true for the six C locale whitespace characters: ' ', '\f', '\n', '\r', '\t', '\v'

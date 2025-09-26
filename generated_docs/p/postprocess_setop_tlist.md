@@ -22,7 +22,7 @@ The function enforces that resjunk (result junk) columns are not supported in se
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_head (list manipulation function)
+  - [list_head](../l/list_head.md) (list manipulation function)
   - [lnext](../l/lnext.md) (list traversal function)
   - lfirst_node (list access macro)
   - [TargetEntry](../T/TargetEntry.md) (struct type)
@@ -33,6 +33,6 @@ The function enforces that resjunk (result junk) columns are not supported in se
 ## Notes and Other Information
 - This function implements a current limitation where resjunk output columns are not supported for set operations
 - The function performs strict validation to ensure target list entries correspond correctly between old and new lists
-- Sort group references (ressortgroupref) are essential for maintaining proper ordering semantics in set operations
+- [Sort](../S/Sort.md) group references (ressortgroupref) are essential for maintaining proper ordering semantics in set operations
 - The function modifies the new_tlist in-place by updating the ressortgroupref fields
 - Static function scope indicates it's only used within the planner.c module for set operation post-processing

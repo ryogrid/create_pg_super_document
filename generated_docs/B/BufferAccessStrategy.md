@@ -31,15 +31,15 @@ The underlying BufferAccessStrategyData structure contains:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferAccessStrategyData (underlying struct)
+  - [BufferAccessStrategyData](BufferAccessStrategyData.md) (underlying struct)
   - BufferAccessStrategyType (enum for strategy types)
   - Buffer (buffer identifier type)
 
 - Called from (representative examples):
-  - GetAccessStrategy
-  - GetAccessStrategyWithSize
-  - FreeAccessStrategy
-  - StrategyGetBuffer
+  - [GetAccessStrategy](../G/GetAccessStrategy.md)
+  - [GetAccessStrategyWithSize](../G/GetAccessStrategyWithSize.md)
+  - [FreeAccessStrategy](../F/FreeAccessStrategy.md)
+  - [StrategyGetBuffer](../S/StrategyGetBuffer.md)
   - [ReadBufferExtended](../R/ReadBufferExtended.md)
   - [vacuum_rel](../v/vacuum_rel.md)
   - [analyze_rel](../a/analyze_rel.md)

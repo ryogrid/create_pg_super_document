@@ -63,10 +63,10 @@ For non-BitmapIndexScan children, the function uses the standard approach of exe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - InstrStartNode/InstrStopNode (performance instrumentation)
+  - [InstrStartNode](../I/InstrStartNode.md)/InstrStopNode (performance instrumentation)
   - [tbm_create](../t/tbm_create.md) (creates initial TID bitmap)
   - [MultiExecProcNode](MultiExecProcNode.md) (executes child subplans)
-  - tbm_union (combines bitmaps using OR operation)
+  - [tbm_union](../t/tbm_union.md) (combines bitmaps using OR operation)
   - [tbm_free](../t/tbm_free.md) (deallocates temporary bitmaps)
   - IsA (type checking for optimization)
   - elog (error reporting)

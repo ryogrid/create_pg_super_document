@@ -23,7 +23,7 @@ The function converts the field name to a C string and delegates the main work t
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_TEXT_PP: Retrieves text argument from function call
-  - text_to_cstring: Converts PostgreSQL text to C string
+  - [text_to_cstring](../t/text_to_cstring.md): Converts PostgreSQL text to C string
   - [get_worker](../g/get_worker.md): Generic JSON processing function that handles field extraction
   - PG_RETURN_TEXT_P: Returns text result from function
   - PG_RETURN_NULL: Returns NULL result from function

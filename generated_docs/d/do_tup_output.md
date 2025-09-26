@@ -30,17 +30,17 @@ This approach allows utility commands to easily send structured data to clients 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecClearTuple
+  - [ExecClearTuple](../E/ExecClearTuple.md)
   - memcpy
   - [ExecStoreVirtualTuple](../E/ExecStoreVirtualTuple.md)
-  - DestReceiver->receiveSlot
+  - [DestReceiver](../D/DestReceiver.md)->receiveSlot
 - Called from (representative examples):
   - [SendXlogRecPtrResult](../S/SendXlogRecPtrResult.md) (basebackup_copy.c)
   - [SendTablespaceList](../S/SendTablespaceList.md) (basebackup_copy.c)
   - [do_text_output_multiline](do_text_output_multiline.md) (execTuples.c)
   - [IdentifySystem](../I/IdentifySystem.md) (walsender.c)
   - [CreateReplicationSlot](../C/CreateReplicationSlot.md) (walsender.c)
-  - ShowAllGUCConfig (guc_funcs.c)
+  - [ShowAllGUCConfig](../S/ShowAllGUCConfig.md) (guc_funcs.c)
   - do_text_output_oneline (executor.h)
 
 ## Notes and Other Information

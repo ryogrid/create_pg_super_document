@@ -21,7 +21,7 @@ This function validates an existing check constraint on a domain type by first l
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeTypeNameFromNameList
+  - [makeTypeNameFromNameList](../m/makeTypeNameFromNameList.md)
   - [typenameTypeId](../t/typenameTypeId.md)
   - [SearchSysCache1](../S/SearchSysCache1.md)
   - [checkDomainOwner](../c/checkDomainOwner.md)

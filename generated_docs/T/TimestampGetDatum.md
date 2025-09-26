@@ -19,18 +19,18 @@ TimestampGetDatum is an inline function that converts a Timestamp value into a D
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Int64GetDatum
+  - [Int64GetDatum](../I/Int64GetDatum.md)
   - Timestamp (parameter type)
 - Called from (representative examples):
-  - ExecEvalSQLValueFunction
-  - in_range_date_interval
-  - date_pl_interval
-  - date_mi_interval
-  - parse_datetime
-  - executeDateTimeMethod
-  - timestamp_mi_interval
-  - in_range_timestamp_interval
-  - generate_series_timestamp
+  - [ExecEvalSQLValueFunction](../E/ExecEvalSQLValueFunction.md)
+  - [in_range_date_interval](../i/in_range_date_interval.md)
+  - [date_pl_interval](../d/date_pl_interval.md)
+  - [date_mi_interval](../d/date_mi_interval.md)
+  - [parse_datetime](../p/parse_datetime.md)
+  - [executeDateTimeMethod](../e/executeDateTimeMethod.md)
+  - [timestamp_mi_interval](../t/timestamp_mi_interval.md)
+  - [in_range_timestamp_interval](../i/in_range_timestamp_interval.md)
+  - [generate_series_timestamp](../g/generate_series_timestamp.md)
   - PG_RETURN_TIMESTAMP (macro)
 
 ## Notes and Other Information

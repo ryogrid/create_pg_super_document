@@ -40,7 +40,7 @@ The function serves as the implementation for PostgreSQL's `&<` operator for cir
 - Called from (representative examples):
   - SQL queries using the `&<` operator for circles
   - Spatial indexing operations (GiST, SP-GiST)
-  - Range and ordering queries in geometric applications
+  - [Range](../R/Range.md) and ordering queries in geometric applications
 
 ## Notes and Other Information
 - Part of PostgreSQL's geometric data type system for 2D circle operations

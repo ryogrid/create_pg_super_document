@@ -36,8 +36,8 @@ The optimization is most effective when run after expression preprocessing (whic
   - [remove_nulling_relids](remove_nulling_relids.md)
   - rt_fetch
   - foreach_delete_current
-  - FromExpr (type)
-  - PlanRowMark (type)
+  - [FromExpr](../F/FromExpr.md) (type)
+  - [PlanRowMark](../P/PlanRowMark.md) (type)
   - RTE_RESULT (constant)
 
 - Called from (representative examples):

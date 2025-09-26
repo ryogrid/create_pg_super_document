@@ -35,7 +35,7 @@ The `bernoulli_nextsampletuple` function implements the core logic of Bernoulli 
 - Uses hash_any with 3 uint32 inputs: block number, tuple offset, and seed for machine-independent results
 - Performs "coinflip" for every tuple offset, ensuring equal probability regardless of tuple visibility
 - Continues from the last selected tuple offset (stored in sampler->lt) to maintain scan state
-- Hash-based approach provides repeatable results when using the same seed
+- [Hash](../H/Hash.md)-based approach provides repeatable results when using the same seed
 - Returns InvalidOffsetNumber when reaching end of block to signal block completion
 - The sampling decision is made by comparing hash < cutoff, where cutoff was calculated during scan initialization
 - This is a static function, only callable within the bernoulli.c module

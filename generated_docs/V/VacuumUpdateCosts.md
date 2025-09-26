@@ -21,14 +21,14 @@ This function takes no parameters and operates on global state variables.
 - Functions called/Symbols referenced:
   - [AutoVacuumUpdateCostLimit](../A/AutoVacuumUpdateCostLimit.md)
   - [message_level_is_interesting](../m/message_level_is_interesting.md)
-  - LWLockHeldByMe
-  - LWLockAcquire
-  - LWLockRelease
+  - [LWLockHeldByMe](../L/LWLockHeldByMe.md)
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - [pg_atomic_unlocked_test_flag](../p/pg_atomic_unlocked_test_flag.md)
   - elog
   - Assert
 - Called from (representative examples):
-  - vacuum (from vacuum.c)
+  - [vacuum](../v/vacuum.md) (from vacuum.c)
   - [vacuum_delay_point](../v/vacuum_delay_point.md)
   - [parallel_vacuum_main](../p/parallel_vacuum_main.md)
   - [do_autovacuum](../d/do_autovacuum.md)

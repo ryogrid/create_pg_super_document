@@ -24,7 +24,7 @@ The  function is an internal helper function in the ECPG Informix compatibility 
 - Functions called/Symbols referenced:
   - [PGTYPESnumeric_new](../P/PGTYPESnumeric_new.md)
   - [PGTYPESnumeric_free](../P/PGTYPESnumeric_free.md)
-  - PGTYPESnumeric_from_decimal
+  - [PGTYPESnumeric_from_decimal](../P/PGTYPESnumeric_from_decimal.md)
   - ECPG_INFORMIX_OUT_OF_MEMORY
 - Called from (representative examples):
   - [deccmp](deccmp.md)

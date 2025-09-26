@@ -30,7 +30,7 @@ The function is designed to handle cases where the same physical subplan might b
   - [bms_add_member](../b/bms_add_member.md) (marks subplan as printed)
   - [lcons](../l/lcons.md) (adds SubPlan to ancestors list)
   - [ExplainNode](ExplainNode.md) (recursively explains the subplan node)
-  - list_delete_first (removes SubPlan from ancestors list)
+  - [list_delete_first](../l/list_delete_first.md) (removes SubPlan from ancestors list)
 - Called from:
   - [ExplainNode](ExplainNode.md) (main plan explanation function)
 

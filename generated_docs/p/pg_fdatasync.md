@@ -19,10 +19,10 @@ The pg_fdatasync function provides a controlled interface to synchronize data fo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fdatasync (system call)
+  - [fdatasync](../f/fdatasync.md) (system call)
   - EINTR (errno constant)
 - Called from (representative examples):
-  - issue_xlog_fsync
+  - [issue_xlog_fsync](../i/issue_xlog_fsync.md)
   - PG_O_DIRECT (referenced in fd.h)
 
 ## Notes and Other Information

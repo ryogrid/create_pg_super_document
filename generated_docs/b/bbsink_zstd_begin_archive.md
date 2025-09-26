@@ -23,7 +23,7 @@ This function prepares the zstd compression sink to begin compressing a new arch
 - Functions called/Symbols referenced:
   - ZSTD_CCtx_reset (resets compression context for new archive)
   - [psprintf](../p/psprintf.md) (formats string with .zst extension)
-  - bbsink_begin_archive (notifies next sink to begin archive)
+  - [bbsink_begin_archive](bbsink_begin_archive.md) (notifies next sink to begin archive)
   - [pfree](../p/pfree.md) (frees formatted archive name)
   - Assert (validates next sink is not NULL)
 - Called from (representative examples):

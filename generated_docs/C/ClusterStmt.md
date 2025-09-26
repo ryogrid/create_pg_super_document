@@ -30,12 +30,12 @@ The clustering operation requires an exclusive lock on the table and can be time
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RangeVar (for table identification)
-  - List (PostgreSQL list structure for parameters)
-  - DefElem (for option definitions)
+  - [RangeVar](../R/RangeVar.md) (for table identification)
+  - [List](../L/List.md) (PostgreSQL list structure for parameters)
+  - [DefElem](../D/DefElem.md) (for option definitions)
 - Called from (representative examples):
-  - cluster (execution function in cluster.c)
-  - standard_ProcessUtility (utility command processing)
+  - [cluster](../c/cluster.md) (execution function in cluster.c)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (utility command processing)
 
 ## Notes and Other Information
 - This structure is part of the PostgreSQL parser node hierarchy and inherits from Node via the NodeTag

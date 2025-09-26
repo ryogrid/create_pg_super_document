@@ -28,16 +28,16 @@ The function processes one group at a time, scanning through all tuples in the c
 ## Dependencies
 - Functions called/Symbols referenced:
   - outerPlanState (gets the outer plan state)
-  - ExecProcNode (executes outer plan to get next tuple) 
+  - [ExecProcNode](../E/ExecProcNode.md) (executes outer plan to get next tuple) 
   - TupIsNull (checks if tuple slot is empty)
-  - ExecCopySlotHeapTuple (creates heap tuple copy)
+  - [ExecCopySlotHeapTuple](../E/ExecCopySlotHeapTuple.md) (creates heap tuple copy)
   - [ExecStoreHeapTuple](../E/ExecStoreHeapTuple.md) (stores tuple in slot)
-  - initialize_counts (resets per-group counters)
-  - advance_counts (updates counters for a tuple)
-  - fetch_tuple_flag (gets tuple's flag value)
-  - ExecQualAndReset (evaluates equality expression)
-  - set_output_count (determines output count for group)
-  - ExecClearTuple (clears tuple slot)
+  - [initialize_counts](../i/initialize_counts.md) (resets per-group counters)
+  - [advance_counts](../a/advance_counts.md) (updates counters for a tuple)
+  - [fetch_tuple_flag](../f/fetch_tuple_flag.md) (gets tuple's flag value)
+  - [ExecQualAndReset](../E/ExecQualAndReset.md) (evaluates equality expression)
+  - [set_output_count](set_output_count.md) (determines output count for group)
+  - [ExecClearTuple](../E/ExecClearTuple.md) (clears tuple slot)
 - Called from (representative examples):
   - [ExecSetOp](../E/ExecSetOp.md) (when using direct strategy)
 

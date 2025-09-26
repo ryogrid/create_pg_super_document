@@ -27,7 +27,7 @@ The network_show function converts inet or cidr values to their text representat
   - ip_maxbits (to get maximum bits for the address type)
   - [pg_inet_net_ntop](../p/pg_inet_net_ntop.md) (to format the network address)
   - ip_bits (to get the actual netmask length)
-  - cstring_to_text (to convert C string to PostgreSQL text)
+  - [cstring_to_text](../c/cstring_to_text.md) (to convert C string to PostgreSQL text)
   - PG_RETURN_TEXT_P (to return text result)
 - Called from (representative examples):
   - No direct references found in the analyzed codebase

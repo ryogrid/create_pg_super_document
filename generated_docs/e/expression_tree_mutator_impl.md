@@ -30,7 +30,7 @@ The function includes extensive documentation explaining the proper usage patter
   - FLATCOPY (macro for shallow node copying)
   - MUTATE (macro for calling mutator on subnodes)
   - copyObject (for simple node types)
-  - check_stack_depth (stack overflow protection)
+  - [check_stack_depth](../c/check_stack_depth.md) (stack overflow protection)
   - nodeTag (node type identification)
   - Various PostgreSQL node types (Var, Const, Param, Aggref, FuncExpr, etc.)
 - Called from (representative examples):
@@ -43,7 +43,7 @@ The function includes extensive documentation explaining the proper usage patter
 - Includes stack depth checking to prevent overflow on deeply nested expressions
 - Handles special cases for frequently used nodes (Var, Const) with optimized copying
 - For SubLink nodes, it recurses into testexpr but preserves the link to sub-Query nodes unless the mutator handles Query nodes specially
-- SubPlan nodes have their testexpr and args processed, but the inner plan link is simply copied
+- [SubPlan](../S/SubPlan.md) nodes have their testexpr and args processed, but the inner plan link is simply copied
 - The function covers all node types typically found in target lists and qualifier clauses during query planning
 - Uses efficient memory allocation with palloc and memcpy for node copying
 - Returns NULL for NULL input nodes

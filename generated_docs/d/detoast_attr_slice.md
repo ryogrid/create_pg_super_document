@@ -36,7 +36,7 @@ The function is particularly valuable for accessing substrings of large text val
   - [toast_decompress_datum_slice](../t/toast_decompress_datum_slice.md): Decompresses only the required portion of compressed data
   - [toast_decompress_datum](../t/toast_decompress_datum.md): Decompresses entire compressed datum
   - [detoast_external_attr](detoast_external_attr.md): Handles externally stored attributes
-  - pglz_maximum_compressed_size: Calculates maximum compressed size for PGLZ algorithm
+  - [pglz_maximum_compressed_size](../p/pglz_maximum_compressed_size.md): Calculates maximum compressed size for PGLZ algorithm
   - [pg_add_s32_overflow](../p/pg_add_s32_overflow.md): Safe integer addition with overflow detection
   - VARATT_IS_EXTERNAL_ONDISK: Checks if value is stored externally on disk
   - VARATT_IS_EXTERNAL_INDIRECT: Checks if value is an indirect pointer

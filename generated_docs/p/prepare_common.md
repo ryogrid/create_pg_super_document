@@ -23,21 +23,21 @@ The `prepare_common` function encapsulates the core logic for preparing SQL stat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ecpg_alloc
-  - ecpg_free
-  - ecpg_strdup
-  - replace_variables
-  - PQprepare
-  - ecpg_check_PQresult
-  - ecpg_log
-  - PQclear
+  - [ecpg_alloc](../e/ecpg_alloc.md)
+  - [ecpg_free](../e/ecpg_free.md)
+  - [ecpg_strdup](../e/ecpg_strdup.md)
+  - [replace_variables](../r/replace_variables.md)
+  - [PQprepare](../P/PQprepare.md)
+  - [ecpg_check_PQresult](../e/ecpg_check_PQresult.md)
+  - [ecpg_log](../e/ecpg_log.md)
+  - [PQclear](../P/PQclear.md)
 - Structures used:
-  - statement
-  - prepared_statement
-  - connection
+  - [statement](../s/statement.md)
+  - [prepared_statement](prepared_statement.md)
+  - [connection](../c/connection.md)
 - Called from (representative examples):
-  - ECPGprepare
-  - ecpg_auto_prepare
+  - [ECPGprepare](../E/ECPGprepare.md)
+  - [ecpg_auto_prepare](../e/ecpg_auto_prepare.md)
 
 ## Notes and Other Information
 - This is a static function local to the prepare.c file in the ECPG library

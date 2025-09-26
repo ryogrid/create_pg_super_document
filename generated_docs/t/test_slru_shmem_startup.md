@@ -27,9 +27,9 @@ This function serves as a shmem_startup_hook callback in the test_slru module, r
 ## Dependencies
 - Functions called/Symbols referenced:
   - prev_shmem_startup_hook (function pointer, may be NULL)
-  - MakePGDirectory
-  - LWLockNewTrancheId
-  - LWLockRegisterTranche
+  - [MakePGDirectory](../M/MakePGDirectory.md)
+  - [LWLockNewTrancheId](../L/LWLockNewTrancheId.md)
+  - [LWLockRegisterTranche](../L/LWLockRegisterTranche.md)
   - [test_slru_page_precedes_logically](test_slru_page_precedes_logically.md)
   - [SimpleLruInit](../S/SimpleLruInit.md)
   - TestSlruCtl (macro pointing to &TestSlruCtlData)

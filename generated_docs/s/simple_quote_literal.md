@@ -27,17 +27,17 @@ This function is part of PostgreSQL's rule deparsing infrastructure, used when c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendStringInfoChar (for adding single characters to the buffer)
+  - [appendStringInfoChar](../a/appendStringInfoChar.md) (for adding single characters to the buffer)
   - SQL_STR_DOUBLE (macro for determining which characters need doubling)
 - Global variables referenced:
   - standard_conforming_strings (controls escaping behavior)
 - Called from (representative examples):
-  - pg_get_triggerdef_worker (for trigger definitions)
-  - pg_get_functiondef (for function definitions)
-  - get_utility_query_def (for utility statements)
-  - get_rule_expr (for rule expressions)
-  - get_const_expr (for constant expressions)
-  - get_reloptions (for relation options)
+  - [pg_get_triggerdef_worker](../p/pg_get_triggerdef_worker.md) (for trigger definitions)
+  - [pg_get_functiondef](../p/pg_get_functiondef.md) (for function definitions)
+  - [get_utility_query_def](../g/get_utility_query_def.md) (for utility statements)
+  - [get_rule_expr](../g/get_rule_expr.md) (for rule expressions)
+  - [get_const_expr](../g/get_const_expr.md) (for constant expressions)
+  - [get_reloptions](../g/get_reloptions.md) (for relation options)
 
 ## Notes and Other Information
 - This is a static function within ruleutils.c, used exclusively for rule deparsing operations

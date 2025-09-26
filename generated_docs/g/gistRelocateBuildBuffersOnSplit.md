@@ -32,15 +32,15 @@ The function also handles the complex memory management involved in buffer reloc
   - LEVEL_HAS_BUFFERS
   - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)
   - [hash_search](../h/hash_search.md)
-  - gistDeCompressAtt
-  - gistGetNodeBuffer
+  - [gistDeCompressAtt](gistDeCompressAtt.md)
+  - [gistGetNodeBuffer](gistGetNodeBuffer.md)
   - [gistPopItupFromNodeBuffer](gistPopItupFromNodeBuffer.md)
   - [gistpenalty](gistpenalty.md)
   - [gistPushItupToNodeBuffer](gistPushItupToNodeBuffer.md)
-  - gistgetadjusted
+  - [gistgetadjusted](gistgetadjusted.md)
   - IndexRelationGetNumberOfKeyAttributes
 - Called from (representative examples):
-  - gistbufferinginserttuples
+  - [gistbufferinginserttuples](gistbufferinginserttuples.md)
 
 ## Notes and Other Information
 - Returns early if the level doesn't use buffers or if no buffer exists for the split page

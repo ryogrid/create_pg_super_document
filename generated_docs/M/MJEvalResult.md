@@ -36,7 +36,7 @@ This classification system allows the merge join executor to efficiently handle 
 - Called from (representative examples):
   - [MJEvalOuterValues](MJEvalOuterValues.md) (returns this type)
   - [MJEvalInnerValues](MJEvalInnerValues.md) (returns this type)
-  - ExecMergeJoin (processes values of this type in switch statements)
+  - [ExecMergeJoin](../E/ExecMergeJoin.md) (processes values of this type in switch statements)
 
 ## Notes and Other Information
 - This enumeration is central to the merge join execution algorithm in PostgreSQL, appearing in multiple switch statements throughout the ExecMergeJoin function

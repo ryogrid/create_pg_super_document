@@ -27,7 +27,7 @@ A key feature is the provision of two standard TOAST pointers within the header 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExpandedObjectMethods
+  - [ExpandedObjectMethods](ExpandedObjectMethods.md)
   - EXPANDED_POINTER_SIZE
   - [MemoryContext](../M/MemoryContext.md)
   - int32
@@ -37,8 +37,8 @@ A key feature is the provision of two standard TOAST pointers within the header 
   - [EA_flatten_into](EA_flatten_into.md)
   - [datumCopy](../d/datumCopy.md)
   - [datumSerialize](../d/datumSerialize.md)
-  - EOH_init_header
-  - MakeExpandedObjectReadOnlyInternal
+  - [EOH_init_header](EOH_init_header.md)
+  - [MakeExpandedObjectReadOnlyInternal](../M/MakeExpandedObjectReadOnlyInternal.md)
   - [TransferExpandedObject](../T/TransferExpandedObject.md)
 
 ## Notes and Other Information

@@ -27,7 +27,7 @@ The function constructs a SharedInvalidationMessage with the SHAREDINVALRELMAP_I
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SharedInvalidationMessage (message structure)
+  - [SharedInvalidationMessage](../S/SharedInvalidationMessage.md) (message structure)
   - SHAREDINVALRELMAP_ID (message type identifier)
   - VALGRIND_MAKE_MEM_DEFINED (memory debugging macro)
   - [SendSharedInvalidMessages](../S/SendSharedInvalidMessages.md) (message transmission function)

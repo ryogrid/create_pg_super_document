@@ -33,7 +33,7 @@ The function validates the element type compatibility, extracts the constant arr
 - Functions called/Symbols referenced:
   - [lookup_type_cache](../l/lookup_type_cache.md)
   - DatumGetArrayTypeP
-  - statistic_proc_security_check
+  - [statistic_proc_security_check](../s/statistic_proc_security_check.md)
   - [get_attstatsslot](../g/get_attstatsslot.md)
   - [mcelem_array_selec](../m/mcelem_array_selec.md)
   - [free_attstatsslot](../f/free_attstatsslot.md)

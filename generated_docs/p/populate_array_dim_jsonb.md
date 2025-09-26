@@ -29,7 +29,7 @@ This function performs recursive traversal of JSONB array structures to populate
   - JsonbIterator (JSONB iterator structure)
   - JsonbIteratorToken (iterator token type)
   - [JsValue](../J/JsValue.md) (value representation structure)
-  - check_stack_depth (stack overflow protection)
+  - [check_stack_depth](../c/check_stack_depth.md) (stack overflow protection)
   - JsonContainerIsArray (array type check)
   - jbvBinary (JSONB binary type constant)
   - JsonContainerIsScalar (scalar type check)

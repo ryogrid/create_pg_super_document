@@ -22,10 +22,10 @@ This function completes the hash index construction process by first performing 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [HSpool](../H/HSpool.md) (structure type)
-  - tuplesort_performsort (executes the sort operation)
+  - [tuplesort_performsort](../t/tuplesort_performsort.md) (executes the sort operation)
   - [tuplesort_getindextuple](../t/tuplesort_getindextuple.md) (retrieves sorted tuples)
   - [_hash_hashkey2bucket](_hash_hashkey2bucket.md) (computes bucket for hash key)
-  - _hash_get_indextuple_hashkey (extracts hash key from tuple)
+  - [_hash_get_indextuple_hashkey](_hash_get_indextuple_hashkey.md) (extracts hash key from tuple)
   - [_hash_doinsert](_hash_doinsert.md) (inserts tuple into hash index)
   - [pgstat_progress_update_param](../p/pgstat_progress_update_param.md) (reports progress)
   - PROGRESS_CREATEIDX_TUPLES_DONE (progress tracking constant)

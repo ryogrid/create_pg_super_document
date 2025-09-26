@@ -27,7 +27,7 @@ The structure enables the same buffer management functions to be used in both co
 - `relpersistence`: A character indicating the relation's persistence level (permanent, temporary, unlogged), required when working with storage manager directly
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SMgrRelationData (structure)
+  - [SMgrRelationData](../S/SMgrRelationData.md) (structure)
   - [Relation](../R/Relation.md) (type)
 - Called from (representative examples):
   - [ExtendBufferedRel](../E/ExtendBufferedRel.md) (in bufmgr.c:845)
@@ -35,7 +35,7 @@ The structure enables the same buffer management functions to be used in both co
   - [ExtendBufferedRelTo](../E/ExtendBufferedRelTo.md) (in bufmgr.c:909)
   - [ExtendBufferedRelCommon](../E/ExtendBufferedRelCommon.md) (in bufmgr.c:2135)
   - [ExtendBufferedRelShared](../E/ExtendBufferedRelShared.md) (in bufmgr.c:2179)
-  - ExtendBufferedRelLocal (in localbuf.c:313)
+  - [ExtendBufferedRelLocal](../E/ExtendBufferedRelLocal.md) (in localbuf.c:313)
 
 ## Notes and Other Information
 - Used with convenience macros BMR_REL() and BMR_SMGR() for easy construction

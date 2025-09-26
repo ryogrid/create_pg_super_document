@@ -48,8 +48,8 @@ The adhoc_opts structure serves as the central repository for all command-line o
 
 ## Notes and Other Information
 - The structure is initialized with memset() to zero all fields before option parsing
-- String fields are allocated with pg_strdup() when set from command-line arguments
-- Boolean fields default to false and are set to true when their corresponding options are specified
+- [String](../S/String.md) fields are allocated with pg_strdup() when set from command-line arguments
+- [Boolean](../B/Boolean.md) fields default to false and are set to true when their corresponding options are specified
 - The actions field is processed sequentially after database connection is established
 - Used only during psql startup and is not accessed after the main initialization phase
 - Represents the "ad hoc" nature of command-line specified options versus configuration file settings

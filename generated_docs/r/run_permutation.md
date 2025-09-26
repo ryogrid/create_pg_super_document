@@ -30,7 +30,7 @@ Key features include asynchronous step execution using PQsendQuery, sophisticate
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TestSpec](../T/TestSpec.md), PermutationStep, Step, IsoConnInfo, PermutationStepBlocker (struct types)
-  - pg_malloc, PQexec, PQsendQuery, gettimeofday (standard/PostgreSQL functions)
+  - [pg_malloc](../p/pg_malloc.md), PQexec, PQsendQuery, gettimeofday (standard/PostgreSQL functions)
   - [printResultSet](../p/printResultSet.md), try_complete_step, try_complete_steps (helper functions)
   - PGRES_TUPLES_OK, PGRES_COMMAND_OK, PSB_NUM_NOTICES (constants)
   - STEP_RETRY, STEP_NONBLOCK, USECS_PER_SEC (constants/macros)

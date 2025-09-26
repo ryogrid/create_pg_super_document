@@ -23,7 +23,7 @@ This static function is responsible for updating progress information when the b
   - PROGRESS_BASEBACKUP_PHASE_STREAM_BACKUP (phase constant)
   - [pgstat_progress_update_multi_param](../p/pgstat_progress_update_multi_param.md) (progress update function)
   - [bbsink_forward_begin_backup](bbsink_forward_begin_backup.md) (forwarding function)
-  - list_length (list utility function)
+  - [list_length](../l/list_length.md) (list utility function)
 - Called from (representative examples):
   - This is a static function, typically called through function pointers in the bbsink operations structure
 

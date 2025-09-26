@@ -29,7 +29,7 @@ This mechanism allows PostgreSQL to transition from recovery mode to normal oper
   - [WALInsertLockAcquireExclusive](../W/WALInsertLockAcquireExclusive.md)/WALInsertLockRelease (WAL coordination)
   - [XLogBeginInsert](../X/XLogBeginInsert.md)/XLogRegisterData/XLogInsert (WAL record creation)
   - [XLogFlush](../X/XLogFlush.md) (WAL persistence)
-  - UpdateControlFile (control file updates)
+  - [UpdateControlFile](../U/UpdateControlFile.md) (control file updates)
   - [xl_end_of_recovery](../x/xl_end_of_recovery.md) (record structure)
   - XLOG_END_OF_RECOVERY (record type constant)
 - Called from (representative examples):

@@ -25,7 +25,7 @@ The calculation includes:
 ## Dependencies
 - Functions called/Symbols referenced: None
 - Called from (representative examples):
-  - esc_dec_len (indirectly referenced)
+  - [esc_dec_len](../e/esc_dec_len.md) (indirectly referenced)
 
 ## Notes and Other Information
 - This is a static utility function used internally for memory allocation planning

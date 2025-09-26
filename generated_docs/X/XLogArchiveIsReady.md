@@ -23,7 +23,7 @@ This function provides a direct way to determine if a WAL file is currently in t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - StatusFilePath
+  - [StatusFilePath](../S/StatusFilePath.md)
 - Called from (representative examples):
   - [RemoveNonParentXlogFiles](../R/RemoveNonParentXlogFiles.md)
 

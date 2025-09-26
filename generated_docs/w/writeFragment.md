@@ -30,7 +30,7 @@ The function performs bounds checking via Assert to ensure the delta buffer has 
   - memcpy (standard library function)
   - Assert (PostgreSQL assertion macro)
 - Called from (representative examples):
-  - computeRegionDelta (twice - lines 196 and 217)
+  - [computeRegionDelta](../c/computeRegionDelta.md) (twice - lines 196 and 217)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the generic_xlog.c source file

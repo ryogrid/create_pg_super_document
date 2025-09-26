@@ -28,7 +28,7 @@ The function is designed to be lightweight and inline, providing efficient buffe
   - BufferIsLocal
   - [GetLocalBufferDescriptor](../G/GetLocalBufferDescriptor.md)
   - [pg_atomic_read_u32](../p/pg_atomic_read_u32.md)
-  - StartBufferIO
+  - [StartBufferIO](../S/StartBufferIO.md)
   - [GetBufferDescriptor](../G/GetBufferDescriptor.md)
 - Constants used:
   - BM_VALID

@@ -21,7 +21,7 @@ This function is the core data transmission function for COPY TO operations. It 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendBinaryStringInfo (to append binary data to the message buffer)
+  - [appendBinaryStringInfo](../a/appendBinaryStringInfo.md) (to append binary data to the message buffer)
 - Called from (representative examples):
   - DR_copy (in copyto.c:120)
   - [CopySendInt32](CopySendInt32.md) (in copyto.c:270)

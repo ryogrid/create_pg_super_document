@@ -32,16 +32,16 @@ The function performs basic validation checks ensuring the sink is valid and the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbsink (struct type)
+  - [bbsink](bbsink.md) (struct type)
   - Assert (assertion macro)
   - sink->bbs_ops->manifest_contents (callback function)
 
 - Called from (representative examples):  
-  - SendBackupManifest
-  - bbsink_gzip_manifest_contents
-  - bbsink_lz4_manifest_contents
-  - bbsink_forward_manifest_contents
-  - bbsink_zstd_manifest_contents
+  - [SendBackupManifest](../S/SendBackupManifest.md)
+  - [bbsink_gzip_manifest_contents](bbsink_gzip_manifest_contents.md)
+  - [bbsink_lz4_manifest_contents](bbsink_lz4_manifest_contents.md)
+  - [bbsink_forward_manifest_contents](bbsink_forward_manifest_contents.md)
+  - [bbsink_zstd_manifest_contents](bbsink_zstd_manifest_contents.md)
 
 ## Notes and Other Information
 - This is an inline function defined in the header file for performance

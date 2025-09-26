@@ -40,7 +40,7 @@ This function is crucial for query normalization as it ensures that queries with
 
 ## Notes and Other Information
 - The function handles the dual nature of A_Const nodes which can either be NULL or contain a typed value
-- Float values are jumbled as strings rather than binary representations to ensure consistent handling across different platforms and precision settings
-- String and BitString values are jumbled using `JUMBLE_STRING` which includes the null terminator for proper boundary detection
+- [Float](../F/Float.md) values are jumbled as strings rather than binary representations to ensure consistent handling across different platforms and precision settings
+- [String](../S/String.md) and BitString values are jumbled using `JUMBLE_STRING` which includes the null terminator for proper boundary detection
 - The function throws an ERROR for unrecognized constant types, ensuring robust type safety
 - This function is part of PostgreSQL's query fingerprinting mechanism that enables the query planner to recognize semantically equivalent queries with different literal values

@@ -30,7 +30,7 @@ The created CachedPlanSource is initialized with default values for most fields,
   - [palloc0](../p/palloc0.md)
   - copyObject
   - [pstrdup](../p/pstrdup.md)
-  - MemoryContextSetIdentifier
+  - [MemoryContextSetIdentifier](../M/MemoryContextSetIdentifier.md)
 - Called from (representative examples):
   - [PrepareQuery](../P/PrepareQuery.md) (for PREPARE statements)
   - [_SPI_prepare_plan](../S/_SPI_prepare_plan.md) (SPI interface)

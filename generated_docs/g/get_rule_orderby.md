@@ -31,13 +31,13 @@ The function intelligently handles default behaviors (ASC is implicit, DESC defa
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_rule_sortgroupclause](get_rule_sortgroupclause.md) (to resolve sort column expressions)
-  - exprType (to determine the data type of sort expressions)
+  - [exprType](../e/exprType.md) (to determine the data type of sort expressions)
   - [lookup_type_cache](../l/lookup_type_cache.md) (to get default less-than and greater-than operators)
-  - generate_operator_name (for custom operator names)
+  - [generate_operator_name](generate_operator_name.md) (for custom operator names)
 - Called from (representative examples):
   - [get_select_query_def](get_select_query_def.md) (for main query ORDER BY clauses)
   - [get_rule_windowspec](get_rule_windowspec.md) (for window function ORDER BY specifications)
-  - get_agg_expr_helper (for aggregate function ordering)
+  - [get_agg_expr_helper](get_agg_expr_helper.md) (for aggregate function ordering)
 
 ## Notes and Other Information
 - Static function accessible only within ruleutils.c

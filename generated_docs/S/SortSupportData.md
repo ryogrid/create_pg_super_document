@@ -63,14 +63,14 @@ The abbreviated key system is particularly sophisticated, allowing opclasses to 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContext
+  - [MemoryContext](../M/MemoryContext.md)
   - AttrNumber  
   - Datum
   - Oid
 - Used by (representative examples):
-  - SortSupport (typedef pointer)
-  - ApplySortComparator
-  - ApplySortAbbrevFullComparator
+  - [SortSupport](SortSupport.md) (typedef pointer)
+  - [ApplySortComparator](../A/ApplySortComparator.md)
+  - [ApplySortAbbrevFullComparator](../A/ApplySortAbbrevFullComparator.md)
   - Various btree opclass support functions
 
 ## Notes and Other Information

@@ -40,14 +40,14 @@ TupleTableSlot serves as the fundamental data structure for tuple representation
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TupleTableSlotOps
+  - [TupleTableSlotOps](TupleTableSlotOps.md)
   - NodeTag
-  - TupleDesc
+  - [TupleDesc](TupleDesc.md)
   - Datum
-  - MemoryContext
-  - ItemPointerData
+  - [MemoryContext](../M/MemoryContext.md)
+  - [ItemPointerData](../I/ItemPointerData.md)
 - Called from (representative examples):
-  - ExecProcNode functions
+  - [ExecProcNode](../E/ExecProcNode.md) functions
   - Executor state nodes
   - Table access methods
   - JIT compilation functions

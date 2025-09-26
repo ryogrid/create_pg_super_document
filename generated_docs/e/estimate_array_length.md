@@ -28,12 +28,12 @@ The function is designed to work even when the planner info () is NULL, though t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - strip_array_coercion
+  - [strip_array_coercion](../s/strip_array_coercion.md)
   - DatumGetArrayTypeP
-  - ArrayGetNItems
+  - [ArrayGetNItems](../A/ArrayGetNItems.md)
   - ARR_NDIM
   - ARR_DIMS
-  - examine_variable
+  - [examine_variable](examine_variable.md)
   - [get_attstatsslot](../g/get_attstatsslot.md)
   - [clamp_row_est](../c/clamp_row_est.md)
   - [free_attstatsslot](../f/free_attstatsslot.md)

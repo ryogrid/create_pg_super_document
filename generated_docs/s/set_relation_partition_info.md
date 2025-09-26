@@ -45,7 +45,7 @@ This information is crucial for partition-aware planning, including partition pr
   - [set_baserel_partition_key_exprs](set_baserel_partition_key_exprs.md)
   - [set_baserel_partition_constraint](set_baserel_partition_constraint.md)
   - [PartitionDesc](../P/PartitionDesc.md)
-  - PartitionScheme
+  - [PartitionScheme](../P/PartitionScheme.md)
 - Called from (representative examples):
   - [get_relation_info](../g/get_relation_info.md)
 

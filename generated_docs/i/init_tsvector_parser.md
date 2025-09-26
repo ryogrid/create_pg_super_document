@@ -23,8 +23,8 @@ This function creates and initializes a TSVectorParseState structure that mainta
 - Functions called/Symbols referenced:
   - [palloc](../p/palloc.md)
   - [pg_database_encoding_max_length](../p/pg_database_encoding_max_length.md)
-  - TSVectorParseState
-  - TSVectorParseStateData
+  - [TSVectorParseState](../T/TSVectorParseState.md)
+  - [TSVectorParseStateData](../T/TSVectorParseStateData.md)
   - P_TSV_OPR_IS_DELIM
   - P_TSV_IS_TSQUERY  
   - P_TSV_IS_WEB

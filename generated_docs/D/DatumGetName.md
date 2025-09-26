@@ -26,7 +26,7 @@ This function is the inverse operation of NameGetDatum() and is essential for re
   - Name (type cast)
 - Called from (representative examples):
   - [ExecGrant_common](../E/ExecGrant_common.md) (access control)
-  - pg_identify_object (object identification)
+  - [pg_identify_object](../p/pg_identify_object.md) (object identification)
   - [GetSubscription](../G/GetSubscription.md) (subscription management)
   - [pg_get_triggerdef_worker](../p/pg_get_triggerdef_worker.md) (rule utilities)
   - [namefastcmp_c](../n/namefastcmp_c.md) (name comparison functions)

@@ -36,16 +36,16 @@ This function is particularly useful in scenarios where relation existence is un
   - RelationIsValid - Validates the relation descriptor
   - [CheckRelationLockedByMe](../C/CheckRelationLockedByMe.md) - Verifies lock ownership
   - RelationUsesLocalBuffers - Checks if relation uses local buffers
-  - pgstat_init_relation - Initializes relation statistics
+  - [pgstat_init_relation](../p/pgstat_init_relation.md) - Initializes relation statistics
   - MAX_LOCKMODES - Maximum lock mode constant
   - XACT_FLAGS_ACCESSEDTEMPNAMESPACE - Transaction flag for temp namespace access
 
 - Called from (representative examples):
   - [try_index_open](try_index_open.md) - Non-failing index opening
-  - try_table_open - Non-failing table opening
+  - [try_table_open](try_table_open.md) - Non-failing table opening
   - [cluster_rel](../c/cluster_rel.md) - Cluster operation
   - [ATExecDetachPartition](../A/ATExecDetachPartition.md) - Partition detachment
-  - vacuum_open_relation - Vacuum operations
+  - [vacuum_open_relation](../v/vacuum_open_relation.md) - Vacuum operations
   - [pg_relation_size](../p/pg_relation_size.md) - Size calculation functions
 
 ## Notes and Other Information

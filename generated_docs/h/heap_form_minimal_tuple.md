@@ -42,7 +42,7 @@ The result is allocated in the current memory context and must be freed by the c
 - Called from (representative examples):
   - [tts_virtual_copy_minimal_tuple](../t/tts_virtual_copy_minimal_tuple.md)
   - [tts_minimal_materialize](../t/tts_minimal_materialize.md)
-  - tuplestore_putvalues
+  - [tuplestore_putvalues](../t/tuplestore_putvalues.md)
   - HeapTupleClearHeapOnly
 
 ## Notes and Other Information

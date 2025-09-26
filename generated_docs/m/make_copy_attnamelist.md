@@ -24,7 +24,7 @@ The function uses PostgreSQL's list manipulation functions to build a list of  n
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lappend (list manipulation function)
+  - [lappend](../l/lappend.md) (list manipulation function)
   - [makeString](makeString.md) (creates a String node for each column name)
   - [LogicalRepRelMapEntry](../L/LogicalRepRelMapEntry.md) (structure type)
   - NIL (empty list constant)

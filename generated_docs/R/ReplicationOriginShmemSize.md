@@ -29,8 +29,8 @@ The design choice to use max_replication_slots is noted as arguably imperfect si
   - [mul_size](../m/mul_size.md): Safely multiplies sizes with overflow checking
   - `offsetof`: Calculates offset of states field in ReplicationStateCtl structure
   - `max_replication_slots`: Global configuration variable for maximum replication slots
-  - `ReplicationStateCtl`: Control structure type for replication state management
-  - `ReplicationState`: Individual replication origin state structure type
+  - `[ReplicationStateCtl](ReplicationStateCtl.md)`: Control structure type for replication state management
+  - `[ReplicationState](ReplicationState.md)`: Individual replication origin state structure type
 - Called from (representative examples):
   - [ReplicationOriginShmemInit](ReplicationOriginShmemInit.md): During shared memory initialization to allocate the calculated amount
   - [CalculateShmemSize](../C/CalculateShmemSize.md): As part of total shared memory size calculation during PostgreSQL startup

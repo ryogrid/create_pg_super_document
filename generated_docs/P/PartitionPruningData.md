@@ -24,13 +24,13 @@ This structure serves as the top-level container for partition pruning informati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PartitionedRelPruningData (component structure)
+  - [PartitionedRelPruningData](PartitionedRelPruningData.md) (component structure)
   - FLEXIBLE_ARRAY_MEMBER (for variable-length array)
 - Called from (representative examples):
-  - CreatePartitionPruneState
-  - ExecFindMatchingSubPlans
-  - PartitionPruneFixSubPlanMap
-  - find_matching_subplans_recurse
+  - [CreatePartitionPruneState](../C/CreatePartitionPruneState.md)
+  - [ExecFindMatchingSubPlans](../E/ExecFindMatchingSubPlans.md)
+  - [PartitionPruneFixSubPlanMap](PartitionPruneFixSubPlanMap.md)
+  - [find_matching_subplans_recurse](../f/find_matching_subplans_recurse.md)
 
 ## Notes and Other Information
 - The ordering constraint (parents before children) is critical for proper hierarchy traversal during pruning

@@ -20,7 +20,7 @@ This function completely removes a publication from the pg_publication catalog t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open (catalog access)
+  - [table_open](../t/table_open.md) (catalog access)
   - [SearchSysCache1](../S/SearchSysCache1.md) (cache lookup)
   - [CacheInvalidateRelcacheAll](../C/CacheInvalidateRelcacheAll.md) (global cache invalidation)
   - [CatalogTupleDelete](../C/CatalogTupleDelete.md) (catalog modification)

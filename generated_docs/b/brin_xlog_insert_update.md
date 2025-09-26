@@ -21,8 +21,8 @@ This function performs the common operations needed for both BRIN tuple insertio
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetInfo: Gets record information flags
-  - XLogInitBufferForRedo: Initializes buffer for redo when creating new page
-  - XLogReadBufferForRedo: Reads existing buffer for redo operations
+  - [XLogInitBufferForRedo](../X/XLogInitBufferForRedo.md): Initializes buffer for redo when creating new page
+  - [XLogReadBufferForRedo](../X/XLogReadBufferForRedo.md): Reads existing buffer for redo operations
   - [brin_page_init](brin_page_init.md): Initializes a new BRIN page
   - [XLogRecGetBlockData](../X/XLogRecGetBlockData.md): Extracts block data from WAL record
   - PageAddItem: Adds tuple to page

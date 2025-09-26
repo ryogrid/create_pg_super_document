@@ -21,14 +21,14 @@ The function is part of PostgreSQL's date/time handling infrastructure and follo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PointerGetDatum (from src/include/postgres.h)
+  - [PointerGetDatum](../P/PointerGetDatum.md) (from src/include/postgres.h)
   - TimeTzADT (struct type defined in src/include/utils/date.h)
 
 - Called from (representative examples):
   - PG_RETURN_TIMETZADT_P (macro in src/include/utils/date.h)
-  - ExecEvalSQLValueFunction (src/backend/executor/execExprInterp.c:2657)
-  - parse_datetime (src/backend/utils/adt/formatting.c:4588)
-  - executeDateTimeMethod (src/backend/utils/adt/jsonpath_exec.c:2627)
+  - [ExecEvalSQLValueFunction](../E/ExecEvalSQLValueFunction.md) (src/backend/executor/execExprInterp.c:2657)
+  - [parse_datetime](../p/parse_datetime.md) (src/backend/utils/adt/formatting.c:4588)
+  - [executeDateTimeMethod](../e/executeDateTimeMethod.md) (src/backend/utils/adt/jsonpath_exec.c:2627)
 
 ## Notes and Other Information
 - This is a static inline function defined in src/include/utils/date.h:84-88

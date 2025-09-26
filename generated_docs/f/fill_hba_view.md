@@ -30,7 +30,7 @@ The  function implements the core logic for populating the pg_hba_file_rules sys
   - [fill_hba_line](fill_hba_line.md)
   - [free_auth_file](free_auth_file.md)
 - Types referenced:
-  - Tuplestorestate, TupleDesc
+  - [Tuplestorestate](../T/Tuplestorestate.md), TupleDesc
   - [TokenizedAuthLine](../T/TokenizedAuthLine.md), HbaLine
   - HbaFileName (global variable)
   - ALLOCSET_SMALL_SIZES, DEBUG3 (constants)

@@ -21,10 +21,10 @@ The function calculates a split index as the midpoint of the entries and assigns
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetRangeTypeP
+  - [DatumGetRangeTypeP](../D/DatumGetRangeTypeP.md)
   - PLACE_LEFT (macro)
   - PLACE_RIGHT (macro) 
-  - RangeTypePGetDatum
+  - [RangeTypePGetDatum](../R/RangeTypePGetDatum.md)
   - FirstOffsetNumber (constant)
 - Called from (representative examples):
   - [range_gist_picksplit](range_gist_picksplit.md)

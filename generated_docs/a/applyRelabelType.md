@@ -40,15 +40,15 @@ This function is crucial for maintaining the integrity of the expression tree du
 - Functions called/Symbols referenced:
   - IsA (macro for node type checking)
   - copyObject (for copying Const nodes when overwrite_ok is false)
-  - exprType, exprTypmod, exprCollation (for checking current expression properties)
+  - [exprType](../e/exprType.md), exprTypmod, exprCollation (for checking current expression properties)
   - makeNode (for creating new RelabelType nodes)
 
 - Called from (representative examples):
-  - relabel_to_typmod (wrapper for typmod-only relabeling)
-  - coerce_type_typmod (in type coercion system)
-  - eval_const_expressions_mutator (during constant folding)
-  - canonicalize_ec_expression (in equivalence class processing)
-  - generate_setop_tlist (in set operation planning)
+  - [relabel_to_typmod](../r/relabel_to_typmod.md) (wrapper for typmod-only relabeling)
+  - [coerce_type_typmod](../c/coerce_type_typmod.md) (in type coercion system)
+  - [eval_const_expressions_mutator](../e/eval_const_expressions_mutator.md) (during constant folding)
+  - [canonicalize_ec_expression](../c/canonicalize_ec_expression.md) (in equivalence class processing)
+  - [generate_setop_tlist](../g/generate_setop_tlist.md) (in set operation planning)
 
 ## Notes and Other Information
 - Primarily intended for use during query planning

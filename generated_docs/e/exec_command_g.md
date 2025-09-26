@@ -44,7 +44,7 @@ The function processes arguments in two phases: first parsing any pset options e
   - EditableObjectType (indirectly through command dispatch)
 
 ## Notes and Other Information
-- Complex argument processing occurs regardless of active_branch status to maintain parser consistency
+- [Complex](../C/Complex.md) argument processing occurs regardless of active_branch status to maintain parser consistency
 - The \gx variant automatically saves current pset options and forces expanded output mode
 - Output filename undergoes tilde expansion for home directory references
 - Memory management includes proper freeing of allocated filename strings

@@ -19,18 +19,18 @@ This function implements a spin-wait mechanism that blocks until a buffer header
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferDesc (structure type)
+  - [BufferDesc](../B/BufferDesc.md) (structure type)
   - SpinDelayStatus (type for delay management)
   - init_local_spin_delay (initializes delay mechanism)
-  - pg_atomic_read_u32 (atomic read operation)
+  - [pg_atomic_read_u32](../p/pg_atomic_read_u32.md) (atomic read operation)
   - BM_LOCKED (buffer state flag)
-  - perform_spin_delay (executes delay)
-  - finish_spin_delay (cleans up delay state)
+  - [perform_spin_delay](../p/perform_spin_delay.md) (executes delay)
+  - [finish_spin_delay](../f/finish_spin_delay.md) (cleans up delay state)
 - Called from (representative examples):
   - BufferIsPinned
-  - MarkBufferDirty
-  - PinBuffer
-  - UnpinBufferNoOwner
+  - [MarkBufferDirty](../M/MarkBufferDirty.md)
+  - [PinBuffer](../P/PinBuffer.md)
+  - [UnpinBufferNoOwner](../U/UnpinBufferNoOwner.md)
 
 ## Notes and Other Information
 - This is a static function internal to bufmgr.c

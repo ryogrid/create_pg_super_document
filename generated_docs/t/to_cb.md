@@ -24,9 +24,9 @@ This function is part of the test infrastructure located in `src/test/modules/te
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport (for logging NOTICE messages)
-  - errmsg (for formatting error messages)
+  - [errmsg](../e/errmsg.md) (for formatting error messages)
 - Called from (representative examples):
-  - test_copy_to_callback (passed as callback function to BeginCopyTo)
+  - [test_copy_to_callback](test_copy_to_callback.md) (passed as callback function to BeginCopyTo)
 
 ## Notes and Other Information
 - This function is declared as static, meaning it has internal linkage and is only accessible within the same translation unit

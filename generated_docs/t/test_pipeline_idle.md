@@ -28,7 +28,7 @@ The function demonstrates that PostgreSQL enforces proper pipeline state managem
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQsetNoticeProcessor](../P/PQsetNoticeProcessor.md) (notice handler setup)
-  - PQenterPipelineMode/PQexitPipelineMode (pipeline mode control)
+  - [PQenterPipelineMode](../P/PQenterPipelineMode.md)/PQexitPipelineMode (pipeline mode control)
   - [PQsendQueryParams](../P/PQsendQueryParams.md) (sending parameterized queries)
   - [PQsendFlushRequest](../P/PQsendFlushRequest.md) (forcing output buffer flush)
   - [PQgetResult](../P/PQgetResult.md) (retrieving results)

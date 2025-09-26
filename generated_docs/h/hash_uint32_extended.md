@@ -25,8 +25,8 @@ This function is essential for PostgreSQL's extended hash infrastructure where 6
   - [hash_bytes_uint32_extended](hash_bytes_uint32_extended.md)
   - [UInt64GetDatum](../U/UInt64GetDatum.md)
   - [string_hash](../s/string_hash.md)
-  - tag_hash  
-  - uint32_hash
+  - [tag_hash](../t/tag_hash.md)  
+  - [uint32_hash](../u/uint32_hash.md)
 - Called from (representative examples):
   - [hashcharextended](hashcharextended.md)
   - [hashint2extended](hashint2extended.md)

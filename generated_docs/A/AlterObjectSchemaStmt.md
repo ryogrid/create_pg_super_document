@@ -33,13 +33,13 @@ AlterObjectSchemaStmt represents SQL statements that move database objects from 
 ## Dependencies
 - Functions called/Symbols referenced:
   - ObjectType (enumeration for database object types)
-  - RangeVar (structure for table/relation references)
+  - [RangeVar](../R/RangeVar.md) (structure for table/relation references)
   - NodeTag (standard parse node identification)
 - Called from (representative examples):
-  - ExecAlterObjectSchemaStmt (main execution function)
-  - AlterTableNamespace (table-specific schema change)
-  - standard_ProcessUtility (utility command processing)
-  - RangeVarCallbackForAlterRelation (relation-specific callback)
+  - [ExecAlterObjectSchemaStmt](../E/ExecAlterObjectSchemaStmt.md) (main execution function)
+  - [AlterTableNamespace](AlterTableNamespace.md) (table-specific schema change)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (utility command processing)
+  - [RangeVarCallbackForAlterRelation](../R/RangeVarCallbackForAlterRelation.md) (relation-specific callback)
 
 ## Notes and Other Information
 This statement type is essential for database organization and namespace management in PostgreSQL. Moving objects between schemas can affect access permissions, search paths, and object resolution. The operation includes dependency checking to ensure that moving an object doesn't break references from other database objects. The missing_ok flag provides graceful handling of non-existent objects in automated scripts.

@@ -31,7 +31,7 @@ The function operates in two phases:
   - SRF_RETURN_DONE
   - [makeJsonLexContext](../m/makeJsonLexContext.md)
   - pg_parse_json_or_ereport
-  - freeJsonLexContext
+  - [freeJsonLexContext](../f/freeJsonLexContext.md)
   - [okeys_array_start](../o/okeys_array_start.md)
   - [okeys_scalar](../o/okeys_scalar.md)
   - [okeys_object_field_start](../o/okeys_object_field_start.md)

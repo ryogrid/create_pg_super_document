@@ -42,14 +42,14 @@ The function handles both normal operation mode and bootstrap mode with differen
   - [TupleDescInitEntry](../T/TupleDescInitEntry.md)
   - [table_relation_toast_am](../t/table_relation_toast_am.md)
   - [heap_create_with_catalog](../h/heap_create_with_catalog.md)
-  - index_create
+  - [index_create](../i/index_create.md)
   - SearchSysCacheCopy1
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - [systable_inplace_update_begin](../s/systable_inplace_update_begin.md)
   - [systable_inplace_update_finish](../s/systable_inplace_update_finish.md)
   - [heap_freetuple](../h/heap_freetuple.md)
   - [recordDependencyOn](../r/recordDependencyOn.md)
-  - CommandCounterIncrement
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md)
 - Called from (representative examples):
   - [CheckAndCreateToastTable](../C/CheckAndCreateToastTable.md)
   - [BootstrapToastTable](../B/BootstrapToastTable.md)

@@ -28,7 +28,7 @@ This function provides a more specific check than WalRcvRunning() by determining
   - WALRCV_STOPPED
   - WALRCV_STREAMING
   - WALRCV_RESTARTING
-  - ConditionVariableBroadcast
+  - [ConditionVariableBroadcast](../C/ConditionVariableBroadcast.md)
 - Called from (representative examples):
   - [FinishWalRecovery](../F/FinishWalRecovery.md)
   - [WaitForWALToBecomeAvailable](WaitForWALToBecomeAvailable.md)

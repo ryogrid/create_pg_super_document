@@ -21,11 +21,11 @@ This function takes no parameters (uses PG_FUNCTION_ARGS macro but doesn't extra
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwnerCreate (resource owner creation)
-  - ResourceOwnerRelease (initiates resource release process)
-  - ResourceOwnerEnlarge (attempts resource owner capacity expansion - should fail)
-  - ResourceOwnerRemember (attempts resource registration - should not be reached)
-  - CStringGetDatum (string to Datum conversion)
+  - [ResourceOwnerCreate](../R/ResourceOwnerCreate.md) (resource owner creation)
+  - [ResourceOwnerRelease](../R/ResourceOwnerRelease.md) (initiates resource release process)
+  - [ResourceOwnerEnlarge](../R/ResourceOwnerEnlarge.md) (attempts resource owner capacity expansion - should fail)
+  - [ResourceOwnerRemember](../R/ResourceOwnerRemember.md) (attempts resource registration - should not be reached)
+  - [CStringGetDatum](../C/CStringGetDatum.md) (string to Datum conversion)
   - string_desc (global resource descriptor for string resources)
   - elog (error logging - for unreachable code path)
   - PG_RETURN_VOID (return macro)

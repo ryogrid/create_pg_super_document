@@ -37,8 +37,8 @@ The function uses tuplestores to cache function results, allowing for efficient 
   - [ExecMakeTableFunctionResult](../E/ExecMakeTableFunctionResult.md)
   - [tuplestore_rescan](../t/tuplestore_rescan.md)
   - [tuplestore_gettupleslot](../t/tuplestore_gettupleslot.md)
-  - ExecClearTuple
-  - slot_getallattrs
+  - [ExecClearTuple](../E/ExecClearTuple.md)
+  - [slot_getallattrs](../s/slot_getallattrs.md)
   - [ExecStoreVirtualTuple](../E/ExecStoreVirtualTuple.md)
   - ScanDirectionIsForward
   - TupIsNull

@@ -22,13 +22,13 @@ EncodeTimezone converts a timezone offset (given in seconds) into its string rep
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_ultostr_zeropad (for zero-padded number formatting)
+  - [pg_ultostr_zeropad](../p/pg_ultostr_zeropad.md) (for zero-padded number formatting)
   - SECS_PER_MINUTE (constant for seconds per minute conversion)
   - MINS_PER_HOUR (constant for minutes per hour conversion)
   - USE_XSD_DATES (style constant for XSD date formatting)
 - Called from (representative examples):
-  - EncodeTimeOnly
-  - EncodeDateTime
+  - [EncodeTimeOnly](EncodeTimeOnly.md)
+  - [EncodeDateTime](EncodeDateTime.md)
 
 ## Notes and Other Information
 - The function inverts the sign of the timezone offset for display purposes (tz <= 0 becomes '+')

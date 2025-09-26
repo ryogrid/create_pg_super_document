@@ -22,14 +22,14 @@ The caller is responsible for ensuring that the str parameter is a palloc'd (Pos
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (macro for node allocation and initialization)
-  - String (struct type definition)
+  - [String](../S/String.md) (struct type definition)
 - Called from (representative examples):
   - [untransformRelOptions](../u/untransformRelOptions.md) (in reloptions.c)
   - [FunctionIsVisibleExt](../F/FunctionIsVisibleExt.md) (in namespace.c)
   - [get_object_address_rv](../g/get_object_address_rv.md) (in objectaddress.c)
   - [buildDefItem](../b/buildDefItem.md) (in tsearchcmds.c)
   - [DefineView](../D/DefineView.md) (in view.c)
-  - makeSimpleA_Expr (in makefuncs.c)
+  - [makeSimpleA_Expr](makeSimpleA_Expr.md) (in makefuncs.c)
   - [nodeRead](../n/nodeRead.md) (in read.c for deserialization)
   - Various parser functions throughout parse_*.c files
 

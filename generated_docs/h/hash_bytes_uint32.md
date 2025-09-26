@@ -27,7 +27,7 @@ This optimization is particularly valuable for hash tables that use 32-bit keys,
 - Called from (representative examples):
   - [hashagg_spill_tuple](hashagg_spill_tuple.md) (src/backend/executor/nodeAgg.c:2968)
   - [json_unique_hash](../j/json_unique_hash.md) (src/backend/utils/adt/json.c:894)
-  - uint32_hash (src/common/hashfn.c:691)
+  - [uint32_hash](../u/uint32_hash.md) (src/common/hashfn.c:691)
   - ROTATE_HIGH_AND_LOW_32BITS (src/include/common/hashfn.h:26)
   - [hash_uint32](hash_uint32.md) (src/include/common/hashfn.h:45)
 

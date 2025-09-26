@@ -25,7 +25,7 @@ Special handling is provided for CTE (Common Table Expression) subplans, which a
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SubPlanState](../S/SubPlanState.md)
-  - SubPlan
+  - [SubPlan](../S/SubPlan.md)
   - bms_is_empty
   - lfirst_int
   - [ParamExecData](../P/ParamExecData.md)

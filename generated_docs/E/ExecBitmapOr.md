@@ -31,5 +31,5 @@ The function exists to satisfy the function pointer assignment in the node state
 ## Notes and Other Information
 - This is a static function within nodeBitmapOr.c and is not exported
 - The actual execution logic for BitmapOr nodes is implemented in MultiExecBitmapOr
-- BitmapOr nodes use a different execution model than standard tuple-returning nodes
+- [BitmapOr](../B/BitmapOr.md) nodes use a different execution model than standard tuple-returning nodes
 - The function serves as a safety mechanism to catch incorrect usage of the standard execution interface

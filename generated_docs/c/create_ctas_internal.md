@@ -24,7 +24,7 @@ After creating the base relation, the function manages TOAST table creation when
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DefineRelation](../D/DefineRelation.md)
-  - CommandCounterIncrement
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md)
   - [transformRelOptions](../t/transformRelOptions.md)
   - [heap_reloptions](../h/heap_reloptions.md)
   - [NewRelationCreateToastTable](../N/NewRelationCreateToastTable.md)

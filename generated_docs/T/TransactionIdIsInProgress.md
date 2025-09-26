@@ -43,22 +43,22 @@ The function maintains performance counters for each path to monitor optimizatio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TransactionIdPrecedes (for XID ordering and age checks)
+  - [TransactionIdPrecedes](TransactionIdPrecedes.md) (for XID ordering and age checks)
   - TransactionIdEquals (for exact XID matching)
-  - TransactionIdIsCurrentTransactionId (to handle own transaction)
-  - RecoveryInProgress (to determine if in Hot Standby mode)
-  - KnownAssignedXidExists (for Hot Standby transaction checks)
-  - KnownAssignedXidsGet (to collect XIDs for subtrans lookup)
-  - TransactionIdDidAbort (to check if transaction was aborted)
-  - SubTransGetTopmostTransaction (to find topmost parent in subtrans tree)
+  - [TransactionIdIsCurrentTransactionId](TransactionIdIsCurrentTransactionId.md) (to handle own transaction)
+  - [RecoveryInProgress](../R/RecoveryInProgress.md) (to determine if in Hot Standby mode)
+  - [KnownAssignedXidExists](../K/KnownAssignedXidExists.md) (for Hot Standby transaction checks)
+  - [KnownAssignedXidsGet](../K/KnownAssignedXidsGet.md) (to collect XIDs for subtrans lookup)
+  - [TransactionIdDidAbort](TransactionIdDidAbort.md) (to check if transaction was aborted)
+  - [SubTransGetTopmostTransaction](../S/SubTransGetTopmostTransaction.md) (to find topmost parent in subtrans tree)
   - XidFromFullTransactionId (for transaction ID conversion)
 - Called from (representative examples):
-  - HeapTupleSatisfiesSelf (tuple visibility checks)
-  - HeapTupleSatisfiesUpdate (update visibility checks)
-  - HeapTupleSatisfiesDirty (dirty read visibility checks)
-  - compute_new_xmax_infomask (heap tuple processing)
-  - XactLockTableWait (transaction locking)
-  - MultiXactIdIsRunning (multixact processing)
+  - [HeapTupleSatisfiesSelf](../H/HeapTupleSatisfiesSelf.md) (tuple visibility checks)
+  - [HeapTupleSatisfiesUpdate](../H/HeapTupleSatisfiesUpdate.md) (update visibility checks)
+  - [HeapTupleSatisfiesDirty](../H/HeapTupleSatisfiesDirty.md) (dirty read visibility checks)
+  - [compute_new_xmax_infomask](../c/compute_new_xmax_infomask.md) (heap tuple processing)
+  - [XactLockTableWait](../X/XactLockTableWait.md) (transaction locking)
+  - [MultiXactIdIsRunning](../M/MultiXactIdIsRunning.md) (multixact processing)
 
 ## Notes and Other Information
 - Critical performance function called frequently during tuple visibility checks

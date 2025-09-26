@@ -34,11 +34,11 @@ The statement is processed by the tablespace management subsystem, which handles
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RoleSpec (for owner specification)
+  - [RoleSpec](../R/RoleSpec.md) (for owner specification)
 
 - Called from (representative examples):
-  - CreateTableSpace (src/backend/commands/tablespace.c:208)
-  - standard_ProcessUtility (src/backend/tcop/utility.c:713)
+  - [CreateTableSpace](CreateTableSpace.md) (src/backend/commands/tablespace.c:208)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (src/backend/tcop/utility.c:713)
 
 ## Notes and Other Information
 - Tablespaces provide a way to control the physical storage layout of PostgreSQL databases

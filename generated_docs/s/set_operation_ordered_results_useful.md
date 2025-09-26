@@ -28,7 +28,7 @@ This optimization decision impacts how the query planner builds execution paths,
 ## Dependencies
 - Functions called/Symbols referenced:
   - SETOP_UNION (enum constant)
-  - SetOperationStmt (structure access)
+  - [SetOperationStmt](../S/SetOperationStmt.md) (structure access)
 - Called from (representative examples):
   - [standard_qp_callback](standard_qp_callback.md) (src/backend/optimizer/plan/planner.c:3631)
 

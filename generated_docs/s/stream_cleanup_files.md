@@ -21,7 +21,7 @@ This function performs cleanup operations for files associated with a specific s
 ## Dependencies
 - Functions called/Symbols referenced:
   - [changes_filename](../c/changes_filename.md)
-  - BufFileDeleteFileSet  
+  - [BufFileDeleteFileSet](../B/BufFileDeleteFileSet.md)  
   - [subxact_filename](subxact_filename.md)
 - Called from (representative examples):
   - [pa_free_worker_info](../p/pa_free_worker_info.md)

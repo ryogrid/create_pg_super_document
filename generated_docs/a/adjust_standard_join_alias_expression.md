@@ -40,7 +40,7 @@ The function is designed to be called only after is_standard_join_alias_expressi
 - Functions called/Symbols referenced:
   - [bms_add_members](../b/bms_add_members.md) (for merging nullingrels bitmaps)
   - [PlaceHolderVar](../P/PlaceHolderVar.md), FuncExpr, RelabelType
-  - CoerceViaIO, ArrayCoerceExpr, CoalesceExpr
+  - [CoerceViaIO](../C/CoerceViaIO.md), ArrayCoerceExpr, CoalesceExpr
   - linitial (for accessing first arguments)
   - Recursive calls to adjust_standard_join_alias_expression
 - Called from (representative examples):

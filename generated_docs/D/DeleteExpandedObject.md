@@ -21,7 +21,7 @@ The function performs a complete cleanup by calling MemoryContextDelete on the e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetEOHP
+  - [DatumGetEOHP](DatumGetEOHP.md)
   - [ExpandedObjectHeader](../E/ExpandedObjectHeader.md)
   - VARATT_IS_EXTERNAL_EXPANDED_RW
   - [MemoryContextDelete](../M/MemoryContextDelete.md)

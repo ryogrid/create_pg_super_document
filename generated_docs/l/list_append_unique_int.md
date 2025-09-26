@@ -24,7 +24,7 @@ The function is part of PostgreSQL's generic list infrastructure and provides ty
 ## Dependencies
 - Functions called/Symbols referenced:
   - [list_member_int](list_member_int.md)
-  - lappend_int
+  - [lappend_int](lappend_int.md)
 - Called from (representative examples):
   - forfive
 

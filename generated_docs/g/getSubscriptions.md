@@ -29,7 +29,7 @@ This function queries the `pg_subscription` system catalog to gather information
   - pg_log_warning
   - LOGICALREP_TWOPHASE_STATE_DISABLED
   - LOGICALREP_ORIGIN_ANY
-  - pg_malloc
+  - [pg_malloc](../p/pg_malloc.md)
   - DO_SUBSCRIPTION
   - atooid
   - [AssignDumpId](../A/AssignDumpId.md)

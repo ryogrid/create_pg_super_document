@@ -24,11 +24,11 @@ For custom resource managers that may not yet be loaded during early startup, th
 ## Dependencies
 - Functions called/Symbols referenced:
   - MemSet
-  - SplitIdentifierString
+  - [SplitIdentifierString](../S/SplitIdentifierString.md)
   - GUC_check_errdetail
   - [list_free](../l/list_free.md)
-  - RmgrIdExists
-  - GetRmgr
+  - [RmgrIdExists](../R/RmgrIdExists.md)
+  - [GetRmgr](../G/GetRmgr.md)
   - [guc_malloc](../g/guc_malloc.md)
 - Called from (representative examples):
   - GUC system during parameter validation

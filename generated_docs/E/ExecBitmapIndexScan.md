@@ -29,5 +29,5 @@ The function exists purely to maintain consistency with the executor node interf
 ## Notes and Other Information
 - This is a static function within nodeBitmapIndexscan.c, not exposed to other modules
 - The error message clearly indicates that BitmapIndexScan nodes use a different execution model than the standard ExecProcNode convention
-- BitmapIndexScan nodes are typically executed through MultiExecBitmapIndexScan instead, which collects all TIDs at once
+- [BitmapIndexScan](../B/BitmapIndexScan.md) nodes are typically executed through MultiExecBitmapIndexScan instead, which collects all TIDs at once
 - Located at src/backend/executor/nodeBitmapIndexscan.c:38-48

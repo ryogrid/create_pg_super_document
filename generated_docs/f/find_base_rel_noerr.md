@@ -24,10 +24,10 @@ This makes it suitable for tentative lookups where the absence of a relation is 
 - Functions called/Symbols referenced:
   - None (this is a simple array access function)
 - Data structures used:
-  - RelOptInfo (return type)  
+  - [RelOptInfo](../R/RelOptInfo.md) (return type)  
   - [PlannerInfo](../P/PlannerInfo.md) (contains simple_rel_array)
 - Called from (representative examples):
-  - all_rows_selectable (src/backend/utils/adt/selfuncs.c:5620)
+  - [all_rows_selectable](../a/all_rows_selectable.md) (src/backend/utils/adt/selfuncs.c:5620)
 
 ## Notes and Other Information
 - Returns NULL if relation does not exist, making it safe for tentative lookups

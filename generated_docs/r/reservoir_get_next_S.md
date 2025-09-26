@@ -26,12 +26,12 @@ Algorithm X uses a straightforward approach, generating random values and increm
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - sampler_random_fract (generates uniform random fractions)
+  - [sampler_random_fract](../s/sampler_random_fract.md) (generates uniform random fractions)
   - floor, exp, log (mathematical functions for Algorithm Z calculations)
-  - ReservoirStateData structure members (W, randstate)
+  - [ReservoirStateData](../R/ReservoirStateData.md) structure members (W, randstate)
 - Called from (representative examples):
-  - acquire_sample_rows (in src/backend/commands/analyze.c:1236)
-  - anl_get_next_S (backward compatibility wrapper)
+  - [acquire_sample_rows](../a/acquire_sample_rows.md) (in src/backend/commands/analyze.c:1236)
+  - [anl_get_next_S](../a/anl_get_next_S.md) (backward compatibility wrapper)
 
 ## Notes and Other Information
 - Implements both Algorithm X (for t <= 22*n) and Algorithm Z (for t > 22*n) from Vitter's paper

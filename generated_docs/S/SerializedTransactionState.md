@@ -33,7 +33,7 @@ SerializedTransactionState provides a serialized representation of transaction s
 - `parallelCurrentXids[FLEXIBLE_ARRAY_MEMBER]`: Variable-length array of transaction IDs for parallel execution context
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FullTransactionId
+  - [FullTransactionId](../F/FullTransactionId.md)
   - CommandId
   - FLEXIBLE_ARRAY_MEMBER
 - Called from (representative examples):

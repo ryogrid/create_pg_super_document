@@ -20,7 +20,7 @@ This function adds a new OID value to the end of a SimpleOidList. It allocates m
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_malloc (for memory allocation)
+  - [pg_malloc](../p/pg_malloc.md) (for memory allocation)
 - Data structures used:
   - [SimpleOidList](../S/SimpleOidList.md) (the list container structure)
   - [SimpleOidListCell](../S/SimpleOidListCell.md) (individual list node structure)

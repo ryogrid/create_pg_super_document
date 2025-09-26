@@ -31,7 +31,7 @@ The output process:
   - [path_encode](path_encode.md) (performs the actual string encoding)
   - PG_RETURN_CSTRING (returns C string result)
 - Constants used:
-  - PATH_CLOSED (constant for closed path type)
+  - [PATH_CLOSED](../P/PATH_CLOSED.md) (constant for closed path type)
   - PATH_OPEN (constant for open path type)
 - Types used:
   - [PATH](../P/PATH.md) (geometric path type)

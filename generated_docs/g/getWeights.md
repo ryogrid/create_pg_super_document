@@ -30,7 +30,7 @@ The function uses a static array to store processed weights, making it efficient
 - Functions called/Symbols referenced:
   - ARR_NDIM
   - ARR_DIMS
-  - ArrayGetNItems
+  - [ArrayGetNItems](../A/ArrayGetNItems.md)
   - [array_contains_nulls](../a/array_contains_nulls.md)
   - ARR_DATA_PTR
   - lengthof

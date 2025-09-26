@@ -34,7 +34,7 @@ This function sets up shared iteration infrastructure for parallel bitmap scans 
   - qsort_arg (function)
   - [tbm_shared_comparator](tbm_shared_comparator.md) (function)
   - [pg_atomic_add_fetch_u32](../p/pg_atomic_add_fetch_u32.md) (function)
-  - LWLockInitialize (function)
+  - [LWLockInitialize](../L/LWLockInitialize.md) (function)
   - LWTRANCHE_SHARED_TIDBITMAP (constant)
   - TBM_ITERATING_SHARED (constant)
 - Called from (representative examples):

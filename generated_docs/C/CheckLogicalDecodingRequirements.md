@@ -28,16 +28,16 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CheckSlotRequirements: Validates replication slot prerequisites
-  - RecoveryInProgress: Checks if the server is in recovery mode
-  - GetActiveWalLevelOnStandby: Gets WAL level from standby server
+  - [CheckSlotRequirements](CheckSlotRequirements.md): Validates replication slot prerequisites
+  - [RecoveryInProgress](../R/RecoveryInProgress.md): Checks if the server is in recovery mode
+  - [GetActiveWalLevelOnStandby](../G/GetActiveWalLevelOnStandby.md): Gets WAL level from standby server
   - WAL_LEVEL_LOGICAL: Constant defining minimum WAL level for logical decoding
 
 - Called from (representative examples):
-  - CreateInitDecodingContext: During initial decoding context creation
-  - pg_logical_slot_get_changes_guts: Before retrieving logical changes
-  - CreateReplicationSlot: During replication slot creation
-  - StartLogicalReplication: When starting logical replication
+  - [CreateInitDecodingContext](CreateInitDecodingContext.md): During initial decoding context creation
+  - [pg_logical_slot_get_changes_guts](../p/pg_logical_slot_get_changes_guts.md): Before retrieving logical changes
+  - [CreateReplicationSlot](CreateReplicationSlot.md): During replication slot creation
+  - [StartLogicalReplication](../S/StartLogicalReplication.md): When starting logical replication
 
 ## Notes and Other Information
 - The function includes a comment noting that adding new requirements may necessitate updates to RestoreSlotFromDisk()

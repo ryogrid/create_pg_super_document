@@ -25,18 +25,18 @@ The result includes all necessary quoting and schema-prefixing, plus the OPERATO
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (system cache lookup)
-  - oper (binary operator lookup)
-  - left_oper (left unary operator lookup)  
-  - makeString (string construction utility)
-  - oprid (get operator OID from Operator)
-  - get_namespace_name_or_temp (namespace name resolution)
-  - quote_identifier (identifier quoting)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup)
+  - [oper](../o/oper.md) (binary operator lookup)
+  - [left_oper](../l/left_oper.md) (left unary operator lookup)  
+  - [makeString](../m/makeString.md) (string construction utility)
+  - [oprid](../o/oprid.md) (get operator OID from Operator)
+  - [get_namespace_name_or_temp](get_namespace_name_or_temp.md) (namespace name resolution)
+  - [quote_identifier](../q/quote_identifier.md) (identifier quoting)
 - Called from (representative examples):
-  - get_oper_expr (operator expression formatting)
-  - get_rule_expr (rule expression decompilation)
-  - get_sublink_expr (sublink expression formatting)
-  - pg_get_indexdef_worker (index definition formatting)
+  - [get_oper_expr](get_oper_expr.md) (operator expression formatting)
+  - [get_rule_expr](get_rule_expr.md) (rule expression decompilation)
+  - [get_sublink_expr](get_sublink_expr.md) (sublink expression formatting)
+  - [pg_get_indexdef_worker](../p/pg_get_indexdef_worker.md) (index definition formatting)
 
 ## Notes and Other Information
 - The function uses operator resolution logic to determine if schema-qualification is necessary

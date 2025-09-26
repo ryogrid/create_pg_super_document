@@ -23,7 +23,7 @@ The function automatically handles memory allocation, expanding the buffer as ne
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendBinaryPQExpBuffer
+  - [appendBinaryPQExpBuffer](appendBinaryPQExpBuffer.md)
   - strlen (standard C library function)
 - Called from (representative examples):
   - Used extensively throughout PostgreSQL client utilities including pg_dump, pg_basebackup, pg_ctl, and libpq itself

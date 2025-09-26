@@ -20,7 +20,7 @@ This function computes the arithmetic mean of the worth values for all chromosom
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Pool (structure type)
+  - [Pool](../P/Pool.md) (structure type)
   - elog (for error reporting)
 - Called from (representative examples):
   - [print_gen](../p/print_gen.md)

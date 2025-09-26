@@ -20,7 +20,7 @@ This function provides a type-safe way to determine if a clause represents a fun
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FuncExpr (node type)
+  - [FuncExpr](../F/FuncExpr.md) (node type)
   - IsA (macro for type checking)
 - Called from (representative examples):
   - [clause_selectivity_ext](../c/clause_selectivity_ext.md)

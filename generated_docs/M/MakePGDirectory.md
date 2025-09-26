@@ -25,14 +25,14 @@ The function is a thin wrapper around the standard `mkdir()` system call but ens
   - pg_dir_create_mode: Global variable defining the correct directory permissions
 
 - Called from (representative examples):
-  - ValidateXLOGDirectoryStructure: WAL directory structure validation
-  - CreateDirAndVersionFile: Database directory creation
-  - TablespaceCreateDbspace: Tablespace database subdirectory creation
-  - create_tablespace_directories: General tablespace directory creation
-  - CreateSlotOnDisk: Replication slot directory creation
-  - copydir: Directory copying operations
-  - PathNameCreateTemporaryDir: Temporary directory creation
-  - OpenTemporaryFileInTablespace: Temporary file infrastructure
+  - [ValidateXLOGDirectoryStructure](../V/ValidateXLOGDirectoryStructure.md): WAL directory structure validation
+  - [CreateDirAndVersionFile](../C/CreateDirAndVersionFile.md): Database directory creation
+  - [TablespaceCreateDbspace](../T/TablespaceCreateDbspace.md): Tablespace database subdirectory creation
+  - [create_tablespace_directories](../c/create_tablespace_directories.md): General tablespace directory creation
+  - [CreateSlotOnDisk](../C/CreateSlotOnDisk.md): Replication slot directory creation
+  - [copydir](../c/copydir.md): Directory copying operations
+  - [PathNameCreateTemporaryDir](../P/PathNameCreateTemporaryDir.md): Temporary directory creation
+  - [OpenTemporaryFileInTablespace](../O/OpenTemporaryFileInTablespace.md): Temporary file infrastructure
 
 ## Notes and Other Information
 - Returns the result of mkdir() - typically 0 on success, -1 on error

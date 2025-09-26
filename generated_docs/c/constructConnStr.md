@@ -26,12 +26,12 @@ The function creates a PQExpBuffer, iterates through the keyword/value pairs, an
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - createPQExpBuffer
-  - appendPQExpBufferChar
+  - [createPQExpBuffer](createPQExpBuffer.md)
+  - [appendPQExpBufferChar](../a/appendPQExpBufferChar.md)
   - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
   - [appendConnStrVal](../a/appendConnStrVal.md)
   - [pg_strdup](../p/pg_strdup.md)
-  - destroyPQExpBuffer
+  - [destroyPQExpBuffer](../d/destroyPQExpBuffer.md)
 - Called from (representative examples):
   - [connectDatabase](connectDatabase.md)
 

@@ -22,7 +22,7 @@ This function is the core scalar value handler in the JSON null-stripping functi
 ## Dependencies
 - Functions called/Symbols referenced:
   - [escape_json](../e/escape_json.md) - Function to properly escape string values for JSON output
-  - `appendStringInfoString` - Function to append string content to the string buffer
+  - `[appendStringInfoString](../a/appendStringInfoString.md)` - Function to append string content to the string buffer
   - [StripnullState](../S/StripnullState.md) - State structure for null-stripping operations
   - `JSON_SUCCESS` - Success return code constant
   - [JsonTokenType](../J/JsonTokenType.md) - Enum type for JSON token classification

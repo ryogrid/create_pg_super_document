@@ -23,9 +23,9 @@ The  function is a simple formatting utility used during JSON serialization to a
 ## Dependencies
 - Functions called/Symbols referenced:
   - appendStringInfoCharMacro
-  - appendStringInfoSpaces
+  - [appendStringInfoSpaces](appendStringInfoSpaces.md)
 - Called from (representative examples):
-  - JsonbToCStringWorker (multiple locations in jsonb.c:530, 543, 554, 584, 591, 598)
+  - [JsonbToCStringWorker](../J/JsonbToCStringWorker.md) (multiple locations in jsonb.c:530, 543, 554, 584, 591, 598)
 
 ## Notes and Other Information
 - This is a static function used internally within jsonb.c for JSON formatting

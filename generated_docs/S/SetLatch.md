@@ -23,7 +23,7 @@ The function performs a quick exit if the latch is already set to avoid unnecess
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_memory_barrier (memory synchronization)
-  - sendSelfPipeByte (Unix self-pipe wakeup mechanism)
+  - [sendSelfPipeByte](../s/sendSelfPipeByte.md) (Unix self-pipe wakeup mechanism)
   - kill (Unix signal sending)
   - SetEvent (Windows event signaling)
   - MyProcPid (current process ID)
@@ -31,7 +31,7 @@ The function performs a quick exit if the latch is already set to avoid unnecess
   - [HandleParallelMessageInterrupt](../H/HandleParallelMessageInterrupt.md) (parallel processing)
   - [WakeupRecovery](../W/WakeupRecovery.md) (WAL recovery coordination)
   - [ReqCheckpointHandler](../R/ReqCheckpointHandler.md) (checkpoint coordination)
-  - ConditionVariableSignal (condition variable implementation)
+  - [ConditionVariableSignal](../C/ConditionVariableSignal.md) (condition variable implementation)
   - [ProcessClientReadInterrupt](../P/ProcessClientReadInterrupt.md) (client communication)
 
 ## Notes and Other Information

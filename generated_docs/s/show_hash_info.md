@@ -39,7 +39,7 @@ The aggregation strategy takes maximum values across workers because each worker
   - BYTES_TO_KILOBYTES: Converts memory usage from bytes to kilobytes
   - [ExplainPropertyInteger](../E/ExplainPropertyInteger.md)/ExplainPropertyUInteger: Adds properties to structured output
   - [ExplainIndentText](../E/ExplainIndentText.md): Handles text output indentation
-  - appendStringInfo: Formats and appends text to output buffer
+  - [appendStringInfo](../a/appendStringInfo.md): Formats and appends text to output buffer
   - Max: Macro for finding maximum values during aggregation
 - Called from (representative examples):
   - [ExplainNode](../E/ExplainNode.md): Main EXPLAIN node processing function for hash join nodes

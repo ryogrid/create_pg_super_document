@@ -31,7 +31,7 @@ This enumeration defines the different types of objects that can be specified wh
 - Functions called/Symbols referenced:
   - (None - this is an enum definition)
 - Called from (representative examples):
-  - PublicationObjSpec (as the 'pubobjtype' field)
+  - [PublicationObjSpec](PublicationObjSpec.md) (as the 'pubobjtype' field)
   - Parser grammar rules in gram.y for CREATE/ALTER PUBLICATION statements
 
 ## Notes and Other Information

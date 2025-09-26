@@ -26,7 +26,7 @@ The function includes safety checks to verify that the hash table uses the stand
   - [MemoryContextDelete](../M/MemoryContextDelete.md) (destroys the entire memory context, freeing all allocated memory)
 - Called from (representative examples):
   - Various PostgreSQL subsystems including:
-    - Hash index operations (_hash_finish_split)
+    - [Hash](../H/Hash.md) index operations (_hash_finish_split)
     - Transaction processing (ReorderBufferReturnTXN, ReorderBufferTruncateTXN)
     - Catalog operations (find_all_inheritors)
     - Replication (tablesync_start_time_mapping, pgoutput_shutdown)

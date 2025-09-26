@@ -28,7 +28,7 @@ This function takes no parameters.
   - END_CRIT_SECTION
   - [RememberSyncRequest](../R/RememberSyncRequest.md)
   - [pfree](../p/pfree.md)
-  - LWLockAcquire/LWLockRelease (CheckpointerCommLock)
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease (CheckpointerCommLock)
 - Types used:
   - [CheckpointerRequest](../C/CheckpointerRequest.md)
 - Called from:

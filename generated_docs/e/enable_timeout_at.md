@@ -24,11 +24,11 @@ The function follows the standard timeout setup pattern: disabling alarm interru
 ## Dependencies
 - Functions called/Symbols referenced:
   - disable_alarm
-  - GetCurrentTimestamp  
-  - enable_timeout
-  - schedule_alarm
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)  
+  - [enable_timeout](enable_timeout.md)
+  - [schedule_alarm](../s/schedule_alarm.md)
 - Called from (representative examples):
-  - DisableTimeoutParams
+  - [DisableTimeoutParams](../D/DisableTimeoutParams.md)
 
 ## Notes and Other Information
 - Designed for cases where timeout calculation is based on a reference point other than the current time

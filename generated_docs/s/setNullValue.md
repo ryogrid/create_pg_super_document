@@ -25,9 +25,9 @@ This function provides a consistent way to create NULL values throughout the pgb
 - Functions called/Symbols referenced:
   - PGBT_NULL (enum constant for NULL value type)
 - Called from (representative examples):
-  - makeVariableValue (when creating variable values)
-  - evalLazyFunc (for conditional expressions that may result in NULL)
-  - evalStandardFunc (for functions that may return NULL)
+  - [makeVariableValue](../m/makeVariableValue.md) (when creating variable values)
+  - [evalLazyFunc](../e/evalLazyFunc.md) (for conditional expressions that may result in NULL)
+  - [evalStandardFunc](../e/evalStandardFunc.md) (for functions that may return NULL)
 
 ## Notes and Other Information
 - This is a static function within pgbench.c, used internally for expression evaluation

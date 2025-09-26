@@ -21,15 +21,15 @@ The function assumes that all buffers have already been built into a linked list
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - InitBufTable (initializes buffer lookup hashtable)
-  - ShmemInitStruct (creates or attaches to shared memory structure)
+  - [InitBufTable](../I/InitBufTable.md) (initializes buffer lookup hashtable)
+  - [ShmemInitStruct](ShmemInitStruct.md) (creates or attaches to shared memory structure)
   - SpinLockInit (initializes spinlock for thread safety)
-  - pg_atomic_init_u32 (initializes atomic counters)
+  - [pg_atomic_init_u32](../p/pg_atomic_init_u32.md) (initializes atomic counters)
   - NBuffers (global variable for buffer count)
   - NUM_BUFFER_PARTITIONS (partitioning constant)
-  - BufferStrategyControl (control structure type)
+  - [BufferStrategyControl](../B/BufferStrategyControl.md) (control structure type)
 - Called from (representative examples):
-  - InitBufferPool (src/backend/storage/buffer/buf_init.c:146)
+  - [InitBufferPool](../I/InitBufferPool.md) (src/backend/storage/buffer/buf_init.c:146)
 
 ## Notes and Other Information
 - Only called by the postmaster during initialization, and by other processes during shared memory attachment

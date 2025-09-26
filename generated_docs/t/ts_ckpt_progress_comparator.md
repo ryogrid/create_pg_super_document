@@ -28,9 +28,9 @@ This arrangement ensures that the tablespace with the least checkpoint progress 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CkptTsStatus (type)
+  - [CkptTsStatus](../C/CkptTsStatus.md) (type)
 - Called from (representative examples):
-  - BufferSync (checkpoint synchronization operations)
+  - [BufferSync](../B/BufferSync.md) (checkpoint synchronization operations)
   - BufferIsPinned (heap management operations)
 
 ## Notes and Other Information

@@ -34,7 +34,7 @@ DefElemAction provides action semantics for DefElem nodes, which represent gener
   - None (enum definition)
 - Called from (representative examples):
   - [DefElem](DefElem.md) (in defaction field)
-  - makeDefElemExtended
+  - [makeDefElemExtended](../m/makeDefElemExtended.md)
 
 ## Notes and Other Information
 - Located in src/include/nodes/parsenodes.h:803-809

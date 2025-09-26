@@ -23,7 +23,7 @@ The function is part of PostgreSQL's multi-byte encoding support framework, wher
 - Functions called/Symbols referenced:
   - (None - simple constant return)
 - Called from (representative examples):
-  - pg_encoding_set_invalid
+  - [pg_encoding_set_invalid](pg_encoding_set_invalid.md)
 
 ## Notes and Other Information
 - This is a static function internal to the wchar.c module

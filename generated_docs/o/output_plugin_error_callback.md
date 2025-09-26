@@ -21,31 +21,31 @@ The function formats error context messages that help administrators and develop
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LogicalErrorCallbackState
+  - [LogicalErrorCallbackState](../L/LogicalErrorCallbackState.md)
   - errcontext
 - Called from (representative examples):
-  - startup_cb_wrapper
-  - shutdown_cb_wrapper  
-  - begin_cb_wrapper
-  - commit_cb_wrapper
-  - begin_prepare_cb_wrapper
-  - prepare_cb_wrapper
-  - commit_prepared_cb_wrapper
-  - rollback_prepared_cb_wrapper
-  - change_cb_wrapper
-  - truncate_cb_wrapper
-  - filter_prepare_cb_wrapper
-  - filter_by_origin_cb_wrapper
-  - message_cb_wrapper
-  - stream_start_cb_wrapper
-  - stream_stop_cb_wrapper
-  - stream_abort_cb_wrapper
-  - stream_prepare_cb_wrapper
-  - stream_commit_cb_wrapper
-  - stream_change_cb_wrapper
-  - stream_message_cb_wrapper
-  - stream_truncate_cb_wrapper
-  - update_progress_txn_cb_wrapper
+  - [startup_cb_wrapper](../s/startup_cb_wrapper.md)
+  - [shutdown_cb_wrapper](../s/shutdown_cb_wrapper.md)  
+  - [begin_cb_wrapper](../b/begin_cb_wrapper.md)
+  - [commit_cb_wrapper](../c/commit_cb_wrapper.md)
+  - [begin_prepare_cb_wrapper](../b/begin_prepare_cb_wrapper.md)
+  - [prepare_cb_wrapper](../p/prepare_cb_wrapper.md)
+  - [commit_prepared_cb_wrapper](../c/commit_prepared_cb_wrapper.md)
+  - [rollback_prepared_cb_wrapper](../r/rollback_prepared_cb_wrapper.md)
+  - [change_cb_wrapper](../c/change_cb_wrapper.md)
+  - [truncate_cb_wrapper](../t/truncate_cb_wrapper.md)
+  - [filter_prepare_cb_wrapper](../f/filter_prepare_cb_wrapper.md)
+  - [filter_by_origin_cb_wrapper](../f/filter_by_origin_cb_wrapper.md)
+  - [message_cb_wrapper](../m/message_cb_wrapper.md)
+  - [stream_start_cb_wrapper](../s/stream_start_cb_wrapper.md)
+  - [stream_stop_cb_wrapper](../s/stream_stop_cb_wrapper.md)
+  - [stream_abort_cb_wrapper](../s/stream_abort_cb_wrapper.md)
+  - [stream_prepare_cb_wrapper](../s/stream_prepare_cb_wrapper.md)
+  - [stream_commit_cb_wrapper](../s/stream_commit_cb_wrapper.md)
+  - [stream_change_cb_wrapper](../s/stream_change_cb_wrapper.md)
+  - [stream_message_cb_wrapper](../s/stream_message_cb_wrapper.md)
+  - [stream_truncate_cb_wrapper](../s/stream_truncate_cb_wrapper.md)
+  - [update_progress_txn_cb_wrapper](../u/update_progress_txn_cb_wrapper.md)
 
 ## Notes and Other Information
 - The function conditionally includes LSN information in error messages when available (when report_location != InvalidXLogRecPtr)

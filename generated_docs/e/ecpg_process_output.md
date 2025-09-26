@@ -28,19 +28,19 @@ The function intelligently handles different variable types (regular variables, 
 ## Dependencies
 - Functions called/Symbols referenced:
   - ECPGget_sqlca: Gets SQLCA structure for error/status reporting
-  - PQresultStatus: Determines result type
-  - PQnfields/PQntuples: Gets result dimensions  
-  - PQcmdStatus/PQoidValue/PQcmdTuples: Gets command status info
-  - ecpg_find_desc: Locates SQL descriptors
-  - ecpg_build_compat_sqlda/ecpg_build_native_sqlda: Builds SQLDA structures
-  - ecpg_set_compat_sqlda/ecpg_set_native_sqlda: Populates SQLDA with data
-  - ecpg_store_result: Transfers data to regular variables
-  - PQgetCopyData: Handles COPY operations
-  - PQconsumeInput/PQnotifies: Processes asynchronous notifications
-  - ecpg_raise: Reports errors
-  - ecpg_log: Provides debugging output
+  - [PQresultStatus](../P/PQresultStatus.md): Determines result type
+  - [PQnfields](../P/PQnfields.md)/PQntuples: Gets result dimensions  
+  - [PQcmdStatus](../P/PQcmdStatus.md)/PQoidValue/PQcmdTuples: Gets command status info
+  - [ecpg_find_desc](ecpg_find_desc.md): Locates SQL descriptors
+  - [ecpg_build_compat_sqlda](ecpg_build_compat_sqlda.md)/ecpg_build_native_sqlda: Builds SQLDA structures
+  - [ecpg_set_compat_sqlda](ecpg_set_compat_sqlda.md)/ecpg_set_native_sqlda: Populates SQLDA with data
+  - [ecpg_store_result](ecpg_store_result.md): Transfers data to regular variables
+  - [PQgetCopyData](../P/PQgetCopyData.md): Handles COPY operations
+  - [PQconsumeInput](../P/PQconsumeInput.md)/PQnotifies: Processes asynchronous notifications
+  - [ecpg_raise](ecpg_raise.md): Reports errors
+  - [ecpg_log](ecpg_log.md): Provides debugging output
 - Called from (representative examples):
-  - ecpg_do: Main ECPG statement processing function
+  - [ecpg_do](ecpg_do.md): Main ECPG statement processing function
 
 ## Notes and Other Information
 - Returns true on successful processing, false on failure

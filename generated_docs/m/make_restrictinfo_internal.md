@@ -33,7 +33,7 @@ This static function serves as the core implementation for RestrictInfo creation
   - [contain_leaked_vars](../c/contain_leaked_vars.md)
   - VOLATILITY_UNKNOWN
   - [is_opclause](../i/is_opclause.md)
-  - OpExpr
+  - [OpExpr](../O/OpExpr.md)
   - [get_leftop](../g/get_leftop.md)
   - [get_rightop](../g/get_rightop.md)
   - [pull_varnos](../p/pull_varnos.md)
@@ -51,7 +51,7 @@ This static function serves as the core implementation for RestrictInfo creation
 - Special handling for binary operator clauses: analyzes left and right operands separately to determine join capability and relation dependencies
 - Security considerations: tests for leak-proofness when security_level > 0 to support row-level security
 - Performance optimization: initializes numerous cache fields with sentinel values (-1, NIL, InvalidOid) that will be populated on-demand during query optimization
-- Join detection: automatically identifies potential join clauses by checking if left and right operands reference disjoint sets of relations
+- [Join](../J/Join.md) detection: automatically identifies potential join clauses by checking if left and right operands reference disjoint sets of relations
 - Base relation counting: calculates the number of base relations involved by excluding outer join relations from the clause's relation set
 - Serial numbering: assigns a unique serial number to each RestrictInfo for debugging and tracking purposes
 - Lazy evaluation design: most expensive computations (selectivity, join costs, etc.) are deferred until actually needed during optimization

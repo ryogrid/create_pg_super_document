@@ -31,7 +31,7 @@ The function:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_regexec (core PostgreSQL regex execution function)
+  - [pg_regexec](../p/pg_regexec.md) (core PostgreSQL regex execution function)
   - [pg_regerror](../p/pg_regerror.md) (gets error message for failed execution)
   - ereport/ERROR (PostgreSQL error reporting)
   - REG_OKAY (successful match result constant)

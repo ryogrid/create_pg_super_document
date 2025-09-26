@@ -23,7 +23,7 @@ This function prepares an LZ4State structure for compression by setting up the c
   - LZ4F_createCompressionContext
   - LZ4F_compressBegin
   - LZ4F_isError
-  - pg_malloc
+  - [pg_malloc](../p/pg_malloc.md)
 - Constants used:
   - DEFAULT_IO_BUFFER_SIZE
   - LZ4F_HEADER_SIZE_MAX

@@ -27,7 +27,7 @@ The function normalizes each interval by ensuring the start time is less than or
 - Functions called/Symbols referenced:
   - PG_GETARG_DATUM
   - PG_ARGISNULL
-  - DatumGetTimeADT
+  - [DatumGetTimeADT](../D/DatumGetTimeADT.md)
   - PG_RETURN_NULL
   - PG_RETURN_BOOL
 - Called from (representative examples):

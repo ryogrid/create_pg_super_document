@@ -28,14 +28,14 @@ This callback is crucial for automatic resource management in parallel query exe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetPointer
+  - [DatumGetPointer](../D/DatumGetPointer.md)
   - SpinLockAcquire
   - SpinLockRelease
   - Assert
-  - FileSetDeleteAll
+  - [FileSetDeleteAll](../F/FileSetDeleteAll.md)
 - Called from (representative examples):
-  - SharedFileSetInit (registered as callback)
-  - SharedFileSetAttach (registered as callback)
+  - [SharedFileSetInit](SharedFileSetInit.md) (registered as callback)
+  - [SharedFileSetAttach](SharedFileSetAttach.md) (registered as callback)
 
 ## Notes and Other Information
 - This function is declared static and is only used internally within the sharedfileset.c module

@@ -20,12 +20,12 @@ BgBufferSync is called periodically by the background writer process to proactiv
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - StrategySyncStart
-  - SyncOneBuffer
+  - [StrategySyncStart](../S/StrategySyncStart.md)
+  - [SyncOneBuffer](../S/SyncOneBuffer.md)
   - BUF_WRITTEN
   - BUF_REUSABLE
 - Called from (representative examples):
-  - BackgroundWriterMain
+  - [BackgroundWriterMain](BackgroundWriterMain.md)
   - RelationGetNumberOfBlocks
 
 ## Notes and Other Information

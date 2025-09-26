@@ -28,7 +28,7 @@ In non-EXEC_BACKEND builds, this functionality is not needed since shared memory
   - [CreateOrAttachShmemStructs](../C/CreateOrAttachShmemStructs.md) (core shared memory structure attachment)
   - shmem_startup_hook (extension hook for shared memory initialization)
 - Called from (representative examples):
-  - InitProcess (regular backend process initialization)
+  - [InitProcess](../I/InitProcess.md) (regular backend process initialization)
   - [InitAuxiliaryProcess](../I/InitAuxiliaryProcess.md) (auxiliary process initialization)
 
 ## Notes and Other Information

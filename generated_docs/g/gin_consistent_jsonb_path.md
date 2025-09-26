@@ -37,14 +37,14 @@ The jsonb_path_ops approach is necessarily lossy due to hash collisions and the 
   - JsonbJsonpathPredicateStrategyNumber
   - JsonbJsonpathExistsStrategyNumber
 - Types and constants:
-  - JsonPathGinNode
+  - [JsonPathGinNode](../J/JsonPathGinNode.md)
   - GIN_FALSE
 - Called from: GIN index access method during query execution
 
 ## Notes and Other Information
 - Designed exclusively for jsonb_path_ops opclass, providing better selectivity than jsonb_ops
 - Always requires recheck due to inherent lossiness of path-sensitive hashing approach
-- Hash collisions and incomplete structural information necessitate executor-level verification
+- [Hash](../H/Hash.md) collisions and incomplete structural information necessitate executor-level verification
 - For containment queries, returns false only when required keys are definitively absent
 - Supports fewer query types than standard jsonb_ops (only @> and JSONPath operations)
 - More efficient for supported query types due to better index selectivity

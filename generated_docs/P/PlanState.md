@@ -136,21 +136,21 @@ PlanState is the fundamental abstract base class for all execution state structu
   - [Plan](Plan.md)
   - [EState](../E/EState.md)
   - ExecProcNodeMtd
-  - Instrumentation
-  - WorkerInstrumentation
+  - [Instrumentation](../I/Instrumentation.md)
+  - [WorkerInstrumentation](../W/WorkerInstrumentation.md)
   - [SharedJitInstrumentation](../S/SharedJitInstrumentation.md)
-  - ExprState
+  - [ExprState](../E/ExprState.md)
   - [List](../L/List.md)
   - [Bitmapset](../B/Bitmapset.md)
   - [TupleDesc](../T/TupleDesc.md)
-  - TupleTableSlot
-  - ExprContext
+  - [TupleTableSlot](../T/TupleTableSlot.md)
+  - [ExprContext](../E/ExprContext.md)
   - [ProjectionInfo](ProjectionInfo.md)
-  - TupleTableSlotOps
+  - [TupleTableSlotOps](../T/TupleTableSlotOps.md)
 - Called from (representative examples):
   - All specific plan state structures (SeqScanState, NestLoopState, etc.)
   - [ExecInitNode](../E/ExecInitNode.md)
-  - ExecProcNode
+  - [ExecProcNode](../E/ExecProcNode.md)
   - [ExecReScan](../E/ExecReScan.md)
   - [ExecEndNode](../E/ExecEndNode.md)
 

@@ -28,9 +28,9 @@ The function operates in a temporary memory context that is reset after each tri
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth (stack overflow protection)
+  - [check_stack_depth](../c/check_stack_depth.md) (stack overflow protection)
   - AllocSetContextCreate (memory context creation)
-  - CommandCounterIncrement (command visibility)
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md) (command visibility)
   - [fmgr_info](../f/fmgr_info.md) (function manager lookup)
   - InitFunctionCallInfoData (function call setup)
   - FunctionCallInvoke (actual function execution)

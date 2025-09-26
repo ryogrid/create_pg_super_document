@@ -23,9 +23,9 @@ This static function performs cleanup operations for a BrinBuildState that was u
   - [BufferGetPage](../B/BufferGetPage.md)
   - [PageGetFreeSpace](../P/PageGetFreeSpace.md)
   - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)
-  - ReleaseBuffer
-  - RecordPageWithFreeSpace
-  - FreeSpaceMapVacuumRange
+  - [ReleaseBuffer](../R/ReleaseBuffer.md)
+  - [RecordPageWithFreeSpace](../R/RecordPageWithFreeSpace.md)
+  - [FreeSpaceMapVacuumRange](../F/FreeSpaceMapVacuumRange.md)
   - [brin_free_desc](../b/brin_free_desc.md)
   - [pfree](../p/pfree.md)
 - Types referenced:

@@ -27,8 +27,8 @@ The function implements a key optimization where single-batch hash tables are re
   - [ExecHashTableResetMatchFlags](ExecHashTableResetMatchFlags.md)
   - castNode
   - [palloc0](../p/palloc0.md)
-  - ExecHashAccumInstrumentation
-  - ExecHashTableDestroy
+  - [ExecHashAccumInstrumentation](ExecHashAccumInstrumentation.md)
+  - [ExecHashTableDestroy](ExecHashTableDestroy.md)
   - [ExecReScan](ExecReScan.md)
 - Called from (representative examples):
   - [ExecReScan](ExecReScan.md) (generic executor rescan dispatcher)

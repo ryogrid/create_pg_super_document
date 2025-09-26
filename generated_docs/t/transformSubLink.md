@@ -32,20 +32,20 @@ The function enforces PostgreSQL's subquery usage restrictions, preventing subqu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SubLink, Query, TargetEntry, Param (struct types for subqueries and parameters)
+  - [SubLink](../S/SubLink.md), Query, TargetEntry, Param (struct types for subqueries and parameters)
   - RowExpr (struct type for row expressions)
   - Various EXPR_KIND_* constants (expression context validation)
   - Sublink type constants: EXISTS_SUBLINK, EXPR_SUBLINK, ARRAY_SUBLINK, MULTIEXPR_SUBLINK
-  - parse_sub_analyze (parses and analyzes subqueries)
-  - transformExprRecurse (recursively transforms expressions)
-  - count_nonjunk_tlist_entries (counts non-junk target list entries)
-  - make_row_comparison_op (creates row comparison expressions)
-  - makeString, makeNode (node creation functions)
-  - exprType, exprTypmod, exprCollation (expression metadata functions)
+  - [parse_sub_analyze](../p/parse_sub_analyze.md) (parses and analyzes subqueries)
+  - [transformExprRecurse](transformExprRecurse.md) (recursively transforms expressions)
+  - [count_nonjunk_tlist_entries](../c/count_nonjunk_tlist_entries.md) (counts non-junk target list entries)
+  - [make_row_comparison_op](../m/make_row_comparison_op.md) (creates row comparison expressions)
+  - [makeString](../m/makeString.md), makeNode (node creation functions)
+  - [exprType](../e/exprType.md), exprTypmod, exprCollation (expression metadata functions)
   - CMD_SELECT (command type constant)
   - PARAM_SUBLINK (parameter type for sublink references)
 - Called from:
-  - transformExprRecurse (main expression transformation dispatcher)
+  - [transformExprRecurse](transformExprRecurse.md) (main expression transformation dispatcher)
 
 ## Notes and Other Information
 - This function is part of the SQL parser's expression transformation pipeline

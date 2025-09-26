@@ -26,7 +26,7 @@ This function implements the PostgreSQL function interface for constructing mult
   - PG_RETURN_MULTIRANGE_P (returns multirange result)
   - ARR_NDIM, ARR_ELEMTYPE (array introspection)
   - [deconstruct_array](../d/deconstruct_array.md) (extracts array elements)
-  - DatumGetRangeTypeP (converts Datum to RangeType)
+  - [DatumGetRangeTypeP](../D/DatumGetRangeTypeP.md) (converts Datum to RangeType)
 - Called from (representative examples):
   - No direct references found (likely called through PostgreSQL's function dispatch system)
 

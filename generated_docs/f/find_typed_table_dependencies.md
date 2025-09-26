@@ -23,13 +23,13 @@ The function performs a catalog scan on pg_class using the reloftype attribute t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - [ScanKeyInit](../S/ScanKeyInit.md)
   - [table_beginscan_catalog](../t/table_beginscan_catalog.md)
   - [heap_getnext](../h/heap_getnext.md)
   - [table_endscan](../t/table_endscan.md)
-  - table_close
-  - lappend_oid
+  - [table_close](../t/table_close.md)
+  - [lappend_oid](../l/lappend_oid.md)
   - ereport
   - Form_pg_class
   - DropBehavior

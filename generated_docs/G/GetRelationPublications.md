@@ -22,10 +22,10 @@ The function uses the PUBLICATIONRELMAP system cache to perform the lookup, whic
 ## Dependencies
 - Functions called/Symbols referenced:
   - SearchSysCacheList1
-  - lappend_oid
+  - [lappend_oid](../l/lappend_oid.md)
   - ReleaseSysCacheList
   - Form_pg_publication_rel
-  - CatCList
+  - [CatCList](../C/CatCList.md)
 - Called from (representative examples):
   - [GetTopMostAncestorInPublication](GetTopMostAncestorInPublication.md)
   - [ATPrepChangePersistence](../A/ATPrepChangePersistence.md)

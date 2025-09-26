@@ -23,13 +23,13 @@ The function includes proper error handling for cases where the FSM page doesn't
 ## Dependencies
 - Functions called/Symbols referenced:
   - FSMAddress
-  - fsm_get_location
-  - fsm_readbuf
-  - fsm_get_avail
-  - ReleaseBuffer
-  - fsm_space_cat_to_avail
+  - [fsm_get_location](../f/fsm_get_location.md)
+  - [fsm_readbuf](../f/fsm_readbuf.md)
+  - [fsm_get_avail](../f/fsm_get_avail.md)
+  - [ReleaseBuffer](../R/ReleaseBuffer.md)
+  - [fsm_space_cat_to_avail](../f/fsm_space_cat_to_avail.md)
 - Called from (representative examples):
-  - lazy_scan_new_or_empty
+  - [lazy_scan_new_or_empty](../l/lazy_scan_new_or_empty.md)
 
 ## Notes and Other Information
 - Returns 0 if the FSM page doesn't exist or is invalid

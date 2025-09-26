@@ -32,8 +32,8 @@ The captured information includes the next MultiXact ID to be assigned, the next
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire
-  - LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - debug_elog6
 - Called from (representative examples):
   - [CreateCheckPoint](../C/CreateCheckPoint.md)

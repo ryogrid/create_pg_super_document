@@ -35,7 +35,7 @@ The function handles special XLOG records (checkpoints, end-of-recovery) differe
 ## Dependencies
 - Functions called/Symbols referenced:
   - [xlogrecovery_redo](../x/xlogrecovery_redo.md)
-  - AdvanceNextFullTransactionIdPastXid
+  - [AdvanceNextFullTransactionIdPastXid](AdvanceNextFullTransactionIdPastXid.md)
   - [RecordKnownAssignedTransactionIds](../R/RecordKnownAssignedTransactionIds.md)
   - [checkTimeLineSwitch](../c/checkTimeLineSwitch.md)
   - [verifyBackupPageConsistency](../v/verifyBackupPageConsistency.md)
@@ -44,7 +44,7 @@ The function handles special XLOG records (checkpoints, end-of-recovery) differe
   - [WalSndWakeup](../W/WalSndWakeup.md)
   - [WalRcvForceReply](../W/WalRcvForceReply.md)
   - [XLogPrefetchReconfigure](../X/XLogPrefetchReconfigure.md)
-  - GetRmgr
+  - [GetRmgr](../G/GetRmgr.md)
 - Called from:
   - [PerformWalRecovery](../P/PerformWalRecovery.md) (src/backend/access/transam/xlogrecovery.c:1822)
 

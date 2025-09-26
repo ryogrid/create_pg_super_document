@@ -25,7 +25,7 @@ The `cstring_send` function serves as the binary output conversion function for 
 - Functions called/Symbols referenced:
   - `PG_GETARG_CSTRING` (macro for extracting cstring argument)
   - [pq_begintypsend](../p/pq_begintypsend.md) (initialize binary output buffer)
-  - `pq_sendtext` (write text data to binary buffer)
+  - `[pq_sendtext](../p/pq_sendtext.md)` (write text data to binary buffer)
   - `strlen` (standard C function to get string length)
   - [pq_endtypsend](../p/pq_endtypsend.md) (finalize binary buffer and return bytea)
   - `PG_RETURN_BYTEA_P` (macro for returning bytea result)

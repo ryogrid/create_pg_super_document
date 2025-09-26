@@ -31,14 +31,14 @@ The function validates:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQenterPipelineMode - Enter pipeline mode
+  - [PQenterPipelineMode](../P/PQenterPipelineMode.md) - Enter pipeline mode
   - [PQsendQueryParams](../P/PQsendQueryParams.md) - Send parameterized queries
-  - PQpipelineSync - Send pipeline synchronization
+  - [PQpipelineSync](../P/PQpipelineSync.md) - Send pipeline synchronization
   - [PQsetSingleRowMode](../P/PQsetSingleRowMode.md) - Enable single-row mode
   - [PQsetChunkedRowsMode](../P/PQsetChunkedRowsMode.md) - Enable chunked row mode
   - [PQgetResult](../P/PQgetResult.md) - Retrieve query results
   - [PQsendFlushRequest](../P/PQsendFlushRequest.md) - Send flush request
-  - PQexitPipelineMode - Exit pipeline mode
+  - [PQexitPipelineMode](../P/PQexitPipelineMode.md) - Exit pipeline mode
   - [PQresultStatus](../P/PQresultStatus.md) - Get result status
   - [PQresStatus](../P/PQresStatus.md) - Get status string representation
   - [PQntuples](../P/PQntuples.md) - Get number of tuples in result

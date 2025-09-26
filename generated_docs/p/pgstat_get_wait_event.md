@@ -26,8 +26,8 @@ If the wait_event_info parameter is 0, the function returns NULL, indicating tha
 - Functions called/Symbols referenced:
   - WAIT_EVENT_CLASS_MASK (mask for extracting wait event class)
   - WAIT_EVENT_ID_MASK (mask for extracting event ID)
-  - GetLWLockIdentifier (for PG_WAIT_LWLOCK events)
-  - GetLockNameFromTagType (for PG_WAIT_LOCK events)
+  - [GetLWLockIdentifier](../G/GetLWLockIdentifier.md) (for PG_WAIT_LWLOCK events)
+  - [GetLockNameFromTagType](../G/GetLockNameFromTagType.md) (for PG_WAIT_LOCK events)
   - [GetWaitEventCustomIdentifier](../G/GetWaitEventCustomIdentifier.md) (for PG_WAIT_EXTENSION and PG_WAIT_INJECTIONPOINT events)
   - pgstat_get_wait_bufferpin (for PG_WAIT_BUFFERPIN events)
   - pgstat_get_wait_activity (for PG_WAIT_ACTIVITY events)

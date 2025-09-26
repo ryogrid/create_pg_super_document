@@ -42,7 +42,7 @@ After obtaining the hash table entry, the function opens and locks the sequence 
   - [pg_sequence_last_value](../p/pg_sequence_last_value.md)
 
 ## Notes and Other Information
-- Hash table entries persist for the lifetime of a backend process unless explicitly discarded
+- [Hash](../H/Hash.md) table entries persist for the lifetime of a backend process unless explicitly discarded
 - The function handles transactional replacement of sequences by checking relfilenode changes
 - Cached values are discarded when sequence replacement is detected, but currval() state is preserved
 - This is a static function internal to src/backend/commands/sequence.c

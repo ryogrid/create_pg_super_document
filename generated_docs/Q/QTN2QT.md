@@ -20,14 +20,14 @@ QTN2QT transforms a tree-based query representation (QTNode) into a flattened TS
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - cntsize (calculates total size and node count)
+  - [cntsize](../c/cntsize.md) (calculates total size and node count)
   - TSQUERY_TOO_BIG (macro to check size limits)
   - COMPUTESIZE (calculates required memory size)
   - [palloc0](../p/palloc0.md) (allocates zero-initialized memory)
   - SET_VARSIZE (sets variable-length structure size)
   - GETQUERY (gets query item array from TSQuery)
   - GETOPERAND (gets operand data from TSQuery)
-  - fillQT (fills the flat structure from tree)
+  - [fillQT](../f/fillQT.md) (fills the flat structure from tree)
 - Called from (representative examples):
   - [tsquery_and](../t/tsquery_and.md) (logical AND operations)
   - [tsquery_or](../t/tsquery_or.md) (logical OR operations)

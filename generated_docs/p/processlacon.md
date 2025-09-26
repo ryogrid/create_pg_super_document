@@ -42,14 +42,14 @@ For complex cases that cannot be optimized, it falls back to creating a general 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - single_color_transition (checks if RE is a simple color transition)
-  - cloneouts (copies outgoing arcs with specified type)
-  - colorcomplement (creates complement of color set)
-  - newarc (creates new NFA arc)
-  - newlacon (creates new LACON subre for general case)
+  - [single_color_transition](../s/single_color_transition.md) (checks if RE is a simple color transition)
+  - [cloneouts](../c/cloneouts.md) (copies outgoing arcs with specified type)
+  - [colorcomplement](../c/colorcomplement.md) (creates complement of color set)
+  - [newarc](../n/newarc.md) (creates new NFA arc)
+  - [newlacon](../n/newlacon.md) (creates new LACON subre for general case)
 - Data structures used:
-  - state (NFA state structure)
-  - subre (sub-regular expression structure)
+  - [state](../s/state.md) (NFA state structure)
+  - [subre](../s/subre.md) (sub-regular expression structure)
 - Constants used:
   - LATYPE_AHEAD_POS, LATYPE_AHEAD_NEG, LATYPE_BEHIND_POS, LATYPE_BEHIND_NEG (lookaround types)
   - AHEAD, BEHIND, LACON (arc types)

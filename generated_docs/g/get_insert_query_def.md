@@ -42,13 +42,13 @@ The function intelligently determines the INSERT type by examining the range tab
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_with_clause](get_with_clause.md) (for WITH clause processing)
-  - generate_relation_name (for target table name)
-  - get_rte_alias (for table aliasing)
+  - [generate_relation_name](generate_relation_name.md) (for target table name)
+  - [get_rte_alias](get_rte_alias.md) (for table aliasing)
   - [get_attname](get_attname.md)/quote_identifier (for column names)
-  - processIndirection (for complex column references)
+  - [processIndirection](../p/processIndirection.md) (for complex column references)
   - [get_query_def](get_query_def.md) (for INSERT ... SELECT subqueries)
   - [get_values_def](get_values_def.md) (for multi-row VALUES)
-  - get_rule_expr (for expressions and conflict specifications)
+  - [get_rule_expr](get_rule_expr.md) (for expressions and conflict specifications)
   - [get_target_list](get_target_list.md) (for RETURNING clauses)
 - Called from (representative examples):
   - [get_query_def](get_query_def.md) (main query deparsing entry point)

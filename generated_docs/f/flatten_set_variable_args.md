@@ -27,7 +27,7 @@ For variables with the GUC_LIST_INPUT flag, multiple arguments are joined with c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_option
+  - [find_option](find_option.md)
   - [quote_identifier](../q/quote_identifier.md)
   - [typenameTypeIdAndMod](../t/typenameTypeIdAndMod.md)
   - DirectFunctionCall3 (interval_in)

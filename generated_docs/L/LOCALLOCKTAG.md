@@ -25,14 +25,14 @@ This local tracking mechanism enables multiple requests for the same lock to be 
 - `mode`: The specific lock mode (LOCKMODE) being requested or held on the identified object
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LOCKTAG
+  - [LOCKTAG](LOCKTAG.md)
   - LOCKMODE
 - Called from (representative examples):
   - [LockAcquireExtended](LockAcquireExtended.md)
   - [LockRelease](LockRelease.md)
   - [LockHeldByMe](LockHeldByMe.md)
   - [LockHasWaiters](LockHasWaiters.md)
-  - InitLocks
+  - [InitLocks](../I/InitLocks.md)
 
 ## Notes and Other Information
 LOCALLOCKTAG is used as a hash key in the local lock table, allowing backends to track multiple lock modes on the same object separately. This design supports PostgreSQL's hierarchical locking system where a transaction might hold different types of locks on the same resource. The structure is crucial for the fast-path locking optimization, where frequently used locks can be managed locally without contending for shared memory structures.

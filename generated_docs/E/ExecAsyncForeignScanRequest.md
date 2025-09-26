@@ -26,7 +26,7 @@ The function assumes that the FDW supports asynchronous operations and has provi
   - [FdwRoutine](../F/FdwRoutine.md) (structure)
   - ForeignAsyncRequest (FDW callback function)
 - Called from (representative examples):
-  - ExecAsyncRequest (in execAsync.c)
+  - [ExecAsyncRequest](ExecAsyncRequest.md) (in execAsync.c)
 
 ## Notes and Other Information
 - The function contains an assertion that the FDW's ForeignAsyncRequest callback is not NULL, indicating this should only be called for async-capable FDWs

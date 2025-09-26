@@ -18,7 +18,7 @@ This function serves as the tuple receiving callback for DR_intorel destination 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_tuple_insert
+  - [table_tuple_insert](../t/table_tuple_insert.md)
 - Called from (representative examples):
   - [CreateIntoRelDestReceiver](../C/CreateIntoRelDestReceiver.md) (sets as callback)
   - Executor tuple processing pipeline

@@ -31,17 +31,17 @@ The function implements a lazy allocation strategy, only creating stack entries 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PgStat_SubXactStatus (structure type)
-  - MemoryContextAlloc
-  - dclist_init
+  - [PgStat_SubXactStatus](../P/PgStat_SubXactStatus.md) (structure type)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
+  - [dclist_init](../d/dclist_init.md)
   - TopTransactionContext (global memory context)
   - pgStatXactStack (global variable)
 
 - Called from (representative examples):
-  - AtEOSubXact_PgStat_Relations (src/backend/utils/activity/pgstat_relation.c:643)
-  - add_tabstat_xact_level (src/backend/utils/activity/pgstat_relation.c:926)
-  - AtEOSubXact_PgStat_DroppedStats (src/backend/utils/activity/pgstat_xact.c:145)
-  - create_drop_transactional_internal (src/backend/utils/activity/pgstat_xact.c:339)
+  - [AtEOSubXact_PgStat_Relations](../A/AtEOSubXact_PgStat_Relations.md) (src/backend/utils/activity/pgstat_relation.c:643)
+  - [add_tabstat_xact_level](../a/add_tabstat_xact_level.md) (src/backend/utils/activity/pgstat_relation.c:926)
+  - [AtEOSubXact_PgStat_DroppedStats](../A/AtEOSubXact_PgStat_DroppedStats.md) (src/backend/utils/activity/pgstat_xact.c:145)
+  - [create_drop_transactional_internal](../c/create_drop_transactional_internal.md) (src/backend/utils/activity/pgstat_xact.c:339)
 
 ## Notes and Other Information
 - Memory allocation occurs in TopTransactionContext to ensure proper cleanup at transaction end

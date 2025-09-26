@@ -27,7 +27,7 @@ This function takes no parameters.
   - [ReplicationSlotsShmemSize](ReplicationSlotsShmemSize.md)
   - MemSet
   - SpinLockInit
-  - LWLockInitialize
+  - [LWLockInitialize](../L/LWLockInitialize.md)
   - [ConditionVariableInit](../C/ConditionVariableInit.md)
   - [ReplicationSlotCtlData](ReplicationSlotCtlData.md) (struct)
   - [ReplicationSlot](ReplicationSlot.md) (struct)

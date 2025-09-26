@@ -35,7 +35,7 @@ The function ensures proper initialization and, in the OpenSSL version, integrat
 - Functions called/Symbols referenced:
   - ALLOC (memory allocation macro)
   - memset (standard library)
-  - ResourceOwnerEnlarge (OpenSSL version, backend only)
+  - [ResourceOwnerEnlarge](../R/ResourceOwnerEnlarge.md) (OpenSSL version, backend only)
   - ERR_clear_error (OpenSSL function)
   - EVP_MD_CTX_create (OpenSSL function)
   - [ResourceOwnerRememberCryptoHash](../R/ResourceOwnerRememberCryptoHash.md) (OpenSSL version, backend only)
@@ -43,10 +43,10 @@ The function ensures proper initialization and, in the OpenSSL version, integrat
   - [InitializeBackupManifest](../I/InitializeBackupManifest.md)
   - [scram_mock_salt](../s/scram_mock_salt.md)
   - [cryptohash_internal](../c/cryptohash_internal.md)
-  - pg_checksum_init
+  - [pg_checksum_init](pg_checksum_init.md)
   - [pg_hmac_create](pg_hmac_create.md)
   - [pg_md5_hash](pg_md5_hash.md)
-  - scram_H
+  - [scram_H](../s/scram_H.md)
 
 ## Notes and Other Information
 - Two implementations exist: generic (src/common/cryptohash.c:74-99) and OpenSSL-specific (src/common/cryptohash_openssl.c:122-169)

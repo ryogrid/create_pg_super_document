@@ -24,10 +24,10 @@ This function provides a convenient combination of table_to_xml and table_to_xml
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_BOOL
-  - text_to_cstring
-  - table_open
+  - [text_to_cstring](text_to_cstring.md)
+  - [table_open](table_open.md)
   - [map_sql_table_to_xmlschema](../m/map_sql_table_to_xmlschema.md)
-  - table_close
+  - [table_close](table_close.md)
   - [stringinfo_to_xmltype](../s/stringinfo_to_xmltype.md)
   - [table_to_xml_internal](table_to_xml_internal.md)
   - PG_RETURN_XML_P

@@ -35,15 +35,15 @@ Key features include:
 - Functions called/Symbols referenced:
   - ereturn (error handling with context support)
   - [pg_strncasecmp](../p/pg_strncasecmp.md) (case-insensitive string comparison)
-  - get_float8_nan (retrieve NaN value)
-  - get_float8_infinity (retrieve positive infinity value)
+  - [get_float8_nan](../g/get_float8_nan.md) (retrieve NaN value)
+  - [get_float8_infinity](../g/get_float8_infinity.md) (retrieve positive infinity value)
   - strtod (standard C library function)
   - isspace (standard C library function)
   - [pstrdup](../p/pstrdup.md) (PostgreSQL string duplication)
 
 - Called from (representative examples):
   - [float8in](float8in.md) (main float8 input function)
-  - single_decode (geometric operations)
+  - [single_decode](../s/single_decode.md) (geometric operations)
   - [executeItemOptUnwrapTarget](../e/executeItemOptUnwrapTarget.md) (JSON path execution)
 
 ## Notes and Other Information

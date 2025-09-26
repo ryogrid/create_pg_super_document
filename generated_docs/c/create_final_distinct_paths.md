@@ -51,7 +51,7 @@ The function prioritizes sort-based approaches when paths are already sorted, bu
 ## Notes and Other Information
 - For DISTINCT ON queries, uses the more rigorous ordering between DISTINCT and ORDER BY pathkeys
 - Handles the special case where distinct_pathkeys becomes NIL by creating LIMIT 1 paths
-- Hash-based implementation is mandatory when no sort-based paths can be created
+- [Hash](../H/Hash.md)-based implementation is mandatory when no sort-based paths can be created
 - DISTINCT ON operations cannot use hash-based aggregation due to behavioral differences
 - Respects enable_hashagg and enable_incremental_sort configuration parameters
 - Uses AGGSPLIT_SIMPLE for hash aggregation in the final phase

@@ -26,9 +26,9 @@ DisableTimeoutParams serves as a parameter structure for the disable_timeouts() 
 - Functions called/Symbols referenced:
   - [TimeoutId](../T/TimeoutId.md) (enumeration type)
 - Called from (representative examples):
-  - disable_timeouts (timeout.c:718)
+  - [disable_timeouts](../d/disable_timeouts.md) (timeout.c:718)
   - [LockErrorCleanup](../L/LockErrorCleanup.md) (proc.c:738)
-  - ProcSleep (proc.c:1623)
+  - [ProcSleep](../P/ProcSleep.md) (proc.c:1623)
 
 ## Notes and Other Information
 The structure is designed for batch operations where multiple timeouts need to be disabled simultaneously with different indicator preservation requirements. The keep_indicator flag provides flexibility in timeout management - preserving indicators allows other parts of the system to detect that a timeout occurred even after it has been disabled, which is useful for cleanup operations and error handling scenarios. This structure complements EnableTimeoutParams for comprehensive timeout lifecycle management.

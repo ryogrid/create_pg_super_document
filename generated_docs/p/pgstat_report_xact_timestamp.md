@@ -21,14 +21,14 @@ When called with a zero timestamp, it indicates there is no active transaction. 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PgBackendStatus (structure type)
+  - [PgBackendStatus](../P/PgBackendStatus.md) (structure type)
   - PGSTAT_BEGIN_WRITE_ACTIVITY (macro for atomic write protocol)
   - PGSTAT_END_WRITE_ACTIVITY (macro for atomic write protocol)
 - Called from:
-  - StartTransaction (at transaction start)
-  - CommitTransaction (clears timestamp on commit)
-  - PrepareTransaction (in prepared transaction scenarios)
-  - AbortTransaction (clears timestamp on abort)
+  - [StartTransaction](../S/StartTransaction.md) (at transaction start)
+  - [CommitTransaction](../C/CommitTransaction.md) (clears timestamp on commit)
+  - [PrepareTransaction](../P/PrepareTransaction.md) (in prepared transaction scenarios)
+  - [AbortTransaction](../A/AbortTransaction.md) (clears timestamp on abort)
 
 ## Notes and Other Information
 - Uses volatile pointer semantics to prevent compiler optimizations that could break the atomic update protocol

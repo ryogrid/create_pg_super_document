@@ -27,7 +27,7 @@ This mechanism allows other backends to track the progress of WAL insertion and 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockUpdateVar (updates the insertingAt variable associated with the lock)
+  - [LWLockUpdateVar](../L/LWLockUpdateVar.md) (updates the insertingAt variable associated with the lock)
   - NUM_XLOGINSERT_LOCKS (constant defining number of WAL insertion locks)
   - holdingAllLocks (global flag indicating exclusive lock ownership)
   - MyLockNo (backend-specific lock identifier)

@@ -26,20 +26,20 @@ The function includes comprehensive error checking for invalid names, empty name
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - init_dsm_registry (initializes the registry hash table)
-  - dshash_find_or_insert (searches or creates registry entries)
-  - dsm_create (creates new DSM segments)
-  - dsm_pin_segment (pins segment in memory)
-  - dsm_pin_mapping (pins segment mapping)
-  - dsm_segment_handle (gets segment handle for storage)
-  - dsm_segment_address (gets segment memory address)
-  - dsm_find_mapping (finds existing segment mapping)
-  - dsm_attach (attaches to existing segment)
-  - dshash_release_lock (releases hash table entry lock)
-  - DSMRegistryEntry (structure for registry entries)
+  - [init_dsm_registry](../i/init_dsm_registry.md) (initializes the registry hash table)
+  - [dshash_find_or_insert](../d/dshash_find_or_insert.md) (searches or creates registry entries)
+  - [dsm_create](../d/dsm_create.md) (creates new DSM segments)
+  - [dsm_pin_segment](../d/dsm_pin_segment.md) (pins segment in memory)
+  - [dsm_pin_mapping](../d/dsm_pin_mapping.md) (pins segment mapping)
+  - [dsm_segment_handle](../d/dsm_segment_handle.md) (gets segment handle for storage)
+  - [dsm_segment_address](../d/dsm_segment_address.md) (gets segment memory address)
+  - [dsm_find_mapping](../d/dsm_find_mapping.md) (finds existing segment mapping)
+  - [dsm_attach](../d/dsm_attach.md) (attaches to existing segment)
+  - [dshash_release_lock](../d/dshash_release_lock.md) (releases hash table entry lock)
+  - [DSMRegistryEntry](../D/DSMRegistryEntry.md) (structure for registry entries)
 - Called from (representative examples):
-  - injection_init_shmem (in injection points test module)
-  - tdr_attach_shmem (in DSM registry test module)
+  - [injection_init_shmem](../i/injection_init_shmem.md) (in injection points test module)
+  - [tdr_attach_shmem](../t/tdr_attach_shmem.md) (in DSM registry test module)
 
 ## Notes and Other Information
 - This function switches to TopMemoryContext to ensure any local DSM/DSA allocations persist

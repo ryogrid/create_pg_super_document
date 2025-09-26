@@ -34,7 +34,7 @@ The lock state is managed through atomic operations on the state field, which tr
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_atomic_uint32](../p/pg_atomic_uint32.md) (atomic operations)
-  - proclist_head (process list management)
+  - [proclist_head](../p/proclist_head.md) (process list management)
   - [PGPROC](../P/PGPROC.md) (process control block)
 - Called from (representative examples):
   - [BufferDesc](../B/BufferDesc.md) (buffer management)

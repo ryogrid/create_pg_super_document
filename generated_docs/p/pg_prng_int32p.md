@@ -20,10 +20,10 @@ This function selects a random int32 uniformly from the range [0, PG_INT32_MAX],
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - xoroshiro128ss (the core PRNG algorithm)
-  - pg_prng_state (state structure type)
+  - [xoroshiro128ss](../x/xoroshiro128ss.md) (the core PRNG algorithm)
+  - [pg_prng_state](pg_prng_state.md) (state structure type)
 - Called from (representative examples):
-  - create_and_test_bloom (in test_bloomfilter module)
+  - [create_and_test_bloom](../c/create_and_test_bloom.md) (in test_bloomfilter module)
 
 ## Notes and Other Information
 - Uses 33-bit right shift (v >> 33) to ensure non-negative results

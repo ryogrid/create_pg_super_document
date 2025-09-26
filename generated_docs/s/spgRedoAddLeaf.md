@@ -31,9 +31,9 @@ The function carefully handles the unaligned leaf tuple data by copying it to a 
 - Functions called/Symbols referenced:
   - XLogRecGetData (extract WAL record data)
   - memcpy (copy unaligned tuple header)
-  - XLogInitBufferForRedo (initialize new buffer)
+  - [XLogInitBufferForRedo](../X/XLogInitBufferForRedo.md) (initialize new buffer)
   - [SpGistInitBuffer](../S/SpGistInitBuffer.md) (initialize SP-GiST page)
-  - XLogReadBufferForRedo (read existing buffer)
+  - [XLogReadBufferForRedo](../X/XLogReadBufferForRedo.md) (read existing buffer)
   - [BufferGetPage](../B/BufferGetPage.md) (get page from buffer)
   - [addOrReplaceTuple](../a/addOrReplaceTuple.md) (add or replace tuple on page)
   - [PageGetItem](../P/PageGetItem.md), PageGetItemId (page item access)

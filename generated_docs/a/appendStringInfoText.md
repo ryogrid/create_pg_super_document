@@ -23,13 +23,13 @@ This approach is more efficient because it avoids the overhead of text_to_cstrin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendBinaryStringInfo (appends binary data to StringInfo)
+  - [appendBinaryStringInfo](appendBinaryStringInfo.md) (appends binary data to StringInfo)
   - VARDATA_ANY (macro to get data pointer from varlena)
   - VARSIZE_ANY_EXHDR (macro to get data size excluding header)
 - Called from:
   - DatumGetVarStringPP (variable string processing)
   - [replace_text](../r/replace_text.md) (text replacement operations)
-  - replace_text_regexp (regex text replacement)
+  - [replace_text_regexp](../r/replace_text_regexp.md) (regex text replacement)
   - [string_agg_transfn](../s/string_agg_transfn.md) (string aggregation function)
   - [xmlcomment](../x/xmlcomment.md) (XML comment generation)
   - [XmlTableGetValue](../X/XmlTableGetValue.md) (XML table value extraction)

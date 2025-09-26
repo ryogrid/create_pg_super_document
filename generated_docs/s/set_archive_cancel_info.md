@@ -26,7 +26,7 @@ The function handles platform-specific synchronization requirements - using atom
   - [set_cancel_handler](set_cancel_handler.md)
   - [PQfreeCancel](../P/PQfreeCancel.md)
   - [PQgetCancel](../P/PQgetCancel.md)
-  - PGcancel (type)
+  - [PGcancel](../P/PGcancel.md) (type)
 - Called from (representative examples):
   - [ParallelBackupStart](../P/ParallelBackupStart.md)
   - [ConnectDatabase](../C/ConnectDatabase.md)

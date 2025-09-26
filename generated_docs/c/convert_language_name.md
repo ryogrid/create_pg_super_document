@@ -20,7 +20,7 @@ This is a support function for the has_language_privilege family of functions. I
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - text_to_cstring: Converts PostgreSQL text type to a C string
+  - [text_to_cstring](../t/text_to_cstring.md): Converts PostgreSQL text type to a C string
   - [get_language_oid](../g/get_language_oid.md): Looks up the language OID by name (with error if not found)
 - Called from (representative examples):
   - [has_language_privilege_name_name](../h/has_language_privilege_name_name.md): Checks language privileges using role name and language name

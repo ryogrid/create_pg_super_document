@@ -23,7 +23,7 @@ StartPrepare begins the process of preparing a two-phase commit state file for a
   - GetPGProcByNumber
   - [xactGetCommittedChildren](../x/xactGetCommittedChildren.md)
   - [smgrGetPendingDeletes](../s/smgrGetPendingDeletes.md)
-  - pgstat_get_transactional_drops
+  - [pgstat_get_transactional_drops](../p/pgstat_get_transactional_drops.md)
   - [xactGetCommittedInvalidationMessages](../x/xactGetCommittedInvalidationMessages.md)
   - [save_state_data](../s/save_state_data.md)
   - [GXactLoadSubxactData](../G/GXactLoadSubxactData.md)

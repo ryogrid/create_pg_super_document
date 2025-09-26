@@ -28,7 +28,7 @@ This wrapper pattern is essential for handling PostgreSQL's hierarchical transac
   - [finish_xact_command](../f/finish_xact_command.md) (main transaction processing)
   - [InitPostgres](../I/InitPostgres.md) (initialization contexts)
   - [vacuum_rel](../v/vacuum_rel.md) (vacuum operations)
-  - _SPI_commit (SPI transaction handling)
+  - [_SPI_commit](../S/_SPI_commit.md) (SPI transaction handling)
   - Various replication workers (logical replication)
   - [ParallelWorkerMain](../P/ParallelWorkerMain.md) (parallel processing)
   - Multiple DDL operations (index creation, table operations)

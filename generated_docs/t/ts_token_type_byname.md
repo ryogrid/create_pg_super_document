@@ -36,7 +36,7 @@ This function provides a more user-friendly interface compared to  since users t
   - SRF_IS_FIRSTCALL
   - SRF_FIRSTCALL_INIT
   - [get_ts_parser_oid](../g/get_ts_parser_oid.md)
-  - textToQualifiedNameList
+  - [textToQualifiedNameList](textToQualifiedNameList.md)
   - [tt_setup_firstcall](tt_setup_firstcall.md)
   - SRF_PERCALL_SETUP
   - [tt_process_call](tt_process_call.md)

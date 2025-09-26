@@ -26,7 +26,7 @@ This comparison logic ensures that when used with qsort, chromosomes are sorted 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Chromosome (struct type for individual solutions containing worth field)
+  - [Chromosome](../C/Chromosome.md) (struct type for individual solutions containing worth field)
 - Called from (representative examples):
   - [sort_pool](../s/sort_pool.md) (via qsort for sorting genetic algorithm pools)
   - Many other PostgreSQL sorting contexts throughout the codebase

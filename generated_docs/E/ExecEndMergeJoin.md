@@ -25,10 +25,10 @@ The merge join node itself relies on PostgreSQL's memory context management for 
 - Functions called/Symbols referenced:
   - innerPlanState (to access inner child plan)
   - outerPlanState (to access outer child plan)
-  - ExecEndNode (to recursively shut down child nodes)
+  - [ExecEndNode](ExecEndNode.md) (to recursively shut down child nodes)
   - MJ1_printf (debug logging)
 - Called from (representative examples):
-  - ExecEndNode (executor node termination dispatcher)
+  - [ExecEndNode](ExecEndNode.md) (executor node termination dispatcher)
 
 ## Notes and Other Information
 - Does not explicitly free memory as PostgreSQL uses memory contexts for automatic cleanup

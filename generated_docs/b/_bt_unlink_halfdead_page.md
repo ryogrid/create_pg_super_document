@@ -42,8 +42,8 @@ The function includes extensive corruption detection and recovery mechanisms, lo
   - [_bt_getbuf](_bt_getbuf.md), _bt_relbuf, _bt_lockbuf, _bt_unlockbuf (buffer management)
   - P_ISLEAF, P_ISDELETED, P_ISHALFDEAD, P_RIGHTMOST (page state checks)
   - [BTPageSetDeleted](../B/BTPageSetDeleted.md) (marks page as deleted with transaction ID)
-  - ReadNextFullTransactionId (gets safe deletion timestamp)
-  - _bt_upgrademetapage (upgrades metapage format if needed)
+  - [ReadNextFullTransactionId](../R/ReadNextFullTransactionId.md) (gets safe deletion timestamp)
+  - [_bt_upgrademetapage](_bt_upgrademetapage.md) (upgrades metapage format if needed)
   - [XLogBeginInsert](../X/XLogBeginInsert.md), XLogRegisterBuffer, XLogRegisterData, XLogInsert (WAL logging)
   - [_bt_pendingfsm_add](_bt_pendingfsm_add.md) (tracks page for FSM inclusion)
 - Called from:

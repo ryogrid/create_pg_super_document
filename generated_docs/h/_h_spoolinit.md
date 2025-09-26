@@ -33,6 +33,6 @@ The hash masks are computed using power-of-2 arithmetic where  represents the up
 
 ## Notes and Other Information
 - Uses  instead of  to speed up index creation
-- Hash mask calculation must remain synchronized with 
+- [Hash](../H/Hash.md) mask calculation must remain synchronized with 
 - The  field is set to  for zero-based indexing
 - Memory is allocated using  to ensure zero-initialization of the structure

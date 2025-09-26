@@ -20,7 +20,7 @@ This internal function performs critical version compatibility checks when pg_du
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQparameterStatus (retrieves server version string)
+  - [PQparameterStatus](../P/PQparameterStatus.md) (retrieves server version string)
   - [PQserverVersion](../P/PQserverVersion.md) (retrieves numeric server version)
   - [pg_fatal](../p/pg_fatal.md) (error handling for libpq failures)
   - [pg_strdup](../p/pg_strdup.md) (string duplication)

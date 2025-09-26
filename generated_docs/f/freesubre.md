@@ -28,15 +28,15 @@ This design allows for controlled cleanup of parse tree sections while maintaini
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - freesubreandsiblings (recursively frees child nodes and their siblings)
-  - freesrnode (frees a single subre node)
+  - [freesubreandsiblings](freesubreandsiblings.md) (recursively frees child nodes and their siblings)
+  - [freesrnode](freesrnode.md) (frees a single subre node)
 - Data structures used:
-  - subre (sub-regular expression structure)
+  - [subre](../s/subre.md) (sub-regular expression structure)
 - Called from (representative examples):
-  - freev function (regcomp.c:602)
+  - [freev](freev.md) function (regcomp.c:602)
   - Various ARCV macro expansions throughout regcomp.c
-  - freesubreandsiblings function (regcomp.c:2178)
-  - rfree function (regcomp.c:2463)
+  - [freesubreandsiblings](freesubreandsiblings.md) function (regcomp.c:2178)
+  - [rfree](../r/rfree.md) function (regcomp.c:2463)
 
 ## Notes and Other Information
 - Designed to work safely with NULL pointers for both parameters

@@ -28,8 +28,8 @@ The structure is part of PostgreSQL's SQL parser output and is used by the utili
 - Functions called/Symbols referenced:
   - (No direct references from this symbol)
 - Called from (representative examples):
-  - AlterCollation
-  - ProcessUtilitySlow
+  - [AlterCollation](AlterCollation.md)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md)
 
 ## Notes and Other Information
 - Part of PostgreSQL's parse tree node system, inheriting from the standard Node structure

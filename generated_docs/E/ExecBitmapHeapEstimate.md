@@ -32,7 +32,7 @@ This estimation is performed during the parallel query planning phase, before wo
   - [ParallelContext](../P/ParallelContext.md) (structure)
   - [ParallelBitmapHeapState](../P/ParallelBitmapHeapState.md) (structure)
 - Called from (representative examples):
-  - ExecParallelEstimate
+  - [ExecParallelEstimate](ExecParallelEstimate.md)
 
 ## Notes and Other Information
 This function is called during parallel query setup, before any worker processes are created. The estimated memory is later allocated by ExecBitmapHeapInitializeDSM. The function follows PostgreSQL's standard pattern for parallel node estimation where each node type estimates its own shared memory needs.

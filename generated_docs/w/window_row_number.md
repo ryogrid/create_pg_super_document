@@ -25,7 +25,7 @@ The function is straightforward: it gets the current position within the partiti
   - [WinGetCurrentPosition](../W/WinGetCurrentPosition.md)
   - [WinSetMarkPosition](../W/WinSetMarkPosition.md)
   - PG_RETURN_INT64
-  - WindowObject (type)
+  - [WindowObject](../W/WindowObject.md) (type)
 - Called from (representative examples):
   - This is a PostgreSQL built-in function called directly from SQL queries
 

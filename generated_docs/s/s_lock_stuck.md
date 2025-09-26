@@ -32,7 +32,7 @@ The function serves as a last resort mechanism to prevent infinite loops when wa
   - elog (in normal mode)
   - PANIC (error level constant)
 - Called from (representative examples):
-  - perform_spin_delay
+  - [perform_spin_delay](../p/perform_spin_delay.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the s_lock.c compilation unit

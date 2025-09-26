@@ -31,12 +31,12 @@ The function handles both commit and abort scenarios, with additional validation
 ## Dependencies
 - Functions called/Symbols referenced:
   - pairingheap_is_empty
-  - pairingheap_remove
+  - [pairingheap_remove](../p/pairingheap_remove.md)
   - pairingheap_reset
-  - ExportedSnapshot
+  - [ExportedSnapshot](../E/ExportedSnapshot.md)
   - unlink
   - [InvalidateCatalogSnapshot](../I/InvalidateCatalogSnapshot.md)
-  - ActiveSnapshotElt
+  - [ActiveSnapshotElt](ActiveSnapshotElt.md)
   - [SnapshotResetXmin](../S/SnapshotResetXmin.md)
 - Called from (representative examples):
   - [CommitTransaction](../C/CommitTransaction.md)

@@ -83,16 +83,16 @@ JsonExpr is a node type that represents JSON path expressions after parsing and 
 ## Dependencies
 - Functions called/Symbols referenced:
   - JsonExprOp
-  - JsonFormat
-  - JsonReturning
-  - JsonBehavior
+  - [JsonFormat](JsonFormat.md)
+  - [JsonReturning](JsonReturning.md)
+  - [JsonBehavior](JsonBehavior.md)
   - JsonWrapper
   - ParseLoc
 - Called from (representative examples):
-  - ExecInitExprRec
-  - ExecInitJsonExpr
-  - transformJsonFuncExpr
-  - transformJsonTable
+  - [ExecInitExprRec](../E/ExecInitExprRec.md)
+  - [ExecInitJsonExpr](../E/ExecInitJsonExpr.md)
+  - [transformJsonFuncExpr](../t/transformJsonFuncExpr.md)
+  - [transformJsonTable](../t/transformJsonTable.md)
 
 ## Notes and Other Information
 - Central to PostgreSQL's SQL/JSON functionality implementation

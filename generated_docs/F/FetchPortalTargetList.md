@@ -22,7 +22,7 @@ FetchPortalTargetList retrieves the target list (list of output columns and expr
   - [Portal](../P/Portal.md) (parameter type)
   - PORTAL_MULTI_QUERY (strategy constant)
   - [FetchStatementTargetList](FetchStatementTargetList.md)
-  - PortalGetPrimaryStmt
+  - [PortalGetPrimaryStmt](../P/PortalGetPrimaryStmt.md)
   - NIL (empty list constant)
 - Called from (representative examples):
   - [printtup_startup](../p/printtup_startup.md)

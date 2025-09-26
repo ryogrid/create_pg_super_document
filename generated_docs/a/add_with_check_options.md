@@ -44,7 +44,7 @@ This function creates WithCheckOption nodes that enforce Row Level Security poli
   - makeNode
   - RelationGetRelationName
   - [pstrdup](../p/pstrdup.md)
-  - lappend
+  - [lappend](../l/lappend.md)
   - copyObject
   - [ChangeVarNodes](../C/ChangeVarNodes.md)
   - [list_append_unique](../l/list_append_unique.md)

@@ -35,7 +35,7 @@ The function handles snapshot management by automatically using catalog snapshot
   - [palloc](../p/palloc.md) (memory allocation)
   - [table_slot_create](../t/table_slot_create.md) (create tuple slot)
   - [GetCatalogSnapshot](../G/GetCatalogSnapshot.md) (get catalog snapshot)
-  - RegisterSnapshot (register snapshot)
+  - [RegisterSnapshot](../R/RegisterSnapshot.md) (register snapshot)
   - IndexRelationGetNumberOfAttributes (get index column count)
   - [index_beginscan](../i/index_beginscan.md) (start index scan)
   - [index_rescan](../i/index_rescan.md) (initialize index scan with keys)

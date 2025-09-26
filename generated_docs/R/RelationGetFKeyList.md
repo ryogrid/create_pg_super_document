@@ -26,18 +26,18 @@ The function carefully manages memory contexts to avoid leaks: it builds the res
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ScanKeyInit](../S/ScanKeyInit.md)
-  - table_open
+  - [table_open](../t/table_open.md)
   - [systable_beginscan](../s/systable_beginscan.md)
   - [systable_getnext](../s/systable_getnext.md)
   - [systable_endscan](../s/systable_endscan.md)
-  - table_close
+  - [table_close](../t/table_close.md)
   - makeNode
   - [DeconstructFkConstraintRow](../D/DeconstructFkConstraintRow.md)
-  - lappend
+  - [lappend](../l/lappend.md)
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - copyObject
   - [list_free_deep](../l/list_free_deep.md)
-  - ForeignKeyCacheInfo (struct type)
+  - [ForeignKeyCacheInfo](../F/ForeignKeyCacheInfo.md) (struct type)
 - Called from (representative examples):
   - [addFkRecurseReferencing](../a/addFkRecurseReferencing.md)
   - [CloneFkReferencing](../C/CloneFkReferencing.md)

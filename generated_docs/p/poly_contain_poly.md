@@ -23,7 +23,7 @@ poly_contain_poly implements a comprehensive polygon containment test by first p
 - Called from (representative examples):
   - [poly_contain](poly_contain.md): PostgreSQL function wrapper for polygon containment operator
   - [poly_contained](poly_contained.md): PostgreSQL function wrapper for reverse containment test
-  - PATH_CLOSED: For closed path containment testing
+  - [PATH_CLOSED](../P/PATH_CLOSED.md): For closed path containment testing
 
 ## Notes and Other Information
 - Located in src/backend/utils/adt/geo_ops.c:3938-3965

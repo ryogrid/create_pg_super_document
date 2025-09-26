@@ -20,11 +20,11 @@ This function implements the psql configuration file loading logic by searching 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_my_exec (executable path resolution)
+  - [find_my_exec](../f/find_my_exec.md) (executable path resolution)
   - [get_etc_path](../g/get_etc_path.md) (system configuration directory path)
   - process_psqlrc_file (actual file processing)
   - [expand_tilde](../e/expand_tilde.md) (tilde expansion in paths)
-  - get_home_path (user home directory resolution)
+  - [get_home_path](../g/get_home_path.md) (user home directory resolution)
   - [pstrdup](pstrdup.md) (string duplication)
   - getenv (environment variable access)
 - Called from (representative examples):

@@ -29,15 +29,15 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SetInstallXLogFileSegmentActive](../S/SetInstallXLogFileSegmentActive.md): Enables WAL segment creation
-  - gettimeofday: Used for system identifier generation
+  - [gettimeofday](../g/gettimeofday.md): Used for system identifier generation
   - [XLogFileInit](../X/XLogFileInit.md): Creates the initial XLOG segment file
-  - InitControlFile: Initializes the control file structure
-  - WriteControlFile: Writes control file to disk
+  - [InitControlFile](../I/InitControlFile.md): Initializes the control file structure
+  - [WriteControlFile](../W/WriteControlFile.md): Writes control file to disk
   - [BootStrapCLOG](BootStrapCLOG.md): Initializes commit log
-  - BootStrapCommitTs: Initializes commit timestamp subsystem
-  - BootStrapSUBTRANS: Initializes subtransaction subsystem
+  - [BootStrapCommitTs](BootStrapCommitTs.md): Initializes commit timestamp subsystem
+  - [BootStrapSUBTRANS](BootStrapSUBTRANS.md): Initializes subtransaction subsystem
   - [BootStrapMultiXact](BootStrapMultiXact.md): Initializes multitransaction subsystem
-  - ReadControlFile: Forces control file validation
+  - [ReadControlFile](../R/ReadControlFile.md): Forces control file validation
 
 - Called from (representative examples):
   - [BootstrapModeMain](BootstrapModeMain.md): Main bootstrap process entry point

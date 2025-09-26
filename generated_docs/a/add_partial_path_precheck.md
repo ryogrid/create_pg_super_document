@@ -31,7 +31,7 @@ Unlike add_path_precheck, this function always compares pathkeys since partial_p
 - Functions called/Symbols referenced:
   - [compare_pathkeys](../c/compare_pathkeys.md)
   - [add_path_precheck](add_path_precheck.md)
-  - PathKeysComparison (enum)
+  - [PathKeysComparison](../P/PathKeysComparison.md) (enum)
   - PATHKEYS_DIFFERENT, PATHKEYS_BETTER1, PATHKEYS_BETTER2 (constants)
   - STD_FUZZ_FACTOR (constant)
   - Cost (type)

@@ -23,8 +23,8 @@ The function is designed to work with the `array_desc` utility for handling arra
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendStringInfo
-  - appendStringInfoString
+  - [appendStringInfo](../a/appendStringInfo.md)
+  - [appendStringInfoString](../a/appendStringInfoString.md)
   - [array_desc](../a/array_desc.md)
   - [offset_elem_desc](../o/offset_elem_desc.md)
   - [xlhp_freeze_plan](../x/xlhp_freeze_plan.md) (struct type)

@@ -38,10 +38,10 @@ This is a typedef pointer, so it references the members of TupleHashTableData:
 - Functions called/Symbols referenced:
   - [TupleHashTableData](TupleHashTableData.md) (underlying struct)
 - Called from (representative examples):
-  - BuildTupleHashTableExt (src/backend/executor/execGrouping.c:165)
-  - ResetTupleHashTable (src/backend/executor/execGrouping.c:283)
-  - LookupTupleHashEntry (src/backend/executor/execGrouping.c:304)
-  - TupleHashTableHash (src/backend/executor/execGrouping.c:336)
+  - [BuildTupleHashTableExt](../B/BuildTupleHashTableExt.md) (src/backend/executor/execGrouping.c:165)
+  - [ResetTupleHashTable](../R/ResetTupleHashTable.md) (src/backend/executor/execGrouping.c:283)
+  - [LookupTupleHashEntry](../L/LookupTupleHashEntry.md) (src/backend/executor/execGrouping.c:304)
+  - [TupleHashTableHash](TupleHashTableHash.md) (src/backend/executor/execGrouping.c:336)
   - [initialize_hash_entry](../i/initialize_hash_entry.md) (src/backend/executor/nodeAgg.c:2045)
   - [lookup_hash_entries](../l/lookup_hash_entries.md) (src/backend/executor/nodeAgg.c:2104)
 

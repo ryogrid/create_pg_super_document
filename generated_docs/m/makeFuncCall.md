@@ -23,14 +23,14 @@ The makeFuncCall function constructs a FuncCall node, which represents function 
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to allocate FuncCall node)
-  - FuncCall (the node structure being created)
+  - [FuncCall](../F/FuncCall.md) (the node structure being created)
   - CoercionForm (enum type for the funcformat parameter)
   - NIL (empty list constant)
 - Called from (representative examples):
-  - transformRangeFunction
-  - transformColumnDefinition
-  - test_rls_hooks_permissive
-  - test_rls_hooks_restrictive
+  - [transformRangeFunction](../t/transformRangeFunction.md)
+  - [transformColumnDefinition](../t/transformColumnDefinition.md)
+  - [test_rls_hooks_permissive](../t/test_rls_hooks_permissive.md)
+  - [test_rls_hooks_restrictive](../t/test_rls_hooks_restrictive.md)
 
 ## Notes and Other Information
 - All aggregate-related fields (agg_order, agg_filter, agg_within_group, agg_star, agg_distinct) are initialized to their default disabled state

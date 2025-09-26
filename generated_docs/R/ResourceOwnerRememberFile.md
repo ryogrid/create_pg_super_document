@@ -20,11 +20,11 @@ The function is part of PostgreSQL's resource management system that tracks vari
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwnerRemember
-  - Int32GetDatum
+  - [ResourceOwnerRemember](ResourceOwnerRemember.md)
+  - [Int32GetDatum](../I/Int32GetDatum.md)
   - file_resowner_desc (resource descriptor for file cleanup)
 - Called from (representative examples):
-  - RegisterTemporaryFile
+  - [RegisterTemporaryFile](RegisterTemporaryFile.md)
 
 ## Notes and Other Information
 - This is a static inline function, so it's only visible within the fd.c source file

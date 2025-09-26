@@ -26,7 +26,7 @@ The function includes a CHECK_IS_BINARY_UPGRADE macro call to ensure it can only
 - Functions called/Symbols referenced:
   - PG_GETARG_OID
   - PG_GETARG_TEXT_P
-  - text_to_cstring
+  - [text_to_cstring](../t/text_to_cstring.md)
   - CHECK_IS_BINARY_UPGRADE
   - [SetAttrMissing](../S/SetAttrMissing.md)
   - PG_RETURN_VOID

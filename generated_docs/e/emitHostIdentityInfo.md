@@ -25,7 +25,7 @@ The function intelligently displays the most appropriate host identifier, choosi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_getnameinfo_all (for socket path resolution)
+  - [pg_getnameinfo_all](../p/pg_getnameinfo_all.md) (for socket path resolution)
   - [libpq_gettext](../l/libpq_gettext.md) (for internationalized error message formatting)
   - CHT_HOST_ADDRESS (connection host type constant)
 - Called from (representative examples):

@@ -22,12 +22,12 @@ The function includes a null check for the parse tree and returns NULL if no par
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_POINTER (to extract the CollectedCommand pointer)
-  - CreateCommandName (to generate the command name from the parse tree)
-  - cstring_to_text (to convert C string to PostgreSQL text type)
+  - [CreateCommandName](../C/CreateCommandName.md) (to generate the command name from the parse tree)
+  - [cstring_to_text](../c/cstring_to_text.md) (to convert C string to PostgreSQL text type)
   - PG_RETURN_TEXT_P (to return the text result)
   - PG_RETURN_NULL (to return NULL when parse tree is missing)
 - Data structures referenced:
-  - CollectedCommand (input structure containing parse tree)
+  - [CollectedCommand](../C/CollectedCommand.md) (input structure containing parse tree)
 - Called from:
   - No direct callers found (likely used as a SQL-callable function in tests)
 

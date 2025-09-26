@@ -132,14 +132,14 @@ The callbacks are organized into logical groups covering all aspects of table ma
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TM_IndexDeleteOp (for index deletion operations)
-  - TM_FailureData (for operation failure reporting)
+  - [TM_IndexDeleteOp](TM_IndexDeleteOp.md) (for index deletion operations)
+  - [TM_FailureData](TM_FailureData.md) (for operation failure reporting)
   - Multiple PostgreSQL core types (Relation, Snapshot, CommandId, etc.)
 - Called from (representative examples):
-  - GetTableAmRoutine
-  - table_tuple_get_latest_tid  
-  - SampleHeapTupleVisible
-  - RelationData (embedded reference)
+  - [GetTableAmRoutine](../G/GetTableAmRoutine.md)
+  - [table_tuple_get_latest_tid](../t/table_tuple_get_latest_tid.md)  
+  - [SampleHeapTupleVisible](../S/SampleHeapTupleVisible.md)
+  - [RelationData](../R/RelationData.md) (embedded reference)
 
 ## Notes and Other Information
 - Central to PostgreSQL's extensible storage architecture, enabling pluggable table access methods

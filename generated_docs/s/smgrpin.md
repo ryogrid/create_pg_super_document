@@ -22,7 +22,7 @@ The `smgrpin` function implements a reference counting mechanism to control the 
   - [dlist_delete](../d/dlist_delete.md)
   - SMgrRelation (type)
 - Called from (representative examples):
-  - RelationGetSmgr (src/include/utils/rel.h:572)
+  - [RelationGetSmgr](../R/RelationGetSmgr.md) (src/include/utils/rel.h:572)
 
 ## Notes and Other Information
 - This function uses reference counting to manage object lifetime

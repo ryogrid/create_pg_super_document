@@ -26,7 +26,7 @@ The resulting array serves as a working space where the system can plan what sho
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CatCList
+  - [CatCList](../C/CatCList.md)
   - [RevokeRoleGrantAction](../R/RevokeRoleGrantAction.md)
   - RRG_NOOP
   - [palloc](../p/palloc.md)

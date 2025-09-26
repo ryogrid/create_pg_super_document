@@ -26,13 +26,13 @@ This restoration is necessary because PostgreSQL's GUC system automatically rese
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SavedTransactionCharacteristics (structure)
+  - [SavedTransactionCharacteristics](../S/SavedTransactionCharacteristics.md) (structure)
   - XactIsoLevel (global variable - target)
   - XactReadOnly (global variable - target)
   - XactDeferrable (global variable - target)
 - Called from (representative examples):
   - [CommitTransactionCommandInternal](../C/CommitTransactionCommandInternal.md) (multiple locations)
-  - _SPI_commit
+  - [_SPI_commit](../S/_SPI_commit.md)
   - [_SPI_rollback](../S/_SPI_rollback.md)
 
 ## Notes and Other Information

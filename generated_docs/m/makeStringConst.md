@@ -22,10 +22,10 @@ The makeStringConst function is a utility function that constructs an A_Const no
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to allocate A_Const node)
-  - A_Const (the node structure being created)
+  - [A_Const](../A/A_Const.md) (the node structure being created)
 - Called from (representative examples):
-  - makeJsonTablePathSpec
-  - transformJsonTableColumn
+  - [makeJsonTablePathSpec](makeJsonTablePathSpec.md)
+  - [transformJsonTableColumn](../t/transformJsonTableColumn.md)
 
 ## Notes and Other Information
 - The function takes ownership of the string pointer but does not copy the string data

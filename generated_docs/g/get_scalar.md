@@ -33,8 +33,8 @@ The function implements different text capture strategies depending on whether n
   - [JsonTokenType](../J/JsonTokenType.md) (parameter type for token classification)
   - JSON_TOKEN_STRING (token type constant for string detection)
   - JSON_TOKEN_NULL (token type constant for null detection)
-  - cstring_to_text_with_len (converts C string with specified length to PostgreSQL text)
-  - cstring_to_text (converts null-terminated C string to PostgreSQL text)
+  - [cstring_to_text_with_len](../c/cstring_to_text_with_len.md) (converts C string with specified length to PostgreSQL text)
+  - [cstring_to_text](../c/cstring_to_text.md) (converts null-terminated C string to PostgreSQL text)
   - JSON_SUCCESS (success return constant)
 - Called from (representative examples):
   - [get_worker](get_worker.md) (JSON extraction worker function)
@@ -42,7 +42,7 @@ The function implements different text capture strategies depending on whether n
 
 ## Notes and Other Information
 - This function handles both normalized and raw scalar value extraction based on configuration
-- String de-escaping is performed by the JSON lexer before this function receives the token
+- [String](../S/String.md) de-escaping is performed by the JSON lexer before this function receives the token
 - The function includes a comment about "hokey" whitespace handling when capturing whole scalar documents
 - Whitespace after scalar tokens is suppressed in whole-object matches, but whitespace before is preserved
 - The `next_scalar` flag is used for deferred string processing and is automatically reset after use

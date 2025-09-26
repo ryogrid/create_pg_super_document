@@ -26,7 +26,7 @@ The conversion process ensures that the integer value is accurately represented 
   - [int64_to_numericvar](int64_to_numericvar.md)
   - [make_result](../m/make_result.md)
   - [free_var](../f/free_var.md)
-  - Numeric (type)
+  - [Numeric](../N/Numeric.md) (type)
 - Called from (representative examples):
   - [cash_numeric](../c/cash_numeric.md)
   - [extract_date](../e/extract_date.md)

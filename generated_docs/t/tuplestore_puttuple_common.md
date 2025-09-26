@@ -41,25 +41,25 @@ The function also manages read pointer behavior according to the API specificati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - grow_memtuples
+  - [grow_memtuples](../g/grow_memtuples.md)
   - LACKMEM (macro)
-  - PrepareTempTablespaces
-  - BufFileCreateTemp
-  - dumptuples
-  - BufFileTell
-  - BufFileSeek
+  - [PrepareTempTablespaces](../P/PrepareTempTablespaces.md)
+  - [BufFileCreateTemp](../B/BufFileCreateTemp.md)
+  - [dumptuples](../d/dumptuples.md)
+  - [BufFileTell](../B/BufFileTell.md)
+  - [BufFileSeek](../B/BufFileSeek.md)
   - WRITETUP (macro)
 - Types used:
-  - Tuplestorestate
+  - [Tuplestorestate](../T/Tuplestorestate.md)
   - TSReadPointer
-  - ResourceOwner
+  - [ResourceOwner](../R/ResourceOwner.md)
 - Constants:
   - TSS_INMEM, TSS_WRITEFILE, TSS_READFILE
   - EXEC_FLAG_BACKWARD
 - Called from:
-  - tuplestore_puttupleslot
-  - tuplestore_puttuple
-  - tuplestore_putvalues
+  - [tuplestore_puttupleslot](tuplestore_puttupleslot.md)
+  - [tuplestore_puttuple](tuplestore_puttuple.md)
+  - [tuplestore_putvalues](tuplestore_putvalues.md)
 
 ## Notes and Other Information
 - This is a static (internal) function not exposed in the public API

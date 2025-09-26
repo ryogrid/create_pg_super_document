@@ -28,7 +28,7 @@ The function includes a notable design consideration regarding context->ident: i
 ## Dependencies
 - Functions called/Symbols referenced:
   - MemoryContextIsValid (to validate the context parameter)
-  - MemoryContextCallResetCallbacks (to execute registered reset callbacks)
+  - [MemoryContextCallResetCallbacks](MemoryContextCallResetCallbacks.md) (to execute registered reset callbacks)
   - context->methods->reset (context-specific reset implementation)
   - VALGRIND_DESTROY_MEMPOOL, VALGRIND_CREATE_MEMPOOL (Valgrind debugging support)
 - Called from (representative examples):
@@ -36,7 +36,7 @@ The function includes a notable design consideration regarding context->ident: i
   - [MemoryContextResetChildren](MemoryContextResetChildren.md) (when resetting child contexts)
   - [AllocSetDelete](../A/AllocSetDelete.md) (during context deletion)
   - [JsonTableResetRowPattern](../J/JsonTableResetRowPattern.md) (JSON table function operations)
-  - mergeruns (during tuplesort operations)
+  - [mergeruns](../m/mergeruns.md) (during tuplesort operations)
 
 ## Notes and Other Information
 - Unlike MemoryContextReset, this function does NOT delete child contexts

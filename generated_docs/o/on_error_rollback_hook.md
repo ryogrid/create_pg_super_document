@@ -29,7 +29,7 @@ The "interactive" mode is particularly useful as it provides error recovery duri
 - Functions called/Symbols referenced:
   - [pg_strcasecmp](../p/pg_strcasecmp.md)
   - [ParseVariableBool](../P/ParseVariableBool.md)
-  - PsqlVarEnumError
+  - [PsqlVarEnumError](../P/PsqlVarEnumError.md)
   - PSQL_ERROR_ROLLBACK_INTERACTIVE
   - PSQL_ERROR_ROLLBACK_ON
   - PSQL_ERROR_ROLLBACK_OFF

@@ -26,7 +26,7 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dsm_detach](../d/dsm_detach.md)
-  - dsa_detach
+  - [dsa_detach](../d/dsa_detach.md)
 - Called from (representative examples):
   - [ParallelWorkerMain](../P/ParallelWorkerMain.md) (in src/backend/access/transam/parallel.c:1562)
 

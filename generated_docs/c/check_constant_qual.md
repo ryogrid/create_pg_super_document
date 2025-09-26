@@ -25,12 +25,12 @@ The function iterates through each element in the qualification list, verifying 
 - Functions called/Symbols referenced:
   - [List](../L/List.md) (PostgreSQL list data structure)
   - ListCell (list iteration structure) 
-  - Const (constant value node type)
+  - [Const](../C/Const.md) (constant value node type)
   - lfirst (macro to get current list element)
   - IsA (macro to check node type)
   - [DatumGetBool](../D/DatumGetBool.md) (converts Datum to boolean)
 - Called from (representative examples):
-  - ExecInitMergeJoin (merge join initialization function, called twice during setup)
+  - [ExecInitMergeJoin](../E/ExecInitMergeJoin.md) (merge join initialization function, called twice during setup)
 
 ## Notes and Other Information
 - This function is used for compile-time optimization of merge join qualification evaluation

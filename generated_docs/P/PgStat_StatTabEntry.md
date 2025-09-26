@@ -75,9 +75,9 @@ This structure serves as the central repository for table-level statistics in Po
   - TimestampTz (used for timestamp fields)
 - Called from (representative examples):
   - [do_autovacuum](../d/do_autovacuum.md)
-  - pgstat_copy_relation_stats
-  - pgstat_report_vacuum
-  - pgstat_report_analyze
+  - [pgstat_copy_relation_stats](../p/pgstat_copy_relation_stats.md)
+  - [pgstat_report_vacuum](../p/pgstat_report_vacuum.md)
+  - [pgstat_report_analyze](../p/pgstat_report_analyze.md)
   - [pgstat_fetch_stat_tabentry](../p/pgstat_fetch_stat_tabentry.md)
   - PG_STAT_GET_RELENTRY_INT64
   - PG_STAT_GET_RELENTRY_TIMESTAMPTZ

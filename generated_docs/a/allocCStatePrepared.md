@@ -25,8 +25,8 @@ The function uses pg_malloc0 to ensure the boolean array is zero-initialized, me
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_malloc (for allocating the script pointer array)
-  - pg_malloc0 (for allocating zero-initialized boolean arrays)
+  - [pg_malloc](../p/pg_malloc.md) (for allocating the script pointer array)
+  - [pg_malloc0](../p/pg_malloc0.md) (for allocating zero-initialized boolean arrays)
   - [CState](../C/CState.md) (client state structure)
   - [ParsedScript](../P/ParsedScript.md) (script structure containing commands)
 - Called from (representative examples):

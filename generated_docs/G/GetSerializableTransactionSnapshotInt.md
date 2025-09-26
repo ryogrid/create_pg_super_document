@@ -39,7 +39,7 @@ The function includes sophisticated race condition handling, particularly for im
 - Called from (representative examples):
   - [GetSerializableTransactionSnapshot](GetSerializableTransactionSnapshot.md) (for new snapshots)
   - [SetSerializableTransactionSnapshot](../S/SetSerializableTransactionSnapshot.md) (for imported snapshots)
-  - GetSafeSnapshot (for deferrable read-only transactions)
+  - [GetSafeSnapshot](GetSafeSnapshot.md) (for deferrable read-only transactions)
 
 ## Notes and Other Information
 - Static function - only used internally within predicate.c

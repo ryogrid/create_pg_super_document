@@ -41,12 +41,12 @@ The conversion process mirrors the string algorithm but operates on raw byte arr
 ## Dependencies
 - Functions called/Symbols referenced:
   - DatumGetByteaPP (extracts bytea pointer from Datum, called 3 times)
-  - convert_one_bytea_to_scalar (performs actual conversion, called 3 times)
+  - [convert_one_bytea_to_scalar](convert_one_bytea_to_scalar.md) (performs actual conversion, called 3 times)
   - VARSIZE_ANY_EXHDR (macro to get data size excluding header)
   - VARDATA_ANY (macro to access raw data)
   - Min (utility macro for minimum value)
 - Called from (representative examples):
-  - convert_to_scalar
+  - [convert_to_scalar](convert_to_scalar.md)
 
 ## Notes and Other Information
 - The function is static, indicating it's an internal implementation detail of the selfuncs.c module

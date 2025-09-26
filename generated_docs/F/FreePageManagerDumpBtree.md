@@ -27,10 +27,10 @@ This function performs a depth-first traversal of the Free Page Manager's B-tree
 - Functions called/Symbols referenced:
   - fpm_segment_base
   - fpm_pointer_to_page
-  - check_stack_depth
+  - [check_stack_depth](../c/check_stack_depth.md)
   - relptr_access
-  - appendStringInfo
-  - appendStringInfoChar
+  - [appendStringInfo](../a/appendStringInfo.md)
+  - [appendStringInfoChar](../a/appendStringInfoChar.md)
   - [FreePageManagerDumpBtree](FreePageManagerDumpBtree.md) (recursive call)
 - Called from (representative examples):
   - [FreePageManagerDump](FreePageManagerDump.md)

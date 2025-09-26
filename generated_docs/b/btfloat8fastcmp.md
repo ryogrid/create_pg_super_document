@@ -24,7 +24,7 @@ This function is an optimized comparison function specifically designed for use 
 - Functions called/Symbols referenced:
   - [DatumGetFloat8](../D/DatumGetFloat8.md) (macro for extracting float8 from Datum)
   - [float8_cmp_internal](../f/float8_cmp_internal.md) (performs the actual comparison)
-  - SortSupport (type definition for sort support structure)
+  - [SortSupport](../S/SortSupport.md) (type definition for sort support structure)
 
 - Called from (representative examples):
   - [btfloat8sortsupport](btfloat8sortsupport.md) (assigns this function as a comparison routine)

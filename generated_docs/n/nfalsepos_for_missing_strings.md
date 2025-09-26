@@ -24,17 +24,17 @@ This measurement is crucial for validating that the Bloom filter's false positiv
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bloom_lacks_element (tests whether elements are definitely absent from the filter)
+  - [bloom_lacks_element](../b/bloom_lacks_element.md) (tests whether elements are definitely absent from the filter)
   - snprintf (formats the test string elements) 
   - strlen (calculates string length for bloom_lacks_element)
   - CHECK_FOR_INTERRUPTS (macro for interrupt handling)
 - Called from (representative examples):
-  - create_and_test_bloom
+  - [create_and_test_bloom](../c/create_and_test_bloom.md)
 
 ## Notes and Other Information
 - Uses "M" prefix for test strings to ensure they differ from the "i" prefix used by populate_with_dummy_strings
 - The function uses `MAX_ELEMENT_BYTES` to define the buffer size for generated strings
-- String format uses `INT64_FORMAT` for cross-platform 64-bit integer formatting
+- [String](../S/String.md) format uses `INT64_FORMAT` for cross-platform 64-bit integer formatting
 - This is a static function, only accessible within the test_bloomfilter.c file
 - The return value represents the observed false positive count, which can be compared against theoretical expectations
 - Interrupt checking ensures the function can be cancelled during long-running tests

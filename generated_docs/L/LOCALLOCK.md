@@ -45,7 +45,7 @@ The structure maintains both local state (reference counts, resource owner infor
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LOCALLOCKTAG](LOCALLOCKTAG.md)
-  - LOCK
+  - [LOCK](LOCK.md)
   - [PROCLOCK](../P/PROCLOCK.md)
   - [LOCALLOCKOWNER](LOCALLOCKOWNER.md)
 - Called from (representative examples):

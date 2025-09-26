@@ -33,7 +33,7 @@ The local state includes pointers to the shared memory control structure, the dy
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PgStat_ShmemControl](PgStat_ShmemControl.md)
-  - dsa_area
+  - [dsa_area](../d/dsa_area.md)
   - [dshash_table](../d/dshash_table.md)
   - [PgStat_Snapshot](PgStat_Snapshot.md)
 - Called from (representative examples):

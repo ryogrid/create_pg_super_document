@@ -22,8 +22,8 @@ This function serves as the input conversion function for PostgreSQL's xml data 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_CSTRING
-  - cstring_to_text
-  - xml_parse
+  - [cstring_to_text](../c/cstring_to_text.md)
+  - [xml_parse](xml_parse.md)
   - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md)
   - xmlFreeDoc
   - PG_RETURN_XML_P

@@ -44,6 +44,6 @@ The function is particularly important for optimizing queries that involve CTID 
 - TID scans are most effective when CTID values are provided as constants or through joins
 - The function handles LATERAL references by including lateral_relids in required_outer parameters
 - Parameterized TID paths are crucial for optimizing joins where CTID equality conditions exist
-- EquivalenceClass processing enables recognition of CTID equalities that emerged from query transformation
+- [EquivalenceClass](../E/EquivalenceClass.md) processing enables recognition of CTID equalities that emerged from query transformation
 - The function distinguishes between exact TID matches and range-based TID access patterns
 - Generated paths compete with other access methods during the cost-based path selection process

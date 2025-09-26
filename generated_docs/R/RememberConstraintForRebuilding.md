@@ -34,8 +34,8 @@ The deduplication check is critical because:
 - Functions called/Symbols referenced:
   - [list_member_oid](../l/list_member_oid.md)
   - [pg_get_constraintdef_command](../p/pg_get_constraintdef_command.md)
-  - lappend_oid
-  - lappend
+  - [lappend_oid](../l/lappend_oid.md)
+  - [lappend](../l/lappend.md)
   - [get_constraint_index](../g/get_constraint_index.md)
   - [RememberReplicaIdentityForRebuilding](RememberReplicaIdentityForRebuilding.md)
   - [RememberClusterOnForRebuilding](RememberClusterOnForRebuilding.md)

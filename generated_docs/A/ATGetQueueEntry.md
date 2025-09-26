@@ -30,7 +30,7 @@ The function initializes several important fields in the AlteredTableInfo struct
   - [palloc0](../p/palloc0.md)
   - [CreateTupleDescCopyConstr](../C/CreateTupleDescCopyConstr.md)
   - RelationGetDescr
-  - lappend
+  - [lappend](../l/lappend.md)
   - InvalidOid (constant)
   - RELPERSISTENCE_PERMANENT (constant)
 - Called from:

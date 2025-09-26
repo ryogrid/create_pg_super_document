@@ -30,17 +30,17 @@ The function is designed to be safe even during error conditions, with careful o
   - FileIsValid: Validates the file descriptor
   - FileIsNotOpen: Checks if file is currently open
   - close: System call to close the file descriptor
-  - Delete: Removes file from LRU ring
+  - [Delete](../D/Delete.md): Removes file from LRU ring
   - unlink: System call to delete temporary files
-  - ReportTemporaryFileUsage: Reports temporary file usage statistics
-  - ResourceOwnerForgetFile: Unregisters file from resource owner
-  - FreeVfd: Returns VFD slot to free list
-  - data_sync_elevel: Determines error severity level
+  - [ReportTemporaryFileUsage](../R/ReportTemporaryFileUsage.md): Reports temporary file usage statistics
+  - [ResourceOwnerForgetFile](../R/ResourceOwnerForgetFile.md): Unregisters file from resource owner
+  - [FreeVfd](FreeVfd.md): Returns VFD slot to free list
+  - [data_sync_elevel](../d/data_sync_elevel.md): Determines error severity level
 - Called from (representative examples):
-  - BufFileClose: Buffer file management
-  - mdclose: Magnetic disk storage manager
-  - CleanupTempFiles: Temporary file cleanup during process exit
-  - ReorderBufferIterTXNFinish: Logical replication cleanup
+  - [BufFileClose](../B/BufFileClose.md): Buffer file management
+  - [mdclose](../m/mdclose.md): Magnetic disk storage manager
+  - [CleanupTempFiles](../C/CleanupTempFiles.md): Temporary file cleanup during process exit
+  - [ReorderBufferIterTXNFinish](../R/ReorderBufferIterTXNFinish.md): Logical replication cleanup
 
 ## Notes and Other Information
 - The function handles both temporary and permanent files with different error severity levels

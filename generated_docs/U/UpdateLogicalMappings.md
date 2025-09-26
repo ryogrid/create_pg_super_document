@@ -31,9 +31,9 @@ The mapping files follow the LOGICAL_REWRITE_FORMAT naming convention and contai
 ## Dependencies
 - Functions called/Symbols referenced:
   - [IsSharedRelation](../I/IsSharedRelation.md)
-  - AllocateDir
-  - ReadDir
-  - FreeDir
+  - [AllocateDir](../A/AllocateDir.md)
+  - [ReadDir](../R/ReadDir.md)
+  - [FreeDir](../F/FreeDir.md)
   - [TransactionIdDidCommit](../T/TransactionIdDidCommit.md)
   - [TransactionIdInArray](../T/TransactionIdInArray.md)
   - [list_sort](../l/list_sort.md)

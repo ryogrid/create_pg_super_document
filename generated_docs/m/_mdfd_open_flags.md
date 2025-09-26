@@ -26,7 +26,7 @@ This internal utility function determines the correct combination of file open f
 
 - Called from (representative examples):
   - [mdcreate](mdcreate.md) (when creating new relation files)
-  - mdopenfork (when opening relation forks)
+  - [mdopenfork](mdopenfork.md) (when opening relation forks)
   - [_mdfd_openseg](_mdfd_openseg.md) (when opening file segments)
   - [mdsyncfiletag](mdsyncfiletag.md) (when syncing specific files)
 

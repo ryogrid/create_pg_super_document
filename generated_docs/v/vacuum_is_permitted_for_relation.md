@@ -31,16 +31,16 @@ For combined VACUUM ANALYZE operations, the function prioritizes VACUUM permissi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - object_ownercheck (checks database ownership)
-  - pg_class_aclcheck (checks ACL permissions)
-  - GetUserId (current user identification)
+  - [object_ownercheck](../o/object_ownercheck.md) (checks database ownership)
+  - [pg_class_aclcheck](../p/pg_class_aclcheck.md) (checks ACL permissions)
+  - [GetUserId](../G/GetUserId.md) (current user identification)
   - ereport (warning message generation)
   - ACL_MAINTAIN (privilege constant)
 - Called from (representative examples):
-  - vacuum_rel (per-relation vacuum processing)
-  - analyze_rel (per-relation analysis processing)
-  - expand_vacuum_rel (relation expansion utility)
-  - get_all_vacuum_rels (database-wide relation discovery)
+  - [vacuum_rel](vacuum_rel.md) (per-relation vacuum processing)
+  - [analyze_rel](../a/analyze_rel.md) (per-relation analysis processing)
+  - [expand_vacuum_rel](../e/expand_vacuum_rel.md) (relation expansion utility)
+  - [get_all_vacuum_rels](../g/get_all_vacuum_rels.md) (database-wide relation discovery)
 
 ## Notes and Other Information
 - Returns true if permission is granted, false if denied (allowing caller to skip the relation)

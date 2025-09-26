@@ -47,7 +47,7 @@ The function includes extensive validation to ensure rules follow PostgreSQL's c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_openrv
+  - [table_openrv](table_openrv.md)
   - [make_parsestate](../m/make_parsestate.md)
   - [addRangeTableEntryForRelation](../a/addRangeTableEntryForRelation.md)
   - [makeAlias](../m/makeAlias.md)
@@ -59,7 +59,7 @@ The function includes extensive validation to ensure rules follow PostgreSQL's c
   - [getInsertSelectQuery](../g/getInsertSelectQuery.md)
   - [rangeTableEntry_used](../r/rangeTableEntry_used.md)
   - [free_parsestate](../f/free_parsestate.md)
-  - table_close
+  - [table_close](table_close.md)
 - Called from (representative examples):
   - [DefineRule](../D/DefineRule.md)
 

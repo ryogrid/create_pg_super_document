@@ -22,10 +22,10 @@ The function includes an assertion to ensure that only 32-bit values are passed 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_bytes_uint32
+  - [hash_bytes_uint32](../h/hash_bytes_uint32.md)
 - Called from (representative examples):
-  - hash_create
-  - hash_uint32_extended
+  - [hash_create](../h/hash_create.md)
+  - [hash_uint32_extended](../h/hash_uint32_extended.md)
   - oid_hash
 
 ## Notes and Other Information

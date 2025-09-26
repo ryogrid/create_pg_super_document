@@ -28,7 +28,7 @@ The function sets the row estimate for the path based on the provided parameters
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GatherPath (structure)
+  - [GatherPath](../G/GatherPath.md) (structure)
   - [ParamPathInfo](../P/ParamPathInfo.md) (structure)
   - Cost (type)
   - parallel_setup_cost (global variable)

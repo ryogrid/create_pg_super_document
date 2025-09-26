@@ -19,12 +19,12 @@ The function is designed to be safe to call regardless of the worker's current s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire (with BackgroundWorkerLock and LW_EXCLUSIVE)
-  - LWLockRelease
-  - SendPostmasterSignal (with PMSIGNAL_BACKGROUND_WORKER_CHANGE)
+  - [LWLockAcquire](../L/LWLockAcquire.md) (with BackgroundWorkerLock and LW_EXCLUSIVE)
+  - [LWLockRelease](../L/LWLockRelease.md)
+  - [SendPostmasterSignal](../S/SendPostmasterSignal.md) (with PMSIGNAL_BACKGROUND_WORKER_CHANGE)
   - [BackgroundWorkerSlot](../B/BackgroundWorkerSlot.md) structure access
 - Called from (representative examples):
-  - DestroyParallelContext
+  - [DestroyParallelContext](../D/DestroyParallelContext.md)
   - [cleanup_background_workers](../c/cleanup_background_workers.md)
 
 ## Notes and Other Information

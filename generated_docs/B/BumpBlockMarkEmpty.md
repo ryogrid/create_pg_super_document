@@ -20,7 +20,7 @@ This function efficiently resets a bump memory block to its initial empty state 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BumpBlock (block structure type)
+  - [BumpBlock](BumpBlock.md) (block structure type)
   - USE_VALGRIND (conditional compilation for Valgrind support)
   - CLOBBER_FREED_MEMORY (conditional compilation for memory wiping)
   - Bump_BLOCKHDRSZ (size of block header constant)

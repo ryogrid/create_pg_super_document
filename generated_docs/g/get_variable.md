@@ -43,15 +43,15 @@ The function performs several key operations:
   - [get_special_variable](get_special_variable.md)
   - [get_tle_by_resno](get_tle_by_resno.md)
   - [push_child_plan](../p/push_child_plan.md)/pop_child_plan
-  - get_rule_expr
+  - [get_rule_expr](get_rule_expr.md)
   - [get_rte_attribute_name](get_rte_attribute_name.md)
   - [quote_identifier](../q/quote_identifier.md)
   - [format_type_with_typemod](../f/format_type_with_typemod.md)
 - Called from (representative examples):
   - [get_target_list](get_target_list.md)
   - [get_rule_sortgroupclause](get_rule_sortgroupclause.md)
-  - get_rule_expr
-  - get_rule_expr_toplevel
+  - [get_rule_expr](get_rule_expr.md)
+  - [get_rule_expr_toplevel](get_rule_expr_toplevel.md)
 
 ## Notes and Other Information
 - Returns the attribute name of the Var, or NULL if the Var has no attname (whole-row Vars or subplan references)

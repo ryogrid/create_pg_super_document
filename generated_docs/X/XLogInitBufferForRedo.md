@@ -25,12 +25,12 @@ Unlike , this function doesn't need to return a redo action because the intent i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogReadBufferForRedoExtended
+  - [XLogReadBufferForRedoExtended](XLogReadBufferForRedoExtended.md)
   - RBM_ZERO_AND_LOCK (buffer read mode constant)
 - Called from (representative examples):
-  - heap_xlog_insert (src/backend/access/heap/heapam.c:9640)
-  - btree_xlog_newroot (src/backend/access/nbtree/nbtxlog.c:947)
-  - hash_xlog_init_meta_page (src/backend/access/hash/hash_xlog.c:37)
+  - [heap_xlog_insert](../h/heap_xlog_insert.md) (src/backend/access/heap/heapam.c:9640)
+  - [btree_xlog_newroot](../b/btree_xlog_newroot.md) (src/backend/access/nbtree/nbtxlog.c:947)
+  - [hash_xlog_init_meta_page](../h/hash_xlog_init_meta_page.md) (src/backend/access/hash/hash_xlog.c:37)
   - Various index creation and page initialization functions
 
 ## Notes and Other Information

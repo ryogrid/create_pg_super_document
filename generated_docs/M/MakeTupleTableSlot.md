@@ -28,7 +28,7 @@ The function initializes all essential slot fields including the operations poin
 - Functions called/Symbols referenced:
   - [palloc0](../p/palloc0.md)
   - PinTupleDesc
-  - TupleTableSlotOps->init
+  - [TupleTableSlotOps](../T/TupleTableSlotOps.md)->init
   - MAXALIGN (macro)
   - CurrentMemoryContext (global)
 - Called from (representative examples):

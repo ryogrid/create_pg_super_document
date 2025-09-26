@@ -28,7 +28,7 @@ This function is part of PostgreSQL's expression evaluation optimization framewo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExprEvalStep (for accessing operation details)
+  - [ExprEvalStep](ExprEvalStep.md) (for accessing operation details)
   - TTS_IS_VIRTUAL (macro for checking if slot is virtual)
   - TTS_FIXED (macro for checking if slot is fixed)
 - Called from (representative examples):

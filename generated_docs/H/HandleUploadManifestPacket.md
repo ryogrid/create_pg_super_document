@@ -33,7 +33,7 @@ The function uses interrupt handling to ensure safe processing of network messag
   - HOLD_CANCEL_INTERRUPTS
   - [pq_startmsgread](../p/pq_startmsgread.md)
   - [pq_getbyte](../p/pq_getbyte.md)
-  - pq_getmessage
+  - [pq_getmessage](../p/pq_getmessage.md)
   - RESUME_CANCEL_INTERRUPTS
   - [AppendIncrementalManifestData](../A/AppendIncrementalManifestData.md)
   - [pq_getmsgstring](../p/pq_getmsgstring.md)

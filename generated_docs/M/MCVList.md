@@ -48,7 +48,7 @@ This information enables the query planner to make accurate selectivity estimate
   - [statext_mcv_serialize](../s/statext_mcv_serialize.md) (serializes MCVList for storage)
   - [statext_mcv_deserialize](../s/statext_mcv_deserialize.md) (deserializes MCVList from storage)
   - [statext_mcv_load](../s/statext_mcv_load.md) (loads MCVList from system catalogs)
-  - mcv_clauselist_selectivity (uses for selectivity estimation)
+  - [mcv_clauselist_selectivity](../m/mcv_clauselist_selectivity.md) (uses for selectivity estimation)
   - [pg_stats_ext_mcvlist_items](../p/pg_stats_ext_mcvlist_items.md) (exposes through system views)
   - [BuildRelationExtStatistics](../B/BuildRelationExtStatistics.md) (part of statistics collection)
 

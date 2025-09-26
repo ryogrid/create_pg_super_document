@@ -24,7 +24,7 @@ This function removes token-to-dictionary mappings from the pg_ts_config_map cat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AlterTSConfigurationStmt
+  - [AlterTSConfigurationStmt](../A/AlterTSConfigurationStmt.md)
   - Form_pg_ts_config
   - [getTokenTypes](../g/getTokenTypes.md)
   - TSTokenTypeItem

@@ -28,12 +28,12 @@ The function handles two main types of SMGR operations:
   - XLogRecGetData - Extracts record data from WAL record
   - XLogRecGetInfo - Gets record info flags  
   - relpathperm - Constructs permanent relation file path
-  - appendStringInfoString - Appends string to StringInfo buffer
-  - appendStringInfo - Appends formatted string to StringInfo buffer
+  - [appendStringInfoString](../a/appendStringInfoString.md) - Appends string to StringInfo buffer
+  - [appendStringInfo](../a/appendStringInfo.md) - Appends formatted string to StringInfo buffer
   - [pfree](../p/pfree.md) - Frees allocated memory
 - Data structures referenced:
-  - xl_smgr_create - WAL record structure for file creation
-  - xl_smgr_truncate - WAL record structure for file truncation
+  - [xl_smgr_create](../x/xl_smgr_create.md) - WAL record structure for file creation
+  - [xl_smgr_truncate](../x/xl_smgr_truncate.md) - WAL record structure for file truncation
   - XLR_INFO_MASK - Mask for extracting info bits
   - XLOG_SMGR_CREATE - WAL record type for file creation
   - XLOG_SMGR_TRUNCATE - WAL record type for file truncation

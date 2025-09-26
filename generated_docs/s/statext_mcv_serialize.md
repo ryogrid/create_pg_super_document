@@ -21,13 +21,13 @@ This function converts an in-memory MCVList structure into a serialized bytea fo
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lookup_type_cache](../l/lookup_type_cache.md)
-  - PrepareSortSupportFromOrderingOp
+  - [PrepareSortSupportFromOrderingOp](../P/PrepareSortSupportFromOrderingOp.md)
   - qsort_interruptible
   - [compare_scalars_simple](../c/compare_scalars_simple.md)
   - [compare_datums_simple](../c/compare_datums_simple.md)
   - PG_DETOAST_DATUM
-  - store_att_byval
-  - bsearch_arg
+  - [store_att_byval](store_att_byval.md)
+  - [bsearch_arg](../b/bsearch_arg.md)
   - SET_VARSIZE
   - [palloc0](../p/palloc0.md)
   - [pfree](../p/pfree.md)

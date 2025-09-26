@@ -40,8 +40,8 @@ This static function handles the detailed processing of GRANT/REVOKE operations 
   - [acldefault](../a/acldefault.md)
   - DatumGetAclPCopy
   - [aclmembers](../a/aclmembers.md)
-  - aclconcat
-  - select_best_grantor
+  - [aclconcat](../a/aclconcat.md)
+  - [select_best_grantor](../s/select_best_grantor.md)
   - [restrict_and_check_grant](../r/restrict_and_check_grant.md)
   - [merge_acl_with_grant](../m/merge_acl_with_grant.md)
   - [heap_modify_tuple](../h/heap_modify_tuple.md)

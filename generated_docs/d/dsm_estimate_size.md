@@ -25,8 +25,8 @@ The estimation is used during PostgreSQL startup to properly size the main share
 - Functions called/Symbols referenced:
   - min_dynamic_shared_memory (global configuration variable)
 - Called from (representative examples):
-  - dsm_shmem_init
-  - CalculateShmemSize
+  - [dsm_shmem_init](dsm_shmem_init.md)
+  - [CalculateShmemSize](../C/CalculateShmemSize.md)
 
 ## Notes and Other Information
 - Returns size in bytes while min_dynamic_shared_memory is specified in megabytes

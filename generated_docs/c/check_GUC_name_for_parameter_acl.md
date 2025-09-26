@@ -21,7 +21,7 @@ The function serves as a gatekeeper for the parameter ACL system, maintaining da
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_option: Searches for an existing GUC parameter by name
+  - [find_option](../f/find_option.md): Searches for an existing GUC parameter by name
   - DEBUG5: Log level constant used for debug logging
   - [assignable_custom_variable_name](../a/assignable_custom_variable_name.md): Validates custom GUC variable name patterns
 - Called from (representative examples):

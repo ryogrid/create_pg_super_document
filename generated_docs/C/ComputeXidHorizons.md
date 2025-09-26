@@ -52,18 +52,18 @@ This function is the core engine for determining transaction visibility horizons
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RecoveryInProgress (to check if in recovery mode)
+  - [RecoveryInProgress](../R/RecoveryInProgress.md) (to check if in recovery mode)
   - XidFromFullTransactionId (for transaction ID conversion)
   - TransactionIdAdvance (to increment transaction IDs)
-  - TransactionIdOlder (to find minimum between two XIDs)
-  - TransactionIdPrecedesOrEquals (for XID ordering verification)
-  - KnownAssignedXidsGetOldestXmin (for recovery mode oldest XID)
-  - GlobalVisUpdateApply (to update global visibility state)
+  - [TransactionIdOlder](../T/TransactionIdOlder.md) (to find minimum between two XIDs)
+  - [TransactionIdPrecedesOrEquals](../T/TransactionIdPrecedesOrEquals.md) (for XID ordering verification)
+  - [KnownAssignedXidsGetOldestXmin](../K/KnownAssignedXidsGetOldestXmin.md) (for recovery mode oldest XID)
+  - [GlobalVisUpdateApply](../G/GlobalVisUpdateApply.md) (to update global visibility state)
 - Called from:
-  - GetOldestNonRemovableTransactionId (VACUUM operations)
-  - GetOldestTransactionIdConsideredRunning (pg_subtrans truncation)
-  - GetReplicationHorizons (hot standby feedback)
-  - GlobalVisUpdate (global visibility state management)
+  - [GetOldestNonRemovableTransactionId](../G/GetOldestNonRemovableTransactionId.md) (VACUUM operations)
+  - [GetOldestTransactionIdConsideredRunning](../G/GetOldestTransactionIdConsideredRunning.md) (pg_subtrans truncation)
+  - [GetReplicationHorizons](../G/GetReplicationHorizons.md) (hot standby feedback)
+  - [GlobalVisUpdate](../G/GlobalVisUpdate.md) (global visibility state management)
 
 ## Notes and Other Information
 - Critical function for vacuum efficiency and data safety

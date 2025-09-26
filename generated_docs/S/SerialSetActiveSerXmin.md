@@ -27,7 +27,7 @@ The function maintains the serial control structure's consistency by properly ma
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire/LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease
   - TransactionIdIsValid
   - [RecoveryInProgress](../R/RecoveryInProgress.md)
   - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
@@ -35,7 +35,7 @@ The function maintains the serial control structure's consistency by properly ma
 - Called from (representative examples):
   - [GetSerializableTransactionSnapshotInt](../G/GetSerializableTransactionSnapshotInt.md)
   - [SetNewSxactGlobalXmin](SetNewSxactGlobalXmin.md)
-  - predicatelock_twophase_recover
+  - [predicatelock_twophase_recover](../p/predicatelock_twophase_recover.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the predicate.c file

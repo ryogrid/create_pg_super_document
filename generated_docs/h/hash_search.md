@@ -35,7 +35,7 @@ This is the primary interface for hash table operations in PostgreSQL. It provid
   - [gistGetParent](../g/gistGetParent.md)
   - [_hash_splitbucket](_hash_splitbucket.md)
   - [ReorderBufferTXNByXid](../R/ReorderBufferTXNByXid.md)
-  - LocalBufferAlloc
+  - [LocalBufferAlloc](../L/LocalBufferAlloc.md)
   - [LockAcquireExtended](../L/LockAcquireExtended.md)
   - [smgropen](../s/smgropen.md)
   - [WaitEventCustomNew](../W/WaitEventCustomNew.md)

@@ -29,7 +29,7 @@ The  function initializes a doubly-linked list by setting up the head node to po
   - [ExecInitMemoize](../E/ExecInitMemoize.md) (src/backend/executor/nodeMemoize.c:1046)
   - [AutoVacuumShmemInit](../A/AutoVacuumShmemInit.md) (src/backend/postmaster/autovacuum.c:3336)
   - [ReorderBufferAllocate](../R/ReorderBufferAllocate.md) (src/backend/replication/logical/reorderbuffer.c:395)
-  - InitProcGlobal (src/backend/storage/lmgr/proc.c:174)
+  - [InitProcGlobal](../I/InitProcGlobal.md) (src/backend/storage/lmgr/proc.c:174)
 
 ## Notes and Other Information
 - The function is implemented as a static inline function for performance efficiency

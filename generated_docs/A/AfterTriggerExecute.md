@@ -30,20 +30,20 @@ This function is the core execution engine for individual after-trigger events. 
 ## Dependencies
 - Functions called/Symbols referenced:
   - GetTriggerSharedData
-  - InstrStartNode
+  - [InstrStartNode](../I/InstrStartNode.md)
   - [GetCurrentFDWTuplestore](../G/GetCurrentFDWTuplestore.md)
   - [tuplestore_gettupleslot](../t/tuplestore_gettupleslot.md)
   - [ExecFetchSlotHeapTuple](../E/ExecFetchSlotHeapTuple.md)
   - [ExecGetTriggerOldSlot](../E/ExecGetTriggerOldSlot.md)
   - [ExecGetTriggerNewSlot](../E/ExecGetTriggerNewSlot.md)
-  - table_tuple_fetch_row_version
+  - [table_tuple_fetch_row_version](../t/table_tuple_fetch_row_version.md)
   - [ExecGetChildToRootMap](../E/ExecGetChildToRootMap.md)
   - [execute_attr_map_slot](../e/execute_attr_map_slot.md)
-  - ExecCopySlot
+  - [ExecCopySlot](../E/ExecCopySlot.md)
   - [ExecCallTriggerFunc](../E/ExecCallTriggerFunc.md)
   - [heap_freetuple](../h/heap_freetuple.md)
-  - ExecClearTuple
-  - InstrStopNode
+  - [ExecClearTuple](../E/ExecClearTuple.md)
+  - [InstrStopNode](../I/InstrStopNode.md)
 - Called from (representative examples):
   - [afterTriggerInvokeEvents](../a/afterTriggerInvokeEvents.md)
 

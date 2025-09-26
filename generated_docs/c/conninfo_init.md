@@ -30,7 +30,7 @@ The function carefully copies only the public portion of each option structure (
   - PQconninfoOptions (global array)
 - Called from (representative examples):
   - internalPQconninfoOption
-  - PQconndefaults
+  - [PQconndefaults](../P/PQconndefaults.md)
   - [conninfo_parse](conninfo_parse.md)
   - [conninfo_array_parse](conninfo_array_parse.md)
   - [conninfo_uri_parse](conninfo_uri_parse.md)

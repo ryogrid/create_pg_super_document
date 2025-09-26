@@ -23,10 +23,10 @@ The function performs privilege checking when restrict_privileged is true, ensur
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_option
-  - ConfigOptionIsVisible
-  - config_enum_lookup_by_value
-  - config_generic, config_bool, config_int, config_real, config_string, config_enum
+  - [find_option](../f/find_option.md)
+  - [ConfigOptionIsVisible](../C/ConfigOptionIsVisible.md)
+  - [config_enum_lookup_by_value](../c/config_enum_lookup_by_value.md)
+  - [config_generic](../c/config_generic.md), config_bool, config_int, config_real, config_string, config_enum
   - PGC_BOOL, PGC_INT, PGC_REAL, PGC_STRING, PGC_ENUM
 - Called from (representative examples):
   - [PostmasterMain](../P/PostmasterMain.md)
@@ -37,8 +37,8 @@ The function performs privilege checking when restrict_privileged is true, ensur
 ## Notes and Other Information
 - Returns a const char* that should not be modified and is only valid until the next configuration call
 - Handles type conversion for all GUC parameter types to string representation
-- Boolean values are returned as "on"/"off", numbers use standard formatting
-- String parameters return the actual value or empty string if NULL
+- [Boolean](../B/Boolean.md) values are returned as "on"/"off", numbers use standard formatting
+- [String](../S/String.md) parameters return the actual value or empty string if NULL
 - Enum parameters are converted to their string representation using lookup functions
 - Uses a static buffer for numeric conversions (256 bytes)
 - Security-conscious design with privilege checking for sensitive parameters

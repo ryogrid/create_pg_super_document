@@ -30,7 +30,7 @@ The function performs several key steps:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - [ScanKeyInit](../S/ScanKeyInit.md)
   - [systable_beginscan](../s/systable_beginscan.md)
   - [systable_getnext](../s/systable_getnext.md)
@@ -38,7 +38,7 @@ The function performs several key steps:
   - [MergeAttributesIntoExisting](../M/MergeAttributesIntoExisting.md)
   - [MergeConstraintsIntoExisting](../M/MergeConstraintsIntoExisting.md)
   - [StoreCatalogInheritance1](../S/StoreCatalogInheritance1.md)
-  - table_close
+  - [table_close](../t/table_close.md)
   - Form_pg_inherits
   - [SysScanDesc](../S/SysScanDesc.md)
 - Called from (representative examples):

@@ -29,7 +29,7 @@ The function is designed to work with the include directive functionality in aut
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AllocateFile
+  - [AllocateFile](../A/AllocateFile.md)
   - AllocSetContextCreate
   - strerror
   - CONF_FILE_MAX_DEPTH

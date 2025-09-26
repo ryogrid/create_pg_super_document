@@ -37,8 +37,8 @@ Additionally, the function performs a final optimization by removing unnecessary
   - [set_plan_refs](set_plan_refs.md)
   - foreach_current_index
 - Types used:
-  - PlannerGlobal
-  - PlanRowMark
+  - [PlannerGlobal](../P/PlannerGlobal.md)
+  - [PlanRowMark](../P/PlanRowMark.md)
   - [AppendRelInfo](../A/AppendRelInfo.md)
 - Called from (representative examples):
   - [standard_planner](standard_planner.md)

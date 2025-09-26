@@ -23,16 +23,16 @@ The key difference from the regular version is that during recovery, the latestC
 ## Dependencies
 - Functions called/Symbols referenced:
   - AmStartupProcess
-  - LWLockHeldByMe
+  - [LWLockHeldByMe](../L/LWLockHeldByMe.md)
   - FullTransactionIdIsValid
   - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
   - XidFromFullTransactionId
   - [FullXidRelativeTo](../F/FullXidRelativeTo.md)
   - FullTransactionIdIsNormal
 - Called from (representative examples):
-  - ProcArrayApplyRecoveryInfo
-  - ExpireTreeKnownAssignedTransactionIds
-  - ExpireOldKnownAssignedTransactionIds
+  - [ProcArrayApplyRecoveryInfo](../P/ProcArrayApplyRecoveryInfo.md)
+  - [ExpireTreeKnownAssignedTransactionIds](../E/ExpireTreeKnownAssignedTransactionIds.md)
+  - [ExpireOldKnownAssignedTransactionIds](../E/ExpireOldKnownAssignedTransactionIds.md)
 
 ## Notes and Other Information
 - Only used during WAL replay by the startup process or when not under postmaster

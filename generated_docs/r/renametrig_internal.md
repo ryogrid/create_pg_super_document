@@ -37,7 +37,7 @@ The function also includes a notification mechanism that issues a NOTICE when th
   - [systable_getnext](../s/systable_getnext.md)
   - [systable_endscan](../s/systable_endscan.md)
   - [heap_copytuple](../h/heap_copytuple.md)
-  - namestrcpy
+  - [namestrcpy](../n/namestrcpy.md)
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - InvokeObjectPostAlterHook
   - [CacheInvalidateRelcache](../C/CacheInvalidateRelcache.md)

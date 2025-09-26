@@ -30,18 +30,18 @@ The parsing operation uses PostgreSQL's comprehensive date/time format parsing s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DCH_cache_search (cache lookup)
-  - DCH_cache_getnew (cache entry allocation)
-  - parse_format (format string parser)
+  - [DCH_cache_search](DCH_cache_search.md) (cache lookup)
+  - [DCH_cache_getnew](DCH_cache_getnew.md) (cache entry allocation)
+  - [parse_format](../p/parse_format.md) (format string parser)
   - DCH_keywords (format keyword array)
   - DCH_suff (format suffix array)  
   - DCH_index (format index array)
   - DCH_FLAG (date/time format flag)
   - STD_FLAG (standard format flag)
 - Called from:
-  - datetime_to_char_body (datetime to string conversion)
-  - datetime_format_has_tz (timezone detection)
-  - do_to_timestamp (string to timestamp conversion)
+  - [datetime_to_char_body](../d/datetime_to_char_body.md) (datetime to string conversion)
+  - [datetime_format_has_tz](../d/datetime_format_has_tz.md) (timezone detection)
+  - [do_to_timestamp](../d/do_to_timestamp.md) (string to timestamp conversion)
 
 ## Notes and Other Information
 - Guarantees that returned entries are always valid and ready for immediate use

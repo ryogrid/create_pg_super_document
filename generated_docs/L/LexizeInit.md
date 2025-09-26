@@ -24,11 +24,11 @@ The function ensures that all pointer fields are properly nullified and counters
 ## Dependencies
 - Functions called/Symbols referenced:
   - LexizeData (structure type)
-  - TSConfigCacheEntry (structure type)
+  - [TSConfigCacheEntry](../T/TSConfigCacheEntry.md) (structure type)
   - InvalidOid (constant)
 - Called from (representative examples):
-  - parsetext
-  - hlparsetext
+  - [parsetext](../p/parsetext.md)
+  - [hlparsetext](../h/hlparsetext.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within ts_parse.c

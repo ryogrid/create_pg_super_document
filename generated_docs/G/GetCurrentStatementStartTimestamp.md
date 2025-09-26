@@ -29,7 +29,7 @@ This function takes no parameters.
   - [check_log_duration](../c/check_log_duration.md)
   - [pgstat_report_activity](../p/pgstat_report_activity.md)
   - [statement_timestamp](../s/statement_timestamp.md)
-  - CreatePortal
+  - [CreatePortal](../C/CreatePortal.md)
 
 ## Notes and Other Information
 - The function is a simple accessor that returns the globally stored statement start timestamp

@@ -96,7 +96,7 @@ PVShared serves as the central coordination structure for parallel vacuum operat
   - [pg_atomic_uint32](../p/pg_atomic_uint32.md)
   - dsa_handle
   - dsa_pointer
-  - VacDeadItemsInfo
+  - [VacDeadItemsInfo](../V/VacDeadItemsInfo.md)
 - Called from (representative examples):
   - [ParallelVacuumState](ParallelVacuumState.md) (as a member)
   - [parallel_vacuum_init](../p/parallel_vacuum_init.md)

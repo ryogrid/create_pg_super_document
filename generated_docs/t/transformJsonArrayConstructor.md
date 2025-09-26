@@ -24,7 +24,7 @@ This function processes SQL JSON_ARRAY() constructor expressions during the pars
   - [transformJsonValueExpr](transformJsonValueExpr.md)
   - [transformJsonConstructorOutput](transformJsonConstructorOutput.md)
   - [makeJsonConstructorExpr](../m/makeJsonConstructorExpr.md)
-  - lappend
+  - [lappend](../l/lappend.md)
   - lfirst
 - Called from (representative examples):
   - [transformExprRecurse](transformExprRecurse.md) (src/backend/parser/parse_expr.c:340)

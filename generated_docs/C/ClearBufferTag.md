@@ -25,11 +25,11 @@ ClearBufferTag is an inline utility function that initializes a BufferTag struct
   - InvalidBlockNumber (constant)
   - [BufTagSetRelForkDetails](../B/BufTagSetRelForkDetails.md) (function)
 - Called from (representative examples):
-  - InitBufferPool
+  - [InitBufferPool](../I/InitBufferPool.md)
   - [InvalidateBuffer](../I/InvalidateBuffer.md)
   - [InvalidateVictimBuffer](../I/InvalidateVictimBuffer.md)
-  - GetLocalVictimBuffer
-  - DropRelationLocalBuffers
+  - [GetLocalVictimBuffer](../G/GetLocalVictimBuffer.md)
+  - [DropRelationLocalBuffers](../D/DropRelationLocalBuffers.md)
 
 ## Notes and Other Information
 - This is an inline function defined in buf_internals.h for performance efficiency

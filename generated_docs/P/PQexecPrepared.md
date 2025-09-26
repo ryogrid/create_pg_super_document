@@ -37,7 +37,7 @@ Like other synchronous libpq execution functions, it uses PQexecStart for connec
   - [PQsendQueryPrepared](PQsendQueryPrepared.md)
   - [PQexecFinish](PQexecFinish.md)
 - Called from (representative examples):
-  - ecpg_execute
+  - [ecpg_execute](../e/ecpg_execute.md)
   - [try_complete_step](../t/try_complete_step.md)
 
 ## Notes and Other Information

@@ -30,11 +30,11 @@ This function takes no parameters and operates on global transaction state.
   - SxactIsReadOnly: Checks if a transaction is read-only
   - SxactIsPrepared: Checks if a transaction is prepared (two-phase commit)
   - dlist_foreach/dlist_container: List iteration utilities
-  - LWLockAcquire/LWLockRelease: Lock management for SerializableXactHashLock
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease: Lock management for SerializableXactHashLock
   - ereport: Error reporting mechanism
 - Called from (representative examples):
-  - CommitTransaction: During normal transaction commit
-  - PrepareTransaction: During two-phase commit preparation
+  - [CommitTransaction](../C/CommitTransaction.md): During normal transaction commit
+  - [PrepareTransaction](PrepareTransaction.md): During two-phase commit preparation
 
 ## Notes and Other Information
 - This function is critical for maintaining serializability in PostgreSQL's SSI implementation

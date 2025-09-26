@@ -30,7 +30,7 @@ This function is essential for safe partial decompression operations where only 
 - Functions called/Symbols referenced:
   - Min (macro for minimum value selection)
 - Called from:
-  - detoast_attr_slice (TOAST partial decompression)
+  - [detoast_attr_slice](../d/detoast_attr_slice.md) (TOAST partial decompression)
 
 ## Notes and Other Information
 - Returns minimum of calculated maximum size and total compressed size

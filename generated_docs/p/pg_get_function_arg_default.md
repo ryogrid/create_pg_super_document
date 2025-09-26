@@ -28,7 +28,7 @@ This function retrieves and formats the default value of a function argument bas
   - [stringToNode](../s/stringToNode.md)
   - [list_nth](../l/list_nth.md)
   - [deparse_expression](../d/deparse_expression.md)
-  - string_to_text
+  - [string_to_text](../s/string_to_text.md)
   - PG_RETURN_TEXT_P
 - Called from (representative examples):
   - No direct references found (likely called via SQL interface)

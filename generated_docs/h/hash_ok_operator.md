@@ -27,14 +27,14 @@ The implementation avoids redundant cache lookups by combining the checks for bo
 ## Dependencies
 - Functions called/Symbols referenced:
   - [op_hashjoinable](../o/op_hashjoinable.md)
-  - exprType
+  - [exprType](../e/exprType.md)
   - [SearchSysCache1](../S/SearchSysCache1.md)
   - [func_strict](../f/func_strict.md)
   - HeapTupleIsValid
   - GETSTRUCT
   - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - linitial
-  - list_length
+  - [list_length](../l/list_length.md)
 - Called from (representative examples):
   - [test_opexpr_is_hashable](../t/test_opexpr_is_hashable.md)
   - [convert_EXISTS_to_ANY](../c/convert_EXISTS_to_ANY.md)

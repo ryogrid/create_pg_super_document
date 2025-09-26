@@ -21,9 +21,9 @@ This function is the primary connection establishment routine for PostgreSQL dum
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - simple_prompt (interactive password prompting)
+  - [simple_prompt](../s/simple_prompt.md) (interactive password prompting)
   - [PQconnectdbParams](../P/PQconnectdbParams.md) (PostgreSQL connection establishment)
-  - PQstatus (connection status checking)
+  - [PQstatus](../P/PQstatus.md) (connection status checking)
   - [PQconnectionNeedsPassword](../P/PQconnectionNeedsPassword.md) (authentication requirement checking)
   - [PQfinish](../P/PQfinish.md) (connection cleanup)
   - [ExecuteSqlQueryForSingleRow](../E/ExecuteSqlQueryForSingleRow.md) (SQL execution for security setup)

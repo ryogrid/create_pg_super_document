@@ -20,7 +20,7 @@ The function uses PostgreSQL's pg_cmp_u64 utility to perform a safe comparison o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WalSummaryFile (structure type)
+  - [WalSummaryFile](../W/WalSummaryFile.md) (structure type)
   - lfirst (PostgreSQL list macro for extracting cell data)
   - [pg_cmp_u64](../p/pg_cmp_u64.md) (PostgreSQL 64-bit unsigned integer comparison function)
 - Called from:

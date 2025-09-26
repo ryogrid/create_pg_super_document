@@ -41,11 +41,11 @@ The guc_stack structure implements a stack-based mechanism for managing GUC vari
 
 ## Dependencies
 - Types referenced:
-  - guc_stack (self-reference for linked list structure)
-  - GucStackState (enum indicating the type of stack operation)
+  - [guc_stack](guc_stack.md) (self-reference for linked list structure)
+  - [GucStackState](../G/GucStackState.md) (enum indicating the type of stack operation)
   - GucSource (enum indicating the source of the configuration value)
   - GucContext (enum indicating the context of the configuration setting)
-  - config_var_value (structure containing the actual variable value and extra data)
+  - [config_var_value](../c/config_var_value.md) (structure containing the actual variable value and extra data)
 - Used by:
   - Various GUC management functions in the PostgreSQL configuration system
 

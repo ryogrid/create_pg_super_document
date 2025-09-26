@@ -22,7 +22,7 @@ The transformation process maintains the original JSON structure while allowing 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [makeJsonLexContext](../m/makeJsonLexContext.md)
-  - makeStringInfo
+  - [makeStringInfo](../m/makeStringInfo.md)
   - [transform_string_values_object_start](transform_string_values_object_start.md)
   - [transform_string_values_object_end](transform_string_values_object_end.md)
   - [transform_string_values_array_start](transform_string_values_array_start.md)
@@ -31,8 +31,8 @@ The transformation process maintains the original JSON structure while allowing 
   - [transform_string_values_array_element_start](transform_string_values_array_element_start.md)
   - [transform_string_values_object_field_start](transform_string_values_object_field_start.md)
   - pg_parse_json_or_ereport
-  - freeJsonLexContext
-  - cstring_to_text_with_len
+  - [freeJsonLexContext](../f/freeJsonLexContext.md)
+  - [cstring_to_text_with_len](../c/cstring_to_text_with_len.md)
 - Called from (representative examples):
   - [ts_headline_json_byid_opt](ts_headline_json_byid_opt.md)
 

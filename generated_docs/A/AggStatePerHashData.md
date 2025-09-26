@@ -46,12 +46,12 @@ The hash and equality functions are stored per grouping field, allowing for type
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TupleHashTable
+  - [TupleHashTable](../T/TupleHashTable.md)
   - TupleHashIterator
-  - Agg
+  - [Agg](Agg.md)
 - Called from (representative examples):
-  - ExecInitAgg
-  - AggStatePerHash
+  - [ExecInitAgg](../E/ExecInitAgg.md)
+  - [AggStatePerHash](AggStatePerHash.md)
 
 ## Notes and Other Information
 This structure is central to PostgreSQL's hash-based aggregation strategy, which provides excellent performance for queries with moderate to large numbers of groups when sufficient memory is available. The column index mappings (hashGrpColIdxInput and hashGrpColIdxHash) enable flexible tuple layouts and optimize memory access patterns during hash operations. The separation of hash and equality functions allows for type-specific optimizations while maintaining generality across different data types used in grouping operations.

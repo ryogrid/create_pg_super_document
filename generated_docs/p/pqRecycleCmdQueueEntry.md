@@ -30,7 +30,7 @@ The function ensures proper memory management by freeing the query string if pre
   - [PQsendPrepare](../P/PQsendPrepare.md)
   - [PQsendQueryGuts](../P/PQsendQueryGuts.md)
   - [PQsendTypedCommand](../P/PQsendTypedCommand.md)
-  - pqCommandQueueAdvance
+  - [pqCommandQueueAdvance](pqCommandQueueAdvance.md)
   - [pqPipelineSyncInternal](pqPipelineSyncInternal.md)
 
 ## Notes and Other Information

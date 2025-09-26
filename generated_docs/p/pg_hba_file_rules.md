@@ -24,7 +24,7 @@ The  function serves as the SQL interface for the pg_hba_file_rules system view,
   - [fill_hba_view](../f/fill_hba_view.md)
   - PG_RETURN_NULL
 - Types referenced:
-  - ReturnSetInfo
+  - [ReturnSetInfo](../R/ReturnSetInfo.md)
   - Datum (return type)
 - Called from:
   - SQL queries accessing pg_hba_file_rules system view

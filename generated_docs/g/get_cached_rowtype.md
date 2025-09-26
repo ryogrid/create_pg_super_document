@@ -34,7 +34,7 @@ The function is designed to be called multiple times during expression evaluatio
   - TYPECACHE_TUPDESC
   - [lookup_rowtype_tupdesc](../l/lookup_rowtype_tupdesc.md)
   - ReleaseTupleDesc
-  - ExprEvalRowtypeCache (structure access)
+  - [ExprEvalRowtypeCache](../E/ExprEvalRowtypeCache.md) (structure access)
 - Called from (representative examples):
   - EEO_JUMP (macro expansion)
   - [ExecEvalRowNullInt](../E/ExecEvalRowNullInt.md)

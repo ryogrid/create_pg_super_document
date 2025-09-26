@@ -36,7 +36,7 @@ The function uses the most conservative (smallest) bucket size estimates across 
   - [get_parallel_divisor](../g/get_parallel_divisor.md)
   - [clamp_row_est](../c/clamp_row_est.md)
   - [bms_is_subset](../b/bms_is_subset.md)
-  - estimate_hash_bucket_stats
+  - [estimate_hash_bucket_stats](../e/estimate_hash_bucket_stats.md)
   - [get_rightop](../g/get_rightop.md)
   - [get_leftop](../g/get_leftop.md)
   - [relation_byte_size](../r/relation_byte_size.md)

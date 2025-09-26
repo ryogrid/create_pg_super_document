@@ -28,15 +28,15 @@ The structure contains all the necessary components to maintain directory iterat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dirent (struct)
+  - [dirent](../d/dirent.md) (struct)
 - Called from (representative examples):
-  - opendir
-  - readdir
-  - closedir
-  - AllocateDir
-  - ReadDir
-  - ReadDirExtended
-  - FreeDir
+  - [opendir](../o/opendir.md)
+  - [readdir](../r/readdir.md)
+  - [closedir](../c/closedir.md)
+  - [AllocateDir](../A/AllocateDir.md)
+  - [ReadDir](../R/ReadDir.md)
+  - [ReadDirExtended](../R/ReadDirExtended.md)
+  - [FreeDir](../F/FreeDir.md)
 
 ## Notes and Other Information
 This structure is only compiled and used on Windows platforms as part of PostgreSQL's portability layer. On Unix-like systems, the native DIR type from the system's dirent.h is used instead. The structure enables PostgreSQL's extensive directory traversal operations across the codebase, including WAL file management, tablespace operations, backup processes, and general file system utilities. The ret member allows the same dirent structure to be reused across multiple readdir() calls for efficiency.

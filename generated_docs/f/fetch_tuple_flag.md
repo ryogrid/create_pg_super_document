@@ -23,14 +23,14 @@ The function accesses the flag column using the flagColIdx stored in the SetOp p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SetOpState (execution state structure)
-  - SetOp (plan node structure)
-  - slot_getattr (tuple slot access function)
-  - DatumGetInt32 (datum conversion function)
+  - [SetOpState](../S/SetOpState.md) (execution state structure)
+  - [SetOp](../S/SetOp.md) (plan node structure)
+  - [slot_getattr](../s/slot_getattr.md) (tuple slot access function)
+  - [DatumGetInt32](../D/DatumGetInt32.md) (datum conversion function)
   - Assert (assertion macro)
 - Called from (representative examples):
-  - setop_retrieve_direct (multiple locations)
-  - setop_fill_hash_table
+  - [setop_retrieve_direct](../s/setop_retrieve_direct.md) (multiple locations)
+  - [setop_fill_hash_table](../s/setop_fill_hash_table.md)
 
 ## Notes and Other Information
 - The flag column is added by PostgreSQL's planner and is not part of the original user data

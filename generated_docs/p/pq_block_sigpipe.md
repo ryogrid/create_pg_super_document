@@ -34,7 +34,7 @@ This is a critical function for robust network communication in libpq, ensuring 
   - sigpending (get pending signals)
 - Called from (representative examples):
   - DISABLE_SIGPIPE macro (fe-secure.c:71) - used throughout libpq for safe network I/O
-  - [fe](../f/fe.md)-print.c:186 - when printing query results that may involve network I/O
+  - [fe](../f/fe.md)-print.c:186 - [when](../w/when.md) printing query results that may involve network I/O
 
 ## Notes and Other Information
 - Returns 0 on success, -1 on failure (if pthread_sigmask() or sigpending() fails)

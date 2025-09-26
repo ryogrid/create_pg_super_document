@@ -38,7 +38,7 @@ The function doesn't support pushing join clauses into the sampling scan's quals
 
 ## Notes and Other Information
 - This function is static and only used within allpaths.c
-- Join clauses cannot be pushed down into sampling scan quals
+- [Join](../J/Join.md) clauses cannot be pushed down into sampling scan quals
 - LATERAL parameterization is supported through required_outer handling
 - Materialization is added as a safety measure for non-repeatable sampling methods
 - The check for GetTsmRoutine's repeatable_across_scans is performed last due to its relative expense

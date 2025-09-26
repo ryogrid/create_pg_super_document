@@ -47,8 +47,8 @@ The structure encapsulates various aspects of the combination process including 
 - Called from (representative examples):
   - [main](../m/main.md)
   - [add_tablespace_mapping](../a/add_tablespace_mapping.md)
-  - create_output_directory
-  - process_directory_recursively
+  - [create_output_directory](create_output_directory.md)
+  - [process_directory_recursively](../p/process_directory_recursively.md)
   - [scan_for_existing_tablespaces](../s/scan_for_existing_tablespaces.md)
 
 ## Notes and Other Information

@@ -30,13 +30,13 @@ The structure supports extensive options for controlling vacuum behavior includi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - List (PostgreSQL list structure for options and relations)
-  - VacuumRelation (for specifying target tables and columns)
-  - DefElem (for option definitions)
+  - [List](../L/List.md) (PostgreSQL list structure for options and relations)
+  - [VacuumRelation](VacuumRelation.md) (for specifying target tables and columns)
+  - [DefElem](../D/DefElem.md) (for option definitions)
 - Called from (representative examples):
-  - ExecVacuum (execution function in vacuum.c)
-  - standard_ProcessUtility (utility command processing)
-  - CreateCommandTag (for command logging)
+  - [ExecVacuum](../E/ExecVacuum.md) (execution function in vacuum.c)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (utility command processing)
+  - [CreateCommandTag](../C/CreateCommandTag.md) (for command logging)
 
 ## Notes and Other Information
 - This structure is part of the PostgreSQL parser node hierarchy and inherits from Node via the NodeTag

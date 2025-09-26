@@ -22,17 +22,17 @@ The function automatically handles platform-specific terminal control to show or
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - simple_prompt_extended
+  - [simple_prompt_extended](simple_prompt_extended.md)
 - Called from (representative examples):
-  - get_su_pwd (src/bin/initdb/initdb.c:1652-1653)
-  - GetConnection (src/bin/pg_basebackup/streamutil.c:165)
-  - ConnectDatabase (src/bin/pg_dump/pg_backup_db.c:128, 178)
-  - connectDatabase (src/bin/pg_dump/pg_dumpall.c:1771, 1873)
-  - main (src/bin/psql/startup.c:243, 296)
-  - yesno_prompt (src/bin/scripts/common.c:151)
-  - main (src/bin/scripts/createuser.c:218, 233, 234)
-  - main (src/bin/scripts/dropuser.c:118)
-  - connectDatabase (src/fe_utils/connect_utils.c:49, 103)
+  - [get_su_pwd](../g/get_su_pwd.md) (src/bin/initdb/initdb.c:1652-1653)
+  - [GetConnection](../G/GetConnection.md) (src/bin/pg_basebackup/streamutil.c:165)
+  - [ConnectDatabase](../C/ConnectDatabase.md) (src/bin/pg_dump/pg_backup_db.c:128, 178)
+  - [connectDatabase](../c/connectDatabase.md) (src/bin/pg_dump/pg_dumpall.c:1771, 1873)
+  - [main](../m/main.md) (src/bin/psql/startup.c:243, 296)
+  - [yesno_prompt](../y/yesno_prompt.md) (src/bin/scripts/common.c:151)
+  - [main](../m/main.md) (src/bin/scripts/createuser.c:218, 233, 234)
+  - [main](../m/main.md) (src/bin/scripts/dropuser.c:118)
+  - [connectDatabase](../c/connectDatabase.md) (src/fe_utils/connect_utils.c:49, 103)
 
 ## Notes and Other Information
 - The returned string is malloc'd and the caller is responsible for freeing it when done

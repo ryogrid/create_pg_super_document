@@ -33,8 +33,8 @@ The function includes special handling for concurrent insertions, waiting for th
   - [UpdateMinRecoveryPoint](../U/UpdateMinRecoveryPoint.md)
   - RefreshXLogWriteResult
   - [WaitXLogInsertionsToFinish](../W/WaitXLogInsertionsToFinish.md)
-  - LWLockAcquireOrWait
-  - MinimumActiveBackends
+  - [LWLockAcquireOrWait](../L/LWLockAcquireOrWait.md)
+  - [MinimumActiveBackends](../M/MinimumActiveBackends.md)
   - [pg_usleep](../p/pg_usleep.md)
   - [XLogWrite](XLogWrite.md)
   - [WalSndWakeupProcessRequests](../W/WalSndWakeupProcessRequests.md)

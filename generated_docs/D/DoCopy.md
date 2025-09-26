@@ -26,8 +26,8 @@ DoCopy is the main entry point for executing COPY statements in PostgreSQL. It p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - has_privs_of_role
-  - table_openrv
+  - [has_privs_of_role](../h/has_privs_of_role.md)
+  - [table_openrv](../t/table_openrv.md)
   - [addRangeTableEntryForRelation](../a/addRangeTableEntryForRelation.md)
   - [transformExpr](../t/transformExpr.md)
   - [CopyGetAttnums](../C/CopyGetAttnums.md)

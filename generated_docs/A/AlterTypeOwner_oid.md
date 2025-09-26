@@ -23,14 +23,14 @@ The function handles the complexity of composite types by delegating to ATExecCh
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - [SearchSysCache1](../S/SearchSysCache1.md)
   - [ATExecChangeOwner](ATExecChangeOwner.md)
   - [AlterTypeOwnerInternal](AlterTypeOwnerInternal.md)
   - [changeDependencyOnOwner](../c/changeDependencyOnOwner.md)
   - InvokeObjectPostAlterHook
   - [ReleaseSysCache](../R/ReleaseSysCache.md)
-  - table_close
+  - [table_close](../t/table_close.md)
   - TYPTYPE_COMPOSITE
   - AccessExclusiveLock
 - Called from (representative examples):

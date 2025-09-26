@@ -32,7 +32,7 @@ This function creates a new B-tree page during the bulk loading phase of index c
   - [ItemIdData](../I/ItemIdData.md) (for size calculation)
 - Called from (representative examples):
   - [_bt_pagestate](_bt_pagestate.md)
-  - _bt_buildadd
+  - [_bt_buildadd](_bt_buildadd.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the nbtsort.c compilation unit

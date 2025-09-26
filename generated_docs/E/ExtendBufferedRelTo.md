@@ -33,20 +33,20 @@ The function can optionally create the fork if it doesn't exist (with EB_CREATE_
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationGetSmgr
+  - [RelationGetSmgr](../R/RelationGetSmgr.md)
   - [smgrexists](../s/smgrexists.md)
   - [smgrcreate](../s/smgrcreate.md)
-  - smgrnblocks
-  - LockRelationForExtension
-  - UnlockRelationForExtension
+  - [smgrnblocks](../s/smgrnblocks.md)
+  - [LockRelationForExtension](../L/LockRelationForExtension.md)
+  - [UnlockRelationForExtension](../U/UnlockRelationForExtension.md)
   - [ExtendBufferedRelCommon](ExtendBufferedRelCommon.md)
-  - ReleaseBuffer
+  - [ReleaseBuffer](../R/ReleaseBuffer.md)
   - [ReadBuffer_common](../R/ReadBuffer_common.md)
   - lengthof
 - Called from (representative examples):
   - [vm_extend](../v/vm_extend.md) (visibility map extension)
-  - XLogReadBufferExtended (WAL recovery)
-  - fsm_extend (free space map extension)
+  - [XLogReadBufferExtended](../X/XLogReadBufferExtended.md) (WAL recovery)
+  - [fsm_extend](../f/fsm_extend.md) (free space map extension)
 
 ## Notes and Other Information
 - Returns a buffer for block (extend_to - 1), not extend_to itself

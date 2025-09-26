@@ -25,7 +25,7 @@ The function initializes all necessary fields of the MaterialPath structure, cop
 - Functions called/Symbols referenced:
   - makeNode (to create the MaterialPath node)
   - [cost_material](cost_material.md) (to calculate the cost of materialization)
-  - MaterialPath (the path node type being created)
+  - [MaterialPath](../M/MaterialPath.md) (the path node type being created)
 - Called from (representative examples):
   - [set_tablesample_rel_pathlist](../s/set_tablesample_rel_pathlist.md) (for table sampling operations)
   - [match_unsorted_outer](../m/match_unsorted_outer.md) (in join path planning)

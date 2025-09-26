@@ -36,15 +36,15 @@ The function performs these key operations:
 ## Dependencies
 - Functions called/Symbols referenced:
   - strVal
-  - table_open
+  - [table_open](../t/table_open.md)
   - [SearchSysCacheCopyAttName](../S/SearchSysCacheCopyAttName.md)
   - [GetAttributeCompression](../G/GetAttributeCompression.md)
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - InvokeObjectPostAlterHook
   - [SetIndexStorageProperties](../S/SetIndexStorageProperties.md)
   - [heap_freetuple](../h/heap_freetuple.md)
-  - table_close
-  - CommandCounterIncrement
+  - [table_close](../t/table_close.md)
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md)
   - ObjectAddressSubSet
 
 - Called from (representative examples):
@@ -56,5 +56,5 @@ The function performs these key operations:
 - The compression method name is validated against the column's data type via GetAttributeCompression
 - Changes are automatically propagated to simple index columns that reference this table column
 - Uses RowExclusiveLock when accessing the pg_attribute catalog
-- CommandCounterIncrement ensures the changes are visible to subsequent operations in the same transaction
+- [CommandCounterIncrement](../C/CommandCounterIncrement.md) ensures the changes are visible to subsequent operations in the same transaction
 - The function matches the behavior of index.c ConstructTupleDescriptor() when handling index columns

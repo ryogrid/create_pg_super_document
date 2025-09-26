@@ -16,7 +16,7 @@ The function allocates memory for the result string and uses snprintf to format 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_malloc
+  - [pg_malloc](pg_malloc.md)
 - Called from (representative examples):
   - [setup_config](../s/setup_config.md) (used twice around lines 1338 and 1341)
 

@@ -36,7 +36,7 @@ The function provides the foundation for tuple reordering decisions in IndexNext
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SortSupport comparator functions (accessed via ssup->comparator)
+  - [SortSupport](../S/SortSupport.md) comparator functions (accessed via ssup->comparator)
 - Called from (representative examples):
   - ReorderTuple (nodeIndexscan.c:62)
   - [IndexNextWithReorder](../I/IndexNextWithReorder.md) (nodeIndexscan.c:236, 303, 332)
@@ -50,4 +50,4 @@ The function provides the foundation for tuple reordering decisions in IndexNext
 - Critical for correct tuple ordering in lossy index access methods
 - Used both for immediate ordering decisions and for maintaining the reorder queue's priority ordering
 - The function assumes that both input arrays have the same length (node->iss_NumOrderByKeys)
-- SortSupport comparators are pre-initialized during index scan setup for optimal performance
+- [SortSupport](../S/SortSupport.md) comparators are pre-initialized during index scan setup for optimal performance

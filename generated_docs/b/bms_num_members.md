@@ -28,7 +28,7 @@ This function efficiently counts the number of set bits across all words in a bi
   - [ExecInitAppend](../E/ExecInitAppend.md) (src/backend/executor/nodeAppend.c:151)
   - [get_memoize_path](../g/get_memoize_path.md) (src/backend/optimizer/path/joinpath.c:655)
   - [adjust_group_pathkeys_for_groupagg](../a/adjust_group_pathkeys_for_groupagg.md) (src/backend/optimizer/plan/planner.c:3382, 3468)
-  - build_join_rel (src/backend/optimizer/util/relnode.c:859)
+  - [build_join_rel](build_join_rel.md) (src/backend/optimizer/util/relnode.c:859)
   - [make_partition_pruneinfo](../m/make_partition_pruneinfo.md) (src/backend/partitioning/partprune.c:346)
   - [BuildRelationExtStatistics](../B/BuildRelationExtStatistics.md) (src/backend/statistics/extended_stats.c:186)
 

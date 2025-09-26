@@ -22,7 +22,7 @@ This function performs the DFS phase of the Hopcroft-Karp maximum bipartite matc
 - Functions called/Symbols referenced:
   - [BipartiteMatchState](../B/BipartiteMatchState.md) (struct type for algorithm state)
   - HK_INFINITY (constant representing unreachable/infinite distance)
-  - check_stack_depth (PostgreSQL function to prevent stack overflow in deep recursion)
+  - [check_stack_depth](../c/check_stack_depth.md) (PostgreSQL function to prevent stack overflow in deep recursion)
   - [hk_depth_search](hk_depth_search.md) (recursive self-call to explore deeper levels)
 - Called from (representative examples):
   - [BipartiteMatch](../B/BipartiteMatch.md) (main algorithm calls DFS for each unmatched vertex in U)

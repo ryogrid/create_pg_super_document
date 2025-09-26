@@ -26,13 +26,13 @@ replorigin_advance is a core function that updates the replication progress trac
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire/LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease
   - [XLogBeginInsert](../X/XLogBeginInsert.md)
   - [XLogRegisterData](../X/XLogRegisterData.md)
   - [XLogInsert](../X/XLogInsert.md)
   - ereport (ERROR level)
   - RepOriginId
-  - ReplicationState (struct)
+  - [ReplicationState](../R/ReplicationState.md) (struct)
   - [xl_replorigin_set](../x/xl_replorigin_set.md) (struct)
   - InvalidRepOriginId
   - DoNotReplicateId

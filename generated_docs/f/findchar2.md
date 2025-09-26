@@ -30,7 +30,7 @@ The primary use case is in parsing Hunspell affix files, specifically for findin
   - [pg_mblen](../p/pg_mblen.md) (function for getting multibyte character length)
   - TOUCHAR (macro used internally by t_iseq)
 - Called from:
-  - NIImportAffixes (src/backend/tsearch/spell.c:1464) - for case-insensitive flag parsing
+  - [NIImportAffixes](../N/NIImportAffixes.md) (src/backend/tsearch/spell.c:1464) - for case-insensitive flag parsing
 
 ## Notes and Other Information
 - This is a static function, accessible only within the spell.c compilation unit

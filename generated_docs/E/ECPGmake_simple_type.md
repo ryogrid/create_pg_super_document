@@ -25,14 +25,14 @@ The created type structure is used throughout the ECPG preprocessor to represent
 ## Dependencies
 - Functions called/Symbols referenced:
   - [mm_alloc](../m/mm_alloc.md) (memory allocation function)
-  - ECPGtype (struct type)
+  - [ECPGtype](ECPGtype.md) (struct type)
   - ECPGttype (enum type)
 
 - Called from (representative examples):
   - [ECPGstruct_member_dup](ECPGstruct_member_dup.md)
   - [ECPGmake_array_type](ECPGmake_array_type.md)
   - [ECPGmake_struct_type](ECPGmake_struct_type.md)
-  - find_struct_member
+  - [find_struct_member](../f/find_struct_member.md)
   - [find_variable](../f/find_variable.md)
 
 ## Notes and Other Information

@@ -26,14 +26,14 @@ JsonKeyValue is a simple parse node structure that encapsulates a key-value pair
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Expr (key expression evaluation)
-  - JsonValueExpr (JSON value expression)
+  - [Expr](../E/Expr.md) (key expression evaluation)
+  - [JsonValueExpr](JsonValueExpr.md) (JSON value expression)
   - NodeTag (inherited node type system)
 - Called from (representative examples):
-  - makeJsonKeyValue (constructor function)
-  - transformJsonObjectConstructor (JSON object construction)
-  - JsonObjectAgg (aggregate function processing)
-  - exprLocation (expression location tracking)
+  - [makeJsonKeyValue](../m/makeJsonKeyValue.md) (constructor function)
+  - [transformJsonObjectConstructor](../t/transformJsonObjectConstructor.md) (JSON object construction)
+  - [JsonObjectAgg](JsonObjectAgg.md) (aggregate function processing)
+  - [exprLocation](../e/exprLocation.md) (expression location tracking)
 
 ## Notes and Other Information
 - Used as fundamental building blocks for JSON object construction in PostgreSQL

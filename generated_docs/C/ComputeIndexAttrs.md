@@ -46,7 +46,7 @@ For each column/expression in the index:
 - Functions called/Symbols referenced:
   - [ResolveOpClass](../R/ResolveOpClass.md) (for operator class resolution)
   - [SearchSysCacheAttName](../S/SearchSysCacheAttName.md) (for column lookup)
-  - exprType, exprCollation (for expression analysis)
+  - [exprType](../e/exprType.md), exprCollation (for expression analysis)
   - [get_collation_oid](../g/get_collation_oid.md) (for collation resolution)
   - [compatible_oper_opid](../c/compatible_oper_opid.md) (for exclusion operator lookup)
   - [contain_mutable_functions_after_planning](../c/contain_mutable_functions_after_planning.md) (for expression validation)

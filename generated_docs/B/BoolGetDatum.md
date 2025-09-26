@@ -19,7 +19,7 @@ BoolGetDatum is the complement to DatumGetBool, providing conversion from C bool
 - Functions called/Symbols referenced:
   - None (simple conditional assignment)
 - Called from (representative examples):
-  - Boolean type output functions
+  - [Boolean](Boolean.md) type output functions
   - Functions returning boolean results as Datums
   - SQL function implementations returning boolean values
 

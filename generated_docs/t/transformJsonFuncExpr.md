@@ -32,7 +32,7 @@ The transformJsonFuncExpr function is a comprehensive transformation handler for
   - ereport
   - [parser_errposition](../p/parser_errposition.md)
   - [exprLocation](../e/exprLocation.md)
-  - exprType
+  - [exprType](../e/exprType.md)
   - [format_type_be](../f/format_type_be.md)
   - Various JSON behavior constants (JSON_BEHAVIOR_ERROR, JSON_BEHAVIOR_NULL, etc.)
   - Various JSON format constants (JS_FORMAT_JSONB, JS_FORMAT_DEFAULT, etc.)

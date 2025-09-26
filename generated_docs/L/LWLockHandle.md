@@ -26,8 +26,8 @@ The structure is typically used in scenarios where the system needs to keep trac
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLock (structure type)
-  - LWLockMode (enumeration type)
+  - [LWLock](LWLock.md) (structure type)
+  - [LWLockMode](LWLockMode.md) (enumeration type)
 - Called from (representative examples):
   - (No direct references found in the codebase)
 

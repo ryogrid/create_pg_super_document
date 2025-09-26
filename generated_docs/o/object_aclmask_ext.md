@@ -32,7 +32,7 @@ The function provides robust error handling with an optional `is_missing` parame
 - Functions called/Symbols referenced:
   - [pg_namespace_aclmask_ext](../p/pg_namespace_aclmask_ext.md)
   - [pg_type_aclmask_ext](../p/pg_type_aclmask_ext.md)
-  - superuser_arg
+  - [superuser_arg](../s/superuser_arg.md)
   - [get_object_catcache_oid](../g/get_object_catcache_oid.md)
   - [get_object_class_descr](../g/get_object_class_descr.md)
   - [SysCacheGetAttrNotNull](../S/SysCacheGetAttrNotNull.md)

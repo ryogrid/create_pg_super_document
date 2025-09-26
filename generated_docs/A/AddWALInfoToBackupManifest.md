@@ -30,7 +30,7 @@ AddWALInfoToBackupManifest concludes the file section of the backup manifest and
   - [readTimeLineHistory](../r/readTimeLineHistory.md) (timeline history parsing - from related processed symbols)
   - AppendToManifest (formatted manifest writing)
   - XLogRecPtrIsInvalid (PostgreSQL WAL pointer validation)
-  - TimeLineHistoryEntry (timeline history structure)
+  - [TimeLineHistoryEntry](../T/TimeLineHistoryEntry.md) (timeline history structure)
   - ereport, errmsg (PostgreSQL error reporting)
   - LSN_FORMAT_ARGS (WAL LSN formatting macro)
 - Called from (representative examples):

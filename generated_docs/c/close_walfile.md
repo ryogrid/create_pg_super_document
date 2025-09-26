@@ -22,7 +22,7 @@ This function properly closes the current WAL file that is being written during 
 - Functions called/Symbols referenced:
   - [StreamCtl](../S/StreamCtl.md) (structure)
   - pgoff_t (type)
-  - strlcpy
+  - [strlcpy](../s/strlcpy.md)
   - CLOSE_NORMAL, CLOSE_NO_RENAME (constants)
   - walmethod->ops->get_file_name
   - walmethod->ops->close

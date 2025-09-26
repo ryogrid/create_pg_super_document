@@ -32,7 +32,7 @@ This functionality is particularly valuable for backup and recovery strategies, 
   - PG_GETARG_TEXT_PP
   - [RecoveryInProgress](../R/RecoveryInProgress.md)
   - XLogIsNeeded
-  - text_to_cstring
+  - [text_to_cstring](../t/text_to_cstring.md)
   - MAXFNAMELEN
   - [XLogRestorePoint](../X/XLogRestorePoint.md)
   - PG_RETURN_LSN

@@ -19,17 +19,17 @@ This typedef creates a convenient pointer type for AfterTriggerSharedData struct
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AfterTriggerSharedData
+  - [AfterTriggerSharedData](AfterTriggerSharedData.md)
 - Called from (representative examples):
   - GetTriggerSharedData
-  - afterTriggerCheckState
-  - afterTriggerAddEvent
-  - AfterTriggerExecute
-  - afterTriggerMarkEvents
-  - afterTriggerInvokeEvents
-  - AfterTriggerEndSubXact
-  - AfterTriggerPendingOnRel
-  - cancel_prior_stmt_triggers
+  - [afterTriggerCheckState](../a/afterTriggerCheckState.md)
+  - [afterTriggerAddEvent](../a/afterTriggerAddEvent.md)
+  - [AfterTriggerExecute](AfterTriggerExecute.md)
+  - [afterTriggerMarkEvents](../a/afterTriggerMarkEvents.md)
+  - [afterTriggerInvokeEvents](../a/afterTriggerInvokeEvents.md)
+  - [AfterTriggerEndSubXact](AfterTriggerEndSubXact.md)
+  - [AfterTriggerPendingOnRel](AfterTriggerPendingOnRel.md)
+  - [cancel_prior_stmt_triggers](../c/cancel_prior_stmt_triggers.md)
 
 ## Notes and Other Information
 - Part of PostgreSQL's after-trigger event management system that defers trigger execution until later in the transaction

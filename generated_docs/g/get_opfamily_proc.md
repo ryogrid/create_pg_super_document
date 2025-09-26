@@ -33,7 +33,7 @@ The function returns the OID of the procedure if found, or InvalidOid if no matc
   - Form_pg_amproc
   - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - HeapTupleIsValid
-  - Int16GetDatum
+  - [Int16GetDatum](../I/Int16GetDatum.md)
   - RegProcedure
 - Called from (representative examples):
   - [get_op_hash_functions](get_op_hash_functions.md)
@@ -41,7 +41,7 @@ The function returns the OID of the procedure if found, or InvalidOid if no matc
   - [_hash_datum2hashkey_type](../h/_hash_datum2hashkey_type.md)
   - [ExecInitExprRec](../E/ExecInitExprRec.md)
   - [lookup_type_cache](../l/lookup_type_cache.md)
-  - FinishSortSupportFunction
+  - [FinishSortSupportFunction](../F/FinishSortSupportFunction.md)
 
 ## Notes and Other Information
 - Returns InvalidOid if no matching procedure is found

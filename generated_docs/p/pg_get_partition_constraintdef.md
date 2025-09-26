@@ -25,7 +25,7 @@ This function serves as a SQL-callable interface to retrieve the partition const
   - [get_partition_qual_relid](../g/get_partition_qual_relid.md) (retrieves the partition constraint expression)
   - [deparse_context_for](../d/deparse_context_for.md), get_relation_name (context setup for deparsing)
   - [deparse_expression_pretty](../d/deparse_expression_pretty.md) (converts expression tree to formatted SQL string)
-  - string_to_text (converts C string to PostgreSQL text type)
+  - [string_to_text](../s/string_to_text.md) (converts C string to PostgreSQL text type)
   - PRETTYFLAG_INDENT (formatting constant for indented output)
 - Called from (representative examples):
   - No direct references found in the codebase (likely called from SQL queries)

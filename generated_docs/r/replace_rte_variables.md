@@ -43,7 +43,7 @@ The function uses the query_or_expression_tree_mutator infrastructure to recursi
 
 ## Notes and Other Information
 - The function exposes its mutator function and context struct publicly because callbacks often need to recurse directly to the mutator on sub-expressions
-- SubLink handling is complex but necessary for maintaining query structure integrity during transformations
+- [SubLink](../S/SubLink.md) handling is complex but necessary for maintaining query structure integrity during transformations
 - Unlike aggregate and window function tracking, SubLink tracking requires special attention because replacements can introduce new subqueries
 - The function can start with either a Query or bare expression tree, with appropriate handling for both cases
 - Error handling ensures that if SubLinks are inserted but no place exists to record them, an error is raised

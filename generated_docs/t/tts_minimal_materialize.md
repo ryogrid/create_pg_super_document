@@ -25,7 +25,7 @@ After materialization, the function sets up the slot's tuple header structure to
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MinimalTupleTableSlot (type cast)
+  - [MinimalTupleTableSlot](../M/MinimalTupleTableSlot.md) (type cast)
   - TTS_EMPTY (macro for checking if slot is empty)
   - TTS_SHOULDFREE (macro for checking if tuple should be freed)
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (memory context management)

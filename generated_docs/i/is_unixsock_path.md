@@ -28,7 +28,7 @@ The function is implemented as a static inline for performance efficiency since 
   - [check_pghost_envvar](../c/check_pghost_envvar.md) (in pg_upgrade)
   - [exec_command_conninfo](../e/exec_command_conninfo.md) (in psql)
   - [do_connect](../d/do_connect.md) (in psql)
-  - pqConnectOptions2 (in libpq)
+  - [pqConnectOptions2](../p/pqConnectOptions2.md) (in libpq)
   - [passwordFromFile](../p/passwordFromFile.md) (in libpq)
 
 ## Notes and Other Information

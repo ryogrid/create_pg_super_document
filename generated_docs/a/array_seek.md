@@ -34,12 +34,12 @@ The function maintains the null bitmap position and bitmask as it traverses, eff
   - att_align_nominal (calculates aligned size and pointer)
   - att_addlength_pointer (advances pointer by element length)
 - Called from (representative examples):
-  - array_get_element
-  - array_set_element
-  - array_nelems_size
-  - array_slice_size
-  - array_extract_slice
-  - array_insert_slice
+  - [array_get_element](array_get_element.md)
+  - [array_set_element](array_set_element.md)
+  - [array_nelems_size](array_nelems_size.md)
+  - [array_slice_size](array_slice_size.md)
+  - [array_extract_slice](array_extract_slice.md)
+  - [array_insert_slice](array_insert_slice.md)
 
 ## Notes and Other Information
 - Caller is responsible for ensuring nitems is within valid range

@@ -38,7 +38,7 @@ The cost model is simpler than physical table scans since there's no I/O involve
 - Types referenced:
   - [ParamPathInfo](../P/ParamPathInfo.md) (parameterized path information)
   - Cost (cost calculation type)
-  - QualCost (qualification cost structure)
+  - [QualCost](../Q/QualCost.md) (qualification cost structure)
   - RTE_RESULT (enum value for result range table entries)
 - Called from:
   - [create_resultscan_path](create_resultscan_path.md) (in pathnode.c:2191)

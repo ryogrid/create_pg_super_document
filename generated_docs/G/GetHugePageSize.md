@@ -23,8 +23,8 @@ On Linux systems, it reads  to determine the default huge page size. If an expli
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AllocateFile
-  - FreeFile  
+  - [AllocateFile](../A/AllocateFile.md)
+  - [FreeFile](../F/FreeFile.md)  
   - [pg_ceil_log2_64](../p/pg_ceil_log2_64.md)
 - Called from (representative examples):
   - [CreateAnonymousSegment](../C/CreateAnonymousSegment.md)

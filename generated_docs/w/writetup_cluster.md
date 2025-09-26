@@ -31,7 +31,7 @@ The serialization format is designed to be efficiently readable by the correspon
 ## Dependencies
 - Functions called/Symbols referenced:
   - TuplesortstateGetPublic
-  - LogicalTapeWrite
+  - [LogicalTapeWrite](../L/LogicalTapeWrite.md)
   - TUPLESORT_RANDOMACCESS (flag)
 - Called from (representative examples):
   - CLUSTER_SORT operations

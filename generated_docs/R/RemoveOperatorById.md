@@ -23,7 +23,7 @@ The function operates at the catalog level and assumes all dependency checking a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open, table_close (catalog table access)
+  - [table_open](../t/table_open.md), table_close (catalog table access)
   - [SearchSysCache1](../S/SearchSysCache1.md), ReleaseSysCache (system cache operations) 
   - [OperatorUpd](../O/OperatorUpd.md) (commutator/negator link maintenance)
   - [CatalogTupleDelete](../C/CatalogTupleDelete.md) (tuple deletion from catalog)

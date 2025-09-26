@@ -44,15 +44,15 @@ The function is responsible for setting all index flags and properties including
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - buildint2vector (for index keys and options)
-  - buildoidvector (for collations and operator classes)
-  - nodeToString (for expressions and predicates)
-  - make_ands_explicit (for predicate normalization)
-  - heap_form_tuple (for tuple construction)
-  - CatalogTupleInsert (for catalog insertion)
-  - heap_freetuple (for memory cleanup)
+  - [buildint2vector](../b/buildint2vector.md) (for index keys and options)
+  - [buildoidvector](../b/buildoidvector.md) (for collations and operator classes)
+  - [nodeToString](../n/nodeToString.md) (for expressions and predicates)
+  - [make_ands_explicit](../m/make_ands_explicit.md) (for predicate normalization)
+  - [heap_form_tuple](../h/heap_form_tuple.md) (for tuple construction)
+  - [CatalogTupleInsert](../C/CatalogTupleInsert.md) (for catalog insertion)
+  - [heap_freetuple](../h/heap_freetuple.md) (for memory cleanup)
 - Called from (representative examples):
-  - index_create
+  - [index_create](../i/index_create.md)
 
 ## Notes and Other Information
 - This is a static function internal to index.c, not exposed in the public API

@@ -45,7 +45,7 @@ This function serves as the main entry point for building relation options struc
   - [tablespace_reloptions](../t/tablespace_reloptions.md) (src/backend/access/common/reloptions.c:2104)
   - [ginoptions](../g/ginoptions.md) (src/backend/access/gin/ginutil.c:610)
   - [gistoptions](../g/gistoptions.md) (src/backend/access/gist/gistutil.c:918)
-  - hashoptions (src/backend/access/hash/hashutil.c:281)
+  - [hashoptions](../h/hashoptions.md) (src/backend/access/hash/hashutil.c:281)
   - [btoptions](btoptions.md) (src/backend/access/nbtree/nbtutils.c:4573)
   - [spgoptions](../s/spgoptions.md) (src/backend/access/spgist/spgutils.c:757)
   - GET_STRING_RELOPTION (src/include/access/reloptions.h:228)

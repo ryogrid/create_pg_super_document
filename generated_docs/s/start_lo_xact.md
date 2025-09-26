@@ -20,7 +20,7 @@ This function is a critical preparatory step for all large object operations in 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQtransactionStatus (libpq function to check transaction status)
+  - [PQtransactionStatus](../P/PQtransactionStatus.md) (libpq function to check transaction status)
   - [PSQLexec](../P/PSQLexec.md) (psql utility function to execute SQL commands)
   - [PQclear](../P/PQclear.md) (libpq function to free result memory)
   - pg_log_error (PostgreSQL logging function)

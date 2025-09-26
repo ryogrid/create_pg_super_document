@@ -29,12 +29,12 @@ The function is optimized to skip unnecessary work when the portal is already at
 ## Dependencies
 - Functions called/Symbols referenced:
   - [tuplestore_rescan](../t/tuplestore_rescan.md)
-  - PushActiveSnapshot
+  - [PushActiveSnapshot](../P/PushActiveSnapshot.md)
   - [ExecutorRewind](../E/ExecutorRewind.md)  
-  - PopActiveSnapshot
+  - [PopActiveSnapshot](../P/PopActiveSnapshot.md)
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - [Portal](../P/Portal.md) structure fields (atStart, atEnd, portalPos, holdStore, holdContext, queryDesc, cursorOptions)
-  - QueryDesc structure
+  - [QueryDesc](../Q/QueryDesc.md) structure
   - CURSOR_OPT_NO_SCROLL constant
 - Called from (representative examples):
   - [DoPortalRunFetch](DoPortalRunFetch.md) (multiple call sites for absolute positioning and optimization)

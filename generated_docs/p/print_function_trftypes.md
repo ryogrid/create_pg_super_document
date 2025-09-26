@@ -21,9 +21,9 @@ This function retrieves and formats the transform types associated with a Postgr
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_func_trftypes](../g/get_func_trftypes.md)
-  - appendStringInfoString
-  - appendStringInfo
-  - appendStringInfoChar
+  - [appendStringInfoString](../a/appendStringInfoString.md)
+  - [appendStringInfo](../a/appendStringInfo.md)
+  - [appendStringInfoChar](../a/appendStringInfoChar.md)
   - [format_type_be](../f/format_type_be.md)
 - Called from (representative examples):
   - [pg_get_functiondef](pg_get_functiondef.md)

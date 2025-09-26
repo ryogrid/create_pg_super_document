@@ -26,19 +26,19 @@ The GEQO module is used when the number of relations in a query exceeds a thresh
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Gene
+  - [Gene](../G/Gene.md)
   - Cost
 - Called from (representative examples):
-  - geqo_copy
-  - geqo (main genetic algorithm function)
-  - alloc_pool
-  - free_pool
-  - random_init_pool
-  - sort_pool
-  - alloc_chromo
-  - free_chromo
-  - spread_chromo
-  - geqo_selection
+  - [geqo_copy](../g/geqo_copy.md)
+  - [geqo](../g/geqo.md) (main genetic algorithm function)
+  - [alloc_pool](../a/alloc_pool.md)
+  - [free_pool](../f/free_pool.md)
+  - [random_init_pool](../r/random_init_pool.md)
+  - [sort_pool](../s/sort_pool.md)
+  - [alloc_chromo](../a/alloc_chromo.md)
+  - [free_chromo](../f/free_chromo.md)
+  - [spread_chromo](../s/spread_chromo.md)
+  - [geqo_selection](../g/geqo_selection.md)
 
 ## Notes and Other Information
 - The Chromosome structure is defined in the GEQO (Genetic Query Optimizer) module, which was contributed by Martin Utesch from the University of Mining and Technology, Freiberg, Germany

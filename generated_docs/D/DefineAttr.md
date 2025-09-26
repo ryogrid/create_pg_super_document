@@ -36,7 +36,7 @@ For system catalogs, the function ensures collation-aware columns use C collatio
   - [closerel](../c/closerel.md) (closes any open relations)
   - [AllocateAttribute](../A/AllocateAttribute.md) (allocates attribute structure)
   - MemSet (clears attribute structure)
-  - namestrcpy (copies attribute name)
+  - [namestrcpy](../n/namestrcpy.md) (copies attribute name)
   - [gettype](../g/gettype.md) (resolves type information)
   - ATTRIBUTE_FIXED_PART_SIZE (constant for structure size)
   - InvalidCompressionMethod (default compression setting)

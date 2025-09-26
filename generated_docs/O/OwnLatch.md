@@ -25,7 +25,7 @@ OwnLatch takes ownership of a shared latch by setting the latch's owner_pid to t
   - PANIC (error level)
 - Called from (representative examples):
   - [InitWalRecovery](../I/InitWalRecovery.md)
-  - InitProcess
+  - [InitProcess](../I/InitProcess.md)
   - [InitAuxiliaryProcess](../I/InitAuxiliaryProcess.md)
 
 ## Notes and Other Information

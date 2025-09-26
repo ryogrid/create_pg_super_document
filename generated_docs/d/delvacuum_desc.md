@@ -28,7 +28,7 @@ This static helper function provides detailed formatting for B-tree vacuum and d
   - [array_desc](../a/array_desc.md) (for formatting deleted offset arrays)
   - [offset_elem_desc](../o/offset_elem_desc.md) (callback for formatting individual offsets)
   - OffsetNumberIsValid (validation function)
-  - appendStringInfo/appendStringInfoString/appendStringInfoChar (string formatting)
+  - [appendStringInfo](../a/appendStringInfo.md)/appendStringInfoString/appendStringInfoChar (string formatting)
   - [xl_btree_update](../x/xl_btree_update.md) (structure type)
   - SizeOfBtreeUpdate (macro for structure size)
 - Called from (representative examples):

@@ -28,7 +28,7 @@ The function follows Informix semantics for decimal conversion, making it easier
   - [rsetnull](../r/rsetnull.md)
   - [risnull](../r/risnull.md)
   - [PGTYPESnumeric_from_asc](../P/PGTYPESnumeric_from_asc.md)
-  - PGTYPESnumeric_to_decimal
+  - [PGTYPESnumeric_to_decimal](../P/PGTYPESnumeric_to_decimal.md)
   - [PGTYPESnumeric_free](../P/PGTYPESnumeric_free.md)
   - free
 - Called from (representative examples):

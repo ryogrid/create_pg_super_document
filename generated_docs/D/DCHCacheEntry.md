@@ -34,15 +34,15 @@ The cache only stores format strings up to DCH_CACHE_SIZE length. Longer format 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FormatNode structure (for parsed format storage)
+  - [FormatNode](../F/FormatNode.md) structure (for parsed format storage)
   - DCH_CACHE_SIZE constant (maximum cacheable format length)
 - Called from (representative examples):
-  - DCH_cache_getnew: Creates new cache entries
-  - DCH_cache_search: Searches for existing cache entries
-  - DCH_cache_fetch: Main cache access function
-  - datetime_to_char_body: Uses cached format templates
-  - do_to_timestamp: Uses cached format templates
-  - datetime_format_has_tz: Uses cached format templates
+  - [DCH_cache_getnew](DCH_cache_getnew.md): Creates new cache entries
+  - [DCH_cache_search](DCH_cache_search.md): Searches for existing cache entries
+  - [DCH_cache_fetch](DCH_cache_fetch.md): Main cache access function
+  - [datetime_to_char_body](../d/datetime_to_char_body.md): Uses cached format templates
+  - [do_to_timestamp](../d/do_to_timestamp.md): Uses cached format templates
+  - [datetime_format_has_tz](../d/datetime_format_has_tz.md): Uses cached format templates
 
 ## Notes and Other Information
 - Part of a global cache system with DCHCache array containing up to 20 entries

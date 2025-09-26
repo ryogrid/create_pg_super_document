@@ -21,7 +21,7 @@ This function handles the OF clause in CREATE TABLE statements, which allows cre
   - [typenameType](typenameType.md)
   - [check_of_type](../c/check_of_type.md)
   - [lookup_rowtype_tupdesc](../l/lookup_rowtype_tupdesc.md)
-  - makeColumnDef
+  - [makeColumnDef](../m/makeColumnDef.md)
   - ReleaseTupleDesc
   - [ReleaseSysCache](../R/ReleaseSysCache.md)
 - Called from (representative examples):

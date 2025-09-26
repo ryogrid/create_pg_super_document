@@ -30,7 +30,7 @@ RemoveRelations is the main function responsible for handling various DROP state
   - [performMultipleDeletions](../p/performMultipleDeletions.md)
   - [free_object_addresses](../f/free_object_addresses.md)
 - Called from (representative examples):
-  - ExecDropStmt
+  - [ExecDropStmt](../E/ExecDropStmt.md)
 
 ## Notes and Other Information
 RemoveRelations supports concurrent index dropping with ShareUpdateExclusiveLock, but restricts it to single objects without CASCADE behavior. The function handles partitioned indexes specially by pre-locking all child table partitions to avoid deadlocks. It validates relation types against expected kinds and provides appropriate error messages through helper functions. The two-phase approach (identify first, then delete) prevents unwanted DROP RESTRICT errors when relations have dependencies among themselves. The function processes shared-cache invalidation messages before relation lookups to handle cases where relations were dropped and recreated during the transaction.

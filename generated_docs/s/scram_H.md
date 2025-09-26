@@ -24,16 +24,16 @@ This function performs a straightforward cryptographic hash operation on input d
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_cryptohash_create
-  - pg_cryptohash_init
-  - pg_cryptohash_update
-  - pg_cryptohash_final
-  - pg_cryptohash_error
-  - pg_cryptohash_free
+  - [pg_cryptohash_create](../p/pg_cryptohash_create.md)
+  - [pg_cryptohash_init](../p/pg_cryptohash_init.md)
+  - [pg_cryptohash_update](../p/pg_cryptohash_update.md)
+  - [pg_cryptohash_final](../p/pg_cryptohash_final.md)
+  - [pg_cryptohash_error](../p/pg_cryptohash_error.md)
+  - [pg_cryptohash_free](../p/pg_cryptohash_free.md)
 - Called from (representative examples):
-  - verify_client_proof
-  - scram_build_secret
-  - calculate_client_proof
+  - [verify_client_proof](../v/verify_client_proof.md)
+  - [scram_build_secret](scram_build_secret.md)
+  - [calculate_client_proof](../c/calculate_client_proof.md)
 
 ## Notes and Other Information
 - Returns 0 on success, -1 on failure

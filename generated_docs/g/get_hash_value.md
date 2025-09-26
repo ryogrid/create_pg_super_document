@@ -25,7 +25,7 @@ This function is an exported routine that computes the hash value for a key usin
   - hashp->hash (hash function pointer stored in the hash table)
 - Called from (representative examples):
   - [BufTableHashCode](../B/BufTableHashCode.md)
-  - LockTagHashCode
+  - [LockTagHashCode](../L/LockTagHashCode.md)
   - PredicateLockTargetTagHashCode
 
 ## Notes and Other Information

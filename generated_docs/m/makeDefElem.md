@@ -22,19 +22,19 @@ The makeDefElem function constructs a DefElem node, which is used throughout Pos
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to allocate DefElem node)
-  - DefElem (the node structure being created)
+  - [DefElem](../D/DefElem.md) (the node structure being created)
   - DEFELEM_UNSPEC (default action constant)
 - Called from (representative examples):
-  - untransformRelOptions
-  - sequence_options
-  - buildDefItem
-  - DefineView
-  - generateSerialExtraStmts
-  - transformAlterTableStmt
+  - [untransformRelOptions](../u/untransformRelOptions.md)
+  - [sequence_options](../s/sequence_options.md)
+  - [buildDefItem](../b/buildDefItem.md)
+  - [DefineView](../D/DefineView.md)
+  - [generateSerialExtraStmts](../g/generateSerialExtraStmts.md)
+  - [transformAlterTableStmt](../t/transformAlterTableStmt.md)
 
 ## Notes and Other Information
 - This is the simplified version for typical use cases; for more complex scenarios with namespaces or specific actions, use makeDefElemExtended
 - The defnamespace field is set to NULL for unqualified option names
 - The defaction field is set to DEFELEM_UNSPEC indicating no special action is required
-- DefElem nodes are fundamental building blocks for parsing and representing SQL statement options
+- [DefElem](../D/DefElem.md) nodes are fundamental building blocks for parsing and representing SQL statement options
 - The function is widely used across different subsystems including replication, sequences, views, and table operations

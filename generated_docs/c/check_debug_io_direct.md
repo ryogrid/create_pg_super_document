@@ -30,12 +30,12 @@ For platforms without direct I/O support, the parameter must be empty. The funct
 - Functions called/Symbols referenced:
   - PG_O_DIRECT: Platform-specific constant for direct I/O support
   - GUC_check_errdetail: Macro for detailed GUC validation error messages
-  - SplitGUCList: Function to parse comma-separated GUC lists
-  - pstrdup: PostgreSQL's string duplication function
-  - pfree: PostgreSQL's memory free function
-  - list_free: List cleanup function
-  - pg_strcasecmp: Case-insensitive string comparison
-  - guc_malloc: GUC memory allocation function
+  - [SplitGUCList](../S/SplitGUCList.md): Function to parse comma-separated GUC lists
+  - [pstrdup](../p/pstrdup.md): PostgreSQL's string duplication function
+  - [pfree](../p/pfree.md): PostgreSQL's memory free function
+  - [list_free](../l/list_free.md): List cleanup function
+  - [pg_strcasecmp](../p/pg_strcasecmp.md): Case-insensitive string comparison
+  - [guc_malloc](../g/guc_malloc.md): GUC memory allocation function
   - IO_DIRECT_DATA, IO_DIRECT_WAL, IO_DIRECT_WAL_INIT: Flag constants
   - PG_IO_ALIGN_SIZE: I/O alignment size constant
 

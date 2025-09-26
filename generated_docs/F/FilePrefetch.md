@@ -33,12 +33,12 @@ The function is designed to be non-blocking - it returns immediately after issui
 ## Dependencies
 - Functions called/Symbols referenced:
   - FileIsValid: Validates the file descriptor
-  - FileAccess: Ensures file is accessible and opens if needed
-  - pgstat_report_wait_start: Reports start of wait event for monitoring
-  - pgstat_report_wait_end: Reports end of wait event
+  - [FileAccess](FileAccess.md): Ensures file is accessible and opens if needed
+  - [pgstat_report_wait_start](../p/pgstat_report_wait_start.md): Reports start of wait event for monitoring
+  - [pgstat_report_wait_end](../p/pgstat_report_wait_end.md): Reports end of wait event
   - posix_fadvise: POSIX system call for file access pattern hints
 - Called from (representative examples):
-  - mdprefetch: Magnetic disk storage manager prefetch operations
+  - [mdprefetch](../m/mdprefetch.md): Magnetic disk storage manager prefetch operations
 
 ## Notes and Other Information
 - The function only works on systems with USE_POSIX_FADVISE and POSIX_FADV_WILLNEED support

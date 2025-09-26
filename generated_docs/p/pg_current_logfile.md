@@ -28,10 +28,10 @@ When called without arguments, it returns the first log file found in the metada
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_NARGS, PG_ARGISNULL, PG_GETARG_TEXT_PP, PG_RETURN_TEXT_P, PG_RETURN_NULL (PostgreSQL macros)
-  - text_to_cstring
-  - AllocateFile
-  - FreeFile
-  - cstring_to_text
+  - [text_to_cstring](../t/text_to_cstring.md)
+  - [AllocateFile](../A/AllocateFile.md)
+  - [FreeFile](../F/FreeFile.md)
+  - [cstring_to_text](../c/cstring_to_text.md)
   - LOG_METAINFO_DATAFILE (constant for metadata file path)
 - Called from (representative examples):
   - [pg_current_logfile_1arg](pg_current_logfile_1arg.md) (wrapper function)

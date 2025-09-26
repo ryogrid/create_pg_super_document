@@ -23,14 +23,14 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetPortalByName: Checks for existing portals with the generated name
-  - CreatePortal: Performs the actual portal creation with the generated unique name
+  - [GetPortalByName](../G/GetPortalByName.md): Checks for existing portals with the generated name
+  - [CreatePortal](CreatePortal.md): Performs the actual portal creation with the generated unique name
   - sprintf: Formats the portal name string
   - MAX_PORTALNAME_LEN: Maximum length constraint for portal names
 
 - Called from:
-  - ExecuteQuery: Prepared statement execution
-  - SPI_cursor_open_internal: Server Programming Interface cursor operations
+  - [ExecuteQuery](../E/ExecuteQuery.md): Prepared statement execution
+  - [SPI_cursor_open_internal](../S/SPI_cursor_open_internal.md): Server Programming Interface cursor operations
 
 ## Notes and Other Information
 - Uses static counter to ensure unique names across backend session lifetime

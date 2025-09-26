@@ -23,9 +23,9 @@ The function determines scan direction based on the forward parameter and curren
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RunFromStore](../R/RunFromStore.md)
-  - PushActiveSnapshot
+  - [PushActiveSnapshot](PushActiveSnapshot.md)
   - [ExecutorRun](../E/ExecutorRun.md)
-  - PopActiveSnapshot
+  - [PopActiveSnapshot](PopActiveSnapshot.md)
   - ScanDirectionIsNoMovement
 - Called from (representative examples):
   - [PortalRun](PortalRun.md)

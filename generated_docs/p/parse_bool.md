@@ -30,11 +30,11 @@ The  function is a convenience wrapper around  that attempts to interpret a null
   - [GrantRole](../G/GrantRole.md) (user.c:1500,1506,1512)
   - [ProcessStartupPacket](../P/ProcessStartupPacket.md) (backend_startup.c:738)
   - [executeItemOptUnwrapTarget](../e/executeItemOptUnwrapTarget.md) (jsonpath_exec.c:1374)
-  - parse_and_validate_value (guc.c:3143)
+  - [parse_and_validate_value](parse_and_validate_value.md) (guc.c:3143)
 
 ## Notes and Other Information
 - Returns true if the string parses successfully as a boolean, false otherwise
 - Valid boolean representations include: true, false, yes, no, on, off, 1, 0 (case-insensitive)
-- Unique prefixes of the above values are also accepted
+- [Unique](../U/Unique.md) prefixes of the above values are also accepted
 - The result parameter can be NULL if only validation (not the actual value) is needed
 - This function is commonly used throughout PostgreSQL for parsing configuration options and user input

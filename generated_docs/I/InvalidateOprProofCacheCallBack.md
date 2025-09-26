@@ -23,7 +23,7 @@ The function implements a simple but effective invalidation strategy: it resets 
 - Functions called/Symbols referenced:
   - [hash_seq_init](../h/hash_seq_init.md)
   - [hash_seq_search](../h/hash_seq_search.md)
-  - HASH_SEQ_STATUS (type)
+  - [HASH_SEQ_STATUS](../H/HASH_SEQ_STATUS.md) (type)
   - [OprProofCacheEntry](../O/OprProofCacheEntry.md) (type)
 - Called from (representative examples):
   - iterate_end (predtest.c:112)

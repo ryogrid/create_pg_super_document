@@ -36,7 +36,7 @@ The function handles all the complexity of ICU string conversion, including prop
   - [str_toupper](../s/str_toupper.md) (string case conversion functions) 
   - [str_initcap](../s/str_initcap.md) (string capitalization functions)
   - [make_icu_collator](../m/make_icu_collator.md) (collation setup)
-  - pg_locale_t (locale-related operations)
+  - [pg_locale_t](../p/pg_locale_t.md) (locale-related operations)
 
 ## Notes and Other Information
 - This is a public function accessible outside pg_locale.c (not static)

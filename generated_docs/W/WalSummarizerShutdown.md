@@ -23,8 +23,8 @@ The function uses an exclusive lock to safely update the shared memory structure
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire
-  - LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - INVALID_PROC_NUMBER (constant)
 - Global variables accessed:
   - WalSummarizerCtl

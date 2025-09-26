@@ -29,11 +29,11 @@ The function uses different semantics based on the top_level parameter: at top l
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - mbms_add_member
-  - mbms_add_members
-  - mbms_int_members
+  - [mbms_add_member](../m/mbms_add_member.md)
+  - [mbms_add_members](../m/mbms_add_members.md)
+  - [mbms_int_members](../m/mbms_int_members.md)
   - [func_strict](func_strict.md)
-  - set_opfuncid
+  - [set_opfuncid](../s/set_opfuncid.md)
   - [is_strict_saop](../i/is_strict_saop.md)
   - [find_nonnullable_vars_walker](find_nonnullable_vars_walker.md) (recursive calls)
 - Called from (representative examples):

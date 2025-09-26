@@ -21,11 +21,11 @@ The function provides a standardized interface for node allocation that the Red-
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RBTNode (generic Red-Black Tree node type)
-  - IntRBTreeNode (integer-specific node structure)
-  - palloc (PostgreSQL memory allocation function)
+  - [RBTNode](../R/RBTNode.md) (generic Red-Black Tree node type)
+  - [IntRBTreeNode](../I/IntRBTreeNode.md) (integer-specific node structure)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation function)
 - Called from (representative examples):
-  - create_int_rbtree (used as allocator function in tree creation)
+  - [create_int_rbtree](../c/create_int_rbtree.md) (used as allocator function in tree creation)
 
 ## Notes and Other Information
 - This is a static function used only within the test_rbtree module

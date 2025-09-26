@@ -36,16 +36,16 @@ The node evaluates the appropriate test and returns a boolean Datum. When argisr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - NullTestType (enum with IS_NULL, IS_NOT_NULL values)
+  - [NullTestType](NullTestType.md) (enum with IS_NULL, IS_NOT_NULL values)
   - ParseLoc (for location tracking)
-  - Expr (base expression structure)
+  - [Expr](../E/Expr.md) (base expression structure)
   
 - Called from (representative examples):
-  - ExecInitExprRec (executor initialization)
-  - clause_selectivity_ext (optimizer selectivity estimation)
-  - match_clause_to_indexcol (index matching)
-  - transformAExprOp (parser expression transformation)
-  - get_rule_expr (rule decompilation)
+  - [ExecInitExprRec](../E/ExecInitExprRec.md) (executor initialization)
+  - [clause_selectivity_ext](../c/clause_selectivity_ext.md) (optimizer selectivity estimation)
+  - [match_clause_to_indexcol](../m/match_clause_to_indexcol.md) (index matching)
+  - [transformAExprOp](../t/transformAExprOp.md) (parser expression transformation)
+  - [get_rule_expr](../g/get_rule_expr.md) (rule decompilation)
 
 ## Notes and Other Information
 - The pg_node_attr(query_jumble_ignore) annotation on argisrow indicates this field should be ignored during query fingerprinting

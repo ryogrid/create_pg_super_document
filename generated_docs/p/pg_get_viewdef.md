@@ -22,7 +22,7 @@ The function serves as a public interface for view introspection, commonly used 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_get_viewdef_worker](pg_get_viewdef_worker.md) - Core worker function for view definition generation
-  - `string_to_text` - Converts C string to PostgreSQL text type
+  - `[string_to_text](../s/string_to_text.md)` - Converts C string to PostgreSQL text type
   - `PRETTYFLAG_INDENT` - Constant for formatting with indentation
   - `WRAP_COLUMN_DEFAULT` - Default column width for line wrapping
   - `PG_RETURN_TEXT_P` - Macro for returning text result

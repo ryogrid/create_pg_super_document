@@ -24,11 +24,11 @@ This function works in conjunction with GetBufferFromRing to maintain the ring s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferAccessStrategy (type)
-  - BufferDesc (type)
-  - BufferDescriptorGetBuffer (function)
+  - [BufferAccessStrategy](../B/BufferAccessStrategy.md) (type)
+  - [BufferDesc](../B/BufferDesc.md) (type)
+  - [BufferDescriptorGetBuffer](../B/BufferDescriptorGetBuffer.md) (function)
 - Called from (representative examples):
-  - StrategyGetBuffer (multiple call sites)
+  - [StrategyGetBuffer](../S/StrategyGetBuffer.md) (multiple call sites)
 
 ## Notes and Other Information
 - Static function, only called internally within buffer freelist management

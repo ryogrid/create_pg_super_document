@@ -26,14 +26,14 @@ Both implementations ensure reliable file truncation with proper error handling 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - OpenTransientFile (Windows)
-  - pg_ftruncate (Windows)
-  - CloseTransientFile (Windows)
+  - [OpenTransientFile](../O/OpenTransientFile.md) (Windows)
+  - [pg_ftruncate](pg_ftruncate.md) (Windows)
+  - [CloseTransientFile](../C/CloseTransientFile.md) (Windows)
   - truncate (Unix)
   - PG_BINARY
   - EINTR
 - Called from (representative examples):
-  - do_truncate
+  - [do_truncate](../d/do_truncate.md)
   - PG_O_DIRECT (referenced in fd.h)
 
 ## Notes and Other Information

@@ -27,7 +27,7 @@ The returned value is converted from the internal byte position format to the st
   - [XLogBytePosToRecPtr](../X/XLogBytePosToRecPtr.md)
   - [XLogCtlInsert](../X/XLogCtlInsert.md) (structure access)
 - Called from:
-  - gistGetFakeLSN (src/backend/access/gist/gistutil.c:1036)
+  - [gistGetFakeLSN](../g/gistGetFakeLSN.md) (src/backend/access/gist/gistutil.c:1036)
   - [logical_begin_heap_rewrite](../l/logical_begin_heap_rewrite.md) (src/backend/access/heap/rewriteheap.c:789)
   - [CreateOverwriteContrecordRecord](../C/CreateOverwriteContrecordRecord.md) (src/backend/access/transam/xlog.c:7455)
   - [pg_current_wal_insert_lsn](../p/pg_current_wal_insert_lsn.md) (src/backend/access/transam/xlogfuncs.c:304)

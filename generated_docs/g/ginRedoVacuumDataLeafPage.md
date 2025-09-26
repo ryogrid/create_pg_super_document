@@ -28,14 +28,14 @@ Key functionality:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogReadBufferForRedo
+  - [XLogReadBufferForRedo](../X/XLogReadBufferForRedo.md)
   - [BufferGetPage](../B/BufferGetPage.md)
   - [XLogRecGetBlockData](../X/XLogRecGetBlockData.md)
   - GinPageIsLeaf
   - GinPageIsData
   - [ginRedoRecompress](ginRedoRecompress.md)
   - [PageSetLSN](../P/PageSetLSN.md)
-  - MarkBufferDirty
+  - [MarkBufferDirty](../M/MarkBufferDirty.md)
   - [BufferIsValid](../B/BufferIsValid.md)
   - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
 

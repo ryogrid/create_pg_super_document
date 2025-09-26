@@ -23,19 +23,19 @@ This function creates a timeline history file for a specified timeline ID using 
 - Functions called/Symbols referenced:
   - XLOGDIR (macro)
   - unlink
-  - OpenTransientFile
-  - pgstat_report_wait_start
+  - [OpenTransientFile](../O/OpenTransientFile.md)
+  - [pgstat_report_wait_start](../p/pgstat_report_wait_start.md)
   - write
-  - pgstat_report_wait_end
-  - pg_fsync
-  - data_sync_elevel
-  - CloseTransientFile
-  - TLHistoryFilePath
+  - [pgstat_report_wait_end](../p/pgstat_report_wait_end.md)
+  - [pg_fsync](../p/pg_fsync.md)
+  - [data_sync_elevel](../d/data_sync_elevel.md)
+  - [CloseTransientFile](../C/CloseTransientFile.md)
+  - [TLHistoryFilePath](../T/TLHistoryFilePath.md)
   - [durable_rename](../d/durable_rename.md)
 - Called from (representative examples):
   - [WalRcvFetchTimeLineHistoryFiles](../W/WalRcvFetchTimeLineHistoryFiles.md)
   - [ReceiveXlogStream](../R/ReceiveXlogStream.md)
-  - TimeLineHistoryEntry
+  - [TimeLineHistoryEntry](../T/TimeLineHistoryEntry.md)
 
 ## Notes and Other Information
 - Uses atomic write pattern: temporary file creation followed by atomic rename

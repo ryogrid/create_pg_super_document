@@ -27,8 +27,8 @@ The algorithm walks through the input pathkeys and searches for matching GROUP B
 ## Dependencies
 - Functions called/Symbols referenced:
   - [list_copy_head](../l/list_copy_head.md) (creates subset of pathkeys)
-  - PathKey (pathkey structure type)
-  - SortGroupClause (sort group clause type)
+  - [PathKey](../P/PathKey.md) (pathkey structure type)
+  - [SortGroupClause](../S/SortGroupClause.md) (sort group clause type)
   - foreach_current_index (gets current list iteration index)
   - [list_member_ptr](../l/list_member_ptr.md) (checks pointer membership in list)
   - [get_sortgroupref_clause_noerr](get_sortgroupref_clause_noerr.md) (retrieves sort group clause safely)

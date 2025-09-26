@@ -21,7 +21,7 @@ This function handles the transmission of archive content chunks during a baseba
   - pq_putmessage
   - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
   - [TimestampDifferenceMilliseconds](../T/TimestampDifferenceMilliseconds.md)
-  - pq_beginmessage
+  - [pq_beginmessage](../p/pq_beginmessage.md)
   - [pq_sendbyte](../p/pq_sendbyte.md)
   - [pq_sendint64](../p/pq_sendint64.md)
   - [pq_endmessage](../p/pq_endmessage.md)

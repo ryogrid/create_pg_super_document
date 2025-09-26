@@ -29,17 +29,17 @@ The function ensures that only valid role options are accepted for the configura
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pstrdup
-  - SplitIdentifierString
+  - [pstrdup](../p/pstrdup.md)
+  - [SplitIdentifierString](../S/SplitIdentifierString.md)
   - GUC_check_errdetail
-  - pfree
-  - list_free
-  - pg_strcasecmp
+  - [pfree](../p/pfree.md)
+  - [list_free](../l/list_free.md)
+  - [pg_strcasecmp](../p/pg_strcasecmp.md)
   - lfirst
-  - guc_malloc
+  - [guc_malloc](../g/guc_malloc.md)
 - Types used:
   - GucSource
-  - List
+  - [List](../L/List.md)
   - ListCell
 - Constants:
   - GRANT_ROLE_SPECIFIED_SET

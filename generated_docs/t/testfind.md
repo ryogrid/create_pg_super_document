@@ -25,14 +25,14 @@ This dual approach ensures both the precision of successful searches and the cor
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - create_int_rbtree (creates test red-black tree)
-  - rbt_populate (populates tree with even integers using step=2)
-  - rbt_find (searches for elements in the tree)
+  - [create_int_rbtree](../c/create_int_rbtree.md) (creates test red-black tree)
+  - [rbt_populate](../r/rbt_populate.md) (populates tree with even integers using step=2)
+  - [rbt_find](../r/rbt_find.md) (searches for elements in the tree)
   - elog (PostgreSQL error logging)
-  - IntRBTreeNode (test-specific node structure)
-  - RBTNode (generic red-black tree node type)
+  - [IntRBTreeNode](../I/IntRBTreeNode.md) (test-specific node structure)
+  - [RBTNode](../R/RBTNode.md) (generic red-black tree node type)
 - Called from (representative examples):
-  - test_rb_tree (test_rbtree.c:511)
+  - [test_rb_tree](test_rb_tree.md) (test_rbtree.c:511)
 
 ## Notes and Other Information
 - Uses even integers to create gaps in the data, enabling systematic testing of non-existent elements (odd integers)

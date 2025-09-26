@@ -22,11 +22,11 @@ The function implements sophisticated formatting logic, including proper escapin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth
+  - [check_stack_depth](../c/check_stack_depth.md)
   - CHECK_FOR_INTERRUPTS
-  - appendStringInfoString
-  - appendStringInfoChar
-  - appendStringInfo
+  - [appendStringInfoString](../a/appendStringInfoString.md)
+  - [appendStringInfoChar](../a/appendStringInfoChar.md)
+  - [appendStringInfo](../a/appendStringInfo.md)
   - [escape_json](../e/escape_json.md)
   - [jspGetString](../j/jspGetString.md)
   - [jspGetNumeric](../j/jspGetNumeric.md)

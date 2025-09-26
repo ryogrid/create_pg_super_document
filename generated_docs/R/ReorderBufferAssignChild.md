@@ -33,27 +33,27 @@ This relationship management is essential for logical replication to handle comp
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReorderBufferTXNByXid (retrieves or creates transaction objects)
+  - [ReorderBufferTXNByXid](ReorderBufferTXNByXid.md) (retrieves or creates transaction objects)
   - rbtxn_is_known_subxact (checks if transaction is already marked as subtransaction)
-  - dlist_delete (removes subtransaction from top-level list if needed)
-  - dlist_push_tail (adds subtransaction to parent's subtxns list)
-  - ReorderBufferTransferSnapToParent (transfers snapshot from child to parent)
-  - AssertTXNLsnOrder (validates LSN ordering consistency)
+  - [dlist_delete](../d/dlist_delete.md) (removes subtransaction from top-level list if needed)
+  - [dlist_push_tail](../d/dlist_push_tail.md) (adds subtransaction to parent's subtxns list)
+  - [ReorderBufferTransferSnapToParent](ReorderBufferTransferSnapToParent.md) (transfers snapshot from child to parent)
+  - [AssertTXNLsnOrder](../A/AssertTXNLsnOrder.md) (validates LSN ordering consistency)
 - Data structures used:
-  - ReorderBuffer
-  - ReorderBufferTXN
+  - [ReorderBuffer](ReorderBuffer.md)
+  - [ReorderBufferTXN](ReorderBufferTXN.md)
   - TransactionId
   - XLogRecPtr
 - Constants used:
   - RBTXN_IS_SUBXACT (flag marking a transaction as a subtransaction)
 - Called from (representative examples):
-  - LogicalDecodingProcessRecord (at src/backend/replication/logical/decode.c:107)
-  - ReorderBufferCommitChild (at src/backend/replication/logical/reorderbuffer.c:1237)
+  - [LogicalDecodingProcessRecord](../L/LogicalDecodingProcessRecord.md) (at src/backend/replication/logical/decode.c:107)
+  - [ReorderBufferCommitChild](ReorderBufferCommitChild.md) (at src/backend/replication/logical/reorderbuffer.c:1237)
 
 ## Notes and Other Information
 - Handles the transition of a transaction from top-level to subtransaction status gracefully
 - Maintains bidirectional references between parent and child transactions
 - Critical for proper handling of savepoints and nested transactions in logical replication
 - The function includes safeguards to prevent duplicate assignments of the same subtransaction
-- Snapshot inheritance ensures that visibility information is properly maintained in the transaction hierarchy
+- [Snapshot](../S/Snapshot.md) inheritance ensures that visibility information is properly maintained in the transaction hierarchy
 - LSN ordering validation ensures the integrity of the reorder buffer's internal structure

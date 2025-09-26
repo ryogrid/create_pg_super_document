@@ -40,7 +40,7 @@ The function performs a complete state transition from COPY mode back to PGASYNC
   - PGQUERY_SIMPLE (query class constant)
   - PGRES_COMMAND_OK (result status)
 - Called from (representative examples):
-  - PQendcopy (in src/interfaces/libpq/fe-exec.c)
+  - [PQendcopy](../P/PQendcopy.md) (in src/interfaces/libpq/fe-exec.c)
 
 ## Notes and Other Information
 - Returns 0 on success, 1 on failure

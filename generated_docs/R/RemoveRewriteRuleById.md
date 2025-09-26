@@ -29,7 +29,7 @@ The function ensures data consistency by using appropriate locking mechanisms an
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open (to access pg_rewrite and event relations)
+  - [table_open](../t/table_open.md) (to access pg_rewrite and event relations)
   - [ScanKeyInit](../S/ScanKeyInit.md) (to initialize scan key for rule lookup)
   - [systable_beginscan](../s/systable_beginscan.md) (to begin system table scan)
   - [systable_getnext](../s/systable_getnext.md) (to retrieve rule tuple)
@@ -37,7 +37,7 @@ The function ensures data consistency by using appropriate locking mechanisms an
   - [IsSystemRelation](../I/IsSystemRelation.md) (to check if target relation is a system catalog)
   - [CatalogTupleDelete](../C/CatalogTupleDelete.md) (to delete the rule tuple)
   - [CacheInvalidateRelcache](../C/CacheInvalidateRelcache.md) (to invalidate relation cache)
-  - table_close (to close opened relations)
+  - [table_close](../t/table_close.md) (to close opened relations)
 - Called from (representative examples):
   - [doDeletion](../d/doDeletion.md) (from dependency.c:1412 - part of dependency deletion cascade)
 

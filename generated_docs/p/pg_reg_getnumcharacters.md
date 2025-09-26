@@ -39,7 +39,7 @@ The function specifically checks if the color has entries in the high colormap (
 - Returns -1 for invalid, special, pseudo, or uncertain colors
 - Only returns positive counts for regular colors with known simple character membership
 - Simple characters have codes ≤ MAX_SIMPLE_CHR and use direct array indexing
-- Complex characters (high Unicode) use a more sophisticated mapping that makes exact counts expensive
+- [Complex](../C/Complex.md) characters (high Unicode) use a more sophisticated mapping that makes exact counts expensive
 - The function prioritizes performance by avoiding expensive character enumeration for complex cases
 - Colors with  indicate presence in the high colormap, making membership uncertain
 - Used to determine if a color class is worth analyzing in detail during regex processing

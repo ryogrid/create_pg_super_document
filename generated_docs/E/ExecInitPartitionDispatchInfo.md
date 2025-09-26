@@ -32,7 +32,7 @@ The function manages the partition directory for tracking partition metadata and
 - Functions called/Symbols referenced:
   - [CreatePartitionDirectory](../C/CreatePartitionDirectory.md)
   - IsolationUsesXactSnapshot
-  - table_open
+  - [table_open](../t/table_open.md)
   - [PartitionDirectoryLookup](../P/PartitionDirectoryLookup.md)
   - [RelationGetPartitionKey](../R/RelationGetPartitionKey.md)
   - [build_attrmap_by_name_if_req](../b/build_attrmap_by_name_if_req.md)

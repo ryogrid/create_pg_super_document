@@ -33,9 +33,9 @@ The function also handles dumping of associated comments, security labels, and a
   - [dumpComment](dumpComment.md)
   - [dumpSecLabel](dumpSecLabel.md)
   - [dumpACL](dumpACL.md)
-  - createPQExpBuffer
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)
   - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
-  - destroyPQExpBuffer
+  - [destroyPQExpBuffer](destroyPQExpBuffer.md)
 - Called from (representative examples):
   - [dumpDumpableObject](dumpDumpableObject.md)
 

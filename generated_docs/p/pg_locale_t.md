@@ -23,11 +23,11 @@ This typedef provides abstraction over the underlying locale implementation deta
 - Functions called/Symbols referenced:
   - struct pg_locale_struct (the underlying structure)
 - Called from (representative examples):
-  - pg_strcoll: String collation comparison
-  - pg_strxfrm: String transformation for sorting
-  - pg_locale_deterministic: Check if locale is deterministic
-  - pg_newlocale_from_collation: Create locale from collation OID
-  - wchar2char/char2wchar: Character encoding conversion functions
+  - [pg_strcoll](pg_strcoll.md): String collation comparison
+  - [pg_strxfrm](pg_strxfrm.md): String transformation for sorting
+  - [pg_locale_deterministic](pg_locale_deterministic.md): Check if locale is deterministic
+  - [pg_newlocale_from_collation](pg_newlocale_from_collation.md): Create locale from collation OID
+  - [wchar2char](../w/wchar2char.md)/char2wchar: Character encoding conversion functions
 
 ## Notes and Other Information
 - The pointer design allows for truth testing (NULL vs non-NULL) to determine if a locale is active

@@ -20,12 +20,12 @@ This function implements a three-way comparison for RelFileLocator structures, f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelFileLocator (structure type)
+  - [RelFileLocator](../R/RelFileLocator.md) (structure type)
 - Called from (representative examples):
   - BufferIsPinned
-  - DropRelationsAllBuffers
-  - FlushRelationsAllBuffers
-  - buffertag_comparator
+  - [DropRelationsAllBuffers](../D/DropRelationsAllBuffers.md)
+  - [FlushRelationsAllBuffers](../F/FlushRelationsAllBuffers.md)
+  - [buffertag_comparator](../b/buffertag_comparator.md)
 
 ## Notes and Other Information
 - This is a static function internal to bufmgr.c

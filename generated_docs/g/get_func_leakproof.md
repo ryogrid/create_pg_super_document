@@ -31,7 +31,7 @@ This function retrieves the leakproof flag for a PostgreSQL function from the sy
   - [contain_leaked_vars_checker](../c/contain_leaked_vars_checker.md)
   - [contain_leaked_vars_walker](../c/contain_leaked_vars_walker.md)
   - [statext_is_compatible_clause_internal](../s/statext_is_compatible_clause_internal.md)
-  - statistic_proc_security_check
+  - [statistic_proc_security_check](../s/statistic_proc_security_check.md)
 
 ## Notes and Other Information
 - The function raises an ERROR if the function OID is not found in the system cache

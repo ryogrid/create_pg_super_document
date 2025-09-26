@@ -34,7 +34,7 @@ This cryptographic approach ensures that only a client knowing the correct passw
   - [pg_hmac_final](../p/pg_hmac_final.md) (at Line 1161)
   - [pg_hmac_error](../p/pg_hmac_error.md) (at Line 1164)
   - [pg_hmac_free](../p/pg_hmac_free.md) (at Line 1167)
-  - scram_H (at Line 1174)
+  - [scram_H](../s/scram_H.md) (at Line 1174)
   - memcmp (standard C library function)
   - elog (PostgreSQL error logging)
 - Called from (representative examples):

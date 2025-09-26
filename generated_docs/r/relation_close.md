@@ -28,11 +28,11 @@ The function is designed to be symmetric with the relation opening functions - i
 - Functions called/Symbols referenced:
   - [RelationClose](../R/RelationClose.md) - Performs the actual relation cache cleanup
   - [UnlockRelationId](../U/UnlockRelationId.md) - Releases the specified lock on the relation
-  - LockRelId - Structure type for lock relation identifier
+  - [LockRelId](../L/LockRelId.md) - Structure type for lock relation identifier
   - MAX_LOCKMODES - Maximum lock mode constant for validation
 
 - Called from (representative examples):
-  - table_close - Table-specific closing function
+  - [table_close](../t/table_close.md) - Table-specific closing function
   - [sequence_close](../s/sequence_close.md) - Sequence-specific closing function
   - Various catalog functions during relation manipulation
   - [analyze_rel](../a/analyze_rel.md) - Analysis operations cleanup

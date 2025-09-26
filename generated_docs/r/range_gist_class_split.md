@@ -25,10 +25,10 @@ Each entry is processed by determining its class, looking up the destination (le
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_gist_range_class](../g/get_gist_range_class.md)
-  - DatumGetRangeTypeP
+  - [DatumGetRangeTypeP](../D/DatumGetRangeTypeP.md)
   - PLACE_LEFT (macro)
   - PLACE_RIGHT (macro)
-  - RangeTypePGetDatum
+  - [RangeTypePGetDatum](../R/RangeTypePGetDatum.md)
   - FirstOffsetNumber (constant)
   - OffsetNumberNext
   - SPLIT_LEFT (constant)

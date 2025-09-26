@@ -23,25 +23,25 @@ If successful, the function registers the directory handle in the allocatedDescs
 ## Dependencies
 - Functions called/Symbols referenced:
   - DO_DB (debug logging macro)
-  - reserveAllocatedDesc (checks if another descriptor can be allocated)
-  - ReleaseLruFiles (releases least recently used files to free descriptors)
-  - opendir (system call to open directory)
+  - [reserveAllocatedDesc](../r/reserveAllocatedDesc.md) (checks if another descriptor can be allocated)
+  - [ReleaseLruFiles](../R/ReleaseLruFiles.md) (releases least recently used files to free descriptors)
+  - [opendir](../o/opendir.md) (system call to open directory)
   - AllocateDesc (descriptor structure type)
   - AllocateDescDir (enum value for directory descriptor type)
-  - GetCurrentSubTransactionId (gets current subtransaction ID for cleanup)
-  - ReleaseLruFile (releases one LRU file and retries)
+  - [GetCurrentSubTransactionId](../G/GetCurrentSubTransactionId.md) (gets current subtransaction ID for cleanup)
+  - [ReleaseLruFile](../R/ReleaseLruFile.md) (releases one LRU file and retries)
   - ereport/elog (PostgreSQL error reporting)
 - Called from (representative examples):
-  - SlruScanDirectory
-  - XLogGetOldestSegno
-  - RemoveOldXlogFiles
-  - perform_base_backup
-  - sendDir
-  - movedb
-  - copydir
-  - RemovePgTempFiles
-  - SyncDataDirectory
-  - pg_ls_dir
+  - [SlruScanDirectory](../S/SlruScanDirectory.md)
+  - [XLogGetOldestSegno](../X/XLogGetOldestSegno.md)
+  - [RemoveOldXlogFiles](../R/RemoveOldXlogFiles.md)
+  - [perform_base_backup](../p/perform_base_backup.md)
+  - [sendDir](../s/sendDir.md)
+  - [movedb](../m/movedb.md)
+  - [copydir](../c/copydir.md)
+  - [RemovePgTempFiles](../R/RemovePgTempFiles.md)
+  - [SyncDataDirectory](../S/SyncDataDirectory.md)
+  - [pg_ls_dir](../p/pg_ls_dir.md)
 
 ## Notes and Other Information
 - Returns NULL with errno set on failure, though failure detection is commonly left to subsequent ReadDir/ReadDirExtended calls

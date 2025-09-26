@@ -24,15 +24,15 @@ The function also includes optimizations such as skew handling for frequently oc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecChooseHashTableSize (determines optimal hash table parameters)
+  - [ExecChooseHashTableSize](ExecChooseHashTableSize.md) (determines optimal hash table parameters)
   - palloc_object (allocates HashJoinTableData structure)
   - AllocSetContextCreate (creates memory contexts)
-  - get_op_hash_functions (retrieves hash function OIDs)
-  - fmgr_info (initializes function manager info)
-  - ExecParallelHashJoinSetUpBatches (parallel coordination)
-  - ExecHashBuildSkewHash (skew optimization setup)
+  - [get_op_hash_functions](../g/get_op_hash_functions.md) (retrieves hash function OIDs)
+  - [fmgr_info](../f/fmgr_info.md) (initializes function manager info)
+  - [ExecParallelHashJoinSetUpBatches](ExecParallelHashJoinSetUpBatches.md) (parallel coordination)
+  - [ExecHashBuildSkewHash](ExecHashBuildSkewHash.md) (skew optimization setup)
 - Called from (representative examples):
-  - ExecHashJoinImpl (main hash join execution)
+  - [ExecHashJoinImpl](ExecHashJoinImpl.md) (main hash join execution)
 
 ## Notes and Other Information
 - The hash table uses a power-of-2 number of buckets for efficient modulo operations using bitwise AND

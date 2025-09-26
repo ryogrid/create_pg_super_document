@@ -34,18 +34,18 @@ The backup_manifest_info structure serves as the primary state container for bac
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufFile
+  - [BufFile](../B/BufFile.md)
   - pg_checksum_type  
-  - pg_cryptohash_ctx
+  - [pg_cryptohash_ctx](../p/pg_cryptohash_ctx.md)
 - Called from (representative examples):
-  - InitializeBackupManifest
-  - IsManifestEnabled
-  - AddFileToBackupManifest
-  - AddWALInfoToBackupManifest
-  - SendBackupManifest
-  - FreeBackupManifest
-  - perform_base_backup
-  - sendFileWithContent
+  - [InitializeBackupManifest](../I/InitializeBackupManifest.md)
+  - [IsManifestEnabled](../I/IsManifestEnabled.md)
+  - [AddFileToBackupManifest](../A/AddFileToBackupManifest.md)
+  - [AddWALInfoToBackupManifest](../A/AddWALInfoToBackupManifest.md)
+  - [SendBackupManifest](../S/SendBackupManifest.md)
+  - [FreeBackupManifest](../F/FreeBackupManifest.md)
+  - [perform_base_backup](../p/perform_base_backup.md)
+  - [sendFileWithContent](../s/sendFileWithContent.md)
 
 ## Notes and Other Information
 - The manifest checksum always uses SHA-256 algorithm regardless of the data file checksum type configuration

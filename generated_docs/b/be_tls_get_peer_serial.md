@@ -28,7 +28,7 @@ The serial number is a unique identifier assigned by the Certificate Authority (
   - ASN1_INTEGER_to_BN (OpenSSL function)
   - BN_bn2dec (OpenSSL function)
   - BN_free (OpenSSL function)
-  - strlcpy (PostgreSQL utility function)
+  - [strlcpy](../s/strlcpy.md) (PostgreSQL utility function)
   - OPENSSL_free (OpenSSL memory deallocation)
 - Called from (representative examples):
   - [pgstat_bestart](../p/pgstat_bestart.md) (backend status reporting)

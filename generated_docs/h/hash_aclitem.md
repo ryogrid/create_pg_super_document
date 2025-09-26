@@ -35,4 +35,4 @@ The hash function uses a simple additive approach, summing the three numeric fie
 - Designed to avoid struct padding issues that could cause hash inconsistencies
 - Required for PostgreSQL's type cache mechanism and array equality operations
 - The function signature follows PostgreSQL's V1 calling convention for system functions
-- Hash quality is not optimized since the primary use case is system infrastructure rather than performance-critical hashing
+- [Hash](../H/Hash.md) quality is not optimized since the primary use case is system infrastructure rather than performance-critical hashing

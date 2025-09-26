@@ -32,14 +32,14 @@ The function validates inputs to ensure count > 0, bounds are not equal, no para
   - PG_GETARG_NUMERIC - Extract numeric parameters
   - PG_GETARG_INT32 - Extract integer parameter (count)
   - NUMERIC_IS_SPECIAL, NUMERIC_IS_NAN, NUMERIC_IS_INF - Check for special values
-  - init_var - Initialize NumericVar variables
-  - int64_to_numericvar - Convert integer to NumericVar
-  - cmp_numerics - Compare numeric values
-  - set_var_from_var - Copy NumericVar values
-  - add_var - Add NumericVar values
-  - compute_bucket - Calculate bucket assignment for values within bounds
-  - numericvar_to_int32 - Convert result to 32-bit integer
-  - free_var - Clean up NumericVar memory
+  - init_var - [Initialize](../I/Initialize.md) NumericVar variables
+  - [int64_to_numericvar](../i/int64_to_numericvar.md) - Convert integer to NumericVar
+  - [cmp_numerics](../c/cmp_numerics.md) - Compare numeric values
+  - [set_var_from_var](../s/set_var_from_var.md) - Copy NumericVar values
+  - [add_var](../a/add_var.md) - Add NumericVar values
+  - [compute_bucket](../c/compute_bucket.md) - Calculate bucket assignment for values within bounds
+  - [numericvar_to_int32](../n/numericvar_to_int32.md) - Convert result to 32-bit integer
+  - [free_var](../f/free_var.md) - Clean up NumericVar memory
   - PG_RETURN_INT32 - Return integer result
 - Called from:
   - No direct references found (typically called via SQL function calls)

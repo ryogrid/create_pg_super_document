@@ -25,10 +25,10 @@ This function provides a convenient way to open table relations by name (with op
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - relation_openrv
-  - validate_relation_kind
+  - [relation_openrv](../r/relation_openrv.md)
+  - [validate_relation_kind](../v/validate_relation_kind.md)
 - Types referenced:
-  - RangeVar
+  - [RangeVar](../R/RangeVar.md)
 - Called from (representative examples):
   - SQL command processing functions that work with table names
   - DDL operations that need to open tables by name

@@ -28,7 +28,7 @@ As noted in the source comment, this is a "special case" where the function simp
   - [brin_bloom_summary_send](brin_bloom_summary_send.md) (BRIN bloom index)
   - [brin_minmax_multi_summary_send](brin_minmax_multi_summary_send.md) (BRIN minmax-multi index)
   - [pg_dependencies_send](../p/pg_dependencies_send.md) (statistics dependencies)
-  - pg_mcv_list_send (statistics MCV lists)
+  - [pg_mcv_list_send](../p/pg_mcv_list_send.md) (statistics MCV lists)
   - [pg_ndistinct_send](../p/pg_ndistinct_send.md) (statistics ndistinct)
 
 ## Notes and Other Information

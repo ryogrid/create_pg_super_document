@@ -34,8 +34,8 @@ The function enforces transaction block restrictions when dropping replication s
   - [GetSubscriptionRelations](../G/GetSubscriptionRelations.md): Retrieves subscription relation states for cleanup
   - [RemoveSubscriptionRel](../R/RemoveSubscriptionRel.md): Removes subscription relation mappings from catalog
   - [ReplicationSlotDropAtPubNode](../R/ReplicationSlotDropAtPubNode.md): Drops replication slots on the publisher node
-  - logicalrep_workers_find: Finds active replication workers for the subscription
-  - logicalrep_worker_stop: Stops specific replication workers
+  - [logicalrep_workers_find](../l/logicalrep_workers_find.md): Finds active replication workers for the subscription
+  - [logicalrep_worker_stop](../l/logicalrep_worker_stop.md): Stops specific replication workers
   - [PreventInTransactionBlock](../P/PreventInTransactionBlock.md): Prevents operation from running in transaction blocks
   - [replorigin_drop_by_name](../r/replorigin_drop_by_name.md): Removes replication origin tracking entries
   - [pgstat_drop_subscription](../p/pgstat_drop_subscription.md): Updates cumulative statistics for dropped subscription

@@ -27,15 +27,15 @@ The function is designed to be used by parent nodes that do not naturally embrac
 ## Dependencies
 - Functions called/Symbols referenced:
   - PRETTY_PAREN (macro to check if pretty parentheses formatting is enabled)
-  - isSimpleNode (determines if a node is simple enough to not need parentheses)
-  - get_rule_expr (core expression deparsing function)
-  - appendStringInfoChar (adds characters to the output buffer)
+  - [isSimpleNode](../i/isSimpleNode.md) (determines if a node is simple enough to not need parentheses)
+  - [get_rule_expr](get_rule_expr.md) (core expression deparsing function)
+  - [appendStringInfoChar](../a/appendStringInfoChar.md) (adds characters to the output buffer)
 - Called from (representative examples):
-  - get_rule_expr (for various expression types requiring conditional parentheses)
-  - get_oper_expr (for operator expressions)
-  - get_func_expr (for function call expressions)
-  - get_func_sql_syntax (for SQL syntax function calls)
-  - get_coercion_expr (for type coercion expressions)
+  - [get_rule_expr](get_rule_expr.md) (for various expression types requiring conditional parentheses)
+  - [get_oper_expr](get_oper_expr.md) (for operator expressions)
+  - [get_func_expr](get_func_expr.md) (for function call expressions)
+  - [get_func_sql_syntax](get_func_sql_syntax.md) (for SQL syntax function calls)
+  - [get_coercion_expr](get_coercion_expr.md) (for type coercion expressions)
 
 ## Notes and Other Information
 - This is a static function within ruleutils.c, used extensively throughout expression deparsing

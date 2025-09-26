@@ -30,7 +30,7 @@ This allows pg_rewind to treat both local file system sources and remote libpq s
 ## Dependencies
 - Functions called/Symbols referenced:
   - [init_libpq_conn](init_libpq_conn.md)
-  - pg_malloc0
+  - [pg_malloc0](../p/pg_malloc0.md)
   - [libpq_traverse_files](../l/libpq_traverse_files.md)
   - [libpq_fetch_file](../l/libpq_fetch_file.md)  
   - [libpq_queue_fetch_file](../l/libpq_queue_fetch_file.md)
@@ -38,7 +38,7 @@ This allows pg_rewind to treat both local file system sources and remote libpq s
   - [libpq_finish_fetch](../l/libpq_finish_fetch.md)
   - [libpq_get_current_wal_insert_lsn](../l/libpq_get_current_wal_insert_lsn.md)
   - [libpq_destroy](../l/libpq_destroy.md)
-  - initStringInfo
+  - [initStringInfo](initStringInfo.md)
 - Called from:
   - [main](../m/main.md) (in src/bin/pg_rewind/pg_rewind.c:316)
 

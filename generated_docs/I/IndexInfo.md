@@ -73,13 +73,13 @@ IndexInfo serves as the central metadata structure for index operations in Postg
 ## Dependencies
 - Functions called/Symbols referenced:
   - INDEX_MAX_KEYS (maximum number of index key columns)
-  - ExprState (compiled expression evaluation states)
-  - List (PostgreSQL list structure for expressions and predicates)
+  - [ExprState](../E/ExprState.md) (compiled expression evaluation states)
+  - [List](../L/List.md) (PostgreSQL list structure for expressions and predicates)
 - Called from (representative examples):
-  - index_build (bulk index construction)
-  - index_insert (individual tuple insertion)
+  - [index_build](../i/index_build.md) (bulk index construction)
+  - [index_insert](../i/index_insert.md) (individual tuple insertion)
   - BrinInsert, GinInsert, GistInsert (access method specific insertion)
-  - DefineIndex (index creation command processing)
+  - [DefineIndex](../D/DefineIndex.md) (index creation command processing)
 
 ## Notes and Other Information
 - Fields ii_Concurrent, ii_BrokenHotChain, and ii_ParallelWorkers are used only during index build and are conventionally zeroed otherwise

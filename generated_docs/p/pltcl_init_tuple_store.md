@@ -22,13 +22,13 @@ The function carefully manages memory contexts and resource ownership to ensure 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - tuplestore_begin_heap
-  - TupleDescGetAttInMetadata
-  - MemoryContextSwitchTo
+  - [tuplestore_begin_heap](../t/tuplestore_begin_heap.md)
+  - [TupleDescGetAttInMetadata](../T/TupleDescGetAttInMetadata.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - Assert (multiple calls for validation)
   - SFRM_Materialize_Random
 - Called from (representative examples):
-  - pltcl_returnnext
+  - [pltcl_returnnext](pltcl_returnnext.md)
 
 ## Notes and Other Information
 - This function should only be called for Set Returning Functions (SRFs), verified by Assert(rsi)

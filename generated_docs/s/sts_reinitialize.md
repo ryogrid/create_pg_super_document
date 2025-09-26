@@ -19,7 +19,7 @@ The function is designed to be called between scan cycles and must not be called
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SharedTuplestoreAccessor (structure type)
+  - [SharedTuplestoreAccessor](../S/SharedTuplestoreAccessor.md) (structure type)
 - Called from (representative examples):
   - Functions that need to rescan shared tuplestores (context depends on usage)
 

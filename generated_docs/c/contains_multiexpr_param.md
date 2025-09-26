@@ -23,7 +23,7 @@ This function performs a tree traversal to detect MULTIEXPR parameters within an
 - Functions called/Symbols referenced:
   - IsA (macro for type checking)
   - expression_tree_walker (for recursive tree traversal)
-  - Param (structure type)
+  - [Param](../P/Param.md) (structure type)
   - PARAM_MULTIEXPR (parameter kind constant)
 - Called from (representative examples):
   - [ReplaceVarsFromTargetList_callback](../R/ReplaceVarsFromTargetList_callback.md)

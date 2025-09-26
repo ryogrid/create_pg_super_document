@@ -24,19 +24,19 @@ The returned string pointer references static data within the enum definition an
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - config_enum (struct type)
-  - config_enum_entry (struct type)
+  - [config_enum](config_enum.md) (struct type)
+  - [config_enum_entry](config_enum_entry.md) (struct type)
   - elog (PostgreSQL logging/error function)
 - Called from (representative examples):
-  - GetConfigOption
-  - GetConfigOptionResetString
-  - ShowGUCOption
-  - write_one_nondefault_variable
-  - estimate_variable_size
-  - serialize_variable
-  - call_enum_check_hook
-  - GetConfigOptionValues
-  - printMixedStruct
+  - [GetConfigOption](../G/GetConfigOption.md)
+  - [GetConfigOptionResetString](../G/GetConfigOptionResetString.md)
+  - [ShowGUCOption](../S/ShowGUCOption.md)
+  - [write_one_nondefault_variable](../w/write_one_nondefault_variable.md)
+  - [estimate_variable_size](../e/estimate_variable_size.md)
+  - [serialize_variable](../s/serialize_variable.md)
+  - [call_enum_check_hook](call_enum_check_hook.md)
+  - [GetConfigOptionValues](../G/GetConfigOptionValues.md)
+  - [printMixedStruct](../p/printMixedStruct.md)
 
 ## Notes and Other Information
 - Should only be called with known-valid enum values

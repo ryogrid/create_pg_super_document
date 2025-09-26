@@ -21,8 +21,8 @@ This utility function is used internally by the xact description functions to ap
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendStringInfoString
-  - appendStringInfo
+  - [appendStringInfoString](../a/appendStringInfoString.md)
+  - [appendStringInfo](../a/appendStringInfo.md)
   - TransactionId (type)
 - Called from (representative examples):
   - [xact_desc_commit](xact_desc_commit.md)

@@ -25,12 +25,12 @@ The periodic nature makes this function particularly useful for recurring operat
 ## Dependencies
 - Functions called/Symbols referenced:
   - disable_alarm
-  - GetCurrentTimestamp
-  - enable_timeout
-  - schedule_alarm
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
+  - [enable_timeout](enable_timeout.md)
+  - [schedule_alarm](../s/schedule_alarm.md)
 - Called from (representative examples):
-  - enable_startup_progress_timeout
-  - DisableTimeoutParams
+  - [enable_startup_progress_timeout](enable_startup_progress_timeout.md)
+  - [DisableTimeoutParams](../D/DisableTimeoutParams.md)
 
 ## Notes and Other Information
 - The function temporarily disables alarm interrupts during configuration to ensure atomic setup

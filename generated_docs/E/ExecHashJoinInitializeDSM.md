@@ -29,22 +29,22 @@ The shared state includes batch information, space management, synchronization b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecSetExecProcNode
+  - [ExecSetExecProcNode](ExecSetExecProcNode.md)
   - ExecParallelHashJoin
-  - shm_toc_allocate
-  - shm_toc_insert
-  - pg_atomic_init_u32
-  - LWLockInitialize
-  - BarrierInit
-  - SharedFileSetInit
+  - [shm_toc_allocate](../s/shm_toc_allocate.md)
+  - [shm_toc_insert](../s/shm_toc_insert.md)
+  - [pg_atomic_init_u32](../p/pg_atomic_init_u32.md)
+  - [LWLockInitialize](../L/LWLockInitialize.md)
+  - [BarrierInit](../B/BarrierInit.md)
+  - [SharedFileSetInit](../S/SharedFileSetInit.md)
   - innerPlanState
-  - ParallelHashJoinState (struct type)
-  - HashState (struct type)
+  - [ParallelHashJoinState](../P/ParallelHashJoinState.md) (struct type)
+  - [HashState](../H/HashState.md) (struct type)
   - InvalidDsaPointer (constant)
   - PHJ_GROWTH_OK (constant)
   - LWTRANCHE_PARALLEL_HASH_JOIN (constant)
 - Called from (representative examples):
-  - ExecParallelInitializeDSM
+  - [ExecParallelInitializeDSM](ExecParallelInitializeDSM.md)
 
 ## Notes and Other Information
 - Returns early if no real DSM segment is available, effectively disabling shared hash table mode

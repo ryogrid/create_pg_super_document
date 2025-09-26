@@ -25,9 +25,9 @@ deleteOneObject orchestrates the complete removal of a database object by perfor
 ## Dependencies
 - Functions called/Symbols referenced:
   - InvokeObjectDropHookArg: Invokes drop hooks for the object
-  - table_close: Closes relation for concurrent operations
+  - [table_close](../t/table_close.md): Closes relation for concurrent operations
   - [doDeletion](doDeletion.md): Performs object-specific deletion logic
-  - table_open: Reopens relation after concurrent deletion
+  - [table_open](../t/table_open.md): Reopens relation after concurrent deletion
   - [ScanKeyInit](../S/ScanKeyInit.md): Initializes scan keys for dependency lookup
   - [systable_beginscan](../s/systable_beginscan.md): Begins scan of pg_depend relation
   - [systable_getnext](../s/systable_getnext.md): Gets next dependency record
@@ -37,7 +37,7 @@ deleteOneObject orchestrates the complete removal of a database object by perfor
   - [DeleteComments](../D/DeleteComments.md): Removes associated comments
   - [DeleteSecurityLabel](../D/DeleteSecurityLabel.md): Removes security labels
   - [DeleteInitPrivs](../D/DeleteInitPrivs.md): Removes initial privileges
-  - CommandCounterIncrement: Ensures visibility of changes
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md): Ensures visibility of changes
 - Called from:
   - find_expr_references_context: Expression reference finding context
   - [deleteObjectsInList](deleteObjectsInList.md): Bulk object deletion function

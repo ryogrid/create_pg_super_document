@@ -30,10 +30,10 @@ The function is designed primarily for setting up initial replication state and 
 - Functions called/Symbols referenced:
   - PG_GETARG_TEXT_PP
   - PG_GETARG_LSN
-  - replorigin_check_prerequisites
+  - [replorigin_check_prerequisites](../r/replorigin_check_prerequisites.md)
   - [LockRelationOid](../L/LockRelationOid.md)
-  - replorigin_by_name
-  - text_to_cstring
+  - [replorigin_by_name](../r/replorigin_by_name.md)
+  - [text_to_cstring](../t/text_to_cstring.md)
   - [replorigin_advance](../r/replorigin_advance.md)
   - [UnlockRelationOid](../U/UnlockRelationOid.md)
   - PG_RETURN_VOID

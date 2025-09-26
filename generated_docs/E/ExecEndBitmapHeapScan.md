@@ -24,7 +24,7 @@ The function follows a systematic cleanup approach: first it shuts down child no
   - [tbm_end_iterate](../t/tbm_end_iterate.md)
   - [tbm_end_shared_iterate](../t/tbm_end_shared_iterate.md)
   - [tbm_free](../t/tbm_free.md)
-  - ReleaseBuffer
+  - [ReleaseBuffer](../R/ReleaseBuffer.md)
   - [table_endscan](../t/table_endscan.md)
 - Data types referenced:
   - [BitmapHeapScanState](../B/BitmapHeapScanState.md)

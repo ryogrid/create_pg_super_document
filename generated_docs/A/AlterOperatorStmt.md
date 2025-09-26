@@ -26,13 +26,13 @@ AlterOperatorStmt represents SQL statements that modify properties of existing o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ObjectWithArgs (structure for objects with argument specifications)
-  - List (PostgreSQL generic list type)
-  - DefElem (definition element for specifying options)
+  - [ObjectWithArgs](../O/ObjectWithArgs.md) (structure for objects with argument specifications)
+  - [List](../L/List.md) (PostgreSQL generic list type)
+  - [DefElem](../D/DefElem.md) (definition element for specifying options)
   - NodeTag (standard parse node identification)
 - Called from (representative examples):
-  - AlterOperator (main execution function for operator alteration)
-  - ProcessUtilitySlow (utility command processing)
+  - [AlterOperator](AlterOperator.md) (main execution function for operator alteration)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (utility command processing)
 
 ## Notes and Other Information
 Operator modification is a relatively specialized operation in PostgreSQL, typically used by extension developers and database experts who need to fine-tune operator behavior for performance optimization. The ObjectWithArgs structure ensures that operators are uniquely identified even when multiple operators share the same name but have different argument types (operator overloading). The options list can contain various operator properties such as RESTRICT, JOIN, HASHES, MERGES, and cost-related parameters that influence the query optimizer's decisions.

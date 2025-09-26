@@ -32,9 +32,9 @@ This is essential for embedding C function pointers, data structure addresses, a
   - TypeSizeT (LLVM type for size_t, defined elsewhere in the JIT infrastructure)
 - Called from (representative examples):
   - [llvm_function_reference](llvm_function_reference.md) (in llvmjit.c)
-  - llvm_compile_expr (extensively used throughout llvmjit_expr.c for various expression compilation scenarios)
-  - BuildV1Call (in llvmjit_expr.c)
-  - build_EvalXFuncInt (in llvmjit_expr.c)
+  - [llvm_compile_expr](llvm_compile_expr.md) (extensively used throughout llvmjit_expr.c for various expression compilation scenarios)
+  - [BuildV1Call](../B/BuildV1Call.md) (in llvmjit_expr.c)
+  - [build_EvalXFuncInt](../b/build_EvalXFuncInt.md) (in llvmjit_expr.c)
 
 ## Notes and Other Information
 - This is a header-only inline function defined in src/include/jit/llvmjit_emit.h

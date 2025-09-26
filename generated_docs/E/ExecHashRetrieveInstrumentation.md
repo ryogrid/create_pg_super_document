@@ -27,15 +27,15 @@ After this function completes, the shared_info pointer in the HashState will poi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc
+  - [palloc](../p/palloc.md)
   - memcpy
   - offsetof (macro)
 - Types used:
-  - HashState
-  - SharedHashInfo
-  - HashInstrumentation
+  - [HashState](../H/HashState.md)
+  - [SharedHashInfo](../S/SharedHashInfo.md)
+  - [HashInstrumentation](../H/HashInstrumentation.md)
 - Called from (representative examples):
-  - ExecParallelRetrieveInstrumentation
+  - [ExecParallelRetrieveInstrumentation](ExecParallelRetrieveInstrumentation.md)
 
 ## Notes and Other Information
 - The function returns early if no shared instrumentation data exists (shared_info is NULL)

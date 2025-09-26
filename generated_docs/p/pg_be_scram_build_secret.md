@@ -24,7 +24,7 @@ The resulting secret contains the salt, iteration count, and cryptographic keys 
 - Functions called/Symbols referenced:
   - [pg_saslprep](pg_saslprep.md)
   - [pg_strong_random](pg_strong_random.md)
-  - scram_build_secret
+  - [scram_build_secret](../s/scram_build_secret.md)
   - [pfree](pfree.md)
   - ereport/errcode/errmsg
   - PG_SHA256

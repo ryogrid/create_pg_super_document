@@ -52,13 +52,13 @@ The function supports multiple operation modes:
   - [ItemPointerIsValid](../I/ItemPointerIsValid.md): Validates the tuple ID pointer
   - GetPerTupleExprContext: Gets expression evaluation context for the current tuple
   - [ExecPrepareQual](ExecPrepareQual.md): Prepares partial index predicate expressions for evaluation
-  - ExecQual: Evaluates partial index predicates
+  - [ExecQual](ExecQual.md): Evaluates partial index predicates
   - [FormIndexDatum](../F/FormIndexDatum.md): Extracts index column values from the heap tuple
   - [list_member_oid](../l/list_member_oid.md): Checks if an index OID is in the arbiter list
   - [index_unchanged_by_update](../i/index_unchanged_by_update.md): Determines if an index was logically unchanged by an update
   - [index_insert](../i/index_insert.md): Performs the actual index tuple insertion with uniqueness checking
   - [check_exclusion_or_unique_constraint](../c/check_exclusion_or_unique_constraint.md): Checks exclusion constraints
-  - lappend_oid: Adds index OIDs to the result list for deferred checking
+  - [lappend_oid](../l/lappend_oid.md): Adds index OIDs to the result list for deferred checking
 - Called from (representative examples):
   - [ExecInsert](ExecInsert.md): Main insertion path in nodeModifyTable
   - [ExecUpdateEpilogue](ExecUpdateEpilogue.md): After heap tuple updates in nodeModifyTable

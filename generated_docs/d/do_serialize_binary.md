@@ -33,7 +33,7 @@ This function is primarily used for serializing binary metadata associated with 
   - memcpy (standard C library function)
   - elog (PostgreSQL logging function)
 - Called from (representative examples):
-  - serialize_variable (multiple call sites)
+  - [serialize_variable](../s/serialize_variable.md) (multiple call sites)
 
 ## Notes and Other Information
 - Simpler than do_serialize as it handles raw binary data without formatting

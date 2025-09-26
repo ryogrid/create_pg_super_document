@@ -23,7 +23,7 @@ The function directly accesses the pre-compiled constant value and null status f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExprEvalStep (expression evaluation step structure)
+  - [ExprEvalStep](ExprEvalStep.md) (expression evaluation step structure)
   - pg_attribute_always_inline (compiler hint for inlining)
 - Called from (representative examples):
   - EEO_JUMP (expression evaluation dispatch mechanism)

@@ -23,8 +23,8 @@ The function implements simple GBK character length detection logic:
 - Functions called/Symbols referenced:
   - IS_HIGHBIT_SET (macro to check if high bit is set)
 - Called from (representative examples):
-  - pg_gbk_verifychar
-  - pg_encoding_set_invalid
+  - [pg_gbk_verifychar](pg_gbk_verifychar.md)
+  - [pg_encoding_set_invalid](pg_encoding_set_invalid.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the multibyte character handling subsystem

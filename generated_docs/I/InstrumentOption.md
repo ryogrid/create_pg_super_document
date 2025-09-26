@@ -51,7 +51,7 @@ InstrumentOption provides a set of bitwise flags that control which types of per
   - Used as parameter type in InstrAlloc function
   - Referenced in explain.c for EXPLAIN command instrumentation options
 - Called from (representative examples):
-  - InstrAlloc (src/backend/executor/instrument.c:29)
+  - [InstrAlloc](InstrAlloc.md) (src/backend/executor/instrument.c:29)
   - explain.c instrumentation setup (src/backend/commands/explain.c:634-641)
 
 ## Notes and Other Information

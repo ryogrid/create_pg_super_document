@@ -31,10 +31,10 @@ The structure is part of PostgreSQL's parse tree infrastructure and is created d
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (for type identification)
-  - List (PostgreSQL's list data structure)
+  - [List](../L/List.md) (PostgreSQL's list data structure)
 - Called from (representative examples):
-  - CreateForeignDataWrapper (src/backend/commands/foreigncmds.c:569)
-  - ProcessUtilitySlow (src/backend/tcop/utility.c:1587)
+  - [CreateForeignDataWrapper](CreateForeignDataWrapper.md) (src/backend/commands/foreigncmds.c:569)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (src/backend/tcop/utility.c:1587)
 
 ## Notes and Other Information
 - This structure is defined in src/include/nodes/parsenodes.h alongside other DDL statement nodes

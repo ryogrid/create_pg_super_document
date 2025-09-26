@@ -24,14 +24,14 @@ The function can optionally manage the partition lock itself, or work with an al
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockHeldByMe (assertion check)
-  - LWLockAcquire (conditional)
-  - hash_search_with_hash_value
-  - LWLockRelease (conditional)
+  - [LWLockHeldByMe](../L/LWLockHeldByMe.md) (assertion check)
+  - [LWLockAcquire](../L/LWLockAcquire.md) (conditional)
+  - [hash_search_with_hash_value](../h/hash_search_with_hash_value.md)
+  - [LWLockRelease](../L/LWLockRelease.md) (conditional)
 - Called from (representative examples):
-  - SerialControl
-  - TransferPredicateLocksToNewTarget
-  - DropAllPredicateLocksFromTable
+  - [SerialControl](../S/SerialControl.md)
+  - [TransferPredicateLocksToNewTarget](../T/TransferPredicateLocksToNewTarget.md)
+  - [DropAllPredicateLocksFromTable](../D/DropAllPredicateLocksFromTable.md)
 
 ## Notes and Other Information
 - Static function, only accessible within predicate.c

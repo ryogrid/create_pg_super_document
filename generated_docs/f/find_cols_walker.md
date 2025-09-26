@@ -31,8 +31,8 @@ The function ensures that all variable references have been properly processed b
 - Types referenced:
   - [Node](../N/Node.md)
   - [FindColsContext](../F/FindColsContext.md)
-  - Var
-  - Aggref
+  - [Var](../V/Var.md)
+  - [Aggref](../A/Aggref.md)
   - OUTER_VAR
 - Called from (representative examples):
   - [find_cols](find_cols.md)

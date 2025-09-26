@@ -32,15 +32,15 @@ The function ensures that GREATEST/LEAST expressions follow SQL standard semanti
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (creates new MinMaxExpr node)
-  - transformExprRecurse (transforms individual argument expressions)
-  - select_common_type (determines common type for all arguments)
-  - coerce_to_common_type (applies implicit type coercion)
-  - lappend (appends to linked lists)
+  - [transformExprRecurse](transformExprRecurse.md) (transforms individual argument expressions)
+  - [select_common_type](../s/select_common_type.md) (determines common type for all arguments)
+  - [coerce_to_common_type](../c/coerce_to_common_type.md) (applies implicit type coercion)
+  - [lappend](../l/lappend.md) (appends to linked lists)
   - lfirst (extracts values from list cells)
   - IS_GREATEST (constant for GREATEST operation type)
 
 - Called from (representative examples):
-  - transformExprRecurse (main expression transformation dispatcher)
+  - [transformExprRecurse](transformExprRecurse.md) (main expression transformation dispatcher)
 
 ## Notes and Other Information
 - The function supports both GREATEST and LEAST operations through the same transformation logic

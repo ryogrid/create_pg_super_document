@@ -20,8 +20,8 @@ This function selects a random uint32 uniformly from the full range [0, PG_UINT3
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - xoroshiro128ss (the core PRNG algorithm)
-  - pg_prng_state (state structure type)
+  - [xoroshiro128ss](../x/xoroshiro128ss.md) (the core PRNG algorithm)
+  - [pg_prng_state](pg_prng_state.md) (state structure type)
 - Called from (representative examples):
   - [_bt_findinsertloc](../b/_bt_findinsertloc.md) (B-tree insertion)
   - [acquire_sample_rows](../a/acquire_sample_rows.md) (table sampling)

@@ -19,7 +19,7 @@ This function provides a convenient way to release all session-scoped advisory l
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LockReleaseSession (to release all locks for the current session)
+  - [LockReleaseSession](../L/LockReleaseSession.md) (to release all locks for the current session)
   - PG_RETURN_VOID (to return void result)
 - Constants used:
   - USER_LOCKMETHOD (lock method identifier for advisory locks)

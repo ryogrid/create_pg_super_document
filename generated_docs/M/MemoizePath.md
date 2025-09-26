@@ -46,12 +46,12 @@ The cache uses either hash-based equality comparison or bit-by-bit binary compar
 - Functions called/Symbols referenced:
   - Cardinality
 - Called from (representative examples):
-  - cost_memoize_rescan
-  - cost_rescan
-  - create_plan_recurse
-  - create_memoize_plan
-  - create_memoize_path
-  - reparameterize_path
+  - [cost_memoize_rescan](../c/cost_memoize_rescan.md)
+  - [cost_rescan](../c/cost_rescan.md)
+  - [create_plan_recurse](../c/create_plan_recurse.md)
+  - [create_memoize_plan](../c/create_memoize_plan.md)
+  - [create_memoize_path](../c/create_memoize_path.md)
+  - [reparameterize_path](../r/reparameterize_path.md)
 
 ## Notes and Other Information
 - Introduced as an optimization for parameterized nested loop joins

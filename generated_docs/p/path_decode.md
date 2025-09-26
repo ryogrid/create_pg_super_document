@@ -33,22 +33,22 @@ The function intelligently detects delimiter patterns, manages nesting depth for
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `pair_decode`: Used to parse each individual coordinate pair in the sequence
+  - `[pair_decode](pair_decode.md)`: Used to parse each individual coordinate pair in the sequence
   - `LDELIM_EP`: Left delimiter for open paths (square bracket)
   - `LDELIM`: Left delimiter for closed paths (parenthesis)
   - `DELIM`: Coordinate pair separator (comma)
   - `RDELIM`: Right delimiter for closed paths (parenthesis)  
   - `RDELIM_EP`: Right delimiter for open paths (square bracket)
   - `ereturn`: Error return macro for soft error handling
-  - `Point`: Geometric data structure for storing coordinate pairs
+  - `[Point](../P/Point.md)`: Geometric data structure for storing coordinate pairs
   - `isspace`: Standard library function for whitespace detection
   - `strrchr`: Standard library function for finding last occurrence of character
 - Called from (representative examples):
-  - `path_in`: For parsing path input strings like "[(1,2),(3,4)]" or "((1,2),(3,4))"
-  - `poly_in`: For parsing polygon input strings like "((0,0),(1,0),(1,1),(0,1))"
-  - `box_in`: For parsing box input strings like "(1,2),(3,4)"
-  - `lseg_in`: For parsing line segment coordinates
-  - `line_in`: For parsing line coordinates
+  - `[path_in](path_in.md)`: For parsing path input strings like "[(1,2),(3,4)]" or "((1,2),(3,4))"
+  - `[poly_in](poly_in.md)`: For parsing polygon input strings like "((0,0),(1,0),(1,1),(0,1))"
+  - `[box_in](../b/box_in.md)`: For parsing box input strings like "(1,2),(3,4)"
+  - `[lseg_in](../l/lseg_in.md)`: For parsing line segment coordinates
+  - `[line_in](../l/line_in.md)`: For parsing line coordinates
 
 ## Notes and Other Information
 - This is a static function, only accessible within the geo_ops.c file

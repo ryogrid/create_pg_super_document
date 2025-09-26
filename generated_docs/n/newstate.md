@@ -34,7 +34,7 @@ The  function creates a new state for an NFA with sophisticated memory managemen
   - newfstate (in regc_nfa.c)
   - [duptraverse](../d/duptraverse.md) (in regc_nfa.c)
   - [pull](../p/pull.md) (in regc_nfa.c)
-  - push (in regc_nfa.c)
+  - [push](../p/push.md) (in regc_nfa.c)
   - [makesearch](../m/makesearch.md) (in regcomp.c)
   - [parse](../p/parse.md) (in regcomp.c)
   - [parsebranch](../p/parsebranch.md) (in regcomp.c)

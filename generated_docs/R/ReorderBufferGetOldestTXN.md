@@ -27,15 +27,15 @@ This function is essential for maintaining the correct order of transaction proc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AssertTXNLsnOrder (validates LSN ordering in the buffer)
-  - dlist_is_empty (checks if the transaction list is empty)
+  - [AssertTXNLsnOrder](../A/AssertTXNLsnOrder.md) (validates LSN ordering in the buffer)
+  - [dlist_is_empty](../d/dlist_is_empty.md) (checks if the transaction list is empty)
   - dlist_head_element (retrieves the first element from the LSN-ordered list)
   - rbtxn_is_known_subxact (validates that the transaction is not a subtransaction)
 - Data structures used:
-  - ReorderBuffer
-  - ReorderBufferTXN
+  - [ReorderBuffer](ReorderBuffer.md)
+  - [ReorderBufferTXN](ReorderBufferTXN.md)
 - Called from (representative examples):
-  - SnapBuildProcessRunningXacts (at src/backend/replication/logical/snapbuild.c:1345)
+  - [SnapBuildProcessRunningXacts](../S/SnapBuildProcessRunningXacts.md) (at src/backend/replication/logical/snapbuild.c:1345)
 
 ## Notes and Other Information
 - Returns NULL if no transactions are available in the buffer

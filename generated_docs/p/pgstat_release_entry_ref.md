@@ -19,19 +19,19 @@ This static function manages the cleanup of statistics entry references in Postg
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_delete_pending_entry
-  - pg_atomic_fetch_sub_u32
-  - dshash_find
-  - pg_atomic_read_u32
-  - pgstat_free_entry
-  - dshash_release_lock
+  - [pgstat_delete_pending_entry](pgstat_delete_pending_entry.md)
+  - [pg_atomic_fetch_sub_u32](pg_atomic_fetch_sub_u32.md)
+  - [dshash_find](../d/dshash_find.md)
+  - [pg_atomic_read_u32](pg_atomic_read_u32.md)
+  - [pgstat_free_entry](pgstat_free_entry.md)
+  - [dshash_release_lock](../d/dshash_release_lock.md)
   - pgstat_entry_ref_hash_delete
-  - pfree
+  - [pfree](pfree.md)
 - Called from (representative examples):
-  - pgstat_get_entry_ref
-  - pgstat_gc_entry_refs
-  - pgstat_release_matching_entry_refs
-  - pgstat_drop_entry
+  - [pgstat_get_entry_ref](pgstat_get_entry_ref.md)
+  - [pgstat_gc_entry_refs](pgstat_gc_entry_refs.md)
+  - [pgstat_release_matching_entry_refs](pgstat_release_matching_entry_refs.md)
+  - [pgstat_drop_entry](pgstat_drop_entry.md)
 
 ## Notes and Other Information
 The function implements careful synchronization to handle concurrent access to shared entries. The generation checking prevents race conditions when entries are reused. Only dropped entries can reach a zero reference count, which is enforced by assertions.

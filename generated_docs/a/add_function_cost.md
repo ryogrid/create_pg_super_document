@@ -34,8 +34,8 @@ The function distinguishes between startup costs (one-time initialization) and p
   - OidFunctionCall1
   - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - Form_pg_proc
-  - SupportRequestCost
-  - QualCost
+  - [SupportRequestCost](../S/SupportRequestCost.md)
+  - [QualCost](../Q/QualCost.md)
 - Called from (representative examples):
   - [cost_windowagg](../c/cost_windowagg.md)
   - [cost_qual_eval_walker](../c/cost_qual_eval_walker.md)

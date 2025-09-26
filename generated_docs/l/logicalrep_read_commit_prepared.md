@@ -20,13 +20,13 @@ This function parses a COMMIT PREPARED message from the logical replication prot
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_getmsgbyte
-  - pq_getmsgint64
-  - pq_getmsgint
-  - pq_getmsgstring
-  - strlcpy
+  - [pq_getmsgbyte](../p/pq_getmsgbyte.md)
+  - [pq_getmsgint64](../p/pq_getmsgint64.md)
+  - [pq_getmsgint](../p/pq_getmsgint.md)
+  - [pq_getmsgstring](../p/pq_getmsgstring.md)
+  - [strlcpy](../s/strlcpy.md)
 - Called from (representative examples):
-  - apply_handle_commit_prepared
+  - [apply_handle_commit_prepared](../a/apply_handle_commit_prepared.md)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's logical replication protocol implementation for two-phase commit support

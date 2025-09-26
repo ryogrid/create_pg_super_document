@@ -19,7 +19,7 @@ This function serves as a convenience wrapper around get_sortgroupref_tle(). It 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_sortgroupref_tle](get_sortgroupref_tle.md)
-  - SortGroupClause (structure type)
+  - [SortGroupClause](../S/SortGroupClause.md) (structure type)
 - Called from (representative examples):
   - [build_pertrans_for_aggref](../b/build_pertrans_for_aggref.md)
   - [query_is_distinct_for](../q/query_is_distinct_for.md)

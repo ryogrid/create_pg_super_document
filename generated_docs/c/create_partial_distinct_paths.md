@@ -32,7 +32,7 @@ The function implements several optimization strategies:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fetch_upper_rel
+  - [fetch_upper_rel](../f/fetch_upper_rel.md)
   - [get_sortgrouplist_exprs](../g/get_sortgrouplist_exprs.md)
   - [estimate_num_groups](../e/estimate_num_groups.md)
   - [grouping_is_sortable](../g/grouping_is_sortable.md)

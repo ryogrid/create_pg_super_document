@@ -80,16 +80,16 @@ The function first extracts the record type information and verifies that the sy
   - XLogRecGetInfo (extract record type information)
   - XLogRecHasAnyBlockRefs (verify no backup blocks)
   - XLogRecGetData (extract record data)
-  - StandbyAcquireAccessExclusiveLock (acquire locks during recovery)
-  - ProcArrayApplyRecoveryInfo (apply transaction state information)
-  - pgstat_report_stat (report statistics)
-  - ProcessCommittedInvalidationMessages (process cache invalidations)
+  - [StandbyAcquireAccessExclusiveLock](../S/StandbyAcquireAccessExclusiveLock.md) (acquire locks during recovery)
+  - [ProcArrayApplyRecoveryInfo](../P/ProcArrayApplyRecoveryInfo.md) (apply transaction state information)
+  - [pgstat_report_stat](../p/pgstat_report_stat.md) (report statistics)
+  - [ProcessCommittedInvalidationMessages](../P/ProcessCommittedInvalidationMessages.md) (process cache invalidations)
   - elog (error logging)
 - Data structures used:
-  - xl_standby_locks (lock acquisition record format)
-  - xl_running_xacts (running transactions record format)
-  - xl_invalidations (invalidation messages record format)
-  - RunningTransactionsData (transaction state structure)
+  - [xl_standby_locks](../x/xl_standby_locks.md) (lock acquisition record format)
+  - [xl_running_xacts](../x/xl_running_xacts.md) (running transactions record format)
+  - [xl_invalidations](../x/xl_invalidations.md) (invalidation messages record format)
+  - [RunningTransactionsData](../R/RunningTransactionsData.md) (transaction state structure)
 - Record types handled:
   - XLOG_STANDBY_LOCK
   - XLOG_RUNNING_XACTS

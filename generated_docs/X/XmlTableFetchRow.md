@@ -27,9 +27,9 @@ The function returns true when a new row is available for processing, and false 
 - Functions called/Symbols referenced:
   - [GetXmlTableBuilderPrivateData](../G/GetXmlTableBuilderPrivateData.md)
   - xmlSetStructuredErrorFunc (libxml2)
-  - xml_errorHandler
+  - [xml_errorHandler](../x/xml_errorHandler.md)
   - xmlXPathCompiledEval (libxml2)
-  - xml_ereport
+  - [xml_ereport](../x/xml_ereport.md)
   - NO_XML_SUPPORT
 - Called from (representative examples):
   - No direct callers found in codebase analysis

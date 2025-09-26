@@ -23,7 +23,7 @@ The function is essential for proper resource management in SPI applications, as
 ## Dependencies
 - Functions called/Symbols referenced:
   - PortalIsValid (validation function)
-  - PortalDrop (actual portal cleanup function)
+  - [PortalDrop](../P/PortalDrop.md) (actual portal cleanup function)
   - [Portal](../P/Portal.md) (struct type)
 - Called from (representative examples):
   - [tsquery_rewrite_query](../t/tsquery_rewrite_query.md)

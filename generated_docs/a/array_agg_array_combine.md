@@ -24,7 +24,7 @@ The function implements the following logic:
 ## Dependencies
 - Functions called/Symbols referenced:
   - [AggCheckCallContext](../A/AggCheckCallContext.md)
-  - initArrayResultArr
+  - [initArrayResultArr](../i/initArrayResultArr.md)
   - [array_bitmap_copy](array_bitmap_copy.md)
   - [pg_nextpower2_32](../p/pg_nextpower2_32.md)
   - [repalloc](../r/repalloc.md)

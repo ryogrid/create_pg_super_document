@@ -19,13 +19,13 @@ ExecEndWindowAgg performs comprehensive cleanup for a WindowAgg executor node wh
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - release_partition
-  - MemoryContextDelete
-  - pfree
+  - [release_partition](../r/release_partition.md)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
+  - [pfree](../p/pfree.md)
   - outerPlanState
-  - ExecEndNode
+  - [ExecEndNode](ExecEndNode.md)
 - Called from (representative examples):
-  - ExecEndNode (general executor cleanup)
+  - [ExecEndNode](ExecEndNode.md) (general executor cleanup)
 
 ## Notes and Other Information
 - This function is part of the standard PostgreSQL executor node cleanup protocol

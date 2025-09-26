@@ -79,7 +79,7 @@ The catctup struct represents a single cached catalog tuple within PostgreSQL's 
   - [dlist_node](../d/dlist_node.md) (doubly-linked list node structure)
   - [HeapTupleData](../H/HeapTupleData.md) (heap tuple data structure)
   - [catclist](catclist.md) (catalog cache list structure)
-  - CatCache (catalog cache structure)
+  - [CatCache](../C/CatCache.md) (catalog cache structure)
 - Called from (representative examples):
   - [CatCacheRemoveCTup](../C/CatCacheRemoveCTup.md) (cache tuple removal)
   - [SearchCatCache](../S/SearchCatCache.md) functions (cache lookup operations)

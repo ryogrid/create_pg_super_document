@@ -38,11 +38,11 @@ When batching is not active (nbatch == 1), all tuples are assigned to batch 0. F
   - [HashJoinTable](../H/HashJoinTable.md) (struct type)
   - [pg_rotate_right32](../p/pg_rotate_right32.md) (bit rotation function)
 - Called from (representative examples):
-  - ExecHashIncreaseNumBatches
-  - ExecHashTableInsert
-  - ExecParallelHashTableInsert
+  - [ExecHashIncreaseNumBatches](ExecHashIncreaseNumBatches.md)
+  - [ExecHashTableInsert](ExecHashTableInsert.md)
+  - [ExecParallelHashTableInsert](ExecParallelHashTableInsert.md)
   - [ExecHashJoinImpl](ExecHashJoinImpl.md)
-  - ExecParallelHashJoinPartitionOuter
+  - [ExecParallelHashJoinPartitionOuter](ExecParallelHashJoinPartitionOuter.md)
 
 ## Notes and Other Information
 - Assumes hash functions produce well-randomized output bits to avoid skewed distribution

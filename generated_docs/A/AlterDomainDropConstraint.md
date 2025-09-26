@@ -22,7 +22,7 @@ This function removes a named constraint from a domain type by scanning the pg_c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeTypeNameFromNameList
+  - [makeTypeNameFromNameList](../m/makeTypeNameFromNameList.md)
   - [typenameTypeId](../t/typenameTypeId.md)
   - SearchSysCacheCopy1
   - [checkDomainOwner](../c/checkDomainOwner.md)

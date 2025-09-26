@@ -29,7 +29,7 @@ This function takes no parameters and returns a boolean value:
 ## Dependencies
 - Functions called/Symbols referenced:
   - `likely()` (compiler optimization hint)
-  - `PostmasterIsAliveInternal()` (actual liveness checking logic)
+  - `[PostmasterIsAliveInternal](PostmasterIsAliveInternal.md)()` (actual liveness checking logic)
   - `postmaster_possibly_dead` (volatile flag set by signal handler)
 
 - Called from (representative examples):

@@ -36,8 +36,8 @@ The function workflow:
 - Functions called/Symbols referenced:
   - [cache_locale_time](../c/cache_locale_time.md) (for caching localized day/month names)
   - [from_char_seq_search](../f/from_char_seq_search.md) (for parsing textual date/time elements)
-  - from_char_parse_int, from_char_parse_int_len (for parsing numeric fields)
-  - from_char_set_int, from_char_set_mode (for storing parsed values)
+  - [from_char_parse_int](../f/from_char_parse_int.md), from_char_parse_int_len (for parsing numeric fields)
+  - [from_char_set_int](../f/from_char_set_int.md), from_char_set_mode (for storing parsed values)
   - [adjust_partial_year_to_2020](../a/adjust_partial_year_to_2020.md) (for handling 2-digit years)
   - [DecodeTimezoneAbbrevPrefix](DecodeTimezoneAbbrevPrefix.md) (for timezone abbreviation parsing)
   - Various format validation and utility functions

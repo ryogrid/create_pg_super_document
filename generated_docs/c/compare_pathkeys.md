@@ -24,7 +24,7 @@ The comparison algorithm first checks for identical list pointers as an optimiza
 ## Dependencies
 - Functions called/Symbols referenced:
   - forboth (macro for iterating two lists simultaneously)
-  - PathKey (pathkey structure type)
+  - [PathKey](../P/PathKey.md) (pathkey structure type)
 - Return values:
   - PATHKEYS_EQUAL
   - PATHKEYS_DIFFERENT

@@ -27,8 +27,8 @@ The function uses HASH_ENTER_NULL mode for hash_search, which allows it to detec
   - [errcode](../e/errcode.md)
   - [errmsg](../e/errmsg.md)
 - Data structures used:
-  - config_generic
-  - GUCHashEntry
+  - [config_generic](../c/config_generic.md)
+  - [GUCHashEntry](../G/GUCHashEntry.md)
   - HASH_ENTER_NULL
 - Called from:
   - [add_placeholder_variable](add_placeholder_variable.md) (src/backend/utils/misc/guc.c:1211)

@@ -29,7 +29,7 @@ Key configuration areas include:
 - Functions called/Symbols referenced:
   - [RestoreOptions](../R/RestoreOptions.md) (struct type)
   - [ahprintf](../a/ahprintf.md) (archive output function)
-  - pg_encoding_to_char (encoding conversion function)
+  - [pg_encoding_to_char](../p/pg_encoding_to_char.md) (encoding conversion function)
   - [fmtId](../f/fmtId.md) (identifier formatting function) 
   - [StartTransaction](../S/StartTransaction.md) (transaction management function)
 - Called from (representative examples):

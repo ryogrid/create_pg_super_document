@@ -31,7 +31,7 @@ The function follows PostgreSQL's replication protocol strictly, verifying that 
   - [PQntuples](../P/PQntuples.md)
   - [PQgetvalue](../P/PQgetvalue.md)
   - [pg_strtoint32](../p/pg_strtoint32.md)
-  - PQendcopy
+  - [PQendcopy](../P/PQendcopy.md)
   - [PQclear](../P/PQclear.md)
   - [pchomp](../p/pchomp.md)
 - Called from (representative examples):

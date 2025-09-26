@@ -30,18 +30,18 @@ The function ensures that only valid Unicode recomposition rules are applied and
 ## Dependencies
 - Functions called/Symbols referenced:
   - LBASE, LCOUNT, VBASE, VCOUNT, SBASE, SCOUNT, TBASE, TCOUNT (Hangul constants)
-  - pg_unicode_decomposition (decomposition table structure)
+  - [pg_unicode_decomposition](../p/pg_unicode_decomposition.md) (decomposition table structure)
   - pg_unicode_recompinfo (recomposition info structure, backend only)
   - pg_hton64 (byte order conversion, backend only)
   - UnicodeDecompMain (main decomposition table)
   - UnicodeDecomp_codepoints (codepoint array)
   - DECOMPOSITION_SIZE, DECOMPOSITION_NO_COMPOSE (macros for decomposition properties)
 - Called from (representative examples):
-  - unicode_normalize
+  - [unicode_normalize](../u/unicode_normalize.md)
 
 ## Notes and Other Information
 - Returns `true` if successful recomposition occurs, `false` otherwise
-- Backend implementation uses perfect hash function for O(1) lookup performance
+- [Backend](../B/Backend.md) implementation uses perfect hash function for O(1) lookup performance
 - Frontend implementation uses linear search as fallback
 - Follows Unicode Standard Annex #15 (Unicode Normalization Forms)
 - Critical for implementing NFC (Normalization Form Composed) normalization

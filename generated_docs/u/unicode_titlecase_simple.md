@@ -21,7 +21,7 @@ Titlecase is used in certain writing systems where the first letter of a word sh
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_case_map
+  - [find_case_map](../f/find_case_map.md)
   - pg_case_map (structure)
   - CaseTitle (enum value)
 - Called from (representative examples):

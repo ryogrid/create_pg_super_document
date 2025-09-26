@@ -28,14 +28,14 @@ The comparison is essential for buffer management operations that target entire 
   - BufferTag (structure type)
   - [RelFileLocator](../R/RelFileLocator.md) (structure type)
 - Called from (representative examples):
-  - ReleaseAndReadBuffer
+  - [ReleaseAndReadBuffer](../R/ReleaseAndReadBuffer.md)
   - [DropRelationBuffers](../D/DropRelationBuffers.md)
   - [DropRelationsAllBuffers](../D/DropRelationsAllBuffers.md)
   - [FindAndDropRelationBuffers](../F/FindAndDropRelationBuffers.md)
   - [FlushRelationBuffers](../F/FlushRelationBuffers.md)
   - [FlushRelationsAllBuffers](../F/FlushRelationsAllBuffers.md)
-  - DropRelationLocalBuffers
-  - DropRelationAllLocalBuffers
+  - [DropRelationLocalBuffers](../D/DropRelationLocalBuffers.md)
+  - [DropRelationAllLocalBuffers](../D/DropRelationAllLocalBuffers.md)
 
 ## Notes and Other Information
 - This is an inline function optimized for frequent relation-level buffer operations

@@ -19,7 +19,7 @@ The `convert_server_name` function is a support routine for the has_server_privi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - text_to_cstring
+  - [text_to_cstring](../t/text_to_cstring.md)
   - [get_foreign_server_oid](../g/get_foreign_server_oid.md)
 - Called from (representative examples):
   - [has_server_privilege_name_name](../h/has_server_privilege_name_name.md)

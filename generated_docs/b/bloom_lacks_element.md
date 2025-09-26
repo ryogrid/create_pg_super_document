@@ -32,8 +32,8 @@ The function uses the same bit manipulation techniques as `bloom_add_element` to
   - [bloom_filter](bloom_filter.md): The filter structure type
 
 - Called from (representative examples):
-  - `roles_list_append`: Testing for duplicate role additions in ACL processing
-  - `nfalsepos_for_missing_strings`: Test validation of false positive rates
+  - `[roles_list_append](../r/roles_list_append.md)`: Testing for duplicate role additions in ACL processing
+  - `[nfalsepos_for_missing_strings](../n/nfalsepos_for_missing_strings.md)`: Test validation of false positive rates
 
 ## Notes and Other Information
 - Guarantees no false negatives - if element was added, function will return false

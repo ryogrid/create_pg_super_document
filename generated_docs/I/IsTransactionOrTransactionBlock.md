@@ -26,7 +26,7 @@ This function takes no parameters and returns a boolean value indicating whether
   - TBLOCK_DEFAULT (enum constant)
 - Called from (representative examples):
   - [ProcessNotifyInterrupt](../P/ProcessNotifyInterrupt.md)
-  - ProcessInterrupts
+  - [ProcessInterrupts](../P/ProcessInterrupts.md)
   - [pgstat_report_stat](../p/pgstat_report_stat.md)
   - [SnapBuildExportSnapshot](../S/SnapBuildExportSnapshot.md)
   - [WalSndErrorCleanup](../W/WalSndErrorCleanup.md)

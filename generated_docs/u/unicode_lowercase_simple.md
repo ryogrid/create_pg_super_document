@@ -22,11 +22,11 @@ The function uses PostgreSQL's optimized case mapping table which provides dense
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_case_map
+  - [find_case_map](../f/find_case_map.md)
   - pg_case_map (structure)
   - CaseLower (enum value)
 - Called from (representative examples):
-  - pg_wc_tolower
+  - [pg_wc_tolower](../p/pg_wc_tolower.md)
   - [icu_test_simple](../i/icu_test_simple.md)
 
 ## Notes and Other Information

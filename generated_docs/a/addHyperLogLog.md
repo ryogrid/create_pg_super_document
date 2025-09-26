@@ -24,17 +24,17 @@ It is critical that the input hash values have uniform bit distribution, as the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - rho (calculates position of first set bit)
+  - [rho](../r/rho.md) (calculates position of first set bit)
   - Max (macro for maximum value selection)
   - BITS_PER_BYTE (constant for bit manipulation)
-  - hyperLogLogState (structure type)
+  - [hyperLogLogState](../h/hyperLogLogState.md) (structure type)
 - Called from (representative examples):
-  - hashagg_spill_tuple
-  - macaddr_abbrev_convert
-  - network_abbrev_convert
-  - numeric_abbrev_convert_var
-  - uuid_abbrev_convert
-  - varstr_abbrev_convert
+  - [hashagg_spill_tuple](../h/hashagg_spill_tuple.md)
+  - [macaddr_abbrev_convert](../m/macaddr_abbrev_convert.md)
+  - [network_abbrev_convert](../n/network_abbrev_convert.md)
+  - [numeric_abbrev_convert_var](../n/numeric_abbrev_convert_var.md)
+  - [uuid_abbrev_convert](../u/uuid_abbrev_convert.md)
+  - [varstr_abbrev_convert](../v/varstr_abbrev_convert.md)
 
 ## Notes and Other Information
 - The hash input must be from a quality hash function like hash_any() for algorithm correctness

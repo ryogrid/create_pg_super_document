@@ -22,13 +22,13 @@ The function is typically called before executing queries to ensure the completi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - QueryCompletion (struct type)
+  - [QueryCompletion](../Q/QueryCompletion.md) (struct type)
   - CMDTAG_UNKNOWN (enum constant)
 - Called from (representative examples):
   - [_SPI_execute_plan](../S/_SPI_execute_plan.md) (src/backend/executor/spi.c:2717)
   - [PortalRun](../P/PortalRun.md) (src/backend/tcop/pquery.c:705)
   - [FillPortalStore](../F/FillPortalStore.md) (src/backend/tcop/pquery.c:1003)
-  - CopyQueryCompletion (src/include/tcop/cmdtag.h:52)
+  - [CopyQueryCompletion](../C/CopyQueryCompletion.md) (src/include/tcop/cmdtag.h:52)
 
 ## Notes and Other Information
 - The QueryCompletion structure contains two fields: commandTag (CommandTag enum) and nprocessed (uint64 counter)

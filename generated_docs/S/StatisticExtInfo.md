@@ -41,18 +41,18 @@ The planner uses these statistics during selectivity estimation to refine its un
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelOptInfo (structure for relation optimization info)
-  - Bitmapset (bitmap data structure)
-  - List (generic list structure)
+  - [RelOptInfo](../R/RelOptInfo.md) (structure for relation optimization info)
+  - [Bitmapset](../B/Bitmapset.md) (bitmap data structure)
+  - [List](../L/List.md) (generic list structure)
 
 - Called from (representative examples):
-  - get_relation_statistics_worker (plancat.c:1404, 1418, 1432, 1446)
-  - dependency_is_compatible_expression (dependencies.c:1321)
-  - dependencies_clauselist_selectivity (dependencies.c:1569)
-  - has_stats_of_kind (extended_stats.c:1124)
-  - choose_best_statistics (extended_stats.c:1214, 1221)
-  - statext_mcv_clauselist_selectivity (extended_stats.c:1754)
-  - estimate_multivariate_ndistinct (selfuncs.c:3975, 3988)
+  - [get_relation_statistics_worker](../g/get_relation_statistics_worker.md) (plancat.c:1404, 1418, 1432, 1446)
+  - [dependency_is_compatible_expression](../d/dependency_is_compatible_expression.md) (dependencies.c:1321)
+  - [dependencies_clauselist_selectivity](../d/dependencies_clauselist_selectivity.md) (dependencies.c:1569)
+  - [has_stats_of_kind](../h/has_stats_of_kind.md) (extended_stats.c:1124)
+  - [choose_best_statistics](../c/choose_best_statistics.md) (extended_stats.c:1214, 1221)
+  - [statext_mcv_clauselist_selectivity](../s/statext_mcv_clauselist_selectivity.md) (extended_stats.c:1754)
+  - [estimate_multivariate_ndistinct](../e/estimate_multivariate_ndistinct.md) (selfuncs.c:3975, 3988)
 
 ## Notes and Other Information
 - Each pg_statistic_ext row may be represented by multiple StatisticExtInfo nodes, one for each statistics kind computed

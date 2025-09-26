@@ -33,7 +33,7 @@ The structure forms a linked list (stack) where new entries are added to the fro
 - `*next`: Pointer to the next CatCInProgress entry in the stack, forming a linked list
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CatCache (referenced as member type)
+  - [CatCache](CatCache.md) (referenced as member type)
   - [CatCInProgress](CatCInProgress.md) (self-reference for linked list structure)
 - Called from (representative examples):
   - [CatCacheInvalidate](CatCacheInvalidate.md) (marks matching entries as dead)

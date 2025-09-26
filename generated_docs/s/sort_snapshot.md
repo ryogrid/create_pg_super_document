@@ -24,7 +24,7 @@ The function only performs sorting when there are more than one transaction IDs 
   - qsort (C library function)
   - [qunique](../q/qunique.md) (PostgreSQL utility function)
   - [cmp_fxid](../c/cmp_fxid.md) (comparison function)
-  - FullTransactionId (type)
+  - [FullTransactionId](../F/FullTransactionId.md) (type)
   - [pg_snapshot](../p/pg_snapshot.md) (type)
 - Called from (representative examples):
   - [pg_current_snapshot](../p/pg_current_snapshot.md)

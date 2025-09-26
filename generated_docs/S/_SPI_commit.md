@@ -37,17 +37,17 @@ The chain parameter controls whether transaction characteristics (isolation leve
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsSubTransaction (subtransaction validation)
-  - SaveTransactionCharacteristics, RestoreTransactionCharacteristics (transaction state management)
-  - HoldPinnedPortals, ForgetPortalSnapshots (portal lifecycle management)
-  - CommitTransactionCommand (actual transaction commit)
-  - StartTransactionCommand (new transaction initiation)
-  - AbortCurrentTransaction (error recovery)
-  - CopyErrorData, FlushErrorState, ReThrowError (error handling)
+  - [IsSubTransaction](../I/IsSubTransaction.md) (subtransaction validation)
+  - [SaveTransactionCharacteristics](SaveTransactionCharacteristics.md), RestoreTransactionCharacteristics (transaction state management)
+  - [HoldPinnedPortals](../H/HoldPinnedPortals.md), ForgetPortalSnapshots (portal lifecycle management)
+  - [CommitTransactionCommand](../C/CommitTransactionCommand.md) (actual transaction commit)
+  - [StartTransactionCommand](StartTransactionCommand.md) (new transaction initiation)
+  - [AbortCurrentTransaction](../A/AbortCurrentTransaction.md) (error recovery)
+  - [CopyErrorData](../C/CopyErrorData.md), FlushErrorState, ReThrowError (error handling)
 
 - Called from:
-  - SPI_commit (public wrapper without chaining)
-  - SPI_commit_and_chain (public wrapper with chaining)
+  - [SPI_commit](SPI_commit.md) (public wrapper without chaining)
+  - [SPI_commit_and_chain](SPI_commit_and_chain.md) (public wrapper with chaining)
 
 ## Notes and Other Information
 - **Internal Function**: Static function not exposed in public SPI API

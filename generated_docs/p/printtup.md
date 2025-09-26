@@ -31,12 +31,12 @@ The function includes memory management by switching to a temporary memory conte
 ## Dependencies
 - Functions called/Symbols referenced:
   - [printtup_prepare_info](printtup_prepare_info.md): Prepares attribute information for output formatting
-  - slot_getallattrs: Ensures all attributes in the slot are deconstructed
-  - pq_beginmessage_reuse: Starts a PostgreSQL protocol message
+  - [slot_getallattrs](../s/slot_getallattrs.md): Ensures all attributes in the slot are deconstructed
+  - [pq_beginmessage_reuse](pq_beginmessage_reuse.md): Starts a PostgreSQL protocol message
   - [pq_sendint16](pq_sendint16.md): Sends a 16-bit integer in network byte order
   - [pq_sendint32](pq_sendint32.md): Sends a 32-bit integer in network byte order
-  - pq_sendcountedtext: Sends text data with length prefix
-  - pq_sendbytes: Sends binary data
+  - [pq_sendcountedtext](pq_sendcountedtext.md): Sends text data with length prefix
+  - [pq_sendbytes](pq_sendbytes.md): Sends binary data
   - [pq_endmessage_reuse](pq_endmessage_reuse.md): Completes and sends the protocol message
   - [OutputFunctionCall](../O/OutputFunctionCall.md): Converts datum to text representation
   - [SendFunctionCall](../S/SendFunctionCall.md): Converts datum to binary representation

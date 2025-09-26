@@ -35,10 +35,10 @@ The function implements a retry mechanism to handle race conditions where WAL se
   - XLByteToSeg
   - [XLogGetLastRemovedSegno](../X/XLogGetLastRemovedSegno.md)
   - SlotIsLogical
-  - LogStandbySnapshot
+  - [LogStandbySnapshot](../L/LogStandbySnapshot.md)
   - [XLogFlush](../X/XLogFlush.md)
 - Called from (representative examples):
-  - CreateInitDecodingContext
+  - [CreateInitDecodingContext](../C/CreateInitDecodingContext.md)
   - [create_physical_replication_slot](../c/create_physical_replication_slot.md)
   - [CreateReplicationSlot](../C/CreateReplicationSlot.md)
 

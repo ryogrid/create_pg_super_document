@@ -24,16 +24,16 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pgwin32_signal_initialize](../p/pgwin32_signal_initialize.md) (Windows signal handling)
-  - set_stack_base (stack depth checking setup)
+  - [set_stack_base](../s/set_stack_base.md) (stack depth checking setup)
   - [InitProcessGlobals](InitProcessGlobals.md) (global process state)
   - [on_exit_reset](../o/on_exit_reset.md) (clear parent's exit handlers)
   - [pqinitmask](../p/pqinitmask.md) (signal mask initialization for EXEC_BACKEND)
-  - InitializeLatchSupport (latch infrastructure)
+  - [InitializeLatchSupport](InitializeLatchSupport.md) (latch infrastructure)
   - [InitProcessLocalLatch](InitProcessLocalLatch.md) (process-local latch)
-  - InitializeLatchWaitSet (wait event infrastructure)
+  - [InitializeLatchWaitSet](InitializeLatchWaitSet.md) (wait event infrastructure)
   - [pqsignal](../p/pqsignal.md) (signal handler setup)
   - [SignalHandlerForCrashExit](../S/SignalHandlerForCrashExit.md) (crash signal handler)
-  - PostmasterDeathSignalInit (postmaster monitoring)
+  - [PostmasterDeathSignalInit](../P/PostmasterDeathSignalInit.md) (postmaster monitoring)
 
 - Called from (representative examples):
   - [postmaster_child_launch](../p/postmaster_child_launch.md)

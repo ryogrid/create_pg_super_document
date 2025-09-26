@@ -22,12 +22,12 @@ The `append_schema_pattern` function processes a schema name pattern and adds it
 ## Dependencies
 - Functions called/Symbols referenced:
   - [extend_pattern_info_array](../e/extend_pattern_info_array.md)
-  - initPQExpBuffer
+  - [initPQExpBuffer](../i/initPQExpBuffer.md)
   - [patternToSQLRegex](../p/patternToSQLRegex.md)
   - pg_log_error
   - exit
   - [pstrdup](../p/pstrdup.md)
-  - termPQExpBuffer
+  - [termPQExpBuffer](../t/termPQExpBuffer.md)
 - Types used:
   - [PatternInfoArray](../P/PatternInfoArray.md)
   - [PQExpBufferData](../P/PQExpBufferData.md)

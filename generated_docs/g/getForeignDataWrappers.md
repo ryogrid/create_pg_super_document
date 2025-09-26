@@ -20,18 +20,18 @@ This function is part of the pg_dump utility and is responsible for extracting c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - createPQExpBuffer
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)
   - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
   - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
   - [PQntuples](../P/PQntuples.md)/PQfnumber/PQgetvalue/PQgetisnull
-  - pg_malloc
+  - [pg_malloc](../p/pg_malloc.md)
   - atooid
   - [AssignDumpId](../A/AssignDumpId.md)
   - [getRoleName](getRoleName.md)
   - [selectDumpableObject](../s/selectDumpableObject.md)
   - [pg_strdup](../p/pg_strdup.md)
   - [PQclear](../P/PQclear.md)
-  - destroyPQExpBuffer
+  - [destroyPQExpBuffer](../d/destroyPQExpBuffer.md)
 - Called from (representative examples):
   - [getSchemaData](getSchemaData.md)
 

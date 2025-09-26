@@ -34,7 +34,7 @@ Incremental sort cannot support backward scans or mark/restore operations becaus
 - Functions called/Symbols referenced:
   - makeNode (creates IncrementalSortState)
   - [ExecInitNode](ExecInitNode.md) (initializes outer child node)
-  - ExecCreateScanSlotFromOuterPlan (creates scan slot)
+  - [ExecCreateScanSlotFromOuterPlan](ExecCreateScanSlotFromOuterPlan.md) (creates scan slot)
   - [ExecInitResultTupleSlotTL](ExecInitResultTupleSlotTL.md) (initializes result slot and tuple descriptor)
   - [MakeSingleTupleTableSlot](../M/MakeSingleTupleTableSlot.md) (creates standalone tuple slots)
   - [ExecGetResultType](ExecGetResultType.md) (gets result tuple descriptor)

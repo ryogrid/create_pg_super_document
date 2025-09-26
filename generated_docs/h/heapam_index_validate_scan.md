@@ -34,7 +34,7 @@ The function handles HOT (Heap-Only-Tuples) chains by converting actual tuple TI
   - [tuplesort_getdatum](../t/tuplesort_getdatum.md)
   - [FormIndexDatum](../F/FormIndexDatum.md)
   - [index_insert](../i/index_insert.md)
-  - ExecQual
+  - [ExecQual](../E/ExecQual.md)
   - [ItemPointerCompare](../I/ItemPointerCompare.md)
   - [table_beginscan_strat](../t/table_beginscan_strat.md)
 - Called from (representative examples):

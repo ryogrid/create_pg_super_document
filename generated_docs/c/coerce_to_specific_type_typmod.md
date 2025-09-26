@@ -33,7 +33,7 @@ The function uses COERCION_ASSIGNMENT context, providing appropriate flexibility
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - exprType (get expression type)
+  - [exprType](../e/exprType.md) (get expression type)
   - [coerce_to_target_type](coerce_to_target_type.md) (perform type coercion with typmod)
   - [expression_returns_set](../e/expression_returns_set.md) (check for set-returning expressions)
   - [exprLocation](../e/exprLocation.md) (get source location for errors)

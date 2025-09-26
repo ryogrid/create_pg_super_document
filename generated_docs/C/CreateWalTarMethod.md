@@ -25,10 +25,10 @@ This function creates a tar-based WAL method implementation that packages WAL fi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_malloc0 (for memory allocation)
+  - [pg_malloc0](../p/pg_malloc0.md) (for memory allocation)
   - clear_error (to initialize error state)
   - sprintf (for filename construction)
-  - pg_malloc (for compression buffer allocation)
+  - [pg_malloc](../p/pg_malloc.md) (for compression buffer allocation)
   - WalTarMethodOps (function pointer table for tar operations)
   - [TarMethodData](../T/TarMethodData.md) (internal data structure)
   - PG_COMPRESSION_GZIP (compression algorithm constant)

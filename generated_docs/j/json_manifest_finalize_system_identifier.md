@@ -27,11 +27,11 @@ This is part of PostgreSQL's backup and restore infrastructure, where system ide
 ## Dependencies
 - Functions called/Symbols referenced:
   - `strtou64` - converts string to 64-bit unsigned integer
-  - `json_manifest_parse_failure` - handles parsing error reporting
+  - `[json_manifest_parse_failure](json_manifest_parse_failure.md)` - handles parsing error reporting
   - `JsonManifestParseState` - parsing state structure
-  - `JsonManifestParseContext` - parsing context structure
+  - `[JsonManifestParseContext](../J/JsonManifestParseContext.md)` - parsing context structure
 - Called from (representative examples):
-  - `json_manifest_scalar` - JSON scalar value processing function
+  - `[json_manifest_scalar](json_manifest_scalar.md)` - JSON scalar value processing function
   - Used in `JsonManifestParseIncrementalState` structure
 
 ## Notes and Other Information

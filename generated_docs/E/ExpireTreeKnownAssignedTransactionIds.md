@@ -24,13 +24,13 @@ This function is called during recovery on standby servers to remove completed t
 ## Dependencies
 - Functions called/Symbols referenced:
   - STANDBY_INITIALIZED (constant for standby state checking)
-  - LWLockAcquire (for ProcArrayLock exclusive access)
-  - KnownAssignedXidsRemoveTree (removes the transaction tree from KnownAssignedXids)
-  - MaintainLatestCompletedXidRecovery (advances latestCompletedXid)
-  - LWLockRelease (releases ProcArrayLock)
+  - [LWLockAcquire](../L/LWLockAcquire.md) (for ProcArrayLock exclusive access)
+  - [KnownAssignedXidsRemoveTree](../K/KnownAssignedXidsRemoveTree.md) (removes the transaction tree from KnownAssignedXids)
+  - [MaintainLatestCompletedXidRecovery](../M/MaintainLatestCompletedXidRecovery.md) (advances latestCompletedXid)
+  - [LWLockRelease](../L/LWLockRelease.md) (releases ProcArrayLock)
 - Called from (representative examples):
-  - xact_redo_commit (during commit record replay in recovery)
-  - xact_redo_abort (during abort record replay in recovery)
+  - [xact_redo_commit](../x/xact_redo_commit.md) (during commit record replay in recovery)
+  - [xact_redo_abort](../x/xact_redo_abort.md) (during abort record replay in recovery)
 
 ## Notes and Other Information
 - This function can only be called when standbyState >= STANDBY_INITIALIZED

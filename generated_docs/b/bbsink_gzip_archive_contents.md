@@ -31,7 +31,7 @@ Key aspects of the compression process:
 - Functions called/Symbols referenced:
   - deflate (zlib compression function)
   - elog (error logging)
-  - bbsink_archive_contents (forwards compressed data to next sink)
+  - [bbsink_archive_contents](bbsink_archive_contents.md) (forwards compressed data to next sink)
   - Assert (assertion checking)
 - Called from (representative examples):
   - Used as callback function in bbsink_gzip_ops structure

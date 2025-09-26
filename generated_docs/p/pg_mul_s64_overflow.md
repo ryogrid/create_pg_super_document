@@ -36,7 +36,7 @@ The manual implementation is particularly sophisticated, using the mathematical 
   - [int8lcm](../i/int8lcm.md) (int8 least common multiple)
   - [cash_mul_int64](../c/cash_mul_int64.md) (money multiplication)  
   - [cash_in](../c/cash_in.md) (money input parsing)
-  - int64_multiply_add (datetime calculations)
+  - [int64_multiply_add](../i/int64_multiply_add.md) (datetime calculations)
   - [DecodeInterval](../D/DecodeInterval.md) (interval parsing)
   - [timestamp_bin](../t/timestamp_bin.md), timestamptz_bin (timestamp binning)
   - [int64_div_fast_to_numeric](../i/int64_div_fast_to_numeric.md) (numeric conversion)

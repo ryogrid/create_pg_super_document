@@ -43,11 +43,11 @@ The function distinguishes between "joinquals" and "otherquals" for outer joins,
   - [is_innerrel_unique_for](is_innerrel_unique_for.md)
   - [bms_is_subset](../b/bms_is_subset.md)
   - [bms_copy](../b/bms_copy.md)  
-  - lappend
+  - [lappend](../l/lappend.md)
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
 - Data structures used:
   - [PlannerInfo](../P/PlannerInfo.md)
-  - RelOptInfo
+  - [RelOptInfo](../R/RelOptInfo.md)
   - JoinType
   - Relids
 - Called from:

@@ -23,10 +23,10 @@ The function updates replication state tracking in both local and shared memory,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CheckLogicalDecodingRequirements
+  - [CheckLogicalDecodingRequirements](../C/CheckLogicalDecodingRequirements.md)
   - [ReplicationSlotAcquire](../R/ReplicationSlotAcquire.md)
   - [RecoveryInProgress](../R/RecoveryInProgress.md)
-  - CreateDecodingContext
+  - [CreateDecodingContext](../C/CreateDecodingContext.md)
   - [logical_read_xlog_page](../l/logical_read_xlog_page.md)
   - [WalSndSegmentOpen](../W/WalSndSegmentOpen.md)
   - [wal_segment_close](../w/wal_segment_close.md)
@@ -34,7 +34,7 @@ The function updates replication state tracking in both local and shared memory,
   - [WalSndWriteData](../W/WalSndWriteData.md)
   - [WalSndUpdateProgress](../W/WalSndUpdateProgress.md)
   - [WalSndSetState](../W/WalSndSetState.md)
-  - pq_beginmessage
+  - [pq_beginmessage](../p/pq_beginmessage.md)
   - [pq_sendbyte](../p/pq_sendbyte.md)
   - [pq_sendint16](../p/pq_sendint16.md)
   - [pq_endmessage](../p/pq_endmessage.md)
@@ -45,7 +45,7 @@ The function updates replication state tracking in both local and shared memory,
   - [XLogSendLogical](../X/XLogSendLogical.md)
   - [FreeDecodingContext](../F/FreeDecodingContext.md)
   - [ReplicationSlotRelease](../R/ReplicationSlotRelease.md)
-  - SetQueryCompletion
+  - [SetQueryCompletion](SetQueryCompletion.md)
   - [EndCommand](../E/EndCommand.md)
 - Called from (representative examples):
   - [exec_replication_command](../e/exec_replication_command.md)

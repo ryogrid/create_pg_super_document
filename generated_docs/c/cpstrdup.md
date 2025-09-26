@@ -28,7 +28,7 @@ This function creates a duplicate copy of a null-terminated C string using the c
   - [NIAddSpell](../N/NIAddSpell.md)
   - [NIAddAffix](../N/NIAddAffix.md)
   - [setCompoundAffixFlagValue](../s/setCompoundAffixFlagValue.md)
-  - NIImportOOAffixes
+  - [NIImportOOAffixes](../N/NIImportOOAffixes.md)
   - [NISortDictionary](../N/NISortDictionary.md)
 
 ## Notes and Other Information

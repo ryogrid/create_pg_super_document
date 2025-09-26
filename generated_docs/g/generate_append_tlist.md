@@ -30,14 +30,14 @@ The function first analyzes all input targetlists to determine the most appropri
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc](../p/palloc.md)
-  - list_length
-  - list_head
-  - exprType
-  - exprTypmod
+  - [list_length](../l/list_length.md)
+  - [list_head](../l/list_head.md)
+  - [exprType](../e/exprType.md)
+  - [exprTypmod](../e/exprTypmod.md)
   - [lnext](../l/lnext.md)
-  - makeVar
+  - [makeVar](../m/makeVar.md)
   - [makeTargetEntry](../m/makeTargetEntry.md)
-  - lappend
+  - [lappend](../l/lappend.md)
   - [pfree](../p/pfree.md)
   - forthree (macro for iterating over three lists)
 - Called from:

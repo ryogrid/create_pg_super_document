@@ -25,9 +25,9 @@ This function is useful for debugging parameterized queries by showing the actua
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BuildParamLogString (formats parameter values into a string representation)
-  - ExplainPropertyText (adds formatted text property to output)
-  - ParamListInfo (parameter list structure)
+  - [BuildParamLogString](../B/BuildParamLogString.md) (formats parameter values into a string representation)
+  - [ExplainPropertyText](ExplainPropertyText.md) (adds formatted text property to output)
+  - [ParamListInfo](../P/ParamListInfo.md) (parameter list structure)
 - Called from (representative examples):
   - Currently no direct callers found in the codebase (utility function for manual use)
 

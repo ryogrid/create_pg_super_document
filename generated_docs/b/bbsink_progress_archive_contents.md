@@ -18,7 +18,7 @@ This static function handles progress tracking for incoming archive content data
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbsink_state (state structure type)
+  - [bbsink_state](bbsink_state.md) (state structure type)
   - PROGRESS_BASEBACKUP_BACKUP_STREAMED (progress parameter constant)
   - PROGRESS_BASEBACKUP_BACKUP_TOTAL (progress parameter constant)  
   - [bbsink_forward_archive_contents](bbsink_forward_archive_contents.md) (forwarding function)

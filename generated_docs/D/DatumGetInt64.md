@@ -32,7 +32,7 @@ This abstraction allows the same code to work correctly across different platfor
   - [recompute_limits](../r/recompute_limits.md) (LIMIT/OFFSET processing)
   - [generate_series_int8_support](../g/generate_series_int8_support.md) (series generation)
   - PG_GETARG_INT64 (function manager macro)
-  - DatumGetTimestamp (timestamp handling)
+  - [DatumGetTimestamp](DatumGetTimestamp.md) (timestamp handling)
 
 ## Notes and Other Information
 - This function abstracts the platform-specific differences in 64-bit integer handling

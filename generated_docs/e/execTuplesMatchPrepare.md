@@ -29,16 +29,16 @@ This function builds an expression that can be evaluated using ExecQual() to det
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_opcode (converts operator OID to function OID)
-  - ExecBuildGroupingEqual (builds the actual grouping expression)
-  - palloc (memory allocation)
+  - [get_opcode](../g/get_opcode.md) (converts operator OID to function OID)
+  - [ExecBuildGroupingEqual](../E/ExecBuildGroupingEqual.md) (builds the actual grouping expression)
+  - [palloc](../p/palloc.md) (memory allocation)
 - Called from (representative examples):
-  - ExecInitAgg (aggregate initialization)
-  - ExecInitGroup (group node initialization)
-  - ExecInitSetOp (set operation initialization)
-  - ExecInitUnique (unique node initialization)
-  - ExecInitWindowAgg (window aggregate initialization)
-  - ExecInitLimit (limit node initialization)
+  - [ExecInitAgg](../E/ExecInitAgg.md) (aggregate initialization)
+  - [ExecInitGroup](../E/ExecInitGroup.md) (group node initialization)
+  - [ExecInitSetOp](../E/ExecInitSetOp.md) (set operation initialization)
+  - [ExecInitUnique](../E/ExecInitUnique.md) (unique node initialization)
+  - [ExecInitWindowAgg](../E/ExecInitWindowAgg.md) (window aggregate initialization)
+  - [ExecInitLimit](../E/ExecInitLimit.md) (limit node initialization)
 
 ## Notes and Other Information
 - Returns NULL when numCols is 0, indicating no grouping comparison is needed

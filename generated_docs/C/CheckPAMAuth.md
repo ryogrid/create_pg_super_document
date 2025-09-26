@@ -29,7 +29,7 @@ The function supports configurable PAM services through pg_hba.conf and can opti
   - pam_acct_mgmt (performs PAM account management checks)
   - pam_end (terminates PAM transaction)
   - pam_strerror (converts PAM error codes to strings)
-  - pg_getnameinfo_all (resolves network addresses to hostnames)
+  - [pg_getnameinfo_all](../p/pg_getnameinfo_all.md) (resolves network addresses to hostnames)
   - unconstify (casts away const qualifier)
   - [set_authn_id](../s/set_authn_id.md) (sets authenticated identity for the connection)
 - Called from (representative examples):

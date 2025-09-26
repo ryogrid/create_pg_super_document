@@ -25,7 +25,7 @@ The function ensures that a replication origin session is properly configured be
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_LSN
-  - replorigin_check_prerequisites
+  - [replorigin_check_prerequisites](../r/replorigin_check_prerequisites.md)
   - PG_GETARG_TIMESTAMPTZ
   - PG_RETURN_VOID
 - Called from (representative examples):

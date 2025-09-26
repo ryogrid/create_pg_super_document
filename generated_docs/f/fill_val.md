@@ -35,9 +35,9 @@ The function performs several critical tasks:
 ## Dependencies
 - Functions called/Symbols referenced:
   - att_align_nominal (data alignment)
-  - store_att_byval (store pass-by-value data)
-  - DatumGetEOHP (expanded object handling)
-  - EOH_get_flat_size, EOH_flatten_into (expanded object flattening)
+  - [store_att_byval](../s/store_att_byval.md) (store pass-by-value data)
+  - [DatumGetEOHP](../D/DatumGetEOHP.md) (expanded object handling)
+  - [EOH_get_flat_size](../E/EOH_get_flat_size.md), EOH_flatten_into (expanded object flattening)
   - VARSIZE_EXTERNAL, VARSIZE_SHORT, VARSIZE (varlena size calculations)
   - [DatumGetCString](../D/DatumGetCString.md), DatumGetPointer (datum extraction)
   - SET_VARSIZE_SHORT, VARDATA (varlena manipulation)

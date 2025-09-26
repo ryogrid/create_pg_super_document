@@ -32,21 +32,21 @@ The initialization process includes setting up shared memory structures, timeout
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - InitProcessPhase2
+  - [InitProcessPhase2](InitProcessPhase2.md)
   - [SharedInvalBackendInit](../S/SharedInvalBackendInit.md)
   - [ProcSignalInit](../P/ProcSignalInit.md)
-  - RegisterTimeout (various timeout types)
+  - [RegisterTimeout](../R/RegisterTimeout.md) (various timeout types)
   - [CreateAuxProcessResourceOwner](../C/CreateAuxProcessResourceOwner.md)
   - [StartupXLOG](../S/StartupXLOG.md)
   - [RelationCacheInitialize](../R/RelationCacheInitialize.md)
   - [InitCatalogCache](InitCatalogCache.md)
   - [InitPlanCache](InitPlanCache.md)
-  - EnablePortalManager
+  - [EnablePortalManager](../E/EnablePortalManager.md)
   - [pgstat_beinit](../p/pgstat_beinit.md)
-  - RelationCacheInitializePhase2
+  - [RelationCacheInitializePhase2](../R/RelationCacheInitializePhase2.md)
   - [SetCurrentStatementStartTimestamp](../S/SetCurrentStatementStartTimestamp.md)
   - [StartTransactionCommand](../S/StartTransactionCommand.md)
-  - GetTransactionSnapshot
+  - [GetTransactionSnapshot](../G/GetTransactionSnapshot.md)
   - [PerformAuthentication](../P/PerformAuthentication.md)
   - [InitializeSessionUserId](InitializeSessionUserId.md)
   - [InitializeSystemUser](InitializeSystemUser.md)

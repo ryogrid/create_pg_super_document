@@ -23,17 +23,17 @@ The function always uses DROP_CASCADE behavior and revokes entire grants (not ju
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - plan_recursive_revoke
+  - [plan_recursive_revoke](plan_recursive_revoke.md)
   - GETSTRUCT
 - Types used:
-  - CatCList
-  - RevokeRoleGrantAction
+  - [CatCList](../C/CatCList.md)
+  - [RevokeRoleGrantAction](../R/RevokeRoleGrantAction.md)
   - Form_pg_auth_members
   - HeapTuple
 - Constants:
   - DROP_CASCADE
 - Called from:
-  - AddRoleMems
+  - [AddRoleMems](../A/AddRoleMems.md)
 
 ## Notes and Other Information
 - This function is used when completely removing a member from role relationships, typically during role deletion or major role restructuring

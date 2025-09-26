@@ -40,8 +40,8 @@ For LIST and RANGE partitioning, the function implements sophisticated prefix lo
   - [get_op_opfamily_properties](get_op_opfamily_properties.md)
   - [get_steps_using_prefix](get_steps_using_prefix.md)
   - [list_concat](../l/list_concat.md)
-  - lappend
-  - list_head
+  - [lappend](../l/lappend.md)
+  - [list_head](../l/list_head.md)
   - llast
   - for_each_cell
   - [bms_is_member](../b/bms_is_member.md)

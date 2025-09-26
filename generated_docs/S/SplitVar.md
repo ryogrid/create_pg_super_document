@@ -32,10 +32,10 @@ The structure is primarily used during the word normalization process where comp
   - Self-reference in next pointer field
 - Called from (representative examples):
   - [CheckCompoundAffixes](../C/CheckCompoundAffixes.md)
-  - CopyVar
-  - AddStem
-  - SplitToVariants
-  - NINormalizeWord
+  - [CopyVar](../C/CopyVar.md)
+  - [AddStem](../A/AddStem.md)
+  - [SplitToVariants](SplitToVariants.md)
+  - [NINormalizeWord](../N/NINormalizeWord.md)
 
 ## Notes and Other Information
 - The structure uses PostgreSQL's memory management functions (palloc, repalloc, pfree)

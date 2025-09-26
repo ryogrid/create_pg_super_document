@@ -24,11 +24,11 @@ The function only advances the counters forward - it will not decrease them if t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire (MultiXactGenLock, LW_EXCLUSIVE)
+  - [LWLockAcquire](../L/LWLockAcquire.md) (MultiXactGenLock, LW_EXCLUSIVE)
   - [MultiXactIdPrecedes](MultiXactIdPrecedes.md)
   - [MultiXactOffsetPrecedes](MultiXactOffsetPrecedes.md)  
   - debug_elog3
-  - LWLockRelease
+  - [LWLockRelease](../L/LWLockRelease.md)
 - Called from (representative examples):
   - [multixact_redo](../m/multixact_redo.md)
   - [xlog_redo](../x/xlog_redo.md)

@@ -31,7 +31,7 @@ Different relation types require different horizon strategies:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ComputeXidHorizons
+  - [ComputeXidHorizons](../C/ComputeXidHorizons.md)
   - [GlobalVisHorizonKindForRel](GlobalVisHorizonKindForRel.md)
   - [ComputeXidHorizonsResult](../C/ComputeXidHorizonsResult.md) (struct type)
   - VISHORIZON_SHARED, VISHORIZON_CATALOG, VISHORIZON_DATA, VISHORIZON_TEMP (enum values)

@@ -30,7 +30,7 @@ For performance optimization, the function uses binary search (bsearch) when the
   - FullTransactionIdEquals
   - bsearch (C library function)
   - [cmp_fxid](../c/cmp_fxid.md)
-  - FullTransactionId (type)
+  - [FullTransactionId](../F/FullTransactionId.md) (type)
   - [pg_snapshot](../p/pg_snapshot.md) (type)
   - USE_BSEARCH_IF_NXIP_GREATER (preprocessor constant)
 - Called from (representative examples):

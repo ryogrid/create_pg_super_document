@@ -23,13 +23,13 @@ The function operates under LogicalRepWorkerLock protection to ensure thread-saf
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire/LWLockRelease: Acquires LogicalRepWorkerLock for thread-safe operations
-  - logicalrep_worker_find: Locates the worker matching the subscription/relation pair
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease: Acquires LogicalRepWorkerLock for thread-safe operations
+  - [logicalrep_worker_find](logicalrep_worker_find.md): Locates the worker matching the subscription/relation pair
   - isParallelApplyWorker: Validates that this is not a parallel apply worker
-  - logicalrep_worker_stop_internal: Performs the actual worker termination
+  - [logicalrep_worker_stop_internal](logicalrep_worker_stop_internal.md): Performs the actual worker termination
 
 - Called from:
-  - DropSubscription: Used during subscription cleanup to stop associated workers
+  - [DropSubscription](../D/DropSubscription.md): Used during subscription cleanup to stop associated workers
 
 ## Notes and Other Information
 - Only handles regular subscription workers, not parallel apply workers

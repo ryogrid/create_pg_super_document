@@ -30,11 +30,11 @@ The structure captures all the necessary information for the database removal op
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - List (PostgreSQL list structure for options)
-  - DefElem (for option definitions)
+  - [List](../L/List.md) (PostgreSQL list structure for options)
+  - [DefElem](DefElem.md) (for option definitions)
 - Called from (representative examples):
-  - DropDatabase (execution function in dbcommands.c)
-  - standard_ProcessUtility (utility command processing)
+  - [DropDatabase](DropDatabase.md) (execution function in dbcommands.c)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (utility command processing)
 
 ## Notes and Other Information
 - This structure is part of the PostgreSQL parser node hierarchy and inherits from Node via the NodeTag

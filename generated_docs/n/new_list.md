@@ -31,7 +31,7 @@ This function creates a fresh List with optimized memory allocation. It allocate
 - Called from (representative examples):
   - [list_make1_impl](../l/list_make1_impl.md)
   - [list_make2_impl](../l/list_make2_impl.md)  
-  - lappend
+  - [lappend](../l/lappend.md)
   - [lcons](../l/lcons.md)
   - [list_concat_copy](../l/list_concat_copy.md)
   - [list_copy](../l/list_copy.md)

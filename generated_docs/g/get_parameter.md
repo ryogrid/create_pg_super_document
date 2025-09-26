@@ -22,16 +22,16 @@ This function is responsible for converting a Param node into its appropriate te
   - [find_param_generator](../f/find_param_generator.md)
   - [push_ancestor_plan](../p/push_ancestor_plan.md)
   - [pop_ancestor_plan](../p/pop_ancestor_plan.md)
-  - get_rule_expr
+  - [get_rule_expr](get_rule_expr.md)
   - [quote_identifier](../q/quote_identifier.md)
   - llast
   - deparse_namespace
-  - SubPlan
+  - [SubPlan](../S/SubPlan.md)
   - PARAM_EXTERN
-  - Aggref
-  - GroupingFunc
+  - [Aggref](../A/Aggref.md)
+  - [GroupingFunc](../G/GroupingFunc.md)
 - Called from (representative examples):
-  - get_rule_expr
+  - [get_rule_expr](get_rule_expr.md)
 
 ## Notes and Other Information
 - Handles three main cases: parameter referents, subplan outputs, and external parameters

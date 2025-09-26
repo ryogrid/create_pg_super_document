@@ -27,10 +27,10 @@ The function is designed to work outside transactions and in aborted transaction
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - is_valid_unicode_codepoint (Unicode validation)
+  - [is_valid_unicode_codepoint](../i/is_valid_unicode_codepoint.md) (Unicode validation)
   - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md) (database encoding detection)
-  - unicode_to_utf8 (Unicode to UTF-8 conversion)
-  - pg_utf_mblen (UTF-8 character length calculation)
+  - [unicode_to_utf8](../u/unicode_to_utf8.md) (Unicode to UTF-8 conversion)
+  - [pg_utf_mblen](pg_utf_mblen.md) (UTF-8 character length calculation)
   - [GetDatabaseEncodingName](../G/GetDatabaseEncodingName.md) (encoding name lookup)
   - FunctionCall6 (PostgreSQL function call interface)
 - Called from (representative examples):

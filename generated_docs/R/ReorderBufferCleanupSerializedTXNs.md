@@ -23,10 +23,10 @@ The function first checks if the slot directory exists and is indeed a directory
 - Functions called/Symbols referenced:
   - lstat (file system status check)
   - S_ISDIR (directory check macro)
-  - AllocateDir (directory handle allocation)
-  - ReadDirExtended (directory reading with error handling)
+  - [AllocateDir](../A/AllocateDir.md) (directory handle allocation)
+  - [ReadDirExtended](ReadDirExtended.md) (directory reading with error handling)
   - unlink (file deletion)
-  - FreeDir (directory handle cleanup)
+  - [FreeDir](../F/FreeDir.md) (directory handle cleanup)
   - ereport/ERROR (error reporting)
   - [errcode_for_file_access](../e/errcode_for_file_access.md) (error code generation)
 - Called from (representative examples):

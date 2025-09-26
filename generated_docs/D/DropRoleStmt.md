@@ -29,15 +29,15 @@ The structure supports dropping multiple roles in a single statement and include
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (for type identification)
-  - List (for storing role names)
+  - [List](../L/List.md) (for storing role names)
 - Called from (representative examples):
-  - DropRole (role deletion command execution)
-  - standard_ProcessUtility (utility command processing)
+  - [DropRole](DropRole.md) (role deletion command execution)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (utility command processing)
 
 ## Notes and Other Information
 - This structure handles DROP ROLE, DROP USER, and DROP GROUP statements uniformly since they are equivalent in PostgreSQL
 - Multiple roles can be dropped in a single statement by listing them in the roles list
-- The missing_ok flag corresponds to the IF EXISTS clause in SQL - when true, no error is raised for non-existent roles
+- The missing_ok flag corresponds to the IF EXISTS clause in SQL - [when](../w/when.md) true, no error is raised for non-existent roles
 - Role deletion requires appropriate privileges and will fail if the role owns database objects or has active connections
 - The roles list contains simple string names, not RoleSpec structures like other role-related statements
 - Location: src/include/nodes/parsenodes.h:3105-3110

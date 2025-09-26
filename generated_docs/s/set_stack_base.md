@@ -29,8 +29,8 @@ This function takes no parameters and returns the previous stack base reference 
   - stack_base_ptr (global variable)
   - __builtin_frame_address() (when available)
 - Called from (representative examples):
-  - PostmasterMain
-  - InitPostmasterChild
+  - [PostmasterMain](../P/PostmasterMain.md)
+  - [InitPostmasterChild](../I/InitPostmasterChild.md)
 
 ## Notes and Other Information
 - The function returns the old reference point, allowing for nested or temporary stack base changes that can be restored later

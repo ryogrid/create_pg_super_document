@@ -42,7 +42,7 @@ The algorithm starts at the root partitioned table and iteratively evaluates par
   - [ExecInitPartitionDispatchInfo](ExecInitPartitionDispatchInfo.md)
   - [ExecGetRootToChildMap](ExecGetRootToChildMap.md)
   - [execute_attr_map_slot](../e/execute_attr_map_slot.md)
-  - ExecClearTuple
+  - [ExecClearTuple](ExecClearTuple.md)
 - Called from (representative examples):
   - [CopyFrom](../C/CopyFrom.md) (in copyfrom.c:1055)
   - [ExecPrepareTupleRouting](ExecPrepareTupleRouting.md) (in nodeModifyTable.c:3910)

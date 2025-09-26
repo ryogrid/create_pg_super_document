@@ -21,13 +21,13 @@ The `dlsym` function is PostgreSQL's Windows implementation of the standard POSI
 ## Dependencies
 - Functions called/Symbols referenced:
   - `GetProcAddress()` (Windows API)
-  - `set_dl_error` at Line 68
+  - `[set_dl_error](../s/set_dl_error.md)` at Line 68
   - `symbol` parameter referenced at Lines 61, 65
 - Called from (representative examples):
-  - `load_external_function` at src/backend/utils/fmgr/dfmgr.c:123
-  - `lookup_external_function` at src/backend/utils/fmgr/dfmgr.c:168
-  - `internal_load_library` at src/backend/utils/fmgr/dfmgr.c:253
-  - `internal_load_library` at src/backend/utils/fmgr/dfmgr.c:287
+  - `[load_external_function](../l/load_external_function.md)` at src/backend/utils/fmgr/dfmgr.c:123
+  - `[lookup_external_function](../l/lookup_external_function.md)` at src/backend/utils/fmgr/dfmgr.c:168
+  - `[internal_load_library](../i/internal_load_library.md)` at src/backend/utils/fmgr/dfmgr.c:253
+  - `[internal_load_library](../i/internal_load_library.md)` at src/backend/utils/fmgr/dfmgr.c:287
 
 ## Notes and Other Information
 - This is a Windows-specific implementation that provides POSIX `dlsym()` compatibility

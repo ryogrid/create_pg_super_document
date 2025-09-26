@@ -301,7 +301,7 @@ Text creation and manipulation
   - lengthof (macro to get array length)
 - Data structures used:
   - [TwoPhaseLockRecord](../T/TwoPhaseLockRecord.md) (2PC lock record structure)
-  - LOCKTAG (lock identification tag)
+  - [LOCKTAG](../L/LOCKTAG.md) (lock identification tag)
   - LOCKMODE (lock mode type)
   - LOCKMETHODID (lock method identifier)
 - Constants used:

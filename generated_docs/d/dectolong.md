@@ -21,8 +21,8 @@ The `dectolong` function is part of PostgreSQL's ECPG (Embedded SQL in C) compat
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PGTYPESnumeric_new](../P/PGTYPESnumeric_new.md)
-  - PGTYPESnumeric_from_decimal  
-  - PGTYPESnumeric_to_long
+  - [PGTYPESnumeric_from_decimal](../P/PGTYPESnumeric_from_decimal.md)  
+  - [PGTYPESnumeric_to_long](../P/PGTYPESnumeric_to_long.md)
   - [PGTYPESnumeric_free](../P/PGTYPESnumeric_free.md)
   - ECPG_INFORMIX_OUT_OF_MEMORY (error constant)
   - ECPG_INFORMIX_NUM_OVERFLOW (error constant)

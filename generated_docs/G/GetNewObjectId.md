@@ -31,9 +31,9 @@ This function takes no parameters and returns a newly allocated OID.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RecoveryInProgress](../R/RecoveryInProgress.md)
-  - `LWLockAcquire` (OidGenLock, LW_EXCLUSIVE)
+  - `[LWLockAcquire](../L/LWLockAcquire.md)` (OidGenLock, LW_EXCLUSIVE)
   - [XLogPutNextOid](../X/XLogPutNextOid.md)
-  - `LWLockRelease` (OidGenLock)
+  - `[LWLockRelease](../L/LWLockRelease.md)` (OidGenLock)
   - Constants: `FirstNormalObjectId`, `FirstGenbkiObjectId`, `VAR_OID_PREFETCH`
 - Called from (representative examples):
   - [GetNewOidWithIndex](GetNewOidWithIndex.md) (src/backend/catalog/catalog.c:435, 450)

@@ -28,7 +28,7 @@ The function is typically used during TSQuery cleanup operations to determine ho
   - `QI_VAL`: Query item type constant for value nodes
   - `QI_OPR`: Query item type constant for operator nodes
   - `OP_NOT`: Operator type constant for NOT operations
-  - `NODE`: Tree node structure type
+  - `[NODE](../N/NODE.md)`: Tree node structure type
 
 - Called from (representative examples):
   - [cleanup_tsquery_stopwords](cleanup_tsquery_stopwords.md): Uses the calculated length for memory allocation in tsquery_cleanup.c:420

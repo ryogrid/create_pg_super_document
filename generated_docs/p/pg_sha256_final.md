@@ -27,14 +27,14 @@ The function handles byte order conversion automatically based on the system's e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SHA256_Last
+  - [SHA256_Last](../S/SHA256_Last.md)
   - REVERSE32
   - memcpy
   - memset
 - Constants used:
   - PG_SHA256_DIGEST_LENGTH
 - Called from (representative examples):
-  - pg_cryptohash_final
+  - [pg_cryptohash_final](pg_cryptohash_final.md)
 
 ## Notes and Other Information
 - The function safely handles NULL digest pointers by skipping the finalization process

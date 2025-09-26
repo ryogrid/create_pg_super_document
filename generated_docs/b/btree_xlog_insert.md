@@ -30,7 +30,7 @@ If the insertion involves metadata changes (ismeta=true), the function also upda
 - Functions called/Symbols referenced:
   - [_bt_clear_incomplete_split](_bt_clear_incomplete_split.md)
   - XLogRecGetData
-  - XLogReadBufferForRedo
+  - [XLogReadBufferForRedo](../X/XLogReadBufferForRedo.md)
   - [XLogRecGetBlockData](../X/XLogRecGetBlockData.md)
   - PageAddItem
   - [PageGetItemId](../P/PageGetItemId.md)
@@ -39,7 +39,7 @@ If the insertion involves metadata changes (ismeta=true), the function also upda
   - [CopyIndexTuple](../C/CopyIndexTuple.md)
   - [_bt_swap_posting](_bt_swap_posting.md)
   - [PageSetLSN](../P/PageSetLSN.md)
-  - MarkBufferDirty
+  - [MarkBufferDirty](../M/MarkBufferDirty.md)
   - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
   - [_bt_restore_meta](_bt_restore_meta.md)
 - Data types used:

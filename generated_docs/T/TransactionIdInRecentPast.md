@@ -23,7 +23,7 @@ The function works by comparing the provided epoch with the next transaction's e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReadNextFullTransactionId
+  - [ReadNextFullTransactionId](../R/ReadNextFullTransactionId.md)
   - XidFromFullTransactionId
   - EpochFromFullTransactionId
   - [TransactionIdPrecedesOrEquals](TransactionIdPrecedesOrEquals.md)

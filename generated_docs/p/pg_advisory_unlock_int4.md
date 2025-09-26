@@ -25,7 +25,7 @@ This function releases a session-scoped exclusive advisory lock identified by a 
   - [LockRelease](../L/LockRelease.md) (to release the exclusive lock)
   - PG_RETURN_BOOL (to return boolean result)
 - Types used:
-  - LOCKTAG (lock identifier structure)
+  - [LOCKTAG](../L/LOCKTAG.md) (lock identifier structure)
   - ExclusiveLock (lock mode constant)
 - Called from (representative examples):
   - SQL function calls via pg_proc catalog entry

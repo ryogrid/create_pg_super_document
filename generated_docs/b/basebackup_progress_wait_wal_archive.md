@@ -20,13 +20,13 @@ This function updates the base backup progress tracking system to indicate that 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pgstat_progress_update_multi_param](../p/pgstat_progress_update_multi_param.md)
-  - list_length
+  - [list_length](../l/list_length.md)
   - PROGRESS_BASEBACKUP_PHASE (parameter constant)
   - PROGRESS_BASEBACKUP_TBLSPC_STREAMED (parameter constant)  
   - PROGRESS_BASEBACKUP_PHASE_WAIT_WAL_ARCHIVE (phase constant)
 - Called from (representative examples):
   - [perform_base_backup](../p/perform_base_backup.md)
-  - bbsink_cleanup
+  - [bbsink_cleanup](bbsink_cleanup.md)
 
 ## Notes and Other Information
 - This function marks the transition to the final phase of base backup where WAL archiving completion is awaited

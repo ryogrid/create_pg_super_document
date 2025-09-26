@@ -18,7 +18,7 @@ This function adds a new pointer to the end of a SimplePtrList by creating a new
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_malloc (PostgreSQL memory allocation function)
+  - [pg_malloc](../p/pg_malloc.md) (PostgreSQL memory allocation function)
 - Data structures used:
   - [SimplePtrList](../S/SimplePtrList.md)
   - [SimplePtrListCell](../S/SimplePtrListCell.md)

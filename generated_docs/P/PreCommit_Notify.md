@@ -32,11 +32,11 @@ The function uses serialization through heavyweight locks to ensure notification
   - [GetCurrentTransactionId](../G/GetCurrentTransactionId.md)() - Assigns XID to current transaction
   - [LockSharedObject](../L/LockSharedObject.md)() - Acquires heavyweight lock for serialization
   - `AccessExclusiveLock` - Lock mode constant
-  - `list_head()` - Gets first element of PostgreSQL List
+  - `[list_head](../l/list_head.md)()` - Gets first element of PostgreSQL List
   - [asyncQueueFillWarning](../a/asyncQueueFillWarning.md)() - Issues warning when queue is getting full
   - [asyncQueueIsFull](../a/asyncQueueIsFull.md)() - Checks if notification queue is full
   - [asyncQueueAddEntries](../a/asyncQueueAddEntries.md)() - Adds notification entries to the queue
-  - `LWLockAcquire()`, `LWLockRelease()` - Light-weight locking functions
+  - `[LWLockAcquire](../L/LWLockAcquire.md)()`, `LWLockRelease()` - Light-weight locking functions
   - `pendingActions`, `pendingNotifies` - Global variables tracking pending operations
 - Called from:
   - [CommitTransaction](../C/CommitTransaction.md)() - Main transaction commit function

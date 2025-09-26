@@ -33,8 +33,8 @@ This optimization is most effective for top-level queries, as subqueries would t
   - [is_simple_union_all_recurse](../i/is_simple_union_all_recurse.md)
   - rt_fetch
   - copyObject
-  - lappend
-  - list_length
+  - [lappend](../l/lappend.md)
+  - [list_length](../l/list_length.md)
   - makeNode
   - list_make1
   - [pull_up_union_leaf_queries](../p/pull_up_union_leaf_queries.md)

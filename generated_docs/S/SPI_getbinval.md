@@ -25,15 +25,15 @@ The function validates that the field number is within the valid range (1 to nat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - heap_getattr
+  - [heap_getattr](../h/heap_getattr.md)
   - FirstLowInvalidHeapAttributeNumber
   - SPI_ERROR_NOATTRIBUTE
 - Called from (representative examples):
-  - make_ruledef (src/backend/utils/adt/ruleutils.c)
-  - make_viewdef (src/backend/utils/adt/ruleutils.c)
-  - tsquery_rewrite_query (src/backend/utils/adt/tsquery_rewrite.c)
-  - tsvector_update_trigger (src/backend/utils/adt/tsvector_op.c)
-  - SPI_sql_row_to_xmlelement (src/backend/utils/adt/xml.c)
+  - [make_ruledef](../m/make_ruledef.md) (src/backend/utils/adt/ruleutils.c)
+  - [make_viewdef](../m/make_viewdef.md) (src/backend/utils/adt/ruleutils.c)
+  - [tsquery_rewrite_query](../t/tsquery_rewrite_query.md) (src/backend/utils/adt/tsquery_rewrite.c)
+  - [tsvector_update_trigger](../t/tsvector_update_trigger.md) (src/backend/utils/adt/tsvector_op.c)
+  - [SPI_sql_row_to_xmlelement](SPI_sql_row_to_xmlelement.md) (src/backend/utils/adt/xml.c)
 
 ## Notes and Other Information
 - Returns (Datum) NULL and sets *isnull = true if the attribute number is invalid

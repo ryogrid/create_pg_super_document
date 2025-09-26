@@ -29,17 +29,17 @@ The search algorithm examines each segment in a bin, checks its largest contiguo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockHeldByMe / DSA_AREA_LOCK (lock assertion)
-  - check_for_freed_segments_locked
-  - contiguous_pages_to_segment_bin
-  - get_segment_by_index
+  - [LWLockHeldByMe](../L/LWLockHeldByMe.md) / DSA_AREA_LOCK (lock assertion)
+  - [check_for_freed_segments_locked](../c/check_for_freed_segments_locked.md)
+  - [contiguous_pages_to_segment_bin](../c/contiguous_pages_to_segment_bin.md)
+  - [get_segment_by_index](get_segment_by_index.md)
   - fpm_largest
-  - rebin_segment
+  - [rebin_segment](../r/rebin_segment.md)
   - DSA_NUM_SEGMENT_BINS (constant)
   - DSA_SEGMENT_INDEX_NONE (constant)
 - Called from (representative examples):
-  - dsa_allocate_extended
-  - ensure_active_superblock
+  - [dsa_allocate_extended](../d/dsa_allocate_extended.md)
+  - [ensure_active_superblock](../e/ensure_active_superblock.md)
 
 ## Notes and Other Information
 - This is a static (internal) function used for memory allocation within DSA

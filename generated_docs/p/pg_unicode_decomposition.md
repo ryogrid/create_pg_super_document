@@ -47,13 +47,13 @@ The structure is designed to be compact and efficient for lookup operations, sup
   - UnicodeDecomp_codepoints (external array)
 
 - Called from (representative examples):
-  - conv_compare
-  - get_code_entry
-  - get_canonical_class
-  - get_code_decomposition
-  - get_decomposed_size
-  - recompose_code
-  - decompose_code
+  - [conv_compare](../c/conv_compare.md)
+  - [get_code_entry](../g/get_code_entry.md)
+  - [get_canonical_class](../g/get_canonical_class.md)
+  - [get_code_decomposition](../g/get_code_decomposition.md)
+  - [get_decomposed_size](../g/get_decomposed_size.md)
+  - [recompose_code](../r/recompose_code.md)
+  - [decompose_code](../d/decompose_code.md)
 
 ## Notes and Other Information
 - The structure is defined in an auto-generated header file () created by the  script
@@ -63,5 +63,5 @@ The structure is designed to be compact and efficient for lookup operations, sup
   - Bit 6 (DECOMP_INLINE): Indicates decomposition is stored inline in dec_index
   - Bit 7 (DECOMP_NO_COMPOSE): Indicates character should not be used for recomposition
 - The main lookup table  contains 6775 entries covering all Unicode characters with decompositions or non-zero combining classes
-- Backend and frontend implementations use different lookup strategies: perfect hash function vs binary search respectively
+- [Backend](../B/Backend.md) and frontend implementations use different lookup strategies: perfect hash function vs binary search respectively
 - This structure is fundamental to PostgreSQL's text processing capabilities for proper Unicode handling in international applications

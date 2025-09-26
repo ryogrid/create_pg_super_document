@@ -28,10 +28,10 @@ Key aspects:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - createPQExpBuffer
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)
   - fmtQualifiedDumpable
   - [ArchiveEntry](../A/ArchiveEntry.md)
-  - destroyPQExpBuffer
+  - [destroyPQExpBuffer](destroyPQExpBuffer.md)
 - Called from (representative examples):
   - [dumpDumpableObject](dumpDumpableObject.md)
 

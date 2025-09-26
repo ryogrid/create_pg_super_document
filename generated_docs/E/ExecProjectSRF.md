@@ -27,10 +27,10 @@ The function iterates through all elements in the target list, evaluating each a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecClearTuple
+  - [ExecClearTuple](ExecClearTuple.md)
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - [ExecMakeFunctionResultSet](ExecMakeFunctionResultSet.md)
-  - ExecEvalExpr
+  - [ExecEvalExpr](ExecEvalExpr.md)
   - [ExecStoreVirtualTuple](ExecStoreVirtualTuple.md)
 - Called from (representative examples):
   - [ExecProjectSet](ExecProjectSet.md) (both for continuing and new evaluations)

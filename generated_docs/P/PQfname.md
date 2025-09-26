@@ -31,7 +31,7 @@ PQfname returns the column name associated with the given field number in a quer
   - [printQuery](../p/printQuery.md)
   - [ECPGget_desc](../E/ECPGget_desc.md)
   - [ecpg_build_compat_sqlda](../e/ecpg_build_compat_sqlda.md)
-  - PQprintTuples
+  - [PQprintTuples](PQprintTuples.md)
 
 ## Notes and Other Information
 - Returns a pointer to the column name string, or NULL if the field number is invalid

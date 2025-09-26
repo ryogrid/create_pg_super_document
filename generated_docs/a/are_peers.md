@@ -21,14 +21,14 @@ are_peers is a fundamental comparison function used throughout window function p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecQualAndReset
-  - WindowAgg (plan node structure)
+  - [ExecQualAndReset](../E/ExecQualAndReset.md)
+  - [WindowAgg](../W/WindowAgg.md) (plan node structure)
 - Called from (representative examples):
-  - row_is_in_frame (frame boundary determination)
-  - update_frameheadpos, update_frametailpos (frame position updates)
-  - update_grouptailpos (group boundary tracking)
-  - ExecWindowAgg (main execution logic)
-  - WinRowsArePeers (external interface)
+  - [row_is_in_frame](../r/row_is_in_frame.md) (frame boundary determination)
+  - [update_frameheadpos](../u/update_frameheadpos.md), update_frametailpos (frame position updates)
+  - [update_grouptailpos](../u/update_grouptailpos.md) (group boundary tracking)
+  - [ExecWindowAgg](../E/ExecWindowAgg.md) (main execution logic)
+  - [WinRowsArePeers](../W/WinRowsArePeers.md) (external interface)
 
 ## Notes and Other Information
 - This function does not consider window frame mode (ROWS vs RANGE vs GROUPS)

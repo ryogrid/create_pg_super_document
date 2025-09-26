@@ -26,11 +26,11 @@ This structure serves as a disk serialization wrapper for ReorderBufferChange ob
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReorderBufferChange
+  - [ReorderBufferChange](ReorderBufferChange.md)
 - Called from (representative examples):
-  - ReorderBufferSerializeChange
-  - ReorderBufferRestoreChanges
-  - ReorderBufferRestoreChange
+  - [ReorderBufferSerializeChange](ReorderBufferSerializeChange.md)
+  - [ReorderBufferRestoreChanges](ReorderBufferRestoreChanges.md)
+  - [ReorderBufferRestoreChange](ReorderBufferRestoreChange.md)
 
 ## Notes and Other Information
 - Critical component of PostgreSQL's logical replication memory management system
@@ -38,4 +38,4 @@ This structure serves as a disk serialization wrapper for ReorderBufferChange ob
 - The serialization format must be platform-independent to ensure compatibility across different systems
 - Used when logical_decoding_work_mem is exceeded during transaction processing
 - The structure layout is designed for efficient disk I/O operations during serialization and deserialization
-- Variable-length data (such as tuple content) follows the fixed-size structure in the serialized format
+- [Variable](../V/Variable.md)-length data (such as tuple content) follows the fixed-size structure in the serialized format

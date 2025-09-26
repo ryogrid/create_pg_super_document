@@ -21,7 +21,7 @@ The `parseScriptWeight` function processes command-line options for pgbench scri
 ## Dependencies
 - Functions called/Symbols referenced:
   - strrchr (standard library)
-  - pg_malloc
+  - [pg_malloc](pg_malloc.md)
   - strncpy (standard library) 
   - strtol (standard library)
   - [pg_fatal](pg_fatal.md)

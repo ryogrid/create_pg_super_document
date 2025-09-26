@@ -39,4 +39,4 @@ The algorithm ensures that the pool maintains its sorted order and fixed size, i
 - Implements chromosome shifting to maintain pool size constraints
 - Critical for maintaining selection pressure in the genetic algorithm
 - The function is declared in 
-- Pool assumes fitness values where smaller worth indicates better fitness
+- [Pool](../P/Pool.md) assumes fitness values where smaller worth indicates better fitness

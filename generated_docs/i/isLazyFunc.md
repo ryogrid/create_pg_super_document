@@ -19,13 +19,13 @@ The `isLazyFunc` function identifies functions in pgbench that require lazy eval
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `PgBenchFunction` (enum type)
+  - `[PgBenchFunction](../P/PgBenchFunction.md)` (enum type)
   - `PGBENCH_AND` (enum constant)
   - `PGBENCH_OR` (enum constant)
   - `PGBENCH_CASE` (enum constant)
 - Called from (representative examples):
-  - `evalLazyFunc`
-  - `evalFunc`
+  - `[evalLazyFunc](../e/evalLazyFunc.md)`
+  - `[evalFunc](../e/evalFunc.md)`
 
 ## Notes and Other Information
 - This is a static function with internal linkage, only accessible within pgbench.c

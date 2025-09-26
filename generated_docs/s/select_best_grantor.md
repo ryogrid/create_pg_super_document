@@ -32,19 +32,19 @@ The function first checks if the requesting role is the object owner or a superu
 ## Dependencies
 - Functions called/Symbols referenced:
   - ACL_GRANT_OPTION_FOR (macro to convert privileges to grant options)
-  - superuser_arg (checks if role is superuser)
-  - roles_is_member_of (gets list of roles the user is a member of)
-  - aclmask_direct (checks privileges directly held by a role)
-  - count_one_bits (utility function to count set bits)
+  - [superuser_arg](superuser_arg.md) (checks if role is superuser)
+  - [roles_is_member_of](../r/roles_is_member_of.md) (gets list of roles the user is a member of)
+  - [aclmask_direct](../a/aclmask_direct.md) (checks privileges directly held by a role)
+  - [count_one_bits](../c/count_one_bits.md) (utility function to count set bits)
   - ACL_NO_RIGHTS (constant for no privileges)
   - ACLMASK_ALL (mask for all privileges)
   - ROLERECURSE_PRIVS (flag for privilege-based role recursion)
 - Called from:
-  - ExecGrant_Attribute (for column-level grants)
-  - ExecGrant_Relation (for table-level grants)
-  - ExecGrant_common (common grant processing)
-  - ExecGrant_Largeobject (for large object grants)
-  - ExecGrant_Parameter (for parameter grants)
+  - [ExecGrant_Attribute](../E/ExecGrant_Attribute.md) (for column-level grants)
+  - [ExecGrant_Relation](../E/ExecGrant_Relation.md) (for table-level grants)
+  - [ExecGrant_common](../E/ExecGrant_common.md) (common grant processing)
+  - [ExecGrant_Largeobject](../E/ExecGrant_Largeobject.md) (for large object grants)
+  - [ExecGrant_Parameter](../E/ExecGrant_Parameter.md) (for parameter grants)
 
 ## Notes and Other Information
 - If no suitable grant options exist, the function defaults to using the original roleId as grantor with no grant options

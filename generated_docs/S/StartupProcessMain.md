@@ -26,8 +26,8 @@ The function follows a structured initialization pattern: it first establishes t
   - [StartupXLOG](StartupXLOG.md) (main recovery function)
   - [on_shmem_exit](../o/on_shmem_exit.md) (registers StartupProcExit as exit handler)
   - [pqsignal](../p/pqsignal.md) (signal handler registration)
-  - InitializeTimeouts
-  - RegisterTimeout (for standby timeouts)
+  - [InitializeTimeouts](../I/InitializeTimeouts.md)
+  - [RegisterTimeout](../R/RegisterTimeout.md) (for standby timeouts)
   - sigprocmask
   - [proc_exit](../p/proc_exit.md)
 - Signal handlers registered:

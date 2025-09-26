@@ -39,7 +39,7 @@ This function is crucial for optimizing ALTER TABLE operations where adding NOT 
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to create NullTest node)
-  - makeVar (to create variable reference for the column)
+  - [makeVar](../m/makeVar.md) (to create variable reference for the column)
   - [ConstraintImpliedByRelConstraint](../C/ConstraintImpliedByRelConstraint.md) (to perform the actual constraint analysis)
   - ereport (for debug logging)
 - Called from (representative examples):

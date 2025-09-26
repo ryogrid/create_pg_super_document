@@ -25,7 +25,7 @@ This function performs the complete finalization of all aggregates for a single 
 - Functions called/Symbols referenced:
   - [process_ordered_aggregate_single](../p/process_ordered_aggregate_single.md)
   - [process_ordered_aggregate_multi](../p/process_ordered_aggregate_multi.md)
-  - ExecClearTuple
+  - [ExecClearTuple](../E/ExecClearTuple.md)
   - [finalize_partialaggregate](finalize_partialaggregate.md)
   - [finalize_aggregate](finalize_aggregate.md)
   - DO_AGGSPLIT_SKIPFINAL

@@ -36,7 +36,7 @@ Upon successful validation, the function creates a pg_tz timezone object and sto
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_strncasecmp](../p/pg_strncasecmp.md): Case-insensitive string comparison for parsing INTERVAL keyword
-  - DatumGetIntervalP, DirectFunctionCall3, interval_in: PostgreSQL interval parsing functions
+  - [DatumGetIntervalP](../D/DatumGetIntervalP.md), DirectFunctionCall3, interval_in: PostgreSQL interval parsing functions
   - [CStringGetDatum](../C/CStringGetDatum.md), ObjectIdGetDatum, Int32GetDatum: PostgreSQL datum conversion functions
   - [pg_tzset_offset](../p/pg_tzset_offset.md): Creates timezone object from GMT offset in seconds
   - [pg_tzset](../p/pg_tzset.md): Loads timezone by name from system timezone database

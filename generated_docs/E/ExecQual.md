@@ -30,15 +30,15 @@ This function is fundamental to query execution as it determines which tuples sa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecEvalExprSwitchContext
-  - DatumGetBool
+  - [ExecEvalExprSwitchContext](ExecEvalExprSwitchContext.md)
+  - [DatumGetBool](../D/DatumGetBool.md)
   - Assert (for debugging builds)
 - Called from (representative examples):
-  - ExecScan (scan node filtering)
-  - ExecNestLoop (join condition evaluation)  
-  - ExecHashJoinImpl (hash join condition checking)
-  - ExecWithCheckOptions (check constraint validation)
-  - TriggerEnabled (trigger condition evaluation)
+  - [ExecScan](ExecScan.md) (scan node filtering)
+  - [ExecNestLoop](ExecNestLoop.md) (join condition evaluation)  
+  - [ExecHashJoinImpl](ExecHashJoinImpl.md) (hash join condition checking)
+  - [ExecWithCheckOptions](ExecWithCheckOptions.md) (check constraint validation)
+  - [TriggerEnabled](../T/TriggerEnabled.md) (trigger condition evaluation)
 
 ## Notes and Other Information
 - This is an inline function for performance optimization since it's called frequently during query execution

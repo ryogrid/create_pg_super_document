@@ -33,7 +33,7 @@ The search algorithm:
   - strncmp (standard C library function)
 - Called from (representative examples):
   - DCH_ZONED
-  - parse_format
+  - [parse_format](../p/parse_format.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within formatting.c

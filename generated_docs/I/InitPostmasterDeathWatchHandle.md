@@ -37,7 +37,7 @@ This function takes no parameters.
 - Functions called/Symbols referenced:
   - `pipe` - Unix system call to create pipe (non-Windows)
   - `fcntl` - Set file descriptor flags (non-Windows) 
-  - `ReserveExternalFD` - PostgreSQL FD tracking (non-Windows)
+  - `[ReserveExternalFD](../R/ReserveExternalFD.md)` - PostgreSQL FD tracking (non-Windows)
   - `DuplicateHandle` - Windows API to duplicate process handle (Windows)
   - `GetCurrentProcess` - Windows API to get current process handle (Windows)
   - `ereport` - PostgreSQL error reporting

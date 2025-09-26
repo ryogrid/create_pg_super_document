@@ -30,17 +30,17 @@ The shared memory layout includes a SharedHashInfo structure followed by an arra
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - shm_toc_allocate
-  - shm_toc_insert
+  - [shm_toc_allocate](../s/shm_toc_allocate.md)
+  - [shm_toc_insert](../s/shm_toc_insert.md)
   - memset (implicit)
   - offsetof (macro)
 - Types used:
-  - HashState
-  - ParallelContext
-  - SharedHashInfo
-  - HashInstrumentation
+  - [HashState](../H/HashState.md)
+  - [ParallelContext](../P/ParallelContext.md)
+  - [SharedHashInfo](../S/SharedHashInfo.md)
+  - [HashInstrumentation](../H/HashInstrumentation.md)
 - Called from (representative examples):
-  - ExecParallelInitializeDSM
+  - [ExecParallelInitializeDSM](ExecParallelInitializeDSM.md)
 
 ## Notes and Other Information
 - The function returns early if instrumentation is disabled (node->ps.instrument is NULL) or if there are no parallel workers (pcxt->nworkers == 0)

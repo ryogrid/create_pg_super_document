@@ -33,16 +33,16 @@ The function is access method (AM) agnostic, delegating the actual copying to AM
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open/table_close: Opens and closes table relations
+  - [table_open](../t/table_open.md)/table_close: Opens and closes table relations
   - [index_open](../i/index_open.md)/index_close: Opens and closes index relations  
   - [LockRelationOid](../L/LockRelationOid.md): Locks TOAST table to prevent autovacuum interference
   - [vacuum_get_cutoffs](../v/vacuum_get_cutoffs.md): Computes freeze and MultiXact cutoff values
   - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md): Compares transaction IDs for cutoff calculations
   - [plan_cluster_use_sort](../p/plan_cluster_use_sort.md): Determines whether to use sort vs index scan
-  - table_relation_copy_for_cluster: AM-specific data copying function
+  - [table_relation_copy_for_cluster](../t/table_relation_copy_for_cluster.md): AM-specific data copying function
   - SearchSysCacheCopy1: Retrieves catalog information
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md): Updates system catalog entries
-  - CommandCounterIncrement: Makes catalog changes visible
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md): Makes catalog changes visible
 - Called from (representative examples):
   - [rebuild_relation](../r/rebuild_relation.md): Main table rebuilding function
   - RelToCluster: Cluster processing workflow

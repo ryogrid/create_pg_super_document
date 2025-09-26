@@ -25,21 +25,21 @@ The function ensures proper cleanup of wait flags and semaphore states, maintain
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_lwlock_stats_entry (stats builds only)
-  - LWLockWaitListLock
+  - [get_lwlock_stats_entry](../g/get_lwlock_stats_entry.md) (stats builds only)
+  - [LWLockWaitListLock](LWLockWaitListLock.md)
   - proclist_delete
-  - proclist_is_empty
-  - pg_atomic_read_u32
-  - pg_atomic_fetch_and_u32
-  - LWLockWaitListUnlock
-  - pg_atomic_fetch_or_u32
-  - PGSemaphoreLock
-  - PGSemaphoreUnlock
-  - pg_atomic_fetch_sub_u32 (debug builds only)
+  - [proclist_is_empty](../p/proclist_is_empty.md)
+  - [pg_atomic_read_u32](../p/pg_atomic_read_u32.md)
+  - [pg_atomic_fetch_and_u32](../p/pg_atomic_fetch_and_u32.md)
+  - [LWLockWaitListUnlock](LWLockWaitListUnlock.md)
+  - [pg_atomic_fetch_or_u32](../p/pg_atomic_fetch_or_u32.md)
+  - [PGSemaphoreLock](../P/PGSemaphoreLock.md)
+  - [PGSemaphoreUnlock](../P/PGSemaphoreUnlock.md)
+  - [pg_atomic_fetch_sub_u32](../p/pg_atomic_fetch_sub_u32.md) (debug builds only)
 - Called from (representative examples):
-  - LWLockAcquire
-  - LWLockAcquireOrWait
-  - LWLockWaitForVar
+  - [LWLockAcquire](LWLockAcquire.md)
+  - [LWLockAcquireOrWait](LWLockAcquireOrWait.md)
+  - [LWLockWaitForVar](LWLockWaitForVar.md)
 
 ## Notes and Other Information
 - The function handles race conditions where another process may have already removed and signaled the current process

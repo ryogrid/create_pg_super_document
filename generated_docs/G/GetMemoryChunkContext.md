@@ -24,20 +24,20 @@ The function is essential for memory management operations that need to understa
 - Functions called/Symbols referenced:
   - MCXT_METHOD (macro for calling context-specific methods)
 - Called from (representative examples):
-  - enlarge_list
-  - list_delete_nth_cell
-  - list_delete_first_n
-  - mark_dummy_rel
-  - create_unique_path
+  - [enlarge_list](../e/enlarge_list.md)
+  - [list_delete_nth_cell](../l/list_delete_nth_cell.md)
+  - [list_delete_first_n](../l/list_delete_first_n.md)
+  - [mark_dummy_rel](../m/mark_dummy_rel.md)
+  - [create_unique_path](../c/create_unique_path.md)
   - REPARAMETERIZE_CHILD_PATH_LIST
-  - guc_realloc
-  - guc_free
-  - AlignedAllocFree
-  - AlignedAllocRealloc
-  - AlignedAllocGetChunkContext
-  - pfree
-  - repalloc
-  - repalloc_extended
+  - [guc_realloc](../g/guc_realloc.md)
+  - [guc_free](../g/guc_free.md)
+  - [AlignedAllocFree](../A/AlignedAllocFree.md)
+  - [AlignedAllocRealloc](../A/AlignedAllocRealloc.md)
+  - [AlignedAllocGetChunkContext](../A/AlignedAllocGetChunkContext.md)
+  - [pfree](../p/pfree.md)
+  - [repalloc](../r/repalloc.md)
+  - [repalloc_extended](../r/repalloc_extended.md)
 
 ## Notes and Other Information
 - Uses the method dispatch system to handle different memory context implementations

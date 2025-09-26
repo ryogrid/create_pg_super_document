@@ -135,7 +135,7 @@ ReorderBufferChange is the fundamental data structure used in PostgreSQL's logic
   - [ReorderBufferTXN](ReorderBufferTXN.md)
   - RepOriginId
   - CommandId
-  - SharedInvalidationMessage
+  - [SharedInvalidationMessage](../S/SharedInvalidationMessage.md)
   - [dlist_node](../d/dlist_node.md)
 - Called from (representative examples):
   - [ReorderBufferGetChange](ReorderBufferGetChange.md)

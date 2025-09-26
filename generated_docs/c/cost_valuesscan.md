@@ -37,7 +37,7 @@ The function follows PostgreSQL's standard cost model by separating startup cost
 - Types referenced:
   - [ParamPathInfo](../P/ParamPathInfo.md) (parameterized path information)
   - Cost (cost calculation type)
-  - QualCost (qualification cost structure)
+  - [QualCost](../Q/QualCost.md) (qualification cost structure)
   - RTE_VALUES (enum value for VALUES range table entries)
 - Called from:
   - [create_valuesscan_path](create_valuesscan_path.md) (in pathnode.c:2113)

@@ -24,14 +24,14 @@ This function manages the insertion of prepared statements into the ECPG cache s
 ## Dependencies
 - Functions called/Symbols referenced:
   - stmtCacheEntry (struct type)
-  - ecpg_alloc
+  - [ecpg_alloc](../e/ecpg_alloc.md)
   - stmtCacheArraySize
-  - HashStmt
+  - [HashStmt](../H/HashStmt.md)
   - stmtCacheEntPerBucket
-  - ecpg_freeStmtCacheEntry
-  - ecpg_strdup
+  - [ecpg_freeStmtCacheEntry](../e/ecpg_freeStmtCacheEntry.md)
+  - [ecpg_strdup](../e/ecpg_strdup.md)
 - Called from (representative examples):
-  - ecpg_auto_prepare
+  - [ecpg_auto_prepare](../e/ecpg_auto_prepare.md)
 
 ## Notes and Other Information
 - Returns the cache entry number on success, or negative error code on failure

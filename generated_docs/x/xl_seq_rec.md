@@ -25,13 +25,13 @@ The xl_seq_rec is specifically used with the XLOG_SEQ_LOG WAL record type (defin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelFileLocator (embedded structure for relation identification)
+  - [RelFileLocator](../R/RelFileLocator.md) (embedded structure for relation identification)
 - Called from (representative examples):
-  - nextval_internal (creates xl_seq_rec for WAL logging during sequence value generation)
-  - do_setval (creates xl_seq_rec when explicitly setting sequence values)
-  - seq_redo (reads xl_seq_rec during WAL replay to restore sequence state)
-  - seq_desc (reads xl_seq_rec to format human-readable WAL record descriptions)
-  - fill_seq_fork_with_data (uses xl_seq_rec for sequence relation initialization)
+  - [nextval_internal](../n/nextval_internal.md) (creates xl_seq_rec for WAL logging during sequence value generation)
+  - [do_setval](../d/do_setval.md) (creates xl_seq_rec when explicitly setting sequence values)
+  - [seq_redo](../s/seq_redo.md) (reads xl_seq_rec during WAL replay to restore sequence state)
+  - [seq_desc](../s/seq_desc.md) (reads xl_seq_rec to format human-readable WAL record descriptions)
+  - [fill_seq_fork_with_data](../f/fill_seq_fork_with_data.md) (uses xl_seq_rec for sequence relation initialization)
 
 ## Notes and Other Information
 - The comment "SEQUENCE TUPLE DATA FOLLOWS AT THE END" indicates that the actual FormData_pg_sequence_data follows this header in the WAL record

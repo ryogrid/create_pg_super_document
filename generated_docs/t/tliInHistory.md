@@ -22,7 +22,7 @@ The function iterates through the provided list using PostgreSQL's foreach macro
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TimeLineHistoryEntry (structure access)
+  - [TimeLineHistoryEntry](../T/TimeLineHistoryEntry.md) (structure access)
 - Called from (representative examples):
   - [checkTimeLineSwitch](../c/checkTimeLineSwitch.md) (src/backend/access/transam/xlogrecovery.c:2390)
   - [ReadRecord](../R/ReadRecord.md) (src/backend/access/transam/xlogrecovery.c:3193)

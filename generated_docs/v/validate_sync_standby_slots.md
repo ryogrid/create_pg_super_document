@@ -21,9 +21,9 @@ This function validates the synchronized_standby_slots GUC parameter by first pa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SplitIdentifierString (for parsing comma-separated identifiers)
+  - [SplitIdentifierString](../S/SplitIdentifierString.md) (for parsing comma-separated identifiers)
   - GUC_check_errdetail (for setting error messages)
-  - LWLockAcquire/LWLockRelease (for locking ReplicationSlotControlLock)
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease (for locking ReplicationSlotControlLock)
   - [SearchNamedReplicationSlot](../S/SearchNamedReplicationSlot.md) (to find slots by name)
   - SlotIsPhysical (to check if slot is physical)
   - foreach_ptr (macro for iterating over list)

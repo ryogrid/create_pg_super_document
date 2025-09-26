@@ -47,7 +47,7 @@ This function takes no parameters.
   - [pgwin32_waitforsinglesocket](pgwin32_waitforsinglesocket.md)
   - [pgwin32_select](pgwin32_select.md)
   - [PGSemaphoreLock](../P/PGSemaphoreLock.md)
-  - WaitEventSetWait
+  - [WaitEventSetWait](../W/WaitEventSetWait.md)
 
 ## Notes and Other Information
 - This is a Windows-specific signal dispatch function located in src/backend/port/win32/signal.c

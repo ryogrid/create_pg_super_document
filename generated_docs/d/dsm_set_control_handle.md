@@ -26,7 +26,7 @@ The function includes an assertion to ensure that it's only called once (when ds
   - Assert
   - dsm_handle (type)
 - Called from (representative examples):
-  - PGSharedMemoryReAttach (both sysv_shmem.c and win32_shmem.c)
+  - [PGSharedMemoryReAttach](../P/PGSharedMemoryReAttach.md) (both sysv_shmem.c and win32_shmem.c)
 
 ## Notes and Other Information
 - Only relevant under EXEC_BACKEND builds; not used in standard Unix fork-based backends

@@ -32,7 +32,7 @@ For containment queries, the function implements conservative logic that never r
 - Types used:
   - GinTernaryValue
   - StrategyNumber  
-  - JsonPathGinNode
+  - [JsonPathGinNode](../J/JsonPathGinNode.md)
 - Constants:
   - JsonbContainsStrategyNumber
   - JsonbJsonpathPredicateStrategyNumber

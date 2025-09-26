@@ -30,7 +30,7 @@ ViewOptions serves as the specialized structure for storing relation options for
 - Functions called/Symbols referenced:
   - ViewOptCheckOption
 - Called from (representative examples):
-  - view_reloptions
+  - [view_reloptions](../v/view_reloptions.md)
   - RelationIsSecurityView
   - RelationHasSecurityInvoker
   - RelationHasCheckOption

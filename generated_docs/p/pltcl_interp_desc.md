@@ -35,10 +35,10 @@ This separation ensures that unprivileged users cannot inject Tcl code that woul
   - Tcl_Interp (Tcl interpreter structure)
   - Tcl_HashTable (Tcl hash table structure)
 - Called from (representative examples):
-  - pltcl_proc_desc (referenced at line 150)
-  - _PG_init (referenced at line 446)  
-  - pltcl_init_interp (referenced at lines 490, 562)
-  - pltcl_fetch_interp (referenced at line 566)
+  - [pltcl_proc_desc](pltcl_proc_desc.md) (referenced at line 150)
+  - [_PG_init](../P/_PG_init.md) (referenced at line 446)  
+  - [pltcl_init_interp](pltcl_init_interp.md) (referenced at lines 490, 562)
+  - [pltcl_fetch_interp](pltcl_fetch_interp.md) (referenced at line 566)
 
 ## Notes and Other Information
 - The user_id field must be the first member to serve as the hash key in PostgreSQL's hash table implementation

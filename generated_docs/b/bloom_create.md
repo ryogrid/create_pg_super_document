@@ -32,8 +32,8 @@ The algorithm aims for approximately two bytes per element to achieve the target
   - [bloom_filter](bloom_filter.md): The filter structure type
 
 - Called from (representative examples):
-  - `roles_list_append`: ACL role list processing
-  - `create_and_test_bloom`: Test module functionality
+  - `[roles_list_append](../r/roles_list_append.md)`: ACL role list processing
+  - `[create_and_test_bloom](../c/create_and_test_bloom.md)`: Test module functionality
 
 ## Notes and Other Information
 - Bitset size is constrained to be between 1MB minimum and 512MB maximum (2^32 bits)

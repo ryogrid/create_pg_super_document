@@ -19,11 +19,11 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SUBTRANSShmemBuffers
-  - SetConfigOption
-  - SimpleLruInit
-  - SlruPagePrecedesUnitTests
-  - SubTransPagePrecedes
+  - [SUBTRANSShmemBuffers](SUBTRANSShmemBuffers.md)
+  - [SetConfigOption](SetConfigOption.md)
+  - [SimpleLruInit](SimpleLruInit.md)
+  - [SlruPagePrecedesUnitTests](SlruPagePrecedesUnitTests.md)
+  - [SubTransPagePrecedes](SubTransPagePrecedes.md)
 - Global variables accessed:
   - SubTransCtl
   - subtransaction_buffers
@@ -36,7 +36,7 @@ This function takes no parameters.
   - SYNC_HANDLER_NONE
   - SUBTRANS_XACTS_PER_PAGE
 - Called from (representative examples):
-  - CreateOrAttachShmemStructs
+  - [CreateOrAttachShmemStructs](../C/CreateOrAttachShmemStructs.md)
 
 ## Notes and Other Information
 - Handles auto-tuning of subtransaction_buffers configuration when set to 0

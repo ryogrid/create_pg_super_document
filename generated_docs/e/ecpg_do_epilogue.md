@@ -32,11 +32,11 @@ The function uses conditional compilation to handle different locale management 
   - uselocale: Restores thread-specific locale (when HAVE_USELOCALE defined)
   - setlocale: Restores global numeric locale (fallback method)
   - _configthreadlocale: Restores Windows thread locale configuration
-  - free_statement: Deallocates statement structure and all associated memory
+  - [free_statement](../f/free_statement.md): Deallocates statement structure and all associated memory
   - locale_t: Locale type for thread-safe locale operations
 - Called from (representative examples):
-  - ecpg_do_prologue: Multiple times during error handling
-  - ecpg_do: Final cleanup after statement execution
+  - [ecpg_do_prologue](ecpg_do_prologue.md): Multiple times during error handling
+  - [ecpg_do](ecpg_do.md): Final cleanup after statement execution
 
 ## Notes and Other Information
 - Returns void - always succeeds and performs cleanup operations

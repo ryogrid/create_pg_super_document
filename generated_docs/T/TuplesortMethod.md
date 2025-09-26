@@ -31,9 +31,9 @@ The enumeration uses bit flags (powers of 2) to allow for efficient combination 
 - Functions called/Symbols referenced:
   - (None - this is a standalone enumeration type)
 - Called from (representative examples):
-  - tuplesort_method_name
-  - show_incremental_sort_group_info
-  - TuplesortInstrumentation (as a member variable)
+  - [tuplesort_method_name](../t/tuplesort_method_name.md)
+  - [show_incremental_sort_group_info](../s/show_incremental_sort_group_info.md)
+  - [TuplesortInstrumentation](TuplesortInstrumentation.md) (as a member variable)
 
 ## Notes and Other Information
 - The enumeration is defined with  set to 4, representing the number of actual sorting methods (excluding the in-progress state)

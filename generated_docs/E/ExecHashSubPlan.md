@@ -30,10 +30,10 @@ Key features include:
 ## Dependencies
 - Functions called/Symbols referenced:
   - [buildSubPlanHash](../b/buildSubPlanHash.md) (builds the hash table from subquery results)
-  - ExecProject (projects left-hand-side expressions into a tuple)
-  - FindTupleHashEntry (searches for exact matches in hash table)
+  - [ExecProject](ExecProject.md) (projects left-hand-side expressions into a tuple)
+  - [FindTupleHashEntry](../F/FindTupleHashEntry.md) (searches for exact matches in hash table)
   - [findPartialMatch](../f/findPartialMatch.md) (searches for partial matches with nulls)
-  - ExecClearTuple (clears projected tuple to prevent memory leaks)
+  - [ExecClearTuple](ExecClearTuple.md) (clears projected tuple to prevent memory leaks)
   - [slotNoNulls](../s/slotNoNulls.md)/slotAllNulls (check tuple null status)
   - [BoolGetDatum](../B/BoolGetDatum.md) (converts boolean to Datum)
 - Called from (representative examples):

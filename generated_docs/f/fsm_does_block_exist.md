@@ -26,13 +26,13 @@ This approach trades some performance (lseek overhead) for correctness, ensuring
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationGetSmgr
+  - [RelationGetSmgr](../R/RelationGetSmgr.md)
   - BlockNumberIsValid
   - RelationGetNumberOfBlocks
   - MAIN_FORKNUM (constant)
 - Called from (representative examples):
-  - RecordAndGetPageWithFreeSpace
-  - fsm_search
+  - [RecordAndGetPageWithFreeSpace](../R/RecordAndGetPageWithFreeSpace.md)
+  - [fsm_search](fsm_search.md)
 
 ## Notes and Other Information
 - The function is static and only used internally within the freespace.c module

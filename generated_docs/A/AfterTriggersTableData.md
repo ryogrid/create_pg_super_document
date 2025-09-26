@@ -62,8 +62,8 @@ The structure is allocated in the current transaction's memory context and exist
 - Functions called/Symbols referenced:
   - CmdType (enum for command types)
   - [AfterTriggerEventList](AfterTriggerEventList.md) (structure for event lists)
-  - Tuplestorestate (tuplestore management)
-  - TupleTableSlot (tuple slot management)
+  - [Tuplestorestate](../T/Tuplestorestate.md) (tuplestore management)
+  - [TupleTableSlot](../T/TupleTableSlot.md) (tuple slot management)
   - [GetAfterTriggersTableData](../G/GetAfterTriggersTableData.md) (factory function)
   - [GetAfterTriggersStoreSlot](../G/GetAfterTriggersStoreSlot.md) (slot accessor)
   - [GetAfterTriggersTransitionTable](../G/GetAfterTriggersTransitionTable.md) (transition table accessor)

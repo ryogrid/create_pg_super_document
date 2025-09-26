@@ -23,7 +23,7 @@ The function is part of the backup sink chain construction process, where multip
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BaseBackupTargetHandle](BaseBackupTargetHandle.md) (struct)
-  - bbsink (type)
+  - [bbsink](../b/bbsink.md) (type)
   - Target-specific get_sink function (via handle->type->get_sink)
 
 - Called from (representative examples):

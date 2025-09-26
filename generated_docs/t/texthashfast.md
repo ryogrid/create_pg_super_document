@@ -21,11 +21,11 @@ The function follows the same collation strategy as texteqfast, using DEFAULT_CO
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hashtext (PostgreSQL's standard text hashing function)
-  - DirectFunctionCall1Coll (direct function call with collation)
-  - DatumGetInt32 (macro for extracting int32 result from Datum)
+  - [hashtext](../h/hashtext.md) (PostgreSQL's standard text hashing function)
+  - [DirectFunctionCall1Coll](../D/DirectFunctionCall1Coll.md) (direct function call with collation)
+  - [DatumGetInt32](../D/DatumGetInt32.md) (macro for extracting int32 result from Datum)
 - Called from (representative examples):
-  - GetCCHashEqFuncs (assigned as hash function for TEXTOID)
+  - [GetCCHashEqFuncs](../G/GetCCHashEqFuncs.md) (assigned as hash function for TEXTOID)
 
 ## Notes and Other Information
 - This function is static and only used within catcache.c

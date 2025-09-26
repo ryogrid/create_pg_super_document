@@ -23,16 +23,16 @@ The function is designed for performance-critical scenarios where only the type 
 ## Dependencies
 - Functions called/Symbols referenced:
   - TupleDescAttr
-  - SystemAttributeDefinition  
+  - [SystemAttributeDefinition](SystemAttributeDefinition.md)  
   - FirstLowInvalidHeapAttributeNumber
   - SPI_ERROR_NOATTRIBUTE
   - InvalidOid
 - Called from (representative examples):
-  - tsquery_rewrite_query (src/backend/utils/adt/tsquery_rewrite.c)
-  - ts_stat_sql (src/backend/utils/adt/tsvector_op.c)
-  - tsvector_update_trigger (src/backend/utils/adt/tsvector_op.c)
-  - SPI_sql_row_to_xmlelement (src/backend/utils/adt/xml.c)
-  - ttdummy (src/test/regress/regress.c)
+  - [tsquery_rewrite_query](../t/tsquery_rewrite_query.md) (src/backend/utils/adt/tsquery_rewrite.c)
+  - [ts_stat_sql](../t/ts_stat_sql.md) (src/backend/utils/adt/tsvector_op.c)
+  - [tsvector_update_trigger](../t/tsvector_update_trigger.md) (src/backend/utils/adt/tsvector_op.c)
+  - [SPI_sql_row_to_xmlelement](SPI_sql_row_to_xmlelement.md) (src/backend/utils/adt/xml.c)
+  - [ttdummy](../t/ttdummy.md) (src/test/regress/regress.c)
 
 ## Notes and Other Information
 - Returns InvalidOid and sets SPI_result to SPI_ERROR_NOATTRIBUTE if fnumber is invalid

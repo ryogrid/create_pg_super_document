@@ -29,7 +29,7 @@ The function does not protect against concurrent truncation, so callers must han
   - [SimpleLruDoesPhysicalPageExist](../S/SimpleLruDoesPhysicalPageExist.md)
   - [SimpleLruReadPage_ReadOnly](../S/SimpleLruReadPage_ReadOnly.md)
   - [SimpleLruGetBankLock](../S/SimpleLruGetBankLock.md)
-  - LWLockRelease
+  - [LWLockRelease](../L/LWLockRelease.md)
   - MultiXactOffsetCtl
   - MultiXactMemberCtl
 - Called from (representative examples):

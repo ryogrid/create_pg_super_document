@@ -30,10 +30,10 @@ The function performs the following steps:
   - [sift_down](../s/sift_down.md) (heap rebalancing)
 - Called from (representative examples):
   - [gather_merge_getnext](../g/gather_merge_getnext.md) (executor/nodeGatherMerge.c:567)
-  - ExecMergeAppend (executor/nodeMergeAppend.c:252)
+  - [ExecMergeAppend](../E/ExecMergeAppend.md) (executor/nodeMergeAppend.c:252)
   - [pgarch_readyXlog](../p/pgarch_readyXlog.md) (postmaster/pgarch.c:737, 761)
   - [ReorderBufferIterTXNNext](../R/ReorderBufferIterTXNNext.md) (replication/logical/reorderbuffer.c:1491)
-  - BufferSync (storage/buffer/bufmgr.c:3130)
+  - [BufferSync](../B/BufferSync.md) (storage/buffer/bufmgr.c:3130)
   - [TopoSort](../T/TopoSort.md) (bin/pg_dump/pg_dump_sort.c:692)
 
 ## Notes and Other Information

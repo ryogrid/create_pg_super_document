@@ -103,16 +103,16 @@ The design accommodates SP-GiST's sophisticated search algorithms including prio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SpGistState (index state management)
-  - pairingheap (priority queue implementation)
-  - MemoryContext (memory management)
+  - [SpGistState](SpGistState.md) (index state management)
+  - [pairingheap](../p/pairingheap.md) (priority queue implementation)
+  - [MemoryContext](../M/MemoryContext.md) (memory management)
   - ScanKey (scan key descriptors)
-  - TIDBitmap (bitmap scan support)
-  - FmgrInfo (function manager)
+  - [TIDBitmap](../T/TIDBitmap.md) (bitmap scan support)
+  - [FmgrInfo](../F/FmgrInfo.md) (function manager)
   - MaxIndexTuplesPerPage (page capacity constant)
 
 - Called from (representative examples):
-  - spgbeginscan (spgscan.c:312)
+  - [spgbeginscan](../s/spgbeginscan.md) (spgscan.c:312)
   - SpGistScanOpaque (spgist_private.h:245)
 
 ## Notes and Other Information

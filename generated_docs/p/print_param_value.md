@@ -24,13 +24,13 @@ This function is responsible for logging parameter values in a human-readable fo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ecpg_alloc
-  - ecpg_hex_enc_len
-  - ecpg_hex_encode
-  - ecpg_log
-  - ecpg_free
+  - [ecpg_alloc](../e/ecpg_alloc.md)
+  - [ecpg_hex_enc_len](../e/ecpg_hex_enc_len.md)
+  - [ecpg_hex_encode](../e/ecpg_hex_encode.md)
+  - [ecpg_log](../e/ecpg_log.md)
+  - [ecpg_free](../e/ecpg_free.md)
 - Called from:
-  - ecpg_free_params
+  - [ecpg_free_params](../e/ecpg_free_params.md)
 
 ## Notes and Other Information
 - This is a static function used internally within execute.c for debugging purposes

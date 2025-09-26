@@ -30,18 +30,18 @@ Key responsibilities:
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetTopXid
-  - ReorderBufferAssignChild
+  - [ReorderBufferAssignChild](../R/ReorderBufferAssignChild.md)
   - XLogRecGetXid
-  - GetRmgr
+  - [GetRmgr](../G/GetRmgr.md)
   - XLogRecGetRmid
-  - ReorderBufferProcessXid
+  - [ReorderBufferProcessXid](../R/ReorderBufferProcessXid.md)
 - Data types used:
   - [LogicalDecodingContext](LogicalDecodingContext.md)
   - [XLogRecordBuffer](../X/XLogRecordBuffer.md)
-  - RmgrData
+  - [RmgrData](../R/RmgrData.md)
 - Called from (representative examples):
   - [DecodingContextFindStartpoint](../D/DecodingContextFindStartpoint.md)
-  - LogicalReplicationSlotHasPendingWal
+  - [LogicalReplicationSlotHasPendingWal](LogicalReplicationSlotHasPendingWal.md)
   - [pg_logical_slot_get_changes_guts](../p/pg_logical_slot_get_changes_guts.md)
   - [XLogSendLogical](../X/XLogSendLogical.md)
 

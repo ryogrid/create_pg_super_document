@@ -36,7 +36,7 @@ The operation is complex because changing a generated expression affects not onl
 - Functions called/Symbols referenced:
   - [SearchSysCacheAttName](../S/SearchSysCacheAttName.md)
   - [RelationClearMissing](../R/RelationClearMissing.md)
-  - CommandCounterIncrement
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md)
   - [RememberAllDependentForRebuilding](../R/RememberAllDependentForRebuilding.md)
   - [GetAttrDefaultOid](../G/GetAttrDefaultOid.md)
   - [deleteDependencyRecordsFor](../d/deleteDependencyRecordsFor.md)

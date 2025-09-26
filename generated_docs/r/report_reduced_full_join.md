@@ -33,7 +33,7 @@ The function is called specifically when:
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc](../p/palloc.md)
-  - lappend
+  - [lappend](../l/lappend.md)
 - Called from (representative examples):
   - [reduce_outer_joins_pass2](reduce_outer_joins_pass2.md) (when FULL JOIN is reduced to LEFT or RIGHT JOIN)
 

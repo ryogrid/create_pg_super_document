@@ -25,8 +25,8 @@ static inline void pq_sendbyte(StringInfo buf, uint8 byt)
   - [logicalrep_write_begin](../l/logicalrep_write_begin.md)
   - [logicalrep_write_commit](../l/logicalrep_write_commit.md)
   - [logicalrep_write_insert](../l/logicalrep_write_insert.md)
-  - logicalrep_write_update
-  - logicalrep_write_delete
+  - [logicalrep_write_update](../l/logicalrep_write_update.md)
+  - [logicalrep_write_delete](../l/logicalrep_write_delete.md)
   - [send_feedback](../s/send_feedback.md)
   - [XLogWalRcvSendReply](../X/XLogWalRcvSendReply.md)
   - [WalSndPrepareWrite](../W/WalSndPrepareWrite.md)

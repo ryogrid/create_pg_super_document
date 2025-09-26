@@ -37,7 +37,7 @@ The parsed values are stored directly into the provided VirtualTransactionId str
   - ereport (PostgreSQL error reporting)
   - [VirtualTransactionId](../V/VirtualTransactionId.md) (PostgreSQL data structure)
 - Called from (representative examples):
-  - ImportSnapshot (for parsing the virtual transaction ID of the snapshot exporter)
+  - [ImportSnapshot](../I/ImportSnapshot.md) (for parsing the virtual transaction ID of the snapshot exporter)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the snapmgr.c compilation unit

@@ -20,7 +20,7 @@ AlterType processes ALTER TYPE SET commands that can modify specific properties 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeTypeNameFromNameList
+  - [makeTypeNameFromNameList](../m/makeTypeNameFromNameList.md)
   - [typenameType](../t/typenameType.md)
   - [typeTypeId](../t/typeTypeId.md)
   - [defGetString](../d/defGetString.md)
@@ -31,7 +31,7 @@ AlterType processes ALTER TYPE SET commands that can modify specific properties 
   - [findTypeTypmodoutFunction](../f/findTypeTypmodoutFunction.md)
   - [findTypeAnalyzeFunction](../f/findTypeAnalyzeFunction.md)
   - [findTypeSubscriptingFunction](../f/findTypeSubscriptingFunction.md)
-  - superuser
+  - [superuser](../s/superuser.md)
   - [object_ownercheck](../o/object_ownercheck.md)
   - [aclcheck_error_type](../a/aclcheck_error_type.md)
   - IsTrueArrayType

@@ -22,13 +22,13 @@ For implicit-AND lists, the function accumulates forced-null variables from each
 ## Dependencies
 - Functions called/Symbols referenced:
   - [find_forced_null_var](find_forced_null_var.md)
-  - mbms_add_member
-  - mbms_add_members
+  - [mbms_add_member](../m/mbms_add_member.md)
+  - [mbms_add_members](../m/mbms_add_members.md)
   - [find_forced_null_vars](find_forced_null_vars.md) (recursive calls)
 - Called from (representative examples):
   - [reduce_outer_joins_pass2](../r/reduce_outer_joins_pass2.md)
   - [find_forced_null_vars](find_forced_null_vars.md) (recursive)
-  - WindowFuncLists
+  - [WindowFuncLists](../W/WindowFuncLists.md)
 
 ## Notes and Other Information
 - The function intentionally avoids analyzing OR and NOT cases for simplicity

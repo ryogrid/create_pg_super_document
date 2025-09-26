@@ -41,11 +41,11 @@ SyncRepStandbyData is a data structure that encapsulates information about a sta
   - XLogRecPtr
 - Called from (representative examples):
   - SyncStandbysDefined
-  - SyncRepGetSyncRecPtr
-  - SyncRepGetOldestSyncRecPtr
-  - SyncRepGetNthLatestSyncRecPtr
-  - SyncRepGetCandidateStandbys
-  - standby_priority_comparator
+  - [SyncRepGetSyncRecPtr](SyncRepGetSyncRecPtr.md)
+  - [SyncRepGetOldestSyncRecPtr](SyncRepGetOldestSyncRecPtr.md)
+  - [SyncRepGetNthLatestSyncRecPtr](SyncRepGetNthLatestSyncRecPtr.md)
+  - [SyncRepGetCandidateStandbys](SyncRepGetCandidateStandbys.md)
+  - [standby_priority_comparator](../s/standby_priority_comparator.md)
 
 ## Notes and Other Information
 - This struct is used internally by the synchronous replication subsystem to manage and compare standby servers

@@ -31,7 +31,7 @@ The function returns NULL when no more matching tuples exist, indicating the end
 - Functions called/Symbols referenced:
   - `SCAN_CHECKS` (macro for scan validation)
   - `CHECK_SCAN_PROCEDURE` (macro to verify amgettuple procedure exists)
-  - `table_index_fetch_reset` (resets heap fetch resources)
+  - `[table_index_fetch_reset](../t/table_index_fetch_reset.md)` (resets heap fetch resources)
   - [ItemPointerIsValid](../I/ItemPointerIsValid.md) (validates tuple identifier)
   - `pgstat_count_index_tuples` (updates index usage statistics)
   - `ScanDirection` (enumeration type)

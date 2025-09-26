@@ -24,17 +24,17 @@ The function uses critical sections and WAL logging to ensure crash safety durin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - smgrexists (checks if FSM fork exists)
-  - RelationGetSmgr (gets storage manager for relation)
-  - fsm_get_location (gets FSM address for a heap block)
-  - fsm_readbuf (reads FSM buffer)
-  - fsm_truncate_avail (zeros out FSM slots)
-  - fsm_logical_to_physical (converts logical FSM address to physical block number)
-  - log_newpage_buffer (logs full page image for WAL)
-  - smgrnblocks (gets number of blocks in storage manager)
+  - [smgrexists](../s/smgrexists.md) (checks if FSM fork exists)
+  - [RelationGetSmgr](../R/RelationGetSmgr.md) (gets storage manager for relation)
+  - [fsm_get_location](../f/fsm_get_location.md) (gets FSM address for a heap block)
+  - [fsm_readbuf](../f/fsm_readbuf.md) (reads FSM buffer)
+  - [fsm_truncate_avail](../f/fsm_truncate_avail.md) (zeros out FSM slots)
+  - [fsm_logical_to_physical](../f/fsm_logical_to_physical.md) (converts logical FSM address to physical block number)
+  - [log_newpage_buffer](../l/log_newpage_buffer.md) (logs full page image for WAL)
+  - [smgrnblocks](../s/smgrnblocks.md) (gets number of blocks in storage manager)
 - Called from (representative examples):
-  - RelationTruncate (src/backend/catalog/storage.c:318)
-  - smgr_redo (src/backend/catalog/storage.c:1037)
+  - [RelationTruncate](../R/RelationTruncate.md) (src/backend/catalog/storage.c:318)
+  - [smgr_redo](../s/smgr_redo.md) (src/backend/catalog/storage.c:1037)
 
 ## Notes and Other Information
 - Returns InvalidBlockNumber if there is nothing to truncate (no FSM exists or FSM is already smaller than required)

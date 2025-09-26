@@ -43,16 +43,16 @@ The function includes comprehensive checks for:
 - Functions called/Symbols referenced:
   - SpinLockAcquire/SpinLockRelease (for thread-safe TOC modification)
   - pg_write_barrier (for memory ordering guarantees)
-  - shm_toc_entry (for TOC entry structure)
+  - [shm_toc_entry](shm_toc_entry.md) (for TOC entry structure)
   - PG_UINT32_MAX (for entry count limits)
   - ereport/ERROR (for error handling)
 
 - Called from (representative examples):
-  - _brin_begin_parallel (src/backend/access/brin/brin.c:2477-2499)
-  - _bt_begin_parallel (src/backend/access/nbtree/nbtsort.c:1528-1567)
-  - InitializeParallelDSM (src/backend/access/transam/parallel.c:356-489)
-  - ExecInitParallelPlan (src/backend/executor/execParallel.c:747-827)
-  - parallel_vacuum_init (src/backend/commands/vacuumparallel.c:364-416)
+  - [_brin_begin_parallel](../b/_brin_begin_parallel.md) (src/backend/access/brin/brin.c:2477-2499)
+  - [_bt_begin_parallel](../b/_bt_begin_parallel.md) (src/backend/access/nbtree/nbtsort.c:1528-1567)
+  - [InitializeParallelDSM](../I/InitializeParallelDSM.md) (src/backend/access/transam/parallel.c:356-489)
+  - [ExecInitParallelPlan](../E/ExecInitParallelPlan.md) (src/backend/executor/execParallel.c:747-827)
+  - [parallel_vacuum_init](../p/parallel_vacuum_init.md) (src/backend/commands/vacuumparallel.c:364-416)
 
 ## Notes and Other Information
 - This function is typically called during shared memory segment initialization by a master process

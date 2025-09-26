@@ -21,12 +21,12 @@ The function returns a boolean value indicating whether this participant was the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BarrierDetachImpl
-  - Barrier (struct type)
+  - [BarrierDetachImpl](BarrierDetachImpl.md)
+  - [Barrier](Barrier.md) (struct type)
 - Called from (representative examples):
-  - MultiExecParallelHash
-  - ExecParallelHashJoinSetUpBatches
-  - ExecParallelHashJoinNewBatch
+  - [MultiExecParallelHash](../M/MultiExecParallelHash.md)
+  - [ExecParallelHashJoinSetUpBatches](../E/ExecParallelHashJoinSetUpBatches.md)
+  - [ExecParallelHashJoinNewBatch](../E/ExecParallelHashJoinNewBatch.md)
 
 ## Notes and Other Information
 - This function is a simplified interface to BarrierDetachImpl() with the `arrived` parameter set to false

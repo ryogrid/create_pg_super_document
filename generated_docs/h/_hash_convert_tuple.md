@@ -32,11 +32,11 @@ The function is designed to handle the standard case of single-column hash index
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _hash_datum2hashkey
-  - UInt32GetDatum
+  - [_hash_datum2hashkey](_hash_datum2hashkey.md)
+  - [UInt32GetDatum](../U/UInt32GetDatum.md)
 - Called from (representative examples):
-  - hashbuildCallback
-  - hashinsert
+  - [hashbuildCallback](hashbuildCallback.md)
+  - [hashinsert](hashinsert.md)
 
 ## Notes and Other Information
 This function is essential for hash index insertion operations and bulk index building. The return value indicates whether the conversion was successful - a false return means the data contains null values and should not be indexed. The function's design reflects hash indexes' fundamental limitation of not supporting null values, which is acceptable given that hash indexes only support equality searches with strict operators.

@@ -29,9 +29,9 @@ This is particularly useful for ECPG applications where memory needs to be autom
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ecpg_alloc
-  - ecpg_add_mem
-  - ecpg_free
+  - [ecpg_alloc](ecpg_alloc.md)
+  - [ecpg_add_mem](ecpg_add_mem.md)
+  - [ecpg_free](ecpg_free.md)
 - Called from (representative examples):
   - Various ECPG-generated code and user applications requiring automatic memory management
 

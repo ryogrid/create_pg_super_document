@@ -32,15 +32,15 @@ The function initializes all the hash-specific fields including hash clauses, op
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to create the HashJoin node)
-  - HashJoin (plan node structure)
+  - [HashJoin](../H/HashJoin.md) (plan node structure)
   - JoinType (enumeration for join types)
 - Called from (representative examples):
   - [create_hashjoin_plan](../c/create_hashjoin_plan.md) (in createplan.c:4902)
 
 ## Notes and Other Information
 - This is a static function within createplan.c, used internally by the plan creation subsystem
-- Hash joins are typically chosen when both relations are large and no suitable indexes exist
+- [Hash](../H/Hash.md) joins are typically chosen when both relations are large and no suitable indexes exist
 - The hash table is built from the inner relation (righttree), so the planner usually assigns the smaller relation as the inner relation
-- Hash joins require equality conditions in the join clauses to work effectively
+- [Hash](../H/Hash.md) joins require equality conditions in the join clauses to work effectively
 - The hash-specific parameters (hashclauses, hashoperators, etc.) are crucial for the hash table construction and probing phases
 - Memory usage for the hash table is a key consideration - if it doesn't fit in work_mem, PostgreSQL may spill to disk or choose a different join algorithm

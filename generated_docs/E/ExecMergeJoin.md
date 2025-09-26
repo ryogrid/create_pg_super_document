@@ -33,16 +33,16 @@ The function handles complex scenarios including duplicate values across join bo
   - castNode (for type casting)
   - innerPlanState/outerPlanState (to access child plan nodes)
   - ResetExprContext (memory management)
-  - ExecProcNode (to fetch tuples from child nodes)
-  - MJEvalOuterValues/MJEvalInnerValues (join key evaluation)
-  - MJCompare (tuple comparison)
-  - MJFillOuter/MJFillInner (outer join null-filling)
-  - ExecQual (qualification testing)
-  - ExecProject (result tuple projection)
-  - ExecMarkPos/ExecRestrPos (mark and restore operations)
+  - [ExecProcNode](ExecProcNode.md) (to fetch tuples from child nodes)
+  - [MJEvalOuterValues](../M/MJEvalOuterValues.md)/MJEvalInnerValues (join key evaluation)
+  - [MJCompare](../M/MJCompare.md) (tuple comparison)
+  - [MJFillOuter](../M/MJFillOuter.md)/MJFillInner (outer join null-filling)
+  - [ExecQual](ExecQual.md) (qualification testing)
+  - [ExecProject](ExecProject.md) (result tuple projection)
+  - [ExecMarkPos](ExecMarkPos.md)/ExecRestrPos (mark and restore operations)
   - MarkInnerTuple (marking functionality)
 - Called from (representative examples):
-  - ExecInitMergeJoin (sets as the execution function)
+  - [ExecInitMergeJoin](ExecInitMergeJoin.md) (sets as the execution function)
 
 ## Notes and Other Information
 - Implements a complex state machine with 11 distinct execution states

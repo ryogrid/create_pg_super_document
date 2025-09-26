@@ -27,10 +27,10 @@ This approach is used when creating databases from templates where individual bl
 ## Dependencies
 - Functions called/Symbols referenced: None (struct definition only)
 - Called from (representative examples):
-  - CreateDirAndVersionFile (dbcommands.c:524, 533)
-  - dbase_redo (dbcommands.c:3351, 3352)
-  - dbase_desc (dbasedesc.c:38, 39)
-  - SummarizeDbaseRecord (walsummarizer.c:1285, 1288)
+  - [CreateDirAndVersionFile](../C/CreateDirAndVersionFile.md) (dbcommands.c:524, 533)
+  - [dbase_redo](../d/dbase_redo.md) (dbcommands.c:3351, 3352)
+  - [dbase_desc](../d/dbase_desc.md) (dbasedesc.c:38, 39)
+  - [SummarizeDbaseRecord](../S/SummarizeDbaseRecord.md) (walsummarizer.c:1285, 1288)
 
 ## Notes and Other Information
 - Part of the database resource manager XLOG system for create/drop database operations

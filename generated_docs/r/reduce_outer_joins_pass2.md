@@ -46,8 +46,8 @@ The function maintains state about successfully reduced joins in state2, disting
   - [find_forced_null_vars](../f/find_forced_null_vars.md)
   - [find_nonnullable_vars](../f/find_nonnullable_vars.md)
   - [bms_add_members](../b/bms_add_members.md)
-  - mbms_add_members
-  - mbms_overlap_sets
+  - [mbms_add_members](../m/mbms_add_members.md)
+  - [mbms_overlap_sets](../m/mbms_overlap_sets.md)
   - [bms_overlap](../b/bms_overlap.md)
   - [bms_add_member](../b/bms_add_member.md)
   - [bms_free](../b/bms_free.md)
@@ -64,6 +64,6 @@ The function maintains state about successfully reduced joins in state2, disting
 - Static function internal to prepjointree.c, used only within the outer join reduction algorithm
 - Requires that jtnode is never NULL or a base relation (RangeTblRef), as these should not appear in subtrees marked as contains_outer
 - Updates both the JoinExpr node and corresponding RangeTblEntry when join types are changed
-- Complex constraint propagation logic ensures that optimizations are applied safely without changing query semantics
+- [Complex](../C/Complex.md) constraint propagation logic ensures that optimizations are applied safely without changing query semantics
 - The function handles the intricate interactions between different join types and their nullability semantics
 - Proper handling of SEMI/ANTI joins that may be introduced by sublink pullup

@@ -45,7 +45,7 @@ Error handling is built into the function through the  helper - if any required 
 
 ## Notes and Other Information
 - The function returns a palloc'd string that the caller is responsible for freeing
-- Path conversion to native format only occurs on Windows platforms (#ifdef WIN32)
+- [Path](../P/Path.md) conversion to native format only occurs on Windows platforms (#ifdef WIN32)
 - The placeholder replacement follows the pattern "frp" meaning %f, %r, %p in that parameter order
 - This function is part of PostgreSQL's WAL archiving and recovery infrastructure
 - The restore command is typically configured via the  GUC parameter

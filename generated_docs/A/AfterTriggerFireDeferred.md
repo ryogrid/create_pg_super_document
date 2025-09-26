@@ -22,12 +22,12 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [AfterTriggerEventList](AfterTriggerEventList.md) (event list structure)
-  - GetTransactionSnapshot (obtains current transaction snapshot)
-  - PushActiveSnapshot (establishes active snapshot)
+  - [GetTransactionSnapshot](../G/GetTransactionSnapshot.md) (obtains current transaction snapshot)
+  - [PushActiveSnapshot](../P/PushActiveSnapshot.md) (establishes active snapshot)
   - [afterTriggerMarkEvents](../a/afterTriggerMarkEvents.md) (marks events for processing)
   - CommandId (type for firing counter)
   - [afterTriggerInvokeEvents](../a/afterTriggerInvokeEvents.md) (executes trigger events)
-  - PopActiveSnapshot (removes active snapshot)
+  - [PopActiveSnapshot](../P/PopActiveSnapshot.md) (removes active snapshot)
 - Called from:
   - [CommitTransaction](../C/CommitTransaction.md) (in src/backend/access/transam/xact.c:2212)
   - [PrepareTransaction](../P/PrepareTransaction.md) (in src/backend/access/transam/xact.c:2490)

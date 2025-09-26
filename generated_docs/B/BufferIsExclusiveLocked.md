@@ -26,7 +26,7 @@ This function is critical for WAL logging operations and other scenarios where e
   - [GetLocalBufferDescriptor](../G/GetLocalBufferDescriptor.md)
   - [GetBufferDescriptor](../G/GetBufferDescriptor.md)
   - BufferIsPinned
-  - LWLockHeldByMeInMode
+  - [LWLockHeldByMeInMode](../L/LWLockHeldByMeInMode.md)
   - [BufferDescriptorGetContentLock](BufferDescriptorGetContentLock.md)
   - LW_EXCLUSIVE
 - Called from (representative examples):

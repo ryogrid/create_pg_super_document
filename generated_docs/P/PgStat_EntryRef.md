@@ -56,17 +56,17 @@ The pending mechanism allows backends to accumulate statistics updates locally w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PgStatShared_HashEntry (shared hashtable entry type)
-  - PgStatShared_Common (shared statistics data header)
-  - dlist_node (double-linked list node)
+  - [PgStatShared_HashEntry](PgStatShared_HashEntry.md) (shared hashtable entry type)
+  - [PgStatShared_Common](PgStatShared_Common.md) (shared statistics data header)
+  - [dlist_node](../d/dlist_node.md) (double-linked list node)
 - Called from (representative examples):
-  - pgstat_get_entry_ref (reference acquisition)
-  - pgstat_release_entry_ref (reference release)
-  - pgstat_fetch_entry (statistics retrieval)
-  - pgstat_prep_pending_entry (pending data preparation)
-  - pgstat_flush_pending_entries (flush pending updates)
-  - find_tabstat_entry (relation statistics lookup)
-  - find_funcstat_entry (function statistics lookup)
+  - [pgstat_get_entry_ref](../p/pgstat_get_entry_ref.md) (reference acquisition)
+  - [pgstat_release_entry_ref](../p/pgstat_release_entry_ref.md) (reference release)
+  - [pgstat_fetch_entry](../p/pgstat_fetch_entry.md) (statistics retrieval)
+  - [pgstat_prep_pending_entry](../p/pgstat_prep_pending_entry.md) (pending data preparation)
+  - [pgstat_flush_pending_entries](../p/pgstat_flush_pending_entries.md) (flush pending updates)
+  - [find_tabstat_entry](../f/find_tabstat_entry.md) (relation statistics lookup)
+  - [find_funcstat_entry](../f/find_funcstat_entry.md) (function statistics lookup)
 
 ## Notes and Other Information
 - Acts as a reference-counted local cache for shared statistics entries, preventing premature deallocation

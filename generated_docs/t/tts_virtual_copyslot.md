@@ -28,7 +28,7 @@ The materialization step is crucial because it ensures the destination slot does
 ## Dependencies
 - Functions called/Symbols referenced:
   - [tts_virtual_clear](tts_virtual_clear.md) (function to clear virtual slot)
-  - slot_getallattrs (function to ensure all source attributes are deformed)
+  - [slot_getallattrs](../s/slot_getallattrs.md) (function to ensure all source attributes are deformed)
   - TTS_FLAG_EMPTY (flag indicating slot is empty)
   - [tts_virtual_materialize](tts_virtual_materialize.md) (function to materialize slot data)
 - Called from (representative examples):

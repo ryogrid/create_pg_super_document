@@ -22,8 +22,8 @@ ExecInitSeqScan performs comprehensive initialization of a sequential scan execu
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (SeqScanState)
-  - ExecAssignExprContext
-  - ExecOpenScanRelation
+  - [ExecAssignExprContext](ExecAssignExprContext.md)
+  - [ExecOpenScanRelation](ExecOpenScanRelation.md)
   - [ExecInitScanTupleSlot](ExecInitScanTupleSlot.md)
   - [table_slot_callbacks](../t/table_slot_callbacks.md)
   - [ExecInitResultTypeTL](ExecInitResultTypeTL.md)

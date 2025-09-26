@@ -31,7 +31,7 @@ The function follows PostgreSQL's dump architecture by creating both creation an
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - createPQExpBuffer
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)
   - [fmtId](../f/fmtId.md)  
   - fmtQualifiedDumpable
   - [binary_upgrade_set_pg_class_oids](../b/binary_upgrade_set_pg_class_oids.md)
@@ -44,7 +44,7 @@ The function follows PostgreSQL's dump architecture by creating both creation an
 
 ## Notes and Other Information
 - Skips processing entirely in data-only dump mode
-- Constraint-backed indexes only have their comments dumped, not the index definition itself
+- [Constraint](../C/Constraint.md)-backed indexes only have their comments dumped, not the index definition itself
 - Partitioned index members cannot be dropped independently, so no DROP statement is generated for them
 - Binary upgrade mode requires special handling for object OID preservation
 - Index statistics are parsed from PostgreSQL array format and converted to individual ALTER INDEX commands

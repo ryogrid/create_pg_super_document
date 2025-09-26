@@ -36,14 +36,14 @@ The function is particularly important in scenarios involving foreign key enforc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetAfterTriggersTableData (retrieves table data for the relation/command)
+  - [GetAfterTriggersTableData](../G/GetAfterTriggersTableData.md) (retrieves table data for the relation/command)
   - for_each_chunk_from (macro for iterating through event chunks from a position)
   - for_each_event_from (macro for iterating through events from a position)
   - GetTriggerSharedData (retrieves shared trigger data from event)
   - TRIGGER_FIRED_FOR_STATEMENT (macro to check if trigger is statement-level)
   - TRIGGER_FIRED_AFTER (macro to check if trigger is AFTER trigger)
 - Called from (representative examples):
-  - AfterTriggerSaveEvent (when queuing statement-level triggers for INSERT, UPDATE, DELETE)
+  - [AfterTriggerSaveEvent](../A/AfterTriggerSaveEvent.md) (when queuing statement-level triggers for INSERT, UPDATE, DELETE)
 
 ## Notes and Other Information
 - The function implements a sophisticated balancing act between trigger firing order requirements and performance considerations

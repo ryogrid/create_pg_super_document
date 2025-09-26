@@ -26,7 +26,7 @@ This function is almost the inverse of XLogArchiveCheckDone but differs in that 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - StatusFilePath
+  - [StatusFilePath](../S/StatusFilePath.md)
   - XLOGDIR
 - Called from (representative examples):
   - [do_pg_backup_stop](../d/do_pg_backup_stop.md)

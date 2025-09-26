@@ -30,7 +30,7 @@ For Valgrind-enabled builds, the function provides debugging support by notifyin
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetMemoryChunkMethodID](../G/GetMemoryChunkMethodID.md) (when USE_VALGRIND defined)
-  - GetMemoryChunkContext (when USE_ASSERT_CHECKING or USE_VALGRIND defined)
+  - [GetMemoryChunkContext](../G/GetMemoryChunkContext.md) (when USE_ASSERT_CHECKING or USE_VALGRIND defined)
   - AssertNotInCriticalSection
   - MCXT_METHOD
   - MCTX_ALIGNED_REDIRECT_ID (when USE_VALGRIND defined)

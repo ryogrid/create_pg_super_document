@@ -58,7 +58,7 @@ The function is designed to handle both user-initiated constraint additions and 
 - Caller should hold an appropriate lock (typically AccessExclusiveLock or ShareUpdateExclusiveLock) until end of transaction
 - Assumes caller has done CommandCounterIncrement if necessary to make relation's catalog tuples visible
 - NULL column defaults are not stored explicitly unless they are generation expressions
-- Constraint names are automatically generated if not provided, using "tab_col_check" for single-column constraints and "tab_check" for multi-column constraints
+- [Constraint](../C/Constraint.md) names are automatically generated if not provided, using "tab_col_check" for single-column constraints and "tab_check" for multi-column constraints
 - The function updates the relation's check constraint count even if no changes were made to ensure SI update messages are sent
 - Returns a list of CookedConstraint nodes showing the processed constraint information
 - Domain type column defaults are always stored to override any domain defaults

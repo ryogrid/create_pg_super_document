@@ -23,10 +23,10 @@ The function employs PostgreSQL's exception handling mechanism to ensure proper 
   - [GetXmlTableBuilderPrivateData](../G/GetXmlTableBuilderPrivateData.md) (retrieves XmlTable context)
   - [DatumGetXmlP](../D/DatumGetXmlP.md) (converts Datum to xmltype)
   - [xml_out_internal](../x/xml_out_internal.md) (converts XML to string)
-  - pg_xmlCharStrndup (creates libxml2 string)
+  - [pg_xmlCharStrndup](../p/pg_xmlCharStrndup.md) (creates libxml2 string)
   - xmlCtxtReadMemory (libxml2 document parsing)
   - xmlXPathNewContext (XPath context creation)
-  - xml_ereport (XML error reporting)
+  - [xml_ereport](../x/xml_ereport.md) (XML error reporting)
   - xmlXPathFreeContext, xmlFreeDoc (cleanup functions)
   - PG_TRY/PG_CATCH/PG_END_TRY (exception handling)
 - Called from (representative examples):
@@ -37,10 +37,10 @@ The function employs PostgreSQL's exception handling mechanism to ensure proper 
   - [GetXmlTableBuilderPrivateData](../G/GetXmlTableBuilderPrivateData.md)
   - [DatumGetXmlP](../D/DatumGetXmlP.md)
   - [xml_out_internal](../x/xml_out_internal.md)
-  - pg_xmlCharStrndup
+  - [pg_xmlCharStrndup](../p/pg_xmlCharStrndup.md)
   - xmlCtxtReadMemory
   - xmlXPathNewContext
-  - xml_ereport
+  - [xml_ereport](../x/xml_ereport.md)
 - Called from (representative examples):
   - No direct callers found (likely called via table function interface)
 

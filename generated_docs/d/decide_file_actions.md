@@ -32,7 +32,7 @@ The resulting filemap contains entries sorted in the order that their actions sh
   - filehash_start_iterate
   - filehash_iterate  
   - [decide_file_action](decide_file_action.md)
-  - pg_malloc
+  - [pg_malloc](../p/pg_malloc.md)
   - qsort
   - [final_filemap_cmp](../f/final_filemap_cmp.md)
   - filehash (global variable)

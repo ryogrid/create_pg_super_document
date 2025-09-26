@@ -21,7 +21,7 @@ pg_atomic_init_flag_impl is a fallback implementation for initializing atomic fl
 ## Dependencies
 - Functions called/Symbols referenced:
   - StaticAssertDecl (for compile-time size assertion)
-  - s_init_lock_sema (on platforms without spinlocks)
+  - [s_init_lock_sema](../s/s_init_lock_sema.md) (on platforms without spinlocks)
   - SpinLockInit (on platforms with spinlocks)
   - [pg_atomic_flag](pg_atomic_flag.md) (structure type)
   - [slock_t](../s/slock_t.md) (spinlock type)

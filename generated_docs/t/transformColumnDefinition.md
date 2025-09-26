@@ -32,9 +32,9 @@ For SERIAL columns, the function automatically creates NOT NULL and DEFAULT next
   - [transformColumnType](transformColumnType.md)
   - [generateSerialExtraStmts](../g/generateSerialExtraStmts.md)
   - [transformConstraintAttrs](transformConstraintAttrs.md)
-  - quote_qualified_identifier
+  - [quote_qualified_identifier](../q/quote_qualified_identifier.md)
   - [typenameType](typenameType.md)
-  - makeFuncCall
+  - [makeFuncCall](../m/makeFuncCall.md)
   - makeNode (A_Const, TypeCast, Constraint, AlterTableStmt, AlterTableCmd)
   - [makeString](../m/makeString.md)
   - SystemTypeName

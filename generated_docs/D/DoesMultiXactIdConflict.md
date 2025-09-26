@@ -41,7 +41,7 @@ The function also handles special cases like upgraded locks and differentiates b
   - [DoLockModesConflict](DoLockModesConflict.md)
   - ISUPDATE_from_mxstatus
   - [TransactionIdDidAbort](../T/TransactionIdDidAbort.md)
-  - TransactionIdIsInProgress
+  - [TransactionIdIsInProgress](../T/TransactionIdIsInProgress.md)
 - Called from (representative examples):
   - [heap_delete](../h/heap_delete.md)
   - [heap_update](../h/heap_update.md)

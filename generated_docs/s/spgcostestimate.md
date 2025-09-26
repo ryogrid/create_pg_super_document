@@ -26,7 +26,7 @@ The spgcostestimate function provides cost estimates for SP-GiST index scans to 
 - Functions called/Symbols referenced:
   - [genericcostestimate](../g/genericcostestimate.md)
   - [IndexOptInfo](../I/IndexOptInfo.md)
-  - GenericCosts
+  - [GenericCosts](../G/GenericCosts.md)
   - DEFAULT_PAGE_CPU_MULTIPLIER
 - Called from (representative examples):
   - [spghandler](spghandler.md)

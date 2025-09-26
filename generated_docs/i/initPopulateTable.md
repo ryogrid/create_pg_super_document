@@ -24,10 +24,10 @@ This function is responsible for efficiently populating pgbench tables with larg
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initPQExpBuffer/termPQExpBuffer: PostgreSQL buffer management functions
+  - [initPQExpBuffer](initPQExpBuffer.md)/termPQExpBuffer: PostgreSQL buffer management functions
   - [PQserverVersion](../P/PQserverVersion.md): Gets PostgreSQL server version for feature detection
   - [PQexec](../P/PQexec.md): Executes the COPY statement
-  - PQputline/PQendcopy: COPY protocol functions for data streaming
+  - [PQputline](../P/PQputline.md)/PQendcopy: COPY protocol functions for data streaming
   - [pg_time_now](../p/pg_time_now.md)/PG_TIME_GET_DOUBLE: Time measurement utilities for progress reporting
   - [pg_snprintf](../p/pg_snprintf.md): Safe string formatting
   - PGRES_COPY_IN: Result status constant

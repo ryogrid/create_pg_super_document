@@ -36,7 +36,7 @@ The function recursively searches through the query's jointree to find and trans
   - [makeFromExpr](../m/makeFromExpr.md)
   - list_make1
   - IsA macro
-  - FromExpr type
+  - [FromExpr](../F/FromExpr.md) type
 - Called from (representative examples):
   - [subquery_planner](../s/subquery_planner.md) (in src/backend/optimizer/plan/planner.c:715)
   - [pull_up_simple_subquery](pull_up_simple_subquery.md) (in src/backend/optimizer/prep/prepjointree.c:1198)

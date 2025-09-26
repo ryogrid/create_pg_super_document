@@ -41,11 +41,11 @@ The function is particularly important for headline generation and advanced text
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TS_execute_locations_recurse
+  - [TS_execute_locations_recurse](TS_execute_locations_recurse.md)
   - TS_EXEC_EMPTY (flag verification)
   - Assert
 - Called from (representative examples):
-  - prsd_headline (in wparser_def.c)
+  - [prsd_headline](../p/prsd_headline.md) (in wparser_def.c)
 
 ## Notes and Other Information
 - Essential for headline generation functionality in PostgreSQL's text search system

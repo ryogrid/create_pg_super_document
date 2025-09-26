@@ -30,8 +30,8 @@ SetOperation specifies the type of set operation used to combine multiple SELECT
 - Functions called/Symbols referenced:
   - (None - this is an enumeration type)
 - Called from (representative examples):
-  - SelectStmt (src/include/nodes/parsenodes.h:2158)
-  - SetOperationStmt (src/include/nodes/parsenodes.h:2188)
+  - [SelectStmt](SelectStmt.md) (src/include/nodes/parsenodes.h:2158)
+  - [SetOperationStmt](SetOperationStmt.md) (src/include/nodes/parsenodes.h:2188)
 
 ## Notes and Other Information
 - [SetOperation](SetOperation.md) is fundamental to PostgreSQL's compound query processing

@@ -22,8 +22,8 @@ The  function provides printf-style formatted text appending to a StringInfo str
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendStringInfoVA (actual formatting implementation)
-  - enlargeStringInfo (buffer expansion)
+  - [appendStringInfoVA](appendStringInfoVA.md) (actual formatting implementation)
+  - [enlargeStringInfo](../e/enlargeStringInfo.md) (buffer expansion)
 - Called from (representative examples):
   - (No direct references found in the current analysis)
 

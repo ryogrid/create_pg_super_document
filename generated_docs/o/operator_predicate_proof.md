@@ -40,10 +40,10 @@ The function assumes that related operators will not return one NULL and one non
   - [op_strict](op_strict.md)
   - [get_btree_test_op](../g/get_btree_test_op.md)
   - [CreateExecutorState](../C/CreateExecutorState.md)
-  - make_opclause
+  - [make_opclause](../m/make_opclause.md)
   - [fix_opfuncids](../f/fix_opfuncids.md)
   - [ExecInitExpr](../E/ExecInitExpr.md)
-  - ExecEvalExprSwitchContext
+  - [ExecEvalExprSwitchContext](../E/ExecEvalExprSwitchContext.md)
   - GetPerTupleExprContext
   - [FreeExecutorState](../F/FreeExecutorState.md)
 - Called from:

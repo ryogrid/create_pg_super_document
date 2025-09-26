@@ -32,7 +32,7 @@ The function employs several optimizations: it assumes the database ID never cha
   - InvalidOid (special value indicating global invalidation)
 - Data structures used:
   - [InvalidationMsgsGroup](../I/InvalidationMsgsGroup.md)
-  - SharedInvalidationMessage
+  - [SharedInvalidationMessage](../S/SharedInvalidationMessage.md)
   - Oid type
 - Called from:
   - [RegisterRelcacheInvalidation](../R/RegisterRelcacheInvalidation.md)

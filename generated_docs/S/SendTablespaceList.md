@@ -24,7 +24,7 @@ This function creates and sends a three-column result set containing information
   - [CreateTemplateTupleDesc](../C/CreateTemplateTupleDesc.md)
   - [TupleDescInitBuiltinEntry](../T/TupleDescInitBuiltinEntry.md)
   - [begin_tup_output_tupdesc](../b/begin_tup_output_tupdesc.md)
-  - tablespaceinfo (struct type)
+  - [tablespaceinfo](../t/tablespaceinfo.md) (struct type)
   - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - CStringGetTextDatum
   - [Int64GetDatum](../I/Int64GetDatum.md)

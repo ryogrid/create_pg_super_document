@@ -32,12 +32,12 @@ CreateSeqStmt is a parse tree node structure that encapsulates all information n
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RangeVar (for sequence name specification)
+  - [RangeVar](../R/RangeVar.md) (for sequence name specification)
 - Called from (representative examples):
-  - DefineSequence
-  - generateSerialExtraStmts
-  - transformCreateSchemaStmtElements
-  - ProcessUtilitySlow
+  - [DefineSequence](../D/DefineSequence.md)
+  - [generateSerialExtraStmts](../g/generateSerialExtraStmts.md)
+  - [transformCreateSchemaStmtElements](../t/transformCreateSchemaStmtElements.md)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md)
 
 ## Notes and Other Information
 - Part of PostgreSQL's parse tree node hierarchy, inheriting from Node via NodeTag

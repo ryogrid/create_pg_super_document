@@ -30,14 +30,14 @@ The function ensures atomicity by holding the dshash partition lock during initi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_atomic_init_u32
-  - pgstat_get_kind_info
+  - [pg_atomic_init_u32](pg_atomic_init_u32.md)
+  - [pgstat_get_kind_info](pgstat_get_kind_info.md)
   - dsa_allocate0
-  - dsa_get_address
-  - LWLockInitialize
+  - [dsa_get_address](../d/dsa_get_address.md)
+  - [LWLockInitialize](../L/LWLockInitialize.md)
 - Called from (representative examples):
-  - pgstat_read_statsfile
-  - pgstat_get_entry_ref
+  - [pgstat_read_statsfile](pgstat_read_statsfile.md)
+  - [pgstat_get_entry_ref](pgstat_get_entry_ref.md)
 
 ## Notes and Other Information
 - The function uses a magic number (0xdeadbeef) to mark the header for debugging purposes

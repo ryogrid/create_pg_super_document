@@ -21,8 +21,8 @@ For ASCII characters (0-127), the function forces C locale behavior in most stra
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_ascii_toupper
-  - unicode_uppercase_simple
+  - [pg_ascii_toupper](pg_ascii_toupper.md)
+  - [unicode_uppercase_simple](../u/unicode_uppercase_simple.md)
   - towupper
   - toupper
   - towupper_l
@@ -37,7 +37,7 @@ For ASCII characters (0-127), the function forces C locale behavior in most stra
   - PG_REGEX_LOCALE_1BYTE_L
   - PG_REGEX_LOCALE_ICU
 - Called from (representative examples):
-  - range
+  - [range](../r/range.md)
   - allcases
   - REPLACEARC
 

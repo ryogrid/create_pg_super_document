@@ -30,13 +30,13 @@ The  function serves as a central validation point for all PostgreSQL query resu
   - [PQerrorMessage](../P/PQerrorMessage.md) (for connection error messages)
   - [PQresultErrorMessage](../P/PQresultErrorMessage.md) (for result-specific error messages)
   - [PQclear](../P/PQclear.md) (to free result memory)
-  - PQendcopy (to end COPY operations)
+  - [PQendcopy](../P/PQendcopy.md) (to end COPY operations)
 - Called from (representative examples):
   - [ECPGsetcommit](../E/ECPGsetcommit.md)
   - [ECPGdescribe](../E/ECPGdescribe.md)
-  - ecpg_execute
+  - [ecpg_execute](ecpg_execute.md)
   - [ECPGtrans](../E/ECPGtrans.md)
-  - prepare_common
+  - [prepare_common](../p/prepare_common.md)
 
 ## Notes and Other Information
 - Returns true for successful operations (PGRES_TUPLES_OK, PGRES_COMMAND_OK, PGRES_COPY_OUT)

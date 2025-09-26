@@ -27,12 +27,12 @@ The mapping is straightforward: heap blocks are distributed across FSM leaf page
   - SlotsPerFSMPage
 - Called from (representative examples):
   - FSMAddress
-  - RecordAndGetPageWithFreeSpace
-  - RecordPageWithFreeSpace
-  - XLogRecordPageWithFreeSpace
-  - GetRecordedFreeSpace
-  - FreeSpaceMapPrepareTruncateRel
-  - fsm_vacuum_page
+  - [RecordAndGetPageWithFreeSpace](../R/RecordAndGetPageWithFreeSpace.md)
+  - [RecordPageWithFreeSpace](../R/RecordPageWithFreeSpace.md)
+  - [XLogRecordPageWithFreeSpace](../X/XLogRecordPageWithFreeSpace.md)
+  - [GetRecordedFreeSpace](../G/GetRecordedFreeSpace.md)
+  - [FreeSpaceMapPrepareTruncateRel](../F/FreeSpaceMapPrepareTruncateRel.md)
+  - [fsm_vacuum_page](fsm_vacuum_page.md)
 
 ## Notes and Other Information
 - This is a static function internal to the freespace.c module

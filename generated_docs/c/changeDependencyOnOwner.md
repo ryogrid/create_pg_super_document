@@ -22,10 +22,10 @@ This function manages the complex process of changing object ownership in Postgr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - [shdepChangeDep](../s/shdepChangeDep.md)
   - [shdepDropDependency](../s/shdepDropDependency.md)
-  - table_close
+  - [table_close](../t/table_close.md)
   - SHARED_DEPENDENCY_OWNER (dependency type)
   - SHARED_DEPENDENCY_ACL (dependency type)
 - Called from (representative examples):

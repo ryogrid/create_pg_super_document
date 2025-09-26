@@ -29,13 +29,13 @@ This capability is essential for tuple sorting operations that need to re-examin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LogicalTape (structure type)
-  - ltsInitReadBuffer (initializes read buffer if needed)
+  - [LogicalTape](LogicalTape.md) (structure type)
+  - [ltsInitReadBuffer](../l/ltsInitReadBuffer.md) (initializes read buffer if needed)
   - TapeBlockGetTrailer (accesses block metadata)
-  - ltsReadBlock (reads blocks from storage)
+  - [ltsReadBlock](../l/ltsReadBlock.md) (reads blocks from storage)
   - TapeBlockPayloadSize (constant for block data size)
 - Called from (representative examples):
-  - tuplesort_gettuple_common (in tuplesort.c for tuple retrieval during merges)
+  - [tuplesort_gettuple_common](../t/tuplesort_gettuple_common.md) (in tuplesort.c for tuple retrieval during merges)
 
 ## Notes and Other Information
 - Only works on frozen tapes - random access is not supported during write operations or on unfrozen read tapes

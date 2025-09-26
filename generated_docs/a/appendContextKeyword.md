@@ -28,19 +28,19 @@ The indentation algorithm includes a wraparound mechanism when indentation excee
 ## Dependencies
 - Functions called/Symbols referenced:
   - PRETTY_INDENT (macro to check if pretty printing is enabled)
-  - removeStringInfoSpaces (removes trailing spaces from buffer)
-  - appendStringInfoChar (appends single character to buffer)
-  - appendStringInfoSpaces (appends specified number of spaces)
-  - appendStringInfoString (appends string to buffer)
+  - [removeStringInfoSpaces](../r/removeStringInfoSpaces.md) (removes trailing spaces from buffer)
+  - [appendStringInfoChar](appendStringInfoChar.md) (appends single character to buffer)
+  - [appendStringInfoSpaces](appendStringInfoSpaces.md) (appends specified number of spaces)
+  - [appendStringInfoString](appendStringInfoString.md) (appends string to buffer)
   - PRETTYINDENT_LIMIT (constant defining indentation limit)
   - PRETTYINDENT_STD (standard indentation amount)
 - Called from (representative examples):
-  - get_select_query_def (for SELECT query formatting)
-  - get_insert_query_def (for INSERT query formatting)
-  - get_update_query_def (for UPDATE query formatting)
-  - get_delete_query_def (for DELETE query formatting)
-  - get_merge_query_def (for MERGE query formatting)
-  - get_from_clause (for FROM clause formatting)
+  - [get_select_query_def](../g/get_select_query_def.md) (for SELECT query formatting)
+  - [get_insert_query_def](../g/get_insert_query_def.md) (for INSERT query formatting)
+  - [get_update_query_def](../g/get_update_query_def.md) (for UPDATE query formatting)
+  - [get_delete_query_def](../g/get_delete_query_def.md) (for DELETE query formatting)
+  - [get_merge_query_def](../g/get_merge_query_def.md) (for MERGE query formatting)
+  - [get_from_clause](../g/get_from_clause.md) (for FROM clause formatting)
 
 ## Notes and Other Information
 - This is a static function within ruleutils.c, used exclusively for SQL rule decompilation

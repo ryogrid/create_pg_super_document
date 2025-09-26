@@ -31,9 +31,9 @@ This function is designed to be called from multiple contexts, including direct 
   - [RelationGetIndexList](../R/RelationGetIndexList.md)
   - [TargetPrivilegesCheck](../T/TargetPrivilegesCheck.md)
   - [ExecSimpleRelationInsert](../E/ExecSimpleRelationInsert.md)
-  - ApplyExecutionData (data structure)
+  - [ApplyExecutionData](../A/ApplyExecutionData.md) (data structure)
   - [ResultRelInfo](../R/ResultRelInfo.md) (data structure)
-  - TupleTableSlot (data structure)
+  - [TupleTableSlot](../T/TupleTableSlot.md) (data structure)
   - ACL_INSERT (constant)
 - Called from (representative examples):
   - [apply_handle_insert](apply_handle_insert.md)

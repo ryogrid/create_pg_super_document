@@ -32,17 +32,17 @@ The returned array is terminated by an entry with a NULL keyword field.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initPQExpBuffer
+  - [initPQExpBuffer](../i/initPQExpBuffer.md)
   - PQExpBufferDataBroken
-  - conninfo_init
-  - conninfo_add_defaults
-  - PQconninfoFree
-  - termPQExpBuffer
+  - [conninfo_init](../c/conninfo_init.md)
+  - [conninfo_add_defaults](../c/conninfo_add_defaults.md)
+  - [PQconninfoFree](PQconninfoFree.md)
+  - [termPQExpBuffer](../t/termPQExpBuffer.md)
 - Called from (representative examples):
-  - GetDbnameFromConnectionOptions (pg_basebackup)
-  - check_pghost_envvar (pg_upgrade)
-  - do_connect (psql)
-  - main (libpq_uri_regress test)
+  - [GetDbnameFromConnectionOptions](../G/GetDbnameFromConnectionOptions.md) (pg_basebackup)
+  - [check_pghost_envvar](../c/check_pghost_envvar.md) (pg_upgrade)
+  - [do_connect](../d/do_connect.md) (psql)
+  - [main](../m/main.md) (libpq_uri_regress test)
 
 ## Notes and Other Information
 - Returns NULL on error (typically out of memory)

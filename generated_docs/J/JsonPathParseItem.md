@@ -31,8 +31,8 @@ JsonPathParseItem is a versatile structure that serves as the fundamental buildi
 - Functions called/Symbols referenced:
   - JsonPathItemType (enum for type identification)
 - Called from (representative examples):
-  - flattenJsonPathParseItem
-  - JsonPathParseResult (as expr member)
+  - [flattenJsonPathParseItem](../f/flattenJsonPathParseItem.md)
+  - [JsonPathParseResult](JsonPathParseResult.md) (as expr member)
 
 ## Notes and Other Information
 - Part of PostgreSQL's JSON path parsing infrastructure

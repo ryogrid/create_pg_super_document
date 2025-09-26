@@ -30,7 +30,7 @@ The function only examines top-level join items in the FROM list, not nested joi
   - copyObject
   - foreach_delete_current
   - IsA (macro for type checking)
-  - RangeTblRef (node type)
+  - [RangeTblRef](../R/RangeTblRef.md) (node type)
 - Called from (representative examples):
   - [rewriteRuleAction](../r/rewriteRuleAction.md)
 

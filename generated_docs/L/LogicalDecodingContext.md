@@ -136,9 +136,9 @@ The structure maintains plugin-specific state, output buffers, and writer callba
   - LogicalOutputPluginWriterPrepareWrite
 - Called from (representative examples):
   - [LogicalDecodingProcessRecord](LogicalDecodingProcessRecord.md)
-  - StartupDecodingContext
-  - CreateDecodingContext
-  - CreateInitDecodingContext
+  - [StartupDecodingContext](../S/StartupDecodingContext.md)
+  - [CreateDecodingContext](../C/CreateDecodingContext.md)
+  - [CreateInitDecodingContext](../C/CreateInitDecodingContext.md)
   - [FreeDecodingContext](../F/FreeDecodingContext.md)
   - [pgoutput_startup](../p/pgoutput_startup.md)
   - [WalSndPrepareWrite](../W/WalSndPrepareWrite.md)

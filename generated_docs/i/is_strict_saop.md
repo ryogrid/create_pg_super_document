@@ -30,11 +30,11 @@ The falseOK parameter controls the strictness requirements: when true, returning
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - set_sa_opfuncid
+  - [set_sa_opfuncid](../s/set_sa_opfuncid.md)
   - [func_strict](../f/func_strict.md)
   - lsecond
   - DatumGetArrayTypeP
-  - ArrayGetNItems
+  - [ArrayGetNItems](../A/ArrayGetNItems.md)
   - ARR_NDIM
   - ARR_DIMS
 - Called from (representative examples):
@@ -45,7 +45,7 @@ The falseOK parameter controls the strictness requirements: when true, returning
 ## Notes and Other Information
 - This is a static function internal to clauses.c
 - The function is conservative and only proves non-emptiness for specific, analyzable cases
-- ScalarArrayOpExpr represents operations like "value = ANY(array)" or "value = ALL(array)"
+- [ScalarArrayOpExpr](../S/ScalarArrayOpExpr.md) represents operations like "value = ANY(array)" or "value = ALL(array)"
 - The distinction between ANY and ALL operations is important for strictness analysis
 - Empty arrays have special semantics that affect NULL propagation behavior
 - The function is part of PostgreSQL's query optimization framework for handling NULL-aware operations

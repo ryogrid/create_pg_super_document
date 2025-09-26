@@ -32,7 +32,7 @@ The function initializes the MemoizePath structure with caching-specific propert
 - Functions called/Symbols referenced:
   - makeNode (to create the MemoizePath node)
   - [clamp_row_est](clamp_row_est.md) (to ensure the calls estimate is within reasonable bounds)
-  - MemoizePath (the path node type being created)
+  - [MemoizePath](../M/MemoizePath.md) (the path node type being created)
 - Called from (representative examples):
   - [get_memoize_path](../g/get_memoize_path.md) (when considering memoization during join planning)
   - [reparameterize_path](../r/reparameterize_path.md) (when reparameterizing paths)

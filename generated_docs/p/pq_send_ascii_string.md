@@ -28,7 +28,7 @@ This function is specifically used in error handling scenarios where PostgreSQL 
 - Functions called/Symbols referenced:
   - IS_HIGHBIT_SET (macro to check if character has high bit set)
   - appendStringInfoCharMacro (macro to append single character to buffer)
-  - appendStringInfoChar (appends null terminator)
+  - [appendStringInfoChar](../a/appendStringInfoChar.md) (appends null terminator)
 
 - Called from (representative examples):
   - [err_sendstring](../e/err_sendstring.md) (error message handling when encoding conversion fails)

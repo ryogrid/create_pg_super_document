@@ -22,11 +22,11 @@ The function calculates the gap remaining in the current 64-byte buffer and fill
 ## Dependencies
 - Functions called/Symbols referenced:
   - MD5_BUFLEN (constant defining MD5 buffer length - 64 bytes)
-  - md5_calc (core MD5 computation function)
+  - [md5_calc](md5_calc.md) (core MD5 computation function)
   - md5_paddat (external padding data array)
   - memmove (standard library function for memory copying)
 - Called from (representative examples):
-  - pg_md5_final
+  - [pg_md5_final](../p/pg_md5_final.md)
 
 ## Notes and Other Information
 - This function is static and only used internally within the MD5 implementation

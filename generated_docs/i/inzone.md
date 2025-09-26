@@ -26,11 +26,11 @@ After validation, it calls  to process the zone data details.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - error (for error reporting)
+  - [error](../e/error.md) (for error reporting)
   - strcmp (string comparison)
-  - inzsub (to process zone details)
+  - [inzsub](inzsub.md) (to process zone details)
 - Called from (representative examples):
-  - infile (main input processing function)
+  - [infile](infile.md) (main input processing function)
 
 ## Notes and Other Information
 - Returns false on validation errors, true on success

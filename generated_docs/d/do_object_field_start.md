@@ -22,7 +22,7 @@ This function serves as a semantic callback for the JSON parser testing framewor
 ## Dependencies
 - Functions called/Symbols referenced:
   - printf (standard library)
-  - resetStringInfo (PostgreSQL string utility)
+  - [resetStringInfo](../r/resetStringInfo.md) (PostgreSQL string utility)
   - [escape_json](../e/escape_json.md) (JSON escaping function)
   - [DoState](../D/DoState.md) (struct type)
   - JSON_SUCCESS (return code constant)

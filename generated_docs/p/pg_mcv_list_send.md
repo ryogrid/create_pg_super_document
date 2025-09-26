@@ -19,7 +19,7 @@ This function serves as the binary output routine for the pg_mcv_list data type 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - byteasend
+  - [byteasend](../b/byteasend.md)
 - Called from (representative examples):
   - (No direct callers found - typically called by PostgreSQL's type system infrastructure)
 

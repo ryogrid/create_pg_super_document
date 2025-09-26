@@ -25,17 +25,17 @@ This initialization is only necessary for plan nodes that actually evaluate expr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreateExprContext (creates the ExprContext and associates it with the EState)
+  - [CreateExprContext](../C/CreateExprContext.md) (creates the ExprContext and associates it with the EState)
 
 - Called from (representative examples):
-  - ExecInitPartitionPruning (in src/backend/executor/execPartition.c:1810)
-  - ExecInitAgg (in src/backend/executor/nodeAgg.c:3282, 3287, 3294)
-  - ExecInitBitmapHeapScan (in src/backend/executor/nodeBitmapHeapscan.c:726)
-  - ExecInitBitmapIndexScan (in src/backend/executor/nodeBitmapIndexscan.c:290)
-  - ExecInitSeqScan (in src/backend/executor/nodeSeqscan.c:147)
-  - ExecInitResult (in src/backend/executor/nodeResult.c:204)
-  - ExecInitHashJoin (in src/backend/executor/nodeHashjoin.c:742)
-  - ExecInitModifyTable (in src/backend/executor/nodeModifyTable.c:4690, 4741)
+  - [ExecInitPartitionPruning](ExecInitPartitionPruning.md) (in src/backend/executor/execPartition.c:1810)
+  - [ExecInitAgg](ExecInitAgg.md) (in src/backend/executor/nodeAgg.c:3282, 3287, 3294)
+  - [ExecInitBitmapHeapScan](ExecInitBitmapHeapScan.md) (in src/backend/executor/nodeBitmapHeapscan.c:726)
+  - [ExecInitBitmapIndexScan](ExecInitBitmapIndexScan.md) (in src/backend/executor/nodeBitmapIndexscan.c:290)
+  - [ExecInitSeqScan](ExecInitSeqScan.md) (in src/backend/executor/nodeSeqscan.c:147)
+  - [ExecInitResult](ExecInitResult.md) (in src/backend/executor/nodeResult.c:204)
+  - [ExecInitHashJoin](ExecInitHashJoin.md) (in src/backend/executor/nodeHashjoin.c:742)
+  - [ExecInitModifyTable](ExecInitModifyTable.md) (in src/backend/executor/nodeModifyTable.c:4690, 4741)
   - Many other ExecInit* functions across executor nodes
 
 ## Notes and Other Information

@@ -22,8 +22,8 @@ This forwarding mechanism allows multiple bbsink implementations to be chained t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbsink_begin_archive
-  - bbsink (type reference)
+  - [bbsink_begin_archive](bbsink_begin_archive.md)
+  - [bbsink](bbsink.md) (type reference)
 - Called from (representative examples):
   - [bbsink_server_begin_archive](bbsink_server_begin_archive.md) (src/backend/backup/basebackup_server.c:153)
 

@@ -24,9 +24,9 @@ The function skips dropped attributes and can optionally include or exclude gene
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - heap_getattr
-  - getTypeOutputInfo  
-  - OidOutputFunctionCall
+  - [heap_getattr](../h/heap_getattr.md)
+  - [getTypeOutputInfo](../g/getTypeOutputInfo.md)  
+  - [OidOutputFunctionCall](../O/OidOutputFunctionCall.md)
   - UTF_BEGIN
   - UTF_E2U
   - UTF_END
@@ -35,10 +35,10 @@ The function skips dropped attributes and can optionally include or exclude gene
   - Tcl_NewStringObj
   - TupleDescAttr
   - NameStr
-  - pfree
+  - [pfree](pfree.md)
 - Called from (representative examples):
-  - pltcl_func_handler
-  - pltcl_trigger_handler
+  - [pltcl_func_handler](pltcl_func_handler.md)
+  - [pltcl_trigger_handler](pltcl_trigger_handler.md)
 
 ## Notes and Other Information
 - The function creates a flat list suitable for Tcl's 'array set' command, where each pair of consecutive elements represents an attribute name and its value

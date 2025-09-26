@@ -80,7 +80,7 @@ For MERGE operations, it maintains action lists and join conditions for each tar
   - [Node](../N/Node.md)
 
 - Called from (representative examples):
-  - make_modifytable (optimizer/plan/createplan.c:7040)
+  - [make_modifytable](../m/make_modifytable.md) (optimizer/plan/createplan.c:7040)
   - [create_modifytable_plan](../c/create_modifytable_plan.md) (optimizer/plan/createplan.c:2817)
   - [ExecInitModifyTable](../E/ExecInitModifyTable.md) (executor/nodeModifyTable.c:4422)
   - [ExecInsert](../E/ExecInsert.md) (executor/nodeModifyTable.c:793)

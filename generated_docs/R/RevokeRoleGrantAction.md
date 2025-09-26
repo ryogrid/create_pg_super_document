@@ -35,9 +35,9 @@ This enumeration is used internally by PostgreSQL's role management system to de
   - [DelRoleMems](../D/DelRoleMems.md) (src/backend/commands/user.c:1987)
   - [check_role_grantor](../c/check_role_grantor.md) (src/backend/commands/user.c:2287)
   - [initialize_revoke_actions](../i/initialize_revoke_actions.md) (src/backend/commands/user.c:2290)
-  - plan_single_revoke (src/backend/commands/user.c:2319)
-  - plan_member_revoke (src/backend/commands/user.c:2389)
-  - plan_recursive_revoke (src/backend/commands/user.c:2413)
+  - [plan_single_revoke](../p/plan_single_revoke.md) (src/backend/commands/user.c:2319)
+  - [plan_member_revoke](../p/plan_member_revoke.md) (src/backend/commands/user.c:2389)
+  - [plan_recursive_revoke](../p/plan_recursive_revoke.md) (src/backend/commands/user.c:2413)
 
 ## Notes and Other Information
 This enumeration is central to PostgreSQL's role grant revocation logic, particularly for handling cascading revocations where removing a grant or admin option from one role might require changes to dependent grants. The different enum values allow the system to precisely specify what type of modification is needed for each affected grant during a revocation operation.

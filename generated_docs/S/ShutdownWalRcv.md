@@ -28,7 +28,7 @@ This function implements a coordinated shutdown of the WAL receiver process. It 
   - WALRCV_WAITING
   - WALRCV_RESTARTING
   - WALRCV_STOPPING
-  - ConditionVariableBroadcast
+  - [ConditionVariableBroadcast](../C/ConditionVariableBroadcast.md)
   - kill
   - [ConditionVariablePrepareToSleep](../C/ConditionVariablePrepareToSleep.md)
   - [WalRcvRunning](../W/WalRcvRunning.md)

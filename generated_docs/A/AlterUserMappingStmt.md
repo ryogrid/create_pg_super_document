@@ -28,12 +28,12 @@ AlterUserMappingStmt is a parse tree node that stores the parsed representation 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RoleSpec
+  - [RoleSpec](../R/RoleSpec.md)
   - NodeTag
-  - List
+  - [List](../L/List.md)
 - Called from (representative examples):
-  - AlterUserMapping (src/backend/commands/foreigncmds.c:1237)
-  - ProcessUtilitySlow (src/backend/tcop/utility.c:1607)
+  - [AlterUserMapping](AlterUserMapping.md) (src/backend/commands/foreigncmds.c:1237)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (src/backend/tcop/utility.c:1607)
 
 ## Notes and Other Information
 - This structure is part of the PostgreSQL parser node hierarchy and inherits from the Node structure via NodeTag

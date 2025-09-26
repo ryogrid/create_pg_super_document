@@ -58,7 +58,7 @@ The resulting hash table provides O(1) lookup time for tuple command ID informat
 - The hash table is created with exact sizing (txn->ntuplecids) for memory efficiency
 - Memory padding is carefully handled when creating hash keys to ensure proper key comparison
 - The function only processes REORDER_BUFFER_CHANGE_INTERNAL_TUPLECID type changes
-- Hash table uses HASH_ELEM, HASH_BLOBS, and HASH_CONTEXT flags for proper setup
+- [Hash](../H/Hash.md) table uses HASH_ELEM, HASH_BLOBS, and HASH_CONTEXT flags for proper setup
 - The resulting hash table is stored in txn->tuplecid_hash for later use
 - Essential component of PostgreSQL's logical replication system for maintaining MVCC consistency
 - The hash table lifetime is tied to the transaction and is cleaned up when the transaction is truncated or cleaned up

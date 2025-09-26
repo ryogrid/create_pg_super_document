@@ -27,7 +27,7 @@ For command-line options, the function parses the cmdline_options string using p
 - Functions called/Symbols referenced:
   - [pg_split_opts](pg_split_opts.md)
   - [process_postgres_switches](process_postgres_switches.md)
-  - list_head
+  - [list_head](../l/list_head.md)
   - [lnext](../l/lnext.md)
   - [SetConfigOption](../S/SetConfigOption.md)
   - PGC_SU_BACKEND

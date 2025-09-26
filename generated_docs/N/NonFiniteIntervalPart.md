@@ -25,7 +25,7 @@ The function ensures error handling consistency between finite and infinite inte
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_float8_infinity
+  - [get_float8_infinity](../g/get_float8_infinity.md)
   - ereport (for error handling)
   - [errcode](../e/errcode.md)
   - [errmsg](../e/errmsg.md)

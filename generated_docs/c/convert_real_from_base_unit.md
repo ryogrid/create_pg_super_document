@@ -33,7 +33,7 @@ The conversion tables are determined by the base_unit parameter - memory units u
   - memory_unit_conversion_table (global table)
   - time_unit_conversion_table (global table)
 - Called from (representative examples):
-  - ShowGUCOption
+  - [ShowGUCOption](../S/ShowGUCOption.md)
 
 ## Notes and Other Information
 - Uses a tolerance of 1e-8 to determine if a conversion results in a "clean" integer value for display

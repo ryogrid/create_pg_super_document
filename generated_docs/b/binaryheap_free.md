@@ -23,7 +23,7 @@ The `binaryheap_free` function releases all memory associated with a binary heap
   - [binaryheap](binaryheap.md) (struct type)
 - Called from (representative examples):
   - [ReorderBufferIterTXNFinish](../R/ReorderBufferIterTXNFinish.md)
-  - BufferSync
+  - [BufferSync](../B/BufferSync.md)
   - [restore_toc_entries_parallel](../r/restore_toc_entries_parallel.md)
   - [TopoSort](../T/TopoSort.md)
 

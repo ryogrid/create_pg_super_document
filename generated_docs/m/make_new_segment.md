@@ -32,19 +32,19 @@ The  function creates a new segment to expand the available memory in a dynamic 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockHeldByMe / DSA_AREA_LOCK (lock assertion)
-  - dsm_create
-  - dsm_pin_segment
-  - dsm_segment_handle
-  - dsm_segment_address
-  - FreePageManagerInitialize
-  - FreePageManagerPut
-  - contiguous_pages_to_segment_bin
-  - get_segment_by_index
+  - [LWLockHeldByMe](../L/LWLockHeldByMe.md) / DSA_AREA_LOCK (lock assertion)
+  - [dsm_create](../d/dsm_create.md)
+  - [dsm_pin_segment](../d/dsm_pin_segment.md)
+  - [dsm_segment_handle](../d/dsm_segment_handle.md)
+  - [dsm_segment_address](../d/dsm_segment_address.md)
+  - [FreePageManagerInitialize](../F/FreePageManagerInitialize.md)
+  - [FreePageManagerPut](../F/FreePageManagerPut.md)
+  - [contiguous_pages_to_segment_bin](../c/contiguous_pages_to_segment_bin.md)
+  - [get_segment_by_index](../g/get_segment_by_index.md)
   - Various constants: DSA_MAX_SEGMENTS, FPM_PAGE_SIZE, DSA_MAX_SEGMENT_SIZE, etc.
 - Called from (representative examples):
-  - dsa_allocate_extended
-  - ensure_active_superblock
+  - [dsa_allocate_extended](../d/dsa_allocate_extended.md)
+  - [ensure_active_superblock](../e/ensure_active_superblock.md)
 
 ## Notes and Other Information
 - This is a static (internal) function used for dynamic memory expansion

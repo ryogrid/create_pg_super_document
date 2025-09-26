@@ -23,7 +23,7 @@ This function is the counterpart to ResourceOwnerRememberRelationRef() and is ty
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwnerForget
+  - [ResourceOwnerForget](ResourceOwnerForget.md)
   - [PointerGetDatum](../P/PointerGetDatum.md) (implicit conversion)
   - relref_resowner_desc (resource descriptor)
 - Called from (representative examples):

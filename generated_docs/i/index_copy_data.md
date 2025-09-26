@@ -28,7 +28,7 @@ The function operates by first flushing any buffered pages to ensure all data is
   - [FlushRelationBuffers](../F/FlushRelationBuffers.md)
   - [RelationCreateStorage](../R/RelationCreateStorage.md)  
   - [RelationCopyStorage](../R/RelationCopyStorage.md)
-  - RelationGetSmgr
+  - [RelationGetSmgr](../R/RelationGetSmgr.md)
   - [smgrexists](../s/smgrexists.md)
   - [smgrcreate](../s/smgrcreate.md)
   - [log_smgrcreate](../l/log_smgrcreate.md)

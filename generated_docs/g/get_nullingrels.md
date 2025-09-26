@@ -29,10 +29,10 @@ The resulting data structure provides a complete mapping from each base relation
 - Functions called/Symbols referenced:
   - palloc_object
   - palloc0_array
-  - get_nullingrels_recurse
-  - list_length
+  - [get_nullingrels_recurse](get_nullingrels_recurse.md)
+  - [list_length](../l/list_length.md)
 - Called from (representative examples):
-  - pull_up_simple_subquery
+  - [pull_up_simple_subquery](../p/pull_up_simple_subquery.md)
 
 ## Notes and Other Information
 - This is a static function, accessible only within prepjointree.c

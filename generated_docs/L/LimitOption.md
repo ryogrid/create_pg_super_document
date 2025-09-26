@@ -31,9 +31,9 @@ LimitOption specifies the semantics of LIMIT operations in PostgreSQL queries, p
   - [transformLimitClause](../t/transformLimitClause.md) (src/backend/parser/parse_clause.c:1883)
   - [LimitState](LimitState.md) (src/include/nodes/execnodes.h:2841)
   - [Query](../Q/Query.md) (src/include/nodes/parsenodes.h:215)
-  - SelectStmt (src/include/nodes/parsenodes.h:2151)
+  - [SelectStmt](../S/SelectStmt.md) (src/include/nodes/parsenodes.h:2151)
   - [LimitPath](LimitPath.md) (src/include/nodes/pathnodes.h:2406)
-  - Limit (src/include/nodes/plannodes.h:1281)
+  - [Limit](Limit.md) (src/include/nodes/plannodes.h:1281)
 
 ## Notes and Other Information
 This enumeration is particularly important for implementing SQL standard FETCH FIRST clauses with the WITH TIES option. The WITH TIES functionality requires the query to have an ORDER BY clause, as it needs to determine which rows have equivalent values to include the 'tied' rows. The placement in nodes.h reflects its fundamental role in query parsing, planning, and execution infrastructure.

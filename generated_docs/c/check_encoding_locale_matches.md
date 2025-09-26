@@ -26,9 +26,9 @@ Both LC_COLLATE and LC_CTYPE are validated separately against the chosen encodin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_get_encoding_from_locale
-  - pg_encoding_to_char
-  - superuser
+  - [pg_get_encoding_from_locale](../p/pg_get_encoding_from_locale.md)
+  - [pg_encoding_to_char](../p/pg_encoding_to_char.md)
+  - [superuser](../s/superuser.md)
   - Constants: PG_SQL_ASCII, PG_UTF8
 - Called from (representative examples):
   - [createdb](createdb.md)

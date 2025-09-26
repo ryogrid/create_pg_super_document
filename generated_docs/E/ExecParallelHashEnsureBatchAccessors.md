@@ -39,7 +39,7 @@ This function is essential for maintaining consistency across parallel workers w
 - Called from:
   - [MultiExecParallelHash](../M/MultiExecParallelHash.md) (nodeHash.c:278, 341)
   - [ExecParallelHashIncreaseNumBatches](ExecParallelHashIncreaseNumBatches.md) (nodeHash.c:1226, 1252)
-  - ExecParallelHashIncreaseNumBuckets (nodeHash.c:1585)
+  - [ExecParallelHashIncreaseNumBuckets](ExecParallelHashIncreaseNumBuckets.md) (nodeHash.c:1585)
 
 ## Notes and Other Information
 - This is a static function internal to nodeHash.c for parallel hash join coordination

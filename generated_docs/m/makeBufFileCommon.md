@@ -21,12 +21,12 @@ The function initializes the BufFile with safe defaults: not inter-transaction p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (memory allocation)
+  - [palloc](../p/palloc.md) (memory allocation)
   - CurrentResourceOwner (global variable for resource management)
 - Called from (representative examples):
-  - makeBufFile
-  - BufFileCreateFileSet
-  - BufFileOpenFileSet
+  - [makeBufFile](makeBufFile.md)
+  - [BufFileCreateFileSet](../B/BufFileCreateFileSet.md)
+  - [BufFileOpenFileSet](../B/BufFileOpenFileSet.md)
 
 ## Notes and Other Information
 - This is a static function internal to buffile.c, not exposed to external modules

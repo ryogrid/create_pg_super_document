@@ -41,7 +41,7 @@ The function also generates the corresponding DROP statement for cleanup during 
 ## Dependencies
 - Functions called/Symbols referenced:
   - `DumpOptions`, `TableInfo` (data structures)
-  - `createPQExpBuffer`, `appendPQExpBuffer` series (query building)
+  - `[createPQExpBuffer](../c/createPQExpBuffer.md)`, `appendPQExpBuffer` series (query building)
   - `fmtQualifiedDumpable`, `fmtId` (identifier formatting)
   - [ArchiveEntry](../A/ArchiveEntry.md) (archive entry creation)
   - [dumpComment](dumpComment.md), `dumpSecLabel` (auxiliary object dumping)

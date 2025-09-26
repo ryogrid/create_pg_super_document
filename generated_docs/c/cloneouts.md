@@ -36,7 +36,7 @@ The function ensures type safety by asserting that all source arcs are PLAIN typ
   - PLAIN
 - Called from (representative examples):
   - [word](../w/word.md)
-  - processlacon
+  - [processlacon](../p/processlacon.md)
 
 ## Notes and Other Information
 - Only works with PLAIN to AHEAD/BEHIND type conversion (assertion checks enforce this)

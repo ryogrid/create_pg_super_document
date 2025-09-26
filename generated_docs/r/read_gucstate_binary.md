@@ -32,7 +32,7 @@ This function is essential for reading the binary metadata components of seriali
 - Error constants:
   - ERROR
 - Called from:
-  - RestoreGUCState (multiple times for reading binary metadata like source line, source type, context, and role)
+  - [RestoreGUCState](../R/RestoreGUCState.md) (multiple times for reading binary metadata like source line, source type, context, and role)
 
 ## Notes and Other Information
 - This is a static function internal to the GUC deserialization system

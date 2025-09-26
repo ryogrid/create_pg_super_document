@@ -22,12 +22,12 @@ The function includes special handling for edge cases where constraint exclusion
 ## Dependencies
 - Functions called/Symbols referenced:
   - rt_fetch: Retrieves range table entries from the parse tree
-  - table_open/table_close: Opens and closes relation descriptors
+  - [table_open](../t/table_open.md)/table_close: Opens and closes relation descriptors
   - [add_row_identity_columns](../a/add_row_identity_columns.md): Adds standard row identity columns for edge case handling
   - [build_base_rel_tlists](../b/build_base_rel_tlists.md): Rebuilds base relation target lists
   - [find_base_rel](../f/find_base_rel.md): Locates the base relation information
   - copyObject: Creates deep copies of ROWID_VAR expressions
-  - lappend: Appends expressions to target relation lists
+  - [lappend](../l/lappend.md): Appends expressions to target relation lists
 
 - Called from (representative examples):
   - [query_planner](../q/query_planner.md): As part of the main query planning process

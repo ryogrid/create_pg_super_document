@@ -27,11 +27,11 @@ This optimization is particularly important because it keeps the data structure 
   - CommandId (type)
 - Called from (representative examples):
   - ComboCidKey (typedef pointer to this structure)
-  - ComboCidEntryData (contains this as a member)
-  - GetComboCommandId (uses this structure for hash table operations)
-  - EstimateComboCIDStateSpace (references this structure for size calculations)
-  - SerializeComboCIDState (uses this structure during serialization)
-  - RestoreComboCIDState (uses this structure during deserialization)
+  - [ComboCidEntryData](ComboCidEntryData.md) (contains this as a member)
+  - [GetComboCommandId](../G/GetComboCommandId.md) (uses this structure for hash table operations)
+  - [EstimateComboCIDStateSpace](../E/EstimateComboCIDStateSpace.md) (references this structure for size calculations)
+  - [SerializeComboCIDState](../S/SerializeComboCIDState.md) (uses this structure during serialization)
+  - [RestoreComboCIDState](../R/RestoreComboCIDState.md) (uses this structure during deserialization)
 
 ## Notes and Other Information
 - This structure is used exclusively within the combocid.c module as part of the combo command ID hash table implementation

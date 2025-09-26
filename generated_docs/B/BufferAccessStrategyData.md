@@ -50,9 +50,9 @@ The struct uses a flexible array member to store the actual buffer identifiers, 
   - Buffer
   - FLEXIBLE_ARRAY_MEMBER
 - Created by:
-  - GetAccessStrategyWithSize
+  - [GetAccessStrategyWithSize](../G/GetAccessStrategyWithSize.md)
 - Used as:
-  - BufferAccessStrategy (typedef pointer to this struct)
+  - [BufferAccessStrategy](BufferAccessStrategy.md) (typedef pointer to this struct)
 
 ## Notes and Other Information
 - This is currently the only implementation of buffer access strategy in PostgreSQL, though the design allows for future extensions

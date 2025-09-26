@@ -66,25 +66,25 @@ Support for shared file sets enables parallel operations where multiple worker p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufFile
+  - [BufFile](../B/BufFile.md)
   - SharedFileSet
   - [LogicalTape](LogicalTape.md)
-  - ltsCreateTape
-  - ltsWriteBlock
-  - ltsReadBlock
-  - ltsGetBlock
-  - ltsGetFreeBlock
-  - ltsGetPreallocBlock
-  - ltsReleaseBlock
-  - ltsInitReadBuffer
+  - [ltsCreateTape](../l/ltsCreateTape.md)
+  - [ltsWriteBlock](../l/ltsWriteBlock.md)
+  - [ltsReadBlock](../l/ltsReadBlock.md)
+  - [ltsGetBlock](../l/ltsGetBlock.md)
+  - [ltsGetFreeBlock](../l/ltsGetFreeBlock.md)
+  - [ltsGetPreallocBlock](../l/ltsGetPreallocBlock.md)
+  - [ltsReleaseBlock](../l/ltsReleaseBlock.md)
+  - [ltsInitReadBuffer](../l/ltsInitReadBuffer.md)
 - Called from (representative examples):
-  - LogicalTapeSetCreate
-  - LogicalTapeSetClose
-  - LogicalTapeCreate
-  - LogicalTapeWrite
-  - LogicalTapeRewindForRead
+  - [LogicalTapeSetCreate](LogicalTapeSetCreate.md)
+  - [LogicalTapeSetClose](LogicalTapeSetClose.md)
+  - [LogicalTapeCreate](LogicalTapeCreate.md)
+  - [LogicalTapeWrite](LogicalTapeWrite.md)
+  - [LogicalTapeRewindForRead](LogicalTapeRewindForRead.md)
   - Tuplesort operations
-  - Hash aggregation
+  - [Hash](../H/Hash.md) aggregation
 
 ## Notes and Other Information
 - Central coordinator for all external sorting operations in PostgreSQL

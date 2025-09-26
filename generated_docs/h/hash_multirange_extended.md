@@ -38,7 +38,7 @@ The extended version provides better hash distribution and collision resistance,
   - [lookup_type_cache](../l/lookup_type_cache.md) - Look up type cache with extended hash info
   - [multirange_get_bounds](../m/multirange_get_bounds.md) - Extract bounds from a specific range
   - [FunctionCall2Coll](../F/FunctionCall2Coll.md) - Call element extended hash function with collation and seed
-  - [hash_uint32_extended](hash_uint32_extended.md) - Hash the range flags with seed
+  - [hash_uint32_extended](hash_uint32_extended.md) - [Hash](../H/Hash.md) the range flags with seed
   - ROTATE_HIGH_AND_LOW_32BITS - Rotate 64-bit hash for better distribution
   - RANGE_HAS_LBOUND/RANGE_HAS_UBOUND - Check bound existence
   - [DatumGetUInt64](../D/DatumGetUInt64.md)/DatumGetInt64 - Convert Datum to 64-bit integers

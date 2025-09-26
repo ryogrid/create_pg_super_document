@@ -28,7 +28,7 @@ This function takes no parameters.
 - Functions called/Symbols referenced:
   - [hash_seq_init](../h/hash_seq_init.md)
   - [hash_seq_search](../h/hash_seq_search.md)
-  - MarkPortalFailed
+  - [MarkPortalFailed](../M/MarkPortalFailed.md)
   - PointerIsValid
   - [PortalReleaseCachedPlan](../P/PortalReleaseCachedPlan.md)
   - [MemoryContextDeleteChildren](../M/MemoryContextDeleteChildren.md)

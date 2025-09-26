@@ -37,10 +37,10 @@ The deletion process involves multiple steps: unlinking the page from its siblin
   - [GinPageDeletePostingItem](../G/GinPageDeletePostingItem.md) (remove posting item from page)
   - GinPageSetDeleted (mark page as deleted)
   - GinPageSetDeleteXid (set deletion transaction ID)
-  - ReadNextTransactionId (get next transaction ID)
-  - MarkBufferDirty (mark buffers as modified)
+  - [ReadNextTransactionId](../R/ReadNextTransactionId.md) (get next transaction ID)
+  - [MarkBufferDirty](../M/MarkBufferDirty.md) (mark buffers as modified)
   - [XLogBeginInsert](../X/XLogBeginInsert.md)/XLogRegisterBuffer/XLogInsert (WAL logging)
-  - ReleaseBuffer (release buffer references)
+  - [ReleaseBuffer](../R/ReleaseBuffer.md) (release buffer references)
 - Called from (representative examples):
   - [ginScanToDelete](ginScanToDelete.md)
 

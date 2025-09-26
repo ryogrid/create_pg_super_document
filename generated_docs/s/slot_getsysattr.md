@@ -27,11 +27,11 @@ For other system attributes, the function delegates to the slot type's specific 
   - TableOidAttributeNumber
   - SelfItemPointerAttributeNumber
 - Called from (representative examples):
-  - FormIndexDatum
-  - execCurrentOf
-  - ExecEvalSysVar
-  - ExecCheckTupleVisible
-  - ExecOnConflictUpdate
+  - [FormIndexDatum](../F/FormIndexDatum.md)
+  - [execCurrentOf](../e/execCurrentOf.md)
+  - [ExecEvalSysVar](../E/ExecEvalSysVar.md)
+  - [ExecCheckTupleVisible](../E/ExecCheckTupleVisible.md)
+  - [ExecOnConflictUpdate](../E/ExecOnConflictUpdate.md)
 
 ## Notes and Other Information
 - This is an inline function defined in the header file for performance reasons

@@ -21,12 +21,12 @@ The `getladfa` function manages DFA creation and caching specifically for LACON 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - newdfa
-  - subre
-  - cnfa
+  - [newdfa](../n/newdfa.md)
+  - [subre](../s/subre.md)
+  - [cnfa](../c/cnfa.md)
   - DOMALLOC
 - Called from (representative examples):
-  - lacon
+  - [lacon](../l/lacon.md)
 
 ## Notes and Other Information
 - DFAs are cached in `v->ladfas[n]` to avoid recreation during the same regex execution

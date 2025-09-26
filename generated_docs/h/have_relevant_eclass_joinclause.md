@@ -29,7 +29,7 @@ The function is designed to be optimistic and may occasionally return false posi
   - [bms_next_member](../b/bms_next_member.md)
   - [list_nth](../l/list_nth.md)
   - [bms_overlap](../b/bms_overlap.md)
-  - list_length
+  - [list_length](../l/list_length.md)
 - Called from (representative examples):
   - [have_relevant_joinclause](have_relevant_joinclause.md)
 

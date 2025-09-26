@@ -31,14 +31,14 @@ The function operates in several phases:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - increment_overflow
-  - leaps_thru_end_of
+  - [increment_overflow](../i/increment_overflow.md)
+  - [leaps_thru_end_of](../l/leaps_thru_end_of.md)
   - isleap
   - EPOCH_YEAR, SECSPERDAY, DAYSPERLYEAR, TM_YEAR_BASE (constants)
   - pg_time_t, pg_tm, lsinfo (types)
 - Called from (representative examples):
-  - localsub
-  - gmtsub
+  - [localsub](../l/localsub.md)
+  - [gmtsub](../g/gmtsub.md)
 
 ## Notes and Other Information
 - Returns NULL and sets errno to EOVERFLOW if the timestamp is out of representable range

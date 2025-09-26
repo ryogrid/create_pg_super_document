@@ -48,13 +48,13 @@ The design follows a pattern where shared state is minimized and contention is r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParallelHashJoinBatch
-  - SharedTuplestoreAccessor
+  - [ParallelHashJoinBatch](ParallelHashJoinBatch.md)
+  - [SharedTuplestoreAccessor](../S/SharedTuplestoreAccessor.md)
 - Called from (representative examples):
-  - ExecParallelHashMergeCounters
-  - ExecParallelHashJoinSetUpBatches
-  - ExecParallelHashEnsureBatchAccessors
-  - ExecParallelHashTuplePrealloc
+  - [ExecParallelHashMergeCounters](../E/ExecParallelHashMergeCounters.md)
+  - [ExecParallelHashJoinSetUpBatches](../E/ExecParallelHashJoinSetUpBatches.md)
+  - [ExecParallelHashEnsureBatchAccessors](../E/ExecParallelHashEnsureBatchAccessors.md)
+  - [ExecParallelHashTuplePrealloc](../E/ExecParallelHashTuplePrealloc.md)
   - HashJoinTableData (as member)
 
 ## Notes and Other Information

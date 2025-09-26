@@ -28,8 +28,8 @@ The test exercises the same wide-character infrastructure (wchar.c) that the mai
   - [JsonLexContext](../J/JsonLexContext.md) (JSON lexer context type)
   - [JsonSemAction](../J/JsonSemAction.md) (JSON semantic action structure)
   - JsonParseErrorType (JSON error enumeration)
-  - createPQExpBuffer (libpq buffer creation)
-  - appendBinaryPQExpBuffer (libpq binary buffer append)
+  - [createPQExpBuffer](../c/createPQExpBuffer.md) (libpq buffer creation)
+  - [appendBinaryPQExpBuffer](../a/appendBinaryPQExpBuffer.md) (libpq binary buffer append)
   - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md) (libpq string buffer append)
   - NEVER_ACCESS_STR (constant for Valgrind testing)
   - VALGRIND_MAKE_MEM_NOACCESS (Valgrind memory control macro)
@@ -39,9 +39,9 @@ The test exercises the same wide-character infrastructure (wchar.c) that the mai
   - [pg_parse_json](../p/pg_parse_json.md) (JSON parser function)
   - JSON_UNICODE_ESCAPE_FORMAT (expected error constant)
   - [report_result](../r/report_result.md) (local test reporting function)
-  - json_errdetail (JSON error detail function)
-  - freeJsonLexContext (JSON lexer cleanup)
-  - destroyPQExpBuffer (libpq buffer cleanup)
+  - [json_errdetail](../j/json_errdetail.md) (JSON error detail function)
+  - [freeJsonLexContext](../f/freeJsonLexContext.md) (JSON lexer cleanup)
+  - [destroyPQExpBuffer](../d/destroyPQExpBuffer.md) (libpq buffer cleanup)
 - Called from (representative examples):
   - [main](../m/main.md)
 

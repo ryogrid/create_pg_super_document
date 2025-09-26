@@ -23,7 +23,7 @@ The `executeLikeRegex` function implements the LIKE_REGEX predicate functionalit
 ## Dependencies
 - Functions called/Symbols referenced:
   - [getScalar](../g/getScalar.md): Converts JsonbValue to scalar string type
-  - cstring_to_text_with_len: Converts C string to PostgreSQL text type
+  - [cstring_to_text_with_len](../c/cstring_to_text_with_len.md): Converts C string to PostgreSQL text type
   - jspConvertRegexFlags: Converts JSON path regex flags to PostgreSQL regex flags
   - [RE_compile_and_execute](../R/RE_compile_and_execute.md): Compiles and executes regular expression
   - [JsonLikeRegexContext](../J/JsonLikeRegexContext.md): Context structure for caching regex compilation

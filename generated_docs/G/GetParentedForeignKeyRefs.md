@@ -33,13 +33,13 @@ The function is optimized to avoid unnecessary catalog scans when the partition 
   - [RelationGetIndexList](../R/RelationGetIndexList.md)
   - [RelationGetIndexAttrBitmap](../R/RelationGetIndexAttrBitmap.md)
   - bms_is_empty
-  - table_open
-  - table_close
+  - [table_open](../t/table_open.md)
+  - [table_close](../t/table_close.md)
   - [ScanKeyInit](../S/ScanKeyInit.md)
   - [systable_beginscan](../s/systable_beginscan.md)
   - [systable_getnext](../s/systable_getnext.md)
   - [systable_endscan](../s/systable_endscan.md)
-  - lappend_oid
+  - [lappend_oid](../l/lappend_oid.md)
   - RelationGetRelid
   - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - [CharGetDatum](../C/CharGetDatum.md)

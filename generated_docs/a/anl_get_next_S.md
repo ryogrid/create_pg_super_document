@@ -21,7 +21,7 @@ This function acts as an interface between ANALYZE operations and the low-level 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - reservoir_get_next_S
+  - [reservoir_get_next_S](../r/reservoir_get_next_S.md)
   - W (member of oldrs structure)
 - Called from (representative examples):
   - Referenced in MAX_STATISTICS_TARGET context

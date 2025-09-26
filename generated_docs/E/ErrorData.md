@@ -82,21 +82,21 @@ All non-NULL string pointers (except const ones) must point to palloc'd data, wi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextData
+  - [MemoryContextData](../M/MemoryContextData.md)
 - Called from (representative examples):
-  - errstart
-  - errfinish  
-  - errsave_start
-  - errsave_finish
-  - CopyErrorData
-  - FreeErrorData
-  - ThrowErrorData
-  - ReThrowError
-  - EmitErrorReport
-  - write_csvlog
-  - write_jsonlog
-  - send_message_to_server_log
-  - send_message_to_frontend
+  - [errstart](../e/errstart.md)
+  - [errfinish](../e/errfinish.md)  
+  - [errsave_start](../e/errsave_start.md)
+  - [errsave_finish](../e/errsave_finish.md)
+  - [CopyErrorData](../C/CopyErrorData.md)
+  - [FreeErrorData](../F/FreeErrorData.md)
+  - [ThrowErrorData](../T/ThrowErrorData.md)
+  - [ReThrowError](../R/ReThrowError.md)
+  - [EmitErrorReport](EmitErrorReport.md)
+  - [write_csvlog](../w/write_csvlog.md)
+  - [write_jsonlog](../w/write_jsonlog.md)
+  - [send_message_to_server_log](../s/send_message_to_server_log.md)
+  - [send_message_to_frontend](../s/send_message_to_frontend.md)
 
 ## Notes and Other Information
 - Critical component of PostgreSQL's error handling infrastructure, used across all subsystems

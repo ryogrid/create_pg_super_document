@@ -38,5 +38,5 @@ The separation between the key structure and the procedure descriptor serves an 
 - Separates key data from procedure data for better error handling during compilation
 - Supports the multi-user, multi-context caching strategy of PL/Perl
 - Part of the overall performance optimization strategy that avoids recompiling Perl code
-- Hash table entries persist for the lifetime of the backend process
+- [Hash](../H/Hash.md) table entries persist for the lifetime of the backend process
 - Critical component in the function lookup path for all PL/Perl function calls

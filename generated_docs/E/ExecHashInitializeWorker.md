@@ -27,15 +27,15 @@ The worker uses ParallelWorkerNumber (a global variable) to identify which slot 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - shm_toc_lookup
+  - [shm_toc_lookup](../s/shm_toc_lookup.md)
 - Types used:
-  - HashState
-  - ParallelWorkerContext
-  - SharedHashInfo
+  - [HashState](../H/HashState.md)
+  - [ParallelWorkerContext](../P/ParallelWorkerContext.md)
+  - [SharedHashInfo](../S/SharedHashInfo.md)
 - Global variables used:
   - ParallelWorkerNumber
 - Called from (representative examples):
-  - ExecParallelInitializeWorker
+  - [ExecParallelInitializeWorker](ExecParallelInitializeWorker.md)
 
 ## Notes and Other Information
 - The function returns early if instrumentation is disabled (node->ps.instrument is NULL)

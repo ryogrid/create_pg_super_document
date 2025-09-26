@@ -24,8 +24,8 @@ The makeDefElemExtended function is the comprehensive constructor for DefElem no
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to allocate DefElem node)
-  - DefElem (the node structure being created)
-  - DefElemAction (enum type for the action parameter)
+  - [DefElem](../D/DefElem.md) (the node structure being created)
+  - [DefElemAction](../D/DefElemAction.md) (enum type for the action parameter)
 - Called from (representative examples):
   - Currently only referenced in makefuncs.h header file
 

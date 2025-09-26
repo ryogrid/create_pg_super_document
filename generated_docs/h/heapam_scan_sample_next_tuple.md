@@ -30,7 +30,7 @@ This function works with heapam_scan_sample_next_block to implement tuple-level 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TsmRoutine.NextSampleTuple (sampling method for tuple selection)
+  - [TsmRoutine](../T/TsmRoutine.md).NextSampleTuple (sampling method for tuple selection)
   - [LockBuffer](../L/LockBuffer.md)/BUFFER_LOCK_SHARE/BUFFER_LOCK_UNLOCK (buffer locking)
   - [PageIsAllVisible](../P/PageIsAllVisible.md) (visibility optimization)
   - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md) (page bounds)
@@ -41,7 +41,7 @@ This function works with heapam_scan_sample_next_block to implement tuple-level 
   - [HeapCheckForSerializableConflictOut](../H/HeapCheckForSerializableConflictOut.md) (isolation checks)
   - [ExecStoreBufferHeapTuple](../E/ExecStoreBufferHeapTuple.md) (slot population)
   - pgstat_count_heap_getnext (statistics)
-  - ExecClearTuple (slot cleanup)
+  - [ExecClearTuple](../E/ExecClearTuple.md) (slot cleanup)
 - Called from (representative examples):
   - [SampleHeapTupleVisible](../S/SampleHeapTupleVisible.md) (as part of table access method interface)
 

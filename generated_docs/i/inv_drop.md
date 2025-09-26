@@ -23,7 +23,7 @@ The function operates at the database level, removing the actual large object fr
 ## Dependencies
 - Functions called/Symbols referenced:
   - [performDeletion](../p/performDeletion.md) (performs the actual deletion with dependency handling)
-  - CommandCounterIncrement (advances command counter for transaction visibility)
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md) (advances command counter for transaction visibility)
   - DROP_CASCADE (deletion mode constant)
   - LargeObjectRelationId (relation identifier for large objects)
 - Called from (representative examples):

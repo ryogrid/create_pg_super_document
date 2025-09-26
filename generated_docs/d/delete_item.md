@@ -23,18 +23,18 @@ This function is part of the internal implementation of the dynamic shared hash 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PARTITION_FOR_HASH (macro to determine partition from hash)
-  - LWLockHeldByMe (assertion check for lock ownership)
+  - [LWLockHeldByMe](../L/LWLockHeldByMe.md) (assertion check for lock ownership)
   - PARTITION_LOCK (macro to get partition lock)
-  - delete_item_from_bucket (performs actual bucket removal)
+  - [delete_item_from_bucket](delete_item_from_bucket.md) (performs actual bucket removal)
   - BUCKET_FOR_HASH (macro to locate the bucket for the hash)
   - Assert (debugging assertions)
 - Types used:
-  - dshash_table
-  - dshash_table_item
+  - [dshash_table](dshash_table.md)
+  - [dshash_table_item](dshash_table_item.md)
 - Called from (representative examples):
-  - dshash_delete_entry
-  - dshash_delete_current
-  - SH_DELETE_ITEM (from simplehash.h)
+  - [dshash_delete_entry](dshash_delete_entry.md)
+  - [dshash_delete_current](dshash_delete_current.md)
+  - [SH_DELETE_ITEM](../S/SH_DELETE_ITEM.md) (from simplehash.h)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the dshash.c compilation unit

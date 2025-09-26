@@ -29,7 +29,7 @@ The function uses a two-phase approach: grants and policy modifications are hand
 ## Dependencies
 - Functions called/Symbols referenced:
   - [new_object_addresses](../n/new_object_addresses.md) - Creates ObjectAddresses collection for batch deletion
-  - table_open/table_close - Opens pg_shdepend catalog with RowExclusiveLock
+  - [table_open](../t/table_open.md)/table_close - Opens pg_shdepend catalog with RowExclusiveLock
   - [systable_beginscan](systable_beginscan.md)/systable_getnext/systable_endscan - Scans pg_shdepend entries
   - [IsPinnedObject](../I/IsPinnedObject.md) - Checks if role is system-critical and cannot be dropped
   - [RemoveRoleFromObjectPolicy](../R/RemoveRoleFromObjectPolicy.md) - Attempts to remove role from RLS policy

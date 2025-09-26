@@ -40,12 +40,12 @@ The structure includes synchronization primitives (spinlock) for thread-safe con
   - [shm_toc_entry](shm_toc_entry.md) (entry structure)
   - FLEXIBLE_ARRAY_MEMBER (C99 flexible array syntax)
 - Used by (key functions):
-  - shm_toc_create (initialize new TOC)
-  - shm_toc_attach (attach to existing TOC)
-  - shm_toc_allocate (allocate memory within segment)
-  - shm_toc_insert (register new data structure)
+  - [shm_toc_create](shm_toc_create.md) (initialize new TOC)
+  - [shm_toc_attach](shm_toc_attach.md) (attach to existing TOC)
+  - [shm_toc_allocate](shm_toc_allocate.md) (allocate memory within segment)
+  - [shm_toc_insert](shm_toc_insert.md) (register new data structure)
   - [shm_toc_lookup](shm_toc_lookup.md) (find registered data structure)
-  - shm_toc_freespace (query available space)
+  - [shm_toc_freespace](shm_toc_freespace.md) (query available space)
   - [shm_toc_estimate](shm_toc_estimate.md) (estimate required TOC size)
 
 ## Notes and Other Information

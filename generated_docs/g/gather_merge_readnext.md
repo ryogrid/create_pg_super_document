@@ -28,7 +28,7 @@ The function builds a TupleTableSlot from the retrieved MinimalTuple, making it 
 ## Dependencies
 - Functions called/Symbols referenced:
   - outerPlanState
-  - ExecProcNode
+  - [ExecProcNode](../E/ExecProcNode.md)
   - TupIsNull
   - [gm_readnext_tuple](gm_readnext_tuple.md)
   - [load_tuple_array](../l/load_tuple_array.md)

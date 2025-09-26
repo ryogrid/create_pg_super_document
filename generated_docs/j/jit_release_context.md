@@ -25,7 +25,7 @@ This function provides proper cleanup for JIT compilation contexts in PostgreSQL
   - Uses global variable: `provider_successfully_loaded`
 - Called from (representative examples):
   - [FreeExecutorState](../F/FreeExecutorState.md) (in src/backend/executor/execUtils.c:211)
-  - ResOwnerReleaseJitContext (in src/backend/jit/llvm/llvmjit.c:1385)
+  - [ResOwnerReleaseJitContext](../R/ResOwnerReleaseJitContext.md) (in src/backend/jit/llvm/llvmjit.c:1385)
 
 ## Notes and Other Information
 - Located in src/backend/jit/jit.c:137-150

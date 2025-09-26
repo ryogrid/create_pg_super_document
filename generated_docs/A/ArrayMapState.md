@@ -29,7 +29,7 @@ The structure contains two ArrayMetaState members that cache different type info
 - Called from (representative examples):
   - [array_map](../a/array_map.md)
   - [ExecInitExprRec](../E/ExecInitExprRec.md)
-  - ExprEvalStep (used in expression evaluation context)
+  - [ExprEvalStep](../E/ExprEvalStep.md) (used in expression evaluation context)
 
 ## Notes and Other Information
 - The structure is designed specifically for performance optimization in array transformations

@@ -28,7 +28,7 @@ This function serves as the core implementation for JSONB array element extracti
   - [InitMaterializedSRF](../I/InitMaterializedSRF.md): Initialize set-returning function framework
   - [JsonbIteratorInit](../J/JsonbIteratorInit.md)/JsonbIteratorNext: JSONB iteration functions
   - [JsonbValueAsText](../J/JsonbValueAsText.md)/JsonbValueToJsonb: JSONB value conversion functions
-  - tuplestore_putvalues: Store result tuples
+  - [tuplestore_putvalues](../t/tuplestore_putvalues.md): Store result tuples
   - AllocSetContextCreate/MemoryContextDelete: Memory management
 - Called from:
   - [jsonb_array_elements](../j/jsonb_array_elements.md): Main entry point for JSONB array element extraction

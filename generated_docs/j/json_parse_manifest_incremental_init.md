@@ -25,11 +25,11 @@ The function configures semantic handlers for various JSON elements (objects, ar
   - [palloc](../p/palloc.md)
   - makeJsonLexContextIncremental
   - [json_manifest_object_start](json_manifest_object_start.md)
-  - json_manifest_object_end
-  - json_manifest_array_start
-  - json_manifest_array_end
-  - json_manifest_object_field_start
-  - json_manifest_scalar
+  - [json_manifest_object_end](json_manifest_object_end.md)
+  - [json_manifest_array_start](json_manifest_array_start.md)
+  - [json_manifest_array_end](json_manifest_array_end.md)
+  - [json_manifest_object_field_start](json_manifest_object_field_start.md)
+  - [json_manifest_scalar](json_manifest_scalar.md)
   - [pg_cryptohash_create](../p/pg_cryptohash_create.md)
   - [pg_cryptohash_init](../p/pg_cryptohash_init.md)
   - PG_SHA256

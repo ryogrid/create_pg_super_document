@@ -37,8 +37,8 @@ The SerializeDestReceiver structure extends the base DestReceiver functionality 
 - `metrics`: SerializeMetrics structure accumulating performance and resource usage statistics during the serialization process
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DestReceiver (base type)
-  - ExplainState (explain context)
+  - [DestReceiver](../D/DestReceiver.md) (base type)
+  - [ExplainState](../E/ExplainState.md) (explain context)
   - int8 (format specification)
   - [SerializeMetrics](SerializeMetrics.md) (metrics collection)
   - [TupleDesc](../T/TupleDesc.md) (tuple descriptor)

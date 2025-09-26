@@ -27,9 +27,9 @@ The function is essential for preventing memory leaks and ensuring that LLVM JIT
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetPointer (PostgreSQL macro to extract pointer from Datum)
-  - LLVMJitContext (type cast for the JIT context)
-  - jit_release_context (generic JIT context cleanup function)
+  - [DatumGetPointer](../D/DatumGetPointer.md) (PostgreSQL macro to extract pointer from Datum)
+  - [LLVMJitContext](../L/LLVMJitContext.md) (type cast for the JIT context)
+  - [jit_release_context](../j/jit_release_context.md) (generic JIT context cleanup function)
 - Called from (representative examples):
   - PostgreSQL resource owner system (via jit_resowner_desc callback structure)
 

@@ -28,18 +28,18 @@ The function ensures memory limits are respected by calling `tbm_lossify` if the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - tbm_mark_page_lossy
-  - tbm_page_is_lossy  
-  - tbm_get_pageentry
-  - tbm_lossify
+  - [tbm_mark_page_lossy](tbm_mark_page_lossy.md)
+  - [tbm_page_is_lossy](tbm_page_is_lossy.md)  
+  - [tbm_get_pageentry](tbm_get_pageentry.md)
+  - [tbm_lossify](tbm_lossify.md)
   - WORDS_PER_CHUNK (constant)
   - WORDS_PER_PAGE (constant)
   - BITS_PER_BITMAPWORD (constant)
   - bitmapword (type)
-  - PagetableEntry (type)
+  - [PagetableEntry](../P/PagetableEntry.md) (type)
 - Called from (representative examples):
-  - tbm_union (in src/backend/nodes/tidbitmap.c:466, 475)
-  - TBMSharedIterator (in src/backend/nodes/tidbitmap.c:229)
+  - [tbm_union](tbm_union.md) (in src/backend/nodes/tidbitmap.c:466, 475)
+  - [TBMSharedIterator](../T/TBMSharedIterator.md) (in src/backend/nodes/tidbitmap.c:229)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the tidbitmap.c module

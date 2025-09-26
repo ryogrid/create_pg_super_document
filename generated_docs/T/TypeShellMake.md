@@ -27,8 +27,8 @@ Once the full CREATE TYPE command is processed, the dummy values in the shell ty
 ## Dependencies
 - Functions called/Symbols referenced:
   - PointerIsValid
-  - table_open
-  - namestrcpy
+  - [table_open](../t/table_open.md)
+  - [namestrcpy](../n/namestrcpy.md)
   - [NameGetDatum](../N/NameGetDatum.md), Int16GetDatum, CharGetDatum, BoolGetDatum, ObjectIdGetDatum, Int32GetDatum
   - [GetNewOidWithIndex](../G/GetNewOidWithIndex.md)
   - [heap_form_tuple](../h/heap_form_tuple.md)
@@ -38,7 +38,7 @@ Once the full CREATE TYPE command is processed, the dummy values in the shell ty
   - InvokeObjectPostCreateHook
   - ObjectAddressSet
   - [heap_freetuple](../h/heap_freetuple.md)
-  - table_close
+  - [table_close](../t/table_close.md)
 - Called from (representative examples):
   - [compute_return_type](../c/compute_return_type.md) (src/backend/commands/functioncmds.c:153)
   - [DefineType](../D/DefineType.md) (src/backend/commands/typecmds.c:267)

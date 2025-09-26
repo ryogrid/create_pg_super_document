@@ -30,13 +30,13 @@ This design separates the declarative aspects (metadata) from the operational as
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - EphemeralNamedRelationMetadataData (embedded structure containing metadata)
+  - [EphemeralNamedRelationMetadataData](EphemeralNamedRelationMetadataData.md) (embedded structure containing metadata)
 
 - Called from (representative examples):
   - EphemeralNamedRelation (typedef pointer to this structure)
-  - SPI_register_trigger_data (registers trigger transition table data in SPI context)
-  - register_ENR (registers an ENR in the query environment)
-  - get_ENR (retrieves an ENR from the query environment)
+  - [SPI_register_trigger_data](../S/SPI_register_trigger_data.md) (registers trigger transition table data in SPI context)
+  - [register_ENR](../r/register_ENR.md) (registers an ENR in the query environment)
+  - [get_ENR](../g/get_ENR.md) (retrieves an ENR from the query environment)
 
 ## Notes and Other Information
 - This structure is the complete representation of an ENR, while EphemeralNamedRelationMetadataData contains only metadata

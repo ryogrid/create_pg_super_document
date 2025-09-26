@@ -37,7 +37,7 @@ Special handling is provided for grouping sets scenarios where certain variables
   - [list_free](../l/list_free.md)
   - lfirst_int
   - [ExecTypeFromTL](../E/ExecTypeFromTL.md)
-  - execTuplesHashPrepare
+  - [execTuplesHashPrepare](../e/execTuplesHashPrepare.md)
   - [ExecAllocTableSlot](../E/ExecAllocTableSlot.md)
 - Types referenced:
   - [AggState](../A/AggState.md)

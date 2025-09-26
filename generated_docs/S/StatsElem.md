@@ -29,13 +29,13 @@ This flexibility allows PostgreSQL's extended statistics to work not just on sim
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (parse tree infrastructure)
-  - Node (base parse tree node type)
+  - [Node](../N/Node.md) (base parse tree node type)
 
 - Called from (representative examples):
-  - CreateStatistics (statistics creation processing)
-  - transformStatsStmt (parse transformation and validation)
-  - generateClonedExtStatsStmt (table cloning operations)
-  - ChooseExtendedStatisticNameAddition (automatic naming)
+  - [CreateStatistics](../C/CreateStatistics.md) (statistics creation processing)
+  - [transformStatsStmt](../t/transformStatsStmt.md) (parse transformation and validation)
+  - [generateClonedExtStatsStmt](../g/generateClonedExtStatsStmt.md) (table cloning operations)
+  - [ChooseExtendedStatisticNameAddition](../C/ChooseExtendedStatisticNameAddition.md) (automatic naming)
 
 ## Notes and Other Information
 - Follows mutually exclusive design: exactly one of 'name' or 'expr' is non-NULL

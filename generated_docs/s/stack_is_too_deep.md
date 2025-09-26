@@ -32,10 +32,10 @@ This function takes no parameters and returns a boolean indicating whether the s
   - stack_base_ptr (global variable - stack base reference point)
   - max_stack_depth_bytes (configuration parameter in bytes)
 - Called from (representative examples):
-  - check_stack_depth
-  - ShowTransactionStateRec
-  - rstacktoodeep (regex compilation)
-  - MemoryContextStatsInternal
+  - [check_stack_depth](../c/check_stack_depth.md)
+  - [ShowTransactionStateRec](../S/ShowTransactionStateRec.md)
+  - [rstacktoodeep](../r/rstacktoodeep.md) (regex compilation)
+  - [MemoryContextStatsInternal](../M/MemoryContextStatsInternal.md)
 
 ## Notes and Other Information
 - Platform-independent implementation that handles both upward and downward growing stacks

@@ -22,7 +22,7 @@ The function is specifically designed for psql's printing system and includes as
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_malloc (for memory allocation)
+  - [pg_malloc](../p/pg_malloc.md) (for memory allocation)
   - [pg_strdup](../p/pg_strdup.md) (for string duplication)
   - memcpy (for structure copying)
   - [printQueryOpt](../p/printQueryOpt.md) (structure type)

@@ -27,9 +27,9 @@ The dshash_partition struct implements a partitioning scheme for dynamic shared 
   - [LWLock](../L/LWLock.md)
 - Called from (representative examples):
   - [dshash_table_control](dshash_table_control.md) (contains array of partitions)
-  - dshash_create
+  - [dshash_create](dshash_create.md)
   - [dshash_find_or_insert](dshash_find_or_insert.md)
-  - dshash_dump
+  - [dshash_dump](dshash_dump.md)
   - ASSERT_NO_PARTITION_LOCKS_HELD_BY_ME
 
 ## Notes and Other Information

@@ -32,8 +32,8 @@ The function handles various edge cases including NULL input values, empty datas
   - [deconstruct_array_builtin](../d/deconstruct_array_builtin.md)
   - [construct_empty_array](../c/construct_empty_array.md)
   - [setup_pct_info](../s/setup_pct_info.md)
-  - tuplesort_performsort
-  - tuplesort_rescan
+  - [tuplesort_performsort](../t/tuplesort_performsort.md)
+  - [tuplesort_rescan](../t/tuplesort_rescan.md)
   - [tuplesort_skiptuples](../t/tuplesort_skiptuples.md)  
   - [tuplesort_getdatum](../t/tuplesort_getdatum.md)
   - [construct_md_array](../c/construct_md_array.md)

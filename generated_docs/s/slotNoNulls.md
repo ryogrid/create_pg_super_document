@@ -21,9 +21,9 @@ Like its counterpart slotAllNulls, this function intentionally does not handle d
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slot_attisnull (to check individual attribute NULL status)
+  - [slot_attisnull](slot_attisnull.md) (to check individual attribute NULL status)
 - Types used:
-  - TupleTableSlot
+  - [TupleTableSlot](../T/TupleTableSlot.md)
   - [SubPlanState](../S/SubPlanState.md) (referenced in broader context)
 - Called from (representative examples):
   - [ExecHashSubPlan](../E/ExecHashSubPlan.md) (for complete tuple validation in subplan execution)

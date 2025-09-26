@@ -34,7 +34,7 @@ Runtime keys are essential for supporting parameterized queries, subplan results
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ScanKeyData](../S/ScanKeyData.md) (structure for index scan keys)
-  - ExprState (expression evaluation state)
+  - [ExprState](../E/ExprState.md) (expression evaluation state)
 - Called from (representative examples):
   - [ExecIndexEvalRuntimeKeys](../E/ExecIndexEvalRuntimeKeys.md)
   - [ExecIndexBuildScanKeys](../E/ExecIndexBuildScanKeys.md)

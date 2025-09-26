@@ -29,7 +29,7 @@ The function performs several important operations:
   - OffsetToPointer
   - SpinLockAcquire
   - SpinLockRelease
-  - ConditionVariableBroadcast
+  - [ConditionVariableBroadcast](../C/ConditionVariableBroadcast.md)
 - Types used:
   - [IndexScanDesc](../I/IndexScanDesc.md)
   - BTScanOpaque

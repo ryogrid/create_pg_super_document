@@ -21,11 +21,11 @@ This function is part of the tape interface routines used in PostgreSQL sorting 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LogicalTape](../L/LogicalTape.md)
-  - LogicalTapeRead
+  - [LogicalTapeRead](../L/LogicalTapeRead.md)
 - Called from (representative examples):
   - [tuplesort_gettuple_common](../t/tuplesort_gettuple_common.md)
-  - mergereadnext
-  - tuplestore_gettuple
+  - [mergereadnext](../m/mergereadnext.md)
+  - [tuplestore_gettuple](../t/tuplestore_gettuple.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the tuplesort.c module

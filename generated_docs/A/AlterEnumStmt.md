@@ -35,10 +35,10 @@ AlterEnumStmt is a parse tree node that represents ALTER TYPE statements used to
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag
-  - List (containing String nodes)
+  - [List](../L/List.md) (containing String nodes)
 - Called from (representative examples):
-  - AlterEnum
-  - ProcessUtilitySlow
+  - [AlterEnum](AlterEnum.md)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md)
 
 ## Notes and Other Information
 - Supports both ADD VALUE and RENAME VALUE operations on enum types

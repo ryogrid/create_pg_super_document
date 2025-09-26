@@ -32,10 +32,10 @@ The struct is designed to capture the multi-dimensional nature of operator inter
 - Functions called/Symbols referenced:
   - Oid (PostgreSQL object identifier type)
 - Called from (representative examples):
-  - get_op_btree_interpretation (primary constructor function)
-  - find_window_run_conditions
-  - lookup_proof_cache
-  - make_row_comparison_op
+  - [get_op_btree_interpretation](../g/get_op_btree_interpretation.md) (primary constructor function)
+  - [find_window_run_conditions](../f/find_window_run_conditions.md)
+  - [lookup_proof_cache](../l/lookup_proof_cache.md)
+  - [make_row_comparison_op](../m/make_row_comparison_op.md)
 
 ## Notes and Other Information
 - This struct is typically allocated using `palloc` and returned as part of a list structure

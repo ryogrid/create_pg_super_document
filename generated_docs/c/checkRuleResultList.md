@@ -27,8 +27,8 @@ checkRuleResultList performs comprehensive validation of target lists against re
   - [TargetEntry](../T/TargetEntry.md) (struct access)
   - TupleDescAttr
   - NameStr
-  - exprType
-  - exprTypmod
+  - [exprType](../e/exprType.md)
+  - [exprTypmod](../e/exprTypmod.md)
   - [format_type_be](../f/format_type_be.md)
   - [format_type_with_typemod](../f/format_type_with_typemod.md)
 - Called from (representative examples):

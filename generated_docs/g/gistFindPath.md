@@ -46,9 +46,9 @@ The function implements deadlock prevention by locking only one page at a time a
   - [PageGetItem](../P/PageGetItem.md)
   - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)
   - list_make1
-  - list_delete_first
+  - [list_delete_first](../l/list_delete_first.md)
   - [lcons](../l/lcons.md)
-  - lappend
+  - [lappend](../l/lappend.md)
 - Called from (representative examples):
   - [gistFindCorrectParent](gistFindCorrectParent.md)
 

@@ -26,7 +26,7 @@ The function delegates the actual wait configuration to the FDW's ForeignAsyncCo
   - [FdwRoutine](../F/FdwRoutine.md) (structure)
   - ForeignAsyncConfigureWait (FDW callback function)
 - Called from (representative examples):
-  - ExecAsyncConfigureWait (in execAsync.c)
+  - [ExecAsyncConfigureWait](ExecAsyncConfigureWait.md) (in execAsync.c)
 
 ## Notes and Other Information
 - The function asserts that the FDW's ForeignAsyncConfigureWait callback is not NULL, ensuring it's only called for properly implemented async-capable FDWs

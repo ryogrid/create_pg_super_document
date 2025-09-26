@@ -21,12 +21,12 @@ The function validates the resource manager name, ensures the ID is in the custo
 ## Dependencies
 - Functions called/Symbols referenced:
   - RmgrId
-  - RmgrData
+  - [RmgrData](RmgrData.md)
   - [RmgrIdIsCustom](RmgrIdIsCustom.md)
   - RM_MIN_CUSTOM_ID
   - RM_MAX_CUSTOM_ID
   - RM_MAX_ID
-  - RmgrIdExists
+  - [RmgrIdExists](RmgrIdExists.md)
   - RmgrTable
   - ereport
   - process_shared_preload_libraries_in_progress

@@ -51,9 +51,9 @@ ArrayBuildStateArr is designed for building arrays by concatenating existing arr
   - Oid types for array and element type identification
   - MAXDIM constant (defined as 6)
 - Called from (representative examples):
-  - accumArrayResultArr() - [main](../m/main.md) function for adding array elements
-  - initArrayResultArr() - initializes the state for array accumulation
-  - makeArrayResultArr() - creates final ArrayType from accumulated array state
+  - [accumArrayResultArr](../a/accumArrayResultArr.md)() - [main](../m/main.md) function for adding array elements
+  - [initArrayResultArr](../i/initArrayResultArr.md)() - initializes the state for array accumulation
+  - [makeArrayResultArr](../m/makeArrayResultArr.md)() - creates final ArrayType from accumulated array state
   - [array_agg_array_transfn](../a/array_agg_array_transfn.md)() - array aggregation function for array inputs
 
 ## Notes and Other Information

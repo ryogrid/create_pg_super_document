@@ -21,17 +21,17 @@ The `aclmerge` function provides sophisticated ACL combination logic that goes b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `aclcopy` - Creates copies of ACLs for modification
-  - `aclupdate` - Updates ACL with individual items, handling permission merging
+  - `[aclcopy](aclcopy.md)` - Creates copies of ACLs for modification
+  - `[aclupdate](aclupdate.md)` - Updates ACL with individual items, handling permission merging
   - `ACL_NUM` - Macro to get the number of entries in an ACL
   - `ACL_DAT` - Macro to access the data portion of an ACL
-  - `pfree` - PostgreSQL memory deallocation function
+  - `[pfree](../p/pfree.md)` - PostgreSQL memory deallocation function
   - `ACL_MODECHG_ADD` - Constant indicating permission addition mode
   - `DROP_RESTRICT` - Constant for drop behavior specification
-  - `Acl` - ACL structure type definition
+  - `[Acl](../A/Acl.md)` - ACL structure type definition
   - `AclItem` - Structure type representing individual ACL entries
 - Called from (representative examples):
-  - `get_user_default_acl` - When retrieving user default ACL permissions
+  - `[get_user_default_acl](../g/get_user_default_acl.md)` - When retrieving user default ACL permissions
   - Referenced in `AclResult` type definitions
 
 ## Notes and Other Information

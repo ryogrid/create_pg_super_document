@@ -40,7 +40,7 @@ Security considerations are built in - the function rejects clauses containing l
   - [get_leftop](../g/get_leftop.md)/get_rightop
   - [op_input_types](../o/op_input_types.md)
   - [equal](../e/equal.md)
-  - set_opfuncid
+  - [set_opfuncid](../s/set_opfuncid.md)
   - [func_strict](../f/func_strict.md)
   - [make_restrictinfo](../m/make_restrictinfo.md)
   - [list_concat](../l/list_concat.md)

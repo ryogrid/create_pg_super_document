@@ -35,7 +35,7 @@ Key responsibilities include:
   - [recv_password_packet](../r/recv_password_packet.md) (to receive password response)
   - [PerformRadiusTransaction](../P/PerformRadiusTransaction.md) (to perform actual RADIUS authentication)
   - [set_authn_id](../s/set_authn_id.md) (to set authentication identity on success)
-  - list_head, lnext (for list traversal)
+  - [list_head](../l/list_head.md), lnext (for list traversal)
   - ereport, errmsg (for logging)
   - [pfree](../p/pfree.md) (for memory cleanup)
 - Constants referenced:

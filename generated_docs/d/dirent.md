@@ -37,16 +37,16 @@ The implementation handles Windows-specific file attributes and maps them to POS
   - MAX_PATH (Windows constant)
   - DT_* constants (DT_DIR, DT_REG, DT_LNK, DT_UNKNOWN, etc.)
 - Called from (representative examples):
-  - CheckPointLogicalRewriteHeap
+  - [CheckPointLogicalRewriteHeap](../C/CheckPointLogicalRewriteHeap.md)
   - [SlruScanDirectory](../S/SlruScanDirectory.md) 
   - [RemoveOldXlogFiles](../R/RemoveOldXlogFiles.md)
   - [sendDir](../s/sendDir.md)
-  - copydir
-  - AllocateDir
-  - ReadDir
+  - [copydir](../c/copydir.md)
+  - [AllocateDir](../A/AllocateDir.md)
+  - [ReadDir](../R/ReadDir.md)
   - [pg_ls_dir](../p/pg_ls_dir.md)
   - [walkdir](../w/walkdir.md)
-  - rmtree
+  - [rmtree](../r/rmtree.md)
 
 ## Notes and Other Information
 - This is a Windows-specific implementation found in 

@@ -24,7 +24,7 @@ The `RoleMembershipCacheCallback` function is a static callback function registe
 - Functions called/Symbols referenced:
   - ROLERECURSE_MEMBERS
   - ROLERECURSE_PRIVS  
-  - ROLERECURSE_SETROLE
+  - [ROLERECURSE_SETROLE](ROLERECURSE_SETROLE.md)
 - Called from (representative examples):
   - [initialize_acl](../i/initialize_acl.md) (registered as callback for AUTHMEMROLEMEM, AUTHOID, and DATABASEOID)
 

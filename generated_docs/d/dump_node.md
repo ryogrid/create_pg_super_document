@@ -27,7 +27,7 @@ The function traverses the FormatNode array from the starting node up to the spe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FormatNode (struct type)
+  - [FormatNode](../F/FormatNode.md) (struct type)
   - elog
   - DEBUG_elog_output
   - NODE_TYPE_ACTION

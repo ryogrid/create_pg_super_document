@@ -36,12 +36,12 @@ The structure uses a special convention where all Vars stored must have varno RO
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (node type system)
-  - Var (variable expression node)
+  - [Var](../V/Var.md) (variable expression node)
   - Relids (relation ID bitmap)
 
 - Called from (representative examples):
-  - adjust_appendrel_attrs_mutator (in appendinfo.c:372)
-  - add_row_identity_var (in appendinfo.c:794, 837, 855) 
+  - [adjust_appendrel_attrs_mutator](../a/adjust_appendrel_attrs_mutator.md) (in appendinfo.c:372)
+  - [add_row_identity_var](../a/add_row_identity_var.md) (in appendinfo.c:794, 837, 855) 
   - build_joinrel_tlist (in relnode.c:1189)
 
 ## Notes and Other Information

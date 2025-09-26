@@ -29,8 +29,8 @@ The function ensures that a partitioned index is only considered valid when all 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
-  - table_close
+  - [table_open](../t/table_open.md)
+  - [table_close](../t/table_close.md)
   - [ScanKeyInit](../S/ScanKeyInit.md)
   - [systable_beginscan](../s/systable_beginscan.md)
   - [systable_getnext](../s/systable_getnext.md)
@@ -41,7 +41,7 @@ The function ensures that a partitioned index is only considered valid when all 
   - [RelationGetPartitionDesc](../R/RelationGetPartitionDesc.md)
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - [heap_freetuple](../h/heap_freetuple.md)
-  - CommandCounterIncrement
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md)
   - [get_partition_parent](../g/get_partition_parent.md)
   - [relation_open](../r/relation_open.md)
   - [relation_close](../r/relation_close.md)
@@ -54,7 +54,7 @@ The function ensures that a partitioned index is only considered valid when all 
 - This function is called after each partition index attachment to check if the parent can be marked valid
 - Uses AccessShareLock for reading operations and RowExclusiveLock when updating catalog tables
 - The recursive nature allows proper validation of multi-level partition hierarchies
-- CommandCounterIncrement() ensures that recent catalog changes are visible during recursive validation
+- [CommandCounterIncrement](../C/CommandCounterIncrement.md)() ensures that recent catalog changes are visible during recursive validation
 - The function assumes the partitioned index starts as invalid and only marks it valid when all conditions are met
 - Error handling includes cache lookup failures with appropriate error messages
 - The validation is transactional - either the index becomes valid or remains invalid, with no partial states

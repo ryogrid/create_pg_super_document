@@ -24,7 +24,7 @@ This function creates a new large object in the PostgreSQL system with initially
   - [recordDependencyOnOwner](../r/recordDependencyOnOwner.md) (establishes ownership dependency)
   - [GetUserId](../G/GetUserId.md) (retrieves current user ID for ownership)
   - InvokeObjectPostCreateHook (triggers post-creation hooks)
-  - CommandCounterIncrement (makes new object visible)
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md) (makes new object visible)
 - Called from (representative examples):
   - [be_lo_creat](../b/be_lo_creat.md)
   - [be_lo_create](../b/be_lo_create.md)

@@ -23,7 +23,7 @@ For each transaction, the function opens an appropriate spool file and, if this 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [begin_replication_step](../b/begin_replication_step.md)
-  - FileSetInit
+  - [FileSetInit](../F/FileSetInit.md)
   - [stream_open_file](stream_open_file.md)
   - [subxact_info_read](subxact_info_read.md)
   - [end_replication_step](../e/end_replication_step.md)

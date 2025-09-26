@@ -21,14 +21,14 @@ The function allocates memory for the buffer using `palloc`, sets up the initial
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (memory allocation)
-  - ltsReadFillBuffer (fills buffer with data from tape)
-  - LogicalTape (structure type)
+  - [palloc](../p/palloc.md) (memory allocation)
+  - [ltsReadFillBuffer](ltsReadFillBuffer.md) (fills buffer with data from tape)
+  - [LogicalTape](../L/LogicalTape.md) (structure type)
 - Called from (representative examples):
-  - LogicalTapeRead (when reading from tape)
-  - LogicalTapeBackspace (when positioning backward)
-  - LogicalTapeSeek (when seeking to position)
-  - LogicalTapeTell (when querying tape position)
+  - [LogicalTapeRead](../L/LogicalTapeRead.md) (when reading from tape)
+  - [LogicalTapeBackspace](../L/LogicalTapeBackspace.md) (when positioning backward)
+  - [LogicalTapeSeek](../L/LogicalTapeSeek.md) (when seeking to position)
+  - [LogicalTapeTell](../L/LogicalTapeTell.md) (when querying tape position)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the logtape.c module

@@ -43,5 +43,5 @@ The enum values are carefully ordered and designed to work with PostgreSQL's loc
 - The enum values are used in the MultiXactMember structure to track what type of lock each transaction holds
 - MaxMultiXactStatus is defined as MultiXactStatusUpdate for validation purposes
 - The ISUPDATE_from_mxstatus(status) macro returns true for status values > MultiXactStatusForUpdate, distinguishing actual updates from lock-only operations
-- String representations are provided by mxstatus_to_string(): "keysh", "sh", "fornokeyupd", "forupd", "nokeyupd", "upd"
+- [String](../S/String.md) representations are provided by mxstatus_to_string(): "keysh", "sh", "fornokeyupd", "forupd", "nokeyupd", "upd"
 - These status values are critical for PostgreSQL's concurrency control and deadlock detection mechanisms

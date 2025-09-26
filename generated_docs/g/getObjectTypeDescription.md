@@ -24,14 +24,14 @@ The function supports all major PostgreSQL object classes including relations, f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getRelationTypeDescription
-  - getProcedureTypeDescription  
-  - getConstraintTypeDescription
+  - [getRelationTypeDescription](getRelationTypeDescription.md)
+  - [getProcedureTypeDescription](getProcedureTypeDescription.md)  
+  - [getConstraintTypeDescription](getConstraintTypeDescription.md)
 - Called from (representative examples):
-  - pg_identify_object
-  - pg_identify_object_as_address
-  - EventTriggerSQLDropAddObject
-  - pg_event_trigger_ddl_commands
+  - [pg_identify_object](../p/pg_identify_object.md)
+  - [pg_identify_object_as_address](../p/pg_identify_object_as_address.md)
+  - [EventTriggerSQLDropAddObject](../E/EventTriggerSQLDropAddObject.md)
+  - [pg_event_trigger_ddl_commands](../p/pg_event_trigger_ddl_commands.md)
   - ObjectAddressSet
 
 ## Notes and Other Information

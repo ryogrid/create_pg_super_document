@@ -21,7 +21,7 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md) (PostgreSQL timestamp utility)
-  - LWLockAcquire/LWLockRelease (lightweight lock management)
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease (lightweight lock management)
   - SpinLockAcquire/SpinLockRelease (spinlock for slot access)
   - SlotIsLogical (slot type validation)
   - StandbyMode (global standby status flag)

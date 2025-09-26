@@ -39,15 +39,15 @@ The function balances between maintaining enough historical information for cons
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SnapBuildFindSnapshot
-  - SnapBuildSerialize
-  - SnapBuildPurgeOlderTxn
-  - ReorderBufferGetOldestXmin
-  - ReorderBufferGetOldestTXN
-  - LogicalIncreaseXminForSlot
-  - LogicalIncreaseRestartDecodingForSlot
+  - [SnapBuildFindSnapshot](SnapBuildFindSnapshot.md)
+  - [SnapBuildSerialize](SnapBuildSerialize.md)
+  - [SnapBuildPurgeOlderTxn](SnapBuildPurgeOlderTxn.md)
+  - [ReorderBufferGetOldestXmin](../R/ReorderBufferGetOldestXmin.md)
+  - [ReorderBufferGetOldestTXN](../R/ReorderBufferGetOldestTXN.md)
+  - [LogicalIncreaseXminForSlot](../L/LogicalIncreaseXminForSlot.md)
+  - [LogicalIncreaseRestartDecodingForSlot](../L/LogicalIncreaseRestartDecodingForSlot.md)
 - Called from (representative examples):
-  - standby_decode (during WAL record processing)
+  - [standby_decode](../s/standby_decode.md) (during WAL record processing)
 
 ## Notes and Other Information
 - Central to the logical replication snapshot building process

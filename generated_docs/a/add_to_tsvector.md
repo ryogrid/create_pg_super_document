@@ -23,7 +23,7 @@ This function serves as a callback for JSON processing that takes individual JSO
 - Functions called/Symbols referenced:
   - [TSVectorBuildState](../T/TSVectorBuildState.md)
   - ParsedText
-  - ParsedWord
+  - [ParsedWord](../P/ParsedWord.md)
   - [palloc](../p/palloc.md)
   - [parsetext](../p/parsetext.md)
 - Called from (representative examples):

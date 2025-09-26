@@ -24,7 +24,7 @@ The `namefastcmp_c` function provides optimized comparison functionality specifi
 - Functions called/Symbols referenced:
   - [DatumGetName](../D/DatumGetName.md)
   - Name
-  - SortSupport
+  - [SortSupport](../S/SortSupport.md)
   - strncmp
   - NameStr (macro)
   - NAMEDATALEN (constant)

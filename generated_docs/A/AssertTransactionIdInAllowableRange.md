@@ -24,10 +24,10 @@ The implementation carefully avoids acquiring locks that might cause deadlocks, 
   - TransactionIdIsNormal
   - pg_memory_barrier
   - XidFromFullTransactionId
-  - TransactionIdFollowsOrEquals
-  - TransactionIdPrecedesOrEquals
+  - [TransactionIdFollowsOrEquals](../T/TransactionIdFollowsOrEquals.md)
+  - [TransactionIdPrecedesOrEquals](../T/TransactionIdPrecedesOrEquals.md)
 - Called from (representative examples):
-  - FullXidRelativeTo
+  - [FullXidRelativeTo](../F/FullXidRelativeTo.md)
 
 ## Notes and Other Information
 - This is an assertion function that does not return a value, designed to prevent code from depending on its outcome

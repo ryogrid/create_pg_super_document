@@ -26,7 +26,7 @@ The function serves as the standard interface for releasing cache references wit
   - CurrentResourceOwner
 - Called from (representative examples):
   - [ReleaseSysCache](ReleaseSysCache.md)
-  - CatCacheHeader
+  - [CatCacheHeader](../C/CatCacheHeader.md)
 
 ## Notes and Other Information
 - Simple wrapper around ReleaseCatCacheWithOwner using CurrentResourceOwner

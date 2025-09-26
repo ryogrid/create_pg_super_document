@@ -22,7 +22,7 @@ The hashtextextended function is the extended variant of hashtext that accepts a
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GET_COLLATION
-  - pg_locale_t
+  - [pg_locale_t](../p/pg_locale_t.md)
   - [lc_collate_is_c](../l/lc_collate_is_c.md)
   - [pg_newlocale_from_collation](../p/pg_newlocale_from_collation.md)
   - [pg_locale_deterministic](../p/pg_locale_deterministic.md)

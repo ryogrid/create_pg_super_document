@@ -24,23 +24,23 @@ The function is designed to handle any type of binary data and is commonly used 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendBinaryStringInfo (from StringInfo API)
+  - [appendBinaryStringInfo](../a/appendBinaryStringInfo.md) (from StringInfo API)
 - Called from (representative examples):
-  - printtup
-  - serializeAnalyzeReceive
-  - sendAuthRequest
-  - logicalrep_write_message
-  - logicalrep_write_tuple
-  - SendTimeLineHistory
-  - SendFunctionResult
-  - array_agg_serialize
-  - array_send
-  - multirange_send
-  - range_send
-  - record_send
-  - uuid_send
-  - varbit_send
-  - string_agg_serialize
+  - [printtup](printtup.md)
+  - [serializeAnalyzeReceive](../s/serializeAnalyzeReceive.md)
+  - [sendAuthRequest](../s/sendAuthRequest.md)
+  - [logicalrep_write_message](../l/logicalrep_write_message.md)
+  - [logicalrep_write_tuple](../l/logicalrep_write_tuple.md)
+  - [SendTimeLineHistory](../S/SendTimeLineHistory.md)
+  - [SendFunctionResult](../S/SendFunctionResult.md)
+  - [array_agg_serialize](../a/array_agg_serialize.md)
+  - [array_send](../a/array_send.md)
+  - [multirange_send](../m/multirange_send.md)
+  - [range_send](../r/range_send.md)
+  - [record_send](../r/record_send.md)
+  - [uuid_send](../u/uuid_send.md)
+  - [varbit_send](../v/varbit_send.md)
+  - [string_agg_serialize](../s/string_agg_serialize.md)
 
 ## Notes and Other Information
 - Uses the safe variant of appendBinaryStringInfo that maintains a trailing null-byte for safety

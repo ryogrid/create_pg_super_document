@@ -19,17 +19,17 @@ ReadNextFullTransactionId is a simple utility function that returns the current 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FullTransactionId
+  - [FullTransactionId](../F/FullTransactionId.md)
   - LW_SHARED
 - Called from (representative examples):
-  - gistdeletepage
-  - _bt_unlink_halfdead_page
-  - AdjustToFullTransactionId
-  - XLogWalRcvSendHSFeedback
-  - TransactionIdInRecentPast
-  - ResolveRecoveryConflictWithSnapshotFullXid
-  - pg_current_snapshot
-  - ReadNextTransactionId
+  - [gistdeletepage](../g/gistdeletepage.md)
+  - [_bt_unlink_halfdead_page](../b/_bt_unlink_halfdead_page.md)
+  - [AdjustToFullTransactionId](../A/AdjustToFullTransactionId.md)
+  - [XLogWalRcvSendHSFeedback](../X/XLogWalRcvSendHSFeedback.md)
+  - [TransactionIdInRecentPast](../T/TransactionIdInRecentPast.md)
+  - [ResolveRecoveryConflictWithSnapshotFullXid](ResolveRecoveryConflictWithSnapshotFullXid.md)
+  - [pg_current_snapshot](../p/pg_current_snapshot.md)
+  - [ReadNextTransactionId](ReadNextTransactionId.md)
 
 ## Notes and Other Information
 - Located in src/backend/access/transam/varsup.c:288-303

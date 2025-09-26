@@ -19,17 +19,17 @@ The fetch_att function is a fundamental tuple manipulation utility that extracts
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CharGetDatum (for 1-byte values)
-  - Int16GetDatum (for 2-byte values)
-  - Int32GetDatum (for 4-byte values)
-  - PointerGetDatum (for by-reference values)
+  - [CharGetDatum](../C/CharGetDatum.md) (for 1-byte values)
+  - [Int16GetDatum](../I/Int16GetDatum.md) (for 2-byte values)
+  - [Int32GetDatum](../I/Int32GetDatum.md) (for 4-byte values)
+  - [PointerGetDatum](../P/PointerGetDatum.md) (for by-reference values)
   - SIZEOF_DATUM (compile-time constant)
 - Called from (representative examples):
-  - brin_range_deserialize
-  - ExecEvalScalarArrayOp
-  - deconstruct_array
-  - array_iterate
-  - range_deserialize
+  - [brin_range_deserialize](../b/brin_range_deserialize.md)
+  - [ExecEvalScalarArrayOp](../E/ExecEvalScalarArrayOp.md)
+  - [deconstruct_array](../d/deconstruct_array.md)
+  - [array_iterate](../a/array_iterate.md)
+  - [range_deserialize](../r/range_deserialize.md)
   - fetchatt (wrapper function)
 
 ## Notes and Other Information

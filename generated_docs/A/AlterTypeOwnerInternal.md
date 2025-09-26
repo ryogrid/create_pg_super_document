@@ -22,7 +22,7 @@ The function uses heap_modify_tuple to update the type tuple, ensuring atomic up
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - SearchSysCacheCopy1
   - [heap_getattr](../h/heap_getattr.md)
   - [aclnewowner](../a/aclnewowner.md)
@@ -31,7 +31,7 @@ The function uses heap_modify_tuple to update the type tuple, ensuring atomic up
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - [get_range_multirange](../g/get_range_multirange.md)
   - [AlterTypeOwnerInternal](AlterTypeOwnerInternal.md) (recursive calls)
-  - table_close
+  - [table_close](../t/table_close.md)
   - TYPTYPE_RANGE
 - Called from (representative examples):
   - [AlterTypeOwner_oid](AlterTypeOwner_oid.md)

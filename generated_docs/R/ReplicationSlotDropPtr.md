@@ -29,18 +29,18 @@ The function performs these key operations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire (ReplicationSlotAllocationLock, ReplicationSlotControlLock)
-  - LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md) (ReplicationSlotAllocationLock, ReplicationSlotControlLock)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - rename
   - [fsync_fname](../f/fsync_fname.md)
   - START_CRIT_SECTION/END_CRIT_SECTION
   - SpinLockAcquire/SpinLockRelease
-  - ConditionVariableBroadcast
+  - [ConditionVariableBroadcast](../C/ConditionVariableBroadcast.md)
   - [ReplicationSlotsComputeRequiredXmin](ReplicationSlotsComputeRequiredXmin.md)
   - [ReplicationSlotsComputeRequiredLSN](ReplicationSlotsComputeRequiredLSN.md)
-  - rmtree
+  - [rmtree](../r/rmtree.md)
   - SlotIsLogical
-  - pgstat_drop_replslot
+  - [pgstat_drop_replslot](../p/pgstat_drop_replslot.md)
 - Called from (representative examples):
   - [ReplicationSlotCleanup](ReplicationSlotCleanup.md)
   - [ReplicationSlotDropAcquired](ReplicationSlotDropAcquired.md)

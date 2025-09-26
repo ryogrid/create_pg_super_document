@@ -23,7 +23,7 @@ The function simply delegates to PQstatus() on the underlying connection structu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQstatus
+  - [PQstatus](PQstatus.md)
 - Called from (representative examples):
   - [test_cancel](../t/test_cancel.md) (src/test/modules/libpq_pipeline/libpq_pipeline.c:342)
   - [test_cancel](../t/test_cancel.md) (src/test/modules/libpq_pipeline/libpq_pipeline.c:399)

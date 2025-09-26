@@ -20,7 +20,7 @@ The function internally delegates to appendBinaryStringInfo, first calculating t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendBinaryStringInfo
+  - [appendBinaryStringInfo](appendBinaryStringInfo.md)
   - strlen (standard C library function)
 - Called from (representative examples):
   - Not directly referenced by other symbols in the indexed codebase

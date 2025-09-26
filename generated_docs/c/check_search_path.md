@@ -36,7 +36,7 @@ Upon successful validation, if caching is enabled, an empty cache entry is creat
   - GucSource
   - [spcache_init](../s/spcache_init.md)
   - [spcache_lookup](../s/spcache_lookup.md)
-  - SplitIdentifierString
+  - [SplitIdentifierString](../S/SplitIdentifierString.md)
   - GUC_check_errdetail
   - [list_free](../l/list_free.md)
   - [spcache_insert](../s/spcache_insert.md)

@@ -34,10 +34,10 @@ The function includes robust error handling for both memory allocation failures 
   -  - Determines if a path is already absolute
   -  - Dynamic memory allocation
   -  - Gets current working directory
-  -  - String duplication
+  -  - [String](../S/String.md) duplication
   -  - [Path](../P/Path.md) normalization
   -  - Memory deallocation
-  -  - String formatting
+  -  - [String](../S/String.md) formatting
   - [Backend](../B/Backend.md)-specific: ,  for error reporting
   - Frontend-specific:  for error output
 

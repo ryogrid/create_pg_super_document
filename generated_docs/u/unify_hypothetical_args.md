@@ -31,7 +31,7 @@ The function modifies the argument expressions in place and updates the actual a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_nth_cell (accesses specific argument positions in the argument list)
+  - [list_nth_cell](../l/list_nth_cell.md) (accesses specific argument positions in the argument list)
   - [select_common_type](../s/select_common_type.md) (determines the best common type for argument pairs)
   - [select_common_typmod](../s/select_common_typmod.md) (determines the best common type modifier)
   - [coerce_type](../c/coerce_type.md) (performs the actual type coercion on arguments)

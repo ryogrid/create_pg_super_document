@@ -29,4 +29,4 @@ This function is used internally within the PL/Python language handler to differ
 - This is a static function, meaning it's only accessible within the same compilation unit
 - The function performs a simple comparison: returns true if prorettype equals TRIGGEROID, false otherwise
 - Essential for proper categorization of PL/Python functions during validation and execution phases
-- Trigger functions have different parameter passing conventions and execution contexts compared to regular functions
+- [Trigger](../T/Trigger.md) functions have different parameter passing conventions and execution contexts compared to regular functions

@@ -29,11 +29,11 @@ The function enforces strict timing constraints - it must be called while the tu
   - ERROR (error level constant)
   - TSS_INMEM (tuplestore status indicating memory-only storage)
 - Data structures used:
-  - Tuplestorestate (main tuplestore state structure)
+  - [Tuplestorestate](../T/Tuplestorestate.md) (main tuplestore state structure)
 - Called from:
-  - ExecInitCteScan (CTE scan node initialization)
-  - ExecMaterial (material node execution)
-  - begin_partition (window aggregation partitioning)
+  - [ExecInitCteScan](../E/ExecInitCteScan.md) (CTE scan node initialization)
+  - [ExecMaterial](../E/ExecMaterial.md) (material node execution)
+  - [begin_partition](../b/begin_partition.md) (window aggregation partitioning)
 
 ## Notes and Other Information
 - Must be called before inserting any data (memtupcount must be 0)

@@ -31,7 +31,7 @@ When an error occurs, the error_occurred flag is set to true. If details_wanted 
 - `*error_data`: Pointer to ErrorData structure containing detailed error information (only populated if details_wanted is true)
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ErrorData
+  - [ErrorData](ErrorData.md)
 - Called from (representative examples):
   - [BeginCopyFrom](../B/BeginCopyFrom.md)
   - [ExecInitJsonExpr](ExecInitJsonExpr.md)

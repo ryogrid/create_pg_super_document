@@ -42,7 +42,7 @@ The function handles several important aspects:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - make_opclause (creates operator expression node)
+  - [make_opclause](../m/make_opclause.md) (creates operator expression node)
   - copyObject (deep copies expression trees)
   - [eval_const_expressions](../e/eval_const_expressions.md) (performs constant folding)
   - [pull_varnos](pull_varnos.md) (extracts relation IDs from expressions)

@@ -31,7 +31,7 @@ The function dynamically expands the output buffer if needed when processing bit
 - Functions called/Symbols referenced:
   - [TidStoreIter](../T/TidStoreIter.md) (iterator structure type)
   - [BlocktableEntry](../B/BlocktableEntry.md) (page entry structure type) 
-  - TidStoreIterResult (output structure type)
+  - [TidStoreIterResult](../T/TidStoreIterResult.md) (output structure type)
   - NUM_FULL_OFFSETS (constant for header array size)
   - InvalidOffsetNumber (constant representing invalid offset)
   - bitmapword (bitmap word type)

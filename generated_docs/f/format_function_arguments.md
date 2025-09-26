@@ -27,7 +27,7 @@ The function returns a dynamically allocated string that the caller is responsib
 ## Dependencies
 - Functions called/Symbols referenced:
   - [fmtId](fmtId.md)
-  - initPQExpBuffer
+  - [initPQExpBuffer](../i/initPQExpBuffer.md)
   - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
   - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
   - [PQExpBufferData](../P/PQExpBufferData.md)

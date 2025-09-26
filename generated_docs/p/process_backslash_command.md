@@ -18,10 +18,10 @@ This function handles the parsing of backslash commands (metacommands) in pgbenc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initPQExpBuffer, termPQExpBuffer
+  - [initPQExpBuffer](../i/initPQExpBuffer.md), termPQExpBuffer
   - expr_scanner_offset, expr_scanner_get_lineno, expr_scanner_get_substring
   - expr_lex_one_word
-  - pg_malloc0, pg_strdup
+  - [pg_malloc0](pg_malloc0.md), pg_strdup
   - [initSimpleStats](../i/initSimpleStats.md)
   - [getMetaCommand](../g/getMetaCommand.md)
   - expr_scanner_init, expr_yyparse, expr_scanner_finish

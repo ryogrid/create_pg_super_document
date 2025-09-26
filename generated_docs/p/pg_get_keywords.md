@@ -40,7 +40,7 @@ The function also indicates whether each keyword can be used as a "bare label" (
   - SRF_RETURN_DONE
   - [get_call_result_type](../g/get_call_result_type.md)
   - [TupleDescGetAttInMetadata](../T/TupleDescGetAttInMetadata.md)
-  - GetScanKeyword
+  - [GetScanKeyword](../G/GetScanKeyword.md)
   - [BuildTupleFromCStrings](../B/BuildTupleFromCStrings.md)
   - [HeapTupleGetDatum](../H/HeapTupleGetDatum.md)
   - unconstify

@@ -20,7 +20,7 @@ CreateEventTrigger is the main function responsible for creating event triggers 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - superuser() - checks if current user has superuser privileges
+  - [superuser](../s/superuser.md)() - checks if current user has superuser privileges
   - [error_duplicate_filter_variable](../e/error_duplicate_filter_variable.md)() - reports error for duplicate filter variables
   - [validate_ddl_tags](../v/validate_ddl_tags.md)() - validates tag filters for DDL events
   - [validate_table_rewrite_tags](../v/validate_table_rewrite_tags.md)() - validates tag filters for table rewrite events

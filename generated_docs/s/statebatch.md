@@ -26,11 +26,11 @@ The `statebatch` structure implements a memory pool mechanism for efficiently al
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `state` (struct state for the flexible array member)
+  - `[state](state.md)` (struct state for the flexible array member)
   - `FLEXIBLE_ARRAY_MEMBER` (macro for flexible array declaration)
 - Called from (representative examples):
-  - `freenfa` (for cleanup and deallocation of state batches)
-  - `newstate` (for state allocation from batches)
+  - `[freenfa](../f/freenfa.md)` (for cleanup and deallocation of state batches)
+  - `[newstate](../n/newstate.md)` (for state allocation from batches)
   - `STATEBATCHSIZE` (macro that calculates batch size)
 
 ## Notes and Other Information

@@ -34,7 +34,7 @@ The function is implemented as a static inline function for performance, as it's
   - [SyncRepCleanupAtProcExit](../S/SyncRepCleanupAtProcExit.md) (src/backend/replication/syncrep.c:422, 427)
   - SxactIsOnFinishedList (src/backend/storage/lmgr/predicate.c:267)
   - [LockErrorCleanup](../L/LockErrorCleanup.md) (src/backend/storage/lmgr/proc.c:769)
-  - ProcWakeup (src/backend/storage/lmgr/proc.c:1685)
+  - [ProcWakeup](../P/ProcWakeup.md) (src/backend/storage/lmgr/proc.c:1685)
 
 ## Notes and Other Information
 - The function enforces a strict invariant: both next and prev pointers must be either both NULL or both non-NULL

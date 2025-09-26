@@ -20,7 +20,7 @@ This is a utility function within the tablespace privilege checking system that 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - text_to_cstring
+  - [text_to_cstring](../t/text_to_cstring.md)
   - [get_tablespace_oid](../g/get_tablespace_oid.md)
 - Called from (representative examples):
   - [has_tablespace_privilege_name_name](../h/has_tablespace_privilege_name_name.md)

@@ -22,12 +22,12 @@ The function is defined as a static inline function in the header file, meaning 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetInt64 (underlying conversion mechanism)
+  - [DatumGetInt64](DatumGetInt64.md) (underlying conversion mechanism)
   - TimeADT (target type for conversion)
 - Called from (representative examples):
-  - JsonEncodeDateTime (JSON encoding of time values)
-  - executeDateTimeMethod (JSON path execution for time operations)
-  - convert_timevalue_to_scalar (statistics estimation for time values)
+  - [JsonEncodeDateTime](../J/JsonEncodeDateTime.md) (JSON encoding of time values)
+  - [executeDateTimeMethod](../e/executeDateTimeMethod.md) (JSON path execution for time operations)
+  - [convert_timevalue_to_scalar](../c/convert_timevalue_to_scalar.md) (statistics estimation for time values)
   - PG_GETARG_TIMEADT (function argument extraction macro)
 
 ## Notes and Other Information

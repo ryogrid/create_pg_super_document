@@ -39,13 +39,13 @@ This function takes no parameters and operates on the global CurrentTransactionS
   - [TransStateAsString](../T/TransStateAsString.md)  
   - [CallSubXactCallbacks](CallSubXactCallbacks.md)
   - [AtEOSubXact_Parallel](../A/AtEOSubXact_Parallel.md)
-  - CommandCounterIncrement
+  - [CommandCounterIncrement](CommandCounterIncrement.md)
   - [AtSubCommit_childXids](../A/AtSubCommit_childXids.md)
   - [AfterTriggerEndSubXact](../A/AfterTriggerEndSubXact.md)
   - [AtSubCommit_Portals](../A/AtSubCommit_Portals.md)
   - [AtEOSubXact_LargeObject](../A/AtEOSubXact_LargeObject.md)
   - [AtSubCommit_Notify](../A/AtSubCommit_Notify.md)
-  - ResourceOwnerRelease
+  - [ResourceOwnerRelease](../R/ResourceOwnerRelease.md)
   - [AtEOSubXact_RelationCache](../A/AtEOSubXact_RelationCache.md)
   - [AtEOSubXact_Inval](../A/AtEOSubXact_Inval.md)
   - [AtSubCommit_smgr](../A/AtSubCommit_smgr.md)
@@ -57,7 +57,7 @@ This function takes no parameters and operates on the global CurrentTransactionS
   - [AtEOSubXact_Namespace](../A/AtEOSubXact_Namespace.md)
   - [AtEOSubXact_Files](../A/AtEOSubXact_Files.md)
   - [AtEOSubXact_HashTables](../A/AtEOSubXact_HashTables.md)
-  - AtEOSubXact_PgStat
+  - [AtEOSubXact_PgStat](../A/AtEOSubXact_PgStat.md)
   - [AtSubCommit_Snapshot](../A/AtSubCommit_Snapshot.md)
   - [ResourceOwnerDelete](../R/ResourceOwnerDelete.md)
   - [AtSubCommit_Memory](../A/AtSubCommit_Memory.md)

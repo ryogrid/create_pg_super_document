@@ -21,7 +21,7 @@ The function is particularly useful during database initialization (initdb) when
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - escape_single_quotes_ascii (performs the actual character escaping)
+  - [escape_single_quotes_ascii](escape_single_quotes_ascii.md) (performs the actual character escaping)
   - [pg_fatal](../p/pg_fatal.md) (error reporting for out-of-memory conditions)
 - Called from (representative examples):
   - [escape_quotes_bki](escape_quotes_bki.md) (BKI file escaping)

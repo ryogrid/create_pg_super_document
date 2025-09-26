@@ -51,10 +51,10 @@ Key to its operation is the management of function call continuity through setAr
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Expr](../E/Expr.md) (expression plan nodes)
-  - ExprState (argument expression states)
+  - [ExprState](../E/ExprState.md) (argument expression states)
   - [FmgrInfo](../F/FmgrInfo.md) (function manager info)
-  - Tuplestorestate (result storage)
-  - TupleTableSlot (row access interface)
+  - [Tuplestorestate](../T/Tuplestorestate.md) (result storage)
+  - [TupleTableSlot](../T/TupleTableSlot.md) (row access interface)
   - [TupleDesc](../T/TupleDesc.md) (tuple structure description)
   - [FunctionCallInfo](../F/FunctionCallInfo.md) (function call context)
 - Called from (representative examples):

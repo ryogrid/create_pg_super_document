@@ -21,13 +21,13 @@ This function implements critical validation logic specifically for PostgreSQL's
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_log_debug
-  - get_controlfile_by_exact_path
+  - [get_controlfile_by_exact_path](../g/get_controlfile_by_exact_path.md)
   - [report_fatal_error](../r/report_fatal_error.md)
   - [pfree](../p/pfree.md)
 - Constants referenced:
   - PG_CONTROL_VERSION
 - Types referenced:
-  - ControlFileData
+  - [ControlFileData](../C/ControlFileData.md)
 - Called from (representative examples):
   - [verify_backup_file](verify_backup_file.md)
 

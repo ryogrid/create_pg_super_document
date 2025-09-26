@@ -38,14 +38,14 @@ The `config_string` structure handles string-valued configuration parameters in 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - config_generic
+  - [config_generic](config_generic.md)
 - Called from (representative examples):
-  - string_field_used
-  - set_string_field
-  - build_guc_variables
-  - SelectConfigFiles
-  - DefineCustomStringVariable
-  - call_string_check_hook
+  - [string_field_used](../s/string_field_used.md)
+  - [set_string_field](../s/set_string_field.md)
+  - [build_guc_variables](../b/build_guc_variables.md)
+  - [SelectConfigFiles](../S/SelectConfigFiles.md)
+  - [DefineCustomStringVariable](../D/DefineCustomStringVariable.md)
+  - [call_string_check_hook](call_string_check_hook.md)
 
 ## Notes and Other Information
 - Special NULL handling: boot_val can be NULL, but NULL cannot be set via normal GUC APIs afterward

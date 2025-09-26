@@ -26,7 +26,7 @@ The `CatalogCacheComputeHashValue` function creates a composite hash value from 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `CatCache`: Structure type containing cache metadata and function pointers
+  - `[CatCache](CatCache.md)`: Structure type containing cache metadata and function pointers
   - `CACHE_elog`: Debug logging macro for cache operations
   - `DEBUG2`: Debug level constant
   - [pg_rotate_left32](../p/pg_rotate_left32.md): Bit rotation utility function for hash mixing
@@ -40,6 +40,6 @@ The `CatalogCacheComputeHashValue` function creates a composite hash value from 
 - Supports up to 4 lookup keys, which covers all PostgreSQL system catalog key combinations
 - Uses bit rotation at different positions to ensure good hash distribution across multiple keys
 - The fallthrough switch design allows efficient handling of caches with fewer than 4 keys
-- Hash combination technique (XOR with rotation) is designed to minimize clustering and collisions
+- [Hash](../H/Hash.md) combination technique (XOR with rotation) is designed to minimize clustering and collisions
 - Debug logging can be enabled to monitor hash computation performance
 - Returns a FATAL error for invalid key counts, ensuring cache integrity

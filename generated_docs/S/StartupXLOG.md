@@ -44,7 +44,7 @@ The function handles various database states (DB_SHUTDOWNED, DB_IN_CRASH_RECOVER
   - [XLogInitNewTimeline](../X/XLogInitNewTimeline.md)
   - [StartupCLOG](StartupCLOG.md), StartupMultiXact, StartupReplicationSlots
   - [RemoveTempXlogFiles](../R/RemoveTempXlogFiles.md)
-  - ResetUnloggedRelations
+  - [ResetUnloggedRelations](../R/ResetUnloggedRelations.md)
   - [PerformRecoveryXLogAction](../P/PerformRecoveryXLogAction.md)
   - [PreallocXlogFiles](../P/PreallocXlogFiles.md)
 - Called from (representative examples):

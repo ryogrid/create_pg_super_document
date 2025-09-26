@@ -30,7 +30,7 @@ The function performs several critical setup tasks: creates a new memory context
   - [CreateTupleDescCopy](../C/CreateTupleDescCopy.md) (tuple descriptor copying)
   - [palloc0](../p/palloc0.md), palloc (memory allocation)
   - [SPITupleTable](../S/SPITupleTable.md) (tuple table structure)
-  - DestReceiver (destination interface)
+  - [DestReceiver](../D/DestReceiver.md) (destination interface)
 - Called from (representative examples):
   - Part of the DestReceiver interface (referenced in printtup.h)
 

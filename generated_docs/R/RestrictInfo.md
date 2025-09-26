@@ -137,9 +137,9 @@ RestrictInfo is a central data structure in PostgreSQL's query optimizer that wr
 - Functions called/Symbols referenced:
   - [Expr](../E/Expr.md) (clause expression)
   - VolatileFunctionStatus (volatility tracking)
-  - EquivalenceClass (equivalence processing)
+  - [EquivalenceClass](../E/EquivalenceClass.md) (equivalence processing)
   - [EquivalenceMember](../E/EquivalenceMember.md) (equivalence members)
-  - QualCost (cost estimation)
+  - [QualCost](../Q/QualCost.md) (cost estimation)
   - Relids (relation ID sets)
 - Called from (representative examples):
   - [make_restrictinfo](../m/make_restrictinfo.md) (restrictinfo.c:47)
@@ -153,4 +153,4 @@ RestrictInfo is a central data structure in PostgreSQL's query optimizer that wr
 - Security levels implement security-barrier functionality by controlling evaluation order of clauses from different trust levels  
 - Extensive caching fields optimize repeated cost and selectivity calculations during planning
 - Clone management handles multiple versions of clauses needed for complex outer join scenarios
-- EquivalenceClass integration enables advanced join optimization through implied equality detection
+- [EquivalenceClass](../E/EquivalenceClass.md) integration enables advanced join optimization through implied equality detection

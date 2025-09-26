@@ -36,7 +36,7 @@ The function is inherently racy due to lock releases for syscalls, requiring car
 ## Dependencies
 - Functions called/Symbols referenced:
   - SpinLockAcquire/SpinLockRelease
-  - LWLockHeldByMeInMode/LWLockRelease/LWLockAcquire
+  - [LWLockHeldByMeInMode](../L/LWLockHeldByMeInMode.md)/LWLockRelease/LWLockAcquire
   - SlotIsLogical
   - TransactionIdIsValid/TransactionIdPrecedesOrEquals
   - [ConditionVariablePrepareToSleep](../C/ConditionVariablePrepareToSleep.md)/ConditionVariableSleep

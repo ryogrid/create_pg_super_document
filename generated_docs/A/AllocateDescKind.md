@@ -33,10 +33,10 @@ AllocateDescKind serves as a discriminator enum within the AllocateDesc structur
 ## Dependencies
 - Functions called/Symbols referenced:
   - SubTransactionId (used in AllocateDesc structure)
-  - DIR (directory pointer type)
+  - [DIR](../D/DIR.md) (directory pointer type)
 - Called from (representative examples):
   - AllocateDesc structure (as kind member at src/backend/storage/file/fd.c:257)
-  - FreeDesc function (switch statement for proper cleanup)
+  - [FreeDesc](../F/FreeDesc.md) function (switch statement for proper cleanup)
   - Various search functions (FreeFile, FreeRawFD, FreeDir, FreePipeFile)
 
 ## Notes and Other Information

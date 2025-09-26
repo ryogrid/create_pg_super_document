@@ -36,8 +36,8 @@ The function uses CaseTestExpr as a creative placeholder mechanism to represent 
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode
-  - exprType
-  - exprTypmod
+  - [exprType](../e/exprType.md)
+  - [exprTypmod](../e/exprTypmod.md)
   - [exprCollation](../e/exprCollation.md)  
   - [coerceJsonFuncExpr](../c/coerceJsonFuncExpr.md)
 - Called from (representative examples):

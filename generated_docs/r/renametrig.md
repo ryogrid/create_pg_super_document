@@ -25,7 +25,7 @@ The function ensures data consistency by acquiring exclusive locks and maintaini
   - [RangeVarCallbackForRenameTrigger](../R/RangeVarCallbackForRenameTrigger.md)
   - [relation_open](relation_open.md)
   - [find_all_inheritors](../f/find_all_inheritors.md)
-  - table_open
+  - [table_open](../t/table_open.md)
   - [ScanKeyInit](../S/ScanKeyInit.md)
   - [systable_beginscan](../s/systable_beginscan.md)
   - [systable_getnext](../s/systable_getnext.md)
@@ -36,7 +36,7 @@ The function ensures data consistency by acquiring exclusive locks and maintaini
   - [renametrig_partition](renametrig_partition.md)
   - ObjectAddressSet
   - [systable_endscan](../s/systable_endscan.md)
-  - table_close
+  - [table_close](../t/table_close.md)
   - [relation_close](relation_close.md)
 - Called from (representative examples):
   - [ExecRenameStmt](../E/ExecRenameStmt.md)

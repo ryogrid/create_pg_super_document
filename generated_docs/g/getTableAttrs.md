@@ -25,10 +25,10 @@ The function operates in three main phases: 1) Collect basic column information 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
-  - appendPQExpBufferChar
+  - [appendPQExpBufferChar](../a/appendPQExpBufferChar.md)
   - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
   - atooid
-  - pg_malloc
+  - [pg_malloc](../p/pg_malloc.md)
   - [pg_strdup](../p/pg_strdup.md)
   - [PQgetisnull](../P/PQgetisnull.md)
   - [AssignDumpId](../A/AssignDumpId.md)

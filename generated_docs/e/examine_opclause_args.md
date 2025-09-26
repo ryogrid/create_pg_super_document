@@ -25,13 +25,13 @@ This utility function analyzes operator clause arguments to identify expressions
 ## Dependencies
 - Functions called/Symbols referenced:
   - lsecond
-  - RelabelType
-  - list_length
+  - [RelabelType](../R/RelabelType.md)
+  - [list_length](../l/list_length.md)
   - linitial
   - IsA
 - Called from (representative examples):
   - [statext_is_compatible_clause_internal](../s/statext_is_compatible_clause_internal.md)
-  - mcv_get_match_bitmap
+  - [mcv_get_match_bitmap](../m/mcv_get_match_bitmap.md)
 
 ## Notes and Other Information
 The function enforces that exactly two arguments are provided (checked via Assert), which is expected for binary operator expressions. RelabelType nodes are automatically stripped as they represent type coercion operations that don't affect the underlying data values. The function supports flexible output by allowing any of the output parameters to be NULL if the caller doesn't need that particular information. This design makes it suitable for various use cases where only specific parts of the parsed expression are needed.

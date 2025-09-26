@@ -30,8 +30,8 @@ The target tuple slot is kept in . The  function evaluates the target list, form
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag
-  - ExprState  
-  - ExprContext
+  - [ExprState](../E/ExprState.md)  
+  - [ExprContext](../E/ExprContext.md)
 - Called from (representative examples):
   - [ExecBuildProjectionInfo](../E/ExecBuildProjectionInfo.md)
   - [ExecScan](../E/ExecScan.md)

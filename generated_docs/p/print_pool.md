@@ -23,7 +23,7 @@ This function prints detailed information about chromosomes within a specified r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Pool (structure type)
+  - [Pool](../P/Pool.md) (structure type)
   - fprintf (for formatted output)
   - fflush (to ensure output is written)
 - Called from (representative examples):

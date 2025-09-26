@@ -36,7 +36,7 @@ The function operates on index tuples that are already known to be deletable (ty
   - [PageGetItem](../P/PageGetItem.md) (get item from page)
   - ItemIdIsDead (check if line pointer is marked dead)
   - [ItemPointerCopy](../I/ItemPointerCopy.md) (copy item pointer)
-  - table_index_delete_tuples (main table AM interface)
+  - [table_index_delete_tuples](../t/table_index_delete_tuples.md) (main table AM interface)
   - [palloc](../p/palloc.md) (memory allocation)
   - [pfree](../p/pfree.md) (memory deallocation)
 - Called from (representative examples):

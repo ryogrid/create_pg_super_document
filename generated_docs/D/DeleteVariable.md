@@ -21,10 +21,10 @@ The  function provides a convenient wrapper for deleting variables from psql's v
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SetVariable
-  - VariableSpace (type)
+  - [SetVariable](../S/SetVariable.md)
+  - [VariableSpace](../V/VariableSpace.md) (type)
 - Called from (representative examples):
-  - parse_psql_options
+  - [parse_psql_options](../p/parse_psql_options.md)
 
 ## Notes and Other Information
 - Deleting a nonexistent variable is explicitly documented as not being an error

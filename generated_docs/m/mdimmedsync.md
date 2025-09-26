@@ -27,10 +27,10 @@ This function is particularly important for handling cases where a relation migh
 - Functions called/Symbols referenced:
   - [mdnblocks](mdnblocks.md)
   - [_mdfd_openseg](_mdfd_openseg.md)
-  - FileSync
-  - data_sync_elevel
+  - [FileSync](../F/FileSync.md)
+  - [data_sync_elevel](../d/data_sync_elevel.md)
   - [FilePathName](../F/FilePathName.md)
-  - FileClose
+  - [FileClose](../F/FileClose.md)
   - [_fdvec_resize](../f/_fdvec_resize.md)
 - Called from (representative examples):
   - Referenced in MD_H header file

@@ -24,13 +24,13 @@ The function performs a simple assignment operation, copying the current transac
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SavedTransactionCharacteristics (structure)
+  - [SavedTransactionCharacteristics](SavedTransactionCharacteristics.md) (structure)
   - XactIsoLevel (global variable)
   - XactReadOnly (global variable)
   - XactDeferrable (global variable)
 - Called from (representative examples):
   - [CommitTransactionCommandInternal](../C/CommitTransactionCommandInternal.md)
-  - _SPI_commit
+  - [_SPI_commit](_SPI_commit.md)
   - [_SPI_rollback](_SPI_rollback.md)
 
 ## Notes and Other Information

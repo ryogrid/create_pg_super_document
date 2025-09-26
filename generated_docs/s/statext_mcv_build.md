@@ -35,7 +35,7 @@ For each MCV item, the function calculates both the observed frequency and the b
   - [build_distinct_groups](../b/build_distinct_groups.md)
   - [get_mincount_for_mcv_list](../g/get_mincount_for_mcv_list.md)
   - [build_column_frequencies](../b/build_column_frequencies.md)
-  - bsearch_arg
+  - [bsearch_arg](../b/bsearch_arg.md)
   - [multi_sort_compare](../m/multi_sort_compare.md)
   - [MCVList](../M/MCVList.md), MCVItem, SortItem, StatsBuildData
   - STATS_MCV_MAGIC, STATS_MCV_TYPE_BASIC

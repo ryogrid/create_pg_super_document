@@ -27,14 +27,14 @@ The total seconds are calculated and stored in the provided output parameter. If
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getnum (for parsing numeric components)
+  - [getnum](getnum.md) (for parsing numeric components)
   - HOURSPERDAY (constant for hours per day)
   - DAYSPERWEEK (constant for days per week)
   - SECSPERHOUR (constant for seconds per hour)
   - MINSPERHOUR (constant for minutes per hour)
   - SECSPERMIN (constant for seconds per minute)
 - Called from (representative examples):
-  - getoffset
+  - [getoffset](getoffset.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the timezone parsing subsystem

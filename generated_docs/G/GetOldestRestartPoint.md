@@ -23,8 +23,8 @@ The function copies the redo pointer and timeline ID from the control file's che
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire
-  - LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - ControlFile (global variable)
   - LW_SHARED (lock mode constant)
 - Called from (representative examples):

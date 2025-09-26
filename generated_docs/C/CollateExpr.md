@@ -37,16 +37,16 @@ The transformation process:
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (for creating CollateExpr instances)
-  - type_is_collatable (to validate collation applicability)
-  - exprCollation (to determine expression collations)
-  - RelabelType (as replacement target during planning)
+  - [type_is_collatable](../t/type_is_collatable.md) (to validate collation applicability)
+  - [exprCollation](../e/exprCollation.md) (to determine expression collations)
+  - [RelabelType](../R/RelabelType.md) (as replacement target during planning)
 - Called from (representative examples):
-  - coerce_to_target_type (during type coercion with collation handling)
-  - assign_collations_walker (during collation assignment)
-  - eval_const_expressions_mutator (during constant folding and expression preprocessing)
+  - [coerce_to_target_type](../c/coerce_to_target_type.md) (during type coercion with collation handling)
+  - [assign_collations_walker](../a/assign_collations_walker.md) (during collation assignment)
+  - [eval_const_expressions_mutator](../e/eval_const_expressions_mutator.md) (during constant folding and expression preprocessing)
 
 ## Notes and Other Information
-- CollateExpr exists only during parsing and early planning phases
+- [CollateExpr](CollateExpr.md) exists only during parsing and early planning phases
 - The planner systematically replaces CollateExpr with RelabelType for execution efficiency
 - Multiple stacked CollateExprs are simplified to keep only the topmost one
 - If the target type is not collatable, CollateExpr nodes are discarded entirely

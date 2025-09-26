@@ -29,13 +29,13 @@ Key functionality includes:
   - XLogRecGetData
   - [BlockIdGetBlockNumber](../B/BlockIdGetBlockNumber.md)  
   - [ginRedoClearIncompleteSplit](ginRedoClearIncompleteSplit.md)
-  - XLogReadBufferForRedo
+  - [XLogReadBufferForRedo](../X/XLogReadBufferForRedo.md)
   - [XLogRecGetBlockData](../X/XLogRecGetBlockData.md)
   - [ginRedoInsertData](ginRedoInsertData.md)
   - [ginRedoInsertEntry](ginRedoInsertEntry.md)
   - GinPageIsData
   - [PageSetLSN](../P/PageSetLSN.md)
-  - MarkBufferDirty
+  - [MarkBufferDirty](../M/MarkBufferDirty.md)
   - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
 
 - Called from:

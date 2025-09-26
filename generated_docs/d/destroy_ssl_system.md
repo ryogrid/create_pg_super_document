@@ -25,8 +25,8 @@ This function takes no parameters.
 - Functions called/Symbols referenced:
   - [pthread_mutex_lock](../p/pthread_mutex_lock.md)
   - [pthread_mutex_unlock](../p/pthread_mutex_unlock.md)
-  - pq_lockingcallback
-  - pq_threadidcallback
+  - [pq_lockingcallback](../p/pq_lockingcallback.md)
+  - [pq_threadidcallback](../p/pq_threadidcallback.md)
   - CRYPTO_get_locking_callback (OpenSSL)
   - CRYPTO_set_locking_callback (OpenSSL)
   - CRYPTO_get_id_callback (OpenSSL)

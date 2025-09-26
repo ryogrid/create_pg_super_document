@@ -31,9 +31,9 @@ This operation is more efficient than removing the first element and then insert
   - [sift_down](../s/sift_down.md) (heap rebalancing downward)
 - Called from (representative examples):
   - [gather_merge_getnext](../g/gather_merge_getnext.md) (executor/nodeGatherMerge.c:563)
-  - ExecMergeAppend (executor/nodeMergeAppend.c:250)
+  - [ExecMergeAppend](../E/ExecMergeAppend.md) (executor/nodeMergeAppend.c:250)
   - [ReorderBufferIterTXNNext](../R/ReorderBufferIterTXNNext.md) (replication/logical/reorderbuffer.c:1448, 1484)
-  - BufferSync (storage/buffer/bufmgr.c:3135)
+  - [BufferSync](../B/BufferSync.md) (storage/buffer/bufmgr.c:3135)
 
 ## Notes and Other Information
 - The caller must ensure the heap is not empty before calling this function

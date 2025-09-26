@@ -129,7 +129,7 @@ The RelationData struct contains numerous fields organized by functionality:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationData (the underlying struct)
+  - [RelationData](RelationData.md) (the underlying struct)
   - Various system catalog structures (Form_pg_class, Form_pg_index)
   - Memory management structures (MemoryContext)
   - Access method structures (TableAmRoutine, IndexAmRoutine)
@@ -139,7 +139,7 @@ The RelationData struct contains numerous fields organized by functionality:
   - [AllocateRelationDesc](../A/AllocateRelationDesc.md) (src/backend/utils/cache/relcache.c:421)
   - [RelationBuildLocalRelation](RelationBuildLocalRelation.md) (src/backend/utils/cache/relcache.c:3593)
   - [formrdesc](../f/formrdesc.md) (src/backend/utils/cache/relcache.c:1886)
-  - XLogReadBufferExtended (src/backend/access/transam/xlogutils.c:561)
+  - [XLogReadBufferExtended](../X/XLogReadBufferExtended.md) (src/backend/access/transam/xlogutils.c:561)
 
 ## Notes and Other Information
 - The Relation typedef is used throughout PostgreSQL to pass relation metadata between functions

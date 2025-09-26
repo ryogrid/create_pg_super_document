@@ -24,13 +24,13 @@ InitializeBackupManifest prepares the backup manifest system for operation by cl
 ## Dependencies
 - Functions called/Symbols referenced:
   - memset (C standard library)
-  - BufFileCreateTemp (PostgreSQL buffer file management)
+  - [BufFileCreateTemp](../B/BufFileCreateTemp.md) (PostgreSQL buffer file management)
   - [pg_cryptohash_create](../p/pg_cryptohash_create.md) (PostgreSQL cryptographic hash functions)
   - [pg_cryptohash_init](../p/pg_cryptohash_init.md)
   - [pg_cryptohash_error](../p/pg_cryptohash_error.md)
   - AppendToManifest (internal manifest writing function)
   - [GetSystemIdentifier](../G/GetSystemIdentifier.md) (PostgreSQL system identification)
-  - backup_manifest_option (enum type)
+  - [backup_manifest_option](../b/backup_manifest_option.md) (enum type)
   - pg_checksum_type (enum type)
   - PG_SHA256 (cryptographic constant)
 - Called from (representative examples):

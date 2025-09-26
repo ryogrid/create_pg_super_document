@@ -24,9 +24,9 @@ This function provides a robust file reading interface specifically designed for
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_report_wait_start (with WAIT_EVENT_BASEBACKUP_READ)
-  - pg_pread
-  - pgstat_report_wait_end
+  - [pgstat_report_wait_start](../p/pgstat_report_wait_start.md) (with WAIT_EVENT_BASEBACKUP_READ)
+  - [pg_pread](../p/pg_pread.md)
+  - [pgstat_report_wait_end](../p/pgstat_report_wait_end.md)
   - [errcode_for_file_access](../e/errcode_for_file_access.md)
   - ereport
 - Called from (representative examples):

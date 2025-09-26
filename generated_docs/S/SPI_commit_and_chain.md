@@ -27,7 +27,7 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _SPI_commit (internal implementation with chain parameter set to true)
+  - [_SPI_commit](_SPI_commit.md) (internal implementation with chain parameter set to true)
 - Called from (representative examples):
   - SPI_OPT_NONATOMIC (referenced in header for non-atomic SPI operations)
 

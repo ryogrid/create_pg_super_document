@@ -31,7 +31,7 @@ The function automatically filters out duplicate schema OIDs when the same schem
   - [fetch_search_path](../f/fetch_search_path.md)
   - linitial_oid
   - [list_free](../l/list_free.md)
-  - PublicationObjSpec
+  - [PublicationObjSpec](../P/PublicationObjSpec.md)
   - PUBLICATIONOBJ_TABLE
   - PUBLICATIONOBJ_TABLES_IN_SCHEMA
   - PUBLICATIONOBJ_TABLES_IN_CUR_SCHEMA

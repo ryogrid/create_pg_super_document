@@ -26,7 +26,7 @@ The function uses PostgreSQL's standard function calling convention (PG_FUNCTION
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_restriction_variable: Extracts variable and constant from operator arguments
+  - [get_restriction_variable](../g/get_restriction_variable.md): Extracts variable and constant from operator arguments
   - [tsquerysel](tsquerysel.md): Performs the actual selectivity calculation for TSQuery
   - ReleaseVariableStats: Cleans up variable statistics
   - CLAMP_PROBABILITY: Ensures selectivity is within valid range [0,1]

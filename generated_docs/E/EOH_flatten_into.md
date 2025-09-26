@@ -27,14 +27,14 @@ The function delegates to the appropriate type-specific implementation through t
 - Functions called/Symbols referenced:
   - flatten_into (method from ExpandedObjectMethods table)
 - Types referenced:
-  - ExpandedObjectHeader
+  - [ExpandedObjectHeader](ExpandedObjectHeader.md)
   - Size
 - Called from (representative examples):
-  - detoast_external_attr
-  - fill_val
-  - tts_virtual_materialize
-  - datumCopy
-  - datumSerialize
+  - [detoast_external_attr](../d/detoast_external_attr.md)
+  - [fill_val](../f/fill_val.md)
+  - [tts_virtual_materialize](../t/tts_virtual_materialize.md)
+  - [datumCopy](../d/datumCopy.md)
+  - [datumSerialize](../d/datumSerialize.md)
 
 ## Notes and Other Information
 - This is a polymorphic function that relies on the object's method table for the actual implementation

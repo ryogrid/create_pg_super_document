@@ -31,10 +31,10 @@ When no explicit path is specified, it automatically generates a default JSONPat
   - makeNode: Creates new PostgreSQL parse tree nodes
   - [makeJsonValueExpr](../m/makeJsonValueExpr.md): Creates JSON value expressions with format specifications
   - [makeJsonFormat](../m/makeJsonFormat.md): Creates JSON format specifications with encoding defaults
-  - makeStringConst: Creates string constant nodes
+  - [makeStringConst](../m/makeStringConst.md): Creates string constant nodes
   - [escape_json](../e/escape_json.md): Properly escapes JSON identifiers
   - [pstrdup](../p/pstrdup.md): Duplicates strings in the current memory context
-  - initStringInfo/appendStringInfoString: String buffer operations
+  - [initStringInfo](../i/initStringInfo.md)/appendStringInfoString: String buffer operations
 
 - Called from (representative examples):
   - [transformJsonTableColumns](transformJsonTableColumns.md): Main entry point that processes all columns in a JSON table

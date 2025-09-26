@@ -25,12 +25,12 @@ The function only operates under the postmaster (not in standalone mode) and ens
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - [GetCatalogSnapshot](../G/GetCatalogSnapshot.md)
-  - RegisterSnapshot
+  - [RegisterSnapshot](../R/RegisterSnapshot.md)
   - [ApplySetting](../A/ApplySetting.md)
-  - UnregisterSnapshot
-  - table_close
+  - [UnregisterSnapshot](../U/UnregisterSnapshot.md)
+  - [table_close](../t/table_close.md)
   - PGC_S_DATABASE_USER
   - PGC_S_USER
   - PGC_S_DATABASE

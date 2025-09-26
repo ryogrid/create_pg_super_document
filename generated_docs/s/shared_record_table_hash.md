@@ -30,7 +30,7 @@ The function works in conjunction with shared_record_table_compare to provide co
   - [dsa_get_address](../d/dsa_get_address.md) (for resolving shared TupleDesc pointers)
   - [hashRowType](../h/hashRowType.md) (for computing the actual hash value)
 - Called from (representative examples):
-  - Hash table operations (indirectly as callback function)
+  - [Hash](../H/Hash.md) table operations (indirectly as callback function)
 
 ## Notes and Other Information
 - This function is designed to work with PostgreSQL's dynamic shared memory hash tables

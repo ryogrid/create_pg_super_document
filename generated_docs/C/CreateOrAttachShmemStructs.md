@@ -24,14 +24,14 @@ The initialization order is critical - for example, LWLocks must be initialized 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreateLWLocks (lightweight lock initialization)
+  - [CreateLWLocks](CreateLWLocks.md) (lightweight lock initialization)
   - [InitShmemIndex](../I/InitShmemIndex.md) (shared memory index setup)
-  - dsm_shmem_init, DSMRegistryShmemInit (dynamic shared memory)
-  - VarsupShmemInit, XLOGShmemInit, XLogPrefetchShmemInit, XLogRecoveryShmemInit (WAL subsystems)
+  - [dsm_shmem_init](../d/dsm_shmem_init.md), DSMRegistryShmemInit (dynamic shared memory)
+  - [VarsupShmemInit](../V/VarsupShmemInit.md), XLOGShmemInit, XLogPrefetchShmemInit, XLogRecoveryShmemInit (WAL subsystems)
   - [CLOGShmemInit](CLOGShmemInit.md), CommitTsShmemInit, SUBTRANSShmemInit, MultiXactShmemInit (transaction status)
-  - InitBufferPool (buffer cache initialization)
-  - InitLocks, InitPredicateLocks (lock management)
-  - InitProcGlobal, CreateSharedProcArray, CreateSharedBackendStatus (process management)
+  - [InitBufferPool](../I/InitBufferPool.md) (buffer cache initialization)
+  - [InitLocks](../I/InitLocks.md), InitPredicateLocks (lock management)
+  - [InitProcGlobal](../I/InitProcGlobal.md), CreateSharedProcArray, CreateSharedBackendStatus (process management)
   - Multiple other subsystem initialization functions
 - Called from (representative examples):
   - [CreateSharedMemoryAndSemaphores](CreateSharedMemoryAndSemaphores.md) (postmaster startup)

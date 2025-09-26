@@ -24,7 +24,7 @@ ExecWithCheckOptions enforces WITH CHECK OPTION constraints and row-level securi
 ## Dependencies
 - Functions called/Symbols referenced:
   - GetPerTupleExprContext
-  - ExecQual
+  - [ExecQual](ExecQual.md)
   - [build_attrmap_by_name_if_req](../b/build_attrmap_by_name_if_req.md)
   - [execute_attr_map_slot](../e/execute_attr_map_slot.md)
   - [MakeTupleTableSlot](../M/MakeTupleTableSlot.md)

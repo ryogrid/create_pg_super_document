@@ -24,15 +24,15 @@ The function handles two serialization formats: text and binary, and should not 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExplainOpenGroup/ExplainCloseGroup (structured output grouping)
-  - ExplainPropertyFloat/ExplainPropertyUInteger/ExplainPropertyText (property formatting)
-  - ExplainIndentText (text formatting)
-  - show_buffer_usage/peek_buffer_usage (buffer statistics display)
+  - [ExplainOpenGroup](ExplainOpenGroup.md)/ExplainCloseGroup (structured output grouping)
+  - [ExplainPropertyFloat](ExplainPropertyFloat.md)/ExplainPropertyUInteger/ExplainPropertyText (property formatting)
+  - [ExplainIndentText](ExplainIndentText.md) (text formatting)
+  - [show_buffer_usage](../s/show_buffer_usage.md)/peek_buffer_usage (buffer statistics display)
   - INSTR_TIME_GET_DOUBLE (timing conversion)
   - BYTES_TO_KILOBYTES (unit conversion)
   - EXPLAIN_SERIALIZE_* constants (serialization format flags)
 - Called from (representative examples):
-  - ExplainOnePlan (main EXPLAIN plan processing function)
+  - [ExplainOnePlan](ExplainOnePlan.md) (main EXPLAIN plan processing function)
 
 ## Notes and Other Information
 - Static function, only accessible within explain.c

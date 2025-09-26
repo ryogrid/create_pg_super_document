@@ -33,7 +33,7 @@ The function iterates through all rows and columns of the result set, applying l
   - [printTableAddHeader](printTableAddHeader.md) (add column headers)
   - [PQfname](../P/PQfname.md) (get field name for column)
   - [column_type_alignment](../c/column_type_alignment.md) (determine column alignment from data type)
-  - PQftype (get data type OID for column)
+  - [PQftype](../P/PQftype.md) (get data type OID for column)
   - [PQgetisnull](../P/PQgetisnull.md) (check if cell value is NULL)
   - [PQgetvalue](../P/PQgetvalue.md) (get cell value as string)
   - [format_numeric_locale](../f/format_numeric_locale.md) (apply locale formatting to numeric values)
@@ -51,7 +51,7 @@ The function iterates through all rows and columns of the result set, applying l
 ## Notes and Other Information
 - The function gracefully handles cancellation by checking cancel_pressed at the start
 - Column alignment is automatically determined based on PostgreSQL data types through column_type_alignment
-- Numeric locale formatting is applied only to right-aligned columns when the numericLocale option is enabled
+- [Numeric](../N/Numeric.md) locale formatting is applied only to right-aligned columns when the numericLocale option is enabled
 - The translate_columns array allows selective translation of specific columns, with proper bounds checking via assertions
 - NULL values are handled specially, using either the custom nullPrint string or an empty string
 - Memory management is handled carefully with mustfree flags for dynamically allocated formatted strings

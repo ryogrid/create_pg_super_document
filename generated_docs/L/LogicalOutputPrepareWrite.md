@@ -24,7 +24,7 @@ This is a static helper function used in logical replication that prepares the o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - resetStringInfo (resets the output buffer)
+  - [resetStringInfo](../r/resetStringInfo.md) (resets the output buffer)
 - Data types used:
   - [LogicalDecodingContext](LogicalDecodingContext.md) (context structure for logical decoding)
 - Called from:

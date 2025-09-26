@@ -28,10 +28,10 @@ The `binaryheap_allocate` function creates a new binary heap with the given capa
   - binaryheap_comparator (function pointer type)
 - Called from (representative examples):
   - [gather_merge_setup](../g/gather_merge_setup.md)
-  - ExecInitMergeAppend
+  - [ExecInitMergeAppend](../E/ExecInitMergeAppend.md)
   - [PgArchiverMain](../P/PgArchiverMain.md)
   - [ReorderBufferIterTXNInit](../R/ReorderBufferIterTXNInit.md)
-  - BufferSync
+  - [BufferSync](../B/BufferSync.md)
   - [restore_toc_entries_parallel](../r/restore_toc_entries_parallel.md)
   - [TopoSort](../T/TopoSort.md)
 

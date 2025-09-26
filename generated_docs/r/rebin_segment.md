@@ -24,16 +24,16 @@ The rebinning process involves unlinking the segment from its current bin, updat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - contiguous_pages_to_segment_bin (determines appropriate bin for given page count)
+  - [contiguous_pages_to_segment_bin](../c/contiguous_pages_to_segment_bin.md) (determines appropriate bin for given page count)
   - fpm_largest (gets largest contiguous free block from free page manager)
-  - unlink_segment (removes segment from current bin linked list)
+  - [unlink_segment](../u/unlink_segment.md) (removes segment from current bin linked list)
   - get_segment_index (converts segment map to index)
-  - get_segment_by_index (converts segment index to map)
+  - [get_segment_by_index](../g/get_segment_by_index.md) (converts segment index to map)
 - Called from (representative examples):
   - get_segment_index
-  - dsa_free
-  - destroy_superblock
-  - get_best_segment
+  - [dsa_free](../d/dsa_free.md)
+  - [destroy_superblock](../d/destroy_superblock.md)
+  - [get_best_segment](../g/get_best_segment.md)
 
 ## Notes and Other Information
 - This is a static internal function not exposed in the public API

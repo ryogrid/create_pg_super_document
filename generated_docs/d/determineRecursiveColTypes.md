@@ -30,8 +30,8 @@ This approach ensures that recursive CTEs have consistent column definitions acr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SetOperationStmt (struct access)
-  - RangeTblRef (struct access)  
+  - [SetOperationStmt](../S/SetOperationStmt.md) (struct access)
+  - [RangeTblRef](../R/RangeTblRef.md) (struct access)  
   - rt_fetch (retrieves range table entry)
   - forboth (macro for parallel list iteration)
   - [makeTargetEntry](../m/makeTargetEntry.md) (creates target entry nodes)

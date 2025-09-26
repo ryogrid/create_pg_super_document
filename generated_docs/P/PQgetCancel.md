@@ -22,7 +22,7 @@ PQgetCancel extracts essential cancellation parameters from an active PostgreSQL
   - malloc
   - memcpy  
   - [pqParseIntParam](../p/pqParseIntParam.md)
-  - PGcancel (type)
+  - [PGcancel](PGcancel.md) (type)
   - [SockAddr](../S/SockAddr.md) (type)
   - PGINVALID_SOCKET (constant)
 - Called from (representative examples):

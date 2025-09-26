@@ -30,13 +30,13 @@ This provides efficient random access for operations that need to return to prev
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LogicalTape (structure type)
+  - [LogicalTape](LogicalTape.md) (structure type)
   - TapeBlockPayloadSize (constant for maximum valid offset)
-  - ltsInitReadBuffer (initializes read buffer if needed)
-  - ltsReadBlock (reads target block from storage)
+  - [ltsInitReadBuffer](../l/ltsInitReadBuffer.md) (initializes read buffer if needed)
+  - [ltsReadBlock](../l/ltsReadBlock.md) (reads target block from storage)
   - TapeBlockGetTrailer (accesses block metadata for next block pointer)
 - Called from (representative examples):
-  - tuplesort_restorepos (in tuplesort.c for restoring saved tape positions)
+  - [tuplesort_restorepos](../t/tuplesort_restorepos.md) (in tuplesort.c for restoring saved tape positions)
 
 ## Notes and Other Information
 - Only works on frozen tapes - seeking is not supported during write operations or on unfrozen read tapes

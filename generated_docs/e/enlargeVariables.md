@@ -21,7 +21,7 @@ The  function manages the dynamic growth of the Variables array structure. When 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_realloc
+  - [pg_realloc](../p/pg_realloc.md)
 - Constants referenced:
   - VARIABLES_ALLOC_MARGIN
 - Types referenced:

@@ -32,12 +32,12 @@ The function performs several key operations:
   - PG_GETARG_TEXT_PP
   - PG_GETARG_BOOL
   - [get_backup_status](../g/get_backup_status.md)
-  - text_to_cstring
+  - [text_to_cstring](../t/text_to_cstring.md)
   - AllocSetContextCreate
   - [MemoryContextReset](../M/MemoryContextReset.md)
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - [palloc0](palloc0.md)
-  - makeStringInfo
+  - [makeStringInfo](../m/makeStringInfo.md)
   - [register_persistent_abort_backup_handler](../r/register_persistent_abort_backup_handler.md)
   - [do_pg_backup_start](../d/do_pg_backup_start.md)
   - PG_RETURN_LSN

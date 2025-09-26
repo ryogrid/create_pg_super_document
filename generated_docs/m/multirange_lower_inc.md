@@ -35,7 +35,7 @@ This function determines the inclusivity of the lower bound of a multirange. It 
 - Returns false for empty multiranges since they have no meaningful bounds
 - Uses index 0 to get the bounds of the first range, which contains the overall lower bound of the multirange
 - The inclusivity property is crucial for understanding whether boundary values are part of the range
-- Range inclusivity affects operations like containment checks, overlaps, and intersections
+- [Range](../R/Range.md) inclusivity affects operations like containment checks, overlaps, and intersections
 - Complements other bound-checking functions like multirange_lower, multirange_upper, and multirange_upper_inc
 - Essential for precise range arithmetic and boundary condition handling in PostgreSQL range operations
 - The lower.inclusive field is a boolean that directly indicates the inclusivity status

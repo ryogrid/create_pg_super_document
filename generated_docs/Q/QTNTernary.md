@@ -23,15 +23,15 @@ The function includes stack depth checking to prevent stack overflow during deep
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth (stack overflow protection)
-  - QTNTernary (recursive self-call)
-  - repalloc (memory reallocation)
+  - [check_stack_depth](../c/check_stack_depth.md) (stack overflow protection)
+  - [QTNTernary](QTNTernary.md) (recursive self-call)
+  - [repalloc](../r/repalloc.md) (memory reallocation)
   - memmove, memcpy (memory operations)
-  - pfree (memory deallocation)
-  - QTNode, QI_OPR, OP_AND, OP_OR, QTN_NEEDFREE (data types and constants)
+  - [pfree](../p/pfree.md) (memory deallocation)
+  - [QTNode](QTNode.md), QI_OPR, OP_AND, OP_OR, QTN_NEEDFREE (data types and constants)
 - Called from (representative examples):
-  - tsquery_rewrite_query (in tsquery_rewrite.c)
-  - tsquery_rewrite (in tsquery_rewrite.c)
+  - [tsquery_rewrite_query](../t/tsquery_rewrite_query.md) (in tsquery_rewrite.c)
+  - [tsquery_rewrite](../t/tsquery_rewrite.md) (in tsquery_rewrite.c)
 
 ## Notes and Other Information
 - Only flattens associative operations (AND, OR) as these are the only operations where flattening preserves semantic meaning

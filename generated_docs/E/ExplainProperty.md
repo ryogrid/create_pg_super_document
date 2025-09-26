@@ -34,13 +34,13 @@ This function is typically not called directly but serves as the implementation 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExplainState (struct type)
+  - [ExplainState](ExplainState.md) (struct type)
   - EXPLAIN_FORMAT_TEXT, EXPLAIN_FORMAT_XML, EXPLAIN_FORMAT_JSON, EXPLAIN_FORMAT_YAML (enum values)
   - [ExplainIndentText](ExplainIndentText.md)
   - [ExplainXMLTag](ExplainXMLTag.md)
   - [ExplainJSONLineEnding](ExplainJSONLineEnding.md)  
   - [ExplainYAMLLineStarting](ExplainYAMLLineStarting.md)
-  - appendStringInfo, appendStringInfoString, appendStringInfoChar, appendStringInfoSpaces
+  - [appendStringInfo](../a/appendStringInfo.md), appendStringInfoString, appendStringInfoChar, appendStringInfoSpaces
   - [escape_xml](../e/escape_xml.md), escape_json, escape_yaml
   - [pfree](../p/pfree.md)
 - Called from (representative examples):

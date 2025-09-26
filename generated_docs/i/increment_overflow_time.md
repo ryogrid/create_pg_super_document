@@ -28,7 +28,7 @@ This is particularly important for timezone calculations where time adjustments 
   - pg_time_t (PostgreSQL time type)
   - TYPE_SIGNED, TIME_T_MIN, TIME_T_MAX (time range constants)
 - Called from (representative examples):
-  - tzparse (multiple calls for timezone rule parsing)
+  - [tzparse](../t/tzparse.md) (multiple calls for timezone rule parsing)
 
 ## Notes and Other Information
 - Returns true if overflow would occur, false if the operation is safe

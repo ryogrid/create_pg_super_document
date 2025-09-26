@@ -44,28 +44,28 @@ This function handles the transformation of SQL IN and NOT IN expressions during
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - transformExprRecurse
-  - contain_vars_of_level
-  - list_concat
-  - select_common_type
-  - verify_common_type
-  - get_array_type
-  - coerce_to_common_type
+  - [transformExprRecurse](transformExprRecurse.md)
+  - [contain_vars_of_level](../c/contain_vars_of_level.md)
+  - [list_concat](../l/list_concat.md)
+  - [select_common_type](../s/select_common_type.md)
+  - [verify_common_type](../v/verify_common_type.md)
+  - [get_array_type](../g/get_array_type.md)
+  - [coerce_to_common_type](../c/coerce_to_common_type.md)
   - makeNode
-  - make_scalar_array_op
-  - make_row_comparison_op
-  - make_op
+  - [make_scalar_array_op](../m/make_scalar_array_op.md)
+  - [make_row_comparison_op](../m/make_row_comparison_op.md)
+  - [make_op](../m/make_op.md)
   - copyObject
-  - coerce_to_boolean
-  - makeBoolExpr
+  - [coerce_to_boolean](../c/coerce_to_boolean.md)
+  - [makeBoolExpr](../m/makeBoolExpr.md)
   - list_make2
 - Called from (representative examples):
-  - transformExprRecurse
+  - [transformExprRecurse](transformExprRecurse.md)
 
 ## Notes and Other Information
 - The function is static, meaning it's only accessible within parse_expr.c
 - The ScalarArrayOpExpr optimization significantly improves performance for large IN lists with constants
-- Variable-containing expressions are handled separately to give the planner more optimization opportunities
+- [Variable](../V/Variable.md)-containing expressions are handled separately to give the planner more optimization opportunities
 - Row expressions require special handling due to their composite nature
 - Type system integration ensures proper coercion and compatibility checking
 - The fallback boolean tree approach ensures compatibility with all data types

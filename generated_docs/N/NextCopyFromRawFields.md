@@ -29,7 +29,7 @@ The function performs header line validation if configured, ensuring that column
   - [CopyReadAttributesText](../C/CopyReadAttributesText.md): Parses text-formatted line into individual fields  
   - RelationGetDescr: Gets tuple descriptor for relation validation
   - lfirst_int: Extracts integer values from list cells
-  - namestrcmp: Compares PostgreSQL name structures
+  - [namestrcmp](../n/namestrcmp.md): Compares PostgreSQL name structures
 - Called from (representative examples):
   - [NextCopyFrom](NextCopyFrom.md): Higher-level function that processes COPY FROM operations
 

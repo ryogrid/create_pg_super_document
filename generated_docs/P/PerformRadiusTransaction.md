@@ -38,7 +38,7 @@ Key security features include protection against denial-of-service attacks by va
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_getaddrinfo_all, pg_freeaddrinfo_all (address resolution)
+  - [pg_getaddrinfo_all](../p/pg_getaddrinfo_all.md), pg_freeaddrinfo_all (address resolution)
   - [pg_strong_random](../p/pg_strong_random.md) (cryptographic random number generation)
   - [pg_md5_binary](../p/pg_md5_binary.md) (MD5 hashing for authentication)
   - pg_hton32, pg_hton16, pg_ntoh16 (network byte order conversion)

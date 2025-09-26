@@ -42,7 +42,7 @@ The function includes sophisticated optimizations for READ ONLY transactions and
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockHeldByMe
+  - [LWLockHeldByMe](../L/LWLockHeldByMe.md)
   - SxactIsCommitted  
   - SxactHasConflictOut
   - SxactHasSummaryConflictOut

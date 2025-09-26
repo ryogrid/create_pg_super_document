@@ -30,7 +30,7 @@ This is a convenience function for checking the current user's privileges withou
   - [convert_server_priv_string](../c/convert_server_priv_string.md)
   - [object_aclcheck](../o/object_aclcheck.md)
   - PG_RETURN_BOOL
-  - AclResult (type)
+  - [AclResult](../A/AclResult.md) (type)
   - AclMode (type)
   - ForeignServerRelationId
 - Called from (representative examples):

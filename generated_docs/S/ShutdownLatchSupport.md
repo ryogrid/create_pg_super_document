@@ -38,8 +38,8 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqsignal
-  - FreeWaitEventSet
+  - [pqsignal](../p/pqsignal.md)
+  - [FreeWaitEventSet](../F/FreeWaitEventSet.md)
   - close (system call)
   - LatchWaitSet (global variable)
   - SIG_IGN (signal constant)

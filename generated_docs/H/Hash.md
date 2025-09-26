@@ -48,24 +48,24 @@ The node includes optimization features for handling skewed data distributions, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Plan (base structure)
-  - List
+  - [Plan](../P/Plan.md) (base structure)
+  - [List](../L/List.md)
   - Oid
   - AttrNumber
   - Cardinality
 - Called from (representative examples):
-  - ExecInitHash
-  - ExecHashTableCreate
-  - ExecHashBuildSkewHash
-  - create_hashjoin_plan
-  - make_hash
+  - [ExecInitHash](../E/ExecInitHash.md)
+  - [ExecHashTableCreate](../E/ExecHashTableCreate.md)
+  - [ExecHashBuildSkewHash](../E/ExecHashBuildSkewHash.md)
+  - [create_hashjoin_plan](../c/create_hashjoin_plan.md)
+  - [make_hash](../m/make_hash.md)
 
 ## Notes and Other Information
 - The Hash node always serves as the inner (build) side of hash join operations
-- Hash table sizing is critical for performance and is determined using statistics and memory constraints
+- [Hash](Hash.md) table sizing is critical for performance and is determined using statistics and memory constraints
 - Skew optimization uses Most Common Values (MCV) statistics to handle data distribution problems
 - In parallel hash joins, multiple workers can build different portions of the same logical hash table
 - Memory management includes automatic batching when the hash table exceeds work_mem limits
 - The node supports both parallel-aware and parallel-oblivious execution modes
-- Hash functions are chosen based on the data types of the join keys
+- [Hash](Hash.md) functions are chosen based on the data types of the join keys
 - The hash table structure includes collision resolution through chaining

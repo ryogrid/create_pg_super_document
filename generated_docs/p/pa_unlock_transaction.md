@@ -20,7 +20,7 @@ This function is the counterpart to pa_lock_transaction in PostgreSQL's logical 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - UnlockApplyTransactionForSession
+  - [UnlockApplyTransactionForSession](../U/UnlockApplyTransactionForSession.md)
   - PARALLEL_APPLY_LOCK_XACT
 - Called from (representative examples):
   - [pa_wait_for_xact_finish](pa_wait_for_xact_finish.md)

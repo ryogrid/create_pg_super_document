@@ -36,7 +36,7 @@ This function takes no parameters but operates on:
   - MyPMChildSlot
   - PMSignalState
 - Called from:
-  - InitProcess (src/backend/storage/lmgr/proc.c:378)
+  - [InitProcess](../I/InitProcess.md) (src/backend/storage/lmgr/proc.c:378)
 
 ## Notes and Other Information
 - The function includes assertions to verify the slot is valid and the child is in the expected ASSIGNED state

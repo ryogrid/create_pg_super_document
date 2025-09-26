@@ -19,12 +19,12 @@ The describeConfigurationParameters function generates and executes a SQL query 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initPQExpBuffer
+  - [initPQExpBuffer](../i/initPQExpBuffer.md)
   - [printfPQExpBuffer](../p/printfPQExpBuffer.md)
   - [printACLColumn](../p/printACLColumn.md)
   - [processSQLNamePattern](../p/processSQLNamePattern.md)
   - [PSQLexec](../P/PSQLexec.md)
-  - termPQExpBuffer
+  - [termPQExpBuffer](../t/termPQExpBuffer.md)
   - [printQuery](../p/printQuery.md)
 - Called from (representative examples):
   - [exec_command_d](../e/exec_command_d.md) (psql command dispatcher)

@@ -20,12 +20,12 @@ This function performs a case-insensitive comparison to determine if the provide
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strcasecmp
+  - [pg_strcasecmp](../p/pg_strcasecmp.md)
   - LOGICALREP_ORIGIN_NONE
   - LOGICALREP_ORIGIN_ANY
   - RepOriginId
 - Called from (representative examples):
-  - pg_replication_origin_create
+  - [pg_replication_origin_create](../p/pg_replication_origin_create.md)
 
 ## Notes and Other Information
 - This is a static function, accessible only within the origin.c file

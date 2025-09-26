@@ -25,15 +25,15 @@ The makeSimpleA_Expr function is a specialized constructor utility that creates 
 - Functions called/Symbols referenced:
   - makeNode (for A_Expr node allocation)
   - list_make1 (creates single-element list)
-  - makeString (converts char* to String node)
-  - A_Expr (struct type)
-  - A_Expr_Kind (enum type)
+  - [makeString](makeString.md) (converts char* to String node)
+  - [A_Expr](../A/A_Expr.md) (struct type)
+  - [A_Expr_Kind](../A/A_Expr_Kind.md) (enum type)
 - Called from (representative examples):
-  - transformJoinUsingClause
-  - transformAExprBetween
-  - transformCaseExpr
-  - test_rls_hooks_permissive
-  - test_rls_hooks_restrictive
+  - [transformJoinUsingClause](../t/transformJoinUsingClause.md)
+  - [transformAExprBetween](../t/transformAExprBetween.md)
+  - [transformCaseExpr](../t/transformCaseExpr.md)
+  - [test_rls_hooks_permissive](../t/test_rls_hooks_permissive.md)
+  - [test_rls_hooks_restrictive](../t/test_rls_hooks_restrictive.md)
 
 ## Notes and Other Information
 - Provides a more convenient interface than makeA_Expr for simple operators

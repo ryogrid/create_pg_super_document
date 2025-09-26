@@ -29,14 +29,14 @@ This static function serves as the workhorse for PostgreSQL's XML generation cap
 ## Dependencies
 - Functions called/Symbols referenced:
   - [map_sql_identifier_to_xml_name](../m/map_sql_identifier_to_xml_name.md)
-  - makeStringInfo
-  - SPI_connect
+  - [makeStringInfo](../m/makeStringInfo.md)
+  - [SPI_connect](../S/SPI_connect.md)
   - [SPI_execute](../S/SPI_execute.md)
   - SPI_OK_SELECT
   - [xmldata_root_element_start](../x/xmldata_root_element_start.md)
   - [SPI_sql_row_to_xmlelement](../S/SPI_sql_row_to_xmlelement.md)
   - [xmldata_root_element_end](../x/xmldata_root_element_end.md)
-  - SPI_finish
+  - [SPI_finish](../S/SPI_finish.md)
 - Called from:
   - [table_to_xml_internal](../t/table_to_xml_internal.md)
   - [query_to_xml](query_to_xml.md)

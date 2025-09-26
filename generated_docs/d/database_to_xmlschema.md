@@ -24,7 +24,7 @@ The function receives arguments through PG_FUNCTION_ARGS containing:
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_BOOL
-  - text_to_cstring
+  - [text_to_cstring](../t/text_to_cstring.md)
   - [database_to_xmlschema_internal](database_to_xmlschema_internal.md)
   - [stringinfo_to_xmltype](../s/stringinfo_to_xmltype.md)
   - PG_RETURN_XML_P

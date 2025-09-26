@@ -44,7 +44,7 @@ The implementation uses a dynamic buffer approach where the allocated space (tot
 ## Notes and Other Information
 - This structure is used exclusively during jsonpath parsing and is not exposed to external code
 - The buffer management follows an exponential growth strategy, starting with a minimum of 32 bytes and doubling when more space is needed
-- String data stored in val does not necessarily include null terminators unless explicitly added via addchar()
+- [String](../S/String.md) data stored in val does not necessarily include null terminators unless explicitly added via addchar()
 - The structure supports efficient string concatenation operations without requiring knowledge of the final string length
 - Memory allocated for the val field is managed through PostgreSQL's memory context system
 - The structure definition is located in src/backend/utils/adt/jsonpath_internal.h:18-23

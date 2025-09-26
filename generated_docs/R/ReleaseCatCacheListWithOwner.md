@@ -23,7 +23,7 @@ The function includes safety assertions to verify the list's magic number and en
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwnerForgetCatCacheListRef
+  - [ResourceOwnerForgetCatCacheListRef](ResourceOwnerForgetCatCacheListRef.md)
   - [CatCacheRemoveCList](../C/CatCacheRemoveCList.md)
   - Assert (for safety checks)
 - Called from (representative examples):

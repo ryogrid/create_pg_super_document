@@ -42,9 +42,9 @@ The coercion step utilizes a cache (json_coercion_cache) that gets populated dur
   - [DomainHasConstraints](../D/DomainHasConstraints.md)
   - [ExprEvalPushStep](ExprEvalPushStep.md)
   - EEOP_JSONEXPR_COERCION
-  - JsonReturning
+  - [JsonReturning](../J/JsonReturning.md)
   - [ErrorSaveContext](ErrorSaveContext.md)
-  - ExprEvalStep
+  - [ExprEvalStep](ExprEvalStep.md)
   - INT4OID
 - Called from (representative examples):
   - [ExecInitJsonExpr](ExecInitJsonExpr.md) (three different call sites for main result, ON ERROR, and ON EMPTY coercions)

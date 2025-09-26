@@ -43,4 +43,4 @@ The function is part of PostgreSQL's collation infrastructure and is used intern
 - Requires the locale provider to be COLLPROVIDER_ICU (enforced by assertion)
 - Handles ICU errors by reporting them through PostgreSQL's error reporting system
 - The function optimizes for UTF-8 encoding by using ICU's native UTF-8 iterator
-- Sort key generation is essential for locale-aware string comparison and indexing operations
+- [Sort](../S/Sort.md) key generation is essential for locale-aware string comparison and indexing operations

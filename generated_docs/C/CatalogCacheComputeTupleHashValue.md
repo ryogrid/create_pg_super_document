@@ -22,7 +22,7 @@ The `CatalogCacheComputeTupleHashValue` function serves as a tuple-oriented wrap
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `CatCache`: Structure type containing cache configuration including key column numbers and tuple descriptor
+  - `[CatCache](CatCache.md)`: Structure type containing cache configuration including key column numbers and tuple descriptor
   - [fastgetattr](../f/fastgetattr.md): High-performance function for extracting attribute values from tuples
   - [CatalogCacheComputeHashValue](CatalogCacheComputeHashValue.md): Core hash computation function that combines individual key hashes
 - Called from (representative examples):
@@ -31,7 +31,7 @@ The `CatalogCacheComputeTupleHashValue` function serves as a tuple-oriented wrap
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `CatCache`: Structure type containing cache configuration including key column numbers and tuple descriptor
+  - `[CatCache](CatCache.md)`: Structure type containing cache configuration including key column numbers and tuple descriptor
   - [fastgetattr](../f/fastgetattr.md): High-performance function for extracting attribute values from tuples
   - [CatalogCacheComputeHashValue](CatalogCacheComputeHashValue.md): Core hash computation function that combines individual key hashes
 - Called from (representative examples):

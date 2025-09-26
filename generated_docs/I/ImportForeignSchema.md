@@ -38,7 +38,7 @@ The function performs several key operations:
   - [pg_parse_query](../p/pg_parse_query.md): Parses SQL commands returned by the FDW
   - [IsImportableForeignTable](IsImportableForeignTable.md): Filters tables based on LIMIT TO/EXCEPT clauses
   - [ProcessUtility](../P/ProcessUtility.md): Executes the CREATE FOREIGN TABLE statements
-  - CommandCounterIncrement: Ensures visibility of created tables between commands
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md): Ensures visibility of created tables between commands
 - Called from (representative examples):
   - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md): Main utility command dispatcher
 

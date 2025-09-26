@@ -26,12 +26,12 @@ The function also handles format-specific behavior: in TEXT format, it prefixes 
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert (validates worker state and bounds)
-  - initStringInfo (initializes worker's string buffer)
+  - [initStringInfo](../i/initStringInfo.md) (initializes worker's string buffer)
   - [ExplainOpenSetAsideGroup](ExplainOpenSetAsideGroup.md) (sets up formatting group for worker)
   - [ExplainPropertyInteger](ExplainPropertyInteger.md) (emits worker number in non-TEXT formats)
   - [ExplainRestoreGroup](ExplainRestoreGroup.md) (restores saved formatting state)
   - [ExplainIndentText](ExplainIndentText.md) (handles text indentation)
-  - appendStringInfo (adds worker prefix to TEXT output)
+  - [appendStringInfo](../a/appendStringInfo.md) (adds worker prefix to TEXT output)
 - Called from:
   - [ExplainNode](ExplainNode.md) (various locations when processing parallel execution data)
   - [show_sort_info](../s/show_sort_info.md), show_incremental_sort_info, show_memoize_info, show_hashagg_info (for worker-specific statistics)

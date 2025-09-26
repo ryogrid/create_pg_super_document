@@ -23,10 +23,10 @@ The function iterates through the state's entire outgoing arc chain and uses the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - isconstraintarc
-  - arc (struct type)
+  - [isconstraintarc](../i/isconstraintarc.md)
+  - [arc](../a/arc.md) (struct type)
 - Called from:
-  - clonesuccessorstates
+  - [clonesuccessorstates](../c/clonesuccessorstates.md)
   - REPLACEARC
 
 ## Notes and Other Information

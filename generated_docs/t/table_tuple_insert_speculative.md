@@ -40,9 +40,9 @@ During the speculative phase, other transactions can detect the existence of the
 - Functions called/Symbols referenced:
   - `rel->rd_tableam->tuple_insert_speculative` (access method-specific implementation)
   - `CommandId` (type)
-  - `BulkInsertStateData` (structure type)
+  - `[BulkInsertStateData](../B/BulkInsertStateData.md)` (structure type)
 - Called from (representative examples):
-  - `ExecInsert` (src/backend/executor/nodeModifyTable.c:1118)
+  - `[ExecInsert](../E/ExecInsert.md)` (src/backend/executor/nodeModifyTable.c:1118)
 
 ## Notes and Other Information
 - Essential component of PostgreSQL's INSERT .. ON CONFLICT (UPSERT) implementation

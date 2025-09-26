@@ -30,7 +30,7 @@ The prefetching is done using PostgreSQL's buffer prefetch mechanism (PrefetchBu
   - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)
   - [PrefetchBuffer](../P/PrefetchBuffer.md)
   - MAIN_FORKNUM
-  - TM_IndexDelete (structure)
+  - [TM_IndexDelete](../T/TM_IndexDelete.md) (structure)
   - IndexDeletePrefetchState (structure)
 - Called from (representative examples):
   - [heap_index_delete_tuples](../h/heap_index_delete_tuples.md)

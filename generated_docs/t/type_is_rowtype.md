@@ -40,12 +40,12 @@ This is essential for operations that need to handle structured data differently
 
 - Called from (representative examples):
   - [ExecMakeTableFunctionResult](../E/ExecMakeTableFunctionResult.md) (src/backend/executor/execSRF.c:137)
-  - makeWholeRowVar (src/backend/nodes/makefuncs.c:193, 230)
+  - [makeWholeRowVar](../m/makeWholeRowVar.md) (src/backend/nodes/makefuncs.c:193, 230)
   - [transformExprRecurse](transformExprRecurse.md) (src/backend/parser/parse_expr.c:293)
   - [can_minmax_aggs](../c/can_minmax_aggs.md) (src/backend/optimizer/plan/planagg.c:290)
   - [json_categorize_type](../j/json_categorize_type.md) (src/backend/utils/adt/jsonfuncs.c:6035)
   - [plperl_sv_to_datum](../p/plperl_sv_to_datum.md) (src/pl/plperl/plperl.c:1372)
-  - compile_pltcl_function (src/pl/tcl/pltcl.c:1566, 1597)
+  - [compile_pltcl_function](../c/compile_pltcl_function.md) (src/pl/tcl/pltcl.c:1566, 1597)
 
 ## Notes and Other Information
 - Critical for distinguishing between scalar and composite data types in the PostgreSQL type system

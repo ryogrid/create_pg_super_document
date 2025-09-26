@@ -30,7 +30,7 @@ The output format depends on PostgreSQL's DateStyle setting and includes both th
 - Functions called/Symbols referenced:
   - PG_GETARG_TIMETZADT_P
   - [timetz2tm](timetz2tm.md)
-  - EncodeTimeOnly
+  - [EncodeTimeOnly](../E/EncodeTimeOnly.md)
   - [pstrdup](../p/pstrdup.md)
   - PG_RETURN_CSTRING
 - Called from (representative examples):

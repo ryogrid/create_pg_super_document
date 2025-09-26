@@ -23,15 +23,15 @@ Early return occurs if the current replication slot is not a logical failover sl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ConditionVariablePrepareToSleep
-  - ConditionVariableTimedSleep
-  - ConditionVariableCancelSleep
-  - StandbySlotsHaveCaughtup
+  - [ConditionVariablePrepareToSleep](../C/ConditionVariablePrepareToSleep.md)
+  - [ConditionVariableTimedSleep](../C/ConditionVariableTimedSleep.md)
+  - [ConditionVariableCancelSleep](../C/ConditionVariableCancelSleep.md)
+  - [StandbySlotsHaveCaughtup](../S/StandbySlotsHaveCaughtup.md)
   - ProcessConfigFile
   - CHECK_FOR_INTERRUPTS
 - Called from (representative examples):
-  - LogicalSlotAdvanceAndCheckSnapState
-  - pg_logical_slot_get_changes_guts
+  - [LogicalSlotAdvanceAndCheckSnapState](../L/LogicalSlotAdvanceAndCheckSnapState.md)
+  - [pg_logical_slot_get_changes_guts](../p/pg_logical_slot_get_changes_guts.md)
 
 ## Notes and Other Information
 - Only functions when MyReplicationSlot is a logical failover slot and synchronized_standby_slots is configured

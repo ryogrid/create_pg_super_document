@@ -28,7 +28,7 @@ The verification process includes: (1) checking that all inserted TIDs are prese
   - [TidStoreBeginIterate](../T/TidStoreBeginIterate.md)/TidStoreIterateNext/TidStoreEndIterate - Iterator interface for TidStore
   - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)/ItemPointerGetOffsetNumber - Extract components from TIDs
   - [ItemPointerSet](../I/ItemPointerSet.md) - Construct TID values
-  - qsort - Sort arrays for comparison
+  - qsort - [Sort](../S/Sort.md) arrays for comparison
   - [itemptr_cmp](../i/itemptr_cmp.md) - Custom comparison function for ItemPointer sorting
 - Called from (representative examples):
   - No direct references found (likely called via SQL interface in tests)

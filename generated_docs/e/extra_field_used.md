@@ -23,8 +23,8 @@ This function is essential for memory management in the GUC system, ensuring tha
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - config_generic (structure type)
-  - GucStack (stack structure for tracking configuration states)
+  - [config_generic](../c/config_generic.md) (structure type)
+  - [GucStack](../G/GucStack.md) (stack structure for tracking configuration states)
   - PGC_BOOL, PGC_INT, PGC_REAL, PGC_STRING, PGC_ENUM (GUC variable type constants)
   - config_bool, config_int, config_real, config_string, config_enum (type-specific structures)
 - Called from (representative examples):

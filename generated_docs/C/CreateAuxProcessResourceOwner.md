@@ -21,7 +21,7 @@ The function includes safety assertions to ensure it's only called when no resou
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwnerCreate
+  - [ResourceOwnerCreate](../R/ResourceOwnerCreate.md)
   - [on_shmem_exit](../o/on_shmem_exit.md)
   - [ReleaseAuxProcessResourcesCallback](../R/ReleaseAuxProcessResourcesCallback.md)
   - Assert (debugging macro)

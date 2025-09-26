@@ -24,13 +24,13 @@ The function directly returns the status field from the PGconn structure, which 
   - CONNECTION_BAD (ConnStatusType enum value)
   - PGTransactionStatusType (referenced in nearby code)
 - Called from (representative examples):
-  - libpqrcv_connect (replication/libpqwalreceiver)
-  - GetConnection (streamutil.c)
-  - ConnectDatabase (pg_dump utilities)
-  - do_connect (psql)
-  - ConnectionUp (psql)
-  - connectDatabase (fe_utils)
-  - ECPGconnect (ECPG interface)
+  - [libpqrcv_connect](../l/libpqrcv_connect.md) (replication/libpqwalreceiver)
+  - [GetConnection](../G/GetConnection.md) (streamutil.c)
+  - [ConnectDatabase](../C/ConnectDatabase.md) (pg_dump utilities)
+  - [do_connect](../d/do_connect.md) (psql)
+  - [ConnectionUp](../C/ConnectionUp.md) (psql)
+  - [connectDatabase](../c/connectDatabase.md) (fe_utils)
+  - [ECPGconnect](../E/ECPGconnect.md) (ECPG interface)
   - Various test programs and utilities
 
 ## Notes and Other Information

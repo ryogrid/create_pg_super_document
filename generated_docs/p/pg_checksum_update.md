@@ -24,14 +24,14 @@ The function maintains the running checksum state in the context structure, accu
 ## Dependencies
 - Functions called/Symbols referenced:
   - COMP_CRC32C (macro for CRC32C computation)
-  - pg_cryptohash_update (updates cryptographic hash with new data)
+  - [pg_cryptohash_update](pg_cryptohash_update.md) (updates cryptographic hash with new data)
   - CHECKSUM_TYPE_* enumeration constants for algorithm dispatch
 - Called from (representative examples):
-  - sendFileWithContent (in src/backend/backup/basebackup.c)
-  - sendFile (in src/backend/backup/basebackup.c)
-  - checksum_file (in src/bin/pg_combinebackup/copy_file.c)
-  - write_reconstructed_file (in src/bin/pg_combinebackup/reconstruct.c)
-  - verify_file_checksum (in src/bin/pg_verifybackup/pg_verifybackup.c)
+  - [sendFileWithContent](../s/sendFileWithContent.md) (in src/backend/backup/basebackup.c)
+  - [sendFile](../s/sendFile.md) (in src/backend/backup/basebackup.c)
+  - [checksum_file](../c/checksum_file.md) (in src/bin/pg_combinebackup/copy_file.c)
+  - [write_reconstructed_file](../w/write_reconstructed_file.md) (in src/bin/pg_combinebackup/reconstruct.c)
+  - [verify_file_checksum](../v/verify_file_checksum.md) (in src/bin/pg_verifybackup/pg_verifybackup.c)
 
 ## Notes and Other Information
 - Returns 0 on success, -1 on failure

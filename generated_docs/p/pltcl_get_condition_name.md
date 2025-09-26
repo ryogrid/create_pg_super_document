@@ -25,7 +25,7 @@ The function iterates through the exception_name_map array, comparing each entry
   - exception_name_map (static lookup table)
 - Called from (representative examples):
   - TclExceptionNameMap
-  - pltcl_construct_errorCode
+  - [pltcl_construct_errorCode](pltcl_construct_errorCode.md)
 
 ## Notes and Other Information
 - Returns "unrecognized_sqlstate" for unknown SQLSTATE codes

@@ -34,10 +34,10 @@ The function is designed to be called after conflict checking has determined tha
   - LOCK_PRINT (debugging macro)
 - Called from (representative examples):
   - [LockAcquireExtended](../L/LockAcquireExtended.md)
-  - ProcSleep
-  - ProcLockWakeup
+  - [ProcSleep](../P/ProcSleep.md)
+  - [ProcLockWakeup](../P/ProcLockWakeup.md)
   - [FastPathTransferRelationLocks](../F/FastPathTransferRelationLocks.md)
-  - VirtualXactLock
+  - [VirtualXactLock](../V/VirtualXactLock.md)
 
 ## Notes and Other Information
 - This function only updates the shared memory data structures, not the local LOCALLOCK table

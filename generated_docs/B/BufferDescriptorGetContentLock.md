@@ -25,13 +25,13 @@ The function performs a simple cast operation to return the address of the conte
   - [BufferDesc](BufferDesc.md) (structure type)
   - [LWLock](../L/LWLock.md) (structure type)
 - Called from (representative examples):
-  - InitBufferPool
+  - [InitBufferPool](../I/InitBufferPool.md)
   - [ZeroAndLockBuffer](../Z/ZeroAndLockBuffer.md)
   - [GetVictimBuffer](../G/GetVictimBuffer.md)
   - [LockBuffer](../L/LockBuffer.md)
-  - ConditionalLockBuffer
-  - MarkBufferDirty
-  - FlushOneBuffer
+  - [ConditionalLockBuffer](../C/ConditionalLockBuffer.md)
+  - [MarkBufferDirty](../M/MarkBufferDirty.md)
+  - [FlushOneBuffer](../F/FlushOneBuffer.md)
 
 ## Notes and Other Information
 - This is a static inline function defined in buf_internals.h, providing efficient access with no function call overhead

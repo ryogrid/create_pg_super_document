@@ -25,14 +25,14 @@ The function maintains static variables to track line numbers and process identi
 - Functions called/Symbols referenced:
   - [reset_formatted_start_time](../r/reset_formatted_start_time.md)
   - [process_log_prefix_padding](../p/process_log_prefix_padding.md)
-  - appendStringInfoSpaces
+  - [appendStringInfoSpaces](../a/appendStringInfoSpaces.md)
   - [get_backend_type_for_log](../g/get_backend_type_for_log.md)
   - [get_formatted_log_time](../g/get_formatted_log_time.md)
   - [get_formatted_start_time](../g/get_formatted_start_time.md)
-  - get_ps_display
+  - [get_ps_display](../g/get_ps_display.md)
   - [GetTopTransactionIdIfAny](../G/GetTopTransactionIdIfAny.md)
   - [unpack_sql_state](../u/unpack_sql_state.md)
-  - pgstat_get_my_query_id
+  - [pgstat_get_my_query_id](../p/pgstat_get_my_query_id.md)
   - Various StringInfo manipulation functions
 - Called from:
   - [log_line_prefix](log_line_prefix.md)

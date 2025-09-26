@@ -31,6 +31,6 @@ This function checks if a PostgreSQL data type supports collation by examining w
 ## Notes and Other Information
 - This function is crucial for query planning and type coercion decisions
 - Text types like `text`, `varchar`, and `char` are typically collatable
-- Numeric types, boolean, and other non-text types generally are not collatable
+- [Numeric](../N/Numeric.md) types, boolean, and other non-text types generally are not collatable
 - Used extensively in parser and catalog operations to validate collation clauses
 - The function is defined in `src/backend/utils/cache/lsyscache.c:3081-3096`

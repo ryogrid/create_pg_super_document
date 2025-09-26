@@ -28,7 +28,7 @@ Key cleanup operations performed:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FreeExprContext
+  - [FreeExprContext](FreeExprContext.md)
   - [jit_release_context](../j/jit_release_context.md)
   - [DestroyPartitionDirectory](../D/DestroyPartitionDirectory.md)
   - [MemoryContextDelete](../M/MemoryContextDelete.md)

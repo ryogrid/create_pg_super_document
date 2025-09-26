@@ -53,4 +53,4 @@ The function allows each plan node to allocate shared memory space and insert ke
 - The function returns false if planstate is NULL, otherwise continues traversal
 - [Node](../N/Node.md) counting and instrumentation setup occur before type-specific initialization
 - The recursive nature ensures all nodes in the plan tree are properly initialized for parallel execution
-- Hash, Sort, IncrementalSort, Agg, and Memoize nodes always initialize DSM regardless of parallel_aware flag to support EXPLAIN ANALYZE functionality
+- [Hash](../H/Hash.md), Sort, IncrementalSort, Agg, and Memoize nodes always initialize DSM regardless of parallel_aware flag to support EXPLAIN ANALYZE functionality

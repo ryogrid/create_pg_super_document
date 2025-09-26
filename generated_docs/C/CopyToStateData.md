@@ -69,11 +69,11 @@ The structure manages both high-level operational parameters (like the source re
 ## Dependencies
 - Functions called/Symbols referenced:
   - CopyDest
-  - CopyFormatOptions
-  - QueryDesc
+  - [CopyFormatOptions](CopyFormatOptions.md)
+  - [QueryDesc](../Q/QueryDesc.md)
 - Called from (representative examples):
   - [BeginCopyTo](../B/BeginCopyTo.md)
-  - CopyToState
+  - [CopyToState](CopyToState.md)
 
 ## Notes and Other Information
 The structure includes sophisticated handling for multi-byte character encodings, with special consideration for encodings where ASCII characters might appear as trailing bytes within multi-byte sequences. The `encoding_embeds_ascii` flag determines whether the system needs to use the full `pg_encoding_mblen()` machinery to safely scan data, or whether it can use faster byte-by-byte comparisons.

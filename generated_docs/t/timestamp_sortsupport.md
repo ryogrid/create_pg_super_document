@@ -20,8 +20,8 @@ This function implements PostgreSQL's sort support interface for timestamp value
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SortSupport (type)
-  - ssup_datum_signed_cmp (on 64-bit builds)
+  - [SortSupport](../S/SortSupport.md) (type)
+  - [ssup_datum_signed_cmp](../s/ssup_datum_signed_cmp.md) (on 64-bit builds)
   - [timestamp_fastcmp](timestamp_fastcmp.md) (on smaller builds)
   - PG_RETURN_VOID
 - Called from (representative examples):

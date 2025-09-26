@@ -28,10 +28,10 @@ This PostgreSQL SQL function creates a logical replication slot for logical deco
   - PG_GETARG_BOOL
   - [get_call_result_type](../g/get_call_result_type.md)
   - [CheckSlotPermissions](../C/CheckSlotPermissions.md)
-  - CheckLogicalDecodingRequirements
+  - [CheckLogicalDecodingRequirements](../C/CheckLogicalDecodingRequirements.md)
   - [create_logical_replication_slot](../c/create_logical_replication_slot.md)
   - [NameGetDatum](../N/NameGetDatum.md)
-  - LSNGetDatum
+  - [LSNGetDatum](../L/LSNGetDatum.md)
   - [heap_form_tuple](../h/heap_form_tuple.md)
   - [HeapTupleGetDatum](../H/HeapTupleGetDatum.md)
   - [ReplicationSlotPersist](../R/ReplicationSlotPersist.md)

@@ -21,7 +21,7 @@ This is an opaque pointer type - the internal structure members are not exposed 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _SPI_plan (internal structure, not directly accessible)
+  - [_SPI_plan](_SPI_plan.md) (internal structure, not directly accessible)
 
 - Called from (representative examples):
   - [SPI_execute_plan](SPI_execute_plan.md)

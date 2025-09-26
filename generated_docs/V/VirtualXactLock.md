@@ -32,27 +32,27 @@ The function provides both blocking (wait=true) and non-blocking (wait=false) mo
 - Functions called/Symbols referenced:
   - VirtualTransactionIdIsValid
   - VirtualTransactionIdIsRecoveredPreparedXact
-  - XactLockForVirtualXact
+  - [XactLockForVirtualXact](../X/XactLockForVirtualXact.md)
   - SET_LOCKTAG_VIRTUALTRANSACTION
-  - ProcNumberGetProc
-  - LockTagHashCode
+  - [ProcNumberGetProc](../P/ProcNumberGetProc.md)
+  - [LockTagHashCode](../L/LockTagHashCode.md)
   - LockHashPartitionLock
-  - SetupLockInTable
-  - GrantLock
-  - LockAcquire
-  - LockRelease
-  - VirtualTransactionId (type)
-  - LOCKTAG (type)
-  - PGPROC (type)
-  - PROCLOCK (type)
-  - LWLock (type)
+  - [SetupLockInTable](../S/SetupLockInTable.md)
+  - [GrantLock](../G/GrantLock.md)
+  - [LockAcquire](../L/LockAcquire.md)
+  - [LockRelease](../L/LockRelease.md)
+  - [VirtualTransactionId](VirtualTransactionId.md) (type)
+  - [LOCKTAG](../L/LOCKTAG.md) (type)
+  - [PGPROC](../P/PGPROC.md) (type)
+  - [PROCLOCK](../P/PROCLOCK.md) (type)
+  - [LWLock](../L/LWLock.md) (type)
   - DEFAULT_LOCKMETHOD
   - ExclusiveLock
   - ShareLock
 - Called from (representative examples):
-  - WaitForOlderSnapshots
-  - ResolveRecoveryConflictWithVirtualXIDs
-  - WaitForLockersMultiple
+  - [WaitForOlderSnapshots](../W/WaitForOlderSnapshots.md)
+  - [ResolveRecoveryConflictWithVirtualXIDs](../R/ResolveRecoveryConflictWithVirtualXIDs.md)
+  - [WaitForLockersMultiple](../W/WaitForLockersMultiple.md)
   - LockHashPartitionLockByProc
 
 ## Notes and Other Information

@@ -27,11 +27,11 @@ The function assumes that typmod differences are acceptable as long as the base 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_head
+  - [list_head](../l/list_head.md)
   - lfirst
   - lfirst_oid
   - [lnext](../l/lnext.md)
-  - exprType
+  - [exprType](../e/exprType.md)
   - elog
 - Types referenced:
   - [pushdown_safety_info](../p/pushdown_safety_info.md)

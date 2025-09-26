@@ -26,7 +26,7 @@ The function explicitly disables parallelism (sets parallel_workers to 0) to get
   - [cost_bitmap_heap_scan](../c/cost_bitmap_heap_scan.md)
   - [get_loop_count](../g/get_loop_count.md)
   - PATH_REQ_OUTER
-  - BitmapHeapPath
+  - [BitmapHeapPath](../B/BitmapHeapPath.md)
   - Cost
 - Called from (representative examples):
   - [choose_bitmap_and](../c/choose_bitmap_and.md)

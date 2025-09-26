@@ -54,9 +54,9 @@ ModifyTablePath is a comprehensive path node that encapsulates all aspects of da
 - Functions called/Symbols referenced:
   - [Path](../P/Path.md) (base structure)
   - CmdType (operation type enum)
-  - OnConflictExpr (conflict handling)
+  - [OnConflictExpr](../O/OnConflictExpr.md) (conflict handling)
   - [List](../L/List.md) (various list structures)
-  - PlanRowMark (row marking)
+  - [PlanRowMark](../P/PlanRowMark.md) (row marking)
 - Called from (representative examples):
   - [create_modifytable_path](../c/create_modifytable_path.md) (pathnode.c:3737)
   - [create_modifytable_plan](../c/create_modifytable_plan.md) (createplan.c:2815)
@@ -68,4 +68,4 @@ ModifyTablePath is a comprehensive path node that encapsulates all aspects of da
 - Row count is set to subpath rows only if RETURNING clauses are present, otherwise set to 0
 - Supports complex inheritance and partitioning scenarios with multiple target relations
 - MERGE operations require additional action lists and join conditions for proper execution planning
-- OnConflictExpr analysis is deliberately deferred to execution planning phase for performance reasons
+- [OnConflictExpr](../O/OnConflictExpr.md) analysis is deliberately deferred to execution planning phase for performance reasons

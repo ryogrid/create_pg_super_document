@@ -23,7 +23,7 @@ The function operates differently from other conflict resolution mechanisms by u
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetConflictingVirtualXIDs
+  - [GetConflictingVirtualXIDs](../G/GetConflictingVirtualXIDs.md)
   - [ResolveRecoveryConflictWithVirtualXIDs](ResolveRecoveryConflictWithVirtualXIDs.md)
   - PROCSIG_RECOVERY_CONFLICT_TABLESPACE
   - WAIT_EVENT_RECOVERY_CONFLICT_TABLESPACE

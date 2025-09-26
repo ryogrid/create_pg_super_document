@@ -20,7 +20,7 @@ The numeric_absolute function computes the absolute value of a PostgreSQL Numeri
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Numeric (PostgreSQL numeric data type)
+  - [Numeric](../N/Numeric.md) (PostgreSQL numeric data type)
   - [NumericGetDatum](../N/NumericGetDatum.md) (converts Numeric to Datum format)
   - DirectFunctionCall1 (calls a PostgreSQL function with one argument)
   - [numeric_abs](numeric_abs.md) (the standard numeric absolute value function)

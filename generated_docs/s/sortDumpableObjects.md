@@ -30,7 +30,7 @@ The function handles the complex challenge of dependency loops, which can occur 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_malloc (PostgreSQL memory allocation)
+  - [pg_malloc](../p/pg_malloc.md) (PostgreSQL memory allocation)
   - [TopoSort](../T/TopoSort.md) (topological sorting algorithm)
   - [findDependencyLoops](../f/findDependencyLoops.md) (dependency loop detection and resolution)
   - memcpy (standard memory copy)

@@ -29,11 +29,11 @@ The function returns the actual number of bytes read, which will be either 'size
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufFileReadCommon (internal function that performs the actual reading)
+  - [BufFileReadCommon](BufFileReadCommon.md) (internal function that performs the actual reading)
 - Called from (representative examples):
-  - ExecHashJoinGetSavedTuple (hash join execution, checking for saved tuples)
-  - apply_spooled_messages (logical replication, processing message batches)
-  - getlen (tuplestore operations, reading length prefixes)
+  - [ExecHashJoinGetSavedTuple](../E/ExecHashJoinGetSavedTuple.md) (hash join execution, checking for saved tuples)
+  - [apply_spooled_messages](../a/apply_spooled_messages.md) (logical replication, processing message batches)
+  - [getlen](../g/getlen.md) (tuplestore operations, reading length prefixes)
 
 ## Notes and Other Information
 - Returns the actual number of bytes read (either 'size' or 0)

@@ -28,7 +28,7 @@ The function returns a boolean indicating whether execution should be allowed, a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - superuser_arg
+  - [superuser_arg](../s/superuser_arg.md)
   - [GetUserId](../G/GetUserId.md)
   - [audit_attempt](../a/audit_attempt.md)
   - [audit_success](../a/audit_success.md)

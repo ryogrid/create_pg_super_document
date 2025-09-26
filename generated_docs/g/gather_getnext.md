@@ -27,9 +27,9 @@ When reading from workers, tuples come as MinimalTuple objects that are stored i
   - [gather_readnext](gather_readnext.md) (reads tuples from worker processes)
   - HeapTupleIsValid (checks if received tuple is valid)
   - [ExecStoreMinimalTuple](../E/ExecStoreMinimalTuple.md) (stores worker tuple in funnel slot)
-  - ExecProcNode (executes child plan locally)
+  - [ExecProcNode](../E/ExecProcNode.md) (executes child plan locally)
   - TupIsNull (checks for end of local data)
-  - ExecClearTuple (returns empty slot when no more data)
+  - [ExecClearTuple](../E/ExecClearTuple.md) (returns empty slot when no more data)
 - Called from (representative examples):
   - [ExecGather](../E/ExecGather.md) (main execution function for Gather nodes)
 

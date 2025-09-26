@@ -26,7 +26,7 @@ This function is typically called with the final (most recent) input directory t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SetDataDirectoryCreatePerm (configure global file creation permissions)
+  - [SetDataDirectoryCreatePerm](../S/SetDataDirectoryCreatePerm.md) (configure global file creation permissions)
 - Called from (representative examples):
   - [main](../m/main.md) (backup processing initialization)
 

@@ -32,19 +32,19 @@ This function takes no parameters.
   - HOLD_INTERRUPTS
   - [AbortStrongLockAcquire](../A/AbortStrongLockAcquire.md)
   - RESUME_INTERRUPTS
-  - disable_timeouts
+  - [disable_timeouts](../d/disable_timeouts.md)
   - LockHashPartitionLock
-  - LWLockAcquire
+  - [LWLockAcquire](LWLockAcquire.md)
   - [dlist_node_is_detached](../d/dlist_node_is_detached.md)
   - [RemoveFromWaitQueue](../R/RemoveFromWaitQueue.md)
   - [GrantAwaitedLock](../G/GrantAwaitedLock.md)
-  - LWLockRelease
+  - [LWLockRelease](LWLockRelease.md)
 - Called from (representative examples):
   - [AbortTransaction](../A/AbortTransaction.md)
   - [AbortSubTransaction](../A/AbortSubTransaction.md)
   - [ProcReleaseLocks](../P/ProcReleaseLocks.md)
   - [ProcessRecoveryConflictInterrupt](../P/ProcessRecoveryConflictInterrupt.md)
-  - ProcessInterrupts
+  - [ProcessInterrupts](../P/ProcessInterrupts.md)
 
 ## Notes and Other Information
 - The function preserves the LOCK_TIMEOUT indicator flag to distinguish between external SIGINT signals and lock timeout-generated signals

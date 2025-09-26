@@ -38,9 +38,9 @@ Key responsibilities include:
 - Functions called/Symbols referenced:
   - [ReplicationSlot](../R/ReplicationSlot.md)
   - [TransactionIdPrecedesOrEquals](../T/TransactionIdPrecedesOrEquals.md)
-  - LogicalConfirmReceivedLocation
+  - [LogicalConfirmReceivedLocation](LogicalConfirmReceivedLocation.md)
 - Called from (representative examples):
-  - SnapBuildProcessRunningXacts
+  - [SnapBuildProcessRunningXacts](../S/SnapBuildProcessRunningXacts.md)
 
 ## Notes and Other Information
 - The function operates on MyReplicationSlot, requiring an active replication slot context

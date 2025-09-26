@@ -31,7 +31,7 @@ The node operates in two phases: first, it reads all tuples from the underlying 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ScanState](../S/ScanState.md) (base scan execution state)
-  - Tuplestorestate (temporary tuple storage structure)
+  - [Tuplestorestate](../T/Tuplestorestate.md) (temporary tuple storage structure)
 - Called from (representative examples):
   - [ExecMaterial](../E/ExecMaterial.md)
   - [ExecInitMaterial](../E/ExecInitMaterial.md)

@@ -29,16 +29,16 @@ WAL ranges are critical for backup consistency, defining exactly which portions 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `json_manifest_parse_failure` - error reporting for parsing failures
+  - `[json_manifest_parse_failure](json_manifest_parse_failure.md)` - [error](../e/error.md) reporting for parsing failures
   - `strtoul` - string to unsigned long conversion for timeline
-  - `parse_xlogrecptr` - converts string to XLogRecPtr for LSN values
-  - `pfree` - PostgreSQL memory deallocation
+  - `[parse_xlogrecptr](../p/parse_xlogrecptr.md)` - converts string to XLogRecPtr for LSN values
+  - `[pfree](../p/pfree.md)` - PostgreSQL memory deallocation
   - `JsonManifestParseState` - parsing state structure
-  - `JsonManifestParseContext` - parsing context structure
+  - `[JsonManifestParseContext](../J/JsonManifestParseContext.md)` - parsing context structure
   - `TimeLineID` - timeline identifier type
   - `XLogRecPtr` - WAL record pointer type
 - Called from (representative examples):
-  - `json_manifest_object_end` - JSON object completion handler
+  - `[json_manifest_object_end](json_manifest_object_end.md)` - JSON object completion handler
   - Used in `JsonManifestParseIncrementalState` structure
 
 ## Notes and Other Information

@@ -23,11 +23,11 @@ The function is essential for maintaining MVCC (Multi-Version Concurrency Contro
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecQualAndReset
+  - [ExecQualAndReset](../E/ExecQualAndReset.md)
 - Data types referenced:
   - [BitmapHeapScanState](BitmapHeapScanState.md)
-  - TupleTableSlot
-  - ExprContext
+  - [TupleTableSlot](../T/TupleTableSlot.md)
+  - [ExprContext](../E/ExprContext.md)
 - Called from:
   - [ExecBitmapHeapScan](../E/ExecBitmapHeapScan.md) (src/backend/executor/nodeBitmapHeapscan.c:587)
 

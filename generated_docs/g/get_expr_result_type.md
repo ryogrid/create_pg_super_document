@@ -41,8 +41,8 @@ The function includes special handling for RECORD types in row expressions and c
   - HeapTupleHeaderGetTypeId
   - HeapTupleHeaderGetTypMod
   - [lookup_rowtype_tupdesc_copy](../l/lookup_rowtype_tupdesc_copy.md)
-  - exprType
-  - exprTypmod
+  - [exprType](../e/exprType.md)
+  - [exprTypmod](../e/exprTypmod.md)
   - [exprCollation](../e/exprCollation.md)
   - [get_type_func_class](get_type_func_class.md)
 - Called from (representative examples):

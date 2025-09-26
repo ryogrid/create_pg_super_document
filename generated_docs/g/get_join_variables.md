@@ -37,16 +37,16 @@ The determination of join orientation is made by checking which side of the join
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_length
+  - [list_length](../l/list_length.md)
   - elog
   - linitial
   - lsecond
-  - examine_variable
-  - bms_is_subset
+  - [examine_variable](../e/examine_variable.md)
+  - [bms_is_subset](../b/bms_is_subset.md)
 - Called from (representative examples):
-  - eqjoinsel
-  - neqjoinsel
-  - networkjoinsel
+  - [eqjoinsel](../e/eqjoinsel.md)
+  - [neqjoinsel](../n/neqjoinsel.md)
+  - [networkjoinsel](../n/networkjoinsel.md)
 
 ## Notes and Other Information
 - The function expects exactly two arguments for the join operator and will throw an ERROR if this condition is not met

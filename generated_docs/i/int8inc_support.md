@@ -17,7 +17,7 @@ int8inc_support is a support function that analyzes the monotonic properties of 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SupportRequestWFuncMonotonic
+  - [SupportRequestWFuncMonotonic](../S/SupportRequestWFuncMonotonic.md)
   - [MonotonicFunction](../M/MonotonicFunction.md)
   - MONOTONICFUNC_NONE
   - MONOTONICFUNC_BOTH

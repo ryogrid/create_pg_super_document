@@ -23,15 +23,15 @@ This function takes no parameters.
 - Functions called/Symbols referenced:
   - TransactionState (type definition)
   - CurrentTransactionState (global transaction state variable)
-  - ParallelContextActive (function to check if parallel context is active)
+  - [ParallelContextActive](../P/ParallelContextActive.md) (function to check if parallel context is active)
 - Called from (representative examples):
-  - _brin_begin_parallel
-  - _brin_end_parallel
-  - _bt_begin_parallel
-  - _bt_end_parallel
-  - ParallelWorkerMain
-  - parallel_vacuum_end
-  - ExecutePlan
+  - [_brin_begin_parallel](../b/_brin_begin_parallel.md)
+  - [_brin_end_parallel](../b/_brin_end_parallel.md)
+  - [_bt_begin_parallel](../b/_bt_begin_parallel.md)
+  - [_bt_end_parallel](../b/_bt_end_parallel.md)
+  - [ParallelWorkerMain](../P/ParallelWorkerMain.md)
+  - [parallel_vacuum_end](../p/parallel_vacuum_end.md)
+  - [ExecutePlan](ExecutePlan.md)
 
 ## Notes and Other Information
 - Located in src/backend/access/transam/xact.c:1057-1070

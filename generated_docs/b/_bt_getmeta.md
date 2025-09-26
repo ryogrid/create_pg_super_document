@@ -18,7 +18,7 @@ This static function safely extracts metadata from a B-tree metapage while perfo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferGetPage
+  - [BufferGetPage](../B/BufferGetPage.md)
   - BTPageGetOpaque
   - BTPageGetMeta
   - P_ISMETA
@@ -27,14 +27,14 @@ This static function safely extracts metadata from a B-tree metapage while perfo
   - BTREE_VERSION
   - RelationGetRelationName
   - ereport
-  - errcode
-  - errmsg
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
   - BTPageOpaque
-  - BTMetaPageData
+  - [BTMetaPageData](../B/BTMetaPageData.md)
 - Called from (representative examples):
-  - _bt_getroot
-  - _bt_getrootheight
-  - _bt_metaversion
+  - [_bt_getroot](_bt_getroot.md)
+  - [_bt_getrootheight](_bt_getrootheight.md)
+  - [_bt_metaversion](_bt_metaversion.md)
 
 ## Notes and Other Information
 - The function is static and only used internally within the nbtpage.c module

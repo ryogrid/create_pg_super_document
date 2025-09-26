@@ -32,16 +32,16 @@ The statement supports reindexing at different granularities: individual indexes
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReindexObjectType (enum defining reindex scope)
-  - RangeVar (for relation references)
-  - DefElem (for parameter options)
+  - [ReindexObjectType](ReindexObjectType.md) (enum defining reindex scope)
+  - [RangeVar](RangeVar.md) (for relation references)
+  - [DefElem](../D/DefElem.md) (for parameter options)
   
 - Called from (representative examples):
-  - ExecReindex (main execution function in indexcmds.c:2693)
-  - ReindexIndex (single index reindexing in indexcmds.c:2788)
-  - ReindexTable (table reindexing in indexcmds.c:2918)
-  - ReindexMultipleTables (multiple table reindexing in indexcmds.c:2977)
-  - ProcessUtilitySlow (utility command processor in utility.c:1567)
+  - [ExecReindex](../E/ExecReindex.md) (main execution function in indexcmds.c:2693)
+  - [ReindexIndex](ReindexIndex.md) (single index reindexing in indexcmds.c:2788)
+  - [ReindexTable](ReindexTable.md) (table reindexing in indexcmds.c:2918)
+  - [ReindexMultipleTables](ReindexMultipleTables.md) (multiple table reindexing in indexcmds.c:2977)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (utility command processor in utility.c:1567)
 
 ## Notes and Other Information
 - The CONCURRENTLY option allows non-blocking reindex operations but has limitations on certain index types

@@ -22,10 +22,10 @@ The function processes callbacks in a LIFO (Last In, First Out) order by iterati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextCallback (callback structure type)
+  - [MemoryContextCallback](MemoryContextCallback.md) (callback structure type)
 - Called from (representative examples):
-  - MemoryContextResetOnly
-  - MemoryContextDeleteOnly
+  - [MemoryContextResetOnly](MemoryContextResetOnly.md)
+  - [MemoryContextDeleteOnly](MemoryContextDeleteOnly.md)
 
 ## Notes and Other Information
 - This is a static (internal) function not exposed in the public API

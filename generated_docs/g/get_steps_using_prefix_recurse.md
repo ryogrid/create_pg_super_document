@@ -44,13 +44,13 @@ The function maintains careful bookkeeping of expressions and comparison functio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth
+  - [check_stack_depth](../c/check_stack_depth.md)
   - lfirst
   - llast
   - for_each_cell
   - [list_copy](../l/list_copy.md)
-  - lappend
-  - lappend_oid
+  - [lappend](../l/lappend.md)
+  - [lappend_oid](../l/lappend_oid.md)
   - [list_concat](../l/list_concat.md)
   - [list_free](../l/list_free.md)
   - [gen_prune_step_op](gen_prune_step_op.md)

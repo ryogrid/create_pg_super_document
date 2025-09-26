@@ -29,13 +29,13 @@ The chunk-based approach allows multiple pages to be represented in a compressed
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - tbm_create_pagetable (to ensure hash table mode)
+  - [tbm_create_pagetable](tbm_create_pagetable.md) (to ensure hash table mode)
   - pagetable_delete (to remove existing exact entries)
   - pagetable_insert (to create/find chunk entries)
   - MemSet (to initialize page entries)
 - Types used:
-  - TIDBitmap
-  - PagetableEntry
+  - [TIDBitmap](../T/TIDBitmap.md)
+  - [PagetableEntry](../P/PagetableEntry.md)
   - BlockNumber
   - bitmapword
 - Constants/Macros used:
@@ -43,9 +43,9 @@ The chunk-based approach allows multiple pages to be represented in a compressed
   - PAGES_PER_CHUNK (chunk size definition)
   - WORDNUM, BITNUM (bit manipulation macros)
 - Called from:
-  - tbm_add_page
-  - tbm_union_page
-  - tbm_lossify
+  - [tbm_add_page](tbm_add_page.md)
+  - [tbm_union_page](tbm_union_page.md)
+  - [tbm_lossify](tbm_lossify.md)
   - Referenced in TBMSharedIterator
 
 ## Notes and Other Information

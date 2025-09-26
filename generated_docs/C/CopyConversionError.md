@@ -29,7 +29,7 @@ The function is designed to be called only after CopyConvertBuf has detected an 
   - [report_invalid_encoding](../r/report_invalid_encoding.md)
   - [pg_do_encoding_conversion_buf](../p/pg_do_encoding_conversion_buf.md)
   - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md)
-  - CopyFromState
+  - [CopyFromState](CopyFromState.md)
 - Called from (representative examples):
   - [CopyLoadInputBuf](CopyLoadInputBuf.md)
 

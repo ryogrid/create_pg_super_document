@@ -47,7 +47,7 @@ The function uses a switch statement to categorize trigger function OIDs based o
 - Called from (representative examples):
   - [GetForeignKeyActionTriggers](../G/GetForeignKeyActionTriggers.md) (src/backend/commands/tablecmds.c:11315)
   - [GetForeignKeyCheckTriggers](../G/GetForeignKeyCheckTriggers.md) (src/backend/commands/tablecmds.c:11376)
-  - AfterTriggerSaveEvent (src/backend/commands/trigger.c:6425)
+  - [AfterTriggerSaveEvent](../A/AfterTriggerSaveEvent.md) (src/backend/commands/trigger.c:6425)
   - [ExecCrossPartitionUpdateForeignKey](../E/ExecCrossPartitionUpdateForeignKey.md) (src/backend/executor/nodeModifyTable.c:2238)
 
 ## Notes and Other Information

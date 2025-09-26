@@ -23,9 +23,9 @@ The `stringlist_to_identifierstr` function takes a PostgreSQL List containing st
 - Functions called/Symbols referenced:
   - [PQescapeIdentifier](../P/PQescapeIdentifier.md)
   - [PQfreemem](../P/PQfreemem.md)
-  - initStringInfo
-  - appendStringInfoChar
-  - appendStringInfoString
+  - [initStringInfo](../i/initStringInfo.md)
+  - [appendStringInfoChar](../a/appendStringInfoChar.md)
+  - [appendStringInfoString](../a/appendStringInfoString.md)
   - strVal
   - lfirst
   - strlen

@@ -29,7 +29,7 @@ This function takes no parameters and operates on the global ControlFile structu
 - Functions called/Symbols referenced:
   - XLogSegNoOffsetToRecPtr (converts segment number and offset to record pointer)
   - time (standard C library function to get current time)
-  - update_controlfile (writes the control file to disk)
+  - [update_controlfile](../u/update_controlfile.md) (writes the control file to disk)
   - SizeOfXLogLongPHD (constant for WAL page header size)
   - DB_SHUTDOWNED (database state constant)
   - WAL_LEVEL_MINIMAL (WAL level constant)

@@ -23,7 +23,7 @@ The function uses pg_strcasecmp for case-insensitive comparison, allowing flexib
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strcasecmp (for case-insensitive string comparison)
+  - [pg_strcasecmp](pg_strcasecmp.md) (for case-insensitive string comparison)
   - CHECKSUM_TYPE_NONE
   - CHECKSUM_TYPE_CRC32C
   - CHECKSUM_TYPE_SHA224
@@ -31,13 +31,13 @@ The function uses pg_strcasecmp for case-insensitive comparison, allowing flexib
   - CHECKSUM_TYPE_SHA384
   - CHECKSUM_TYPE_SHA512
 - Called from (representative examples):
-  - parse_basebackup_options (in src/backend/backup/basebackup.c)
-  - main (in src/bin/pg_combinebackup/pg_combinebackup.c)
-  - json_manifest_finalize_file (in src/common/parse_manifest.c)
+  - [parse_basebackup_options](parse_basebackup_options.md) (in src/backend/backup/basebackup.c)
+  - [main](../m/main.md) (in src/bin/pg_combinebackup/pg_combinebackup.c)
+  - [json_manifest_finalize_file](../j/json_manifest_finalize_file.md) (in src/common/parse_manifest.c)
 
 ## Notes and Other Information
 - Supports the following checksum algorithms: none, crc32c, sha224, sha256, sha384, sha512
-- String comparison is case-insensitive, allowing input flexibility
+- [String](../S/String.md) comparison is case-insensitive, allowing input flexibility
 - Returns true on successful parsing, false if the algorithm name is not recognized
 - Always sets the output type parameter, even on failure (to CHECKSUM_TYPE_NONE)
 - Used in backup and manifest processing contexts where checksum algorithms need to be specified by name

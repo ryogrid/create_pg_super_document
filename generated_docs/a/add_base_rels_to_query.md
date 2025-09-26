@@ -30,9 +30,9 @@ The function is fundamental to query planning as it establishes the basic relati
   - nodeTag
   - elog (for error handling)
 - Data structures used:
-  - RangeTblRef
-  - FromExpr
-  - JoinExpr
+  - [RangeTblRef](../R/RangeTblRef.md)
+  - [FromExpr](../F/FromExpr.md)
+  - [JoinExpr](../J/JoinExpr.md)
 - Called from (representative examples):
   - [query_planner](../q/query_planner.md) (main entry point)
   - Self-recursion for tree traversal

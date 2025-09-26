@@ -39,7 +39,7 @@ The structure maintains its own compression context and output buffer to handle 
 - `zstd_outBuf`: zstd output buffer structure that manages the compressed data output, containing destination buffer, size, and current position
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbsink (base structure)
+  - [bbsink](bbsink.md) (base structure)
   - [pg_compress_specification](../p/pg_compress_specification.md) (compression options)
   - ZSTD_CCtx (zstd compression context)
   - ZSTD_outBuffer (zstd output buffer)

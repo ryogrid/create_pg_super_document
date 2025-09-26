@@ -27,7 +27,7 @@ This endian conversion ensures that timezone database files created by  are port
 - Functions called/Symbols referenced:
   - No external function calls (uses only basic C operations)
 - Called from (representative examples):
-  - puttzcode (to write timezone data values)
+  - [puttzcode](../p/puttzcode.md) (to write timezone data values)
   - DO macro (multiple times for writing timezone file data structures)
 
 ## Notes and Other Information

@@ -38,12 +38,12 @@ The function operates in several phases:
 - Functions called/Symbols referenced:
   - [check_role_grantor](../c/check_role_grantor.md)
   - [LockSharedObject](../L/LockSharedObject.md)
-  - is_member_of_role_nosuper
+  - [is_member_of_role_nosuper](../i/is_member_of_role_nosuper.md)
   - [initialize_revoke_actions](../i/initialize_revoke_actions.md)
-  - plan_member_revoke
+  - [plan_member_revoke](../p/plan_member_revoke.md)
   - [SearchSysCache3](../S/SearchSysCache3.md)
   - [updateAclDependencies](../u/updateAclDependencies.md)
-  - CommandCounterIncrement
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md)
 - Called from (representative examples):
   - [CreateRole](../C/CreateRole.md)
   - [AlterRole](AlterRole.md)

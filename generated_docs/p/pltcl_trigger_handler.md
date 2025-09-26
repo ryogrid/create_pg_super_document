@@ -23,16 +23,16 @@ The function handles both row-level and statement-level triggers across all trig
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SPI_connect/SPI_finish (SPI interface management)
+  - [SPI_connect](../S/SPI_connect.md)/SPI_finish (SPI interface management)
   - [SPI_register_trigger_data](../S/SPI_register_trigger_data.md) (transition table registration)
-  - compile_pltcl_function (function compilation/lookup)
-  - pltcl_build_tuple_argument (tuple to Tcl conversion)
-  - pltcl_build_tuple_result (Tcl to tuple conversion)
-  - TriggerData structure and related macros (trigger context)
+  - [compile_pltcl_function](../c/compile_pltcl_function.md) (function compilation/lookup)
+  - [pltcl_build_tuple_argument](pltcl_build_tuple_argument.md) (tuple to Tcl conversion)
+  - [pltcl_build_tuple_result](pltcl_build_tuple_result.md) (Tcl to tuple conversion)
+  - [TriggerData](../T/TriggerData.md) structure and related macros (trigger context)
   - DirectFunctionCall1/oidout (OID conversion)
-  - SPI_getrelname/SPI_getnspname (relation metadata)
+  - [SPI_getrelname](../S/SPI_getrelname.md)/SPI_getnspname (relation metadata)
   - TRIGGER_FIRED_* macros (trigger event detection)
-  - throw_tcl_error (error handling)
+  - [throw_tcl_error](../t/throw_tcl_error.md) (error handling)
   - [utf_e2u](../u/utf_e2u.md)/utf_u2e (encoding conversion)
   - Tcl library functions (Tcl_EvalObjEx, Tcl_ListObjAppendElement, etc.)
 - Called from (representative examples):

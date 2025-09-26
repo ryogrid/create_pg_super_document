@@ -21,7 +21,7 @@ The `array_cardinality` function calculates and returns the total number of elem
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_ANY_ARRAY_P`: Retrieves the array argument
-  - `ArrayGetNItems`: Calculates total number of items from dimensions
+  - `[ArrayGetNItems](../A/ArrayGetNItems.md)`: Calculates total number of items from dimensions
   - `AARR_NDIM`: Gets the number of dimensions of the array
   - `AARR_DIMS`: Gets the dimension sizes array
 - Called from (representative examples):

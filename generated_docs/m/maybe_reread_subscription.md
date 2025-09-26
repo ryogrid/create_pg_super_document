@@ -23,7 +23,7 @@ None - This function takes no parameters.
   - [IsTransactionState](../I/IsTransactionState.md)
   - [StartTransactionCommand](../S/StartTransactionCommand.md)
   - [GetSubscription](../G/GetSubscription.md)
-  - ApplyLauncherForgetWorkerStartTime
+  - [ApplyLauncherForgetWorkerStartTime](../A/ApplyLauncherForgetWorkerStartTime.md)
   - [apply_worker_exit](../a/apply_worker_exit.md)
   - [FreeSubscription](../F/FreeSubscription.md)
   - [SetConfigOption](../S/SetConfigOption.md)

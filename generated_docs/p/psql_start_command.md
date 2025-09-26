@@ -21,8 +21,8 @@ None (void function)
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeStringInfo
-  - appendStringInfo
+  - [makeStringInfo](../m/makeStringInfo.md)
+  - [appendStringInfo](../a/appendStringInfo.md)
   - bindir (global variable)
 - Called from (representative examples):
   - psql_command

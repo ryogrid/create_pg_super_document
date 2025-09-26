@@ -35,7 +35,7 @@ This function creates a GroupingSetsPath node that represents sorted grouping wi
   - makeNode
   - [cost_agg](cost_agg.md)
   - [cost_sort](cost_sort.md)
-  - list_length
+  - [list_length](../l/list_length.md)
   - linitial
   - lfirst
 - Called from (representative examples):

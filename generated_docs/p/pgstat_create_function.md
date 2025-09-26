@@ -20,7 +20,7 @@ This function registers a new function (identified by its OID) with PostgreSQL's
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_create_transactional
+  - [pgstat_create_transactional](pgstat_create_transactional.md)
   - PGSTAT_KIND_FUNCTION
   - MyDatabaseId
 - Called from (representative examples):

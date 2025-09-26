@@ -25,8 +25,8 @@ The function is designed to be lightweight and efficient, making it suitable for
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_typavgwidth](get_typavgwidth.md)
-  - exprType
-  - exprTypmod
+  - [exprType](../e/exprType.md)
+  - [exprTypmod](../e/exprTypmod.md)
 - Macros used:
   - IS_SPECIAL_VARNO
 - Called from (representative examples):

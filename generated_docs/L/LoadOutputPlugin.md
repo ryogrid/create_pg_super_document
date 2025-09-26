@@ -23,10 +23,10 @@ The function follows a strict validation protocol where it checks for the presen
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - load_external_function
-  - OutputPluginCallbacks
+  - [load_external_function](../l/load_external_function.md)
+  - [OutputPluginCallbacks](../O/OutputPluginCallbacks.md)
 - Called from (representative examples):
-  - StartupDecodingContext
+  - [StartupDecodingContext](../S/StartupDecodingContext.md)
 
 ## Notes and Other Information
 - The function expects plugins to export a  symbol as their entry point

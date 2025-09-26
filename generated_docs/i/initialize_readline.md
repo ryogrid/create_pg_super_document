@@ -25,7 +25,7 @@ This function takes no parameters.
   - [psql_completion](../p/psql_completion.md) (assigned as completion function)
   - [quote_file_name](../q/quote_file_name.md) (conditional, for filename quoting)
   - [dequote_file_name](../d/dequote_file_name.md) (conditional, for filename dequoting) 
-  - pg_malloc (for allocating filename quote characters)
+  - [pg_malloc](../p/pg_malloc.md) (for allocating filename quote characters)
   - WORD_BREAKS (macro defining word break characters)
 
 - Called from (representative examples):

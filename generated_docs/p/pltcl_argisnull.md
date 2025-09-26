@@ -28,7 +28,7 @@ The function performs several validation steps: ensuring correct syntax (exactly
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FunctionCallInfo (PostgreSQL type)
+  - [FunctionCallInfo](../F/FunctionCallInfo.md) (PostgreSQL type)
   - pltcl_current_call_state (global state variable)
   - Tcl_WrongNumArgs (Tcl library function)
   - Tcl_SetObjResult (Tcl library function)
@@ -38,7 +38,7 @@ The function performs several validation steps: ensuring correct syntax (exactly
   - PG_ARGISNULL (PostgreSQL macro)
 - Called from (representative examples):
   - TclExceptionNameMap (registered as Tcl command)
-  - pltcl_init_interp (command registration)
+  - [pltcl_init_interp](pltcl_init_interp.md) (command registration)
 
 ## Notes and Other Information
 - Returns TCL_ERROR if called with wrong syntax or in invalid context

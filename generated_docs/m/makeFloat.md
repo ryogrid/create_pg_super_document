@@ -22,7 +22,7 @@ The caller is responsible for ensuring that the numericStr parameter is a palloc
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (macro for node allocation and initialization)
-  - Float (struct type definition)
+  - [Float](../F/Float.md) (struct type definition)
 - Called from (representative examples):
   - [pg_get_object_address](../p/pg_get_object_address.md) (in objectaddress.c)
   - [sequence_options](../s/sequence_options.md) (in sequence.c, multiple locations)

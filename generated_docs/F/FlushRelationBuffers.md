@@ -24,7 +24,7 @@ The caller should typically hold AccessExclusiveLock on the target relation to p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationGetSmgr
+  - [RelationGetSmgr](../R/RelationGetSmgr.md)
   - RelationUsesLocalBuffers
   - [GetLocalBufferDescriptor](../G/GetLocalBufferDescriptor.md)
   - [BufTagMatchesRelFileLocator](../B/BufTagMatchesRelFileLocator.md)
@@ -32,18 +32,18 @@ The caller should typically hold AccessExclusiveLock on the target relation to p
   - LocalBufHdrGetBlock
   - [PageSetChecksumInplace](../P/PageSetChecksumInplace.md)
   - [pgstat_prepare_io_time](../p/pgstat_prepare_io_time.md)
-  - smgrwrite
+  - [smgrwrite](../s/smgrwrite.md)
   - [BufTagGetForkNum](../B/BufTagGetForkNum.md)
   - [pgstat_count_io_op_time](../p/pgstat_count_io_op_time.md)
   - [pg_atomic_unlocked_write_u32](../p/pg_atomic_unlocked_write_u32.md)
   - [GetBufferDescriptor](../G/GetBufferDescriptor.md)
   - [ReservePrivateRefCountEntry](../R/ReservePrivateRefCountEntry.md)
-  - ResourceOwnerEnlarge
-  - LockBufHdr
-  - PinBuffer_Locked
+  - [ResourceOwnerEnlarge](../R/ResourceOwnerEnlarge.md)
+  - [LockBufHdr](../L/LockBufHdr.md)
+  - [PinBuffer_Locked](../P/PinBuffer_Locked.md)
   - [BufferDescriptorGetContentLock](../B/BufferDescriptorGetContentLock.md)
   - [FlushBuffer](FlushBuffer.md)
-  - UnpinBuffer
+  - [UnpinBuffer](../U/UnpinBuffer.md)
   - [UnlockBufHdr](../U/UnlockBufHdr.md)
 - Constants used:
   - BM_VALID, BM_DIRTY, BM_JUST_DIRTIED

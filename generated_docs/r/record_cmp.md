@@ -23,7 +23,7 @@ The function extracts type information from both tuple headers, validates column
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth: Stack overflow protection for recursive calls
+  - [check_stack_depth](../c/check_stack_depth.md): Stack overflow protection for recursive calls
   - HeapTupleHeaderGetTypeId: Extracts type OID from tuple headers
   - HeapTupleHeaderGetTypMod: Extracts type modifier from tuple headers  
   - [lookup_rowtype_tupdesc](../l/lookup_rowtype_tupdesc.md): Retrieves tuple descriptors for both record types

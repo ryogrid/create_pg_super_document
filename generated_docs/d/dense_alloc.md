@@ -34,9 +34,9 @@ The allocation strategy maintains a linked list of memory chunks, with the most 
   - HASH_CHUNK_HEADER_SIZE (header size for chunks)
   - HASH_CHUNK_SIZE (standard chunk size)
 - Called from:
-  - ExecHashIncreaseNumBatches (nodeHash.c:1019)
-  - ExecHashTableInsert (nodeHash.c:1657)
-  - ExecHashRemoveNextSkewBucket (nodeHash.c:2675)
+  - [ExecHashIncreaseNumBatches](../E/ExecHashIncreaseNumBatches.md) (nodeHash.c:1019)
+  - [ExecHashTableInsert](../E/ExecHashTableInsert.md) (nodeHash.c:1657)
+  - [ExecHashRemoveNextSkewBucket](../E/ExecHashRemoveNextSkewBucket.md) (nodeHash.c:2675)
 
 ## Notes and Other Information
 - This is a static function internal to nodeHash.c, used exclusively for hash join memory management

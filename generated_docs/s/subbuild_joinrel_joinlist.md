@@ -39,10 +39,10 @@ The function is specifically designed to work with join relations (RELOPT_JOINRE
 ## Dependencies
 - Functions called/Symbols referenced:
   - RELOPT_JOINREL
-  - bms_is_subset
-  - list_append_unique_ptr
+  - [bms_is_subset](../b/bms_is_subset.md)
+  - [list_append_unique_ptr](../l/list_append_unique_ptr.md)
 - Called from (representative examples):
-  - build_joinrel_joinlist
+  - [build_joinrel_joinlist](../b/build_joinrel_joinlist.md)
 
 ## Notes and Other Information
 - This is a static function within relnode.c, used internally for join relation construction

@@ -20,10 +20,10 @@ The `dlclose` function is PostgreSQL's Windows implementation of the standard PO
 ## Dependencies
 - Functions called/Symbols referenced:
   - `FreeLibrary()` (Windows API)
-  - `set_dl_error` at Line 53
+  - `[set_dl_error](../s/set_dl_error.md)` at Line 53
 - Called from (representative examples):
-  - `internal_load_library` at src/backend/utils/fmgr/dfmgr.c:265
-  - `internal_load_library` at src/backend/utils/fmgr/dfmgr.c:275
+  - `[internal_load_library](../i/internal_load_library.md)` at src/backend/utils/fmgr/dfmgr.c:265
+  - `[internal_load_library](../i/internal_load_library.md)` at src/backend/utils/fmgr/dfmgr.c:275
 
 ## Notes and Other Information
 - This is a Windows-specific implementation that provides POSIX `dlclose()` compatibility

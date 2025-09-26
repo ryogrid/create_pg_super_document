@@ -24,7 +24,7 @@ This information is important for psql's string processing and command parsing, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQparameterStatus (libpq function to query server parameters)
+  - [PQparameterStatus](../P/PQparameterStatus.md) (libpq function to query server parameters)
   - pset.db (global psql database connection)
 - Called from (representative examples):
   - [get_create_object_cmd](../g/get_create_object_cmd.md) (for generating SQL commands)

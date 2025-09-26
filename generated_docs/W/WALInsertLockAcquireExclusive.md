@@ -23,8 +23,8 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire (acquires individual WAL insertion locks)
-  - LWLockUpdateVar (updates the insertingAt variable for each lock)
+  - [LWLockAcquire](../L/LWLockAcquire.md) (acquires individual WAL insertion locks)
+  - [LWLockUpdateVar](../L/LWLockUpdateVar.md) (updates the insertingAt variable for each lock)
   - NUM_XLOGINSERT_LOCKS (constant defining number of WAL insertion locks)
   - PG_UINT64_MAX (maximum value for insertingAt indicator)
 - Called from (representative examples):

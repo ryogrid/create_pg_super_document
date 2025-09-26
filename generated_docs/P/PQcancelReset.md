@@ -20,7 +20,7 @@ PQcancelReset reinitializes a cancel connection object by closing any existing c
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pqClosePGconn](../p/pqClosePGconn.md)
-  - PGcancelConn (type)
+  - [PGcancelConn](PGcancelConn.md) (type)
   - CONNECTION_ALLOCATED (connection status constant)
 - Called from (representative examples):
   - [test_cancel](../t/test_cancel.md) (in libpq_pipeline test module)

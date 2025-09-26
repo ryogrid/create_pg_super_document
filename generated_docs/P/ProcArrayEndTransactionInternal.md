@@ -30,7 +30,7 @@ This function is designed to be called from multiple contexts: directly when loc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockHeldByMeInMode
+  - [LWLockHeldByMeInMode](../L/LWLockHeldByMeInMode.md)
   - TransactionIdIsValid
   - [MaintainLatestCompletedXid](../M/MaintainLatestCompletedXid.md)
   - InvalidTransactionId

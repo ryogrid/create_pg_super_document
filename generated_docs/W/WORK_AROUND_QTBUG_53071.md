@@ -26,8 +26,8 @@ This is an enumeration constant with no parameters or member variables.
 ## Dependencies
 - Functions called/Symbols referenced: None directly
 - Called from (representative examples):
-  - growalloc: Used in memory allocation size calculations
-  - writezone: Used to determine if Qt workaround logic should be applied
+  - [growalloc](../g/growalloc.md): Used in memory allocation size calculations
+  - [writezone](../w/writezone.md): Used to determine if Qt workaround logic should be applied
 
 ## Notes and Other Information
 - The comment in the source code indicates this workaround was expected to be obsolete by 2021, suggesting it could be safely disabled for modern deployments

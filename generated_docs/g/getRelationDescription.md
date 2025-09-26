@@ -26,8 +26,8 @@ The function automatically qualifies relation names with schema names when the r
   - [SearchSysCache1](../S/SearchSysCache1.md) (system catalog lookup)
   - [RelationIsVisible](../R/RelationIsVisible.md) (visibility checking)
   - [get_namespace_name](get_namespace_name.md) (schema name retrieval)
-  - quote_qualified_identifier (safe name quoting)
-  - appendStringInfo (string formatting)
+  - [quote_qualified_identifier](../q/quote_qualified_identifier.md) (safe name quoting)
+  - [appendStringInfo](../a/appendStringInfo.md) (string formatting)
   - [ReleaseSysCache](../R/ReleaseSysCache.md) (cache cleanup)
   - Form_pg_class structure and relkind constants (RELKIND_RELATION, RELKIND_INDEX, etc.)
 

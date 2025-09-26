@@ -27,7 +27,7 @@ The function works by:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ErrorData (type)
+  - [ErrorData](../E/ErrorData.md) (type)
   - [get_error_stack_entry](../g/get_error_stack_entry.md)
   - PG_RE_THROW
   - [pstrdup](../p/pstrdup.md) (for string duplication)
@@ -35,7 +35,7 @@ The function works by:
   - memcpy
 
 - Called from (representative examples):
-  - _SPI_commit
+  - [_SPI_commit](../S/_SPI_commit.md)
   - [_SPI_rollback](../S/_SPI_rollback.md)
 
 ## Notes and Other Information

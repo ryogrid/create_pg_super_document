@@ -23,17 +23,17 @@ None - this function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HASH_SEQ_STATUS (hash table iteration status structure)
-  - PortalHashEnt (portal hash table entry structure)  
-  - hash_seq_init (initialize hash table iteration)
-  - hash_seq_search (get next entry in hash table iteration)
-  - Portal (portal structure type)
+  - [HASH_SEQ_STATUS](../H/HASH_SEQ_STATUS.md) (hash table iteration status structure)
+  - [PortalHashEnt](PortalHashEnt.md) (portal hash table entry structure)  
+  - [hash_seq_init](../h/hash_seq_init.md) (initialize hash table iteration)
+  - [hash_seq_search](../h/hash_seq_search.md) (get next entry in hash table iteration)
+  - [Portal](Portal.md) (portal structure type)
   - PORTAL_ACTIVE (constant for active portal state)
-  - PortalDrop (function to drop individual portals)
-  - hash_seq_term (terminate hash table iteration)
+  - [PortalDrop](PortalDrop.md) (function to drop individual portals)
+  - [hash_seq_term](../h/hash_seq_term.md) (terminate hash table iteration)
 - Called from (representative examples):
-  - DiscardAll (src/backend/commands/discard.c:69)
-  - PerformPortalClose (src/backend/commands/portalcmds.c:221)
+  - [DiscardAll](../D/DiscardAll.md) (src/backend/commands/discard.c:69)
+  - [PerformPortalClose](PerformPortalClose.md) (src/backend/commands/portalcmds.c:221)
   - PortalIsValid (src/include/utils/portal.h:247)
 
 ## Notes and Other Information

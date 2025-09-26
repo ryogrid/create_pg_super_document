@@ -25,7 +25,7 @@ The function intelligently shields the child node from complex execution flags (
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Material
+  - [Material](../M/Material.md)
   - [MaterialState](../M/MaterialState.md)
   - makeNode
   - [ExecMaterial](ExecMaterial.md)
@@ -36,7 +36,7 @@ The function intelligently shields the child node from complex execution flags (
   - [ExecInitNode](ExecInitNode.md)
   - outerPlanState
   - [ExecInitResultTupleSlotTL](ExecInitResultTupleSlotTL.md)
-  - ExecCreateScanSlotFromOuterPlan
+  - [ExecCreateScanSlotFromOuterPlan](ExecCreateScanSlotFromOuterPlan.md)
   - TTSOpsMinimalTuple
 - Called from (representative examples):
   - [ExecInitNode](ExecInitNode.md)
@@ -44,6 +44,6 @@ The function intelligently shields the child node from complex execution flags (
 ## Notes and Other Information
 - Tuplestore initialization is deferred until actually needed during execution
 - The function strips REWIND, BACKWARD, and MARK flags when initializing child nodes
-- Material nodes don't need ExprContext since they don't perform qualification or projection
+- [Material](../M/Material.md) nodes don't need ExprContext since they don't perform qualification or projection
 - Uses minimal tuple slots for efficient memory usage in the materialized relation
 - Handles the semantic difference between executor BACKWARD flag and tuplestore BACKWARD support by adding REWIND when BACKWARD is requested

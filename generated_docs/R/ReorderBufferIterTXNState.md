@@ -28,15 +28,15 @@ This structure serves as the control mechanism for iterating through changes fro
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - binaryheap
-  - dlist_head
-  - ReorderBufferIterTXNEntry
+  - [binaryheap](../b/binaryheap.md)
+  - [dlist_head](../d/dlist_head.md)
+  - [ReorderBufferIterTXNEntry](ReorderBufferIterTXNEntry.md)
   - FLEXIBLE_ARRAY_MEMBER
 - Called from (representative examples):
-  - ReorderBufferIterTXNInit
-  - ReorderBufferIterTXNNext
-  - ReorderBufferIterTXNFinish
-  - ReorderBufferProcessTXN
+  - [ReorderBufferIterTXNInit](ReorderBufferIterTXNInit.md)
+  - [ReorderBufferIterTXNNext](ReorderBufferIterTXNNext.md)
+  - [ReorderBufferIterTXNFinish](ReorderBufferIterTXNFinish.md)
+  - [ReorderBufferProcessTXN](ReorderBufferProcessTXN.md)
 
 ## Notes and Other Information
 - This structure is central to the logical replication's ability to maintain transaction ordering across multiple concurrent transactions

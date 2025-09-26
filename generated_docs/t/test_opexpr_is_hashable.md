@@ -35,7 +35,7 @@ The function is designed to handle cases where function inlining might have alte
   - [contain_var_clause](../c/contain_var_clause.md)
   - linitial
   - lsecond
-  - list_length
+  - [list_length](../l/list_length.md)
 - Called from (representative examples):
   - [testexpr_is_hashable](testexpr_is_hashable.md)
 

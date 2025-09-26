@@ -23,7 +23,7 @@ Subplans are typically used for subqueries, EXISTS clauses, IN/NOT IN operations
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth
+  - [check_stack_depth](../c/check_stack_depth.md)
   - [ExecSubPlan](ExecSubPlan.md)
 - Called from (representative examples):
   - [ExecInterpExpr](ExecInterpExpr.md) (main expression interpreter loop)

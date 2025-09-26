@@ -33,7 +33,7 @@ This approach is more efficient than name-based lookup when the OID is already a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - superuser_arg
+  - [superuser_arg](../s/superuser_arg.md)
   - [SearchSysCache1](../S/SearchSysCache1.md)
   - [SysCacheGetAttr](../S/SysCacheGetAttr.md)
   - [acldefault](../a/acldefault.md)

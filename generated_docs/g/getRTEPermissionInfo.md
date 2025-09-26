@@ -21,7 +21,7 @@ RTEPermissionInfo *getRTEPermissionInfo(List *rteperminfos, RangeTblEntry *rte)
 ## Dependencies
 - Functions called/Symbols referenced:
   - list_nth_node
-  - list_length
+  - [list_length](../l/list_length.md)
   - elog
 - Data structures used:
   - [RTEPermissionInfo](../R/RTEPermissionInfo.md)

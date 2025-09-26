@@ -22,21 +22,21 @@ This is particularly useful when multiple attributes need to be accessed, as it 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slot_getsomeattrs
+  - [slot_getsomeattrs](slot_getsomeattrs.md)
 - Called from (representative examples):
-  - printsimple
-  - printtup
-  - execute_attr_map_slot
-  - DoCopyTo
-  - CopyOneRowTo
-  - ATRewriteTable
-  - ExecEvalWholeRowVar
-  - ExecFilterJunk
-  - tuples_equal
-  - agg_retrieve_hash_table_in_memory
-  - MemoizeHash_equal
-  - ExecComputeStoredGenerated
-  - logicalrep_write_tuple
+  - [printsimple](../p/printsimple.md)
+  - [printtup](../p/printtup.md)
+  - [execute_attr_map_slot](../e/execute_attr_map_slot.md)
+  - [DoCopyTo](../D/DoCopyTo.md)
+  - [CopyOneRowTo](../C/CopyOneRowTo.md)
+  - [ATRewriteTable](../A/ATRewriteTable.md)
+  - [ExecEvalWholeRowVar](../E/ExecEvalWholeRowVar.md)
+  - [ExecFilterJunk](../E/ExecFilterJunk.md)
+  - [tuples_equal](../t/tuples_equal.md)
+  - [agg_retrieve_hash_table_in_memory](../a/agg_retrieve_hash_table_in_memory.md)
+  - [MemoizeHash_equal](../M/MemoizeHash_equal.md)
+  - [ExecComputeStoredGenerated](../E/ExecComputeStoredGenerated.md)
+  - [logicalrep_write_tuple](../l/logicalrep_write_tuple.md)
 
 ## Notes and Other Information
 - This is an inline function defined in the header file for performance reasons

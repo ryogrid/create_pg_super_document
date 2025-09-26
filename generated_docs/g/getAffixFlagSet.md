@@ -35,7 +35,7 @@ The aliasing system allows dictionaries to reference complex flag combinations t
   - ereport: PostgreSQL error reporting function
   - VoidString: Empty string constant for invalid aliases
 - Called from (representative examples):
-  - NIImportOOAffixes: Process OpenOffice-style affix configurations with alias support
+  - [NIImportOOAffixes](../N/NIImportOOAffixes.md): Process OpenOffice-style affix configurations with alias support
 
 ## Notes and Other Information
 - Index 0 intentionally returns VoidString as it represents an empty flag set

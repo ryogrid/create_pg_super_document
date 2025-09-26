@@ -30,17 +30,17 @@ The finalization process includes:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - manifest_writer (structure type)
-  - manifest_wal_range (structure type)
+  - [manifest_writer](../m/manifest_writer.md) (structure type)
+  - [manifest_wal_range](../m/manifest_wal_range.md) (structure type)
   - PG_SHA256_DIGEST_LENGTH (checksum length constant)
-  - flush_manifest (buffer flushing)
-  - enlargeStringInfo (buffer management)
+  - [flush_manifest](flush_manifest.md) (buffer flushing)
+  - [enlargeStringInfo](../e/enlargeStringInfo.md) (buffer management)
   - PG_SHA256_DIGEST_STRING_LENGTH (string length constant)
-  - pg_checksum_final (checksum finalization)
-  - hex_encode (binary to hex conversion)
+  - [pg_checksum_final](../p/pg_checksum_final.md) (checksum finalization)
+  - [hex_encode](../h/hex_encode.md) (binary to hex conversion)
   - close (file closure)
 - Called from (representative examples):
-  - main (in src/bin/pg_combinebackup/pg_combinebackup.c:412)
+  - [main](../m/main.md) (in src/bin/pg_combinebackup/pg_combinebackup.c:412)
 
 ## Notes and Other Information
 - The manifest checksum is computed over all content up to the checksum field itself

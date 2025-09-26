@@ -32,24 +32,24 @@ This approach ensures that JSON operations can handle type coercion requirements
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonFormat
-  - Expr
+  - [JsonFormat](JsonFormat.md)
+  - [Expr](../E/Expr.md)
 
 - Called from (representative examples):
-  - transformJsonValueExpr
-  - transformJsonArrayConstructor  
-  - transformJsonParseArg
-  - transformJsonParseExpr
-  - makeJsonValueExpr
-  - makeJsonKeyValue
-  - ExecInitExprRec
-  - eval_const_expressions_mutator
-  - get_rule_expr
-  - exprType
-  - exprTypmod
-  - exprCollation
-  - exprSetCollation
-  - exprLocation
+  - [transformJsonValueExpr](../t/transformJsonValueExpr.md)
+  - [transformJsonArrayConstructor](../t/transformJsonArrayConstructor.md)  
+  - [transformJsonParseArg](../t/transformJsonParseArg.md)
+  - [transformJsonParseExpr](../t/transformJsonParseExpr.md)
+  - [makeJsonValueExpr](../m/makeJsonValueExpr.md)
+  - [makeJsonKeyValue](../m/makeJsonKeyValue.md)
+  - [ExecInitExprRec](../E/ExecInitExprRec.md)
+  - [eval_const_expressions_mutator](../e/eval_const_expressions_mutator.md)
+  - [get_rule_expr](../g/get_rule_expr.md)
+  - [exprType](../e/exprType.md)
+  - [exprTypmod](../e/exprTypmod.md)
+  - [exprCollation](../e/exprCollation.md)
+  - [exprSetCollation](../e/exprSetCollation.md)
+  - [exprLocation](../e/exprLocation.md)
 
 ## Notes and Other Information
 - The distinction between raw_expr and formatted_expr enables proper handling of type coercion while preserving original query semantics

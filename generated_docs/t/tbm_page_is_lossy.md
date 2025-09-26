@@ -30,8 +30,8 @@ This is an optimization mechanism - when memory pressure forces the system to us
 - Functions called/Symbols referenced:
   - pagetable_lookup (to find chunk entries in hash table)
 - Types used:
-  - TIDBitmap
-  - PagetableEntry
+  - [TIDBitmap](../T/TIDBitmap.md)
+  - [PagetableEntry](../P/PagetableEntry.md)
   - BlockNumber
   - bitmapword
 - Constants/Macros used:
@@ -39,9 +39,9 @@ This is an optimization mechanism - when memory pressure forces the system to us
   - PAGES_PER_CHUNK (chunk size definition)
   - WORDNUM, BITNUM (bit manipulation macros)
 - Called from:
-  - tbm_add_tuples
-  - tbm_union_page  
-  - tbm_intersect_page (multiple locations)
+  - [tbm_add_tuples](tbm_add_tuples.md)
+  - [tbm_union_page](tbm_union_page.md)  
+  - [tbm_intersect_page](tbm_intersect_page.md) (multiple locations)
   - Referenced in TBMSharedIterator
 
 ## Notes and Other Information

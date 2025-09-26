@@ -22,11 +22,11 @@ The query uses system functions like  to resolve owner IDs to usernames and  to 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initPQExpBuffer
+  - [initPQExpBuffer](../i/initPQExpBuffer.md)
   - [printfPQExpBuffer](../p/printfPQExpBuffer.md)
   - [printACLColumn](../p/printACLColumn.md)
   - [PSQLexec](../P/PSQLexec.md)
-  - termPQExpBuffer
+  - [termPQExpBuffer](../t/termPQExpBuffer.md)
   - [printQuery](../p/printQuery.md)
   - [PQExpBufferData](../P/PQExpBufferData.md)
   - [printQueryOpt](../p/printQueryOpt.md)

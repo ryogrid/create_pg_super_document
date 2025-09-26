@@ -26,7 +26,7 @@ This function serves as a simple getter method that returns the current state of
   - [heap_decode](../h/heap_decode.md)
   - [logicalmsg_decode](../l/logicalmsg_decode.md)
   - [DecodePrepare](../D/DecodePrepare.md)
-  - DecodingContextReady
+  - [DecodingContextReady](../D/DecodingContextReady.md)
   - [ReorderBufferCanStartStreaming](../R/ReorderBufferCanStartStreaming.md)
 
 ## Notes and Other Information

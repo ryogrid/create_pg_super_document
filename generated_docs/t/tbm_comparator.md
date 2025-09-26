@@ -24,12 +24,12 @@ The function handles the double pointer indirection required by qsort when sorti
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_cmp_u32 (PostgreSQL utility for comparing 32-bit unsigned integers)
+  - [pg_cmp_u32](../p/pg_cmp_u32.md) (PostgreSQL utility for comparing 32-bit unsigned integers)
 - Types used:
-  - PagetableEntry (for accessing blockno fields)
+  - [PagetableEntry](../P/PagetableEntry.md) (for accessing blockno fields)
   - BlockNumber (the type of blockno field)
 - Called from:
-  - tbm_begin_iterate (used in qsort calls to sort page entries)
+  - [tbm_begin_iterate](tbm_begin_iterate.md) (used in qsort calls to sort page entries)
   - Referenced in TBMSharedIterator
 
 ## Notes and Other Information

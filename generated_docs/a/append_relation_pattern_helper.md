@@ -24,12 +24,12 @@ The `append_relation_pattern_helper` function is the core implementation for pro
 ## Dependencies
 - Functions called/Symbols referenced:
   - [extend_pattern_info_array](../e/extend_pattern_info_array.md)
-  - initPQExpBuffer
+  - [initPQExpBuffer](../i/initPQExpBuffer.md)
   - [patternToSQLRegex](../p/patternToSQLRegex.md)
   - pg_log_error
   - exit
   - [pstrdup](../p/pstrdup.md)
-  - termPQExpBuffer
+  - [termPQExpBuffer](../t/termPQExpBuffer.md)
 - Types used:
   - [PatternInfoArray](../P/PatternInfoArray.md)
   - [PQExpBufferData](../P/PQExpBufferData.md)

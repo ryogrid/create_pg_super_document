@@ -25,13 +25,13 @@ Each target entry is printed on a separate line with tab-separated fields showin
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TargetEntry](../T/TargetEntry.md) (structure type)
-  - print_expr (function to print individual expressions)
+  - [print_expr](print_expr.md) (function to print individual expressions)
 - Called from (representative examples):
   - nodeDisplay (via print.h header inclusion)
 
 ## Notes and Other Information
 - This is primarily a debugging function used during query plan development and analysis
 - The function handles null result names by displaying "<null>" as a placeholder
-- Sort/group references are displayed in parentheses when present, with proper spacing alignment when absent
+- [Sort](../S/Sort.md)/group references are displayed in parentheses when present, with proper spacing alignment when absent
 - Output formatting uses tabs and newlines for structured, readable display
 - Located in src/backend/nodes/print.c as part of PostgreSQL's node printing utilities

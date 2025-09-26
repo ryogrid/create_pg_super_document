@@ -32,12 +32,12 @@ The function ensures proper handling of special characters by:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initPQExpBuffer
+  - [initPQExpBuffer](../i/initPQExpBuffer.md)
   - [appendPQExpBufferStr](appendPQExpBufferStr.md)
   - [appendConnStrVal](appendConnStrVal.md)  
   - [fmtIdEnc](../f/fmtIdEnc.md)
-  - termPQExpBuffer
-  - appendPQExpBufferChar
+  - [termPQExpBuffer](../t/termPQExpBuffer.md)
+  - [appendPQExpBufferChar](appendPQExpBufferChar.md)
   - PG_SQL_ASCII
   - EXIT_FAILURE
   - [PQExpBufferData](../P/PQExpBufferData.md)

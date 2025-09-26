@@ -25,18 +25,18 @@ The function is implemented as a static inline function for optimal performance 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_nth (for list element access)
+  - [list_nth](../l/list_nth.md) (for list element access)
 - Called from (representative examples):
-  - ExecGetRangeTableRelation (relation access)
-  - ExecEvalWholeRowVar (whole-row variable evaluation)
-  - InitPlan (plan initialization)
-  - ExecInitIndexScan (index scan initialization)
-  - ExecInitBitmapIndexScan (bitmap index scan initialization)
+  - [ExecGetRangeTableRelation](../E/ExecGetRangeTableRelation.md) (relation access)
+  - [ExecEvalWholeRowVar](../E/ExecEvalWholeRowVar.md) (whole-row variable evaluation)
+  - [InitPlan](../I/InitPlan.md) (plan initialization)
+  - [ExecInitIndexScan](../E/ExecInitIndexScan.md) (index scan initialization)
+  - [ExecInitBitmapIndexScan](../E/ExecInitBitmapIndexScan.md) (bitmap index scan initialization)
 
 ## Notes and Other Information
 - Uses 1-based indexing (RTI) which is converted to 0-based for list_nth access
 - The returned RangeTblEntry pointer should not be modified as it's shared across the query execution
 - Essential for translating RTI references in plan nodes to actual table metadata
-- Range table entries can represent regular tables, subqueries, functions, VALUES clauses, CTEs, and other relation-like constructs
+- [Range](../R/Range.md) table entries can represent regular tables, subqueries, functions, VALUES clauses, CTEs, and other relation-like constructs
 - This function provides the foundation for most table-related operations in the executor
 - The inline implementation ensures minimal overhead for this frequently-called function

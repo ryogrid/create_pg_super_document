@@ -40,13 +40,13 @@ The function uses a comprehensive transaction-safe approach with proper cleanup 
 - Functions called/Symbols referenced:
   - [parse_subscription_options](../p/parse_subscription_options.md): Parses and validates subscription creation options
   - [PreventInTransactionBlock](../P/PreventInTransactionBlock.md): Prevents execution in transaction block when creating replication slots
-  - has_privs_of_role: Checks if user has pg_create_subscription privileges
+  - [has_privs_of_role](../h/has_privs_of_role.md): Checks if user has pg_create_subscription privileges
   - walrcv_check_conninfo/walrcv_connect: Validates and establishes publisher connection
   - [check_publications](../c/check_publications.md): Validates publication existence on publisher
   - [publicationListToArray](../p/publicationListToArray.md): Converts publication list to array for catalog storage
   - [recordDependencyOnOwner](../r/recordDependencyOnOwner.md): Records ownership dependency in system catalogs
   - [AddSubscriptionRelState](../A/AddSubscriptionRelState.md): Initializes table synchronization states
-  - replorigin_create: Creates replication origin for conflict tracking
+  - [replorigin_create](../r/replorigin_create.md): Creates replication origin for conflict tracking
 - Called from (representative examples):
   - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md): During SQL command processing for CREATE SUBSCRIPTION statements
 

@@ -21,7 +21,7 @@ RelationDropStorage schedules the unlinking of physical storage files for a rela
 - Functions called/Symbols referenced:
   - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
   - [GetCurrentTransactionNestLevel](../G/GetCurrentTransactionNestLevel.md)
-  - RelationCloseSmgr
+  - [RelationCloseSmgr](RelationCloseSmgr.md)
   - [PendingRelDelete](../P/PendingRelDelete.md)
 - Called from (representative examples):
   - [heap_drop_with_catalog](../h/heap_drop_with_catalog.md)

@@ -25,12 +25,12 @@ The function acts as a thin wrapper that calls get_agg_expr_helper with NULL val
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_agg_expr_helper (the main implementation function for aggregate expression deparsing)
-  - Aggref (aggregate reference node structure)
-  - deparse_context (deparsing context structure)
+  - [get_agg_expr_helper](get_agg_expr_helper.md) (the main implementation function for aggregate expression deparsing)
+  - [Aggref](../A/Aggref.md) (aggregate reference node structure)
+  - [deparse_context](../d/deparse_context.md) (deparsing context structure)
 - Called from:
-  - get_rule_expr (main expression deparsing dispatcher)
-  - get_agg_combine_expr (for combining aggregate expressions)
+  - [get_rule_expr](get_rule_expr.md) (main expression deparsing dispatcher)
+  - [get_agg_combine_expr](get_agg_combine_expr.md) (for combining aggregate expressions)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's rule deparsing system used for displaying views, rules, and constraints

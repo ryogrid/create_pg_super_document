@@ -34,7 +34,7 @@ The function implements a dominance-based pruning algorithm similar to , but sim
   - foreach_delete_current
   - foreach_current_index
   - [list_insert_nth](../l/list_insert_nth.md)
-  - PathKeysComparison (enum)
+  - [PathKeysComparison](../P/PathKeysComparison.md) (enum)
   - PATHKEYS_DIFFERENT, PATHKEYS_BETTER1, PATHKEYS_BETTER2 (constants)
   - STD_FUZZ_FACTOR (constant)
 

@@ -58,7 +58,7 @@ The function handles the distinction between direct container assignments and as
   - [get_typcollation](../g/get_typcollation.md)
   - [transformAssignmentIndirection](transformAssignmentIndirection.md) (recursive call)
   - [coerce_to_target_type](../c/coerce_to_target_type.md)
-  - exprType
+  - [exprType](../e/exprType.md)
   - [format_type_be](../f/format_type_be.md)
   - Constants: COERCE_IMPLICIT_CAST
 - Called from:

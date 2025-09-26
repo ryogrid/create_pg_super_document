@@ -29,12 +29,12 @@ The function also manages memory contexts, progress reporting, error context inf
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CopyFromState, EState, CommandId (state management types)
+  - [CopyFromState](CopyFromState.md), EState, CommandId (state management types)
   - [ExecARInsertTriggers](../E/ExecARInsertTriggers.md) (trigger execution)
   - [pgstat_progress_update_param](../p/pgstat_progress_update_param.md), PROGRESS_COPY_TUPLES_PROCESSED (progress reporting)
-  - ExecClearTuple (slot cleanup)
+  - [ExecClearTuple](../E/ExecClearTuple.md) (slot cleanup)
   - GetPerTupleMemoryContext (memory management)
-  - table_multi_insert (bulk insertion for regular tables)
+  - [table_multi_insert](../t/table_multi_insert.md) (bulk insertion for regular tables)
   - [ExecInsertIndexTuples](../E/ExecInsertIndexTuples.md) (index maintenance)
   - [list_free](../l/list_free.md) (memory cleanup)
 - Called from (representative examples):

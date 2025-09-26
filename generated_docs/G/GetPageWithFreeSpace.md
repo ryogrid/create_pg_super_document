@@ -23,12 +23,12 @@ The function can trigger FSM updates if it encounters FSM entries pointing to bl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fsm_space_needed_to_cat
-  - fsm_search
+  - [fsm_space_needed_to_cat](../f/fsm_space_needed_to_cat.md)
+  - [fsm_search](../f/fsm_search.md)
 - Called from (representative examples):
-  - brin_getinsertbuffer
-  - RelationGetBufferForTuple
-  - GetFreeIndexPage
+  - [brin_getinsertbuffer](../b/brin_getinsertbuffer.md)
+  - [RelationGetBufferForTuple](../R/RelationGetBufferForTuple.md)
+  - [GetFreeIndexPage](GetFreeIndexPage.md)
 
 ## Notes and Other Information
 - Returns InvalidBlockNumber when no suitable page is found

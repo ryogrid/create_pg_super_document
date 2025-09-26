@@ -34,7 +34,7 @@ This function creates two constraint triggers on the referenced table to enforce
   - makeNode (CreateTrigStmt creation)
   - SystemFuncName (RI function name generation)
   - [CreateTrigger](../C/CreateTrigger.md) (trigger creation)
-  - CommandCounterIncrement (visibility control)
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md) (visibility control)
   - RelationGetRelid (relation OID extraction)
 - Called from (representative examples):
   - child_dependency_type

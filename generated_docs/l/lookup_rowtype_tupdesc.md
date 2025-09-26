@@ -38,7 +38,7 @@ The function handles both named composite types and transient record types trans
   - [record_send](../r/record_send.md)
   - [record_cmp](../r/record_cmp.md)
   - [record_eq](../r/record_eq.md)
-  - composite_to_json
+  - [composite_to_json](../c/composite_to_json.md)
   - [make_expanded_record_from_typeid](../m/make_expanded_record_from_typeid.md)
   - [ExecuteCallStmt](../E/ExecuteCallStmt.md)
   - [ExecInitExprRec](../E/ExecInitExprRec.md)

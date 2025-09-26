@@ -42,8 +42,8 @@ The function uses safe search_path queries and proper identifier encoding to han
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initPQExpBuffer
-  - termPQExpBuffer
+  - [initPQExpBuffer](../i/initPQExpBuffer.md)
+  - [termPQExpBuffer](../t/termPQExpBuffer.md)
   - [resetPQExpBuffer](../r/resetPQExpBuffer.md)
   - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
   - [appendStringLiteralConn](../a/appendStringLiteralConn.md)
@@ -57,7 +57,7 @@ The function uses safe search_path queries and proper identifier encoding to han
   - [fmtQualifiedIdEnc](../f/fmtQualifiedIdEnc.md)
   - [simple_string_list_append](../s/simple_string_list_append.md)
   - [simple_string_list_destroy](../s/simple_string_list_destroy.md)
-  - pg_malloc0
+  - [pg_malloc0](../p/pg_malloc0.md)
   - CppAsString2 macros for relation constants
   - ReindexType enums (REINDEX_DATABASE, REINDEX_SCHEMA, REINDEX_INDEX, REINDEX_SYSTEM, REINDEX_TABLE)
 - Called from (representative examples):

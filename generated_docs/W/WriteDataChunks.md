@@ -20,7 +20,7 @@ This function manages the output of all data content during a dump operation by 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_malloc
+  - [pg_malloc](../p/pg_malloc.md)
   - qsort
   - [TocEntrySizeCompareQsort](../T/TocEntrySizeCompareQsort.md)
   - [DispatchJobForTocEntry](../D/DispatchJobForTocEntry.md)

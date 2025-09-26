@@ -28,8 +28,8 @@ This structure is essential for managing the flow of lexemes through the text se
 - Functions called/Symbols referenced:
   - [ParsedLex](../P/ParsedLex.md) (the node structure that this list manages)
 - Called from (representative examples):
-  - LPLAddTail (adds ParsedLex nodes to the tail of the list)
-  - LPLRemoveHead (removes ParsedLex nodes from the head of the list)
+  - [LPLAddTail](LPLAddTail.md) (adds ParsedLex nodes to the tail of the list)
+  - [LPLRemoveHead](LPLRemoveHead.md) (removes ParsedLex nodes from the head of the list)
 
 ## Notes and Other Information
 - Provides efficient queue-like operations (FIFO - First In, First Out) for lexeme processing

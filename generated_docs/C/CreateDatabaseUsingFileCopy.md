@@ -27,13 +27,13 @@ Two critical checkpoints are performed: one before copying to ensure all dirty b
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RequestCheckpoint](../R/RequestCheckpoint.md)
-  - table_open, table_beginscan_catalog, table_endscan, table_close
+  - [table_open](../t/table_open.md), table_beginscan_catalog, table_endscan, table_close
   - [heap_getnext](../h/heap_getnext.md)
   - [GetDatabasePath](../G/GetDatabasePath.md)
-  - copydir
+  - [copydir](../c/copydir.md)
   - [directory_is_empty](../d/directory_is_empty.md)
   - [XLogBeginInsert](../X/XLogBeginInsert.md), XLogRegisterData, XLogInsert
-  - xl_dbase_create_file_copy_rec
+  - [xl_dbase_create_file_copy_rec](../x/xl_dbase_create_file_copy_rec.md)
 - Called from (representative examples):
   - [createdb](../c/createdb.md)
 

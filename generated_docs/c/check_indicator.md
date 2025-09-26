@@ -22,8 +22,8 @@ For basic integer types, the function simply allows them. For composite types (s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ECPGtype (struct type)
-  - ECPGstruct_member (struct type) 
+  - [ECPGtype](../E/ECPGtype.md) (struct type)
+  - [ECPGstruct_member](../E/ECPGstruct_member.md) (struct type) 
   - ECPGt_short, ECPGt_int, ECPGt_long, ECPGt_long_long (enum values)
   - ECPGt_unsigned_short, ECPGt_unsigned_int, ECPGt_unsigned_long, ECPGt_unsigned_long_long (enum values)
   - ECPGt_struct, ECPGt_union, ECPGt_array (enum values)

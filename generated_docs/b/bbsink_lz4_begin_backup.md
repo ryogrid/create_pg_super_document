@@ -24,7 +24,7 @@ The function ensures that the output buffer size accommodates the worst-case com
   - memset (memory initialization)
   - [palloc](../p/palloc.md) (memory allocation)  
   - LZ4F_compressBound (LZ4 library function)
-  - bbsink_begin_backup (calls next sink in chain)
+  - [bbsink_begin_backup](bbsink_begin_backup.md) (calls next sink in chain)
 - Called from (representative examples):
   - Referenced through bbsink_lz4_ops function pointer table
 

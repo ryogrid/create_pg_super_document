@@ -23,7 +23,7 @@ The `lo_truncate` function modifies the size of an open large object. If the spe
 - Functions called/Symbols referenced:
   - [lo_initialize](lo_initialize.md)
   - [libpq_append_conn_error](libpq_append_conn_error.md)
-  - PQfn
+  - [PQfn](../P/PQfn.md)
   - [PQresultStatus](../P/PQresultStatus.md)
   - [PQclear](../P/PQclear.md)
 - Called from (representative examples):

@@ -27,11 +27,11 @@ The function handles three scenarios for each segment: complete removal (truncat
 ## Dependencies
 - Functions called/Symbols referenced:
   - relpath
-  - FileTruncate
+  - [FileTruncate](../F/FileTruncate.md)
   - [FilePathName](../F/FilePathName.md)
   - SmgrIsTemp
   - [register_dirty_segment](../r/register_dirty_segment.md)
-  - FileClose
+  - [FileClose](../F/FileClose.md)
   - [_fdvec_resize](../f/_fdvec_resize.md)
 - Called from (representative examples):
   - Storage manager layer functions (via MD_H interface)

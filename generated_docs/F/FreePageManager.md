@@ -53,17 +53,17 @@ The system uses relative pointers throughout to support dynamic shared memory sc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FreePageSpanLeader
-  - FreePageBtree
+  - [FreePageSpanLeader](FreePageSpanLeader.md)
+  - [FreePageBtree](FreePageBtree.md)
   - RelptrFreePageManager
   - RelptrFreePageBtree
   - RelptrFreePageSpanLeader
 - Called from (representative examples):
-  - dsm_shmem_init (DSM shared memory initialization)
+  - [dsm_shmem_init](../d/dsm_shmem_init.md) (DSM shared memory initialization)
   - [dsm_create](../d/dsm_create.md) (DSM segment creation)
   - [dsa_minimum_size](../d/dsa_minimum_size.md) (DSA minimum size calculation)
-  - create_internal (DSA area creation)
-  - attach_internal (DSA area attachment)
+  - [create_internal](../c/create_internal.md) (DSA area creation)
+  - [attach_internal](../a/attach_internal.md) (DSA area attachment)
 
 ## Notes and Other Information
 - Uses 4kB pages (FPM_PAGE_SIZE) rather than PostgreSQL's typical 8kB pages to align with common OS memory allocation page sizes

@@ -32,10 +32,10 @@ The function carefully eliminates duplicates using pointer equality comparison, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_is_subset
+  - [bms_is_subset](../b/bms_is_subset.md)
   - RINFO_IS_PUSHED_DOWN
-  - bms_overlap
-  - list_append_unique_ptr
+  - [bms_overlap](../b/bms_overlap.md)
+  - [list_append_unique_ptr](../l/list_append_unique_ptr.md)
 - Called from (representative examples):
   - build_joinrel_restrictlist
 

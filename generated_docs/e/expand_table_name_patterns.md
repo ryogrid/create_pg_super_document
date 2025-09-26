@@ -44,7 +44,7 @@ When with_child_tables is true, the function uses a recursive CTE (Common Table 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - createPQExpBuffer, resetPQExpBuffer, destroyPQExpBuffer (query buffer management)
+  - [createPQExpBuffer](../c/createPQExpBuffer.md), resetPQExpBuffer, destroyPQExpBuffer (query buffer management)
   - processSQL    ePattern (pattern matching and SQL generation with schema support)
   - [GetConnection](../G/GetConnection.md) (database connection retrieval)
   - [ExecuteSqlStatement](../E/ExecuteSqlStatement.md), ExecuteSqlQuery, ExecuteSqlQueryForSingleRow (query execution)

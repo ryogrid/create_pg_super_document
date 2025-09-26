@@ -23,11 +23,11 @@ This function is essential for memory management in the serializable snapshot is
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockHeldByMe
+  - [LWLockHeldByMe](../L/LWLockHeldByMe.md)
   - [dlist_is_empty](../d/dlist_is_empty.md)
   - [hash_search_with_hash_value](../h/hash_search_with_hash_value.md)
   - HASH_REMOVE
-  - PREDICATELOCKTARGET (data structure)
+  - [PREDICATELOCKTARGET](../P/PREDICATELOCKTARGET.md) (data structure)
   - PG_USED_FOR_ASSERTS_ONLY (macro)
 - Called from (representative examples):
   - [SerialControl](../S/SerialControl.md)

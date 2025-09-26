@@ -32,7 +32,7 @@ The function maintains the integrity of the list structure and includes a debug 
   - [spi_dest_startup](spi_dest_startup.md) (src/backend/executor/spi.c:2154)
   - [BackgroundWorkerStateChange](../B/BackgroundWorkerStateChange.md) (src/backend/postmaster/bgworker.c:416)
   - [RegisterBackgroundWorker](../R/RegisterBackgroundWorker.md) (src/backend/postmaster/bgworker.c:956)
-  - on_dsm_detach (src/backend/storage/ipc/dsm.c:1140)
+  - [on_dsm_detach](../o/on_dsm_detach.md) (src/backend/storage/ipc/dsm.c:1140)
   - [InitCatCache](../I/InitCatCache.md) (src/backend/utils/cache/catcache.c:971)
   - [ResetAllOptions](../R/ResetAllOptions.md) (src/backend/utils/misc/guc.c:2100)
   - [push_old_value](../p/push_old_value.md) (src/backend/utils/misc/guc.c:2208)

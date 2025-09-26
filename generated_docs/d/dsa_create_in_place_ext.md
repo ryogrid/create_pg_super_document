@@ -31,9 +31,9 @@ The function requires explicit cleanup by all backends that create or attach to 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - create_internal
+  - [create_internal](../c/create_internal.md)
   - DSM_HANDLE_INVALID
-  - on_dsm_detach
+  - [on_dsm_detach](../o/on_dsm_detach.md)
   - [dsa_on_dsm_detach_release_in_place](dsa_on_dsm_detach_release_in_place.md)
 - Called from (representative examples):
   - dsa_create_in_place (wrapper function)

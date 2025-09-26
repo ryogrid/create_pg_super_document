@@ -34,17 +34,17 @@ The transformation process involves several steps:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - transformExprRecurse
-  - make_op
-  - exprType
+  - [transformExprRecurse](transformExprRecurse.md)
+  - [make_op](../m/make_op.md)
+  - [exprType](../e/exprType.md)
   - linitial
   - NodeSetTag
   - ereport (for error handling)
-  - errcode
-  - errmsg
-  - parser_errposition
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
+  - [parser_errposition](../p/parser_errposition.md)
 - Called from (representative examples):
-  - transformExprRecurse
+  - [transformExprRecurse](transformExprRecurse.md)
 
 ## Notes and Other Information
 - The function is static, meaning it's only accessible within parse_expr.c

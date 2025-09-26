@@ -23,10 +23,10 @@ ProcWaitForSignal implements a generic inter-process signaling mechanism using P
   - WL_LATCH_SET
   - WL_EXIT_ON_PM_DEATH
 - Called from (representative examples):
-  - LockBufferForCleanup
-  - ResolveRecoveryConflictWithLock
-  - ResolveRecoveryConflictWithBufferPin
-  - GetSafeSnapshot
+  - [LockBufferForCleanup](../L/LockBufferForCleanup.md)
+  - [ResolveRecoveryConflictWithLock](../R/ResolveRecoveryConflictWithLock.md)
+  - [ResolveRecoveryConflictWithBufferPin](../R/ResolveRecoveryConflictWithBufferPin.md)
+  - [GetSafeSnapshot](../G/GetSafeSnapshot.md)
 
 ## Notes and Other Information
 - Uses the generic process latch (MyLatch) which can receive unrelated wakeups

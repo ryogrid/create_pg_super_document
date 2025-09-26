@@ -34,7 +34,7 @@ The structure is designed to work with both regular tables (using BulkInsertStat
 ## Dependencies
 - Functions called/Symbols referenced:
   - MAX_BUFFERED_TUPLES
-  - TupleTableSlot
+  - [TupleTableSlot](../T/TupleTableSlot.md)
   - [ResultRelInfo](../R/ResultRelInfo.md)
   - [BulkInsertState](../B/BulkInsertState.md)
 - Called from (representative examples):

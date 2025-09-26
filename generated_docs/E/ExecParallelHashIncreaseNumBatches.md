@@ -29,7 +29,7 @@ The function handles the transition from single-batch to multi-batch mode specia
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BarrierPhase, BarrierArriveAndWait (barrier synchronization)
+  - [BarrierPhase](../B/BarrierPhase.md), BarrierArriveAndWait (barrier synchronization)
   - [ExecParallelHashCloseBatchAccessors](ExecParallelHashCloseBatchAccessors.md), ExecParallelHashEnsureBatchAccessors (batch management)
   - [ExecParallelHashJoinSetUpBatches](ExecParallelHashJoinSetUpBatches.md) (batch setup)
   - [ExecParallelHashRepartitionFirst](ExecParallelHashRepartitionFirst.md), ExecParallelHashRepartitionRest (repartitioning)

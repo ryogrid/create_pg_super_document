@@ -35,7 +35,7 @@ This function takes no parameters as it operates on global cluster state variabl
   -  - Verify successful completion of operations
   -  - [Initialize](../I/Initialize.md) progress reporting for database schemas
   -  - Execute pg_dump commands in parallel for each database
-  - , , , ,  - String buffer operations for connection strings
+  - , , , ,  - [String](../S/String.md) buffer operations for connection strings
   -  - Log database processing status
   -  - Wait for parallel processes to complete
   -  - Finalize progress reporting

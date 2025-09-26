@@ -26,11 +26,11 @@ When setting a new encoding, the function updates the database connection's enco
 ## Dependencies
 - Functions called/Symbols referenced:
   - psql_scan_slash_option
-  - pg_encoding_to_char
+  - [pg_encoding_to_char](../p/pg_encoding_to_char.md)
   - [PQsetClientEncoding](../P/PQsetClientEncoding.md)
   - [PQclientEncoding](../P/PQclientEncoding.md)
   - [setFmtEncoding](../s/setFmtEncoding.md)
-  - SetVariable
+  - [SetVariable](../S/SetVariable.md)
   - [ignore_slash_options](../i/ignore_slash_options.md)
   - [PsqlScanState](../P/PsqlScanState.md) (type)
   - OT_NORMAL (constant)

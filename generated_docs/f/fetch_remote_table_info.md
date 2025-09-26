@@ -47,7 +47,7 @@ Key features include:
   - [MakeSingleTupleTableSlot](../M/MakeSingleTupleTableSlot.md) (creates tuple slots for result processing)
   - [ExecDropSingleTupleTableSlot](../E/ExecDropSingleTupleTableSlot.md) (cleans up tuple slots)
   - [tuplestore_gettupleslot](../t/tuplestore_gettupleslot.md) (retrieves tuples from result sets)
-  - slot_getattr (extracts column values from tuples)
+  - [slot_getattr](../s/slot_getattr.md) (extracts column values from tuples)
   - [quote_literal_cstr](../q/quote_literal_cstr.md) (safely quotes SQL string literals)
   - [bms_add_member](../b/bms_add_member.md), bms_is_member (bitmap set operations for column tracking)
   - LogRepWorkerWalRcvConn (global WAL receiver connection)

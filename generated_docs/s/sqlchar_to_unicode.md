@@ -22,14 +22,14 @@ The function is designed to handle multi-byte characters correctly by determinin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_server_to_any (converts from server encoding to UTF-8)
-  - pg_mblen (determines character length in server encoding)
-  - pg_encoding_mb2wchar_with_len (converts UTF-8 to Unicode codepoint)
-  - pg_encoding_mblen (determines character length in UTF-8)
-  - pfree (frees allocated memory when needed)
+  - [pg_server_to_any](../p/pg_server_to_any.md) (converts from server encoding to UTF-8)
+  - [pg_mblen](../p/pg_mblen.md) (determines character length in server encoding)
+  - [pg_encoding_mb2wchar_with_len](../p/pg_encoding_mb2wchar_with_len.md) (converts UTF-8 to Unicode codepoint)
+  - [pg_encoding_mblen](../p/pg_encoding_mblen.md) (determines character length in UTF-8)
+  - [pfree](../p/pfree.md) (frees allocated memory when needed)
   - PG_UTF8 (UTF-8 encoding constant)
 - Called from (representative examples):
-  - map_sql_identifier_to_xml_name
+  - [map_sql_identifier_to_xml_name](../m/map_sql_identifier_to_xml_name.md)
 
 ## Notes and Other Information
 - This is a static function, accessible only within the xml.c compilation unit

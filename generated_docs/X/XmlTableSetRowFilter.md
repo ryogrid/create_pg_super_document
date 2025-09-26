@@ -24,9 +24,9 @@ The function requires that XmlTableSetDocument has been called previously to est
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetXmlTableBuilderPrivateData](../G/GetXmlTableBuilderPrivateData.md)
-  - pg_xmlCharStrndup
+  - [pg_xmlCharStrndup](../p/pg_xmlCharStrndup.md)
   - xmlXPathCtxtCompile (libxml2)
-  - xml_ereport
+  - [xml_ereport](../x/xml_ereport.md)
   - NO_XML_SUPPORT
 - Called from (representative examples):
   - No direct callers found in codebase analysis

@@ -22,7 +22,7 @@ This function implements the evaluation of "IS NOT NULL" tests for row expressio
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecEvalRowNullInt](ExecEvalRowNullInt.md): Internal implementation that performs the actual row null testing
-  - ExprEvalStep: Structure containing evaluation step details
+  - [ExprEvalStep](ExprEvalStep.md): Structure containing evaluation step details
 - Called from (representative examples):
   - [ExecInterpExpr](ExecInterpExpr.md): Main expression interpreter loop
   - [FunctionReturningBool](../F/FunctionReturningBool.md): JIT compilation type definitions

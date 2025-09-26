@@ -22,11 +22,11 @@ The function implements two levels of safety checking: first ensuring the 64-bit
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_add_s32_overflow (for safe 32-bit addition with overflow checking)
-  - pg_itm_in (structure type)
+  - [pg_add_s32_overflow](../p/pg_add_s32_overflow.md) (for safe 32-bit addition with overflow checking)
+  - [pg_itm_in](../p/pg_itm_in.md) (structure type)
 - Called from (representative examples):
-  - DecodeInterval (for processing month components in interval parsing)
-  - DecodeISO8601Interval (for ISO 8601 interval parsing month handling)
+  - [DecodeInterval](../D/DecodeInterval.md) (for processing month components in interval parsing)
+  - [DecodeISO8601Interval](../D/DecodeISO8601Interval.md) (for ISO 8601 interval parsing month handling)
 
 ## Notes and Other Information
 - Returns true on success, false if range check fails or overflow occurs

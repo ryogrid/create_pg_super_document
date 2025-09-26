@@ -27,7 +27,7 @@ This function combines different types of selectivity estimates to produce an ac
 - Functions called/Symbols referenced:
   - CLAMP_PROBABILITY
 - Called from (representative examples):
-  - statext_mcv_clauselist_selectivity (multiple calls)
+  - [statext_mcv_clauselist_selectivity](../s/statext_mcv_clauselist_selectivity.md) (multiple calls)
 
 ## Notes and Other Information
 - The function implements a sophisticated statistical model that accounts for partial MCV coverage

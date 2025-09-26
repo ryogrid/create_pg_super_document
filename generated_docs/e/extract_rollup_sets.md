@@ -32,7 +32,7 @@ The time complexity is O(n^2.5) worst case but typically much better in practice
 - Functions called/Symbols referenced:
   - [BipartiteMatch](../B/BipartiteMatch.md)
   - [BipartiteMatchFree](../B/BipartiteMatchFree.md)
-  - list_head
+  - [list_head](../l/list_head.md)
   - [lnext](../l/lnext.md)
   - for_each_cell
   - [bms_add_member](../b/bms_add_member.md)

@@ -22,7 +22,7 @@ This function compares a SearchPathMatcher against the current active search pat
 - Functions called/Symbols referenced:
   - [SearchPathMatcher](SearchPathMatcher.md) (type)
   - [recomputeNamespacePath](../r/recomputeNamespacePath.md)
-  - list_head
+  - [list_head](../l/list_head.md)
   - [lnext](../l/lnext.md)
   - lfirst_oid
   - activeSearchPath (global variable)

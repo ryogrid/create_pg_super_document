@@ -27,7 +27,7 @@ The function is designed to be called recursively through the expression_tree_mu
 ## Dependencies
 - Functions called/Symbols referenced:
   - [substitute_actual_parameters_context](substitute_actual_parameters_context.md) (context structure type)
-  - Param (parameter node type)
+  - [Param](../P/Param.md) (parameter node type)
   - PARAM_EXTERN (external parameter constant)
   - [list_nth](../l/list_nth.md) (gets nth element from list)
   - expression_tree_mutator (generic tree traversal function)

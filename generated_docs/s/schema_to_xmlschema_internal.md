@@ -22,16 +22,16 @@ This function creates an XML Schema (XSD) definition that describes the structur
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeStringInfo
+  - [makeStringInfo](../m/makeStringInfo.md)
   - [LookupExplicitNamespace](../L/LookupExplicitNamespace.md)
   - [xsd_schema_element_start](../x/xsd_schema_element_start.md)
-  - SPI_connect
+  - [SPI_connect](../S/SPI_connect.md)
   - [schema_get_xml_visible_tables](schema_get_xml_visible_tables.md)
   - [CreateTupleDescCopy](../C/CreateTupleDescCopy.md)
-  - map_sql_typecoll_to_xmlschema_types
-  - map_sql_schema_to_xmlschema_types
+  - [map_sql_typecoll_to_xmlschema_types](../m/map_sql_typecoll_to_xmlschema_types.md)
+  - [map_sql_schema_to_xmlschema_types](../m/map_sql_schema_to_xmlschema_types.md)
   - [xsd_schema_element_end](../x/xsd_schema_element_end.md)
-  - SPI_finish
+  - [SPI_finish](../S/SPI_finish.md)
 - Called from (representative examples):
   - [schema_to_xmlschema](schema_to_xmlschema.md)
   - [schema_to_xml_and_xmlschema](schema_to_xml_and_xmlschema.md)

@@ -27,9 +27,9 @@ TidExpr is a fundamental data structure used in TID scan operations within Postg
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CurrentOfExpr](../C/CurrentOfExpr.md) (alternative expression type for cursor-based TID access)
-  - ExprState (expression state for compiled TID expressions)
+  - [ExprState](../E/ExprState.md) (expression state for compiled TID expressions)
 - Called from (representative examples):
-  - TidListEval (evaluates TidExpr list to compute TIDs for scanning)
+  - [TidListEval](TidListEval.md) (evaluates TidExpr list to compute TIDs for scanning)
   - [TidExprListCreate](TidExprListCreate.md) (creates and initializes TidExpr structures)
 
 ## Notes and Other Information

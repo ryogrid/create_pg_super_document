@@ -31,11 +31,11 @@ The segment number is split into high and low parts based on the number of segme
   - XLogSegmentsPerXLogId (to calculate segment boundaries)
   - XLOGDIR (macro defining the WAL directory path)
 - Called from (representative examples):
-  - XLogFileInitInternal (creates new WAL files)
-  - XLogFileOpen (opens existing WAL files)
-  - InstallXLogFileSegment (installs pre-allocated WAL segments)
-  - XLogFileRead (reads WAL segments during recovery)
-  - WalSndSegmentOpen (opens WAL segments for replication)
+  - [XLogFileInitInternal](XLogFileInitInternal.md) (creates new WAL files)
+  - [XLogFileOpen](XLogFileOpen.md) (opens existing WAL files)
+  - [InstallXLogFileSegment](../I/InstallXLogFileSegment.md) (installs pre-allocated WAL segments)
+  - [XLogFileRead](XLogFileRead.md) (reads WAL segments during recovery)
+  - [WalSndSegmentOpen](../W/WalSndSegmentOpen.md) (opens WAL segments for replication)
 
 ## Notes and Other Information
 - This is an inline function defined in the header for performance optimization since it's frequently called

@@ -24,14 +24,14 @@ The magnitude is calculated as x² + y² for each complex number, avoiding the s
 ## Dependencies
 - Functions called/Symbols referenced:
   - Mag (macro for calculating magnitude as x² + y²)
-  - Complex (struct type for complex numbers)
+  - [Complex](../C/Complex.md) (struct type for complex numbers)
 - Called from (representative examples):
-  - complex_abs_lt
-  - complex_abs_le
-  - complex_abs_eq
-  - complex_abs_ge
-  - complex_abs_gt
-  - complex_abs_cmp
+  - [complex_abs_lt](complex_abs_lt.md)
+  - [complex_abs_le](complex_abs_le.md)
+  - [complex_abs_eq](complex_abs_eq.md)
+  - [complex_abs_ge](complex_abs_ge.md)
+  - [complex_abs_gt](complex_abs_gt.md)
+  - [complex_abs_cmp](complex_abs_cmp.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the complex.c file

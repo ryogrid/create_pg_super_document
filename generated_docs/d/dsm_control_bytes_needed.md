@@ -27,10 +27,10 @@ This calculation is essential for determining the appropriate size when creating
 ## Dependencies
 - Functions called/Symbols referenced:
   - offsetof (macro)
-  - dsm_control_header (structure type)
-  - dsm_control_item (structure type)
+  - [dsm_control_header](dsm_control_header.md) (structure type)
+  - [dsm_control_item](dsm_control_item.md) (structure type)
 - Called from (representative examples):
-  - dsm_postmaster_startup
+  - [dsm_postmaster_startup](dsm_postmaster_startup.md)
   - [dsm_control_segment_sane](dsm_control_segment_sane.md)
 
 ## Notes and Other Information

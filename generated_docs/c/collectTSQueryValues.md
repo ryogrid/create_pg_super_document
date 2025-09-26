@@ -35,5 +35,5 @@ This function iterates through all items in a TSQuery structure and extracts the
 - This is a static function, only accessible within the tsquery_op.c module
 - Memory is allocated using PostgreSQL's palloc system, which is automatically freed at transaction end
 - The function only processes QI_VAL type query items, skipping operators and other item types
-- String lengths are determined from the qoperand.length field and copied from the operand data at the specified distance offset
+- [String](../S/String.md) lengths are determined from the qoperand.length field and copied from the operand data at the specified distance offset
 - The returned array contains exactly `*nvalues_p` elements, all properly null-terminated strings

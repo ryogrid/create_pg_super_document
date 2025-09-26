@@ -60,7 +60,7 @@ The function supports multiple testing modes including single-user mode, bootstr
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_logging_init](../p/pg_logging_init.md), get_progname, set_pglocale_pgservice
-  - getopt_long (command-line parsing)
+  - [getopt_long](../g/getopt_long.md) (command-line parsing)
   - [help](../h/help.md) (displays usage information)
   - [make_absolute_path](../m/make_absolute_path.md), directory_exists, make_directory
   - [spawn_process](../s/spawn_process.md), PQpingParams (PostgreSQL connection testing)

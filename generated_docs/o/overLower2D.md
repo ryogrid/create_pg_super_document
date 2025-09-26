@@ -22,8 +22,8 @@ This function is part of PostgreSQL's geometric SP-GiST implementation for 2D sp
 - Functions called/Symbols referenced:
   - [FPle](../F/FPle.md) (floating-point less-than-or-equal comparison function, called twice)
 - Data types used:
-  - RangeBox
-  - Range
+  - [RangeBox](../R/RangeBox.md)
+  - [Range](../R/Range.md)
 - Called from (representative examples):
   - [overLeft4D](overLeft4D.md)
   - [overBelow4D](overBelow4D.md)

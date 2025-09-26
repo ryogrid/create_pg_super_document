@@ -29,14 +29,14 @@ The mapping logic handles both regular attribute filtering and deleted column sc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slot_getallattrs: Ensures all attributes are materialized in the input slot
-  - ExecClearTuple: Clears the result slot before building new tuple
-  - ExecStoreVirtualTuple: Materializes the filtered tuple as a virtual tuple
-  - JunkFilter: Input structure containing mapping and result slot
+  - [slot_getallattrs](../s/slot_getallattrs.md): Ensures all attributes are materialized in the input slot
+  - [ExecClearTuple](ExecClearTuple.md): Clears the result slot before building new tuple
+  - [ExecStoreVirtualTuple](ExecStoreVirtualTuple.md): Materializes the filtered tuple as a virtual tuple
+  - [JunkFilter](../J/JunkFilter.md): Input structure containing mapping and result slot
 - Called from (representative examples):
-  - ExecEvalWholeRowVar: For whole-row variable evaluation with junk filtering
-  - ExecutePlan: During main query execution when producing final results
-  - sqlfunction_receive: In SQL function execution contexts
+  - [ExecEvalWholeRowVar](ExecEvalWholeRowVar.md): For whole-row variable evaluation with junk filtering
+  - [ExecutePlan](ExecutePlan.md): During main query execution when producing final results
+  - [sqlfunction_receive](../s/sqlfunction_receive.md): In SQL function execution contexts
 
 ## Notes and Other Information
 - Returns a virtual tuple stored in the JunkFilter's result slot for efficiency

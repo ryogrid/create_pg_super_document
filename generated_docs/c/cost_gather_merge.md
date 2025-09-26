@@ -30,7 +30,7 @@ The costing model accounts for the algorithmic complexity of merging multiple so
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GatherMergePath (structure)
+  - [GatherMergePath](../G/GatherMergePath.md) (structure)
   - [ParamPathInfo](../P/ParamPathInfo.md) (structure)
   - Cost (type)
   - LOG2 (macro)

@@ -21,11 +21,11 @@ This internal function provides a snapshot-aware version of large object existen
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ScanKeyInit](../S/ScanKeyInit.md) (to initialize scan key)
-  - table_open (to open pg_largeobject_metadata relation)
+  - [table_open](../t/table_open.md) (to open pg_largeobject_metadata relation)
   - [systable_beginscan](../s/systable_beginscan.md) (to begin system catalog scan)
   - [systable_getnext](../s/systable_getnext.md) (to retrieve next tuple from scan)
   - [systable_endscan](../s/systable_endscan.md) (to end the scan)
-  - table_close (to close the relation)
+  - [table_close](../t/table_close.md) (to close the relation)
 - Called from (representative examples):
   - [inv_open](../i/inv_open.md)
 

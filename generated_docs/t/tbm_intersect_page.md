@@ -29,16 +29,16 @@ The function returns true if the resulting page becomes empty and should be dele
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - tbm_page_is_lossy
-  - tbm_find_pageentry
+  - [tbm_page_is_lossy](tbm_page_is_lossy.md)
+  - [tbm_find_pageentry](tbm_find_pageentry.md)
   - WORDS_PER_CHUNK (constant)
   - WORDS_PER_PAGE (constant)
   - BITS_PER_BITMAPWORD (constant)
   - bitmapword (type)
-  - PagetableEntry (type)
+  - [PagetableEntry](../P/PagetableEntry.md) (type)
 - Called from (representative examples):
-  - tbm_intersect (in src/backend/nodes/tidbitmap.c:549, 568)
-  - TBMSharedIterator (in src/backend/nodes/tidbitmap.c:230)
+  - [tbm_intersect](tbm_intersect.md) (in src/backend/nodes/tidbitmap.c:549, 568)
+  - [TBMSharedIterator](../T/TBMSharedIterator.md) (in src/backend/nodes/tidbitmap.c:230)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the tidbitmap.c module

@@ -27,13 +27,13 @@ The function handles arbitrarily large numbers of messages by breaking them into
 ## Dependencies
 - Functions called/Symbols referenced:
   - Min (macro)
-  - LWLockAcquire
-  - LWLockRelease
-  - SICleanupQueue
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
+  - [SICleanupQueue](SICleanupQueue.md)
   - SpinLockAcquire
   - SpinLockRelease
 - Data types referenced:
-  - SharedInvalidationMessage
+  - [SharedInvalidationMessage](SharedInvalidationMessage.md)
   - [SISeg](SISeg.md)
   - [ProcState](../P/ProcState.md)
 - Constants referenced:

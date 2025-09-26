@@ -19,10 +19,10 @@ The function is critical for vacuum operations and SLRU management decisions. Wh
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire (MultiXactGenLock, LW_SHARED)
+  - [LWLockAcquire](../L/LWLockAcquire.md) (MultiXactGenLock, LW_SHARED)
   - MultiXactIdIsValid
   - [MultiXactIdPrecedes](../M/MultiXactIdPrecedes.md)
-  - LWLockRelease
+  - [LWLockRelease](../L/LWLockRelease.md)
   - FirstMultiXactId
   - MaxOldestSlot
   - OldestMemberMXactId array

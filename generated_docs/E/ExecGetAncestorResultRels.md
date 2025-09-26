@@ -24,9 +24,9 @@ ExecGetAncestorResultRels builds and caches a list of ResultRelInfo structures r
   - [get_partition_ancestors](../g/get_partition_ancestors.md)
   - [InitResultRelInfo](../I/InitResultRelInfo.md)
   - RelationGetRelid
-  - table_open
+  - [table_open](../t/table_open.md)
   - makeNode
-  - lappend
+  - [lappend](../l/lappend.md)
   - elog/elog
   - Assert
 - Called from (representative examples):

@@ -18,12 +18,12 @@ This function generates and displays detailed help information about three categ
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQExpBufferData](../P/PQExpBufferData.md) (buffer structure for building output)
-  - initPQExpBuffer (initialize the output buffer)
+  - [initPQExpBuffer](../i/initPQExpBuffer.md) (initialize the output buffer)
   - HELP0/HELPN (macros for adding help text)
   - DEFAULT_FIELD_SEP (default field separator constant)
   - [PageOutput](../P/PageOutput.md) (handle paginated output)
   - [ClosePager](../C/ClosePager.md) (close the pager when done)
-  - termPQExpBuffer (cleanup the buffer)
+  - [termPQExpBuffer](../t/termPQExpBuffer.md) (cleanup the buffer)
 - Called from (representative examples):
   - [exec_command_slash_command_help](../e/exec_command_slash_command_help.md) (in src/bin/psql/command.c:3084)
   - [parse_psql_options](../p/parse_psql_options.md) (in src/bin/psql/startup.c:706)

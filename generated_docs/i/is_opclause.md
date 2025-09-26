@@ -20,7 +20,7 @@ This function provides a type-safe way to determine if a clause represents an op
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - OpExpr (node type)
+  - [OpExpr](../O/OpExpr.md) (node type)
   - IsA (macro for type checking)
 - Called from (representative examples):
   - [TidExprListCreate](../T/TidExprListCreate.md)
@@ -38,4 +38,4 @@ This function provides a type-safe way to determine if a clause represents an op
 - The function is NULL-safe, returning false when clause is NULL
 - Part of a family of similar type-checking functions for different node types in PostgreSQL's parse tree
 - Heavily used in join planning, selectivity estimation, predicate testing, and statistics collection
-- OpExpr is one of the most common expression types in SQL queries, making this function critical for query optimization
+- [OpExpr](../O/OpExpr.md) is one of the most common expression types in SQL queries, making this function critical for query optimization

@@ -30,9 +30,9 @@ The function performs lazy initialization of expression evaluation state on firs
 - Functions called/Symbols referenced:
   - GetPerTupleExprContext
   - [ExecPrepareExprList](../E/ExecPrepareExprList.md)
-  - list_head
-  - slot_getattr
-  - ExecEvalExprSwitchContext
+  - [list_head](../l/list_head.md)
+  - [slot_getattr](../s/slot_getattr.md)
+  - [ExecEvalExprSwitchContext](../E/ExecEvalExprSwitchContext.md)
   - [lnext](../l/lnext.md)
 - Called from (representative examples):
   - [ExecFindPartition](../E/ExecFindPartition.md) (for determining the correct partition for tuple routing)

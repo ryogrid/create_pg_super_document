@@ -33,12 +33,12 @@ The function includes comprehensive error handling using PostgreSQL's PG_TRY/PG_
 - Functions called/Symbols referenced:
   - [GetXmlTableBuilderPrivateData](../G/GetXmlTableBuilderPrivateData.md)
   - xmlSetStructuredErrorFunc (libxml2)
-  - xml_errorHandler
+  - [xml_errorHandler](../x/xml_errorHandler.md)
   - xmlXPathCompiledEval (libxml2)
-  - xml_ereport
+  - [xml_ereport](../x/xml_ereport.md)
   - [xml_xmlnodetoxmltype](../x/xml_xmlnodetoxmltype.md)
   - [appendStringInfoText](../a/appendStringInfoText.md)
-  - xml_pstrdup_and_free
+  - [xml_pstrdup_and_free](../x/xml_pstrdup_and_free.md)
   - [escape_xml](../e/escape_xml.md)
   - [get_type_category_preferred](../g/get_type_category_preferred.md)
   - [InputFunctionCall](../I/InputFunctionCall.md)

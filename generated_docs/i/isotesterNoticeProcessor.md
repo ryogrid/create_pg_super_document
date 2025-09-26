@@ -23,7 +23,7 @@ The notice tracking is particularly important for coordinating test step executi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsoConnInfo (structure type for connection information)
+  - [IsoConnInfo](../I/IsoConnInfo.md) (structure type for connection information)
   - printf (standard library function)
   - any_new_notice (global flag variable)
 - Called from (representative examples):

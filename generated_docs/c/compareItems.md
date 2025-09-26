@@ -26,7 +26,7 @@ The compareItems function is the central comparison engine for SQL/JSON path exp
   - memcmp
   - elog
   - Various JsonbValue type constants (jbvNull, jbvBool, jbvNumeric, jbvString, jbvDatetime, jbvBinary, jbvArray, jbvObject)
-  - JsonPath operation constants (jpiEqual, jpiNotEqual, jpiLess, etc.)
+  - [JsonPath](../J/JsonPath.md) operation constants (jpiEqual, jpiNotEqual, jpiLess, etc.)
   - JsonPathBool constants (jpbTrue, jpbFalse, jpbUnknown)
 - Called from (representative examples):
   - [executeComparison](../e/executeComparison.md)

@@ -41,7 +41,7 @@ The function applies policies in a specific order to ensure proper privilege esc
   - [get_policies_for_relation](get_policies_for_relation.md)
   - [add_security_quals](../a/add_security_quals.md)
   - [add_with_check_options](../a/add_with_check_options.md)
-  - table_open/table_close
+  - [table_open](../t/table_open.md)/table_close
   - [setRuleCheckAsUser](../s/setRuleCheckAsUser.md)
 - Called from (representative examples):
   - [fireRIRrules](../f/fireRIRrules.md)

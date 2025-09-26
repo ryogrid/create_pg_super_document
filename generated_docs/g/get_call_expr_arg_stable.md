@@ -24,17 +24,17 @@ The function considers two types of expressions as stable: true constants (Const
 ## Dependencies
 - Functions called/Symbols referenced:
   - [list_nth](../l/list_nth.md)
-  - list_length
+  - [list_length](../l/list_length.md)
   - IsA (macro)
 - Expression node types referenced:
-  - FuncExpr
-  - OpExpr
+  - [FuncExpr](../F/FuncExpr.md)
+  - [OpExpr](../O/OpExpr.md)
   - DistinctExpr
-  - ScalarArrayOpExpr
+  - [ScalarArrayOpExpr](../S/ScalarArrayOpExpr.md)
   - NullIfExpr
-  - WindowFunc
-  - Const
-  - Param
+  - [WindowFunc](../W/WindowFunc.md)
+  - [Const](../C/Const.md)
+  - [Param](../P/Param.md)
 - Constants referenced:
   - PARAM_EXTERN
 - Called from (representative examples):

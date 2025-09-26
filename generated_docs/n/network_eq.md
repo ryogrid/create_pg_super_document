@@ -35,7 +35,7 @@ For cidr types, subnet bits are always zero, so equality depends primarily on th
 - Called from (representative examples):
   - SQL queries using the '=' operator between inet/cidr values
   - Internal PostgreSQL operations requiring network address equality testing
-  - Hash table lookups and joins involving inet/cidr columns
+  - [Hash](../H/Hash.md) table lookups and joins involving inet/cidr columns
 
 ## Notes and Other Information
 - This is a PostgreSQL function following the fmgr (function manager) calling convention

@@ -26,7 +26,7 @@ The function retrieves the cached tuple descriptor for the result type, then use
   - [get_cached_rowtype](../g/get_cached_rowtype.md): Retrieves the cached tuple descriptor for the result type
   - [heap_form_tuple](../h/heap_form_tuple.md): Creates a new HeapTuple from field values and null indicators
   - [HeapTupleGetDatum](../H/HeapTupleGetDatum.md): Converts the HeapTuple to a Datum for storage
-  - ExprEvalStep: Structure containing operation data and temporary storage
+  - [ExprEvalStep](ExprEvalStep.md): Structure containing operation data and temporary storage
 - Called from (representative examples):
   - [ExecInterpExpr](ExecInterpExpr.md): Main expression interpreter dispatch function
   - [FunctionReturningBool](../F/FunctionReturningBool.md): JIT compilation type mapping function

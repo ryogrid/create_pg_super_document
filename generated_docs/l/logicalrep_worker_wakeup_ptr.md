@@ -22,14 +22,14 @@ The function performs a simple but critical operation: setting the worker's proc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockHeldByMe: Asserts that the caller holds LogicalRepWorkerLock to prevent race conditions
-  - SetLatch: Sets the worker process's latch to wake it up
+  - [LWLockHeldByMe](../L/LWLockHeldByMe.md): Asserts that the caller holds LogicalRepWorkerLock to prevent race conditions
+  - [SetLatch](../S/SetLatch.md): Sets the worker process's latch to wake it up
 
 - Called from:
-  - logicalrep_worker_wakeup: Higher-level function that finds and wakes workers by subscription/relation
-  - wait_for_worker_state_change: Used during table synchronization state transitions
-  - tablesync_start_time_mapping: Coordinates timing during table synchronization startup
-  - AtEOXact_LogicalRepWorkers: Wakes workers during transaction end processing
+  - [logicalrep_worker_wakeup](logicalrep_worker_wakeup.md): Higher-level function that finds and wakes workers by subscription/relation
+  - [wait_for_worker_state_change](../w/wait_for_worker_state_change.md): Used during table synchronization state transitions
+  - [tablesync_start_time_mapping](../t/tablesync_start_time_mapping.md): Coordinates timing during table synchronization startup
+  - [AtEOXact_LogicalRepWorkers](../A/AtEOXact_LogicalRepWorkers.md): Wakes workers during transaction end processing
 
 ## Notes and Other Information
 - Requires LogicalRepWorkerLock to be held by caller (asserted at runtime)

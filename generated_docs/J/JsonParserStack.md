@@ -35,15 +35,15 @@ JsonParserStack is a core data structure used in PostgreSQL's non-recursive JSON
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonTokenType
+  - [JsonTokenType](JsonTokenType.md)
 - Called from (representative examples):
   - makeJsonLexContextIncremental
-  - push_prediction
-  - pop_prediction
-  - next_prediction
-  - have_prediction
-  - pg_parse_json
-  - pg_parse_json_incremental
+  - [push_prediction](../p/push_prediction.md)
+  - [pop_prediction](../p/pop_prediction.md)
+  - [next_prediction](../n/next_prediction.md)
+  - [have_prediction](../h/have_prediction.md)
+  - [pg_parse_json](../p/pg_parse_json.md)
+  - [pg_parse_json_incremental](../p/pg_parse_json_incremental.md)
 
 ## Notes and Other Information
 The typedef for this structure appears in jsonapi.h, making it available throughout the PostgreSQL codebase. This structure is essential for incremental JSON parsing, allowing the parser to maintain state between calls and handle arbitrarily large JSON documents without risking stack overflow from deep recursion.

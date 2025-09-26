@@ -19,11 +19,11 @@ The `next_prediction` function provides a non-destructive look-ahead operation f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonParserStack (struct type)
+  - [JsonParserStack](../J/JsonParserStack.md) (struct type)
   - Assert (macro for debugging checks)
 - Called from (representative examples):
-  - pg_parse_json_incremental (at src/common/jsonapi.c:938)
-  - pg_parse_json_incremental (at src/common/jsonapi.c:965)
+  - [pg_parse_json_incremental](../p/pg_parse_json_incremental.md) (at src/common/jsonapi.c:938)
+  - [pg_parse_json_incremental](../p/pg_parse_json_incremental.md) (at src/common/jsonapi.c:965)
 
 ## Notes and Other Information
 - This is a static inline function for performance optimization

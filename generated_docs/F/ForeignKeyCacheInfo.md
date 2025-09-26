@@ -56,16 +56,16 @@ The structure caches the essential information about a foreign key constraint, i
   - INDEX_MAX_KEYS (constant defining maximum array size)
   - NodeTag, Oid, AttrNumber (basic PostgreSQL types)
 - Called from (representative examples):
-  - RelationGetFKeyList (relcache management)
-  - get_relation_foreign_keys (planner interface)
-  - addFkRecurseReferencing (DDL operations)
-  - CloneFkReferencing (partition management)
-  - DetachPartitionFinalize (partition operations)
+  - [RelationGetFKeyList](../R/RelationGetFKeyList.md) (relcache management)
+  - [get_relation_foreign_keys](../g/get_relation_foreign_keys.md) (planner interface)
+  - [addFkRecurseReferencing](../a/addFkRecurseReferencing.md) (DDL operations)
+  - [CloneFkReferencing](../C/CloneFkReferencing.md) (partition management)
+  - [DetachPartitionFinalize](../D/DetachPartitionFinalize.md) (partition operations)
 
 ## Notes and Other Information
 - The structure is primarily used by the query planner to make optimization decisions based on foreign key relationships
 - Arrays are fixed-size with INDEX_MAX_KEYS elements, but only the first nkeys entries contain valid data
 - The "flat" design without substructure allows efficient memory management and list operations
-- Node attributes (no_equal, no_read, no_query_jumble) indicate this structure should not participate in certain node operations
+- [Node](../N/Node.md) attributes (no_equal, no_read, no_query_jumble) indicate this structure should not participate in certain node operations
 - This caching mechanism significantly improves performance for queries involving tables with many foreign key relationships
 - The structure has grown over time as new use cases have been identified, originally focused on planner needs but now including constraint OIDs for other purposes

@@ -26,7 +26,7 @@ This function is essential for proper traversal of Shift-JIS encoded strings wit
 - Functions called/Symbols referenced:
   - IS_HIGHBIT_SET
 - Called from (representative examples):
-  - pg_sjis_verifychar
+  - [pg_sjis_verifychar](pg_sjis_verifychar.md)
   - [pg_encoding_set_invalid](pg_encoding_set_invalid.md)
   - [debackslash_path](../d/debackslash_path.md)
 

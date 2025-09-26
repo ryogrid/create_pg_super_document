@@ -29,7 +29,7 @@ The function may allocate memory during the conversion process, potentially lead
 - Called from (representative examples):
   - UTF_E2U (macro wrapper)
   - [pltcl_trigger_handler](../p/pltcl_trigger_handler.md)
-  - pltcl_event_trigger_handler
+  - [pltcl_event_trigger_handler](../p/pltcl_event_trigger_handler.md)
 
 ## Notes and Other Information
 - This function is the complement to `utf_u2e` for bidirectional UTF-8/database encoding conversion

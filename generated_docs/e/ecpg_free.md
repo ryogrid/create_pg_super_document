@@ -24,17 +24,17 @@ The function simply delegates to the standard  function, making it safe to use w
 - Functions called/Symbols referenced:
   - free (standard C library function)
 - Called from (representative examples):
-  - ecpg_finish
-  - ECPGconnect
-  - ECPGget_desc
-  - descriptor_free
-  - free_variable
-  - free_statement
-  - ecpg_store_input
-  - ecpg_free_params
-  - ecpg_auto_alloc
-  - ECPGfree_auto_mem
-  - deallocate_one
+  - [ecpg_finish](ecpg_finish.md)
+  - [ECPGconnect](../E/ECPGconnect.md)
+  - [ECPGget_desc](../E/ECPGget_desc.md)
+  - [descriptor_free](../d/descriptor_free.md)
+  - [free_variable](../f/free_variable.md)
+  - [free_statement](../f/free_statement.md)
+  - [ecpg_store_input](ecpg_store_input.md)
+  - [ecpg_free_params](ecpg_free_params.md)
+  - [ecpg_auto_alloc](ecpg_auto_alloc.md)
+  - [ECPGfree_auto_mem](../E/ECPGfree_auto_mem.md)
+  - [deallocate_one](../d/deallocate_one.md)
 
 ## Notes and Other Information
 - This function is extensively used throughout the ECPG library for memory cleanup

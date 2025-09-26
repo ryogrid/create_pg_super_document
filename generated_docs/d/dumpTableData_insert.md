@@ -28,7 +28,7 @@ Key features include special handling for generated columns (either excluded or 
   - DumpOptions (struct)
   - RELKIND_FOREIGN_TABLE
   - [set_restrict_relation_kind](../s/set_restrict_relation_kind.md)
-  - pg_malloc
+  - [pg_malloc](../p/pg_malloc.md)
   - [fmtId](../f/fmtId.md)
   - fmtQualifiedDumpable
   - [ExecuteSqlStatement](../E/ExecuteSqlStatement.md)
@@ -37,11 +37,11 @@ Key features include special handling for generated columns (either excluded or 
   - [PQnfields](../P/PQnfields.md)
   - [forcePartitionRootLoad](../f/forcePartitionRootLoad.md)
   - [getRootTableInfo](../g/getRootTableInfo.md)
-  - appendPQExpBufferChar
+  - [appendPQExpBufferChar](../a/appendPQExpBufferChar.md)
   - [PQfname](../P/PQfname.md)
   - [archputs](../a/archputs.md)
   - [PQgetisnull](../P/PQgetisnull.md)
-  - PQftype
+  - [PQftype](../P/PQftype.md)
   - [archprintf](../a/archprintf.md)
   - [resetPQExpBuffer](../r/resetPQExpBuffer.md)
   - appendStringLiteralAH

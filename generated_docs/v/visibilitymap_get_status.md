@@ -26,7 +26,7 @@ This function is designed to be called without locks on the heap page, making it
 - Functions called/Symbols referenced:
   - HEAPBLK_TO_MAPBLOCK/HEAPBLK_TO_MAPBYTE/HEAPBLK_TO_OFFSET (heap-to-map conversion macros)
   - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md) (gets block number from buffer)
-  - ReleaseBuffer (releases buffer when wrong page is pinned)
+  - [ReleaseBuffer](../R/ReleaseBuffer.md) (releases buffer when wrong page is pinned)
   - [vm_readbuf](vm_readbuf.md) (reads visibility map page, with extend=false)
   - [PageGetContents](../P/PageGetContents.md) (gets page contents from buffer)
   - VISIBILITYMAP_VALID_BITS (mask for extracting valid visibility bits)

@@ -29,15 +29,15 @@ The cloning process is recursive and handles complex scenarios including overlap
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - isconstraintarc (checks if an arc is a constraint arc)
-  - newstate (creates a new state in the NFA)
+  - [isconstraintarc](../i/isconstraintarc.md) (checks if an arc is a constraint arc)
+  - [newstate](../n/newstate.md) (creates a new state in the NFA)
   - NISERR (error checking macro)
-  - clonesuccessorstates (recursively clones successor states)
-  - freestate (deallocates a state)
-  - cparc (copies an arc between states)
-  - freearc (deallocates an arc)
+  - [clonesuccessorstates](../c/clonesuccessorstates.md) (recursively clones successor states)
+  - [freestate](../f/freestate.md) (deallocates a state)
+  - [cparc](../c/cparc.md) (copies an arc between states)
+  - [freearc](../f/freearc.md) (deallocates an arc)
 - Called from (representative examples):
-  - findconstraintloop (when a constraint loop is detected)
+  - [findconstraintloop](../f/findconstraintloop.md) (when a constraint loop is detected)
 
 ## Notes and Other Information
 - Uses tmp fields of states to track loop membership and resets them after processing

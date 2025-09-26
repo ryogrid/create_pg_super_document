@@ -28,7 +28,7 @@ The structure works in conjunction with the TidExprType enumeration (TIDEXPR_UPP
 ## Dependencies
 - Functions called/Symbols referenced:
   - TidExprType (enum with TIDEXPR_UPPER_BOUND, TIDEXPR_LOWER_BOUND values)
-  - ExprState (PostgreSQL expression state structure)
+  - [ExprState](../E/ExprState.md) (PostgreSQL expression state structure)
 - Called from (representative examples):
   - [MakeTidOpExpr](../M/MakeTidOpExpr.md) (creates TidOpExpr instances from OpExpr nodes)
   - [TidExprListCreate](TidExprListCreate.md) (builds lists of TidOpExpr for range scanning)

@@ -23,11 +23,11 @@ The function returns a newly allocated string containing the properly quoted and
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (system cache lookup for type information)
-  - get_namespace_name_or_temp (namespace name resolution) 
-  - quote_qualified_identifier (proper quoting of schema.typename format)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup for type information)
+  - [get_namespace_name_or_temp](get_namespace_name_or_temp.md) (namespace name resolution) 
+  - [quote_qualified_identifier](../q/quote_qualified_identifier.md) (proper quoting of schema.typename format)
 - Called from (representative examples):
-  - pg_get_constraintdef_worker (constraint definition formatting, likely for domain constraints)
+  - [pg_get_constraintdef_worker](../p/pg_get_constraintdef_worker.md) (constraint definition formatting, likely for domain constraints)
 
 ## Notes and Other Information
 - Always schema-qualifies type names, unlike format_type_be()

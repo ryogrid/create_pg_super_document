@@ -27,7 +27,7 @@ The `interval_in` function is the input conversion function for PostgreSQL's int
   - [DecodeISO8601Interval](../D/DecodeISO8601Interval.md) (fallback ISO8601 parsing)
   - [itmin2interval](itmin2interval.md) (convert internal time structure to Interval)
   - [AdjustIntervalForTypmod](../A/AdjustIntervalForTypmod.md) (apply type modifier constraints)
-  - DateTimeParseError (error reporting)
+  - [DateTimeParseError](../D/DateTimeParseError.md) (error reporting)
   - INTERVAL_RANGE, INTERVAL_FULL_RANGE (typmod handling)
   - INTERVAL_NOEND, INTERVAL_NOBEGIN (special infinity values)
 - Called from (representative examples):

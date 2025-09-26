@@ -24,10 +24,10 @@ The function checks three categories of buffer usage: shared buffers, local buff
 - Functions called/Symbols referenced:
   - EXPLAIN_FORMAT_TEXT
   - INSTR_TIME_IS_ZERO (macro for checking zero timing values)
-  - BufferUsage (structure with buffer counters)
+  - [BufferUsage](../B/BufferUsage.md) (structure with buffer counters)
 - Called from (representative examples):
   - [ExplainOnePlan](../E/ExplainOnePlan.md)
-  - ExplainPrintSerialize
+  - [ExplainPrintSerialize](../E/ExplainPrintSerialize.md)
 
 ## Notes and Other Information
 - Returns false immediately if usage parameter is NULL

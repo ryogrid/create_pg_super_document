@@ -21,7 +21,7 @@ This function handles the Describe message for portals in PostgreSQL's extended 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [start_xact_command](../s/start_xact_command.md)
-  - GetPortalByName
+  - [GetPortalByName](../G/GetPortalByName.md)
   - PortalIsValid
   - [IsAbortedTransactionBlockState](../I/IsAbortedTransactionBlockState.md)
   - [SendRowDescriptionMessage](../S/SendRowDescriptionMessage.md)

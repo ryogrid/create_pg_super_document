@@ -29,7 +29,7 @@ The implementation notes that it would be possible to optimize by ignoring windo
 - Types referenced:
   - [TargetEntry](../T/TargetEntry.md)
   - [Query](../Q/Query.md)
-  - WindowClause
+  - [WindowClause](../W/WindowClause.md)
   - InvalidOid (constant)
 - Called from (representative examples):
   - [check_output_expressions](../c/check_output_expressions.md) (src/backend/optimizer/path/allpaths.c:3752)

@@ -35,9 +35,9 @@ This static function performs the core BRIN summarization operation for a specif
   - [brinGetTupleForHeapBlock](../b/brinGetTupleForHeapBlock.md)
   - [brin_copy_tuple](../b/brin_copy_tuple.md)
   - [union_tuples](../u/union_tuples.md)
-  - ReleaseBuffer
+  - [ReleaseBuffer](../R/ReleaseBuffer.md)
 - Types referenced:
-  - IndexInfo
+  - [IndexInfo](../I/IndexInfo.md)
   - [BrinBuildState](../B/BrinBuildState.md)
   - [BrinTuple](../B/BrinTuple.md)
   - BlockNumber

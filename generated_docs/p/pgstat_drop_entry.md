@@ -22,23 +22,23 @@ The `pgstat_drop_entry` function removes a statistics entry identified by its ki
 ## Dependencies
 - Functions called/Symbols referenced:
   - pgstat_entry_ref_hash_lookup
-  - pgstat_release_entry_ref
-  - dshash_find
-  - pgstat_drop_entry_internal
-  - pgstat_drop_database_and_contents
+  - [pgstat_release_entry_ref](pgstat_release_entry_ref.md)
+  - [dshash_find](../d/dshash_find.md)
+  - [pgstat_drop_entry_internal](pgstat_drop_entry_internal.md)
+  - [pgstat_drop_database_and_contents](pgstat_drop_database_and_contents.md)
 - Types used:
-  - PgStat_Kind
-  - PgStat_HashKey
-  - PgStatShared_HashEntry
-  - PgStat_EntryRefHashEntry
+  - [PgStat_Kind](../P/PgStat_Kind.md)
+  - [PgStat_HashKey](../P/PgStat_HashKey.md)
+  - [PgStatShared_HashEntry](../P/PgStatShared_HashEntry.md)
+  - [PgStat_EntryRefHashEntry](../P/PgStat_EntryRefHashEntry.md)
 - Constants used:
   - PGSTAT_KIND_DATABASE
 - Called from (representative examples):
-  - pgstat_init_function_usage
-  - pgstat_drop_replslot
-  - AtEOXact_PgStat_DroppedStats
-  - AtEOSubXact_PgStat_DroppedStats
-  - pgstat_execute_transactional_drops
+  - [pgstat_init_function_usage](pgstat_init_function_usage.md)
+  - [pgstat_drop_replslot](pgstat_drop_replslot.md)
+  - [AtEOXact_PgStat_DroppedStats](../A/AtEOXact_PgStat_DroppedStats.md)
+  - [AtEOSubXact_PgStat_DroppedStats](../A/AtEOSubXact_PgStat_DroppedStats.md)
+  - [pgstat_execute_transactional_drops](pgstat_execute_transactional_drops.md)
 
 ## Notes and Other Information
 - Returns false if the stats entry could not be freed, true otherwise

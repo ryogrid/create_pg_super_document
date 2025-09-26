@@ -38,7 +38,7 @@ The implementation carefully handles boundary conditions including zero-length s
   - [hlfinditem](../h/hlfinditem.md): Text search parsing operations
   - [gin_cmp_tslexeme](../g/gin_cmp_tslexeme.md): GIN index comparison for tsvector lexemes
   - [gin_cmp_prefix](../g/gin_cmp_prefix.md): GIN index prefix comparison
-  - QTNodeCompare: Query tree node comparison
+  - [QTNodeCompare](../Q/QTNodeCompare.md): Query tree node comparison
   - WordECompareQueryItem: Query ranking comparisons
   - [compareQueryOperand](../c/compareQueryOperand.md): Query operand comparison in ranking
   - [compareentry](../c/compareentry.md): Entry comparison in tsvector operations

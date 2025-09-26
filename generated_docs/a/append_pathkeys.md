@@ -61,7 +61,7 @@ The function is essential for combining ordering requirements from different par
   - Assert (assertion macro)
   - lfirst_node (list iteration with node type checking)
   - [pathkey_is_redundant](../p/pathkey_is_redundant.md) (redundancy checking function)
-  - lappend (list append operation)
+  - [lappend](../l/lappend.md) (list append operation)
 - Called from (representative examples):
   - [adjust_group_pathkeys_for_groupagg](adjust_group_pathkeys_for_groupagg.md)
   - [make_pathkeys_for_window](../m/make_pathkeys_for_window.md)

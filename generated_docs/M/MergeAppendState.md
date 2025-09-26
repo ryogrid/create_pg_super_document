@@ -40,14 +40,14 @@ MergeAppendState maintains the execution state for a MergeAppend plan node, whic
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SortSupport
+  - [SortSupport](../S/SortSupport.md)
   - [binaryheap](../b/binaryheap.md)
-  - PartitionPruneState
+  - [PartitionPruneState](../P/PartitionPruneState.md)
 - Called from (representative examples):
-  - ExecInitMergeAppend
-  - ExecMergeAppend
-  - ExecEndMergeAppend
-  - ExecReScanMergeAppend
+  - [ExecInitMergeAppend](../E/ExecInitMergeAppend.md)
+  - [ExecMergeAppend](../E/ExecMergeAppend.md)
+  - [ExecEndMergeAppend](../E/ExecEndMergeAppend.md)
+  - [ExecReScanMergeAppend](../E/ExecReScanMergeAppend.md)
 
 ## Notes and Other Information
 - Used primarily in partitioned table scans where each partition is sorted and results need to be merged in order

@@ -23,7 +23,7 @@ The function is particularly useful when dealing with multibyte character encodi
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_encoding_mblen](pg_encoding_mblen.md): Gets the theoretical byte length of a multibyte character
-  - `strnlen`: Standard C library function to find string length with boundary limit
+  - `[strnlen](../s/strnlen.md)`: Standard C library function to find string length with boundary limit
 
 - Called from (representative examples):
   - No direct callers found in the current codebase

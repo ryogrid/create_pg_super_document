@@ -27,7 +27,7 @@ This function performs a simple but essential task in index creation: it updates
   - RelationGetDescr: Retrieves the tuple descriptor from the index relation
   - TupleDescAttr: Macro to access individual attributes within the tuple descriptor
 - Called from (representative examples):
-  - index_create: During the index creation process after the relation is established
+  - [index_create](../i/index_create.md): During the index creation process after the relation is established
   - SerializedReindexState: During reindex operations
 
 ## Notes and Other Information

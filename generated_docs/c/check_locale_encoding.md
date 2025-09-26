@@ -37,8 +37,8 @@ LC_ALL=: The locale name string to check encoding compatibility against
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_get_encoding_from_locale (determines the encoding naturally used by the locale)
-  - pg_encoding_to_char (converts encoding IDs to human-readable names)
+  - [pg_get_encoding_from_locale](../p/pg_get_encoding_from_locale.md) (determines the encoding naturally used by the locale)
+  - [pg_encoding_to_char](../p/pg_encoding_to_char.md) (converts encoding IDs to human-readable names)
   - pg_log_error (logs error messages)
   - pg_log_error_detail (provides detailed error explanations)
   - pg_log_error_hint (offers suggestions for resolution)

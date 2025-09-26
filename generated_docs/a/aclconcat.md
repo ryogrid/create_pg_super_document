@@ -20,14 +20,14 @@ The `aclconcat` function combines two ACLs by creating a new ACL that contains a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `allocacl` - Allocates memory for the new combined ACL
+  - `[allocacl](allocacl.md)` - Allocates memory for the new combined ACL
   - `ACL_NUM` - Macro to get the number of entries in an ACL
   - `ACL_DAT` - Macro to access the data portion of an ACL
   - `memcpy` - Standard library function for memory copying
   - `AclItem` - Structure type representing individual ACL entries
-  - `Acl` - ACL structure type definition
+  - `[Acl](../A/Acl.md)` - ACL structure type definition
 - Called from (representative examples):
-  - `ExecGrant_Attribute` - During attribute-level permission grants
+  - `[ExecGrant_Attribute](../E/ExecGrant_Attribute.md)` - During attribute-level permission grants
   - Referenced in `AclResult` type definitions
 
 ## Notes and Other Information

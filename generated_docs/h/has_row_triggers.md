@@ -36,13 +36,13 @@ The function properly manages relation access by closing the relation after insp
 ## Dependencies
 - Functions called/Symbols referenced:
   - planner_rt_fetch
-  - table_open
-  - table_close
-  - TriggerDesc
+  - [table_open](../t/table_open.md)
+  - [table_close](../t/table_close.md)
+  - [TriggerDesc](../T/TriggerDesc.md)
   - CmdType
   - CMD_INSERT, CMD_UPDATE, CMD_DELETE, CMD_MERGE
 - Called from (representative examples):
-  - make_modifytable
+  - [make_modifytable](../m/make_modifytable.md)
 
 ## Notes and Other Information
 The function assumes that the caller already holds adequate locking on the relation, so it uses NoLock when opening and closing the relation. This is a common pattern in planner code where relations are accessed for metadata inspection. The presence of row-level triggers affects planning decisions because triggers can modify data, perform additional operations, or even prevent the operation from completing, all of which impact cost estimates and execution strategies. The function explicitly handles the MERGE command by returning false, as MERGE trigger handling is managed through the individual INSERT/UPDATE/DELETE operations that comprise the MERGE.

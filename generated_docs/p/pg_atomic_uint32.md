@@ -37,7 +37,7 @@ The implementation is architecture-aware, with optimized versions for x86, Power
   - [LWLock](../L/LWLock.md) (lightweight lock state)
   - [PGPROC](../P/PGPROC.md) (process control block linking)
   - [BufferDesc](../B/BufferDesc.md) (buffer management)
-  - ParallelHashJoinState (parallel query execution)
+  - [ParallelHashJoinState](../P/ParallelHashJoinState.md) (parallel query execution)
 
 ## Notes and Other Information
 - Used extensively in PostgreSQL's locking subsystem, particularly in LWLock structures for maintaining lock state

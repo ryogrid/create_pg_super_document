@@ -45,8 +45,8 @@ The structure uses a flexible array member for the nodes, allowing for variable-
   - [binaryheap_remove_first](binaryheap_remove_first.md)
   - [MergeAppendState](../M/MergeAppendState.md) (in executor nodes)
   - [GatherMergeState](../G/GatherMergeState.md) (in parallel query execution)
-  - BufferSync (in buffer management)
-  - ReorderBufferIterTXNState (in logical replication)
+  - [BufferSync](../B/BufferSync.md) (in buffer management)
+  - [ReorderBufferIterTXNState](../R/ReorderBufferIterTXNState.md) (in logical replication)
 
 ## Notes and Other Information
 - The heap uses a dual API: Datum-based for backend code and void*-based for frontend code, determined by the FRONTEND compilation flag

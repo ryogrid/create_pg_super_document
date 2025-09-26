@@ -34,7 +34,7 @@ The magnetic disk storage manager maintains arrays of these structures in the SM
   - File (typedef from fd.c)
   - BlockNumber (typedef)
 - Used by:
-  - SMgrRelationData.md_seg_fds (arrays of _MdfdVec pointers for each fork)
+  - [SMgrRelationData](../S/SMgrRelationData.md).md_seg_fds (arrays of _MdfdVec pointers for each fork)
 
 ## Notes and Other Information
 - All  objects are allocated in the MdCxt memory context for efficient memory management

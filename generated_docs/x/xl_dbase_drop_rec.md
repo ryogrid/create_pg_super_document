@@ -33,11 +33,11 @@ The record type is identified by XLOG_DBASE_DROP (0x20) and ensures that all dat
   - FLEXIBLE_ARRAY_MEMBER (macro)
   - offsetof (used in MinSizeOfDbaseDropRec)
 - Called from (representative examples):
-  - movedb (dbcommands.c:2263, 2269)
-  - remove_dbtablespaces (dbcommands.c:3021)
-  - dbase_redo (dbcommands.c:3370)
-  - dbase_desc (dbasedesc.c:46)
-  - SummarizeDbaseRecord (walsummarizer.c:1296, 1300)
+  - [movedb](../m/movedb.md) (dbcommands.c:2263, 2269)
+  - [remove_dbtablespaces](../r/remove_dbtablespaces.md) (dbcommands.c:3021)
+  - [dbase_redo](../d/dbase_redo.md) (dbcommands.c:3370)
+  - [dbase_desc](../d/dbase_desc.md) (dbasedesc.c:46)
+  - [SummarizeDbaseRecord](../S/SummarizeDbaseRecord.md) (walsummarizer.c:1296, 1300)
 
 ## Notes and Other Information
 - Part of the database resource manager XLOG system for create/drop database operations

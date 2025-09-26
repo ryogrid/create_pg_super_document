@@ -32,7 +32,7 @@ The structure supports both database-specific catalogs and shared system catalog
   - int8 (PostgreSQL integer type)
   - SHAREDINVALCATALOG_ID (constant defined as -1)
 - Called from (representative examples):
-  - SharedInvalidationMessage (union containing this structure)
+  - [SharedInvalidationMessage](SharedInvalidationMessage.md) (union containing this structure)
   - Catalog invalidation functions in the sinval subsystem
 
 ## Notes and Other Information

@@ -21,7 +21,7 @@ This function takes a JSONB scalar value and converts it to its JSON string repr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendBinaryStringInfo (for null, true, false literals)
+  - [appendBinaryStringInfo](../a/appendBinaryStringInfo.md) (for null, true, false literals)
   - [escape_json](../e/escape_json.md) (for string escaping)
   - [pnstrdup](../p/pnstrdup.md) (for string duplication)
   - [DatumGetCString](../D/DatumGetCString.md), DirectFunctionCall1, numeric_out (for numeric conversion)
@@ -33,8 +33,8 @@ This function takes a JSONB scalar value and converts it to its JSON string repr
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the same source file (jsonb.c)
 - The function uses a switch statement to handle different JSONB scalar types efficiently
-- String values are properly escaped using the escape_json function to ensure valid JSON output
-- Numeric values are converted using PostgreSQL's numeric_out function for proper formatting
-- Boolean values are converted to the standard JSON literals "true" and "false"
+- [String](../S/String.md) values are properly escaped using the escape_json function to ensure valid JSON output
+- [Numeric](../N/Numeric.md) values are converted using PostgreSQL's numeric_out function for proper formatting
+- [Boolean](../B/Boolean.md) values are converted to the standard JSON literals "true" and "false"
 - The function will raise an ERROR if an unknown scalar type is encountered
 - This function is primarily used as a helper in JSONB to string conversion routines

@@ -22,7 +22,7 @@ The function handles both defined variables with NULL values and completely unde
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - VariableSpace (typedef)
+  - [VariableSpace](../V/VariableSpace.md) (typedef)
   - struct _variable (internal variable structure)
   - strcmp (standard C library function)
 - Called from (representative examples):

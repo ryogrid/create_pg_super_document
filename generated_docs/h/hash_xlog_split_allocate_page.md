@@ -24,8 +24,8 @@ The function operates on three buffers: it updates the old bucket page's special
 - Functions called/Symbols referenced:
   - [xl_hash_split_allocate_page](../x/xl_hash_split_allocate_page.md) (WAL record structure)
   - XLogRecGetData (extracts record data)
-  - XLogReadBufferForRedoExtended (reads buffer with extended options)
-  - XLogReadBufferForRedo (reads buffer for redo)
+  - [XLogReadBufferForRedoExtended](../X/XLogReadBufferForRedoExtended.md) (reads buffer with extended options)
+  - [XLogReadBufferForRedo](../X/XLogReadBufferForRedo.md) (reads buffer for redo)
   - [XLogRecGetBlockData](../X/XLogRecGetBlockData.md) (gets block data from record)
   - [_hash_initbuf](_hash_initbuf.md) (initializes hash page buffer)
   - HashPageGetOpaque (gets page opaque data)

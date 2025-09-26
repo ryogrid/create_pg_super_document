@@ -48,7 +48,7 @@ This static function constructs a WindowAgg plan node that handles window functi
 - Functions called/Symbols referenced:
   - makeNode (to create WindowAgg node)
 - Types referenced:
-  - WindowAgg (the window aggregation plan node structure)
+  - [WindowAgg](../W/WindowAgg.md) (the window aggregation plan node structure)
 - Called from (representative examples):
   - [create_windowagg_plan](../c/create_windowagg_plan.md)
 
@@ -58,4 +58,4 @@ This static function constructs a WindowAgg plan node that handles window functi
 - The right child plan node is always set to NULL as window operations are unary
 - Window functions can be stacked, with `topWindow` indicating the outermost window operation
 - Frame options use bit flags to encode different frame types (ROWS, RANGE, GROUPS) and boundary specifications
-- Range frames require special functions (`startInRangeFunc`, `endInRangeFunc`) to compute frame boundaries based on value ranges rather than row counts
+- [Range](../R/Range.md) frames require special functions (`startInRangeFunc`, `endInRangeFunc`) to compute frame boundaries based on value ranges rather than row counts

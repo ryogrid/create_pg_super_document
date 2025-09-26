@@ -25,7 +25,7 @@ XLogCompressBackupBlock attempts to compress a backup block image using the conf
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pglz_compress (for PGLZ compression)
+  - [pglz_compress](../p/pglz_compress.md) (for PGLZ compression)
   - LZ4_compress_default (for LZ4 compression)
   - ZSTD_compress (for ZSTD compression)
   - PGAlignedBlock (temporary buffer type)

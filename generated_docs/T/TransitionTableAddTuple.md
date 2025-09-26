@@ -38,18 +38,18 @@ The function operates through these paths:
   - [ExecGetChildToRootMap](../E/ExecGetChildToRootMap.md)
   - [GetAfterTriggersStoreSlot](../G/GetAfterTriggersStoreSlot.md)
   - [execute_attr_map_slot](../e/execute_attr_map_slot.md)
-  - tuplestore_puttupleslot
+  - [tuplestore_puttupleslot](../t/tuplestore_puttupleslot.md)
 - Types used:
   - [EState](../E/EState.md)
-  - TransitionCaptureState
+  - [TransitionCaptureState](TransitionCaptureState.md)
   - [ResultRelInfo](../R/ResultRelInfo.md)
-  - TupleTableSlot
-  - Tuplestorestate
-  - TupleConversionMap
+  - [TupleTableSlot](TupleTableSlot.md)
+  - [Tuplestorestate](Tuplestorestate.md)
+  - [TupleConversionMap](TupleConversionMap.md)
   - [AfterTriggersTableData](../A/AfterTriggersTableData.md)
 - Called from (representative examples):
   - [AfterTriggersTableData](../A/AfterTriggersTableData.md) (src/backend/commands/trigger.c:3986)
-  - AfterTriggerSaveEvent (src/backend/commands/trigger.c:6199, 6215)
+  - [AfterTriggerSaveEvent](../A/AfterTriggerSaveEvent.md) (src/backend/commands/trigger.c:6199, 6215)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the trigger.c file

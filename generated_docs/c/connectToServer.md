@@ -21,7 +21,7 @@ This function establishes a connection to a specific database on a PostgreSQL se
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_db_conn](../g/get_db_conn.md)
-  - PQstatus
+  - [PQstatus](../P/PQstatus.md)
   - [pg_log](../p/pg_log.md)
   - [PQfinish](../P/PQfinish.md)
   - [executeQueryOrDie](../e/executeQueryOrDie.md)

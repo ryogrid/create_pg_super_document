@@ -21,12 +21,12 @@ This selective cleanup approach is essential for the copy parser design, where s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree (PostgreSQL memory deallocation)
-  - TParserPosition (structure type for state stack traversal)
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation)
+  - [TParserPosition](TParserPosition.md) (structure type for state stack traversal)
 
 - Called from (representative examples):
-  - p_ishost (host parsing function)
-  - p_isURLPath (URL path parsing function)
+  - [p_ishost](../p/p_ishost.md) (host parsing function)
+  - [p_isURLPath](../p/p_isURLPath.md) (URL path parsing function)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the wparser_def.c module

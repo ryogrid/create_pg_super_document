@@ -26,7 +26,7 @@ This function serves as a storeRes callback specifically for bitmap index scans 
 - Functions called/Symbols referenced:
   - [tbm_add_tuples](../t/tbm_add_tuples.md)
   - SpGistScanOpaque
-  - SpGistLeafTuple
+  - [SpGistLeafTuple](../S/SpGistLeafTuple.md)
 - Called from (representative examples):
   - [spggetbitmap](spggetbitmap.md) (via spgWalk)
 

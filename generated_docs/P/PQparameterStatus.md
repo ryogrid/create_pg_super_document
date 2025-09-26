@@ -22,22 +22,22 @@ The function performs a linear search through a linked list of pgParameterStatus
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgParameterStatus (internal structure type)
+  - [pgParameterStatus](../p/pgParameterStatus.md) (internal structure type)
   - strcmp() (for parameter name comparison)
 - Called from (representative examples):
-  - BaseBackup (pg_basebackup)
-  - CheckServerVersionForStreaming (receivelog)
-  - GetConnection (streamutil)
-  - _check_database_version (pg_dump)
-  - setup_connection (pg_dump)
-  - is_superuser (pg_dump, psql)
-  - connectDatabase (pg_dumpall)
-  - printVersion (pgbench)
-  - connection_warnings (psql)
-  - SyncVariables (psql)
-  - standard_strings (psql)
-  - session_username (psql)
-  - ecpg_build_params (ECPG)
+  - [BaseBackup](../B/BaseBackup.md) (pg_basebackup)
+  - [CheckServerVersionForStreaming](../C/CheckServerVersionForStreaming.md) (receivelog)
+  - [GetConnection](../G/GetConnection.md) (streamutil)
+  - [_check_database_version](../c/_check_database_version.md) (pg_dump)
+  - [setup_connection](../s/setup_connection.md) (pg_dump)
+  - [is_superuser](../i/is_superuser.md) (pg_dump, psql)
+  - [connectDatabase](../c/connectDatabase.md) (pg_dumpall)
+  - [printVersion](../p/printVersion.md) (pgbench)
+  - [connection_warnings](../c/connection_warnings.md) (psql)
+  - [SyncVariables](../S/SyncVariables.md) (psql)
+  - [standard_strings](../s/standard_strings.md) (psql)
+  - [session_username](../s/session_username.md) (psql)
+  - [ecpg_build_params](../e/ecpg_build_params.md) (ECPG)
 
 ## Notes and Other Information
 - Returns NULL if the connection is invalid, parameter name is NULL, or parameter is not found

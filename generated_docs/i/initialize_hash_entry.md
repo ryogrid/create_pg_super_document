@@ -30,7 +30,7 @@ This function performs the initialization of a fresh TupleHashEntry that has jus
   - [TupleHashTable](../T/TupleHashTable.md)
   - [TupleHashEntry](../T/TupleHashEntry.md)
   - [AggStatePerGroup](../A/AggStatePerGroup.md)
-  - AggStatePerGroupData
+  - [AggStatePerGroupData](../A/AggStatePerGroupData.md)
   - [AggStatePerTrans](../A/AggStatePerTrans.md)
 - Called from (representative examples):
   - [lookup_hash_entries](../l/lookup_hash_entries.md)

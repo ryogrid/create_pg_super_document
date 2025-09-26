@@ -30,14 +30,14 @@ The resulting copy is always marked as unsaved (regardless of the source's state
 - Functions called/Symbols referenced:
   - AllocSetContextCreate
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
-  - MemoryContextSetIdentifier
+  - [MemoryContextSetIdentifier](../M/MemoryContextSetIdentifier.md)
   - copyObject
   - [CreateTupleDescCopy](CreateTupleDescCopy.md)
   - [CopySearchPathMatcher](CopySearchPathMatcher.md)
   - CACHEDPLANSOURCE_MAGIC
   - ALLOCSET_START_SMALL_SIZES
 - Called from (representative examples):
-  - _SPI_save_plan
+  - [_SPI_save_plan](../S/_SPI_save_plan.md)
 
 ## Notes and Other Information
 - Cannot copy one-shot plans since parsing/planning may have modified the raw parse tree or query trees

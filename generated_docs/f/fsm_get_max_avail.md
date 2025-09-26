@@ -21,11 +21,11 @@ This is an extremely efficient operation as it requires only a single array acce
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `PageGetContents`: Extracts page contents as FSMPage structure
+  - `[PageGetContents](../P/PageGetContents.md)`: Extracts page contents as FSMPage structure
   - `FSMPage`: Type representing Free Space Map page data
 - Called from (representative examples):
-  - `fsm_search`: Uses max available to determine if page is worth searching
-  - `fsm_vacuum_page`: Checks maximum available space during vacuum operations
+  - `[fsm_search](fsm_search.md)`: Uses max available to determine if page is worth searching
+  - `[fsm_vacuum_page](fsm_vacuum_page.md)`: Checks maximum available space during vacuum operations
 
 ## Notes and Other Information
 - This is a read-only function that doesn't require page locking due to single-byte atomic access

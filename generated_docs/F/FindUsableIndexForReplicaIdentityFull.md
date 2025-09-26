@@ -32,7 +32,7 @@ The function is designed to support logical replication scenarios where a full r
   - [Relation](../R/Relation.md)
   - [AttrMap](../A/AttrMap.md)
   - [List](../L/List.md)
-  - IndexInfo
+  - [IndexInfo](../I/IndexInfo.md)
   - Oid
 - Constants referenced:
   - AccessShareLock

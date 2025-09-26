@@ -32,7 +32,7 @@ The function serves as a protective barrier against data corruption that could o
   - allProcs (global process table)
   - ProcGlobal (global process state)
   - MyProc (current backend's process entry)
-  - LWLockAcquire/LWLockRelease (locking primitives)
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease (locking primitives)
   - CHECK_FOR_INTERRUPTS (interrupt handling)
   - kill (system call for sending signals)
   - [pg_usleep](../p/pg_usleep.md) (PostgreSQL sleep function)

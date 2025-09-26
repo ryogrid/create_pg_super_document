@@ -29,14 +29,14 @@ Since pg_sha224_ctx is a type alias for pg_sha256_ctx, it inherits all the same 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_sha256_ctx (base structure type)
+  - [pg_sha256_ctx](pg_sha256_ctx.md) (base structure type)
   - PG_SHA256_BLOCK_LENGTH (inherited through pg_sha256_ctx)
 
 - Called from (representative examples):
-  - pg_cryptohash_ctx (general cryptographic hash context structure)
-  - pg_sha224_init (initializes context with SHA-224-specific initial values)
-  - pg_sha224_update (processes data chunks using SHA-256 algorithm)
-  - pg_sha224_final (finalizes hash computation with 224-bit output truncation)
+  - [pg_cryptohash_ctx](pg_cryptohash_ctx.md) (general cryptographic hash context structure)
+  - [pg_sha224_init](pg_sha224_init.md) (initializes context with SHA-224-specific initial values)
+  - [pg_sha224_update](pg_sha224_update.md) (processes data chunks using SHA-256 algorithm)
+  - [pg_sha224_final](pg_sha224_final.md) (finalizes hash computation with 224-bit output truncation)
 
 ## Notes and Other Information
 - This type alias elegantly demonstrates the relationship between SHA-224 and SHA-256 algorithms

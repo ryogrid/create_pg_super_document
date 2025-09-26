@@ -24,7 +24,7 @@ GetCurrentTransactionStartTimestamp is a simple accessor function that returns t
 - Called from (representative examples):
   - [InitializeParallelDSM](../I/InitializeParallelDSM.md) (src/backend/access/transam/parallel.c:351)
   - [timetz_zone](../t/timetz_zone.md) (src/backend/utils/adt/date.c:3086,3094)
-  - GetCurrentTimeUsec (src/backend/utils/adt/datetime.c:389)
+  - [GetCurrentTimeUsec](GetCurrentTimeUsec.md) (src/backend/utils/adt/datetime.c:389)
   - [pg_timezone_abbrevs](../p/pg_timezone_abbrevs.md) (src/backend/utils/adt/datetime.c:5075)
   - [pg_timezone_names](../p/pg_timezone_names.md) (src/backend/utils/adt/datetime.c:5149)
   - [now](../n/now.md) (src/backend/utils/adt/timestamp.c:1620)

@@ -29,12 +29,12 @@ The structure follows PostgreSQL's standard parse node pattern and contains the 
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (for parse node identification)
-  - List (PostgreSQL's generic list structure)
-  - DefElem (structure for definition elements containing option names and values)
+  - [List](../L/List.md) (PostgreSQL's generic list structure)
+  - [DefElem](../D/DefElem.md) (structure for definition elements containing option names and values)
 
 - Called from (representative examples):
-  - AlterTSDictionary (executes the ALTER TEXT SEARCH DICTIONARY command)
-  - ProcessUtilitySlow (utility command processing dispatcher)
+  - [AlterTSDictionary](AlterTSDictionary.md) (executes the ALTER TEXT SEARCH DICTIONARY command)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (utility command processing dispatcher)
 
 ## Notes and Other Information
 - Text search dictionaries are part of PostgreSQL's full-text search framework, working in conjunction with parsers and configurations

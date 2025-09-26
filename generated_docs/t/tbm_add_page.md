@@ -23,12 +23,12 @@ The function works by first marking the page as lossy using , then checking if t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - tbm_mark_page_lossy
-  - tbm_lossify
-  - TIDBitmap (type)
+  - [tbm_mark_page_lossy](tbm_mark_page_lossy.md)
+  - [tbm_lossify](tbm_lossify.md)
+  - [TIDBitmap](../T/TIDBitmap.md) (type)
 - Called from (representative examples):
-  - bringetbitmap (in src/backend/access/brin/brin.c:923)
-  - gingetbitmap (in src/backend/access/gin/ginget.c:1962)
+  - [bringetbitmap](../b/bringetbitmap.md) (in src/backend/access/brin/brin.c:923)
+  - [gingetbitmap](../g/gingetbitmap.md) (in src/backend/access/gin/ginget.c:1962)
 
 ## Notes and Other Information
 - This function is typically used by index access methods when they cannot determine exact tuple locations but know that an entire page contains matching tuples

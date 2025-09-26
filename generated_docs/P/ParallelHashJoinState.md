@@ -62,19 +62,19 @@ Multiple synchronization barriers coordinate different phases of the parallel ha
 - Functions called/Symbols referenced:
   - dsa_pointer
   - ParallelHashGrowth
-  - LWLock
-  - Barrier
-  - pg_atomic_uint32
+  - [LWLock](../L/LWLock.md)
+  - [Barrier](../B/Barrier.md)
+  - [pg_atomic_uint32](../p/pg_atomic_uint32.md)
   - SharedFileSet
 - Called from (representative examples):
-  - MultiExecParallelHash
-  - ExecHashTableCreate
-  - ExecParallelHashIncreaseNumBatches
-  - ExecParallelHashMergeCounters
-  - ExecParallelHashJoinSetUpBatches
-  - ExecHashJoinInitializeDSM
+  - [MultiExecParallelHash](../M/MultiExecParallelHash.md)
+  - [ExecHashTableCreate](../E/ExecHashTableCreate.md)
+  - [ExecParallelHashIncreaseNumBatches](../E/ExecParallelHashIncreaseNumBatches.md)
+  - [ExecParallelHashMergeCounters](../E/ExecParallelHashMergeCounters.md)
+  - [ExecParallelHashJoinSetUpBatches](../E/ExecParallelHashJoinSetUpBatches.md)
+  - [ExecHashJoinInitializeDSM](../E/ExecHashJoinInitializeDSM.md)
   - HashJoinTableData (as member)
-  - HashState (as member)
+  - [HashState](../H/HashState.md) (as member)
 
 ## Notes and Other Information
 This structure is the cornerstone of PostgreSQL's parallel hash join implementation, enabling multiple worker processes to cooperatively build and probe hash tables. The design handles the complex synchronization requirements of dynamic hash table growth while maintaining load balance across workers. The structure must handle memory management across multiple processes, coordinate file I/O for batches that exceed memory limits, and ensure consistent state during repartitioning operations. The barrier-based synchronization ensures that all workers complete each phase before proceeding to the next, maintaining data consistency throughout the parallel execution.

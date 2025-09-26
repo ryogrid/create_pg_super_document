@@ -21,7 +21,7 @@ The `atcomp` function is a comparison function designed to be used with the stan
 ## Dependencies
 - Functions called/Symbols referenced:
   - zic_t (type definition)
-  - attype (structure type for timezone transition data)
+  - [attype](attype.md) (structure type for timezone transition data)
 - Called from (representative examples):
   - [writezone](../w/writezone.md) (likely used with qsort for sorting timezone transitions)
 

@@ -22,7 +22,7 @@ This function remaps a list of partition column numbers using a provided attribu
 ## Dependencies
 - Functions called/Symbols referenced:
   - lfirst_int
-  - lappend_int
+  - [lappend_int](../l/lappend_int.md)
   - [AttrMap](../A/AttrMap.md)
 - Called from (representative examples):
   - [ExecInitPartitionInfo](../E/ExecInitPartitionInfo.md)

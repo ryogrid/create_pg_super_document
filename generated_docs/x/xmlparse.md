@@ -23,7 +23,7 @@ If parsing fails, the xml_parse function will report appropriate errors. If pars
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - xml_parse (core XML parsing and validation)
+  - [xml_parse](xml_parse.md) (core XML parsing and validation)
   - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md) (database encoding retrieval)
   - [xmltype](xmltype.md) (data type for XML values)
 - Called from (representative examples):

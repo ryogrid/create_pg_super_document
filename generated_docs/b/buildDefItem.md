@@ -22,8 +22,8 @@ This function creates a DefElem (Definition Element) structure from a name-value
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - strtoint
-  - makeDefElem
+  - [strtoint](../s/strtoint.md)
+  - [makeDefElem](../m/makeDefElem.md)
   - [makeInteger](../m/makeInteger.md)
   - [makeFloat](../m/makeFloat.md)
   - [makeBoolean](../m/makeBoolean.md)

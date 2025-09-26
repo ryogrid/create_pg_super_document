@@ -26,10 +26,10 @@ This function is crucial for the statistics collection infrastructure as it ensu
 - Functions called/Symbols referenced:
   - [pgstat_prep_pending_entry](pgstat_prep_pending_entry.md)
   - PGSTAT_KIND_RELATION (statistics kind constant)
-  - PgStat_EntryRef (data structure)
-  - PgStat_TableStatus (data structure)
+  - [PgStat_EntryRef](../P/PgStat_EntryRef.md) (data structure)
+  - [PgStat_TableStatus](../P/PgStat_TableStatus.md) (data structure)
 - Called from (representative examples):
-  - pgstat_assoc_relation
+  - [pgstat_assoc_relation](pgstat_assoc_relation.md)
   - [pgstat_twophase_postcommit](pgstat_twophase_postcommit.md)
   - [pgstat_twophase_postabort](pgstat_twophase_postabort.md)
 

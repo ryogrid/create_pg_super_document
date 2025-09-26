@@ -24,7 +24,7 @@ The function uses a cleanup lock on the root page to prevent concurrent insertio
 - Functions called/Symbols referenced:
   - [ginVacuumPostingTreeLeaves](ginVacuumPostingTreeLeaves.md)
   - [ReadBufferExtended](../R/ReadBufferExtended.md)
-  - LockBufferForCleanup
+  - [LockBufferForCleanup](../L/LockBufferForCleanup.md)
   - [ginScanToDelete](ginScanToDelete.md)
   - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
   - [DataPageDeleteStack](../D/DataPageDeleteStack.md)

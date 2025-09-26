@@ -28,15 +28,15 @@ The compression step is essential for space efficiency and ensures that the stor
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - gistCompressValues
-  - index_form_tuple
-  - ItemPointerSetOffsetNumber
+  - [gistCompressValues](gistCompressValues.md)
+  - [index_form_tuple](../i/index_form_tuple.md)
+  - [ItemPointerSetOffsetNumber](../I/ItemPointerSetOffsetNumber.md)
 - Called from (representative examples):
-  - gistinsert
-  - gistSplit
-  - gistBuildCallback
-  - gistunion
-  - gistgetadjusted
+  - [gistinsert](gistinsert.md)
+  - [gistSplit](gistSplit.md)
+  - [gistBuildCallback](gistBuildCallback.md)
+  - [gistunion](gistunion.md)
+  - [gistgetadjusted](gistgetadjusted.md)
 
 ## Notes and Other Information
 - Uses INDEX_MAX_KEYS for the compressed attribute array size

@@ -34,9 +34,9 @@ The function is recursive and will traverse the entire partition hierarchy to en
   - DEBUG1 (logging)
   - [ATGetQueueEntry](../A/ATGetQueueEntry.md)
   - [RelationGetPartitionDesc](../R/RelationGetPartitionDesc.md)
-  - table_open
+  - [table_open](../t/table_open.md)
   - [map_partition_varattnos](../m/map_partition_varattnos.md)
-  - table_close
+  - [table_close](../t/table_close.md)
   - [QueuePartitionConstraintValidation](QueuePartitionConstraintValidation.md) (recursive call)
 - Called from (representative examples):
   - child_dependency_type

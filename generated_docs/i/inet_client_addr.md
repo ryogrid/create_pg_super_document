@@ -35,7 +35,7 @@ This function takes no parameters (uses PG_FUNCTION_ARGS macro for PostgreSQL fu
 - Functions called/Symbols referenced:
   - [Port](../P/Port.md) (structure representing connection port information)
   - MyProcPort (global variable pointing to current process's port)
-  - pg_getnameinfo_all (PostgreSQL wrapper for address-to-name conversion)
+  - [pg_getnameinfo_all](../p/pg_getnameinfo_all.md) (PostgreSQL wrapper for address-to-name conversion)
   - [clean_ipv6_addr](../c/clean_ipv6_addr.md) (function to clean IPv6 address strings)
   - [network_in](../n/network_in.md) (function to parse network address strings)
   - PG_RETURN_INET_P (macro to return inet/cidr data type)

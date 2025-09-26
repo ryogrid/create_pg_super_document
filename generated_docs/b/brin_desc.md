@@ -22,7 +22,7 @@ The function uses a switch statement to handle different BRIN operation types, e
 - Functions called/Symbols referenced:
   - XLogRecGetData
   - XLogRecGetInfo
-  - appendStringInfo
+  - [appendStringInfo](../a/appendStringInfo.md)
 - Constants used:
   - XLR_INFO_MASK
   - XLOG_BRIN_OPMASK

@@ -32,11 +32,11 @@ The context will be automatically cleaned up when the CurrentResourceOwner is de
   - llvm_assert_in_fatal_section (validates safe calling context)
   - [llvm_session_initialize](llvm_session_initialize.md) (initializes LLVM session)
   - [llvm_recreate_llvm_context](llvm_recreate_llvm_context.md) (manages LLVM context lifecycle)
-  - ResourceOwnerEnlarge (expands resource tracking capacity)
+  - [ResourceOwnerEnlarge](../R/ResourceOwnerEnlarge.md) (expands resource tracking capacity)
   - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md) (allocates zeroed memory)
   - [ResourceOwnerRememberJIT](../R/ResourceOwnerRememberJIT.md) (registers context for cleanup)
 - Called from (representative examples):
-  - llvm_compile_expr
+  - [llvm_compile_expr](llvm_compile_expr.md)
 
 ## Notes and Other Information
 - Allocates context in TopMemoryContext to ensure it survives across memory context resets

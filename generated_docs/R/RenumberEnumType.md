@@ -34,7 +34,7 @@ The renumbering is triggered only when the normal enum insertion algorithm canno
   - Form_pg_enum: Structure type for accessing pg_enum tuple data
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md): Updates tuples in the pg_enum catalog
   - [heap_freetuple](../h/heap_freetuple.md): Frees temporary tuple memory
-  - CommandCounterIncrement: Makes updates visible to subsequent operations
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md): Makes updates visible to subsequent operations
 - Called from (representative examples):
   - [AddEnumLabel](../A/AddEnumLabel.md): Calls this function when normal insertion cannot find suitable sort order values
 

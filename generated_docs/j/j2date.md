@@ -32,7 +32,7 @@ The function employs unsigned integer arithmetic to handle the complex calculati
   - [timestamp2tm](../t/timestamp2tm.md) (timestamp to tm structure conversion)
   - [extract_date](../e/extract_date.md) (date component extraction)
   - [isoweek2date](../i/isoweek2date.md) (ISO week to date conversion)
-  - ValidateDate (date validation)
+  - [ValidateDate](../V/ValidateDate.md) (date validation)
 
 ## Notes and Other Information
 - Function returns void and modifies the output parameters passed by reference

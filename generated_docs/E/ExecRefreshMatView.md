@@ -28,9 +28,9 @@ For concurrent refresh operations, it uses ExclusiveLock to allow other transact
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RefreshMatViewStmt (statement node structure)
+  - [RefreshMatViewStmt](../R/RefreshMatViewStmt.md) (statement node structure)
   - [ParamListInfo](../P/ParamListInfo.md) (query parameters structure)
-  - QueryCompletion (completion reporting structure)
+  - [QueryCompletion](../Q/QueryCompletion.md) (completion reporting structure)
   - ExclusiveLock (lock mode constant for concurrent refresh)
   - AccessExclusiveLock (lock mode constant for non-concurrent refresh)
   - [RangeVarGetRelidExtended](../R/RangeVarGetRelidExtended.md) (resolves relation name to OID with locking)

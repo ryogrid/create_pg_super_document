@@ -45,8 +45,8 @@ The structure stores opclass-declared input data types instead of partition key 
   - struct FmgrInfo (for partsupfunc member)
   - Oid (PostgreSQL object identifier type)
 - Called from (representative examples):
-  - find_partition_scheme (src/backend/optimizer/util/plancat.c:2513)
-  - PartitionScheme (src/include/nodes/pathnodes.h:598)
+  - [find_partition_scheme](../f/find_partition_scheme.md) (src/backend/optimizer/util/plancat.c:2513)
+  - [PartitionScheme](PartitionScheme.md) (src/include/nodes/pathnodes.h:598)
 
 ## Notes and Other Information
 - Multiple relations with identical partitioning schemes share the same PartitionScheme object for memory efficiency

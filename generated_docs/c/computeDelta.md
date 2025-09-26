@@ -28,15 +28,15 @@ The function also includes debugging capability when WAL_DEBUG is enabled, allow
 - Functions called/Symbols referenced:
   - PageData (struct type)
   - PageHeader (struct type for accessing page header fields)
-  - computeRegionDelta (called twice - for lower and upper regions at lines 238 and 242)
+  - [computeRegionDelta](computeRegionDelta.md) (called twice - for lower and upper regions at lines 238 and 242)
   - Page (typedef for page pointer)
   - BLCKSZ (constant for block size)
   - PGAlignedBlock (struct for aligned memory blocks, debug only)
-  - applyPageRedo (function to apply delta, debug only)
+  - [applyPageRedo](../a/applyPageRedo.md) (function to apply delta, debug only)
   - memcpy, memcmp (standard library functions, debug only)
   - elog (PostgreSQL logging function, debug only)
 - Called from (representative examples):
-  - GenericXLogFinish (at line 370)
+  - [GenericXLogFinish](../G/GenericXLogFinish.md) (at line 370)
 
 ## Notes and Other Information
 - This is a static function, only accessible within generic_xlog.c

@@ -36,9 +36,9 @@ The function performs extensive width calculations to determine optimal formatti
   - [pg_wcssize](pg_wcssize.md)
   - [pg_wcsformat](pg_wcsformat.md)
   - [print_aligned_vertical_line](print_aligned_vertical_line.md)
-  - strlen_max_width
+  - [strlen_max_width](../s/strlen_max_width.md)
   - [ClosePager](../C/ClosePager.md)
-  - pg_malloc
+  - [pg_malloc](pg_malloc.md)
 - Called from (representative examples):
   - [print_aligned_text](print_aligned_text.md)
   - [printTable](printTable.md)

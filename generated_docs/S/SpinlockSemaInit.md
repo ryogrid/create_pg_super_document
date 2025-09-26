@@ -19,14 +19,14 @@ This function performs the initialization of spinlock emulation infrastructure d
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PGSemaphore (semaphore structure type)
-  - SpinlockSemas() (gets number of semaphores needed)
-  - ShmemAllocUnlocked() (allocates shared memory without spinlock protection)
-  - SpinlockSemaSize() (gets total memory size needed)
-  - PGSemaphoreCreate() (creates individual semaphores)
+  - [PGSemaphore](../P/PGSemaphore.md) (semaphore structure type)
+  - [SpinlockSemas](SpinlockSemas.md)() (gets number of semaphores needed)
+  - [ShmemAllocUnlocked](ShmemAllocUnlocked.md)() (allocates shared memory without spinlock protection)
+  - [SpinlockSemaSize](SpinlockSemaSize.md)() (gets total memory size needed)
+  - [PGSemaphoreCreate](../P/PGSemaphoreCreate.md)() (creates individual semaphores)
   - SpinlockSemaArray (global array to store semaphores)
 - Called from:
-  - CreateSharedMemoryAndSemaphores (in src/backend/storage/ipc/ipci.c:236)
+  - [CreateSharedMemoryAndSemaphores](../C/CreateSharedMemoryAndSemaphores.md) (in src/backend/storage/ipc/ipci.c:236)
   - SpinLockFree (in src/include/storage/spin.h:73)
 
 ## Notes and Other Information

@@ -23,11 +23,11 @@ The function uses hash table iteration to find matching entries based on the rem
 - Functions called/Symbols referenced:
   - [hash_seq_init](../h/hash_seq_init.md)
   - [hash_seq_search](../h/hash_seq_search.md)  
-  - logicalrep_relmap_free_entry
+  - [logicalrep_relmap_free_entry](logicalrep_relmap_free_entry.md)
   - memset
 - Types referenced:
   - [LogicalRepRelation](../L/LogicalRepRelation.md)
-  - HASH_SEQ_STATUS
+  - [HASH_SEQ_STATUS](../H/HASH_SEQ_STATUS.md)
   - [LogicalRepPartMapEntry](../L/LogicalRepPartMapEntry.md)
   - [LogicalRepRelMapEntry](../L/LogicalRepRelMapEntry.md)
 - Called from (representative examples):

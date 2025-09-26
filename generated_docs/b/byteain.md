@@ -28,8 +28,8 @@ The function performs a two-pass algorithm: first pass validates the input and c
 - Functions called/Symbols referenced:
   - `PG_GETARG_CSTRING` - extracts C string argument from function call
   - `strlen` - calculates string length for hex format
-  - `palloc` - PostgreSQL memory allocation
-  - `hex_decode_safe` - safe hexadecimal decoding with error context
+  - `[palloc](../p/palloc.md)` - PostgreSQL memory allocation
+  - `[hex_decode_safe](../h/hex_decode_safe.md)` - safe hexadecimal decoding with error context
   - `SET_VARSIZE` - sets the size field in variable-length header
   - `VARDATA` - gets pointer to data portion of variable-length type
   - `VARHDRSZ` - size of variable-length header
@@ -38,8 +38,8 @@ The function performs a two-pass algorithm: first pass validates the input and c
   - `ereturn` - soft error return with context support
 
 - Called from (representative examples):
-  - `CreateTriggerFiringOn` - trigger creation with bytea parameters
-  - `string_to_datum` - generic string to datum conversion
+  - `[CreateTriggerFiringOn](../C/CreateTriggerFiringOn.md)` - trigger creation with bytea parameters
+  - `[string_to_datum](../s/string_to_datum.md)` - generic string to datum conversion
   - `PG_STR_GET_BYTEA` - string to bytea conversion utility
   - PostgreSQL's type input system for bytea columns
 

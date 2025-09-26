@@ -26,13 +26,13 @@ The snapshot includes only statistics relevant to the current database context, 
 - Functions called/Symbols referenced:
   - [pgstat_prep_snapshot](pgstat_prep_snapshot.md)
   - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
-  - dshash_seq_init
-  - dshash_seq_next
-  - dshash_seq_term
+  - [dshash_seq_init](../d/dshash_seq_init.md)
+  - [dshash_seq_next](../d/dshash_seq_next.md)
+  - [dshash_seq_term](../d/dshash_seq_term.md)
   - [pgstat_get_kind_info](pgstat_get_kind_info.md)
   - pgstat_snapshot_insert
   - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
-  - LWLockAcquire/LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease
   - [pgstat_get_entry_data](pgstat_get_entry_data.md)
   - [pg_atomic_read_u32](pg_atomic_read_u32.md)
   - [dsa_get_address](../d/dsa_get_address.md)

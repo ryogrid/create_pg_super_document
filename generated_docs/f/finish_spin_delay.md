@@ -35,10 +35,10 @@ This adaptive approach allows PostgreSQL to automatically optimize for different
   - SpinDelayStatus (delay tracking structure)
   - spins_per_delay (global tuning parameter)
 - Called from (representative examples):
-  - s_lock (main spinlock acquisition function)
-  - LockBufHdr (buffer header locking)
-  - WaitBufHdrUnlocked (buffer management)
-  - LWLockWaitListLock (lightweight lock management)
+  - [s_lock](../s/s_lock.md) (main spinlock acquisition function)
+  - [LockBufHdr](../L/LockBufHdr.md) (buffer header locking)
+  - [WaitBufHdrUnlocked](../W/WaitBufHdrUnlocked.md) (buffer management)
+  - [LWLockWaitListLock](../L/LWLockWaitListLock.md) (lightweight lock management)
 
 ## Notes and Other Information
 - Implements automatic hardware detection and optimization without explicit configuration

@@ -25,7 +25,7 @@ The function performs type checking on the argument node and converts different 
   - [DefElem](../D/DefElem.md) (structure type)
   - nodeTag (for type checking)
   - intVal (to extract integer values)
-  - Float (cast node type)
+  - [Float](../F/Float.md) (cast node type)
   - boolVal (to extract boolean values)
   - [TypeNameToString](../T/TypeNameToString.md) (to convert TypeName to string)
   - [TypeName](../T/TypeName.md) (structure type)

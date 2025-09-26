@@ -26,13 +26,13 @@ This operation is separated from HeapTupleHeaderSetCmax() because combo command 
 ## Dependencies
 - Functions called/Symbols referenced:
   - HeapTupleHeaderXminCommitted: Checks if the tuple's Xmin is committed (optimization)
-  - TransactionIdIsCurrentTransactionId: Verifies the insertion transaction is current
+  - [TransactionIdIsCurrentTransactionId](../T/TransactionIdIsCurrentTransactionId.md): Verifies the insertion transaction is current
   - HeapTupleHeaderGetRawXmin: Gets the raw transaction ID that inserted the tuple
-  - HeapTupleHeaderGetCmin: Gets the insertion command ID
-  - GetComboCommandId: Creates a combo command ID from Cmin and Cmax
+  - [HeapTupleHeaderGetCmin](HeapTupleHeaderGetCmin.md): Gets the insertion command ID
+  - [GetComboCommandId](../G/GetComboCommandId.md): Creates a combo command ID from Cmin and Cmax
 - Called from (representative examples):
-  - heap_delete: Before deleting a tuple
-  - heap_update: Before updating a tuple (which involves deletion of old version)
+  - [heap_delete](../h/heap_delete.md): Before deleting a tuple
+  - [heap_update](../h/heap_update.md): Before updating a tuple (which involves deletion of old version)
 
 ## Notes and Other Information
 - Essential for maintaining MVCC semantics when inserting and deleting within same transaction

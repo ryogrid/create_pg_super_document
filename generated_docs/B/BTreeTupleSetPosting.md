@@ -28,8 +28,8 @@ This function transforms a regular B-tree index tuple into a posting list tuple,
   - INDEX_ALT_TID_MASK
   - BT_IS_POSTING
 - Called from (representative examples):
-  - _bt_form_posting
-  - _bt_update_posting
+  - [_bt_form_posting](../b/_bt_form_posting.md)
+  - [_bt_update_posting](../b/_bt_update_posting.md)
 
 ## Notes and Other Information
 - The function includes several assertions to validate input parameters

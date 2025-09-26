@@ -29,10 +29,10 @@ XmlOptionType specifies the XML parsing mode that determines how XML text should
   - [PgXmlErrorContext](../P/PgXmlErrorContext.md) (XML error handling context)
   - [xmltotext_with_options](../x/xmltotext_with_options.md) (XML to text conversion with options)
   - [xmlparse](../x/xmlparse.md) (XML parsing function)
-  - xml_parse (Core XML parsing functionality)
+  - [xml_parse](../x/xml_parse.md) (Core XML parsing functionality)
   - [wellformed_xml](../w/wellformed_xml.md) (XML well-formedness checking)
   - [XmlSerialize](XmlSerialize.md) (XML serialization structure)
-  - XmlExpr (XML expression structure)
+  - [XmlExpr](XmlExpr.md) (XML expression structure)
   - PG_RETURN_XML_P (XML return macro)
 
 ## Notes and Other Information

@@ -23,7 +23,7 @@ The function handles both relation constraints and domain type constraints by us
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - [ScanKeyInit](../S/ScanKeyInit.md)
   - [systable_beginscan](../s/systable_beginscan.md)
   - [systable_getnext](../s/systable_getnext.md)
@@ -36,7 +36,7 @@ The function handles both relation constraints and domain type constraints by us
   - InvokeObjectPostAlterHook
   - [add_exact_object_address](../a/add_exact_object_address.md)
   - [systable_endscan](../s/systable_endscan.md)
-  - table_close
+  - [table_close](../t/table_close.md)
 - Called from (representative examples):
   - [AlterTableNamespaceInternal](AlterTableNamespaceInternal.md) (tablecmds.c:17303)
   - [AlterTypeNamespaceInternal](AlterTypeNamespaceInternal.md) (typecmds.c:4261, 4268)

@@ -35,7 +35,7 @@ This approach is particularly useful in scenarios where you need type informatio
   - TextDatumGetCString
   - [stringToNode](../s/stringToNode.md)
   - [makeConst](../m/makeConst.md)
-  - exprTypmod
+  - [exprTypmod](../e/exprTypmod.md)
   - [exprCollation](../e/exprCollation.md)
 - Called from (representative examples):
   - [BuildDummyIndexInfo](../B/BuildDummyIndexInfo.md)

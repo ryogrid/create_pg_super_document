@@ -20,15 +20,15 @@ BufFileSeekBlock provides a block-oriented seek interface that positions the fil
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufFileSeek
+  - [BufFileSeek](BufFileSeek.md)
   - BUFFILE_SEG_SIZE (constant)
   - BLCKSZ (constant)
 - Called from (representative examples):
-  - ReadTempFileBlock (src/backend/access/gist/gistbuildbuffers.c:752)
-  - WriteTempFileBlock (src/backend/access/gist/gistbuildbuffers.c:760)
-  - ltsWriteBlock (src/backend/utils/sort/logtape.c:263)
-  - ltsReadBlock (src/backend/utils/sort/logtape.c:284)
-  - sts_parallel_scan_next (src/backend/utils/sort/sharedtuplestore.c:545)
+  - [ReadTempFileBlock](../R/ReadTempFileBlock.md) (src/backend/access/gist/gistbuildbuffers.c:752)
+  - [WriteTempFileBlock](../W/WriteTempFileBlock.md) (src/backend/access/gist/gistbuildbuffers.c:760)
+  - [ltsWriteBlock](../l/ltsWriteBlock.md) (src/backend/utils/sort/logtape.c:263)
+  - [ltsReadBlock](../l/ltsReadBlock.md) (src/backend/utils/sort/logtape.c:284)
+  - [sts_parallel_scan_next](../s/sts_parallel_scan_next.md) (src/backend/utils/sort/sharedtuplestore.c:545)
 
 ## Notes and Other Information
 - Returns 0 on success, EOF on failure

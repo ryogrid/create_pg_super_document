@@ -20,7 +20,7 @@ This function stores a MinimalTuple in a MinimalTupleTableSlot by first clearing
 ## Dependencies
 - Functions called/Symbols referenced:
   - MinimalTuple (parameter type)
-  - MinimalTupleTableSlot (struct type cast)
+  - [MinimalTupleTableSlot](../M/MinimalTupleTableSlot.md) (struct type cast)
   - [tts_minimal_clear](tts_minimal_clear.md)
   - TTS_SHOULDFREE, TTS_EMPTY (slot state macros)
   - TTS_FLAG_EMPTY, TTS_FLAG_SHOULDFREE (slot flags)

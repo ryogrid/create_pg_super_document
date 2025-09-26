@@ -24,11 +24,11 @@ Large objects (DSA_SCLASS_SPAN_LARGE) are skipped because they already return se
 ## Dependencies
 - Functions called/Symbols referenced:
   - DSA_SCLASS_LOCK
-  - LWLockAcquire
-  - LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - DsaPointerIsValid
   - [dsa_get_address](dsa_get_address.md)
-  - destroy_superblock
+  - [destroy_superblock](destroy_superblock.md)
 - Called from (representative examples):
   - Available through DSA public interface
 

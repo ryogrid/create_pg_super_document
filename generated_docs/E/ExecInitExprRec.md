@@ -21,7 +21,7 @@ ExecInitExprRec is PostgreSQL's central expression compilation function that tra
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExprEvalPushStep](ExprEvalPushStep.md) (primary step creation function)
-  - check_stack_depth (prevents stack overflow)
+  - [check_stack_depth](../c/check_stack_depth.md) (prevents stack overflow)
   - [ExecInitFunc](ExecInitFunc.md) (for function expressions)
   - [ExecInitSubPlan](ExecInitSubPlan.md) (for subplan expressions)
   - [ExecInitExprRec](ExecInitExprRec.md) (recursive calls for nested expressions)

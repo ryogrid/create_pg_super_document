@@ -27,7 +27,7 @@ The parsing process involves multiple stages: first tokenizing the input string 
 - Functions called/Symbols referenced:
   - [ParseDateTime](../P/ParseDateTime.md): Initial string parsing and tokenization
   - [DecodeDateTime](../D/DecodeDateTime.md): Token interpretation and datetime component extraction
-  - DateTimeParseError: Error reporting for parsing failures
+  - [DateTimeParseError](../D/DateTimeParseError.md): Error reporting for parsing failures
   - [tm2timestamp](tm2timestamp.md): Conversion from broken-down time to timestamp
   - [SetEpochTimestamp](../S/SetEpochTimestamp.md): Handling of 'epoch' special value
   - [AdjustTimestampForTypmod](../A/AdjustTimestampForTypmod.md): Applying precision constraints

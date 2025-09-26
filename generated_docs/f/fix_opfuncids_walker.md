@@ -24,13 +24,13 @@ The function takes advantage of struct equivalence between OpExpr, DistinctExpr,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - set_opfuncid
-  - set_sa_opfuncid
+  - [set_opfuncid](../s/set_opfuncid.md)
+  - [set_sa_opfuncid](../s/set_sa_opfuncid.md)
   - expression_tree_walker
   - IsA (macro)
 - Called from (representative examples):
-  - fix_opfuncids
-  - fix_opfuncids_walker (recursive call)
+  - [fix_opfuncids](fix_opfuncids.md)
+  - [fix_opfuncids_walker](fix_opfuncids_walker.md) (recursive call)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the nodeFuncs.c file

@@ -25,11 +25,11 @@ This function takes no parameters and operates on global MultiXact state.
 - Functions called/Symbols referenced:
   - [MultiXactIdToOffsetPage](MultiXactIdToOffsetPage.md)
   - [SimpleLruGetBankLock](../S/SimpleLruGetBankLock.md)
-  - LWLockAcquire
+  - [LWLockAcquire](../L/LWLockAcquire.md)
   - [SimpleLruDoesPhysicalPageExist](../S/SimpleLruDoesPhysicalPageExist.md)
   - [ZeroMultiXactOffsetPage](../Z/ZeroMultiXactOffsetPage.md)
   - [SimpleLruWritePage](../S/SimpleLruWritePage.md)
-  - LWLockRelease
+  - [LWLockRelease](../L/LWLockRelease.md)
 - Global variables accessed:
   - MultiXactState
   - MultiXactOffsetCtl

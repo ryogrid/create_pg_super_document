@@ -19,7 +19,7 @@ The avlInsertNode function implements the recursive insertion algorithm for AVL 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_malloc
+  - [pg_malloc](../p/pg_malloc.md)
   - [pivotFieldCompare](../p/pivotFieldCompare.md)
   - [avlInsertNode](avlInsertNode.md) (recursive call)
   - [avlAdjustBalance](avlAdjustBalance.md)

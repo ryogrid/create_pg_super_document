@@ -33,7 +33,7 @@ For relation data files, the function implements sophisticated logic to handle s
   - [check_file_excluded](../c/check_file_excluded.md)
   - [keepwal_entry_exists](../k/keepwal_entry_exists.md)
   - pg_log_debug
-  - pg_str_endswith
+  - [pg_str_endswith](../p/pg_str_endswith.md)
   - [pg_fatal](../p/pg_fatal.md)
   - FILE_ACTION_* constants
   - FILE_TYPE_* constants

@@ -27,10 +27,10 @@ CreateEnumStmt is a parse tree node that represents CREATE TYPE statements used 
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag
-  - List (containing String nodes)
+  - [List](../L/List.md) (containing String nodes)
 - Called from (representative examples):
-  - DefineEnum
-  - ProcessUtilitySlow
+  - [DefineEnum](../D/DefineEnum.md)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md)
 
 ## Notes and Other Information
 - Enum values are ordered and the order is significant for comparison operations

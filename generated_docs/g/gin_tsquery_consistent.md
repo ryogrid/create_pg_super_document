@@ -25,7 +25,7 @@ The function extracts a check array indicating the presence of query operands, e
 ## Dependencies
 - Functions called/Symbols referenced:
   - GETQUERY (macro to extract query items from TSQuery)
-  - TS_execute_ternary (executes TSQuery with ternary logic)
+  - [TS_execute_ternary](../T/TS_execute_ternary.md) (executes TSQuery with ternary logic)
   - [checkcondition_gin](../c/checkcondition_gin.md) (callback function for term evaluation)
 - Called from (representative examples):
   - [gin_tsquery_consistent_6args](gin_tsquery_consistent_6args.md)

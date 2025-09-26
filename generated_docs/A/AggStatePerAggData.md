@@ -76,10 +76,10 @@ All values in this structure are set up during ExecInitAgg() and remain unchange
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Aggref
+  - [Aggref](Aggref.md)
 - Called from (representative examples):
-  - ExecInitAgg
-  - AggStatePerAgg
+  - [ExecInitAgg](../E/ExecInitAgg.md)
+  - [AggStatePerAgg](AggStatePerAgg.md)
 
 ## Notes and Other Information
 This structure is essential for PostgreSQL's two-phase aggregate processing architecture. The separation between transition computation (AggStatePerTransData) and result finalization (AggStatePerAggData) enables important optimizations like state sharing among identical aggregates. The shareable flag prevents incorrect results when final functions modify their input, ensuring data integrity during parallel aggregate processing.

@@ -23,7 +23,7 @@ The function performs a simple but important task: it copies the manifest data f
 ## Dependencies
 - Functions called/Symbols referenced:
   - memcpy (standard C library function)
-  - bbsink_manifest_contents (base sink function for manifest processing)
+  - [bbsink_manifest_contents](bbsink_manifest_contents.md) (base sink function for manifest processing)
 - Called from (representative examples):
   - Referenced in bbsink_lz4_ops.manifest_contents function pointer
   - Invoked through the basebackup sink callback mechanism

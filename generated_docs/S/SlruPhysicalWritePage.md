@@ -38,12 +38,12 @@ The function implements PostgreSQL's durability guarantees while providing optim
   - XLogRecPtrIsInvalid
   - [XLogFlush](../X/XLogFlush.md)
   - [SlruFileName](SlruFileName.md)
-  - OpenTransientFile
-  - pg_pwrite
+  - [OpenTransientFile](../O/OpenTransientFile.md)
+  - [pg_pwrite](../p/pg_pwrite.md)
   - [RegisterSyncRequest](../R/RegisterSyncRequest.md)
-  - pg_fsync
-  - CloseTransientFile
-  - pgstat_report_wait_start/end
+  - [pg_fsync](../p/pg_fsync.md)
+  - [CloseTransientFile](../C/CloseTransientFile.md)
+  - [pgstat_report_wait_start](../p/pgstat_report_wait_start.md)/end
   - START_CRIT_SECTION/END_CRIT_SECTION
 - Called from (representative examples):
   - [SlruInternalWritePage](SlruInternalWritePage.md)

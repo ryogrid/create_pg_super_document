@@ -23,7 +23,7 @@ The function is marked as 'stable' (`provolatile => 's'`) in the catalog, meanin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `cstring_to_text`: Converts a C string to PostgreSQL text type
+  - `[cstring_to_text](../c/cstring_to_text.md)`: Converts a C string to PostgreSQL text type
   - `PG_RETURN_TEXT_P`: PostgreSQL macro for returning text data
   - `PG_VERSION_STR`: Compile-time constant containing the version string
 

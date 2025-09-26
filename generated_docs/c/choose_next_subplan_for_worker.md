@@ -27,7 +27,7 @@ The function handles runtime partition pruning by identifying valid subplans on 
 ## Dependencies
 - Functions called/Symbols referenced:
   - ScanDirectionIsForward (direction validation)
-  - LWLockAcquire/LWLockRelease (thread synchronization)
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease (thread synchronization)
   - [ExecFindMatchingSubPlans](../E/ExecFindMatchingSubPlans.md) (runtime pruning support)
   - [mark_invalid_subplans_as_finished](../m/mark_invalid_subplans_as_finished.md) (pruning cleanup)
   - [bms_next_member](../b/bms_next_member.md) (bitmap set iteration)

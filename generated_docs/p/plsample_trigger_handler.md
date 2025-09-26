@@ -36,8 +36,8 @@ The function serves as an educational template demonstrating proper trigger hand
 ## Dependencies
 - Functions called/Symbols referenced:
   - `CALLED_AS_TRIGGER` (validate trigger context)
-  - `SPI_connect`, `SPI_register_trigger_data`, `SPI_finish` (SPI interface)
-  - `SPI_getrelname`, `SPI_getnspname` (relation name functions)
+  - `[SPI_connect](../S/SPI_connect.md)`, `SPI_register_trigger_data`, `SPI_finish` (SPI interface)
+  - `[SPI_getrelname](../S/SPI_getrelname.md)`, `SPI_getnspname` (relation name functions)
   - [SearchSysCache1](../S/SearchSysCache1.md), `ReleaseSysCache` (system catalog access)
   - [SysCacheGetAttr](../S/SysCacheGetAttr.md), `DirectFunctionCall1`, `textout` (source extraction)
   - `TRIGGER_FIRED_BY_*` macros (event type detection)
@@ -53,7 +53,7 @@ The function serves as an educational template demonstrating proper trigger hand
 - This is a static function, only accessible within the plsample module
 - Returns the trigger tuple (tg_trigtuple) unchanged, demonstrating the basic trigger return pattern
 - Provides extensive logging via ereport(NOTICE) for educational purposes, showing:
-  - Trigger name and relation information
+  - [Trigger](../T/Trigger.md) name and relation information
   - Complete event analysis (operation type, timing, level)
   - All trigger arguments
 - Demonstrates proper SPI usage patterns including connection, registration, and cleanup

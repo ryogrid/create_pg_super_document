@@ -32,7 +32,7 @@ This transformation is essential for the executor to correctly identify which co
 ## Dependencies
 - Functions called/Symbols referenced:
   - lfirst_node (SortGroupClause, GroupingSetData)
-  - lappend_int, lfirst_int
+  - [lappend_int](../l/lappend_int.md), lfirst_int
 - Called from (representative examples):
   - [preprocess_grouping_sets](../p/preprocess_grouping_sets.md)
   - [consider_groupingsets_paths](../c/consider_groupingsets_paths.md)

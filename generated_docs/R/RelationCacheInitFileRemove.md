@@ -29,9 +29,9 @@ This approach ensures that the first backend to connect to each database will re
 - Functions called/Symbols referenced:
   - [unlink_initfile](../u/unlink_initfile.md)
   - [RelationCacheInitFileRemoveInDir](RelationCacheInitFileRemoveInDir.md)
-  - AllocateDir
-  - ReadDirExtended
-  - FreeDir
+  - [AllocateDir](../A/AllocateDir.md)
+  - [ReadDirExtended](ReadDirExtended.md)
+  - [FreeDir](../F/FreeDir.md)
   - RELCACHE_INIT_FILENAME
   - TABLESPACE_VERSION_DIRECTORY
 - Called from (representative examples):

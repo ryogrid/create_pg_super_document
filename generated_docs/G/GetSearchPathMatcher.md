@@ -24,7 +24,7 @@ This function creates a SearchPathMatcher structure that represents the current 
   - [recomputeNamespacePath](../r/recomputeNamespacePath.md)
   - [list_copy](../l/list_copy.md)
   - linitial_oid
-  - list_delete_first
+  - [list_delete_first](../l/list_delete_first.md)
   - [palloc0](../p/palloc0.md)
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - activeSearchPath (global variable)

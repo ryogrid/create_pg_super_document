@@ -19,12 +19,12 @@ This function is called when a replication slot is being dropped to clean up its
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockHeldByMeInMode (with ReplicationSlotAllocationLock, LW_EXCLUSIVE)
-  - pgstat_drop_entry (with PGSTAT_KIND_REPLSLOT)
-  - ReplicationSlotIndex
-  - pgstat_request_entry_refs_gc (if drop fails)
+  - [LWLockHeldByMeInMode](../L/LWLockHeldByMeInMode.md) (with ReplicationSlotAllocationLock, LW_EXCLUSIVE)
+  - [pgstat_drop_entry](pgstat_drop_entry.md) (with PGSTAT_KIND_REPLSLOT)
+  - [ReplicationSlotIndex](../R/ReplicationSlotIndex.md)
+  - [pgstat_request_entry_refs_gc](pgstat_request_entry_refs_gc.md) (if drop fails)
 - Called from (representative examples):
-  - ReplicationSlotDropPtr
+  - [ReplicationSlotDropPtr](../R/ReplicationSlotDropPtr.md)
 
 ## Notes and Other Information
 - Must be called with ReplicationSlotAllocationLock already held exclusively

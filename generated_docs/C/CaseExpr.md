@@ -48,19 +48,19 @@ The execution model uses conditional jumps: each WHEN clause is evaluated in seq
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CaseWhen (for individual WHEN clauses)
+  - [CaseWhen](CaseWhen.md) (for individual WHEN clauses)
   - CaseTestExpr (placeholder for test values in simple CASE)
   - makeNode (for creating CaseExpr instances)
-  - transformCaseExpr (parse-time transformation)
+  - [transformCaseExpr](../t/transformCaseExpr.md) (parse-time transformation)
 - Called from (representative examples):
-  - transformCaseExpr (during parse analysis)
-  - ExecInitExprRec (during execution plan initialization)  
-  - eval_const_expressions_mutator (during constant folding)
-  - assign_collations_walker (during collation analysis)
+  - [transformCaseExpr](../t/transformCaseExpr.md) (during parse analysis)
+  - [ExecInitExprRec](../E/ExecInitExprRec.md) (during execution plan initialization)  
+  - [eval_const_expressions_mutator](../e/eval_const_expressions_mutator.md) (during constant folding)
+  - [assign_collations_walker](../a/assign_collations_walker.md) (during collation analysis)
 
 ## Notes and Other Information
 - Parse analysis completion can be tested by checking if casetype is InvalidOid
-- transformCaseExpr always ensures a default result exists (adds NULL if needed)
+- [transformCaseExpr](../t/transformCaseExpr.md) always ensures a default result exists (adds NULL if needed)
 - The executor uses a jump-based evaluation model for efficiency
 - CaseTestExpr usage requires careful handling during function inlining to avoid conflicts
 - Collation handling is special: the test expression's collation is not relevant to the result

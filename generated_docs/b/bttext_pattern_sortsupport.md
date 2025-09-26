@@ -21,7 +21,7 @@ This function is part of PostgreSQL's sort support framework, which provides per
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SortSupport (type cast)
+  - [SortSupport](../S/SortSupport.md) (type cast)
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - [varstr_sortsupport](../v/varstr_sortsupport.md)
   - PG_GETARG_POINTER
@@ -30,7 +30,7 @@ This function is part of PostgreSQL's sort support framework, which provides per
   - No direct references found (likely used through PostgreSQL's B-tree operator class infrastructure)
 
 ## Notes and Other Information
-- Sort support function specifically for text pattern B-tree operations
+- [Sort](../S/Sort.md) support function specifically for text pattern B-tree operations
 - Forces use of "C" collation (C_COLLATION_OID) to ensure consistent byte-wise comparison
 - Uses memory context switching to ensure sort support setup occurs in the appropriate memory context
 - Leverages PostgreSQL's generic string sort support infrastructure through `varstr_sortsupport`

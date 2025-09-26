@@ -25,13 +25,13 @@ The function is typically called as part of error reporting chains where datatyp
 - Functions called/Symbols referenced:
   - Form_pg_type (system catalog form)
   - PG_DIAG_SCHEMA_NAME (error diagnostic field constant)
-  - err_generic_string
-  - get_namespace_name
+  - [err_generic_string](err_generic_string.md)
+  - [get_namespace_name](../g/get_namespace_name.md)
   - PG_DIAG_DATATYPE_NAME (error diagnostic field constant)
 - Called from (representative examples):
-  - ExecEvalConstraintNotNull
-  - domain_check_input
-  - errdomainconstraint
+  - [ExecEvalConstraintNotNull](../E/ExecEvalConstraintNotNull.md)
+  - [domain_check_input](../d/domain_check_input.md)
+  - [errdomainconstraint](errdomainconstraint.md)
 
 ## Notes and Other Information
 - The function always returns 0, as the return value is not meaningful

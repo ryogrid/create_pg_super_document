@@ -43,10 +43,10 @@ Key characteristics of relations created by formrdesc:
   - [RelationMapUpdateMap](../R/RelationMapUpdateMap.md)
   - RelationCacheInsert
   - IsBootstrapProcessingMode
-  - namestrcpy
+  - [namestrcpy](../n/namestrcpy.md)
 - Called from (representative examples):
-  - RelationCacheInitializePhase2
-  - RelationCacheInitializePhase3
+  - [RelationCacheInitializePhase2](../R/RelationCacheInitializePhase2.md)
+  - [RelationCacheInitializePhase3](../R/RelationCacheInitializePhase3.md)
 
 ## Notes and Other Information
 - Only used for a few basic system catalogs during initialization

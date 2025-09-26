@@ -23,7 +23,7 @@ This function is part of PostgreSQL's SP-GiST implementation for geometric box o
 - Functions called/Symbols referenced:
   - [lower2D](../l/lower2D.md)
   - RectBox (struct)
-  - RangeBox (struct)
+  - [RangeBox](../R/RangeBox.md) (struct)
 - Called from (representative examples):
   - [spg_box_quad_inner_consistent](../s/spg_box_quad_inner_consistent.md)
 

@@ -26,9 +26,9 @@ This function takes no parameters and operates on shared transaction state.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `LWLockAcquire` (XidGenLock, LW_SHARED)
+  - `[LWLockAcquire](../L/LWLockAcquire.md)` (XidGenLock, LW_SHARED)
   - `XidFromFullTransactionId`
-  - `LWLockRelease` (XidGenLock)
+  - `[LWLockRelease](../L/LWLockRelease.md)` (XidGenLock)
   - `TransactionIdIsNormal`
   - `TransactionIdIsValid`
   - [TransactionIdFollowsOrEquals](../T/TransactionIdFollowsOrEquals.md)

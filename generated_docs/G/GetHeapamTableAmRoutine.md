@@ -33,7 +33,7 @@ This function is used by PostgreSQL's table access method infrastructure to obta
 - Called from (representative examples):
   - [heap_getnext](../h/heap_getnext.md)
   - [formrdesc](../f/formrdesc.md)
-  - table_scan_sample_next_tuple
+  - [table_scan_sample_next_tuple](../t/table_scan_sample_next_tuple.md)
 
 ## Notes and Other Information
 - This is a simple accessor function that returns a reference to the static heapam_methods structure

@@ -32,12 +32,12 @@ PostgreSQL defines its own version of the structure on Windows (where it is not 
 - Used by (representative examples):
   - [pg_preadv](../p/pg_preadv.md)
   - [pg_pwritev](../p/pg_pwritev.md)
-  - FileReadV
-  - FileWriteV
+  - [FileReadV](../F/FileReadV.md)
+  - [FileWriteV](../F/FileWriteV.md)
   - [mdreadv](../m/mdreadv.md)
   - [mdwritev](../m/mdwritev.md)
   - [buffers_to_iovec](../b/buffers_to_iovec.md)
-  - pg_pwritev_with_retry
+  - [pg_pwritev_with_retry](../p/pg_pwritev_with_retry.md)
 
 ## Notes and Other Information
 - Only defined on Windows systems; POSIX systems use the system-provided definition from `<sys/uio.h>`

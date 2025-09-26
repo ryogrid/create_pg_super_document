@@ -41,7 +41,7 @@ Key operations performed:
   - REG_ESPACE - Out of space error code
   - ZAPCNFA - Clears compiled NFA structure
 - Called from (representative examples):
-  - processlacon - Main lacon processing function
+  - [processlacon](../p/processlacon.md) - Main lacon processing function
 
 ## Notes and Other Information
 - Returns the allocated lacon number (starting from 1) or 0 on error

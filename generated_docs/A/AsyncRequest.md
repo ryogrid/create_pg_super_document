@@ -33,9 +33,9 @@ AsyncRequest encapsulates the state necessary for asynchronous communication bet
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PlanState](../P/PlanState.md) (struct type)
-  - TupleTableSlot (struct type)
+  - [TupleTableSlot](../T/TupleTableSlot.md) (struct type)
 - Called from (representative examples):
-  - ExecAsyncRequest (src/backend/executor/execAsync.c:26)
+  - [ExecAsyncRequest](../E/ExecAsyncRequest.md) (src/backend/executor/execAsync.c:26)
   - [ExecAppendAsyncRequest](../E/ExecAppendAsyncRequest.md) (src/backend/executor/nodeAppend.c:992)
   - [ExecAsyncForeignScanRequest](../E/ExecAsyncForeignScanRequest.md) (src/backend/executor/nodeForeignscan.c:456)
 

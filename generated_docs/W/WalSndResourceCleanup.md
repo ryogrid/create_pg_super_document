@@ -21,8 +21,8 @@ The function implements a careful protocol where it first saves the CurrentResou
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwner (type)
-  - ResourceOwnerRelease
+  - [ResourceOwner](../R/ResourceOwner.md) (type)
+  - [ResourceOwnerRelease](../R/ResourceOwnerRelease.md)
   - RESOURCE_RELEASE_BEFORE_LOCKS
   - RESOURCE_RELEASE_LOCKS
   - RESOURCE_RELEASE_AFTER_LOCKS

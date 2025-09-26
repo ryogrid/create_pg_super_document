@@ -25,15 +25,15 @@ The output follows standard SQL VALUES syntax:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_rule_expr_toplevel
-  - appendStringInfoString
-  - appendStringInfoChar
+  - [get_rule_expr_toplevel](get_rule_expr_toplevel.md)
+  - [appendStringInfoString](../a/appendStringInfoString.md)
+  - [appendStringInfoChar](../a/appendStringInfoChar.md)
   - lfirst
   - foreach
 - Called from (representative examples):
   - [get_basic_select_query](get_basic_select_query.md)
   - [get_insert_query_def](get_insert_query_def.md)
-  - get_from_clause_item
+  - [get_from_clause_item](get_from_clause_item.md)
 
 ## Notes and Other Information
 This function is specifically designed to handle VALUES clauses that can appear in various SQL contexts, including INSERT statements (INSERT INTO table VALUES ...), SELECT statements (SELECT * FROM (VALUES ...) AS t), and other contexts where VALUES is used as a table expression. The function maintains proper comma placement and parentheses structure to ensure syntactically correct SQL output. The use of  ensures that complex expressions within VALUES clauses are properly formatted, including handling of special PostgreSQL-specific constructs like whole-row variables.

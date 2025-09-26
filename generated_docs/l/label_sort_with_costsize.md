@@ -25,7 +25,7 @@ The function specifically handles Sort nodes (not IncrementalSort nodes) and cal
 ## Dependencies
 - Functions called/Symbols referenced:
   - [cost_sort](../c/cost_sort.md) (to calculate sorting costs)
-  - Sort (plan node type being processed)
+  - [Sort](../S/Sort.md) (plan node type being processed)
 - Called from (representative examples):
   - [create_append_plan](../c/create_append_plan.md)
   - [create_merge_append_plan](../c/create_merge_append_plan.md)

@@ -23,15 +23,15 @@ The function is part of the workflow for establishing inter-process communicatio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dsm_segment (structure type)
+  - [dsm_segment](dsm_segment.md) (structure type)
   - dsm_handle (return type)
 - Called from (representative examples):
-  - GetSessionDsmHandle
-  - LaunchParallelWorkers
-  - pa_launch_parallel_worker
-  - GetNamedDSMSegment
-  - dsa_create_ext
-  - setup_background_workers
+  - [GetSessionDsmHandle](../G/GetSessionDsmHandle.md)
+  - [LaunchParallelWorkers](../L/LaunchParallelWorkers.md)
+  - [pa_launch_parallel_worker](../p/pa_launch_parallel_worker.md)
+  - [GetNamedDSMSegment](../G/GetNamedDSMSegment.md)
+  - [dsa_create_ext](dsa_create_ext.md)
+  - [setup_background_workers](../s/setup_background_workers.md)
 
 ## Notes and Other Information
 - The handle is used to coordinate shared memory access between multiple processes

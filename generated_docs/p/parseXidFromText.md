@@ -35,7 +35,7 @@ The function is specifically designed for parsing transaction IDs, which are uns
   - strchr (standard C library)
   - ereport (PostgreSQL error reporting)
 - Called from (representative examples):
-  - ImportSnapshot (multiple calls for parsing xmin, xmax, and transaction ID arrays)
+  - [ImportSnapshot](../I/ImportSnapshot.md) (multiple calls for parsing xmin, xmax, and transaction ID arrays)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the snapmgr.c compilation unit

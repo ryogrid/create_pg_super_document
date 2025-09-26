@@ -28,7 +28,7 @@ This is particularly useful in executor nodes that need to track multiple slots 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MakeTupleTableSlot](../M/MakeTupleTableSlot.md)
-  - lappend
+  - [lappend](../l/lappend.md)
 - Called from (representative examples):
   - [ExecInitResultSlot](ExecInitResultSlot.md)
   - [ExecInitScanTupleSlot](ExecInitScanTupleSlot.md)

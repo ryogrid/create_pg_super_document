@@ -24,12 +24,12 @@ Unlike InitPostmasterChild, this function does not set up postmaster death monit
   - B_STANDALONE_BACKEND (backend type constant)
   - [pgwin32_signal_initialize](../p/pgwin32_signal_initialize.md) (Windows signal handling)
   - [InitProcessGlobals](InitProcessGlobals.md) (global process state)
-  - InitializeLatchSupport (latch infrastructure)
+  - [InitializeLatchSupport](InitializeLatchSupport.md) (latch infrastructure)
   - [InitProcessLocalLatch](InitProcessLocalLatch.md) (process-local latch)
-  - InitializeLatchWaitSet (wait event infrastructure)
+  - [InitializeLatchWaitSet](InitializeLatchWaitSet.md) (wait event infrastructure)
   - [pqinitmask](../p/pqinitmask.md) (signal mask initialization)
   - sigprocmask (apply signal mask)
-  - find_my_exec (locate executable path)
+  - [find_my_exec](../f/find_my_exec.md) (locate executable path)
   - [get_pkglib_path](../g/get_pkglib_path.md) (determine library path)
 
 - Called from (representative examples):

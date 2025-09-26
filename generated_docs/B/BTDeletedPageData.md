@@ -25,7 +25,7 @@ This mechanism is crucial for MVCC (Multi-Version Concurrency Control) complianc
 - `safexid`: A full transaction ID that indicates the deletion point of the page. This is used by BTPageIsRecyclable() to determine when the page can be safely recycled for reuse
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FullTransactionId (transaction identifier type)
+  - [FullTransactionId](../F/FullTransactionId.md) (transaction identifier type)
 - Called from (representative examples):
   - [BTPageSetDeleted](BTPageSetDeleted.md) (macro to mark a page as deleted)
   - [BTPageGetDeleteXid](BTPageGetDeleteXid.md) (macro to retrieve the deletion transaction ID)

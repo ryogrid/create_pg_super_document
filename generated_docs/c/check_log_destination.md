@@ -22,7 +22,7 @@ This function validates the `log_destination` configuration parameter by parsing
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pstrdup](../p/pstrdup.md)
-  - SplitIdentifierString
+  - [SplitIdentifierString](../S/SplitIdentifierString.md)
   - GUC_check_errdetail
   - [list_free](../l/list_free.md)
   - [pg_strcasecmp](../p/pg_strcasecmp.md)

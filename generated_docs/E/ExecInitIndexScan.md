@@ -36,20 +36,20 @@ The function includes special handling for EXPLAIN-only execution, where it stop
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode
-  - ExecAssignExprContext
-  - ExecOpenScanRelation
+  - [ExecAssignExprContext](ExecAssignExprContext.md)
+  - [ExecOpenScanRelation](ExecOpenScanRelation.md)
   - [ExecInitScanTupleSlot](ExecInitScanTupleSlot.md)
   - [table_slot_callbacks](../t/table_slot_callbacks.md)
   - [ExecInitResultTypeTL](ExecInitResultTypeTL.md)
   - [ExecAssignScanProjectionInfo](ExecAssignScanProjectionInfo.md)
   - [ExecInitQual](ExecInitQual.md)
   - [ExecInitExprList](ExecInitExprList.md)
-  - exec_rt_fetch
+  - [exec_rt_fetch](../e/exec_rt_fetch.md)
   - [index_open](../i/index_open.md)
   - [ExecIndexBuildScanKeys](ExecIndexBuildScanKeys.md)
-  - PrepareSortSupportFromOrderingOp
+  - [PrepareSortSupportFromOrderingOp](../P/PrepareSortSupportFromOrderingOp.md)
   - [get_typlenbyval](../g/get_typlenbyval.md)
-  - pairingheap_allocate
+  - [pairingheap_allocate](../p/pairingheap_allocate.md)
 - Called from (representative examples):
   - [ExecInitNode](ExecInitNode.md) (in execProcnode.c:220)
 

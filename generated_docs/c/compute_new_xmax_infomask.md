@@ -49,7 +49,7 @@ The function uses a goto-based state machine (label l5) to restart computation w
   - [MultiXactIdIsRunning](../M/MultiXactIdIsRunning.md)
   - [MultiXactIdGetUpdateXid](../M/MultiXactIdGetUpdateXid.md)
   - [TransactionIdIsCurrentTransactionId](../T/TransactionIdIsCurrentTransactionId.md)
-  - TransactionIdIsInProgress
+  - [TransactionIdIsInProgress](../T/TransactionIdIsInProgress.md)
   - [TransactionIdDidCommit](../T/TransactionIdDidCommit.md)
   - TUPLOCK_from_mxstatus
 - Called from (representative examples):

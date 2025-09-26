@@ -36,7 +36,7 @@ The verification follows these rules:
 
 - Called from (representative examples):
   - [CopyConvertBuf](../C/CopyConvertBuf.md): COPY command data validation (copyfromparse.c)
-  - `add_file_to_manifest`: Backup manifest generation (write_manifest.c)
+  - `[add_file_to_manifest](../a/add_file_to_manifest.md)`: Backup manifest generation (write_manifest.c)
   - [PQescapeInternal](../P/PQescapeInternal.md): libpq string escaping functions (fe-exec.c)
   - [test_one_vector_escape](../t/test_one_vector_escape.md): Test functions for string escaping validation
   - [test_enc_setup](../t/test_enc_setup.md), `test_enc_conversion`: Regression test encoding validation

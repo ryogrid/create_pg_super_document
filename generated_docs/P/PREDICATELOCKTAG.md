@@ -24,19 +24,19 @@ PREDICATELOCKTAG serves as a unique identifier for individual predicate locks wi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PREDICATELOCKTARGET
-  - SERIALIZABLEXACT
+  - [PREDICATELOCKTARGET](PREDICATELOCKTARGET.md)
+  - [SERIALIZABLEXACT](../S/SERIALIZABLEXACT.md)
 - Called from (representative examples):
-  - predicatelock_hash
-  - CreatePredicateLock
-  - DeleteChildTargetLocks
-  - TransferPredicateLocksToNewTarget
-  - CheckTargetForConflictsIn
-  - ClearOldPredicateLocks
+  - [predicatelock_hash](../p/predicatelock_hash.md)
+  - [CreatePredicateLock](../C/CreatePredicateLock.md)
+  - [DeleteChildTargetLocks](../D/DeleteChildTargetLocks.md)
+  - [TransferPredicateLocksToNewTarget](../T/TransferPredicateLocksToNewTarget.md)
+  - [CheckTargetForConflictsIn](../C/CheckTargetForConflictsIn.md)
+  - [ClearOldPredicateLocks](../C/ClearOldPredicateLocks.md)
 
 ## Notes and Other Information
 - Used as a hash key in predicate lock hash tables for efficient lookup operations
 - Critical component in serializable snapshot isolation conflict detection algorithms
 - Enables bidirectional navigation between targets and transactions in predicate locking system
 - Lifetime tied to the duration of the predicate lock - created when lock is acquired, destroyed when lock is released
-- Hash function predicatelock_hash() operates on this structure for hash table operations
+- [Hash](../H/Hash.md) function predicatelock_hash() operates on this structure for hash table operations

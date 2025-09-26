@@ -24,10 +24,10 @@ The function implements bit-level operations to efficiently check the null statu
 - Functions called/Symbols referenced:
   - bits8 (data type for bitmap representation)
 - Called from (representative examples):
-  - array_get_element
-  - array_set_element
-  - array_iterate
-  - array_slice_size
+  - [array_get_element](array_get_element.md)
+  - [array_set_element](array_set_element.md)
+  - [array_iterate](array_iterate.md)
+  - [array_slice_size](array_slice_size.md)
 
 ## Notes and Other Information
 - Returns false (not null) if nullbitmap is NULL, assuming all elements are non-NULL when no bitmap exists

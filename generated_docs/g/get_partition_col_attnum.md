@@ -25,10 +25,10 @@ This function is essential for identifying which table columns participate in pa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PartitionKey (struct type)
+  - [PartitionKey](../P/PartitionKey.md) (struct type)
 - Called from (representative examples):
-  - has_partition_attrs
-  - ExecBuildSlotPartitionKeyDescription
+  - [has_partition_attrs](../h/has_partition_attrs.md)
+  - [ExecBuildSlotPartitionKeyDescription](../E/ExecBuildSlotPartitionKeyDescription.md)
 
 ## Notes and Other Information
 - This is a static inline function defined in partcache.h for efficient access

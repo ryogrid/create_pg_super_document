@@ -37,7 +37,7 @@ The header is followed by a variable-length array of keys, with the specific key
 - Called from (representative examples):
   - FPM_ITEMS_PER_INTERNAL_PAGE (macro calculating internal page capacity)
   - FPM_ITEMS_PER_LEAF_PAGE (macro calculating leaf page capacity)
-  - FreePageBtree (main btree page structure)
+  - [FreePageBtree](FreePageBtree.md) (main btree page structure)
 
 ## Notes and Other Information
 - Used as the common header for both internal and leaf btree pages

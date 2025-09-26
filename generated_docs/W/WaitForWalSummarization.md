@@ -23,8 +23,8 @@ The function monitors both the summarized_lsn (data written to disk) and pending
 ## Dependencies
 - Functions called/Symbols referenced:
   - CHECK_FOR_INTERRUPTS
-  - LWLockAcquire
-  - LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
   - [TimestampDifferenceMilliseconds](../T/TimestampDifferenceMilliseconds.md)
   - TimestampTzPlusMilliseconds

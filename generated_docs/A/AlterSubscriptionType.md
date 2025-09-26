@@ -36,7 +36,7 @@ This enumeration defines the different types of modifications that can be made t
 - Functions called/Symbols referenced:
   - (None - this is an enum definition)
 - Called from (representative examples):
-  - AlterSubscriptionStmt (as the 'kind' field)
+  - [AlterSubscriptionStmt](AlterSubscriptionStmt.md) (as the 'kind' field)
   - Parser grammar rules in gram.y for ALTER SUBSCRIPTION statements
   - [Subscription](../S/Subscription.md) command functions in src/backend/commands/subscriptioncmds.c
 

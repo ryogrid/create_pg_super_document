@@ -25,8 +25,8 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PgStatShared_BgWriter (type for shared memory statistics)
-  - PgStat_BgWriterStats (type for statistics structure)
+  - [PgStatShared_BgWriter](../P/PgStatShared_BgWriter.md) (type for shared memory statistics)
+  - [PgStat_BgWriterStats](../P/PgStat_BgWriterStats.md) (type for statistics structure)
   - [pgstat_assert_is_up](pgstat_assert_is_up.md) (assertion function)
   - [pgstat_begin_changecount_write](pgstat_begin_changecount_write.md) (atomic update mechanism)
   - [pgstat_end_changecount_write](pgstat_end_changecount_write.md) (atomic update mechanism)

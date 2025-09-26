@@ -36,15 +36,15 @@ Key functionality includes:
   - [WAL_SYNC_METHOD_OPEN_DSYNC](../W/WAL_SYNC_METHOD_OPEN_DSYNC.md)
   - INSTR_TIME_SET_CURRENT
   - INSTR_TIME_SET_ZERO
-  - pgstat_report_wait_start
+  - [pgstat_report_wait_start](../p/pgstat_report_wait_start.md)
   - WAL_SYNC_METHOD_FSYNC
-  - pg_fsync_no_writethrough
+  - [pg_fsync_no_writethrough](../p/pg_fsync_no_writethrough.md)
   - WAL_SYNC_METHOD_FSYNC_WRITETHROUGH
   - [pg_fsync_writethrough](../p/pg_fsync_writethrough.md)
   - WAL_SYNC_METHOD_FDATASYNC
-  - pg_fdatasync
+  - [pg_fdatasync](../p/pg_fdatasync.md)
   - [XLogFileName](../X/XLogFileName.md)
-  - pgstat_report_wait_end
+  - [pgstat_report_wait_end](../p/pgstat_report_wait_end.md)
   - INSTR_TIME_ACCUM_DIFF
   - MAXFNAMELEN
   - PANIC

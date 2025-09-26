@@ -36,7 +36,7 @@ The function is designed to work only during create_plan() phase when final path
   - [ParamPathInfo](../P/ParamPathInfo.md) (structure used for parameterization information)
   - [adjust_appendrel_attrs_multilevel](../a/adjust_appendrel_attrs_multilevel.md) (via ADJUST_CHILD_ATTRS macro)
   - [adjust_child_relids_multilevel](../a/adjust_child_relids_multilevel.md)
-  - find_param_path_info
+  - [find_param_path_info](../f/find_param_path_info.md)
   - makeNode
   - [copy_pathtarget](../c/copy_pathtarget.md)
   - [bms_overlap](../b/bms_overlap.md), bms_copy, bms_free (bitmap set operations)

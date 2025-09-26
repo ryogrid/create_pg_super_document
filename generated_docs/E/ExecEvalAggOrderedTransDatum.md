@@ -24,7 +24,7 @@ ExecEvalAggOrderedTransDatum is part of PostgreSQL's expression evaluation frame
 ## Dependencies
 - Functions called/Symbols referenced:
   - [tuplesort_putdatum](../t/tuplesort_putdatum.md)
-  - ExprEvalStep (struct)
+  - [ExprEvalStep](ExprEvalStep.md) (struct)
   - [AggStatePerTrans](../A/AggStatePerTrans.md) (struct)
 - Called from (representative examples):
   - [ExecInterpExpr](ExecInterpExpr.md)

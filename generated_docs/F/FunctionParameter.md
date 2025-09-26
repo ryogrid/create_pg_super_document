@@ -32,15 +32,15 @@ The parameter mode determines how the parameter behaves: IN parameters are input
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TypeName (for parameter type specification)
-  - FunctionParameterMode (parameter mode enumeration)
+  - [TypeName](../T/TypeName.md) (for parameter type specification)
+  - [FunctionParameterMode](FunctionParameterMode.md) (parameter mode enumeration)
   - NodeTag (parse tree infrastructure)
-  - Node (base parse tree node type)
+  - [Node](../N/Node.md) (base parse tree node type)
 
 - Called from (representative examples):
-  - interpret_function_parameter_list (function signature processing)
-  - LookupFuncWithArgs (function resolution by signature)
-  - exprLocation (parse tree location tracking)
+  - [interpret_function_parameter_list](../i/interpret_function_parameter_list.md) (function signature processing)
+  - [LookupFuncWithArgs](../L/LookupFuncWithArgs.md) (function resolution by signature)
+  - [exprLocation](../e/exprLocation.md) (parse tree location tracking)
 
 ## Notes and Other Information
 - Used within the parameters list of CreateFunctionStmt structures

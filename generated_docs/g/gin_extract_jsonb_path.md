@@ -39,8 +39,8 @@ The function uses a stack-based approach to track the hierarchical path through 
   - JsonbIterator
   - [JsonbValue](../J/JsonbValue.md)
   - JsonbIteratorToken
-  - PathHashStack
-  - GinEntries
+  - [PathHashStack](../P/PathHashStack.md)
+  - [GinEntries](../G/GinEntries.md)
   - WJB_DONE, WJB_BEGIN_ARRAY, WJB_BEGIN_OBJECT
   - WJB_KEY, WJB_ELEM, WJB_VALUE
   - WJB_END_ARRAY, WJB_END_OBJECT
@@ -52,6 +52,6 @@ The function uses a stack-based approach to track the hierarchical path through 
 - Only supports containment queries (@>) due to path-sensitive hashing
 - Provides better selectivity than jsonb_ops by distinguishing structural differences
 - Uses stack-based hash computation to include full key paths in index entries
-- Hash values incorporate both the JSON value and all parent keys in the hierarchy
+- [Hash](../H/Hash.md) values incorporate both the JSON value and all parent keys in the hierarchy
 - More efficient for containment queries but supports fewer query types than jsonb_ops
 - Located in src/backend/utils/adt/jsonb_gin.c:1090-1179

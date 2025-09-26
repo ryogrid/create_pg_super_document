@@ -28,7 +28,7 @@ The function includes compile-time conditional compilation - if PostgreSQL is bu
   - Assert (assertion checking)
 - Called from (representative examples):
   - [SendBaseBackup](../S/SendBaseBackup.md) (src/backend/backup/basebackup.c:1044)
-  - bbsink_cleanup (src/include/backup/basebackup_sink.h:288)
+  - [bbsink_cleanup](bbsink_cleanup.md) (src/include/backup/basebackup_sink.h:288)
 
 ## Notes and Other Information
 - Requires LZ4 library support at compile time ( macro)

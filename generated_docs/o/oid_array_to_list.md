@@ -21,7 +21,7 @@ The function is commonly used in PostgreSQL's procedural language implementation
 - Functions called/Symbols referenced:
   - DatumGetArrayTypeP
   - [deconstruct_array_builtin](../d/deconstruct_array_builtin.md)  
-  - lappend_oid
+  - [lappend_oid](../l/lappend_oid.md)
 - Called from (representative examples):
   - [compile_plperl_function](../c/compile_plperl_function.md)
   - [PLy_procedure_create](../P/PLy_procedure_create.md)

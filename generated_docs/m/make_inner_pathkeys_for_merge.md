@@ -36,12 +36,12 @@ Key behaviors:
 ## Dependencies
 - Functions called/Symbols referenced:
   - [update_mergeclause_eclasses](../u/update_mergeclause_eclasses.md)
-  - list_head
+  - [list_head](../l/list_head.md)
   - [lnext](../l/lnext.md)
   - [make_canonical_pathkey](make_canonical_pathkey.md)
   - [pathkey_is_redundant](../p/pathkey_is_redundant.md)
-  - EquivalenceClass
-  - PathKey
+  - [EquivalenceClass](../E/EquivalenceClass.md)
+  - [PathKey](../P/PathKey.md)
 - Called from (representative examples):
   - [sort_inner_and_outer](../s/sort_inner_and_outer.md) (src/backend/optimizer/path/joinpath.c:1409)
   - [generate_mergejoin_paths](../g/generate_mergejoin_paths.md) (src/backend/optimizer/path/joinpath.c:1519)

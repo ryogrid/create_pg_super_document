@@ -26,16 +26,16 @@ The function saves the current memory context, switches to the econtext's per-tu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextSwitchTo (for switching memory contexts)
-  - state->evalfunc (the compiled expression evaluation function)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (for switching memory contexts)
+  - [state](../s/state.md)->evalfunc (the compiled expression evaluation function)
 - Called from (representative examples):
-  - FormIndexDatum (for index key formation)
-  - ExecuteCallStmt (for function call execution)
-  - ExecCheck (for CHECK constraint evaluation)
-  - FormPartitionKeyDatum (for partition key computation)
-  - advance_aggregates (in aggregate processing)
-  - ExecProject (for projection operations)
-  - ExecQual (for qualification testing)
+  - [FormIndexDatum](../F/FormIndexDatum.md) (for index key formation)
+  - [ExecuteCallStmt](ExecuteCallStmt.md) (for function call execution)
+  - [ExecCheck](ExecCheck.md) (for CHECK constraint evaluation)
+  - [FormPartitionKeyDatum](../F/FormPartitionKeyDatum.md) (for partition key computation)
+  - [advance_aggregates](../a/advance_aggregates.md) (in aggregate processing)
+  - [ExecProject](ExecProject.md) (for projection operations)
+  - [ExecQual](ExecQual.md) (for qualification testing)
 
 ## Notes and Other Information
 - This function is essential for preventing memory leaks in expression evaluation by ensuring allocations occur in the correct memory context

@@ -29,7 +29,7 @@ The AttrMissing structure is typically used as part of an array within the Tuple
 ## Dependencies
 - Functions called/Symbols referenced:
   - Datum (PostgreSQL's generic data type)
-  - bool (standard boolean type)
+  - [bool](../b/bool.md) (standard boolean type)
 
 - Called from (representative examples):
   -  (src/backend/access/common/heaptuple.c:159)
@@ -42,7 +42,7 @@ The AttrMissing structure is typically used as part of an array within the Tuple
   -  (src/include/access/tupdesc.h:41)
 
 ## Notes and Other Information
-- AttrMissing is defined in src/include/access/tupdesc_details.h, indicating it's part of the internal tuple descriptor implementation details
+- [AttrMissing](AttrMissing.md) is defined in src/include/access/tupdesc_details.h, indicating it's part of the internal tuple descriptor implementation details
 - This mechanism is essential for PostgreSQL's performance when adding columns with default values to large tables
 - The structure is closely integrated with the TupleConstr system, where it's stored as an array in the 'missing' field
 - When accessing attributes from tuples that predate the addition of certain columns, PostgreSQL uses this structure to seamlessly provide the appropriate default values

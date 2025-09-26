@@ -20,16 +20,16 @@ static inline void pq_sendint32(StringInfo buf, uint32 i)
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - enlargeStringInfo
+  - [enlargeStringInfo](../e/enlargeStringInfo.md)
   - [pq_writeint32](pq_writeint32.md)
 - Called from (representative examples):
   - [printsimple_startup](printsimple_startup.md)
   - [printtup](printtup.md)
   - [sendAuthRequest](../s/sendAuthRequest.md)
-  - pq_sendcountedtext
+  - [pq_sendcountedtext](pq_sendcountedtext.md)
   - [logicalrep_write_begin](../l/logicalrep_write_begin.md)
   - [logicalrep_write_insert](../l/logicalrep_write_insert.md)
-  - logicalrep_write_update
+  - [logicalrep_write_update](../l/logicalrep_write_update.md)
   - [array_send](../a/array_send.md)
   - [int4send](../i/int4send.md)
   - [numeric_serialize](../n/numeric_serialize.md)

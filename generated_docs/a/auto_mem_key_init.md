@@ -23,10 +23,10 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - pthread_key_create
-  - auto_mem_destructor (as callback)
+  - [auto_mem_destructor](auto_mem_destructor.md) (as callback)
   - auto_mem_key (global variable)
 - Called from (representative examples):
-  - get_auto_allocs (via pthread_once)
+  - [get_auto_allocs](../g/get_auto_allocs.md) (via pthread_once)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the memory.c file

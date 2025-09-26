@@ -21,12 +21,12 @@ This function parses a comma-separated string of namespace names and converts th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SplitIdentifierString
+  - [SplitIdentifierString](../S/SplitIdentifierString.md)
   - Form_pg_authid
   - [get_namespace_oid](../g/get_namespace_oid.md)
   - [object_aclcheck](../o/object_aclcheck.md)
   - ACL_USAGE
-  - lappend_oid
+  - [lappend_oid](../l/lappend_oid.md)
   - [list_free](../l/list_free.md)
 - Called from (representative examples):
   - [cachedNamespacePath](../c/cachedNamespacePath.md)

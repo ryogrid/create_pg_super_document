@@ -29,10 +29,10 @@ The prefix tree implementation allows for memory-efficient storage of large dict
   - SPNodeData (struct for node data storage)
   - FLEXIBLE_ARRAY_MEMBER (macro for flexible array implementation)
 - Called from (representative examples):
-  - mkSPNode (creates and initializes SPNode structures)
-  - FindWord (traverses SPNode tree for word lookup)
-  - SplitToVariants (uses SPNode for word variant generation)
-  - makeCompoundFlags (processes compound word flags in SPNode)
+  - [mkSPNode](../m/mkSPNode.md) (creates and initializes SPNode structures)
+  - [FindWord](../F/FindWord.md) (traverses SPNode tree for word lookup)
+  - [SplitToVariants](SplitToVariants.md) (uses SPNode for word variant generation)
+  - [makeCompoundFlags](../m/makeCompoundFlags.md) (processes compound word flags in SPNode)
 
 ## Notes and Other Information
 - Part of PostgreSQL's Ispell dictionary implementation located in src/include/tsearch/dicts/spell.h:50-54

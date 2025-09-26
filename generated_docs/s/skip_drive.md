@@ -33,8 +33,8 @@ The function returns a pointer to the portion of the path after the drive specif
   - [canonicalize_path_enc](../c/canonicalize_path_enc.md)
   - [path_contains_parent_reference](../p/path_contains_parent_reference.md)
   - [get_progname](../g/get_progname.md)
-  - trim_directory
-  - trim_trailing_separator
+  - [trim_directory](../t/trim_directory.md)
+  - [trim_trailing_separator](../t/trim_trailing_separator.md)
 
 ## Notes and Other Information
 - This is a static function internal to src/port/path.c

@@ -28,7 +28,7 @@ The function operates in multiple phases: first clearing capture numbers and fla
   - `CAP`: Flag indicating node contains captures
   - `BACKR`: Flag indicating node contains backreferences
   - `MIXED`: Flag indicating mixed child greediness
-  - `subre`: Sub-regular expression structure type
+  - `[subre](../s/subre.md)`: Sub-regular expression structure type
 - Called from (representative examples):
   - `CNOERR`: Main compilation error handling
   - [removecaptures](removecaptures.md): Recursive self-calls for tree traversal

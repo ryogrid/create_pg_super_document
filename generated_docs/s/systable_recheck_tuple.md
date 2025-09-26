@@ -25,7 +25,7 @@ The function works by obtaining a fresh catalog snapshot and using it to test tu
   - [ExecFetchSlotHeapTuple](../E/ExecFetchSlotHeapTuple.md) (for tuple validation)
   - [GetCatalogSnapshot](../G/GetCatalogSnapshot.md) (to obtain fresh snapshot)
   - RelationGetRelid (to get relation OID)
-  - table_tuple_satisfies_snapshot (for visibility testing)
+  - [table_tuple_satisfies_snapshot](../t/table_tuple_satisfies_snapshot.md) (for visibility testing)
   - [HandleConcurrentAbort](../H/HandleConcurrentAbort.md) (concurrent abort handling)
 - Called from (representative examples):
   - [findDependentObjects](../f/findDependentObjects.md)

@@ -35,7 +35,7 @@ Unlike regular index build scans, this function doesn't return a tuple count as 
   - table_rel->rd_tableam->index_validate_scan (delegates to table AM implementation)
 - Types referenced:
   - [Relation](../R/Relation.md)
-  - IndexInfo
+  - [IndexInfo](../I/IndexInfo.md)
   - [Snapshot](../S/Snapshot.md)
   - ValidateIndexState
 - Called from (representative examples):

@@ -18,20 +18,20 @@ This function is called at the end of btvacuumcleanup to update the metapage wit
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _bt_getbuf
-  - BufferGetPage
+  - [_bt_getbuf](_bt_getbuf.md)
+  - [BufferGetPage](../B/BufferGetPage.md)
   - BTPageGetMeta
-  - _bt_relbuf
-  - _bt_unlockbuf
-  - _bt_lockbuf
-  - _bt_upgrademetapage
-  - MarkBufferDirty
+  - [_bt_relbuf](_bt_relbuf.md)
+  - [_bt_unlockbuf](_bt_unlockbuf.md)
+  - [_bt_lockbuf](_bt_lockbuf.md)
+  - [_bt_upgrademetapage](_bt_upgrademetapage.md)
+  - [MarkBufferDirty](../M/MarkBufferDirty.md)
   - RelationNeedsWAL
-  - XLogBeginInsert
-  - XLogRegisterBuffer
-  - XLogRegisterBufData
-  - XLogInsert
-  - PageSetLSN
+  - [XLogBeginInsert](../X/XLogBeginInsert.md)
+  - [XLogRegisterBuffer](../X/XLogRegisterBuffer.md)
+  - [XLogRegisterBufData](../X/XLogRegisterBufData.md)
+  - [XLogInsert](../X/XLogInsert.md)
+  - [PageSetLSN](../P/PageSetLSN.md)
   - START_CRIT_SECTION
   - END_CRIT_SECTION
   - BTREE_METAPAGE
@@ -42,9 +42,9 @@ This function is called at the end of btvacuumcleanup to update the metapage wit
   - REGBUF_STANDARD
   - XLOG_BTREE_META_CLEANUP
   - xl_btree_metadata
-  - BTMetaPageData
+  - [BTMetaPageData](../B/BTMetaPageData.md)
 - Called from (representative examples):
-  - btvacuumcleanup
+  - [btvacuumcleanup](btvacuumcleanup.md)
 
 ## Notes and Other Information
 - Upgrades read lock to write lock only when update is needed for efficiency

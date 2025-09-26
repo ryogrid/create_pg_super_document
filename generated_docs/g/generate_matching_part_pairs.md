@@ -37,7 +37,7 @@ A key feature is handling dummy partitions - when both outer and inner partition
 - Functions called/Symbols referenced:
   - [PartitionMap](../P/PartitionMap.md) (struct type)
   - [PartitionBoundInfo](../P/PartitionBoundInfo.md) (struct type)
-  - lappend (list manipulation)
+  - [lappend](../l/lappend.md) (list manipulation)
   - [palloc](../p/palloc.md) (memory allocation)
   - [pfree](../p/pfree.md) (memory deallocation)
   - Max (macro for maximum value)

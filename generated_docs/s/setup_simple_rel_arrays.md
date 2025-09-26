@@ -26,14 +26,14 @@ The arrays are sized based on the range table length plus one (to accommodate 1-
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_length (to determine array size)
+  - [list_length](../l/list_length.md) (to determine array size)
   - [palloc0](../p/palloc0.md) (for memory allocation)
   - lfirst, lfirst_node (for list traversal)
   - elog (for error reporting)
 - Data structures used:
   - [AppendRelInfo](../A/AppendRelInfo.md)
   - [RangeTblEntry](../R/RangeTblEntry.md)
-  - RelOptInfo
+  - [RelOptInfo](../R/RelOptInfo.md)
 - Called from (representative examples):
   - [query_planner](../q/query_planner.md) (src/backend/optimizer/plan/planmain.c:85)
   - [plan_cluster_use_sort](../p/plan_cluster_use_sort.md) (src/backend/optimizer/plan/planner.c:6784)

@@ -28,8 +28,8 @@ The resulting escaped text is returned as PostgreSQL's XML type.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - xml_text2xmlChar
-  - cstring_to_text_with_len
+  - [xml_text2xmlChar](xml_text2xmlChar.md)
+  - [cstring_to_text_with_len](../c/cstring_to_text_with_len.md)
   - PG_RETURN_XML_P
   - NO_XML_SUPPORT (fallback when libxml not available)
   - [xmltype](xmltype.md)

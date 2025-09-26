@@ -24,12 +24,12 @@ The function reads the extension's control file and extracts version information
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_NAME: Extracts extension name from function arguments
-  - check_valid_extension_name: Validates extension name format
-  - InitMaterializedSRF: Initializes set-returning function infrastructure
-  - read_extension_control_file: Reads extension control file
-  - get_ext_ver_list: Extracts version information from extension scripts
-  - find_update_path: Finds shortest path between two extension versions
-  - tuplestore_putvalues: Stores result rows in tuple store
+  - [check_valid_extension_name](../c/check_valid_extension_name.md): Validates extension name format
+  - [InitMaterializedSRF](../I/InitMaterializedSRF.md): Initializes set-returning function infrastructure
+  - [read_extension_control_file](../r/read_extension_control_file.md): Reads extension control file
+  - [get_ext_ver_list](../g/get_ext_ver_list.md): Extracts version information from extension scripts
+  - [find_update_path](../f/find_update_path.md): Finds shortest path between two extension versions
+  - [tuplestore_putvalues](../t/tuplestore_putvalues.md): Stores result rows in tuple store
 - Called from:
   - SQL queries via system function calls (typically invoked as SELECT * FROM pg_extension_update_paths('extension_name'))
 

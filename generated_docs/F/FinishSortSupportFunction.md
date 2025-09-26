@@ -28,19 +28,19 @@ This design allows PostgreSQL to gradually transition from old-style comparison 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SortSupport (type)
-  - get_opfamily_proc
+  - [SortSupport](../S/SortSupport.md) (type)
+  - [get_opfamily_proc](../g/get_opfamily_proc.md)
   - BTSORTSUPPORT_PROC
   - OidFunctionCall1
   - BTORDER_PROC
-  - PrepareSortSupportComparisonShim
+  - [PrepareSortSupportComparisonShim](../P/PrepareSortSupportComparisonShim.md)
 - Called from:
-  - PrepareSortSupportFromOrderingOp (at src/backend/utils/sort/sortsupport.c:149)
-  - PrepareSortSupportFromIndexRel (at src/backend/utils/sort/sortsupport.c:176)
+  - [PrepareSortSupportFromOrderingOp](../P/PrepareSortSupportFromOrderingOp.md) (at src/backend/utils/sort/sortsupport.c:149)
+  - [PrepareSortSupportFromIndexRel](../P/PrepareSortSupportFromIndexRel.md) (at src/backend/utils/sort/sortsupport.c:176)
 
 ## Notes and Other Information
 - This is a static function, only accessible within sortsupport.c
 - The function provides a graceful degradation path from modern sort support functions to legacy comparison functions
-- Sort support functions have the flexibility to decline providing a comparator, allowing for conditional optimization
+- [Sort](../S/Sort.md) support functions have the flexibility to decline providing a comparator, allowing for conditional optimization
 - Missing BTORDER_PROC functions result in an error, as basic comparison functionality is mandatory
 - Part of PostgreSQL's extensible operator system that allows data types to provide custom sorting optimizations

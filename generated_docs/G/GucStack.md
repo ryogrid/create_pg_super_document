@@ -43,9 +43,9 @@ GucStack is a typedef that creates an alias for the guc_stack structure. This ty
 - Types referenced:
   - Same as guc_stack: GucStackState, GucSource, GucContext, config_var_value
 - Used by:
-  - GUCHashEntry (hash table entries for GUC variables)
+  - [GUCHashEntry](GUCHashEntry.md) (hash table entries for GUC variables)
   - Various GUC management functions (push_old_value, AtEOXact_GUC, reapply_stacked_values)
-  - config_generic structure (as part of the GUC variable definition)
+  - [config_generic](../c/config_generic.md) structure (as part of the GUC variable definition)
 
 ## Notes and Other Information
 This typedef serves as a cleaner interface name for the guc_stack structure, following PostgreSQL's naming conventions for exported types. It's particularly useful in function signatures and structure member declarations where the full 'struct guc_stack' syntax would be verbose. The functionality is identical to guc_stack - this is purely a naming convenience.

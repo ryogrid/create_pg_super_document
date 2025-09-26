@@ -21,16 +21,16 @@ This operation is typically used during transaction cleanup phases to remove old
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ProcArrayStruct
+  - [ProcArrayStruct](../P/ProcArrayStruct.md)
   - TransactionIdIsValid
   - elog (with DEBUG4 level)
-  - TransactionIdFollowsOrEquals
-  - StandbyTransactionIdIsPrepared
-  - KnownAssignedXidsCompress
+  - [TransactionIdFollowsOrEquals](../T/TransactionIdFollowsOrEquals.md)
+  - [StandbyTransactionIdIsPrepared](../S/StandbyTransactionIdIsPrepared.md)
+  - [KnownAssignedXidsCompress](KnownAssignedXidsCompress.md)
   - KAX_PRUNE
 - Called from (representative examples):
-  - ExpireAllKnownAssignedTransactionIds
-  - ExpireOldKnownAssignedTransactionIds
+  - [ExpireAllKnownAssignedTransactionIds](../E/ExpireAllKnownAssignedTransactionIds.md)
+  - [ExpireOldKnownAssignedTransactionIds](../E/ExpireOldKnownAssignedTransactionIds.md)
 
 ## Notes and Other Information
 - Caller must hold ProcArrayLock in exclusive mode

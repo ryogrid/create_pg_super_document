@@ -27,7 +27,7 @@ If the search path is empty (NIL), the function returns NULL. If the first schem
   - [list_free](../l/list_free.md): Frees the search path list memory
   - [CStringGetDatum](../C/CStringGetDatum.md): Converts C string to PostgreSQL Datum
   - DirectFunctionCall1: Directly calls a PostgreSQL function with one argument
-  - namein: Input function for the name data type
+  - [namein](../n/namein.md): Input function for the name data type
   - PG_RETURN_DATUM: Macro to return a Datum from a PostgreSQL function
   - PG_RETURN_NULL: Macro to return NULL from a PostgreSQL function
 

@@ -38,7 +38,7 @@ The function creates a tuplestore to hold all results and handles the complex in
 - Functions called/Symbols referenced:
   - [MemoryContextReset](../M/MemoryContextReset.md), MemoryContextSwitchTo (memory management)
   - [type_is_rowtype](../t/type_is_rowtype.md) (type checking)
-  - tuplestore_begin_heap, tuplestore_puttuple, tuplestore_putvalues (result storage)
+  - [tuplestore_begin_heap](../t/tuplestore_begin_heap.md), tuplestore_puttuple, tuplestore_putvalues (result storage)
   - InitFunctionCallInfoData, FunctionCallInvoke (function call infrastructure)
   - [ExecEvalFuncArgs](ExecEvalFuncArgs.md), ExecEvalExpr (argument and expression evaluation)
   - [CreateTemplateTupleDesc](../C/CreateTemplateTupleDesc.md), TupleDescInitEntry (tuple descriptor creation)

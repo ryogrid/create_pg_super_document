@@ -27,8 +27,8 @@ This function creates a new tour (offspring) by constructing a path through all 
   - [remove_gene](../r/remove_gene.md) (removes city from edge lists)
   - [gimme_gene](gimme_gene.md) (selects next city from available edges)
   - [edge_failure](../e/edge_failure.md) (handles cases when no valid edges available)
-  - Edge (edge table data structure)
-  - Gene (genetic algorithm gene data type)
+  - [Edge](../E/Edge.md) (edge table data structure)
+  - [Gene](../G/Gene.md) (genetic algorithm gene data type)
 - Called from (representative examples):
   - [geqo](geqo.md) (main genetic algorithm function during crossover)
 

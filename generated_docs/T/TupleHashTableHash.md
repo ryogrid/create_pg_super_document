@@ -24,8 +24,8 @@ This function is useful when callers need just the hash value for a tuple, such 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextSwitchTo
-  - TupleHashTableHash_internal
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [TupleHashTableHash_internal](TupleHashTableHash_internal.md)
 - Called from (representative examples):
   - Referenced in executor.h header for external usage
 

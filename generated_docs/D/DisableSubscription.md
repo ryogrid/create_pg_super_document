@@ -19,7 +19,7 @@ DisableSubscription modifies a subscription's enabled status in the pg_subscript
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open (open system table with lock)
+  - [table_open](../t/table_open.md) (open system table with lock)
   - SearchSysCacheCopy1 (get copy of catalog tuple)
   - HeapTupleIsValid (validate heap tuple)
   - [LockSharedObject](../L/LockSharedObject.md) (acquire shared object lock)
@@ -27,7 +27,7 @@ DisableSubscription modifies a subscription's enabled status in the pg_subscript
   - RelationGetDescr (get relation descriptor)
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md) (update catalog tuple)
   - [heap_freetuple](../h/heap_freetuple.md) (free tuple memory)
-  - table_close (close system table)
+  - [table_close](../t/table_close.md) (close system table)
 - Called from (representative examples):
   - [DisableSubscriptionAndExit](DisableSubscriptionAndExit.md) (logical replication worker error handling)
 

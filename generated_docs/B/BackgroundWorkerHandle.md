@@ -43,7 +43,7 @@ This design prevents race conditions where a slot might be recycled and reused f
   - [WaitForBackgroundWorkerStartup](../W/WaitForBackgroundWorkerStartup.md)
   - [WaitForBackgroundWorkerShutdown](../W/WaitForBackgroundWorkerShutdown.md)
   - [TerminateBackgroundWorker](../T/TerminateBackgroundWorker.md)
-  - logicalrep_worker_launch
+  - [logicalrep_worker_launch](../l/logicalrep_worker_launch.md)
 
 ## Notes and Other Information
 - Provides safe abstraction for background worker references without exposing internal slot management details

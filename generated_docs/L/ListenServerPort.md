@@ -37,9 +37,9 @@ The function iterates through all resolved addresses and attempts to bind to eac
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_getaddrinfo_all
-  - pg_freeaddrinfo_all
-  - pg_getnameinfo_all
+  - [pg_getaddrinfo_all](../p/pg_getaddrinfo_all.md)
+  - [pg_freeaddrinfo_all](../p/pg_freeaddrinfo_all.md)
+  - [pg_getnameinfo_all](../p/pg_getnameinfo_all.md)
   - socket
   - bind
   - listen

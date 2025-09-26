@@ -31,22 +31,22 @@ Since ResourceOwner is an opaque pointer type, the internal structure is not dir
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwnerData (internal structure)
+  - [ResourceOwnerData](ResourceOwnerData.md) (internal structure)
   - Various global ResourceOwner instances
 - Called from (representative examples):
-  - ResourceOwnerCreate
-  - ResourceOwnerRelease  
-  - ResourceOwnerDelete
-  - ResourceOwnerRemember
-  - ResourceOwnerForget
-  - Portal management functions
+  - [ResourceOwnerCreate](ResourceOwnerCreate.md)
+  - [ResourceOwnerRelease](ResourceOwnerRelease.md)  
+  - [ResourceOwnerDelete](ResourceOwnerDelete.md)
+  - [ResourceOwnerRemember](ResourceOwnerRemember.md)
+  - [ResourceOwnerForget](ResourceOwnerForget.md)
+  - [Portal](../P/Portal.md) management functions
   - Transaction management code
   - Memory context management
   - Lock management systems
   - SPI execution functions
 
 ## Notes and Other Information
-- ResourceOwner objects form a hierarchical tree structure where child owners are released before their parents
+- [ResourceOwner](ResourceOwner.md) objects form a hierarchical tree structure where child owners are released before their parents
 - The system automatically handles cleanup during transaction abort, commit, or subtransaction end
 - Extensions can register custom resource types by providing ResourceOwnerDesc callbacks
 - Resource cleanup occurs in deterministic order based on release phase and priority

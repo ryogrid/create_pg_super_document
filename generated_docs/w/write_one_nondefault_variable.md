@@ -39,7 +39,7 @@ The function includes an assertion to ensure only non-default variables are writ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - config_enum_lookup_by_value
+  - [config_enum_lookup_by_value](../c/config_enum_lookup_by_value.md)
   - fprintf
   - fputc
   - fwrite

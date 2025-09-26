@@ -30,7 +30,7 @@ This function is particularly useful in replication scenarios where administrato
 - Functions called/Symbols referenced:
   - [RecoveryInProgress](../R/RecoveryInProgress.md)
   - XLogStandbyInfoActive
-  - LogStandbySnapshot
+  - [LogStandbySnapshot](../L/LogStandbySnapshot.md)
   - PG_RETURN_LSN
 - Called from (representative examples):
   - No direct callers found (SQL function interface)

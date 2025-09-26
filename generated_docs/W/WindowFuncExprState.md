@@ -34,17 +34,17 @@ The structure integrates with PostgreSQLs expression compilation system, enablin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WindowFunc (corresponding plan node)
+  - [WindowFunc](WindowFunc.md) (corresponding plan node)
   - NodeTag (node type identification)
   - [List](../L/List.md) (argument expression list)
-  - ExprState (expression evaluation state)
+  - [ExprState](../E/ExprState.md) (expression evaluation state)
 - Called from (representative examples):
   - [ExecInitExprRec](../E/ExecInitExprRec.md) (src/backend/executor/execExpr.c:1075)
   - [ExecInterpExpr](../E/ExecInterpExpr.md) (src/backend/executor/execExprInterp.c:1624)
   - [advance_windowaggregate](../a/advance_windowaggregate.md) (src/backend/executor/nodeWindowAgg.c:247)
   - [advance_windowaggregate_base](../a/advance_windowaggregate_base.md) (src/backend/executor/nodeWindowAgg.c:424)
   - [ExecInitWindowAgg](../E/ExecInitWindowAgg.md) (src/backend/executor/nodeWindowAgg.c:2555)
-  - llvm_compile_expr (src/backend/jit/llvm/llvmjit_expr.c:2094)
+  - [llvm_compile_expr](../l/llvm_compile_expr.md) (src/backend/jit/llvm/llvmjit_expr.c:2094)
 
 ## Notes and Other Information
 - Part of the expression state node hierarchy, specifically designed for window function expressions that require special execution context

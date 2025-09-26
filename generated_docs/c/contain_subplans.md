@@ -27,7 +27,7 @@ This function is typically used during the early stages of query planning, befor
   - [contain_subplans_walker](contain_subplans_walker.md)
 - Called from (representative examples):
   - [ExecInitValuesScan](../E/ExecInitValuesScan.md)
-  - initialize_peragg
+  - [initialize_peragg](../i/initialize_peragg.md)
   - [find_window_run_conditions](../f/find_window_run_conditions.md)
   - [qual_is_pushdown_safe](../q/qual_is_pushdown_safe.md)
   - [subquery_planner](../s/subquery_planner.md)

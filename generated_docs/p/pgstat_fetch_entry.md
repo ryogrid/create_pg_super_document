@@ -29,20 +29,20 @@ The function handles several edge cases: it returns NULL for dropped entries, cr
   - [pgstat_prep_snapshot](pgstat_prep_snapshot.md)
   - [pgstat_build_snapshot](pgstat_build_snapshot.md)
   - pgstat_snapshot_lookup
-  - pgstat_get_entry_ref
+  - [pgstat_get_entry_ref](pgstat_get_entry_ref.md)
   - pgstat_snapshot_insert
-  - pgstat_lock_entry_shared
+  - [pgstat_lock_entry_shared](pgstat_lock_entry_shared.md)
   - [pgstat_get_entry_data](pgstat_get_entry_data.md)
-  - pgstat_unlock_entry
+  - [pgstat_unlock_entry](pgstat_unlock_entry.md)
   - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
-  - PgStat_HashKey (struct type)
-  - PgStat_EntryRef (struct type)
+  - [PgStat_HashKey](../P/PgStat_HashKey.md) (struct type)
+  - [PgStat_EntryRef](../P/PgStat_EntryRef.md) (struct type)
   - [PgStat_SnapshotEntry](../P/PgStat_SnapshotEntry.md) (struct type)
 - Called from (representative examples):
   - [pgstat_fetch_stat_dbentry](pgstat_fetch_stat_dbentry.md)
   - [pgstat_fetch_stat_funcentry](pgstat_fetch_stat_funcentry.md)
   - [pgstat_fetch_stat_tabentry_ext](pgstat_fetch_stat_tabentry_ext.md)
-  - pgstat_fetch_replslot
+  - [pgstat_fetch_replslot](pgstat_fetch_replslot.md)
   - [pgstat_fetch_stat_subscription](pgstat_fetch_stat_subscription.md)
 
 ## Notes and Other Information

@@ -21,7 +21,7 @@ This function takes no parameters and operates on global shared memory structure
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire/LWLockRelease: Manages exclusive access to queue structures
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease: Manages exclusive access to queue structures
   - QUEUE_HEAD: Gets the current queue head position  
   - QUEUE_FIRST_LISTENER/QUEUE_NEXT_LISTENER: Iterates through listening backends
   - QUEUE_BACKEND_PID/QUEUE_BACKEND_POS: Accesses per-backend queue state

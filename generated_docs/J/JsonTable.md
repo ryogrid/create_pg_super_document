@@ -38,15 +38,15 @@ JsonTable is a parse node that represents the SQL/JSON JSON_TABLE function, whic
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonValueExpr (context item expression)
-  - JsonTablePathSpec (path specification)
-  - JsonBehavior (error handling behavior)
-  - Alias (table aliasing)
+  - [JsonValueExpr](JsonValueExpr.md) (context item expression)
+  - [JsonTablePathSpec](JsonTablePathSpec.md) (path specification)
+  - [JsonBehavior](JsonBehavior.md) (error handling behavior)
+  - [Alias](../A/Alias.md) (table aliasing)
   - ParseLoc (location tracking)
 - Called from (representative examples):
-  - transformFromClauseItem (FROM clause processing)
-  - transformJsonTable (JSON table transformation)
-  - transformJsonTableColumns (column processing)
+  - [transformFromClauseItem](../t/transformFromClauseItem.md) (FROM clause processing)
+  - [transformJsonTable](../t/transformJsonTable.md) (JSON table transformation)
+  - [transformJsonTableColumns](../t/transformJsonTableColumns.md) (column processing)
 
 ## Notes and Other Information
 - Central structure for SQL/JSON JSON_TABLE functionality in PostgreSQL

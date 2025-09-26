@@ -35,7 +35,7 @@ This design allows libpq to maintain error information even under memory pressur
   - [pqSaveWriteError](pqSaveWriteError.md) (for handling write errors)
   - [PQgetResult](../P/PQgetResult.md) (during result retrieval)
   - [getCopyResult](../g/getCopyResult.md) (during COPY operations)
-  - pqPipelineProcessQueue (during pipeline processing)
+  - [pqPipelineProcessQueue](pqPipelineProcessQueue.md) (during pipeline processing)
   - [pqParseInput3](pqParseInput3.md) (during protocol message parsing)
   - [handleSyncLoss](../h/handleSyncLoss.md) (during synchronization loss recovery)
   - [getRowDescriptions](../g/getRowDescriptions.md) (during row description processing)

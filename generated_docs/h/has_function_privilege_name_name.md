@@ -31,8 +31,8 @@ The function returns NULL if the specified function doesn't exist, true if the u
 - Functions called/Symbols referenced:
   - Name: PostgreSQL name type
   - PG_GETARG_NAME: Macro to extract name argument from function call
-  - AclResult: Enumeration for access control check results
-  - get_role_oid_or_public: Converts role name to OID, handling "public"
+  - [AclResult](../A/AclResult.md): Enumeration for access control check results
+  - [get_role_oid_or_public](../g/get_role_oid_or_public.md): Converts role name to OID, handling "public"
   - [convert_function_name](../c/convert_function_name.md): Converts function name text to function OID
   - [convert_function_priv_string](../c/convert_function_priv_string.md): Converts privilege string to AclMode bitmask
   - [object_aclcheck](../o/object_aclcheck.md): Performs the actual access control check

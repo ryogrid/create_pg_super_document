@@ -30,7 +30,7 @@ This is a crucial step in query planning for partitioned tables and inheritance 
   - [expand_inherited_rtentry](../e/expand_inherited_rtentry.md)
   - RELOPT_BASEREL (constant)
 - Data structures used:
-  - RelOptInfo
+  - [RelOptInfo](../R/RelOptInfo.md)
   - [RangeTblEntry](../R/RangeTblEntry.md)
 - Called from (representative examples):
   - [query_planner](../q/query_planner.md)

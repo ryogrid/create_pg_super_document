@@ -32,17 +32,17 @@ The function ensures that COALESCE expressions follow SQL standard semantics whi
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (creates new CoalesceExpr node)
-  - transformExprRecurse (transforms individual argument expressions)
-  - select_common_type (determines common type for all arguments)
-  - coerce_to_common_type (applies implicit type coercion)
-  - lappend (appends to linked lists)
+  - [transformExprRecurse](transformExprRecurse.md) (transforms individual argument expressions)
+  - [select_common_type](../s/select_common_type.md) (determines common type for all arguments)
+  - [coerce_to_common_type](../c/coerce_to_common_type.md) (applies implicit type coercion)
+  - [lappend](../l/lappend.md) (appends to linked lists)
   - lfirst (extracts values from list cells)
   - ereport/ERROR (error reporting)
-  - parser_errposition (reports error location)
-  - exprLocation (gets source location of expressions)
+  - [parser_errposition](../p/parser_errposition.md) (reports error location)
+  - [exprLocation](../e/exprLocation.md) (gets source location of expressions)
 
 - Called from (representative examples):
-  - transformExprRecurse (main expression transformation dispatcher)
+  - [transformExprRecurse](transformExprRecurse.md) (main expression transformation dispatcher)
 
 ## Notes and Other Information
 - COALESCE requires at least one argument and all arguments must be coercible to a common type

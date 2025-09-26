@@ -41,7 +41,7 @@ The function calculates space requirements, validates the operation feasibility,
   - [brin_doupdate](../b/brin_doupdate.md) (BRIN index tuple updates)
   - [gistplacetopage](../g/gistplacetopage.md) (GiST page tuple placement)
   - [_bt_delitems_vacuum](../b/_bt_delitems_vacuum.md) (B-tree vacuum operations)
-  - _bt_buildadd (B-tree build process)
+  - [_bt_buildadd](../b/_bt_buildadd.md) (B-tree build process)
 
 ## Notes and Other Information
 - Returns false for insufficient space, elog for corruption errors

@@ -31,7 +31,7 @@ This is a convenience function for checking the current user's privileges on a f
   - [object_aclcheck_ext](../o/object_aclcheck_ext.md)
   - PG_RETURN_NULL
   - PG_RETURN_BOOL
-  - AclResult (type)
+  - [AclResult](../A/AclResult.md) (type)
   - AclMode (type)
   - ForeignServerRelationId
 - Called from (representative examples):

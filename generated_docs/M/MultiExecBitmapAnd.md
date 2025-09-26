@@ -24,12 +24,12 @@ The function handles its own instrumentation for performance monitoring, calling
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - InstrStartNode (for performance instrumentation)
+  - [InstrStartNode](../I/InstrStartNode.md) (for performance instrumentation)
   - [MultiExecProcNode](MultiExecProcNode.md) (to execute each subplan)
-  - tbm_intersect (to perform bitmap intersection)
+  - [tbm_intersect](../t/tbm_intersect.md) (to perform bitmap intersection)
   - [tbm_free](../t/tbm_free.md) (to free intermediate bitmaps)
   - [tbm_is_empty](../t/tbm_is_empty.md) (to check for optimization opportunities)
-  - InstrStopNode (to complete performance instrumentation)
+  - [InstrStopNode](../I/InstrStopNode.md) (to complete performance instrumentation)
   - IsA (for type checking)
   - elog (for error reporting)
 - Called from (representative examples):

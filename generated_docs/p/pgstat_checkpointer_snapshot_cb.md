@@ -24,12 +24,12 @@ The snapshot mechanism is crucial for providing consistent views of statistics a
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pgstat_copy_changecounted_stats](pgstat_copy_changecounted_stats.md)
-  - LWLockAcquire
-  - LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - memcpy
 - Types referenced:
-  - PgStatShared_Checkpointer
-  - PgStat_CheckpointerStats
+  - [PgStatShared_Checkpointer](../P/PgStatShared_Checkpointer.md)
+  - [PgStat_CheckpointerStats](../P/PgStat_CheckpointerStats.md)
 - Constants used:
   - LW_SHARED
 - Called from (representative examples):

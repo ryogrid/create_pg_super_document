@@ -24,15 +24,15 @@ The function maintains a private reference count entry per backend to track loca
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferDescriptorGetBuffer: Converts buffer descriptor to Buffer ID
+  - [BufferDescriptorGetBuffer](../B/BufferDescriptorGetBuffer.md): Converts buffer descriptor to Buffer ID
   - BufferIsLocal: Assertion to verify this is a shared buffer
-  - GetPrivateRefCountEntry: Gets or creates private reference count entry
-  - NewPrivateRefCountEntry: Creates new private reference count entry
-  - pg_atomic_read_u32: Atomic read of buffer state
-  - WaitBufHdrUnlocked: Waits for buffer header to be unlocked
-  - pg_atomic_compare_exchange_u32: Atomic compare-and-swap operation
+  - [GetPrivateRefCountEntry](../G/GetPrivateRefCountEntry.md): Gets or creates private reference count entry
+  - [NewPrivateRefCountEntry](../N/NewPrivateRefCountEntry.md): Creates new private reference count entry
+  - [pg_atomic_read_u32](../p/pg_atomic_read_u32.md): Atomic read of buffer state
+  - [WaitBufHdrUnlocked](../W/WaitBufHdrUnlocked.md): Waits for buffer header to be unlocked
+  - [pg_atomic_compare_exchange_u32](../p/pg_atomic_compare_exchange_u32.md): Atomic compare-and-swap operation
   - BufHdrGetBlock: Gets block data for Valgrind instrumentation
-  - ResourceOwnerRememberBuffer: Tracks buffer ownership for cleanup
+  - [ResourceOwnerRememberBuffer](../R/ResourceOwnerRememberBuffer.md): Tracks buffer ownership for cleanup
   - BM_LOCKED: Buffer state flag for locked status
   - BM_VALID: Buffer state flag for valid data
   - BUF_REFCOUNT_ONE: Constant for incrementing reference count
@@ -42,9 +42,9 @@ The function maintains a private reference count entry per backend to track loca
   - VALGRIND_MAKE_MEM_DEFINED: Valgrind memory debugging support
 - Called from (representative examples):
   - BufferIsPinned: Buffer status checking
-  - ReadRecentBuffer: Reading recently accessed buffers
-  - BufferAlloc: Buffer allocation and reuse
-  - ExtendBufferedRelShared: Extending relations with shared buffers
+  - [ReadRecentBuffer](../R/ReadRecentBuffer.md): Reading recently accessed buffers
+  - [BufferAlloc](../B/BufferAlloc.md): Buffer allocation and reuse
+  - [ExtendBufferedRelShared](../E/ExtendBufferedRelShared.md): Extending relations with shared buffers
 
 ## Notes and Other Information
 - Returns true if buffer contains valid data (BM_VALID flag set), false otherwise

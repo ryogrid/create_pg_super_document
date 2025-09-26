@@ -32,7 +32,7 @@ This function processes a list of expressions that belong to a single GROUP BY c
 - Functions called/Symbols referenced:
   - [transformGroupClauseExpr](transformGroupClauseExpr.md)
   - [bms_add_member](../b/bms_add_member.md)
-  - lappend_int
+  - [lappend_int](../l/lappend_int.md)
   - [ParseExprKind](../P/ParseExprKind.md) (enum type)
 - Called from (representative examples):
   - [transformGroupingSet](transformGroupingSet.md)

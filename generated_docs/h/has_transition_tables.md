@@ -31,15 +31,15 @@ Foreign tables are explicitly excluded as they cannot have transition tables.
 ## Dependencies
 - Functions called/Symbols referenced:
   - planner_rt_fetch
-  - table_open
-  - table_close
+  - [table_open](../t/table_open.md)
+  - [table_close](../t/table_close.md)
   - CmdType
-  - TriggerDesc
+  - [TriggerDesc](../T/TriggerDesc.md)
   - RTE_RELATION
   - RELKIND_FOREIGN_TABLE
   - CMD_INSERT, CMD_UPDATE, CMD_DELETE, CMD_MERGE
 - Called from (representative examples):
-  - make_modifytable
+  - [make_modifytable](../m/make_modifytable.md)
 
 ## Notes and Other Information
 - The function assumes adequate locking has already been acquired for the relation

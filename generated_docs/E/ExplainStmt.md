@@ -26,18 +26,18 @@ ExplainStmt encapsulates an EXPLAIN command in PostgreSQL's parse tree. The quer
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Node (base type for query)
-  - List (for options storage)
-  - DefElem (for option representation)
+  - [Node](../N/Node.md) (base type for query)
+  - [List](../L/List.md) (for options storage)
+  - [DefElem](../D/DefElem.md) (for option representation)
 - Called from (representative examples):
-  - ExplainQuery
-  - ExplainResultDesc
-  - transformStmt
-  - transformExplainStmt
-  - standard_ProcessUtility
-  - UtilityTupleDescriptor
-  - UtilityContainsQuery
-  - GetCommandLogLevel
+  - [ExplainQuery](ExplainQuery.md)
+  - [ExplainResultDesc](ExplainResultDesc.md)
+  - [transformStmt](../t/transformStmt.md)
+  - [transformExplainStmt](../t/transformExplainStmt.md)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md)
+  - [UtilityTupleDescriptor](../U/UtilityTupleDescriptor.md)
+  - [UtilityContainsQuery](../U/UtilityContainsQuery.md)
+  - [GetCommandLogLevel](../G/GetCommandLogLevel.md)
 
 ## Notes and Other Information
 - Part of PostgreSQL's utility statement framework

@@ -25,15 +25,15 @@ The `uuid_sortsupport` function is a PostgreSQL sort support strategy routine th
   - `uuid_sortsupport_state`: State structure for abbreviation support
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md): Memory context management
   - [palloc](../p/palloc.md): PostgreSQL memory allocation
-  - `initHyperLogLog`: Initialize cardinality estimation
-  - `ssup_datum_unsigned_cmp`: Generic unsigned integer comparator
+  - `[initHyperLogLog](../i/initHyperLogLog.md)`: Initialize cardinality estimation
+  - `[ssup_datum_unsigned_cmp](../s/ssup_datum_unsigned_cmp.md)`: Generic unsigned integer comparator
   - [uuid_abbrev_convert](uuid_abbrev_convert.md): UUID abbreviation converter
   - [uuid_abbrev_abort](uuid_abbrev_abort.md): Abbreviation abort handler
   - `PG_RETURN_VOID`: Void return macro
 - Called from (representative examples):
   - ORDER BY operations on UUID columns
   - Index creation and maintenance
-  - Sort-merge join operations
+  - [Sort](../S/Sort.md)-merge join operations
   - Window function sorting
 
 ## Notes and Other Information

@@ -28,24 +28,24 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ShmemInitStruct (shared memory structure creation)
-  - ShmemAlloc (shared memory allocation)
+  - [ShmemInitStruct](../S/ShmemInitStruct.md) (shared memory structure creation)
+  - [ShmemAlloc](../S/ShmemAlloc.md) (shared memory allocation)
   - MemSet (memory initialization)
-  - dlist_init (doubly-linked list initialization)
-  - dlist_push_tail (list insertion)
-  - PGSemaphoreCreate (semaphore creation)
-  - InitSharedLatch (shared latch initialization)
-  - LWLockInitialize (lightweight lock initialization)
+  - [dlist_init](../d/dlist_init.md) (doubly-linked list initialization)
+  - [dlist_push_tail](../d/dlist_push_tail.md) (list insertion)
+  - [PGSemaphoreCreate](../P/PGSemaphoreCreate.md) (semaphore creation)
+  - [InitSharedLatch](InitSharedLatch.md) (shared latch initialization)
+  - [LWLockInitialize](../L/LWLockInitialize.md) (lightweight lock initialization)
   - SpinLockInit (spinlock initialization)
-  - pg_atomic_init_u32/u64 (atomic variable initialization)
+  - [pg_atomic_init_u32](../p/pg_atomic_init_u32.md)/u64 (atomic variable initialization)
 - Referenced types and constants:
-  - PROC_HDR (process management header)
-  - PGPROC (individual process structure)
+  - [PROC_HDR](../P/PROC_HDR.md) (process management header)
+  - [PGPROC](../P/PGPROC.md) (individual process structure)
   - MaxBackends, NUM_AUXILIARY_PROCS, max_prepared_xacts
   - MaxConnections, autovacuum_max_workers, max_worker_processes
   - LWTRANCHE_LOCK_FASTPATH, NUM_LOCK_PARTITIONS
 - Called from:
-  - CreateOrAttachShmemStructs (during shared memory initialization)
+  - [CreateOrAttachShmemStructs](../C/CreateOrAttachShmemStructs.md) (during shared memory initialization)
 
 ## Notes and Other Information
 - Only called by the postmaster process, not individual backends

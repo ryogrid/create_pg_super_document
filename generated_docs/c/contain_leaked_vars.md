@@ -25,7 +25,7 @@ The function is crucial for determining the order of predicate evaluation in que
 - Called from (representative examples):
   - [qual_is_pushdown_safe](../q/qual_is_pushdown_safe.md)
   - [make_restrictinfo_internal](../m/make_restrictinfo_internal.md)
-  - WindowFuncLists
+  - [WindowFuncLists](../W/WindowFuncLists.md)
 
 ## Notes and Other Information
 - Returns true if the clause contains any non-leakproof functions that are passed Var nodes of the current query level

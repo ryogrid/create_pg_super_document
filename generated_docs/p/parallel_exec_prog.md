@@ -31,8 +31,8 @@ The function ensures proper stdio state before forking and includes comprehensiv
   - [reap_child](../r/reap_child.md)
   - [win32_exec_prog](../w/win32_exec_prog.md) (Windows only)
   - vsnprintf
-  - pg_malloc
-  - pg_malloc0
+  - [pg_malloc](pg_malloc.md)
+  - [pg_malloc0](pg_malloc0.md)
   - [pg_free](pg_free.md)
   - [pg_strdup](pg_strdup.md)
   - fork (Unix)

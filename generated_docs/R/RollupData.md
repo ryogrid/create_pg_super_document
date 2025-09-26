@@ -40,17 +40,17 @@ RollupData is essential for implementing complex SQL constructs like ROLLUP, CUB
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - List (for groupClause, gsets, and gsets_data)
-  - GroupingSetData (detailed grouping set information)
-  - SortGroupClause (grouping column specifications)
+  - [List](../L/List.md) (for groupClause, gsets, and gsets_data)
+  - [GroupingSetData](../G/GroupingSetData.md) (detailed grouping set information)
+  - [SortGroupClause](../S/SortGroupClause.md) (grouping column specifications)
   - NodeTag (node identification)
   - Cardinality (row count estimation type)
   - pg_node_attr (node attributes)
 - Called from (representative examples):
-  - preprocess_grouping_sets (creates and populates RollupData nodes)
-  - consider_groupingsets_paths (uses rollup data for path planning)
-  - create_groupingsets_path (incorporates rollup data into execution paths)
-  - create_groupingsets_plan (converts rollup data to execution plans)
+  - [preprocess_grouping_sets](../p/preprocess_grouping_sets.md) (creates and populates RollupData nodes)
+  - [consider_groupingsets_paths](../c/consider_groupingsets_paths.md) (uses rollup data for path planning)
+  - [create_groupingsets_path](../c/create_groupingsets_path.md) (incorporates rollup data into execution paths)
+  - [create_groupingsets_plan](../c/create_groupingsets_plan.md) (converts rollup data to execution plans)
 
 ## Notes and Other Information
 - Core component of PostgreSQL's advanced grouping sets implementation

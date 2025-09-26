@@ -23,15 +23,15 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DebugPrintBufferRefcount (for diagnostic output)
+  - [DebugPrintBufferRefcount](../D/DebugPrintBufferRefcount.md) (for diagnostic output)
   - elog (for warning messages)
-  - pfree (for memory cleanup)
+  - [pfree](../p/pfree.md) (for memory cleanup)
 - Global variables accessed:
   - LocalRefCount (array of reference counts for local buffers)
   - NLocBuffer (total number of local buffers)
 - Called from (representative examples):
-  - AtEOXact_LocalBuffers (at end of transaction)
-  - AtProcExit_LocalBuffers (at process exit)
+  - [AtEOXact_LocalBuffers](../A/AtEOXact_LocalBuffers.md) (at end of transaction)
+  - [AtProcExit_LocalBuffers](../A/AtProcExit_LocalBuffers.md) (at process exit)
 
 ## Notes and Other Information
 - The function is static, meaning it's only accessible within the localbuf.c file

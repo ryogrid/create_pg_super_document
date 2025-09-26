@@ -20,9 +20,9 @@ This function implements a sophisticated page allocation strategy for GiST index
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetFreeIndexPage (to get candidate pages from FSM)
+  - [GetFreeIndexPage](../G/GetFreeIndexPage.md) (to get candidate pages from FSM)
   - [ReadBuffer](../R/ReadBuffer.md) (to read pages from disk)
-  - ConditionalLockBuffer (for non-blocking buffer locking)
+  - [ConditionalLockBuffer](../C/ConditionalLockBuffer.md) (for non-blocking buffer locking)
   - [BufferGetPage](../B/BufferGetPage.md) (to extract page from buffer)
   - [PageIsNew](../P/PageIsNew.md) (to check if page is uninitialized)
   - [gistcheckpage](gistcheckpage.md) (to validate page integrity)
@@ -32,7 +32,7 @@ This function implements a sophisticated page allocation strategy for GiST index
   - [gistXLogPageReuse](gistXLogPageReuse.md) (to generate WAL record for page reuse)
   - [GistPageGetDeleteXid](../G/GistPageGetDeleteXid.md) (to get deletion transaction ID)
   - [LockBuffer](../L/LockBuffer.md) (to unlock buffer when recycling fails)
-  - ReleaseBuffer (to release unusable buffers)
+  - [ReleaseBuffer](../R/ReleaseBuffer.md) (to release unusable buffers)
   - [ExtendBufferedRel](../E/ExtendBufferedRel.md) (to extend the index file)
 - Called from (representative examples):
   - [gistplacetopage](gistplacetopage.md) (during tuple insertion and page splits)

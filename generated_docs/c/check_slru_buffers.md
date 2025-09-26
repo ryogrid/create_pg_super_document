@@ -39,12 +39,12 @@ The function follows the GUC check_hook interface:
 
 - Called from (representative examples):
   - [check_transaction_buffers](check_transaction_buffers.md) (for transaction status buffer validation)
-  - check_commit_ts_buffers (for commit timestamp buffer validation)
+  - [check_commit_ts_buffers](check_commit_ts_buffers.md) (for commit timestamp buffer validation)
   - [check_multixact_offset_buffers](check_multixact_offset_buffers.md) (for MultiXact offset buffer validation)
   - [check_multixact_member_buffers](check_multixact_member_buffers.md) (for MultiXact member buffer validation)
-  - check_subtrans_buffers (for subtransaction buffer validation)
+  - [check_subtrans_buffers](check_subtrans_buffers.md) (for subtransaction buffer validation)
   - [check_notify_buffers](check_notify_buffers.md) (for async notification buffer validation)
-  - check_serial_buffers (for serializable isolation buffer validation)
+  - [check_serial_buffers](check_serial_buffers.md) (for serializable isolation buffer validation)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's configuration validation system and is called whenever SLRU buffer parameters are modified

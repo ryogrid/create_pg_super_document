@@ -25,7 +25,7 @@ The function implements proper concurrency control by acquiring a shared lock on
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferHeapTupleTableSlot (type cast)
+  - [BufferHeapTupleTableSlot](../B/BufferHeapTupleTableSlot.md) (type cast)
   - TTS_IS_BUFFERTUPLE (assertion check)
   - [BufferIsValid](../B/BufferIsValid.md) (assertion check)
   - [LockBuffer](../L/LockBuffer.md) (buffer locking with BUFFER_LOCK_SHARE and BUFFER_LOCK_UNLOCK)

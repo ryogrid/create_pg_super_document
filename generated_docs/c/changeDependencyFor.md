@@ -33,7 +33,7 @@ The function processes all matching dependency records, including those with sub
 - Functions called/Symbols referenced:
   - [isObjectPinned](../i/isObjectPinned.md)
   - [recordDependencyOn](../r/recordDependencyOn.md)
-  - table_open
+  - [table_open](../t/table_open.md)
   - [ScanKeyInit](../S/ScanKeyInit.md)
   - [systable_beginscan](../s/systable_beginscan.md)
   - [systable_getnext](../s/systable_getnext.md)
@@ -43,7 +43,7 @@ The function processes all matching dependency records, including those with sub
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - [heap_freetuple](../h/heap_freetuple.md)
   - [systable_endscan](../s/systable_endscan.md)
-  - table_close
+  - [table_close](../t/table_close.md)
   - [SysScanDesc](../S/SysScanDesc.md)
   - Form_pg_depend
   - DEPENDENCY_NORMAL
@@ -51,7 +51,7 @@ The function processes all matching dependency records, including those with sub
 - Called from (representative examples):
   - [AlterObjectNamespace_internal](../A/AlterObjectNamespace_internal.md) (src/backend/commands/alter.c:811)
   - [swap_relation_files](../s/swap_relation_files.md) (src/backend/commands/cluster.c:1275,1283)
-  - AlterExtensionNamespace (src/backend/commands/extension.c:2971)
+  - [AlterExtensionNamespace](../A/AlterExtensionNamespace.md) (src/backend/commands/extension.c:2971)
   - [AlterFunction](../A/AlterFunction.md) (src/backend/commands/functioncmds.c:1449)
   - [AlterRelationNamespaceInternal](../A/AlterRelationNamespaceInternal.md) (src/backend/commands/tablecmds.c:17365)
 

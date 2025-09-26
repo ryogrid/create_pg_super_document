@@ -28,14 +28,14 @@ The implementation uses a power-of-2 allocation strategy to minimize memory real
 ## Dependencies
 - Functions called/Symbols referenced:
   - LWTRANCHE_FIRST_USER_DEFINED (constant)
-  - pg_nextpower2_32 (memory allocation utility)
-  - MemoryContextAllocZero (memory allocation)
+  - [pg_nextpower2_32](../p/pg_nextpower2_32.md) (memory allocation utility)
+  - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md) (memory allocation)
   - repalloc0_array (memory reallocation)
 - Called from (representative examples):
-  - CreateLWLocks
-  - test_dsa_basic
-  - test_slru_shmem_startup
-  - tdr_attach_shmem
+  - [CreateLWLocks](../C/CreateLWLocks.md)
+  - [test_dsa_basic](../t/test_dsa_basic.md)
+  - [test_slru_shmem_startup](../t/test_slru_shmem_startup.md)
+  - [tdr_attach_shmem](../t/tdr_attach_shmem.md)
 
 ## Notes and Other Information
 - The tranche name will be user-visible as a wait event name, so it should follow PostgreSQL's naming conventions for wait events

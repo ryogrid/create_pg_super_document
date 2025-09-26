@@ -26,10 +26,10 @@ Currently, this function is primarily used by eval_const_expressions when it rem
 ## Dependencies
 - Functions called/Symbols referenced:
   - FirstUnpinnedObjectId (constant for built-in object threshold)
-  - PlanInvalItem (structure type)
+  - [PlanInvalItem](../P/PlanInvalItem.md) (structure type)
   - makeNode (node creation function)
   - GetSysCacheHashValue1 (syscache hash function)
-  - lappend (list append function)
+  - [lappend](../l/lappend.md) (list append function)
 - Called from (representative examples):
   - [eval_const_expressions_mutator](../e/eval_const_expressions_mutator.md)
 

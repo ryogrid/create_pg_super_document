@@ -27,7 +27,7 @@ unknown_attribute(ParseState *pstate, Node *relref, const char *attname,
   - InvalidAttrNumber (constant for checking if this is a whole-row reference)
   - [GetRTEByRangeTablePosn](../G/GetRTEByRangeTablePosn.md) (retrieves range table entry information)
   - ISCOMPLEX (macro to check if a type is composite)
-  - exprType, format_type_be (type system utilities)
+  - [exprType](../e/exprType.md), format_type_be (type system utilities)
   - ereport, errcode, errmsg, parser_errposition (error reporting system)
 
 - Called from (representative examples):
@@ -37,7 +37,7 @@ unknown_attribute(ParseState *pstate, Node *relref, const char *attname,
 - This is a static function, only accessible within the parse_expr.c module
 - Provides three distinct error message patterns depending on the context:
   - Table/alias context: "column alias.name does not exist"
-  - Complex type context: "column 'name' not found in data type typename"  
+  - [Complex](../C/Complex.md) type context: "column 'name' not found in data type typename"  
   - Non-composite type context: "column notation .name applied to non-composite type"
 - Uses different error codes (ERRCODE_UNDEFINED_COLUMN vs ERRCODE_WRONG_OBJECT_TYPE) to distinguish between missing columns and inappropriate usage
 - Critical for providing user-friendly error messages during field access resolution

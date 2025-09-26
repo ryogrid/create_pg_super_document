@@ -40,7 +40,7 @@ The function handles the lazy compilation of WHEN expressions, converting stored
   - [make_ands_implicit](../m/make_ands_implicit.md)
   - [ExecPrepareQual](../E/ExecPrepareQual.md)
   - GetPerTupleExprContext
-  - ExecQual
+  - [ExecQual](../E/ExecQual.md)
   - TRIGGER_FIRED_BY_UPDATE
   - SESSION_REPLICATION_ROLE_REPLICA
   - TRIGGER_FIRES_ON_ORIGIN/TRIGGER_FIRES_ON_REPLICA
@@ -52,7 +52,7 @@ The function handles the lazy compilation of WHEN expressions, converting stored
   - [ExecBRDeleteTriggersNew](../E/ExecBRDeleteTriggersNew.md)
   - [ExecBSUpdateTriggers](../E/ExecBSUpdateTriggers.md)
   - [ExecBRUpdateTriggersNew](../E/ExecBRUpdateTriggersNew.md)
-  - AfterTriggerSaveEvent
+  - [AfterTriggerSaveEvent](../A/AfterTriggerSaveEvent.md)
 
 ## Notes and Other Information
 - The function is static and used internally within the trigger execution system

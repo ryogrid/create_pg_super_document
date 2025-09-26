@@ -24,7 +24,7 @@ The function constructs protocol messages using PostgreSQL's message buffer syst
 ## Dependencies
 - Functions called/Symbols referenced:
   - whereToSendOutput: Global variable determining output destination
-  - pq_beginmessage: Starts construction of protocol message buffer
+  - [pq_beginmessage](../p/pq_beginmessage.md): Starts construction of protocol message buffer
   - PqMsg_NotificationResponse: Protocol message type constant
   - [pq_sendint32](../p/pq_sendint32.md): Adds 32-bit integer to message buffer
   - [pq_sendstring](../p/pq_sendstring.md): Adds null-terminated string to message buffer  

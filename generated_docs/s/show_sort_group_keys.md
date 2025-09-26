@@ -38,7 +38,7 @@ The function works by iterating through the provided key columns, finding the co
   - [get_tle_by_resno](../g/get_tle_by_resno.md) (finds target entry by result number)
   - [deparse_expression](../d/deparse_expression.md) (converts expression nodes to readable text)
   - [show_sortorder_options](show_sortorder_options.md) (adds sort order information to expressions)
-  - resetStringInfo (resets string buffer)
+  - [resetStringInfo](../r/resetStringInfo.md) (resets string buffer)
   - [ExplainPropertyList](../E/ExplainPropertyList.md) (outputs the formatted key list)
 - Types referenced:
   - [PlanState](../P/PlanState.md), Plan, TargetEntry, AttrNumber, ExplainState

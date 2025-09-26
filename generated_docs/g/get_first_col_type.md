@@ -27,8 +27,8 @@ The function handles edge cases such as EXISTS queries where the target list mig
 ## Dependencies
 - Functions called/Symbols referenced:
   - linitial_node
-  - exprType
-  - exprTypmod
+  - [exprType](../e/exprType.md)
+  - [exprTypmod](../e/exprTypmod.md)
   - [exprCollation](../e/exprCollation.md)
 - Called from (representative examples):
   - [build_subplan](../b/build_subplan.md)

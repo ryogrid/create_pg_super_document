@@ -29,12 +29,12 @@ This function ensures WAL files are not prematurely deleted before successful ar
   - XLogArchivingActive
   - XLogArchivingAlways
   - [GetRecoveryState](../G/GetRecoveryState.md)
-  - StatusFilePath
+  - [StatusFilePath](../S/StatusFilePath.md)
   - [XLogArchiveNotify](XLogArchiveNotify.md)
   - RECOVERY_STATE_ARCHIVE
 - Called from (representative examples):
   - [RemoveOldXlogFiles](../R/RemoveOldXlogFiles.md)
-  - CleanupBackupHistory
+  - [CleanupBackupHistory](../C/CleanupBackupHistory.md)
 
 ## Notes and Other Information
 - Implements retry logic for .ready file creation to handle transient failures

@@ -28,7 +28,7 @@ After setting the LSN metadata, the function calls ReorderBufferAssignChild to e
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReorderBufferTXNByXid](ReorderBufferTXNByXid.md) (retrieves transaction by XID)
-  - ReorderBufferAssignChild (assigns subtransaction to parent)
+  - [ReorderBufferAssignChild](ReorderBufferAssignChild.md) (assigns subtransaction to parent)
   - [ReorderBuffer](ReorderBuffer.md) (reorder buffer structure type)
   - [ReorderBufferTXN](ReorderBufferTXN.md) (transaction structure type)
 - Called from (representative examples):

@@ -27,14 +27,14 @@ When `data_sync_retry` is enabled (for systems known not to drop dirty data on w
   - data_sync_retry: Global configuration variable controlling retry behavior
 
 - Called from (representative examples):
-  - logical_end_heap_rewrite: Logical replication heap rewrite operations
-  - SlruReportIOError: SLRU (Simple LRU) I/O error reporting
-  - writeTimeLineHistory: Timeline history file operations
-  - XLogFileCopy: WAL file copying operations
-  - pg_flush_data: Data flushing operations
-  - fsync_fname: File synchronization operations
-  - mdimmedsync: Storage manager immediate sync
-  - ProcessSyncRequests: Sync request processing
+  - [logical_end_heap_rewrite](../l/logical_end_heap_rewrite.md): Logical replication heap rewrite operations
+  - [SlruReportIOError](../S/SlruReportIOError.md): SLRU (Simple LRU) I/O error reporting
+  - [writeTimeLineHistory](../w/writeTimeLineHistory.md): Timeline history file operations
+  - [XLogFileCopy](../X/XLogFileCopy.md): WAL file copying operations
+  - [pg_flush_data](../p/pg_flush_data.md): Data flushing operations
+  - [fsync_fname](../f/fsync_fname.md): File synchronization operations
+  - [mdimmedsync](../m/mdimmedsync.md): Storage manager immediate sync
+  - [ProcessSyncRequests](../P/ProcessSyncRequests.md): Sync request processing
 
 ## Notes and Other Information
 - Returns PANIC when data_sync_retry is false, otherwise returns the original elevel

@@ -32,8 +32,8 @@ This function handles the compression of data using zlib deflate algorithm and w
 - Called from:
   - [tar_write](tar_write.md)
   - [tar_open_for_write](tar_open_for_write.md)
-  - tar_close
-  - tar_finish
+  - [tar_close](tar_close.md)
+  - [tar_finish](tar_finish.md)
 
 ## Notes and Other Information
 - Returns false on compression errors, write failures, or stream reset failures

@@ -28,8 +28,8 @@ The function can be used for all text search caches by passing the appropriate h
   - [hash_seq_init](../h/hash_seq_init.md)
   - [hash_seq_search](../h/hash_seq_search.md)
   - [HTAB](../H/HTAB.md) (hash table structure)
-  - HASH_SEQ_STATUS (hash sequence status structure)
-  - TSAnyCacheEntry (base cache entry structure)
+  - [HASH_SEQ_STATUS](../H/HASH_SEQ_STATUS.md) (hash sequence status structure)
+  - [TSAnyCacheEntry](../T/TSAnyCacheEntry.md) (base cache entry structure)
   - TSConfigCacheHash (global hash table variable)
   - TSCurrentConfigCache (global current config cache variable)
 - Called from (representative examples):

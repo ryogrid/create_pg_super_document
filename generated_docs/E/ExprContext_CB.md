@@ -28,9 +28,9 @@ ExprContext_CB forms part of a callback system that allows registering cleanup f
 - Functions called/Symbols referenced:
   - ExprContextCallbackFunction (callback function type definition)
 - Called from (representative examples):
-  - RegisterExprContextCallback (registers a new callback)
-  - UnregisterExprContextCallback (removes a callback from the list)
-  - ShutdownExprContext (executes all registered callbacks during context cleanup)
+  - [RegisterExprContextCallback](../R/RegisterExprContextCallback.md) (registers a new callback)
+  - [UnregisterExprContextCallback](../U/UnregisterExprContextCallback.md) (removes a callback from the list)
+  - [ShutdownExprContext](../S/ShutdownExprContext.md) (executes all registered callbacks during context cleanup)
 
 ## Notes and Other Information
 - Callbacks are executed in the order they were registered (FIFO - First In, First Out)

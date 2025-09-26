@@ -29,7 +29,7 @@ The function includes an optimization that reuses the current buffer when consec
 - Functions called/Symbols referenced:
   - [revmap_get_blkno](revmap_get_blkno.md)
   - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)
-  - ReleaseBuffer
+  - [ReleaseBuffer](../R/ReleaseBuffer.md)
   - [ReadBuffer](../R/ReadBuffer.md)
   - BRIN_METAPAGE_BLKNO (constant)
 - Called from (representative examples):

@@ -24,17 +24,17 @@ The function creates a hash table using the  as the key and  as the entry struct
 - Functions called/Symbols referenced:
   - [MemoryContextDelete](../M/MemoryContextDelete.md)
   - AllocSetContextCreate  
-  - MemoryContextAllowInCriticalSection
+  - [MemoryContextAllowInCriticalSection](../M/MemoryContextAllowInCriticalSection.md)
   - [hash_create](../h/hash_create.md)
   - [on_shmem_exit](../o/on_shmem_exit.md)
   - [print_lwlock_stats](../p/print_lwlock_stats.md)
 - Types referenced:
-  - HASHCTL
-  - lwlock_stats_key
-  - lwlock_stats
+  - [HASHCTL](../H/HASHCTL.md)
+  - [lwlock_stats_key](../l/lwlock_stats_key.md)
+  - [lwlock_stats](../l/lwlock_stats.md)
 - Called from:
   - LOG_LWDEBUG (src/backend/storage/lmgr/lwlock.c:307)
-  - InitLWLockAccess (src/backend/storage/lmgr/lwlock.c:563)
+  - [InitLWLockAccess](../I/InitLWLockAccess.md) (src/backend/storage/lmgr/lwlock.c:563)
 
 ## Notes and Other Information
 - This function is only compiled when LWLOCK_STATS debugging is enabled

@@ -22,7 +22,7 @@ LockViewRecurse_walker is a specialized tree walker that implements the deep loc
 ## Dependencies
 - Functions called/Symbols referenced:
   - LockViewRecurse_context (structure type)
-  - AclResult (enum type)
+  - [AclResult](../A/AclResult.md) (enum type)
   - [get_rel_name](../g/get_rel_name.md)
   - RELKIND_RELATION
   - RELKIND_PARTITIONED_TABLE

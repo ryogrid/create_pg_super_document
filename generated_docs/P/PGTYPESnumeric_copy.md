@@ -31,8 +31,8 @@ The copying process ensures that:
   - [alloc_var](../a/alloc_var.md) (allocates memory for numeric digits)
   - [numeric](../n/numeric.md) (type definition)
 - Called from (representative examples):
-  - ecpg_get_data (ECPG data retrieval)
-  - ecpg_store_input (ECPG input storage)
+  - [ecpg_get_data](../e/ecpg_get_data.md) (ECPG data retrieval)
+  - [ecpg_store_input](../e/ecpg_store_input.md) (ECPG input storage)
   - [PGTYPESnumeric_to_asc](PGTYPESnumeric_to_asc.md) (numeric to string conversion)
   - [PGTYPESnumeric_from_double](PGTYPESnumeric_from_double.md) (double to numeric conversion)
   - [numericvar_to_double](../n/numericvar_to_double.md) (numeric to double conversion)

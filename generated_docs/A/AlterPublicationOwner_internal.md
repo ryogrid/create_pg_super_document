@@ -24,13 +24,13 @@ The function enforces strict security policies: FOR ALL TABLES and FOR TABLES IN
 ## Dependencies
 - Functions called/Symbols referenced:
   - Form_pg_publication (struct type)
-  - superuser
+  - [superuser](../s/superuser.md)
   - [object_ownercheck](../o/object_ownercheck.md)
   - [aclcheck_error](../a/aclcheck_error.md)
-  - check_can_set_role
+  - [check_can_set_role](../c/check_can_set_role.md)
   - [object_aclcheck](../o/object_aclcheck.md)
   - [get_database_name](../g/get_database_name.md)
-  - superuser_arg
+  - [superuser_arg](../s/superuser_arg.md)
   - [is_schema_publication](../i/is_schema_publication.md)
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - [changeDependencyOnOwner](../c/changeDependencyOnOwner.md)

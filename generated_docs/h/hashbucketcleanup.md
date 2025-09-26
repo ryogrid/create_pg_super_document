@@ -50,14 +50,14 @@ The function implements WAL logging for all modifications, ensuring crash recove
   - [PageGetItem](../P/PageGetItem.md)
   - [PageGetItemId](../P/PageGetItemId.md)
   - [_hash_hashkey2bucket](_hash_hashkey2bucket.md)
-  - _hash_get_indextuple_hashkey
+  - [_hash_get_indextuple_hashkey](_hash_get_indextuple_hashkey.md)
   - [PageIndexMultiDelete](../P/PageIndexMultiDelete.md)
   - H_HAS_DEAD_TUPLES
   - RelationNeedsWAL
   - [XLogInsert](../X/XLogInsert.md)
   - [_hash_getbuf_with_strategy](_hash_getbuf_with_strategy.md)
   - [_hash_relbuf](_hash_relbuf.md)
-  - IsBufferCleanupOK
+  - [IsBufferCleanupOK](../I/IsBufferCleanupOK.md)
   - [_hash_squeezebucket](_hash_squeezebucket.md)
 - Called from (representative examples):
   - [hashbulkdelete](hashbulkdelete.md)

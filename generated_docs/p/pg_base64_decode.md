@@ -30,11 +30,11 @@ The function includes comprehensive error reporting for invalid characters, malf
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_mblen (multibyte character length function for error reporting)
+  - [pg_mblen](pg_mblen.md) (multibyte character length function for error reporting)
   - b64lookup (Base64 character lookup table - referenced implicitly)
   - ereport (error reporting function)
 - Called from (representative examples):
-  - esc_dec_len (escape decoder length calculation function)
+  - [esc_dec_len](../e/esc_dec_len.md) (escape decoder length calculation function)
 
 ## Notes and Other Information
 - Returns the number of bytes written to the destination buffer (uint64)

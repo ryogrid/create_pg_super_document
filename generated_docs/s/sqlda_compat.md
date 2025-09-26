@@ -38,9 +38,9 @@ The structure supports chaining multiple SQLDA instances through the  pointer, a
   - [sqlda_compat](sqlda_compat.md) (self-reference for chaining)
 - Called from (representative examples):
   - [ECPGdescribe](../E/ECPGdescribe.md) (in src/interfaces/ecpg/ecpglib/descriptor.c:926, 927, 936, 937)
-  - var_list (in src/interfaces/ecpg/ecpglib/ecpglib_extern.h:226, 228)
-  - ecpg_build_params (in src/interfaces/ecpg/ecpglib/execute.c:1284)
-  - ecpg_process_output (in src/interfaces/ecpg/ecpglib/execute.c:1729, 1730, 1731)
+  - [var_list](../v/var_list.md) (in src/interfaces/ecpg/ecpglib/ecpglib_extern.h:226, 228)
+  - [ecpg_build_params](../e/ecpg_build_params.md) (in src/interfaces/ecpg/ecpglib/execute.c:1284)
+  - [ecpg_process_output](../e/ecpg_process_output.md) (in src/interfaces/ecpg/ecpglib/execute.c:1729, 1730, 1731)
   - [sqlda_compat_empty_size](sqlda_compat_empty_size.md) (in src/interfaces/ecpg/ecpglib/sqlda.c:52)
   - [sqlda_native_total_size](sqlda_native_total_size.md) (in src/interfaces/ecpg/ecpglib/sqlda.c:204)
   - [ecpg_build_compat_sqlda](../e/ecpg_build_compat_sqlda.md) (in src/interfaces/ecpg/ecpglib/sqlda.c:207, 215)

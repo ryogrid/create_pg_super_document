@@ -29,10 +29,10 @@ The function constructs an xl_standby_locks WAL record containing the lock count
   - [XLogInsert](../X/XLogInsert.md)
   - XLOG_MARK_UNIMPORTANT
   - XLOG_STANDBY_LOCK
-  - xl_standby_locks
+  - [xl_standby_locks](../x/xl_standby_locks.md)
   - [xl_standby_lock](../x/xl_standby_lock.md)
 - Called from (representative examples):
-  - LogStandbySnapshot
+  - [LogStandbySnapshot](LogStandbySnapshot.md)
   - [LogAccessExclusiveLock](LogAccessExclusiveLock.md)
 
 ## Notes and Other Information

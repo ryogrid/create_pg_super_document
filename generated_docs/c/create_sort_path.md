@@ -31,7 +31,7 @@ The sort operation does not project or transform the data - it simply reorders t
 - Functions called/Symbols referenced:
   - makeNode (creates SortPath node)
   - [cost_sort](cost_sort.md) (calculates full sorting costs)
-  - SortPath (return type structure)
+  - [SortPath](../S/SortPath.md) (return type structure)
 - Called from (representative examples):
   - [generate_useful_gather_paths](../g/generate_useful_gather_paths.md)
   - [create_one_window_path](create_one_window_path.md)
@@ -47,4 +47,4 @@ The sort operation does not project or transform the data - it simply reorders t
 - Cost calculation considers work_mem setting for determining sort strategy (memory vs disk-based)
 - Comparison cost is currently hardcoded to 0.0 with a TODO comment indicating this may need improvement
 - The pathtype is set to T_Sort to distinguish it from incremental sort (T_IncrementalSort)
-- Sort operations are often expensive but necessary for ORDER BY, GROUP BY, and other operations requiring ordered data
+- [Sort](../S/Sort.md) operations are often expensive but necessary for ORDER BY, GROUP BY, and other operations requiring ordered data

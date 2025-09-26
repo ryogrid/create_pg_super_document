@@ -31,10 +31,10 @@ The function respects timing intervals and only sends feedback when necessary, e
   - [WalRcvComputeNextWakeup](../W/WalRcvComputeNextWakeup.md)
   - [HotStandbyActive](../H/HotStandbyActive.md)
   - [GetReplicationHorizons](../G/GetReplicationHorizons.md)
-  - ReadNextFullTransactionId
+  - [ReadNextFullTransactionId](../R/ReadNextFullTransactionId.md)
   - XidFromFullTransactionId
   - EpochFromFullTransactionId
-  - resetStringInfo
+  - [resetStringInfo](../r/resetStringInfo.md)
   - [pq_sendbyte](../p/pq_sendbyte.md)
   - [pq_sendint64](../p/pq_sendint64.md)
   - [pq_sendint32](../p/pq_sendint32.md)

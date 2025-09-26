@@ -21,7 +21,7 @@ The function internally calls TwoPhaseGetGXact to locate the global transaction 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TwoPhaseGetGXact](TwoPhaseGetGXact.md)
-  - GlobalTransaction
+  - [GlobalTransaction](../G/GlobalTransaction.md)
   - [PGPROC](../P/PGPROC.md)
 - Called from (representative examples):
   - [PostPrepare_MultiXact](../P/PostPrepare_MultiXact.md)

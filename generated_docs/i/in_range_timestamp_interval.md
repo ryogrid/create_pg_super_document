@@ -32,11 +32,11 @@ The function validates that the offset interval is non-negative per SQL specific
   - INTERVAL_IS_NOEND
   - TIMESTAMP_IS_NOBEGIN
   - TIMESTAMP_IS_NOEND
-  - DatumGetTimestamp
+  - [DatumGetTimestamp](../D/DatumGetTimestamp.md)
   - DirectFunctionCall2
   - [timestamp_mi_interval](../t/timestamp_mi_interval.md)
   - [timestamp_pl_interval](../t/timestamp_pl_interval.md)
-  - TimestampGetDatum
+  - [TimestampGetDatum](../T/TimestampGetDatum.md)
   - [IntervalPGetDatum](../I/IntervalPGetDatum.md)
 - Called from:
   - [in_range_date_interval](in_range_date_interval.md) (in src/backend/utils/adt/date.c:1053)

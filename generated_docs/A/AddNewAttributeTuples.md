@@ -28,7 +28,7 @@ The function intelligently handles different relation types, skipping system att
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - [CatalogOpenIndexes](../C/CatalogOpenIndexes.md)
   - [InsertPgAttributeTuples](../I/InsertPgAttributeTuples.md)
   - ObjectAddressSubSet
@@ -37,7 +37,7 @@ The function intelligently handles different relation types, skipping system att
   - [CreateTupleDesc](../C/CreateTupleDesc.md)
   - [FreeTupleDesc](../F/FreeTupleDesc.md)
   - [CatalogCloseIndexes](../C/CatalogCloseIndexes.md)
-  - table_close
+  - [table_close](../t/table_close.md)
 - Called from (representative examples):
   - [heap_create_with_catalog](../h/heap_create_with_catalog.md)
 

@@ -31,12 +31,12 @@ This function constructs a RecursiveUnion plan node, which is the core operator 
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to allocate RecursiveUnion node)
-  - list_length (to get distinctList size)
+  - [list_length](../l/list_length.md) (to get distinctList size)
   - [palloc](../p/palloc.md) (to allocate arrays for duplicate detection)
   - [get_sortgroupclause_tle](../g/get_sortgroupclause_tle.md) (to resolve target list entries)
   - [exprCollation](../e/exprCollation.md) (to get expression collations)
-  - RecursiveUnion (struct type)
-  - SortGroupClause (struct type)
+  - [RecursiveUnion](../R/RecursiveUnion.md) (struct type)
+  - [SortGroupClause](../S/SortGroupClause.md) (struct type)
 - Called from (representative examples):
   - [create_recursiveunion_plan](../c/create_recursiveunion_plan.md)
 

@@ -41,8 +41,8 @@ The function uses unrolled loops and optimized macros (ROUND512_0_TO_15, ROUND51
   - Ch, Maj (Choice and Majority functions)
   - K512 (round constants array)
 - Called from (representative examples):
-  - pg_sha512_update
-  - SHA512_Last
+  - [pg_sha512_update](../p/pg_sha512_update.md)
+  - [SHA512_Last](SHA512_Last.md)
 
 ## Notes and Other Information
 - This is a static (internal) function not exposed outside the sha2.c module

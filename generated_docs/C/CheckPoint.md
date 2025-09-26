@@ -69,7 +69,7 @@ The checkpoint data enables PostgreSQL to determine the starting point for crash
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FullTransactionId
+  - [FullTransactionId](../F/FullTransactionId.md)
   - MultiXactId
   - MultiXactOffset
   - pg_time_t
@@ -79,11 +79,11 @@ The checkpoint data enables PostgreSQL to determine the starting point for crash
   - Oid
 
 - Called from (representative examples):
-  - CreateCheckPoint (main checkpoint creation function)
-  - StartupXLOG (during crash recovery)
-  - xlog_redo (during WAL replay)
-  - ReadCheckpointRecord (checkpoint record processing)
-  - ControlFileData (stored in pg_control file)
+  - [CreateCheckPoint](CreateCheckPoint.md) (main checkpoint creation function)
+  - [StartupXLOG](../S/StartupXLOG.md) (during crash recovery)
+  - [xlog_redo](../x/xlog_redo.md) (during WAL replay)
+  - [ReadCheckpointRecord](../R/ReadCheckpointRecord.md) (checkpoint record processing)
+  - [ControlFileData](ControlFileData.md) (stored in pg_control file)
 
 ## Notes and Other Information
 - This structure is stored in both WAL records and the pg_control file, making it critical for disaster recovery

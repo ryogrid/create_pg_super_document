@@ -22,9 +22,9 @@ This function provides a testing interface for writing data to SLRU (Simple Log-
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_INT64 (argument extraction)
-  - text_to_cstring (text conversion)
+  - [text_to_cstring](text_to_cstring.md) (text conversion)
   - [SimpleLruGetBankLock](../S/SimpleLruGetBankLock.md) (lock acquisition for the page)
-  - LWLockAcquire/LWLockRelease (locking primitives)
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease (locking primitives)
   - [SimpleLruZeroPage](../S/SimpleLruZeroPage.md) (page allocation and initialization)
   - [SimpleLruWritePage](../S/SimpleLruWritePage.md) (page persistence to disk)
   - TestSlruCtl (global SLRU control structure)

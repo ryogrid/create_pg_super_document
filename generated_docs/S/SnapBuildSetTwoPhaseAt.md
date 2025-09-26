@@ -22,7 +22,7 @@ This function is used to configure the LSN (Log Sequence Number) threshold at wh
 - Functions called/Symbols referenced:
   - [SnapBuild](SnapBuild.md) (struct type)
 - Called from (representative examples):
-  - CreateDecodingContext
+  - [CreateDecodingContext](../C/CreateDecodingContext.md)
 
 ## Notes and Other Information
 - This is a simple setter function that enables two-phase commit support in logical replication

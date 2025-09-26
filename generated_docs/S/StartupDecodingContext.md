@@ -50,17 +50,17 @@ The function handles both streaming logical replication and two-phase commit sce
 ## Dependencies
 - Functions called/Symbols referenced:
   - AllocSetContextCreate: Creates memory context for decoding
-  - LoadOutputPlugin: Loads the specified output plugin
-  - IsTransactionOrTransactionBlock: Checks transaction state
-  - XLogReaderAllocate: Allocates WAL reader
-  - ReorderBufferAllocate: Allocates transaction reorder buffer
-  - AllocateSnapshotBuilder: Creates snapshot management component
-  - makeStringInfo: Creates output string buffer
+  - [LoadOutputPlugin](../L/LoadOutputPlugin.md): Loads the specified output plugin
+  - [IsTransactionOrTransactionBlock](../I/IsTransactionOrTransactionBlock.md): Checks transaction state
+  - [XLogReaderAllocate](../X/XLogReaderAllocate.md): Allocates WAL reader
+  - [ReorderBufferAllocate](../R/ReorderBufferAllocate.md): Allocates transaction reorder buffer
+  - [AllocateSnapshotBuilder](../A/AllocateSnapshotBuilder.md): Creates snapshot management component
+  - [makeStringInfo](../m/makeStringInfo.md): Creates output string buffer
   - Various callback wrapper functions (begin_cb_wrapper, stream_start_cb_wrapper, etc.)
 
 - Called from (representative examples):
-  - CreateInitDecodingContext: During initial decoding context creation
-  - CreateDecodingContext: During regular decoding context creation
+  - [CreateInitDecodingContext](../C/CreateInitDecodingContext.md): During initial decoding context creation
+  - [CreateDecodingContext](../C/CreateDecodingContext.md): During regular decoding context creation
 
 ## Notes and Other Information
 - Static function shared between initialization and regular context creation paths

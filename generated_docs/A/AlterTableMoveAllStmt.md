@@ -36,11 +36,11 @@ The statement provides a NOWAIT option to avoid blocking if any required locks c
 - Functions called/Symbols referenced:
   - ObjectType (enumeration defining object types)
   - NodeTag (from node system)
-  - List (from PostgreSQL's list implementation)
+  - [List](../L/List.md) (from PostgreSQL's list implementation)
 - Called from (representative examples):
-  - AlterTableMoveAll (main execution function)
-  - ProcessUtilitySlow (utility command processor)
-  - CreateCommandTag (for command tag generation)
+  - [AlterTableMoveAll](AlterTableMoveAll.md) (main execution function)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (utility command processor)
+  - [CreateCommandTag](../C/CreateCommandTag.md) (for command tag generation)
 
 ## Notes and Other Information
 - This command requires CREATE privileges on the destination tablespace

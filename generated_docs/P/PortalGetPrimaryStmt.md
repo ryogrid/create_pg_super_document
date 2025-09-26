@@ -23,13 +23,13 @@ This function is essential for query execution infrastructure, particularly for 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PlannedStmt: Planned statement structure containing canSetTag field
+  - [PlannedStmt](PlannedStmt.md): Planned statement structure containing canSetTag field
   - lfirst_node: List traversal macro for accessing PlannedStmt nodes
   - foreach: List iteration macro
 
 - Called from:
-  - FetchPortalTargetList: Retrieving target list information for portals
-  - PortalStart: Portal execution initialization
+  - [FetchPortalTargetList](../F/FetchPortalTargetList.md): Retrieving target list information for portals
+  - [PortalStart](PortalStart.md): Portal execution initialization
 
 ## Notes and Other Information
 - Returns NULL if no statement has canSetTag set to true

@@ -25,9 +25,9 @@ The transformJsonScalarExpr function is responsible for transforming JSON_SCALAR
   - [transformJsonReturning](transformJsonReturning.md)
   - [coerce_to_specific_type](../c/coerce_to_specific_type.md)
   - [makeJsonConstructorExpr](../m/makeJsonConstructorExpr.md)
-  - exprType
-  - JsonOutput
-  - JsonReturning
+  - [exprType](../e/exprType.md)
+  - [JsonOutput](../J/JsonOutput.md)
+  - [JsonReturning](../J/JsonReturning.md)
   - JSCTOR_JSON_SCALAR
 - Called from (representative examples):
   - [transformExprRecurse](transformExprRecurse.md)

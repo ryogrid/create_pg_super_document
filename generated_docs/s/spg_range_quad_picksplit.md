@@ -31,7 +31,7 @@ This function implements the node splitting logic for SP-GiST quadtree indexing 
   - qsort_arg (sorting with context)
   - [bound_cmp](../b/bound_cmp.md) (comparison function for sorting)
   - [getQuadrant](../g/getQuadrant.md) (quadrant determination)
-  - RangeTypePGetDatum (range to datum conversion)
+  - [RangeTypePGetDatum](../R/RangeTypePGetDatum.md) (range to datum conversion)
   - PG_RETURN_VOID (macro)
 - Called from (representative examples):
   - SP-GiST index splitting operations when nodes become full

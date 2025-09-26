@@ -38,7 +38,7 @@ This internal function recursively examines SQL clauses to determine compatibili
   - [is_andclause](../i/is_andclause.md)
   - [is_orclause](../i/is_orclause.md)
   - [is_notclause](../i/is_notclause.md)
-  - lappend
+  - [lappend](../l/lappend.md)
 - Called from (representative examples):
   - [statext_is_compatible_clause_internal](statext_is_compatible_clause_internal.md) (recursive calls)
   - [statext_is_compatible_clause](statext_is_compatible_clause.md)

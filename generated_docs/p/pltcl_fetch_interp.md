@@ -34,12 +34,12 @@ This design provides security isolation between users in trusted mode while allo
   - `InvalidOid` (constant for untrusted mode key)
   - `HASH_ENTER` (hash table operation flag)
 - Called from (representative examples):
-  - `compile_pltcl_function` (when compiling PL/Tcl functions)
+  - `[compile_pltcl_function](../c/compile_pltcl_function.md)` (when compiling PL/Tcl functions)
 
 ## Notes and Other Information
 - Uses lazy initialization pattern - interpreters are created only when first accessed
 - Implements per-user security isolation for trusted PL/Tcl through separate interpreters
 - Untrusted PL/Tcl uses a single shared interpreter for all users
 - The function is static, indicating it's only used within the pltcl.c module
-- Hash table key is user_id for trusted mode, InvalidOid for untrusted mode
+- [Hash](../H/Hash.md) table key is user_id for trusted mode, InvalidOid for untrusted mode
 - Returns a pointer to the interpreter descriptor, never NULL (creates if needed)

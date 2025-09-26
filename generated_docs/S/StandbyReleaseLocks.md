@@ -20,13 +20,13 @@ This function serves as a conditional lock release mechanism during WAL replay i
   - TransactionIdIsValid
   - [hash_search](../h/hash_search.md)
   - [StandbyReleaseXidEntryLocks](StandbyReleaseXidEntryLocks.md)
-  - StandbyReleaseAllLocks
+  - [StandbyReleaseAllLocks](StandbyReleaseAllLocks.md)
   - [RecoveryLockXidEntry](../R/RecoveryLockXidEntry.md)
   - HASH_FIND
   - HASH_REMOVE
 - Called from (representative examples):
-  - StandbyReleaseLockTree (src/backend/storage/ipc/standby.c:1095)
-  - StandbyReleaseLockTree (src/backend/storage/ipc/standby.c:1098)
+  - [StandbyReleaseLockTree](StandbyReleaseLockTree.md) (src/backend/storage/ipc/standby.c:1095)
+  - [StandbyReleaseLockTree](StandbyReleaseLockTree.md) (src/backend/storage/ipc/standby.c:1098)
 
 ## Notes and Other Information
 - Static function not exposed outside standby.c

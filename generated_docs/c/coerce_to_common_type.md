@@ -27,7 +27,7 @@ This function performs type coercion on an expression node to convert it to a ta
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - exprType (to get input type)
+  - [exprType](../e/exprType.md) (to get input type)
   - [can_coerce_type](can_coerce_type.md) (to check coercion feasibility)
   - [coerce_type](coerce_type.md) (to perform actual coercion)
   - ereport/errcode/errmsg (for error reporting)
@@ -38,10 +38,10 @@ This function performs type coercion on an expression node to convert it to a ta
   - COERCE_IMPLICIT_CAST (coercion format constant)
 
 - Called from (representative examples):
-  - transformCaseExpr (CASE expression processing)
+  - [transformCaseExpr](../t/transformCaseExpr.md) (CASE expression processing)
   - [transformSetOperationTree](../t/transformSetOperationTree.md) (UNION/INTERSECT/EXCEPT operations)
-  - transformArrayExpr (array construction)
-  - transformCoalesceExpr (COALESCE function)
+  - [transformArrayExpr](../t/transformArrayExpr.md) (array construction)
+  - [transformCoalesceExpr](../t/transformCoalesceExpr.md) (COALESCE function)
   - [generate_setop_tlist](../g/generate_setop_tlist.md) (set operation target list generation)
 
 ## Notes and Other Information

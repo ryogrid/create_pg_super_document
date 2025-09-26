@@ -30,7 +30,7 @@ pg_hmac_init implements the HMAC (Hash-based Message Authentication Code) initia
   - [pg_cryptohash_free](pg_cryptohash_free.md)
   - [pg_cryptohash_error](pg_cryptohash_error.md)
   - memset
-  - explicit_bzero
+  - [explicit_bzero](../e/explicit_bzero.md)
 - Constants referenced:
   - HMAC_IPAD (0x36)
   - HMAC_OPAD (0x5C)
@@ -39,9 +39,9 @@ pg_hmac_init implements the HMAC (Hash-based Message Authentication Code) initia
 - Called from (representative examples):
   - [verify_client_proof](../v/verify_client_proof.md)
   - [build_server_final_message](../b/build_server_final_message.md)
-  - scram_SaltedPassword
-  - scram_ClientKey
-  - scram_ServerKey
+  - [scram_SaltedPassword](../s/scram_SaltedPassword.md)
+  - [scram_ClientKey](../s/scram_ClientKey.md)
+  - [scram_ServerKey](../s/scram_ServerKey.md)
   - [calculate_client_proof](../c/calculate_client_proof.md)
   - [verify_server_signature](../v/verify_server_signature.md)
 

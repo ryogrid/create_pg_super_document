@@ -23,14 +23,14 @@ The function carefully manages memory by freeing the current line buffer (if it 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pfree](../p/pfree.md)
-  - FreeFile
+  - [FreeFile](../F/FreeFile.md)
   - error_context_stack (global variable)
 - Called from (representative examples):
   - [dsynonym_init](../d/dsynonym_init.md)
   - [thesaurusRead](thesaurusRead.md)
   - [NIImportDictionary](../N/NIImportDictionary.md)
-  - NIImportOOAffixes
-  - NIImportAffixes
+  - [NIImportOOAffixes](../N/NIImportOOAffixes.md)
+  - [NIImportAffixes](../N/NIImportAffixes.md)
   - [readstoplist](../r/readstoplist.md)
 
 ## Notes and Other Information

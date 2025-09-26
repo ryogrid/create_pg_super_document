@@ -23,14 +23,14 @@ The function is designed for files that need to be opened with standard PostgreS
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - OpenTransientFilePerm (the underlying function that performs the actual file opening)
+  - [OpenTransientFilePerm](OpenTransientFilePerm.md) (the underlying function that performs the actual file opening)
   - pg_file_create_mode (global variable containing default file creation permissions)
 - Called from (representative examples):
-  - heap_xlog_logical_rewrite (rewriteheap.c:1089)
-  - SlruPhysicalReadPage (slru.c:819)
-  - writeTimeLineHistory (timeline.c:325)
-  - sendFile (basebackup.c:1591)
-  - durable_rename (fd.c:793)
+  - [heap_xlog_logical_rewrite](../h/heap_xlog_logical_rewrite.md) (rewriteheap.c:1089)
+  - [SlruPhysicalReadPage](../S/SlruPhysicalReadPage.md) (slru.c:819)
+  - [writeTimeLineHistory](../w/writeTimeLineHistory.md) (timeline.c:325)
+  - [sendFile](../s/sendFile.md) (basebackup.c:1591)
+  - [durable_rename](../d/durable_rename.md) (fd.c:793)
 
 ## Notes and Other Information
 - This is essentially a convenience function that reduces code duplication by providing default file permissions

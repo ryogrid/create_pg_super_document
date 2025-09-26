@@ -39,12 +39,12 @@ The function queries the internal security label storage using  and generates SE
 ## Dependencies
 - Functions called/Symbols referenced:
   - [findSecLabels](../f/findSecLabels.md)
-  - createPQExpBuffer
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)
   - [fmtId](../f/fmtId.md)
   - appendStringLiteralAH
   - [createDumpId](../c/createDumpId.md)
   - [ArchiveEntry](../A/ArchiveEntry.md)
-  - destroyPQExpBuffer
+  - [destroyPQExpBuffer](destroyPQExpBuffer.md)
 - Called from (representative examples):
   - [dumpFunc](dumpFunc.md)
   - [dumpNamespace](dumpNamespace.md)

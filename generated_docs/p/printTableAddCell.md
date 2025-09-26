@@ -27,7 +27,7 @@ The function maintains an internal counter of added cells and can optionally mar
 ## Dependencies
 - Functions called/Symbols referenced:
   - [mbvalidate](../m/mbvalidate.md) (multibyte character validation)
-  - pg_malloc0 (PostgreSQL memory allocation)
+  - [pg_malloc0](pg_malloc0.md) (PostgreSQL memory allocation)
   - gettext (_ macro, when ENABLE_NLS is defined)
 - Called from (representative examples):
   - [describeOneTableDetails](../d/describeOneTableDetails.md) (multiple locations in describe.c)

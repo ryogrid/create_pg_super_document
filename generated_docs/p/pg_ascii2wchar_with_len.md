@@ -25,7 +25,7 @@ As part of PostgreSQL's multi-byte encoding support framework, this function spe
 - Functions called/Symbols referenced:
   - (None - uses only basic pointer operations and assignments)
 - Called from (representative examples):
-  - pg_encoding_set_invalid
+  - [pg_encoding_set_invalid](pg_encoding_set_invalid.md)
 
 ## Notes and Other Information
 - This is a static function internal to the wchar.c module

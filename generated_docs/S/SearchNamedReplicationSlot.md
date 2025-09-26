@@ -21,14 +21,14 @@ SearchNamedReplicationSlot performs a linear search through the max_replication_
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire/LWLockRelease (when need_lock is true)
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease (when need_lock is true)
   - strcmp for name comparison
   - NameStr macro for accessing slot names
 - Called from (representative examples):
   - [ReplicationSlotAcquire](../R/ReplicationSlotAcquire.md)
   - [synchronize_one_slot](../s/synchronize_one_slot.md)
   - [validate_sync_standby_slots](../v/validate_sync_standby_slots.md)
-  - StandbySlotsHaveCaughtup
+  - [StandbySlotsHaveCaughtup](StandbySlotsHaveCaughtup.md)
 
 ## Notes and Other Information
 - Returns NULL if no slot with the specified name is found

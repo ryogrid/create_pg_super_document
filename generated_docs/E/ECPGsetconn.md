@@ -20,9 +20,9 @@ ECPGsetconn is a core ECPG connection management function that switches the curr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ecpg_get_connection
+  - [ecpg_get_connection](../e/ecpg_get_connection.md)
   - [ecpg_init](../e/ecpg_init.md)  
-  - pthread_setspecific
+  - [pthread_setspecific](../p/pthread_setspecific.md)
 - Called from (representative examples):
   - [main](../m/main.md) (in test programs)
   - ECPG-generated code for connection switching

@@ -37,22 +37,22 @@ CatCList objects are organized in their own hash table within each CatCache, sep
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_node (doubly-linked list infrastructure)
-  - CatCache (parent cache structure)
+  - [dlist_node](../d/dlist_node.md) (doubly-linked list infrastructure)
+  - [CatCache](CatCache.md) (parent cache structure)
   - CatCTup (individual cache tuple entries)
   - Datum (PostgreSQL data value type)
   - FLEXIBLE_ARRAY_MEMBER (flexible array implementation)
 
 - Called from (representative examples):
-  - SearchCatCacheList (primary search function for partial keys)
-  - ReleaseCatCacheList (reference management)
-  - FuncnameGetCandidates (function name resolution)
-  - OpernameGetCandidates (operator name resolution)
-  - GetRelationPublications (publication membership queries)
-  - roles_is_member_of (role membership queries)
+  - [SearchCatCacheList](../S/SearchCatCacheList.md) (primary search function for partial keys)
+  - [ReleaseCatCacheList](../R/ReleaseCatCacheList.md) (reference management)
+  - [FuncnameGetCandidates](../F/FuncnameGetCandidates.md) (function name resolution)
+  - [OpernameGetCandidates](../O/OpernameGetCandidates.md) (operator name resolution)
+  - [GetRelationPublications](../G/GetRelationPublications.md) (publication membership queries)
+  - [roles_is_member_of](../r/roles_is_member_of.md) (role membership queries)
 
 ## Notes and Other Information
-- CatCList entries are only created for partial key searches (nkeys < cache's total keys)
+- [CatCList](CatCList.md) entries are only created for partial key searches (nkeys < cache's total keys)
 - All member tuples in a list are guaranteed to be positive cache entries (never negative)
 - The 'ordered' flag optimization is particularly important for namespace.c operations
 - Lists can become 'dead' when any of their member entries are invalidated

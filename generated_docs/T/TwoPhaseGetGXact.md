@@ -21,12 +21,12 @@ TwoPhaseGetGXact is a static function that searches for and returns the GlobalTr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockHeldByMe (for lock assertion)
-  - LWLockAcquire/LWLockRelease (for shared lock management)
+  - [LWLockHeldByMe](../L/LWLockHeldByMe.md) (for lock assertion)
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease (for shared lock management)
   - elog (for error reporting)
 - Data structures accessed:
   - TwoPhaseState (global two-phase commit state)
-  - GlobalTransaction (transaction structure type)
+  - [GlobalTransaction](../G/GlobalTransaction.md) (transaction structure type)
   - Static cache variables: cached_xid, cached_gxact
 - Called from:
   - [TwoPhaseGetDummyProcNumber](TwoPhaseGetDummyProcNumber.md)

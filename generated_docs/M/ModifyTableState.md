@@ -72,9 +72,9 @@ ModifyTableState is one of the most complex executor state structures, managing 
   - [EPQState](../E/EPQState.md) (concurrent update handling)
   - [HTAB](../H/HTAB.md) (hash table for OID lookups)
   - [PartitionTupleRouting](../P/PartitionTupleRouting.md) (partitioning support)
-  - TransitionCaptureState (transition table management)
+  - [TransitionCaptureState](../T/TransitionCaptureState.md) (transition table management)
   - [MergeActionState](MergeActionState.md) (MERGE operation state)
-  - TupleTableSlot (tuple storage)
+  - [TupleTableSlot](../T/TupleTableSlot.md) (tuple storage)
 - Called from (representative examples):
   - [ExecModifyTable](../E/ExecModifyTable.md)
   - [ExecInitModifyTable](../E/ExecInitModifyTable.md)

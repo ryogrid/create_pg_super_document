@@ -27,12 +27,12 @@ The function modifies the padlen parameter to track how much padding has been co
 ## Dependencies
 - Functions called/Symbols referenced:
   - PrintfTarget (structure used for output handling)
-  - dopr_outch (outputs a single character)
-  - dopr_outchmulti (outputs multiple copies of a character)
+  - [dopr_outch](../d/dopr_outch.md) (outputs a single character)
+  - [dopr_outchmulti](../d/dopr_outchmulti.md) (outputs multiple copies of a character)
 - Called from (representative examples):
-  - flushbuffer (at src/port/snprintf.c:336)
-  - fmtint (at src/port/snprintf.c:1107)
-  - fmtfloat (at src/port/snprintf.c:1236)
+  - [flushbuffer](../f/flushbuffer.md) (at src/port/snprintf.c:336)
+  - [fmtint](../f/fmtint.md) (at src/port/snprintf.c:1107)
+  - [fmtfloat](../f/fmtfloat.md) (at src/port/snprintf.c:1236)
 
 ## Notes and Other Information
 - This is a static function within the snprintf.c module, indicating it's an internal utility

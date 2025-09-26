@@ -28,7 +28,7 @@ The function handles multiple scenarios including regular index scans, index-onl
   - [IndexPath](../I/IndexPath.md) (structure)
   - [IndexOptInfo](../I/IndexOptInfo.md) (structure)
   - Cost (type)
-  - QualCost (structure)
+  - [QualCost](../Q/QualCost.md) (structure)
   - [list_concat](../l/list_concat.md)
   - [extract_nonindex_conditions](../e/extract_nonindex_conditions.md)
   - [clamp_row_est](clamp_row_est.md)

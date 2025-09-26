@@ -33,8 +33,8 @@ This information helps identify queries that consume significant memory and aids
 - Functions called/Symbols referenced:
   - BYTES_TO_KILOBYTES
   - [ExplainIndentText](../E/ExplainIndentText.md)
-  - appendStringInfo
-  - appendStringInfoChar
+  - [appendStringInfo](../a/appendStringInfo.md)
+  - [appendStringInfoChar](../a/appendStringInfoChar.md)
   - [ExplainPropertyInteger](../E/ExplainPropertyInteger.md)
   - INT64_FORMAT
 - Called from (representative examples):

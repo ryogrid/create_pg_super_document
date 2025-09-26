@@ -42,7 +42,7 @@ This function is currently limited to foreign tables without RETURNING clauses, 
   - ExecForeignBatchInsert (via FDW routine - actual batch insertion)
   - [ExecARInsertTriggers](ExecARInsertTriggers.md) (AFTER ROW INSERT trigger processing)
   - [ExecWithCheckOptions](ExecWithCheckOptions.md) (WITH CHECK OPTION validation)
-  - ExecClearTuple (slot cleanup)
+  - [ExecClearTuple](ExecClearTuple.md) (slot cleanup)
 - Called from (representative examples):
   - [ExecInsert](ExecInsert.md) (when batch size is reached during FDW insertion)
   - [ExecPendingInserts](ExecPendingInserts.md) (to flush accumulated batches)

@@ -30,18 +30,18 @@ The test uses random selection to provide comprehensive coverage of different de
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - create_int_rbtree: Creates a new integer Red-Black Tree
-  - rbt_populate: Populates tree with consecutive natural numbers  
-  - palloc: Allocates memory for deleteIds array
-  - palloc0: Allocates zero-initialized memory for chosen boolean array
-  - pg_prng_uint64_range: Generates random numbers for element selection
-  - rbt_find: Locates nodes in the tree before deletion
-  - rbt_delete: Removes nodes from the tree
-  - rbt_leftmost: Verifies tree is empty after complete deletion
-  - pfree: Frees allocated memory arrays
+  - [create_int_rbtree](../c/create_int_rbtree.md): Creates a new integer Red-Black Tree
+  - [rbt_populate](../r/rbt_populate.md): Populates tree with consecutive natural numbers  
+  - [palloc](../p/palloc.md): Allocates memory for deleteIds array
+  - [palloc0](../p/palloc0.md): Allocates zero-initialized memory for chosen boolean array
+  - [pg_prng_uint64_range](../p/pg_prng_uint64_range.md): Generates random numbers for element selection
+  - [rbt_find](../r/rbt_find.md): Locates nodes in the tree before deletion
+  - [rbt_delete](../r/rbt_delete.md): Removes nodes from the tree
+  - [rbt_leftmost](../r/rbt_leftmost.md): Verifies tree is empty after complete deletion
+  - [pfree](../p/pfree.md): Frees allocated memory arrays
   - elog: Reports test failures with ERROR level
 - Called from (representative examples):
-  - test_rb_tree: Main test function that orchestrates all Red-Black Tree tests
+  - [test_rb_tree](test_rb_tree.md): Main test function that orchestrates all Red-Black Tree tests
 
 ## Notes and Other Information
 - Uses IntRBTreeNode structure for test data with integer keys

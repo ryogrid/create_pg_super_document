@@ -28,8 +28,8 @@ The function includes a small bitmap manipulation overhead for IndexPath nodes t
 ## Dependencies
 - Functions called/Symbols referenced:
   - [IndexPath](../I/IndexPath.md) (struct type)
-  - BitmapAndPath (struct type)
-  - BitmapOrPath (struct type)
+  - [BitmapAndPath](../B/BitmapAndPath.md) (struct type)
+  - [BitmapOrPath](../B/BitmapOrPath.md) (struct type)
   - nodeTag (function)
   - cpu_operator_cost (global variable)
 

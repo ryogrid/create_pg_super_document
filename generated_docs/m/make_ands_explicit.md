@@ -28,10 +28,10 @@ This optimization avoids creating redundant expression nodes and helps maintain 
 - Functions called/Symbols referenced:
   - [makeBoolConst](makeBoolConst.md) (to create TRUE constant for empty lists)
   - [make_andclause](make_andclause.md) (to create AND expression for multiple clauses)
-  - list_length (to check list size)
+  - [list_length](../l/list_length.md) (to check list size)
   - linitial (to get first element of single-element list)
 - Called from (representative examples):
-  - UpdateIndexRelation
+  - [UpdateIndexRelation](../U/UpdateIndexRelation.md)
   - [get_proposed_default_constraint](../g/get_proposed_default_constraint.md)
   - [show_qual](../s/show_qual.md) (in query explanation)
   - [ATExecAttachPartition](../A/ATExecAttachPartition.md)

@@ -25,10 +25,10 @@ The conversion handles the full Unicode range that can be represented in UTF-8, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - unicode_to_utf8
-  - pg_utf_mblen
+  - [unicode_to_utf8](../u/unicode_to_utf8.md)
+  - [pg_utf_mblen](pg_utf_mblen.md)
 - Called from (representative examples):
-  - pg_encoding_set_invalid
+  - [pg_encoding_set_invalid](pg_encoding_set_invalid.md)
 
 ## Notes and Other Information
 - This is a static function with internal linkage, only accessible within wchar.c

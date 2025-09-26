@@ -46,8 +46,8 @@ The function automatically manages compound word flags, ensuring that words mark
   - FF_COMPOUNDPERMITFLAG
   - FF_COMPOUNDFLAG
 - Called from (representative examples):
-  - NIImportOOAffixes
-  - NIImportAffixes
+  - [NIImportOOAffixes](NIImportOOAffixes.md)
+  - [NIImportAffixes](NIImportAffixes.md)
 
 ## Notes and Other Information
 - Static function, only accessible within the spell.c module

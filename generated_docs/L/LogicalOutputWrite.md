@@ -22,12 +22,12 @@ This static function performs the actual writing of logical decoding output into
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LSNGetDatum (converts LSN to PostgreSQL Datum)
+  - [LSNGetDatum](LSNGetDatum.md) (converts LSN to PostgreSQL Datum)
   - [TransactionIdGetDatum](../T/TransactionIdGetDatum.md) (converts transaction ID to PostgreSQL Datum)  
   - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md) (retrieves current database encoding)
   - [pg_verify_mbstr](../p/pg_verify_mbstr.md) (verifies multibyte string encoding)
-  - cstring_to_text_with_len (converts C string to PostgreSQL text type)
-  - tuplestore_putvalues (stores the tuple in the tuplestore)
+  - [cstring_to_text_with_len](../c/cstring_to_text_with_len.md) (converts C string to PostgreSQL text type)
+  - [tuplestore_putvalues](../t/tuplestore_putvalues.md) (stores the tuple in the tuplestore)
 - Data types used:
   - [LogicalDecodingContext](LogicalDecodingContext.md) (logical decoding context)
   - [DecodingOutputState](../D/DecodingOutputState.md) (output state tracking structure)

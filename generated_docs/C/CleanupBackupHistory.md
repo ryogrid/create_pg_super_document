@@ -17,18 +17,18 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AllocateDir
-  - ReadDir
-  - FreeDir
-  - IsBackupHistoryFileName
-  - XLogArchiveCheckDone
-  - XLogArchiveCleanup
+  - [AllocateDir](../A/AllocateDir.md)
+  - [ReadDir](../R/ReadDir.md)
+  - [FreeDir](../F/FreeDir.md)
+  - [IsBackupHistoryFileName](../I/IsBackupHistoryFileName.md)
+  - [XLogArchiveCheckDone](../X/XLogArchiveCheckDone.md)
+  - [XLogArchiveCleanup](../X/XLogArchiveCleanup.md)
   - unlink
   - elog
   - snprintf
 - Called from (representative examples):
   - RefreshXLogWriteResult
-  - do_pg_backup_stop
+  - [do_pg_backup_stop](../d/do_pg_backup_stop.md)
 
 ## Notes and Other Information
 - This function operates only on backup history files, not regular WAL files

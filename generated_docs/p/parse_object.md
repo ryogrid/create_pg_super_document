@@ -31,18 +31,18 @@ The function includes stack depth checking in non-frontend builds to prevent sta
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth (stack overflow protection)
-  - lex_peek (token lookahead)
-  - json_lex (token consumption)
-  - parse_object_field (recursive field parsing)
-  - lex_expect (expected token validation)
-  - report_parse_error (error reporting)
+  - [check_stack_depth](../c/check_stack_depth.md) (stack overflow protection)
+  - [lex_peek](../l/lex_peek.md) (token lookahead)
+  - [json_lex](../j/json_lex.md) (token consumption)
+  - [parse_object_field](parse_object_field.md) (recursive field parsing)
+  - [lex_expect](../l/lex_expect.md) (expected token validation)
+  - [report_parse_error](../r/report_parse_error.md) (error reporting)
   - JSON token types and parse error constants
 
 - Called from (representative examples):
-  - pg_parse_json (main JSON parsing entry point)
-  - parse_object_field (recursive object nesting)
-  - parse_array_element (objects within arrays)
+  - [pg_parse_json](pg_parse_json.md) (main JSON parsing entry point)
+  - [parse_object_field](parse_object_field.md) (recursive object nesting)
+  - [parse_array_element](parse_array_element.md) (objects within arrays)
 
 ## Notes and Other Information
 - Manages lexical nesting level () to track JSON structure depth

@@ -24,7 +24,7 @@ The function follows a two-step process:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwnerEnlarge
+  - [ResourceOwnerEnlarge](ResourceOwnerEnlarge.md)
   - IsBootstrapProcessingMode
   - [ResourceOwnerRememberRelationRef](ResourceOwnerRememberRelationRef.md)
 - Called from (representative examples):

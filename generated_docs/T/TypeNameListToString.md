@@ -24,10 +24,10 @@ Like TypeNameToString, this function is designed to work reliably even with inva
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initStringInfo
+  - [initStringInfo](../i/initStringInfo.md)
   - lfirst_node
-  - list_head
-  - appendStringInfoChar
+  - [list_head](../l/list_head.md)
+  - [appendStringInfoChar](../a/appendStringInfoChar.md)
   - [appendTypeNameToBuffer](../a/appendTypeNameToBuffer.md)
 - Called from (representative examples):
   - [does_not_exist_skipping](../d/does_not_exist_skipping.md) (multiple instances in dropcmds.c)

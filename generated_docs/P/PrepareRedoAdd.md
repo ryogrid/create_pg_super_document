@@ -68,7 +68,7 @@ PrepareRedoAdd is a critical function in PostgreSQL's two-phase commit recovery 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockHeldByMeInMode
+  - [LWLockHeldByMeInMode](../L/LWLockHeldByMeInMode.md)
   - [RecoveryInProgress](../R/RecoveryInProgress.md)
   - XLogRecPtrIsInvalid
   - [TwoPhaseFilePath](../T/TwoPhaseFilePath.md)

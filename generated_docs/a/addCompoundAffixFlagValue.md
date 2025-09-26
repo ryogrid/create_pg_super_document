@@ -35,8 +35,8 @@ This function processes a string containing an affix flag, extracts the flag por
   - [setCompoundAffixFlagValue](../s/setCompoundAffixFlagValue.md): Configure the flag entry with parsed values
   - ereport: Error reporting for syntax errors
 - Called from (representative examples):
-  - NIImportOOAffixes: Import OpenOffice-style affix configurations
-  - NIImportAffixes: Import standard Ispell affix configurations
+  - [NIImportOOAffixes](../N/NIImportOOAffixes.md): Import OpenOffice-style affix configurations
+  - [NIImportAffixes](../N/NIImportAffixes.md): Import standard Ispell affix configurations
 
 ## Notes and Other Information
 - Automatically enables compound word processing by setting usecompound to true

@@ -22,7 +22,7 @@ This function performs a conversion from a plain time data type to a time with t
   - PG_GETARG_TIMEADT: Macro to extract TimeADT argument from function call
   - [GetCurrentDateTime](../G/GetCurrentDateTime.md): Function to get current date/time information
   - [time2tm](time2tm.md): Function to convert TimeADT to broken-down time structure
-  - DetermineTimeZoneOffset: Function to calculate timezone offset for given time and timezone
+  - [DetermineTimeZoneOffset](../D/DetermineTimeZoneOffset.md): Function to calculate timezone offset for given time and timezone
   - [palloc](../p/palloc.md): Memory allocation function
   - PG_RETURN_TIMETZADT_P: Macro to return TimeTzADT result
 - Types used:

@@ -48,10 +48,10 @@ The enumeration values are specifically chosen to match btree strategy numbers f
 - Called from (representative examples):
   - RowCompareExpr struct (uses RowCompareType as rctype field)
   - [ExecInterpExpr](../E/ExecInterpExpr.md) function
-  - llvm_compile_expr function
+  - [llvm_compile_expr](../l/llvm_compile_expr.md) function
   - [expand_indexqual_rowcompare](../e/expand_indexqual_rowcompare.md) function
   - [make_row_comparison_op](../m/make_row_comparison_op.md) function
-  - ExprEvalStep struct
+  - [ExprEvalStep](../E/ExprEvalStep.md) struct
 
 ## Notes and Other Information
 - Enum values deliberately match btree strategy numbers for efficient operator resolution

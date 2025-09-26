@@ -35,16 +35,16 @@ The data area after the entries array contains the lexeme strings in the order r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WordEntry (individual word entry metadata)
+  - [WordEntry](../W/WordEntry.md) (individual word entry metadata)
 - Used by (representative examples):
   - TSVector (type alias for TSVectorData*)
   - DATAHDRSIZE (calculating header size)
-  - TSVectorGetDatum (converting to PostgreSQL datum)
+  - [TSVectorGetDatum](TSVectorGetDatum.md) (converting to PostgreSQL datum)
 
 ## Notes and Other Information
 - This is the authoritative storage format for tsvector data in PostgreSQL
 - The structure uses the PostgreSQL varlena (variable-length array) system for memory management
-- WordEntry array is always kept sorted by lexeme string to enable binary search operations
+- [WordEntry](../W/WordEntry.md) array is always kept sorted by lexeme string to enable binary search operations
 - Lexeme data follows immediately after the entries array, referenced by WordEntry.pos offsets
 - Position vectors (when present) are stored after their corresponding lexeme strings
 - Total structure size is limited by the varlena system (approximately 1GB maximum)

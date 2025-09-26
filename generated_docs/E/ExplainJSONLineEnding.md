@@ -18,8 +18,8 @@ This function handles the specific formatting requirements for JSON output in Po
 ## Dependencies
 - Functions called/Symbols referenced:
   - linitial_int (list manipulation function)
-  - appendStringInfoChar (string buffer utility)
-  - ExplainState (struct type)
+  - [appendStringInfoChar](../a/appendStringInfoChar.md) (string buffer utility)
+  - [ExplainState](ExplainState.md) (struct type)
   - EXPLAIN_FORMAT_JSON (format constant)
 - Called from (representative examples):
   - [ExplainPropertyList](ExplainPropertyList.md)

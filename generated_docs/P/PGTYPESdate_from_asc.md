@@ -28,7 +28,7 @@ PGTYPESdate_from_asc is a comprehensive date parsing function that converts stri
   - DTK_DATE, DTK_EPOCH (date type constants)
   - PGTYPES_DATE_BAD_DATE (error constant)
 - Called from (representative examples):
-  - ecpg_get_data (ECPG data retrieval function)
+  - [ecpg_get_data](../e/ecpg_get_data.md) (ECPG data retrieval function)
   - [main](../m/main.md) (in test cases and array handling)
 
 ## Notes and Other Information

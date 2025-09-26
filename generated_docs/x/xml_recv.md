@@ -26,12 +26,12 @@ This function handles the binary protocol reception of XML data from clients. Un
   - [palloc](../p/palloc.md)
   - SET_VARSIZE
   - VARDATA
-  - parse_xml_decl
+  - [parse_xml_decl](../p/parse_xml_decl.md)
   - [xmlChar_to_encoding](xmlChar_to_encoding.md)
-  - xml_parse
+  - [xml_parse](xml_parse.md)
   - xmlFreeDoc
   - [pg_any_to_server](../p/pg_any_to_server.md)
-  - cstring_to_text
+  - [cstring_to_text](../c/cstring_to_text.md)
   - [pfree](../p/pfree.md)
   - PG_RETURN_XML_P
   - NO_XML_SUPPORT (fallback when libxml2 not available)

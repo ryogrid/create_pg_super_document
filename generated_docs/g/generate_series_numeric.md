@@ -22,7 +22,7 @@ This design pattern allows for a unified implementation where the two-parameter 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - generate_series_step_numeric - The actual implementation that handles series generation with explicit step parameter
+  - [generate_series_step_numeric](generate_series_step_numeric.md) - The actual implementation that handles series generation with explicit step parameter
 - Called from:
   - No direct references found (typically called via SQL function calls)
 

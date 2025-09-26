@@ -22,11 +22,11 @@ ExecUnique implements duplicate elimination by processing tuples from its outer 
 - Functions called/Symbols referenced:
   - castNode: Cast pstate to UniqueState
   - outerPlanState: Get the outer plan state
-  - ExecProcNode: Execute the outer subplan to get next tuple
+  - [ExecProcNode](ExecProcNode.md): Execute the outer subplan to get next tuple
   - TupIsNull: Check if tuple slot is empty
-  - ExecClearTuple: Clear the result tuple slot
-  - ExecQualAndReset: Execute equality comparison between tuples
-  - ExecCopySlot: Copy tuple from source to result slot
+  - [ExecClearTuple](ExecClearTuple.md): Clear the result tuple slot
+  - [ExecQualAndReset](ExecQualAndReset.md): Execute equality comparison between tuples
+  - [ExecCopySlot](ExecCopySlot.md): Copy tuple from source to result slot
 - Called from:
   - [ExecInitUnique](ExecInitUnique.md): During node initialization to set up the execution function
 

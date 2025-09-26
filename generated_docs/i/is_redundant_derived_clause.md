@@ -22,7 +22,7 @@ The function first checks if the input clause has a parent equivalence class (if
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - EquivalenceClass (structure type for equivalence class representation)
+  - [EquivalenceClass](../E/EquivalenceClass.md) (structure type for equivalence class representation)
   - [RestrictInfo](../R/RestrictInfo.md) (structure accessed for parent_ec field)
   - [List](../L/List.md) traversal (foreach macro and lfirst function)
 - Called from (representative examples):

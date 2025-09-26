@@ -28,8 +28,8 @@ This function takes no parameters and operates on the global pg_tblspc directory
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AllocateDir
-  - ReadDir  
+  - [AllocateDir](../A/AllocateDir.md)
+  - [ReadDir](../R/ReadDir.md)  
   - [get_dirent_type](../g/get_dirent_type.md)
   - snprintf
   - strspn

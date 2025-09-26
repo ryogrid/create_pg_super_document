@@ -23,7 +23,7 @@ UnlockPage is a PostgreSQL locking function that releases a previously acquired 
 - Functions called/Symbols referenced:
   - SET_LOCKTAG_PAGE
   - [LockRelease](../L/LockRelease.md)
-  - LOCKTAG
+  - [LOCKTAG](../L/LOCKTAG.md)
 - Called from (representative examples):
   - [ginInsertCleanup](../g/ginInsertCleanup.md) (multiple calls)
   - [XLTW_Oper](../X/XLTW_Oper.md)

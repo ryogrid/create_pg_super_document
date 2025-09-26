@@ -33,7 +33,7 @@ For each matching dependency, the function adds the extension's OID (`refobjid`)
   - [systable_getnext](../s/systable_getnext.md)
   - Form_pg_depend
   - DEPENDENCY_AUTO_EXTENSION
-  - lappend_oid
+  - [lappend_oid](../l/lappend_oid.md)
 - Called from (representative examples):
   - [ExecAlterObjectDependsStmt](../E/ExecAlterObjectDependsStmt.md)
   - PERFORM_DELETION_CONCURRENT_LOCK

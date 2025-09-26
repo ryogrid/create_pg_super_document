@@ -23,7 +23,7 @@ The function uses strnlen() to determine the actual length to copy (which may be
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - strnlen
+  - [strnlen](../s/strnlen.md)
   - [palloc](palloc.md)
   - memcpy
 - Called from (representative examples):

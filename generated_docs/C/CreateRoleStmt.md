@@ -30,13 +30,13 @@ The structure contains the role name and a list of options that specify the role
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RoleStmtType (enumeration for statement type)
+  - [RoleStmtType](../R/RoleStmtType.md) (enumeration for statement type)
   - NodeTag (for type identification)
-  - List (for storing role options)
-  - DefElem (for individual option specifications)
+  - [List](../L/List.md) (for storing role options)
+  - [DefElem](../D/DefElem.md) (for individual option specifications)
 - Called from (representative examples):
-  - CreateRole (role creation command execution)
-  - standard_ProcessUtility (utility command processing)
+  - [CreateRole](CreateRole.md) (role creation command execution)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (utility command processing)
 
 ## Notes and Other Information
 - This structure unifies the handling of CREATE ROLE, CREATE USER, and CREATE GROUP statements, which are all equivalent in PostgreSQL

@@ -65,7 +65,7 @@ Special handling is provided for inheritance scenarios - when inhparent is true,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open, table_close
+  - [table_open](../t/table_open.md), table_close
   - [estimate_rel_size](../e/estimate_rel_size.md)
   - [RecoveryInProgress](../R/RecoveryInProgress.md)
   - [RelationGetIndexList](../R/RelationGetIndexList.md)

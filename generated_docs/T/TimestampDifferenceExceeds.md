@@ -31,8 +31,8 @@ This function performs a simple comparison to determine if the time difference b
   - [WaitForWALToBecomeAvailable](../W/WaitForWALToBecomeAvailable.md) (WAL recovery)
   - [do_analyze_rel](../d/do_analyze_rel.md) (table analysis)
   - [WalSndWaitForWal](../W/WalSndWaitForWal.md) (WAL sender operations)
-  - LockBufferForCleanup (buffer management)
-  - ProcSleep (process sleeping/waiting)
+  - [LockBufferForCleanup](../L/LockBufferForCleanup.md) (buffer management)
+  - [ProcSleep](../P/ProcSleep.md) (process sleeping/waiting)
   - [pgstat_report_stat](../p/pgstat_report_stat.md) (statistics reporting)
 
 ## Notes and Other Information

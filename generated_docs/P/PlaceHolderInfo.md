@@ -57,18 +57,18 @@ Importantly, PlaceHolderInfo can create join order constraints - the ph_eval_at 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PlaceHolderVar (placeholder variable node)
+  - [PlaceHolderVar](PlaceHolderVar.md) (placeholder variable node)
   - NodeTag (node type system)
   - Relids (relation ID bitmap)
   - Index (unique identifier type)
 
 - Called from (representative examples):
-  - make_placeholder_expr (in placeholder.c:82)
-  - find_placeholder_info (in placeholder.c:85, 106, 159, 162)
-  - add_placeholders_to_base_rels (in placeholder.c:335)
-  - add_placeholders_to_joinrel (in placeholder.c:383)
-  - have_join_order_restriction (in joinrels.c:1095)
-  - join_is_removable (in analyzejoins.c:234)
+  - [make_placeholder_expr](../m/make_placeholder_expr.md) (in placeholder.c:82)
+  - [find_placeholder_info](../f/find_placeholder_info.md) (in placeholder.c:85, 106, 159, 162)
+  - [add_placeholders_to_base_rels](../a/add_placeholders_to_base_rels.md) (in placeholder.c:335)
+  - [add_placeholders_to_joinrel](../a/add_placeholders_to_joinrel.md) (in placeholder.c:383)
+  - [have_join_order_restriction](../h/have_join_order_restriction.md) (in joinrels.c:1095)
+  - [join_is_removable](../j/join_is_removable.md) (in analyzejoins.c:234)
 
 ## Notes and Other Information
 - Uses pg_node_attr with no_read and no_query_jumble attributes to control node processing behavior

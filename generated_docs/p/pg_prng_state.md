@@ -30,23 +30,23 @@ The state is typically initialized using functions like `pg_prng_seed()` or `pg_
 
 ## Dependencies
 - Functions that use this structure:
-  - `pg_prng_seed` - Initialize the state from a 64-bit seed
-  - `pg_prng_fseed` - Initialize the state from floating-point seed
-  - `pg_prng_strong_seed` - Initialize with cryptographically strong seed
-  - `pg_prng_seed_check` - Verify state is not all-zeros
-  - `pg_prng_uint64` - Generate 64-bit unsigned random number
-  - `pg_prng_uint64_range` - Generate random number in specific range
-  - `pg_prng_int64` - Generate 64-bit signed random number
-  - `pg_prng_int32` - Generate 32-bit signed random number
-  - `pg_prng_uint32` - Generate 32-bit unsigned random number
-  - `pg_prng_double` - Generate double-precision floating-point random number
-  - `pg_prng_double_normal` - Generate normally distributed random number
-  - `pg_prng_bool` - Generate random boolean value
-  - `xoroshiro128ss` - Core algorithm implementation (internal)
+  - `[pg_prng_seed](pg_prng_seed.md)` - [Initialize](../I/Initialize.md) the state from a 64-bit seed
+  - `[pg_prng_fseed](pg_prng_fseed.md)` - [Initialize](../I/Initialize.md) the state from floating-point seed
+  - `pg_prng_strong_seed` - [Initialize](../I/Initialize.md) with cryptographically strong seed
+  - `[pg_prng_seed_check](pg_prng_seed_check.md)` - Verify state is not all-zeros
+  - `[pg_prng_uint64](pg_prng_uint64.md)` - Generate 64-bit unsigned random number
+  - `[pg_prng_uint64_range](pg_prng_uint64_range.md)` - Generate random number in specific range
+  - `[pg_prng_int64](pg_prng_int64.md)` - Generate 64-bit signed random number
+  - `[pg_prng_int32](pg_prng_int32.md)` - Generate 32-bit signed random number
+  - `[pg_prng_uint32](pg_prng_uint32.md)` - Generate 32-bit unsigned random number
+  - `[pg_prng_double](pg_prng_double.md)` - Generate double-precision floating-point random number
+  - `[pg_prng_double_normal](pg_prng_double_normal.md)` - Generate normally distributed random number
+  - `[pg_prng_bool](pg_prng_bool.md)` - Generate random boolean value
+  - `[xoroshiro128ss](../x/xoroshiro128ss.md)` - Core algorithm implementation (internal)
 
 - Used extensively by:
   - `pgbench` for workload generation and randomization
-  - Numeric/sampling utilities for statistical operations
+  - [Numeric](../N/Numeric.md)/sampling utilities for statistical operations
   - Various PostgreSQL subsystems requiring random number generation
   - Connection state management in libpq
   - Test modules for randomized testing

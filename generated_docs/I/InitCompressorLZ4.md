@@ -36,7 +36,7 @@ The function handles both read and write scenarios differently - for read operat
   - [ReadDataFromArchiveLZ4](../R/ReadDataFromArchiveLZ4.md) (assigned as readData function)
   - [WriteDataToArchiveLZ4](../W/WriteDataToArchiveLZ4.md) (assigned as writeData function)
   - [EndCompressorLZ4](../E/EndCompressorLZ4.md) (assigned as end function)
-  - pg_malloc0 (for state allocation)
+  - [pg_malloc0](../p/pg_malloc0.md) (for state allocation)
   - [LZ4State_compression_init](../L/LZ4State_compression_init.md) (for initializing LZ4 compression state)
   - [pg_fatal](../p/pg_fatal.md) (for error reporting)
   - LZ4F_getErrorName (for error message formatting)

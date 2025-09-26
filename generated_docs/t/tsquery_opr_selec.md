@@ -36,7 +36,7 @@ The function gracefully handles cases with insufficient or missing statistics by
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_stack_depth: Prevents stack overflow from deep recursion
+  - [check_stack_depth](../c/check_stack_depth.md): Prevents stack overflow from deep recursion
   - bsearch: Binary search for exact lexeme matches in statistics
   - [compare_lexeme_textfreq](../c/compare_lexeme_textfreq.md): Comparison function for binary search
   - strncmp: String comparison for prefix matching

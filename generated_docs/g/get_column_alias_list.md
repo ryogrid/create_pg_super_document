@@ -28,11 +28,11 @@ The output format is: `(alias1, alias2, alias3)` or nothing if no aliases are ne
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - quote_identifier
-  - appendStringInfoChar
-  - appendStringInfoString
+  - [quote_identifier](../q/quote_identifier.md)
+  - [appendStringInfoChar](../a/appendStringInfoChar.md)
+  - [appendStringInfoString](../a/appendStringInfoString.md)
 - Called from (representative examples):
-  - get_from_clause_item (for table and join aliases)
+  - [get_from_clause_item](get_from_clause_item.md) (for table and join aliases)
 
 ## Notes and Other Information
 - Designed to work in conjunction with table/relation aliases printed by get_rte_alias

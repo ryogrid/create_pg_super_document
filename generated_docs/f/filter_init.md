@@ -22,7 +22,7 @@ This function initializes a FilterStateData structure for processing filter file
 ## Dependencies
 - Functions called/Symbols referenced:
   - fopen
-  - initStringInfo
+  - [initStringInfo](../i/initStringInfo.md)
   - pg_log_error
   - strcmp
 - Called from (representative examples):

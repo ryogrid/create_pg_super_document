@@ -24,7 +24,7 @@ The hash function contains a large static lookup table (array  with 13,551 int16
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_unicode_decompinfo (referenced in the same file for decomposition lookups)
+  - [pg_unicode_decompinfo](../p/pg_unicode_decompinfo.md) (referenced in the same file for decomposition lookups)
 - Called from (representative examples):
   - Used internally within Unicode normalization routines for fast character decomposition lookups
 

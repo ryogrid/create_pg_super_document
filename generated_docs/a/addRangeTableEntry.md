@@ -45,9 +45,9 @@ The function ensures proper relation access control and maintains referential in
   - [makeAlias](../m/makeAlias.md) (alias creation)
   - [buildRelationAliases](../b/buildRelationAliases.md) (column name building)
   - [addRTEPermissionInfo](addRTEPermissionInfo.md) (permission setup)
-  - lappend (list manipulation)
+  - [lappend](../l/lappend.md) (list manipulation)
   - [buildNSItemFromTupleDesc](../b/buildNSItemFromTupleDesc.md) (namespace item creation)
-  - table_close (relation cleanup)
+  - [table_close](../t/table_close.md) (relation cleanup)
 - Called from (representative examples):
   - [transformTableEntry](../t/transformTableEntry.md) (in parse_clause.c)
 

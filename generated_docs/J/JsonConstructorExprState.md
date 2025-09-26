@@ -42,11 +42,11 @@ This structure works closely with the expression evaluator to efficiently constr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonConstructorExpr (the parse node structure for JSON constructor expressions)
+  - [JsonConstructorExpr](JsonConstructorExpr.md) (the parse node structure for JSON constructor expressions)
 - Called from (representative examples):
-  - ExecInitExprRec (expression initialization and state setup)
-  - ExecEvalJsonConstructor (expression evaluation)
-  - ExprEvalStep (referenced in json_constructor union member)
+  - [ExecInitExprRec](../E/ExecInitExprRec.md) (expression initialization and state setup)
+  - [ExecEvalJsonConstructor](../E/ExecEvalJsonConstructor.md) (expression evaluation)
+  - [ExprEvalStep](../E/ExprEvalStep.md) (referenced in json_constructor union member)
 
 ## Notes and Other Information
 - Designed as out-of-line state due to size constraints in ExprEvalStep

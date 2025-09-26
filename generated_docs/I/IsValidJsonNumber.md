@@ -19,7 +19,7 @@ The IsValidJsonNumber function provides a standalone way to validate JSON number
 ## Dependencies
 - Functions called/Symbols referenced:
   - [JsonLexContext](../J/JsonLexContext.md) (temporary structure creation)
-  - json_lex_number (internal number parsing function)
+  - [json_lex_number](../j/json_lex_number.md) (internal number parsing function)
 - Called from (representative examples):
   - No references found in the current codebase
 

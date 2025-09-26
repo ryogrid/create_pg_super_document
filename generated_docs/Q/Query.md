@@ -78,9 +78,9 @@ The Query structure is extensively used throughout query processing but is not d
 - Functions called/Symbols referenced:
   - CmdType
   - QuerySource
-  - FromExpr
+  - [FromExpr](../F/FromExpr.md)
   - OverridingKind
-  - OnConflictExpr
+  - [OnConflictExpr](../O/OnConflictExpr.md)
   - [LimitOption](../L/LimitOption.md)
   - ParseLoc
 - Called from (representative examples):

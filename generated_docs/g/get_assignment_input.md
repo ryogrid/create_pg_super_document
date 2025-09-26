@@ -26,8 +26,8 @@ For FieldStore nodes, it returns the `arg` field which represents the input expr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FieldStore
-  - SubscriptingRef
+  - [FieldStore](../F/FieldStore.md)
+  - [SubscriptingRef](../S/SubscriptingRef.md)
 - Called from (representative examples):
   - [process_matched_tle](../p/process_matched_tle.md)
 

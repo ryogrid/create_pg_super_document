@@ -28,11 +28,11 @@ The structure is designed to be memory-efficient and compatible with C's memory 
 - Functions called/Symbols referenced:
   - FLEXIBLE_ARRAY_MEMBER (macro for flexible array declaration)
 - Called from (representative examples):
-  - ecpg_get_data (src/interfaces/ecpg/ecpglib/data.c:692-693)
-  - get_char_item (src/interfaces/ecpg/ecpglib/descriptor.c:205-206)
-  - ecpg_store_input (src/interfaces/ecpg/ecpglib/execute.c:835-836)
-  - ECPGset_noind_null (src/interfaces/ecpg/ecpglib/misc.c:323-324)
-  - ECPGis_noind_null (src/interfaces/ecpg/ecpglib/misc.c:397)
+  - [ecpg_get_data](../e/ecpg_get_data.md) (src/interfaces/ecpg/ecpglib/data.c:692-693)
+  - [get_char_item](../g/get_char_item.md) (src/interfaces/ecpg/ecpglib/descriptor.c:205-206)
+  - [ecpg_store_input](../e/ecpg_store_input.md) (src/interfaces/ecpg/ecpglib/execute.c:835-836)
+  - [ECPGset_noind_null](ECPGset_noind_null.md) (src/interfaces/ecpg/ecpglib/misc.c:323-324)
+  - [ECPGis_noind_null](ECPGis_noind_null.md) (src/interfaces/ecpg/ecpglib/misc.c:397)
 
 ## Notes and Other Information
 - This structure uses the flexible array member feature introduced in C99, which allows for variable-sized structures

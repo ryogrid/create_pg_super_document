@@ -20,11 +20,11 @@ This function serves as a constructor for Var nodes based on ParseNamespaceColum
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeVar
+  - [makeVar](../m/makeVar.md)
   - [markNullableIfNeeded](../m/markNullableIfNeeded.md)
 - Types referenced:
   - [ParseNamespaceColumn](../P/ParseNamespaceColumn.md)
-  - Var
+  - [Var](../V/Var.md)
 - Called from (representative examples):
   - [transformFromClauseItem](../t/transformFromClauseItem.md) (for USING clause processing)
   - [extractRemainingColumns](../e/extractRemainingColumns.md) (for column extraction in joins)

@@ -23,9 +23,9 @@ This inline function provides access to the condition variable (CV) associated w
   - ConditionVariable (synchronization primitive type)
   - BufferIOCVArray (global array containing condition variables for buffer I/O)
 - Called from (representative examples):
-  - InitBufferPool
-  - WaitIO
-  - TerminateBufferIO
+  - [InitBufferPool](../I/InitBufferPool.md)
+  - [WaitIO](../W/WaitIO.md)
+  - [TerminateBufferIO](../T/TerminateBufferIO.md)
 
 ## Notes and Other Information
 - This is an inline function for performance optimization, avoiding function call overhead

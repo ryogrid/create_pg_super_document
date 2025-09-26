@@ -28,8 +28,8 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire
-  - LWLockRelease  
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)  
   - [MultiXactIdToOffsetPage](../M/MultiXactIdToOffsetPage.md)
   - [pg_atomic_write_u64](../p/pg_atomic_write_u64.md)
   - [MultiXactIdToOffsetEntry](../M/MultiXactIdToOffsetEntry.md)

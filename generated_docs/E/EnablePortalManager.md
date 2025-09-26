@@ -23,20 +23,20 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - AllocSetContextCreate: Creates the top-level portal memory context
-  - hash_create: Creates the portal hash table for name-based lookups
-  - HASHCTL: Hash table control structure
+  - [hash_create](../h/hash_create.md): Creates the portal hash table for name-based lookups
+  - [HASHCTL](../H/HASHCTL.md): Hash table control structure
   - MAX_PORTALNAME_LEN: Maximum length constant for portal names
-  - PortalHashEnt: Hash table entry structure for portals
+  - [PortalHashEnt](../P/PortalHashEnt.md): Hash table entry structure for portals
   - PORTALS_PER_USER: Initial hash table size estimate
   - ALLOCSET_DEFAULT_SIZES: Default memory allocation set sizes
   - HASH_ELEM, HASH_STRINGS: Hash table creation flags
 
 - Called from:
-  - InitPostgres: Backend initialization process
+  - [InitPostgres](../I/InitPostgres.md): Backend initialization process
 
 ## Notes and Other Information
 - Must be called exactly once during backend startup
 - Creates TopPortalContext as a child of TopMemoryContext
 - Uses PORTALS_PER_USER as initial hash table size estimate
 - Asserts that TopPortalContext is NULL to ensure single initialization
-- Hash table is configured for string-based keys with portal name length limits
+- [Hash](../H/Hash.md) table is configured for string-based keys with portal name length limits

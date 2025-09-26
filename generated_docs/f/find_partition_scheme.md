@@ -41,10 +41,10 @@ When creating a new scheme, the function allocates memory and copies all relevan
   - [palloc](../p/palloc.md)
   - memcpy
   - [fmgr_info_copy](fmgr_info_copy.md)
-  - lappend
+  - [lappend](../l/lappend.md)
   - [PartitionKey](../P/PartitionKey.md)
-  - PartitionScheme
-  - PartitionSchemeData
+  - [PartitionScheme](../P/PartitionScheme.md)
+  - [PartitionSchemeData](../P/PartitionSchemeData.md)
 - Called from (representative examples):
   - [set_relation_partition_info](../s/set_relation_partition_info.md)
 

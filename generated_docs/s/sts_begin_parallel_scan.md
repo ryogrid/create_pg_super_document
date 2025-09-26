@@ -19,7 +19,7 @@ The function optimizes reading by starting with the file that the current backen
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SharedTuplestoreAccessor (structure type)
+  - [SharedTuplestoreAccessor](../S/SharedTuplestoreAccessor.md) (structure type)
   - [sts_end_parallel_scan](sts_end_parallel_scan.md) (function to end any existing scan)
   - PG_USED_FOR_ASSERTS_ONLY (macro for assertion-only variables)
 - Called from (representative examples):

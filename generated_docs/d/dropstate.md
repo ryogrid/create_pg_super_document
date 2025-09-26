@@ -27,9 +27,9 @@ The  function performs complete removal of a state from an NFA structure. It sys
 - Called from (representative examples):
   - [pullback](../p/pullback.md) (in regc_nfa.c)
   - [pushfwd](../p/pushfwd.md) (in regc_nfa.c)
-  - fixempties (in regc_nfa.c)
-  - fixconstraintloops (in regc_nfa.c)
-  - clonesuccessorstates (in regc_nfa.c)
+  - [fixempties](../f/fixempties.md) (in regc_nfa.c)
+  - [fixconstraintloops](../f/fixconstraintloops.md) (in regc_nfa.c)
+  - [clonesuccessorstates](../c/clonesuccessorstates.md) (in regc_nfa.c)
   - [cleanup](../c/cleanup.md) (in regc_nfa.c)
   - [charclasscomplement](../c/charclasscomplement.md) (in regcomp.c)
   - [cbracket](../c/cbracket.md) (in regcomp.c)

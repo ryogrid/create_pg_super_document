@@ -23,7 +23,7 @@ This function serves as a specialized wrapper around ExplainProperty for handlin
   - UINT64_FORMAT (macro for formatting 64-bit unsigned integers)
   - [ExplainProperty](ExplainProperty.md) (generic property explanation function)
 - Called from (representative examples):
-  - ExplainPrintSerialize (for serialization/deserialization sizes)
+  - [ExplainPrintSerialize](ExplainPrintSerialize.md) (for serialization/deserialization sizes)
   - [show_hash_info](../s/show_hash_info.md) (for hash bucket counts and memory sizes)
   - [show_wal_usage](../s/show_wal_usage.md) (for WAL byte counts)
 

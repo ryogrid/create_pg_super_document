@@ -32,7 +32,7 @@ The returned buffer is both "locked and pinned" - meaning it has an incremented 
 - Functions called/Symbols referenced:
   - [ReadBuffer](../R/ReadBuffer.md) (buffer manager function to read a page)
   - [LockBuffer](../L/LockBuffer.md) (applies lock to buffer)
-  - _hash_checkpage (validates page contents and type)
+  - [_hash_checkpage](_hash_checkpage.md) (validates page contents and type)
   - P_NEW, HASH_NOLOCK (constants)
 - Called from (representative examples):
   - [_hash_doinsert](_hash_doinsert.md) (during tuple insertion)

@@ -23,8 +23,8 @@ The function performs several critical cleanup tasks: it removes the worker from
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire
-  - LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)
+  - [LWLockRelease](../L/LWLockRelease.md)
   - [dlist_delete](../d/dlist_delete.md)
   - [dlist_push_head](../d/dlist_push_head.md)
   - [pg_atomic_clear_flag](../p/pg_atomic_clear_flag.md)

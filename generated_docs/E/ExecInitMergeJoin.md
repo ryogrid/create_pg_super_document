@@ -32,19 +32,19 @@ The function also performs important validation, ensuring that right joins and f
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (memory allocation)
-  - ExecAssignExprContext (expression context setup)
-  - CreateExprContext (additional context creation)
-  - ExecInitNode (child node initialization)
-  - ExecGetResultType/ExecGetResultSlotOps (type information)
-  - ExecInitResultTupleSlotTL (result slot setup)
-  - ExecAssignProjectionInfo (projection configuration)
-  - ExecInitExtraTupleSlot (marked tuple slot)
-  - ExecInitNullTupleSlot (outer join null handling)
-  - ExecInitQual (qualification expression setup)
-  - MJExamineQuals (merge clause preprocessing)
-  - check_constant_qual (join qualification validation)
+  - [ExecAssignExprContext](ExecAssignExprContext.md) (expression context setup)
+  - [CreateExprContext](../C/CreateExprContext.md) (additional context creation)
+  - [ExecInitNode](ExecInitNode.md) (child node initialization)
+  - [ExecGetResultType](ExecGetResultType.md)/ExecGetResultSlotOps (type information)
+  - [ExecInitResultTupleSlotTL](ExecInitResultTupleSlotTL.md) (result slot setup)
+  - [ExecAssignProjectionInfo](ExecAssignProjectionInfo.md) (projection configuration)
+  - [ExecInitExtraTupleSlot](ExecInitExtraTupleSlot.md) (marked tuple slot)
+  - [ExecInitNullTupleSlot](ExecInitNullTupleSlot.md) (outer join null handling)
+  - [ExecInitQual](ExecInitQual.md) (qualification expression setup)
+  - [MJExamineQuals](../M/MJExamineQuals.md) (merge clause preprocessing)
+  - [check_constant_qual](../c/check_constant_qual.md) (join qualification validation)
 - Called from (representative examples):
-  - ExecInitNode (executor node initialization dispatcher)
+  - [ExecInitNode](ExecInitNode.md) (executor node initialization dispatcher)
 
 ## Notes and Other Information
 - Returns a fully initialized MergeJoinState ready for execution
@@ -52,7 +52,7 @@ The function also performs important validation, ensuring that right joins and f
 - Sets up mark/restore optimization based on inner plan type and execution flags
 - Creates null tuple slots only for join types that require them (outer joins)
 - The mj_ExtraMarks optimization is enabled only for Material nodes without REWIND flag
-- IndexScan and IndexOnlyScan explicitly cannot use extra marks due to positioning limitations
+- [IndexScan](../I/IndexScan.md) and IndexOnlyScan explicitly cannot use extra marks due to positioning limitations
 - Merge clauses are preprocessed to extract comparison operators, strategies, and sort information
 - Initial join state is always set to EXEC_MJ_INITIALIZE_OUTER to begin execution
 - Supports all PostgreSQL join types with appropriate semantic configuration

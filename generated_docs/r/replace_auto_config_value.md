@@ -33,7 +33,7 @@ This function is essential for the ALTER SYSTEM command functionality, allowing 
   - [pstrdup](../p/pstrdup.md)
   - [pfree](../p/pfree.md)
 - Data structures used:
-  - ConfigVariable
+  - [ConfigVariable](../C/ConfigVariable.md)
 - Called from (representative examples):
   - [AlterSystemSetConfigFile](../A/AlterSystemSetConfigFile.md)
 

@@ -20,7 +20,7 @@ This function processes logical replication PREPARE messages that signal the pre
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LogicalRepPreparedTxnData](../L/LogicalRepPreparedTxnData.md) (struct for storing prepare message data)
-  - logicalrep_read_prepare (deserializes PREPARE message from stream)
+  - [logicalrep_read_prepare](../l/logicalrep_read_prepare.md) (deserializes PREPARE message from stream)
   - [begin_replication_step](../b/begin_replication_step.md) (starts replication step tracking)
   - [apply_handle_prepare_internal](apply_handle_prepare_internal.md) (performs the actual prepare operation)
   - [end_replication_step](../e/end_replication_step.md) (ends replication step tracking)

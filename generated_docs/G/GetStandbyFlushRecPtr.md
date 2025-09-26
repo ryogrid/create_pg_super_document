@@ -27,7 +27,7 @@ The function includes safety assertions to ensure it's only called in appropriat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsSyncingReplicationSlots
+  - [IsSyncingReplicationSlots](../I/IsSyncingReplicationSlots.md)
   - [GetWalRcvFlushRecPtr](GetWalRcvFlushRecPtr.md)
   - [GetXLogReplayRecPtr](GetXLogReplayRecPtr.md)
   - Assert

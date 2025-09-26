@@ -38,22 +38,22 @@ Since CatalogIndexState is a pointer to ResultRelInfo, it inherits all the membe
 
 ## Dependencies
 - Functions using CatalogIndexState:
-  - CatalogCloseIndexes
-  - CatalogIndexInsert
-  - CatalogTupleInsert
-  - CatalogTupleInsertWithInfo
-  - CatalogTuplesMultiInsertWithInfo
-  - CatalogTupleUpdate
-  - CatalogTupleUpdateWithInfo
-  - InsertPgAttributeTuples
-  - AddNewAttributeTuples
-  - AppendAttributeTuples
+  - [CatalogCloseIndexes](CatalogCloseIndexes.md)
+  - [CatalogIndexInsert](CatalogIndexInsert.md)
+  - [CatalogTupleInsert](CatalogTupleInsert.md)
+  - [CatalogTupleInsertWithInfo](CatalogTupleInsertWithInfo.md)
+  - [CatalogTuplesMultiInsertWithInfo](CatalogTuplesMultiInsertWithInfo.md)
+  - [CatalogTupleUpdate](CatalogTupleUpdate.md)
+  - [CatalogTupleUpdateWithInfo](CatalogTupleUpdateWithInfo.md)
+  - [InsertPgAttributeTuples](../I/InsertPgAttributeTuples.md)
+  - [AddNewAttributeTuples](../A/AddNewAttributeTuples.md)
+  - [AppendAttributeTuples](../A/AppendAttributeTuples.md)
 - Called from (representative examples):
   - heap.c catalog operations
-  - index.c catalog maintenance
+  - [index](../i/index.md).c catalog maintenance
   - pg_depend.c dependency tracking
   - analyze.c statistics updates
-  - cluster.c relation file operations
+  - [cluster](../c/cluster.md).c relation file operations
 
 ## Notes and Other Information
 - The abstraction allows catalog code to remain independent of executor implementation changes

@@ -37,7 +37,7 @@ This is particularly useful for functions that need to build tuples from externa
   - [pg_get_keywords](../p/pg_get_keywords.md)
   - [show_all_settings](../s/show_all_settings.md)
   - [pltcl_func_handler](../p/pltcl_func_handler.md)
-  - pltcl_build_tuple_result
+  - [pltcl_build_tuple_result](../p/pltcl_build_tuple_result.md)
 
 ## Notes and Other Information
 - The function automatically blesses the tuple descriptor to ensure it can be used for rowtype datum creation

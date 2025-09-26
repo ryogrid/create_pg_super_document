@@ -27,7 +27,7 @@ The function implements sophisticated error handling, particularly for program p
   - [ClosePipeToProgram](ClosePipeToProgram.md)
   - pq_putmessage
   - [pgstat_progress_update_param](../p/pgstat_progress_update_param.md)
-  - resetStringInfo
+  - [resetStringInfo](../r/resetStringInfo.md)
   - ereport
   - [errcode_for_file_access](../e/errcode_for_file_access.md)
   - [errmsg](../e/errmsg.md)

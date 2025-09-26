@@ -24,11 +24,11 @@ The function operates by first releasing locks for the main transaction, then it
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - StandbyReleaseLocks
+  - [StandbyReleaseLocks](StandbyReleaseLocks.md)
 - Called from (representative examples):
-  - RecoverPreparedTransactions (src/backend/access/transam/twophase.c:2149)
-  - xact_redo_commit (src/backend/access/transam/xact.c:6146)
-  - xact_redo_abort (src/backend/access/transam/xact.c:6269)
+  - [RecoverPreparedTransactions](../R/RecoverPreparedTransactions.md) (src/backend/access/transam/twophase.c:2149)
+  - [xact_redo_commit](../x/xact_redo_commit.md) (src/backend/access/transam/xact.c:6146)
+  - [xact_redo_abort](../x/xact_redo_abort.md) (src/backend/access/transam/xact.c:6269)
 
 ## Notes and Other Information
 - This function is only used during hot standby recovery operations

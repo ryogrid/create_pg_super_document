@@ -27,7 +27,7 @@ The function ensures that variable level adjustments are handled correctly when 
 - Functions called/Symbols referenced:
   - [replace_rte_variables](../r/replace_rte_variables.md)
   - [pullup_replace_vars_callback](pullup_replace_vars_callback.md)
-  - pullup_replace_vars_context
+  - [pullup_replace_vars_context](pullup_replace_vars_context.md)
 - Called from (representative examples):
   - [replace_vars_in_jointree](../r/replace_vars_in_jointree.md)
 

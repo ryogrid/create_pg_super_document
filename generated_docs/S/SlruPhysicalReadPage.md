@@ -33,11 +33,11 @@ The function is designed to never call ereport(ERROR) directly since callers may
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SlruFileName](SlruFileName.md)
-  - OpenTransientFile
-  - pg_pread
-  - pgstat_report_wait_start
-  - pgstat_report_wait_end
-  - CloseTransientFile
+  - [OpenTransientFile](../O/OpenTransientFile.md)
+  - [pg_pread](../p/pg_pread.md)
+  - [pgstat_report_wait_start](../p/pgstat_report_wait_start.md)
+  - [pgstat_report_wait_end](../p/pgstat_report_wait_end.md)
+  - [CloseTransientFile](../C/CloseTransientFile.md)
   - MemSet
   - SLRU_PAGES_PER_SEGMENT
   - PG_BINARY

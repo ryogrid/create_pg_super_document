@@ -33,13 +33,13 @@ The Boolean node follows PostgreSQL's standard node conventions and includes the
   - NodeTag (for node type identification)
 
 - Called from (representative examples):
-  - makeBoolean (creates Boolean nodes)
-  - _outBoolean (serializes Boolean nodes)
-  - _readA_Const (reads Boolean nodes during deserialization)
+  - [makeBoolean](../m/makeBoolean.md) (creates Boolean nodes)
+  - [_outBoolean](../o/_outBoolean.md) (serializes Boolean nodes)
+  - [_readA_Const](../r/_readA_Const.md) (reads Boolean nodes during deserialization)
 
 ## Notes and Other Information
 - The Boolean node includes the `pg_node_attr(special_read_write)` attribute for special serialization handling
-- Boolean nodes can be stored in List structures, unlike plain bool values
+- [Boolean](Boolean.md) nodes can be stored in List structures, unlike plain bool values
 - The `boolVal()` macro (defined in value.h:81) provides convenient access to the boolval field
 - This node type is part of PostgreSQL's unified value node system that replaced the older Value node
 - Memory management follows PostgreSQL's memory context system

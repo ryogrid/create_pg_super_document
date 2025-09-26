@@ -22,20 +22,20 @@ The makeWholeRowVar function is a sophisticated constructor that creates Var nod
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeVar (creates the actual Var node)
-  - get_rel_type_id (gets composite type OID for relations)
-  - get_rel_name (gets relation name for error messages)
-  - exprType (gets type from function expressions)
-  - exprCollation (gets collation from function expressions)
-  - type_is_rowtype (checks if type is composite)
-  - RangeTblEntry, RangeTblFunction (struct types)
+  - [makeVar](makeVar.md) (creates the actual Var node)
+  - [get_rel_type_id](../g/get_rel_type_id.md) (gets composite type OID for relations)
+  - [get_rel_name](../g/get_rel_name.md) (gets relation name for error messages)
+  - [exprType](../e/exprType.md) (gets type from function expressions)
+  - [exprCollation](../e/exprCollation.md) (gets collation from function expressions)
+  - [type_is_rowtype](../t/type_is_rowtype.md) (checks if type is composite)
+  - [RangeTblEntry](../R/RangeTblEntry.md), RangeTblFunction (struct types)
   - Various RTE kind constants (RTE_RELATION, RTE_SUBQUERY, RTE_FUNCTION)
 - Called from (representative examples):
-  - transform_MERGE_to_join
-  - preprocess_targetlist
-  - expand_inherited_rtentry
-  - transformWholeRowRef
-  - ApplyRetrieveRule
+  - [transform_MERGE_to_join](../t/transform_MERGE_to_join.md)
+  - [preprocess_targetlist](../p/preprocess_targetlist.md)
+  - [expand_inherited_rtentry](../e/expand_inherited_rtentry.md)
+  - [transformWholeRowRef](../t/transformWholeRowRef.md)
+  - [ApplyRetrieveRule](../A/ApplyRetrieveRule.md)
 
 ## Notes and Other Information
 - Uses InvalidAttrNumber (0) to signal whole-row references, which is noted as "unclean" but maintained for compatibility

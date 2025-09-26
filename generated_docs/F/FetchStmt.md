@@ -30,13 +30,13 @@ The FetchStmt structure is a parse tree node that encapsulates all information n
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FetchDirection (enum for cursor movement directions)
+  - [FetchDirection](FetchDirection.md) (enum for cursor movement directions)
   - NodeTag (parse node type identifier)
 - Called from (representative examples):
-  - PerformPortalFetch (portalcmds.c:167)
-  - exec_simple_query (postgres.c:1248)
-  - FetchStatementTargetList (pquery.c:388)
-  - standard_ProcessUtility (utility.c:703)
+  - [PerformPortalFetch](../P/PerformPortalFetch.md) (portalcmds.c:167)
+  - [exec_simple_query](../e/exec_simple_query.md) (postgres.c:1248)
+  - [FetchStatementTargetList](FetchStatementTargetList.md) (pquery.c:388)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (utility.c:703)
 
 ## Notes and Other Information
 FetchStmt is processed by the utility command execution system and handled primarily by PerformPortalFetch() function. The direction field determines cursor movement behavior: FORWARD/BACKWARD for relative movement, ABSOLUTE for absolute positioning, and RELATIVE for relative positioning. FETCH operations return tuples to the client while MOVE operations only advance the cursor position. Both operations respect cursor scrollability constraints.

@@ -19,9 +19,9 @@ This function moves forward the oldest commit timestamp transaction ID (oldestCo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire (with CommitTsLock, LW_EXCLUSIVE)
+  - [LWLockAcquire](../L/LWLockAcquire.md) (with CommitTsLock, LW_EXCLUSIVE)
   - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
-  - LWLockRelease
+  - [LWLockRelease](../L/LWLockRelease.md)
 - Called from (representative examples):
   - [commit_ts_redo](../c/commit_ts_redo.md)
   - [vac_truncate_clog](../v/vac_truncate_clog.md)

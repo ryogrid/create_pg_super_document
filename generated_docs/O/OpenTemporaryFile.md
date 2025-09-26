@@ -20,15 +20,15 @@ OpenTemporaryFile is the primary interface for creating temporary files in Postg
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwnerEnlarge
-  - GetNextTempTableSpace
-  - OpenTemporaryFileInTablespace
-  - RegisterTemporaryFile
+  - [ResourceOwnerEnlarge](../R/ResourceOwnerEnlarge.md)
+  - [GetNextTempTableSpace](../G/GetNextTempTableSpace.md)
+  - [OpenTemporaryFileInTablespace](OpenTemporaryFileInTablespace.md)
+  - [RegisterTemporaryFile](../R/RegisterTemporaryFile.md)
   - Assert
   - OidIsValid
 - Called from (representative examples):
-  - extendBufFile
-  - BufFileCreateTemp
+  - [extendBufFile](../e/extendBufFile.md)
+  - [BufFileCreateTemp](../B/BufFileCreateTemp.md)
 
 ## Notes and Other Information
 This function is part of PostgreSQL's temporary file management system in src/backend/storage/file/fd.c. It implements sophisticated tablespace management logic, preferring user-configured temporary tablespaces for transaction-scoped files while ensuring long-lived files don't interfere with tablespace administration. The function requires that temporary_files_allowed is true before proceeding. All temporary files created are automatically marked with FD_DELETE_AT_CLOSE and FD_TEMP_FILE_LIMIT flags. The resource owner integration ensures that transaction-scoped temporary files are automatically cleaned up even if not explicitly closed, preventing resource leaks during error conditions.

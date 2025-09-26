@@ -314,7 +314,7 @@ v_str ESTAB      0      0                                               *:633275
   - [ScanState](../S/ScanState.md)
   - [TIDBitmap](../T/TIDBitmap.md)
   - [TBMIterator](../T/TBMIterator.md)
-  - TBMIterateResult
+  - [TBMIterateResult](../T/TBMIterateResult.md)
   - [TBMSharedIterator](../T/TBMSharedIterator.md)
   - [ParallelBitmapHeapState](../P/ParallelBitmapHeapState.md)
 - Called from (representative examples):

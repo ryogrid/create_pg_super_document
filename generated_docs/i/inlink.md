@@ -24,17 +24,17 @@ The link information is stored in a dynamically growing array () that will be pr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - error (for reporting parsing errors)
-  - namecheck (to validate the link name format)
-  - ecpyalloc (to allocate and copy target and linkname strings)
-  - growalloc (to expand the links array as needed)
+  - [error](../e/error.md) (for reporting parsing errors)
+  - [namecheck](../n/namecheck.md) (to validate the link name format)
+  - [ecpyalloc](../e/ecpyalloc.md) (to allocate and copy target and linkname strings)
+  - [growalloc](../g/growalloc.md) (to expand the links array as needed)
   - LINK_FIELDS (constant defining expected number of fields)
   - LF_TARGET, LF_LINKNAME (field index constants)
   - struct link (structure type for storing link information)
   - links, nlinks, nlinks_alloc (global variables for link storage)
   - filename, linenum (global variables for source tracking)
 - Called from (representative examples):
-  - infile (main file parsing function)
+  - [infile](infile.md) (main file parsing function)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's timezone data compilation system, not the runtime timezone handling

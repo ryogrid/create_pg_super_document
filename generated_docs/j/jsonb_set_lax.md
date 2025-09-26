@@ -28,7 +28,7 @@ The function accepts the same first four parameters as  plus an additional text 
   - PG_ARGISNULL: Check if function argument is NULL
   - PG_RETURN_NULL: Return NULL from function
   - PG_GETARG_TEXT_P: Extract text argument from function call
-  - text_to_cstring: Convert PostgreSQL text to C string
+  - [text_to_cstring](../t/text_to_cstring.md): Convert PostgreSQL text to C string
   - [jsonb_set](jsonb_set.md): Delegate to regular jsonb_set function
   - [jsonb_delete_path](jsonb_delete_path.md): Delete path when "delete_key" strategy is used
   - DirectFunctionCall1: Call function directly with one argument

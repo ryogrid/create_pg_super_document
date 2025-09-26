@@ -30,7 +30,7 @@ The function is essential for external sorting when memory is insufficient to ho
 - Functions called/Symbols referenced:
   - TuplesortstateGetPublic
   - IndexTupleSize
-  - LogicalTapeWrite
+  - [LogicalTapeWrite](../L/LogicalTapeWrite.md)
   - TUPLESORT_RANDOMACCESS (flag constant)
 - Called from (representative examples):
   - [tuplesort_begin_index_btree](../t/tuplesort_begin_index_btree.md)

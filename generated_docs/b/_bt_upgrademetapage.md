@@ -22,16 +22,16 @@ This function performs an in-memory upgrade of a B-tree metapage from versions 2
   - BTP_META
   - BTREE_NOVAC_VERSION
   - BTREE_MIN_VERSION
-  - BTMetaPageData
+  - [BTMetaPageData](../B/BTMetaPageData.md)
   - BTPageOpaque
   - PageHeader
   - PG_USED_FOR_ASSERTS_ONLY
 - Called from (representative examples):
-  - _bt_insertonpg
-  - _bt_newlevel
-  - _bt_set_cleanup_info
-  - _bt_getroot
-  - _bt_unlink_halfdead_page
+  - [_bt_insertonpg](_bt_insertonpg.md)
+  - [_bt_newlevel](_bt_newlevel.md)
+  - [_bt_set_cleanup_info](_bt_set_cleanup_info.md)
+  - [_bt_getroot](_bt_getroot.md)
+  - [_bt_unlink_halfdead_page](_bt_unlink_halfdead_page.md)
 
 ## Notes and Other Information
 - Only upgrades metapages from versions >= BTREE_MIN_VERSION to version 3 (BTREE_NOVAC_VERSION)

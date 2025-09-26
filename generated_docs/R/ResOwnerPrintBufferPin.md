@@ -25,7 +25,7 @@ This function serves as an advanced debugging tool that provides much more detai
   - [DebugPrintBufferRefcount](../D/DebugPrintBufferRefcount.md)
   - [DatumGetInt32](../D/DatumGetInt32.md)
 - Called from (representative examples):
-  - ResourceOwner system (callback mechanism for diagnostic output)
+  - [ResourceOwner](ResourceOwner.md) system (callback mechanism for diagnostic output)
 
 ## Notes and Other Information
 - Static function scope limits visibility to the current compilation unit (bufmgr.c)

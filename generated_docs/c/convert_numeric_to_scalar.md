@@ -30,17 +30,17 @@ The function uses PostgreSQL's standard Datum extraction macros to safely conver
 
 ## Dependencies
 - Functions called:
-  - DatumGetBool
-  - DatumGetInt16
-  - DatumGetInt32
-  - DatumGetInt64
-  - DatumGetFloat4
-  - DatumGetFloat8
-  - DatumGetObjectId
+  - [DatumGetBool](../D/DatumGetBool.md)
+  - [DatumGetInt16](../D/DatumGetInt16.md)
+  - [DatumGetInt32](../D/DatumGetInt32.md)
+  - [DatumGetInt64](../D/DatumGetInt64.md)
+  - [DatumGetFloat4](../D/DatumGetFloat4.md)
+  - [DatumGetFloat8](../D/DatumGetFloat8.md)
+  - [DatumGetObjectId](../D/DatumGetObjectId.md)
   - DirectFunctionCall1
-  - numeric_float8_no_overflow
+  - [numeric_float8_no_overflow](../n/numeric_float8_no_overflow.md)
 - Called from:
-  - convert_to_scalar (in selfuncs.c:4366, 4368, 4370)
+  - [convert_to_scalar](convert_to_scalar.md) (in selfuncs.c:4366, 4368, 4370)
 
 ## Notes and Other Information
 - Returns 0.0 and sets *failure to true for unsupported numeric types

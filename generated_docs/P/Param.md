@@ -34,12 +34,12 @@ The Param structure represents parameter placeholders within PostgreSQL's expres
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParamKind
+  - [ParamKind](ParamKind.md)
   - ParseLoc
 - Called from (representative examples):
-  - find_expr_references_walker (dependency tracking)
-  - ExecInitExprRec (expression initialization)
-  - sql_fn_make_param (function parameter creation)
+  - [find_expr_references_walker](../f/find_expr_references_walker.md) (dependency tracking)
+  - [ExecInitExprRec](../E/ExecInitExprRec.md) (expression initialization)
+  - [sql_fn_make_param](../s/sql_fn_make_param.md) (function parameter creation)
   - Various optimizer and planner functions for parameter handling
   - Parser functions for parameter processing
 

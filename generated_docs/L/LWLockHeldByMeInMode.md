@@ -24,20 +24,20 @@ This function is extensively used throughout PostgreSQL's codebase in assertions
 
 ## Dependencies
 - Types referenced:
-  - LWLock: The lock structure being checked
-  - LWLockMode: Enumeration of lock modes (LW_SHARED, LW_EXCLUSIVE)
+  - [LWLock](LWLock.md): The lock structure being checked
+  - [LWLockMode](LWLockMode.md): Enumeration of lock modes (LW_SHARED, LW_EXCLUSIVE)
 - Global variables used:
   - num_held_lwlocks: Current count of held locks by the process
   - held_lwlocks: Array containing lock and mode information for currently held locks
 - Returns: boolean value indicating whether the lock is held in the specified mode
 - Called from (representative examples):
-  - TransactionIdSetPageStatusInternal: Transaction commit log operations
-  - SimpleLruZeroPage, SimpleLruReadPage: SLRU (Simple LRU) buffer management
-  - MarkAsPreparingGuts, RemoveGXact: Two-phase commit processing
-  - dshash_delete_entry, dshash_seq_next: Dynamic shared hash table operations
-  - BufferIsExclusiveLocked, MarkBufferDirty: Buffer management operations
-  - ProcArrayEndTransactionInternal: Process array transaction management
-  - write_relmap_file: Relation mapping file operations
+  - [TransactionIdSetPageStatusInternal](../T/TransactionIdSetPageStatusInternal.md): Transaction commit log operations
+  - [SimpleLruZeroPage](../S/SimpleLruZeroPage.md), SimpleLruReadPage: SLRU (Simple LRU) buffer management
+  - [MarkAsPreparingGuts](../M/MarkAsPreparingGuts.md), RemoveGXact: Two-phase commit processing
+  - [dshash_delete_entry](../d/dshash_delete_entry.md), dshash_seq_next: Dynamic shared hash table operations
+  - [BufferIsExclusiveLocked](../B/BufferIsExclusiveLocked.md), MarkBufferDirty: Buffer management operations
+  - [ProcArrayEndTransactionInternal](../P/ProcArrayEndTransactionInternal.md): Process array transaction management
+  - [write_relmap_file](../w/write_relmap_file.md): Relation mapping file operations
 
 ## Notes and Other Information
 - This function is explicitly documented as "debug support only" in the source code

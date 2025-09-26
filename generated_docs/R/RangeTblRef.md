@@ -30,15 +30,15 @@ During the parsing process, the raw output of gram.y contains RangeVar, RangeSub
 - Functions called/Symbols referenced:
   - NodeTag (for node identification)
 - Called from (representative examples):
-  - make_rel_from_joinlist (path/allpaths.c:3333)
-  - add_base_rels_to_query (plan/initsplan.c:161)
-  - transformFromClauseItem (parse_clause.c:1067)
-  - get_from_clause_item (ruleutils.c:12039)
-  - pull_up_subqueries_recurse (prepjointree.c:988)
-  - markQueryForLocking (rewriteHandler.c:1887)
+  - [make_rel_from_joinlist](../m/make_rel_from_joinlist.md) (path/allpaths.c:3333)
+  - [add_base_rels_to_query](../a/add_base_rels_to_query.md) (plan/initsplan.c:161)
+  - [transformFromClauseItem](../t/transformFromClauseItem.md) (parse_clause.c:1067)
+  - [get_from_clause_item](../g/get_from_clause_item.md) (ruleutils.c:12039)
+  - [pull_up_subqueries_recurse](../p/pull_up_subqueries_recurse.md) (prepjointree.c:988)
+  - [markQueryForLocking](../m/markQueryForLocking.md) (rewriteHandler.c:1887)
 
 ## Notes and Other Information
-- RangeTblRef nodes are the fundamental building blocks for representing table references in PostgreSQL's internal query representation
+- [RangeTblRef](RangeTblRef.md) nodes are the fundamental building blocks for representing table references in PostgreSQL's internal query representation
 - The use of indices instead of pointers is a deliberate design decision to prevent issues with shared references in complex query trees
 - These nodes are created during parse analysis, replacing the original grammar-level constructs
 - They work in conjunction with JoinExpr and FromExpr nodes to form complete join tree structures

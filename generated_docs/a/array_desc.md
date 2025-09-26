@@ -29,8 +29,8 @@ The function handles empty arrays by outputting "[]" and non-empty arrays by ite
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendStringInfoString
-  - appendStringInfoChar
+  - [appendStringInfoString](appendStringInfoString.md)
+  - [appendStringInfoChar](appendStringInfoChar.md)
 - Called from (representative examples):
   - [plan_elem_desc](../p/plan_elem_desc.md)
   - [heap_desc](../h/heap_desc.md)

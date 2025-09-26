@@ -40,7 +40,7 @@ The function ensures that locking semantics are consistently applied across comp
   - [markQueryForLocking](markQueryForLocking.md) (recursive calls)
 - Types used:
   - LockClauseStrength, LockWaitPolicy
-  - RangeTblRef, FromExpr, JoinExpr
+  - [RangeTblRef](../R/RangeTblRef.md), FromExpr, JoinExpr
   - [RTEPermissionInfo](../R/RTEPermissionInfo.md)
   - RTE_RELATION, RTE_SUBQUERY constants
 - Called from:

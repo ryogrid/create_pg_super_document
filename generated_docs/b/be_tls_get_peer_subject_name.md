@@ -27,7 +27,7 @@ This information is crucial for certificate-based authentication and auditing, a
 - Functions called/Symbols referenced:
   - X509_get_subject_name (OpenSSL function to get subject from certificate)
   - [X509_NAME_to_cstring](../X/X509_NAME_to_cstring.md) (PostgreSQL wrapper to convert X509_NAME to string)
-  - strlcpy (safe string copy function)
+  - [strlcpy](../s/strlcpy.md) (safe string copy function)
   - [Port](../P/Port.md) (structure containing peer certificate)
 - Called from (representative examples):
   - [pgstat_bestart](../p/pgstat_bestart.md) (for collecting connection statistics with certificate info)

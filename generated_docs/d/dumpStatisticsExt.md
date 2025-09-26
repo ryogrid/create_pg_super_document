@@ -30,13 +30,13 @@ The function ensures that extended statistics objects are properly recreated dur
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - createPQExpBuffer
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)
   - [fmtId](../f/fmtId.md)
   - [ExecuteSqlQueryForSingleRow](../E/ExecuteSqlQueryForSingleRow.md)
   - fmtQualifiedDumpable
   - [ArchiveEntry](../A/ArchiveEntry.md)
   - [dumpComment](dumpComment.md)
-  - destroyPQExpBuffer
+  - [destroyPQExpBuffer](destroyPQExpBuffer.md)
 - Called from (representative examples):
   - [dumpDumpableObject](dumpDumpableObject.md)
 

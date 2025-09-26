@@ -33,14 +33,14 @@ This deferred execution model ensures that statistics drops are atomic with resp
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - xl_xact_stats_item (structure type)
-  - pgstat_drop_entry
-  - pgstat_request_entry_refs_gc
+  - [xl_xact_stats_item](../x/xl_xact_stats_item.md) (structure type)
+  - [pgstat_drop_entry](pgstat_drop_entry.md)
+  - [pgstat_request_entry_refs_gc](pgstat_request_entry_refs_gc.md)
 
 - Called from (representative examples):
-  - FinishPreparedTransaction (src/backend/access/transam/twophase.c:1609, 1611)
-  - xact_redo_commit (src/backend/access/transam/xact.c:6185)
-  - xact_redo_abort (src/backend/access/transam/xact.c:6296)
+  - [FinishPreparedTransaction](../F/FinishPreparedTransaction.md) (src/backend/access/transam/twophase.c:1609, 1611)
+  - [xact_redo_commit](../x/xact_redo_commit.md) (src/backend/access/transam/xact.c:6185)
+  - [xact_redo_abort](../x/xact_redo_abort.md) (src/backend/access/transam/xact.c:6296)
 
 ## Notes and Other Information
 - Returns immediately if ndrops is 0 (no work to do)

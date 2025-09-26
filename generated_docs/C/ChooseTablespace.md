@@ -23,11 +23,11 @@ The function is static and serves as an internal utility within the fileset.c mo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_any (computes hash value from the file name string)
-  - FileSet (struct type containing tablespace configuration)
+  - [hash_any](../h/hash_any.md) (computes hash value from the file name string)
+  - [FileSet](../F/FileSet.md) (struct type containing tablespace configuration)
 - Called from (representative examples):
-  - FileSetCreate (when setting up initial tablespace selection)
-  - FilePath (when determining the tablespace for a specific file path)
+  - [FileSetCreate](../F/FileSetCreate.md) (when setting up initial tablespace selection)
+  - [FilePath](../F/FilePath.md) (when determining the tablespace for a specific file path)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the fileset.c compilation unit

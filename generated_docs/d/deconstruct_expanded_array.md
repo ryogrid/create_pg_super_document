@@ -21,14 +21,14 @@ The function is designed with error safety in mind - it only updates the header 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - deconstruct_array (breaks flat array into individual Datum values)
+  - [deconstruct_array](deconstruct_array.md) (breaks flat array into individual Datum values)
   - ARR_HASNULL (checks if array contains null elements)
-  - MemoryContextSwitchTo (manages memory allocation context)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (manages memory allocation context)
 - Called from (representative examples):
-  - statext_expressions_load (statistics processing)
-  - array_get_element_expanded (element access operations)
-  - array_set_element_expanded (element modification operations)
-  - array_contain_compare (array comparison operations)
+  - [statext_expressions_load](../s/statext_expressions_load.md) (statistics processing)
+  - [array_get_element_expanded](../a/array_get_element_expanded.md) (element access operations)
+  - [array_set_element_expanded](../a/array_set_element_expanded.md) (element modification operations)
+  - [array_contain_compare](../a/array_contain_compare.md) (array comparison operations)
 
 ## Notes and Other Information
 - The function is idempotent - calling it multiple times on the same expanded array header has no additional effect

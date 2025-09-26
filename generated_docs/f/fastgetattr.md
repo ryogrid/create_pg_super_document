@@ -32,11 +32,11 @@ The function is implemented as a static inline to minimize function call overhea
   - `TupleDescAttr` - macro to access attribute metadata from tuple descriptor
   - `fetchatt` - function to extract attribute value at known offset
   - [nocachegetattr](../n/nocachegetattr.md) - fallback function for uncached attribute retrieval
-  - `att_isnull` - function to check if specific attribute is NULL in bitmap
+  - `[att_isnull](../a/att_isnull.md)` - function to check if specific attribute is NULL in bitmap
 - Called from (representative examples):
   - [heap_getattr](../h/heap_getattr.md) - general attribute access function
   - [CatalogCacheComputeTupleHashValue](../C/CatalogCacheComputeTupleHashValue.md) - catalog cache hash computation
-  - [RelationInitIndexAccessInfo](../R/RelationInitIndexAccessInfo.md) - index access info initialization
+  - [RelationInitIndexAccessInfo](../R/RelationInitIndexAccessInfo.md) - [index](../i/index.md) access info initialization
   - [extractRelOptions](../e/extractRelOptions.md) - relation option extraction
 
 ## Notes and Other Information

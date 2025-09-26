@@ -38,7 +38,7 @@ The function carefully manages the critical section to avoid doing complex opera
   - ItemIdHasStorage  
   - ItemIdSetUnused
   - [PageTruncateLinePointerArray](../P/PageTruncateLinePointerArray.md)
-  - MarkBufferDirty
+  - [MarkBufferDirty](../M/MarkBufferDirty.md)
   - RelationNeedsWAL
   - [log_heap_prune_and_freeze](log_heap_prune_and_freeze.md)
   - [heap_page_is_all_visible](../h/heap_page_is_all_visible.md)

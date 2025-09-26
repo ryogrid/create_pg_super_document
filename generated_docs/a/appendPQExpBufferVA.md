@@ -32,7 +32,7 @@ The function uses an optimization strategy where it only attempts formatting if 
 ## Dependencies
 - Functions called/Symbols referenced:
   - vsnprintf (C standard library)
-  - markPQExpBufferBroken
+  - [markPQExpBufferBroken](../m/markPQExpBufferBroken.md)
   - [enlargePQExpBuffer](../e/enlargePQExpBuffer.md)
 - Called from (representative examples):
   - [printfPQExpBuffer](../p/printfPQExpBuffer.md) (buffer replacement formatting)

@@ -24,8 +24,8 @@ The function is designed as a lightweight cleanup mechanism that maintains trans
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PopActiveSnapshot (removes the current active snapshot from the stack)
-  - CommandCounterIncrement (increments the command counter to make changes visible)
+  - [PopActiveSnapshot](../P/PopActiveSnapshot.md) (removes the current active snapshot from the stack)
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md) (increments the command counter to make changes visible)
 - Called from (representative examples):
   - [apply_handle_insert](../a/apply_handle_insert.md) (after INSERT operation processing)
   - [apply_handle_update](../a/apply_handle_update.md) (after UPDATE operation processing) 

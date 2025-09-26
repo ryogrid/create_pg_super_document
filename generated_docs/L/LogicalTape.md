@@ -81,13 +81,13 @@ The structure supports both frozen and unfrozen modes: frozen tapes preserve blo
 - Functions called/Symbols referenced:
   - [LogicalTapeSet](LogicalTapeSet.md)
 - Called from (representative examples):
-  - LogicalTapeCreate
-  - LogicalTapeWrite
-  - LogicalTapeRead
-  - LogicalTapeRewindForRead
-  - LogicalTapeFreeze
+  - [LogicalTapeCreate](LogicalTapeCreate.md)
+  - [LogicalTapeWrite](LogicalTapeWrite.md)
+  - [LogicalTapeRead](LogicalTapeRead.md)
+  - [LogicalTapeRewindForRead](LogicalTapeRewindForRead.md)
+  - [LogicalTapeFreeze](LogicalTapeFreeze.md)
   - tuplesort operations
-  - Hash aggregation spilling
+  - [Hash](../H/Hash.md) aggregation spilling
 
 ## Notes and Other Information
 - Central to PostgreSQL's external sorting algorithm, enabling sorts larger than available memory

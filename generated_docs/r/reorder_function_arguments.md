@@ -32,7 +32,7 @@ The function assumes that positional arguments appear before named arguments in 
 - Functions called/Symbols referenced:
   - Form_pg_proc
   - FUNC_MAX_ARGS
-  - NamedArgExpr
+  - [NamedArgExpr](../N/NamedArgExpr.md)
   - [fetch_function_defaults](../f/fetch_function_defaults.md)
 - Called from (representative examples):
   - [expand_function_arguments](../e/expand_function_arguments.md)

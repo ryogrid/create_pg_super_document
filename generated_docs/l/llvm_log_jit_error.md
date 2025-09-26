@@ -26,9 +26,9 @@ The function is typically used during symbol resolution breakage and other JIT-r
 ## Dependencies
 - Functions called/Symbols referenced:
   - elog (PostgreSQL logging function)
-  - llvm_error_message (converts LLVM error to string)
+  - [llvm_error_message](llvm_error_message.md) (converts LLVM error to string)
 - Called from (representative examples):
-  - llvm_create_jit_instance (registered as error callback)
+  - [llvm_create_jit_instance](llvm_create_jit_instance.md) (registered as error callback)
 
 ## Notes and Other Information
 - This is a static function local to llvmjit.c

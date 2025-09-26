@@ -21,15 +21,15 @@ The function increments the global fail_count and delegates the actual TAP outpu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - test_status_print
-  - makeStringInfo
-  - appendStringInfoChar
-  - appendStringInfo
+  - [test_status_print](test_status_print.md)
+  - [makeStringInfo](../m/makeStringInfo.md)
+  - [appendStringInfoChar](../a/appendStringInfoChar.md)
+  - [appendStringInfo](../a/appendStringInfo.md)
   - fail_count (global variable)
   - failed_tests (global StringInfo variable)
 - Called from (representative examples):
   - Test execution functions in the regression test framework
-  - run_single_test (when a test fails)
+  - [run_single_test](../r/run_single_test.md) (when a test fails)
 
 ## Notes and Other Information
 - Maintains a global buffer (failed_tests) of all failed test names for summary reporting

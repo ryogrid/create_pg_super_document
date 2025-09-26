@@ -23,15 +23,15 @@ This is different from dsm_pin_mapping, which only affects the current process's
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire/LWLockRelease (with DynamicSharedMemoryControlLock)
-  - is_main_region_dsm_handle
-  - dsm_impl_pin_segment
-  - dsm_segment (structure type)
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease (with DynamicSharedMemoryControlLock)
+  - [is_main_region_dsm_handle](../i/is_main_region_dsm_handle.md)
+  - [dsm_impl_pin_segment](dsm_impl_pin_segment.md)
+  - [dsm_segment](dsm_segment.md) (structure type)
   - dsm_control (global control structure)
 - Called from (representative examples):
-  - GetNamedDSMSegment (src/backend/storage/ipc/dsm_registry.c:164)
-  - dsa_create_ext (src/backend/utils/mmgr/dsa.c:438)
-  - make_new_segment (src/backend/utils/mmgr/dsa.c:2181)
+  - [GetNamedDSMSegment](../G/GetNamedDSMSegment.md) (src/backend/storage/ipc/dsm_registry.c:164)
+  - [dsa_create_ext](dsa_create_ext.md) (src/backend/utils/mmgr/dsa.c:438)
+  - [make_new_segment](../m/make_new_segment.md) (src/backend/utils/mmgr/dsa.c:2181)
 
 ## Notes and Other Information
 - Should not be called more than once per segment unless explicitly unpinned first (will throw ERROR)

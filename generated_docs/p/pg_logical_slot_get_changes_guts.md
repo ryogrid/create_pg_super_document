@@ -24,21 +24,21 @@ The function supports both text and binary output modes, handles various limits 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CheckSlotPermissions](../C/CheckSlotPermissions.md) (validates slot access permissions)
-  - CheckLogicalDecodingRequirements (verifies logical decoding prerequisites)
+  - [CheckLogicalDecodingRequirements](../C/CheckLogicalDecodingRequirements.md) (verifies logical decoding prerequisites)
   - [ReplicationSlotAcquire](../R/ReplicationSlotAcquire.md)/ReplicationSlotRelease (slot management)
-  - CreateDecodingContext/FreeDecodingContext (decoding context lifecycle)
+  - [CreateDecodingContext](../C/CreateDecodingContext.md)/FreeDecodingContext (decoding context lifecycle)
   - [XLogBeginRead](../X/XLogBeginRead.md)/XLogReadRecord (WAL reading functions)
   - [LogicalDecodingProcessRecord](../L/LogicalDecodingProcessRecord.md) (processes individual WAL records)
   - [LogicalOutputPrepareWrite](../L/LogicalOutputPrepareWrite.md)/LogicalOutputWrite (output handling callbacks)
-  - LogicalConfirmReceivedLocation (advances slot position)
-  - WaitForStandbyConfirmation (synchronous replication support)
+  - [LogicalConfirmReceivedLocation](../L/LogicalConfirmReceivedLocation.md) (advances slot position)
+  - [WaitForStandbyConfirmation](../W/WaitForStandbyConfirmation.md) (synchronous replication support)
   - [GetFlushRecPtr](../G/GetFlushRecPtr.md)/GetXLogReplayRecPtr (determines WAL endpoints)
   - [InitMaterializedSRF](../I/InitMaterializedSRF.md) (initializes set-returning function support)
 - Data types used:
   - [LogicalDecodingContext](../L/LogicalDecodingContext.md) (main decoding context)
   - [DecodingOutputState](../D/DecodingOutputState.md) (tracks output state and statistics)
   - [XLogRecord](../X/XLogRecord.md) (individual WAL record structure)
-  - ReturnSetInfo (set-returning function metadata)
+  - [ReturnSetInfo](../R/ReturnSetInfo.md) (set-returning function metadata)
 - Called from:
   - [pg_logical_slot_get_changes](pg_logical_slot_get_changes.md) (public SQL function for textual output with confirmation)
   - [pg_logical_slot_peek_changes](pg_logical_slot_peek_changes.md) (public SQL function for textual output without confirmation)  

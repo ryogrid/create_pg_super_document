@@ -21,11 +21,11 @@ The function is commonly used by transaction management and locking systems to m
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_is_empty (on pcxt_list global variable)
+  - [dlist_is_empty](../d/dlist_is_empty.md) (on pcxt_list global variable)
 - Called from (representative examples):
-  - ExitParallelMode
-  - ReleasePredicateLocks
-  - AtPrepare_PredicateLocks
+  - [ExitParallelMode](../E/ExitParallelMode.md)
+  - [ReleasePredicateLocks](../R/ReleasePredicateLocks.md)
+  - [AtPrepare_PredicateLocks](../A/AtPrepare_PredicateLocks.md)
 
 ## Notes and Other Information
 - Returns true if parallel contexts exist, false if the list is empty

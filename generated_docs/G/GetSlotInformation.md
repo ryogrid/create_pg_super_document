@@ -24,9 +24,9 @@ This function sends the READ_REPLICATION_SLOT replication protocol command to qu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - createPQExpBuffer - Create dynamic string buffer
-  - [appendPQExpBuffer](../a/appendPQExpBuffer.md) - Append formatted data to buffer
-  - destroyPQExpBuffer - Free buffer memory
+  - [createPQExpBuffer](../c/createPQExpBuffer.md) - Create dynamic string buffer
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md) - [Append](../A/Append.md) formatted data to buffer
+  - [destroyPQExpBuffer](../d/destroyPQExpBuffer.md) - Free buffer memory
   - [PQexec](../P/PQexec.md) - Execute SQL command
   - [PQresultStatus](../P/PQresultStatus.md) - Get result status
   - [PQntuples](../P/PQntuples.md) - Get number of result rows
@@ -35,7 +35,7 @@ This function sends the READ_REPLICATION_SLOT replication protocol command to qu
   - [PQgetvalue](../P/PQgetvalue.md) - Get field value from result
   - [PQclear](../P/PQclear.md) - Free result memory
   - pg_log_error - Log error messages
-  - strcmp - String comparison
+  - strcmp - [String](../S/String.md) comparison
   - sscanf - Parse formatted string
   - atol - Convert string to long integer
 - Called from (representative examples):

@@ -27,8 +27,8 @@ The function includes several assertion checks to ensure list integrity and that
 - Functions called/Symbols referenced:
   - [proclist_node_get](proclist_node_get.md) (to retrieve proclist_node pointers)
   - `INVALID_PROC_NUMBER` (constant indicating an invalid process number)
-  - `proclist_head` (data structure type)
-  - `proclist_node` (data structure type)
+  - `[proclist_head](proclist_head.md)` (data structure type)
+  - `[proclist_node](proclist_node.md)` (data structure type)
 - Called from (representative examples):
   - `proclist_push_head` (src/include/storage/proclist.h:190)
 

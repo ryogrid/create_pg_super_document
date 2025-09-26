@@ -22,13 +22,13 @@ The function takes a const pointer parameter, indicating it does not modify the 
 ## Dependencies
 - Functions called/Symbols referenced:
   - `INVALID_PROC_NUMBER` (constant indicating an invalid process number)
-  - `proclist_head` (data structure type)
-  - `proclist_node` (referenced in the same file)
+  - `[proclist_head](proclist_head.md)` (data structure type)
+  - `[proclist_node](proclist_node.md)` (referenced in the same file)
 - Called from (representative examples):
-  - `ConditionVariableSignal` (src/backend/storage/lmgr/condition_variable.c:265)
-  - `ConditionVariableBroadcast` (src/backend/storage/lmgr/condition_variable.c:321, 324, 352)
-  - `LWLockWakeup` (src/backend/storage/lmgr/lwlock.c:978, 997)
-  - `LWLockDequeueSelf` (src/backend/storage/lmgr/lwlock.c:1104)
+  - `[ConditionVariableSignal](../C/ConditionVariableSignal.md)` (src/backend/storage/lmgr/condition_variable.c:265)
+  - `[ConditionVariableBroadcast](../C/ConditionVariableBroadcast.md)` (src/backend/storage/lmgr/condition_variable.c:321, 324, 352)
+  - `[LWLockWakeup](../L/LWLockWakeup.md)` (src/backend/storage/lmgr/lwlock.c:978, 997)
+  - `[LWLockDequeueSelf](../L/LWLockDequeueSelf.md)` (src/backend/storage/lmgr/lwlock.c:1104)
   - [proclist_pop_head_node_offset](proclist_pop_head_node_offset.md) (src/include/storage/proclist.h:177)
 
 ## Notes and Other Information

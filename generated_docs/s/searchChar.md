@@ -25,7 +25,7 @@ The binary search algorithm divides the search space in half at each step, provi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetInt16 (extracts int16 value from Datum)
+  - [DatumGetInt16](../D/DatumGetInt16.md) (extracts int16 value from Datum)
 - Called from (representative examples):
   - [spg_text_choose](spg_text_choose.md)
   - [spgist_name_choose](spgist_name_choose.md)

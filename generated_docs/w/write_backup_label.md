@@ -32,15 +32,15 @@ This is essential for creating clean backup label files when combining increment
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_checksum_init
+  - [pg_checksum_init](../p/pg_checksum_init.md)
   - [get_eol_offset](../g/get_eol_offset.md)
   - [line_starts_with](../l/line_starts_with.md)
   - open
   - write
-  - pg_checksum_update
+  - [pg_checksum_update](../p/pg_checksum_update.md)
   - close
-  - pg_checksum_final
-  - add_file_to_manifest
+  - [pg_checksum_final](../p/pg_checksum_final.md)
+  - [add_file_to_manifest](../a/add_file_to_manifest.md)
   - [stat](../s/stat.md)
 - Called from (representative examples):
   - [main](../m/main.md) (in pg_combinebackup.c)

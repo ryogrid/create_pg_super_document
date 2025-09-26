@@ -20,7 +20,7 @@ This function takes no parameters and returns a pointer to the copied ErrorData 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ErrorData (structure type)
+  - [ErrorData](../E/ErrorData.md) (structure type)
   - CHECK_STACK_DEPTH (macro)
   - [palloc](../p/palloc.md) (memory allocation)
   - memcpy (memory copy)
@@ -31,11 +31,11 @@ This function takes no parameters and returns a pointer to the copied ErrorData 
   - errordata_stack_depth (global variable)
 
 - Called from (representative examples):
-  - _SPI_commit
+  - [_SPI_commit](../S/_SPI_commit.md)
   - [_SPI_rollback](../S/_SPI_rollback.md)  
   - [plperl_spi_exec](../p/plperl_spi_exec.md)
   - [PLy_output](../P/PLy_output.md)
-  - pltcl_elog
+  - [pltcl_elog](../p/pltcl_elog.md)
 
 ## Notes and Other Information
 - Must be called with CurrentMemoryContext != ErrorContext to prevent data loss when FlushErrorState clears ErrorContext

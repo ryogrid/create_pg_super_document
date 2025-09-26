@@ -33,9 +33,9 @@ For explicit grantors, the function enforces integrity constraints:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - superuser_arg
-  - select_best_admin
-  - has_privs_of_role
+  - [superuser_arg](../s/superuser_arg.md)
+  - [select_best_admin](../s/select_best_admin.md)
+  - [has_privs_of_role](../h/has_privs_of_role.md)
   - [GetUserNameFromId](../G/GetUserNameFromId.md)
 - Called from (representative examples):
   - [AddRoleMems](../A/AddRoleMems.md)

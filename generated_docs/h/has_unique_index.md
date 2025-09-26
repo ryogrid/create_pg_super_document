@@ -32,7 +32,7 @@ The function explicitly excludes expressional indexes and multicolumn unique ind
   - [IndexOptInfo](../I/IndexOptInfo.md) (structure accessed)
   - lfirst (list iteration macro)
 - Called from (representative examples):
-  - examine_variable
+  - [examine_variable](../e/examine_variable.md)
 
 ## Notes and Other Information
 This function does not check the index's indimmediate property, which means it may report uniqueness even when constraints could be temporarily violated within a transaction (deferred unique constraints). This behavior is appropriate for statistical estimation purposes but should not be relied upon for correctness proofs. The function is primarily used in selectivity estimation where the optimizer needs to know if an attribute's values are guaranteed to be unique for cardinality calculations.

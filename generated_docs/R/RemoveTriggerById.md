@@ -19,7 +19,7 @@ RemoveTriggerById is the fundamental function for deleting triggers in PostgreSQ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - [systable_beginscan](../s/systable_beginscan.md)/systable_getnext
   - [errdetail_relkind_not_supported](../e/errdetail_relkind_not_supported.md)
   - [IsSystemRelation](../I/IsSystemRelation.md)

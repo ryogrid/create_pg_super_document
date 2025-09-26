@@ -25,13 +25,13 @@ The function follows a simple but effective strategy: avoid unnecessary I/O for 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - InitBufferTag: Creates buffer tag for the requested block
-  - InitLocalBuffers: Initializes local buffer system if not already done
-  - hash_search: Searches local buffer hash table for existing block
-  - smgrprefetch: Initiates actual prefetch I/O operation through storage manager
+  - [InitBufferTag](../I/InitBufferTag.md): Creates buffer tag for the requested block
+  - [InitLocalBuffers](../I/InitLocalBuffers.md): Initializes local buffer system if not already done
+  - [hash_search](../h/hash_search.md): Searches local buffer hash table for existing block
+  - [smgrprefetch](../s/smgrprefetch.md): Initiates actual prefetch I/O operation through storage manager
 - Called from (representative examples):
-  - PrefetchBuffer: Main prefetch function delegates to this for temporary relations
-  - ResourceOwnerForgetBufferIO: Buffer resource management
+  - [PrefetchBuffer](PrefetchBuffer.md): Main prefetch function delegates to this for temporary relations
+  - [ResourceOwnerForgetBufferIO](../R/ResourceOwnerForgetBufferIO.md): Buffer resource management
 
 ## Notes and Other Information
 - Only functional when USE_PREFETCH is compiled in, otherwise it's effectively a no-op

@@ -70,7 +70,7 @@ For functions returning different types:
 ## Notes and Other Information
 - Functions are never checked for access rights by the permission system since they represent computed results
 - The function supports PostgreSQL's SETOF functions and handles ordinality columns for row numbering
-- Complex error handling provides specific messages for different column definition list validation failures
+- [Complex](../C/Complex.md) error handling provides specific messages for different column definition list validation failures
 - When multiple functions are present, their tuple descriptors are merged into a single composite descriptor
 - The function name list is used primarily for error reporting and automatic alias generation
 - LATERAL functions have special scoping rules allowing them to reference columns from preceding FROM items

@@ -33,9 +33,9 @@ These correction factors are essential for both nested loop and hash join cost e
   - Selectivity (selectivity estimation type)
 
 - Called from (representative examples):
-  - compute_semi_anti_join_factors (in costsize.c:5014) - computes these factors
-  - JoinPathExtraData (in pathnodes.h:3236) - uses these factors in join path data
-  - ConstraintExclusionType (in cost.h:186) - related to cost estimation infrastructure
+  - [compute_semi_anti_join_factors](../c/compute_semi_anti_join_factors.md) (in costsize.c:5014) - computes these factors
+  - [JoinPathExtraData](../J/JoinPathExtraData.md) (in pathnodes.h:3236) - uses these factors in join path data
+  - [ConstraintExclusionType](../C/ConstraintExclusionType.md) (in cost.h:186) - related to cost estimation infrastructure
 
 ## Notes and Other Information
 - Designed for efficiency by calculating correction factors once per relation pair rather than once per path consideration

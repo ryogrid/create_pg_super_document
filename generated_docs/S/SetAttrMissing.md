@@ -22,7 +22,7 @@ This function is specifically designed for binary upgrade scenarios to restore m
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open
+  - [table_open](../t/table_open.md)
   - [SearchSysCacheAttName](SearchSysCacheAttName.md)
   - OidFunctionCall3
   - [heap_modify_tuple](../h/heap_modify_tuple.md)

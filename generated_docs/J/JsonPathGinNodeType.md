@@ -23,10 +23,10 @@ JsonPathGinNodeType is an enumeration that categorizes nodes in the internal tre
 - Functions called/Symbols referenced:
   - (This is an enum type, so it doesn't call other functions)
 - Called from (representative examples):
-  - make_jsp_expr_node (src/backend/utils/adt/jsonb_gin.c:370)
-  - make_jsp_expr_node_args (src/backend/utils/adt/jsonb_gin.c:382)
-  - make_jsp_expr_node_binary (src/backend/utils/adt/jsonb_gin.c:395)
-  - extract_jsp_bool_expr (src/backend/utils/adt/jsonb_gin.c:596)
+  - [make_jsp_expr_node](../m/make_jsp_expr_node.md) (src/backend/utils/adt/jsonb_gin.c:370)
+  - [make_jsp_expr_node_args](../m/make_jsp_expr_node_args.md) (src/backend/utils/adt/jsonb_gin.c:382)
+  - [make_jsp_expr_node_binary](../m/make_jsp_expr_node_binary.md) (src/backend/utils/adt/jsonb_gin.c:395)
+  - [extract_jsp_bool_expr](../e/extract_jsp_bool_expr.md) (src/backend/utils/adt/jsonb_gin.c:596)
 
 ## Notes and Other Information
 - This enum is used as the  field in JsonPathGinNode structures to identify the node's role in the expression tree

@@ -34,15 +34,15 @@ The function switches to the result memory context to construct the array, then 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - construct_md_array
-  - MemoryContextSwitchTo
-  - MemoryContextDelete
-  - PointerGetDatum
+  - [construct_md_array](../c/construct_md_array.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
+  - [PointerGetDatum](../P/PointerGetDatum.md)
 - Called from (representative examples):
-  - array_agg_finalfn
-  - makeArrayResult
-  - makeArrayResultAny
-  - populate_array
+  - [array_agg_finalfn](../a/array_agg_finalfn.md)
+  - [makeArrayResult](makeArrayResult.md)
+  - [makeArrayResultAny](makeArrayResultAny.md)
+  - [populate_array](../p/populate_array.md)
 
 ## Notes and Other Information
 - **Warning**: No validation is performed to ensure the specified dimensions match the number of accumulated values

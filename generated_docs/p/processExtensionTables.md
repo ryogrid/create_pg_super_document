@@ -33,7 +33,7 @@ The function handles extension include/exclude lists, table-specific include/exc
   - [findTableByOid](../f/findTableByOid.md)
   - [makeTableDataInfo](../m/makeTableDataInfo.md)
   - [pg_strdup](pg_strdup.md)
-  - createPQExpBuffer
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)
   - [printfPQExpBuffer](printfPQExpBuffer.md)
   - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
   - [PQntuples](../P/PQntuples.md)
@@ -41,7 +41,7 @@ The function handles extension include/exclude lists, table-specific include/exc
   - [PQgetvalue](../P/PQgetvalue.md)
   - [addObjectDependency](../a/addObjectDependency.md)
   - [PQclear](../P/PQclear.md)
-  - destroyPQExpBuffer
+  - [destroyPQExpBuffer](../d/destroyPQExpBuffer.md)
   - [pg_fatal](pg_fatal.md)
 - Called from:
   - [getSchemaData](../g/getSchemaData.md) (in src/bin/pg_dump/common.c:223)

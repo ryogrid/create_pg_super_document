@@ -69,8 +69,8 @@ JsonTablePlanState is the central execution state structure for PostgreSQL's JSO
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonTablePlan
-  - JsonPath
+  - [JsonTablePlan](JsonTablePlan.md)
+  - [JsonPath](JsonPath.md)
   - [JsonValueList](JsonValueList.md)
   - [JsonValueListIterator](JsonValueListIterator.md)
   - [JsonTablePlanRowSource](JsonTablePlanRowSource.md)

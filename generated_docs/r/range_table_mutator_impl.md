@@ -31,7 +31,7 @@ The function handles different types of range table entries (relations, subqueri
   - FLATCOPY (macro for shallow copying structures)
   - MUTATE (macro for recursive mutation operations)
   - copyObject (deep copy function for unchanged substructures)
-  - lappend (list append function)
+  - [lappend](../l/lappend.md) (list append function)
 - Called from (representative examples):
   - range_table_mutator (wrapper function)
   - planstate_tree_walker (indirectly via wrapper)

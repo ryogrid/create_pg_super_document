@@ -24,8 +24,8 @@ This function appends formatted information about dropped statistics to a String
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - xl_xact_stats_item (struct type)
-  - appendStringInfo (for formatting output)
+  - [xl_xact_stats_item](xl_xact_stats_item.md) (struct type)
+  - [appendStringInfo](../a/appendStringInfo.md) (for formatting output)
 - Called from (representative examples):
   - [xact_desc_commit](xact_desc_commit.md) (src/backend/access/rmgrdesc/xactdesc.c:347)
   - [xact_desc_abort](xact_desc_abort.md) (src/backend/access/rmgrdesc/xactdesc.c:392)

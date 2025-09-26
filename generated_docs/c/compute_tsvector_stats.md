@@ -27,9 +27,9 @@ This function implements statistics collection for tsvector columns by finding t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - VacAttrStats
+  - [VacAttrStats](../V/VacAttrStats.md)
   - [HTAB](../H/HTAB.md)
-  - HASHCTL
+  - [HASHCTL](../H/HASHCTL.md)
   - LexemeHashKey
   - [TrackItem](../T/TrackItem.md)
   - [lexeme_hash](../l/lexeme_hash.md)
@@ -37,7 +37,7 @@ This function implements statistics collection for tsvector columns by finding t
   - [prune_lexemes_hashtable](../p/prune_lexemes_hashtable.md)
   - [hash_create](../h/hash_create.md)
   - TSVector
-  - WordEntry
+  - [WordEntry](../W/WordEntry.md)
   - [vacuum_delay_point](../v/vacuum_delay_point.md)
   - VARSIZE_ANY
   - [DatumGetTSVector](../D/DatumGetTSVector.md)
@@ -49,7 +49,7 @@ This function implements statistics collection for tsvector columns by finding t
   - [hash_seq_search](../h/hash_seq_search.md)
   - [trackitem_compare_frequencies_desc](../t/trackitem_compare_frequencies_desc.md)
   - [trackitem_compare_lexemes](../t/trackitem_compare_lexemes.md)
-  - cstring_to_text_with_len
+  - [cstring_to_text_with_len](cstring_to_text_with_len.md)
 - Called from (representative examples):
   - [ts_typanalyze](../t/ts_typanalyze.md) (via function pointer assignment)
 

@@ -28,7 +28,7 @@ The function automatically computes the required outer relations by taking the u
   - makeNode (creates new BitmapOrPath node)
   - [bms_add_members](../b/bms_add_members.md) (combines bitmap sets for required outer relations)
   - PATH_REQ_OUTER (macro to get required outer relations from a path)
-  - get_baserel_parampathinfo (retrieves parameterization information)
+  - [get_baserel_parampathinfo](../g/get_baserel_parampathinfo.md) (retrieves parameterization information)
   - [cost_bitmap_or_node](cost_bitmap_or_node.md) (calculates costs and selectivity)
 - Called from (representative examples):
   - [generate_bitmap_or_paths](../g/generate_bitmap_or_paths.md) (when generating OR combinations of bitmap paths)

@@ -29,7 +29,7 @@ For scans using array keys, the caller must save the scan_page argument for pote
   - OffsetToPointer (function)
   - SpinLockAcquire/SpinLockRelease (functions)
   - BTPARALLEL_IDLE (constant)
-  - ConditionVariableSignal (function)
+  - [ConditionVariableSignal](../C/ConditionVariableSignal.md) (function)
 - Called from (representative examples):
   - [_bt_readpage](_bt_readpage.md)
   - [_bt_readnextpage](_bt_readnextpage.md)

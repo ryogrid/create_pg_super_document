@@ -20,7 +20,7 @@ This function determines if the provided XML value is a complete, well-formed XM
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ErrorSaveContext](../E/ErrorSaveContext.md) (error handling context structure)
-  - xml_parse (core XML parsing function)
+  - [xml_parse](xml_parse.md) (core XML parsing function)
   - XMLOPTION_DOCUMENT (parsing option for document mode)
   - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md) (database encoding retrieval)
   - xmlFreeDoc (libxml2 document cleanup function)

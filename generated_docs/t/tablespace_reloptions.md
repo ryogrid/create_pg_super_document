@@ -26,7 +26,7 @@ The `tablespace_reloptions` function is a specialized option parser for PostgreS
   - RELOPT_TYPE_REAL (constant)
   - RELOPT_TYPE_INT (constant)
   - RELOPT_KIND_TABLESPACE (constant)
-  - TableSpaceOpts (structure)
+  - [TableSpaceOpts](../T/TableSpaceOpts.md) (structure)
   - lengthof (macro)
 - Called from (representative examples):
   - [CreateTableSpace](../C/CreateTableSpace.md)

@@ -29,8 +29,8 @@ This is the core implementation function for generating string representations o
   - [heap_attisnull](../h/heap_attisnull.md), TextDatumGetCString, stringToNode (tuple and expression processing)
   - [deparse_context_for](../d/deparse_context_for.md), get_relation_name, deparse_expression_pretty (expression deparsing)
   - [get_attname](../g/get_attname.md), quote_identifier, get_atttypetypmodcoll (attribute information)
-  - generate_collation_name, get_opclass_name (formatting helpers)
-  - looks_like_function, exprType, exprCollation (expression analysis)
+  - [generate_collation_name](../g/generate_collation_name.md), get_opclass_name (formatting helpers)
+  - [looks_like_function](../l/looks_like_function.md), exprType, exprCollation (expression analysis)
 - Called from (representative examples):
   - [pg_get_partkeydef](pg_get_partkeydef.md) (public function for full partition definitions)
   - [pg_get_partkeydef_columns](pg_get_partkeydef_columns.md) (public function for column-only definitions)

@@ -32,7 +32,7 @@ None - the function takes no parameters and processes global state variables.
   - [UpdateSharedMemoryConfig](../U/UpdateSharedMemoryConfig.md)
   - [ShutdownXLOG](../S/ShutdownXLOG.md)
   - [pgstat_report_checkpointer](../p/pgstat_report_checkpointer.md)
-  - pgstat_report_wal
+  - [pgstat_report_wal](../p/pgstat_report_wal.md)
   - [proc_exit](../p/proc_exit.md)
   - [ProcessLogMemoryContextInterrupt](../P/ProcessLogMemoryContextInterrupt.md)
 - Called from (representative examples):

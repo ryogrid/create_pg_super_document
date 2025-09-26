@@ -35,9 +35,9 @@ Key optimizations include:
 - Functions called/Symbols referenced:
   - qsort (for sorting transitions)
   - [atcomp](../a/atcomp.md) (comparison function for transitions)
-  - emalloc (memory allocation)
+  - [emalloc](../e/emalloc.md) (memory allocation)
   - [limitrange](../l/limitrange.md) (to limit transition ranges for 32/64-bit output)
-  - tadd (time addition with overflow checking)
+  - [tadd](../t/tadd.md) (time addition with overflow checking)
   - [addtype](../a/addtype.md) (to add new timezone types)
   - [want_bloat](want_bloat.md) (compatibility option checking)
   - [warning](warning.md) (for issuing warnings)

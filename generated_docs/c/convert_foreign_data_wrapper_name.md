@@ -19,7 +19,7 @@ The function is straightforward: it converts the text parameter to a C string an
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - text_to_cstring: Converts PostgreSQL text type to C string
+  - [text_to_cstring](../t/text_to_cstring.md): Converts PostgreSQL text type to C string
   - [get_foreign_data_wrapper_oid](../g/get_foreign_data_wrapper_oid.md): Looks up foreign data wrapper Oid by name
 - Called from (representative examples):
   - [has_foreign_data_wrapper_privilege_name_name](../h/has_foreign_data_wrapper_privilege_name_name.md): Privilege checking with role and FDW names

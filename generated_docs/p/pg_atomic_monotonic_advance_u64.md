@@ -25,13 +25,13 @@ This function is particularly useful for scenarios where multiple threads need t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_atomic_read_u64_impl
-  - pg_atomic_compare_exchange_u64
+  - [pg_atomic_read_u64_impl](pg_atomic_read_u64_impl.md)
+  - [pg_atomic_compare_exchange_u64](pg_atomic_compare_exchange_u64.md)
   - pg_memory_barrier
   - AssertPointerAlignment
   - PG_HAVE_ATOMIC_U64_SIMULATION (conditional compilation)
 - Called from (representative examples):
-  - WaitXLogInsertionsToFinish
+  - [WaitXLogInsertionsToFinish](../W/WaitXLogInsertionsToFinish.md)
 
 ## Notes and Other Information
 - Provides full barrier semantics even when the value is unchanged

@@ -27,7 +27,7 @@ When conflicts are possible, the function truncates the FullTransactionId to a s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReadNextFullTransactionId
+  - [ReadNextFullTransactionId](ReadNextFullTransactionId.md)
   - U64FromFullTransactionId
   - XidFromFullTransactionId
   - [ResolveRecoveryConflictWithSnapshot](ResolveRecoveryConflictWithSnapshot.md)

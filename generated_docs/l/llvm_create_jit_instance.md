@@ -35,16 +35,16 @@ The function transfers ownership of the target machine to the LLJIT instance, wh
   - LLVMOrcJITTargetMachineBuilderCreateFromTargetMachine
   - LLVMOrcLLJITBuilderSetJITTargetMachineBuilder
   - LLVMOrcLLJITBuilderSetObjectLinkingLayerCreator
-  - llvm_create_object_layer (custom object layer creator)
+  - [llvm_create_object_layer](llvm_create_object_layer.md) (custom object layer creator)
   - LLVMOrcCreateLLJIT
-  - llvm_error_message (error message conversion)
+  - [llvm_error_message](llvm_error_message.md) (error message conversion)
   - LLVMOrcExecutionSessionSetErrorReporter
-  - llvm_log_jit_error (error callback)
+  - [llvm_log_jit_error](llvm_log_jit_error.md) (error callback)
   - LLVMOrcCreateDynamicLibrarySearchGeneratorForProcess
   - LLVMOrcCreateCustomCAPIDefinitionGenerator
-  - llvm_resolve_symbols (custom symbol resolver)
+  - [llvm_resolve_symbols](llvm_resolve_symbols.md) (custom symbol resolver)
 - Called from (representative examples):
-  - llvm_session_initialize (during JIT session setup)
+  - [llvm_session_initialize](llvm_session_initialize.md) (during JIT session setup)
 
 ## Notes and Other Information
 - This is a static function local to llvmjit.c

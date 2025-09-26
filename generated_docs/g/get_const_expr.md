@@ -21,22 +21,22 @@ This function generates string representations of constant values from Const nod
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getTypeOutputInfo
-  - OidOutputFunctionCall
-  - format_type_with_typemod
-  - get_const_collation
-  - simple_quote_literal
-  - appendStringInfo functions
+  - [getTypeOutputInfo](getTypeOutputInfo.md)
+  - [OidOutputFunctionCall](../O/OidOutputFunctionCall.md)
+  - [format_type_with_typemod](../f/format_type_with_typemod.md)
+  - [get_const_collation](get_const_collation.md)
+  - [simple_quote_literal](../s/simple_quote_literal.md)
+  - [appendStringInfo](../a/appendStringInfo.md) functions
 - Types referenced:
-  - Const
-  - deparse_context
+  - [Const](../C/Const.md)
+  - [deparse_context](../d/deparse_context.md)
   - Various type OIDs (INT4OID, NUMERICOID, BOOLOID, UNKNOWNOID)
 - Called from (representative examples):
-  - get_rule_expr
-  - get_coercion_expr
-  - get_rule_sortgroupclause
-  - get_json_path_spec
-  - get_range_partbound_string
+  - [get_rule_expr](get_rule_expr.md)
+  - [get_coercion_expr](get_coercion_expr.md)
+  - [get_rule_sortgroupclause](get_rule_sortgroupclause.md)
+  - [get_json_path_spec](get_json_path_spec.md)
+  - [get_range_partbound_string](get_range_partbound_string.md)
 
 ## Notes and Other Information
 The function implements careful synchronization with PostgreSQL's parser (especially make_const) to ensure that the generated constants will be interpreted with the correct types during re-parsing. Special handling exists for negative integers to avoid operator precedence issues, and for numeric values that might look like floats versus integers. The showtype parameter provides fine-grained control over type decoration, with -1 typically used when the caller will provide type information separately. Collation handling is coordinated with the showtype flag to avoid malformed output where collation clauses might conflict with type casting syntax.

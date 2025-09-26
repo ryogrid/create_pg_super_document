@@ -28,11 +28,11 @@ This function is essential for properly formatting extension dependency informat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_length (macro/function to get list length)
+  - [list_length](../l/list_length.md) (macro/function to get list length)
   - [palloc](../p/palloc.md) (PostgreSQL memory allocation)
   - lfirst (macro to get list cell content)
   - DirectFunctionCall1
-  - namein
+  - [namein](../n/namein.md)
   - [CStringGetDatum](../C/CStringGetDatum.md)
   - [construct_array_builtin](construct_array_builtin.md)
   - [PointerGetDatum](../P/PointerGetDatum.md)

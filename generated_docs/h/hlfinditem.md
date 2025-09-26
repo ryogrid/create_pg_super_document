@@ -45,5 +45,5 @@ The `hlfinditem` function processes a lexeme to find matching query items and as
 - When multiple query items match the same lexeme, duplicate word entries are created to maintain proper query-to-word relationships
 - The 'repeated' flag is used to mark duplicate entries for the same lexeme
 - Position values are constrained using the LIMITPOS macro to prevent overflow
-- String comparison uses tsCompareString which handles prefix matching and other text search semantics
+- [String](../S/String.md) comparison uses tsCompareString which handles prefix matching and other text search semantics
 - This function is crucial for generating accurate highlights in search result snippets

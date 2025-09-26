@@ -28,14 +28,14 @@ An assertion check ensures that the table entry's encoding field matches the req
   - Assert (debugging assertion macro)
 - Data structures:
   - pg_enc2name_tbl (array of encoding ID to name mappings)
-  - pg_enc2name (structure containing name, encoding, and optional codepage)
+  - [pg_enc2name](pg_enc2name.md) (structure containing name, encoding, and optional codepage)
 - Called from (representative examples):
-  - CollationCreate
-  - ConversionCreate  
-  - createdb
-  - check_client_encoding
-  - pg_do_encoding_conversion
-  - PQsetClientEncoding
+  - [CollationCreate](../C/CollationCreate.md)
+  - [ConversionCreate](../C/ConversionCreate.md)  
+  - [createdb](../c/createdb.md)
+  - [check_client_encoding](../c/check_client_encoding.md)
+  - [pg_do_encoding_conversion](pg_do_encoding_conversion.md)
+  - [PQsetClientEncoding](../P/PQsetClientEncoding.md)
 
 ## Notes and Other Information
 - Returns an empty string ("") rather than NULL for invalid encoding IDs

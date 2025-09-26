@@ -23,11 +23,11 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PgStatShared_BgWriter (type for shared memory statistics structure)
-  - PgStat_BgWriterStats (type for statistics data)
+  - [PgStatShared_BgWriter](../P/PgStatShared_BgWriter.md) (type for shared memory statistics structure)
+  - [PgStat_BgWriterStats](../P/PgStat_BgWriterStats.md) (type for statistics data)
   - [pgstat_copy_changecounted_stats](pgstat_copy_changecounted_stats.md) (atomic copy function with changecount)
-  - LWLockAcquire (lightweight lock acquisition)
-  - LWLockRelease (lightweight lock release)
+  - [LWLockAcquire](../L/LWLockAcquire.md) (lightweight lock acquisition)
+  - [LWLockRelease](../L/LWLockRelease.md) (lightweight lock release)
   - LW_SHARED (shared lock mode constant)
   - memcpy (memory copy function)
 - Called from (representative examples):

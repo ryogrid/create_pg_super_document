@@ -25,16 +25,16 @@ The function uses PostgreSQL's temporary file management system, which provides 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FilePath: Constructs the complete file path for the given fileset and name
-  - PathNameCreateTemporaryFile: Creates the temporary file at the specified path
-  - ChooseTablespace: Selects an appropriate tablespace for the file based on fileset configuration
-  - TempTablespacePath: Constructs the temporary directory path for a tablespace
-  - FileSetPath: Constructs the fileset-specific directory path
-  - PathNameCreateTemporaryDir: Creates the directory structure on demand
+  - [FilePath](FilePath.md): Constructs the complete file path for the given fileset and name
+  - [PathNameCreateTemporaryFile](../P/PathNameCreateTemporaryFile.md): Creates the temporary file at the specified path
+  - [ChooseTablespace](../C/ChooseTablespace.md): Selects an appropriate tablespace for the file based on fileset configuration
+  - [TempTablespacePath](../T/TempTablespacePath.md): Constructs the temporary directory path for a tablespace
+  - [FileSetPath](FileSetPath.md): Constructs the fileset-specific directory path
+  - [PathNameCreateTemporaryDir](../P/PathNameCreateTemporaryDir.md): Creates the directory structure on demand
   - MAXPGPATH: Maximum path length constant
 
 - Called from (representative examples):
-  - MakeNewFileSetSegment: Used in BufFile management for creating file segments
+  - [MakeNewFileSetSegment](../M/MakeNewFileSetSegment.md): Used in BufFile management for creating file segments
 
 ## Notes and Other Information
 - Returns a File descriptor that can be used with PostgreSQL's file management APIs

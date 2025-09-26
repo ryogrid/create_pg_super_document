@@ -28,7 +28,7 @@ This function constructs a ProjectionPath node that represents computing a speci
   - makeNode
   - IsA
   - [is_parallel_safe](../i/is_parallel_safe.md)
-  - is_projection_capable_path
+  - [is_projection_capable_path](../i/is_projection_capable_path.md)
   - [equal](../e/equal.md)
 - Called from (representative examples):
   - [adjust_paths_for_srfs](../a/adjust_paths_for_srfs.md)

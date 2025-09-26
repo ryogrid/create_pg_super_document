@@ -29,7 +29,7 @@ The function examines the WAL record's info field to determine the operation typ
   - COMMIT_TS_ZEROPAGE
   - COMMIT_TS_TRUNCATE
   - [xl_commit_ts_truncate](../x/xl_commit_ts_truncate.md)
-  - appendStringInfo
+  - [appendStringInfo](../a/appendStringInfo.md)
   - memcpy
 - Called from (representative examples):
   - WAL record description framework (indirectly through function pointers)

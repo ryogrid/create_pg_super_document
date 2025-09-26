@@ -28,8 +28,8 @@ Key optimization steps include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WindowFuncLists, WindowClause, WindowFunc (struct types)
-  - SupportRequestOptimizeWindowClause (struct type)
+  - [WindowFuncLists](../W/WindowFuncLists.md), WindowClause, WindowFunc (struct types)
+  - [SupportRequestOptimizeWindowClause](../S/SupportRequestOptimizeWindowClause.md) (struct type)
   - [get_func_support](../g/get_func_support.md) (function lookup)
   - OidFunctionCall1 (support function call)
   - foreach_current_index (list iteration macro)

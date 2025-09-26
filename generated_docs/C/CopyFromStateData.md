@@ -151,13 +151,13 @@ The structure handles multiple input sources (files, programs, frontend connecti
 - Functions called/Symbols referenced:
   - CopySource
   - EolType
-  - CopyFormatOptions
-  - ErrorSaveContext
-  - TransitionCaptureState
+  - [CopyFormatOptions](CopyFormatOptions.md)
+  - [ErrorSaveContext](../E/ErrorSaveContext.md)
+  - [TransitionCaptureState](../T/TransitionCaptureState.md)
   - copy_data_source_cb
 - Called from (representative examples):
-  - BeginCopyFrom
-  - CopyFromState (typedef)
+  - [BeginCopyFrom](../B/BeginCopyFrom.md)
+  - [CopyFromState](CopyFromState.md) (typedef)
 
 ## Notes and Other Information
 - The structure uses buffer reuse strategies with `INPUT_BUF_SIZE` (65536) and `RAW_BUF_SIZE` (65536) constants to optimize memory allocation during bulk operations

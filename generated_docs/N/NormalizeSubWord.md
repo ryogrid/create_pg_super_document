@@ -33,8 +33,8 @@ The function handles cross-product affixes (combinations of prefix and suffix) a
   - [FindWord](../F/FindWord.md) (called 4 times for dictionary validation)
   - strlen, pstrdup, palloc, pfree (utility functions)
 - Called from (representative examples):
-  - SplitToVariants (at line 2427)
-  - NINormalizeWord (at lines 2547, 2572)
+  - [SplitToVariants](../S/SplitToVariants.md) (at line 2427)
+  - [NINormalizeWord](NINormalizeWord.md) (at lines 2547, 2572)
 
 ## Notes and Other Information
 - Returns NULL if no valid normalized forms are found or if word exceeds MAXNORMLEN (256 characters)

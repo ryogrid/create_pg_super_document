@@ -21,11 +21,11 @@ This initialization is crucial for maintaining consistent behavior across role c
 
 ## Dependencies
 - Types used:
-  - GrantRoleOptions
+  - [GrantRoleOptions](../G/GrantRoleOptions.md)
 - Called from:
-  - CreateRole
-  - AlterRole
-  - GrantRole
+  - [CreateRole](../C/CreateRole.md)
+  - [AlterRole](../A/AlterRole.md)
+  - [GrantRole](../G/GrantRole.md)
 
 ## Notes and Other Information
 - The `specified` field is set to 0, meaning no specific options have been explicitly set

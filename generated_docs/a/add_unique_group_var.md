@@ -33,7 +33,7 @@ The function is essential for accurate GROUP BY cardinality estimation, as it en
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_variable_numdistinct: Extract distinct value count from variable statistics
+  - [get_variable_numdistinct](../g/get_variable_numdistinct.md): Extract distinct value count from variable statistics
   - [remove_nulling_relids](../r/remove_nulling_relids.md): Strip nulling relation markers for comparison
   - [equal](../e/equal.md): Test for exact node equality
   - [exprs_known_equal](../e/exprs_known_equal.md): Check if expressions are known to be equivalent

@@ -26,10 +26,10 @@ The function implements proper concurrency control using lightweight locks and m
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SanityCheckBackgroundWorker](../S/SanityCheckBackgroundWorker.md) (worker validation)
-  - LWLockAcquire, LWLockRelease (locking)
+  - [LWLockAcquire](../L/LWLockAcquire.md), LWLockRelease (locking)
   - memcpy (memory copy)
   - pg_write_barrier (memory barrier)
-  - SendPostmasterSignal (postmaster notification)
+  - [SendPostmasterSignal](../S/SendPostmasterSignal.md) (postmaster notification)
   - [palloc](../p/palloc.md) (memory allocation)
 - Constants referenced:
   - ERROR (error level)
@@ -48,7 +48,7 @@ The function implements proper concurrency control using lightweight locks and m
   - [BackgroundWorkerHandle](../B/BackgroundWorkerHandle.md) (worker tracking handle)
 - Called from:
   - [LaunchParallelWorkers](../L/LaunchParallelWorkers.md) (parallel query execution)
-  - logicalrep_worker_launch (logical replication)
+  - [logicalrep_worker_launch](../l/logicalrep_worker_launch.md) (logical replication)
   - [setup_background_workers](../s/setup_background_workers.md), worker_spi_launch (test modules)
 
 ## Notes and Other Information

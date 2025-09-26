@@ -23,15 +23,15 @@ The function is part of PostgreSQL's Free Space Map implementation, which tracks
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PageGetContents: Extracts the FSM page content from the generic page structure
-  - fsm_rebuild_page: Reconstructs the upper levels of the FSM page after modification
+  - [PageGetContents](../P/PageGetContents.md): Extracts the FSM page content from the generic page structure
+  - [fsm_rebuild_page](fsm_rebuild_page.md): Reconstructs the upper levels of the FSM page after modification
 - Constants referenced:
   - FSMPage: Type definition for FSM page structure
   - LeafNodesPerPage: Maximum number of leaf nodes per FSM page
   - NonLeafNodesPerPage: Number of non-leaf nodes per FSM page
   - NodesPerPage: Total number of nodes per FSM page
 - Called from (representative examples):
-  - FreeSpaceMapPrepareTruncateRel: Main function that prepares FSM for relation truncation
+  - [FreeSpaceMapPrepareTruncateRel](../F/FreeSpaceMapPrepareTruncateRel.md): Main function that prepares FSM for relation truncation
 
 ## Notes and Other Information
 - Returns  if the page was modified,  if no changes were needed (all affected slots were already zero)

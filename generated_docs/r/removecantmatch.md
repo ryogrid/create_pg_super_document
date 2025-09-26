@@ -25,10 +25,10 @@ This cleanup step is essential for optimizing the final NFA before it is used fo
 ## Dependencies
 - Functions called/Symbols referenced:
   - CANTMATCH (arc type constant for impossible matches)
-  - freearc (deallocates an arc from the NFA)
+  - [freearc](../f/freearc.md) (deallocates an arc from the NFA)
   - NISERR (error checking macro)
 - Called from (representative examples):
-  - optimize (main NFA optimization function)
+  - [optimize](../o/optimize.md) (main NFA optimization function)
 
 ## Notes and Other Information
 - CANTMATCH arcs are temporary constructs used only during parsing to maintain connectivity

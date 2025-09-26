@@ -27,7 +27,7 @@ The  function is a storage manager interface that triggers kernel writeback for 
   - SMgrRelation (type)
   - smgrsw (storage manager dispatch table)
 - Called from (representative examples):
-  - IssuePendingWritebacks
+  - [IssuePendingWritebacks](../I/IssuePendingWritebacks.md)
   - SmgrIsTemp
 
 ## Notes and Other Information

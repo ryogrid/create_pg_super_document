@@ -23,7 +23,7 @@ This function implements the data reading functionality for the "none" compressi
 - Functions called/Symbols referenced:
   - [CompressorState](../C/CompressorState.md) (struct type)
   - DEFAULT_IO_BUFFER_SIZE (constant)
-  - pg_malloc (memory allocation)
+  - [pg_malloc](../p/pg_malloc.md) (memory allocation)
   - [ahwrite](../a/ahwrite.md) (archive write function)
 - Called from (representative examples):
   - [InitCompressorNone](../I/InitCompressorNone.md)

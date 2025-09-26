@@ -22,7 +22,7 @@ The function uses a switch statement to handle different SQLValueFunction operat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SQLValueFunction
+  - [SQLValueFunction](../S/SQLValueFunction.md)
   - LOCAL_FCINFO
   - [GetSQLCurrentDate](../G/GetSQLCurrentDate.md), GetSQLCurrentTime, GetSQLCurrentTimestamp
   - [GetSQLLocalTime](../G/GetSQLLocalTime.md), GetSQLLocalTimestamp

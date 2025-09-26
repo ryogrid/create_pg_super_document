@@ -21,7 +21,7 @@ The function constructs a SQL query to select all relevant fields from pg_ts_dic
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md): Executes the SQL query against the database
-  - pg_malloc: Allocates memory for the TSDictInfo array  
+  - [pg_malloc](../p/pg_malloc.md): Allocates memory for the TSDictInfo array  
   - atooid: Converts string OID values to Oid type
   - [AssignDumpId](../A/AssignDumpId.md): Assigns unique dump ID to each dictionary object
   - [findNamespace](../f/findNamespace.md): Looks up namespace information for the dictionary

@@ -25,9 +25,9 @@ This is a critical function for the pg_waldump utility as it establishes the cor
 ## Dependencies
 - Functions called/Symbols referenced:
   - [open_file_in_directory](../o/open_file_in_directory.md)
-  - opendir
-  - readdir
-  - closedir
+  - [opendir](../o/opendir.md)
+  - [readdir](../r/readdir.md)
+  - [closedir](../c/closedir.md)
   - [IsXLogFileName](../I/IsXLogFileName.md)
   - read
   - close

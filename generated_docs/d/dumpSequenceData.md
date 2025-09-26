@@ -23,7 +23,7 @@ The  function generates SQL statements to restore the current state of a sequenc
 - Functions called/Symbols referenced:
   - fmtQualifiedDumpable
   - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
-  - createPQExpBuffer/resetPQExpBuffer/destroyPQExpBuffer
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)/resetPQExpBuffer/destroyPQExpBuffer
   - appendStringLiteralAH
   - [createDumpId](../c/createDumpId.md)
   - [ArchiveEntry](../A/ArchiveEntry.md)

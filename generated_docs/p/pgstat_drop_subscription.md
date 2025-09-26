@@ -22,7 +22,7 @@ The function is designed to work seamlessly with PostgreSQL's transaction system
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_drop_transactional
+  - [pgstat_drop_transactional](pgstat_drop_transactional.md)
   - PGSTAT_KIND_SUBSCRIPTION
   - [PgStat_StatSubEntry](../P/PgStat_StatSubEntry.md)
 - Called from (representative examples):

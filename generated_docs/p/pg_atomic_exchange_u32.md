@@ -27,9 +27,9 @@ The function is implemented as a thin wrapper around `pg_atomic_exchange_u32_imp
   - AssertPointerAlignment (alignment check)
   - [pg_atomic_exchange_u32_impl](pg_atomic_exchange_u32_impl.md) (platform-specific implementation)
 - Called from (representative examples):
-  - TransactionGroupUpdateXidStatus (src/backend/access/transam/clog.c:570)
+  - [TransactionGroupUpdateXidStatus](../T/TransactionGroupUpdateXidStatus.md) (src/backend/access/transam/clog.c:570)
   - [pgarch_readyXlog](pgarch_readyXlog.md) (src/backend/postmaster/pgarch.c:653)
-  - StrategySyncStart (src/backend/storage/buffer/freelist.c:416)
+  - [StrategySyncStart](../S/StrategySyncStart.md) (src/backend/storage/buffer/freelist.c:416)
   - [ProcArrayGroupClearXid](../P/ProcArrayGroupClearXid.md) (src/backend/storage/ipc/procarray.c:854)
   - [ProcessProcSignalBarrier](../P/ProcessProcSignalBarrier.md) (src/backend/storage/ipc/procsignal.c:508)
 

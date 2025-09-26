@@ -24,9 +24,9 @@ This function creates a formatted string representation of a MultiXact ID and it
 - Functions called/Symbols referenced:
   - [mxstatus_to_string](mxstatus_to_string.md)
   - [MemoryContextStrdup](../M/MemoryContextStrdup.md)
-  - initStringInfo
-  - appendStringInfo
-  - appendStringInfoChar
+  - [initStringInfo](../i/initStringInfo.md)
+  - [appendStringInfo](../a/appendStringInfo.md)
+  - [appendStringInfoChar](../a/appendStringInfoChar.md)
   - [pfree](../p/pfree.md)
 - Called from (representative examples):
   - [MultiXactIdCreate](../M/MultiXactIdCreate.md)

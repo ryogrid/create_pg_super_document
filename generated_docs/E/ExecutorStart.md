@@ -27,7 +27,7 @@ An important memory management aspect is that the CurrentMemoryContext when this
 - Functions called/Symbols referenced:
   - [pgstat_report_query_id](../p/pgstat_report_query_id.md) (for query statistics reporting)
   - [standard_ExecutorStart](../s/standard_ExecutorStart.md) (default implementation when no hook is present)
-  - QueryDesc (parameter structure)
+  - [QueryDesc](../Q/QueryDesc.md) (parameter structure)
 - Called from (representative examples):
   - [BeginCopyTo](../B/BeginCopyTo.md) (src/backend/commands/copyto.c:569)
   - [ExecCreateTableAs](ExecCreateTableAs.md) (src/backend/commands/createas.c:321)

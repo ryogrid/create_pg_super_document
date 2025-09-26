@@ -21,9 +21,9 @@ The function is intentionally simple and does not perform any validation of the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - createPQExpBuffer (to create the return buffer for the expression)
+  - [createPQExpBuffer](../c/createPQExpBuffer.md) (to create the return buffer for the expression)
   - psql_scan_slash_option (to extract individual tokens from the command line)
-  - appendPQExpBufferChar (to add space separators between tokens)
+  - [appendPQExpBufferChar](../a/appendPQExpBufferChar.md) (to add space separators between tokens)
   - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md) (to append each token to the expression buffer)
   - free (to deallocate individual token strings)
 - Called from (representative examples):

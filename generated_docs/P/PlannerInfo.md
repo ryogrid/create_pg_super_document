@@ -217,12 +217,12 @@ The structure supports both bottom-up join planning (through join_rel_level arra
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Query](../Q/Query.md) (parse tree node)
-  - PlannerGlobal (global planning state)
-  - RelOptInfo (relation optimization info)
+  - [PlannerGlobal](PlannerGlobal.md) (global planning state)
+  - [RelOptInfo](../R/RelOptInfo.md) (relation optimization info)
   - [SpecialJoinInfo](../S/SpecialJoinInfo.md) (join constraint info)
-  - EquivalenceClass (equivalence class info)
-  - PathKey (sort ordering info)
-  - PlaceHolderInfo (placeholder variable info)
+  - [EquivalenceClass](../E/EquivalenceClass.md) (equivalence class info)
+  - [PathKey](PathKey.md) (sort ordering info)
+  - [PlaceHolderInfo](PlaceHolderInfo.md) (placeholder variable info)
 
 - Called from (representative examples):
   - [subquery_planner](../s/subquery_planner.md)() (main entry point)

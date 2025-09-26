@@ -21,13 +21,13 @@ This internal function iterates through all locks held by a specific transaction
   - [LockRelease](../L/LockRelease.md)
   - [hash_search](../h/hash_search.md)
   - [RecoveryLockEntry](../R/RecoveryLockEntry.md)
-  - LOCKTAG
+  - [LOCKTAG](../L/LOCKTAG.md)
   - AccessExclusiveLock
   - HASH_REMOVE
 - Called from (representative examples):
   - [StandbyReleaseLocks](StandbyReleaseLocks.md) (src/backend/storage/ipc/standby.c:1075)
-  - StandbyReleaseAllLocks (src/backend/storage/ipc/standby.c:1115)
-  - StandbyReleaseOldLocks (src/backend/storage/ipc/standby.c:1145)
+  - [StandbyReleaseAllLocks](StandbyReleaseAllLocks.md) (src/backend/storage/ipc/standby.c:1115)
+  - [StandbyReleaseOldLocks](StandbyReleaseOldLocks.md) (src/backend/storage/ipc/standby.c:1145)
 
 ## Notes and Other Information
 - Static function not exposed outside standby.c

@@ -24,7 +24,7 @@ The function uses PostgreSQL's memory management system (palloc) and relies on t
   - [palloc](../p/palloc.md) (for memory allocation)
   - memcpy (for copying data)
   - VARSIZE (macro for determining variable-length structure size)
-  - Numeric (data type)
+  - [Numeric](../N/Numeric.md) (data type)
 - Called from (representative examples):
   - [numeric](../n/numeric.md) (conversion functions)
   - [numeric_abs](../n/numeric_abs.md)
@@ -32,8 +32,8 @@ The function uses PostgreSQL's memory management system (palloc) and relies on t
   - [numeric_uplus](../n/numeric_uplus.md)
   - [numeric_round](../n/numeric_round.md)
   - [numeric_trunc](../n/numeric_trunc.md)
-  - numeric_ceil
-  - numeric_floor
+  - [numeric_ceil](../n/numeric_ceil.md)
+  - [numeric_floor](../n/numeric_floor.md)
   - [numeric_mod_opt_error](../n/numeric_mod_opt_error.md)
   - [numeric_inc](../n/numeric_inc.md)
   - [numeric_sqrt](../n/numeric_sqrt.md)

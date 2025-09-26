@@ -23,10 +23,10 @@ The function returns 0 if the operation is successful and EOF if it fails. Howev
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQputnbytes
+  - [PQputnbytes](PQputnbytes.md)
   - strlen (standard C library function)
 - Called from (representative examples):
-  - initPopulateTable (in pgbench)
+  - [initPopulateTable](../i/initPopulateTable.md) (in pgbench)
 
 ## Notes and Other Information
 - This function is deprecated and should be avoided in new code

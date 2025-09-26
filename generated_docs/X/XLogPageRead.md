@@ -41,8 +41,8 @@ The function implements sophisticated error handling that differentiates between
   - [RequestCheckpoint](../R/RequestCheckpoint.md)
   - [emode_for_corrupt_record](../e/emode_for_corrupt_record.md)
   - [XLogReaderValidatePageHeader](XLogReaderValidatePageHeader.md)
-  - pg_pread
-  - pgstat_report_wait_start/end
+  - [pg_pread](../p/pg_pread.md)
+  - [pgstat_report_wait_start](../p/pgstat_report_wait_start.md)/end
 - Called from (representative examples):
   - [InitWalRecovery](../I/InitWalRecovery.md) (as page_read callback)
   - [XLogReaderState](XLogReaderState.md) callback mechanism

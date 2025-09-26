@@ -30,11 +30,11 @@ CreateDomainStmt is a parse tree node structure that encapsulates information ne
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TypeName (for base type specification)
-  - CollateClause (for collation specification)
+  - [TypeName](../T/TypeName.md) (for base type specification)
+  - [CollateClause](CollateClause.md) (for collation specification)
 - Called from (representative examples):
-  - DefineDomain
-  - ProcessUtilitySlow
+  - [DefineDomain](../D/DefineDomain.md)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md)
   - DEFAULT_TYPDELIM
 
 ## Notes and Other Information

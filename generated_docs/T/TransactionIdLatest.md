@@ -32,7 +32,7 @@ The function is essential for transaction management operations where the system
   - [RecordTransactionAbort](../R/RecordTransactionAbort.md) (transaction abort recording)
   - [xact_redo_commit](../x/xact_redo_commit.md) (WAL replay for commit records)
   - [xact_redo_abort](../x/xact_redo_abort.md) (WAL replay for abort records)
-  - ProcArrayApplyXidAssignment (process array transaction assignment)
+  - [ProcArrayApplyXidAssignment](../P/ProcArrayApplyXidAssignment.md) (process array transaction assignment)
 
 ## Notes and Other Information
 The function includes an optimization where it scans the xids array backwards, as PostgreSQL subtransaction arrays are typically sorted in ascending order. This reduces unnecessary assignments when the latest transaction is likely at the end of the array. The function handles the modular nature of PostgreSQL's transaction ID space through its use of TransactionIdPrecedes for comparisons.

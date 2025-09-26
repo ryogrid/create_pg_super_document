@@ -19,8 +19,8 @@ This function processes a DocRepresentation entry and updates the corresponding 
 ## Dependencies
 - Functions called/Symbols referenced:
   - DocRepresentation (struct type)
-  - QueryRepresentation (struct type)
-  - QueryRepresentationOperand (struct type)
+  - [QueryRepresentation](../Q/QueryRepresentation.md) (struct type)
+  - [QueryRepresentationOperand](../Q/QueryRepresentationOperand.md) (struct type)
   - QI_VAL (constant for query item type)
   - QR_GET_OPERAND_DATA (macro for accessing operand data)
   - MAXQROPOS (maximum query representation positions)

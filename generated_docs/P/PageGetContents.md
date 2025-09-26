@@ -25,7 +25,7 @@ This function calculates and returns a pointer to the content area of a page by 
 - Called from (representative examples):
   - [brinGetStats](../b/brinGetStats.md) (in src/backend/access/brin/brin.c:1648)
   - [visibilitymap_clear](../v/visibilitymap_clear.md) (in src/backend/access/heap/visibilitymap.c:159)
-  - fsm_set_avail (in src/backend/storage/freespace/fsmpage.c:66)
+  - [fsm_set_avail](../f/fsm_set_avail.md) (in src/backend/storage/freespace/fsmpage.c:66)
   - GinPageGetMeta (in src/include/access/ginblock.h:106)
   - HashPageGetMeta (in src/include/access/hash.h:324)
   - BTPageGetMeta (in src/include/access/nbtree.h:122)

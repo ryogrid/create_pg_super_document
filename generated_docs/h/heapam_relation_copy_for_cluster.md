@@ -39,7 +39,7 @@ heapam_relation_copy_for_cluster is the core function that implements the CLUSTE
   - [LockBuffer](../L/LockBuffer.md)
   - [rewrite_heap_dead_tuple](../r/rewrite_heap_dead_tuple.md)
   - [reform_and_rewrite_tuple](../r/reform_and_rewrite_tuple.md)
-  - tuplesort_performsort, tuplesort_getheaptuple, tuplesort_end
+  - [tuplesort_performsort](../t/tuplesort_performsort.md), tuplesort_getheaptuple, tuplesort_end
   - [end_heap_rewrite](../e/end_heap_rewrite.md)
   - [pgstat_progress_update_param](../p/pgstat_progress_update_param.md), pgstat_progress_update_multi_param
 - Constants referenced:

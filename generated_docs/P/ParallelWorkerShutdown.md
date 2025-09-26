@@ -29,7 +29,7 @@ The function guards against race conditions where worker statistics or other imp
   - [SendProcSignal](../S/SendProcSignal.md)
   - PROCSIG_PARALLEL_MESSAGE (signal type constant)
   - [dsm_detach](../d/dsm_detach.md)
-  - dsm_segment (struct type)
+  - [dsm_segment](../d/dsm_segment.md) (struct type)
   - [DatumGetPointer](../D/DatumGetPointer.md) (macro for extracting pointer from Datum)
 - Called from (representative examples):
   - [ParallelWorkerMain](ParallelWorkerMain.md) (registered via before_shmem_exit)

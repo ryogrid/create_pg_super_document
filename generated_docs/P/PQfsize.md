@@ -18,16 +18,16 @@ PQfsize retrieves the size in bytes of the PostgreSQL data type for the specifie
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_field_number: Validates that field_num is within valid range
+  - [check_field_number](../c/check_field_number.md): Validates that field_num is within valid range
 - Called from (representative examples):
-  - ECPGget_desc (ECPG): Size information for embedded SQL descriptor handling
-  - ecpg_build_compat_sqlda (ECPG): SQLDA structure building with size information
+  - [ECPGget_desc](../E/ECPGget_desc.md) (ECPG): Size information for embedded SQL descriptor handling
+  - [ecpg_build_compat_sqlda](../e/ecpg_build_compat_sqlda.md) (ECPG): SQLDA structure building with size information
 
 ## Notes and Other Information
 - Returns 0 if the field number is out of range or if attribute information is not available
 - The function accesses the typlen member of the PGresAttDesc structure stored in res->attDescs
 - Fixed-length types return their byte size (e.g., 4 for INTEGER, 8 for BIGINT)
-- Variable-length types typically return -1 (e.g., TEXT, VARCHAR, BYTEA)
+- [Variable](../V/Variable.md)-length types typically return -1 (e.g., TEXT, VARCHAR, BYTEA)
 - Special value -2 indicates a null-terminated C string (CSTRING type)
 - This function is thread-safe as it only reads from the PGresult structure
 - Type size information is determined by PostgreSQL's internal type definitions

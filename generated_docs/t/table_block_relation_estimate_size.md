@@ -42,7 +42,7 @@ The all-visible fraction calculation assumes newly added pages since the last VA
   - HEAP_DEFAULT_FILLFACTOR
 - Called from (representative examples):
   - [heapam_estimate_rel_size](../h/heapam_estimate_rel_size.md)
-  - table_scan_sample_next_tuple
+  - [table_scan_sample_next_tuple](table_scan_sample_next_tuple.md)
 
 ## Notes and Other Information
 - Cannot be used directly as a relation_estimate_size callback due to additional parameters

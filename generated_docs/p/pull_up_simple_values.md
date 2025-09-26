@@ -39,7 +39,7 @@ This optimization is particularly valuable because it eliminates the overhead of
   - copyObject
   - linitial
   - [contain_vars_of_level](../c/contain_vars_of_level.md)
-  - lappend
+  - [lappend](../l/lappend.md)
   - [makeTargetEntry](../m/makeTargetEntry.md)
   - lfirst
   - [palloc0](palloc0.md)

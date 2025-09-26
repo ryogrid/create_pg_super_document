@@ -20,12 +20,12 @@ PageGetTempPage creates a temporary page buffer in local memory that matches the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PageGetPageSize (retrieves the size of the source page)
-  - palloc (PostgreSQL memory allocation function)
+  - [PageGetPageSize](PageGetPageSize.md) (retrieves the size of the source page)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation function)
 - Called from (representative examples):
-  - ginPlaceToPage (GIN index page placement operations)
-  - dataSplitPageInternal (GIN data page splitting)
-  - _bt_split (B-tree page splitting operations)
+  - [ginPlaceToPage](../g/ginPlaceToPage.md) (GIN index page placement operations)
+  - [dataSplitPageInternal](../d/dataSplitPageInternal.md) (GIN data page splitting)
+  - [_bt_split](../b/_bt_split.md) (B-tree page splitting operations)
 
 ## Notes and Other Information
 - Returns an uninitialized page buffer that must be set up by the caller

@@ -22,16 +22,16 @@ The projection process is highly optimized through PostgreSQL's expression compi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecClearTuple (to prepare the result slot)
-  - ExecEvalExprSwitchContext (to evaluate projection expressions with proper memory context)
+  - [ExecClearTuple](ExecClearTuple.md) (to prepare the result slot)
+  - [ExecEvalExprSwitchContext](ExecEvalExprSwitchContext.md) (to evaluate projection expressions with proper memory context)
   - TTS_FLAG_EMPTY (flag manipulation for slot status)
 - Called from (representative examples):
-  - ExecScan (for scan node projections)
-  - project_aggregates (in aggregate processing)
-  - ExecGather and ExecGatherMerge (for parallel query results)
-  - ExecGroup (for grouping operations)
+  - [ExecScan](ExecScan.md) (for scan node projections)
+  - [project_aggregates](../p/project_aggregates.md) (in aggregate processing)
+  - [ExecGather](ExecGather.md) and ExecGatherMerge (for parallel query results)
+  - [ExecGroup](ExecGroup.md) (for grouping operations)
   - Various join implementations (HashJoin, MergeJoin, NestLoop)
-  - ExecModifyTable operations (INSERT, UPDATE, MERGE projections)
+  - [ExecModifyTable](ExecModifyTable.md) operations (INSERT, UPDATE, MERGE projections)
 
 ## Notes and Other Information
 - This is a static inline function defined in executor.h, ensuring efficient execution for this frequently-called operation

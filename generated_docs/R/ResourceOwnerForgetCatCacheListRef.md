@@ -21,11 +21,11 @@ ResourceOwnerForgetCatCacheListRef is a static inline wrapper function that remo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwnerForget
-  - PointerGetDatum
+  - [ResourceOwnerForget](ResourceOwnerForget.md)
+  - [PointerGetDatum](../P/PointerGetDatum.md)
   - catlistref_resowner_desc (static resource owner descriptor for catalog cache lists)
 - Called from (representative examples):
-  - ReleaseCatCacheListWithOwner
+  - [ReleaseCatCacheListWithOwner](ReleaseCatCacheListWithOwner.md)
 
 ## Notes and Other Information
 - This is a static inline function defined in src/backend/utils/cache/catcache.c (lines 174-178)

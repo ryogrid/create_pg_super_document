@@ -32,14 +32,14 @@ The function recursively transforms both left and right expressions before apply
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - exprIsNullConstant
-  - make_nulltest_from_distinct
-  - transformExprRecurse
-  - make_row_distinct_op
-  - make_distinct_op
-  - makeBoolExpr
+  - [exprIsNullConstant](../e/exprIsNullConstant.md)
+  - [make_nulltest_from_distinct](../m/make_nulltest_from_distinct.md)
+  - [transformExprRecurse](transformExprRecurse.md)
+  - [make_row_distinct_op](../m/make_row_distinct_op.md)
+  - [make_distinct_op](../m/make_distinct_op.md)
+  - [makeBoolExpr](../m/makeBoolExpr.md)
 - Called from (representative examples):
-  - transformExprRecurse
+  - [transformExprRecurse](transformExprRecurse.md)
 
 ## Notes and Other Information
 - The function is static, meaning it's only accessible within parse_expr.c

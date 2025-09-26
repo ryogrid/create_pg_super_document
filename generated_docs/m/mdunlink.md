@@ -19,7 +19,7 @@ This function provides a sophisticated file deletion mechanism that goes beyond 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - mdunlinkfork (performs actual fork-specific unlinking)
+  - [mdunlinkfork](mdunlinkfork.md) (performs actual fork-specific unlinking)
   - InvalidForkNumber (constant for processing all forks)
   - MAX_FORKNUM (maximum fork number for iteration)
 

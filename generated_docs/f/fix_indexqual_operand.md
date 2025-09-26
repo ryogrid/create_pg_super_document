@@ -27,11 +27,11 @@ The function performs extensive sanity checking to ensure the given expression m
 ## Dependencies
 - Functions called/Symbols referenced:
   - copyObject
-  - makeVar
+  - [makeVar](../m/makeVar.md)
   - [equal](../e/equal.md)
-  - list_head
+  - [list_head](../l/list_head.md)
   - [lnext](../l/lnext.md)
-  - exprType
+  - [exprType](../e/exprType.md)
   - [exprCollation](../e/exprCollation.md)
   - INDEX_VAR
 - Called from (representative examples):

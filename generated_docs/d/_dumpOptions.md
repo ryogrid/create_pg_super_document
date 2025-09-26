@@ -105,7 +105,7 @@ The _dumpOptions structure serves as the central configuration container for pg_
 ## Notes and Other Information
 - This structure is defined in src/bin/pg_dump/pg_backup.h:164-209
 - Provides comprehensive control over all aspects of database dumping
-- Boolean and integer flags allow precise customization of dump behavior
+- [Boolean](../B/Boolean.md) and integer flags allow precise customization of dump behavior
 - Works with ConnParams for database connectivity
 - The dump_inserts option provides flexibility between COPY and INSERT statement formats
 - Multiple exclusion options (no_comments, no_security_labels, etc.) allow selective dumping

@@ -55,9 +55,9 @@ The structure includes pointers to shared memory segments for coordination, perf
 - Functions called/Symbols referenced:
   - [ParallelContext](../P/ParallelContext.md)
   - [BrinShared](BrinShared.md)
-  - Sharedsort
-  - WalUsage
-  - BufferUsage
+  - [Sharedsort](../S/Sharedsort.md)
+  - [WalUsage](../W/WalUsage.md)
+  - [BufferUsage](BufferUsage.md)
 - Called from (representative examples):
   - [BrinBuildState](BrinBuildState.md)
   - [_brin_begin_parallel](../b/_brin_begin_parallel.md)

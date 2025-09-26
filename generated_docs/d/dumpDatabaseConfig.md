@@ -25,19 +25,19 @@ This function retrieves configuration settings that have been set at the databas
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetConnection](../G/GetConnection.md)
-  - createPQExpBuffer
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)
   - [printfPQExpBuffer](../p/printfPQExpBuffer.md)
   - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
   - [PQntuples](../P/PQntuples.md)
   - [PQgetvalue](../P/PQgetvalue.md)
   - [makeAlterConfigCommand](../m/makeAlterConfigCommand.md)
   - [PQclear](../P/PQclear.md)
-  - destroyPQExpBuffer
+  - [destroyPQExpBuffer](destroyPQExpBuffer.md)
 - Types referenced:
   - [Archive](../A/Archive.md)
   - PQExpBuffer
-  - PGconn
-  - PGresult
+  - [PGconn](../P/PGconn.md)
+  - [PGresult](../P/PGresult.md)
   - Oid
   - PGRES_TUPLES_OK
 - Called from:

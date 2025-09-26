@@ -35,7 +35,7 @@ This function takes no parameters.
   - S_ISDIR
   - ereport
   - snprintf
-  - MakePGDirectory
+  - [MakePGDirectory](../M/MakePGDirectory.md)
   - [errcode_for_file_access](../e/errcode_for_file_access.md)
   - [errmsg](../e/errmsg.md)
 - Constants used:

@@ -29,15 +29,15 @@ The frozen state ensures tape contents remain available until the LogicalTapeSet
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LogicalTapeSet, TapeShare (structure types)
+  - [LogicalTapeSet](LogicalTapeSet.md), TapeShare (structure types)
   - VALGRIND_MAKE_MEM_DEFINED (memory debugging support)
   - TapeBlockSetNBytes, TapeBlockGetNBytes (block size management)
   - TapeBlockIsLast, TapeBlockGetTrailer (block metadata access)
-  - ltsWriteBlock, ltsReadBlock (low-level block I/O)
-  - BufFileExportFileSet (file sharing for parallel operations)
+  - [ltsWriteBlock](../l/ltsWriteBlock.md), ltsReadBlock (low-level block I/O)
+  - [BufFileExportFileSet](../B/BufFileExportFileSet.md) (file sharing for parallel operations)
 - Called from (representative examples):
-  - mergeruns (in tuplesort.c during merge operations)
-  - worker_freeze_result_tape (in tuplesort.c for parallel sort coordination)
+  - [mergeruns](../m/mergeruns.md) (in tuplesort.c during merge operations)
+  - [worker_freeze_result_tape](../w/worker_freeze_result_tape.md) (in tuplesort.c for parallel sort coordination)
 
 ## Notes and Other Information
 - Must be called exactly at the end of a write pass, before rewinding

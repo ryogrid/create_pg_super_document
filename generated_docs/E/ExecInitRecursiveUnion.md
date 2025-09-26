@@ -34,18 +34,18 @@ The function ensures proper memory management by creating separate contexts for 
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode
-  - tuplestore_begin_heap
+  - [tuplestore_begin_heap](../t/tuplestore_begin_heap.md)
   - AllocSetContextCreate
-  - ExecInitResultTypeTL
-  - ExecInitNode
-  - execTuplesHashPrepare
-  - build_hash_table
+  - [ExecInitResultTypeTL](ExecInitResultTypeTL.md)
+  - [ExecInitNode](ExecInitNode.md)
+  - [execTuplesHashPrepare](../e/execTuplesHashPrepare.md)
+  - [build_hash_table](../b/build_hash_table.md)
   - outerPlan
   - innerPlan
   - outerPlanState
   - innerPlanState
 - Called from (representative examples):
-  - ExecInitNode
+  - [ExecInitNode](ExecInitNode.md)
 
 ## Notes and Other Information
 - Validates that backward scan and mark/restore execution flags are not set, as these are unsupported

@@ -33,9 +33,9 @@ The approach deliberately avoids de-duplication of outer aggregate references, c
   - copyObject: Creates a deep copy of the GroupingFunc
   - [IncrementVarSublevelsUp](../I/IncrementVarSublevelsUp.md): Adjusts variable level references in the copied GroupingFunc
   - makeNode: Creates new PlannerParamItem and Param nodes
-  - lappend_oid: Appends parameter type to the global parameter types list
-  - lappend: Adds the parameter item to the plan parameters list
-  - exprType: Determines the data type of the GroupingFunc expression
+  - [lappend_oid](../l/lappend_oid.md): Appends parameter type to the global parameter types list
+  - [lappend](../l/lappend.md): Adds the parameter item to the plan parameters list
+  - [exprType](../e/exprType.md): Determines the data type of the GroupingFunc expression
 
 - Called from (representative examples):
   - [replace_correlation_vars_mutator](replace_correlation_vars_mutator.md): Used during correlation variable replacement in subquery planning

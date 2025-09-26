@@ -25,16 +25,16 @@ The function performs sanity checks on the control segment after attachment to e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dsm_impl_op (with DSM_OP_ATTACH and DSM_OP_DETACH)
-  - dsm_control_segment_sane
+  - [dsm_impl_op](dsm_impl_op.md) (with DSM_OP_ATTACH and DSM_OP_DETACH)
+  - [dsm_control_segment_sane](dsm_control_segment_sane.md)
   - ereport
-  - errcode
-  - errmsg
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
   - Assert
   - IsUnderPostmaster
 - Called from (representative examples):
-  - dsm_create
-  - dsm_attach
+  - [dsm_create](dsm_create.md)
+  - [dsm_attach](dsm_attach.md)
 
 ## Notes and Other Information
 - Only performs actual work under EXEC_BACKEND builds; otherwise just sets dsm_init_done flag

@@ -24,18 +24,18 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - HOLD_INTERRUPTS: Prevents interrupt processing during lock release
-  - LWLockRelease: Releases individual locks from the held_lwlocks array
+  - [LWLockRelease](LWLockRelease.md): Releases individual locks from the held_lwlocks array
 - Global variables used:
   - num_held_lwlocks: Count of currently held locks
   - held_lwlocks: Array tracking held locks
 - Called from (representative examples):
-  - AbortTransaction: Transaction abort cleanup
-  - AbortSubTransaction: Subtransaction abort cleanup
-  - ShutdownAuxiliaryProcess: Process shutdown cleanup
-  - BackgroundWriterMain: Background writer error handling
-  - CheckpointerMain: Checkpointer error handling
-  - WalWriterMain: WAL writer error handling
-  - ProcKill: Process termination cleanup
+  - [AbortTransaction](../A/AbortTransaction.md): Transaction abort cleanup
+  - [AbortSubTransaction](../A/AbortSubTransaction.md): Subtransaction abort cleanup
+  - [ShutdownAuxiliaryProcess](../S/ShutdownAuxiliaryProcess.md): Process shutdown cleanup
+  - [BackgroundWriterMain](../B/BackgroundWriterMain.md): Background writer error handling
+  - [CheckpointerMain](../C/CheckpointerMain.md): Checkpointer error handling
+  - [WalWriterMain](../W/WalWriterMain.md): WAL writer error handling
+  - [ProcKill](../P/ProcKill.md): Process termination cleanup
 
 ## Notes and Other Information
 - This function is specifically designed for error recovery scenarios and maintains proper interrupt handling semantics

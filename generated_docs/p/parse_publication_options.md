@@ -34,7 +34,7 @@ The function first sets default values for all publication actions (all enabled 
 - Functions called/Symbols referenced:
   - [errorConflictingDefElem](../e/errorConflictingDefElem.md)
   - [defGetString](../d/defGetString.md)
-  - SplitIdentifierString
+  - [SplitIdentifierString](../S/SplitIdentifierString.md)
   - [defGetBoolean](../d/defGetBoolean.md)
   - [PublicationActions](../P/PublicationActions.md)
   - [DefElem](../D/DefElem.md)

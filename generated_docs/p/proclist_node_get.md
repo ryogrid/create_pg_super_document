@@ -25,7 +25,7 @@ Being defined as static inline, this function is optimized for performance since
 ## Dependencies
 - Functions called/Symbols referenced:
   - `GetPGProcByNumber` (function to retrieve PGPROC structure by process number)
-  - `proclist_node` (data structure type)
+  - `[proclist_node](proclist_node.md)` (data structure type)
 - Called from (representative examples):
   - [proclist_push_head_offset](proclist_push_head_offset.md) (src/include/storage/proclist.h:61, 77)
   - [proclist_push_tail_offset](proclist_push_tail_offset.md) (src/include/storage/proclist.h:89, 105)

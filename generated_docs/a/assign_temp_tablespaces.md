@@ -27,7 +27,7 @@ This design ensures that temporary file placement always uses validated, accessi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SetTempTablespaces
+  - [SetTempTablespaces](../S/SetTempTablespaces.md)
   - temp_tablespaces_extra (struct type)
 - Called from (representative examples):
   - GUC system (referenced in src/include/utils/guc_hooks.h:159)

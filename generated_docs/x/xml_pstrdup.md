@@ -19,10 +19,10 @@ This function serves as a custom string duplication callback for the libxml libr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextStrdup
+  - [MemoryContextStrdup](../M/MemoryContextStrdup.md)
 - Called from:
-  - PgXmlErrorContext
-  - xml_memory_init (as callback registration)
+  - [PgXmlErrorContext](../P/PgXmlErrorContext.md)
+  - [xml_memory_init](xml_memory_init.md) (as callback registration)
   - Indirectly called by libxml through callback mechanism
 
 ## Notes and Other Information

@@ -24,17 +24,17 @@ The function begins by writing a header comment warning users not to manually ed
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initStringInfo
-  - appendStringInfoString
-  - resetStringInfo
-  - escape_single_quotes_ascii
+  - [initStringInfo](../i/initStringInfo.md)
+  - [appendStringInfoString](../a/appendStringInfoString.md)
+  - [resetStringInfo](../r/resetStringInfo.md)
+  - [escape_single_quotes_ascii](../e/escape_single_quotes_ascii.md)
   - write
-  - pg_fsync
+  - [pg_fsync](../p/pg_fsync.md)
   - [pfree](../p/pfree.md)
   - ereport
   - [errcode_for_file_access](../e/errcode_for_file_access.md)
 - Data structures used:
-  - ConfigVariable
+  - [ConfigVariable](../C/ConfigVariable.md)
   - [StringInfoData](../S/StringInfoData.md)
 - Called from (representative examples):
   - [AlterSystemSetConfigFile](../A/AlterSystemSetConfigFile.md)

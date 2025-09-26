@@ -31,7 +31,7 @@ The function includes sophisticated error handling and retry logic to ensure cri
   - [ForwardSyncRequest](../F/ForwardSyncRequest.md): Forwards sync requests to checkpointer process
   - [WaitLatch](../W/WaitLatch.md): Provides timed wait with postmaster death detection
   - `SyncRequestType`: Enum defining sync operation types
-  - `FileTag`: Structure identifying files for sync operations
+  - `[FileTag](../F/FileTag.md)`: Structure identifying files for sync operations
   - `WL_EXIT_ON_PM_DEATH`: Latch wait option for postmaster death detection
   - `WL_TIMEOUT`: Latch wait option for timeout behavior
 

@@ -25,12 +25,12 @@ The function performs safe integer arithmetic using PostgreSQL's overflow-checki
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_add_s32_overflow (for safe integer addition)
+  - [pg_add_s32_overflow](../p/pg_add_s32_overflow.md) (for safe integer addition)
   - MONTHS_PER_YEAR (constant, value 12)
-  - pg_itm_in (structure type)
+  - [pg_itm_in](../p/pg_itm_in.md) (structure type)
 - Called from (representative examples):
-  - DecodeInterval (multiple times for different time unit processing)
-  - DecodeISO8601Interval (for ISO 8601 interval parsing)
+  - [DecodeInterval](../D/DecodeInterval.md) (multiple times for different time unit processing)
+  - [DecodeISO8601Interval](../D/DecodeISO8601Interval.md) (for ISO 8601 interval parsing)
 
 ## Notes and Other Information
 - The function returns true on success, false if integer overflow occurs

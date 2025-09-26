@@ -32,18 +32,18 @@ The function maintains backward compatibility by using slightly different whites
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendStringInfoChar (for parentheses and type indicators)
+  - [appendStringInfoChar](../a/appendStringInfoChar.md) (for parentheses and type indicators)
   - IsA (macro for type checking)
-  - outNode (recursive function for serializing node elements)
+  - [outNode](outNode.md) (recursive function for serializing node elements)
   - [lnext](../l/lnext.md) (macro for list traversal)
   - lfirst_int (macro for extracting integer values)
   - lfirst_oid (macro for extracting OID values)  
   - lfirst_xid (macro for extracting XID values)
-  - appendStringInfo (for formatted integer/OID/XID output)
+  - [appendStringInfo](../a/appendStringInfo.md) (for formatted integer/OID/XID output)
   - elog (for error reporting)
 
 - Called from (representative examples):
-  - outNode (main node output dispatcher in outfuncs.c:725)
+  - [outNode](outNode.md) (main node output dispatcher in outfuncs.c:725)
 
 ## Notes and Other Information
 - This function is declared static, limiting its scope to the outfuncs.c file

@@ -38,7 +38,7 @@ The function mirrors the structure of  but implements the inverse logic for AND 
   -  - Creates a copy of the input arguments list
   -  - Removes first element from unprocessed arguments
   -  - Checks if a node is an AND boolean expression
-  -  - Boolean expression node type for accessing AND arguments
+  -  - [Boolean](../B/Boolean.md) expression node type for accessing AND arguments
   -  - Concatenates lists for flattening nested ANDs
   -  - Memory cleanup for old argument lists
   -  - Recursively simplifies individual arguments

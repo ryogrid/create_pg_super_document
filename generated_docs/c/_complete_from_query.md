@@ -41,9 +41,9 @@ Key features include:
   - [parse_identifier](../p/parse_identifier.md)
   - [make_like_pattern](../m/make_like_pattern.md)
   - [escape_string](../e/escape_string.md)
-  - initPQExpBuffer
+  - [initPQExpBuffer](../i/initPQExpBuffer.md)
   - [exec_query](../e/exec_query.md)
-  - termPQExpBuffer
+  - [termPQExpBuffer](../t/termPQExpBuffer.md)
   - PGRES_TUPLES_OK
   - [PQgetisnull](../P/PQgetisnull.md)
   - [PQnfields](../P/PQnfields.md)

@@ -36,7 +36,7 @@ The completion of a speculative insertion releases any locks or waiting states t
 - Functions called/Symbols referenced:
   - `rel->rd_tableam->tuple_complete_speculative` (access method-specific implementation)
 - Called from (representative examples):
-  - `ExecInsert` (src/backend/executor/nodeModifyTable.c:1132)
+  - `[ExecInsert](../E/ExecInsert.md)` (src/backend/executor/nodeModifyTable.c:1132)
 
 ## Notes and Other Information
 - Essential completion function for PostgreSQL's INSERT .. ON CONFLICT (UPSERT) mechanism

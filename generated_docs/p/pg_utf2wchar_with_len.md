@@ -31,7 +31,7 @@ The function gracefully handles incomplete sequences at the end of input by drop
 - Functions called/Symbols referenced:
   - (None - uses only basic bit operations and assignments)
 - Called from (representative examples):
-  - pg_encoding_set_invalid
+  - [pg_encoding_set_invalid](pg_encoding_set_invalid.md)
 
 ## Notes and Other Information
 - This is a static function with internal linkage, only accessible within wchar.c

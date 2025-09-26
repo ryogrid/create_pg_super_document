@@ -24,11 +24,11 @@ The function operates on PostgreSQL's global send buffer state variables (, , an
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - internal_flush_buffer (core buffer flushing implementation)
+  - [internal_flush_buffer](internal_flush_buffer.md) (core buffer flushing implementation)
 - Called from (representative examples):
-  - internal_putbytes (when send buffer becomes full)
-  - socket_flush (public flush interface)
-  - socket_flush_if_writable (conditional flushing)
+  - [internal_putbytes](internal_putbytes.md) (when send buffer becomes full)
+  - [socket_flush](../s/socket_flush.md) (public flush interface)
+  - [socket_flush_if_writable](../s/socket_flush_if_writable.md) (conditional flushing)
 
 ## Notes and Other Information
 - Function is marked as static inline for performance optimization

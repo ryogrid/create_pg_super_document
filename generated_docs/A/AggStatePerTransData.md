@@ -203,13 +203,13 @@ The struct supports various aggregate types including simple aggregates, DISTINC
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Aggref
-  - Tuplesortstate
-  - FunctionCallInfo
-  - initValue
+  - [Aggref](Aggref.md)
+  - [Tuplesortstate](../T/Tuplesortstate.md)
+  - [FunctionCallInfo](../F/FunctionCallInfo.md)
+  - [initValue](../i/initValue.md)
 - Called from (representative examples):
-  - ExecInitAgg
-  - AggStatePerTrans
+  - [ExecInitAgg](../E/ExecInitAgg.md)
+  - [AggStatePerTrans](AggStatePerTrans.md)
 
 ## Notes and Other Information
 This structure is central to PostgreSQL's aggregate processing architecture, enabling efficient handling of various aggregate types. The separation between transition state (this struct) and final result computation (AggStatePerAggData) allows for optimization where multiple aggregates can share the same transition computation. The pre-initialized FunctionCallInfo structures help reduce per-row overhead during aggregate processing.

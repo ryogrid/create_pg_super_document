@@ -32,11 +32,11 @@ The get_namespace_name_or_temp function is a specialized version of get_namespac
   - [format_procedure_parts](../f/format_procedure_parts.md)
   - [format_operator_parts](../f/format_operator_parts.md)
   - [pg_get_functiondef](../p/pg_get_functiondef.md)
-  - generate_relation_name
-  - generate_qualified_relation_name
-  - generate_function_name
-  - generate_operator_name
-  - generate_qualified_type_name
+  - [generate_relation_name](generate_relation_name.md)
+  - [generate_qualified_relation_name](generate_qualified_relation_name.md)
+  - [generate_function_name](generate_function_name.md)
+  - [generate_operator_name](generate_operator_name.md)
+  - [generate_qualified_type_name](generate_qualified_type_name.md)
 
 ## Notes and Other Information
 - Returns a palloc'd string that must be freed by the caller

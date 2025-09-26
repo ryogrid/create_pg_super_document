@@ -24,7 +24,7 @@ The function performs element-by-element conversion, extracting each TEXT datum 
   - [deconstruct_array_builtin](../d/deconstruct_array_builtin.md) (array element extraction)
   - TextDatumGetCString (TEXT datum to C string conversion) 
   - [makeString](../m/makeString.md) (creates string Value nodes)
-  - lappend (list append operation)
+  - [lappend](../l/lappend.md) (list append operation)
 - Called from (representative examples):
   - [pg_get_object_address](../p/pg_get_object_address.md) (SQL function for object address resolution)
 

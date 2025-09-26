@@ -42,8 +42,8 @@ The function performs extensive cleanup of shared memory hash tables, manages th
   - [ReleaseOneSerializableXact](ReleaseOneSerializableXact.md) (transaction structure cleanup)
 - Called from (representative examples):
   - [SerializationNeededForRead](../S/SerializationNeededForRead.md) (early release for safe read-only transactions)
-  - GetSafeSnapshot (snapshot acquisition safety checks)
-  - PredicateLockTwoPhaseFinish (two-phase commit completion)
+  - [GetSafeSnapshot](../G/GetSafeSnapshot.md) (snapshot acquisition safety checks)
+  - [PredicateLockTwoPhaseFinish](../P/PredicateLockTwoPhaseFinish.md) (two-phase commit completion)
   - [ResourceOwnerReleaseInternal](ResourceOwnerReleaseInternal.md) (resource cleanup)
 
 ## Notes and Other Information

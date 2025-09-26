@@ -17,9 +17,9 @@ This function serves as a security gateway for file access operations in Postgre
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - text_to_cstring: Converts PostgreSQL text to C string
+  - [text_to_cstring](../t/text_to_cstring.md): Converts PostgreSQL text to C string
   - [canonicalize_path](canonicalize_path.md): Normalizes path by resolving relative components
-  - has_privs_of_role: Checks if user has privileges of specified role
+  - [has_privs_of_role](../h/has_privs_of_role.md): Checks if user has privileges of specified role
   - [GetUserId](../G/GetUserId.md): Gets current user ID
   - is_absolute_path: Determines if path is absolute
   - [path_is_prefix_of_path](../p/path_is_prefix_of_path.md): Checks if one path is a prefix of another

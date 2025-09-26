@@ -32,20 +32,20 @@ The function uses a priority-based wait queue where processes that already hold 
 ## Dependencies
 - Functions called/Symbols referenced:
   - LockHashPartitionLock (get partition lock for this lock)
-  - RememberSimpleDeadLock (record deadlock information)
-  - LockCheckConflicts (check for lock conflicts)
-  - GrantLock (grant the lock to the process)
-  - GrantAwaitedLock (update local lock table when granted)
-  - RemoveFromWaitQueue (remove process from wait queue)
-  - RecoveryInProgress (check if in recovery mode)
-  - CheckRecoveryConflictDeadlock (check for recovery conflicts)
-  - WaitLatch (wait for latch to be set)
-  - CheckDeadLock (run deadlock detection algorithm)
-  - GetBlockingAutoVacuumPgproc (find blocking autovacuum process)
-  - ResolveRecoveryConflictWithLock (handle recovery conflicts)
+  - [RememberSimpleDeadLock](../R/RememberSimpleDeadLock.md) (record deadlock information)
+  - [LockCheckConflicts](../L/LockCheckConflicts.md) (check for lock conflicts)
+  - [GrantLock](../G/GrantLock.md) (grant the lock to the process)
+  - [GrantAwaitedLock](../G/GrantAwaitedLock.md) (update local lock table when granted)
+  - [RemoveFromWaitQueue](../R/RemoveFromWaitQueue.md) (remove process from wait queue)
+  - [RecoveryInProgress](../R/RecoveryInProgress.md) (check if in recovery mode)
+  - [CheckRecoveryConflictDeadlock](../C/CheckRecoveryConflictDeadlock.md) (check for recovery conflicts)
+  - [WaitLatch](../W/WaitLatch.md) (wait for latch to be set)
+  - [CheckDeadLock](../C/CheckDeadLock.md) (run deadlock detection algorithm)
+  - [GetBlockingAutoVacuumPgproc](../G/GetBlockingAutoVacuumPgproc.md) (find blocking autovacuum process)
+  - [ResolveRecoveryConflictWithLock](../R/ResolveRecoveryConflictWithLock.md) (handle recovery conflicts)
 
 - Called from (representative examples):
-  - WaitOnLock (main lock acquisition path)
+  - [WaitOnLock](../W/WaitOnLock.md) (main lock acquisition path)
 
 ## Notes and Other Information
 - Returns PROC_WAIT_STATUS_OK if lock acquired, PROC_WAIT_STATUS_ERROR if failed or would block with dontWait=true

@@ -38,18 +38,18 @@ The structure contains both original and transformed versions of index qualifica
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Scan (inherited base structure)
+  - [Scan](../S/Scan.md) (inherited base structure)
   - ScanDirection (enumeration for scan direction)
   - Oid (object identifier type)
-  - List (PostgreSQL list type)
+  - [List](../L/List.md) (PostgreSQL list type)
 
 - Called from (representative examples):
-  - ExecInitIndexScan (executor initialization for index scans)
-  - IndexNext (main index scan execution function)
-  - IndexNextWithReorder (index scan with result reordering)
-  - make_indexscan (planner utility to create IndexScan nodes)
-  - create_bitmap_subplan (bitmap scan creation)
-  - ExplainNode (query explanation functionality)
+  - [ExecInitIndexScan](../E/ExecInitIndexScan.md) (executor initialization for index scans)
+  - [IndexNext](IndexNext.md) (main index scan execution function)
+  - [IndexNextWithReorder](IndexNextWithReorder.md) (index scan with result reordering)
+  - [make_indexscan](../m/make_indexscan.md) (planner utility to create IndexScan nodes)
+  - [create_bitmap_subplan](../c/create_bitmap_subplan.md) (bitmap scan creation)
+  - [ExplainNode](../E/ExplainNode.md) (query explanation functionality)
 
 ## Notes and Other Information
 - Index scans are typically more efficient than sequential scans for selective queries

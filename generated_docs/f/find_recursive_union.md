@@ -25,8 +25,8 @@ If no matching RecursiveUnion is found, the function raises an error, as this in
 ## Dependencies
 - Functions called/Symbols referenced:
   - deparse_namespace (namespace structure containing ancestor information)
-  - WorkTableScan (work table scan plan node)
-  - RecursiveUnion (recursive union plan node)
+  - [WorkTableScan](../W/WorkTableScan.md) (work table scan plan node)
+  - [RecursiveUnion](../R/RecursiveUnion.md) (recursive union plan node)
   - [Plan](../P/Plan.md) (base plan node structure)
   - ListCell (list cell structure for iteration)
   - lfirst (macro to extract data from list cell)

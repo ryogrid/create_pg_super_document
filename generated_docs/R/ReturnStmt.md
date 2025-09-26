@@ -27,10 +27,10 @@ During query transformation, ReturnStmt nodes are processed by transformReturnSt
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (inherited node type system)
-  - Node (base node type)
+  - [Node](../N/Node.md) (base node type)
 - Called from (representative examples):
-  - transformStmt (general statement transformation)
-  - transformReturnStmt (specific return statement transformation)
+  - [transformStmt](../t/transformStmt.md) (general statement transformation)
+  - [transformReturnStmt](../t/transformReturnStmt.md) (specific return statement transformation)
 
 ## Notes and Other Information
 - Only valid within SQL function bodies, not in regular SQL statements

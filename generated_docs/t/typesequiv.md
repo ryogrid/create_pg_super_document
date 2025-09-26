@@ -48,10 +48,10 @@ This static function compares two timezone type entries identified by indices  a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ttinfo (struct type)
+  - [ttinfo](ttinfo.md) (struct type)
   - strcmp (implicitly used for string comparison)
 - Called from (representative examples):
-  - tzloadbody
+  - [tzloadbody](tzloadbody.md)
 
 ## Notes and Other Information
 - Returns  if the state pointer is NULL or if either index is out of bounds

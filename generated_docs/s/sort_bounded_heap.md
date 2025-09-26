@@ -29,15 +29,15 @@ This approach is memory-efficient as it requires no additional storage beyond th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - tuplesort_heap_delete_top: Removes the top element from the heap and re-heapifies
-  - reversedirection: Restores the original sort direction after processing
+  - [tuplesort_heap_delete_top](../t/tuplesort_heap_delete_top.md): Removes the top element from the heap and re-heapifies
+  - [reversedirection](../r/reversedirection.md): Restores the original sort direction after processing
   - TSS_BOUNDED: Status indicating bounded heap mode
   - TSS_SORTEDINMEM: Status indicating tuples are sorted in memory
   - SortTuple: Tuple structure used in sorting operations
   - SERIAL: Macro checking if this is a serial (non-parallel) sort operation
 
 - Called from:
-  - tuplesort_performsort: Main sorting orchestration function
+  - [tuplesort_performsort](../t/tuplesort_performsort.md): Main sorting orchestration function
   - LEADER: Parallel sort leader process
 
 ## Notes and Other Information

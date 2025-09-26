@@ -31,11 +31,11 @@ The function accumulates the following key metrics:
 - Functions called/Symbols referenced:
   - Max (macro)
 - Types used:
-  - HashInstrumentation
-  - HashJoinTable
+  - [HashInstrumentation](../H/HashInstrumentation.md)
+  - [HashJoinTable](../H/HashJoinTable.md)
 - Called from (representative examples):
-  - ExecShutdownHash
-  - ExecReScanHashJoin
+  - [ExecShutdownHash](ExecShutdownHash.md)
+  - [ExecReScanHashJoin](ExecReScanHashJoin.md)
 
 ## Notes and Other Information
 - The function assumes the instrument parameter points to a zeroed or previously initialized HashInstrumentation structure

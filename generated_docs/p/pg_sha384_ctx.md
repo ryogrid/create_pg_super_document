@@ -29,14 +29,14 @@ Since pg_sha384_ctx is a type alias for pg_sha512_ctx, it inherits all the same 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_sha512_ctx (base structure type)
+  - [pg_sha512_ctx](pg_sha512_ctx.md) (base structure type)
   - PG_SHA512_BLOCK_LENGTH (inherited through pg_sha512_ctx)
 
 - Called from (representative examples):
-  - pg_cryptohash_ctx (general cryptographic hash context structure)
-  - pg_sha384_init (initializes context with SHA-384-specific initial values)
-  - pg_sha384_update (processes data chunks using SHA-512 algorithm)
-  - pg_sha384_final (finalizes hash computation with 384-bit output truncation)
+  - [pg_cryptohash_ctx](pg_cryptohash_ctx.md) (general cryptographic hash context structure)
+  - [pg_sha384_init](pg_sha384_init.md) (initializes context with SHA-384-specific initial values)
+  - [pg_sha384_update](pg_sha384_update.md) (processes data chunks using SHA-512 algorithm)
+  - [pg_sha384_final](pg_sha384_final.md) (finalizes hash computation with 384-bit output truncation)
 
 ## Notes and Other Information
 - This type alias demonstrates the architectural relationship between SHA-384 and SHA-512 algorithms

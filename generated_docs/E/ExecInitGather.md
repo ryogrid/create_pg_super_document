@@ -26,7 +26,7 @@ The function determines whether the leader process should participate in scannin
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (creates GatherState structure)
-  - ExecAssignExprContext (sets up expression evaluation context)
+  - [ExecAssignExprContext](ExecAssignExprContext.md) (sets up expression evaluation context)
   - [ExecInitNode](ExecInitNode.md) (initializes the outer child plan node)
   - [ExecGetResultType](ExecGetResultType.md) (gets result tuple descriptor from child)
   - [ExecInitResultTypeTL](ExecInitResultTypeTL.md) (initializes result type from target list)
@@ -36,8 +36,8 @@ The function determines whether the leader process should participate in scannin
   - [ExecInitNode](ExecInitNode.md) (main node initialization dispatcher)
 
 ## Notes and Other Information
-- Gather nodes do not have inner plan nodes and this is verified with an assertion
+- [Gather](../G/Gather.md) nodes do not have inner plan nodes and this is verified with an assertion
 - The function sets outeropsfixed to false because tuples may come from different sources with potentially different slot implementations
 - A funnel_slot is created specifically for collecting tuples from worker processes using minimal tuple operations for efficiency
-- Gather nodes do not support qual conditions as it's more efficient to apply filtering in child nodes
+- [Gather](../G/Gather.md) nodes do not support qual conditions as it's more efficient to apply filtering in child nodes
 - The need_to_scan_locally flag determines whether the leader process participates in actual data scanning alongside coordinating workers

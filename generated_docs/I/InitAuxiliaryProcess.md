@@ -26,7 +26,7 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - set_spins_per_delay
+  - [set_spins_per_delay](../s/set_spins_per_delay.md)
   - GetNumberFromPGProc
   - [dlist_node_init](../d/dlist_node_init.md)
   - [OwnLatch](../O/OwnLatch.md)
@@ -35,7 +35,7 @@ This function takes no parameters.
   - [PGSemaphoreReset](../P/PGSemaphoreReset.md)
   - [on_shmem_exit](../o/on_shmem_exit.md)
   - [AuxiliaryProcKill](../A/AuxiliaryProcKill.md)
-  - InitLWLockAccess
+  - [InitLWLockAccess](InitLWLockAccess.md)
   - [AttachSharedMemoryStructs](../A/AttachSharedMemoryStructs.md) (EXEC_BACKEND only)
 
 - Called from (representative examples):

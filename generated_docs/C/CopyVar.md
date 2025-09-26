@@ -21,11 +21,11 @@ CopyVar creates a new SplitVar structure and optionally copies the contents from
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (memory allocation)
-  - pstrdup (string duplication when makedup is true)
-  - SplitVar (structure type)
+  - [palloc](../p/palloc.md) (memory allocation)
+  - [pstrdup](../p/pstrdup.md) (string duplication when makedup is true)
+  - [SplitVar](../S/SplitVar.md) (structure type)
 - Called from (representative examples):
-  - SplitToVariants (at src/backend/tsearch/spell.c:2393, 2431)
+  - [SplitToVariants](../S/SplitToVariants.md) (at src/backend/tsearch/spell.c:2393, 2431)
 
 ## Notes and Other Information
 - When s is NULL, creates an empty SplitVar with initial capacity of 16 stems

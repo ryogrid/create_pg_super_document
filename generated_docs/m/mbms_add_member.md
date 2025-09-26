@@ -24,11 +24,11 @@ The function automatically extends the List with empty (NULL) elements if the sp
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_nth_cell
-  - bms_add_member
+  - [list_nth_cell](../l/list_nth_cell.md)
+  - [bms_add_member](../b/bms_add_member.md)
 - Called from (representative examples):
-  - find_nonnullable_vars_walker
-  - find_forced_null_vars
+  - [find_nonnullable_vars_walker](../f/find_nonnullable_vars_walker.md)
+  - [find_forced_null_vars](../f/find_forced_null_vars.md)
 
 ## Notes and Other Information
 - Both listidx and bitidx must be non-negative; the function will throw an ERROR if negative values are provided

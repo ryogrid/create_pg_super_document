@@ -20,13 +20,13 @@ This internal function handles the conditional release of locks based on ownersh
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwnerForgetLock: Removes lock reference from resource owner's tracking
-  - LockRelease: Performs the actual lock release operation
+  - [ResourceOwnerForgetLock](ResourceOwnerForgetLock.md): Removes lock reference from resource owner's tracking
+  - [LockRelease](../L/LockRelease.md): Performs the actual lock release operation
   - Assert: Debug assertion macro
   - elog: Error logging function
 - Called from (representative examples):
-  - LockReleaseSession: To release session-level locks
-  - LockReleaseCurrentOwner: To release transaction-level locks
+  - [LockReleaseSession](../L/LockReleaseSession.md): To release session-level locks
+  - [LockReleaseCurrentOwner](../L/LockReleaseCurrentOwner.md): To release transaction-level locks
   - PROCLOCK_PRINT: Used in debug/logging contexts
 
 ## Notes and Other Information

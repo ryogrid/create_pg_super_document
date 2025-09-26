@@ -23,7 +23,7 @@ This function is a core component of PostgreSQL's pg_upgrade utility that collec
   - [connectToServer](../c/connectToServer.md)
   - [executeQueryOrDie](../e/executeQueryOrDie.md)
   - GET_MAJOR_VERSION
-  - pg_malloc0
+  - [pg_malloc0](../p/pg_malloc0.md)
   - atooid
   - [pg_strdup](../p/pg_strdup.md)
   - [PQfinish](../P/PQfinish.md)

@@ -21,10 +21,10 @@ replorigin_get_progress queries the current replication progress for a given rep
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLockAcquire/LWLockRelease
+  - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease
   - [XLogFlush](../X/XLogFlush.md)
   - RepOriginId
-  - ReplicationState (struct)
+  - [ReplicationState](../R/ReplicationState.md) (struct)
   - LW_SHARED
   - InvalidXLogRecPtr
 - Called from (representative examples):

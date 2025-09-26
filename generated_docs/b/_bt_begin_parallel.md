@@ -33,7 +33,7 @@ The function supports both unique and non-unique indexes, with unique indexes re
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - EnterParallelMode: Enter PostgreSQL's parallel execution mode
+  - [EnterParallelMode](../E/EnterParallelMode.md): Enter PostgreSQL's parallel execution mode
   - [CreateParallelContext](../C/CreateParallelContext.md): Create context for parallel worker coordination
   - [_bt_parallel_estimate_shared](_bt_parallel_estimate_shared.md): Estimate shared memory for B-tree specific state
   - [tuplesort_estimate_shared](../t/tuplesort_estimate_shared.md): Estimate memory for tuplesort operations

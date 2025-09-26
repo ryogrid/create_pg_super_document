@@ -21,11 +21,11 @@ This function serves as a simplified interface to the WindowFunc deparsing funct
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_windowfunc_expr_helper
-  - WindowFunc (struct type)
-  - deparse_context (struct type)
+  - [get_windowfunc_expr_helper](get_windowfunc_expr_helper.md)
+  - [WindowFunc](../W/WindowFunc.md) (struct type)
+  - [deparse_context](../d/deparse_context.md) (struct type)
 - Called from (representative examples):
-  - get_rule_expr
+  - [get_rule_expr](get_rule_expr.md)
 
 ## Notes and Other Information
 This function is part of PostgreSQL's rule deparsing system, which converts internal query tree structures back into SQL text. The WindowFunc node represents window function calls in the query tree, and this function is responsible for converting them back to their SQL syntax. The actual work is delegated to get_windowfunc_expr_helper, making this function a convenience wrapper for the most common deparsing scenario.

@@ -29,7 +29,7 @@ This function handles the exit from PL/Python subtransactions, following Python'
   - [RollbackAndReleaseCurrentSubTransaction](../R/RollbackAndReleaseCurrentSubTransaction.md)  
   - [ReleaseCurrentSubTransaction](../R/ReleaseCurrentSubTransaction.md)
   - linitial
-  - list_delete_first
+  - [list_delete_first](../l/list_delete_first.md)
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - [pfree](../p/pfree.md)
   - Py_RETURN_NONE

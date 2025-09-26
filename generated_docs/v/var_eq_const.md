@@ -40,18 +40,18 @@ The function also handles inequality operations through the negate parameter, co
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_opcode](../g/get_opcode.md)
-  - statistic_proc_security_check
+  - [statistic_proc_security_check](../s/statistic_proc_security_check.md)
   - [get_attstatsslot](../g/get_attstatsslot.md)
   - [fmgr_info](../f/fmgr_info.md)
   - InitFunctionCallInfoData
   - FunctionCallInvoke
-  - get_variable_numdistinct
+  - [get_variable_numdistinct](../g/get_variable_numdistinct.md)
   - [free_attstatsslot](../f/free_attstatsslot.md)
   - CLAMP_PROBABILITY
   - STATISTIC_KIND_MCV, ATTSTATSSLOT_VALUES, ATTSTATSSLOT_NUMBERS (constants)
 - Called from (representative examples):
   - [eqsel_internal](../e/eqsel_internal.md)
-  - boolvarsel
+  - [boolvarsel](../b/boolvarsel.md)
   - [patternsel_common](../p/patternsel_common.md)
   - [prefix_selectivity](../p/prefix_selectivity.md)
 

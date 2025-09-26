@@ -20,15 +20,15 @@ This function reads and parses MySpell/Hunspell format affix files (.aff files) 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - tsearch_readline_begin/tsearch_readline/tsearch_readline_end (file reading utilities)
-  - addCompoundAffixFlagValue (processes compound flags)
-  - parse_ooaffentry (parses individual affix entries)
-  - lowerstr_ctx (string case conversion)
-  - getCompoundAffixFlagValue/getAffixFlagSet (flag processing)
-  - NIAddAffix (adds parsed affix to dictionary)
+  - [tsearch_readline_begin](../t/tsearch_readline_begin.md)/tsearch_readline/tsearch_readline_end (file reading utilities)
+  - [addCompoundAffixFlagValue](../a/addCompoundAffixFlagValue.md) (processes compound flags)
+  - [parse_ooaffentry](../p/parse_ooaffentry.md) (parses individual affix entries)
+  - [lowerstr_ctx](../l/lowerstr_ctx.md) (string case conversion)
+  - [getCompoundAffixFlagValue](../g/getCompoundAffixFlagValue.md)/getAffixFlagSet (flag processing)
+  - [NIAddAffix](NIAddAffix.md) (adds parsed affix to dictionary)
   - qsort/cmpcmdflag (sorts compound flags)
 - Called from (representative examples):
-  - NIImportAffixes (main affix import function)
+  - [NIImportAffixes](NIImportAffixes.md) (main affix import function)
 
 ## Notes and Other Information
 - Supports three flag modes: FM_CHAR (single character), FM_LONG (two characters), FM_NUM (numeric)

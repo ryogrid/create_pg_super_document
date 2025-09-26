@@ -26,16 +26,16 @@ The underlying PartitionDispatchData structure contains:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PartitionDispatchData (underlying structure)
+  - [PartitionDispatchData](PartitionDispatchData.md) (underlying structure)
 - Called from (representative examples):
-  - ExecFindPartition
-  - ExecInitPartitionDispatchInfo
-  - ExecInitRoutingInfo
-  - FormPartitionKeyDatum
-  - get_partition_for_tuple
+  - [ExecFindPartition](../E/ExecFindPartition.md)
+  - [ExecInitPartitionDispatchInfo](../E/ExecInitPartitionDispatchInfo.md)
+  - [ExecInitRoutingInfo](../E/ExecInitRoutingInfo.md)
+  - [FormPartitionKeyDatum](../F/FormPartitionKeyDatum.md)
+  - [get_partition_for_tuple](../g/get_partition_for_tuple.md)
 
 ## Notes and Other Information
-- PartitionDispatch is always used as part of a larger PartitionTupleRouting structure
+- [PartitionDispatch](PartitionDispatch.md) is always used as part of a larger PartitionTupleRouting structure
 - The indexes array uses a flexible array member, allowing variable-length allocation based on the number of partitions
 - This abstraction allows PostgreSQL to efficiently navigate complex partition hierarchies during INSERT, UPDATE, and COPY operations
 - The structure supports both leaf partitions and nested partitioned partitions through its indexing scheme

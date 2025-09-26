@@ -22,9 +22,9 @@ The `ecpg_type_infocache_push` function creates a new type information cache ent
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ECPGtype_information_cache (struct type)
+  - [ECPGtype_information_cache](../E/ECPGtype_information_cache.md) (struct type)
   - ARRAY_TYPE (enum type)
-  - ecpg_alloc
+  - [ecpg_alloc](ecpg_alloc.md)
 - Called from (representative examples):
   - not_an_array_in_ecpg (many locations)
 

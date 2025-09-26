@@ -21,7 +21,7 @@ This function is called at the end of each transaction to update database-level 
   - pgStatXactCommit (global counter variable)
   - pgStatXactRollback (global counter variable)
 - Called from (representative examples):
-  - AtEOXact_PgStat (from src/backend/utils/activity/pgstat_xact.c:44)
+  - [AtEOXact_PgStat](AtEOXact_PgStat.md) (from src/backend/utils/activity/pgstat_xact.c:44)
 
 ## Notes and Other Information
 - The function uses counters rather than simple boolean flags because the reporting message to the statistics collector might not be sent immediately

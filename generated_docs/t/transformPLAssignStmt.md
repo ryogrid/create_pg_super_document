@@ -44,7 +44,7 @@ The transformation process involves:
   - [transformDistinctClause](transformDistinctClause.md), transformDistinctOnClause
   - [transformLimitClause](transformLimitClause.md), transformWindowDefinitions
   - [transformLockingClause](transformLockingClause.md), assign_query_collations, parseCheckAggregates
-  - exprType, exprTypmod, exprCollation, exprLocation
+  - [exprType](../e/exprType.md), exprTypmod, exprCollation, exprLocation
   - [format_type_be](../f/format_type_be.md), makeFromExpr
 - Called from (representative examples):
   - [transformStmt](transformStmt.md)

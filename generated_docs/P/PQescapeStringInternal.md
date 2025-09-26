@@ -36,7 +36,7 @@ The function processes the input string character by character, using a fast pat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - strnlen
+  - [strnlen](../s/strnlen.md)
   - IS_HIGHBIT_SET
   - SQL_STR_DOUBLE
   - [pg_encoding_mblen_or_incomplete](../p/pg_encoding_mblen_or_incomplete.md)

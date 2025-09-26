@@ -26,14 +26,14 @@ This function implements PostgreSQL's ALTER RULE RENAME functionality by updatin
   - [RangeVarGetRelidExtended](RangeVarGetRelidExtended.md)
   - [RangeVarCallbackForRenameRule](RangeVarCallbackForRenameRule.md)
   - [relation_open](../r/relation_open.md)/relation_close
-  - table_open/table_close
+  - [table_open](../t/table_open.md)/table_close
   - SearchSysCacheCopy2
   - HeapTupleIsValid
   - ereport/errcode/errmsg
   - RelationGetRelationName
   - GETSTRUCT
   - [IsDefinedRewriteRule](../I/IsDefinedRewriteRule.md)
-  - namestrcpy
+  - [namestrcpy](../n/namestrcpy.md)
   - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - InvokeObjectPostAlterHook
   - [heap_freetuple](../h/heap_freetuple.md)

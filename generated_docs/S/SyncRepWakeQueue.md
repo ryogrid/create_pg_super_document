@@ -36,7 +36,7 @@ The function assumes the queue is ordered by LSN and leverages this for efficien
   - [dlist_delete_thoroughly](../d/dlist_delete_thoroughly.md) (list element removal)
   - pg_write_barrier (memory barrier for ordering)
   - [SetLatch](SetLatch.md) (process awakening)
-  - LWLockHeldByMeInMode (lock assertion)
+  - [LWLockHeldByMeInMode](../L/LWLockHeldByMeInMode.md) (lock assertion)
   - [SyncRepQueueIsOrderedByLSN](SyncRepQueueIsOrderedByLSN.md) (queue validation)
 - Called from (representative examples):
   - SyncStandbysDefined (src/backend/replication/syncrep.c:102)

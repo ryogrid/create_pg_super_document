@@ -35,7 +35,7 @@ The function allocates memory for the uniqueness comparison arrays only when nee
 
 ## Notes and Other Information
 - The function is static, indicating it's only used within the createplan.c module
-- Limit operations don't project new columns, so target list requirements pass through unchanged
+- [Limit](../L/Limit.md) operations don't project new columns, so target list requirements pass through unchanged
 - Special handling for LIMIT WITH TIES requires:
   - Extracting sort clause information from the parse tree
   - Building arrays of column indices (uniqColIdx), equality operators (uniqOperators), and collations (uniqCollations)

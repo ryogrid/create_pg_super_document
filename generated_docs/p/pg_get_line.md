@@ -24,15 +24,15 @@ The function supports optional cancellation via SIGINT signal handling through t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initStringInfo
-  - pg_get_line_append
-  - pfree
-  - PromptInterruptContext (struct)
+  - [initStringInfo](../i/initStringInfo.md)
+  - [pg_get_line_append](pg_get_line_append.md)
+  - [pfree](pfree.md)
+  - [PromptInterruptContext](../P/PromptInterruptContext.md) (struct)
 
 - Called from (representative examples):
-  - get_su_pwd (src/bin/initdb/initdb.c:1676)
-  - pipe_read_line (src/common/exec.c:388)
-  - simple_prompt_extended (src/common/sprompt.c:145)
+  - [get_su_pwd](../g/get_su_pwd.md) (src/bin/initdb/initdb.c:1676)
+  - [pipe_read_line](pipe_read_line.md) (src/common/exec.c:388)
+  - [simple_prompt_extended](../s/simple_prompt_extended.md) (src/common/sprompt.c:145)
 
 ## Notes and Other Information
 - The function returns NULL on I/O error or EOF with no data, with errno preserved for error distinction

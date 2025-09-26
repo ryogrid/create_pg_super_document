@@ -22,7 +22,7 @@ The  function checks if a given character is considered valid for variable name 
 - Functions called/Symbols referenced:
   - isalnum (standard C library function)
 - Called from (representative examples):
-  - replace_variables
+  - [replace_variables](../r/replace_variables.md)
 
 ## Notes and Other Information
 - This is a static function local to the prepare.c file in the ECPG library

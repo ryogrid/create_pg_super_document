@@ -21,7 +21,7 @@ This function serves as the central coordinator for all publication modification
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_open (relation access)
+  - [table_open](../t/table_open.md) (relation access)
   - SearchSysCacheCopy1 (catalog lookup)
   - [object_ownercheck](../o/object_ownercheck.md) (permission verification)
   - [AlterPublicationOptions](AlterPublicationOptions.md) (option modifications)

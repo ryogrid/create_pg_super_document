@@ -24,10 +24,10 @@ The implementation uses direct subtraction for comparison, with a noted assumpti
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RBTNode (generic Red-Black Tree node type)
-  - IntRBTreeNode (integer-specific node structure)
+  - [RBTNode](../R/RBTNode.md) (generic Red-Black Tree node type)
+  - [IntRBTreeNode](../I/IntRBTreeNode.md) (integer-specific node structure)
 - Called from (representative examples):
-  - create_int_rbtree (used as comparator function in tree creation)
+  - [create_int_rbtree](../c/create_int_rbtree.md) (used as comparator function in tree creation)
 
 ## Notes and Other Information
 - This is a static function used only within the test_rbtree module

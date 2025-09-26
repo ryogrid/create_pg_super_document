@@ -25,14 +25,14 @@ The function includes assertions to ensure it's only called in valid contexts:
 - Functions called/Symbols referenced:
   - HeapTupleHeaderGetRawCommandId: Gets the raw command ID from the tuple header
   - HeapTupleHeaderGetXmin: Gets the transaction ID that inserted the tuple
-  - TransactionIdIsCurrentTransactionId: Validates that Xmin is the current transaction
-  - GetRealCmin: Resolves combo command ID to actual minimum command ID
+  - [TransactionIdIsCurrentTransactionId](../T/TransactionIdIsCurrentTransactionId.md): Validates that Xmin is the current transaction
+  - [GetRealCmin](../G/GetRealCmin.md): Resolves combo command ID to actual minimum command ID
 - Called from (representative examples):
-  - log_heap_new_cid: For WAL logging purposes
-  - heapam_tuple_lock: During tuple locking operations
-  - HeapTupleSatisfiesUpdate: Visibility checking for updates
-  - HeapTupleSatisfiesMVCC: MVCC visibility determination
-  - HeapTupleHeaderAdjustCmax: Command ID adjustment operations
+  - [log_heap_new_cid](../l/log_heap_new_cid.md): For WAL logging purposes
+  - [heapam_tuple_lock](../h/heapam_tuple_lock.md): During tuple locking operations
+  - [HeapTupleSatisfiesUpdate](HeapTupleSatisfiesUpdate.md): Visibility checking for updates
+  - [HeapTupleSatisfiesMVCC](HeapTupleSatisfiesMVCC.md): MVCC visibility determination
+  - [HeapTupleHeaderAdjustCmax](HeapTupleHeaderAdjustCmax.md): Command ID adjustment operations
 
 ## Notes and Other Information
 - Only valid to call from within the transaction that created the tuple

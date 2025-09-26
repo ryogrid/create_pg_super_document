@@ -18,14 +18,14 @@ This function handles the replay of tuple deletion operations in hash indexes du
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData
-  - XLogReadBufferForRedoExtended
-  - XLogReadBufferForRedo
+  - [XLogReadBufferForRedoExtended](../X/XLogReadBufferForRedoExtended.md)
+  - [XLogReadBufferForRedo](../X/XLogReadBufferForRedo.md)
   - [XLogRecGetBlockData](../X/XLogRecGetBlockData.md)
   - [BufferGetPage](../B/BufferGetPage.md)
   - [PageIndexMultiDelete](../P/PageIndexMultiDelete.md)
   - HashPageGetOpaque
   - [PageSetLSN](../P/PageSetLSN.md)
-  - MarkBufferDirty
+  - [MarkBufferDirty](../M/MarkBufferDirty.md)
   - [BufferIsValid](../B/BufferIsValid.md)
   - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
   - [xl_hash_delete](../x/xl_hash_delete.md)

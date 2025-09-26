@@ -35,7 +35,7 @@ This function directly corresponds to the SQL  operator when used with BIT or VA
 - Called from (representative examples):
   - PostgreSQL SQL executor when processing equality expressions
   - B-tree index operations for bit string types
-  - Hash table operations requiring bit string equality
+  - [Hash](../H/Hash.md) table operations requiring bit string equality
 
 ## Notes and Other Information
 - Returns true only if both bit content and length are identical

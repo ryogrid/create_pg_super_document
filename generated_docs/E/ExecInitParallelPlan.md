@@ -48,11 +48,11 @@ Key components initialized:
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecSetParamPlanMulti](ExecSetParamPlanMulti.md) (evaluate initplan parameters)
-  - ExecSerializePlan (serialize plan for workers)
+  - [ExecSerializePlan](ExecSerializePlan.md) (serialize plan for workers)
   - [CreateParallelContext](../C/CreateParallelContext.md) (create parallel execution context)
   - [InitializeParallelDSM](../I/InitializeParallelDSM.md) (create shared memory segment)
   - [ExecParallelSetupTupleQueues](ExecParallelSetupTupleQueues.md) (establish communication channels)
-  - ExecParallelEstimate, ExecParallelInitializeDSM (plan node setup)
+  - [ExecParallelEstimate](ExecParallelEstimate.md), ExecParallelInitializeDSM (plan node setup)
   - [SerializeParamList](../S/SerializeParamList.md), SerializeParamExecParams (parameter handling)
   - dsa_create_in_place (dynamic shared memory allocation)
   - Various shm_toc_* functions for shared memory table of contents management
@@ -63,7 +63,7 @@ Key components initialized:
 ## Notes and Other Information
 - Returns a ParallelExecutorInfo structure containing all parallel execution state
 - The function performs extensive memory estimation before creating the DSM to ensure adequate space
-- Instrumentation setup includes both general query instrumentation and JIT-specific instrumentation when enabled
+- [Instrumentation](../I/Instrumentation.md) setup includes both general query instrumentation and JIT-specific instrumentation when enabled
 - Parameter serialization uses DSA storage to handle varying parameter sizes across query executions
 - The function validates consistency between estimation and initialization phases
 - Creates a DSA area that can be used by both leader and worker processes for dynamic allocations

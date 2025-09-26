@@ -28,14 +28,14 @@ The optimization is particularly effective when the presorted columns have high 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SortPath (inherited base structure)
+  - [SortPath](../S/SortPath.md) (inherited base structure)
 - Called from (representative examples):
-  - create_incremental_sort_path (path creation)
-  - create_incrementalsort_plan (plan generation)
-  - create_set_projection_path (optimization integration)
+  - [create_incremental_sort_path](../c/create_incremental_sort_path.md) (path creation)
+  - [create_incrementalsort_plan](../c/create_incrementalsort_plan.md) (plan generation)
+  - [create_set_projection_path](../c/create_set_projection_path.md) (optimization integration)
 
 ## Notes and Other Information
-- IncrementalSortPath inherits from SortPath, gaining all the base sorting functionality while adding the incremental optimization
+- [IncrementalSortPath](IncrementalSortPath.md) inherits from SortPath, gaining all the base sorting functionality while adding the incremental optimization
 - The nPresortedCols value must be less than the total number of sort keys for incremental sort to be beneficial
 - Most effective when presorted columns have high cardinality, creating many small groups to sort independently
 - Can dramatically reduce memory requirements compared to full sorting, often preventing spills to disk

@@ -29,7 +29,7 @@ The function supports multiple compression algorithms:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_malloc0
+  - [pg_malloc0](../p/pg_malloc0.md)
   - [InitCompressorNone](../I/InitCompressorNone.md)
   - [InitCompressorGzip](../I/InitCompressorGzip.md)
   - [InitCompressorLZ4](../I/InitCompressorLZ4.md)

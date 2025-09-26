@@ -33,10 +33,10 @@ The attribute options are cached using a hash table (AttoptCacheHash) where the 
   - int32 (PostgreSQL type alias)
   - float8 (PostgreSQL type alias)
 - Called from (representative examples):
-  - attribute_reloptions (src/backend/access/common/reloptions.c:2081-2087)
-  - get_attribute_options (src/backend/utils/cache/attoptcache.c:108,126)
-  - do_analyze_rel (src/backend/commands/analyze.c:553)
-  - compute_expr_stats (src/backend/statistics/extended_stats.c:2195)
+  - [attribute_reloptions](../a/attribute_reloptions.md) (src/backend/access/common/reloptions.c:2081-2087)
+  - [get_attribute_options](../g/get_attribute_options.md) (src/backend/utils/cache/attoptcache.c:108,126)
+  - [do_analyze_rel](../d/do_analyze_rel.md) (src/backend/commands/analyze.c:553)
+  - [compute_expr_stats](../c/compute_expr_stats.md) (src/backend/statistics/extended_stats.c:2195)
 
 ## Notes and Other Information
 - The structure is part of PostgreSQL's reloptions (relation options) framework, specifically for attribute-level options

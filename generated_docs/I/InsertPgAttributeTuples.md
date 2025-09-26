@@ -33,7 +33,7 @@ The function uses a sophisticated batching mechanism that limits the number of s
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MakeSingleTupleTableSlot](../M/MakeSingleTupleTableSlot.md)
-  - ExecClearTuple
+  - [ExecClearTuple](../E/ExecClearTuple.md)
   - [ExecStoreVirtualTuple](../E/ExecStoreVirtualTuple.md)
   - [ExecDropSingleTupleTableSlot](../E/ExecDropSingleTupleTableSlot.md)
   - [CatalogOpenIndexes](../C/CatalogOpenIndexes.md)

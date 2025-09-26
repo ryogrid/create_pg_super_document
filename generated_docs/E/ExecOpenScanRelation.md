@@ -25,20 +25,20 @@ If an unscannable materialized view is detected during actual execution, the fun
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecGetRangeTableRelation
+  - [ExecGetRangeTableRelation](ExecGetRangeTableRelation.md)
   - RelationIsScannable
   - EXEC_FLAG_EXPLAIN_ONLY
   - EXEC_FLAG_WITH_NO_DATA
 - Called from (representative examples):
-  - ExecInitBitmapHeapScan
-  - ExecInitCustomScan
-  - ExecInitForeignScan
-  - ExecInitIndexOnlyScan
-  - ExecInitIndexScan
-  - ExecInitSampleScan
-  - ExecInitSeqScan
-  - ExecInitTidRangeScan
-  - ExecInitTidScan
+  - [ExecInitBitmapHeapScan](ExecInitBitmapHeapScan.md)
+  - [ExecInitCustomScan](ExecInitCustomScan.md)
+  - [ExecInitForeignScan](ExecInitForeignScan.md)
+  - [ExecInitIndexOnlyScan](ExecInitIndexOnlyScan.md)
+  - [ExecInitIndexScan](ExecInitIndexScan.md)
+  - [ExecInitSampleScan](ExecInitSampleScan.md)
+  - [ExecInitSeqScan](ExecInitSeqScan.md)
+  - [ExecInitTidRangeScan](ExecInitTidRangeScan.md)
+  - [ExecInitTidScan](ExecInitTidScan.md)
 
 ## Notes and Other Information
 - This function is called during the initialization phase of various scan node types

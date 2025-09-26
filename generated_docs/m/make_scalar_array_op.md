@@ -31,7 +31,7 @@ The function handles polymorphic operators carefully, ensuring type consistency 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - exprType
+  - [exprType](../e/exprType.md)
   - [get_base_element_type](../g/get_base_element_type.md)
   - [oper](../o/oper.md)
   - [op_signature_string](../o/op_signature_string.md)
@@ -46,7 +46,7 @@ The function handles polymorphic operators carefully, ensuring type consistency 
 - Called from (representative examples):
   - [transformAExprOpAny](../t/transformAExprOpAny.md)
   - [transformAExprOpAll](../t/transformAExprOpAll.md)
-  - transformAExprIn
+  - [transformAExprIn](../t/transformAExprIn.md)
 
 ## Notes and Other Information
 - Returns a ScalarArrayOpExpr node representing the scalar-array operation

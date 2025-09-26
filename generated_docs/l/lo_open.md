@@ -23,7 +23,7 @@ The  function provides access to an existing large object in PostgreSQL by openi
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lo_initialize](lo_initialize.md)
-  - PQfn
+  - [PQfn](../P/PQfn.md)
   - [PQresultStatus](../P/PQresultStatus.md)
   - [PQclear](../P/PQclear.md)
 - Called from (representative examples):

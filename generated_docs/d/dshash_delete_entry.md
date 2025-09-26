@@ -24,11 +24,11 @@ The  function performs a direct deletion of an entry from a dynamic shared hash 
   - ITEM_FROM_ENTRY: Macro to convert entry pointer to internal item structure
   - PARTITION_FOR_HASH: Macro to determine partition from hash value
   - PARTITION_LOCK: Macro to get partition lock
-  - delete_item: Internal function that performs the actual deletion
-  - LWLockHeldByMeInMode: Verifies that the caller holds the required lock
-  - LWLockRelease: Releases the partition lock
+  - [delete_item](delete_item.md): Internal function that performs the actual deletion
+  - [LWLockHeldByMeInMode](../L/LWLockHeldByMeInMode.md): Verifies that the caller holds the required lock
+  - [LWLockRelease](../L/LWLockRelease.md): Releases the partition lock
 - Called from (representative examples):
-  - pgstat_free_entry: Statistics entry cleanup operations
+  - [pgstat_free_entry](../p/pgstat_free_entry.md): Statistics entry cleanup operations
 
 ## Notes and Other Information
 - Requires the entry to be obtained through  or  with exclusive locking

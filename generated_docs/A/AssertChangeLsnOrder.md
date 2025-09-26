@@ -31,12 +31,12 @@ This function is essential for maintaining data consistency in logical replicati
   - dlist_foreach (for iterating through transaction changes)
   - dlist_container (for extracting ReorderBufferChange from list nodes)
 - Data structures used:
-  - ReorderBufferTXN
-  - ReorderBufferChange
-  - dlist_iter
+  - [ReorderBufferTXN](../R/ReorderBufferTXN.md)
+  - [ReorderBufferChange](../R/ReorderBufferChange.md)
+  - [dlist_iter](../d/dlist_iter.md)
 - Called from (representative examples):
-  - ReorderBufferIterTXNInit (at line 1291)
-  - ReorderBufferIterTXNInit (at line 1308)
+  - [ReorderBufferIterTXNInit](../R/ReorderBufferIterTXNInit.md) (at line 1291)
+  - [ReorderBufferIterTXNInit](../R/ReorderBufferIterTXNInit.md) (at line 1308)
 
 ## Notes and Other Information
 - This function is only compiled when USE_ASSERT_CHECKING is defined, making it a debug-only feature

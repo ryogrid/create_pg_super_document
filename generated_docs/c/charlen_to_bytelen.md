@@ -28,8 +28,8 @@ It's the caller's responsibility to ensure that there are actually n characters 
   - [pg_mblen](../p/pg_mblen.md): Returns the byte length of the multibyte character at a given position
 
 - Called from (representative examples):
-  - `appendStringInfoRegexpSubstr`: Used for regexp substring operations
-  - `replace_text_regexp`: Used in text replacement with regular expressions
+  - `[appendStringInfoRegexpSubstr](../a/appendStringInfoRegexpSubstr.md)`: Used for regexp substring operations
+  - `[replace_text_regexp](../r/replace_text_regexp.md)`: Used in text replacement with regular expressions
 
 ## Notes and Other Information
 - This is a static internal function, not accessible from SQL

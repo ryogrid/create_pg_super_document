@@ -23,22 +23,22 @@ The function first checks if a ParamPathInfo already exists for the given parame
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_is_subset
+  - [bms_is_subset](../b/bms_is_subset.md)
   - bms_is_empty  
-  - bms_overlap
-  - find_param_path_info
-  - bms_union
-  - join_clause_is_movable_into
-  - generate_join_implied_equalities
-  - list_concat
-  - bms_add_member
-  - get_parameterized_baserel_size
+  - [bms_overlap](../b/bms_overlap.md)
+  - [find_param_path_info](../f/find_param_path_info.md)
+  - [bms_union](../b/bms_union.md)
+  - [join_clause_is_movable_into](../j/join_clause_is_movable_into.md)
+  - [generate_join_implied_equalities](generate_join_implied_equalities.md)
+  - [list_concat](../l/list_concat.md)
+  - [bms_add_member](../b/bms_add_member.md)
+  - [get_parameterized_baserel_size](get_parameterized_baserel_size.md)
   - makeNode (ParamPathInfo)
 - Called from (representative examples):
-  - create_seqscan_path
-  - create_index_path
-  - create_bitmap_heap_path
-  - reparameterize_path
+  - [create_seqscan_path](../c/create_seqscan_path.md)
+  - [create_index_path](../c/create_index_path.md)
+  - [create_bitmap_heap_path](../c/create_bitmap_heap_path.md)
+  - [reparameterize_path](../r/reparameterize_path.md)
 
 ## Notes and Other Information
 - Returns NULL for unparameterized paths (when required_outer is empty)

@@ -24,8 +24,8 @@ The calculation includes memory requests from loaded extensions (via total_addin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ProcGlobalSemas (process semaphore count)
-  - SpinlockSemas (spinlock semaphore count)
+  - [ProcGlobalSemas](../P/ProcGlobalSemas.md) (process semaphore count)
+  - [SpinlockSemas](../S/SpinlockSemas.md) (spinlock semaphore count)
   - [PGSemaphoreShmemSize](../P/PGSemaphoreShmemSize.md) (semaphore data structures size)
   - [add_size](../a/add_size.md) (safe size addition utility)
   - Multiple subsystem ShmemSize functions (BufferShmemSize, LockShmemSize, etc.)

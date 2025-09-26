@@ -32,17 +32,17 @@ This process ensures that when a partition is detached, it doesn't retain trigge
 - Functions called/Symbols referenced:
   - [new_object_addresses](../n/new_object_addresses.md)
   - [ScanKeyInit](../S/ScanKeyInit.md)
-  - table_open
+  - [table_open](../t/table_open.md)
   - [systable_beginscan](../s/systable_beginscan.md)
   - [systable_getnext](../s/systable_getnext.md)
   - [deleteDependencyRecordsForClass](../d/deleteDependencyRecordsForClass.md)
   - ObjectAddressSet
   - [add_exact_object_address](../a/add_exact_object_address.md)
-  - CommandCounterIncrement
+  - [CommandCounterIncrement](../C/CommandCounterIncrement.md)
   - [performMultipleDeletions](../p/performMultipleDeletions.md)
   - [free_object_addresses](../f/free_object_addresses.md)
   - [systable_endscan](../s/systable_endscan.md)
-  - table_close
+  - [table_close](../t/table_close.md)
 - Called from (representative examples):
   - [DetachPartitionFinalize](DetachPartitionFinalize.md)
 

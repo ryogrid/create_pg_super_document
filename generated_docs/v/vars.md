@@ -76,7 +76,7 @@ The struct is extensively used throughout the regex subsystem including lexical 
 - Functions called/Symbols referenced:
   - regex_t (target regex structure type)
   - [chr](../c/chr.md) (character type used throughout regex engine)
-  - subre (subexpression structure)
+  - [subre](../s/subre.md) (subexpression structure)
   - [colormap](../c/colormap.md) (character color mapping structure)
   - color (character color type)
   - [state](../s/state.md) (NFA state structure)

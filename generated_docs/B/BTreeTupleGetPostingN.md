@@ -20,8 +20,8 @@ This function provides indexed access to individual heap tuple identifiers withi
 - Functions called/Symbols referenced:
   - [BTreeTupleGetPosting](BTreeTupleGetPosting.md)
 - Called from (representative examples):
-  - _bt_bottomupdel_finish_pending
-  - _bt_update_posting
+  - [_bt_bottomupdel_finish_pending](../b/_bt_bottomupdel_finish_pending.md)
+  - [_bt_update_posting](../b/_bt_update_posting.md)
   - [_bt_swap_posting](../b/_bt_swap_posting.md)
   - [_bt_check_unique](../b/_bt_check_unique.md)
   - [_bt_simpledel_pass](../b/_bt_simpledel_pass.md)

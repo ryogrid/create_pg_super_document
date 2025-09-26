@@ -35,7 +35,7 @@ TarMethodFile extends the base Walfile structure to provide tar archive-specific
   - [TarMethodData](TarMethodData.md) (contains references to TarMethodFile instances)
   - [tar_write_padding_data](../t/tar_write_padding_data.md) (uses TarMethodFile for padding operations)
   - [tar_open_for_write](../t/tar_open_for_write.md) (creates and initializes TarMethodFile instances)
-  - tar_close (finalizes and writes TarMethodFile to tar archive)
+  - [tar_close](../t/tar_close.md) (finalizes and writes TarMethodFile to tar archive)
 
 ## Notes and Other Information
 - This structure follows PostgreSQL's object-oriented programming pattern in C, with the base Walfile embedded as the first member

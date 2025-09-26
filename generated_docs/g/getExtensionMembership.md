@@ -27,7 +27,7 @@ Results are ordered by referenced object ID to optimize processing when multiple
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - createPQExpBuffer
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)
   - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
   - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
   - [PQntuples](../P/PQntuples.md)
@@ -38,7 +38,7 @@ Results are ordered by referenced object ID to optimize processing when multiple
   - [recordExtensionMembership](../r/recordExtensionMembership.md)
   - pg_log_warning
   - [PQclear](../P/PQclear.md)
-  - destroyPQExpBuffer
+  - [destroyPQExpBuffer](../d/destroyPQExpBuffer.md)
 - Called from:
   - [getSchemaData](getSchemaData.md) (in src/bin/pg_dump/common.c:140)
 

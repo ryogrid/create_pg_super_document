@@ -60,7 +60,7 @@ The structure includes fields for error codes, detailed error messages, warning 
   - [ECPGnoticeReceiver](../E/ECPGnoticeReceiver.md) (error handling in connect.c:212)
   - [ECPGconnect](../E/ECPGconnect.md) (connection management in connect.c:262)
   - [ECPGdisconnect](../E/ECPGdisconnect.md) (disconnection handling in connect.c:680)
-  - ecpg_get_data (data retrieval in data.c:211)
+  - [ecpg_get_data](../e/ecpg_get_data.md) (data retrieval in data.c:211)
   - [ecpg_raise](../e/ecpg_raise.md) (error reporting in error.c:15)
   - [ecpg_init_sqlca](../e/ecpg_init_sqlca.md) (initialization in misc.c:67-69)
   - Various ECPG test files throughout the test suite

@@ -20,19 +20,19 @@ PopActiveSnapshot removes the topmost snapshot from the active snapshot stack an
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ActiveSnapshotElt (type)
-  - FreeSnapshot
-  - SnapshotResetXmin
+  - [ActiveSnapshotElt](../A/ActiveSnapshotElt.md) (type)
+  - [FreeSnapshot](../F/FreeSnapshot.md)
+  - [SnapshotResetXmin](../S/SnapshotResetXmin.md)
 - Called from (representative examples):
-  - ParallelWorkerMain
-  - cluster_multiple_rels
-  - EndCopyTo
-  - ExecCreateTableAs
-  - ExplainOnePlan
-  - vacuum_rel
-  - _SPI_execute_plan
-  - PortalRunSelect
-  - PortalRunMulti
+  - [ParallelWorkerMain](ParallelWorkerMain.md)
+  - [cluster_multiple_rels](../c/cluster_multiple_rels.md)
+  - [EndCopyTo](../E/EndCopyTo.md)
+  - [ExecCreateTableAs](../E/ExecCreateTableAs.md)
+  - [ExplainOnePlan](../E/ExplainOnePlan.md)
+  - [vacuum_rel](../v/vacuum_rel.md)
+  - [_SPI_execute_plan](../S/_SPI_execute_plan.md)
+  - [PortalRunSelect](PortalRunSelect.md)
+  - [PortalRunMulti](PortalRunMulti.md)
 
 ## Notes and Other Information
 - Automatically frees snapshots when both active_count and regd_count reach zero

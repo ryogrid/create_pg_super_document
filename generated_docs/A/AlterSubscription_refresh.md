@@ -35,14 +35,14 @@ This function performs a comprehensive refresh operation on a logical replicatio
   - [AddSubscriptionRelState](AddSubscriptionRelState.md)
   - [GetSubscriptionRelState](../G/GetSubscriptionRelState.md)
   - [RemoveSubscriptionRel](../R/RemoveSubscriptionRel.md)
-  - logicalrep_worker_stop
+  - [logicalrep_worker_stop](../l/logicalrep_worker_stop.md)
   - [ReplicationOriginNameForLogicalRep](../R/ReplicationOriginNameForLogicalRep.md)
   - [replorigin_drop_by_name](../r/replorigin_drop_by_name.md)
   - [ReplicationSlotNameForTablesync](../R/ReplicationSlotNameForTablesync.md)
   - [ReplicationSlotDropAtPubNode](../R/ReplicationSlotDropAtPubNode.md)
   - walrcv_disconnect
-  - table_open
-  - table_close
+  - [table_open](../t/table_open.md)
+  - [table_close](../t/table_close.md)
 - Called from (representative examples):
   - [AlterSubscription](AlterSubscription.md) (at src/backend/commands/subscriptioncmds.c:1341)
   - [AlterSubscription](AlterSubscription.md) (at src/backend/commands/subscriptioncmds.c:1400)

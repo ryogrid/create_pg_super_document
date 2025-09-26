@@ -33,7 +33,7 @@ The split strategy varies based on whether this is an index build operation on a
   - GinPageGetOpaque
   - [PageGetPageSize](../P/PageGetPageSize.md)
   - GinDataPageGetRightBound
-  - PageGetTempPage
+  - [PageGetTempPage](../P/PageGetTempPage.md)
   - [GinInitPage](../G/GinInitPage.md)
   - GinDataPageGetPostingItem
   - PostingItemSetBlockNumber

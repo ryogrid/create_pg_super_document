@@ -24,7 +24,7 @@ The function implements a polling mechanism with a fixed wait interval (WAIT_INT
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_log_info
-  - connect_database
+  - [connect_database](../c/connect_database.md)
   - [server_is_in_recovery](../s/server_is_in_recovery.md)
   - [stop_standby_server](../s/stop_standby_server.md)
   - [disconnect_database](../d/disconnect_database.md)

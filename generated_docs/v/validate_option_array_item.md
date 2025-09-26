@@ -23,19 +23,19 @@ For known parameters, the function checks both the parameter context (USERSET vs
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - config_generic
-  - valid_custom_variable_name
-  - find_option
-  - superuser
-  - pg_parameter_aclcheck
-  - set_config_option
-  - GetUserId
+  - [config_generic](../c/config_generic.md)
+  - [valid_custom_variable_name](valid_custom_variable_name.md)
+  - [find_option](../f/find_option.md)
+  - [superuser](../s/superuser.md)
+  - [pg_parameter_aclcheck](../p/pg_parameter_aclcheck.md)
+  - [set_config_option](../s/set_config_option.md)
+  - [GetUserId](../G/GetUserId.md)
   - ereport
 - Called from (representative examples):
-  - GUCArrayAdd
-  - GUCArrayDelete
-  - GUCArrayReset
-  - GUCHashEntry
+  - [GUCArrayAdd](../G/GUCArrayAdd.md)
+  - [GUCArrayDelete](../G/GUCArrayDelete.md)
+  - [GUCArrayReset](../G/GUCArrayReset.md)
+  - [GUCHashEntry](../G/GUCHashEntry.md)
 
 ## Notes and Other Information
 - Returns true if validation succeeds, false if skipIfNoPermissions is true and user lacks permission

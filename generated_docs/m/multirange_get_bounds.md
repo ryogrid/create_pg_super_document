@@ -54,7 +54,7 @@ This is an optimized shortcut that performs the equivalent of calling multirange
   - RANGE_EMPTY
   - RANGE_HAS_LBOUND
   - RANGE_HAS_UBOUND
-  - fetch_att
+  - [fetch_att](../f/fetch_att.md)
   - att_addlength_pointer
   - att_align_pointer
   - RANGE_LB_INF, RANGE_LB_INC

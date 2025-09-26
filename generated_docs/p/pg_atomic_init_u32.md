@@ -28,11 +28,11 @@ The function includes a pointer alignment assertion to ensure the atomic variabl
   - [pg_atomic_uint32](pg_atomic_uint32.md)
 - Called from (representative examples):
   - [parallel_vacuum_init](parallel_vacuum_init.md) (src/backend/commands/vacuumparallel.c:388-390)
-  - ExecHashJoinInitializeDSM (src/backend/executor/nodeHashjoin.c:1585)
+  - [ExecHashJoinInitializeDSM](../E/ExecHashJoinInitializeDSM.md) (src/backend/executor/nodeHashjoin.c:1585)
   - [AutoVacuumShmemInit](../A/AutoVacuumShmemInit.md) (src/backend/postmaster/autovacuum.c:3353)
-  - InitBufferPool (src/backend/storage/buffer/buf_init.c:124)
-  - LWLockInitialize (src/backend/storage/lmgr/lwlock.c:711, 713)
-  - InitProcGlobal (src/backend/storage/lmgr/proc.c:181, 182, 277, 278)
+  - [InitBufferPool](../I/InitBufferPool.md) (src/backend/storage/buffer/buf_init.c:124)
+  - [LWLockInitialize](../L/LWLockInitialize.md) (src/backend/storage/lmgr/lwlock.c:711, 713)
+  - [InitProcGlobal](../I/InitProcGlobal.md) (src/backend/storage/lmgr/proc.c:181, 182, 277, 278)
 
 ## Notes and Other Information
 - Must be called before any concurrent access to the atomic variable

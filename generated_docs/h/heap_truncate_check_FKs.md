@@ -22,7 +22,7 @@ The function operates in multiple phases: first building a list of relation OIDs
 - Functions called/Symbols referenced:
   - lfirst
   - RelationGetRelid
-  - lappend_oid
+  - [lappend_oid](../l/lappend_oid.md)
   - [heap_truncate_find_FKs](heap_truncate_find_FKs.md)
   - lfirst_oid
   - list_make1_oid

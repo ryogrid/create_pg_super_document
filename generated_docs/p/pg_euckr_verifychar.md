@@ -26,9 +26,9 @@ The function examines the first byte to determine if it's a single-byte ASCII ch
   - IS_HIGHBIT_SET (macro checking if high bit is set)
   - IS_EUC_RANGE_VALID (macro checking if byte is in range 0xA1-0xFE)
 - Called from (representative examples):
-  - pg_euckr_verifystr
+  - [pg_euckr_verifystr](pg_euckr_verifystr.md)
   - pg_euccn_verifychar (reused for Chinese validation)
-  - pg_encoding_set_invalid (indirectly through function pointer tables)
+  - [pg_encoding_set_invalid](pg_encoding_set_invalid.md) (indirectly through function pointer tables)
 
 ## Notes and Other Information
 - EUC-KR is simpler than EUC-JP as it only has two character types (ASCII and Korean)

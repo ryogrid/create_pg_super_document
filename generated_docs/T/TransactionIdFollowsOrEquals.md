@@ -25,9 +25,9 @@ This function performs a logical comparison to determine if transaction ID `id1`
   - [HeapCheckForSerializableConflictOut](../H/HeapCheckForSerializableConflictOut.md)
   - [HeapTupleSatisfiesHistoricMVCC](../H/HeapTupleSatisfiesHistoricMVCC.md)
   - [SubTransGetParent](../S/SubTransGetParent.md)
-  - GetNewTransactionId
+  - [GetNewTransactionId](../G/GetNewTransactionId.md)
   - [SnapBuildPurgeOlderTxn](../S/SnapBuildPurgeOlderTxn.md)
-  - KnownAssignedXidsAdd
+  - [KnownAssignedXidsAdd](../K/KnownAssignedXidsAdd.md)
 
 ## Notes and Other Information
 - Complements `TransactionIdPrecedesOrEquals` by providing the inverse comparison with equality

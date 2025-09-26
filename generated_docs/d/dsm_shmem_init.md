@@ -25,14 +25,14 @@ In cases where the shared memory structure already exists (found == true), the f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dsm_estimate_size
-  - ShmemInitStruct
-  - FreePageManagerInitialize
-  - FreePageManagerPut
-  - FreePageManager (type)
+  - [dsm_estimate_size](dsm_estimate_size.md)
+  - [ShmemInitStruct](../S/ShmemInitStruct.md)
+  - [FreePageManagerInitialize](../F/FreePageManagerInitialize.md)
+  - [FreePageManagerPut](../F/FreePageManagerPut.md)
+  - [FreePageManager](../F/FreePageManager.md) (type)
   - FPM_PAGE_SIZE
 - Called from (representative examples):
-  - CreateOrAttachShmemStructs
+  - [CreateOrAttachShmemStructs](../C/CreateOrAttachShmemStructs.md)
 
 ## Notes and Other Information
 - Only performs initialization when size > 0 (when dynamic shared memory is configured)

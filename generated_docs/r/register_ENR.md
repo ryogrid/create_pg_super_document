@@ -21,7 +21,7 @@ This function adds an ephemeral named relation to a query environment's list of 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_ENR](../g/get_ENR.md) (to check for duplicate names)
-  - lappend (PostgreSQL list manipulation function)
+  - [lappend](../l/lappend.md) (PostgreSQL list manipulation function)
   - Assert (for parameter validation)
 - Called from (representative examples):
   - [SPI_register_relation](../S/SPI_register_relation.md)

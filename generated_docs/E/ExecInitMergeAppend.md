@@ -31,18 +31,18 @@ The function handles both cases where partition pruning is enabled and disabled,
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode
-  - ExecInitPartitionPruning
-  - bms_num_members
-  - bms_add_range
-  - bms_next_member
-  - binaryheap_allocate
-  - heap_compare_slots
-  - ExecInitResultTupleSlotTL
-  - ExecInitNode
-  - list_nth
-  - PrepareSortSupportFromOrderingOp
+  - [ExecInitPartitionPruning](ExecInitPartitionPruning.md)
+  - [bms_num_members](../b/bms_num_members.md)
+  - [bms_add_range](../b/bms_add_range.md)
+  - [bms_next_member](../b/bms_next_member.md)
+  - [binaryheap_allocate](../b/binaryheap_allocate.md)
+  - [heap_compare_slots](../h/heap_compare_slots.md)
+  - [ExecInitResultTupleSlotTL](ExecInitResultTupleSlotTL.md)
+  - [ExecInitNode](ExecInitNode.md)
+  - [list_nth](../l/list_nth.md)
+  - [PrepareSortSupportFromOrderingOp](../P/PrepareSortSupportFromOrderingOp.md)
 - Called from (representative examples):
-  - ExecInitNode (main executor initialization dispatcher)
+  - [ExecInitNode](ExecInitNode.md) (main executor initialization dispatcher)
 
 ## Notes and Other Information
 - The function explicitly asserts that EXEC_FLAG_BACKWARD and EXEC_FLAG_MARK are not supported
@@ -50,4 +50,4 @@ The function handles both cases where partition pruning is enabled and disabled,
 - The binary heap is the core data structure enabling efficient O(log n) merging of sorted streams
 - Runtime partition pruning allows dynamic exclusion of unnecessary partitions based on query parameters
 - The ms_initialized flag is set to false, indicating that the actual subplan execution hasn't started yet
-- Result tuple slots use virtual tuple table slot operations (TTSOpsVirtual) since they point to tuples from subplans
+- [Result](../R/Result.md) tuple slots use virtual tuple table slot operations (TTSOpsVirtual) since they point to tuples from subplans

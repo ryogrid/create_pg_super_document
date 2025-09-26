@@ -29,18 +29,18 @@ This function implements the PBKDF2 (Password-Based Key Derivation Function 2) a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_hmac_create
-  - pg_hmac_init
-  - pg_hmac_update
-  - pg_hmac_final
-  - pg_hmac_error
-  - pg_hmac_free
+  - [pg_hmac_create](../p/pg_hmac_create.md)
+  - [pg_hmac_init](../p/pg_hmac_init.md)
+  - [pg_hmac_update](../p/pg_hmac_update.md)
+  - [pg_hmac_final](../p/pg_hmac_final.md)
+  - [pg_hmac_error](../p/pg_hmac_error.md)
+  - [pg_hmac_free](../p/pg_hmac_free.md)
   - pg_hton32
   - CHECK_FOR_INTERRUPTS (backend only)
 - Called from (representative examples):
-  - scram_verify_plain_password
-  - scram_build_secret
-  - calculate_client_proof
+  - [scram_verify_plain_password](scram_verify_plain_password.md)
+  - [scram_build_secret](scram_build_secret.md)
+  - [calculate_client_proof](../c/calculate_client_proof.md)
 
 ## Notes and Other Information
 - Returns 0 on success, -1 on failure

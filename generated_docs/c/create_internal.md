@@ -32,17 +32,17 @@ The function calculates usable memory space after accounting for metadata overhe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dsa_minimum_size
-  - FreePageManagerInitialize
-  - FreePageManagerPut
-  - LWLockInitialize
+  - [dsa_minimum_size](../d/dsa_minimum_size.md)
+  - [FreePageManagerInitialize](../F/FreePageManagerInitialize.md)
+  - [FreePageManagerPut](../F/FreePageManagerPut.md)
+  - [LWLockInitialize](../L/LWLockInitialize.md)
   - DSA_SCLASS_LOCK
-  - contiguous_pages_to_segment_bin
-  - palloc
+  - [contiguous_pages_to_segment_bin](contiguous_pages_to_segment_bin.md)
+  - [palloc](../p/palloc.md)
   - elog/ERROR
 - Called from (representative examples):
-  - dsa_create_ext
-  - dsa_create_in_place_ext
+  - [dsa_create_ext](../d/dsa_create_ext.md)
+  - [dsa_create_in_place_ext](../d/dsa_create_in_place_ext.md)
 
 ## Notes and Other Information
 - This is a static internal function not exposed in the public DSA API

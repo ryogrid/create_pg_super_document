@@ -33,7 +33,7 @@ This function takes no parameters but operates on:
   - MyPMChildSlot
   - PMSignalState
 - Called from:
-  - ProcKill (src/backend/storage/lmgr/proc.c:959)
+  - [ProcKill](../P/ProcKill.md) (src/backend/storage/lmgr/proc.c:959)
 
 ## Notes and Other Information
 - The function includes assertions to verify the slot is valid and the child is in either ACTIVE or WALSENDER state

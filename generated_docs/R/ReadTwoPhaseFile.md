@@ -21,11 +21,11 @@ ReadTwoPhaseFile is responsible for securely reading two-phase commit state file
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TwoPhaseFilePath](../T/TwoPhaseFilePath.md)
-  - OpenTransientFile
+  - [OpenTransientFile](../O/OpenTransientFile.md)
   - fstat
-  - pgstat_report_wait_start
-  - pgstat_report_wait_end
-  - CloseTransientFile
+  - [pgstat_report_wait_start](../p/pgstat_report_wait_start.md)
+  - [pgstat_report_wait_end](../p/pgstat_report_wait_end.md)
+  - [CloseTransientFile](../C/CloseTransientFile.md)
   - INIT_CRC32C
   - COMP_CRC32C
   - FIN_CRC32C

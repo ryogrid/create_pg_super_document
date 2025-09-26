@@ -19,7 +19,7 @@ This function computes the memory size estimation for a shared memory table of c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - shm_toc_estimator (structure type)
+  - [shm_toc_estimator](shm_toc_estimator.md) (structure type)
   - [shm_toc](shm_toc.md) (structure type)
   - [shm_toc_entry](shm_toc_entry.md) (structure type)
   - [mul_size](../m/mul_size.md) (safe multiplication function)

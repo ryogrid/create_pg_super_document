@@ -22,7 +22,7 @@ The `makeJsonBehavior` function is a constructor that creates and initializes a 
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (PostgreSQL node allocation macro)
-  - JsonBehavior (node type structure)
+  - [JsonBehavior](../J/JsonBehavior.md) (node type structure)
   - JsonBehaviorType (enum for behavior types)
 - Called from (representative examples):
   - [transformJsonBehavior](../t/transformJsonBehavior.md) (parser/parse_expr.c:4823)

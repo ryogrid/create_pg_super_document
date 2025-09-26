@@ -25,7 +25,7 @@ The function filters out pseudoconstant conditions (which can be dropped) and co
   - [is_redundant_with_indexclauses](../i/is_redundant_with_indexclauses.md)
   - NIL (constant)
   - lfirst_node (macro)
-  - lappend (function)
+  - [lappend](../l/lappend.md) (function)
   - [RestrictInfo](../R/RestrictInfo.md) (structure)
 - Called from (representative examples):
   - [cost_index](../c/cost_index.md)

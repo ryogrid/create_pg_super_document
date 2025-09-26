@@ -21,22 +21,22 @@ This function performs essential prerequisite checks before allowing replication
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RecoveryInProgress
+  - [RecoveryInProgress](../R/RecoveryInProgress.md)
   - ereport
-  - errcode
-  - errmsg
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
 - Called from (representative examples):
-  - pg_replication_origin_create
-  - pg_replication_origin_drop
-  - pg_replication_origin_oid
-  - pg_replication_origin_session_setup
-  - pg_replication_origin_session_reset
-  - pg_replication_origin_session_is_setup
-  - pg_replication_origin_session_progress
-  - pg_replication_origin_xact_setup
-  - pg_replication_origin_xact_reset
-  - pg_replication_origin_advance
-  - pg_replication_origin_progress
+  - [pg_replication_origin_create](../p/pg_replication_origin_create.md)
+  - [pg_replication_origin_drop](../p/pg_replication_origin_drop.md)
+  - [pg_replication_origin_oid](../p/pg_replication_origin_oid.md)
+  - [pg_replication_origin_session_setup](../p/pg_replication_origin_session_setup.md)
+  - [pg_replication_origin_session_reset](../p/pg_replication_origin_session_reset.md)
+  - [pg_replication_origin_session_is_setup](../p/pg_replication_origin_session_is_setup.md)
+  - [pg_replication_origin_session_progress](../p/pg_replication_origin_session_progress.md)
+  - [pg_replication_origin_xact_setup](../p/pg_replication_origin_xact_setup.md)
+  - [pg_replication_origin_xact_reset](../p/pg_replication_origin_xact_reset.md)
+  - [pg_replication_origin_advance](../p/pg_replication_origin_advance.md)
+  - [pg_replication_origin_progress](../p/pg_replication_origin_progress.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the origin.c file

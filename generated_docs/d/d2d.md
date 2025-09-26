@@ -32,18 +32,18 @@ The implementation includes sophisticated optimizations such as:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - log10Pow2: Computes floor(log₁₀(2^e))
-  - log10Pow5: Computes floor(log₁₀(5^e))  
-  - pow5bits: Computes number of bits needed for 5^e
-  - mulShiftAll: Performs 128-bit multiplication with shifting
-  - div5, div10, div100: Fast division functions
-  - multipleOfPowerOf5: Checks divisibility by powers of 5
-  - multipleOfPowerOf2: Checks divisibility by powers of 2
+  - [log10Pow2](../l/log10Pow2.md): Computes floor(log₁₀(2^e))
+  - [log10Pow5](../l/log10Pow5.md): Computes floor(log₁₀(5^e))  
+  - [pow5bits](../p/pow5bits.md): Computes number of bits needed for 5^e
+  - [mulShiftAll](../m/mulShiftAll.md): Performs 128-bit multiplication with shifting
+  - [div5](div5.md), div10, div100: Fast division functions
+  - [multipleOfPowerOf5](../m/multipleOfPowerOf5.md): Checks divisibility by powers of 5
+  - [multipleOfPowerOf2](../m/multipleOfPowerOf2.md): Checks divisibility by powers of 2
   - DOUBLE_BIAS, DOUBLE_MANTISSA_BITS: IEEE 754 double constants
   - DOUBLE_POW5_INV_SPLIT, DOUBLE_POW5_SPLIT: Precomputed power tables
-  - floating_decimal_64: Return type structure
+  - [floating_decimal_64](../f/floating_decimal_64.md): Return type structure
 - Called from (representative examples):
-  - double_to_shortest_decimal_bufn
+  - [double_to_shortest_decimal_bufn](double_to_shortest_decimal_bufn.md)
 
 ## Notes and Other Information
 - The function is marked as `static inline` for performance optimization

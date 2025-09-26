@@ -31,7 +31,7 @@ The function ensures that the catalog cache ID fits within the int8 range by ass
   - CHAR_MAX (for ID range validation)
 - Data structures used:
   - [InvalidationMsgsGroup](../I/InvalidationMsgsGroup.md)
-  - SharedInvalidationMessage
+  - [SharedInvalidationMessage](../S/SharedInvalidationMessage.md)
   - int8, uint32, Oid types
 - Called from:
   - [RegisterCatcacheInvalidation](../R/RegisterCatcacheInvalidation.md)

@@ -28,7 +28,7 @@ The function serves as a bridge between various PostgreSQL subsystems (locks, mu
 - Called from (representative examples):
   - [AtPrepare_MultiXact](../A/AtPrepare_MultiXact.md) (multixact subsystem preparation)
   - [AtPrepare_Locks](../A/AtPrepare_Locks.md) (lock manager preparation)
-  - AtPrepare_PredicateLocks (predicate lock preparation)
+  - [AtPrepare_PredicateLocks](../A/AtPrepare_PredicateLocks.md) (predicate lock preparation)
   - [AtPrepare_PgStat_Relations](../A/AtPrepare_PgStat_Relations.md) (statistics subsystem preparation)
   - [EndPrepare](../E/EndPrepare.md) (main preparation coordination)
 

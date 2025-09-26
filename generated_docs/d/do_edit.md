@@ -29,7 +29,7 @@ The function handles platform-specific temporary directory management, ensures p
   - GetTempPath() (for temp directory on Windows)
   - getpid() (for unique temporary filename)
   - open(), fdopen() (for temporary file creation)
-  - appendPQExpBufferChar() (to ensure newline termination)
+  - [appendPQExpBufferChar](../a/appendPQExpBufferChar.md)() (to ensure newline termination)
   - fwrite(), fclose() (for writing query to temporary file)
   - utime() (to set file modification time)
   - [stat](../s/stat.md)() (to check file modification before/after editing)

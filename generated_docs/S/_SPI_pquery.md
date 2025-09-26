@@ -28,8 +28,8 @@ The function handles different SQL operations by mapping them to specific SPI re
   - [ExecutorRun](../E/ExecutorRun.md): Executes the query with specified direction and tuple count
   - [ExecutorFinish](../E/ExecutorFinish.md): Completes query execution
   - [ExecutorEnd](../E/ExecutorEnd.md): Cleans up executor resources
-  - _SPI_checktuples: Validates SPI tuple count consistency
-  - ResetUsage/ShowUsage: Optional statistics collection functions
+  - [_SPI_checktuples](_SPI_checktuples.md): Validates SPI tuple count consistency
+  - [ResetUsage](../R/ResetUsage.md)/ShowUsage: Optional statistics collection functions
 - Called from (representative examples):
   - [_SPI_execute_plan](_SPI_execute_plan.md): Main SPI execution function
 

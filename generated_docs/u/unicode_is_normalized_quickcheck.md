@@ -31,12 +31,12 @@ The algorithm processes each character in the input string and maintains the can
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `get_canonical_class`: Retrieves the canonical combining class for a Unicode code point
-  - `qc_is_allowed`: Performs character-level quick check using precomputed tables
+  - `[get_canonical_class](../g/get_canonical_class.md)`: Retrieves the canonical combining class for a Unicode code point
+  - `[qc_is_allowed](../q/qc_is_allowed.md)`: Performs character-level quick check using precomputed tables
   - `UNICODE_NFD`, `UNICODE_NFKD`: Normalization form constants for decomposed forms
   - `UNICODE_NORM_QC_YES`, `UNICODE_NORM_QC_NO`, `UNICODE_NORM_QC_MAYBE`: Return value constants
 - Called from (representative examples):
-  - `unicode_is_normalized`: Main normalization checking function in backend
+  - `[unicode_is_normalized](unicode_is_normalized.md)`: Main normalization checking function in backend
 
 ## Notes and Other Information
 - The function is part of PostgreSQL's Unicode normalization support, used primarily for text processing and collation

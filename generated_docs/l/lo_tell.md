@@ -24,12 +24,12 @@ The function first ensures that the large object function OIDs are properly init
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lo_initialize](lo_initialize.md)
-  - PQfn
+  - [PQfn](../P/PQfn.md)
   - [PQclear](../P/PQclear.md)
   - [PQresultStatus](../P/PQresultStatus.md)
 - Types referenced:
   - PQArgBlock
-  - PGresult
+  - [PGresult](../P/PGresult.md)
   - PGRES_COMMAND_OK
 - Called from (representative examples):
   - Client applications using libpq large object interface

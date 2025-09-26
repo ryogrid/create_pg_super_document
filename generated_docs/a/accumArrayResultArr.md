@@ -31,17 +31,17 @@ The function manages both the actual array data and null bitmaps, handling cases
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initArrayResultArr
+  - [initArrayResultArr](../i/initArrayResultArr.md)
   - DatumGetArrayTypeP
-  - ArrayGetNItems
-  - pg_nextpower2_32
-  - array_bitmap_copy
-  - repalloc
+  - [ArrayGetNItems](../A/ArrayGetNItems.md)
+  - [pg_nextpower2_32](../p/pg_nextpower2_32.md)
+  - [array_bitmap_copy](array_bitmap_copy.md)
+  - [repalloc](../r/repalloc.md)
   - ARR_NDIM, ARR_DIMS, ARR_LBOUND, ARR_DATA_PTR
   - ARR_HASNULL, ARR_NULLBITMAP
 - Called from (representative examples):
-  - array_agg_array_transfn
-  - accumArrayResultAny
+  - [array_agg_array_transfn](array_agg_array_transfn.md)
+  - [accumArrayResultAny](accumArrayResultAny.md)
 
 ## Notes and Other Information
 - **Error conditions**: 

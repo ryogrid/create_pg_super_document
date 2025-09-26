@@ -21,7 +21,7 @@ The numeric_is_less function provides a convenient boolean comparison interface 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Numeric (PostgreSQL numeric data type)
+  - [Numeric](../N/Numeric.md) (PostgreSQL numeric data type)
   - [NumericGetDatum](../N/NumericGetDatum.md) (converts Numeric values to Datum format)
   - DirectFunctionCall2 (calls a PostgreSQL function with two arguments)
   - [numeric_lt](numeric_lt.md) (the standard numeric less-than comparison function)

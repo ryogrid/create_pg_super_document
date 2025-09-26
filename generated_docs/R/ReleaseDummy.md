@@ -30,9 +30,9 @@ The function's simple implementation reflects its focused purpose: it exists sol
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - examine_variable
+  - [examine_variable](../e/examine_variable.md)
 
 ## Notes and Other Information
 - This is a static function within selfuncs.c, indicating it's used internally for memory management in statistical analysis

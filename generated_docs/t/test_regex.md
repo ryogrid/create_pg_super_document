@@ -33,7 +33,7 @@ The function uses PostgreSQL's SRF infrastructure to manage state between calls 
   - [setup_test_matches](../s/setup_test_matches.md) (sets up match execution context)
   - build_test_info_result (builds pattern info result)
   - [build_test_match_result](../b/build_test_match_result.md) (builds individual match result)
-  - pg_regfree (frees compiled regex)
+  - [pg_regfree](../p/pg_regfree.md) (frees compiled regex)
   - PG_GET_COLLATION (gets collation for pattern compilation)
 - Called from (representative examples):
   - No direct references found (likely called via SQL function interface)

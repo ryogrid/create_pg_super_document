@@ -32,7 +32,7 @@ The function performs a SQL query against `pg_depend` and `pg_extension` tables 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_strdup](../p/pg_strdup.md)
-  - createPQExpBuffer
+  - [createPQExpBuffer](../c/createPQExpBuffer.md)
   - [appendPQExpBuffer](appendPQExpBuffer.md)
   - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
   - [PQntuples](../P/PQntuples.md)
@@ -40,7 +40,7 @@ The function performs a SQL query against `pg_depend` and `pg_extension` tables 
   - [PQgetvalue](../P/PQgetvalue.md)
   - [fmtId](../f/fmtId.md)
   - [PQclear](../P/PQclear.md)
-  - destroyPQExpBuffer
+  - [destroyPQExpBuffer](../d/destroyPQExpBuffer.md)
   - [pg_free](../p/pg_free.md)
   - PGRES_TUPLES_OK
 - Called from (representative examples):

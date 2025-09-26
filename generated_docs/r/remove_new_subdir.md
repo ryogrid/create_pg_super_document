@@ -24,7 +24,7 @@ The function provides user feedback through prep_status() and includes error han
 ## Dependencies
 - Functions called/Symbols referenced:
   - [prep_status](../p/prep_status.md): Displays status message to user about the deletion operation
-  - rmtree: Utility function that recursively removes directories and their contents
+  - [rmtree](rmtree.md): Utility function that recursively removes directories and their contents
   - [check_ok](../c/check_ok.md): Verifies the operation completed successfully
 - Global variables used:
   - new_cluster.pgdata: Path to the new cluster's data directory
